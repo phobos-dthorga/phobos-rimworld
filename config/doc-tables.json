@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "description": "Tables in this repository's docs filled from its own files by phobos-modkit's doc-tables (python scripts/doc-tables.py; the kit's docs/doc-tables.md). Paths are relative to the repository.",
+  "run": "python scripts/doc-tables.py --write",
+  "tables": [
+    {
+      "doc": "docs/development/building.md",
+      "kind": "dotnet-projects",
+      "options": {
+        "folders": [
+          "src"
+        ],
+        "testFolders": [
+          "tests"
+        ],
+        "output": "mods/{ModFolder}/{TieInFolder}",
+        "outputLabel": "Builds into (then the game version's Assemblies)"
+      }
+    },
+    {
+      "doc": "docs/development/building.md",
+      "kind": "harmony-patches",
+      "options": {
+        "folders": [
+          "src"
+        ]
+      }
+    },
+    {
+      "doc": "docs/player-guide/getting-started.md",
+      "kind": "mod-requirements",
+      "options": {
+        "game": "rimworld",
+        "folders": [
+          "mods"
+        ],
+        "namesNote": "Names of other authors' mods, by package ID, as the owner's mod list (docs/development/owner-mod-list.md) gave them on 23 Nov 2026; an ID left out shows as written.",
+        "names": {
+          "adaptive.storage.framework": "Adaptive Storage Framework",
+          "agentorange.passiveexoskeletons": "Passive Exoskeletons",
+          "andromeda.niceresearchtab": "Nice Research Tab",
+          "andromeda.usefulmarks": "Useful Marks",
+          "aoba.deadmanswitch.core": "The Dead Man's Switch",
+          "aoba.deadmanswitch.expedition": "The Dead Man's Switch - Expedition",
+          "aoba.framework": "Fortified Features Framework",
+          "aoba.rimthunder.roca": "RimThunder - Roaring Tiger",
+          "brrainz.harmony": "Harmony",
+          "ceteam.combatextended": "Combat Extended",
+          "ch4acko3.searchandrescue": "Search and Rescue",
+          "dubwise.dubsbadhygiene": "Dubs Bad Hygiene",
+          "dubwise.rimatomics": "Dubs Rimatomics",
+          "dubwise.rimefeller": "Rimefeller",
+          "hmv.lunartika": "HUMVEE",
+          "jaxe.rimhud": "RimHUD",
+          "kazepsi.irbm": "InterRim Ballistic Missile",
+          "killerbot.jltv": "GTek's Vehicles - Oshkosh L-ATV",
+          "killerbot.navistarmaxxpro": "GTek's Vehicles - Navistar MaxxPro MRAP",
+          "kimo.vfef.rebalance": "VFE Factories: Buffs and tweaks",
+          "kongkim.farmableneutroamine": "Farmable Neutroamine",
+          "local.washingmachine": "[DG]Simple Washing Machine",
+          "ludeon.rimworld": "RimWorld",
+          "ludeon.rimworld.anomaly": "Anomaly",
+          "ludeon.rimworld.biotech": "Biotech",
+          "ludeon.rimworld.ideology": "Ideology",
+          "ludeon.rimworld.odyssey": "Odyssey",
+          "ludeon.rimworld.royalty": "Royalty",
+          "mk.spaceshipturrethull": "Spaceship Turret Hull",
+          "mrhydralisk.complementaryodyssey": "Complementary Odyssey",
+          "mrhydralisk.glitterworldmedicineproduction": "Glitterworld Medicine Production",
+          "mse2.core": "Medical System Expansion 2",
+          "ninagoblin.visitsettlements": "Visit Settlements",
+          "nosleep.hemofungus": "Hemofungus",
+          "ods.deeppills": "Deep Pills",
+          "orion.hospitality": "Hospitality (Continued)",
+          "oskarpotocki.vanillafactionsexpanded.core": "Vanilla Expanded Framework",
+          "oskarpotocki.vanillavehiclesexpanded": "Vanilla Vehicles Expanded",
+          "oskarpotocki.vanillavehiclesexpandedtier3": "Vanilla Vehicles Expanded - Tier 3",
+          "oskarpotocki.vfe.classical": "Vanilla Factions Expanded - Classical",
+          "papito.medicinesplus.at": "Medicines+",
+          "potemkinvillager.av8bharrier": "Harrier VTOL Attack Aircraft",
+          "potemkinvillager.closeairsupport": "Close Air Support: A-10 Warthog & Su-25 Frogfoot",
+          "potemkinvillager.ea6bprowler": "EA-6B Prowler Electronic Attack Aircraft",
+          "potemkinvillager.mi24hindhelicopter": "Hind Helicopter Gunship",
+          "potemkinvillager.mongooseattackhelicopter": "Mongoose Attack Helicopter",
+          "princeofpluto.vehicles.trains": "Trains of the Rim",
+          "rimarrow.srt": "Rimarrow: Search & Rescue",
+          "rimthunder.core": "RimThunder - Core",
+          "rimthunderteams.rimthunder.desertsabre": "RimThunder - Desert Sabre - Continued",
+          "sbz.neatstoragefridge": "[sbz] Fridge",
+          "serinairo.frontlineworkshop": "Frontline Workshop",
+          "shengchipangxieyaotuke.vehiclesatwork": "Vehicles at Work",
+          "smashphil.vehicleframework": "Vehicle Framework",
+          "th3fr3d.extendedinjuries": "More Injuries (Continued)",
+          "ushanka.biologicalwarfare": "Ushankas Biological Warfare",
+          "vanillaexpanded.gravship": "Vanilla Gravship Expanded - Chapter 1",
+          "vanillaexpanded.vchemfuele": "Vanilla Chemfuel Expanded",
+          "vanillaexpanded.vcooke": "Vanilla Cooking Expanded",
+          "vanillaexpanded.vfefactory": "Vanilla Furniture Expanded - Factory",
+          "vanillaexpanded.vfemedical": "Vanilla Furniture Expanded - Medical Module",
+          "vanillaexpanded.vnutriente": "Vanilla Nutrient Paste Expanded",
+          "vanillaexpanded.vplantse": "Vanilla Plants Expanded",
+          "vanillaexpanded.vplantsemore": "Vanilla Plants Expanded - More Plants",
+          "vanillaracesexpanded.android": "Vanilla Races Expanded - Android",
+          "vanillaracesexpanded.sanguophage": "Vanilla Races Expanded - Sanguophage",
+          "wenders.moreinjuries.organbridge": "More Injuries: Organ Failure",
+          "wowgag.rimpacts": "RimPacts - Diplomacy Overhaul",
+          "z3nt3.c17globemaster": "C-17 Globemaster III (Vehicle Framework)",
+          "z3nt3.uh60blackhawk": "UH-60M Black Hawk (Vehicle Framework)"
+        }
+      }
+    }
+  ]
+}

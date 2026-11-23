@@ -1,6 +1,6 @@
 # Building, testing and deploying
 
-**Status (17 Nov 2026): twenty-two C# projects, RimWorld 1.7 only** (owner, 8 Nov 2026). Every project builds one assembly,
+**Status (23 Nov 2026): twenty-nine C# projects, RimWorld 1.7 only** (owner, 8 Nov 2026). Every project builds one assembly,
 `net10.0` against the 1.7.4998 reference (Harmony 3 where a mod patches), into `mods/<Mod>/1.7/Assemblies/`. A tie-in assembly
 builds into `mods/<Mod>/Mods/<Other>/1.7/Assemblies/` instead. Two other mods we reference still ship only a 1.6 build (VFE
 Factory and InterRim Ballistic Missile, checked 17 Nov 2026); they are referenced from that folder, which the 1.7 game loads too.
@@ -20,37 +20,65 @@ from the owner's saves.
 
 ## The projects
 
-| Project (`src/`) | Builds into (`mods/`, per version) | References besides the game | Harmony | Rule tests (`tests/`) | On GitHub |
+**The table is generated** from each project file and its C# source by `python scripts/doc-tables.py --write` (phobos-modkit's
+doc-tables, configured in `config/doc-tables.json`); the gate fails when it no longer matches the files. Change the project files,
+then run it, never edit the table by hand.
+
+<!-- generated: table dotnet-projects -->
+Generated from the project files by `python scripts/doc-tables.py --write`: change those files, not this table.
+
+| Project | Builds into (then the game version's Assemblies) | Projects it references | Other assemblies | Harmony | Test projects |
 | --- | --- | --- | --- | --- | --- |
-| `PhobosFramework` | `PhobosFramework/` | nothing (Harmony since 0.205.0: the Architect's sub-tabs and the loop watch) | yes | `PhobosFramework.Rules.Tests` | builds and tests |
-| `PhobosMedical` | `PhobosMedical/` | the framework, VEF's `PipeSystem.dll` (Vanilla Gravship Expanded through Defs only; More Injuries by name at run time) | yes | `PhobosMedical.Rules.Tests` | tests only |
-| `PhobosFactory` | `PhobosFactoryAdditions/` | VEF's `PipeSystem.dll`, VFE Factory's `VanillaFurnitureExpandedFactory.dll` | yes | `PhobosFactory.Rules.Tests` | tests only |
-| `PhobosFactory.Hygiene` | `PhobosFactoryAdditions/Mods/DubsBadHygiene/` | the factory core, the framework's hygiene tie-in, `PipeSystem.dll`, Dubs Bad Hygiene's `BadHygiene.dll` | yes | none | no |
-| `PhobosFramework.Hygiene` | `PhobosFramework/Mods/DubsBadHygiene/` | Dubs Bad Hygiene's `BadHygiene.dll`: the shared plumbing reader | no | none | no |
-| `PhobosMedical.UsefulMarks` | `PhobosMedical/Mods/UsefulMarks/` | the medical core, Useful Marks' `UsefulColonistBar.dll` | no | none | no |
-| `PhobosMedical.Hygiene` | `PhobosMedical/Mods/DubsBadHygiene/` | the medical core, the framework's hygiene tie-in, `BadHygiene.dll` | no | none | no |
-| `PhobosFramework.Vehicles` | `PhobosFramework/Mods/VehicleFramework/` (1.7 only) | the framework, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll`: the vehicle systems | yes | `PhobosFramework.Vehicles.Rules.Tests` | tests only |
-| `PhobosFramework.Vehicles.Outposts` | `PhobosFramework/Mods/VehiclesOutposts/` (with Vehicle Framework and Vanilla Expanded Framework both active) | the vehicle systems, the framework, VEF's `Outposts.dll`, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll` | no | `PhobosFramework.Rules.Tests` | tests only |
-| `PhobosFramework.Vehicles.Hygiene` | `PhobosFramework/Mods/VehiclesHygiene/` (with Vehicle Framework and Dubs Bad Hygiene both active) | the vehicle systems, the framework's hygiene tie-in, `Vehicles.dll`, `BadHygiene.dll`: vehicles' water from plumbing | no | none | no |
-| `PhobosPatches.Harrier` | `PhobosPatches/Mods/HarrierVtol/` | the framework and its vehicle systems, Vehicle Framework's `Vehicles.dll`, `SmashTools.dll`, `UpdateLogTool.dll` | yes | none | no |
-| `PhobosPatches.Outposts` | `PhobosPatches/Mods/Outposts/` (with Vanilla Expanded Framework and Vehicle Framework both active) | the framework, VEF's `Outposts.dll`, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll` | yes | none | no |
-| `PhobosPatches.VehicleFramework` | `PhobosPatches/Mods/VehicleFramework/` (to be removed when the framework handles fires itself) | the framework, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll` | yes | `PhobosPatches.Rules.Tests` | tests only |
-| `PhobosPatches.CombatExtended` | `PhobosPatches/Mods/CombatExtended/` (temporary, while an ammo set can hold empty entries) | the framework; finds Combat Extended by name | no | none | none |
-| `PhobosFramework.Vehicles.Pipes` | `PhobosFramework/Mods/VehiclesPipes/` (with Vehicle Framework and Vanilla Expanded Framework both active) | the framework and its vehicle systems, Vehicle Framework's `Vehicles.dll`, VEF's `PipeSystem.dll`: the bulk-tank port on pipe networks | no | none | no |
-| `PhobosFramework.Vehicles.Rimefeller` | `PhobosFramework/Mods/VehiclesRimefeller/` (with Vehicle Framework and Rimefeller both active) | the framework and its vehicle systems, `Vehicles.dll`, `SmashTools.dll`, Rimefeller's `Rimefeller.dll` | yes | none | no |
-| `PhobosPatches.AircraftRearm` | `PhobosPatches/Mods/AircraftRearm/` (with the Harrier, the Hind or the Mongoose active) | the framework, Vehicle Framework's `Vehicles.dll`, `SmashTools.dll`, `UpdateLogTool.dll`; finds the aircraft mods' methods by name | yes | none | no |
-| `PhobosPatches.RimPacts` | `PhobosPatches/Mods/RimPacts/` | the framework; reads RimPacts by name | yes | `PhobosPatches.Rules.Tests` | tests only |
-| `PhobosPatches.VisitSettlements` | `PhobosPatches/Mods/VisitSettlements/` | the framework; finds Visit Settlements, RimPacts and Vehicle Framework members by name | yes | `PhobosPatches.Rules.Tests` | tests only |
-| `PhobosPatches.Classical` | `PhobosPatches/Mods/Classical/` (temporary, while Vanilla Factions Expanded - Classical's scorpion raid cannot be loaded from a save) | the framework; patches only the game's own method | yes | `PhobosFramework.Rules.Tests` (the constructor rule) | tests only |
-| `PhobosPatches.NiceResearchTab` | `PhobosPatches/Mods/NiceResearchTab/` (temporary, while research projects' unlock lists can gain a blank entry) | the framework; patches only the game's own getter | yes | none | no |
-| `PhobosPatches.Irbm` | `PhobosPatches/Mods/IRBM/` | the framework, InterRim Ballistic Missile's `IRBM.dll` | yes | `PhobosPatches.Rules.Tests` | tests only |
-| `PhobosFarming` | `PhobosFarming/` | the framework and its vehicle systems, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll` | yes | none | no |
-| `PhobosFramework.Vehicles.Dmse` | `PhobosFramework/Mods/VehiclesDmse/` (with The Dead Man's Switch - Expedition active) | the framework and its vehicle systems, DMSE's `DMSE.dll`, `Vehicles.dll`, `SmashTools.dll`: the air-defence tie-in | yes | none | no |
-| `PhobosPatches.Biotech` | `PhobosPatches/Mods/Biotech/` | the framework; the mechs' battery presets | yes | none | no |
-| `PhobosPatches.CloseAirSupport` | `PhobosPatches/Mods/CloseAirSupport/` | the framework; the A-10's and Su-25's figures | no | none | no |
-| `PhobosPatches.Prowler` | `PhobosPatches/Mods/EA6BProwler/` | the framework and its vehicle systems, `Vehicles.dll`, `SmashTools.dll`: the Prowler's jamming fields | yes | none | no |
-| `PhobosWaterTap` | `PhobosWaterTap/` | Dubs Bad Hygiene's `BadHygiene.dll` | no | `PhobosWaterTap.Rules.Tests` | tests only |
-| `PhobosRadio` | `PhobosRadioFramework/` | VEF's `PipeSystem.dll` | no | `PhobosRadio.Physics.Tests` | tests only |
+| `PhobosFactory` | `mods/PhobosFactoryAdditions/` | `PhobosFramework` | `PipeSystem`, `VanillaFurnitureExpandedFactory` | yes | `PhobosFactory.Rules.Tests` |
+| `PhobosFactory.Hygiene` | `mods/PhobosFactoryAdditions/Mods/DubsBadHygiene/` | `PhobosFactory`, `PhobosFramework.Hygiene` | `PipeSystem`, `BadHygiene` | yes | none |
+| `PhobosFarming` | `mods/PhobosFarming/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `SmashTools`, `CoreLib` | yes | none |
+| `PhobosFramework` | `mods/PhobosFramework/` | none | none | yes | `PhobosFramework.Rules.Tests`, `PhobosFramework.Vehicles.Rules.Tests` |
+| `PhobosFramework.Hygiene` | `mods/PhobosFramework/Mods/DubsBadHygiene/` | `PhobosFramework` | `BadHygiene` | no | none |
+| `PhobosFramework.Vehicles` | `mods/PhobosFramework/Mods/VehicleFramework/` | `PhobosFramework` | `Vehicles`, `SmashTools`, `CoreLib` | yes | `PhobosFramework.Vehicles.Rules.Tests` |
+| `PhobosFramework.Vehicles.Dmse` | `mods/PhobosFramework/Mods/VehiclesDmse/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `DMSE`, `Vehicles`, `SmashTools` | yes | none |
+| `PhobosFramework.Vehicles.Hygiene` | `mods/PhobosFramework/Mods/VehiclesHygiene/` | `PhobosFramework`, `PhobosFramework.Hygiene`, `PhobosFramework.Vehicles` | `Vehicles`, `BadHygiene` | yes | none |
+| `PhobosFramework.Vehicles.Outposts` | `mods/PhobosFramework/Mods/VehiclesOutposts/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `Outposts`, `Vehicles`, `SmashTools` | no | none |
+| `PhobosFramework.Vehicles.Pipes` | `mods/PhobosFramework/Mods/VehiclesPipes/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `PipeSystem` | no | none |
+| `PhobosFramework.Vehicles.Rimefeller` | `mods/PhobosFramework/Mods/VehiclesRimefeller/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `SmashTools`, `Rimefeller` | yes | none |
+| `PhobosMedical` | `mods/PhobosMedical/` | `PhobosFramework` | `PipeSystem` | yes | `PhobosMedical.Rules.Tests` |
+| `PhobosMedical.Hygiene` | `mods/PhobosMedical/Mods/DubsBadHygiene/` | `PhobosMedical`, `PhobosFramework.Hygiene` | `BadHygiene` | yes | none |
+| `PhobosMedical.UsefulMarks` | `mods/PhobosMedical/Mods/UsefulMarks/` | `PhobosMedical` | `UsefulColonistBar` | no | none |
+| `PhobosPatches.AircraftRearm` | `mods/PhobosPatches/Mods/AircraftRearm/` | `PhobosFramework` | `Vehicles`, `SmashTools`, `UpdateLogTool` | yes | none |
+| `PhobosPatches.Biotech` | `mods/PhobosPatches/Mods/Biotech/` | `PhobosFramework` | none | yes | none |
+| `PhobosPatches.Classical` | `mods/PhobosPatches/Mods/Classical/` | `PhobosFramework` | none | yes | none |
+| `PhobosPatches.CloseAirSupport` | `mods/PhobosPatches/Mods/CloseAirSupport/` | `PhobosFramework` | none | no | none |
+| `PhobosPatches.CombatExtended` | `mods/PhobosPatches/Mods/CombatExtended/` | `PhobosFramework` | none | yes | `PhobosPatches.Rules.Tests` |
+| `PhobosPatches.Harrier` | `mods/PhobosPatches/Mods/HarrierVtol/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `SmashTools`, `UpdateLogTool` | yes | none |
+| `PhobosPatches.Irbm` | `mods/PhobosPatches/Mods/IRBM/` | `PhobosFramework` | `IRBM` | yes | `PhobosPatches.Rules.Tests` |
+| `PhobosPatches.NiceResearchTab` | `mods/PhobosPatches/Mods/NiceResearchTab/` | `PhobosFramework` | none | yes | none |
+| `PhobosPatches.Outposts` | `mods/PhobosPatches/Mods/Outposts/` | `PhobosFramework` | `Outposts`, `Vehicles`, `SmashTools` | yes | none |
+| `PhobosPatches.Prowler` | `mods/PhobosPatches/Mods/EA6BProwler/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `SmashTools` | yes | none |
+| `PhobosPatches.RimPacts` | `mods/PhobosPatches/Mods/RimPacts/` | `PhobosFramework` | none | yes | `PhobosPatches.Rules.Tests` |
+| `PhobosPatches.VehicleFramework` | `mods/PhobosPatches/Mods/VehicleFramework/` | `PhobosFramework` | `Vehicles`, `SmashTools` | yes | `PhobosPatches.Rules.Tests` |
+| `PhobosPatches.VisitSettlements` | `mods/PhobosPatches/Mods/VisitSettlements/` | `PhobosFramework` | none | yes | `PhobosPatches.Rules.Tests` |
+| `PhobosRadio` | `mods/PhobosRadioFramework/` | none | `PipeSystem` | no | `PhobosRadio.Physics.Tests` |
+| `PhobosWaterTap` | `mods/PhobosWaterTap/` | `PhobosFramework.Hygiene` | `BadHygiene` | no | `PhobosWaterTap.Rules.Tests` |
+
+29 projects (22 using Harmony) and 7 test projects. Read from each project file as written: MSBuild is not run, so a value set only in `Directory.Build.props` or `Directory.Build.targets` is not shown. Harmony: its own C# files have `using HarmonyLib` or a `[HarmonyPatch]`. Test projects: those that reference the project or compile its files.
+<!-- end generated -->
+
+What the table cannot read from the files, kept by hand:
+
+- **On GitHub** (`.github/workflows/checks.yml`): only `PhobosFramework` builds there, and every test project in the last column
+  runs. Every other project references another author's assembly, which cannot be shipped to GitHub (see below).
+- **When a tie-in loads** is the mod's `LoadFolders.xml`: the player guide's [requirements table](../player-guide/getting-started.md#what-each-mod-needs)
+  lists them. Those waiting for two mods at once: `PhobosFramework.Vehicles.Outposts` and `.Pipes` (Vehicle Framework and Vanilla
+  Expanded Framework), `.Hygiene` (and Dubs Bad Hygiene), `.Rimefeller` (and Rimefeller), `.Dmse` (and The Dead Man's Switch -
+  Expedition), and `PhobosPatches.Outposts` (Vanilla Expanded Framework and Vehicle Framework). `PhobosPatches.AircraftRearm`
+  loads with any one of the Harrier, the Hind, the Mongoose, Close Air Support or the Prowler.
+- **Temporary projects**, removed when the other author's fault is fixed: `PhobosPatches.VehicleFramework` (until the framework
+  handles vehicle fires itself), `PhobosPatches.CombatExtended` (while an ammo set can hold empty entries), `PhobosPatches.Classical`
+  (while Vanilla Factions Expanded - Classical's scorpion raid cannot be loaded from a save) and `PhobosPatches.NiceResearchTab`
+  (while research projects' unlock lists can gain a blank entry).
+- **Mods reached by name at run time, with no reference**: D'thorga Medical finds More Injuries so, and uses Vanilla Gravship
+  Expanded through Defs only; `PhobosPatches.CombatExtended`, `.AircraftRearm`, `.RimPacts` and `.VisitSettlements` find their
+  mods' members by name. `PhobosPatches.Classical` and `.NiceResearchTab` patch only the game's own methods. The
+  [Harmony patch list](#harmony-patches) says which methods each project patches.
 
 - **D'thorga Medical is one project with a folder per former mod** (`BurnsAndSmoke/`, `Dosing/`, `Triage/`, `Equipment/`, `SaveBridge/`), each keeping its namespace, because saves name classes by namespace (7 November 2026, [why](mod-consolidation.md)).
 - **No project's DLL is copied beside another mod's**: `Directory.Build.targets` makes every project reference `Private=false` by default, transitive ones included. Before 7 November 2026 a transitive copy of `PhobosFramework.dll` shipped in Medical Equipment's Dubs Bad Hygiene folder.
@@ -76,6 +104,362 @@ from the owner's saves.
   project. **8 Nov**: every project and mod dropped 1.6 (owner): one target each, no PolySharp, no `1.6` load folders.
 - Vehicle Framework targets .NET Framework 4.8 and Vehicle Patches 4.7.2, so that project sets
   `ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch`; the game loads both whatever they declare.
+
+## Harmony patches
+
+**Every method each project patches, generated** from the C# source by the same `python scripts/doc-tables.py --write`. It reads
+the `[HarmonyPatch]` attributes as written, so it lists a patch even when the method it names has gone from the game or the mod:
+`python scripts/check-targets.py` and `python scripts/upstream.py` check that. Patches that find their target by name
+(`TargetMethod`) and manual `.Patch(` calls are counted, not listed; any attribute form the reader does not know is listed as
+"not read" with its file and line.
+
+<!-- generated: table harmony-patches -->
+Generated from the projects' C# source by `python scripts/doc-tables.py --write`: change those files, not this table.
+
+| Project | Patched methods | Found by name at run time | Manual `.Patch(` calls | Not read |
+| --- | --- | --- | --- | --- |
+| `PhobosFactory` | 14 | 0 | 0 | 0 |
+| `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
+| `PhobosFarming` | 5 | 0 | 0 | 0 |
+| `PhobosFramework` | 3 | 0 | 0 | 0 |
+| `PhobosFramework.Vehicles` | 97 | 15 | 0 | 0 |
+| `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
+| `PhobosFramework.Vehicles.Hygiene` | 1 | 0 | 0 | 0 |
+| `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
+| `PhobosMedical` | 11 | 0 | 4 | 0 |
+| `PhobosMedical.Hygiene` | 1 | 0 | 0 | 0 |
+| `PhobosPatches.AircraftRearm` | 0 | 0 | 2 | 0 |
+| `PhobosPatches.Biotech` | 2 | 0 | 0 | 0 |
+| `PhobosPatches.Classical` | 1 | 0 | 0 | 0 |
+| `PhobosPatches.CombatExtended` | 1 | 1 | 1 | 0 |
+| `PhobosPatches.Harrier` | 13 | 5 | 5 | 0 |
+| `PhobosPatches.Irbm` | 6 | 0 | 1 | 0 |
+| `PhobosPatches.NiceResearchTab` | 1 | 0 | 0 | 0 |
+| `PhobosPatches.Outposts` | 1 | 0 | 0 | 0 |
+| `PhobosPatches.Prowler` | 0 | 2 | 0 | 0 |
+| `PhobosPatches.RimPacts` | 0 | 0 | 1 | 0 |
+| `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
+| `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
+
+170 patched methods named in attributes, 23 patch classes that find their target by name (`TargetMethod`), and 17 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+
+Every HarmonyPatch attribute was read.
+
+<details><summary><code>PhobosFactory</code>: 14 patched methods</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosFactory/`) |
+| --- | --- | --- |
+| `AdvancedProcessorsManager.AddIngredient` | prefix | `Patches/BillRepairPatches.cs` |
+| `Building_Conveyor.PeriodicCacheCheck` | postfix | `Patches/PeriodicCacheCheckPatch.cs` |
+| `Building_Conveyor.Tick` | prefix | `Patches/ConveyorTickPatch.cs` |
+| `Building_Conveyor.TryPullFromDir` | prefix, postfix | `Patches/TryPullFromDirPatch.cs` |
+| `CompAdvancedResourceProcessor.PostSpawnSetup` | prefix | `Patches/BillRepairPatches.cs` |
+| `CompAdvancedResourceProcessor.ProcessesOptions (getter)` | postfix | `Patches/ProcessesOptionsPatch.cs` |
+| `DefGenerator.GenerateImpliedDefs_PreResolve` | postfix | `Patches/DefGeneratorPatch.cs` |
+| `Process.CheckInputSlots` | postfix | `Patches/BillRepairPatches.cs` |
+| `Process.ExposeData` | postfix | `Patches/BatchInPartsPatches.cs` |
+| `Process.InputFactoryHopperDetected` | postfix | `Patches/InputFactoryHopperDetectedPatch.cs` |
+| `Process.ResetProcess` | postfix | `Patches/BatchInPartsPatches.cs`, `Patches/BillRepairPatches.cs` |
+| `Process.Tick` | prefix | `Patches/BillRepairPatches.cs` |
+| `Process.TrySpawnAtCell` | prefix | `Patches/TrySpawnAtCellPatch.cs` |
+| `ProcessStack.ExposeData` | postfix | `Patches/BillRepairPatches.cs` |
+
+</details>
+
+<details><summary><code>PhobosFactory.Hygiene</code>: 4 patched methods</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosFactory.Hygiene/`) |
+| --- | --- | --- |
+| `FoodPoisonCauseExtension.ToStringHuman` | postfix | `Patches.cs` |
+| `Process.ApplyIngredientsAndQuality` | postfix | `Patches.cs` |
+| `Process.ResetProcess` | postfix | `Patches.cs` |
+| `Process.Tick` | prefix | `Patches.cs` |
+
+</details>
+
+<details><summary><code>PhobosFarming</code>: 5 patched methods</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosFarming/`) |
+| --- | --- | --- |
+| `Pawn_RecordsTracker.Increment` | postfix | `HandSeed.cs` |
+| `WorkGiver_Grower.ExtraRequirements` | postfix | `PaddockPatches.cs` |
+| `WorkGiver_GrowerHarvest.HasJobOnCell` | postfix | `PaddockPatches.cs` |
+| `WorkGiver_GrowerSow.JobOnCell` | postfix | `HandSeed.cs` |
+| `Zone_Growing.GetGizmos` | postfix | `PaddockPatches.cs` |
+
+</details>
+
+<details><summary><code>PhobosFramework</code>: 3 patched methods</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosFramework/`) |
+| --- | --- | --- |
+| `DesignationCategoryDef.ResolvedAllowedDesignators (getter)` | postfix | `UI/ArchitectSubTabs.cs` |
+| `MainTabWindow_Architect.CacheDesPanels` | postfix | `UI/ArchitectSubTabs.cs` |
+| `Pawn_JobTracker.StartJob` | postfix | `Work/LoopWatch.cs` |
+
+</details>
+
+<details><summary><code>PhobosFramework.Vehicles</code>: 97 patched methods, 15 by name</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles/`) |
+| --- | --- | --- |
+| `AerialVehicleArrivalModeWorker_CenterDrop.VehicleArrived` | prefix | `Flight/FlightJourneys.cs` |
+| `AerialVehicleArrivalModeWorker_EdgeDrop.VehicleArrived` | prefix | `Flight/FlightJourneys.cs` |
+| `AerialVehicleArrivalModeWorker_TargetedDrop.VehicleArrived` | prefix | `Flight/FlightJourneys.cs` |
+| `AerialVehicleInFlight.InitiateCrashEvent` | prefix | `Sling/SlingPatches.cs` |
+| `AerialVehicleInFlight.Vehicles (getter)` | postfix | `Sling/SlingPatches.cs` |
+| `ArrivalAction_LandToCell.SpawnSkyfaller` | prefix | `Flight/FlightJourneys.cs` |
+| `Building_Trap.CheckSpring` | prefix | `Service/VehicleTraps.cs` |
+| `Caravan.NightResting (getter)` | postfix | `Camp/NightDriving.cs` |
+| `Caravan_BedsTracker.GetUsableBeds` | postfix | `Camp/Berths.cs` |
+| `Caravan_BedsTracker.RecalculateUsedBeds` | postfix | `Camp/Berths.cs` |
+| `Caravan_NeedsTracker.IngestDrug` | postfix | `LifeAboard/LifeAboard.cs` |
+| `CaravanInventoryUtility.TryGetBestFood` | postfix | `Hitch/TowedLarder.cs` |
+| `CompFueledTravel.CanDraft` | postfix | `Systems/BatteryDrive.cs` |
+| `CompFueledTravel.CanMove` | postfix | `Systems/BatteryDrive.cs` |
+| `CompFueledTravel.ChargeRate (getter)` | postfix | `Service/Patches.cs` |
+| `CompFueledTravel.ShouldConsumeNow (getter)` | postfix | `Systems/BatteryDrive.cs` |
+| `CompUpgradeTree.FinishUnlock` | postfix | `Service/UpgradePricing.cs` |
+| `CompUpgradeTree.PrerequisitesMet` | postfix | `Service/UpgradeAnyOf.cs`, `Service/UpgradeResearch.cs` |
+| `CompUpgradeTree.ResetUnlock` | prefix, finalizer | `Service/UpgradePricing.cs` |
+| `CompVehicleLauncher.CanLaunchWithCargoCapacity` | postfix | `Flight/FlightJourneys.cs`, `Service/Patches.cs`, `Sling/SlingPatches.cs` |
+| `CompVehicleLauncher.FlightSpeed (getter)` | postfix | `Flight/FlightJourneys.cs`, `Service/CruiseHeightPatches.cs`, `Sling/SlingPatches.cs` |
+| `CompVehicleLauncher.FuelConsumptionWorldMultiplier (getter)` | postfix | `Service/CruiseHeightPatches.cs`, `Sling/SlingPatches.cs` |
+| `CompVehicleLauncher.Launch` | prefix | `Flight/FlightJourneys.cs` |
+| `DaysUntilRotCalculator.ApproxDaysUntilRot` | postfix | `Hitch/TowedLarder.cs` |
+| `DaysWorthOfFoodCalculator.ApproxDaysWorthOfFood` | postfix | `Hitch/TowedLarder.cs` |
+| `DeepResourceGrid.AnyActiveDeepScannersOnMap` | postfix | `Service/Patches.cs` |
+| `Dialog_FormCaravan.DaysWorthOfFood (getter)` | prefix, postfix | `Hitch/TowedLarder.cs` |
+| `Explosion.StartExplosion` | postfix | `Service/GlassBlastPatch.cs` |
+| `Ext_Vehicles.TryDropAllOutsideVehicle` | prefix | `Flight/FlightPatches.cs` |
+| `Ext_Vehicles.TryDropOutsideVehicle` | prefix | `Flight/FlightPatches.cs` |
+| `FireUtility.TryAttachFire` | prefix, postfix | `Flight/FlightPatches.cs`, `Service/FireFighting.cs` |
+| `FlightPath.ConsumeNode` | prefix | `Service/LandingCheck.cs` |
+| `FuelTargetUpdater.LaunchStatus` | postfix | `Service/FlightCargoReachPatches.cs` |
+| `FuelTargetUpdater.TargeterUpdate` | postfix | `Service/CruiseHeightPatches.cs` |
+| `FuelTargetUpdater.ValidateTargets` | postfix | `Service/CruiseHeightPatches.cs`, `Service/FlightCargoReachPatches.cs`, `Service/LandingCheck.cs` |
+| `GenLeaving.DoLeavingsFor` | prefix | `Service/UnderlayRefunds.cs` |
+| `GravshipPlacementUtility.PlaceGravshipInMap` | postfix | `Service/GravshipLandingAlignment.cs` |
+| `GravshipUtility.PreLaunchConfirmation` | postfix | `Service/GravshipLaunchWarning.cs` |
+| `ITab_Vehicle_Upgrades.DrawButtons` | prefix | `Service/UpgradeResearch.cs` |
+| `ITab_Vehicle_Upgrades.DrawGrid` | prefix | `Presentation/UpgradeTabScroll.cs` |
+| `ITab_Vehicle_Upgrades.DrawPrerequisites` | postfix | `Service/UpgradeAnyOf.cs` |
+| `JobDriver_RepairVehicle.WorkComplete` | postfix | `Service/Patches.cs` |
+| `JobGiver_GetRest.TryGiveJob` | postfix | `Cabins/DeckTents.cs`, `Camp/BunkSleep.cs` |
+| `MainTabWindow_Research.PostOpen` | postfix | `Service/SetAsideResearchPatches.cs` |
+| `MapTemperature.OutdoorTemp (getter)` | postfix | `Cabins/DeckTents.cs` |
+| `Messages.Message` | prefix | `Service/VehicleMessageLevel.cs` |
+| `Pawn.GetChildHolders` | postfix | `Sling/SlingPatches.cs` |
+| `Pawn.ThreatDisabled` | postfix | `Service/SubmersiblePatches.cs` |
+| `Projectile.Launch` | prefix | `Service/AirborneEvasion.cs` |
+| `ResearchManager.IsCurrentProject` | postfix | `Service/FieldResearchPatches.cs` |
+| `ResearchManager.SetCurrentProject` | prefix | `Service/FieldResearchPatches.cs` |
+| `ResearchManager.StopProject` | postfix | `Service/FieldResearchPatches.cs` |
+| `ShortCircuitUtility.DoShortCircuit` | prefix | `Service/ShortCircuits.cs` |
+| `ThingOwnerUtility.TryGetFixedTemperature` | postfix | `Service/Patches.cs` |
+| `Toils_LayDown.ApplyBedThoughts` | postfix | `Camp/CampJobs.cs` |
+| `TurretShotReport.HitReportFor` | postfix | `Service/TurretPacePatches.cs` |
+| `VehicleCaravan.Notify_MemberDied` | prefix | `Service/LostConvoys.cs` |
+| `VehicleCaravanPathingHelper.EstimatedTicksToArrive` | prefix, postfix, finalizer | `Camp/NightDriving.cs` |
+| `VehicleCaravanTicksPerMoveUtility.GetTicksPerMove` | postfix | `Service/Patches.cs` |
+| `VehicleComponent.ApplyEMPDamage` | prefix, postfix, finalizer | `Service/VehicleEmp.cs` |
+| `VehicleDef.ResolveReferences` | prefix | `Service/Patches.cs` |
+| `VehicleDrawTracker.DrawPos (getter)` | postfix | `Flight/FlightPatches.cs` |
+| `VehiclePathFollower.CostToPayThisTick` | postfix | `Service/Patches.cs` |
+| `VehiclePathFollower.PatherArrived` | prefix, postfix | `Service/BrakeOverrun.cs` |
+| `VehiclePawn.AddOrTransfer` | prefix | `Flight/FlightPatches.cs` |
+| `VehiclePawn.CanMoveFinal (getter)` | postfix | `Service/Patches.cs` |
+| `VehiclePawn.Destroy` | prefix, finalizer | `Flight/FlightPatches.cs` |
+| `VehiclePawn.DisembarkPawn` | prefix | `Service/SubmersiblePatches.cs` |
+| `VehiclePawn.DynamicDrawPhaseAt` | prefix | `Service/SubmersiblePatches.cs` |
+| `VehiclePawn.GetGizmos` | postfix | `Jobs/ClaimVehicle.cs` |
+| `VehiclePawn.Kill` | prefix, postfix | `Service/VehicleHulls.cs`, `Service/VehiclePractice.cs` |
+| `VehiclePawn.RecacheCompTickers` | postfix | `Flight/FlightPatches.cs` |
+| `VehiclePawn.TryAddPawn` | prefix | `Flight/FlightPatches.cs` |
+| `VehicleReservationManager.VehicleListers` | postfix | `Flight/FlightPatches.cs` |
+| `VehicleRoleHandler.AreSlotsAvailable (getter)` | postfix | `Cabins/CabinSharedSeats.cs` |
+| `VehicleSkyfaller_Arriving.DrawAt` | postfix | `Sling/SlingPatches.cs` |
+| `VehicleSkyfaller_Leaving.DrawAt` | postfix | `Sling/SlingPatches.cs` |
+| `VehicleStatHandler.ApplyDamage` | prefix, postfix | `Service/SubmersiblePatches.cs`, `Service/VehicleEmp.cs` |
+| `VehicleStatHandler.ComponentsPrioritized (getter)` | postfix | `Service/Patches.cs` |
+| `VehicleStatHandler.ExposeData` | prefix, postfix | `Service/Patches.cs` |
+| `VehicleStatHandler.NeedsRepairs (getter)` | postfix | `Service/Patches.cs` |
+| `VehicleStatHandler.RecalculateHealthPercent` | postfix | `Service/Patches.cs` |
+| `VehicleStatWorker.TransformValue` | postfix | `Service/Patches.cs` |
+| `VehicleTurret.FireTurret` | prefix, finalizer | `Service/AimScatterPatches.cs` |
+| `VehicleTurret.FireTurretCE` | prefix, finalizer | `Service/TurretPacePatches.cs` |
+| `VehicleTurret.IsDisabled` | postfix | `Service/TurretPacePatches.cs` |
+| `VehicleTurret.MaxTicks (getter)` | postfix | `Service/TurretPacePatches.cs` |
+| `VehicleTurret.TurretDisabled (getter)` | postfix | `Service/SubmersiblePatches.cs`, `Service/TurretPacePatches.cs` |
+| `VehicleTurret.TurretRotationTick` | prefix, finalizer | `Service/TurretPacePatches.cs` |
+| `VehicleTurret.WarmupTicks (getter)` | postfix | `Service/TurretPacePatches.cs` |
+| `VehicleWorkGiver.JobOnThing` | prefix | `Flight/FlightPatches.cs` |
+| `WorkGiver_DisassembleVehicle.HasJobOnThing` | postfix | `Flight/FlightPatches.cs` |
+| `WorkGiver_RepairVehicle.CanBeWorkedOn` | postfix | `Service/Patches.cs` |
+| `WorldObject.IncidentTargetTags` | postfix | `Service/SubmersiblePatches.cs` |
+| `WorldPawns.PassToWorld` | prefix | `Hitch/HitchPatches.cs` |
+| `WorldPawns.ShouldMothball` | postfix | `Service/Patches.cs` |
+| `Zone_Stockpile.GetGizmos` | postfix | `Service/VehicleUnloadBays.cs` |
+| by name in TargetMethod | postfix | `Camp/NightDriving.cs` |
+| by name in TargetMethod | prefix | `Flight/FlightPatches.cs` |
+| by name in TargetMethod | postfix | `Service/AirborneEvasion.cs` |
+| by name in TargetMethod | postfix | `Service/SetAsideResearchPatches.cs` |
+| by name in TargetMethod | prefix | `Service/TurretPacePatches.cs` |
+| by name in TargetMethod | prefix | `Service/VehicleTraps.cs` |
+| by name in TargetMethod (7 classes) | postfix | `Service/VehiclesAtWorkPatches.cs` |
+| by name in TargetMethods (2 classes) | prefix, finalizer | `Service/AimScatterPatches.cs` |
+
+</details>
+
+<details><summary><code>PhobosFramework.Vehicles.Dmse</code>: 3 patched methods</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles.Dmse/`) |
+| --- | --- | --- |
+| `AerialVehicleInFlight.Launch` | prefix | `AirDefenceTieIn.cs` |
+| `CompVehicleLauncher.Launch` | prefix | `AirDefenceTieIn.cs` |
+| `VehicleCaravan.Launch` | prefix | `AirDefenceTieIn.cs` |
+
+</details>
+
+<details><summary><code>PhobosFramework.Vehicles.Hygiene</code>: 1 patched method</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles.Hygiene/`) |
+| --- | --- | --- |
+| `Caravan_NeedsTracker.TrySatisfyPawnNeeds` | prefix | `CaravanWaterAboard.cs` |
+
+</details>
+
+<details><summary><code>PhobosFramework.Vehicles.Rimefeller</code>: 1 patched method</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles.Rimefeller/`) |
+| --- | --- | --- |
+| `PlaceWorker_DeepWellHead.HasScanner` | postfix | `RigJob_OilWell.cs` |
+
+</details>
+
+<details><summary><code>PhobosMedical</code>: 11 patched methods</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosMedical/`) |
+| --- | --- | --- |
+| `Bill_Medical.ShouldDoNow` | postfix | `Equipment/Patches/MedicalPatches.cs` |
+| `CompResourceStorage.AmountCanAccept (getter)` | postfix | `Equipment/Patches/MedicalPatches.cs` |
+| `ForbidUtility.InAllowedArea` | postfix | `Protection/ProtectionPart.cs` |
+| `Game.FinalizeInit` | postfix | `Equipment/Patches/MedicalPatches.cs` |
+| `GenTemperature.TryGetTemperatureForCell` | postfix | `BurnsAndSmoke/Heat/FireHeatPatch.cs` |
+| `HealthCardUtility.DrawOverviewTab` | prefix, finalizer | `HealthTabChoices.cs` |
+| `MedicalCareUtility.MedicalCareSelectButton` | postfix | `HealthTabChoices.cs` |
+| `Pawn_PathFollower.TryEnterNextPathCell` | prefix, postfix | `Protection/ProtectionPart.cs` |
+| `PawnUIOverlay.DrawPawnGUIOverlay` | postfix | `Triage/UI/TriageTagOverlay.cs` |
+| `PregnancyUtility.ApplyBirthOutcome` | postfix | `Radiation/Patches/BirthPatch.cs` |
+| `TendUtility.CalculateBaseTendQuality` | postfix | `Dosing/Patches/FussingPatch.cs` |
+
+</details>
+
+<details><summary><code>PhobosMedical.Hygiene</code>: 1 patched method</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosMedical.Hygiene/`) |
+| --- | --- | --- |
+| `Building_WashingMachine.UnloadWashing` | prefix | `DbhWashing.cs` |
+
+</details>
+
+<details><summary><code>PhobosPatches.Biotech</code>: 2 patched methods</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosPatches.Biotech/`) |
+| --- | --- | --- |
+| `Building_MechCharger.GetInspectString` | postfix | `RechargerRealPower.cs` |
+| `Building_MechCharger.Tick` | prefix, postfix | `RechargerRealPower.cs` |
+
+</details>
+
+<details><summary><code>PhobosPatches.Classical</code>: 1 patched method</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosPatches.Classical/`) |
+| --- | --- | --- |
+| `Lord.ExposeData` | postfix | `RaidOrdersOnLoad.cs` |
+
+</details>
+
+<details><summary><code>PhobosPatches.CombatExtended</code>: 1 patched method, 1 by name</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosPatches.CombatExtended/`) |
+| --- | --- | --- |
+| `Pawn_EquipmentTracker.DropAllEquipment` | postfix | `KeepGuns/DroppedWhenDownedPatch.cs` |
+| by name in TargetMethod | postfix | `KeepGuns/SidearmLoopGuard.cs` |
+
+</details>
+
+<details><summary><code>PhobosPatches.Harrier</code>: 13 patched methods, 5 by name</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosPatches.Harrier/`) |
+| --- | --- | --- |
+| `BackCompatibility.BackCompatibleDefName` | postfix | `BombCaseRename.cs` |
+| `CompVehicleLauncher.CanTarget` | postfix | `SortieGate.cs` |
+| `JobDriver.Cleanup` | prefix | `DisassemblyTrace.cs` |
+| `JobDriver_DisassembleVehicle.FinishedRemoving` | prefix, finalizer | `DisassemblyTrace.cs` |
+| `LoadIDsWantedBank.RegisterLoadIDListReadFromXml` | prefix | `BombCaseRename.cs` |
+| `LoadIDsWantedBank.RegisterLoadIDReadFromXml` | prefix | `BombCaseRename.cs` |
+| `Pawn.Destroy` | prefix, finalizer | `DisassemblyTrace.cs` |
+| `RGBMaterialPool.Release` | prefix | `DisassemblyTrace.cs` |
+| `VehiclePawn.DeSpawn` | finalizer | `DisassemblyTrace.cs` |
+| `VehiclePawn.Destroy` | prefix, finalizer | `DisassemblyTrace.cs` |
+| `VehiclePawn.DisembarkAll` | postfix | `DisassemblyTrace.cs` |
+| `VehiclePawn.GenerateGraphic` | finalizer | `DisassemblyTrace.cs` |
+| `VehicleTurret.OnDestroy` | finalizer | `DisassemblyTrace.cs` |
+| by name in TargetMethod | postfix | `HarrierEvasion.cs` |
+| by name in TargetMethod (4 classes) | prefix, postfix | `HoverGate.cs` |
+
+</details>
+
+<details><summary><code>PhobosPatches.Irbm</code>: 6 patched methods</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosPatches.Irbm/`) |
+| --- | --- | --- |
+| `Building_CIWS.FindBestTarget` | postfix | `Patches/CiwsShellsPatches.cs` |
+| `Building_CIWS.InterceptionSuccess` | postfix | `Patches/CiwsShellsPatches.cs` |
+| `Building_CIWS.IsTargetValid` | postfix | `Patches/CiwsShellsPatches.cs` |
+| `FogGrid.FloodUnfogAdjacent` | prefix | `Patches/QuietRevealPatches.cs` |
+| `StrategicImpactCountdown.ApplyStrategicDamage` | prefix, finalizer | `Patches/QuietRevealPatches.cs`, `Patches/StrategicDamagePatches.cs` |
+| `StrategicImpactCountdown.OnWhiteScreenReached` | prefix | `Patches/WhiteScreenPatch.cs` |
+
+</details>
+
+<details><summary><code>PhobosPatches.NiceResearchTab</code>: 1 patched method</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosPatches.NiceResearchTab/`) |
+| --- | --- | --- |
+| `ResearchProjectDef.UnlockedDefs (getter)` | prefix, postfix, finalizer | `ResearchUnlocksGuard.cs` |
+
+</details>
+
+<details><summary><code>PhobosPatches.Outposts</code>: 1 patched method</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosPatches.Outposts/`) |
+| --- | --- | --- |
+| `Dialog_CreateCamp (constructor)` | postfix | `ConvoyOutpostRefusal.cs` |
+
+</details>
+
+<details><summary><code>PhobosPatches.Prowler</code>: 0 patched methods, 2 by name</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosPatches.Prowler/`) |
+| --- | --- | --- |
+| by name in TargetMethod (2 classes) | postfix | `ProwlerPatches.cs` |
+
+</details>
+
+<details><summary><code>PhobosPatches.VehicleFramework</code>: 5 patched methods</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosPatches.VehicleFramework/`) |
+| --- | --- | --- |
+| `CompVehicleTurrets.PostExposeData` | prefix, finalizer | `TurretQueueSave.cs` |
+| `JobDriver_WorkVehicle.MakeNewToils` | postfix | `VehicleFrameworkPatchesMod.cs` |
+| `VehiclePawn.DeSpawn` | prefix | `VehicleFrameworkPatchesMod.cs` |
+| `VehiclePawn.TickRare` | postfix | `VehicleFrameworkPatchesMod.cs` |
+| `VehicleTurret.ResolveGraphics` | prefix | `TurretGraphicWhileLoading.cs` |
+
+</details>
+<!-- end generated -->
 
 ## The checks (run before every commit)
 

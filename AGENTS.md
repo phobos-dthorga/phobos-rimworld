@@ -114,6 +114,7 @@ Use the tool before reading raw files; how to use each is in [`scripts/AGENTS.md
 | Whether textures need encoding | `python scripts/textures.py` |
 | What is safely copied; copying trainings and models | `python scripts/safe-copies.py` |
 | Harmony targets and by-name lookups | `python scripts/check-targets.py` |
+| The generated tables in our docs (projects, Harmony patches, mod needs) | `python scripts/doc-tables.py` (`--write`) |
 
 ## Git and publication boundaries
 
