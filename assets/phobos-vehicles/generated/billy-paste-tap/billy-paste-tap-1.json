@@ -1,0 +1,56 @@
+{
+  "file": "billy-paste-tap-1.png",
+  "sha256": "6c4af39b32712b38000d883fff0e25c5ac532d83fc9d86b89d6acf70dc5a8e33",
+  "date": "2026-11-23T22:38:57",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a piece of field kitchen equipment in a frontier colony. Images 1 and 2 are our approved field kitchen pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The object fills about 70 percent of the canvas, one unit by one unit, centred, on a plain pure white background.\n\nA hand-pumped nutrient paste tap, seen from directly above: a squat round insulated tank of olive-drab steel with a padded canvas jacket strapped round it, a short pump lever folded flat across the lid, and a stubby spout with a small drip tray at one side. A few rivets and a filler cap on the lid.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive, canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, food, bowls or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/nutrient-paste.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 802,
+    "input_tokens_details": {
+      "image_tokens": 512,
+      "text_tokens": 290
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2558
+  },
+  "cost_usd": 0.0582,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 31.6,
+  "references": [
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyKettle.png",
+      "sha256": "cfc942aeb6142409104b485d4c18655368be11d4b48d6433d229b66d6f07caee",
+      "role": "our approved field kitchen piece seen from directly above (the field kettle): match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyColdBox.png",
+      "sha256": "323e4ae45d8a810c2ab65d64d56ee5a9f0d564acf3f39d87cf4cb2fd49d009a2",
+      "role": "our approved field kitchen piece seen from directly above (the cold box): match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}

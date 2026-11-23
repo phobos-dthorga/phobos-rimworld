@@ -1,0 +1,51 @@
+{
+  "file": "paste-bake-fine-1.png",
+  "sha256": "2b38cfe54f1d2d5d2737dc4724fd85d566e4c712a50da497c7e75257109b904e",
+  "date": "2026-11-23T22:40:58",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Show no vertical outside faces.\n\nCreate an ORIGINAL game item sprite of a cooked meal in a frontier colony. Image 1 is our approved art: match its outline weight, shading and finish only. Do NOT copy its shape or colours.\n\nSquare canvas. The object fills about 60 percent of the canvas, centred, on a plain pure white background.\n\nA fine layered paste bake, seen from directly above: a round enamel baking dish holding a layered bake with a golden cheese-like crust, strips of browned meat and bright vegetable pieces arranged on top, and a pale green paste layer showing at the cut edge of one missing wedge. It looks cared for and appetising.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, warm but muted food colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, cutlery, steam or loose goods. No ground or table beyond the dish, no shadow outside it, no perspective, no tilt.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/nutrient-paste.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 518,
+    "input_tokens_details": {
+      "image_tokens": 256,
+      "text_tokens": 262
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2274
+  },
+  "cost_usd": 0.056,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 32.6,
+  "references": [
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyKettle.png",
+      "sha256": "cfc942aeb6142409104b485d4c18655368be11d4b48d6433d229b66d6f07caee",
+      "role": "our approved field kitchen art: match its outline weight, shading and finish only; do not copy its shape or colours"
+    }
+  ]
+}
