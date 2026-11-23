@@ -5,7 +5,7 @@ costs 6 dB. This is **Phase 1**: local VHF and UHF on one map.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.2.0, built 24 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.3.0, built 24 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -35,7 +35,7 @@ flowchart LR
     Obstacles["Walls and doors below 2.5 m on the line,<br/>natural rock, the roof over each end"] --> Budget
     Noise["Generators and batteries<br/>raise the noise at the receiver"] --> Budget
     Budget{{"Link budget, both directions:<br/>the worse one decides"}} --> Outcome["Workable, faint or no contact"]
-    Outcome --> Shown["Signal gizmo, the station's Net tab,<br/>the link-budget window, the coverage on the map"]
+    Outcome --> Shown["Signal gizmo, the station's Net tab,<br/>the link-budget window and its side view,<br/>the coverage and the line on the map"]
     Outcome --> Mood["'In touch with home' mood"]
 ```
 
@@ -69,6 +69,15 @@ reach that station from each spot, brighter for more signal to spare, dark red f
 rules as a real contact, with every door counted as closed and the better of the VHF and UHF hand-helds on each spot. It costs
 nothing until something is selected; then it works for 1.5 ms of each frame, a rough picture first and the full one after, and
 again only when a wall, roof, antenna or noise source changes. The rules Def holds those limits.
+
+**The line on the map** (from 0.3.0): select a colonist wearing a hand-held and a line runs to the antenna their radio uses,
+coloured by the signal: thick where it is below wall height and walls count, thin where it is above them. A filled orange square
+marks a wall or door that cost signal, a hollow ring one the line passed over, a red diamond rock. Operator adds the signal to spare;
+Engineer what each run of walls or rock, and each roof, cost. It follows the colonist each time the net works links out (about once
+a second). Up to 6 selected colonists are drawn at once.
+
+**The side view** (from 0.3.0): the link-budget window draws the same path from the side, the antenna on the left and the colonist
+on the right at their heights, wall height dashed, what the line met between them, and the line itself.
 
 **Display modes** (mod settings): *Plain*, *Operator* and *Engineer*, as the guide describes; the
 outcome is the same in each.

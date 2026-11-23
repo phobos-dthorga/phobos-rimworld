@@ -48,6 +48,17 @@
   <PhobosRadio_CoverageWorking>Working out radio coverage on the map: {PERCENT} done.</PhobosRadio_CoverageWorking>
   <PhobosRadio_CoverageNoStation>No coverage to show: connect this antenna to a base station with coax.</PhobosRadio_CoverageNoStation>
 
+  <!-- The line from a selected colonist's radio to its antenna, and the side view in the link-budget window. -->
+  <PhobosRadio_RayMargin>{OUTCOME}, {MARGIN} dB to spare</PhobosRadio_RayMargin>
+  <PhobosRadio_RayCrossing>{THING}{TIMES}: −{LOSS} dB</PhobosRadio_RayCrossing>
+  <PhobosRadio_RayTimes> ×{COUNT}</PhobosRadio_RayTimes>
+  <PhobosRadio_RayCleared>{THING}: passed over</PhobosRadio_RayCleared>
+  <PhobosRadio_RayRoof>roof: −{LOSS} dB</PhobosRadio_RayRoof>
+  <PhobosRadio_ProfileMetres>{METRES} m</PhobosRadio_ProfileMetres>
+  <PhobosRadio_ProfileAntenna>antenna, {HEIGHT} m</PhobosRadio_ProfileAntenna>
+  <PhobosRadio_ProfileHandheld>hand-held, {HEIGHT} m</PhobosRadio_ProfileHandheld>
+  <PhobosRadio_ProfileDistance>{DISTANCE} m apart</PhobosRadio_ProfileDistance>
+
   <!-- Feedline ports. -->
   <PhobosRadio_PortNoCable>No coax connected.</PhobosRadio_PortNoCable>
   <PhobosRadio_PortCableNoAntenna>Coax connected, but no antenna on it.</PhobosRadio_PortCableNoAntenna>

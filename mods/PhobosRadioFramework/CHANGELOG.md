@@ -14,6 +14,22 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   what each picture was cut from moved beside the art records, in the repository's assets folder; nothing a player sees
   changes.
 
+## [0.3.0] - 2026-11-24 - Draft
+
+A line from each colonist's radio to its antenna, and a side view of the path
+
+### Added
+
+- **Selecting a colonist who wears a hand-held draws a line to the antenna their radio uses** (the owner's go-ahead of 24 November
+  2026): coloured by the signal, thick where walls count, with a mark on each wall, door and patch of rock it meets. Operator adds
+  the signal to spare, Engineer what each crossing cost. Not yet tested in game: row 459.
+- **The link-budget window shows the path from the side**: the antenna and the colonist at their heights, wall height, the walls
+  and rock between and the line over them. Not yet tested in game: row 460.
+
+### Compatibility and limits
+
+- Safe with a running save: nothing new is saved. No new settings.
+
 ## [0.2.0] - 2026-11-24 - Draft
 
 Radio coverage painted on the map, and noise that fades out

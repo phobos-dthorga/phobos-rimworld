@@ -42,7 +42,9 @@ A colonist wearing a hand-held has a **Radio** button with signal bars; click it
 says who is in touch and which antenna it uses: whichever antenna on its coax gives the best link, or its built-in whip if that is
 better or nothing is connected. **Select the station or an antenna and the map shows its coverage**: brighter where a hand-held
 would reach it well, dark red where it would not, with every door counted as closed. It fills in roughly at once and finely over a
-few seconds, and redraws when you build, so you can see a wall's radio shadow appear. A colonist in good contact gets a small **in touch with home** mood, and a fainter one on a weak
+few seconds, and redraws when you build, so you can see a wall's radio shadow appear. **Select a colonist wearing a hand-held** and a line runs to the antenna they use, in
+the colour of their signal, with a mark on everything in the way: a filled orange square on a wall that cost signal, a hollow ring on
+one the line passed over, a red diamond on rock. The radio button's window shows the same path from the side. A colonist in good contact gets a small **in touch with home** mood, and a fainter one on a weak
 link. **While placing** an antenna or the station, the cursor shows its height, the roof and the noise there; red means overhead
 mountain.
 
@@ -53,7 +55,7 @@ opens can show one level more than your setting.
 ## Try it
 
 1. Research local radio. Build the station indoors under a built roof, craft a VHF hand-held and wear it.
-2. Walk outside, then behind a stone wall, then into a mountain: watch the bars and the reason.
+2. Walk outside, then behind a stone wall, then into a mountain: watch the bars, the reason, and the line to the antenna.
 3. Lay coax from the station out to a mast antenna, and see the station switch to it.
 4. Stand near a running generator: the noise appears and the margin falls.
 5. Select the station: the map shows its coverage. Build a stone wall near a mast and watch its shadow; select a mast near a running

@@ -1,8 +1,9 @@
 # Radio visuals: showing the link budget as pictures (23 Nov 2026)
 
-**Status (24 Nov 2026):** partly built. RV1, the coverage overlay, shown while a station or an antenna is selected, and the noise
-fade (F2) are built in Radio Framework 0.2.0 ([as built](#as-built-radio-020-24-nov-2026)); not yet tested in game: rows 456 and
-457. Every other idea is unbuilt. The owner reopened the radio on seeing the mock-up ([below](#reopened-23-nov-2026)).
+**Status (24 Nov 2026):** partly built. RV1, the coverage overlay, and the noise fade (F2) are built in Radio Framework 0.2.0
+([as built](#as-built-radio-020-24-nov-2026)); RV2, the ray line, and RV4, the side view, in 0.3.0
+([as built](#as-built-radio-030-24-nov-2026)). Not yet tested in game: rows 456, 457, 459 and 460. Every other idea is unbuilt. The
+owner reopened the radio on seeing the mock-up ([below](#reopened-23-nov-2026)).
 
 The owner, 23 Nov 2026: "If I were to reopen the Radio mod for Rimworld, what are some strikingly visual ways I could show its
 systems?" Then, of the three ideas the agent put first: "draw the dark mock-up page of the top three, PLEASE <3 But make sure to
@@ -267,7 +268,44 @@ measuring was a few microseconds a cell, so a full pass of several seconds at th
   a noise source, not just the picture.
 - **Cheaper on the way:** summing noise and two levels no longer allocates, and a contact walks its line once for both bands
   instead of once per band.
-- **Not built:** RV2 (the ray line) and RV4 (the side-on view) are next if the owner wants them; nothing on the game's overlay row.
+- **Not built:** nothing on the game's overlay row. RV2 and RV4 followed in 0.3.0 (below).
+
+## As built: Radio 0.3.0 (24 Nov 2026)
+
+The owner, 24 Nov 2026: "you can go ahead with RV2 and RV4 now". All **[code]**; nothing is tested in game.
+
+**Their cost, stated before building** (the radio's performance rule):
+
+| What | How much | How often |
+| --- | --- | --- |
+| Nothing selected | A look at an empty selection list | Every frame |
+| Colonists selected | For each selected colonist (pawns only), a look at their worn apparel for a radio | Every frame |
+| A colonist with a radio selected | One line (two where it passes wall height), and one quad or ring per mark, at most 120 marks; at most 6 colonists drawn at once | Every frame while selected |
+| Working out the path | One walk of the line with a list of what it met: the same walk as the contact | Once per contact the net hands out, about once a second per selected colonist, and only for those drawn |
+| Labels (Operator and Engineer) | One label (Operator) or one per run of the same thing, plus roofs (Engineer), made once per contact and display level, drawn once per frame | While drawn |
+| The side view | A few boxes and lines per mark, in a window | Only while the link-budget window is open |
+| Memory | The path and its labels are kept with the contact and dropped with it | — |
+
+Measured: not yet; it is small by construction. `python scripts/perf.py` with a colonist selected, asked for first, would show it.
+
+**What was built:**
+
+- **RV2, the ray line [O].** `RadioPathView`, a map component, looks at the selection each frame; for each selected colonist wearing
+  a hand-held with a contact, it draws a line from where the net last saw them to the antenna that contact uses, in the contact's
+  colour (clean, workable, marginal, no contact). Thick where the line is below wall height, so walls count; thin where it is above
+  them. Marks: a filled orange square on a wall or door that cost signal, a hollow ring on one it passed over, a red diamond on rock.
+  Operator adds "*clean, 43 dB to spare*" at the middle; Engineer adds what each run of the same thing cost and each roof. Plain
+  draws no numbers.
+- **RV4, the side view [O].** `PathProfile`, drawn at the top of the link-budget window in every mode: the station's antenna on the
+  left, the colonist on the right, at their heights; wall height dashed; walls the line met (filled below it, outlined when cleared),
+  rock full height, a roof over either end; the line coloured by the contact. Engineer labels each run's cost, skipping any that
+  would overlap.
+- **One walk, three uses.** `ObstructionService.Walk` gained an optional list of what it met (`CrossingMark`); `LinkPath` runs it
+  once per contact for the line and the side view, with the same settings as the contact. A contact and the coverage pass no list
+  and pay nothing for it (a cleared wall's loss is looked up only when a list is kept).
+- **Choices that are the agent's [A]:** the line starts where the net last saw the colonist, so it can trail a walking colonist by up
+  to a second rather than disagree with its marks; at most 6 colonists and 120 marks drawn; no setting to hide the line, as it costs
+  little and shows only on selection.
 
 ## For another game
 

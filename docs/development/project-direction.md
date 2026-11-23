@@ -131,6 +131,7 @@ load folder or patch.
 | 18 Nov 2026 | An aircraft that **cannot hover where its journey ends** comes in for **a rolling landing** under the refuse setting, wearing its undercarriage, rather than crashing or straining its engines ([the landing check](vehicle-altitude-and-turbines.md#the-landing-check-at-a-journeys-end-framework-01400)) | owner (agent's recommendation) |
 | 23 Nov 2026 | **The radio framework is reopened** (owner: "Reopen the radio"), for its map pictures first ([radio visuals](radio-visuals.md)); **performance is the mod's first concern** (owner: "performance is our outmost concern for this mod"; the rule is in `src/PhobosRadio/AGENTS.md`) | owner (the rule's four working points are the agent's) |
 | 23 Nov 2026 | The radio's coverage picture **shows while a base station or an antenna is selected** (no button, no Harmony patch); **noise fades smoothly to nothing at the edge of its reach**, with ground-wave physics left to try later against a benchmark of the rest ([radio visuals](radio-visuals.md#reopened-23-nov-2026)). Built in Radio Framework 0.2.0 | owner (agent's recommendations) |
+| 24 Nov 2026 | **The radio's ray line and side view go ahead** (owner: "you can go ahead with RV2 and RV4 now"): a line from a selected colonist's radio to its antenna with a mark on each crossing, and the path from the side in the link-budget window ([radio visuals](radio-visuals.md#as-built-radio-030-24-nov-2026)). Built in Radio Framework 0.3.0 | owner (the drawing is the agent's) |
 
 ## Open checks
 

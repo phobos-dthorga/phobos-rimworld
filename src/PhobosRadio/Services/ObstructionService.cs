@@ -1,8 +1,27 @@
+using System.Collections.Generic;
 using Phobos.Radio.Physics;
 using RimWorld;
 using Verse;
 
 namespace Phobos.Radio.Services;
+
+/// <summary>What kind of thing a line met: rock (always counts), a built thing below wall height (counts), or one it passed over.</summary>
+public enum CrossingKind
+{
+    Rock,
+    Built,
+    Cleared,
+}
+
+/// <summary>
+/// One thing a line met: where along the line (step <see cref="Step"/> of <see cref="Steps"/>, from the hand-held), which cell, what
+/// kind, and its loss in dB before the band's factor (a cleared one would have cost this, had the line been lower).
+/// </summary>
+public readonly record struct CrossingMark(int Step, int Steps, IntVec3 Cell, CrossingKind Kind, float LossDb, bool IsDoor)
+{
+    /// <summary>How far along the line it is, from 0 at the hand-held to 1 at the antenna.</summary>
+    public float Fraction => Steps <= 0 ? 0f : (float)Step / Steps;
+}
 
 /// <summary>What one line between two antennas crossed: built things and natural rock, in dB before the band's factor.</summary>
 public readonly record struct Crossings(float BuiltDb, float NaturalDb)
@@ -27,8 +46,10 @@ public static class ObstructionService
     /// redraw each time a door swings). With <paramref name="stopAboveDb"/>, the walk stops once the loss on its most forgiving band
     /// (<paramref name="leastBandFactor"/>) passes it: the caller only needs to know the link is lost.
     /// </summary>
+    /// <param name="marks">When given, each thing the line met is added to it, in order from <paramref name="a"/>: the ray line and
+    /// the side view draw these (Radio 0.3.0). Contacts and the coverage pass null and pay nothing for it.</param>
     public static Crossings Walk(Map map, IntVec3 a, float heightA, IntVec3 b, float heightB, RadioRulesDef rules,
-        bool doorsClosed = false, float stopAboveDb = float.PositiveInfinity, float leastBandFactor = 1f)
+        bool doorsClosed = false, float stopAboveDb = float.PositiveInfinity, float leastBandFactor = 1f, List<CrossingMark>? marks = null)
     {
         float built = 0f, natural = 0f;
         AddRoof(map, a, rules, ref built, ref natural);
@@ -42,16 +63,26 @@ public static class ObstructionService
             if (!cell.InBounds(map)) continue;
             var edifice = cell.GetEdifice(map);
             if (edifice == null) continue;
+            var isDoor = edifice is Building_Door;
             if (!doorsClosed && edifice is Building_Door door && door.Open) continue;
             if (IsRock(edifice))
             {
-                natural += edifice.def.GetModExtension<RadioObstructionExtension>()?.lossDb ?? rules.rockLossDb;
+                var loss = edifice.def.GetModExtension<RadioObstructionExtension>()?.lossDb ?? rules.rockLossDb;
+                natural += loss;
+                marks?.Add(new CrossingMark(i, last, cell, CrossingKind.Rock, loss, false));
             }
             else
             {
                 var fraction = (float)i / last;
-                if (!Propagation.RayBlockedByWall(fraction, heightA, heightB, rules.wallHeightMetres)) continue;
-                built += CrossingLossDb(edifice, rules);
+                if (!Propagation.RayBlockedByWall(fraction, heightA, heightB, rules.wallHeightMetres))
+                {
+                    // Only the drawing needs what a cleared wall would have cost; a contact skips the lookup.
+                    marks?.Add(new CrossingMark(i, last, cell, CrossingKind.Cleared, CrossingLossDb(edifice, rules), isDoor));
+                    continue;
+                }
+                var loss = CrossingLossDb(edifice, rules);
+                built += loss;
+                marks?.Add(new CrossingMark(i, last, cell, CrossingKind.Built, loss, isDoor));
             }
             if (built * leastBandFactor + natural > stopAboveDb) break;
         }
@@ -72,6 +103,13 @@ public static class ObstructionService
         if (roof == null) return 0f;
         if (roof.isThickRoof) return rules.roofThickLossDb;
         return roof.isNatural ? rules.roofThinNaturalLossDb : rules.roofConstructedLossDb;
+    }
+
+    /// <summary>A natural roof (rock), which no band gets through more easily, as against a built one.</summary>
+    public static bool RoofIsNatural(Map map, IntVec3 cell)
+    {
+        var roof = cell.InBounds(map) ? cell.GetRoof(map) : null;
+        return roof != null && (roof.isNatural || roof.isThickRoof);
     }
 
     public static bool IsRock(Building edifice)

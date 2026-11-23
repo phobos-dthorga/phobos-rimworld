@@ -29,7 +29,7 @@ public class Dialog_LinkBudget : Window
         preventCameraMotion = false;
     }
 
-    public override Vector2 InitialSize => new(520f, 560f);
+    public override Vector2 InitialSize => new(560f, 560f + PathProfile.Height + 10f);
 
     public override void DoWindowContents(Rect inRect)
     {
@@ -37,8 +37,17 @@ public class Dialog_LinkBudget : Window
         Widgets.Label(new Rect(0f, 0f, inRect.width - 40f, 36f), title);
         Text.Font = GameFont.Small;
 
-        var body = new Rect(0f, 40f, inRect.width, inRect.height - 40f - 40f);
-        var text = LinkText.Describe(link(), depth);
+        var current = link();
+        var top = 40f;
+        // The side view of the path (Radio 0.3.0); its station's map is the map the path crosses.
+        if (current != null && current.B.Thing.MapHeld is { } map)
+        {
+            PathProfile.Draw(new Rect(0f, top, inRect.width, PathProfile.Height), LinkPath.For(map, current), current, depth);
+            top += PathProfile.Height + 10f;
+        }
+
+        var body = new Rect(0f, top, inRect.width, inRect.height - top - 40f);
+        var text = LinkText.Describe(current, depth);
         var height = Text.CalcHeight(text, body.width - 20f) + 10f;
         Widgets.BeginScrollView(body, ref scroll, new Rect(0f, 0f, body.width - 20f, height));
         Widgets.Label(new Rect(0f, 0f, body.width - 20f, height), text);
