@@ -3,6 +3,7 @@ using Phobos.Framework;
 using Phobos.Medical;
 using Phobos.Radiation.Rules;
 using Phobos.Radiation.Services;
+using RimWorld;
 using Verse;
 
 namespace Phobos.Radiation;
@@ -36,6 +37,10 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
     public float illnessHeight;
     /// <summary>Where the last dose came from, told in the tooltip.</summary>
     public string? lastSource;
+    /// <summary>The game day the last course ended, or <see cref="NoCourseEnded"/> (Medical 0.26.1): from then on only fresh doses start
+    /// another. With the grays already recorded on that day when it ended, so a dose later that day counts as fresh.</summary>
+    public int courseEndDay = NoCourseEnded;
+    public float courseEndDayGrays;
 
     // ---- Late effects (Medical 0.23.0, RM8) ----
 
@@ -67,10 +72,25 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
 
     public const int LateNone = -1;
     public const int LateGiven = -2;
+    public const int NoCourseEnded = -1;
 
     public float Effective => Severity;
 
     public bool InCourse => courseStart >= 0;
+
+    /// <summary>Whether a course has run and ended, so only fresh doses start another.</summary>
+    public bool HadCourse => courseEndDay != NoCourseEnded;
+
+    /// <summary>The grays recorded on one game day, 0 if none.</summary>
+    public float GraysOn(int day)
+    {
+        for (int i = doseDays.Count - 1; i >= 0; i--)
+        {
+            if (doseDays[i] == day) return doseGrays[i];
+            if (doseDays[i] < day) break;
+        }
+        return 0f;
+    }
 
     public void AddDose(int day, float grays)
     {
@@ -93,16 +113,27 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
         illnessHeight = 0f;
         peak = Effective;
         marrowStart = -1;
+        courseEndDay = NoCourseEnded;
+        courseEndDayGrays = 0f;
     }
 
-    public void EndCourse()
+    /// <summary>Ends the course on <paramref name="day"/>: from then on only fresh doses start another.</summary>
+    public void EndCourse(int day)
     {
+        MarkCourseEnded(day);
         courseStart = -1;
         firstVomit = -1;
         bloodCount = -1;
         illnessHeight = 0f;
         peak = 0f;
         marrowStart = -1;
+    }
+
+    /// <summary>Records that a course ended on <paramref name="day"/>, and what that day's dose was by then.</summary>
+    void MarkCourseEnded(int day)
+    {
+        courseEndDay = day;
+        courseEndDayGrays = GraysOn(day);
     }
 
     public override void ExposeData()
@@ -133,6 +164,8 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
         Scribe_Values.Look(ref thyroid, "PhobosRadiation_Thyroid");
         Scribe_Values.Look(ref thyroidCancerDay, "PhobosRadiation_ThyroidCancerDay", LateNone);
         Scribe_Values.Look(ref marrowStart, "PhobosRadiation_MarrowStart", -1);
+        Scribe_Values.Look(ref courseEndDay, "PhobosRadiation_CourseEndDay", NoCourseEnded);
+        Scribe_Values.Look(ref courseEndDayGrays, "PhobosRadiation_CourseEndDayGrays");
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             prenatal ??= new List<float>();
@@ -143,6 +176,12 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
             {
                 doseDays.Clear();
                 doseGrays.Clear();
+            }
+            // Saves from before Medical 0.26.1 kept no course end. Someone out of a course whose highest dose reached the threshold has had
+            // one, so it ends at this load: their old dose alone no longer starts another. Idempotent: once recorded, it is kept.
+            if (!HadCourse && !InCourse && highest >= RadiationRule.CourseFrom && Current.Game?.tickManager is { } ticks)
+            {
+                MarkCourseEnded(ticks.TicksGame / GenDate.TicksPerDay);
             }
         }
     }

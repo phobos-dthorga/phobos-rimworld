@@ -88,6 +88,33 @@ public static class RadiationRule
     /// <summary>A course of sickness starts at this effective dose.</summary>
     public const double CourseFrom = 0.7;
 
+    /// <summary>
+    /// What the doses taken since the last course ended still count for, each with its repair (Medical 0.26.1; the owner's card of 24 Nov
+    /// 2026, "Only from new exposure"). Doses are kept by game day, so the day the course ended is split: of that day's dose, only what
+    /// was added after the end (its total less <paramref name="endDayGraysBefore"/>, the grays already recorded that day when it ended)
+    /// is fresh. A day before it counts for nothing here, a day after it in full. Doses folded beyond repair (after
+    /// <see cref="FullyRepairedAfterDays"/>) are no longer counted as fresh: by then a tenth of them is left.
+    /// </summary>
+    public static double Fresh(IEnumerable<(double daysAgo, double grays)> doses, double daysSinceCourseEnded, double endDayGraysBefore)
+    {
+        double total = 0;
+        foreach ((double daysAgo, double grays) in doses)
+        {
+            if (daysAgo < daysSinceCourseEnded - 0.5) total += Remaining(grays, daysAgo);
+            else if (daysAgo < daysSinceCourseEnded + 0.5) total += Remaining(grays - endDayGraysBefore, daysAgo);
+        }
+        return total;
+    }
+
+    /// <summary>
+    /// Whether a course starts now (Medical 0.26.1). A first course starts when the effective dose reaches <see cref="CourseFrom"/>. After
+    /// a course has ended, repair is too slow to bring the effective dose under it soon (3 Gy is still about 1.2 Gy seven weeks on; from 7
+    /// Gy the tenth never repaired keeps it over for life), so the next course starts only when the fresh doses since, by themselves,
+    /// reach it. The old damage still makes the new course worse: its height follows the whole effective dose.
+    /// </summary>
+    public static bool StartsCourse(double effective, double fresh, bool hadCourse) =>
+        hadCourse ? fresh >= CourseFrom && effective >= CourseFrom : effective >= CourseFrom;
+
     /// <summary>Hours from the dose to the first vomiting (Blakely, Table 6-2): over 10 at 1 Gy, 4.6 at 2, 1.7 at 4, 1.0 at 6, 0.5 at 10.</summary>
     public static double HoursToVomit(double grays)
     {

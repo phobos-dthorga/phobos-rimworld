@@ -57,7 +57,8 @@ public static class RadiationService
         LateEffects.ForgetEndedPregnancy(pawn, dose);
     }
 
-    /// <summary>The effective dose after repair, old doses folded into the part beyond repair, and the course started at the threshold.</summary>
+    /// <summary>The effective dose after repair, old doses folded into the part beyond repair, and the course started at the threshold: a
+    /// first course from the effective dose, a later one only from fresh doses since the last ended (<see cref="RadiationRule.StartsCourse"/>).</summary>
     static void Refresh(Pawn pawn, Hediff_PhobosRadiationDose dose)
     {
         int today = Today;
@@ -82,8 +83,22 @@ public static class RadiationService
         }
         else if (effective >= RadiationRule.CourseFrom)
         {
-            dose.StartCourse(Find.TickManager.TicksGame, Sensitivity(pawn, 1) < RadiationRule.VomitShare(effective));
-            if (Seen.Wants("radiation.course", pawn, "started")) Seen.Note("radiation.course", pawn, effective.ToString("0.0") + " Gy", "started");
+            // After a course has ended, only fresh doses start another (Medical 0.26.1); its height still follows the whole dose.
+            bool hadCourse = dose.HadCourse;
+            double fresh = hadCourse ? RadiationRule.Fresh(doses, today - dose.courseEndDay, dose.courseEndDayGrays) : 0;
+            if (RadiationRule.StartsCourse(effective, fresh, hadCourse))
+            {
+                dose.StartCourse(Find.TickManager.TicksGame, Sensitivity(pawn, 1) < RadiationRule.VomitShare(effective));
+                if (Seen.Wants("radiation.course", pawn, "started")) Seen.Note("radiation.course", pawn, effective.ToString("0.0") + " Gy", "started");
+                if (hadCourse && Seen.Wants("radiation.course", pawn, "again"))
+                {
+                    Seen.Note("radiation.course", pawn, "fresh " + fresh.ToString("0.00") + " Gy, peak " + effective.ToString("0.00") + " Gy", "again");
+                }
+            }
+            else if (Seen.Wants("radiation.course", pawn, "held"))
+            {
+                Seen.Note("radiation.course", pawn, "effective " + effective.ToString("0.00") + " Gy, fresh " + fresh.ToString("0.00") + " Gy", "held");
+            }
         }
         LateEffects.Judge(pawn, dose);
     }
@@ -107,7 +122,7 @@ public static class RadiationService
 
         if (phase != RadiationPhase.Illness)
         {
-            if (phase == RadiationPhase.None) dose.EndCourse();
+            if (phase == RadiationPhase.None) dose.EndCourse(Today);
             return;
         }
         double earlyEnds = (vomited ? daysToVomit : 0) + RadiationRule.EarlyDays(dose.peak);
@@ -119,7 +134,7 @@ public static class RadiationService
         if (!rising && severity <= 0.001f)
         {
             SetPresent(pawn, RadiationDefOf.PhobosRadiation_Illness, false, 0f);
-            dose.EndCourse();
+            dose.EndCourse(Today);
             if (Seen.Wants("radiation.course", pawn, "recovered")) Seen.Note("radiation.course", pawn, "recovered", "recovered");
             return;
         }

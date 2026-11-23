@@ -126,7 +126,12 @@ public static class RadiationDebugActions
             .Append(" Gy (category ").Append(RadiationRule.ExposureCategory(dose.lifetime)).Append("), beyond repair ").Append(dose.beyondRepair.ToString("0.00"))
             .Append(" Gy, last from ").Append(dose.lastSource ?? "unknown");
         line.Append("; ").Append(Late(dose));
-        if (!dose.InCourse) return line.Append("; no course.").ToString();
+        if (!dose.InCourse)
+        {
+            return line.Append(dose.HadCourse
+                ? "; no course: the last ended on day " + dose.courseEndDay + ", so only " + RadiationRule.CourseFrom.ToString("0.0") + " Gy of fresh doses starts another."
+                : "; no course.").ToString();
+        }
         double days = (Find.TickManager.TicksGame - dose.courseStart) / (double)GenDate.TicksPerDay;
         double care = RadiationService.Care(pawn, PhobosRadiationRulesDef.Current);
         double lethal = RadiationRule.LethalDose(RadiationPart.Preset, care, RadiationService.Sensitivity(pawn, 2));

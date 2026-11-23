@@ -66,7 +66,9 @@ log](health-layer.md); the radiation control line's own rows are in the [gases a
 | 22 Nov | Medicines given by a work giver of their own | agent choice | The dosing job quits too soon | [rm], As built (22 Nov 2026) |
 | 22 Nov | Strike dose cut by cover: 0.9, 0.15, 0.05, 0.003 | agent choice | Table 8.72's gamma figures | [nk], As built (22 Nov 2026) |
 | 22 Nov | Strike letter lists each person's dose in words and grays | agent choice | Triage starts with a list | [nk], As built (22 Nov 2026) |
+| 24 Nov | After a course, only fresh doses reaching 0.7 Gy start another | owner's card | Slow repair restarted it forever | [Medical 0.26.1 changelog][m261] |
 
 [rm]: ../archive/radiation-model.md
 [nk]: ../nuclear-strike-effects.md
 [sd]: ../soft-dependency-crosslinks.md
+[m261]: ../../../mods/PhobosMedical/CHANGELOG.md

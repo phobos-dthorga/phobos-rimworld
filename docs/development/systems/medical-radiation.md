@@ -1,12 +1,14 @@
 # Radiation
 
-**Status (23 Nov 2026):** living; written from the code at D'thorga Medical 0.25.0 and D'thorga Patches 0.40.0. Built: the dose in
+**Status (24 Nov 2026):** living; written from the code at D'thorga Medical 0.25.0 and D'thorga Patches 0.40.0, the course's restart
+rule at Medical 0.26.1. Built: the dose in
 grays and its repair, the course of radiation sickness, care that moves who lives, the harshness presets, a doctor's estimate or
 the exact dose, Dubs Rimatomics' doses taken and its old conditions converted, the strike's dose, worn shielding, fallout dust and
 the thyroid, the three medicines, late effects, harm in pregnancy, the radiation control point and area, and the dev actions.
 **Passed in game by the owner:** row 31a (the radiation control line itself, on the Framework's line machinery). **Not yet tested
 in game:** everything else, including rows 32 (the line's alert), 96 (iodide at the line), 361 to 363 (the course, the strike's
-dose, conversion) and 369 to 374 (late effects, pregnancy, dev actions, shielding, dust, medicines).
+dose, conversion), 369 to 374 (late effects, pregnancy, dev actions, shielding, dust, medicines) and 458 (no second course without a
+new dose).
 
 This page says how D'thorga Medical's radiation model works now. The Framework's side, the door a dose comes in by
 (`RadiationDoses`), is on [the health layer and care](health-layer.md); the protective-gear line's machinery is on [gases and
@@ -64,8 +66,11 @@ up to 1.5 Gy, 3 above (`RadiationRule.ExposureCategory`).
 
 ### The course of radiation sickness
 
-A **course** starts when the effective dose reaches **0.7 Gy** (`RadiationRule.CourseFrom`), and from then on follows the highest
-effective dose reached in it. Its phases (`RadiationRule.Phase`):
+A **first course** starts when the effective dose reaches **0.7 Gy** (`RadiationRule.CourseFrom`), and from then on follows the highest
+effective dose reached in it. **After a course has ended, the next starts only when the doses taken since, each repaired, reach 0.7 Gy
+by themselves** (`RadiationRule.Fresh`, `StartsCourse`; the owner's card of 24 Nov 2026, Medical 0.26.1): repair is too slow to bring
+the dose under the threshold soon, so the old damage alone never restarts the sickness, but it still counts in the new course's
+height. Its phases (`RadiationRule.Phase`):
 
 | Phase | When | What the person has |
 | --- | --- | --- |
@@ -89,7 +94,9 @@ effective dose reached in it. Its phases (`RadiationRule.Phase`):
 - **The illness's height** is the dose over the person's own lethal dose: 1 kills; below it the illness recedes by 5 % of severity
   a day (`recoveryPerDay`, authored), never rising again once past its height. The stages are authored: severe (0.55) and critical
   (0.8) are life-threatening and cut immunity, moving, manipulation, blood pumping and, when critical, breathing.
-- **A recovered course ends**: the illness is removed, and the dose condition stays, still repairing.
+- **A recovered course ends**: the illness is removed, and the dose condition stays, still repairing. The day it ended is saved, with
+  the grays already recorded that day, so a dose later that same day counts as fresh. Doses folded beyond repair after 150 days no
+  longer count as fresh.
 
 ### Who lives: the lethal dose, care and the presets
 
@@ -311,7 +318,7 @@ flowchart TB
   REC --> PREG["LateEffects.OnDose<br/>(pregnancy windows, loss)"]
   GIVER["HediffGiver_PhobosRadiation<br/>(every 60 ticks; works every 300)"] --> STEP["RadiationService.Step"]
   STEP --> CONV["RimatomicsConversion<br/>(once)"]
-  STEP --> REF["Refresh: repair → effective dose<br/>course starts at 0.7 Gy; late effects judged"]
+  STEP --> REF["Refresh: repair → effective dose<br/>course from 0.7 Gy (fresh after a course); late effects judged"]
   STEP --> COURSE["RunCourse: early, well, illness<br/>care → lethal dose"]
   STEP --> CONT["Contamination.Step<br/>dust dose, inside, washing"]
   STEP --> LATE["LateEffects.GiveDue"]
@@ -425,8 +432,9 @@ effect at the next step.
 - **The dose condition** saves under `PhobosRadiation_` keys: `DoseDays` and `DoseGrays` (two lists; of different lengths after a
   load, both are cleared), `BeyondRepair`, `Lifetime`, `Peak`, `CourseStart`, `FirstVomit`, `WillVomit`, `BloodCount`,
   `IllnessHeight`, `LastSource`, `Highest`, the late-effect days, `SterileTemporaryFor`, `SterilePermanent`, `PregnancyId`,
-  `Prenatal`, `SkinDust`, `SkinDustTick`, `Inside`, `Thyroid`, `ThyroidCancerDay`, `MarrowStart`. The delayed illness is the
-  point, so all of it is saved.
+  `Prenatal`, `SkinDust`, `SkinDustTick`, `Inside`, `Thyroid`, `ThyroidCancerDay`, `MarrowStart`, `CourseEndDay`,
+  `CourseEndDayGrays`. The delayed illness is the point, so all of it is saved. **A save from before Medical 0.26.1** has no course
+  end: someone loaded out of a course whose highest dose reached 0.7 Gy gets the load's day as their course end, once.
 - **Garment dust** is saved on each garment's contamination comp, with caustic residue ([injuries and
   care](medical-injuries-and-care.md)).
 - **Not saved**: the fixed draws (recomputed from the thing ID), care, the estimate, the Rimatomics hooks.
@@ -470,10 +478,8 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
 - **The fetus takes the mother's whole dose**, and growth restriction is left out.
 - **The strike's letter gives grays even when Rimatomics took the dose** in Rimatomics' units, and always before worn shielding.
 - **No words-or-figures display mode**: the tooltip always gives grays.
-- **Inferred from the code, not tested in game**: a course ends when the illness has receded, but the effective dose may still be
-  above 0.7 Gy then (after 3 Gy, about 1.2 Gy some seven weeks on), and the next step starts a **second course** at that dose. The
-  rules Def's `courseEndsBelow` (0.2), meant to end a course below a threshold, is read nowhere; nor is `smallestShown`, whose job
-  the dose condition's 0.05 stage does.
+- The rules Def's `courseEndsBelow` (0.2), meant to end a course below a threshold, is read nowhere; nor is `smallestShown`, whose
+  job the dose condition's 0.05 stage does. (A course no longer restarts from old damage alone: Medical 0.26.1, above.)
 - **Inferred from the code, not tested in game**: the illness itself lowers immunity gain speed (by 0.1 to 0.7), so the care term
   for a medicine that speeds immunity needs a boost larger than the illness's cut before it counts, and is lost as the illness
   worsens.
@@ -484,12 +490,12 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
 
 None of these is a test in game.
 
-- **Rule tests** (`tests/PhobosMedical.Rules.Tests/Radiation/`): `RadiationRuleTests` (24), `RadiationLateRuleTests` (22),
+- **Rule tests** (`tests/PhobosMedical.Rules.Tests/Radiation/`): `RadiationRuleTests` (30), `RadiationLateRuleTests` (22),
   `ShieldingRuleTests` (8), `ContaminationRuleTests` (8).
 - **Dev actions**: the five above; with the seen-in-play setting on, the model notes doses taken, courses, care and the lethal
   dose, late effects, dust, washing, shielding, medicines and conversion.
 - **In game** ([the test list](../in-game-test-pass.md)): **passed** 31a (the line itself); **waiting** 32, 96, 361, 362, 363,
-  369, 370, 371, 372, 373, 374.
+  369, 370, 371, 372, 373, 374, 458.
 
 ## Why it is this way
 

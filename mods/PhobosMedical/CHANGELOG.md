@@ -16,6 +16,23 @@ entry says the owner tested it.
   changes.
 - **The README's links point to the archived records' new places** (docs rewrite, 23 Nov 2026). Nothing in play changes.
 
+## [0.26.1] - 2026-11-24 - Draft
+
+Radiation sickness no longer comes back with no new dose
+
+### Fixed
+
+- **A second course of radiation sickness no longer starts with no new dose.** The body repairs a dose slowly, so when a
+  course ended the remaining dose was often still over the threshold (after 3 Gy, about 1.2 Gy seven weeks on; from 7 Gy, for
+  life), and the sickness started again, over and over. Now, once a course has ended, another starts only when the doses taken
+  since, by themselves, reach 0.7 Gy; the old damage still makes that new course worse (the owner's choice of 24 Nov 2026). Not
+  yet tested in game: row 458 of the test pass.
+
+### Save compatibility
+
+- Safe with an existing save. Someone loaded out of a course whose dose once reached the threshold counts as having had a course
+  that ended at that load, so an old dose alone does not make them sick again.
+
 ## [0.26.0] - 2026-11-23 - Draft
 
 Slaves wait for a doctor unless you let them fetch their own painkillers

@@ -3,6 +3,10 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "458": {"parts": {
+      "old damage alone starts no new course": [{"key": "radiation.course", "variant": "held"}],
+      "a fresh dose starts a new course": [{"key": "radiation.course", "variant": "again"}]
+    }},
     "455": ["medical.slave-self-dose"],
     "454": ["vehicles.paste-bake"],
     "453": {"parts": {

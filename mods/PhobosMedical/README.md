@@ -7,7 +7,7 @@ required.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide's
 [medical chapter](../../docs/player-guide/medical.md)**; this README holds the gotchas, the settings and the links for modders.
 
-Version 0.26.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
+Version 0.26.1, built 24 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
 D'thorga Medical (11 November 2026), and burns, dosing, the oxygen concentrator, the burn unit bed and the save bridge on the five
 mods it replaced (3 to 6 November 2026). Everything else is not yet tested in game, nor is the merged mod as a whole.
 

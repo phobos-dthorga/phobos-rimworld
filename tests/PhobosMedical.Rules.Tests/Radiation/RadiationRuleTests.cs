@@ -56,6 +56,74 @@ public class RadiationRuleTests
     [InlineData(25, RadiationSyndrome.Neurovascular)]
     public void TheSyndromeFollowsTheDose(double grays, RadiationSyndrome expected) => Assert.Equal(expected, RadiationRule.Syndrome(grays));
 
+    // ---- A later course only from fresh doses (Medical 0.26.1) ----
+
+    [Fact]
+    public void AFirstCourseStartsFromTheEffectiveDose()
+    {
+        Assert.True(RadiationRule.StartsCourse(0.7, 0, hadCourse: false));
+        Assert.False(RadiationRule.StartsCourse(0.69, 0, hadCourse: false));
+    }
+
+    [Fact]
+    public void OldDamageAloneStartsNoSecondCourse()
+    {
+        // 3 Gy on day 0; the course ends on day 47 with the effective dose still about 1.2 Gy, and no dose since.
+        var doses = new[] { (47.0, 3.0) };
+        double effective = RadiationRule.Effective(doses, 0);
+        Assert.InRange(effective, 1.0, 1.4);
+        double fresh = RadiationRule.Fresh(doses, 0, 0);
+        Assert.Equal(0, fresh, 6);
+        Assert.False(RadiationRule.StartsCourse(effective, fresh, hadCourse: true));
+    }
+
+    [Fact]
+    public void AFreshDoseStartsACourseAsBadAsTheWholeDose()
+    {
+        // As above, then 0.8 Gy two days after the course ended: fresh alone crosses the threshold, and the course's height follows
+        // the whole effective dose, old damage included.
+        var doses = new[] { (49.0, 3.0), (0.0, 0.8) };
+        double effective = RadiationRule.Effective(doses, 0);
+        double fresh = RadiationRule.Fresh(doses, 2, 0);
+        Assert.Equal(0.8, fresh, 6);
+        Assert.True(RadiationRule.StartsCourse(effective, fresh, hadCourse: true));
+        Assert.InRange(effective, 1.8, 2.2);
+    }
+
+    [Fact]
+    public void ALargeDosesSurvivorNeverRestartsWithoutANewDose()
+    {
+        // 8 Gy: the tenth never repaired keeps the effective dose over 0.7 for life, folded beyond repair after 150 days.
+        foreach (double daysAgo in new[] { 60.0, 120.0, 150.0 })
+        {
+            var doses = new[] { (daysAgo, 8.0) };
+            double effective = RadiationRule.Effective(doses, 0);
+            Assert.True(effective >= RadiationRule.CourseFrom);
+            Assert.False(RadiationRule.StartsCourse(effective, RadiationRule.Fresh(doses, daysAgo - 40, 0), hadCourse: true));
+        }
+        double folded = RadiationRule.Effective(System.Array.Empty<(double, double)>(), 0.8);
+        Assert.False(RadiationRule.StartsCourse(folded, 0, hadCourse: true));
+    }
+
+    [Fact]
+    public void OnTheDayACourseEndsOnlyTheDoseAfterTheEndIsFresh()
+    {
+        // 0.5 Gy was already recorded on the end day when the course ended; that day now holds 1.3 Gy, so 0.8 Gy is fresh.
+        var doses = new[] { (0.0, 1.3) };
+        Assert.Equal(0.8, RadiationRule.Fresh(doses, 0, 0.5), 6);
+        Assert.Equal(0, RadiationRule.Fresh(doses, 0, 1.3), 6);
+    }
+
+    [Fact]
+    public void FreshDosesAreRepairedToo()
+    {
+        // Small fresh doses spread over two months add up to less than their sum.
+        var doses = new[] { (60.0, 0.3), (40.0, 0.3), (20.0, 0.3) };
+        double fresh = RadiationRule.Fresh(doses, 70, 0);
+        Assert.True(fresh < 0.7);
+        Assert.False(RadiationRule.StartsCourse(5, fresh, hadCourse: true));
+    }
+
     [Fact]
     public void BelowTheThresholdThereIsNoCourse() => Assert.Equal(RadiationPhase.None, RadiationRule.Phase(0.3, 1, false, 0));
 
