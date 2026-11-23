@@ -141,3 +141,10 @@ Archived on 23 Nov 2026; how it works now: [medical equipment](../systems/medica
 - [Medical equipment](medical-equipment.md) (5 Nov 2026): bedside oxygen, the burn unit bed, the oxygen chain; with [gases and
   air](../systems/gases-and-air.md) and [the health layer](../systems/health-layer.md).
 - [Medical equipment, second set](medical-equipment-2.md) (7 Nov 2026): the ventilator, steriliser and six more.
+
+## Radiation
+
+Archived on 23 Nov 2026; how it works now: [radiation](../systems/medical-radiation.md).
+
+- [A radiation model of our own](radiation-model.md) (22 Nov 2026): dose, radiation sickness, care and late effects, RM1 to RM17;
+  with [the health layer](../systems/health-layer.md).

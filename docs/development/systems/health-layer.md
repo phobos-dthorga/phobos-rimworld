@@ -8,8 +8,9 @@ way to the carry). The care-choice comp's corpse fault was reported gone by the 
 **Not yet tested in game:** everything else, including row 117 (Search and Rescue's medics with our kits).
 
 This page says how the Framework's shared health layer works now: the pieces every medical feature of ours asks the same
-questions through. What D'thorga Medical builds on it (triage's queue, emergency dosing, medical machines, burns, radiation
-sickness) is Medical's own system. Why the layer is this way is in the [decision log](../decisions/health-layer.md) and the
+questions through. What D'thorga Medical builds on it is on its own pages: [injuries and care](medical-injuries-and-care.md)
+(burns, triage's queue, emergency dosing), [medical equipment](medical-equipment.md) and [radiation](medical-radiation.md). Why
+the layer is this way is in the [decision log](../decisions/health-layer.md) and the
 [records](#why-it-is-this-way). How to use it from another mod is in [D'thorga Framework for modders, The health layer and care
 choices](../../framework-modding.md#the-health-layer-and-care-choices).
 
@@ -285,8 +286,9 @@ None of these is a test in game.
   decisions](../archive/phobos-framework.md), the record of the gas layer, supplied oxygen and the health layer; with [gases and
   air](gases-and-air.md). With [injuries and care](medical-injuries-and-care.md): [triage](../archive/triage.md), [emergency
   dosing](../archive/emergency-dosing.md) and [caustic gas](../archive/caustic-gas.md). With [medical
-  equipment](medical-equipment.md): [its first record](../archive/medical-equipment.md).
+  equipment](medical-equipment.md): [its first record](../archive/medical-equipment.md). With [radiation](medical-radiation.md):
+  [a radiation model of our own](../archive/radiation-model.md).
 - **Modders' guide**: [D'thorga Framework for modders, The health layer and care
   choices](../../framework-modding.md#the-health-layer-and-care-choices).
-- **Records kept in place** (they cover the health layer and D'thorga Medical): [a radiation model of our
-  own](../radiation-model.md), [soft-dependency cross-links](../soft-dependency-crosslinks.md).
+- **Records kept in place** (they cover the health layer and D'thorga Medical): [soft-dependency
+  cross-links](../soft-dependency-crosslinks.md).

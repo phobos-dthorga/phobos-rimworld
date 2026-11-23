@@ -14,7 +14,7 @@ the burn unit bed with its treatment (6 Nov 2026, on 0.2.0). **Not yet tested in
 This page says how D'thorga Medical's machines, beds, kits and showers work now: what each one does to a patient, and how doctors
 and patients come to use it. What the conditions they treat do on their own (burns, burn shock, smoke, carbon monoxide poisoning,
 acid on the skin, caustic gas) is on [injuries and care](medical-injuries-and-care.md); radiation and its medicines are on
-radiation. The Framework pieces it stands on, the treatment that lapses, field care and the surgery-bar
+[radiation](medical-radiation.md). The Framework pieces it stands on, the treatment that lapses, field care and the surgery-bar
 registry, are on [the health layer](health-layer.md); the room gases and supplied oxygen as a mark on a condition are on [gases
 and air](gases-and-air.md). Why the equipment is this way is in the [decision log](../decisions/medical-equipment.md) and the
 [records](#why-it-is-this-way). The player's guide is [Medical, Equipment](../../player-guide/medical.md#equipment).
@@ -195,7 +195,7 @@ inferred from smoke and enclosure), unfiltered by masks.
 
 The **safety shower and eyewash** (no research) is where acid comes off the skin. What acid on the skin does, and the caustic-gas
 residue and fallout dust that also send someone here, are on [injuries and care](medical-injuries-and-care.md) and
-radiation.
+[radiation](medical-radiation.md).
 
 - **Anyone who can walk rinses themselves.** A job giver in the game's constant think tree for people, after moving away from
   heat, sends a pawn with acid on the skin to the nearest usable shower within 60 cells (it interrupts work; the game's gate skips
@@ -421,7 +421,7 @@ other mod is active.
   the burns part's ([injuries and care](medical-injuries-and-care.md)). Its facilities link to our burn bed and chamber as to a
   hospital bed. Any mod's bed that takes a vitals monitor takes our bedside machines.
 - **The radiation part** registers its fallout dust as another reason to rinse, and its own finish
-  (radiation).
+  ([radiation](medical-radiation.md)).
 - **D'thorga Framework's vehicles** carry their own medical machines and litters ([camping and life
   aboard](camping-and-life-aboard.md)); our equipment is not fitted to vehicles.
 

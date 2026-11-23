@@ -7,6 +7,8 @@ is unbuilt. Not yet tested in game: rows 332, 333 and 375 of the test pass.
 
 How vehicle damage works now: [systems/vehicle-damage.md](systems/vehicle-damage.md); this record keeps its history.
 
+How radiation works now: [systems/medical-radiation.md](systems/medical-radiation.md); this record keeps its history.
+
 The owner, 22 Nov 2026: "vehicles, and I think it's all of the ones under our purview, aren't affected by the nuclear weapons
 available to me in my Rimworld game. But this might be hiding a bigger problem." And: "it might be good to introduce some other,
 realism-based health effects, like pawns receiving an instaneous radiation dose upon detonation and other effects." And: "Let's turn

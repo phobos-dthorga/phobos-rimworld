@@ -7,7 +7,7 @@ effects (RM8) in 0.23.0; worn armour's shielding (RM17), contamination (RM6) and
 shadow and letter (NK12, NK13, NK17, NK18) followed in D'thorga Patches 0.36.0. The owner's answers are
 [below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363 and 369 to 374.
 
-How the health layer works now: [systems/health-layer.md](systems/health-layer.md); this record keeps its history.
+How the health layer works now: [systems/health-layer.md](../systems/health-layer.md); this record keeps its history.
 
 ## As built (22 Nov 2026)
 
@@ -69,7 +69,7 @@ How the health layer works now: [systems/health-layer.md](systems/health-layer.m
 - **Not built yet:** the shadow and
   graded shelter of the strike (NK12, NK17, NK18), the strike's letter (NK13).
 
-The owner, 22 Nov 2026, on the [nuclear strike record](nuclear-strike-effects.md): shadow and a graded dose should "wait for our own
+The owner, 22 Nov 2026, on the [nuclear strike record](../nuclear-strike-effects.md): shadow and a graded dose should "wait for our own
 model and when it does exist, we'll provide settings for players to configure it and the difficulty how they wish". Then: "Let's
 continue with our own radiation model". It belongs to D'thorga Medical, beside burns, smoke and caustic gas. It is row NK14 of the
 strike record, and NK12, NK13, NK17 and NK18 wait on it.
@@ -416,7 +416,7 @@ Asked by the owner on 22 Nov 2026 ("is material worn taken into account? We coul
 D'thorga Medical 0.24.0**, with slice 3 (the owner's choice), as below; not yet tested in game (row 372).
 
 - **What stops gamma rays is mass per area, not strength.** To cut the strike's gamma rays to a tenth takes 3.3 inches of steel, 11 of
-  concrete or 16 of earth (Glasstone and Dolan, Table 8.41, as read for the [strike record](nuclear-strike-effects.md#the-dose-at-detonation)) **[P]**: about **650 kg of anything per square metre** at ordinary densities **[I]**. Gamma
+  concrete or 16 of earth (Glasstone and Dolan, Table 8.41, as read for the [strike record](../nuclear-strike-effects.md#the-dose-at-detonation)) **[P]**: about **650 kg of anything per square metre** at ordinary densities **[I]**. Gamma
   rays are stopped mostly by scattering off electrons, and nearly all materials hold about the same number per gram, hydrogen about
   twice as many **[I]** (textbook physics, no source read here). Fallout's gamma rays carry less energy, so the same mass stops a little
   more of them **[I]**; no figure for fallout was read.
@@ -447,7 +447,7 @@ agent's estimates **[I]**, ballpark only):
 | Cataphract armour | 80 kg | torso to legs | 50 | about 16% |
 
 **What it teaches, as the real thing does: armour barely helps; shelter does.** A basement passes a tenth or less (Glasstone and Dolan Table 8.72, in the
-[strike record](nuclear-strike-effects.md#the-dose-at-detonation)). A sixth off can still decide a life near the lethal dose: 6 Gy becomes 5, where half die without care under Moderate.
+[strike record](../nuclear-strike-effects.md#the-dose-at-detonation)). A sixth off can still decide a life near the lethal dose: 6 Gy becomes 5, where half die without care under Moderate.
 
 ## The four questions
 
@@ -586,7 +586,7 @@ Gathered by a research agent on 22 Nov 2026, which opened and read each, unless 
   [solid cancer](https://www.rerf.or.jp/en/programs/roadmap/health_effects/late/cancrisk/) pages, served in Japanese and read in translation.
 - **Glasstone and Dolan, *The Effects of Nuclear Weapons*** (1977), [chapter IX](https://www.fourmilab.ch/etexts/www/effects/eonw_9.pdf)
   and [chapter XII](https://www.fourmilab.ch/etexts/www/effects/eonw_12.pdf), hosted by Fourmilab; RM17's shielding figures come from
-  its chapter VIII, read for the [strike record](nuclear-strike-effects.md#sources).
+  its chapter VIII, read for the [strike record](../nuclear-strike-effects.md#sources).
 - **[US Department of Agriculture, Agriculture Handbook No. 234](https://www.govinfo.gov/content/pkg/GOVPUB-A-PURL-gpo21249/pdf/GOVPUB-A-PURL-gpo21249.pdf)**
   (1962), the equivalent residual dose. A word of its title is illegible in the scan.
 - **US Army FM 3-3-1, *Nuclear Contamination Avoidance*** (1994), Appendix A, in the [Internet Archive's scan](https://archive.org/download/MManuals/UsArmyNuclearContaminationAviodance1994.pdf),

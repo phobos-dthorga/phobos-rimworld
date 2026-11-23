@@ -10,7 +10,7 @@ the owner's word (22 Nov 2026: what appears in the game world is made paid; "Go 
 | Laminated pane, redrawn whole | [laminated-pane-retry.json](laminated-pane-retry.json) | 2 | US$0.30 | about US$0.11 | the same folder |
 
 **In all about US$1.32.** The items are for [vehicle glass](../../../docs/development/archive/vehicle-glass.md) (the glass chain) and the
-[radiation model](../../../docs/development/radiation-model.md) (RM5's three medicines). Nothing is shipped yet: each waits for its
+[radiation model](../../../docs/development/archive/radiation-model.md) (RM5's three medicines). Nothing is shipped yet: each waits for its
 build.
 
 **References, our own only, for style.** The glass items: the approved tyre set and electrical kit icons. The medicines: the

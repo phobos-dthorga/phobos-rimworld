@@ -304,8 +304,9 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
 - **Combat Extended**: its smoke effects setting (`Controller.settings.SmokeEffects`), its `SmokeInhalation` condition and its
   `SmokeSensitivity` stat, all by name. While its smoke is in use, the Framework adds no smoke of its own.
 - **Biotech and Anomaly**: tox gas and deadlife dust exist as kinds only with them.
-- **Rimatomics**: D'thorga Medical's radiation controlled area loads only with it; its dose is cut by toxic environment
-  resistance, which is why the line asks for that stat.
+- **Rimatomics**: D'thorga Medical's radiation controlled area loads only with it. Rimatomics cuts its dose by toxic environment
+  resistance, which is why the line asks for that stat; with D'thorga Medical's radiation model on, that cut is not applied and
+  the line guards against fallout dust ([radiation](medical-radiation.md)).
 - **D'thorga Medical**: every consumer of breathed gas, the oxygen treatments and the two line patches.
 - **Vehicle Framework**: the exhaust effect lives in the vehicle systems, which load only with it.
 

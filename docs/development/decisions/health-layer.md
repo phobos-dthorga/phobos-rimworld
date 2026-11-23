@@ -41,6 +41,6 @@ overturns an earlier one says so.
 [tr]: ../archive/triage.md
 [ed]: ../archive/emergency-dosing.md
 [me]: ../archive/medical-equipment.md
-[rm]: ../radiation-model.md
+[rm]: ../archive/radiation-model.md
 [sd]: ../soft-dependency-crosslinks.md
 [cg]: ../archive/caustic-gas.md

@@ -11,7 +11,7 @@ Rescue's medics) and P2 (caustic gas, when play brings it up).
 
 This page says how D'thorga Medical hurts and cares for people now: burns, smoke, gas and acid, the doctors who dose on their
 own, and triage. The machines, beds and kits are on [medical equipment](medical-equipment.md), radiation on
-radiation, the Framework's shared part (patients, danger, care choices, field care) on [the health
+[radiation](medical-radiation.md), the Framework's shared part (patients, danger, care choices, field care) on [the health
 layer](health-layer.md), and the gases themselves on [gases and air](gases-and-air.md). Why it is this way is in the [decision
 log](../decisions/medical-injuries-and-care.md) and the [records](#why-it-is-this-way). What a player does is in the [player
 guide's Medical chapter](../../player-guide/medical.md).
@@ -416,7 +416,7 @@ painkillers, operations that wrong another faction, and our smoke inhalation bes
 - **Conditions on pawns**, all hediffs. The airway burn saves its peak (`PhobosBurns_peak`); the caustic dose its doses, peaks,
   clocks and one-off flags under thirteen `PhobosBurns_…` keys (`Hediff_PhobosCausticExposure.ExposeData`).
 - **On every garment**: `PhobosBurns_ContaminationLevel` and `PhobosBurns_ContaminationTick` (the residue fades from the tick
-  without ticking). The radiation dust keys beside them belong to radiation.
+  without ticking). The radiation dust keys beside them belong to [radiation](medical-radiation.md).
 - **Game component**: `TriageBillLedger` saves the bills triage queued, by reference (`PhobosTriage_Bills`), pruned before each
   save so none dangles.
 - **On the Framework's patient comp**: the triage authority choice, under `PhobosTriage_Authority` ([the health

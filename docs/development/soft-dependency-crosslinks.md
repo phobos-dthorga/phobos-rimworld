@@ -42,6 +42,8 @@ How injuries and care works now: [systems/medical-injuries-and-care.md](systems/
 
 How medical equipment works now: [systems/medical-equipment.md](systems/medical-equipment.md); this record keeps its history.
 
+How radiation works now: [systems/medical-radiation.md](systems/medical-radiation.md); this record keeps its history.
+
 ## Read this first
 
 - **Found on the way, likely a live fault in the owner's game: Vehicles at Work drives vehicles our systems refuse to move.** It is on

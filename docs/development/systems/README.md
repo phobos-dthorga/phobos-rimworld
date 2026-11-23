@@ -29,6 +29,9 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   carbon monoxide, fire heat, acid, caustic gas, emergency dosing, self-medication and triage with its tags. Living.
 - [Medical equipment](medical-equipment.md) (23 Nov 2026): D'thorga Medical's bedside oxygen, the oxygen chain, the hyperbaric
   chamber, the burn unit bed, breathing devices, the nebuliser, surgery aids, the gas alarm and the safety shower. Living.
+- [Radiation](medical-radiation.md) (23 Nov 2026): D'thorga Medical's dose in grays and its repair, radiation sickness, care and
+  the presets, the doctor's estimate, medicines, worn shielding, fallout dust, late effects, Rimatomics' doses and the strike's
+  dose. Living.
 
 ## The template
 
