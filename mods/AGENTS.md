@@ -35,9 +35,7 @@ for word; the root's rules apply here too.
 
 ## Versions, changelogs and READMEs
 
-- Version numbers (owner rule from Phobos Ostranauts): a fix or patch raises the last number (0.3.0 to
-  0.3.1), new functionality the middle number, a total rework or API overhaul the first. A release mixing a
-  fix and a feature takes the middle bump. Classify before setting a version.
+- Version numbers follow the shared rules; classify a change before setting its version.
 - A mod's version lives in `About/About.xml` (`modVersion`), every project of the mod, its `ModVersion` constants, its
   README and `docs/README.md`, all registered in `config/maintained-constants.json`. **Set it with
   `python scripts/release.py constants --set <Mod>.version=X.Y.Z --apply`** (phobos-modkit's updater checks every copy
@@ -45,11 +43,9 @@ for word; the root's rules apply here too.
   **and stage `config/maintained-constants.json` with them**: the tool records the new value there too.
   `scripts/check-mod-layout.py` refuses a copy the catalogue does not list, and `python scripts/release.py changelog
   mods/*/CHANGELOG.md` checks every entry fits a Workshop page.
-- Every change to a mod updates its `CHANGELOG.md` in the same commit: an Unreleased section, then dated
-  entries marked **Draft** until publication is confirmed, then **Released** with the real date. Sections:
-  Added, Changed, Fixed, Balance, Dependencies, Save compatibility, Compatibility and limits. Record
-  player-visible features, fixes, balance, dependencies, save effects, known limits and whether it is
-  tested in game. No backticks or `>` in changelog lines (Ostranauts' release-note tooling rejects them).
+- Every change to a mod updates its `CHANGELOG.md` in the same commit, **in the form the shared
+  `external/phobos-modkit/rules/changelogs.md` gives** (Unreleased, Draft and Released entries, its sections, no backticks or
+  `>`; existing entries never moved, new ones short).
 - Every mod has a README that opens with **Read this first (gotchas)**: requirements and load order,
   whether it is safe to add to and remove from a save, settings to decide before starting a colony, and
   whether it is tested in game. Follow `docs/development/player-language.md`.
@@ -72,16 +68,10 @@ for word; the root's rules apply here too.
   a mod is published.
 - **An item Def's `defName` never ends in a digit** (the game reads a thing's ID from the digits at the end of name + number, so its
   IDs grow at every load and overflow; `scripts/check-mod-layout.py` enforces it): `PhobosBombMk82Case`, not `PhobosBombCaseMk82`.
-- **Names players see are plain and unassuming**, so people can look them up and remember them (owner, 9 Nov 2026: "It's all
-  about brand awareness"): `D'thorga <Plain Word>`, as in D'thorga Framework and D'thorga Medical, however lovely a fancier name
-  is. The word after D'thorga says what the thing does. Check a name is not already taken in that game's mods before using it.
-  The radio framework's public name is an open question in its design.
-- **D'thorga is the one brand for everything new, in every game** (owner, 9 Nov 2026). Older mods named Phobos take the new display
-  name when the owner next returns to that game, never in a sweep, and display names only: `packageId`, defNames, repository names
-  and anything a save can hold stay as they are.
-- **Every public page also carries the spelling "dthorga"** (owner, 9 Nov 2026), without the apostrophe, in the Workshop description
-  and the README's opening, so a search spelled either way finds us. Searching GitHub or the web for "dthorga" found none of our work.
-  `scripts/check-mod-layout.py` enforces it in every mod's About description and its README before the first section.
+- **Names and public pages follow the shared `external/phobos-modkit/rules/brand.md`**: D'thorga the one brand, plain
+  `D'thorga <Plain Word>` names, and the "dthorga" spelling on every public page, which `scripts/check-mod-layout.py` enforces in
+  every mod's About description and its README before the first section. The radio framework's public name is an open question
+  in its design.
 
 ## Materials, chemistry and balance
 

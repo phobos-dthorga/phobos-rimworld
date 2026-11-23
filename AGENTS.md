@@ -23,7 +23,7 @@ This file adds what is particular to RimWorld and this repository.
   owner's word, under that repository's rules (`external/phobos-modkit/rules/README.md` says how), and the pin then moves here.
   Where this repository must differ from a shared rule, say so beside the rule here, with the owner's reason.
 - **A rule here that the shared rules now state is dropped from this file** in the commit that moves the pin, so it is never
-  stated twice. `rules/README.md` lists the ones still waiting to move.
+  stated twice. The twelve rules every repository repeated moved there on 23 Nov 2026 (kit 1.105.0), and this file dropped its copies.
 - `python scripts/check-all.py` checks this repository still reads them (its "shared rules" step).
 
 ## Rules kept beside their work
@@ -51,20 +51,14 @@ its folder is open yet**: running a script does not load them.
 
 ## Working with the owner
 
-- Practical, small-team project: prefer a working slice over speculative frameworks or process. Aim for
-  maximum creative freedom (owner, carried over from Phobos Ostranauts): risks such as a mod becoming
+- Aim for maximum creative freedom (owner, carried over from Phobos Ostranauts): risks such as a mod becoming
   unsafe to remove from a save are engineering problems to report honestly and explore, never a reason
   to drop, defer or shrink a design.
 - Candidly recommend simplifying, setting aside or changing direction when gameplay value, engine limits
-  or maintenance cost make further work unconvincing. Never continue merely because effort was spent;
-  never invent hour estimates.
-- Explain what works, what was checked and what remains uncertain. Distinguish observed game behaviour
-  from proposed designs and untested assumptions. A build, an offline check or a unit test is never an
-  in-game test. **Nothing counts as tested in game until the owner says so**; write "not yet tested in
-  game" in READMEs, changelogs and replies, and never claim untested compatibility.
-- **The owner runs gameplay tests.** Do not control the owner's mouse or keyboard; give instructions for interactive steps.
-  **Never edit, replace or delete save files** without explicit authorisation (read-only copies for diagnosis are fine;
-  delete them afterwards). Read the owner's `Player.log` before assuming a reported fault is the owner's error.
+  or maintenance cost make further work unconvincing. Never continue merely because effort was spent.
+- Distinguish observed game behaviour from proposed designs and untested assumptions, and never claim untested compatibility
+  (the shared rules: nothing counts as tested until the owner says so).
+- **The owner runs gameplay tests.** Read the owner's `Player.log` before assuming a reported fault is the owner's error.
 - **Ordinary causes before a bug hunt** (owner, 21 Nov 2026: the HEMTT nobody loaded "proceeded ahead, it was just there being too
   much work"). When colonists or vehicles are reported not doing something, first rule out a busy colony, work priorities, allowed
   areas, and forbidden or reserved things, and ask whether it got done later, before reading code for a fault.
@@ -86,8 +80,6 @@ its folder is open yet**: running a script does not load them.
   suggesting it.
 - The owner is a licensed amateur radio operator and an applied chemist. Radio and chemistry realism
   matter; still label every approximation, authored value and gameplay simplification as such.
-- Owner choices, agent defaults and agent choices made while the owner is away are labelled as such in
-  design records, so the owner can revise them.
 
 ### Which tool answers which question
 
@@ -126,15 +118,11 @@ Use the tool before reading raw files; how to use each is in [`scripts/AGENTS.md
 
 - **The repository is public, and its mods are for public release** on the Steam Workshop (owner,
   18 October 2026). Never change the repository's visibility.
-- Commit and push directly to `main`; no pull requests unless the owner asks (external contributors use
-  forks, see `CONTRIBUTING.md`). Never force-push or rewrite history. Edit in the base checkout, not
-  `.claude/worktrees`, so the owner can follow the work.
-- Several agent sessions may share this tree: commit explicit paths, and leave others' uncommitted work alone. (Taking a claim
-  before using a shared version number is a shared rule since the kit pin moved to v1.51.0.)
+- External contributors use forks (`CONTRIBUTING.md`). Edit in the base checkout, not `.claude/worktrees`, so the owner can
+  follow the work.
 - **Steam Workshop: agents never run a real upload, handle credentials, subscribe, announce or change an item's visibility.**
   The rest is in `mods/AGENTS.md`.
-- Never commit saves, game assemblies, decompiled game or mod source, extracted game textures or sounds,
-  other authors' mod files, credentials or personal machine paths. Resolve game paths from local settings
+- Besides what the shared rules never commit, never commit extracted game textures or sounds. Resolve game paths from local settings
   (`.local/`) or arguments. Game-derived research material and the owner's handoff originals stay in the
   ignored `.local/`. Synthetic fixtures only in tests.
 - Agents never execute other authors' mod assemblies or scripts outside the game. Read their XML, About
@@ -157,8 +145,8 @@ Use the tool before reading raw files; how to use each is in [`scripts/AGENTS.md
   November 2026); name mods instead of `--all` for one; deploy also encodes our textures to DDS with RimSort's todds, so RimSort's
   texture step is not needed for our mods. Never edit `ModsConfig.xml` or the owner's RimSort
   lists unless the owner asks, and back them up first.
-- **Before committing, run `python scripts/check-all.py` and chain the commit on its exit code** (`python scripts/check-all.py
-  && git commit ...`), never on reading output. **The commit guard enforces it**: after cloning, run `git config core.hooksPath
+- **This repository's gate is `python scripts/check-all.py`** (the shared rule: chain the commit on it, `python
+  scripts/check-all.py && git commit ...`). **The commit guard enforces it**: after cloning, run `git config core.hooksPath
   .githooks`; never pass `--no-verify`. The detail is in `scripts/AGENTS.md`.
 - **The shared tools come from the pinned phobos-modkit submodule** (`external/phobos-modkit`): after cloning, or in a new
   worktree, run `git submodule update --init`. A fix to a shared tool goes to phobos-modkit first; never edit the submodule

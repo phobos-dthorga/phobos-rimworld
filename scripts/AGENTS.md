@@ -8,9 +8,7 @@ for word; the root's rules apply here too.
 
 ## Working with the owner
 
-- The owner runs gameplay tests. Do not control the owner's mouse or keyboard; give instructions for
-  interactive steps. Never edit, replace or delete save files without explicit authorisation (read-only
-  copies for diagnosis are fine; delete them afterwards). **Answer questions about a save with
+- **Answer questions about a save with
   `python scripts/query-save.py`** (pawns, hediffs, things, what holds a thing, map grids such as gas, roofs and
   terrain with `grid`, **everything one thing saved with `thing <ID>`** (a vehicle's systems and fault history, a comp's values;
   `--path "*Phobos*"` to narrow it), pollution on the world map with `planet` (`--near` a place, `--compare` a save, `--history` for when it arrived), settlements by faction with `world`, mods' saved state such as RimPacts' wars with `components`,

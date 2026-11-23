@@ -22,10 +22,9 @@ for word; the root's rules apply here too.
   builds it. What a version delivered goes in its changelog; the record keeps only what differs from its design.
   `scripts/check-doc-status.py` refuses an opening that says nothing is built while the record records a build, and
   `scripts/check-doc-links.py` checks every `#anchor` against the headings it names.
-- Charts and diagrams are GitHub's native Mermaid, in the Markdown itself. Never use Figma (owner rule):
-  not for charts, diagrams or designs, and do not suggest or mention its connector.
-- Write plainly: answer first, short sentences, **bold** for must-dos, tables for comparisons, gotchas at
-  the top, and restate a key detail where it matters again instead of "see above".
+- Diagrams are Mermaid and never Figma (the shared rules); do not suggest or mention Figma's connector either.
+- Beyond the shared rule on writing plainly: gotchas at the top, and restate a key detail where it matters again instead of
+  "see above".
 
 ## Research attribution
 
