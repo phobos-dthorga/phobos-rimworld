@@ -179,7 +179,7 @@ Medical's radiation control area (`mods/PhobosMedical/Mods/Rimatomics/Defs/Phobo
   behind a line without enough protection.
 - **The patch is the consumer's.** D'thorga Medical's patches call `ProtectionLine.BeforeStep`, `AfterStep` and `AllowsCell` for every
   kind of line. A mod that adds a line without D'thorga Medical patches the same two methods itself; a step answered twice is acted on
-  once. [The design](development/radiation-control-line.md) has the detail.
+  once. [The design](development/archive/radiation-control-line.md) has the detail.
 
 ## Parts bills
 

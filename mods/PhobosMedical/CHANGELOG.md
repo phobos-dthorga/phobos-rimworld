@@ -14,6 +14,7 @@ entry says the owner tested it.
 - **The exporters' records no longer ship in the mod's folder either** (the owner's word of 23 Nov 2026). The notes saying
   what each picture was cut from moved beside the art records, in the repository's assets folder; nothing a player sees
   changes.
+- **The README's links point to the archived records' new places** (docs rewrite, 23 Nov 2026). Nothing in play changes.
 
 ## [0.25.0] - 2026-11-23 - Draft
 

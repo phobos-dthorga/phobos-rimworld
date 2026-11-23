@@ -7,6 +7,8 @@ and a hydrogen detector. How gases work is in the [D'thorga Framework record](ph
 
 **Merged here on 17 Nov 2026**, each kept as written: [Workstation environmental effects: design](#workstation-environmental-effects-design-7-nov-2026).
 
+How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
+
 ## Read this first
 
 - **Hydrogen earns its place under the gas rule** (owner's call-out, 7 Nov 2026): nothing in the owner's mods carries it, and a room

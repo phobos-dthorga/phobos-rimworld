@@ -12,6 +12,8 @@ later Framework services that grew here (0.5.0 to 0.100.0) was taken out on 17 N
 now in [D'thorga Framework for modders](../framework-modding.md), and the owner's gas rules below are also standing rules in
 [AGENTS.md](../../AGENTS.md).
 
+How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
+
 ## The owner's rules (4 Nov 2026)
 
 - **Existing effects first, own gases when they earn it.** Infer effects from gases and functionality that already exist

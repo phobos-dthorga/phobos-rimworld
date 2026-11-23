@@ -17,6 +17,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   on the map and the world map, the recovery winch and tow, and pushing by hand. Living.
 - [Stations, yard and depots](stations-yard-and-depots.md) (23 Nov 2026): the motor pool's stations, depot bays, building
   upgrades, the service yard, bay trips, the park, the fleet board, the garage, depots, chutes and unloading bays. Living.
+- [Gases and air](gases-and-air.md) (23 Nov 2026): the Framework's gas layer, carbon monoxide, fire smoke, masks, supplied oxygen
+  and protective-gear lines. Living.
 
 ## The template
 

@@ -478,7 +478,7 @@ All **[code]**; the places are in [Sources](#sources).
 | Flash blindness | Rimatomics' `FlashBlindness` on the eyes, healing by itself; our strike already adds it | Dubs Rimatomics |
 | Blast injuries | Concussion, bone fracture, temporary hearing loss, lung collapse and "cut (spall)" as conditions [Defs listed 22 Nov 2026] | More Injuries (Continued) |
 | Burns as a load on the body | D'thorga Medical's burn load, shock and airway burns; the strike's burns are already split over the skin for it | Ours |
-| Suiting up before a contaminated area | The protection line and the radiation control zone ([radiation control line](radiation-control-line.md)), which judge gear by `ToxicEnvironmentResistance` | Ours |
+| Suiting up before a contaminated area | The protection line and the radiation control zone ([radiation control line](archive/radiation-control-line.md)), which judge gear by `ToxicEnvironmentResistance` | Ours |
 | A pulse on a vehicle | Vehicle EMP: electrical parts rated by hardening, a stall, a battery that loses charge; under Combat Extended our own step runs it (`V/Service/VehicleEmp.cs`) | Ours, on Vehicle Framework's model |
 | Reaching the people aboard | Vehicle Framework's seats (`AllPawnsAboard`), which our code already reads in some thirty files | Vehicle Framework |
 | An open or a closed cab | `CabinSpec.closed` on each loadout, and `PhobosVehicleCabinExtension` for any mod's vehicle (`V/Defs/SystemDefs.cs:721-733`); the cab's own temperature (`V/Service/CabClimate.cs`) | Ours |

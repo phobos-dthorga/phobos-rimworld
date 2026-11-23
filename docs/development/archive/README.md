@@ -82,3 +82,10 @@ Archived on 23 Nov 2026; how they work now: [stations, yard and depots](../syste
 - [Bay trips](vehicle-bay-trips.md) (20 Nov 2026): vehicles driven, towed or pushed to a dyno bay for repair by themselves.
 - [Depots and forward fuel points](vehicle-depots.md) (20 Nov 2026): fuel and vehicles left on the world map, and what time
   does to them.
+
+## Gases and air
+
+Archived on 23 Nov 2026; how they work now: [gases and air](../systems/gases-and-air.md).
+
+- [Radiation control line](radiation-control-line.md) (10 Nov 2026): where colonists suit up for Rimatomics' radiation; the
+  Framework's protective-gear lines.

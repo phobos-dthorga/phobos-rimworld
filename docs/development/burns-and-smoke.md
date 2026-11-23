@@ -6,6 +6,8 @@ The record behind [D'thorga Burns and Smoke](../../mods/PhobosMedical/README.md)
 (0.1.0 was seen in play once; see Results from play). It is the
 first consumer of [D'thorga Framework](phobos-framework.md).
 
+How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
+
 ## The problem
 
 The owner ran an incendiary raid on an enemy city and found burns and smoke "not up to par" with the rest of More Injuries. The

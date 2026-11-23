@@ -6,6 +6,8 @@ A record for a future feature of [D'thorga Burns and Smoke](../../mods/PhobosMed
 now, and the lingering injuries a caustic gas could add. **Built in D'thorga Medical 0.7.0 (7 Nov 2026), not yet tested in game**;
 see As built below for where it differs from the proposal.
 
+How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
+
 ## The problem
 
 The owner asked for a more down-to-earth tox gas, working from the game's own word for it, "caustic". In the game, a pawn in tox gas

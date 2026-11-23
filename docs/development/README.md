@@ -36,6 +36,7 @@ research or design with nothing built; **living** means kept current by every ch
 
 ## D'thorga Framework (core)
 
+- [Gases and air](systems/gases-and-air.md) (23 Nov 2026): how room gases, masks, supplied oxygen and gear lines work now. Living.
 - [Our Architect tab and its sub-tabs](architect-tabs.md) (21 Nov 2026): one D'thorga tab with sub-tabs. Built; UI Rethemed keeps Motor pool apart.
 - [Pick-up and put-down loops](pick-up-loops.md) (21 Nov 2026): the loop watch names a colonist caught in one. Built, untested.
 - [Standby power](standby-power.md) (22 Nov 2026): idle buildings draw 10%, empty rooms go dark; in place of LightsOut and Turn It On and Off. Built, untested.
@@ -48,7 +49,6 @@ research or design with nothing built; **living** means kept current by every ch
 - [Colony mood file](mood-snapshot.md) (10 Nov 2026): every colonist's thoughts written at each save for the mood report. Built.
 - [The D'thorga research tree](research-tree.md) (10 Nov 2026): the research tab, its projects and the grant for older colonies. Built.
 - [Research gates audit](research-gates-audit-2026-11-17.md) (17 Nov 2026): what is gated and what is not; proposals R1 to R9. Built, bar R5 and R7.
-- [Radiation control line](radiation-control-line.md) (10 Nov 2026): where colonists suit up for Rimatomics' radiation. Built.
 - [Settings pages](settings-pages.md) (20 Nov 2026): every settings window as pages with search, changed only and reset; the settings audit. Built, untested.
 - [A setup wizard on first load](first-load-setup-wizard.md) (9 Nov 2026): the owner's idea, kept for later. Record only.
 - [Alternate looks](alternate-looks.md) (19 Nov 2026): good unused pictures as choosable looks; skins and customisation. Record only.
@@ -232,6 +232,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Service yard](archive/vehicle-service-yard.md) (20 Nov 2026): servicing, dyno, fuel and parking in one capped zone; building upgrades. Archived.
 - [Bay trips](archive/vehicle-bay-trips.md) (20 Nov 2026): vehicles driven, towed or pushed to a dyno bay for repair by themselves. Archived.
 - [Depots and forward fuel points](archive/vehicle-depots.md) (20 Nov 2026): fuel left on the world map for later trips; DP1 to DP10. Archived.
+- [Radiation control line](archive/radiation-control-line.md) (10 Nov 2026): where colonists suit up for Rimatomics' radiation. Archived.
 - [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
 - [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
 - [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

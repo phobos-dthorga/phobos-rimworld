@@ -4,6 +4,8 @@
 
 The record behind [D'thorga Medical Equipment](../../mods/PhobosMedical/README.md). **The owner reports a patient's breathing improving on the concentrator (5 Nov 2026, on 0.1.0) and the burn unit bed working (6 Nov 2026, on 0.2.0); the bedside stand and everything added in 0.3.0 are not yet tested in game.** The wider plan's medical half, with the oxygen chain, is [at the end of this record](#the-first-designs-medical-half-4-to-5-nov-2026); its art half is in the [art pipeline](art-pipeline.md).
 
+How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
+
 ## The problem
 
 The owner wants our own medical equipment, hospital and field. Carbon monoxide and smoke-damaged lungs from D'thorga Burns and Smoke had no treatment beyond clean air and time.
