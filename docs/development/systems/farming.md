@@ -300,8 +300,8 @@ The modders' types, linked to [the reference site](https://phobos-dthorga.github
 `api/<Namespace>.<Type>.html`):
 
 - **[`PhobosCropClassDef`][r1]** (`harvestIsSeed`, `leavesStraw`) and **[`PhobosCropExtension`][r2]** (`cropClass`) on a plant.
-  Placing another mod's crop takes one conditional patch, shown in [the mod's
-  README](../../../mods/PhobosFarming/README.md#for-modders).
+  Placing another mod's crop takes one conditional patch, shown in
+  [Farming for modders](../../modding/farming.md).
 - **[`CompProperties_PhobosHarvester`][r3]**: `fronts` (each a [`PhobosHarvestFront`][r4]: `node`, `width`, `takes`, `label`),
   `driverExperienceShare` (0.25), `strawChopperNode`, `orderIconPath`.
 - **[`CompProperties_PhobosImplement`][r5]**: `widthCells`, `kilonewtonsPerMetre`, `metresPerCell`, `wingNode`, `wingWidthCells`;
@@ -427,8 +427,7 @@ None of these is a test in game.
 
 - **[The decision log](../decisions/farming.md)**: every choice, one line each, with who made it and where.
 - **Archived records**: none; every farming record also covers another system or a design not yet built.
-- **Modders' guide**: [the mod's README, For modders](../../../mods/PhobosFarming/README.md#for-modders): placing a crop in a
-  class.
+- **Modders' guide**: [Farming for modders](../../modding/farming.md): placing a crop in a class.
 - **Records kept in place** (they cover farming and another system, or designs not yet built): [farm
   machines](../farming-machines.md), [farming batch one](../farming-batch-one.md), [farming batch two](../farming-batch-two.md),
   [soil rules](../farming-soil.md), [farms on other tiles](../farming-remote-farms.md), [the fault-read of D'thorga

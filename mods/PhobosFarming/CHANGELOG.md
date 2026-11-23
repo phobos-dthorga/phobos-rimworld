@@ -13,6 +13,9 @@ tested in game unless an entry says the owner tested it.
 - **The exporters' records no longer ship in the mod's folder either** (the owner's word of 23 Nov 2026). The notes saying
   what each picture was cut from moved beside the art records, in the repository's assets folder; nothing a player sees
   changes.
+- **The README is slimmer**: the step-by-step use is left to the player guide, and the README gains a settings table. Putting
+  another mod's crop in a class moved to the repository's modders' page for farming, which the Workshop draft now links.
+  Nothing in play changes.
 
 ## [0.7.9] - 2026-11-23 - Draft
 
