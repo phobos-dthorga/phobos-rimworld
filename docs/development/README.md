@@ -158,6 +158,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [D'thorga Radio Framework: design](radio-framework-design.md) (18 Oct 2026): the owner's design, a snapshot of the living doc. Phase 1 built.
 - [Radio reference checks](radio-reference-checks.md) (18 Oct 2026): each reference figure checked against its source. Research.
 - [Map scale research](map-scale-research.md) (19 Oct 2026): what a cell and a world tile measure, and why 1 m per cell. Research.
+- [Autonomous vehicles by radio](autonomous-vehicles.md) (24 Nov 2026): trucks driven and fought from a radio console. Design only.
 - [Radio visuals](radio-visuals.md) (23 Nov 2026): twenty ways to show the link budget as pictures; coverage, ray line and side view built. Partly built.
 - [Radio stations](radio-stations.md) (24 Nov 2026): the radio desk, a radio terminal and amplifier, and upgrades. Partly built.
 

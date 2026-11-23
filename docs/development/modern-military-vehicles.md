@@ -802,6 +802,8 @@ after the code read.
 ## Radio tie-in ideas
 
 **Ideas only.** The radio framework is on the back burner (owner, 9 Nov 2026) and nothing here is designed to build.
+**Since 24 Nov 2026** the radio is open again, and these ideas are designed for the station level in
+[autonomous vehicles by radio](autonomous-vehicles.md).
 The owner asked on 18 November 2026 for tie-in ideas between it and crewless vehicles, and these are recorded so
 they are there when the radio is picked up again. Without the radio mod, a control station would use one plain
 authored reach; with it, the reach would come from the link.
@@ -1058,7 +1060,8 @@ Asked after the code reads, the same day:
    ([our own flight over the map](archive/vehicle-flight-over-the-map.md#sources)).
 3. **Vehicle Framework's own armour figures** for players without Combat Extended: authored ratings, set when the
    first armoured Def is written.
-4. **Everything in the radio section**, until the radio framework is picked up again.
+4. ~~**Everything in the radio section**, until the radio framework is picked up again.~~ **Designed 24 Nov 2026** in
+   [autonomous vehicles by radio](autonomous-vehicles.md), not built.
 
 ## Who chose what
 

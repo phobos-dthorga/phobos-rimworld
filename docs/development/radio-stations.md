@@ -181,8 +181,8 @@ The owner, 24 Nov 2026: "Start on Phase 2's ledger kinds next". **[O]** Built in
 kinds) and one sort per station by kind. Asking a radio's channel or turn is a dictionary lookup.
 
 **What comes next [A]:** the remote control of vehicles is the first new kind the owner wants ("the real feature I wish to
-implement soon is autonomous vehicles and perhaps their weapon systems too, all via our radio framework", 24 Nov 2026), to be designed
-in its own record. Caravans by HF and world calls to other factions follow in Phase 2 proper; jamming
+implement soon is autonomous vehicles and perhaps their weapon systems too, all via our radio framework", 24 Nov 2026), designed in
+[autonomous vehicles by radio](autonomous-vehicles.md). Caravans by HF and world calls to other factions follow in Phase 2 proper; jamming
 (Phase 3) would take channels away.
 
 ## As built: Radio 0.5.0 (24 Nov 2026)
