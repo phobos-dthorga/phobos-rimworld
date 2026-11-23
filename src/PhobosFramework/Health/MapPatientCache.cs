@@ -6,7 +6,8 @@ namespace Phobos.Framework.Health;
 
 /// <summary>
 /// A per-map list rebuilt at most once per interval, when something asks for it, so work givers and gizmos never scan the map
-/// themselves. Derived state: nothing is saved, maps that are gone are forgotten on the next build.
+/// themselves. Derived state: nothing is saved. Maps that are gone are forgotten when a map not yet listed is first asked about
+/// (<see cref="Prune"/>), not at every build, so a closed map's list is held until then.
 /// </summary>
 public sealed class MapPatientCache<T>
 {

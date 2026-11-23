@@ -271,8 +271,9 @@ public static class TopUps
         mech.InAggroMentalState || mech.HostileTo(mechanitor) || mech.IsBurning() || mech.IsAttacking();
 
     /// <summary>
-    /// The job that tops a thing up, or null (with the reason set for the right-click menu where there is one). One stack per trip, put
-    /// straight into the comp's store (JobDriver_PhobosTopUp). A mechanoid is topped up only by a mechanitor.
+    /// The job that tops a thing up, or null (with the reason set for the right-click menu where there is one). A full load per trip,
+    /// gathered from as many stacks as it takes (Framework 0.240.0), put straight into the comp's store (JobDriver_PhobosTopUp). A
+    /// mechanoid is topped up only by a mechanitor.
     /// </summary>
     public static Job? JobFor(Pawn pawn, Thing target, bool forced)
     {

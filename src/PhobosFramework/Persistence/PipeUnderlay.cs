@@ -9,9 +9,10 @@ namespace Phobos.Framework.Persistence;
 
 /// <summary>
 /// A network's pieces a thing has beneath it (owner, 9 Nov 2026; conduits too from Framework 0.107.0): the network's own ordinary piece, one to a cell, wherever its
-/// footprint has none, so a pipe or conduit touching any side connects and a run passes through, as a plumbed fixture's does. What it lays is the visible piece the
-/// player would build (owner, 13 Nov 2026: "that's the convention of the vanilla game and other mods"); pieces laid hidden by an older version are swapped for
-/// visible ones by <see cref="Renew"/>, on the same cells. It never touches a piece it did not lay. Saved as references with their cells, so what it laid is known
+/// footprint has none, so a pipe or conduit touching any side connects and a run passes through, as a plumbed fixture's does. What it lays is the network's hidden piece,
+/// which joins the network, shows in its overlay and draws nothing on the ground (Framework 0.108.1; owner, 13 Nov 2026, after 0.107.0 and 0.108.0 laid the
+/// visible piece: "You need to use the Hidden versions of them"). Pieces of another kind laid by an older version are swapped for the one the caller asks for
+/// by <see cref="Renew"/>, on the same cells. It never touches a piece it did not lay. Saved as references with their cells, so what it laid is known
 /// after a load; a thing that has none yet lays them at its next look, which is how an older save converts. If this mod is ever removed, what is left is ordinary
 /// pipe or conduit.
 /// <para>A piece that goes (the player deconstructs it, or it is destroyed) is not laid again on that cell while the thing stays where it is: the player's choice
@@ -19,7 +20,7 @@ namespace Phobos.Framework.Persistence;
 /// <para>Framework 0.108.0 mends a loading fault of 0.107.0: a save from before 0.107.0 kept no cells, and the cells were rebuilt during loading by asking which
 /// pieces were on the map, before the game had put any thing on the map, so every piece was dropped and left orphaned under the thing that laid it. Cells are
 /// now rebuilt at the first look, and an underlay saved before 0.108.0 adopts, once, the old hidden pieces standing on its thing's own footprint
-/// (<see cref="AdoptOnce"/>), so the visible pipe replaces them.</para>
+/// (<see cref="AdoptOnce"/>), so they go with the thing as they should.</para>
 /// </summary>
 public sealed class PipeUnderlay : IExposable
 {
@@ -135,8 +136,9 @@ public sealed class PipeUnderlay : IExposable
 
     /// <summary>
     /// Once, for an underlay saved before Framework 0.108.0: takes back as its own every piece of the old hidden kind (<paramref name="oldKind"/>) standing on the
-    /// thing's own footprint where it holds nothing, so <see cref="Renew"/> makes them visible and they go with the thing as they should. It assumes a hidden piece
-    /// exactly under one of our things was laid by our earlier versions; a player who built hidden pipe there keeps it, as visible pipe on the same cells.
+    /// thing's own footprint where it holds nothing, so they go with the thing as they should (since 0.108.1 the hidden kind is the one laid again, so they are
+    /// simply kept). It assumes a hidden piece exactly under one of our things was laid by our earlier versions; a player who built hidden pipe there gives it to
+    /// the thing, and it goes when the thing does.
     /// Returns how many were taken back.
     /// </summary>
     public int AdoptOnce(CellRect footprint, Map map, Func<Thing, bool> oldKind)
@@ -162,8 +164,8 @@ public sealed class PipeUnderlay : IExposable
     }
 
     /// <summary>
-    /// Swaps each piece of ours that is not of <paramref name="wanted"/> for a new one on the same cell (Framework 0.107.0: the hidden pipe older versions laid becomes
-    /// the visible one). Safe to call at every look: once all are of the wanted kind it does nothing.
+    /// Swaps each piece of ours that is not of <paramref name="wanted"/> for a new one on the same cell (Framework 0.107.0 swapped old hidden pieces for visible ones;
+    /// since 0.108.1 the callers ask for the hidden piece, so the visible ones 0.107.0 and 0.108.0 laid are swapped back). Safe to call at every look: once all are of the wanted kind it does nothing.
     /// </summary>
     public void Renew(ThingDef? wanted, Func<Thing?> make)
     {

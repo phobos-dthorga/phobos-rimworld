@@ -50,7 +50,8 @@ public class TriageSettings : ModSettings
 /// <summary>
 /// D'thorga Medical's triage part (D'thorga Triage until 7 November 2026): doctors queue the life-saving operations a patient
 /// needs, and take the worst case first. One planning pass per map on an interval, the game's own bills, a per-person authority
-/// through the framework's patient comp, and a prioritised copy of the game's operate giver. No Harmony. More Injuries, Search and
+/// through the framework's patient comp, and a prioritised copy of the game's operate giver. Its one Harmony patch is the tag
+/// overlay's postfix on the pawn's name (UI/TriageTagOverlay.cs), which only draws the tag. More Injuries, Search and
 /// Rescue and Hospitality are optional and never named: operations are found by what they remove.
 /// </summary>
 public static class TriageMod
