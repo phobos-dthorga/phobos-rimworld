@@ -3,6 +3,10 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "483": {"parts": {
+      "Send to yard goes with trips off or the vehicle kept out": [{"key": "vehicles.service-yard.order-goes", "variant": "sent"}],
+      "Take out of yard goes with trips off or the vehicle kept out": [{"key": "vehicles.service-yard.order-goes", "variant": "taken out"}]
+    }},
     "482": ["vehicles.kept-for-start"],
     "458": {"parts": {
       "old damage alone starts no new course": [{"key": "radiation.course", "variant": "held"}],

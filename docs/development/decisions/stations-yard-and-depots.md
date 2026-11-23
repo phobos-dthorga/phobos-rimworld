@@ -166,6 +166,8 @@ overturns an earlier one says so.
 | 21 Nov | Cable at VF's charge rate, 500 W a unit | agent choice | VF's own charging draw | [sy], As built, where it differs (21 Nov 2026) |
 | 21 Nov | Upgrades' costs; taking one off returns half | agent choice | Authored | [sy], As built, where it differs (21 Nov 2026) |
 | 21 Nov | Pump 1 x 2, tank 200, 80 W, Vehicle depots research | agent choice | Its parts bill as the bay's | [sy], As built, where it differs (21 Nov 2026) |
+| 24 Nov | Send to yard and Take out of yard go whatever the bay-trip setting or the vehicle's switch; only automatic trips obey them | owner's card | Both orders were undone within a few seconds with trips off or the vehicle kept out | Framework 0.276.4 changelog |
+| 24 Nov | Ticking the vehicle's switch mid-way leaves an ordered trip going; older saves' trips count as automatic | agent choice | The order is the player's word; nothing in flight changes on load | Framework 0.276.4 changelog |
 
 [st]: ../archive/vehicle-stations.md
 [sy]: ../archive/vehicle-service-yard.md

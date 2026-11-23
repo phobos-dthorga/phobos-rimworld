@@ -112,6 +112,9 @@ one off refunds half and takes half the work. A moved building keeps its upgrade
   the bay before giving up its place; waits for a driver, a coupling or pushers of 15,000, 10,000 and 10,000 ticks.
 - **The fleet board** has a per-vehicle switch, "Taken to a dyno bay when it needs one"; the alert "Vehicles waiting for a dyno
   bay" names up to twelve.
+- **The player's own orders always go** (Framework 0.276.4, the owner's card of 24 Nov 2026): "Send to yard" and "Take out of yard"
+  mark their trip as ordered (`byOrder`, saved as `PhobosBayTripByOrder`), and a trip so marked goes on whatever the setting or the
+  vehicle's switch says (`BayTripRule.GoesOn`); only automatic trips obey them. The mark clears when the trip ends, done or not.
 
 ### The vehicle park
 
@@ -283,8 +286,8 @@ The yard's, bays' and upgrades' figures are not settings; they are in the Defs.
 - **The yards' map component** saves who asked, who was moved up and who has been idle since when, by vehicle ID
   (`PhobosServiceYardAsked`, `_MovedUp`, `_IdleSince`). The line, turns and pump targets are worked out again.
 - **A depot bay** saves its vehicle (`PhobosDepotBayVehicle`); a vehicle's own bay is found again each rare tick.
-- **A bay trip** saves whether it is kept out, its stage and next look always, and its bay, stand, timings and partner only while
-  on a trip (`PhobosBayTrip*`). The stage is an enumeration whose values are only ever appended.
+- **A bay trip** saves whether it is kept out, its stage and next look always, and its bay, stand, timings, partner and whether the
+  player ordered it only while on a trip (`PhobosBayTrip*`; `PhobosBayTripByOrder` since 0.276.4, off in older saves). The stage is an enumeration whose values are only ever appended.
 - **Building upgrades** save what is fitted, ordered, being removed, the work done and what was delivered (`PhobosUpgrades*`).
 - **Storage switches** save "may load" and "may unload"; stockpile marks are kept by zone ID in a game component.
 - **A depot** saves its vehicles and goods, and its fuel clock, finding and carried fractions (`PhobosSlingWreck_*`,
@@ -328,8 +331,6 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
 - **Depots**: laying one by air (DP4) has no code of its own, and a convoy's range does not yet count depots on its way.
 - **Stand-in art**: the garage's world icon, the fleet button's icon, and the chute's and bunker's pictures.
 - **Found while writing (inferred from the code, not tested in game):**
-  - **"Send to yard" and "Take out of yard" are undone at the next rare tick** when bay trips are off or the vehicle is kept out,
-    though the fleet board shows both buttons (`CompPhobosBayTrip.cs:143-147,440-499`).
   - **A vehicle waiting in a yard's line can give up its place after a day** and be driven home unworked
     (`CompPhobosBayTrip.cs:394-403`).
   - **Building or removing a dyno bay or pit does not mark the yard changed**; the yard sees it at its next look.
@@ -347,7 +348,7 @@ None of these is a test in game.
   `DepotPressureRuleTests`, `PipeRefuelRuleTests` and `PushRuleTests`.
 - **In game** ([the test list](../in-game-test-pass.md)): **passed** 165, 251, 271, 294, 310; **passed in part** 36, 301;
   **waiting**: stations and depot bays 10, 12, 47, 53, 86, 250; bunker, chute and unloading 167, 168, 174, 202, 245 to 247, 249;
-  depots 288 to 290; bay trips and the park 295 to 297; upgrades and the yard 309, 311, 312; the parts bench's links 432.
+  depots 288 to 290; bay trips and the park 295 to 297; upgrades and the yard 309, 311, 312; orders that always go 483; the parts bench's links 432.
 
 ## Why it is this way
 

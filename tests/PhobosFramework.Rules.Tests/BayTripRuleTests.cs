@@ -97,4 +97,18 @@ public class BayTripRuleTests
     [InlineData(false, false, BayTripHome.Nearby)]
     public void HomeIsTheDepotBayThenTheParkThenNearby(bool depotBay, bool park, BayTripHome home) =>
         Assert.Equal(home, BayTripRule.Home(depotBay, park));
+
+    [Theory]
+    // An automatic trip obeys the setting and the Fleet board's switch.
+    [InlineData(true, true, false, false, true)]
+    [InlineData(true, false, false, false, false)]
+    [InlineData(true, true, true, false, false)]
+    // The player's own order goes whatever either says.
+    [InlineData(true, false, false, true, true)]
+    [InlineData(true, true, true, true, true)]
+    [InlineData(true, false, true, true, true)]
+    // A vehicle no longer the player's ends any trip.
+    [InlineData(false, true, false, true, false)]
+    public void AnOrderedTripGoesOnWhateverTheSettingOrSwitchSay(bool players, bool tripsOn, bool keptOut, bool byOrder, bool goesOn) =>
+        Assert.Equal(goesOn, BayTripRule.GoesOn(players, tripsOn, keptOut, byOrder));
 }

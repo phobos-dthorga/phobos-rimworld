@@ -13,6 +13,18 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.276.4] - 2026-11-24 - Draft
+
+Send to yard and Take out of yard always go
+
+### Fixed
+
+- **Send to yard and Take out of yard are carried out whatever the bay-trip setting or the Fleet board's switch say** (the owner's card of 24 November 2026, "Your order always goes"). Before, with "Vehicles are taken to a dyno bay for repair by themselves" off, or the vehicle's "Taken to a dyno bay when it needs one" unticked, the order was quietly undone within a few seconds. Only the trips vehicles take by themselves obey them now. Not yet tested in game.
+
+### Save compatibility
+
+- Safe on an existing save. An order now remembers that it was the player's; a trip already under way in an older save counts as automatic, as before.
+
 ## [0.276.3] - 2026-11-24 - Draft
 
 Camp lights run on the house battery, and never strand a vehicle without one

@@ -405,7 +405,8 @@ many people it would take. **The tow and the push each have their own setting** 
   with nothing left to do (an hour or more) is driven out to make room. Nothing else is ever moved out.
 - **Run it from the Fleet board.** Vehicles in a yard are listed under it. Choose one to see the yard card (who is on the dyno,
   who waits, each pump's work and fuel) with **Move up**, **Take out of yard** and **Go to the yard**. On a vehicle outside,
-  **Send to yard** has it driven in and parked. The filter at the top shows only vehicles in a yard, waiting for one, or unable to
+  **Send to yard** has it driven in and parked. **Both orders always go**, even with dyno bay trips switched off or the vehicle's
+  **Taken to a dyno bay when it needs one** unticked: those stop only the trips vehicles take by themselves. The filter at the top shows only vehicles in a yard, waiting for one, or unable to
   get there.
 - **A yard on a gravship's deck is not carried by a flight**: mark it again after landing.
 - **Before removing D'thorga Framework, delete every service yard**, as with a vehicle park.

@@ -73,6 +73,9 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
     List<Pawn> brought = new();
     /// <summary>The player sent it into a service yard from the Fleet board (Framework 0.210.0): it parks there and the trip ends.</summary>
     bool toYardByOrder;
+    /// <summary>The player ordered this trip from the Fleet board, into a yard or out of one (Framework 0.276.4; the owner's card of 24 Nov 2026,
+    /// "Your order always goes"): it goes whatever the bay-trip setting or the kept-out switch say. Cleared when the trip ends, done or not.</summary>
+    bool byOrder;
 
     /// <summary>Why it cannot go, or why it waits, in the player's words: for its own line, the Fleet board and the alert. Derived, never saved.</summary>
     string? blocked;
@@ -117,7 +120,8 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
     {
         keptOut = value;
         blocked = null;
-        if (value && stage != BayTripStage.None) End(crewOut: true, backOff: false);
+        // The switch stops automatic trips; a trip the player ordered still goes (Framework 0.276.4).
+        if (value && stage != BayTripStage.None && !byOrder) End(crewOut: true, backOff: false);
     }
 
     void SetStage(BayTripStage next)
@@ -140,7 +144,7 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
             IdleLook();
             return;
         }
-        if (Vehicle.Faction != Faction.OfPlayer || !BayTrips.On || keptOut)
+        if (!BayTripRule.GoesOn(Vehicle.Faction == Faction.OfPlayer, BayTrips.On, keptOut, byOrder))
         {
             End(crewOut: true, backOff: false);
             return;
@@ -456,8 +460,10 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
         leftUnfinished = false;
         blocked = null;
         brought.Clear();
+        byOrder = byPlayer;
         SetStage(BayTripStage.CallingDriverHome);
         DriverCalls.Call(Vehicle.Map, this, true);
+        if (byPlayer && (!BayTrips.On || keptOut)) Seen.Note("vehicles.service-yard.order-goes", Vehicle, variant: "taken out");
         if (byPlayer) { if (Seen.Wants("vehicles.service-yard.taken-out", Vehicle, kind.ToString())) Seen.Note("vehicles.service-yard.taken-out", Vehicle, variant: kind.ToString()); }
         else if (Seen.Wants("vehicles.service-yard.made-room", Vehicle, kind.ToString())) Seen.Note("vehicles.service-yard.made-room", Vehicle, variant: kind.ToString());
         return null;
@@ -491,6 +497,8 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
         failedDrives = 0;
         leftUnfinished = false;
         toYardByOrder = true;
+        byOrder = true;
+        if (!BayTrips.On || keptOut) Seen.Note("vehicles.service-yard.order-goes", Vehicle, variant: "sent");
         blocked = null;
         brought.Clear();
         SetStage(BayTripStage.CallingDriver);
@@ -542,6 +550,7 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
         failedDrives = 0;
         leftUnfinished = false;
         toYardByOrder = false;
+        byOrder = false;
         blocked = null;
         badCells.Clear();
         int now = Find.TickManager.TicksGame;
@@ -571,6 +580,7 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
         engineStarted = false;
         leftUnfinished = false;
         toYardByOrder = false;
+        byOrder = false;
         blocked = null;
         brought.Clear();
         badCells.Clear();
@@ -599,6 +609,8 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
         Scribe_Values.Look(ref lastWorkTick, "PhobosBayTripLastWork");
         Scribe_Values.Look(ref leftUnfinished, "PhobosBayTripLeftUnfinished");
         Scribe_Values.Look(ref toYardByOrder, "PhobosBayTripToYardByOrder");
+        // Framework 0.276.4: an older save has none, so a trip in flight there stays automatic.
+        Scribe_Values.Look(ref byOrder, "PhobosBayTripByOrder");
         Scribe_Collections.Look(ref brought, "PhobosBayTripBrought", LookMode.Reference);
         ExposeRun(RunSavePrefix);
         ExposeCarry();

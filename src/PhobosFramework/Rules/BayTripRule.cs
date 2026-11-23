@@ -107,6 +107,13 @@ public static class BayTripRule
     /// <summary>Whether a wait has gone on past its limit. No limit means never.</summary>
     public static bool Overstayed(int ticksWaited, int limit) => limit > 0 && ticksWaited > limit;
 
+    /// <summary>
+    /// Whether a trip under way goes on (Framework 0.276.4; the owner's card of 24 Nov 2026, "Your order always goes"): never once the vehicle
+    /// is not the player's; a trip the player ordered (the Fleet board's Send to yard or Take out of yard) whatever the bay-trip setting or
+    /// the vehicle's kept-out switch; an automatic trip only while trips are on and the vehicle is not kept out.
+    /// </summary>
+    public static bool GoesOn(bool players, bool tripsOn, bool keptOut, bool byOrder) => players && (byOrder || (tripsOn && !keptOut));
+
     /// <summary>Where a vehicle goes afterwards: its depot bay, else the vehicle park, else a spot nearby.</summary>
     public static BayTripHome Home(bool depotBayFree, bool parkHasRoom) =>
         depotBayFree ? BayTripHome.DepotBay : parkHasRoom ? BayTripHome.Park : BayTripHome.Nearby;
