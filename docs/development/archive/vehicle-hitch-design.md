@@ -3,7 +3,7 @@
 **Status (17 Nov 2026):** built in D'thorga Framework 0.101.0, 0.103.0, 0.104.0 and 0.111.0 (and Vehicles 0.45.0 and 0.54.0):
 slices 1 to 3, slice 4's recovery tow, trailers taken on journeys, the hitch refusing a vehicle set up for work, and the Pintle flatbed
 at 3 x 7; not built: the special trailers and road trains of slice 4 (the working trailers are designed in
-[vehicle-trailers.md](vehicle-trailers.md)). Not yet tested in game.
+[vehicle-trailers.md](../vehicle-trailers.md)). Not yet tested in game.
 
 **Merged here on 17 Nov 2026**, each kept as written: [Trailers that follow their tractor: how RimThunder does it, and what it opens for us](#trailers-that-follow-their-tractor-how-rimthunder-does-it-and-what-it-opens-for-us-11-nov-2026).
 
@@ -124,7 +124,7 @@ weight times the ground's friction (`DrivetrainModel.cs:203`). Both take one mas
   Vehicle Framework's own cargo window while it stands unhitched.
 - **Its picture:** our own, drawn empty. Until a picture exists it borrows one of ours so the game shows no error (owner's
   rule of 9 Nov 2026 against stand-in vehicle art). **Its own picture since Vehicles 0.49.0** (owner's pick, 12 Nov 2026), with the
-  greedy boards as an overlay; [round three](../../assets/phobos-vehicles/requests/round-three-record.md).
+  greedy boards as an overlay; [round three](../../../assets/phobos-vehicles/requests/round-three-record.md).
 - **It is the base for the special ones later:** tank, generator, tipping and camp trailers are the same trailer with a
   different deck.
 
@@ -141,7 +141,7 @@ weight times the ground's friction (`DrivetrainModel.cs:203`). Both take one mas
 
 The owner asked on 11 Nov 2026 that vehicle mechanics be designed with enemy raids in mind, or at the very least for the
 vehicles at a base the player attacks. How those vehicles come to exist is in
-[the Vehicle Framework record](vehicle-framework-mechanics.md). Agent-authored:
+[the Vehicle Framework record](../vehicle-framework-mechanics.md). Agent-authored:
 
 | Where | What the hitch does there | Lets the player | Stops the player | From which slice |
 | --- | --- | --- | --- | --- |
@@ -163,7 +163,7 @@ vehicles at a base the player attacks. How those vehicles come to exist is in
    loading while hitched; the world map. **Built** (Framework 0.104.0, not yet tested in game): "Slice 3 as built" below.
 4. **The special trailers** from [the research](#trailers-that-follow-their-tractor-how-rimthunder-does-it-and-what-it-opens-for-us-11-nov-2026), the recovery tow, and road trains. **The recovery tow is
    built** (Framework 0.103.0, not yet tested in game) as one piece with the recovery family's winch (owner, 12 Nov 2026):
-   [vehicle-upgrade-families.md](vehicle-upgrades-round-two.md#vehicle-upgrade-families-upgrades-shared-across-many-vehicles-12-nov-2026), "Built in part 3". The special trailers and road trains are still open.
+   [vehicle-upgrade-families.md](../vehicle-upgrades-round-two.md#vehicle-upgrade-families-upgrades-shared-across-many-vehicles-12-nov-2026), "Built in part 3". The special trailers and road trains are still open.
 
 Slices 1 and 2 are built together: rules nobody uses are not a working slice.
 
@@ -306,7 +306,7 @@ the panels are the player's only; a captured vehicle tows and travels as ours do
 - Vehicle Framework, by Smash Phil: the drawing routines, read from our decompile and summarised in our own words.
 - RimThunder - Core, by RimThunderTeams, and Turbo's Vehicle Features Library, by Turbo: the approach we chose to differ
   from, described in [the research](#trailers-that-follow-their-tractor-how-rimthunder-does-it-and-what-it-opens-for-us-11-nov-2026). No code, Def or art of theirs is used.
-- The drivetrain model's method and its sources are in [the drivetrain design](archive/vehicle-drivetrain-design.md).
+- The drivetrain model's method and its sources are in [the drivetrain design](vehicle-drivetrain-design.md).
 - The follow rule is standard geometry (the curve is a tractrix); our form of it has not been checked against a reference.
 
 ## Trailers that follow their tractor: how RimThunder does it, and what it opens for us (11 Nov 2026)
@@ -470,12 +470,12 @@ A hitch of ours could keep **one number, the trailer's heading,** and move it th
 | --- | --- | --- | --- |
 | **Drawbar trailer for the tipper** | Bring twice the stone per trip | Tip the trailer while hitched; turn round in a tight yard, if length is made to matter | A quarry run is planned around where to drop the trailer |
 | **Tank trailer for the bulk tanker** | Carry a second liquid without the compartment upgrades | Draw from both at one hose | Fuel and water go out together to a far camp |
-| **The generator set as a trailer** (deferred in [its record](vehicle-generator-set.md)) | Leave the camp's power behind and take the truck away | Move the set without a vehicle to pull it | One truck serves several camps |
-| **Recovery tow** (the "Tow" row of [the military research](military-vehicles-research.md)) | Bring home a vehicle with no fuel, a flat battery or a wrecked part | Tow a crewed or hostile vehicle | A breakdown far from home is a job, not a loss |
+| **The generator set as a trailer** (deferred in [its record](../vehicle-generator-set.md)) | Leave the camp's power behind and take the truck away | Move the set without a vehicle to pull it | One truck serves several camps |
+| **Recovery tow** (the "Tow" row of [the military research](../military-vehicles-research.md)) | Bring home a vehicle with no fuel, a flat battery or a wrecked part | Tow a crewed or hostile vehicle | A breakdown far from home is a job, not a loss |
 | **Camp trailer** | Carry a packed camp, tents and stores, and drop it whole | Nothing new | Camping trips start from one hitch, not a loading list |
 
 The Cherokee needs nothing here: a trailer is a vehicle, so the sling's own mass rules decide whether it can lift one
-(inference from [the sling record](archive/vehicle-sling-design.md)).
+(inference from [the sling record](vehicle-sling-design.md)).
 
 ### Questions for the owner
 

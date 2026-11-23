@@ -10,6 +10,8 @@ families' check of 13 Nov 2026 (the families record says what passed).
 
 How upgrades and fittings work now: [systems/upgrades-and-fittings.md](systems/upgrades-and-fittings.md); this record keeps its history.
 
+How hitches and trailers work now: [systems/hitches-and-trailers.md](systems/hitches-and-trailers.md); this record keeps its history.
+
 **Changed 18 Nov 2026:** the owner removed VVE - Upgrades Extended from the mod list, as our own upgrades now cover it. What this
 record says about its trees, the Cherokee's five stat nodes among them, describes the list as it stood on 11 Nov 2026.
 
@@ -122,7 +124,7 @@ same ground with trade-offs.
 
 ### Trailers (added later on 11 Nov 2026)
 
-The owner then asked how another mod's trailers follow their tractor. [The trailer research](vehicle-hitch-design.md#trailers-that-follow-their-tractor-how-rimthunder-does-it-and-what-it-opens-for-us-11-nov-2026)
+The owner then asked how another mod's trailers follow their tractor. [The trailer research](archive/vehicle-hitch-design.md#trailers-that-follow-their-tractor-how-rimthunder-does-it-and-what-it-opens-for-us-11-nov-2026)
 found the mechanism in RimThunder - Core, already on the owner's list, and adds five ideas to this round: a drawbar trailer
 for the tipper, a tank trailer for the bulk tanker, the generator set as a trailer, a recovery tow and a camp trailer. A
 trailer is a second way to give a thin vehicle something of its own, beside the signatures above; its three questions are
@@ -361,7 +363,7 @@ and the litter kit; built in Framework 0.101.0 and Vehicles 0.45.0, not yet test
 get a design record first**, with nothing built: [vehicle upgrade families](#vehicle-upgrade-families-upgrades-shared-across-many-vehicles-12-nov-2026) (all five built since, in
 Framework 0.103.0 and Vehicles 0.47.0); **Trains of the Rim is
 skipped** while it looks dormant (last updated 26 Aug 2025, declares 1.6 only), to be raised again if it is updated. Batch 2, the
-hitch and the Pintle flatbed trailer, is built in the same versions ([the hitch design](vehicle-hitch-design.md)).
+hitch and the Pintle flatbed trailer, is built in the same versions ([the hitch design](archive/vehicle-hitch-design.md)).
 
 The questions as they were put:
 
@@ -646,7 +648,7 @@ Cost with several on a map: the sync runs only when a fitting changes, a vehicle
 ### Built in part 3 (Framework 0.103.0, 12 Nov 2026)
 
 **Not yet tested in game.** Built by the agent from the owner's answer (recovery as one piece with the hitch's recovery tow,
-[vehicle-hitch-design.md](vehicle-hitch-design.md) slice 4); every figure is authored.
+[vehicle-hitch-design.md](archive/vehicle-hitch-design.md) slice 4); every figure is authored.
 
 #### Recovery
 

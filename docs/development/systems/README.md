@@ -13,6 +13,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   their prices, the dyno bay, parts and parts bills. Living.
 - [Camping and life aboard](camping-and-life-aboard.md) (23 Nov 2026): accessories and the power budget, the camp, deck tents,
   bunks, driving through the night, caravan cooking, walk-in cabins, life aboard, hotboxing and the cab. Living.
+- [Hitches and trailers](hitches-and-trailers.md) (23 Nov 2026): the hitch, couplings, chains, trailers and their set-up, towing
+  on the map and the world map, the recovery winch and tow, and pushing by hand. Living.
 
 ## The template
 

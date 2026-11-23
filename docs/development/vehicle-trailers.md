@@ -4,6 +4,8 @@
 
 How camping and life aboard work now: [systems/camping-and-life-aboard.md](systems/camping-and-life-aboard.md); this record keeps its history.
 
+How hitches and trailers work now: [systems/hitches-and-trailers.md](systems/hitches-and-trailers.md); this record keeps its history.
+
 **Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026 (`dependency-audit-2026-11-16.md`); the VF line
 references below were read from its 1.6 build, as written at the time.
 

@@ -87,7 +87,7 @@ the catalogue's "recovery truck" line (lean High) in [utility vehicles](utility-
 VF has no tow; the honest routes are a "follower" that paths behind the recovery vehicle, or a carried-vehicle mechanic
 (what Partridge claims). Size against RimThunder's 3x10 PLS: a 3x8 tracked hull with a crane overlay.
 **Added 11 Nov 2026:** RimThunder - Core, on the owner's list, has the carried-vehicle mechanic already, for trailers;
-[the trailer research](vehicle-hitch-design.md#trailers-that-follow-their-tractor-how-rimthunder-does-it-and-what-it-opens-for-us-11-nov-2026) describes it.
+[the trailer research](archive/vehicle-hitch-design.md#trailers-that-follow-their-tractor-how-rimthunder-does-it-and-what-it-opens-for-us-11-nov-2026) describes it.
 
 ### 2. D'thorga Decontamination Truck
 

@@ -4,6 +4,8 @@
 
 How camping and life aboard work now: [systems/camping-and-life-aboard.md](systems/camping-and-life-aboard.md); this record keeps its history.
 
+How hitches and trailers work now: [systems/hitches-and-trailers.md](systems/hitches-and-trailers.md); this record keeps its history.
+
 **A research and design record.** The owner, 13 November 2026: "A
 military-style portable kitchen on wheels, powered by the Busbar as required." The owner chose the same day that it **always
 cooks on fuel burners, and gains its electric extras when plugged into the Busbar or a power line**. It is trailer **Q1** in

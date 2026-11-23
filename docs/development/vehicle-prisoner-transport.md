@@ -7,6 +7,8 @@ with upgrades that cost materials and fuel. It is trailer **Q2** in [vehicle-tra
 **[code]** read on 13 Nov 2026 and summarised in our own words; **[A]** authored; **[S]** a real-world source below; **[I]** our
 inference. Vehicle Framework references are from its **1.6** decompile.
 
+How hitches and trailers work now: [systems/hitches-and-trailers.md](systems/hitches-and-trailers.md); this record keeps its history.
+
 **Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026, and D'thorga Framework 0.111.1 builds against it
 ([the dependency audit](dependency-audit-2026-11-16.md)). The VF references in this record were read from its 1.6 build, which the
 game loaded when this was written; check one against the 1.7 build before acting on it.

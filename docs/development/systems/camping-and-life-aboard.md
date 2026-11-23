@@ -10,7 +10,7 @@ This page says how camping and life aboard work now. Why they are this way is in
 log](../decisions/camping-and-life-aboard.md) and the [archived records](#why-it-is-this-way). How the vehicle code is laid out
 in general is in [How the code is built](../architecture.md). Fittings themselves (how one is fitted, its weight and price) are on
 [upgrades and fittings](upgrades-and-fittings.md); the engine's ledger and the cab heater's engine side are on [engines and
-drivetrains](engines-and-drivetrain.md).
+drivetrains](engines-and-drivetrain.md); towing a trailer is on [hitches and trailers](hitches-and-trailers.md).
 
 ## Read this first (gotchas)
 

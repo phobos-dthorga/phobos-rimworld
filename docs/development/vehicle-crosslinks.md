@@ -371,7 +371,7 @@ A destroyed engine or transmission is replaced wherever the vehicle stands, by a
 - **Lets the player:** limp home and have the job done properly, or do it properly at home.
 - **Stops them:** nothing. (The alternative, requiring the hoist, would strand any vehicle whose engine dies away from home, because
   nothing in Vehicle Framework or our mods can tow. Argued against below. Added 11 Nov 2026: RimThunder - Core, on the owner's
-  list, can; see [the trailer research](vehicle-hitch-design.md#trailers-that-follow-their-tractor-how-rimthunder-does-it-and-what-it-opens-for-us-11-nov-2026).)
+  list, can; see [the trailer research](archive/vehicle-hitch-design.md#trailers-that-follow-their-tractor-how-rimthunder-does-it-and-what-it-opens-for-us-11-nov-2026).)
 - **Changes how they play:** home is where engines are swapped; the depot bay's 70 % and the rig's 60 % make the motor pool the
   place for heavy work.
 
@@ -739,7 +739,7 @@ at about 60 psi, and the spring brakes come on between 20 and 45 psi **[P]**
   G6, G9 and G17 do not (no running gear, no brakes, open water). Submarines keep their own air and sonar rules; nothing here
   overlaps them.
 - **Trailers.** No engine and no systems of their own; G5's grip reaches them through the tractor's drivetrain, and T4's brake
-  wear through the tractor, which brakes the train alone (a simplification already in the [hitch design](vehicle-hitch-design.md)).
+  wear through the tractor, which brakes the train alone (a simplification already in the [hitch design](archive/vehicle-hitch-design.md)).
 - **The generator set.** G16 sheds the truck's own loads, never the camp's grid, which has its own rule.
 - **Electric vehicles.** G16 runs on their 12 V side; G5 and G9 apply; the traction pack's cold rules already cover winter.
 

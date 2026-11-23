@@ -91,7 +91,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [The mobile generator set](vehicle-generator-set.md) (9 Nov 2026): the Busbar, feeding a camp's grid when parked. Built; size and look owner-tested.
 - [Vehicle stations](vehicle-stations.md) (8 to 9 Nov 2026): the parts bench, tuning rig, motor pool tab, depot bays and the garage. Built.
 - [Working trailers](vehicle-trailers.md) (13 Nov 2026): the shared base, the bowsers and a catalogue of nineteen trailers. Partly built.
-- [The hitch and the generic trailer](vehicle-hitch-design.md) (11 Nov 2026): our own hitch, a trailer any vehicle tows, RimThunder's way. Partly built.
+- [Hitches and trailers](systems/hitches-and-trailers.md) (23 Nov 2026): how hitching, couplings, trailers, towing and recovery work now. Living.
 - [The field kitchen trailer](vehicle-field-kitchen.md) (13 Nov 2026): Billy, the owner's kitchen on wheels. Built; enemy bases and locker not.
 - [The prisoner transport trailer](vehicle-prisoner-transport.md) (13 Nov 2026): Stockade, the owner's cage trailer. Record only.
 - [Camping and life aboard](systems/camping-and-life-aboard.md) (23 Nov 2026): how camps, berths, cabins, the cab and life aboard work now. Living.
@@ -230,6 +230,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Vehicle accessories](archive/vehicle-accessories.md) (13 Nov 2026): a parked vehicle as the heart of a camp, Y1 to Y23, berths. Archived.
 - [Hotboxing](archive/vehicle-hotboxing.md) (12 Nov 2026): smoking in a vehicle's cab. Archived.
 - [Walk-in cabins](archive/vehicle-cabins.md) (22 Nov 2026): a vehicle's cabin as a small pocket map; the Osprey first. Archived.
+- [The hitch and the generic trailer](archive/vehicle-hitch-design.md) (11 Nov 2026): our own hitch, a trailer any vehicle tows, RimThunder's way. Archived.
 - [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
 - [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
 - [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

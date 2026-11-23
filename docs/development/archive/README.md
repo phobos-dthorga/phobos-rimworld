@@ -63,3 +63,10 @@ Archived on 23 Nov 2026; how they work now: [camping and life aboard](../systems
   Y1 to Y23 and B1 to B4.
 - [Hotboxing](vehicle-hotboxing.md) (12 Nov 2026): smoking in a vehicle's cab, the shared dose and the memories.
 - [Walk-in cabins](vehicle-cabins.md) (22 Nov 2026): a vehicle's cabin as a small pocket map; the Osprey first.
+
+## Hitches and trailers
+
+Archived on 23 Nov 2026; how they work now: [hitches and trailers](../systems/hitches-and-trailers.md).
+
+- [The hitch and the generic trailer](vehicle-hitch-design.md) (11 Nov 2026): our own hitch, slices 1 to 4, and how RimThunder's
+  trailers follow their tractor.
