@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.273.2] - 2026-11-24 - Draft
+
+The game no longer closes when a cook checks the stove's bills
+
+### Fixed
+
+- **The game no longer closes to the desktop when someone checks a stove's bills** (the owner's two crashes of 23 November 2026, a minute or two after loading, mid-raid). A bill that needs a trailer upgrade, such as the fine paste bake, asked itself whether it was allowed, over and over, until the game ran out of room and closed with nothing in its log. The fault has been there since 0.121.0, but it could only happen at a trailer's table until 0.273.0 let that bake run on home stoves too. A new check in the gate refuses the same pattern from now on. Not yet tested in game.
+
 ## [0.273.1] - 2026-11-23 - Draft
 
 The exhaust brake gets its own icon

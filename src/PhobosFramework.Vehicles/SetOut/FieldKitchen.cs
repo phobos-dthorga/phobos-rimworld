@@ -125,19 +125,26 @@ public class PhobosRecipeNodeExtension : DefModExtension
     public bool anywhereElse;
 }
 
-/// <summary>A recipe offered only while its table's trailer has an upgrade fitted; the bill menu says which.</summary>
+/// <summary>
+/// A recipe offered only while its table's trailer has an upgrade fitted; the bill menu says which. Both overrides answer from
+/// <see cref="Check"/> and never call the base class: in RimWorld 1.7 the game's AvailableReport asks AvailableOnNow, so an
+/// AvailableOnNow that asks AvailableReport, which hands back to the base, called itself until the stack ran out and the game closed
+/// (the owner's crashes of 23 November 2026, mid-raid; within reach of every stove once anywhereElse came in, Framework 0.273.0).
+/// </summary>
 public class RecipeWorker_PhobosNeedsNode : RecipeWorker
 {
-    public override AcceptanceReport AvailableReport(Thing thing, BodyPartRecord? part = null)
+    public override AcceptanceReport AvailableReport(Thing thing, BodyPartRecord? part = null) => Check(thing);
+
+    public override bool AvailableOnNow(Thing thing, BodyPartRecord? part = null) => Check(thing).Accepted;
+
+    AcceptanceReport Check(Thing thing)
     {
-        if (recipe.GetModExtension<PhobosRecipeNodeExtension>() is not { node.Length: > 0 } needs) return base.AvailableReport(thing, part);
+        if (recipe.GetModExtension<PhobosRecipeNodeExtension>() is not { node.Length: > 0 } needs) return AcceptanceReport.WasAccepted;
         CompPhobosSetOut? owner = SetOuts.Owner(thing);
-        if (owner == null && needs.anywhereElse) return base.AvailableReport(thing, part);
-        if (owner != null && VehicleUpgrades.Unlocked(owner.Vehicle, needs.node)) return base.AvailableReport(thing, part);
+        if (owner == null && needs.anywhereElse) return AcceptanceReport.WasAccepted;
+        if (owner != null && VehicleUpgrades.Unlocked(owner.Vehicle, needs.node)) return AcceptanceReport.WasAccepted;
         return new AcceptanceReport("PhobosSetOut_RecipeNeedsNode".Translate().Resolve());
     }
-
-    public override bool AvailableOnNow(Thing thing, BodyPartRecord? part = null) => AvailableReport(thing, part).Accepted;
 }
 
 /// <summary>On a field range's Def: at start-up it takes every recipe of the game's cooking tables, so other mods' stove recipes work on it.</summary>
