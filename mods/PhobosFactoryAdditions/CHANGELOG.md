@@ -12,6 +12,9 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 - **The art and sound records no longer ship in the mod's folder** (the owner's choice of 23 Nov 2026, in the docs rewrite).
   The notes saying how each picture and sound was made moved to the repository's assets folder, so installing the mod no longer
   copies them into the game's Mods folder; the next install leaves the old copies in its backup. Nothing a player sees changes.
+- **The README is slimmer**: what the mod needs, its real gotchas, what it adds, its settings and links; the notes for modders and
+  the checks done are on the repository's modders' page for this mod. The Workshop draft's tested line now names the deep
+  hopper's four stacks too. Nothing in play changes.
 
 ## [0.14.2] - 2026-11-18 - Draft
 
