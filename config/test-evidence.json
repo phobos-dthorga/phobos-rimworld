@@ -626,6 +626,7 @@
     }},
     "404": ["vehicles.engine-overhauled"],
     "403": ["vehicles.axle-matched"],
+    "405": ["aircraft.lopsided-fuel"],
     "402": ["aircraft.lopsided-thrust"],
     "401": ["vehicles.damaged-engine-weaker"],
     "400": ["vehicles.matched-set-whole"],

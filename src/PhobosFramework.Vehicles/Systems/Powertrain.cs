@@ -986,7 +986,22 @@ public sealed class Powertrain
     double MaxFuelDemand => Turbine?.Top.Share ?? 1;
 
     double WearFuel => Turbine == null ? 1
-        : TurbineModel.WearFuelFactor(Condition(), PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().turbineWearFuelPenalty);
+        : TurbineModel.WearFuelFactor(Condition(), PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().turbineWearFuelPenalty) * TrimFuel();
+
+    /// <summary>What holding a lopsided twin jet straight adds to its fuel (Framework 0.248.0; AirCombatRule.LopsidedThrustFuel): 1 for anything
+    /// but a twin with a yaw figure, or with the lopsided-thrust setting off.</summary>
+    double TrimFuel()
+    {
+        if (!VehicleSystemsMod.Settings.lopsidedThrust || comp.Props.loadout is not { engineOutYaw: > 0f } loadout) return 1;
+        IReadOnlyList<double> outputs = EngineOutputs();
+        if (outputs.Count != 2) return 1;
+        double factor = AirCombatRule.LopsidedThrustFuel(loadout.engineOutYaw, outputs[0], outputs[1], outputs.Count);
+        if (factor > 1 && Seen.Wants("aircraft.lopsided-fuel", comp.Vehicle))
+        {
+            Seen.Note("aircraft.lopsided-fuel", comp.Vehicle, null, null, new[] { new KeyValuePair<string, double>("factor", factor) });
+        }
+        return factor;
+    }
 
     /// <summary>
     /// What flying between tiles burns against the author's rate: 1 with the engines in good order and nothing switched on, more with a

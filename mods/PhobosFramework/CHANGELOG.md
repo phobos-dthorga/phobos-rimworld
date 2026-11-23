@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.248.0] - 2026-11-23 - Draft
+
+Per-engine realism, round two: the cards brought in line, and four smaller ideas
+
+### Added
+
+- **A twin jet held straight on one engine burns more fuel** (the owner's card of 23 November 2026; docs/development/per-engine-realism.md, step 5): the rudder held against the pull adds drag, so with one engine out the A-10, Su-25 and Prowler burn 7.5 % more (authored), less with one engine merely weaker. Both the world map's range and the burn on a map count it. The setting Lopsided thrust unsettles twin jets covers it too. Not yet tested in game: row 405 of the test pass.
+
 ## [0.247.0] - 2026-11-23 - Draft
 
 Per-engine realism: a damaged engine gives less power

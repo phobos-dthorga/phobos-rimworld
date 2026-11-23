@@ -30,4 +30,15 @@ public class LopsidedThrustTests
 
     [Fact]
     public void ANonsenseFigureStaysInBounds() => Assert.Equal(0, AirCombatRule.LopsidedThrust(5, 1, 0, 2), 9);
+
+    [Fact]
+    public void OneEngineOutBurnsHalfTheFigureMore() => Assert.Equal(1.075, AirCombatRule.LopsidedThrustFuel(0.15, 0, 1, 2), 9);
+
+    [Fact]
+    public void MatchedEnginesBurnNoMore() => Assert.Equal(1, AirCombatRule.LopsidedThrustFuel(0.15, 0.6, 0.6, 2), 9);
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(3)]
+    public void OnlyATwinBurnsMore(int engines) => Assert.Equal(1, AirCombatRule.LopsidedThrustFuel(0.15, 1, 0, engines), 9);
 }

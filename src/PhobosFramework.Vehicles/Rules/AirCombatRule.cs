@@ -75,6 +75,22 @@ public static class AirCombatRule
         return Clamp01(1 - Clamp01(yaw) * Math.Abs(Clamp01(firstOutput) - Clamp01(secondOutput)));
     }
 
+    /// <summary>The extra fuel per unit of an aircraft's yaw figure with one engine fully out (AUTHORED, Framework 0.248.0): a yaw figure of
+    /// 0.15 burns 7.5 % more. No published figure was found for these jets; a twin's single-engine cruise in the manuals is slower and
+    /// thirstier per mile for more reasons than trim alone, which this leaves out.</summary>
+    public const double TrimFuelPerYaw = 0.5;
+
+    /// <summary>
+    /// What holding a lopsided twin jet straight costs in fuel (Framework 0.248.0, the owner's card of 23 Nov 2026: the no-drag rule's third
+    /// exception): the rudder held against the pull adds drag, so the engines burn more for the same flight. One plus the yaw figure times
+    /// <see cref="TrimFuelPerYaw"/> times the difference between the two engines' outputs; 1 for anything but a twin with a figure.
+    /// </summary>
+    public static double LopsidedThrustFuel(double yaw, double firstOutput, double secondOutput, int engines)
+    {
+        if (engines != 2 || yaw <= 0) return 1;
+        return 1 + Clamp01(yaw) * TrimFuelPerYaw * Math.Abs(Clamp01(firstOutput) - Clamp01(secondOutput));
+    }
+
     public static double Evasion(double authorsChance, double flightControl, bool warningWorks, double noWarningFactor, double salvoBonus, double cap)
     {
         if (authorsChance <= 0) return authorsChance;

@@ -717,7 +717,8 @@ speed and a message says so. An aircraft's generator gives about half its output
 **A damaged turbine engine gives less power** (not yet tested in game): from about half of it when badly damaged to all of it when
 sound, so a shot-up aircraft climbs and hovers weaker before an engine stops. The setting **Damaged turbine engines give less power**
 (on by default, the Flight section) turns it off. **A twin jet with an engine out, or one weaker than the other, dodges a little less
-fire** (the A-10, Su-25 and Prowler: at most 15 % less); helicopters and the Osprey do not, as one drive shares their engines' work.
+fire** (the A-10, Su-25 and Prowler: at most 15 % less) **and burns a little more fuel** holding a straight line (at most 7.5 %
+more); helicopters and the Osprey do not, as one drive shares their engines' work.
 The setting **Lopsided thrust unsettles twin jets** (on by default) turns it off.
 
 **Air defence, chaff and flares** (with **The Dead Man's Switch - Expedition**; not yet tested in game):

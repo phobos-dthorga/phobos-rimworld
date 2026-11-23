@@ -26,7 +26,9 @@ the general engineering rules there (parts bills, pipes beneath, optional tie-in
   nothing of ours changes a vehicle's speed or fuel use through air resistance. **One exception** (owner, 18 Nov 2026): the drivetrain
   model keeps its one fixed drag figure per vehicle class; no fitting, accessory, load or upgrade ever changes it. **A second exception**
   (owner, 19 Nov 2026): an aircraft's cruising height between tiles sets its speed and fuel by the air's density at the height flown
-  (`CruiseRule`); height alone moves them, never a fitting, accessory, load or upgrade.
+  (`CruiseRule`); height alone moves them, never a fitting, accessory, load or upgrade. **A third exception** (owner's card, 23 Nov
+  2026): a twin jet held straight against lopsided thrust burns more fuel (`AirCombatRule.LopsidedThrustFuel`), moved only by its
+  engines' outputs and its loadout's yaw figure, never a fitting, accessory, load or upgrade.
 - **An armour or weapon kit's weight is carried mass** (owner, 19 Nov 2026: "weight counts like cargo"): its kilograms take cargo room
   and load the engine as the same weight of cargo would. Never through Vehicle Framework's mass stat, which slows nothing, and still
   no drag. Plain accessories keep their rule: their weight takes cargo room only (`docs/development/vehicle-militarised-service-vehicles.md`).
