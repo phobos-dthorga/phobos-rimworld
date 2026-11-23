@@ -44,8 +44,8 @@
       <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
     </systems>
     <drivetrain>
-      <!-- Framework 0.254.0: the twin turboshaft, whose contingency rating opens only with an engine out. -->
-      <def>PhobosDrivetrain_AeroTurboshaftTwin</def>
+      <!-- D'thorga Vehicles 0.112.0: its own TV3-117V, flown on the TV3-117VMA's sourced ladder (Drivetrains_RealVehicles.xml). -->
+      <def>PhobosDrivetrain_TV3117</def>
       <set>
         <transmissionLimit>0.9</transmissionLimit>
       </set>
@@ -180,8 +180,8 @@
       <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
     </systems>
     <drivetrain>
-      <!-- Framework 0.254.0: the twin turboshaft, whose contingency rating opens only with an engine out. -->
-      <def>PhobosDrivetrain_AeroTurboshaftTwin</def>
+      <!-- D'thorga Vehicles 0.112.0: its own TV7-117V and its sourced emergency ratings (Drivetrains_RealVehicles.xml). -->
+      <def>PhobosDrivetrain_TV7117</def>
       <set>
         <transmissionLimit>0.9</transmissionLimit>
       </set>

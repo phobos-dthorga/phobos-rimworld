@@ -834,6 +834,9 @@ public class PhobosVehicleLoadoutDef : Def
     /// <summary>Another mod's comps whose held things are carried weight, by their full type names (Framework 0.254.0; the owner's card of 23 Nov
     /// 2026: the C-17's hold, whose vehicles our engine model could not see). Read by name, never by reference (HeldMass).</summary>
     public List<string> heldMassComps = new();
+    /// <summary>Each engine's place across the craft, Engine1 first, where the design's parts do not say (Framework 0.255.0: thrusters that
+    /// each cover the whole body). Empty: from where each engine's part sits, or one each side for a twin. Authored per craft.</summary>
+    public List<float> engineArms = new();
     /// <summary>Breaks ties within a priority, higher winning: the tracked loadout beats the plain land ones.</summary>
     public int rank;
     /// <summary>The engine and drivetrain (drivetrain design), or an aircraft's engine (turbine design).</summary>

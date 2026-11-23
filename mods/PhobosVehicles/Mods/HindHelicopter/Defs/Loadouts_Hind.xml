@@ -8,35 +8,7 @@
     Its main gearbox (the VR-24) is appended (Framework 0.12.0). No published limit for it was found (8 Nov 2026), so the drive
     limit, 0.9 of both engines' maximum continuous, is authored.
   -->
-  <!--
-    The Klimov TV3-117VMA (Framework 0.250.0, per-engine realism round two; the owner's card of 23 Nov 2026). Take-off 2,200 hp, and 2,400 shp
-    for 2.5 minutes with one engine out (primary: Motor Sich's product page, read through search excerpts as the page refuses fetching).
-    Its maximum continuous was not found: authored at 0.9 of take-off, so take-off is 1.111 and the one-engine-out rating 1.212. Its
-    30-minute one-engine-out rating of 2,200 shp equals take-off and is left out (the ladder needs rising steps). The Mi-24V's own TV3-117V
-    had no ladder found; the VMA is its later build. Temperature limits, rated speed and the take-off time are the Framework's authored
-    helicopter turboshaft's (its turbine inlet temperature is given as 920 to 990 degrees C, rating not named: secondary, Wikipedia).
-  -->
-  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
-    <defName>PhobosDrivetrain_TV3117</defName>
-    <label>turboshafts</label>
-    <engine>
-      <kind>Turboshaft</kind>
-      <ratedRpm>20000</ratedRpm>
-      <kilowattsPerTonne>250</kilowattsPerTonne>
-      <idleFuelShare>0.2</idleFuelShare>
-      <turbine>
-        <idleSpeedPercent>60</idleSpeedPercent>
-        <ratings>
-          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>775</temperatureLimit></li>
-          <li><name>takeoff</name><label>take-off</label><share>1.111</share><speedPercent>102</speedPercent><temperatureLimit>815</temperatureLimit><minutes>5</minutes></li>
-          <li><name>contingency</name><label>one engine out</label><share>1.212</share><speedPercent>104</speedPercent><temperatureLimit>850</temperatureLimit><minutes>2.5</minutes><engineOutOnly>true</engineOutOnly></li>
-        </ratings>
-      </turbine>
-    </engine>
-    <transmission>
-      <kind>None</kind>
-    </transmission>
-  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+  <!-- Its engines, the Klimov TV3-117VMA's ladder, live in Drivetrains_RealVehicles.xml since Framework 0.255.0, shared with the Ka-27PS. -->
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_Hind</defName>

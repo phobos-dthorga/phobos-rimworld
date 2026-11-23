@@ -74,6 +74,19 @@ Found and left, for the owner:
   part each (12 steel, 2 components), so a whole set costs four times what the one part did. Trains keep their brake pipe; a tracked
   vehicle gets a brake a track. Nothing to change.
 
+## The audit's follow-ups (23 Nov 2026)
+
+The owner's yes, the same day, to both follow-ups offered:
+
+- **The Ka-27PS and Mi-38's own engines** (Vehicles 0.112.0). The TV7-117V: 2,800 shp take-off and 3,750 shp emergency (secondary: AIN,
+  19 Dec 2013; Wikipedia); Rostec's 3,140 hp "emergency mode" is read as a longer one-engine-out rating, our inference, so both are kept
+  (`PhobosDrivetrain_TV7117`). The Ka-27PS's TV3-117V gives 2,225 shp (secondary: Wikipedia) and no one-engine-out rating was found, so
+  it shares the Hind's TV3-117VMA ladder, moved to `Drivetrains_RealVehicles.xml` for both.
+- **The thruster craft** (Framework 0.255.0, Vehicles 0.112.0). The Frog (three thrusters), Toad and Goliath (four each) take lopsided
+  thrust (yaw 0.25, 0.25 and 0.2, authored) and side tanks. The Toad's thrusters sit at its corners in its design; the Frog's and
+  Goliath's each cover the whole body, so a loadout may now give each engine's place (`engineArms`): the Frog two either side and one on
+  the centreline (which draws on both tanks), the Goliath as the Toad's corners. All authored.
+
 ## Other factions' vehicles
 
 A raider's or an enemy base's C-17 gets the same systems; its parts can be shot out on the ground, and a captured one keeps them. Its hold

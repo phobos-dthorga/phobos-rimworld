@@ -409,6 +409,8 @@ public sealed class Powertrain
     /// </summary>
     public IReadOnlyList<double>? EngineArms()
     {
+        // Framework 0.255.0: the loadout's own places first, where the design's parts do not say (VVE's thrusters each cover the body).
+        if (comp.Props.loadout?.engineArms is { Count: > 0 } given && given.Count == engineRoles.Length) return given.Select(arm => (double)arm).ToArray();
         if (engineRoles.Length == 2) return AirCombatRule.TwinArms;
         if (engineRoles.Length < 2) return null;
         var arms = new double[engineRoles.Length];

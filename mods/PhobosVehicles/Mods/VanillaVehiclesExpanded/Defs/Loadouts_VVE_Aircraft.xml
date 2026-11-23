@@ -24,6 +24,14 @@
     </avionics>
     <label>thrust-lifted pod (three thrusters)</label>
     <priority>Vehicle</priority>
+    <!-- D'thorga Vehicles 0.112.0 (the fleet audit's follow-up, owner's yes of 23 Nov 2026): lopsided thrust and side tanks. Its three thrusters each cover the whole pod in the design, so their places are authored: two either side and the third on the centreline, which draws on both tanks. Yaw 0.25, authored: lift thrusters at the edge of a small pod. -->
+    <engineOutYaw>0.25</engineOutYaw>
+    <sideTanks>true</sideTanks>
+    <engineArms>
+      <li>-1</li>
+      <li>1</li>
+      <li>0</li>
+    </engineArms>
     <selector>
       <vehicleDefs>
         <li>VVE_Frog</li>
@@ -84,6 +92,9 @@
     </avionics>
     <label>thrust-lifted assault pod (four thrusters)</label>
     <priority>Vehicle</priority>
+    <!-- D'thorga Vehicles 0.112.0 (the fleet audit's follow-up, owner's yes of 23 Nov 2026): lopsided thrust and side tanks. Its four thrusters sit at its corners in the design (first and third left, second and fourth right), so their places are read from its parts. Yaw 0.25, authored. -->
+    <engineOutYaw>0.25</engineOutYaw>
+    <sideTanks>true</sideTanks>
     <selector>
       <vehicleDefs>
         <li>VVE_Toad</li>

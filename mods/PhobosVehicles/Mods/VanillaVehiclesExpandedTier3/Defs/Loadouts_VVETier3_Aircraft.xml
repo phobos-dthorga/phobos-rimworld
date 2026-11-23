@@ -25,6 +25,15 @@
     </avionics>
     <label>thrust-lifted siege pod (four thrusters)</label>
     <priority>Vehicle</priority>
+    <!-- D'thorga Vehicles 0.112.0 (the fleet audit's follow-up, owner's yes of 23 Nov 2026): lopsided thrust and side tanks. Its four thrusters each cover the whole craft in the design, so their places are authored as the Toad's corners. Yaw 0.2, authored: a heavy craft, slower to be pulled round. -->
+    <engineOutYaw>0.2</engineOutYaw>
+    <sideTanks>true</sideTanks>
+    <engineArms>
+      <li>-1</li>
+      <li>1</li>
+      <li>-1</li>
+      <li>1</li>
+    </engineArms>
     <selector>
       <vehicleDefs>
         <li>VVE_Goliath</li>

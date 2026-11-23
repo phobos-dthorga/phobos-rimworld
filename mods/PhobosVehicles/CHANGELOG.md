@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.112.0] - 2026-11-23 - Draft
+
+The Ka-27PS and Mi-38 on their own engines, and the thruster craft pulled by a thruster out
+
+### Changed
+
+- **The Ka-27PS and Mi-38 fly their own engines' ratings** (the owner's yes of 23 November 2026; docs/development/c17-globemaster.md): the Mi-38 its TV7-117V's 2,800 shp for take-off and its emergency ratings with an engine out (3,750 shp for two and a half minutes, 3,140 for thirty, the second our reading of a conflicting figure); the Ka-27PS the Hind's TV3-117 ladder, its TV3-117V being within a few per cent of it and no rating of its own found. Sources and every authored figure are in the drivetrains' notes. Not yet tested in game: row 424 of the test pass.
+- **Vanilla Vehicles Expanded's Frog, Toad and Goliath are pulled by a thruster out and keep a tank each side** (the owner's yes of 23 November 2026): with a thruster out or weaker than the others they burn a little more fuel (and dodge less, where they dodge at all), and a holed tank is the same cross-feed choice as on the twins. The Toad's thrusters are placed by its own parts; the Frog's and Goliath's cover the whole craft in their designs, so their places are authored. Not yet tested in game: row 425 of the test pass.
+
 ## [0.111.0] - 2026-11-23 - Draft
 
 The C-17 Globemaster III in the fold

@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.255.0] - 2026-11-23 - Draft
+
+Engines placed by their loadout where the design does not say
+
+### Added
+
+- **A loadout can say where each engine sits across the craft** (the owner's yes of 23 November 2026 to bringing the thruster craft in; docs/development/c17-globemaster.md, the fleet audit's follow-ups): engineArms, Engine1 first, read before the parts' own places, for designs whose engine parts each cover the whole body. Lopsided thrust and side tanks read it. For other mods: an optional list on any loadout. Not yet tested in game: row 425 of the test pass.
+
 ## [0.254.0] - 2026-11-23 - Draft
 
 Four engines by wing, a hold's weight, and the fleet brought in line. Two changes made together in one working tree: the C-17's needs, and the fleet audit that followed.

@@ -527,4 +527,68 @@
       <emptyKilograms>63080</emptyKilograms>
     </mass>
   </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    The Klimov TV3-117VMA (Framework 0.250.0, per-engine realism round two; the owner's card of 23 Nov 2026). Take-off 2,200 hp, and 2,400 shp
+    for 2.5 minutes with one engine out (primary: Motor Sich's product page, read through search excerpts as the page refuses fetching).
+    Its maximum continuous was not found: authored at 0.9 of take-off, so take-off is 1.111 and the one-engine-out rating 1.212. Its
+    30-minute one-engine-out rating of 2,200 shp equals take-off and is left out (the ladder needs rising steps). The Mi-24V's own TV3-117V
+    had no ladder found; the VMA is its later build. Temperature limits, rated speed and the take-off time are the Framework's authored
+    helicopter turboshaft's (its turbine inlet temperature is given as 920 to 990 degrees C, rating not named: secondary, Wikipedia).
+    Moved here from the Hind's tie-in folder in D'thorga Vehicles 0.112.0 (the fleet audit's follow-up, owner's yes of 23 Nov 2026), so the
+    Ka-27PS can share it: its TV3-117V gives 2,225 shp for take-off (secondary: Wikipedia, "Kamov Ka-27"), within a few per cent of the
+    VMA's 2,200, and no one-engine-out rating of its own was found, so it flies the VMA's ladder as its nearest sourced relative.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_TV3117</defName>
+    <label>turboshafts</label>
+    <engine>
+      <kind>Turboshaft</kind>
+      <ratedRpm>20000</ratedRpm>
+      <kilowattsPerTonne>250</kilowattsPerTonne>
+      <idleFuelShare>0.2</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>775</temperatureLimit></li>
+          <li><name>takeoff</name><label>take-off</label><share>1.111</share><speedPercent>102</speedPercent><temperatureLimit>815</temperatureLimit><minutes>5</minutes></li>
+          <li><name>contingency</name><label>one engine out</label><share>1.212</share><speedPercent>104</speedPercent><temperatureLimit>850</temperatureLimit><minutes>2.5</minutes><engineOutOnly>true</engineOutOnly></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    The Klimov TV7-117V of the Mi-38 (D'thorga Vehicles 0.112.0; the fleet audit's follow-up, owner's yes of 23 Nov 2026): 2,800 shp for
+    take-off and 3,750 shp in its emergency rating with an engine out (secondary: AIN, "Mi-38 helo with Russian engines makes first flight",
+    19 Dec 2013, and Wikipedia, "Klimov TV7-117"). Rostec gives 3,140 hp for "emergency mode"; read here, as our inference, as the longer
+    one-engine-out rating beside the short one, so both are kept, each allowed only with an engine out. Its maximum continuous was not found:
+    authored at 0.9 of take-off, so shares of 1, 1.111, 1.246 (30 minutes, authored) and 1.488 (2.5 minutes, authored). Temperature
+    limits and rated speed are the Framework's authored helicopter turboshaft's.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_TV7117</defName>
+    <label>turboshafts</label>
+    <engine>
+      <kind>Turboshaft</kind>
+      <ratedRpm>20000</ratedRpm>
+      <kilowattsPerTonne>250</kilowattsPerTonne>
+      <idleFuelShare>0.2</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>775</temperatureLimit></li>
+          <li><name>takeoff</name><label>take-off</label><share>1.111</share><speedPercent>102</speedPercent><temperatureLimit>815</temperatureLimit><minutes>5</minutes></li>
+          <li><name>oeiLong</name><label>thirty minutes, one engine out</label><share>1.246</share><speedPercent>104</speedPercent><temperatureLimit>840</temperatureLimit><minutes>30</minutes><engineOutOnly>true</engineOutOnly></li>
+          <li><name>contingency</name><label>one engine out</label><share>1.488</share><speedPercent>106</speedPercent><temperatureLimit>880</temperatureLimit><minutes>2.5</minutes><engineOutOnly>true</engineOutOnly></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
 </Defs>
