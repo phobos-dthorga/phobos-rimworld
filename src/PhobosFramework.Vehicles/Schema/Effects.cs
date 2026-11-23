@@ -412,11 +412,14 @@ public class Effect_Breakdown : VehicleSystemEffect
     public string message = "";
     /// <summary>What the part sounds like breaking (a tyre bursting); played at the vehicle when it breaks.</summary>
     public SoundDef? sound;
+    /// <summary>On a vehicle that keeps each engine's hot-section life, break the most worn engine rather than any of the role (Framework
+    /// 0.247.0, per-engine realism step 4).</summary>
+    public bool mostWornEngine;
 
     public override void Apply(SystemContext context, float hours)
     {
         if (!Rand.Chance((float)FailureRule.ChanceIn(hours, mtbHours))) return;
-        VehicleComponent? part = context.Comp.BreakRole(role, healthFraction);
+        VehicleComponent? part = (mostWornEngine ? context.Comp.EngineWear.BreakMostWorn(healthFraction) : null) ?? context.Comp.BreakRole(role, healthFraction);
         if (part != null) VehicleSystemSounds.PlayOnce(context.Comp, sound);
         if (VehicleSystemsMod.StagesLog.DebugEnabled)
         {

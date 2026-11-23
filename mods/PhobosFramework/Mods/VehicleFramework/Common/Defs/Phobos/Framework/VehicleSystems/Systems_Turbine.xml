@@ -109,6 +109,8 @@
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_Breakdown">
                 <role>Engine</role>
+                <!-- Framework 0.247.0: on a twin, the engine whose hot section is worn. -->
+                <mostWornEngine>true</mostWornEngine>
                 <mtbHours>150</mtbHours>
                 <healthFraction>0.3</healthFraction>
                 <message>PhobosVehicleSystems_MsgBreakdown</message>

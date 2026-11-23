@@ -1,7 +1,7 @@
 # Per-engine realism (23 Nov 2026)
 
-**Status (23 Nov 2026):** steps 1 to 3 built in D'thorga Framework 0.247.0 and Vehicles 0.108.0 (power by engine health, row 401;
-lopsided thrust, row 402; tyres and springs matched per axle, row 403); step 4 designed, not yet built. Nothing here is tested in game yet.
+**Status (23 Nov 2026):** all four steps built in D'thorga Framework 0.247.0 and Vehicles 0.108.0 (power by engine health, row 401;
+lopsided thrust, row 402; tyres and springs matched per axle, row 403; wear per engine, row 404). Nothing here is tested in game yet.
 
 ## Read this first
 
@@ -83,7 +83,26 @@ The design as first written:
   and heavy-duty springs go on both wheels of an axle together, and work once the axle is matched. Mismatched brakes or springs on one
   axle pull a vehicle to one side, and many road rules require matching tyres on an axle.
 
-### Step 4: wear per engine (designed)
+### Step 4: wear per engine (built, Framework 0.247.0)
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | See which engine of a twin is worn, and overhaul that one |
+| What it stops them doing | Treating a twin's engines as one: covering for a weak engine wears the other |
+| How it changes play | A twin may need two overhauls, one kit each, at different times |
+| What outside the vehicle notices | The colony's stores: kits are drawn one engine at a time |
+
+- **How (agent's design, simpler than the per-part quantity first written below):** `EngineWear` keeps each engine's figure in a new
+  save key (`PhobosVehicleSystems_EngineHotSection`, by engine role). After the systems advance, the wear the turbine system added to
+  its one figure is shared among the engines by the work each did (`EngineWearRule.Shares`: output over the running engines' mean;
+  AUTHORED, as a damaged engine may in truth run hotter), and the figure is set to the most worn engine's, so the dashboard, the worn
+  stage and its warnings read the engine that needs it. The overhaul (`CompleteService`) does the most worn engine alone; the worn
+  stage's breakdown (`mostWornEngine` on `Effect_Breakdown`) hits it. A single-engined vehicle is untouched.
+- **Older saves:** each engine starts at the aircraft's figure.
+- **Risk: low** (agent's grade): upkeep only; no setting.
+- **Other factions' vehicles:** works the same on any faction's twin; their figures are saved with the vehicle.
+
+The design as first written:
 
 - Hot-section life becomes one figure an engine, overhauled one engine at a time, so a twin can have one engine due while the other is
   fresh. It needs a new Framework feature, a quantity kept per part, which also suits other per-part wear later (each wheel's tread).

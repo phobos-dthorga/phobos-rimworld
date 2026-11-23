@@ -60,6 +60,9 @@ public sealed class Powertrain
     /// <summary>The roles that count as engines: Engine1, Engine2 and so on when a loadout binds them, else the one Engine.</summary>
     readonly string[] engineRoles;
 
+    /// <summary>The roles the engines are bound to, one an engine (Engine1, Engine2...), or the one Engine.</summary>
+    public IReadOnlyList<string> EngineRoles => engineRoles;
+
     public DriveResult Result;
     public TurbineState TurbineNow;
     public string? Phase;

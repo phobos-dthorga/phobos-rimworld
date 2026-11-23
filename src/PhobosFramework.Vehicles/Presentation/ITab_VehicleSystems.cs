@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Phobos.Framework;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Interface;
@@ -219,6 +220,16 @@ public partial class ITab_VehicleSystems : ITab
                 Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysRating".Translate(train.RatingLabel.Named("RATING")).Resolve() + ", "
                     + "PhobosVehicleSystems_SysEnginesWorking".Translate(working.Named("WORKING"), engines.Named("ENGINES")).Resolve());
                 y += Row;
+                // Framework 0.247.0: each engine's own hot-section life, where the vehicle keeps one an engine.
+                List<(string engine, float life)> hot = comp.EngineWear.Shown().ToList();
+                if (hot.Count > 1)
+                {
+                    string list = string.Join(", ", hot.Select(h => "PhobosVehicleSystems_SysEngineLife".Translate(h.engine.Named("ENGINE"), h.life.ToStringPercent("0").Named("USED")).Resolve()));
+                    string hotLine = "PhobosVehicleSystems_SysHotSections".Translate(list.Named("LIST")).Resolve();
+                    float hotHeight = Mathf.Max(Row, Text.CalcHeight(hotLine, viewWidth - 12f));
+                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, hotHeight), hotLine);
+                    y += hotHeight;
+                }
                 // Framework 0.132.0: an aircraft's ledger (its generator and its bleed air) and the thin air, which a ground vehicle's
                 // drivetrain card shows.
                 if (!train.Ground && InspectText.LoadsLine(comp, VehicleSystemsMod.Settings.displayMode) is { } airLoads)

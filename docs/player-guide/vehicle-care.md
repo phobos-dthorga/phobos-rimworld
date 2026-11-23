@@ -630,7 +630,9 @@ their own: [camping and life on the road](camping.md).
   take-off power longer than allowed; a **hot-section overhaul**
   (10 plasteel, 3 components) puts it right. With one of two engines out, the other runs hot. **What a turbine drives besides the
   rotor or the tracks runs it a little hotter**: its generator, cabin air and, on the Harrier in a hover, air for the puffer jets.
-  The Systems tab lists them.
+  The Systems tab lists them. **On a twin, each engine keeps its own hot-section life** (not yet tested in game): the one doing more
+  work wears faster, the Systems tab lists each, and an overhaul does the most worn engine, so a twin may need two overhauls, one kit
+  each. A worn hot section's breakdowns hit the worn engine.
 - **An aircraft burns fuel by what its engines are doing** (not yet tested in game; the setting **Aircraft fuel follows the
   engines**, on by default):
   - **Flying between places**, one in good order with nothing switched on burns exactly what its author set. A worn hot section,

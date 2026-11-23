@@ -622,6 +622,13 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     // ---- Saving ----
 
+    /// <summary>Each engine's hot-section life used, by its role (Framework 0.247.0); null on a vehicle that keeps one figure. Saved.</summary>
+    internal Dictionary<string, float>? engineHotSection;
+    EngineWear? engineWear;
+
+    /// <summary>Each engine's own hot-section wear on a multi-engined turbine vehicle (Framework 0.247.0, per-engine realism step 4).</summary>
+    public EngineWear EngineWear => engineWear ??= new EngineWear(this);
+
     public override void PostExposeData()
     {
         base.PostExposeData();
@@ -650,6 +657,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             servicedSaved = servicedThisRequest.ToList();
         }
         Scribe_Collections.Look(ref savedValues, "PhobosVehicleSystems_Values", LookMode.Value, LookMode.Value);
+        // Framework 0.247.0 (per-engine realism step 4): each engine's hot-section life, by its role.
+        Scribe_Collections.Look(ref engineHotSection, "PhobosVehicleSystems_EngineHotSection", LookMode.Value, LookMode.Value);
         Scribe_Collections.Look(ref loadSwitches, "PhobosVehicleSystems_Loads", LookMode.Value, LookMode.Value);
         // The graphs' history: the owner's exception to "derived state is never saved" (8 Nov 2026), a few kilobytes per vehicle.
         History.ExposeData(Props.systems);
@@ -1026,6 +1035,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             {
                 if (Enabled(state)) state.Def.Worker.Advance(new SystemContext(this, state), hours);
             }
+            // Framework 0.247.0: the turbine's wear shared among its engines, the figure then the worst engine's, before stages are judged.
+            EngineWear.Sync();
             if (!stagesSettled)
             {
                 // The first update: take the stages the true readings give, quietly, as where each starts (no effects on entry or exit).
@@ -2450,11 +2461,17 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     {
         VehicleComponent? part = PartsOf(role).Where(p => p.Health > 0f).RandomElementWithFallback();
         if (part == null) return null;
+        BreakPart(part, fraction);
+        return part;
+    }
+
+    /// <summary>Takes a share of a part's health at once, as a breakdown does.</summary>
+    internal void BreakPart(VehicleComponent part, float fraction)
+    {
         part.SetHealth(part.Health - fraction * part.MaxHealth);
         RememberPartHealth(part);
         Vehicle.statHandler.MarkAllDirty();
         Repairs.NotifyRepairable();
-        return part;
     }
 
     // ---- What the game asks ----
@@ -3084,7 +3101,16 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (water > 0f && !VehicleWater.TryDraw(Vehicle, water)) return false;
         ThingOwner cargo = Vehicle.inventory.innerContainer;
         foreach (ThingDefCountClass supply in service.SuppliesNow) TakeFromCargo(supply.thingDef, supply.count);
-        foreach (QuantityRestore restore in service.restores) SetQuantity(restore.quantity, restore.value);
+        foreach (QuantityRestore restore in service.restores)
+        {
+            // Framework 0.247.0: a multi-engined turbine's hot section is overhauled one engine at a time, the most worn first.
+            if (restore.quantity == EngineWear.Quantity && EngineWear.OverhaulMostWorn(restore.value) is { } engine)
+            {
+                if (Seen.Wants("vehicles.engine-overhauled", Vehicle)) Seen.Note("vehicles.engine-overhauled", Vehicle, engine);
+                continue;
+            }
+            SetQuantity(restore.quantity, restore.value);
+        }
         Conditions.ClearBy(service);
         servicedThisRequest.Add(state.Def.defName);
         RecordEvent(VehicleEventKind.Service, state.Def.defName);
