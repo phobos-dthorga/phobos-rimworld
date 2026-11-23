@@ -3,7 +3,9 @@
 The three rounds of research into links between a vehicle's systems, each kept as written. Round one found the 22 systems
 joined in a star round the engine state and proposed eight links; round two looked for deeper chains, fittings and what the
 stations should do; round three added the crew, weather and ground, combat damage, electrics and hydraulics. What a vehicle
-loses before it is a wreck carries on in [knocked out, not destroyed](vehicle-knocked-out-systems.md).
+loses before it is a wreck carries on in [knocked out, not destroyed](archive/vehicle-knocked-out-systems.md).
+
+How vehicle damage works now: [systems/vehicle-damage.md](systems/vehicle-damage.md); this record keeps its history.
 
 **Status (17 Nov 2026):** round one is built (D'thorga Framework 0.67.0 to 0.70.0); rounds two and three are built except engine braking
 (T5 with F6, held by the owner) and the rows argued against or left for later (G10, G19, G20). Not yet tested in game. Each round's
@@ -707,7 +709,7 @@ its wording not checked).
 | G11 | **A holed tank, where its author gave it no reaction** | A hit on the fuel tank part of a vehicle with no `Reactor_FuelLeak` (checked once at start-up) → a `HoledTank` condition draining fuel an hour, as `HoledRadiator` drains coolant [A] | Patch a leak in the field, as for the radiator | A tank shot through keeping all its fuel | Combat damage reaches range on every vehicle | XML + input | Off (an armoured tank) | **Take** |
 | G12 | **Hits to the electrics drop loads** | A hit on the battery or alternator part → a `ShortedWiring` condition: one switched load, chosen at random, drops out until repaired; the headlights are among them [A]. Shares G16's rule | See the headlights die after a hit | Nothing | A shot-up truck limps home dim | XML + G16 | Off | **Take with G16** |
 | G13 | **Ammunition aboard cooks off in a fire** | A burning vehicle (round one's link 4, `Input_Fire`) carrying ammunition in its cargo → a chance of an explosion, larger with more aboard [A]; Combat Extended's ammunition read where installed | Keep ammunition off a burning truck, or pull it out | Parking a fuel-and-ammo convoy in a fire with no risk | Fires become emergencies | input | Off | **Ask the owner** (question 4) **Built in Framework 0.113.0, not yet tested in game.** |
-| G14 | **Hits through the cab hurt the crew** | To check first: whether Vehicle Framework already passes damage to seated people when a cab part is hit | — | — | — | — | — | **Read (16 Nov 2026): yes.** Vehicle Framework's `HitPawn` and Combat Extended's path both strike a person in a seat whose cells are hit ([knocked out, not destroyed](vehicle-knocked-out-systems.md#people-aboard)); nothing to build: our own vehicles' seats give their cab cells |
+| G14 | **Hits through the cab hurt the crew** | To check first: whether Vehicle Framework already passes damage to seated people when a cab part is hit | — | — | — | — | — | **Read (16 Nov 2026): yes.** Vehicle Framework's `HitPawn` and Combat Extended's path both strike a person in a seat whose cells are hit ([knocked out, not destroyed](archive/vehicle-knocked-out-systems.md#people-aboard)); nothing to build: our own vehicles' seats give their cab cells |
 | G15 | **Fire reaches the tyres and the battery** | Extends round one's link 4: a fire also damages the wheels' and the battery's parts an hour [A] | See a burnt-out truck need tyres and a battery, not only a radiator | A truck walking away from a fire on its old tyres | Fire's cost is honest | XML | Scale or off | **Take** **Built in Framework 0.106.0, not yet tested in game.** |
 
 Trailers and towed vehicles take hits as any vehicle does; nothing new is needed for them.
@@ -763,7 +765,7 @@ at about 60 psi, and the spring brakes come on between 20 and 45 psi **[P]**
 Nothing here runs per tick. Weather is read once per rare tick per map and cached; the driver is read when the driver changes or
 their health changes, and on the rare tick; conditions run on the systems' rare tick (every 250 ticks); G9 reads the light grid
 only for a moving vehicle at night. Within the vehicle model's budget of 0.05 ms a tick on average
-([vehicle health design](vehicle-health-design.md)).
+([vehicle health design](archive/vehicle-health-design.md)).
 
 ### Faults found on the way
 

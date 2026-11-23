@@ -9,7 +9,7 @@ The Osprey's design asks for "a fault-read by a separate reader before the insta
 ([the V-22 Osprey](vehicle-osprey.md#the-first-batch)); the owner gave the go on 19 November 2026. Four independent reads, one per
 area, by fresh readers who had seen none of the work: the Osprey's Defs and patches; the core of
 [our own flight over the map](archive/vehicle-flight-over-the-map.md); what was added on top of it (raiders by Osprey, ropes and the hoist,
-stock helicopters, the landing-surface rule); and the Osprey's own systems with [armour by class](vehicle-armour.md). Each read ours
+stock helicopters, the landing-surface rule); and the Osprey's own systems with [armour by class](archive/vehicle-armour.md). Each read ours
 against Vehicle Framework's public source (SmashPhil, commit `026420b5`), Combat Extended's source and the game's code, with
 `scripts/query-code.py`, `query-defs.py` and `query-patches.py`. Nothing was built, run or edited.
 

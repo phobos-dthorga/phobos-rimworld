@@ -31,3 +31,17 @@ Archived on 23 Nov 2026; how flight works now: [flight](../systems/flight.md).
 - [EA-6B Prowler](ea6b-prowler.md) (22 Nov 2026): the jamming jet in the fold, ICAP upgrades and jamming.
 - [UH-60M Black Hawk](uh60-blackhawk.md) (22 Nov 2026): z3nt3's Black Hawk in the fold.
 - [C-17 Globemaster III](c17-globemaster.md) (23 Nov 2026): z3nt3's C-17 in the fold; four engines by wing; its hold's weight.
+
+## Vehicle damage
+
+Archived on 23 Nov 2026; how vehicle damage works now: [vehicle damage](../systems/vehicle-damage.md).
+
+- [A pawn-like health model for vehicles](vehicle-health-design.md) (8 Nov 2026): conditions on Vehicle Framework's parts, slices
+  0 to 3.
+- [Knocked out, not destroyed](vehicle-knocked-out-systems.md) (16 Nov 2026): weapons, tracks, working gear and crew lost before a
+  wreck.
+- [Spall inside our vehicles](vehicle-spall.md) (21 Nov 2026): debris from a beaten plate, and spall liners; Combat Extended only.
+- [Glass on our vehicles](vehicle-glass.md) (22 Nov 2026): glass as a tracked part, and what follows when it breaks.
+- [Armour for our armed vehicles](vehicle-armour.md) (18 Nov 2026): classes by the threat stopped; Combat Extended first.
+- [Fire on vehicles](vehicle-fire.md) (22 Nov 2026): what burns a vehicle, fire zones, extinguishers and suppression.
+- [Fires on vehicles that never go out](vehicle-framework-fires.md) (10 Nov 2026): Vehicle Framework's stuck fires and the fix.

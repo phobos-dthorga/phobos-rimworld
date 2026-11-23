@@ -19,7 +19,7 @@ figures are under "Performance". The four-run protocol table there is still empt
 - **Owner's decisions (8 Nov 2026):** (1) **a condition layer on VF's parts**, VF's part health the one authority, our own Health
   tab replacing VF's; reviving the pawn hediff stack rejected; (2) this round: this record, measurement and an NPC tier, then the
   Health tab; (3) **NPC vehicles run a lite tier by default**, with a setting to run the full model for everyone (**the setting was
-  removed in Framework 0.96.1**, owner, 11 Nov 2026: other factions always run the lite tier; [the audit](vehicle-other-factions-audit.md)); (4) the repair
+  removed in Framework 0.96.1**, owner, 11 Nov 2026: other factions always run the lite tier; [the audit](../vehicle-other-factions-audit.md)); (4) the repair
   direction for later: **destroyed parts and serious conditions need supplies**, behind a setting; ordinary damage keeps VF's
   free repair.
 - **The budget in one line:** the whole vehicle model, every map, averages **no more than 0.05 ms a tick**; nothing runs every
@@ -124,7 +124,7 @@ EMP and extinguishing are lost under CE.
 Read before freezing slice 2's Def shape, as the roadmap asked: SmashPhil's `develop` branch (github.com/SmashPhil/Vehicle-Framework,
 last pushed 31 October 2026, MIT), cloned read-only into `.local/research/VehicleFramework-develop` and diffed against `release/1.6`
 (147 commits, 920 files). SmashPhil's code; our summary. **Nothing here is released yet**; the 1.7 game still loads VF 1.6.
-(Note, 17 Nov 2026: since 14 Nov 2026 Vehicle Framework ships a 1.7 build; see the [dependency audit](dependency-audit-2026-11-16.md).)
+(Note, 17 Nov 2026: since 14 Nov 2026 Vehicle Framework ships a 1.7 build; see the [dependency audit](../dependency-audit-2026-11-16.md).)
 
 - **The health model is unchanged.** `VehicleComponent`, `VehicleStatHandler`, the reactors and `VehiclePawn_Health` differ from
   1.6 only in comments, logging and formatting. Reactors still run inside `VehicleComponent.TakeDamage` after the health is
@@ -138,7 +138,7 @@ last pushed 31 October 2026, MIT), cloned read-only into `.local/research/Vehicl
   that tag. Consequences: condition rules must filter by kind of damage (built: `exceptDamageDefs`), and wheels will wear twice once
   this ships, VF's health loss beside our tread wear. **Open question for the owner when VF 1.7 ships**: leave both, or have tread
   wear stand down while VF's hand brakes are on. **VF 1.7 shipped on 14 Nov 2026 with hand brakes exactly as read here** (on by
-  default, `brakeDamagePerNode` 0.15), so the question is now live ([dependency audit](dependency-audit-2026-11-16.md)).
+  default, `brakeDamagePerNode` 0.15), so the question is now live ([dependency audit](../dependency-audit-2026-11-16.md)).
   **Answered by the owner, 16 Nov 2026: leave both**, as they measure different things; nothing to build (outstanding-work V9a).
 - **New: acceleration and braking** (`AccelerationController`, an `AccelerationRate` stat, a `Braking` event, tyre screech): may
   meet our drivetrain's speed cap; to read when it ships, not now.
@@ -345,7 +345,7 @@ vehicles). Record TPS and our milliseconds in the table below.
 
 ## Risks and unknowns
 
-- (Note, 17 Nov 2026: Vehicle Framework has shipped a 1.7 build since 14 Nov 2026; the [dependency audit](dependency-audit-2026-11-16.md)
+- (Note, 17 Nov 2026: Vehicle Framework has shipped a 1.7 build since 14 Nov 2026; the [dependency audit](../dependency-audit-2026-11-16.md)
   says what changed for us.) **VF 1.7 is unknown:** the tab hook order, `inspectorTabs` XML, the internal `HighlightedComponent`, event names, the
   `VehicleComponent` surface, and whether VF adds part conditions of its own. Slice 1 is a projection and survives most of that;
   slice 2's Def shape waits for a branch read; every VF-internal access goes through one accessor class so a rename is one fix.
@@ -392,9 +392,9 @@ vehicles). Record TPS and our milliseconds in the table below.
 - The authors of the Hind Helicopter Gunship and Mongoose Attack Helicopter (Workshop 3822052079 and 3819896964), decompiled for
   research into `.local/decompiled/`.
 - The Combat Extended team, Vehicle Framework compatibility (`.local/decompiled/CE-VehiclesCompat/`).
-- Our records: [vehicle systems](vehicle-systems-design.md), [Vehicle Framework mechanics](vehicle-framework-mechanics.md),
-  [the vehicle tabs](vehicle-tabs-design.md), [analysis tooling](analysis-tooling.md) (why milliseconds per tick have no file we
-  can read), [the RimWorld modding reference](rimworld-modding-reference.md) (the 1.7 Frame Profiler).
+- Our records: [vehicle systems](../vehicle-systems-design.md), [Vehicle Framework mechanics](../vehicle-framework-mechanics.md),
+  [the vehicle tabs](../vehicle-tabs-design.md), [analysis tooling](../analysis-tooling.md) (why milliseconds per tick have no file we
+  can read), [the RimWorld modding reference](../rimworld-modding-reference.md) (the 1.7 Frame Profiler).
 
 ## Vehicle health, slice 3: what it does to the player (8 Nov 2026, built 9 Nov 2026)
 
@@ -404,7 +404,7 @@ vehicles). Record TPS and our milliseconds in the table below.
 **Status: built in Framework 0.36.0 and Vehicles 0.14.0, on the owner's go of 9 Nov 2026. Not yet tested in game, nor is slice 2 it builds
 on.** The answers to its questions are in [Decisions](#decisions-9-nov-2026). Findings marked "from the code" are read from our decompile of Vehicle Framework
 1.6 (the build the 1.7 game loaded then) and summarised in our own words; what this record says will happen in play is a proposal.
-(Note, 17 Nov 2026: since 14 Nov 2026 Vehicle Framework ships a 1.7 build; see the [dependency audit](dependency-audit-2026-11-16.md).)
+(Note, 17 Nov 2026: since 14 Nov 2026 Vehicle Framework ships a 1.7 build; see the [dependency audit](../dependency-audit-2026-11-16.md).)
 
 This record answers the project's rule that every new behaviour says, before it is built, what it lets the player do, what it stops
 them doing and how it changes the way they play. The architecture is settled in [the vehicle health design](vehicle-health-design.md).
@@ -450,7 +450,7 @@ Proposed: a part at 0% is skipped by the repair job until its supplies are in th
 them, and using them brings the part back to a small share of health, from which ordinary free repair continues. The inspect text and
 the tab name what it waits for. The caravan path does the same.
 
-Supplies come **from providers by role**, as [the utility vehicles' table](utility-vehicles-design.md) already sets out (RimThunder
+Supplies come **from providers by role**, as [the utility vehicles' table](../utility-vehicles-design.md) already sets out (RimThunder
 for engine, transmission, fuel tank and running gear; Vanilla Vehicles Expanded for electrical and cooling; our fallback parts when
 neither is present), named in XML and resolved through `IfModActive` folders, never in C#. A part with no role (most of an imported
 vehicle's armour and hull) costs steel and components in proportion to its health.
@@ -572,8 +572,8 @@ radiator, oil pump, battery, starter, clutch, fuel pump or water pump, so we app
 ### Sources
 
 - SmashPhil, Vehicle Framework 1.6 (`.local/decompiled/VehicleFramework-1.6/`) and its `develop` branch, MIT; read for research, not copied.
-- Our records: [the vehicle health design](vehicle-health-design.md), [utility vehicles](utility-vehicles-design.md),
-  [the garage](vehicle-stations.md#the-vehicle-garage-and-fleet-tools-design-8-nov-2026).
+- Our records: [the vehicle health design](vehicle-health-design.md), [utility vehicles](../utility-vehicles-design.md),
+  [the garage](../vehicle-stations.md#the-vehicle-garage-and-fleet-tools-design-8-nov-2026).
 
 ## The two tabs, one answer (23 Nov 2026)
 

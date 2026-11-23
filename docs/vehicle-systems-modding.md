@@ -626,7 +626,7 @@ each stops; the Health tab shows a part's class when its figures are one. Put `P
 VehicleDef's `modExtensions`: `hitWidthCells` is the width Combat Extended shoots at (it otherwise tests one cell), and
 `appendedPartsInside` (on by default) puts the parts our systems append inside, so each cell keeps one outer part.
 `python scripts/check-vehicle-armour.py` checks every vehicle carrying the extension. D'thorga Vehicles' service trucks and their
-`Mods/CombatExtended/Patches/*_Armour.xml` are the worked example ([the design](development/vehicle-armour.md)).
+`Mods/CombatExtended/Patches/*_Armour.xml` are the worked example ([the design](development/archive/vehicle-armour.md)).
 
 ## Gathering runs
 

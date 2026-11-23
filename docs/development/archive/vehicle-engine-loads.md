@@ -148,7 +148,7 @@ These are why a step back is needed. Each makes a general load chain awkward, or
 | 5 | Figures in code or written three times | Alternator efficiency 0.6 is a C# constant; the alternator's speed curve and pulley ratio appear three times in XML | `AccessoryRules.cs:14`; `Systems_Electrical.xml:285-305`†, `:333-353`†, `Systems_HouseBattery.xml:70-90`† |
 | 6 | Displays that disagree | World-map range ignores stage fuel factors and the loads' fuel; the Engineer line shows the model's fuel power while the default burns the flat rate | `Service/VehicleRange.cs:57`†; `Presentation/InspectText.cs:168-169`† |
 | 7 | Two "accessories load the engine" routes | Cross-link 5 sits outside the engine model; turbine bleed air sits inside it | `CompPhobosVehicleSystems.cs:940`; `Powertrain.cs:436-438`† |
-| 8 | Performance already over its line | The one measurement had a full-model vehicle's rare tick at 0.131 ms against 0.1 ms | [vehicle health](../vehicle-health-design.md), the measurement table |
+| 8 | Performance already over its line | The one measurement had a full-model vehicle's rare tick at 0.131 ms against 0.1 ms | [vehicle health](vehicle-health-design.md), the measurement table |
 | 9 | Records behind the code | Stale status lines; the grid hook-up (Framework 0.120.0) has no design record | [the documentation audit](../docs-audit-2026-11-17.md) |
 
 ## How big the loads are (worked figures)
@@ -361,7 +361,7 @@ loads large enough to keep, and the rest could stay as figures on the Engineer l
 ## Constraints
 
 - **Performance.** The budget is 0.05 ms a tick averaged for the whole vehicle model and 0.1 ms per full-model vehicle per rare tick,
-  and the one measurement stood at 0.131 ms ([vehicle health](../vehicle-health-design.md)). The ledger adds no tick loop: it is a sum
+  and the one measurement stood at 0.131 ms ([vehicle health](vehicle-health-design.md)). The ledger adds no tick loop: it is a sum
   over a handful of loads inside the sample the hub already takes, with no allocation. **Record with `python scripts/perf.py` before
   and after any build** (ask the owner first, as each recording can hitch the game), and close the existing overrun before adding to it.
 - **Vehicle Framework's stat cache.** It marks every stat dirty each 250 ticks by itself†, so a speed change that follows the rare

@@ -7,6 +7,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   starting, failure, thin air and descents. Living; the pilot.
 - [Flight](flight.md) (23 Nov 2026): our own flight over a map, leaving and arriving, cruising height, lift-off limits, the
   sling, refuelling on a journey, avionics, aim, dodging, countermeasures, jamming and the aircraft in the fold. Living.
+- [Vehicle damage](vehicle-damage.md) (23 Nov 2026): conditions, the Health tab, repairs, knock-outs, spall, glass, armour,
+  fire, blasts and EMP. Living.
 
 ## The template
 

@@ -9,7 +9,7 @@ the owner's word (22 Nov 2026: what appears in the game world is made paid; "Go 
 | Glass chain items | [glass-chain-items.json](glass-chain-items.json) | 16 | US$2.40 | about US$0.88 | `generated/run-20261122-0850.md` |
 | Laminated pane, redrawn whole | [laminated-pane-retry.json](laminated-pane-retry.json) | 2 | US$0.30 | about US$0.11 | the same folder |
 
-**In all about US$1.32.** The items are for [vehicle glass](../../../docs/development/vehicle-glass.md) (the glass chain) and the
+**In all about US$1.32.** The items are for [vehicle glass](../../../docs/development/archive/vehicle-glass.md) (the glass chain) and the
 [radiation model](../../../docs/development/radiation-model.md) (RM5's three medicines). Nothing is shipped yet: each waits for its
 build.
 

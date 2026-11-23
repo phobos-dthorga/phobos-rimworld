@@ -34,7 +34,7 @@ More Injuries and Medical Surgery Expanded 2 were not re-checked for this regist
 
 | # | Patch (mod, class) | Whose fault, and what | It can go when | Stands down by itself? | Report |
 | --- | --- | --- | --- | --- | --- |
-| 2 | Patches 0.16.6, `VehicleFires` | Vehicle Framework: attached fires are left behind on leaving a map, and only the first is ever put out | `VehiclePawn.DeSpawn` puts fires out and a vehicle keeps one | No | Drafted. [Steps](vehicle-framework-fires.md) |
+| 2 | Patches 0.16.6, `VehicleFires` | Vehicle Framework: attached fires are left behind on leaving a map, and only the first is ever put out | `VehiclePawn.DeSpawn` puts fires out and a vehicle keeps one | No | Drafted. [Steps](archive/vehicle-framework-fires.md) |
 | 3 | Patches, `VisitMapStaysOpen` | Visit Settlements: its downing postfix calls `DeinitializeMap` directly, skipping every rule that keeps a map open | That path goes through the game's map removal rules | Partly: off if its code has changed | Drafted, [Visit Settlements patches](visit-settlements-patches.md) |
 | 4 | Patches, `SettlementEventsGuard` | Visit Settlements: the food sum reads the food need of pawns that do not eat, and throws every tick | The sum skips pawns with no food need | Partly: off if its code has changed | Drafted, [Visit Settlements patches](visit-settlements-patches.md) |
 | 5 | Patches, `RimPactsArrivalFilter` | RimPacts: a postfix in a generic class on `LaunchProtocol.GetArrivalOptions`, which breaks when the next mod patches that method | RimPacts patches it from a non-generic class | No | Drafted, [RimPacts patches](rimpacts-patches.md) |

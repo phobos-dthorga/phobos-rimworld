@@ -59,11 +59,10 @@ research or design with nothing built; **living** means kept current by every ch
 
 - [Vehicle systems](vehicle-systems-design.md) (8 Nov 2026): the schema-driven service for electrical, coolant, oil and more. Built.
 - [The vehicle tabs](vehicle-tabs-design.md) (8 Nov 2026): the Dashboard, Systems and Health tabs and their history graphs. Built.
-- [A pawn-like health model for vehicles](vehicle-health-design.md) (8 Nov 2026): conditions on Vehicle Framework's parts, slices 0 to 3. Built; wrecks not.
-- [Knocked out, not destroyed](vehicle-knocked-out-systems.md) (16 Nov 2026): weapons, tracks, working gear and crew lost before a wreck. Partly built.
 - [How our vehicle features look](vehicle-presentation-design.md) (11 Nov 2026): the diagnosis report, fleet board, icons and graphs. Partly built.
 - [Other factions' vehicles: an audit](vehicle-other-factions-audit.md) (11 Nov 2026): every player-faction check against the owner's rule. Built.
 - [Headlights that light the ground](vehicle-headlights.md) (12 Nov 2026): a beam of the game's own light ahead of every vehicle. Built.
+- [Vehicle damage](systems/vehicle-damage.md) (23 Nov 2026): how vehicles are hurt, knocked out, burned and mended now. Living.
 
 ### Power, drivetrain and aircraft
 
@@ -120,8 +119,6 @@ research or design with nothing built; **living** means kept current by every ch
 - [Walk-in cabins](vehicle-cabins.md) (22 Nov 2026): a vehicle's cabin as a small pocket map; the Osprey first. Built, untested.
 - [Railcars](vehicle-railcars.md) (22 Nov 2026): a loadout for Trains of the Rim's wagons, so they can take fittings. Set aside by the owner; nothing built.
 - [Modern military aircraft and vehicles](modern-military-vehicles.md) (18 Nov 2026): the Osprey, armed candidates, crewless fits. Record only.
-- [Armour for our armed vehicles](vehicle-armour.md) (18 Nov 2026): classes by the threat stopped; Combat Extended first. Record only.
-- [Spall inside our vehicles](vehicle-spall.md) (21 Nov 2026): debris from a beaten plate, and spall liners; Combat Extended only. Built, untested.
 - [The V-22 Osprey](vehicle-osprey.md) (18 Nov 2026): our first aircraft: figures, parts, guns, upgrades, art plan. Record only.
 
 ### Tie-ins and contracts
@@ -144,8 +141,6 @@ research or design with nothing built; **living** means kept current by every ch
 - [Bay trips](vehicle-bay-trips.md) (20 Nov 2026): vehicles driven, towed or pushed to a dyno bay for repair by themselves. Built, untested.
 - [Traps and vehicles](vehicle-traps.md) (21 Nov 2026): your vehicles pass over your traps when you did not send them; a setting. Built 0.213.0, untested.
 - [Depots and forward fuel points](vehicle-depots.md) (20 Nov 2026): fuel left on the world map for later trips; DP1 to DP6. Design only.
-- [Glass on our vehicles](vehicle-glass.md) (22 Nov 2026): glass as a tracked part, and what follows when it breaks; VG1 to VG14. Record only.
-- [Fire on vehicles](vehicle-fire.md) (22 Nov 2026): what burns a vehicle today, a fault in our fire checks; FR1 to FR14. Partly built, untested.
 
 ## D'thorga Medical
 
@@ -170,7 +165,6 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Nuclear strikes, vehicles and people](nuclear-strike-effects.md) (22 Nov 2026): vehicles in a strike; the real effects; NK1 to NK27. Partly built, untested.
 - [RimPacts patches](rimpacts-patches.md) (2 Nov 2026): the Harrier's load fix, sorties over battles, struck towns' assaults, empty vehicles. Built.
 - [Visit Settlements patches](visit-settlements-patches.md) (8 Nov 2026): a battle map closed under the player, food drops every tick. Built.
-- [Fires on vehicles that never go out](vehicle-framework-fires.md) (10 Nov 2026): Vehicle Framework's stuck fires and the fix. Built; owner-tested.
 - [Soldiers keep their guns](soldiers-keep-their-guns.md) (19 Nov 2026): why soldiers fought with grenades under CE, and the fix. Built, untested.
 - [Mech rechargers that draw real power](mech-recharging-real-power.md) (20 Nov 2026): rechargers draw by the mech's size; off by default. Built, untested.
 
@@ -226,6 +220,13 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [C-17 Globemaster III](archive/c17-globemaster.md) (23 Nov 2026): z3nt3's C-17 in the fold; four engines by wing; its hold's weight. Archived.
 - [Close Air Support's A-10 and Su-25](archive/close-air-support-jets.md) (21 Nov 2026): both jets in the fold, our own dodge. Archived.
 - [EA-6B Prowler](archive/ea6b-prowler.md) (22 Nov 2026): the jamming jet in the fold, ICAP upgrades; ECM ideas, steps 2 to 4. Archived.
+- [A pawn-like health model for vehicles](archive/vehicle-health-design.md) (8 Nov 2026): conditions on Vehicle Framework's parts, slices 0 to 3. Archived.
+- [Knocked out, not destroyed](archive/vehicle-knocked-out-systems.md) (16 Nov 2026): weapons, tracks, working gear and crew lost before a wreck. Archived.
+- [Armour for our armed vehicles](archive/vehicle-armour.md) (18 Nov 2026): classes by the threat stopped; Combat Extended first. Archived.
+- [Spall inside our vehicles](archive/vehicle-spall.md) (21 Nov 2026): debris from a beaten plate, and spall liners; Combat Extended only. Archived.
+- [Glass on our vehicles](archive/vehicle-glass.md) (22 Nov 2026): glass as a tracked part, and what follows when it breaks; VG1 to VG14. Archived.
+- [Fire on vehicles](archive/vehicle-fire.md) (22 Nov 2026): what burns a vehicle today, a fault in our fire checks; FR1 to FR14. Archived.
+- [Fires on vehicles that never go out](archive/vehicle-framework-fires.md) (10 Nov 2026): Vehicle Framework's stuck fires and the fix. Archived.
 - [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
 - [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
 - [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

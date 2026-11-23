@@ -963,7 +963,7 @@ designed above allows a destruction through, which is the fix.
 - The measured cost of a cell crossed, and the garbage Vehicle Framework's claim makes.
 - Whether clearing smoke and gas beneath an aircraft reads as rotor wash or as a fault.
 - Whether our `Launch` prefix really runs after both flight mods' and our own prompt in the owner's load order.
-- Combat Extended's part is in [the armour record](../vehicle-armour.md#in-the-air).
+- Combat Extended's part is in [the armour record](vehicle-armour.md#in-the-air).
 
 ## Read 19 Nov 2026: other authors' aircraft on our flight
 

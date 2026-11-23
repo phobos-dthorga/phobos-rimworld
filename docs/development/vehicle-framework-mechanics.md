@@ -277,7 +277,7 @@ Read on 11 Nov 2026 from the 1.6 decompile (`Vehicles.decompiled.cs`), the build
   calls VF's vehicle generator, but most mods on the owner's list are not decompiled.
 - **Our systems are on those vehicles too.** The systems comp is added to the vehicle's Def at start-up, so a faction's
   vehicle carries it as the player's does; other factions' vehicles run the lite tier by default
-  ([vehicle health](vehicle-health-design.md)).
+  ([vehicle health](archive/vehicle-health-design.md)).
 - **To trace one in play:** save with the vehicle on the map and ask `python scripts/query-save.py find <its ID>`.
 - `scripts/query-patches.py` cannot list VF's patches: it applies them through its own helper at run time.
 

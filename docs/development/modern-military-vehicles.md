@@ -77,7 +77,7 @@ them ours.
 | Amphibious, engineering, mine clearing | none | empty; see the 9 November record |
 
 Our own twelve vehicles are utility vehicles, trailers and submarines. **None is an aircraft and none is armed**
-([knocked-out systems](vehicle-knocked-out-systems.md): "Our own vehicles carry no weapons").
+([knocked-out systems](archive/vehicle-knocked-out-systems.md): "Our own vehicles carry no weapons").
 
 ### On the Workshop
 
@@ -191,7 +191,7 @@ What the reading says about an aircraft **[I]**:
 
 - **Cost.** VTOL Vehicle carries 67 Harmony patch classes and the fixed-wing framework 72 more, several on methods
   every pawn calls. Ours should patch far fewer and none of those, inside the 0.05 ms a tick the vehicle model is
-  allowed ([vehicle health](vehicle-health-design.md)).
+  allowed ([vehicle health](archive/vehicle-health-design.md)).
 - **People leaving and boarding in the air.** Neither lets anyone down a rope or up a hoist. The Osprey has both.
 - **A circle the player sets.** The fixed-wing framework fixes one orbit radius per Def; a gunship wants the player
   to choose it.
@@ -340,7 +340,7 @@ modelled. **[A]**; each figure would be authored and labelled so.
 **Its guns.** Combat Extended already has the ammunition in the owner's game: `AmmoSet_762x51mmNATO` for the M240 and
 the GAU-17, `AmmoSet_50BMG` for the GAU-21 (checked with `query-defs.py`, 18 Nov 2026). The ramp gun is a turret with
 an arc to the rear, worked from a seat. The belly gun is a turret no seat names, so it fires with nobody at it under
-our [weapon-station power rule](vehicle-knocked-out-systems.md), and its node costs load. On Vehicle Framework alone
+our [weapon-station power rule](archive/vehicle-knocked-out-systems.md), and its node costs load. On Vehicle Framework alone
 both fire only when landed; on VTOL Vehicle the ramp gun fires in the hover.
 
 **Hoist and ropes.** The real aircraft has a rescue hoist and two fast-rope points. Neither flight framework lets
@@ -903,7 +903,7 @@ for both hovering and circling from the start, and the hover half is built first
 **What each decision sets in motion:**
 
 - **1, armour.** A read of how Combat Extended resolves a hit on a Vehicle Framework vehicle, then one armour
-  declaration per Def that serves both. **Designed 18 Nov 2026:** [armour for our armed vehicles](vehicle-armour.md);
+  declaration per Def that serves both. **Designed 18 Nov 2026:** [armour for our armed vehicles](archive/vehicle-armour.md);
   not built. The Osprey's own design record followed the same day: [the V-22 Osprey](vehicle-osprey.md).
 - **2, 3 and the fourteenth.** A design record for our own flight over the map, in D'thorga Framework's core because
   every aircraft of ours will use it. It comes before the Osprey's own design record. **Written 18 Nov 2026:**

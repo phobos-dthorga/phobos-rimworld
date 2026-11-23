@@ -257,5 +257,5 @@ small sprite on a hinge; dust in the fan is a fleck. The rock and bulk bodies ar
   README): `1.6/Defs/RoadDefs/RoadDefs.xml`, `1.6/Defs/WorldObjectDefs/WorldObjects.xml`, `1.6/Defs/ThingDefs/RotR_Buildings.xml`, `1.6/Patches/patches.xml`,
   `Languages/English/Keyed/settings.xml`, `README.md`; its assembly not read; it declares 1.3 to 1.6, not 1.7 (`About/About.xml`).
 - Our own: `Vehicle_BulkTanker.xml`, `Drivetrains.xml`, `Loadouts_Default.xml`, `Parts.xml`, `Powertrain.cs:289`; [the utility vehicles design](utility-vehicles-design.md);
-  [vehicle health, slice 3](vehicle-health-design.md#vehicle-health-slice-3-what-it-does-to-the-player-8-nov-2026-built-9-nov-2026). The 6x4 tipper's class figures (10 t empty, 220 kW, 13 to 16 t payload) are secondary, from general
+  [vehicle health, slice 3](archive/vehicle-health-design.md#vehicle-health-slice-3-what-it-does-to-the-player-8-nov-2026-built-9-nov-2026). The 6x4 tipper's class figures (10 t empty, 220 kW, 13 to 16 t payload) are secondary, from general
   manufacturer literature for the class, not a named model.

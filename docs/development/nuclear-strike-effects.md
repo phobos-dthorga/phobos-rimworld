@@ -5,11 +5,13 @@
 told and flash by the light (NK12, NK13, NK17, NK18) followed in Patches 0.36.0, once our radiation model existed. Every other row
 is unbuilt. Not yet tested in game: rows 332, 333 and 375 of the test pass.
 
+How vehicle damage works now: [systems/vehicle-damage.md](systems/vehicle-damage.md); this record keeps its history.
+
 The owner, 22 Nov 2026: "vehicles, and I think it's all of the ones under our purview, aren't affected by the nuclear weapons
 available to me in my Rimworld game. But this might be hiding a bigger problem." And: "it might be good to introduce some other,
 realism-based health effects, like pawns receiving an instaneous radiation dose upon detonation and other effects." And: "Let's turn
 this into a research and record purview, strictly." In the same conversation the owner proposed glass as a vehicle part with
-knock-on effects; that has [its own record](vehicle-glass.md).
+knock-on effects; that has [its own record](archive/vehicle-glass.md).
 
 **How to read the marks.** **[log]** and **[save]** were read from the owner's `Player.log` and saves on 22 Nov 2026, read-only.
 **[code]** was read in code or Defs, never run. **[P]** a primary source; **[S]** a secondary one. **[I]** our inference. **[A]** an
@@ -80,7 +82,7 @@ design below:
 - **The bigger problem is real, and it is not about nuclear weapons.** In the owner's game, **the game's fire damage and any blast of
   low penetration do nothing to any vehicle part, from any mod**, and **people aboard a vehicle are out of reach of every area
   effect**: a strike, fallout, gas, another mod's radiation. (Corrected 22 Nov 2026: our own vehicle systems do wear the radiator,
-  tyres and battery of the player's burning vehicles, outside any armour step; [fire on vehicles](vehicle-fire.md) has the detail.)
+  tyres and battery of the player's burning vehicles, outside any armour step; [fire on vehicles](archive/vehicle-fire.md) has the detail.)
 - **Reality runs the other way.** A vehicle often survives a nuclear burst that kills or disables its crew. Our strike spares the
   crew completely and cannot hurt the vehicle either.
 - **The strike already gives an instantaneous radiation dose**, but only with Dubs Rimatomics active, only to people standing in the
@@ -238,12 +240,12 @@ The owner's suspicion was right. Five things lie behind the report; the first tw
 | **B5** | **Our strike gives a vehicle a person's treatment**: never removed, burned "over the skin", pulsed only if a mechanoid | Our strike model and fast sweep | **Ours** | **A gap in our design.** The strike's record has columns for people, buildings, plants and ground, and none for vehicles |
 
 **B1 has already been seen once without being named.** The jet that burned without harm in
-[the Vehicle Framework fires record](vehicle-framework-fires.md) fits it: the game's fire damage did nothing, and its fires were on
+[the Vehicle Framework fires record](archive/vehicle-framework-fires.md) fits it: the game's fire damage did nothing, and its fires were on
 another map, where our systems' fire wear does not look.
 
 **What follows from B1 and B2 together:** in the owner's game a vehicle is largely fireproof (only our systems' wear reaches the
 player's own, below), largely blast-proof, and a sealed shelter from everything in the air, for anyone, whatever the vehicle is.
-**Correction, 22 Nov 2026:** the fire research ([fire on vehicles](vehicle-fire.md)) found our vehicle systems already wear the
+**Correction, 22 Nov 2026:** the fire research ([fire on vehicles](archive/vehicle-fire.md)) found our vehicle systems already wear the
 radiator, tyres and battery of the player's burning vehicles directly, at full detail only, so "fireproof" holds for other factions'
 vehicles and for every vehicle that cannot catch fire at all. That is the opposite of what a design about vehicles as fragile,
 maintained machines wants, and it holds for raiders' vehicles as much as the colony's.
@@ -333,7 +335,7 @@ What can honestly be taken from the sources is **the order in which things fail 
   second" and "traveled 13 feet before striking the ground and then slid or rolled another 9 feet. A prone dummy, however, did not
   move under the same conditions" (G&D §12.44) **[P]**. Hitting something hard: about 10 feet a second is mostly safe, deaths begin
   near 21, and half die near 54 (G&D Table 12.49) **[P]**.
-- **Flying glass and debris** wound from much further out still: see [vehicle glass](vehicle-glass.md#injuries-from-glass).
+- **Flying glass and debris** wound from much further out still: see [vehicle glass](archive/vehicle-glass.md#injuries-from-glass).
 
 ### Heat
 
@@ -519,7 +521,7 @@ Extended itself does, and raise the same events.
 | **NK8** | **The crew share the vehicle's fate.** Thrown about inside as the vehicle is battered: blunt injuries, and More Injuries' concussion and fractures where it is active | The seats are reachable; today only shock spall reaches a crew, and only behind heavy plate | Hurt or kill a crew without destroying the vehicle | Sitting out a strike in a parked truck | A vehicle is no bunker; people leave it for real shelter | Medium. **Take** |
 | **NK9** | **A dose through the hull.** The strike's dose reaches each person aboard, cut by what they sit in: nothing for an open vehicle, a little for a closed cab, more for armour, most for a tank | Open or closed is already on every loadout; the armour class is on every plate. The real figures: a tank's crew take about a third of the outside dose, a light armoured vehicle's most of it, and no figure was found for a truck ([physics](#the-dose-at-detonation)) | Leave a tank standing with a dying crew, as the real weapons were meant to | Treating armour as radiation shelter | Distance and rock, not steel, are what protect from the dose | Small once NK12 exists. **Take** |
 | **NK10** | **The flash takes the driver's sight.** A driver or pilot blinded at the flash stops driving until relieved or recovered; no crash is rolled | The owner's rule for a stoned driver was "no random crashes" (12 Nov 2026); this follows it. Night driving already swaps a tired driver for a rested passenger (`V/Camp/NightDriving.cs`) | Halt a column with a flash | Driving on blind | A second driver aboard matters | Small. **Idea** |
-| **NK11** | **Fallout, gas and pollution reach people aboard, by the cab**: fully in an open vehicle, slowed by a closed one | This is EM22 in [emergent play](vehicle-emergent-play.md#questions-for-the-owner). The owner's answer of 20 Nov 2026: it waits for the cab-air model. [Vehicle glass](vehicle-glass.md) proposes what seals a cab | — | — | — | **Waiting** |
+| **NK11** | **Fallout, gas and pollution reach people aboard, by the cab**: fully in an open vehicle, slowed by a closed one | This is EM22 in [emergent play](vehicle-emergent-play.md#questions-for-the-owner). The owner's answer of 20 Nov 2026: it waits for the cab-air model. [Vehicle glass](archive/vehicle-glass.md) proposes what seals a cab | — | — | — | **Waiting** |
 
 ### C. People on foot
 
@@ -542,7 +544,7 @@ survivor outside the fireball who is not under a rock roof gets `applyRads` at 5
 
 | # | Idea | What the reads found | Lets | Stops | Changes | Size and verdict |
 | --- | --- | --- | --- | --- | --- | --- |
-| **NK20** | **Fire that harms a vehicle** (B1). A fire on or under a vehicle wears its soft parts by role, heats the cab, and can light a leaking tank, through our own systems and not through an armour step | [The fires record](vehicle-framework-fires.md) and knocked-out row C3 (smoke and heat in the cab, waiting for cab air) are the pieces already written down | Lose a vehicle to fire; fight a vehicle fire | Parking in a firestorm | Fire extinguishers, and where vehicles are parked | Medium to large. **Hold**: worth its own record; raise it with the owner |
+| **NK20** | **Fire that harms a vehicle** (B1). A fire on or under a vehicle wears its soft parts by role, heats the cab, and can light a leaking tank, through our own systems and not through an armour step | [The fires record](archive/vehicle-framework-fires.md) and knocked-out row C3 (smoke and heat in the cab, waiting for cab air) are the pieces already written down | Lose a vehicle to fire; fight a vehicle fire | Parking in a firestorm | Fire extinguishers, and where vehicles are parked | Medium to large. **Hold**: worth its own record; raise it with the owner |
 | **NK21** | **Overpressure from any large explosion**, not only a strike | Shock spall already covers the armoured case. A general rule would change what every shell in Combat Extended does to every vehicle | — | — | — | **Argued against** for now: too wide a change to another mod's balance for the gain |
 | **NK22** | **Other mods' nuclear weapons use our vehicle route** (Rimatomics, IRBM's tactical warheads, The Dead Man's Switch) | Each has its own blast code. None is at fault: each was written without vehicles in mind, as ours was | One answer for every nuclear weapon | — | — | **Idea**, after our own strike is right |
 | **NK23** | **A vehicle another mod removes outright takes its crew with it** | Rimatomics' low yield and Legion's strike remove vehicles; Vehicle Framework sets the crew down first, at ground zero, where the next stage usually kills them anyway | — | — | — | **Idea only**: the outcome is already close to right |
@@ -552,7 +554,7 @@ survivor outside the fireball who is not under a rock roof gets `applyRads` at 5
 | # | Idea | What the reads found | Lets | Stops | Changes | Size and verdict |
 | --- | --- | --- | --- | --- | --- | --- |
 | **NK24** | **A contaminated vehicle.** One that stood in the fallout carries it, and doses whoever rides in it until it is washed down or time has worn it away | Vehicle systems already save values per vehicle; water comes from our tanker, hose reel and shower trailer, or Dubs Bad Hygiene; the suit-up line already exists for areas. Real fallout falls to a tenth in 7 hours and a hundredth in two days, and a washdown works best within the hour | Salvage a struck town's vehicles at a price | Driving a fallout-coated truck home for free | A washdown point and a wait become part of salvage | Medium. **Idea**, recommended after A and B |
-| **NK25** | **Fused glass at ground zero**: the scoured ground of the fireball leaves glass | The fireball already strips the ground to bare soil with ash. See [vehicle glass](vehicle-glass.md), VG12 | A material from the crater | Nothing | A reason to visit ground zero, in a suit | Small. **Idea** |
+| **NK25** | **Fused glass at ground zero**: the scoured ground of the fireball leaves glass | The fireball already strips the ground to bare soil with ash. See [vehicle glass](archive/vehicle-glass.md), VG12 | A material from the crater | Nothing | A reason to visit ground zero, in a suit | Small. **Idea** |
 | **NK26** | **Caravans and convoys on a struck tile** | IRBM removes them: walkers appear to be lost alive, convoys' people are passed to the world and their vehicles destroyed **[I, surveyed]**. It is IRBM's code | A strike near a convoy graded by distance | Losing a caravan's people to a rule nobody chose | Convoys keep clear of targets | Needs a read of IRBM's world code. **Idea** |
 | **NK27** | **When the strike lands on the colony.** Everything above would then act on the player's own fleet and people | IRBM has an incident for another faction's strategic strike. The risk grades below are written for this case | — | — | — | Not an idea of its own: the reason for the settings |
 
@@ -658,7 +660,7 @@ To be asked as cards once this record has been read; the agent's recommendation 
 ## Who chose what
 
 - **Owner (22 Nov 2026):** the report; the suspicion of a bigger problem; realism-based health effects, with an instantaneous dose
-  as the example; research and record only; glass as a vehicle part (in [its own record](vehicle-glass.md)); then the answers
+  as the example; research and record only; glass as a vehicle part (in [its own record](archive/vehicle-glass.md)); then the answers
   above.
 - **Agent:** two records, not one; everything marked [A]; every verdict; the risk grades; the short list; which lines were
   re-read; offering reports to other authors once.

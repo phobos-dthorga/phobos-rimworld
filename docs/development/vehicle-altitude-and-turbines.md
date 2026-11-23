@@ -304,7 +304,7 @@ burns:
   rate still comes back.
 - **Not a double charge but the opposite**, and only on a map: an armoured Harrier burns as an unarmoured one there.
 - **Our hover sums do not see the plates either**: `Powertrain.HoverDemand` (`:596`) reads mass, and the node adds none. Our own armour
-  kits do add their weight as carried mass ([vehicle armour](vehicle-armour.md)), so they reach the hover and fuel sums.
+  kits do add their weight as carried mass ([vehicle armour](archive/vehicle-armour.md)), so they reach the hover and fuel sums.
 
 **Built 20 Nov 2026 (Framework, the release after 0.194.0), at the owner's word** ("Yup, I'd build it, and if you can do so
 defensively for other cases like this, and with other vehicles"). **Not yet tested in game** (row 282). `MapFuelPerTick` carries a

@@ -25,7 +25,7 @@ sections at the end.
 - **Our own vehicles carry no weapons**, so the turret rows act on other authors' vehicles (owner, 13 Nov 2026: our conditions may
   scale other authors' figures through hooks that never skip their code). The working-equipment rows are ours.
   **19 Nov 2026:** the owner chose a choice of gun mounts by upgrade for our service trucks
-  ([militarised service vehicles](vehicle-militarised-service-vehicles.md), designed, not in code); once built, the turret rows act
+  ([militarised service vehicles](../vehicle-militarised-service-vehicles.md), designed, not in code); once built, the turret rows act
   on ours as on any other.
 - **One finding on the way** (not fixed, below): nothing makes a crew leave a vehicle that can neither move nor shoot.
 - **A correction, made the same day:** the first version of this record said the people aboard our own vehicles could never be hit.
@@ -104,7 +104,7 @@ not applied), `scripts/query-code.py` and `scripts/query-patches.py`. "VF:n" is 
 - **A hit can already reach someone inside** (`VehicleStatHandler.HitPawn`, VF:12537; Combat Extended calls the same, CE:372). A hit
   landing on a seat's cells strikes one occupant with the seat's chance to hit (0.3 unless its author says otherwise, VF:20094), times
   1.25 on the seat's own cell, 1 or 0.75 on a neighbouring one. An outside hit reaches only seats marked exposed. **This answers G14
-  of [round three](vehicle-crosslinks.md#vehicle-cross-links-round-three-the-crew-weather-and-ground-combat-damage-electrics-and-hydraulics-13-nov-2026), marked "read first" there.**
+  of [round three](../vehicle-crosslinks.md#vehicle-cross-links-round-three-the-crew-weather-and-ground-combat-damage-electrics-and-hydraulics-13-nov-2026), marked "read first" there.**
 - A seat is chosen when its hit area holds the struck cell (`TrySelectHandler`, VF:12610). A seat whose author gives no hit area gets
   the vehicle's centre cell (`ComponentHitbox.Initialize`, VF:9735). **Every seat on our own vehicles gives its cab cells** (read from
   `mods/PhobosVehicles/Defs/Phobos/Vehicles/*/Vehicle_*.xml`, 16 Nov 2026), enclosed, at the default chance.
@@ -308,7 +308,7 @@ observed in game.**
 - **What the crew does on foot was not read to the end.** The raid's duty for people is the game's `Follow` (`VF:6046`), given with
   nobody to follow; that tree then wanders near where they stand. Whether they fight from there is not checked.
 
-**Decided by the owner on 19 Nov 2026** (the open choice KO4, with [militarised service vehicles](vehicle-militarised-service-vehicles.md)):
+**Decided by the owner on 19 Nov 2026** (the open choice KO4, with [militarised service vehicles](../vehicle-militarised-service-vehicles.md)):
 **any faction's crew stays aboard a vehicle that cannot move while a weapon of its still works.** Not built. It needs the raid's
 "put them all out" step to wait for the weapons, by a think-tree step of ours ahead of it or a patch, and our own bail-out rule (C2)
 read again against it.
@@ -400,10 +400,10 @@ and `python scripts/query-patches.py who` on every method their new patches name
 | Low-tech and self-damage filters | Both are off under Combat Extended, which the owner plays (the Harrier's through `Prepare`, the helicopters' inside `LowTechArmour.Ignore`); our air-combat damage goes through `VehicleStatHandler.TakeDamage` (`src/PhobosFramework.Vehicles/Service/AirCombat.cs:209`), beneath both, so our interceptors are never filtered | Fine |
 | T9, aircraft stores (not built) | The Harrier's new `Patch_HarrierAirborneTurretButton` and `Patch_HarrierAirborneTurretTargets` change its turret button and targets in the air | **Read them before building T9** |
 | Research: `HarrierNoVVEResearchPlacement`, `NodeResearchNote` | Placement acts on `Prowler_JetAircraft`, defined only in the Harrier's `NoVVE` folder; the owner plays with Vanilla Vehicles Expanded, so the project does not exist in their game (`query-defs.py` finds none) and nothing moves. The note adds research names to the Harrier's upgrade descriptions; we add no research to those nodes, and our `Cost_HarrierVtol.xml` still finds the blueprint's `researchPrerequisites` (`Harrier_Jet.xml:419`) | Fine |
-| Their new Harmony patches | `query-patches.py who` on every target (`VtolFlightController` `ConsumeFuel`, `Tick`, `ResolveEmergencyLanding`; `Thing.TakeDamage`; the VTOL vehicle's `TakeDamage`; `VtolWorldFlightUtility.CanStartLocalFlight`; `Pawn_MindState.StartFleeingBecauseOfPawnAction`; parking spots; take-off points; `JobDriver_IdleWhileDespawned.GetReport`; `VehiclePawn.SpawnSetup`; `JobDriver.GetReport`; `CompGlower.SetGlowColorInternal`): none is a method we patch. The three mods each add the same prefix on fleeing and on the idle report, harmless and theirs. None fixes a fault in [our register](temporary-patches.md) or the fault-reads | Fine |
+| Their new Harmony patches | `query-patches.py who` on every target (`VtolFlightController` `ConsumeFuel`, `Tick`, `ResolveEmergencyLanding`; `Thing.TakeDamage`; the VTOL vehicle's `TakeDamage`; `VtolWorldFlightUtility.CanStartLocalFlight`; `Pawn_MindState.StartFleeingBecauseOfPawnAction`; parking spots; take-off points; `JobDriver_IdleWhileDespawned.GetReport`; `VehiclePawn.SpawnSetup`; `JobDriver.GetReport`; `CompGlower.SetGlowColorInternal`): none is a method we patch. The three mods each add the same prefix on fleeing and on the idle report, harmless and theirs. None fixes a fault in [our register](../temporary-patches.md) or the fault-reads | Fine |
 
 The one real mismatch found is fuel, not a crash: the Harrier's plasteel armour costs 15 % more fuel, and our on-map fuel correction
-hands that back ([thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md#their-20-nov-2026-updates-the-harriers-armour-fuel-is-handed-back-on-a-map)).
+hands that back ([thin air, turbines and aircraft fuel](../vehicle-altitude-and-turbines.md#their-20-nov-2026-updates-the-harriers-armour-fuel-is-handed-back-on-a-map)).
 
 ## Who chose what
 

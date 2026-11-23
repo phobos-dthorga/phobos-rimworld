@@ -52,7 +52,7 @@ From the code: other factions' vehicles on a map run the lite tier, where part h
 | Fittings and tunes | Yes | A fitting set by chance, which changes stats |
 | Breakdowns and refusals to start | Yes | No, by design |
 
-**Why it is so:** the owner chose the lite tier for cost on 8 Nov 2026 ([vehicle health](vehicle-health-design.md)), with the setting
+**Why it is so:** the owner chose the lite tier for cost on 8 Nov 2026 ([vehicle health](archive/vehicle-health-design.md)), with the setting
 "full model for everyone" for players who want it.
 
 **What it costs the new rule:** a convoy raid moves as fast through a swamp as on a road, and the hitch design's "a raider's vehicle

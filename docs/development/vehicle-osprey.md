@@ -13,7 +13,7 @@ How flight works now: [systems/flight.md](systems/flight.md); this record keeps 
 
 The owner asked for the Osprey on 18 November 2026: "the Osprey is definitely something I would like to implement!" This is its
 design record, row MV3 in [outstanding work](outstanding-work.md). It is the first aircraft of ours, the first vehicle on
-[our own flight over the map](archive/vehicle-flight-over-the-map.md) and the first with [armour by class](vehicle-armour.md). The owner
+[our own flight over the map](archive/vehicle-flight-over-the-map.md) and the first with [armour by class](archive/vehicle-armour.md). The owner
 also asked that a good portion be built, with its proper art, before any first test; [the first batch](#the-first-batch) is that
 portion. The research behind it, and the owner's earlier decisions, are in
 [modern military vehicles](modern-military-vehicles.md#the-tiltrotor-v-22-osprey) and are not repeated here.
@@ -203,7 +203,7 @@ an engine lost afterwards takes its own rotor with it.
 
 ### Parts and armour
 
-One outer part to a cell, by [the armour record's rule](vehicle-armour.md#one-outer-part-to-a-cell). Health is authored, in the
+One outer part to a cell, by [the armour record's rule](archive/vehicle-armour.md#one-outer-part-to-a-cell). Health is authored, in the
 range of the transports on the list (the Cherokee 2,090 in all, the Mi-38 2,760).
 
 | Part | Depth | Health | Class | Notes |
@@ -539,7 +539,7 @@ Web pages were read by a research helper on 18 Nov 2026.
 | Wikipedia, "Mil Mi-24", "Mil Mi-38", "Boeing CH-47 Chinook" ([Mi-24](https://en.wikipedia.org/wiki/Mil_Mi-24), [Mi-38](https://en.wikipedia.org/wiki/Mil_Mi-38), [CH-47](https://en.wikipedia.org/wiki/Boeing_CH-47_Chinook)) | The comparison aircraft's real sizes, weights, speeds and ranges | The pages |
 | Wikipedia, "M134 Minigun", "M2 Browning", "M240 machine gun" ([M134](https://en.wikipedia.org/wiki/M134_Minigun), [M2](https://en.wikipedia.org/wiki/M2_Browning), [M240](https://en.wikipedia.org/wiki/M240_machine_gun)) | Cartridges and rates of fire | The pages |
 | The aircraft Defs on the owner's list | Every game figure of another author's quoted here | `scripts/query-defs.py`, 18 Nov 2026 |
-| [Our own flight over the map](archive/vehicle-flight-over-the-map.md), [armour](vehicle-armour.md), [thin air and turbines](vehicle-altitude-and-turbines.md) | The rules these figures feed | Our own records |
+| [Our own flight over the map](archive/vehicle-flight-over-the-map.md), [armour](archive/vehicle-armour.md), [thin air and turbines](vehicle-altitude-and-turbines.md) | The rules these figures feed | Our own records |
 
 **Unverified. No Def carries these as fact:**
 

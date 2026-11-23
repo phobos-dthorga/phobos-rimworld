@@ -5,7 +5,7 @@ FR3, FR5, FR6 and FR9 in 0.221.0; FR10 (the extinguisher, automatic suppression 
 0.107.0; FR4, FR8, FR11, FR12 and FR13 in Framework 0.245.0 (the owner's card of 23 Nov 2026); FR14 corrected the fires record. FR7
 is unbuilt. Not yet tested in game: rows 339, 340, 386 to 388 and 395 to 399.
 
-The owner, 22 Nov 2026, on the [nuclear strike record](nuclear-strike-effects.md)'s row NK20 (fire that harms a vehicle): "Write its
+The owner, 22 Nov 2026, on the [nuclear strike record](../nuclear-strike-effects.md)'s row NK20 (fire that harms a vehicle): "Write its
 record next", the strike research having found that Combat Extended discards the game's fire damage against every vehicle. It began
 as research, as the strike record did; the owner's answers below chose what to build.
 

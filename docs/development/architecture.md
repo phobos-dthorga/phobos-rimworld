@@ -18,7 +18,7 @@ owner's docs rewrite, step 4. It says how the code works now; the design records
   to **every** mod's vehicles, not just ours (see [the worked example](#worked-example-a-brake-pad-wearing-down)).
 - **Real work never runs every tick.** It runs on the rare tick (every 250 ticks), on a pass every 60 ticks, or on request,
   and catches up by the hours that passed. The whole vehicle model's budget is **0.05 ms a tick on average**
-  ([vehicle health design, Performance](vehicle-health-design.md#performance)).
+  ([vehicle health design, Performance](archive/vehicle-health-design.md#performance)).
 - **A core assembly never names an optional mod's types.** Code that must goes in a separate tie-in assembly. When the core
   needs to call into a tie-in, the core declares an interface and the tie-in registers itself from a static constructor.
 - **Write by-name lookups with fixed names** (`"Namespace.Type:Member"`, a constant), never names built at run time:
@@ -242,7 +242,7 @@ reach `WorldComponentUpdate`, and a dev-only gas overlay.
 **Figures.** The budget is 0.05 ms a tick averaged for the whole vehicle model, 0.1 ms per full-tier vehicle per rare tick,
 and nothing per ordinary tick. Measured once, in the owner's game on 9 Nov 2026 (Framework 0.42.0, 12 vehicles in full
 detail, 3 lite): 0.0076 ms a tick on average, but **0.131 ms per full-tier rare tick, about a third over** its line
-([vehicle health design, Performance](vehicle-health-design.md#performance)). The owner's colony already runs at 36 to 50 TPS
+([vehicle health design, Performance](archive/vehicle-health-design.md#performance)). The owner's colony already runs at 36 to 50 TPS
 of 60, so there is no headroom. Nothing newer is measured; the [code audit of 11 Nov 2026](code-audit-2026-11-11.md) lists
 the hot Harmony patches and how each leaves early.
 
@@ -389,7 +389,7 @@ and each README. Two mods have a button:
 
 - [Building, testing and deploying](building.md): the projects table, the Harmony patch list, the gate, deploying. Living.
 - [D'thorga Framework](phobos-framework.md): what the core offers other mods.
-- [Vehicle health design](vehicle-health-design.md): the condition layer, the tiers and the performance budget.
+- [Vehicle health design](archive/vehicle-health-design.md): the condition layer, the tiers and the performance budget.
 - [Tie-ins with other mods](tie-in-register.md) and [patches for other authors' faults](temporary-patches.md). Living.
 - [Every setting of every mod](settings-reference.md) (generated) and [settings pages](settings-pages.md).
 - [The logging framework](logging-framework-design.md) and [seen-in-play checks](seen-in-play-checks.md).

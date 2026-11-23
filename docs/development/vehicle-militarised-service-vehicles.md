@@ -2,6 +2,8 @@
 
 **Status (19 Nov 2026):** a design record, partly built: every armour kit is built (Vehicles 0.80.0 and 0.86.0); the guns, smoke and remote station are not. Its prerequisite, the trucks' armour by class (MV2), is in Framework 0.154.0 and Vehicles 0.76.0; the kits with no picture (engine and tank guards, run-flat tyres, EMP hardening) and the truck armour research are in Vehicles 0.80.0 and Framework 0.158.0. The drawn kits, the guns and the under-fire switch are not built, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
 
+How vehicle damage works now: [systems/vehicle-damage.md](systems/vehicle-damage.md); this record keeps its history.
+
 The owner's request, 19 Nov 2026, with the answer that enemies end a [gathering run](vehicle-gathering-runs.md): "perhaps we could
 offer upgrades where we militarize some or all of our service vehicles? Either with advantages only or some disadvantages as a result
 to boot?" Then: "Go ahead and research the militarised service vehicles." This record is that research and the design it leads to.
@@ -19,7 +21,7 @@ in game.**
   in the truck's own upgrade tree.
 - **Every kit costs something real** (owner): its weight loads the engine as cargo would; a gun needs a gunner, ammunition and
   research; an armed truck is worth shooting.
-- **The trucks now have armour by part** (Framework 0.154.0, Vehicles 0.76.0; [armour for our armed vehicles](vehicle-armour.md),
+- **The trucks now have armour by part** (Framework 0.154.0, Vehicles 0.76.0; [armour for our armed vehicles](archive/vehicle-armour.md),
   row MV2): every part Skin, one outer part to a cell, a Combat Extended patch per truck and a wider target. Kits raise named parts
   from there.
 - **No patch is needed for any of it.** Vehicle Framework's own upgrade nodes add armour to named parts, add a gun and its gunner's
@@ -112,7 +114,7 @@ The first six shaped the record; the last eight answered its questions.
   health, and then only the overflow (`VehicleComponent.cs:134-223`).
 - **With Combat Extended** [code]: its prefix replaces the whole step (`VehicleArmorPatch.cs:17-34`). The same stats are read in
   millimetres and megapascals. Armour is the part's rating times its condition, a second layer is the part's health divided by 50,
-  and **every outer part on the hit cell must be beaten**, so our Defs keep one outer part to a cell ([the armour design](vehicle-armour.md)).
+  and **every outer part on the hit cell must be beaten**, so our Defs keep one outer part to a cell ([the armour design](archive/vehicle-armour.md)).
   Its path skips `damageDefMultipliers`, Vehicle Framework's EMP handling and fire extinguishing.
 - **A vehicle is hit through a box one cell wide under Combat Extended** unless its Def widens it (`PhobosCollisionExtension`, designed
   in the armour record, not built).
@@ -132,7 +134,7 @@ The first six shaped the record; the last eight answered its questions.
   (`VehicleArmorPatch.cs:197-221`). **An exposed seat makes no difference there.**
 - **So:** a gun shield is a real figure only without Combat Extended; with it, the cab kit's class is what protects everyone.
 - A pawn in a mental state is put out; a destroyed vehicle puts everyone out; a raiders' vehicle that cannot move is emptied
-  ([knocked-out systems](vehicle-knocked-out-systems.md), M4). Its open choice KO4, whether a crew stays aboard while a weapon still
+  ([knocked-out systems](archive/vehicle-knocked-out-systems.md), M4). Its open choice KO4, whether a crew stays aboard while a weapon still
   works, now touches our own trucks.
 
 ### Guns [code]
@@ -162,7 +164,7 @@ The first six shaped the record; the last eight answered its questions.
   matters only for collisions.
 - **Vehicle Framework's own speed penalty is cargo weight over cargo capacity** (`VehicleStatPart_WeightUsage.cs:15-37`). So taking
   cargo room slows a laden truck even where our engine model does not run: on other factions' vehicles, which run our lighter model.
-- [The armour design](vehicle-armour.md) says a kit "adds its weight to the mass stat". That would slow nothing; it is corrected there.
+- [The armour design](archive/vehicle-armour.md) says a kit "adds its weight to the mass stat". That would slow nothing; it is corrected there.
 
 ### What our trucks already risk [code]
 
@@ -236,7 +238,7 @@ vehicle's weight (`PhobosUpgradeCostsLikeTunes`, [tuning and upgrades](vehicle-t
 
 ### How a kit is built
 
-- **A node in the truck's own upgrade tree**, as [the armour design](vehicle-armour.md) decided, written with `Add` only.
+- **A node in the truck's own upgrade tree**, as [the armour design](archive/vehicle-armour.md) decided, written with `Add` only.
 - **Links** follow the owner's branching rules (`src/PhobosFramework.Vehicles/AGENTS.md`): the three guns are either/or; each needs
   the gun ring; the shield needs the ring; a heavier cab class needs the cab kit. Nothing else is gated: research paces the rest.
 - **Each truck's tree keeps one free row for an engine choice** (below, "Beside this: turbine engines").
@@ -246,7 +248,7 @@ vehicle's weight (`PhobosUpgradeCostsLikeTunes`, [tuning and upgrades](vehicle-t
 
 ### The kits
 
-Classes are those of [the armour design](vehicle-armour.md): Splinter 5 mm, Rifle 8 mm, Armour-piercing rifle 15 mm.
+Classes are those of [the armour design](archive/vehicle-armour.md): Splinter 5 mm, Rifle 8 mm, Armour-piercing rifle 15 mm.
 
 | Kit | What it raises | Class reached [A] | Weight, kg [A, sum below] | Trucks |
 | --- | --- | --- | --- | --- |
@@ -424,7 +426,7 @@ either/or with our own guns; hanging from our gun ring (a tie-in node may hang f
   **The owner chose: later, behind a setting that starts off**, as the line-charge trailer's raider use is, after the player's side is tested.
 - **A stranded crew stays and fights** (owner, deciding the open choice KO4): any faction's crew stays aboard a vehicle that cannot move
   while a weapon of its still works. Today Vehicle Framework's raid orders put everyone out of a vehicle that cannot move, guns working
-  or not ([the reading](vehicle-knocked-out-systems.md#m4-read-what-its-orders-do-with-a-vehicle-that-cannot-move-17-nov-2026)), and our
+  or not ([the reading](archive/vehicle-knocked-out-systems.md#m4-read-what-its-orders-do-with-a-vehicle-that-cannot-move-17-nov-2026)), and our
   own bail-out rule (C2) must be read again against it. Changing the first needs a think-tree step or a patch; not designed here.
 - **A raiders' gun truck would work as built**: other factions' vehicles spawn with their engines on and guns set to fire by
   themselves; armour sits in the tree and the Def, so it needs none of our player-only systems; taking cargo room slows it through

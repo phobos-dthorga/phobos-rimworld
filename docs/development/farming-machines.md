@@ -476,7 +476,7 @@ The standing rule asks every vehicle mechanic to be designed for other factions.
 ### Cost to run
 
 - **The vehicle budget stands**: 0.05 ms a tick for the whole vehicle model across every map
-  ([vehicle health](vehicle-health-design.md)).
+  ([vehicle health](archive/vehicle-health-design.md)).
 - **A working implement costs a few cell operations per cell moved** and nothing while parked or while driving on a road.
 - **A paddock's plants cost what the game's plants cost**; the hand-work scans are avoided.
 - **Measured, not assumed**: a recording with `python scripts/perf.py` before and after the first build, with the owner's leave.

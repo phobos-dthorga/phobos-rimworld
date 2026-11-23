@@ -136,8 +136,8 @@ So that nothing is proposed twice. A row here points at these and adds only what
 | Already recorded | Where | State |
 | --- | --- | --- |
 | A dropped sling load becomes a world-map wreck site | [the sling](archive/vehicle-sling-design.md) | Built |
-| Wreck on death and salvage | [vehicle health](vehicle-health-design.md), slice 3 | "Not now", open |
-| Crews bail out; turret blown off; thrown tracks; field re-fit | [knocked out, not destroyed](vehicle-knocked-out-systems.md) | Mostly built |
+| Wreck on death and salvage | [vehicle health](archive/vehicle-health-design.md), slice 3 | "Not now", open |
+| Crews bail out; turret blown off; thrown tracks; field re-fit | [knocked out, not destroyed](archive/vehicle-knocked-out-systems.md) | Mostly built |
 | Raiders kidnap into a cage trailer; captives at enemy bases | [prisoner transport](vehicle-prisoner-transport.md) | Answered, not built |
 | Remote farms deliver home by real convoys (RF6) | [farms on other tiles](farming-remote-farms.md) | Record only |
 | The vehicle as the heart of a camp (Y1 to Y23) | [accessories](vehicle-accessories.md) | Only the power budget built |

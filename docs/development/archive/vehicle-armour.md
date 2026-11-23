@@ -3,7 +3,7 @@
 **Status (19 Nov 2026):** built for the five service trucks in D'thorga Framework 0.154.0 and D'thorga Vehicles 0.76.0 (the classes, a
 wider target, the class on the Health tab, the gate check), and for the Osprey in Vehicles 0.78.0, with its armour kit adding by class;
 the trailers and the Crawler are not built yet. Not
-yet tested in game. Its one question was answered by the owner on 18 Nov 2026, with [the Osprey's](vehicle-osprey.md#the-owners-answers-18-nov-2026).
+yet tested in game. Its one question was answered by the owner on 18 Nov 2026, with [the Osprey's](../vehicle-osprey.md#the-owners-answers-18-nov-2026).
 
 **Built (19 Nov 2026, the owner's word: "build the armour base work for the trucks").** What differs from the design below:
 
@@ -28,10 +28,10 @@ yet tested in game. Its one question was answered by the owner on 18 Nov 2026, w
 - **Not built:** `hitWeight` replaced under Combat Extended (with one outer part to a cell it matters only among inner parts), and
   the readings and recording in "To read or prove before building".
 
-The owner decided on 18 November 2026 how armour works on the armed vehicles of [modern military vehicles](modern-military-vehicles.md):
+The owner decided on 18 November 2026 how armour works on the armed vehicles of [modern military vehicles](../modern-military-vehicles.md):
 "Combat Extended is the priority, with Vehicle Framework a fallback for other users who go without CE for when we finally publish
-our mods". This is that design: row MV2 in [outstanding work](outstanding-work.md). It is written for every armed vehicle of ours
-and worked through on the first, the [V-22 Osprey](vehicle-osprey.md).
+our mods". This is that design: row MV2 in [outstanding work](../outstanding-work.md). It is written for every armed vehicle of ours
+and worked through on the first, the [V-22 Osprey](../vehicle-osprey.md).
 
 Labels: **[code]** read in code on 18 Nov 2026 by research helpers, never run; **[P]** a primary source; **[S]** a secondary one;
 **[I]** our inference; **[A]** an authored gameplay choice. Combat Extended's source was read at its public commit `d847807b` (15
@@ -174,7 +174,7 @@ The same round on the Rifle class (8 mm) is stopped; the plate loses 15.
   Combat Extended figures are in the same patch file. **Corrected 19 Nov 2026:** Vehicle Framework's mass stat slows nothing and
   does not reach our engine model, so a kit's weight is **carried mass** instead (owner, 19 Nov 2026: it takes cargo room and loads
   the engine as the same weight of cargo would), through a weight given per upgrade node
-  ([militarised service vehicles](vehicle-militarised-service-vehicles.md#weight-as-carried-mass-owner)). A kit raises parts with
+  ([militarised service vehicles](../vehicle-militarised-service-vehicles.md#weight-as-carried-mass-owner)). A kit raises parts with
   `Add` only, and never through a `health` upgrade, which repairs the part at every load.
 - **`hitWeight` is written for both.** The two frameworks read it opposite ways, so the Combat Extended patch replaces it too.
 
@@ -197,7 +197,7 @@ first armed vehicle is built.
 
 **Decided (owner, 18 Nov 2026, the agent's recommendation): in the first build an aircraft in the air has the same hit box it
 has on the ground, and its guns fire from the turret Def's ordinary shot height.** Real height may follow as a later slice. A wall between a shooter and the aircraft blocks the shot both ways, as
-[our own flight over the map](archive/vehicle-flight-over-the-map.md#being-shot-at-and-shooting) already accepts for line of sight, and as
+[our own flight over the map](../archive/vehicle-flight-over-the-map.md#being-shot-at-and-shooting) already accepts for line of sight, and as
 both existing flight mods do: neither raises its aircraft **[code]**.
 
 What real height under Combat Extended would take **[code]**:
@@ -211,11 +211,11 @@ What real height under Combat Extended would take **[code]**:
 Not traced: how Combat Extended's explosive rounds and fuses, its roof test above a height of 2, and raiders' choice of target
 treat a raised vehicle. **What it would give:** guns that fire over walls and are fired at over walls, and targets under a roof
 that an aircraft cannot hit. It is the more truthful model and the riskier one, and it was question 5 of
-[the Osprey's record](vehicle-osprey.md#the-owners-answers-18-nov-2026).
+[the Osprey's record](../vehicle-osprey.md#the-owners-answers-18-nov-2026).
 
 ### What cannot reach it
 
-[Our own flight](archive/vehicle-flight-over-the-map.md#being-shot-at-and-shooting) refuses a hit that cannot reach an aircraft in the
+[Our own flight](../archive/vehicle-flight-over-the-map.md#being-shot-at-and-shooting) refuses a hit that cannot reach an aircraft in the
 air. Every ordinary hit, Combat Extended's included, ends in `VehicleStatHandler.ApplyDamage` **[code]**, where our prefix already
 runs first. A melee hit carries a tool and a ranged one does not, so the rule can tell them apart. Vehicle Framework's own direct
 part damage (collision scratches, its vaporise path, exploding parts) does not pass through there and is left alone.
@@ -261,7 +261,7 @@ Read on 20 Nov 2026 from the builds the assembly archive kept that day (`python 
   (the status line), not these three, and our damage to aircraft goes through `VehicleStatHandler.TakeDamage`, beneath the prefixes.
 - **The Harrier's Plasteel Armour node** (`Harrier_PlasteelArmour`): 25 % more armour on airframe, engine and tanks (its CE patch sets
   CE-scale figures), no added mass, and 15 % more fuel. The fuel meets our on-map fuel correction, which hands it back; see [thin air,
-  turbines and aircraft fuel](vehicle-altitude-and-turbines.md#their-20-nov-2026-updates-the-harriers-armour-fuel-is-handed-back-on-a-map).
+  turbines and aircraft fuel](../vehicle-altitude-and-turbines.md#their-20-nov-2026-updates-the-harriers-armour-fuel-is-handed-back-on-a-map).
   The ratings table under "What other authors give their aircraft" is the unfitted jet's and still holds.
 
 ## Who chose what
@@ -282,7 +282,7 @@ Findings are the sources'. The classes and every authored figure are ours; no so
 | Vehicle Framework (SmashPhil), public source at commit `026420b5` | Its armour step, part fields, upgrades, the turret extension | The clone |
 | The Hind's, the Harrier's and VTOL Vehicle's assemblies, decompiled | That neither raises its aircraft under Combat Extended; their width and one-part patches | Local decompiles; summarised in our words, never copied |
 | The aircraft Defs on the owner's list, with Combat Extended's patches | The table of other authors' armour | `scripts/query-defs.py`; four from the patched file, four as written with their patch files, because the patched file predates their updates |
-| [Modern military vehicles](modern-military-vehicles.md), "Armour (decision 1)" | The first read this record builds on | Our own record |
+| [Modern military vehicles](../modern-military-vehicles.md), "Armour (decision 1)" | The first read this record builds on | Our own record |
 
 **Unverified:** that Combat Extended's blunt megapascals correspond to any real plate; Vehicle Framework's stock vehicles' ratings
 (not read for this record).

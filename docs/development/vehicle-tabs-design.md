@@ -77,7 +77,7 @@ tabs; a waypoint belongs to its caravan. Not yet tested in game.
 ## A third tab: Health (8 Nov 2026)
 
 The owner's aim of a pawn-like health model for vehicles starts with a Health tab of our own that replaces Vehicle Framework's; its
-research, direction and the tab's design are in [the vehicle health record](vehicle-health-design.md). It shares the widgets and
+research, direction and the tab's design are in [the vehicle health record](archive/vehicle-health-design.md). It shares the widgets and
 the `Draw(comp, rect, onWorld)` pattern of the two tabs here. Built in Framework 0.26.0: VF's stat rows are drawn by us from VF's
 figures (its `DrawVehicleStat` takes a Unity `Rect`, which a 1.7 build cannot pass to the 1.6 assembly); the row model is cached
 per vehicle and rebuilt only when the comp's `HealthViewVersion` moves; a system's stages sit under the parts of its first role

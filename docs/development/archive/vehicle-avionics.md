@@ -321,7 +321,7 @@ Cost with several on a map: nothing each tick for any of them.
 - **Launch and landing rules run at those events.** The world-flight factors are read when Vehicle Framework asks for the speed or
   the fuel rate, from values cached at the rare tick.
 - **Weapon hooks run per shot or per bomb**, and each begins by asking whether the shooter is an aircraft with a fit.
-- The whole of it sits inside the vehicle model's budget in [the health design](../vehicle-health-design.md).
+- The whole of it sits inside the vehicle model's budget in [the health design](vehicle-health-design.md).
 
 ## Argued against
 
