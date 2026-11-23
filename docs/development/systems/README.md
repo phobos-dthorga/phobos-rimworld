@@ -36,6 +36,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   silo, crop classes, the Thane tractors, the plough, cultivators and drill, seed, and the Agricultural Frame's hay. Living.
 - [Factory Additions](factory.md) (24 Nov 2026): what D'thorga Factory Additions adds to VFE Factory: the belt switch, stuck
   belts, the output guard, bill repair, the fabrication bay's generated bills, the deep hopper, new bills and piped water. Living.
+- [Patches](patches.md) (24 Nov 2026): D'thorga Patches' tie-ins by kind: fixes for other authors' faults, fixes our design
+  needs, the aircraft in the fold, munitions at real weight, other additions and the IRBM strike. Living.
 
 ## The template
 

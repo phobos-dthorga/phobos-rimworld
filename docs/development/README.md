@@ -142,14 +142,9 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 
 ## D'thorga Patches
 
-- [Vehicle patches](vehicle-patches.md) (2 Nov 2026): the Harrier's costs, rearming and disassembly; bombs, castings, Spaceship Turret Hull. Built.
-- [Aircraft munitions](aircraft-munitions.md) (23 Nov 2026): the aircraft's bombs, missiles and pod at real weight, priced like the Mk. 82. Built, untested.
-- [Missile patches](missile-patches.md) (7 Nov 2026): IRBM's strategic warhead hang and our strike model. Built.
+- [Patches](systems/patches.md) (24 Nov 2026): how each tie-in patch works now, temporary and permanent, by kind. Living.
 - [Nuclear strikes, vehicles and people](nuclear-strike-effects.md) (22 Nov 2026): vehicles in a strike; the real effects; NK1 to NK27. Partly built, untested.
-- [RimPacts patches](rimpacts-patches.md) (2 Nov 2026): the Harrier's load fix, sorties over battles, struck towns' assaults, empty vehicles. Built.
-- [Visit Settlements patches](visit-settlements-patches.md) (8 Nov 2026): a battle map closed under the player, food drops every tick. Built.
 - [Soldiers keep their guns](soldiers-keep-their-guns.md) (19 Nov 2026): why soldiers fought with grenades under CE, and the fix. Built, untested.
-- [Mech rechargers that draw real power](mech-recharging-real-power.md) (20 Nov 2026): rechargers draw by the mech's size; off by default. Built, untested.
 
 ## Factory Additions and Water Tap
 
@@ -242,6 +237,12 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [A radiation model of our own](archive/radiation-model.md) (22 Nov 2026): dose, radiation sickness, care, late effects; RM1 to RM16. Archived.
 - [VFE Factory additions](archive/vfe-factory-additions.md) (28 Oct 2026): factory bills, the output guard, piped water, endless mince. Archived.
 - [VFE Factory conveyors and hoppers](archive/vfe-factory-conveyors.md) (28 Oct 2026): what belts pull from and push to; switches, stuck belts. Archived.
+- [Vehicle patches](archive/vehicle-patches.md) (2 Nov 2026): the Harrier's costs, rearming and disassembly; bombs, castings, Spaceship Turret Hull. Archived.
+- [Aircraft munitions](archive/aircraft-munitions.md) (23 Nov 2026): the aircraft's bombs, missiles and pod at real weight, priced like the Mk. 82. Archived.
+- [Missile patches](archive/missile-patches.md) (7 Nov 2026): IRBM's strategic warhead hang and our strike model. Archived.
+- [RimPacts patches](archive/rimpacts-patches.md) (2 Nov 2026): the Harrier's load fix, sorties over battles, struck towns' assaults, empty vehicles. Archived.
+- [Visit Settlements patches](archive/visit-settlements-patches.md) (8 Nov 2026): a battle map closed under the player, food drops every tick. Archived.
+- [Mech rechargers that draw real power](archive/mech-recharging-real-power.md) (20 Nov 2026): rechargers draw by the mech's size; off by default. Archived.
 - [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
 - [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
 - [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

@@ -233,18 +233,18 @@ D'thorga Framework's **Detailed logs** page, off until ticked.
 
 ## For modders
 
-- [Vehicle patches: research and decisions](../../docs/development/vehicle-patches.md): the Harrier, bombs, fabricator, forger and
+- [Vehicle patches: research and decisions](../../docs/development/archive/vehicle-patches.md): the Harrier, bombs, fabricator, forger and
   turret hulls, with the code paths and the source files.
-- [Missile patches: research and decisions](../../docs/development/missile-patches.md) and
-  [strategic strike](../../docs/development/missile-patches.md#strategic-strike-design-and-decisions-7-nov-2026): the blast and its queue.
-- [RimPacts patches](../../docs/development/rimpacts-patches.md): the Harrier's load fix, sorties over battles, struck towns' assaults.
-- [Visit Settlements patches](../../docs/development/visit-settlements-patches.md): the battle map that closed, and the food drops.
+- [Missile patches: research and decisions](../../docs/development/archive/missile-patches.md) and
+  [strategic strike](../../docs/development/archive/missile-patches.md#strategic-strike-design-and-decisions-7-nov-2026): the blast and its queue.
+- [RimPacts patches](../../docs/development/archive/rimpacts-patches.md): the Harrier's load fix, sorties over battles, struck towns' assaults.
+- [Visit Settlements patches](../../docs/development/archive/visit-settlements-patches.md): the battle map that closed, and the food drops.
 - [The register of temporary patches](../../docs/development/temporary-patches.md): what would make each temporary part unnecessary.
 
 ## Checks done
 
 Every part was read in the patched mods' code and files and checked offline (builds, and `scripts/check-factory-patches.py` for
 the recipe patches); each version's checks are in the [changelog](CHANGELOG.md), and the dated list the README kept until 17 November
-2026 is in [Vehicle patches](../../docs/development/vehicle-patches.md#checks-moved-from-the-readme-17-nov-2026). **Tested in game by
+2026 is in [Vehicle patches](../../docs/development/archive/vehicle-patches.md#checks-moved-from-the-readme-17-nov-2026). **Tested in game by
 the owner:** the stuck vehicle fires (10 November 2026) and one missile strike with the first missile fix (7 November 2026). **Not yet
 tested in game:** everything else.

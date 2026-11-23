@@ -150,7 +150,7 @@ One row per unbuilt proposal that names another author's mod. The design stays i
 | Outstanding work G5 | Crew Presets | Standing crews and convoys | Set aside | Unchanged |
 | Outstanding work G7 | Vanilla Expanded Framework outposts | Report to its authors | Owner's option | Unchanged |
 | Outstanding work (deferred) | InterRim Ballistic Missile | Our treatment of its other strategic warheads | After the owner tests the nuke | Unchanged |
-| [Vehicle patches](vehicle-patches.md) | Harrier under Combat Extended; Vehicle Framework | Cheaper armour upgrade; a kill-leavings report | Proposed | Unchanged |
+| [Vehicle patches](archive/vehicle-patches.md) | Harrier under Combat Extended; Vehicle Framework | Cheaper armour upgrade; a kill-leavings report | Proposed | Unchanged |
 | [Seabed crawler](vehicle-seabed-crawler.md) soft tie-ins | Rimatomics; Rimefeller; InterRim Ballistic Missile; Atmosphere Overhaul; research mods; Vanilla Fishing Expanded | Its reactor; subsea oil; the radar mast as anti-missile radar; as weather radar; research; a catch | Not built | The radar rows **move to the air-defence record**; the rest unchanged |
 | [Utility vehicles](utility-vehicles-design.md) | RimThunder; Rimefeller; Vanilla Helixien Gas Expanded; Rails and Roads; Vanilla Gravship Expanded | Engine-class nodes; crude through its pipes; gas port; road paver; crane | Ideas | Crude through pipes **becomes SD4**; road kinds join SD11; the rest unchanged |
 | [Drill rig](vehicle-drill-rig.md), [survey truck](vehicle-survey-truck.md) | Dubs Bad Hygiene; Helixien | Water-well kit; a gas grid | Rejected or low | Unchanged |

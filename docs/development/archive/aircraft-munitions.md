@@ -2,9 +2,9 @@
 
 **Status (23 Nov 2026):** built in D'thorga Patches 0.37.0: real weights, recipes and the two shared parts (the Mk. 82 bomb case for
 three bombs, the new missile seeker head); 0.37.1 puts them at The Dead Man's Switch's automated benches. Not yet tested in game: rows
-380 and 381 of the [test pass](in-game-test-pass.md).
+380 and 381 of the [test pass](../in-game-test-pass.md).
 
-How flight works now: [systems/flight.md](systems/flight.md); this record keeps its history.
+How flight works now: [systems/flight.md](../systems/flight.md); this record keeps its history.
 
 ## Read this first
 

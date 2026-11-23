@@ -1,10 +1,10 @@
 # Vehicle patches: research and decisions (2 Nov 2026)
 
-**Since 7 November 2026 this mod is a part of [D'thorga Patches](../../mods/PhobosPatches/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
+**Since 7 November 2026 this mod is a part of [D'thorga Patches](../../../mods/PhobosPatches/README.md)** ([why](../mod-consolidation.md)); paths below are updated, the rest is as recorded.
 
 **Moved out on 17 Nov 2026**, each kept as written: the RimPacts sections, with the Harrier's parts list and the draft reports that shared one, to [RimPacts patches](rimpacts-patches.md).
 
-The record behind [D'thorga Vehicle Patches](../../mods/PhobosPatches/README.md). **Not yet tested in game.** The player guide
+The record behind [D'thorga Vehicle Patches](../../../mods/PhobosPatches/README.md). **Not yet tested in game.** The player guide
 is the mod's README; this holds the code readings, the sources and who chose what.
 
 ## Rearming: one kind to a magazine (9 Nov 2026)
@@ -380,21 +380,21 @@ ending the job before the removal, or the same throw.
 
 **Built (agent's design):** `src/PhobosPatches.Harrier/DisassemblyTrace.cs`, temporary, under the setting **Log each step when a vehicle
 is taken apart** (on by default; since Patches 0.27.0, 20 Nov 2026, the detailed log **D'thorga Patches: Harrier disassembly** instead,
-off until ticked: [settings pages](archive/settings-pages.md)). For a vehicle being taken apart only, it logs each stage: the job's finishing step, the fixed-wing
+off until ticked: [settings pages](settings-pages.md)). For a vehicle being taken apart only, it logs each stage: the job's finishing step, the fixed-wing
 framework's removal (patched by name), Vehicle Framework's removal, the crew out, the materials released (so the destroyed events are
 past), each comp's `OnDestroy` (every override found at run time, patched once per type), each turret's, the pawn's own `Destroy`,
 the despawn, and every end of a disassembly job with its condition, the work done and what its fail checks read. A failure logs its
 error with the last stage reached; the picture fault is logged once per vehicle, saying which thread asked. Prefixes, postfixes and
-finalizers only: nothing skipped, nothing swallowed. Its row is 15 in [the register](temporary-patches.md).
+finalizers only: nothing skipped, nothing swallowed. Its row is 15 in [the register](../temporary-patches.md).
 
-**What the owner does:** check 62 in [the test pass](in-game-test-pass.md): one disassembly on a copy of the save, then say done.
+**What the owner does:** check 62 in [the test pass](../in-game-test-pass.md): one disassembly on a copy of the save, then say done.
 **Next:** read the trace with `python scripts/triage-log.py`, then fix, report or patch the failing step under its own register row,
 and remove the trace.
 
 ## Moved from the README (17 Nov 2026)
 
 The owner's go-ahead of 17 November 2026 ("Slim them") cut D'thorga Patches' README to today's gotchas, the settings and links. **How
-to play is now in the player guide's [Patches chapter](../player-guide/patches.md)**, so where the sections above say "the README"
+to play is now in the player guide's [Patches chapter](../../player-guide/patches.md)**, so where the sections above say "the README"
 (the new build list, the player guide), read that chapter. What the README held that no other record, the guide or the changelog
 carried is kept here as it was written.
 

@@ -9,6 +9,8 @@ How vehicle damage works now: [systems/vehicle-damage.md](systems/vehicle-damage
 
 How radiation works now: [systems/medical-radiation.md](systems/medical-radiation.md); this record keeps its history.
 
+How Patches works now: [systems/patches.md](systems/patches.md); this record keeps its history.
+
 The owner, 22 Nov 2026: "vehicles, and I think it's all of the ones under our purview, aren't affected by the nuclear weapons
 available to me in my Rimworld game. But this might be hiding a bigger problem." And: "it might be good to introduce some other,
 realism-based health effects, like pawns receiving an instaneous radiation dose upon detonation and other effects." And: "Let's turn
@@ -272,7 +274,7 @@ maintained machines wants, and it holds for raiders' vehicles as much as the col
 
 ### Corrections to our older records
 
-- [Missile patches](missile-patches.md) says a strategic strike reaches "every open map within six world tiles". The owner's log
+- [Missile patches](archive/missile-patches.md) says a strategic strike reaches "every open map within six world tiles". The owner's log
   gives "Physics Radius: 1.49, Tile Radius: 6", and IRBM's code halves the figure: about three tile widths **[code, log, surveyed]**.
 - The same record's test protocol expects "batteries and turrets stunned". In the owner's strike none was: every battery and
   turret beyond the blast zone was wrecked by the residual blast before the pulse could reach it **[save]**. Batteries and turrets

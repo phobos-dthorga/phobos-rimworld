@@ -2,15 +2,15 @@
 
 The record behind D'thorga Patches' part for Visit Settlements (Nina.Goblin): two faults in its code, found from the owner's saves and
 logs on 8 November 2026, and the patches that work round them. Each section is kept as written in the record it came from. How to play
-is in the player guide's [Visit Settlements section](../player-guide/patches.md#visit-settlements); the RimPacts side of the lost
+is in the player guide's [Visit Settlements section](../../player-guide/patches.md#visit-settlements); the RimPacts side of the lost
 defence is in [RimPacts patches](rimpacts-patches.md).
 
 **Status (17 Nov 2026):** built in D'thorga Patches 0.13.0 (a visited settlement's map stays open while the player's people can still
 act there or a RimPacts battle is on, `VisitMapStaysOpen`) and 0.14.1 (its food drops no longer throw on every tick,
 `SettlementEventsGuard`); since 0.16.0 both log under their own category. Both are temporary, rows 3 and 4 in
-[the register](temporary-patches.md), and both bug reports are drafted, not posted. **Not yet tested in game:** the owner confirmed the
+[the register](../temporary-patches.md), and both bug reports are drafted, not posted. **Not yet tested in game:** the owner confirmed the
 workaround in play (8 Nov 2026), not the fix; the log of 8 November suggests the food-drop guard works, and
-[the test pass](in-game-test-pass.md) waits on the owner's word.
+[the test pass](../in-game-test-pass.md) waits on the owner's word.
 
 **The sections:** [a RimPacts battle map closed](#visit-settlements-closes-a-rimpacts-battle-map-8-nov-2026) (8 Nov 2026);
 [food drops that throw every tick](#visit-settlements-food-drops-throw-every-tick-8-nov-2026) (8 Nov 2026);
@@ -78,7 +78,7 @@ through RimPacts' own option or shuttle. Confirmed by the owner in play on 8 Nov
 **What the owner saw.** `Player-prev.log` of 8 November ended at the game's 10,000-message limit at 18:24 after 6,846 identical
 `NullReferenceException`s from `VS_WorldComponent_SettlementEvents.WorldComponentTick` in six minutes; the next session's `Player.log`
 did the same at 20:07 after 8,247. After the limit no mod can log anything for the rest of the session
-([logging record](archive/logging-framework-design.md)).
+([logging record](logging-framework-design.md)).
 
 **The cause** (read from the owner's log trace and Visit Settlements' 1.7 assembly of 22 October 2026, decompiled to
 `.local/decompiled/VisitSettlements-1.7`; Nina.Goblin's code, our summary). The world component counts ticks and, at

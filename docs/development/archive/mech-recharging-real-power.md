@@ -99,4 +99,4 @@ recipe's card too, and links to the two Biotech rechargers. Its worker hides it 
 - **A shortage switches things off at random.** That is the game's own rule for any shortage; we add no warning beyond the recharger's "Waiting for power" line.
 - **Not built: mechs feeding the grid back** (a dormant mech as an emergency battery; offered to the owner on 20 Nov 2026 and left for later).
 - The battery chemistry is not modelled. The taper is a straight line standing in for a real charger's constant-voltage stage; no real cell's curve was looked up.
-- Test row 287 in the [in-game test pass](in-game-test-pass.md).
+- Test row 287 in the [in-game test pass](../in-game-test-pass.md).

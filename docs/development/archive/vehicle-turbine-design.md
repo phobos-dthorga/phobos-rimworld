@@ -5,7 +5,7 @@ A design record. **Built on 8 Nov 2026 (see [As built](#as-built-dthorga-framewo
 write it up. It extends the [drivetrain and engine speed design](vehicle-drivetrain-design.md) and is written against
 [vehicle systems](../vehicle-systems-design.md) **as built in D'thorga Framework 0.9.0** (8 Nov 2026). Studied sources are in
 [vehicle simulation references](../vehicle-references.md); the flight frameworks' behaviour comes from the code reading in
-[vehicle patches](../vehicle-patches.md) (3 Nov 2026). The owner reads and corrects this before any code.
+[vehicle patches](vehicle-patches.md) (3 Nov 2026). The owner reads and corrects this before any code.
 
 ## Read this first
 
@@ -323,6 +323,6 @@ Linked in [vehicle simulation references](../vehicle-references.md), section "Ga
 - StrategyPage, STRASAM and Honeywell on the AGT1500;
 - the Università di Bologna derate range;
 - Aviation Week on hot starts and wear;
-- the Pima Air & Space Museum's empty weight, via [vehicle patches](../vehicle-patches.md).
+- the Pima Air & Space Museum's empty weight, via [vehicle patches](vehicle-patches.md).
 
 The flight phases come from that record's code reading of 3 Nov 2026. The worked figures came from a prototype run on 8 Nov 2026.

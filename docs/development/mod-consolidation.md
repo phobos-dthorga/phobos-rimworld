@@ -93,7 +93,7 @@ interval map components, because it would change the timing code of parts the ow
   object, which has no owning Mod after the merge and would have thrown; it now saves through D'thorga Medical.
 - **The missile fix's first test came in during the merge** (the owner, 13:18): the game no longer froze, but the blast was still
   running 14 minutes later. It moved into D'thorga Patches unchanged, at the owner's request, pending their proposals; the
-  [missile record](missile-patches.md) has the result and a correction to its first diagnosis.
+  [missile record](archive/missile-patches.md) has the result and a correction to its first diagnosis.
 - **Left behind:** nothing in the repository; the old folders' ignored build outputs were deleted. The owner's game `Mods` folder
   still holds the seven old mods until they are switched off and the new two deployed (the game was running, so nothing was
   deployed in this change). Deleting the old installed folders is the owner's call, after the new mods load a colony cleanly.

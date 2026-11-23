@@ -141,4 +141,4 @@ that overturns an earlier one says so. Engine rows from the same records are in 
 [sv]: ../archive/aircraft-service-life-upgrades.md
 [mm]: ../modern-military-vehicles.md
 [os]: ../vehicle-osprey.md
-[mu]: ../aircraft-munitions.md
+[mu]: ../archive/aircraft-munitions.md

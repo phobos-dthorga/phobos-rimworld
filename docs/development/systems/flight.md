@@ -267,7 +267,7 @@ Under Combat Extended, the aircraft's stores weigh what the real ones do (D'thor
 360 kg, the ALQ-99 pod 431 kg, Shturm 46.5 kg, Hellfire 45 kg, beside the Mk. 82's 227 kg. A turret's loaded rounds count in the
 aircraft's mass, so a loaded A-10 or Prowler weighs what its stores really do. Rearming takes one kind at a time for the Harrier,
 Hind, Mongoose, Close Air Support and Prowler (a temporary patch). Their recipes and prices belong to [aircraft
-munitions](../aircraft-munitions.md).
+munitions](../archive/aircraft-munitions.md).
 
 ## How it works
 
@@ -497,4 +497,4 @@ None of these is a test in game.
 - **Records kept in place** (they cover flight and another system): [thin air, turbines and aircraft
   fuel](../vehicle-altitude-and-turbines.md), [refuelling from cargo](../vehicle-cargo-refuel.md), [air-defence
   tie-ins](../air-defence-tie-ins.md), [modern military aircraft and vehicles](../modern-military-vehicles.md), [the V-22
-  Osprey](../vehicle-osprey.md), [aircraft munitions](../aircraft-munitions.md).
+  Osprey](../vehicle-osprey.md), [aircraft munitions](../archive/aircraft-munitions.md).

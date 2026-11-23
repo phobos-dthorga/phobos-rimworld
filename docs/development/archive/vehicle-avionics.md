@@ -468,6 +468,6 @@ The questions as they were put:
   Smash Phil; the Harrier and the fixed-wing framework; VTOL Vehicle, by rabiosus; the Hind and Mongoose mods; VTOL Raids; Vanilla
   Vehicles Expanded and its Tier 3, by the Vanilla Expanded team. No endorsement by any of them is implied.
 - **Our own records**: [the override contract](../vehicle-author-overrides.md), [the turbine design](../archive/vehicle-turbine-design.md),
-  [power and lift](vehicle-power-and-lift-design.md), [the Harrier patches](../vehicle-patches.md),
+  [power and lift](vehicle-power-and-lift-design.md), [the Harrier patches](vehicle-patches.md),
   [Vehicle Framework mechanics](../vehicle-framework-mechanics.md), [the sling](vehicle-sling-design.md),
   [cross-links round one](../vehicle-crosslinks.md#vehicle-system-crosslinks-research-and-record-9-nov-2026) and [round two](../vehicle-crosslinks.md#vehicle-crosslinks-round-two-deeper-chains-more-fittings-and-what-the-stations-should-do-10-nov-2026).

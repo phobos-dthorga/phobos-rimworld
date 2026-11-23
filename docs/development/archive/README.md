@@ -157,3 +157,17 @@ Archived on 24 Nov 2026; how it works now: [Factory Additions](../systems/factor
   the drafted Pipe System report and the earlier modders' notes.
 - [VFE Factory conveyors and hoppers](vfe-factory-conveyors.md) (28 Oct 2026): what VFE Factory's belts pull from and push to,
   storage switches, stuck belts, bills that outlive their recipe.
+
+## Patches
+
+Archived on 24 Nov 2026; how they work now: [Patches](../systems/patches.md).
+
+- [Vehicle patches](vehicle-patches.md) (2 Nov 2026): the Harrier's costs, rearming and disassembly; bombs, castings, Spaceship
+  Turret Hull.
+- [Aircraft munitions](aircraft-munitions.md) (23 Nov 2026): the aircraft's bombs, missiles and pod at real weight.
+- [Missile patches](missile-patches.md) (7 Nov 2026): IRBM's strategic warhead hang and our strike model.
+- [RimPacts patches](rimpacts-patches.md) (2 Nov 2026): the Harrier's load fix, sorties over battles, struck towns' assaults,
+  empty vehicles.
+- [Visit Settlements patches](visit-settlements-patches.md) (8 Nov 2026): a battle map closed under the player, food drops every
+  tick.
+- [Mech rechargers that draw real power](mech-recharging-real-power.md) (20 Nov 2026): rechargers draw by the mech's size.

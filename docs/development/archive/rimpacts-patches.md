@@ -2,8 +2,8 @@
 
 The record behind D'thorga Patches' work for RimPacts (wowgag): what was read in RimPacts' code, the owner's logs and saves, why each
 patch exists, and who chose what. Each section is kept as written in the record it came from, in date order. How to play is in the
-player guide's [RimPacts section](../player-guide/patches.md#rimpacts), and the settings are in
-[the README](../../mods/PhobosPatches/README.md#settings). Visit Settlements closing a RimPacts battle map is in
+player guide's [RimPacts section](../../player-guide/patches.md#rimpacts), and the settings are in
+[the README](../../../mods/PhobosPatches/README.md#settings). Visit Settlements closing a RimPacts battle map is in
 [Visit Settlements patches](visit-settlements-patches.md#visit-settlements-closes-a-rimpacts-battle-map-8-nov-2026); the Harrier's
 other patches are in [vehicle patches](vehicle-patches.md), and the missile strike in [missile patches](missile-patches.md).
 
@@ -12,8 +12,8 @@ other patches are in [vehicle patches](vehicle-patches.md), and the missile stri
 by default), 0.11.1 (an ally's assault on a struck town faces its garrison from before the strike; 0.11.0's attempt did not work),
 0.12.0 (the world war quest's countdown) and 0.19.3 (assaults leave a vehicle with nobody aboard alone); 0.16.1 and 0.16.8 fixed what
 the assault note and the quest check keep. The load fix and the empty-vehicle patch are temporary, rows 5 and 17 in
-[the register](temporary-patches.md): row 5's report is drafted, not posted, and row 17 is not reported, at the owner's word. **Not yet
-tested in game:** checks P1 and 118 in [the test pass](in-game-test-pass.md) wait on play.
+[the register](../temporary-patches.md): row 5's report is drafted, not posted, and row 17 is not reported, at the owner's word. **Not yet
+tested in game:** checks P1 and 118 in [the test pass](../in-game-test-pass.md) wait on play.
 
 **The sections:** [the startup failure](#the-startup-failure-rimpacts-and-the-harriers-framework) (2 Nov 2026);
 [sorties blocked by RimPacts battles, and the parts list](#sorties-blocked-by-rimpacts-battles-and-the-parts-list-7-nov-2026-evening)
@@ -177,7 +177,7 @@ threat and nobody shoots at it; and Vehicle Framework destroys a vehicle only wh
 also waits for no live "pawn" target to remain before its general assault. The patch makes RimPacts' live-target test answer "no" for
 a vehicle its own unmanned test (nobody aboard, not autonomous) calls unmanned, the test it already uses when counting fighters.
 Soldiers on such a vehicle get a new target at RimPacts' next look, every 300 ticks. Its row is 17 in
-[the register](temporary-patches.md).
+[the register](../temporary-patches.md).
 
 **The RimPacts load fix in the log.** With the fix working, the log shows a line starting "[D'thorga Vehicle Patches] RimPacts'
 landing rule". If RimPacts changes how it does this, the fix finds nothing to do and steps aside.

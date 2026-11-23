@@ -7,6 +7,8 @@ game. Also read on 17 Nov 2026, with no change to the mods: how VTOL Raids bring
 
 How flight works now: [systems/flight.md](systems/flight.md); this record keeps its history.
 
+How Patches works now: [systems/patches.md](systems/patches.md); this record keeps its history.
+
 **A research record.** The owner, 13 November 2026, asked that the
 [soft-dependency exploration](soft-dependency-crosslinks.md) include InterRim Ballistic Missile and The Dead Man's Switch "for their
 anti-air, RADAR, FCS, etc.". This record answers that part. It joins four existing designs: [avionics](archive/vehicle-avionics.md) (A10 to

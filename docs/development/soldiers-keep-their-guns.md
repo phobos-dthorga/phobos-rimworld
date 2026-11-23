@@ -8,6 +8,8 @@ The owner reported that many soldiers had only grenades and satchel charges equi
 then for a possible fix with settings, before their decision (19 Nov 2026). Everything in "What we found" was read from the save and
 from the mods' code; nothing was reproduced in a game.
 
+How Patches works now: [systems/patches.md](systems/patches.md); this record keeps its history.
+
 ## Read this first
 
 - **The cause is three systems meeting, none of them broken on its own**: the game drops a downed colonist's gun, Simple Sidearms

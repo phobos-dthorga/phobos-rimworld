@@ -1,6 +1,6 @@
 # Missile patches: research and decisions (7 Nov 2026)
 
-**Since 7 November 2026 this mod is a part of [D'thorga Patches](../../mods/PhobosPatches/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
+**Since 7 November 2026 this mod is a part of [D'thorga Patches](../../../mods/PhobosPatches/README.md)** ([why](../mod-consolidation.md)); paths below are updated, the rest is as recorded.
 
 **Merged here on 17 Nov 2026**, each kept as written: [Strategic strike: design and decisions](#strategic-strike-design-and-decisions-7-nov-2026). **Moved out the same day**, as written: the RimPacts section to [RimPacts patches](rimpacts-patches.md), the Visit Settlements sections to [Visit Settlements patches](visit-settlements-patches.md).
 
@@ -237,8 +237,8 @@ To Psionic Zephyr, on the Workshop page of InterRim Ballistic Missile:
 ## Moved from the README (17 Nov 2026)
 
 The owner's go-ahead of 17 November 2026 ("Slim them") cut D'thorga Patches' README to today's gotchas, the settings and links. **How
-to play is now in the player guide's [Patches chapter](../player-guide/patches.md#interrim-ballistic-missile)**, and the settings
-table stays in [the README](../../mods/PhobosPatches/README.md#settings); where the sections above say "the README", read those. What
+to play is now in the player guide's [Patches chapter](../../player-guide/patches.md#interrim-ballistic-missile)**, and the settings
+table stays in [the README](../../../mods/PhobosPatches/README.md#settings); where the sections above say "the README", read those. What
 the README held that no other record, the guide or the changelog carried is kept here as it was written.
 
 **Why 0.7.0 crawled** (read from the mods' code, 7 November 2026). Every building went through the full damage path. With Combat
@@ -255,12 +255,12 @@ Visit Settlements part is working.
 
 **Added 22 Nov 2026:** this design never considered vehicles, and in the owner's game they came through a strike untouched. Why,
 what else it shows, and what a strike could do to vehicles and people is in
-[nuclear strikes, vehicles and people](nuclear-strike-effects.md), which also corrects two statements below: how far a strike
+[nuclear strikes, vehicles and people](../nuclear-strike-effects.md), which also corrects two statements below: how far a strike
 reaches on the world map, and what the pulse finds left to stun.
 
 
 The record behind D'thorga Patches' own strike model for InterRim Ballistic Missile's extinction-class warhead (0.9.0), Stage 2 of the
-owner-approved plan. The player guide is the [D'thorga Patches README](../../mods/PhobosPatches/README.md#interrim-ballistic-missile);
+owner-approved plan. The player guide is the [D'thorga Patches README](../../../mods/PhobosPatches/README.md#interrim-ballistic-missile);
 Stage 1 (the fast sweep every warhead uses) and the original hang are in [missile patches](missile-patches.md). **Not yet tested in
 game.**
 
