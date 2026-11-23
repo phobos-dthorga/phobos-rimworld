@@ -85,6 +85,38 @@ public class Port_Items : TankPort
     }
 }
 
+/// <summary>
+/// A building's store of this load within reach of the hose (Framework 0.273.0, NP4: the Billy's paste tap). Pumps out only, filling the
+/// nearest that has room, with what the load was made from.
+/// </summary>
+public class Port_Reservoirs : TankPort
+{
+    public override float Give(CompPhobosTank tank, float most, out string? reason)
+    {
+        reason = null;
+        VehiclePawn vehicle = tank.Vehicle;
+        if (!vehicle.Spawned || tank.Contents is not { } contents) return 0f;
+        CompPhobosReservoir? best = null;
+        float bestDistance = float.MaxValue;
+        foreach (Thing thing in GenRadial.RadialDistinctThingsAround(vehicle.Position, vehicle.Map, tank.Props.hoseReach, true))
+        {
+            if (thing.Faction != vehicle.Faction || thing.TryGetComp<CompPhobosReservoir>() is not { } store || !store.Holds(contents) || store.Space < 1f) continue;
+            float distance = thing.Position.DistanceToSquared(vehicle.Position);
+            if (distance >= bestDistance) continue;
+            best = store;
+            bestDistance = distance;
+        }
+        if (best == null)
+        {
+            reason = "PhobosReservoir_NoneInReach".Translate(contents.label.Named("LOAD")).Resolve();
+            return 0f;
+        }
+        float given = best.Add(Math.Min(most, tank.Amount), tank.Ingredients);
+        if (given > 0f && Seen.Wants("vehicles.reservoir-filled", best.parent)) Seen.Note("vehicles.reservoir-filled", best.parent, vehicle.LabelShort);
+        return given;
+    }
+}
+
 /// <summary>Another vehicle within reach of the hose that burns this fuel. Pumps out only.</summary>
 public class Port_VehicleFuel : TankPort
 {

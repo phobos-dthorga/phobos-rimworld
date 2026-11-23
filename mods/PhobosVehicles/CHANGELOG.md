@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.116.0] - 2026-11-23 - Draft
+
+The paste bowser, the Billy's paste tap and paste bakes
+
+### Added
+
+- **The paste bowser** (the owner's choice of 23 November 2026, docs/development/vehicle-nutrient-paste.md, NP3; with Vanilla Nutrient Paste Expanded). A third Pintle bowser, of nutrient paste only, the other bowsers' trailer and picture with a green stripe, so a light truck can carry paste between networks or to a camp. Its lagged tank keeps paste 8 days to the plain tank's 4. Not yet tested in game: row 452 of the test pass.
+- **The Billy's paste kitchen** (NP4; with Vanilla Nutrient Paste Expanded). An upgrade that sets a hand-pumped paste tap in the kitchen tent, holding 150 meals of paste, filled by a paste tanker or bowser on Unload within 10 cells; colonists eat from it as from a dispenser. The **bigger paste tank** upgrade makes it 400. Both pictures are the owner's picks, one for each. Not yet tested in game: row 453.
+- **Paste bakes** (NP5; the owner's choice: both grades, depending on the upgrades). At stoves and the Billy's range, two paste meals and a little raw food make three paste bakes (a simple meal), and one paste meal with meat and vegetables makes two fine paste bakes (a fine meal, a cook of 6); on the Billy the fine bake needs the paste kitchen. They keep the paste's ingredients, and the simple bake's picture grows with its stack. They need no other mod: the game's own dispenser makes paste meals too. Pictures: the owner's picks. Not yet tested in game: row 454.
+
+### Compatibility and limits
+
+- **A caravan's night cooking still makes simple meals from raw food only**: the paste bakes are cooked on a map.
+
 ## [0.115.0] - 2026-11-23 - Draft
 
 Nutrient paste in the Ullage keeps longer and remembers what it was made from

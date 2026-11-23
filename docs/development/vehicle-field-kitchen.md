@@ -130,8 +130,11 @@ flowchart TB
   PhobosBillyDiningAnnex["Dining annex"]
   PhobosBillyWashUp["Wash-up basin (tie-in: DubsBadHygiene)"]
   PhobosBillyBiggerTank["Bigger water tank (tie-in: DubsBadHygiene)"]
+  PhobosBillyPasteKitchen["Paste kitchen (tie-in: VanillaNutrientPasteExpanded)"]
+  PhobosBillyBiggerPasteTank["Bigger paste tank (tie-in: VanillaNutrientPasteExpanded)"]
+  PhobosBillyPasteKitchen --> PhobosBillyBiggerPasteTank
   classDef tiein stroke-dasharray: 5 5
-  class PhobosBillyWashUp,PhobosBillyBiggerTank tiein
+  class PhobosBillyWashUp,PhobosBillyBiggerTank,PhobosBillyPasteKitchen,PhobosBillyBiggerPasteTank tiein
 ```
 
 Every node moves a figure that changes an outcome; each visible node gets its own overlay, planned before the first picture.

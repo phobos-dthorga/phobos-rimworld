@@ -1,0 +1,19 @@
+{
+  "target": "PasteBakeSimple_b.png",
+  "source": "assets/phobos-vehicles/generated/paste-bake-simple/paste-bake-simple-2.png",
+  "source_sha256": "821dbebacda49082f5514cfd2ac735309c2cf69be3786cd8a33440cd5418fcfe",
+  "target_sha256": "eb5728996ae9dd72fe517e837a4119276e49ff398add22a079a272c1f67dc46e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "821dbebacda49082f5514cfd2ac735309c2cf69be3786cd8a33440cd5418fcfe",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T22:59:35",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -122,7 +122,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
 | `PhobosFramework` | 3 | 0 | 1 | 0 |
-| `PhobosFramework.Vehicles` | 100 | 15 | 0 | 0 |
+| `PhobosFramework.Vehicles` | 101 | 15 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 1 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
@@ -141,7 +141,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-173 patched methods named in attributes, 23 patch classes that find their target by name (`TargetMethod`), and 18 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+174 patched methods named in attributes, 23 patch classes that find their target by name (`TargetMethod`), and 18 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -199,7 +199,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework.Vehicles</code>: 100 patched methods, 15 by name</summary>
+<details><summary><code>PhobosFramework.Vehicles</code>: 101 patched methods, 15 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles/`) |
 | --- | --- | --- |
@@ -239,6 +239,7 @@ Every HarmonyPatch attribute was read.
 | `FuelTargetUpdater.TargeterUpdate` | postfix | `Service/CruiseHeightPatches.cs` |
 | `FuelTargetUpdater.ValidateTargets` | postfix | `Service/CruiseHeightPatches.cs`, `Service/FlightCargoReachPatches.cs`, `Service/LandingCheck.cs` |
 | `GenLeaving.DoLeavingsFor` | prefix | `Service/UnderlayRefunds.cs` |
+| `GenRecipe.MakeRecipeProducts` | postfix | `SetOut/PasteBake.cs` |
 | `GravshipPlacementUtility.PlaceGravshipInMap` | postfix | `Service/GravshipLandingAlignment.cs` |
 | `GravshipUtility.PreLaunchConfirmation` | postfix | `Service/GravshipLaunchWarning.cs` |
 | `ITab_Vehicle_Upgrades.DrawButtons` | prefix | `Service/UpgradeResearch.cs` |

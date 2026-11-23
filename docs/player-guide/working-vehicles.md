@@ -303,7 +303,7 @@ drivetrain model can tow** in D'thorga Framework's settings. A broken drawbar mu
 ## Pintle water and fuel bowsers
 
 Not yet tested in game. Two tank trailers, 3 x 8 cells, as long as the Busbar: a **water bowser** (only with Dubs Bad Hygiene) and a
-**fuel bowser**. Each holds 2,500 litres, weighs 2,000 kg empty and pumps 400 litres an hour. They take the load to where it is needed
+**fuel bowser**, and with Vanilla Nutrient Paste Expanded a third, the **paste bowser** (green stripe; nutrient paste only, filled from and emptied into paste pipes, paste meals or a tanker, and it fills the Billy's paste tap; the paste keeps 4 days, 8 lagged). Each holds 2,500 litres, weighs 2,000 kg empty and pumps 400 litres an hour. They take the load to where it is needed
 and stay at a camp while the truck that brought them leaves. Both look alike, a tank on the flatbed's chassis: **a blue stripe along
 the tank means water, an orange one fuel** (repaint either as you like).
 
@@ -385,6 +385,8 @@ heater refill themselves. The same goes for the shower trailer's boiler and a ca
 
 **With Dubs Bad Hygiene, the kettle needs water:** 10 L a batch, from **Billy's own 200 L tank**. Fill it from a water bowser parked beside
 it (bowser on **Unload**) or from plumbing; its inspect pane shows how much is left, and without water the kettle's bills wait and say why.
+
+**Paste** (not yet tested in game): any stove, and the Billy's range, can **bake paste**: two paste meals and a little raw food make three paste bakes, people's simple meal; **fine paste bake** (a cook of 6) makes two fine meals from one paste meal with meat and vegetables, on the Billy only with the paste kitchen. With Vanilla Nutrient Paste Expanded, the **paste kitchen** upgrade sets a **paste tap** in the tent (150 meals, 400 with the **bigger paste tank**): park a paste tanker or bowser within 10 cells on **Unload** and it fills the tap; colonists eat from it as from a dispenser, no power needed, and it packs up with the paste in it.
 
 **Upgrades:** a **second range** (two cooks at once), a **big kettle** (meals twenty at a time), an **insulated tent** (a chemfuel heater
 keeps the tent at about 15 °C, burning about 2 chemfuel a day **only while it is cold**), and a **dining annex** (a second tent in front

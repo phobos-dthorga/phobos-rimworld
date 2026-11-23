@@ -20,6 +20,8 @@
       <li Class="Phobos.VehicleSystems.Pipes.Port_PipeNet">
         <net>VNPE_NutrientPasteNet</net>
       </li>
+      <!-- A field kitchen's paste tap within the hose's reach (Vehicles 0.116.0, NP4), before meals are set down. -->
+      <li Class="Phobos.VehicleSystems.Port_Reservoirs" />
       <li Class="Phobos.VehicleSystems.Port_Items">
         <thing>MealNutrientPaste</thing>
       </li>

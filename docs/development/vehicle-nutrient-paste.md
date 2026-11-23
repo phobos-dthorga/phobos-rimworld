@@ -1,6 +1,6 @@
 # Nutrient paste on vehicles (23 Nov 2026)
 
-**Status (23 Nov 2026):** record only. Nothing is built. The owner chose all five pieces and their main figures (below); every "agent
+**Status (23 Nov 2026):** built: NP1 and NP2 in Framework 0.271.0 and Vehicles 0.115.0, NP3 to NP5 in Framework 0.273.0 and Vehicles 0.116.0; not yet tested in game (rows 449, 450, 452 to 454). Before that: record only. The owner chose all five pieces and their main figures (below); every "agent
 default" waits for the owner's word.
 
 **A design record.** The owner, 23 November 2026, asking how trailers are filled: "Should any of these take/support nutrient paste?",
@@ -83,3 +83,14 @@ and the fine bake. On a caravan's night camp, the fine bake needs the Billy to c
 ## Order (agent's proposal)
 
 NP1 first (the Ullage, the owner's first wish), then NP2 (it makes NP1 matter on the road), NP3, NP4 and NP5 with their art.
+
+## The paste bowser's upgrades
+
+The fuel bowser's, copied (NP3): the lagged tank, which halves the paste's spoiling, and the second hose.
+
+<!-- upgrade-tree: Phobos_PasteBowser_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosBowserLagging["Lagged tank"]
+  PhobosBowserSecondHose["Second hose"]
+```

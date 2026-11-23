@@ -50,4 +50,8 @@
   <PhobosKettleWater_NotEnough>Not enough water: each batch needs {LITRES} L. Fill the kitchen's tank from a water bowser or plumbing.</PhobosKettleWater_NotEnough>
   <PhobosTrailerPlumbing_InspectOwnWater>Water tank: {LITRES} of {CAPACITY} L.</PhobosTrailerPlumbing_InspectOwnWater>
   <PhobosTrailerPlumbing_InspectWaste>Waste tank: {PERCENT} full.</PhobosTrailerPlumbing_InspectWaste>
+  <!-- A building's store of a tank load (Framework 0.273.0; the Billy's paste tap). -->
+  <PhobosReservoir_Inspect>{LOAD}: {AMOUNT} of {CAPACITY} {UNITS}</PhobosReservoir_Inspect>
+  <PhobosReservoir_Spoiled>The {LOAD} in the {THING} has spoiled and been thrown out.</PhobosReservoir_Spoiled>
+  <PhobosReservoir_NoneInReach>Nothing within reach of the hose takes {LOAD}.</PhobosReservoir_NoneInReach>
 </LanguageData>

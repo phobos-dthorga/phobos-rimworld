@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    The Billy with Vanilla Nutrient Paste Expanded (D'thorga Vehicles 0.116.0; docs/development/vehicle-nutrient-paste.md, NP4 and NP5): the paste
+    kitchen upgrade sets a paste tap in the kitchen tent at the next set-up, and lets the Billy's range cook the fine paste bake (the owner's choice:
+    the grade depends on the trailer's upgrades). On its own row below our upgrades and the Dubs tie-in's (the trees' layout rule). The tap stands
+    beside the wash basin's cell, against the shelf wall, facing the aisle. Not yet tested in game.
+  -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_FieldKitchen_UpgradeTree"]/nodes</xpath>
+    <value>
+      <li>
+        <key>PhobosBillyPasteKitchen</key>
+        <label>Paste kitchen</label>
+        <displayLabel>true</displayLabel>
+        <description>A hand-pumped paste tap on a small insulated tank of nutrient paste (150 meals), set out in the kitchen tent at the next set-up, and the know-how for fine paste bakes on the range. A tanker or bowser of paste fills the tap.</description>
+        <icon>Phobos/Vehicles/FieldKitchen/BillyPasteTap</icon>
+        <work>1500</work>
+        <gridCoordinate>(2, 12)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <researchPrerequisites>
+          <li>NutrientPaste</li>
+        </researchPrerequisites>
+        <ingredients>
+          <Steel>40</Steel>
+          <ComponentIndustrial>2</ComponentIndustrial>
+        </ingredients>
+      </li>
+      <li>
+        <key>PhobosBillyBiggerPasteTank</key>
+        <label>Bigger paste tank</label>
+        <displayLabel>true</displayLabel>
+        <description>A larger insulated tank under the paste tap: it holds 400 meals of paste instead of 150. It takes effect at the next set-up, and keeps the paste it already holds.</description>
+        <icon>Phobos/Vehicles/FieldKitchen/BillyPasteTapLarge</icon>
+        <work>1500</work>
+        <gridCoordinate>(7, 12)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <prerequisiteNodes>
+          <li>PhobosBillyPasteKitchen</li>
+        </prerequisiteNodes>
+        <ingredients>
+          <Steel>60</Steel>
+        </ingredients>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_FieldKitchen"]/comps/li[@Class="Phobos.VehicleSystems.CompProperties_PhobosSetOut"]/pieces</xpath>
+    <value>
+      <li>
+        <def>Phobos_BillyPasteTap</def>
+        <from>(1, 2)</from>
+        <to>(1, 2)</to>
+        <facing>Outward</facing>
+        <node>PhobosBillyPasteKitchen</node>
+      </li>
+    </value>
+  </Operation>
+</Patch>

@@ -3,6 +3,11 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "454": ["vehicles.paste-bake"],
+    "453": {"parts": {
+      "a tank fills the tap": ["vehicles.reservoir-filled"],
+      "the tap serves a meal": ["vehicles.paste-tap-served"]
+    }},
     "451": {"parts": {
       "haulers lay supplies out": ["vehicles.work-store"],
       "supplies leave the hold": ["vehicles.work-store.from-cargo"]

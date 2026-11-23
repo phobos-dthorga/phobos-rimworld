@@ -120,6 +120,9 @@ public class StatPart_PhobosSetOutPower : StatPart
 public class PhobosRecipeNodeExtension : DefModExtension
 {
     public string node = "";
+    /// <summary>Offered at any table no trailer set out, a home stove (Framework 0.273.0, the fine paste bake): the upgrade gates it on a
+    /// trailer only.</summary>
+    public bool anywhereElse;
 }
 
 /// <summary>A recipe offered only while its table's trailer has an upgrade fitted; the bill menu says which.</summary>
@@ -128,7 +131,9 @@ public class RecipeWorker_PhobosNeedsNode : RecipeWorker
     public override AcceptanceReport AvailableReport(Thing thing, BodyPartRecord? part = null)
     {
         if (recipe.GetModExtension<PhobosRecipeNodeExtension>() is not { node.Length: > 0 } needs) return base.AvailableReport(thing, part);
-        if (SetOuts.Owner(thing) is { } owner && VehicleUpgrades.Unlocked(owner.Vehicle, needs.node)) return base.AvailableReport(thing, part);
+        CompPhobosSetOut? owner = SetOuts.Owner(thing);
+        if (owner == null && needs.anywhereElse) return base.AvailableReport(thing, part);
+        if (owner != null && VehicleUpgrades.Unlocked(owner.Vehicle, needs.node)) return base.AvailableReport(thing, part);
         return new AcceptanceReport("PhobosSetOut_RecipeNeedsNode".Translate().Resolve());
     }
 

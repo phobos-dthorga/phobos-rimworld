@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The paste bowser (D'thorga Vehicles 0.116.0; docs/development/vehicle-nutrient-paste.md, NP3; the owner's choice of 23 Nov 2026, by card): the fuel
+    bowser's trailer with a tank of nutrient paste only, so a light truck can carry paste between Vanilla Nutrient Paste Expanded's networks or feed a
+    field kitchen's tap. Loaded only with that mod. Everything else is the fuel bowser's: size, weight, pump, upgrades and parts. The same picture as
+    both other bowsers, its stripe a paste green (agent's colour). Paste keeps 4 days in its plain tank and 8 lagged (the lagging halves the rate).
+    Part keys are saved by position: append only, never reorder. Not yet tested in game.
+  -->
+  <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
+    <defName>Phobos_PasteBowser</defName>
+    <label>Pintle paste bowser</label>
+    <description>Pintle P3: a tank trailer of nutrient paste on two axles, for feeding an outpost or a camp from the vats at home. Hitch it behind any vehicle with a hitch; where it stands, a colonist sets it up, and its pump fills it from a paste pipe, from paste meals stacked beside it, or from a tanker of paste beside it, and empties it the same ways or into a field kitchen's paste tap. The paste keeps what it was made from. It keeps about four days in the plain tank, longer in the cold or with the tank lagged.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/PintleBowser/PintleBowser</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(5, 9)</drawSize>
+      <!-- Its own picture since 16 Nov 2026 (shared by both bowsers; owner's pick): the trailer drawn 7.62 cells long in a 5 x 9 picture, as
+           before. Paint: the body's sand as the picture has it; the stripe paste green (agent's colour). -->
+      <color>(194, 187, 158)</color>
+      <colorTwo>(150, 176, 84)</colorTwo>
+    </graphicData>
+    <fillPercent>0.6</fillPercent>
+    <buildDef>Phobos_PasteBowser_Blueprint</buildDef>
+    <size>(3, 8)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Land</vehicleType>
+    <statBases>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.5</Flammability>
+      <MarketValue>1500</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>60</Mass>
+      <MoveSpeed>11</MoveSpeed>
+      <CargoCapacity>100</CargoCapacity>
+      <RepairRate>0.6</RepairRate>
+      <Phobos_TankCapacity>2500</Phobos_TankCapacity>
+      <Phobos_PumpRate>400</Phobos_PumpRate>
+      <Phobos_TankIntegrity>1</Phobos_TankIntegrity>
+      <Phobos_RigControl>1</Phobos_RigControl>
+    </vehicleStats>
+    <race>
+      <baseBodySize>4</baseBodySize>
+    </race>
+    <properties>
+      <diagonalRotation>false</diagonalRotation>
+      <worldSpeedMultiplier>1</worldSpeedMultiplier>
+      <visibilityWeight>4</visibilityWeight>
+      <customTerrainCosts DisallowTerrainWithTag="Water" />
+      <roles />
+    </properties>
+    <components>
+    <li>
+      <key>Chassis</key>
+      <label>chassis</label>
+      <health>170</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <from>(-1, -3)</from>
+        <to>(1, 4)</to>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>TankShell</key>
+      <label>tank shell</label>
+      <health>90</health>
+      <depth>External</depth>
+      <reactors>
+        <li Class="Phobos.VehicleSystems.Reactor_PhobosTankShell" />
+      </reactors>
+      <hitbox>
+        <from>(-1, -1)</from>
+        <to>(1, 3)</to>
+      </hitbox>
+      <categories>
+        <li>Phobos_TankIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>TankFittings</key>
+      <label>tank fittings and relief valve</label>
+      <health>35</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -2)</li>
+          <li>(0, -2)</li>
+          <li>(1, -2)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_TankIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Pump</key>
+      <label>pump and hose</label>
+      <health>35</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, -3)</li>
+          <li>(1, -3)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_PumpRate</li>
+      </categories>
+    </li>
+    <li>
+      <key>Valves</key>
+      <label>valves and meter</label>
+      <health>25</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -3)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_RigControl</li>
+      </categories>
+    </li>
+    <li>
+      <key>Drawbar</key>
+      <label>drawbar and coupling</label>
+      <health>60</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, 4)</li>
+          <li>(0, 4)</li>
+          <li>(1, 4)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Axles</key>
+      <label>axles and wheels</label>
+      <health>70</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, -2)</li>
+          <li>(1, -2)</li>
+          <li>(-1, -1)</li>
+          <li>(1, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Lights</key>
+      <label>lights</label>
+      <health>10</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -3)</li>
+          <li>(1, -3)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>2000</emptyKilograms>
+      </li>
+      <!-- The tanker's hoses, relief valve, leak and purge are the same things on a bowser; its pump is its own (S129, the owner's pick of 17 Nov 2026, shared by
+           the Pintle trailers' one pump), as are its legs (S129). -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>Hoses</key><sound>PhobosVehicles_TankerHoses</sound></li>
+          <li><key>Pump</key><sound>PhobosVehicles_BowserPump</sound></li>
+          <li><key>Legs</key><sound>PhobosVehicles_TrailerLegs</sound></li>
+          <li><key>Relief</key><sound>PhobosVehicles_TankerRelief</sound></li>
+          <li><key>Leak</key><sound>PhobosVehicles_TankerLeak</sound></li>
+          <li><key>Purge</key><sound>PhobosVehicles_TankerPurge</sound></li>
+        </sounds>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_PasteBowser_UpgradeTree</def>
+      </li>
+      <!-- How it follows, measured from its picture (Vehicles 0.113.3: the authored 4.9 and 0.31 left the drawbar's eye 0.78 cells short of
+           the hitch): the eye 3.72 cells ahead of the picture's middle, the middle of the tandem axles 0.81 behind it, so the axle is 4.53
+           cells behind the hitch. Turned at most 70 degrees from the vehicle towing it (authored). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
+        <hitchToAxle>4.53</hitchToAxle>
+        <axleToCentre>0.81</axleToCentre>
+        <jackKnifeDegrees>70</jackKnifeDegrees>
+        <drawbarPart>Drawbar</drawbarPart>
+        <!-- Its side takes camp gear (Framework 0.217.0, Vehicles 0.98.0; the owner, 22 Nov 2026): a side rail, and the camp order. -->
+        <campSide>true</campSide>
+        <setUpWork>1500</setUpWork>
+        <packUpWork>1000</packUpWork>
+      </li>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTank">
+        <fittings>
+          <!-- The lagging upgrade first: the first tank fitted is the one used. -->
+          <li>
+            <node>PhobosBowserLagging</node>
+            <phase>Liquid</phase>
+            <hoursToOutside>24</hoursToOutside>
+            <spoilRate>0.5</spoilRate>
+            <loadWeight>1</loadWeight>
+            <onlyContents>
+              <li>PhobosTank_NutrientPaste</li>
+            </onlyContents>
+          </li>
+          <li>
+            <phase>Liquid</phase>
+            <hoursToOutside>6</hoursToOutside>
+            <spoilRate>1</spoilRate>
+            <loadWeight>1</loadWeight>
+            <onlyContents>
+              <li>PhobosTank_NutrientPaste</li>
+            </onlyContents>
+          </li>
+        </fittings>
+        <shellPart>TankShell</shellPart>
+        <valvePart>TankFittings</valvePart>
+      </li>
+      <!-- D'thorga Framework's node looks: the bowser's upgrades on its body (owner's picks, 16 Nov 2026): the lagged tank's jacket over the
+           tank, and the second hose reel across the front of the tank (agent placement). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+          <li>
+            <key>lagging</key>
+            <looks>
+              <li>
+                <node>PhobosBowserLagging</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/PintleBowser/PintleBowser_Lagging</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(5, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+          <li>
+            <key>secondHose</key>
+            <looks>
+              <li>
+                <node>PhobosBowserSecondHose</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/PintleBowser/PintleBowser_SecondHose</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(5, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+          <!-- Vehicles 0.102.0, camp gear drawn on our vehicles (the owner's "everything on ours", 22 Nov 2026): a rolled awning, side fly, awning walls or rear tent on the side rail, on the side the camp is pitched (0.105.0). -->
+          <li>
+            <key>campSideRoll</key>
+            <looks>
+              <li>
+                <when>campSideRollLeft</when>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/PintleBowser/PintleBowser_SideRoll</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(5, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
+                <when>campSideRollRight</when>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/PintleBowser/PintleBowser_SideRollRight</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(5, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
+    <defName>Phobos_PasteBowser_Blueprint</defName>
+    <label>Pintle paste bowser</label>
+    <description>Pintle P3: a tank trailer of nutrient paste that any vehicle with a hitch can tow.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/PintleBowser/PintleBowser</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(5, 9)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>220</MaxHitPoints>
+      <WorkToBuild>9000</WorkToBuild>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>PhobosResearch_Trailers</li>
+    </researchPrerequisites>
+    <size>(3, 8)</size>
+    <!-- The shell only: its parts are in Bill_PasteBowser.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
+    <costList>
+      <Steel>260</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <thingToSpawn>Phobos_PasteBowser</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+</Defs>

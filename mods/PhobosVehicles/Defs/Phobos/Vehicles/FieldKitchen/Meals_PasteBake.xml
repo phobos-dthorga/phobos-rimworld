@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Paste bakes (D'thorga Vehicles 0.116.0; docs/development/vehicle-nutrient-paste.md, NP5; the owner's choices of 23 Nov 2026: "Both grades, and it could
+    depend on the upgrades/customizations of the vehicle/trailer itself"). Nutrient paste meals cooked with a little fresh food into a meal people do not
+    hate. They need no other mod: the game's own dispenser makes paste meals too. Per meal, the owner's figures: the simple bake 0.6 nutrition of paste and
+    0.3 of fresh food (two paste meals and 0.9 of raw food make three), the fine bake about half and half (one paste meal and 0.45 each of meat and
+    vegetables make two, with a cook of 6, as the game's fine meal). No nutrition is made: three simple bakes hold what went in, unlike cooking raw food,
+    so a bake trades nutrition for a better meal (agent's reading). What the paste was made from passes into the bake (PhobosKeepsIngredientsExtension).
+    The fine bake is cooked at home stoves, and on the Billy only with its paste kitchen upgrade (Vanilla Nutrient Paste Expanded's tie-in). Values and
+    work authored, a little under the game's simple and fine meals. Not yet tested in game.
+  -->
+  <ThingDef ParentName="MealCooked">
+    <defName>PhobosMeal_PasteBakeSimple</defName>
+    <label>paste bake</label>
+    <description>Nutrient paste baked with a little fresh food into a firm, savoury loaf. It is plain fare, but nobody gags on it. It keeps what the paste was made from.</description>
+    <graphicData>
+      <!-- By stack (the owner's pick, 23 Nov 2026): one loaf for a single bake, a full tin for a few, two tins for many. -->
+      <texPath>Phobos/Vehicles/FieldKitchen/PasteBakeSimple</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>13</MarketValue>
+      <WorkToMake>450</WorkToMake>
+      <Nutrition>0.9</Nutrition>
+    </statBases>
+    <ingestible>
+      <preferability>MealSimple</preferability>
+      <ingestEffect>EatVegetarian</ingestEffect>
+      <ingestSound>Meal_Eat</ingestSound>
+      <optimalityOffsetFeedingAnimals>-25</optimalityOffsetFeedingAnimals>
+    </ingestible>
+  </ThingDef>
+
+  <ThingDef ParentName="MealCooked">
+    <defName>PhobosMeal_PasteBakeFine</defName>
+    <label>fine paste bake</label>
+    <description>Nutrient paste worked into a layered bake with meat and vegetables by a cook who knows what they are doing. People enjoy it. It keeps what the paste was made from.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/FieldKitchen/PasteBakeFine</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>18</MarketValue>
+      <WorkToMake>550</WorkToMake>
+      <Nutrition>0.9</Nutrition>
+    </statBases>
+    <ingestible>
+      <preferability>MealFine</preferability>
+      <tasteThought>AteFineMeal</tasteThought>
+      <ingestEffect>EatVegetarian</ingestEffect>
+      <ingestSound>Meal_Eat</ingestSound>
+      <optimalityOffsetFeedingAnimals>-75</optimalityOffsetFeedingAnimals>
+    </ingestible>
+  </ThingDef>
+
+  <RecipeDef ParentName="CookMealBase">
+    <defName>PhobosCook_PasteBakeSimple</defName>
+    <label>bake paste</label>
+    <description>Bake nutrient paste meals with a little fresh food into paste bakes.</description>
+    <jobString>Baking paste.</jobString>
+    <workSpeedStat>CookSpeed</workSpeedStat>
+    <requiredGiverWorkType>Cooking</requiredGiverWorkType>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_CookMeal</soundWorking>
+    <allowMixingIngredients>true</allowMixingIngredients>
+    <ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
+    <workAmount>1200</workAmount>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>MealNutrientPaste</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <defaultIngredientFilter>
+      <thingDefs>
+        <li>MealNutrientPaste</li>
+      </thingDefs>
+    </defaultIngredientFilter>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>MealNutrientPaste</li>
+          </thingDefs>
+        </filter>
+        <count>1.8</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>FoodRaw</li>
+          </categories>
+        </filter>
+        <count>0.9</count>
+      </li>
+    </ingredients>
+    <products>
+      <PhobosMeal_PasteBakeSimple>3</PhobosMeal_PasteBakeSimple>
+    </products>
+    <recipeUsers>
+      <li>FueledStove</li>
+      <li>ElectricStove</li>
+    </recipeUsers>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosKeepsIngredientsExtension" />
+    </modExtensions>
+  </RecipeDef>
+
+  <RecipeDef ParentName="CookMealFineBase">
+    <defName>PhobosCook_PasteBakeFine</defName>
+    <label>bake fine paste</label>
+    <description>Bake a nutrient paste meal with meat and vegetables into fine paste bakes. On a field kitchen it needs the paste kitchen.</description>
+    <jobString>Baking fine paste.</jobString>
+    <workSpeedStat>CookSpeed</workSpeedStat>
+    <requiredGiverWorkType>Cooking</requiredGiverWorkType>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_CookMeal</soundWorking>
+    <allowMixingIngredients>true</allowMixingIngredients>
+    <ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
+    <workAmount>1400</workAmount>
+    <workerClass>Phobos.VehicleSystems.RecipeWorker_PhobosNeedsNode</workerClass>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>MealNutrientPaste</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <defaultIngredientFilter>
+      <thingDefs>
+        <li>MealNutrientPaste</li>
+      </thingDefs>
+    </defaultIngredientFilter>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>MealNutrientPaste</li>
+          </thingDefs>
+        </filter>
+        <count>0.9</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>MeatRaw</li>
+            <li>AnimalProductRaw</li>
+          </categories>
+        </filter>
+        <count>0.45</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>PlantFoodRaw</li>
+          </categories>
+        </filter>
+        <count>0.45</count>
+      </li>
+    </ingredients>
+    <products>
+      <PhobosMeal_PasteBakeFine>2</PhobosMeal_PasteBakeFine>
+    </products>
+    <recipeUsers>
+      <li>FueledStove</li>
+      <li>ElectricStove</li>
+    </recipeUsers>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosKeepsIngredientsExtension" />
+      <li Class="Phobos.VehicleSystems.PhobosRecipeNodeExtension">
+        <node>PhobosBillyPasteKitchen</node>
+        <anywhereElse>true</anywhereElse>
+      </li>
+    </modExtensions>
+  </RecipeDef>
+</Defs>

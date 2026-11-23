@@ -1,0 +1,19 @@
+{
+  "target": "BillyPasteTapLarge.png",
+  "source": "assets/phobos-vehicles/generated/billy-paste-tap/billy-paste-tap-2.png",
+  "source_sha256": "1b85b34f317739eca480c201cdae521733ed2b6fd0a0a6a0c095d71286858d72",
+  "target_sha256": "71dff6f8e23c42c5e117998f260f2a6ac70bb4bf38de047720d6f06683f95ab9",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "1b85b34f317739eca480c201cdae521733ed2b6fd0a0a6a0c095d71286858d72",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T22:59:31",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

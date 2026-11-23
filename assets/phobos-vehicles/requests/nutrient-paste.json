@@ -1,0 +1,69 @@
+[
+  {
+    "name": "billy-paste-tap",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyKettle.png",
+        "role": "our approved field kitchen piece seen from directly above (the field kettle): match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyColdBox.png",
+        "role": "our approved field kitchen piece seen from directly above (the cold box): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "building": "Phobos_BillyPasteTap, the field kitchen's paste tap (one picture for every facing)",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyPasteTap.png",
+      "size": "drawn by the game at its one-cell footprint; requested at 1024 x 1024, shipped at 256 like the kettle and cold box",
+      "why": "nutrient paste on vehicles (Vehicles 0.116.0; docs/development/vehicle-nutrient-paste.md, NP4); bought at the owner's word, 23 Nov 2026 ('Go ahead with NP3 to NP5'; art 'paid or otherwise')"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a piece of field kitchen equipment in a frontier colony. Images 1 and 2 are our approved field kitchen pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The object fills about 70 percent of the canvas, one unit by one unit, centred, on a plain pure white background.\n\nA hand-pumped nutrient paste tap, seen from directly above: a squat round insulated tank of olive-drab steel with a padded canvas jacket strapped round it, a short pump lever folded flat across the lid, and a stubby spout with a small drip tray at one side. A few rivets and a filler cap on the lid.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive, canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, food, bowls or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+  },
+  {
+    "name": "paste-bake-simple",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyKettle.png",
+        "role": "our approved field kitchen art: match its outline weight, shading and finish only; do not copy its shape or colours"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosMeal_PasteBakeSimple, the paste bake (a meal item)",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/PasteBakeSimple.png",
+      "size": "an item, drawn by the game at one cell; requested at 1024 x 1024, shipped at 128 like our other items",
+      "why": "nutrient paste on vehicles (Vehicles 0.116.0; NP5): a meal item lies in the world, so it is paid by the owner's rule"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Show no vertical outside faces.\n\nCreate an ORIGINAL game item sprite of a cooked meal in a frontier colony. Image 1 is our approved art: match its outline weight, shading and finish only. Do NOT copy its shape or colours.\n\nSquare canvas. The object fills about 60 percent of the canvas, centred, on a plain pure white background.\n\nA plain paste bake, seen from directly above: a dented steel baking tin holding a firm, sliced loaf of pale green-grey nutrient paste with a golden-brown baked crust and a few small flecks of vegetable showing in the cut faces. Simple and filling, not pretty.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted food and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, cutlery, steam or loose goods. No ground or table beyond the tin, no shadow outside it, no perspective, no tilt."
+  },
+  {
+    "name": "paste-bake-fine",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyKettle.png",
+        "role": "our approved field kitchen art: match its outline weight, shading and finish only; do not copy its shape or colours"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosMeal_PasteBakeFine, the fine paste bake (a meal item)",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/PasteBakeFine.png",
+      "size": "an item, drawn by the game at one cell; requested at 1024 x 1024, shipped at 128 like our other items",
+      "why": "nutrient paste on vehicles (Vehicles 0.116.0; NP5): a meal item lies in the world, so it is paid by the owner's rule"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Show no vertical outside faces.\n\nCreate an ORIGINAL game item sprite of a cooked meal in a frontier colony. Image 1 is our approved art: match its outline weight, shading and finish only. Do NOT copy its shape or colours.\n\nSquare canvas. The object fills about 60 percent of the canvas, centred, on a plain pure white background.\n\nA fine layered paste bake, seen from directly above: a round enamel baking dish holding a layered bake with a golden cheese-like crust, strips of browned meat and bright vegetable pieces arranged on top, and a pale green paste layer showing at the cut edge of one missing wedge. It looks cared for and appetising.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, warm but muted food colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, cutlery, steam or loose goods. No ground or table beyond the dish, no shadow outside it, no perspective, no tilt."
+  }
+]

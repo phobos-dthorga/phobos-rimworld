@@ -5,6 +5,16 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.273.0] - 2026-11-23 - Draft
+
+A building can hold a tank load, and meals made from meals keep their ingredients
+
+### Added
+
+- **A building can keep a store of a tank load** (the owner's nutrient paste batch of 23 November 2026, docs/development/vehicle-nutrient-paste.md, NP4). A tank of ours set to pump out fills the nearest such store within its hose's reach, with what the load was made from; the store spoils by the load's own days. The Billy's paste tap is the first: the game's own paste dispenser, served from its store, hand-pumped. Not yet tested in game: row 453 of the test pass.
+- **A recipe whose ingredients are meals can pass on what those meals were made from** (NP5), so paste made from human meat is never baked clean. For other modders: PhobosKeepsIngredientsExtension on the recipe. Not yet tested in game: row 454.
+- For other modders: a trailer-upgrade-gated recipe can also be cooked at home stoves (anywhereElse), and a set-out piece can show another picture with an upgrade (PhobosNodeGraphicExtension).
+
 ## [0.272.0] - 2026-11-23 - Draft
 
 Work materials laid out beside the vehicle
