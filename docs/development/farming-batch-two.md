@@ -13,6 +13,8 @@ flour (owner), and an implement works the line just behind it, not under its rea
 **How to read the marks:** **[code]** read in the game's or Vehicle Framework's code on 20 Nov 2026; **[I]** our inference; **[A]** an
 authored figure or the agent's choice.
 
+How farming works now: [systems/farming.md](systems/farming.md); this record keeps its history.
+
 ## Read this first
 
 - **What batch two makes:** three tractors (small, medium, large, all at once: owner, 19 Nov 2026), the three-point linkage, a plough and

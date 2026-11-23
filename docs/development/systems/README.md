@@ -32,6 +32,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
 - [Radiation](medical-radiation.md) (23 Nov 2026): D'thorga Medical's dose in grays and its repair, radiation sickness, care and
   the presets, the doctor's estimate, medicines, worn shielding, fallout dust, late effects, Rimatomics' doses and the strike's
   dose. Living.
+- [Farming](farming.md) (24 Nov 2026): D'thorga Farming's paddocks, the field run, the combine and its fronts, bins and the
+  silo, crop classes, the Thane tractors, the plough, cultivators and drill, seed, and the Agricultural Frame's hay. Living.
 
 ## The template
 

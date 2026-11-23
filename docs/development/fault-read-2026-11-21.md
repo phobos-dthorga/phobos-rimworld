@@ -18,6 +18,8 @@ question" are theirs. **None of this is observed in play.** Line numbers are of 
 Architect > Structure". That was wrong: Vehicle Framework's implied build Def goes only into `DefDatabase<VehicleBuildDef>`
 (`DefGenerator.AddImpliedDef`), and the Architect reads `DefDatabase<ThingDef>`, filled before implied Defs are made (D4).
 
+How farming works now: [systems/farming.md](systems/farming.md); this record keeps its history.
+
 ## Read this first
 
 - **The seed drill sows about one cell in four (F1).** Its working line is its own rear row, and the game refuses to plant in a cell a

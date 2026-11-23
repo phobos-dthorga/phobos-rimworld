@@ -12,6 +12,8 @@ is tested in game.**
 
 How power, top-up and machines works now: [systems/power-and-machines.md](systems/power-and-machines.md); this record keeps its history.
 
+How farming works now: [systems/farming.md](systems/farming.md); this record keeps its history.
+
 ## Read this first
 
 - **What batch one makes:** paddocks; the "harvest this paddock" order with its row planner; a **combine harvester** with a grain

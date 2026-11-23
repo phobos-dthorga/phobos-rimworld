@@ -14,6 +14,8 @@ also read by the agent writing this; **[Defs]** comes from the Def tools over th
 tool; **[S]** a secondary source, and **[S, summary]** one read only as a search summary, not the page; **[I]** our inference;
 **[A]** an authored figure or choice for the owner to revise. **None of it is tested in game.**
 
+How farming works now: [systems/farming.md](systems/farming.md); this record keeps its history.
+
 ## Read this first
 
 - **What it is:** a new mod, **D'thorga Farming** (dthorga farming), with working farm machines on Vehicle Framework: a tractor

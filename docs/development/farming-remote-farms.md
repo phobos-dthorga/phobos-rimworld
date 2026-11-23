@@ -14,6 +14,8 @@ companions are [farm machines](farming-machines.md) and [soil rules](farming-soi
 Workshop tool; **[S]** a secondary source; **[I]** our inference; **[A]** an authored figure or choice for the owner to revise.
 **None of it is tested in game.**
 
+How farming works now: [systems/farming.md](systems/farming.md); this record keeps its history.
+
 ## Read this first
 
 - **What it is:** a **farmstead** on another world tile that keeps farming while nobody watches, worked by a crew and machines the

@@ -18,6 +18,8 @@ this; **[Defs]** comes from the Def tools; **[S]** a secondary source, and **[S,
 the page; **[C]** textbook chemistry stated from the agent's own knowledge, for the owner, a chemist, to check; **[I]** our
 inference; **[A]** an authored figure or choice for the owner to revise. **None of it is tested in game.**
 
+How farming works now: [systems/farming.md](systems/farming.md); this record keeps its history.
+
 ## Read this first
 
 - **Three presets, and a switch for each rule beneath them**: **Off**, **Field care** and **Realistic**.

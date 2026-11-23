@@ -91,6 +91,7 @@ research or design with nothing built; **living** means kept current by every ch
 
 ### Farming
 
+- [Farming](systems/farming.md) (24 Nov 2026): how paddocks, the combine, bins, tractors, implements and seed work now. Living.
 - [Farm machines](farming-machines.md) (19 Nov 2026): D'thorga Farming: paddocks, tractors, drills, harvesters, sprayers. Record only.
 - [Farms on other tiles](farming-remote-farms.md) (19 Nov 2026): a ledger farm the player can open and watch; 29 hazards. Record only.
 - [Soil rules](farming-soil.md) (19 Nov 2026): three presets, moisture as a bonus, a punishing Realistic mode, seed. Record only.
