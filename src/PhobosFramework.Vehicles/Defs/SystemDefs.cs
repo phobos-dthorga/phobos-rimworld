@@ -1026,6 +1026,10 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float messageCooldownHours = 6f;
     /// <summary>A letter is not repeated within this many hours.</summary>
     public float letterCooldownHours = 48f;
+    /// <summary>Framework 0.266.1: air hotter than this, in degrees Celsius, is a fire or a furnace, never weather, so a hot part's message
+    /// blames the heat around the vehicle (<see cref="Effect_Message.hotAirMessage"/>) rather than its work (authored: water's boiling
+    /// point, well above the hottest air ever measured outdoors, 57 °C).</summary>
+    public float hotAirCelsius = 100f;
     /// <summary>The hour the night's loads (lights) come on and the hour they go off.</summary>
     public int nightStartsHour = 19;
     public int nightEndsHour = 6;

@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.266.1] - 2026-11-23 - Draft
+
+A hot part blames the fire around it, and a save loads clean
+
+### Fixed
+
+- **A part heated by a fire says so** (the owner's fire of 23 November 2026: a parked, burning tanker's brakes "faded badly on the descent", and a burning Su-25 was told to "ease off or land"). Brakes, gearboxes, engines, motors, traction batteries and turbines heat toward the air around them, so a fire cooks them as hard work would; while that air is hotter than any weather (100 C, authored), their messages now name the heat around the vehicle and say to put the fire out or get it clear. What the heat does is unchanged. Not yet tested in game: row 444 of the test pass.
+- **Vehicles with fittings no longer throw an error while a save loads** (seven did in the owner's log of the same day). Vehicle Framework can ask for a vehicle's speed before its parts are set up, which our fittings could not count; until they are, the figures hold the tunes alone and are worked out again once the vehicle is on the map.
+
 ## [0.266.0] - 2026-11-23 - Draft
 
 The Health tab's figures, in columns

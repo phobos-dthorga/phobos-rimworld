@@ -31,7 +31,7 @@ OUR_NAMESPACE = 'Phobos.VehicleSystems.'
 SCHEMA_SOURCE = 'src/PhobosFramework.Vehicles/Schema'
 EXTRA_CLASS_SOURCES = ('src/PhobosFramework.Vehicles/Defs/PowertrainDefs.cs',)  # the flight profile's phase readers
 CLASS_LINE = re.compile(r'^public (?:abstract )?class (\w+)', re.M)
-KEY_FIELDS = {'message', 'reason', 'label', 'text'}  # fields of effects that hold translation keys
+KEY_FIELDS = {'message', 'reason', 'label', 'text', 'hotAirMessage', 'hotAirText'}  # fields of effects that hold translation keys
 PARAMETER_FIELDS = ('factorParameter', 'divideByParameter', 'openAboveParameter', 'openBelowParameter', 'scaleByParameter',
                     'supplyParameter')
 

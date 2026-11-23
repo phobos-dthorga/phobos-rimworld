@@ -138,6 +138,8 @@ public sealed class VehicleFittings
 
     Dictionary<VehicleStatDef, float>? statFactors;
     Dictionary<(string system, string name), float>? parameterFactors;
+    /// <summary>The figures were worked out before the vehicle's parts had their properties, so they are not kept (see Recache).</summary>
+    bool provisional;
     float power = 1f;
     float fuel = 1f;
     float flatFuel = 1f;
@@ -241,8 +243,16 @@ public sealed class VehicleFittings
 
     void Recache()
     {
-        if (statFactors != null) return;
-        FitFigures figures = FitFigures.Of(fitted.Where(Counts).Select(part => (part.def!, PartsOf(part.def!))), ActiveTunes());
+        if (statFactors != null && !provisional) return;
+        // Framework 0.266.1 (the owner's log of 23 Nov 2026: seven vehicles threw while PG20 loaded): during a load, Vehicle Framework's
+        // acceleration asks for a stat in its own post-load pass, which can come before its stat handler's pass gives the parts their
+        // properties. Fittings cannot be counted against blank parts (a matched set reads its parts' keys), so until then the figures
+        // hold the tunes alone and are worked out again at the next ask; PostSpawnSetup marks every stat dirty once the parts are ready.
+        provisional = !PartsReady();
+        IEnumerable<(PhobosVehicleFittingDef, int)> counted = provisional
+            ? Enumerable.Empty<(PhobosVehicleFittingDef, int)>()
+            : fitted.Where(Counts).Select(part => (part.def!, PartsOf(part.def!)));
+        FitFigures figures = FitFigures.Of(counted, ActiveTunes());
         statFactors = figures.Stats;
         parameterFactors = figures.Parameters;
         power = (float)figures.Power;
@@ -568,8 +578,21 @@ public sealed class VehicleFittings
         if (comp.Vehicle.statHandler == null) yield break;
         foreach (VehicleComponent part in comp.Vehicle.statHandler.components)
         {
+            if (part?.props == null) continue;    // not yet given its properties during a load (Recache)
             if (comp.Repairs.CanBeGraded(part) || OptionsFor(part).Any()) yield return part;
         }
+    }
+
+    /// <summary>Whether Vehicle Framework has given every part its properties: not yet, early in a load (Framework 0.266.1; Recache).</summary>
+    bool PartsReady()
+    {
+        List<VehicleComponent>? parts = comp.Vehicle.statHandler?.components;
+        if (parts == null) return false;
+        foreach (VehicleComponent part in parts)
+        {
+            if (part?.props == null) return false;
+        }
+        return true;
     }
 
     /// <summary>How far apart along the vehicle two wheels may sit and still share an axle, in cells (authored).</summary>

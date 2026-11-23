@@ -251,6 +251,10 @@ public class Effect_Fleck : VehicleSystemEffect
 public class Effect_Message : VehicleSystemEffect
 {
     public string message = "";
+    /// <summary>Framework 0.266.1: said instead when the air around the vehicle is hotter than weather can make it (a fire, a furnace;
+    /// <see cref="PhobosVehicleRulesDef.hotAirCelsius"/>), for a part that heats toward the air. Its own words name the heat as the
+    /// cause; the plain message would blame a descent or hard driving and give the wrong advice. Empty: the plain message.</summary>
+    public string hotAirMessage = "";
     public MessageTypeDef? type;
     public override bool Consequential => false;
 
@@ -259,7 +263,8 @@ public class Effect_Message : VehicleSystemEffect
         if (context.Vehicle.Faction != Faction.OfPlayer) return;
         float cooldown = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().messageCooldownHours;
         if (!context.Comp.MayNotify(context.StageKey, cooldown)) return;
-        Messages.Message(message.Translate(context.Vehicle.LabelShort.Named("VEHICLE")), context.Vehicle, type ?? MessageTypeDefOf.NegativeEvent);
+        string key = HotAir.Pick(context, message, hotAirMessage);
+        Messages.Message(key.Translate(context.Vehicle.LabelShort.Named("VEHICLE")), context.Vehicle, type ?? MessageTypeDefOf.NegativeEvent);
     }
 }
 
@@ -268,6 +273,8 @@ public class Effect_Letter : VehicleSystemEffect
 {
     public string label = "";
     public string text = "";
+    /// <summary>Framework 0.266.1: the letter's text when the air around the vehicle is fire-hot, as <see cref="Effect_Message.hotAirMessage"/>.</summary>
+    public string hotAirText = "";
     public LetterDef? letter;
 
     public override void OnEnter(SystemContext context)
@@ -276,7 +283,20 @@ public class Effect_Letter : VehicleSystemEffect
         float cooldown = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().letterCooldownHours;
         if (!context.Comp.MayNotify(context.StageKey + ":letter", cooldown)) return;
         NamedArgument vehicle = context.Vehicle.LabelShort.Named("VEHICLE");
-        Find.LetterStack.ReceiveLetter(label.Translate(vehicle), text.Translate(vehicle), letter ?? LetterDefOf.NegativeEvent, context.Vehicle);
+        string body = HotAir.Pick(context, text, hotAirText);
+        Find.LetterStack.ReceiveLetter(label.Translate(vehicle), body.Translate(vehicle), letter ?? LetterDefOf.NegativeEvent, context.Vehicle);
+    }
+}
+
+/// <summary>Framework 0.266.1 (the owner's fire of 23 Nov 2026: a parked tanker's brakes "faded on the descent" while it burned): which of a
+/// stage's two wordings to use, the plain one or the one blaming the heat around the vehicle.</summary>
+static class HotAir
+{
+    public static string Pick(SystemContext context, string plain, string hotAir)
+    {
+        if (hotAir.NullOrEmpty() || context.Comp.Ambient <= PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().hotAirCelsius) return plain;
+        if (Seen.Wants("vehicles.hot-air-message", context.Vehicle)) Seen.Note("vehicles.hot-air-message", context.Vehicle, hotAir);
+        return hotAir;
     }
 }
 

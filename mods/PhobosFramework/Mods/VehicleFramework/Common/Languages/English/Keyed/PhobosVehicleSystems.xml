@@ -313,6 +313,7 @@
   <PhobosVehicleSystems_MsgBatteryFreezing>The {VEHICLE}'s flat battery is freezing and may crack. Charge it or move it somewhere warmer.</PhobosVehicleSystems_MsgBatteryFreezing>
   <PhobosVehicleSystems_MsgRunningHot>The {VEHICLE}'s engine is running hot.</PhobosVehicleSystems_MsgRunningHot>
   <PhobosVehicleSystems_MsgOverheating>The {VEHICLE}'s engine is overheating and taking damage. Stop it and let it cool.</PhobosVehicleSystems_MsgOverheating>
+  <PhobosVehicleSystems_MsgOverheatingHotAir>The heat around the {VEHICLE} is overheating its engine, which is taking damage. Put out the fire, or get the vehicle clear of the heat.</PhobosVehicleSystems_MsgOverheatingHotAir>
   <PhobosVehicleSystems_MsgCoolantLow>The {VEHICLE} is low on coolant. A service will top it up.</PhobosVehicleSystems_MsgCoolantLow>
   <PhobosVehicleSystems_MsgOilLow>The {VEHICLE} is low on oil. A service will top it up.</PhobosVehicleSystems_MsgOilLow>
   <PhobosVehicleSystems_MsgOilPressureGone>The {VEHICLE} has no oil pressure. Stop the engine now: it will seize.</PhobosVehicleSystems_MsgOilPressureGone>
@@ -329,14 +330,19 @@
   <PhobosVehicleSystems_MsgTyreFailed>The {VEHICLE}'s worn-out {PART} has failed on the move.</PhobosVehicleSystems_MsgTyreFailed>
   <PhobosVehicleSystems_MsgBrakesWorn>The {VEHICLE}'s brakes are worn; its driver is taking it gently.</PhobosVehicleSystems_MsgBrakesWorn>
   <PhobosVehicleSystems_MsgBrakesFading>The {VEHICLE}'s brakes are fading from the heat of the descent; its driver is slowing down to keep hold of it.</PhobosVehicleSystems_MsgBrakesFading>
+  <PhobosVehicleSystems_MsgBrakesFadingHotAir>The heat around the {VEHICLE} is cooking its brakes: they are fading, and will hold less until they cool.</PhobosVehicleSystems_MsgBrakesFadingHotAir>
   <PhobosVehicleSystems_MsgBrakesFaded>The {VEHICLE}'s brakes have faded badly on the descent: it is crawling down to stay under control, and the pads are wearing fast.</PhobosVehicleSystems_MsgBrakesFaded>
+  <PhobosVehicleSystems_MsgBrakesFadedHotAir>The {VEHICLE}'s brakes have faded in the heat around it, and will hardly hold until they cool.</PhobosVehicleSystems_MsgBrakesFadedHotAir>
   <PhobosVehicleSystems_MsgTransmissionHot>The {VEHICLE}'s gearbox is overheating and wearing as it drives.</PhobosVehicleSystems_MsgTransmissionHot>
+  <PhobosVehicleSystems_MsgTransmissionHotHotAir>The heat around the {VEHICLE} is overheating its gearbox, which is taking damage. Put out the fire, or get the vehicle clear of the heat.</PhobosVehicleSystems_MsgTransmissionHotHotAir>
   <PhobosVehicleSystems_MsgHydraulicsLow>The {VEHICLE} is low on hydraulic fluid.</PhobosVehicleSystems_MsgHydraulicsLow>
   <PhobosVehicleSystems_MsgOxygenOut>The {VEHICLE}'s crew oxygen has failed: it will fly its long legs low, slower and using more fuel, until the oxygen set is repaired or an engine gives it bleed air again.</PhobosVehicleSystems_MsgOxygenOut>
   <PhobosVehicleSystems_MsgControlsHeavy>The {VEHICLE}'s controls are heavy: its hydraulics have lost pressure. Top up the fluid or repair the pump.</PhobosVehicleSystems_MsgControlsHeavy>
   <PhobosVehicleSystems_MsgRatingOverLimit>The {VEHICLE} has run at {RATING} for longer than its {MINUTES} minutes: its engine's hottest parts are wearing much faster. Ease off.</PhobosVehicleSystems_MsgRatingOverLimit>
   <PhobosVehicleSystems_MsgTurbineHot>The {VEHICLE}'s turbine is running past its continuous limit; its hot section is wearing fast.</PhobosVehicleSystems_MsgTurbineHot>
+  <PhobosVehicleSystems_MsgTurbineHotHotAir>The heat around the {VEHICLE} has its turbine past its continuous limit; its hot section is wearing fast.</PhobosVehicleSystems_MsgTurbineHotHotAir>
   <PhobosVehicleSystems_MsgTurbineOverTop>The {VEHICLE}'s turbine is past every limit and taking damage. Ease off or land.</PhobosVehicleSystems_MsgTurbineOverTop>
+  <PhobosVehicleSystems_MsgTurbineOverTopHotAir>The heat around the {VEHICLE} has its turbine past every limit, and it is taking damage. Put out the fire, or get the vehicle clear of the heat.</PhobosVehicleSystems_MsgTurbineOverTopHotAir>
   <PhobosVehicleSystems_MsgHotSectionWorn>The {VEHICLE}'s turbine hot section is worn out and may fail. A mechanic should overhaul it.</PhobosVehicleSystems_MsgHotSectionWorn>
   <PhobosVehicleSystems_MsgHotStart>The {VEHICLE}'s weak battery lit its turbine hot, wearing the hot section. A jump-start gives a clean start.</PhobosVehicleSystems_MsgHotStart>
   <PhobosVehicleSystems_MsgInjectionWaterOut>The {VEHICLE} has used its injection water; its engine is back to its dry limits until a mechanic refills the tank.</PhobosVehicleSystems_MsgInjectionWaterOut>
@@ -346,13 +352,17 @@
   <PhobosVehicleSystems_MsgTractionBatteryCold>The {VEHICLE}'s traction battery is too cold to give its full power, and it takes charge only slowly until it warms.</PhobosVehicleSystems_MsgTractionBatteryCold>
   <PhobosVehicleSystems_MsgTractionBatteryHot>The {VEHICLE}'s traction battery is running hot. It gives less power and charges slowly.</PhobosVehicleSystems_MsgTractionBatteryHot>
   <PhobosVehicleSystems_MsgTractionBatteryOverheating>The {VEHICLE}'s traction battery is overheating and damaging itself. Stop driving it and let it cool.</PhobosVehicleSystems_MsgTractionBatteryOverheating>
+  <PhobosVehicleSystems_MsgTractionBatteryOverheatingHotAir>The heat around the {VEHICLE} is overheating its traction battery, which is damaging itself. Put out the fire, or get the vehicle clear of the heat before the battery runs away.</PhobosVehicleSystems_MsgTractionBatteryOverheatingHotAir>
   <PhobosVehicleSystems_MsgTractionBatteryRunaway>The {VEHICLE}'s traction battery has gone into thermal runaway. Keep everyone away from it.</PhobosVehicleSystems_MsgTractionBatteryRunaway>
   <PhobosVehicleSystems_MsgTractionBatteryWorn>The {VEHICLE}'s traction battery has worn and holds noticeably less charge. New battery modules would restore it.</PhobosVehicleSystems_MsgTractionBatteryWorn>
   <PhobosVehicleSystems_RefuseTractionBatteryRunaway>The {VEHICLE}'s traction battery is in thermal runaway.</PhobosVehicleSystems_RefuseTractionBatteryRunaway>
   <PhobosVehicleSystems_MsgMotorHot>The {VEHICLE}'s motor is running hot and holding back its power.</PhobosVehicleSystems_MsgMotorHot>
   <PhobosVehicleSystems_MsgMotorOverheating>The {VEHICLE}'s motor is overheating and burning its windings. Stop and let it cool, and repair it.</PhobosVehicleSystems_MsgMotorOverheating>
+  <PhobosVehicleSystems_MsgMotorOverheatingHotAir>The heat around the {VEHICLE} is overheating its motor and burning its windings. Put out the fire, or get the vehicle clear of the heat, and repair it.</PhobosVehicleSystems_MsgMotorOverheatingHotAir>
   <PhobosVehicleSystems_MsgTractionMotorsHot>The {VEHICLE}'s traction motors are running hot from hard pulling.</PhobosVehicleSystems_MsgTractionMotorsHot>
+  <PhobosVehicleSystems_MsgTractionMotorsHotHotAir>The {VEHICLE}'s traction motors are running hot from the heat around it.</PhobosVehicleSystems_MsgTractionMotorsHotHotAir>
   <PhobosVehicleSystems_MsgTractionMotorsOverheating>The {VEHICLE}'s traction motors are overheating and burning their windings. Ease the load and let them cool.</PhobosVehicleSystems_MsgTractionMotorsOverheating>
+  <PhobosVehicleSystems_MsgTractionMotorsOverheatingHotAir>The heat around the {VEHICLE} is overheating its traction motors and burning their windings. Put out the fire, or get the vehicle clear of the heat.</PhobosVehicleSystems_MsgTractionMotorsOverheatingHotAir>
   <PhobosVehicleSystems_MsgBoilerWaterLow>The {VEHICLE}'s boiler water is low. Keep its feed water topped up, or the fire will burn the crown sheet dry.</PhobosVehicleSystems_MsgBoilerWaterLow>
   <PhobosVehicleSystems_MsgFeedWaterLow>The {VEHICLE} is nearly out of feed water. It needs a water stop soon.</PhobosVehicleSystems_MsgFeedWaterLow>
   <PhobosVehicleSystems_MsgHoverRefused>The {VEHICLE} is too heavy for its engine to hover onto the pad in this heat. Land it on a runway, or lighten it.</PhobosVehicleSystems_MsgHoverRefused>
@@ -711,6 +721,7 @@
   <!-- Letters -->
   <PhobosVehicleSystems_LetterBoilingLabel>Engine boiling over: {VEHICLE}</PhobosVehicleSystems_LetterBoilingLabel>
   <PhobosVehicleSystems_LetterBoilingText>The {VEHICLE}'s coolant is boiling away and the engine is cooking itself.\n\nStop the vehicle now. Once it has cooled, repair the radiator and have a mechanic service it to refill the coolant.</PhobosVehicleSystems_LetterBoilingText>
+  <PhobosVehicleSystems_LetterBoilingTextHotAir>The heat around the {VEHICLE} has its coolant boiling away, and the engine is cooking itself.\n\nPut out the fire, or get the vehicle clear of the heat. Once it has cooled, repair the radiator and have a mechanic service it to refill the coolant.</PhobosVehicleSystems_LetterBoilingTextHotAir>
   <PhobosVehicleSystems_LetterPlugMeltedLabel>Fusible plug melted: {VEHICLE}</PhobosVehicleSystems_LetterPlugMeltedLabel>
   <PhobosVehicleSystems_LetterPlugMeltedText>The water in the {VEHICLE}'s boiler fell below the firebox crown. The lead plug in the crown melted and blew steam onto the fire, venting the boiler before the crown sheet could fail.\n\nIt cannot raise steam again until a mechanic fits a new plug. Give it feed water at a water stop before you light it again.</PhobosVehicleSystems_LetterPlugMeltedText>
   <PhobosVehicleSystems_LetterBoilerExplodedLabel>Boiler explosion: {VEHICLE}</PhobosVehicleSystems_LetterBoilerExplodedLabel>

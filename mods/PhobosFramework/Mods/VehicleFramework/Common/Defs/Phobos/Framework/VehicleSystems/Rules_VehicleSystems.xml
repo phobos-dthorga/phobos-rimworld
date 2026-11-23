@@ -315,6 +315,10 @@
     </fieldFixSupplies>
     <messageCooldownHours>6</messageCooldownHours>
     <letterCooldownHours>48</letterCooldownHours>
+    <!-- Framework 0.266.1: air hotter than this (degrees C) is a fire or a furnace, never weather, so a hot part's message names the heat
+         around the vehicle as the cause (hotAirMessage) rather than a descent or hard driving. Authored: water's boiling point, well above
+         the hottest air ever measured outdoors (57 C). -->
+    <hotAirCelsius>100</hotAirCelsius>
     <nightStartsHour>19</nightStartsHour>
     <nightEndsHour>6</nightEndsHour>
     <!-- The power hook-up (Framework 0.120.0; owner, 17 Nov 2026): a parked vehicle on a powered grid has its loads carried up to 60 A, about a

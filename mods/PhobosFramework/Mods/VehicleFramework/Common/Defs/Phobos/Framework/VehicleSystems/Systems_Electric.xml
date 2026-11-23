@@ -146,6 +146,7 @@
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgTractionBatteryOverheating</message>
+                <hotAirMessage>PhobosVehicleSystems_MsgTractionBatteryOverheatingHotAir</hotAirMessage>
               </li>
             </effects>
           </li>
@@ -565,6 +566,7 @@
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgMotorOverheating</message>
+                <hotAirMessage>PhobosVehicleSystems_MsgMotorOverheatingHotAir</hotAirMessage>
               </li>
             </effects>
           </li>

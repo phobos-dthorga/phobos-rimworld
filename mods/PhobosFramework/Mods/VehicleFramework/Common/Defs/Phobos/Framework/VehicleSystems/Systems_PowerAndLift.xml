@@ -85,6 +85,7 @@
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgTractionMotorsHot</message>
+                <hotAirMessage>PhobosVehicleSystems_MsgTractionMotorsHotHotAir</hotAirMessage>
                 <type>CautionInput</type>
               </li>
             </effects>
@@ -100,6 +101,7 @@
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgTractionMotorsOverheating</message>
+                <hotAirMessage>PhobosVehicleSystems_MsgTractionMotorsOverheatingHotAir</hotAirMessage>
               </li>
             </effects>
           </li>

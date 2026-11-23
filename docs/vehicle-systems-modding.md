@@ -243,8 +243,8 @@ Every effect takes `when`. Those marked as consequences are skipped when the pla
 | `Effect_StatFactor` | multiplies a Vehicle Framework `stat` by `factor` | yes |
 | `Effect_ForceUndraft` | stops the engine on entry | yes |
 | `Effect_ConsumeFuel` | `perHour` from the fuel tank | yes |
-| `Effect_Letter` | a letter on entry (`label`, `text` keys with `{VEHICLE}`), at most once in the rules Def's cooldown | yes |
-| `Effect_Message` | a message on entry (`message` key with `{VEHICLE}`, `type`), at most once in the cooldown | no |
+| `Effect_Letter` | a letter on entry (`label`, `text` keys with `{VEHICLE}`), at most once in the rules Def's cooldown; `hotAirText`, optional, is the text used instead while the air around the vehicle is fire-hot (the rules Def's `hotAirCelsius`) | yes |
+| `Effect_Message` | a message on entry (`message` key with `{VEHICLE}`, `type`), at most once in the cooldown; `hotAirMessage`, optional, is said instead while the air around the vehicle is fire-hot, for a part that heats toward the air and would otherwise blame its work | no |
 | `Effect_PushHeat` | `heatPerSecond` into the vehicle's room, times `scaleBy` | no |
 | `Effect_Fleck` | `fleck` (a FleckDef) at `perHour`, `scale` | no |
 | `Effect_AddQuantity` | once: `amount` times `scaleByParameter`, over `divideByParameter`, times `scaleBy`, added to `quantity` | no |

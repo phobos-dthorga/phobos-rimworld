@@ -324,6 +324,7 @@
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgBrakesFading</message>
+                <hotAirMessage>PhobosVehicleSystems_MsgBrakesFadingHotAir</hotAirMessage>
                 <type>CautionInput</type>
               </li>
             </effects>
@@ -335,6 +336,7 @@
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgBrakesFaded</message>
+                <hotAirMessage>PhobosVehicleSystems_MsgBrakesFadedHotAir</hotAirMessage>
                 <type>NegativeEvent</type>
               </li>
             </effects>
@@ -674,6 +676,7 @@
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgTransmissionHot</message>
+                <hotAirMessage>PhobosVehicleSystems_MsgTransmissionHotHotAir</hotAirMessage>
                 <type>CautionInput</type>
               </li>
             </effects>
