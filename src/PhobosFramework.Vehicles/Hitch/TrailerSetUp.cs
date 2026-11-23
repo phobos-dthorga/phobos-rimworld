@@ -64,11 +64,14 @@ public class WorkGiver_PhobosTrailerSetUp : VehicleWorkGiver
     public override bool CanBeWorkedOn(VehiclePawn vehicle) => HandSetUps.On(vehicle) is { } setUp && setUp.HandOrderRefusal() == null;
 }
 
-public class JobDriver_PhobosTrailerSetUp : JobDriver_WorkVehicle, Phobos.Framework.Interface.IDrawsOwnWorkBar
+public class JobDriver_PhobosTrailerSetUp : PhobosResumableVehicleWork, Phobos.Framework.Interface.IDrawsOwnWorkBar
 {
     protected override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_TrailerSetUp;
 
     protected override float TotalWork => HandSetUps.On(Vehicle)?.HandWork ?? 1f;
+
+    /// <summary>Setting up and packing up keep their own work.</summary>
+    protected override string ResumeOrder => HandSetUps.On(Vehicle)?.HandOrder.ToString() ?? "";
 
     protected override StatDef Stat => StatDefOf.ConstructionSpeed;
 

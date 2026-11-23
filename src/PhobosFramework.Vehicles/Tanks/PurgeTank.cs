@@ -78,15 +78,24 @@ public class JobDriver_PhobosPurgeTank : JobDriver
     VehiclePawn Vehicle => (VehiclePawn)job.GetTarget(VehicleIndex).Thing;
     CompPhobosTank? Tank => Vehicle.GetComp<CompPhobosTank>();
 
+    /// <summary>The purge's work, picked up where it was left when the job ends early (Framework 0.274.0).</summary>
+    readonly Phobos.Framework.Persistence.ResumableWork.WaitState purge = new();
+
     public override bool TryMakePreToilReservations(bool errorOnFailed) => true;
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        purge.Expose("PhobosVehicleSystems_PurgeWork");
+    }
 
     protected override IEnumerable<Toil> MakeNewToils()
     {
         this.FailOnDespawnedOrNull(VehicleIndex);
         this.FailOn(() => Tank?.NeedsPurge != true);
         yield return Toils_Goto.GotoCell(CellIndex, PathEndMode.OnCell);
-        Toil work = Toils_General.Wait(Tank?.Props.purgeTicks ?? 10000, VehicleIndex);
-        work.WithProgressBarToilDelay(VehicleIndex);
+        Toil work = Phobos.Framework.Persistence.ResumableWork.Wait(this, purge,
+            Phobos.Framework.Persistence.ResumableWork.Key(Vehicle, job.def.defName), Tank?.Props.purgeTicks ?? 10000, VehicleIndex);
         // Framework 0.253.0: the hose going in and the tank draining (S144, the owner's pick), as the work starts.
         work.AddPreInitAction(() =>
         {

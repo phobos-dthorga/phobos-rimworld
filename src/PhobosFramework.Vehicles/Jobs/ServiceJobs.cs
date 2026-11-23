@@ -159,10 +159,10 @@ public class WorkGiver_PhobosServiceVehicle : VehicleWorkGiver
 
 /// <summary>
 /// Work at a vehicle that may take longer than Vehicle Framework's own repair step. Its base class ends the work toil after 2,000 ticks
-/// unless told otherwise, whatever work is left, and the job then repeats for ever without finishing; and it does not save the work
-/// done, so a load would finish the job at once. Read from Vehicle Framework 1.6 (JobDriver_WorkVehicle), 9 Nov 2026.
+/// unless told otherwise, whatever work is left, and the job then repeats for ever without finishing. Read from Vehicle Framework 1.6
+/// (JobDriver_WorkVehicle), 9 Nov 2026. The work done is saved, and kept when the job ends early, by <see cref="PhobosResumableVehicleWork"/>.
 /// </summary>
-public abstract class PhobosVehicleWorkDriver : JobDriver_WorkVehicle, Phobos.Framework.Interface.IDrawsOwnWorkBar
+public abstract class PhobosVehicleWorkDriver : PhobosResumableVehicleWork, Phobos.Framework.Interface.IDrawsOwnWorkBar
 {
     readonly Phobos.Framework.Rules.ProgressWatch watch = new();
 
@@ -215,14 +215,6 @@ public abstract class PhobosVehicleWorkDriver : JobDriver_WorkVehicle, Phobos.Fr
         if (!done) Systems?.PauseRepairs(actor);
         ReadyForNextToil();
     }
-
-    public override void ExposeData()
-    {
-        base.ExposeData();
-        float work = Work;
-        Scribe_Values.Look(ref work, "PhobosVehicleSystems_Work");
-        if (Scribe.mode == LoadSaveMode.LoadingVars) Work = work;
-    }
 }
 
 public class JobDriver_PhobosServiceVehicle : PhobosVehicleWorkDriver
@@ -230,6 +222,9 @@ public class JobDriver_PhobosServiceVehicle : PhobosVehicleWorkDriver
     protected override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_ServiceVehicle;
 
     protected override float TotalWork => (Vehicle.GetComp<CompPhobosVehicleSystems>()?.ReadyService()?.Def.service?.work ?? 1f) * (Systems?.BayWorkFactor ?? 1f);
+
+    /// <summary>Each kind of service keeps its own work.</summary>
+    protected override string ResumeOrder => Systems?.ReadyService()?.Def.defName ?? "";
 
     protected override StatDef Stat => StatDefOf.ConstructionSpeed;
 
@@ -318,6 +313,9 @@ public class JobDriver_PhobosRepairWithSupplies : PhobosVehicleWorkDriver
     RepairWork? Current => workKey == null ? null : Systems?.Repairs.Find(workKey);
 
     protected override float TotalWork => (Current is { } work && Systems is { } systems ? systems.Repairs.WorkFor(work) : 1f) * (Systems?.BayWorkFactor ?? 1f);
+
+    /// <summary>Each repair keeps its own work.</summary>
+    protected override string ResumeOrder => workKey ?? "";
 
     /// <summary>The job is tied to one piece of work, so what was cancelled is not finished, and another job is not done on its time.</summary>
     protected override void ResetWork()

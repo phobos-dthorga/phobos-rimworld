@@ -65,11 +65,14 @@ public class WorkGiver_PhobosCamp : VehicleWorkGiver
     public override bool CanBeWorkedOn(VehiclePawn vehicle) => CampOrders.On(vehicle) is { } camp && camp.OrderRefusal() == null;
 }
 
-public class JobDriver_PhobosCamp : JobDriver_WorkVehicle, Phobos.Framework.Interface.IDrawsOwnWorkBar
+public class JobDriver_PhobosCamp : PhobosResumableVehicleWork, Phobos.Framework.Interface.IDrawsOwnWorkBar
 {
     protected override JobDef JobDef => VehicleCampDefOf.PhobosVehicleSystems_CampWork;
 
     protected override float TotalWork => CampOrders.On(Vehicle)?.Work ?? 1f;
+
+    /// <summary>Pitching camp and packing it up keep their own work.</summary>
+    protected override string ResumeOrder => CampOrders.On(Vehicle)?.Order.ToString() ?? "";
 
     protected override StatDef Stat => StatDefOf.ConstructionSpeed;
 

@@ -68,7 +68,7 @@ public class WorkGiver_PhobosSlingHookUp : VehicleWorkGiver
     public override bool CanBeWorkedOn(VehiclePawn vehicle) => SlingWaits.WaitingOn(vehicle) != null;
 }
 
-public class JobDriver_PhobosSlingHookUp : JobDriver_WorkVehicle, Phobos.Framework.Interface.IDrawsOwnWorkBar
+public class JobDriver_PhobosSlingHookUp : PhobosResumableVehicleWork, Phobos.Framework.Interface.IDrawsOwnWorkBar
 {
     protected override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_SlingHookUp;
 

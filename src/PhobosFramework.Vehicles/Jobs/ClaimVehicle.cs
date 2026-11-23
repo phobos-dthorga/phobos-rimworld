@@ -166,6 +166,9 @@ public class JobDriver_PhobosClaimVehicle : JobDriver
 
     VehiclePawn Vehicle => (VehiclePawn)job.GetTarget(VehicleIndex).Thing;
 
+    /// <summary>The claim's work, picked up where it was left when the job ends early (Framework 0.274.0).</summary>
+    readonly Phobos.Framework.Persistence.ResumableWork.WaitState work = new();
+
     public override bool TryMakePreToilReservations(bool errorOnFailed) => pawn.Reserve(Vehicle, job, errorOnFailed: errorOnFailed);
 
     protected override IEnumerable<Toil> MakeNewToils()
@@ -173,10 +176,15 @@ public class JobDriver_PhobosClaimVehicle : JobDriver
         this.FailOnDespawnedOrNull(VehicleIndex);
         this.FailOn(() => !VehicleClaims.Offered(Vehicle) || VehicleClaims.Refusal(Vehicle) != null);
         yield return Toils_Goto.GotoThing(VehicleIndex, PathEndMode.Touch);
-        Toil work = Toils_General.Wait(VehicleClaims.WorkTicks(Vehicle), VehicleIndex);
-        work.WithProgressBarToilDelay(VehicleIndex);
-        yield return work;
+        yield return Phobos.Framework.Persistence.ResumableWork.Wait(this, work,
+            Phobos.Framework.Persistence.ResumableWork.Key(Vehicle, job.def.defName), VehicleClaims.WorkTicks(Vehicle), VehicleIndex);
         yield return new Toil { initAction = () => VehicleClaims.Claim(Vehicle, pawn), defaultCompleteMode = ToilCompleteMode.Instant };
+    }
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        work.Expose("PhobosVehicleSystems_ClaimWork");
     }
 }
 

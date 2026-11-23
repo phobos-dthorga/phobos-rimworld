@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.274.0] - 2026-11-24 - Draft
+
+Unfinished work at a vehicle is picked up where it was left
+
+### Added
+
+- For other modders: PhobosResumableVehicleWork, a base for Vehicle Framework work jobs that are picked up where they were left, and ResumableWork in the Framework core, which keeps any job's unfinished work by thing and offers a timed wait that resumes.
+
+### Fixed
+
+- **Work at a vehicle carries on from where it stopped** (the owner's report of 24 November 2026: setting up the Billy began again from nothing every time). Setting up or packing up a trailer or a camp, hitching up, the sling's hook-up, servicing, diagnosing, repairs with supplies, claiming a vehicle and purging a tank all kept their progress only while one job lasted, so a meal, sleep, a raid or a save and load lost it. The set-up step also ended by itself after about half a minute of game time, so a long set-up such as the Billy's could never finish. Now the work left stays with the vehicle, and the next person to take it up carries on. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add mid-game. Work left unfinished is kept in the save for 20 in-game days after it was last worked on (an agent default, for the owner to revise), then forgotten.
+
 ## [0.273.3] - 2026-11-24 - Draft
 
 Vehicles from older saves get their brakes at each wheel

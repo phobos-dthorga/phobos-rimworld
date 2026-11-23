@@ -20,7 +20,7 @@ public class WorkGiver_PhobosHitchUp : VehicleWorkGiver
     public override bool CanBeWorkedOn(VehiclePawn vehicle) => Hitches.WaitingOn(vehicle) != null;
 }
 
-public class JobDriver_PhobosHitchUp : JobDriver_WorkVehicle, Phobos.Framework.Interface.IDrawsOwnWorkBar
+public class JobDriver_PhobosHitchUp : PhobosResumableVehicleWork, Phobos.Framework.Interface.IDrawsOwnWorkBar
 {
     protected override JobDef JobDef => VehicleSystemsJobDefOf.PhobosVehicleSystems_HitchUp;
 
