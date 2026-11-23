@@ -1,16 +1,16 @@
 # Whip
 
-**AI-generated, then picked by the owner on 7 November 2026.** Made on 2026-11-07 with ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0): 50 steps, guidance 4, seed 12.
+**AI-generated on the paid route, then picked by the owner on 24 November 2026** on D'thorga Companion's Picks page (try 1 of 2).
+Made on 2026-11-24 with OpenAI's image API (gpt-image-2, medium quality, 1024 x 1536), request `whip-ground-plane` in
+`assets/phobos-radio/requests/paid-2-antennas.json`; batch record `assets/phobos-radio/requests/paid-1-record.md`. It is the whip antenna, drawn as a dual-band ground-plane; drawSize (1.5, 2.25), offset (0, 0, 0.49), so the footing sits on its cell.
 
-**A stand-in:** a thin lattice mast drawn for the mast, used for the whip antenna until a whip is picked (owner, 7 November 2026).
+**No game art is in this file or was sent.** One reference, our own approved art: `mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png`, role: "our approved vehicle parts bench: match its outline weight, shading, palette and finish only; do not copy its shape or contents".
 
-**Made with a LoRA trained on game art.** The run used a private LoRA that was trained on 60 upscaled vanilla RimWorld sprites. The generator was given the game's vitals monitor and pod launcher sprites as references. The LoRA and its dataset are not shared and not in this repository. No game art is in this file. Ludeon's EULA allows its resources "as a basis or reference for a Mod" and does not mention AI training, so whether that covers this is unsettled. The owner chose to ship it: see the [design record](../../../../../../../../docs/development/art-automation-and-medical-equipment.md).
+**Exported** by `scripts/art/export_sprite.py` `--size 192 --aspect 2:3`, after the background AI's mask (BiRefNet, on the processor); the review card
+showed 0 loose specks. Try 2 (the radiator as long as the radials) is kept for a second ground-plane model with its own figures, at the owner's word on the pick: "Both with varying specs, just like real life! ^ ^".
 
-**Near-copy check:** passed. The closest was AngledGravshipHull_northwest.png (structure 0.302, hash distance 31). Flagged at a hash distance of 12 or less, or structure of 0.6 or more. A slightly tilted copy can still pass.
+**Prompt:** STEEP HIGH-ANGLE VIEW FROM ABOVE AND SLIGHTLY IN FRONT, exactly as the game RimWorld draws its trees and standing lamps: we look mostly DOWN onto the object's top; its height is strongly foreshortened, so only a short strip of its front shows below the top; its foot at the BOTTOM of the canvas and its top towards the TOP. No side-on view, no isometric angle, no tilt.  Create an ORIGINAL game building sprite for a whip antenna: a small dual-band radio antenna on a short steel pole, put up outside a hard-scrabble frontier colony's radio room. Image 1 is our approved parts bench from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape, contents.  Portrait canvas. The antenna fills about 80 percent of the canvas height, centred, on a plain pure white background.  Seen steeply from above: a small square concrete footing at the bottom; a short fore... (the whole prompt is in the request file)
 
-**Prompt:** phobosvanilla, A tall steel lattice radio mast standing upright, with three guy wires, a small antenna at the top and a concrete footing, drawn tall and narrow. Draw it in exactly the art style of the reference images: a game sprite seen from above at a slight angle, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no people.
-
-- Model SHA-256: `44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840`
-- LoRA SHA-256: `392b164f1bbe52b0cfd96c629e31e3214bd2571c0de1ab1ab3e8f8d366a88ef6` (the first private LoRA, phobos-private-vanilla)
-- Master SHA-256: `ce620387bc537a5207b59676f2f99ce8398bd02fef107396b6d66433d859012a`
-- This file: 128 x 192 px, from `scripts/art/export_sprite.py --all-white --threshold 250 --soft 20 --aspect 2:3`. SHA-256 `7767fdcaa2e2f97bb2464db76558ec4e7a5e0600b1bbb820754dbca0b1c07e76`.
+- Cost: about US$0.0458 (the engine's figure, from OpenAI's returned token counts)
+- Master `assets/phobos-radio/generated/whip-ground-plane/whip-ground-plane-1.png`, SHA-256 `3fa69df567ece3021af51409f78a963dc30d090ab0b47eef5620b8ea5fd11e71`
+- `Whip.png`: 192 x 288 px, SHA-256 `daaf37321e6bf3de629959e3038d2b0ac7677c27d9b230521390897c0e8f0a20`

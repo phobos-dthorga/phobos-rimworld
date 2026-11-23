@@ -1,7 +1,7 @@
 # Radio paid batch 1: the radio desk, the radio terminal, the amplifier, the whip and the mast (24 Nov 2026)
 
-**Status (24 Nov 2026):** bought, ten pictures for about US$0.50 of the owner's US$1.00 cap; all five picks wait on D'thorga
-Companion's Picks page. Nothing is exported or shipped yet. [The run, as it went](#the-run-24-nov-2026) is below the dry run.
+**Status (24 Nov 2026):** bought, ten pictures for about US$0.50 of the owner's US$1.00 cap, and picked. The desk, whip and mast
+are exported and ship in Radio 0.4.0; the terminal's and both amplifiers' wait for their buildings, and the second whip for its model. [The run, as it went](#the-run-24-nov-2026) is below the dry run.
 
 ## The owner's direction
 
@@ -85,3 +85,22 @@ before the cards were drawn; every card shows 0 loose specks.
 
 **For the export:** the mast's guy anchors spread well beyond one cell, so its drawn size (today 1 x 2.5) will need widening, to be
 judged on the map at export. Cards: `K:\phobos-rimworld\art\cards\paid-1\` and `paid-2-antennas\`.
+
+## The owner's picks (24 Nov 2026, on the Picks page)
+
+| Picture | Pick | The owner's words | What happens |
+| --- | --- | --- | --- |
+| Radio desk | **2** | | Exported as `BaseStation.png`, Radio 0.4.0 |
+| Radio terminal | **1** (the agent had suggested 2: try 1's radio box has a stub antenna) | | Waits for the terminal; whether it keeps an antenna is asked |
+| Linear amplifier | **1** | "Offer both as alternate models with varying specs to each ^ ^" | Two amplifier models, each its own figures; both wait for the amplifier |
+| Whip | **1** | "Both with varying specs, just like real life! ^ ^" | Try 1 exported as `Whip.png`; try 2 becomes a second ground-plane with its own figures |
+| Mast | **1** | | Exported as `Mast.png`, Radio 0.4.0 |
+
+**A third comment was lost** by the Companion's Picks page before it reached the answers file (the owner: "there were three comments
+in total"): its keyboard pick sent no words, and moving between picks emptied the box. Fixed in Companion 0.76.1. The lost words are
+asked again in chat.
+
+**Exported (agent's sizes, for the owner to revise):** the whip at drawSize (1.5, 2.25), offset (0, 0, 0.49); the mast at (3, 4.5),
+offset (0, 0, 1.07): each footing, measured at about 28% and 26% up its picture, sits on its one cell. Masters to `art-masters`
+(23beffb), the unpicked desk 1, mast 2 and terminal 2 to `art-references` (714a5de); whip 2 and amplifier 2 are with the masters, as
+the owner keeps both.

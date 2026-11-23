@@ -1,13 +1,16 @@
 # Mast
 
-**AI-generated, then picked by the owner on 7 November 2026.** Made on 2026-10-19 with ComfyUI 0.41.0, local, FLUX.2 Klein 4B distilled (Black Forest Labs, Apache 2.0; Comfy-Org packaging): 4 steps, guidance 1, seed 63.
+**AI-generated on the paid route, then picked by the owner on 24 November 2026** on D'thorga Companion's Picks page (try 1 of 2).
+Made on 2026-11-24 with OpenAI's image API (gpt-image-2, medium quality, 1024 x 1536), request `mast-collinear` in
+`assets/phobos-radio/requests/paid-2-antennas.json`; batch record `assets/phobos-radio/requests/paid-1-record.md`. It is the mast antenna with a white fibreglass collinear; drawSize (3, 4.5), offset (0, 0, 1.07), so the footing sits on its cell and the guy anchors spread past it.
 
-**No LoRA.** The generator was given our own generated image base-station-v3-45.png as references. No game art is in this file. See the [design record](../../../../../../../../docs/development/art-automation-and-medical-equipment.md).
+**No game art is in this file or was sent.** One reference, our own approved art: `mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png`, role: "our approved vehicle parts bench: match its outline weight, shading, palette and finish only; do not copy its shape or contents".
 
-**Near-copy check:** passed. The closest was FleshmassPieceC.png (structure 0.552, hash distance 27). Flagged at a hash distance of 12 or less, or structure of 0.6 or more. A slightly tilted copy can still pass.
+**Exported** by `scripts/art/export_sprite.py` `--size 384 --aspect 2:3`, after the background AI's mask (BiRefNet, on the processor); the review card
+showed 0 loose specks. Try 2, with the cleaner lattice, was not picked.
 
-**Prompt:** In the exact rendering style of image 1 (flat colours, soft simple shading, thin dark outlines, muted grey palette, a 2D game sprite, not a 3D render), draw a tall narrow lattice radio mast of grey steel with cross-bracing, a thin collinear antenna with a small amber tip on top, three guy wires to small anchors, and a square base plate, seen from a slightly high angle so it reads as a tall upright structure with a short soft shadow at its foot. Pure white background, no text.
+**Prompt:** STEEP HIGH-ANGLE VIEW FROM ABOVE AND SLIGHTLY IN FRONT, exactly as the game RimWorld draws its trees and standing lamps: we look mostly DOWN onto the object's top; its height is strongly foreshortened, so only a short strip of its front shows below the top; its foot at the BOTTOM of the canvas and its top towards the TOP. No side-on view, no isometric angle, no tilt.  Create an ORIGINAL game building sprite for a mast antenna: a ten-metre guyed steel mast carrying a tall slim radio antenna, put up outside a hard-scrabble frontier colony's radio room. Image 1 is our approved parts bench from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape, contents.  Portrait canvas. The mast fills about 90 percent of the canvas height, centred, on a plain pure white background.  Seen steeply from above: a square concrete footing at the bottom; a slim tria... (the whole prompt is in the request file)
 
-- Model SHA-256: `ec3d4e733a771f61c052fb4856c48b336c55eaf2c65487c2a1faeb9bbda7a343`
-- Master SHA-256: `5f4ce8163a6edeb89652ecb9412e7b9664de0a355d267291ab255af462b1f178`
-- This file: 128 x 320 px, from `scripts/art/export_sprite.py --all-white --threshold 250 --soft 20 --aspect 2:5`. SHA-256 `77670b40197cc1fed00948c422df676ba5479707c3abfda74437f48decc334c7`.
+- Cost: about US$0.0459 (the engine's figure, from OpenAI's returned token counts)
+- Master `assets/phobos-radio/generated/mast-collinear/mast-collinear-1.png`, SHA-256 `8c5ff7f9c6fe4f4334ef49df70ef2595fb182f8136a8679f26df90ba5c1799fa`
+- `Mast.png`: 384 x 576 px, SHA-256 `bd538397cac78e79d5c6897307349910f249fdeca835e425794503268d867bb6`

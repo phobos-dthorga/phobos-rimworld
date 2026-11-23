@@ -1,17 +1,19 @@
 {
   "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/BaseStation.png",
-  "source": "assets/phobos-radio/generated/base-station-remake-2/base-station-remake-2-13.png",
-  "source_sha256": "21a2fa8d15d18574887deff61f6c16fd9d52cbb5b5554b9a8e8db3a06d5c2677",
-  "target_sha256": "f0dd3ad7438cc887496c821a2a8988c21c3cdda596b63317830b0e7ef67ae7c0",
+  "source": "assets/phobos-radio/generated/radio-desk/radio-desk-2.png",
+  "source_sha256": "c56d84d4a2afb9e8f71c4c675e187b624f19e2fa90dc80e77f732075869d9342",
+  "target_sha256": "abad7ab3723227773d45c89b0faa3eacff7843c3d79ff7011839cc79601af335",
   "size": [
     256,
     256
   ],
-  "white_threshold": 245,
-  "soft_edge": 20,
+  "white_threshold": 235,
+  "soft_edge": 30,
   "all_white": false,
   "silhouette": false,
-  "ai_mask": "21a2fa8d15d18574887deff61f6c16fd9d52cbb5b5554b9a8e8db3a06d5c2677",
-  "date": "2026-11-13T00:08:25",
+  "ai_mask": "c56d84d4a2afb9e8f71c4c675e187b624f19e2fa90dc80e77f732075869d9342",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-24T01:38:31",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

@@ -24,6 +24,13 @@ Upgrades for the radio desk and the antennas (experimental)
   preamplifier for the desk, a taller pole for the whip, a mast extension and a longer collinear for the mast. A builder fits each one
   from the building's Upgrades button. Not yet tested in game: rows 461 and 462.
 
+### Changed
+
+- **New pictures for the radio desk, the whip and the mast**, the owner's picks of 24 November 2026: a desk transceiver with its
+  microphone, power supply, meter and logbook; a ground-plane whip with four radials; a guyed lattice mast with a white collinear on
+  top. The antennas are drawn as the game draws trees, from above and a little in front, so they are drawn larger than their one
+  cell, their guy wires and radials reaching past it. Not yet tested in game: row 463.
+
 ### Dependencies
 
 - **Now needs D'thorga Framework**, for its building upgrades. Load it after D'thorga Framework.

@@ -28,8 +28,9 @@
     <graphicData>
       <texPath>Phobos/Radio/Things/Whip</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(1,1.5)</drawSize>
-      <drawOffset>(0,0,0.25)</drawOffset>
+      <!-- The ground-plane's radials span about a metre; the footing (about 28% up the picture) sits on its cell (Radio 0.4.0). -->
+      <drawSize>(1.5,2.25)</drawSize>
+      <drawOffset>(0,0,0.49)</drawOffset>
     </graphicData>
     <statBases>
       <MaxHitPoints>80</MaxHitPoints>
@@ -63,8 +64,10 @@
     <graphicData>
       <texPath>Phobos/Radio/Things/Mast</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(1,2.5)</drawSize>
-      <drawOffset>(0,0,0.75)</drawOffset>
+      <!-- Drawn steeply from above as the game draws trees; the guy anchors spread past the cell, the footing (about 26% up the
+           picture) sits on it (Radio 0.4.0). -->
+      <drawSize>(3,4.5)</drawSize>
+      <drawOffset>(0,0,1.07)</drawOffset>
     </graphicData>
     <statBases>
       <MaxHitPoints>150</MaxHitPoints>
