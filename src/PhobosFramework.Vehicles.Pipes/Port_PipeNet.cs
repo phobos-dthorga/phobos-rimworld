@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using RimWorld;
 using PipeSystem;
 using Verse;
 
@@ -31,6 +33,14 @@ public class Port_PipeNet : TankPort
         // The net's stored figure is refreshed only now and then, so what came out, not what was asked for.
         found.DrawAmongStorage(taken, out float drawn, null);
         if (drawn <= 0f) reason = "PhobosVehicleSystems_TankPipeEmpty".Translate().Resolve();
+        // What the net's stores were made from joins the load (NP1: Vanilla Nutrient Paste Expanded's vats keep their paste's
+        // ingredients, and its taps give every vat's to each meal). Read through the game's own ingredient comp; nets with none add nothing.
+        else
+        {
+            tank.AddIngredients(IngredientsOf(found));
+            if (tank.Ingredients.Count > 0 && Seen.Wants("vehicles.tank-ingredients", tank.Vehicle, "in"))
+                Seen.Note("vehicles.tank-ingredients", tank.Vehicle, tank.Ingredients.Count + " ingredient(s) taken in", "in");
+        }
         return drawn;
     }
 
@@ -52,7 +62,35 @@ public class Port_PipeNet : TankPort
         // Its capacity counts tanks marked for transfer, which take nothing: only what was really stored leaves the tanker.
         found.DistributeAmongStorage(given, out float stored);
         if (stored <= 0f) reason = "PhobosVehicleSystems_TankPipeFull".Translate().Resolve();
+        // The stores learn what the load was made from (NP1), as the net's taps read them all together.
+        else
+        {
+            RegisterIngredients(found, tank.Ingredients);
+            if (tank.Ingredients.Count > 0 && Seen.Wants("vehicles.tank-ingredients", tank.Vehicle, "out"))
+                Seen.Note("vehicles.tank-ingredients", tank.Vehicle, tank.Ingredients.Count + " ingredient(s) handed on", "out");
+        }
         return stored;
+    }
+
+    /// <summary>Every ingredient the net's stores keep, through the game's own ingredient comp on each store.</summary>
+    static IEnumerable<ThingDef> IngredientsOf(PipeNet net)
+    {
+        foreach (CompResourceStorage storage in net.storages)
+        {
+            if (storage?.parent?.GetComp<CompIngredients>() is not { } kept) continue;
+            foreach (ThingDef ingredient in kept.ingredients) yield return ingredient;
+        }
+    }
+
+    /// <summary>Tells every store on the net that it now holds something made from these.</summary>
+    static void RegisterIngredients(PipeNet net, IReadOnlyList<ThingDef> ingredients)
+    {
+        if (ingredients.Count == 0) return;
+        foreach (CompResourceStorage storage in net.storages)
+        {
+            if (storage?.parent?.GetComp<CompIngredients>() is not { } kept) continue;
+            for (int i = 0; i < ingredients.Count; i++) kept.RegisterIngredient(ingredients[i]);
+        }
     }
 
     PipeNet? Find(CompPhobosTank tank)

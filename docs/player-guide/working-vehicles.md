@@ -439,7 +439,8 @@ aboard to set it up.
 | Deepchem (Vanilla Chemfuel Expanded) | The drill rig's deepchem buffer, Vanilla Chemfuel Expanded's pipes | As chemfuel |
 | Crude oil (Rimefeller) | Stacks and barrels on the ground, Rimefeller's pipeline | None |
 | Water | Dubs Bad Hygiene's plumbing | Freezes below 0 °C |
-| Nutrient paste, hemogen | Their pipes | The whole load spoils after about 18 hours above 0 °C; the insulated tank doubles that |
+| Nutrient paste (with Vanilla Nutrient Paste Expanded) | Its pipes, then paste meals in stacks beside it | The whole load spoils after **4 days** above 0 °C; the insulated tank doubles that to 8. **It keeps what it was made from**: vats it fills, and meals set down, carry the same ingredients, so cannibal and vegetarian rules still see them. **On the road a caravan eats it** (one unit a meal) once its packs and trailers hold nothing anyone can eat, and counts it in its days of food (not yet tested in game) |
+| Hemogen | Its pipes | The whole load spoils after about 18 hours above 0 °C; the insulated tank doubles that |
 | Astrofuel, oxygen | Vanilla Gravship Expanded's pipes | Oxygen vents in a fire or great heat |
 | Beer, insect jelly, wort | Stacks on the ground | Wort spoils after 5 days above 0 °C |
 | FSX, prometheum (Combat Extended) | Stacks on the ground | A hit may set off FSX; prometheum needs the pressure vessel and any spill burns |

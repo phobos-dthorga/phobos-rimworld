@@ -50,6 +50,8 @@ public class Port_Items : TankPort
             Thing? found = map.thingGrid.ThingAt(cell, thing);
             if (found == null || found.IsForbidden(Faction.OfPlayer)) continue;
             int count = Math.Min(found.stackCount, wanted - taken);
+            // What the items were made from joins the load (NP1: paste meals), read before they are used up.
+            if (found.TryGetComp<CompIngredients>() is { } made) tank.AddIngredients(made.ingredients);
             found.SplitOff(count).Destroy();
             taken += count;
             if (taken >= wanted) break;
@@ -70,6 +72,11 @@ public class Port_Items : TankPort
         }
         Thing stack = ThingMaker.MakeThing(thing);
         stack.stackCount = count;
+        // Items set down carry what the load was made from (NP1: paste meals out of a paste tank).
+        if (stack.TryGetComp<CompIngredients>() is { } made)
+        {
+            foreach (ThingDef ingredient in tank.Ingredients) made.RegisterIngredient(ingredient);
+        }
         VehiclePawn vehicle = tank.Vehicle;
         // Into storage of the tanker's side touching it first, such as a hopper at the end of a belt (Framework 0.126.0, UH5); otherwise beside it as before.
         bool placed = StorageNearby.Place(stack, vehicle.Map, tank.ContactCells(), vehicle.Faction, vehicle.Position, null, out Building_Storage? into);

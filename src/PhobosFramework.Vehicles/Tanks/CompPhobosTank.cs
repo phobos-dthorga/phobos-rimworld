@@ -31,9 +31,25 @@ public class TankCompartment : IExposable
     public float spoilHours;
     /// <summary>A number a port may keep about the load's quality (Dubs Bad Hygiene's contamination level).</summary>
     public int quality;
+    /// <summary>
+    /// What the load was made from (Framework 0.271.0; docs/development/vehicle-nutrient-paste.md, NP1): the game's own meal ingredients,
+    /// taken from what it was drawn from and handed on to what it fills, so paste made from human meat never comes out clean. Every
+    /// ingredient ever mixed in stays until the compartment is emptied, as in a vat. Empty for loads that have none.
+    /// </summary>
+    public List<ThingDef> ingredients = new();
 
     public bool HasLoad => amount >= EmptyBelow;
     public float Kilograms => contents == null ? 0f : amount * contents.kilogramsPerUnit;
+
+    /// <summary>Adds what a load drawn in was made from.</summary>
+    public void AddIngredients(IEnumerable<ThingDef>? more)
+    {
+        if (more == null) return;
+        foreach (ThingDef def in more)
+        {
+            if (def != null && !ingredients.Contains(def)) ingredients.Add(def);
+        }
+    }
 
     /// <summary>Empties it, leaving what it held as residue to be purged.</summary>
     public void Clear()
@@ -42,6 +58,7 @@ public class TankCompartment : IExposable
         amount = 0f;
         spoilHours = 0f;
         quality = 0;
+        ingredients.Clear();
     }
 
     public void ExposeData()
@@ -51,8 +68,15 @@ public class TankCompartment : IExposable
         Scribe_Values.Look(ref amount, "PhobosTankAmount");
         Scribe_Values.Look(ref spoilHours, "PhobosTankSpoilHours");
         Scribe_Values.Look(ref quality, "PhobosTankQuality");
+        Scribe_Collections.Look(ref ingredients, "PhobosTankIngredients", LookMode.Def);
         // A fluid whose mod has gone: a load of nothing would break the tank's menus.
         if (Scribe.mode == LoadSaveMode.PostLoadInit && contents == null) amount = 0f;
+        // A save from before ingredients were kept, or an ingredient whose mod has gone.
+        if (Scribe.mode == LoadSaveMode.PostLoadInit)
+        {
+            ingredients ??= new List<ThingDef>();
+            ingredients.RemoveAll(def => def == null);
+        }
     }
 }
 
@@ -112,6 +136,10 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
     public int SelectedIndex => Mathf.Clamp(selected, 0, Mathf.Max(0, compartments.Count - 1));
     public PhobosTankContentsDef? Contents => Selected.contents;
     public float Amount => Selected.amount;
+    /// <summary>What the selected compartment's load was made from (Framework 0.271.0, NP1): ports read it to pass it on, and add to it.</summary>
+    public IReadOnlyList<ThingDef> Ingredients => Selected.ingredients;
+    /// <summary>A port adds what a load it drew in was made from.</summary>
+    public void AddIngredients(IEnumerable<ThingDef>? more) => Selected.AddIngredients(more);
     public float CompartmentCapacity => TankRule.CompartmentCapacity(Capacity, Compartments.Count);
     public float Space => Mathf.Max(0f, CompartmentCapacity - Selected.amount);
     public bool HasLoad => Compartments.Any(c => c.HasLoad);
@@ -558,6 +586,8 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         if (moved <= 0f) return 0f;
         from.amount -= moved;
         into.quality = Mathf.Max(into.quality, from.quality);
+        // What it was made from goes with it (Framework 0.271.0, NP1).
+        into.AddIngredients(from.ingredients);
         if (!from.HasLoad) from.Clear();
         AfterLoadChange();
         return moved;
@@ -647,6 +677,62 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
     }
 
     void AfterLoadChange() => Vehicle.GetComp<CompPhobosVehicleSystems>()?.Powertrain?.MarkMassDirty();
+
+    // ---- Food from the tank on the road (Framework 0.271.0; docs/development/vehicle-nutrient-paste.md, NP2) ----
+
+    /// <summary>The item a compartment's load is eaten as: the item its item port sets down, when that is food a person may eat for nutrition
+    /// (nutrient paste's paste meal; not beer or wort). Null for any other load.</summary>
+    static (ThingDef item, float units)? EdibleItemOf(TankCompartment compartment)
+    {
+        if (compartment.contents is not { } contents || !compartment.HasLoad) return null;
+        foreach (TankPort port in contents.ports)
+        {
+            if (port is Port_Items { thing: { } item } items && item.IsNutritionGivingIngestible
+                && item.ingestible.preferability != FoodPreferability.NeverForNutrition && compartment.amount >= items.unitsPerItem)
+            {
+                return (item, items.unitsPerItem);
+            }
+        }
+        return null;
+    }
+
+    /// <summary>The meals each compartment could still make, for a caravan's days of food.</summary>
+    public IEnumerable<ThingDefCount> EdibleMeals()
+    {
+        foreach (TankCompartment compartment in Compartments)
+        {
+            if (EdibleItemOf(compartment) is not { } edible) continue;
+            int meals = Mathf.FloorToInt(compartment.amount / edible.units);
+            if (meals > 0) yield return new ThingDefCount(edible.item, meals);
+        }
+    }
+
+    /// <summary>
+    /// Draws one meal from the first compartment that can make one a person may eat, carrying what the load was made from, and returns it
+    /// unplaced (null with none). The caller hands it to the game's own eating.
+    /// </summary>
+    public Thing? TakeMeal(Pawn forPawn)
+    {
+        foreach (TankCompartment compartment in Compartments)
+        {
+            if (EdibleItemOf(compartment) is not { } edible) continue;
+            Thing meal = ThingMaker.MakeThing(edible.item);
+            if (meal.TryGetComp<CompIngredients>() is { } made)
+            {
+                foreach (ThingDef ingredient in compartment.ingredients) made.RegisterIngredient(ingredient);
+            }
+            if (!RimWorld.Planet.CaravanPawnsNeedsUtility.CanEatForNutritionNow(meal, forPawn))
+            {
+                meal.Destroy();
+                continue;
+            }
+            compartment.amount -= edible.units;
+            if (!compartment.HasLoad) compartment.Clear();
+            AfterLoadChange();
+            return meal;
+        }
+        return null;
+    }
 
     void SpillOnGround(PhobosTankContentsDef? fluid, float units)
     {

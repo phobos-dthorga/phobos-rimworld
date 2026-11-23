@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.115.0] - 2026-11-23 - Draft
+
+Nutrient paste in the Ullage keeps longer and remembers what it was made from
+
+### Changed
+
+- **Nutrient paste in the Ullage keeps 4 days in a plain tank and 8 in an insulated one** (the owner's choice of 23 November 2026: "Depends on whether the holding tank(s) are insulated or not!"), where it spoiled after 18 hours. It now also takes paste meals from stacks beside it and sets them down, and keeps its ingredients through D'thorga Framework 0.271.0. Its units read as meals: one unit is one paste meal, as Vanilla Nutrient Paste Expanded's taps count it. Not yet tested in game: row 449 of the test pass.
+
+### Save compatibility
+
+- **Safe on a running colony.** Paste already in a tank keeps its spoiling time so far, now against 4 days, and carries no ingredients until it is next filled from vats.
+
 ## [0.114.0] - 2026-11-23 - Draft
 
 The open-top Humvee: an open cab with a windscreen

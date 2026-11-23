@@ -43,11 +43,58 @@ public static class TowedLarderFood
                 from = towed;
             }
         }
-        if (best == null || from == null) return;
+        if (best == null || from == null)
+        {
+            // Nothing in any cargo: a meal from a food tank in the caravan or in tow (Framework 0.271.0; vehicle-nutrient-paste.md, NP2).
+            // It is drawn from the tank, put in that vehicle's cargo and handed to the game's own eating, which takes it out again.
+            foreach (VehiclePawn vehicle in TankLarder.Vehicles(caravan))
+            {
+                if (vehicle.GetComp<CompPhobosTank>() is not { } tank || tank.TakeMeal(forPawn) is not { } meal) continue;
+                if (vehicle.inventory?.innerContainer is not { } cargo || !cargo.TryAdd(meal))
+                {
+                    meal.Destroy();
+                    continue;
+                }
+                food = meal;
+                owner = vehicle;
+                __result = true;
+                if (Seen.Wants("trailers.caravan-ate-from-tank", vehicle)) Seen.Note("trailers.caravan-ate-from-tank", vehicle, forPawn.LabelShort + ": " + meal.LabelShort);
+                return;
+            }
+            return;
+        }
         food = best;
         owner = from;
         __result = true;
         if (Seen.Wants("trailers.caravan-ate-from-tow", from)) Seen.Note("trailers.caravan-ate-from-tow", from, forPawn.LabelShort + ": " + best.LabelShort);
+    }
+}
+
+/// <summary>Food in the tanks of a player caravan's vehicles, in the caravan and in tow (Framework 0.271.0, NP2): nutrient paste's meals.</summary>
+public static class TankLarder
+{
+    /// <summary>Every vehicle of the caravan and every one it tows.</summary>
+    public static IEnumerable<VehiclePawn> Vehicles(Caravan caravan)
+    {
+        if (caravan is not VehicleCaravan vehicles || caravan.Faction != Faction.OfPlayer) yield break;
+        foreach (VehiclePawn vehicle in vehicles.VehiclesListForReading) yield return vehicle;
+        foreach (VehiclePawn towed in Hitches.InTow(caravan)) yield return towed;
+    }
+
+    /// <summary>The meals the caravan's tanks could make, added to <paramref name="into"/>; false with none.</summary>
+    public static bool Meals(Caravan caravan, List<ThingDefCount> into)
+    {
+        bool any = false;
+        foreach (VehiclePawn vehicle in Vehicles(caravan))
+        {
+            if (vehicle.GetComp<CompPhobosTank>() is not { } tank) continue;
+            foreach (ThingDefCount meals in tank.EdibleMeals())
+            {
+                into.Add(meals);
+                any = true;
+            }
+        }
+        return any;
     }
 }
 
@@ -91,10 +138,13 @@ public static class TowedLarderDays
 
     public static void Postfix(Caravan caravan, ref float __result)
     {
-        if (Sum == null || caravan == null || !TowedLarder.Food(caravan, Towed)) return;
+        if (Sum == null || caravan == null) return;
         Extra.Clear();
+        bool towedFood = TowedLarder.Food(caravan, Towed);
         for (int index = 0; index < Towed.Count; index++) Extra.Add(new ThingDefCount(Towed[index].def, Towed[index].stackCount));
         Towed.Clear();
+        // And the meals its tanks hold (Framework 0.271.0, NP2): nutrient paste by the meal.
+        if (!TankLarder.Meals(caravan, Extra) && !towedFood) return;
         // The game's own call for a caravan, with the towed food as its "extra food".
         object? days = Sum.Invoke(null, new object?[]
         {

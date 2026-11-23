@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.271.0] - 2026-11-23 - Draft
+
+Food in a tank keeps its ingredients, and a caravan eats from it
+
+### Added
+
+- **A tank keeps what its load was made from** (the owner's wish of 23 November 2026, docs/development/vehicle-nutrient-paste.md, NP1). Drawn from a pipe network whose stores keep ingredients (Vanilla Nutrient Paste Expanded's vats), or from items that have them, a tank takes them with the load; it hands them to the stores it fills and to items it sets down, and carries them through tank-to-tank pumping. Paste made from human meat never comes out clean. Not yet tested in game: row 449 of the test pass.
+- **A caravan eats from its vehicles' tanks** (NP2). Once its packs and trailers hold nothing anyone can eat, a hungry person eats a meal drawn from a tank holding food that is eaten as items (nutrient paste: one unit a meal, with its ingredients), through the game's own eating; the caravan's days of food count it. Not yet tested in game: row 450.
+
 ## [0.270.1] - 2026-11-23 - Draft
 
 A trailer sets up over pipes and conduits

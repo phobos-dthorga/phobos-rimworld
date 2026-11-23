@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <!-- Nutrient paste. Spoils after 0.75 days above 0 C, Vanilla Expanded Framework's rule for unpowered stores. kilogramsPerUnit authored. -->
+  <!-- Nutrient paste (Vehicles 0.12.0; docs/development/vehicle-nutrient-paste.md, NP1). One unit is one paste meal, as Vanilla Nutrient Paste
+       Expanded's taps count it. It keeps 4 days in a plain tank and 8 in an insulated one, slower in the cold (the owner's choice of 23 Nov
+       2026, by card: "Depends on whether the holding tank(s) are insulated or not!"; the insulated tank's half rate gives the 8); it was 0.75
+       days, Vanilla Expanded Framework's rule for unpowered stores. It carries what it was made from, both ways (D'thorga Framework's tank
+       ingredients). It pumps from and to the paste pipes first, then takes paste meals from stacks beside it and sets them down.
+       kilogramsPerUnit authored (a paste meal itself weighs 0.44 kg). -->
   <Phobos.VehicleSystems.PhobosTankContentsDef>
     <defName>PhobosTank_NutrientPaste</defName>
     <label>nutrient paste</label>
-    <description>Food by the tankful, while it lasts.</description>
+    <description>Food by the tankful, while it lasts. It remembers what it was made from.</description>
     <phase>Liquid</phase>
     <foodStatus>Food</foodStatus>
-    <unitLabel>units</unitLabel>
+    <unitLabel>meals</unitLabel>
     <kilogramsPerUnit>1.1</kilogramsPerUnit>
     <spillFilth>Filth_Slime</spillFilth>
-    <spoilsAfterDays>0.75</spoilsAfterDays>
+    <spoilsAfterDays>4</spoilsAfterDays>
     <ports>
       <li Class="Phobos.VehicleSystems.Pipes.Port_PipeNet">
         <net>VNPE_NutrientPasteNet</net>
+      </li>
+      <li Class="Phobos.VehicleSystems.Port_Items">
+        <thing>MealNutrientPaste</thing>
       </li>
     </ports>
   </Phobos.VehicleSystems.PhobosTankContentsDef>

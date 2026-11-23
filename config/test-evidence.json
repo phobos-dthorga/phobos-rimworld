@@ -3,6 +3,11 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "450": ["trailers.caravan-ate-from-tank"],
+    "449": {"parts": {
+      "the tank takes the vats' ingredients": [{"key": "vehicles.tank-ingredients", "variant": "in"}],
+      "the tank hands them on": [{"key": "vehicles.tank-ingredients", "variant": "out"}]
+    }},
     "448": ["vehicles.set-up-over-pipes"],
     "447": {"parts": {
       "the belt snaps": ["vehicles.sound.belt-snap"],
