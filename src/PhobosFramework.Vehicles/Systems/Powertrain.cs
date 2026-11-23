@@ -727,8 +727,25 @@ public sealed class Powertrain
     /// <summary>Whether this hover's over-limit message has been sent (once per hover; derived, never saved).</summary>
     bool hoverWarned;
 
-    /// <summary>Whether this engine can judge a hover: an aircraft whose flight profile has hover phases, or checks its lift at launch.</summary>
-    public bool JudgesHover => Profile != null && (Profile.liftCheckAtLaunch || Profile.phases.Any(phase => phase.hover));
+    /// <summary>
+    /// Whether this engine can judge a hover: an aircraft that checks its lift at launch, or whose flight profile has a hover phase this
+    /// aircraft can ever be in. Framework 0.265.2 (seen by the owner, 23 Nov 2026: an A-10 read "cannot hover"): a profile is shared, and
+    /// the fixed-wing jets' vertical landing is read from the jump jet's own part, which a runway jet does not have; before, any aircraft
+    /// on a profile with a hover phase was judged. Kept once the vehicle is on a map, when all its parts are there to ask.
+    /// </summary>
+    public bool JudgesHover
+    {
+        get
+        {
+            if (judgesHover is bool known) return known;
+            bool judged = Profile != null && (Profile.liftCheckAtLaunch
+                || Profile.phases.Any(phase => phase.hover && (Profile.reader?.CanReport(comp.Vehicle, phase.phase) ?? true)));
+            if (comp.Vehicle.Spawned) judgesHover = judged;
+            return judged;
+        }
+    }
+
+    bool? judgesHover;
 
     /// <summary>Whether lift-off through Vehicle Framework's own launch is checked against the engines (stock rotorcraft and pods).</summary>
     public bool ChecksLiftAtLaunch => Profile != null && Profile.liftCheckAtLaunch;

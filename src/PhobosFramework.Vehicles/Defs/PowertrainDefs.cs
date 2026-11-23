@@ -311,6 +311,12 @@ public abstract class PhaseReader
     public abstract string? Read(VehiclePawn vehicle);
 
     public virtual IEnumerable<string> Phases() => Enumerable.Empty<string>();
+
+    /// <summary>
+    /// Whether this vehicle can ever be read as in <paramref name="phase"/> (Framework 0.265.2): a profile is shared by many aircraft,
+    /// and a phase may be read from a part only some have (the jump jet's vertical landing). A reader that cannot tell says it can.
+    /// </summary>
+    public virtual bool CanReport(VehiclePawn vehicle, string phase) => true;
 }
 
 /// <summary>
@@ -324,6 +330,9 @@ public class PhaseReader_OwnFlight : PhaseReader
         RunwayLanding = "RunwayLanding";
 
     public override IEnumerable<string> Phases() => new[] { Idle, Hover, Forward, WorldFlight, TakeoffRoll, RunwayLanding };
+
+    /// <summary>Between tiles any aircraft; every other phase only on our own flight.</summary>
+    public override bool CanReport(VehiclePawn vehicle, string phase) => phase == WorldFlight || vehicle.GetComp<CompPhobosFlight>() != null;
 
     public override string? Read(VehiclePawn vehicle)
     {
@@ -352,6 +361,11 @@ public class PhaseReader_OwnFlightOr : PhaseReader
 
     public override IEnumerable<string> Phases() =>
         new[] { PhaseReader_OwnFlight.Hover, PhaseReader_OwnFlight.Forward }.Concat(fallback?.Phases() ?? Enumerable.Empty<string>()).Distinct();
+
+    /// <summary>Our flight's two phases where the vehicle has our flight; otherwise, and for every other phase, what the fallback can report.</summary>
+    public override bool CanReport(VehiclePawn vehicle, string phase) =>
+        (phase is PhaseReader_OwnFlight.Hover or PhaseReader_OwnFlight.Forward && vehicle.GetComp<CompPhobosFlight>() != null)
+        || (fallback?.CanReport(vehicle, phase) ?? false);
 
     public override string? Read(VehiclePawn vehicle)
     {
@@ -389,6 +403,11 @@ public class PhaseReader_Members : PhaseReader
     static readonly Dictionary<(Type, string), Func<object, object?>?> accessors = new();
 
     public override IEnumerable<string> Phases() => rules.Select(r => r.phase);
+
+    /// <summary>Where some rule reports the phase from the vehicle itself or from a comp it has (PhaseReachRule), by the comp's type name
+    /// as <see cref="Read"/> finds it.</summary>
+    public override bool CanReport(VehiclePawn vehicle, string phase) =>
+        Phobos.Framework.Vehicles.Rules.PhaseReachRule.Reachable(phase, rules.Select(r => (r.phase, r.comp)), vehicle.AllComps.Select(c => c.GetType().Name).ToList());
 
     public override string? Read(VehiclePawn vehicle)
     {

@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.265.2] - 2026-11-23 - Draft
+
+A runway jet is no longer judged for a hover
+
+### Fixed
+
+- **A jet that cannot land vertically no longer reads cannot hover** (seen by the owner on an A-10, 23 November 2026). The runway jets share the jump jet's flight profile, whose hover is read from the jump jet's own landing gear; an aircraft is now judged for a hover only where it can ever be in one. The A-10, the Su-25 and the EA-6B Prowler lose the Lift for a hover row; the Harrier, helicopters and the Osprey keep it. Not yet tested in game: row 436 of the test pass.
+
 ## [0.265.1] - 2026-11-23 - Draft
 
 A hitched trailer is drawn on the hitch
