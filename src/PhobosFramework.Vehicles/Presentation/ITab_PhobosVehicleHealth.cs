@@ -798,6 +798,15 @@ public class ITab_PhobosVehicleHealth : ITab
             }
             if (!comp.Fittings.GradeOf(part.props.key).isDefault) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_GradeLine".Translate(comp.Fittings.GradeOf(part.props.key).label.Named("GRADE")), Colour = PhobosWidgets.Good });
             if (comp.Fittings.FittedOn(part.props.key) is { } fitting) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_FitFittedLine".Translate(fitting.label.Named("FITTING")), Colour = PhobosWidgets.Good });
+            // Framework 0.276.0 (the owner's yes of 24 Nov 2026, after the A-10's port engine showed its new engine and the starboard nothing):
+            // a part whose fitting, removal or grade is still to be done says so, in grey, beside what it carries now.
+            if (comp.Fittings.OrderOn(part.props.key) is { tune: null } waiting)
+            {
+                string line = waiting.grade != null ? "PhobosVehicleSystems_GradeWaitingLine".Translate(waiting.grade.label.Named("GRADE")).Resolve()
+                    : waiting.remove ? "PhobosVehicleSystems_FitWaitingRemoveLine".Translate((comp.Fittings.FittedOn(part.props.key)?.label ?? "").Named("FITTING")).Resolve()
+                    : "PhobosVehicleSystems_FitWaitingLine".Translate((waiting.fitting?.label ?? "").Named("FITTING")).Resolve();
+                row.Conditions.Add(new ConditionRow { Label = line, Colour = PhobosWidgets.Off });
+            }
             if (leaking && HasReactor<Reactor_FuelLeak>(part)) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthLeaking".Translate(), Colour = PhobosWidgets.Bad });
             if (systems != null) foreach (SystemState state in systems) row.Conditions.AddRange(Stages(state));
             AddConditions(comp, part, figures, row);

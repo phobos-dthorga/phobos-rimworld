@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.276.0] - 2026-11-24 - Draft
+
+A vehicle part says what is still to be fitted
+
+### Added
+
+- **A vehicle's Health tab shows work still waiting on a part** (the owner's yes of 24 November 2026, after the A-10's port engine showed its new engine and the starboard engine nothing). In grey beside what the part carries now: "Waiting to fit", "Waiting to take off" or "Waiting for grade", until a mechanic has done it. Not yet tested in game.
+
 ## [0.275.0] - 2026-11-24 - Draft
 
 Building upgrades tell the building when they change, and cost less to read

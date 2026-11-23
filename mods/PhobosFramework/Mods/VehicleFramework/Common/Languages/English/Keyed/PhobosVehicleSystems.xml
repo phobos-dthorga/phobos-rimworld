@@ -581,6 +581,9 @@
   <PhobosVehicleSystems_FitLost>The {VEHICLE} lost its {FITTING} with its {PART}.</PhobosVehicleSystems_FitLost>
   <PhobosVehicleSystems_FitOrderLost>{WORK} on the {VEHICLE} was abandoned: the part is gone.</PhobosVehicleSystems_FitOrderLost>
   <PhobosVehicleSystems_FitFittedLine>Fitted: {FITTING}</PhobosVehicleSystems_FitFittedLine>
+  <PhobosVehicleSystems_FitWaitingLine>Waiting to fit: {FITTING}</PhobosVehicleSystems_FitWaitingLine>
+  <PhobosVehicleSystems_FitWaitingRemoveLine>Waiting to take off: {FITTING}</PhobosVehicleSystems_FitWaitingRemoveLine>
+  <PhobosVehicleSystems_GradeWaitingLine>Waiting for grade: {GRADE}</PhobosVehicleSystems_GradeWaitingLine>
   <PhobosVehicleSystems_FitButton>Fitting</PhobosVehicleSystems_FitButton>
   <PhobosVehicleSystems_FitPartStatus>{GRADE}, {FITTING}</PhobosVehicleSystems_FitPartStatus>
   <PhobosVehicleSystems_FitGradeHoldsNone>a {GRADE} part cannot hold a fitting</PhobosVehicleSystems_FitGradeHoldsNone>
