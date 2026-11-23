@@ -66,7 +66,8 @@ opens can show one level more than your setting.
    usually limits, not the 25 W station).
 7. Check the needs tab for "in touch with home".
 
-The figures, the settings and the notes for modders are in [D'thorga Radio Framework's README](../../mods/PhobosRadioFramework/README.md).
+The figures and the settings are in [D'thorga Radio Framework's README](../../mods/PhobosRadioFramework/README.md); the notes
+for modders are in [Radio Framework for modders](../modding/radio-framework.md).
 
 ## Tested in game
 

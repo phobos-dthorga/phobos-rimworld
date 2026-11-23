@@ -13,6 +13,9 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 - **The exporters' records no longer ship in the mod's folder either** (the owner's word of 23 Nov 2026). The notes saying
   what each picture was cut from moved beside the art records, in the repository's assets folder; nothing a player sees
   changes.
+- **The README is slimmer**: what the mod needs, its real gotchas, what it adds with its figures, its settings and links; the
+  notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
+  draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
 ## [0.4.0] - 2026-11-24 - Draft
 
