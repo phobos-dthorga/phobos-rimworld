@@ -1,0 +1,51 @@
+{
+  "file": "radio-terminal-2.png",
+  "sha256": "8376963b06ee7c9a0bb416e814f10f6dfc096c00e2abbb5ee6d0bf3cd4df23d9",
+  "date": "2026-11-24T01:20:28",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a radio terminal: a computer workstation that drives a software-defined radio, the modern base station of a hard-scrabble frontier colony. Image 1 is our approved parts bench from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape or contents.\n\nWide canvas. The desk fills about 90 percent of the canvas width and 75 percent of its height, centred, on a plain pure white background. It is one and a half times as wide as it is deep. The front edge, where the operator sits, is at the BOTTOM.\n\nIts plan, from left to right: at the LEFT, a small slim radio box of dark steel with two cable sockets and a little cooling grille, and a closed notebook; in the MIDDLE, a wide flat monitor seen from above as a thin dark slab along the back edge, with a flat keyboard and a mouse at the front; at the RIGHT, a compact computer tower seen from above with a round fan grille, and a coiled headset resting on it. One black cable leaves the back edge from the radio box; the other cables are neatly bundled along the back.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive and grey steel, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, needles, lit lamps, glowing screens, pictures on the monitor, people, chairs, animals or loose goods. No floor beyond the desk, no shadow outside it, no perspective, no tilt.",
+  "seed": 2,
+  "size": [
+    1536,
+    1024
+  ],
+  "request_file": "assets/phobos-radio/requests/paid-1.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 741,
+    "input_tokens_details": {
+      "image_tokens": 336,
+      "text_tokens": 405
+    },
+    "output_tokens": 1372,
+    "output_tokens_details": {
+      "image_tokens": 1372,
+      "text_tokens": 0
+    },
+    "total_tokens": 2113
+  },
+  "cost_usd": 0.0459,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1536x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1536,
+    1024
+  ],
+  "seconds": 26.4,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+      "sha256": "67ac7e90566d266295400f8684a770a990aed414645bf3c1335efe2251f28785",
+      "role": "our approved vehicle parts bench, seen from directly above: match its outline weight, shading, palette and finish only; do not copy its shape or contents"
+    }
+  ]
+}
