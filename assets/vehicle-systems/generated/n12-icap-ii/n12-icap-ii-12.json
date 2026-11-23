@@ -1,0 +1,33 @@
+{
+  "file": "n12-icap-ii-12.png",
+  "sha256": "60569f3bf79da4de4a37bb4281f13a17a1a0b80bd242f2bc7f09095b9ab86551",
+  "date": "2026-11-23T16:38:22",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A grey rack-mounted aircraft electronics box with two rows of small green-lit screens, a few round knobs and a thick bundle of cables out of its back. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/night-12-icons.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 179.5,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png",
+      "sha256": "f4942d92c3e34cf4d79d9e55cd057103bc3cdd298dedfa453819e331ff2b9ec2"
+    },
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/TerrainRadar.png",
+      "sha256": "48c6161c970ef55ba096ba9109f50c0e7fe33df6c65963110dae0649c25a67c1"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
