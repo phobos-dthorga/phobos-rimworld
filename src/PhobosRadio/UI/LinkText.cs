@@ -18,6 +18,12 @@ public static class LinkText
 
     public static string OutcomeLabel(LinkOutcome outcome) => ("PhobosRadio_Outcome" + outcome).Translate();
 
+    /// <summary>A station's channels in one line, as the ledger counted them (Radio 0.7.0): in use, width, radios served.</summary>
+    public static string ChannelsLine(StationChannels channels) =>
+        "PhobosRadio_StationChannels".Translate(channels.InUse.Named("INUSE"), channels.Channels.Named("CHANNELS"),
+            (RadioRulesDef.Current.channelWidthHz / 1000f).ToString("0.#").Named("WIDTH"), channels.Served.Named("SERVED"),
+            channels.Slots.Named("SLOTS"));
+
     /// <summary>The one-line reason for the Plain mode: the biggest loss, or noise when the floor is raised.</summary>
     public static string PlainReason(LinkEvaluation link)
     {

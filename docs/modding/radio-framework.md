@@ -11,7 +11,9 @@ Everything is a Def:
 
 - `Phobos.Radio.BandDef` and `Phobos.Radio.ModeDef`: bands and modes.
 - One `Phobos.Radio.RadioRulesDef`: the tuning values, including coverage's limits.
-- `Phobos.Radio.CompProperties_Radio`, on any apparel or building.
+- `Phobos.Radio.CompProperties_Radio`, on any apparel or building; a station's `channels` (0.7.0) is how many 25 kHz channels it
+  brings to the ledger (`RadioRulesDef.channelWidthHz`); a mode takes as many as its `bandwidthHz` needs, and radios share one by
+  turns as its `dutyCycle` allows.
 - `Phobos.Radio.CompProperties_Antenna` plus `Phobos.Radio.CompProperties_FeedlinePort`, on an antenna building.
 - `Phobos.Radio.CompProperties_Amplifier` (`gainDb`, `ratedOutputWatts`, `lossDb`) plus `CompProperties_FeedlinePort` and a power
   comp, on an amplifier building (0.5.0): it counts for an antenna only when the cable path from the station passes through it.
@@ -25,7 +27,7 @@ Everything is a Def:
 
 **Upgrades** are D'thorga Framework's `Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef` ([building
 upgrades](../framework-modding.md#building-upgrades)): give the building `CompProperties_PhobosBuildingUpgrades` and set the
-figures the radio reads, `heightMetres` and `gainDbi` on an antenna and `noiseFigureReductionDb` on a station.
+figures the radio reads, `heightMetres` and `gainDbi` on an antenna and `noiseFigureReductionDb` and `channels` on a station.
 `Common/Defs/Radio/Upgrades.xml` has ours.
 
 ## Dev actions

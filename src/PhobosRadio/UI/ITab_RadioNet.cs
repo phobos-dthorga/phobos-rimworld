@@ -31,8 +31,10 @@ public class ITab_RadioNet : ITab
         Widgets.Label(new Rect(outer.x, outer.y, outer.width, 24f),
             pairs.Count == 0 ? "PhobosRadio_StationNoRadios".Translate() : "PhobosRadio_StationInTouch".Translate(net.InTouchCount(station).Named("INTOUCH"), pairs.Count.Named("TOTAL")));
         Widgets.Label(new Rect(outer.x, outer.y + 24f, outer.width, 24f), "PhobosRadio_StationAntenna".Translate(net.AntennaLabelFor(station).ToString().Named("ANTENNA")));
+        var channels = net.ChannelsOf(station);
+        Widgets.Label(new Rect(outer.x, outer.y + 48f, outer.width, 24f), LinkText.ChannelsLine(channels));
 
-        var list = new Rect(outer.x, outer.y + 54f, outer.width, outer.height - 54f);
+        var list = new Rect(outer.x, outer.y + 78f, outer.width, outer.height - 78f);
         const float rowHeight = 52f;
         var view = new Rect(0f, 0f, list.width - 16f, pairs.Count * rowHeight);
         Widgets.BeginScrollView(list, ref scroll, view);
@@ -44,8 +46,13 @@ public class ITab_RadioNet : ITab
             var wearer = (pair.A.Thing as Apparel)?.Wearer;
             var who = wearer?.LabelShortCap ?? pair.A.Thing.LabelCap.ToString();
             var isBest = wearer != null && net.TryGetBest(wearer, out var best) && best != null && best.B.Thing == station;
+            // Which channel serves them here, or that the net is busy for them (Radio 0.7.0).
+            var place = net.PlaceOf(station, pair.A.Thing);
+            var where = place >= 0
+                ? " " + "PhobosRadio_TabOnChannel".Translate((Physics.Channels.ChannelOf(place, channels.RadiosPerUse, channels.ChannelsPerUse) + 1).Named("CHANNEL"))
+                : wearer != null && net.IsBusy(wearer) ? " " + "PhobosRadio_TabBusy".Translate() : "";
             var head = $"{LinkText.Bars(pair.Outcome)} {who}: {LinkText.OutcomeLabel(pair.Outcome)}" +
-                       (isBest ? " " + "PhobosRadio_TabBestStation".Translate() : "");
+                       (isBest ? " " + "PhobosRadio_TabBestStation".Translate() : "") + where;
             Widgets.Label(new Rect(row.x + 4f, row.y + 2f, row.width - 8f, 24f), head);
             var detail = mode == DisplayMode.Plain
                 ? (pair.InTouch ? "" : "PhobosRadio_PlainReason".Translate(LinkText.PlainReason(pair).ToString().Named("REASON")).ToString())

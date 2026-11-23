@@ -1,17 +1,30 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Phobos.Radio.Physics;
 using RimWorld;
 using Verse;
 
 namespace Phobos.Radio.Services;
 
+/// <summary>A station's channels as the ledger last counted them (Radio 0.7.0).</summary>
+public readonly record struct StationChannels(int Channels, int ChannelsPerUse, int RadiosPerUse, int Slots, int Served)
+{
+    /// <summary>The channels in use: each block of radios taking turns holds one use's channels.</summary>
+    public int InUse => Served == 0 ? 0 : (Served + RadiosPerUse - 1) / RadiosPerUse * ChannelsPerUse;
+    public int Free => System.Math.Max(0, Channels - InUse);
+}
+
 /// <summary>
 /// The map's radio picture: every worn hand-held evaluated against every base station, recomputed on
 /// a short interval and never saved. Gizmos, inspect strings and the thought read this cache; nothing
-/// else computes a link.
+/// else computes a link. Since Radio 0.7.0 it also keeps the channel ledger: which station serves each radio in touch, from each
+/// station's pool of channels (<see cref="Channels"/>).
 /// </summary>
 public sealed class RadioNet : MapComponent
 {
+    /// <summary>The cycle in which radios sharing a channel take their turns, in ticks (ten seconds; authored).</summary>
+    public const int KeyCycleTicks = 600;
+
     // Weak: loading a game never calls MapRemoved, and a plain reference would keep the last game's map.
     private static readonly ConditionalWeakTable<Map, RadioNet> byMap = new();
 
@@ -22,6 +35,12 @@ public sealed class RadioNet : MapComponent
     private readonly Dictionary<Thing, string> antennaLabelByStation = new();
     private readonly List<CompRadio> stations = new();
     private readonly List<CompRadio> wornRadios = new();
+    /// <summary>The station each radio in touch is served by, kept between recomputes so a holder keeps its channel. Never saved.</summary>
+    private Dictionary<int, int> held = new();
+    private readonly Dictionary<Pawn, Thing> servedBy = new();
+    private readonly HashSet<Pawn> busy = new();
+    private readonly Dictionary<Thing, List<Thing>> servedOn = new();
+    private readonly Dictionary<Thing, StationChannels> channelsOf = new();
     private int nextRecomputeTick = -1;
     private bool dirty = true;
     private bool unpoweredStation;
@@ -81,6 +100,60 @@ public sealed class RadioNet : MapComponent
         return inTouchByStation.TryGetValue(station, out var count) ? count : 0;
     }
 
+    /// <summary>The station serving a colonist's radio on one of its channels, or null.</summary>
+    public Thing? ServedBy(Pawn pawn)
+    {
+        EnsureFresh();
+        return servedBy.TryGetValue(pawn, out var station) ? station : null;
+    }
+
+    /// <summary>In touch with a station, but every station that can hear them has its channels full: the net is busy for them.</summary>
+    public bool IsBusy(Pawn pawn)
+    {
+        EnsureFresh();
+        return busy.Contains(pawn);
+    }
+
+    /// <summary>A station's channels: how many, how many radios they can serve, how many they do.</summary>
+    public StationChannels ChannelsOf(Thing station)
+    {
+        EnsureFresh();
+        return channelsOf.TryGetValue(station, out var channels) ? channels : default;
+    }
+
+    /// <summary>A radio's place among those a station serves, which sets its channel and its turn; -1 when it is not served there.</summary>
+    public int PlaceOf(Thing station, Thing radio)
+    {
+        EnsureFresh();
+        return servedOn.TryGetValue(station, out var radios) ? radios.IndexOf(radio) : -1;
+    }
+
+    /// <summary>The radios a station serves, in their places.</summary>
+    public IReadOnlyList<Thing> ServedOn(Thing station)
+    {
+        EnsureFresh();
+        return servedOn.TryGetValue(station, out var radios) ? radios : (IReadOnlyList<Thing>)System.Array.Empty<Thing>();
+    }
+
+    /// <summary>Whether a served radio is taking its turn on its channel now.</summary>
+    public bool RadioKeyed(Thing station, Thing radio)
+    {
+        var place = PlaceOf(station, radio);
+        if (place < 0 || station.TryGetComp<CompRadio>() is not { } comp) return false;
+        var channels = ChannelsOf(station);
+        return Channels.KeyedNow(place, channels.RadiosPerUse, Find.TickManager.TicksGame + Seed(station), KeyCycleTicks, comp.Mode.dutyCycle);
+    }
+
+    /// <summary>Whether a station is answering anyone now: one of its served radios is taking its turn (the lamp, the needle).</summary>
+    public bool StationKeyed(Thing station)
+    {
+        foreach (var radio in ServedOn(station)) if (RadioKeyed(station, radio)) return true;
+        return false;
+    }
+
+    /// <summary>Each station's turns start at its own point in the cycle, so two stations are not keyed in step.</summary>
+    private static int Seed(Thing station) => station.thingIDNumber * 37;
+
     public string AntennaLabelFor(Thing station)
     {
         EnsureFresh();
@@ -119,6 +192,10 @@ public sealed class RadioNet : MapComponent
         antennaLabelByStation.Clear();
         stations.Clear();
         wornRadios.Clear();
+        servedBy.Clear();
+        busy.Clear();
+        servedOn.Clear();
+        channelsOf.Clear();
         unpoweredStation = false;
     }
 
@@ -151,11 +228,82 @@ public sealed class RadioNet : MapComponent
                 if (link == null) continue;
                 pairs.Add(link);
                 if (strongest == null || link.MarginDb > strongest.MarginDb) strongest = link;
-                if (link.InTouch) inTouchByStation[station.parent] = InTouchCount(station.parent) + 1;
                 if (!bestByPawn.TryGetValue(wearer, out var best) || link.MarginDb > best.MarginDb) bestByPawn[wearer] = link;
             }
             // With nobody to reach yet, a mast on the coax is what the station would use, before its built-in whip.
             antennaLabelByStation[station.parent] = strongest?.B.AntennaLabel ?? stationEnds[stationEnds.Count > 1 ? 1 : 0].AntennaLabel;
+        }
+        ServeFromChannels(rules);
+    }
+
+    /// <summary>
+    /// The channel ledger (Radio 0.7.0): every radio in touch is served by the best station with a free place on its channels; a
+    /// radio already served keeps its station while it stays in touch with it. A radio in touch that no station has room for is busy.
+    /// Only served radios count as in touch with a station, for its draw, its lamp and the colonist's mood.
+    /// </summary>
+    private void ServeFromChannels(RadioRulesDef rules)
+    {
+        var slots = new Dictionary<int, int>();
+        var stationById = new Dictionary<int, CompRadio>();
+        foreach (var station in stations)
+        {
+            var mode = station.Mode;
+            var count = (int)RadioUpgrades.Figure(station.parent, RadioUpgrades.Channels, station.Props.channels);
+            var perUse = Channels.PerUse(mode.bandwidthHz, rules.channelWidthHz);
+            var radiosPerUse = Channels.RadiosPerUse(mode.dutyCycle);
+            var stationSlots = Channels.Slots(count, perUse, radiosPerUse);
+            slots[station.parent.thingIDNumber] = stationSlots;
+            stationById[station.parent.thingIDNumber] = station;
+            channelsOf[station.parent] = new StationChannels(count, perUse, radiosPerUse, stationSlots, 0);
+        }
+
+        // Each radio in touch, with the stations it is in touch with, best first; the strongest radios are served first.
+        var linksByRadio = new Dictionary<Thing, List<LinkEvaluation>>();
+        foreach (var pair in pairs)
+        {
+            if (!pair.InTouch) continue;
+            if (!linksByRadio.TryGetValue(pair.A.Thing, out var links)) linksByRadio[pair.A.Thing] = links = new List<LinkEvaluation>();
+            links.Add(pair);
+        }
+        var ordered = new List<(Thing radio, List<LinkEvaluation> links)>();
+        foreach (var entry in linksByRadio)
+        {
+            entry.Value.Sort((a, b) => b.MarginDb.CompareTo(a.MarginDb));
+            ordered.Add((entry.Key, entry.Value));
+        }
+        ordered.Sort((a, b) =>
+        {
+            var byMargin = b.links[0].MarginDb.CompareTo(a.links[0].MarginDb);
+            return byMargin != 0 ? byMargin : a.radio.thingIDNumber.CompareTo(b.radio.thingIDNumber);
+        });
+        var candidates = new List<ChannelCandidate>(ordered.Count);
+        foreach (var (radio, links) in ordered)
+        {
+            var best = new List<int>(links.Count);
+            foreach (var link in links) best.Add(link.B.Thing.thingIDNumber);
+            candidates.Add(new ChannelCandidate(radio.thingIDNumber, best));
+        }
+
+        var served = Channels.Allocate(slots, candidates, held);
+        held = served;
+        foreach (var (radio, links) in ordered)
+        {
+            var wearer = (radio as Apparel)?.Wearer;
+            if (!served.TryGetValue(radio.thingIDNumber, out var stationId) || !stationById.TryGetValue(stationId, out var station))
+            {
+                if (wearer != null) busy.Add(wearer);
+                continue;
+            }
+            if (wearer != null) servedBy[wearer] = station.parent;
+            if (!servedOn.TryGetValue(station.parent, out var list)) servedOn[station.parent] = list = new List<Thing>();
+            list.Add(radio);
+            inTouchByStation[station.parent] = (inTouchByStation.TryGetValue(station.parent, out var n) ? n : 0) + 1;
+        }
+        foreach (var entry in servedOn)
+        {
+            entry.Value.Sort((a, b) => a.thingIDNumber.CompareTo(b.thingIDNumber));
+            var before = channelsOf[entry.Key];
+            channelsOf[entry.Key] = before with { Served = entry.Value.Count };
         }
     }
 

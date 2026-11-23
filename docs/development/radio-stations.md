@@ -1,6 +1,7 @@
 # Radio stations: the radio desk and the radio terminal (24 Nov 2026)
 
-**Status (24 Nov 2026):** partly built. The radio terminal, both linear amplifiers and the full-size ground-plane are built in Radio
+**Status (24 Nov 2026):** partly built. The channel ledger is built in Radio Framework 0.7.0
+([below](#channels-radio-070)), not yet tested in game. The radio terminal, both linear amplifiers and the full-size ground-plane are built in Radio
 Framework 0.5.0 ([as built](#as-built-radio-050-24-nov-2026)), not yet tested in game. The building upgrades for the radio desk and
 both antennas are built in Radio Framework 0.4.0
 ([below](#building-upgrades-radio-040)), not yet tested in game. The radio terminal and the linear amplifier are designed, not built;
@@ -116,6 +117,49 @@ Nothing here is built yet; the desk's, whip's and mast's pictures ship in Radio 
 | Radio terminal | Picked try 1, whose radio box has a stub antenna; by card: **"A weak stub that works"** **[O]** | The terminal gains a built-in stub: about −5 dBi at 1 m, indoors under its roof, so it reaches hand-helds on its own, poorly; coax to a whip or mast is far better. This replaces "None of its own" in the tables above |
 | Whips | "Both with varying specs, just like real life! ^ ^"; by card: **compact vs full-size** **[O]** | **Compact ground-plane** (try 1, today's whip): 0 dBi, 15 steel, as now. **Full-size ground-plane** (try 2, its radiator a full quarter wave): about 2 dBi on both bands (a quarter-wave ground-plane's usual figure, approximate), 25 steel and more work. Both 3 m and both take the taller pole |
 | Linear amplifiers | "Offer both as alternate models with varying specs to each ^ ^"; by card: **100 W and 400 W** **[O]** | **Linear amplifier** (try 1): up to 100 W (Standard licence), 20 W on standby. **Heavy linear amplifier** (try 2): up to 400 W (Advanced licence), 40 W on standby, four times the draw and heat while sending, behind a later research step and an advanced component |
+
+## Channels (Radio 0.7.0)
+
+The owner, 24 Nov 2026, with a screenshot of D'thorga Mechanised Specialist Expansion's BVR system tooltip (search and fire control
+radars, "Channels occupied: 0 / 8", by kind: artillery, local, world, strike; free): "a simplification of radio channels to pretty
+much what the DMS BVR mod does for its fire control solution channels ... will serve us well and keep the most amount of players
+happy, without us having to debug several differing systems all at once". Then: "go ahead and build the channel ledger", and "We
+could even assign multiple channels to systems that are 'high in bandwidth' ... or even say that a channel is 25 kHz each just like a
+trunked system would be." **[O]**
+
+**How it works [code]:**
+
+- **A channel is capacity, never physics.** The link budget still decides every contact. Channels only decide which of the radios a
+  station can hear it serves, as a trunked system hands its channels out by turn. No frequencies, no tuning, no interference between
+  channels.
+- **Each channel is 25 kHz wide** (`RadioRulesDef.channelWidthHz`) **[O]**. A mode takes as many channels as its bandwidth needs,
+  rounded up: FM voice (12.5 kHz) takes one; a future wideband data or video mode would take several.
+- **Radios share a channel by taking turns**, as many as the mode's duty cycle allows: voice, keyed a fifth of the time, lets five
+  share one. Each takes its turn of a ten-second cycle; the stations' cycles start at their own points.
+- **Stations bring channels**: the radio desk 1, the radio terminal 4 **[A]**; the desk's **second transceiver** upgrade makes it 2.
+  So the desk serves 5 radios, 10 with the upgrade, and the terminal 20.
+- **Who is served [A]:** every radio in touch (workable or clean) goes to the best station that has room; **a radio already served
+  keeps its station** while it stays in touch with it, so two near the limit never swap back and forth; the strongest are served
+  first. A radio in touch that no station has room for is **busy**: its button reads "Radio: net busy", and it gets no "in touch"
+  mood. A marginal link takes no channel, as before.
+- **What reads it:** the station's inspect text, its button and its Net tab ("Channels: 1 of 1 in use, 25 kHz each; 3 of 5 radios
+  served", and each colonist's channel or "net busy"); the lamp and needle (lit while a served radio takes its turn); the waterfall,
+  whose streaks now sit on the channel each radio really holds, so its earlier fiction ("its own spot of the band") is gone.
+- **Game-free and tested:** `Physics/Channels.cs` (`PerUse`, `RadiosPerUse`, `Slots`, `Allocate`, `KeyedNow`, `ChannelOf`), with
+  tests for the counts, the best station with room, a holder keeping its channel, and exactly one radio keyed at a time on a full
+  channel.
+
+**The four questions [A].** It lets the player plan capacity: more stations, a second transceiver, or a terminal for a large colony.
+It stops a single desk serving everyone: past five radios on one desk, the rest wait. It changes play little in a small colony and
+more in a large one; its real use comes with Phase 2's calls. What outside notices: the colonists' mood, through the "in touch"
+thought; nothing else, by choice.
+
+**Its cost (the radio's performance rule):** one pass over the links already worked out, when the net works them out (about once a
+second): a sort and a few dictionary lookups per radio. Asking who is keyed is arithmetic on the tick. Nothing per frame or per cell.
+
+**For Phase 2 [A], the plan:** the ledger counts by kind, as the BVR system's does. Today there is one kind, the local net. Caravans
+by HF, world calls to other factions, and data links would each be a kind with its own mode (and so its own channels per use), and
+the station's tooltip would list them, as in the owner's screenshot. Jamming (Phase 3) would take channels away.
 
 ## As built: Radio 0.5.0 (24 Nov 2026)
 

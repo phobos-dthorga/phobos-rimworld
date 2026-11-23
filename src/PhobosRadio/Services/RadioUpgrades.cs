@@ -16,6 +16,8 @@ public static class RadioUpgrades
     public const string HeightMetres = "heightMetres";
     /// <summary>An antenna's gain, in dBi: a longer collinear.</summary>
     public const string GainDbi = "gainDbi";
+    /// <summary>How many 25 kHz channels a station has (Radio 0.7.0): a second transceiver.</summary>
+    public const string Channels = "channels";
     /// <summary>How much quieter a station's receiver is, in dB, taken off its noise figure: a receive preamplifier.</summary>
     public const string NoiseFigureReductionDb = "noiseFigureReductionDb";
 

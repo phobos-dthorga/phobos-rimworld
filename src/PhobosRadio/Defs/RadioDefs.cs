@@ -69,6 +69,12 @@ public class RadioRulesDef : Def
     /// <summary>A wall only blocks where the straight line between the antennas is below this height.</summary>
     public float wallHeightMetres = 2.5f;
 
+    /// <summary>
+    /// The width of one channel, in Hz: 25 kHz, as on a trunked radio system (the owner, 24 Nov 2026). A mode takes as many as its
+    /// bandwidth needs, rounded up (Radio 0.7.0).
+    /// </summary>
+    public float channelWidthHz = 25000f;
+
     // Noise sources without a radius of their own reach this far.
     public int noiseRadiusDefaultCells = 12;
     /// <summary>

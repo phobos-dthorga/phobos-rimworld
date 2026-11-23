@@ -17,6 +17,27 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.7.0] - 2026-11-24 - Draft
+
+Channels: a station serves as many radios as its channels hold
+
+### Added
+
+- **Stations have channels, 25 kHz each, as on a trunked radio system** (the owner's go of 24 November 2026): the desk has one, the
+  terminal four. Radios share a channel by taking turns, five to a channel for voice. A colonist in touch whose stations are all full
+  reads "Radio: net busy" and gets no "in touch" mood; once served, a radio keeps its station. The station's text, button and Net tab
+  count the channels. Not yet tested in game: rows 474 and 475.
+- **The desk takes a second transceiver**, an upgrade for a second channel. Not yet tested in game: row 476.
+
+### Changed
+
+- **The waterfall puts each radio on the channel it really holds**, with the channels named under it, and the lamp and needle light
+  for each served radio's turn. Not yet tested in game: row 477.
+
+### Compatibility and limits
+
+- Safe with a running save: nothing new is saved. No new settings.
+
 ## [0.6.0] - 2026-11-24 - Draft
 
 The radio comes alive: a step chart, lamps and needles, a mast light, the coax glowing, and a waterfall

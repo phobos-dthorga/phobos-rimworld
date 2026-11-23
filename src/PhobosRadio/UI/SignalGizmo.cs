@@ -18,12 +18,18 @@ public static class SignalGizmo
         var mode = RadioMod.Settings.displayMode;
         var wearer = radio.Wearer;
         var unpowered = link == null && wearer?.Map != null && RadioNet.For(wearer.Map).HasUnpoweredStation;
+        // In touch, but every channel that can hear it is taken (Radio 0.7.0).
+        var busy = link != null && wearer?.Map != null && RadioNet.For(wearer.Map).IsBusy(wearer);
         var label = unpowered
             ? "PhobosRadio_GizmoNoPower".Translate()
             : link == null
                 ? "PhobosRadio_GizmoNoStation".Translate()
-                : "PhobosRadio_GizmoLabel".Translate(LinkText.Bars(link!.Outcome).ToString().Named("BARS"));
-        var description = unpowered ? "PhobosRadio_StationNoPower".Translate().Resolve() : LinkText.Describe(link, mode);
+                : busy
+                    ? "PhobosRadio_GizmoBusy".Translate()
+                    : "PhobosRadio_GizmoLabel".Translate(LinkText.Bars(link!.Outcome).ToString().Named("BARS"));
+        var description = unpowered
+            ? "PhobosRadio_StationNoPower".Translate().Resolve()
+            : (busy ? "PhobosRadio_NetBusy".Translate() + "\n" : "") + LinkText.Describe(link, mode);
         return new Command_Action
         {
             defaultLabel = label,
@@ -47,6 +53,7 @@ public static class SignalGizmo
         lines.AppendLine(pairs.Count == 0
             ? "PhobosRadio_StationNoRadios".Translate()
             : "PhobosRadio_StationInTouch".Translate(inTouch.Named("INTOUCH"), pairs.Count.Named("TOTAL")));
+        lines.AppendLine(LinkText.ChannelsLine(net.ChannelsOf(station.parent)));
         foreach (var pair in pairs)
         {
             var wearer = (pair.A.Thing as RimWorld.Apparel)?.Wearer;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System;
 using Phobos.Radio.Physics;
 using Xunit;
@@ -173,6 +174,63 @@ public class AmplifierTests
         var idle = new (double, double, double, bool)[] { (10, 100, 0.5, false) };
         Assert.Equal(25.0 * Math.Pow(10, -0.05), Amplifier.ThroughWatts(25, idle), 6);
         Assert.Equal(25.0, Amplifier.ThroughWatts(25, Array.Empty<(double, double, double, bool)>()), 6);
+    }
+}
+
+public class ChannelTests
+{
+    private static readonly Dictionary<int, int> None = new();
+
+    [Fact]
+    public void VoiceTakesOneTwentyFiveKilohertzChannelAndFiveShareIt()
+    {
+        Assert.Equal(1, Channels.PerUse(12500, 25000));      // narrowband FM voice
+        Assert.Equal(1, Channels.PerUse(25000, 25000));
+        Assert.Equal(4, Channels.PerUse(100000, 25000));     // a wide data mode takes four
+        Assert.Equal(5, Channels.RadiosPerUse(0.2));
+        Assert.Equal(5, Channels.Slots(1, 1, 5));            // the desk
+        Assert.Equal(20, Channels.Slots(4, 1, 5));           // the terminal
+        Assert.Equal(5, Channels.Slots(4, 4, 5));            // the terminal, all four channels on one wide use
+    }
+
+    [Fact]
+    public void TheBestStationWithRoomServesEachRadio()
+    {
+        var slots = new Dictionary<int, int> { [100] = 1, [200] = 5 };
+        var candidates = new[]
+        {
+            new ChannelCandidate(1, new[] { 100, 200 }),
+            new ChannelCandidate(2, new[] { 100, 200 }),
+            new ChannelCandidate(3, new[] { 100 }),
+        };
+        var served = Channels.Allocate(slots, candidates, None);
+        Assert.Equal(100, served[1]);
+        Assert.Equal(200, served[2]);      // station 100 is full: the next best
+        Assert.False(served.ContainsKey(3)); // only station 100 hears it, and it is full: the net is busy
+    }
+
+    [Fact]
+    public void AHolderKeepsItsChannelSoNobodySwaps()
+    {
+        var slots = new Dictionary<int, int> { [100] = 1 };
+        var candidates = new[] { new ChannelCandidate(1, new[] { 100 }), new ChannelCandidate(2, new[] { 100 }) };
+        var served = Channels.Allocate(slots, candidates, new Dictionary<int, int> { [2] = 100 });
+        Assert.Equal(100, served[2]);       // radio 2 held it, though radio 1 comes first
+        Assert.False(served.ContainsKey(1));
+    }
+
+    [Fact]
+    public void RadiosOnAChannelTakeTurns()
+    {
+        // Five radios at a fifth each: in any one tick exactly one of them is keyed.
+        for (var tick = 0; tick < 600; tick += 7)
+        {
+            var keyed = 0;
+            for (var place = 0; place < 5; place++) if (Channels.KeyedNow(place, 5, tick, 600, 0.2)) keyed++;
+            Assert.Equal(1, keyed);
+        }
+        Assert.Equal(0, Channels.ChannelOf(4, 5, 1));
+        Assert.Equal(1, Channels.ChannelOf(5, 5, 1));
     }
 }
 

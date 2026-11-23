@@ -24,6 +24,11 @@ public class CompProperties_Radio : CompProperties
     /// setting "Show the waterfall on the radio desk" is on (Radio 0.6.0; the owner, 24 Nov 2026: "as a setting, disabled by default").
     /// </summary>
     public bool waterfallBuiltIn;
+    /// <summary>
+    /// How many channels a station has, each as wide as the rules' channel width (25 kHz), shared by radios taking turns (Radio
+    /// 0.7.0; the channel ledger). A hand-held needs none of its own.
+    /// </summary>
+    public int channels = 1;
 
     public CompProperties_Radio() => compClass = typeof(CompRadio);
 
@@ -124,6 +129,8 @@ public class CompRadio : ThingComp
         }
         sb.AppendLine();
         sb.Append("PhobosRadio_StationAntenna".Translate(net.AntennaLabelFor(parent).ToString().Named("ANTENNA")));
+        sb.AppendLine();
+        sb.Append(LinkText.ChannelsLine(net.ChannelsOf(parent)));
         var coverage = RadioCoverage.For(parent.Map).InspectLine(parent);
         if (coverage != null)
         {

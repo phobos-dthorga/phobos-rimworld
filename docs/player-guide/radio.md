@@ -12,6 +12,8 @@ This is the first step, local radio on one map. [Back to the guide](README.md).
 - **The radio terminal is noisy by design**: its computer drowns antennas within a few metres, its own stub included. Site antennas
   away from it, or switch **Radio terminals make radio noise** off in the mod's settings. **Amplifiers only help antennas whose coax
   passes through them.**
+- **A station serves only as many radios as its channels hold**: the desk five (ten with its second transceiver), the terminal
+  twenty. Past that, a colonist in reach reads **Radio: net busy** and misses the "in touch" mood.
 - **The upgrades are experimental**: the desk, whip and mast each have an **Upgrades** button.
 - **Decide Metres per map cell before a colony** (default 1). It changes every contact's range.
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a radio together.
@@ -55,6 +57,10 @@ misses; its little stub antenna works poorly, and its computer makes noise that 
 or mast a few metres away. A **linear amplifier** (up to 100 W) or **heavy linear amplifier** (up to 400 W) joined into the coax
 raises what either station sends, for the antennas whose cable runs through it, and draws power and warms its room while the
 station is sending. The **full-size ground-plane** is a slightly better whip.
+
+**Channels.** Each station has channels, 25 kHz each, as a trunked radio system does: the desk one, the terminal four. Radios
+share a channel by taking turns, five to a channel for voice. The station's text and **Net** tab say how many are in use and who is
+on which channel; a colonist with no free channel reads **net busy**. The desk's **second transceiver** upgrade adds a channel.
 
 **Signs of life.** The desk's lamp lights and its needle swings while it sends; an amplifier's needle shows its output; the
 mast flashes red at night. Select a station and its coax glows, dimming along the cable as it loses the signal. The radio

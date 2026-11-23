@@ -327,8 +327,9 @@ baked mesh (`MapMeshAndRealTime`), as the game's own lamps are. That is a few mo
 
 **Honesty [A]:** the lamp lights and the needle rises only while the station is in use, for the mode's duty cycle (a fifth of the
 time); the amplifier's needle shows its output against its rating. The waterfall's brightness is each hand-held's real received
-level and its speckle the station's real noise floor, **but each radio is drawn on its own spot of the band to tell them apart:
-the mod has no channels yet**, and the picture says so.
+level and its speckle the station's real noise floor, **each radio was drawn on its own spot of the band to tell them apart**
+(0.6.0). **Since Radio 0.7.0 each sits on the channel the ledger gives it** ([channels](radio-stations.md#channels-radio-070)), so
+that fiction is gone.
 
 **As built (all [code], none tested in game):**
 

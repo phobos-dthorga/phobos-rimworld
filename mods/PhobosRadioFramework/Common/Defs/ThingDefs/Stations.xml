@@ -58,6 +58,8 @@
         </bands>
         <mode>PhobosRadio_VoiceFM</mode>
         <transmitPowerWatts>25</transmitPowerWatts>
+        <!-- One channel, shared by up to five radios taking turns (Radio 0.7.0); a second transceiver adds one. -->
+        <channels>1</channels>
         <noiseFigureDb>6</noiseFigureDb>
         <antennaGainDbi>0</antennaGainDbi>
         <antennaHeightMetres>2</antennaHeightMetres>
@@ -147,6 +149,8 @@
         </bands>
         <mode>PhobosRadio_VoiceFM</mode>
         <transmitPowerWatts>10</transmitPowerWatts>
+        <!-- A software radio listens on many channels at once: four (Radio 0.7.0; authored). -->
+        <channels>4</channels>
         <!-- Authored: a quiet front end with a preamplifier; unverified against a source. -->
         <noiseFigureDb>2</noiseFigureDb>
         <!-- The stub: short for its wavelength, so below a quarter-wave whip; approximate. -->

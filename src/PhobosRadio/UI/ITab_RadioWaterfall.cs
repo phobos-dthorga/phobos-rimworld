@@ -14,7 +14,7 @@ namespace Phobos.Radio.UI;
 /// <para>
 /// <b>Honest where it can be:</b> each hand-held's streak is its real received level at the station (the forward direction of its
 /// link), shown keyed for the mode's duty cycle; the speckle is the station's real noise floor, with random grain. <b>Each radio is
-/// drawn on its own spot of the band to tell them apart: the radio has no channels yet</b>, and the tab says so.
+/// drawn on the channel the ledger gives it</b> (Radio 0.7.0): each channel 25 kHz, the radios sharing one taking turns.
 /// </para>
 /// <para>
 /// <b>Cost:</b> only while the tab is open and the game runs: one new row a tenth of a second, a 256 by 128 picture sent to the
@@ -30,13 +30,13 @@ public class ITab_RadioWaterfall : ITab
     /// <summary>The span the colours cover above the noise floor, in dB (authored: a voice signal 12 dB up shows clearly).</summary>
     private const float SpanDb = 60f;
     private const float SpectrumHeight = 70f;
-    private const int KeyCycleTicks = 600;
     private static readonly int[] SkirtDb = { 0, 3, 14, 28, 40, 50 };
 
     private Texture2D? picture;
     private Color32[] pixels = new Color32[Bins * Rows];
     private readonly float[] latest = new float[Bins];
-    private readonly List<(string name, int bin, float receivedDbm, int seed)> radios = new();
+    private readonly List<(string name, int bin, int channel, float receivedDbm, Thing radio)> radios = new();
+    private int channelCount = 1;
     private Thing? showing;
     private float nextRow;
     private float floorDbm = -127f;
@@ -77,7 +77,9 @@ public class ITab_RadioWaterfall : ITab
         Text.Font = GameFont.Tiny;
         GUI.color = new Color(0.62f, 0.66f, 0.72f);
         Widgets.Label(new Rect(rect.x, fall.yMax + 24f, rect.width, 40f),
-            radios.Count == 0 ? "PhobosRadio_WaterfallNobody".Translate() : "PhobosRadio_WaterfallNote".Translate());
+            radios.Count == 0 ? "PhobosRadio_WaterfallNobody".Translate() : "PhobosRadio_WaterfallNote".Translate(
+                (RadioRulesDef.Current.channelWidthHz / 1000f).ToString("0.#").Named("WIDTH"),
+                Channels.RadiosPerUse(Station?.Mode.dutyCycle ?? 0.2f).Named("RADIOS")));
         GUI.color = Color.white;
         Text.Font = GameFont.Small;
     }
@@ -108,14 +110,22 @@ public class ITab_RadioWaterfall : ITab
             floorDbm = (float)NoiseFloor.TotalDbm(mode.bandwidthHz, station.Props.noiseFigureDb, RadioNet.For(station.parent.Map).NoiseAt(station.parent.Position));
             neededDbm = floorDbm + mode.requiredSnrDb;
         }
-        var ordered = new List<LinkEvaluation>(pairs);
-        ordered.Sort((a, b) => a.A.Thing.thingIDNumber.CompareTo(b.A.Thing.thingIDNumber));
-        for (var i = 0; i < ordered.Count; i++)
+        // Each served radio on the channel the ledger gives it: the band split into the station's channels (Radio 0.7.0).
+        var net = RadioNet.For(station.parent.Map);
+        var channels = net.ChannelsOf(station.parent);
+        channelCount = Mathf.Max(1, channels.Channels);
+        var served = net.ServedOn(station.parent);
+        for (var place = 0; place < served.Count; place++)
         {
-            var link = ordered[i];
-            var wearer = (link.A.Thing as Apparel)?.Wearer;
-            var bin = Mathf.RoundToInt(Bins * (i + 0.5f) / ordered.Count);
-            radios.Add((wearer?.LabelShort ?? link.A.Thing.LabelShort, bin, (float)link.Budget.Forward.ReceivedDbm, link.A.Thing.thingIDNumber * 37));
+            var radio = served[place];
+            LinkEvaluation? link = null;
+            foreach (var pair in pairs) if (pair.A.Thing == radio) link = pair;
+            if (link == null) continue;
+            var channel = Channels.ChannelOf(place, channels.RadiosPerUse, channels.ChannelsPerUse);
+            var centre = (channel + Mathf.Max(1, channels.ChannelsPerUse) / 2f) / channelCount;
+            var wearer = (radio as Apparel)?.Wearer;
+            radios.Add((wearer?.LabelShort ?? radio.LabelShort, Mathf.Clamp(Mathf.RoundToInt(Bins * centre), 0, Bins - 1), channel,
+                (float)link.Budget.Forward.ReceivedDbm, radio));
         }
     }
 
@@ -128,11 +138,12 @@ public class ITab_RadioWaterfall : ITab
             // Noise power is exponentially spread; in dB its grain sits a few dB about the floor.
             latest[b] = floorDbm + 10f * Mathf.Log10(-Mathf.Log(1f - UnityEngine.Random.Range(0.001f, 0.999f)) + 0.05f);
         }
-        var mode = Station?.Mode;
-        var keyedTicks = KeyCycleTicks * Mathf.Clamp01(mode?.dutyCycle ?? 0.2f);
-        foreach (var (_, bin, received, seed) in radios)
+        var station = Station;
+        var net = station != null && station.parent.Spawned ? RadioNet.For(station.parent.Map) : null;
+        foreach (var (_, bin, _, received, radio) in radios)
         {
-            if ((Find.TickManager.TicksGame + seed) % KeyCycleTicks >= keyedTicks) continue;
+            // Only the radio taking its turn on its channel now (the channel ledger).
+            if (net == null || !net.RadioKeyed(station!.parent, radio)) continue;
             for (var offset = -(SkirtDb.Length - 1); offset < SkirtDb.Length; offset++)
             {
                 var at = bin + offset;
@@ -174,17 +185,26 @@ public class ITab_RadioWaterfall : ITab
         }
     }
 
+    /// <summary>Under each channel: who is talking on it now, else its number; the channels' edges as faint lines.</summary>
     private void DrawNames(Rect rect)
     {
         Text.Font = GameFont.Tiny;
         Text.Anchor = TextAnchor.UpperCenter;
-        var keyedTicks = KeyCycleTicks * Mathf.Clamp01(Station?.Mode.dutyCycle ?? 0.2f);
-        foreach (var (name, bin, _, seed) in radios)
+        var station = Station;
+        var net = station != null && station.parent.Spawned ? RadioNet.For(station.parent.Map) : null;
+        var width = rect.width / channelCount;
+        for (var channel = 0; channel < channelCount; channel++)
         {
-            var keyed = (Find.TickManager.TicksGame + seed) % KeyCycleTicks < keyedTicks;
-            GUI.color = keyed ? Color.white : new Color(0.62f, 0.66f, 0.72f);
-            var x = rect.x + rect.width * bin / Bins;
-            Widgets.Label(new Rect(x - 50f, rect.y, 100f, rect.height), name);
+            string? talking = null;
+            foreach (var (name, _, onChannel, _, radio) in radios)
+            {
+                if (onChannel == channel && net != null && net.RadioKeyed(station!.parent, radio)) talking = name;
+            }
+            GUI.color = talking != null ? Color.white : new Color(0.62f, 0.66f, 0.72f);
+            Widgets.Label(new Rect(rect.x + channel * width, rect.y, width, rect.height),
+                talking ?? "PhobosRadio_WaterfallChannel".Translate((channel + 1).Named("CHANNEL")).ToString());
+            if (channel > 0) Widgets.DrawLine(new Vector2(rect.x + channel * width, rect.y - 4f), new Vector2(rect.x + channel * width, rect.y + 2f),
+                new Color(0.3f, 0.34f, 0.4f), 1f);
         }
         GUI.color = Color.white;
         Text.Anchor = TextAnchor.UpperLeft;

@@ -22,6 +22,10 @@
     <defaultStuffLossDb>10</defaultStuffLossDb>
     <wallHeightMetres>2.5</wallHeightMetres>
 
+    <!-- Channels (Radio 0.7.0): each 25 kHz wide, as on a trunked radio system (the owner, 24 Nov 2026). A mode takes as many as
+         its bandwidth needs, and radios share one by taking turns, as many as the mode's duty cycle allows. -->
+    <channelWidthHz>25000</channelWidthHz>
+
     <noiseRadiusDefaultCells>12</noiseRadiusDefaultCells>
     <!-- A source's noise fades smoothly to nothing over the last third of its radius, so its edge is a glow, not a ring (the
          owner's choice, 23 Nov 2026). An authored simplification: real noise has no radius. 1 keeps the old hard edge. -->

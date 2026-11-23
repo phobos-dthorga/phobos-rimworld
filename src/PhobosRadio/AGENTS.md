@@ -42,6 +42,10 @@ open again** (owner, 23 Nov 2026), after its time on the back burner from 9 Nov 
   it costs 6 dB). Every figure in a Def names its source or says it is authored. The rules Def
   (`RadioRulesDef`) holds the starting values the design says to tune in play; player preferences
   (display mode, `metresPerCell`, the thought) are mod settings, never physics.
+- **Channels are capacity, never physics** (owner, 24 Nov 2026: the channel ledger, after the BVR system's). The link budget
+  decides every contact; a station's channels (25 kHz each, shared by radios taking turns) only decide which of those it can hear
+  it serves. A new use of the radio (a caravan call, a data link) is a kind in the ledger with its own mode, never a second system
+  of frequencies.
 - **A link is two-way.** The link budget evaluates both directions and the worse one decides; the sheet
   names the limiting direction. Antenna height matters through ray clearance over walls
   (`docs/development/project-direction.md`); a figure the UI shows must affect an outcome somewhere.

@@ -44,8 +44,6 @@ public class CompProperties_RadioMarks : CompProperties
 
 public class CompRadioMarks : ThingComp
 {
-    /// <summary>How long one cycle of sending and listening is shown to last, in ticks; the mode's duty cycle sets the share keyed.</summary>
-    private const int KeyCycleTicks = 600;
     /// <summary>The warning light's flash: on for a third of each 1.5 s, about 40 flashes a minute (authored).</summary>
     private const int FlashTicks = 90;
     private const int FlashOnTicks = 30;
@@ -98,8 +96,8 @@ public class CompRadioMarks : ThingComp
         : parent.TryGetComp<CompAmplifier>()?.StationNow?.parent;
 
     /// <summary>
-    /// Whether the transmitter is keyed now: only while the station is in use (in touch with someone), and then for the mode's duty
-    /// cycle, a fifth of each ten seconds for voice, so the lamp shows what the power draw already charges.
+    /// Whether the transmitter is keyed now: while one of the radios its station serves takes its turn on a channel (the channel
+    /// ledger, Radio 0.7.0), so a busy desk's lamp is lit more of the time than a quiet one's.
     /// </summary>
     private bool Keyed()
     {
@@ -118,9 +116,8 @@ public class CompRadioMarks : ThingComp
         {
             return false;
         }
-        if (station == null) return false;
-        var keyedTicks = KeyCycleTicks * Mathf.Clamp01(station.Mode.dutyCycle);
-        return (Find.TickManager.TicksGame + Seed) % KeyCycleTicks < keyedTicks;
+        // Keyed while one of the radios it serves takes its turn on a channel (Radio 0.7.0, the channel ledger).
+        return station != null && station.parent.Spawned && Services.RadioNet.For(station.parent.Map).StationKeyed(station.parent);
     }
 
     /// <summary>How far the needle swings, from rest to full: a station's while keyed; an amplifier's output against its rating.</summary>

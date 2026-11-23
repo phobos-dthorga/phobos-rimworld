@@ -29,6 +29,26 @@
   </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
 
   <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeSecondTransceiver</defName>
+    <label>second transceiver</label>
+    <description>A second radio set beside the first, on its own channel, so the desk can serve twice as many colonists at once: up to ten instead of five, taking turns.</description>
+    <buildings>
+      <li>PhobosRadio_BaseStation</li>
+    </buildings>
+    <costList>
+      <Steel>20</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <work>800</work>
+    <constructionSkill>4</constructionSkill>
+    <researchPrerequisite>PhobosRadio_LocalRadio</researchPrerequisite>
+    <figures>
+      <!-- Radio 0.7.0: the desk's channels, 1 to 2 (authored). -->
+      <li><name>channels</name><value>2</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
     <defName>PhobosRadio_UpgradeWhipTallerPole</defName>
     <label>taller pole</label>
     <description>A longer steel pole that lifts the whip from three metres to five, over most walls, so only walls close to a hand-held still get in the way.</description>
