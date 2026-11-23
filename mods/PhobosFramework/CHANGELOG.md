@@ -8,6 +8,9 @@ tested in game unless an entry says the owner tested it.
 ### Changed
 
 - **The README's links into the player guide follow its vehicle chapters**: Looking after vehicles became five chapters (vehicle systems, damage and repairs, the workshop, on the road, aircraft and sling loads). Docs only.
+- **The README is slimmer**: its gotchas keep only real warnings, about half as long, and what it adds is a short list into the
+  guide's chapters. The settings tables gain the 21 settings they lacked, and the README and Workshop draft name what the owner
+  has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 
 ## [0.276.0] - 2026-11-24 - Draft
 
