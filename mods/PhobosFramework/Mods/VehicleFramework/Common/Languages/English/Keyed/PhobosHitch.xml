@@ -62,6 +62,10 @@
 
   <PhobosHitch_SettingOthers>Vehicles without the drivetrain model can tow</PhobosHitch_SettingOthers>
   <PhobosHitch_SettingOthersDesc>Off by default: only vehicles whose engine, gears and grip the drivetrain model works out can tow, and for them a heavy trailer slows the climb, runs the engine hotter and burns more fuel. On, every other land vehicle can tow too, but on a plain rule only: it keeps its own weight's share of its speed, whatever its engine, the ground or the hill. A small car pulling a loaded trailer will crawl; a big truck barely notices.</PhobosHitch_SettingOthersDesc>
+  <!-- Framework 0.277.0: the wider way round (systems/hitches-and-trailers.md). -->
+  <PhobosHitch_SettingWiderWay>Vehicles that tow take a wider way round</PhobosHitch_SettingWiderWay>
+  <PhobosHitch_SettingWiderWayDesc>On by default. A vehicle towing a trailer keeps away from walls, fences and rock where it can, so the trailer has room to cut the corners behind it. Its route is also checked for the trailer before it sets off: where the trailer would not fit, it looks for another way round, and says so if there is none. Off, a vehicle that tows takes the same way it would alone, and stops wherever its trailer cannot follow.</PhobosHitch_SettingWiderWayDesc>
+  <PhobosHitch_NoWideWay>{TRACTOR} found no way round wide enough for {TRAILER}. It sets off anyway, and will stop where the trailer cannot follow: choose a more open way, or unhitch it.</PhobosHitch_NoWideWay>
   <!-- Framework 0.111.0: the hitch asks whether a vehicle is set up for work before taking it (vehicle-trailers.md, B0.2). -->
   <PhobosHitch_PackUpFirst>{TRAILER} is set up where it stands. Pack it up first.</PhobosHitch_PackUpFirst>
   <PhobosHitch_SetUpOnTheWay>A colonist is on the way to set up {TRAILER}. Cancel that first.</PhobosHitch_SetUpOnTheWay>

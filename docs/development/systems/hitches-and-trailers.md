@@ -1,11 +1,11 @@
 # Hitches and trailers
 
-**Status (23 Nov 2026):** living; written from the code at D'thorga Framework 0.269.0, D'thorga Vehicles 0.114.0 and D'thorga
-Farming 0.7.9. Built: our own hitch with a free-angle turn, couplings, chains of up to three behind, the articulated tractor,
-trailers that cannot drive, set-up and pack-up by hand, set-out pieces and canvas rooms, the cold box on the power lead, five
-trailers of ours, towing on the map and the world map, the recovery winch and tow, and pushing by hand. **Passed in game by the
-owner:** row 441 (a trailer hitched on its drawbar); row 56 (towing a trailer) in part. **Not yet tested in game:** everything
-else.
+**Status (24 Nov 2026):** living; written from the code at D'thorga Framework 0.269.0, D'thorga Vehicles 0.114.0 and D'thorga
+Farming 0.7.9, with the wider way round added at Framework 0.277.0. Built: our own hitch with a free-angle turn, couplings, chains
+of up to three behind, the articulated tractor, trailers that cannot drive, set-up and pack-up by hand, set-out pieces and canvas
+rooms, the cold box on the power lead, five trailers of ours, towing on the map and the world map, the wider way round, the
+recovery winch and tow, and pushing by hand. **Passed in game by the owner:** row 441 (a trailer hitched on its drawbar); row 56
+(towing a trailer) in part. **Not yet tested in game:** everything else, the wider way round (row 485) among it.
 
 This page says how hitches and trailers work now. Why they are this way is in the [decision
 log](../decisions/hitches-and-trailers.md) and the [archived records](#why-it-is-this-way). How the vehicle code is laid out in
@@ -25,7 +25,10 @@ trips, which use the recovery tow and pushing, are on [stations, yard and depots
   until it is claimed. The recovery winch is the exception: it may pull another faction's vehicle where a claim could take it.
 - **A trailer stays a whole vehicle on the map.** It blocks, is blocked and can be shot. The hitch moves it in whole cells and
   four facings; the rest of the turn (within ±45°) and the sub-cell place are drawn, not walked.
-- **There is no path planning for a trailer.** If the cells behind are not clear, the whole train stops and says so.
+- **The tractor plans; the trailer is checked, not planned.** A vehicle that tows pays more near ground a trailer cannot stand on,
+  and each new path is driven on paper for the whole line before it is driven ([the wider way round](#the-wider-way-round)). It
+  needs Vehicle Framework's newer path finder (on in its 1.7 release). If the cells behind are still not clear in play, the whole
+  train stops and says so.
 - **A trailer cannot drive.** It refuses drafting and moving with "no engine" (`Hitch/CompPhobosTrailer.cs:140-144`).
 - **Set-up holds a trailer where it stands.** A set-up trailer, one with a set-up ordered or one with a camp out cannot be
   hitched; a towed trailer cannot be set up.
@@ -64,6 +67,42 @@ trips, which use the recovery tow and pushing, are on [stations, yard and depots
 - **Geometry is per trailer** (`hitchToAxle`, default 3.2 cells; `axleToCentre`, 0.2). Our trailers' figures are measured from
   their pictures, and a Python test checks that the drawbar's eye lands within 0.1 cell of the hitch.
 - **A white drawbar line** is drawn from the hitch to the trailer while towing.
+- **Near a diagonal a trailer may stand either way round** (Framework 0.276.2): within 15° of 45° its cells may lie along either
+  neighbouring facing, the one it already stands on first. A long trailer's box of cells overhangs its picture about equally
+  either way there; turned to the nearest facing alone, it flipped upright as a trailer settled onto a south-east drive and
+  reached into a fence its picture never touched (`HitchRule.Facings`).
+
+### The wider way round
+
+Framework 0.277.0, on the owner's go-ahead of 24 Nov 2026 ("do the wider way round for towing too"), after the L-ATV and the shower
+trailer stopped by a fence.
+
+- **Clearance costs**: a vehicle that drives a tow pays 3, 2 and 1 more for a cell 1, 2 and 3 cells (a diagonal step counts as
+  one) from ground a trailer cannot stand on, or the map's edge (`towClearanceCosts`, authored). Vehicle Framework averages a
+  cell's cost over the vehicle's footprint and weighs it ten to one against a step, so an average of 1 under the vehicle is
+  worth about a cell of detour a step. It only makes a way dearer, never closes it, so a narrow gate is still used when it is the
+  only way (`Rules/TowRouteRule.cs`).
+- **How it reaches the path finder**: our `TowClearanceCosts` is a `VehicleCostOffsets`, Vehicle Framework's public extension
+  point for its newer path finder, which makes one per map by itself and asks each whether it applies to a request. Ours applies
+  only to a vehicle with something on its hitch and nothing towing it, so no other vehicle's paths change. No Harmony patch.
+- **The route check**: when the driving vehicle takes a new path, the whole line is driven along it beforehand, by the same follow
+  rule, jack-knife limit, facings and test of the ground as in play, 4 steps a cell, up to 300 cells ahead (`towCheckSteps`,
+  `towCheckMostCells`). Where a vehicle of the line would not fit, a **snag** of 30 more is laid within 3 cells of the spot for
+  2,500 ticks (`towSnagCost`, `towSnagReachCells`, `towSnagTicks`), and Vehicle Framework is asked for another path the way it
+  asks itself when a vehicle blocks the way (its private `RequestNewPath`, by name). Up to 3 paths per destination
+  (`towRouteTries`); if the third still snags, "found no way round wide enough" is said once and the vehicle drives it, stopping
+  where the trailer cannot follow, as before. A snag's cost is the map's, not the vehicle's: any towing vehicle keeps off it while
+  it lasts. That a snag's spot is the right place to push the tractor away from is our heuristic: a trailer cuts the inside of a
+  corner, so the tractor swinging wide of what it hit gives it room.
+- **What it lets the player do**: tow through a base without steering round every corner by hand. **What it stops them doing**:
+  nothing; with the setting off, routes are as before. **How it changes the way they play**: towing routes run wider and a little
+  longer, and an impossible one is named before the drive rather than after the stop. **What outside the vehicle notices**:
+  nothing beyond the map's other vehicles, which keep their own paths; a chosen agent default, as the cost only applies to the
+  towing vehicle.
+- **Risk** (agent's grade, for the owner to confirm): **low**. It lengthens routes and can lose nothing of the player's; the worst
+  case is the old behaviour, a stop with a message. So its setting, **Vehicles that tow take a wider way round**, is on by default.
+- **Other factions' vehicles**: no other faction hitches, so it never applies to them. A captured trailer towed by the player's
+  vehicle is checked as any other.
 
 ### The load on the tractor
 
@@ -186,6 +225,9 @@ flowchart TB
   G["Hitch a trailer<br/>(targeter, forecast)"] --> P["Pending order"] --> J["Hauling job: couple<br/>(900 work)"]
   J --> C["Couple: place behind,<br/>registry, weight, pipes"]
   C --> T["CompTick while the head moves<br/>(+90 settle ticks)"]
+  T --> RC["New path? Drive the line<br/>along it beforehand"]
+  RC -->|"would snag"| SN["Snag cost near the spot;<br/>ask for another path (3 tries)"]
+  CG["TowClearanceCosts in VF's<br/>path finder (towing heads only)"] --> RC
   T --> F["HitchRule.Follow, Limit"] --> PL["Place: cells, facing,<br/>drawn remainder"]
   PL -->|"blocked"| STOP["Stop the train,<br/>say why (600 ticks)"]
   PL --> NEXT["Next hitch in the chain follows"]
@@ -202,7 +244,9 @@ unless the tractor moves, it is settling or something asked it to look. The draw
 returning at once when nothing is towed.
 
 **Every 250 ticks**: the towed weight; a set-down or an articulated half's retry; the tractor's electrics (the cold box).
-**Every eighth rare tick**: a parked trailer's pipes. **On events**: coupling, letting go, leaving and arriving, destruction.
+**Every eighth rare tick**: a parked trailer's pipes. **On events**: coupling, letting go, leaving and arriving, destruction; a
+new path for a towing vehicle (the route check); a towing vehicle's path request after any cell's path cost changed (the
+clearance grid, worked out again from the whole map).
 
 **Where the numbers come from**: the rules Def for reach, work, gap, winch, recovery and push figures; each trailer's
 `CompProperties_PhobosTrailer` for its geometry and work; the coupling Defs and extensions for who joins whom.
@@ -215,6 +259,7 @@ All under `src/PhobosFramework.Vehicles/` unless named.
 | --- | --- |
 | `Hitch/CompPhobosHitch.cs` | The hitch comp, its properties, the hitch point extension and the `Hitches` registry |
 | `Hitch/Chains.cs`, `Hitch/Recovery.cs` | Chains (head, behind, loops, weight, room); the winch and the recovery tow |
+| `Hitch/TowRoute.cs`, `Hitch/TowClearanceCosts.cs`, `Rules/TowRouteRule.cs` | The wider way round: the route check; the cost grid in Vehicle Framework's path finder; the clearance costs |
 | `Hitch/TowTravel.cs` | The forecast; taking a trailer along, holding it and setting it down |
 | `Hitch/CompPhobosTrailer.cs`, `Hitch/Articulated.cs` | The trailer comp (no engine, drawbar, pipes); the articulated vehicle |
 | `Hitch/Couplings.cs`, `Rules/CouplingRule.cs` | Coupling Defs, the extension and adapters; the match |
@@ -240,7 +285,9 @@ The modders' types, linked to [the reference site](https://phobos-dthorga.github
 - **[`CompProperties_PhobosTrailerSetUp`][r8]** and **[`CompProperties_PhobosSetOut`][r9]** with **[`SetOutPiece`][r10]** and
   `SetOutRoom`.
 - **[`PhobosVehicleLoadoutDef`][r11]**: `noHitch`; the loadout selector's `trailer`, `campDeck` and `campSide`.
-- **[`PhobosVehicleRulesDef`][r12]**: `hitchReachCells`, `hitchUpWork`, `hitchGapCells`, `hitchMostBehind`, the `winch`,
+- **[`PhobosVehicleRulesDef`][r12]**: `hitchReachCells`, `hitchUpWork`, `hitchGapCells`, `hitchMostBehind`, the `tow` route
+  figures (`towClearanceCosts`, `towSnagCost`, `towSnagReachCells`, `towSnagTicks`, `towRouteTries`, `towCheckSteps`,
+  `towCheckMostCells`), the `winch`,
   `recovery` and `push` figures, `towLoads` and the caravan water litres.
 - **Schema classes**: `When_TowedColdBox`, `Input_TowedColdBoxAmps`.
 - **The trailer plumbing comp** (`Phobos.VehicleSystems.Hygiene.CompProperties_PhobosTrailerPlumbing`) is in the Dubs Bad
@@ -271,6 +318,7 @@ reference](../settings-reference.md#dthorga-framework-and-dthorga-vehicle-system
 | Label | Default | Page, section |
 | --- | --- | --- |
 | Vehicles without the drivetrain model can tow | Off | Engines and driving, Ground, weather and towing |
+| Vehicles that tow take a wider way round | On | Engines and driving, Ground, weather and towing |
 | Trailers | On (needs a restart) | The scope page, By kind of vehicle |
 | A vehicle that cannot drive is towed to the dyno bay | On | Repairs, service and fittings, Dyno bay trips |
 | Light vehicles that cannot drive are pushed to the dyno bay by hand | On | Repairs, service and fittings, Dyno bay trips |
@@ -300,7 +348,9 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
 - **Vehicle Framework**: a prefix on `WorldPawns.PassToWorld` keeps a held trailer out of the world's pawns; a postfix on its
   glide (`VehicleTweener.TweenedPosRoot`, patched by name) draws the sub-cell place; the path cost and caravan speed postfixes
   carry the cap; the Form caravan window's food count. Its own `VehicleRect` is used throughout, because the game's is a cell
-  out for even-length vehicles facing south or west; a Python test keeps it that way.
+  out for even-length vehicles facing south or west; a Python test keeps it that way. The wider way round subclasses its public
+  `VehicleCostOffsets` (found by type, no patch), and calls its path follower's private `RequestNewPath` by name, which
+  `check-targets.py` keeps.
 - **RimWorld**: a pawn's child holders (so a held trailer is saved and found), the caravan's best food, its days of food and its
   days until rot.
 - **Dubs Bad Hygiene**: water on the road (a prefix that runs before Dubs' own caravan needs), the water bowser, the shower
@@ -316,10 +366,21 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
   tractor moves. A towed hitch in a chain only refreshes its weight. The draw postfix returns at once when nothing is towed.
 - **Throttles**: weight 250 ticks; the blocked message 600; the forecast and the mouse label 60; set-down and articulated retries
   250; trailer pipes every eighth rare tick; the set-out refusal 60.
+- **The wider way round** (not measured): a map event only sets a flag; the clearance grid is worked out again from the whole map
+  (two passes over its cells, and only changed cells written) at a towing vehicle's next path request after a change. The route
+  check runs once per new path of a towing vehicle: up to 300 cells × 4 steps × each vehicle of the line × its footprint's cells,
+  stopping at the first snag. Vehicle Framework already copies its grid for every vehicle's request, so ours adds a row to that
+  copy, not a new one.
 
 ## Limits and known gaps
 
-- **No path planning for the trailer**; whole cells and four facings, with the remainder drawn.
+- **The trailer is checked, not planned**: the tractor's path finder never sees the trailer's own sweep, only the clearance and
+  snag costs; whole cells and four facings, with the remainder drawn. **What a next game would need** (the shared rule): the
+  distance and cost rule is game-free already; the rest is RimWorld's and Vehicle Framework's own path finding.
+- **The route check is a forecast**: a vehicle that moves in later, or a path Vehicle Framework changes on its own, can still stop
+  the train. It looks no further than 300 cells ahead, and a path joined onto by a queued order is not checked again.
+- **Without Vehicle Framework's newer path finder** (its "PathFinderV2", on in its 1.7 release), neither the costs nor the route
+  check run.
 - **Other factions never hitch**; a raider's trailer stays where its tractor fell until claimed.
 - **No adapters ship**, and our own trailers name no couplings.
 - **The chain's length is in C# only** (`hitchMostBehind`, 3); add the field to the rules XML to tune it.
@@ -341,13 +402,13 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
 
 None of these is a test in game.
 
-- **Rule tests** (`tests/PhobosFramework.Vehicles.Rules.Tests`): `HitchRuleTests`, `TowRuleTests`, `CouplingRuleTests`,
+- **Rule tests** (`tests/PhobosFramework.Vehicles.Rules.Tests`): `HitchRuleTests`, `TowRouteRuleTests`, `TowRuleTests`, `CouplingRuleTests`,
   `RecoveryRuleTests`, `PushRuleTests`, `DraughtTests`, `SetOutRuleTests`.
 - **Python**: `tests/test_trailer_hitch_reach.py` (each trailer's drawbar eye within 0.1 cell of the hitch, from its picture) and
   `tests/test_vehicle_set_down_footprint.py` (no game footprint in the hitch or sling code).
 - **In game** ([the test list](../in-game-test-pass.md)): **passed** 441; **passed in part** 56; **seen by the game, waiting for
   the owner** 125, 189, 336; **waiting** 68, 70, 104 to 107, 133, 152 to 157, 191, 253, 274, 279, 285, 296, 297, 322 to 327, 334,
-  335, 346, 348, 357, 365, 437. Row 318 (traps, towed trailers included) passed with the traps' own work.
+  335, 346, 348, 357, 365, 437, 485. Row 318 (traps, towed trailers included) passed with the traps' own work.
 
 ## Why it is this way
 

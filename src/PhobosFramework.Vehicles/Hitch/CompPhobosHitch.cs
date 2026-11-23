@@ -312,6 +312,9 @@ public sealed partial class CompPhobosHitch : VehicleComp
             return;
         }
         bool moving = Vehicle.vehiclePather is { Moving: true };
+        // Framework 0.277.0: the wider way round checks each new path for the line behind (TowRoute.cs).
+        if (moving) LookAtRoute();
+        else if (routeFor.IsValid) ForgetRoute();
         if (moving) settle = SettleTicks;
         else if (settle > 0) settle--;
         else if (!needsLook) return;
@@ -453,17 +456,15 @@ public sealed partial class CompPhobosHitch : VehicleComp
     (double X, double Z) HitchPoint()
     {
         (double cx, double cz) = TrueCentre();
-        float behind = Vehicle.def.GetModExtension<PhobosHitchPointExtension>() is { behindCentre: >= 0f } point
-            ? point.behindCentre
-            : Vehicle.def.Size.z / 2f + Rules.hitchGapCells;
-        double radians = Heading() * Mathf.Deg2Rad;
-        return (cx - System.Math.Sin(radians) * behind, cz - System.Math.Cos(radians) * behind);
+        return HitchRule.BehindPoint(cx, cz, Heading(), HitchBehind(Vehicle.def));
     }
 
     /// <summary>The way a vehicle points, in degrees (0 north, 90 east), from the eight ways Vehicle Framework draws it.</summary>
-    public static double VehicleHeading(VehiclePawn vehicle)
+    public static double VehicleHeading(VehiclePawn vehicle) => HeadingOf(vehicle.FullRotation);
+
+    /// <summary>The heading of one of Vehicle Framework's eight ways, in degrees (0 north, 90 east).</summary>
+    public static double HeadingOf(Rot8 r)
     {
-        Rot8 r = vehicle.FullRotation;
         if (r == Rot8.NorthEast) return 45;
         if (r == Rot8.East) return 90;
         if (r == Rot8.SouthEast) return 135;

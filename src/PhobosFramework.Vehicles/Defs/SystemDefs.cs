@@ -1180,6 +1180,18 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// <summary>Chains of tows (Framework 0.193.0, authored [A]): the most vehicles behind the one that drives, such as a tractor's plough and the
     /// cart behind it, or an articulated tractor's rear half with both.</summary>
     public int hitchMostBehind = 3;
+    /// <summary>The wider way round (Framework 0.277.0, authored): the extra cost to a vehicle that tows of a cell 1, 2, 3 ... cells from
+    /// ground a trailer cannot stand on; a cost of 1 averaged under the vehicle is worth about a cell of detour a step. When its route is
+    /// checked and a trailer would not fit: the cost laid around where it would hit, how far out from that spot, for how many ticks, and how
+    /// many routes are asked for before the vehicle drives the last one anyway. The route is checked in this many steps a cell, and no further
+    /// than this many cells ahead.</summary>
+    public List<int> towClearanceCosts = new() { 3, 2, 1 };
+    public int towSnagCost = 30;
+    public int towSnagReachCells = 3;
+    public int towSnagTicks = 2500;
+    public int towRouteTries = 3;
+    public int towCheckSteps = 4;
+    public int towCheckMostCells = 300;
     /// <summary>Recovery (Framework 0.103.0; docs/development/vehicle-upgrades-round-two.md, RecoveryRule). The winch: its rated pull in
     /// kilograms-force, the farthest it reaches in cells, the ticks it takes to pull a light load one cell (twice that at its limit), and the
     /// suction the softest ground adds as a share of the stuck vehicle's weight. The recovery tow: the heaviest vehicle towed as a multiple of

@@ -147,6 +147,13 @@ overturns an earlier one says so.
 | 23 Nov | The cold box in tow gets its own icon | owner | The owner's pick | [fk], Built: the cold box in tow |
 | 23 Nov | Trailer lengths measured from each picture | agent choice | A bowser stood a tile off | [hi], Slice 2 as built |
 | 23 Nov | Sub-cell place by a glide postfix (overturns 12 Nov) | agent choice | Picture and DrawPos together | [hi], Slice 2 as built |
+| 24 Nov | Near a diagonal a trailer may stand on either facing, within 15° | agent choice | Its box flipped into a fence | Framework 0.276.2 changelog |
+| 24 Nov | A vehicle that tows takes a wider way round (overturns 11 Nov "paths ignore it") | owner | "Do the wider way round for towing too" | [sy], The wider way round |
+| 24 Nov | Through VF's own cost-grid extension point, towing heads only; no patch | agent choice | VF's newer path finder takes them by type | [sy], The wider way round |
+| 24 Nov | Clearance costs 3, 2, 1 for cells 1 to 3 from ground a trailer cannot stand on | agent choice | Authored; about a cell of detour a step | [sy], The wider way round |
+| 24 Nov | Each new path checked for the whole line; a snag's cost and up to 3 paths | agent choice | Same follow rule as in play | [sy], The wider way round |
+| 24 Nov | No way wide enough: say so once and drive it anyway | agent choice | The old stop is the worst case | [sy], The wider way round |
+| 24 Nov | Risk low; a setting, on by default | agent choice | Only lengthens a route | [sy], The wider way round |
 
 [hi]: ../archive/vehicle-hitch-design.md
 [tr]: ../vehicle-trailers.md
@@ -155,3 +162,4 @@ overturns an earlier one says so.
 [fk]: ../vehicle-field-kitchen.md
 [em]: ../vehicle-emergent-play.md
 [bt]: ../archive/vehicle-bay-trips.md
+[sy]: ../systems/hitches-and-trailers.md

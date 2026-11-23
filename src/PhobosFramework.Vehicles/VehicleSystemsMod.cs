@@ -65,6 +65,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Vehicles without a drivetrain of ours may tow, on the plain rule (Framework 0.101.0; owner, 11 Nov 2026: off by default, with a
     /// warning). Live.</summary>
     public bool hitchOthersPlainRule;
+    /// <summary>A vehicle that tows takes a wider way round, and its route is checked for its trailer (Framework 0.277.0; agent default on: it
+    /// risks nothing of the player's, and only lengthens a route). Live.</summary>
+    public bool hitchWiderWay = true;
     public bool powerPointLargeSocket;
     /// <summary>Another faction's vehicle may be found with fittings and a tune.</summary>
     public bool enemyFitSets = true;
@@ -343,6 +346,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref slingSlowFlight, "PhobosVehicleSystems_SlingSlowFlight", true);
         Scribe_Values.Look(ref slingRelease, "PhobosVehicleSystems_SlingRelease", true);
         Scribe_Values.Look(ref hitchOthersPlainRule, "PhobosVehicleSystems_HitchOthersPlainRule", false);
+        Scribe_Values.Look(ref hitchWiderWay, "PhobosVehicleSystems_HitchWiderWay", true);
         Scribe_Values.Look(ref powerPointLargeSocket, "PhobosVehicleSystems_PowerPointLargeSocket", false);
         Scribe_Values.Look(ref enemyFitSets, "PhobosVehicleSystems_EnemyFitSets", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
@@ -606,6 +610,7 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingRoughGround".Translate(), ref s.roughGroundWear, d.roughGroundWear, "PhobosVehicleSystems_SettingRoughGroundDesc".Translate());
         list.Check("PhobosVehicleSettings_ErrandsPassTraps".Translate(), ref s.errandsPassTraps, d.errandsPassTraps, "PhobosVehicleSettings_ErrandsPassTrapsDesc".Translate());
         list.Check("PhobosHitch_SettingOthers".Translate(), ref s.hitchOthersPlainRule, d.hitchOthersPlainRule, "PhobosHitch_SettingOthersDesc".Translate());
+        list.Check("PhobosHitch_SettingWiderWay".Translate(), ref s.hitchWiderWay, d.hitchWiderWay, "PhobosHitch_SettingWiderWayDesc".Translate());
         list.Section("PhobosVehicleSettings_SectionLights".Translate());
         list.Check("PhobosVehicleSystems_SettingHeadlightBeams".Translate(), ref s.headlightBeams, d.headlightBeams, "PhobosVehicleSystems_SettingHeadlightBeamsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingAutoLights".Translate(), ref s.autoLights, d.autoLights, "PhobosVehicleSystems_SettingAutoLightsDesc".Translate());

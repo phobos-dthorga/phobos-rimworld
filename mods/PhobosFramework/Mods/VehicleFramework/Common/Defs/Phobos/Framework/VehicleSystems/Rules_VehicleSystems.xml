@@ -135,6 +135,21 @@
     <hitchReachCells>8</hitchReachCells>
     <hitchUpWork>900</hitchUpWork>
     <hitchGapCells>0.3</hitchGapCells>
+    <!-- The wider way round (Framework 0.277.0, all authored): a vehicle that tows pays 3, 2 and 1 more for a cell 1, 2 and 3 cells from ground
+         a trailer cannot stand on (a cost of 1 averaged under the vehicle is worth about a cell of detour a step). Where a checked route would
+         snag its trailer, 30 more within 3 cells of the snag for 2,500 ticks (about 40 game minutes), and up to 3 routes asked for. The route
+         is checked in 4 steps a cell, up to 300 cells ahead. -->
+    <towClearanceCosts>
+      <li>3</li>
+      <li>2</li>
+      <li>1</li>
+    </towClearanceCosts>
+    <towSnagCost>30</towSnagCost>
+    <towSnagReachCells>3</towSnagReachCells>
+    <towSnagTicks>2500</towSnagTicks>
+    <towRouteTries>3</towRouteTries>
+    <towCheckSteps>4</towCheckSteps>
+    <towCheckMostCells>300</towCheckMostCells>
     <!-- Recovery (Framework 0.103.0). The winch is rated 12,000 lb (5,443 kgf), a common rating for a vehicle recovery winch (authored from
          that class of winch; no one product is claimed). It reaches 12 cells, and pulls a light load a cell in 180 ticks (three game seconds),
          slowing to twice that at its limit; the softest ground adds suction of 0.3 of the stuck vehicle's weight. A recovery tow takes a

@@ -288,8 +288,9 @@ pitches a camp of its own ([camping](camping.md#camping-awning-roof-tent-and-swa
 2. **Load it** through its cargo tab while it stands unhitched.
 3. **Hitch it**: select a land vehicle, press **Hitch a trailer** and pick the trailer, within 8 cells. A colonist who hauls walks over and
    couples it, and it is set straight behind the vehicle.
-4. **Drive.** The trailer follows on the map, cuts inside corners and can be shot. **If it would run into a wall or another vehicle, the
-   vehicle stops and says so**: take a wider way round, or unhitch.
+4. **Drive.** The trailer follows on the map, cuts inside corners and can be shot. The vehicle keeps off walls and fences where it can,
+   and looks for another way round where the trailer would not fit. **If the trailer would still run into a wall or another vehicle,
+   the vehicle stops and says so**: choose a more open way, or unhitch.
 5. **Unhitch** (on the vehicle or the trailer) leaves it where it stands, loaded, for later.
 
 **Its weight is the towing vehicle's to pull.** A full trailer slows a small truck, runs its engine hotter and costs fuel; on mud or a

@@ -13,6 +13,23 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.277.0] - 2026-11-24 - Draft
+
+A vehicle that tows takes a wider way round
+
+### Added
+
+- **A vehicle towing a trailer takes a wider way round** (the owner's go-ahead of 24 November 2026, after the L-ATV stopped with "The trailer cannot follow"). It keeps away from walls, fences and rock where it can, so the trailer has room to cut the corners behind it, and each route it takes is checked for the whole line behind before it is driven. Where a trailer would run into something, the vehicle looks for another way round, up to three times; if none fits, it says so and sets off anyway. A setting, on by default: "Vehicles that tow take a wider way round". How it works is in the hitches and trailers page of the development docs. Not yet tested in game.
+
+### Compatibility and limits
+
+- **Needs Vehicle Framework's newer path finder**, the one its 1.7 release uses. If Vehicle Framework goes back to its older path finder, towing vehicles route as before, with no errors.
+- **The route check is a forecast**: a vehicle that moves into the way after the check, or a path Vehicle Framework changes on its own, can still stop the train as before.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.276.4] - 2026-11-24 - Draft
 
 Send to yard and Take out of yard always go

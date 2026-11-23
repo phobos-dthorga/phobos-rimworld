@@ -62,16 +62,13 @@ public sealed partial class CompPhobosHitch
     {
         int facing = rot.AsInt;
         double heading = facing * 90.0;
-        double radians = heading * System.Math.PI / 180.0;
         (double cx, double cz) = HitchRule.TrueCentre(0, 0, head.def.Size.x, head.def.Size.z, facing);
         VehiclePawn front = head;
         foreach (VehiclePawn next in Behind(head))
         {
             if (Geometry(next) is not { } props) return null;
-            float behind = front.def.GetModExtension<PhobosHitchPointExtension>() is { behindCentre: >= 0f } point
-                ? point.behindCentre
-                : front.def.Size.z / 2f + Rules.hitchGapCells;
-            TrailerPose pose = HitchRule.AxleFor(cx - System.Math.Sin(radians) * behind, cz - System.Math.Cos(radians) * behind, heading, props.HitchToAxle);
+            (double hx, double hz) = HitchRule.BehindPoint(cx, cz, heading, HitchBehind(front.def));
+            TrailerPose pose = HitchRule.AxleFor(hx, hz, heading, props.HitchToAxle);
             (cx, cz) = HitchRule.CentreOf(pose, props.AxleToCentre);
             if (next == member)
             {

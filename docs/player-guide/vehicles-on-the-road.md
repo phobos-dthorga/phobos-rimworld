@@ -279,8 +279,11 @@ Any land vehicle can tow a trailer such as the [Pintle flatbed](working-vehicles
 - **Before you hitch, read the label beside the mouse**: it says what the tow would be like on the ground where the vehicle stands
   (full speed, slowed by the engine or by grip, a crawl, or too heavy), or why it cannot be hitched. It is a forecast: hills and
   mud on the way can make it worse.
-- **The trailer stays on the map** and follows the hitch. **If it would hit a wall or another vehicle, the vehicle stops and says
-  so**.
+- **The trailer stays on the map** and follows the hitch, cutting inside corners as a real one does. **A vehicle that tows takes a
+  wider way round**: it keeps off walls, fences and rock where it can, and checks each route for its trailer before it sets off,
+  looking for another way where the trailer would not fit. If there is none it says so and goes anyway. **If the trailer would
+  still hit a wall or another vehicle, the vehicle stops and says so**: choose a more open way, or unhitch. **Vehicles that tow take
+  a wider way round** (under **Towing** in D'thorga Framework's settings, on by default) turns the wider way off.
 - **The engine pulls the trailer and its load too**: lower gears, more heat, more fuel, a crawl on soft ground or uphill. The
   trailer adds no grip.
 - **A towing vehicle's panels say what holds it back**: the inspect panel, the Dashboard and the Systems tab name what it tows,

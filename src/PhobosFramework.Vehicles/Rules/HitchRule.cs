@@ -54,6 +54,13 @@ public static class HitchRule
         return new TrailerPose(hitchX - Math.Sin(radians) * length, hitchZ - Math.Cos(radians) * length, Normalize(heading));
     }
 
+    /// <summary>The point <paramref name="behind"/> cells back from a middle along a heading: where a vehicle's hitch is.</summary>
+    public static (double X, double Z) BehindPoint(double centreX, double centreZ, double heading, double behind)
+    {
+        double radians = heading * Math.PI / 180.0;
+        return (centreX - Math.Sin(radians) * behind, centreZ - Math.Cos(radians) * behind);
+    }
+
     /// <summary>The heading of a direction: 0 north (+z), 90 east (+x), within [0, 360).</summary>
     public static double HeadingOf(double dx, double dz) => Normalize(Math.Atan2(dx, dz) * 180.0 / Math.PI);
 

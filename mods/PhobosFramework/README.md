@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.276.4, built 24 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.277.0, built 24 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -146,6 +146,7 @@ offers to restart). RimWorld saves only what you change.
 | Engines and driving | Rough ground wears tyres and suspension | Up to three times the tyre wear off the roads | On |
 | Engines and driving | Vehicles you did not send pass over your traps | A vehicle of yours driving without your order (a bay trip, a run, a tow, a caravan setting off) never sets off a trap; enemy vehicles still do | On |
 | Engines and driving | Vehicles without the drivetrain model can tow | Lets other vehicles tow on a plain rule | Off |
+| Engines and driving | Vehicles that tow take a wider way round | A vehicle towing keeps off walls and fences, and looks for another way where its trailer would not fit | On |
 | Engines and driving | Headlights light the ground | Switched-on headlights light the ground at night; off if many vehicles slow the game | On |
 | Engines and driving | Lights switch themselves | Headlights light while driven at night, work lamps while parked at night with people near (on battery only above half charge); off, the buttons switch them by hand | On |
 | Engines and driving | Jump-start leads must be crafted | A jump-start needs a jump-start kit | On |

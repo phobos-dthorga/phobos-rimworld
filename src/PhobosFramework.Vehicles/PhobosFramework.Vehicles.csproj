@@ -11,7 +11,7 @@
     <ModFolder>PhobosFramework</ModFolder>
     <TieInFolder>Mods/VehicleFramework/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.276.4</Version>
+    <Version>0.277.0</Version>
     <!-- Vehicle Framework targets .NET Framework 4.8; the game loads it whatever it declares. -->
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
@@ -25,6 +25,11 @@
     </Reference>
     <Reference Include="SmashTools">
       <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- Framework 0.277.0: the wider way round adds a cost grid to Vehicle Framework's newer path finder, whose base grid lives here. -->
+    <Reference Include="SmashTools.PathFinder">
+      <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.PathFinder.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="CoreLib" Condition="Exists('$(VehicleFrameworkAssemblies)\CoreLib.dll')">

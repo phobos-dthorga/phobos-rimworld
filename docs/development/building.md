@@ -34,7 +34,7 @@ Generated from the project files by `python scripts/doc-tables.py --write`: chan
 | `PhobosFarming` | `mods/PhobosFarming/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `SmashTools`, `CoreLib` | yes | none |
 | `PhobosFramework` | `mods/PhobosFramework/` | none | none | yes | `PhobosFramework.Rules.Tests`, `PhobosFramework.Vehicles.Rules.Tests` |
 | `PhobosFramework.Hygiene` | `mods/PhobosFramework/Mods/DubsBadHygiene/` | `PhobosFramework` | `BadHygiene` | yes | none |
-| `PhobosFramework.Vehicles` | `mods/PhobosFramework/Mods/VehicleFramework/` | `PhobosFramework` | `Vehicles`, `SmashTools`, `CoreLib` | yes | `PhobosFramework.Vehicles.Rules.Tests` |
+| `PhobosFramework.Vehicles` | `mods/PhobosFramework/Mods/VehicleFramework/` | `PhobosFramework` | `Vehicles`, `SmashTools`, `SmashTools.PathFinder`, `CoreLib` | yes | `PhobosFramework.Vehicles.Rules.Tests` |
 | `PhobosFramework.Vehicles.Dmse` | `mods/PhobosFramework/Mods/VehiclesDmse/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `DMSE`, `Vehicles`, `SmashTools` | yes | none |
 | `PhobosFramework.Vehicles.Hygiene` | `mods/PhobosFramework/Mods/VehiclesHygiene/` | `PhobosFramework`, `PhobosFramework.Hygiene`, `PhobosFramework.Vehicles` | `Vehicles`, `BadHygiene` | yes | none |
 | `PhobosFramework.Vehicles.Outposts` | `mods/PhobosFramework/Mods/VehiclesOutposts/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `Outposts`, `Vehicles`, `SmashTools` | no | none |
