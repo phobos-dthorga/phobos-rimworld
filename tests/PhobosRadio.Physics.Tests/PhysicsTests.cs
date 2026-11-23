@@ -102,6 +102,50 @@ public class NoiseFloorTests
         Assert.Equal(-66.02, NoiseFloor.AtDistanceDbm(-60, 2), 2);
         Assert.Equal(-100.0, NoiseFloor.AtDistanceDbm(-60, 100), 2);
     }
+
+    [Fact]
+    public void NoiseIsUntouchedInsideTheFade()
+    {
+        Assert.Equal(0.0, NoiseFloor.FadeDb(0, 12, 2.0 / 3.0));
+        Assert.Equal(0.0, NoiseFloor.FadeDb(8, 12, 2.0 / 3.0));
+    }
+
+    [Fact]
+    public void NoiseFadesSmoothlyToNothingAtTheRadius()
+    {
+        // Halfway through the fade the power weight is a half: −3 dB.
+        Assert.Equal(-3.01, NoiseFloor.FadeDb(10, 12, 2.0 / 3.0), 2);
+        Assert.True(NoiseFloor.FadeDb(11.9, 12, 2.0 / 3.0) < -20);
+        Assert.True(double.IsNegativeInfinity(NoiseFloor.FadeDb(12, 12, 2.0 / 3.0)));
+        Assert.True(double.IsNegativeInfinity(NoiseFloor.FadeDb(13, 12, 2.0 / 3.0)));
+    }
+
+    [Fact]
+    public void TheFadeNeverRises()
+    {
+        var last = 0.0;
+        for (var d = 0.0; d < 12; d += 0.25)
+        {
+            var fade = NoiseFloor.FadeDb(d, 12, 2.0 / 3.0);
+            Assert.True(fade <= last + 1e-12, $"fade rose at {d}");
+            last = fade;
+        }
+    }
+
+    [Fact]
+    public void AFadeStartOfOneKeepsTheHardEdge()
+    {
+        Assert.Equal(0.0, NoiseFloor.FadeDb(11.99, 12, 1.0));
+        Assert.True(double.IsNegativeInfinity(NoiseFloor.FadeDb(12, 12, 1.0)));
+    }
+
+    [Fact]
+    public void TwoLevelsSumWithoutTheListForm()
+    {
+        Assert.Equal(Decibels.PowerSumDbm(new[] { -100.0, -97.0 }), Decibels.PowerSumDbm(-100, -97), 9);
+        Assert.Equal(-100.0, Decibels.PowerSumDbm(-100, double.NegativeInfinity), 9);
+        Assert.True(double.IsNegativeInfinity(Decibels.PowerSumDbm(double.NegativeInfinity, double.NegativeInfinity)));
+    }
 }
 
 public class CoaxTests
@@ -159,6 +203,16 @@ public class LinkSheetTests
         Assert.True(link.ReverseLimits);
         Assert.Equal(reverse.MarginDb, link.MarginDb, 6);
         Assert.Equal(LinkOutcome.Marginal, link.Outcome);
+    }
+
+    [Fact]
+    public void TheOverlaysArithmeticIsTheSheets()
+    {
+        var forwardInputs = Handheld250mOpenGround();
+        var reverseInputs = Handheld250mOpenGround() with { ObstructionLossDb = 80 };
+        var sheet = new LinkBudget(new LinkDirection(forwardInputs), new LinkDirection(reverseInputs), MarginBands.Default);
+        Assert.Equal(sheet.MarginDb, LinkMath.TwoWayMarginDb(forwardInputs, reverseInputs), 12);
+        Assert.Equal(new LinkDirection(forwardInputs).ReceivedDbm, LinkMath.ReceivedDbm(forwardInputs), 12);
     }
 
     [Theory]

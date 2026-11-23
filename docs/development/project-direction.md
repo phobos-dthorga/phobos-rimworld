@@ -6,8 +6,8 @@
   published free on the Steam Workshop for anyone to use and build on.
 - **The first project is the [D'thorga Radio Framework](radio-framework-design.md)** (working title).
   It is an XML-extensible framework where a real link budget decides every contact. Phase 1 (local
-  VHF/UHF on one map) was built, up to Radio Framework 0.1.6. **It has been on the back burner since 9 Nov 2026** (owner): no
-  new features or phases until the owner picks it up again; a fix for something reported broken is still fine.
+  VHF/UHF on one map) was built, up to Radio Framework 0.1.6. It was on the back burner from 9 Nov 2026 and **the owner reopened it
+  on 23 Nov 2026**, for its map pictures first ([radio visuals](radio-visuals.md)), with performance as its first concern.
 - **Frameworks that others can extend.** Hardware and tuning are Defs, so other modders add bands, radios
   and antennas in XML. Tie-ins with other mods are optional and switch on only when those mods are active.
 - **Keep it a working slice.** Build the smallest version that proves the idea in play, then grow it. Drop
@@ -129,6 +129,8 @@ load folder or patch.
 | 18 Nov 2026 | Engine loads and elevation, the owner's further rulings: **the whole ledger built at once**; **altitude (thin air taking engine power) is one of the next few slices**; **descents and engine braking stay held** until after the ledger; **the four safe gaps of the elevation record fixed** with it ([engine loads](archive/vehicle-engine-loads.md), [world elevation](world-elevation-and-descents.md)) | owner (the first against the agent's recommendation of a smaller slice) |
 | 18 Nov 2026 | **A world tile is about 30 km across** (29.4 km from our vehicles' own speed, 31.5 km from an Earth-sized planet, which Atmosphere Overhaul also assumes), for every figure that needs one: vehicles' net slope, real aircraft ranges, radio's reach ([world elevation](world-elevation-and-descents.md#how-big-a-tile-is)). Nothing reads it in code yet | owner (agent's recommendation) |
 | 18 Nov 2026 | An aircraft that **cannot hover where its journey ends** comes in for **a rolling landing** under the refuse setting, wearing its undercarriage, rather than crashing or straining its engines ([the landing check](vehicle-altitude-and-turbines.md#the-landing-check-at-a-journeys-end-framework-01400)) | owner (agent's recommendation) |
+| 23 Nov 2026 | **The radio framework is reopened** (owner: "Reopen the radio"), for its map pictures first ([radio visuals](radio-visuals.md)); **performance is the mod's first concern** (owner: "performance is our outmost concern for this mod"; the rule is in `src/PhobosRadio/AGENTS.md`) | owner (the rule's four working points are the agent's) |
+| 23 Nov 2026 | The radio's coverage picture **shows while a base station or an antenna is selected** (no button, no Harmony patch); **noise fades smoothly to nothing at the edge of its reach**, with ground-wave physics left to try later against a benchmark of the rest ([radio visuals](radio-visuals.md#reopened-23-nov-2026)). Built in Radio Framework 0.2.0 | owner (agent's recommendations) |
 
 ## Open checks
 

@@ -38,6 +38,9 @@ public sealed class RadioEndpoint
         AntennaLabel = antennaLabel;
     }
 
+    /// <summary>What this end brings to a link on a band.</summary>
+    public EndSide Side(BandDef band) => new(Physics.Decibels.FromWatts(TransmitPowerWatts), AntennaGainDbi, FeedLossDb(band));
+
     public float FeedLossDb(BandDef band)
     {
         var total = 0f;

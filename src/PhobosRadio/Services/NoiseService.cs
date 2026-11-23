@@ -8,7 +8,7 @@ namespace Phobos.Radio.Services;
 /// <summary>
 /// The colony's own electrical noise. A snapshot is taken once per recompute by scanning the colonist
 /// buildings whose Defs carry <see cref="RadioNoiseExtension"/>; endpoints then sum the few sources in
-/// range. Nothing here walks cells.
+/// range. Nothing here walks cells, and asking about a cell allocates nothing (the coverage overlay asks for every cell it paints).
 /// </summary>
 public sealed class NoiseService
 {
@@ -28,7 +28,7 @@ public sealed class NoiseService
 
     private static Dictionary<ThingDef, RadioNoiseExtension>? noisyDefs;
     private readonly List<Source> sources = new();
-    private readonly List<double> levels = new();
+    private float fadeStartFraction = 1f;
 
     private static Dictionary<ThingDef, RadioNoiseExtension> NoisyDefs
     {
@@ -49,16 +49,29 @@ public sealed class NoiseService
 
     public int SourceCount => sources.Count;
 
+    /// <summary>
+    /// Changes whenever the snapshot holds different sources (one switched on or off, built, moved or gone), so a picture drawn from
+    /// an earlier snapshot knows to redraw. Equal snapshots give equal signatures.
+    /// </summary>
+    public int Signature { get; private set; }
+
     public void Snapshot(Map map, RadioRulesDef rules)
     {
         sources.Clear();
-        if (NoisyDefs.Count == 0) return;
-        foreach (var building in map.listerBuildings.allBuildingsColonist)
+        fadeStartFraction = rules.noiseFadeStartFraction;
+        var signature = 17;
+        if (NoisyDefs.Count > 0)
         {
-            if (!NoisyDefs.TryGetValue(building.def, out var extension) || !IsActive(building, extension)) continue;
-            var radius = extension.radiusCells > 0 ? extension.radiusCells : rules.noiseRadiusDefaultCells;
-            sources.Add(new Source(building.Position, extension.noiseDbmAt1m, radius));
+            foreach (var building in map.listerBuildings.allBuildingsColonist)
+            {
+                if (!NoisyDefs.TryGetValue(building.def, out var extension) || !IsActive(building, extension)) continue;
+                var radius = extension.radiusCells > 0 ? extension.radiusCells : rules.noiseRadiusDefaultCells;
+                sources.Add(new Source(building.Position, extension.noiseDbmAt1m, radius));
+                signature = unchecked(signature * 31 + Gen.HashCombineInt(building.Position.GetHashCode(), radius)
+                                      + extension.noiseDbmAt1m.GetHashCode());
+            }
         }
+        Signature = unchecked(signature * 31 + sources.Count);
     }
 
     private static bool IsActive(Building building, RadioNoiseExtension extension)
@@ -77,16 +90,20 @@ public sealed class NoiseService
         }
     }
 
-    /// <summary>Local noise at a cell in dBm, or −∞ when no source reaches it.</summary>
+    /// <summary>
+    /// Local noise at a cell in dBm, or −∞ when no source reaches it: each source by the inverse-square law, faded to nothing towards
+    /// its radius (<see cref="NoiseFloor.FadeDb"/>), power-summed.
+    /// </summary>
     public double LocalNoiseDbm(IntVec3 cell, float metresPerCell)
     {
-        levels.Clear();
+        double milliwatts = 0;
         foreach (var source in sources)
         {
             var distanceCells = source.Cell.DistanceTo(cell);
-            if (distanceCells > source.RadiusCells) continue;
-            levels.Add(NoiseFloor.AtDistanceDbm(source.LevelDbmAt1m, distanceCells * metresPerCell));
+            var fade = NoiseFloor.FadeDb(distanceCells, source.RadiusCells, fadeStartFraction);
+            if (double.IsNegativeInfinity(fade)) continue;
+            milliwatts += Decibels.ToMilliwatts(NoiseFloor.AtDistanceDbm(source.LevelDbmAt1m, distanceCells * metresPerCell) + fade);
         }
-        return levels.Count == 0 ? double.NegativeInfinity : Decibels.PowerSumDbm(levels);
+        return Decibels.MilliwattsToDbm(milliwatts);
     }
 }

@@ -46,6 +46,30 @@ public static class RadioDebugActions
         Log.Message($"[PhobosRadio] {cell}: local noise {(double.IsNegativeInfinity(noise) ? "none" : noise.ToString("0.0") + " dBm")}, roof loss {roof:0} dB");
     }
 
+    /// <summary>
+    /// The coverage overlay's cost on this colony (Radio 0.2.0): one whole pass for each selected station or antenna, timed. Performance is
+    /// the mod's first concern, so this is how its rules' budget is tuned. It pauses the game for as long as the pass takes.
+    /// </summary>
+    [DebugAction(Category, "Time coverage of selected station or antenna", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    private static void TimeCoverage()
+    {
+        var map = Find.CurrentMap;
+        if (map == null) return;
+        var coverage = RadioCoverage.For(map);
+        var sb = new StringBuilder();
+        foreach (var selected in Find.Selector.SelectedObjects)
+        {
+            if (selected is not Thing thing || (thing.TryGetComp<CompRadio>()?.Props.isStation != true && thing.TryGetComp<CompAntenna>() == null)) continue;
+            var (milliseconds, cells, ends) = coverage.TimeFullPass(thing);
+            var budget = RadioRulesDef.Current.coverageBudgetMsPerFrame;
+            sb.AppendLine($"  {thing.LabelCap}: {cells} cells through {ends} antenna(s) in {milliseconds:0.0} ms " +
+                          $"({(cells == 0 ? 0 : milliseconds * 1000 / cells):0.0} µs a cell); about {milliseconds / budget:0} frames at {budget} ms a frame");
+        }
+        Log.Message(sb.Length == 0
+            ? "[PhobosRadio] Select a base station or an antenna first."
+            : $"[PhobosRadio] Coverage, one whole pass ({map.Size.x} x {map.Size.z} map):\n{sb}");
+    }
+
     [DebugAction(Category, "Recompute radio net now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     private static void RecomputeNow()
     {

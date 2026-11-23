@@ -89,6 +89,16 @@ public sealed class RadioNet : MapComponent
 
     public void MarkDirty() => dirty = true;
 
+    /// <summary>The noise snapshot every link on this map was worked out against; the coverage overlay reads the same one.</summary>
+    public NoiseService Noise
+    {
+        get
+        {
+            EnsureFresh();
+            return noise;
+        }
+    }
+
     /// <summary>Local noise at a cell from the last snapshot, in dBm, or −∞ when nothing reaches it.</summary>
     public double NoiseAt(IntVec3 cell)
     {
@@ -182,7 +192,7 @@ public sealed class RadioNet : MapComponent
     /// Every antenna a station can use: its built-in whip, plus each antenna building on its coax that a
     /// cable path reaches. The link picks the best of them, so the best antenna for the band emerges.
     /// </summary>
-    private static List<RadioEndpoint> StationEndpoints(CompRadio station, float metresPerCell)
+    public static List<RadioEndpoint> StationEndpoints(CompRadio station, float metresPerCell)
     {
         var ends = new List<RadioEndpoint> { RadioEndpoint.BuiltIn(station.parent, station.parent.Position, station) };
         var port = station.parent.TryGetComp<CompFeedlinePort>();

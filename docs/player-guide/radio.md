@@ -9,7 +9,6 @@ This is the first step, local radio on one map. [Back to the guide](README.md).
 ## Read this first (gotchas)
 
 - **Not yet tested in game.** It has been built and installed, but not yet seen running.
-- **Work on the radio is paused for now**: it stays as described here, and faults reported in play are still fixed.
 - **Needs Vanilla Expanded Framework** (the coax is its pipe network). No Harmony, no D'thorga Framework.
 - **Decide Metres per map cell before a colony** (default 1). It changes every contact's range.
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a radio together.
@@ -36,12 +35,14 @@ Research **local radio** (after Microelectronics basics).
   sees over walls**, and the last few cells near the hand-held bite.
 - **Natural rock** blocks almost everything. **A mountain base needs coax out to an antenna on the surface.**
 - **The roof over each end**: a built roof costs a little, thin mountain roof a lot, overhead mountain nearly everything.
-- **Your own generators and batteries** raise the noise near them.
+- **Your own generators and batteries** raise the noise near them, fading out towards the edge of their reach.
 - **Both directions count, and the worse one decides**: usually the 5 W hand-held, not the 25 W station.
 
 A colonist wearing a hand-held has a **Radio** button with signal bars; click it for the full working. The station's **Net** tab
 says who is in touch and which antenna it uses: whichever antenna on its coax gives the best link, or its built-in whip if that is
-better or nothing is connected. A colonist in good contact gets a small **in touch with home** mood, and a fainter one on a weak
+better or nothing is connected. **Select the station or an antenna and the map shows its coverage**: brighter where a hand-held
+would reach it well, dark red where it would not, with every door counted as closed. It fills in roughly at once and finely over a
+few seconds, and redraws when you build, so you can see a wall's radio shadow appear. A colonist in good contact gets a small **in touch with home** mood, and a fainter one on a weak
 link. **While placing** an antenna or the station, the cursor shows its height, the roof and the noise there; red means overhead
 mountain.
 
@@ -55,8 +56,10 @@ opens can show one level more than your setting.
 2. Walk outside, then behind a stone wall, then into a mountain: watch the bars and the reason.
 3. Lay coax from the station out to a mast antenna, and see the station switch to it.
 4. Stand near a running generator: the noise appears and the margin falls.
-5. Open the Engineer sheet: every term should add up to the margin, and the limiting direction should make sense (the 5 W hand-held
+5. Select the station: the map shows its coverage. Build a stone wall near a mast and watch its shadow; select a mast near a running
+   generator and see the whole map dim.
+6. Open the Engineer sheet: every term should add up to the margin, and the limiting direction should make sense (the 5 W hand-held
    usually limits, not the 25 W station).
-6. Check the needs tab for "in touch with home".
+7. Check the needs tab for "in touch with home".
 
 The figures, the settings and the notes for modders are in [D'thorga Radio Framework's README](../../mods/PhobosRadioFramework/README.md).

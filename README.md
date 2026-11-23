@@ -37,7 +37,7 @@ chapter in the [player guide](docs/player-guide/README.md). Several older mods w
 | [D'thorga Patches](mods/PhobosPatches/README.md) | Fixes and honest costs for other authors' mods: the Harrier VTOL, RimThunder's heavy casting, Spaceship Turret Hull under Combat Extended, InterRim Ballistic Missile's strategic blast, Visit Settlements and Vehicle Framework | Partly: the stuck vehicle fires, and the missile fix once |
 | [D'thorga Farming](mods/PhobosFarming/README.md) | Machines that work your fields: machine-worked paddocks, a combine harvester that cuts them row by row, and a chaser bin for its grain | No |
 | [D'thorga Water Tap](mods/PhobosWaterTap/README.md) | A plumbing fixture for Dubs Bad Hygiene that keeps bottled water ready and refills from your water towers | No |
-| [D'thorga Radio Framework](mods/PhobosRadioFramework/README.md) | Phase 1 of the radio design: hand-held VHF and UHF radios, a base station, coax and antennas, a real link budget. **On the back burner since 9 November 2026**: no new features until the owner picks it up again | No |
+| [D'thorga Radio Framework](mods/PhobosRadioFramework/README.md) | Phase 1 of the radio design: hand-held VHF and UHF radios, a base station, coax and antennas, a real link budget. Work on it started again on 23 November 2026 | No |
 
 What each mod needs from other authors, and from one another (read from each mod's About file):
 

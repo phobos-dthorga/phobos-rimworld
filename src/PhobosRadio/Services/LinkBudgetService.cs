@@ -52,13 +52,14 @@ public static class LinkBudgetService
         var bands = rules.MarginBands;
 
         LinkEvaluation? best = null;
+        var crossings = ObstructionService.Walk(map, a.Cell, a.AntennaHeightMetres, b.Cell, b.AntennaHeightMetres, rules);
         foreach (var band in a.Bands)
         {
             if (!b.Bands.Contains(band)) continue;
-            var pathLoss = Propagation.FreeSpacePathLossDb(distanceMetres, band.centreMHz);
-            var obstruction = ObstructionService.LossDb(map, a, b, band, rules);
-            var forward = new LinkDirection(Inputs(a, b, band, pathLoss, obstruction, floorAtB, mode));
-            var reverse = new LinkDirection(Inputs(b, a, band, pathLoss, obstruction, floorAtA, mode));
+            var pathLoss = PathLossDb(distanceMetres, band);
+            var obstruction = crossings.LossDb(band);
+            var forward = new LinkDirection(Inputs(a.Side(band), b.Side(band), pathLoss, obstruction, floorAtB, mode));
+            var reverse = new LinkDirection(Inputs(b.Side(band), a.Side(band), pathLoss, obstruction, floorAtA, mode));
             var budget = new LinkBudget(forward, reverse, bands);
             if (best == null || budget.MarginDb > best.MarginDb)
             {
@@ -68,16 +69,27 @@ public static class LinkBudgetService
         return best;
     }
 
-    private static LinkInputs Inputs(RadioEndpoint tx, RadioEndpoint rx, BandDef band, double pathLossDb, double obstructionDb,
-        double noiseFloorAtRxDbm, ModeDef mode) =>
+    /// <summary>Distance on a band: free space, the only path model on one map.</summary>
+    public static double PathLossDb(double distanceMetres, BandDef band) =>
+        Propagation.FreeSpacePathLossDb(distanceMetres, band.centreMHz);
+
+    /// <summary>
+    /// One direction's inputs, from the transmitting side and the receiving side. Every contact and every coverage cell builds its
+    /// inputs here, so the overlay and the link sheet cannot drift apart (Radio 0.2.0).
+    /// </summary>
+    public static LinkInputs Inputs(in EndSide tx, in EndSide rx, double pathLossDb, double obstructionDb, double noiseFloorAtRxDbm,
+        ModeDef mode) =>
         new(
-            TransmitPowerDbm: Decibels.FromWatts(tx.TransmitPowerWatts),
+            TransmitPowerDbm: tx.TransmitPowerDbm,
             TransmitAntennaGainDbi: tx.AntennaGainDbi,
-            TransmitFeedLossDb: tx.FeedLossDb(band),
+            TransmitFeedLossDb: tx.FeedLossDb,
             PathLossDb: pathLossDb,
             ObstructionLossDb: obstructionDb,
             ReceiveAntennaGainDbi: rx.AntennaGainDbi,
-            ReceiveFeedLossDb: rx.FeedLossDb(band),
+            ReceiveFeedLossDb: rx.FeedLossDb,
             NoiseFloorDbm: noiseFloorAtRxDbm,
             RequiredSnrDb: mode.requiredSnrDb);
 }
+
+/// <summary>What one end brings to a link on one band: its power, its antenna's gain and its cable's loss.</summary>
+public readonly record struct EndSide(double TransmitPowerDbm, double AntennaGainDbi, double FeedLossDb);

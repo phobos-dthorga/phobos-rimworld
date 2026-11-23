@@ -1,7 +1,24 @@
 # Radio framework rules
 
-Moved from the repository's `AGENTS.md` on 18 Nov 2026 (owner's go-ahead), text unchanged; that file points here and keeps
-the back-burner rule. The design is `docs/development/radio-framework-design.md`.
+Moved from the repository's `AGENTS.md` on 18 Nov 2026 (owner's go-ahead), text unchanged; that file points here. **The radio is
+open again** (owner, 23 Nov 2026), after its time on the back burner from 9 Nov 2026. The design is
+`docs/development/radio-framework-design.md`; the pictures it was reopened for are `docs/development/radio-visuals.md`.
+
+## Performance first
+
+- **Performance is this mod's first concern** (owner, 23 Nov 2026, reopening the radio for its map pictures: "I can see these kinds
+  of features becoming a bit of a performance hog if we don't treat them with due care", and "performance is our outmost concern
+  for this mod"). Where a feature's look, detail or realism would cost frame time, the cheaper form wins, and one that cannot be
+  made cheap is not built. **The four points below are the agent's reading of that, for the owner to revise.**
+- **A design states its cost before it is built**: what it touches (cells, things, links), how often, and what makes it run
+  again. A feature with no cost written in its design record is not built.
+- **Nothing runs every tick or every frame for a whole map.** Work happens when something changes (a wall, a roof, an antenna, a
+  noise source, a radio put on or taken off), is spread over ticks where it is large, and is kept until the next change. A picture
+  that is switched off, or whose thing is not selected, costs nothing.
+- **Measured, never assumed**: anything that draws or recomputes is recorded with `python scripts/perf.py` before and after, on
+  the owner's colony (ask first, as for every recording), and its design record keeps the figures. The owner's PC is a best case
+  for players.
+- **A costly picture is the player's choice**: it starts switched off, and a coarser, cheaper form is offered where one exists.
 
 ## Phases and the design
 

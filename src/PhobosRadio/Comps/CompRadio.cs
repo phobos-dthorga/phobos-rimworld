@@ -83,6 +83,12 @@ public class CompRadio : ThingComp
         yield return SignalGizmo.ForStation(this, RadioNet.For(parent.Map));
     }
 
+    /// <summary>While a station is selected, the map shows its coverage (Radio 0.2.0); the picture's own service does the work.</summary>
+    public override void PostDrawExtraSelectionOverlays()
+    {
+        if (Props.isStation && parent.Spawned && parent.Faction == Faction.OfPlayer) RadioCoverage.For(parent.Map).Show(parent);
+    }
+
     public override string CompInspectStringExtra()
     {
         if (!Props.isStation || !parent.Spawned) return string.Empty;
@@ -102,6 +108,12 @@ public class CompRadio : ThingComp
         }
         sb.AppendLine();
         sb.Append("PhobosRadio_StationAntenna".Translate(net.AntennaLabelFor(parent).ToString().Named("ANTENNA")));
+        var coverage = RadioCoverage.For(parent.Map).InspectLine(parent);
+        if (coverage != null)
+        {
+            sb.AppendLine();
+            sb.Append(coverage);
+        }
         return sb.ToString();
     }
 

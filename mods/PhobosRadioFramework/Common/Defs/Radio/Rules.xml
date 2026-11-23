@@ -23,6 +23,16 @@
     <wallHeightMetres>2.5</wallHeightMetres>
 
     <noiseRadiusDefaultCells>12</noiseRadiusDefaultCells>
+    <!-- A source's noise fades smoothly to nothing over the last third of its radius, so its edge is a glow, not a ring (the
+         owner's choice, 23 Nov 2026). An authored simplification: real noise has no radius. 1 keeps the old hard edge. -->
+    <noiseFadeStartFraction>0.67</noiseFadeStartFraction>
+
+    <!-- The coverage overlay shown while a base station or an antenna is selected. Performance is this mod's first concern, so
+         these bound its cost: real time per frame, the quick first pass's block size. All authored; measure and tune. -->
+    <coverageFullScaleDb>130</coverageFullScaleDb>
+    <coverageBudgetMsPerFrame>1.5</coverageBudgetMsPerFrame>
+    <coverageCoarseBlockCells>4</coverageCoarseBlockCells>
+    <coverageOpacity>0.45</coverageOpacity>
     <recomputeIntervalTicks>60</recomputeIntervalTicks>
 
     <!-- The vanilla heater turns 175 W into 21 heat per second (Core, Buildings_Temperature.xml). -->

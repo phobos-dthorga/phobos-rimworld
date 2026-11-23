@@ -157,12 +157,12 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Universal hoppers](universal-hoppers.md) (17 Nov 2026): who reads a hopper, the bulk bunker, belts to vehicles, UH1 to UH16. Partly built.
 - [Water tap](water-tap.md) (4 Nov 2026): Dubs Bad Hygiene's bottles and water quality, and the split-stack fix. Built.
 
-## Radio (on the back burner)
+## Radio
 
 - [D'thorga Radio Framework: design](radio-framework-design.md) (18 Oct 2026): the owner's design, a snapshot of the living doc. Phase 1 built.
 - [Radio reference checks](radio-reference-checks.md) (18 Oct 2026): each reference figure checked against its source. Research.
 - [Map scale research](map-scale-research.md) (19 Oct 2026): what a cell and a world tile measure, and why 1 m per cell. Research.
-- [Radio visuals](radio-visuals.md) (23 Nov 2026): twenty ways to show the link budget as pictures, and a mock-up of three. Record only.
+- [Radio visuals](radio-visuals.md) (23 Nov 2026): twenty ways to show the link budget as pictures; coverage overlay built. Partly built.
 
 ## Art and sound
 

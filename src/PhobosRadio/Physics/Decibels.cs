@@ -34,8 +34,15 @@ public static class Decibels
     {
         double milliwatts = 0;
         foreach (var level in levelsDbm) milliwatts += ToMilliwatts(level);
-        return milliwatts <= 0 ? double.NegativeInfinity : FromMilliwatts(milliwatts);
+        return MilliwattsToDbm(milliwatts);
     }
 
-    public static double PowerSumDbm(double aDbm, double bDbm) => PowerSumDbm(new[] { aDbm, bDbm });
+    /// <summary>
+    /// Two levels summed, with no allocation: the coverage overlay calls this for every cell it paints (Radio 0.2.0). Either level may
+    /// be −∞ (nothing there).
+    /// </summary>
+    public static double PowerSumDbm(double aDbm, double bDbm) => MilliwattsToDbm(ToMilliwatts(aDbm) + ToMilliwatts(bDbm));
+
+    /// <summary>A total in milliwatts back to dBm; nothing at all is −∞.</summary>
+    public static double MilliwattsToDbm(double milliwatts) => milliwatts <= 0 ? double.NegativeInfinity : FromMilliwatts(milliwatts);
 }

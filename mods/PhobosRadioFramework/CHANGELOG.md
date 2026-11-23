@@ -14,6 +14,27 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   what each picture was cut from moved beside the art records, in the repository's assets folder; nothing a player sees
   changes.
 
+## [0.2.0] - 2026-11-24 - Draft
+
+Radio coverage painted on the map, and noise that fades out
+
+### Added
+
+- **Selecting the base station or an antenna paints its radio coverage on the map** (the owner's choice of 23 November 2026):
+  brighter where a hand-held would have more signal to spare, dark red where it has no contact. It uses the same rules as a real
+  contact, costs nothing until something is selected, and works only a little each frame. Not yet tested in game: row 456.
+
+### Changed
+
+- **Electrical noise now fades smoothly to nothing at the edge of its reach** instead of stopping dead (the owner's choice of 23
+  November 2026). Links near the edge of a generator's reach get slightly better. Not yet tested in game: row 457.
+- **The README no longer says the radio framework is on the back burner**: the owner reopened it on 23 November 2026, with
+  performance as its first concern. No change in play.
+
+### Compatibility and limits
+
+- Safe with a running save: nothing new is saved. No new settings.
+
 ## [0.1.9] - 2026-11-21 - Draft
 
 Radio's own Architect tab, and art records cleaned

@@ -5,13 +5,11 @@ costs 6 dB. This is **Phase 1**: local VHF and UHF on one map.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.1.9, built 21 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.2.0, built 24 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
 
-- **On the back burner since 9 November 2026.** No new features or phases until the owner picks it up again. It stays as it is, and
-  a fix for something reported broken is still made.
 - **Requires Vanilla Expanded Framework** (its pipe network carries the coax feedline). Load this mod
   after Core, the DLCs and Vanilla Expanded Framework. It needs no Harmony.
 - **RimWorld 1.7 only** (from 0.1.3; 1.6 is no longer supported). Its About file now lists 1.7, so the mod list no longer calls
@@ -37,7 +35,7 @@ flowchart LR
     Obstacles["Walls and doors below 2.5 m on the line,<br/>natural rock, the roof over each end"] --> Budget
     Noise["Generators and batteries<br/>raise the noise at the receiver"] --> Budget
     Budget{{"Link budget, both directions:<br/>the worse one decides"}} --> Outcome["Workable, faint or no contact"]
-    Outcome --> Shown["Signal gizmo, the station's Net tab,<br/>the link-budget window"]
+    Outcome --> Shown["Signal gizmo, the station's Net tab,<br/>the link-budget window, the coverage on the map"]
     Outcome --> Mood["'In touch with home' mood"]
 ```
 
@@ -63,13 +61,20 @@ figures are here.
 - the roof over each antenna: a built roof costs a little, thin mountain roof a lot, overhead mountain
   almost everything;
 - coax length: 8 dB per 100 m on VHF, more on UHF;
-- your own generators and batteries, which raise the noise floor near them.
+- your own generators and batteries, which raise the noise floor near them: by the inverse-square law, fading smoothly to nothing
+  over the last third of each one's reach (12 cells for a generator, 6 for a battery; an authored simplification, from 0.2.0).
+
+**Coverage on the map** (from 0.2.0): select the base station or an antenna and the map is painted by how well a hand-held would
+reach that station from each spot, brighter for more signal to spare, dark red for no contact. It is worked out with the same
+rules as a real contact, with every door counted as closed and the better of the VHF and UHF hand-helds on each spot. It costs
+nothing until something is selected; then it works for 1.5 ms of each frame, a rough picture first and the full one after, and
+again only when a wall, roof, antenna or noise source changes. The rules Def holds those limits.
 
 **Display modes** (mod settings): *Plain*, *Operator* and *Engineer*, as the guide describes; the
 outcome is the same in each.
 
 **Dev mode** (Actions → Phobos Radio): log the selected pawns' sheets, log the noise at a cell,
-recompute the net now.
+recompute the net now, and time one whole coverage pass of the selected station or antenna (it pauses the game while it runs).
 
 ## For modders
 

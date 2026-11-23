@@ -37,4 +37,21 @@ public static class NoiseFloor
         var d = Math.Max(metres, 1.0);
         return levelAtOneMetreDbm - 20.0 * Math.Log10(d);
     }
+
+    /// <summary>
+    /// How much a source's noise is faded at a distance, in dB to add: 0 inside the fade, then a smooth fall to nothing (−∞) at the
+    /// source's radius, so its edge is a soft glow rather than a hard ring (the owner's choice, 23 Nov 2026). The fade is a power
+    /// weight of smoothstep(1 − (d − start) / (radius − start)) beginning at <paramref name="fadeStartFraction"/> of the radius.
+    /// <b>An authored simplification</b>, not physics: real noise has no radius. It keeps the radius that makes the sum cheap, with
+    /// no visible edge. A fraction of 1 or more gives the old hard edge.
+    /// </summary>
+    public static double FadeDb(double distanceCells, double radiusCells, double fadeStartFraction)
+    {
+        if (radiusCells <= 0 || distanceCells >= radiusCells) return double.NegativeInfinity;
+        var start = radiusCells * Math.Clamp(fadeStartFraction, 0.0, 1.0);
+        if (distanceCells <= start) return 0.0;
+        var t = (distanceCells - start) / (radiusCells - start);
+        var weight = 1.0 - t * t * (3.0 - 2.0 * t);
+        return weight <= 0 ? double.NegativeInfinity : 10.0 * Math.Log10(weight);
+    }
 }

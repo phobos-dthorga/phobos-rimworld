@@ -71,6 +71,21 @@ public class RadioRulesDef : Def
 
     // Noise sources without a radius of their own reach this far.
     public int noiseRadiusDefaultCells = 12;
+    /// <summary>
+    /// Where a source's noise starts to fade, as a fraction of its radius; it reaches nothing at the radius (the owner's choice of a
+    /// taper, 23 Nov 2026). 1 keeps the old hard edge. Authored.
+    /// </summary>
+    public float noiseFadeStartFraction = 0.67f;
+
+    // The coverage overlay (Radio 0.2.0). Performance is the mod's first concern: these bound what it costs.
+    /// <summary>Signal to spare, in dB, at which the overlay reaches its brightest colour. Authored from the mock-up's open ground.</summary>
+    public float coverageFullScaleDb = 130f;
+    /// <summary>The most real time the overlay spends working out cells in one frame, in milliseconds. Authored; measure and tune.</summary>
+    public float coverageBudgetMsPerFrame = 1.5f;
+    /// <summary>The first, quick pass works out one cell per square block this many cells wide and paints the block. Authored.</summary>
+    public int coverageCoarseBlockCells = 4;
+    /// <summary>How opaque the overlay is over the map, from 0 to 1. Authored.</summary>
+    public float coverageOpacity = 0.45f;
 
     /// <summary>How often links are recomputed. A pawn walks about four cells in 60 ticks.</summary>
     public int recomputeIntervalTicks = 60;

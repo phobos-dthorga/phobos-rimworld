@@ -42,10 +42,10 @@ its folder is open yet**: running a script does not load them.
   shipping any picture or sound, and before touching a texture or a paint mask.
 - **Vehicles and submarines**: [`src/PhobosFramework.Vehicles/AGENTS.md`](src/PhobosFramework.Vehicles/AGENTS.md). Before
   designing or changing any vehicle, upgrade tree, accessory, part or submarine mechanic, in XML or C#.
-- **Radio framework**: [`src/PhobosRadio/AGENTS.md`](src/PhobosRadio/AGENTS.md): its phases and its physics rules.
-- **The radio framework is on the back burner** (owner, 9 Nov 2026): no new radio features or phases, and no reviews of it, until the
-  owner picks it up again. The mod stays as it is, and a fix to something broken in it is still fine when the owner reports it.
-- **Submarine work is on the back burner too, and out of view** (owner, 20 Nov 2026): no new submarine features or reviews
+- **Radio framework**: [`src/PhobosRadio/AGENTS.md`](src/PhobosRadio/AGENTS.md): performance first, its phases and its physics rules.
+- **The radio framework is open again** (owner, 23 Nov 2026: "Reopen the radio"), after its time on the back burner from 9 Nov 2026.
+  **Performance is its first concern** (the owner, the same day): read its rules above before any radio work.
+- **Submarine work is on the back burner, and out of view** (owner, 20 Nov 2026): no new submarine features or reviews
   until the owner picks it up again; nothing is removed, and a fix to something broken is still fine when the owner reports it.
   The detail is in the vehicles' rules.
 

@@ -1,7 +1,8 @@
 # Radio visuals: showing the link budget as pictures (23 Nov 2026)
 
-**Status (23 Nov 2026):** record only. No code or art is in any mod, and the radio framework stays on the back burner. A working
-mock-up page of the three leading ideas exists outside the repository; it runs the mod's own figures on an invented map.
+**Status (24 Nov 2026):** partly built. RV1, the coverage overlay, shown while a station or an antenna is selected, and the noise
+fade (F2) are built in Radio Framework 0.2.0 ([as built](#as-built-radio-020-24-nov-2026)); not yet tested in game: rows 456 and
+457. Every other idea is unbuilt. The owner reopened the radio on seeing the mock-up ([below](#reopened-23-nov-2026)).
 
 The owner, 23 Nov 2026: "If I were to reopen the Radio mod for Rimworld, what are some strikingly visual ways I could show its
 systems?" Then, of the three ideas the agent put first: "draw the dark mock-up page of the top three, PLEASE <3 But make sure to
@@ -10,8 +11,8 @@ document everything still~". This record is that documentation. The design it se
 
 ## Read this first (gotchas)
 
-- **Nothing here reopens the radio.** The owner asked what could be done if they reopened it. No phase, feature or review starts
-  from this record.
+- **This record was written while the radio was on the back burner**, as an answer to what could be done if it were reopened. The
+  owner then reopened it the same day ([below](#reopened-23-nov-2026)); the rest of the record reads as written before that.
 - **Every idea is an agent's proposal** for the owner to revise. None is tested, in game or on screen.
 - **The mock-up is a drawing in a browser, not the game.** Its map, colonists and colours are invented. Its numbers are the mod's
   own rules and figures, ported to JavaScript by the agent and checked on a handful of cells.
@@ -201,6 +202,72 @@ All **[A]** recommendations; each is the owner's to decide.
 3. **Decide F2**: keep the noise rule's hard edge and let the overlay show it, or fade the rule out.
 4. **Decide where the overlay's switch lives**: a button on the station (no patch), or the game's overlay row (the mod's first
    Harmony patch).
+
+## Reopened (23 Nov 2026)
+
+The owner, on seeing the mock-up: "HOLY SHIT I AM PLAYING THE HELL OUT OF THIS WHEN DEVELOPED." Then: "Reopen the radio: button
+first, and fade the noise out. I'm unsure how to answer the question about the button without more context first and before I
+answer #2, I can see these kinds of features becoming a bit of a performance hog if we don't treat them with due care. As such, put
+in the AGENTS for this mod that performance is our outmost concern for this mod."
+
+| What | Who | Where it stands |
+| --- | --- | --- |
+| The radio is reopened | **[O]** | The root `AGENTS.md` and `src/PhobosRadio/AGENTS.md` say so |
+| Performance is the mod's first concern | **[O]**; its four working points are **[A]** | `src/PhobosRadio/AGENTS.md`, "Performance first" |
+| Where the overlay's switch lives (item 4 above) | **[O]** | **Shown while a station or an antenna is selected**: no button, no patch |
+| The noise rule's hard edge (item 3 above, F2) | **[O]** | **A taper to the edge** for now; ground-wave physics may be tried later |
+
+**Context the owner was given for the switch [game]:** ten active mods in the owner's list already add to the game's overlay row
+(`python scripts/query-patches.py who "PlaySettings.DoPlaySettingsGlobalControls"`, 23 Nov 2026), one of which also removes
+switches it judges unused. Where the switch lives changes nothing about cost: the cost is in working the overlay out.
+
+**The owner's words on the noise fade (question card, 23 Nov 2026):** "Taper to the edge as our choice to develop for now while in
+the future, we can possibly experiment with ground-wave physics once more features are developed and we can do a benchmark against
+everything else to get a true feeling for its effects." The ground-wave option offered was the plane-earth model: beyond a crossover
+distance of about 4π·h₁·h₂/λ (roughly 9 m for a hand-held and 60 m for a 10 m mast on 2 m, by that textbook form) noise falls 12 dB
+per doubling instead of 6. It would raise using the same model for the signals, which changes every link figure. **[A]** Left as a
+later experiment, measured against the rest of the mod as the owner asked.
+
+## As built: Radio 0.2.0 (24 Nov 2026)
+
+What differs from, or settles, the design above. All **[code]**; nothing is tested in game.
+
+**Its cost, stated before building** (the radio's performance rule):
+
+| What | How much | How often | What starts it again |
+| --- | --- | --- | --- |
+| Nothing selected | One field read a frame | Every frame | — |
+| A station or antenna selected, picture current | A few comparisons a frame | Every frame while selected | — |
+| Working cells out | At most 1.5 ms of real time a frame (`coverageBudgetMsPerFrame`) | Only while selected and not finished | Selecting another station or antenna; a building that is an edifice, coax or an antenna port spawning or going; a roof changing; the noise sources changing; the cell scale changing |
+| One cell | The game's straight line to each antenna, cell by cell, stopping early once the link is lost or cannot beat the best so far; a few logarithms per band | Once per pass | — |
+| The quick pass | One cell per 4 by 4 block (`coverageCoarseBlockCells`): about 3,900 cells on a 250 by 250 map | Only when a new station or antenna is selected | — |
+| The full pass | Every standing, unfogged cell: up to 62,500 on a 250 by 250 map | After the quick pass, and once per change | — |
+| Redrawing the picture | The game's cell drawer rebuilds its mesh | Only at the end of each pass, never mid-pass | — |
+| Memory | One float per map cell (250 KB on a 250 by 250 map), kept while the map is loaded | — | — |
+
+**How it is measured:** the dev action **Time coverage of selected station or antenna** times one whole pass and logs milliseconds,
+microseconds a cell and how many frames that is at the budget. Then `python scripts/perf.py` on the owner's colony, with the station
+selected and not, **asked for first**. Until both are done, the 1.5 ms budget is an authored guess. **[A]** The estimate before
+measuring was a few microseconds a cell, so a full pass of several seconds at the budget; the quick pass in a fraction of a second.
+
+**What was built:**
+
+- **Shown while selected [O].** `CompRadio` (a station) and `CompAntenna` ask for the picture from their selection-overlay hook,
+  each frame they are selected; `RadioCoverage`, a map component, does the work in its update and draws through the game's
+  `CellBoolDrawer`. A station shows the best of all its antennas; an antenna shows its own reach through its station; an antenna
+  with no station on its coax says so in its inspect pane.
+- **The picture cannot disagree with a contact.** Every cell goes through the same walk (`ObstructionService.Walk`), the same
+  inputs (`LinkBudgetService.Inputs`) and the same arithmetic (`LinkMath`, game-free and tested) as `LinkBudgetService.Evaluate`.
+  Two choices are the agent's **[A]**: every door counts as closed, so the picture does not redraw when one swings; and each cell
+  shows the better of the hand-held kinds the game has (VHF or UHF).
+- **Colouring [A]:** the mock-up's ramp by signal to spare, 0 to 130 dB (`coverageFullScaleDb`), at 45% opacity; dark red for no
+  contact. Fogged cells, walls and rock are left unpainted.
+- **The noise fade [O]:** `NoiseFloor.FadeDb`, a smoothstep power weight from two thirds of each source's radius
+  (`noiseFadeStartFraction`, 0.67) to nothing at the radius; 1 keeps the old hard edge. It changes every contact near the edge of
+  a noise source, not just the picture.
+- **Cheaper on the way:** summing noise and two levels no longer allocates, and a contact walks its line once for both bands
+  instead of once per band.
+- **Not built:** RV2 (the ray line) and RV4 (the side-on view) are next if the owner wants them; nothing on the game's overlay row.
 
 ## For another game
 

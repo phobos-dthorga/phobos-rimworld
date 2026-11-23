@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Phobos.Radio.Physics;
@@ -43,6 +44,25 @@ public readonly record struct LinkInputs(
     double NoiseFloorDbm,
     double RequiredSnrDb);
 
+/// <summary>
+/// The link arithmetic itself, with no allocation: the sheet below and the coverage overlay both call it, so a picture can never
+/// disagree with a contact (Radio 0.2.0).
+/// </summary>
+public static class LinkMath
+{
+    /// <summary>What arrives at the receiver, in dBm.</summary>
+    public static double ReceivedDbm(in LinkInputs inputs) =>
+        inputs.TransmitPowerDbm + inputs.TransmitAntennaGainDbi - inputs.TransmitFeedLossDb
+        - inputs.PathLossDb - inputs.ObstructionLossDb
+        + inputs.ReceiveAntennaGainDbi - inputs.ReceiveFeedLossDb;
+
+    /// <summary>The signal to spare in one direction, in dB: above the noise, less what the mode needs.</summary>
+    public static double MarginDb(in LinkInputs inputs) => ReceivedDbm(inputs) - inputs.NoiseFloorDbm - inputs.RequiredSnrDb;
+
+    /// <summary>A link is two-way: the worse direction decides.</summary>
+    public static double TwoWayMarginDb(in LinkInputs forward, in LinkInputs reverse) => Math.Min(MarginDb(forward), MarginDb(reverse));
+}
+
 /// <summary>One direction of a link, as a sheet: the ordered terms, what arrives, and the margin.</summary>
 public sealed class LinkDirection
 {
@@ -67,11 +87,9 @@ public sealed class LinkDirection
     public LinkDirection(LinkInputs inputs)
     {
         Inputs = inputs;
-        ReceivedDbm = inputs.TransmitPowerDbm + inputs.TransmitAntennaGainDbi - inputs.TransmitFeedLossDb
-                      - inputs.PathLossDb - inputs.ObstructionLossDb
-                      + inputs.ReceiveAntennaGainDbi - inputs.ReceiveFeedLossDb;
+        ReceivedDbm = LinkMath.ReceivedDbm(inputs);
         SnrDb = ReceivedDbm - inputs.NoiseFloorDbm;
-        MarginDb = SnrDb - inputs.RequiredSnrDb;
+        MarginDb = LinkMath.MarginDb(inputs);
         Terms = new[]
         {
             new LinkTerm(KeyTransmitPower, inputs.TransmitPowerDbm, IsLevel: true),

@@ -43,6 +43,11 @@
   <PhobosRadio_SitingQuiet>Quiet: no colony noise reaches here</PhobosRadio_SitingQuiet>
   <PhobosRadio_SitingNoise>Colony noise here: {NOISE} dBm</PhobosRadio_SitingNoise>
 
+  <!-- The coverage shown on the map while a base station or an antenna is selected. -->
+  <PhobosRadio_CoverageShown>Map shows how well a hand-held would reach this station from each spot: brighter is better, dark red is no contact. Doors count as closed.</PhobosRadio_CoverageShown>
+  <PhobosRadio_CoverageWorking>Working out radio coverage on the map: {PERCENT} done.</PhobosRadio_CoverageWorking>
+  <PhobosRadio_CoverageNoStation>No coverage to show: connect this antenna to a base station with coax.</PhobosRadio_CoverageNoStation>
+
   <!-- Feedline ports. -->
   <PhobosRadio_PortNoCable>No coax connected.</PhobosRadio_PortNoCable>
   <PhobosRadio_PortCableNoAntenna>Coax connected, but no antenna on it.</PhobosRadio_PortCableNoAntenna>
