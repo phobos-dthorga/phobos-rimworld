@@ -88,6 +88,17 @@
     <modExtensions>
       <!-- Doctors carry downed patients who need oxygen here first, and no operation is done on someone lying in it. -->
       <li Class="Phobos.Medical.Defs.PhobosPressureChamberExtension"/>
+      <!-- Takes the bedside facilities other mods give the hospital bed, but only those that better tending or immunity (an IV drip, a
+           vitals centre): comfort furniture does nothing for a patient in a sealed vessel, and nothing is operated on in here. The
+           owner's choice, 23 Nov 2026. Its own stats stand; none are taken. -->
+      <li Class="Phobos.Framework.Buildings.PhobosLinksLikeExtension">
+        <like>HospitalBed</like>
+        <missingStats>false</missingStats>
+        <onlyStats>
+          <li>MedicalTendQualityOffset</li>
+          <li>ImmunityGainSpeedFactor</li>
+        </onlyStats>
+      </li>
     </modExtensions>
   </ThingDef>
 </Defs>

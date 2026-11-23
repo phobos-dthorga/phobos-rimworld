@@ -28,7 +28,6 @@ public class CompPhobosBurnCare : ThingComp
     {
         base.CompTickRare();
         pass = BurnCareService.Care(this);
-        Phobos.Framework.Buildings.LinksLike.NoteLinked(parent);
     }
 
     public override string CompInspectStringExtra() => BurnCareService.StatusOf(this, pass) switch

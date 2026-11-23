@@ -448,6 +448,12 @@
         <fairWeatherOnly>true</fairWeatherOnly>
         <comfortableOnly>true</comfortableOnly>
       </li>
+      <!-- A swag used at home takes the bedroom furniture the game's bedroll takes, from any mod (the owner's choice, 23 Nov 2026).
+           Facilities only: its own stats stand. -->
+      <li Class="Phobos.Framework.Buildings.PhobosLinksLikeExtension">
+        <like>Bedroll</like>
+        <missingStats>false</missingStats>
+      </li>
     </modExtensions>
   </ThingDef>
 

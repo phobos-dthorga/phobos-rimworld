@@ -267,9 +267,17 @@ stat the named building has that yours lacks (your own figures always stand):
   <li Class="Phobos.Framework.Buildings.PhobosLinksLikeExtension">
     <like>HospitalBed</like>
     <missingStats>true</missingStats>   <!-- optional, the default; false takes facilities only -->
+    <onlyStats>                         <!-- optional (0.259.0): only facilities that change one of these -->
+      <li>MedicalTendQualityOffset</li>
+    </onlyStats>
   </li>
 </modExtensions>
 ```
+
+With `onlyStats`, a facility is taken only when its own Def offsets one of the listed stats, so it is chosen by what it does and
+never by its name: our hyperbaric chamber takes a hospital bed's facilities that better tending or immunity and leaves its comfort
+furniture. A facility taken brings all its offsets. Ours so far: the burn unit bed and the hyperbaric chamber (like the hospital
+bed), the swag (like the bedroll) and the vehicle parts bench (like the machining table).
 
 Both sides are updated: your building's list of facilities, and each facility's own list of buildings it links to, which the game
 fills while Defs load. The load line says how many buildings, facilities and stats were taken.

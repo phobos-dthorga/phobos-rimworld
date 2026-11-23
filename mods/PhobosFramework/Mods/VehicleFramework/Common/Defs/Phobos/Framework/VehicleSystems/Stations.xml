@@ -93,6 +93,14 @@
       </li>
       <li Class="CompProperties_Breakdownable" />
     </comps>
+    <modExtensions>
+      <!-- Takes whatever facilities the game's machining table takes, from any mod (the owner's choice, 23 Nov 2026): Vanilla Furniture
+           Expanded - Production's machining cabinet works beside it. Facilities only: its own stats stand. -->
+      <li Class="Phobos.Framework.Buildings.PhobosLinksLikeExtension">
+        <like>TableMachining</like>
+        <missingStats>false</missingStats>
+      </li>
+    </modExtensions>
   </ThingDef>
 
   <!-- An inspection pit beside the parts bench speeds its work (owner, 10 Nov 2026: a production bonus, as Dead Man's Switch does with its

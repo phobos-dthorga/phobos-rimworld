@@ -20,6 +20,26 @@ public class PhobosLinksLikeExtension : DefModExtension
 
     /// <summary>Whether to take the stats the named building has and this one does not (its own figures always stand).</summary>
     public bool missingStats = true;
+
+    /// <summary>
+    /// When given, only facilities that change at least one of these stats are taken (Framework 0.259.0): the hyperbaric chamber takes a
+    /// hospital bed's facilities that better tending or immunity, and leaves its comfort furniture. A facility is chosen by what it
+    /// does, never by its name (the owner's rule: match effects, not names), and a facility taken brings all its offsets.
+    /// </summary>
+    public List<StatDef>? onlyStats;
+}
+
+/// <summary>
+/// On a building that took facilities from another: notes the first of them seen linked, when the building is selected (test rows 428
+/// and 432). Added in code by <see cref="LinksLike"/>, never written in XML. It never ticks and saves nothing.
+/// </summary>
+public class CompPhobosLinksLike : ThingComp
+{
+    public override string? CompInspectStringExtra()
+    {
+        LinksLike.NoteLinked(parent);
+        return null;
+    }
 }
 
 /// <summary>
@@ -30,6 +50,9 @@ public class PhobosLinksLikeExtension : DefModExtension
 [StaticConstructorOnStartup]
 public static class LinksLike
 {
+    /// <summary>The facilities each building took from another, for the seen-in-play note. Derived from Defs, never saved.</summary>
+    static readonly Dictionary<ThingDef, HashSet<ThingDef>> taken = new();
+
     static LinksLike()
     {
         List<ThingDef> defs = DefDatabase<ThingDef>.AllDefsListForReading;
@@ -39,8 +62,13 @@ public static class LinksLike
             PhobosLinksLikeExtension? ext = def.GetModExtension<PhobosLinksLikeExtension>();
             if (ext?.like == null || ext.like == def) continue;
             Buildings++;
-            Facilities += TakeFacilities(def, ext.like);
+            int facilities = TakeFacilities(def, ext.like, ext.onlyStats);
+            Facilities += facilities;
             if (ext.missingStats) Stats += TakeMissingStats(def, ext.like);
+            if (facilities == 0) continue;
+            var note = new CompProperties { compClass = typeof(CompPhobosLinksLike) };
+            def.comps.Add(note);
+            note.ResolveReferences(def);
         }
     }
 
@@ -49,22 +77,20 @@ public static class LinksLike
     public static int Facilities { get; private set; }
     public static int Stats { get; private set; }
 
-    /// <summary>The facilities each building took from another, for the seen-in-play note. Derived from Defs, never saved.</summary>
-    static readonly Dictionary<ThingDef, HashSet<ThingDef>> taken = new();
-
     /// <summary>
-    /// Notes, once a session per building, a facility it took from another being linked to it in play (test row 428). Call it from the
-    /// building's own rare tick: with the seen-in-play setting off it reads one setting and returns.
+    /// Notes, once a session per building, a facility it took from another being linked to it in play, with the building's kind as the
+    /// case. With the seen-in-play setting off it reads one setting and returns.
     /// </summary>
     public static void NoteLinked(ThingWithComps building)
     {
-        if (!Seen.Wants("framework.links-like.linked", building) || !taken.TryGetValue(building.def, out HashSet<ThingDef>? took)) return;
+        if (!Seen.Wants("framework.links-like.linked", building, building.def.defName)) return;
+        if (!taken.TryGetValue(building.def, out HashSet<ThingDef>? took)) return;
         List<Thing>? linked = building.GetComp<CompAffectedByFacilities>()?.LinkedFacilitiesListForReading;
         if (linked == null) return;
         foreach (Thing facility in linked)
         {
             if (!took.Contains(facility.def)) continue;
-            Seen.Note("framework.links-like.linked", building, facility.def.defName);
+            Seen.Note("framework.links-like.linked", building, facility.def.defName, building.def.defName);
             return;
         }
     }
@@ -74,7 +100,7 @@ public static class LinksLike
         Buildings + " building(s) linking like another: " + Facilities + " facilit" + (Facilities == 1 ? "y" : "ies") + " and "
         + Stats + " stat" + (Stats == 1 ? "" : "s") + " taken";
 
-    static int TakeFacilities(ThingDef def, ThingDef like)
+    static int TakeFacilities(ThingDef def, ThingDef like, List<StatDef>? onlyStats)
     {
         List<ThingDef>? theirs = like.GetCompProperties<CompProperties_AffectedByFacilities>()?.linkableFacilities;
         if (theirs == null || theirs.Count == 0) return 0;
@@ -90,10 +116,11 @@ public static class LinksLike
         foreach (ThingDef facility in theirs)
         {
             if (facility == null || mine.linkableFacilities.Contains(facility)) continue;
+            CompProperties_Facility? props = facility.GetCompProperties<CompProperties_Facility>();
+            if (onlyStats != null && !ChangesAny(props, onlyStats)) continue;
             mine.linkableFacilities.Add(facility);
             if (!taken.TryGetValue(def, out HashSet<ThingDef>? took)) taken[def] = took = new HashSet<ThingDef>();
             took.Add(facility);
-            CompProperties_Facility? props = facility.GetCompProperties<CompProperties_Facility>();
             if (props != null)
             {
                 props.linkableBuildings ??= new List<ThingDef>();
@@ -102,6 +129,17 @@ public static class LinksLike
             added++;
         }
         return added;
+    }
+
+    /// <summary>Whether a facility changes at least one of the stats, by the offsets on its Def.</summary>
+    static bool ChangesAny(CompProperties_Facility? props, List<StatDef> stats)
+    {
+        if (props?.statOffsets == null) return false;
+        foreach (StatModifier offset in props.statOffsets)
+        {
+            if (offset?.stat != null && stats.Contains(offset.stat)) return true;
+        }
+        return false;
     }
 
     static int TakeMissingStats(ThingDef def, ThingDef like)

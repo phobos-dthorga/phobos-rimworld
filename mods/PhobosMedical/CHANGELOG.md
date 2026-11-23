@@ -15,6 +15,18 @@ entry says the owner tested it.
   what each picture was cut from moved beside the art records, in the repository's assets folder; nothing a player sees
   changes.
 
+## [0.25.0] - 2026-11-23 - Draft
+
+The hyperbaric chamber takes a hospital bed's medical facilities
+
+### Added
+
+- **The hyperbaric chamber takes the medical facilities other mods give the hospital bed** (the owner's choice of 23 November 2026: medical only). Whatever betters tending or immunity links to it, such as Vanilla Furniture Expanded - Medical Module's IV drip and vitals centre; comfort furniture and surgical tools do not, since nothing is operated on inside a sealed vessel. Not yet tested in game: row 432 of the test pass.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.259.0 or later.
+
 ## [0.24.1] - 2026-11-23 - Draft
 
 The burn unit bed takes what a hospital bed takes

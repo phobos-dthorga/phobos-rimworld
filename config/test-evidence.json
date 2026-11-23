@@ -3,7 +3,12 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
-    "428": ["framework.links-like.linked"],
+    "432": {"parts": {
+      "the chamber takes medical facilities": [{"key": "framework.links-like.linked", "variant": "PhobosMedical_HyperbaricChamber"}],
+      "the swag takes bedroom furniture": [{"key": "framework.links-like.linked", "variant": "PhobosCamp_Swag"}],
+      "the parts bench takes the machining cabinet": [{"key": "framework.links-like.linked", "variant": "PhobosVehicles_PartsBench"}]
+    }},
+    "428": [{"key": "framework.links-like.linked", "variant": "PhobosMedical_BurnUnitBed"}],
     "416": [{"key": "vehicles.descent-overrun", "variant": "engine"}],
     "417": {"parts": {
       "the brakes run hot": [{"key": "vehicles.stage.brakeTemperature", "detail": "*: hot"}],

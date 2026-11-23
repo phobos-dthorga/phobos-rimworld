@@ -280,7 +280,7 @@ All of them, the fuel pump and the service yard's tool too, are in the Architect
 | Building | Research | What it is for |
 | --- | --- | --- |
 | **Vehicle parts bench** | Vehicle parts | Makes our engines, transmissions, kits, sets and booster packs; recharges booster packs |
-| **Inspection pit** | Vehicle parts | Speeds the parts bench |
+| **Inspection pit** | Vehicle parts | Speeds the parts bench, which also takes tool cabinets and whatever else a machining table takes |
 | **Dyno bay** | Vehicle tuning | **Diagnose** a vehicle (a report with its tinted picture and, in Operator and Engineer, a graph of the last day). Needed for **tunes and changes of grade** on a working part, and for the two **heavy overhauls** (machining a badly warped cylinder head, a turbine's hot-section overhaul), within 5 cells of the vehicle and powered. Replacement parts fitted here go in at 60% health instead of 25%. Select it for **Vehicles in reach** |
 | **Depot bay** | Vehicle depots | A home for one vehicle. Press **Assign vehicle** on the bay, then **Go to bay** on the vehicle (needs a driver aboard). On the pad it refuels by itself (chemfuel, while the bay has power) and mechanics need 70% of the usual work. It moves when you tell it to, when it comes home from a dyno bay (below), or, **with Vehicles at Work**, when a colonist parks it: a vehicle switched on there for trips or hauling is brought home to its bay instead of a parking lot |
 | **Fuel pump** | Vehicle depots | Beside a **service yard** (below), fills the yard's vehicles with chemfuel one at a time, the emptiest first. Haulers fill its tank. Its **charging cable** upgrade charges electric vehicles too |

@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.259.0] - 2026-11-23 - Draft
+
+The swag and the parts bench link like their counterparts
+
+### Added
+
+- **A swag takes the bedroom furniture a bedroll takes** (the owner's choice of 23 November 2026). Used at home, it links to end tables, dressers, a sleep accelerator and whatever else installed mods give the game's bedroll; its own figures stand. Not yet tested in game: row 432 of the test pass.
+- **A building linking like another can take facilities by what they do.** PhobosLinksLikeExtension gains onlyStats: only facilities that change one of the listed stats are taken, chosen by their effect, never by name (docs/framework-modding.md). Such a building now notes its first borrowed facility seen linked when it is selected, with no code of its own.
+
+### Balance
+
+- **The vehicle parts bench takes whatever a machining table takes** (the owner's choice of 23 November 2026). With Vanilla Furniture Expanded - Production, two machining cabinets add 10% work speed each beside it, so its best bonus rises from 27% (two tool cabinets and the inspection pit) to 47%; a machining table's best is 32%. Not yet tested in game: row 432.
+
 ## [0.258.1] - 2026-11-23 - Draft
 
 A part another system claims stays out of the engines

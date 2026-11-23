@@ -212,7 +212,7 @@ bedroom and hospital, a **burn unit bed** if fire is a threat, and a **safety sh
 | Safety shower and eyewash | Water (plumbing with Dubs Bad Hygiene) | Washes off acid and gas; cool water eases burn pain | None |
 | Smoke and carbon monoxide alarm | 5 W, hangs from the ceiling | **Warns you which room, and wakes anyone asleep there**. Switch it off to silence it | Electricity |
 | Burn unit bed | 200 W | Better tending; **wounds heal 25% faster and pain falls 15%** for a burned patient. Takes every bedside facility a hospital bed takes, from any mod | Burn care |
-| Hyperbaric chamber | 800 W and oxygen | Stronger oxygen for one patient; carbon monoxide clears in about 22 minutes. No surgery inside | Hospital bed, Oxygen Network |
+| Hyperbaric chamber | 800 W and oxygen | Stronger oxygen for one patient; carbon monoxide clears in about 22 minutes. No surgery inside. Takes a hospital bed's facilities that better tending or immunity, from any mod; no comfort furniture | Hospital bed, Oxygen Network |
 | Oxygen electrolyser | 3,000 W (and water with Dubs Bad Hygiene) | Makes 1 canister of oxygen an hour into an oxygen pipe. For vacuum and thin air, where Vanilla Gravship Expanded's harvester can't run | Oxygen Network |
 | Liquid oxygen store | 300 W for its cooler | Holds 2,000 units; about 2% boils off a day without power. **A badly damaged store bursts into a fireball**. Frost gathers on it while it works | Oxygen Network |
 

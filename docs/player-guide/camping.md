@@ -51,7 +51,7 @@ the kit back in the cargo.
 | --- | --- |
 | **Awning** (15 kg) | A canvas roof over two rows along the camp's side, on poles. Rain and snow stay off; it is no room and keeps no cold out |
 | **Roof tent** (55 kg) | A bed for two under its own canvas, at the rear of the camp's side. As restful as a real bed, dry in rain. Waking in it gives **slept in a roof tent** (+4) |
-| **Swag** (6 kg) | A better bedroll: rest 1.0, comfort 0.75. Caravans sleep on it. Waking from a fair, mild night in one with open sky overhead gives **slept under the stars** (+5); not under the awning, not in rain or cold |
+| **Swag** (6 kg) | A better bedroll: rest 1.0, comfort 0.75. Caravans sleep on it. At home it takes the bedroom furniture a bedroll takes. Waking from a fair, mild night in one with open sky overhead gives **slept under the stars** (+5); not under the awning, not in rain or cold |
 
 **More tents** (not yet tested in game). Each is a fitting made from a kit at a tailoring bench, after **vehicle parts** research:
 
