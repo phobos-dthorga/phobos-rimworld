@@ -98,6 +98,9 @@ public static class VehicleSystemSoundDefOf
     public static SoundDef PhobosVehicleSystems_TankPurge = null!;
     public static SoundDef PhobosVehicleSystems_WindowsDown = null!;
     public static SoundDef PhobosVehicleSystems_GlassCrack = null!;
+    // Framework 0.270.0: the owner's picks of night 12 played from code (S111, S115); S113 and S123 play from their systems' Defs.
+    public static SoundDef PhobosVehicleSystems_BeltSnap = null!;
+    public static SoundDef PhobosVehicleSystems_VehicleHoist = null!;
 
     static VehicleSystemSoundDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(VehicleSystemSoundDefOf));
 }

@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.270.0] - 2026-11-23 - Draft
+
+Night 12's vehicle sounds
+
+### Added
+
+- **Five vehicle sounds, the owner's picks of 23 November 2026 on the Companion's Picks page**: a drive belt squeals and slaps loose as it snaps; a clutch worn to slipping grinds as the vehicle pulls away; a fitted exhaust brake rumbles as a running diesel stops; a dyno bay's hoist hums and clunks as a mechanic starts work at a vehicle there; and a turbine lit hot by a weak battery coughs and roars. Each is levelled beside one of the game's own sounds and under the D'thorga sounds volume. Not yet tested in game: row 447 of the test pass.
+
 ## [0.269.0] - 2026-11-23 - Draft
 
 Rain soaks open fields

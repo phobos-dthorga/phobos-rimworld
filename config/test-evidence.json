@@ -3,6 +3,10 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "447": {"parts": {
+      "the belt snaps": ["vehicles.sound.belt-snap"],
+      "the dyno bay's hoist": ["vehicles.sound.hoist"]
+    }},
     "443": ["framework.logbook.day-headings"],
     "446": {"parts": {
       "Dubs Bad Hygiene's irrigation fills in the rain": [{"key": "fields.rainSoaks", "variant": "keeper"}],

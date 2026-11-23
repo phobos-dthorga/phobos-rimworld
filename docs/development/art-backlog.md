@@ -22,6 +22,14 @@ salvaged parts are proposals. **Left out, with reasons:** style model v3 (its ca
 first, and a night of its own), the farming machines' sounds (real machines take real recordings, by the owner's rule), the loading chute
 (route not chosen) and Billy's canvas door (with its wall atlas, drawn by script).
 
+**Night 12's picks (23 Nov 2026, on D'thorga Companion's Picks page;** requests `assets/vehicle-systems/requests/night-12-icons.json`
+and `assets/phobos-sounds/requests/night-12.json`, two seeds each, each icon in the vanilla look and the house look). **Shipped in
+Framework 0.270.0:** the sounds S111 belt snap (try 122), S112 clutch slip (121, exported with the owner's override of a whine flag), S113
+exhaust brake (121), S115 the dyno bay's hoist (122) and S123 a turbine's hot start (121). **Waiting:** the ICAP II and ICAP
+III icons, picked in both looks, for the owner's choice of look (offered as `n12-icap-ii-style` and `n12-icap-iii-style`); the exhaust
+brake's icon, whose house-look try waits for the owner to clear it with a friend. **Turned down (none picked):** both ECM pod icons in
+both looks, the hydraulic pump (S110) and the turbo whistle (S114); each wants a fresh wording on a later night.
+
 **Old mod names below.** On 7 Nov 2026 Medical Equipment, Burns and Smoke, Emergency Dosing and Triage became parts of D'thorga Medical,
 and D'thorga Vehicle Patches became part of D'thorga Patches ([mod consolidation](mod-consolidation.md)). The rows keep the names they
 were written with.

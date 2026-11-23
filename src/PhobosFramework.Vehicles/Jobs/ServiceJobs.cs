@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework;
 using RimWorld;
 using Vehicles;
 using Verse;
@@ -184,7 +185,26 @@ public abstract class PhobosVehicleWorkDriver : JobDriver_WorkVehicle, Phobos.Fr
     protected override IEnumerable<Toil> MakeNewToils()
     {
         this.FailOn(Stalled);
-        foreach (Toil toil in WorkBars.WithBar(base.MakeNewToils(), EffecterDef != null, GetProgressPct)) yield return toil;
+        bool hoisted = false;
+        foreach (Toil toil in WorkBars.WithBar(base.MakeNewToils(), EffecterDef != null, GetProgressPct))
+        {
+            // Framework 0.270.0 (S115, the owner's pick of 23 Nov 2026): at a dyno bay, its hoist takes the vehicle up as the work starts
+            // (the work toil, the one that ticks).
+            if (!hoisted && toil.tickAction != null)
+            {
+                toil.AddPreInitAction(HoistAtRig);
+                hoisted = true;
+            }
+            yield return toil;
+        }
+    }
+
+    void HoistAtRig()
+    {
+        CompPhobosVehicleSystems? systems = Systems;
+        if (systems == null || !Vehicle.Spawned || !systems.Fittings.NearRig()) return;
+        VehicleSystemSounds.PlayOnce(systems, VehicleSystemSoundDefOf.PhobosVehicleSystems_VehicleHoist);
+        if (Seen.Wants("vehicles.sound.hoist", Vehicle)) Seen.Note("vehicles.sound.hoist", Vehicle);
     }
 
     /// <summary>The job ended and did nothing: repairs wait, rather than a mechanic being sent straight back.</summary>

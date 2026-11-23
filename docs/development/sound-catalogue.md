@@ -271,12 +271,12 @@ weapons stay their authors' own: we never replace another mod's vehicle sounds.
 
 | ID | Sound | For | Source |
 | --- | --- | --- | --- |
-| S110 | Hydraulic pump whine, and a line leaking | Hydraulics readers (another session is building them) | vehicle-crosslinks-round-two.md T1 |
-| S111 | Drive belt squeal, then a snap | Drive belt (being built) | round two T2 |
-| S112 | Clutch slipping | Brake and clutch wear | round two |
-| S113 | Exhaust brake | Fitting F6 | round two |
-| S114 | Turbo whistle (loop over the engine) | The turbocharger fitting, built | vehicle-tuning-and-upgrades.md |
-| S115 | Inspection pit and hoist | Stations (being built) | round two S1 to S4 |
+| S110 | Hydraulic pump whine, and a line leaking | Hydraulics readers (another session is building them). Night 12's two tries were turned down by the owner (23 Nov 2026): a new wording wanted | vehicle-crosslinks-round-two.md T1 |
+| S111 | Drive belt squeal, then a snap | **Shipped, Framework 0.270.0**: try 122, the owner's pick of 23 Nov 2026, as `BeltSnap.ogg`, played when a turning belt snaps | round two T2 |
+| S112 | Clutch slipping | **Shipped, Framework 0.270.0**: try 121, the owner's pick of 23 Nov 2026, as `ClutchSlip.ogg`, exported with the owner's override of the exporter's whine flag (the squeal is the clutch's own); played as a vehicle with a clutch worn to slipping pulls away | round two |
+| S113 | Exhaust brake | **Shipped, Framework 0.270.0**: try 121, the owner's pick of 23 Nov 2026, as `ExhaustBrake.ogg`, played as a running engine with the fitting stops | round two |
+| S114 | Turbo whistle (loop over the engine) | The turbocharger fitting, built. Night 12's two tries (both with a seam dip) were turned down by the owner (23 Nov 2026) | vehicle-tuning-and-upgrades.md |
+| S115 | Inspection pit and hoist | **Shipped, Framework 0.270.0**: try 122, the owner's pick of 23 Nov 2026, as `VehicleHoist.ogg`, played as work starts on a vehicle at a dyno bay | round two S1 to S4 |
 | S116 | Active sonar ping | Sonar set | vehicle-seabed-crawler.md; may reuse S2 |
 | S117 | Manipulator arm servo, a grab | Manipulator arm | vehicle-seabed-crawler.md |
 | S118 | Oxygen candle lit, chemical hiss | Oxygen candles | vehicle-seabed-crawler.md |
@@ -284,7 +284,7 @@ weapons stay their authors' own: we never replace another mod's vehicle sounds.
 | S120 | Seabed drill | Seabed drill | vehicle-seabed-crawler.md |
 | S121 | Compact reactor hum | Compact reactor | vehicle-seabed-crawler.md |
 | S122 | Torpedo launched; a hostile boat heard | Torpedoes, enemy submarines | submarine-framework.md |
-| S123 | Gas turbine hung start and hot start | Turbines on others' aircraft and tanks | vehicle-turbine-design.md |
+| S123 | Gas turbine hung start and hot start | **Shipped for the hot start, Framework 0.270.0**: try 121, the owner's pick of 23 Nov 2026, as `TurbineHotStart.ogg`, played when a weak battery lights a turbine hot. A hung start (refused, nothing lights) stays silent | vehicle-turbine-design.md |
 | S124 | Extractor fan, fume hood | Ventilation (deferred) | ventilation-and-hydrogen.md |
 | S125 | Hydrogen detector | Deferred by the owner | ventilation-and-hydrogen.md; same question as S99 |
 | S126 | Each new utility vehicle (excavator, bulldozer, crane, recovery truck, flatbed winch, ambulance without a siren, and more) | Sketched in the catalogue | utility-vehicles-design.md: a unique set each, as above, when built |

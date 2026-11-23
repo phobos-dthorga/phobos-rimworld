@@ -6754,5 +6754,217 @@
       "cfg": 1.0,
       "prompt": "A truck cab's side window being wound down by a hand crank: a soft rhythmic ratcheting of the winder and the glass sliding down in its rubber seal, ending with a gentle thunk. Close, quiet. Length: 3 seconds"
     }
+  },
+  "BeltSnap": {
+    "name": "BeltSnap",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/BeltSnap.ogg",
+    "sha256": "547b10d41e042cc70f503582cdcb83b908112d9d0d24aa1fd177a673013797f3",
+    "master_sha256": "4eb2e6d291746aad130e2dbd360e1de7ac897945631c33fa6aa2e66fbcf373a7",
+    "fingerprint": "fdbe25a0dcb06ce1c5bd6721c85c5c9927d2d8e6c87fd8395302a68b8ed24864",
+    "date": "2026-11-23",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -26.73 LUFS",
+      "gain_db": -7.53
+    },
+    "reference": {
+      "defName": "Interact_Repair_Start",
+      "effective": "-42.9 LUFS",
+      "volume": [
+        9.304348,
+        12.56522
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -27.0,
+      "true_peak": -10.8,
+      "seconds": 0.86,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 122,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A worn rubber drive belt on an engine slipping: a sharp rising squeal for two seconds, then a dull slap as the belt snaps and flaps loose, and the squeal stops. Under the bonnet, a few metres away. Not loud, not alarming. Length: 3 seconds"
+    }
+  },
+  "ExhaustBrake": {
+    "name": "ExhaustBrake",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/ExhaustBrake.ogg",
+    "sha256": "c682018ed67cc9c4fb5e3168c39cb8033120127dc6be055650fa55b0b23dc08a",
+    "master_sha256": "32eb8291619b614e3826c5b0a41a01fedb435829618bbb145cb24e27a1d155ae",
+    "fingerprint": "bcd541eef3c13e8c121d4b1cb100b1bd8d90ee4b63d53871e9c31e5298f0cb49",
+    "date": "2026-11-23",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -24.78 LUFS",
+      "gain_db": -3.68
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -24.8,
+      "true_peak": -8.2,
+      "seconds": 4.06,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 121,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A diesel truck slowing on a hill with its exhaust brake on: a deep, muffled, steady rumbling hum from the exhaust pipe, a little throaty, falling slowly in pitch as the truck slows. Heard from outside, a short way off. Not loud, not alarming. Length: 4 seconds"
+    }
+  },
+  "VehicleHoist": {
+    "name": "VehicleHoist",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/VehicleHoist.ogg",
+    "sha256": "25dee483f293bb43300690bce026d3e2922cd4953381ef0008ae4baa5f5fa55a",
+    "master_sha256": "f1016dc6d8afe02912d94ad3e53aac52b5f898d9ebbdfb27982f46f758e04577",
+    "fingerprint": "7c197a35a949b41a976a4185d6a33583a367e7e7a2cf59d71aea46abfcf83d27",
+    "date": "2026-11-23",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -26.01 LUFS",
+      "gain_db": -0.51
+    },
+    "reference": {
+      "defName": "Interact_Repair",
+      "effective": "-38.4 LUFS",
+      "volume": [
+        17.17392,
+        17.17392
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -26.0,
+      "true_peak": -1.1,
+      "seconds": 3.9,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 122,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A garage vehicle hoist lifting a car: an electric hydraulic pump hums, the lift arms creak and rise smoothly, then a solid metallic clunk as the safety catch locks. Inside a workshop. Not loud, not alarming. Length: 5 seconds"
+    }
+  },
+  "TurbineHotStart": {
+    "name": "TurbineHotStart",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/TurbineHotStart.ogg",
+    "sha256": "cb1d3c22392105d5d86b66a809d43c547320e3afada1eea55af13636c4e91914",
+    "master_sha256": "8a19cbb12dc175ae4ca5eaf8ce33910ccdecc49681b36dd9075a11726e5e306c",
+    "fingerprint": "f24b1921ff96aef9e519fb0390327e320ad10a762b6de1bff735f781c74ccda5",
+    "date": "2026-11-23",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.78 LUFS",
+      "gain_db": 4.1
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.8,
+      "true_peak": -1.2,
+      "seconds": 6.09,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 121,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A gas turbine engine failing to start properly: the starter whines and the engine spools up slowly, a rough rumbling light-off with a coughing roar, then the spool sags and winds down. Heard from outside the aircraft. Not loud, not alarming. Length: 6 seconds"
+    }
+  },
+  "ClutchSlip": {
+    "name": "ClutchSlip",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/ClutchSlip.ogg",
+    "sha256": "166e8cb33d5df1ba866bc6e6c880e9300cc005cc0f27b3e0d7abd80ce14ad6ba",
+    "master_sha256": "617be781c8e3587262482b36d95cb1e27ec4fc1d0f10ef6fba870a53e821521f",
+    "fingerprint": "32ab8e176ed1b194f8d18400490086780472cab82d62d03af21a92d90e3606cb",
+    "date": "2026-11-23",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -26.73 LUFS",
+      "gain_db": -8.93
+    },
+    "reference": {
+      "defName": "Interact_Repair_Start",
+      "effective": "-42.9 LUFS",
+      "volume": [
+        9.304348,
+        12.56522
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -26.7,
+      "true_peak": -13.5,
+      "seconds": 1.16,
+      "flags": [
+        "whine"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 121,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy truck's clutch slipping as it pulls away under load: the engine note flaring up while a dry friction grind and faint squeal rise, then catching and settling. Not loud, not alarming. Length: 3 seconds"
+    }
   }
 }

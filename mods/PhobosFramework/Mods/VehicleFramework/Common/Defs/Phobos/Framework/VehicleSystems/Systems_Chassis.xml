@@ -543,6 +543,16 @@
             <sound>PhobosVehicleSystems_BrakeSqueal</sound>
             <when Class="Phobos.VehicleSystems.When_QuantityAbove"><quantity>brakeWear</quantity><value>0.7</value></when>
           </li>
+          <!-- Framework 0.270.0 (S113, the owner's pick of 23 Nov 2026): a fitted exhaust brake rumbles as a running diesel stops. -->
+          <li Class="Phobos.VehicleSystems.Effect_Sound">
+            <sound>PhobosVehicleSystems_ExhaustBrake</sound>
+            <when Class="Phobos.VehicleSystems.When_All">
+              <conditions>
+                <li Class="Phobos.VehicleSystems.When_FittingGrants"><ability>ExhaustBrake</ability></li>
+                <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </conditions>
+            </when>
+          </li>
           <li Class="Phobos.VehicleSystems.Effect_AddQuantity">
             <quantity>brakeWear</quantity>
             <amount>1</amount>
@@ -737,6 +747,12 @@
             <scaleBy Class="Phobos.VehicleSystems.Input_BrakeWork">
               <reading>Mass</reading>
             </scaleBy>
+          </li>
+          <!-- Framework 0.270.0 (S112, the owner's pick of 23 Nov 2026): a clutch worn to slipping grinds and squeals as it takes up the
+               drive, the twin of the brake squeal at a stop. -->
+          <li Class="Phobos.VehicleSystems.Effect_Sound">
+            <sound>PhobosVehicleSystems_ClutchSlip</sound>
+            <when Class="Phobos.VehicleSystems.When_QuantityAbove"><quantity>clutchWear</quantity><value>0.7</value></when>
           </li>
         </effects>
       </li>

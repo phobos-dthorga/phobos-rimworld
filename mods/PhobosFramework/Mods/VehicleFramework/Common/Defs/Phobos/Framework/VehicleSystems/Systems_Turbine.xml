@@ -251,6 +251,14 @@
               <value>0.4</value>
             </when>
           </li>
+          <!-- Framework 0.270.0 (S123, the owner's pick of 23 Nov 2026): the rough, coughing light-off is heard. -->
+          <li Class="Phobos.VehicleSystems.Effect_Sound">
+            <sound>PhobosVehicleSystems_TurbineHotStart</sound>
+            <when Class="Phobos.VehicleSystems.When_QuantityBelow">
+              <quantity>turbineStart</quantity>
+              <value>0.4</value>
+            </when>
+          </li>
         </effects>
       </li>
     </onEvents>

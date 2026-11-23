@@ -493,4 +493,104 @@
       <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
     </modExtensions>
   </SoundDef>
+  <!-- S111: a drive belt squealing and snapping as it gives way. Beside the game's Interact_Repair_Start -3 dB. The owner's pick of 23 Nov 2026 (Framework 0.270.0). -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_BeltSnap</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/BeltSnap</clipPath>
+          </li>
+        </grains>
+        <volumeRange>11</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- S113: an exhaust brake holding a diesel as it stops. Beside the game's ChemfuelFiredGenerator_Ambience -6 dB. The owner's pick of 23 Nov 2026 (Framework 0.270.0). -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_ExhaustBrake</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/ExhaustBrake</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- S115: the dyno bay's hoist taking a vehicle up as work starts at it. Beside the game's Interact_Repair -3 dB. The owner's pick of 23 Nov 2026 (Framework 0.270.0). -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_VehicleHoist</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/VehicleHoist</clipPath>
+          </li>
+        </grains>
+        <volumeRange>17</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- S123: a gas turbine lit hot by a weak battery. Beside the game's ChemfuelFiredGenerator_Ambience. The owner's pick of 23 Nov 2026 (Framework 0.270.0). -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_TurbineHotStart</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/TurbineHotStart</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- S112: a worn clutch slipping as it takes up the drive. Beside the game's Interact_Repair_Start -3 dB, as the brake squeal is. The owner's pick of 23 Nov 2026, exported with the owner's override of the exporter's whine flag (Framework 0.270.0). -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_ClutchSlip</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/ClutchSlip</clipPath>
+          </li>
+        </grains>
+        <volumeRange>11</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
 </Defs>

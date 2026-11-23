@@ -1421,6 +1421,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         }
         // The belt passes only what it can carry (a slipping belt underdrives everything on it; a snapped one drives nothing).
         float beltCondition = PartEfficiency(BeltRole, -1f);
+        NoticeBeltSnap(beltCondition);
         double grip = beltCondition < 0f ? 1 : ShaftLoadRule.BeltGrip(beltKw, rules.beltCapacityShare, rated, beltCondition);
         if (grip < 1)
         {
@@ -1589,6 +1590,21 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     /// <summary>A belt passing less than this share of its load is worth telling the player about (authored).</summary>
     const float BeltSlipNoticed = 0.9f;
+
+    /// <summary>The belt's condition at the last look, to hear it snap (Framework 0.270.0, S111): below nothing until first read, and never
+    /// saved, so a save loaded with the belt already snapped stays quiet.</summary>
+    float lastBeltCondition = -1f;
+
+    /// <summary>A belt that was turning and has just snapped squeals and slaps loose (S111, the owner's pick of 23 Nov 2026).</summary>
+    void NoticeBeltSnap(float beltCondition)
+    {
+        if (lastBeltCondition > 0f && beltCondition == 0f && Vehicle is { Spawned: true })
+        {
+            VehicleSystemSounds.PlayOnce(this, VehicleSystemSoundDefOf.PhobosVehicleSystems_BeltSnap);
+            if (Seen.Wants("vehicles.sound.belt-snap", Vehicle)) Seen.Note("vehicles.sound.belt-snap", Vehicle);
+        }
+        lastBeltCondition = beltCondition;
+    }
 
     /// <summary>How fast the alternator turns now, in rpm: the engine's speed times its Def's alternator ratio (check C4). A turbine's
     /// generator sits on its accessory gearbox, geared to its own speed (gap T-4, Framework 0.132.0): the rules Def's rated speed at full

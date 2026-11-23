@@ -1814,6 +1814,66 @@
       "offset_db": -3,
       "volume": 25,
       "why": "A sharp knock on the vehicle, beside the game's Metal_Drop -3 dB, as cargo set down is. The owner's pick on the Companion's Picks page, 23 Nov 2026."
+    },
+    {
+      "name": "BeltSnap",
+      "use": "A drive belt squealing and snapping under the bonnet (S111, Framework 0.270.0)",
+      "picked": "2026-11-23",
+      "candidate": "n12-belt-squeal/n12-belt-squeal-122.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/BeltSnap.ogg",
+      "reference": "Interact_Repair_Start",
+      "offset_db": -3,
+      "volume": 11,
+      "why": "A part giving way inside the vehicle, beside the game's repair start, as the brake squeal is. The owner's pick on the Companion's Picks page, 23 Nov 2026."
+    },
+    {
+      "name": "ExhaustBrake",
+      "use": "An exhaust brake holding a diesel as it stops (S113, Framework 0.270.0)",
+      "picked": "2026-11-23",
+      "candidate": "n12-exhaust-brake/n12-exhaust-brake-121.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/ExhaustBrake.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": -6,
+      "volume": 13,
+      "why": "Engine machinery heard from outside, beside the air compressor's level. The owner's pick on the Companion's Picks page, 23 Nov 2026."
+    },
+    {
+      "name": "VehicleHoist",
+      "use": "The dyno bay's hoist taking a vehicle up as a mechanic starts work at it (S115, Framework 0.270.0)",
+      "picked": "2026-11-23",
+      "candidate": "n12-vehicle-hoist/n12-vehicle-hoist-122.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/VehicleHoist.ogg",
+      "reference": "Interact_Repair",
+      "offset_db": -3,
+      "volume": 17,
+      "why": "Workshop work at the vehicle, beside the game's repair work, as the tank purge is. The owner's pick on the Companion's Picks page, 23 Nov 2026."
+    },
+    {
+      "name": "TurbineHotStart",
+      "use": "A gas turbine lit hot by a weak battery (S123, Framework 0.270.0)",
+      "picked": "2026-11-23",
+      "candidate": "n12-turbine-hot-start/n12-turbine-hot-start-121.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/TurbineHotStart.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": 0,
+      "volume": 13,
+      "why": "A whole engine starting rough, heard from outside: at the generator's level, a little above the air compressor. The owner's pick on the Companion's Picks page, 23 Nov 2026."
+    },
+    {
+      "name": "ClutchSlip",
+      "use": "A worn clutch slipping as the vehicle pulls away (S112, Framework 0.270.0)",
+      "picked": "2026-11-23",
+      "candidate": "n12-clutch-slip/n12-clutch-slip-121.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/ClutchSlip.ogg",
+      "reference": "Interact_Repair_Start",
+      "offset_db": -3,
+      "volume": 11,
+      "why": "A worn part complaining, the twin of the brake squeal at a stop, at its level. The exporter flags a whine, which is the slipping clutch's own faint squeal: exported with the owner's override, 23 Nov 2026. The owner's pick on the Companion's Picks page, 23 Nov 2026."
     }
   ]
 }
