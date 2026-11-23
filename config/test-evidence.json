@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "455": ["medical.slave-self-dose"],
     "454": ["vehicles.paste-bake"],
     "453": {"parts": {
       "a tank fills the tap": ["vehicles.reservoir-filled"],

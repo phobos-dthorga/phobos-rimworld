@@ -107,6 +107,7 @@ monoxide's source and fire heat in [gases and air](gases-and-air.md); they are n
 | 11 Nov | Coughing, never doubled with another mod's; it stands down | owner | No double sounds | [sc], Owner's answers (11 Nov 2026, going to bed) |
 | 13 Nov | VFE Medical's drip stand gives burn-shock fluids | owner | Uses the hospital built | [sd], Questions for the owner |
 | 13 Nov | The drip's fluids at quality 0.7, below the kit's 0.9 | agent choice | A hung kit stays better | [sd], Questions for the owner |
+| 23 Nov | Slaves self-medicate only by a setting, off by default (they had done it unasked: the game counts them as free colonists) | owner's card | Keeps the design's free colonists only, with a choice | Medical 0.26.0 changelog |
 
 [bs]: ../archive/burns-and-smoke.md
 [cg]: ../archive/caustic-gas.md

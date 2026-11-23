@@ -16,6 +16,26 @@ entry says the owner tested it.
   changes.
 - **The README's links point to the archived records' new places** (docs rewrite, 23 Nov 2026). Nothing in play changes.
 
+## [0.26.0] - 2026-11-23 - Draft
+
+Slaves wait for a doctor unless you let them fetch their own painkillers
+
+### Added
+
+- **Slaves may take painkillers from your stock**, a new setting on the Emergency dosing page, off by default (the owner's
+  choice of 23 Nov 2026). On, a slave who is up and about and in serious pain fetches a painkiller as a colonist does, by their
+  own drug policy. Not yet tested in game: row 455 of the test pass.
+
+### Fixed
+
+- **Slaves no longer fetch their own painkillers unasked.** The game counts a slave who is not rebelling or escaping as a free
+  colonist, so since self-medication came in they did it, although it was meant for free colonists only. Off by default now;
+  doctors still treat slaves in bed as before.
+
+### Save compatibility
+
+- Safe with an existing save. The new setting starts off.
+
 ## [0.25.0] - 2026-11-23 - Draft
 
 The hyperbaric chamber takes a hospital bed's medical facilities

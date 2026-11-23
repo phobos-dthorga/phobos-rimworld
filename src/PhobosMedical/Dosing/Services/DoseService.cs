@@ -251,7 +251,7 @@ public static class DoseService
     public static SelfBlock SelfBlockFor(Pawn pawn, DosingSettings settings, PhobosDosingRulesDef rules)
     {
         if (!settings.selfMedication) return SelfBlock.Disabled;
-        if (!pawn.IsFreeColonist && !(settings.guestsSelfMedicate && pawn.HostFaction == Faction.OfPlayer && !pawn.IsPrisoner && !pawn.IsSlave)) return SelfBlock.NotEligible;
+        if (!MaySelfMedicate(pawn, settings)) return SelfBlock.NotEligible;
         if (pawn.health?.hediffSet == null || !pawn.Spawned) return SelfBlock.NotEligible;
         float pain = pawn.health.hediffSet.PainTotal;
         if (pain < SelfDoseRule.Threshold(rules.selfPainThreshold, DrugDesire(pawn), rules.selfInterestOffset, rules.selfFascinationOffset)) return SelfBlock.NotEnoughPain;
@@ -261,6 +261,18 @@ public static class DoseService
         if (pawn.IsTeetotaler()) return SelfBlock.Teetotaler;
         if (PainIsWelcome(pawn)) return SelfBlock.PainWelcome;
         return SelfBlock.None;
+    }
+
+    /// <summary>
+    /// Who may fetch their own painkillers: free colonists; the colony's secure slaves only by setting (the owner's card of 23 Nov
+    /// 2026, off by default: the game counts a secure slave as a free colonist, so before 0.26.0 they did it unasked); guests only by
+    /// their own setting. Prisoners never.
+    /// </summary>
+    static bool MaySelfMedicate(Pawn pawn, DosingSettings settings)
+    {
+        if (pawn.IsFreeNonSlaveColonist) return true;
+        if (pawn.IsFreeColonist) return settings.slavesSelfMedicate;
+        return settings.guestsSelfMedicate && pawn.HostFaction == Faction.OfPlayer && !pawn.IsPrisoner && !pawn.IsSlave;
     }
 
     static ThoughtDef? painThought;
@@ -327,7 +339,9 @@ public static class DoseService
     public static Job? SelfJob(Pawn pawn)
     {
         if (SelfBlockFor(pawn, DosingMod.Settings, PhobosDosingRulesDef.Current) != SelfBlock.None) return null;
-        return SelfDecide(pawn).Chosen is DoseVerdict chosen && chosen.Item != null ? DrugAIUtility.IngestAndTakeToInventoryJob(chosen.Item, pawn, 1) : null;
+        if (SelfDecide(pawn).Chosen is not DoseVerdict chosen || chosen.Item == null) return null;
+        if (pawn.IsSlave) Medical.Seen.Note("medical.slave-self-dose", pawn, chosen.Option.Def.label);
+        return DrugAIUtility.IngestAndTakeToInventoryJob(chosen.Item, pawn, 1);
     }
 
     /// <summary>Only a drug has a policy line, and asking the policy about anything else throws. The game gives guests no policy.</summary>

@@ -24,6 +24,8 @@ public class DosingSettings : ModSettings
     public bool selfMedication = true;
     /// <summary>Guests may do the same, from the colony's stock.</summary>
     public bool guestsSelfMedicate;
+    /// <summary>The colony's secure slaves may do the same (the owner's card of 23 Nov 2026; off by default).</summary>
+    public bool slavesSelfMedicate;
     /// <summary>An awake patient in extreme pain is harder to tend well.</summary>
     public bool fussing = true;
 
@@ -37,6 +39,7 @@ public class DosingSettings : ModSettings
         Scribe_Values.Look(ref immunityDosing, "PhobosDosing_ImmunityDosing", true);
         Scribe_Values.Look(ref selfMedication, "PhobosDosing_SelfMedication", true);
         Scribe_Values.Look(ref guestsSelfMedicate, "PhobosDosing_GuestsSelfMedicate", false);
+        Scribe_Values.Look(ref slavesSelfMedicate, "PhobosDosing_SlavesSelfMedicate", false);
         Scribe_Values.Look(ref fussing, "PhobosDosing_Fussing", true);
     }
 }
@@ -73,7 +76,9 @@ public static class DosingMod
             if (Settings.immunityDosing) report.On(fighting); else report.Off(fighting, "setting");
         }
         if (Settings.fussing) report.On("fussing in extreme pain"); else report.Off("fussing in extreme pain", "setting");
-        if (Settings.selfMedication) report.On("self-medication" + (Settings.guestsSelfMedicate ? ", guests too" : ", colonists only")); else report.Off("self-medication", "setting");
+        if (Settings.selfMedication)
+            report.On("self-medication: colonists" + (Settings.slavesSelfMedicate ? ", slaves" : "") + (Settings.guestsSelfMedicate ? ", guests" : ""));
+        else report.Off("self-medication", "setting");
         return report;
     }
 
@@ -116,6 +121,7 @@ public static class DosingMod
         list.Check("PhobosDosing_SettingFussing".Translate(), ref s.fussing, d.fussing, "PhobosDosing_SettingFussingDesc".Translate());
         list.Section("PhobosDosing_SectionSelf".Translate());
         list.Check("PhobosDosing_SettingSelfMedication".Translate(), ref s.selfMedication, d.selfMedication, "PhobosDosing_SettingSelfMedicationDesc".Translate());
+        list.Check("PhobosDosing_SettingSlavesSelfMedicate".Translate(), ref s.slavesSelfMedicate, d.slavesSelfMedicate, "PhobosDosing_SettingSlavesSelfMedicateDesc".Translate());
         list.Check("PhobosDosing_SettingGuestsSelfMedicate".Translate(), ref s.guestsSelfMedicate, d.guestsSelfMedicate, "PhobosDosing_SettingGuestsSelfMedicateDesc".Translate());
     }
 }

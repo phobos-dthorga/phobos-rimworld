@@ -236,8 +236,10 @@ falling to 0.75 at full pain (authored). A postfix on the game's base tend quali
 reasons, in pain at 0.4 or more (0.3 with chemical interest, 0.2 with fascination), takes a painkiller their drug policy allows
 for joy or on a schedule; the two traits bypass the policy, as in the game's joy givers. Teetotalers do not, nor anyone for whom
 the game nullifies the pain thought (a masochist, a belief that idealises pain). The doctors' safety and choice apply, never a
-sedative, with a higher floor: consciousness and breathing at 0.4 or more after the dose. Guests may by a setting; with no policy,
-they take medical painkillers only. The giver sits at the game's `Humanlike_PreMain` hook and uses the game's ingest job.
+sedative, with a higher floor: consciousness and breathing at 0.4 or more after the dose. **Who:** free colonists; the colony's
+slaves only by a setting, off by default (`MaySelfMedicate`: the game counts a slave who is not rebelling or escaping as a free
+colonist, so the test is `IsFreeNonSlaveColonist` first); guests by their own setting, and with no policy they take medical
+painkillers only. The giver sits at the game's `Humanlike_PreMain` hook and uses the game's ingest job.
 
 ### Triage
 
@@ -400,8 +402,8 @@ The modders' types, linked to [the reference site](https://phobos-dthorga.github
 
 Every label and default is in the generated [settings reference](../settings-reference.md#dthorga-medical), on the pages
 *Burns and smoke*, *Caustic gas*, *Emergency dosing* and *Triage*. **Every switch is on by default except these, off:** the
-fast-acting caustic model, strip and rinse, recreational drugs for pain, medical drugs for those who refuse drugs, guests taking
-painkillers, operations that wrong another faction, and our smoke inhalation beside Combat Extended's (shown only with it).
+fast-acting caustic model, strip and rinse, recreational drugs for pain, medical drugs for those who refuse drugs, slaves and
+guests taking painkillers, operations that wrong another faction, and our smoke inhalation beside Combat Extended's (shown only with it).
 
 - **Choices with values**: minimum care for dosing (herbal or worse); triage's defaults by group (colonists, slaves and prisoners
   to save life, guests never); the highest chance of death the doctors may accept alone (5 %, from 0 to 50 %).
@@ -471,9 +473,6 @@ Every tie-in is in the [tie-in register](../tie-in-register.md). None is require
   record](../soft-dependency-crosslinks.md).
 - **Inferred from the code, not tested in game**: `TriageMod.cs:53` says triage has no Harmony, but the tag overlay
   (`Triage/UI/TriageTagOverlay.cs`) is a Harmony postfix; the comment is stale, the behaviour is as described here.
-- **Inferred from the code, not tested in game**: self-medication tests the game's `IsFreeColonist`
-  (`Dosing/Services/DoseService.cs:254`), which is true for a secure slave of the player's, so slaves in pain fetch
-  their own painkillers too. The design meant free colonists only, not slaves.
 
 ## Tests
 
