@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.113.1] - 2026-11-23 - Draft
+
+The Cherokee's front and rear engines read as its rotor drive's gearing
+
+### Fixed
+
+- **The Cherokee's front and rear engines are part of its rotor drive, not two more engines** (the owner's yes of 23 November 2026, with D'thorga Framework 0.258.1): a real Chinook has two turboshafts on its rear pylon, each through its own engine gearbox into a combining gearbox and on to the front and rear rotor gearboxes, so the mod's two turboshafts stay its engines and its front and rear engines stand for that gearing (our reading). Damage to them now weakens the rotor drive. Not yet tested in game: row 431 of the test pass.
+
 ### Changed
 
 - **The exporters' records no longer ship in the mod's folder either** (the owner's word of 23 Nov 2026). The notes saying

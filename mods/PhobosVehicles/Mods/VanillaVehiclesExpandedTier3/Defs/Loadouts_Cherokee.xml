@@ -101,6 +101,11 @@
         </find>
       </li>
       <li>
+        <!-- D'thorga Vehicles 0.113.1 (the owner's yes of 23 Nov 2026, after the first bindings report): its "Front engine" and "Rear engine"
+             are read as gearing, not engines. A real CH-47 has two T55 turboshafts on its aft pylon, each through its own engine
+             transmission into a combining transmission, then by synchronising shafts to the forward and aft rotor transmissions (NASA,
+             NTRS 19840022225; DTIC ADA149180). The mod's two turboshafts are the engines (Engine1, Engine2); its front and rear "engines"
+             stand for the engine and combining gearing that feeds each rotor (our reading of parts the mod names loosely). -->
         <role>RotorDrive</role>
         <all>true</all>
         <find>
@@ -108,6 +113,8 @@
             <keyContainsAny>
               <li>Transmission</li>
               <li>RotorMast</li>
+              <li>FrontEngine</li>
+              <li>RearEngine</li>
             </keyContainsAny>
           </li>
         </find>

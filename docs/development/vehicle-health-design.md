@@ -622,8 +622,13 @@ bindings and 134 unwatched parts. Read and settled (Framework 0.258.0, Vehicles 
   fuel pump of ours added `late` (a new flag: appended after every other part we add, so saved shunters keep their parts in place).
 - **Rotor drives:** the Mosquito's and Louie's transmissions and the Mi-38's tail drive joined their rotor drives.
 
-**Left open, for the owner's eye (agent's judgement):** the Cherokee's "Front engine" and "Rear engine" beside its two turboshafts
-(engines or gearboxes? the design does not say); the Smuggler's and Warbird's transmissions and fuel intakes (propeller planes with
+**The Cherokee, settled (the owner's yes of 23 Nov 2026; Framework 0.258.1, Vehicles 0.113.1):** a real CH-47 has two T55
+turboshafts on its aft pylon, each through its own engine transmission into a combining transmission, then by synchronising shafts to
+the forward and aft rotor transmissions (NASA, NTRS 19840022225; DTIC ADA149180). So its two turboshafts stay its engines and its
+"Front engine" and "Rear engine" join its rotor drive as that gearing (our reading). Generic with it: the roll-up never keeps a part
+another role claims (`SystemParts.ClaimedElsewhere`).
+
+**Left open, for the owner's eye (agent's judgement):** the Smuggler's and Warbird's transmissions and fuel intakes (propeller planes with
 no drivetrain of ours, so nothing models them); the Lightning's gearbox (it runs as an electric vehicle with no gearbox system). The
 next report, after the owner's next start with these versions, shows what is left.
 

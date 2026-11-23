@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.258.1] - 2026-11-23 - Draft
+
+A part another system claims stays out of the engines
+
+### Fixed
+
+- **A part another of the vehicle's roles claims is no longer also counted among its engines** (with D'thorga Vehicles 0.113.1, the Cherokee): rolling numbered engines up into the engines keeps a part whose name says engine, but not one a loadout gives to another system. Not yet tested in game: row 431 of the test pass.
+
 ### Changed
 
 - **The exporters' records no longer ship in the mod's folder either** (the owner's word of 23 Nov 2026). The notes saying

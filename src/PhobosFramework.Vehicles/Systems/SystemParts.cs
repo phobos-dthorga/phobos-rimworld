@@ -68,11 +68,12 @@ public static class SystemParts
         {
             var keys = new List<string>();
             // Framework 0.258.0: what the base role held of its own first, where it names the base role (the thruster craft's "Engine").
+            // Framework 0.258.1: never a part another role claims (the Cherokee's "front engine", read as its rotor drive's gearing).
             if (props.roleKeys.TryGetValue(baseRole, out List<string>? own))
             {
                 foreach (string key in own)
                 {
-                    if (RoleFamilyRule.KeepsBaseBinding(key, baseRole) && !keys.Contains(key)) keys.Add(key);
+                    if (RoleFamilyRule.KeepsBaseBinding(key, baseRole) && !keys.Contains(key) && !ClaimedElsewhere(props, key, baseRole, members)) keys.Add(key);
                 }
             }
             foreach (string member in members)
@@ -85,6 +86,10 @@ public static class SystemParts
             if (keys.Count > 0) props.roleKeys[baseRole] = keys;
         }
     }
+
+    /// <summary>Whether a role other than the base role and its numbered members binds this part (Framework 0.258.1).</summary>
+    static bool ClaimedElsewhere(CompProperties_PhobosVehicleSystems props, string key, string baseRole, List<string> members) =>
+        props.roleKeys.Any(pair => pair.Key != baseRole && !members.Contains(pair.Key) && pair.Value.Contains(key));
 
     /// <summary>The bindings report's file: in the game's save-data folder, beside the patched-Defs file, never shared or committed.</summary>
     public static string ReportPath => Path.Combine(GenFilePaths.SaveDataFolderPath, "PhobosPatchedDefs", "VehicleBindings.json");
