@@ -3,8 +3,11 @@ using System.Collections.Generic;
 
 namespace Phobos.Radio.Physics;
 
-/// <summary>The shape of one kind of channel use (Radio 0.8.0): how many channels one use takes, and how many radios take turns on it.</summary>
-public readonly record struct KindShape(int ChannelsPerUse, int RadiosPerUse);
+/// <summary>
+/// The shape of one kind of channel use (Radio 0.8.0): how many channels one use takes, and how many radios take turns on it. A kind
+/// that <paramref name="Preempts"/> (0.9.0) may take channels from the kinds served after it when a station is full.
+/// </summary>
+public readonly record struct KindShape(int ChannelsPerUse, int RadiosPerUse, bool Preempts = false);
 
 /// <summary>One radio asking for a channel: its id, its kind (an index into the kinds), and the stations it reaches, best first.</summary>
 public readonly record struct ChannelCandidate(int Radio, int Kind, IReadOnlyList<int> StationsBestFirst);
@@ -62,12 +65,20 @@ public static class Channels
     /// room, so two near the limit never swap back and forth. The rest are served in the order given (the caller puts the kinds that
     /// matter most first, then the strongest), each by the best station with room for one more of its kind; a radio no station has
     /// room for is left out (the net is busy for it).
+    /// <para>
+    /// Pre-emption (0.9.0; the autonomous vehicles record, an agent default): a radio of a kind that pre-empts, finding no station with
+    /// room, takes channels at the best station where it can, from the radios of kinds served after it that do not pre-empt, the last
+    /// in the order given first (the weakest of the kind served last), and only as many as it needs. A radio so put off tries the
+    /// other stations it reaches; with no room there either, the net is busy for it. Nothing is taken where even all of them would
+    /// not make room.
+    /// </para>
     /// </summary>
     public static Dictionary<int, int> Allocate(IReadOnlyDictionary<int, int> channelsByStation, IReadOnlyList<KindShape> kinds,
         IReadOnlyList<ChannelCandidate> candidates, IReadOnlyDictionary<int, int> previous)
     {
         var counts = new Dictionary<int, int[]>();
         var served = new Dictionary<int, int>();
+        var servedAt = new Dictionary<int, List<int>>();   // each station's radios, as indices into the candidates
         int[] Counts(int station)
         {
             if (!counts.TryGetValue(station, out var c)) counts[station] = c = new int[kinds.Count];
@@ -82,27 +93,76 @@ public static class Channels
             c[kind]--;
             return fits;
         }
-        void Take(int radio, int station, int kind)
+        void Take(int at, int station)
         {
-            served[radio] = station;
-            Counts(station)[kind]++;
+            var candidate = candidates[at];
+            served[candidate.Radio] = station;
+            Counts(station)[candidate.Kind]++;
+            if (!servedAt.TryGetValue(station, out var list)) servedAt[station] = list = new List<int>();
+            list.Add(at);
+        }
+        bool TakeAnyWithRoom(int at)
+        {
+            foreach (var station in candidates[at].StationsBestFirst)
+            {
+                if (!Room(station, candidates[at].Kind)) continue;
+                Take(at, station);
+                return true;
+            }
+            return false;
+        }
+        bool Preempt(int at, List<int> putOff)
+        {
+            var kind = candidates[at].Kind;
+            foreach (var station in candidates[at].StationsBestFirst)
+            {
+                if (!channelsByStation.TryGetValue(station, out var channels) || !servedAt.TryGetValue(station, out var list)) continue;
+                var victims = new List<int>();
+                foreach (var other in list)
+                {
+                    var otherKind = candidates[other].Kind;
+                    if (otherKind > kind && !kinds[otherKind].Preempts) victims.Add(other);
+                }
+                if (victims.Count == 0) continue;
+                // Would putting them all off make room? If not, take nothing here.
+                var c = (int[])Counts(station).Clone();
+                foreach (var victim in victims) c[candidates[victim].Kind]--;
+                c[kind]++;
+                if (ChannelsHeld(c, kinds) > channels) continue;
+                victims.Sort((a, b) => b.CompareTo(a));   // the last in the order first
+                foreach (var victim in victims)
+                {
+                    if (Room(station, kind)) break;
+                    served.Remove(candidates[victim].Radio);
+                    Counts(station)[candidates[victim].Kind]--;
+                    list.Remove(victim);
+                    putOff.Add(victim);
+                }
+                Take(at, station);
+                return true;
+            }
+            return false;
         }
 
-        foreach (var candidate in candidates)
+        for (var at = 0; at < candidates.Count; at++)
         {
+            var candidate = candidates[at];
             if (!previous.TryGetValue(candidate.Radio, out var held)) continue;
             if (!Contains(candidate.StationsBestFirst, held) || !Room(held, candidate.Kind)) continue;
-            Take(candidate.Radio, held, candidate.Kind);
+            Take(at, held);
         }
-        foreach (var candidate in candidates)
+        List<int>? putOffAll = null;
+        for (var at = 0; at < candidates.Count; at++)
         {
-            if (served.ContainsKey(candidate.Radio)) continue;
-            foreach (var station in candidate.StationsBestFirst)
-            {
-                if (!Room(station, candidate.Kind)) continue;
-                Take(candidate.Radio, station, candidate.Kind);
-                break;
-            }
+            var candidate = candidates[at];
+            if (served.ContainsKey(candidate.Radio) || TakeAnyWithRoom(at)) continue;
+            if (candidate.Kind < 0 || candidate.Kind >= kinds.Count || !kinds[candidate.Kind].Preempts) continue;
+            Preempt(at, putOffAll ??= new List<int>());
+        }
+        if (putOffAll != null)
+        {
+            putOffAll.Sort();
+            foreach (var at in putOffAll) if (!served.ContainsKey(candidates[at].Radio)) TakeAnyWithRoom(at);
         }
         return served;
     }

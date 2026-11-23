@@ -12,8 +12,10 @@ Everything is a Def:
 - `Phobos.Radio.BandDef` and `Phobos.Radio.ModeDef`: bands and modes.
 - One `Phobos.Radio.RadioRulesDef`: the tuning values, including coverage's limits.
 - `Phobos.Radio.ChannelKindDef` (0.8.0): a kind of channel use, with a `label`, a `mode` and an `order` (lower is served first
-  when channels are short). Kinds fill blocks of channels of their own and are listed apart on the station. Ours:
-  `PhobosRadio_KindLocalVoice`. Add one for a new use of the radio rather than a second system of frequencies.
+  when channels are short), and `preempts` (0.9.0: when every station it reaches is full, it takes channels from the kinds
+  served after it that do not pre-empt, the weakest first and no more than it needs). Kinds fill blocks of channels of their
+  own and are listed apart on the station. Ours: `PhobosRadio_KindVehicleControl` (pre-empts), `PhobosRadio_KindVehiclePicture`
+  and `PhobosRadio_KindLocalVoice`. Add one for a new use of the radio rather than a second system of frequencies.
 - `Phobos.Radio.CompProperties_Radio`, on any apparel or building; its `channelKind` (0.8.0) names its kind, local voice when
   empty; a station's `channels` (0.7.0) is how many 25 kHz channels it
   brings to the ledger (`RadioRulesDef.channelWidthHz`); a mode takes as many as its `bandwidthHz` needs, and radios share one by

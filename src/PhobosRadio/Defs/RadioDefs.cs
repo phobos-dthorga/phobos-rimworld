@@ -62,6 +62,11 @@ public class ChannelKindDef : Def
     public ModeDef? mode;
     /// <summary>Kinds with a lower order are served first when channels are short, and listed first (authored).</summary>
     public int order = 100;
+    /// <summary>
+    /// Whether a use of this kind, finding every station it reaches full, takes channels from the kinds served after it that do not
+    /// pre-empt (Radio 0.9.0), as a trunked system's emergency call does: the remote control of vehicles (authored).
+    /// </summary>
+    public bool preempts;
 
     private static List<ChannelKindDef>? inOrder;
     private static ChannelKindDef? localVoice;

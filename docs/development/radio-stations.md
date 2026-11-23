@@ -168,8 +168,14 @@ The owner, 24 Nov 2026: "Start on Phase 2's ledger kinds next". **[O]** Built in
 - **Kinds never share a block [A]:** each kind's radios fill whole uses of their own, so the counts can be told apart, as the BVR
   system's are. Three voices and one 100 kHz data link on the terminal hold 1 + 4 = 5 channels, one more than it has.
 - **Who is served first [A]:** kinds with a lower order first, then the strongest; **a holder still keeps its station**, whatever
-  its kind, so nothing is thrown off the net once on it. Whether a kind should be able to take a channel from a holder (as a
-  trunked system's emergency call pre-empts) is left for the first kind that needs it: the remote control of vehicles below.
+  its kind, unless a kind that pre-empts needs its channel (below).
+- **Pre-emption (Radio 0.9.0) [A]:** a kind with `preempts` set, finding every station it reaches full, takes channels from the
+  kinds served after it that do not pre-empt, the weakest of the last kind first and no more than it needs; those put off try
+  other stations. Vehicle control is the first kind that does, so a truck is never kept off the net by talk
+  ([autonomous vehicles by radio](autonomous-vehicles.md#the-link-is-a-real-link)).
+- **The kinds shipped (0.9.0) [A]:** vehicle control (order 50, pre-empts: one channel shared by two vehicles), vehicle picture
+  (order 60: two channels for one), local voice (order 100: one channel shared by five). No radio uses the two vehicle kinds
+  yet, so a station lists only local voice until the vehicle kit comes.
 - **Every station serves every kind [A].** A station limited to some kinds (a desk with no data modem) waits for a kind that needs
   the difference.
 - **What reads it:** under the channels line, a line for each kind in use, as in the owner's screenshot: "Local voice: 1 in use by

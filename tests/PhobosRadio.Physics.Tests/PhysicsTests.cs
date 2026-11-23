@@ -250,6 +250,94 @@ public class ChannelTests
         Assert.False(served.ContainsKey(1)); // three channels left: not enough for the link
     }
 
+    // The remote control of vehicles (Radio 0.9.0): orders first, and they pre-empt; pictures next; talk last.
+    private static readonly KindShape Control = new(1, 2, Preempts: true);   // 12.5 kHz data keyed half the time: two vehicles a channel
+    private static readonly KindShape Picture = new(2, 1);                   // 50 kHz video keyed all the time: two channels, one vehicle
+    private static readonly KindShape[] Vehicles = { Control, Picture, Voice };
+
+    private static List<ChannelCandidate> TalkersThenOthers(int talkers, int talkerKind, IReadOnlyList<int> talkerStations,
+        params ChannelCandidate[] first)
+    {
+        var candidates = new List<ChannelCandidate>(first);
+        for (var radio = 1; radio <= talkers; radio++) candidates.Add(new ChannelCandidate(radio, talkerKind, talkerStations));
+        return candidates;
+    }
+
+    private static Dictionary<int, int> AllOn(int station, int radios)
+    {
+        var held = new Dictionary<int, int>();
+        for (var radio = 1; radio <= radios; radio++) held[radio] = station;
+        return held;
+    }
+
+    [Fact]
+    public void ControlTakesAChannelFromTheWeakestTalkersOnly()
+    {
+        // Six colonists hold both of a desk's channels; a truck asks for orders. Talk is put off a channel's worth at a time, the
+        // weakest first (last in the order), and no more than the truck needs: one colonist here, as five still fit on one channel.
+        var channels = new Dictionary<int, int> { [100] = 2 };
+        var candidates = TalkersThenOthers(6, 2, new[] { 100 }, new ChannelCandidate(10, 0, new[] { 100 }));
+        var served = Channels.Allocate(channels, Vehicles, candidates, AllOn(100, 6));
+        Assert.Equal(100, served[10]);
+        for (var radio = 1; radio <= 5; radio++) Assert.Equal(100, served[radio]);
+        Assert.False(served.ContainsKey(6));
+
+        // The next pass, with the truck holding: nothing changes, so nobody swaps back and forth.
+        var again = Channels.Allocate(channels, Vehicles, candidates, served);
+        Assert.Equal(served, again);
+
+        // On a desk of one channel the truck needs all of it: five talking colonists go "net busy".
+        served = Channels.Allocate(new Dictionary<int, int> { [100] = 1 }, Vehicles,
+            TalkersThenOthers(5, 2, new[] { 100 }, new ChannelCandidate(10, 0, new[] { 100 })), AllOn(100, 5));
+        Assert.Equal(100, served[10]);
+        Assert.Single(served);
+    }
+
+    [Fact]
+    public void ATalkerPutOffMovesToAnotherStationWithRoom()
+    {
+        var channels = new Dictionary<int, int> { [100] = 2, [200] = 1 };
+        var candidates = TalkersThenOthers(6, 2, new[] { 100, 200 }, new ChannelCandidate(10, 0, new[] { 100 }));
+        var served = Channels.Allocate(channels, Vehicles, candidates, AllOn(100, 6));
+        Assert.Equal(100, served[10]);
+        Assert.Equal(200, served[6]);   // put off at the desk, served by the other station
+    }
+
+    [Fact]
+    public void APictureTakesNothingFromTalkers()
+    {
+        var channels = new Dictionary<int, int> { [100] = 2 };
+        var candidates = TalkersThenOthers(6, 2, new[] { 100 }, new ChannelCandidate(10, 1, new[] { 100 }));
+        var served = Channels.Allocate(channels, Vehicles, candidates, AllOn(100, 6));
+        Assert.False(served.ContainsKey(10));
+        for (var radio = 1; radio <= 6; radio++) Assert.Equal(100, served[radio]);
+    }
+
+    [Fact]
+    public void PreemptionTakesNothingWhereItCannotMakeRoomOrFromKindsBeforeIt()
+    {
+        // A use wider than the station: putting everyone off would not make room, so nobody is put off.
+        var wideControl = new KindShape(4, 1, Preempts: true);
+        var served = Channels.Allocate(new Dictionary<int, int> { [100] = 2 }, new[] { wideControl, Voice },
+            TalkersThenOthers(6, 1, new[] { 100 }, new ChannelCandidate(10, 0, new[] { 100 })), AllOn(100, 6));
+        Assert.False(served.ContainsKey(10));
+        Assert.Equal(6, served.Count);
+
+        // A kind that pre-empts takes nothing from a kind served before it.
+        served = Channels.Allocate(new Dictionary<int, int> { [100] = 1 }, new[] { Voice, Control },
+            TalkersThenOthers(5, 0, new[] { 100 }, new ChannelCandidate(10, 1, new[] { 100 })), AllOn(100, 5));
+        Assert.False(served.ContainsKey(10));
+        Assert.Equal(5, served.Count);
+
+        // Nor from another kind that pre-empts.
+        var otherControl = new KindShape(1, 1, Preempts: true);
+        served = Channels.Allocate(new Dictionary<int, int> { [100] = 1 }, new[] { Control, otherControl },
+            new[] { new ChannelCandidate(10, 0, new[] { 100 }), new ChannelCandidate(1, 1, new[] { 100 }) },
+            new Dictionary<int, int> { [1] = 100 });
+        Assert.False(served.ContainsKey(10));
+        Assert.Equal(100, served[1]);
+    }
+
     [Fact]
     public void RadiosOnAChannelTakeTurns()
     {

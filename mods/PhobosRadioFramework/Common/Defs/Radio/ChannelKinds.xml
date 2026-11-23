@@ -3,7 +3,30 @@
   <!-- Kinds of channel use in the ledger (Radio 0.8.0), as D'thorga Mechanised Specialist Expansion's BVR channels count theirs.
        A radio names its kind (CompProperties_Radio.channelKind); with none it is the local voice net. The kind's mode sets how many
        25 kHz channels one use takes (its bandwidth) and how many radios share it by turns (its duty cycle). Kinds never share a
-       block of channels. order: lower is served first when channels are short, and listed first (authored). -->
+       block of channels. order: lower is served first when channels are short, and listed first (authored). preempts (0.9.0): when
+       every station it reaches is full, a use of this kind takes channels from the kinds served after it, as a trunked system's
+       emergency call does (authored). -->
+
+  <!-- The remote control of vehicles (Radio 0.9.0; docs/development/autonomous-vehicles.md): no radio uses these kinds yet; the
+       vehicle kit that will comes in a later step. Orders come before pictures, pictures before talk, and orders alone may take a
+       channel from talking colonists, so a truck is never left uncontrolled because people are talking (agent defaults). -->
+
+  <Phobos.Radio.ChannelKindDef>
+    <defName>PhobosRadio_KindVehicleControl</defName>
+    <label>vehicle control</label>
+    <description>Orders sent to vehicles driven from the station. Takes a channel from talking colonists when every channel is in use.</description>
+    <mode>PhobosRadio_ControlData</mode>
+    <order>50</order>
+    <preempts>true</preempts>
+  </Phobos.Radio.ChannelKindDef>
+
+  <Phobos.Radio.ChannelKindDef>
+    <defName>PhobosRadio_KindVehiclePicture</defName>
+    <label>vehicle picture</label>
+    <description>The picture from a vehicle's camera, while someone at the station drives it by hand.</description>
+    <mode>PhobosRadio_PictureVideo</mode>
+    <order>60</order>
+  </Phobos.Radio.ChannelKindDef>
 
   <Phobos.Radio.ChannelKindDef>
     <defName>PhobosRadio_KindLocalVoice</defName>

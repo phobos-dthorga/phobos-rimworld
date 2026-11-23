@@ -15,4 +15,30 @@
     <dutyCycle>0.2</dutyCycle>
     <transmitEfficiency>0.6</transmitEfficiency>
   </Phobos.Radio.ModeDef>
+
+  <!-- The remote control of vehicles (Radio 0.9.0; docs/development/autonomous-vehicles.md). Every figure below is authored, an agent
+       default for the owner to revise. Control: short orders on a narrowband data channel, keyed about half the time, decoded at a
+       lower signal-to-noise ratio than speech is clear at (a data modem trades speed for sensitivity), so orders get through where
+       a picture does not. Picture: a moving picture for aiming by hand, wider and keyed all the time, needing a clearer signal; its
+       amplifier must stay linear, so it wastes more as heat. -->
+
+  <Phobos.Radio.ModeDef>
+    <defName>PhobosRadio_ControlData</defName>
+    <label>control data</label>
+    <description>Short orders to a machine on a narrowband data channel. Gets through on a weak signal, about 6 dB above the noise (authored), but carries little.</description>
+    <bandwidthHz>12500</bandwidthHz>
+    <requiredSnrDb>6</requiredSnrDb>
+    <dutyCycle>0.5</dutyCycle>
+    <transmitEfficiency>0.6</transmitEfficiency>
+  </Phobos.Radio.ModeDef>
+
+  <Phobos.Radio.ModeDef>
+    <defName>PhobosRadio_PictureVideo</defName>
+    <label>picture</label>
+    <description>A moving picture from a machine's camera, for aiming by hand. Needs a clear signal, about 15 dB above the noise (authored), and two channels at once.</description>
+    <bandwidthHz>50000</bandwidthHz>
+    <requiredSnrDb>15</requiredSnrDb>
+    <dutyCycle>1</dutyCycle>
+    <transmitEfficiency>0.4</transmitEfficiency>
+  </Phobos.Radio.ModeDef>
 </Defs>

@@ -17,6 +17,23 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.9.0] - 2026-11-24 - Draft
+
+Vehicle kinds: orders to vehicles can take a channel from talk
+
+### Added
+
+- **Two new kinds of channel use for vehicles driven from a station**, the first step of the remote control of vehicles the owner
+  asked for on 24 November 2026: vehicle control (one channel shared by two vehicles) and vehicle picture (two channels for one
+  vehicle). No radio uses them yet, so a station still lists only local voice; the vehicle kit comes in a later version.
+- **A kind can take channels from others when every station is full**, as an emergency call does on a trunked radio system.
+  Vehicle control does: it puts the weakest talking colonists off, no more than it needs, and they try the other stations in
+  reach. Other kinds never do. Not yet tested in game: row 484.
+
+### Compatibility and limits
+
+- Safe with a running save: nothing new is saved. No new settings.
+
 ## [0.8.0] - 2026-11-24 - Draft
 
 Channels by kind: the station counts each use of its channels apart

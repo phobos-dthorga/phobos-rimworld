@@ -1,7 +1,8 @@
 # Autonomous vehicles by radio (24 Nov 2026)
 
-**Status (24 Nov 2026):** a design record; nothing in it is built. Its first step, the radio's ledger by kind, is built in Radio
-Framework 0.8.0 ([radio stations](radio-stations.md#kinds-radio-080)), not yet tested in game.
+**Status (24 Nov 2026):** step 1 of 7 is built: the vehicle control and picture kinds, and control taking channels from talk, in
+Radio Framework 0.9.0, on the ledger by kind of 0.8.0 ([radio stations](radio-stations.md#kinds-radio-080)); no radio uses them
+yet. Steps 2 to 7 are not built. Nothing is tested in game.
 
 The owner, 24 Nov 2026: "the real feature I wish to implement soon is autonomous vehicles and perhaps their weapon systems too, all
 via our radio framework." **[O]** It builds on what the owner chose on 18 and 19 Nov 2026 in
@@ -16,7 +17,8 @@ beside it. **[A]** an agent's default or authored figure, for the owner to revis
 
 ## Read this first
 
-- **Nothing is built but the ledger's kinds.** Every line below is a design; nothing is tested in game.
+- **Built so far: the ledger's kinds and pre-emption** (step 1, Radio 0.9.0). No vehicle carries a radio yet, so nothing
+  below can be seen in play; nothing is tested in game.
 - **The owner's four cards of 24 Nov 2026 [O]:** our **service trucks get a remote-control kit first**; **a colonist works the
   console** while vehicles are driven; **lost link is chosen per vehicle, hold by default**; **remote guns fire only while an
   operator has a picture link**, with a setting, **off by default**, that lets them fire on their own.
@@ -68,10 +70,17 @@ flowchart LR
   So the radio desk (one channel, two with its second transceiver) can give orders to two vehicles but cannot carry a picture; the
   **radio terminal** (four channels) can drive two vehicles, show one picture and still serve five talking colonists. A large
   remote fleet wants more terminals, as the owner's "a computer terminal can effectively be a base station with an SDR" suggests.
-- **Control takes a channel from talk [A].** Vehicle control is served before voice, and when a station is full it **takes a
-  channel from the newest talking colonists**, who go "net busy", as a trunked system's emergency call pre-empts others. Without
-  this, colonists already talking would keep a vehicle off the net for as long as they talk, since a holder keeps its place.
-  The picture does not pre-empt anyone. (A `preempts` flag on the kind: built with step 1.)
+- **Control takes a channel from talk [A].** Vehicle control is served before voice, and when every station it reaches is full it
+  **takes a channel from the weakest talking colonists**, who go "net busy", as a trunked system's emergency call pre-empts others.
+  Without this, colonists already talking would keep a vehicle off the net for as long as they talk, since a holder keeps its place.
+  The picture does not pre-empt anyone.
+- **How pre-emption works (built in Radio 0.9.0) [code: `Physics/Channels.cs`, `Allocate`]:** a kind with `preempts` set that finds
+  no room takes channels at the best station where it can, from kinds served after it that do not pre-empt, **the weakest of the
+  kind served last first, and only as many radios as it needs**. On a desk of two channels with six colonists talking, a truck puts
+  one colonist off (five still share one channel); on a desk of one channel it puts all five off, since a use needs a whole channel.
+  A colonist put off tries the other stations in reach. Nothing is taken where even everyone would not make room, and nothing from
+  another kind that pre-empts. "The weakest" replaced the design's first wording, "the newest": the ledger keeps no time a radio
+  joined, and the weakest is the one whose talk was worst anyway [A].
 
 ### The operator
 
@@ -169,7 +178,7 @@ flowchart LR
 
 | # | Step | Mod | Needs |
 | --- | --- | --- | --- |
-| 1 | The two kinds, and pre-emption in the ledger, with tests | Radio | Nothing |
+| 1 | The two kinds, and pre-emption in the ledger, with tests. **Built in Radio 0.9.0** | Radio | Nothing |
 | 2 | A seam in the net for radios that are not worn; the tie-in adds kitted vehicles and shows their links | Radio | 1 |
 | 3 | The kit's comp, the move-check postfix, lost-link choices and letters | Framework | 2 to be useful |
 | 4 | The kit as an upgrade node on the five service trucks, with its antenna overlay (art first, as the owner's rule says) | Vehicles | 3 |
@@ -181,7 +190,8 @@ flowchart LR
 
 ## Still open
 
-- **The figures marked [A]**: the modes, two vehicles per operator, the ten-second delay, pre-emption of talk by control.
+- **The figures marked [A]**: the modes, two vehicles per operator, the ten-second delay, pre-emption of talk by control (built,
+  so a change is a Def edit: `preempts` on `PhobosRadio_KindVehicleControl`).
 - **What the second Vehicle Framework seat checks need**, and whether a moving crewless truck needs help to keep ticking: read at
   step 3.
 - **The antenna overlay's picture**: small, but it is art, so it waits for the owner's pick before the first test.

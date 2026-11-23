@@ -283,9 +283,11 @@ public sealed class RadioNet : MapComponent
     /// <summary>
     /// The channel ledger (Radio 0.7.0; by kind since 0.8.0): every radio in touch is served by the best station with room for one
     /// more of its kind; a radio already served keeps its station while it stays in touch with it. Kinds with a lower order are served
-    /// first, then the strongest. A radio in touch that no station has room for is busy. Only served radios count as in touch with a
-    /// station, for its draw, its lamp and the colonist's mood.
-    /// <para>Cost: one pass over the links already worked out, a sort, and a few lookups per radio, about once a second.</para>
+    /// first, then the strongest; a kind that pre-empts (0.9.0) takes channels from the kinds after it when it finds no room. A radio
+    /// in touch that no station has room for is busy. Only served radios count as in touch with a station, for its draw, its lamp and
+    /// the colonist's mood.
+    /// <para>Cost: one pass over the links already worked out, a sort, and a few lookups per radio, about once a second; pre-emption
+    /// adds one pass over a full station's radios, only for a radio that pre-empts and found no room.</para>
     /// </summary>
     private void ServeFromChannels(RadioRulesDef rules)
     {
@@ -294,7 +296,8 @@ public sealed class RadioNet : MapComponent
         var shapes = new KindShape[kinds.Count];
         for (var k = 0; k < kinds.Count; k++)
         {
-            shapes[k] = new KindShape(Channels.PerUse(kinds[k].Mode.bandwidthHz, rules.channelWidthHz), Channels.RadiosPerUse(kinds[k].Mode.dutyCycle));
+            shapes[k] = new KindShape(Channels.PerUse(kinds[k].Mode.bandwidthHz, rules.channelWidthHz),
+                Channels.RadiosPerUse(kinds[k].Mode.dutyCycle), kinds[k].preempts);
         }
         var channelsByStation = new Dictionary<int, int>();
         var stationById = new Dictionary<int, CompRadio>();
