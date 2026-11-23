@@ -5,13 +5,16 @@ costs 6 dB. This is **Phase 1**: local VHF and UHF on one map.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.3.0, built 24 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.4.0, built 24 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
 
-- **Requires Vanilla Expanded Framework** (its pipe network carries the coax feedline). Load this mod
-  after Core, the DLCs and Vanilla Expanded Framework. It needs no Harmony.
+- **Requires D'thorga Framework** (from 0.4.0, for building upgrades) **and Vanilla Expanded Framework** (its pipe network carries
+  the coax feedline). Load this mod after Core, the DLCs, Harmony, Vanilla Expanded Framework and D'thorga Framework. The radio itself
+  patches nothing; Harmony comes with D'thorga Framework.
+- **The upgrades are experimental** (0.4.0): a receive preamplifier for the desk, a taller pole for the whip, a mast extension and a
+  longer collinear for the mast, fitted by builders from each building's Upgrades button.
 - **RimWorld 1.7 only** (from 0.1.3; 1.6 is no longer supported). Its About file now lists 1.7, so the mod list no longer calls
   it outdated.
 - **Decide before you start a colony:** the mod setting *Metres per cell* (default 1, from 0.5 to 30) changes every path
@@ -76,6 +79,16 @@ marks a wall or door that cost signal, a hollow ring one the line passed over, a
 Engineer what each run of walls or rock, and each roof, cost. It follows the colonist each time the net works links out (about once
 a second). Up to 6 selected colonists are drawn at once.
 
+**Upgrades** (from 0.4.0, experimental): select the radio desk, a whip or a mast and press **Upgrades**. Builders bring the materials
+and fit it under Construction; it can be taken off again for about half its materials back.
+
+| Upgrade | Fits | What it changes | Cost |
+| --- | --- | --- | --- |
+| Receive preamplifier | Radio desk | Its receiver from 6 dB to 3 dB of noise: hears faint hand-helds better where it is quiet | 10 steel, 1 component |
+| Taller pole | Whip | 3 m to 5 m: clears more walls | 20 steel |
+| Mast extension | Mast | 10 m to 15 m: clears walls for longer | 40 steel |
+| Longer collinear | Mast | 3 dBi to 6 dBi of gain (approximate): about twice the signal both ways | 20 steel, 1 component |
+
 **The side view** (from 0.3.0): the link-budget window draws the same path from the side, the antenna on the left and the colonist
 on the right at their heights, wall height dashed, what the line met between them, and the line itself.
 
@@ -94,7 +107,10 @@ building, and three `DefModExtension`s: `RadioObstructionExtension` (`lossDb` pe
 building Def), `RadioNoiseExtension` (`noiseDbmAt1m`, `radiusCells`, `noiseWhen` = PowerOn, Connected or
 Always, on a building Def) and `RadioCoaxExtension` (`lossDbPer100m` at `referenceMHz`, on a coax Def
 listed in the `PhobosRadio_FeedlineNet` pipe net). `Common/Patches` shows how the vanilla materials and
-generators get theirs. No C# needed to add a radio, a band, an antenna or a noisy machine.
+generators get theirs. No C# needed to add a radio, a band, an antenna or a noisy machine. **Upgrades** are D'thorga Framework's
+`Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef` (see its modding guide): give the building
+`CompProperties_PhobosBuildingUpgrades` and set the figures the radio reads, `heightMetres` and `gainDbi` on an antenna and
+`noiseFigureReductionDb` on a station (`Common/Defs/Radio/Upgrades.xml` has ours).
 
 ## Rebuilding
 

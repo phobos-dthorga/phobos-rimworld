@@ -9,7 +9,8 @@ This is the first step, local radio on one map. [Back to the guide](README.md).
 ## Read this first (gotchas)
 
 - **Not yet tested in game.** It has been built and installed, but not yet seen running.
-- **Needs Vanilla Expanded Framework** (the coax is its pipe network). No Harmony, no D'thorga Framework.
+- **Needs D'thorga Framework and Vanilla Expanded Framework** (the coax is the latter's pipe network; the upgrades are the former's).
+- **The upgrades are experimental**: the desk, whip and mast each have an **Upgrades** button.
 - **Decide Metres per map cell before a colony** (default 1). It changes every contact's range.
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a radio together.
 - **Before removing it**, deconstruct every radio building and drop every hand-held.
@@ -44,7 +45,9 @@ better or nothing is connected. **Select the station or an antenna and the map s
 would reach it well, dark red where it would not, with every door counted as closed. It fills in roughly at once and finely over a
 few seconds, and redraws when you build, so you can see a wall's radio shadow appear. **Select a colonist wearing a hand-held** and a line runs to the antenna they use, in
 the colour of their signal, with a mark on everything in the way: a filled orange square on a wall that cost signal, a hollow ring on
-one the line passed over, a red diamond on rock. The radio button's window shows the same path from the side. A colonist in good contact gets a small **in touch with home** mood, and a fainter one on a weak
+one the line passed over, a red diamond on rock. The radio button's window shows the same path from the side. **The desk, whip and mast take upgrades** from their Upgrades button,
+fitted by builders: a quieter receiver for the desk, a taller pole for the whip, and an extension or a longer antenna for the mast.
+Select the station afterwards and the coverage shows what it bought. A colonist in good contact gets a small **in touch with home** mood, and a fainter one on a weak
 link. **While placing** an antenna or the station, the cursor shows its height, the roof and the noise there; red means overhead
 mountain.
 

@@ -83,6 +83,12 @@ public class CompRadio : ThingComp
         yield return SignalGizmo.ForStation(this, RadioNet.For(parent.Map));
     }
 
+    /// <summary>An upgrade fitted to a station or taken off: the net and the picture work it in at once (Radio 0.4.0).</summary>
+    public override void ReceiveCompSignal(string signal)
+    {
+        if (Props.isStation) RadioUpgrades.Notice(parent, signal);
+    }
+
     /// <summary>While a station is selected, the map shows its coverage (Radio 0.2.0); the picture's own service does the work.</summary>
     public override void PostDrawExtraSelectionOverlays()
     {

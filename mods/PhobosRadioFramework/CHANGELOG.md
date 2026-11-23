@@ -14,6 +14,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   what each picture was cut from moved beside the art records, in the repository's assets folder; nothing a player sees
   changes.
 
+## [0.4.0] - 2026-11-24 - Draft
+
+Upgrades for the radio desk and the antennas (experimental)
+
+### Added
+
+- **The radio desk, the whip and the mast take upgrades** (the owner's word of 24 November 2026, experimental): a receive
+  preamplifier for the desk, a taller pole for the whip, a mast extension and a longer collinear for the mast. A builder fits each one
+  from the building's Upgrades button. Not yet tested in game: rows 461 and 462.
+
+### Dependencies
+
+- **Now needs D'thorga Framework**, for its building upgrades. Load it after D'thorga Framework.
+
+### Compatibility and limits
+
+- Safe with a running save: existing stations and antennas gain the Upgrades button. No new settings.
+
 ## [0.3.0] - 2026-11-24 - Draft
 
 A line from each colonist's radio to its antenna, and a side view of the path

@@ -7,9 +7,11 @@
     <RootNamespace>Phobos.Radio</RootNamespace>
     <AssemblyName>PhobosRadio</AssemblyName>
     <ModFolder>PhobosRadioFramework</ModFolder>
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
   </PropertyGroup>
   <ItemGroup>
+    <!-- D'thorga Framework, for its building upgrades (Radio 0.4.0); Private=false: its DLL ships only in its own mod. -->
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
     <!-- Vanilla Expanded Framework's PipeSystem.dll, referenced from the installed mod and never copied: its licence
          (CC BY-NC-ND 4.0) permits depending on it, not redistributing it. -->
     <Reference Include="PipeSystem">

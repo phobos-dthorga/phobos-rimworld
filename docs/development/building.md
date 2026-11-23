@@ -56,7 +56,7 @@ Generated from the project files by `python scripts/doc-tables.py --write`: chan
 | `PhobosPatches.RimPacts` | `mods/PhobosPatches/Mods/RimPacts/` | `PhobosFramework` | none | yes | `PhobosPatches.Rules.Tests` |
 | `PhobosPatches.VehicleFramework` | `mods/PhobosPatches/Mods/VehicleFramework/` | `PhobosFramework` | `Vehicles`, `SmashTools` | yes | `PhobosPatches.Rules.Tests` |
 | `PhobosPatches.VisitSettlements` | `mods/PhobosPatches/Mods/VisitSettlements/` | `PhobosFramework` | none | yes | `PhobosPatches.Rules.Tests` |
-| `PhobosRadio` | `mods/PhobosRadioFramework/` | none | `PipeSystem` | no | `PhobosRadio.Physics.Tests` |
+| `PhobosRadio` | `mods/PhobosRadioFramework/` | `PhobosFramework` | `PipeSystem` | no | `PhobosRadio.Physics.Tests` |
 | `PhobosWaterTap` | `mods/PhobosWaterTap/` | `PhobosFramework.Hygiene` | `BadHygiene` | no | `PhobosWaterTap.Rules.Tests` |
 
 29 projects (23 using Harmony) and 7 test projects. Read from each project file as written: MSBuild is not run, so a value set only in `Directory.Build.props` or `Directory.Build.targets` is not shown. Harmony: its own C# files have `using HarmonyLib` or a `[HarmonyPatch]`. Test projects: those that reference the project or compile its files.

@@ -31,6 +31,9 @@ public class CompAntenna : ThingComp
         if (parent.Spawned && parent.Faction == RimWorld.Faction.OfPlayer) RadioCoverage.For(parent.Map).Show(parent);
     }
 
+    /// <summary>An upgrade fitted or taken off: the net and the picture work it in at once (Radio 0.4.0).</summary>
+    public override void ReceiveCompSignal(string signal) => RadioUpgrades.Notice(parent, signal);
+
     public override string CompInspectStringExtra() =>
         parent.Spawned ? RadioCoverage.For(parent.Map).InspectLine(parent) ?? string.Empty : string.Empty;
 }

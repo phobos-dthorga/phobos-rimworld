@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The radio's building upgrades (Radio 0.4.0; the owner, 24 Nov 2026: "use the code we created earlier to allow for upgradeable
+    buildings. Experimental, but I wish to explore it further"), through D'thorga Framework's building upgrades: a builder brings the
+    materials and fits each one under Construction. Each sets a figure the radio reads when it works links out (Phobos.Radio.Services.
+    RadioUpgrades): heightMetres, gainDbi, noiseFigureReductionDb. Costs, work and skills are authored; the figures are approximate and
+    say so beside each. Experimental: not yet tested in game.
+  -->
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeReceivePreamp</defName>
+    <label>receive preamplifier</label>
+    <description>A small low-noise amplifier between the antenna lead and the radio, switched out of the way whenever the station sends. It makes the station's receiver about 3 dB quieter, so it hears faint hand-helds better where the colony is quiet. It does nothing against a nearby generator: that noise arrives with the signal.</description>
+    <buildings>
+      <li>PhobosRadio_BaseStation</li>
+    </buildings>
+    <costList>
+      <Steel>10</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <work>600</work>
+    <constructionSkill>4</constructionSkill>
+    <researchPrerequisite>PhobosRadio_LocalRadio</researchPrerequisite>
+    <figures>
+      <!-- 6 dB down to 3 dB: approximate, an authored figure for a modest preamplifier. -->
+      <li><name>noiseFigureReductionDb</name><value>3</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeWhipTallerPole</defName>
+    <label>taller pole</label>
+    <description>A longer steel pole that lifts the whip from three metres to five, over most walls, so only walls close to a hand-held still get in the way.</description>
+    <buildings>
+      <li>PhobosRadio_Whip</li>
+    </buildings>
+    <costList>
+      <Steel>20</Steel>
+    </costList>
+    <work>400</work>
+    <constructionSkill>3</constructionSkill>
+    <figures>
+      <li><name>heightMetres</name><value>5</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeMastExtension</defName>
+    <label>mast extension</label>
+    <description>Another lattice section and a second set of guy wires, raising the mast from ten metres to fifteen, so the line to a hand-held clears walls for even longer.</description>
+    <buildings>
+      <li>PhobosRadio_Mast</li>
+    </buildings>
+    <costList>
+      <Steel>40</Steel>
+    </costList>
+    <work>1200</work>
+    <constructionSkill>6</constructionSkill>
+    <figures>
+      <li><name>heightMetres</name><value>15</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeLongerCollinear</defName>
+    <label>longer collinear</label>
+    <description>A longer stacked antenna for the top of the mast. It squeezes more of the signal towards the horizon, for about 6 dB of gain instead of 3: signals both ways come in about twice as strong.</description>
+    <buildings>
+      <li>PhobosRadio_Mast</li>
+    </buildings>
+    <costList>
+      <Steel>20</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <work>800</work>
+    <constructionSkill>5</constructionSkill>
+    <figures>
+      <!-- Approximate: longer dual-band collinears are commonly rated about 6 dBi on 2 m; authored, unverified against a source. -->
+      <li><name>gainDbi</name><value>6</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+</Defs>

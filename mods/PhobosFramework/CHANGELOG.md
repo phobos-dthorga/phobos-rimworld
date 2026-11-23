@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.275.0] - 2026-11-24 - Draft
+
+Building upgrades tell the building when they change, and cost less to read
+
+### Added
+
+- For other modders: **a building's comps now hear when an upgrade is fitted or taken off**, through the game's own comp signal
+  (CompPhobosBuildingUpgrades.ChangedSignal), so a comp can work its figures out again at once instead of checking every tick. D'thorga
+  Radio Framework's new upgrades use it.
+
+### Changed
+
+- **Reading an upgrade's figure no longer walks every fitted upgrade each time**: the figures are kept in a table rebuilt only when an
+  upgrade changes. The answers are the same as before; nothing a player sees changes.
+
 ## [0.274.1] - 2026-11-24 - Draft
 
 A cancelled order starts afresh

@@ -32,6 +32,15 @@ public class CompPhobosBuildingUpgrades : ThingComp
     /// <summary>The abilities the fitted upgrades give. Derived, never saved.</summary>
     readonly HashSet<string> grants = new();
 
+    /// <summary>The figures the fitted upgrades set, each at the largest any of them sets (0.275.0). Derived, never saved.</summary>
+    readonly Dictionary<string, float> figures = new();
+
+    /// <summary>
+    /// Sent to every comp on the building, through the game's own <c>ReceiveCompSignal</c>, when an upgrade is fitted or taken off
+    /// (0.275.0), so a comp that works figures out from the upgrades knows to work them out again.
+    /// </summary>
+    public const string ChangedSignal = "PhobosBuildingUpgradesChanged";
+
     public IReadOnlyList<PhobosBuildingUpgradeDef> Fitted => fitted;
     public PhobosBuildingUpgradeDef? Ordered => ordered;
     public bool Removing => removing;
@@ -43,9 +52,11 @@ public class CompPhobosBuildingUpgrades : ThingComp
     /// <summary>Whether a fitted upgrade gives this ability.</summary>
     public bool Grants(string ability) => grants.Contains(ability);
 
-    /// <summary>What a figure reads on this building: set by a fitted upgrade, else the building's own.</summary>
-    public float Figure(string name, float fallback) =>
-        BuildingUpgradeRule.Figure(fitted.SelectMany(def => def.figures).Where(f => f.name == name).Select(f => f.value), fallback);
+    /// <summary>
+    /// What a figure reads on this building: set by a fitted upgrade, else the building's own. Read from a kept table, so it costs a
+    /// lookup and allocates nothing (0.275.0; it walked every fitted upgrade before).
+    /// </summary>
+    public float Figure(string name, float fallback) => figures.TryGetValue(name, out float value) ? value : fallback;
 
     public int Delivered(ThingDef what) => delivered.TryGetValue(what, out int count) ? count : 0;
 
@@ -90,14 +101,21 @@ public class CompPhobosBuildingUpgrades : ThingComp
         if (on && !fitted.Contains(def)) fitted.Add(def);
         if (!on) fitted.Remove(def);
         RebuildGrants();
+        parent.BroadcastCompSignal(ChangedSignal);
     }
 
     void RebuildGrants()
     {
         grants.Clear();
+        figures.Clear();
         foreach (PhobosBuildingUpgradeDef def in fitted)
         {
             foreach (string ability in def.grants) grants.Add(ability);
+        }
+        // The rule decides what several upgrades setting one figure come to; the table only keeps its answer.
+        foreach (string name in fitted.SelectMany(def => def.figures).Select(f => f.name).Distinct())
+        {
+            figures[name] = BuildingUpgradeRule.Figure(fitted.SelectMany(def => def.figures).Where(f => f.name == name).Select(f => f.value), 0f);
         }
     }
 

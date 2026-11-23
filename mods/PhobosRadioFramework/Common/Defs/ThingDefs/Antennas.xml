@@ -52,6 +52,7 @@
       <li Class="Phobos.Radio.CompProperties_FeedlinePort">
         <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
       </li>
+      <li Class="Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades" />
     </comps>
   </ThingDef>
 
@@ -88,6 +89,7 @@
       <li Class="Phobos.Radio.CompProperties_FeedlinePort">
         <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
       </li>
+      <li Class="Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades" />
     </comps>
   </ThingDef>
 </Defs>

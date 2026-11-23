@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.274.1, built 24 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.275.0, built 24 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -131,7 +131,8 @@ Every vehicle gets systems that fit what it is, by what it runs on and whether i
 - **The service yard** (0.210.0, not yet tested in game; the fuel pump's picture is still to come): servicing, the dyno, fuel and parking
   in one zone whose size its equipment caps, run from the Fleet board: [the service yard](../../docs/player-guide/vehicle-care.md#the-service-yard).
 - **Building upgrades** (0.210.0, not yet tested in game): a charging cable for the fuel pump, a second roller set for the dyno bay, a
-  faster pump for the depot bay: [building upgrades](../../docs/player-guide/vehicle-care.md#building-upgrades).
+  faster pump for the depot bay: [building upgrades](../../docs/player-guide/vehicle-care.md#building-upgrades). D'thorga Radio
+  Framework's desk and antennas use them too (from Radio 0.4.0, experimental): [radio](../../docs/player-guide/radio.md).
 - **Fittings, tunes, grades and families**: [fittings, tunes and grades](../../docs/player-guide/vehicle-care.md#fittings-tunes-and-grades).
 - **Cabs, headlights, the driver, weather and rivers**: [cabs and comfort](../../docs/player-guide/vehicle-care.md#cabs-and-comfort),
   [headlights](../../docs/player-guide/vehicle-care.md#headlights),

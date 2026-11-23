@@ -249,8 +249,20 @@ Since 0.210.0 a placed building can take upgrades a builder fits, in XML alone. 
 ```
 
 Your own comp reads it from `parent.GetComp<CompPhobosBuildingUpgrades>()`: `Grants("MyMod_CanDoThing")` and
-`Figure("pumpPerHour", yourDefault)`. Both read a kept list, so they cost nothing to ask each tick. Where two fitted upgrades set the
-same figure the larger is used, never the sum.
+`Figure("pumpPerHour", yourDefault)`. Both read a kept table, rebuilt only when an upgrade is fitted or taken off, so they cost one
+lookup and allocate nothing (from 0.275.0). Where two fitted upgrades set the same figure the larger is used, never the sum, so name
+figures so that larger is better ("noiseFigureReductionDb", not "noiseFigureDb").
+
+**Hearing a change (0.275.0).** When an upgrade is fitted or taken off, every comp on the building receives
+`CompPhobosBuildingUpgrades.ChangedSignal` through the game's own `ReceiveCompSignal`. A comp that keeps anything worked out from the
+figures marks it stale there, instead of checking every tick:
+
+```csharp
+public override void ReceiveCompSignal(string signal)
+{
+    if (signal == CompPhobosBuildingUpgrades.ChangedSignal) cached = null;
+}
+```
 
 **Service yard equipment** (with Vehicle Framework): a building with `Phobos.VehicleSystems.PhobosYardEquipmentExtension` in its
 `modExtensions` adds its `cells` to the allowance of a service yard it stands beside; `required` marks the kind a yard cannot be without

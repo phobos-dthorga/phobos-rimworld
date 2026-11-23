@@ -183,6 +183,9 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
 
     private void OnRoof(IntVec3 cell) => changes++;
 
+    /// <summary>Something the picture is drawn from changed with no map event: an upgrade fitted or taken off (Radio 0.4.0).</summary>
+    public void NotifyChanged() => changes++;
+
     /// <summary>Starts again for a new subject; works again over the old picture when what it was drawn from has changed.</summary>
     private void Refresh(Thing thing)
     {

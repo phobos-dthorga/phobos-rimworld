@@ -4,16 +4,21 @@
   <name>D'thorga Radio Framework</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.3.0</modVersion>
+  <modVersion>0.4.0</modVersion>
   <description>Radio that works like radio. Every contact is decided by a real link budget: transmitter power, antennas, feedline, distance, walls, mountain rock and your own colony's electrical noise. Doubling the distance costs 6 dB.
 
-Phase 1 (this version): hand-held VHF and UHF radios, a base station, mast and whip antennas, coax feedline, and the "In touch" mood for colonists who can reach home. Three display modes let you see as much of the maths as you like: Plain, Operator or Engineer.
+Phase 1 (this version): hand-held VHF and UHF radios, a base station, mast and whip antennas, coax feedline, and the "In touch" mood for colonists who can reach home. Three display modes let you see as much of the maths as you like: Plain, Operator or Engineer. Select a station or antenna to see its coverage painted on the map, or a colonist to see the line their radio takes. Antennas and the station take upgrades: a taller pole, a mast extension, a longer antenna, a quieter receiver.
 
 Community-created content by House D'thorga (also spelt dthorga). Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.</description>
   <supportedVersions>
     <li>1.7</li>
   </supportedVersions>
   <modDependencies>
+    <li>
+      <packageId>PhobosDthorga.Framework</packageId>
+      <displayName>D'thorga Framework</displayName>
+      <downloadUrl>https://github.com/phobos-dthorga/phobos-rimworld</downloadUrl>
+    </li>
     <li>
       <packageId>OskarPotocki.VanillaFactionsExpanded.Core</packageId>
       <displayName>Vanilla Expanded Framework</displayName>
@@ -30,5 +35,6 @@ Community-created content by House D'thorga (also spelt dthorga). Portions of th
     <li>Ludeon.RimWorld.Odyssey</li>
     <li>brrainz.harmony</li>
     <li>OskarPotocki.VanillaFactionsExpanded.Core</li>
+    <li>PhobosDthorga.Framework</li>
   </loadAfter>
 </ModMetaData>

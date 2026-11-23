@@ -1,8 +1,9 @@
 # Radio stations: the radio desk and the radio terminal (24 Nov 2026)
 
-**Status (24 Nov 2026):** record only. Nothing is built. The design waits on the owner's answers to the questions
-[below](#questions-for-the-owner); the art for both stations is in a paid batch whose dry run is recorded in
-`assets/phobos-radio/requests/paid-1-record.md`.
+**Status (24 Nov 2026):** partly built. The building upgrades for the radio desk and both antennas are built in Radio Framework 0.4.0
+([below](#building-upgrades-radio-040)), not yet tested in game. The radio terminal and the linear amplifier are designed, not built;
+their pictures, the desk's, the whip's and the mast's are bought and wait for the owner's picks
+(`assets/phobos-radio/requests/paid-1-record.md`).
 
 The owner, 24 Nov 2026, of the base station's picture: "they come in so many varieties these days ^ ^ A computer terminal can
 effectively be a base station with an SDR and hefty amplifier." Then, by card: the two paid tries for the base station's picture
@@ -74,9 +75,65 @@ Nothing new runs per tick or per frame. Measuring: the coverage dev action and, 
 
 ## Questions for the owner
 
-1. The amplifier: **built into the terminal [A, recommended]**, or a separate building on the coax that either station can use?
-2. The terminal's own noise: **on [A, recommended]**, or left out?
-3. The figures above: as proposed, or changed?
+1. The amplifier: built into the terminal, or a separate building on the coax that either station can use?
+   **Answered: separate, on the coax [O]** (card, 24 Nov 2026), against the agent's recommendation of built in.
+2. The terminal's own noise: on, or left out? **Answered: "Yes, noisy by default, but enable/disable via a setting." [O]**
+3. The figures above: as proposed, or changed? Open; revised below for the separate amplifier.
+
+## The amplifier on the coax (the owner's choice, 24 Nov 2026)
+
+With the amplifier its own building, the terminal and the amplifier change as follows. All figures **[A]**, to revise.
+
+| | Radio terminal | Linear amplifier (new) |
+| --- | --- | --- |
+| What it is | A computer and a software-defined radio: the station alone | A heavy amplifier cabinet that sits in the coax run between a station and its antennas |
+| defName | `PhobosRadio_RadioTerminal` | `PhobosRadio_LinearAmplifier` |
+| Footprint | 3 × 2 | 1 × 1 |
+| Power, idle | 150 W, a computer and radio | 20 W on standby |
+| Transmit power | **10 W on its own**, the Australian Foundation licence's limit **[S]** ([reference checks](radio-reference-checks.md#australian-licence-limits)) | Raises what reaches it by 10 dB, **up to 100 W**, the Standard licence's limit **[S]**: the desk's 25 W and the terminal's 10 W both come out at 100 W |
+| On receive | | Switched out of the line: a small loss of 0.5 dB, nothing more |
+| Draw while sending | The mode's rule | Its output over the mode's efficiency, times the duty cycle, as stations already draw; the waste is heat in its own room |
+| Research | Software radio | **Linear amplifiers**, after Local radio |
+| Noise | Its own, while powered, **with a setting to switch it off** (on by default) | None of its own **[A]** |
+
+- **In the run, not just on the net [A]:** the amplifier counts for an antenna only when the cable path from the station to that antenna
+  passes through it, so where it is placed matters, as on a real feedline. `FeedlineService` already traces that path; it would report
+  the amplifiers it passed.
+- **What this buys:** the two stations stay wildly different, as the owner asked, and the amplifier is a choice either can make: the
+  desk at 100 W for a powered shack, or the terminal's quiet receiver at 100 W.
+- **The setting (to report when built):** D'thorga Radio Framework, "Radio terminals make radio noise", on by default.
+- **The art:** the terminal's picture shows no amplifier; the amplifier has its own picture in the same paid batch.
+
+## Building upgrades (Radio 0.4.0)
+
+The owner, 24 Nov 2026: "I want you to use the code we created earlier to allow for upgradeable buildings. Experimental, but I wish to
+explore it further." The code is D'thorga Framework's building upgrades (Framework 0.210.0, made for the service yard): a building with
+the upgrades comp has an Upgrades button; a builder brings the materials and fits each one under Construction; an upgrade sets named
+figures the building's own code reads. **The radio now depends on D'thorga Framework [A]**, as the shared rule for our C# mods already
+says every one should (`src/AGENTS.md`); it brings Harmony with it, which the radio itself still does not use.
+
+| Upgrade | Fits | What it changes | Cost and work | Why it is physically right |
+| --- | --- | --- | --- | --- |
+| Receive preamplifier | Radio desk | Noise figure 6 dB down to 3 dB | 10 steel, 1 component; 600 work; Construction 4; Local radio | A low-noise amplifier ahead of the receiver; it cannot help against a generator's noise, which arrives with the signal (said in its description) |
+| Taller pole | Whip | Height 3 m to 5 m | 20 steel; 400 work; Construction 3 | Height clears walls through the ray rule |
+| Mast extension | Mast | Height 10 m to 15 m | 40 steel; 1,200 work; Construction 6 | The same rule, for longer |
+| Longer collinear | Mast | Gain 3 dBi to 6 dBi | 20 steel, 1 component; 800 work; Construction 5 | Longer stacked collinears are commonly rated about 6 dBi on 2 m; **unverified against a source** |
+
+All costs, work and skills are authored **[A]**. No upgrade has a picture yet; the inspect text and the Upgrades window say what is
+fitted (the framework allows an overlay picture per upgrade, for later).
+
+**The four questions [A].** It lets the player improve a station or antenna where it stands, without rebuilding. It stops nothing. It
+changes play by giving each piece of kit a path to grow, and the coverage picture shows each upgrade's effect at once. Outside the
+radio, builders' time and materials notice, under Construction; nothing else, by choice.
+
+**Its cost (the radio's performance rule).** Figures are read when the net works links out (about once a second) and when the coverage
+picture collects its antennas, never per frame or per cell. The framework's figure lookup was walking every fitted upgrade on each
+call; **Framework 0.275.0 keeps a table** rebuilt only when an upgrade is fitted or taken off, so a lookup is one dictionary read. On a
+change the framework now **sends the building's comps a signal** (`CompPhobosBuildingUpgrades.ChangedSignal`, through the game's own
+`ReceiveCompSignal`), and the radio's comps mark the net and the coverage picture to work again: nothing polls.
+
+**What is not upgraded yet [A].** Hand-helds (apparel, not buildings); the desk's built-in whip; the radio terminal and the linear
+amplifier, which are not built (an amplifier upgrade to 400 W, the Australian Advanced licence's limit, would suit it).
 
 ## The art
 

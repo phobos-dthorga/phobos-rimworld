@@ -32,7 +32,8 @@ public sealed class RadioEndpoint
         AntennaGainDbi = antennaGainDbi;
         Feedline = feedline;
         TransmitPowerWatts = radio.Props.transmitPowerWatts;
-        NoiseFigureDb = radio.Props.noiseFigureDb;
+        // A station's receive preamplifier (Radio 0.4.0); a hand-held takes no upgrades and keeps its own.
+        NoiseFigureDb = RadioUpgrades.NoiseFigureDb(radio.parent, radio.Props.noiseFigureDb);
         Bands = bands;
         Mode = radio.Mode;
         AntennaLabel = antennaLabel;
@@ -68,7 +69,9 @@ public sealed class RadioEndpoint
     {
         var bands = new List<BandDef>();
         foreach (var band in station.Props.bands) if (antenna.Props.bands.Contains(band)) bands.Add(band);
-        return new RadioEndpoint(station.parent, antenna.parent.Position, station, bands, antenna.Props.heightMetres,
-            antenna.Props.gainDbi, feedline, antenna.parent.LabelCap);
+        // The antenna's own figures, or what its fitted upgrades set (Radio 0.4.0).
+        return new RadioEndpoint(station.parent, antenna.parent.Position, station, bands,
+            RadioUpgrades.Figure(antenna.parent, RadioUpgrades.HeightMetres, antenna.Props.heightMetres),
+            RadioUpgrades.Figure(antenna.parent, RadioUpgrades.GainDbi, antenna.Props.gainDbi), feedline, antenna.parent.LabelCap);
     }
 }
