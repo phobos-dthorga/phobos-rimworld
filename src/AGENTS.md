@@ -2,7 +2,8 @@
 
 The engineering rules for every mod's code and design: shared code, Harmony, tie-ins, saves, performance, text in code, logging
 and seen-in-play notes. A session reads it before writing C# or designing how a mod behaves; the vehicles and radio keep their own
-rules beside their folders as well.
+rules beside their folders as well. **How the code is built** (layers, ticks, tie-ins, saves and removal):
+[`docs/development/architecture.md`](../docs/development/architecture.md).
 
 Split from the root `AGENTS.md` on 21 Nov 2026 (the owner's yes: "keep a slimmed-down AGENTS at the root"), every rule moved word
 for word; the root's rules apply here too.
