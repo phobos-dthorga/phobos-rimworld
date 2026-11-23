@@ -24,6 +24,7 @@ The owner asked on 10 Nov 2026 to be told whenever a setting of ours is added or
 `changes` is how a session finds out, reading only the repository's history, never the game.
 """
 from pathlib import Path
+import hashlib
 import json
 import os
 import re
@@ -117,9 +118,69 @@ def keyed_texts(root=ROOT):
     return texts
 
 
-def setting_label(key, texts):
-    """The settings window's label for a saved key, where the mod follows its own naming (Prefix_Thing beside
-    Prefix_SettingThing); None when no label is found."""
+def _label_fingerprint(root, tables):
+    """A digest of every file the settings reader reads (our C# and the mods' Keyed files, by path, size and time) and of the
+    tables it is asked for: the same digest means the same labels."""
+    root = Path(root)
+    files = sorted(p for p in Path(root, 'src').rglob('*.cs') if is_source(p.as_posix()))
+    files += sorted(Path(root, 'mods').glob('*/**/Languages/*/Keyed/*.xml'))
+    digest = hashlib.sha1(json.dumps(tables, sort_keys=True).encode('utf-8'))
+    for path in files:
+        try:
+            stat = path.stat()
+        except OSError:
+            continue
+        digest.update(f'{path.relative_to(root).as_posix()}|{stat.st_size}|{stat.st_mtime_ns}\n'.encode('utf-8'))
+    return digest.hexdigest()
+
+
+def window_labels(root=ROOT, progress=None):
+    """{mod folder: {saved key: label}} as each settings window shows it, read from the window's drawing code by the kit's
+    settings reader (the one that writes docs/development/settings-reference.md) for every mod config/doc-tables.json lists. It
+    finds the labels of mods whose keys do not follow the Prefix_SettingThing naming (D'thorga Radio Framework's terminalNoise,
+    D'thorga Farming's). The read takes seconds, so its answer is kept in the kit's cache until a C# or language file changes.
+    {} when the kit has no reader or the config cannot be read."""
+    try:
+        from phobos_modkit.doc_tables import settings_reader
+        config = json.loads(Path(root, 'config', 'doc-tables.json').read_text(encoding='utf-8'))
+    except (ImportError, OSError, ValueError):
+        return {}
+    tables = [t.get('options') or {} for t in config.get('tables', []) if t.get('kind') == 'mod-settings']
+    fingerprint = _label_fingerprint(root, tables)
+    store = _labels_store(root)
+    try:
+        kept = json.loads(store.read_text(encoding='utf-8'))
+        if kept.get('format') == LABELS_FORMAT and kept.get('fingerprint') == fingerprint:
+            return kept['labels']
+    except (OSError, ValueError, AttributeError, KeyError):
+        pass
+    labels = {}
+    for position, options in enumerate(tables, 1):
+        reader = settings_reader(options.get('game'))
+        if reader is None or not options.get('mod'):
+            continue
+        if progress:
+            progress(f'Reading the settings window labels of {Path(options["mod"]).name}', position, len(tables))
+        found = labels.setdefault(Path(options['mod']).name, {})
+        for setting in reader(Path(root), options).settings:
+            if setting.label:
+                found.setdefault(setting.key, setting.label)
+    store.parent.mkdir(parents=True, exist_ok=True)
+    store.write_text(json.dumps({'format': LABELS_FORMAT, 'fingerprint': fingerprint, 'labels': labels}), encoding='utf-8')
+    return labels
+
+
+def _labels_store(root=ROOT):
+    from phobos_modkit import cache as derived
+    return derived.folder(LABELS_CACHE) / f'{Path(root).resolve().name}.json'
+
+
+def setting_label(key, texts, window=None):
+    """The settings window's label for a saved key: what the window's own code shows (`window`, one mod's {key: label} from
+    window_labels), else, for a setting the code no longer draws, the label beside the key where the mod follows its own naming
+    (Prefix_Thing beside Prefix_SettingThing); None when no label is found."""
+    if window and window.get(key):
+        return window[key]
     prefix, _, rest = key.partition('_')
     for candidate in (f'{prefix}_Setting{rest}', f'{key}Label', f'{key}_Label', key):
         if rest and candidate in texts:
@@ -143,8 +204,9 @@ def report_changes(argv, out=None):
     new_sources = sources_now()
     found = changes(old, defaults_document(sources=new_sources))
     if as_json:
-        mods, texts = class_mods([new_sources, old_sources]), keyed_texts()
-        json.dump([{'mod': mods.get(cls), 'class': cls, 'key': key, 'label': setting_label(key, texts), 'what': what,
+        mods, texts, window = class_mods([new_sources, old_sources]), keyed_texts(), window_labels()
+        json.dump([{'mod': mods.get(cls), 'class': cls, 'key': key,
+                    'label': setting_label(key, texts, window.get(mods.get(cls) or '')), 'what': what,
                     'before': before, 'after': after} for cls, key, what, before, after in found], out)
         out.write('\n')
         return 0
@@ -163,6 +225,8 @@ def report_changes(argv, out=None):
 SETTINGS_TOUCHED = r'Scribe_Values\.Look|:\s*ModSettings'
 HISTORY_CACHE = 'mod-settings-history'
 HISTORY_FORMAT = 1
+LABELS_CACHE = 'mod-settings-labels'
+LABELS_FORMAT = 1
 
 
 def history_commits(root=ROOT):
@@ -223,9 +287,9 @@ def settings_history(root=ROOT, progress=None):
         kept['format'] = HISTORY_FORMAT
         store.parent.mkdir(parents=True, exist_ok=True)
         store.write_text(json.dumps(kept), encoding='utf-8')
-    texts = keyed_texts(root)
+    texts, window = keyed_texts(root), window_labels(root, progress)
     for change in found:
-        change['label'] = setting_label(change['key'], texts)
+        change['label'] = setting_label(change['key'], texts, window.get(change.get('mod') or ''))
     return found
 
 

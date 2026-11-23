@@ -4,6 +4,7 @@ Every settings class below is synthetic; nothing reads the game's Config folder.
 """
 import importlib.util
 import io
+import json
 import os
 import unittest
 
@@ -63,6 +64,41 @@ class SettingLabelTests(unittest.TestCase):
         self.assertIsNone(settings.setting_label('PhobosTest_C', texts))
         self.assertIsNone(settings.setting_label('NoUnderscore', {'NoUnderscore': 'x'}))
 
+    def test_the_window_code_label_comes_first_and_the_naming_only_after(self):
+        texts = {'PhobosTest_SettingB': 'Bees by name'}
+        self.assertEqual('Bees as drawn', settings.setting_label('PhobosTest_B', texts, {'PhobosTest_B': 'Bees as drawn'}))
+        self.assertEqual('Bees by name', settings.setting_label('PhobosTest_B', texts, {'other': 'x'}))
+        self.assertEqual('Noise', settings.setting_label('terminalNoise', {}, {'terminalNoise': 'Noise'}))
+
+    def test_window_labels_are_read_once_until_a_source_changes(self):
+        import tempfile
+        from types import SimpleNamespace
+        from unittest import mock
+        with tempfile.TemporaryDirectory() as tmp:
+            root = settings.Path(tmp)
+            (root / 'config').mkdir()
+            (root / 'config' / 'doc-tables.json').write_text(json.dumps({'tables': [
+                {'kind': 'mod-settings', 'options': {'game': 'rimworld', 'sources': ['src/Test'], 'mod': 'mods/PhobosTest'}}]}),
+                encoding='utf-8')
+            (root / 'src' / 'Test').mkdir(parents=True)
+            code = root / 'src' / 'Test' / 'TestSettings.cs'
+            code.write_text('class A {}', encoding='utf-8')
+            reads = []
+
+            def reader(where, options):
+                reads.append(options['mod'])
+                return SimpleNamespace(settings=[SimpleNamespace(key='terminalNoise', label='Noise'),
+                                                 SimpleNamespace(key='hidden', label=None)])
+
+            with mock.patch('phobos_modkit.doc_tables.settings_reader', lambda game: reader), \
+                    mock.patch.object(settings, '_labels_store', lambda root=None: settings.Path(tmp) / 'labels.json'):
+                self.assertEqual({'PhobosTest': {'terminalNoise': 'Noise'}}, settings.window_labels(root))
+                settings.window_labels(root)
+                self.assertEqual(1, len(reads), 'unchanged sources come from the cache')
+                code.write_text('class A { int b; }', encoding='utf-8')
+                settings.window_labels(root)
+                self.assertEqual(2, len(reads), 'a changed source is read again')
+
     def test_each_class_is_given_the_mod_its_project_builds_into(self):
         found = settings.class_mods([source(A)], root=ROOT)
         self.assertEqual({}, {k: v for k, v in found.items() if k.endswith('TestSettings')})  # src/Test is no real project
@@ -95,7 +131,8 @@ class SettingsHistoryTests(unittest.TestCase):
                             ('_history_store', lambda root=None: settings.Path(store)),
                             ('sources_at', lambda revision, root=None: source(A)),
                             ('sources_now', lambda root=None: source(A, B)),
-                            ('keyed_texts', lambda root=None: {'PhobosTest_SettingB': 'Bees'})):
+                            ('keyed_texts', lambda root=None: {'PhobosTest_SettingB': 'Bees'}),
+                            ('window_labels', lambda root=None, progress=None: {'PhobosTest': {'PhobosTest_aaa': 'Ants'}})):
             patcher = mock.patch.object(settings, name, value)
             patcher.start()
             self.addCleanup(patcher.stop)
@@ -105,5 +142,6 @@ class SettingsHistoryTests(unittest.TestCase):
         self.assertEqual([c['key'] for c in found], ['PhobosTest_aaa', 'PhobosTest_bbb', 'PhobosTest_B'])
         self.assertEqual([c['commit'] for c in found], ['aaa', 'bbb', None])
         self.assertEqual(found[-1]['label'], 'Bees')
+        self.assertEqual(found[0]['label'], 'Ants', "the window's own label, read from its code, for its mod")
         settings.settings_history()
         self.assertEqual(self.read, ['aaa', 'bbb'], 'a commit already read comes from the cache')
