@@ -388,7 +388,8 @@ and each README. Two mods have a button:
 ## Where to read more
 
 - [Building, testing and deploying](building.md): the projects table, the Harmony patch list, the gate, deploying. Living.
-- [D'thorga Framework](phobos-framework.md): what the core offers other mods.
+- [Gases and air](systems/gases-and-air.md) and [the health layer](systems/health-layer.md): what the core offers other mods;
+  its first record is [archived](archive/phobos-framework.md).
 - [Vehicle health design](archive/vehicle-health-design.md): the condition layer, the tiers and the performance budget.
 - [Tie-ins with other mods](tie-in-register.md) and [patches for other authors' faults](temporary-patches.md). Living.
 - [Every setting of every mod](settings-reference.md) (generated) and [settings pages](settings-pages.md).

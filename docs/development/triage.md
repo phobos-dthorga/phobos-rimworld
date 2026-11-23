@@ -6,6 +6,8 @@ D'thorga Triage (`mods/PhobosMedical`, `src/PhobosMedical/Triage`): doctors queu
 the worst case first. This record holds what was read, who chose what, and the test protocol. The mod is **not yet tested in
 game**.
 
+How the health layer works now: [systems/health-layer.md](systems/health-layer.md); this record keeps its history.
+
 ## The problem
 
 The owner (6 November 2026) felt Search and Rescue's stabilisation "only stems bleeding" while More Injuries, Burns and Smoke,

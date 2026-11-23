@@ -1,18 +1,18 @@
 # D'thorga Framework: research and decisions (4 Nov 2026)
 
-The record behind [D'thorga Framework](../../mods/PhobosFramework/README.md). **Partly tested in game:** the owner reports the gas
+The record behind [D'thorga Framework](../../../mods/PhobosFramework/README.md). **Partly tested in game:** the owner reports the gas
 layer and supplied oxygen working through Burns and Smoke and Medical Equipment (5 Nov 2026); the health layer (0.3.0) is not yet
 tested in game. The owner recorded
-the idea on 22 October 2026 ("an extendable Phobos framework of its own", [project direction](project-direction.md)); the
-first consumer, [D'thorga Burns and Smoke](burns-and-smoke.md), made it concrete on 4 November 2026. The Ostranauts repository's
+the idea on 22 October 2026 ("an extendable Phobos framework of its own", [project direction](../project-direction.md)); the
+first consumer, [D'thorga Burns and Smoke](../burns-and-smoke.md), made it concrete on 4 November 2026. The Ostranauts repository's
 `PhobosFramework` is the companion: the same role, a different game.
 
 **Status (17 Nov 2026):** the design record for the gas layer, supplied oxygen and the health layer. The version-by-version list of
 later Framework services that grew here (0.5.0 to 0.100.0) was taken out on 17 Nov 2026: what each service is and how to use it is
-now in [D'thorga Framework for modders](../framework-modding.md), and the owner's gas rules below are also standing rules in
+now in [D'thorga Framework for modders](../../framework-modding.md), and the owner's gas rules below are also standing rules in
 [AGENTS.md](../../AGENTS.md).
 
-How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
+How gases and air works now: [systems/gases-and-air.md](../systems/gases-and-air.md); this record keeps its history.
 
 ## The owner's rules (4 Nov 2026)
 
@@ -103,11 +103,11 @@ visits 1/64 of cells per tick for fading and 1/32 for spreading, as it does afte
 
 ## Supplied oxygen (0.2.0, 5 Nov 2026)
 
-`PhobosBreathing` answers two questions from a pawn's conditions: is it on supplied oxygen, and does it have a condition oxygen helps. Two `DefModExtension`s mark those conditions, so [Burns and Smoke](burns-and-smoke.md) and [Medical Equipment](medical-equipment.md) need no dependency on each other. It is a treatment, not a gas, which keeps it clear of an air model (owner's gas rule).
+`PhobosBreathing` answers two questions from a pawn's conditions: is it on supplied oxygen, and does it have a condition oxygen helps. Two `DefModExtension`s mark those conditions, so [Burns and Smoke](../burns-and-smoke.md) and [Medical Equipment](../medical-equipment.md) need no dependency on each other. It is a treatment, not a gas, which keeps it clear of an air model (owner's gas rule).
 
 ## Health layer (0.3.0, 6 Nov 2026)
 
-Built with [Triage](triage.md) as its first consumer and adopted by Emergency Dosing and Medical Equipment in the same change
+Built with [Triage](../triage.md) as its first consumer and adopted by Emergency Dosing and Medical Equipment in the same change
 (owner's direction, 6 Nov 2026: use the shareable framework even where other mods must change). `Patients` answers who the
 doctors look after (the group a pawn belongs to, the player's care level); `ConditionDanger` and the game-free
 `ConditionDangerRule` answer how dangerous a condition is and how soon it kills, taking the soonest of the death clock's mean,
@@ -130,14 +130,14 @@ service is today; git history keeps the old sections. Where each went:
 
 | Former section | Framework | Now |
 | --- | --- | --- |
-| Plumbing (`PlumbingFeed`) | 0.5.0, 7 Nov 2026 | [Water and pipes beneath things](../framework-modding.md#water-and-pipes-beneath-things-with-dubs-bad-hygiene) |
-| Merge helpers (`SettingsImport`, `SettingsUi.Section`, `SettingsScroll`, `LoadReport`'s part name) | 0.6.0, 7 Nov 2026 | [Shared helpers](../framework-modding.md#shared-helpers); why: [mod consolidation](mod-consolidation.md) |
-| Work queue (`FrameWorkQueue`, `RoomRebuildHold`) | 0.7.0, 7 Nov 2026 | [Shared helpers](../framework-modding.md#shared-helpers) |
-| Shared helpers for the vehicle systems (Combat Extended rules, held temperature, item finder, history, widgets, tabs, charges, shelter comfort, biome ground, patch flags, lasting conditions, supply rules, detail tiers, timing, patched Defs, the game log keeper) | 0.15.0 to 0.28.0, 8 Nov 2026 | [Shared helpers](../framework-modding.md#shared-helpers), [the health layer](../framework-modding.md#the-health-layer-and-care-choices), [logging](../framework-modding.md#logging) and [tools for developers](../framework-modding.md#tools-for-developers) |
-| Pipes beneath things (`PipeUnderlay`; the owner's rule of 9 Nov 2026, "joined, vehicles too") | 0.57.0, 9 Nov 2026 | [Pipes and conduits beneath our things](network-underlays.md#pipes-beneath-things-9-nov-2026-framework-0570), which carries the rule on from 0.107.0; for modders, [water and pipes beneath things](../framework-modding.md#water-and-pipes-beneath-things-with-dubs-bad-hygiene) |
-| Parts bills | 0.95.0, 11 Nov 2026 | [Parts bills](parts-bills.md); for modders, [parts bills](../framework-modding.md#parts-bills) |
-| Node looks, and a parked engine's fan (`stoppedBonusStat`) | 0.98.0, 12 Nov 2026 | [Pictures, fades and progress bars](../framework-modding.md#pictures-fades-and-progress-bars); the fan in [the generator set's record](vehicle-generator-set.md) |
-| Progress bars, fading pictures and damage pictures | 0.100.0, 12 Nov 2026 | [Pictures, fades and progress bars](../framework-modding.md#pictures-fades-and-progress-bars) |
+| Plumbing (`PlumbingFeed`) | 0.5.0, 7 Nov 2026 | [Water and pipes beneath things](../../framework-modding.md#water-and-pipes-beneath-things-with-dubs-bad-hygiene) |
+| Merge helpers (`SettingsImport`, `SettingsUi.Section`, `SettingsScroll`, `LoadReport`'s part name) | 0.6.0, 7 Nov 2026 | [Shared helpers](../../framework-modding.md#shared-helpers); why: [mod consolidation](../mod-consolidation.md) |
+| Work queue (`FrameWorkQueue`, `RoomRebuildHold`) | 0.7.0, 7 Nov 2026 | [Shared helpers](../../framework-modding.md#shared-helpers) |
+| Shared helpers for the vehicle systems (Combat Extended rules, held temperature, item finder, history, widgets, tabs, charges, shelter comfort, biome ground, patch flags, lasting conditions, supply rules, detail tiers, timing, patched Defs, the game log keeper) | 0.15.0 to 0.28.0, 8 Nov 2026 | [Shared helpers](../../framework-modding.md#shared-helpers), [the health layer](../../framework-modding.md#the-health-layer-and-care-choices), [logging](../../framework-modding.md#logging) and [tools for developers](../../framework-modding.md#tools-for-developers) |
+| Pipes beneath things (`PipeUnderlay`; the owner's rule of 9 Nov 2026, "joined, vehicles too") | 0.57.0, 9 Nov 2026 | [Pipes and conduits beneath our things](../network-underlays.md#pipes-beneath-things-9-nov-2026-framework-0570), which carries the rule on from 0.107.0; for modders, [water and pipes beneath things](../../framework-modding.md#water-and-pipes-beneath-things-with-dubs-bad-hygiene) |
+| Parts bills | 0.95.0, 11 Nov 2026 | [Parts bills](../parts-bills.md); for modders, [parts bills](../../framework-modding.md#parts-bills) |
+| Node looks, and a parked engine's fan (`stoppedBonusStat`) | 0.98.0, 12 Nov 2026 | [Pictures, fades and progress bars](../../framework-modding.md#pictures-fades-and-progress-bars); the fan in [the generator set's record](../vehicle-generator-set.md) |
+| Progress bars, fading pictures and damage pictures | 0.100.0, 12 Nov 2026 | [Pictures, fades and progress bars](../../framework-modding.md#pictures-fades-and-progress-bars) |
 
 One decision from those sections stays here, as written (0.6.0, 7 Nov 2026):
 
@@ -146,7 +146,7 @@ which waits for the owner's proposals on that mod; and a base class for interval
 parts that are tested in game, so it waits until one of them is next changed for its own sake.
 
 The work queue was then built in 0.7.0; the base class for interval map components is still not built, and waits in
-[outstanding work](outstanding-work.md)'s Deferred table.
+[outstanding work](../outstanding-work.md)'s Deferred table.
 
 ## Open points and upstream
 
@@ -159,4 +159,4 @@ The work queue was then built in 0.7.0; the base class for interval map componen
 - Further own gases where they earn it (chemfuel vapour, Rimatomics, Biological Warfare tie-ins), each argued against the rule.
 - **A Vehicle-Framework-optional part for vehicle systems** (owner, 8 Nov 2026): the schema-driven electrical, cooling and
   lubrication service, loaded only with Vehicle Framework the way the Dubs Bad Hygiene tie-in is; designed in
-  [vehicle systems](vehicle-systems-design.md), to be built after the owner's review. 1.7 only.
+  [vehicle systems](../vehicle-systems-design.md), to be built after the owner's review. 1.7 only.

@@ -1,4 +1,4 @@
-"""Check relative inline Markdown file links and their #anchors; no network or game installation.
+"""Check relative Markdown file links (inline and reference-style) and their #anchors; no network or game installation.
 
 Checks tracked and untracked (non-ignored) Markdown. Fenced examples are ignored. Remote URLs are not
 validated. An anchor into a Markdown file must name one of its headings as GitHub spells them (or an
@@ -13,6 +13,21 @@ from urllib.parse import unquote, urlsplit
 
 # Link text may run onto the next line (wrapped prose); a link left pointing at a merged-away record hid that way.
 LINK = re.compile(r"\[[^\]]{0,400}\]\((<[^>]+>|[^\s)]+)(?:\s+\"[^\"]*\")?\)")
+# Reference-style definitions, `[label]: target`, as the decision logs use; one left pointing at an archived record hid until
+# 23 Nov 2026 because only inline links were read.
+REFERENCE = re.compile(r"^[ \t]{0,3}\[[^\]\n]+\]:[ \t]*(<[^>]+>|\S+)")
+
+
+def references(content):
+    """Reference definitions as Markdown reads them: one cannot continue a paragraph, so it counts only at the start, after a
+    blank line or after another definition (a wrapped line of prose that starts "[A]: the ..." is not one)."""
+    found, may_start = [], True
+    for line in content.split("\n"):
+        match = REFERENCE.match(line) if may_start else None
+        if match:
+            found.append(match)
+        may_start = bool(match) or not line.strip()
+    return found
 FENCE = re.compile(r"(?ms)^```.*?^```[^\n]*")
 HEADING = re.compile(r"^#{1,6}[ \t]+(.+?)[ \t#]*$", re.M)
 HTML_ANCHOR = re.compile(r"<a\s+(?:id|name)=\"([^\"]+)\"", re.I)
@@ -63,7 +78,7 @@ def check(root, names=None):
         if not name.endswith(".md") or not path.is_file():
             continue
         content = FENCE.sub("", path.read_text(encoding="utf-8-sig"))
-        for match in LINK.finditer(content):
+        for match in [*LINK.finditer(content), *references(content)]:
             link = match.group(1).strip("<>")
             parsed = urlsplit(link)
             if parsed.scheme or parsed.netloc:

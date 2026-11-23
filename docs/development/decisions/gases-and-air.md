@@ -69,7 +69,7 @@ overturns an earlier one says so.
 | 11 Nov | Gear taken off at the line is freed once down, not forbidden | agent choice | Owner's report: it lay forbidden | [rc], Limits, known now |
 | 22 Nov | The line guards against contamination, not the dose | owner | Suits stop dust, not radiation | [rc], Read this first |
 
-[pf]: ../phobos-framework.md
+[pf]: ../archive/phobos-framework.md
 [rc]: ../archive/radiation-control-line.md
 [bs]: ../burns-and-smoke.md
 [cg]: ../caustic-gas.md

@@ -2,7 +2,7 @@
 
 A design record, nothing built. The owner's call (7 Nov 2026): the oxygen electrolyser's hydrogen becomes **a flammable room gas of
 ours**, and the colony gets **vent-like furniture** to deal with it: a powered extractor fan, a passive roof or wall vent, a fume hood
-and a hydrogen detector. How gases work is in the [D'thorga Framework record](phobos-framework.md); the electrolyser is in the
+and a hydrogen detector. How gases work is in the [D'thorga Framework record](archive/phobos-framework.md); the electrolyser is in the
 [medical equipment record](medical-equipment.md).
 
 **Merged here on 17 Nov 2026**, each kept as written: [Workstation environmental effects: design](#workstation-environmental-effects-design-7-nov-2026).
@@ -72,7 +72,7 @@ effects, and players can switch them on a kind at a time in a running colony.
 
 - **Owner's rules that shape it:** effects are read from what a building does, never from a list of workstation names
   ([match effects, not names](../../AGENTS.md)); existing gases and effects first, our own gas only where it earns its place; gases are
-  additive and per room, with no air, pressure or vacuum model ([D'thorga Framework](phobos-framework.md)); text a player reads in play
+  additive and per room, with no air, pressure or vacuum model ([D'thorga Framework](archive/phobos-framework.md)); text a player reads in play
   names no mod or setting.
 - **Switched on a kind at a time, mid-save** (owner): every category below is its own setting, off or on at any point in a colony, with
   nothing saved that a later switch could break.

@@ -76,7 +76,7 @@ starts without the menu converts, as the bridge always did. **Switching to D'tho
 Read from the 1.6 and 1.7 assemblies; **not yet tested in game.**
 
 **Framework 0.6.0 grew where both merged mods needed it**: `SettingsImport`, `SettingsUi.Section` and `SettingsScroll`, and a part
-name on `LoadReport` ([framework record](phobos-framework.md)). Two candidates the agent had proposed were **not** built: a
+name on `LoadReport` ([framework record](archive/phobos-framework.md)). Two candidates the agent had proposed were **not** built: a
 frame-budgeted work queue from the missile fix, because the owner has proposals for that mod still to come, and a base class for
 interval map components, because it would change the timing code of parts the owner has tested in game.
 

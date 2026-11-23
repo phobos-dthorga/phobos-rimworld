@@ -8,6 +8,8 @@ see As built below for where it differs from the proposal.
 
 How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
 
+How the health layer works now: [systems/health-layer.md](systems/health-layer.md); this record keeps its history.
+
 ## The problem
 
 The owner asked for a more down-to-earth tox gas, working from the game's own word for it, "caustic". In the game, a pawn in tox gas
@@ -229,6 +231,6 @@ None yet. Built in 0.7.0, not yet tested in game.
 - **Lung rot** as the aftermath instead of irritable airways: recorded as the alternative.
 - **Oxygen:** [D'thorga Medical Equipment](../../mods/PhobosMedical/README.md) provides bedside oxygen and does not repair lungs. Whether
   chemical lung injury should count as a condition oxygen helps is a question for when this is built.
-- **Next gases under the rule** ([framework record](phobos-framework.md)): Biological Warfare's clouds, chemfuel vapour and Rimatomics, each argued
+- **Next gases under the rule** ([framework record](archive/phobos-framework.md)): Biological Warfare's clouds, chemfuel vapour and Rimatomics, each argued
   in its own record.
 - **Order of work** (owner, 5 Nov 2026): the dosing and burns testing comes first.

@@ -4,7 +4,7 @@
 
 The record behind [D'thorga Burns and Smoke](../../mods/PhobosMedical/README.md). **The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); carbon monoxide on oxygen is inferred, the tracheotomy unproven, and the fire heat in the open (0.5.0) not yet tested in game**
 (0.1.0 was seen in play once; see Results from play). It is the
-first consumer of [D'thorga Framework](phobos-framework.md).
+first consumer of [D'thorga Framework](archive/phobos-framework.md).
 
 How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
 

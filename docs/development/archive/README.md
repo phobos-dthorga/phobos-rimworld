@@ -89,3 +89,10 @@ Archived on 23 Nov 2026; how they work now: [gases and air](../systems/gases-and
 
 - [Radiation control line](radiation-control-line.md) (10 Nov 2026): where colonists suit up for Rimatomics' radiation; the
   Framework's protective-gear lines.
+
+## The health layer and care
+
+Archived on 23 Nov 2026; how it works now: [the health layer and care](../systems/health-layer.md).
+
+- [D'thorga Framework: research and decisions](phobos-framework.md) (4 Nov 2026): room gases, supplied oxygen and the health
+  layer; with [gases and air](../systems/gases-and-air.md).

@@ -37,10 +37,10 @@ research or design with nothing built; **living** means kept current by every ch
 ## D'thorga Framework (core)
 
 - [Gases and air](systems/gases-and-air.md) (23 Nov 2026): how room gases, masks, supplied oxygen and gear lines work now. Living.
+- [The health layer and care](systems/health-layer.md) (23 Nov 2026): how patients, condition danger, care choices and field care work now. Living.
 - [Our Architect tab and its sub-tabs](architect-tabs.md) (21 Nov 2026): one D'thorga tab with sub-tabs. Built; UI Rethemed keeps Motor pool apart.
 - [Pick-up and put-down loops](pick-up-loops.md) (21 Nov 2026): the loop watch names a colonist caught in one. Built, untested.
 - [Standby power](standby-power.md) (22 Nov 2026): idle buildings draw 10%, empty rooms go dark; in place of LightsOut and Turn It On and Off. Built, untested.
-- [D'thorga Framework: research and decisions](phobos-framework.md) (4 Nov 2026): room gases, supplied oxygen and the health layer, with their research. Built.
 - [Topping up machines](top-up-design.md) (18 Nov 2026): haulers refill machines that hold a material, named in data. Built; passed in game.
 - [Drones called home, wrecks taken home](drone-recall-design.md) (23 Nov 2026): recall by the walk home; wrecks back to a platform. Built, untested.
 - [Parts bills](parts-bills.md) (11 Nov 2026): what a built thing is made of, by role, filled by installed mods' parts or ours. Built.
@@ -233,6 +233,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Bay trips](archive/vehicle-bay-trips.md) (20 Nov 2026): vehicles driven, towed or pushed to a dyno bay for repair by themselves. Archived.
 - [Depots and forward fuel points](archive/vehicle-depots.md) (20 Nov 2026): fuel left on the world map for later trips; DP1 to DP10. Archived.
 - [Radiation control line](archive/radiation-control-line.md) (10 Nov 2026): where colonists suit up for Rimatomics' radiation. Archived.
+- [D'thorga Framework: research and decisions](archive/phobos-framework.md) (4 Nov 2026): room gases, supplied oxygen and the health layer. Archived.
 - [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
 - [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
 - [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

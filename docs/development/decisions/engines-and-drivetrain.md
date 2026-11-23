@@ -74,7 +74,7 @@ overturns an earlier one says so.
 [ev]: ../archive/vehicle-electric-design.md
 [st]: ../archive/vehicle-steam-design.md
 [lo]: ../archive/vehicle-engine-loads.md
-[pl]: ../vehicle-power-and-lift-design.md
+[pl]: ../archive/vehicle-power-and-lift-design.md
 [rf]: ../vehicle-real-figures-design.md
 [at]: ../vehicle-altitude-and-turbines.md
 [pe]: ../per-engine-realism.md

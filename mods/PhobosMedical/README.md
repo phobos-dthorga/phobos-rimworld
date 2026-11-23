@@ -162,7 +162,7 @@ them:
 - [The save bridge](../../docs/development/medical-save-bridge.md#for-modders-moved-from-the-readme-17-nov-2026)
 - [Radiation control](../../docs/development/archive/radiation-control-line.md#for-modders-moved-from-the-readme-17-nov-2026)
 - The health layer every part shares (who the doctors' patients are, how dangerous a condition is, what a pawn is breathing, the
-  per-person buttons): [D'thorga Framework's record](../../docs/development/phobos-framework.md#health-layer-030-6-nov-2026)
+  per-person buttons): [D'thorga Framework's record](../../docs/development/archive/phobos-framework.md#health-layer-030-6-nov-2026)
 
 ## Checks done
 

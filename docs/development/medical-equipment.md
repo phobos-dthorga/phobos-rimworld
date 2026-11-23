@@ -6,6 +6,8 @@ The record behind [D'thorga Medical Equipment](../../mods/PhobosMedical/README.m
 
 How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
 
+How the health layer works now: [systems/health-layer.md](systems/health-layer.md); this record keeps its history.
+
 ## The problem
 
 The owner wants our own medical equipment, hospital and field. Carbon monoxide and smoke-damaged lungs from D'thorga Burns and Smoke had no treatment beyond clean air and time.
@@ -163,7 +165,7 @@ chamber is a game tier, not medical advice: the review cited in the burns record
 
 | Work | State | Next step | Record |
 | --- | --- | --- | --- |
-| D'thorga Framework 0.3.0 | Draft. The owner reports the gas layer and supplied oxygen working (5 Nov 2026); the health layer (6 Nov) is not yet tested in game | The health layer, through Triage | [Framework](phobos-framework.md) |
+| D'thorga Framework 0.3.0 | Draft. The owner reports the gas layer and supplied oxygen working (5 Nov 2026); the health layer (6 Nov) is not yet tested in game | The health layer, through Triage | [Framework](archive/phobos-framework.md) |
 | D'thorga Burns and Smoke 0.5.0 | Draft. The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); the tracheotomy and the fire heat in the open are not yet tested in game | The fire heat and the tracheotomy | [Burns and smoke](burns-and-smoke.md) |
 | D'thorga Emergency Dosing 0.3.1 | Draft. The owner reports doctors' dosing working (5 Nov 2026, on 0.3.0); self-medication and the bleeding hold not yet tested in game | Self-medication | [Emergency dosing](emergency-dosing.md) |
 | D'thorga Triage 0.1.2 | Draft, 7 Nov 2026 (0.1.2 adds the button's own icon); not yet tested in game | The owner's first test | [Triage](triage.md) |

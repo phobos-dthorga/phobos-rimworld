@@ -283,6 +283,17 @@ class DocLinkCheckTests(unittest.TestCase):
         self.assertEqual(failures, ['README.md: missing docs/gone.md',
                                     'README.md: ../elsewhere.md points outside the repository'])
 
+    def test_reference_definitions_are_checked_but_not_wrapped_prose(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / 'guide.md').write_text('# Guide\n', encoding='utf-8')
+            (root / 'README.md').write_text(
+                'See [the guide][g] and [the old one][o].\n\n[g]: guide.md#guide\n[o]: old.md\n\n'
+                'A sentence that wraps so its next line\n  [A]: the reader reads on.\n', encoding='utf-8')
+            checked, failures = doc_links.check(root, ['README.md', 'guide.md'])
+        self.assertEqual(checked, 2)
+        self.assertEqual(failures, ['README.md: missing old.md'])
+
     def test_unlisted_files_count_as_missing(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)

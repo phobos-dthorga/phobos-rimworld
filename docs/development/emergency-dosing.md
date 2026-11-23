@@ -5,6 +5,8 @@
 The record behind [D'thorga Emergency Dosing](../../mods/PhobosMedical/README.md). **Partly tested in game:** the owner reports
 doctors' dosing working on 0.3.0 (5 Nov 2026); self-medication and the bleeding hold are not yet tested in game.
 
+How the health layer works now: [systems/health-layer.md](systems/health-layer.md); this record keeps its history.
+
 ## The problem
 
 The owner found that emergency drugs (painkillers, anaesthetics and the like) are never given to a patient automatically, even

@@ -36,6 +36,8 @@ How to read it:
 - Every new row says what it **lets** the player do, what it **stops**, and how it **changes** play (owner rule, 8 Nov 2026). Rows that
   cannot answer are in "argued against".
 
+How the health layer works now: [systems/health-layer.md](systems/health-layer.md); this record keeps its history.
+
 ## Read this first
 
 - **Found on the way, likely a live fault in the owner's game: Vehicles at Work drives vehicles our systems refuse to move.** It is on

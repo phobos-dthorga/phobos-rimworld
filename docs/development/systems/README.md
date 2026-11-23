@@ -19,6 +19,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   upgrades, the service yard, bay trips, the park, the fleet board, the garage, depots, chutes and unloading bays. Living.
 - [Gases and air](gases-and-air.md) (23 Nov 2026): the Framework's gas layer, carbon monoxide, fire smoke, masks, supplied oxygen
   and protective-gear lines. Living.
+- [The health layer and care](health-layer.md) (23 Nov 2026): patients, condition danger, care choices, surgery bars, field care,
+  lapsing treatments, lasting conditions and the radiation-dose door. Living.
 
 ## The template
 

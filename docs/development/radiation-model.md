@@ -7,6 +7,8 @@ effects (RM8) in 0.23.0; worn armour's shielding (RM17), contamination (RM6) and
 shadow and letter (NK12, NK13, NK17, NK18) followed in D'thorga Patches 0.36.0. The owner's answers are
 [below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363 and 369 to 374.
 
+How the health layer works now: [systems/health-layer.md](systems/health-layer.md); this record keeps its history.
+
 ## As built (22 Nov 2026)
 
 - **One saved condition, `PhobosRadiation_Dose`**, keeps every dose by game day, folds doses older than 150 days into the tenth beyond

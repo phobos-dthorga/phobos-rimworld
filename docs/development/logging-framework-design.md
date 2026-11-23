@@ -318,5 +318,5 @@ decompile (a category line reaches `Player.log` after the cap and the window bef
   `UnityStubs`, `Waylith.UnityCompat`, decompiled with ilspycmd 11.2 for research; never committed).
 - The decompiled mods' authors: Custom Base Framework, RimPacts, Combat Extended, More Injuries, RimExodus, Vehicle Framework,
   PrisonLabor (summarised in our words).
-- Our records: [analysis tooling](analysis-tooling.md) (the log triage), [the Framework record](phobos-framework.md); phobos-modkit's
+- Our records: [analysis tooling](analysis-tooling.md) (the log triage), [the Framework record](archive/phobos-framework.md); phobos-modkit's
   `docs/rimworld-log.md`; Phobos Scope's README and `capture-format.md`.
