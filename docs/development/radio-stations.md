@@ -104,6 +104,17 @@ With the amplifier its own building, the terminal and the amplifier change as fo
 - **The setting (to report when built):** D'thorga Radio Framework, "Radio terminals make radio noise", on by default.
 - **The art:** the terminal's picture shows no amplifier; the amplifier has its own picture in the same paid batch.
 
+## The owner's picks and models (24 Nov 2026)
+
+From the paid pictures ([batch record](../../assets/phobos-radio/requests/paid-1-record.md)) and the owner's cards the same day.
+Nothing here is built yet; the desk's, whip's and mast's pictures ship in Radio 0.4.0.
+
+| Kit | The owner's word | What it means **[A]** figures, to tune |
+| --- | --- | --- |
+| Radio terminal | Picked try 1, whose radio box has a stub antenna; by card: **"A weak stub that works"** **[O]** | The terminal gains a built-in stub: about −5 dBi at 1 m, indoors under its roof, so it reaches hand-helds on its own, poorly; coax to a whip or mast is far better. This replaces "None of its own" in the tables above |
+| Whips | "Both with varying specs, just like real life! ^ ^"; by card: **compact vs full-size** **[O]** | **Compact ground-plane** (try 1, today's whip): 0 dBi, 15 steel, as now. **Full-size ground-plane** (try 2, its radiator a full quarter wave): about 2 dBi on both bands (a quarter-wave ground-plane's usual figure, approximate), 25 steel and more work. Both 3 m and both take the taller pole |
+| Linear amplifiers | "Offer both as alternate models with varying specs to each ^ ^"; by card: **100 W and 400 W** **[O]** | **Linear amplifier** (try 1): up to 100 W (Standard licence), 20 W on standby. **Heavy linear amplifier** (try 2): up to 400 W (Advanced licence), 40 W on standby, four times the draw and heat while sending, behind a later research step and an advanced component |
+
 ## Building upgrades (Radio 0.4.0)
 
 The owner, 24 Nov 2026: "I want you to use the code we created earlier to allow for upgradeable buildings. Experimental, but I wish to
