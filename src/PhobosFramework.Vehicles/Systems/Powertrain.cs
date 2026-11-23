@@ -313,6 +313,14 @@ public sealed class Powertrain
 
     public void MarkMassDirty() => massTick = -1;
 
+    /// <summary>The reading that marks the gas turbine's system: its temperature.</summary>
+    public const string TurbineTemperatureQuantity = "turbineTemperature";
+    /// <summary>The gas turbine system's count of stopped engines.</summary>
+    public const string EnginesOutQuantity = "enginesOut";
+
+    /// <summary>Whether a system is the gas turbine's own: the one whose temperature reading the turbine shows.</summary>
+    public static bool IsTurbineSystem(SystemState system) => system.Def.QuantityIndex(TurbineTemperatureQuantity) >= 0;
+
     /// <summary>
     /// The turbine's temperature to show: the gas turbine system's quantity, which follows the model while the engine runs and cools
     /// over about an hour after it stops; the model's own figure while that system is switched off. Limits and wear use the model's.
@@ -324,7 +332,7 @@ public sealed class Powertrain
             IReadOnlyList<SystemState> states = comp.States;
             for (int i = 0; i < states.Count; i++)
             {
-                int index = states[i].Def.QuantityIndex("turbineTemperature");
+                int index = states[i].Def.QuantityIndex(TurbineTemperatureQuantity);
                 if (index >= 0 && comp.IsEnabled(states[i])) return (float)states[i].values[index];
             }
             return (float)TurbineNow.Temperature;

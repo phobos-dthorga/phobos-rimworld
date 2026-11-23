@@ -110,7 +110,7 @@ public partial class ITab_VehicleSystems : ITab
         var view = new Rect(0f, 0f, viewWidth, state.DrawnHeight > 0f ? state.DrawnHeight : outer.height);
         Widgets.BeginScrollView(outer, ref state.Scroll, view);
         float y = 0f;
-        bool anything = false;
+        bool anything = false, turbineDrawn = false;
         VehicleComponent? hovered = null;
         foreach (SystemState system in comp.States)
         {
@@ -142,6 +142,14 @@ public partial class ITab_VehicleSystems : ITab
             float top = y;
             PhobosWidgets.CardHeader(ref y, 0f, viewWidth, system.Def.label.CapitalizeFirst(), SystemColour(system));
             foreach (int q in rowScratch) DrawReading(comp, system, q, state, ref y, viewWidth, engineer);
+            // Framework 0.264.0: the gas turbine's card carries what the power model says of it now, where a second card did. Its own
+            // readings already give the temperature, and the engines too where its count of stopped engines is shown.
+            if (!attentionOnly && !turbineDrawn && Powertrain.IsTurbineSystem(system) && TurbineShown(comp) is { } turbine)
+            {
+                DrawTurbineNow(comp, turbine, ref y, viewWidth, engineer, temperature: false,
+                    engines: !rowScratch.Contains(system.Def.QuantityIndex(Powertrain.EnginesOutQuantity)), UnderReadings);
+                turbineDrawn = true;
+            }
             if (partScratch.Count > 0) DrawParts(comp, ref y, viewWidth, ref hovered);
             PhobosWidgets.CardEnd(top, ref y, 0f, viewWidth);
         }
@@ -165,22 +173,13 @@ public partial class ITab_VehicleSystems : ITab
                 DrawHeldBack(comp, train, ref y, viewWidth);
                 PhobosWidgets.CardEnd(top, ref y, 0f, viewWidth);
             }
-            if (train.Turbine != null && !attentionOnly)
+            // Only where the gas turbine's own card did not carry it: that system switched off, or a vehicle without one.
+            if (train.Turbine != null && !attentionOnly && !turbineDrawn)
             {
                 anything = true;
                 float top = y;
                 PhobosWidgets.CardHeader(ref y, 0f, viewWidth, "PhobosVehicleSystems_SysTurbine".Translate(), null);
-                // Framework 0.262.0: one figure to a row (ITab_VehicleSystems.Drivetrain.cs).
-                DrawTurbineRows(train, ref y, viewWidth);
-                // Framework 0.132.0: an aircraft's ledger (its generator and its bleed air) and the thin air, which a ground vehicle's
-                // drivetrain card shows.
-                if (!train.Ground)
-                {
-                    DrawLedger(comp, ref y, viewWidth, engineer);
-                    DrawThinAir(comp, ref y, viewWidth, engineer);
-                }
-                if (engineer) DrawTurbineEngineerRows(train, ref y, viewWidth);
-                Seen.Note("vehicles.systems-tab.turbine-rows", comp.Vehicle);
+                DrawTurbineNow(comp, train, ref y, viewWidth, engineer, temperature: true, engines: true, 0f);
                 PhobosWidgets.CardEnd(top, ref y, 0f, viewWidth);
             }
         }
@@ -198,6 +197,10 @@ public partial class ITab_VehicleSystems : ITab
     }
 
     // ---- The pieces ----
+
+    /// <summary>The vehicle's power model where it is a turbine's and the drivetrain is modelled, else null: what the Turbine rows read.</summary>
+    static Powertrain? TurbineShown(CompPhobosVehicleSystems comp) =>
+        VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off && comp.Powertrain is { Turbine: not null } train ? train : null;
 
     /// <summary>Scratch lists for one card, reused every frame.</summary>
     static readonly List<int> rowScratch = new();

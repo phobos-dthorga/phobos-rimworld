@@ -62,7 +62,7 @@ public partial class ITab_VehicleSystems
     /// of them together (Framework 0.243.0), where each shaft kilowatt costs one over the indicated efficiency. A turbine's fuel has a
     /// floor of its own, so it gets no fuel column. Nothing with nothing driven. Reads the ledger the vehicle worked out at its last look.
     /// </summary>
-    static void DrawLedger(CompPhobosVehicleSystems comp, ref float y, float width, bool engineer)
+    static void DrawLedger(CompPhobosVehicleSystems comp, ref float y, float width, bool engineer, float x = 0f)
     {
         IReadOnlyList<ShaftLoadNow> loads = comp.ShaftLoads;
         if (loads.Count == 0) return;
@@ -83,22 +83,22 @@ public partial class ITab_VehicleSystems
         y += 4f;
         float top = y;
         string fuelHead = "PhobosVehicleSystems_SysLedgerFuel".Translate();
-        LedgerRow(ref y, width, "PhobosVehicleSystems_SysLedger".Translate(), engineer ? "PhobosVehicleSystems_SysLedgerPower".Translate().Resolve() : null,
+        LedgerRow(ref y, x, width, "PhobosVehicleSystems_SysLedger".Translate(), engineer ? "PhobosVehicleSystems_SysLedgerPower".Translate().Resolve() : null,
             shares ? fuelHead : null, DetailColour, GameFont.Tiny);
         foreach (ShaftLoadNow load in ledgerScratch)
         {
-            LedgerRow(ref y, width, load.Label.CapitalizeFirst(), engineer ? Kilowatts(load.Kilowatts) : null,
+            LedgerRow(ref y, x, width, load.Label.CapitalizeFirst(), engineer ? Kilowatts(load.Kilowatts) : null,
                 shares ? ((float)ShaftLoadRule.FuelShare(load.Kilowatts, fuelKw, efficiency)).ToStringPercent() : null);
         }
         // All of them together: only where there is a figure to add up, and more than one load to add.
         if (ledgerScratch.Count > 1 && (engineer || shares))
         {
-            Widgets.DrawBoxSolid(new Rect(6f, y, width - 12f, 1f), LedgerRule);
+            Widgets.DrawBoxSolid(new Rect(x + 6f, y, width - x - 12f, 1f), LedgerRule);
             y += 1f;
-            LedgerRow(ref y, width, "PhobosVehicleSystems_SysLedgerAll".Translate(), engineer ? Kilowatts(comp.LedgerKw) : null,
+            LedgerRow(ref y, x, width, "PhobosVehicleSystems_SysLedgerAll".Translate(), engineer ? Kilowatts(comp.LedgerKw) : null,
                 shares ? ((float)allShare).ToStringPercent() : null);
         }
-        var table = new Rect(0f, top, width, y - top);
+        var table = new Rect(x, top, width - x, y - top);
         if (Mouse.IsOver(table))
         {
             string tip = "PhobosVehicleSystems_SysLedgerTip".Translate();
@@ -111,15 +111,15 @@ public partial class ITab_VehicleSystems
     /// Thin air at height (Framework 0.132.0), as rows (0.262.0), while it takes power worth a look: the share of its power the engine
     /// has left, and for engineers the height and the air's pressure against the sea's.
     /// </summary>
-    static void DrawThinAir(CompPhobosVehicleSystems comp, ref float y, float width, bool engineer)
+    static void DrawThinAir(CompPhobosVehicleSystems comp, ref float y, float width, bool engineer, float x = 0f)
     {
         if (InspectText.ThinAirPower(comp) is not float left) return;
-        Rect row = PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowThinAir".Translate(), left.ToStringPercent(), colour: PhobosWidgets.Caution);
+        Rect row = PhobosWidgets.FigureRow(ref y, x, width - x, "PhobosVehicleSystems_SysRowThinAir".Translate(), left.ToStringPercent(), colour: PhobosWidgets.Caution);
         TooltipHandler.TipRegion(row, "PhobosVehicleSystems_SysRowThinAirTip".Translate());
         if (!engineer) return;
-        PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowHeight".Translate(),
+        PhobosWidgets.FigureRow(ref y, x, width - x, "PhobosVehicleSystems_SysRowHeight".Translate(),
             "PhobosVehicleSystems_SysMetres".Translate(comp.Elevation.ToString("N0").Named("METRES")).Resolve());
-        PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowPressure".Translate(),
+        PhobosWidgets.FigureRow(ref y, x, width - x, "PhobosVehicleSystems_SysRowPressure".Translate(),
             ((float)Phobos.Framework.Rules.AirRule.PressureRatio(comp.Elevation)).ToStringPercent());
     }
 
@@ -164,56 +164,86 @@ public partial class ITab_VehicleSystems
     }
 
     /// <summary>
-    /// A turbine as rows (Framework 0.262.0): its speed as a bar, its temperature, the flight phase where there is one, its rating and
-    /// how many of its engines work. The figures are the ones the inspect pane's turbine line gives.
+    /// A turbine as rows (Framework 0.262.0): its speed as a bar, the flight phase where there is one and its rating; and, where the gas
+    /// turbine's own readings above them do not already say so (0.264.0), its temperature and how many of its engines work. The figures
+    /// are the ones the inspect pane's turbine line gives. <paramref name="x"/> is the rows' left edge: under a system's readings they
+    /// stand in line with the readings' names.
     /// </summary>
-    static void DrawTurbineRows(Powertrain train, ref float y, float width)
+    static void DrawTurbineRows(Powertrain train, ref float y, float width, bool temperature, bool engines, float x = 0f)
     {
         float spool = (float)train.TurbineNow.SpeedPercent / 100f;
         float barStart = width * LoadBarStart;
-        Rect spoolRow = PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowSpool".Translate(), spool.ToStringPercent("F0"), nameEnd: barStart);
+        Rect spoolRow = PhobosWidgets.FigureRow(ref y, x, width - x, "PhobosVehicleSystems_SysRowSpool".Translate(), spool.ToStringPercent("F0"), nameEnd: barStart - x);
         PhobosWidgets.Gauge(new Rect(barStart, spoolRow.y + 4f, width - barStart - PhobosWidgets.FigureColumnWidth - 12f, spoolRow.height - 8f), spool, PhobosWidgets.Good);
-        PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowTurbineHeat".Translate(), train.ShownTurbineTemperature.ToStringTemperature("F0"));
+        if (temperature)
+        {
+            PhobosWidgets.FigureRow(ref y, x, width - x, "PhobosVehicleSystems_SysRowTurbineHeat".Translate(), train.ShownTurbineTemperature.ToStringTemperature("F0"));
+        }
         if (train.PhaseSpec != null && !train.PhaseSpec.label.NullOrEmpty())
         {
-            PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowPhase".Translate(), train.PhaseSpec.label);
+            PhobosWidgets.FigureRow(ref y, x, width - x, "PhobosVehicleSystems_SysRowPhase".Translate(), train.PhaseSpec.label);
         }
-        PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowRating".Translate(), train.RatingLabel);
-        (int working, int engines) = train.Engines();
-        PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowEngines".Translate(),
-            "PhobosVehicleSystems_SysEnginesOf".Translate(working.Named("WORKING"), engines.Named("ENGINES")).Resolve(),
-            colour: working < engines ? PhobosWidgets.Caution : null);
+        PhobosWidgets.FigureRow(ref y, x, width - x, "PhobosVehicleSystems_SysRowRating".Translate(), train.RatingLabel);
+        if (!engines) return;
+        (int working, int count) = train.Engines();
+        PhobosWidgets.FigureRow(ref y, x, width - x, "PhobosVehicleSystems_SysRowEngines".Translate(),
+            "PhobosVehicleSystems_SysEnginesOf".Translate(working.Named("WORKING"), count.Named("ENGINES")).Resolve(),
+            colour: working < count ? PhobosWidgets.Caution : null);
     }
 
     /// <summary>
     /// For engineers, what a turbine's bled air costs it (the share harder it works for the same thrust), and its lift for a hover
     /// against what a hover needs at this weight, with whether it can hover as the row's word.
     /// </summary>
-    static void DrawTurbineEngineerRows(Powertrain train, ref float y, float width)
+    static void DrawTurbineEngineerRows(Powertrain train, ref float y, float width, float x = 0f)
     {
         if (train.BleedShare > 0)
         {
-            Rect bleed = PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowBleed".Translate(), ((float)train.BleedShare).ToStringPercent("0.#"));
+            Rect bleed = PhobosWidgets.FigureRow(ref y, x, width - x, "PhobosVehicleSystems_SysRowBleed".Translate(), ((float)train.BleedShare).ToStringPercent("0.#"));
             TooltipHandler.TipRegion(bleed, "PhobosVehicleSystems_SysRowBleedTip".Translate());
         }
         if (!train.JudgesHover) return;
         (bool dry, bool wet, double margin) = train.HoverCheck();
         string word = (dry ? "PhobosVehicleSystems_HoverDry" : wet ? "PhobosVehicleSystems_HoverWet" : "PhobosVehicleSystems_HoverNone").Translate();
         string label = "PhobosVehicleSystems_SysRowHover".Translate();
-        Rect hover = WordRow(ref y, width, label, word, dry ? PhobosWidgets.Good : wet ? PhobosWidgets.Caution : PhobosWidgets.Bad,
-            ((float)margin).ToStringPercent(), WordAfterShortName, out bool cut);
+        // The word begins where it does on a row from the card's own edge, whatever this row's left edge.
+        float inner = width - x, share = (width * WordAfterShortName - x) / inner;
+        Rect hover = WordRow(ref y, inner, label, word, dry ? PhobosWidgets.Good : wet ? PhobosWidgets.Caution : PhobosWidgets.Bad,
+            ((float)margin).ToStringPercent(), share, out bool cut, x);
         WordTip(hover, label, word, cut, "PhobosVehicleSystems_SysRowHoverTip".Translate());
     }
+
+    /// <summary>
+    /// Everything the power model says of a turbine now (Framework 0.264.0; the owner's choice of 23 Nov 2026, after the tab showed a
+    /// Gas turbine card and a Turbine card that repeated its temperature and its engines): its rows, an aircraft's ledger and thin air
+    /// (a ground vehicle's drivetrain card shows those), and the engineer's rows. Drawn at the foot of the gas turbine system's own
+    /// card, in line with its readings, or in a card of its own where that system is switched off.
+    /// </summary>
+    static void DrawTurbineNow(CompPhobosVehicleSystems comp, Powertrain train, ref float y, float width, bool engineer, bool temperature, bool engines, float x)
+    {
+        DrawTurbineRows(train, ref y, width, temperature, engines, x);
+        if (!train.Ground)
+        {
+            DrawLedger(comp, ref y, width, engineer, x);
+            DrawThinAir(comp, ref y, width, engineer, x);
+        }
+        if (engineer) DrawTurbineEngineerRows(train, ref y, width, x);
+        Seen.Note("vehicles.systems-tab.turbine-rows", comp.Vehicle);
+    }
+
+    /// <summary>Where a plain row begins under a system's readings, so its name stands in line with theirs (past the arrow and the
+    /// picture).</summary>
+    const float UnderReadings = ArrowSize + IconSize + 12f - PhobosWidgets.FigureRowInset;
 
     /// <summary>A weight in kilograms with its unit.</summary>
     static string Kilograms(double kilograms) => "PhobosVehicleSystems_SysKilograms".Translate(kilograms.ToString("N0").Named("MASS")).Resolve();
 
     /// <summary>One row of the ledger: its name, then whichever of its power and its share of the fuel this table shows, the last against
     /// the right edge.</summary>
-    static void LedgerRow(ref float y, float width, string label, string? power, string? share, Color? colour = null, GameFont font = GameFont.Small)
+    static void LedgerRow(ref float y, float x, float width, string label, string? power, string? share, Color? colour = null, GameFont font = GameFont.Small)
     {
-        if (power != null && share != null) PhobosWidgets.FigureRow(ref y, 0f, width, label, power, share, colour, font);
-        else PhobosWidgets.FigureRow(ref y, 0f, width, label, power ?? share ?? "", colour: colour, font: font);
+        if (power != null && share != null) PhobosWidgets.FigureRow(ref y, x, width - x, label, power, share, colour, font);
+        else PhobosWidgets.FigureRow(ref y, x, width - x, label, power ?? share ?? "", colour: colour, font: font);
     }
 
     /// <summary>A power in kilowatts with its unit, to one decimal, and to two where it is small.</summary>

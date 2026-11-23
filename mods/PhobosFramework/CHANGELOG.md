@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.264.0] - 2026-11-23 - Draft
+
+One turbine card in the Systems tab
+
+### Changed
+
+- **The Systems tab shows one turbine card, where it showed two** (the owner's choice of 23 November 2026, after asking why). Turbine speed, flight phase, rating, what the engine also drives and the lift for a hover now stand at the foot of the Gas turbine card, in line with its readings; the temperature is no longer given twice, and Engines working shows only where Engines out does not. With the gas turbine system switched off they keep a card of their own. Not yet tested in game: row 436 of the test pass.
+
 ## [0.263.1] - 2026-11-23 - Draft
 
 A long figure no longer wraps out of its row
