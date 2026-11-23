@@ -307,6 +307,27 @@ Measured: not yet; it is small by construction. `python scripts/perf.py` with a 
   to a second rather than disagree with its marks; at most 6 colonists and 120 marks drawn; no setting to hide the line, as it costs
   little and shows only on selection.
 
+## Round two: RV5 to RV8 and RV3 (Radio 0.6.0, 24 Nov 2026)
+
+The owner, 24 Nov 2026: "begin RV5 through RV8, including RV3, all step-wise if necessary". Each is its own commit under Radio 0.6.0.
+**Their cost, stated before building** (the radio's performance rule):
+
+| Idea | What draws | How often | What it costs |
+| --- | --- | --- | --- |
+| RV5 step chart | Boxes and lines in the link-budget window | Only while the window is open | A dozen boxes per direction per frame; no work outside the window |
+| RV6 lamp and needle | A small quad and a thin quad over the desk and each amplifier | Each frame each one is on screen (the game culls those off screen) | Two meshes a building; the state is read from fields the rare tick already keeps |
+| RV7 mast light | One small quad above each mast | Each frame a mast is on screen, at night only | One mesh; the sky's glow is one field read |
+| RV8 coax tint | One quad per cell of each cable run | Only while its station or an antenna is selected | The run's cells are kept with its route (the route cache already exists), so nothing is walked per frame |
+| RV3 waterfall | A 256 by 128 picture in a tab on the radio terminal | Only while the tab is open: one new row every tenth of a second | 32,768 pixels copied and sent to the graphics card ten times a second; the signals are the net's, read, never worked out |
+
+**Making buildings draw each frame:** RV6 and RV7 need the desk, the amplifiers and the mast drawn each frame as well as in the map's
+baked mesh (`MapMeshAndRealTime`), as the game's own lamps are. That is a few more draw calls per such building on screen.
+
+**Honesty [A]:** the lamp lights and the needle rises only while the station is in use, for the mode's duty cycle (a fifth of the
+time); the amplifier's needle shows its output against its rating. The waterfall's brightness is each hand-held's real received
+level and its speckle the station's real noise floor, **but each radio is drawn on its own spot of the band to tell them apart:
+the mod has no channels yet**, and the picture says so.
+
 ## For another game
 
 The link budget's arithmetic is already game-free (`src/PhobosRadio/Physics/`, tested without the game). The three pictures are

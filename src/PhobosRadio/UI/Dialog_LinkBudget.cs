@@ -29,7 +29,8 @@ public class Dialog_LinkBudget : Window
         preventCameraMotion = false;
     }
 
-    public override Vector2 InitialSize => new(560f, 560f + PathProfile.Height + 10f);
+    /// <summary>Wide enough for Engineer's two step charts side by side; the words below scroll.</summary>
+    public override Vector2 InitialSize => new(640f, 460f + PathProfile.Height + BudgetSteps.Height + 20f);
 
     public override void DoWindowContents(Rect inRect)
     {
@@ -44,6 +45,12 @@ public class Dialog_LinkBudget : Window
         {
             PathProfile.Draw(new Rect(0f, top, inRect.width, PathProfile.Height), LinkPath.For(map, current), current, depth);
             top += PathProfile.Height + 10f;
+        }
+        // The step chart of the budget (Radio 0.6.0), at Operator and Engineer depth: Plain shows no decibels.
+        if (current != null && depth != DisplayMode.Plain)
+        {
+            BudgetSteps.Draw(new Rect(0f, top, inRect.width, BudgetSteps.Height), current, depth);
+            top += BudgetSteps.Height + 10f;
         }
 
         var body = new Rect(0f, top, inRect.width, inRect.height - top - 40f);

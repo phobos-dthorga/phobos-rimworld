@@ -60,6 +60,9 @@
   <PhobosRadio_ProfileAntenna>antenna, {HEIGHT} m</PhobosRadio_ProfileAntenna>
   <PhobosRadio_ProfileHandheld>hand-held, {HEIGHT} m</PhobosRadio_ProfileHandheld>
   <PhobosRadio_ProfileDistance>{DISTANCE} m apart</PhobosRadio_ProfileDistance>
+  <PhobosRadio_StepsFloor>noise</PhobosRadio_StepsFloor>
+  <PhobosRadio_StepsNeeded>needed</PhobosRadio_StepsNeeded>
+  <PhobosRadio_StepsMargin>{MARGIN} dB to spare</PhobosRadio_StepsMargin>
 
   <!-- Linear amplifiers. -->
   <PhobosRadio_AmplifierNoStation>Raises a station's signal up to {RATED} W. Join it into the coax between a station and an antenna.</PhobosRadio_AmplifierNoStation>

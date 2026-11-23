@@ -17,6 +17,16 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.6.0] - 2026-11-24 - Draft
+
+The radio comes alive: a step chart, lamps and needles, a mast light, the coax glowing, and a waterfall
+
+### Added
+
+- **The link-budget window draws the budget as steps** (the owner's go of 24 November 2026): the power sent, each gain a step up and
+  each loss a step down, to what arrives, with the noise and what the mode needs as lines. Operator shows the direction that
+  decides; Engineer both. Not yet tested in game: row 468.
+
 ## [0.5.0] - 2026-11-24 - Draft
 
 The radio terminal, linear amplifiers and a full-size ground-plane
