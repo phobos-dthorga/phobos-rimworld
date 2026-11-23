@@ -66,5 +66,12 @@
     <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
     <techLevel>Industrial</techLevel>
     <uiIconScale>0.90</uiIconScale>
+    <modExtensions>
+      <!-- Takes every bedside facility other mods give the hospital bed by its name (an IV drip, surgical tools), and any stat it has
+           that this bed lacks (Biotech's birth quality), once all mods are loaded. This bed's own figures stand. -->
+      <li Class="Phobos.Framework.Buildings.PhobosLinksLikeExtension">
+        <like>HospitalBed</like>
+      </li>
+    </modExtensions>
   </ThingDef>
 </Defs>

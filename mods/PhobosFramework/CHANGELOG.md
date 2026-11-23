@@ -12,6 +12,14 @@ tested in game unless an entry says the owner tested it.
   sling wrecks, lost convoys and depots, litters, extra fuel tanks, jump-start kits); the Workshop page names lost convoys, litters
   and kits too. The modding guide no longer says the Framework needs no Harmony: it has needed Harmony since 0.205.0.
 
+## [0.257.0] - 2026-11-23 - Draft
+
+A building can link like another
+
+### Added
+
+- **A building can take every facility and stat another building has** (for the owner's report of 23 November 2026 that the burn unit bed gave less than a hospital bed). A Def extension, PhobosLinksLikeExtension, names a building; once every mod is loaded, the building takes every facility the named one links to, from any mod, and any stat it lacks, its own figures standing. Both sides are linked, so the facility links in play, not just shows its line. The load line counts what was taken; how to use it is in the modding guide (docs/framework-modding.md). Not yet tested in game: row 428 of the test pass.
+
 ## [0.256.0] - 2026-11-23 - Draft
 
 The Systems and Health tabs agree: one answer for which parts each system covers

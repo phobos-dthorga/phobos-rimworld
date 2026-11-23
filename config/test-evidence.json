@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "428": ["framework.links-like.linked"],
     "416": [{"key": "vehicles.descent-overrun", "variant": "engine"}],
     "417": {"parts": {
       "the brakes run hot": [{"key": "vehicles.stage.brakeTemperature", "detail": "*: hot"}],

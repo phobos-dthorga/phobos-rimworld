@@ -256,6 +256,24 @@ same figure the larger is used, never the sum.
 `modExtensions` adds its `cells` to the allowance of a service yard it stands beside; `required` marks the kind a yard cannot be without
 (our dyno bay).
 
+## Linking like another building (Framework 0.257.0)
+
+Many mods add their bedside facilities to the game's hospital bed by its name, so a new bed built on it misses them all. Give your
+building this extension and, once every mod is loaded, it takes every facility the named building can link to, from any mod, and any
+stat the named building has that yours lacks (your own figures always stand):
+
+```xml
+<modExtensions>
+  <li Class="Phobos.Framework.Buildings.PhobosLinksLikeExtension">
+    <like>HospitalBed</like>
+    <missingStats>true</missingStats>   <!-- optional, the default; false takes facilities only -->
+  </li>
+</modExtensions>
+```
+
+Both sides are updated: your building's list of facilities, and each facility's own list of buildings it links to, which the game
+fills while Defs load. The load line says how many buildings, facilities and stats were taken.
+
 ## Water and pipes beneath things (with Dubs Bad Hygiene)
 
 `PhobosFramework.Hygiene` is a separate assembly that loads only with Dubs Bad Hygiene; never reference it from a core assembly.

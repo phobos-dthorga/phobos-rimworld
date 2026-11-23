@@ -6,6 +6,18 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.24.1] - 2026-11-23 - Draft
+
+The burn unit bed takes what a hospital bed takes
+
+### Fixed
+
+- **The burn unit bed now takes every bedside facility a hospital bed takes** (the owner's report of 23 November 2026 that it gave less than a hospital bed). Other mods add their facilities to the hospital bed by its name, so the burn unit bed missed Vanilla Furniture Expanded - Medical Module's IV drip and vitals centre, Medieval 2's surgical tools, Ushanka's luciferium pump and simulator, and the royal dressers and wardrobes; with Biotech it also lacked the hospital bed's birth quality bonus. It now takes them from whatever mods are loaded, through D'thorga Framework 0.257.0, and keeps its own better figures. Not yet tested in game: row 428 of the test pass.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.257.0 or later.
+
 ## [0.24.0] - 2026-11-22 - Draft
 
 Radiation, slice 3: what is worn, contamination and three medicines
