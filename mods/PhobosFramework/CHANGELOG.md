@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.263.1] - 2026-11-23 - Draft
+
+A long figure no longer wraps out of its row
+
+### Fixed
+
+- **A word standing where a figure does is shown whole** (seen by the owner, 23 November 2026: the Turbine card's rating, maximum continuous, showed as maximum, a line too high). A row's lone figure now takes the room it needs, where a long one wrapped inside its column. Not yet tested in game: row 436 of the test pass.
+
 ## [0.263.0] - 2026-11-23 - Draft
 
 The Dashboard's tow, as rows

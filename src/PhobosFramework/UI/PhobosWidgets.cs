@@ -349,6 +349,9 @@ public static class PhobosWidgets
     public const float FigureRowHeight = 20f;
     /// <summary>How wide each figure column of a card's plain row is.</summary>
     public const float FigureColumnWidth = 76f;
+    /// <summary>A lone figure of this many characters or more is measured, since it may be wider than its column (a word for a figure:
+    /// a rating, a flight phase); a shorter one always fits.</summary>
+    const int FigureMeasuredFrom = 9;
     /// <summary>How far a card row's name and its last figure stand in from the row's ends.</summary>
     public const float FigureRowInset = 6f;
 
@@ -365,6 +368,13 @@ public static class PhobosWidgets
         var row = new Rect(x, y, width, FigureRowHeight);
         Widgets.DrawHighlightIfMouseover(row);
         float figuresWidth = FigureColumnWidth * (second == null ? 1 : 2);
+        // Framework 0.263.1 (seen by the owner, 23 Nov 2026: a rating of "maximum continuous" wrapped in its column and showed as
+        // "maximum", a line too high): a lone figure takes the room it needs. Only one long enough to overflow is measured.
+        float firstWidth = FigureColumnWidth;
+        if (second == null && figure.Length >= FigureMeasuredFrom)
+        {
+            using (new TextBlock(font)) firstWidth = figuresWidth = Mathf.Max(figuresWidth, Text.CalcSize(figure).x + 2f);
+        }
         float nameWidth = Mathf.Max(0f, nameEnd > 0f ? nameEnd - FigureRowInset - 4f : width - figuresWidth - FigureRowInset * 3f);
         Color before = GUI.color;
         if (colour is Color tint) GUI.color = tint;
@@ -375,7 +385,7 @@ public static class PhobosWidgets
         using (new TextBlock(font, TextAnchor.MiddleRight))
         {
             float edge = x + width - FigureRowInset;
-            Widgets.Label(new Rect(edge - figuresWidth, y, FigureColumnWidth, FigureRowHeight), figure);
+            Widgets.Label(new Rect(edge - figuresWidth, y, firstWidth, FigureRowHeight), figure);
             if (second != null) Widgets.Label(new Rect(edge - FigureColumnWidth, y, FigureColumnWidth, FigureRowHeight), second);
         }
         GUI.color = before;
