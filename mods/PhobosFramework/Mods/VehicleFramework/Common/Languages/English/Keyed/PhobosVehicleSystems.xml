@@ -557,6 +557,7 @@
   <PhobosVehicleSystems_FitSetOrdered>{FITTING}: added to the {VEHICLE}'s work on all {COUNT} together, one job each. It works once every one is fitted.</PhobosVehicleSystems_FitSetOrdered>
   <PhobosVehicleSystems_FitSetRefused>the {PART} cannot take it too: {REASON}</PhobosVehicleSystems_FitSetRefused>
   <PhobosVehicleSystems_FitSetNote>Fitted to all {COUNT} together, as a matched set: ordering, cancelling or taking it off one does the same to all of them. It changes nothing until every one carries it.</PhobosVehicleSystems_FitSetNote>
+  <PhobosVehicleSystems_FitAxleNote>Fitted to both wheels of an axle together, as a matched pair: ordering, cancelling or taking it off one wheel does the same to the other. An axle changes nothing until both its wheels carry it.</PhobosVehicleSystems_FitAxleNote>
   <PhobosVehicleSystems_SetWaiting>{LINE}, once the other {MISSING} carry it too: until then nothing changes</PhobosVehicleSystems_SetWaiting>
   <PhobosVehicleSystems_FitCancelledMessage>{WORK}: cancelled on the {VEHICLE}.</PhobosVehicleSystems_FitCancelledMessage>
   <PhobosVehicleSystems_FitLost>The {VEHICLE} lost its {FITTING} with its {PART}.</PhobosVehicleSystems_FitLost>

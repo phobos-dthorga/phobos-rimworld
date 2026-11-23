@@ -218,6 +218,7 @@ public sealed class VehicleFittings
         orders.RemoveAll(o => o == null || !o.Valid);
         statFactors = null;
         parameterFactors = null;
+        countedKeys = null;
     }
 
     public void Clear()
@@ -230,6 +231,7 @@ public sealed class VehicleFittings
         DropDisplayCaches();
         statFactors = null;
         parameterFactors = null;
+        countedKeys = null;
         SyncFuelCapacity(FuelExcess.Keep);
     }
 
@@ -238,7 +240,7 @@ public sealed class VehicleFittings
     void Recache()
     {
         if (statFactors != null) return;
-        FitFigures figures = FitFigures.Of(fitted.Where(part => part.def != null && SetWorks(part.def)).Select(part => (part.def!, PartsOf(part.def!))), ActiveTunes());
+        FitFigures figures = FitFigures.Of(fitted.Where(Counts).Select(part => (part.def!, PartsOf(part.def!))), ActiveTunes());
         statFactors = figures.Stats;
         parameterFactors = figures.Parameters;
         power = (float)figures.Power;
@@ -274,7 +276,7 @@ public sealed class VehicleFittings
         var fittings = new List<(PhobosVehicleFittingDef, int)>();
         // An axle's row counts every wheel of it that has the fitting: each gives its share, as on the vehicle.
         // A matched set's row shows the whole set's effect: it gives nothing until the set is whole, and all of it then.
-        if (fitting is { matchedSet: true } && fittedParts > 0) fittedParts = PartsOf(fitting);
+        if (fitting is { matchedSet: true, matchedPerAxle: false } && fittedParts > 0) fittedParts = PartsOf(fitting);
         for (int i = 0; fitting != null && i < fittedParts; i++) fittings.Add((fitting, PartsOf(fitting)));
         return FitFigures.Of(fittings, tune == null ? Enumerable.Empty<PhobosVehicleTuneDef>() : new[] { tune });
     }
@@ -409,24 +411,75 @@ public sealed class VehicleFittings
 
     // ---- Matched sets (Framework 0.246.0; owner, 23 Nov 2026: both engines of a twin-engined jet together) ----
 
-    /// <summary>Whether a fitting works: an ordinary one always; a matched set only once every part of its roles carries it.</summary>
-    public bool SetWorks(PhobosVehicleFittingDef def) =>
-        !def.matchedSet || FittingRule.PartsCounted(fitted.Count(f => f.def == def), PartsOf(def), matchedSet: true) > 0;
+    /// <summary>
+    /// The groups a matched set must fill: every listed part playing one of its roles together, or each axle's wheels apart for a set
+    /// matched per axle (Framework 0.247.0, per-engine realism step 3: tyres and springs).
+    /// </summary>
+    List<List<VehicleComponent>> SetGroups(PhobosVehicleFittingDef def)
+    {
+        List<VehicleComponent> playing = ListedParts().Where(p => def.roles.Any(role => comp.PartPlays(p, role))).ToList();
+        if (!def.matchedPerAxle) return new List<List<VehicleComponent>> { playing };
+        return PartRows().Select(row => row.Where(playing.Contains).ToList()).Where(group => group.Count > 0).ToList();
+    }
 
-    /// <summary>How many parts of a matched set still lack it while some carry it; 0 for a whole set, an ordinary fitting, or none fitted.</summary>
+    /// <summary>The fitted parts of matched sets whose group is whole, kept until what is fitted changes. Derived, never saved.</summary>
+    HashSet<string>? countedKeys;
+    int countedVersion = -1;
+
+    /// <summary>Whether a fitted part's fitting counts: an ordinary fitting always; a matched set's only once its group is whole.</summary>
+    bool Counts(FittedPart part)
+    {
+        if (part.def == null) return false;
+        if (!part.def.matchedSet) return true;
+        if (countedKeys == null || countedVersion != Version)
+        {
+            countedKeys = WholeSetKeys();
+            countedVersion = Version;
+        }
+        return countedKeys.Contains(part.partKey);
+    }
+
+    HashSet<string> WholeSetKeys()
+    {
+        var keys = new HashSet<string>();
+        foreach (PhobosVehicleFittingDef def in fitted.Select(f => f.def).Where(d => d is { matchedSet: true }).Distinct().Cast<PhobosVehicleFittingDef>())
+        {
+            foreach (List<VehicleComponent> group in SetGroups(def))
+            {
+                int carrying = group.Count(p => FittedOn(p.props.key) == def);
+                if (FittingRule.PartsCounted(carrying, group.Count, matchedSet: true) > 0) keys.UnionWith(group.Select(p => p.props.key));
+            }
+        }
+        return keys;
+    }
+
+    /// <summary>Whether this part's group of a matched set is whole: every part of it carries the fitting.</summary>
+    public bool GroupWhole(PhobosVehicleFittingDef def, string partKey)
+    {
+        List<VehicleComponent>? group = SetGroups(def).FirstOrDefault(g => g.Any(p => p.props.key == partKey));
+        return group != null && group.All(p => FittedOn(p.props.key) == def);
+    }
+
+    /// <summary>How many parts of a matched set still lack it in groups where some carry it; 0 for whole groups or an ordinary fitting.</summary>
     public int SetPartsMissing(PhobosVehicleFittingDef def)
     {
         if (!def.matchedSet) return 0;
-        int carrying = fitted.Count(f => f.def == def);
-        return carrying == 0 ? 0 : System.Math.Max(0, PartsOf(def) - carrying);
+        int missing = 0;
+        foreach (List<VehicleComponent> group in SetGroups(def))
+        {
+            int carrying = group.Count(p => FittedOn(p.props.key) == def);
+            if (carrying > 0) missing += group.Count - carrying;
+        }
+        return missing;
     }
 
-    /// <summary>How many parts a matched set goes on, for what the player reads.</summary>
-    public int SetSize(PhobosVehicleFittingDef def) => PartsOf(def);
+    /// <summary>How many parts a matched set goes on together, for what the player reads: the whole set, or the largest axle.</summary>
+    public int SetSize(PhobosVehicleFittingDef def) => SetGroups(def).Select(g => g.Count).DefaultIfEmpty(1).Max();
 
-    /// <summary>The parts a fitting goes on as a matched set: every listed part playing one of its roles. One part for an ordinary fitting.</summary>
+    /// <summary>The parts a fitting goes on as a matched set: the group holding this part. One part for an ordinary fitting.</summary>
     List<VehicleComponent> SetPartsFor(VehicleComponent part, PhobosVehicleFittingDef def) =>
-        def.matchedSet ? ListedParts().Where(p => def.roles.Any(role => comp.PartPlays(p, role))).ToList() : new List<VehicleComponent> { part };
+        def.matchedSet ? SetGroups(def).FirstOrDefault(g => g.Any(p => p.props.key == part.props.key)) ?? new List<VehicleComponent> { part }
+            : new List<VehicleComponent> { part };
 
     // ---- What can be done ----
 
@@ -612,7 +665,7 @@ public sealed class VehicleFittings
     }
 
     /// <summary>Whether a fitting on this vehicle grants this ability (a cargo hook), its part still standing.</summary>
-    public bool Grants(string ability) => fitted.Any(f => f.def != null && f.def.grants.Contains(ability) && SetWorks(f.def)
+    public bool Grants(string ability) => fitted.Any(f => f.def != null && f.def.grants.Contains(ability) && Counts(f)
         && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f });
 
     /// <summary>The factor on the vehicle's jamming reach from every fitting whose part still stands (Framework 0.224.0): 1 with none.</summary>
@@ -623,7 +676,7 @@ public sealed class VehicleFittings
             float factor = 1f;
             foreach (FittedPart part in fitted)
             {
-                if (part.def == null || part.def.jamRadiusFactor == 1f || !SetWorks(part.def)) continue;
+                if (part.def == null || part.def.jamRadiusFactor == 1f || !Counts(part)) continue;
                 if (comp.Vehicle.statHandler?.GetComponent(part.partKey) is { Health: > 0f }) factor *= part.def.jamRadiusFactor;
             }
             return factor;
@@ -635,7 +688,7 @@ public sealed class VehicleFittings
     {
         foreach (FittedPart part in fitted)
         {
-            if (part.def == null || !part.def.grants.Contains(ability) || !SetWorks(part.def)) continue;
+            if (part.def == null || !part.def.grants.Contains(ability) || !Counts(part)) continue;
             if (comp.Vehicle.statHandler?.GetComponent(part.partKey) is { Health: > 0f } standing) return standing;
         }
         return null;
@@ -643,7 +696,7 @@ public sealed class VehicleFittings
 
     /// <summary>The fittings on parts that are not destroyed, as <see cref="Grants"/> counts them.</summary>
     public IEnumerable<PhobosVehicleFittingDef> FittedDefs() => fitted
-        .Where(f => f.def != null && SetWorks(f.def) && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f })
+        .Where(f => f.def != null && Counts(f) && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f })
         .Select(f => f.def!);
 
     public FitOrder? OrderOn(string partKey) => orders.FirstOrDefault(o => o.partKey == partKey);
@@ -737,7 +790,7 @@ public sealed class VehicleFittings
 
     /// <summary>Whether a fitting on the vehicle grants boost (Framework 0.123.0), counted from what is fitted, so a boost tune stands down the
     /// moment its turbocharger is taken off or lost.</summary>
-    bool HasBoost => fitted.Any(f => f.def != null && f.def.grants.Contains(BoostAbility) && SetWorks(f.def));
+    bool HasBoost => fitted.Any(f => f.def != null && f.def.grants.Contains(BoostAbility) && Counts(f));
 
     /// <summary>The tunes that act now: all of them, but a boost tune only while its turbocharger is fitted.</summary>
     IEnumerable<PhobosVehicleTuneDef> ActiveTunes() => tunes.Where(t => t.axis != VehicleTuneAxis.Boost || HasBoost);
@@ -1012,7 +1065,11 @@ public sealed class VehicleFittings
             if (replaced != null && replaced != order.fitting && GiveBack(replaced) is { } back) text += " " + back;
             if (Seen.On) Seen.Note("vehicles.fitting-done." + order.fitting.defName, comp.Vehicle, PartLabel(order.partKey));
             // A matched set made whole by this part (Framework 0.246.0): the effect starts now.
-            if (Seen.On && order.fitting.matchedSet && SetWorks(order.fitting)) Seen.Note("vehicles.matched-set-whole", comp.Vehicle, order.fitting.defName);
+            if (Seen.On && order.fitting.matchedSet && GroupWhole(order.fitting, order.partKey))
+            {
+                if (order.fitting.matchedPerAxle) Seen.Note("vehicles.axle-matched", comp.Vehicle, order.fitting.defName);
+                else Seen.Note("vehicles.matched-set-whole", comp.Vehicle, order.fitting.defName);
+            }
         }
         orders.Remove(order);
         Changed();
@@ -1040,6 +1097,7 @@ public sealed class VehicleFittings
         DropDisplayCaches();
         statFactors = null;
         parameterFactors = null;
+        countedKeys = null;
         SyncFuelCapacity(excess);
         comp.Notify_FittingsChanged();
     }

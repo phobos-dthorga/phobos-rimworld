@@ -624,6 +624,7 @@
       "the loading grab burns fuel": [{"key": "vehicles.tipper-work-fuel", "variant": "grab"}],
       "an electric vehicle's lights draw on its pack": ["vehicles.converter-draw"]
     }},
+    "403": ["vehicles.axle-matched"],
     "402": ["aircraft.lopsided-thrust"],
     "401": ["vehicles.damaged-engine-weaker"],
     "400": ["vehicles.matched-set-whole"],

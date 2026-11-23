@@ -374,7 +374,8 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 
 - **Fittings** go on one part each: uprated radiator, oil cooler, turbocharger, heavy-duty alternator, deep-cycle battery,
   heavy-duty springs, road tyres, block heater, a snorkel for light vehicles that cross rivers, a cargo hook for helicopters, and a fast-rope bar and rescue hoist for the Osprey. **A fitting is lost if its part is destroyed.**
-  Wheels are grouped into axles; a choice on an axle is ordered for each of its wheels. **A twin-engined aircraft's new engines are a
+  Wheels are grouped into axles; a choice on an axle is ordered for each of its wheels. **Tyres and heavy-duty springs go on both wheels
+  of an axle together**, even from one wheel's own menu, and an axle gains nothing until both are done. **A twin-engined aircraft's new engines are a
   matched pair**: ordering them on one engine orders both, one new engine and one job each, and nothing changes in flight until both
   are in, so the aircraft never flies with one engine stronger than the other. Cancelling or taking them off does both too.
 - **More fittings** (not yet tested in game): **heavy-duty brakes** (wear slower), a **transmission cooler** (a cooler gearbox when

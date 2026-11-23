@@ -1,7 +1,7 @@
 # Per-engine realism (23 Nov 2026)
 
-**Status (23 Nov 2026):** steps 1 and 2 built in D'thorga Framework 0.247.0 and Vehicles 0.108.0 (power by engine health, row 401;
-lopsided thrust, row 402); steps 3 and 4 designed, not yet built. Nothing here is tested in game yet.
+**Status (23 Nov 2026):** steps 1 to 3 built in D'thorga Framework 0.247.0 and Vehicles 0.108.0 (power by engine health, row 401;
+lopsided thrust, row 402; tyres and springs matched per axle, row 403); step 4 designed, not yet built. Nothing here is tested in game yet.
 
 ## Read this first
 
@@ -62,7 +62,22 @@ The design as first written:
   Expanded's thruster craft (the owner chose jets only). The A-10, Su-25 and Prowler all carry their engines close in, so their figure is
   small. No fuel cost (the drag rule above).
 
-### Step 3: matched tyres and springs per axle (designed)
+### Step 3: matched tyres and springs per axle (built, Framework 0.247.0)
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Order tyres or springs for an axle from either wheel |
+| What it stops them doing | Running an axle with one new tyre or spring and one old one and gaining from it |
+| How it changes play | Tyres and springs come in pairs: twice the materials before an axle gains anything |
+| What outside the vehicle notices | Nothing, by choice: it is the vehicle's own upkeep |
+
+- **How:** a fitting's `matchedPerAxle` (with `matchedSet`) makes each axle its own group (the fittings window's axle rows,
+  `PartRows`); ordering, cancelling and taking off follow the group; a fitted wheel counts only once its axle is whole. Road tyres,
+  all-terrain tyres and heavy-duty springs carry it. A vehicle whose wheels are not grouped into axles keeps each wheel apart.
+- **Risk: low** (agent's grade): no loss, only upkeep; no setting.
+- **Other factions' vehicles:** their sets go on every free part, so whole axles.
+
+The design as first written:
 
 - Today's matched set (Framework 0.246.0) groups every part of a fitting's roles. A per-axle grouping makes road and all-terrain tyres
   and heavy-duty springs go on both wheels of an axle together, and work once the axle is matched. Mismatched brakes or springs on one

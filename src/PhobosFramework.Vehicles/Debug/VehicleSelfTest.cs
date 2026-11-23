@@ -245,14 +245,15 @@ public static class VehicleSelfTest
     static void Fittings(SelfTest test, CompPhobosVehicleSystems comp, Pawn mechanic)
     {
         VehicleFittings fittings = comp.Fittings;
-        VehicleComponent? part = fittings.ListedParts().FirstOrDefault(p => fittings.OptionsFor(p).Any());
+        // These steps work one part; a matched set (Framework 0.246.0) moves nothing until its group is whole, so they use one that is not.
+        VehicleComponent? part = fittings.ListedParts().FirstOrDefault(p => fittings.OptionsFor(p).Any(f => !f.matchedSet));
         if (part == null)
         {
-            test.Skip("Fittings", "this design has no part a fitting suits");
+            test.Skip("Fittings", "this design has no part a single fitting suits");
             return;
         }
         string key = part.props.key;
-        PhobosVehicleFittingDef def = fittings.OptionsFor(part).First();
+        PhobosVehicleFittingDef def = fittings.OptionsFor(part).First(f => !f.matchedSet);
 
         fittings.OrderFitting(part, def);
         Work(test, comp, "Fitting " + def.defName, w => w.Order?.fitting == def, mechanic);

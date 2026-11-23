@@ -52,6 +52,9 @@ public class PhobosVehicleFittingDef : Def
     /// does so on all of them; each part is still its own job and takes its own materials. Until the set is whole it moves no figure.
     /// </summary>
     public bool matchedSet;
+    /// <summary>A matched set filled axle by axle rather than all at once (Framework 0.247.0, per-engine realism step 3; the owner's card of 23
+    /// Nov 2026): tyres and springs go on both wheels of an axle together, and work on each axle that is matched. Needs matchedSet.</summary>
+    public bool matchedPerAxle;
     public List<ThingDefCountClass> materials = new();
     /// <summary>Work in ticks for a mechanic of construction speed 1.</summary>
     public float work = 1200f;
@@ -130,6 +133,7 @@ public class PhobosVehicleFittingDef : Def
     {
         foreach (string error in base.ConfigErrors()) yield return error;
         if (roles.Count == 0) yield return "names no roles";
+        if (matchedPerAxle && !matchedSet) yield return "matchedPerAxle needs matchedSet";
         if (work <= 0f) yield return "work must be above 0";
         if (statFactors.Count == 0 && parameterFactors.Count == 0 && powerFactor == 1f && fuelFactor == 1f && fuelCapacityFactor == 1f && grants.Count == 0
             && loads.Count == 0 && kilograms == 0f && parameterFloors.Count == 0 && !MovesTurbine && cartridgeFactor == 1f)

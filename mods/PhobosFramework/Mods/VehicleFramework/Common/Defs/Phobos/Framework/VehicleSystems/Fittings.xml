@@ -100,8 +100,12 @@
     <defName>PhobosFitting_HeavySprings</defName>
     <iconPath>Phobos/VehicleSystems/Fittings/HeavySprings</iconPath>
     <label>heavy-duty springs</label>
-    <description>Stiffer springs carry a bigger load, at the cost of a harder, slightly slower ride. Fit every axle for the full effect.</description>
+    <description>Stiffer springs carry a bigger load, at the cost of a harder, slightly slower ride. Both wheels of an axle are done together; fit every axle for the full effect.</description>
     <roles><li>Wheels</li></roles>
+    <!-- Framework 0.247.0 (per-engine realism step 3; owner, 23 Nov 2026): matched on each axle, as mismatched tyres or springs pull a
+         vehicle to one side. -->
+    <matchedSet>true</matchedSet>
+    <matchedPerAxle>true</matchedPerAxle>
     <materials><Steel>60</Steel></materials>
     <work>7500</work>
     <minSkill>3</minSkill>
@@ -116,8 +120,12 @@
     <defName>PhobosFitting_RoadTyres</defName>
     <iconPath>Phobos/VehicleSystems/Fittings/RoadTyres</iconPath>
     <label>road tyres</label>
-    <description>A softer, faster compound. Quicker on the move, and it wears out sooner. Fit every axle for the full effect.</description>
+    <description>A softer, faster compound. Quicker on the move, and it wears out sooner. Both wheels of an axle are done together; fit every axle for the full effect.</description>
     <roles><li>Wheels</li></roles>
+    <!-- Framework 0.247.0 (per-engine realism step 3; owner, 23 Nov 2026): matched on each axle, as mismatched tyres or springs pull a
+         vehicle to one side. -->
+    <matchedSet>true</matchedSet>
+    <matchedPerAxle>true</matchedPerAxle>
     <!-- New tyres: each wheel fitted takes away its share of the tread wear (Framework 0.105.2; owner's test of 13 Nov 2026). -->
     <renews><li>treadWear</li></renews>
     <materials><Steel>25</Steel><Chemfuel>30</Chemfuel></materials>
@@ -255,8 +263,12 @@
     <defName>PhobosFitting_AllTerrainTyres</defName>
     <iconPath>Phobos/VehicleSystems/Fittings/AllTerrainTyres</iconPath>
     <label>all-terrain tyres</label>
-    <description>A deep, open tread that bites into mud, sand and snow. It holds far better on soft ground, is a little slower everywhere, and wears faster on hard going. Fit every axle for the full effect.</description>
+    <description>A deep, open tread that bites into mud, sand and snow. It holds far better on soft ground, is a little slower everywhere, and wears faster on hard going. Both wheels of an axle are done together; fit every axle for the full effect.</description>
     <roles><li>Wheels</li></roles>
+    <!-- Framework 0.247.0 (per-engine realism step 3; owner, 23 Nov 2026): matched on each axle, as mismatched tyres or springs pull a
+         vehicle to one side. -->
+    <matchedSet>true</matchedSet>
+    <matchedPerAxle>true</matchedPerAxle>
     <!-- New tyres: each wheel fitted takes away its share of the tread wear (Framework 0.105.2; owner's test of 13 Nov 2026). -->
     <renews><li>treadWear</li></renews>
     <materials><Steel>30</Steel><Chemfuel>40</Chemfuel></materials>

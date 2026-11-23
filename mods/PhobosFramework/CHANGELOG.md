@@ -13,6 +13,11 @@ Per-engine realism: a damaged engine gives less power
 
 - **A damaged turbine engine gives part of its power, not all or nothing** (the owner's card of 23 November 2026; docs/development/per-engine-realism.md, step 1). Each engine gives its own share by its condition: about half when badly damaged, all of it when sound, nothing once it is out, as before. A shot-up aircraft climbs, cruises and hovers weaker while both engines still run, and its turbine runs hotter for the same work. A setting, Damaged turbine engines give less power, on by default (risk moderate, the agent's grade); off, each engine gives all its power until it stops, as before. The shape and figures are authored. Not yet tested in game: row 401 of the test pass.
 - **Lopsided thrust unsettles a twin jet** (per-engine realism, step 2): with one engine out, or one weaker than the other, its thrust pulls it sideways and it dodges less fire, by a figure each aircraft's loadout gives (engineOutYaw, 0 by default) times the difference between its engines. Helicopters and the Osprey are left alone: one drive shares their engines' work. No fuel cost: holding it straight is drag, which our vehicles do not model. A setting, Lopsided thrust unsettles twin jets, on by default (risk moderate, the agent's grade). Not yet tested in game: row 402 of the test pass.
+- **Tyres and heavy-duty springs go on both wheels of an axle together** (per-engine realism, step 3): ordering them on one wheel orders the other, and an axle gains nothing until both its wheels carry them, as mismatched tyres or springs pull a vehicle to one side. Brakes are one part a vehicle here, so they were never mismatched. For other mods: matchedPerAxle beside matchedSet. Not yet tested in game: row 403 of the test pass.
+
+### Save compatibility
+
+- Safe. A vehicle with only one wheel of an axle fitted keeps that fitting; the axle's gain waits for the other wheel. Fit it, and the axle works.
 
 ## [0.246.0] - 2026-11-23 - Draft
 

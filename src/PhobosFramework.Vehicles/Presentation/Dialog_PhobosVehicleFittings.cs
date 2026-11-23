@@ -410,7 +410,10 @@ public class Dialog_PhobosVehicleFittings : Window
                     line = "PhobosVehicleSystems_AxleMixed".Translate(line.Named("LINE"), commonCount.Named("FITTED"), parts.Count.Named("WHEELS")).Resolve();
                 }
                 // A matched set part-way done: its row says the effect waits for the rest (Framework 0.246.0).
-                if (!hoverFitting && fitting is { matchedSet: true } && Fittings.SetPartsMissing(fitting) is var missing and > 0)
+                // Framework 0.247.0: a set matched per axle waits only on this axle's own wheels.
+                int missing = hoverFitting || fitting is not { matchedSet: true } ? 0
+                    : fitting.matchedPerAxle ? (commonCount > 0 ? parts.Count - commonCount : 0) : Fittings.SetPartsMissing(fitting);
+                if (missing > 0)
                 {
                     line = "PhobosVehicleSystems_SetWaiting".Translate(line.Named("LINE"), missing.Named("MISSING")).Resolve();
                 }
@@ -505,7 +508,7 @@ public class Dialog_PhobosVehicleFittings : Window
         string tip = def.LabelCap + " (" + Materials(Fittings.MaterialsFor(def.materials)) + ")\n" + Hours(def.work) + "\n\n" + def.description;
         if (FittingText.Effects(def, VehicleSystemsMod.Settings.displayMode == DisplayMode.Plain) is { } effects) tip += "\n\n" + effects;
         if (def.minSkill > 0) tip += "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(def.minSkill.Named("SKILL")).CapitalizeFirst();
-        if (def.matchedSet) tip += "\n\n" + "PhobosVehicleSystems_FitSetNote".Translate(Fittings.SetSize(def).Named("COUNT")).Resolve();
+        if (def.matchedSet) tip += "\n\n" + (def.matchedPerAxle ? "PhobosVehicleSystems_FitAxleNote" : "PhobosVehicleSystems_FitSetNote").Translate(Fittings.SetSize(def).Named("COUNT")).Resolve();
         if (refusal != null) tip += "\n\n" + refusal.Colorize(PhobosWidgets.Bad);
         return tip;
     }
@@ -566,7 +569,7 @@ public class Dialog_PhobosVehicleFittings : Window
             string label = def.LabelCap + " (" + Materials(Fittings.MaterialsFor(def.materials)) + ")";
             string tip = def.description + (FittingText.Effects(def, VehicleSystemsMod.Settings.displayMode == DisplayMode.Plain) is { } effects ? "\n\n" + effects : "")
                 + (def.minSkill > 0 ? "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(def.minSkill.Named("SKILL")).CapitalizeFirst() : "")
-                + (def.matchedSet ? "\n\n" + "PhobosVehicleSystems_FitSetNote".Translate(Fittings.SetSize(def).Named("COUNT")).Resolve() : "");
+                + (def.matchedSet ? "\n\n" + (def.matchedPerAxle ? "PhobosVehicleSystems_FitAxleNote" : "PhobosVehicleSystems_FitSetNote").Translate(Fittings.SetSize(def).Named("COUNT")).Resolve() : "");
             string? refusal = Fittings.Refusal(def, part);
             PhobosVehicleFittingDef captured = def;
             string text = refusal == null ? label : label + ": " + refusal;
