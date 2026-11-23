@@ -208,6 +208,64 @@ rough-strip debris, engines starting in turn).
 - **Risk: moderate** (agent's grade): the Hind and Mongoose lose a little top power with both engines sound.
 - **Other factions' vehicles:** the same on any faction's aircraft; nothing stored.
 
+### Step 9: engines lit in turn (built, Framework 0.252.0)
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | See a scramble take a few seconds while the engines light |
+| What it stops them doing | Drafting an aircraft and taking off the same instant |
+| How it changes play | Start the engines a little before you need to go |
+| What outside the vehicle notices | Nothing |
+
+- **The owner's card (23 Nov 2026):** game-scaled. A real turbine start of 30 to 45 seconds is under half a second of play at the game's
+  clock (a game hour passes in about 42 real seconds at normal speed), so `engineStartHours` (0.1, six game minutes, AUTHORED) each.
+- **How:** `StartSequence`, timed from Vehicle Framework's own sign that the engine is on (drafted or flying), so no flight phase is
+  needed; the systems' `LaunchRefusal` refuses until `StartSequenceRule.Lit` says all are lit. Derived, never saved.
+- **Where it reaches:** the Osprey and other aircraft on our own flight, and those on Vehicle Framework's own launch (the Black Hawk,
+  Vanilla Vehicles Expanded's). **Not** the jets and attack helicopters on their authors' frameworks: each has its own spooling up after
+  the take-off order (a `SpoolingUp` phase in its profile), and their engines start only then, so a refusal of ours would never clear.
+  Lengthening theirs would mean patching four other authors' state machines; left alone, by the agent's judgement.
+- **Risk: low** (agent's grade). **Setting:** "Aircraft engines start one after another", on.
+
+### Step 10: grit in the intakes (built, Framework 0.252.0, Vehicles 0.110.0)
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Choose a concrete strip over bare ground for low-intake jets |
+| What it stops them doing | Operating every aircraft from rough ground for free |
+| How it changes play | A reason to pave a strip; the A-10 and Su-25 are the rough-field aircraft |
+| What outside the vehicle notices | The ground: any floor protects |
+
+- **The owner's card:** jets and helicopters. **How:** in a phase on the landing-surface rules' `debrisPhases` (take-off and landing rolls
+  1, taxiing 0.2, a helicopter lifting off or settling 1), `StripDebris` rolls `debrisPerHour` (0.5) times the loadout's `intakeDebris`
+  times the rough share of the ground under it (not a floor, not water) over the update's hours; an inlet barrier stops its share. Our
+  own flight rolls `debrisPerEvent` (0.04) at each lift-off and touch-down instead (`LandingSurface`). A strike costs a random engine 15 %
+  of its health, never below the dust rule's floor. **All AUTHORED**; foreign-object damage is why rough-strip aircraft carry high or
+  guarded intakes, but no measured rate was used.
+- **Exposure (AUTHORED):** Prowler 1, Harrier 0.8, Mongoose and Osprey 0.6, Su-25 0.3, Hind 0.3 and Black Hawk 0.3 (inlet dust protection,
+  the T700's particle separator), A-10 0.25 (high nacelles), any other aircraft 0.5.
+- **Limit:** a phase shorter than one update (250 ticks) may go unsampled; over many take-offs the rate holds. **Risk: low** (agent's grade).
+- **Other factions' vehicles:** the same on any faction's aircraft.
+
+### Step 11: side tanks and a cross-feed (built, Framework 0.252.0, Vehicles 0.110.0)
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Choose, with a holed tank, between losing an engine and losing fuel |
+| What it stops them doing | Flying on two engines with half the fuel gone from one side, for free |
+| How it changes play | A shot-up twin's way home is a real choice |
+| What outside the vehicle notices | Nothing |
+
+- **The owner's card:** an automatic and a manual mode. **How:** `SideTanks` keeps the vehicle's one fuel figure and an imbalance
+  (`SideTankRule`): engines burn their own side by the work each does (shut) or the fuller side first (open); a refuel fills the emptier
+  side first; a leak (seen through the central `VehicleFuel.Burn`) drains its side (shut) or both (open). A dry side behind a shut
+  cross-feed stops leaking (`Effect_ConsumeFuel`) and starves its engine (`Powertrain.EngineOrders`). Modes: automatic (the default:
+  shut until a side is dry while the other holds fuel and a crew is aboard, then opened, and shut again once the leak is gone and the
+  sides are level), open, shut; a button with our fuel telltale turns it and shows each side.
+- **Limits:** the holed side is drawn at random when the leak starts (the tank part does not say); side i is engine i's. **Risk:
+  moderate** (agent's grade): an engine can stop for want of fuel while fuel is aboard, as in life.
+- **Older saves:** even sides, automatic. **Other factions' vehicles:** the same; their crews always count as aboard.
+
 ## Sources
 
 - Our own code, read on 23 Nov 2026: `Powertrain.Engines`, `TurbineModel.Evaluate`, the turbine system (`Systems_Turbine.xml`).

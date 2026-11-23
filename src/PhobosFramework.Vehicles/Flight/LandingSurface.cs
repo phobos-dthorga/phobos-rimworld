@@ -36,12 +36,15 @@ public static class LandingSurface
         {
             PhobosLandingSurfaceRulesDef rules = PhobosRulesDef.Current<PhobosLandingSurfaceRulesDef>();
             bool raining = map.weatherManager.RainRate > 0f;
-            int cells = 0, loose = 0;
+            int cells = 0, loose = 0, rough = 0;
             dryCells.Clear();
             foreach (IntVec3 cell in vehicle.OccupiedRect())
             {
                 if (!cell.InBounds(map)) continue;
                 cells++;
+                // Framework 0.252.0: stones and grit lie on any ground but a floor or water, wet or dry.
+                TerrainDef under = cell.GetTerrain(map);
+                if (!under.IsFloor && !under.IsWater) rough++;
                 // Framework 0.204.0 (LM2): ground still wet after the rain counts as wet, neither dusty nor dry.
                 bool wet = raining || Phobos.Framework.Environment.MapComponent_PhobosGroundWetness.At(map, cell) > rules.wetAbove;
                 bool dry = LandingSurfaceRule.Dry(wet ? 1 : 0, map.snowGrid.GetDepth(cell), rules.snowAtMost);
@@ -53,6 +56,7 @@ public static class LandingSurface
             if (cells == 0) return;
             WearEngines(vehicle, rules, (double)loose / cells, rolling, when);
             MaybeFire(vehicle, map, rules, (double)dryCells.Count / cells, when);
+            StripDebris.OnEvent(vehicle, (double)rough / cells, when);
         }
         catch (Exception error)
         {

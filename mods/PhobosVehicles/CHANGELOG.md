@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.110.0] - 2026-11-23 - Draft
+
+Twins' side tanks and how exposed each aircraft's intakes are
+
+### Added
+
+- **Each aircraft's intakes have their own exposure to grit on rough ground, and the twins a tank on each side** (with D'thorga Framework 0.252.0; docs/development/per-engine-realism.md, steps 10 and 11): the Prowler 1, the Harrier 0.8, the Mongoose and Osprey 0.6, the Su-25 0.3, the Hind and Black Hawk 0.3 (inlet dust protection), the A-10 0.25 (high nacelles), every other aircraft 0.5 (all authored). The A-10, Su-25, Prowler, Hind, Mongoose, Black Hawk and Osprey carry side tanks and a cross-feed. Not yet tested in game: rows 409 and 410 of the test pass.
+
 ## [0.109.0] - 2026-11-23 - Draft
 
 Helicopters' engine-out ratings from their makers' figures

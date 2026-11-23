@@ -31,5 +31,23 @@
     <!-- Open ground more than a quarter wet (the Framework's ground wetness, after the rain has stopped) is neither dusty nor dry:
          about seven hours after a soaking on a mild day. -->
     <wetAbove>0.25</wetAbove>
+
+    <!-- Strip debris (Framework 0.252.0, per-engine realism round two; the owner's card of 23 Nov 2026: jets and helicopters). Stones and grit
+         thrown into the intakes on any ground but a floor or water: half a strike an hour of take-off roll for a fully exposed intake on
+         wholly rough ground, so about one rough take-off in twenty-five strikes a Prowler; a strike costs an engine 15 % of its health, never
+         below the floor above. An aircraft on our own flight: 4 % at each lift-off or touch-down, fully exposed. Each aircraft's exposure
+         is its loadout's intakeDebris. All authored for play; the real basis is general (foreign-object damage is the reason rough-strip
+         aircraft carry high or guarded intakes), not a measured rate. -->
+    <debrisPerHour>0.5</debrisPerHour>
+    <debrisPerEvent>0.04</debrisPerEvent>
+    <debrisDamage>0.15</debrisDamage>
+    <debrisPhases>
+      <li><phase>TakeoffRoll</phase><weight>1</weight></li>
+      <li><phase>RunwayLanding</phase><weight>1</weight></li>
+      <li><phase>Taxi</phase><weight>0.2</weight></li>
+      <li><phase>TakingOff</phase><weight>1</weight></li>
+      <li><phase>Landing</phase><weight>1</weight></li>
+      <li><phase>VerticalLanding</phase><weight>1</weight></li>
+    </debrisPhases>
   </Phobos.VehicleSystems.PhobosLandingSurfaceRulesDef>
 </Defs>

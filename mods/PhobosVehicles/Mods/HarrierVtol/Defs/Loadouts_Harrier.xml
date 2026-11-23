@@ -53,6 +53,8 @@
     <defName>PhobosVehicleLoadout_Harrier</defName>
     <label>jump jet</label>
     <priority>Vehicle</priority>
+    <!-- Framework 0.252.0 (per-engine realism round two): stones and grit thrown into the intakes on rough ground, 0.8 (authored: large intakes low beside the cockpit, its own jets blasting the ground). -->
+    <intakeDebris>0.8</intakeDebris>
     <selector>
       <vehicleDefs>
         <li>Harrier_Jet</li>

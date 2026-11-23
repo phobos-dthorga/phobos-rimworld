@@ -628,6 +628,14 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// <summary>Each part's own figure of a quantity kept per part, by "quantity|part key" (Framework 0.248.0); null until one is kept. Saved.</summary>
     internal Dictionary<string, float>? partFigures;
     PartFigures? perPart;
+    StartSequence? startSequence;
+    SideTanks? sideTanks;
+
+    /// <summary>An aircraft's engines lit one after another before take-off (Framework 0.252.0). Derived, never saved.</summary>
+    public StartSequence StartSequence => startSequence ??= new StartSequence(this);
+
+    /// <summary>A twin's tank on each side and its cross-feed (Framework 0.252.0). Its split and mode are saved here.</summary>
+    public SideTanks SideTanks => sideTanks ??= new SideTanks(this);
 
     /// <summary>Quantities kept per part: each engine's hot-section life, each wheel's brake wear (Framework 0.248.0, PartFigures).</summary>
     public PartFigures PartFigures => perPart ??= new PartFigures(this);
@@ -667,6 +675,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             Scribe_Collections.Look(ref engineHotSection, "PhobosVehicleSystems_EngineHotSection", LookMode.Value, LookMode.Value);
         }
         Scribe_Collections.Look(ref partFigures, "PhobosVehicleSystems_PartFigures", LookMode.Value, LookMode.Value);
+        // Framework 0.252.0: a twin's side tanks (step 11): how its fuel is split, which side leaks, and its cross-feed.
+        Scribe_Values.Look(ref SideTanks.imbalance, "PhobosVehicleSystems_SideTankImbalance", 0f);
+        Scribe_Values.Look(ref SideTanks.leakSide, "PhobosVehicleSystems_SideTankLeak", -1);
+        Scribe_Values.Look(ref SideTanks.mode, "PhobosVehicleSystems_CrossFeed", CrossFeedMode.Automatic);
+        Scribe_Values.Look(ref SideTanks.crewOpened, "PhobosVehicleSystems_CrossFeedCrewOpened", false);
         Scribe_Collections.Look(ref loadSwitches, "PhobosVehicleSystems_Loads", LookMode.Value, LookMode.Value);
         // The graphs' history: the owner's exception to "derived state is never saved" (8 Nov 2026), a few kilobytes per vehicle.
         History.ExposeData(Props.systems);
@@ -1046,6 +1059,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             // Framework 0.247.0, generic since 0.248.0: a per-part quantity's gain shared among its parts, the figure then the worst part's,
             // before stages are judged.
             PartFigures.Sync();
+            // Framework 0.252.0: grit thrown into the intakes on rough ground, and how a twin's fuel is split between its sides.
+            StripDebris.Update(this, (float)hours);
+            SideTanks.Update();
             if (!stagesSettled)
             {
                 // The first update: take the stages the true readings give, quietly, as where each starts (no effects on entry or exit).
@@ -1117,6 +1133,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         }
         EngineRunning = hasFuel && (drafted || caravanMoving || flying);
         EngineRunningRaw = EngineRunning;
+        // Framework 0.252.0: an aircraft's engines light in turn from Vehicle Framework's own sign that the engine is on.
+        StartSequence.Note(EngineRunningRaw);
         EngineLoad = EngineRunning ? (Moving ? 1f : 0.5f) : 0f;
         Powertrain? train = Powertrain;
         if (train != null && VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off)
@@ -1825,6 +1843,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     public string? LaunchRefusal()
     {
         if (!Usable || states == null || Vehicle.Faction != Faction.OfPlayer) return null;
+        // Framework 0.252.0: the engines still lighting one after another.
+        if (StartSequence.Refusal() is { } starting) return starting;
         foreach ((SystemContext context, StageSpec stage, string _) in StagesInForce())
         {
             foreach (VehicleSystemEffect effect in stage.effects)
@@ -3335,6 +3355,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (!Usable || Vehicle.Faction != Faction.OfPlayer) yield break;
         if (homeBay is { parent.Destroyed: false }) yield return BayGizmos.GoButton(this, homeBay);
+        // Framework 0.252.0: a twin's fuel cross-feed.
+        if (SideTanks.Applies) yield return SideTanks.Button();
         // A vehicle that won't start: the button sends the nearest colonist with a way to jump-start it (Framework 0.242.0).
         if (Vehicle.Spawned && JumpStartNeed() != null)
         {

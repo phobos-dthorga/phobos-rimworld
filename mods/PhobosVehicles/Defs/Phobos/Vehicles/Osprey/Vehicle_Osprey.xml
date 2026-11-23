@@ -1030,6 +1030,9 @@
     <defName>PhobosVehicleLoadout_Osprey</defName>
     <label>tiltrotor</label>
     <priority>Vehicle</priority>
+    <!-- Framework 0.252.0 (per-engine realism round two): stones and grit thrown into the intakes on rough ground, 0.6 (authored: its proprotors throw up grit as it lifts off; its inlet barrier keeps most of it out). A tank each side, each feeding its own engine, with a cross-feed (authored layout). -->
+    <intakeDebris>0.6</intakeDebris>
+    <sideTanks>true</sideTanks>
     <selector>
       <vehicleDefs>
         <li>Phobos_Osprey</li>

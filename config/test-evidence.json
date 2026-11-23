@@ -646,6 +646,13 @@
     }},
     "404": [{"key": "vehicles.part-restored", "detail": "hotSectionLife*"}],
     "403": ["vehicles.axle-matched"],
+    "410": {"parts": {
+      "the crew opens the cross-feed on automatic": [{"key": "vehicles.crossfeed-opened", "detail": "automatic"}],
+      "the player sets the cross-feed": [{"key": "vehicles.crossfeed-opened", "variant": "*"}],
+      "a dry side stops its engine": ["vehicles.engine-starved"]
+    }},
+    "409": ["aircraft.strip-debris"],
+    "408": ["aircraft.engines-started-in-turn"],
     "407": ["aircraft.engine-out-rating"],
     "406": [{"key": "vehicles.part-restored", "detail": "brakeWear*"}],
     "405": ["aircraft.lopsided-fuel"],

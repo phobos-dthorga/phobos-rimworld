@@ -394,6 +394,11 @@ public sealed class Powertrain
     {
         var orders = new double[engineRoles.Length];
         for (int i = 0; i < engineRoles.Length; i++) orders[i] = comp.PartEfficiency(engineRoles[i], 1f);
+        // Framework 0.252.0: an engine whose side tank is dry behind a shut cross-feed has stopped.
+        if (engineRoles.Length == 2)
+        {
+            for (int i = 0; i < 2; i++) if (comp.SideTanks.Starved(i)) orders[i] = 0;
+        }
         return orders;
     }
 

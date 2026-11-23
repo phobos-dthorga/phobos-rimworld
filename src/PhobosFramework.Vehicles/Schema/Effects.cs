@@ -299,6 +299,12 @@ public class Effect_ConsumeFuel : VehicleSystemEffect
     {
         CompFueledTravel? fuel = context.Vehicle.CompFueledTravel;
         if (fuel == null || fuel.EmptyTank) return;
+        // Framework 0.252.0: a holed side tank that has run dry behind a shut cross-feed leaks no more.
+        if (use == FuelUse.Leak && context.Comp.SideTanks.LeakSideDry)
+        {
+            context.Comp.SideTanks.NoteLeak(0f);
+            return;
+        }
         float rate = perHourParameter != null ? context.Parameter(perHourParameter) : perHour;
         if (ofCapacity) rate *= fuel.FuelCapacity;
         VehicleFuel.Burn(context.Vehicle, rate * hours, use, context.Comp);

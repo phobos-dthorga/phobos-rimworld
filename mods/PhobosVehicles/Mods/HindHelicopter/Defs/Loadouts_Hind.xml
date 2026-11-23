@@ -42,6 +42,9 @@
     <defName>PhobosVehicleLoadout_Hind</defName>
     <label>attack helicopter (twin turboshaft)</label>
     <priority>Vehicle</priority>
+    <!-- Framework 0.252.0 (per-engine realism round two): stones and grit thrown into the intakes on rough ground, 0.3 (authored: its intakes carry dust protection devices). A tank each side, each feeding its own engine, with a cross-feed (authored layout). -->
+    <intakeDebris>0.3</intakeDebris>
+    <sideTanks>true</sideTanks>
     <selector>
       <vehicleDefs>
         <li>Hind_Helicopter</li>

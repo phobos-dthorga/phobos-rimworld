@@ -1328,6 +1328,9 @@
     <defName>PhobosVehicleLoadout_Aircraft</defName>
     <label>aircraft</label>
     <kind>Aircraft</kind>
+    <!-- Framework 0.252.0 (per-engine realism round two): a middling exposure of the intakes to grit thrown up on rough ground, for any
+         aircraft our loadouts do not name (authored). -->
+    <intakeDebris>0.5</intakeDebris>
     <priority>Effect</priority>
     <selector>
       <fuelled>Yes</fuelled>

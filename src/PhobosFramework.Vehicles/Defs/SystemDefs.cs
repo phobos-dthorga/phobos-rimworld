@@ -824,6 +824,13 @@ public class PhobosVehicleLoadoutDef : Def
     /// larger the further its engines sit from the centreline, 0 (the default) where one gearbox or a cross-shaft shares the engines' work
     /// (helicopters, the Osprey). Authored per aircraft.</summary>
     public float engineOutYaw;
+    /// <summary>How exposed the engines' intakes are to stones and grit thrown up on rough ground (Framework 0.250.0, per-engine realism round
+    /// two, step 10): 1 for a low intake close behind the wheels, less for one set high or guarded, 0 (the default) for none. Authored per
+    /// aircraft (StripDebris).</summary>
+    public float intakeDebris;
+    /// <summary>A twin keeps a fuel tank on each side, each feeding its own engine, with a cross-feed between them (Framework 0.250.0, step 11;
+    /// SideTanks). Only with two engines.</summary>
+    public bool sideTanks;
     /// <summary>Breaks ties within a priority, higher winning: the tracked loadout beats the plain land ones.</summary>
     public int rank;
     /// <summary>The engine and drivetrain (drivetrain design), or an aircraft's engine (turbine design).</summary>
@@ -930,6 +937,12 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// <summary>A turbine's generator output against its spool speed in percent (avionics A5): about half at ground idle, full from cruise.
     /// Authored; written once here (step S5).</summary>
     public SimpleCurve generatorSpoolOutput = new() { new CurvePoint(60f, 0.5f), new CurvePoint(80f, 0.85f), new CurvePoint(90f, 1f) };
+    /// <summary>Game hours each turbine engine of an aircraft takes to light, one after another, before it may take off (Framework 0.250.0,
+    /// per-engine realism round two, step 9; the owner's card of 23 Nov 2026: game-scaled). AUTHORED for play: a real turbine starts in 30 to
+    /// 45 seconds, under half a second of play at the game's clock, so 6 game minutes (about 4 seconds at normal speed) stands in for it.</summary>
+    public float engineStartHours = 0.1f;
+    /// <summary>The fuel left in a side tank below which it counts as dry and starves its engine (Framework 0.250.0, step 11).</summary>
+    public float sideTankDry = 0.01f;
     /// <summary>Electrical watts out per watt of shaft power in, against the alternator's speed in rpm (step S5; the owner's pick of 18 Nov
     /// 2026: Remy's typical 55 %, falling with speed). Remy's white paper (Bradfield, 2015) gives 55 % as typical and measured duty-cycle
     /// averages of 54 to 60.5 %, its losses growing with speed; the shape is authored from that.</summary>

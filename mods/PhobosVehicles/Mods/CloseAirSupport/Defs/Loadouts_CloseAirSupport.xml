@@ -91,6 +91,9 @@
     <engineOutYaw>0.15</engineOutYaw>
     <label>ground-attack jet (twin turbofan)</label>
     <priority>Vehicle</priority>
+    <!-- Framework 0.252.0 (per-engine realism round two): stones and grit thrown into the intakes on rough ground, 0.25 (authored: its engines sit high on the rear fuselage, partly to keep runway debris out). A tank each side, each feeding its own engine, with a cross-feed (authored layout). -->
+    <intakeDebris>0.25</intakeDebris>
+    <sideTanks>true</sideTanks>
     <selector>
       <vehicleDefs>
         <li>Warthog_Jet</li>
@@ -204,6 +207,9 @@
     <engineOutYaw>0.15</engineOutYaw>
     <label>ground-attack jet (twin turbojet)</label>
     <priority>Vehicle</priority>
+    <!-- Framework 0.252.0 (per-engine realism round two): stones and grit thrown into the intakes on rough ground, 0.3 (authored: built for rough forward strips, with a mudguard on its nose wheel). A tank each side, each feeding its own engine, with a cross-feed (authored layout). -->
+    <intakeDebris>0.3</intakeDebris>
+    <sideTanks>true</sideTanks>
     <selector>
       <vehicleDefs>
         <li>Frogfoot_Jet</li>

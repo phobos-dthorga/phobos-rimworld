@@ -52,6 +52,9 @@
     <engineOutYaw>0.15</engineOutYaw>
     <label>electronic attack jet (twin turbojet)</label>
     <priority>Vehicle</priority>
+    <!-- Framework 0.252.0 (per-engine realism round two): stones and grit thrown into the intakes on rough ground, 1.0 (authored: a carrier jet with low intakes, used to swept decks). A tank each side, each feeding its own engine, with a cross-feed (authored layout). -->
+    <intakeDebris>1.0</intakeDebris>
+    <sideTanks>true</sideTanks>
     <selector>
       <vehicleDefs>
         <li>Prowler_Jet</li>

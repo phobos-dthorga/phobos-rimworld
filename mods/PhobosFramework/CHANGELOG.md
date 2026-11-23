@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.252.0] - 2026-11-23 - Draft
+
+Per-engine realism, round two finished: engines lit in turn, grit in the intakes, and a twin's side tanks. Three changes in one commit, as they share their code.
+
+### Added
+
+- **An aircraft's engines start one after another** (the owner's card of 23 November 2026: game-scaled; docs/development/per-engine-realism.md, step 9): once an aircraft is told to start, each turbine engine takes about six game minutes to light (about four seconds at normal speed; a real start of half a minute would pass in under half a second of play), and it may not take off until all are running; the launch button says how many are. Aircraft whose own flight already spools up before take-off (the jets and attack helicopters on their authors' frameworks) keep their own. A setting, Aircraft engines start one after another, on by default. Not yet tested in game: row 408 of the test pass.
+- **Grit thrown up from rough ground can strike an aircraft's engines** (step 10; the owner's card: jets and helicopters): taking off, landing, taxiing, lifting off or settling on anything but a floor or water, an aircraft may take a strike that costs an engine 15 % of its health, never below the dust rule's floor. How often depends on its intakes (each loadout's intakeDebris, authored): the Prowler's low carrier intakes the most, the A-10's high nacelles, the Su-25's guarded ones and the Hind's and Black Hawk's particle separators the least. An inlet barrier keeps most of it out. Not yet tested in game: row 409 of the test pass.
+- **A twin keeps a fuel tank on each side, with a cross-feed** (step 11; the owner's card: an automatic and a manual mode): each engine burns from its own side. A holed tank leaks from one side; with the cross-feed shut that side runs dry, stops leaking and its engine stops, while the other keeps its fuel. Open, both tanks feed both engines and the leak drains them both. A button on the aircraft turns it between automatic (shut until a tank runs dry, then the crew opens it), open and shut, and shows how full each side is. For other mods: sideTanks on a twin's loadout. Not yet tested in game: row 410 of the test pass.
+
+### Save compatibility
+
+- Safe. A twin loaded from an older save starts with its fuel even on both sides and its cross-feed on automatic; new save keys hold them from then on.
+
+### Compatibility and limits
+
+- Which side a holed tank is on is drawn at random when the leak starts: the tank part does not say which side was hit.
+- Engines lit in turn reach the aircraft on our own flight and on Vehicle Framework's own launch (the Osprey, the Black Hawk, Vanilla Vehicles Expanded's); the others' own frameworks have their own spooling up, which is left as it is.
+
 ## [0.251.0] - 2026-11-23 - Draft
 
 Hills go down as well as up. Not yet tested in game.

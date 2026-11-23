@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Framework 0.252.0, per-engine realism round two: engines lit in turn, strip debris and side tanks. -->
+  <PhobosVehicleSystems_SettingEnginesStartInTurn>Aircraft engines start one after another</PhobosVehicleSystems_SettingEnginesStartInTurn>
+  <PhobosVehicleSystems_SettingEnginesStartInTurnDesc>On by default: an aircraft's turbine engines light one after another once it is told to start, a few seconds each at normal speed, and it may not take off until all are running. Aircraft that already spool up before take-off keep their own. Takes effect at once.</PhobosVehicleSystems_SettingEnginesStartInTurnDesc>
+  <PhobosVehicleSystems_EnginesStarting>{VEHICLE}'s engines are still starting, one after another: {LIT} of {ENGINES} running.</PhobosVehicleSystems_EnginesStarting>
+  <PhobosVehicleSystems_StripDebris>Stones thrown up from the rough ground have struck {VEHICLE}'s {PART}.</PhobosVehicleSystems_StripDebris>
+  <PhobosVehicleSystems_CrossFeedAuto>Cross-feed: automatic</PhobosVehicleSystems_CrossFeedAuto>
+  <PhobosVehicleSystems_CrossFeedAutoOpened>Cross-feed: opened by crew</PhobosVehicleSystems_CrossFeedAutoOpened>
+  <PhobosVehicleSystems_CrossFeedOpen>Cross-feed: open</PhobosVehicleSystems_CrossFeedOpen>
+  <PhobosVehicleSystems_CrossFeedShut>Cross-feed: shut</PhobosVehicleSystems_CrossFeedShut>
+  <PhobosVehicleSystems_CrossFeedSides>{FIRST}'s tank: {FIRSTFILL} full. {SECOND}'s tank: {SECONDFILL} full.</PhobosVehicleSystems_CrossFeedSides>
+  <PhobosVehicleSystems_CrossFeedDesc>Each engine draws on the tank on its own side. {SIDES}
+
+Automatic: shut, until a tank runs dry while the other still holds fuel; then the crew opens it.
+Open: both tanks feed both engines, so neither stops, but a holed tank drains them both.
+Shut: each engine keeps to its own tank, so a holed tank empties on its own side and that engine stops.
+
+Click to change.</PhobosVehicleSystems_CrossFeedDesc>
+  <PhobosVehicleSystems_CrossFeedCrewOpened>{VEHICLE}'s crew opened the fuel cross-feed: the good tank now feeds both engines, and the leak drains it too.</PhobosVehicleSystems_CrossFeedCrewOpened>
+  <PhobosVehicleSystems_EngineStarved>{VEHICLE}'s {ENGINE} has stopped: the tank on its side is dry. Open the cross-feed to feed it from the other.</PhobosVehicleSystems_EngineStarved>
+</LanguageData>
