@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.113.0] - 2026-11-23 - Draft
+
+What the first bindings report found in our loadouts, fixed
+
+### Fixed
+
+- **The diesel shunter's fuel system has its parts** (the first bindings report of 23 November 2026, with D'thorga Framework 0.258.0): its own list of parts turned off the shared one, so its fuel system bound nothing; it now finds a fuel tank where its design has one and gains a fuel pump, added after its other parts so a shunter already built keeps them in place. The Mosquito's and Louie's transmissions and the Mi-38's tail drive are now part of their rotor drives. Not yet tested in game: row 430 of the test pass.
+
+### Save compatibility
+
+- Safe. A shunter already built gains its fuel pump at full health at its first load.
+
 ### Changed
 
 - **The art and sound records no longer ship in the mod's folder** (the owner's choice of 23 Nov 2026, in the docs rewrite).

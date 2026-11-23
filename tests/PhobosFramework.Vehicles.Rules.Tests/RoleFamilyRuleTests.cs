@@ -28,4 +28,18 @@ public class RoleFamilyRuleTests
 
     [Fact]
     public void OneMemberIsStillAFamily() => Assert.Equal(new[] { "Engine1" }, RoleFamilyRule.Families(new[] { "Engine1" })["Engine"]);
+
+    [Theory]
+    [InlineData("Engine", true)]
+    [InlineData("FrontEngine", true)]
+    [InlineData("EngineCover", false)]
+    [InlineData("Transmission", false)]
+    public void TheBaseKeepsOnlyItsOwnKindOfPart(string key, bool kept) => Assert.Equal(kept, RoleFamilyRule.KeepsBaseBinding(key, "Engine"));
+
+    [Theory]
+    [InlineData("PhobosRecoveryMount", false)]
+    [InlineData("LeftEngineCover", true)]
+    [InlineData("RearDoor", true)]
+    public void CoversAreSeen(string key, bool cover) => Assert.Equal(cover, RoleFamilyRule.CoverLike(key));
 }
+

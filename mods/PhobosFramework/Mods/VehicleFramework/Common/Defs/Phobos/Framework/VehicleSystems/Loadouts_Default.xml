@@ -1532,6 +1532,39 @@
           <cellsOf>Engine</cellsOf>
         </add>
       </li>
+      <li>
+        <!-- Framework 0.258.0 (the first bindings report, 23 Nov 2026: every aircraft without a loadout of its own naming its tank had it
+             unwatched, so a hit never holed it and side tanks could not place it): the aircraft's own fuel tanks, by name, as the land
+             vehicles' (ours FuelTank, Vanilla Vehicles Expanded's Chemtank; the C-17's own list folded into this one). Never added. -->
+        <role>FuelTank</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>fueltank</li>
+              <li>chemtank</li>
+              <li>fuelcell</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- Framework 0.258.0 (the same report: skids and landing wheels unwatched, so a hard landing wore nothing): the landing gear, by
+             name (the Osprey's, the Black Hawk's and the C-17's own lists folded into this one). Never added. -->
+        <role>LandingGear</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>LandingWheel</li>
+              <li>LandingSkid</li>
+              <li>LandingGear</li>
+              <li>NoseGear</li>
+              <li>MainGear</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
     </partRoles>
     <loads>
       <li>

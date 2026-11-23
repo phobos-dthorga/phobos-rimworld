@@ -607,8 +607,25 @@ other, so any future updates/additions can just be picked up, where possible?" B
   cover, door, hatch, panel or window, and internal parts that move a stat but no role binds; `show <vehicle>` lists one vehicle's
   systems, the parts each covers, and the parts nothing binds. It reads what the game did, never a copy of its rules.
 
-**Still open:** the first report, at the owner's next start, will show what the code read could not: other authors' designs whose parts
-a finder bound wrongly. Each finding is then fixed in the loadout that bound it.
+**The first report (written at the owner's start of 23 Nov 2026, Framework 0.256.0; 93 vehicles):** 1 unbound system, 131 cover-like
+bindings and 134 unwatched parts. Read and settled (Framework 0.258.0, Vehicles 0.113.0):
+
+- **The tool's own false alarms:** 121 cover-like hits were our own mounting points (the recovery mount matched "cover" in "recovery",
+  the outlet and oxygen panels "panel"). The audit now leaves out parts we add, and reads what is expected by design from
+  `config/vehicle-bindings.json`: the cab role's fall-back to the roof on ten armoured vehicles with no cab part (the crew sit under it),
+  suspensions (no system of ours models them), wiring, intakes, and our own work parts read through their own stats.
+- **A regression of 0.256.0:** the roll-up dropped the part the thruster craft call "Engine". A base role now keeps a part it held
+  whose key names it (`RoleFamilyRule.KeepsBaseBinding`), never a cover.
+- **The aircraft defaults named no fuel tank or landing gear**, so every aircraft without its own loadout naming them had them
+  unwatched: now found by name in the aircraft parent.
+- **The diesel shunter's fuel system bound nothing**, its own part list having turned the shared one off: a tank by name, and a
+  fuel pump of ours added `late` (a new flag: appended after every other part we add, so saved shunters keep their parts in place).
+- **Rotor drives:** the Mosquito's and Louie's transmissions and the Mi-38's tail drive joined their rotor drives.
+
+**Left open, for the owner's eye (agent's judgement):** the Cherokee's "Front engine" and "Rear engine" beside its two turboshafts
+(engines or gearboxes? the design does not say); the Smuggler's and Warbird's transmissions and fuel intakes (propeller planes with
+no drivetrain of ours, so nothing models them); the Lightning's gearbox (it runs as an electric vehicle with no gearbox system). The
+next report, after the owner's next start with these versions, shows what is left.
 
 **Other factions' vehicles:** the same answer for any faction's vehicle; it changes only what the tabs show.
 

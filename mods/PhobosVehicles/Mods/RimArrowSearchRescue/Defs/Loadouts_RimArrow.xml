@@ -106,10 +106,12 @@
         <all>true</all>
         <find>
           <li>
+            <!-- D'thorga Vehicles 0.113.0 (the first bindings report): the tail rotor's drive too, where it has its own part. -->
             <keyContainsAny>
               <li>Transmission</li>
               <li>Gearbox</li>
               <li>RotorMast</li>
+              <li>TailDrive</li>
             </keyContainsAny>
           </li>
         </find>
@@ -238,10 +240,12 @@
         <all>true</all>
         <find>
           <li>
+            <!-- D'thorga Vehicles 0.113.0 (the first bindings report): the tail rotor's drive too, where it has its own part. -->
             <keyContainsAny>
               <li>Transmission</li>
               <li>Gearbox</li>
               <li>RotorMast</li>
+              <li>TailDrive</li>
             </keyContainsAny>
           </li>
         </find>

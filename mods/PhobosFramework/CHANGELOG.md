@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.258.0] - 2026-11-23 - Draft
+
+What the first bindings report found, fixed
+
+### Fixed
+
+- **Every aircraft now has its fuel tanks and landing gear watched** (the first bindings report of 23 November 2026): the aircraft defaults never named them, so on the Mosquito, Louie, Mi-38 and every other aircraft without a loadout naming its own, a hit never holed the tank, side tanks could not place it, and a hard landing wore nothing. Found by name (fuel tanks and cells, landing wheels, skids and gear), never added. Not yet tested in game: row 429 of the test pass.
+- **A part a vehicle calls its engine stays with the engines** (the same report; a fault in 0.256.0): rolling numbered engines up into "the engines" had dropped the part the thruster craft call Engine; a part whose name says it is an engine now stays, and a cover never joins. Not yet tested in game: row 429 of the test pass.
+
+### Added
+
+- **A part added to a design that saves already hold can go last** (late on a loadout's added part), so the parts saved before keep their places. For other mods: one flag beside eachOf.
+
 ### Changed
 
 - **Removing the mod: one full list of steps** (the owner's docs rewrite, step 1, 23 Nov 2026). The README now points to the

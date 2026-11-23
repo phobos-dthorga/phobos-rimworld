@@ -1,0 +1,28 @@
+{
+  "doc": "What scripts/vehicle-bindings.py treats as expected by design, so its audit lists only what needs a look (Framework 0.258.0).",
+  "coverLike": [
+    {
+      "role": "Cabin",
+      "partContains": "roof",
+      "why": "The cab role falls back to the roof on armoured vehicles with no cab part: the crew sit under it (Loadouts_Default.xml)."
+    }
+  ],
+  "unwatched": [
+    {
+      "partContains": "Suspension",
+      "why": "No system of ours models springs or dampers; heavy-duty springs fit on the wheels."
+    },
+    {
+      "partContains": "Wiring",
+      "why": "Wiring is a flight-control or rig part read through its stat, with no system of its own."
+    },
+    {
+      "categoryPrefix": "Phobos_",
+      "why": "Our own work parts (pumps, rigs, drills, dive gear) are read through their own stats by their comps."
+    },
+    {
+      "partContains": "Intake",
+      "why": "Intakes (a fuel intake, the Harrier's intakes and compressor) are read through their stat; no system of ours models them."
+    }
+  ]
+}

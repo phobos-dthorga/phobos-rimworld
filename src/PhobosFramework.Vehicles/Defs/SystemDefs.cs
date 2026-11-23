@@ -481,6 +481,12 @@ public class PartToAdd
     public string? eachOf;
     /// <summary>The label of each part made by <see cref="eachOf"/>, with {PART} for the part it sits at ("{PART} brake"). Empty: the label.</summary>
     [MustTranslate] public string? eachLabel;
+    /// <summary>
+    /// Appended after every other part we add, rather than in the loadout's order (Framework 0.258.0): for a part added to a design that saves
+    /// already hold, since Vehicle Framework matches saved parts to the design by position. Late parts go in the order of the loadout's
+    /// list, so a later one is added at the end of that list.
+    /// </summary>
+    public bool late;
 }
 
 /// <summary>One entry of a loadout's cellsOfRemap: parts placed by the cells of <c>from</c> take the cells of <c>to</c> instead.</summary>

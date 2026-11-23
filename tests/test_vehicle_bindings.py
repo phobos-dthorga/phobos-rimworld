@@ -33,14 +33,24 @@ REPORT = {
 
 class VehicleBindingsAuditTests(unittest.TestCase):
     def test_finds_each_kind(self):
-        found = vehicle_bindings.audit(REPORT)
+        found = vehicle_bindings.audit(REPORT, rules={})
         self.assertEqual(['PhobosVehicleSystem_Fuel'], [f['system'] for f in found['unboundSystems']])
         self.assertEqual(['EngineCover'], [f['part'] for f in found['coverLikeParts']])
         self.assertEqual(['Gyro'], [f['part'] for f in found['unwatchedParts']])
 
     def test_a_system_with_no_roles_is_not_unbound(self):
-        found = vehicle_bindings.audit(REPORT)
+        found = vehicle_bindings.audit(REPORT, rules={})
         self.assertNotIn('PhobosVehicleSystem_Cabin', [f['system'] for f in found['unboundSystems']])
+
+    def test_expected_findings_and_our_own_parts_are_left_out(self):
+        report = json.loads(json.dumps(REPORT))
+        report['vehicles'][0]['roles']['RecoveryMount'] = ['PhobosRecoveryMount']
+        report['vehicles'][0]['added'] = ['PhobosRecoveryMount']
+        report['vehicles'][0]['parts'].append({'key': 'PhobosRecoveryMount', 'label': 'recovery mount', 'depth': 'Internal', 'categories': []})
+        rules = {'coverLike': [{'role': 'Engine', 'partContains': 'cover'}], 'unwatched': [{'partContains': 'Gyro'}]}
+        found = vehicle_bindings.audit(report, rules=rules)
+        self.assertEqual([], found['coverLikeParts'])
+        self.assertEqual([], found['unwatchedParts'])
 
     def test_runs_from_a_file_and_shows_one_vehicle(self):
         with tempfile.TemporaryDirectory() as folder:

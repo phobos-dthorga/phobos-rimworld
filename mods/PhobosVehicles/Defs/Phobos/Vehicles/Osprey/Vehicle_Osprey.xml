@@ -1201,20 +1201,6 @@
           <li><key>ForwardCabin</key></li>
         </find>
       </li>
-      <li>
-        <!-- The three undercarriage legs, which a rolling or hard landing wears (0.82.0, fault-read D7: with none bound, the wear fell on a
-             random outer part, the cockpit or a wing as often as the gear). -->
-        <role>LandingGear</role>
-        <all>true</all>
-        <find>
-          <li>
-            <keyContainsAny>
-              <li>NoseGear</li>
-              <li>MainGear</li>
-            </keyContainsAny>
-          </li>
-        </find>
-      </li>
     </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

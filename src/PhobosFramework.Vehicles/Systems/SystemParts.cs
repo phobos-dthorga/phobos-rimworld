@@ -59,13 +59,22 @@ public static class SystemParts
 
     /// <summary>
     /// Rolls numbered roles up into their base role (RoleFamilyRule): a design that binds Engine1 to EngineN has its base role "Engine"
-    /// bound to all of them, in place of whatever one part a generic finder took for it. Called once per design, after every part is bound.
+    /// bound to all of them, in place of whatever one part a generic finder took for it, keeping a part of its own that names the role
+    /// (Framework 0.258.0, KeepsBaseBinding). Called once per design, after every part is bound.
     /// </summary>
     public static void RollUpFamilies(CompProperties_PhobosVehicleSystems props)
     {
         foreach ((string baseRole, List<string> members) in RoleFamilyRule.Families(props.roleKeys.Keys.ToList()))
         {
             var keys = new List<string>();
+            // Framework 0.258.0: what the base role held of its own first, where it names the base role (the thruster craft's "Engine").
+            if (props.roleKeys.TryGetValue(baseRole, out List<string>? own))
+            {
+                foreach (string key in own)
+                {
+                    if (RoleFamilyRule.KeepsBaseBinding(key, baseRole) && !keys.Contains(key)) keys.Add(key);
+                }
+            }
             foreach (string member in members)
             {
                 foreach (string key in props.roleKeys[member])

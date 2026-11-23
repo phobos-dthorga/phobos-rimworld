@@ -221,8 +221,10 @@
         <all>true</all>
         <find>
           <li>
+            <!-- Framework 0.258.0 (the first bindings report): its transmission is the rotor drive's too. -->
             <keyContainsAny>
               <li>RotorMast</li>
+              <li>Transmission</li>
             </keyContainsAny>
           </li>
         </find>

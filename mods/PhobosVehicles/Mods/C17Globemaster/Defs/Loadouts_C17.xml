@@ -178,27 +178,6 @@
           </li>
         </find>
       </li>
-      <li>
-        <!-- Its three landing wheels: what a hard landing wears (avionics A4). -->
-        <role>LandingGear</role>
-        <all>true</all>
-        <find>
-          <li>
-            <keyContainsAny>
-              <li>LandingWheel</li>
-            </keyContainsAny>
-          </li>
-        </find>
-      </li>
-      <li>
-        <!-- Its fuel tank: holed, it leaks (cross-links G11), and its side is drawn when it does (side tanks). -->
-        <role>FuelTank</role>
-        <find>
-          <li>
-            <key>Chemtank</key>
-          </li>
-        </find>
-      </li>
     </partRoles>
     <cabin>
       <climateControl>true</climateControl>

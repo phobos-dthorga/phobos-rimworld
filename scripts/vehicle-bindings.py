@@ -27,7 +27,26 @@ import _modkit  # noqa: E402  (the shared tools' import path)
 import deploy  # noqa: E402  (shared path settings)
 
 REPORT = ('PhobosPatchedDefs', 'VehicleBindings.json')   # where D'thorga Framework writes it (Systems/SystemParts.cs)
-COVER_WORDS = re.compile(r'cover|door|hatch|panel|window|armou?r(?!ed)', re.IGNORECASE)
+COVER_WORDS = re.compile(r'(?<!re)cover|door|hatch|panel|window|armou?r(?!ed)', re.IGNORECASE)
+EXPECTED = Path(__file__).resolve().parents[1] / 'config' / 'vehicle-bindings.json'
+
+
+def expected(path: Path = EXPECTED) -> dict:
+    """What the audit treats as expected by design (config/vehicle-bindings.json): an empty set when the file is missing."""
+    return json.loads(path.read_text(encoding='utf-8')) if path.is_file() else {}
+
+
+def _cover_expected(rules: dict, role: str, key: str) -> bool:
+    return any(rule.get('role') == role and rule.get('partContains', '').lower() in key.lower() for rule in rules.get('coverLike', []))
+
+
+def _unwatched_expected(rules: dict, key: str, categories: list) -> bool:
+    for rule in rules.get('unwatched', []):
+        if 'partContains' in rule and rule['partContains'].lower() in key.lower():
+            return True
+        if 'categoryPrefix' in rule and categories and all(c.startswith(rule['categoryPrefix']) for c in categories):
+            return True
+    return False
 
 
 def report_path(settings_file=None, environ=None) -> Path:
@@ -40,13 +59,16 @@ def load(path: Path) -> dict:
     return json.loads(path.read_text(encoding='utf-8'))
 
 
-def audit(data: dict) -> dict:
-    """The findings by kind, each a list of {vehicle, mod, ...}."""
+def audit(data: dict, rules: dict | None = None) -> dict:
+    """The findings by kind, each a list of {vehicle, mod, ...}. Parts we add ourselves (mounting points) are never cover-like
+    findings, and what `rules` (config/vehicle-bindings.json) says is expected by design is left out."""
+    rules = expected() if rules is None else rules
     unbound, cover, unwatched = [], [], []
     for vehicle in data.get('vehicles', []):
         roles = vehicle.get('roles', {})
         parts = {part['key']: part for part in vehicle.get('parts', [])}
         bound = {key for keys in roles.values() for key in keys}
+        ours = set(vehicle.get('added', []))
         where = {'vehicle': vehicle['def'], 'label': vehicle.get('label', ''), 'mod': vehicle.get('mod', '')}
         for system in vehicle.get('systems', []):
             if system['roles'] and not any(roles.get(role) for role in system['roles']):
@@ -54,10 +76,12 @@ def audit(data: dict) -> dict:
         for role, keys in roles.items():
             for key in keys:
                 part = parts.get(key, {})
+                if key in ours or _cover_expected(rules, role, key):
+                    continue
                 if COVER_WORDS.search(key) or COVER_WORDS.search(part.get('label', '')):
                     cover.append({**where, 'role': role, 'part': key, 'partLabel': part.get('label', '')})
         for key, part in parts.items():
-            if key not in bound and part.get('depth') == 'Internal' and part.get('categories'):
+            if key not in bound and part.get('depth') == 'Internal' and part.get('categories')                     and not _unwatched_expected(rules, key, part['categories']):
                 unwatched.append({**where, 'part': key, 'partLabel': part.get('label', ''), 'categories': part['categories']})
     return {'written': data.get('written', ''), 'vehicles': len(data.get('vehicles', [])),
             'unboundSystems': unbound, 'coverLikeParts': cover, 'unwatchedParts': unwatched}

@@ -240,6 +240,35 @@
     </drivetrain>
     <partRoles Inherit="False">
       <li>
+        <!-- D'thorga Vehicles 0.113.0 (the first bindings report: its fuel system bound nothing, as its own list turns the shared one off):
+             its own tank where its design names one, and a fuel pump of ours where it does not, appended last (late) so the shunters
+             saves already hold keep their parts in place. -->
+        <role>FuelTank</role>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>fueltank</li>
+              <li>chemtank</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>FuelPump</role>
+        <find>
+          <li>
+            <keyContains>fuelpump</keyContains>
+          </li>
+        </find>
+        <add>
+          <key>PhobosFuelPump</key>
+          <label>fuel pump</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+          <late>true</late>
+        </add>
+      </li>
+      <li>
         <role>Engine</role>
         <find>
           <li>

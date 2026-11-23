@@ -152,9 +152,16 @@ public static class VehicleSystems
         }
         // Parts added one for each part of another role (Framework 0.250.0, brakes at each wheel): the first goes here, the rest last.
         var waiting = new List<(string role, PartToAdd add, List<string> targets)>();
+        // Framework 0.258.0: parts added to designs that saves already hold, appended after every other part we add.
+        var late = new List<PartRoleSpec>();
         foreach (PartRoleSpec role in pending)
         {
             PartToAdd add = role.add!;
+            if (add.late)
+            {
+                late.Add(role);
+                continue;
+            }
             if (def.components.Any(p => p.key == add.key))
             {
                 Problems.Add(def.defName + ": already has a part called " + add.key);
@@ -189,6 +196,20 @@ public static class VehicleSystems
         if (props.addedKeys.Contains(FireFighting.CrewSystemKey)) added++;
         // The rest of the parts made one for each part of a role (Framework 0.250.0), after every other part we add, so saved indexes hold.
         added += EachPart.AppendWaiting(def, props, waiting);
+        foreach (PartRoleSpec role in late)
+        {
+            PartToAdd add = role.add!;
+            if (def.components.Any(p => p.key == add.key))
+            {
+                Problems.Add(def.defName + ": already has a part called " + add.key);
+                continue;
+            }
+            def.components.Add(MakePart(def, add, props));
+            props.roleKeys[role.role] = new List<string> { add.key };
+            props.addedKeys.Add(add.key);
+            if (!add.countsTowardDestruction) props.uncountedKeys.Add(add.key);
+            added++;
+        }
         // Framework 0.256.0: numbered roles roll up into their base role (Engine1 to EngineN are "the engines"), before the reactors are set.
         SystemParts.RollUpFamilies(props);
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).

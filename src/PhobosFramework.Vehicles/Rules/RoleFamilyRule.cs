@@ -26,6 +26,22 @@ public static class RoleFamilyRule
         return baseRole != null && int.TryParse(role.Substring(baseRole.Length), out int number) ? number : 0;
     }
 
+    /// <summary>
+    /// Whether a part the base role was bound to before the roll-up stays in it beside the numbered members (Framework 0.258.0; the first
+    /// bindings report, 23 Nov 2026: Vanilla Vehicles Expanded's thruster craft have a part called "Engine" besides their thrusters, which the
+    /// roll-up had dropped): one whose key names the base role ("Engine", "FrontEngine") stays, unless it reads like a cover, door, hatch,
+    /// panel or window; one that does not ("Transmission", which a generic finder takes for its flight-speed category) goes.
+    /// </summary>
+    public static bool KeepsBaseBinding(string key, string baseRole) =>
+        key.IndexOf(baseRole, System.StringComparison.OrdinalIgnoreCase) >= 0 && !CoverLike(key);
+
+    /// <summary>Whether a part's key reads like a cover, door, hatch, panel or window, which no system's role should take.</summary>
+    public static bool CoverLike(string key)
+    {
+        string k = key.ToLowerInvariant();
+        return (k.Contains("cover") && !k.Contains("recover")) || k.Contains("door") || k.Contains("hatch") || k.Contains("panel") || k.Contains("window");
+    }
+
     /// <summary>Each base role with members among <paramref name="roles"/>, the members in number order. A base role with a single member
     /// is a family too: one engine bound as Engine1 is still the engine.</summary>
     public static Dictionary<string, List<string>> Families(IEnumerable<string> roles)
