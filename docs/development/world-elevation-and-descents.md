@@ -1,6 +1,7 @@
 # World elevation: slopes, descents and engine braking, altitude, and radio line of sight (18 Nov 2026)
 
-**Status (18 Nov 2026):** A research record. Built from it: the fixes for gaps D3 to D5 (D'thorga Framework 0.131.0, not yet tested in game), and D2 corrected in its record. Altitude is built too (Framework 0.132.0, in [thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md), not yet tested in game). Not built: descents and engine braking (held), anything for radio, and D1. A tile is about 30 km across (owner, 18 Nov 2026).
+**Status (23 Nov 2026):** Descents are built in D'thorga Framework 0.251.0 ([descents as built](#descents-as-built-framework-02510-23-nov-2026)):
+both ways, brakes that heat and fade with their own setting, and four retarders; not yet tested in game, rows 416 to 419. A research record. Built from it: the fixes for gaps D3 to D5 (D'thorga Framework 0.131.0, not yet tested in game), and D2 corrected in its record. Altitude is built too (Framework 0.132.0, in [thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md), not yet tested in game). Not built: descents and engine braking (held), anything for radio, and D1. A tile is about 30 km across (owner, 18 Nov 2026).
 
 The owner asked how slopes could be simulated in a game like RimWorld, after engine braking came up beside the
 [engine loads](vehicle-engine-loads.md) work, and asked for research and a record before anything concrete is decided. They added
@@ -354,14 +355,45 @@ touches every vehicle and aircraft. Radio line of sight is the one that would sh
 - **Altitude** would be a property of the tile, so it would apply to a raider's vehicle only if the light model were given it. The
   standing decision keeps the light model as it is.
 
+## Descents as built (Framework 0.251.0, 23 Nov 2026)
+
+Built at the owner's word ("Let's proceed with #1 through #5", then the three cards of 23 Nov 2026). Not yet tested in game.
+
+| Part | What it does | Where |
+| --- | --- | --- |
+| The grade of a leg | A hilly tile climbs at its grade for the first half of a leg and descends for the second (authored: half and half); the net slope from the tile left to the tile entered, over 30 km, lies on top throughout, held within 8 %. Vehicle Framework's own leg progress (`nextTileCostLeft` against `nextTileCostTotal`) says which half | `DescentRule.LegGrade`, `Powertrain.SampleGround` |
+| The overrun | When the road pushes the vehicle downhill, the drivetrain picks the lowest gear the engine can spin in within its rev limit; the driveline's losses, the engine's friction, every load it drives (the ledger) and any retarder hold back what they can; an electric drive regenerates, up to 70 % of its rated power (authored); a diesel-electric brakes into its resistors, up to its rated power (authored); the service brakes take the rest | `DrivetrainModel.Overrun` |
+| Fuel | Cut off on a piston engine's overrun, as modern engines do; a turbine keeps its idle; the loads are paid by gravity | `Powertrain.FuelKwNow` |
+| Compression brake | Every diesel of 250 kW or more has one (authored: engines of 10 litres and more need one, FleetOwner, 2002), holding its rated power at rated speed, in proportion below and up to a tenth more above (the Wyoming measurement; Jacobs via Heavy Duty Trucking). A drivetrain may say otherwise (`compressionBrakeShare`) | `DescentRule.RetarderKw`, `EngineXml.compressionBrakeShare` |
+| Exhaust brake | A fitting for diesel engines, half the engine's rated power ("about half", the Wyoming report); an engine with a compression brake gains nothing from it. Its picture is the turbocharger's until its own is drawn | `Fittings.xml` (`PhobosFitting_ExhaustBrake`), `FittingDefs.diesel` |
+| Brake heat | A new reading, brake temperature: the brakes warm by the power they take over a heat capacity of 6.4 kJ per degree per tonne (authored from a heavy truck's brake iron), and cool toward the air at 14 an hour on the move (a time constant of about four minutes, from the Grade Severity Rating System's Newton cooling), two-fifths of that standing | `Systems_Chassis.xml`, `DescentRule.HeatPerHour`, `Input_BrakeHeat` |
+| Fade | Past 260 °C (the system's 500 °F) the brakes hold less, up to 70 % less by 450 °C (authored); the drivetrain slows the vehicle until the engine and what they still hold suffice. Messages at "fading" and "faded" | `DescentRule.FadeLoss`, `DrivetrainModel.Overrun` |
+| Pad wear | A descent wears the pads by the energy they take, three times as fast once fading (authored); the per-wheel brakes (Framework 0.250.0) share it, the front axle more | `Systems_Chassis.xml` (`descentWear`) |
+| Heavy-duty brakes | Gap D2 closed: they warm a quarter more slowly, cool 30 % faster and wear 40 % less on a descent (authored) | `Fittings.xml` |
+| The setting | **Brakes heat and fade on descents**, D'thorga Framework's vehicle settings, on by default (risk graded moderate: a slower trip and faster pad wear, never a crash). Off, descents still wear the pads but never heat them | `VehicleSystemsSettings.brakeFade` |
+
+**What it lets, stops and changes:** it lets the player bring a heavy load down a pass by choosing the vehicle, the load and an exhaust
+brake; it stops a laden truck and trailer running down a mountain road at full speed for nothing; and it makes routes, loads and the
+exhaust brake choices. **What outside the vehicle notices:** the caravan's speed on the world map, its fuel, the pads (a service sooner),
+and messages when the brakes fade. **Other factions' vehicles:** none of it; descents are on the world map only, where their vehicles run
+the light model.
+
+**Limits:** the half-and-half split and the leg's length are authored, not the real shape of each tile; local maps stay level; boats and
+aircraft are left out; the exhaust brake's picture is borrowed.
+
 ## What is left to decide
 
 The owner's answers of 18 Nov 2026: **altitude is one of the next few slices** ("I really do love this idea"); **descents stay held**
 until after the engine-load ledger; **the four safe gaps are fixed** (above). The rest is undecided. In the order they would be needed:
 
 1. ~~How big a tile is~~: **decided, about 30 km** (owner, 18 Nov 2026; [above](#how-big-a-tile-is)).
-2. **Whether descents are wanted at all**, and if so which way: hills up and down, net slope, or both.
-3. **How far descents go**: brake wear only, or a brake temperature with fade.
+2. ~~Whether descents are wanted at all~~: **decided, both ways** (owner, 23 Nov 2026, as one of five engine-load follow-ups: "Let's
+   proceed with #1 through #5", then the card's answer "Both"): hills go up and down at their grade, with the net slope from elevation
+   between tiles on top.
+3. ~~How far descents go~~: **decided, a brake temperature with fade** (owner, 23 Nov 2026; the agent's recommendation), with its own
+   setting, on by default. **What else holds a vehicle back** (owner, 23 Nov 2026, all four offered): the engine's friction and loads
+   with the fuel cut off on the overrun; an exhaust brake fitting for diesels; a compression brake built into heavy diesels; and
+   regeneration into an electric vehicle's pack (a diesel-electric braking into resistors).
 4. **Whether altitude should take engine power and lift.**
 5. **Whether the gaps D1 to D5 should be fixed** by themselves, whatever is decided about descents.
 6. **For radio**: nothing now. This record is there for the day it comes off the back burner.

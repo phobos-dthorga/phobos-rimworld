@@ -80,6 +80,11 @@ public class EngineXml
     /// "engine electronics and instruments" load is multiplied by it.
     /// </summary>
     public float electronicsShare = 1f;
+    /// <summary>
+    /// A compression ("Jake") brake built into the engine, as a share of its rated power it holds back at rated speed on a descent (Framework
+    /// 0.251.0): 1 for one, 0 for none, below 0 to follow the rule: every diesel of DescentRule.CompressionBrakeFromKw or more has one.
+    /// </summary>
+    public float compressionBrakeShare = -1f;
     /// <summary>Whether a piston engine is turbocharged or supercharged as built (Framework 0.132.0): it then holds its rated power in thin
     /// air up to <see cref="holdsPowerToMetres"/>. A naturally aspirated engine loses power from the sea up; fitting a turbocharger gives it
     /// the same hold. Turbines and electric motors do not read it.</summary>

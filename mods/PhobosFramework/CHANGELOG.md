@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.251.0] - 2026-11-23 - Draft
+
+Hills go down as well as up. Not yet tested in game.
+
+### Added
+
+- **Hills go down as well as up on the world map** (the owner's choices of 23 November 2026: "Both", brakes that heat and fade, and all four retarders; docs/development/world-elevation-and-descents.md). Every hilly tile used to be a climb. A caravan now climbs for the first half of a hilly tile and descends for the second, with the real slope between the two tiles' heights on top. Going down, the engine is driven: it holds the vehicle back by its friction and by everything it drives, and burns no fuel (a turbine burns its idle). Not yet tested in game: row 416 of the test pass.
+- **Brakes heat and fade on a long descent**: what the engine cannot hold, the service brakes take, and a new reading, brake temperature, rises with it and falls as they cool, faster on the move. Past about 260 degrees C they fade and the caravan slows until they can hold it; past 400 it crawls and the pads wear fast. A descent also wears the pads by the energy they take. Setting: **Brakes heat and fade on descents**, on. Not yet tested in game: row 417.
+- **Compression brakes and an exhaust brake**: every diesel of 250 kW or more now has a compression brake built in, holding back about its rated power at high revs, and a new fitting, the **exhaust brake**, gives other diesels about half that. The heavy-duty brakes now warm more slowly, cool faster and wear less on a descent. Not yet tested in game: row 418.
+- **Electric vehicles put a descent back into the pack**, and diesel-electrics brake into their resistors. Not yet tested in game: row 419.
+
+### Save compatibility
+
+- **Safe on a running colony**: the brake temperature starts at the air's and nothing else new is saved.
+
+### Compatibility and limits
+
+- The exhaust brake's picture is the turbocharger's until its own is drawn. Local maps stay level; boats and aircraft are left out.
+
 ## [0.250.0] - 2026-11-23 - Draft
 
 Per-engine realism, round two continued: a brake at each wheel, and the smaller ideas

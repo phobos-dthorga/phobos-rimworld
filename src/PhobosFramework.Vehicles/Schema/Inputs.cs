@@ -135,6 +135,31 @@ public class Input_RatedPower : VehicleSystemInput
         context.Comp.Powertrain is { } train && train.Spec.RatedPowerKw > 0 ? (float)train.Spec.RatedPowerKw : Unknown;
 }
 
+/// <summary>
+/// What the service brakes take on a descent (Framework 0.251.0; docs/development/world-elevation-and-descents.md): the drivetrain model's
+/// overrun, as the power they absorb in kW, or as how fast it warms them in degrees C an hour, by the vehicle's (and any trailer's) mass. 0 off
+/// a descent, without a full ground model, or on a local map, where the ground is level.
+/// </summary>
+public class Input_BrakeHeat : VehicleSystemInput
+{
+    public enum Reading
+    {
+        Kilowatts,
+        DegreesPerHour,
+    }
+
+    public Reading reading = Reading.DegreesPerHour;
+
+    protected override float Raw(SystemContext context)
+    {
+        if (context.Comp.Powertrain is not { Full: true, Ground: true } train || !train.Result.Overrun) return 0f;
+        double kw = train.Result.BrakeKw;
+        if (reading == Reading.Kilowatts) return (float)kw;
+        // The player's setting (Framework 0.251.0): off, descents wear the brakes but never heat them.
+        return VehicleSystemsMod.Settings.brakeFade ? (float)Phobos.Framework.Vehicles.Rules.DescentRule.HeatPerHour(kw, train.LastTrainKg) : 0f;
+    }
+}
+
 /// <summary>How hard the power steering is working now, 0 to 1 (Framework 0.249.0): the vehicle's own reading, from turning and speed.</summary>
 public class Input_SteeringWork : VehicleSystemInput
 {

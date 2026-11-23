@@ -117,6 +117,10 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Lights, heaters and climate control take power from the engine through the alternator, so they cost a little heat, and
     /// fuel when fuel follows the engine model (crosslink 5; owner, 10 Nov 2026: on, with this setting to turn it off). Live.</summary>
     public bool accessoriesLoadEngine = true;
+    /// <summary>On a descent on the world map the brakes heat and, hot, fade, so a laden vehicle slows (Framework 0.251.0; the owner's choice of
+    /// 23 Nov 2026: "its own setting, on by default"; risk graded moderate: a slower trip and faster pad wear, never a crash). Off: descents
+    /// still cost the brakes wear by the energy they take, but never heat them. Live.</summary>
+    public bool brakeFade = true;
     /// <summary>Rough ground wears tyres, tracks and suspension faster than a road (crosslink 6; owner, 10 Nov 2026: a setting, on). Live.</summary>
     public bool roughGroundWear = true;
     /// <summary>A vehicle of the player's on a drive the player did not order (an errand, a tow, a push, a caravan setting off) passes over
@@ -274,6 +278,7 @@ public class VehicleSystemsSettings : ModSettings
         "hotboxing" => hotboxing,
         "lowOilCallsService" => lowOilCallsService,
         "accessoriesLoadEngine" => accessoriesLoadEngine,
+        "brakeFade" => brakeFade,
         "roughGroundWear" => roughGroundWear,
         "weatherGrip" => weatherGrip,
         "thinAir" => thinAir,
@@ -353,6 +358,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref airDefenceSeesAircraft, "PhobosVehicleSystems_AirDefenceSeesAircraft", true);
         Scribe_Values.Look(ref lowOilCallsService, "PhobosVehicleSystems_LowOilCallsService", true);
         Scribe_Values.Look(ref accessoriesLoadEngine, "PhobosVehicleSystems_AccessoriesLoadEngine", true);
+        Scribe_Values.Look(ref brakeFade, "PhobosVehicleSystems_BrakeFade", true);
         Scribe_Values.Look(ref roughGroundWear, "PhobosVehicleSystems_RoughGroundWear", true);
         Scribe_Values.Look(ref errandsPassTraps, "PhobosVehicleSystems_ErrandsPassTraps", true);
         Scribe_Values.Look(ref headlightBeams, "PhobosVehicleSystems_HeadlightBeams", true);
@@ -461,6 +467,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (Settings.nightHeater) report.On("night heater at camp (setting)");
         if (!Settings.lowOilCallsService) report.Off("low oil calling a service", "off (setting)");
         if (!Settings.accessoriesLoadEngine) report.Off("accessories loading the engine", "off (setting)");
+        if (!Settings.brakeFade) report.Off("brakes heating and fading on descents", "off (setting)");
         if (!Settings.roughGroundWear) report.Off("rough-ground wear", "off (setting)");
         if (!Settings.errandsPassTraps) report.Off("vehicles off the player's orders passing over traps", "off (setting)");
         if (!Settings.headlightBeams) report.Off("headlight beams", "off (setting)");
@@ -585,6 +592,7 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Section("PhobosVehicleSettings_SectionFuel".Translate());
         list.Check("PhobosVehicleSystems_SettingLoadFuel".Translate(), ref s.loadDependentFuel, d.loadDependentFuel, "PhobosVehicleSystems_SettingLoadFuelDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingAccessoryLoad".Translate(), ref s.accessoriesLoadEngine, d.accessoriesLoadEngine, "PhobosVehicleSystems_SettingAccessoryLoadDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingBrakeFade".Translate(), ref s.brakeFade, d.brakeFade, "PhobosVehicleSystems_SettingBrakeFadeDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingFuelGelling".Translate(), ref s.fuelGelling, d.fuelGelling, "PhobosVehicleSystems_SettingFuelGellingDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingThinAir".Translate(), ref s.thinAir, d.thinAir, "PhobosVehicleSystems_SettingThinAirDesc".Translate());
         list.Section("PhobosVehicleSettings_SectionGround".Translate());

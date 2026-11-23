@@ -229,6 +229,14 @@
     <parameters>
       <wearPerHourMoving>0.0005</wearPerHourMoving>
       <wearPerStop>0.0008</wearPerStop>
+      <!-- Framework 0.251.0, descents (docs/development/world-elevation-and-descents.md; the owner's choice of 23 Nov 2026: brakes that heat and
+           fade). How the heat they take warms them, against the heat capacity a vehicle of their mass has (DescentRule; 1 as built, less
+           for bigger discs); how fast they shed it toward the air, an hour, at speed (authored from the Grade Severity Rating System's Newton
+           cooling: a time constant of about four minutes, so 14 an hour; standing, two-fifths of that); and the wear a descent puts on the
+           pads for each kilowatt-hour they absorb (authored: a long, laden 8 % descent, about 100 kWh, takes about a twentieth). -->
+      <brakeHeatFactor>1</brakeHeatFactor>
+      <brakeCoolRate>14</brakeCoolRate>
+      <descentWearPerKwHour>0.0005</descentWearPerKwHour>
     </parameters>
     <quantities>
       <li>
@@ -283,6 +291,51 @@
               </li>
               <li Class="Phobos.VehicleSystems.Effect_KeepFromWorkTrips">
                 <reason>PhobosVehicleSystems_KeepNoBrakes</reason>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- Framework 0.251.0, descents: the service brakes' heat. Only a descent on the world map heats them (the drivetrain's overrun gives
+             what the engine and any retarder could not hold); they shed it toward the air, faster on the move. Past 260 degrees C (the Grade
+             Severity Rating System's 500 degrees F, "based on the fade temperatures of brake linings") they fade: they hold less, and the
+             vehicle slows until they can hold it (DescentRule.FadeLoss, read by the drivetrain). -->
+        <name>brakeTemperature</name>
+        <description>How hot the brakes are. A long descent heats them; hot brakes fade and hold less, so the vehicle must go slower. Engine braking, an exhaust brake and a lower gear spare them.</description>
+        <telltale>Phobos/VehicleSystems/Dash/Brake</telltale>
+        <label>brake temperature</label>
+        <unit>Celsius</unit>
+        <min>-60</min>
+        <max>700</max>
+        <startsAt>Ambient</startsAt>
+        <stages>
+          <li>
+            <from>200</from>
+            <to>260</to>
+            <label>hot</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>260</from>
+            <to>400</to>
+            <label>fading</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgBrakesFading</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>400</from>
+            <label>faded</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgBrakesFaded</message>
+                <type>NegativeEvent</type>
               </li>
             </effects>
           </li>
@@ -424,6 +477,59 @@
         <quantity>brakesWet</quantity>
         <kind>From</kind>
         <factor>0.5</factor>
+      </li>
+      <li>
+        <!-- Framework 0.251.0, descents: the power the brakes take warms them (Input_BrakeHeat, by the vehicle's mass). -->
+        <name>descentHeat</name>
+        <quantity>brakeTemperature</quantity>
+        <kind>Into</kind>
+        <factorParameter>brakeHeatFactor</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_BrakeHeat">
+            <reading>DegreesPerHour</reading>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <!-- Framework 0.251.0: they cool toward the air, faster with air moving over them. -->
+        <name>brakeCooling</name>
+        <quantity>brakeTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Ambient" />
+        <factorParameter>brakeCoolRate</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Moving">
+            <curve>
+              <points>
+                <li>(0, 0.4)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <!-- Framework 0.251.0: a descent wears the pads by the energy they take, three times as fast once they are fading (authored). The
+             per-wheel sharing of brakeWear (perPart, above) spreads it, the front axle taking more. -->
+        <name>descentWear</name>
+        <quantity>brakeWear</quantity>
+        <kind>Into</kind>
+        <factorParameter>descentWearPerKwHour</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_BrakeHeat">
+            <reading>Kilowatts</reading>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>brakeTemperature</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>20</value></fallback>
+            <curve>
+              <points>
+                <li>(260, 1)</li>
+                <li>(450, 3)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
       </li>
     </flows>
     <onEvents>

@@ -530,7 +530,8 @@ public sealed class VehicleFittings
             (spec.system.Length == 0 || system.def.defName == spec.system) && system.parameters.ContainsKey(spec.parameter)));
     }
 
-    bool Suits(PhobosVehicleFittingDef def) => def.Suits(comp.Repairs.Kilograms, HasPiston, IsTracked, PowerCounts) && def.SuitsLoadout(comp.Props.loadout)
+    bool Suits(PhobosVehicleFittingDef def) => def.Suits(comp.Repairs.Kilograms, HasPiston, IsTracked, PowerCounts, comp.EngineFuel == EngineFuel.Diesel)
+        && def.SuitsLoadout(comp.Props.loadout)
         && (!def.flatDeckOnly || comp.Vehicle.def.HasModExtension<PhobosFlatDeckExtension>())
         && MovesSomethingHere(def);
 

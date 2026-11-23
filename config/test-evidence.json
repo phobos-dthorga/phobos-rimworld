@@ -3,6 +3,19 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "416": [{"key": "vehicles.descent-overrun", "variant": "engine"}],
+    "417": {"parts": {
+      "the brakes run hot": [{"key": "vehicles.stage.brakeTemperature", "detail": "*: hot"}],
+      "they fade": [{"key": "vehicles.stage.brakeTemperature", "detail": "*: fading"}]
+    }},
+    "418": {"parts": {
+      "an exhaust brake holds back": [{"key": "vehicles.descent-overrun", "variant": "exhaust"}],
+      "a compression brake holds back": [{"key": "vehicles.descent-overrun", "variant": "compression"}]
+    }},
+    "419": {"parts": {
+      "the drive regenerates": [{"key": "vehicles.descent-overrun", "variant": "regeneration"}],
+      "the pack takes it back": ["vehicles.descent-regen"]
+    }},
     "413": ["vehicles.engine-electronics"],
     "414": ["vehicles.lamps-dim"],
     "415": {"parts": {

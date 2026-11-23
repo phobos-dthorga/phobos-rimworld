@@ -53,6 +53,13 @@ public sealed class Powertrain
     public readonly double AlternatorRatio;
     /// <summary>How much electricity the engine needs to run, against a modern electronic one (Framework 0.249.0), from the engine's Def.</summary>
     public readonly double ElectronicsShare;
+    /// <summary>A compression brake's share of rated power at rated speed (Framework 0.251.0): from the engine's Def, or by the rule (every
+    /// diesel of DescentRule.CompressionBrakeFromKw or more).</summary>
+    public readonly double CompressionBrakeShare;
+    /// <summary>What a fitting grants that fits an exhaust brake (Framework 0.251.0).</summary>
+    public const string ExhaustBrakeGrant = "ExhaustBrake";
+    /// <summary>The vehicle's mass with anything it tows, at the last sample, kg (Framework 0.251.0: what the brakes' heat is set against).</summary>
+    public double LastTrainKg { get; private set; } = 1000;
     /// <summary>Whether air is forced into a piston engine (Framework 0.132.0): turbocharged as built, or with a fitting that grants
     /// <see cref="ForcedInductionGrant"/>. It then holds its rated power in thin air up to <see cref="HoldsPowerToMetres"/>.</summary>
     public readonly bool ForcedInduction;
@@ -94,6 +101,10 @@ public sealed class Powertrain
         EngineXml engine = def?.engine ?? new EngineXml();
         AlternatorRatio = Get("alternatorRatio", engine.alternatorRatio);
         ElectronicsShare = Get("electronicsShare", engine.electronicsShare);
+        double compression = Get("compressionBrakeShare", engine.compressionBrakeShare);
+        CompressionBrakeShare = compression >= 0 ? compression
+            : engine.kind == EngineKind.Piston && engine.fuel == EngineFuel.Diesel && engine.idleFuelShare <= 0
+              && Get("ratedKilowatts", engine.ratedKilowatts) >= DescentRule.CompressionBrakeFromKw ? 1 : 0;
         // Fittings and tunes move only piston engines' figures (their Defs say so); a change builds the powertrain again.
         VehicleFittings fittings = comp.Fittings;
         ForcedInduction = engine.turbocharged || fittings.Grants(ForcedInductionGrant);
@@ -494,7 +505,13 @@ public sealed class Powertrain
             // Framework 0.243.0: idle-up under those loads.
             IdleUpShare = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().idleUpShare,
             IdleUpAtLoadShare = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().idleUpAtLoadShare,
+            // Framework 0.251.0 (descents): what holds the vehicle back besides its brakes, and how far hot brakes have faded.
+            RetarderKwAtRated = DescentRule.RetarderKw(Spec.RatedPowerKw, CompressionBrakeShare, comp.Fittings.Grants(ExhaustBrakeGrant)),
+            RegenShare = Spec.Engine == EngineKind.Electric ? DescentRule.RegenShareOfRated : 0,
+            DynamicBrakeShare = Spec.Transmission == TransmissionKind.DieselElectric ? DescentRule.DynamicBrakeShare : 0,
+            BrakeFadeLoss = comp.TryGetQuantity("brakeTemperature", out float brakeHeat) ? DescentRule.FadeLoss(brakeHeat) : 0,
         };
+        LastTrainKg = ownKg + towedKg;
         Vehicles.World.VehicleCaravan? caravan = vehicle.GetVehicleCaravan();
         if (vehicle.Spawned && vehicle.vehiclePather != null && vehicle.vehiclePather.Moving)
         {
@@ -513,8 +530,17 @@ public sealed class Powertrain
         else if (caravan != null && caravan.vehiclePather != null && caravan.vehiclePather.MovingNow)
         {
             conditions.Speed = Spec.DesignSpeed;
-            WorldGround(LegTile(caravan), out conditions.RollingResistance, out conditions.Grade, out conditions.Grip);
+            PlanetTile leg = LegTile(caravan);
+            WorldGround(leg, out conditions.RollingResistance, out conditions.Grade, out conditions.Grip);
             conditions.Grip *= TreadGrip(conditions.Grip);
+            // Framework 0.251.0 (descents; the owner's choice of 23 Nov 2026, "Both"): a hilly tile climbs for the first half of the leg and
+            // descends for the second, with the net slope from this tile's height to the next's on top.
+            double progress = DescentRule.LegProgress(caravan.vehiclePather.nextTileCostLeft, caravan.vehiclePather.nextTileCostTotal);
+            double net = leg.Valid && caravan.Tile.Valid && leg != caravan.Tile
+                ? DescentRule.NetSlope(Find.WorldGrid[caravan.Tile].elevation, Find.WorldGrid[leg].elevation, DescentRule.TileMetres)
+                : 0;
+            conditions.Grade = DescentRule.LegGrade(conditions.Grade, progress, net);
+            LegGradeNow = conditions.Grade;
         }
         else
         {
@@ -522,6 +548,17 @@ public sealed class Powertrain
             if (vehicle.Spawned) lastPosition = vehicle.Position.ToVector3Shifted();
         }
         Result = DrivetrainModel.Evaluate(Spec, conditions);
+        if (Result.Overrun && Seen.On)
+        {
+            // Framework 0.251.0: a descent's overrun seen, by what held the vehicle back besides its brakes.
+            string held = Spec.Engine == EngineKind.Electric ? "regeneration" : CompressionBrakeShare > 0 ? "compression"
+                : comp.Fittings.Grants(ExhaustBrakeGrant) ? "exhaust" : "engine";
+            if (Seen.Wants("vehicles.descent-overrun", vehicle, held))
+            {
+                Seen.Note("vehicles.descent-overrun", vehicle, ((float)conditions.Grade).ToStringPercent() + " grade, engine " + Result.RetardedKw.ToString("0")
+                    + " kW, brakes " + Result.BrakeKw.ToString("0") + " kW, fuel " + Result.FuelPowerKw.ToString("0") + " kW", held);
+            }
+        }
         if (running && conditions.Speed <= 0 && Result.Rpm > Spec.IdleRpm + 1 && Seen.Wants("vehicles.idle-up", vehicle))
         {
             Seen.Note("vehicles.idle-up", vehicle, ((int)Spec.IdleRpm) + " to " + ((int)Result.Rpm) + " rpm");
@@ -918,6 +955,9 @@ public sealed class Powertrain
 
     /// <summary>The shaft power the engine gives now, kW (Framework 0.130.0, step S1): driving's, or standing work's when work turns the
     /// engine (the drive sample knows nothing of that), and the ledger's.</summary>
+    /// <summary>The grade a caravan met at the last sample (Framework 0.251.0), a share: negative downhill. 0 off the world map.</summary>
+    public double LegGradeNow { get; private set; }
+
     public double ShaftKwNow(EngineState engine, bool withWork = true) =>
         (engine.Why == EngineWhy.Working ? (withWork ? comp.WorkPowerShare * Spec.RatedPowerKw : 0) : Math.Max(0, Result.EnginePowerKw))
         + Math.Max(0, engine.AccessoryShare) * Spec.RatedPowerKw;
@@ -927,7 +967,9 @@ public sealed class Powertrain
     /// once; before 0.130.0 they were priced at rated-power fuel, friction and all, about 15 % too much.</summary>
     /// <param name="withWork">Whether standing work's own power is counted: not in the fuel sum for work that burns a rate of its own.</param>
     public double FuelKwNow(EngineState engine, bool withWork = true) =>
-        DrivetrainModel.FuelPowerKw(Spec, ShaftKwNow(engine, withWork), engine.Why == EngineWhy.Working ? engine.Rpm : Result.Rpm);
+        // Framework 0.251.0: on a descent's overrun the fuel is cut off (a piston engine) or held at idle (a turbine); gravity pays the loads.
+        engine.Why != EngineWhy.Working && Result.Overrun ? Result.FuelPowerKw
+        : DrivetrainModel.FuelPowerKw(Spec, ShaftKwNow(engine, withWork), engine.Why == EngineWhy.Working ? engine.Rpm : Result.Rpm);
 
     /// <summary>The fuel power at the nominal cruise, kW, that the author's rate stands for (Framework 0.131.0): the cruise's own, with the
     /// standing loads a rated figure already includes (a water pump), so that a cruise with nothing extra on burns the author's rate.</summary>
@@ -960,6 +1002,14 @@ public sealed class Powertrain
         // Standing work turns the engine with nobody driving (Framework 0.131.0): the model burns for it too, where the work says it may
         // and the fuel follows the model; otherwise the work burns its own fixed rate, as before.
         bool working = comp.WorkTurningEngine && followsModel && comp.WorkFuelFromModel;
+        // Framework 0.251.0: an electric drive puts a descent back into its pack, after its losses.
+        if (fuel != null && fuel.Props.electricPowered && Result.RegenKw > 0)
+        {
+            PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+            double share = Result.RegenKw * DescentRule.RegenEfficiency * hours / Math.Max(1, rules.tractionPackKilowattHours);
+            VehicleFuel.GiveBack(comp.Vehicle, (float)(share * fuel.FuelCapacity), FuelUse.Engine, comp);
+            if (Seen.Wants("vehicles.descent-regen", comp.Vehicle)) Seen.Note("vehicles.descent-regen", comp.Vehicle, Result.RegenKw.ToString("0") + " kW");
+        }
         if (fuel == null || fuel.Props.electricPowered || !(comp.EngineRunningRaw || working)) return;
         // On a map Vehicle Framework burns its daily rate while moving and half of it idling; on the world map its own per-tick world
         // rate (with the author's world multiplier) while the caravan moves, and nothing while it stands. With nobody at the controls

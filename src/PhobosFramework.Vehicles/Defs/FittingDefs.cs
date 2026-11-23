@@ -79,6 +79,8 @@ public class PhobosVehicleFittingDef : Def
     public List<string> renews = new();
     /// <summary>Only piston engines, or everything but.</summary>
     public Match piston = Match.Any;
+    /// <summary>Only diesel engines, or everything but (Framework 0.251.0: the exhaust brake).</summary>
+    public Match diesel = Match.Any;
     /// <summary>Only tracked vehicles, or only those with wheels.</summary>
     public Match tracked = Match.Any;
     /// <summary>Only where more engine power reaches the road, or only where it does not.</summary>
@@ -122,8 +124,9 @@ public class PhobosVehicleFittingDef : Def
     /// <summary>Whether it moves a turbine's figures.</summary>
     public bool MovesTurbine => thrustFactor != 1f || hotDerateFactor != 1f;
 
-    public bool Suits(double kilograms, bool hasPiston, bool isTracked, bool powerReachesRoad) =>
+    public bool Suits(double kilograms, bool hasPiston, bool isTracked, bool powerReachesRoad, bool isDiesel = true) =>
         (piston == Match.Any || (piston == Match.Yes) == hasPiston)
+        && (diesel == Match.Any || (diesel == Match.Yes) == isDiesel)
         && (powerCounts == Match.Any || (powerCounts == Match.Yes) == powerReachesRoad)
         && (tracked == Match.Any || (tracked == Match.Yes) == isTracked)
         && (float.IsNaN(minKilograms) || kilograms >= minKilograms)

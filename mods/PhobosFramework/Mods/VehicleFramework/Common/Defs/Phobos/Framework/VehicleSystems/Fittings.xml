@@ -395,7 +395,31 @@
     <parameterFactors>
       <li><system>PhobosVehicleSystem_Brakes</system><parameter>wearPerStop</parameter><factor>0.6</factor><label>brake wear at each stop</label></li>
       <li><system>PhobosVehicleSystem_Brakes</system><parameter>wearPerHourMoving</parameter><factor>0.6</factor><label>brake wear on the move</label></li>
+      <!-- Framework 0.251.0 (gap D2 of the elevation record, the descent figure the cross-links promised): bigger discs warm more slowly and
+           shed their heat faster, and thicker pads wear less on a descent (authored). -->
+      <li><system>PhobosVehicleSystem_Brakes</system><parameter>brakeHeatFactor</parameter><factor>0.75</factor><label>brake heat on a descent</label></li>
+      <li><system>PhobosVehicleSystem_Brakes</system><parameter>brakeCoolRate</parameter><factor>1.3</factor><label>brake cooling</label></li>
+      <li><system>PhobosVehicleSystem_Brakes</system><parameter>descentWearPerKwHour</parameter><factor>0.6</factor><label>brake wear on a descent</label></li>
     </parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.251.0, descents (the owner's choice of 23 Nov 2026, the cross-links' F6): a valve in the exhaust that closes on the
+         overrun, so the engine pumps against it and holds the vehicle back, about half the engine's rated power at rated speed ("about half
+         the retarding power of engine brakes", the Wyoming report). Diesels only. An engine with a compression brake already holds more, so
+         it adds nothing there. Its picture is the turbocharger's until its own is drawn. Materials, work and skill authored. -->
+    <defName>PhobosFitting_ExhaustBrake</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/Turbocharger</iconPath>
+    <label>exhaust brake</label>
+    <description>A valve that closes the exhaust when the driver lifts off, so the engine itself holds the vehicle back on a long descent. The service brakes stay cool and last longer.</description>
+    <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
+    <materials><Steel>25</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <work>4000</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <piston>Yes</piston>
+    <diesel>Yes</diesel>
+    <grants><li>ExhaustBrake</li></grants>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>

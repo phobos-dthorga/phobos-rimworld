@@ -39,6 +39,8 @@ public enum DriveLimit
     None,
     Power,
     Traction,
+    /// <summary>Framework 0.251.0: on a descent, the brakes faded and could not hold the speed.</summary>
+    Brakes,
 }
 
 /// <summary>One vehicle's drivetrain in SI units, built from its Def, its loadout's overrides and its own mass. Game-free.</summary>
@@ -124,6 +126,15 @@ public struct DriveConditions
     /// reaches <see cref="IdleUpAtLoadShare"/> of rated power (ShaftLoadRule.IdleRpm). 0: a plain idle.</summary>
     public double IdleUpShare;
     public double IdleUpAtLoadShare;
+    /// <summary>Descents (Framework 0.251.0; docs/development/world-elevation-and-descents.md): a retarder's power at the engine's rated
+    /// speed, kW, a compression or exhaust brake (DescentRule.RetarderKw). 0 for none.</summary>
+    public double RetarderKwAtRated;
+    /// <summary>An electric drive's regeneration on a descent, as a share of its rated power (DescentRule.RegenShareOfRated). 0 for none.</summary>
+    public double RegenShare;
+    /// <summary>A diesel-electric's dynamic brake, as a share of its rated power (DescentRule.DynamicBrakeShare). 0 for none.</summary>
+    public double DynamicBrakeShare;
+    /// <summary>How much of their hold hot brakes have lost (DescentRule.FadeLoss): 0 sound, up to 0.7.</summary>
+    public double BrakeFadeLoss;
 }
 
 /// <summary>What the model works out from a sample. Derived, never saved.</summary>
@@ -142,6 +153,15 @@ public struct DriveResult
     public bool ClutchSlipping;
     /// <summary>The pull at the driven wheels, newtons.</summary>
     public double TractiveForceN;
+    /// <summary>Framework 0.251.0: the road was pushing the vehicle on a descent, and the engine was being driven, not driving.</summary>
+    public bool Overrun;
+    /// <summary>On the overrun: what the engine and its retarders held back (its friction, its loads, a compression or exhaust brake, a
+    /// diesel-electric's dynamic brake), kW.</summary>
+    public double RetardedKw;
+    /// <summary>On the overrun: what an electric drive put back into its pack, kW at the motors, before charging losses.</summary>
+    public double RegenKw;
+    /// <summary>On the overrun: what the service brakes took, kW: the rest, which heats them.</summary>
+    public double BrakeKw;
 }
 
 /// <summary>
@@ -218,6 +238,12 @@ public static class DrivetrainModel
         }
         double speed = c.Speed;
         double force = RoadLoad(spec, c, speed);
+        // Framework 0.251.0: on a descent steep enough to push the vehicle, the engine is driven, not driving.
+        if (force < 0 && c.Grade < 0 && spec.Transmission != TransmissionKind.Propeller)
+        {
+            Overrun(spec, c, speed, -force, ref result);
+            return result;
+        }
         double wheelKw = Math.Max(0, force * speed / 1000);
         double requiredKw = wheelKw / Math.Max(0.1, spec.Efficiency);
         result.DrivePowerKw = wheelKw;
@@ -343,6 +369,79 @@ public static class DrivetrainModel
     /// <summary>The traction motors' load: pull ÷ their continuous rating (above 1 they heat), 0 when not rated.</summary>
     public static double TractionMotorLoad(DrivetrainSpec spec, double tractiveForceN) =>
         spec.ContinuousTractiveEffortN > 0 ? Math.Max(0, tractiveForceN) / spec.ContinuousTractiveEffortN : 0;
+
+    /// <summary>
+    /// The overrun on a descent (Framework 0.251.0; docs/development/world-elevation-and-descents.md; the owner's choices of 23 Nov 2026):
+    /// the road pushes the vehicle with <paramref name="pushN"/>; the driveline's losses take their share, then the engine in the lowest gear
+    /// that keeps it within its rev limit holds back by its friction, the loads it drives and any retarder, or an electric drive regenerates,
+    /// or a diesel-electric brakes into its resistors; the service brakes take the rest. A piston engine on the overrun burns nothing (its fuel
+    /// is cut off); a turbine burns its idle. Hot brakes that have faded hold less, so the vehicle slows until what is left can hold it.
+    /// </summary>
+    static void Overrun(DrivetrainSpec spec, in DriveConditions c, double speed, double pushN, ref DriveResult result)
+    {
+        result.Overrun = true;
+        double wheelKw = pushN * speed / 1000;
+        double atEngine = wheelKw * Math.Max(0.1, spec.Efficiency);
+        result.DrivePowerKw = -wheelKw;
+        result.EnginePowerKw = 0;
+        result.Load = 0;
+        double absorbable;
+        double heatKw = 0;
+        if (spec.Engine == EngineKind.Electric)
+        {
+            result.Gear = 0;
+            result.Rpm = 0;
+            absorbable = spec.RatedPowerKw * Math.Max(0, c.RegenShare);
+            result.RegenKw = Math.Min(atEngine, absorbable);
+        }
+        else if (spec.Transmission == TransmissionKind.DieselElectric)
+        {
+            result.Gear = 0;
+            result.Rpm = spec.IdleRpm;
+            double friction = FrictionKw(spec, result.Rpm);
+            absorbable = friction + Math.Max(0, c.AccessoryKw) + spec.RatedPowerKw * Math.Max(0, c.DynamicBrakeShare);
+            heatKw = friction * 0.5;
+        }
+        else
+        {
+            int gears = spec.Transmission == TransmissionKind.Automatic ? Math.Max(1, Math.Min(c.UsableGears <= 0 ? spec.Gears.Length : c.UsableGears, spec.Gears.Length)) : 1;
+            int gear = gears;
+            if (spec.Transmission == TransmissionKind.Automatic)
+            {
+                // The lowest gear the engine can spin in without passing its rev limit: the faster it turns, the harder it holds back.
+                for (int g = 1; g <= gears; g++)
+                {
+                    if (EngineRpm(spec, speed, g) <= spec.RatedRpm * RevLimitShare)
+                    {
+                        gear = g;
+                        break;
+                    }
+                }
+            }
+            result.Gear = spec.Transmission == TransmissionKind.Automatic ? gear : 0;
+            result.Rpm = Math.Max(spec.IdleRpm, Math.Min(spec.RatedRpm * RevLimitShare, EngineRpm(spec, speed, gear)));
+            double friction = FrictionKw(spec, result.Rpm);
+            double retarder = DescentRule.RetarderKwAt(c.RetarderKwAtRated, result.Rpm, spec.RatedRpm);
+            absorbable = friction + Math.Max(0, c.AccessoryKw) + retarder;
+            // Authored: half of what the engine's friction and a retarder take reaches its coolant.
+            heatKw = (friction + retarder) * 0.5;
+        }
+        double held = Math.Min(atEngine, absorbable);
+        double brakeNeed = Math.Max(0, atEngine - held);
+        // Faded brakes hold only part of what is asked of them; the vehicle slows until the engine and what the brakes still hold suffice.
+        double hold = 1 - Math.Max(0, Math.Min(1, c.BrakeFadeLoss));
+        if (brakeNeed > 0 && hold < 1)
+        {
+            double cap = (held + hold * brakeNeed) / atEngine;
+            result.Cap = Math.Max(CrawlFloor, Math.Min(1, cap));
+            result.Limit = DriveLimit.Brakes;
+        }
+        result.RetardedKw = spec.Engine == EngineKind.Electric ? 0 : held;
+        result.BrakeKw = Math.Max(0, atEngine * result.Cap - held);
+        // The fuel is cut off on a piston engine's overrun; a turbine keeps its idle floor; an electric drive burns nothing.
+        result.FuelPowerKw = spec.Engine == EngineKind.Electric || spec.IdleFuelShare <= 0 ? 0 : FuelPowerKw(spec, 0, result.Rpm);
+        result.HeatKw = heatKw;
+    }
 
     static void Idle(DrivetrainSpec spec, in DriveConditions c, ref DriveResult result)
     {

@@ -420,6 +420,21 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **Open vehicles shelter nobody**: bikes and open boats feel the weather.
 - **An idling engine warms the room it stands in**, so a truck in a garage heats it.
 
+## Hills and brakes on the world map
+
+Not yet tested in game. On the world map **hills go up and then down**: a caravan climbs for the first half of a hilly tile and
+descends for the second, and going down to the coast is a little easier than coming back.
+
+- **Going down, the engine holds the vehicle back by itself** and burns no fuel (a turbine burns its idle). What it cannot hold, the
+  brakes take, and **that heats them**: watch **brake temperature** on the Systems tab.
+- **Hot brakes fade.** Past about 260 °C a message says so and the caravan slows; past 400 °C it crawls down, and the pads wear fast.
+  A laden truck towing a trailer on a long mountain road is the hard case.
+- **What helps:** a lighter load; **heavy-duty brakes** (they warm more slowly and cool faster); an **exhaust brake**, a fitting for
+  diesel engines that holds back about half the engine's power; and the **compression brake** every diesel of 250 kW or more already has.
+- **Electric vehicles put a descent back into the pack.**
+- **To switch the heat and fade off**, untick **Brakes heat and fade on descents** in D'thorga Framework's vehicle settings; descents
+  then still wear the pads.
+
 ## Fuel, and what the engine drives
 
 Not yet tested in game. With **Fuel use follows engine load** on (the default), a vehicle with the full drivetrain model burns fuel
