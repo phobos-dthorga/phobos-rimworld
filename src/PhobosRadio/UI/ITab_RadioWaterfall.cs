@@ -50,6 +50,9 @@ public class ITab_RadioWaterfall : ITab
 
     private CompRadio? Station => SelThing?.TryGetComp<CompRadio>() is { Props.isStation: true } radio ? radio : null;
 
+    /// <summary>Always on a software radio's station; on any other only while the desk waterfall setting is on (Radio 0.6.0).</summary>
+    public override bool IsVisible => Station is { } station && (station.Props.waterfallBuiltIn || RadioMod.Settings.deskWaterfall);
+
     protected override void FillTab()
     {
         var station = Station;

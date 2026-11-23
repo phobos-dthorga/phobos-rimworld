@@ -35,6 +35,8 @@ The radio comes alive: a step chart, lamps and needles, a mast light, the coax g
 - **The radio terminal has a Waterfall tab**, as a software radio shows its band: each colonist's radio a streak as bright as it
   arrives, sending about a fifth of the time, over the noise the station hears, with the line voice needs. Each radio has its own
   spot on the band only to tell them apart; the radios have no channels yet. Not yet tested in game: row 472.
+- **A new setting, Show the waterfall on the radio desk** (off by default, the owner's choice of 24 November 2026), gives the desk
+  the Waterfall tab too. Not yet tested in game: row 473.
 
 ## [0.5.0] - 2026-11-24 - Draft
 

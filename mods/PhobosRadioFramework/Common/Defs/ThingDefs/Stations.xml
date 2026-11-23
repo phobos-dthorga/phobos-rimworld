@@ -76,6 +76,8 @@
     </comps>
     <inspectorTabs>
       <li>Phobos.Radio.UI.ITab_RadioNet</li>
+      <!-- Shown only while the setting "Show the waterfall on the radio desk" is on (Radio 0.6.0, off by default). -->
+      <li>Phobos.Radio.UI.ITab_RadioWaterfall</li>
     </inspectorTabs>
     <placeWorkers>
       <li>Phobos.Radio.UI.PlaceWorker_AntennaSiting</li>
@@ -137,6 +139,8 @@
       <li Class="CompProperties_Breakdownable" />
       <li Class="Phobos.Radio.CompProperties_Radio">
         <isStation>true</isStation>
+        <!-- A software radio: its Waterfall tab always shows. -->
+        <waterfallBuiltIn>true</waterfallBuiltIn>
         <bands>
           <li>PhobosRadio_VHF</li>
           <li>PhobosRadio_UHF</li>

@@ -19,6 +19,8 @@ public class RadioSettings : ModSettings
     public bool inTouchThought = true;
     /// <summary>Whether the radio terminal's computer counts as a noise source (Radio 0.5.0; on, the owner's choice of 24 Nov 2026).</summary>
     public bool terminalNoise = true;
+    /// <summary>Whether the radio desk shows a Waterfall tab too (Radio 0.6.0; off, the owner's choice of 24 Nov 2026).</summary>
+    public bool deskWaterfall;
 
     public override void ExposeData()
     {
@@ -27,6 +29,7 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref metresPerCell, "metresPerCell", 1f);
         Scribe_Values.Look(ref inTouchThought, "inTouchThought", true);
         Scribe_Values.Look(ref terminalNoise, "terminalNoise", true);
+        Scribe_Values.Look(ref deskWaterfall, "deskWaterfall", false);
     }
 }
 
@@ -64,6 +67,9 @@ public class RadioMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingTerminalNoise".Translate(), ref Settings.terminalNoise,
             "PhobosRadio_SettingTerminalNoiseDesc".Translate());
+        listing.Gap();
+        listing.CheckboxLabeled("PhobosRadio_SettingDeskWaterfall".Translate(), ref Settings.deskWaterfall,
+            "PhobosRadio_SettingDeskWaterfallDesc".Translate());
         listing.End();
     }
 }

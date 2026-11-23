@@ -42,7 +42,7 @@ figures are here.
   when the station or an antenna is selected, and a line from a selected colonist to the antenna they use.
 - **Signs of life (0.6.0)**: the link-budget window draws the budget as steps; the desk and amplifiers light a lamp and swing a
   needle while sending; the mast flashes a red light at night; the coax glows with its signal while its station is selected; the
-  radio terminal has a **Waterfall** tab.
+  radio terminal has a **Waterfall** tab (the desk too, with the setting *Show the waterfall on the radio desk*, off by default).
 - **An "In touch with home" mood** for a colonist whose radio reaches a base station.
 - **Upgrades** for the desk and the antennas, fitted by builders.
 

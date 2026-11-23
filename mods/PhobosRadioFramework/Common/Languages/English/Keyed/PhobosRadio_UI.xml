@@ -14,6 +14,8 @@
   <PhobosRadio_SettingInTouchThought>"In touch with home" mood for colonists whose radio reaches a base station</PhobosRadio_SettingInTouchThought>
   <PhobosRadio_SettingTerminalNoise>Radio terminals make radio noise</PhobosRadio_SettingTerminalNoise>
   <PhobosRadio_SettingTerminalNoiseDesc>A radio terminal's computer makes electrical noise, as real computers do, so an antenna close to it, its own stub antenna included, hears colonists less well. Turn it off to treat the terminal as quiet.</PhobosRadio_SettingTerminalNoiseDesc>
+  <PhobosRadio_SettingDeskWaterfall>Show the waterfall on the radio desk</PhobosRadio_SettingDeskWaterfall>
+  <PhobosRadio_SettingDeskWaterfallDesc>Gives the radio desk the same Waterfall tab as the radio terminal: each colonist's radio as a streak over the noise it hears. Off by default, as the waterfall is the software radio's own picture.</PhobosRadio_SettingDeskWaterfallDesc>
   <PhobosRadio_SettingInTouchThoughtDesc>A small mood bonus for a free colonist wearing a hand-held with a working link to a base station. Turn it off to keep the radios as a pure readout.</PhobosRadio_SettingInTouchThoughtDesc>
 
   <!-- Gizmos. -->

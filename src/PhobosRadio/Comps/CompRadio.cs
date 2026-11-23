@@ -19,6 +19,11 @@ public class CompProperties_Radio : CompProperties
     public float antennaGainDbi;
     public float antennaHeightMetres = 1.5f;
     public bool isStation;
+    /// <summary>
+    /// A software radio's station, whose Waterfall tab always shows (the radio terminal); any other station shows it only while the
+    /// setting "Show the waterfall on the radio desk" is on (Radio 0.6.0; the owner, 24 Nov 2026: "as a setting, disabled by default").
+    /// </summary>
+    public bool waterfallBuiltIn;
 
     public CompProperties_Radio() => compClass = typeof(CompRadio);
 

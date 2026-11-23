@@ -339,7 +339,9 @@ the mod has no channels yet**, and the picture says so.
   of 0.35. Agent choices **[A]**: the timings, the colours and the night threshold.
 - **RV8**, `RadioCoaxView`: the route cache now keeps each run's cells in order (`FeedPath.Cells`); the tint is rounded to eighths, as
   the game keeps a material per colour asked for. Water damage is not modelled, so there is no green.
-- **RV3**, `ITab_RadioWaterfall`, on the radio terminal only **[A]** (the software radio's own picture; the desk has none): the colour
+- **RV3**, `ITab_RadioWaterfall`, always on the radio terminal (`waterfallBuiltIn`), and on the desk only with the setting **Show the
+  waterfall on the radio desk**, off by default (the owner, 24 Nov 2026: "Put the waterfall on the desk too but as a setting, disabled by
+  default"): the colour
   ramp is shared with the coverage overlay (`RadioPalette`); the grain uses Unity's random numbers, never the game's, so the picture
   cannot change what happens in play; it stops while the game is paused.
 
