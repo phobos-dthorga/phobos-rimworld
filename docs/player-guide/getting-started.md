@@ -184,3 +184,15 @@ for what went missing, and with vehicles the save may fail to load.
   the first thing to check.
 - **Every button of ours that refuses says why**: rest the mouse on it. A building's inspect pane names the one thing it waits
   for.
+
+## Tested in game
+
+What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+
+| Row | What the owner passed | Date |
+| --- | --- | --- |
+| 267 | The settings pages: search, **Changed only**, reset and the restart reminder | 21 Nov 2026 |
+| 301 | **In part:** the D'thorga tab (UI Rethemed - Architect kept Motor pool apart until grouped in its Menu layout) | 20 Nov 2026 |
+| 341 | Standby power: idle buildings use less, empty rooms go dark | 21 Nov 2026 |
+
+Everything else in this chapter is not yet tested in game.

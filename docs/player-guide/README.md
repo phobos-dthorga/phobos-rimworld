@@ -10,7 +10,7 @@ requirements and every setting and figure; its changelog says what changed and w
 
 ## Read this first (gotchas)
 
-- **Everything in this guide is not yet tested in game, unless the tested-in-game section at the end of its chapter says the
+- **Everything in this guide is not yet tested in game, unless the "Tested in game" table at the end of its chapter says the
   owner passed it.** Not yet tested means built and checked offline (builds, unit tests, reading the game's code), but not yet
   seen working in a real colony. Treat it as "should work".
 - **Nothing is on the Steam Workshop yet.** Every mod installs from source today: see [getting started](getting-started.md).

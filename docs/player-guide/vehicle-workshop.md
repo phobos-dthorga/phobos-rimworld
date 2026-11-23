@@ -57,7 +57,7 @@ road](vehicles-on-the-road.md#the-service-yard).
 
 ## Building upgrades
 
-Some of our buildings take upgrades (not yet tested in game). **Select one and press Upgrades.** The window lists each upgrade
+Some of our buildings take upgrades. **Select one and press Upgrades.** The window lists each upgrade
 with what it does, what it costs and needs, and a **Fit** button that says why when it cannot be pressed. Builders bring the
 materials and fit it under **Construction**. **Take off** gives back about half the materials; **Cancel the work** puts down
 whatever was brought.
@@ -154,7 +154,7 @@ heavy-duty air filter, a deep-cycle battery or a battery warmer. **A fitting is 
   nothing until both are done (each wheel has its own brake).
 - **New tyres renew the tread**: each wheel fitted takes away its share of the wear.
 - **Cab insulation** needs a vehicle with a cab part.
-- **A twin-engined aircraft's new engines are a matched pair** (not yet tested in game): ordering them on one engine orders both,
+- **A twin-engined aircraft's new engines are a matched pair**: ordering them on one engine orders both,
   one new engine and one job each, and nothing changes in flight until both are in, so the aircraft never flies with one engine
   stronger than the other. Cancelling or taking them off does both too.
 - **Other mods' vehicles keep their own upgrades and costs**; our fittings go on any vehicle with a loadout.
@@ -188,7 +188,7 @@ Choose a grade when a part is destroyed, or to refit a working part (a working p
 
 ## Families
 
-**Above the parts, Fit all orders a whole family in one go, on every part it suits** (not yet tested in game). Each piece can
+**Above the parts, Fit all orders a whole family in one go, on every part it suits**. Each piece can
 still be fitted on its own below.
 
 | Family | What it fits |
@@ -218,7 +218,7 @@ still be fitted on its own below.
 - **Bigger vehicles cost more bulk materials** (steel, plasteel, components), but **a part counted in ones, such as a new engine,
   is one whatever the vehicle**.
 - **Demanding work needs a minimum Construction skill**; a mechanic below it is told why.
-- **What haulers bring is laid out beside the vehicle, not loaded into it** (not yet tested in game): it takes no cargo room and
+- **What haulers bring is laid out beside the vehicle, not loaded into it**: it takes no cargo room and
   adds no weight, so a jet with a small hold can be refitted, and services and repairs work the same way. The vehicle's inspect
   line lists what is laid out. Supplies already in the hold that the work needs are taken out of it and laid out too. When no work
   is waiting any more (an order called off, or something to spare), what is left is set down beside the vehicle.
@@ -234,9 +234,17 @@ How fittings and upgrades work underneath is in the reference page on [upgrades 
 fittings](../development/systems/upgrades-and-fittings.md), and the buildings in [stations, the yard and
 depots](../development/systems/stations-yard-and-depots.md).
 
-## What has been tested in game
+## Tested in game
 
-- **Tested by the owner:**
-  - families and tunes ordered several at once queue up properly (13 November 2026);
-  - an upgrade waiting for its research refuses and names the project (10 November 2026).
-- Everything else in this chapter is not yet tested in game.
+What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+
+| Row | What the owner passed | Date |
+| --- | --- | --- |
+| 8 | Fittings and tunes: materials hauled, the work done, and a mechanic below the skill refused and told why | 18 Nov 2026 |
+| 64 | **In part:** families and tunes ordered several at once queue as they should | 13 Nov 2026 |
+| 161 | The cold-weather pack's fittings, ordered as a family | 23 Nov 2026 |
+| 165 | Serious work waits for the dyno bay, and is done there | 18 Nov 2026 |
+| 195 | An upgrade waiting for research refuses, and names the project | 19 Nov 2026 |
+| 451 | **In part:** work materials laid out beside the vehicle, and an aircraft's engines fitted (what is left over set down beside it not yet) | 23 Nov 2026 |
+
+Everything else in this chapter is not yet tested in game.

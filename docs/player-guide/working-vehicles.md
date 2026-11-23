@@ -7,7 +7,6 @@ the sea, and five trailers any of them can tow: a flatbed, two bowsers, the Bill
 
 ## Read this first (gotchas)
 
-- **Not yet tested in game**, except the survey truck and its boom and the Busbar's size and look (below).
 - **Needs Vehicle Framework and D'thorga Framework**, loaded before it. RimWorld 1.7 only.
 - **Each vehicle has its own research on the D'thorga tab**, after **vehicle parts** (the trailers after **towing and trailers**), and
   is built from the Architect's **motor pool** tab. Its upgrades need the research they name.
@@ -17,14 +16,14 @@ the sea, and five trailers any of them can tow: a flatbed, two bowsers, the Bill
   and says which is missing. Once it runs, the crew may get out: it works on by itself until it runs dry, its engine is switched off, or
   you pack it up. **If its engine stops, the work stops too**, and stays stopped even after refuelling until someone aboard starts the
   engine again.
-- **A trailer has no crew: a colonist with construction work sets it up and packs it up** (the bowsers, not yet tested in game).
+- **A trailer has no crew: a colonist with construction work sets it up and packs it up** (the bowsers).
   **A set-up trailer cannot be hitched**: pack it up first.
 - **The water bowser exists only with Dubs Bad Hygiene**, and not in its lite mode, which has no plumbing.
 - **A vehicle that is set up cannot drive.** Its engine can still be started, but press **Pack up** before you move it.
 - **Heavy trucks have air brakes**: after standing for hours, draft one and let it idle a few minutes before it will drive.
-- **Heavy trucks have power steering** (not yet tested in game): a hit on its pump spills the fluid, and with it gone the truck crawls
+- **Heavy trucks have power steering**: a hit on its pump spills the fluid, and with it gone the truck crawls
   until the pump is repaired and topped up. **A laden or towing truck also wears its brakes and clutch faster** than an empty one.
-- **A trailer goes on journeys with the vehicle towing it**, cargo and all (see the towing section of the vehicle care chapter).
+- **A trailer goes on journeys with the vehicle towing it**, cargo and all ([towing a trailer](vehicles-on-the-road.md#towing-a-trailer)).
 - **Before removing the mod, scrap every one of these vehicles**: they go with it.
 
 ## The fleet
@@ -86,15 +85,14 @@ flowchart LR
 *In order: the tanker's five (liquid tank to hose reel), the drill rig's seven (diamond core bit to work lights), the tipper's
 three, the survey truck's six (geophone array to groundwater), and the generator set's five.*
 
-Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehicle's picture. **Every upgrade shows at once**: a truck's own upgrades on the left and its armour kits on the right, the armoured cab always in the far column (not yet tested in game). Another author's tree too tall for the tab scrolls. **They cost what our fittings and tunes do** (from Framework 0.106.0, not yet tested in game): several hours' work and much more steel and components, more on a heavier vehicle, under the same two settings, *Time to fit and tune* and *Materials to fit and tune*.
+Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehicle's picture. **Every upgrade shows at once**: a truck's own upgrades on the left and its armour kits on the right, the armoured cab always in the far column. Another author's tree too tall for the tab scrolls. **They cost what our fittings and tunes do** (from Framework 0.106.0): several hours' work and much more steel and components, more on a heavier vehicle, under the same two settings, *Time to fit and tune* and *Materials to fit and tune*.
 
 ## Armour and kits
 
-- **Every service truck is armoured part by part** (not yet tested in game): skin, thin sheet metal that stops nothing aimed at it, as
+- **Every service truck is armoured part by part**: skin, thin sheet metal that stops nothing aimed at it, as
   on a real civilian truck. The **Health** tab names each part's armour and what it stops. With Combat Extended, shots strike a truck
   across its full width.
-- **Kits make a truck harder to stop.** Each is an upgrade on all five service trucks, after the **truck armour** research (not yet
-  tested in game):
+- **Kits make a truck harder to stop.** Each is an upgrade on all five service trucks, after the **truck armour** research:
   - **Engine and tank guards:** the engine and fuel tank become rifle-proof. A guarded tank still leaks, and a guarded engine still
     burns, once they are finally holed: it takes heavier fire to get there. 300 kg.
   - **Run-flat tyres:** the wheels stop shell fragments and pistol bullets. 120 kg.
@@ -113,7 +111,7 @@ Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehi
 
 ### Spall: what comes through a beaten plate
 
-With Combat Extended only (not yet tested in game). **Any vehicle with rifle-proof plate or heavier**, ours and other mods' tanks alike:
+With Combat Extended only. **Any vehicle with rifle-proof plate or heavier**, ours and other mods' tanks alike:
 
 - **A round that gets through the plate breaks the inside of it loose.** The pieces fly at whoever sits behind that plate and at the
   parts inside: a crew member can be wounded, a fuel tank holed. A round that only just gets through throws the most, because the plate
@@ -134,8 +132,6 @@ With Combat Extended only (not yet tested in game). **Any vehicle with rifle-pro
 ## Datum survey truck
 
 ![The survey truck driving, and set up with outriggers down and its arrays fitted](images/survey-truck-fitted.png)
-
-**Tested in game by the owner (9 November 2026): the truck and its boom work well. Its upgrades are not yet tested in game.**
 
 1. **Research survey truck** (after Ground-penetrating scanner) and build it: it also takes 10 uranium.
 2. **Park it outdoors with room beside it** and press **Set up**. Its boom swings out to whichever side is clear, about three cells
@@ -285,7 +281,7 @@ lot when it comes. The grab never lifts from another faction's storage, or a thi
 ## Pintle flatbed trailer
 
 A two-axle flatbed as wide as the trucks that tow it: 2,800 kg empty, 5,000 kg of cargo, with low sides and a drawbar. Its one upgrade, the greedy boards (+1,000 kg), shows as
-taller side boards. **It is also a camper trailer** (not yet tested in game): its deck takes a roof tent and an awning, and unhitched it
+taller side boards. **It is also a camper trailer**: its deck takes a roof tent and an awning, and unhitched it
 pitches a camp of its own ([camping](camping.md#camping-awning-roof-tent-and-swags)).
 
 1. **Build it** from the **motor pool** tab, after **towing and trailers** research.
@@ -302,7 +298,7 @@ drivetrain model can tow** in D'thorga Framework's settings. A broken drawbar mu
 
 ## Pintle water and fuel bowsers
 
-Not yet tested in game. Two tank trailers, 3 x 8 cells, as long as the Busbar: a **water bowser** (only with Dubs Bad Hygiene) and a
+Two tank trailers, 3 x 8 cells, as long as the Busbar: a **water bowser** (only with Dubs Bad Hygiene) and a
 **fuel bowser**, and with Vanilla Nutrient Paste Expanded a third, the **paste bowser** (green stripe; nutrient paste only, filled from and emptied into paste pipes, paste meals or a tanker, and it fills the Billy's paste tap; the paste keeps 4 days, 8 lagged). Each holds 2,500 litres, weighs 2,000 kg empty and pumps 400 litres an hour. They take the load to where it is needed
 and stay at a camp while the truck that brought them leaves. Both look alike, a tank on the flatbed's chassis: **a blue stripe along
 the tank means water, an orange one fuel** (repaint either as you like).
@@ -330,7 +326,7 @@ front). The pump has no sound of its own yet; the hoses, relief valve, leaks and
 
 ## Billy field kitchen
 
-Not yet tested in game. A kitchen on a 3 x 8 trailer, named for the camp billy. **It cooks with the game's own cooking**, so your
+A kitchen on a 3 x 8 trailer, named for the camp billy. **It cooks with the game's own cooking**, so your
 cooks, bills, ingredients and food poisoning work exactly as at home.
 
 1. **Build** from the **motor pool** tab, after **field kitchen** research (after towing and trailers and electricity). The second range
@@ -351,34 +347,34 @@ cooks, bills, ingredients and food poisoning work exactly as at home.
 
 **On the road:** while a caravan rests for the night, its cooks turn **raw food from its packs into simple meals** at a Billy it carries,
 on its own or hitched behind a vehicle: **up to 20 a cook**, burning half a unit of fuel a meal from the kitchen's burners, or chemfuel
-and wood in the packs. **The cooks also reach whatever the caravan tows** (not yet tested in game): raw food and fuel loaded into the
+and wood in the packs. **The cooks also reach whatever the caravan tows**: raw food and fuel loaded into the
 Billy itself, into its packed cold box, or into another trailer on the hitch. Raw food goes nearly twice as far that way. Turn it off with **Field kitchens cook in a caravan** in
 D'thorga Framework's settings.
 
-**Water on the road** (with Dubs Bad Hygiene; not yet tested in game): the water a caravan carries in tanks is used. A thirsty
+**Water on the road** (with Dubs Bad Hygiene): the water a caravan carries in tanks is used. A thirsty
 person **drinks from the tanks first** (1.5 L a drink), before their bottles. While the caravan stands still, anyone grubby **washes**:
 5 L from a basin's worth, or a proper **20 L shower** when the shower trailer is along. **The kettle now needs its water on the road
 too: 1 L a meal**, from the Billy's own tank first, then any bowser. **Fill the Billy's tank or bring a bowser, or the caravan's cooks
 make nothing** and a message says why. Any tank holding water counts: a water bowser, the shower trailer, the Billy's own, a tanker
 in the line. Tanks never fill themselves.
 
-**The cold box on the road** (not yet tested in game): packed for the road, the cold box runs through the trailer's lead from the
+**The cold box on the road**: packed for the road, the cold box runs through the trailer's lead from the
 vehicle that tows it. That vehicle's Systems tab gains a **trailer cold box** line (100 W: about 8 amps on a 12-volt vehicle, 4 on a
 24-volt one) with its own switch, drawing only while the box holds food. While it runs, the food stays at 4 °C; switched off, shed
 by a failing alternator, on a flat battery or unhitched, it is only a box. **Food in a trailer ages on the road like any cargo**: a
 towed trailer is no freezer.
 
-**Food in a towed trailer is eaten on the road** (not yet tested in game): once the caravan's own packs run out of anything a person
+**Food in a towed trailer is eaten on the road**: once the caravan's own packs run out of anything a person
 can eat, they eat from the cargo of whatever it tows, and the caravan's days of food count it, on the world map and when forming a
 caravan.
 
-**Driving through the night** (not yet tested in game): a caravan that never stops has no night's rest to cook in, so **its kettle
+**Driving through the night**: a caravan that never stops has no night's rest to cook in, so **its kettle
 simmers on the move**: riders who are not driving or crewing make **half as many meals each** (up to 10), for the same fuel a meal.
 Prefer a proper stop? Select the caravan and switch on **Meal halts**: it then stops **for an hour** each night, every cook works at
 the whole kitchen as at camp (up to 20 each), and it drives on. With nobody but drivers and gunners aboard, the kettle stays cold and
 a message says so.
 
-**Lines and plumbing** (not yet tested in game): a Billy parked unhitched keeps Dubs Bad Hygiene's plumbing and its own water tank
+**Lines and plumbing**: a Billy parked unhitched keeps Dubs Bad Hygiene's plumbing and its own water tank
 beneath it **even while packed**, so you can fill it from a water bowser or plumbing before you set off. Set up, its tent's floor and
 walls carry the hidden pipe of **every line its pieces use**: run a **chemfuel line** to any side of the tent and the range, kettle and
 heater refill themselves. The same goes for the shower trailer's boiler and a camp's heater.
@@ -386,7 +382,7 @@ heater refill themselves. The same goes for the shower trailer's boiler and a ca
 **With Dubs Bad Hygiene, the kettle needs water:** 10 L a batch, from **Billy's own 200 L tank**. Fill it from a water bowser parked beside
 it (bowser on **Unload**) or from plumbing; its inspect pane shows how much is left, and without water the kettle's bills wait and say why.
 
-**Paste** (not yet tested in game): any stove, and the Billy's range, can **bake paste**: two paste meals and a little raw food make three paste bakes, people's simple meal; **fine paste bake** (a cook of 6) makes two fine meals from one paste meal with meat and vegetables, on the Billy only with the paste kitchen. With Vanilla Nutrient Paste Expanded, the **paste kitchen** upgrade sets a **paste tap** in the tent (150 meals, 400 with the **bigger paste tank**): park a paste tanker or bowser within 10 cells on **Unload** and it fills the tap; colonists eat from it as from a dispenser, no power needed, and it packs up with the paste in it.
+**Paste**: any stove, and the Billy's range, can **bake paste**: two paste meals and a little raw food make three paste bakes, people's simple meal; **fine paste bake** (a cook of 6) makes two fine meals from one paste meal with meat and vegetables, on the Billy only with the paste kitchen. With Vanilla Nutrient Paste Expanded, the **paste kitchen** upgrade sets a **paste tap** in the tent (150 meals, 400 with the **bigger paste tank**): park a paste tanker or bowser within 10 cells on **Unload** and it fills the tap; colonists eat from it as from a dispenser, no power needed, and it packs up with the paste in it.
 
 **Upgrades:** a **second range** (two cooks at once), a **big kettle** (meals twenty at a time), an **insulated tent** (a chemfuel heater
 keeps the tent at about 15 °C, burning about 2 chemfuel a day **only while it is cold**), and a **dining annex** (a second tent in front
@@ -397,7 +393,7 @@ It looks like an olive kitchen box van with canvas shutters and a stove chimney.
 
 ## Pintle shower trailer
 
-Not yet tested in game. **Only with Dubs Bad Hygiene** (not its lite mode). The field ablutions block: a 3 x 8 trailer with a 2,000 L
+**Only with Dubs Bad Hygiene** (not its lite mode). The field ablutions block: a 3 x 8 trailer with a 2,000 L
 water tank, two showers and two flushing toilets.
 
 1. **Build** from the **motor pool** tab, after **field ablutions** research (after towing and trailers, and Dubs' plumbing and septic
@@ -441,7 +437,7 @@ aboard to set it up.
 | Deepchem (Vanilla Chemfuel Expanded) | The drill rig's deepchem buffer, Vanilla Chemfuel Expanded's pipes | As chemfuel |
 | Crude oil (Rimefeller) | Stacks and barrels on the ground, Rimefeller's pipeline | None |
 | Water | Dubs Bad Hygiene's plumbing | Freezes below 0 °C |
-| Nutrient paste (with Vanilla Nutrient Paste Expanded) | Its pipes, then paste meals in stacks beside it | The whole load spoils after **4 days** above 0 °C; the insulated tank doubles that to 8. **It keeps what it was made from**: vats it fills, and meals set down, carry the same ingredients, so cannibal and vegetarian rules still see them. **On the road a caravan eats it** (one unit a meal) once its packs and trailers hold nothing anyone can eat, and counts it in its days of food (not yet tested in game) |
+| Nutrient paste (with Vanilla Nutrient Paste Expanded) | Its pipes, then paste meals in stacks beside it | The whole load spoils after **4 days** above 0 °C; the insulated tank doubles that to 8. **It keeps what it was made from**: vats it fills, and meals set down, carry the same ingredients, so cannibal and vegetarian rules still see them. **On the road a caravan eats it** (one unit a meal) once its packs and trailers hold nothing anyone can eat, and counts it in its days of food |
 | Hemogen | Its pipes | The whole load spoils after about 18 hours above 0 °C; the insulated tank doubles that |
 | Astrofuel, oxygen | Vanilla Gravship Expanded's pipes | Oxygen vents in a fire or great heat |
 | Beer, insect jelly, wort | Stacks on the ground | Wort spoils after 5 days above 0 °C |
@@ -495,7 +491,7 @@ of output. **Put the cable end inside the room you want warm**; outdoors the hea
 **A vehicle of ours parked beside the cable end, or beside a conduit on its grid, counts as plugged in**, as with any grid. Vehicle
 Framework's own electric vehicles need a battery on the grid to charge.
 
-**With the battery buffer fitted, the set is a hybrid** (not yet tested in game):
+**With the battery buffer fitted, the set is a hybrid**:
 
 - **Press Battery drive** to move it with the engine off: slowly (about a third of its speed), quietly, burning no fuel, about 300 cells
   on a full buffer.
@@ -518,7 +514,7 @@ The **service lead** charges another vehicle's battery in the field:
 Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after turbine engines) and build it at the motor pool.
 
 - **Crew:** two pilots, both needed; a crew chief at the ramp; 24 seats in the cabin. **It carries 5,600 kg.**
-- **Built from aircraft parts** (not yet tested in game): make them at the vehicle parts bench first. Two gas turbine assemblies, two
+- **Built from aircraft parts**: make them at the vehicle parts bench first. Two gas turbine assemblies, two
   reduction gearboxes, four flight computers and three hydraulic actuators, besides steel, plasteel for its airframe and rotor blades,
   and components. RimThunder's turbines stand in for ours where it is installed, and Rimefeller's composite for the blades' plasteel.
 - **It takes off and lands straight up** and flies between places at 17.5, twice as fast as any helicopter.
@@ -527,20 +523,20 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   height where its passengers would need oxygen.
 - **Paint it:** the grey takes your main colour, the orange bands your second.
 - **Its rotors spin when it is drafted**, and on take-off its nacelles tip forward as it climbs away.
-- **It flies over the map** (not yet tested in game): draft it with its two pilots aboard and press **Take off**. Then **Fly to** a
+- **It flies over the map**: draft it with its two pilots aboard and press **Take off**. Then **Fly to** a
   spot, or right-click the ground; **Hold here** stops it; **Land here** shows its outline at the mouse, turns with the usual keys, and
   needs open sky and firm ground with nothing built or growing on it. It flies over walls, rivers and buildings, its guns fire from the air, and
   nobody boards, unloads or steps out until it lands. **To go to another place**, press the launch button, on the ground or in the
   air: it flies to the map's edge on that side and leaves from there. **Arriving**, it comes in over the edge it flew from, already
   flying, and lands on the spot you chose, or holds over a map it attacks for your orders.
-- **A landing ends with the engines off** (not yet tested in game): once it touches down, rolls in or comes down hard, it stands
+- **A landing ends with the engines off**: once it touches down, rolls in or comes down hard, it stands
   parked and burns nothing. **Draft it again to start the engines before taking off.** The stock helicopters that fly on our flight
   (the Cherokee, Louie and Mosquito, with the setting **Stock helicopters fly over the map**) do the same, and their rotors spin up
   while their engines run and run down after.
-- **Switching its engines off in the air lands it** (not yet tested in game): it sets down on the nearest clear spot within about 15
+- **Switching its engines off in the air lands it**: it sets down on the nearest clear spot within about 15
   cells and shuts down there, or says why it cannot. **A take-off waits a few seconds for the rotors** to reach speed, and the stock
   helicopters now sound their rotors all through a flight.
-- **Too heavy to lift straight up, it rolls** (not yet tested in game). On a hot day, high up or fully loaded it may be a little too
+- **Too heavy to lift straight up, it rolls**. On a hot day, high up or fully loaded it may be a little too
   heavy to hover, yet still able to take off rolling along a strip: **select it and the strip it needs is outlined ahead of it, green
   when clear, red when blocked**. Take off or the launch button rolls it 5 to 20 cells straight ahead the way it faces, longer the
   heavier it is, and the buttons say how long a strip it needs. Clear the strip or turn it to open ground. Heavier still, it cannot
@@ -548,9 +544,9 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   stop: after a rolling take-off, at a spot you send it to, or when you press Hold here. **Land here** lands it rolling: it touches
   down at the spot and rolls on 20 cells ahead, so keep that ground clear too; if it is not clear when it gets there, it circles
   over the spot and says so.
-- **Circle here** (not yet tested in game): pick a spot and it flies round it until you give another order. The button beside it,
+- **Circle here**: pick a spot and it flies round it until you give another order. The button beside it,
   **Circles: wide, clockwise**, picks tight, wide or very wide (12, 19 or 30 cells out) and the way round.
-- **Where it lands matters** (not yet tested in game). Each time it lifts off or touches down on **loose, dry soil or sand**, the dust
+- **Where it lands matters**. Each time it lifts off or touches down on **loose, dry soil or sand**, the dust
   wears its engines a little: about seventy such trips wear a new engine right down unless it is repaired. Dust alone never stops an
   engine, but a worn one gives much less power. Landing or leaving **rolling** halves it, and the **inlet barrier** stops most of it. Over **dry grass or bushes** its exhaust may start a small fire, more likely in
   a heat wave. **Floors, rock, wet ground and snow cost nothing: build it a landing pad.**
@@ -558,14 +554,14 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   damaging its undercarriage and shaking its people about; wrecked over a building, a roof, another vehicle or deep water. Watch its fuel.
 - **Fittings, as on every aircraft:** a litter kit for stretchers, a ferry tank, cabin oxygen, and a **cargo hook** to sling up to
   4,536 kg.
-- **A walk-in cabin** (not yet tested in game; D'thorga Framework's setting **Walk-in cabins**, on by default): right-click the Osprey
+- **A walk-in cabin** (D'thorga Framework's setting **Walk-in cabins**, on by default): right-click the Osprey
   with colonists selected and choose **Go into the cabin**, or right-click a downed colonist to **carry them in**. Inside are 24 seats
   in two rows with the way out at the ramp; with the litter kit, 6 seats and 8 litters, where doctors aboard tend the wounded in flight;
   with a ferry tank, the tanks fill the front and 8 seats are left. **Seats and cabin hold the same 24 people**: those in the cabin count
   against the passenger seats, weigh on the aircraft and need cabin oxygen to fly high. **Nobody can leave while it is in the air**; after it lands, right-click
   the way out to step out beside it on the new map. On the ground, colonists with nothing to do walk out by themselves, and the cabin is
   gone once it is empty, with anything left inside set down beside the Osprey.
-- **Ropes and a hoist** (not yet tested in game), two more fittings at its ramp. **It must be hovering steadily** for either: it comes down
+- **Ropes and a hoist**, two more fittings at its ramp. **It must be hovering steadily** for either: it comes down
   to about 20 m, does the work, then climbs back, and takes no other order until the last person is off a line.
   - **Fast-rope bar:** **Rope down** puts everyone in a passenger's or crew chief's seat down two ropes, two at a time, onto open ground
     behind the ramp. **Stop** sends nobody more.
@@ -575,7 +571,7 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
     battery**: keep the engines running.
   - **Hold it steady.** If the Osprey has to come down while anyone is on a rope or the hoist, they fall from where they were, and a
     fall from 20 m can break bones or kill.
-- **Raiders may come in by Osprey** (not yet tested in game). A raid of an industrial or better faction may arrive aboard up to three
+- **Raiders may come in by Osprey**. A raid of an industrial or better faction may arrive aboard up to three
   Ospreys. Each puts its raiders down by chance: on open ground beyond your turrets, roped in close to your buildings, or as close as it
   can land, then flies back out the way it came. Shoot it down while it is here and it is wrecked; kill its pilots on the ground and its
   raiders wreck it. **You cannot keep a raiders' Osprey.** Turn this off with **Raiders may arrive by aircraft** in D'thorga Framework's
@@ -588,7 +584,7 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   - **Infrared jammer:** two turrets that make air defences hit far less often; they draw power.
   - **Terrain-following radar:** a fuller nose; it draws power. What it lets it do, flying blind at night and in weather, comes later.
   - **Inlet barrier:** filters on the intakes, for a little engine power. They keep most of the dust out (below).
-- **Its guns** (not yet tested in game), each an upgrade with its own research:
+- **Its guns**, each an upgrade with its own research:
   - **Ramp gun, 7.62 mm or .50** (one or the other: there is one mount). The **crew chief** works it, so put someone in that seat. It
     points behind the aircraft and swings 60 degrees to each side, by hand, so it works without power. The .50 swings more slowly and
     hits harder and further.
@@ -597,7 +593,7 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
     until it has power again. It weighs 360 kg, carried as cargo.
   - **Load them:** with Combat Extended's ammunition on, 7.62x51 mm NATO or .50 BMG rounds; otherwise steel, a little for each belt. A gun stops if the aft cabin is
     wrecked, and works more slowly as it is damaged.
-- **Armoured part by part** (not yet tested in game): skin, thin sheet metal, everywhere but its engines and proprotor gearboxes, which
+- **Armoured part by part**: skin, thin sheet metal, everywhere but its engines and proprotor gearboxes, which
   stop shell fragments and pistol bullets. The armour kit makes the cockpit and both cabins rifle-proof. The **Health** tab names each
   part's armour.
 
@@ -606,7 +602,7 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
 D'thorga Vehicles also gives other mods' vehicles the systems and figures their real counterparts have, so each climbs, labours and
 bogs like itself. Every other vehicle gets the general systems ([vehicle systems](vehicle-systems.md)).
 
-**Stock helicopters can fly over the map too** (not yet tested in game): switch on **Stock helicopters fly over the map** in D'thorga Framework's settings (it starts off) and the Cherokee, the Louie and the Mosquito take the Osprey's buttons: take off, fly to, hold, circle and land, and they leave and arrive flying. They cannot roll to take off or use ropes or a hoist. Their pictures were drawn for flying straight off the map, so a hover may look a little odd.
+**Stock helicopters can fly over the map too**: switch on **Stock helicopters fly over the map** in D'thorga Framework's settings (it starts off) and the Cherokee, the Louie and the Mosquito take the Osprey's buttons: take off, fly to, hold, circle and land, and they leave and arrive flying. They cannot roll to take off or use ropes or a hoist. Their pictures were drawn for flying straight off the map, so a hover may look a little odd.
 
 | Vehicle (mod) | What changes |
 | --- | --- |
@@ -614,9 +610,9 @@ bogs like itself. Every other vehicle gets the general systems ([vehicle systems
 | Humvee (HUMVEE) | A 24-volt system from two batteries, with about 60 A of charging |
 | M1A2 and M1A2 SEP (RimThunder) | A gas turbine on tracks with no radiator, which burns hard even at idle |
 | Harrier (Harrier VTOL) | Its real engine's lift ratings, water injection (a mechanic refills it after a hard hover), its own flight phases and a hover check at its real empty mass. Too heavy to hover onto its pad in the day's heat, it lands on a runway ([aircraft](aircraft-and-sling-loads.md#before-take-off)). It starts as the day-attack AV-8B: its night sight and radar are kits, and the Pegasus 11-61 a fitting. A Harrier built before keeps both, fitted free |
-| A-10 Warthog and Su-25 Frogfoot (Close Air Support) | Their real twin engines: lose one and the other carries the load, running hot, and the A-10 has an emergency rating for it. They start as their early versions: the A-10A with basic navigation, the first Su-25 with its R-95Sh engines and 128 flares. Fittings bring them up: navigation, autopilot and night sight (any aircraft's kits), the Su-25's R-195 engines and extra dispensers, and the A-10's uprated engines, which were offered but never fielded. **Both engines are changed together**, and the gain starts once both are in. In the air over a map they dodge some of the fire aimed at them, the faster Su-25 more than the A-10, and **Chaff and flares** dodges more for a few seconds. Climate control. Not yet tested in game |
-| UH-60M Black Hawk (UH-60M Black Hawk) | Its two real turboshafts through a rotor drive, its lift checked before launch, a ten-minute rating and a one-engine-out rating, fly-by-wire controls on hydraulics, full navigation, a warning receiver and 60 flare cartridges. A cargo hook rated at 4,082 kg. Its own interior, airdrops and EVAC hoist are its author's, so it takes no rescue hoist, fast-rope bar or litter kit of ours. Not yet tested in game |
-| C-17 Globemaster III (C-17 Globemaster III) | Its four real turbofans, fly-by-wire controls on hydraulics, full navigation, an autopilot, weather radar, a missile warner and 120 flare cartridges. **What its hold carries counts**: a hold full of vehicles makes it climb slowly and burn hard. Lose an engine and it pulls to that side, more for an outer one; each wing's tank feeds the two engines under it, with a cross-feed button. Its own modes, loading, airdrops and sounds are its author's. Built from real parts with D'thorga Patches. Not yet tested in game |
+| A-10 Warthog and Su-25 Frogfoot (Close Air Support) | Their real twin engines: lose one and the other carries the load, running hot, and the A-10 has an emergency rating for it. They start as their early versions: the A-10A with basic navigation, the first Su-25 with its R-95Sh engines and 128 flares. Fittings bring them up: navigation, autopilot and night sight (any aircraft's kits), the Su-25's R-195 engines and extra dispensers, and the A-10's uprated engines, which were offered but never fielded. **Both engines are changed together**, and the gain starts once both are in. In the air over a map they dodge some of the fire aimed at them, the faster Su-25 more than the A-10, and **Chaff and flares** dodges more for a few seconds. Climate control. |
+| UH-60M Black Hawk (UH-60M Black Hawk) | Its two real turboshafts through a rotor drive, its lift checked before launch, a ten-minute rating and a one-engine-out rating, fly-by-wire controls on hydraulics, full navigation, a warning receiver and 60 flare cartridges. A cargo hook rated at 4,082 kg. Its own interior, airdrops and EVAC hoist are its author's, so it takes no rescue hoist, fast-rope bar or litter kit of ours. |
+| C-17 Globemaster III (C-17 Globemaster III) | Its four real turbofans, fly-by-wire controls on hydraulics, full navigation, an autopilot, weather radar, a missile warner and 120 flare cartridges. **What its hold carries counts**: a hold full of vehicles makes it climb slowly and burn hard. Lose an engine and it pulls to that side, more for an outer one; each wing's tank feeds the two engines under it, with a cross-feed button. Its own modes, loading, airdrops and sounds are its author's. Built from real parts with D'thorga Patches. |
 | Hind (Hind Helicopter Gunship), Mongoose (Mongoose Attack Helicopter) | Two turboshafts: lose one and the other carries the load and runs hot. The Hind takes a cargo hook rated at 2,400 kg; it flies across the map by itself and cannot fly water drop runs. The Mongoose takes no hook |
 | Cherokee (VVE - Tier 3) | Two turboshafts, its rotor drive, and its lift checked before launch. A cargo hook rated at 11,800 kg (not with Cherokee Sling active); with a hook it can fly water drops, and its upholstery takes the litter kit |
 | Ka-27PS and Mi-38 (RimArrow: Search and Rescue), every variant | Two turboshafts, a rotor drive, hydraulic flight controls and their lift checked before launch. Each takes a cargo hook rated at 5,000 kg, so it can fly water drops, and its cabin fittings take the litter kit. The Ka-27's coaxial rotors need no tail rotor |
@@ -635,12 +631,24 @@ Where each figure comes from is written beside it in the mod's own files: Oshkos
 US Army maintenance manual for the HEMTT's air brakes, All-Aero's Pegasus ratings and the Pima Air and Space Museum's empty mass for
 the Harrier, and others ([the real figures record](../development/vehicle-real-figures-design.md)).
 
-## What has been tested in game
-
-- **Tested by the owner:** the survey truck and its boom (9 November 2026); the Busbar's size and look (13 November 2026); a
-  helicopter lifting a vehicle on its sling, through take-off to the world map (12 November 2026; see
-  [aircraft and sling loads](aircraft-and-sling-loads.md#carrying-a-vehicle-on-a-sling)).
-- **Not yet tested in game:** the other five vehicles and the Busbar's power, the trailers and towing, the bowsers and setting up a trailer, every upgrade, the bulk buying, and how the pictures sit. Where each upgrade's
-  picture sits on its vehicle is a first placement, to be adjusted once seen in game.
+## Where to read more
 
 What changed in each version is in [D'thorga Vehicles' changelog](../../mods/PhobosVehicles/CHANGELOG.md).
+
+## Tested in game
+
+What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+
+| Row | What the owner passed | Date |
+| --- | --- | --- |
+| 13 | The survey truck surveys, and its boom swings out and folds (its upgrades not reported on) | 9 Nov 2026 |
+| 84 | **In part:** the Busbar's size and look (its output and conduits not yet) | 13 Nov 2026 |
+| 128 | The tanker's electric pump | 23 Nov 2026 |
+| 176 | The tanker's upgrades branch from its tanks, and its quieter inspect pane | 18 Nov 2026 |
+| 201 | The Talus gathers by itself | 21 Nov 2026 |
+| 251 | A truck with nobody aboard calls for a driver | 21 Nov 2026 |
+| 298 | A tall upgrade tree scrolls, and the trucks' trees fit | 21 Nov 2026 |
+| 433 | A tanker's load counts as weight | 23 Nov 2026 |
+| 441 | The fuel bowser and the flatbed sit on their drawbars through a curve and after stopping | 23 Nov 2026 |
+
+Everything else in this chapter is not yet tested in game.

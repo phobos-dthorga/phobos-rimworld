@@ -58,7 +58,7 @@ on an aircraft in flight.
 
 ### The Logbook tab
 
-Only your own vehicles keep one (not yet tested in game). It is the vehicle's life story, newest first, each day under its own
+Only your own vehicles keep one. It is the vehicle's life story, newest first, each day under its own
 heading with the hour beside each entry, up to 200 entries, for as long as you have the vehicle:
 
 - every journey: where it set out for and where it ended, the distance, the fuel burnt and who drove;
@@ -178,9 +178,9 @@ booster pack.
 - **A block heater** (a fitting) keeps a vehicle parked beside power warm.
 - **The night heater** keeps a caravan's engine warm at camp. It needs the **Night heater at camp** setting, and the vehicle's
   night heater switch on before it leaves. It burns the same way for someone asleep in a parked truck's cab bunk.
-- **Electric vehicles have their own night heater** (not yet tested in game): the same switch and setting keep the cab and the
+- **Electric vehicles have their own night heater**: the same switch and setting keep the cab and the
   drive battery warm through the night, paid for from the drive battery: about a fifth of its range on a ten-hour night.
-- **A cold snap warns you** (not yet tested in game): while one holds, or it is colder than -15 °C, the **Vehicles won't start**
+- **A cold snap warns you**: while one holds, or it is colder than -15 °C, the **Vehicles won't start**
   alert names your parked vehicles that would not start now, and why, before a raid makes you find out.
 - **The cold-weather pack** in the fittings window orders the lot at once: see [the vehicle
   workshop](vehicle-workshop.md#families).
@@ -221,7 +221,7 @@ line for its fuel).
   up for work keeps the pipes its work needs. A piece you deconstruct stays gone until the vehicle is parked again, and gives
   nothing back.
 - **An autonomous turret with a flat battery and no grid stops** until it has power, unless someone aboard turns it by hand.
-- **A short circuit on the grid reaches a plugged-in vehicle** (not yet tested in game): its wiring shorts, as a hit on its
+- **A short circuit on the grid reaches a plugged-in vehicle**: its wiring shorts, as a hit on its
   battery would, and its fault says the surge came from the grid.
 
 ### What else runs on the battery
@@ -274,14 +274,14 @@ workshop](vehicle-workshop.md#families).
 - **Passengers have moods about it**: glad of a warm cab in the cold, unhappy in one too cold or hot for them.
 - **Open vehicles shelter nobody**: bikes and open boats feel the weather.
 - **An idling engine warms the room it stands in**, so a truck in a garage heats it.
-- **Exhaust in closed rooms** (a setting, **off** by default; not yet tested in game): with it on, an engine or a generator
+- **Exhaust in closed rooms** (a setting, **off** by default): with it on, an engine or a generator
   running indoors fills the room with carbon monoxide, about 70 g an hour at idle and twice that working hard. In a closed single
   garage that is a dangerous level within about an hour and a half; doors, vents and gaps in the roof let it out. With **D'thorga
   Medical**, breathing it poisons people.
 
 ## Diagnosing a vehicle
 
-- **Every fault says what caused it** (not yet tested in game). Under the fault on the Health tab a grey line reads "Cause: a
+- **Every fault says what caused it**. Under the fault on the Health tab a grey line reads "Cause: a
   bullet hit, 2 hours ago, at Amber Anchorage", or names the reading that strained it ("coolant temperature (boiling)"). A fault
   from before this was added has no line.
 - **Diagnose** at a **dyno bay** (research **vehicle tuning**): park the vehicle within 5 cells of a powered dyno bay and press
@@ -347,12 +347,20 @@ How the systems work underneath, for the curious, is in the reference pages: [en
 drivetrain](../development/systems/engines-and-drivetrain.md), [power and machines](../development/systems/power-and-machines.md)
 and [vehicle damage](../development/systems/vehicle-damage.md).
 
-## What has been tested in game
+## Tested in game
 
-- **Tested by the owner:**
-  - headlights light the ground at night, and work lamps light the work round a parked vehicle (13 November 2026);
-  - **Diagnose**: the mechanic's look-over arrives and lists every part and reading (11 November 2026). The report's tinted
-    picture and graph are not yet tested in game;
-  - the dev-mode self-test passes on a throwaway vehicle, and the dev-mode cost reading finds the vehicle model within its budget
-    (9 November 2026).
-- Everything else in this chapter is not yet tested in game.
+What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+
+| Row | What the owner passed | Date |
+| --- | --- | --- |
+| 36 | **In part:** **Diagnose**: the report lists every part and reading (a part fitted at the dyno bay not yet) | 11 Nov 2026 |
+| 66 | Work lamps light the work round a parked vehicle | 13 Nov 2026 |
+| 69 | **In part:** headlights light the ground; the battery's warnings (a turbine's warning: seen on aircraft, not yet on the Abrams) | 18 and 20 Nov 2026 |
+| 74 | Low air on a heavy truck | 18 Nov 2026 |
+| 130 | You cannot lay your own conduit under a parked vehicle | 18 Nov 2026 |
+| 131 | The Systems tab's weapons, running gear and electrical loads cards, and **Only what needs attention** | 18 Nov 2026 |
+| 160 | Wet brakes after a ford, and dust clogging the air filter | 18 Nov 2026 |
+| 181 | A flat battery puts the lights out | 19 Nov 2026 |
+| 231 | Lights switch themselves | 19 Nov 2026 |
+
+Everything else in this chapter is not yet tested in game.

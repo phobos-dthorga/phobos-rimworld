@@ -11,7 +11,6 @@ upgrades let it rest on the bottom, listen, ping, and carry a laboratory. The di
 - **Set aside for now** (20 November 2026): submarines are on the back burner. **The Fathom is not on the build menu**, and its upgrade parts are made at no bench. **The D'thorga: Submarines
   research tab shows only in a colony that has already put research into it**; elsewhere it is out of sight. **A boat already built
   keeps working**, with everything below. What follows is how it works when it is in play.
-- **Not yet tested in game.**
 - **Research submersible hull** on the **D'thorga: Submarines** tab (after **vehicle parts** and Batteries). Each upgrade has its own
   research and its own part from the vehicle parts bench.
 - **Build it in shallow water.** It is 4 by 9 cells. **A Crawler built before it grew** (it was 3 by 8) keeps its old shape: destroy it
@@ -103,7 +102,12 @@ Radar, a manipulator arm and a seabed drill are designed and drawn, and not buil
 **Not a finished vehicle, and it cannot be built.** In dev mode, **Vehicle systems: spawn a submersible** places one, crewed, for
 trying out diving, in deep or chest-deep water. It wears the Crawler's bare hull and is the Crawler's size, 4 by 9 cells.
 
-## What has been tested in game
+## Where to read more
 
-**Nothing in this chapter yet.** It is built and checked offline. What changed in each version is in
-[D'thorga Vehicles' changelog](../../mods/PhobosVehicles/CHANGELOG.md).
+What changed in each version is in [D'thorga Vehicles' changelog](../../mods/PhobosVehicles/CHANGELOG.md).
+
+## Tested in game
+
+The owner has not yet passed anything in this chapter ([the test list](../development/in-game-test-pass.md)).
+
+Everything in this chapter is not yet tested in game.

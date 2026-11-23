@@ -39,7 +39,7 @@ every display mode: "skin armour: stops nothing aimed at it: thin sheet metal".
 - **Parts carry conditions**, shown under the part on the Health tab: a holed radiator keeps leaking coolant, a shot battery
   drains itself, a boiled-over engine has a warped head and runs hotter (badly warped, it also loses power and labours on hills
   and under load). **Repair the part to full health to clear them.**
-- **Every fault says what caused it** (not yet tested in game): a grey line under the fault, and in a diagnosis report, reads
+- **Every fault says what caused it**: a grey line under the fault, and in a diagnosis report, reads
   "Cause: a bullet hit, 2 hours ago, at Amber Anchorage", or names the reading that strained it ("coolant temperature (boiling)").
 - **A shot-through fuel tank leaks fuel**, even parked, wherever the vehicle's maker did not already make its tank leak.
 - **A hit on the battery or alternator can short the wiring**: a message names what stopped working (the headlights, a heater...),
@@ -61,7 +61,7 @@ every display mode: "skin armour: stops nothing aimed at it: thin sheet metal".
   the damage so the vehicle can limp home; it is not a repair. **Field repairs also re-fit a thrown track or a wrecked wheel**
   with a component, back to a quarter of its health: enough to drive home slowly. It still needs replacing properly.
 - **In a caravan**, select it on the world map and press **Repair** for a vehicle that needs it. The caravan must have stopped and
-  have a mechanic. **The parts can be anywhere in the convoy's cargo**, not only in the broken vehicle (not yet tested in game).
+  have a mechanic. **The parts can be anywhere in the convoy's cargo**, not only in the broken vehicle.
 - **Serious work waits for a dyno bay**: machining a badly warped cylinder head, a turbine's hot-section overhaul, and tunes and
   changes of grade on a working part are done only within 5 cells of a powered dyno bay. Your land vehicles can be taken there by
   themselves: [trips to the dyno bay](vehicles-on-the-road.md#trips-to-the-dyno-bay).
@@ -91,7 +91,7 @@ does.
 
 ## Knocked out, not destroyed
 
-A vehicle loses its jobs before it is a wreck, and every faction's vehicles do, yours and theirs alike (not yet tested in game).
+A vehicle loses its jobs before it is a wreck, and every faction's vehicles do, yours and theirs alike.
 
 - **A weapon stops when its mount is shot to pieces**: at a tenth of the mount's health or less. The mount is the vehicle's own
   turret part, or a **turret ring** (ground vehicles) or **weapon pylons** (aircraft) added at the gunner's seat. **Repair the
@@ -112,7 +112,7 @@ A vehicle loses its jobs before it is a wreck, and every faction's vehicles do, 
 - **On your vehicles, a powered turret needs power.** The **turret drive** draws from the battery while someone mans it.
 - **With the battery flat, or the load shed when the charging fails, the crew cranks it round by hand**: a fifth of the speed and
   aiming twice as slowly, but it never stops.
-- **A turret cranked by hand also aims worse** (not yet tested in game): it has no stabiliser and no powered sights, so it hits
+- **A turret cranked by hand also aims worse**: it has no stabiliser and no powered sights, so it hits
   less often on the move and at night, and worst of all moving at night.
 - **Machine guns on their own ring or pintle need no power**, including a commander's gun on top of a turret; a coaxial gun goes
   with its turret. Aircraft have no turret drive.
@@ -197,7 +197,7 @@ message says when it reaches the crew.
   tank, an armoured car) takes both as fittings.
 - **The Fire protection spent** alert names vehicles whose systems are spent or whose extinguisher is empty.
 - **Firefoam works on a burning vehicle with Combat Extended**: foam that lands on the vehicle shrinks the fire on it, as it does
-  without Combat Extended (not yet tested in game).
+  without Combat Extended.
 - **A helicopter can drop water on a fire**: see [aircraft and sling
   loads](aircraft-and-sling-loads.md#fighting-a-fire-from-the-air).
 
@@ -215,24 +215,22 @@ message says when it reaches the crew.
 - **Other factions' vehicles burn as yours do**, so fire is a way to stop a raider's truck.
 - **Some vehicles never catch fire** (tanks and trains among them, as their makers built them), but **a ground fire under one
   still burns its tyres or tracks, belts and hoses**.
-- **Leaking fuel feeds the fire** (off by default; not yet tested in game): with it on, once the fire has worn the fuel tank into
+- **Leaking fuel feeds the fire** (off by default): with it on, once the fire has worn the fuel tank into
   leaking, the fuel catches as a **pool of fire on the ground** beneath the vehicle, which spreads and can set it alight again
   after an extinguisher. **Keep people and other vehicles clear.**
-- **Burnt tyres can light again** (not yet tested in game): a fire that reached a wheeled vehicle's tyres leaves them
+- **Burnt tyres can light again**: a fire that reached a wheeled vehicle's tyres leaves them
   **smouldering for about two game hours** once it is out, and they may catch again; rain puts them out. Tracked vehicles have no
   tyres.
-- **Burning tyres can burst** (off by default; not yet tested in game): a small blast that hurts anyone within about two cells.
+- **Burning tyres can burst** (off by default): a small blast that hurts anyone within about two cells.
 - **Ammunition in a burning vehicle can go off** (with Combat Extended's ammunition in use). Each blast uses part of what is
   aboard and grows with it. **Get the ammunition out or the fire out quickly, and keep people clear.**
 
 ## Hulls and wrecks
 
-- **A destroyed vehicle leaves its hull** (the setting **Destroyed vehicles leave a hull**, on by default; not yet tested in
-  game): yours or anyone's, where it fell. A raiders' aircraft brought down leaves nothing.
+- **A destroyed vehicle leaves its hull** (the setting **Destroyed vehicles leave a hull**, on by default): yours or anyone's, where it fell. A raiders' aircraft brought down leaves nothing.
 - **Mark it to Deconstruct**: it gives **salvaged vehicle parts**, worth a quarter of the vehicle, on top of the quarter of its
   materials Vehicle Framework drops where it is destroyed.
-- **A vehicle that dies burning leaves a burnt-out hull**, named so, which gives **half** the salvaged parts (not yet tested in
-  game).
+- **A vehicle that dies burning leaves a burnt-out hull**, named so, which gives **half** the salvaged parts.
 - **Salvaged parts pay for salvaged-grade parts**: see [a destroyed part](#a-destroyed-part).
 - **A helicopter can carry a hull home** on its sling: see [aircraft and sling loads](aircraft-and-sling-loads.md#lifting-a-hull).
 - **Hulls waiting to be taken apart are listed at the bottom of the Fleet board**, with other factions' vehicles standing
@@ -252,8 +250,16 @@ message says when it reaches the crew.
 
 How damage works underneath is in the reference page on [vehicle damage](../development/systems/vehicle-damage.md).
 
-## What has been tested in game
+## Tested in game
 
-- **Tested by the owner:** a damaged oil pump wears the engine down over time, and a damaged gearbox slows the vehicle (10
-  November 2026).
-- Everything else in this chapter is not yet tested in game.
+What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+
+| Row | What the owner passed | Date |
+| --- | --- | --- |
+| 19 | **In part:** a damaged oil pump wears the engine down, and a damaged gearbox slows the vehicle (the cracked sump not reported on) | 10 Nov 2026 |
+| 123 | A damaged weapon mount, and a hurt gunner, slow the weapon | 18 Nov 2026 |
+| 158 | A shot-through fuel tank leaks, and a hit to the wiring kills a circuit | 21 Nov 2026 |
+| 256 | A fault says what caused it | 21 Nov 2026 |
+| 376 | Glass cracks and breaks: the Health tab, the alert, the logbook, the Windows button and the open cab | 23 Nov 2026 |
+
+Everything else in this chapter is not yet tested in game.

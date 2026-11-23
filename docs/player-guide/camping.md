@@ -6,7 +6,6 @@ berths, camp gear, the kitchen, water, lights and life aboard. It applies to **e
 
 ## Read this first (gotchas)
 
-- **Not yet tested in game.** Everything here is built and checked offline; none of it has been seen in a real colony.
 - **A vehicle cannot drive off while its camp is set up, or while anyone is in its deck tent.** Pack up first.
 - **Driving through the night is off by default** (D'thorga Framework's settings, vehicle systems). **Put two drivers in every
   vehicle** if you turn it on: one vehicle with nobody to take over stops the whole caravan for the night.
@@ -36,7 +35,7 @@ the kit back in the cargo.
 
 ## Camping: awning, roof tent and swags
 
-**The vehicle cannot drive off while its camp is set up.** Pack up first. Not yet tested in game.
+**The vehicle cannot drive off while its camp is set up.** Pack up first.
 
 - **Make the gear.** An **awning** at a tailoring bench and a **roof tent** at the vehicle parts bench (research **vehicle parts**
   for both); fit them from the fittings window. Every land vehicle has a **side rail** for the awning and a **roof mount** for the
@@ -53,7 +52,7 @@ the kit back in the cargo.
 | **Roof tent** (55 kg) | A bed for two under its own canvas, at the rear of the camp's side. As restful as a real bed, dry in rain. Waking in it gives **slept in a roof tent** (+4) |
 | **Swag** (6 kg) | A better bedroll: rest 1.0, comfort 0.75. Caravans sleep on it. At home it takes the bedroom furniture a bedroll takes. Waking from a fair, mild night in one with open sky overhead gives **slept under the stars** (+5); not under the awning, not in rain or cold |
 
-**More tents** (not yet tested in game). Each is a fitting made from a kit at a tailoring bench, after **vehicle parts** research:
+**More tents**. Each is a fitting made from a kit at a tailoring bench, after **vehicle parts** research:
 
 | Tent | Goes on | What stands at camp |
 | --- | --- | --- |
@@ -71,7 +70,7 @@ the kit back in the cargo.
   the tent is warmer. Under an open awning or fly it warms nothing.
 - **Taking down any one wall brings that tent's canvas roof down**, as an awning's pole does.
 
-**Life aboard** (not yet tested in game): people riding in a vehicle pass the time by themselves. Riders who are not driving drink from the
+**Life aboard**: people riding in a vehicle pass the time by themselves. Riders who are not driving drink from the
 crew water tank when thirsty, read a **book** from the cargo or their packs, or have a **treat** (a tea, a coffee, something sweet). Pack
 books and tea for a long trip.
 
@@ -82,7 +81,7 @@ books and tea for a long trip.
   **windows up**, everyone aboard gets a share and remembers it, good or bad; a high driver drives slower. **Windows down** (a switch on the
   vehicle) clears the smoke, but loses the cab's warmth or cool.
 
-**Crew water tank** (with Dubs Bad Hygiene; not yet tested in game): make the kit at the vehicle parts bench (research **vehicle parts**)
+**Crew water tank** (with Dubs Bad Hygiene): make the kit at the vehicle parts bench (research **vehicle parts**)
 and fit it in the vehicle's **water tank bay**. It holds **120 litres**.
 
 - **On the road** the crew drink and wash from it. **Parked with the engine off**, it joins the plumbing beneath the vehicle: **park beside
@@ -90,14 +89,14 @@ and fit it in the vehicle's **water tank bay**. It holds **120 litres**.
 - **Washing at camp:** uninstall a Dubs **basin** and **simple shower** into the cargo with the camp gear. The camp sets them out, and the pipes
   under the camp join them to the tank. A shower takes **65 litres** and is cold (no hot water tank at camp).
 
-**Camp lights** (not yet tested in game): build them in the Architect (D'thorga, Motor pool; research **vehicle parts**) and pack them
+**Camp lights**: build them in the Architect (D'thorga, Motor pool; research **vehicle parts**) and pack them
 in the cargo with the camp gear. Both light themselves at dusk.
 
 - **Camp lantern** (2 kg): burns about **one chemfuel a night**, only while lit, and warms the air a little. Needs no vehicle. Fill it before you go.
 - **12-volt camp light** (4 kg): runs from the vehicle's battery, about 10 watts each. The vehicle gets a **Camp lights** switch; with it off,
   or the battery flat, they go dark. Set down away from a camp, it has no power.
 
-**Kitchen box, table and stools** (not yet tested in game): build them in the Architect (D'thorga, Motor pool; research
+**Kitchen box, table and stools**: build them in the Architect (D'thorga, Motor pool; research
 **vehicle parts**), uninstall them and load them into the cargo with the rest of the camp gear.
 
 - **Kitchen box** (18 kg): a camp stove. Set out with the camp, it takes the same bills as a stove at home, and with Vanilla Brewing
@@ -107,7 +106,7 @@ in the cargo with the camp gear. Both light themselves at dusk.
 - **On the road:** a kitchen box packed in a caravan's cargo cooks at night like the Billy, **up to 8 meals a cook** (the Billy makes
   20, and is used first if you have both).
 
-**The deck tent** (not yet tested in game; needs the **Walk-in cabins** setting, which is on by default): for a vehicle with a **flat
+**The deck tent** (needs the **Walk-in cabins** setting, which is on by default): for a vehicle with a **flat
 deck**: our **Talus tipper** and **Pintle flatbed**, and, where their mods are active, Vanilla Vehicles Expanded's **Mule** and
 **Roadrunner**, Frontline Workshop's **Land Cruiser J70** and RimThunder's **M1075 HEMTT**. Fit it to the roof mount. It stands **on the deck**, so it
 needs no ground and no camp set up. **One kit, two ways to fit it:** **light** (30 kg) or **roomy** (40 kg, slower to fit, 2 degrees
@@ -131,7 +130,7 @@ warmer inside and comfier beds).
 - **Leaving with the camp out** (forming a caravan): it is packed as the vehicle leaves; a bed still in use stays behind.
 - **If the vehicle is destroyed**, its camp stays as ordinary beds and poles. Taking a pole down brings the awning's canvas down.
 - **Other factions' vehicles** at their own bases may be found with their camp out. Capture one and its camp is yours to pack.
-- **The camper trailer** (not yet tested in game): the **Pintle flatbed** takes camp gear too. Fit a roof tent and an awning from its
+- **The camper trailer**: the **Pintle flatbed** takes camp gear too. Fit a roof tent and an awning from its
   fittings window (it has a **tent mount** and a **side rail**), load swags into its cargo, tow it out and **unhitch it**: its own
   **Set up camp** then pitches the camp beside the trailer, and the truck is free to drive off. **Pack up before hitching it again.**
   **Tank trailers, the Billy and the shower trailer camp too**, from a **side rail** only: an awning and swags beside them, nothing
@@ -139,12 +138,10 @@ warmer inside and comfier beds).
 
 ## Sleeping on the road: cab bunks and driving through the night
 
-Not yet tested in game.
-
 - **Cab bunk** (40 kg; steel and cloth; research **vehicle parts**): fit it to a heavy truck's **sleeper berth** (wheeled, 3,500 kg
   or more). While the caravan travels, the most tired passenger sleeps in it and arrives rested; stopped, it is one more bed. Drivers
   never take it. In a cab of three or more seats it takes one seat's place.
-- **Cab bunk with sleep accelerator** (not yet tested in game; 60 kg; steel, cloth and a **packed sleep accelerator**, which haulers
+- **Cab bunk with sleep accelerator** (60 kg; steel, cloth and a **packed sleep accelerator**, which haulers
   bring from storage): the same bunk with the machine at its head. Whoever sleeps in it rests **about a third faster** and wakes
   **20% hungrier**, on the road or parked, while it has power. **It draws heavily while someone is in the bunk**: about 39 A on a
   12-volt truck, half that on 24 volts, the game's own machine's 400 W. Taking it off gives the machine back. With Ideology it takes the
@@ -166,8 +163,6 @@ Not yet tested in game.
 
 ### A sleep machine at camp
 
-Not yet tested in game.
-
 - **Pack a sleep accelerator (or, without Ideology, a sleep inducer) into the cargo** and the camp order sets it against the head of a
   camp bed, facing it: the roof tent, a camper's beds or a swag. One to a bed; with no bed free it stays in the cargo. A machine waiting
   to be fitted to a cab bunk is left alone.
@@ -176,8 +171,6 @@ Not yet tested in game.
 - The roof tent and camper beds take only machines that speed rest, from any mod; no other furniture.
 
 ## Food and water on the road
-
-Not yet tested in game.
 
 - **Food in a towed trailer is eaten** once the caravan's own packs run out, and it **counts in the caravan's days of food**, on the
   world map and in the window for forming a caravan.
@@ -202,10 +195,13 @@ in flight too. Details are in [the Osprey's section](working-vehicles.md#v-22-os
   when a convoy is **camped for the night**, **halted for a meal** or **driving through the night**, when a vehicle's camp is pitched,
   and when a convoy has **less than a day of food** or a crew water tank is low.
 
-## What has been tested in game
-
-- **Nothing in this chapter yet.** Every part is built and checked offline (rule tests, the mods' layout checks); the owner's test list
-  holds a row for each.
+## Where to read more
 
 Every setting, with its default, is listed in [D'thorga Framework's README](../../mods/PhobosFramework/README.md#settings); what changed
 in each version is in [its changelog](../../mods/PhobosFramework/CHANGELOG.md).
+
+## Tested in game
+
+The owner has not yet passed anything in this chapter ([the test list](../development/in-game-test-pass.md)).
+
+Everything in this chapter is not yet tested in game.

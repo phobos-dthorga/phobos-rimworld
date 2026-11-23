@@ -11,7 +11,6 @@ and Rescue**, which handle care where a colonist falls; it handles what happens 
 - **Needs Harmony, D'thorga Framework and Vanilla Expanded Framework.** **Vanilla Gravship Expanded is strongly recommended**
   (it needs the Odyssey expansion): most of the oxygen kit uses its canisters and pipes, and a letter says once what is missing
   without it. More Injuries and Combat Extended are optional and used when present.
-- **Partly tested in game**: see [the last section](#what-has-been-tested-in-game).
 - **People in pain fetch their own painkillers by default. Check your drug policies first**: addiction and overdose are real.
 - **Tox gas does lasting harm, and by default the harm comes about 4 hours later**, over two or three days. Keep gassed colonists
   in bed and watch them.
@@ -46,7 +45,7 @@ decides everything**: medicine, painkillers, oxygen and kits have to be made or 
 **Field care and surgery are separate jobs**: Search and Rescue and More Injuries (other authors) treat the patient where they
 fell and carry them to bed; D'thorga Medical takes over once they are there. **Our doctors never hold someone on the ground against
 a carrier:** a painkiller, a hand pump or a kit given where they lie stops when someone comes to carry them, and goes on at the bed. A
-dose against a disease waits for the bed. Not yet tested in game.
+dose against a disease waits for the bed.
 
 ## Burns and smoke
 
@@ -243,11 +242,11 @@ Expanded's rule).
 Doctor work switched on. The airway kits, the hand pump and the decompression kit come just before its own treatment; oxygen and
 fluids after it. **Give your medics kits to carry:** Search and Rescue's restocking does not fetch them. To have casualties carried
 to a parked helicopter instead of a far bed, switch on its **Take casualties aboard** (D'thorga Framework, in
-[aircraft and sling loads](aircraft-and-sling-loads.md#an-air-ambulance)). Not yet tested in game.
+[aircraft and sling loads](aircraft-and-sling-loads.md#an-air-ambulance)).
 
 ## Radiation
 
-Not yet tested in game. On by default (**Radiation sickness runs its real course**, on the **Radiation** settings page).
+On by default (**Radiation sickness runs its real course**, on the **Radiation** settings page).
 
 - **A dose is something the body repairs.** Each person keeps their radiation dose; most of it heals over weeks, a tenth never. A dose
   spread over days does far less than the same dose at once, so **getting people out quickly matters more than anything**.
@@ -320,15 +319,21 @@ puts them back on the right parts. It does the same for any other mod that adds 
 The log's lines start with [D'thorga Medical: save bridge]; after the load, the line about hediffs sitting on parts newer than the
 save ends "none." when all went well.
 
-## What has been tested in game
-
-- **Tested by the owner:** burn numbers, how burn conditions progress, and the More Injuries tie-ins (5 November 2026); doctors
-  dosing penicillin and ketamine (5 November 2026); a patient's breathing improving on the oxygen concentrator (5 November 2026); the
-  burn unit bed and its air-cell care (6 November 2026); the save bridge's first load on a copy of a 330-mod colony (3 November
-  2026); radiation control with Rimatomics (11 November 2026, "working VERY well").
-- **Not yet tested in game:** everything else, including triage, the ventilator, tox gas, acid, the safety shower, the alarm, the
-  oxygen network pieces, self-medication and the field responders' use of the kits.
-- **The tests before 7 November were on the five separate mods**, before they became one.
+## Where to read more
 
 The settings, and links for modders, are in [D'thorga Medical's README](../../mods/PhobosMedical/README.md); what changed in each
 version is in its [changelog](../../mods/PhobosMedical/CHANGELOG.md).
+
+## Tested in game
+
+What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+
+| Row | What the owner passed | Date |
+| --- | --- | --- |
+| 31a | The radiation control line: colonists stop, put on gear, go in, and take it off on the way out (with Rimatomics) | 11 Nov 2026 |
+| 166 | Doctors' work with many wounded | 18 Nov 2026 |
+| 170 | Field care gives way to carrying a patient to bed | 18 Nov 2026 |
+| 361 | Radiation sickness runs its real course (with Rimatomics) | 23 Nov 2026 |
+| 363 | Rimatomics' radiation sickness in a save converts once | 21 Nov 2026 |
+
+Everything else in this chapter is not yet tested in game.

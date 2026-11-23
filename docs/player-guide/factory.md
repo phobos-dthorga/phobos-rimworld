@@ -17,7 +17,6 @@ oven, and other mods' drug lab recipes as factory bills. [Back to the guide](REA
   inputs silently: **run a belt out of every output hopper.**
 - **With Dubs Bad Hygiene, the conveyor oven's wet bills need water**: a pipe touching the oven, reaching a water tower. Turn it off
   under Options, Mod settings, D'thorga Factory Additions.
-- **Partly tested in game**: see [the last section](#what-has-been-tested-in-game).
 
 How belts, hoppers and machines connect:
 
@@ -181,7 +180,7 @@ With **The Dead Man's Switch** active (0.14.0), each mod's hoppers feed the othe
   machine's input cell on it reads it, so its chunks can feed the **automated masonry saw** and **smelter**. Belts and machines take
   from it whether or not its auger has power; its own benches still need power.
 
-**A whole chunk line** (not yet tested in game): a Talus tips chunks into a **bulk bunker** (D'thorga Vehicles, see
+**A whole chunk line**: a Talus tips chunks into a **bulk bunker** (D'thorga Vehicles, see
 [the tipper](working-vehicles.md#talus-tipper-truck)); a belt pointing away from the bunker carries them one at a time to a masonry
 saw's input hopper. A truckload is about **ten days' work for one saw** (6,400 ticks a chunk), so build two or three saws off the same
 belt, or let the bunker hold the load while one saw works through it.
@@ -331,12 +330,16 @@ uses power; its inspect text says what is missing. Both options are under **Opti
 - The **Belts may take from here** switch is among a storage building's buttons when you select it (only on your own storage).
 - The **corpse fridge** is under Architect, Temperature, after Air conditioning ("[sbz] Fridge").
 
-## What has been tested in game
-
-- **Tested by the owner:** the human-meat bill (28 October 2026); the drug lab bills appearing on their machines (29 October 2026);
-  belts taking from switched-on storage, only when pointing away (29 and 30 October 2026: "The fix works brilliantly"); a bill with
-  no recipe taken off the ammunition press (10 November 2026).
-- **Not yet tested in game:** the fabrication bay, the output fix, the deep hopper, the hopper switch, piped water, the synthread and
-  soup bills, the corpse fridge, and running each new bill to the end.
+## Where to read more
 
 The settings and the links for modders are in [D'thorga Factory Additions' README](../../mods/PhobosFactoryAdditions/README.md).
+
+## Tested in game
+
+What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+
+| Row | What the owner passed | Date |
+| --- | --- | --- |
+| 194 | A deep hopper takes four stacks of output | 18 Nov 2026 |
+
+Everything else in this chapter is not yet tested in game.

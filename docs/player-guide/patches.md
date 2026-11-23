@@ -10,7 +10,6 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 - **Needs Harmony and D'thorga Framework. Load it after the mods it patches**; RimSort does this from its About file. **Switch it on
   yourself**: nothing else requires it.
 - **Switching from D'thorga Vehicle Patches or D'thorga Missile Patches**: both off, this one on, in the same change.
-- **Mostly not yet tested in game**: see [the last section](#what-has-been-tested-in-game).
 - **After a missile strike, wait for the message that the blast has spent itself before saving**: a blast still running when you
   save is forgotten on load.
 - **Before removing it**: delete bomb, rocket and heavy-casting bills it added; with Combat Extended, use up or sell bomb cases, bomb
@@ -32,17 +31,17 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 | **Spaceship Turret Hull** (MK), with **Combat Extended** | All seven hulls load ammo like CE's own turrets, and no longer explode when destroyed | **Rebuild hulls built before**, while the ship is landed |
 | **InterRim Ballistic Missile** (Psionic Zephyr) | A strategic warhead's blast is spread over moments instead of freezing the game; overhead mountain shelters what is under it; the extinction-class warhead strikes with a fireball, blast and heat zone; no flood of "Area revealed" letters | **Wait for the message that a blast has spent itself before saving.** Settings under D'thorga Patches |
 | IRBM with **Combat Extended** | Its close-in weapon systems shoot down CE's mortar and artillery shells headed for your things, as they always did vanilla shells | **Unroofed and powered**, as before. The setting **Close-in weapon systems shoot down Combat Extended shells** turns it off |
-| **RimPacts** (temporary) | An ally's assault leaves vehicles with nobody aboard alone and goes for the defenders, instead of beating on an empty vehicle for hours | Claim the empty vehicles after the battle. Not yet tested in game |
+| **RimPacts** (temporary) | An ally's assault leaves vehicles with nobody aboard alone and goes for the defenders, instead of beating on an empty vehicle for hours | Claim the empty vehicles after the battle. |
 | IRBM with **RimPacts** | An ally's assault after your strike faces the garrison the town had before it. A world war attack shows its deadline | **Strike and attack early**: RimPacts gives a war attack 3 days |
 | **Visit Settlements** (Nina.Goblin) | A visited settlement's map stays open while any colonist of yours there is conscious, on foot or in a vehicle. Its food drops no longer fail every tick | Pawns already lost this way stay lost: load an earlier save |
-| **Vanilla Factions Expanded - Classical** (temporary) | A save made during a scorpion raid loads with the raid still working, instead of raiders who cannot act or leave and thousands of errors a minute | Nothing. **If you saved again after such a save loaded broken, load the save made before that.** Not yet tested in game |
-| **Nice Research Tab** (Andromeda; temporary) | A blank entry in a research project's unlock list can no longer stop the research tab opening, as it now and then did until a restart | Nothing. If the log shows a D'thorga Patches warning naming a research project, tell us which. Not yet tested in game |
+| **Vanilla Factions Expanded - Classical** (temporary) | A save made during a scorpion raid loads with the raid still working, instead of raiders who cannot act or leave and thousands of errors a minute | Nothing. **If you saved again after such a save loaded broken, load the save made before that.** |
+| **Nice Research Tab** (Andromeda; temporary) | A blank entry in a research project's unlock list can no longer stop the research tab opening, as it now and then did until a restart | Nothing. If the log shows a D'thorga Patches warning naming a research project, tell us which. |
 | **Vanilla Expanded Framework** outposts, with **Vehicle Framework** | A caravan with vehicles can't found an outpost through "create outpost", which could lose them | Leave the vehicles first and come on foot. The setting **Refuse to found an outpost from a caravan with vehicles** turns this off |
 | **Vehicle Framework** | Fires a vehicle could never put out are put out; a vehicle leaving a map takes no fire with it. Repairs and upgrades show the game's progress bar | Nothing |
 | **The Dead Man's Switch** drone platforms (Fortified Features Framework) | Colonists refill the engineering drone bay, the trashpan and hound stations and the FPV nest with steel by themselves; a mechanitor refills the Hermit Crab and the Cluster Weaver | Nothing: keep steel in reach. [Drone platforms](#drone-platforms) |
 | **Combat Extended** ammo sets | A temporary guard drops ammo set entries that would stop CE's whole ammo setup (The Dead Man's Switch - Synthriada adds such entries) | Nothing |
 | **Biotech** (Ludeon), a setting off by default | Mech rechargers draw power by the size of the mech on them, charging slows over the last fifth, and a charging recharger warms its room | **Turn it on** in the settings' Mechanoids page; check your grid can carry your biggest mech |
-| **Combat Extended**, with or without **Simple sidearms** (PeteTimesSix) | Colonists left holding a grenade, a satchel charge or nothing after being downed go back to their own gun. Not yet tested in game | **Hand a gun once to anyone who has none at all.** [Soldiers keep their guns](#soldiers-keep-their-guns) |
+| **Combat Extended**, with or without **Simple sidearms** (PeteTimesSix) | Colonists left holding a grenade, a satchel charge or nothing after being downed go back to their own gun. | **Hand a gun once to anyone who has none at all.** [Soldiers keep their guns](#soldiers-keep-their-guns) |
 
 ![The Mk. 82 and Mk. 84 bomb cases and the missile seeker head](images/patches-items.png)
 
@@ -428,7 +427,7 @@ puts the original behaviour back, with no restart.
 
 ## Soldiers keep their guns
 
-Not yet tested in game. With Combat Extended, a colonist downed in a fight drops their gun. When they get up, a grenade from their pack
+With Combat Extended, a colonist downed in a fight drops their gun. When they get up, a grenade from their pack
 can go into their empty hands first, and from then on they fight with grenades and satchel charges and never look for a gun again.
 Now:
 
@@ -449,7 +448,7 @@ Now:
 
 ## Drone platforms
 
-Not yet tested in game. The Dead Man's Switch's drone platforms (the **engineering drone bay**, the **trashpan** and **hound stations**
+The Dead Man's Switch's drone platforms (the **engineering drone bay**, the **trashpan** and **hound stations**
 and the **FPV nest**) hold steel that each drone they send out uses up. On their own they only offer a right-click order, **Fill**.
 
 - **Colonists doing hauling work now refill them by themselves**, once a platform is short by one drone's worth of steel or more.
@@ -489,9 +488,24 @@ a uca); what does not fit is set down beside it.
 - Settings: **Mod settings, D'thorga Patches**, one entry with a page per patched mod (Mechanoids, Combat Extended, Harrier jump jet,
   IRBM: strikes, IRBM: after-effects, Outposts); a page shows only while its mod is active. The search box finds a setting on any page.
 
-## What has been tested in game
-
-- **Tested by the owner:** Vehicle Framework's stuck fires went out (10 November 2026); one missile strike on an earlier version.
-- **Not yet tested in game:** everything else.
+## Where to read more
 
 The settings and the links for modders are in [D'thorga Patches' README](../../mods/PhobosPatches/README.md).
+
+## Tested in game
+
+What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+
+| Row | What the owner passed | Date |
+| --- | --- | --- |
+| 23 | The Prison Labor guard | 10 Nov 2026 |
+| 24 | Stuck fires on a Vehicle Framework vehicle go out | 10 Nov 2026 |
+| 190 | Drone platforms are kept topped up | 18 Nov 2026 |
+| 241 | Soldiers go back to their own guns | 23 Nov 2026 |
+| 287 | Mech rechargers draw power by the size of the mech | 21 Nov 2026 |
+| 302 | Sidearms that loop are stopped | 21 Nov 2026 |
+| 382 | Nice Research Tab: the research tab opens every time | 23 Nov 2026 |
+| 383 | Drone platforms are topped up with full loads, even while a drone walks home | 23 Nov 2026 |
+| 384 | Drones are called home while they can still get there | 23 Nov 2026 |
+
+Everything else in this chapter is not yet tested in game.

@@ -45,7 +45,7 @@ and life on the road](camping.md). [Back to the guide](README.md).
 | One eye | Near full pace still |
 | Breaking down mentally | Cannot drive until it passes, or someone else takes the wheel |
 
-- **Practice makes a gentler driver** (not yet tested in game). The hours a colonist spends at the wheel of one kind of vehicle
+- **Practice makes a gentler driver**. The hours a colonist spends at the wheel of one kind of vehicle
   make them easier on its brakes and tyres, and a practised pilot lands more gently. **Never faster.** The Systems tab shows the
   driver's practice, and a colonist's Records show their hours at the wheel. **Keep the same people on the same vehicles.**
 - **A vehicle has a regular driver**: whoever has driven it most. The fleet board's pane names them. They are upset when it is
@@ -66,7 +66,7 @@ and life on the road](camping.md). [Back to the guide](README.md).
   draw water into its engine and damage it; a message warns as it enters the water. **A short crossing is a small gamble; driving
   along a river is asking for it.** Fit a **snorkel** to cross safely. Heavier vehicles ford the shallow rivers unaided.
 - **Wet brakes**: after crossing water a vehicle is a little slower while the driver takes it gently; a short drive dries them.
-- **A tanker can fill from a river** (not yet tested in game; needs Dubs Bad Hygiene): parked with a side against a river, lake or
+- **A tanker can fill from a river** (needs Dubs Bad Hygiene): parked with a side against a river, lake or
   the sea, its pump draws water straight in, untreated, when there is no plumbing to draw from.
 
 ### Your traps
@@ -81,13 +81,13 @@ towed, pushed by hand or heading off with a caravan) rolls over your traps witho
 
 ### Raiders' fuel
 
-**Raiders arrive with the fuel their journey left them** (not yet tested in game): a raid from a faction far away comes in with
+**Raiders arrive with the fuel their journey left them**: a raid from a faction far away comes in with
 its tanks low, one from next door nearly full. **Hole a raid truck's fuel tank** and it leaks fuel onto the ground until it runs
 dry, sooner the further it came. **A stranded raid truck is soon blown up by its own crew, so keep clear of it.**
 
 ## Hills and brakes on the world map
 
-On the world map **hills go up and then down** (not yet tested in game): a caravan climbs for the first half of a hilly tile and
+On the world map **hills go up and then down**: a caravan climbs for the first half of a hilly tile and
 descends for the second, and going down to the coast is a little easier than coming back.
 
 - **Going down, the engine holds the vehicle back by itself** and burns no fuel (a turbine burns its idle). What it cannot hold,
@@ -109,7 +109,7 @@ descends for the second, and going down to the coast is a little easier than com
 ## Fuel, and what the engine drives
 
 With **Fuel use follows engine load** on (the default), a vehicle with the full drivetrain model burns fuel for what its engine
-actually does (not yet tested in game).
+actually does.
 
 - **At an ordinary cruise with nothing extra on, it burns the rate its author set.** Climbing, towing and soft ground burn more;
   an empty run on a road burns less.
@@ -160,7 +160,7 @@ With **Vanilla Chemfuel Expanded**, park a fuelled vehicle against a chemfuel pi
 
 ## Thin air in high country
 
-**The higher a place stands, the thinner its air**, and an engine that breathes it has less to give (not yet tested in game). The
+**The higher a place stands, the thinner its air**, and an engine that breathes it has less to give. The
 world map's terrain tab shows each tile's elevation; a map is as high as its tile.
 
 | Height | Engine with no turbocharger | Turbocharged engine | Gas turbine | A helicopter needs, to hover |
@@ -189,7 +189,7 @@ world map's terrain tab shows each tile's elevation; a map is as high as its til
   inspect text says why.
 - **Select a vehicle caravan to see its reach** on the fuel aboard, outlined in amber on the globe, and how many hours of driving
   the fuel allows.
-- **A convoy is told when the snow comes** (not yet tested in game): its inspect pane says in how many days snow reaches the
+- **A convoy is told when the snow comes**: its inspect pane says in how many days snow reaches the
   ground where it stands, or lifts, and the same for where it is going. Snow makes the going slower and thirstier, so leave before
   it or wait.
 - **Repairs and jump-starts work on the world map; services and coolant top-ups need a map.** In a stopped caravan with a
@@ -199,8 +199,7 @@ world map's terrain tab shows each tile's elevation; a map is as high as its til
 
 ### Refuelling from cargo
 
-**Carry the fuel your vehicles burn in the caravan's cargo, then press Refuel *vehicle* from cargo** on the caravan (not yet
-tested in game).
+**Carry the fuel your vehicles burn in the caravan's cargo, then press Refuel *vehicle* from cargo** on the caravan.
 
 - Whenever its tank falls to a quarter, the crew top it up from the cans with a short stop, so the caravan does not halt for fuel.
 - **It starts off for every vehicle**, so fuel you carry to sell is safe until you switch it on.
@@ -211,17 +210,16 @@ tested in game).
 
 ### When a journey goes wrong
 
-- **A stranded convoy raises an alert** (not yet tested in game): **Convoy stranded** names the vehicle, why it cannot go on, what
+- **A stranded convoy raises an alert**: **Convoy stranded** names the vehicle, why it cannot go on, what
   could fix it there with what the convoy carries, and how far home is. **Your choices are yours**: fix it where it stands, camp
   and wait, send for parts or a tow, or leave it behind.
 - **A vehicle parked in the wild is lost after a while**; a letter warns you three days ahead.
-- **A lost convoy stays where it stopped** (the setting **Lost convoys stay where they stopped**, on by default; not yet tested in
-  game): when the last colonist of a convoy dies on the road, its vehicles, cargo and anyone else aboard wait on the world map as
+- **A lost convoy stays where it stopped** (the setting **Lost convoys stay where they stopped**, on by default): when the last colonist of a convoy dies on the road, its vehicles, cargo and anyone else aboard wait on the world map as
   a **lost convoy**. **Right-click it with a caravan to Recover it**, then drive, tow or lift the vehicles home.
 
 ### Journeys, records and letters
 
-- **Every journey goes in the vehicle's logbook** (not yet tested in game), and one that went wrong (a breakdown, a halt, someone
+- **Every journey goes in the vehicle's logbook**, and one that went wrong (a breakdown, a halt, someone
   hurt aboard) also sends a letter when the vehicle reaches a map. **Letters for troubled journeys** in the settings turns the
   letters off.
 - **Colonists' records count the road**: drivers their **kilometres driven** (a stretch of the world map is about 30 km),
@@ -239,14 +237,14 @@ tested in game).
 - **Choose a row** (a click, or the up and down arrow keys) and the pane on the right shows where it is hurt, its faults and what
   caused them, its regular driver and its newest logbook lines. **Enter**, or a click on the chosen row, goes to it.
 - Tick **Only what needs attention** to hide the rest.
-- **A key for the fleet board** (not yet tested in game): Options, Keyboard, main tabs, "toggle fleet tab". No key is set at
+- **A key for the fleet board**: Options, Keyboard, main tabs, "toggle fleet tab". No key is set at
   first.
 - The fleet board also runs the [service yard](#the-service-yard) and keeps vehicles out of [trips to the dyno
   bay](#trips-to-the-dyno-bay).
 
 ### Depots
 
-**Fuel and gear left out on the world map for a later trip** (not yet tested in game). A depot never expires, and it is listed on
+**Fuel and gear left out on the world map for a later trip**. A depot never expires, and it is listed on
 the fleet board.
 
 1. **Stop a convoy on open ground and press Leave a depot here.** Tick the vehicles or trailers to leave (a bowser with a full
@@ -257,7 +255,7 @@ the fleet board.
    holds its fuel, below half a tank, sets down and fills up.
 4. **To take the vehicles back, right-click the depot with a caravan and visit it**: drive them away from the small map.
 
-**Time works on a depot** (not yet tested in game; each a setting under **Depots**):
+**Time works on a depot** (each a setting under **Depots**):
 
 | What | When |
 | --- | --- |
@@ -282,7 +280,7 @@ Any land vehicle can tow a trailer such as the [Pintle flatbed](working-vehicles
   (full speed, slowed by the engine or by grip, a crawl, or too heavy), or why it cannot be hitched. It is a forecast: hills and
   mud on the way can make it worse.
 - **The trailer stays on the map** and follows the hitch. **If it would hit a wall or another vehicle, the vehicle stops and says
-  so** (not yet tested in game).
+  so**.
 - **The engine pulls the trailer and its load too**: lower gears, more heat, more fuel, a crawl on soft ground or uphill. The
   trailer adds no grip.
 - **A towing vehicle's panels say what holds it back**: the inspect panel, the Dashboard and the Systems tab name what it tows,
@@ -305,7 +303,7 @@ Any land vehicle can tow a trailer such as the [Pintle flatbed](working-vehicles
 
 ## Recovering a stuck vehicle
 
-**Fit the recovery winch** (the **Recovery** family in the fittings window) to a land vehicle (not yet tested in game).
+**Fit the recovery winch** (the **Recovery** family in the fittings window) to a land vehicle.
 
 - **Press Winch a vehicle** and pick a stuck, broken or empty vehicle within 12 cells. **Someone must be aboard to work the
   winch.** It drags the vehicle in a cell at a time, slower the heavier the pull, and stops beside you. **Stop winching** ends it
@@ -323,10 +321,9 @@ Any land vehicle can tow a trailer such as the [Pintle flatbed](working-vehicles
 | Tow weight | What happens |
 | --- | --- |
 | Up to 1.5 times your vehicle's weight | A fair tow |
-| Heavier | Allowed with a warning (not yet tested in game): it goes slowly, and wears your brakes and clutch fast |
+| Heavier | Allowed with a warning: it goes slowly, and wears your brakes and clutch fast |
 
-- **Another faction's vehicle can be winched too** where nobody is aboard and none of theirs stands armed nearby (not yet tested
-  in game): pull a wreck clear before deciding whether to claim it. It stays theirs until you do. **To tow it home, claim it
+- **Another faction's vehicle can be winched too** where nobody is aboard and none of theirs stands armed nearby: pull a wreck clear before deciding whether to claim it. It stays theirs until you do. **To tow it home, claim it
   first** (see [damage and repairs](vehicle-damage-and-repairs.md#other-factions-vehicles)).
 
 ## Parks, the service yard and trips to the dyno bay
@@ -345,8 +342,7 @@ dyno bay, depot bay and fuel pump) are in [the vehicle workshop](vehicle-worksho
 
 ### Trips to the dyno bay
 
-**A land vehicle of yours that needs the dyno bay is taken there without being told**, repaired, and put away (not yet tested in
-game).
+**A land vehicle of yours that needs the dyno bay is taken there without being told**, repaired, and put away.
 
 - **Give somebody Drive work first.** It starts off for everyone (the Work tab's **Drive** column). With nobody on it, vehicles
   wait.
@@ -382,8 +378,7 @@ many people it would take. **The tow and the push each have their own setting** 
 
 ### The service yard
 
-**One place where vehicles are serviced, tuned, fuelled and parked**, so a fleet stops shuttling between a park and the dyno bay
-(not yet tested in game).
+**One place where vehicles are serviced, tuned, fuelled and parked**, so a fleet stops shuttling between a park and the dyno bay.
 
 - **Mark it beside a dyno bay**: in the D'thorga tab's **Motor pool** press **Service yard** and drag ground touching a dyno bay.
   **A yard needs a dyno bay beside it** to be a yard at all.
@@ -424,7 +419,21 @@ How it works underneath is in the reference pages on [engines and drivetrain](..
 [hitches and trailers](../development/systems/hitches-and-trailers.md) and [stations, the yard and
 depots](../development/systems/stations-yard-and-depots.md).
 
-## What has been tested in game
+## Tested in game
 
-- **Nothing in this chapter yet.**
-- Everything in this chapter is not yet tested in game.
+What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+
+| Row | What the owner passed | Date |
+| --- | --- | --- |
+| 56 | **In part:** hitching a trailer, towing it through turns and unhitching (the stop at a wall and the engine load not yet) | 23 Nov 2026 |
+| 76 | Driving in the dark without lights is slower | 19 Nov 2026 |
+| 85 | **In part:** refuelling from a chemfuel pipe: the message with the engine on (filling with it off not yet) | 23 Nov 2026 |
+| 184 | What the engine drives costs fuel, listed on the Systems tab | 18 Nov 2026 |
+| 257 | Journeys in the logbook | 20 Nov 2026 |
+| 271 | The fleet board | 21 Nov 2026 |
+| 294 | Vehicles taken to a dyno bay by themselves | 21 Nov 2026 |
+| 310 | The service yard and its size | 21 Nov 2026 |
+| 318 | Your vehicles pass over your traps when you did not send them | 21 Nov 2026 |
+| 441 | A trailer sits on its drawbar through a curve and after stopping | 23 Nov 2026 |
+
+Everything else in this chapter is not yet tested in game.

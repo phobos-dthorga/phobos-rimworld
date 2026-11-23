@@ -27,9 +27,9 @@ vehicles](working-vehicles.md). [Back to the guide](README.md).
   the launch button refuses and says why. **The setting can allow it at a cost to the engine, or only warn.**
 - **A heavy Harrier on a hot day lands on a runway** instead of its pad (with D'thorga Patches).
 - **Flight controls**: an aircraft whose control surfaces, actuators, hydraulics or wiring are wrecked below 35% **cannot take
-  off**, and the launch button says why (not yet tested in game).
+  off**, and the launch button says why.
 - **Avionics broken or flat**: it will not take off at night or in fog (see [avionics](#avionics)).
-- **Engines start in turn** (the setting **Aircraft engines start one after another**, on; not yet tested in game): an aircraft's
+- **Engines start in turn** (the setting **Aircraft engines start one after another**, on): an aircraft's
   engines light one after another, a few seconds each, and it may not take off until all are running.
 - **Grit on rough ground** can strike an engine when an aircraft takes off, lands or taxis anywhere but a floor (never while it
   merely stands with its engines on). **Build a concrete strip** for low-intake jets such as the Prowler and the Harrier.
@@ -48,7 +48,7 @@ vehicles](working-vehicles.md). [Back to the guide](README.md).
 - **Aim in the air** (on by default): a damaged or basic sight misses more, and every aircraft misses more at night without a
   night sight and in bad weather without a radar. Bombs and rockets scatter wider.
 
-**Avionics kits** (not yet tested in game): any aircraft can be fitted with one it lacks, from its fittings window. Shot out with
+**Avionics kits**: any aircraft can be fitted with one it lacks, from its fittings window. Shot out with
 its part, a kit stops working until repaired.
 
 | Kit | What it gives |
@@ -62,10 +62,10 @@ its part, a kit stops working until repaired.
 
 - **Heavy controls.** Helicopters and planes with servos, and the Harrier, fly on hydraulics: if the fluid leaks or the pump is
   hit, the controls go heavy and it flies slower. Top up the fluid in a service.
-- **Damaged flight controls** below 70% slow it (not yet tested in game); below 35% it cannot take off.
+- **Damaged flight controls** below 70% slow it; below 35% it cannot take off.
 - **An engine out** slows it to 0.8 of its speed, and a message says so.
 - **A damaged turbine engine gives less power** (the setting **Damaged turbine engines give less power**, on by default, in the
-  Flight section; not yet tested in game): from about half of it when badly damaged to all of it when sound, so a shot-up aircraft
+  Flight section): from about half of it when badly damaged to all of it when sound, so a shot-up aircraft
   climbs and hovers weaker before an engine stops.
 - **A twin jet with an engine out, or one weaker than the other, dodges a little less fire and burns a little more fuel** holding
   a straight line (the setting **Lopsided thrust unsettles twin jets**, on by default). Helicopters and the Osprey do not, as one
@@ -76,8 +76,7 @@ its part, a kit stops working until repaired.
 | Less fire dodged | 15% |
 | More fuel burned | 7.5% |
 
-- **A twin helicopter's emergency power opens only with an engine out** (the Black Hawk, Hind, Mongoose and Osprey; not yet tested
-  in game). With both engines sound they stop at their take-off rating, so **a very heavy hover in hot or thin air may strain
+- **A twin helicopter's emergency power opens only with an engine out** (the Black Hawk, Hind, Mongoose and Osprey). With both engines sound they stop at their take-off rating, so **a very heavy hover in hot or thin air may strain
   them**; with one engine out the other may run at its short emergency rating, hot.
 - **An aircraft's generator** gives about half its output at ground idle and all of it from cruise.
 - **Twins keep a tank on each side, with a cross-feed button:**
@@ -98,15 +97,14 @@ take-off power longer than allowed; a message says when one has run too long.
 - **With one of two engines out, the other runs hot.**
 - **What a turbine drives besides the rotor or the tracks runs it a little hotter**: its generator, cabin air and, on the Harrier
   in a hover, air for the puffer jets. The Systems tab lists them.
-- **On a twin, each engine keeps its own hot-section life** (not yet tested in game): the one doing more work wears faster, the
+- **On a twin, each engine keeps its own hot-section life**: the one doing more work wears faster, the
   Systems tab lists each, and an overhaul does the most worn engine, so a twin may need two overhauls, one kit each. A worn hot
   section's breakdowns hit the worn engine.
 - **A twin-engined aircraft's new engines go in as a matched pair**: see [the vehicle workshop](vehicle-workshop.md#fittings).
 
 ## Fuel
 
-**An aircraft burns fuel by what its engines are doing** (the setting **Aircraft fuel follows the engines**, on by default; not
-yet tested in game).
+**An aircraft burns fuel by what its engines are doing** (the setting **Aircraft fuel follows the engines**, on by default).
 
 | Where | What it burns |
 | --- | --- |
@@ -119,16 +117,15 @@ yet tested in game).
 - **The range shown before a flight already counts** the extra for a worn hot section, cabin air and electrical loads, and the
   height of every stretch.
 - **Take the pilot out, or undraft it, when it is not needed**: an idling aircraft with a pilot aboard burns fuel.
-- **An upgrade that changes its fuel use counts everywhere** (not yet tested in game): the Harrier's plasteel armour burns about
+- **An upgrade that changes its fuel use counts everywhere**: the Harrier's plasteel armour burns about
   15% more over a map as well as between places.
-- **A helicopter on station over a map works as hard as its load and the air ask** (not yet tested in game): the Hind and the
+- **A helicopter on station over a map works as hard as its load and the air ask**: the Hind and the
   Mongoose burn less flying about light on a cool day, and more heavy on a hot, high one.
 - **A slung load makes a flight slower and thirstier**, and the range shown is shorter.
 
 ## Height between places
 
-**Each stretch between places is flown at a height of its own** (the setting **Cruising height between places**, on by default;
-not yet tested in game). The launch screen's tooltip says when a stretch is not flown at the aircraft's best height, and why. The
+**Each stretch between places is flown at a height of its own** (the setting **Cruising height between places**, on by default). The launch screen's tooltip says when a stretch is not flown at the aircraft's best height, and why. The
 fuel it shows, and whether it says there is enough, count the height of every stretch.
 
 | Why | What happens |
@@ -155,7 +152,7 @@ fuel it shows, and whether it says there is enough, count the height of every st
 ## Thin air and hot days
 
 **The higher a place stands, the thinner its air.** The world map's terrain tab shows each tile's elevation; a map is as high as
-its tile (not yet tested in game).
+its tile.
 
 | Height | Gas turbine's power | A helicopter needs, to hover |
 | --- | --- | --- |
@@ -168,7 +165,7 @@ its tile (not yet tested in game).
 
 - **A helicopter is hit twice**: its engines give less and its rotor needs more. One that lifts a full load at the coast may
   refuse to lift it from a high plateau, and says so. **Lighten it, or wait for cooler air.**
-- **Where it lands counts too** (not yet tested in game). When you pick a destination, a line warns if it would arrive too heavy
+- **Where it lands counts too**. When you pick a destination, a line warns if it would arrive too heavy
   to hover in the air there. With the default setting it then **comes in for a rolling landing**, which wears its undercarriage a
   little; it never stops to refuel in such air. "Allow it, at a cost to the engine" lands it straight down and strains its
   engines.
@@ -186,7 +183,7 @@ its tile (not yet tested in game).
 
 ### Refuelling on the way
 
-**Aircraft refuel by setting down on the way** (not yet tested in game).
+**Aircraft refuel by setting down on the way**.
 
 1. Load the fuel it burns into the aircraft's cargo.
 2. Press **Refuel *aircraft* from cargo** on its buttons before launching (or in flight).
@@ -201,22 +198,22 @@ its tile (not yet tested in game).
 
 ## Cut the engines
 
-**Cut the engines** is a button on an aircraft in the air (not yet tested in game). **It falls where it is**: everyone aboard is
+**Cut the engines** is a button on an aircraft in the air. **It falls where it is**: everyone aboard is
 hurt, a load on the hook drops, and over a building, rough ground or water it is wrecked. Coming down hard goes in the logbook.
 **To land and switch off safely, switch the engines off the ordinary way**: it lands on the nearest clear spot first.
 
 ## Carrying a vehicle on a sling
 
 1. **Fit the helicopter a cargo hook** (Fittings and tunes). The **Cherokee**, the **Louie**, the **Hind**, and RimArrow's
-   **Ka-27PS** and **Mi-38** have a mount for one (all but the Cherokee not yet tested in game).
+   **Ka-27PS** and **Mi-38** have a mount for one.
 2. **Put a sling set in its cargo** (made at the vehicle parts bench).
 3. **Press Lift a vehicle** and pick one of yours parked outdoors nearby. A colonist hooks it up.
 4. **It flies with the helicopter, drawn under it.** The Hind flies across the map: its load hangs under it there and comes down
    once it has landed.
-5. **Where it lands, the game pauses and asks where to put the load** (not yet tested in game): click open ground within reach, or
+5. **Where it lands, the game pauses and asks where to put the load**: click open ground within reach, or
    right-click to let the crew pick the nearest clear spot. If there was no room, press **Set the load down** once there is.
 
-**From a hover** (not yet tested in game): a helicopter flying over the map by itself (the Osprey; the Cherokee, the Louie and the
+**From a hover**: a helicopter flying over the map by itself (the Osprey; the Cherokee, the Louie and the
 Mosquito with their setting on; and the Hind) can lift without landing.
 
 - Press **Lift a vehicle** in the air; once the load is hooked up, the helicopter hovers beside it and takes it.
@@ -228,7 +225,7 @@ Mosquito with their setting on; and the Hind) can lift without landing.
 **How much the hook takes:**
 
 - **The hook takes a set weight, less on hot days**: the load, its cargo and people.
-- **A heavier load, or a lift in a gale or a thunderstorm, is allowed with a warning** (not yet tested in game). At lift-off the
+- **A heavier load, or a lift in a gale or a thunderstorm, is allowed with a warning**. At lift-off the
   hook's mount loses health by the share the load is over, plus a quarter in bad weather, and a mount strained to nothing **gives
   way**, dropping the load back from a few metres. **Repair the mount before it goes.**
 - **A slung flight is slower and burns more fuel**, and the range shown is shorter.
@@ -236,13 +233,13 @@ Mosquito with their setting on; and the Hind) can lift without landing.
 
 ### Emergency release on the world map
 
-**On a helicopter in flight on the world map, Emergency release lets the load fall** (not yet tested in game). It lands hard,
+**On a helicopter in flight on the world map, Emergency release lets the load fall**. It lands hard,
 badly damaged, and anyone in it is hurt. It lies there as a **wreck**: **right-click it with a caravan to Recover it**, then
 repair it, drive it, tow it or lift it home. **A helicopter that crashes drops its load too**, beside the wreckage.
 
 ### Lifting a hull
 
-**What a destroyed vehicle leaves can be carried home the same way** (not yet tested in game).
+**What a destroyed vehicle leaves can be carried home the same way**.
 
 - Press **Lift a vehicle or a hull** and click the hull; the helicopter's crew hooks it up at once, with no colonist needed.
 - Set down at home, **take it apart for its salvaged parts**.
@@ -254,12 +251,11 @@ flight, and release and drops.
 
 ## Fighting a fire from the air
 
-**A helicopter with a cargo hook and a fire bucket in its cargo** (made at the vehicle parts bench) **gets Water drop** (not yet
-tested in game).
+**A helicopter with a cargo hook and a fire bucket in its cargo** (made at the vehicle parts bench) **gets Water drop**.
 
 - **Click a fire within 50 cells**: it flies to the nearest open water, fills the bucket, empties it over the fire and comes back
   to where it stood.
-- **A parked tanker or water bowser of yours holding water also fills it** (not yet tested in game; needs Dubs Bad Hygiene for
+- **A parked tanker or water bowser of yours holding water also fills it** (needs Dubs Bad Hygiene for
   water in tanks): the water comes out of the tank when you order the run.
 - **It needs water within reach, open sky over the fire, its crew, fuel and flying weather**; the button says what is missing.
 - **A full bucket puts out the fires on about 3 cells across.**
@@ -268,7 +264,7 @@ tested in game).
 
 ## An air ambulance
 
-**Fit the litter kit to the helicopter's cabin** (Fittings and tunes; not yet tested in game). The kit takes a fifth of the cargo
+**Fit the litter kit to the helicopter's cabin** (Fittings and tunes). The kit takes a fifth of the cargo
 space.
 
 | Helicopter | Where the litter kit goes |
@@ -283,24 +279,24 @@ space.
 - **Put a colonist who can doctor in the crew and medicine in the cargo**: while the helicopter stands, they tend the patients. In
   flight nobody gets worse.
 - **Press Unload casualties at the other end**, then take them to bed. **Leaving by caravan sets the patients down first.**
-- **The litter kit with vitals monitor** (not yet tested in game) adds a **packed vitals monitor**, which haulers bring from
+- **The litter kit with vitals monitor** adds a **packed vitals monitor**, which haulers bring from
   storage: tending on the litters is **7% better** while it has power, about 8 A on a 12-volt aircraft while someone lies there.
   Taking it off gives the monitor back.
 
-**Take casualties aboard** (not yet tested in game) makes the parked helicopter the place casualties go.
+**Take casualties aboard** makes the parked helicopter the place casualties go.
 
 - With it switched on, doctors (and Search and Rescue's field responders) carry downed people to its litters whenever it is nearer
   than their bed, or they have no bed, until every litter is taken; then it says so.
 - Prisoners and guests are carried too; anyone set to no medical care is not. Someone bleeding badly is treated where they lie
   first when a field medic is at hand.
-- **A downed stranger who is no enemy** (a refugee from a crashed pod, a hurt traveller) is carried too (not yet tested in game).
+- **A downed stranger who is no enemy** (a refugee from a crashed pod, a hurt traveller) is carried too.
   Set down, a colonist must still be told to rescue them, as the game asks for any stranger.
 - **Switch it off before you leave** if you do not want it working at the next landing site. It cannot be switched on while the
   helicopter moves or flies.
 
 ## Air defence, chaff and flares
 
-With **The Dead Man's Switch - Expedition** (not yet tested in game):
+With **The Dead Man's Switch - Expedition**:
 
 - **Your aircraft can be shot at on the world map.** Flying to or past a defended settlement, its radars track the aircraft and
   may lock on and fire. A hit damages it, and people in its seats can be hurt. **It comes down at a crash site only if it can no
@@ -328,8 +324,22 @@ With **The Dead Man's Switch - Expedition** (not yet tested in game):
 
 How flight works underneath is in the reference page on [flight](../development/systems/flight.md).
 
-## What has been tested in game
+## Tested in game
 
-- **Tested by the owner:** a sling lift with the Cherokee, from hooking up through take-off to the world map, where the load is
-  listed (12 November 2026). **The landing and setting the load down are not yet tested in game.**
-- Everything else in this chapter is not yet tested in game.
+What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+
+| Row | What the owner passed | Date |
+| --- | --- | --- |
+| 49 | A sling lift with the Cherokee, landing with the load | 18 Nov 2026 |
+| 55 | The slung load seen from take-off to landing, and set down where you choose | 18 Nov 2026 |
+| 57 | **In part:** the load's place at landing, by hand or picked for you (emergency release and the weather warning not yet) | 18 Nov 2026 |
+| 103 | A turbine held at take-off power too long wears its hot section faster | 18 Nov 2026 |
+| 140 | The warning receiver's messages | 19 Nov 2026 |
+| 147 | Aircraft systems keep running in flight | 18 Nov 2026 |
+| 187 | Aircraft burn fuel by what their engines do | 18 Nov 2026 |
+| 197 | An aircraft sets down on a journey to refuel from its cargo | 18 Nov 2026 |
+| 199 | Each stretch of a flight has a height of its own | 21 Nov 2026 |
+| 254 | Chaff and flares are loaded into the dispensers, not the cargo | 23 Nov 2026 |
+| 282 | An aircraft's fuel upgrade counts over a map | 21 Nov 2026 |
+
+Everything else in this chapter is not yet tested in game.

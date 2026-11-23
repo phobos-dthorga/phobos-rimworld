@@ -7,7 +7,6 @@ from your water towers. Nobody has to stand at a basin filling bottles. [Back to
 
 ## Read this first (gotchas)
 
-- **Not yet tested in game.**
 - **Needs Dubs Bad Hygiene with its thirst option on**, and D'thorga Framework. Without thirst there are no water bottles, so the tap
   doesn't appear. **Not for Dubs Bad Hygiene Lite**, or the full mod's lite mode: neither has plumbing.
 - **It changes every water bottle in your game**: a bottle of untreated water now stays untreated when its stack is split (before,
@@ -83,3 +82,9 @@ hopper. With **D'thorga Factory Additions** the tap also gets the **Belts may ta
 delivered; bottles still on the belt aren't counted.
 
 The figures, the safe-removal steps and the notes for modders are in [D'thorga Water Tap's README](../../mods/PhobosWaterTap/README.md).
+
+## Tested in game
+
+The owner has not yet passed anything in this chapter ([the test list](../development/in-game-test-pass.md)).
+
+Everything in this chapter is not yet tested in game.

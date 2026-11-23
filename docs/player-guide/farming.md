@@ -7,7 +7,6 @@ combine harvester cuts it, row by row by themselves, emptying its grain into a c
 
 ## Read this first (gotchas)
 
-- **Not yet tested in game.**
 - **Needs Vehicle Framework and D'thorga Framework.**
 - **A combine has no front until you fit one**, and refuses to harvest without it. Fit the **standard grain front** from its upgrades.
 - **Tractors carry or pull an implement; they do nothing alone**, and an implement or a cart moves only on a hitch. Hitch a plough or
@@ -73,6 +72,8 @@ combine harvester cuts it, row by row by themselves, emptying its grain into a c
 **Straw**, where a crop leaves any, lies in heaps where each row ends, as a combine leaves it; fit the **straw chopper** to chop it
 into the field instead. Only straw is chopped: a second product people can eat is always kept.
 
-## What has been tested in game
+## Tested in game
 
-Nothing yet. Everything here is built and checked offline.
+The owner has not yet passed anything in this chapter ([the test list](../development/in-game-test-pass.md)).
+
+Everything in this chapter is not yet tested in game.

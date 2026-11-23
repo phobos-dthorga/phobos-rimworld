@@ -8,7 +8,6 @@ This is the first step, local radio on one map. [Back to the guide](README.md).
 
 ## Read this first (gotchas)
 
-- **Not yet tested in game.** It has been built and installed, but not yet seen running.
 - **Needs D'thorga Framework and Vanilla Expanded Framework** (the coax is the latter's pipe network; the upgrades are the former's).
 - **The upgrades are experimental**: the desk, whip and mast each have an **Upgrades** button.
 - **Decide Metres per map cell before a colony** (default 1). It changes every contact's range.
@@ -68,3 +67,9 @@ opens can show one level more than your setting.
 7. Check the needs tab for "in touch with home".
 
 The figures, the settings and the notes for modders are in [D'thorga Radio Framework's README](../../mods/PhobosRadioFramework/README.md).
+
+## Tested in game
+
+The owner has not yet passed anything in this chapter ([the test list](../development/in-game-test-pass.md)).
+
+Everything in this chapter is not yet tested in game.
