@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.247.0] - 2026-11-23 - Draft
+
+Per-engine realism: a damaged engine gives less power
+
+### Added
+
+- **A damaged turbine engine gives part of its power, not all or nothing** (the owner's card of 23 November 2026; docs/development/per-engine-realism.md, step 1). Each engine gives its own share by its condition: about half when badly damaged, all of it when sound, nothing once it is out, as before. A shot-up aircraft climbs, cruises and hovers weaker while both engines still run, and its turbine runs hotter for the same work. A setting, Damaged turbine engines give less power, on by default (risk moderate, the agent's grade); off, each engine gives all its power until it stops, as before. The shape and figures are authored. Not yet tested in game: row 401 of the test pass.
+
 ## [0.246.0] - 2026-11-23 - Draft
 
 Matched sets: both engines changed together

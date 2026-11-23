@@ -77,20 +77,55 @@ public static class TurbineModel
     /// <summary>Air density at an ambient temperature, sea-level pressure (ideal gas).</summary>
     public static double Density(double ambient) => SeaLevelDensity * 288.15 / (273.15 + ambient);
 
+    /// <summary>An engine below this share of its working order is out (Framework 0.106.0's rule, kept).</summary>
+    public const double EngineOutBelow = 0.2;
+
+    /// <summary>What a damaged engine still gives just above <see cref="EngineOutBelow"/>, as a share of a sound one's output (AUTHORED).</summary>
+    public const double DamagedEngineFloor = 0.5;
+
+    /// <summary>
+    /// The share of its rated output one engine gives at a working order (Framework 0.247.0, per-engine realism; owner's card, 23 Nov 2026).
+    /// Out below <see cref="EngineOutBelow"/>; above it, from <see cref="DamagedEngineFloor"/> rising in a line to all of it when sound. A shot-up
+    /// turbine's torn blades and seals lose it compression, so it gives less before it stops (the shape and figures are AUTHORED).
+    /// </summary>
+    public static double EngineOutput(double workingOrder)
+    {
+        if (workingOrder <= EngineOutBelow) return 0;
+        double t = Math.Min(1, (workingOrder - EngineOutBelow) / (1 - EngineOutBelow));
+        return DamagedEngineFloor + (1 - DamagedEngineFloor) * t;
+    }
+
+    /// <summary>
+    /// All the engines' output as a share of every engine sound: each by its working order when <paramref name="byHealth"/>, else each in or
+    /// out as before Framework 0.247.0. 1 with no engines listed, so a vehicle without engine roles is unchanged.
+    /// </summary>
+    public static double OutputShare(IReadOnlyList<double> workingOrders, bool byHealth)
+    {
+        if (workingOrders.Count == 0) return 1;
+        double sum = 0;
+        foreach (double order in workingOrders) sum += byHealth ? EngineOutput(order) : order > EngineOutBelow ? 1 : 0;
+        return sum / workingOrders.Count;
+    }
+
     /// <summary>Works the turbine through at a demand (a share of maximum continuous).</summary>
     /// <param name="pressureRatio">The air's pressure against sea level (1 at the sea): thin air leaves less to give.</param>
     public static TurbineState Evaluate(TurbineSpec spec, double demand, double ambient, double condition, int working, int engines, bool running,
+        double pressureRatio = 1) =>
+        Evaluate(spec, demand, ambient, condition, (double)Math.Max(0, working) / Math.Max(1, engines), running, pressureRatio);
+
+    /// <summary>Works the turbine through at a demand with the engines giving <paramref name="share"/> of their full output between them
+    /// (Framework 0.247.0: a damaged engine gives part of its share).</summary>
+    public static TurbineState Evaluate(TurbineSpec spec, double demand, double ambient, double condition, double share, bool running,
         double pressureRatio = 1)
     {
         var state = new TurbineState { Demand = demand, Rating = spec.Continuous.Name, OverTorque = running ? OverTorque(spec, demand) : -1 };
-        if (!running || working <= 0)
+        if (!running || share <= 0)
         {
             state.Temperature = ambient;
             state.OverContinuous = ambient - spec.Continuous.TemperatureLimit;
             state.OverTop = ambient - spec.Top.TemperatureLimit;
             return state;
         }
-        double share = (double)working / Math.Max(1, engines);
         state.Available = Derate(spec, ambient, pressureRatio) * Math.Max(0.05, condition) * share * Math.Max(0.01, spec.OutputFactor);
         double ratio = demand / Math.Max(0.01, state.Available);
         state.SpeedPercent = spec.IdleSpeedPercent + (100 - spec.IdleSpeedPercent) * Math.Sqrt(Math.Min(1.2, Math.Max(0, ratio)));

@@ -711,6 +711,9 @@ their own: [camping and life on the road](camping.md).
 **Flight controls** (not yet tested in game): an aircraft whose control surfaces, actuators, hydraulics or wiring are wrecked below 35 %
 **cannot take off**, and the launch button says why; damaged below 70 %, it flies slower. **An engine out** slows it to 0.8 of its
 speed and a message says so. An aircraft's generator gives about half its output at ground idle and all of it from cruise.
+**A damaged turbine engine gives less power** (not yet tested in game): from about half of it when badly damaged to all of it when
+sound, so a shot-up aircraft climbs and hovers weaker before an engine stops. The setting **Damaged turbine engines give less power**
+(on by default, the Flight section) turns it off.
 
 **Air defence, chaff and flares** (with **The Dead Man's Switch - Expedition**; not yet tested in game):
 

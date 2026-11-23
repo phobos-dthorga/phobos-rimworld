@@ -117,6 +117,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Air-defence tie-ins](air-defence-tie-ins.md) (13 Nov 2026): IRBM's and The Dead Man's Switch's radars against our aircraft. Partly built.
 - [Unique military vehicles and submarines](military-vehicles-research.md) (9 Nov 2026): real vehicles no mod covers yet. Record only.
 - [Aircraft service-life upgrades](aircraft-service-life-upgrades.md) (21 Nov 2026): engines, avionics kits, early fits. Built, untested.
+- [Per-engine realism](per-engine-realism.md) (23 Nov 2026): power by engine health, yaw, matched axles, wear per engine. Step 1 built, untested.
 - [Walk-in cabins](vehicle-cabins.md) (22 Nov 2026): a vehicle's cabin as a small pocket map; the Osprey first. Built, untested.
 - [Railcars](vehicle-railcars.md) (22 Nov 2026): a loadout for Trains of the Rim's wagons, so they can take fittings. Set aside by the owner; nothing built.
 - [UH-60M Black Hawk](uh60-blackhawk.md) (22 Nov 2026): z3nt3's Black Hawk in the fold; a judgement of the mod. Built, untested.

@@ -366,10 +366,23 @@ public sealed class Powertrain
         int working = 0;
         foreach (string role in engineRoles)
         {
-            if (comp.PartEfficiency(role, 1f) > 0.2f) working++;
+            if (comp.PartEfficiency(role, 1f) > TurbineModel.EngineOutBelow) working++;
         }
         return (working, engineRoles.Length);
     }
+
+    /// <summary>Each engine's working order, one a role (Framework 0.247.0, per-engine realism): what its share of the output and the pull of
+    /// lopsided thrust are worked out from.</summary>
+    public IReadOnlyList<double> EngineOrders()
+    {
+        var orders = new double[engineRoles.Length];
+        for (int i = 0; i < engineRoles.Length; i++) orders[i] = comp.PartEfficiency(engineRoles[i], 1f);
+        return orders;
+    }
+
+    /// <summary>The engines' output between them as a share of every engine sound: each by its own condition with the setting on (Framework
+    /// 0.247.0, the default), else each in or out.</summary>
+    public double EngineOutputShare() => TurbineModel.OutputShare(EngineOrders(), VehicleSystemsMod.Settings.damagedEnginesWeaker);
 
     /// <summary>Sets what the rotor drive accepts now: its rated share times the RotorDrive parts' condition (infinite without a limit).</summary>
     void ApplyDriveLimit(TurbineSpec spec)
@@ -498,10 +511,9 @@ public sealed class Powertrain
         if (VehicleSystemsMod.DriveLog.DebugEnabled) LogDrive(vehicle, conditions);
         if (Turbine != null)
         {
-            (int working, int engines) = Engines();
             // Gap T-1 (Framework 0.132.0): what the engine gives to other things heats and wears the turbine as driving does.
             double demand = Spec.RatedPowerKw > 0 ? (Result.EnginePowerKw + (running ? comp.LedgerExtraKw : 0)) / Spec.RatedPowerKw : 0;
-            TurbineNow = TurbineModel.Evaluate(Turbine, demand, comp.Ambient, Condition(), working, engines, running, comp.AirPressure);
+            TurbineNow = TurbineModel.Evaluate(Turbine, demand, comp.Ambient, Condition(), EngineOutputShare(), running, comp.AirPressure);
         }
     }
 
@@ -513,7 +525,16 @@ public sealed class Powertrain
         Phase = Profile!.reader?.Read(vehicle);
         PhaseSpec = Profile.Phase(Phase);
         bool running = PhaseSpec?.running ?? false;
-        (int working, int engines) = Engines();
+        double share = EngineOutputShare();
+        // Framework 0.247.0: an engine still running gives less than its share, by its condition.
+        if (Seen.On && running && VehicleSystemsMod.Settings.damagedEnginesWeaker)
+        {
+            (int working, int engines) = Engines();
+            if (working > 0 && share < (double)working / Math.Max(1, engines) - 0.01 && Seen.Wants("vehicles.damaged-engine-weaker", vehicle))
+            {
+                Seen.Note("vehicles.damaged-engine-weaker", vehicle, null, null, new[] { new KeyValuePair<string, double>("share", share) });
+            }
+        }
         TurbineSpec spec = Turbine ?? new TurbineSpec();
         bool water = HasWater();
         TurbineSpec usable = water ? spec : dryTurbine ?? spec;
@@ -544,14 +565,14 @@ public sealed class Powertrain
         }
         double shaft = running ? ShaftShare(comp.GeneratorKw) : 0;
         double demand = BleedRule.Demand(flying, BleedShare) + shaft;
-        TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), working, engines, running, air);
+        TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), share, running, air);
         bool beyond = hovering && Full && TurbineNow.OverTop > 0;
         if (beyond && VehicleSystemsMod.Settings.hoverLimit == VehicleSystemsSettings.HoverLimit.WarnOnly)
         {
             // Warn only (owner's setting, 8 Nov 2026): the engine is held at its top rating, so nothing wears past it.
             demand = TurbineNow.Available * usable.Top.Share;
             flying = Math.Max(0, demand - shaft) / (1 + BleedShare);
-            TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), working, engines, running, air);
+            TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), share, running, air);
         }
         FlightDemand = running ? flying : 0;
         if (beyond && !hoverWarned && vehicle.Faction == Faction.OfPlayer)
@@ -624,7 +645,7 @@ public sealed class Powertrain
         return TurbineModel.HoverPowerNeeded(Profile!.hoverPowerAtMaxGross, mass / Math.Max(1, MaxGrossKg()), ambient, pressure);
     }
 
-    /// <summary>The share of its engines still working, 0 to 1.</summary>
+    /// <summary>The share of its engines' output left, 0 to 1: each engine by its condition with the setting on (Framework 0.247.0).</summary>
     public double WorkingEngineShare => EngineShare();
 
     /// <summary>Whether the aircraft can hover now: dry, only with water, or not at all; and the best margin (1 means just enough).</summary>
@@ -654,11 +675,7 @@ public sealed class Powertrain
         return (available >= needed, available >= needed, available / Math.Max(0.01, needed));
     }
 
-    double EngineShare()
-    {
-        (int working, int engines) = Engines();
-        return (double)working / Math.Max(1, engines);
-    }
+    double EngineShare() => EngineOutputShare();
 
     int UsableGears()
     {

@@ -139,6 +139,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>An aircraft's fuel follows its engines: flying between tiles, and hovering, climbing and idling on a map (Framework 0.132.0;
     /// owner, 18 Nov 2026: "world flight and on-map phases"). Off, aircraft burn their authors' flat rates. Live.</summary>
     public bool aircraftFuel = true;
+    /// <summary>A damaged turbine engine gives part of its output, not all or nothing (Framework 0.247.0, per-engine realism; the owner's card of
+    /// 23 Nov 2026). Risk moderate, the agent's grade (a shot-up aircraft is weaker before an engine stops, and may not hover heavy): on. Live.</summary>
+    public bool damagedEnginesWeaker = true;
     /// <summary>Each leg between tiles is flown at a height of its own: over the highest ground, under the ceiling the engines reach and the
     /// oxygen line, with fuel and speed following it (Framework 0.141.0; owner, 18 Nov 2026: build it). Off, every leg is flown as its author
     /// made it, with avionics A14's fixed figures for a jet whose oxygen is out. Live.</summary>
@@ -272,6 +275,7 @@ public class VehicleSystemsSettings : ModSettings
         "weatherGrip" => weatherGrip,
         "thinAir" => thinAir,
         "aircraftFuel" => aircraftFuel,
+        "damagedEnginesWeaker" => damagedEnginesWeaker,
         "cruiseHeight" => cruiseHeight,
         "ammoCookOff" => ammoCookOff,
         "fireWearOthers" => fireWearOthers,
@@ -352,6 +356,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref weatherGrip, "PhobosVehicleSystems_WeatherGrip", true);
         Scribe_Values.Look(ref thinAir, "PhobosVehicleSystems_ThinAir", true);
         Scribe_Values.Look(ref aircraftFuel, "PhobosVehicleSystems_AircraftFuel", true);
+        Scribe_Values.Look(ref damagedEnginesWeaker, "PhobosVehicleSystems_DamagedEnginesWeaker", true);
         Scribe_Values.Look(ref cruiseHeight, "PhobosVehicleSystems_CruiseHeight", true);
         Scribe_Values.Look(ref ammoCookOff, "PhobosVehicleSystems_AmmoCookOff", true);
         Scribe_Values.Look(ref fireWearOthers, "PhobosVehicleSystems_FireWearOthers", true);
@@ -462,6 +467,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.playerCrewsBailOut) report.Off("your crews leaving a burning vehicle", "off (setting)");
         if (Settings.fuelFeedsFire) report.On("leaking fuel feeding vehicle fires (setting)");
         if (!Settings.tyresRelight) report.Off("burning tyres relighting", "off (setting)");
+        if (!Settings.damagedEnginesWeaker) report.Off("damaged turbine engines giving less power", "off (setting)");
         if (Settings.tyreBursts) report.On("burning tyres bursting (setting)");
         else if (!CookOff.AmmoSystemOn) report.Off("ammunition cook-off", "Combat Extended's ammunition is not in use");
         if (!Settings.spallInsideVehicles) report.Off("spall inside vehicles", "off (setting)");
@@ -594,6 +600,8 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Section("PhobosVehicleSettings_SectionFlight".Translate());
         list.Check("PhobosVehicleSystems_SettingAircraftFuel".Translate(), ref s.aircraftFuel, d.aircraftFuel, "PhobosVehicleSystems_SettingAircraftFuelDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingCruiseHeight".Translate(), ref s.cruiseHeight, d.cruiseHeight, "PhobosVehicleSystems_SettingCruiseHeightDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingDamagedEnginesWeaker".Translate(), ref s.damagedEnginesWeaker, d.damagedEnginesWeaker,
+            "PhobosVehicleSystems_SettingDamagedEnginesWeakerDesc".Translate());
         list.Radio("PhobosVehicleSystems_SettingHoverLimit".Translate(), ref s.hoverLimit, d.hoverLimit,
             (VehicleSystemsSettings.HoverLimit[])System.Enum.GetValues(typeof(VehicleSystemsSettings.HoverLimit)),
             limit => ("PhobosVehicleSystems_Hover" + limit).Translate(), limit => ("PhobosVehicleSystems_Hover" + limit + "Desc").Translate());
