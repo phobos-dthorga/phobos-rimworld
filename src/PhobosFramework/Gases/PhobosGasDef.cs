@@ -59,10 +59,10 @@ public class PhobosGasRulesDef : Defs.PhobosRulesDef
     /// <summary>How enclosed a roofed cell is in a room that counts as outdoors.</summary>
     public float enclosureRoofedButOutdoors = 0.25f;
 
-    /// <summary>Fire smoke on the game's grid, per fire size per pass, as a fraction of a full cell (authored: a size-1 fire fills its cell in about 12 passes).</summary>
+    /// <summary>Fire smoke on the game's grid, per fire size per pass, as a fraction of a full cell (authored: a size-1 fire fills its cell in about 12 passes, about 18 game minutes; a 60-tick pass is about 1.4 game minutes).</summary>
     public float fireSmokePerSizePerPass = 0.08f;
     public float fireSmokeMaxPerPass = 0.2f;
-    /// <summary>Carbon monoxide per fire size per pass, in cells of gas (authored: a size-1 fire fills a 20-cell room in about 50 passes, 50 minutes).</summary>
+    /// <summary>Carbon monoxide per fire size per pass, in cells of gas (authored: a size-1 fire fills a 20-cell room in about 50 passes, about 72 game minutes).</summary>
     public float fireCarbonMonoxidePerSizePerPass = 0.4f;
     public float fireCarbonMonoxideMaxPerPass = 1f;
     /// <summary>The framework's carbon monoxide gas, which fires feed. Null if the Def is missing.</summary>

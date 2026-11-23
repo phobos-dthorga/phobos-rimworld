@@ -22,12 +22,16 @@
     <!-- How enclosed a roofed cell is in a room that counts as outdoors, open to the sky or the map edge. -->
     <enclosureRoofedButOutdoors>0.25</enclosureRoofedButOutdoors>
 
+    <!-- A pass is 60 ticks, about 1.4 game minutes (a game hour is 2,500 ticks). The owner chose to keep this pace
+         (24 Nov 2026); before then these comments read a pass as one game minute. -->
+
     <!-- Fire smoke on the game's grid, when Combat Extended's smoke is not in use: a size-1 fire fills its own cell in about
-         12 passes (12 minutes of game time), and the game spreads and fades it from there. -->
+         12 passes (750 ticks, about 18 game minutes), and the game spreads and fades it from there. -->
     <fireSmokePerSizePerPass>0.08</fireSmokePerSizePerPass>
     <fireSmokeMaxPerPass>0.2</fireSmokeMaxPerPass>
 
-    <!-- Carbon monoxide, in cells of gas per pass: a size-1 fire fills a 20-cell room in about 50 passes (50 minutes). -->
+    <!-- Carbon monoxide, in cells of gas per pass: a size-1 fire fills a 20-cell room in about 50 passes (3,000 ticks, about
+         72 game minutes). -->
     <fireCarbonMonoxidePerSizePerPass>0.4</fireCarbonMonoxidePerSizePerPass>
     <fireCarbonMonoxideMaxPerPass>1</fireCarbonMonoxideMaxPerPass>
     <fireCarbonMonoxideGas>PhobosGas_CarbonMonoxide</fireCarbonMonoxideGas>

@@ -11,6 +11,7 @@ tested in game unless an entry says the owner tested it.
 - **The README is slimmer**: its gotchas keep only real warnings, about half as long, and what it adds is a short list into the
   guide's chapters. The settings tables gain the 21 settings they lacked, and the README and Workshop draft name what the owner
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
+- **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
 ## [0.276.0] - 2026-11-24 - Draft
 

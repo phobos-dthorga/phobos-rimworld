@@ -73,14 +73,16 @@ of that sum, or a filter mask would stop carbon monoxide. Without Combat Extende
 
 ### Fires
 
-Every pass (60 ticks), `MapComponent_PhobosFireSmoke` walks the map's fires. For each **roofed** fire:
+Every pass (60 ticks, about 1.4 game minutes: a game hour is 2,500 ticks), `MapComponent_PhobosFireSmoke` walks the map's
+fires. For each **roofed** fire:
 
 - **Smoke on the game's grid**, only when Combat Extended's smoke is not in use: 0.08 of a full cell per unit of fire size, at
-  most 0.2 (authored). The game then spreads it through open doors, fades it more slowly under a roof, and gives it its aim
-  and sight penalties.
+  most 0.2 (authored). A size-1 fire fills its own cell in about 12 passes, about 18 game minutes. The game then spreads it
+  through open doors, fades it more slowly under a roof, and gives it its aim and sight penalties.
 - **Carbon monoxide into the room**, on either path, when the gas's source is the Framework's own: 0.4 cells of gas per unit
-  of fire size, at most 1 (authored). A size-1 fire fills a 20-cell room in about 50 passes, about an hour and a quarter of game
-  time.
+  of fire size, at most 1 (authored). A size-1 fire fills a 20-cell room in about 50 passes (3,000 ticks), about 72 game
+  minutes. **The owner chose to keep this pace** (24 Nov 2026), when `Rules.xml`'s comments were found to read a pass as one
+  game minute (they said 50 minutes); the comments now give the game minutes.
 
 ### Carbon monoxide
 
@@ -337,8 +339,6 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
 - **A pawn short of the requirement after suiting up carries on in**: the gear choice adds offsets only, so another mod's
   multiplier can leave it short.
 - **Gear taken off lands outside the line**, not in a locker; haulers put it away.
-- **Inferred from the code, not tested in game**: the comments in `Rules.xml` call a 60-tick pass a minute; a pass is about 1.4
-  game minutes, so a size-1 fire fills a 20-cell room in about 72 game minutes, not 50.
 
 ## Tests
 
