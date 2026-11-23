@@ -137,7 +137,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Medical equipment](systems/medical-equipment.md) (23 Nov 2026): how the oxygen, beds, devices, alarm and showers work now. Living.
 - [Radiation](systems/medical-radiation.md) (23 Nov 2026): how the dose, radiation sickness, care, late effects, dust and Rimatomics' doses work now. Living.
 - [Medical save bridge, how it works](systems/medical-save-bridge.md) (24 Nov 2026): the bridge for colonies saved before More Injuries, now. Living.
-- [Medical save bridge](medical-save-bridge.md) (3 Nov 2026): why adding More Injuries beside MSE2 wiped wounds, and the bridge. Built.
+- [Medical save bridge](archive/medical-save-bridge.md) (3 Nov 2026): why adding More Injuries beside MSE2 wiped wounds, and the bridge. Archived.
 - [Ventilation and hydrogen](ventilation-and-hydrogen.md) (7 Nov 2026): the electrolyser's hydrogen, vents, and workstation gases. Record only.
 - [Vaccines and prevention](vaccines-and-prevention.md) (7 Nov 2026): doctors preventing disease in healthy pawns. Record only.
 

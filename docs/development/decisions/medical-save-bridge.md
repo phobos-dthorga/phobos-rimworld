@@ -24,4 +24,4 @@ one says so.
 The two 7 Nov rows on asking come from the record's modders' notes and the code (`Services/BridgeChoices.cs`, "owner's call, 7
 November 2026" and "agent choice, 7 November 2026").
 
-[sb]: ../medical-save-bridge.md
+[sb]: ../archive/medical-save-bridge.md

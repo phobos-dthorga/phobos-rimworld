@@ -154,7 +154,7 @@ found the clinical evidence for it of low quality.
 
 ## The save bridge
 
-The record: [The save bridge](../development/medical-save-bridge.md).
+The record: [The save bridge](../development/archive/medical-save-bridge.md).
 
 The bridge asks first (convert now, not now, or never for this save; [mod consolidation](../development/mod-consolidation.md)),
 and its log lines start with [D'thorga Medical: save bridge]. It acts only while the gate is open: a mod that adds body parts is

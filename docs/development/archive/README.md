@@ -149,6 +149,13 @@ Archived on 23 Nov 2026; how it works now: [radiation](../systems/medical-radiat
 - [A radiation model of our own](radiation-model.md) (22 Nov 2026): dose, radiation sickness, care and late effects, RM1 to RM17;
   with [the health layer](../systems/health-layer.md).
 
+## Medical save bridge
+
+Archived on 24 Nov 2026; how it works now: [medical save bridge](../systems/medical-save-bridge.md).
+
+- [Medical save bridge](medical-save-bridge.md) (3 Nov 2026): why adding More Injuries beside MSE2 wiped wounds, the bridge, the
+  first load's counts and the drafted reports for More Injuries and MSE2.
+
 ## Factory Additions
 
 Archived on 24 Nov 2026; how it works now: [Factory Additions](../systems/factory.md).

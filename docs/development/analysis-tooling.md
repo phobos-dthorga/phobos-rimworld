@@ -36,7 +36,7 @@ Surveyed on 7 Nov 2026 across `docs/development/`, `scripts/` and the ignored `.
 
 | Job | How often | Tooling today |
 | --- | --- | --- |
-| Reading `Player.log` for a reported fault | Almost every report ([save bridge](medical-save-bridge.md), [missile patches](archive/missile-patches.md), the 1.7 readiness check) | None. A `grep -c` loop pasted into the save bridge record |
+| Reading `Player.log` for a reported fault | Almost every report ([save bridge](archive/medical-save-bridge.md), [missile patches](archive/missile-patches.md), the 1.7 readiness check) | None. A `grep -c` loop pasted into the save bridge record |
 | Reading a save for a diagnosis (injuries by load ID, burn fractions, gas cells, belts, building positions, research) | Most design records since late October | Five throwaway readers in `.local/tools/`, each reading the save differently |
 | Finding which mod defines or patches a Def | Every compatibility question | `scripts/check-factory-patches.py` for one case; otherwise searching by hand |
 | Finding which mods patch a game method, or a constant in a mod's DLL | Several records | Decompiling, or `.local/tools/us_strings.py` |
@@ -106,7 +106,7 @@ other), and `ParentName` inheritance (twice).
 - **`query`** ships ready-made reports: `schema` (where things are, with counts, so a session needn't read
   the file to find out), `things`, `pawns --hediffs`, `buildings`, `storage`, `research`, a grid count with
   an ASCII or PNG picture, and `diff` between two saves by load ID (the hediff-by-hediff comparison the
-  [save bridge](medical-save-bridge.md) did by hand).
+  [save bridge](archive/medical-save-bridge.md) did by hand).
 - **Format facts it needs,** already checked against real saves: packed grids are base64 of raw deflate
   holding little-endian 16-bit values; short Def hashes are the game's stable string hash modulo 65,535.
 - **Working slice first:** things, pawns, hediffs, the game header, the mod list, `schema` and `things`.

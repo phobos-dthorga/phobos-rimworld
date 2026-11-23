@@ -156,6 +156,6 @@ drawn as a setting.
 ## Why it is this way
 
 - **[The decision log](../decisions/medical-save-bridge.md)**: every choice, one line each, with who made it and where.
-- **Records kept in place**: [medical save bridge](../medical-save-bridge.md) (the failure, the chain read from the code, the
-  first load's counts, and the drafted reports).
+- **Archived records**, kept unchanged for their history: [medical save bridge](../archive/medical-save-bridge.md) (the failure,
+  the chain read from the code, the first load's counts, and the drafted reports).
 - **Also cited**: [mod consolidation](../mod-consolidation.md) (how the bridge became part of D'thorga Medical).

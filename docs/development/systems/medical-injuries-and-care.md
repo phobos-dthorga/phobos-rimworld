@@ -499,5 +499,5 @@ None of these is a test in game.
 - **Records kept in place** (they cover part of this system and another, or a design not yet built): [soft-dependency
   cross-links](../soft-dependency-crosslinks.md) (the drip stand, Search and Rescue's medics), [vaccines and
   prevention](../vaccines-and-prevention.md) (designed, not built). Also cited: [medical save
-  bridge](../medical-save-bridge.md) (More Injuries beside Medical Surgery Expanded 2), [the sound
+  bridge](../archive/medical-save-bridge.md) (More Injuries beside Medical Surgery Expanded 2), [the sound
   catalogue](../sound-catalogue.md) (coughing) and [mod consolidation](../mod-consolidation.md) (how the five mods became one).

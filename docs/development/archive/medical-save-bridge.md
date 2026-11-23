@@ -1,14 +1,14 @@
 # Medical save bridge: research and decisions (3 Nov 2026)
 
-**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../mods/PhobosMedical/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
+**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../../mods/PhobosMedical/README.md)** ([why](../mod-consolidation.md)); paths below are updated, the rest is as recorded.
 
-The record behind [D'thorga Medical Save Bridge](../../mods/PhobosMedical/README.md). **The first load was tested in game
+The record behind [D'thorga Medical Save Bridge](../../../mods/PhobosMedical/README.md). **The first load was tested in game
 by the owner on 3 November 2026**, with 0.1.0 and again with 0.1.1 (results at the end), then saved and reloaded; a new colony is not. The
 player guide is the mod's README; this holds the code readings, the evidence, the sources and who chose what. It started from
 a handoff the owner brought from a claude.ai investigation of the PG17 colony's logs and saves; what that handoff marked as a
 hypothesis was checked here before anything was built.
 
-How the medical save bridge works now: [systems/medical-save-bridge.md](systems/medical-save-bridge.md); this record keeps its history.
+How the medical save bridge works now: [systems/medical-save-bridge.md](../systems/medical-save-bridge.md); this record keeps its history.
 
 ## The failure
 
@@ -257,4 +257,4 @@ neither has been reproduced on a fresh save by us.
 ## For modders (moved from the README, 17 Nov 2026)
 
 Moved again on 24 November 2026, with the README's slimming, to the living page
-[D'thorga Medical for modders](../modding/medical.md), section "The save bridge".
+[D'thorga Medical for modders](../../modding/medical.md), section "The save bridge".
