@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using RimWorld;
@@ -85,6 +86,13 @@ public static class PartsOnLoad
                     throw new InvalidOperationException(props.compClass + " is not a vehicle component");
                 component.Initialize(props);
                 component.PostCreate();
+                // A part added one for each part of a role (Framework 0.250.0, brakes at each wheel) takes the health of the one part the
+                // vehicle was saved with, as the same brakes were simply counted as one before.
+                if (EachPart.HealthFrom(vehicle.VehicleDef!, props.key) is { } source
+                    && __instance.components.FirstOrDefault(c => c.props.key == source) is { } original)
+                {
+                    component.SetHealth(component.MaxHealth * original.HealthPercent);
+                }
                 __instance.components.Add(component);
                 if (byKeys != null) byKeys[props.key] = component;
                 Recache?.Invoke(__instance, new object[] { component });

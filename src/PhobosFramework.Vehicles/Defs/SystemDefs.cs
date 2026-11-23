@@ -472,6 +472,15 @@ public class PartToAdd
     /// alive nor brings a vehicle closer to destruction (docs/development/vehicle-health-design.md).
     /// </summary>
     public bool countsTowardDestruction = true;
+    /// <summary>
+    /// One part for each part bound to this role, rather than one in all (Framework 0.250.0; per-engine realism round two, the owner's card of
+    /// 23 Nov 2026: brakes one per wheel). The first keeps <see cref="key"/> and takes the first such part's cells; the others are
+    /// "key_their key", each at its own part, appended after every other part we add so the saved order of earlier parts stays. A part added
+    /// to a vehicle saved before takes the first's health (PartsOnLoad). With fewer than two such parts, one part as before.
+    /// </summary>
+    public string? eachOf;
+    /// <summary>The label of each part made by <see cref="eachOf"/>, with {PART} for the part it sits at ("{PART} brake"). Empty: the label.</summary>
+    [MustTranslate] public string? eachLabel;
 }
 
 /// <summary>One entry of a loadout's cellsOfRemap: parts placed by the cells of <c>from</c> take the cells of <c>to</c> instead.</summary>

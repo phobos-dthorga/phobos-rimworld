@@ -239,6 +239,14 @@
         <showOnDashboard>true</showOnDashboard>
         <remainingLabel>brakes</remainingLabel>
         <label>brake wear</label>
+        <!-- Framework 0.250.0 (per-engine realism round two; the owner's card of 23 Nov 2026): each wheel's brake keeps its own wear where a
+             vehicle has one at each wheel. The front axle does more of the stopping, as weight shifts forward under braking: 1.5 against
+             the others' 1 (authored; about 60/40 on a two-axle vehicle). New pads go on the most worn axle, both sides together. -->
+        <perPart>
+          <role>Brakes</role>
+          <frontAxleWeight>1.5</frontAxleWeight>
+          <restoreByAxle>true</restoreByAxle>
+        </perPart>
         <unit>Fraction</unit>
         <min>0</min>
         <max>1</max>
@@ -446,6 +454,8 @@
         <perHealthLost>0.02</perHealthLost>
       </li>
     </onPartHit>
+    <!-- Framework 0.250.0: with a brake at each wheel, the service does the most worn axle (perPart above), one pad set an axle; while another
+         axle is still past its limit, it falls due again. -->
     <service>
       <label>new brake pads</label>
       <dueQuantity>brakeWear</dueQuantity>

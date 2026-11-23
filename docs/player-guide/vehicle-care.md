@@ -80,7 +80,7 @@ The short version: **service when it is due, keep a kit in the cargo, and park s
 | **Running hot**, then overheating, then boiling over | A holed radiator, low coolant, hard work in the heat, a snapped drive belt | Stop and let it cool; repair the radiator; a **coolant top-up**, due at 60% |
 | Oil low, hot or losing pressure | Oil burns as the engine runs, faster when worn; a damaged oil pump | A **service** tops it up |
 | Slower, then failing tyres | Tread wears, up to three times as fast off the roads | A service with a **tyre set** |
-| Slower, then **won't drive** | Brakes wear with every stop, faster laden, towing or fast | A service with a **brake pad set**; **heavy-duty brakes** wear slower |
+| Slower, then **won't drive** | Brakes wear with every stop, faster laden, towing or fast; **the front brakes fastest** | A service with a **brake pad set**, **one set an axle**, the most worn axle first; **heavy-duty brakes** wear slower |
 | Loses its top gears, slips under load | A damaged gearbox or clutch | Repair the gearbox and clutch |
 | **Brakes worn**, then **no brakes**: it drives, but runs on past where it stops and strikes what is in its way | Brake pads wear as the vehicle moves, more when towing | New pads with a **brake pad set**. **Do not drive it near people or walls until then** |
 | **Clutch slipping**, then **worn through**: it crawls, with a quarter of its drive | The clutch wears a little at each take-off, more with a heavy load | A new clutch with a **clutch kit** |
@@ -378,7 +378,8 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   of an axle together**, even from one wheel's own menu, and an axle gains nothing until both are done. **A twin-engined aircraft's new engines are a
   matched pair**: ordering them on one engine orders both, one new engine and one job each, and nothing changes in flight until both
   are in, so the aircraft never flies with one engine stronger than the other. Cancelling or taking them off does both too.
-- **More fittings** (not yet tested in game): **heavy-duty brakes** (wear slower), a **transmission cooler** (a cooler gearbox when
+- **More fittings** (not yet tested in game): **heavy-duty brakes** (wear slower; **fitted an axle at a time, both wheels together**, since
+  each wheel has its own brake), a **transmission cooler** (a cooler gearbox when
   hauling heavy in the heat), a **gear-reduction starter** (a cold engine starts on a tired battery), **cab insulation** (on a vehicle
   with a cab part: the cab keeps its warmth and the night heater burns less), a **fuel heater** (fuel never gels), a **battery warmer**
   (parked by a powered grid, the battery stays above freezing) and a **heavy-duty air filter** (for deserts). **An engine, a battery and

@@ -150,6 +150,8 @@ public static class VehicleSystems
             if (keys.Count > 0) props.roleKeys[role.role] = keys;
             else if (role.add != null) pending.Add(role);
         }
+        // Parts added one for each part of another role (Framework 0.250.0, brakes at each wheel): the first goes here, the rest last.
+        var waiting = new List<(string role, PartToAdd add, List<string> targets)>();
         foreach (PartRoleSpec role in pending)
         {
             PartToAdd add = role.add!;
@@ -158,7 +160,9 @@ public static class VehicleSystems
                 Problems.Add(def.defName + ": already has a part called " + add.key);
                 continue;
             }
-            VehicleComponentProperties part = MakePart(def, add, props);
+            List<string>? targets = EachPart.Targets(add, props);
+            if (targets != null) waiting.Add((role.role, add, targets));
+            VehicleComponentProperties part = targets != null ? MakePart(def, add, props, targets[0], EachPart.Label(def, add, targets[0])) : MakePart(def, add, props);
             def.components.Add(part);
             props.roleKeys[role.role] = new List<string> { add.key };
             props.addedKeys.Add(add.key);
@@ -183,6 +187,8 @@ public static class VehicleSystems
         if (props.addedKeys.Contains(FireFighting.BracketKey)) added++;
         if (props.addedKeys.Contains(FireFighting.EngineSystemKey)) added++;
         if (props.addedKeys.Contains(FireFighting.CrewSystemKey)) added++;
+        // The rest of the parts made one for each part of a role (Framework 0.250.0), after every other part we add, so saved indexes hold.
+        added += EachPart.AppendWaiting(def, props, waiting);
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).
         foreach (KeyValuePair<string, List<string>> pair in props.roleKeys)
         {
@@ -249,7 +255,11 @@ public static class VehicleSystems
         return added;
     }
 
-    internal static VehicleComponentProperties MakePart(VehicleDef def, PartToAdd add, CompProperties_PhobosVehicleSystems props)
+    /// <param name="referenceKey">The part whose cells (and armour) to take, in place of the first part of the add's cellsOf role (eachOf).</param>
+    /// <param name="label">The part's label, in place of the add's (eachOf).</param>
+    /// <param name="key">The part's key, in place of the add's (eachOf).</param>
+    internal static VehicleComponentProperties MakePart(VehicleDef def, PartToAdd add, CompProperties_PhobosVehicleSystems props, string? referenceKey = null,
+        string? label = null, string? key = null)
     {
         var hitbox = new ComponentHitbox();
         VehicleComponentProperties? reference = null;
@@ -262,7 +272,11 @@ public static class VehicleSystems
                 if (remap.from == cellsOf) { cellsOf = remap.to; break; }
             }
         }
-        if (cellsOf != null && props.roleKeys.TryGetValue(cellsOf, out List<string>? keys) && keys.Count > 0)
+        if (referenceKey != null)
+        {
+            reference = def.components.FirstOrDefault(p => p.key == referenceKey);
+        }
+        else if (cellsOf != null && props.roleKeys.TryGetValue(cellsOf, out List<string>? keys) && keys.Count > 0)
         {
             reference = def.components.FirstOrDefault(p => p.key == keys[0]);
         }
@@ -279,8 +293,8 @@ public static class VehicleSystems
         }
         return new VehicleComponentProperties
         {
-            key = add.key,
-            label = add.label,
+            key = key ?? add.key,
+            label = label ?? add.label,
             health = add.health,
             // A design armoured by class keeps one outer part to a cell (Framework 0.154.0; vehicle-armour.md): what we append goes inside it,
             // or Combat Extended would make a shot beat our bracket's armour on top of the design's own.

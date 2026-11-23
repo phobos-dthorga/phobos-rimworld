@@ -811,6 +811,9 @@
           <label>brakes</label>
           <health>25</health>
           <cellsOf>Wheels</cellsOf>
+          <!-- Framework 0.250.0: a brake at each wheel. -->
+          <eachOf>Wheels</eachOf>
+          <eachLabel>{PART} brake</eachLabel>
         </add>
       </li>
       <li>

@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.250.0] - 2026-11-23 - Draft
+
+Per-engine realism, round two continued: a brake at each wheel, and the smaller ideas
+
+### Added
+
+- **A brake at each wheel** (the owner's card of 23 November 2026; docs/development/per-engine-realism.md, step 7): the brakes our loadouts add are now one part per wheel, each at its own wheel, so a hit there reaches that wheel's brake. Each wheel's brake keeps its own wear: the front axle does more of the stopping and wears about half as fast again as the rear (authored). The gauge shows the worst wheel. New pads go on the most worn axle, both sides together, one pad set an axle; with another axle past its limit, the service falls due again. Heavy-duty brakes now go on an axle as a pair, as tyres do, at 15 steel, 2 components and 3,000 work a wheel (60, 8 and 12,000 on a two-axle vehicle, against 50, 5 and 8,000 before). A design whose author drew its own brake part keeps it. For other mods: eachOf and eachLabel on a loadout's added part. Not yet tested in game: row 406 of the test pass.
+
+### Save compatibility
+
+- Safe, with a step at the first load: each vehicle saved with one brake part gains a brake at every other wheel, each with that part's health, and every wheel's brakes start at the vehicle's one wear figure. Heavy-duty brakes fitted before stay on the first wheel's brake; that axle gains nothing until its other wheel has them too, which the fittings window offers.
+
+### Compatibility and limits
+
+- The brakes still work by the wheels' brakes on average: one wrecked wheel brake no longer stops a vehicle braking at all. A hit on one wheel's brake adds wear shared by all of them, not that wheel alone. Brakes mismatched on an axle cannot be fitted, so their pull to one side is not modelled.
+
 ## [0.249.0] - 2026-11-23 - Draft
 
 The engine's loads, the third round: four changes made together in one working tree. Not yet tested in game.

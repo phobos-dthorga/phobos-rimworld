@@ -383,8 +383,13 @@
     <label>heavy-duty brakes</label>
     <description>Bigger discs and thicker pads, made for a laden truck. They take a load's stopping in their stride and wear more slowly.</description>
     <roles><li>Brakes</li></roles>
-    <materials><Steel>50</Steel><ComponentIndustrial>5</ComponentIndustrial></materials>
-    <work>8000</work>
+    <!-- Framework 0.250.0 (per-engine realism round two): a brake at each wheel, so they go on an axle as a pair, as tyres do; mismatched
+         brakes on an axle pull a vehicle to one side. Materials and work are per wheel now: a two-axle vehicle takes 60 steel, 8 components
+         and 12,000 work in all, against 50, 5 and 8,000 for the one part before (authored: four heavier calipers and discs). -->
+    <matchedSet>true</matchedSet>
+    <matchedPerAxle>true</matchedPerAxle>
+    <materials><Steel>15</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <work>3000</work>
     <minSkill>4</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <parameterFactors>

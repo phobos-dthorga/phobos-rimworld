@@ -419,7 +419,22 @@ public sealed class VehicleFittings
     {
         List<VehicleComponent> playing = ListedParts().Where(p => def.roles.Any(role => comp.PartPlays(p, role))).ToList();
         if (!def.matchedPerAxle) return new List<List<VehicleComponent>> { playing };
-        return PartRows().Select(row => row.Where(playing.Contains).ToList()).Where(group => group.Count > 0).ToList();
+        // Framework 0.250.0: the parts grouped by where they sit along the vehicle (AxleRule, as the window's axle rows group wheels), so
+        // parts that sit at the wheels without being wheels (a brake at each wheel) pair by axle too. A part with no hit area stays alone.
+        var placed = new List<VehicleComponent>();
+        var along = new List<float>();
+        var groups = new List<List<VehicleComponent>>();
+        foreach (VehicleComponent part in playing)
+        {
+            if (part.props.hitbox?.Hitbox is { Count: > 0 } cells)
+            {
+                placed.Add(part);
+                along.Add((float)cells.Average(cell => cell.z));
+            }
+            else groups.Add(new List<VehicleComponent> { part });
+        }
+        foreach (List<int> axle in AxleRule.Group(along, AxleTolerance)) groups.Add(axle.Select(i => placed[i]).ToList());
+        return groups;
     }
 
     /// <summary>The fitted parts of matched sets whose group is whole, kept until what is fitted changes. Derived, never saved.</summary>

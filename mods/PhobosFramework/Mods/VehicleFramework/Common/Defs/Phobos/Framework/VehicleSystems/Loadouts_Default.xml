@@ -284,6 +284,10 @@
           <label>brakes</label>
           <health>30</health>
           <cellsOf>Wheels</cellsOf>
+          <!-- Framework 0.250.0 (per-engine realism round two): a brake at each wheel, so heavy-duty brakes pair by axle and each wheel's
+               brake keeps its own wear. -->
+          <eachOf>Wheels</eachOf>
+          <eachLabel>{PART} brake</eachLabel>
         </add>
       </li>
       <li>

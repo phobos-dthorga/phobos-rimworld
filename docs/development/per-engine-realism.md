@@ -154,6 +154,35 @@ rough-strip debris, engines starting in turn).
 - **Risk: low** (agent's grade): carried over, no new effect by itself.
 - **Other factions' vehicles:** the same on any faction's vehicle; saved with it.
 
+### Step 7: a brake at each wheel (built, Framework 0.250.0)
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Fit heavy-duty brakes an axle at a time; see which wheel's brakes are worn |
+| What it stops them doing | Fitting one brake upgrade to a whole vehicle; a hit on one wheel now damages that wheel's brake alone |
+| How it changes play | Front brakes wear first and are changed first, an axle and a pad set at a time |
+| What outside the vehicle notices | The colony's stores: pad sets go an axle at a time; heavy-duty brakes cost a little more in all |
+
+- **The parts:** a loadout's added part may now be made one for each part of a role (`PartToAdd.eachOf`, with `eachLabel`; `EachPart`).
+  The brakes our loadouts add are made one per wheel: the first keeps the key `PhobosBrakes` and its place, the rest are
+  `PhobosBrakes_<wheel key>`, appended after every other part we add, because Vehicle Framework matches saved parts by position. Each takes
+  its own wheel's cells, so a hit there reaches that brake. A design whose author drew its own brake part keeps it, as before.
+- **Wear:** `brakeWear` is kept per part (step 6): the front axle weighs 1.5 against the others' 1 (AUTHORED; weight moves forward under
+  braking, so front brakes do more of the work: about 60/40 on two axles). The gauge shows the worst wheel. **New pads go on the most
+  worn axle, both sides together**, one pad set an axle; while another axle is past its limit the service falls due again.
+- **Heavy-duty brakes** are now a matched set per axle, as tyres and springs are (step 3), at 15 steel, 2 components and 3,000 work a
+  wheel (AUTHORED; 60, 8 and 12,000 on two axles, against 50, 5 and 8,000 for the one part before). Matched sets per axle now group parts
+  by where they sit along the vehicle, not only wheels, so a brake at each wheel pairs by axle too.
+- **Limits:** the brakes' working order is the average of the wheels' (`Input_PartEfficiency`), so one wrecked wheel brake no longer
+  stops a vehicle braking at all; it takes most of them. A hit on one wheel's brake adds wear to the vehicle's figure, which is then
+  shared among all the brakes, not to that wheel alone (a simplification). Mismatched brakes are not modelled as pulling to one side;
+  the pairing stops them being fitted mismatched.
+- **Older saves:** a vehicle saved with one brake part gains the others at its first load, each with that part's health; its brakes'
+  wear starts at the one figure for every wheel. A vehicle fitted with heavy-duty brakes before keeps them on the first wheel's brake;
+  the axle gains nothing until both its wheels carry them (the fittings window offers the rest).
+- **Risk: moderate** (agent's grade): parts are added to saved vehicles, by the same path the glass and the extinguisher took.
+- **Other factions' vehicles:** the same parts and wear on any faction's vehicle with our loadout; saved with it.
+
 ## Sources
 
 - Our own code, read on 23 Nov 2026: `Powertrain.Engines`, `TurbineModel.Evaluate`, the turbine system (`Systems_Turbine.xml`).
