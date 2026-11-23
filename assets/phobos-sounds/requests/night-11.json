@@ -1,0 +1,77 @@
+[
+ {
+  "name": "n11-extinguisher",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   81,
+   82,
+   83
+  ],
+  "loop": false,
+  "prompt": "A small handheld dry-powder fire extinguisher discharged in two short bursts: a sharp pressurised hiss and soft powdery whoosh, then the valve snapping shut. Outdoors, a few metres away, not loud. Length: 3 seconds",
+  "art_plan": {
+   "why": "S142, the vehicle extinguisher's use (Framework 0.241.0), which plays the game's Interact_BeatFire now (candidates only, agent's choice of 23 Nov 2026 on the owner's word to add sounds to the run; nothing is wired until the owner picks)"
+  }
+ },
+ {
+  "name": "n11-suppression",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   81,
+   82,
+   83
+  ],
+  "loop": false,
+  "prompt": "An automatic fire suppression system going off inside a truck's engine bay: a muffled metallic click, then a steady rushing hiss of gas from several nozzles behind a closed panel, fading out. Heard from outside the vehicle, muffled, not alarming. Length: 4 seconds",
+  "art_plan": {
+   "why": "S143, automatic suppression's discharge (Framework 0.241.0), silent now (candidates only, agent's choice of 23 Nov 2026 on the owner's word to add sounds to the run; nothing is wired until the owner picks)"
+  }
+ },
+ {
+  "name": "n11-purge",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   81,
+   82,
+   83
+  ],
+  "loop": false,
+  "prompt": "Clean water from a hose splashing hollowly into an empty metal tank through an open hatch, sloshing inside, then draining out of a valve at the bottom with a gurgle. Outdoors, calm. Length: 6 seconds",
+  "art_plan": {
+   "why": "S144, Purge the tank (Framework 0.242.0), silent now (candidates only, agent's choice of 23 Nov 2026 on the owner's word to add sounds to the run; nothing is wired until the owner picks)"
+  }
+ },
+ {
+  "name": "n11-window",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   81,
+   82,
+   83
+  ],
+  "loop": false,
+  "prompt": "A truck cab's side window being wound down by a hand crank: a soft rhythmic ratcheting of the winder and the glass sliding down in its rubber seal, ending with a gentle thunk. Close, quiet. Length: 3 seconds",
+  "art_plan": {
+   "why": "S145, the Windows down switch (Framework 0.233.0), silent now (candidates only, agent's choice of 23 Nov 2026 on the owner's word to add sounds to the run; nothing is wired until the owner picks)"
+  }
+ },
+ {
+  "name": "n11-glass-crack",
+  "engine": "sa3-sfx",
+  "seconds": 2,
+  "seeds": [
+   81,
+   82,
+   83
+  ],
+  "loop": false,
+  "prompt": "A stone chip striking a vehicle windscreen: a single sharp tick and a short crackle of laminated glass cracking, still in one piece. Close, quiet, not alarming. Length: 2 seconds",
+  "art_plan": {
+   "why": "S146, a vehicle's glass cracking (Vehicles 0.106.0), silent now (candidates only, agent's choice of 23 Nov 2026 on the owner's word to add sounds to the run; nothing is wired until the owner picks)"
+  }
+ }
+]
