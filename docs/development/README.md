@@ -153,8 +153,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 
 ## Factory Additions and Water Tap
 
-- [VFE Factory additions](vfe-factory-additions.md) (28 Oct 2026): factory bills, the output guard, piped water, endless mince. Built.
-- [VFE Factory conveyors and hoppers](vfe-factory-conveyors.md) (28 Oct 2026): what belts pull from and push to; storage switches, stuck belts. Built.
+- [Factory Additions](systems/factory.md) (24 Nov 2026): how belts, the output guard, bill repair, generated bills and piped water work now. Living.
 - [Universal hoppers](universal-hoppers.md) (17 Nov 2026): who reads a hopper, the bulk bunker, belts to vehicles, UH1 to UH16. Partly built.
 - [Water tap](water-tap.md) (4 Nov 2026): Dubs Bad Hygiene's bottles and water quality, and the split-stack fix. Built.
 
@@ -241,6 +240,8 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Medical equipment](archive/medical-equipment.md) (5 Nov 2026): bedside oxygen and the burn unit bed. Archived.
 - [Medical equipment, second set](archive/medical-equipment-2.md) (7 Nov 2026): the ventilator, steriliser and six more. Archived.
 - [A radiation model of our own](archive/radiation-model.md) (22 Nov 2026): dose, radiation sickness, care, late effects; RM1 to RM16. Archived.
+- [VFE Factory additions](archive/vfe-factory-additions.md) (28 Oct 2026): factory bills, the output guard, piped water, endless mince. Archived.
+- [VFE Factory conveyors and hoppers](archive/vfe-factory-conveyors.md) (28 Oct 2026): what belts pull from and push to; switches, stuck belts. Archived.
 - [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
 - [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
 - [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

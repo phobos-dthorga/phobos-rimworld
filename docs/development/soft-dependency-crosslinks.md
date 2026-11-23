@@ -159,7 +159,7 @@ One row per unbuilt proposal that names another author's mod. The design stays i
 | [Berths](archive/vehicle-accessories.md#sleeping-berths-roof-tents-cab-bunks-and-driving-through-the-night-13-nov-2026) | Field Tents | Bunks in the caravan bed list | Answered | Unchanged |
 | [Hotboxing](archive/vehicle-hotboxing.md) | Drug mods, Ideology | Their smoked drugs through the smoke test | Not built | Unchanged |
 | [Parts bills](archive/parts-bills.md) | Rimefeller synthamide and composite | Faired or insulated upgrade | Candidate | Unchanged |
-| [Factory additions](vfe-factory-additions.md) | Biological Warfare samples; Vanilla Pirates rumsuit; VAE medic bag; Dubs Bad Hygiene; Anomaly; Biotech; Smithy and DMS printers | Ports and ideas | Not done | Unchanged; Luciferium stays out (owner's choice) |
+| [Factory additions](archive/vfe-factory-additions.md) | Biological Warfare samples; Vanilla Pirates rumsuit; VAE medic bag; Dubs Bad Hygiene; Anomaly; Biotech; Smithy and DMS printers | Ports and ideas | Not done | Unchanged; Luciferium stays out (owner's choice) |
 | [Vaccines and prevention](vaccines-and-prevention.md) | Biological Warfare; Dubs Bad Hygiene; Combat Extended masks | Vaccines; hygiene against disease; masks against airborne disease | Record only | See SD20 |
 | [Workstation effects](ventilation-and-hydrogen.md#workstation-environmental-effects-design-7-nov-2026) | Rimefeller, VFE Factory refiners, Combat Extended smoke | Workstation gases | Record only | Unchanged; SD8 makes any gas from them reach the right rooms |
 | [Cross-map strikes](cross-map-strikes.md) | DMS Expedition; InterRim Ballistic Missile | Rules for our cross-map weapons | Proposals | **Joined by** the air-defence record |

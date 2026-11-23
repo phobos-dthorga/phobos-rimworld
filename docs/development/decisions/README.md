@@ -17,3 +17,4 @@ One table per system: each decision in one row, with its date, who made it, why 
 - [Medical equipment](medical-equipment.md) (23 Nov 2026): 65 decisions, 4 to 16 Nov 2026. Living.
 - [Radiation](medical-radiation.md) (23 Nov 2026): 58 decisions, 13 to 22 Nov 2026. Living.
 - [Farming](farming.md) (24 Nov 2026): 227 decisions, 19 to 23 Nov 2026. Living.
+- [Factory Additions](factory.md) (24 Nov 2026): 117 decisions, 28 Oct to 17 Nov 2026. Living.

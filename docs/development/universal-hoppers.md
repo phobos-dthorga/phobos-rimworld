@@ -15,6 +15,8 @@ from what was read; **[S]** is a secondary source such as a Workshop comment. **
 
 How power, top-up and machines works now: [systems/power-and-machines.md](systems/power-and-machines.md); this record keeps its history.
 
+How Factory Additions works now: [systems/factory.md](systems/factory.md); this record keeps its history.
+
 ## Read this first
 
 - **One storage building with the right marks is read by nearly everything** in the owner's game that takes from a hopper: the
@@ -213,7 +215,7 @@ building it would take. Verdicts are the agent's, for the owner to overrule.
   cells under the fan. One Workshop comment reports an error storm from drop pods landing on belts **[S]**; things arriving on belts
   from above is not a path its authors tested.
 - **A sorting grate at the bunker.** VFE Factory's own filter belt already sorts: a belt with a narrowed filter sends allowed
-  goods ahead and the rest aside (our [conveyors record](vfe-factory-conveyors.md)).
+  goods ahead and the rest aside (our [conveyors record](archive/vfe-factory-conveyors.md)).
 - **A hopper that feeds ordinary workbenches.** No hook, as above.
 - **Reading Project RimFactory.** Switched off in the owner's game; out of scope by the owner's choice.
 

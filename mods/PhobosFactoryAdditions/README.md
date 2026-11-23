@@ -90,11 +90,11 @@ The **Belts may take from here** switch is not a mod setting: it is a button on 
 
 ## For modders
 
-- [VFE Factory additions: research and decisions](../../docs/development/vfe-factory-additions.md): how bills, hoppers and the output
+- [VFE Factory additions: research and decisions](../../docs/development/archive/vfe-factory-additions.md): how bills, hoppers and the output
   step work in Pipe System's code, every decision and who made it, and
-  [the README's modder notes](../../docs/development/vfe-factory-additions.md#for-modders-moved-from-the-readme-17-nov-2026) (bill
+  [the README's modder notes](../../docs/development/archive/vfe-factory-additions.md#for-modders-moved-from-the-readme-17-nov-2026) (bill
   rules, the `Mods/<SourceMod>/` file naming rule, `BenchBillTemplateDef`, `BeltFilterExtension`, piped water on your own bills).
-- [VFE Factory conveyors](../../docs/development/vfe-factory-conveyors.md): the belt code, and how to make storage feed belts by
+- [VFE Factory conveyors](../../docs/development/archive/vfe-factory-conveyors.md): the belt code, and how to make storage feed belts by
   default.
 
 ## Checks done
@@ -102,6 +102,6 @@ The **Belts may take from here** switch is not a mod setting: it is a button on 
 Each version was read in VFE Factory's, Pipe System's and the game's code, built with no warnings where it has C#, unit-tested where
 it has rules, and checked against the owner's installation with `scripts/check-factory-patches.py`; each version's checks are in the
 [changelog](CHANGELOG.md), and the dated list the README kept until 17 November 2026 is in
-[the design record](../../docs/development/vfe-factory-additions.md#checks-moved-from-the-readme-17-nov-2026). **Tested in game by
+[the design record](../../docs/development/archive/vfe-factory-additions.md#checks-moved-from-the-readme-17-nov-2026). **Tested in game by
 the owner:** the four items in the version line above. **Not yet tested in game:** everything else, starting with each new bill run
 to the end, the corner input cells, a belt taking from a chemfuel tap or the corpse fridge, and removal.

@@ -148,3 +148,12 @@ Archived on 23 Nov 2026; how it works now: [radiation](../systems/medical-radiat
 
 - [A radiation model of our own](radiation-model.md) (22 Nov 2026): dose, radiation sickness, care and late effects, RM1 to RM17;
   with [the health layer](../systems/health-layer.md).
+
+## Factory Additions
+
+Archived on 24 Nov 2026; how it works now: [Factory Additions](../systems/factory.md).
+
+- [VFE Factory additions](vfe-factory-additions.md) (28 Oct 2026): factory bills, the output guard, piped water, endless mince,
+  the drafted Pipe System report and the earlier modders' notes.
+- [VFE Factory conveyors and hoppers](vfe-factory-conveyors.md) (28 Oct 2026): what VFE Factory's belts pull from and push to,
+  storage switches, stuck belts, bills that outlive their recipe.

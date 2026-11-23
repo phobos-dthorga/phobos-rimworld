@@ -565,7 +565,7 @@ Where: the [Vanilla Expanded Framework repository](https://github.com/Vanilla-Ex
 ## Moved from the README (17 Nov 2026)
 
 The owner's go-ahead of 17 November 2026 ("Slim them") cut the mod's README to today's gotchas, the settings and links. **How to play,
-with every bill's inputs, output, time and research, is now in the player guide's [Factory chapter](../player-guide/factory.md)**, so
+with every bill's inputs, output, time and research, is now in the player guide's [Factory chapter](../../player-guide/factory.md)**, so
 where the sections above say "in the mod README", read that chapter. What the README held that no other record, the guide or the
 changelog carried is kept here as it was written.
 

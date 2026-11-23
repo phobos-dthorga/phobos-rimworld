@@ -34,6 +34,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   dose. Living.
 - [Farming](farming.md) (24 Nov 2026): D'thorga Farming's paddocks, the field run, the combine and its fronts, bins and the
   silo, crop classes, the Thane tractors, the plough, cultivators and drill, seed, and the Agricultural Frame's hay. Living.
+- [Factory Additions](factory.md) (24 Nov 2026): what D'thorga Factory Additions adds to VFE Factory: the belt switch, stuck
+  belts, the output guard, bill repair, the fabrication bay's generated bills, the deep hopper, new bills and piped water. Living.
 
 ## The template
 
