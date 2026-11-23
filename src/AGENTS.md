@@ -59,8 +59,11 @@ for word; the root's rules apply here too.
   game-free rules in its `Rules/` with tests in `tests/PhobosFramework.Rules.Tests`, UI helpers in `UI/`, persistence
   helpers in `Persistence/`. A mod or part keeps only what is specific to it: its Defs, its policy and its text. When in
   doubt, put it in the core.
-- **D'thorga Framework is that library** (owner, 4 November 2026; `mods/PhobosFramework`, `src/PhobosFramework`,
-  `docs/development/phobos-framework.md`). Every Phobos RimWorld mod with C# depends on it for the shared
+- **D'thorga Framework is that library** (owner, 4 November 2026; `mods/PhobosFramework`, `src/PhobosFramework`; how it
+  works: [framework services](../docs/development/systems/framework-services.md), [gases and air](../docs/development/systems/gases-and-air.md)
+  and [the health layer](../docs/development/systems/health-layer.md); its first record is
+  [archived](../docs/development/archive/phobos-framework.md)). Every other Phobos RimWorld mod declares it in `modDependencies`
+  (all seven, the Radio Framework since its 0.4.0) and depends on it for the shared
   helpers (optional mods by name, the load line, the display mode, rules Defs, the debug category, the
   uninstall sweep) and goes through its `PhobosGases` for any gas; never a second gas model. Existing mods
   adopt the helpers when next touched, not in a sweep.
@@ -100,10 +103,14 @@ for word; the root's rules apply here too.
   only when that mod is active, through `LoadFolders.xml` `IfModActive` folders, `MayRequire` and
   `PatchOperationFindMod` in XML, and `ModsConfig.IsActive` in C#. Never hard-reference an optional mod's
   assembly from a core assembly; put such code in a separate assembly loaded only from its `IfModActive`
-  folder. A player running the mod alone sees no errors. **The one hard dependency is Vanilla Expanded
-  Framework** (owner, 19 October 2026; extended to the planned medical equipment mod, 4 November 2026): the
-  radio framework's feedline is a VEF pipe network, declared in `modDependencies`, and `PipeSystem.dll` is
-  referenced from the installed mod with `Private=false`.
+  folder. A player running the mod alone sees no errors. **Vanilla Expanded Framework was the first hard
+  dependency beyond our own Framework** (owner, 19 October 2026; extended to the planned medical equipment mod, 4 November 2026):
+  the radio framework's feedline is a VEF pipe network, declared in `modDependencies`, and `PipeSystem.dll` is
+  referenced from the installed mod with `Private=false`. It is no longer the only one: the hard dependencies each mod
+  declares are generated into the player guide's table of what each mod needs
+  ([getting started](../docs/player-guide/getting-started.md), `scripts/doc-tables.py`). On 24 Nov 2026 they were VEF (Radio
+  Framework, Medical, Factory Additions), Vehicle Framework (Vehicles, Farming), Dubs Bad Hygiene (Water Tap), VFE Factory
+  (Factory Additions) and Harmony.
   VEF is CC BY-NC-ND 4.0 with a rider that permits depending on it: never copy its DLLs, source, art or
   XML into this repository or a build, and never adapt its code (`THIRD_PARTY_NOTICES.md`).
 - **Other Vanilla Expanded mods may become hard dependencies where one earns its place** (owner, 7 Nov 2026: they are
