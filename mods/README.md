@@ -3,7 +3,7 @@
 Each folder here is one mod, laid out exactly as players receive it, minus its built assemblies (DLLs),
 which are build products and never committed.
 
-- **What each mod does, and what it needs:** [the project README's table and diagram](../README.md#the-mods).
+- **What each mod does, and what it needs:** [the player guide's table and diagram](../docs/player-guide/README.md#the-mods).
 - **How to play with them:** [the player guide](../docs/player-guide/README.md).
 
 A mod folder holds:

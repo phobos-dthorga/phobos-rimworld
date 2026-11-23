@@ -54,8 +54,8 @@ Each kind of document has one job. Put a fact where it belongs, and link to it f
 
 | Document | Holds |
 | --- | --- |
-| [Project README](README.md) | The one mod table and dependency diagram, for visitors |
-| [Player guide](docs/player-guide/README.md) | How to play, a chapter per mod: the authority for what to build and press |
+| [Project README](README.md) | The landing page for visitors: what the project is, its status, where to start, licence |
+| [Player guide](docs/player-guide/README.md) | The players' front door, with the one mod table and diagram: the authority for what to build and press |
 | A mod's `README.md` | Its requirements, settings, figures and test status, gotchas first |
 | A mod's `CHANGELOG.md` | What changed, and when |
 | [Design records](docs/development/README.md) | Designs, research, decisions and diagnoses, each dated |

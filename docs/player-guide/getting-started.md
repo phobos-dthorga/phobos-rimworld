@@ -42,7 +42,7 @@ Then start RimWorld, open **Mods**, switch on what you want with what it needs, 
 
 1. Harmony, Core and the DLCs (the game puts these first).
 2. **Vanilla Expanded Framework, Vehicle Framework, Dubs Bad Hygiene, VFE - Factory**: whichever of these the D'thorga mods you
-   chose need ([the table and diagram](../../README.md#the-mods)).
+   chose need ([the table below](#what-each-mod-needs), or [the diagram](README.md#the-mods)).
 3. **D'thorga Framework.**
 4. The other D'thorga mods, after the mods they change. Each About file asks for this, so RimSort does it.
 

@@ -1,105 +1,35 @@
 # Phobos RimWorld
 
-Community mods for RimWorld by **House D'thorga** (also spelt dthorga): vehicles that need looking after and working trucks to
-look after, burns and smoke that matter, doctors who act on their own, hospital equipment, factory automation, fixes for other
-mods, plumbing, and a radio framework in which a real link budget decides every contact.
+Community mods for RimWorld 1.7 by **House D'thorga** (also spelt dthorga): vehicles that need looking after and working trucks to
+look after, burns and smoke that matter, doctors who act on their own, hospital equipment, factory automation, machines that work
+your fields, fixes for other mods, plumbing, and a radio framework in which a real link budget decides every contact.
 
-**Playing? Start with the [player guide](docs/player-guide/README.md)**: how to install, what to build first and what to press,
-with pictures, a chapter per mod.
+**Playing? Start with the [player guide](docs/player-guide/README.md)**: what each mod does and needs, how to install, what to
+build first and what to press, with pictures, a chapter per mod.
 
-**No mod is published on the Steam Workshop yet.** Seven mods are built and install from source; several are partly tested in
-game by the owner. **Code → Download ZIP** gives you source, not a built mod.
-
-## Read this first (gotchas)
-
-- **Nothing to subscribe to yet.** Today the mods install from source with `scripts/deploy.py`
-  ([getting started](docs/player-guide/getting-started.md)). They will be free on the Steam Workshop.
-- **RimWorld 1.7 only.** No mod supports 1.6 since 8 November 2026.
-- **Every D'thorga mod with code needs D'thorga Framework**, loaded before it. The radio framework is the one exception. Each mod's
-  README lists exactly what it needs.
-- **"Not yet tested in game" means exactly that.** A build, a unit test or reading the code is not a play test. Each README says
-  what the owner has tested, with the date.
-- **Safe to add to a running colony**, every one of them. Removal is safe for most after a step or two
-  ([removing a mod](docs/player-guide/getting-started.md#removing-a-mod)).
+**No mod is published on the Steam Workshop yet.** All eight mods are built and install from source
+([getting started](docs/player-guide/getting-started.md)). Several are partly tested in game by the owner; the rest is not yet
+tested in game. **Code → Download ZIP** gives you source, not a built mod.
 
 ## The mods
 
-Eight mods. This is the one full list: their versions are in [the version list](docs/README.md#mod-versions), and each has a
-chapter in the [player guide](docs/player-guide/README.md). Several older mods were merged into these on 7 November 2026
-([why](docs/development/mod-consolidation.md)).
+[D'thorga Framework](mods/PhobosFramework/README.md), [D'thorga Vehicles](mods/PhobosVehicles/README.md),
+[D'thorga Medical](mods/PhobosMedical/README.md), [D'thorga Factory Additions](mods/PhobosFactoryAdditions/README.md),
+[D'thorga Patches](mods/PhobosPatches/README.md), [D'thorga Farming](mods/PhobosFarming/README.md),
+[D'thorga Water Tap](mods/PhobosWaterTap/README.md) and [D'thorga Radio Framework](mods/PhobosRadioFramework/README.md).
+What each one does, what it needs and how they depend on one another is in
+[the player guide's table and diagram](docs/player-guide/README.md#the-mods).
 
-| Mod | What it does | Tested in game |
-| --- | --- | --- |
-| [D'thorga Framework](mods/PhobosFramework/README.md) | The shared library: what a pawn breathes, carbon monoxide from fires, the health layer the medical mods share; with Vehicle Framework, vehicle systems (battery, coolant, oil, engines, tyres, brakes, wear and service), a workshop, fittings and tunes, sling loads and submarine diving | Partly: gas layer and oxygen, through other mods |
-| [D'thorga Vehicles](mods/PhobosVehicles/README.md) | Working vehicles (a bulk tanker, drill rig, tipper, survey truck, generator set, seabed crawler, the Pintle trailers with the field kitchen and shower trailer, and the V-22 Osprey), the bulk bunker and loading chute, and real figures for other mods' vehicles | Partly: the survey truck, and the generator set's size and look |
-| [D'thorga Medical](mods/PhobosMedical/README.md) | Five mods in one since 7 November 2026: burns, burn shock, airway burns and smoke; doctors who dose and operate on their own (triage); oxygen, a burn unit bed and other hospital kit; radiation control with Rimatomics; and a safe way to add More Injuries to a running colony | Partly, as the five mods before the merge; not yet as one |
-| [D'thorga Factory Additions](mods/PhobosFactoryAdditions/README.md) | Additions to Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, a deep hopper, other mods' drug labs as factory bills, and fixes | Partly: the human-meat bill |
-| [D'thorga Patches](mods/PhobosPatches/README.md) | Fixes and honest costs for other authors' mods: the Harrier VTOL, RimThunder's heavy casting, Spaceship Turret Hull under Combat Extended, InterRim Ballistic Missile's strategic blast, Visit Settlements and Vehicle Framework | Partly: the stuck vehicle fires, and the missile fix once |
-| [D'thorga Farming](mods/PhobosFarming/README.md) | Machines that work your fields: machine-worked paddocks, a combine harvester that cuts them row by row, and a chaser bin for its grain | No |
-| [D'thorga Water Tap](mods/PhobosWaterTap/README.md) | A plumbing fixture for Dubs Bad Hygiene that keeps bottled water ready and refills from your water towers | No |
-| [D'thorga Radio Framework](mods/PhobosRadioFramework/README.md) | Phase 1 of the radio design: hand-held VHF and UHF radios, a base station, coax and antennas, a real link budget. Work on it started again on 23 November 2026 | No |
+## Where to start
 
-What each mod needs from other authors, and from one another (read from each mod's About file):
-
-```mermaid
-flowchart LR
-    subgraph ours["House D'thorga"]
-        Framework["D'thorga Framework"]
-        Medical["D'thorga Medical"]
-        Patches["D'thorga Patches"]
-        Vehicles["D'thorga Vehicles"]
-        Factory["Factory Additions"]
-        Farming["D'thorga Farming"]
-        Tap["Water Tap"]
-        Radio["Radio Framework"]
-    end
-    subgraph theirs["Other authors' mods"]
-        Harmony["Harmony"]
-        VEF["Vanilla Expanded Framework"]
-        VFEF["VFE - Factory"]
-        DBH["Dubs Bad Hygiene"]
-        VF["Vehicle Framework"]
-    end
-    Vehicles --> Framework
-    Vehicles --> VF
-    Framework -. "vehicle systems" .-> VF
-    Farming --> Framework
-    Farming --> VF
-    Farming --> Harmony
-    Tap --> Framework
-    Medical --> Framework
-    Patches --> Framework
-    Factory --> Framework
-    Medical --> Harmony
-    Patches --> Harmony
-    Factory --> Harmony
-    Medical --> VEF
-    Factory --> VEF
-    Radio --> VEF
-    Factory --> VFEF
-    Tap --> DBH
-    Framework -. "tie-in" .-> DBH
-    Vehicles -. "tie-in" .-> DBH
-    Medical -. "tie-in" .-> DBH
-    Factory -. "tie-in" .-> DBH
-    Vehicles -. "tie-in" .-> VEF
-    Patches -. "tie-in" .-> VF
-    Tap -. "tie-in" .-> VFEF
-```
-
-A solid arrow means "needs, loaded before it"; a dotted one is an optional tie-in that loads only while that mod is active.
-Other optional tie-ins (More Injuries, Combat Extended, Vanilla Gravship Expanded, the mods D'thorga Patches fixes, and more) work
-the same way; each README lists them. How D'thorga Medical's parts share the work when a colonist is hurt is in
-[the player guide's medical chapter](docs/player-guide/medical.md).
-
-## Choose your starting point
-
-- **Player:** the [player guide](docs/player-guide/README.md), starting with
-  [getting started](docs/player-guide/getting-started.md), and [help](SUPPORT.md). Each mod's README has its requirements, every
-  setting and figure, and what is tested, gotchas first.
-- **Curious about the designs:** [development and research](docs/development/README.md) holds a design record per mod, with
-  what was read from the game's code, who chose what, and the test protocol.
-- **Mod author or contributor:** [the documentation index](docs/README.md) (modder guides included),
+- **Players:** the [player guide](docs/player-guide/README.md), starting with
+  [getting started](docs/player-guide/getting-started.md), and [help and troubleshooting](SUPPORT.md). Each mod's README has its
+  requirements, every setting and figure, gotchas first.
+- **Modders:** [D'thorga Framework for modders](docs/framework-modding.md),
+  [vehicle systems for modders](docs/vehicle-systems-modding.md) and the
+  [reference site](https://phobos-dthorga.github.io/phobos-rimworld/), D'thorga Framework's types with XML examples.
+- **Contributors:** [development and research](docs/development/README.md) (a design record per mod, what was read from the
+  game's code, who chose what, the test list), [how the code is built](docs/development/architecture.md),
   [contributing](CONTRIBUTING.md), [building](docs/development/building.md) and the
   [RimWorld modding reference](docs/development/rimworld-modding-reference.md).
 - **Claude and other agents:** [AGENTS.md](AGENTS.md) holds the standing rules (Claude Code loads it through `CLAUDE.md`).

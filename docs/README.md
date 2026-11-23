@@ -1,34 +1,26 @@
 # Documentation
 
-An index of the documents. **No mod is published on the Steam Workshop yet**; all eight install from source
-([getting started](player-guide/getting-started.md)). What each mod does, and how they depend on one another, is in
-[the project README](../README.md#the-mods).
-
-## Where to look
-
-| You want | Read | It is the authority for |
-| --- | --- | --- |
-| How to play | [The player guide](player-guide/README.md), a chapter per mod, starting with [getting started](player-guide/getting-started.md) | How to install, build, press and play |
-| One mod's requirements, settings and figures | That mod's README, linked from the list below | Requirements, settings, figures and what is tested |
-| What changed, and when | That mod's `CHANGELOG.md`, beside its README | Version history |
-| Why something works as it does | [Development and research](development/README.md): a design record per mod and feature | Designs, research and decisions |
+Where to start, by who you are. **No mod is published on the Steam Workshop yet**; all eight install from source.
 
 ## For players
 
-- **[The player guide](player-guide/README.md)**: start here.
-- [Help and troubleshooting](../SUPPORT.md): where the log is and what a useful report needs.
+**[The player guide](player-guide/README.md)** is where players start: what each mod does and needs, how to install, and how to
+play, a chapter per mod. [Help and troubleshooting](../SUPPORT.md) says where the game's log is and what a useful report needs.
 
 ## For modders
 
 - [D'thorga Framework for modders](framework-modding.md): the shared library's helpers outside vehicles, for your own mods.
 - [Vehicle systems for modders](vehicle-systems-modding.md): give your Vehicle Framework vehicles their own batteries, coolant,
   air brakes or systems of your own, in XML, with D'thorga Framework.
+- [The reference site](https://phobos-dthorga.github.io/phobos-rimworld/): D'thorga Framework's types, with XML examples.
 
 ## For contributors
 
-Read [AGENTS.md](../AGENTS.md) and [CONTRIBUTING.md](../CONTRIBUTING.md) first. The [mods folder](../mods/README.md) explains how
-a mod folder is laid out. [Development and research](development/README.md) indexes the design records, the project direction,
-the build toolchain, the RimWorld modding reference and the writing guide.
+- [Development and research](development/README.md): the design records, the project direction, the build toolchain, the
+  RimWorld modding reference and the writing guide.
+- [How the code is built](development/architecture.md): layers, ticks, tie-ins, saves and removal, settings and tests.
+- Read [AGENTS.md](../AGENTS.md) and [CONTRIBUTING.md](../CONTRIBUTING.md) first; [the mods folder](../mods/README.md) explains
+  how a mod folder is laid out.
 
 ## Mod versions
 
