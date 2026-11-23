@@ -15,7 +15,7 @@ for if Trains of the Rim is updated or the owner starts using trains.
   problem, **most of them asking for 1.7**; **no reply from the uploader** among those 50. Its public source
   ([PrinceOfPluto/Trains-of-the-Rim](https://github.com/PrinceOfPluto/Trains-of-the-Rim), MIT) was last pushed the same day.
 - **It is on the owner's active list** and our steam and diesel-electric loadouts already cover its locomotives
-  ([vehicle-steam-design.md](vehicle-steam-design.md)). **Whether it works in the owner's 1.7 game is not known here**: nothing in this
+  ([vehicle-steam-design.md](archive/vehicle-steam-design.md)). **Whether it works in the owner's 1.7 game is not known here**: nothing in this
   record was tested in game.
 - **Marks:** **[Def]** read from the mod's Defs with `scripts/query-defs.py`; **[code]** read from its public source with
   `scripts/query-code.py`, outlines and one method only, summarised in our own words; **[A]** authored; **[I]** our inference.

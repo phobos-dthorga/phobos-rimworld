@@ -358,7 +358,7 @@ Icon: the truck from the north with the boom raised, on the house palette. Body 
   Framework (Oskar Potocki and the Vanilla Expanded team); Dubs Bad Hygiene and Rimefeller (Dubwise); RimThunder - Core (the RimThunder
   team); Local Mineral Scanner (Workshop 3798782281; author not recorded here).
 - **Our records:** [utility vehicles](utility-vehicles-design.md), [vehicle health, slice 3](vehicle-health-design.md#vehicle-health-slice-3-what-it-does-to-the-player-8-nov-2026-built-9-nov-2026),
-  [electric vehicles](vehicle-electric-design.md), [the generator set](vehicle-generator-set.md), `Systems_Electrical.xml`,
+  [electric vehicles](archive/vehicle-electric-design.md), [the generator set](vehicle-generator-set.md), `Systems_Electrical.xml`,
   `Loadouts_Default.xml`, `Drivetrains.xml`, `CompPhobosVehicleSystems.cs` (`ShorePowered()`).
 - **Logging-tool grounding (secondary; no link verified here):** sealed caesium-137 sources for density logging and americium-beryllium or
   californium-252 neutron sources for porosity logging are described in Ellis and Singer, *Well Logging for Earth Scientists* (Springer,

@@ -258,7 +258,7 @@ Every effect takes `when`. Those marked as consequences are skipped when the pla
 A `PhobosVehicleDrivetrainDef` is a vehicle's engine, gearbox, running gear and mass. The service works backwards from the speed
 the vehicle is moving at to the gear, rpm, load, fuel power and heat, and caps the speed only where the engine's power or the
 tyres' grip runs out (never below 15%: "Wheels spinning"). The design is in
-[the drivetrain record](development/vehicle-drivetrain-design.md). Vehicle Framework still decides every speed below the cap.
+[the drivetrain record](development/archive/vehicle-drivetrain-design.md). Vehicle Framework still decides every speed below the cap.
 
 ```xml
 <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
@@ -305,7 +305,7 @@ helicopter's rotor drive accepts, as a share of all engines' maximum-continuous 
 demand above it is over-torque, which `PhobosVehicleSystem_RotorDrive` turns into wear) and `liftToWeightAtMaxGross` (for the
 `Thruster` engine kind: thrust as a multiple of empty mass plus full cargo and fuel). A loadout may override either in its
 drivetrain `set`. See [the power and lift record](development/vehicle-power-and-lift-design.md). The design is in
-[the turbine record](development/vehicle-turbine-design.md).
+[the turbine record](development/archive/vehicle-turbine-design.md).
 
 ### Flight profiles
 

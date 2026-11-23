@@ -80,9 +80,9 @@ with the dev-mode timing readout against the 0.05 ms per tick budget.
 ## Records without the section
 
 These say nothing about other factions. Until each is next touched, this record is their section. The vehicle ones that matter most:
-[drivetrain](vehicle-drivetrain-design.md) (the lite tier, above), [sling](vehicle-sling-design.md) (salvage, above),
+[drivetrain](archive/vehicle-drivetrain-design.md) (the lite tier, above), [sling](vehicle-sling-design.md) (salvage, above),
 [tipper](vehicle-tipper-hauler.md), [drill rig](vehicle-drill-rig.md), [generator set](vehicle-generator-set.md) (F3),
-[survey truck](vehicle-survey-truck.md), [turbine](vehicle-turbine-design.md) (F1, F2), [electric](vehicle-electric-design.md),
+[survey truck](vehicle-survey-truck.md), [turbine](archive/vehicle-turbine-design.md) (F1, F2), [electric](archive/vehicle-electric-design.md),
 [world map](vehicle-world-map-design.md), [depot bays](vehicle-stations.md#home-depot-bays-design-9-nov-2026), [stations](vehicle-stations.md),
 [utility vehicles](utility-vehicles-design.md). The rest are research, art and reference records, where the rule does not apply.
 

@@ -2,11 +2,11 @@
 
 A design record. **Built in D'thorga Framework 0.11.0 on 8 Nov 2026 (see [As built](#as-built-dthorga-framework-0110-8-nov-2026)); not yet tested in game.** The text above that section keeps its original scope. The owner asked on 8 Nov 2026 to introduce engine
 speed (rpm) and, "if at all possible, a semi-realistic drivetrain provided we can maintain good performance". It was
-written while the [vehicle systems](vehicle-systems-design.md) service was being coded, and checked afterwards against
+written while the [vehicle systems](../vehicle-systems-design.md) service was being coded, and checked afterwards against
 what D'thorga Framework 0.9.0 built (8 Nov 2026). It **adds** to that schema (one optional loadout field, one new Def type,
 three new inputs, and a better source for the built `EngineLoad`) and changes nothing already there. The owner reads and
-corrects it before any code. Studied sources are in [vehicle simulation references](vehicle-references.md); Vehicle
-Framework facts come from [Vehicle Framework mechanics](vehicle-framework-mechanics.md).
+corrects it before any code. Studied sources are in [vehicle simulation references](../vehicle-references.md); Vehicle
+Framework facts come from [Vehicle Framework mechanics](../vehicle-framework-mechanics.md).
 
 ## Read this first
 
@@ -17,7 +17,7 @@ Framework facts come from [Vehicle Framework mechanics](vehicle-framework-mechan
 - **Vehicle Framework (VF) still decides how fast a vehicle moves.** The drivetrain only lowers that speed when the
   engine's power or the tyres' grip cannot deliver it: a laden two-wheel-drive truck in loose sand. It never applies
   a part's health a second time when VF already feeds that part into MoveSpeed.
-- **Two clocks, on purpose** (agent proposal; from our [map scale research](map-scale-research.md)). Speed uses the
+- **Two clocks, on purpose** (agent proposal; from our [map scale research](../map-scale-research.md)). Speed uses the
   **action clock**: 60 ticks are one second and a cell is one metre, so MoveSpeed 10 is 36 km/h. Energy, fuel and heat
   use the **day clock**: 2,500 ticks are one hour, the clock VF's fuel rates and the systems service already use.
 - **Nothing new is saved.** Gear and rpm are derived each sample and rebuilt after a load (the systems design's rule:
@@ -314,7 +314,7 @@ questions as they were put.
 
 ## Sources
 
-Studied sources, with terms and what to take from each, are in [vehicle simulation references](vehicle-references.md).
+Studied sources, with terms and what to take from each, are in [vehicle simulation references](../vehicle-references.md).
 The figures above cite them by name: Guzzella and Sciarretta (method, Willans line), Wipke, Cuddy and Burch (ADVISOR),
 Jolt Physics (shift rpm pair, light-vehicle gear defaults), Delco Remy (alternator pulley ratio), the E-Z-GO manual
 (cut-in), JSBSim (oil pressure), the rolling-resistance and friction tables (marked low quality), and the propeller

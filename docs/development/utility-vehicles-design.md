@@ -63,7 +63,7 @@ are in [Vehicle Framework mechanics](vehicle-framework-mechanics.md); the art re
   together or as replacements; our own parts only where no provider is present (principle 9 and the table under it). (3) **A fifth
   vehicle in full: the bulk tanker**, a liquid or a gas tanker by the player's upgrade choice, extensible by the fluid mods it finds.
   (4) **One or more of our vehicles will be diesel-electric** for mechanics of their own (owner, 8 Nov 2026, in the
-  [electric vehicles record](vehicle-electric-design.md)); no vehicle is named yet, and the generator set is the agent's candidate.
+  [electric vehicles record](archive/vehicle-electric-design.md)); no vehicle is named yet, and the generator set is the agent's candidate.
 
 ## Why a new mod, and why it starts as a stand-in
 

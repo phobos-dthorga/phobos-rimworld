@@ -5,6 +5,8 @@ proposals of 8 Nov 2026 ("real figures for the single-engine military vehicles, 
 [power and lift](vehicle-power-and-lift-design.md). Every figure comes from [the research record](vehicle-figures-research.md) and
 is labelled in the Defs: **[P]** primary, **[S]** secondary, **[I]** our inference, **[A]** authored.
 
+How engines and drivetrains work now: [systems/engines-and-drivetrain.md](systems/engines-and-drivetrain.md); this record keeps its history.
+
 **Merged here on 17 Nov 2026**, each kept as written: [Kerb mass check](#kerb-mass-check-8-nov-2026); [Vehicle class by empty mass](#vehicle-class-by-empty-mass-16-nov-2026).
 
 ## Read this first

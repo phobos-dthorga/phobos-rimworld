@@ -4,7 +4,7 @@
 both ways, brakes that heat and fade with their own setting, and four retarders; not yet tested in game, rows 416 to 419. A research record. Built from it: the fixes for gaps D3 to D5 (D'thorga Framework 0.131.0, not yet tested in game), and D2 corrected in its record. Altitude is built too (Framework 0.132.0, in [thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md), not yet tested in game). Not built: descents and engine braking (held), anything for radio, and D1. A tile is about 30 km across (owner, 18 Nov 2026).
 
 The owner asked how slopes could be simulated in a game like RimWorld, after engine braking came up beside the
-[engine loads](vehicle-engine-loads.md) work, and asked for research and a record before anything concrete is decided. They added
+[engine loads](archive/vehicle-engine-loads.md) work, and asked for research and a record before anything concrete is decided. They added
 that the answer will help set the direction of the radio mod. This record is the research: what the game holds, what a real world
 of the owner's looks like when measured, what real trucks do on a descent, and what the same data would give a radio phase.
 
@@ -236,7 +236,7 @@ In our code only; Vehicle Framework needs no patch.
 - **On a descent every load on the engine is free braking.** The alternator, the fan and the air conditioner all take shaft power,
   and on the overrun gravity pays for it. A trade article puts it in a driver's terms: an engine brake's effect "increases by 35 to
   40 retarding hp. when the fan kicks in" (FleetOwner, 1997).
-- So the rule is one line in the [engine-load ledger](vehicle-engine-loads.md): when the road pushes the engine, the loads are paid
+- So the rule is one line in the [engine-load ledger](archive/vehicle-engine-loads.md): when the road pushes the engine, the loads are paid
   by gravity before fuel. A battery charged on the way down a pass is the same rule seen from the electrical side.
 - With the fuel model on, a descent already hands fuel back against Vehicle Framework's flat rate†. A fuel cut-off would make a
   descent cost nothing, which is what the source says of a real engine brake.
@@ -407,7 +407,7 @@ Findings are the sources'; the worked figures, the three ways and every reading 
 | University of Wyoming for the Wyoming Department of Transportation, *Updating and Implementing the Grade Severity Rating System (GSRS) for Wyoming Mountain Passes*, volume 1, report WY-1901F, December 2018 ([report](https://rosap.ntl.bts.gov/view/dot/42490/dot_42490_DS1.pdf)) | The measured engine brake powers; the 500 °F brake limit and its basis; safe speeds by grade and length; exhaust brakes at about half; the history | From the report's text. Its equations are images and were not read; the model is described here in the report's words |
 | Jim Park, "How Truck Drivers Can Effectively Use an Engine Brake", Heavy Duty Trucking, 24 July 2023 ([article](https://www.truckinginfo.com/articles/engine-brakes-101-part-2-driving-for-peak-performance)), and its companion "What Trucking Fleets Need to Know About Engine Brakes", 21 July 2023 | How power varies with engine speed; no fuel while braking; how the brake works | From the pages; trade press, citing Jacobs and Cummins |
 | Sean Kilcarr, "what's new in: Engine retarders", FleetOwner, 1 Sept 2002 ([article](https://www.fleetowner.com/news/article/21679565/whats-new-in-engine-retarders)) | Which engines take which brake; compression brakes at twice an exhaust brake | From the page; trade press |
-| Stewart Siegel, "Smart Accessories", FleetOwner, 1 Nov 1997 | The fan adding to an engine brake's effect | As read for the [engine loads](vehicle-engine-loads.md) record |
+| Stewart Siegel, "Smart Accessories", FleetOwner, 1 Nov 1997 | The fan adding to an engine brake's effect | As read for the [engine loads](archive/vehicle-engine-loads.md) record |
 | Wikipedia, "Compression release engine brake" and "Brake fade" | "The power of this type can be around the same as the engine power" (citing Caterpillar); fade on long descents | From the pages; secondary |
 | RimWorld 1.7 and Vehicle Framework 1.7, decompiled | Everything about tiles, generation and movement | By survey agents; lines marked † |
 | The owner's save | The measurements | By the author, through the save tool's index |

@@ -5,6 +5,8 @@ lopsided thrust, row 402; tyres and springs matched per axle, row 403; wear per 
 2026) brings the first round in line with its cards and adds four smaller ideas, built in Framework 0.248.0 step by step: see
 [Round two](#round-two). Nothing here is tested in game yet.
 
+How engines and drivetrains work now: [systems/engines-and-drivetrain.md](systems/engines-and-drivetrain.md); this record keeps its history.
+
 ## Read this first
 
 - **The owner's question (23 Nov 2026):** after the A-10's new engines became a matched pair, "thrust per engine, could we apply that to

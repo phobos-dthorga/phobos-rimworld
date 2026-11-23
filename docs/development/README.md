@@ -12,6 +12,8 @@ research or design with nothing built; **living** means kept current by every ch
 - [Project direction](project-direction.md): intent, the owner's game, decisions with who made them, and open checks. Living.
 - [Building, testing and deploying](building.md): every C# project, the gate, what runs on GitHub, deploying to the game. Living.
 - [How the code is built](architecture.md) (23 Nov 2026): layers, ticks, tie-ins, saves and removal, settings, tests. Living.
+- [How each system works now](systems/README.md) (23 Nov 2026): living pages written from the code, and their template. Living.
+- [Decision logs](decisions/README.md) (23 Nov 2026): every decision of a system, one row each, with who made it. Living.
 - [Every setting of every mod](settings-reference.md) (23 Nov 2026): generated from the code and language files; for contributors. Living.
 - [The modders' reference site](reference-site.md) (23 Nov 2026): the DocFX site of the Framework's types, with XML examples; built, not yet published.
 - [Analysis tooling](analysis-tooling.md) (7 Nov 2026): the tools for logs, saves, Defs, assemblies and the Workshop. Living.
@@ -65,11 +67,8 @@ research or design with nothing built; **living** means kept current by every ch
 
 ### Power, drivetrain and aircraft
 
-- [Vehicle drivetrain and engine speed](vehicle-drivetrain-design.md) (8 Nov 2026): rpm and gears worked back from Vehicle Framework's speed. Built.
-- [Gas turbines](vehicle-turbine-design.md) (8 Nov 2026): turboshaft helicopters, the Harrier's engine and the tank turbine. Built.
+- [Engines and drivetrains](systems/engines-and-drivetrain.md) (23 Nov 2026): how engines, gears, loads and fuel work now. Living.
 - [Power and lift](vehicle-power-and-lift-design.md) (8 Nov 2026): many engines, rotor drives, thrust pods and diesel-electric. Built.
-- [Steam boilers](vehicle-steam-design.md) (8 Nov 2026): raising steam, safety valves and the fusible plug for Trains of the Rim. Built.
-- [Electric vehicles](vehicle-electric-design.md) (8 Nov 2026): traction batteries, the electric drive and charging. Built.
 - [The world map and the cab](vehicle-world-map-design.md) (8 Nov 2026): caravans, cab climate, booster packs, ground and cab moods. Built.
 - [Avionics for every aircraft](vehicle-avionics.md) (13 Nov 2026): instruments, navigation, sensors and the avionics fit. Partly built.
 - [Sling loads](vehicle-sling-design.md) (11 Nov 2026): a helicopter carries a vehicle under it. Partly built; take-off owner-tested.
@@ -81,7 +80,6 @@ research or design with nothing built; **living** means kept current by every ch
 - [Vehicle tuning and upgrades](vehicle-tuning-and-upgrades.md) (9 Nov 2026): fittings, engine tunes and part grades for any vehicle. Built.
 - [Vehicle upgrades, round two](vehicle-upgrades-round-two.md) (11 Nov 2026): every vehicle's tree, signature features, shared families. Partly built.
 - [Vehicle cross-links](vehicle-crosslinks.md) (9 to 13 Nov 2026): three rounds of links between systems, crew, weather and damage. Built, bar engine braking.
-- [Engine loads](vehicle-engine-loads.md) (18 Nov 2026): a top-down review, and one ledger of what the engine drives. Built, untested.
 - [Refuelling from cargo](vehicle-cargo-refuel.md) (18 Nov 2026): caravans top up from their cans; aircraft set down on the way. Built, untested.
 - [Thin air, turbines, aircraft fuel](vehicle-altitude-and-turbines.md) (18 Nov 2026): altitude, turbine gaps, fuel by flight phase. Built, untested.
 
@@ -221,6 +219,12 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 
 ## Archive
 
+- [The archive](archive/README.md) (23 Nov 2026): records moved unchanged, by system; old paths in changelogs still name them.
+- [Vehicle drivetrain and engine speed](archive/vehicle-drivetrain-design.md) (8 Nov 2026): rpm and gears worked back from Vehicle Framework's speed. Archived.
+- [Gas turbines](archive/vehicle-turbine-design.md) (8 Nov 2026): turboshaft helicopters, the Harrier's engine and the tank turbine. Archived.
+- [Steam boilers](archive/vehicle-steam-design.md) (8 Nov 2026): raising steam, safety valves and the fusible plug for Trains of the Rim. Archived.
+- [Electric vehicles](archive/vehicle-electric-design.md) (8 Nov 2026): traction batteries, the electric drive and charging. Archived.
+- [Engine loads](archive/vehicle-engine-loads.md) (18 Nov 2026): a top-down review, and one ledger of what the engine drives. Archived.
 - [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
 - [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
 - [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

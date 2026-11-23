@@ -4,8 +4,10 @@ A design record, built the same day in D'thorga Framework 0.12.0 and D'thorga Ve
 The owner asked which other vehicles could take "the two turboshaft-like thing or related while keeping things semi-realistic and
 somewhat adapted to their real-life counterparts", then approved every proposal and asked for the work in two or three parts
 (8 Nov 2026). This is part 1. Part 2 is real figures for the single-engine military vehicles, the L-ATV first; part 3 is a boiler
-system for the steam locomotives. It extends the [drivetrain](vehicle-drivetrain-design.md) and
-[turbine](vehicle-turbine-design.md) designs.
+system for the steam locomotives. It extends the [drivetrain](archive/vehicle-drivetrain-design.md) and
+[turbine](archive/vehicle-turbine-design.md) designs.
+
+How engines and drivetrains work now: [systems/engines-and-drivetrain.md](systems/engines-and-drivetrain.md); this record keeps its history.
 
 ## Read this first
 

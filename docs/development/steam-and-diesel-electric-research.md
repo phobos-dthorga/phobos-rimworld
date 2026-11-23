@@ -2,6 +2,8 @@
 
 Compiled 8 November 2026 by a research agent (agent-authored, for the owner's review) for Trains of the Rim's boilers, the Goat DE2 and the drop pods. Used so far for the Goat and the traction motors ([power and lift design](vehicle-power-and-lift-design.md)); the boiler figures feed part 3. **Nothing here is tested in game.**
 
+How engines and drivetrains work now: [systems/engines-and-drivetrain.md](systems/engines-and-drivetrain.md); this record keeps its history.
+
 **How to read the labels**
 
 - **[P] primary**: the organisation that made the rule, ran the test, built the machine or wrote the report (regulator, investigator, manufacturer, standards body, original handbook).

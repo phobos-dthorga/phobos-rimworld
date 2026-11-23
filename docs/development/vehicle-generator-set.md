@@ -432,7 +432,7 @@ into it and may be stuck: **park it in the open before updating**. The depot bay
   `Drivetrains.xml:256-276`, `Rules_VehicleSystems.xml:22`, `Systems_Electrical.xml:36, 230-239`, `Systems_Electric.xml`, `Tanks.xml:50`
   (all under `mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/`).
 - Design records: [utility vehicles](utility-vehicles-design.md) (principles 8 and 9, the stats table, the tanker as the shape),
-  [electric vehicles](vehicle-electric-design.md), [power and lift](vehicle-power-and-lift-design.md) (the diesel-electric model and
+  [electric vehicles](archive/vehicle-electric-design.md), [power and lift](vehicle-power-and-lift-design.md) (the diesel-electric model and
   its railway sources), [vehicle health, slice 3](vehicle-health-design.md#vehicle-health-slice-3-what-it-does-to-the-player-8-nov-2026-built-9-nov-2026), [outstanding work](outstanding-work.md) (I1, I2).
 - Real machines, grounding only, general knowledge and unverified: light-medium genset trucks of 6 to 7.5 t with engines near 100 kW;
   the British Rail Class 08's starting-to-continuous tractive-effort ratio, as cited in power and lift.

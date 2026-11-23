@@ -193,7 +193,7 @@ flowchart LR
 - **A chain can end in a failed crop**, where a floor never could; and it can be stopped at any link, which is the decision the
   player is given.
 - **This is a design still to write**, as the engine loads were: a step back first, then the ledger of links
-  ([engine loads](vehicle-engine-loads.md) is the model).
+  ([engine loads](archive/vehicle-engine-loads.md) is the model).
 
 **Nutrients carried off in a tonne of grain**, to scale the authored figures, read in full on 19 Nov 2026 [S]:
 

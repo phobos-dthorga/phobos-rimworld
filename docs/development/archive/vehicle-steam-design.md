@@ -1,9 +1,9 @@
 # Steam boilers (8 Nov 2026)
 
 A design record, built the same day in D'thorga Framework 0.13.0 and D'thorga Vehicles 0.5.0 (Drafts). **Not yet tested in game.**
-Part 3 of the owner's approved proposals of 8 Nov 2026, after [power and lift](vehicle-power-and-lift-design.md) and
-[real figures](vehicle-real-figures-design.md). Figures come from
-[the steam and diesel-electric research](steam-and-diesel-electric-research.md); labels **[P]** primary, **[S]** secondary,
+Part 3 of the owner's approved proposals of 8 Nov 2026, after [power and lift](../vehicle-power-and-lift-design.md) and
+[real figures](../vehicle-real-figures-design.md). Figures come from
+[the steam and diesel-electric research](../steam-and-diesel-electric-research.md); labels **[P]** primary, **[S]** secondary,
 **[I]** our inference, **[A]** authored.
 
 ## Read this first

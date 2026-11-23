@@ -306,7 +306,7 @@ the panels are the player's only; a captured vehicle tows and travels as ours do
 - Vehicle Framework, by Smash Phil: the drawing routines, read from our decompile and summarised in our own words.
 - RimThunder - Core, by RimThunderTeams, and Turbo's Vehicle Features Library, by Turbo: the approach we chose to differ
   from, described in [the research](#trailers-that-follow-their-tractor-how-rimthunder-does-it-and-what-it-opens-for-us-11-nov-2026). No code, Def or art of theirs is used.
-- The drivetrain model's method and its sources are in [the drivetrain design](vehicle-drivetrain-design.md).
+- The drivetrain model's method and its sources are in [the drivetrain design](archive/vehicle-drivetrain-design.md).
 - The follow rule is standard geometry (the curve is a tractrix); our form of it has not been checked against a reference.
 
 ## Trailers that follow their tractor: how RimThunder does it, and what it opens for us (11 Nov 2026)

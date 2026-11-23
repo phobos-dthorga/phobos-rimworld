@@ -1,7 +1,7 @@
 # Vehicle simulation references (8 Nov 2026)
 
 A study library for [vehicle systems](vehicle-systems-design.md) and the
-[drivetrain and engine speed design](vehicle-drivetrain-design.md): the books, papers, open code and game documentation
+[drivetrain and engine speed design](archive/vehicle-drivetrain-design.md): the books, papers, open code and game documentation
 worth learning from, what each is good for, and on what terms we may use it. The owner asked for it on 8 Nov 2026
 ("a body of references we can learn and study from"). **Nothing here has been built or tested in game.**
 
@@ -71,7 +71,7 @@ worth learning from, what each is good for, and on what terms we may use it. The
 
 ## Gas turbines
 
-Added with [gas turbines](vehicle-turbine-design.md).
+Added with [gas turbines](archive/vehicle-turbine-design.md).
 
 | Reference | Kind and terms | What to take | Status |
 | --- | --- | --- | --- |

@@ -478,7 +478,7 @@ of realistic to do so, down the line. It'd be great for our generator vehicle." 
 - **What already exists** [code, checked]: an engine kind and a turbine block on drivetrain Defs (`PowertrainDefs.cs`); a tank's
   turbine drivetrain, which burns nearly as much standing as moving (`PhobosDrivetrain_TrackedTurbine`, idle fuel share 0.6,
   `Drivetrains.xml:105-127`); the turbine system and its start stage; a gas turbine assembly part "for an aircraft or a heavy vehicle";
-  the turbines research project; records [the turbine design](vehicle-turbine-design.md) and [altitude and turbines](vehicle-altitude-and-turbines.md).
+  the turbines research project; records [the turbine design](archive/vehicle-turbine-design.md) and [altitude and turbines](vehicle-altitude-and-turbines.md).
 - **What it would need** **[I]**: a drivetrain chosen by an upgrade node. Today a truck's drivetrain is named by its loadout, per Def.
 
 **What it changes here:**

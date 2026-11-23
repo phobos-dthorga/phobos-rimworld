@@ -7,7 +7,7 @@ vehicle's converter; not yet tested in game, rows 390 to 393. **Third round buil
 ([the third round](#the-engines-loads-the-third-round-23-nov-2026)); not yet tested in game, rows 412 to 416. Built: the fixes for C1 and C4 (D'thorga
 Framework 0.129.1, Vehicles 0.65.1), the step back's S1 to S6 and S8 (Framework 0.130.0) and the engine-load ledger with every load
 and C6 (Framework 0.131.0), and S7 with the turbine gaps and altitude (Framework 0.132.0, in
-[thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md)); not yet tested in game. S8 measured after: D'thorga Framework's share of ticking fell from
+[thin air, turbines and aircraft fuel](../vehicle-altitude-and-turbines.md)); not yet tested in game. S8 measured after: D'thorga Framework's share of ticking fell from
 1.3 % to 0.3 %. It
 reviews the vehicle simulation as it stood in D'thorga Framework 0.129.0.
 
@@ -52,7 +52,7 @@ committed; they are marked †.
 | 11 | **Lost power as power** (step S4): a choked filter, a warped head and a weak fuel pump take power from the engine in the full model, and stay a speed factor without it | owner (agent's recommendation) |
 | 12 | **Record the owner's running game for S8 now**, before the step back is installed | owner |
 | 13 | **Build the ledger with every load at once**: alternator, fan, air conditioner, water pump with the belt's slip, air compressor, steering pump and the work loads | owner (the agent had recommended a first slice); built in Framework 0.131.0 |
-| 14 | **Altitude is one of the next few slices**: thin air taking engine power, recorded in [world elevation](world-elevation-and-descents.md). "I really do love this idea", but there is already much to test | owner; not built |
+| 14 | **Altitude is one of the next few slices**: thin air taking engine power, recorded in [world elevation](../world-elevation-and-descents.md). "I really do love this idea", but there is already much to test | owner; not built |
 | 15 | **Descents and engine braking stay held** until after the ledger | owner (agent's recommendation) |
 | 16 | **Fix the four safe gaps of the elevation record with this build** (rails, roads, the tile read, the record's descent term); wear per stop on the world map is its own question | owner (agent's recommendation); built in Framework 0.131.0 |
 | 18 | **Build the turbine slice and altitude now, as one slice, with aircraft fuel following the engines in world flight and on a map**: "I'd rather test when the new features are more complete" | owner, 18 Nov 2026; built in Framework 0.132.0 |
@@ -143,13 +143,13 @@ These are why a step back is needed. Each makes a general load chain awkward, or
 | --- | --- | --- | --- |
 | 1 | No one "engine is running" | The hub's `EngineRunning` and `EngineRunningRaw`; the drafted switch read directly by set-up work; Vehicle Framework's own burn test, which we patch; the aircraft's flight phase; the generator set's `running`; the ignition hint | `CompPhobosVehicleSystems.cs:893-925`; `CompPhobosSetUp.cs:361`†, `:533`†; `BatteryDrive.cs:31`†; `CompPhobosGeneratorSet.cs:382`† |
 | 2 | Five ways to burn fuel | Vehicle Framework's flat rate with the model's correction; flat hourly effects (night heater, holed tank); rig work per day; the generator set's idle-to-full rate; the water drop. Only the first knows the engine | `Powertrain.cs:730`; `Schema/Effects.cs:250`; `CompPhobosRigWork.cs:173`; `CompPhobosGeneratorSet.cs:385`; `Sling/WaterDrop.cs:152` |
-| 3 | Mixed units | Amps for loads, the game's watts for the outlet and hook-up, watt-days for the battery drive, pack share an hour for electric vehicles, kW in the engine model, a "heat share" for cooling. The generator set's record says the game's watts are not real watts; the outlet and hook-up convert them one to one | [generator set](vehicle-generator-set.md), [accessories](vehicle-accessories.md) |
+| 3 | Mixed units | Amps for loads, the game's watts for the outlet and hook-up, watt-days for the battery drive, pack share an hour for electric vehicles, kW in the engine model, a "heat share" for cooling. The generator set's record says the game's watts are not real watts; the outlet and hook-up convert them one to one | [generator set](../vehicle-generator-set.md), [accessories](../vehicle-accessories.md) |
 | 4 | Lost power shown as lost speed | A clogged air filter, a warped head and a weak fuel feed multiply move speed, while the engine model still reports full power and fuel | `Systems_Service.xml:42-71`†, `Conditions.xml:238-266`† |
 | 5 | Figures in code or written three times | Alternator efficiency 0.6 is a C# constant; the alternator's speed curve and pulley ratio appear three times in XML | `AccessoryRules.cs:14`; `Systems_Electrical.xml:285-305`†, `:333-353`†, `Systems_HouseBattery.xml:70-90`† |
 | 6 | Displays that disagree | World-map range ignores stage fuel factors and the loads' fuel; the Engineer line shows the model's fuel power while the default burns the flat rate | `Service/VehicleRange.cs:57`†; `Presentation/InspectText.cs:168-169`† |
 | 7 | Two "accessories load the engine" routes | Cross-link 5 sits outside the engine model; turbine bleed air sits inside it | `CompPhobosVehicleSystems.cs:940`; `Powertrain.cs:436-438`† |
-| 8 | Performance already over its line | The one measurement had a full-model vehicle's rare tick at 0.131 ms against 0.1 ms | [vehicle health](vehicle-health-design.md), the measurement table |
-| 9 | Records behind the code | Stale status lines; the grid hook-up (Framework 0.120.0) has no design record | [the documentation audit](docs-audit-2026-11-17.md) |
+| 8 | Performance already over its line | The one measurement had a full-model vehicle's rare tick at 0.131 ms against 0.1 ms | [vehicle health](../vehicle-health-design.md), the measurement table |
+| 9 | Records behind the code | Stale status lines; the grid hook-up (Framework 0.120.0) has no design record | [the documentation audit](../docs-audit-2026-11-17.md) |
 
 ## How big the loads are (worked figures)
 
@@ -253,7 +253,7 @@ A load is declared on a loadout, modelled on the electrical load that exists tod
 | when | A condition, as loads have today |
 | baseline | Whether it counts as part of the standard set the net rating already includes |
 
-Names of loads freeze with the override contract's first version ([authors' override contract](vehicle-author-overrides.md)), after
+Names of loads freeze with the override contract's first version ([authors' override contract](../vehicle-author-overrides.md)), after
 its last tidy.
 
 ### The loads
@@ -280,7 +280,7 @@ model (load plus friction at the working speed, over 0.40, against the cruise).
 
 | Vehicle | Today | Illustrative real load | Straight through the model | The agent's recommendation |
 | --- | --- | --- | --- | --- |
-| Ullage tanker, pumping | 6 a day in [its record](vehicle-bulk-tanker.md); **in code, 14 a day: Vehicle Framework's idle half rate, with nothing for the pump** (check C6) | 8 to 15 kW at the shaft, 1,000 rpm | 14 to 19 a day | Re-derive from the pump's flow and pressure: shaft power is flow times pressure over the pump's efficiency. Darley's HM truck pumps, for example, are rated at 946 L a minute at 10.3 bar (HM250) up to 1,892 (HM500), which is about 16 to 33 kW of water power before losses (our arithmetic); a fuel transfer pump works at a fraction of that pressure. Needs a litres figure for the game's pump rate (600 units an hour) |
+| Ullage tanker, pumping | 6 a day in [its record](../vehicle-bulk-tanker.md); **in code, 14 a day: Vehicle Framework's idle half rate, with nothing for the pump** (check C6) | 8 to 15 kW at the shaft, 1,000 rpm | 14 to 19 a day | Re-derive from the pump's flow and pressure: shaft power is flow times pressure over the pump's efficiency. Darley's HM truck pumps, for example, are rated at 946 L a minute at 10.3 bar (HM250) up to 1,892 (HM500), which is about 16 to 33 kW of water power before losses (our arithmetic); a fuel transfer pump works at a fraction of that pressure. Needs a litres figure for the game's pump rate (600 units an hour) |
 | Kelly drill rig, drilling | 40 a day (`CompPhobosDrillRig.cs:14`); its engine demand is already set to half of rated (`CompPhobosDrillRig.cs:100`, authored) | 150 kW, the half of its 300 kW engine the code already asks for, at 1,800 rpm | 97 a day | Re-derive from that existing demand. Makers' figures are engine ratings, not drilling draw: truck-mounted rotary rigs carry 147 to 405 kW engines (Comacchio GEO-T 15, Bauer BG 36, from a search summary). Its 160 tank would last under two days of drilling: say so in its guide |
 | Datum survey truck, scanning | 8 a day (`CompPhobosSurveyTruck.cs:41`) | About 1 kW of instruments through the alternator, at idle | 6.4 a day (worked with the heavy diesel's figures; the truck uses a medium diesel) | Re-derive; it barely moves |
 | Busbar generator set | 2 a day idle to 15 at full output (`Vehicle_GeneratorSet.xml:348-349`) | 100 kW electrical at 1,800 rpm | 6.4 idle, 72 at full output | **Kept at today's figures** (owner, decision 4); the real figure stays here as information |
@@ -350,7 +350,7 @@ loads large enough to keep, and the rest could stay as figures on the Engineer l
 ## Other factions' vehicles
 
 - **In a raid on us:** other factions' vehicles run the light model, which has no engine model and no loads
-  ([the audit](vehicle-other-factions-audit.md)), so nothing here applies and none is slowed or run dry sooner. Vehicle Framework
+  ([the audit](../vehicle-other-factions-audit.md)), so nothing here applies and none is slowed or run dry sooner. Vehicle Framework
   already burns their fuel while they stand drafted; we add nothing to it. Agent default, following the owner's standing decision to
   keep the light model.
 - **Parked at a base we attack:** the same. A parked vehicle's tank is as Vehicle Framework left it.
@@ -361,7 +361,7 @@ loads large enough to keep, and the rest could stay as figures on the Engineer l
 ## Constraints
 
 - **Performance.** The budget is 0.05 ms a tick averaged for the whole vehicle model and 0.1 ms per full-model vehicle per rare tick,
-  and the one measurement stood at 0.131 ms ([vehicle health](vehicle-health-design.md)). The ledger adds no tick loop: it is a sum
+  and the one measurement stood at 0.131 ms ([vehicle health](../vehicle-health-design.md)). The ledger adds no tick loop: it is a sum
   over a handful of loads inside the sample the hub already takes, with no allocation. **Record with `python scripts/perf.py` before
   and after any build** (ask the owner first, as each recording can hitch the game), and close the existing overrun before adding to it.
 - **Vehicle Framework's stat cache.** It marks every stat dirty each 250 ticks by itself†, so a speed change that follows the rare
@@ -441,7 +441,7 @@ truck about 6 to 8 (8 before). **The drill rig is the one that changed much**, a
 ### How far each kind of engine has come (18 Nov 2026)
 
 Read from the code after 0.131.0, at the owner's question whether turbines had come as far as engines. They had not. **Framework
-0.132.0 closed the turbine rows** ([its record](vehicle-altitude-and-turbines.md)); the table stands as it was read:
+0.132.0 closed the turbine rows** ([its record](../vehicle-altitude-and-turbines.md)); the table stands as it was read:
 
 | Engine kind | Who has it | Ledger takes power from driving | Ledger reaches fuel | Loads reach the engine's own model | Lost power as power (S4) |
 | --- | --- | --- | --- | --- | --- |
@@ -540,7 +540,7 @@ descents and engine braking, and the small leftovers. Built in Framework 0.249.0
 
 - **Altitude** (decision 14) and **turbines** (decision 17) **are built** (Framework 0.132.0; decision 18): thin air taking
   engine power, turbine output, rotor lift and cooling; T-1, T-2 with S7, T-4; and T-3, aircraft fuel following the engines between
-  tiles and on a map. Their record is [thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md). Not yet tested in game.
+  tiles and on a map. Their record is [thin air, turbines and aircraft fuel](../vehicle-altitude-and-turbines.md). Not yet tested in game.
 - **Descents and engine braking** stay held (decision 15).
 
 ### The recording before (18 Nov 2026)
@@ -614,16 +614,16 @@ Nothing changes now. When decision 1 is built, the reply that delivers it must n
 
 True since Framework 0.131.0, which built decision 1; they were overstated under the defaults before it.
 
-- [Vehicle accessories](vehicle-accessories.md): the outlet "burns fuel for it, by the rule already in place".
-- [Vehicle upgrades, round two](vehicle-upgrades-round-two.md): work lamps run "at a fuel cost".
-- [The player guide's vehicle care chapter](../player-guide/vehicle-care.md): an idling outlet "burning fuel".
+- [Vehicle accessories](../vehicle-accessories.md): the outlet "burns fuel for it, by the rule already in place".
+- [Vehicle upgrades, round two](../vehicle-upgrades-round-two.md): work lamps run "at a fuel cost".
+- [The player guide's vehicle care chapter](../../player-guide/vehicle-care.md): an idling outlet "burning fuel".
 - D'thorga Framework's README: the "Accessories load the engine" row.
 
 ## Found along the way
 
-Not part of this design; each has a row in [outstanding work](outstanding-work.md).
+Not part of this design; each has a row in [outstanding work](../outstanding-work.md).
 
-- **[Vehicle Framework mechanics](vehicle-framework-mechanics.md) is behind its 1.7 build** in places the survey found: speed now
+- **[Vehicle Framework mechanics](../vehicle-framework-mechanics.md) is behind its 1.7 build** in places the survey found: speed now
   ramps through an acceleration controller; the idle half rate applies on a map only; the fuel comp also re-checks on every rare
   tick; all stats are marked dirty every 250 ticks; non-player vehicles are drafted on spawn.
 - **The grid hook-up** (Framework 0.120.0) is described only in the changelog and the fault-read.

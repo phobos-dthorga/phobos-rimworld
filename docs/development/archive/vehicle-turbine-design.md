@@ -3,9 +3,9 @@
 A design record. **Built on 8 Nov 2026 (see [As built](#as-built-dthorga-framework-0110-dthorga-vehicles-020-dthorga-patches-0140-8-nov-2026)); not yet tested in game.** The text above that section keeps its original scope. The owner asked on 8 Nov 2026 for turbine engines
 ("jet turbines such as the Chinook or the mod I'm also using with the Harrier", "there's the M1A1 Abrams too") and said to
 write it up. It extends the [drivetrain and engine speed design](vehicle-drivetrain-design.md) and is written against
-[vehicle systems](vehicle-systems-design.md) **as built in D'thorga Framework 0.9.0** (8 Nov 2026). Studied sources are in
-[vehicle simulation references](vehicle-references.md); the flight frameworks' behaviour comes from the code reading in
-[vehicle patches](vehicle-patches.md) (3 Nov 2026). The owner reads and corrects this before any code.
+[vehicle systems](../vehicle-systems-design.md) **as built in D'thorga Framework 0.9.0** (8 Nov 2026). Studied sources are in
+[vehicle simulation references](../vehicle-references.md); the flight frameworks' behaviour comes from the code reading in
+[vehicle patches](../vehicle-patches.md) (3 Nov 2026). The owner reads and corrects this before any code.
 
 ## Read this first
 
@@ -314,7 +314,7 @@ the questions as they were put.
 
 ## Sources
 
-Linked in [vehicle simulation references](vehicle-references.md), section "Gas turbines" (added with this record):
+Linked in [vehicle simulation references](../vehicle-references.md), section "Gas turbines" (added with this record):
 
 - the CH-47 operator's manual (TM 1-1520-240-10) on governing;
 - All-Aero on the Pegasus's ratings and water injection;
@@ -323,6 +323,6 @@ Linked in [vehicle simulation references](vehicle-references.md), section "Gas t
 - StrategyPage, STRASAM and Honeywell on the AGT1500;
 - the Università di Bologna derate range;
 - Aviation Week on hot starts and wear;
-- the Pima Air & Space Museum's empty weight, via [vehicle patches](vehicle-patches.md).
+- the Pima Air & Space Museum's empty weight, via [vehicle patches](../vehicle-patches.md).
 
 The flight phases come from that record's code reading of 3 Nov 2026. The worked figures came from a prototype run on 8 Nov 2026.

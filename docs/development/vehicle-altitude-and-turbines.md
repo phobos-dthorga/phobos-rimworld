@@ -10,7 +10,9 @@ journey's end is built in Framework 0.140.0 ([below](#the-landing-check-at-a-jou
 tested in game** (row 199). Upgrades that move Vehicle Framework's fuel rate now reach a flight mod's own on-map rate (20 Nov 2026,
 [below](#their-20-nov-2026-updates-the-harriers-armour-fuel-is-handed-back-on-a-map)), **not yet tested in game** (row 282).
 
-This record follows [engine loads](vehicle-engine-loads.md), which found that turbines had not come as far as piston engines (its
+How engines and drivetrains work now: [systems/engines-and-drivetrain.md](systems/engines-and-drivetrain.md); this record keeps its history.
+
+This record follows [engine loads](archive/vehicle-engine-loads.md), which found that turbines had not come as far as piston engines (its
 gaps T-1 to T-4), and [world elevation](world-elevation-and-descents.md), which found that every world tile has a real height in
 metres. The owner chose to build both in one slice, so engines and air are tested once.
 
