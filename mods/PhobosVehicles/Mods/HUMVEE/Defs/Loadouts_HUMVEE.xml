@@ -44,5 +44,12 @@
     <drivetrain>
       <def>PhobosDrivetrain_Humvee</def>
     </drivetrain>
+    <!-- D'thorga Vehicles 0.114.0 (the owner's choice of 23 Nov 2026): this Humvee is drawn open-topped, with no roof or doors and all four
+         seats exposed, but with a windscreen, as the real HMMWV keeps when its soft top is off. So its cab is open to the weather, and its
+         glass is a windscreen alone, which a hit or a blast can crack or break. -->
+    <cabin>
+      <closed>false</closed>
+    </cabin>
+    <glass>Windscreen</glass>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

@@ -30,12 +30,14 @@ public static class Glass
 
     // ---- At start-up ----
 
-    /// <summary>Appends the glass to a closed-cab design as its loadout is applied, and puts the glass's reactor on the outer plates over it.</summary>
+    /// <summary>Appends the glass to a closed-cab design as its loadout is applied, and puts the glass's reactor on the outer plates over it.
+    /// An open design takes it only where it is marked as having a windscreen alone (Framework 0.268.0, the open-top Humvee).</summary>
     internal static void Apply(VehicleDef def, CompProperties_PhobosVehicleSystems props)
     {
         if (props.trailer || def.components == null || def.components.Any(p => p.key == Key)) return;
-        bool closed = def.GetModExtension<PhobosVehicleCabinExtension>()?.closed ?? props.loadout?.cabin.closed ?? true;
-        if (!closed || def.GetModExtension<PhobosFittedEquipmentExtension>()?.noGlass == true) return;
+        PhobosFittedEquipmentExtension? fitted = def.GetModExtension<PhobosFittedEquipmentExtension>();
+        bool windscreen = (fitted?.glass ?? props.loadout?.glass) == GlassKind.Windscreen;
+        if ((!Cabins.Closed(def, props.loadout) && !windscreen) || fitted?.noGlass == true) return;
         var add = new PartToAdd
         {
             key = Key,
@@ -102,8 +104,10 @@ public static class Glass
     /// <summary>Whether this vehicle's glass is gone, so its cab is open to the air: false with no glass part or the setting off.</summary>
     public static bool Gone(VehiclePawn? vehicle) => On && PartOf(vehicle) is { } glass && glass.Health <= 0f;
 
-    public static string StateWord(GlassState state) => state switch
+    /// <summary>The glass's state in words; a windscreen alone going leaves an open cab as open as it was, so it says only that it is gone.</summary>
+    public static string StateWord(GlassState state, GlassKind kind) => state switch
     {
+        GlassState.Gone when kind == GlassKind.Windscreen => "PhobosVehicleSystems_GlassGoneWindscreen".Translate(),
         GlassState.Gone => "PhobosVehicleSystems_GlassGone".Translate(),
         GlassState.Cracked => "PhobosVehicleSystems_GlassCracked".Translate(),
         _ => "PhobosVehicleSystems_GlassSound".Translate(),
@@ -113,6 +117,7 @@ public static class Glass
     {
         GlassKind.Armoured => "PhobosVehicleSystems_GlassArmoured".Translate(),
         GlassKind.VisionBlocks => "PhobosVehicleSystems_GlassVisionBlocks".Translate(),
+        GlassKind.Windscreen => "PhobosVehicleSystems_GlassWindscreen".Translate(),
         _ => "PhobosVehicleSystems_GlassOrdinary".Translate(),
     };
 
@@ -149,12 +154,15 @@ public static class Glass
     static void Splinter(VehiclePawn vehicle, VehicleComponent glass, double shareLost, bool gone)
     {
         if (!VehicleSystemsMod.Settings.glassSplinters || vehicle.handlers == null || vehicle.Destroyed) return;
-        int each = GlassRule.Splinters(KindOf(vehicle), shareLost, gone);
+        GlassKind kind = KindOf(vehicle);
+        int each = GlassRule.Splinters(kind, shareLost, gone);
         if (each <= 0) return;
+        // A windscreen alone stands in front of open seats (Framework 0.268.0): they are behind it, so it reaches them.
+        bool reachesOpenSeats = kind == GlassKind.Windscreen;
         List<IntVec2>? cells = glass.props.hitbox?.cells;
         foreach (VehicleRoleHandler handler in vehicle.handlers)
         {
-            if (handler?.role == null || handler.role.Exposed || handler.thingOwner == null || handler.thingOwner.Count == 0) continue;
+            if (handler?.role == null || (handler.role.Exposed && !reachesOpenSeats) || handler.thingOwner == null || handler.thingOwner.Count == 0) continue;
             if (cells is { Count: > 0 } && handler.role.Hitbox != null && !handler.role.Hitbox.Hitbox.Any(c => cells.Contains(c))) continue;
             foreach (Thing thing in handler.thingOwner.InnerListForReading.ToList())
             {

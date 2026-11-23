@@ -779,6 +779,50 @@ public class PhobosVehicleCabinExtension : DefModExtension
     public bool climateControl;
 }
 
+/// <summary>Why a design's cab counts as open or closed, for the notes (<see cref="Cabins.Judge"/>).</summary>
+public enum CabinReason
+{
+    /// <summary>A <see cref="PhobosVehicleCabinExtension"/> on the design says so.</summary>
+    Marked,
+    /// <summary>Its loadout's cabin block says it is open.</summary>
+    Loadout,
+    /// <summary>A ground vehicle whose author marked every seat exposed.</summary>
+    Seats,
+    /// <summary>Nothing says otherwise.</summary>
+    Default,
+}
+
+/// <summary>
+/// Whether a design's cab is closed: the one answer the cab system, the glass and the notes share (Framework 0.268.0). A marking on the
+/// design wins; then a loadout that says open; then, the owner's rule of 23 Nov 2026 (the open-top Humvee had been given a closed cab and
+/// full glass), a ground vehicle whose author marked every seat exposed is open; otherwise it is closed. Aircraft are left out of the
+/// seats rule, since a jet's or a gunship's exposed seats sit under a canopy. It reads the design's seats as built: an upgrade that
+/// changes a seat's exposure on one vehicle does not move it.
+/// </summary>
+public static class Cabins
+{
+    public static bool Closed(VehicleDef? def, PhobosVehicleLoadoutDef? loadout) => Judge(def, loadout).closed;
+
+    public static (bool closed, CabinReason reason) Judge(VehicleDef? def, PhobosVehicleLoadoutDef? loadout)
+    {
+        if (def?.GetModExtension<PhobosVehicleCabinExtension>() is { } marked) return (marked.closed, CabinReason.Marked);
+        if (loadout != null && !loadout.cabin.closed) return (false, CabinReason.Loadout);
+        if (def != null && def.type == VehicleType.Land && EverySeatExposed(def)) return (false, CabinReason.Seats);
+        return (true, CabinReason.Default);
+    }
+
+    static bool EverySeatExposed(VehicleDef def)
+    {
+        List<VehicleRole>? seats = def.properties?.roles;
+        if (seats == null || seats.Count == 0) return false;
+        foreach (VehicleRole seat in seats)
+        {
+            if (seat == null || !seat.Exposed) return false;
+        }
+        return true;
+    }
+}
+
 /// <summary>
 /// A vehicle's own figures, for a design whose Vehicle Framework Mass says little about its real weight (VF's Mass figures are not
 /// comparable between mods): its empty (kerb) mass in kilograms and, where the class rule of power per tonne would be far off (a

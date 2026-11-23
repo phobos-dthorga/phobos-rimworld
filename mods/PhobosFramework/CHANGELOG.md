@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.268.0] - 2026-11-23 - Draft
+
+Open vehicles: a windscreen alone, and every seat in the open
+
+### Added
+
+- **A windscreen alone, for an open vehicle that keeps one** (the owner's choice of 23 November 2026, for the open-top Humvee). A fourth kind of glass: the vehicle has the glass part though its cab is open, so a hit or a blast can crack or break it; it takes half as much of a cab's hits as glass all round, throws one splinter as it goes (its laminated layer holds the rest) at the open front seats, and takes one laminated pane to re-glaze. Losing it changes nothing about shelter. Not yet tested in game: row 445 of the test pass.
+
+### Changed
+
+- **A ground vehicle whose author left every seat out in the open now counts as open** (the owner's rule of the same day), unless a marking on it says otherwise: no cab temperature, no Windows button and no glass of its own. Aircraft are left out, since their open seats sit under a canopy. Of the 93 designs with our systems in the owner's game, only the Humvee has every seat open, and its loadout now says so outright; the rule is for vehicles still to come.
+- The glass-gone alert says that a closed cab is open now and that every driver sees less in rain, snow or fog.
+
 ## [0.267.0] - 2026-11-23 - Draft
 
 The Logbook, by the day

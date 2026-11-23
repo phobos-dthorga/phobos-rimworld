@@ -11,6 +11,9 @@ public enum GlassKind
     Armoured,
     /// <summary>Small, tough vision blocks: a tank or armoured vehicle seen out of through blocks.</summary>
     VisionBlocks,
+    /// <summary>A laminated windscreen alone, on an open vehicle with no roof or side windows (Framework 0.267.1; the owner's choice of
+    /// 23 Nov 2026, for the open-top Humvee). Its cab is open whatever the glass's state.</summary>
+    Windscreen,
 }
 
 /// <summary>The glass's state, from its health.</summary>
@@ -40,6 +43,8 @@ public static class GlassRule
     {
         GlassKind.Armoured => 0.15,
         GlassKind.VisionBlocks => 0.1,
+        // A windscreen alone faces forward, so half as much of a cab's hits reach it as reach a cab glazed all round (authored).
+        GlassKind.Windscreen => 0.3,
         _ => 0.6,
     };
 
@@ -66,7 +71,8 @@ public static class GlassRule
     }
 
     /// <summary>What re-glazing takes, by the share missing: an ordinary cab its windscreen (a laminated pane) once cracked, and side
-    /// panes as more is missing, three for all of it; an armoured cab armoured panes, three for all; vision blocks, four for all.</summary>
+    /// panes as more is missing, three for all of it; an armoured cab armoured panes, three for all; vision blocks, four for all; a
+    /// windscreen alone, its one laminated pane.</summary>
     public static (int laminated, int panes, int armoured, int blocks) Goods(GlassKind kind, double missing)
     {
         if (missing <= 0) return (0, 0, 0, 0);
@@ -75,6 +81,7 @@ public static class GlassRule
         {
             GlassKind.Armoured => (0, 0, (int)Math.Ceiling(m * 3), 0),
             GlassKind.VisionBlocks => (0, 0, 0, (int)Math.Ceiling(m * 4)),
+            GlassKind.Windscreen => (1, 0, 0, 0),
             _ => (1, (int)Math.Floor(m * 3), 0, 0),
         };
     }
@@ -84,7 +91,8 @@ public static class GlassRule
     /// <summary>
     /// How many splinters strike each person behind the glass as it breaks. Ordinary glass showers its side windows: one when it cracks
     /// badly (a third or more lost at once), two when it goes. Armoured glass and vision blocks throw none until they go, then one (their
-    /// inner plastic layer holds most). Authored after the record's sources: flying glass is a leading injury of real blasts.
+    /// inner plastic layer holds most); so does a windscreen alone, whose laminated layer holds most of it too. Authored after the record's
+    /// sources: flying glass is a leading injury of real blasts.
     /// </summary>
     public static int Splinters(GlassKind kind, double shareLost, bool gone)
     {

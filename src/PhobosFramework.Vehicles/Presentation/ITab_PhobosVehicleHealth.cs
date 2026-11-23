@@ -778,9 +778,10 @@ public class ITab_PhobosVehicleHealth : ITab
             else if (part.props.key == Glass.Key)
             {
                 GlassState state = Glass.StateOf(part);
+                GlassKind kind = Glass.KindOf(comp.Vehicle);
                 row.Conditions.Add(new ConditionRow
                 {
-                    Label = Glass.KindWord(Glass.KindOf(comp.Vehicle)) + ": " + Glass.StateWord(state),
+                    Label = Glass.KindWord(kind) + ": " + Glass.StateWord(state, kind),
                     Colour = state == GlassState.Sound ? PhobosWidgets.Good : state == GlassState.Cracked ? PhobosWidgets.Caution : PhobosWidgets.Bad,
                 });
             }

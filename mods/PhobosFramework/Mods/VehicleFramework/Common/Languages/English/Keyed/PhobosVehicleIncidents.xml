@@ -8,7 +8,7 @@
   <PhobosVehicleSystems_ColdStartIntro>In this cold, these vehicles would not start if you needed them now. A block heater, a heated garage, a jump-start or a charged battery may get them going; better found out now than when a raid comes.</PhobosVehicleSystems_ColdStartIntro>
   <PhobosVehicleSystems_ColdStartLine>{VEHICLE}: {REASON}</PhobosVehicleSystems_ColdStartLine>
   <PhobosVehicleSystems_GlassGoneAlert>Vehicle glass gone</PhobosVehicleSystems_GlassGoneAlert>
-  <PhobosVehicleSystems_GlassGoneIntro>These vehicles' glass is gone, so their cabs are open: cold, heat and whatever is in the air come straight in. Load laminated panes and glass panes (armoured panes for an armoured cab, vision blocks for a tank) into the cargo and a mechanic will re-glaze it.</PhobosVehicleSystems_GlassGoneIntro>
+  <PhobosVehicleSystems_GlassGoneIntro>These vehicles' glass is gone. A closed cab is open now, so cold, heat and whatever is in the air come straight in, and every driver sees less in rain, snow or fog. Load laminated panes and glass panes (armoured panes for an armoured cab, vision blocks for a tank) into the cargo and a mechanic will re-glaze it.</PhobosVehicleSystems_GlassGoneIntro>
   <PhobosVehicleSystems_GlassGoneLine>{VEHICLE}</PhobosVehicleSystems_GlassGoneLine>
   <PhobosVehicleSystems_LinerSpentAlert>Spall liner spent</PhobosVehicleSystems_LinerSpentAlert>
   <PhobosVehicleSystems_LinerSpentIntro>These vehicles' spall liners have worn through and catch nothing: a round through their armour now throws its broken pieces straight at whoever sits behind it. Load liner panels into the cargo and a mechanic will re-line it.</PhobosVehicleSystems_LinerSpentIntro>

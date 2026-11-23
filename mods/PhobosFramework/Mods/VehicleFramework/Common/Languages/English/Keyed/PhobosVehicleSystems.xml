@@ -1052,6 +1052,8 @@
   <PhobosVehicleSystems_GlassOrdinary>windscreen and windows</PhobosVehicleSystems_GlassOrdinary>
   <PhobosVehicleSystems_GlassArmoured>armoured glass</PhobosVehicleSystems_GlassArmoured>
   <PhobosVehicleSystems_GlassVisionBlocks>vision blocks</PhobosVehicleSystems_GlassVisionBlocks>
+  <PhobosVehicleSystems_GlassWindscreen>windscreen</PhobosVehicleSystems_GlassWindscreen>
+  <PhobosVehicleSystems_GlassGoneWindscreen>gone</PhobosVehicleSystems_GlassGoneWindscreen>
   <PhobosVehicleSystems_GlassGoneWindows>The glass is gone: there is nothing to wind up until it is re-glazed.</PhobosVehicleSystems_GlassGoneWindows>
   <PhobosVehicleSystems_RepairReglaze>re-glazing the {PART}</PhobosVehicleSystems_RepairReglaze>
   <PhobosVehicleSystems_RepairReglazed>{MECHANIC} re-glazed the {VEHICLE}. Its cab is whole again.</PhobosVehicleSystems_RepairReglazed>

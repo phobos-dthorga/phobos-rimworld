@@ -51,6 +51,24 @@ public class GlassRuleTests
     public void VisionBlocksTakeBlocks() => Assert.Equal((0, 0, 0, 2), GlassRule.Goods(GlassKind.VisionBlocks, 0.5));
 
     [Fact]
+    public void AWindscreenAloneTakesOneLaminatedPaneHoweverMuchIsGone()
+    {
+        Assert.Equal((1, 0, 0, 0), GlassRule.Goods(GlassKind.Windscreen, 0.3));
+        Assert.Equal((1, 0, 0, 0), GlassRule.Goods(GlassKind.Windscreen, 1));
+    }
+
+    [Fact]
+    public void AWindscreenAloneThrowsOneSplinterOnlyAsItGoes()
+    {
+        Assert.Equal(0, GlassRule.Splinters(GlassKind.Windscreen, 0.5, false));
+        Assert.Equal(1, GlassRule.Splinters(GlassKind.Windscreen, 1, true));
+    }
+
+    [Fact]
+    public void AWindscreenAloneTakesLessOfACabsHitsThanGlassAllRound() =>
+        Assert.True(GlassRule.PlateHitShare(GlassKind.Windscreen) < GlassRule.PlateHitShare(GlassKind.Ordinary));
+
+    [Fact]
     public void OrdinaryGlassGoingThrowsTwoSplinters() => Assert.Equal(2, GlassRule.Splinters(GlassKind.Ordinary, 1, true));
 
     [Fact]

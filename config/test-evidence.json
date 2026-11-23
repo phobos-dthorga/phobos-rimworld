@@ -4,6 +4,10 @@
   "game": "rimworld",
   "rows": {
     "443": ["framework.logbook.day-headings"],
+    "445": {"parts": {
+      "the Humvee's cab is open, with a windscreen": [{"key": "vehicles.open-cab", "detail": "*Windscreen*"}],
+      "its windscreen cracks or goes": [{"key": "vehicles.glass", "detail": "*Windscreen*"}]
+    }},
     "444": ["vehicles.hot-air-message"],
     "442":["vehicles.health-tab.figure-column"],
     "441": ["vehicles.hitch.drawn-in-place"],

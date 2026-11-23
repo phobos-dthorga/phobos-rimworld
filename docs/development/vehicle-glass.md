@@ -3,8 +3,8 @@
 **Status (23 Nov 2026):** the base is built. The glass chain (VG8) is in D'thorga Framework 0.237.0; the glass part with what breaks
 it, the open cab, re-glazing, other authors' vehicles and what the player sees (VG1 to VG4, VG7, VG10, VG11), with splinters, the
 driver's view and the canopy (VG5, VG6, VG13), in 0.238.0; the cracked-glass pictures in D'thorga Vehicles 0.106.0
-([as built](#the-glass-part-as-built-23-nov-2026)). Still ideas: VG9, VG12, VG14; cab air waits for its own model. Not yet tested
-in game: rows 376 and 377.
+([as built](#the-glass-part-as-built-23-nov-2026)). Open vehicles and a windscreen alone in 0.268.0. Still ideas: VG9, VG12, VG14;
+cab air waits for its own model. Not yet tested in game: rows 376, 377 and 445.
 
 The owner, 22 Nov 2026, while the [nuclear strike record](nuclear-strike-effects.md) was being researched: "maybe we should make
 glass a component of our vehicles, and that could have its own, knock-on, effects!" And: "We could do so much work with glass
@@ -345,7 +345,7 @@ flowchart LR
 D'thorga Framework 0.238.0, on the owner's answers (the base with real art first; the pictures follow as a pilot). Every figure is
 authored [A] unless marked.
 
-- **The part** (`PhobosGlass`), appended at start-up to every closed-cab design's parts, last of all ours so earlier saved parts keep
+- **The part** (`PhobosGlass`), appended at start-up to every closed-cab design's parts (and, since 0.268.0, an open one marked with a windscreen), last of all ours so earlier saved parts keep
   their order; an existing vehicle gains it whole at its next load. It takes the cells of the design's cab part (the Cabin role), no
   armour of its own, a small hit weight, and is left out of the destruction sum and the vehicle's overall health. 40 health; what
   counts is its share: whole, **cracked** below 70 %, **gone** at nothing.
@@ -360,6 +360,13 @@ authored [A] unless marked.
   glass, a quarter for armoured and a fifth for vision blocks (so it works without Combat Extended, the record's first question);
   fire through the fire wear table (0.6 of the glass an hour at full fire); a strike breaks it outright where the wind is a quarter of
   the fireball edge's, and cracks it beyond, a third as much for armoured glass.
+- **Open vehicles with a windscreen** (Framework 0.268.0, Vehicles 0.114.0; the owner's choices of 23 Nov 2026, after noticing the
+  open-top Humvee had full glass): a fourth kind, **Windscreen**, for an open vehicle that keeps one. It has the glass part although its
+  cab is open, takes half an all-round cab's share of plate hits (0.3), throws one splinter as it goes (its laminated layer holds the
+  rest) and reaches open front seats with it, and takes one laminated pane to re-glaze; its going changes nothing about shelter. The
+  Humvee's loadout says so. **And a ground vehicle whose author marked every seat exposed counts as open** unless an extension says
+  otherwise (`Cabins`, one answer for the cab system and the glass); aircraft are left out, their exposed seats being under a canopy.
+  Of the 93 designs with our systems in the owner's game on 23 Nov 2026, only the Humvee was open but glazed. [A]
 - **The open cab** (VG4, temperature now): a flow pulls the cab toward the outside eight times the shell's rate while the glass is
   gone; smoke clears and bystanders share as with the windows down; the Windows button is disabled and says why. Cab air waits for
   its own model.

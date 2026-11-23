@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.114.0] - 2026-11-23 - Draft
+
+The open-top Humvee: an open cab with a windscreen
+
+### Changed
+
+- **The Humvee is open to the weather, and its glass is a windscreen alone** (the owner's report and choice of 23 November 2026: it is drawn with no roof or doors, yet had a closed cab and full glass). Its crew get the weather, with no cab temperature or Windows button; its windscreen still cracks and breaks, cuts the front seats a little as it goes, and takes one laminated pane to re-glaze. Needs D'thorga Framework 0.268.0. Not yet tested in game: row 445 of the test pass.
+
+### Save compatibility
+
+- A Humvee in a save keeps its glass part and becomes open at its next load; glass that was cracked stays as cracked as it was.
+
 ## [0.113.3] - 2026-11-23 - Draft
 
 Trailers hitch up close

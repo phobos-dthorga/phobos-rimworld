@@ -472,12 +472,20 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         WindowsDown = down;
     }
 
-    /// <summary>Whether this vehicle's cab shelters everyone aboard: the vehicle's own extension, else its loadout's cabin block.</summary>
+    /// <summary>Whether this vehicle's cab shelters everyone aboard (<see cref="Cabins"/>: the vehicle's own extension, its loadout's
+    /// cabin block, then whether its author left every seat exposed).</summary>
     public bool ClosedCab
     {
         get
         {
-            closedCab ??= Vehicle?.VehicleDef?.GetModExtension<PhobosVehicleCabinExtension>()?.closed ?? Props.loadout?.cabin.closed ?? true;
+            if (closedCab == null)
+            {
+                (bool closed, CabinReason reason) = Cabins.Judge(Vehicle?.VehicleDef, Props.loadout);
+                closedCab = closed;
+                if (!closed && Vehicle != null && Seen.Wants("vehicles.open-cab", Vehicle, reason.ToString()))
+                    Seen.Note("vehicles.open-cab", Vehicle, Glass.PartOf(Vehicle) != null ? "open, with glass " + Glass.KindOf(Vehicle) : "open, no glass",
+                        reason.ToString());
+            }
             return closedCab.Value;
         }
     }
