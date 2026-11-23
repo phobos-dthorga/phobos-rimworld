@@ -6,19 +6,41 @@ using Verse;
 
 namespace Phobos.Radio.Services;
 
-/// <summary>A station's channels as the ledger last counted them (Radio 0.7.0).</summary>
-public readonly record struct StationChannels(int Channels, int ChannelsPerUse, int RadiosPerUse, int Slots, int Served)
+/// <summary>One kind's share of a station's channels (Radio 0.8.0): its shape, the radios served, the channels they hold, where its
+/// block starts, and how many more of it would fit.</summary>
+public readonly record struct KindLedger(ChannelKindDef Kind, KindShape Shape, int Served, int Held, int Start, int Room);
+
+/// <summary>A station's channels as the ledger last counted them (Radio 0.7.0; by kind since 0.8.0).</summary>
+public sealed class StationChannels
 {
-    /// <summary>The channels in use: each block of radios taking turns holds one use's channels.</summary>
-    public int InUse => Served == 0 ? 0 : (Served + RadiosPerUse - 1) / RadiosPerUse * ChannelsPerUse;
+    public static readonly StationChannels None = new(0, System.Array.Empty<KindLedger>());
+
+    public StationChannels(int channels, IReadOnlyList<KindLedger> kinds)
+    {
+        Channels = channels;
+        Kinds = kinds;
+        foreach (var kind in kinds) InUse += kind.Held;
+    }
+
+    public int Channels { get; }
+    /// <summary>Every kind, in the ledger's order (<see cref="ChannelKindDef.InOrder"/>), in use or not.</summary>
+    public IReadOnlyList<KindLedger> Kinds { get; }
+    public int InUse { get; }
     public int Free => System.Math.Max(0, Channels - InUse);
+
+    /// <summary>One kind's share, or an empty one when the ledger has not counted it.</summary>
+    public KindLedger Of(ChannelKindDef kind)
+    {
+        var at = kind.LedgerIndex;
+        return at >= 0 && at < Kinds.Count ? Kinds[at] : new KindLedger(kind, default, 0, 0, 0, 0);
+    }
 }
 
 /// <summary>
 /// The map's radio picture: every worn hand-held evaluated against every base station, recomputed on
 /// a short interval and never saved. Gizmos, inspect strings and the thought read this cache; nothing
 /// else computes a link. Since Radio 0.7.0 it also keeps the channel ledger: which station serves each radio in touch, from each
-/// station's pool of channels (<see cref="Channels"/>).
+/// station's pool of channels (<see cref="Channels"/>), counted by kind since 0.8.0 (<see cref="ChannelKindDef"/>).
 /// </summary>
 public sealed class RadioNet : MapComponent
 {
@@ -40,6 +62,8 @@ public sealed class RadioNet : MapComponent
     private readonly Dictionary<Pawn, Thing> servedBy = new();
     private readonly HashSet<Pawn> busy = new();
     private readonly Dictionary<Thing, List<Thing>> servedOn = new();
+    /// <summary>Each served radio's station, its kind (its index in the ledger) and its place among that station's radios of the kind.</summary>
+    private readonly Dictionary<Thing, (Thing station, int kind, int place)> placeOf = new();
     private readonly Dictionary<Thing, StationChannels> channelsOf = new();
     private int nextRecomputeTick = -1;
     private bool dirty = true;
@@ -114,21 +138,40 @@ public sealed class RadioNet : MapComponent
         return busy.Contains(pawn);
     }
 
-    /// <summary>A station's channels: how many, how many radios they can serve, how many they do.</summary>
+    /// <summary>A station's channels: how many, and each kind's share of them.</summary>
     public StationChannels ChannelsOf(Thing station)
     {
         EnsureFresh();
-        return channelsOf.TryGetValue(station, out var channels) ? channels : default;
+        return channelsOf.TryGetValue(station, out var channels) ? channels : StationChannels.None;
     }
 
-    /// <summary>A radio's place among those a station serves, which sets its channel and its turn; -1 when it is not served there.</summary>
+    /// <summary>
+    /// A radio's place among the radios of its kind a station serves, which sets its channel and its turn; -1 when it is not served
+    /// there.
+    /// </summary>
     public int PlaceOf(Thing station, Thing radio)
     {
         EnsureFresh();
-        return servedOn.TryGetValue(station, out var radios) ? radios.IndexOf(radio) : -1;
+        return placeOf.TryGetValue(radio, out var at) && at.station == station ? at.place : -1;
     }
 
-    /// <summary>The radios a station serves, in their places.</summary>
+    /// <summary>The kind's share a served radio counts in at a station, or null when it is not served there.</summary>
+    public KindLedger? LedgerOf(Thing station, Thing radio)
+    {
+        EnsureFresh();
+        if (!placeOf.TryGetValue(radio, out var at) || at.station != station) return null;
+        var channels = ChannelsOf(station);
+        return at.kind < channels.Kinds.Count ? channels.Kinds[at.kind] : null;
+    }
+
+    /// <summary>The channel a served radio's use starts on at a station, counting from 0, or -1.</summary>
+    public int ChannelOf(Thing station, Thing radio)
+    {
+        var place = PlaceOf(station, radio);
+        return place >= 0 && LedgerOf(station, radio) is { } ledger ? Channels.ChannelOf(place, ledger.Shape, ledger.Start) : -1;
+    }
+
+    /// <summary>The radios a station serves, kind by kind in the ledger's order, each kind in its places.</summary>
     public IReadOnlyList<Thing> ServedOn(Thing station)
     {
         EnsureFresh();
@@ -139,9 +182,9 @@ public sealed class RadioNet : MapComponent
     public bool RadioKeyed(Thing station, Thing radio)
     {
         var place = PlaceOf(station, radio);
-        if (place < 0 || station.TryGetComp<CompRadio>() is not { } comp) return false;
-        var channels = ChannelsOf(station);
-        return Channels.KeyedNow(place, channels.RadiosPerUse, Find.TickManager.TicksGame + Seed(station), KeyCycleTicks, comp.Mode.dutyCycle);
+        if (place < 0 || LedgerOf(station, radio) is not { } ledger) return false;
+        return Channels.KeyedNow(place, ledger.Shape.RadiosPerUse, Find.TickManager.TicksGame + Seed(station), KeyCycleTicks,
+            ledger.Kind.Mode.dutyCycle);
     }
 
     /// <summary>Whether a station is answering anyone now: one of its served radios is taking its turn (the lamp, the needle).</summary>
@@ -195,6 +238,7 @@ public sealed class RadioNet : MapComponent
         servedBy.Clear();
         busy.Clear();
         servedOn.Clear();
+        placeOf.Clear();
         channelsOf.Clear();
         unpoweredStation = false;
     }
@@ -237,27 +281,30 @@ public sealed class RadioNet : MapComponent
     }
 
     /// <summary>
-    /// The channel ledger (Radio 0.7.0): every radio in touch is served by the best station with a free place on its channels; a
-    /// radio already served keeps its station while it stays in touch with it. A radio in touch that no station has room for is busy.
-    /// Only served radios count as in touch with a station, for its draw, its lamp and the colonist's mood.
+    /// The channel ledger (Radio 0.7.0; by kind since 0.8.0): every radio in touch is served by the best station with room for one
+    /// more of its kind; a radio already served keeps its station while it stays in touch with it. Kinds with a lower order are served
+    /// first, then the strongest. A radio in touch that no station has room for is busy. Only served radios count as in touch with a
+    /// station, for its draw, its lamp and the colonist's mood.
+    /// <para>Cost: one pass over the links already worked out, a sort, and a few lookups per radio, about once a second.</para>
     /// </summary>
     private void ServeFromChannels(RadioRulesDef rules)
     {
-        var slots = new Dictionary<int, int>();
+        var kinds = ChannelKindDef.InOrder;
+        if (kinds.Count == 0) return;
+        var shapes = new KindShape[kinds.Count];
+        for (var k = 0; k < kinds.Count; k++)
+        {
+            shapes[k] = new KindShape(Channels.PerUse(kinds[k].Mode.bandwidthHz, rules.channelWidthHz), Channels.RadiosPerUse(kinds[k].Mode.dutyCycle));
+        }
+        var channelsByStation = new Dictionary<int, int>();
         var stationById = new Dictionary<int, CompRadio>();
         foreach (var station in stations)
         {
-            var mode = station.Mode;
-            var count = (int)RadioUpgrades.Figure(station.parent, RadioUpgrades.Channels, station.Props.channels);
-            var perUse = Channels.PerUse(mode.bandwidthHz, rules.channelWidthHz);
-            var radiosPerUse = Channels.RadiosPerUse(mode.dutyCycle);
-            var stationSlots = Channels.Slots(count, perUse, radiosPerUse);
-            slots[station.parent.thingIDNumber] = stationSlots;
+            channelsByStation[station.parent.thingIDNumber] = (int)RadioUpgrades.Figure(station.parent, RadioUpgrades.Channels, station.Props.channels);
             stationById[station.parent.thingIDNumber] = station;
-            channelsOf[station.parent] = new StationChannels(count, perUse, radiosPerUse, stationSlots, 0);
         }
 
-        // Each radio in touch, with the stations it is in touch with, best first; the strongest radios are served first.
+        // Each radio in touch, with its kind and the stations it is in touch with, best first.
         var linksByRadio = new Dictionary<Thing, List<LinkEvaluation>>();
         foreach (var pair in pairs)
         {
@@ -265,28 +312,31 @@ public sealed class RadioNet : MapComponent
             if (!linksByRadio.TryGetValue(pair.A.Thing, out var links)) linksByRadio[pair.A.Thing] = links = new List<LinkEvaluation>();
             links.Add(pair);
         }
-        var ordered = new List<(Thing radio, List<LinkEvaluation> links)>();
+        var ordered = new List<(Thing radio, int kind, List<LinkEvaluation> links)>();
         foreach (var entry in linksByRadio)
         {
             entry.Value.Sort((a, b) => b.MarginDb.CompareTo(a.MarginDb));
-            ordered.Add((entry.Key, entry.Value));
+            var kind = entry.Key.TryGetComp<CompRadio>()?.Kind ?? ChannelKindDef.LocalVoice;
+            ordered.Add((entry.Key, kind.LedgerIndex, entry.Value));
         }
         ordered.Sort((a, b) =>
         {
+            if (a.kind != b.kind) return a.kind.CompareTo(b.kind);
             var byMargin = b.links[0].MarginDb.CompareTo(a.links[0].MarginDb);
             return byMargin != 0 ? byMargin : a.radio.thingIDNumber.CompareTo(b.radio.thingIDNumber);
         });
         var candidates = new List<ChannelCandidate>(ordered.Count);
-        foreach (var (radio, links) in ordered)
+        foreach (var (radio, kind, links) in ordered)
         {
             var best = new List<int>(links.Count);
             foreach (var link in links) best.Add(link.B.Thing.thingIDNumber);
-            candidates.Add(new ChannelCandidate(radio.thingIDNumber, best));
+            candidates.Add(new ChannelCandidate(radio.thingIDNumber, kind, best));
         }
 
-        var served = Channels.Allocate(slots, candidates, held);
+        var served = Channels.Allocate(channelsByStation, shapes, candidates, held);
         held = served;
-        foreach (var (radio, links) in ordered)
+        var kindOf = new Dictionary<Thing, int>();
+        foreach (var (radio, kind, _) in ordered)
         {
             var wearer = (radio as Apparel)?.Wearer;
             if (!served.TryGetValue(radio.thingIDNumber, out var stationId) || !stationById.TryGetValue(stationId, out var station))
@@ -297,13 +347,30 @@ public sealed class RadioNet : MapComponent
             if (wearer != null) servedBy[wearer] = station.parent;
             if (!servedOn.TryGetValue(station.parent, out var list)) servedOn[station.parent] = list = new List<Thing>();
             list.Add(radio);
+            kindOf[radio] = kind;
             inTouchByStation[station.parent] = (inTouchByStation.TryGetValue(station.parent, out var n) ? n : 0) + 1;
         }
-        foreach (var entry in servedOn)
+
+        // Each station's radios kind by kind, each kind's block of channels after the one before it.
+        var counts = new int[kinds.Count];
+        foreach (var station in stations)
         {
-            entry.Value.Sort((a, b) => a.thingIDNumber.CompareTo(b.thingIDNumber));
-            var before = channelsOf[entry.Key];
-            channelsOf[entry.Key] = before with { Served = entry.Value.Count };
+            System.Array.Clear(counts, 0, counts.Length);
+            if (servedOn.TryGetValue(station.parent, out var list))
+            {
+                list.Sort((a, b) => kindOf[a] != kindOf[b] ? kindOf[a].CompareTo(kindOf[b]) : a.thingIDNumber.CompareTo(b.thingIDNumber));
+                foreach (var radio in list) placeOf[radio] = (station.parent, kindOf[radio], counts[kindOf[radio]]++);
+            }
+            var total = channelsByStation[station.parent.thingIDNumber];
+            var ledgers = new KindLedger[kinds.Count];
+            var start = 0;
+            for (var k = 0; k < kinds.Count; k++)
+            {
+                var heldHere = Channels.ChannelsHeld(counts[k], shapes[k]);
+                ledgers[k] = new KindLedger(kinds[k], shapes[k], counts[k], heldHere, start, Channels.Room(k, counts, shapes, total));
+                start += heldHere;
+            }
+            channelsOf[station.parent] = new StationChannels(total, ledgers);
         }
     }
 

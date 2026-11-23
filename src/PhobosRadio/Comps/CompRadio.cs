@@ -29,6 +29,11 @@ public class CompProperties_Radio : CompProperties
     /// 0.7.0; the channel ledger). A hand-held needs none of its own.
     /// </summary>
     public int channels = 1;
+    /// <summary>
+    /// What this radio's use of a station's channels counts as in the ledger (Radio 0.8.0): the local voice net when it names
+    /// none. A station serves every kind; the kind's mode sets the channels one use takes and the radios that share it.
+    /// </summary>
+    public ChannelKindDef? channelKind;
 
     public CompProperties_Radio() => compClass = typeof(CompRadio);
 
@@ -51,6 +56,9 @@ public class CompRadio : ThingComp
 
     public CompProperties_Radio Props => (CompProperties_Radio)props;
     public ModeDef Mode => Props.mode!;
+
+    /// <summary>The kind this radio's use counts as in the channel ledger (Radio 0.8.0).</summary>
+    public ChannelKindDef Kind => Props.channelKind ?? ChannelKindDef.LocalVoice;
 
     /// <summary>The pawn wearing this hand-held, or null for a station or an unworn radio.</summary>
     public Pawn? Wearer => (parent as Apparel)?.Wearer;

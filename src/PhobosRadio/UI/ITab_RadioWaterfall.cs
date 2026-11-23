@@ -79,7 +79,7 @@ public class ITab_RadioWaterfall : ITab
         Widgets.Label(new Rect(rect.x, fall.yMax + 24f, rect.width, 40f),
             radios.Count == 0 ? "PhobosRadio_WaterfallNobody".Translate() : "PhobosRadio_WaterfallNote".Translate(
                 (RadioRulesDef.Current.channelWidthHz / 1000f).ToString("0.#").Named("WIDTH"),
-                Channels.RadiosPerUse(Station?.Mode.dutyCycle ?? 0.2f).Named("RADIOS")));
+                Channels.RadiosPerUse(ChannelKindDef.LocalVoice.Mode.dutyCycle).Named("RADIOS")));
         GUI.color = Color.white;
         Text.Font = GameFont.Small;
     }
@@ -115,14 +115,15 @@ public class ITab_RadioWaterfall : ITab
         var channels = net.ChannelsOf(station.parent);
         channelCount = Mathf.Max(1, channels.Channels);
         var served = net.ServedOn(station.parent);
-        for (var place = 0; place < served.Count; place++)
+        foreach (var radio in served)
         {
-            var radio = served[place];
             LinkEvaluation? link = null;
             foreach (var pair in pairs) if (pair.A.Thing == radio) link = pair;
             if (link == null) continue;
-            var channel = Channels.ChannelOf(place, channels.RadiosPerUse, channels.ChannelsPerUse);
-            var centre = (channel + Mathf.Max(1, channels.ChannelsPerUse) / 2f) / channelCount;
+            // Its kind's block of channels (Radio 0.8.0); a wide use is drawn across the middle of the channels it takes.
+            var channel = net.ChannelOf(station.parent, radio);
+            if (channel < 0 || net.LedgerOf(station.parent, radio) is not { } ledger) continue;
+            var centre = (channel + Mathf.Max(1, ledger.Shape.ChannelsPerUse) / 2f) / channelCount;
             var wearer = (radio as Apparel)?.Wearer;
             radios.Add((wearer?.LabelShort ?? radio.LabelShort, Mathf.Clamp(Mathf.RoundToInt(Bins * centre), 0, Bins - 1), channel,
                 (float)link.Budget.Forward.ReceivedDbm, radio));

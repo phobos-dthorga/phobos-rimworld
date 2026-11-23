@@ -31,10 +31,13 @@ public class ITab_RadioNet : ITab
         Widgets.Label(new Rect(outer.x, outer.y, outer.width, 24f),
             pairs.Count == 0 ? "PhobosRadio_StationNoRadios".Translate() : "PhobosRadio_StationInTouch".Translate(net.InTouchCount(station).Named("INTOUCH"), pairs.Count.Named("TOTAL")));
         Widgets.Label(new Rect(outer.x, outer.y + 24f, outer.width, 24f), "PhobosRadio_StationAntenna".Translate(net.AntennaLabelFor(station).ToString().Named("ANTENNA")));
-        var channels = net.ChannelsOf(station);
-        Widgets.Label(new Rect(outer.x, outer.y + 48f, outer.width, 24f), LinkText.ChannelsLine(channels));
+        // The channels, a line for each kind in use (Radio 0.8.0), as tall as it needs.
+        var channelsText = LinkText.ChannelsLine(net.ChannelsOf(station));
+        var channelsHeight = Text.CalcHeight(channelsText, outer.width);
+        Widgets.Label(new Rect(outer.x, outer.y + 48f, outer.width, channelsHeight), channelsText);
 
-        var list = new Rect(outer.x, outer.y + 78f, outer.width, outer.height - 78f);
+        var top = 54f + channelsHeight;
+        var list = new Rect(outer.x, outer.y + top, outer.width, outer.height - top);
         const float rowHeight = 52f;
         var view = new Rect(0f, 0f, list.width - 16f, pairs.Count * rowHeight);
         Widgets.BeginScrollView(list, ref scroll, view);
@@ -47,9 +50,9 @@ public class ITab_RadioNet : ITab
             var who = wearer?.LabelShortCap ?? pair.A.Thing.LabelCap.ToString();
             var isBest = wearer != null && net.TryGetBest(wearer, out var best) && best != null && best.B.Thing == station;
             // Which channel serves them here, or that the net is busy for them (Radio 0.7.0).
-            var place = net.PlaceOf(station, pair.A.Thing);
-            var where = place >= 0
-                ? " " + "PhobosRadio_TabOnChannel".Translate((Physics.Channels.ChannelOf(place, channels.RadiosPerUse, channels.ChannelsPerUse) + 1).Named("CHANNEL"))
+            var channel = net.ChannelOf(station, pair.A.Thing);
+            var where = channel >= 0
+                ? " " + "PhobosRadio_TabOnChannel".Translate((channel + 1).Named("CHANNEL"))
                 : wearer != null && net.IsBusy(wearer) ? " " + "PhobosRadio_TabBusy".Translate() : "";
             var head = $"{LinkText.Bars(pair.Outcome)} {who}: {LinkText.OutcomeLabel(pair.Outcome)}" +
                        (isBest ? " " + "PhobosRadio_TabBestStation".Translate() : "") + where;

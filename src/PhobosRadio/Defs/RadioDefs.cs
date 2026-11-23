@@ -48,6 +48,62 @@ public class ModeDef : Def
 }
 
 /// <summary>
+/// A kind of channel use in the ledger (Radio 0.8.0; the owner, 24 Nov 2026: "Start on Phase 2's ledger kinds", after D'thorga
+/// Mechanised Specialist Expansion's BVR channels, which count artillery, local, world and strike apart). A radio names its kind; the
+/// kind's mode sets how many channels one use takes and how many radios share it by turns. Kinds never share a block of channels, so a
+/// station's tooltip can count them apart. Other mods add kinds in XML, never a second system of frequencies (the radio's rules).
+/// </summary>
+public class ChannelKindDef : Def
+{
+    /// <summary>The defName of the kind a radio has when it names none: the colony's local voice net.</summary>
+    public const string LocalVoiceName = "PhobosRadio_KindLocalVoice";
+
+    /// <summary>What a use of this kind carries: its bandwidth and duty cycle set the channels and the turns.</summary>
+    public ModeDef? mode;
+    /// <summary>Kinds with a lower order are served first when channels are short, and listed first (authored).</summary>
+    public int order = 100;
+
+    private static List<ChannelKindDef>? inOrder;
+    private static ChannelKindDef? localVoice;
+
+    public ModeDef Mode => mode!;
+
+    /// <summary>Every kind, lowest order first, then by defName; its index is the kind's place in the ledger.</summary>
+    public static List<ChannelKindDef> InOrder
+    {
+        get
+        {
+            if (inOrder != null) return inOrder;
+            inOrder = new List<ChannelKindDef>(DefDatabase<ChannelKindDef>.AllDefsListForReading);
+            inOrder.Sort((a, b) => a.order != b.order ? a.order.CompareTo(b.order) : string.CompareOrdinal(a.defName, b.defName));
+            for (var i = 0; i < inOrder.Count; i++) inOrder[i].ledgerIndex = i;
+            return inOrder;
+        }
+    }
+
+    /// <summary>The local voice net's kind, or the first kind there is.</summary>
+    public static ChannelKindDef LocalVoice => localVoice ??= DefDatabase<ChannelKindDef>.GetNamedSilentFail(LocalVoiceName) ?? InOrder[0];
+
+    [Unsaved] private int ledgerIndex = -1;
+
+    /// <summary>This kind's place in <see cref="InOrder"/>.</summary>
+    public int LedgerIndex
+    {
+        get
+        {
+            _ = InOrder;
+            return ledgerIndex;
+        }
+    }
+
+    public override IEnumerable<string> ConfigErrors()
+    {
+        foreach (var error in base.ConfigErrors()) yield return error;
+        if (mode == null) yield return $"{defName}: a channel kind needs a mode";
+    }
+}
+
+/// <summary>
 /// The starting values the design says to tune in play. One Def; the first one loaded wins.
 /// Player preferences (display mode, metres per cell, the thought) are mod settings, not rules.
 /// </summary>

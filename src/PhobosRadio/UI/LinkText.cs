@@ -18,11 +18,31 @@ public static class LinkText
 
     public static string OutcomeLabel(LinkOutcome outcome) => ("PhobosRadio_Outcome" + outcome).Translate();
 
-    /// <summary>A station's channels in one line, as the ledger counted them (Radio 0.7.0): in use, width, radios served.</summary>
-    public static string ChannelsLine(StationChannels channels) =>
-        "PhobosRadio_StationChannels".Translate(channels.InUse.Named("INUSE"), channels.Channels.Named("CHANNELS"),
-            (RadioRulesDef.Current.channelWidthHz / 1000f).ToString("0.#").Named("WIDTH"), channels.Served.Named("SERVED"),
-            channels.Slots.Named("SLOTS"));
+    /// <summary>
+    /// A station's channels as the ledger counted them (Radio 0.7.0): in use, width and free, then a line for each kind in use, as
+    /// the BVR system's tooltip counts its kinds (0.8.0). With nothing served, the local voice net's line says how many it has room for.
+    /// </summary>
+    public static string ChannelsLine(StationChannels channels)
+    {
+        var sb = new StringBuilder("PhobosRadio_StationChannels".Translate(channels.InUse.Named("INUSE"), channels.Channels.Named("CHANNELS"),
+            (RadioRulesDef.Current.channelWidthHz / 1000f).ToString("0.#").Named("WIDTH"), channels.Free.Named("FREE")));
+        var any = false;
+        foreach (var kind in channels.Kinds)
+        {
+            if (kind.Served == 0) continue;
+            any = true;
+            AppendKind(sb, kind);
+        }
+        if (!any && channels.Channels > 0) AppendKind(sb, channels.Of(ChannelKindDef.LocalVoice));
+        return sb.ToString();
+    }
+
+    private static void AppendKind(StringBuilder sb, KindLedger kind)
+    {
+        sb.AppendLine();
+        sb.Append("PhobosRadio_StationChannelKind".Translate(kind.Kind.LabelCap.Named("KIND"), kind.Held.Named("HELD"),
+            kind.Served.Named("SERVED"), kind.Room.Named("ROOM")));
+    }
 
     /// <summary>The one-line reason for the Plain mode: the biggest loss, or noise when the floor is raised.</summary>
     public static string PlainReason(LinkEvaluation link)

@@ -1,7 +1,7 @@
 # Radio stations: the radio desk and the radio terminal (24 Nov 2026)
 
 **Status (24 Nov 2026):** partly built. The channel ledger is built in Radio Framework 0.7.0
-([below](#channels-radio-070)), not yet tested in game. The radio terminal, both linear amplifiers and the full-size ground-plane are built in Radio
+([below](#channels-radio-070)) and counts by kind since 0.8.0 ([kinds](#kinds-radio-080)), not yet tested in game. The radio terminal, both linear amplifiers and the full-size ground-plane are built in Radio
 Framework 0.5.0 ([as built](#as-built-radio-050-24-nov-2026)), not yet tested in game. The building upgrades for the radio desk and
 both antennas are built in Radio Framework 0.4.0
 ([below](#building-upgrades-radio-040)), not yet tested in game. The radio terminal and the linear amplifier are designed, not built;
@@ -142,12 +142,13 @@ trunked system would be." **[O]**
   keeps its station** while it stays in touch with it, so two near the limit never swap back and forth; the strongest are served
   first. A radio in touch that no station has room for is **busy**: its button reads "Radio: net busy", and it gets no "in touch"
   mood. A marginal link takes no channel, as before.
-- **What reads it:** the station's inspect text, its button and its Net tab ("Channels: 1 of 1 in use, 25 kHz each; 3 of 5 radios
-  served", and each colonist's channel or "net busy"); the lamp and needle (lit while a served radio takes its turn); the waterfall,
-  whose streaks now sit on the channel each radio really holds, so its earlier fiction ("its own spot of the band") is gone.
-- **Game-free and tested:** `Physics/Channels.cs` (`PerUse`, `RadiosPerUse`, `Slots`, `Allocate`, `KeyedNow`, `ChannelOf`), with
-  tests for the counts, the best station with room, a holder keeping its channel, and exactly one radio keyed at a time on a full
-  channel.
+- **What reads it:** the station's inspect text, its button and its Net tab ("Channels: 1 of 1 in use, 25 kHz each; 0 free", then
+  a line for each kind, below; and each colonist's channel or "net busy"); the lamp and needle (lit while a served radio takes its
+  turn); the waterfall, whose streaks sit on the channel each radio really holds, so its earlier fiction ("its own spot of the band")
+  is gone.
+- **Game-free and tested:** `Physics/Channels.cs` (`PerUse`, `RadiosPerUse`, `ChannelsHeld`, `Room`, `Allocate`, `KeyedNow`,
+  `ChannelOf`), with tests for the counts, the best station with room, a holder keeping its channel, kinds in blocks of their own,
+  and exactly one radio keyed at a time on a full channel.
 
 **The four questions [A].** It lets the player plan capacity: more stations, a second transceiver, or a terminal for a large colony.
 It stops a single desk serving everyone: past five radios on one desk, the rest wait. It changes play little in a small colony and
@@ -157,9 +158,32 @@ thought; nothing else, by choice.
 **Its cost (the radio's performance rule):** one pass over the links already worked out, when the net works them out (about once a
 second): a sort and a few dictionary lookups per radio. Asking who is keyed is arithmetic on the tick. Nothing per frame or per cell.
 
-**For Phase 2 [A], the plan:** the ledger counts by kind, as the BVR system's does. Today there is one kind, the local net. Caravans
-by HF, world calls to other factions, and data links would each be a kind with its own mode (and so its own channels per use), and
-the station's tooltip would list them, as in the owner's screenshot. Jamming (Phase 3) would take channels away.
+### Kinds (Radio 0.8.0)
+
+The owner, 24 Nov 2026: "Start on Phase 2's ledger kinds next". **[O]** Built in Radio Framework 0.8.0, not yet tested in game.
+
+- **A kind is a Def** (`Phobos.Radio.ChannelKindDef`: a label, a mode, an order) **[code]**. A radio names its kind
+  (`CompProperties_Radio.channelKind`); one that names none is **local voice**, the only kind shipped today. The kind's mode sets
+  its shape: how many channels one use takes (its bandwidth over 25 kHz) and how many radios take turns on it (its duty cycle).
+- **Kinds never share a block [A]:** each kind's radios fill whole uses of their own, so the counts can be told apart, as the BVR
+  system's are. Three voices and one 100 kHz data link on the terminal hold 1 + 4 = 5 channels, one more than it has.
+- **Who is served first [A]:** kinds with a lower order first, then the strongest; **a holder still keeps its station**, whatever
+  its kind, so nothing is thrown off the net once on it. Whether a kind should be able to take a channel from a holder (as a
+  trunked system's emergency call pre-empts) is left for the first kind that needs it: the remote control of vehicles below.
+- **Every station serves every kind [A].** A station limited to some kinds (a desk with no data modem) waits for a kind that needs
+  the difference.
+- **What reads it:** under the channels line, a line for each kind in use, as in the owner's screenshot: "Local voice: 1 in use by
+  3 radios; room for 2 more", where "room" counts the turns left in the kind's last block and the whole blocks that fit in the free
+  channels. With nobody served, the local voice line says how many it has room for, so the player can plan.
+- **The waterfall** draws each kind's block after the one before it, and a wide use across the middle of the channels it takes.
+
+**Its cost:** unchanged in kind: the same pass about once a second, now with a count per kind per station (an array as long as the
+kinds) and one sort per station by kind. Asking a radio's channel or turn is a dictionary lookup.
+
+**What comes next [A]:** the remote control of vehicles is the first new kind the owner wants ("the real feature I wish to
+implement soon is autonomous vehicles and perhaps their weapon systems too, all via our radio framework", 24 Nov 2026), to be designed
+in its own record. Caravans by HF and world calls to other factions follow in Phase 2 proper; jamming
+(Phase 3) would take channels away.
 
 ## As built: Radio 0.5.0 (24 Nov 2026)
 

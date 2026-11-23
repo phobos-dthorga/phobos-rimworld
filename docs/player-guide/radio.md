@@ -60,7 +60,8 @@ station is sending. The **full-size ground-plane** is a slightly better whip.
 
 **Channels.** Each station has channels, 25 kHz each, as a trunked radio system does: the desk one, the terminal four. Radios
 share a channel by taking turns, five to a channel for voice. The station's text and **Net** tab say how many are in use and who is
-on which channel; a colonist with no free channel reads **net busy**. The desk's **second transceiver** upgrade adds a channel.
+on which channel; a colonist with no free channel reads **net busy**. Under the count, a line for each kind of use (local voice
+for now) says how many channels it holds, for how many radios, and how many more it has room for. The desk's **second transceiver** upgrade adds a channel.
 
 **Signs of life.** The desk's lamp lights and its needle swings while it sends; an amplifier's needle shows its output; the
 mast flashes red at night. Select a station and its coax glows, dimming along the cable as it loses the signal. The radio

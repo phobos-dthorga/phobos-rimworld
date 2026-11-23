@@ -23,7 +23,8 @@
   <PhobosRadio_GizmoNoStation>Radio: no station</PhobosRadio_GizmoNoStation>
   <PhobosRadio_GizmoBusy>Radio: net busy</PhobosRadio_GizmoBusy>
   <PhobosRadio_NetBusy>Every channel that can hear this radio is taken by others; it waits for one to come free.</PhobosRadio_NetBusy>
-  <PhobosRadio_StationChannels>Channels: {INUSE} of {CHANNELS} in use, {WIDTH} kHz each; {SERVED} of {SLOTS} radios served.</PhobosRadio_StationChannels>
+  <PhobosRadio_StationChannels>Channels: {INUSE} of {CHANNELS} in use, {WIDTH} kHz each; {FREE} free.</PhobosRadio_StationChannels>
+  <PhobosRadio_StationChannelKind>  {KIND}: {HELD} in use by {SERVED} radios; room for {ROOM} more.</PhobosRadio_StationChannelKind>
   <PhobosRadio_TabOnChannel>(channel {CHANNEL})</PhobosRadio_TabOnChannel>
   <PhobosRadio_TabBusy>(net busy: no free channel)</PhobosRadio_TabBusy>
   <PhobosRadio_GizmoNoPower>Radio: station has no power</PhobosRadio_GizmoNoPower>
@@ -71,7 +72,7 @@
   <PhobosRadio_TabWaterfall>Waterfall</PhobosRadio_TabWaterfall>
   <PhobosRadio_WaterfallTitle>{BAND}: newest at the top, brighter for a stronger signal</PhobosRadio_WaterfallTitle>
   <PhobosRadio_WaterfallNeeded>voice needs {LEVEL} dBm</PhobosRadio_WaterfallNeeded>
-  <PhobosRadio_WaterfallNote>Each streak is a colonist's radio as it arrives here, on the channel the station gave it. Each channel is {WIDTH} kHz; up to {RADIOS} radios share one, taking turns.</PhobosRadio_WaterfallNote>
+  <PhobosRadio_WaterfallNote>Each streak is a colonist's radio as it arrives here, on the channel the station gave it. Each channel is {WIDTH} kHz; up to {RADIOS} voice radios share one, taking turns.</PhobosRadio_WaterfallNote>
   <PhobosRadio_WaterfallChannel>ch {CHANNEL}</PhobosRadio_WaterfallChannel>
   <PhobosRadio_WaterfallNobody>No colonist wearing a hand-held is in reach: only the noise this station hears.</PhobosRadio_WaterfallNobody>
   <PhobosRadio_StepsNeeded>needed</PhobosRadio_StepsNeeded>

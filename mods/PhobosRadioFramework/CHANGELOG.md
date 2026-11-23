@@ -17,6 +17,26 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.8.0] - 2026-11-24 - Draft
+
+Channels by kind: the station counts each use of its channels apart
+
+### Added
+
+- **The channel ledger counts by kind**, as D'thorga Mechanised Specialist Expansion's BVR channels do (the owner's go of 24 November
+  2026). Under its channels line a station lists each kind in use: "Local voice: 1 in use by 3 radios; room for 2 more". Each kind
+  fills channels of its own, with its own mode setting how many one use takes and how many radios share them. Local voice is the
+  only kind for now; other mods, and our coming remote control of vehicles, add kinds in XML. Not yet tested in game: row 478.
+
+### Changed
+
+- **The channels line says how many are free** instead of how many radios are served of how many could be; each kind's line now
+  carries those counts.
+
+### Compatibility and limits
+
+- Safe with a running save: nothing new is saved. No new settings.
+
 ## [0.7.0] - 2026-11-24 - Draft
 
 Channels: a station serves as many radios as its channels hold

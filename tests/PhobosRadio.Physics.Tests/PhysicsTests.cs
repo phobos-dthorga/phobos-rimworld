@@ -180,6 +180,10 @@ public class AmplifierTests
 public class ChannelTests
 {
     private static readonly Dictionary<int, int> None = new();
+    private static readonly KindShape Voice = new(1, 5);           // FM voice: one channel, five taking turns
+    private static readonly KindShape WideData = new(4, 1);        // a 100 kHz link keyed all the time
+    private static readonly KindShape[] VoiceOnly = { Voice };
+    private static readonly KindShape[] VoiceAndData = { WideData, Voice };
 
     [Fact]
     public void VoiceTakesOneTwentyFiveKilohertzChannelAndFiveShareIt()
@@ -188,35 +192,62 @@ public class ChannelTests
         Assert.Equal(1, Channels.PerUse(25000, 25000));
         Assert.Equal(4, Channels.PerUse(100000, 25000));     // a wide data mode takes four
         Assert.Equal(5, Channels.RadiosPerUse(0.2));
-        Assert.Equal(5, Channels.Slots(1, 1, 5));            // the desk
-        Assert.Equal(20, Channels.Slots(4, 1, 5));           // the terminal
-        Assert.Equal(5, Channels.Slots(4, 4, 5));            // the terminal, all four channels on one wide use
+        Assert.Equal(1, Channels.ChannelsHeld(5, Voice));
+        Assert.Equal(2, Channels.ChannelsHeld(6, Voice));
+        Assert.Equal(0, Channels.ChannelsHeld(0, Voice));
+        Assert.Equal(8, Channels.ChannelsHeld(2, WideData));
+    }
+
+    [Fact]
+    public void KindsFillBlocksOfTheirOwn()
+    {
+        // One data link and three voices on the terminal's four channels: the link takes all four, so the voices find no room.
+        Assert.Equal(5, Channels.ChannelsHeld(new[] { 1, 3 }, VoiceAndData));
+        // Each kind's room, with the other as it is.
+        Assert.Equal(20, Channels.Room(1, new[] { 0, 0 }, VoiceAndData, 4));   // the terminal, empty: twenty voices
+        Assert.Equal(17, Channels.Room(1, new[] { 0, 3 }, VoiceAndData, 4));   // two turns left on channel 1, three channels free
+        Assert.Equal(0, Channels.Room(0, new[] { 0, 3 }, VoiceAndData, 4));    // a data link needs four free channels
+        Assert.Equal(1, Channels.Room(0, new[] { 0, 0 }, VoiceAndData, 4));
+        Assert.Equal(5, Channels.Room(0, new[] { 0 }, VoiceOnly, 1));          // the desk, empty: five voices
+        Assert.Equal(0, Channels.Room(3, new[] { 0 }, VoiceOnly, 1));          // a kind the ledger does not know has no room
     }
 
     [Fact]
     public void TheBestStationWithRoomServesEachRadio()
     {
-        var slots = new Dictionary<int, int> { [100] = 1, [200] = 5 };
-        var candidates = new[]
-        {
-            new ChannelCandidate(1, new[] { 100, 200 }),
-            new ChannelCandidate(2, new[] { 100, 200 }),
-            new ChannelCandidate(3, new[] { 100 }),
-        };
-        var served = Channels.Allocate(slots, candidates, None);
+        var channels = new Dictionary<int, int> { [100] = 1, [200] = 1 };
+        var candidates = new List<ChannelCandidate>();
+        for (var radio = 1; radio <= 6; radio++) candidates.Add(new ChannelCandidate(radio, 0, new[] { 100, 200 }));
+        candidates.Add(new ChannelCandidate(7, 0, new[] { 100 }));
+        var served = Channels.Allocate(channels, VoiceOnly, candidates, None);
+        for (var radio = 1; radio <= 5; radio++) Assert.Equal(100, served[radio]);
+        Assert.Equal(200, served[6]);        // station 100 is full: the next best
+        Assert.False(served.ContainsKey(7)); // only station 100 hears it, and it is full: the net is busy
+    }
+
+    [Fact]
+    public void AKindServedFirstCanCrowdTheOthersOut()
+    {
+        // The caller puts the data link first (its kind's order): it takes the terminal's four channels and the voice waits.
+        var channels = new Dictionary<int, int> { [100] = 4 };
+        var candidates = new[] { new ChannelCandidate(1, 0, new[] { 100 }), new ChannelCandidate(2, 1, new[] { 100 }) };
+        var served = Channels.Allocate(channels, VoiceAndData, candidates, None);
         Assert.Equal(100, served[1]);
-        Assert.Equal(200, served[2]);      // station 100 is full: the next best
-        Assert.False(served.ContainsKey(3)); // only station 100 hears it, and it is full: the net is busy
+        Assert.False(served.ContainsKey(2));
+        // On a desk of one channel the link cannot fit at all, so the voice is served.
+        served = Channels.Allocate(new Dictionary<int, int> { [100] = 1 }, VoiceAndData, candidates, None);
+        Assert.False(served.ContainsKey(1));
+        Assert.Equal(100, served[2]);
     }
 
     [Fact]
     public void AHolderKeepsItsChannelSoNobodySwaps()
     {
-        var slots = new Dictionary<int, int> { [100] = 1 };
-        var candidates = new[] { new ChannelCandidate(1, new[] { 100 }), new ChannelCandidate(2, new[] { 100 }) };
-        var served = Channels.Allocate(slots, candidates, new Dictionary<int, int> { [2] = 100 });
-        Assert.Equal(100, served[2]);       // radio 2 held it, though radio 1 comes first
-        Assert.False(served.ContainsKey(1));
+        var channels = new Dictionary<int, int> { [100] = 4 };
+        var candidates = new[] { new ChannelCandidate(1, 0, new[] { 100 }), new ChannelCandidate(2, 1, new[] { 100 }) };
+        var served = Channels.Allocate(channels, VoiceAndData, candidates, new Dictionary<int, int> { [2] = 100 });
+        Assert.Equal(100, served[2]);       // the voice held it, though the link's kind comes first
+        Assert.False(served.ContainsKey(1)); // three channels left: not enough for the link
     }
 
     [Fact]
@@ -229,8 +260,10 @@ public class ChannelTests
             for (var place = 0; place < 5; place++) if (Channels.KeyedNow(place, 5, tick, 600, 0.2)) keyed++;
             Assert.Equal(1, keyed);
         }
-        Assert.Equal(0, Channels.ChannelOf(4, 5, 1));
-        Assert.Equal(1, Channels.ChannelOf(5, 5, 1));
+        Assert.Equal(0, Channels.ChannelOf(4, Voice, 0));
+        Assert.Equal(1, Channels.ChannelOf(5, Voice, 0));
+        Assert.Equal(4, Channels.ChannelOf(0, Voice, 4));    // after a data link's block of four
+        Assert.Equal(4, Channels.ChannelOf(1, WideData, 0)); // the second link starts on the fifth channel
     }
 }
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Kinds of channel use in the ledger (Radio 0.8.0), as D'thorga Mechanised Specialist Expansion's BVR channels count theirs.
+       A radio names its kind (CompProperties_Radio.channelKind); with none it is the local voice net. The kind's mode sets how many
+       25 kHz channels one use takes (its bandwidth) and how many radios share it by turns (its duty cycle). Kinds never share a
+       block of channels. order: lower is served first when channels are short, and listed first (authored). -->
+
+  <Phobos.Radio.ChannelKindDef>
+    <defName>PhobosRadio_KindLocalVoice</defName>
+    <label>local voice</label>
+    <description>Colonists talking with home on their hand-helds.</description>
+    <mode>PhobosRadio_VoiceFM</mode>
+    <order>100</order>
+  </Phobos.Radio.ChannelKindDef>
+</Defs>
