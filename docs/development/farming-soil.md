@@ -1,6 +1,6 @@
 # Soil rules for D'thorga Farming: research and design (19 Nov 2026)
 
-**Status (19 Nov 2026):** research and record only. No code, Def or setting exists for any of it, and nothing here is tested in game. The owner set its direction and answered every question it raised the same day (below).
+**Status (23 Nov 2026):** research and record only. No code, Def or setting exists for any of it, and nothing here is tested in game. The owner set its direction and answered every question it raised on 19 Nov 2026 (below). One proposal waits for the owner's cards: [rain that soaks the fields](#rain-that-soaks-the-fields-sl10-cards-waiting-23-nov-2026) (SL10).
 
 The owner's words, 19 Nov 2026, asked how deep the soil and crop rules should go: "We offer configurable settings for the player to
 choose from. I'm honest in saying that I tend to be weird one out in enjoying soil chemistry, realistic farming, etc." On moisture:
@@ -114,6 +114,49 @@ moisture model, Terra Project (2019, abandoned), was found punishing by its play
 - **Off the map**, the ledger mirrors the same rates and reads the player's own Dubs Bad Hygiene settings. Straight-line gain and
   loss can be worked out for any stretch of time in one step.
 - **Cheaper than its method**: it sweeps every cell of every map; ours keeps one figure for each paddock.
+
+## Rain that soaks the fields (SL10, cards waiting, 23 Nov 2026)
+
+**Not built.** The agent's proposal, the owner's Option A of 23 Nov 2026, held here for the owner's cards.
+
+**What the owner saw:** in save PG20, during rain, the soil did not seem to get wet. **What was found** (the save read only, and
+Dubs Bad Hygiene's 1.7 decompile [code, checked]):
+
+- **No feature of ours wets soil for crops.** D'thorga Framework 0.204.0's ground wetness is one figure for each map, read only by
+  vehicles' grip and an aircraft's landing dust. In PG20 it read 1, soaked, as it should.
+- **Dubs Bad Hygiene's rain irrigation is on and reaches the open fertile cells**: 2.7 in-game hours into a rainy thunderstorm,
+  13,297 cells were wet (about the map's open soil, rich soil, gravel and sand [I]), at 5 out of 100 on average and 37 at most.
+- **Its speed is the cause, not a fault.** It visits each cell about every 40 in-game minutes (0.0006 of the cells a tick [I]); each
+  visit while it rains adds 3 times the rain rate, scaled by a noise pattern from 0.5 to 1 (`DampenCell`,
+  `MapComponent_Hygiene.cs:1034-1054`). Soaking a cell takes **about 22 to 45 hours of steady rain** [I]. When the rain stops, each
+  visit takes 2.7 to 5 away (`:1056-1068`), so it dries about as fast as it wets and a passing storm hardly shows.
+- **The dark ground Realistic Rain draws is a picture only**; it sets no figure.
+
+**The proposal** [A]:
+
+- **While it rains, a visit raises the cell's Dubs Bad Hygiene wetness to our map figure** (0 to 1, taken as 0 to 100), never
+  lowering it. Rain then soaks open fields in about an hour, as it already soaks the ground under vehicles.
+- **It rides Dubs Bad Hygiene's own visit**: a postfix on `DampenCell`, which runs only while it rains, on unroofed fertile ground, with
+  its "rain irrigation" option on. So the player's own switch still rules it, and nothing new sweeps the map. Harmony, because the
+  mod has no extension point there; this is our feature on top of their design, not a fix of their fault.
+- **Still a bonus only**, as "moisture never punishes" holds: it only fills Dubs Bad Hygiene's grid, whose effect on fertility is
+  never below the plain game.
+- **One soil model, never two**: our figure feeds theirs; we keep no grid of our own.
+- **Home**: D'thorga Framework's existing Dubs Bad Hygiene tie-in (`src/PhobosFramework.Hygiene`), loaded only when that mod is, beside
+  the ground wetness it reads.
+- **Cost** [I]: one comparison at each of Dubs Bad Hygiene's rain visits, at most about 63 cells a tick on a 325 by 325 map.
+- **Saves**: nothing new is saved; Dubs Bad Hygiene's grid saves as before. Safe to add and to remove.
+- **Without Dubs Bad Hygiene** nothing changes for crops: our own moisture ledger (SL2) is not built.
+- **A new setting**, reported to the owner by name when built.
+
+**The cards waiting** (the agent's recommendation first):
+
+| Card | Options |
+| --- | --- |
+| Build it when? | Now, on its own (recommended: small, and the owner noticed the gap) · With the farming soil build · Not at all |
+| After the rain stops | Dubs Bad Hygiene's own drying (recommended: one drying model, and its settings rule) · Follow our ten-hour drying, which would hold fields wet longer |
+| Where its setting lives | D'thorga Framework, for every player with Dubs Bad Hygiene (recommended: it is about rain, not machines) · D'thorga Farming only |
+| The setting's default | On (recommended: it is what Realistic Rain shows) · Off |
 
 ## Field care (SL3)
 
