@@ -2,6 +2,8 @@
 
 **Status (17 Nov 2026):** built in D'thorga Framework 0.121.0 to 0.122.0 and Vehicles 0.59.0 to 0.60.0 ("What was built" below): the tent and its pieces, power, batches of ten and twenty, caravan cooking, its own picture and sounds, the kettle's water with its own tank, and six upgrades; and, in Framework 0.216.0 (22 Nov 2026), cooking while a caravan drives through the night, the cooks' reach into trailers and the cold box in tow; not built: enemy bases and the dry-goods locker. Not yet tested in game.
 
+How camping and life aboard work now: [systems/camping-and-life-aboard.md](systems/camping-and-life-aboard.md); this record keeps its history.
+
 **A research and design record.** The owner, 13 November 2026: "A
 military-style portable kitchen on wheels, powered by the Busbar as required." The owner chose the same day that it **always
 cooks on fuel burners, and gains its electric extras when plugged into the Busbar or a power line**. It is trailer **Q1** in

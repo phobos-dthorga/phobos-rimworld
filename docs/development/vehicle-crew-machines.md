@@ -3,6 +3,8 @@
 **Status (23 Nov 2026):** partly built. CM1, CM2 and CM5 are built in D'thorga Framework 0.265.0 ([what was built](#built-cm1-cm2-and-cm5-23-nov-2026)),
 not yet tested in game; CM3 and CM4 are not built. The figures and every "agent default" below wait for the owner's word.
 
+How camping and life aboard work now: [systems/camping-and-life-aboard.md](systems/camping-and-life-aboard.md); this record keeps its history.
+
 **A design record.** The owner, 23 November 2026, after asking how a neural supercharger works: "We should probably consider upgrades
 just like the neural supercharge, sleep accelerator, etc. for our vehicles", and then "Oh, trailers too!". Facts marked **[code]** were
 read on 23 Nov 2026 with `scripts/query-defs.py` (Defs as patched in the owner's game, from the file of 19 Nov 2026) and the game's
@@ -13,7 +15,7 @@ decompiled code, and are given in our own words. Figures marked **[A]** are auth
 - **Four machines, CM1 to CM5** (the sleep accelerator is two pieces): a sleep accelerator beside camp beds (CM1) and in the cab bunk
   (CM2), a neural supercharger aboard (CM3), a healing pod trailer (CM4) and a vitals monitor for litters (CM5).
 - **Every one draws real power** from the vehicle, by the accessory rule, through loads and the power outlet that are already built
-  ([vehicle accessories](vehicle-accessories.md)). None adds wear, drag or upkeep.
+  ([vehicle accessories](archive/vehicle-accessories.md)). None adds wear, drag or upkeep.
 - **Three of the game's machines are Ideology's** (sleep accelerator, neural supercharger, biosculpter pod) **[code]**. The vitals
   monitor is the base game's.
 - **The hard one is CM4.** Healing on the road needs the pod to work while the caravan is off the map; see "What makes this hard".

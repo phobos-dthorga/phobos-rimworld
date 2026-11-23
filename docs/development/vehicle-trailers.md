@@ -2,6 +2,8 @@
 
 **Status (22 Nov 2026):** built in D'thorga Framework 0.111.0, 0.121.0, 0.133.0 and 0.216.0 (and Vehicles 0.54.0 to 0.56.0, 0.59.0 and 0.97.0): set up and pack up by hand (B0.1), the hitch that respects it (B0.2), the power lead (B0.3), set-out pieces and canvas rooms (B0.4), the Pintle flatbed at 3 x 7, the water and fuel bowsers (Q3, Q4), the Billy field kitchen (Q1), the shower trailer (Q7) a trailer's own systems (tyres, our Health tab), water on the road ([what was built](#water-on-the-road-22-nov-2026)) and the flatbed as a camper trailer; not built: the dry-goods locker and every other trailer in the catalogue. Not yet tested in game.
 
+How camping and life aboard work now: [systems/camping-and-life-aboard.md](systems/camping-and-life-aboard.md); this record keeps its history.
+
 **Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026 (`dependency-audit-2026-11-16.md`); the VF line
 references below were read from its 1.6 build, as written at the time.
 
@@ -442,7 +444,7 @@ Framework 0.121.0 and Vehicles 0.59.0, **not yet tested in game** (checks 152 to
 | --- | --- | --- |
 | B0.3 A power lead | **Built** as the rig's power point, set out with the pieces; pieces read whether it has power, and its draw follows what works | `CompPhobosSetOut` |
 | B0.4 Set-out pieces and canvas rooms | **Built.** Pieces and rooms named in the trailer's Def, on whichever side is clear, with refusals saying what is in the way; walls, a flap door and a canvas roof (our own Defs, the game's pictures by path); the roof comes off before its walls; pieces are held inside the trailer while packed. A part of the trailer's set-up, so it follows a tank's set-up or a plain one | `Framework/SetOut/` |
-| Q7 Shower and latrine | **Built**, with Dubs Bad Hygiene only (owner, 17 Nov 2026: flushing toilets with a waste tank; a chemfuel heater, power a bonus). The reading of 17 Nov 2026 in [vehicle-accessories.md](vehicle-accessories.md#how-dubs-bad-hygiene-sees-water-and-what-a-vehicles-tank-needs-17-nov-2026) built as proposed: a hidden stand-in tower topped up from the tank, and a hidden stand-in septic tank as the waste tank | `CompPhobosTrailerPlumbing` |
+| Q7 Shower and latrine | **Built**, with Dubs Bad Hygiene only (owner, 17 Nov 2026: flushing toilets with a waste tank; a chemfuel heater, power a bonus). The reading of 17 Nov 2026 in [vehicle-accessories.md](archive/vehicle-accessories.md#how-dubs-bad-hygiene-sees-water-and-what-a-vehicles-tank-needs-17-nov-2026) built as proposed: a hidden stand-in tower topped up from the tank, and a hidden stand-in septic tank as the waste tank | `CompPhobosTrailerPlumbing` |
 
 **Changed from the design, agent's choices for the owner to revise:** the shower trailer is the **Pintle P4**, a 2,000 L tank on the bowsers'
 chassis, set up through its tank like the bowsers; its tent holds two of Dubs' own showers and two flushing toilets (a third shower by upgrade),
@@ -580,7 +582,7 @@ by the agent on 21 Nov 2026 and listed as open; the owner said proceed on 22 Nov
 ### The Pintle flatbed
 
 Since Framework 0.216.0 and Vehicles 0.97.0 it is also a **camper trailer**: its deck takes a roof tent and an awning, and it pitches its
-own camp ([vehicle-accessories.md](vehicle-accessories.md#built-the-camper-trailer-22-nov-2026)). Fittings, not upgrades, so the tree is unchanged.
+own camp ([vehicle-accessories.md](archive/vehicle-accessories.md#built-the-camper-trailer-22-nov-2026)). Fittings, not upgrades, so the tree is unchanged.
 
 <!-- upgrade-tree: Phobos_FlatbedTrailer_UpgradeTree -->
 ```mermaid

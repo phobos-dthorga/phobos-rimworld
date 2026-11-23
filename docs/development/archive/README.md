@@ -54,3 +54,12 @@ Archived on 23 Nov 2026; how upgrades and fittings work now: [upgrades and fitti
   vehicle.
 - [Aircraft service-life upgrades](aircraft-service-life-upgrades.md) (21 Nov 2026): engines, avionics kits, early fits; with
   [flight](../systems/flight.md) and [engines](../systems/engines-and-drivetrain.md).
+
+## Camping and life aboard
+
+Archived on 23 Nov 2026; how they work now: [camping and life aboard](../systems/camping-and-life-aboard.md).
+
+- [Vehicle accessories](vehicle-accessories.md) (13 Nov 2026): camp gear, the power budget, berths and driving through the night,
+  Y1 to Y23 and B1 to B4.
+- [Hotboxing](vehicle-hotboxing.md) (12 Nov 2026): smoking in a vehicle's cab, the shared dose and the memories.
+- [Walk-in cabins](vehicle-cabins.md) (22 Nov 2026): a vehicle's cabin as a small pocket map; the Osprey first.

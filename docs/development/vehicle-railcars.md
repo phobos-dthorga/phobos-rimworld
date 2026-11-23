@@ -6,7 +6,7 @@ for if Trains of the Rim is updated or the owner starts using trains.
 ## Read this first
 
 - **Why this exists.** On 22 Nov 2026 the owner picked Trains of the Rim's **Flatbed**, **Flatbed with Stakes** and **Gondola** to take
-  a deck tent ([vehicle-accessories.md](vehicle-accessories.md#built-tents-for-every-vehicle-22-nov-2026), step 4). They could not be done:
+  a deck tent ([vehicle-accessories.md](archive/vehicle-accessories.md#built-tents-for-every-vehicle-22-nov-2026), step 4). They could not be done:
   **our vehicle systems do not fit a vehicle with no engine**, so a railcar has no Health tab of ours, no fittings window and no part
   for any fitting to go on. The owner chose a design record first.
 - **The mod looks unmaintained, and that comes first** (owner's rule: say an author's activity up front). Read with

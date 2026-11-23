@@ -574,7 +574,7 @@ How to read it:
 - **Twenty new rows (G1 to G20)** in the owner's four areas, plus fresh verdicts on round two's unbuilt T4 to T8, F2 to F8 and the
   boost axis.
 - **The cheapest clear wins** are two lines of XML each (a dry tank hurting the fuel pump; an air-brake warning before the brakes
-  lock). **The deepest** are one driver rule shared with the [hotboxing record](vehicle-hotboxing.md), weather on grip, and one
+  lock). **The deepest** are one driver rule shared with the [hotboxing record](archive/vehicle-hotboxing.md), weather on grip, and one
   load-shedding rule shared with the aircraft.
 - **Four faults** found on the way are listed with a recommendation each; one, a miscount in round one's record, is corrected in the
   same change as this record.
@@ -666,12 +666,12 @@ model.
 data put a drowsy driver in about 17.6 % of US fatal crashes in 2017 to 2021 **[S]**
 ([AAA Foundation for Traffic Safety](https://aaafoundation.org/?p=3159)); NHTSA itself says its own counts understate it **[P]**
 ([NHTSA, drowsy driving](https://www.nhtsa.gov/risky-driving/drowsy-driving)). Drug-impaired drivers weave more and react more
-slowly **[P]** ([NHTSA](https://www.nhtsa.gov/node/138601), as cited in the [hotboxing record](vehicle-hotboxing.md)). A game
+slowly **[P]** ([NHTSA](https://www.nhtsa.gov/node/138601), as cited in the [hotboxing record](archive/vehicle-hotboxing.md)). A game
 needs only the direction: a driver in a bad way drives slower and harder on the machine.
 
 | # | Link | Reads and changes | Lets the player | Stops them | Changes how they play | Cost | An override can | Verdict |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| G1 | **One driver rule** | The driver's consciousness, sight and manipulation (the game's capacities, as `VF:11566` already reads) → the speed cap, down to ×0.7 at worst, and tyre and brake wear up to ×1.1 [A]. The [hotboxing record](vehicle-hotboxing.md)'s stoned driver becomes one case of it, as do concussion, a lost eye, a broken hand and hypothermia | See why a truck crawls ("the driver can barely see: driving carefully") | Driving at full pace with a half-conscious, half-blind or one-handed driver | The player picks the driver, and medicine and rest matter to a convoy | hub | Scale it or switch it off per vehicle (an autonomous vehicle has no driver) | **Take.** Build with hotboxing. **Built in Framework 0.113.0, not yet tested in game** (see below) |
+| G1 | **One driver rule** | The driver's consciousness, sight and manipulation (the game's capacities, as `VF:11566` already reads) → the speed cap, down to ×0.7 at worst, and tyre and brake wear up to ×1.1 [A]. The [hotboxing record](archive/vehicle-hotboxing.md)'s stoned driver becomes one case of it, as do concussion, a lost eye, a broken hand and hypothermia | See why a truck crawls ("the driver can barely see: driving carefully") | Driving at full pace with a half-conscious, half-blind or one-handed driver | The player picks the driver, and medicine and rest matter to a convoy | hub | Scale it or switch it off per vehicle (an autonomous vehicle has no driver) | **Take.** Build with hotboxing. **Built in Framework 0.113.0, not yet tested in game** (see below) |
 | G2 | **A tired driver** | The driver's rest need below the game's "tired" level → feeds G1 a further ×0.9 and one message [A] | Notice a long day on the road | Driving through the night without a rest stop and no cost | Caravans gain a reason to stop, and two drivers to swap | input | Scale or off | **Take with G1** **Built in Framework 0.113.0, not yet tested in game.** |
 | G3 | **A driver who breaks stops the vehicle** | The driver in a mental break → the vehicle stops and refuses to move, with the reason, until the break ends or another driver takes the wheel [I] | Understand why a truck has stopped in a raid | A berserk or wandering driver driving on | Mood management reaches the convoy | input | Off | **Take**, small |
 | G4 | **The cab's comfort reaches the crew** | Already done: the cab's temperature is the crew's (`CabClimate.cs`), and the game's own needs and conditions follow | — | — | — | built | — | **Recorded, not proposed**: G1 now carries its effect to the vehicle |
@@ -786,7 +786,7 @@ The cheapest rows with the clearest play value, in order. Each names its record.
 4. **A9** ([avionics](archive/vehicle-avionics.md)): an engine out is felt. XML.
 5. **G16 with A6** (this record and [avionics](archive/vehicle-avionics.md)): one load-shedding rule for every vehicle. Hub.
 6. **G15** (this record): fire reaches the tyres and the battery. XML.
-7. **G1 with G2** (this record, with [hotboxing](vehicle-hotboxing.md)): one driver rule. Hub.
+7. **G1 with G2** (this record, with [hotboxing](archive/vehicle-hotboxing.md)): one driver rule. Hub.
 8. **G5** (this record): rain, snow and ice take grip. Input and hub.
 9. **G9** (this record): darkness without headlights. Input.
 10. **A8** ([avionics](archive/vehicle-avionics.md)): one flight-control rule, which also mends fault 1. Hub.

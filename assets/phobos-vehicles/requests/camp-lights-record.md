@@ -1,6 +1,6 @@
 # Camp lights: run and review (22 Nov 2026)
 
-**What was bought.** Four pictures for D'thorga Framework 0.231.0 ([vehicle accessories](../../../docs/development/vehicle-accessories.md)):
+**What was bought.** Four pictures for D'thorga Framework 0.231.0 ([vehicle accessories](../../../docs/development/archive/vehicle-accessories.md)):
 the camp lantern and the 12-volt camp light, two attempts each, from the OpenAI image API (gpt-image-2, edits endpoint, medium quality),
 at the owner's word (22 Nov 2026: things that appear in the game world use the paid service; "both" lights by card the same day). Dry
 run first: at most US$0.60, the cap the same. Spent: about **US$0.22** for four images. Request: [camp-lights.json](camp-lights.json); the

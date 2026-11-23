@@ -1,6 +1,6 @@
 # Vehicle accessories, the power budget: run and review (17 Nov 2026)
 
-**What was bought.** Five pictures for D'thorga Framework 0.129.0's power budget batch ([vehicle accessories](../../../docs/development/vehicle-accessories.md)),
+**What was bought.** Five pictures for D'thorga Framework 0.129.0's power budget batch ([vehicle accessories](../../../docs/development/archive/vehicle-accessories.md)),
 two attempts each, from the OpenAI image API (gpt-image-2, edits endpoint, medium quality, 1024 x 1024), at the owner's go with a US$1.10 cap
 (17 Nov 2026). Dry run first: at most US$1.01. Spent: about **US$0.545** (US$0.054 an image, from the returned token counts). Request:
 [camp-power-budget.json](camp-power-budget.json).

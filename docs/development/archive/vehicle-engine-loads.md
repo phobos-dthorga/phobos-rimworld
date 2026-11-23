@@ -143,7 +143,7 @@ These are why a step back is needed. Each makes a general load chain awkward, or
 | --- | --- | --- | --- |
 | 1 | No one "engine is running" | The hub's `EngineRunning` and `EngineRunningRaw`; the drafted switch read directly by set-up work; Vehicle Framework's own burn test, which we patch; the aircraft's flight phase; the generator set's `running`; the ignition hint | `CompPhobosVehicleSystems.cs:893-925`; `CompPhobosSetUp.cs:361`†, `:533`†; `BatteryDrive.cs:31`†; `CompPhobosGeneratorSet.cs:382`† |
 | 2 | Five ways to burn fuel | Vehicle Framework's flat rate with the model's correction; flat hourly effects (night heater, holed tank); rig work per day; the generator set's idle-to-full rate; the water drop. Only the first knows the engine | `Powertrain.cs:730`; `Schema/Effects.cs:250`; `CompPhobosRigWork.cs:173`; `CompPhobosGeneratorSet.cs:385`; `Sling/WaterDrop.cs:152` |
-| 3 | Mixed units | Amps for loads, the game's watts for the outlet and hook-up, watt-days for the battery drive, pack share an hour for electric vehicles, kW in the engine model, a "heat share" for cooling. The generator set's record says the game's watts are not real watts; the outlet and hook-up convert them one to one | [generator set](../vehicle-generator-set.md), [accessories](../vehicle-accessories.md) |
+| 3 | Mixed units | Amps for loads, the game's watts for the outlet and hook-up, watt-days for the battery drive, pack share an hour for electric vehicles, kW in the engine model, a "heat share" for cooling. The generator set's record says the game's watts are not real watts; the outlet and hook-up convert them one to one | [generator set](../vehicle-generator-set.md), [accessories](vehicle-accessories.md) |
 | 4 | Lost power shown as lost speed | A clogged air filter, a warped head and a weak fuel feed multiply move speed, while the engine model still reports full power and fuel | `Systems_Service.xml:42-71`†, `Conditions.xml:238-266`† |
 | 5 | Figures in code or written three times | Alternator efficiency 0.6 is a C# constant; the alternator's speed curve and pulley ratio appear three times in XML | `AccessoryRules.cs:14`; `Systems_Electrical.xml:285-305`†, `:333-353`†, `Systems_HouseBattery.xml:70-90`† |
 | 6 | Displays that disagree | World-map range ignores stage fuel factors and the loads' fuel; the Engineer line shows the model's fuel power while the default burns the flat rate | `Service/VehicleRange.cs:57`†; `Presentation/InspectText.cs:168-169`† |
@@ -614,7 +614,7 @@ Nothing changes now. When decision 1 is built, the reply that delivers it must n
 
 True since Framework 0.131.0, which built decision 1; they were overstated under the defaults before it.
 
-- [Vehicle accessories](../vehicle-accessories.md): the outlet "burns fuel for it, by the rule already in place".
+- [Vehicle accessories](vehicle-accessories.md): the outlet "burns fuel for it, by the rule already in place".
 - [Vehicle upgrades, round two](../vehicle-upgrades-round-two.md): work lamps run "at a fuel cost".
 - [The player guide's vehicle care chapter](../../player-guide/vehicle-care.md): an idling outlet "burning fuel".
 - D'thorga Framework's README: the "Accessories load the engine" row.

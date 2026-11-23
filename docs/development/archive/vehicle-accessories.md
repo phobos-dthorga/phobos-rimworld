@@ -13,7 +13,7 @@ decompile, the only one we hold; its 1.7 build may differ.
 **Merged here on 17 Nov 2026**, each kept as written: [Sleeping berths: roof tents, cab bunks and driving through the night](#sleeping-berths-roof-tents-cab-bunks-and-driving-through-the-night-13-nov-2026).
 
 **Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026, and D'thorga Framework 0.111.1 builds against it
-([the dependency audit](dependency-audit-2026-11-16.md)). The VF references in this record were read from its 1.6 build, which the
+([the dependency audit](../dependency-audit-2026-11-16.md)). The VF references in this record were read from its 1.6 build, which the
 game loaded when this was written; check one against the 1.7 build before acting on it.
 
 ## Read this first
@@ -467,7 +467,7 @@ hostile vehicles on a map the cost is none, because the lite tier skips all of i
 
 The owner said build (17 Nov 2026) and answered three cards: the fridge chooses its food **automatically** (no dialog); accessories are
 **crafted kits**; the art is **bought from the OpenAI image API** now (fridge kit 2, house battery 1, inverter 1, fridge button 2, outlet
-button 1, about US$0.545). Rows 178 to 180 of [the in-game test pass](in-game-test-pass.md). What differs from the design above:
+button 1, about US$0.545). Rows 178 to 180 of [the in-game test pass](../in-game-test-pass.md). What differs from the design above:
 
 | Piece | Where | Differs from the design |
 | --- | --- | --- |
@@ -484,7 +484,7 @@ new ranks ahead of them.
 
 The owner said "let's proceed with all of these, step-wise" (22 Nov 2026) to Y21's berths with the swags and awning. Step 1, built in
 D'thorga Framework 0.212.0: the camp order (Y3), swags (Y8), the awning (Y9), the roof tent (B1) and other factions' camps at their bases.
-Rows 315 to 317 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game. Steps 2 and 3 are B2 with B3, then B4. The kitchen
+Rows 315 to 317 of [the in-game test pass](../in-game-test-pass.md). Not yet tested in game. Steps 2 and 3 are B2 with B3, then B4. The kitchen
 box and table (Y10, Y11) were in the owner's camp batch of 13 Nov 2026 and are **not** in this step.
 
 | Question | Answer |
@@ -517,7 +517,7 @@ style model and picked by the owner on 21 Nov 2026 (three on a second round). Ea
 ## Built: cab bunks and driving through the night (21 Nov 2026)
 
 Step 2 of the owner's "proceed with all of these" (21 Nov 2026), built in D'thorga Framework 0.214.0: B2 and B3 together. Rows 319 and
-320 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game. Step 3 is B4, sleeping inside a parked vehicle.
+320 of [the in-game test pass](../in-game-test-pass.md). Not yet tested in game. Step 3 is B4, sleeping inside a parked vehicle.
 
 | Question | Answer |
 | --- | --- |
@@ -553,7 +553,7 @@ caravan and so no switch to read; they still count the nights.
 
 ## Built: sleeping in a parked vehicle (21 Nov 2026)
 
-Step 3, the last of the berths, built in D'thorga Framework 0.215.0: B4. Row 321 of [the in-game test pass](in-game-test-pass.md). Not yet
+Step 3, the last of the berths, built in D'thorga Framework 0.215.0: B4. Row 321 of [the in-game test pass](../in-game-test-pass.md). Not yet
 tested in game.
 
 | Question | Answer |
@@ -578,7 +578,7 @@ at once, and nobody is sent there unwell. No setting: it happens only for a colo
 
 The agent raised it on 22 Nov 2026, checking how the camps, berths and trailers meet: the camp was on driven vehicles only, so no
 trailer could carry a tent. **The owner said "Yes, in this batch"** (22 Nov 2026). Built in D'thorga Framework 0.216.0 and D'thorga
-Vehicles 0.97.0. Row 326 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+Vehicles 0.97.0. Row 326 of [the in-game test pass](../in-game-test-pass.md). Not yet tested in game.
 
 | Question | Answer |
 | --- | --- |
@@ -615,7 +615,7 @@ question cards:
 - **Art:** made in one local run with the icons already waiting, on the owner's go; until then pieces use our own existing pictures.
 
 Built in steps, each its own change. **Step 1, D'thorga Framework 0.217.0 and Vehicles 0.98.0: a side rail on the trailers that had
-none.** Row 327 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+none.** Row 327 of [the in-game test pass](../in-game-test-pass.md). Not yet tested in game.
 
 | Question | Answer |
 | --- | --- |
@@ -633,7 +633,7 @@ none.** Row 327 of [the in-game test pass](in-game-test-pass.md). Not yet tested
 | With the trailer's own set-out | Unchanged code | The camp and the kitchen's or shower's tent each refuse cells the other holds, and each tries the other side |
 
 **Step 2, D'thorga Framework 0.217.0: the side fly, the walled awning, the rear tent, the fold-out camper and the camp heater.** Row 328 of
-[the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+[the in-game test pass](../in-game-test-pass.md). Not yet tested in game.
 
 | Question | Answer |
 | --- | --- |
@@ -664,7 +664,7 @@ run:** none while packed; a pitched tent is ordinary walls, a door and beds.
 made in the waiting run (`assets/vehicle-systems/requests/berths-house.json`).
 
 **Step 3, D'thorga Framework 0.217.0 and Vehicles 0.98.0: the deck tent, a pocket room.** Row 329 of
-[the in-game test pass](in-game-test-pass.md). Not yet tested in game, and it stands on the walk-in cabin code, which is itself
+[the in-game test pass](../in-game-test-pass.md). Not yet tested in game, and it stands on the walk-in cabin code, which is itself
 untested (row 314).
 
 | Question | Answer |
@@ -692,7 +692,7 @@ a cabin can strand someone already puts them back on a map. It shares the **Walk
 Walk-in cabins setting. **Other factions:** a cabin is for the player's people only; nothing is offered on another faction's vehicle.
 **Cost to run:** one small map's ticking while anyone is inside; one integer test on each outdoor-temperature read while none is open.
 
-**Step 4, D'thorga Vehicles 0.98.0: other mods' open-bed trucks.** Row 330 of [the in-game test pass](in-game-test-pass.md). Not yet
+**Step 4, D'thorga Vehicles 0.98.0: other mods' open-bed trucks.** Row 330 of [the in-game test pass](../in-game-test-pass.md). Not yet
 tested in game.
 
 - **How they were found:** every vehicle Def in the owner's active mods was listed with `scripts/query-defs.py` (101 Defs), and the
@@ -705,10 +705,10 @@ tested in game.
   `PhobosFlatDeckExtension` to each Def with a tent sized to the bed [A]: two beds on the Mule and the Roadrunner, one on the Land
   Cruiser, four on the HEMTT. Only the Def is marked; no code, art or figure of the author's is changed.
 - **Not built, and why: the three railcars.** Our vehicle systems do not fit a vehicle with no engine
-  ([vehicle-real-figures-design.md](vehicle-real-figures-design.md) says so of railcars), so a railcar has no roof mount and no fittings
+  ([vehicle-real-figures-design.md](../vehicle-real-figures-design.md) says so of railcars), so a railcar has no roof mount and no fittings
   window, and a deck tent has no part to go on. **Reaching them needs a railcar loadout of its own** (what a railcar's systems are:
   bogies, couplers, brakes), which is a design to put to the owner, not a patch. The owner was told this might happen when asked, and chose a design record
-  first: [vehicle-railcars.md](vehicle-railcars.md).
+  first: [vehicle-railcars.md](../vehicle-railcars.md).
 - **The Land Cruiser's own bed upgrades** (a mortar or howitzer platform) and a deck tent can both be fitted; nothing stops it. Left to
   the player (agent's choice).
 
@@ -716,12 +716,12 @@ tested in game.
 
 The owner's choice (22 Nov 2026, card): fitted camp gear is drawn on **our own** vehicles only, paid, **one pilot first**: the deck tent on
 the Pintle flatbed (D'thorga Vehicles 0.101.0, a node look keyed by the fitting; row 357; not yet tested in game). Made as an edit of a crop
-of the body and lifted out with Segment Anything, about US$0.06 ([the record](../../assets/phobos-vehicles/requests/deck-tent-pilot-record.md)).
+of the body and lifted out with Segment Anything, about US$0.06 ([the record](../../../assets/phobos-vehicles/requests/deck-tent-pilot-record.md)).
 **The owner's answers (22 Nov 2026):** keep **both** tents, with slightly different qualities: one kit, two fittings, **deck tent, light**
 (`PhobosFitting_DeckTent`, as built) and **deck tent, roomy** (`PhobosFitting_DeckTentRoomy`, Framework 0.234.0: 40 kg against 30, work
 3,500 against 2,500, 20 cloth and 5 steel more, 2 degrees warmer and may warm 2 degrees further, `PhobosCabinBedRoomy` beds at comfort 0.85
 against 0.75; all authored). Its picture on the flatbed is the fuller attempt (Vehicles 0.102.0; row 358). And **everything on ours**: the
-rest of the family is built in D'thorga Vehicles 0.103.0 (row 359; [the record](../../assets/phobos-vehicles/requests/camp-gear-overlays-record.md)):
+rest of the family is built in D'thorga Vehicles 0.103.0 (row 359; [the record](../../../assets/phobos-vehicles/requests/camp-gear-overlays-record.md)):
 roof tents, side rolls, the tipper's deck tents and the flatbed's fold-out camper, about US$1.30. The roof tents were redrawn whole in Vehicles
 0.104.0 after the owner's review (a shell drawn alone and laid on each cab; two shells, by roof size), and the camper kit, like the deck tent,
 now fits **roomy** (`PhobosFitting_FoldOutCamperRoomy`, Framework 0.235.0: 110 kg against 90, work 5,000 against 4,000, `PhobosCamp_CamperBedRoomy`
@@ -735,7 +735,7 @@ fringe of the Billy along one edge.
 
 Y4, Y13 and Y14 of the owner's camp batch of 13 Nov 2026, with hotboxing ([its record](vehicle-hotboxing.md#as-built-22-nov-2026)), "as one
 piece" (owner, 13 Nov 2026); the owner's go on 22 Nov 2026. D'thorga Framework 0.233.0; rows 355 and 356 of
-[the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+[the in-game test pass](../in-game-test-pass.md). Not yet tested in game.
 
 | Question | Answer |
 | --- | --- |
@@ -758,13 +758,13 @@ piece" (owner, 13 Nov 2026); the owner's go on 22 Nov 2026. D'thorga Framework 0
 quest, which looks for a map; and life aboard runs in flight too (Vehicle Framework keeps an aircraft in flight among the world's pawns and
 ticks it there). A treat is eaten whole as the game eats it.
 
-**Pictures:** the stereo and reading light kits, paid, two attempts each, about US$0.22 ([the record](../../assets/phobos-vehicles/requests/camp-lights-record.md));
+**Pictures:** the stereo and reading light kits, paid, two attempts each, about US$0.22 ([the record](../../../assets/phobos-vehicles/requests/camp-lights-record.md));
 the agent's suggested picks ship until the owner picks.
 
 ## Built: the crew water tank (22 Nov 2026)
 
 Y2 and Y12 of the owner's camp batch of 13 Nov 2026; the owner's go on 22 Nov 2026 ("#1": the crew water tank with a camp basin and
-shower, with Dubs Bad Hygiene). D'thorga Framework 0.232.0; row 354 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+shower, with Dubs Bad Hygiene). D'thorga Framework 0.232.0; row 354 of [the in-game test pass](../in-game-test-pass.md). Not yet tested in game.
 
 | Question | Answer |
 | --- | --- |
@@ -792,13 +792,13 @@ shower, with Dubs Bad Hygiene). D'thorga Framework 0.232.0; row 354 of [the in-g
 | On the road | `WaterAboard` counts and takes it | After any bulk water tank of the same vehicle; the riders' drink and wash, and a kettle's water |
 | Low | A message once per fall below a quarter; the Fleet board's need "water: the crew tank is low" (`IVehicleWaterStore`) | |
 
-**Pictures:** the tank kit, paid, two attempts, about US$0.11 ([the record](../../assets/phobos-vehicles/requests/camp-lights-record.md));
+**Pictures:** the tank kit, paid, two attempts, about US$0.11 ([the record](../../../assets/phobos-vehicles/requests/camp-lights-record.md));
 the agent's suggested pick ships until the owner picks. Riders drink from it on a map too, with life aboard (Framework 0.233.0).
 
 ## Built: camp lights (22 Nov 2026)
 
 The owner's choice (22 Nov 2026, card): **both** a fuel lantern and a 12-volt camp light, after the agent found the camp had no packable
-light (the work lamps are fixed to the vehicle). D'thorga Framework 0.231.0; row 353 of [the in-game test pass](in-game-test-pass.md).
+light (the work lamps are fixed to the vehicle). D'thorga Framework 0.231.0; row 353 of [the in-game test pass](../in-game-test-pass.md).
 Not yet tested in game.
 
 | Question | Answer |
@@ -817,7 +817,7 @@ No setting.
 | Camp lantern | `PhobosCamp_Lantern` | Chemfuel, **2 a day of burning** [A: about one a night; a real hurricane lantern burns about a litre of kerosene in twenty hours], 5 held; glow radius 7 [A]; **2 heat a second** to 20 degrees C [A: a flame of a hundred watts or so] |
 | 12-volt camp light | `PhobosCamp_PoleLight`, fed through `CampLights` (vehicles) | **10 W each** [A: an LED light bar], a new load on the vehicle, **Camp lights** (the rules Def's `campLoads`, shed order 1, before the fridge), drawing while it is dark and a light set out by the camp is switched on. Lit only while that load runs. Glow radius 10 [A] |
 
-**Pictures:** paid, two attempts each, about US$0.22 ([the record](../../assets/phobos-vehicles/requests/camp-lights-record.md)); the agent's
+**Pictures:** paid, two attempts each, about US$0.22 ([the record](../../../assets/phobos-vehicles/requests/camp-lights-record.md)); the agent's
 suggested picks ship until the owner picks.
 
 ## Built: the kitchen box, table and stools (22 Nov 2026)
@@ -825,7 +825,7 @@ suggested picks ship until the owner picks.
 Y10 and Y11 of the owner's camp batch of 13 Nov 2026, deferred until after the berths. **The owner's choices** (22 Nov 2026, cards): the
 kitchen box cooks **like a stove, plus tea** (the agent put a "no tea" option on the card; the owner: "Are you mad?"); it cooks **on the road,
 smaller than the Billy**; the table comes with **separate stools** the camp sets beside it. The machinery went in with Framework 0.219.0, the
-pieces with 0.223.0 and their pictures (paid, picked by the owner). Row 338 of [the in-game test pass](in-game-test-pass.md). Not yet tested
+pieces with 0.223.0 and their pictures (paid, picked by the owner). Row 338 of [the in-game test pass](../in-game-test-pass.md). Not yet tested
 in game.
 
 | Question | Answer |
@@ -959,7 +959,7 @@ and are summarised in our own words; **[A]** is authored; **[I]** is our inferen
 drag.
 
 **Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026, and D'thorga Framework 0.111.1 builds against it
-([the dependency audit](dependency-audit-2026-11-16.md)). The VF references in this record were read from its 1.6 build, which the
+([the dependency audit](../dependency-audit-2026-11-16.md)). The VF references in this record were read from its 1.6 build, which the
 game loaded when this was written; check one against the 1.7 build before acting on it.
 
 ### Read this first

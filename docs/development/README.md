@@ -94,9 +94,9 @@ research or design with nothing built; **living** means kept current by every ch
 - [The hitch and the generic trailer](vehicle-hitch-design.md) (11 Nov 2026): our own hitch, a trailer any vehicle tows, RimThunder's way. Partly built.
 - [The field kitchen trailer](vehicle-field-kitchen.md) (13 Nov 2026): Billy, the owner's kitchen on wheels. Built; enemy bases and locker not.
 - [The prisoner transport trailer](vehicle-prisoner-transport.md) (13 Nov 2026): Stockade, the owner's cage trailer. Record only.
-- [Vehicle accessories](vehicle-accessories.md) (13 Nov 2026): a parked vehicle as the heart of a camp, Y1 to Y23, berths. Power budget, camp built.
-- [Hotboxing](vehicle-hotboxing.md) (12 Nov 2026): smoking in a vehicle's cab. Record only.
+- [Camping and life aboard](systems/camping-and-life-aboard.md) (23 Nov 2026): how camps, berths, cabins, the cab and life aboard work now. Living.
 - [Crew machines](vehicle-crew-machines.md) (23 Nov 2026): sleep and medical machines on vehicles, CM1 to CM5. Partly built.
+- [Nutrient paste on vehicles](vehicle-nutrient-paste.md) (23 Nov 2026): paste in tanks, on pipes, on the road, NP1 to NP5. Record only.
 
 ### Farming
 
@@ -115,7 +115,6 @@ research or design with nothing built; **living** means kept current by every ch
 - [Air-defence tie-ins](air-defence-tie-ins.md) (13 Nov 2026): IRBM's and The Dead Man's Switch's radars against our aircraft. Partly built.
 - [Unique military vehicles and submarines](military-vehicles-research.md) (9 Nov 2026): real vehicles no mod covers yet. Record only.
 - [Per-engine realism](per-engine-realism.md) (23 Nov 2026): power by engine health, yaw, matched axles, wear per engine. Step 1 built, untested.
-- [Walk-in cabins](vehicle-cabins.md) (22 Nov 2026): a vehicle's cabin as a small pocket map; the Osprey first. Built, untested.
 - [Railcars](vehicle-railcars.md) (22 Nov 2026): a loadout for Trains of the Rim's wagons, so they can take fittings. Set aside by the owner; nothing built.
 - [Modern military aircraft and vehicles](modern-military-vehicles.md) (18 Nov 2026): the Osprey, armed candidates, crewless fits. Record only.
 - [The V-22 Osprey](vehicle-osprey.md) (18 Nov 2026): our first aircraft: figures, parts, guns, upgrades, art plan. Record only.
@@ -228,6 +227,9 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Fires on vehicles that never go out](archive/vehicle-framework-fires.md) (10 Nov 2026): Vehicle Framework's stuck fires and the fix. Archived.
 - [Vehicle tuning and upgrades](archive/vehicle-tuning-and-upgrades.md) (9 Nov 2026): fittings, engine tunes and part grades for any vehicle. Archived.
 - [Aircraft service-life upgrades](archive/aircraft-service-life-upgrades.md) (21 Nov 2026): engines, avionics kits, early fits. Archived.
+- [Vehicle accessories](archive/vehicle-accessories.md) (13 Nov 2026): a parked vehicle as the heart of a camp, Y1 to Y23, berths. Archived.
+- [Hotboxing](archive/vehicle-hotboxing.md) (12 Nov 2026): smoking in a vehicle's cab. Archived.
+- [Walk-in cabins](archive/vehicle-cabins.md) (22 Nov 2026): a vehicle's cabin as a small pocket map; the Osprey first. Archived.
 - [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
 - [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
 - [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

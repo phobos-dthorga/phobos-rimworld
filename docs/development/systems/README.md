@@ -11,6 +11,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   fire, blasts and EMP. Living.
 - [Upgrades and fittings](upgrades-and-fittings.md) (23 Nov 2026): fittings, tunes, part grades, families, upgrade trees and
   their prices, the dyno bay, parts and parts bills. Living.
+- [Camping and life aboard](camping-and-life-aboard.md) (23 Nov 2026): accessories and the power budget, the camp, deck tents,
+  bunks, driving through the night, caravan cooking, walk-in cabins, life aboard, hotboxing and the cab. Living.
 
 ## The template
 

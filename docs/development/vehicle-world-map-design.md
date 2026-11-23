@@ -5,6 +5,8 @@ game.** The owner asked how the vehicle systems behave in caravans on the world 
 and passenger comfort (8 Nov 2026), then decided the four questions below. Labels: **[P]** primary, **[S]** secondary, **[I]** our
 inference, **[A]** authored.
 
+How camping and life aboard work now: [systems/camping-and-life-aboard.md](systems/camping-and-life-aboard.md); this record keeps its history.
+
 **Merged here on 17 Nov 2026**, each kept as written: [Vehicle follow-ups: booster packs, ground on the world map, cab moods, RimHUD](#vehicle-follow-ups-booster-packs-ground-on-the-world-map-cab-moods-rimhud-8-nov-2026).
 
 ## Read this first

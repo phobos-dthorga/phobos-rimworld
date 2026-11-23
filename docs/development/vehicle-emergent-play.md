@@ -73,7 +73,7 @@ Six conditions, and where our vehicles stand on each **[I]**:
 | # | Condition | Where we stand |
 | --- | --- | --- |
 | 1 | **Systems meet through shared quantities**: fuel, power, heat, weight, time, goodwill | Strong inside a vehicle (the engine loads ledger). Weak outward: little of it reaches the colony or the world |
-| 2 | **State decides, not a hidden roll** | Strong. Earlier records argued against random jams (T11) and fuses (G19), and the owner chose "No random crashes" for [hotboxing](vehicle-hotboxing.md) |
+| 2 | **State decides, not a hidden roll** | Strong. Earlier records argued against random jams (T11) and fuses (G19), and the owner chose "No random crashes" for [hotboxing](archive/vehicle-hotboxing.md) |
 | 3 | **A failure leaves a situation**, not an end | Partial. Field fixes and the recovery tow exist; a stranded convoy only stops, and what is lost vanishes |
 | 4 | **The same rules for everyone** | Partial. Other factions run the lite tier (owner, 11 Nov 2026, not reopened here). People aboard are exempt from most of the map |
 | 5 | **The world remembers** | Weak. A 15-day log; no former owner; no records or tales |
@@ -140,10 +140,10 @@ So that nothing is proposed twice. A row here points at these and adds only what
 | Crews bail out; turret blown off; thrown tracks; field re-fit | [knocked out, not destroyed](archive/vehicle-knocked-out-systems.md) | Mostly built |
 | Raiders kidnap into a cage trailer; captives at enemy bases | [prisoner transport](vehicle-prisoner-transport.md) | Answered, not built |
 | Remote farms deliver home by real convoys (RF6) | [farms on other tiles](farming-remote-farms.md) | Record only |
-| The vehicle as the heart of a camp (Y1 to Y23) | [accessories](vehicle-accessories.md) | Only the power budget built |
+| The vehicle as the heart of a camp (Y1 to Y23) | [accessories](archive/vehicle-accessories.md) | Only the power budget built |
 | Driver health, weather grip, wet brakes, dust, darkness (G1 to G20) | [vehicle cross-links](vehicle-crosslinks.md) | Mostly built |
 | Descents and engine braking (WE3) | [world elevation](world-elevation-and-descents.md) | Held |
-| Smoking in the cab, and a cab-air model | [hotboxing](vehicle-hotboxing.md) | Record only |
+| Smoking in the cab, and a cab-air model | [hotboxing](archive/vehicle-hotboxing.md) | Record only |
 | Standing crews and convoys (G5) | [garage and fleet tools](vehicle-stations.md) | Set aside: another mod does crews |
 | The claim order; other factions on the lite tier | [other factions' audit](vehicle-other-factions-audit.md) | Built |
 

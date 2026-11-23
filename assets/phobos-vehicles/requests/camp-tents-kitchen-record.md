@@ -1,6 +1,6 @@
 # Camp tents and the kitchen box: run and review (22 Nov 2026)
 
-**What was bought.** Ten pictures for D'thorga Framework 0.217.0 and 0.223.0 ([vehicle accessories](../../../docs/development/vehicle-accessories.md)):
+**What was bought.** Ten pictures for D'thorga Framework 0.217.0 and 0.223.0 ([vehicle accessories](../../../docs/development/archive/vehicle-accessories.md)):
 the five tent kits (side fly, awning walls, rear tent, fold-out camper, deck tent) and five pieces that stand in the game world (the camper
 bed, the camp heater, the kitchen box, the camp table, the camp stool). Two attempts each, from the OpenAI image API (gpt-image-2, edits
 endpoint, medium quality), at the owner's word (22 Nov 2026: "unless it appears in the game-world itself, then it uses a paid service"; the

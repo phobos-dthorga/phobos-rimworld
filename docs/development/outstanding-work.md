@@ -162,7 +162,7 @@ Read in code while answering the owner's questions; none seen in game. The owner
 ## Vehicle accessories (13 Nov 2026)
 
 The owner asked for a research and record round on accessories a player can install on vehicles, for entertainment, camping or
-anything else ([record](vehicle-accessories.md)). Written before anything was built; what has been built since is in each row.
+anything else ([record](archive/vehicle-accessories.md)). Written before anything was built; what has been built since is in each row.
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
@@ -170,9 +170,9 @@ anything else ([record](vehicle-accessories.md)). Written before anything was bu
 | Y1 to Y4 | The four links: power outlet, crew water tank, camp order, life aboard | Framework | One button for the camp; water gear only with Dubs Bad Hygiene; life aboard and hotboxing as one piece; a removed accessory gives its kit back (owner, 13 Nov 2026) | Record written; not built |
 | Y5 to Y13 | The short list: house battery, solar panel, fridge, swags, awning, kitchen box, folding table and chairs, shower and basin, stereo | Framework | **The power budget first** (loads and weight on fittings, house battery, outlet, fridge); "slept under the stars" at +5; other factions' camps with the camp batch (owner, 13 Nov 2026) | **Power budget built 17 Nov 2026** (Framework 0.129.0; not yet tested in game, rows 178 to 180): the house battery (Y5) with the outlet (Y1) and fridge (Y7), as crafted kits, automatic fridge, OpenAI art. Next in the owner's order: the camp (Y3, Y8, Y9, Y10, Y11) |
 | Y14 to Y20 | The rest: reading light, better seats, roof rack, tool locker, tyre compressor, spotlight, bull bar | Framework | — | Record written; not built |
-| Y21 | [Sleeping berths](vehicle-accessories.md#sleeping-berths-roof-tents-cab-bunks-and-driving-through-the-night-13-nov-2026): B1 roof tent at camp, B2 bunks on the road, B3 driving through the night, B4 sleeping inside a parked vehicle | Framework | Designed properly; all four parts in that order, B4 included; night driving a setting, off by default; roof tent memory +4; bunks on heavy vehicles only (owner, 13 Nov 2026) | Record written and answered; not built |
-| Y22 | To read before the water work: how Dubs Bad Hygiene's water storage would see a tank on a vehicle | Framework | — | **Read 17 Nov 2026:** it cannot, as it stands: fixtures draw only from towers on their pipe network. Proposed, not built: a hidden stand-in tower beneath the parked vehicle, topped up from our tank, no Harmony ([the reading](vehicle-accessories.md#how-dubs-bad-hygiene-sees-water-and-what-a-vehicles-tank-needs-17-nov-2026)) |
-| Y23 | To verify before any Def carries them: the record's web figures (fridge draw, water per person, shower flow, solar output, burner gas use), read only as search summaries | docs | — | **Part done, 17 Nov 2026** ([the table](vehicle-accessories.md#sources)): fridge draw, water per person and the dual-battery rule confirmed from the pages; the burner figure is not what its page says; shower flow and solar output still unverified (the pages refused); the Flying Doctor's 10 L has lost its source |
+| Y21 | [Sleeping berths](archive/vehicle-accessories.md#sleeping-berths-roof-tents-cab-bunks-and-driving-through-the-night-13-nov-2026): B1 roof tent at camp, B2 bunks on the road, B3 driving through the night, B4 sleeping inside a parked vehicle | Framework | Designed properly; all four parts in that order, B4 included; night driving a setting, off by default; roof tent memory +4; bunks on heavy vehicles only (owner, 13 Nov 2026) | Record written and answered; not built |
+| Y22 | To read before the water work: how Dubs Bad Hygiene's water storage would see a tank on a vehicle | Framework | — | **Read 17 Nov 2026:** it cannot, as it stands: fixtures draw only from towers on their pipe network. Proposed, not built: a hidden stand-in tower beneath the parked vehicle, topped up from our tank, no Harmony ([the reading](archive/vehicle-accessories.md#how-dubs-bad-hygiene-sees-water-and-what-a-vehicles-tank-needs-17-nov-2026)) |
+| Y23 | To verify before any Def carries them: the record's web figures (fridge draw, water per person, shower flow, solar output, burner gas use), read only as search summaries | docs | — | **Part done, 17 Nov 2026** ([the table](archive/vehicle-accessories.md#sources)): fridge draw, water per person and the dual-battery rule confirmed from the pages; the burner figure is not what its page says; shower flow and solar output still unverified (the pages refused); the Flying Doctor's 10 L has lost its source |
 
 ## Universal hoppers (17 Nov 2026)
 
@@ -279,7 +279,7 @@ the owner proposed glass as a vehicle part ([vehicle glass](archive/vehicle-glas
 ## Walk-in cabins elsewhere (23 Nov 2026)
 
 The owner asked whether walk-in cabins belong anywhere else, then asked for the two proposals to be written down for later
-([walk-in cabins, proposals for later](vehicle-cabins.md#proposals-for-later-23-nov-2026)). **Nothing built or decided.**
+([walk-in cabins, proposals for later](archive/vehicle-cabins.md#proposals-for-later-23-nov-2026)). **Nothing built or decided.**
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
@@ -330,7 +330,7 @@ decided or started; each needs the owner's go.
 | I3 | Choose a vehicle's class (light, medium, heavy) by its empty mass instead of Vehicle Framework's Mass | Framework | Loadouts still use VF's Mass, which is not comparable between mods | **Record written** (owner's word, 16 Nov 2026): [vehicle class by empty mass](vehicle-real-figures-design.md#vehicle-class-by-empty-mass-16-nov-2026). Five Vanilla Vehicles Expanded vehicles would move (the Traveller to light; the Hermano, Highwayman, Roadrunner and Nomad to heavy); real, tracked, boat and electric vehicles none, as their own loadouts decide first (the tanks were already heavy by the tracked loadout). Two questions open; not built |
 | I4 | A field decontamination kit for caravans: strip and rinse away from any shower | Medical | Strip and rinse (C8) needs a shower; there is none in the wild | Idea; left as one (owner, 16 Nov 2026) |
 | I6 | Liquid oxygen in the bulk tanker, insulated tank only, boiling off slowly | Vehicles, Medical | D'thorga Medical's liquid oxygen store would feed it; the owner asked for it to wait for other functionality (9 Nov 2026) | Idea, documented; left as one (owner, 16 Nov 2026) |
-| I7 | Hotboxing: passengers smoke aboard, a closed cab shares the high with everyone in it, smoke drifts from the windows, a stoned driver drives slower (owner, 12 Nov 2026) | Framework, Vehicles | The owner's idea; a stoned driver drives worse with real consequences, no random crashes | Design record written and the four questions answered (owner, 12 Nov 2026: all smoked drugs, a windows switch, raiders' rare roll, the starting figures); not built, waiting on the owner's go: [record](vehicle-hotboxing.md) |
+| I7 | Hotboxing: passengers smoke aboard, a closed cab shares the high with everyone in it, smoke drifts from the windows, a stoned driver drives slower (owner, 12 Nov 2026) | Framework, Vehicles | The owner's idea; a stoned driver drives worse with real consequences, no random crashes | Design record written and the four questions answered (owner, 12 Nov 2026: all smoked drugs, a windows switch, raiders' rare roll, the starting figures); not built, waiting on the owner's go: [record](archive/vehicle-hotboxing.md) |
 
 ## Housekeeping (8 Nov 2026)
 

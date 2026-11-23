@@ -181,7 +181,7 @@ The first six shaped the record; the last eight answered its questions.
 - The one part-protection upgrade we ship is the tanker's heavy-wall vessel (+60 health, only with the Tanker Vessels tie-in). It is a
   `health` upgrade, so it meets the full-repair trap above.
 - Trailers have tyres only: no cab, no seats, no electrics and no fitting mounts.
-- Passive gear costs its materials and its weight, with no wear or upkeep (owner, [vehicle accessories](vehicle-accessories.md)).
+- Passive gear costs its materials and its weight, with no wear or upkeep (owner, [vehicle accessories](archive/vehicle-accessories.md)).
 
 ### Prior art on the owner's list [code]
 
@@ -456,7 +456,7 @@ either/or with our own guns; hanging from our gun ring (a tie-in node may hang f
 ## Argued against
 
 - **A `health` upgrade for protection**: it fully repairs the part at every load.
-- **Camouflage**: a vehicle's visibility is fixed on its Def ([vehicle accessories](vehicle-accessories.md)).
+- **Camouflage**: a vehicle's visibility is fixed on its Def ([vehicle accessories](archive/vehicle-accessories.md)).
 - **An autonomous gun** was argued against here (it makes an empty parked truck a target). **The owner chose it** as the remote
   station, knowing that; it stays its own node, so a truck without one is still "empty" when nobody is aboard.
 - **A turret added by our own comp outside the tree**: deleted on load.
