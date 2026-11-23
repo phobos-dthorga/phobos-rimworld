@@ -974,7 +974,11 @@
 
   <!-- Two Rolls-Royce T406 turboshafts: 4,392 kW each at maximum continuous [S], a take-off rating 1.044 times that [S] for 10 minutes
        [A]; a turboshaft's idle fuel of 0.2, as built for the class. ratedKilowatts is the whole aircraft's; the count of working
-       engines is read from its Engine1 and Engine2 parts. Its rpm is authored. Full fuel 5,210 kg: 6,513 L [P] at 0.80 kg a litre [A]. -->
+       engines is read from its Engine1 and Engine2 parts. Its rpm is authored. Full fuel 5,210 kg: 6,513 L [P] at 0.80 kg a litre [A].
+       Framework 0.250.0 (per-engine realism round two): a one-engine-out rating of 6,380 shp against 6,150 for take-off [S: GlobalSecurity,
+       "V-22 propulsion"], so 1.083 of maximum continuous, allowed only with an engine out; its time limit and temperature are not public
+       (the NATOPS manual) and are authored, as a turboshaft's contingency. The two figures were given at different air temperatures (90
+       and 103 degrees F), so the ratio is approximate. The cross-shaft lets one engine turn both rotors. -->
   <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
     <defName>PhobosDrivetrain_T406</defName>
     <label>twin T406 turboshafts</label>
@@ -988,6 +992,7 @@
         <ratings>
           <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>775</temperatureLimit></li>
           <li><name>takeoff</name><label>take-off</label><share>1.044</share><speedPercent>102</speedPercent><temperatureLimit>815</temperatureLimit><minutes>10</minutes></li>
+          <li><name>contingency</name><label>one engine out</label><share>1.083</share><speedPercent>104</speedPercent><temperatureLimit>850</temperatureLimit><minutes>2.5</minutes><engineOutOnly>true</engineOutOnly></li>
         </ratings>
       </turbine>
     </engine>

@@ -13,9 +13,13 @@
   -->
 
   <!--
-    Two General Electric T700-GE-701D turboshafts: 1,716 shp maximum continuous, 1,994 shp for 10 minutes, 2,000 shp for 2.5 minutes with one
-    engine out (secondary: Army Recognition), so shares of 1, 1.16 and 1.17. Rated speed and temperature limits are the Framework's authored
-    helicopter turboshaft's. Its power per tonne, 250, is the Framework's figure, and agrees with the real one: two engines' 1,280 kW
+    Two General Electric T700-GE-701D turboshafts (Framework 0.250.0, per-engine realism round two: the ladder put right from the maker's own
+    figures): 1,716 shp maximum continuous, 1,902 shp intermediate for 30 minutes, 1,994 shp maximum for 10 minutes, and 2,000 shp contingency
+    for 2.5 minutes with one engine out (primary: GE Aerospace's T700-701D datasheet), so shares of 1, 1.108, 1.162 and 1.166. The contingency
+    is allowed only with an engine out: the T700's control arms it when the other engine's torque falls to 51 % or below (primary: the AH-64's
+    -10 manual, TM 1-1520-238-10, for the -701 and -701C). Turbine gas temperature limits are the -701C's (secondary: UH-60 operator's-manual
+    extracts and crew study cards): 810 degrees C continuous, 851 for 30 minutes, 878 for 10 minutes, 903 for the contingency; the -701D's
+    own were not found. Until 0.250.0 the ladder had the older -700's 775 and 850 degrees and an 815 found nowhere. Rated speed is authored. Its power per tonne, 250, is the Framework's figure, and agrees with the real one: two engines' 1,280 kW
     continuous over the 9,979 kg maximum gross weight is 257 kW a tonne. Empty mass 4,819 kg (secondary: Helis). Full internal fuel 1,100 kg is
     authored: the mod's 360 fuel matches the 360 US gallons often given for the UH-60's internal tanks (from memory, unverified), at 6.7 lb a
     gallon of JP-8.
@@ -31,9 +35,10 @@
       <turbine>
         <idleSpeedPercent>60</idleSpeedPercent>
         <ratings>
-          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>775</temperatureLimit></li>
-          <li><name>takeoff</name><label>ten-minute</label><share>1.16</share><speedPercent>102</speedPercent><temperatureLimit>815</temperatureLimit><minutes>10</minutes></li>
-          <li><name>contingency</name><label>one engine out</label><share>1.17</share><speedPercent>104</speedPercent><temperatureLimit>850</temperatureLimit><minutes>2.5</minutes></li>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>810</temperatureLimit></li>
+          <li><name>intermediate</name><label>thirty-minute</label><share>1.108</share><speedPercent>101</speedPercent><temperatureLimit>851</temperatureLimit><minutes>30</minutes></li>
+          <li><name>takeoff</name><label>ten-minute</label><share>1.162</share><speedPercent>102</speedPercent><temperatureLimit>878</temperatureLimit><minutes>10</minutes></li>
+          <li><name>contingency</name><label>one engine out</label><share>1.166</share><speedPercent>104</speedPercent><temperatureLimit>903</temperatureLimit><minutes>2.5</minutes><engineOutOnly>true</engineOutOnly></li>
         </ratings>
       </turbine>
     </engine>

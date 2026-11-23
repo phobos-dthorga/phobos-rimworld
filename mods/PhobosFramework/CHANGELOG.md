@@ -12,6 +12,7 @@ Per-engine realism, round two continued: a brake at each wheel, and the smaller 
 ### Added
 
 - **A brake at each wheel** (the owner's card of 23 November 2026; docs/development/per-engine-realism.md, step 7): the brakes our loadouts add are now one part per wheel, each at its own wheel, so a hit there reaches that wheel's brake. Each wheel's brake keeps its own wear: the front axle does more of the stopping and wears about half as fast again as the rear (authored). The gauge shows the worst wheel. New pads go on the most worn axle, both sides together, one pad set an axle; with another axle past its limit, the service falls due again. Heavy-duty brakes now go on an axle as a pair, as tyres do, at 15 steel, 2 components and 3,000 work a wheel (60, 8 and 12,000 on a two-axle vehicle, against 50, 5 and 8,000 before). A design whose author drew its own brake part keeps it. For other mods: eachOf and eachLabel on a loadout's added part. Not yet tested in game: row 406 of the test pass.
+- **One-engine-out ratings open only with an engine out** (the owner's card of 23 November 2026; per-engine-realism.md, step 8): a turbine rating may be marked engineOutOnly, as a twin helicopter's contingency is, and the engine's control then allows it only while another engine is out. With both engines sound the top is the take-off rating, and asking more runs the engines past their limits. The Framework's generic helicopter turboshaft is left as it was. Not yet tested in game: row 407 of the test pass.
 
 ### Save compatibility
 

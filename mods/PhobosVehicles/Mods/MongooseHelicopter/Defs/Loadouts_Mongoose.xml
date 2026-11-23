@@ -3,14 +3,45 @@
   <!--
     The Mongoose (Mongoose_AttackHelicopter): two turboshafts, bound by their own parts (EngineStarboard as the first engine, EnginePort as the second),
     with the helicopter flight profile (docs/development/vehicle-turbine-design.md). With one engine out the other carries the load
-    on its contingency rating and runs hot; a hover may then be beyond it. Not yet tested in game. Ratings and limits are the
-    Framework's authored helicopter turboshaft (Drivetrains.xml).
+    on its contingency rating and runs hot; a hover may then be beyond it. Not yet tested in game. Since Framework 0.250.0 its engines are
+    the Rolls-Royce Gem 2 Mk 1004D's own ladder (below); before, the Framework's authored helicopter turboshaft.
     The Mongoose is the Agusta A129 Mangusta ("mangusta" is Italian for mongoose). Its main gearbox took 970 kW (1,300 shp) against
     two Rolls-Royce Gem engines of 664 kW (890 shp) each (secondary: Wikipedia, "Agusta A129 Mangusta", for the engines; Flight
     International, "Italian A129s assessed for upgrade", for the gearbox, seen only as a search excerpt). Taking 664 kW as the
     take-off rating, the drive takes 970 / (2 x 664 / 1.1) = 0.80 of both engines' maximum continuous (our inference). Low
     confidence until the article is read in full. The gearbox part is appended (Framework 0.12.0).
   -->
+  <!--
+    The Rolls-Royce Gem 2 Mk 1004D (Framework 0.250.0, per-engine realism round two; the owner's card of 23 Nov 2026): about 815 shp maximum
+    continuous, 952 shp contingency and 1,035 shp for 20 seconds in an emergency (secondary: Aeroengines AZ, "Rolls-Royce"; it gives the
+    contingency as "25 minutes", read here as 2.5, the usual limit), so shares of 1, 1.168 and 1.270, both allowed only with an engine out
+    (authored: no source says how the Gem's control allows them). The A129's quoted 890 shp (rating not named) is taken as take-off, 1.092
+    for 5 minutes (authored). Temperature limits, the emergency's temperature and rated speed are authored, as the Framework's helicopter
+    turboshaft. The gearbox figure below came from the same 890 shp, so it stands: 970 / (2 x 664 / 1.092) = 0.80.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_Gem</defName>
+    <label>turboshafts</label>
+    <engine>
+      <kind>Turboshaft</kind>
+      <ratedRpm>20000</ratedRpm>
+      <kilowattsPerTonne>250</kilowattsPerTonne>
+      <idleFuelShare>0.2</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>775</temperatureLimit></li>
+          <li><name>takeoff</name><label>take-off</label><share>1.092</share><speedPercent>102</speedPercent><temperatureLimit>815</temperatureLimit><minutes>5</minutes></li>
+          <li><name>contingency</name><label>one engine out</label><share>1.168</share><speedPercent>104</speedPercent><temperatureLimit>850</temperatureLimit><minutes>2.5</minutes><engineOutOnly>true</engineOutOnly></li>
+          <li><name>emergency</name><label>twenty-second emergency</label><share>1.27</share><speedPercent>106</speedPercent><temperatureLimit>880</temperatureLimit><minutes>0.33</minutes><engineOutOnly>true</engineOutOnly></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_Mongoose</defName>
     <label>attack helicopter (twin turboshaft)</label>
@@ -24,7 +55,7 @@
       <li><def>PhobosVehicleSystem_RotorDrive</def></li>
     </systems>
     <drivetrain>
-      <def>PhobosDrivetrain_AeroTurboshaft</def>
+      <def>PhobosDrivetrain_Gem</def>
       <set>
         <transmissionLimit>0.8</transmissionLimit>
       </set>

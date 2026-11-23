@@ -183,6 +183,31 @@ rough-strip debris, engines starting in turn).
 - **Risk: moderate** (agent's grade): parts are added to saved vehicles, by the same path the glass and the extinguisher took.
 - **Other factions' vehicles:** the same parts and wear on any faction's vehicle with our loadout; saved with it.
 
+### Step 8: one-engine-out ratings (built, Framework 0.250.0, Vehicles 0.109.0)
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Fly a twin helicopter home on one engine, on its short emergency rating |
+| What it stops them doing | Using the emergency rating with both engines sound, as the engines' controls do not allow it |
+| How it changes play | A very heavy hover in hot or thin air is closer to the edge; an engine out leaves a little more in hand |
+| What outside the vehicle notices | Nothing |
+
+- **The rule:** `TurbineRating.EngineOutOnly` (XML `engineOutOnly`); `TurbineSpec.EngineOut`, set by the powertrain with the drive limit
+  (two or more engines, one or more out). `Top`, the temperature ladder and the hover margin skip a rating not allowed now. A T700's
+  control arms its contingency when the other engine's torque falls to 51 % or below (TM 1-1520-238-10, primary).
+- **The figures** (each loadout's notes name its sources):
+  - **Black Hawk, T700-GE-701D** (primary, GE datasheet): 1, 1.108 (30 min), 1.162 (10 min), 1.166 (2.5 min, engine out only);
+    temperatures 810, 851, 878 and 903 degrees C are the -701C's (secondary), replacing an older engine's 775 and 850 and an unsourced 815.
+  - **Hind, TV3-117VMA** (primary, read through search excerpts): take-off 2,200 hp, 2,400 shp for 2.5 min with an engine out. Maximum
+    continuous not found: authored at 0.9 of take-off, so 1, 1.111, 1.212. Temperatures authored.
+  - **Mongoose, Gem 2 Mk 1004D** (secondary): about 815 shp continuous, 952 contingency, 1,035 for 20 seconds; take-off taken as the
+    quoted 890 shp (authored). Both emergency ratings engine out only (authored). Temperatures authored.
+  - **Osprey, AE 1107C** (secondary): one-engine-out 6,380 shp against 6,150 take-off, so 1.083; its time and temperature authored.
+- **Left alone:** the Framework's generic helicopter turboshaft keeps its contingency usable at any time, as it serves single-engined
+  helicopters of other mods.
+- **Risk: moderate** (agent's grade): the Hind and Mongoose lose a little top power with both engines sound.
+- **Other factions' vehicles:** the same on any faction's aircraft; nothing stored.
+
 ## Sources
 
 - Our own code, read on 23 Nov 2026: `Powertrain.Engines`, `TurbineModel.Evaluate`, the turbine system (`Systems_Turbine.xml`).

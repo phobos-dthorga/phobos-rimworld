@@ -633,6 +633,7 @@
     }},
     "404": [{"key": "vehicles.part-restored", "detail": "hotSectionLife*"}],
     "403": ["vehicles.axle-matched"],
+    "407": ["aircraft.engine-out-rating"],
     "406": [{"key": "vehicles.part-restored", "detail": "brakeWear*"}],
     "405": ["aircraft.lopsided-fuel"],
     "402": ["aircraft.lopsided-thrust"],

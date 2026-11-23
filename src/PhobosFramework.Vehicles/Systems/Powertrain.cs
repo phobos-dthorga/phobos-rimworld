@@ -248,7 +248,7 @@ public sealed class Powertrain
             spec.Ratings.Add(new TurbineRating
             {
                 Name = r.name, Label = r.label.NullOrEmpty() ? GenText.SplitCamelCase(r.name).ToLowerInvariant() : r.label, Share = r.share, SpeedPercent = r.speedPercent, TemperatureLimit = r.temperatureLimit, Minutes = r.minutes,
-                ThrustKn = r.thrustKilonewtons, Wet = r.wet,
+                ThrustKn = r.thrustKilonewtons, Wet = r.wet, EngineOutOnly = r.engineOutOnly,
             });
         }
         if (spec.Ratings.Count == 0) spec.Ratings.Add(new TurbineRating { Name = "maxContinuous", Label = "PhobosVehicleSystems_RatingMaxContinuous".Translate().Resolve() });
@@ -403,6 +403,9 @@ public sealed class Powertrain
     /// <summary>Sets what the rotor drive accepts now: its rated share times the RotorDrive parts' condition (infinite without a limit).</summary>
     void ApplyDriveLimit(TurbineSpec spec)
     {
+        // Framework 0.250.0: a rating kept for an engine out opens only with another engine out.
+        (int working, int engines) = Engines();
+        spec.EngineOut = engines >= 2 && working < engines;
         spec.DriveLimitShare = double.IsInfinity(transmissionLimit) ? double.PositiveInfinity
             : transmissionLimit * Math.Max(0.05, comp.PartEfficiency("RotorDrive", 1f));
     }
@@ -591,6 +594,12 @@ public sealed class Powertrain
             TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), share, running, air);
         }
         FlightDemand = running ? flying : 0;
+        // Framework 0.250.0: the engine left running uses a rating kept for an engine out.
+        if (running && usable.EngineOut && Seen.Wants("aircraft.engine-out-rating", vehicle)
+            && usable.Ratings.FirstOrDefault(r => r.Name == TurbineNow.Rating) is { EngineOutOnly: true } contingency)
+        {
+            Seen.Note("aircraft.engine-out-rating", vehicle, contingency.Name);
+        }
         if (beyond && !hoverWarned && vehicle.Faction == Faction.OfPlayer)
         {
             hoverWarned = true;
@@ -677,6 +686,7 @@ public sealed class Powertrain
         TurbineSpec spec = Turbine ?? new TurbineSpec();
         if (spec.Continuous.ThrustKn > 0 || spec.Ratings.Any(r => r.ThrustKn > 0))
         {
+            ApplyDriveLimit(spec);
             (double dry, double wet) = TurbineModel.HoverMargin(spec, massKg, ambient, Condition() * EngineShare(), pressure);
             // The same thrust asks more of the engine with bleed air taken (BleedRule), so the margin shrinks by as much.
             double bled = BleedRule.Demand(1, Profile != null ? Bleed(comp.Vehicle, hovering: true) : 0);

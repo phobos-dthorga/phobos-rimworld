@@ -727,7 +727,10 @@ sound, so a shot-up aircraft climbs and hovers weaker before an engine stops. Th
 (on by default, the Flight section) turns it off. **A twin jet with an engine out, or one weaker than the other, dodges a little less
 fire** (the A-10, Su-25 and Prowler: at most 15 % less) **and burns a little more fuel** holding a straight line (at most 7.5 %
 more); helicopters and the Osprey do not, as one drive shares their engines' work.
-The setting **Lopsided thrust unsettles twin jets** (on by default) turns it off.
+The setting **Lopsided thrust unsettles twin jets** (on by default) turns it off. **A twin helicopter's emergency power opens only
+with an engine out** (the Black Hawk, Hind, Mongoose and Osprey; not yet tested in game): with both engines sound they stop at their
+take-off rating, so **a very heavy hover in hot or thin air may strain them**; with one engine out the other may run at its short
+emergency rating, hot.
 
 **Air defence, chaff and flares** (with **The Dead Man's Switch - Expedition**; not yet tested in game):
 

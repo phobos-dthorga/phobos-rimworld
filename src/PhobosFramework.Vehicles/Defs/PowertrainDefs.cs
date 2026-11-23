@@ -22,6 +22,8 @@ public class TurbineRatingXml
     public float minutes;
     public float thrustKilonewtons;
     public bool wet;
+    /// <summary>Allowed only with another engine out (Framework 0.250.0): a twin's one-engine-out contingency.</summary>
+    public bool engineOutOnly;
 }
 
 public class WaterInjectionXml

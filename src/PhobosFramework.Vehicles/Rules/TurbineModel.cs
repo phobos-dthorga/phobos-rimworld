@@ -18,6 +18,10 @@ public sealed class TurbineRating
     public double ThrustKn;
     /// <summary>Whether the rating needs water injection.</summary>
     public bool Wet;
+    /// <summary>Whether the engine's control allows the rating only with another engine out (Framework 0.250.0; per-engine realism round two,
+    /// the owner's card of 23 Nov 2026): the one-engine-out contingency ratings of twin-engined helicopters. A GE T700's control arms it when
+    /// the other engine's torque falls to 51 % or below (TM 1-1520-238-10).</summary>
+    public bool EngineOutOnly;
 }
 
 /// <summary>A gas turbine's figures. Game-free; every default is authored unless the design names a source.</summary>
@@ -38,8 +42,27 @@ public sealed class TurbineSpec
     /// it runs cooler and has more in reserve (aircraft service-life upgrades). The ratings' thrust is scaled by the same factor.</summary>
     public double OutputFactor = 1;
 
+    /// <summary>Whether another engine is out now, so ratings kept for that are allowed (Framework 0.250.0); set by the caller before each
+    /// evaluation, as <see cref="DriveLimitShare"/> is.</summary>
+    public bool EngineOut;
+
     public TurbineRating Continuous => Ratings[0];
-    public TurbineRating Top => Ratings[Ratings.Count - 1];
+
+    /// <summary>The highest rating allowed now: the last one, unless it is kept for an engine out and none is.</summary>
+    public TurbineRating Top
+    {
+        get
+        {
+            for (int i = Ratings.Count - 1; i > 0; i--)
+            {
+                if (Usable(Ratings[i])) return Ratings[i];
+            }
+            return Ratings[0];
+        }
+    }
+
+    /// <summary>Whether a rating may be used now.</summary>
+    public bool Usable(TurbineRating rating) => !rating.EngineOutOnly || EngineOut;
 }
 
 /// <summary>What the turbine is doing now.</summary>
@@ -140,7 +163,7 @@ public static class TurbineModel
             state.Temperature = spec.Top.TemperatureLimit + (ratio - spec.Top.Share) * 400;
             foreach (TurbineRating rating in spec.Ratings)
             {
-                if (rating == spec.Continuous) continue;
+                if (rating == spec.Continuous || !spec.Usable(rating)) continue;
                 if (ratio <= rating.Share)
                 {
                     double t = (ratio - below.Share) / Math.Max(0.001, rating.Share - below.Share);
@@ -218,7 +241,7 @@ public static class TurbineModel
         double dry = 0, wet = 0;
         foreach (TurbineRating rating in spec.Ratings)
         {
-            if (rating.ThrustKn <= 0) continue;
+            if (rating.ThrustKn <= 0 || !spec.Usable(rating)) continue;
             double margin = ThrustKn(spec, rating, ambient, condition, pressureRatio) / Math.Max(0.1, weightKn);
             if (rating.Wet) wet = Math.Max(wet, margin);
             else dry = Math.Max(dry, margin);

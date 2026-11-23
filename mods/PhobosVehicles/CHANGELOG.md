@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.109.0] - 2026-11-23 - Draft
+
+Helicopters' engine-out ratings from their makers' figures
+
+### Changed
+
+- **The Black Hawk, Hind, Mongoose and Osprey have their own engines' ratings, the emergency one usable only with an engine out** (the owner's card of 23 November 2026, with D'thorga Framework 0.250.0; docs/development/per-engine-realism.md, step 8). The Black Hawk's T700-GE-701D ladder now follows GE's datasheet (a thirty-minute rating added; temperature limits of 810, 851, 878 and 903 degrees C in place of an older engine's 775 and 850). The Hind takes the TV3-117VMA's 2,400 shp for two and a half minutes with an engine out; the Mongoose the Gem 1004D's contingency and its twenty-second emergency rating; the Osprey the AE 1107C's one-engine-out rating. Each source and every authored figure is in the loadout's notes. With both engines sound, each stops at its take-off rating, a little below what the generic engine allowed the Hind and Mongoose before, so a very heavy hover in hot or thin air may now strain them. Not yet tested in game: row 407 of the test pass.
+
 ## [0.108.1] - 2026-11-23 - Draft
 
 Old mechanical diesels need less electricity to run. Not yet tested in game.
