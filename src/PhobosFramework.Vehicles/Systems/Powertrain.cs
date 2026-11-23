@@ -384,6 +384,16 @@ public sealed class Powertrain
     /// 0.247.0, the default), else each in or out.</summary>
     public double EngineOutputShare() => TurbineModel.OutputShare(EngineOrders(), VehicleSystemsMod.Settings.damagedEnginesWeaker);
 
+    /// <summary>What each engine gives now, 0 to 1, as <see cref="EngineOutputShare"/> counts it: by condition with the setting on, else in or out.</summary>
+    public IReadOnlyList<double> EngineOutputs()
+    {
+        IReadOnlyList<double> orders = EngineOrders();
+        bool byHealth = VehicleSystemsMod.Settings.damagedEnginesWeaker;
+        var outputs = new double[orders.Count];
+        for (int i = 0; i < orders.Count; i++) outputs[i] = byHealth ? TurbineModel.EngineOutput(orders[i]) : orders[i] > TurbineModel.EngineOutBelow ? 1 : 0;
+        return outputs;
+    }
+
     /// <summary>Sets what the rotor drive accepts now: its rated share times the RotorDrive parts' condition (infinite without a limit).</summary>
     void ApplyDriveLimit(TurbineSpec spec)
     {

@@ -785,6 +785,10 @@ public class SlingSpec
 public class PhobosVehicleLoadoutDef : Def
 {
     public LoadoutPriority priority = LoadoutPriority.Effect;
+    /// <summary>How much of a twin jet's dodge lopsided thrust costs at worst, one engine out (Framework 0.247.0, per-engine realism step 2):
+    /// larger the further its engines sit from the centreline, 0 (the default) where one gearbox or a cross-shaft shares the engines' work
+    /// (helicopters, the Osprey). Authored per aircraft.</summary>
+    public float engineOutYaw;
     /// <summary>Breaks ties within a priority, higher winning: the tracked loadout beats the plain land ones.</summary>
     public int rank;
     /// <summary>The engine and drivetrain (drivetrain design), or an aircraft's engine (turbine design).</summary>

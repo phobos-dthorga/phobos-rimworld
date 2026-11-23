@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.108.0] - 2026-11-23 - Draft
+
+Twin jets pulled by an engine out
+
+### Added
+
+- **The A-10, Su-25 and Prowler dodge less with an engine out or one weaker than the other** (per-engine realism, step 2, with D'thorga Framework 0.247.0): at most 15 % less with one engine out, small because all three carry their engines close beside the fuselage (authored). Not yet tested in game: row 402 of the test pass.
+
 ## [0.107.3] - 2026-11-23 - Draft
 
 The A-10's and Su-25's new engines go in as a pair

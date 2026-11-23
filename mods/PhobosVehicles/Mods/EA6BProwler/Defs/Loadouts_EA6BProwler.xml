@@ -47,6 +47,9 @@
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_Prowler</defName>
+    <!-- Vehicles 0.108.0 (per-engine realism step 2): one engine out costs at most 15 % of its dodge, its thrust pulling it sideways;
+         small, as the Prowler's J52s sit in the fuselage sides under the wing roots, close to the centreline. AUTHORED. -->
+    <engineOutYaw>0.15</engineOutYaw>
     <label>electronic attack jet (twin turbojet)</label>
     <priority>Vehicle</priority>
     <selector>

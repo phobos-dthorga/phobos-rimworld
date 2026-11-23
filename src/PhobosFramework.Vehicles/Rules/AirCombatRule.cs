@@ -63,6 +63,18 @@ public static class AirCombatRule
     /// FlightControl stat, 1 when sound) and by its warning receiver (1 working, else the factor); a salvo of countermeasures fired on a map
     /// adds its bonus while it lasts. Never above the cap.
     /// </summary>
+    /// <summary>
+    /// What lopsided thrust leaves of a twin jet's dodge (Framework 0.247.0, per-engine realism step 2; the owner's card of 23 Nov 2026): one
+    /// less the aircraft's yaw figure times the difference between its two engines' outputs (each 0 to 1), so one engine out costs the whole
+    /// figure and two matched engines cost nothing. Only a twin pulls: with one engine or more than two it is 1, as it is with no figure.
+    /// The figure grows with how far the engines sit from the centreline and is authored per aircraft.
+    /// </summary>
+    public static double LopsidedThrust(double yaw, double firstOutput, double secondOutput, int engines)
+    {
+        if (engines != 2 || yaw <= 0) return 1;
+        return Clamp01(1 - Clamp01(yaw) * Math.Abs(Clamp01(firstOutput) - Clamp01(secondOutput)));
+    }
+
     public static double Evasion(double authorsChance, double flightControl, bool warningWorks, double noWarningFactor, double salvoBonus, double cap)
     {
         if (authorsChance <= 0) return authorsChance;

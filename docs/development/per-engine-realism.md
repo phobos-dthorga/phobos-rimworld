@@ -1,7 +1,7 @@
 # Per-engine realism (23 Nov 2026)
 
-**Status (23 Nov 2026):** step 1 built in D'thorga Framework 0.247.0 (power by engine health, row 401); steps 2 to 4 designed, not yet
-built. Nothing here is tested in game yet.
+**Status (23 Nov 2026):** steps 1 and 2 built in D'thorga Framework 0.247.0 and Vehicles 0.108.0 (power by engine health, row 401;
+lopsided thrust, row 402); steps 3 and 4 designed, not yet built. Nothing here is tested in game yet.
 
 ## Read this first
 
@@ -38,7 +38,23 @@ built. Nothing here is tested in game yet.
   Flight section of D'thorga Framework's vehicle settings).
 - **Other factions' vehicles:** the same rule on any faction's turbine aircraft, raiding or parked; nothing is stored.
 
-### Step 2: engine-out yaw on twin jets (designed)
+### Step 2: engine-out yaw on twin jets (built, Framework 0.247.0, Vehicles 0.108.0)
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | See a twin jet with an engine out or damaged fly less nimbly |
+| What it stops them doing | Keeping a crippled twin jet's full dodge over a map |
+| How it changes play | An engine out over a defended map is a reason to leave; repairs matter |
+| What outside the vehicle notices | The enemy's guns: they hit it more often |
+
+- **The rule** (`AirCombatRule.LopsidedThrust`): the dodge is multiplied by one less the loadout's `engineOutYaw` times the difference
+  between the two engines' outputs (step 1's, or in and out with its setting off). Only a twin pulls. **The A-10, Su-25 and Prowler
+  have 0.15** (authored): all three carry their engines close beside the fuselage. Applied in `AirCombat.Evasion`, which every
+  aircraft's map dodge reads (ours and the Patches hooks), so it costs nothing on the world map.
+- **Risk: moderate** (agent's grade): more hits on a damaged jet, in sight. **Setting:** "Lopsided thrust unsettles twin jets", on.
+- **Other factions' vehicles:** any faction's twin jet with a figure; read when fired at, nothing stored.
+
+The design as first written:
 
 - Lopsided thrust (one engine out, or by step 1 one weaker than the other) costs a twin jet some of its dodge, scaled by how far its
   engines sit from the centreline: a per-aircraft authored figure on the loadout, 0 by default. Helicopters stay at 0 (one gearbox drives
@@ -61,5 +77,5 @@ built. Nothing here is tested in game yet.
 ## Sources
 
 - Our own code, read on 23 Nov 2026: `Powertrain.Engines`, `TurbineModel.Evaluate`, the turbine system (`Systems_Turbine.xml`).
-- The V-22's interconnecting drive shaft and twin helicopters' combining gearboxes are general aviation knowledge, not cited to a source
-  here; to be sourced before step 2 is built.
+- The V-22's interconnecting drive shaft and twin helicopters' combining gearboxes are general aviation knowledge, **not cited to a
+  source here**. They only explain why those aircraft carry no yaw figure; no figure rests on them.

@@ -86,6 +86,9 @@
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_Warthog</defName>
+    <!-- Vehicles 0.108.0 (per-engine realism step 2): one engine out costs at most 15 % of its dodge, its thrust pulling it sideways;
+         small, as the A-10's TF34s sit on short pylons either side of the rear fuselage, close to the centreline. AUTHORED. -->
+    <engineOutYaw>0.15</engineOutYaw>
     <label>ground-attack jet (twin turbofan)</label>
     <priority>Vehicle</priority>
     <selector>
@@ -196,6 +199,9 @@
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_Frogfoot</defName>
+    <!-- Vehicles 0.108.0 (per-engine realism step 2): one engine out costs at most 15 % of its dodge, its thrust pulling it sideways;
+         small, as the Su-25's engines sit in nacelles at the wing roots, beside the fuselage, close to the centreline. AUTHORED. -->
+    <engineOutYaw>0.15</engineOutYaw>
     <label>ground-attack jet (twin turbojet)</label>
     <priority>Vehicle</priority>
     <selector>
