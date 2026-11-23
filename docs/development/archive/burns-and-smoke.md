@@ -312,50 +312,5 @@ Our inference: the game has burn depth per injury but nothing for "all round the
 
 ## For modders (moved from the README, 17 Nov 2026)
 
-Moved here when D'thorga Medical's README was slimmed; the text is the README's as it stood, with the figures as built.
-
-**Mark an injury Def as a burn** for the burned fraction with the extension this part patches onto the game's burns, and say how its
-damage becomes area (the Def's own severity stays its depth): the fraction of a part one point of damage covers, and the most of a
-part one such burn can cover. Fire is 0.0833 and 1; an incendiary round is 0.025 and 0.3.
-
-```xml
-<modExtensions>
-  <li Class="Phobos.BurnsAndSmoke.Defs.PhobosBurnLikeExtension">
-    <areaPerDamage>0.0833</areaPerDamage>
-    <maxArea>1</maxArea>
-  </li>
-</modExtensions>
-```
-
-Balance lives in `Common/Defs/Phobos/BurnsAndSmoke/Rules.xml` (one `PhobosBurnRulesDef`, first loaded wins) and in the stage tables
-of the hediff Defs. Smoke and carbon monoxide are read from D'thorga Framework's `PhobosGases`. The fire heat's peak, radius, cap and
-cadence are in the same Def, as is `perCellTemperatureMods`, the list of package ids whose presence makes the fire heat stand down;
-add a mod there if it models the air cell by cell.
-
-**How burn shock is decided**, every 300 ticks for a burned pawn (figures from the rules Def, all authored starting values):
-
-```mermaid
-flowchart TD
-    Burns["Every burn on the skin, by its kind's area<br/>(and every part burned off, while fresh)"] --> TBSA["Burned body fraction"]
-    TBSA --> Over{"15% or more?"}
-    Over -- "no" --> Fade["Shock fades and leaves"]
-    Over -- "yes" --> Baux["Revised Baux score:<br/>age + percent burned<br/>+ 17 with an airway burn or 20% carbon monoxide"]
-    Baux --> Target["Untreated target: score 36 = none, 110 = all"]
-    Care["Care: burns tended (-20%), in bed (-15%),<br/>the shock tended with medicine (-35% x tend quality)"] --> Treated
-    Target --> Treated["Treated target, at least 10% of the untreated one,<br/>and at least the first stage while 15% is burned"]
-    Treated --> Move["Shock moves toward it:<br/>up 1 a day, down 0.35 a day"]
-    Move --> Stages["compensated, shock from 30%,<br/>severe from 55% (death in about 4 days),<br/>terminal from 80% (about 1 day)"]
-```
-
-**Stages as built:** burned body fraction minor from 5%, serious from 15% (hunger, cold sensitivity, blood pumping), major from 30%,
-critical from 50%. Burn shock compensated, shock from 30%, severe from 55% (a four-day death clock), terminal from 80% (one day).
-Carbon monoxide: headache from 10%, dizzy 20%, confused 30%, collapsed 40%, dying from 55% (a half-day clock); on room air it halves
-every 5.3 hours under a roof and 3 in the open. Smoke-damaged lungs heal 4% a day untended, 16% tended well, and 6% a day more on
-supplied oxygen. The fire heat's zones are rebuilt every 150 ticks, so a cell can stay hot for up to two and a half seconds after its
-fire goes out.
-
-**A worked case:** a 40-year-old with a quarter of the body burned and no inhalation injury scores 65 and heads for stage 1
-untreated; the same pawn with an airway burn scores 82 and heads for the severe stage. Burns tended and in bed, the shock tended with
-industrial medicine, the second settles at compensated (30% of the untreated target); with no medicine, at the shock stage. With full
-care, fluids without medicine leave 55% of the untreated target, herbal 44%, industrial 30%, glitterworld 20%, for a doctor whose
-tend quality stat is 1.
+Moved again on 24 November 2026, with the README's slimming, to the living page
+[D'thorga Medical for modders](../../modding/medical.md), section "Burns and smoke".

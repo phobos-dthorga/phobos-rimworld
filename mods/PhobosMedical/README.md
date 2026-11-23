@@ -1,11 +1,11 @@
 # D'thorga Medical
 
-Burns and smoke that matter, doctors who dose and operate on their own, hospital and field equipment to treat it all, and a safe way
-to add More Injuries to a colony you are already playing. Built to sit beside **More Injuries** and **Combat Extended**; neither is
-required.
+Burns and smoke that matter, doctors who dose and operate on their own, hospital and field equipment to treat it all, and a safe
+way to add More Injuries to a colony you are already playing. Built to sit beside **More Injuries** and **Combat Extended**;
+neither is required.
 
-One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide's
-[medical chapter](../../docs/player-guide/medical.md)**; this README holds the gotchas, the settings and the links for modders.
+One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide's [medical
+chapter](../../docs/player-guide/medical.md)**; this README holds the gotchas, the settings and the links.
 
 Version 0.26.1, built 24 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
 D'thorga Medical (11 November 2026), and burns, dosing, the oxygen concentrator, the burn unit bed and the save bridge on the five
@@ -13,77 +13,73 @@ mods it replaced (3 to 6 November 2026). Everything else is not yet tested in ga
 
 ## Read this first (gotchas)
 
-- **Needs Harmony, D'thorga Framework 0.184.0 or later and Vanilla Expanded Framework, loaded before it.** The About file asks for
-  that order, so RimSort and the game's sorter get it right. **RimWorld 1.7 only.**
+- **Partly tested in game.** Besides the items on the version line above, the owner has passed doctors' work with many wounded,
+  field care giving way to the carry, and, with Rimatomics, radiation sickness running its real course and converting once, all on
+  D'thorga Medical itself. The list, with dates and what passed only in part, ends the guide's [Medical
+  chapter](../../docs/player-guide/medical.md#tested-in-game). **Everything else is not yet tested in game.**
+- **Needs Harmony, D'thorga Framework 0.184.0 or later and Vanilla Expanded Framework, loaded before it.** Its About file asks for
+  that order, so RimSort and the game's sorter get it right.
+- **RimWorld 1.7 only.**
 - **Vanilla Gravship Expanded is strongly recommended** (it needs the Odyssey expansion). The bedside oxygen stand, the oxygen
   trolley, the field oxygen kit, the hyperbaric chamber, the electrolyser and the liquid oxygen store use its oxygen canisters and
   pipes, and exist only with it. Without it a letter says so once, and the settings window says which pieces are off.
-- **Optional, used when present:** More Injuries, Combat Extended, Search and Rescue, VFE Medical, Dubs Bad Hygiene, Rimatomics
-  (radiation control), Useful Marks (triage tags) and Hospitality (guests). None is needed.
-- **Moving from the five old mods** (D'thorga Burns and Smoke, Emergency Dosing, Triage, Medical Equipment and Medical Save Bridge,
-  merged into this one on 7 November 2026, [why](../../docs/development/mod-consolidation.md)):
-  1. **Switch all five off in RimSort and this one on, in the same change**, then load your colony. The About file lists the five as
-     incompatible, so RimSort warns if one is left on, and the load line logs an error naming any still active: running one beside
-     this loads the same part twice.
-  2. The game shows its usual warning that the mod list changed: load anyway. Every condition, building, item, job and saved record
-     kept its name, so the colony carries over. Switching does not ask about converting the save: this mod adds no body parts.
-  3. **Your settings carry over once**, from the five old settings files, the first time the game starts with this mod. There is one
-     display mode for every part now.
-- **Safe to add to a running colony.** A colony that had already done the research one of this mod's projects replaced got that
-  project free, once.
-- **Taking it out of a colony:** press **Remove every condition this mod adds, from every pawn** in its settings, deconstruct its
-  machines and burn unit beds, take its items out of the colony (sell, destroy or use them up), save, then switch the mod off.
-  Buildings and items left behind are dropped by the game with an error line. Operations triage queued stay as ordinary bills.
-  The next load prints a harmless line for each missing map or game component, and one per research project; the save after that is
-  clean.
-- **Radiation, with Rimatomics:** our model takes Rimatomics' radiation for people, and **converts anyone's existing Rimatomics radiation once**. Switching the model off, or removing this mod, does not bring Rimatomics' conditions back. **Late effects** (cancer, cataracts, sterility, harm in pregnancy) use the game's own carcinoma, cataract and sterilized where it has them; those stay when the mod is removed, as the game's own conditions.
-- **Taking Vanilla Gravship Expanded out later** removes those six oxygen pieces the same way; patients on them lose the treatment
-  within the hour, cleanly.
-- **Adding More Injuries (or another mod that adds body parts) to a running colony asks first**: **Convert now**, **Not now** or
-  **Never for this save**. **Back up the save first.** **If you choose Not now, don't save that colony**: whatever went wrong on that
-  load (wounds on the wrong parts, lost limbs back, the dead standing up) is kept when you save. The steps are in
-  [the guide](../../docs/player-guide/medical.md#adding-more-injuries-to-an-old-colony).
-- **Decide before a colony:**
-  - **People in pain fetch their own painkillers** (on by default), by their drug policies. **Check your drug policies first**:
-    addiction and overdose are real.
-  - **Tox gas is slow-acting** by default: the harm comes from about 4 hours later, over two or three days. A setting makes it act
-    at once.
+- **Optional, used when present:** More Injuries, Combat Extended, Search and Rescue, VFE Medical, Dubs Bad Hygiene, Rimatomics,
+  Useful Marks and Hospitality. None is needed.
+- **It replaces five older mods** (D'thorga Burns and Smoke, Emergency Dosing, Triage, Medical Equipment and Medical Save Bridge).
+  **Switch all five off and this one on, in the same change**, then load your colony and accept the game's warning that the mod
+  list changed. Your colony and your settings carry over; RimSort warns if one is left on, and running one beside this loads the
+  same part twice.
+- **Settings to decide before a colony:**
+  - **People in pain fetch their own painkillers** (on), by their drug policies. **Check your drug policies first**: addiction and
+    overdose are real.
+  - **Tox gas is slow-acting** (the default): the harm comes from about 4 hours later, over two or three days. A setting makes it
+    act at once.
   - **How far the doctors may operate without orders**: to save life, by default, for colonists, slaves and prisoners; never for
     guests. Each person also has a button.
-  - **How much to show** is Plain by default: no percentages or hours. Operator or Engineer show the figures.
-- **What bites in play:**
-  - **Carbon monoxide ignores gas masks** and has no smell. Move patients out of the burning room: a patient on oxygen still breathes
-    the room's air.
-  - **Fires in the open are hot**: heatstroke and burns from the air beside a blaze. With Atmosphere Overhaul or Celsius, this fire
-    heat stands down by itself.
-  - **Oxygen canisters, and kits made from them, explode when they burn** (Vanilla Gravship Expanded's rule), and a badly damaged
-    liquid oxygen store bursts into a fireball.
-  - **No surgery in the hyperbaric chamber**: move the patient to a hospital bed.
-  - **With Search and Rescue, give your medics kits to carry**: its restocking never fetches ours, and its responders need Doctor
-    work switched on to use them.
-  - **Care on the ground gives way to the carry** (0.18.0, not yet tested in game): our doctors never hold a downed person against
-    whoever comes to carry them to bed, and a dose against a disease waits for the bed. Needs D'thorga Framework 0.126.0.
+  - **How much to show** is Plain: no percentages or hours. Operator or Engineer show the figures.
+- **Safe to add to a running colony.** A colony that had already done the research one of this mod's projects replaced gets that
+  project free, once.
+- **Adding More Injuries (or another mod that adds body parts) to a running colony asks first**: **Convert now**, **Not now** or
+  **Never for this save**. **Back up the save first**, and **if you choose Not now, don't save that colony**: whatever went wrong
+  on that load (wounds on the wrong parts, lost limbs back, the dead standing up) is kept when you save.
+- **With Rimatomics, our radiation model takes Rimatomics' radiation for people and converts anyone's existing radiation once.**
+  Switching the model off, or removing this mod, does not bring Rimatomics' conditions back. The late effects that use the game's
+  own carcinoma, cataract and sterilized stay when the mod is removed.
+- **What bites in play:** **carbon monoxide ignores gas masks**, and a patient on oxygen still breathes the room's air, so move
+  patients out of a burning room. **Fires in the open are hot**: heatstroke and burns beside a blaze (with Atmosphere Overhaul or
+  Celsius this stands down by itself). **Oxygen canisters, and kits made from them, explode when they burn**, and a badly damaged
+  liquid oxygen store bursts into a fireball. **No surgery in the hyperbaric chamber.** **With Search and Rescue, give your medics
+  kits to carry**: its restocking never fetches ours, and its responders need Doctor work on to use them.
+- **Taking it out of a colony:** press **Remove every condition this mod adds, from every pawn** in its settings, deconstruct its
+  machines and burn unit beds, sell, destroy or use up its items, save, then switch the mod off. The next load prints a harmless
+  line for each missing component and research project; the save after that is clean. Operations triage queued stay as ordinary
+  bills. Taking Vanilla Gravship Expanded out later removes the six oxygen pieces the same way. Every mod's steps are in [Removing
+  a mod](../../docs/player-guide/getting-started.md#removing-a-mod).
 
-## The parts
+## What it adds
 
-Each part has a section in the settings window and a section in the [player guide](../../docs/player-guide/medical.md).
+Each part has a page in the settings window and a section in the [player guide](../../docs/player-guide/medical.md).
 
-| Part | What it does | In the guide |
-| --- | --- | --- |
-| Burns and smoke | Burns add up to a burned body fraction; burn shock past about a sixth of the body, which kills within days untreated; airway burns that swell shut; limbs that tighten under deep burns; smoke that scars the lungs; carbon monoxide from fires in closed rooms; fire heat in the open and in large rooms | [Burns and smoke](../../docs/player-guide/medical.md#burns-and-smoke), [conditions](../../docs/player-guide/medical.md#conditions-and-what-treats-them), [carbon monoxide](../../docs/player-guide/medical.md#carbon-monoxide) |
-| Caustic gas and acid | Tox gas (Biotech) injures eyes, throat, lungs and skin, and can weaken immunity; acid keeps burning until a safety shower washes it off | [Tox gas and acid](../../docs/player-guide/medical.md#tox-gas-and-acid) |
-| Emergency dosing | Doctors give painkillers, sedatives and disease-fighting drugs on their own, chosen by what each drug does; people in pain fetch their own by drug policy | [Doctors who dose](../../docs/player-guide/medical.md#doctors-who-dose) |
-| Triage | A tag on every patient, the operation a killing condition needs queued by itself, and the worst case first | [Triage](../../docs/player-guide/medical.md#triage) |
-| Equipment | Oxygen at the bedside, in the field and in a pressure chamber; ventilator, nebuliser, anaesthesia machine, steriliser, burn unit bed, safety shower, gas alarm, field kits; making and keeping oxygen | [Equipment](../../docs/player-guide/medical.md#equipment) |
-| Radiation | A dose the body repairs, and radiation sickness in its real course: early sickness, a well spell, the illness; care decides who lives; a doctor's estimate or, after Rimatomics' detectors, the exact dose; late effects (cancer, cataracts, sterility, harm in pregnancy), each a setting; fallout dust on skin and clothes; three medicines doctors give by themselves (anti-sickness tablets, Prussian blue, a marrow stimulant). Takes Rimatomics' radiation for people (a setting) | [Radiation](../../docs/player-guide/medical.md#radiation) |
-| Radiation control | With Rimatomics: a line colonists suit up at, and potassium iodide before going in | [Radiation control](../../docs/player-guide/medical.md#radiation-control-with-rimatomics) |
-| Save bridge | Converts a colony's wounds, lost limbs and bionics when More Injuries is added to it, so nothing lands on the wrong part | [Adding More Injuries](../../docs/player-guide/medical.md#adding-more-injuries-to-an-old-colony) |
+- **Burns and smoke**: burns add up to a burned body fraction, with burn shock past about a sixth of the body, airway burns, limbs
+  that tighten under deep burns, smoke-scarred lungs, carbon monoxide in closed rooms, and fire heat in the open and in large
+  rooms.
+- **Tox gas and acid**: tox gas injures eyes, throat, lungs and skin; acid keeps burning until a safety shower washes it off.
+- **Emergency dosing**: doctors give painkillers, sedatives and disease-fighting drugs on their own, chosen by what each drug
+  does; people in pain fetch their own by drug policy.
+- **Triage**: a tag on every patient, the operation a killing condition needs queued by itself, and the worst case first.
+- **Equipment**: oxygen at the bedside, in the field and in a pressure chamber; ventilator, nebuliser, anaesthesia machine,
+  steriliser, burn unit bed, safety shower, gas alarm, field kits; making and keeping oxygen.
+- **Radiation**: radiation sickness in its real course, where care decides who lives; a doctor's estimate of a dose, or the exact
+  dose after Rimatomics' detectors; late effects, each a setting; fallout dust; three medicines doctors give by themselves.
+- **Radiation control**, with Rimatomics: a line colonists suit up at, and potassium iodide before going in.
+- **The save bridge**: converts a colony's wounds, lost limbs and bionics when More Injuries is added, so nothing lands on the
+  wrong part.
 
 ## Settings
 
-One entry, **D'thorga Medical**, in the game's mod settings, with a page per part down the left (0.19.0; it was one long scroll).
-**Type in the search box to find a setting on any page**, tick **Changed only** to see just what you have changed (each marked with a
-dot), and use **Reset this page to defaults** at the bottom of a page. Read from the source and the English text files, 20 November 2026.
+One entry, **D'thorga Medical**, in **Options > Mod settings**, with a page per part down the left. **Type in the search box to
+find a setting on any page**, tick **Changed only** to see just what you have changed (each marked with a dot), and use **Reset
+this page to defaults** at the bottom of a page.
 
 | Setting, as the window shows it | What it does | Default |
 | --- | --- | --- |
@@ -149,30 +145,12 @@ dot), and use **Reset this page to defaults** at the bottom of a page. Read from
 
 The sounds follow D'thorga Framework's **D'thorga sounds volume** setting.
 
-## For modders
+## More
 
-Each part's Def extensions, rules Defs and figures are in its design record, under "For modders" where the README used to carry
-them:
+- [The player guide's Medical chapter](../../docs/player-guide/medical.md): what to build, what each condition needs, and what is
+  tested in game.
+- [The changelog](CHANGELOG.md): what changed in each version, with the five former mods' histories.
+- [For modders](../../docs/modding/medical.md): each part's Def extensions, rules Defs and figures, and the checks done.
 
-- [Burns and smoke](../../docs/development/archive/burns-and-smoke.md#for-modders-moved-from-the-readme-17-nov-2026) and
-  [caustic gas](../../docs/development/archive/caustic-gas.md)
-- [Emergency dosing](../../docs/development/archive/emergency-dosing.md#for-modders-moved-from-the-readme-17-nov-2026)
-- [Triage](../../docs/development/archive/triage.md#for-modders-moved-from-the-readme-17-nov-2026)
-- [Medical equipment](../../docs/development/archive/medical-equipment.md#for-modders-moved-from-the-readme-17-nov-2026) and
-  [the second set](../../docs/development/archive/medical-equipment-2.md)
-- [The save bridge](../../docs/development/medical-save-bridge.md#for-modders-moved-from-the-readme-17-nov-2026)
-- [Radiation control](../../docs/development/archive/radiation-control-line.md#for-modders-moved-from-the-readme-17-nov-2026)
-- The health layer every part shares (who the doctors' patients are, how dangerous a condition is, what a pawn is breathing, the
-  per-person buttons): [D'thorga Framework's record](../../docs/development/archive/phobos-framework.md#health-layer-030-6-nov-2026)
-
-## Checks done
-
-What was checked for each version, and what the owner has tested, is in the [changelog](CHANGELOG.md). In short: every version builds
-for RimWorld 1.7 and passes the repository's gate (the game-free rules' unit tests, the Defs, the text keys and the layout checks).
-**Tested in game by the owner:** the save bridge's first load (3 November 2026), burn numbers and progression and the More Injuries
-tie-ins (5 November), doctors' dosing (5 November), breathing on the oxygen concentrator (5 November), the burn unit bed (6 November),
-all on the five former mods, and radiation control on D'thorga Medical (11 November). **Not yet tested in game:** everything else,
-including triage, the ventilator and the second set of equipment, tox gas and acid, self-medication, the field responders' use of
-the kits, and D'thorga Medical as one mod.
-
-Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.
+Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of
+Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.

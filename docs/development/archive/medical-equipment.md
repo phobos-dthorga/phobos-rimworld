@@ -130,32 +130,8 @@ Updated 7 Nov 2026, after D'thorga Medical 0.6.0; the open work is listed in [ou
 
 ## For modders (moved from the README, 17 Nov 2026)
 
-Moved here when D'thorga Medical's README was slimmed; the text is the README's as it stood.
-
-- **Oxygen machines:** give a building `Phobos.Medical.Comps.CompProperties_PhobosOxygenSupply` and `CompProperties_Facility`; add a
-  `CompProperties_Refuelable` and it burns fuel. On a bed it serves its own occupant instead, and its `treatment` can name a stronger
-  condition.
-- **Patient devices:** give an item `Phobos.Medical.Defs.PhobosPatientDeviceExtension` (its need, the treatment condition, the time to
-  use it, and whether it is used up or worked continuously), and doctors use it by themselves.
-- **Device work lanes:** a WorkGiverDef using `Phobos.Medical.Jobs.WorkGiver_PhobosUseDevice` can carry
-  `Phobos.Medical.Defs.PhobosDeviceWorkExtension`: `needs` limits it to some devices (none named: all), and `requireDoctorWork` asks
-  that the worker also has Doctor work on. That is how the two field rescue lanes for Search and Rescue are made
-  (`Mods/SearchAndRescue`), and how another mod's work type can take device work.
-- **Liquid stores:** pair Vanilla Expanded Framework's resource storage comp with `Phobos.Medical.Comps.CompProperties_PhobosBoilOff`.
-- Mark your own burn injury Def with `Phobos.Medical.Defs.PhobosBurnCareExtension` so a burn unit bed gives its patient air-cell care.
-  Mark your own condition with `Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension` so that it counts as needing oxygen.
-  Balance lives in `Common/Defs/Phobos/Medical/Rules.xml` and on each machine's comp.
-
-| Treatment | Breathing | Carbon monoxide half-life | Lasts |
-| --- | --- | --- | --- |
-| On oxygen (concentrator, stand, trolley) | +20 points, up to normal | About 75 minutes | While in the bed |
-| On field oxygen (kit) | +20 points, up to normal | About 75 minutes | About an hour |
-| Under hyperbaric oxygen (chamber) | +30 points, up to normal | About 22 minutes | While in the chamber |
-| Hand-ventilated (resuscitator) | +30 points, up to normal | No change: it is room air | While a doctor pumps |
-
-A bedside machine's pass runs every 250 ticks: switched on, powered or fuelled and touching a bed, it treats the patients in its
-linked beds who need oxygen, worst breathing first, up to two; the treatment lapses about 10 seconds after the last pass. The
-chamber is a game tier, not medical advice: the review cited in the burns record found the clinical evidence for it of low quality.
+Moved again on 24 November 2026, with the README's slimming, to the living page
+[D'thorga Medical for modders](../../modding/medical.md), section "Medical equipment".
 
 ## The first design's medical half (4 to 5 Nov 2026)
 

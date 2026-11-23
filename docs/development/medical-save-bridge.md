@@ -256,24 +256,5 @@ neither has been reproduced on a fresh save by us.
 
 ## For modders (moved from the README, 17 Nov 2026)
 
-Moved here when D'thorga Medical's README was slimmed; the text is the README's as it stood. Since the merge the bridge asks first
-(convert now, not now, or never for this save; [mod consolidation](mod-consolidation.md)), and its log lines start with
-[D'thorga Medical: save bridge]. It acts only while the gate is open: a mod that adds body parts is active, and the save's own mod
-list does not include it.
-
-| Step | What | Where it hooks |
-| --- | --- | --- |
-| Re-number | Each saved part number is translated from the old list to the new one, for every body that gained parts | The game's own hook for this, `BackCompatibility.GetBackCompatibleBodyPartIndex`, which every saved part reference passes through |
-| Upgrade | An old wound or missing part is created as More Injuries' class straight away, with the bleeding state a live wound would carry; old blood loss and hypothermia get the comp-carrying class More Injuries gives them | The game's own hook for choosing a saved object's class, `BackCompatibility.GetBackCompatibleType` |
-| Hold | More Injuries' first-load flag is cleared as it is set, so its clean-up finds nothing to do | More Injuries' pawn comp, reached by name |
-| Report | After the load, what was done and a check of every pawn, written to the log | `Game.LoadGame` |
-
-It never touches Medical System Expansion 2: with the wounds upgraded there is nothing for it to re-install. A mod that moves or
-deletes an existing part is beyond it.
-
-**Checking it worked.** On the first load after adding More Injuries the log shows ACTIVE, naming th3fr3d.extendedinjuries and
-"Human (8 new parts)"; a load-finished line with the parts re-numbered, hediff classes upgraded and wipes prevented (equal to the
-pawns with More Injuries' comp); the check of hediffs on parts newer than the save ending "none."; and no lines from More Injuries
-saying "Compatibility patch removed some hediff(s)" or from MSE2 saying "Reinstalling Hediffs with wrong type". Two dev actions help:
-**Medical Save Bridge: log body part indices** writes the human body's part list with each part's old number, and **Medical Save
-Bridge: check every pawn's parts** repeats the after-load check.
+Moved again on 24 November 2026, with the README's slimming, to the living page
+[D'thorga Medical for modders](../modding/medical.md), section "The save bridge".

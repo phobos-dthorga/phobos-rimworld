@@ -15,6 +15,10 @@ entry says the owner tested it.
   what each picture was cut from moved beside the art records, in the repository's assets folder; nothing a player sees
   changes.
 - **The README's links point to the archived records' new places** (docs rewrite, 23 Nov 2026). Nothing in play changes.
+- **The README is slimmer**: real gotchas, what it adds, the full settings table and links. Each part's notes for modders,
+  parked in the design records since 17 November, are gathered on one modders' page with the checks done. The README and the
+  Workshop draft now name the owner's tests of this mod itself, where they said the merged mod was untested. Nothing in play
+  changes.
 
 ## [0.26.1] - 2026-11-24 - Draft
 

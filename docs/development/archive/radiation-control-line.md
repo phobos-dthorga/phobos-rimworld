@@ -119,6 +119,5 @@ It changes nothing in the world.
 
 ## For modders (moved from the README, 17 Nov 2026)
 
-The machinery is D'thorga Framework's (`Phobos.Framework.Protection`): a `ProtectionZoneDef` names a stat and how much of it is
-needed, `CompProperties_PhobosControlPoint` makes a building a control point, and `Designator_PhobosProtectionArea` paints an area.
-Any mod can add a kind of line in XML; the two Harmony hooks live in D'thorga Medical.
+Moved again on 24 November 2026, with the README's slimming, to the living page
+[D'thorga Medical for modders](../../modding/medical.md), section "Radiation control".

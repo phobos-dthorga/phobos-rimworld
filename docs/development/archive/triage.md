@@ -164,29 +164,5 @@ extension; it is auto-queued like any other (agent choice), since glitterworld m
 
 ## For modders (moved from the README, 17 Nov 2026)
 
-Moved here when D'thorga Medical's README was slimmed; the text is the README's as it stood.
-
-A recipe is found by its `removesHediff`, as the game's, More Injuries' and the burns part's already are. A recipe whose worker
-removes a condition some other way, or one that must never be queued by the doctors on their own, says so with the extension this
-part reads:
-
-```xml
-<modExtensions>
-  <li Class="Phobos.Triage.Defs.PhobosTriageExtension">
-    <treatsHediffs><li>MyMod_Condition</li></treatsHediffs>
-    <neverAutoQueue>false</neverAutoQueue>
-  </li>
-</modExtensions>
-```
-
-Thresholds, bands and the bill cap live in `Common/Defs/Phobos/Triage/Rules.xml` (one `PhobosTriageRulesDef`, first loaded wins).
-The per-person authority is D'thorga Framework's patient comp; the saved key is `PhobosTriage_Authority`. A mod holds surgery for a
-patient (as the hyperbaric chamber does) through the Framework's `Patients.SurgeryBarred`, described in Decisions above.
-
-| Tag | Means | Score band |
-| --- | --- | --- |
-| immediate | dying, and within 6 hours or with consciousness, breathing or blood pumping at 30% or less | 400 and up |
-| urgent | dying, with more time; or life-threatening with no clock the part can read | 300 to 399 |
-| delayed | a crippling condition, nothing killing them | 200 to 299 |
-| minor | nothing classed | 100 |
-| expectant | dying of something only an operation removes, and nobody here can do it | 50 |
+Moved again on 24 November 2026, with the README's slimming, to the living page
+[D'thorga Medical for modders](../../modding/medical.md), section "Triage".
