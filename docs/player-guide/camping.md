@@ -23,7 +23,7 @@ the kit back in the cargo.
 | Accessory | What it does | What it costs to run |
 | --- | --- | --- |
 | **12-volt fridge** (20 kg) | Keeps up to 30 kg of the cargo's food at 4 °C, choosing what would spoil first. It has its own switch | 0.2 to 1.5 A, more in the heat |
-| **House battery** (25 kg) | A second 100 Ah battery for the fridge and outlet, so they never flatten the battery that starts the engine. Below a tenth it cuts them off | Charges while driving once the starting battery is full, or on shore power |
+| **House battery** (25 kg) | A second 100 Ah battery for the fridge, outlet and 12-volt camp lights, so they never flatten the battery that starts the engine. Below a tenth it cuts them off | Charges while driving once the starting battery is full, or on shore power |
 | **Power outlet** (4 kg) | Switched on while parked, the conduit beneath the vehicle powers lamps, a radio or a bench wired to it, up to 300 W (600 W on a 24 V truck) | What it gives, in amps: a 200 W radio is about 20 A on 12 V |
 
 - **Without a house battery, the fridge and outlet drain the starting battery with the engine off.** A fridge alone flattens a stock
@@ -93,8 +93,10 @@ and fit it in the vehicle's **water tank bay**. It holds **120 litres**.
 in the cargo with the camp gear. Both light themselves at dusk.
 
 - **Camp lantern** (2 kg): burns about **one chemfuel a night**, only while lit, and warms the air a little. Needs no vehicle. Fill it before you go.
-- **12-volt camp light** (4 kg): runs from the vehicle's battery, about 10 watts each. The vehicle gets a **Camp lights** switch; with it off,
-  or the battery flat, they go dark. Set down away from a camp, it has no power.
+- **12-volt camp light** (4 kg): runs from the vehicle's house battery if it has one, else its starting battery, about 10 watts each.
+  The vehicle gets a **Camp lights** switch; with it off, or the battery flat, they go dark. **On the starting battery they go out by
+  themselves before it is too weak to start the engine**, with a message saying so, and come back once the engine has charged it. Set
+  down away from a camp, it has no power.
 
 **Kitchen box, table and stools**: build them in the Architect (D'thorga, Motor pool; research
 **vehicle parts**), uninstall them and load them into the cargo with the rest of the camp gear.

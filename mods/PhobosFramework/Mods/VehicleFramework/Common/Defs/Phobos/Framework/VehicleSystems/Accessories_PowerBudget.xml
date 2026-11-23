@@ -61,7 +61,7 @@
     <!-- A 100 Ah deep-cycle battery: about 25 kg is typical of a sealed lead-acid one (secondary, unverified). -->
     <defName>PhobosVehicleSystems_HouseBatteryUnit</defName>
     <label>house battery</label>
-    <description>A deep-cycle battery and its isolator. Fitted to a vehicle's house battery tray, it runs the fridge and the power outlet so they never flatten the battery that starts the engine. It charges while the engine runs, once the starting battery is full, or from shore power.</description>
+    <description>A deep-cycle battery and its isolator. Fitted to a vehicle's house battery tray, it runs the fridge, the power outlet and the camp lights so they never flatten the battery that starts the engine. It charges while the engine runs, once the starting battery is full, or from shore power.</description>
     <graphicData>
       <texPath>Phobos/VehicleSystems/Things/HouseBattery</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -147,7 +147,7 @@
     <defName>PhobosFitting_HouseBattery</defName>
     <iconPath>Phobos/VehicleSystems/Things/HouseBattery</iconPath>
     <label>house battery</label>
-    <description>A second battery of 100 ampere-hours for the camp loads, behind an isolator. The fridge and the power outlet draw on it alone and stop when it is nearly flat, so the starting battery is always kept for the engine. It charges while the engine runs once the starting battery is full, or from shore power.</description>
+    <description>A second battery of 100 ampere-hours for the camp loads, behind an isolator. The fridge, the power outlet and the camp lights draw on it alone and stop when it is nearly flat, so the starting battery is always kept for the engine. It charges while the engine runs once the starting battery is full, or from shore power.</description>
     <roles><li>HouseBatteryTray</li></roles>
     <materials><PhobosVehicleSystems_HouseBatteryUnit>1</PhobosVehicleSystems_HouseBatteryUnit><Steel>5</Steel></materials>
     <givesBack><PhobosVehicleSystems_HouseBatteryUnit>1</PhobosVehicleSystems_HouseBatteryUnit></givesBack>

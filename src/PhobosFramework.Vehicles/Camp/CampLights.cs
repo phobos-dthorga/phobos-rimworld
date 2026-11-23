@@ -8,7 +8,8 @@ namespace Phobos.VehicleSystems;
 /// <summary>
 /// Camp lights on a vehicle's battery (Framework 0.231.0; docs/development/vehicle-accessories.md, "Built: camp lights"). A 12-volt camp light
 /// on a pole is camp gear: set out with the camp, it is fed by the vehicle whose camp it belongs to, as one more load on that vehicle's
-/// electrics (the rules Def's camp loads). It lights while that load runs: switched on, not shed, the battery above flat. Set down by hand, or
+/// electrics (the rules Def's camp loads). It lights while that load runs: switched on, not shed, the battery above flat; since Framework
+/// 0.276.3 on the house battery when one is fitted, and otherwise out before the starting battery is too low to start the engine. Set down by hand, or
 /// left when the camp is packed up, it belongs to no camp and stays dark. The lantern burns its own chemfuel and needs none of this.
 /// </summary>
 [StaticConstructorOnStartup]
@@ -30,6 +31,7 @@ public static class CampLights
     static CampLights()
     {
         CompPhobosNightLight.Supply = Powered;
+        CompPhobosNightLight.DarkWhy = DarkWhy;
     }
 
     /// <summary>The camp a light belongs to now, or null.</summary>
@@ -58,6 +60,10 @@ public static class CampLights
         if (on && Seen.Wants("vehicles.camp-pole-light", camp.Vehicle)) Seen.Note("vehicles.camp-pole-light", camp.Vehicle, light.LabelShort);
         return on;
     }
+
+    /// <summary>Why this light is dark, when its vehicle keeps the camp lights off to save its start (Framework 0.276.3), or null.</summary>
+    static string? DarkWhy(Thing light) =>
+        CampOf(light) is { } camp && CompPhobosVehicleSystems.Of(camp.Vehicle) is { } systems ? systems.KeptForStartWhy(LoadName) : null;
 
     /// <summary>The watts this vehicle's camp lights ask now: each one that wants to be lit, its own watts; with <paramref name="onlyInUse"/>
     /// false, every one set out, lit or not.</summary>

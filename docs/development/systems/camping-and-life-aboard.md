@@ -51,8 +51,14 @@ loads to them.
 - **The house battery's charging** waits until the start battery is 0.9 to 0.98 full, as an isolator does. That behaviour is
   from a secondary source (REDARC), marked unverified in `Systems_HouseBattery.xml`. Above 0.8 charge it tapers; it loses about
   5 % a month by itself.
-- **Loads marked `campLoad`** (the fridge and the outlet) draw only on the house battery when one is fitted, and stop at its
-  cutoff rather than being shed.
+- **Loads marked `campLoad`** (the fridge, the outlet and, since Framework 0.276.3, the camp lights) draw only on the house battery
+  when one is fitted, and stop at its cutoff rather than being shed.
+- **Without a house battery, the camp lights keep the start** (Framework 0.276.3, the owner's card of 24 Nov 2026): a load with
+  `startReserve` goes out as the starting power enters the "barely enough to start" band, 0.2, the top of the stage above the
+  no-start one in `Systems_Electrical.xml` (`StartReserveRule.Line` reads it from the stages; no figure of its own). A message says
+  why, the light's inspect line and the Systems tab too; they come back once the battery is charging and past the line again, or a
+  house battery is fitted. The fridge and outlet have no such floor: the accessories record (Y5, Y7, Y1) lets them run the starting
+  battery down as the player's own risk.
 - **The fridge's 0.8 A at 32 °C** is the one sourced point on its curve (ARB, through Overland Expo, a secondary source); the
   rest is authored. It says so once when it loses power with food aboard.
 
@@ -89,7 +95,8 @@ awning); the rear tent takes either. Sizes are in `Rules/CampLayoutRule.cs`.
 - **The kitchen box** is a field stove, 2 × 1, burning chemfuel or wood. It copies every cooking stove's recipes (and Vanilla
   Brewing Expanded's espresso, when present) and cooks for a caravan: 8 meals a cook. With it come a camp table and stools.
 - **Camp lights**: a 10 W pole light on the vehicle's 12-volt supply (an LED light bar, authored), lit while it stands in a camp
-  and the vehicle's camp-lights load runs; or a lantern that burns its own chemfuel.
+  and the vehicle's camp-lights load runs, on the house battery when one is fitted and otherwise out before the starting battery is
+  too low to start the engine; or a lantern that burns its own chemfuel.
 
 ### Deck tents and the camper trailer
 
@@ -241,6 +248,7 @@ All under `src/PhobosFramework.Vehicles/` unless named.
 | `Systems/CompPhobosVehicleSystems.cs` | The house battery, outlet, fridge and camp-load plumbing in the hub |
 | `Rules/` | `AccessoryRules`, `CampRule`, `CampLayoutRule`, `CabinLayoutRule`, `CaravanCookRule`, `LifeAboardRule`, `NightDriveRule` |
 | `src/PhobosFramework/Rules/ShelterComfort.cs` | The cab mood's stages |
+| `src/PhobosFramework/Rules/StartReserveRule.cs` | The line a camp load keeps clear of on the starting battery, and when it is held |
 | `src/PhobosFramework.Vehicles.Hygiene/CompPhobosCrewWater.cs` | The crew water tank (Dubs Bad Hygiene) |
 
 ## Defs and XML
@@ -354,8 +362,6 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
 - **The arrival estimate ignores meal halts and relief tiredness**; it is an estimate.
 - **A cabin's tank cell holds no fuel**; it only takes the cell.
 - **Found while writing (inferred from the code, not tested in game):**
-  - **Camp lights run off the start battery even with a house battery.** They are in `campLoads` but not marked `campLoad`, unlike
-    the fridge and outlet (`Rules_VehicleSystems.xml:276-294`; `CompPhobosVehicleSystems.cs:1739`).
   - **Packing up undercounts closed rooms.** Setting up adds 900 for each room; packing up adds 900 once
     (`CompPhobosCamp.cs:932,939`).
   - **A parked bunk sleeper takes a free passenger seat**, and the bunk already takes one in bigger cabs, so a cab with one seat
@@ -370,12 +376,12 @@ None of these is a test in game.
 - **Rule tests** (`tests/PhobosFramework.Vehicles.Rules.Tests`): `AccessoryRulesTests`, `AutoLightRuleTests`,
   `CabinLayoutRuleTests`, `CampLayoutRuleTests`, `CampRuleTests`, `CampTentRuleTests`, `CaravanCookRuleTests`,
   `LifeAboardRuleTests`, `NightDriveRuleTests`, `SetOutRuleTests`. In `tests/PhobosFramework.Rules.Tests`:
-  `ShelterAndChargeTests`.
+  `ShelterAndChargeTests`, `StartReserveRuleTests` (the camp lights' floor).
 - **Python**: `tests/test_check_vehicle_schemas.py` (a bad cabin block) and `tests/test_vehicle_bindings.py` (the cabin system).
 - **In game** ([the test list](../in-game-test-pass.md)): **passed**: none of this system's rows. **Waiting**: accessories 178
   to 180; the camp 315 to 317, 326 to 328, 338, 353; deck tents 329, 330, 337, 357, 358; camp gear drawn 359, 360, 366; bunks and
   night driving 319 to 321, 347, 365; walk-in cabins 314, 349, 350; caravan cooking 152 to 154, 156, 191, 322, 323, 325, 334;
-  life aboard 354 to 356, 364; crew machines 432, 438 to 440; the cab 27, 30, 71, 445.
+  life aboard 354 to 356, 364; crew machines 432, 438 to 440; the cab 27, 30, 71, 445; camp lights and the start 482.
 
 ## Why it is this way
 

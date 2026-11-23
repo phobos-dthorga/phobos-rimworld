@@ -17,6 +17,8 @@ public enum LoadState
     NoPower,
     /// <summary>Its circuit is shorted by a hit to the wiring, until the battery or alternator is repaired (Framework 0.123.0, cross-links G12).</summary>
     Shorted,
+    /// <summary>Out to keep enough in the starting battery to start the engine, until charging lifts it again (Framework 0.276.3).</summary>
+    KeptForStart,
 }
 
 /// <summary>Which way a vehicle's battery is going, for the inspect line (Framework 0.104.0). None: steady, full, or nothing worth saying.</summary>

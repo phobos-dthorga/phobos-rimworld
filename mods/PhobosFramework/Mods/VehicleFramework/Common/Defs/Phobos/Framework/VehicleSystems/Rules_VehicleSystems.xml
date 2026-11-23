@@ -272,16 +272,20 @@
     </towLoads>
     <!-- Loads a vehicle gains from its camp (Framework 0.231.0): its 12-volt camp lights on poles, each its own watts (10 W in its Def,
          authored: an LED light bar) at this vehicle's voltage, while it is dark and they are switched on. Shed early among the comforts,
-         before the fridge, so the food outlasts the lights. -->
+         before the fridge, so the food outlasts the lights. Framework 0.276.3 (the owner's card of 24 Nov 2026, "House battery, plus a
+         floor"): a camp load, so a house battery carries them as it does the fridge; without one they go out as the starting power enters
+         its "barely enough to start" band (Systems_Electrical.xml), and come back once charging lifts it past again. -->
     <campLoads>
       <li>
         <name>campLights</name>
         <label>camp lights</label>
-        <description>The camp's 12-volt lights on their poles, run from this vehicle's battery while it is dark. Switched off, or with the battery flat, they go dark.</description>
+        <description>The camp's 12-volt lights on their poles, run while it is dark from this vehicle's house battery when it has one, or else from its starting battery, where they go out before it is too low to start the engine and come back once the engine has charged it. Switched off, or with the battery flat, they go dark.</description>
         <amps>1</amps>
         <toggle>true</toggle>
         <defaultOn>true</defaultOn>
         <shedOrder>1</shedOrder>
+        <campLoad>true</campLoad>
+        <startReserve>startingPower</startReserve>
         <iconPath>Phobos/VehicleSystems/Camp/CampPoleLight</iconPath>
         <available Class="Phobos.VehicleSystems.When_CampLights" />
         <when Class="Phobos.VehicleSystems.When_CampLights">

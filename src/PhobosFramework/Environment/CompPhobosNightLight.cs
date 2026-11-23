@@ -35,6 +35,12 @@ public class CompPhobosNightLight : ThingComp, IThingGlower
     /// </summary>
     public static Func<Thing, bool>? Supply;
 
+    /// <summary>
+    /// Why a supplied light is dark when its feeder knows (Framework 0.276.3: camp lights kept off so the vehicle can still start its engine),
+    /// in the player's words, or null for the general "no power" line. Registered with <see cref="Supply"/>.
+    /// </summary>
+    public static Func<Thing, string?>? DarkWhy;
+
     const float RareTickHeatFactor = 4.1666665f;
 
     CompRefuelable? fuel;
@@ -80,7 +86,7 @@ public class CompPhobosNightLight : ThingComp, IThingGlower
     {
         if (!parent.Spawned || !FlickUtility.WantsToBeOn(parent)) return null;
         if (!Wants) return "PhobosNightLight_Daylight".Translate().Resolve();
-        if (Props.supplied && !Lit) return "PhobosNightLight_NoPower".Translate().Resolve();
+        if (Props.supplied && !Lit) return DarkWhy?.Invoke(parent) ?? "PhobosNightLight_NoPower".Translate().Resolve();
         return null;
     }
 }

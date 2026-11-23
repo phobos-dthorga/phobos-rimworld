@@ -13,6 +13,19 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.276.3] - 2026-11-24 - Draft
+
+Camp lights run on the house battery, and never strand a vehicle without one
+
+### Fixed
+
+- **Camp lights draw on the house battery when one is fitted**, as the fridge and power outlet do, and stop at its cut-off; before, they ran the starting battery flat in about 17 hours even with a house battery (the owner's card of 24 November 2026, "House battery, plus a floor"). Not yet tested in game.
+- **Without a house battery, camp lights go out before the engine could no longer start**: as the battery's starting power falls to the "barely enough to start" line, the lights switch off, a message says why, and the lights themselves say so when selected. They come back once the engine (or shore power) charges the battery past that line, or a house battery is fitted. The fridge and outlet are left as they were: on the starting battery they still run it down, as the player chooses. Not yet tested in game.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved, and the lights pick the right battery at their next look.
+
 ## [0.276.2] - 2026-11-24 - Draft
 
 A trailer on a diagonal no longer stops its tractor beside a wall

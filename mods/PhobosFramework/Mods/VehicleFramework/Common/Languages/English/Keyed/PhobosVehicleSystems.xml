@@ -194,6 +194,7 @@
   <PhobosVehicleSystems_SysLoadSwitchedOff>switched off</PhobosVehicleSystems_SysLoadSwitchedOff>
   <PhobosVehicleSystems_SysLoadShed>cut to save the battery</PhobosVehicleSystems_SysLoadShed>
   <PhobosVehicleSystems_SysLoadNoPower>no power: the battery is flat</PhobosVehicleSystems_SysLoadNoPower>
+  <PhobosVehicleSystems_SysLoadKeptForStart>off to keep enough to start the engine</PhobosVehicleSystems_SysLoadKeptForStart>
   <!-- Framework 0.123.0 (G12). -->
   <PhobosVehicleSystems_SysLoadShorted>dead: its wiring is shorted</PhobosVehicleSystems_SysLoadShorted>
   <PhobosVehicleSystems_SysLoadAmps>{STATE}, {AMPS} A</PhobosVehicleSystems_SysLoadAmps>
@@ -306,7 +307,9 @@
   <PhobosVehicleSystems_MsgRanDry>The {VEHICLE} ran out of fuel with its engine running, and its fuel pump ran dry. Keep some fuel in the tank to spare the pump.</PhobosVehicleSystems_MsgRanDry>
   <PhobosVehicleSystems_MsgAirLow>The {VEHICLE}'s air pressure is low. Its brakes will lock on if it falls further: keep the engine running to build air, and have the compressor or a leak looked at.</PhobosVehicleSystems_MsgAirLow>
   <PhobosVehicleSystems_MsgBatteryLow>The {VEHICLE}'s battery is running low.</PhobosVehicleSystems_MsgBatteryLow>
-  <PhobosVehicleSystems_MsgHouseBatteryLow>The {VEHICLE}'s house battery is running low. Its fridge and power outlet stop when it is nearly flat; run the engine or park it on shore power.</PhobosVehicleSystems_MsgHouseBatteryLow>
+  <PhobosVehicleSystems_MsgHouseBatteryLow>The {VEHICLE}'s house battery is running low. Its fridge, power outlet and camp lights stop when it is nearly flat; run the engine or park it on shore power.</PhobosVehicleSystems_MsgHouseBatteryLow>
+  <PhobosVehicleSystems_MsgKeptForStart>The {VEHICLE}'s {LOADS} are off, to keep enough in its battery to start the engine. Run the engine to charge it, or fit a house battery to carry them.</PhobosVehicleSystems_MsgKeptForStart>
+  <PhobosVehicleSystems_KeptForStartWhy>Dark: its vehicle keeps the rest of its battery to start the engine. Run the engine to charge it, or fit a house battery.</PhobosVehicleSystems_KeptForStartWhy>
   <PhobosVehicleSystems_MsgFridgeNoPower>The fridge in the {VEHICLE} has lost power, and the food it kept cold will warm.</PhobosVehicleSystems_MsgFridgeNoPower>
   <PhobosVehicleSystems_MsgStartingPowerLow>The {VEHICLE}'s battery may soon be too weak to start the engine. Start it to charge the battery, or switch off its lights and heaters.</PhobosVehicleSystems_MsgStartingPowerLow>
   <PhobosVehicleSystems_MsgTurbineStartLow>The {VEHICLE}'s battery may soon be too weak to light its turbine, and a start now may light it hot. Start it soon to charge the battery, or switch off its lights and heaters.</PhobosVehicleSystems_MsgTurbineStartLow>

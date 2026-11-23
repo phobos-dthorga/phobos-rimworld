@@ -17,7 +17,7 @@
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_HouseBattery</defName>
     <label>house battery</label>
-    <description>A second battery for the camp's fridge and power outlet, charged while the engine runs once the starting battery is full, or from shore power. It never flattens the battery that starts the engine.</description>
+    <description>A second battery for the camp's fridge, power outlet and camp lights, charged while the engine runs once the starting battery is full, or from shore power. It never flattens the battery that starts the engine.</description>
     <needsGrant>HouseBattery</needsGrant>
     <roles>
       <li>HouseBatteryTray</li>

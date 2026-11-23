@@ -538,6 +538,11 @@ public class ElectricalLoadSpec
     /// <summary>A camp load (Framework 0.129.0, vehicle accessories: the fridge, the power outlet): with a house battery fitted it draws on that
     /// battery and never the starting battery, and its low-voltage cut-off stops it instead of the shedding order.</summary>
     public bool campLoad;
+    /// <summary>The reading the starter depends on (the electrical system's <c>startingPower</c>) that this load keeps clear of while it
+    /// draws on the starting battery (Framework 0.276.3; the owner's card of 24 Nov 2026, "House battery, plus a floor"): it goes out as that
+    /// reading enters the band just above the one that refuses a start, so the engine still starts, and comes back once charging lifts it
+    /// past again (<c>StartReserveRule</c>). Nothing of this on a house battery. Null: the load runs the battery down as the player leaves it.</summary>
+    public string? startReserve;
     /// <summary>A standing load of a running engine (Framework 0.243.0: its control, injectors, fuel pump and ignition), which a rated power
     /// and the vehicle author's fuel rate already allow for: the alternator's work for it is counted in the nominal cruise and takes nothing
     /// off driving, as the water pump's does.</summary>

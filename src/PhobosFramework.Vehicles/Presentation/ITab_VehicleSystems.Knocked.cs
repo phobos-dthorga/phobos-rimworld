@@ -232,9 +232,9 @@ public partial class ITab_VehicleSystems
         {
             LoadState state = comp.StateOf(load);
             if (state == LoadState.NotFitted) continue;
-            bool wrong = state is LoadState.Shed or LoadState.NoPower or LoadState.Shorted;
+            bool wrong = state is LoadState.Shed or LoadState.NoPower or LoadState.Shorted or LoadState.KeptForStart;
             if (attentionOnly && !wrong) continue;
-            anyShed |= state == LoadState.Shed;
+            anyShed |= state is LoadState.Shed or LoadState.KeptForStart;
             anyNoPower |= state is LoadState.NoPower or LoadState.Shorted;
             loadScratch.Add(load);
         }
@@ -252,6 +252,7 @@ public partial class ITab_VehicleSystems
                 LoadState.Running => ("PhobosVehicleSystems_SysLoadRunning", PhobosWidgets.Good),
                 LoadState.SwitchedOff => ("PhobosVehicleSystems_SysLoadSwitchedOff", PhobosWidgets.Off),
                 LoadState.Shed => ("PhobosVehicleSystems_SysLoadShed", PhobosWidgets.Caution),
+                LoadState.KeptForStart => ("PhobosVehicleSystems_SysLoadKeptForStart", PhobosWidgets.Caution),
                 LoadState.NoPower => ("PhobosVehicleSystems_SysLoadNoPower", PhobosWidgets.Bad),
                 LoadState.Shorted => ("PhobosVehicleSystems_SysLoadShorted", PhobosWidgets.Bad),
                 _ => ("PhobosVehicleSystems_SysLoadIdle", DetailColour),

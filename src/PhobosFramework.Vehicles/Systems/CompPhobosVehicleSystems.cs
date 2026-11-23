@@ -537,6 +537,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             {
                 if (!HouseBatteryRuns) return false;
             }
+            else if (KeptForStart(load)) return false;
             else if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return false;
             // Check C1 (Framework 0.129.1): a flat battery with nothing else to carry the loads powers none of them.
             else if (!LoadsPowered) return false;
@@ -563,6 +564,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             if (!HouseBatteryRuns) return LoadState.NoPower;
             return load.when != null && !load.when.Holds(context) ? LoadState.Idle : LoadState.Running;
         }
+        // Framework 0.276.3: out to keep enough in the starting battery to start the engine (camp lights with no house battery).
+        if (KeptForStart(load)) return LoadState.KeptForStart;
         if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return LoadState.Shed;
         // Check C1 (Framework 0.129.1): the same rule as LoadActive, so the tab and the load agree; before, the tab called a load dead on a
         // flat battery even while the alternator carried it, and the load ran on regardless.
@@ -584,6 +587,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (!LoadAvailable(load)) return false;
         if (IsShorted(load)) return false;
         if (OnHouseBattery(load)) return HouseBatteryRuns;
+        if (KeptForStart(load)) return false;
         if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return false;
         return LoadsPowered;
     }
@@ -1208,11 +1212,13 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         UpdateShedding();
         RefreshShortedLoads();
         UpdatePower();
+        UpdateStartReserve();
         loadAmps = 0f;
         if (states != null && states.Count > 0) loadAmps = SumLoads(new SystemContext(this, states[0]));
         Electrics = ReadElectrics();
         NotifyShedding();
         NotifyPower();
+        NotifyStartReserve();
         UpdateFridge();
         // A cold box packed on a trailer in tow stays cold while its load on this vehicle runs (Framework 0.216.0).
         if (Hitch is { Trailer: not null } && LoadRuns(ColdInTow.LoadName)) ColdInTow.Chill(Vehicle);
@@ -1654,6 +1660,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         switchedLoadsOn.Clear();
         shedLoads.Clear();
         deadLoads.Clear();
+        keptForStartLoads.Clear();
         foreach (ElectricalLoadSpec load in Loads)
         {
             if (load.toggle && !IsOn(load)) continue;
@@ -1668,6 +1675,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 if (!HouseBatteryRuns) continue;
                 camp += AmpsNow(load, context);
                 if (load.toggle) switchedLoadsOn.Add(load.label);
+                continue;
+            }
+            // Framework 0.276.3: a load that keeps the start back draws nothing below its line, and is named for the notice.
+            if (KeptForStart(load))
+            {
+                keptForStartLoads.Add(load.label);
                 continue;
             }
             if (ElectricsRule.IsShed(load.shedOrder, ShedDepth))
@@ -1852,6 +1865,84 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         VehicleNotices.Send("PhobosVehicleSystems_MsgBatteryDead".Translate(Vehicle.LabelShort.Named("VEHICLE"), loads.Named("LOADS")).Resolve(),
             Vehicle, MessageTypeDefOf.NegativeEvent);
     }
+
+    // ---- Keeping the start (Framework 0.276.3; the owner's card of 24 Nov 2026, "House battery, plus a floor") ----
+
+    /// <summary>The readings (a starting power) held below their line now, so the loads that keep them clear are out. Derived at each
+    /// update from the reading, its stages and the battery's trend at the last look, never saved.</summary>
+    readonly HashSet<string> startHeld = new();
+    /// <summary>Each reading's line, read once from its stages (<see cref="StartReserveRule.Line"/>); NaN where none refuses a start.</summary>
+    readonly Dictionary<string, double> startLines = new();
+    /// <summary>The labels of the wanted loads out to keep the start, from the last sum. Derived, never saved.</summary>
+    readonly List<string> keptForStartLoads = new();
+    bool keptForStartBefore;
+    bool keptForStartLookedOnce;
+
+    /// <summary>Whether this load is out now to keep enough in the starting battery to start the engine: it keeps a reading clear, draws
+    /// on the starting battery (not a house battery), and that reading is held below its line.</summary>
+    bool KeptForStart(ElectricalLoadSpec load) => load.startReserve != null && !OnHouseBattery(load) && startHeld.Contains(load.startReserve);
+
+    /// <summary>The line a load keeping this reading clear goes out at: from the reading's own stages in the system that has it, never a
+    /// figure of its own (the electrical system's starting power: the top of "barely enough to start", 0.2).</summary>
+    double StartLine(string quantity)
+    {
+        if (startLines.TryGetValue(quantity, out double known)) return known;
+        double line = double.NaN;
+        if (states != null)
+        {
+            foreach (SystemState state in states)
+            {
+                int index = state.Def.QuantityIndex(quantity);
+                if (index < 0) continue;
+                List<StageSpec> stages = state.Def.quantities[index].stages;
+                var read = new StartReserveRule.Stage[stages.Count];
+                for (int i = 0; i < stages.Count; i++)
+                {
+                    read[i] = new StartReserveRule.Stage(stages[i].from, stages[i].to, stages[i].effects.Any(e => e is Effect_RefuseDraft));
+                }
+                line = StartReserveRule.Line(read);
+                break;
+            }
+        }
+        startLines[quantity] = line;
+        return line;
+    }
+
+    void UpdateStartReserve()
+    {
+        bool charging = Electrics.Trend is ElectricalTrend.Charging or ElectricalTrend.ChargingFromGrid;
+        IReadOnlyList<ElectricalLoadSpec> loads = Loads;
+        for (int i = 0; i < loads.Count; i++)
+        {
+            if (loads[i].startReserve is not { } quantity) continue;
+            bool held = TryGetQuantity(quantity, out float reading)
+                && StartReserveRule.Held(OnHouseBattery(loads[i]), reading, StartLine(quantity), charging, startHeld.Contains(quantity));
+            if (held) startHeld.Add(quantity);
+            else startHeld.Remove(quantity);
+        }
+    }
+
+    /// <summary>One message when wanted loads go out to keep the start, for the player's vehicles; none at the first look after a load.</summary>
+    void NotifyStartReserve()
+    {
+        bool was = keptForStartBefore;
+        keptForStartBefore = keptForStartLoads.Count > 0;
+        if (!keptForStartLookedOnce)
+        {
+            keptForStartLookedOnce = true;
+            return;
+        }
+        if (was || !keptForStartBefore || Vehicle?.Faction != Faction.OfPlayer) return;
+        string loads = keptForStartLoads.ToCommaList(useAnd: true);
+        Seen.Note("vehicles.kept-for-start", Vehicle, loads);
+        VehicleNotices.Send("PhobosVehicleSystems_MsgKeptForStart".Translate(Vehicle.LabelShort.Named("VEHICLE"), loads.Named("LOADS")).Resolve(),
+            Vehicle, MessageTypeDefOf.CautionInput);
+    }
+
+    /// <summary>Why this vehicle's load of this name is out to keep the start, in the player's words, or null when it is not (for a camp
+    /// light's inspect line).</summary>
+    public string? KeptForStartWhy(string name) =>
+        LoadNamed(name) is { } load && StateOf(load) == LoadState.KeptForStart ? "PhobosVehicleSystems_KeptForStartWhy".Translate().Resolve() : null;
 
     /// <summary>One message when shedding starts and one when it ends, for the player's vehicles; none at the first look after a load.</summary>
     void NotifyShedding()

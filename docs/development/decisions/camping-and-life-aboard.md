@@ -169,6 +169,9 @@ overturns an earlier one says so.
 | 23 Nov | The bunk's sleep machine draws 400 W in use | agent choice | The game's machine | [cm], Built: CM1, CM2 and CM5 |
 | 23 Nov | A sleep inducer of ours, hidden with Ideology | agent default | A player without Ideology | [cm], Built: CM1, CM2 and CM5 |
 | 23 Nov | No setting for CM1, CM2 or CM5 | agent choice | Risk low | [cm], Built: CM1, CM2 and CM5 |
+| 24 Nov | Camp lights draw on the house battery; without one they go out at the "barely enough to start" line | owner's card | Lights ran the start battery flat in about 17 hours, even with a house battery | Framework 0.276.3 changelog |
+| 24 Nov | The floor is the starting power's own warning line (0.2), read from its stages; back on only once charging | agent choice | A start still works at the line in the cold; a warmer morning alone would flick them | Framework 0.276.3 changelog |
+| 24 Nov | No such floor for the fridge or outlet | agent choice | The accessories record lets them run the start battery down by the player's choice (Y5, Y7, Y1) | Framework 0.276.3 changelog |
 
 [ac]: ../archive/vehicle-accessories.md
 [hb]: ../archive/vehicle-hotboxing.md
