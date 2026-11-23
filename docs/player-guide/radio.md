@@ -61,7 +61,8 @@ station is sending. The **full-size ground-plane** is a slightly better whip.
 **Channels.** Each station has channels, 25 kHz each, as a trunked radio system does: the desk one, the terminal four. Radios
 share a channel by taking turns, five to a channel for voice. The station's text and **Net** tab say how many are in use and who is
 on which channel; a colonist with no free channel reads **net busy**. A vehicle with a radio fitted is listed too, as standing
-by until vehicles can be driven from a station (with Vehicle Framework; none carries one yet). Under the count, a line for each kind of use (local voice
+by until you ask for it to be driven from a station; then it takes a control channel (with Vehicle Framework; none carries the
+kit yet). How driving from a station works is in [vehicles on the road](vehicles-on-the-road.md#driven-from-a-station). Under the count, a line for each kind of use (local voice
 for now) says how many channels it holds, for how many radios, and how many more it has room for. The desk's **second transceiver** upgrade adds a channel.
 
 **Signs of life.** The desk's lamp lights and its needle swings while it sends; an amplifier's needle shows its output; the

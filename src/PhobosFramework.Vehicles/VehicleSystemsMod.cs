@@ -68,6 +68,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A vehicle that tows takes a wider way round, and its route is checked for its trailer (Framework 0.277.0; agent default on: it
     /// risks nothing of the player's, and only lengthens a route). Live.</summary>
     public bool hitchWiderWay = true;
+    /// <summary>A vehicle fitted with a control radio may be driven from a radio station with nobody aboard (Framework 0.278.0;
+    /// docs/development/autonomous-vehicles.md: the risk is moderate, so on by default). Live: off, no vehicle is driven from afar.</summary>
+    public bool remoteControl = true;
     public bool powerPointLargeSocket;
     /// <summary>Another faction's vehicle may be found with fittings and a tune.</summary>
     public bool enemyFitSets = true;
@@ -347,6 +350,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref slingRelease, "PhobosVehicleSystems_SlingRelease", true);
         Scribe_Values.Look(ref hitchOthersPlainRule, "PhobosVehicleSystems_HitchOthersPlainRule", false);
         Scribe_Values.Look(ref hitchWiderWay, "PhobosVehicleSystems_HitchWiderWay", true);
+        Scribe_Values.Look(ref remoteControl, "PhobosVehicleSystems_RemoteControl", true);
         Scribe_Values.Look(ref powerPointLargeSocket, "PhobosVehicleSystems_PowerPointLargeSocket", false);
         Scribe_Values.Look(ref enemyFitSets, "PhobosVehicleSystems_EnemyFitSets", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
@@ -755,6 +759,9 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingDriveThroughNight".Translate(), ref s.driveThroughNight, d.driveThroughNight, "PhobosVehicleSystems_SettingDriveThroughNightDesc".Translate());
         list.SliderInt("PhobosVehicleSystems_SettingParkedWarning".Translate(s.parkedWarningDays.Named("DAYS")), ref s.parkedWarningDays, d.parkedWarningDays, 0, 14,
             "PhobosVehicleSettings_ParkedWarningDesc".Translate());
+        // The remote control of vehicles (Framework 0.278.0; docs/development/autonomous-vehicles.md): a vehicle with no crew, driven from afar.
+        list.Section("PhobosVehicleSettings_SectionRemote".Translate());
+        list.Check("PhobosVehicleSystems_SettingRemoteControl".Translate(), ref s.remoteControl, d.remoteControl, "PhobosVehicleSystems_SettingRemoteControlDesc".Translate());
     }
 
     static void DrawDisplay(SettingsList list)

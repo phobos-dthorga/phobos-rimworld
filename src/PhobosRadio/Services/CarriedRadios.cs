@@ -56,12 +56,8 @@ public static class CarriedRadios
     /// </summary>
     public static CompRadio? FitForSession(ThingWithComps thing, CompProperties_Radio props)
     {
-        var comps = thing.AllComps;
-        if (comps.Count == 0 || thing.GetComp<CompRadio>() != null) return null;
-        if (System.Activator.CreateInstance(props.compClass) is not CompRadio comp) return null;
-        comp.parent = thing;
-        comps.Add(comp);
-        comp.Initialize(props);
+        if (thing.GetComp<CompRadio>() != null) return null;
+        if (Phobos.Framework.SessionComps.Add(thing, props) is not CompRadio comp) return null;
         if (thing.Spawned) RadioNet.For(thing.Map)?.MarkDirty();
         return comp;
     }

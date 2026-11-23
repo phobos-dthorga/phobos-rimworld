@@ -57,7 +57,7 @@ Generated from the project files by `python scripts/doc-tables.py --write`: chan
 | `PhobosPatches.VehicleFramework` | `mods/PhobosPatches/Mods/VehicleFramework/` | `PhobosFramework` | `Vehicles`, `SmashTools` | yes | `PhobosPatches.Rules.Tests` |
 | `PhobosPatches.VisitSettlements` | `mods/PhobosPatches/Mods/VisitSettlements/` | `PhobosFramework` | none | yes | `PhobosPatches.Rules.Tests` |
 | `PhobosRadio` | `mods/PhobosRadioFramework/` | `PhobosFramework` | `PipeSystem` | no | `PhobosRadio.Physics.Tests` |
-| `PhobosRadio.Vehicles` | `mods/PhobosRadioFramework/Mods/VehicleFramework/` | `PhobosRadio` | `Vehicles`, `SmashTools` | no | none |
+| `PhobosRadio.Vehicles` | `mods/PhobosRadioFramework/Mods/VehicleFramework/` | `PhobosRadio`, `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `SmashTools` | no | none |
 | `PhobosWaterTap` | `mods/PhobosWaterTap/` | `PhobosFramework.Hygiene` | `BadHygiene` | no | `PhobosWaterTap.Rules.Tests` |
 
 30 projects (23 using Harmony) and 7 test projects. Read from each project file as written: MSBuild is not run, so a value set only in `Directory.Build.props` or `Directory.Build.targets` is not shown. Harmony: its own C# files have `using HarmonyLib` or a `[HarmonyPatch]`. Test projects: those that reference the project or compile its files.
@@ -123,7 +123,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
 | `PhobosFramework` | 3 | 0 | 1 | 0 |
-| `PhobosFramework.Vehicles` | 101 | 15 | 0 | 0 |
+| `PhobosFramework.Vehicles` | 102 | 15 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 1 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
@@ -142,7 +142,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-174 patched methods named in attributes, 23 patch classes that find their target by name (`TargetMethod`), and 18 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+175 patched methods named in attributes, 23 patch classes that find their target by name (`TargetMethod`), and 18 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -200,7 +200,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework.Vehicles</code>: 101 patched methods, 15 by name</summary>
+<details><summary><code>PhobosFramework.Vehicles</code>: 102 patched methods, 15 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles/`) |
 | --- | --- | --- |
@@ -277,6 +277,7 @@ Every HarmonyPatch attribute was read.
 | `VehiclePawn.DisembarkPawn` | prefix | `Service/SubmersiblePatches.cs` |
 | `VehiclePawn.DynamicDrawPhaseAt` | prefix | `Service/SubmersiblePatches.cs` |
 | `VehiclePawn.GetGizmos` | postfix | `Jobs/ClaimVehicle.cs` |
+| `VehiclePawn.HasEnoughOperators (getter)` | postfix | `Remote/RemoteControl.cs` |
 | `VehiclePawn.Kill` | prefix, postfix | `Service/VehicleHulls.cs`, `Service/VehiclePractice.cs` |
 | `VehiclePawn.RecacheCompTickers` | postfix | `Flight/FlightPatches.cs` |
 | `VehiclePawn.TryAddPawn` | prefix | `Flight/FlightPatches.cs` |

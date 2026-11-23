@@ -13,6 +13,34 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.278.0] - 2026-11-24 - Draft
+
+Vehicles driven from a station: remote control with nobody aboard
+
+### Added
+
+- **A vehicle can be driven from a radio station with nobody at its wheel**, the third step of the remote control of vehicles the
+  owner asked for on 24 November 2026. A vehicle carrying the radio's control kit gets two buttons: "Drive from a station", and what
+  it does if its link is lost. Once a station has it, draft it and give it orders as usual. If the link goes, it carries on for ten
+  seconds in case the link returns, then holds where it is, comes back toward its station, or finishes its last drive, as chosen for
+  it (hold by default); a letter says so, and another when a station has it again. A colonist at the wheel still drives it the
+  ordinary way. No vehicle carries the kit yet: the Radio Framework's dev action fits it for a session. Not yet tested in game:
+  rows 487 and 488.
+- **A new setting, "Remote control of vehicles by radio"**, on by default, in the Vehicle Systems settings under Remote control. Off,
+  no vehicle is driven from a station, and one already driving stops where it is.
+
+### Compatibility and limits
+
+- **Give a vehicle a driver before it joins a caravan**: driving from a station works on the map only, so a vehicle with nobody
+  aboard cannot move on the world map.
+- Until a later version, no colonist needs to sit at the station: a powered station that serves the vehicle's channel is enough.
+- The two buttons borrow existing icons until their own are made.
+
+### Save compatibility
+
+- Safe on an existing save. A vehicle with the kit saves whether it is asked to be driven, its lost-link choice and its state; with
+  the mod removed they are ignored.
+
 ## [0.277.0] - 2026-11-24 - Draft
 
 A vehicle that tows takes a wider way round

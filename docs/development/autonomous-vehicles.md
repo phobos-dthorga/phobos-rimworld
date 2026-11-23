@@ -1,9 +1,10 @@
 # Autonomous vehicles by radio (24 Nov 2026)
 
-**Status (24 Nov 2026):** steps 1 and 2 of 7 are built, in Radio Framework 0.9.0 and 0.10.0: the vehicle control and picture
-kinds, control taking channels from talk ([radio stations](radio-stations.md#kinds-radio-080)), and radios fitted to vehicles,
-whose links are worked out and shown while they stand by ([below](#step-2-radios-fitted-to-vehicles-radio-0100)). No vehicle
-carries the kit yet (step 4), and none can be driven from a station (step 3). Steps 3 to 7 are not built. Nothing is tested in game.
+**Status (24 Nov 2026):** steps 1 to 3 of 7 are built, in Radio Framework 0.9.0 to 0.11.0 and D'thorga Framework 0.278.0: the
+vehicle control and picture kinds, control taking channels from talk ([radio stations](radio-stations.md#kinds-radio-080)), radios
+fitted to vehicles ([step 2](#step-2-radios-fitted-to-vehicles-radio-0100)), and vehicles driven from a station with their lost-link
+choices and letters ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)). No vehicle carries the kit yet (step 4: a
+dev action fits it for a session), and no operator is asked for yet (step 5). Steps 4 to 7 are not built. Nothing is tested in game.
 
 The owner, 24 Nov 2026: "the real feature I wish to implement soon is autonomous vehicles and perhaps their weapon systems too, all
 via our radio framework." **[O]** It builds on what the owner chose on 18 and 19 Nov 2026 in
@@ -18,9 +19,10 @@ beside it. **[A]** an agent's default or authored figure, for the owner to revis
 
 ## Read this first
 
-- **Built so far: the ledger's kinds and pre-emption** (step 1, Radio 0.9.0) **and radios fitted to vehicles** (step 2, Radio
-  0.10.0). No vehicle carries the kit yet: a dev action fits a radio to a vehicle until the game is loaded again, to see its
-  links. Nothing is tested in game.
+- **Built so far: the ledger's kinds and pre-emption** (step 1, Radio 0.9.0), **radios fitted to vehicles** (step 2, Radio
+  0.10.0) **and driving from a station** (step 3, Framework 0.278.0 and Radio 0.11.0). No vehicle carries the kit yet: a dev
+  action fits it to a vehicle until the game is loaded again. **Until step 5 no operator is needed**: a powered station that
+  serves the vehicle's control channel is enough. Nothing is tested in game.
 - **The owner's four cards of 24 Nov 2026 [O]:** our **service trucks get a remote-control kit first**; **a colonist works the
   console** while vehicles are driven; **lost link is chosen per vehicle, hold by default**; **remote guns fire only while an
   operator has a picture link**, with a setting, **off by default**, that lets them fire on their own.
@@ -102,9 +104,10 @@ flowchart LR
 - **Drafted, it takes move orders** from the player as any vehicle does; its station must hold its link for them to be obeyed.
 - **A colonist can still climb in** and drive it the ordinary way; with someone at the wheel the kit stands aside.
 - **Two Vehicle Framework checks read the seats as written** (the 18 Nov record's code read): the caravan dialog and a role check.
-  The build reads both before deciding whether they need an answer of ours.
-- **An empty vehicle ticks slowly** (every 250 ticks with nobody aboard, the same read). The build checks that a crewless vehicle
-  on the move still paths and moves smoothly, and keeps it ticking while it moves if not.
+  Read at step 3 ([below](#step-3-driven-from-a-station-framework-02780-radio-0110)): our answer holds on the map only, so a crewless
+  vehicle cannot travel in a caravan.
+- **An empty vehicle ticks slowly**, but only its `TickInterval`: read at step 3, its pather runs every tick whoever is aboard, so a
+  crewless vehicle on the move paths and moves as a crewed one does ([below](#step-3-driven-from-a-station-framework-02780-radio-0110)).
 
 ### Lost link
 
@@ -153,6 +156,60 @@ Built 24 Nov 2026, not yet tested in game.
   what a worn hand-held costs, one link per station antenna. The start-up pass over vehicle defs runs once. Nothing per tick or frame.
 - **Other factions [A]:** only the colony's pawns join our net, so a raider's vehicle with the fitting costs nothing here and does
   nothing; a captured one joins once it is ours.
+
+### Step 3: driven from a station (Framework 0.278.0, Radio 0.11.0)
+
+Built 24 Nov 2026, not yet tested in game.
+
+- **D'thorga Framework's vehicle part holds it [code: `src/PhobosFramework.Vehicles/Remote/RemoteControl.cs`]:** a comp,
+  `CompPhobosRemoteControl`, that keeps the player's ask ("Drive from a station", a button), the lost-link choice (a button, hold by
+  default [O]), and the vehicle's state with its link. Its states, and how one follows another, are a game-free rule with tests
+  (`Rules/RemoteControlRule.cs`): **off**, **waiting for a station** (asked, never yet linked: nothing is lost, nobody is told),
+  **driven**, **link just lost** (it carries on while the delay runs), then **holding**, **coming back** or **carrying on**. Coming
+  back or carrying on turns to holding once the vehicle stops. A link that returns at any point takes the vehicle back.
+- **Where the link comes from:** a source registers itself (`IRemoteControlSource`), so the Framework never names the radio. The
+  radio's tie-in is the first: a vehicle is linked while a station serves its radio on a channel. The radio asks that channel only
+  while the player has asked for the vehicle to be driven (in use); otherwise its radio stands by, as in step 2. The route and
+  mechanitor levels (step 7) feed the same comp.
+- **The one patch [code: `RemoteControlOperatorsPatch`]:** a postfix on Vehicle Framework's `VehiclePawn.HasEnoughOperators`, which
+  both drafting (`CanDraft`) and moving (`CanMoveFinal`) read. It changes only a "no", only on the map, and reads one field of the comp.
+  No other mod patches that getter (`query-patches.py`, 24 Nov 2026).
+- **Holding needs no code of its own:** Vehicle Framework's `VehiclePathFollower.PatherTick` checks `CanMoveFinal` on every tick a
+  drafted vehicle has a path **[code: VehicleFramework 1.7 decompile 15017-15062]**, so a vehicle stops the tick its control drops.
+- **Coming back** drives to a place on a ring round the station it last heard (`comeBackRing`, 5 cells [A]), through the
+  Framework's own `VehicleAutoDrive`, as gathering runs do, and stops when the link returns.
+- **The delay** is `lostLinkDelayTicks` in `PhobosRemoteControlRulesDef` (600 ticks, ten seconds [A]). The comp looks at its link on
+  the vehicle's rare tick, every 250 ticks, so a loss is acted on between 600 and 850 ticks after it starts; when the player asks,
+  it looks at once, so the vehicle can be drafted straight away.
+- **A colonist at the wheel:** the comp counts the driving seats itself, without our answer to Vehicle Framework's check (which would
+  chase itself on and off), and stands aside while they are filled: no channel asked, nothing patched.
+- **Letters [O]:** one when a vehicle starts acting on a lost link, naming what it is doing; one when a station has it again. A link
+  back within the delay tells nobody.
+- **The setting "Remote control of vehicles by radio"** (D'thorga Vehicle Systems settings, the crews page, "Remote control"; on by
+  default, as the risk table says). Off, the buttons go, no vehicle is driven from afar, and one driving stops where it is.
+- **Until step 5 [A]:** no operator is asked for: a powered station that serves the control channel drives the vehicle. Step 5
+  adds the colonist at the console and the two vehicles each.
+- **Read in Vehicle Framework's code at this step (24 Nov 2026):**
+  - **Ticking:** `VehiclePawn.Tick` runs `BaseTickOptimized`, and with it the pather, every tick whoever is aboard; only
+    `TickInterval` slows to every 250 ticks for an empty vehicle (`UpdateRateTicks`), and only when its tick list is empty. **[code:
+    decompile 16597-16607, 19732-19869]** So nothing of ours is needed to keep a crewless vehicle moving.
+  - **Plain comps and ticking:** Vehicle Framework puts every comp that is not one of its `VehicleComp`s asking ticks by request
+    into that tick list (`RecacheCompTickers`, 17445-17455), so a vehicle carrying a plain comp never takes the slow rate. The
+    radio's comp (step 2) is plain; our trucks already carry plain comps, so it changes nothing for them, but it would on another
+    author's vehicle with none. The remote control comp asks no ticks; it uses the rare tick every comp gets.
+  - **Caravans:** our answer holds on the map only, so a crewless vehicle in a caravan cannot move on the world map. The caravan
+    dialog checks while the vehicles are still on the map, so it may let one join. **Give a vehicle a driver before it joins a
+    caravan** (a known limit, untested).
+  - **Aircraft:** Vehicle Framework's launch check reads the same getter (`CompVehicleLauncher.CanLaunchWithCargoCapacity`), so an
+    aircraft driven from a station could take off with nobody aboard. The kit is for our trucks; another author's aircraft that names
+    the fitting would allow it.
+- **Buttons:** "Drive from a station" borrows the radio's signal icon, and the lost-link choice the vehicle park's sign, until their
+  own icons are made (owed, for the night run).
+- **Its cost:** the patch reads one field, only when Vehicle Framework has already said no (a crewless vehicle); the comp looks once
+  every 250 ticks at a vehicle asked to be driven (a dictionary lookup in the net's last pass), and nothing for one that is not;
+  letters only when the state changes.
+- **Other factions:** nothing here acts on a vehicle not of the colony: the buttons are the player's, and the radio serves the
+  colony's vehicles only. As the record says, a raid's vehicle keeps its own control.
 
 ## The four questions
 
@@ -210,7 +267,7 @@ Built 24 Nov 2026, not yet tested in game.
 | --- | --- | --- | --- |
 | 1 | The two kinds, and pre-emption in the ledger, with tests. **Built in Radio 0.9.0** | Radio | Nothing |
 | 2 | A seam in the net for radios that are not worn; the tie-in adds kitted vehicles and shows their links. **Built in Radio 0.10.0** | Radio | 1 |
-| 3 | The kit's comp, the move-check postfix, lost-link choices and letters | Framework | 2 to be useful |
+| 3 | The kit's comp, the move-check postfix, lost-link choices and letters. **Built in Framework 0.278.0 and Radio 0.11.0** | Framework | 2 to be useful |
 | 4 | The kit as an upgrade node on the five service trucks, with its antenna overlay (art first, as the owner's rule says) | Vehicles | 3 |
 | 5 | The operator's job and work type | Radio | 2 |
 | 6 | The picture link and remote guns | Framework, Vehicles | 5 and MV8's remote weapon station |
@@ -222,8 +279,9 @@ Built 24 Nov 2026, not yet tested in game.
 
 - **The figures marked [A]**: the modes, two vehicles per operator, the ten-second delay, pre-emption of talk by control (built,
   so a change is a Def edit: `preempts` on `PhobosRadio_KindVehicleControl`).
-- **What the second Vehicle Framework seat checks need**, and whether a moving crewless truck needs help to keep ticking: read at
-  step 3.
+- ~~**What the second Vehicle Framework seat checks need**, and whether a moving crewless truck needs help to keep ticking: read at
+  step 3.~~ Read: it keeps ticking; caravans and aircraft are known limits ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)).
+- **Icons for the two buttons**, borrowed until made.
 - **The antenna overlay's picture**: small, but it is art, so it waits for the owner's pick before the first test.
 
 ## Who chose what

@@ -3,6 +3,13 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "488": {"parts": {
+      "it holds": [{"key": "vehicles.remote-lost", "variant": "Holding"}],
+      "it comes back": [{"key": "vehicles.remote-lost", "variant": "ComingBack"}],
+      "it carries on": [{"key": "vehicles.remote-lost", "variant": "CarryingOn"}],
+      "the link back": ["vehicles.remote-found"]
+    }},
+    "487": ["vehicles.remote-control"],
     "485": {"parts": {
       "another way round found where the first would snag": [{"key": "vehicles.hitch.wider-way", "variant": "found"}],
       "no way wide enough is said before setting off": [{"key": "vehicles.hitch.wider-way", "variant": "none"}]

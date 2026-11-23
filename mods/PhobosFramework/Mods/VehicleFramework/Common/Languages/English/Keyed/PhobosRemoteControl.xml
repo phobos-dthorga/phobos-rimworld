@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The remote control of vehicles (Framework 0.278.0; docs/development/autonomous-vehicles.md, step 3). -->
+
+  <!-- Settings. -->
+  <PhobosVehicleSettings_SectionRemote>Remote control</PhobosVehicleSettings_SectionRemote>
+  <PhobosVehicleSystems_SettingRemoteControl>Remote control of vehicles by radio</PhobosVehicleSystems_SettingRemoteControl>
+  <PhobosVehicleSystems_SettingRemoteControlDesc>On by default. A vehicle fitted with a control radio can be driven from a radio station with nobody aboard: draft it and give it orders as usual. If it loses its link, it waits a few seconds and then does what you chose for it: hold, come back toward its station, or finish its last drive. Off, no vehicle is driven from a station, and one already driving stops where it is.</PhobosVehicleSystems_SettingRemoteControlDesc>
+
+  <!-- Buttons. -->
+  <PhobosRemote_GizmoDrive>Drive from a station</PhobosRemote_GizmoDrive>
+  <PhobosRemote_GizmoDriveDesc>Lets a radio station drive this vehicle while nobody is at its wheel: once a station has it, draft it and give it orders as usual. It holds a control channel at that station while this is on, and a colonist at the wheel still drives it the ordinary way. Turn it off to park it and free the channel.</PhobosRemote_GizmoDriveDesc>
+  <PhobosRemote_GizmoLostHold>If the link is lost: hold</PhobosRemote_GizmoLostHold>
+  <PhobosRemote_GizmoLostComeBack>If the link is lost: come back</PhobosRemote_GizmoLostComeBack>
+  <PhobosRemote_GizmoLostCarryOn>If the link is lost: carry on</PhobosRemote_GizmoLostCarryOn>
+  <PhobosRemote_GizmoLostDesc>What this vehicle does when a station loses touch with it while driving it, after waiting a few seconds in case the link comes back. Click to choose.</PhobosRemote_GizmoLostDesc>
+  <PhobosRemote_ChoiceHold>Hold: stop where it is and wait for the link</PhobosRemote_ChoiceHold>
+  <PhobosRemote_ChoiceComeBack>Come back: drive toward the station until the link returns</PhobosRemote_ChoiceComeBack>
+  <PhobosRemote_ChoiceCarryOn>Carry on: finish the drive it was given, then wait</PhobosRemote_ChoiceCarryOn>
+
+  <!-- Inspect text. -->
+  <PhobosRemote_InspectUnlinked>Driven from a station: waiting for a station to reach it.</PhobosRemote_InspectUnlinked>
+  <PhobosRemote_InspectLinked>Driven from a station.</PhobosRemote_InspectLinked>
+  <PhobosRemote_InspectWaiting>Driven from a station: link lost, carrying on for a few seconds.</PhobosRemote_InspectWaiting>
+  <PhobosRemote_InspectHolding>Link lost: holding here until a station reaches it.</PhobosRemote_InspectHolding>
+  <PhobosRemote_InspectComingBack>Link lost: coming back toward its station.</PhobosRemote_InspectComingBack>
+  <PhobosRemote_InspectCarryingOn>Link lost: finishing its last drive.</PhobosRemote_InspectCarryingOn>
+  <PhobosRemote_InspectCrew>Someone is at the wheel, so no station drives it.</PhobosRemote_InspectCrew>
+
+  <!-- Letters. -->
+  <PhobosRemote_LostLabel>Link lost: {VEHICLE}</PhobosRemote_LostLabel>
+  <PhobosRemote_LostText>{VEHICLE} has lost its link to the station that was driving it. {ACTION}</PhobosRemote_LostText>
+  <PhobosRemote_LostHold>It is holding where it stands until a station reaches it again.</PhobosRemote_LostHold>
+  <PhobosRemote_LostComeBack>It is driving back toward its station until the link returns.</PhobosRemote_LostComeBack>
+  <PhobosRemote_LostCarryOn>It is finishing the drive it was given, and will wait there.</PhobosRemote_LostCarryOn>
+  <PhobosRemote_FoundLabel>Link back: {VEHICLE}</PhobosRemote_FoundLabel>
+  <PhobosRemote_FoundText>A station is in touch with {VEHICLE} again, and can drive it.</PhobosRemote_FoundText>
+</LanguageData>

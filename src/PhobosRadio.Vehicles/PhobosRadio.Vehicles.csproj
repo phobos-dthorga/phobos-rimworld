@@ -9,11 +9,15 @@
     <AssemblyName>PhobosRadio.Vehicles</AssemblyName>
     <ModFolder>PhobosRadioFramework</ModFolder>
     <TieInFolder>Mods/VehicleFramework/</TieInFolder>
-    <Version>0.10.0</Version>
+    <Version>0.11.0</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../PhobosRadio/PhobosRadio.csproj" Private="false" />
+    <!-- D'thorga Framework and its Vehicle Framework part (Radio 0.11.0): the remote control of vehicles, which this tie-in feeds with
+         the radio's links. The part loads whenever Vehicle Framework does, as this tie-in does; Private=false, its DLLs ship in its mod. -->
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+    <ProjectReference Include="../PhobosFramework.Vehicles/PhobosFramework.Vehicles.csproj" Private="false" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Vehicles">

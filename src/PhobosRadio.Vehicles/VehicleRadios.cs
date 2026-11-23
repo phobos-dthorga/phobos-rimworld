@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using LudeonTK;
+using Phobos.Framework;
 using Phobos.Radio.Services;
+using Phobos.Radio.UI;
+using Phobos.VehicleSystems;
+using UnityEngine;
 using Vehicles;
 using Verse;
 
@@ -25,8 +29,9 @@ public class VehicleRadioFitting : DefModExtension
 }
 
 /// <summary>
-/// The tie-in's start-up: each vehicle def that names a radio fitting gets that radio's comp, so every vehicle of it is built with
-/// one; and the rule that tells the net what a vehicle's radio does.
+/// The tie-in's start-up: each vehicle def that names a radio fitting gets that radio's comp, and D'thorga Framework's remote control
+/// (Radio 0.11.0), so every vehicle of it is built with both; the rule that tells the net what a vehicle's radio does; and the radio as
+/// a source the remote control reads its links from.
 /// <para>Cost: once at start-up, one pass over the vehicle defs. Nothing runs per tick.</para>
 /// </summary>
 [StaticConstructorOnStartup]
@@ -35,11 +40,13 @@ public static class VehicleRadios
     static VehicleRadios()
     {
         CarriedRadios.Register(new VehicleRadioRule());
+        RemoteControl.Register(new RadioRemoteControl());
         foreach (var def in DefDatabase<VehicleDef>.AllDefsListForReading)
         {
             var radio = def.GetModExtension<VehicleRadioFitting>()?.fitting?.radio;
-            if (radio == null || def.comps.Exists(comp => comp is CompProperties_Radio)) continue;
-            def.comps.Add(radio);
+            if (radio == null) continue;
+            if (!def.comps.Exists(comp => comp is CompProperties_Radio)) def.comps.Add(radio);
+            if (!def.comps.Exists(comp => comp is CompProperties_PhobosRemoteControl)) def.comps.Add(new CompProperties_PhobosRemoteControl());
         }
     }
 
@@ -71,6 +78,8 @@ public static class VehicleRadios
         foreach (var selected in Find.Selector.SelectedObjects)
         {
             if (selected is not VehiclePawn vehicle) continue;
+            // The remote control comes with it (Radio 0.11.0), so the vehicle can be driven from a station in the test too.
+            SessionComps.Add(vehicle, new CompProperties_PhobosRemoteControl());
             if (CarriedRadios.FitForSession(vehicle, fitting.radio) != null) fitted++;
             else skipped++;
         }
@@ -81,14 +90,40 @@ public static class VehicleRadios
 }
 
 /// <summary>
-/// What a vehicle's radio does on the net. Until a vehicle can be driven from a station (the record's step 3), a fitted radio stands
-/// by: its links are worked out and shown, and it asks no channel. A vehicle whose upgrade is not done is off the net.
+/// What a vehicle's radio does on the net. A fitted radio stands by (its links worked out and shown, no channel asked) until the player
+/// asks for the vehicle to be driven from a station; then it is in use, and asks a channel of its kind (Radio 0.11.0). A vehicle whose
+/// upgrade is not done is off the net.
 /// </summary>
 public sealed class VehicleRadioRule : ICarriedRadioRule
 {
     public CarriedRadioUse? UseOf(Pawn carrier, CompRadio radio)
     {
         if (carrier is not VehiclePawn vehicle) return null;
-        return VehicleRadios.Fitted(vehicle) ? CarriedRadioUse.StandingBy : CarriedRadioUse.Off;
+        if (!VehicleRadios.Fitted(vehicle)) return CarriedRadioUse.Off;
+        return RemoteControl.Wanted(vehicle) ? CarriedRadioUse.InUse : CarriedRadioUse.StandingBy;
     }
+}
+
+/// <summary>
+/// The radio as what drives a vehicle from afar (Radio 0.11.0; the autonomous vehicles record, step 3): a vehicle is linked while a
+/// station serves its radio on a channel, and comes back toward that station. It reads the net's last pass; nothing is worked out here
+/// but a dictionary lookup.
+/// </summary>
+public sealed class RadioRemoteControl : IRemoteControlSource
+{
+    public bool Fitted(VehiclePawn vehicle) => vehicle.GetComp<CompRadio>() != null && VehicleRadios.Fitted(vehicle);
+
+    public RemoteLink LinkOf(VehiclePawn vehicle)
+    {
+        if (!vehicle.Spawned) return default;
+        var station = RadioNet.For(vehicle.Map)?.ServedBy(vehicle);
+        return station == null ? default : new RemoteLink(true, station.Position);
+    }
+
+    public void WantChanged(VehiclePawn vehicle)
+    {
+        if (vehicle.Spawned) RadioNet.For(vehicle.Map)?.MarkDirty();
+    }
+
+    public Texture2D? Icon => RadioTextures.Signal;
 }

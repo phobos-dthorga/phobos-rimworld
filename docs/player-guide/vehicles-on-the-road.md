@@ -53,6 +53,18 @@ and life on the road](camping.md). [Back to the guide](README.md).
 - **Raiders' drivers count too**: a raid with a hurt or tired driver comes in slower, as does a raider with no headlights at
   night.
 
+### Driven from a station
+
+- **A vehicle with the radio's control kit can be driven with nobody aboard**, from a radio station (with D'thorga Radio
+  Framework). **No vehicle carries the kit yet**; it comes as an upgrade on the service trucks.
+- **Press "Drive from a station"**, wait for a station to reach it, then **draft it and give it orders as usual**. It holds a
+  control channel at that station while the button is on; **turn it off to park it** and free the channel.
+- **Choose what it does if the link is lost**: **hold** where it is (the default), **come back** toward its station, or **carry
+  on** with its last drive. It waits ten seconds first, in case the link returns. A letter tells you, and another when a station has
+  it again.
+- **Give it a driver before it joins a caravan**: it cannot be driven from a station on the world map.
+- A colonist at the wheel drives it the ordinary way. A setting, "Remote control of vehicles by radio", turns it all off.
+
 ### In the dark
 
 - **Driving in the dark with the headlights off is slower**: a land vehicle goes at 85% of its speed over ground the game counts

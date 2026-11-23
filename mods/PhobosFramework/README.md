@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.277.0, built 24 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.278.0, built 24 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -204,6 +204,7 @@ offers to restart). RimWorld saves only what you change.
 | Cabs, camps and caravans | Night heater at camp | A vehicle whose night heater switch is on keeps its cab and engine warm at a caravan's camp, and for someone asleep in its cab bunk on a map, for fuel | Off |
 | Cabs, camps and caravans | Drive through the night | Vehicle caravans keep going at night while every vehicle has a rested driver, swapping tired drivers for rested passengers; journeys take about half the time. Each caravan also has its own switch | Off |
 | Cabs, camps and caravans | Warn before a parked vehicle is lost | Days of warning; 0 turns it off | 3 days |
+| Remote control | Remote control of vehicles by radio | A vehicle with the radio's control kit can be driven from a radio station with nobody aboard, and does what you chose when its link is lost. Off: none is, and one driving stops | On |
 | Display, sound and stories | How much to show | Plain, Operator or Engineer | Plain |
 | Display, sound and stories | Keep Vehicle Framework's own Health tab | Keeps their list instead of ours | Off |
 | Display, sound and stories | Show the fleet button on the bottom bar | The fleet board | On |

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The remote control of vehicles (D'thorga Framework 0.278.0; docs/development/autonomous-vehicles.md, step 3). A vehicle a station drives
+    keeps driving for this long after its link is lost, in case it comes back, then does what the player chose for it: hold, come back or
+    carry on. The first loaded instance wins; another mod may patch it in XML. Every figure is authored, for the owner to revise. Not yet
+    tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosRemoteControlRulesDef>
+    <defName>PhobosRemoteControlRules</defName>
+    <!-- Ten seconds at normal speed. -->
+    <lostLinkDelayTicks>600</lostLinkDelayTicks>
+    <!-- A vehicle coming back stops on a ring this many cells round its station. -->
+    <comeBackRing>5</comeBackRing>
+  </Phobos.VehicleSystems.PhobosRemoteControlRulesDef>
+</Defs>

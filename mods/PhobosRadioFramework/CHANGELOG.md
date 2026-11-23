@@ -17,6 +17,22 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.11.0] - 2026-11-24 - Draft
+
+Driven from a station: a vehicle's radio takes its channel while it is driven
+
+### Added
+
+- **A station can drive a vehicle that carries the control kit**, with D'thorga Framework's remote control (its 0.278.0): while the
+  player has asked for the vehicle to be driven from a station, its radio asks a control channel instead of standing by, and the
+  vehicle is in touch for as long as a station serves it. The dev action that fits the radio for a session now fits the remote
+  control with it. Not yet tested in game: rows 487 and 488.
+
+### Compatibility and limits
+
+- Safe with a running save: nothing new is saved by the radio. No new settings of the radio's own; the remote control's setting is
+  D'thorga Framework's.
+
 ## [0.10.0] - 2026-11-24 - Draft
 
 Radios fitted to vehicles: a vehicle's radio joins the net and shows its link
