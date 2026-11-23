@@ -52,6 +52,9 @@ public static class PartsOnLoad
     static readonly FieldInfo? StatComponents = AccessTools.Field(typeof(VehicleStatHandler), "statComponents");
     static readonly MethodInfo? Recache = AccessTools.Method(typeof(VehicleStatHandler), "RecacheStatCategories");
     static readonly MethodInfo? MarkDirty = AccessTools.Method(typeof(VehicleStatHandler), "MarkAllDirty");
+    // Set without the part's SetHealth: that raises the vehicle's health-changed event, whose list Vehicle Framework fills only in the
+    // vehicle's PostLoad, after this, so every brake added to an older save threw and the rest were never made (Framework 0.273.3).
+    static readonly FieldInfo? HealthField = AccessTools.Field(typeof(VehicleComponent), "health");
 
     public static void Prefix(VehicleStatHandler __instance)
     {
@@ -91,7 +94,7 @@ public static class PartsOnLoad
                 if (EachPart.HealthFrom(vehicle.VehicleDef!, props.key) is { } source
                     && __instance.components.FirstOrDefault(c => c.props.key == source) is { } original)
                 {
-                    component.SetHealth(component.MaxHealth * original.HealthPercent);
+                    HealthField?.SetValue(component, Math.Clamp(component.MaxHealth * original.HealthPercent, 0f, component.MaxHealth));
                 }
                 __instance.components.Add(component);
                 if (byKeys != null) byKeys[props.key] = component;

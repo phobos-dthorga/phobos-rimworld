@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.273.3] - 2026-11-24 - Draft
+
+Vehicles from older saves get their brakes at each wheel
+
+### Fixed
+
+- **Vehicles from saves made before 0.250.0 now gain their brakes at each wheel** (the owner's log of 23 November 2026: about 44 vehicles, from the Bradley and Abrams to the L-ATVs, warned "could not add the part" at every load). Copying the old brake's health raised a vehicle event before the vehicle had finished loading, so the first new brake failed and the rest were never made. Not yet tested in game.
+
+### Save compatibility
+
+- At the first load after this update, each such vehicle gains its missing brakes, each as worn as the single brake it had before. Nothing else changes.
+
 ## [0.273.2] - 2026-11-24 - Draft
 
 The game no longer closes when a cook checks the stove's bills
