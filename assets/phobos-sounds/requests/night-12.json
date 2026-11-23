@@ -1,0 +1,107 @@
+[
+ {
+  "name": "n12-hydraulic-pump",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   121,
+   122
+  ],
+  "loop": true,
+  "prompt": "A truck's engine-driven hydraulic pump running under load: a steady high mechanical whine with a faint oily hum, even and unbroken, heard from beside the vehicle. Not loud, not alarming. Length: 6 seconds",
+  "art_plan": {
+   "why": "S110, the hydraulic pump's whine (hydraulics built in Framework 0.73.0, its drag on the engine's ledger since 0.249.0) (candidates only, the owner's go of 23 Nov 2026 for a small first batch, two seeds each; nothing is wired until the owner picks)",
+   "sound": "S110"
+  }
+ },
+ {
+  "name": "n12-belt-squeal",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   121,
+   122
+  ],
+  "loop": false,
+  "prompt": "A worn rubber drive belt on an engine slipping: a sharp rising squeal for two seconds, then a dull slap as the belt snaps and flaps loose, and the squeal stops. Under the bonnet, a few metres away. Not loud, not alarming. Length: 3 seconds",
+  "art_plan": {
+   "why": "S111, the drive belt slipping and snapping (built in Framework 0.131.0) (candidates only, the owner's go of 23 Nov 2026 for a small first batch, two seeds each; nothing is wired until the owner picks)",
+   "sound": "S111"
+  }
+ },
+ {
+  "name": "n12-clutch-slip",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   121,
+   122
+  ],
+  "loop": false,
+  "prompt": "A heavy truck's clutch slipping as it pulls away under load: the engine note flaring up while a dry friction grind and faint squeal rise, then catching and settling. Not loud, not alarming. Length: 3 seconds",
+  "art_plan": {
+   "why": "S112, a slipping clutch (clutch wear built) (candidates only, the owner's go of 23 Nov 2026 for a small first batch, two seeds each; nothing is wired until the owner picks)",
+   "sound": "S112"
+  }
+ },
+ {
+  "name": "n12-exhaust-brake",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   121,
+   122
+  ],
+  "loop": false,
+  "prompt": "A diesel truck slowing on a hill with its exhaust brake on: a deep, muffled, steady rumbling hum from the exhaust pipe, a little throaty, falling slowly in pitch as the truck slows. Heard from outside, a short way off. Not loud, not alarming. Length: 4 seconds",
+  "art_plan": {
+   "why": "S113, the exhaust brake (the fitting built in Framework 0.251.0) (candidates only, the owner's go of 23 Nov 2026 for a small first batch, two seeds each; nothing is wired until the owner picks)",
+   "sound": "S113"
+  }
+ },
+ {
+  "name": "n12-turbo-whistle",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   121,
+   122
+  ],
+  "loop": true,
+  "prompt": "A turbocharger's whistle over a diesel engine: a soft, airy, high-pitched spooling whistle held steady above a low engine hum. Not loud, not alarming. Length: 6 seconds",
+  "art_plan": {
+   "why": "S114, the turbocharger fitting's whistle, a loop over the engine (the turbocharger built in Framework 0.123.0) (candidates only, the owner's go of 23 Nov 2026 for a small first batch, two seeds each; nothing is wired until the owner picks)",
+   "sound": "S114"
+  }
+ },
+ {
+  "name": "n12-vehicle-hoist",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   121,
+   122
+  ],
+  "loop": false,
+  "prompt": "A garage vehicle hoist lifting a car: an electric hydraulic pump hums, the lift arms creak and rise smoothly, then a solid metallic clunk as the safety catch locks. Inside a workshop. Not loud, not alarming. Length: 5 seconds",
+  "art_plan": {
+   "why": "S115, the inspection pit and hoist (vehicle stations built) (candidates only, the owner's go of 23 Nov 2026 for a small first batch, two seeds each; nothing is wired until the owner picks)",
+   "sound": "S115"
+  }
+ },
+ {
+  "name": "n12-turbine-hot-start",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   121,
+   122
+  ],
+  "loop": false,
+  "prompt": "A gas turbine engine failing to start properly: the starter whines and the engine spools up slowly, a rough rumbling light-off with a coughing roar, then the spool sags and winds down. Heard from outside the aircraft. Not loud, not alarming. Length: 6 seconds",
+  "art_plan": {
+   "why": "S123, a gas turbine's hung or hot start (turbines built in Framework 0.132.0) (candidates only, the owner's go of 23 Nov 2026 for a small first batch, two seeds each; nothing is wired until the owner picks)",
+   "sound": "S123"
+  }
+ }
+]

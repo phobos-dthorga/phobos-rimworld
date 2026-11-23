@@ -1,0 +1,198 @@
+[
+ {
+  "name": "n12-exhaust-brake",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A short length of a diesel truck's exhaust pipe with a butterfly valve set in it, its round flap half closed across the pipe, and a small air cylinder on the side that works it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a short length of a diesel truck's exhaust pipe with a butterfly valve set in it, its round flap half closed across the pipe, and a small air cylinder on the side that works it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Snorkel.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Exhaust brake fitting",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/ExhaustBrake.png",
+   "since": "Framework 0.251.0",
+   "why": "the exhaust brake fitting's own icon, in place of the borrowed turbocharger picture (the owner's go of 23 Nov 2026 for a small first batch, two seeds each; icons are made locally)"
+  }
+ },
+ {
+  "name": "n12-exhaust-brake-house",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a short length of a diesel truck's exhaust pipe with a butterfly valve set in it, its round flap half closed across the pipe, and a small air cylinder on the side that works it. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a short length of a diesel truck's exhaust pipe with a butterfly valve set in it, its round flap half closed across the pipe, and a small air cylinder on the side that works it (house model)",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Snorkel.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Exhaust brake fitting",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/ExhaustBrake.png",
+   "since": "Framework 0.251.0",
+   "why": "the exhaust brake fitting's own icon, in place of the borrowed turbocharger picture (the owner's go of 23 Nov 2026 for a small first batch, two seeds each; icons are made locally)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "n12-ecm-pod",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A grey torpedo-shaped electronic jamming pod that hangs under an aircraft's wing, with a small propeller on its nose, short antenna blades and a flat mounting lug on top. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a grey torpedo-shaped electronic jamming pod that hangs under an aircraft's wing, with a small propeller on its nose, short antenna blades and a flat mounting lug on top",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InfraredJammer.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/AuxFuelTank.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Self-protection jamming pod fitting",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/EcmPod.png",
+   "since": "Framework 0.226.0",
+   "why": "the jamming pod fitting has no picture at all (its file was never made; the art audit, 23 Nov 2026) (the owner's go of 23 Nov 2026 for a small first batch, two seeds each; icons are made locally)"
+  }
+ },
+ {
+  "name": "n12-ecm-pod-house",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a grey torpedo-shaped electronic jamming pod that hangs under an aircraft's wing, with a small propeller on its nose, short antenna blades and a flat mounting lug on top. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a grey torpedo-shaped electronic jamming pod that hangs under an aircraft's wing, with a small propeller on its nose, short antenna blades and a flat mounting lug on top (house model)",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InfraredJammer.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/AuxFuelTank.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Self-protection jamming pod fitting",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/EcmPod.png",
+   "since": "Framework 0.226.0",
+   "why": "the jamming pod fitting has no picture at all (its file was never made; the art audit, 23 Nov 2026) (the owner's go of 23 Nov 2026 for a small first batch, two seeds each; icons are made locally)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "n12-icap-ii",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A grey rack-mounted aircraft electronics box with two rows of small green-lit screens, a few round knobs and a thick bundle of cables out of its back. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a grey rack-mounted aircraft electronics box with two rows of small green-lit screens, a few round knobs and a thick bundle of cables out of its back",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/TerrainRadar.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "EA-6B Prowler's ICAP II suite fitting",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Fittings/ProwlerIcapII.png",
+   "since": "Vehicles 0.99.0",
+   "why": "the ICAP II fitting has no picture at all (its file was never made; the art audit, 23 Nov 2026) (the owner's go of 23 Nov 2026 for a small first batch, two seeds each; icons are made locally)"
+  }
+ },
+ {
+  "name": "n12-icap-ii-house",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a grey rack-mounted aircraft electronics box with two rows of small green-lit screens, a few round knobs and a thick bundle of cables out of its back. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a grey rack-mounted aircraft electronics box with two rows of small green-lit screens, a few round knobs and a thick bundle of cables out of its back (house model)",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/TerrainRadar.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "EA-6B Prowler's ICAP II suite fitting",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Fittings/ProwlerIcapII.png",
+   "since": "Vehicles 0.99.0",
+   "why": "the ICAP II fitting has no picture at all (its file was never made; the art audit, 23 Nov 2026) (the owner's go of 23 Nov 2026 for a small first batch, two seeds each; icons are made locally)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "n12-icap-iii",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A slim modern dark-grey aircraft computer unit with one wide screen showing a radar sweep, a small dome antenna on top and a short cable plug on its side. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a slim modern dark-grey aircraft computer unit with one wide screen showing a radar sweep, a small dome antenna on top and a short cable plug on its side",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/TerrainRadar.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "EA-6B Prowler's ICAP III suite fitting",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Fittings/ProwlerIcapIII.png",
+   "since": "Vehicles 0.99.0",
+   "why": "the ICAP III fitting has no picture at all (its file was never made; the art audit, 23 Nov 2026) (the owner's go of 23 Nov 2026 for a small first batch, two seeds each; icons are made locally)"
+  }
+ },
+ {
+  "name": "n12-icap-iii-house",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a slim modern dark-grey aircraft computer unit with one wide screen showing a radar sweep, a small dome antenna on top and a short cable plug on its side. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a slim modern dark-grey aircraft computer unit with one wide screen showing a radar sweep, a small dome antenna on top and a short cable plug on its side (house model)",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/TerrainRadar.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "EA-6B Prowler's ICAP III suite fitting",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Fittings/ProwlerIcapIII.png",
+   "since": "Vehicles 0.99.0",
+   "why": "the ICAP III fitting has no picture at all (its file was never made; the art audit, 23 Nov 2026) (the owner's go of 23 Nov 2026 for a small first batch, two seeds each; icons are made locally)",
+   "route": "house"
+  }
+ }
+]
