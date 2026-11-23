@@ -235,6 +235,6 @@ Asked by question card: the Osprey's three leftovers "now", the flight session's
   unless the stat sets `showIfUndefined` (`VehicleStatWorker.ShouldShowFor`, the same in its source and the installed build), and none of
   ours does. The reader read `showOnVehicleTypes` alone. So these stats never showed as zeros on other aircraft; they do not show on the
   Osprey's own card either, which its upgrade panel covers.
-- **W8, fixed with more than it named:** the whole tab was re-laid ([the research tree](research-tree.md#later-audits)); thirteen lines
+- **W8, fixed with more than it named:** the whole tab was re-laid ([the research tree](archive/research-tree.md#later-audits)); thirteen lines
   had crossed boxes, not one. `scripts/check-research.py` now refuses a crossing.
 - **The flight session's ten:** see its own section and changelog.

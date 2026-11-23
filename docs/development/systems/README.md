@@ -21,6 +21,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   and protective-gear lines. Living.
 - [The health layer and care](health-layer.md) (23 Nov 2026): patients, condition danger, care choices, surgery bars, field care,
   lapsing treatments, lasting conditions and the radiation-dose door. Living.
+- [Power, top-up and machines](power-and-machines.md) (23 Nov 2026): standby power, topping up, parts bills for buildings, the
+  research tab, pipes and conduits beneath, linking like another building, building over, bulk holds. Living.
 
 ## The template
 

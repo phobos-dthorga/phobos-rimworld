@@ -4,7 +4,9 @@
 
 The owner, 17 Nov 2026, before testing Framework 0.122.0 and Vehicles 0.60.0: "I wish to do an audit for where we could benefit from
 gating anything behind either pre-existing or new research." This lists what is gated today, what is not, and proposals R1 to R9 for the
-owner to choose from. The tree itself is in [research-tree.md](research-tree.md).
+owner to choose from. The tree itself is in [research-tree.md](archive/research-tree.md).
+
+How power, top-up and machines works now: [systems/power-and-machines.md](systems/power-and-machines.md); this record keeps its history.
 
 ## Read this first
 

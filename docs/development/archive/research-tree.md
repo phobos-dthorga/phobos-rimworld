@@ -5,7 +5,7 @@ The owner asked on 10 Nov 2026 for "a research tree for our designs along with a
 ## Read this first
 
 - **One new tab, D'thorga**, with a lane for vehicles and a lane for medicine: 12 vehicle projects and 6 medical ones, and since 17 Nov 2026 four
-  trailer projects under the vehicle lane ([the audit](research-gates-audit-2026-11-17.md)).
+  trailer projects under the vehicle lane ([the audit](../research-gates-audit-2026-11-17.md)).
 - **Old saves keep what they could build.** The first time a save loads with the tree, each project is finished for free if the older research it replaces was already done. This happens once per project. New colonies research everything normally.
 - **Our vehicles' upgrades now need their research.** Vehicle Framework declared research on upgrades and never checked it, so those gates did nothing before. Since its 1.7.2537 (18 Nov 2026) it checks them on every author's tree, and our refusal names the missing project on all of them (Framework 0.137.2).
 - **Every cost is authored**, a gameplay choice to tune in play. So is every position and soft requirement.
@@ -120,9 +120,9 @@ All are Industrial, named `PhobosResearch_<Name>`. Those names stay fixed once a
 
 ## Later audits
 
-- [Research gates audit, 17 Nov 2026](research-gates-audit-2026-11-17.md): the trailers and truck upgrades against this tree, with proposals. **Answer what gates a thing, or what a project unlocks, with `python scripts/research-gates.py`** (`--ungated`, `--weak`, `--project`).
+- [Research gates audit, 17 Nov 2026](../research-gates-audit-2026-11-17.md): the trailers and truck upgrades against this tree, with proposals. **Answer what gates a thing, or what a project unlocks, with `python scripts/research-gates.py`** (`--ungated`, `--weak`, `--project`).
 
-- **The tab's layout, 19 Nov 2026** (fault-read W8, [the record](fault-read-2026-11-19.md)): thirteen requirement lines ran through other
+- **The tab's layout, 19 Nov 2026** (fault-read W8, [the record](../fault-read-2026-11-19.md)): thirteen requirement lines ran through other
   projects' boxes, the Osprey's through the drill rig's among them, because vehicle parts' projects sat two and three columns from it.
   Re-laid so every line runs between neighbouring columns: the vehicle lane in columns 0 to 3 (vehicle parts and vehicle electrics in
   column 0, everything that needs vehicle parts in column 1, then the trailers' fittings and the Osprey, then its upgrades), the medical

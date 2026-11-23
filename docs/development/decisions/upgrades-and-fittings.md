@@ -106,7 +106,7 @@ overturns an earlier one says so.
 [tu]: ../archive/vehicle-tuning-and-upgrades.md
 [u2]: ../vehicle-upgrades-round-two.md
 [st]: ../archive/vehicle-stations.md
-[pb]: ../parts-bills.md
+[pb]: ../archive/parts-bills.md
 [sv]: ../archive/aircraft-service-life-upgrades.md
 [uv]: ../utility-vehicles-design.md
 [ms]: ../vehicle-militarised-service-vehicles.md

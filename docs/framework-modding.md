@@ -215,7 +215,7 @@ the target's cost. Nothing is saved. From our own Defs:
 
 A bill may also give a `size` (kilograms for a vehicle, read against the substitutes' `minSize` and `maxSize`) and `tags`. A role
 supply may scale its item by size (`itemCountBySize`) or cover a whole build with one kit (`coversWholeBuild`). XML alone is enough;
-[the parts bills record](development/parts-bills.md) has the rules. The player's **Parts for building** setting chooses between other
+[the parts bills record](development/archive/parts-bills.md) has the rules. The player's **Parts for building** setting chooses between other
 mods' parts where installed and always ours.
 
 ## Building upgrades
@@ -300,7 +300,7 @@ fills while Defs load. The load line says how many buildings, facilities and sta
   save from before it converts at the building's next load. The service underneath is `Phobos.Framework.Persistence.PipeUnderlay`.
 - **Vehicles** lay the same while parked: see [pipes beneath a vehicle](vehicle-systems-modding.md#pipes-beneath-a-vehicle).
 
-[Pipes and conduits beneath our things](development/network-underlays.md) has the design, the owner's rules and every thing of ours
+[Pipes and conduits beneath our things](development/archive/network-underlays.md) has the design, the owner's rules and every thing of ours
 that lays them.
 
 ## Large blasts (Framework 0.218.0)

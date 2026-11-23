@@ -351,7 +351,8 @@ None of these is a test in game.
 - **Archived records**, kept unchanged for their history: [vehicle tuning and
   upgrades](../archive/vehicle-tuning-and-upgrades.md); with flight and engines, [aircraft service-life
   upgrades](../archive/aircraft-service-life-upgrades.md); and, with [stations, yard and depots](stations-yard-and-depots.md),
-  [vehicle stations](../archive/vehicle-stations.md).
+  [vehicle stations](../archive/vehicle-stations.md); and, with [power, top-up and machines](power-and-machines.md), [parts
+  bills](../archive/parts-bills.md).
 - **Records kept in place** (they cover upgrades and another system): [vehicle upgrades, round
-  two](../vehicle-upgrades-round-two.md), [parts bills](../parts-bills.md), [utility vehicles](../utility-vehicles-design.md),
-  [militarised service vehicles](../vehicle-militarised-service-vehicles.md).
+  two](../vehicle-upgrades-round-two.md), [utility vehicles](../utility-vehicles-design.md), [militarised service
+  vehicles](../vehicle-militarised-service-vehicles.md).

@@ -13,6 +13,8 @@ the ideas; the owner picks what, if anything, is built.
 `scripts/query-defs.py` on 17 Nov 2026, with its file and line; **[A]** is a figure or choice we authored; **[I]** is our inference
 from what was read; **[S]** is a secondary source such as a Workshop comment. **None of it is tested in game.**
 
+How power, top-up and machines works now: [systems/power-and-machines.md](systems/power-and-machines.md); this record keeps its history.
+
 ## Read this first
 
 - **One storage building with the right marks is read by nearly everything** in the owner's game that takes from a hopper: the

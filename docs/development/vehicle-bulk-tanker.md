@@ -16,7 +16,7 @@ the sections below are the shape the other four records follow ([survey truck](v
 
 *Moved here on 17 Nov 2026 from `utility-vehicles-design.md`; kept as written.* Where the text below says "the table above", "principle
 8" or "principle 9", "the heavy-truck set" or "the rig", it means [utility vehicles](utility-vehicles-design.md): its principles, its
-parts model (the stats table and the parts by role, the latter since reversed by [parts bills](parts-bills.md)) and its family. The
+parts model (the stats table and the parts by role, the latter since reversed by [parts bills](archive/parts-bills.md)) and its family. The
 owner's decisions on the tanker and its open questions stay there too, under "Who chose what" and "Open questions for the owner".
 
 ## Bulk tanker (owner's addition, 8 Nov 2026; the design is the agent's, owner to confirm)

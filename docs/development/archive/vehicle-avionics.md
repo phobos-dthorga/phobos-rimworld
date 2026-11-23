@@ -387,7 +387,7 @@ reasons for each piece of aircraft", and proposed handling countermeasures as am
   recorded; the magazine bypasses cargo altogether rather than answering each.
 - **What was built:** `CompPhobosDispensers`, a magazine of real cartridge Things given to every design whose avionics carry
   countermeasures, sized by the fit's `countermeasureCartridges` (Harrier 60, an AN/ALE-39 set; Hind 128, four ASO-2V of 32; both
-  secondary sources, in the loadouts). D'thorga Framework's [topping up](../top-up-design.md) gained vehicles, so haulers carry cartridges
+  secondary sources, in the loadouts). D'thorga Framework's [topping up](top-up-design.md) gained vehicles, so haulers carry cartridges
   from storage to a parked aircraft once ten are missing (`magazineLeastLoad`, authored); the job never reserves the aircraft, as VF's
   own loading job does not. The magazine's weight loads the engine as a turret's rounds do and takes no cargo room.
 - **Lets** the player stock any aircraft with dispensers the same way. **Stops** a crate of cartridges in the cargo acting as a

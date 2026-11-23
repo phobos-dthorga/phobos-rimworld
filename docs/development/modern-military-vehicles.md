@@ -790,7 +790,7 @@ leads, what the route is, what happens when the leader is lost). The station lev
 (the control van) and a check of reach. **The mechanitor level needed a code read**, because our vehicles are not
 mechanoids; the owner asked for it (decision 10) and its findings are under
 [the code reads](#code-reads-the-decisions-asked-for-18-nov-2026). The nearest thing we have is `PhobosTopUpDef`,
-through which mechanitors already refill store-carrying mechanoids ([top-up design](top-up-design.md)).
+through which mechanitors already refill store-carrying mechanoids ([top-up design](archive/top-up-design.md)).
 
 **The weakness is the point.** Every level has one thing an enemy can hit to stop it: the leader, the operator, the
 mechanitor. That is true of the real machines, it gives the player something to protect, and it gives them a way to

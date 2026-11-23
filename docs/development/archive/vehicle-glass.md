@@ -48,7 +48,7 @@ sources, as in the strike record.
 | **A part's reactors are told of its hits**: under Combat Extended every one, even a hit that did nothing; under Vehicle Framework's own step only a hit that did some damage | CEsrc `VehicleArmorPatch.cs:363-369`; VFsrc `VehicleComponent.cs:114-122` (both re-read) | A reactor on the cab's plate can decide when the glass behind it breaks. No Harmony patch. Without Combat Extended a hit the plate turns aside is not heard |
 | **An inner part at zero health is skipped** by Combat Extended's walk; a part can be left out of a vehicle's health sum; a part can be mended only with its own goods | The spall liner ([spall](vehicle-spall.md)), built | The whole pattern glass needs exists and has had one fault-read |
 | **An explosion touches a vehicle's edge cells only** | VFsrc `Patch_Combat.cs:207-216` (re-read) | A blast reports once per edge cell; glass is judged once per blast, as shock spall is |
-| **What a thing is built from is a bill of roles**, each filled by an installed mod's goods or ours | [Parts bills](../parts-bills.md) | "Glass" is a role; Glass+Lights' glass fills it where active |
+| **What a thing is built from is a bill of roles**, each filled by an installed mod's goods or ours | [Parts bills](parts-bills.md) | "Glass" is a role; Glass+Lights' glass fills it where active |
 | **A tired driver hands the wheel to a rested passenger**; a stoned driver drives slower, with no random crashes | `V/Camp/NightDriving.cs`; hotboxing (the owner's rule) | The pattern for a driver who cannot see well: slower, never a rolled crash |
 | **An aircraft's fit says whether it carries oxygen and cruises high** | `AvionicsFitValues` (`V/Defs/SystemDefs.cs:554-558`) | A broken canopy has something to act on |
 

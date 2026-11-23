@@ -53,7 +53,7 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 The jet's blueprint is under **Architect, Vehicles**. It needs **Construction 10**, as the Hind and Mongoose do. Since Patches 0.30.0
 it is built from **real parts by role**, as Close Air Support's jets are: each part is filled by RimThunder's where installed and suited
 to the jet's weight, and by D'thorga Framework's own otherwise. The counts follow the real AV-8B; what each part costs is the shared
-table's ([parts bills](../development/parts-bills.md)).
+table's ([parts bills](../development/archive/parts-bills.md)).
 
 | What | Count | Why |
 | --- | --- | --- |

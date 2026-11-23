@@ -24,7 +24,7 @@ the Fathom seabed crawler ([seabed crawler](vehicle-seabed-crawler.md)). The pla
 
 **Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026 (1.7.2534), and D'thorga Framework 0.111.1 builds against it ([the dependency audit](dependency-audit-2026-11-16.md)). Where this record speaks of VF's 1.6 build as the one the game loads, or of a "VF 1.7 gate", that was true when written.
 
-**Reversed by the owner, 9 Nov 2026:** our part items always exist and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's parts are substitutes, accepted per role where they make sense. [Parts bills](parts-bills.md) owns this rule now; the provider-first wording here is history.
+**Reversed by the owner, 9 Nov 2026:** our part items always exist and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's parts are substitutes, accepted per role where they make sense. [Parts bills](archive/parts-bills.md) owns this rule now; the provider-first wording here is history.
 
 **As it stood on 9 Nov 2026 (all five vehicles are built since: see the status line above). The stand-in is built and has grown: D'thorga Vehicles (0.16.0, 9 Nov 2026) carries loadouts and drivetrains for other
 authors' vehicles. One vehicle of ours is built, the bulk tanker (Framework 0.34.0 onward, Vehicles 0.12.0 onward); not yet tested in
@@ -33,7 +33,7 @@ game. The other four are designed in full in their own records (9 Nov 2026, writ
 [the generator set](vehicle-generator-set.md). They wait for the owner's answers to their questions and the owner's go. **Updated 8 Nov 2026 (owner's directions, answered in this record):** a fifth vehicle designed in full, the bulk
 tanker, liquid or gas by upgrade; every vehicle of ours upgradeable and extendable from its first Def, with the art following the
 upgrade tree; parts from Vehicle Framework's mechanics by default and from RimThunder's and Vanilla Vehicles Expanded's part items
-where they are present, our own parts only as fallbacks (reversed on 9 Nov 2026: see the note above and [parts bills](parts-bills.md)). Every figure read from another mod in this update was read with the patches
+where they are present, our own parts only as fallbacks (reversed on 9 Nov 2026: see the note above and [parts bills](archive/parts-bills.md)). Every figure read from another mod in this update was read with the patches
 of the owner's full list applied (query-defs patched, patched-Defs file of 8 Nov 2026 08:58 UTC, game 1.7.5000, 335 mods).
 
 A design record. The owner asked on 8 Nov 2026 for utilitarian
@@ -117,7 +117,7 @@ vehicles the owner already drives. Our vehicles, their loadouts and art come aft
 9. **Parts by role, from providers** (owner, 8 Nov 2026; **reversed by the owner on 9 Nov 2026:** our part items now always exist in
    D'thorga Framework and set repair costs, with other mods' accepted only where they make sense; see
    [vehicle health, slice 3](archive/vehicle-health-design.md#vehicle-health-slice-3-what-it-does-to-the-player-8-nov-2026-built-9-nov-2026). The text and table below are kept as written. **Refined by the owner on
-   11 Nov 2026:** a build asks for the installed mod's part where it suits and ours otherwise, through a [parts bill](parts-bills.md)
+   11 Nov 2026:** a build asks for the installed mod's part where it suits and ours otherwise, through a [parts bill](archive/parts-bills.md)
    worked out at start-up, which replaced the tanker's four patch folders in D'thorga Vehicles 0.41.0.) Vehicle Framework ships no part items (its ThingDefs are motes and the
    airdrop container; read 8 Nov 2026), so "VF parts by default" means its mechanics: components, upgrade trees, roles, reactors,
    overlays, fuel and caravans, used before anything of ours is written. Part **items** come from the mods that make them, named by
@@ -167,7 +167,7 @@ so each reads its game-scale figure as millimetres; it comes with [the armour ba
 
 ### Parts and where they come from (principle 9; agent defaults, owner to confirm)
 
-**Reversed by the owner, 9 Nov 2026:** our part items always exist and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's parts are substitutes, accepted per role where they make sense. [Parts bills](parts-bills.md) owns this rule now; the provider-first wording here is history.
+**Reversed by the owner, 9 Nov 2026:** our part items always exist and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's parts are substitutes, accepted per role where they make sense. [Parts bills](archive/parts-bills.md) owns this rule now; the provider-first wording here is history.
 
 What the providers actually ship, read 8 Nov 2026 with every patch of the owner's list applied:
 

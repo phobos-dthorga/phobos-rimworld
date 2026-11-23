@@ -96,3 +96,15 @@ Archived on 23 Nov 2026; how it works now: [the health layer and care](../system
 
 - [D'thorga Framework: research and decisions](phobos-framework.md) (4 Nov 2026): room gases, supplied oxygen and the health
   layer; with [gases and air](../systems/gases-and-air.md).
+
+## Power, top-up and machines
+
+Archived on 23 Nov 2026; how they work now: [power, top-up and machines](../systems/power-and-machines.md).
+
+- [Standby power](standby-power.md) (22 Nov 2026): idle buildings draw a share, empty rooms go dark; in place of LightsOut.
+- [Topping up machines](top-up-design.md) (18 Nov 2026): haulers and mechanitors refill machines that hold a material.
+- [The D'thorga research tree](research-tree.md) (10 Nov 2026): the research tab, its projects and the grant for older colonies.
+- [Pipes and conduits beneath our things](network-underlays.md) (13 Nov 2026): hidden pipes and conduits under our buildings and
+  parked vehicles.
+- [Parts bills](parts-bills.md) (11 Nov 2026): what a built thing is made of, by role; with [upgrades and
+  fittings](../systems/upgrades-and-fittings.md).

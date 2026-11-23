@@ -354,7 +354,7 @@ The guide's is used.
   Vehicles 0.87.0 it was 900, 250, 40 and 6 advanced components, which went to the flight computers, the rotor blades, the gearboxes and
   the actuators.
 - **By role, through the parts bill** (rebuilt 19 Nov 2026 on the owner's word that the part choices were a truck's; the full
-  reasoning is in [parts-bills.md](parts-bills.md#aircraft-and-turbine-parts-19-nov-2026)): two turbine engines, two proprotor
+  reasoning is in [parts-bills.md](archive/parts-bills.md#aircraft-and-turbine-parts-19-nov-2026)): two turbine engines, two proprotor
   gearboxes (reduction gearboxes) and the interconnect shaft, two sets of rotor blades, three flight-control channels and the avionics
   bay (four flight computers), three hydraulic actuators (both nacelle tilts and the ramp), four fuel tanks, three landing gear legs,
   two alternators, two batteries, wiring and hydraulics. Our own parts set the price; other mods' are accepted only where they suit.

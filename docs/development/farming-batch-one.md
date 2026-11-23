@@ -10,6 +10,8 @@ a build: read the real figures in full, write this design, and draw up the art l
 read by the agent writing this; **[I]** our inference; **[A]** an authored figure or choice for the owner to revise. **None of it
 is tested in game.**
 
+How power, top-up and machines works now: [systems/power-and-machines.md](systems/power-and-machines.md); this record keeps its history.
+
 ## Read this first
 
 - **What batch one makes:** paddocks; the "harvest this paddock" order with its row planner; a **combine harvester** with a grain
