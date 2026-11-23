@@ -495,9 +495,11 @@ The settings and the links for modders are in [D'thorga Patches' README](../../m
 ## Tested in game
 
 What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+A row marked — is a verdict the owner gave outside the test list, most before it existed, with where it is recorded.
 
 | Row | What the owner passed | Date |
 | --- | --- | --- |
+| — | **In part:** InterRim Ballistic Missile: a strategic warhead's blast no longer froze the game, on an earlier version (a blast on an enemy town still ran for 14 minutes; the strike's later rework not yet) (the owner, before the test list; source: [Patches changelog](../../mods/PhobosPatches/CHANGELOG.md), Missile Patches 0.1.0) | 7 Nov 2026 |
 | 23 | The Prison Labor guard | 10 Nov 2026 |
 | 24 | Stuck fires on a Vehicle Framework vehicle go out | 10 Nov 2026 |
 | 190 | Drone platforms are kept topped up | 18 Nov 2026 |

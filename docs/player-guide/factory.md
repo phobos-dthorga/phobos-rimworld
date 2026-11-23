@@ -337,9 +337,14 @@ The settings and the links for modders are in [D'thorga Factory Additions' READM
 ## Tested in game
 
 What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+A row marked — is a verdict the owner gave outside the test list, most before it existed, with where it is recorded.
 
 | Row | What the owner passed | Date |
 | --- | --- | --- |
+| — | The human-meat neutroamine bill works (the owner, before the test list; source: [Factory Additions changelog](../../mods/PhobosFactoryAdditions/CHANGELOG.md), 0.1.0) | 28 Oct 2026 |
+| — | The drug lab bills appear on their machines: the granulator, the synthesizer (human meat included) and the refinery (the owner, before the test list; source: [Factory Additions changelog](../../mods/PhobosFactoryAdditions/CHANGELOG.md), 0.3.1) | 29 Oct 2026 |
+| — | **In part:** belts take whole stacks from switched-on storage (an Adaptive Storage fridge), and only a belt pointing away from it does: "The fix works brilliantly" (machine input cells on such storage, and the switch kept through a save, not reported) (the owner, before the test list; source: [Factory Additions changelog](../../mods/PhobosFactoryAdditions/CHANGELOG.md), 0.6.0 and 0.6.1) | 29 and 30 Oct 2026 |
+| — | **In part:** bills whose recipe was gone are taken off the automated ammunition press (nine of them), which works again (setting such a bill aside to come back, as now, not yet) (the owner, not on the test list; source: [Factory Additions changelog](../../mods/PhobosFactoryAdditions/CHANGELOG.md), 0.12.1) | 10 Nov 2026 |
 | 194 | A deep hopper takes four stacks of output | 18 Nov 2026 |
 
 Everything else in this chapter is not yet tested in game.

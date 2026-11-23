@@ -327,9 +327,16 @@ version is in its [changelog](../../mods/PhobosMedical/CHANGELOG.md).
 ## Tested in game
 
 What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+A row marked — is a verdict the owner gave outside the test list, most before it existed, with where it is recorded.
+Those before 7 November 2026 were on the five separate medical mods, before they became one.
 
 | Row | What the owner passed | Date |
 | --- | --- | --- |
+| — | **In part:** More Injuries added to a copy of a 330-mod colony (Combat Extended, Medical System Expansion 2): it loads and plays well, with More Injuries' own migration dialogs and surgeries, then saves and reloads (the **Convert now** dialog, added since, and a new colony not yet) (the owner, before the test list; source: [Medical changelog](../../mods/PhobosMedical/CHANGELOG.md), Medical Save Bridge 0.1.0 and 0.1.1) | 3 Nov 2026 |
+| — | Burn numbers, how burn conditions progress, and the More Injuries and Organ Failure tie-ins (the owner, before the test list; source: [Medical changelog](../../mods/PhobosMedical/CHANGELOG.md), Burns and Smoke 0.4.2; the [injuries and care record](../development/systems/medical-injuries-and-care.md)) | 5 Nov 2026 |
+| — | **In part:** doctors give doses by themselves, seen in one case with penicillin and ketamine (self-medication and the bleeding hold not yet) (the owner, before the test list; source: [Medical changelog](../../mods/PhobosMedical/CHANGELOG.md), Emergency Dosing 0.3.0; the [injuries and care record](../development/systems/medical-injuries-and-care.md)) | 5 Nov 2026 |
+| — | A patient's breathing improves on the oxygen concentrator (the owner, before the test list; source: [Medical changelog](../../mods/PhobosMedical/CHANGELOG.md), Medical Equipment 0.1.0; the [medical equipment record](../development/systems/medical-equipment.md)) | 5 Nov 2026 |
+| — | The burn unit bed looks right and gives a burned patient air-cell care (the owner, before the test list; source: [Medical changelog](../../mods/PhobosMedical/CHANGELOG.md), Medical Equipment 0.2.0; the [medical equipment record](../development/systems/medical-equipment.md)) | 6 Nov 2026 |
 | 31a | The radiation control line: colonists stop, put on gear, go in, and take it off on the way out (with Rimatomics) | 11 Nov 2026 |
 | 166 | Doctors' work with many wounded | 18 Nov 2026 |
 | 170 | Field care gives way to carrying a patient to bed | 18 Nov 2026 |

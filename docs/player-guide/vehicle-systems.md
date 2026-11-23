@@ -350,9 +350,11 @@ and [vehicle damage](../development/systems/vehicle-damage.md).
 ## Tested in game
 
 What the owner has passed, by row of [the test list](../development/in-game-test-pass.md). A row passed **in part** says which part.
+A row marked — is a verdict the owner gave outside the test list, most before it existed, with where it is recorded.
 
 | Row | What the owner passed | Date |
 | --- | --- | --- |
+| — | With dev mode, the vehicle self-test passes on a throwaway vehicle (76 passed, none failed), and the cost reading finds the vehicle model within its budget (the owner, not on the test list; source: [Framework changelog](../../mods/PhobosFramework/CHANGELOG.md), 0.42.0) | 9 Nov 2026 |
 | 36 | **In part:** **Diagnose**: the report lists every part and reading (a part fitted at the dyno bay not yet) | 11 Nov 2026 |
 | 66 | Work lamps light the work round a parked vehicle | 13 Nov 2026 |
 | 69 | **In part:** headlights light the ground; the battery's warnings (a turbine's warning: seen on aircraft, not yet on the Abrams) | 18 and 20 Nov 2026 |
