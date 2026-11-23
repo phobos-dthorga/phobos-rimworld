@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "435": ["vehicles.systems-tab.loads-total"],
     "434": ["vehicles.systems-tab.ledger-rows"],
     "432": {"parts": {
       "the chamber takes medical facilities": [{"key": "framework.links-like.linked", "variant": "PhobosMedical_HyperbaricChamber"}],

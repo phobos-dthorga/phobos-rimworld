@@ -38,8 +38,8 @@ public partial class ITab_VehicleSystems
             "PhobosVehicleSystems_SysRpm".Translate(r.Rpm.ToString("N0").Named("RPM")).Resolve());
 
         float load = comp.Engine.Load;
-        Rect loadRow = PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowLoad".Translate(), load.ToStringPercent());
         float barStart = width * LoadBarStart;
+        Rect loadRow = PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowLoad".Translate(), load.ToStringPercent(), nameEnd: barStart);
         PhobosWidgets.Gauge(new Rect(barStart, loadRow.y + 4f, width - barStart - PhobosWidgets.FigureColumnWidth - 12f, loadRow.height - 8f), load,
             load > InspectText.LabouringLoad ? PhobosWidgets.Caution : PhobosWidgets.Good);
         TooltipHandler.TipRegion(loadRow, "PhobosVehicleSystems_SysRowLoadTip".Translate());

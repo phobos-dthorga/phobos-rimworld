@@ -355,15 +355,16 @@ public static class PhobosWidgets
     /// One plain row of a card (Framework 0.260.0): a name on the left and its figure against the right edge. With a
     /// <paramref name="second"/> figure, the first moves one column left and the second takes the edge, so rows of two figures line up
     /// as a table; a heading for such a table is the same row in the tiny font. Advances the caller's y and returns the row's rect, for
-    /// a tooltip or something drawn over it. The name is cut short where it would run into the figures.
+    /// a tooltip or something drawn over it. The name is cut short where it would run into the figures, or at
+    /// <paramref name="nameEnd"/> (from the row's left) where the caller draws something between the name and the figures: a bar, a word.
     /// </summary>
     public static Rect FigureRow(ref float y, float x, float width, string label, string figure, string? second = null, Color? colour = null,
-        GameFont font = GameFont.Small)
+        GameFont font = GameFont.Small, float nameEnd = 0f)
     {
         var row = new Rect(x, y, width, FigureRowHeight);
         Widgets.DrawHighlightIfMouseover(row);
         float figuresWidth = FigureColumnWidth * (second == null ? 1 : 2);
-        float nameWidth = Mathf.Max(0f, width - figuresWidth - FigureRowInset * 3f);
+        float nameWidth = Mathf.Max(0f, nameEnd > 0f ? nameEnd - FigureRowInset - 4f : width - figuresWidth - FigureRowInset * 3f);
         Color before = GUI.color;
         if (colour is Color tint) GUI.color = tint;
         using (new TextBlock(font, TextAnchor.MiddleLeft))

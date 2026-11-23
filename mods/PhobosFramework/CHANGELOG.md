@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.261.0] - 2026-11-23 - Draft
+
+The Systems tab's electrical loads, with their figures in a column
+
+### Changed
+
+- **The Systems tab's Electrical loads card puts each running load's amps in a column of its own** (the owner's word of 23 November 2026, to match the engine's rows), against the right edge, with all that are running added up on a last row; both in Engineer mode. A load's state no longer runs off the card: it is cut short, and hovering gives it in full. Not yet tested in game: row 435 of the test pass.
+
 ## [0.260.0] - 2026-11-23 - Draft
 
 The Systems tab's engine figures, as rows

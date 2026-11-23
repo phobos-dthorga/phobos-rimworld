@@ -223,7 +223,7 @@ Not yet tested in game. A vehicle loses its jobs before it is a wreck, and every
   send a message when it happens.
 - **The Systems tab shows all of this**: a **Weapons** card (each weapon, its mount's health, ready or out and why, how fast it works
   and how it turns), a **Running gear** card (tracks, and why the vehicle cannot move), an **Electrical loads** card (what is running,
-  cut or without power) and a red **Crew** card when people are aboard a burning or dead vehicle.
+  cut or without power; in Engineer mode, the amps each running load draws and all of them together) and a red **Crew** card when people are aboard a burning or dead vehicle.
 - **On your vehicles, a powered turret needs power.** The **turret drive** draws from the battery while someone mans it. With the
   battery flat, or the load shed when the charging fails, the crew **cranks it round by hand**: a fifth of the speed, aiming twice as
   slowly, but it never stops. Machine guns on their own ring or pintle need no power, including a commander's gun on top of a

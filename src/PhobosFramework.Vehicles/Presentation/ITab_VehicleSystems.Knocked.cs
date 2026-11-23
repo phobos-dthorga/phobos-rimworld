@@ -232,12 +232,10 @@ public partial class ITab_VehicleSystems
         Seen.Note("vehicles.systems-tab.loads-card", comp.Vehicle);
         PhobosWidgets.CardHeader(ref y, 0f, width, "PhobosVehicleSystems_SysLoads".Translate(),
             anyNoPower ? PhobosWidgets.Bad : anyShed ? PhobosWidgets.Caution : PhobosWidgets.Good);
-        float nameEnd = width * 0.5f;
+        float nameEnd = width * LoadNameShare;
         foreach (ElectricalLoadSpec load in loadScratch)
         {
             LoadState state = comp.StateOf(load);
-            var row = new Rect(0f, y, width, Row - 4f);
-            Widgets.DrawHighlightIfMouseover(row);
             (string key, Color colour) = state switch
             {
                 LoadState.Running => ("PhobosVehicleSystems_SysLoadRunning", PhobosWidgets.Good),
@@ -262,21 +260,48 @@ public partial class ITab_VehicleSystems
                 string waits = comp.Automatic(load) && !load.autoStandbyLabel.NullOrEmpty() ? load.autoStandbyLabel : load.standbyLabel;
                 if (!waits.NullOrEmpty()) stateText = waits;
             }
-            if (engineer && state is LoadState.Running or LoadState.NoPower)
+            // Framework 0.261.0 (the owner's word of 23 Nov 2026: "do the same" as the engine's rows): what a running load draws stands in
+            // a column of its own against the right edge, so the figures line up and add up. A load with no power still says what it
+            // wants in its words, never in the column: the column is what is drawn.
+            string amps = "";
+            if (engineer && state == LoadState.Running) amps = Amps(comp.AmpsNow(load));
+            else if (engineer && state == LoadState.NoPower)
                 stateText = "PhobosVehicleSystems_SysLoadAmps".Translate(stateText.Named("STATE"), comp.AmpsNow(load).ToString("0.#").Named("AMPS")).Resolve();
-            using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft))
-            {
-                Widgets.Label(new Rect(6f, y, nameEnd - 10f, Row - 4f), label.Truncate(nameEnd - 10f));
-            }
+            Rect row = PhobosWidgets.FigureRow(ref y, 0f, width, label, amps, nameEnd: nameEnd);
+            // Its state runs to the edge where the row has no figure, and stops short of the figure where it has one.
+            float stateWidth = width - nameEnd - 6f - (amps.Length > 0 ? PhobosWidgets.FigureColumnWidth : 0f);
+            string shownState;
             using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
             {
-                Widgets.Label(new Rect(nameEnd, y, width - nameEnd - 6f, Row - 4f), stateText.Colorize(colour));
+                shownState = stateText.Truncate(stateWidth);
+                Widgets.Label(new Rect(nameEnd, row.y, stateWidth, row.height), shownState.Colorize(colour));
             }
-            if (!load.description.NullOrEmpty() && Mouse.IsOver(row)) TooltipHandler.TipRegion(row, load.description);
-            y += Row - 4f;
+            if (Mouse.IsOver(row))
+            {
+                // Its state in full where it was cut short, then what the load is.
+                string tip = shownState != stateText ? "PhobosVehicleSystems_SysLoadTip".Translate(label.Named("LOAD"), stateText.Named("STATE")).Resolve() : "";
+                if (!load.description.NullOrEmpty()) tip += (tip.Length > 0 ? "\n\n" : "") + load.description;
+                if (tip.Length > 0) TooltipHandler.TipRegion(row, tip);
+            }
+        }
+        // All that are running, together: the vehicle's own sums (the loads on its battery, and the camp's on a house battery), which
+        // count exactly the loads that read as running. Left out under the filter, which shows only what is wrong.
+        if (engineer && !attentionOnly && loadScratch.Count > 1)
+        {
+            Widgets.DrawBoxSolid(new Rect(6f, y, width - 12f, 1f), LedgerRule);
+            y += 1f;
+            Rect all = PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysLoadsAll".Translate(), Amps(comp.ActiveLoadAmps() + comp.CampLoadAmps));
+            TooltipHandler.TipRegion(all, "PhobosVehicleSystems_SysLoadsAllTip".Translate());
+            Seen.Note("vehicles.systems-tab.loads-total", comp.Vehicle);
         }
         PhobosWidgets.CardEnd(top, ref y, 0f, width);
     }
+
+    /// <summary>Where a load's name ends and its state begins, as a share of the card's width.</summary>
+    const float LoadNameShare = 0.5f;
+
+    /// <summary>A current in amps with its unit.</summary>
+    static string Amps(float amps) => "PhobosVehicleSystems_SysAmps".Translate(amps.ToString("0.#").Named("AMPS")).Resolve();
 
     // ---- Shared ----
 

@@ -196,6 +196,11 @@
   <!-- Framework 0.123.0 (G12). -->
   <PhobosVehicleSystems_SysLoadShorted>dead: its wiring is shorted</PhobosVehicleSystems_SysLoadShorted>
   <PhobosVehicleSystems_SysLoadAmps>{STATE}, {AMPS} A</PhobosVehicleSystems_SysLoadAmps>
+  <!-- Framework 0.261.0: what a running load draws in a column of its own, and all of them together. -->
+  <PhobosVehicleSystems_SysAmps>{AMPS} A</PhobosVehicleSystems_SysAmps>
+  <PhobosVehicleSystems_SysLoadTip>{LOAD}: {STATE}</PhobosVehicleSystems_SysLoadTip>
+  <PhobosVehicleSystems_SysLoadsAll>All that are running</PhobosVehicleSystems_SysLoadsAll>
+  <PhobosVehicleSystems_SysLoadsAllTip>What the running loads draw together now.</PhobosVehicleSystems_SysLoadsAllTip>
   <!-- What feeds a fitting (Framework 0.115.0, W4). {WHAT} is the fitting in words ("the winch"). -->
   <PhobosFeeds_EngineOff>{VEHICLE}'s engine must be running for {WHAT} to work.</PhobosFeeds_EngineOff>
   <PhobosFeeds_NoPower>{VEHICLE} has no power for {WHAT}: the battery is flat, or the load has been shed. Run the engine to charge it.</PhobosFeeds_NoPower>
