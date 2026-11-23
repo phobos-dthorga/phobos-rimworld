@@ -11,6 +11,7 @@ research or design with nothing built; **living** means kept current by every ch
 
 - [Project direction](project-direction.md): intent, the owner's game, decisions with who made them, and open checks. Living.
 - [Building, testing and deploying](building.md): every C# project, the gate, what runs on GitHub, deploying to the game. Living.
+- [Every setting of every mod](settings-reference.md) (23 Nov 2026): generated from the code and language files; for contributors. Living.
 - [The modders' reference site](reference-site.md) (23 Nov 2026): the DocFX site of the Framework's types, with XML examples; built, not yet published.
 - [Analysis tooling](analysis-tooling.md) (7 Nov 2026): the tools for logs, saves, Defs, assemblies and the Workshop. Living.
 - [Writing READMEs and in-game text](player-language.md): plain words for players with no radio, engineering or coding knowledge. Living.

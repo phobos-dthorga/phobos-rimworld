@@ -108,6 +108,81 @@
           "z3nt3.uh60blackhawk": "UH-60M Black Hawk (Vehicle Framework)"
         }
       }
+    },
+    {
+      "doc": "docs/development/settings-reference.md",
+      "kind": "mod-settings",
+      "options": {
+        "game": "rimworld",
+        "sources": [
+          "src/PhobosFactory",
+          "src/PhobosFactory.*"
+        ],
+        "mod": "mods/PhobosFactoryAdditions"
+      },
+      "name": "settings-PhobosFactoryAdditions"
+    },
+    {
+      "doc": "docs/development/settings-reference.md",
+      "kind": "mod-settings",
+      "options": {
+        "game": "rimworld",
+        "sources": [
+          "src/PhobosFarming"
+        ],
+        "mod": "mods/PhobosFarming"
+      },
+      "name": "settings-PhobosFarming"
+    },
+    {
+      "doc": "docs/development/settings-reference.md",
+      "kind": "mod-settings",
+      "options": {
+        "game": "rimworld",
+        "sources": [
+          "src/PhobosFramework",
+          "src/PhobosFramework.*"
+        ],
+        "mod": "mods/PhobosFramework"
+      },
+      "name": "settings-PhobosFramework"
+    },
+    {
+      "doc": "docs/development/settings-reference.md",
+      "kind": "mod-settings",
+      "options": {
+        "game": "rimworld",
+        "sources": [
+          "src/PhobosMedical",
+          "src/PhobosMedical.*"
+        ],
+        "mod": "mods/PhobosMedical"
+      },
+      "name": "settings-PhobosMedical"
+    },
+    {
+      "doc": "docs/development/settings-reference.md",
+      "kind": "mod-settings",
+      "options": {
+        "game": "rimworld",
+        "sources": [
+          "src/PhobosPatches.*"
+        ],
+        "mod": "mods/PhobosPatches"
+      },
+      "name": "settings-PhobosPatches"
+    },
+    {
+      "doc": "docs/development/settings-reference.md",
+      "kind": "mod-settings",
+      "options": {
+        "game": "rimworld",
+        "sources": [
+          "src/PhobosRadio"
+        ],
+        "mod": "mods/PhobosRadioFramework"
+      },
+      "name": "settings-PhobosRadioFramework"
     }
   ]
 }
