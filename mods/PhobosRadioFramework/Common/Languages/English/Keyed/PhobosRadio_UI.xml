@@ -27,6 +27,8 @@
   <PhobosRadio_StationChannelKind>  {KIND}: {HELD} in use by {SERVED} radios; room for {ROOM} more.</PhobosRadio_StationChannelKind>
   <PhobosRadio_TabOnChannel>(channel {CHANNEL})</PhobosRadio_TabOnChannel>
   <PhobosRadio_TabBusy>(net busy: no free channel)</PhobosRadio_TabBusy>
+  <PhobosRadio_TabStandingBy>(standing by)</PhobosRadio_TabStandingBy>
+  <PhobosRadio_StandingBy>Standing by: this radio takes a channel only while it is driven from a station.</PhobosRadio_StandingBy>
   <PhobosRadio_GizmoNoPower>Radio: station has no power</PhobosRadio_GizmoNoPower>
   <PhobosRadio_StationNoPower>The base station has no power, so there is nothing to reach.</PhobosRadio_StationNoPower>
   <PhobosRadio_GizmoStation>Net: {INTOUCH} of {TOTAL} in touch</PhobosRadio_GizmoStation>
@@ -35,8 +37,8 @@
 
   <!-- Station inspect text. -->
   <PhobosRadio_StationWaitingPower>Waiting for power.</PhobosRadio_StationWaitingPower>
-  <PhobosRadio_StationNoRadios>No hand-held radios worn on this map.</PhobosRadio_StationNoRadios>
-  <PhobosRadio_StationInTouch>In touch: {INTOUCH} of {TOTAL} hand-helds.</PhobosRadio_StationInTouch>
+  <PhobosRadio_StationNoRadios>No hand-held radios worn on this map, and no vehicle with a radio.</PhobosRadio_StationNoRadios>
+  <PhobosRadio_StationInTouch>In touch: {INTOUCH} of {TOTAL} radios.</PhobosRadio_StationInTouch>
   <PhobosRadio_StationAntenna>Antenna: {ANTENNA}</PhobosRadio_StationAntenna>
   <PhobosRadio_AntennaBuiltIn>built-in whip</PhobosRadio_AntennaBuiltIn>
 

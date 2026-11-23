@@ -109,6 +109,29 @@ public class ChannelKindDef : Def
 }
 
 /// <summary>
+/// A radio fitted to something that does not wear one (Radio 0.10.0; the autonomous vehicles record, step 2): a vehicle's control
+/// radio, written once and named by every vehicle that carries it. Its <see cref="radio"/> is the comp's figures, as on any radio:
+/// bands, mode, power, antenna height and the kind of channel use it asks for. A tie-in puts it on the things that name it.
+/// </summary>
+public class RadioFittingDef : Def
+{
+    public CompProperties_Radio? radio;
+
+    public override IEnumerable<string> ConfigErrors()
+    {
+        foreach (var error in base.ConfigErrors()) yield return error;
+        if (radio == null)
+        {
+            yield return $"{defName}: a radio fitting needs a radio";
+            yield break;
+        }
+        if (radio.bands.Count == 0) yield return $"{defName}: its radio needs at least one band";
+        if (radio.mode == null) yield return $"{defName}: its radio needs a mode";
+        if (radio.isStation) yield return $"{defName}: a fitted radio is never a station";
+    }
+}
+
+/// <summary>
 /// The starting values the design says to tune in play. One Def; the first one loaded wins.
 /// Player preferences (display mode, metres per cell, the thought) are mod settings, not rules.
 /// </summary>

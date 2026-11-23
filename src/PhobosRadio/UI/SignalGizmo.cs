@@ -16,10 +16,12 @@ public static class SignalGizmo
     public static Gizmo ForHandheld(CompRadio radio, LinkEvaluation? link)
     {
         var mode = RadioMod.Settings.displayMode;
-        var wearer = radio.Wearer;
+        // The wearer of a hand-held, or the vehicle a radio is built into (Radio 0.10.0).
+        var wearer = radio.Holder;
         var unpowered = link == null && wearer?.Map != null && RadioNet.For(wearer.Map).HasUnpoweredStation;
         // In touch, but every channel that can hear it is taken (Radio 0.7.0).
         var busy = link != null && wearer?.Map != null && RadioNet.For(wearer.Map).IsBusy(wearer);
+        var standingBy = wearer?.Map != null && RadioNet.For(wearer.Map).IsStandingBy(wearer);
         var label = unpowered
             ? "PhobosRadio_GizmoNoPower".Translate()
             : link == null
@@ -29,17 +31,20 @@ public static class SignalGizmo
                     : "PhobosRadio_GizmoLabel".Translate(LinkText.Bars(link!.Outcome).ToString().Named("BARS"));
         var description = unpowered
             ? "PhobosRadio_StationNoPower".Translate().Resolve()
-            : (busy ? "PhobosRadio_NetBusy".Translate() + "\n" : "") + LinkText.Describe(link, mode);
+            : (busy ? "PhobosRadio_NetBusy".Translate() + "\n" : "") + (standingBy ? "PhobosRadio_StandingBy".Translate() + "\n" : "") +
+              LinkText.Describe(link, mode);
+        // A built-in radio's own label is the vehicle's: name the radio's kind instead.
+        var title = radio.parent is Pawn ? radio.Kind.LabelCap.ToString() : radio.parent.LabelCap.ToString();
         return new Command_Action
         {
             defaultLabel = label,
-            defaultDesc = radio.parent.LabelCap + "\n" + description,
+            defaultDesc = title + "\n" + description,
             icon = RadioTextures.Signal,
             action = () =>
             {
                 if (wearer == null) return;
                 var map = wearer.Map;
-                Find.WindowStack.Add(new Dialog_LinkBudget(wearer.LabelShortCap + ": " + radio.parent.LabelCap, () =>
+                Find.WindowStack.Add(new Dialog_LinkBudget(wearer.LabelShortCap + ": " + title, () =>
                     wearer.Spawned && wearer.Map == map && RadioNet.For(map).TryGetBest(wearer, out var current) ? current : null));
             },
         };
@@ -56,7 +61,7 @@ public static class SignalGizmo
         lines.AppendLine(LinkText.ChannelsLine(net.ChannelsOf(station.parent)));
         foreach (var pair in pairs)
         {
-            var wearer = (pair.A.Thing as RimWorld.Apparel)?.Wearer;
+            var wearer = CompRadio.HolderOf(pair.A.Thing);
             lines.AppendLine($"  {LinkText.Bars(pair.Outcome)} {wearer?.LabelShortCap ?? pair.A.Thing.LabelCap}: {LinkText.OutcomeLabel(pair.Outcome)}");
         }
         return new Command_Action

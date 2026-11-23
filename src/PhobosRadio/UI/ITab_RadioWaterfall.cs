@@ -124,7 +124,7 @@ public class ITab_RadioWaterfall : ITab
             var channel = net.ChannelOf(station.parent, radio);
             if (channel < 0 || net.LedgerOf(station.parent, radio) is not { } ledger) continue;
             var centre = (channel + Mathf.Max(1, ledger.Shape.ChannelsPerUse) / 2f) / channelCount;
-            var wearer = (radio as Apparel)?.Wearer;
+            var wearer = CompRadio.HolderOf(radio);
             radios.Add((wearer?.LabelShort ?? radio.LabelShort, Mathf.Clamp(Mathf.RoundToInt(Bins * centre), 0, Bins - 1), channel,
                 (float)link.Budget.Forward.ReceivedDbm, radio));
         }

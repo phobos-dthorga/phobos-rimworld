@@ -17,6 +17,26 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.10.0] - 2026-11-24 - Draft
+
+Radios fitted to vehicles: a vehicle's radio joins the net and shows its link
+
+### Added
+
+- **A vehicle can carry a radio of its own**, the second step of the remote control of vehicles the owner asked for on 24 November
+  2026. With Vehicle Framework active, a vehicle that names a radio fitting is built with that radio, and once its upgrade is done
+  it joins the net: its own signal button shows its bars, the station's Net tab lists it, and selecting it draws the line to the
+  antenna. Until vehicles can be driven from a station it stands by and takes no channel. No vehicle carries one yet; a dev action
+  fits one to a selected vehicle until the game is loaded again. Not yet tested in game: row 486.
+
+### Changed
+
+- **The station counts radios, not hand-helds**: "In touch: 2 of 3 radios", as a vehicle's radio counts too.
+
+### Compatibility and limits
+
+- Safe with a running save: nothing new is saved. No new settings. The Vehicle Framework part loads only with that mod.
+
 ## [0.9.0] - 2026-11-24 - Draft
 
 Vehicle kinds: orders to vehicles can take a channel from talk

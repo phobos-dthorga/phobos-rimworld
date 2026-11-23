@@ -63,6 +63,15 @@ public class CompRadio : ThingComp
     /// <summary>The pawn wearing this hand-held, or null for a station or an unworn radio.</summary>
     public Pawn? Wearer => (parent as Apparel)?.Wearer;
 
+    /// <summary>
+    /// Who the radio goes with: the wearer of a hand-held, or the pawn a radio is built into (a vehicle; Radio 0.10.0); null for a
+    /// station or a radio lying about.
+    /// </summary>
+    public Pawn? Holder => Props.isStation ? null : Wearer ?? parent as Pawn;
+
+    /// <summary>The pawn a radio thing goes with, as the net's links name it: a hand-held's wearer, or the vehicle a radio is built into.</summary>
+    public static Pawn? HolderOf(Thing radio) => (radio as Apparel)?.Wearer ?? radio as Pawn;
+
     /// <summary>The extra draw while the station is in use: transmitter input power times the duty cycle.</summary>
     public float TransmitDrawWatts => Props.transmitPowerWatts / Mode.transmitEfficiency * Mode.dutyCycle;
 
@@ -100,8 +109,19 @@ public class CompRadio : ThingComp
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
     {
-        if (!Props.isStation || !parent.Spawned || parent.Faction != Faction.OfPlayer) yield break;
-        yield return SignalGizmo.ForStation(this, RadioNet.For(parent.Map));
+        if (!parent.Spawned || parent.Faction != Faction.OfPlayer) yield break;
+        var net = RadioNet.For(parent.Map);
+        if (Props.isStation)
+        {
+            yield return SignalGizmo.ForStation(this, net);
+            yield break;
+        }
+        // A radio built into a vehicle (Radio 0.10.0): its bars, while the net counts it (a tie-in may say it is not fitted).
+        if (parent is Pawn carrier && net.Carries(carrier))
+        {
+            net.TryGetBest(carrier, out var link);
+            yield return SignalGizmo.ForHandheld(this, link);
+        }
     }
 
     /// <summary>An upgrade fitted to a station or taken off: the net and the picture work it in at once (Radio 0.4.0).</summary>

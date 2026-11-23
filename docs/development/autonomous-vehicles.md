@@ -1,8 +1,9 @@
 # Autonomous vehicles by radio (24 Nov 2026)
 
-**Status (24 Nov 2026):** step 1 of 7 is built: the vehicle control and picture kinds, and control taking channels from talk, in
-Radio Framework 0.9.0, on the ledger by kind of 0.8.0 ([radio stations](radio-stations.md#kinds-radio-080)); no radio uses them
-yet. Steps 2 to 7 are not built. Nothing is tested in game.
+**Status (24 Nov 2026):** steps 1 and 2 of 7 are built, in Radio Framework 0.9.0 and 0.10.0: the vehicle control and picture
+kinds, control taking channels from talk ([radio stations](radio-stations.md#kinds-radio-080)), and radios fitted to vehicles,
+whose links are worked out and shown while they stand by ([below](#step-2-radios-fitted-to-vehicles-radio-0100)). No vehicle
+carries the kit yet (step 4), and none can be driven from a station (step 3). Steps 3 to 7 are not built. Nothing is tested in game.
 
 The owner, 24 Nov 2026: "the real feature I wish to implement soon is autonomous vehicles and perhaps their weapon systems too, all
 via our radio framework." **[O]** It builds on what the owner chose on 18 and 19 Nov 2026 in
@@ -17,8 +18,9 @@ beside it. **[A]** an agent's default or authored figure, for the owner to revis
 
 ## Read this first
 
-- **Built so far: the ledger's kinds and pre-emption** (step 1, Radio 0.9.0). No vehicle carries a radio yet, so nothing
-  below can be seen in play; nothing is tested in game.
+- **Built so far: the ledger's kinds and pre-emption** (step 1, Radio 0.9.0) **and radios fitted to vehicles** (step 2, Radio
+  0.10.0). No vehicle carries the kit yet: a dev action fits a radio to a vehicle until the game is loaded again, to see its
+  links. Nothing is tested in game.
 - **The owner's four cards of 24 Nov 2026 [O]:** our **service trucks get a remote-control kit first**; **a colonist works the
   console** while vehicles are driven; **lost link is chosen per vehicle, hold by default**; **remote guns fire only while an
   operator has a picture link**, with a setting, **off by default**, that lets them fire on their own.
@@ -125,6 +127,33 @@ flowchart LR
 - **An armed crewless vehicle is a threat.** Vehicle Framework ignores an empty vehicle unless a comp says it is a threat
   (18 Nov read, `VehiclePawn_AI.cs:92-106`); our kit says so while a gun is fitted. The owner accepted this with the remote station.
 
+### Step 2: radios fitted to vehicles (Radio 0.10.0)
+
+Built 24 Nov 2026, not yet tested in game.
+
+- **The seam [code: `Services/CarriedRadios.cs`]:** the net now counts a radio built into a pawn of the colony that is not a person
+  (a vehicle; a mechanoid later), besides worn hand-helds. A tie-in registers a rule (`ICarriedRadioRule`) that says what each one
+  does: **off** (not fitted), **standing by** (its links are worked out and shown, but it asks no channel), or **in use** (it asks a
+  channel of its kind, as a hand-held does). With no rule answering, a built-in radio is in use. The net never names a vehicle.
+- **The fitting [code: `RadioFittingDef`, `Common/Defs/Radio/Fittings.xml`] [A]:** the vehicle control radio's figures, written once:
+  VHF, the control data mode, the vehicle control kind, 25 W, a whip on the cab about 3 m up with no gain over a plain whip, noise
+  figure 8 dB. All authored.
+- **The tie-in [code: `src/PhobosRadio.Vehicles`]**, its own assembly in the Radio Framework's `Mods/VehicleFramework/1.7`, loaded
+  only with Vehicle Framework: a vehicle def that names a fitting (`Phobos.Radio.Vehicles.VehicleRadioFitting`, with the key of the
+  upgrade node that fits it) is given that radio's comp at start-up, so every vehicle of it is built with one. Its rule says
+  **standing by** once the node is done (or when none is named) and **off** before. Step 3 makes it **in use** while the vehicle is
+  under station control.
+- **What shows:** the vehicle's own signal button (its bars, "no station", or standing by); its row in the station's Net tab
+  ("(standing by)"); the ray line from the vehicle to its antenna while it is selected; the station's count now says "radios", not
+  "hand-helds". A vehicle standing by holds no channel, so it pre-empts nobody.
+- **Testing before step 4:** the dev action "Fit a control radio to selected vehicles (until loaded again)" puts the radio on any
+  vehicle for the session; nothing is saved, so loading the game takes it off.
+- **Its cost:** each recompute (about once a second) looks up a radio comp on each spawned pawn of the colony that is not a person (a
+  dictionary lookup in the game's own comp table) and asks the rules once for each vehicle with one; each fitted vehicle then costs
+  what a worn hand-held costs, one link per station antenna. The start-up pass over vehicle defs runs once. Nothing per tick or frame.
+- **Other factions [A]:** only the colony's pawns join our net, so a raider's vehicle with the fitting costs nothing here and does
+  nothing; a captured one joins once it is ours.
+
 ## The four questions
 
 - **What it lets the player do:** send a truck where no colonist should go (a supply run past a raid, a fire, a toxic fallout zone),
@@ -170,16 +199,17 @@ flowchart LR
   state from whoever provides it, so the mechanitor level can feed it the same way later.
 - **The Radio Framework's Vehicle Framework tie-in** (a new assembly in its `Mods/VehicleFramework` folder, loaded only with Vehicle
   Framework) adds kitted vehicles to the radio net, holds their channels, and gives the kit its link each pass. The net gets one
-  seam for radios that are not worn, so it never names a vehicle itself.
+  seam for radios that are not worn, so it never names a vehicle itself. **Built in Radio 0.10.0** ([step 2](#step-2-radios-fitted-to-vehicles-radio-0100)):
+  `src/PhobosRadio.Vehicles`, with the seam `CarriedRadios` in the core.
 - **D'thorga Vehicles** holds the kit's upgrade nodes on the trucks, their antenna overlays, and the remote gun when MV8 builds it.
-- The tie-in register (`docs/development/tie-in-register.md`) gains the new folder in the same commit.
+- The tie-in register (`docs/development/tie-in-register.md`) gains the new folder in the same commit (done in Radio 0.10.0).
 
 ## The steps [A]
 
 | # | Step | Mod | Needs |
 | --- | --- | --- | --- |
 | 1 | The two kinds, and pre-emption in the ledger, with tests. **Built in Radio 0.9.0** | Radio | Nothing |
-| 2 | A seam in the net for radios that are not worn; the tie-in adds kitted vehicles and shows their links | Radio | 1 |
+| 2 | A seam in the net for radios that are not worn; the tie-in adds kitted vehicles and shows their links. **Built in Radio 0.10.0** | Radio | 1 |
 | 3 | The kit's comp, the move-check postfix, lost-link choices and letters | Framework | 2 to be useful |
 | 4 | The kit as an upgrade node on the five service trucks, with its antenna overlay (art first, as the owner's rule says) | Vehicles | 3 |
 | 5 | The operator's job and work type | Radio | 2 |

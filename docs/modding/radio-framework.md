@@ -16,6 +16,13 @@ Everything is a Def:
   served after it that do not pre-empt, the weakest first and no more than it needs). Kinds fill blocks of channels of their
   own and are listed apart on the station. Ours: `PhobosRadio_KindVehicleControl` (pre-empts), `PhobosRadio_KindVehiclePicture`
   and `PhobosRadio_KindLocalVoice`. Add one for a new use of the radio rather than a second system of frequencies.
+- `Phobos.Radio.RadioFittingDef` (0.10.0): a radio fitted to something that wears none, its `radio` the comp's figures as on any
+  radio. Ours: `PhobosRadio_FittingVehicleControl`. With Vehicle Framework, a vehicle def names one with the tie-in's
+  `Phobos.Radio.Vehicles.VehicleRadioFitting` extension (`fitting`, and `upgradeNode`, the key of the node that fits it; empty
+  for always fitted), and every vehicle of it is built with that radio.
+- `Phobos.Radio.Services.CarriedRadios` (0.10.0): the net counts a radio comp on any spawned pawn of the colony that is not a
+  person. Register an `ICarriedRadioRule` to say what yours does: `Off`, `StandingBy` (links shown, no channel asked) or `InUse`;
+  with no rule answering it is in use.
 - `Phobos.Radio.CompProperties_Radio`, on any apparel or building; its `channelKind` (0.8.0) names its kind, local voice when
   empty; a station's `channels` (0.7.0) is how many 25 kHz channels it
   brings to the ledger (`RadioRulesDef.channelWidthHz`); a mode takes as many as its `bandwidthHz` needs, and radios share one by

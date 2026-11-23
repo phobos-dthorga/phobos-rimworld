@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Radio Framework's Vehicle Framework tie-in (Radio 0.10.0; docs/development/autonomous-vehicles.md, step 2). Its own
+       assembly in Mods/VehicleFramework/1.7, which LoadFolders.xml loads only while Vehicle Framework is active: it gives vehicles that
+       name a radio fitting that radio, and tells the net whether each one's radio is in place. The radio's core never names a vehicle.
+       RimWorld 1.7 only. Other mods' assemblies are referenced from the installed mods, never copied. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.Radio.Vehicles</RootNamespace>
+    <AssemblyName>PhobosRadio.Vehicles</AssemblyName>
+    <ModFolder>PhobosRadioFramework</ModFolder>
+    <TieInFolder>Mods/VehicleFramework/</TieInFolder>
+    <Version>0.10.0</Version>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosRadio/PhobosRadio.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Vehicles">
+      <HintPath>$(VehicleFrameworkAssemblies)\Vehicles.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SmashTools">
+      <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

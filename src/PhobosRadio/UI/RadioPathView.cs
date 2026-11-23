@@ -68,7 +68,8 @@ public sealed class RadioPathView : MapComponent
         RadioNet? net = null;
         foreach (var obj in selected)
         {
-            if (obj is not Pawn pawn || pawn.Map != map || !WearsRadio(pawn)) continue;
+            // A colonist with a hand-held, or a vehicle with a radio built in (Radio 0.10.0): the net has a best link for either.
+            if (obj is not Pawn pawn || pawn.Map != map) continue;
             net ??= RadioNet.For(map);
             if (!net.TryGetBest(pawn, out var link) || link == null) continue;
             var path = LinkPath.For(map, link);
@@ -87,16 +88,6 @@ public sealed class RadioPathView : MapComponent
         {
             foreach (var (at, text, color) in Labels(path, link, mode)) GenMapUI.DrawThingLabel(at.MapToUIPosition(), text, color);
         }
-    }
-
-    private static bool WearsRadio(Pawn pawn)
-    {
-        if (pawn.apparel == null) return false;
-        foreach (var apparel in pawn.apparel.WornApparel)
-        {
-            if (apparel.TryGetComp<CompRadio>() is { Props.isStation: false }) return true;
-        }
-        return false;
     }
 
     private static Vector3 At(IntVec3 cell) => cell.ToVector3ShiftedWithAltitude(AltitudeLayer.MetaOverlays);

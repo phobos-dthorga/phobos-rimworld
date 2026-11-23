@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Radios fitted to things that do not wear one (Radio 0.10.0; docs/development/autonomous-vehicles.md, step 2). A vehicle names a
+       fitting, and the upgrade that puts it in place, through the Vehicle Framework tie-in's Phobos.Radio.Vehicles.VehicleRadioFitting
+       extension; the tie-in gives every vehicle that names one this radio. Its figures are an agent default, all authored, for the
+       owner to revise: a mobile data radio of about a car set's power, on VHF, with a whip on the cab roof about 3 m up. -->
+
+  <Phobos.Radio.RadioFittingDef>
+    <defName>PhobosRadio_FittingVehicleControl</defName>
+    <label>vehicle control radio</label>
+    <description>A data radio and a whip antenna on a vehicle's cab, for taking orders from a radio station while nobody drives it.</description>
+    <radio>
+      <bands>
+        <li>PhobosRadio_VHF</li>
+      </bands>
+      <mode>PhobosRadio_ControlData</mode>
+      <channelKind>PhobosRadio_KindVehicleControl</channelKind>
+      <transmitPowerWatts>25</transmitPowerWatts>
+      <noiseFigureDb>8</noiseFigureDb>
+      <antennaGainDbi>0</antennaGainDbi>
+      <antennaHeightMetres>3</antennaHeightMetres>
+    </radio>
+  </Phobos.Radio.RadioFittingDef>
+</Defs>

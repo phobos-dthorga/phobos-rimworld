@@ -7,11 +7,11 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 ## Read this first
 
-- **84 tie-in folders across seven mods** (recounted 24 Nov 2026: Vehicles 29, Patches 21, Factory Additions 16, Framework 9,
-  Medical 7, Farming 1, Water Tap 1; 98 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or `Common`
-  subfolder are listed as separate entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's `LoadFolders.xml`,
-  plus a handful of tie-ins in C# that check for a mod by name. D'thorga Radio has none (Vanilla Expanded Framework's pipe system
-  is a hard dependency there, not a tie-in).
+- **85 tie-in folders across eight mods** (recounted 24 Nov 2026: Vehicles 29, Patches 21, Factory Additions 16, Framework 9,
+  Medical 7, Farming 1, Radio Framework 1, Water Tap 1; 99 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
+  `Common` subfolder are listed as separate entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's
+  `LoadFolders.xml`, plus a handful of tie-ins in C# that check for a mod by name. D'thorga Radio Framework's first, Vehicle
+  Framework, came in its 0.10.0 (Vanilla Expanded Framework's pipe system is a hard dependency there, not a tie-in).
 - **No tie-in hard-references another author's assembly.** C# finds their types and Defs by name through
   `src/PhobosFramework/OptionalMods.cs`; code that must name their types sits in its own assembly under the tie-in's `1.7` folder.
 - **A patch for another author's fault** is a tie-in too, and is listed here as one, but its record is
@@ -123,6 +123,14 @@ Hard dependencies: Harmony, D'thorga Framework, Vanilla Expanded Framework and V
 | Vehicle Framework (`SmashPhil.VehicleFramework`) | Every part made at D'thorga Framework's vehicle parts bench as a bill on the automated fabrication bay (0.13.0, SD30) | `MayRequire` in `BenchBills_FabricationBay.xml` (no folder) |
 | Dubs Bad Hygiene | **C# + XML**: factory machines draw plumbed water; food bills wait for water and carry food-poisoning rules | `Mods/DubsBadHygiene`, its `1.7` assembly |
 | The Dead Man's Switch (`aoba.deadmanswitch.core`) | Factory hoppers link to its automatic benches as material sources; its feed hopper is a factory hopper whose filter belts obey (0.14.0, UH6) | `Mods/DeadManSwitch` |
+
+## D'thorga Radio Framework
+
+Hard dependencies: D'thorga Framework and Vanilla Expanded Framework.
+
+| Other mod (packageId) | What the tie-in does | Where |
+| --- | --- | --- |
+| Vehicle Framework (`SmashPhil.VehicleFramework`) | Radios fitted to vehicles (0.10.0): a vehicle whose def names a radio fitting is built with that radio, and joins the radio net once its upgrade is done; its own assembly, `src/PhobosRadio.Vehicles` ([autonomous vehicles by radio](autonomous-vehicles.md), step 2) | `Mods/VehicleFramework/1.7` |
 
 ## D'thorga Water Tap
 

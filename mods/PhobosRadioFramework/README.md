@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.9.0, built 24 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.10.0, built 24 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -25,8 +25,8 @@ Version 0.9.0, built 24 November 2026 for House D'thorga. **Not yet tested in ga
 - **Channels, from 0.7.0**: each station serves as many radios as its channels hold (the desk 5, the terminal 20, five to a
   25 kHz channel for voice). Past that, a colonist in touch reads **net busy** and gets no "in touch" mood: add a station or a
   second transceiver. **From 0.8.0** the station lists each kind of use apart (local voice for now), with the room left for it. **From 0.9.0**
-  the ledger knows two kinds for vehicles driven from a station, whose orders can take a channel from talk; no radio uses them
-  yet.
+  the ledger knows two kinds for vehicles driven from a station, whose orders can take a channel from talk. **From 0.10.0**,
+  with Vehicle Framework, a vehicle can carry a radio that joins the net and shows its link; none carries one yet.
 - **The upgrades are experimental**: the desk, the whip and the mast each have an **Upgrades** button.
 - **Safe to add to a running colony.**
 - **Safe to remove once you deconstruct every radio building and drop every hand-held.** The first load afterwards shows one

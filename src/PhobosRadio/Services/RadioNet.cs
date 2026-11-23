@@ -37,8 +37,8 @@ public sealed class StationChannels
 }
 
 /// <summary>
-/// The map's radio picture: every worn hand-held evaluated against every base station, recomputed on
-/// a short interval and never saved. Gizmos, inspect strings and the thought read this cache; nothing
+/// The map's radio picture: every worn hand-held, and every radio built into a vehicle of the colony (Radio 0.10.0,
+/// <see cref="CarriedRadios"/>), evaluated against every base station, recomputed on a short interval and never saved. Gizmos, inspect strings and the thought read this cache; nothing
 /// else computes a link. Since Radio 0.7.0 it also keeps the channel ledger: which station serves each radio in touch, from each
 /// station's pool of channels (<see cref="Channels"/>), counted by kind since 0.8.0 (<see cref="ChannelKindDef"/>).
 /// </summary>
@@ -56,7 +56,12 @@ public sealed class RadioNet : MapComponent
     private readonly Dictionary<Thing, int> inTouchByStation = new();
     private readonly Dictionary<Thing, string> antennaLabelByStation = new();
     private readonly List<CompRadio> stations = new();
-    private readonly List<CompRadio> wornRadios = new();
+    /// <summary>Every radio that goes with a pawn: worn hand-helds, and radios built into vehicles (Radio 0.10.0), with that pawn.</summary>
+    private readonly List<(CompRadio radio, Pawn holder)> mobileRadios = new();
+    /// <summary>The pawns a radio is built into that the net counts now (Radio 0.10.0).</summary>
+    private readonly HashSet<Pawn> carriers = new();
+    /// <summary>Built-in radios whose links are worked out but which ask no channel (<see cref="CarriedRadioUse.StandingBy"/>).</summary>
+    private readonly HashSet<Thing> standingBy = new();
     /// <summary>The station each radio in touch is served by, kept between recomputes so a holder keeps its channel. Never saved.</summary>
     private Dictionary<int, int> held = new();
     private readonly Dictionary<Pawn, Thing> servedBy = new();
@@ -129,6 +134,20 @@ public sealed class RadioNet : MapComponent
     {
         EnsureFresh();
         return servedBy.TryGetValue(pawn, out var station) ? station : null;
+    }
+
+    /// <summary>Whether the net counts a radio built into this pawn now (a vehicle with its radio fitted; Radio 0.10.0).</summary>
+    public bool Carries(Pawn pawn)
+    {
+        EnsureFresh();
+        return carriers.Contains(pawn);
+    }
+
+    /// <summary>A radio built into this pawn has its links worked out but asks no channel until it is in use (Radio 0.10.0).</summary>
+    public bool IsStandingBy(Pawn pawn)
+    {
+        EnsureFresh();
+        return standingBy.Contains(pawn);
     }
 
     /// <summary>In touch with a station, but every station that can hear them has its channels full: the net is busy for them.</summary>
@@ -234,7 +253,9 @@ public sealed class RadioNet : MapComponent
         inTouchByStation.Clear();
         antennaLabelByStation.Clear();
         stations.Clear();
-        wornRadios.Clear();
+        mobileRadios.Clear();
+        carriers.Clear();
+        standingBy.Clear();
         servedBy.Clear();
         busy.Clear();
         servedOn.Clear();
@@ -251,17 +272,17 @@ public sealed class RadioNet : MapComponent
         Clear();
         noise.Snapshot(map, rules);
         CollectStations();
+        // Before the check below, so a vehicle's radio still shows "no station" (Radio 0.10.0).
+        CollectMobileRadios();
         if (stations.Count == 0) return;
-        CollectWornRadios();
 
         var metresPerCell = RadioMod.Settings.metresPerCell;
         foreach (var station in stations)
         {
             var stationEnds = StationEndpoints(station, metresPerCell);
             LinkEvaluation? strongest = null;
-            foreach (var handheld in wornRadios)
+            foreach (var (handheld, wearer) in mobileRadios)
             {
-                var wearer = handheld.Wearer!;
                 var handheldEnd = RadioEndpoint.BuiltIn(handheld.parent, wearer.Position, handheld);
                 LinkEvaluation? link = null;
                 foreach (var stationEnd in stationEnds)
@@ -311,7 +332,8 @@ public sealed class RadioNet : MapComponent
         var linksByRadio = new Dictionary<Thing, List<LinkEvaluation>>();
         foreach (var pair in pairs)
         {
-            if (!pair.InTouch) continue;
+            // A built-in radio standing by is shown, never served (Radio 0.10.0).
+            if (!pair.InTouch || standingBy.Contains(pair.A.Thing)) continue;
             if (!linksByRadio.TryGetValue(pair.A.Thing, out var links)) linksByRadio[pair.A.Thing] = links = new List<LinkEvaluation>();
             links.Add(pair);
         }
@@ -341,7 +363,7 @@ public sealed class RadioNet : MapComponent
         var kindOf = new Dictionary<Thing, int>();
         foreach (var (radio, kind, _) in ordered)
         {
-            var wearer = (radio as Apparel)?.Wearer;
+            var wearer = CompRadio.HolderOf(radio);
             if (!served.TryGetValue(radio.thingIDNumber, out var stationId) || !stationById.TryGetValue(stationId, out var station))
             {
                 if (wearer != null) busy.Add(wearer);
@@ -393,7 +415,12 @@ public sealed class RadioNet : MapComponent
         }
     }
 
-    private void CollectWornRadios()
+    /// <summary>
+    /// Worn hand-helds, then radios built into the colony's pawns that are not people (a vehicle's, through
+    /// <see cref="CarriedRadios"/>; Radio 0.10.0). Cost: the colony's free colonists' apparel, as before, and one comp lookup for each
+    /// other spawned pawn of the colony (its vehicles, animals and mechanoids), about once a second.
+    /// </summary>
+    private void CollectMobileRadios()
     {
         foreach (var pawn in map.mapPawns.FreeColonistsSpawned)
         {
@@ -401,8 +428,19 @@ public sealed class RadioNet : MapComponent
             foreach (var apparel in pawn.apparel.WornApparel)
             {
                 var radio = apparel.TryGetComp<CompRadio>();
-                if (radio != null && !radio.Props.isStation) wornRadios.Add(radio);
+                if (radio != null && !radio.Props.isStation) mobileRadios.Add((radio, pawn));
             }
+        }
+        foreach (var pawn in map.mapPawns.SpawnedPawnsInFaction(Faction.OfPlayer))
+        {
+            if (pawn.RaceProps.Humanlike) continue;
+            var radio = pawn.GetComp<CompRadio>();
+            if (radio == null || radio.Props.isStation) continue;
+            var use = CarriedRadios.UseOf(pawn, radio);
+            if (use == CarriedRadioUse.Off) continue;
+            mobileRadios.Add((radio, pawn));
+            carriers.Add(pawn);
+            if (use == CarriedRadioUse.StandingBy) standingBy.Add(pawn);
         }
     }
 

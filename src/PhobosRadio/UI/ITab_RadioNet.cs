@@ -46,14 +46,16 @@ public class ITab_RadioNet : ITab
         {
             var row = new Rect(0f, y, view.width, rowHeight);
             if (Mouse.IsOver(row)) Widgets.DrawHighlight(row);
-            var wearer = (pair.A.Thing as Apparel)?.Wearer;
+            // A hand-held's wearer, or the vehicle a radio is built into (Radio 0.10.0).
+            var wearer = CompRadio.HolderOf(pair.A.Thing);
             var who = wearer?.LabelShortCap ?? pair.A.Thing.LabelCap.ToString();
             var isBest = wearer != null && net.TryGetBest(wearer, out var best) && best != null && best.B.Thing == station;
-            // Which channel serves them here, or that the net is busy for them (Radio 0.7.0).
+            // Which channel serves them here, that the net is busy for them (Radio 0.7.0), or that a vehicle stands by (0.10.0).
             var channel = net.ChannelOf(station, pair.A.Thing);
             var where = channel >= 0
                 ? " " + "PhobosRadio_TabOnChannel".Translate((channel + 1).Named("CHANNEL"))
-                : wearer != null && net.IsBusy(wearer) ? " " + "PhobosRadio_TabBusy".Translate() : "";
+                : wearer != null && net.IsBusy(wearer) ? " " + "PhobosRadio_TabBusy".Translate()
+                : wearer != null && net.IsStandingBy(wearer) ? " " + "PhobosRadio_TabStandingBy".Translate() : "";
             var head = $"{LinkText.Bars(pair.Outcome)} {who}: {LinkText.OutcomeLabel(pair.Outcome)}" +
                        (isBest ? " " + "PhobosRadio_TabBestStation".Translate() : "") + where;
             Widgets.Label(new Rect(row.x + 4f, row.y + 2f, row.width - 8f, 24f), head);
