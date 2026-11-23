@@ -1,0 +1,19 @@
+{
+  "appId": "294100",
+  "layout": {
+    "exclude": ["*.record.md", "TestRows.tsv", "*.dds"],
+    "build": ["python", "scripts/deploy.py", "--build-only"]
+  },
+  "mods": {
+    "PhobosFactoryAdditions": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Held: not yet released (owner, 23 Nov 2026: tooling adopted early, every mod held)"},
+    "PhobosFarming": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Held: not yet released (owner, 23 Nov 2026: tooling adopted early, every mod held)"},
+    "PhobosFramework": {"itemId": null, "requires": [], "hold": "Held: not yet released (owner, 23 Nov 2026: tooling adopted early, every mod held)"},
+    "PhobosMedical": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Held: not yet released (owner, 23 Nov 2026: tooling adopted early, every mod held)"},
+    "PhobosPatches": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Held: not yet released (owner, 23 Nov 2026: tooling adopted early, every mod held)"},
+    "PhobosRadioFramework": {"itemId": null, "requires": [], "hold": "Held: not yet released (owner, 23 Nov 2026: tooling adopted early, every mod held)"},
+    "PhobosVehicles": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Held: not yet released (owner, 23 Nov 2026: tooling adopted early, every mod held)"},
+    "PhobosWaterTap": {"itemId": null, "requires": ["PhobosFramework"], "hold": "Held: not yet released (owner, 23 Nov 2026: tooling adopted early, every mod held)"}
+  },
+  "externalRequiredItems": [],
+  "externalRequiredItemNames": {}
+}

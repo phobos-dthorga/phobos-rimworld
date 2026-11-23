@@ -1,0 +1,47 @@
+[h1]D'thorga Framework[/h1]
+[b]Version:[/b] 0.254.0
+[b]Publication status:[/b] Not published yet - draft held for the owner's review
+
+[h2]Read this first (gotchas)[/h2]
+[list]
+[*][b]Partly tested in game.[/b] The gas layer, supplied oxygen and a handful of vehicle features have been seen working. Everything else, the health layer and most of the vehicle systems included, is [b]not yet tested in game[/b].
+[*][b]Needs Harmony[/b], which nearly every mod list already has. [b]RimWorld 1.7 only.[/b]
+[*][b]Load it before any D'thorga mod that needs it[/b], and after The Dead Man's Switch - Expedition, Rimefeller and Vanilla Expanded Framework where you have them. The mod asks for that order itself, so RimSort sorts it for you. Loaded before one of them, its tie-in with that mod is refused with a red error.
+[*][b]The vehicle systems change every Vehicle Framework vehicle you have, from any mod.[/b] To narrow that, set Which vehicles in the D'thorga Vehicle Systems settings [b]before you load a colony[/b]: it needs a restart. Switching vehicles off later is safe.
+[*][b]Settings to decide before a colony:[/b] Which vehicles and Parts for building (both need a restart); Drivetrain shown, speeds unchanged, which keeps every vehicle at its author's speed; the rule for an aircraft too heavy or too hot to lift off; and, for steam locomotives, Boiler explosions and Realistic feed water.
+[*][b]Idle buildings use less power, and lights in empty rooms go dark[/b] (setting Idle buildings use less power, on by default). It stands down by itself while LightsOut or Turn It On and Off - RePowered is active.
+[*][b]A colonist who keeps fetching and putting away the same thing is named in a message[/b] (on by default). Usually two orders disagree, such as their sidearms and their loadout.
+[*][b]Build a vehicle parts bench early[/b] (research Vehicle parts; Architect > D'thorga > Motor pool): our parts, kits and booster packs are made only there. Tick the Vehicle parts category in a stockpile, or the bench overshoots “Do until you have X”.
+[*][b]Make a jump-start kit or a booster pack before you need one[/b], and carry one in every caravan.
+[*][b]Every storage building gets a “Vehicles may load from here” switch, off to start.[/b] Only with it on can a truck's loading grab lift goods out of it.
+[*][b]Carbon monoxide ignores gas masks.[/b] Only sealed headgear with its own air (Combat Extended's power and recon helmets) keeps it out. It lingers in a shut room for hours after a fire: open a door or a vent.
+[*][b]Combat Extended:[/b] without it, burning rooms fill with the game's smoke, which spoils aim and sight. With it, its smoke effects setting decides: on, Combat Extended's smoke is what colonists breathe; off, the game's smoke takes over. With it, D'thorga's own vehicles are shot at across their full width.
+[*][b]Safe to add to a running colony.[/b]
+[*][b]Before removing it[/b] (after the mods that need it): if vehicles used the systems, load the colony, press Remove the added parts from this colony's vehicles in the vehicle systems settings, and save. Also delete every vehicle park and service yard zone, empty every garage, recover every sling wreck and depot, and take any extra fuel tank off: whatever is in them goes with the mod. Otherwise saved vehicles may fail to load.
+[/list]
+
+[h2]What it does[/h2]
+The shared library the D'thorga mods build on. On its own it changes little you will notice:
+[list]
+[*][b]Room gases:[/b] tells other mods what a colonist is breathing through whatever mask or helmet they wear, fills burning roofed rooms with the game's own smoke when Combat Extended's smoke is not running, and carries carbon monoxide from fires, which drifts through open doors and vents. There is no air, oxygen or pressure model.
+[*][b]Care choices:[/b] holds the per-person buttons D'thorga Medical offers. On its own it adds no choice.
+[*][b]Standby power:[/b] workbenches, research benches, televisions, turrets, hydroponics basins, monitors and powered doors draw their full power only while in use, and a tenth while idle.
+[*][b]A D'thorga tab[/b] in the Architect menu and in research, and one sound volume for every D'thorga mod.
+[*][b]The game's log is turned back on[/b] when it stops itself at 10,000 messages, at most 25 times a session (a setting).
+[/list]
+
+[h3]With Vehicle Framework[/h3]
+Every vehicle gets systems that fit what it is, by what it runs on and whether it drives, floats or flies: a battery and alternator, an engine that runs hot, coolant and oil, tyres or tracks, brakes and a gearbox, wear that a mechanic services, and parts that can fail. Dashboard, Health and Systems tabs show it all, with as many figures as you choose to see. A workshop (parts bench, inspection pit, dyno bay, depot bay), jump-starting, towing, a recovery winch, headlights, fires and extinguishers, and aircraft lift limits come with it. Every figure is in XML that other mods can change.
+
+The full guide is the [url=https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/player-guide/vehicle-care.md]player guide's Looking after vehicles chapter[/url].
+
+[h2]Requirements[/h2]
+[list]
+[*]RimWorld 1.7
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url]
+[/list]
+Optional: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3014915404]Vehicle Framework[/url] for the vehicle systems, with Vanilla Expanded Framework as well for garages and pipe lines; Combat Extended.
+
+Community-created content by House D'thorga (also spelt dthorga).
+
+Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.

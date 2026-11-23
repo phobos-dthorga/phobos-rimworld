@@ -1,0 +1,50 @@
+[h1]D'thorga Factory Additions[/h1]
+[b]Version:[/b] 0.14.2
+[b]Publication status:[/b] Not published yet - draft held for the owner's review
+
+[h2]Read this first (gotchas)[/h2]
+[list]
+[*][b]Partly tested in game:[/b] the human-meat bill, the drug lab bills appearing on their machines, belts taking from switched-on storage only when they point away from it, and a bill with no recipe taken off a machine. Everything else is [b]not yet tested in game[/b].
+[*][b]Requires Harmony, D'thorga Framework, Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory.[/b] Load it after all four, and after every mod it adds bills for. The mod asks for that order itself, so RimSort sorts it for you.
+[*][b]RimWorld 1.7 only.[/b]
+[*][b]Each tie-in loads only while its mod is active.[/b] Without those mods you see none of their bills.
+[*][b]A machine draws only from its three input cells, and nobody stocks them for it.[/b] Pawns never carry ingredients to a machine that feeds from hoppers. [b]Feed each ingredient by belt, or raise the input hoppers' priority[/b] (Critical works), and tick the ingredient in the hopper's filter.
+[*][b]Machines wait at a full output hopper[/b] instead of destroying the batch, so they may sit idle where they used to lose items silently. [b]Run a belt out of every output hopper.[/b]
+[*][b]The “Belts may take from here” switch starts off on storage[/b] (including what you have already built) [b]and on for hoppers.[/b] Only a belt pointing straight away from switched-on storage takes from it, and only what the storage's filter allows. A belt touching the corpse fridge empties it unless the fridge's switch is off.
+[*][b]The stock “Synthesize neutroamine” bill stops taking human meat[/b] once this mod is on: add the human-meat bill if you want it.
+[*][b]The fabrication bay and the deep factory hopper look exactly like the machining bay and the ordinary hopper[/b] until they have art of their own: select them to tell them apart.
+[*][b]With Dubs Bad Hygiene, the conveyor oven's wet bills pause until a pipe touching the oven reaches a water tower[/b], in colonies you already have too. Two settings, both on by default, decide this before you rely on it: Factory bills need piped water, and Contaminated water can poison food (Options > Mod settings > D'thorga Factory Additions, shown only with Dubs Bad Hygiene).
+[*][b]With The Dead Man's Switch, its feed hopper works as a factory hopper[/b], and factory hoppers link to its automatic benches.
+[*][b]Safe to add to a running colony.[/b] Bills whose recipe changed in an update bring themselves up to date.
+[*][b]Before removing it:[/b] remove every bill this mod added from each machine's Processes tab, let running batches finish, and deconstruct every deep factory hopper and fabrication bay. Otherwise the first load afterwards should log an error about a missing process and drop that bill (expected, not yet checked).
+[/list]
+
+[h2]What it does[/h2]
+Additions to Vanilla Furniture Expanded - Factory:
+[list]
+[*][b]Belts that take from any storage:[/b] a “Belts may take from here” switch on every storage building, from any mod (shelves, Rimefeller's unloading bays, Adaptive Storage and Warehouse Storage buildings, and more). A belt pointing away from switched-on storage, and any machine whose input cell is on it, take from it as from a factory hopper. Factory hoppers have the same switch.
+[*][b]A fix for every factory machine:[/b] a finished batch no longer vanishes when the output hopper has no room. The machine waits instead.
+[*][b]An automated fabrication bay[/b] that makes what a fabrication bench makes (bionics and other artificial body parts, spacer weapons and armour), and with Anomaly or Dubs Rimatomics what a bioferrite shaper or a Rimatomics machining table makes. Its bills follow each item's own recipe, so they keep up with other mods' changes.
+[*][b]A deep factory hopper[/b] that holds four stacks on its one cell, so a machine can draw several ingredients from one input cell.
+[*][b]Neutroamine from human meat:[/b] people carry far more fat than game animals, so a batch gives a little more than the same weight of animal meat. Nobody eats anything, and no Ideology thought fires.
+[*][b]With Vanilla Cooking Expanded,[/b] the conveyor oven cooks simple soup that comes out ready to eat.
+[*][b]With Dubs Bad Hygiene,[/b] the conveyor oven's soup, mass-produced meal, baby food and pumpkin spice coffee bills draw water from your plumbing, and food cooked with contaminated water can give food poisoning.
+[*][b]With sbz's Fridge mod,[/b] belts and machines can take corpses straight out of its corpse fridge.
+[*][b]Other mods' drug lab recipes as factory bills[/b], each only while its mod is active: Medicines+, Deep Pills, Ushankas Biological Warfare, Combat Extended psycho, Dubs Rimatomics potassium iodide, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable Neutroamine, Passive Exoskeletons and Simple Washing Machine. Each follows the stock rule (a batch of four at four times the lab's work) and keeps its mod's research.
+[/list]
+
+How to use each part is in the [url=https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/player-guide/factory.md]player guide's Factory chapter[/url].
+
+[h2]Requirements[/h2]
+[list]
+[*]RimWorld 1.7
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2023507013]Vanilla Expanded Framework[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3686924415]Vanilla Furniture Expanded - Factory[/url]
+[*]D'thorga Framework
+[/list]
+Uses Vanilla Chemfuel Expanded's piped chemfuel and Vanilla Races Expanded - Android's piped neutroamine when those mods are active.
+
+Community-created content by House D'thorga (also spelt dthorga).
+
+Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.

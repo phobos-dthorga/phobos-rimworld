@@ -1,0 +1,45 @@
+[h1]D'thorga Water Tap[/h1]
+[b]Version:[/b] 0.2.4
+[b]Publication status:[/b] Not published yet - draft held for the owner's review
+
+[h2]Read this first (gotchas)[/h2]
+[list]
+[*][b]Not yet tested in game.[/b] Everything here is read from the game's and the mods' code, and built and checked offline.
+[*][b]Needs Dubs Bad Hygiene, with its thirst option on.[/b] Without thirst there are no water bottles, so the tap does not appear at all. [b]It is not made for Dubs Bad Hygiene Lite[/b], or for the full mod's lite mode: neither has plumbing.
+[*][b]Also needs D'thorga Framework.[/b] Load this mod after Dubs Bad Hygiene and D'thorga Framework. The mod asks for that order itself, so RimSort sorts it for you. No Harmony needed.
+[*][b]RimWorld 1.7 only.[/b]
+[*][b]It needs a pipe and a water tower.[/b] Research plumbing, then find the tap under Architect > Hygiene. Build it on a pipe or next to one. It draws from water towers only, like every other Dubs Bad Hygiene fixture.
+[*][b]It replaces a pipe it is built on, and then carries the water itself[/b], as a basin does. If you deconstruct it, lay a pipe back on that cell, or the network may be cut in two.
+[*][b]The colony limit starts at 50 bottles a map.[/b] Once a map holds that many, every tap on it stops filling. Change it with the Colony limit -10 and +10 buttons on any tap. It counts bottles in storage or on the floor, not in pockets and not on conveyor belts.
+[*][b]Pawns only carry bottles away if you tell them to.[/b] The tap's storage priority starts at Important, so bottles stay put until someone drinks or packs them. Lower it, or give water a Critical stockpile, and haulers carry bottles off while the tap refills, up to the colony limit.
+[*][b]This changes every water bottle in your game, not just the tap's.[/b] A bottle split from an untreated stack now stays untreated; before, it came out clean by mistake. Colonists on untreated water can now get sick from bottles, as they already can from a basin.
+[*][b]Combat Extended players:[/b] a pawn on a custom loadout with “drop undefined” drops the bottles it packs, and haulers may carry them back to the tap. Add a water slot of 3 to that loadout.
+[*][b]No settings to decide before a colony.[/b] The bottles kept ready and the colony limit are buttons on each tap.
+[*][b]Safe to add to a running colony.[/b] Existing bottles keep working.
+[*][b]Safe to remove, once you deconstruct your taps.[/b] A tap left standing vanishes with the mod and leaves a gap in the pipe. The first load after removing the mod logs two errors about a missing class; the game goes on, and they stop once you save. (Read from the game's code, not yet seen in game.)
+[/list]
+
+[h2]What it does[/h2]
+A water bottle tap for Dubs Bad Hygiene: a small plumbing fixture that keeps a stack of bottled water ready and refills it by itself from your water towers. Nobody has to stand at a basin filling bottles.
+
+[list]
+[*]Colonists drink from it and pack bottles from it the way they do from any loose bottles. Caravans can load from it.
+[*]You choose how many bottles each tap keeps ready, up to 10. A tap with room fills one bottle at a time, up to 240 a day, using half a litre of water for each.
+[*]It costs 20 steel and needs no power: the pumps supply the pressure.
+[*]Each bottle carries the quality of the water that filled it. The tap will not bottle contaminated water, and untreated water is labelled “water (untreated)”. Bottles of different water keep separate stacks.
+[*]With Vanilla Furniture Expanded - Factory, conveyor belts and factory machines can take bottles from the tap, as they do from a factory hopper.
+[/list]
+
+How to use the tap, its buttons and what its inspect text means are in the [url=https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/player-guide/water-tap.md]player guide's Water tap chapter[/url].
+
+[h2]Requirements[/h2]
+[list]
+[*]RimWorld 1.7
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=836308268]Dubs Bad Hygiene[/url], with its thirst option on (not the Lite version)
+[*]D'thorga Framework
+[/list]
+Optional: Vanilla Furniture Expanded - Factory, for conveyor belts.
+
+Community-created content by House D'thorga (also spelt dthorga).
+
+Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.

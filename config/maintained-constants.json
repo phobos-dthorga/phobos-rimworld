@@ -3,14 +3,15 @@
   "targetsUnder": [
     "mods/",
     "src/",
-    "docs/"
+    "docs/",
+    "workshop/"
   ],
   "constants": {
     "PhobosFactoryAdditions.version": {
       "type": "version",
       "parts": 3,
       "value": "0.14.2",
-      "description": "D'thorga Factory Additions's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "description": "D'thorga Factory Additions's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {
           "path": "mods/PhobosFactoryAdditions/About/About.xml",
@@ -31,6 +32,10 @@
         {
           "path": "mods/PhobosFactoryAdditions/README.md",
           "pattern": "^Version (?P<value>[0-9.]+), built"
+        },
+        {
+          "path": "workshop/PhobosFactoryAdditions/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)$"
         }
       ],
       "review": [
@@ -42,7 +47,7 @@
       "type": "version",
       "parts": 3,
       "value": "0.254.0",
-      "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {
           "path": "mods/PhobosFramework/About/About.xml",
@@ -91,6 +96,10 @@
         {
           "path": "mods/PhobosFramework/README.md",
           "pattern": "^Version (?P<value>[0-9.]+), built"
+        },
+        {
+          "path": "workshop/PhobosFramework/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)$"
         }
       ],
       "review": [
@@ -102,7 +111,7 @@
       "type": "version",
       "parts": 3,
       "value": "0.24.0",
-      "description": "D'thorga Medical's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "description": "D'thorga Medical's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {
           "path": "mods/PhobosMedical/About/About.xml",
@@ -131,6 +140,10 @@
         {
           "path": "mods/PhobosMedical/README.md",
           "pattern": "^Version (?P<value>[0-9.]+), built"
+        },
+        {
+          "path": "workshop/PhobosMedical/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)$"
         }
       ],
       "review": [
@@ -142,7 +155,7 @@
       "type": "version",
       "parts": 3,
       "value": "0.40.0",
-      "description": "D'thorga Patches's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "description": "D'thorga Patches's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {
           "path": "mods/PhobosPatches/About/About.xml",
@@ -259,6 +272,10 @@
         {
           "path": "mods/PhobosPatches/README.md",
           "pattern": "^Version (?P<value>[0-9.]+), built"
+        },
+        {
+          "path": "workshop/PhobosPatches/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)$"
         }
       ],
       "review": [
@@ -270,7 +287,7 @@
       "type": "version",
       "parts": 3,
       "value": "0.1.9",
-      "description": "D'thorga Radio Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "description": "D'thorga Radio Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {
           "path": "mods/PhobosRadioFramework/About/About.xml",
@@ -287,6 +304,10 @@
         {
           "path": "mods/PhobosRadioFramework/README.md",
           "pattern": "^Version (?P<value>[0-9.]+), built"
+        },
+        {
+          "path": "workshop/PhobosRadioFramework/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)$"
         }
       ],
       "review": [
@@ -298,7 +319,7 @@
       "type": "version",
       "parts": 3,
       "value": "0.111.0",
-      "description": "D'thorga Vehicles's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "description": "D'thorga Vehicles's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {
           "path": "mods/PhobosVehicles/About/About.xml",
@@ -311,6 +332,10 @@
         {
           "path": "mods/PhobosVehicles/README.md",
           "pattern": "^Version (?P<value>[0-9.]+), built"
+        },
+        {
+          "path": "workshop/PhobosVehicles/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)$"
         }
       ],
       "review": [
@@ -322,7 +347,7 @@
       "type": "version",
       "parts": 3,
       "value": "0.2.4",
-      "description": "D'thorga Water Tap's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
+      "description": "D'thorga Water Tap's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {
           "path": "mods/PhobosWaterTap/About/About.xml",
@@ -339,6 +364,10 @@
         {
           "path": "mods/PhobosWaterTap/README.md",
           "pattern": "^Version (?P<value>[0-9.]+), built"
+        },
+        {
+          "path": "workshop/PhobosWaterTap/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)$"
         }
       ],
       "review": [
@@ -350,7 +379,7 @@
       "type": "version",
       "parts": 3,
       "value": "0.7.8",
-      "description": "D'thorga Farming's version: About.xml, its project, its ModVersion constant and both READMEs",
+      "description": "D'thorga Farming's version: About.xml, its project, its ModVersion constant and both READMEs and its Workshop page",
       "targets": [
         {
           "path": "mods/PhobosFarming/About/About.xml",
@@ -371,6 +400,10 @@
         {
           "path": "mods/PhobosFarming/README.md",
           "pattern": "^Version (?P<value>[0-9.]+), built"
+        },
+        {
+          "path": "workshop/PhobosFarming/page.bbcode",
+          "pattern": "^\\[b\\]Version:\\[/b\\] (?P<value>[0-9.]+)$"
         }
       ],
       "review": [

@@ -113,6 +113,7 @@ Use the tool before reading raw files; how to use each is in [`scripts/AGENTS.md
 | The owner's mod list | `python scripts/refresh-mod-list.py` |
 | A mod's Workshop page, comments, a collection | `python scripts/workshop-research.py` |
 | A mod's version, everywhere it is written | `python scripts/release.py constants` |
+| A mod's Workshop page, change notes and upload state | `python scripts/workshop.py` (`status`, `show`, `notes`) |
 | What updating or going back would change | `python scripts/installs.py` |
 | The code behind a changelog entry | `python scripts/changes.py` |
 | What happened to our mods over time | `python scripts/history.py` |
