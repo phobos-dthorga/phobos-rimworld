@@ -1,4 +1,5 @@
 """Offline checks for scripts/deploy.py. Nothing here touches the RimWorld installation."""
+import contextlib
 import importlib.util
 import json
 import os
@@ -124,8 +125,16 @@ class AllModsTests(unittest.TestCase):
             calls.append(cmd)
             return Result(1 if len(calls) == 2 else 0)
 
+        held = []
+
+        @contextlib.contextmanager
+        def locked(root, purpose, log=None):
+            held.append(purpose)
+            yield
+
         with self.assertRaises(RuntimeError):
-            deploy.build(run=run, log=lambda s: None)
+            deploy.build(run=run, log=lambda s: None, locked=locked)
+        self.assertEqual(['an install (deploy.py)'], held, 'the build runs inside the repository build lock')
         self.assertEqual(2, len(calls))
         self.assertEqual(['dotnet', 'build'], calls[0][:2])
         self.assertTrue(calls[0][2].endswith('.csproj'))

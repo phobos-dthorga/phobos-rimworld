@@ -155,6 +155,9 @@ for word; the root's rules apply here too.
   the repository's and every backup, compared by the changelogs each carries (phobos-modkit's installs; `docs/development/mod-installs.md`).
   The Companion's Mods page runs it. So **a changelog entry is what the owner reads before updating**: keep its bold opening when
   rewording it, and save effects under "Save compatibility". deploy writes `InstallRecord.json` into every installed copy.
+  **Builds take the repository's build lock** (kit 1.103.0; the owner's report of 23 Nov 2026: an install failed while another
+  session's gate built the same projects): deploy's build and the gate's build lane each wait while the other builds, saying who
+  holds it, and give up after 15 minutes naming the holder. A build run by hand or by an editor is not covered.
   Status also says which mods need a build (`python scripts/deploy.py --build-only` builds without installing, fine while the game
   runs), the files an install would change, its settings changes (`mod-settings.py changes --json`) and the test rows it brings.
 - **Answer what code is behind a changelog entry with `python scripts/changes.py`** (owner, 19 Nov 2026: a code viewer in D'thorga

@@ -55,6 +55,7 @@ _modkit.ensure()
 # Then the kit shortens the mip chains Waylith would unpack to plain pixels at four times the memory (kit 1.54.0, owner's choice of
 # 20 Nov 2026, after D'thorga Vehicles showed 2.0 GiB of textures in Graphics Settings' profiler).
 from phobos_modkit.games.rimworld.textures import DEFAULT_TODDS, RIMSORT_OPTIMIZED, trim_folder  # noqa: E402
+from phobos_modkit import build_lock  # noqa: E402
 from phobos_modkit.progress import Progress  # noqa: E402
 BACKUPS = ROOT / '.local' / 'deploy-backups'
 # RimWorld.exe is 1.7 on Windows (seen in tasklist, 30 Oct 2026); RimWorldWin64.exe is 1.6.
@@ -346,15 +347,24 @@ class Steps:
         self.progress(label, min(self.done, self.total) if self.total else None, self.total or None)
 
 
-def build(root=ROOT, run=subprocess.run, log=print, steps=None):
-    """Build every project under src/ (each for both game versions). Raises RuntimeError on the first failure."""
+def build(root=ROOT, run=subprocess.run, log=print, steps=None, locked=None):
+    """Build every project under src/ (each for both game versions). Raises RuntimeError on the first failure.
+
+    Inside the repository's build lock (phobos-modkit 1.103.0; the owner's report of 23 Nov 2026: an install failed because another
+    session's gate was building the same projects at the same moment): while another build holds it, this one says so and waits.
+    """
     steps = steps or Steps(len(projects(root)))
-    for project in projects(root):
-        steps(f'Building {project.stem}')
-        log(f'building {project.relative_to(root).as_posix()}')
-        result = run(['dotnet', 'build', str(project), '--nologo', '-v', 'q'], capture_output=True, text=True, check=False)
-        if result.returncode != 0:
-            raise RuntimeError(f'build failed for {project.name}:\n{result.stdout}{result.stderr}')
+    locked = locked or build_lock.held
+    try:
+        with locked(root, 'an install (deploy.py)', log=log):
+            for project in projects(root):
+                steps(f'Building {project.stem}')
+                log(f'building {project.relative_to(root).as_posix()}')
+                result = run(['dotnet', 'build', str(project), '--nologo', '-v', 'q'], capture_output=True, text=True, check=False)
+                if result.returncode != 0:
+                    raise RuntimeError(f'build failed for {project.name}:\n{result.stdout}{result.stderr}')
+    except build_lock.BuildBusy as busy:
+        raise RuntimeError(f'build not started: {busy}') from None
 
 
 def main(argv=None):
