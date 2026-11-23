@@ -260,7 +260,7 @@ reaches on the world map, and what the pulse finds left to stun.
 
 
 The record behind D'thorga Patches' own strike model for InterRim Ballistic Missile's extinction-class warhead (0.9.0), Stage 2 of the
-owner-approved plan. The player guide is the [D'thorga Patches README](../../../mods/PhobosPatches/README.md#interrim-ballistic-missile);
+owner-approved plan. The player guide is the [Patches chapter](../../player-guide/patches.md#interrim-ballistic-missile);
 Stage 1 (the fast sweep every warhead uses) and the original hang are in [missile patches](missile-patches.md). **Not yet tested in
 game.**
 

@@ -1,10 +1,12 @@
 # D'thorga Patches
 
 Fixes and patches for other authors' mods, each switched on only while that mod is active. It copies nothing from them. It covers
-**Harrier VTOL Attack Aircraft** and **Close Air Support: A-10 Warthog & Su-25 Frogfoot** by potemkinvillager, **UH-60M Black Hawk** and **C-17 Globemaster III** by z3nt3, **InterRim Ballistic Missile** by Psionic Zephyr, **RimPacts**, **Visit
+**Harrier VTOL Attack Aircraft** and **Close Air Support: A-10 Warthog & Su-25 Frogfoot** by potemkinvillager, **UH-60M Black
+Hawk** and **C-17 Globemaster III** by z3nt3, **InterRim Ballistic Missile** by Psionic Zephyr, **RimPacts**, **Visit
 Settlements** by Nina.Goblin, **Vehicle Framework**, **Vanilla Expanded Framework**'s outposts, **Vanilla Factions Expanded -
-Classical**, **Nice Research Tab** by Andromeda, **Spaceship Turret Hull** by MK and **Combat Extended** (with **Simple sidearms** by
-PeteTimesSix), and RimThunder's heavy casting at The Dead Man's Switch's rotary forger.
+Classical**, **Nice Research Tab** by Andromeda, **Spaceship Turret Hull** by MK and **Combat Extended** (with **Simple sidearms**
+by PeteTimesSix), and RimThunder's heavy casting at The Dead Man's Switch's rotary forger. It also covers the **EA-6B Prowler**'s
+munitions, **Biotech**'s mech rechargers and **The Dead Man's Switch**'s drone platforms.
 
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
@@ -13,164 +15,93 @@ Version 0.40.0, built 23 November 2026 for House D'thorga. **Partly tested in ga
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
-**How to play with it is in the player guide's [Patches chapter](../../docs/player-guide/patches.md).** Each version's changes are in
-the [changelog](CHANGELOG.md).
+**How to play with it is in the player guide's [Patches chapter](../../docs/player-guide/patches.md).** Each version's changes are
+in the [changelog](CHANGELOG.md).
 
 ## Read this first (gotchas)
 
-- **Needs Harmony and D'thorga Framework 0.184.0 or later.** **Load it after
-  the mods it patches**: the About file asks for this, so RimSort does it for you. **Switch it on yourself**: nothing else requires
-  it. It does nothing without the mods it patches.
-- **Each part loads only while its own mods are active** (an `IfModActive` folder per patched mod): the Harrier part with the Harrier
-  (its bomb changes also need Combat Extended, and the fabricator bills The Dead Man's Switch's fabricator); rearming with the Harrier,
-  Hind, Mongoose or Close Air Support; the Close Air Support part with that mod; the Black Hawk part with the UH-60M Black Hawk; the C-17 part with the C-17 Globemaster III; the forger bill with RimThunder and the forger from The Dead Man's Switch - Expedition; the turret hulls with
-  Spaceship Turret Hull and Combat Extended together; the ammo guard and "soldiers keep their guns" with Combat Extended (that one needs
-  D'thorga Framework 0.174.0 or later); the missile part with InterRim Ballistic
-  Missile; one part each for RimPacts, Visit Settlements, Vehicle Framework and Vanilla Factions Expanded - Classical (that one needs
-  D'thorga Framework 0.168.0 or later); one for Nice Research Tab; the outposts part with Vanilla Expanded Framework and Vehicle Framework together; the mech recharger part with Biotech (D'thorga
-  Framework 0.198.0 or later). A player running none of them sees nothing.
-- **With Biotech, mech rechargers drawing real power is off by default.** Before turning it on, check your grid: a tunneler or war
-  queen charging draws about 1,000 W or more, and a shortage switches things off at random.
-- **RimWorld 1.7 only.** It builds against Vehicle Framework's own 1.7 build (14 November 2026).
-- **Switching from D'thorga Vehicle Patches or D'thorga Missile Patches: switch both off and this one on, in the same change.** The
-  About file lists them as incompatible, so RimSort warns you. Your save needs nothing; the missile settings carry over by themselves.
-- **Safe to add to a running save.** A Harrier you already built keeps working and gains its new parts at full health; only new builds
-  pay the new cost. Bombs already made stay as they are.
-- **Before removing it:** delete any bomb or rocket bills you added at an ammunition fabricator and any heavy casting bills at a rotary
-  forger; **with Combat Extended, use up or sell your bomb cases, bomb fills and missile seeker heads**, delete their bills, and **deconstruct turret hulls built under this
-  mod** (not yet tested either way). Without it the Harrier's costs go back to its own, and with RimPacts its flight framework fails
-  to load fully again. Removing IRBM or RimPacts later is clean once the save has been loaded with 0.16.8 or later.
-- **Decide before a missile strike:** the blast settings below. Choices that cost speed say so in amber. **After a strike, wait for the
-  message that the blast has spent itself before saving**: a blast still running when you save is forgotten on load.
-- **Harrier disassembly (temporary trace):** the Harrier cannot be taken apart yet. **Try one disassembly, on a copy of your save, and
-  stop there**: each attempt runs the first half of the removal again. **Its log trace is off unless you ask for it** (0.27.0): tick
-  **D'thorga Patches: Harrier disassembly** on D'thorga Framework's **Detailed logs** settings page first.
-- **Harrier flight controls:** with avionics, hydraulics or wiring below about 35% the jet cannot take off until repaired. On a hot
-  day a heavy Harrier lands on a runway instead of hovering onto its pad, by **D'thorga Framework's** setting "When an aircraft is too
-  heavy or too hot to hover onto its pad".
-- **Harrier dodge and chaff (0.21.0):** the jet dodges as its author set while sound; shot-up flight controls or a dead warning receiver
-  make it easier to hit. Keep **countermeasure cartridges** (D'thorga Framework's parts bench) in storage; haulers load them into its dispensers while it is
-  parked, for its **Chaff and flares** button in the air.
-- **C-17 Globemaster III (0.40.0): built from real parts.** **Finish or cancel a C-17 frame before installing**: a frame keeps what was
-  delivered and then asks for the new list. A C-17 already built keeps working. Not yet tested in game.
-- **UH-60M Black Hawk (0.31.0): built from real parts.** **Finish or cancel a Black Hawk frame before installing**: a frame keeps what was
-  delivered and then asks for the new list. A Black Hawk already built keeps working.
-- **Close Air Support (0.29.0): Realistic handling is off by default.** On (the **Close Air Support** page of the settings), the A-10 is
-  much slower and loses more speed with an engine out, and the Su-25 a little slower, as the real aircraft are beside a Harrier; it takes
-  effect at the next start. A jet you already built keeps working and gains its new parts at full health; only new builds pay the
-  new cost. **Before removing it**, delete any bomb bills you added for its jets at an ammunition fabricator.
+- **Partly tested in game.** Besides the stuck vehicle fires and one missile strike on an earlier version (the version line
+  above), the owner has passed the Prison Labor guard, drone platforms kept topped up and drones called home in time, soldiers
+  going back to their own guns, sidearms that loop being stopped, mech rechargers drawing real power, and the Nice Research Tab
+  guard. The list, with dates and what passed only in part, ends the guide's [Patches
+  chapter](../../docs/player-guide/patches.md#tested-in-game). **Everything else is not yet tested in game.**
+- **Needs Harmony and D'thorga Framework 0.184.0 or later.** **Load it after the mods it patches**: its About file asks for that
+  order, so RimSort sorts it for you. **Switch it on yourself**: nothing else requires it.
+- **RimWorld 1.7 only.**
+- **Each part loads only while its own mods are active**, so it does nothing without them, and a player running none of them sees
+  nothing. Which mods each part needs is in the guide's [mod-by-mod
+  table](../../docs/player-guide/patches.md#what-it-changes-mod-by-mod).
+- **It replaces D'thorga Vehicle Patches and D'thorga Missile Patches: switch both off and this one on, in the same change.**
+  RimSort warns if one is left on; your save needs nothing, and the missile settings carry over by themselves.
+- **Settings to decide before a colony:**
+  - **With InterRim Ballistic Missile, the blast settings**, before your first strike. Choices that cost speed say so in amber.
+  - **With Biotech, Mech rechargers draw power by the size of the mech** (off). Before turning it on, check your grid: a tunneler
+    or war queen charging draws about 1,000 W or more, and a shortage switches things off at random.
+  - **With Close Air Support, Realistic handling** (off). On, the A-10 is much slower and loses more speed with an engine out, and
+    the Su-25 a little slower; it takes effect at the next start.
+- **Safe to add to a running colony.** A Harrier, A-10 or Su-25 you already built keeps working and gains its new parts at full
+  health, and a Black Hawk or C-17 already built keeps working; only new builds pay the new cost. Bombs already made stay as they
+  are. **Finish or cancel a Harrier, Black Hawk or C-17 frame before installing**: a frame keeps what was delivered and then asks
+  for the new list.
+- **Before removing it:** delete any bomb or rocket bills you added at an ammunition fabricator and any heavy casting bills at a
+  rotary forger; **with Combat Extended, use up or sell your bomb cases, bomb fills and missile seeker heads**, delete their
+  bills, and **deconstruct turret hulls built under this mod** (not yet tested either way). Without it the Harrier's costs go back
+  to its own, and with RimPacts its flight framework fails to load fully again. Every mod's steps are in [Removing a
+  mod](../../docs/player-guide/getting-started.md#removing-a-mod).
+- **After a missile strike, wait for the message that the blast has spent itself before saving**: a blast still running when you
+  save is forgotten on load.
+- **The Harrier cannot be taken apart yet. Try one disassembly, on a copy of your save, and stop there**: each attempt runs the
+  first half of the removal again. Its log trace is off unless you tick **D'thorga Patches: Harrier disassembly** on D'thorga
+  Framework's **Detailed logs** page first.
+- **A Harrier with avionics, hydraulics or wiring below about 35% cannot take off** until repaired, and on a hot day a heavy
+  Harrier lands on a runway instead of hovering onto its pad (a D'thorga Framework setting). Keep **countermeasure cartridges** in
+  storage for its **Chaff and flares** button.
 - **Rearming keeps to one kind of ammunition** (Harrier, Hind, Mongoose, A-10, Su-25). To change kind, choose it on the weapon.
-- **With Combat Extended, allow the two bomb cases in machining bay hoppers** that used to take heavy castings, and **rebuild turret
-  hulls built before**, while the ship is landed.
-- **With Combat Extended, soldiers go back to their own guns** (0.26.0, not yet tested in game) instead of fighting on with grenades and
-  satchel charges after being downed. **A colonist who already has no gun anywhere needs one handed to them once** (select them,
-  right-click a gun, Equip): from then on they keep it. **With Simple Sidearms too, a colonist never fetches a sidearm their loadout would
-  only put down again** (0.29.1): you are told who and which weapon, to take the extra copy off their sidearms. Four settings on the
-  **Combat Extended** page of **D'thorga Patches**' settings; safe to add to and remove from a running save (what it remembers is kept
-  by D'thorga Framework).
-- **With RimPacts, a world war attack must win within 3 days of accepting it**, or control of about a dozen border towns passes to
-  the enemy. That is RimPacts' rule; the quest shows the countdown. **Strike and attack early.**
+- **With Combat Extended:** allow the two bomb cases in machining bay hoppers that used to take heavy castings, and **rebuild
+  turret hulls built before**, while the ship is landed. **A colonist who already has no gun anywhere needs one handed to them
+  once** to go back to their own gun after being downed.
+- **With RimPacts, a world war attack must win within 3 days of accepting it**, or about a dozen border towns pass to the enemy.
+  That is RimPacts' rule; the quest shows the countdown. **Strike and attack early.**
 - **With Visit Settlements, pawns already lost to a closed map stay lost**: load a save from before.
-- **With Vanilla Factions Expanded - Classical, a save made during a scorpion raid now loads with the raid working** (temporary). **If
-  you saved again after such a save loaded broken, before 0.25.0, load the save made before that**: the raid's orders are gone from it.
-- **With Nice Research Tab, the research tab can no longer be broken by a blank entry** (0.38.0, temporary, not yet tested in game).
-  If the log ever shows a D'thorga Patches warning naming a research project, the guard took a blank out of it: tell us the project.
-- **Keep Prison Labor up to date**: the guard for its first 1.7 build was removed in 0.19.2, as Prison Labor 1.7.1 fixed the crash.
+- **With Vanilla Factions Expanded - Classical, if you saved again after a scorpion-raid save loaded broken, before this fix, load
+  the save made before that**: the raid's orders are gone from the later one.
+- **Keep Prison Labor up to date**: 1.7.1 fixed the crash our old guard covered.
 
-## What it does
+## What it adds
 
-Each part in a line or three; the guide chapter has the figures, tables and how to use each.
+One line each; the guide's [Patches chapter](../../docs/player-guide/patches.md) has the figures, tables and how to use each.
 
-### Harrier VTOL Attack Aircraft
+- **Harrier VTOL Attack Aircraft**: built from real parts, fourteen parts with flight controls that ground it when damaged, loads
+  fully beside RimPacts, its sortie's map stays open, and a temporary disassembly trace.
+- **UH-60M Black Hawk, C-17 Globemaster III, Close Air Support's A-10 and Su-25**: built from real parts by role.
+- **With Combat Extended**: bombs, missiles and jamming pods that cost what they weigh, each bomb on a steel bomb case; bombs and
+  rockets at The Dead Man's Switch's ammunition fabricator; soldiers who go back to their own guns, and sidearms that stop looping
+  with Simple Sidearms; a temporary guard for ammo sets that would stop Combat Extended's ammo setup.
+- **RimThunder with The Dead Man's Switch - Expedition**: heavy castings 12 at a time at the rotary forger.
+- **The Dead Man's Switch's drone platforms**: refilled with steel by colonists, drones called home while they can still get
+  there, and their wrecks carried back for their steel.
+- **Spaceship Turret Hull, with Combat Extended**: the armed hulls load and fire Combat Extended ammunition.
+- **InterRim Ballistic Missile**: a strategic blast spread over moments instead of freezing the game, shelter under overhead
+  mountain, and the extinction-class warhead's fireball, blast and heat zones; with Combat Extended, its close-in weapon systems
+  shoot down Combat Extended's shells.
+- **RimPacts**: allies' assaults leave empty vehicles alone (temporary), and face a struck town's garrison from before the strike.
+- **Visit Settlements**: a visited settlement's map stays open while your people can still act there, and its food drops work.
+- **Biotech**, a setting: mech rechargers draw power by the size of the mech.
+- **Vanilla Factions Expanded - Classical**: a save made during a scorpion raid loads with the raid working (temporary).
+- **Nice Research Tab**: a blank entry can no longer stop the research tab opening (temporary).
+- **Vehicle Framework**: fires a vehicle could never put out are put out, repairs and upgrades show a progress bar, and a vehicle
+  saved mid-burst keeps itself, its crew and its cargo (temporary). **With Vanilla Expanded Framework**, a caravan with vehicles
+  can't found an outpost and lose them.
 
-- **A realistic build cost**, from real parts by role (0.30.0): a turbine (RimThunder's where installed, ours otherwise), four nozzles,
-  landing gear, fuel tanks, electrics, hydraulics and avionics, and Construction 10 ([building it](../../docs/player-guide/patches.md#building-it)).
-  Drop Tanks take real fuel tanks. **Finish or cancel a Harrier frame before installing 0.30.0**: a frame keeps what was delivered.
-- **Fourteen parts** in place of four, with flight controls that ground the jet when damaged
-  ([parts](../../docs/player-guide/patches.md#its-parts-and-flight-controls)).
-- **Loads fully beside RimPacts**: a RimPacts patch had stopped more than 50 of the jet's framework patches loading.
-- **A sortie's map stays open under the jet**, whichever mod made it, and a sortie onto a RimPacts battle you have not joined says
-  why it is refused ([sorties](../../docs/player-guide/patches.md#sorties)).
-- **Rearming keeps to one kind** ([rearming](../../docs/player-guide/patches.md#rearming)); **too heavy to hover** follows the
-  Framework's setting ([hovering](../../docs/player-guide/patches.md#hovering-onto-its-pad)).
-- **A temporary disassembly trace** ([taking it apart](../../docs/player-guide/patches.md#taking-it-apart-temporary)).
-
-### Combat Extended, The Dead Man's Switch and RimThunder
-
-- **Bombs cost what they weigh**, each built on a stackable steel **bomb case** of its own
-  ([bombs](../../docs/player-guide/patches.md#bombs-under-combat-extended)).
-- **The other aircraft's bombs, missiles and jamming pods too** (A-10, Su-25, Hind, Mongoose, Prowler): real weights, a
-  **missile seeker head** inside each Hellfire and HARM
-  ([the other aircraft](../../docs/player-guide/patches.md#the-other-aircrafts-bombs-missiles-and-pods)).
-- **Bombs and rockets at the ammunition fabricator**
-  ([fabricator](../../docs/player-guide/patches.md#bombs-and-rockets-at-the-ammunition-fabricator)).
-- **Heavy castings 12 at a time at the rotary forger**
-  ([forger](../../docs/player-guide/patches.md#heavy-castings-at-the-rotary-forger)).
-- **A temporary guard** drops ammo set entries that would stop Combat Extended's whole ammo setup.
-- **Soldiers keep their guns**: a colonist left holding a grenade, a satchel charge or nothing after being downed takes their own gun
-  up again, and Simple Sidearms keeps the gun, not a grenade, as the weapon it hands back
-  ([soldiers keep their guns](../../docs/player-guide/patches.md#soldiers-keep-their-guns)).
-- **Colonists refill The Dead Man's Switch's drone platforms with steel by themselves; its drones are called home while they can
-  still get there, and their wrecks are carried back to a platform for their steel**
-  ([drone platforms](../../docs/player-guide/patches.md#drone-platforms)).
-
-### Spaceship Turret Hull
-
-All seven armed hulls load and fire Combat Extended ammunition like its own turrets
-([turret hulls](../../docs/player-guide/patches.md#turret-hulls-under-combat-extended)).
-
-### InterRim Ballistic Missile
-
-- **A strategic blast is spread over moments** instead of freezing the game, and ends in seconds; overhead mountain shelters what is
-  under it; no flood of "Area revealed" letters ([a strategic blast](../../docs/player-guide/patches.md#a-strategic-blast)).
-- **The extinction-class warhead strikes with a fireball, a blast zone and a heat zone**, with Dubs Rimatomics' fallout where it is
-  active ([the warhead](../../docs/player-guide/patches.md#the-extinction-class-warhead)).
-- **With Combat Extended, its close-in weapon systems shoot down CE's mortar and artillery shells.**
-- Dev actions and limits: [messages, limits and dev actions](../../docs/player-guide/patches.md#messages-limits-and-dev-actions).
-
-### RimPacts
-
-An ally's assault leaves empty vehicles alone (temporary); after your missile strike it faces the town's garrison from before the
-strike; a world war quest shows its deadline ([RimPacts](../../docs/player-guide/patches.md#rimpacts)).
-
-### Visit Settlements
-
-A visited settlement's map stays open while your people can still act there or a battle is on, and its food drops no longer fail on
-every tick ([Visit Settlements](../../docs/player-guide/patches.md#visit-settlements)).
-
-### Biotech
-
-A setting, off by default: mech rechargers draw power by the size of the mech on them, charging slows over the last fifth of the
-battery, a charging recharger warms its room, and a mech's information card shows its recharger draw
-([mech rechargers](../../docs/player-guide/patches.md#mech-rechargers-with-real-power-biotech)).
-
-### Vanilla Factions Expanded - Classical
-
-A save made during a scorpion raid loads with the raid still working (temporary)
-([Classical](../../docs/player-guide/patches.md#vanilla-factions-expanded---classical)).
-
-### Nice Research Tab
-
-Research projects' unlock lists are read one at a time and kept free of blanks, so the research tab opens every time (temporary)
-([Nice Research Tab](../../docs/player-guide/patches.md#nice-research-tab)).
-
-### Vehicle Framework and outposts
-
-Fires a vehicle could never put out are put out; repairs and upgrades show a progress bar (temporary); a vehicle saved while one of
-its weapons is firing a burst keeps itself, its crew and its cargo in the save, where before it vanished with everyone aboard on
-loading (temporary; a save already made that way cannot be mended); a caravan with vehicles cannot found an outpost through "create outpost"
-([outposts](../../docs/player-guide/patches.md#outposts-and-caravans-with-vehicles),
-[Vehicle Framework](../../docs/player-guide/patches.md#vehicle-framework-and-combat-extended)).
-
-**Is it working?** The parts that patch another mod's code write a load line naming what is on; where that code has changed, the line
-says which part is off and why.
+**Is it working?** The parts that patch another mod's code write a load line naming what is on; where that code has changed, the
+line says which part is off and why.
 
 ## Settings
 
-In **Options, Mod settings, D'thorga Patches**: one entry since 0.27.0 (it was four), with a page for each patched mod down the left;
-a page shows only while its mod is active. **Type in the search box to find a setting on any page**, tick **Changed only** to see just
-what you have changed (each marked with a dot), and use **Reset this page to defaults** at the bottom of a page. RimWorld saves only
-what you change; no restart is needed. A choice that costs speed shows its cost in amber under it.
+In **Options > Mod settings > D'thorga Patches**, with a page for each patched mod down the left; a page shows only while its mod
+is active. **Type in the search box to find a setting on any page**, tick **Changed only** to see just what you have changed (each
+marked with a dot), and use **Reset this page to defaults** at the bottom of a page. RimWorld saves only what you change; no
+restart is needed. A choice that costs speed shows its cost in amber under it.
 
 ### IRBM: strikes, and IRBM: after-effects (with InterRim Ballistic Missile)
 
@@ -207,8 +138,15 @@ strike leaves behind, from the fireball onwards.
 | --- | --- | --- |
 | Sorties may fly over a battle you have not joined | On: aircraft may fly a sortie onto a RimPacts battle you have not joined, and RimPacts then counts the crew as your forces there | Off |
 
-The temporary disassembly trace had a tick here, on by default, until 0.27.0. It is now **D'thorga Patches: Harrier disassembly** on
-D'thorga Framework's **Detailed logs** page, off until ticked.
+The Harrier's disassembly trace is not here: it is **D'thorga Patches: Harrier disassembly** on D'thorga Framework's **Detailed
+logs** page, off until ticked.
+
+### Close Air Support, and EA-6B Prowler
+
+| Setting | What it does | Default |
+| --- | --- | --- |
+| Realistic handling (Close Air Support) | On: the A-10 and the Su-25 fly at speeds set by the real aircraft's, against the Harrier's: the A-10 much slower, and losing more speed with an engine out; the Su-25 a little slower. Take-offs, landings, turns and attack runs are unchanged. Off: the speeds the Close Air Support author set | Off |
+| Realistic handling (EA-6B Prowler) | On: the Prowler flies at speeds set by the real EA-6B's. Its author already gives it the real figures, so this changes nothing yet; it holds them if a later update changes them | Off |
 
 ### Mechanoids (with Biotech)
 
@@ -230,21 +168,14 @@ D'thorga Framework's **Detailed logs** page, off until ticked.
 | Colonists go back to their own guns (recommended) | A colonist holding a grenade or a satchel charge, or nothing after being downed, takes up a gun from their pack that can fire, else the gun they dropped when downed (even if forbidden). Drafted colonists and melee weapons are left alone. Off: Combat Extended and the game as written | On |
 | When their own gun is gone, take another of the same kind | Their dropped gun destroyed or left behind, or a grenade in hand and no gun at all: the nearest unforbidden gun of the kind they last held, with rounds in it. Never a different kind | On |
 | Simple Sidearms keeps a colonist's gun, not a grenade, as the weapon it hands back (recommended) | With Simple sidearms: the gun in hand replaces a grenade, or nothing, as the ranged weapon Simple Sidearms keeps putting back. A different gun you chose, or a weapon you forced, is left alone | On |
+| A colonist never fetches a sidearm their loadout would only put down again (recommended) | With Simple sidearms: a colonist no longer fetches an extra copy of a weapon their loadout would drop and haul away again, over and over. You are told once which colonist and weapon. Off: Simple Sidearms' and Combat Extended's own behaviour | On |
 
-## For modders
+## More
 
-- [Vehicle patches: research and decisions](../../docs/development/archive/vehicle-patches.md): the Harrier, bombs, fabricator, forger and
-  turret hulls, with the code paths and the source files.
-- [Missile patches: research and decisions](../../docs/development/archive/missile-patches.md) and
-  [strategic strike](../../docs/development/archive/missile-patches.md#strategic-strike-design-and-decisions-7-nov-2026): the blast and its queue.
-- [RimPacts patches](../../docs/development/archive/rimpacts-patches.md): the Harrier's load fix, sorties over battles, struck towns' assaults.
-- [Visit Settlements patches](../../docs/development/archive/visit-settlements-patches.md): the battle map that closed, and the food drops.
-- [The register of temporary patches](../../docs/development/temporary-patches.md): what would make each temporary part unnecessary.
+- [The player guide's Patches chapter](../../docs/player-guide/patches.md): every part mod by mod, and what is tested in game.
+- [The changelog](CHANGELOG.md): what changed in each version, with the two former mods' histories.
+- [For modders](../../docs/modding/patches.md): the design records behind each part, the register of temporary patches, and the
+  checks done.
 
-## Checks done
-
-Every part was read in the patched mods' code and files and checked offline (builds, and `scripts/check-factory-patches.py` for
-the recipe patches); each version's checks are in the [changelog](CHANGELOG.md), and the dated list the README kept until 17 November
-2026 is in [Vehicle patches](../../docs/development/archive/vehicle-patches.md#checks-moved-from-the-readme-17-nov-2026). **Tested in game by
-the owner:** the stuck vehicle fires (10 November 2026) and one missile strike with the first missile fix (7 November 2026). **Not yet
-tested in game:** everything else.
+Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of
+Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.
