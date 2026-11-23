@@ -13,6 +13,14 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.276.1] - 2026-11-24 - Draft
+
+Three settings move to the cabs and camps page
+
+### Changed
+
+- **Walk-in cabins, Drive through the night and Hotboxing are on the Cabs, camps and caravans page** of the vehicle systems settings (the owner's choice of 24 November 2026), no longer under Flight: Walk-in cabins and Hotboxing under Cabs, Drive through the night under Camps and caravans. Their labels and defaults, and what you had set, stay as they were. Not yet tested in game.
+
 ## [0.276.0] - 2026-11-24 - Draft
 
 A vehicle part says what is still to be fitted

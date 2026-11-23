@@ -633,9 +633,6 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingAltitudeHypoxia".Translate(), ref s.altitudeHypoxia, d.altitudeHypoxia, "PhobosVehicleSystems_SettingAltitudeHypoxiaDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingRoughLandings".Translate(), ref s.roughLandings, d.roughLandings, "PhobosVehicleSystems_SettingRoughLandingsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingAvionicsAim".Translate(), ref s.avionicsAim, d.avionicsAim, "PhobosVehicleSystems_SettingAvionicsAimDesc".Translate());
-        list.Check("PhobosVehicleSystems_SettingVehicleCabins".Translate(), ref s.vehicleCabins, d.vehicleCabins, "PhobosVehicleSystems_SettingVehicleCabinsDesc".Translate());
-        list.Check("PhobosVehicleSystems_SettingDriveThroughNight".Translate(), ref s.driveThroughNight, d.driveThroughNight, "PhobosVehicleSystems_SettingDriveThroughNightDesc".Translate());
-        list.Check("PhobosVehicleSystems_SettingHotboxing".Translate(), ref s.hotboxing, d.hotboxing, "PhobosVehicleSystems_SettingHotboxingDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingStockHelicopters".Translate(), ref s.stockHelicoptersFly, d.stockHelicoptersFly, "PhobosVehicleSystems_SettingStockHelicoptersDesc".Translate());
         if (ModsConfig.IsActive(DmseTieIn.PackageId))
         {
@@ -745,9 +742,12 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Section("PhobosVehicleSettings_SectionCabs".Translate());
         list.Check("PhobosVehicleSystems_SettingCabMoods".Translate(), ref s.cabMoods, d.cabMoods, "PhobosVehicleSystems_SettingCabMoodsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingClimateAll".Translate(), ref s.climateControlAll, d.climateControlAll, "PhobosVehicleSystems_SettingClimateAllDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingVehicleCabins".Translate(), ref s.vehicleCabins, d.vehicleCabins, "PhobosVehicleSystems_SettingVehicleCabinsDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingHotboxing".Translate(), ref s.hotboxing, d.hotboxing, "PhobosVehicleSystems_SettingHotboxingDesc".Translate());
         list.Section("PhobosVehicleSettings_SectionCamps".Translate());
         list.Check("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, d.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingCaravanCooking".Translate(), ref s.caravanCooking, d.caravanCooking, "PhobosVehicleSystems_SettingCaravanCookingDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingDriveThroughNight".Translate(), ref s.driveThroughNight, d.driveThroughNight, "PhobosVehicleSystems_SettingDriveThroughNightDesc".Translate());
         list.SliderInt("PhobosVehicleSystems_SettingParkedWarning".Translate(s.parkedWarningDays.Named("DAYS")), ref s.parkedWarningDays, d.parkedWarningDays, 0, 14,
             "PhobosVehicleSettings_ParkedWarningDesc".Translate());
     }

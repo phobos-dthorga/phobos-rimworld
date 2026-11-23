@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.276.0, built 24 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.276.1, built 24 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -160,9 +160,6 @@ offers to restart). RimWorld saves only what you change.
 | Aircraft and sling loads | Crews feel thin air when oxygen fails at height | Everyone aboard a high-flying aircraft whose oxygen is shot out is short of breath for a few hours | Off |
 | Aircraft and sling loads | Rough landings | An aircraft landing blind, or with its flight controls shot about, may come down hard and damage its landing gear; a working autopilot halves the risk. Never harms the crew | On |
 | Aircraft and sling loads | Sights and weather affect an aircraft's aim | A damaged or basic sight misses more; so does every aircraft at night without a night sight, and in rain, fog or snow, with a working radar giving back half | On |
-| Aircraft and sling loads | Walk-in cabins | Colonists can walk into a vehicle's cabin (the Osprey's) to wait, rest or tend the wounded, on the ground or in flight | On |
-| Aircraft and sling loads | Drive through the night | Vehicle caravans keep going at night while every vehicle has a rested driver, swapping tired drivers for rested passengers; journeys take about half the time. Each caravan also has its own switch | Off |
-| Aircraft and sling loads | Hotboxing | A rider whose drug policy allows a smoked drug may light up aboard; in a closed cab the others share the high, and a high driver drives slower | On |
 | Aircraft and sling loads | Stock helicopters fly over the map | The Cherokee, the Louie and the Mosquito take off, fly about, hover, circle and land on the map as the Osprey does, and leave and arrive flying; their pictures were drawn for flying straight off the map, so a hover may look a little odd. Off: they fly as their authors made them | Off |
 | Aircraft and sling loads | The Dead Man's Switch - Expedition's air defence sees aircraft (shown with that mod) | Its radars track aircraft in flight on the world map and may fire; a launch towards a defence asks first | On |
 | Aircraft and sling loads | Hot days lift less / A ground crew hooks the load up / Weather can ground a lift / Slung loads fly slower and burn more / Emergency release and drops | Each sling rule on its own | All on |
@@ -200,8 +197,11 @@ offers to restart). RimWorld saves only what you change.
 | Repairs, service and fittings | Bigger vehicles cost more to fit and tune | Scales fitting costs by weight | On |
 | Cabs, camps and caravans | Passengers feel the cab | Moods about a warm or cold cab | On |
 | Cabs, camps and caravans | Every closed cab has climate control | Gives climate control to every closed cab, not only modern ones | Off |
+| Cabs, camps and caravans | Walk-in cabins | Colonists can walk into a vehicle's cabin (the Osprey's) to wait, rest or tend the wounded, on the ground or in flight | On |
+| Cabs, camps and caravans | Hotboxing | A rider whose drug policy allows a smoked drug may light up aboard; in a closed cab the others share the high, and a high driver drives slower | On |
 | Cabs, camps and caravans | Field kitchens cook in a caravan | Once a night, while a caravan rests, its cooks make simple meals from raw food at a field kitchen it carries, up to twenty a cook | On |
 | Cabs, camps and caravans | Night heater at camp | A vehicle whose night heater switch is on keeps its cab and engine warm at a caravan's camp, and for someone asleep in its cab bunk on a map, for fuel | Off |
+| Cabs, camps and caravans | Drive through the night | Vehicle caravans keep going at night while every vehicle has a rested driver, swapping tired drivers for rested passengers; journeys take about half the time. Each caravan also has its own switch | Off |
 | Cabs, camps and caravans | Warn before a parked vehicle is lost | Days of warning; 0 turns it off | 3 days |
 | Display, sound and stories | How much to show | Plain, Operator or Engineer | Plain |
 | Display, sound and stories | Keep Vehicle Framework's own Health tab | Keeps their list instead of ours | Off |

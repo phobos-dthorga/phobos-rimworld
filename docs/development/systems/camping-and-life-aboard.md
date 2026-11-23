@@ -297,11 +297,11 @@ reference](../settings-reference.md#dthorga-framework-and-dthorga-vehicle-system
 | --- | --- | --- |
 | Passengers feel the cab | On | Cabs, camps and caravans, Cabs |
 | Every closed cab has climate control | Off | Cabs, camps and caravans, Cabs |
+| Walk-in cabins | On | Cabs, camps and caravans, Cabs |
+| Hotboxing | On | Cabs, camps and caravans, Cabs |
 | Night heater at camp | Off | Cabs, camps and caravans, Camps and caravans |
 | Field kitchens cook in a caravan | On | Cabs, camps and caravans, Camps and caravans |
-| Walk-in cabins | On | Aircraft and sling loads, Flight |
-| Drive through the night | Off | Aircraft and sling loads, Flight |
-| Hotboxing | On | Aircraft and sling loads, Flight |
+| Drive through the night | Off | Cabs, camps and caravans, Camps and caravans |
 
 Per-vehicle switches, not settings: the outlet (off when fitted), the night heater (off), the fridge, stereo, reading light, camp
 lights and bunk accelerator (on); the caravan's night-driving switch and its meal halts.
@@ -362,7 +362,6 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
     left may refuse with the bunk empty (`CompPhobosCamp.cs:310-327`; `Cabins/CabinSharedSeats.cs:26-29`).
   - **The food-poisoning chance applies to every caravan meal**, in a tent too (`CaravanCooking.cs:21,265`).
   - **A raider's hotbox roll is not saved**, so each load rolls again for raider vehicles still on the map.
-  - **Three settings sit under Flight** (Walk-in cabins, Drive through the night, Hotboxing), not under Cabs, camps and caravans.
 
 ## Tests
 

@@ -7,12 +7,12 @@ berths, camp gear, the kitchen, water, lights and life aboard. It applies to **e
 ## Read this first (gotchas)
 
 - **A vehicle cannot drive off while its camp is set up, or while anyone is in its deck tent.** Pack up first.
-- **Driving through the night is off by default** (D'thorga Framework's settings, vehicle systems). **Put two drivers in every
+- **Driving through the night is off by default** (D'thorga Framework's vehicle systems settings, page Cabs, camps and caravans). **Put two drivers in every
   vehicle** if you turn it on: one vehicle with nobody to take over stops the whole caravan for the night.
 - **Water needs Dubs Bad Hygiene.** Without it, thirst and washing don't exist, and the crew water tank and camp washing are not offered.
 - **Tanks and stores never fill themselves**: the crew water tank, a lantern's chemfuel, the kitchen box's fuel. Fill them before you go.
-- **Two settings are on by default** and can be switched off: **Walk-in cabins** (the deck tent and the Osprey's cabin) and
-  **Hotboxing** (smoking aboard is shared in a closed cab).
+- **Two settings are on by default** and can be switched off, both on the Cabs, camps and caravans page of D'thorga Framework's vehicle
+  systems settings: **Walk-in cabins** (the deck tent and the Osprey's cabin) and **Hotboxing** (smoking aboard is shared in a closed cab).
 
 ## Camp accessories: fridge, house battery and power outlet
 
@@ -146,7 +146,7 @@ warmer inside and comfier beds).
   **20% hungrier**, on the road or parked, while it has power. **It draws heavily while someone is in the bunk**: about 39 A on a
   12-volt truck, half that on 24 volts, the game's own machine's 400 W. Taking it off gives the machine back. With Ideology it takes the
   game's sleep accelerator; without, our **sleep inducer** (the same figures, built in the Motor pool tab).
-- **Drive through the night** (a setting, **off by default**; D'thorga Framework's settings, under vehicle systems): vehicle caravans
+- **Drive through the night** (a setting, **off by default**; D'thorga Framework's vehicle systems settings, page Cabs, camps and caravans): vehicle caravans
   keep going at night while every vehicle has a rested driver. When a driver tires, a rested passenger of the same vehicle who can
   drive takes the wheel, and a message says who. **Put two drivers in every vehicle**: if any one vehicle has nobody to take over,
   the whole caravan stops for the night as usual.
