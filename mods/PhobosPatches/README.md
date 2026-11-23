@@ -1,7 +1,7 @@
 # D'thorga Patches
 
 Fixes and patches for other authors' mods, each switched on only while that mod is active. It copies nothing from them. It covers
-**Harrier VTOL Attack Aircraft** and **Close Air Support: A-10 Warthog & Su-25 Frogfoot** by potemkinvillager, **UH-60M Black Hawk** by z3nt3, **InterRim Ballistic Missile** by Psionic Zephyr, **RimPacts**, **Visit
+**Harrier VTOL Attack Aircraft** and **Close Air Support: A-10 Warthog & Su-25 Frogfoot** by potemkinvillager, **UH-60M Black Hawk** and **C-17 Globemaster III** by z3nt3, **InterRim Ballistic Missile** by Psionic Zephyr, **RimPacts**, **Visit
 Settlements** by Nina.Goblin, **Vehicle Framework**, **Vanilla Expanded Framework**'s outposts, **Vanilla Factions Expanded -
 Classical**, **Nice Research Tab** by Andromeda, **Spaceship Turret Hull** by MK and **Combat Extended** (with **Simple sidearms** by
 PeteTimesSix), and RimThunder's heavy casting at The Dead Man's Switch's rotary forger.
@@ -9,7 +9,7 @@ PeteTimesSix), and RimThunder's heavy casting at The Dead Man's Switch's rotary 
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.39.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.40.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -23,7 +23,7 @@ the [changelog](CHANGELOG.md).
   it. It does nothing without the mods it patches.
 - **Each part loads only while its own mods are active** (an `IfModActive` folder per patched mod): the Harrier part with the Harrier
   (its bomb changes also need Combat Extended, and the fabricator bills The Dead Man's Switch's fabricator); rearming with the Harrier,
-  Hind, Mongoose or Close Air Support; the Close Air Support part with that mod; the Black Hawk part with the UH-60M Black Hawk; the forger bill with RimThunder and the forger from The Dead Man's Switch - Expedition; the turret hulls with
+  Hind, Mongoose or Close Air Support; the Close Air Support part with that mod; the Black Hawk part with the UH-60M Black Hawk; the C-17 part with the C-17 Globemaster III; the forger bill with RimThunder and the forger from The Dead Man's Switch - Expedition; the turret hulls with
   Spaceship Turret Hull and Combat Extended together; the ammo guard and "soldiers keep their guns" with Combat Extended (that one needs
   D'thorga Framework 0.174.0 or later); the missile part with InterRim Ballistic
   Missile; one part each for RimPacts, Visit Settlements, Vehicle Framework and Vanilla Factions Expanded - Classical (that one needs
@@ -51,6 +51,8 @@ the [changelog](CHANGELOG.md).
 - **Harrier dodge and chaff (0.21.0):** the jet dodges as its author set while sound; shot-up flight controls or a dead warning receiver
   make it easier to hit. Keep **countermeasure cartridges** (D'thorga Framework's parts bench) in storage; haulers load them into its dispensers while it is
   parked, for its **Chaff and flares** button in the air.
+- **C-17 Globemaster III (0.40.0): built from real parts.** **Finish or cancel a C-17 frame before installing**: a frame keeps what was
+  delivered and then asks for the new list. A C-17 already built keeps working. Not yet tested in game.
 - **UH-60M Black Hawk (0.31.0): built from real parts.** **Finish or cancel a Black Hawk frame before installing**: a frame keeps what was
   delivered and then asks for the new list. A Black Hawk already built keeps working.
 - **Close Air Support (0.29.0): Realistic handling is off by default.** On (the **Close Air Support** page of the settings), the A-10 is

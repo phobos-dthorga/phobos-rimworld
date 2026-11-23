@@ -748,7 +748,7 @@ take-off rating, so **a very heavy hover in hot or thin air may strain them**; w
 emergency rating, hot.
 **Engines start in turn** (not yet tested in game): an aircraft's engines light one after another, a few seconds each, and it may not take
 off until all are running (setting **Aircraft engines start one after another**, on). **Grit on rough ground** can strike an engine when
-an aircraft takes off, lands or taxis anywhere but a floor: **build a concrete strip** for low-intake jets such as the Prowler and Harrier.
+an aircraft takes off, lands or taxis anywhere but a floor (never while it merely stands with its engines on): **build a concrete strip** for low-intake jets such as the Prowler and Harrier.
 **Twins keep a tank on each side** with a **cross-feed button**: on **automatic** the crew opens it when one side runs dry; **shut**, a holed
 tank empties only its own side and that engine stops; **open**, both engines keep running but the leak drains all the fuel.
 

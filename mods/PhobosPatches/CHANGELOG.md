@@ -6,6 +6,18 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.40.0] - 2026-11-23 - Draft
+
+The C-17 Globemaster III built from real parts
+
+### Added
+
+- **The C-17 Globemaster III is built from real parts** (the owner's request of 23 November 2026; docs/development/c17-globemaster.md): its blueprint keeps its airframe (2,000 steel, 500 plasteel, 300 silver and 40 components, from 2,250, 600, 300, 120 and 450 chemfuel) and a parts bill adds four engines and their generators, four hydraulic pumps and actuators, three landing gear, two fuel tanks, a battery, wiring and avionics, each from an installed mod where it suits, else ours. All authored, for the owner's review. Not yet tested in game: row 420 of the test pass.
+
+### Save compatibility
+
+- Safe. A C-17 already built keeps working. A C-17 frame under construction keeps what was delivered and then asks for the new list: finish or cancel it before installing.
+
 ## [0.39.0] - 2026-11-23 - Draft
 
 The Dead Man's Switch's drones come home

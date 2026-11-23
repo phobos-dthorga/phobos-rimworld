@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.254.0] - 2026-11-23 - Draft
+
+Four engines by wing, a hold's weight, and the fleet brought in line. Two changes made together in one working tree: the C-17's needs, and the fleet audit that followed.
+
+### Added
+
+- **Lopsided thrust and side tanks take any number of engines** (the owner's card of 23 November 2026: four-engined aircraft by wing; docs/development/c17-globemaster.md): each engine is placed by where its part sits across the aircraft, so an outboard engine out pulls more than an inboard one, and each wing's tank feeds the engines under it; a dry side stops all of them. A twin works as before. Not yet tested in game: row 422 of the test pass.
+- **Another mod's cargo hold can count as carried weight** (the owner's card of 23 November 2026: count the hold): a loadout's heldMassComps names comps by type, and whatever each holds weighs on the engines, the climb and the fuel. The C-17's hold of vehicles is the first. Not yet tested in game: row 421 of the test pass.
+- **A twin-engined helicopter turboshaft whose emergency rating opens only with an engine out** (the fleet audit of 23 November 2026), for twins with no figures of their own; the single-engined one keeps its rating at any time.
+
+### Fixed
+
+- **Aircraft on Vehicle Framework's own launch are now judged for grit as they leave and reach the ground** (found in the fleet audit of 23 November 2026; a fault in 0.252.0): such an aircraft is off the map for the whole of its take-off and landing, so it was never judged at either, and instead took a small chance of grit all the time its engines were on. It is now judged once at its launch and once when it is back on the ground, and taxiing throws grit only on the move. Not yet tested in game: row 423 of the test pass.
+
 ## [0.253.0] - 2026-11-23 - Draft
 
 The purge button's own icon, and five new sounds. Not yet tested in game.

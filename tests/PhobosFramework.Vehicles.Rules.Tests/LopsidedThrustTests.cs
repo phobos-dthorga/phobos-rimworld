@@ -41,4 +41,24 @@ public class LopsidedThrustTests
     [InlineData(1)]
     [InlineData(3)]
     public void OnlyATwinBurnsMore(int engines) => Assert.Equal(1, AirCombatRule.LopsidedThrustFuel(0.15, 1, 0, engines), 9);
+
+    // Framework 0.254.0: four engines by wing, the C-17's places across it (-5, -4, 4, 5).
+    static readonly double[] FourArms = { -5, -4, 4, 5 };
+
+    [Fact]
+    public void FourMatchedEnginesAreLevel() => Assert.Equal(0, AirCombatRule.Asymmetry(new[] { 1.0, 1.0, 1.0, 1.0 }, FourArms), 9);
+
+    [Fact]
+    public void AnOutboardEngineOutPullsMoreThanAnInboardOne() =>
+        Assert.True(AirCombatRule.Asymmetry(new[] { 0.0, 1.0, 1.0, 1.0 }, FourArms) > AirCombatRule.Asymmetry(new[] { 1.0, 0.0, 1.0, 1.0 }, FourArms));
+
+    [Fact]
+    public void AWholeWingOutIsTheMostLopsided() => Assert.Equal(1, AirCombatRule.Asymmetry(new[] { 0.0, 0.0, 1.0, 1.0 }, FourArms), 9);
+
+    [Fact]
+    public void ATwinByArmsMatchesTheTwinRule() =>
+        Assert.Equal(AirCombatRule.LopsidedThrust(0.15, 1, 0.6, 2), AirCombatRule.LopsidedThrust(0.15, AirCombatRule.Asymmetry(new[] { 1.0, 0.6 }, AirCombatRule.TwinArms)), 9);
+
+    [Fact]
+    public void EnginesOnTheCentrelineDoNotPull() => Assert.Equal(0, AirCombatRule.Asymmetry(new[] { 1.0, 0.0 }, new[] { 0.0, 0.0 }), 9);
 }

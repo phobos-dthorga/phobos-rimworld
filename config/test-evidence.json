@@ -646,6 +646,7 @@
     }},
     "404": [{"key": "vehicles.part-restored", "detail": "hotSectionLife*"}],
     "403": ["vehicles.axle-matched"],
+    "421": ["vehicles.held-mass"],
     "410": {"parts": {
       "the crew opens the cross-feed on automatic": [{"key": "vehicles.crossfeed-opened", "detail": "automatic"}],
       "the player sets the cross-feed": [{"key": "vehicles.crossfeed-opened", "variant": "*"}],

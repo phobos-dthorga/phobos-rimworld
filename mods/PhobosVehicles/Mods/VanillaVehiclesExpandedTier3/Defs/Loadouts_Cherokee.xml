@@ -17,6 +17,11 @@
     <defName>PhobosVehicleLoadout_VVE_Cherokee</defName>
     <label>tandem-rotor transport helicopter</label>
     <priority>Vehicle</priority>
+    <!-- Framework 0.254.0 (the fleet audit of 23 Nov 2026, after per-engine realism round two): stones and grit thrown into the
+         intakes on rough ground, 0.5 (authored: a heavy-lift helicopter with no figures of its own, as any aircraft). A tank each side, each feeding its own engine,
+         with a cross-feed (authored layout), as the other twins. -->
+    <intakeDebris>0.5</intakeDebris>
+    <sideTanks>true</sideTanks>
     <selector>
       <vehicleDefs>
         <li>VVE_Cherokee</li>
@@ -28,7 +33,8 @@
       <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
     </systems>
     <drivetrain>
-      <def>PhobosDrivetrain_AeroTurboshaft</def>
+      <!-- Framework 0.254.0: the twin turboshaft, whose contingency rating opens only with an engine out. -->
+      <def>PhobosDrivetrain_AeroTurboshaftTwin</def>
       <set>
         <transmissionLimit>0.9</transmissionLimit>
       </set>

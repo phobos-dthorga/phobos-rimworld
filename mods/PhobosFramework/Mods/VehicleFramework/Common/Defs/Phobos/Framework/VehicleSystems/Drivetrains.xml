@@ -238,6 +238,35 @@
     </transmission>
   </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
   <!--
+    The same turboshaft for a twin-engined helicopter with no figures of its own (Framework 0.254.0; the fleet audit of 23 Nov 2026, after
+    per-engine realism round two): its contingency rating opens only with an engine out, as a twin's engine controls allow (the T700's,
+    TM 1-1520-238-10), where the single-engined one above keeps it at any time. The Cherokee, the Ka-27PS and the Mi-38 use it. Ratings and
+    limits authored, as above.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_AeroTurboshaftTwin</defName>
+    <label>helicopter turboshafts</label>
+    <engine>
+      <kind>Turboshaft</kind>
+      <ratedRpm>20000</ratedRpm>
+      <kilowattsPerTonne>250</kilowattsPerTonne>
+      <!-- Framework 0.132.0, the first version to read it: 0.2, so that ground idle at a tenth of the power burns about a quarter of
+           maximum-continuous fuel, as the Swiss Federal Office of Civil Aviation's helicopter guidance works out for a large twin. -->
+      <idleFuelShare>0.2</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>775</temperatureLimit></li>
+          <li><name>takeoff</name><label>take-off</label><share>1.1</share><speedPercent>102</speedPercent><temperatureLimit>815</temperatureLimit><minutes>5</minutes></li>
+          <li><name>contingency</name><label>one engine out</label><share>1.2</share><speedPercent>104</speedPercent><temperatureLimit>850</temperatureLimit><minutes>2.5</minutes><engineOutOnly>true</engineOutOnly></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+  <!--
     Thrusters (docs/development/vehicle-power-and-lift-design.md): a craft held up on thrust alone, such as Vehicle Framework's drop
     pods. Lift is set by an authored multiple of maximum gross weight (empty, full cargo, full fuel) on every thruster; each
     thruster lost takes its share away, so a pod with thrusters out may not lift until lightened or repaired. No derate with heat,

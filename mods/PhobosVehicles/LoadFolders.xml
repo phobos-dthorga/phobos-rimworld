@@ -20,6 +20,7 @@
     <li IfModActive="potemkinvillager.CloseAirSupport">Mods/CloseAirSupport</li>
     <li IfModActive="potemkinvillager.ea6bprowler">Mods/EA6BProwler</li>
     <li IfModActive="z3nt3.uh60blackhawk">Mods/UH60Blackhawk</li>
+    <li IfModActive="z3nt3.c17globemaster">Mods/C17Globemaster</li>
     <li IfModActive="rimarrow.srt">Mods/RimArrowSearchRescue</li>
     <li IfModActive="OskarPotocki.VanillaFactionsExpanded.Core">Mods/VehicleOutposts</li>
     <li IfModActive="vanillaexpanded.vchemfuele">Mods/VanillaChemfuelExpanded</li>

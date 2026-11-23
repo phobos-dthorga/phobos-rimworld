@@ -394,17 +394,37 @@ public sealed class Powertrain
     {
         var orders = new double[engineRoles.Length];
         for (int i = 0; i < engineRoles.Length; i++) orders[i] = comp.PartEfficiency(engineRoles[i], 1f);
-        // Framework 0.252.0: an engine whose side tank is dry behind a shut cross-feed has stopped.
-        if (engineRoles.Length == 2)
-        {
-            for (int i = 0; i < 2; i++) if (comp.SideTanks.Starved(i)) orders[i] = 0;
-        }
+        // Framework 0.252.0, any number of engines since 0.254.0: an engine whose side tank is dry behind a shut cross-feed has stopped.
+        for (int i = 0; i < orders.Length; i++) if (comp.SideTanks.Starved(i)) orders[i] = 0;
         return orders;
     }
 
     /// <summary>The engines' output between them as a share of every engine sound: each by its own condition with the setting on (Framework
     /// 0.247.0, the default), else each in or out.</summary>
     public double EngineOutputShare() => TurbineModel.OutputShare(EngineOrders(), VehicleSystemsMod.Settings.damagedEnginesWeaker);
+
+    /// <summary>
+    /// Each engine's arm, its place across the aircraft (Framework 0.254.0): a twin's are one each side by its order, as the twin figures
+    /// assume; with more engines, where each engine part's hit area sits across the vehicle, or null when any has none.
+    /// </summary>
+    public IReadOnlyList<double>? EngineArms()
+    {
+        if (engineRoles.Length == 2) return AirCombatRule.TwinArms;
+        if (engineRoles.Length < 2) return null;
+        var arms = new double[engineRoles.Length];
+        for (int i = 0; i < engineRoles.Length; i++)
+        {
+            if (comp.PartsOf(engineRoles[i]).FirstOrDefault()?.props.hitbox?.Hitbox is not { Count: > 0 } cells) return null;
+            arms[i] = cells.Average(cell => cell.x);
+        }
+        return arms;
+    }
+
+    /// <summary>Which side each engine is on (Framework 0.254.0): 0 or 1, or -1 on the centreline; null where the arms are not known.</summary>
+    public int[]? EngineSides() => EngineArms() is { } arms ? arms.Select(arm => arm > 0 ? 0 : arm < 0 ? 1 : -1).ToArray() : null;
+
+    /// <summary>How lopsided the engines' thrust is now, 0 to 1 (AirCombatRule.Asymmetry); 0 where the arms are not known.</summary>
+    public double ThrustAsymmetry() => EngineArms() is { } arms ? AirCombatRule.Asymmetry(EngineOutputs(), arms) : 0;
 
     /// <summary>What each engine gives now, 0 to 1, as <see cref="EngineOutputShare"/> counts it: by condition with the setting on, else in or out.</summary>
     public IReadOnlyList<double> EngineOutputs()
@@ -446,6 +466,8 @@ public sealed class Powertrain
         // Framework 0.161.0: a load hanging from the hook is weight the rotors lift, for the hover and the cruise alike.
         // Framework 0.182.0: every carried load (a tank's fluid, a grain tank's grain) through CarriedLoads, where only tanks were weighed.
         double total = KerbKg + MassUtility.InventoryMass(vehicle) + CarriedLoads.Kilograms(vehicle) + KitKg
+            // Framework 0.254.0: what another mod's own hold carries, where the loadout names it (the C-17's vehicles).
+            + HeldMass.Kilograms(vehicle, comp.Props.loadout)
             + (vehicle.GetComp<CompPhobosSling>()?.CarriedKilograms ?? 0f)
             // Framework 0.180.0: chaff and flare cartridges loaded in the dispensers, as a turret's loaded rounds below.
             + (vehicle.GetComp<CompPhobosDispensers>()?.Kilograms ?? 0f);
@@ -1061,9 +1083,8 @@ public sealed class Powertrain
     double TrimFuel()
     {
         if (!VehicleSystemsMod.Settings.lopsidedThrust || comp.Props.loadout is not { engineOutYaw: > 0f } loadout) return 1;
-        IReadOnlyList<double> outputs = EngineOutputs();
-        if (outputs.Count != 2) return 1;
-        double factor = AirCombatRule.LopsidedThrustFuel(loadout.engineOutYaw, outputs[0], outputs[1], outputs.Count);
+        // Framework 0.254.0: any number of engines, by where each sits (a four-engined aircraft by wing).
+        double factor = AirCombatRule.LopsidedThrustFuel(loadout.engineOutYaw, ThrustAsymmetry());
         if (factor > 1 && Seen.Wants("aircraft.lopsided-fuel", comp.Vehicle))
         {
             Seen.Note("aircraft.lopsided-fuel", comp.Vehicle, null, null, new[] { new KeyValuePair<string, double>("factor", factor) });

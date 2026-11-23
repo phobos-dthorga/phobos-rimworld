@@ -96,15 +96,44 @@ public static class StripDebris
 
     static double Barrier(VehiclePawn vehicle) => vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_InletBarrierLoss) > 0f ? Rules.barrierStops : 0;
 
-    /// <summary>At each update: an aircraft in a phase that throws debris may take a strike.</summary>
+    /// <summary>
+    /// Whether the aircraft's flight profile has a phase of its own for leaving or reaching the ground (a take-off roll, a lift-off, a
+    /// landing: a debris phase that needs no movement). One that has none takes off and lands through Vehicle Framework's own launch, where
+    /// it is off the map for the whole of it (the Black Hawk, the C-17, Vanilla Vehicles Expanded's), so it is judged once at its launch
+    /// and once when it is back on the ground instead (Framework 0.254.0: before, such an aircraft was never judged at either).
+    /// </summary>
+    static bool ModelsItsOwnTakeOff(CompPhobosVehicleSystems comp, PhobosLandingSurfaceRulesDef rules) =>
+        comp.Powertrain?.Profile is { } profile && profile.phases.Any(p => rules.debrisPhases.Any(d => !d.movingOnly && d.phase == p.phase));
+
+    static bool OnOurOwnFlight(VehiclePawn vehicle) => vehicle.GetComp<CompPhobosFlight>() is { Active: true };
+
+    /// <summary>Vehicle Framework's launch event, while the aircraft still stands on the ground: one judgement for the take-off, for an
+    /// aircraft with no take-off phase of its own that is not on our own flight (which judges its own, LandingSurface).</summary>
+    public static void OnLaunch(CompPhobosVehicleSystems comp)
+    {
+        VehiclePawn vehicle = comp.Vehicle;
+        if (!vehicle.Spawned || Exposure(comp) <= 0f || OnOurOwnFlight(vehicle) || ModelsItsOwnTakeOff(comp, Rules)) return;
+        OnEvent(vehicle, RoughShare(vehicle), "take-off");
+    }
+
+    /// <summary>At each update: an aircraft in a phase that throws debris may take a strike; one back on the ground from Vehicle
+    /// Framework's own flight is judged once for its touch-down.</summary>
     public static void Update(CompPhobosVehicleSystems comp, float hours)
     {
-        if (VehicleSystemsMod.Settings.showOnly || Exposure(comp) <= 0f || comp.Powertrain is not { IsAircraft: true, Phase: { } phase }) return;
         VehiclePawn vehicle = comp.Vehicle;
+        bool flying = vehicle.CompVehicleLauncher?.inFlight ?? false;
+        bool landed = comp.debrisWasFlying && !flying && vehicle.Spawned;
+        comp.debrisWasFlying = flying;
+        bool moved = vehicle.Spawned && vehicle.Position != comp.debrisLastCell;
+        if (vehicle.Spawned) comp.debrisLastCell = vehicle.Position;
+        if (VehicleSystemsMod.Settings.showOnly || Exposure(comp) <= 0f || comp.Powertrain is not { IsAircraft: true } train) return;
         if (!vehicle.Spawned) return;
         PhobosLandingSurfaceRulesDef rules = Rules;
+        if (landed && !OnOurOwnFlight(vehicle) && !ModelsItsOwnTakeOff(comp, rules)) OnEvent(vehicle, RoughShare(vehicle), "touch-down");
+        if (train.Phase is not { } phase) return;
         DebrisPhase? throwing = rules.debrisPhases.FirstOrDefault(p => p.phase == phase);
-        if (throwing == null) return;
+        // A phase that throws grit only on the move (taxiing): an aircraft standing with its engines on throws none.
+        if (throwing == null || (throwing.movingOnly && !moved)) return;
         double chance = StripDebrisRule.Chance(rules.debrisPerHour, Exposure(comp), throwing.weight, RoughShare(vehicle), hours) * (1 - Barrier(vehicle));
         if (chance > 0 && Rand.Chance((float)chance)) Strike(comp, rules, phase);
     }
@@ -167,7 +196,11 @@ public sealed class SideTanks
 
     static PhobosVehicleRulesDef Rules => PhobosRulesDef.Current<PhobosVehicleRulesDef>();
 
-    public bool Applies => comp.Props.loadout is { sideTanks: true } && comp.Powertrain?.EngineRoles.Count == 2 && comp.Vehicle.CompFueledTravel != null;
+    /// <summary>Which side each engine draws on (Framework 0.254.0: any number of engines, by where each sits; a twin's by its order).</summary>
+    int[]? EngineSides => comp.Powertrain?.EngineSides();
+
+    public bool Applies => comp.Props.loadout is { sideTanks: true } && comp.Vehicle.CompFueledTravel != null
+                           && EngineSides is { } sides && sides.Contains(0) && sides.Contains(1);
 
     public bool Open => mode == CrossFeedMode.Open || (mode == CrossFeedMode.Automatic && crewOpened);
 
@@ -191,8 +224,8 @@ public sealed class SideTanks
     public bool LeakSideDry => Applies && !Open && leakSide >= 0 && SideTankRule.SideDry(Total, imbalance, leakSide, Rules.sideTankDry);
 
     /// <summary>Whether engine <paramref name="engine"/> (0 or 1) is starved: its side dry, the cross-feed shut, fuel still in the other.</summary>
-    public bool Starved(int engine) => Applies && !Open && engine is 0 or 1 && Total > Rules.sideTankDry
-                                       && SideTankRule.SideDry(Total, imbalance, engine, Rules.sideTankDry);
+    public bool Starved(int engine) => Applies && !Open && Total > Rules.sideTankDry && EngineSides is { } sides && engine >= 0 && engine < sides.Length
+                                       && sides[engine] >= 0 && SideTankRule.SideDry(Total, imbalance, sides[engine], Rules.sideTankDry);
 
     /// <summary>At each update, after the systems advance: shares what the engines burned since between the sides, fills the emptier side
     /// first with what was put in, and lets a crew open the cross-feed in the automatic mode.</summary>
@@ -208,8 +241,16 @@ public sealed class SideTanks
             float burned = -change - leakedSince;
             if (burned > 0f && comp.Powertrain is { } train)
             {
+                // Each side burns by the work of the engines it feeds; an engine on the centreline draws on both alike.
                 IReadOnlyList<double> outputs = train.EngineOutputs();
-                double first = outputs.Count > 0 ? outputs[0] : 0.5, second = outputs.Count > 1 ? outputs[1] : 0.5;
+                int[] sides = EngineSides ?? System.Array.Empty<int>();
+                double first = 0, second = 0;
+                for (int i = 0; i < outputs.Count && i < sides.Length; i++)
+                {
+                    if (sides[i] == 0) first += outputs[i];
+                    else if (sides[i] == 1) second += outputs[i];
+                    else { first += outputs[i] / 2; second += outputs[i] / 2; }
+                }
                 double share = first + second <= 0 ? 0.5 : first / (first + second);
                 imbalance = (float)SideTankRule.AfterBurn(imbalance, burned * share, burned * (1 - share), Open);
             }
@@ -249,7 +290,7 @@ public sealed class SideTanks
     {
         for (int i = 0; i < 2; i++)
         {
-            bool starved = Starved(i);
+            bool starved = SideStarved(i);
             if (starved && !starvedTold[i])
             {
                 if (Seen.Wants("vehicles.engine-starved", comp.Vehicle)) Seen.Note("vehicles.engine-starved", comp.Vehicle, i.ToString());
@@ -263,10 +304,20 @@ public sealed class SideTanks
         }
     }
 
+    /// <summary>Whether the engines a side feeds are starved.</summary>
+    bool SideStarved(int side) => Applies && !Open && Total > Rules.sideTankDry && SideTankRule.SideDry(Total, imbalance, side, Rules.sideTankDry);
+
+    /// <summary>The engines a side feeds, by their parts' labels ("Engine 1, Engine 2"; a twin's one engine).</summary>
     string EngineLabel(int side)
     {
         IReadOnlyList<string> roles = comp.Powertrain?.EngineRoles ?? System.Array.Empty<string>();
-        return side < roles.Count ? comp.PartsOf(roles[side]).FirstOrDefault()?.props.label ?? roles[side] : side.ToString();
+        int[] sides = EngineSides ?? System.Array.Empty<int>();
+        var labels = new List<string>();
+        for (int i = 0; i < roles.Count && i < sides.Length; i++)
+        {
+            if (sides[i] == side) labels.Add(comp.PartsOf(roles[i]).FirstOrDefault()?.props.label ?? roles[i]);
+        }
+        return labels.Count == 0 ? side.ToString() : string.Join(", ", labels);
     }
 
     /// <summary>The next mode, as the player's button turns it: automatic, open, shut, automatic.</summary>

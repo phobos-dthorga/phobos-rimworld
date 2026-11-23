@@ -378,9 +378,8 @@ public static class AirCombat
     {
         if (!VehicleSystemsMod.Settings.lopsidedThrust || Systems(vehicle) is not { Usable: true } comp) return 1f;
         if (comp.Props.loadout is not { engineOutYaw: > 0f } loadout || comp.Powertrain is not { } train) return 1f;
-        IReadOnlyList<double> outputs = train.EngineOutputs();
-        if (outputs.Count != 2) return 1f;
-        float factor = (float)AirCombatRule.LopsidedThrust(loadout.engineOutYaw, outputs[0], outputs[1], outputs.Count);
+        // Framework 0.254.0: any number of engines, by where each sits (a four-engined aircraft by wing).
+        float factor = (float)AirCombatRule.LopsidedThrust(loadout.engineOutYaw, train.ThrustAsymmetry());
         if (factor < 1f && Seen.Wants("aircraft.lopsided-thrust", vehicle))
         {
             Seen.Note("aircraft.lopsided-thrust", vehicle, null, null, new[] { new KeyValuePair<string, double>("factor", factor) });

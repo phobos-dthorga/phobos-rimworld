@@ -47,4 +47,7 @@ public class DebrisPhase
 {
     public string phase = "";
     public float weight = 1f;
+    /// <summary>The phase throws grit only while the aircraft moves over the ground (taxiing; Framework 0.254.0): some flight profiles call
+    /// an aircraft standing with its engines on by the same name.</summary>
+    public bool movingOnly;
 }

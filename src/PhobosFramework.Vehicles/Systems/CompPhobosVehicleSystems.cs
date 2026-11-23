@@ -636,6 +636,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     internal Dictionary<string, float>? partFigures;
     PartFigures? perPart;
     StartSequence? startSequence;
+    /// <summary>Whether Vehicle Framework had it in flight at the last update, and where it stood then (StripDebris). Derived, never saved.</summary>
+    internal bool debrisWasFlying;
+    internal IntVec3 debrisLastCell = IntVec3.Invalid;
     SideTanks? sideTanks;
 
     /// <summary>An aircraft's engines lit one after another before take-off (Framework 0.252.0). Derived, never saved.</summary>
@@ -814,6 +817,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Vehicle.AddEvent(VehicleEventDefOf.DamageTaken, () => WeaponMounts.AfterDamage(Vehicle));
         // An aircraft taking off hears the refusals the player set to warn only (Framework 0.110.0).
         if (Vehicle.CompVehicleLauncher != null) Vehicle.AddEvent(VehicleEventDefOf.AerialVehicleLaunch, WarnAtLaunch);
+        // Framework 0.254.0: grit thrown up as it leaves the ground through Vehicle Framework's own launch.
+        if (Vehicle.CompVehicleLauncher != null) Vehicle.AddEvent(VehicleEventDefOf.AerialVehicleLaunch, () => StripDebris.OnLaunch(this));
         if (Powertrain != null)
         {
             // Once a second while it moves or flies, the drivetrain or turbine takes a sample; cargo and passengers change its mass.

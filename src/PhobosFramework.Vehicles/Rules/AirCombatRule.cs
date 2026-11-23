@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Phobos.Framework.Vehicles.Rules;
 
@@ -69,11 +70,33 @@ public static class AirCombatRule
     /// figure and two matched engines cost nothing. Only a twin pulls: with one engine or more than two it is 1, as it is with no figure.
     /// The figure grows with how far the engines sit from the centreline and is authored per aircraft.
     /// </summary>
-    public static double LopsidedThrust(double yaw, double firstOutput, double secondOutput, int engines)
+    public static double LopsidedThrust(double yaw, double firstOutput, double secondOutput, int engines) =>
+        engines != 2 ? 1 : LopsidedThrust(yaw, Asymmetry(new[] { firstOutput, secondOutput }, TwinArms));
+
+    /// <summary>A twin's engines, one each side at the same distance: what the twin figures above assume, whatever their parts' places.</summary>
+    public static readonly double[] TwinArms = { 1, -1 };
+
+    /// <summary>
+    /// How lopsided the thrust is, 0 to 1 (Framework 0.254.0; the owner's card of 23 Nov 2026: four-engined aircraft by wing): the turning
+    /// moment of the engines' outputs (each 0 to 1) about the centreline, each at its arm (its place across the aircraft, signed), over the
+    /// moment with one whole side out. A twin with one engine out gives 1; a four-engined aircraft with an outboard engine out gives more
+    /// than with an inboard one. 0 with no arm off the centreline.
+    /// </summary>
+    public static double Asymmetry(IReadOnlyList<double> outputs, IReadOnlyList<double> arms)
     {
-        if (engines != 2 || yaw <= 0) return 1;
-        return Clamp01(1 - Clamp01(yaw) * Math.Abs(Clamp01(firstOutput) - Clamp01(secondOutput)));
+        double moment = 0, left = 0, right = 0;
+        for (int i = 0; i < outputs.Count && i < arms.Count; i++)
+        {
+            moment += Clamp01(outputs[i]) * arms[i];
+            if (arms[i] > 0) right += arms[i];
+            else left -= arms[i];
+        }
+        double full = Math.Max(left, right);
+        return full <= 0 ? 0 : Clamp01(Math.Abs(moment) / full);
     }
+
+    /// <summary>What lopsided thrust leaves of the dodge: one less the yaw figure times the asymmetry.</summary>
+    public static double LopsidedThrust(double yaw, double asymmetry) => yaw <= 0 ? 1 : Clamp01(1 - Clamp01(yaw) * Clamp01(asymmetry));
 
     /// <summary>The extra fuel per unit of an aircraft's yaw figure with one engine fully out (AUTHORED, Framework 0.248.0): a yaw figure of
     /// 0.15 burns 7.5 % more. No published figure was found for these jets; a twin's single-engine cruise in the manuals is slower and
@@ -85,11 +108,12 @@ public static class AirCombatRule
     /// exception): the rudder held against the pull adds drag, so the engines burn more for the same flight. One plus the yaw figure times
     /// <see cref="TrimFuelPerYaw"/> times the difference between the two engines' outputs; 1 for anything but a twin with a figure.
     /// </summary>
-    public static double LopsidedThrustFuel(double yaw, double firstOutput, double secondOutput, int engines)
-    {
-        if (engines != 2 || yaw <= 0) return 1;
-        return 1 + Clamp01(yaw) * TrimFuelPerYaw * Math.Abs(Clamp01(firstOutput) - Clamp01(secondOutput));
-    }
+    public static double LopsidedThrustFuel(double yaw, double firstOutput, double secondOutput, int engines) =>
+        engines != 2 ? 1 : LopsidedThrustFuel(yaw, Asymmetry(new[] { firstOutput, secondOutput }, TwinArms));
+
+    /// <summary>What holding it straight costs in fuel, from the asymmetry (Framework 0.254.0): one plus the yaw figure times
+    /// <see cref="TrimFuelPerYaw"/> times the asymmetry.</summary>
+    public static double LopsidedThrustFuel(double yaw, double asymmetry) => yaw <= 0 ? 1 : 1 + Clamp01(yaw) * TrimFuelPerYaw * Clamp01(asymmetry);
 
     public static double Evasion(double authorsChance, double flightControl, bool warningWorks, double noWarningFactor, double salvoBonus, double cap)
     {

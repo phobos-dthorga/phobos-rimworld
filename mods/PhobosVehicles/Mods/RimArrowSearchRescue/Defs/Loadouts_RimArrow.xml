@@ -28,6 +28,11 @@
     <defName>PhobosVehicleLoadout_RimArrow_Ka27</defName>
     <label>coaxial search-and-rescue helicopter</label>
     <priority>Vehicle</priority>
+    <!-- Framework 0.254.0 (the fleet audit of 23 Nov 2026, after per-engine realism round two): stones and grit thrown into the
+         intakes on rough ground, 0.4 (authored: a naval helicopter with its engines high above the cabin). A tank each side, each feeding its own engine,
+         with a cross-feed (authored layout), as the other twins. -->
+    <intakeDebris>0.4</intakeDebris>
+    <sideTanks>true</sideTanks>
     <selector>
       <vehicleDefs>
         <li>RAH_Ka27PS_Vehicle</li>
@@ -39,7 +44,8 @@
       <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
     </systems>
     <drivetrain>
-      <def>PhobosDrivetrain_AeroTurboshaft</def>
+      <!-- Framework 0.254.0: the twin turboshaft, whose contingency rating opens only with an engine out. -->
+      <def>PhobosDrivetrain_AeroTurboshaftTwin</def>
       <set>
         <transmissionLimit>0.9</transmissionLimit>
       </set>
@@ -158,6 +164,11 @@
     <defName>PhobosVehicleLoadout_RimArrow_Mi38</defName>
     <label>medium transport helicopter</label>
     <priority>Vehicle</priority>
+    <!-- Framework 0.254.0 (the fleet audit of 23 Nov 2026, after per-engine realism round two): stones and grit thrown into the
+         intakes on rough ground, 0.3 (authored: its engines carry inlet dust protection, as Mil helicopters do). A tank each side, each feeding its own engine,
+         with a cross-feed (authored layout), as the other twins. -->
+    <intakeDebris>0.3</intakeDebris>
+    <sideTanks>true</sideTanks>
     <selector>
       <vehicleDefs>
         <li>RAH_Mi38_Vehicle</li>
@@ -169,7 +180,8 @@
       <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
     </systems>
     <drivetrain>
-      <def>PhobosDrivetrain_AeroTurboshaft</def>
+      <!-- Framework 0.254.0: the twin turboshaft, whose contingency rating opens only with an engine out. -->
+      <def>PhobosDrivetrain_AeroTurboshaftTwin</def>
       <set>
         <transmissionLimit>0.9</transmissionLimit>
       </set>

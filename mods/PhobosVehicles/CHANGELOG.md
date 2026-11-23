@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.111.0] - 2026-11-23 - Draft
+
+The C-17 Globemaster III in the fold
+
+### Added
+
+- **The C-17 Globemaster III runs our vehicle systems** (the owner's request of 23 November 2026, with D'thorga Framework 0.254.0; docs/development/c17-globemaster.md): four F117 turbofans at their real 179.9 kN, fly-by-wire controls on hydraulics, full navigation, an autopilot, weather radar, a missile warner and 120 flare cartridges, its landing wheels as landing gear and its tank as a fuel tank. **What its hold carries counts as weight**, so a hold full of vehicles climbs slowly and burns hard. An engine out pulls it to that side, an outer one more; each wing's tank feeds its two engines, with a cross-feed. Its own modes, loading, airdrops and sounds are left to its author. Figures and sources in its loadout's notes. Not yet tested in game: rows 420 to 422 of the test pass.
+
+### Changed
+
+- **The Cherokee, the Ka-27PS and the Mi-38 are brought in line with the other twins** (the fleet audit of 23 November 2026; they were left out of per-engine realism's second round by oversight): each keeps a fuel tank on each side with a cross-feed, has its own exposure to grit on rough ground (0.5, 0.4 and 0.3, authored), and its emergency engine rating opens only with an engine out, so with both engines sound it stops at take-off power; a very heavy hover in hot or thin air may now strain them. Their ratings stay the authored generic ones. Not yet tested in game: row 423 of the test pass.
+
 ## [0.110.0] - 2026-11-23 - Draft
 
 Twins' side tanks and how exposed each aircraft's intakes are

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    C-17 Globemaster III (Vehicle Framework) by z3nt3 (z3nt3.c17globemaster, Workshop 3841001179), taken into the fold at the owner's request
+    of 23 Nov 2026 (docs/development/c17-globemaster.md). A four-engined strategic airlifter flown through Vehicle Framework's own runway
+    launch, so the stock aircraft profile reads its phases. Its author's features are left alone: its point-to-point and airdrop modes, its
+    hold that loads vehicles, people and goods from behind the tail, its airdrops of paratroopers, crates and vehicles, and its sounds. Not
+    yet tested in game.
+
+    Sources: the US Air Force's C-17 fact sheets (af.mil, AMC, Dover, Travis and McGuire-Dix-Lakehurst), primary, for the engines' thrust,
+    the maximum take-off weight, the payload, the cruise and the ceiling; Aerocorner and Wikipedia, secondary, for the empty weight and the
+    fuel; FAS, secondary, for the defensive and navigation fit.
+  -->
+
+  <!--
+    Four Pratt & Whitney F117-PW-100 turbofans, each rated at 40,440 lbf, 179.9 kN, for take-off (primary: the Air Force's C-17 fact sheet).
+    No maximum-continuous rating was found: authored at 0.9 of take-off, as on the A-10. Temperature limits, rated speed and idle are the
+    Framework's generic turbofan's (authored; no F117 exhaust-gas limit was found). Empty mass 128,140 kg, 282,500 lb (secondary: Aerocorner;
+    the fact sheets give no empty weight). Full internal fuel 108,000 kg: 35,546 US gallons (secondary: Wikipedia, Aerocorner; later
+    aircraft carry more in a sealed centre-wing tank) at 6.7 lb a gallon of JP-8. Its maximum take-off weight, 265,352 kg, 585,000 lb
+    (primary: Dover's fact sheet), is not used by the engine model but bounds the figures: empty, full fuel and the mod's 77,000 kg of cargo
+    come to 313 t, more than it may lift, as in life (it trades fuel for payload).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_F117</defName>
+    <label>high-bypass turbofans</label>
+    <engine>
+      <kind>Turbofan</kind>
+      <ratedRpm>10000</ratedRpm>
+      <!-- The Framework's jet figures (authored): power per tonne sizes the ledger's shares only, and the idle share of fuel. -->
+      <kilowattsPerTonne>1500</kilowattsPerTonne>
+      <idleFuelShare>0.05</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>780</temperatureLimit><thrustKilonewtons>161.9</thrustKilonewtons></li>
+          <li><name>takeoff</name><label>take-off</label><share>1.11</share><speedPercent>104</speedPercent><temperatureLimit>830</temperatureLimit><minutes>5</minutes><thrustKilonewtons>179.9</thrustKilonewtons></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+    <mass>
+      <emptyKilograms>128140</emptyKilograms>
+      <fuelKilogramsFull>108000</fuelKilogramsFull>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_C17</defName>
+    <label>strategic airlifter (four turbofans)</label>
+    <priority>Vehicle</priority>
+    <!-- Lopsided thrust (Framework 0.254.0, four engines by wing; the owner's card of 23 Nov 2026): its engines hang well out under the wings,
+         further from the centreline than any twin's of ours, so 0.2 (authored); an outboard engine out pulls more than an inboard one. -->
+    <engineOutYaw>0.2</engineOutYaw>
+    <!-- Grit on rough ground (Framework 0.252.0): 0.3, authored: its engines hang high under a high wing, and it is built to land on short,
+         semi-prepared strips (the Air Force's fact sheets: runways as short as 3,500 ft). -->
+    <intakeDebris>0.3</intakeDebris>
+    <!-- A tank in each wing feeds the two engines under it, with a cross-feed (Framework 0.254.0; the real C-17 carries its fuel in its wing
+         tanks; the layout is simplified to one tank a side, authored). -->
+    <sideTanks>true</sideTanks>
+    <!-- The vehicles loaded into its hold are kept in its own comp, outside the cargo: they count as carried weight (Framework 0.254.0; the
+         owner's card of 23 Nov 2026), so a laden C-17 climbs slower and burns more. -->
+    <heldMassComps>
+      <li>C17Globemaster.CompC17Airlifter</li>
+    </heldMassComps>
+    <selector>
+      <vehicleDefs>
+        <li>C17_Globemaster</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <!-- Fly-by-wire with four hydraulic systems behind its control surfaces (secondary: FAS); its servos are the actuators. -->
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_F117</def>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_StockAircraft</flightProfile>
+    <!-- An initial cruise of 28,000 ft, 8,534 m, at about 450 knots, Mach 0.74, and a 45,000 ft ceiling, 13,716 m (primary: the Air Force's
+         fact sheets). Pressurised. -->
+    <cruise>
+      <designMetres>8534</designMetres>
+      <ceilingMetres>13716</ceilingMetres>
+      <lift>Jet</lift>
+    </cruise>
+    <avionics>
+      <!-- A glass cockpit with inertial and satellite navigation, an autopilot and a head-up display for each pilot (secondary: FAS). -->
+      <navigation>Full</navigation>
+      <autopilot>true</autopilot>
+      <!-- Its AN/APS-133 weather and mapping radar (secondary: FAS). Unarmed: no sight. -->
+      <radar>true</radar>
+      <sight>None</sight>
+      <nightSight>false</nightSight>
+      <!-- The AN/AAR-47 missile warning system and AN/ALE-47 flare dispensers (secondary: Airforce Technology); 56 of the Air Force's carry
+           the LAIRCM laser jammer as well, which this does not model. Its cartridge load was not found: 120, authored. -->
+      <warning>true</warning>
+      <countermeasures>true</countermeasures>
+      <countermeasureCartridges>120</countermeasureCartridges>
+      <oxygen>true</oxygen>
+      <cruisesHigh>true</cruisesHigh>
+      <!-- To another mod's air defence (DMS Expedition's scales, authored): a little faster than the A-10's 12 at its 450-knot cruise, and far
+           bigger, its 51.75 m span against the A-10's 17.5 m. -->
+      <airTrack>
+        <speed>13</speed>
+        <cruiseMetres>8534</cruiseMetres>
+        <lowCruiseMetres>3000</lowCruiseMetres>
+        <size>4.0</size>
+      </airTrack>
+    </avionics>
+    <partRoles>
+      <li>
+        <!-- Its four engines, numbered left to right as the mod and the real aircraft number them. -->
+        <role>Engine1</role>
+        <find>
+          <li>
+            <key>Engine1</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li>
+            <key>Engine2</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine3</role>
+        <find>
+          <li>
+            <key>Engine3</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine4</role>
+        <find>
+          <li>
+            <key>Engine4</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- The servos are the flight controls' actuators, as on the Black Hawk: a destroyed one is replaced with a hydraulic actuator. -->
+        <role>Actuator</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicPump</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- Its three landing wheels: what a hard landing wears (avionics A4). -->
+        <role>LandingGear</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>LandingWheel</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- Its fuel tank: holed, it leaks (cross-links G11), and its side is drawn when it does (side tanks). -->
+        <role>FuelTank</role>
+        <find>
+          <li>
+            <key>Chemtank</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+    <cabin>
+      <climateControl>true</climateControl>
+    </cabin>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

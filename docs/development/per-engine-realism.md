@@ -266,6 +266,14 @@ rough-strip debris, engines starting in turn).
   moderate** (agent's grade): an engine can stop for want of fuel while fuel is aboard, as in life.
 - **Older saves:** even sides, automatic. **Other factions' vehicles:** the same; their crews always count as aboard.
 
+## After round two
+
+- **Four engines by wing, and a named hold's weight** (Framework 0.254.0): [c17-globemaster.md](c17-globemaster.md). Lopsided thrust
+  (steps 2 and 5) and side tanks (step 11) now take any number of engines by where each sits; "only a twin pulls" above describes them
+  as first built.
+- **The fleet audit** in the same record: grit at a stock launch (a fault in step 10, fixed), and the Cherokee, Ka-27PS and Mi-38
+  brought in line with steps 8, 10 and 11.
+
 ## Sources
 
 - Our own code, read on 23 Nov 2026: `Powertrain.Engines`, `TurbineModel.Evaluate`, the turbine system (`Systems_Turbine.xml`).

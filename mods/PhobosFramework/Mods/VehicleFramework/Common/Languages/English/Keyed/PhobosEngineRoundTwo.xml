@@ -18,5 +18,5 @@ Shut: each engine keeps to its own tank, so a holed tank empties on its own side
 
 Click to change.</PhobosVehicleSystems_CrossFeedDesc>
   <PhobosVehicleSystems_CrossFeedCrewOpened>{VEHICLE}'s crew opened the fuel cross-feed: the good tank now feeds both engines, and the leak drains it too.</PhobosVehicleSystems_CrossFeedCrewOpened>
-  <PhobosVehicleSystems_EngineStarved>{VEHICLE}'s {ENGINE} has stopped: the tank on its side is dry. Open the cross-feed to feed it from the other.</PhobosVehicleSystems_EngineStarved>
+  <PhobosVehicleSystems_EngineStarved>{VEHICLE}: the tank feeding {ENGINE} has run dry, and what it feeds has stopped. Open the cross-feed to feed it from the other side.</PhobosVehicleSystems_EngineStarved>
 </LanguageData>

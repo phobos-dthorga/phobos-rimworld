@@ -20,6 +20,7 @@
     <li IfModActive="potemkinvillager.ea6bprowler">Mods/EA6BProwler</li>
     <li IfModActive="potemkinvillager.ea6bprowler">Mods/EA6BProwler/1.7</li>
     <li IfModActive="z3nt3.uh60blackhawk">Mods/UH60Blackhawk</li>
+    <li IfModActive="z3nt3.c17globemaster">Mods/C17Globemaster</li>
     <li IfModActive="RimThunder.Core">Mods/RimThunder</li>
     <!-- Fires a vehicle cannot put out; remove when the framework handles them (docs/development/vehicle-framework-fires.md). -->
     <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework</li>
