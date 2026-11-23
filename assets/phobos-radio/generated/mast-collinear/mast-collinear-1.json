@@ -1,0 +1,51 @@
+{
+  "file": "mast-collinear-1.png",
+  "sha256": "8c5ff7f9c6fe4f4334ef49df70ef2595fb182f8136a8679f26df90ba5c1799fa",
+  "date": "2026-11-24T01:23:10",
+  "prompt": "STEEP HIGH-ANGLE VIEW FROM ABOVE AND SLIGHTLY IN FRONT, exactly as the game RimWorld draws its trees and standing lamps: we look mostly DOWN onto the object's top; its height is strongly foreshortened, so only a short strip of its front shows below the top; its foot at the BOTTOM of the canvas and its top towards the TOP. No side-on view, no isometric angle, no tilt.\n\nCreate an ORIGINAL game building sprite for a mast antenna: a ten-metre guyed steel mast carrying a tall slim radio antenna, put up outside a hard-scrabble frontier colony's radio room. Image 1 is our approved parts bench from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape, contents.\n\nPortrait canvas. The mast fills about 90 percent of the canvas height, centred, on a plain pure white background.\n\nSeen steeply from above: a square concrete footing at the bottom; a slim triangular steel lattice mast braced with zig-zag struts, foreshortened, rising towards the top of the canvas; three thin guy wires running from high on the mast down and outwards to three small anchor blocks spread around the footing, forming a Y when seen from above; at the top, a short steel stub carrying a slim white fibreglass tube with a rounded cap, its cap seen mostly from above. A black cable runs down the mast to the footing.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted grey steel and white fibreglass, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, lamps, warning lights, flags, birds, people, dishes, extra antennas, ground beyond the footing, shadow outside the mast, landscape or sky.",
+  "seed": 1,
+  "size": [
+    1024,
+    1536
+  ],
+  "request_file": "assets/phobos-radio/requests/paid-2-antennas.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 744,
+    "input_tokens_details": {
+      "image_tokens": 336,
+      "text_tokens": 408
+    },
+    "output_tokens": 1372,
+    "output_tokens_details": {
+      "image_tokens": 1372,
+      "text_tokens": 0
+    },
+    "total_tokens": 2116
+  },
+  "cost_usd": 0.0459,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1536",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1536
+  ],
+  "seconds": 22.4,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+      "sha256": "67ac7e90566d266295400f8684a770a990aed414645bf3c1335efe2251f28785",
+      "role": "our approved vehicle parts bench: match its outline weight, shading, palette and finish only; do not copy its shape or contents"
+    }
+  ]
+}

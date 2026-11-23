@@ -1,0 +1,51 @@
+{
+  "file": "whip-ground-plane-2.png",
+  "sha256": "9f006f7576e61766fd6f2d9692eaa9334cf9372151b41a62201c6fd88f4479fd",
+  "date": "2026-11-24T01:22:47",
+  "prompt": "STEEP HIGH-ANGLE VIEW FROM ABOVE AND SLIGHTLY IN FRONT, exactly as the game RimWorld draws its trees and standing lamps: we look mostly DOWN onto the object's top; its height is strongly foreshortened, so only a short strip of its front shows below the top; its foot at the BOTTOM of the canvas and its top towards the TOP. No side-on view, no isometric angle, no tilt.\n\nCreate an ORIGINAL game building sprite for a whip antenna: a small dual-band radio antenna on a short steel pole, put up outside a hard-scrabble frontier colony's radio room. Image 1 is our approved parts bench from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape, contents.\n\nPortrait canvas. The antenna fills about 80 percent of the canvas height, centred, on a plain pure white background.\n\nSeen steeply from above: a small square concrete footing at the bottom; a short foreshortened galvanised steel pole rising from it; at its top, a small round grey connector housing, from which four thin stiff rods spread out and down like the ribs of an open umbrella, making a clear X-shaped star when seen from above; from the centre of the housing, one thin rod pointing up, foreshortened, with a small ball tip. A black cable runs down the pole to the footing.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted grey steel, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, lamps, lights, flags, birds, people, wires to anything else, ground beyond the footing, shadow outside the antenna, landscape or sky.",
+  "seed": 2,
+  "size": [
+    1024,
+    1536
+  ],
+  "request_file": "assets/phobos-radio/requests/paid-2-antennas.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 726,
+    "input_tokens_details": {
+      "image_tokens": 336,
+      "text_tokens": 390
+    },
+    "output_tokens": 1372,
+    "output_tokens_details": {
+      "image_tokens": 1372,
+      "text_tokens": 0
+    },
+    "total_tokens": 2098
+  },
+  "cost_usd": 0.0458,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1536",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1536
+  ],
+  "seconds": 21.2,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+      "sha256": "67ac7e90566d266295400f8684a770a990aed414645bf3c1335efe2251f28785",
+      "role": "our approved vehicle parts bench: match its outline weight, shading, palette and finish only; do not copy its shape or contents"
+    }
+  ]
+}
