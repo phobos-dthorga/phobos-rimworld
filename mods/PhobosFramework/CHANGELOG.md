@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.260.0] - 2026-11-23 - Draft
+
+The Systems tab's engine figures, as rows
+
+### Changed
+
+- **The Systems tab's Engine and drivetrain card reads as rows, not sentences** (the owner's choice of 23 November 2026). Engine speed, load (as a bar), shaft power, fuel burned, heat to coolant and mass each take a row, and what the engine also drives is a table, biggest first, with a total. Not yet tested in game: row 434 of the test pass.
+- **Every driven load shows its own share of the fuel**, where only the alternator's was given before; a load under 0.1 kW shows a second decimal instead of reading 0 kW. An aircraft's turbine card lists its loads the same way.
+
 ## [0.259.0] - 2026-11-23 - Draft
 
 The swag and the parts bench link like their counterparts

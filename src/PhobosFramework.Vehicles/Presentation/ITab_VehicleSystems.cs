@@ -156,24 +156,10 @@ public partial class ITab_VehicleSystems : ITab
                 anything = true;
                 float top = y;
                 PhobosWidgets.CardHeader(ref y, 0f, viewWidth, "PhobosVehicleSystems_SysDrivetrain".Translate(), train.Cap < 0.99 ? PhobosWidgets.Caution : PhobosWidgets.Good);
-                string gear = r.Gear > 0 ? "PhobosVehicleSystems_SysGear".Translate(r.Gear.Named("GEAR")).Resolve() + ", " : "";
-                Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), gear + "PhobosVehicleSystems_SysRpm".Translate(r.Rpm.ToString("N0").Named("RPM")).Resolve()
-                    + ", " + "PhobosVehicleSystems_SysLoad".Translate(comp.Engine.Load.ToStringPercent().Named("LOAD")).Resolve());
-                y += Row;
-                if (engineer)
-                {
-                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), InspectText.PowerLine(comp, train));
-                    y += Row;
-                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysMass".Translate(train.MassKg().ToString("N0").Named("MASS")).Resolve());
-                    y += Row;
-                }
-                // The engine-load ledger (Framework 0.131.0): what else the engine is driving now.
-                if (InspectText.LoadsLine(comp, VehicleSystemsMod.Settings.displayMode) is { } loads)
-                {
-                    float loadsHeight = Mathf.Max(Row, Text.CalcHeight(loads, viewWidth - 12f));
-                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, loadsHeight), loads);
-                    y += loadsHeight;
-                }
+                // Framework 0.260.0: one figure to a row, and the engine-load ledger (what else the engine is driving now) as a table
+                // (ITab_VehicleSystems.Drivetrain.cs).
+                DrawEngineRows(comp, train, ref y, viewWidth, engineer);
+                DrawLedger(comp, ref y, viewWidth, engineer);
                 // Framework 0.132.0: thin air at height, while it takes power worth a look.
                 if (InspectText.ThinAirLine(comp, VehicleSystemsMod.Settings.displayMode) is { } thinAir)
                 {
@@ -213,12 +199,7 @@ public partial class ITab_VehicleSystems : ITab
                 y += Row;
                 // Framework 0.132.0: an aircraft's ledger (its generator and its bleed air) and the thin air, which a ground vehicle's
                 // drivetrain card shows.
-                if (!train.Ground && InspectText.LoadsLine(comp, VehicleSystemsMod.Settings.displayMode) is { } airLoads)
-                {
-                    float loadsHeight = Mathf.Max(Row, Text.CalcHeight(airLoads, viewWidth - 12f));
-                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, loadsHeight), airLoads);
-                    y += loadsHeight;
-                }
+                if (!train.Ground) DrawLedger(comp, ref y, viewWidth, engineer);
                 if (!train.Ground && InspectText.ThinAirLine(comp, VehicleSystemsMod.Settings.displayMode) is { } thinAloft)
                 {
                     float airHeight = Mathf.Max(Row, Text.CalcHeight(thinAloft, viewWidth - 12f));

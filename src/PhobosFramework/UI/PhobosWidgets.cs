@@ -345,6 +345,42 @@ public static class PhobosWidgets
         y += CardGap;
     }
 
+    /// <summary>A card's plain row is this tall: a name and its figure.</summary>
+    public const float FigureRowHeight = 20f;
+    /// <summary>How wide each figure column of a card's plain row is.</summary>
+    public const float FigureColumnWidth = 76f;
+    const float FigureRowInset = 6f;
+
+    /// <summary>
+    /// One plain row of a card (Framework 0.260.0): a name on the left and its figure against the right edge. With a
+    /// <paramref name="second"/> figure, the first moves one column left and the second takes the edge, so rows of two figures line up
+    /// as a table; a heading for such a table is the same row in the tiny font. Advances the caller's y and returns the row's rect, for
+    /// a tooltip or something drawn over it. The name is cut short where it would run into the figures.
+    /// </summary>
+    public static Rect FigureRow(ref float y, float x, float width, string label, string figure, string? second = null, Color? colour = null,
+        GameFont font = GameFont.Small)
+    {
+        var row = new Rect(x, y, width, FigureRowHeight);
+        Widgets.DrawHighlightIfMouseover(row);
+        float figuresWidth = FigureColumnWidth * (second == null ? 1 : 2);
+        float nameWidth = Mathf.Max(0f, width - figuresWidth - FigureRowInset * 3f);
+        Color before = GUI.color;
+        if (colour is Color tint) GUI.color = tint;
+        using (new TextBlock(font, TextAnchor.MiddleLeft))
+        {
+            Widgets.Label(new Rect(x + FigureRowInset, y, nameWidth, FigureRowHeight), label.Truncate(nameWidth));
+        }
+        using (new TextBlock(font, TextAnchor.MiddleRight))
+        {
+            float edge = x + width - FigureRowInset;
+            Widgets.Label(new Rect(edge - figuresWidth, y, FigureColumnWidth, FigureRowHeight), figure);
+            if (second != null) Widgets.Label(new Rect(edge - FigureColumnWidth, y, FigureColumnWidth, FigureRowHeight), second);
+        }
+        GUI.color = before;
+        y += FigureRowHeight;
+        return row;
+    }
+
     /// <summary>A line in the tiny font, wrapped to the width given; returns its height, so the row under it can grow to fit.</summary>
     public static float WrappedLine(float x, float y, float width, string text)
     {

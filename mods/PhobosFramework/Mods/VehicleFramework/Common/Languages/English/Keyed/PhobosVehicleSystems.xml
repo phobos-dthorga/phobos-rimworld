@@ -216,9 +216,6 @@
   <PhobosVehicleSystems_InspectBatteryFlat>The battery is flat, and something is still drawing on it.</PhobosVehicleSystems_InspectBatteryFlat>
   <PhobosVehicleSystems_InspectBatteryFlatWith>{LOADS} on: the battery is flat.</PhobosVehicleSystems_InspectBatteryFlatWith>
   <PhobosVehicleLedger_Alternator>alternator</PhobosVehicleLedger_Alternator>
-  <PhobosVehicleLedger_Driving>The engine is also driving: {LOADS}.</PhobosVehicleLedger_Driving>
-  <PhobosVehicleLedger_FuelShare>They take {SHARE} of the fuel it burns now, the alternator {ALTERNATOR}.</PhobosVehicleLedger_FuelShare>
-  <PhobosVehicleLedger_Part>{LOAD} {KILOWATTS} kW</PhobosVehicleLedger_Part>
   <!-- Framework 0.132.0: an aircraft's bleed air on the same list, and thin air at height. -->
   <PhobosVehicleLedger_ReactionControl>air for the puffer jets</PhobosVehicleLedger_ReactionControl>
   <PhobosVehicleLedger_CabinAir>cabin air</PhobosVehicleLedger_CabinAir>
@@ -637,10 +634,28 @@
   <PhobosVehicleSystems_SysFilterAttention>Only what needs attention</PhobosVehicleSystems_SysFilterAttention>
   <PhobosVehicleSystems_SysFilterAttentionDesc>Hides every reading that is running normally and every part at full health, leaving what has a warning and what is hurt.</PhobosVehicleSystems_SysFilterAttentionDesc>
   <PhobosVehicleSystems_SysNothingNeedsAttention>Nothing needs attention.</PhobosVehicleSystems_SysNothingNeedsAttention>
-  <PhobosVehicleSystems_SysGear>Gear {GEAR}</PhobosVehicleSystems_SysGear>
+  <!-- The engine's figures, one to a row, and what else it drives as a table (Framework 0.260.0). -->
+  <PhobosVehicleSystems_SysRowGear>Gear</PhobosVehicleSystems_SysRowGear>
+  <PhobosVehicleSystems_SysRowSpeed>Engine speed</PhobosVehicleSystems_SysRowSpeed>
   <PhobosVehicleSystems_SysRpm>{RPM} rpm</PhobosVehicleSystems_SysRpm>
-  <PhobosVehicleSystems_SysLoad>load {LOAD}</PhobosVehicleSystems_SysLoad>
-  <PhobosVehicleSystems_SysMass>Mass {MASS} kg</PhobosVehicleSystems_SysMass>
+  <PhobosVehicleSystems_SysRowLoad>Load</PhobosVehicleSystems_SysRowLoad>
+  <PhobosVehicleSystems_SysRowLoadTip>The engine's whole load now: what driving asks of it and what everything else it turns asks of it, together.</PhobosVehicleSystems_SysRowLoadTip>
+  <PhobosVehicleSystems_SysRowShaft>Shaft power</PhobosVehicleSystems_SysRowShaft>
+  <PhobosVehicleSystems_SysRowShaftTip>The power the engine gives at its shaft now: driving, any work it is doing, and everything else it turns.</PhobosVehicleSystems_SysRowShaftTip>
+  <PhobosVehicleSystems_SysRowFuel>Fuel burned</PhobosVehicleSystems_SysRowFuel>
+  <PhobosVehicleSystems_SysRowFuelTip>The fuel the engine burns now for that shaft power, as power.</PhobosVehicleSystems_SysRowFuelTip>
+  <PhobosVehicleSystems_SysRowHeat>Heat to coolant</PhobosVehicleSystems_SysRowHeat>
+  <PhobosVehicleSystems_SysRowHeatTip>The part of the fuel burned that goes into the coolant as heat, for the radiator to shed.</PhobosVehicleSystems_SysRowHeatTip>
+  <PhobosVehicleSystems_SysRowMass>Mass</PhobosVehicleSystems_SysRowMass>
+  <PhobosVehicleSystems_SysRowMassTip>The vehicle as it stands: empty, plus its cargo, its people, the ordnance in its turrets and its fuel.</PhobosVehicleSystems_SysRowMassTip>
+  <PhobosVehicleSystems_SysKilowatts>{KILOWATTS} kW</PhobosVehicleSystems_SysKilowatts>
+  <PhobosVehicleSystems_SysKilograms>{MASS} kg</PhobosVehicleSystems_SysKilograms>
+  <PhobosVehicleSystems_SysLedger>Also driven by the engine</PhobosVehicleSystems_SysLedger>
+  <PhobosVehicleSystems_SysLedgerPower>power</PhobosVehicleSystems_SysLedgerPower>
+  <PhobosVehicleSystems_SysLedgerFuel>of fuel</PhobosVehicleSystems_SysLedgerFuel>
+  <PhobosVehicleSystems_SysLedgerAll>All of these</PhobosVehicleSystems_SysLedgerAll>
+  <PhobosVehicleSystems_SysLedgerTip>What the engine turns besides the wheels, biggest first, with the power each takes from it now.</PhobosVehicleSystems_SysLedgerTip>
+  <PhobosVehicleSystems_SysLedgerFuelTip>Of fuel: the share of the fuel burned now that goes to turning it.</PhobosVehicleSystems_SysLedgerFuelTip>
   <PhobosVehicleSystems_SysCap>Held to {CAP} of its speed by {LIMIT}.</PhobosVehicleSystems_SysCap>
   <PhobosVehicleSystems_LimitPower>its engine</PhobosVehicleSystems_LimitPower>
   <PhobosVehicleSystems_LimitTraction>its grip on the ground</PhobosVehicleSystems_LimitTraction>

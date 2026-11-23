@@ -456,8 +456,9 @@ for what its engine actually does.
   without, and a car somewhat more. On a road the same loads are a few per cent.
 - **On a climb, in mud or under a heavy tow, switching loads off gets a little speed back**: what they take comes off what is left
   for driving.
-- **The Systems tab lists what the engine is driving** in Operator and Engineer display modes, with kilowatts in Engineer mode, and
-  says what share of the fuel burned now they take, and the alternator's own share.
+- **The Systems tab lists what the engine is driving** in Operator and Engineer display modes, as a table at the foot of its Engine
+  and drivetrain card, biggest first: each load's share of the fuel burned now, its kilowatts too in Engineer mode, and all of them
+  together on the last row.
 - **Headlights dim when the battery carries them**: with the engine off, or when the loads outrun the alternator at idle, they burn
   at the battery's lower voltage, about seven-tenths of their light from a full battery and less as it runs down. The inspect pane
   says so. Start the engine, or switch something off, and they brighten.

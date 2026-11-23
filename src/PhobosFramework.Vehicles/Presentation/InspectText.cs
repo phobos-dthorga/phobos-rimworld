@@ -145,6 +145,10 @@ public static class InspectText
 
     /// <summary>The engine's line: Plain only when it labours or the wheels spin; Operator gear and rpm (or spool and turbine
     /// temperature); Engineer adds load and kilowatts.</summary>
+    /// <summary>An engine above this share of its load is labouring: the plain inspect line says so, and the Systems tab's load bar turns
+    /// amber (authored).</summary>
+    public const float LabouringLoad = 0.9f;
+
     static string? EngineLine(CompPhobosVehicleSystems comp, DisplayMode mode)
     {
         Powertrain? train = comp.Powertrain;
@@ -154,7 +158,7 @@ public static class InspectText
         if (mode == DisplayMode.Plain)
         {
             if (spinning) return "PhobosVehicleSystems_InspectWheelsSpinning".Translate();
-            if (comp.Engine.Load > 0.9f) return "PhobosVehicleSystems_InspectLabouring".Translate();
+            if (comp.Engine.Load > LabouringLoad) return "PhobosVehicleSystems_InspectLabouring".Translate();
             return null;
         }
         string line;
@@ -231,29 +235,6 @@ public static class InspectText
         FuelUse.Electrics => "PhobosVehicleFuel_UseElectrics".Translate().Resolve(),
         _ => "PhobosVehicleFuel_UseEngine".Translate().Resolve(),
     };
-
-    /// <summary>What the engine is driving besides the wheels (Framework 0.131.0, the engine-load ledger), or null with nothing: Operator
-    /// the names, Engineer each with its kilowatts. Reads the ledger the vehicle worked out at its last look.</summary>
-    public static string? LoadsLine(CompPhobosVehicleSystems comp, DisplayMode mode)
-    {
-        IReadOnlyList<ShaftLoadNow> loads = comp.ShaftLoads;
-        if (mode == DisplayMode.Plain || loads.Count == 0) return null;
-        string parts = string.Join(", ", loads.Select(l => mode == DisplayMode.Engineer
-            ? "PhobosVehicleLedger_Part".Translate(l.Label.Named("LOAD"), l.Kilowatts.ToString("0.#").Named("KILOWATTS")).Resolve()
-            : l.Label));
-        string line = "PhobosVehicleLedger_Driving".Translate(parts.Named("LOADS")).Resolve();
-        // Framework 0.243.0 (the owner's report of 23 Nov 2026): what they cost in fuel, so the strain can be seen. Only for a piston engine on
-        // the full model, where each shaft kilowatt costs one over the indicated efficiency; a turbine's fuel has a floor of its own.
-        if (comp.Powertrain is { Full: true, Ground: true, IsAircraft: false } train && train.Spec.IdleFuelShare <= 0)
-        {
-            double fuelKw = train.FuelKwNow(comp.Engine);
-            double all = ShaftLoadRule.FuelShare(comp.LedgerKw, fuelKw, train.Spec.IndicatedEfficiency);
-            double alternator = ShaftLoadRule.FuelShare(comp.AlternatorKw * comp.BeltGrip, fuelKw, train.Spec.IndicatedEfficiency);
-            if (all > 0) line += " " + "PhobosVehicleLedger_FuelShare".Translate(((float)all).ToStringPercent().Named("SHARE"),
-                ((float)alternator).ToStringPercent().Named("ALTERNATOR")).Resolve();
-        }
-        return line;
-    }
 
     /// <summary>The Engineer's power line (Framework 0.130.0, step S1), from the engine's one picture: its whole load, the shaft power driving
     /// and the loads take, the fuel power for it and the heat into the coolant. The inspect pane and the Systems tab both show this.</summary>
