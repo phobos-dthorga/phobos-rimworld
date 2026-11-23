@@ -10,6 +10,8 @@ with every public field and that field's default, read from our source.
     python scripts/reference-site.py check --write-baseline   records today's gaps as known (config/reference-site.json)
     python scripts/reference-site.py pages --work DIR     writes the generated pages only (no DocFX)
     python scripts/reference-site.py build                generates the pages, runs DocFX, writes the site
+    python scripts/reference-site.py verify               the gate's step: the whole build in a throwaway folder; fails on any
+                                                          DocFX warning or error (needs DocFX)
 
 - **Our source is read as text, never compiled or loaded**: phobos-modkit's C# declaration scanner finds the types and fields; no
   assembly of ours or anyone's is loaded or run.
@@ -829,7 +831,39 @@ def build(root, settings, work, site, docfx='docfx', run=subprocess.run, log=pri
     log(f'Building the site: {site_run.warnings} warnings, {site_run.errors} errors' +
         (f'; read them in {work / "docfx-build.log"}' if site_run.warnings else ''))
     log(f'Open {site / "index.html"} in a browser to look at it.')
-    return pages, api, len(chosen)
+    return pages, api, len(chosen), site_run.warnings
+
+
+def verify(root, settings, docfx='docfx', log=print, restore=True):
+    """The gate's build (the owner's card of 24 Nov 2026): the whole site into a throwaway folder of its own, so gates of several
+    sessions never share one; 1 when DocFX fails or the site has any warning (a broken link, a cross-reference to nothing). The
+    compiler's warnings from other mods' unresolved types are not the site's and do not count. The folder is always removed."""
+    import tempfile
+    scratch = Path(tempfile.mkdtemp(prefix='reference-site-'))
+    try:
+        (scratch / 'work').mkdir()
+        (scratch / 'site').mkdir()
+        (scratch / 'work' / MARKER).write_text('throwaway\n', encoding='utf-8')
+        (scratch / 'site' / MARKER).write_text('throwaway\n', encoding='utf-8')
+        try:
+            *_, warnings = build(root, settings, scratch / 'work', scratch / 'site', docfx, log=lambda _line: None, restore=restore)
+        except SiteError as error:
+            log(f'reference-site: {error}')
+            log_file = next(iter(sorted(scratch.glob('work/docfx-*.log'))), None)
+            if log_file is not None:
+                log(log_file.read_text(encoding='utf-8', errors='replace')[-3000:])
+            return 1
+        if warnings:
+            log(f'The reference site built with {warnings} warnings; DocFX said:')
+            text = (scratch / 'work' / 'docfx-build.log').read_text(encoding='utf-8', errors='replace')
+            for line in text.splitlines():
+                if 'warning' in line.lower():
+                    log('  ' + line.strip())
+            return 1
+        log('The reference site builds with no warnings or errors.')
+        return 0
+    finally:
+        shutil.rmtree(scratch, ignore_errors=True)
 
 
 # ----------------------------------------------------------------------------------------------------------------------------
@@ -906,6 +940,8 @@ def main(argv=None):
     builder.add_argument('--site', type=Path, help='where the site goes (default: the kit cache\'s rimworld-reference-site/site)')
     builder.add_argument('--docfx', default=os.environ.get('DOCFX', 'docfx'), help='the docfx command (default: docfx on PATH)')
     builder.add_argument('--no-restore', action='store_true', help='never run dotnet restore for the reference assemblies')
+    verifier = sub.add_parser('verify', help='the gate\'s step: build the site into a throwaway folder; fail on any DocFX warning or error')
+    verifier.add_argument('--docfx', default=os.environ.get('DOCFX', 'docfx'), help='the docfx command (default: docfx on PATH)')
     args = parser.parse_args(argv)
     settings = load_settings(ROOT)
     try:
@@ -923,6 +959,8 @@ def main(argv=None):
             chosen = write_pages(ROOT, settings, work, Progress())
             print(f'{len(chosen)} XML-facing types; pages written to {work}')
             return 0
+        if args.command == 'verify':
+            return verify(ROOT, settings, args.docfx)
         work = args.work or default_folder('work')
         site = args.site or default_folder('site')
         build(ROOT, settings, work, site, args.docfx, progress=Progress(), restore=not args.no_restore)

@@ -14,6 +14,7 @@
         {"name": "art records", "run": ["{python}", "scripts/art-audit.py", "check"]},
         {"name": "doc tables", "run": ["{python}", "scripts/doc-tables.py"]},
         {"name": "reference summaries", "run": ["{python}", "scripts/reference-site.py", "check"]},
+        {"name": "reference site", "lane": "docfx", "requires": "docfx", "run": ["{python}", "scripts/reference-site.py", "verify"]},
         {"name": "picture edges", "run": ["{python}", "scripts/art/edge_check.py", "check"]},
         {"name": "mod layout and text keys", "run": ["{python}", "scripts/check-mod-layout.py"]},
         {"name": "vehicle schemas", "run": ["{python}", "scripts/check-vehicle-schemas.py"]},

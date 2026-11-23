@@ -1,7 +1,8 @@
 # The modders' reference site (23 Nov 2026)
 
-**Status (23 Nov 2026):** built and checked on the owner's PC; **not yet published**. GitHub Pages waits for the owner to switch it
-on (below). The workflow has not run on GitHub yet.
+**Status (24 Nov 2026):** built, and **published at [phobos-dthorga.github.io/phobos-rimworld](https://phobos-dthorga.github.io/phobos-rimworld/)** since 23 Nov 2026 (the
+owner switched GitHub Pages on); the workflow rebuilds and republishes it on every push that touches its files. Since 24 Nov 2026
+the gate builds it too.
 
 The owner's choice D3 in the docs rewrite (23 Nov 2026): the Framework's modder reference is generated from the code with
 **DocFX** (Microsoft's documentation generator, MIT licence), published on GitHub Pages, instead of written by hand. The audit had
@@ -12,15 +13,17 @@ found 232 public modder-facing types in the Framework and its vehicle systems, a
 - **Build it with `python scripts/reference-site.py build`** (about 45 s). The site goes to the kit's cache
   (`rimworld-reference-site/site`, on K: on the owner's PC); `--site` and `--work` choose other folders. Nothing is written into
   the repository.
+- **The gate builds the whole site too** (`verify`, in its own lane beside the C# builds, about a minute; the owner's card of
+  24 Nov 2026): into a throwaway folder per run, failing on any DocFX warning or error, so a broken link or cross-reference is
+  caught before a commit rather than on GitHub. A machine without DocFX skips the step and says so.
 - **`python scripts/reference-site.py check` is a gate step**: it fails when a modder-facing type has no `<summary>`. The 33
   types without one on 23 Nov 2026 are listed in `config/reference-site.json` (`knownGaps`), so only a new gap fails; give one a
   summary and take it off the list.
 - **Modders write XML, so every XML-facing type's page shows it as XML**: a Def or `<li Class="...">` example with its fields and
   their defaults, read from the C# text by the kit's declaration scanner (nothing is compiled or loaded). A default worked out in
   code says "set in code".
-- **To publish (the owner's step):** Settings, Pages, Build and deployment, Source: **GitHub Actions**; then Settings, Secrets and
-  variables, Actions, Variables: add **`PAGES_ENABLED`** = `true`. Until then the workflow builds the site and uploads it on
-  every push to `main` that touches its files, and its deploy job is skipped.
+- **Publishing is switched on by two settings** (the owner's, 23 Nov 2026): Settings, Pages, Source: **GitHub Actions**; and the
+  Actions variable **`PAGES_ENABLED`** = `true`. Delete the variable to stop publishing; the build still runs and uploads.
 
 ## How it is built (agent choices, owner to revise)
 

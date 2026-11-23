@@ -318,5 +318,41 @@ class Site(unittest.TestCase):
             self.assertTrue((ROOT / guide).is_file(), guide)
 
 
+class Verifying(unittest.TestCase):
+    """The gate's step builds into a throwaway folder, fails on a site warning, and always removes the folder."""
+
+    def run_verify(self, outcome):
+        folders = []
+
+        def fake_build(root, settings, work, site_folder, docfx, log, restore):
+            folders.append(Path(work).parent)
+            (Path(work) / 'docfx-build.log').write_text('Build succeeded with warning.\n  warning InvalidCrossReference: x\n',
+                                                         encoding='utf-8')
+            if outcome == 'error':
+                raise site.SiteError('DocFX could not build the site (1 errors)')
+            return 10, 8, 3, (2 if outcome == 'warnings' else 0)
+
+        lines = []
+        original = site.build
+        site.build = fake_build
+        try:
+            code = site.verify(ROOT, {}, log=lines.append)
+        finally:
+            site.build = original
+        self.assertFalse(folders[0].exists(), 'the throwaway folder is removed')
+        return code, lines
+
+    def test_a_clean_site_passes(self):
+        self.assertEqual(self.run_verify('clean')[0], 0)
+
+    def test_a_site_warning_fails_and_is_shown(self):
+        code, lines = self.run_verify('warnings')
+        self.assertEqual(code, 1)
+        self.assertTrue(any('InvalidCrossReference' in line for line in lines))
+
+    def test_a_docfx_error_fails(self):
+        self.assertEqual(self.run_verify('error')[0], 1)
+
+
 if __name__ == '__main__':
     unittest.main()
