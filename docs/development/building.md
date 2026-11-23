@@ -33,7 +33,7 @@ Generated from the project files by `python scripts/doc-tables.py --write`: chan
 | `PhobosFactory.Hygiene` | `mods/PhobosFactoryAdditions/Mods/DubsBadHygiene/` | `PhobosFactory`, `PhobosFramework.Hygiene` | `PipeSystem`, `BadHygiene` | yes | none |
 | `PhobosFarming` | `mods/PhobosFarming/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `SmashTools`, `CoreLib` | yes | none |
 | `PhobosFramework` | `mods/PhobosFramework/` | none | none | yes | `PhobosFramework.Rules.Tests`, `PhobosFramework.Vehicles.Rules.Tests` |
-| `PhobosFramework.Hygiene` | `mods/PhobosFramework/Mods/DubsBadHygiene/` | `PhobosFramework` | `BadHygiene` | no | none |
+| `PhobosFramework.Hygiene` | `mods/PhobosFramework/Mods/DubsBadHygiene/` | `PhobosFramework` | `BadHygiene` | yes | none |
 | `PhobosFramework.Vehicles` | `mods/PhobosFramework/Mods/VehicleFramework/` | `PhobosFramework` | `Vehicles`, `SmashTools`, `CoreLib` | yes | `PhobosFramework.Vehicles.Rules.Tests` |
 | `PhobosFramework.Vehicles.Dmse` | `mods/PhobosFramework/Mods/VehiclesDmse/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `DMSE`, `Vehicles`, `SmashTools` | yes | none |
 | `PhobosFramework.Vehicles.Hygiene` | `mods/PhobosFramework/Mods/VehiclesHygiene/` | `PhobosFramework`, `PhobosFramework.Hygiene`, `PhobosFramework.Vehicles` | `Vehicles`, `BadHygiene` | yes | none |
@@ -59,7 +59,7 @@ Generated from the project files by `python scripts/doc-tables.py --write`: chan
 | `PhobosRadio` | `mods/PhobosRadioFramework/` | none | `PipeSystem` | no | `PhobosRadio.Physics.Tests` |
 | `PhobosWaterTap` | `mods/PhobosWaterTap/` | `PhobosFramework.Hygiene` | `BadHygiene` | no | `PhobosWaterTap.Rules.Tests` |
 
-29 projects (22 using Harmony) and 7 test projects. Read from each project file as written: MSBuild is not run, so a value set only in `Directory.Build.props` or `Directory.Build.targets` is not shown. Harmony: its own C# files have `using HarmonyLib` or a `[HarmonyPatch]`. Test projects: those that reference the project or compile its files.
+29 projects (23 using Harmony) and 7 test projects. Read from each project file as written: MSBuild is not run, so a value set only in `Directory.Build.props` or `Directory.Build.targets` is not shown. Harmony: its own C# files have `using HarmonyLib` or a `[HarmonyPatch]`. Test projects: those that reference the project or compile its files.
 <!-- end generated -->
 
 What the table cannot read from the files, kept by hand:
@@ -121,7 +121,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory` | 14 | 0 | 0 | 0 |
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
-| `PhobosFramework` | 3 | 0 | 0 | 0 |
+| `PhobosFramework` | 3 | 0 | 1 | 0 |
 | `PhobosFramework.Vehicles` | 100 | 15 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 1 | 0 | 0 | 0 |
@@ -141,7 +141,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-173 patched methods named in attributes, 23 patch classes that find their target by name (`TargetMethod`), and 17 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+173 patched methods named in attributes, 23 patch classes that find their target by name (`TargetMethod`), and 18 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 

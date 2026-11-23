@@ -20,6 +20,10 @@ combine harvester cuts it, row by row by themselves, emptying its grain into a c
 - **With The Dead Man's Switch - Legion, its Agricultural Frame's extra hay comes only from crops that leave straw** (a setting, on by
   default): grains, peas, chickpeas, canola, corn, sunflowers and haygrass. Cabbages, fruit, potatoes and flowers give none. Turn it off
   for hay from every plant, as its author made it.
+- **Rain soaks open fields** (a D'thorga Framework setting, **off by default**, under **Fields**): with it on, rain wets the soil outdoors
+  within the hour, and wet soil makes crops grow faster, never slower. With Dubs Bad Hygiene it fills Dubs' own irrigation (its **Rain
+  irrigation** option must be on too), which dries as Dubs dries it; without it, our own figure dries over the following hours. Any
+  growing zone outdoors gains, paddock or not.
 - **The grain fronts cut cereals, pulses and oilseeds only**: rice, and buckwheat, chickpeas, peas and canola with Vanilla Cooking
   Expanded or Vanilla Plants Expanded. **The corn header** takes corn and sunflowers. Potatoes, hay and cotton stay for hands for now.
 - **Wheat, barley, oats, rye and sorghum stay for hands**: with Vanilla Cooking Expanded they give flour straight from the plant, which

@@ -1,6 +1,6 @@
 # Soil rules for D'thorga Farming: research and design (19 Nov 2026)
 
-**Status (23 Nov 2026):** research and record only. No code, Def or setting exists for any of it, and nothing here is tested in game. The owner set its direction and answered every question it raised on 19 Nov 2026 (below). One proposal waits for the owner's cards: [rain that soaks the fields](#rain-that-soaks-the-fields-sl10-cards-waiting-23-nov-2026) (SL10).
+**Status (23 Nov 2026):** mostly research and record: the presets, field care, the Realistic rules and the moisture ledger are not built (seed use is, in D'thorga Farming's [farm machines](farming-machines.md)). Nothing here is tested in game. The owner set its direction and answered every question it raised on 19 Nov 2026 (below). **One part is built**: [rain that soaks the fields](#rain-that-soaks-the-fields-sl10-built-23-nov-2026) (SL10), in D'thorga Framework 0.269.0, a setting off by default, not yet tested in game.
 
 The owner's words, 19 Nov 2026, asked how deep the soil and crop rules should go: "We offer configurable settings for the player to
 choose from. I'm honest in saying that I tend to be weird one out in enjoying soil chemistry, realistic farming, etc." On moisture:
@@ -115,9 +115,11 @@ moisture model, Terra Project (2019, abandoned), was found punishing by its play
   loss can be worked out for any stretch of time in one step.
 - **Cheaper than its method**: it sweeps every cell of every map; ours keeps one figure for each paddock.
 
-## Rain that soaks the fields (SL10, cards waiting, 23 Nov 2026)
+## Rain that soaks the fields (SL10, built 23 Nov 2026)
 
-**Not built.** The agent's proposal, the owner's Option A of 23 Nov 2026, held here for the owner's cards.
+**Built in D'thorga Framework 0.269.0** (the setting **Rain soaks open fields**, off by default; not yet tested in game, row 446 of
+the test pass). The agent's proposal, the owner's Option A of 23 Nov 2026, and the owner's cards are below; what was built differs
+from the proposal only where the cards say.
 
 **What the owner saw:** in save PG20, during rain, the soil did not seem to get wet. **What was found** (the save read only, and
 Dubs Bad Hygiene's 1.7 decompile [code, checked]):
@@ -149,14 +151,29 @@ Dubs Bad Hygiene's 1.7 decompile [code, checked]):
 - **Without Dubs Bad Hygiene** nothing changes for crops: our own moisture ledger (SL2) is not built.
 - **A new setting**, reported to the owner by name when built.
 
-**The cards waiting** (the agent's recommendation first):
+**The owner's answers (cards, 23 Nov 2026):**
 
-| Card | Options |
+| Card | The owner's answer |
 | --- | --- |
-| Build it when? | Now, on its own (recommended: small, and the owner noticed the gap) · With the farming soil build · Not at all |
-| After the rain stops | Dubs Bad Hygiene's own drying (recommended: one drying model, and its settings rule) · Follow our ten-hour drying, which would hold fields wet longer |
-| Where its setting lives | D'thorga Framework, for every player with Dubs Bad Hygiene (recommended: it is about rain, not machines) · D'thorga Farming only |
-| The setting's default | On (recommended: it is what Realistic Rain shows) · Off |
+| Build it when? | **Now, on its own, "but disabled by default because previous experiences with these things mean huge performance hits that are very noticeable"** |
+| After the rain stops | **"Dub's is preferred when available otherwise our own code takes over"** |
+| Where its setting lives | **D'thorga Framework** |
+| The setting's default | **Off** |
+| Without Dubs Bad Hygiene (asked to clarify the second answer) | **Build the fallback now** |
+| Measure it | **Measure it first with perf.py**, in the owner's game, before it ships |
+
+**As built**, beyond the proposal:
+
+- **Without Dubs Bad Hygiene, or in its lite mode** (which keeps no water in the soil), our own rule runs: a postfix on the game's
+  `FertilityGrid.CalculateFertilityAt` makes unroofed, fertile ground more fertile in proportion to the map's figure, 1 when dry to
+  1.8 when soaked (Dubs Bad Hygiene's own default irrigation strength, so the two agree; `soakedFertilityFactor` in the ground
+  wetness rules Def) [A]. It dries as our figure dries, over about ten hours.
+- **Never both at once**: with Dubs Bad Hygiene active its tie-in registers its patch, and ours stays out whatever the setting.
+- **Off means out of the game**: both patches go in and come out with the setting, at once and with no restart (D'thorga
+  Framework's `SwitchedPatch`), so the setting off costs nothing at all. The owner's worry was performance; this was the answer.
+- **With Dubs Bad Hygiene's Rain irrigation option off, nothing happens** [A, agent choice]: the player turned rain irrigation off
+  in Dubs, and our patch rides that visit. The setting's text says so.
+- **What a next game would need**: the rule (`IrrigationTarget`, `FertilityFactor`) is game-free; the patches are RimWorld's.
 
 ## Field care (SL3)
 

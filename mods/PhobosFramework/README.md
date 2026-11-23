@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.268.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.269.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -22,6 +22,9 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   with a switch for each kind under **General, Standby power**). A workbench, research bench, television, turret, hydroponics basin,
   monitor or powered door draws its full power only while in use and 10% while idle. **It stands down by itself while LightsOut or
   Turn It On and Off - RePowered is active**: switch them off to use it. Safe to add or remove mid-colony.
+- **Rain soaks open fields** (setting **Rain soaks open fields**, **off by default**, under **General, Fields**): rain wets the soil
+  outdoors within the hour and wet soil helps crops grow. With Dubs Bad Hygiene its **Rain irrigation** option must be on too. Safe to
+  add or remove mid-colony.
 - **Everything we build is in the Architect's D'thorga tab**, sorted into sub-tabs: Motor pool, Farming, Medical and Radio, as each
   mod you have adds them. With Vanilla Gravship Expanded they are listed down the tab's side, as its gravship tabs are.
   **RimWorld 1.7 only.** Its vehicle systems switch on only with **Vehicle Framework**; garages and pipe lines need **Vanilla Expanded
@@ -165,6 +168,7 @@ changing one lists them (at the main menu it offers to restart). RimWorld saves 
 | General | Lights go dark in empty rooms; Animals turn the lights on (under the one above) | An indoor light is lit only while someone awake is in its room; outdoor lights and sun lamps are left alone. With the second, animals count too | On; Off |
 | General | Workbenches, research benches and televisions; Turrets, hydroponics and monitors; Powered doors (under the one above) | One switch for each kind. A turret on standby still fires and a door still opens at once | On |
 | General | Power on standby (under the one above) | How much of its full power an idle building draws: 0%, 5%, 10%, 20% or 30% | 10% |
+| General | Rain soaks open fields | Rain wets the soil crops grow in outdoors within the hour, as it wets the ground under vehicles, and wet soil only ever helps crops. With Dubs Bad Hygiene it fills Dubs' own irrigation (needs its Rain irrigation option on), which Dubs dries; without it, soaked open ground is up to 1.8 times as fertile, falling back as the ground dries. Changes at once | Off |
 | General | D'thorga sounds volume | Every D'thorga mod's sounds, from 0% (silent) to 200%; at 100% each matches a comparable game sound. Changes at once | 100% |
 | Log and reports | Keep the game's log going after its message limit | Turns the game's log back on when it stops at 10,000 messages, at most 25 times a session, with a line naming the message that filled it | On |
 | Log and reports | Say when D'thorga code was part of an error | After an error whose trace shows D'thorga code or a D'thorga patch on its path, writes one line saying so, so a report reaches D'thorga too. Never says D'thorga caused it. Once per kind of error, at most 50 a session | On |

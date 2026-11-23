@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.269.0] - 2026-11-23 - Draft
+
+Rain soaks open fields
+
+### Added
+
+- **Rain soaks open fields, as a setting, off by default** (the owner's cards of 23 November 2026, after rain in their colony barely wet the soil). With it on, the ground wetness that rain fills within the hour reaches the soil crops grow in, outdoors only, and only ever helps them. With Dubs Bad Hygiene, its own irrigation is filled as the rain falls (its Rain irrigation option on), and Dubs dries it; without Dubs, or in its lite mode, soaked open ground is up to 1.8 times as fertile (Dubs' own default strength), falling back as the ground dries. Dubs alone needed a day or two of steady rain to soak a field. The setting is under General, Fields; it changes at once, and while it is off its patches are not in the game at all. Not yet tested in game: row 446 of the test pass. The design is SL10 of docs/development/farming-soil.md.
+
+### Save compatibility
+
+- Safe to add and remove: nothing new is saved. Dubs Bad Hygiene's irrigation grid saves as before.
+
+### Compatibility and limits
+
+- One figure for each map, as the ground wetness is: a whole map's open fields soak and dry together. The bonus without Dubs (1.8) is in the ground wetness rules Def, patchable in XML.
+
 ## [0.268.0] - 2026-11-23 - Draft
 
 Open vehicles: a windscreen alone, and every seat in the open

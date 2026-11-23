@@ -4,6 +4,10 @@
   "game": "rimworld",
   "rows": {
     "443": ["framework.logbook.day-headings"],
+    "446": {"parts": {
+      "Dubs Bad Hygiene's irrigation fills in the rain": [{"key": "fields.rainSoaks", "variant": "keeper"}],
+      "without Dubs, open ground grows more fertile": [{"key": "fields.rainSoaks", "variant": "own"}]
+    }},
     "445": {"parts": {
       "the Humvee's cab is open, with a windscreen": [{"key": "vehicles.open-cab", "detail": "*Windscreen*"}],
       "its windscreen cracks or goes": [{"key": "vehicles.glass", "detail": "*Windscreen*"}]

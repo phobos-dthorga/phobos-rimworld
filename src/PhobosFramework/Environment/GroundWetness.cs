@@ -19,6 +19,9 @@ public class PhobosGroundWetnessRulesDef : PhobosRulesDef
     public float nightFactor = 0.4f;
     /// <summary>Game ticks between updates of a map's figure (2,500 is an in-game hour).</summary>
     public int passTicks = 250;
+    /// <summary>Rain soaking open fields (Framework 0.269.0), where no other mod keeps the soil's water: how many times as fertile soaked
+    /// open ground is, falling in a straight line to 1 as it dries. Dubs Bad Hygiene's own default irrigation strength.</summary>
+    public float soakedFertilityFactor = 1.8f;
 
     public static PhobosGroundWetnessRulesDef Current => Current<PhobosGroundWetnessRulesDef>();
 }
@@ -52,6 +55,37 @@ public sealed class MapComponent_PhobosGroundWetness : MapComponent
     public static float OpenOn(Map? map) => For(map)?.wetness ?? 0f;
 
     public static MapComponent_PhobosGroundWetness? For(Map? map) => map?.GetComponent<MapComponent_PhobosGroundWetness>();
+
+    /// <summary>The last map asked for and its component, together in one object so a reader never sees half of a pair.</summary>
+    sealed class Last
+    {
+        public readonly Map map;
+        public readonly MapComponent_PhobosGroundWetness component;
+        public Last(Map map, MapComponent_PhobosGroundWetness component) { this.map = map; this.component = component; }
+    }
+
+    static Last? last;
+
+    /// <summary>The map's figure for open ground, for methods called very often (every cell's fertility, Framework 0.269.0): the
+    /// component is looked up once and kept while the same map is asked about, as a modded game's maps hold hundreds of components.</summary>
+    public static float OpenOnQuick(Map? map)
+    {
+        if (map == null) return 0f;
+        Last? known = last;
+        if (known == null || known.map != map)
+        {
+            MapComponent_PhobosGroundWetness? found = For(map);
+            if (found == null) return 0f;
+            last = known = new Last(map, found);
+        }
+        return known.component.wetness;
+    }
+
+    public override void MapRemoved()
+    {
+        // Lets a closed map go, rather than holding it until another map is asked about.
+        if (last?.map == map) last = null;
+    }
 
     /// <summary>Sets the figure outright (dev mode's "soak" and "dry" actions).</summary>
     public void Set(float value) => wetness = Math.Max(0f, Math.Min(1f, value));

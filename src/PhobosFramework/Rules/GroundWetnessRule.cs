@@ -54,6 +54,22 @@ public static class GroundWetnessRule
     public static double Underfoot(double rainRate, double wetness, bool roofed) =>
         roofed ? 0 : Math.Max(Clamp01(double.IsNaN(rainRate) ? 0 : rainRate), Clamp01(wetness));
 
+    /// <summary>The full scale of Dubs Bad Hygiene's irrigation figure for a cell (0 dry, 100 soaked).</summary>
+    public const double IrrigationFull = 100;
+
+    /// <summary>What a cell's irrigation should reach while it rains, with the ground this wet (Framework 0.269.0, farming record SL10): the
+    /// map's figure on Dubs Bad Hygiene's own scale. Only ever a floor: a cell already wetter, by a sprinkler, keeps its own.</summary>
+    public static double IrrigationTarget(double wetness) => Clamp01(wetness) * IrrigationFull;
+
+    /// <summary>How much more fertile open ground is with this much water in it, where no other mod keeps the soil's water (Framework
+    /// 0.269.0, farming record SL10): 1 when dry, rising in a straight line to <paramref name="soakedFactor"/> when soaked, as Dubs Bad
+    /// Hygiene's irrigation does. Never below 1 ("moisture never punishes", owner, 19 Nov 2026).</summary>
+    public static double FertilityFactor(double wetness, double soakedFactor)
+    {
+        double top = double.IsNaN(soakedFactor) ? 1 : Math.Max(1, soakedFactor);
+        return 1 + (top - 1) * Clamp01(wetness);
+    }
+
     static double Clamp(double value, double min, double max) => Math.Max(min, Math.Min(max, value));
 
     static double Clamp01(double value) => double.IsNaN(value) ? 0 : Math.Max(0, Math.Min(1, value));

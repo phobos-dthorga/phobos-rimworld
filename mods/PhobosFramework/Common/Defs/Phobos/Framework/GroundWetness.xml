@@ -16,5 +16,9 @@
     <nightFactor>0.4</nightFactor>
     <!-- Updated every 250 ticks (a tenth of an in-game hour). -->
     <passTicks>250</passTicks>
+    <!-- Rain soaks open fields (Framework 0.269.0, off by default), where no other mod keeps the soil's water: soaked open ground is this
+         many times as fertile, falling in a straight line to 1 as it dries. 1.8 is Dubs Bad Hygiene's own default irrigation strength,
+         so the two agree. -->
+    <soakedFertilityFactor>1.8</soakedFertilityFactor>
   </Phobos.Framework.Environment.PhobosGroundWetnessRulesDef>
 </Defs>

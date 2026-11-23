@@ -76,6 +76,26 @@ public class GroundWetnessRuleTests
     }
 
     [Fact]
+    public void RainSoaksFieldsToTheMapFigure()
+    {
+        Assert.Equal(0, GroundWetnessRule.IrrigationTarget(0));
+        Assert.Equal(40, GroundWetnessRule.IrrigationTarget(0.4), 6);
+        Assert.Equal(100, GroundWetnessRule.IrrigationTarget(3));
+        Assert.Equal(0, GroundWetnessRule.IrrigationTarget(double.NaN));
+    }
+
+    [Fact]
+    public void WetSoilOnlyEverHelps()
+    {
+        Assert.Equal(1, GroundWetnessRule.FertilityFactor(0, 1.8), 6);
+        Assert.Equal(1.4, GroundWetnessRule.FertilityFactor(0.5, 1.8), 6);
+        Assert.Equal(1.8, GroundWetnessRule.FertilityFactor(2, 1.8), 6);
+        // A factor below 1 would punish dry spells: held at 1.
+        Assert.Equal(1, GroundWetnessRule.FertilityFactor(1, 0.5), 6);
+        Assert.Equal(1, GroundWetnessRule.FertilityFactor(1, double.NaN), 6);
+    }
+
+    [Fact]
     public void NonsenseStaysInBounds()
     {
         Assert.Equal(0, Step(double.NaN, 1, 0));

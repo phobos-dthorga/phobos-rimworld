@@ -60,6 +60,9 @@ public class FrameworkSettings : ModSettings
     public int standbyPercent = Rules.StandbyPowerRule.DefaultStandbyPercent;
     /// <summary>Animals light the rooms they walk into (agent default: off, as LightsOut's own default).</summary>
     public bool standbyAnimalsLight;
+    /// <summary>Rain soaks open fields (Environment/RainSoakedFields; the owner's cards of 23 Nov 2026, farming record SL10: off by default, as
+    /// such things have cost noticeable performance before). Changes at once: its patches go in and come out with it.</summary>
+    public bool rainSoaksFields;
     /// <summary>"Seen in play" notes for testing (Framework 0.118.0; owner, 17 Nov 2026: off by default): Debug/SeenInPlay.cs.</summary>
     public bool noteSeenInPlay;
     /// <summary>With dev mode on, a message when a note stands for a test row still waiting (Framework 0.138.0; owner, 18 Nov 2026; off by
@@ -119,6 +122,7 @@ public class FrameworkSettings : ModSettings
         Scribe_Values.Look(ref standbyDoors, "PhobosFramework_StandbyDoors", true);
         Scribe_Values.Look(ref standbyPercent, "PhobosFramework_StandbyPercent", Rules.StandbyPowerRule.DefaultStandbyPercent);
         Scribe_Values.Look(ref standbyAnimalsLight, "PhobosFramework_StandbyAnimalsLight", false);
+        Scribe_Values.Look(ref rainSoaksFields, "PhobosFramework_RainSoaksFields", false);
         if (Scribe.mode == LoadSaveMode.PostLoadInit) standbyPercent = Rules.StandbyPowerRule.ClampPercent(standbyPercent);
     }
 }
@@ -133,7 +137,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : SettingsBookMod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.268.0";
+    public const string ModVersion = "0.269.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -186,6 +190,11 @@ public class FrameworkMod : SettingsBookMod
         report.On("sound volume " + SoundVolumeRule.Percent(Settings.soundVolume) + "% on " + Sounds.PhobosSoundVolume.Marked + " sound" +
                   (Sounds.PhobosSoundVolume.Marked == 1 ? "" : "s"));
         report.On(Buildings.LinksLike.Describe());
+        // Our own patch goes in here unless a tie-in has registered its mod's already (at its own start-up, either side of this line).
+        Environment.RainSoakedFields.Apply();
+        (string fields, bool fieldsOn, string? fieldsWhy) = Environment.RainSoakedFields.Describe();
+        if (fieldsOn) report.On(fields);
+        else report.Off(fields, fieldsWhy ?? "setting");
         report.On("parts bills: " + Bills.PartsBills.Applied + " applied" + (Bills.PartsBills.Failed > 0 ? ", " + Bills.PartsBills.Failed + " failed" : "")
                   + (Bills.PartsBills.OthersAllowed ? ", other mods' parts where installed" : ", always our own parts"));
         string topUps = "topping up: " + TopUp.TopUps.BuildingKindCount + " kind(s) of building by haulers, " + TopUp.TopUps.MechanoidKindCount
@@ -274,6 +283,13 @@ public class FrameworkMod : SettingsBookMod
                 Rules.StandbyPowerRule.StandbyPercents, percent => "PhobosFramework_StandbyPercentOption".Translate(percent.Named("PERCENT")),
                 null, "PhobosFramework_SettingStandbyPercentDesc".Translate());
             list.Outdent();
+        }
+
+        list.Section("PhobosFramework_SectionFields".Translate());
+        if (list.Check("PhobosFramework_SettingRainSoaksFields".Translate(), ref s.rainSoaksFields, Defaults.rainSoaksFields,
+                "PhobosFramework_SettingRainSoaksFieldsDesc".Translate(Environment.RainSoakedFields.SoakedFactor.ToString("0.#").Named("FACTOR"))))
+        {
+            Environment.RainSoakedFields.Apply();
         }
 
         list.Section("PhobosFramework_SectionColonists".Translate());
