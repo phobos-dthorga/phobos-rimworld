@@ -164,6 +164,8 @@
     </modExtensions>
     <inspectorTabs>
       <li>Phobos.Radio.UI.ITab_RadioNet</li>
+      <!-- The waterfall (Radio 0.6.0): the band as a software radio shows it. -->
+      <li>Phobos.Radio.UI.ITab_RadioWaterfall</li>
     </inspectorTabs>
     <placeWorkers>
       <li>Phobos.Radio.UI.PlaceWorker_AntennaSiting</li>

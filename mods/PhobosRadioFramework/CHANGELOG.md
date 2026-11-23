@@ -32,6 +32,9 @@ The radio comes alive: a step chart, lamps and needles, a mast light, the coax g
 - **The mast has a red warning light that flashes at night.** Not yet tested in game: row 470.
 - **The coax glows with the signal it carries** while its station or an antenna is selected: bright at the station, dimmer along
   the run as the cable loses it, bright again past a powered amplifier. Not yet tested in game: row 471.
+- **The radio terminal has a Waterfall tab**, as a software radio shows its band: each colonist's radio a streak as bright as it
+  arrives, sending about a fifth of the time, over the noise the station hears, with the line voice needs. Each radio has its own
+  spot on the band only to tell them apart; the radios have no channels yet. Not yet tested in game: row 472.
 
 ## [0.5.0] - 2026-11-24 - Draft
 

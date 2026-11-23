@@ -38,17 +38,6 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
     private const int PassFine = 1;
     private const int PassDone = 2;
 
-    private static readonly Color NoContactColor = new(0.42f, 0.06f, 0.08f);
-    // The mock-up's ramp, dark to bright: deep indigo, violet, rose, orange, gold, pale cream.
-    private static readonly (float at, Color color)[] Ramp =
-    {
-        (0f, new Color(0.11f, 0.09f, 0.25f)),
-        (0.25f, new Color(0.33f, 0.13f, 0.48f)),
-        (0.5f, new Color(0.69f, 0.20f, 0.44f)),
-        (0.72f, new Color(0.94f, 0.45f, 0.23f)),
-        (0.88f, new Color(0.98f, 0.78f, 0.35f)),
-        (1f, new Color(1f, 0.96f, 0.82f)),
-    };
 
     // What is asked for: the selected station or antenna, renewed every frame it stays selected.
     private Thing? asked;
@@ -393,18 +382,8 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
         return kinds;
     }
 
-    private Color ColorFor(float margin)
-    {
-        if (margin < 0f) return NoContactColor;
-        var t = 0.08f + 0.92f * Mathf.Pow(Mathf.Clamp01(margin / fullScaleDb), 1.2f);
-        for (var i = 1; i < Ramp.Length; i++)
-        {
-            if (t > Ramp[i].at) continue;
-            var span = Ramp[i].at - Ramp[i - 1].at;
-            return Color.Lerp(Ramp[i - 1].color, Ramp[i].color, span <= 0 ? 1f : (t - Ramp[i - 1].at) / span);
-        }
-        return Ramp[Ramp.Length - 1].color;
-    }
+    private Color ColorFor(float margin) =>
+        margin < 0f ? UI.RadioPalette.NoContact : UI.RadioPalette.At(0.08f + 0.92f * Mathf.Pow(Mathf.Clamp01(margin / fullScaleDb), 1.2f));
 
     /// <summary>A kind of hand-held, read from its Def.</summary>
     private sealed class Kind

@@ -54,7 +54,12 @@ Select the station afterwards and the coverage shows what it bought. **A second 
 misses; its little stub antenna works poorly, and its computer makes noise that spoils antennas close to it, so run coax to a whip
 or mast a few metres away. A **linear amplifier** (up to 100 W) or **heavy linear amplifier** (up to 400 W) joined into the coax
 raises what either station sends, for the antennas whose cable runs through it, and draws power and warms its room while the
-station is sending. The **full-size ground-plane** is a slightly better whip. A colonist in good contact gets a small **in touch with home** mood, and a fainter one on a weak
+station is sending. The **full-size ground-plane** is a slightly better whip.
+
+**Signs of life.** The desk's lamp lights and its needle swings while it sends; an amplifier's needle shows its output; the
+mast flashes red at night. Select a station and its coax glows, dimming along the cable as it loses the signal. The radio
+terminal's **Waterfall** tab shows each colonist's radio as a streak, brighter for a stronger signal, over the noise it hears; at
+Operator and Engineer the link-budget window adds the budget as steps. A colonist in good contact gets a small **in touch with home** mood, and a fainter one on a weak
 link. **While placing** an antenna or the station, the cursor shows its height, the roof and the noise there; red means overhead
 mountain.
 

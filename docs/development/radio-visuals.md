@@ -1,6 +1,8 @@
 # Radio visuals: showing the link budget as pictures (23 Nov 2026)
 
-**Status (24 Nov 2026):** partly built. RV1, the coverage overlay, and the noise fade (F2) are built in Radio Framework 0.2.0
+**Status (24 Nov 2026):** partly built. RV5 to RV8 and RV3 are built in Radio Framework 0.6.0
+([round two](#round-two-rv5-to-rv8-and-rv3-radio-060-24-nov-2026)); not yet tested in game: rows 468 to 472. RV1, the coverage
+overlay, and the noise fade (F2) are built in Radio Framework 0.2.0
 ([as built](#as-built-radio-020-24-nov-2026)); RV2, the ray line, and RV4, the side view, in 0.3.0
 ([as built](#as-built-radio-030-24-nov-2026)). Not yet tested in game: rows 456, 457, 459 and 460. Every other idea is unbuilt. The
 owner reopened the radio on seeing the mock-up ([below](#reopened-23-nov-2026)).
@@ -327,6 +329,19 @@ baked mesh (`MapMeshAndRealTime`), as the game's own lamps are. That is a few mo
 time); the amplifier's needle shows its output against its rating. The waterfall's brightness is each hand-held's real received
 level and its speckle the station's real noise floor, **but each radio is drawn on its own spot of the band to tell them apart:
 the mod has no channels yet**, and the picture says so.
+
+**As built (all [code], none tested in game):**
+
+- **RV5**, `BudgetSteps` in the link-budget window: Operator the deciding direction, Engineer both; the window is now 640 wide.
+- **RV6 and RV7**, `CompRadioMarks`: marks as data on a building (`TransmitLamp`, `Needle`, `WarningLight`, each at an offset in cells,
+  measured from the shipped pictures on 24 Nov 2026). The lamp and needle follow the station's in-use state for the mode's duty cycle,
+  phased per station; an amplifier's needle shows output against rating; the light flashes about 40 times a minute below a sky glow
+  of 0.35. Agent choices **[A]**: the timings, the colours and the night threshold.
+- **RV8**, `RadioCoaxView`: the route cache now keeps each run's cells in order (`FeedPath.Cells`); the tint is rounded to eighths, as
+  the game keeps a material per colour asked for. Water damage is not modelled, so there is no green.
+- **RV3**, `ITab_RadioWaterfall`, on the radio terminal only **[A]** (the software radio's own picture; the desk has none): the colour
+  ramp is shared with the coverage overlay (`RadioPalette`); the grain uses Unity's random numbers, never the game's, so the picture
+  cannot change what happens in play; it stops while the game is paused.
 
 ## For another game
 

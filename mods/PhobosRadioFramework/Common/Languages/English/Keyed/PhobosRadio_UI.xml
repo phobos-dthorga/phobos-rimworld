@@ -61,6 +61,11 @@
   <PhobosRadio_ProfileHandheld>hand-held, {HEIGHT} m</PhobosRadio_ProfileHandheld>
   <PhobosRadio_ProfileDistance>{DISTANCE} m apart</PhobosRadio_ProfileDistance>
   <PhobosRadio_StepsFloor>noise</PhobosRadio_StepsFloor>
+  <PhobosRadio_TabWaterfall>Waterfall</PhobosRadio_TabWaterfall>
+  <PhobosRadio_WaterfallTitle>{BAND}: newest at the top, brighter for a stronger signal</PhobosRadio_WaterfallTitle>
+  <PhobosRadio_WaterfallNeeded>voice needs {LEVEL} dBm</PhobosRadio_WaterfallNeeded>
+  <PhobosRadio_WaterfallNote>Each streak is a colonist's radio as it arrives here, sending about a fifth of the time. Each is drawn on its own spot of the band to tell them apart: the radios have no channels yet.</PhobosRadio_WaterfallNote>
+  <PhobosRadio_WaterfallNobody>No colonist wearing a hand-held is in reach: only the noise this station hears.</PhobosRadio_WaterfallNobody>
   <PhobosRadio_StepsNeeded>needed</PhobosRadio_StepsNeeded>
   <PhobosRadio_StepsMargin>{MARGIN} dB to spare</PhobosRadio_StepsMargin>
 
