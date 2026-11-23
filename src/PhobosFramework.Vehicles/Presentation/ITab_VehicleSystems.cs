@@ -150,7 +150,6 @@ public partial class ITab_VehicleSystems : ITab
         Powertrain? train = comp.Powertrain;
         if (train != null && VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off)
         {
-            DriveResult r = train.Result;
             if (train.Ground && (!attentionOnly || train.Cap < 0.99))
             {
                 anything = true;
@@ -160,27 +159,10 @@ public partial class ITab_VehicleSystems : ITab
                 // (ITab_VehicleSystems.Drivetrain.cs).
                 DrawEngineRows(comp, train, ref y, viewWidth, engineer);
                 DrawLedger(comp, ref y, viewWidth, engineer);
-                // Framework 0.132.0: thin air at height, while it takes power worth a look.
-                if (InspectText.ThinAirLine(comp, VehicleSystemsMod.Settings.displayMode) is { } thinAir)
-                {
-                    float airHeight = Mathf.Max(Row, Text.CalcHeight(thinAir, viewWidth - 12f));
-                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, airHeight), thinAir);
-                    y += airHeight;
-                }
-                if (comp.Hitch is { Trailer: not null } hitch)
-                {
-                    // Hitch slice 3 (Framework 0.104.0): what it tows and, while held back, what holds it, in the display mode's words.
-                    string towing = TowText.Towing(hitch, VehicleSystemsMod.Settings.displayMode);
-                    float towingHeight = Mathf.Max(Row, Text.CalcHeight(towing, viewWidth - 12f));
-                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, towingHeight), towing);
-                    y += towingHeight;
-                }
-                if (train.Cap < 0.99)
-                {
-                    string limit = (r.Limit == DriveLimit.Traction ? "PhobosVehicleSystems_LimitTraction" : "PhobosVehicleSystems_LimitPower").Translate();
-                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysCap".Translate(((float)train.Cap).ToStringPercent().Named("CAP"), limit.Named("LIMIT")).Resolve());
-                    y += Row;
-                }
+                // Framework 0.262.0: thin air, the tow and what holds the vehicle back, each as rows where they were sentences.
+                DrawThinAir(comp, ref y, viewWidth, engineer);
+                if (comp.Hitch is { } hitch) DrawTowing(hitch, train, ref y, viewWidth, engineer);
+                DrawHeldBack(comp, train, ref y, viewWidth);
                 PhobosWidgets.CardEnd(top, ref y, 0f, viewWidth);
             }
             if (train.Turbine != null && !attentionOnly)
@@ -188,36 +170,17 @@ public partial class ITab_VehicleSystems : ITab
                 anything = true;
                 float top = y;
                 PhobosWidgets.CardHeader(ref y, 0f, viewWidth, "PhobosVehicleSystems_SysTurbine".Translate(), null);
-                TurbineState t = train.TurbineNow;
-                Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_InspectTurbine".Translate(t.SpeedPercent.ToString("0").Named("SPOOL"),
-                    train.ShownTurbineTemperature.ToStringTemperature("F0").Named("TEMPERATURE")).Resolve()
-                    + (train.PhaseSpec != null && !train.PhaseSpec.label.NullOrEmpty() ? " " + "PhobosVehicleSystems_InspectPhase".Translate(train.PhaseSpec.label.Named("PHASE")).Resolve() : ""));
-                y += Row;
-                (int working, int engines) = train.Engines();
-                Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysRating".Translate(train.RatingLabel.Named("RATING")).Resolve() + ", "
-                    + "PhobosVehicleSystems_SysEnginesWorking".Translate(working.Named("WORKING"), engines.Named("ENGINES")).Resolve());
-                y += Row;
+                // Framework 0.262.0: one figure to a row (ITab_VehicleSystems.Drivetrain.cs).
+                DrawTurbineRows(train, ref y, viewWidth);
                 // Framework 0.132.0: an aircraft's ledger (its generator and its bleed air) and the thin air, which a ground vehicle's
                 // drivetrain card shows.
-                if (!train.Ground) DrawLedger(comp, ref y, viewWidth, engineer);
-                if (!train.Ground && InspectText.ThinAirLine(comp, VehicleSystemsMod.Settings.displayMode) is { } thinAloft)
+                if (!train.Ground)
                 {
-                    float airHeight = Mathf.Max(Row, Text.CalcHeight(thinAloft, viewWidth - 12f));
-                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, airHeight), thinAloft);
-                    y += airHeight;
+                    DrawLedger(comp, ref y, viewWidth, engineer);
+                    DrawThinAir(comp, ref y, viewWidth, engineer);
                 }
-                if (engineer && train.BleedShare > 0)
-                {
-                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysBleed".Translate(((float)train.BleedShare).ToStringPercent("0.#").Named("SHARE")).Resolve());
-                    y += Row;
-                }
-                if (engineer && train.JudgesHover)
-                {
-                    (bool dry, bool wet, double margin) = train.HoverCheck();
-                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysHoverMargin".Translate(((float)margin).ToStringPercent().Named("MARGIN"),
-                        (dry ? "PhobosVehicleSystems_HoverDry" : wet ? "PhobosVehicleSystems_HoverWet" : "PhobosVehicleSystems_HoverNone").Translate().Named("HOW")).Resolve());
-                    y += Row;
-                }
+                if (engineer) DrawTurbineEngineerRows(train, ref y, viewWidth);
+                Seen.Note("vehicles.systems-tab.turbine-rows", comp.Vehicle);
                 PhobosWidgets.CardEnd(top, ref y, 0f, viewWidth);
             }
         }

@@ -232,7 +232,6 @@ public partial class ITab_VehicleSystems
         Seen.Note("vehicles.systems-tab.loads-card", comp.Vehicle);
         PhobosWidgets.CardHeader(ref y, 0f, width, "PhobosVehicleSystems_SysLoads".Translate(),
             anyNoPower ? PhobosWidgets.Bad : anyShed ? PhobosWidgets.Caution : PhobosWidgets.Good);
-        float nameEnd = width * LoadNameShare;
         foreach (ElectricalLoadSpec load in loadScratch)
         {
             LoadState state = comp.StateOf(load);
@@ -267,22 +266,9 @@ public partial class ITab_VehicleSystems
             if (engineer && state == LoadState.Running) amps = Amps(comp.AmpsNow(load));
             else if (engineer && state == LoadState.NoPower)
                 stateText = "PhobosVehicleSystems_SysLoadAmps".Translate(stateText.Named("STATE"), comp.AmpsNow(load).ToString("0.#").Named("AMPS")).Resolve();
-            Rect row = PhobosWidgets.FigureRow(ref y, 0f, width, label, amps, nameEnd: nameEnd);
-            // Its state runs to the edge where the row has no figure, and stops short of the figure where it has one.
-            float stateWidth = width - nameEnd - 6f - (amps.Length > 0 ? PhobosWidgets.FigureColumnWidth : 0f);
-            string shownState;
-            using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
-            {
-                shownState = stateText.Truncate(stateWidth);
-                Widgets.Label(new Rect(nameEnd, row.y, stateWidth, row.height), shownState.Colorize(colour));
-            }
-            if (Mouse.IsOver(row))
-            {
-                // Its state in full where it was cut short, then what the load is.
-                string tip = shownState != stateText ? "PhobosVehicleSystems_SysLoadTip".Translate(label.Named("LOAD"), stateText.Named("STATE")).Resolve() : "";
-                if (!load.description.NullOrEmpty()) tip += (tip.Length > 0 ? "\n\n" : "") + load.description;
-                if (tip.Length > 0) TooltipHandler.TipRegion(row, tip);
-            }
+            Rect row = WordRow(ref y, width, label, stateText, colour, amps, LoadNameShare, out bool cut);
+            // Its state in full where it was cut short, then what the load is.
+            WordTip(row, label, stateText, cut, load.description);
         }
         // All that are running, together: the vehicle's own sums (the loads on its battery, and the camp's on a house battery), which
         // count exactly the loads that read as running. Left out under the filter, which shows only what is wrong.

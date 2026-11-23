@@ -26,14 +26,8 @@ public static class TowText
         }
         Powertrain? train = hitch.Vehicle.GetComp<CompPhobosVehicleSystems>()?.Powertrain;
         if (train == null) return line;
-        if (train.Cap < 0.99)
+        if (HeldBack(train) is { } held)
         {
-            DriveResult r = train.Result;
-            string held = train.Cap <= DrivetrainModel.CrawlFloor + 0.01
-                ? (r.Limit == DriveLimit.Traction ? "PhobosHitch_CrawlGrip" : "PhobosHitch_CrawlPower").Translate().Resolve()
-                : r.Limit == DriveLimit.Traction ? "PhobosHitch_HeldGrip".Translate().Resolve()
-                : r.Gear > 0 ? "PhobosHitch_HeldGear".Translate(r.Gear.Named("GEAR")).Resolve()
-                : "PhobosHitch_HeldPower".Translate().Resolve();
             line += " " + held;
             if (mode != DisplayMode.Plain) line += " " + "PhobosHitch_SpeedKept".Translate(((float)train.Cap).ToStringPercent().Named("SHARE")).Resolve();
         }
@@ -42,6 +36,19 @@ public static class TowText
             line += " " + "PhobosHitch_TrainWeight".Translate((train.MassKg() + hitch.TowedKilograms).ToString("N0").Named("TRAIN")).Resolve();
         }
         return line;
+    }
+
+    /// <summary>What holds a towing vehicle back while it moves below its speed, in words (crawling or held, by grip, a gear or power), or
+    /// null while nothing does: the towing line's middle, and the Systems tab's word beside the speed it is held to.</summary>
+    public static string? HeldBack(Powertrain train)
+    {
+        if (train.Cap >= 0.99) return null;
+        DriveResult r = train.Result;
+        return train.Cap <= DrivetrainModel.CrawlFloor + 0.01
+            ? (r.Limit == DriveLimit.Traction ? "PhobosHitch_CrawlGrip" : "PhobosHitch_CrawlPower").Translate().Resolve()
+            : r.Limit == DriveLimit.Traction ? "PhobosHitch_HeldGrip".Translate().Resolve()
+            : r.Gear > 0 ? "PhobosHitch_HeldGear".Translate(r.Gear.Named("GEAR")).Resolve()
+            : "PhobosHitch_HeldPower".Translate().Resolve();
     }
 
     /// <summary>The forecast before a tow, in words.</summary>

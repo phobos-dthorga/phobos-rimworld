@@ -52,8 +52,7 @@ public partial class ITab_VehicleSystems
         TooltipHandler.TipRegion(fuel, "PhobosVehicleSystems_SysRowFuelTip".Translate());
         Rect heat = PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowHeat".Translate(), Kilowatts(fuelKw * train.Spec.CoolantHeatShare, "0"));
         TooltipHandler.TipRegion(heat, "PhobosVehicleSystems_SysRowHeatTip".Translate());
-        Rect mass = PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowMass".Translate(),
-            "PhobosVehicleSystems_SysKilograms".Translate(train.MassKg().ToString("N0").Named("MASS")).Resolve());
+        Rect mass = PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowMass".Translate(), Kilograms(train.MassKg()));
         TooltipHandler.TipRegion(mass, "PhobosVehicleSystems_SysRowMassTip".Translate());
     }
 
@@ -107,6 +106,103 @@ public partial class ITab_VehicleSystems
             TooltipHandler.TipRegion(table, tip);
         }
     }
+
+    /// <summary>
+    /// Thin air at height (Framework 0.132.0), as rows (0.262.0), while it takes power worth a look: the share of its power the engine
+    /// has left, and for engineers the height and the air's pressure against the sea's.
+    /// </summary>
+    static void DrawThinAir(CompPhobosVehicleSystems comp, ref float y, float width, bool engineer)
+    {
+        if (InspectText.ThinAirPower(comp) is not float left) return;
+        Rect row = PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowThinAir".Translate(), left.ToStringPercent(), colour: PhobosWidgets.Caution);
+        TooltipHandler.TipRegion(row, "PhobosVehicleSystems_SysRowThinAirTip".Translate());
+        if (!engineer) return;
+        PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowHeight".Translate(),
+            "PhobosVehicleSystems_SysMetres".Translate(comp.Elevation.ToString("N0").Named("METRES")).Resolve());
+        PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowPressure".Translate(),
+            ((float)Phobos.Framework.Rules.AirRule.PressureRatio(comp.Elevation)).ToStringPercent());
+    }
+
+    /// <summary>
+    /// What the vehicle tows (hitch slice 3, Framework 0.104.0), as rows (0.262.0): the towed vehicle and its weight, and for engineers
+    /// the whole train's on the full model. Off the full model, the speed the weight behind holds it to. What holds a full-model tow
+    /// back is the word on <see cref="DrawHeldBack"/>'s row.
+    /// </summary>
+    static void DrawTowing(CompPhobosHitch hitch, Powertrain train, ref float y, float width, bool engineer)
+    {
+        if (hitch.Trailer is not { } towed) return;
+        PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowTowing".Translate(towed.LabelShort.Named("TRAILER")), Kilograms(hitch.TowedKilograms));
+        if (!hitch.FullModel)
+        {
+            if (hitch.PlainSpeedCap >= 0.995f) return;
+            string word = "PhobosVehicleSystems_SysHeldByWeight".Translate();
+            string label = "PhobosVehicleSystems_SysRowHeld".Translate();
+            Rect row = WordRow(ref y, width, label, word, PhobosWidgets.Caution, hitch.PlainSpeedCap.ToStringPercent(), WordAfterShortName, out bool cut);
+            WordTip(row, label, word, cut, null);
+            return;
+        }
+        if (engineer) PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowTrain".Translate(), Kilograms(train.MassKg() + hitch.TowedKilograms));
+    }
+
+    /// <summary>
+    /// The share of its speed the vehicle is held to, while it is held, with what holds it as the row's word: towing, the hitch's own
+    /// words (crawling or held, by grip, a gear or power); otherwise its engine or its grip on the ground.
+    /// </summary>
+    static void DrawHeldBack(CompPhobosVehicleSystems comp, Powertrain train, ref float y, float width)
+    {
+        if (train.Cap >= 0.99) return;
+        string word = comp.Hitch is { Trailer: not null, FullModel: true } && TowText.HeldBack(train) is { } towing ? towing
+            : "PhobosVehicleSystems_SysHeldBy".Translate(
+                (train.Result.Limit == DriveLimit.Traction ? "PhobosVehicleSystems_LimitTraction" : "PhobosVehicleSystems_LimitPower").Translate().Named("LIMIT")).Resolve();
+        string label = "PhobosVehicleSystems_SysRowHeld".Translate();
+        Rect row = WordRow(ref y, width, label, word, PhobosWidgets.Caution, ((float)train.Cap).ToStringPercent(), WordAfterShortName, out bool cut);
+        WordTip(row, label, word, cut, "PhobosVehicleSystems_SysRowHeldTip".Translate());
+    }
+
+    /// <summary>
+    /// A turbine as rows (Framework 0.262.0): its speed as a bar, its temperature, the flight phase where there is one, its rating and
+    /// how many of its engines work. The figures are the ones the inspect pane's turbine line gives.
+    /// </summary>
+    static void DrawTurbineRows(Powertrain train, ref float y, float width)
+    {
+        float spool = (float)train.TurbineNow.SpeedPercent / 100f;
+        float barStart = width * LoadBarStart;
+        Rect spoolRow = PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowSpool".Translate(), spool.ToStringPercent("F0"), nameEnd: barStart);
+        PhobosWidgets.Gauge(new Rect(barStart, spoolRow.y + 4f, width - barStart - PhobosWidgets.FigureColumnWidth - 12f, spoolRow.height - 8f), spool, PhobosWidgets.Good);
+        PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowTurbineHeat".Translate(), train.ShownTurbineTemperature.ToStringTemperature("F0"));
+        if (train.PhaseSpec != null && !train.PhaseSpec.label.NullOrEmpty())
+        {
+            PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowPhase".Translate(), train.PhaseSpec.label);
+        }
+        PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowRating".Translate(), train.RatingLabel);
+        (int working, int engines) = train.Engines();
+        PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowEngines".Translate(),
+            "PhobosVehicleSystems_SysEnginesOf".Translate(working.Named("WORKING"), engines.Named("ENGINES")).Resolve(),
+            colour: working < engines ? PhobosWidgets.Caution : null);
+    }
+
+    /// <summary>
+    /// For engineers, what a turbine's bled air costs it (the share harder it works for the same thrust), and its lift for a hover
+    /// against what a hover needs at this weight, with whether it can hover as the row's word.
+    /// </summary>
+    static void DrawTurbineEngineerRows(Powertrain train, ref float y, float width)
+    {
+        if (train.BleedShare > 0)
+        {
+            Rect bleed = PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowBleed".Translate(), ((float)train.BleedShare).ToStringPercent("0.#"));
+            TooltipHandler.TipRegion(bleed, "PhobosVehicleSystems_SysRowBleedTip".Translate());
+        }
+        if (!train.JudgesHover) return;
+        (bool dry, bool wet, double margin) = train.HoverCheck();
+        string word = (dry ? "PhobosVehicleSystems_HoverDry" : wet ? "PhobosVehicleSystems_HoverWet" : "PhobosVehicleSystems_HoverNone").Translate();
+        string label = "PhobosVehicleSystems_SysRowHover".Translate();
+        Rect hover = WordRow(ref y, width, label, word, dry ? PhobosWidgets.Good : wet ? PhobosWidgets.Caution : PhobosWidgets.Bad,
+            ((float)margin).ToStringPercent(), WordAfterShortName, out bool cut);
+        WordTip(hover, label, word, cut, "PhobosVehicleSystems_SysRowHoverTip".Translate());
+    }
+
+    /// <summary>A weight in kilograms with its unit.</summary>
+    static string Kilograms(double kilograms) => "PhobosVehicleSystems_SysKilograms".Translate(kilograms.ToString("N0").Named("MASS")).Resolve();
 
     /// <summary>One row of the ledger: its name, then whichever of its power and its share of the fuel this table shows, the last against
     /// the right edge.</summary>

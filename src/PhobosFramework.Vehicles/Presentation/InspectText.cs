@@ -196,14 +196,21 @@ public static class InspectText
     /// left. Engineer adds the height and the air's pressure.</summary>
     public static string? ThinAirLine(CompPhobosVehicleSystems comp, DisplayMode mode)
     {
-        if (!comp.EngineRunning || comp.Tier != Phobos.Framework.Rules.DetailTier.Full) return null;
-        // A turbine's share is the air's pressure; a piston engine's is what its breathing leaves it.
-        float left = comp.Powertrain is { Full: true, BreathesAir: true } ? comp.AirPowerFactor : 1f;
-        if (left >= CompPhobosVehicleSystems.ThinAirNoticed) return null;
+        if (ThinAirPower(comp) is not float left) return null;
         string line = "PhobosVehicleSystems_InspectThinAir".Translate(left.ToStringPercent().Named("POWER")).Resolve();
         if (mode != DisplayMode.Engineer) return line;
         return line + " " + "PhobosVehicleSystems_InspectThinAirFigures".Translate(comp.Elevation.ToString("N0").Named("METRES"),
             ((float)Phobos.Framework.Rules.AirRule.PressureRatio(comp.Elevation)).ToStringPercent().Named("PRESSURE")).Resolve();
+    }
+
+    /// <summary>The share of its power a running engine has left in thin air, or null where that is not worth a look (the engine stopped,
+    /// a vehicle not followed closely, or nearly all of its power left): the one test the inspect line and the Systems tab's rows share.</summary>
+    public static float? ThinAirPower(CompPhobosVehicleSystems comp)
+    {
+        if (!comp.EngineRunning || comp.Tier != Phobos.Framework.Rules.DetailTier.Full) return null;
+        // A turbine's share is the air's pressure; a piston engine's is what its breathing leaves it.
+        float left = comp.Powertrain is { Full: true, BreathesAir: true } ? comp.AirPowerFactor : 1f;
+        return left >= CompPhobosVehicleSystems.ThinAirNoticed ? null : left;
     }
 
     static readonly List<(FuelUse use, double perDay)> fuelParts = new();

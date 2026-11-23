@@ -198,7 +198,7 @@
   <PhobosVehicleSystems_SysLoadAmps>{STATE}, {AMPS} A</PhobosVehicleSystems_SysLoadAmps>
   <!-- Framework 0.261.0: what a running load draws in a column of its own, and all of them together. -->
   <PhobosVehicleSystems_SysAmps>{AMPS} A</PhobosVehicleSystems_SysAmps>
-  <PhobosVehicleSystems_SysLoadTip>{LOAD}: {STATE}</PhobosVehicleSystems_SysLoadTip>
+  <PhobosVehicleSystems_SysWordTip>{NAME}: {WORD}</PhobosVehicleSystems_SysWordTip>
   <PhobosVehicleSystems_SysLoadsAll>All that are running</PhobosVehicleSystems_SysLoadsAll>
   <PhobosVehicleSystems_SysLoadsAllTip>What the running loads draw together now.</PhobosVehicleSystems_SysLoadsAllTip>
   <!-- What feeds a fitting (Framework 0.115.0, W4). {WHAT} is the fitting in words ("the winch"). -->
@@ -661,18 +661,35 @@
   <PhobosVehicleSystems_SysLedgerAll>All of these</PhobosVehicleSystems_SysLedgerAll>
   <PhobosVehicleSystems_SysLedgerTip>What the engine turns besides the wheels, biggest first, with the power each takes from it now.</PhobosVehicleSystems_SysLedgerTip>
   <PhobosVehicleSystems_SysLedgerFuelTip>Of fuel: the share of the fuel burned now that goes to turning it.</PhobosVehicleSystems_SysLedgerFuelTip>
-  <PhobosVehicleSystems_SysCap>Held to {CAP} of its speed by {LIMIT}.</PhobosVehicleSystems_SysCap>
+  <!-- Framework 0.262.0: thin air, the tow, what holds the vehicle back and the turbine, as rows. -->
+  <PhobosVehicleSystems_SysRowHeld>Speed held to</PhobosVehicleSystems_SysRowHeld>
+  <PhobosVehicleSystems_SysRowHeldTip>The share of its speed the vehicle can reach now, and what holds it there.</PhobosVehicleSystems_SysRowHeldTip>
+  <PhobosVehicleSystems_SysHeldBy>by {LIMIT}</PhobosVehicleSystems_SysHeldBy>
+  <PhobosVehicleSystems_SysHeldByWeight>by the weight behind it</PhobosVehicleSystems_SysHeldByWeight>
+  <PhobosVehicleSystems_SysRowThinAir>Power left in thin air</PhobosVehicleSystems_SysRowThinAir>
+  <PhobosVehicleSystems_SysRowThinAirTip>The air is thin up here: the engine has only this share of its power.</PhobosVehicleSystems_SysRowThinAirTip>
+  <PhobosVehicleSystems_SysRowHeight>Height above the sea</PhobosVehicleSystems_SysRowHeight>
+  <PhobosVehicleSystems_SysMetres>{METRES} m</PhobosVehicleSystems_SysMetres>
+  <PhobosVehicleSystems_SysRowPressure>Air pressure, against the sea's</PhobosVehicleSystems_SysRowPressure>
+  <PhobosVehicleSystems_SysRowTowing>Towing {TRAILER}</PhobosVehicleSystems_SysRowTowing>
+  <PhobosVehicleSystems_SysRowTrain>Whole train</PhobosVehicleSystems_SysRowTrain>
+  <PhobosVehicleSystems_SysRowSpool>Turbine speed</PhobosVehicleSystems_SysRowSpool>
+  <PhobosVehicleSystems_SysRowTurbineHeat>Turbine temperature</PhobosVehicleSystems_SysRowTurbineHeat>
+  <PhobosVehicleSystems_SysRowPhase>Flight phase</PhobosVehicleSystems_SysRowPhase>
+  <PhobosVehicleSystems_SysRowRating>Rating</PhobosVehicleSystems_SysRowRating>
+  <PhobosVehicleSystems_SysRowEngines>Engines working</PhobosVehicleSystems_SysRowEngines>
+  <PhobosVehicleSystems_SysEnginesOf>{WORKING} of {ENGINES}</PhobosVehicleSystems_SysEnginesOf>
+  <PhobosVehicleSystems_SysRowBleed>Extra work for bled air</PhobosVehicleSystems_SysRowBleed>
+  <PhobosVehicleSystems_SysRowBleedTip>Air is bled from the engine for the puffer jets and the cabin's heat: it works this much harder for the same thrust.</PhobosVehicleSystems_SysRowBleedTip>
+  <PhobosVehicleSystems_SysRowHover>Lift for a hover</PhobosVehicleSystems_SysRowHover>
+  <PhobosVehicleSystems_SysRowHoverTip>The lift its engines can give now, against what a hover needs at this weight.</PhobosVehicleSystems_SysRowHoverTip>
   <PhobosVehicleSystems_LimitPower>its engine</PhobosVehicleSystems_LimitPower>
   <PhobosVehicleSystems_LimitTraction>its grip on the ground</PhobosVehicleSystems_LimitTraction>
-  <PhobosVehicleSystems_SysRating>Rating: {RATING}</PhobosVehicleSystems_SysRating>
   <PhobosVehicleSystems_SysPartFiguresUsed>Used, part by part: {LIST}. {FIRST}</PhobosVehicleSystems_SysPartFiguresUsed>
   <PhobosVehicleSystems_SysPartFiguresLeft>Left, part by part: {LIST}. {FIRST}</PhobosVehicleSystems_SysPartFiguresLeft>
   <PhobosVehicleSystems_SysPartFigure>{PART} {FIGURE}</PhobosVehicleSystems_SysPartFigure>
   <PhobosVehicleSystems_SysPartFirst>The most worn is seen to first, one at a time.</PhobosVehicleSystems_SysPartFirst>
   <PhobosVehicleSystems_SysPartFirstAxle>The most worn axle is seen to first, both sides together.</PhobosVehicleSystems_SysPartFirstAxle>
-  <PhobosVehicleSystems_SysEnginesWorking>{WORKING} of {ENGINES} engines working</PhobosVehicleSystems_SysEnginesWorking>
-  <PhobosVehicleSystems_SysBleed>Bleed air: the engine works {SHARE} harder for the same thrust (puffer jets, cabin heat)</PhobosVehicleSystems_SysBleed>
-  <PhobosVehicleSystems_SysHoverMargin>Lift for a hover: {MARGIN} of what it needs at this weight, {HOW}</PhobosVehicleSystems_SysHoverMargin>
   <PhobosVehicleSystems_HoverDry>can hover</PhobosVehicleSystems_HoverDry>
   <PhobosVehicleSystems_HoverWet>can hover only with water injection</PhobosVehicleSystems_HoverWet>
   <PhobosVehicleSystems_HoverNone>cannot hover</PhobosVehicleSystems_HoverNone>
