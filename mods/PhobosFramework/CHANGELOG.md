@@ -13,6 +13,14 @@ Per-engine realism, round two: the cards brought in line, and four smaller ideas
 
 - **A twin jet held straight on one engine burns more fuel** (the owner's card of 23 November 2026; docs/development/per-engine-realism.md, step 5): the rudder held against the pull adds drag, so with one engine out the A-10, Su-25 and Prowler burn 7.5 % more (authored), less with one engine merely weaker. Both the world map's range and the burn on a map count it. The setting Lopsided thrust unsettles twin jets covers it too. Not yet tested in game: row 405 of the test pass.
 
+### Changed
+
+- **Any system figure can now be kept part by part** (the owner's card of 23 November 2026; per-engine-realism.md, step 6), in place of the engines' own code from 0.247.0: a quantity marked perPart in its system's XML keeps one figure for each part of a role (or each engine), shares what it gains among them (engines by the work each does, wheel parts by axle, the front axle weighing more where the system says), shows the most worn part on the gauge, restores the most worn part (or its axle) at a service, and breaks it when a stage says mostWornOf. The Systems tab lists each part's figure under the reading. Hot-section life is the first to use it, as before. Not yet tested in game: row 404 of the test pass still covers it.
+
+### Save compatibility
+
+- Safe. Each engine's hot-section life saved by 0.247.0 is taken over at the first look and saved under a new key from then on.
+
 ## [0.247.0] - 2026-11-23 - Draft
 
 Per-engine realism: a damaged engine gives less power

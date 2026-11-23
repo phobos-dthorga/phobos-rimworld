@@ -622,12 +622,15 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     // ---- Saving ----
 
-    /// <summary>Each engine's hot-section life used, by its role (Framework 0.247.0); null on a vehicle that keeps one figure. Saved.</summary>
+    /// <summary>Framework 0.247.0's each engine's hot-section life, by its role: read from older saves only, then taken into
+    /// <see cref="partFigures"/> and dropped (PartFigures.Migrate).</summary>
     internal Dictionary<string, float>? engineHotSection;
-    EngineWear? engineWear;
+    /// <summary>Each part's own figure of a quantity kept per part, by "quantity|part key" (Framework 0.248.0); null until one is kept. Saved.</summary>
+    internal Dictionary<string, float>? partFigures;
+    PartFigures? perPart;
 
-    /// <summary>Each engine's own hot-section wear on a multi-engined turbine vehicle (Framework 0.247.0, per-engine realism step 4).</summary>
-    public EngineWear EngineWear => engineWear ??= new EngineWear(this);
+    /// <summary>Quantities kept per part: each engine's hot-section life, each wheel's brake wear (Framework 0.248.0, PartFigures).</summary>
+    public PartFigures PartFigures => perPart ??= new PartFigures(this);
 
     public override void PostExposeData()
     {
@@ -657,8 +660,13 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             servicedSaved = servicedThisRequest.ToList();
         }
         Scribe_Collections.Look(ref savedValues, "PhobosVehicleSystems_Values", LookMode.Value, LookMode.Value);
-        // Framework 0.247.0 (per-engine realism step 4): each engine's hot-section life, by its role.
-        Scribe_Collections.Look(ref engineHotSection, "PhobosVehicleSystems_EngineHotSection", LookMode.Value, LookMode.Value);
+        // Framework 0.247.0 (per-engine realism step 4) saved each engine's hot-section life by its role; 0.248.0 reads it once, into the
+        // per-part figures, and writes the new key only.
+        if (Scribe.mode == LoadSaveMode.LoadingVars)
+        {
+            Scribe_Collections.Look(ref engineHotSection, "PhobosVehicleSystems_EngineHotSection", LookMode.Value, LookMode.Value);
+        }
+        Scribe_Collections.Look(ref partFigures, "PhobosVehicleSystems_PartFigures", LookMode.Value, LookMode.Value);
         Scribe_Collections.Look(ref loadSwitches, "PhobosVehicleSystems_Loads", LookMode.Value, LookMode.Value);
         // The graphs' history: the owner's exception to "derived state is never saved" (8 Nov 2026), a few kilobytes per vehicle.
         History.ExposeData(Props.systems);
@@ -1035,8 +1043,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             {
                 if (Enabled(state)) state.Def.Worker.Advance(new SystemContext(this, state), hours);
             }
-            // Framework 0.247.0: the turbine's wear shared among its engines, the figure then the worst engine's, before stages are judged.
-            EngineWear.Sync();
+            // Framework 0.247.0, generic since 0.248.0: a per-part quantity's gain shared among its parts, the figure then the worst part's,
+            // before stages are judged.
+            PartFigures.Sync();
             if (!stagesSettled)
             {
                 // The first update: take the stages the true readings give, quietly, as where each starts (no effects on entry or exit).
@@ -3103,10 +3112,10 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         foreach (ThingDefCountClass supply in service.SuppliesNow) TakeFromCargo(supply.thingDef, supply.count);
         foreach (QuantityRestore restore in service.restores)
         {
-            // Framework 0.247.0: a multi-engined turbine's hot section is overhauled one engine at a time, the most worn first.
-            if (restore.quantity == EngineWear.Quantity && EngineWear.OverhaulMostWorn(restore.value) is { } engine)
+            // Framework 0.247.0, generic since 0.248.0: a quantity kept per part is restored on the most worn part (or its axle) alone.
+            if (PartFigures.RestoreMostWorn(restore.quantity, restore.value) is { } parts)
             {
-                if (Seen.Wants("vehicles.engine-overhauled", Vehicle)) Seen.Note("vehicles.engine-overhauled", Vehicle, engine);
+                if (Seen.Wants("vehicles.part-restored", Vehicle)) Seen.Note("vehicles.part-restored", Vehicle, restore.quantity + ": " + parts);
                 continue;
             }
             SetQuantity(restore.quantity, restore.value);

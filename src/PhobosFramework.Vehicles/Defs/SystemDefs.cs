@@ -117,8 +117,29 @@ public class QuantitySpec
     /// show what is left, full when new, as the battery and oil gauges do; the inspect line keeps the quantity's own label.</summary>
     [MustTranslate] public string? remainingLabel;
     public List<StageSpec> stages = new();
+    /// <summary>Each part of a role keeps its own figure of this quantity (Framework 0.248.0; per-engine realism round two, the owner's card of
+    /// 23 Nov 2026). Null: the vehicle keeps one figure, as every quantity did before.</summary>
+    public PerPartSpec? perPart;
 
     public bool Derived => derivedFrom != null;
+}
+
+/// <summary>
+/// A quantity kept per part (Framework 0.248.0, PartFigures): the system still works out one figure; what it gains each update is shared
+/// among the parts, and the figure then reads the most worn part, so its stages, warnings and dashboard follow the part that needs it. A
+/// restore sees to the most worn part first (or its whole axle), and a breakdown marked <c>mostWornOf</c> hits that part. Kept only where the
+/// vehicle has two or more such parts. Saved with the vehicle.
+/// </summary>
+public class PerPartSpec
+{
+    /// <summary>Each engine of the powertrain, wearing by the work each does (Engine1, Engine2 and so on).</summary>
+    public bool engines;
+    /// <summary>Otherwise every part bound to this role.</summary>
+    public string? role;
+    /// <summary>For parts that sit at the wheels: how much the front axle's parts wear against the others' 1 (AUTHORED per system).</summary>
+    public float frontAxleWeight = 1f;
+    /// <summary>A restore does the most worn part's whole axle, as brake pads are changed an axle at a time.</summary>
+    public bool restoreByAxle;
 }
 
 /// <summary>A rate rule that moves one quantity: in, out, or toward a target.</summary>
@@ -350,6 +371,11 @@ public class PhobosVehicleSystemDef : Def
                 to.Add(stage.to);
             }
             if (!StageRule.Ordered(from, to)) yield return quantity.name + ": stages overlap or are out of order";
+            if (quantity.perPart is { } perPart)
+            {
+                if (perPart.engines == !perPart.role.NullOrEmpty()) yield return quantity.name + ": perPart needs either engines or a role, not both";
+                if (quantity.Derived) yield return quantity.name + ": a derived quantity cannot be kept per part";
+            }
         }
         foreach (FlowSpec flow in flows)
         {

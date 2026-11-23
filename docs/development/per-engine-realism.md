@@ -136,6 +136,24 @@ rough-strip debris, engines starting in turn).
 - **Risk: low** (agent's grade): a few percent of fuel. **Setting:** the same "Lopsided thrust unsettles twin jets", on.
 - **Other factions' vehicles:** any faction's twin jet with a figure; nothing stored.
 
+### Step 6: any figure kept per part (built, Framework 0.248.0)
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Read each part's own wear under its reading on the Systems tab |
+| What it stops them doing | Nothing new by itself; it carries step 4 and step 7 |
+| How it changes play | As step 4 for engines; for brakes, see step 7 |
+| What outside the vehicle notices | Nothing |
+
+- **How:** a quantity's `perPart` (`PerPartSpec`: `engines`, or a `role`; `frontAxleWeight`; `restoreByAxle`) makes `PartFigures`
+  keep one figure per part in the save key `PhobosVehicleSystems_PartFigures` ("quantity|part key"). After the systems advance, what
+  the one figure gained is shared (`PartWearRule.Shares` for engines' work, `AxleShares` by axle, else evenly), and the figure is set
+  to the most worn part's. A service restore does the most worn part, or its axle (`RestoreSet`); `Effect_Breakdown.mostWornOf`
+  breaks it. Step 4's `EngineWear` became this, with `hotSectionLife` marked `<perPart><engines>true</engines></perPart>`.
+- **Older saves:** 0.247.0's `PhobosVehicleSystems_EngineHotSection` is read once and taken over; nothing else changes.
+- **Risk: low** (agent's grade): carried over, no new effect by itself.
+- **Other factions' vehicles:** the same on any faction's vehicle; saved with it.
+
 ## Sources
 
 - Our own code, read on 23 Nov 2026: `Powertrain.Engines`, `TurbineModel.Evaluate`, the turbine system (`Systems_Turbine.xml`).

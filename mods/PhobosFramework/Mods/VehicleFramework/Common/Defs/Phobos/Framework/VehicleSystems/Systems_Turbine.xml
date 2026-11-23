@@ -94,6 +94,11 @@
       <li>
         <name>hotSectionLife</name>
         <description>How much of the turbine's hottest parts is used up. Running over its limits spends it faster.</description>
+        <!-- Framework 0.247.0 kept this per engine in code of its own; since 0.248.0 the systems engine keeps it per part (PartFigures):
+             each engine by the work it does, and an overhaul does the most worn engine alone. -->
+        <perPart>
+          <engines>true</engines>
+        </perPart>
         <wearTrend>true</wearTrend>
         <showOnDashboard>true</showOnDashboard>
         <label>hot-section life used</label>
@@ -110,7 +115,7 @@
               <li Class="Phobos.VehicleSystems.Effect_Breakdown">
                 <role>Engine</role>
                 <!-- Framework 0.247.0: on a twin, the engine whose hot section is worn. -->
-                <mostWornEngine>true</mostWornEngine>
+                <mostWornOf>hotSectionLife</mostWornOf>
                 <mtbHours>150</mtbHours>
                 <healthFraction>0.3</healthFraction>
                 <message>PhobosVehicleSystems_MsgBreakdown</message>

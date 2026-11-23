@@ -220,16 +220,6 @@ public partial class ITab_VehicleSystems : ITab
                 Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysRating".Translate(train.RatingLabel.Named("RATING")).Resolve() + ", "
                     + "PhobosVehicleSystems_SysEnginesWorking".Translate(working.Named("WORKING"), engines.Named("ENGINES")).Resolve());
                 y += Row;
-                // Framework 0.247.0: each engine's own hot-section life, where the vehicle keeps one an engine.
-                List<(string engine, float life)> hot = comp.EngineWear.Shown().ToList();
-                if (hot.Count > 1)
-                {
-                    string list = string.Join(", ", hot.Select(h => "PhobosVehicleSystems_SysEngineLife".Translate(h.engine.Named("ENGINE"), h.life.ToStringPercent("0").Named("USED")).Resolve()));
-                    string hotLine = "PhobosVehicleSystems_SysHotSections".Translate(list.Named("LIST")).Resolve();
-                    float hotHeight = Mathf.Max(Row, Text.CalcHeight(hotLine, viewWidth - 12f));
-                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, hotHeight), hotLine);
-                    y += hotHeight;
-                }
                 // Framework 0.132.0: an aircraft's ledger (its generator and its bleed air) and the thin air, which a ground vehicle's
                 // drivetrain card shows.
                 if (!train.Ground && InspectText.LoadsLine(comp, VehicleSystemsMod.Settings.displayMode) is { } airLoads)
@@ -373,6 +363,7 @@ public partial class ITab_VehicleSystems : ITab
             if (!state.Open.Remove(key)) state.Open.Add(key);
         }
         y += Row;
+        DrawPartFigures(comp, quantity, ref y, width);
         if (!open) return;
 
         if (hasGraph)
@@ -384,6 +375,27 @@ public partial class ITab_VehicleSystems : ITab
         }
         DrawFlows(system, q, quantity, ref y, width, engineer);
         y += 4f;
+    }
+
+    /// <summary>A quantity kept per part (Framework 0.248.0; each engine's hot-section life since 0.247.0): one line under its row listing
+    /// each part's figure, in the units its gauge shows, and which is seen to first.</summary>
+    static void DrawPartFigures(CompPhobosVehicleSystems comp, QuantitySpec quantity, ref float y, float width)
+    {
+        if (quantity.perPart == null) return;
+        List<(string part, float figure)> figures = comp.PartFigures.Shown(quantity).ToList();
+        if (figures.Count < 2) return;
+        bool remaining = !quantity.remainingLabel.NullOrEmpty();
+        float span = Mathf.Max(0.0001f, quantity.max - quantity.min);
+        string list = string.Join(", ", figures.Select(f => "PhobosVehicleSystems_SysPartFigure".Translate(f.part.Named("PART"),
+            (remaining ? 1f - (f.figure - quantity.min) / span : (f.figure - quantity.min) / span).ToStringPercent("0").Named("FIGURE")).Resolve()));
+        string line = (remaining ? "PhobosVehicleSystems_SysPartFiguresLeft" : "PhobosVehicleSystems_SysPartFiguresUsed")
+            .Translate(list.Named("LIST"), (quantity.perPart.restoreByAxle ? "PhobosVehicleSystems_SysPartFirstAxle" : "PhobosVehicleSystems_SysPartFirst").Translate().Named("FIRST")).Resolve();
+        using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft))
+        {
+            float height = Mathf.Max(Row * 0.8f, Text.CalcHeight(line, width - ArrowSize - 12f));
+            Widgets.Label(new Rect(ArrowSize + 8f, y, width - ArrowSize - 12f, height), line.Colorize(DetailColour));
+            y += height;
+        }
     }
 
     /// <summary>Shortened names remembered, so a row's text is measured once and not every frame; forgotten when the tab's width changes

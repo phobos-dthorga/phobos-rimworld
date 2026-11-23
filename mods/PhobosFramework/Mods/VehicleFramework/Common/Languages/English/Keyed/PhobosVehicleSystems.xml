@@ -639,8 +639,11 @@
   <PhobosVehicleSystems_LimitPower>its engine</PhobosVehicleSystems_LimitPower>
   <PhobosVehicleSystems_LimitTraction>its grip on the ground</PhobosVehicleSystems_LimitTraction>
   <PhobosVehicleSystems_SysRating>Rating: {RATING}</PhobosVehicleSystems_SysRating>
-  <PhobosVehicleSystems_SysHotSections>Hot-section life used: {LIST}. The most worn is overhauled first, one engine at a time.</PhobosVehicleSystems_SysHotSections>
-  <PhobosVehicleSystems_SysEngineLife>{ENGINE} {USED}</PhobosVehicleSystems_SysEngineLife>
+  <PhobosVehicleSystems_SysPartFiguresUsed>Used, part by part: {LIST}. {FIRST}</PhobosVehicleSystems_SysPartFiguresUsed>
+  <PhobosVehicleSystems_SysPartFiguresLeft>Left, part by part: {LIST}. {FIRST}</PhobosVehicleSystems_SysPartFiguresLeft>
+  <PhobosVehicleSystems_SysPartFigure>{PART} {FIGURE}</PhobosVehicleSystems_SysPartFigure>
+  <PhobosVehicleSystems_SysPartFirst>The most worn is seen to first, one at a time.</PhobosVehicleSystems_SysPartFirst>
+  <PhobosVehicleSystems_SysPartFirstAxle>The most worn axle is seen to first, both sides together.</PhobosVehicleSystems_SysPartFirstAxle>
   <PhobosVehicleSystems_SysEnginesWorking>{WORKING} of {ENGINES} engines working</PhobosVehicleSystems_SysEnginesWorking>
   <PhobosVehicleSystems_SysBleed>Bleed air: the engine works {SHARE} harder for the same thrust (puffer jets, cabin heat)</PhobosVehicleSystems_SysBleed>
   <PhobosVehicleSystems_SysHoverMargin>Lift for a hover: {MARGIN} of what it needs at this weight, {HOW}</PhobosVehicleSystems_SysHoverMargin>
