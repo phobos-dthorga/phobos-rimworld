@@ -4,7 +4,7 @@ The record behind [D'thorga Framework](../../../mods/PhobosFramework/README.md).
 layer and supplied oxygen working through Burns and Smoke and Medical Equipment (5 Nov 2026); the health layer (0.3.0) is not yet
 tested in game. The owner recorded
 the idea on 22 October 2026 ("an extendable Phobos framework of its own", [project direction](../project-direction.md)); the
-first consumer, [D'thorga Burns and Smoke](../burns-and-smoke.md), made it concrete on 4 November 2026. The Ostranauts repository's
+first consumer, [D'thorga Burns and Smoke](burns-and-smoke.md), made it concrete on 4 November 2026. The Ostranauts repository's
 `PhobosFramework` is the companion: the same role, a different game.
 
 **Status (17 Nov 2026):** the design record for the gas layer, supplied oxygen and the health layer. The version-by-version list of
@@ -103,11 +103,11 @@ visits 1/64 of cells per tick for fading and 1/32 for spreading, as it does afte
 
 ## Supplied oxygen (0.2.0, 5 Nov 2026)
 
-`PhobosBreathing` answers two questions from a pawn's conditions: is it on supplied oxygen, and does it have a condition oxygen helps. Two `DefModExtension`s mark those conditions, so [Burns and Smoke](../burns-and-smoke.md) and [Medical Equipment](../medical-equipment.md) need no dependency on each other. It is a treatment, not a gas, which keeps it clear of an air model (owner's gas rule).
+`PhobosBreathing` answers two questions from a pawn's conditions: is it on supplied oxygen, and does it have a condition oxygen helps. Two `DefModExtension`s mark those conditions, so [Burns and Smoke](burns-and-smoke.md) and [Medical Equipment](../medical-equipment.md) need no dependency on each other. It is a treatment, not a gas, which keeps it clear of an air model (owner's gas rule).
 
 ## Health layer (0.3.0, 6 Nov 2026)
 
-Built with [Triage](../triage.md) as its first consumer and adopted by Emergency Dosing and Medical Equipment in the same change
+Built with [Triage](triage.md) as its first consumer and adopted by Emergency Dosing and Medical Equipment in the same change
 (owner's direction, 6 Nov 2026: use the shareable framework even where other mods must change). `Patients` answers who the
 doctors look after (the group a pawn belongs to, the player's care level); `ConditionDanger` and the game-free
 `ConditionDangerRule` answer how dangerous a condition is and how soon it kills, taking the soonest of the death clock's mean,

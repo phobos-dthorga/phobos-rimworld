@@ -120,3 +120,16 @@ Archived on 23 Nov 2026; how they work now: [Framework services](../systems/fram
 - [Colony mood file](mood-snapshot.md) (10 Nov 2026): every colonist's thoughts written at each save for the mood report.
 - [Drones called home, wrecks taken home](drone-recall-design.md) (23 Nov 2026): recall by the walk home; wrecks back to a
   platform.
+
+## Injuries and care
+
+Archived on 23 Nov 2026; how they work now: [injuries and care](../systems/medical-injuries-and-care.md).
+
+- [Burns and smoke](burns-and-smoke.md) (4 Nov 2026): burns, burn shock, airway burns, carbon monoxide and fire heat; with
+  [gases and air](../systems/gases-and-air.md).
+- [Caustic gas](caustic-gas.md) (5 Nov 2026): the game's tox gas on eyes, lungs and skin; with [gases and
+  air](../systems/gases-and-air.md) and [the health layer](../systems/health-layer.md).
+- [Emergency dosing](emergency-dosing.md) (5 Nov 2026): doctors giving painkillers and sedatives by themselves, by effect; with
+  [the health layer](../systems/health-layer.md).
+- [Triage](triage.md) (6 Nov 2026): queueing life-saving surgery, classing conditions by effect; with [the health
+  layer](../systems/health-layer.md).

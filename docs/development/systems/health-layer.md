@@ -283,9 +283,9 @@ None of these is a test in game.
 - **[The decision log](../decisions/health-layer.md)**: every choice, one line each, with who made it and where.
 - **Archived records**, kept unchanged for their history: [D'thorga Framework: research and
   decisions](../archive/phobos-framework.md), the record of the gas layer, supplied oxygen and the health layer; with [gases and
-  air](gases-and-air.md).
+  air](gases-and-air.md). With [injuries and care](medical-injuries-and-care.md): [triage](../archive/triage.md), [emergency
+  dosing](../archive/emergency-dosing.md) and [caustic gas](../archive/caustic-gas.md).
 - **Modders' guide**: [D'thorga Framework for modders, The health layer and care
   choices](../../framework-modding.md#the-health-layer-and-care-choices).
-- **Records kept in place** (they cover the health layer and D'thorga Medical): [triage](../triage.md), [emergency
-  dosing](../emergency-dosing.md), [medical equipment](../medical-equipment.md), [caustic gas](../caustic-gas.md), [a radiation
-  model of our own](../radiation-model.md), [soft-dependency cross-links](../soft-dependency-crosslinks.md).
+- **Records kept in place** (they cover the health layer and D'thorga Medical): [medical equipment](../medical-equipment.md), [a
+  radiation model of our own](../radiation-model.md), [soft-dependency cross-links](../soft-dependency-crosslinks.md).

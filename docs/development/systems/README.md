@@ -25,6 +25,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   research tab, pipes and conduits beneath, linking like another building, building over, bulk holds. Living.
 - [Framework services](framework-services.md) (23 Nov 2026): settings books, logging, long jobs and the loop watch, the
   Architect's sub-tabs, the mood file, drone recall, sound volume, pictures and bars, rules Defs and save helpers. Living.
+- [Injuries and care](medical-injuries-and-care.md) (23 Nov 2026): D'thorga Medical's burns, burn shock, airways, eschar, smoke,
+  carbon monoxide, fire heat, acid, caustic gas, emergency dosing, self-medication and triage with its tags. Living.
 
 ## The template
 

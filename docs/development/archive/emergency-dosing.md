@@ -1,11 +1,11 @@
 # Emergency dosing: research and decisions (5 Nov 2026)
 
-**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../mods/PhobosMedical/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
+**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../../mods/PhobosMedical/README.md)** ([why](../mod-consolidation.md)); paths below are updated, the rest is as recorded.
 
-The record behind [D'thorga Emergency Dosing](../../mods/PhobosMedical/README.md). **Partly tested in game:** the owner reports
+The record behind [D'thorga Emergency Dosing](../../../mods/PhobosMedical/README.md). **Partly tested in game:** the owner reports
 doctors' dosing working on 0.3.0 (5 Nov 2026); self-medication and the bleeding hold are not yet tested in game.
 
-How the health layer works now: [systems/health-layer.md](systems/health-layer.md); this record keeps its history.
+How the health layer works now: [systems/health-layer.md](../systems/health-layer.md); this record keeps its history.
 
 ## The problem
 

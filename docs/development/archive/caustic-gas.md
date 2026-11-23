@@ -1,14 +1,14 @@
 # Caustic gas: research and decisions (5 Nov 2026)
 
-**Since 7 November 2026 D'thorga Burns and Smoke is a part of [D'thorga Medical](../../mods/PhobosMedical/README.md)** ([why](mod-consolidation.md)): its burns and smoke part. The rest is as recorded.
+**Since 7 November 2026 D'thorga Burns and Smoke is a part of [D'thorga Medical](../../../mods/PhobosMedical/README.md)** ([why](../mod-consolidation.md)): its burns and smoke part. The rest is as recorded.
 
-A record for a future feature of [D'thorga Burns and Smoke](../../mods/PhobosMedical/README.md): what the game's tox gas does
+A record for a future feature of [D'thorga Burns and Smoke](../../../mods/PhobosMedical/README.md): what the game's tox gas does
 now, and the lingering injuries a caustic gas could add. **Built in D'thorga Medical 0.7.0 (7 Nov 2026), not yet tested in game**;
 see As built below for where it differs from the proposal.
 
-How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
+How gases and air works now: [systems/gases-and-air.md](../systems/gases-and-air.md); this record keeps its history.
 
-How the health layer works now: [systems/health-layer.md](systems/health-layer.md); this record keeps its history.
+How the health layer works now: [systems/health-layer.md](../systems/health-layer.md); this record keeps its history.
 
 ## The problem
 
@@ -229,8 +229,8 @@ None yet. Built in 0.7.0, not yet tested in game.
 - **Stripping contaminated clothing** (agent proposal, phase 2): under the slow-acting model, clothes keep dosing the skin for hours after the
   gas clears unless removed. A cheap, strong hook, held until the core is tested.
 - **Lung rot** as the aftermath instead of irritable airways: recorded as the alternative.
-- **Oxygen:** [D'thorga Medical Equipment](../../mods/PhobosMedical/README.md) provides bedside oxygen and does not repair lungs. Whether
+- **Oxygen:** [D'thorga Medical Equipment](../../../mods/PhobosMedical/README.md) provides bedside oxygen and does not repair lungs. Whether
   chemical lung injury should count as a condition oxygen helps is a question for when this is built.
-- **Next gases under the rule** ([framework record](archive/phobos-framework.md)): Biological Warfare's clouds, chemfuel vapour and Rimatomics, each argued
+- **Next gases under the rule** ([framework record](phobos-framework.md)): Biological Warfare's clouds, chemfuel vapour and Rimatomics, each argued
   in its own record.
 - **Order of work** (owner, 5 Nov 2026): the dosing and burns testing comes first.

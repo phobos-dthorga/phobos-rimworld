@@ -153,10 +153,10 @@ The sounds follow D'thorga Framework's **D'thorga sounds volume** setting.
 Each part's Def extensions, rules Defs and figures are in its design record, under "For modders" where the README used to carry
 them:
 
-- [Burns and smoke](../../docs/development/burns-and-smoke.md#for-modders-moved-from-the-readme-17-nov-2026) and
-  [caustic gas](../../docs/development/caustic-gas.md)
-- [Emergency dosing](../../docs/development/emergency-dosing.md#for-modders-moved-from-the-readme-17-nov-2026)
-- [Triage](../../docs/development/triage.md#for-modders-moved-from-the-readme-17-nov-2026)
+- [Burns and smoke](../../docs/development/archive/burns-and-smoke.md#for-modders-moved-from-the-readme-17-nov-2026) and
+  [caustic gas](../../docs/development/archive/caustic-gas.md)
+- [Emergency dosing](../../docs/development/archive/emergency-dosing.md#for-modders-moved-from-the-readme-17-nov-2026)
+- [Triage](../../docs/development/archive/triage.md#for-modders-moved-from-the-readme-17-nov-2026)
 - [Medical equipment](../../docs/development/medical-equipment.md#for-modders-moved-from-the-readme-17-nov-2026) and
   [the second set](../../docs/development/medical-equipment-2.md)
 - [The save bridge](../../docs/development/medical-save-bridge.md#for-modders-moved-from-the-readme-17-nov-2026)

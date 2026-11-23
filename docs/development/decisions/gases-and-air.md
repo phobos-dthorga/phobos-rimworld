@@ -71,7 +71,7 @@ overturns an earlier one says so.
 
 [pf]: ../archive/phobos-framework.md
 [rc]: ../archive/radiation-control-line.md
-[bs]: ../burns-and-smoke.md
-[cg]: ../caustic-gas.md
+[bs]: ../archive/burns-and-smoke.md
+[cg]: ../archive/caustic-gas.md
 [vh]: ../ventilation-and-hydrogen.md
 [me]: ../medical-equipment.md

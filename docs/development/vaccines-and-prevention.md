@@ -3,6 +3,8 @@
 A design record for D'thorga Medical. **Nothing is built and nothing is tested in game.** The owner asked for it on 7 November 2026
 ("design record now"); building waits for the owner's go.
 
+How injuries and care works now: [systems/medical-injuries-and-care.md](systems/medical-injuries-and-care.md); this record keeps its history.
+
 ## Read this first
 
 - **What exists already** (read from the game's Defs and the owner's mods, 7 Nov 2026):

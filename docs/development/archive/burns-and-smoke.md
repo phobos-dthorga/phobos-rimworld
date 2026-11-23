@@ -1,12 +1,12 @@
 # Burns and smoke: research and decisions (4 Nov 2026)
 
-**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../mods/PhobosMedical/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
+**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../../mods/PhobosMedical/README.md)** ([why](../mod-consolidation.md)); paths below are updated, the rest is as recorded.
 
-The record behind [D'thorga Burns and Smoke](../../mods/PhobosMedical/README.md). **The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); carbon monoxide on oxygen is inferred, the tracheotomy unproven, and the fire heat in the open (0.5.0) not yet tested in game**
+The record behind [D'thorga Burns and Smoke](../../../mods/PhobosMedical/README.md). **The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); carbon monoxide on oxygen is inferred, the tracheotomy unproven, and the fire heat in the open (0.5.0) not yet tested in game**
 (0.1.0 was seen in play once; see Results from play). It is the
-first consumer of [D'thorga Framework](archive/phobos-framework.md).
+first consumer of [D'thorga Framework](phobos-framework.md).
 
-How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
+How gases and air works now: [systems/gases-and-air.md](../systems/gases-and-air.md); this record keeps its history.
 
 ## The problem
 
@@ -306,7 +306,7 @@ Our inference: the game has burn depth per injury but nothing for "all round the
   lasting lung injury from smoke is not added while the pawn is itself burning, since its worker burns the lungs at those moments
   (agent choice: the narrowest overlap that avoids damaging the lungs twice).
 - **Phase 2, built in D'thorga Medical 0.7.0** (go given by the owner on 7 Nov 2026; not yet tested in game). See Phase 2 below.
-- **Vents** for smoke and carbon monoxide may live here (agent lean; [ventilation and hydrogen](ventilation-and-hydrogen.md)).
+- **Vents** for smoke and carbon monoxide may live here (agent lean; [ventilation and hydrogen](../ventilation-and-hydrogen.md)).
 - Later: animals, letters for the life-threatening stages. The oxygen treatment came in 0.4.0, through D'thorga Medical Equipment.
 - Upstream, for More Injuries' author: the `CE_WearingGasMask` check never matches Combat Extended's `WearingGasMask`.
 

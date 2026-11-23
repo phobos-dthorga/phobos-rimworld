@@ -38,9 +38,9 @@ overturns an earlier one says so.
 | 22 Nov | Strike dose via RadiationDoses; else Rimatomics | agent choice | The strike graded in grays | [rm], As built (22 Nov 2026) |
 
 [pf]: ../archive/phobos-framework.md
-[tr]: ../triage.md
-[ed]: ../emergency-dosing.md
+[tr]: ../archive/triage.md
+[ed]: ../archive/emergency-dosing.md
 [me]: ../medical-equipment.md
 [rm]: ../radiation-model.md
 [sd]: ../soft-dependency-crosslinks.md
-[cg]: ../caustic-gas.md
+[cg]: ../archive/caustic-gas.md

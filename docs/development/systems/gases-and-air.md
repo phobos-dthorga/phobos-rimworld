@@ -354,11 +354,12 @@ None of these is a test in game.
 ## Why it is this way
 
 - **[The decision log](../decisions/gases-and-air.md)**: every choice, one line each, with who made it and where.
-- **Archived records**, kept unchanged for their history: [the radiation control line](../archive/radiation-control-line.md),
-  and, with [the health layer](health-layer.md), [D'thorga Framework: research and decisions](../archive/phobos-framework.md).
+- **Archived records**, kept unchanged for their history: [the radiation control line](../archive/radiation-control-line.md);
+  with [the health layer](health-layer.md), [D'thorga Framework: research and decisions](../archive/phobos-framework.md); and,
+  with [injuries and care](medical-injuries-and-care.md), [burns and smoke](../archive/burns-and-smoke.md) and [caustic
+  gas](../archive/caustic-gas.md).
 - **Modders' guide**: [D'thorga Framework for modders, Gases](../../framework-modding.md#gases), [Supplied
   oxygen](../../framework-modding.md#supplied-oxygen) and [Protective-gear
   lines](../../framework-modding.md#protective-gear-lines).
-- **Records kept in place** (they cover gases and D'thorga Medical): [burns and smoke](../burns-and-smoke.md), [caustic
-  gas](../caustic-gas.md), [medical equipment](../medical-equipment.md), [ventilation and
-  hydrogen](../ventilation-and-hydrogen.md).
+- **Records kept in place** (they cover gases and D'thorga Medical): [medical equipment](../medical-equipment.md), [ventilation
+  and hydrogen](../ventilation-and-hydrogen.md).

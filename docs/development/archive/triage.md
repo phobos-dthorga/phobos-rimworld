@@ -1,12 +1,12 @@
 # Triage: research and decisions (6 November 2026)
 
-**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../mods/PhobosMedical/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
+**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../../mods/PhobosMedical/README.md)** ([why](../mod-consolidation.md)); paths below are updated, the rest is as recorded.
 
 D'thorga Triage (`mods/PhobosMedical`, `src/PhobosMedical/Triage`): doctors queue the life-saving operations a patient needs, and take
 the worst case first. This record holds what was read, who chose what, and the test protocol. The mod is **not yet tested in
 game**.
 
-How the health layer works now: [systems/health-layer.md](systems/health-layer.md); this record keeps its history.
+How the health layer works now: [systems/health-layer.md](../systems/health-layer.md); this record keeps its history.
 
 ## The problem
 
@@ -146,7 +146,7 @@ Nothing yet.
 
 ## Open points and upstream
 
-**The owner's answers, 7 November 2026** (tracked in [outstanding work](outstanding-work.md); built in D'thorga Medical 0.7.0, not
+**The owner's answers, 7 November 2026** (tracked in [outstanding work](../outstanding-work.md); built in D'thorga Medical 0.7.0, not
 yet tested in game). How: the base game draws no icons by a pawn's name, so the row the owner meant is Useful Marks' (Andromeda), which
 lets other mods add marks through `PawnLabelCustomColors_WorldComponent.RegisterProvider`; a tie-in assembly adds one mark per tag, and
 without Useful Marks a postfix on `PawnUIOverlay.DrawPawnGUIOverlay` draws the icon right of the name. The health tab's medicine row is

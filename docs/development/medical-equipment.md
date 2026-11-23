@@ -17,7 +17,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 - **The game's vitals monitor** and **VFE Medical's IV stand** are one-tile `CompProperties_Facility` buildings with `mustBePlacedAdjacent`, listed in a bed's `CompProperties_AffectedByFacilities`. The IV stand is added by a patch naming `HospitalBed`. `CompFacility.LinkedBuildings` gives the beds, `CanBeActive` checks power, and a null `statOffsets` is safe.
 - **Vanilla Gravship Expanded:** `VGE_OxygenCanister` is an item, explosive when burned. `VGE_OxygenNet` lists it in `linkToRefuelables`, and Vanilla Expanded Framework's `AutoLinkRefuelables` adds a pipe link to any refuelable building whose fuel filter accepts it.
 - **Organ Failure's ventilation** tests for the hediff `QE_LifeSupport`, which no mod the owner has installed defines, so the surgery never appears in the owner's game.
-- **Clearance:** carbon monoxide's half-life is about 320 minutes on room air and 70 to 80 on oxygen ([sources](burns-and-smoke.md#sources)).
+- **Clearance:** carbon monoxide's half-life is about 320 minutes on room air and 70 to 80 on oxygen ([sources](archive/burns-and-smoke.md#sources)).
 
 ## Decisions
 
@@ -69,7 +69,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 | Burn unit bed: wound healing and pain on air cells | x1.25 and x0.85 | Authored |
 | Burn unit bed: power, cost, skill | 200 W; 120 steel, 30 cloth, 7 components; Construction 8; Hospital bed research | Authored |
 | One oxygen network unit (one canister) | One patient-hour, about 0.3 cubic metres at 5 L/min | Authored, from the stand's rate |
-| Carbon monoxide half-life, hyperbaric | 22.5 min | Sourced, the middle of 15 to 30 ([burns and smoke](burns-and-smoke.md#sources)) |
+| Carbon monoxide half-life, hyperbaric | 22.5 min | Sourced, the middle of 15 to 30 ([burns and smoke](archive/burns-and-smoke.md#sources)) |
 | Hyperbaric chamber: breathing, oxygen use, power | +0.3 up to normal; 6 canisters a patient-hour; 800 W | Authored. Real chambers use far more oxygen (from memory, unverified) |
 | Field oxygen kit: duration | One in-game hour | Authored; a small medical cylinder of a few hundred litres at 5 L/min (from memory, unverified) |
 | Hand ventilation: breathing, threshold | +0.3 up to normal, for breathing under 0.5 and above 0 | Authored |
@@ -166,11 +166,11 @@ chamber is a game tier, not medical advice: the review cited in the burns record
 | Work | State | Next step | Record |
 | --- | --- | --- | --- |
 | D'thorga Framework 0.3.0 | Draft. The owner reports the gas layer and supplied oxygen working (5 Nov 2026); the health layer (6 Nov) is not yet tested in game | The health layer, through Triage | [Framework](archive/phobos-framework.md) |
-| D'thorga Burns and Smoke 0.5.0 | Draft. The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); the tracheotomy and the fire heat in the open are not yet tested in game | The fire heat and the tracheotomy | [Burns and smoke](burns-and-smoke.md) |
-| D'thorga Emergency Dosing 0.3.1 | Draft. The owner reports doctors' dosing working (5 Nov 2026, on 0.3.0); self-medication and the bleeding hold not yet tested in game | Self-medication | [Emergency dosing](emergency-dosing.md) |
-| D'thorga Triage 0.1.2 | Draft, 7 Nov 2026 (0.1.2 adds the button's own icon); not yet tested in game | The owner's first test | [Triage](triage.md) |
+| D'thorga Burns and Smoke 0.5.0 | Draft. The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); the tracheotomy and the fire heat in the open are not yet tested in game | The fire heat and the tracheotomy | [Burns and smoke](archive/burns-and-smoke.md) |
+| D'thorga Emergency Dosing 0.3.1 | Draft. The owner reports doctors' dosing working (5 Nov 2026, on 0.3.0); self-medication and the bleeding hold not yet tested in game | Self-medication | [Emergency dosing](archive/emergency-dosing.md) |
+| D'thorga Triage 0.1.2 | Draft, 7 Nov 2026 (0.1.2 adds the button's own icon); not yet tested in game | The owner's first test | [Triage](archive/triage.md) |
 | Native 1.7 builds of all ten mods | Built; the owner plays 1.7 and has tested several mods on it | The rest of the owner's tests | [Building](building.md) |
-| Burns and Smoke: eschar, escharotomy | Planned | The owner's go; their test passed the gate on 5 Nov 2026 | [Burns and smoke](burns-and-smoke.md) |
+| Burns and Smoke: eschar, escharotomy | Planned | The owner's go; their test passed the gate on 5 Nov 2026 | [Burns and smoke](archive/burns-and-smoke.md) |
 | D'thorga Medical Equipment 0.3.0 | Draft: concentrator, bedside stand, burn unit bed, and in 0.3.0 the hyperbaric chamber, field oxygen kit, manual resuscitator, silver burn dressings, electrolyser and liquid oxygen store, all built on Vanilla Gravship Expanded's oxygen network where they pipe oxygen. The owner reports breathing improving on the concentrator (on 0.1.0) and the burn unit bed working (on 0.2.0); the bedside stand is not yet tested in game | The stand and its pipe link | [Record](medical-equipment.md) |
 
 ### Decisions so far
