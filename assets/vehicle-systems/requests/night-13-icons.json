@@ -1,0 +1,44 @@
+[
+  {
+    "name": "n13-exhaust-brake",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A straight length of a diesel truck's exhaust pipe seen from the side, lying horizontally, with a bulging round valve body set in the middle of it and a small air cylinder with a short lever bolted to the top of the valve body. The pipe's two open ends show as dark rings at left and right. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted steel palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. No fan, no turbine, no vanes, no blades. No text, no letters, no numbers, no hands, no people.",
+    "subject": "a straight length of a diesel truck's exhaust pipe seen from the side, with a round valve body in the middle and a small air cylinder on top that works it",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Snorkel.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyAirFilter.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [131, 132],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "for": "Exhaust brake fitting",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/ExhaustBrake.png",
+      "since": "Framework 0.251.0; night 12's pick shipped in 0.273.1",
+      "why": "a redraw: night 12's pick (try 11) came out looking like the turbocharger, its style reference, so the owner asked for a new one (23 Nov 2026: 'it might be better to request a new one in hindsight'). The turbocharger is dropped as a reference and the prompt rules out vanes. Vanilla look only, the owner's choice for all three of night 12's icons; icons are made locally"
+    }
+  },
+  {
+    "name": "n13-ecm-pod",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A long slim grey electronic jamming pod lying flat on its side, a smooth cylinder with a rounded pointed nose cone at the left end, a tiny two-bladed propeller on the tip of the nose, a few small blade antennas along its underside and a short tail cone at the right. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. No wings, no pylon, no aircraft, no balloon. No text, no letters, no numbers, no hands, no people.",
+    "subject": "a long slim grey electronic jamming pod lying flat on its side, with a pointed nose cone, a tiny propeller on its tip and small blade antennas underneath",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/AuxFuelTank.png",
+      "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InfraredJammer.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [131, 132],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "for": "Self-protection jamming pod fitting",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/EcmPod.png",
+      "since": "Framework 0.226.0",
+      "why": "a redraw: the owner turned down all four of night 12's tries (both looks drew a balloon under a wing-like pylon, or a syringe-like canister) and asked for the pod to be put up for picking again (23 Nov 2026). The prompt drops 'hangs under an aircraft's wing' and rules out wings and pylons. Vanilla look only; icons are made locally"
+    }
+  }
+]
