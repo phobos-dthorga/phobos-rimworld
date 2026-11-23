@@ -3,7 +3,8 @@
 How to use D'thorga Framework's shared services from your own mod: room gases, supplied oxygen, the health layer and per-person
 care choices, protective-gear lines, parts bills, water and pipes beneath things, pictures and progress bars, and the small helpers
 every D'thorga mod shares (settings, logging, long jobs, rules Defs). **Vehicles have their own page**: [vehicle systems for modders](vehicle-systems-modding.md). The reasons behind each
-design are in [the framework's design record](development/archive/phobos-framework.md).
+design are in [the framework's design record](development/archive/phobos-framework.md). **Each other D'thorga mod has its own
+page** for modders: [mod by mod](modding/README.md).
 
 **Status (23 Nov 2026):** written for D'thorga Framework 0.117. Services added since are not on this page yet; a reference
 generated from the code is planned. **Partly tested in game:** the owner saw the gas layer and supplied

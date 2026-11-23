@@ -12,6 +12,7 @@ play, a chapter per mod. [Help and troubleshooting](../SUPPORT.md) says where th
 - [D'thorga Framework for modders](framework-modding.md): the shared library's helpers outside vehicles, for your own mods.
 - [Vehicle systems for modders](vehicle-systems-modding.md): give your Vehicle Framework vehicles their own batteries, coolant,
   air brakes or systems of your own, in XML, with D'thorga Framework.
+- [For modders, mod by mod](modding/README.md): extending each of the other D'thorga mods, with its checks done.
 - [The reference site](https://phobos-dthorga.github.io/phobos-rimworld/): D'thorga Framework's types, with XML examples.
 
 ## For contributors

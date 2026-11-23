@@ -24,10 +24,12 @@ It follows the Phobos Ostranauts and Phobos Kenshi guides, adapted to RimWorld.
    - whether it is safe to add to and remove from a save, and what to do first;
    - settings to decide before starting a colony;
    - **whether it is tested in game.**
-4. **What it does**, with a table where there are numbers.
-5. **Where to find things**: research projects, Architect menu categories, traders, quests.
-6. **For modders**: the Defs and fields to extend, with a short XML example.
-7. **Checks done**, with dates, saying plainly what was not checked.
+4. **What it adds**, in a few plain bullets, linking the player guide's chapter for detail, with a table where there are numbers.
+   No version-tagged feature lists ("(0.125.0)", "Since 0.144.0"): what a version brought is in the changelog (the owner's audit,
+   23 Nov 2026).
+5. **Settings**: a table written by hand for players, kept true to `docs/development/settings-reference.md`.
+6. **Links**: the guide's chapter, the changelog, and the mod's page for modders in `docs/modding/`, which holds the Defs and
+   fields to extend, a short XML example, and the checks done with dates, saying plainly what was not checked.
 
 ## Style
 

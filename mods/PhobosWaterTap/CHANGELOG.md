@@ -17,6 +17,8 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 - **The exporters' records no longer ship in the mod's folder either** (the owner's word of 23 Nov 2026). The notes saying
   what each picture was cut from moved beside the art records, in the repository's assets folder; nothing a player sees
   changes.
+- **The README is slimmer**: what the mod needs, its real gotchas, what it adds, its figures and links. The notes for modders and
+  the checks done moved to the repository's modders' page for the tap. Nothing in play changes.
 
 ## [0.2.4] - 2026-11-09 - Draft
 

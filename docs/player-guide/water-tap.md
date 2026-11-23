@@ -81,7 +81,8 @@ hopper. With **D'thorga Factory Additions** the tap also gets the **Belts may ta
 ([factory](factory.md)). A belt empties the tap and it refills until the colony limit is reached, counting what the belt has
 delivered; bottles still on the belt aren't counted.
 
-The figures, the safe-removal steps and the notes for modders are in [D'thorga Water Tap's README](../../mods/PhobosWaterTap/README.md).
+The figures and the safe-removal steps are in [D'thorga Water Tap's README](../../mods/PhobosWaterTap/README.md); the notes for
+modders are in [Water Tap for modders](../modding/water-tap.md).
 
 ## Tested in game
 

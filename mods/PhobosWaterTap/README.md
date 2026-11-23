@@ -9,76 +9,56 @@ Version 0.2.4, built 9 November 2026 for House D'thorga. **Not yet tested in gam
 
 ## Read this first (gotchas)
 
-- **Needs Dubs Bad Hygiene, with its thirst option on.** Without thirst, Dubs Bad Hygiene has no water bottles, so the tap doesn't
-  appear at all. **It isn't made for Dubs Bad Hygiene Lite**, or for the full mod's lite mode: neither has plumbing. Load it after
-  Dubs Bad Hygiene. The About file asks for this, so RimSort does it for you. **It also needs D'thorga Framework** (since 0.2.2),
-  whose shared reader draws the water; no Harmony.
-- **It needs a pipe and a water tower.** Research **plumbing**, then find it under **Architect > Hygiene**. Build it on a pipe or next
-  to one. Wells and pumps fill towers, and the tap draws from towers only, like every other Dubs Bad Hygiene fixture.
-- **It replaces a pipe it's built on, and then carries the water itself**, like a basin does. If you deconstruct it, lay a pipe back on
-  that cell or the network may be cut in two.
-- **The colony limit stops a flood, and starts at 50 bottles a map.** Once a map holds that many, every tap on it stops filling. **Change it
-  with Colony limit -10 and +10 on any tap.** Raise it for a big colony or before a big caravan. It counts bottles in storage or on the floor,
-  **not in pockets, and not riding on conveyor belts**, so a long jammed belt can hold bottles above the limit.
-- **Pawns only carry bottles away if you tell them to.** The tap's storage priority starts at Important, so bottles stay put until
-  someone drinks or packs them. If you lower it, or give water a Critical stockpile, haulers carry bottles off and the tap refills, up to the
-  colony limit.
-- **This changes every water bottle in your game, not just the tap's** (see [water quality](../../docs/player-guide/water-tap.md#water-quality)). A bottle from untreated water
-  now stays untreated when its stack is split. Before, it came out clean by accident. Colonists on untreated water can now get sick from
-  bottles, as they already can from a basin.
-- **Combat Extended players:** a pawn on a custom loadout with "drop undefined" drops the bottles it packs, as Dubs Bad Hygiene's own
-  tooltip warns, and haulers may then carry them back to the tap. Add a water slot of 3 to that loadout.
-- **Safe to add to a running colony.** Existing bottles keep working, and any that were already split read as treated.
-- **Safe to remove, once you deconstruct your taps.** A tap left standing vanishes with the mod and leaves a gap in the pipe. The bottle
-  rule saves nothing, so bottles are unaffected. Each tap saves how many bottles it keeps, and each map its colony limit, so **the first load after removing the mod logs two errors
-  about the missing class** (read from the game's code, not yet seen in game). The game drops it and goes on, and they stop once you save.
-- **RimWorld 1.7 only** (from 0.2.3; 1.6 is no longer supported). It builds against Dubs Bad Hygiene's 1.7 assembly.
-- **Not yet tested in game.** Everything here is read from the game's and the mods' code, and built and checked offline.
+- **Not yet tested in game.** The owner has not passed any of it yet. It is built, unit-tested and read against the game's and
+  Dubs Bad Hygiene's code, but not yet seen working in a colony.
+- **Needs Dubs Bad Hygiene with its thirst option on, and D'thorga Framework.** Without thirst there are no water bottles, so the
+  tap doesn't appear at all. **It isn't made for Dubs Bad Hygiene Lite**, or the full mod's lite mode: neither has plumbing. No
+  Harmony needed.
+- **Load it after Dubs Bad Hygiene and D'thorga Framework.** Its About file asks for that order, so RimSort sorts it for you.
+- **RimWorld 1.7 only.**
+- **It changes every water bottle in your game, not just the tap's.** A bottle split from an untreated stack stays untreated
+  (before, it came out clean by mistake), so colonists on untreated water can get sick from bottles, as from a basin.
+- **No settings to decide before a colony.** How many bottles a tap keeps, and the map's colony limit, are buttons on each tap.
+- **Safe to add to a running colony.** Existing bottles keep working; any already split read as treated.
+- **Safe to remove once you deconstruct every tap, and lay a pipe back where each stood**, or the plumbing is cut in two. A tap
+  left standing vanishes with the mod and leaves a gap in the pipe. The first load afterwards logs two errors about a missing
+  class (read from the game's code, not yet seen); the game goes on, and they stop once you save. Every mod's removal steps are in
+  [Removing a mod](../../docs/player-guide/getting-started.md#removing-a-mod).
 
-## What it does
+## What it adds
 
-Each rare tick (250 game ticks), a tap with room makes one bottle. Colonists drink from it and pack bottles from it the way they do from
-any loose bottles, and caravans can load from it. **How to use it, its buttons, what its inspect text means, the water quality rules
-and conveyor belts are in the player guide's [Water tap chapter](../../docs/player-guide/water-tap.md).**
+- **The water bottle tap**, under **Architect > Hygiene** after the plumbing research. Build it on a pipe or beside one, on a
+  network with a water tower: it draws from towers only, like every Dubs Bad Hygiene fixture.
+- **Colonists drink from it and pack bottles from it**, and caravans load from it. Bottles stay on the tap until someone takes
+  them: its storage priority starts at Important.
+- **A colony limit**, 50 bottles a map to start: once the map holds that many, every tap stops filling.
+- **Water quality kept in every bottle**: a bottle holds the water that filled it, bottles of different water don't stack, and
+  labels say "water (untreated)". The tap won't bottle contaminated water.
+- **With Vanilla Furniture Expanded - Factory**, conveyor belts and factory machines can take bottles from the tap.
+
+How to use it, its buttons and what its inspect pane says are in the player guide's
+[Water tap chapter](../../docs/player-guide/water-tap.md).
 
 | What | Value | Where it comes from |
 | --- | --- | --- |
-| Bottles kept ready | 0 to 10, starts at 10 | One stack, the bottle's stack limit |
-| Colony limit | 0 to 1000 a map, starts at 50, in steps of 10 | Authored |
-| Fill rate | 1 bottle per 250 ticks, 240 a day at most | Authored |
-| Water per bottle | 0.5 L | Dubs Bad Hygiene's own charge for packing a bottle, and half a kilogram of water, the bottle's mass |
-| Most water used | 120 L a day per tap | From the two above |
-| Cost and work | 20 steel, 600 work | Authored |
-| Power | None | Pumps supply the pressure. Authored simplification |
+| Bottles kept ready | 0 to 10 a tap, starts at 10 | One stack, the bottle's stack limit |
+| Colony limit | 0 to 1,000 a map, starts at 50, in steps of 10 | Authored |
+| Fill rate | 1 bottle every 250 ticks, 240 a day at most | Authored |
+| Water per bottle | 0.5 L | Dubs Bad Hygiene's own charge for packing a bottle, and the bottle's half-kilogram mass |
+| Most water used | 120 L a day a tap | From the two above |
+| Cost | 20 steel, 600 work | Authored |
+| Power | None | The pumps supply the pressure: a gameplay simplification |
 
-Dubs Bad Hygiene keeps no stack rules for a bottle's water quality (a piece split off a stack came out treated, and merged stacks kept
-only one side's quality), so this mod adds them for every bottle: a split bottle keeps its water, bottles of different water don't
-stack, and labels say "water (untreated)" ([water quality](../../docs/player-guide/water-tap.md#water-quality)).
+## Settings
 
-## For modders
+None in the mod settings window. Each tap has its own buttons: **Fewer bottles** and **More bottles** (how many it keeps, 0 to
+10), and **Colony limit -10** and **+10** (the map's limit, 0 to 1,000).
 
-The tap is an ordinary Def with two comps, so another building can do the same job in XML:
+## More
 
-```xml
-<li Class="DubsBadHygiene.CompProperties_Pipe">
-  <mode>Sewage</mode>
-</li>
-<li Class="Phobos.WaterTap.CompProperties_BottleTap">
-  <bottle>DBH_WaterBottle</bottle>
-  <waterPerBottle>0.5</waterPerBottle>
-  <bottlesPerFill>1</bottlesPerFill>
-  <startingTarget>10</startingTarget>
-</li>
-```
+- [The player guide's Water tap chapter](../../docs/player-guide/water-tap.md): using it, and what is tested in game.
+- [The changelog](CHANGELOG.md): what changed in each version.
+- [For modders](../../docs/modding/water-tap.md): building your own tap in XML, and the checks done.
 
-The building must be a `Building_Storage` with `tickerType` Rare. Mark its Def `DBHThirst="true" DBHLite="true"`, so that Dubs Bad Hygiene drops it
-whenever the bottle or the plumbing research doesn't exist. The record of how this was worked out is
-[Water tap: research and decisions](../../docs/development/water-tap.md).
-
-## Checks done
-
-On 4 November 2026, against RimWorld 1.7.4998 and the owner's 326 active mods: it compiles against Dubs Bad Hygiene's 1.6 and 1.7 assemblies (1.6 retired 8 Nov 2026; 1.7 only since), and the
-game members it calls were found in the installed 1.7 game. The tap's rules pass 29 unit tests. The patch checker found every xpath and Def name. **None of this is an in-game test.**
-Not checked: anything on a running colony, including the texture in place, pawns using the tap, belts taking from it, and the colony limit.
-
-Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.
+Community-created content. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of
+Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.
