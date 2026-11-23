@@ -1,4 +1,4 @@
-"""Export the owner's picked sounds into the mods, levelled against the game's own sounds, with a record beside each.
+"""Export the owner's picked sounds into the mods, levelled against the game's own sounds, with a record for each (kept under assets/records/).
 
 Reads an exports file (assets/phobos-sounds/exports.json): for each sound, the picked master under the asset set's generated
 folder, the mod file to write, whether it loops or plays once, any clean-up filter, and the game SoundDef it should sit beside.
@@ -11,7 +11,7 @@ For each it:
 3. levels it so that, played through our SoundDef's volume, it sits at the reference's effective loudness plus offset_db
    (by integrated loudness, or by true peak for a sound under 0.4 s, which loudness meters ignore), with the true peak kept
    under -1 dBTP;
-4. encodes it as Ogg Vorbis into the mod, measures the result, runs the review flags on it, and writes <file>.record.md beside
+4. encodes it as Ogg Vorbis into the mod, measures the result, runs the review flags on it, and writes <file>.record.md (under assets/records/, mirroring the mod) for
    it and every figure into the exports file's record (exported.json).
 
 Masters stay byte for byte. Uses no graphics card. --check verifies every exported file and master against its record.
@@ -287,7 +287,7 @@ def export_one(exe, spec, generated, game):
              'result': {key: result.get(key) for key in ('lufs', 'true_peak', 'seconds', 'flags', 'seam_dip_db', 'loop_gap_s')},
              'source': ({key: source.get(key) for key in RECORDING_KEYS} if source.get('kind') == 'recording'
                         else {key: source.get(key) for key in ('generator', 'model', 'model_sha256', 'seed', 'steps', 'cfg', 'prompt')})}
-    target.with_name(target.name + '.record.md').write_text(record_text(spec, entry), encoding='utf-8')
+    art_paths.record_path(target.with_name(target.name + '.record.md')).write_text(record_text(spec, entry), encoding='utf-8')
     return entry
 
 
@@ -303,8 +303,8 @@ def check(specs, records):
             problems.append(f'{spec["name"]}: {spec["target"]} is missing')
         elif sha256(target) != entry['sha256']:
             problems.append(f'{spec["name"]}: {spec["target"]} differs from its record')
-        elif not target.with_name(target.name + '.record.md').is_file():
-            problems.append(f'{spec["name"]}: its record beside the file is missing')
+        elif not art_paths.record_path(target.with_name(target.name + '.record.md'), make=False).is_file():
+            problems.append(f'{spec["name"]}: its record (under assets/records/) is missing')
     return problems + sounddef_problems(specs, our_sounddefs())
 
 
@@ -381,7 +381,7 @@ def main(argv=None):
             bad.append(short)
         if bad and not args.force:
             (ROOT / spec['target']).unlink()
-            (ROOT / spec['target']).with_name(Path(spec['target']).name + '.record.md').unlink()
+            art_paths.record_path((ROOT / spec['target']).with_name(Path(spec['target']).name + '.record.md'), make=False).unlink()
             refused.append(f'{spec["name"]}: refused, flagged {", ".join(bad)}')
             continue
         records[spec['name']] = entry

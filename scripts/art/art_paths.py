@@ -69,6 +69,41 @@ def _central(key, environ):
     return Path(configured) if configured else None
 
 
+def record_path(beside, root=ROOT, make=True):
+    """Where a record goes, given the path it would have beside its picture or sound: the same place under assets/records/ for a
+    file the mods ship (the owner's choice of 23 Nov 2026, so deploy no longer copies records into the game's Mods folder), else
+    unchanged. The folders are made. The mapping is config/art-audit.json's records.mirrors, through the shared tools' art audit,
+    which looks for records in the same place. `make=False` only works out the path."""
+    sys.path.insert(0, str(ROOT / 'scripts'))
+    import _modkit
+    _modkit.ensure()
+    from phobos_modkit import artaudit
+    beside = Path(beside).resolve()
+    try:
+        relative = beside.relative_to(Path(root).resolve()).as_posix()
+    except ValueError:
+        return beside
+    target = Path(root) / artaudit.record_home(relative, artaudit.mirrors_of(root))
+    if make:
+        target.parent.mkdir(parents=True, exist_ok=True)
+    return target
+
+
+def records_under(folder, pattern='*.record.md', root=ROOT):
+    """Every record for the files in `folder` (a folder the mods ship, or any other), wherever it is kept: beside them, then
+    under assets/records/."""
+    found = sorted(Path(folder).glob(pattern))
+    mirrored = record_path(Path(folder) / '_', root, make=False).parent
+    if mirrored.resolve() != Path(folder).resolve():
+        found += sorted(mirrored.glob(pattern))
+    return found
+
+
+def shipped_records(pattern='*.record.md', root=ROOT):
+    """Every record of a file the mods ship: under assets/records/, and any still beside its file under mods/."""
+    return sorted([*(Path(root) / 'mods').rglob(pattern), *(Path(root) / 'assets' / 'records').rglob(pattern)])
+
+
 def work(*parts, environ=None, settings_file=SETTINGS_FILE):
     """A folder or file under the working folder, for writing."""
     return work_root(environ, settings_file).joinpath(*parts)

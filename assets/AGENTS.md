@@ -5,7 +5,9 @@ standing rules for every picture and sound the mods ship or the tools generate. 
 `docs/development/art-pipeline.md`.
 
 - Match RimWorld's look. Record how each texture or sound was made (tool, prompt, date, source hashes) in
-  an asset record beside it; disclose AI assistance; never ship the game's or another mod's art. Check
+  an asset record: beside it, or for a file the mods ship under `assets/records/`, in the same place as under `mods/`, so deploy
+  never copies records into the game (the owner's choice of 23 Nov 2026; write it at `art_paths.record_path(...)`, which the art
+  audit reads too); disclose AI assistance; never ship the game's or another mod's art. Check
   generator allowance and cost first; never silently buy credit or switch to a costlier generator.
 - **Every generated image is saved on an art branch unless it is truly fugly** (owner, 8 Nov 2026), exactly as it was generated: the original file byte for byte with its record, the pick on `art-masters` and the rest on `art-references`. Crops, cut-outs and resizes are new files and never replace an original. A truly fugly image is left out with a one-line reason in its batch record; when in doubt, keep it. An image the near-copy check flags against the game's or another author's art stays local, off these public branches.
 - **No white where background should be** (owner, 12 Nov 2026: white "on the borders, or inside the picture"): before exporting a new
@@ -87,6 +89,6 @@ standing rules for every picture and sound the mods ship or the tools generate. 
   `check`, part of the gate, fails on a texture with no record). **A record opens with how its picture was made**, and a borrowing the
   owner keeps goes in `config/art-audit.json` with its reason.
 - **Ship a sound only through `python scripts/art/export_sound.py assets/phobos-sounds/exports.json`**: it levels the pick against a named game
-  sound, mixes to mono at 44.1 kHz as the game's are, refuses a clip, whine, seam dip or gap, and writes the record beside the file; `--check`
+  sound, mixes to mono at 44.1 kHz as the game's are, refuses a clip, whine, seam dip or gap, and writes its record under `assets/records/`; `--check`
   verifies them, and a test runs it. Never copy a sound into a mod by hand. Every SoundDef of ours carries
   `Phobos.Framework.Sounds.PhobosSoundVolumeExtension`, so D'thorga Framework's one volume setting scales it.

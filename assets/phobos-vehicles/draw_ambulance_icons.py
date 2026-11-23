@@ -12,6 +12,8 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts' / 'art'))
+from art_paths import record_path  # noqa: E402  (records of shipped files are kept under assets/records/)
 FOLDER = ROOT / 'mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems'
 WORK = 512
 FINAL = 128
@@ -107,7 +109,7 @@ def main(only):
         drawing(ImageDraw.Draw(image))
         image.resize((FINAL, FINAL), Image.LANCZOS).save(path)
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
-        path.with_suffix('.record.md').write_text(
+        record_path(path.with_suffix('.record.md')).write_text(
             f'# {path.stem}\n\n**Drawn in code** by `assets/phobos-vehicles/draw_ambulance_icons.py` (Pillow): {what}. No image generator, no '
             f'reference images and no game or other author\'s art.\n\n- `{path.name}`: SHA-256 `{digest}`\n', encoding='utf-8', newline='\n')
         print(path.relative_to(ROOT))

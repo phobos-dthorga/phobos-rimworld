@@ -23,6 +23,7 @@ from PIL import Image, ImageChops
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from export_vehicle import repaint_body  # noqa: E402
+import art_paths  # noqa: E402
 
 GEN = ROOT / 'assets' / 'phobos-vehicles' / 'generated'
 EXPORT = GEN / 'export'
@@ -181,7 +182,7 @@ def apply(paint, only):
                     continue
                 shutil.copyfile(source / file, old)
                 changed[old_sha] = sha(old)
-        for record in target.glob('*.record.md'):
+        for record in art_paths.records_under(target):
             text = record.read_text(encoding='utf-8')
             updated = text
             for before, after in changed.items():

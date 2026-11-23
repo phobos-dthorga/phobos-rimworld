@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- **The art and sound records no longer ship in the mod's folder** (the owner's choice of 23 Nov 2026, in the docs rewrite).
+  The notes saying how each picture and sound was made moved to the repository's assets folder, so installing the mod no longer
+  copies them into the game's Mods folder; the next install leaves the old copies in its backup. Nothing a player sees changes.
+
 ## [0.7.8] - 2026-11-23 - Draft
 
 The ground shows through the cultivator's roller

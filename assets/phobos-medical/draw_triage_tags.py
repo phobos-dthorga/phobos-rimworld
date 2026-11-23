@@ -13,6 +13,9 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts' / 'art'))
+from art_paths import record_path  # noqa: E402  (records of shipped files are kept under assets/records/)
 OUT = ROOT / 'mods/PhobosMedical/Common/Textures/Phobos/Triage/UI'
 SIZE = 64
 WORK = 512  # Drawn large and scaled down, which smooths the edges.
@@ -54,7 +57,7 @@ def save(image, name, what):
     path = OUT / f'{name}.png'
     image.resize((SIZE, SIZE), Image.LANCZOS).save(path)
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    (OUT / f'{name}.record.md').write_text(
+    record_path(OUT / f'{name}.record.md').write_text(
         f'# {name}\n\n**A stand-in, drawn in code on {dt.date.today().isoformat()}** by `assets/phobos-medical/draw_triage_tags.py` '
         f'(Pillow): {what} No image generator, no reference images and no game art. Generated art can replace it on the owner\'s go.\n\n'
         f'- This file SHA-256: `{digest}`\n', encoding='utf-8')

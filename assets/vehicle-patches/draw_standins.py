@@ -23,6 +23,8 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts' / 'art'))
+from art_paths import record_path  # noqa: E402  (records of shipped files are kept under assets/records/)
 TEXTURES = ROOT / 'mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches'
 WORK = 1024  # Drawn large and scaled down, which smooths the edges.
 FINAL = 128
@@ -142,7 +144,7 @@ def write(name, what, image):
     path = TEXTURES / f'{name}.png'
     image.save(path, optimize=True)
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    (TEXTURES / f'{name}.record.md').write_text(
+    record_path(TEXTURES / f'{name}.record.md').write_text(
         f'# {name}\n\n**A stand-in**, drawn with Pillow by `assets/vehicle-patches/draw_standins.py` on {dt.date.today():%d %B %Y}: '
         f'{what}. No image generator, game art or other author\'s art was used. {FINAL} x {FINAL} px, transparent background.\n\n'
         f'**Outstanding:** generated art, on the owner\'s go for GPU work (listed in `docs/development/art-backlog.md`). This file '
@@ -157,7 +159,7 @@ def reference(name, what, image):
     path = folder / f'{name}-large.png'
     image.save(path, optimize=True)
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    path.with_suffix('.record.md').write_text(
+    record_path(path.with_suffix('.record.md')).write_text(
         f'# {name}, large\n\nA {WORK} x {WORK} px drawing of {what}, from `assets/vehicle-patches/draw_standins.py`, {dt.date.today():%d %B %Y}. '
         f'No image generator, game art or other author\'s art was used. SHA-256 `{digest}`. A layout reference; it does not ship.\n', encoding='utf-8')
     print('wrote', path.name)

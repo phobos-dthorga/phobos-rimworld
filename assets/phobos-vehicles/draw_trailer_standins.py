@@ -13,6 +13,8 @@ import sys
 from pathlib import Path
 
 from PIL import Image, ImageDraw
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts' / 'art'))
+from art_paths import record_path  # noqa: E402  (records of shipped files are kept under assets/records/)
 
 OUT = Path(__file__).resolve().parent / 'references'
 INK = (30, 30, 30)
@@ -138,7 +140,7 @@ def write(name):
     path = OUT / f'{name}-large.png'
     draw().save(path, optimize=True)
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    path.with_suffix('.record.md').write_text(
+    record_path(path.with_suffix('.record.md')).write_text(
         f'# {name}, large\n\nA layout reference of {what}, seen from directly above, drawn with Pillow by '
         f'`assets/phobos-vehicles/draw_trailer_standins.py` on {dt.date.today():%d %B %Y}. No image generator, game art or other '
         f'author\'s art was used. SHA-256 `{digest}`. It does not ship.\n', encoding='utf-8', newline='\n')
@@ -170,7 +172,7 @@ def texture(name):
     path.parent.mkdir(parents=True, exist_ok=True)
     image.save(path, optimize=True)
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    path.with_suffix('.record.md').write_text(
+    record_path(path.with_suffix('.record.md')).write_text(
         f'# {path.stem}\n\n**A stand-in**, drawn with Pillow by `assets/phobos-vehicles/draw_trailer_standins.py` on {dt.date.today():%d %B %Y}: '
         f'{what}, seen from directly above. No image generator, game art or other author\'s art was used. {size[0]} x {size[1]} px, '
         f'transparent background.\n\n**Outstanding:** generated art; candidates were made on the night of 17 Nov 2026 '

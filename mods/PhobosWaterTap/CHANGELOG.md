@@ -11,6 +11,9 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 - The mod's description and README now carry the spelling dthorga beside D'thorga, so a search without the apostrophe finds it. The description says it is community-created by House D'thorga.
 - The README's dated checks note that RimWorld 1.6 was retired on 8 November 2026. No change in play.
 - The README no longer repeats the player guide: the fill diagram, the inspect text table, water quality and conveyor belts are in the guide's Water tap chapter. No change in play.
+- **The art and sound records no longer ship in the mod's folder** (the owner's choice of 23 Nov 2026, in the docs rewrite).
+  The notes saying how each picture and sound was made moved to the repository's assets folder, so installing the mod no longer
+  copies them into the game's Mods folder; the next install leaves the old copies in its backup. Nothing a player sees changes.
 
 ## [0.2.4] - 2026-11-09 - Draft
 

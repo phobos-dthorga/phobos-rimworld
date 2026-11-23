@@ -19,6 +19,8 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts' / 'art'))
+from art_paths import record_path  # noqa: E402  (records of shipped files are kept under assets/records/)
 REFERENCES = ROOT / 'assets/phobos-medical/references'
 TEXTURES = ROOT / 'mods/PhobosMedical/Common/Textures/Phobos/Medical/Things'
 WORK = 1024  # Drawn large and scaled down, which smooths the edges.
@@ -277,7 +279,7 @@ def depth_reference(painter, name, what, size):
     path.parent.mkdir(parents=True, exist_ok=True)
     image.save(path, optimize=True)
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    path.with_suffix('.record.md').write_text(
+    record_path(path.with_suffix('.record.md')).write_text(
         f'# {name}, depth\n\nA {size[0]} x {size[1]} px depth map of {what}, from `assets/phobos-medical/draw_placeholders.py`, '
         f'{dt.date.today():%d %B %Y}: near is white, far is black, drawn from the stand-in\'s layout. No image generator, game art or '
         f'other author\'s art was used. SHA-256 `{digest}`. It guides the depth-control trial and does not ship in a mod.\n', encoding='utf-8')
@@ -351,7 +353,7 @@ def placeholder(painter, name, what, canvas, final, multi, outstanding):
         view.save(path, optimize=True)
         lines.append(f'- `{path.name}`: SHA-256 `{hashlib.sha256(path.read_bytes()).hexdigest()}`')
         print('wrote', path.name)
-    (TEXTURES / f'{name}.record.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+    record_path(TEXTURES / f'{name}.record.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
 def reference_only(painter, name, what, size, why):
@@ -362,7 +364,7 @@ def reference_only(painter, name, what, size, why):
     path.parent.mkdir(parents=True, exist_ok=True)
     image.save(path, optimize=True)
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    path.with_suffix('.record.md').write_text(
+    record_path(path.with_suffix('.record.md')).write_text(
         f'# {name}, large\n\nA {size[0]} x {size[1]} px drawing of {what}, from `assets/phobos-medical/draw_placeholders.py`, '
         f'{dt.date.today():%d %B %Y}. No image generator, game art or other author\'s art was used. SHA-256 `{digest}`.\n\n'
         f'{why} It does not ship in a mod.\n', encoding='utf-8')

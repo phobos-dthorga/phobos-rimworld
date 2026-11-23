@@ -13,6 +13,9 @@ import random
 from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts' / 'art'))
+from art_paths import record_path  # noqa: E402  (records of shipped files are kept under assets/records/)
 
 STORE = Path('mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/LiquidOxygenStore.png')
 OUT = STORE.with_name('LiquidOxygenStore_Frost.png')
@@ -80,7 +83,7 @@ def main():
 
     digest = hashlib.sha256(OUT.read_bytes()).hexdigest()
     store_digest = hashlib.sha256(STORE.read_bytes()).hexdigest()
-    OUT.with_suffix('.record.md').write_text(
+    record_path(OUT.with_suffix('.record.md')).write_text(
         "# LiquidOxygenStore_Frost\n\n"
         "**Drawn in code** by `assets/phobos-medical/draw_frost.py` (Pillow, seed 12112026) on 12 November 2026, from the outline of the "
         "shipped store picture, so the two register exactly. No image generator, no reference images and no game or other author's art: "

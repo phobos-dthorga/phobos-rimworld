@@ -7,7 +7,8 @@
   "records": {
     "suffixes": [".record.md", ".export.json"],
     "sharedByPrefix": true,
-    "folderRecord": true
+    "folderRecord": true,
+    "mirrors": {"mods": "assets/records"}
   },
   "kinds": [
     {"kind": "generated", "label": "Generated",

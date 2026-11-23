@@ -13,6 +13,9 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts' / 'art'))
+from art_paths import record_path  # noqa: E402  (records of shipped files are kept under assets/records/)
 REFERENCE = ROOT / 'assets/water-tap/references/BottleTap-large.png'
 
 # Drawn large and scaled down, which smooths the edges.
@@ -61,7 +64,7 @@ def write_reference():
     REFERENCE.parent.mkdir(parents=True, exist_ok=True)
     draw_tap(final=None).save(REFERENCE, optimize=True)
     digest = hashlib.sha256(REFERENCE.read_bytes()).hexdigest()
-    REFERENCE.with_suffix('.record.md').write_text(
+    record_path(REFERENCE.with_suffix('.record.md')).write_text(
         f'# BottleTap, large\n\nThe {WORK} x {WORK} px drawing of the bottle tap before scaling down, from '
         f'`assets/water-tap/draw_tap.py`, {dt.date.today():%d %B %Y}. No image generator, game art or other author\'s art '
         f'was used. SHA-256 `{digest}`.\n\n'

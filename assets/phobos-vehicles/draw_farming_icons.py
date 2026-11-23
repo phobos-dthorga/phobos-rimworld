@@ -20,6 +20,9 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts' / 'art'))
+from art_paths import record_path  # noqa: E402  (records of shipped files are kept under assets/records/)
 SIZE = 128
 MARGIN = 8
 
@@ -80,7 +83,7 @@ def main():
         out = textures / f'{name}.png'
         out.parent.mkdir(parents=True, exist_ok=True)
         fit(picture).save(out, optimize=True)
-        record = out.with_suffix('.record.md')
+        record = record_path(out.with_suffix('.record.md'))
         record.write_text(
             f'# {out.stem}: asset record\n\n'
             f'**Cut by script from our own picture**, not generated: {shows}, cropped from `{source}` (SHA-256 `{sha(textures / source)}`) '

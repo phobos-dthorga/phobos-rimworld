@@ -70,7 +70,7 @@ def originals():
     by_name = {}
     for picture in (ROOT / 'assets').glob('*/generated/*/*.png'):
         by_name.setdefault(picture.name, []).append(picture)
-    texts = [p.read_text(encoding='utf-8', errors='replace') for p in (ROOT / 'mods').rglob('*.record.md')]
+    texts = [p.read_text(encoding='utf-8', errors='replace') for p in art_paths.shipped_records()]
     scripts = [p.read_text(encoding='utf-8') for p in (ROOT / 'assets').glob('*/export_*.py')]
     for text in texts + scripts:
         for name in PNG_NAME.findall(text):
@@ -333,7 +333,7 @@ def apply(skip=(), include=(), only=()):
             data['target'] = entry['shipped']
             shipped.with_suffix('.export.json').write_text(json.dumps(data, indent=2), encoding='utf-8')
         replaced.append(entry['shipped'])
-    for record in (ROOT / 'mods').rglob('*.record.md'):
+    for record in art_paths.shipped_records():
         text = record.read_text(encoding='utf-8')
         updated = text
         for old, new in hashes.items():

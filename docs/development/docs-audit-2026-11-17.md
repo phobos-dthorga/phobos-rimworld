@@ -256,7 +256,7 @@ Corrections to the audit, found while fixing:
 
 Found on the way, outside batch 1 and not yet acted on:
 
-- [ ] `mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/HyperbaricChamber.record.md` names the v1 style model; the master's
+- [ ] `assets/records/PhobosMedical/Common/Textures/Phobos/Medical/Things/HyperbaricChamber.record.md` names the v1 style model; the master's
   own record (`assets/phobos-medical/generated/hyperbaric-chamber-depth/hyperbaric-chamber-depth-11.json`) names the depth model
 - [ ] Re-running `assets/phobos-radio/make_textures.py` would overwrite the owner's picked base station with the old placeholder
 - [ ] The tanker's upgrade overlay pictures (`Upgrades/*.png`), used by the player guide's figures, have no record beside them

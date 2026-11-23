@@ -22,6 +22,8 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts' / 'art'))
+from art_paths import record_path  # noqa: E402  (records of shipped files are kept under assets/records/)
 TEXTURES = ROOT / 'mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems'
 WORK = 1024  # Drawn large and scaled down, which smooths the edges.
 FINAL = 128
@@ -98,7 +100,7 @@ def write(name):
         '**Outstanding:** generated art can replace it on the owner\'s go (docs/development/art-backlog.md).\n\n'
         f'- `{short}.png`: SHA-256 `{digest}`\n'
     )
-    path.with_name(short + '.record.md').write_text(record, encoding='utf-8', newline='\n')
+    record_path(path.with_name(short + '.record.md')).write_text(record, encoding='utf-8', newline='\n')
     print(name, digest)
 
 

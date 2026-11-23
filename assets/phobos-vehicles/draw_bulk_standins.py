@@ -19,6 +19,8 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts' / 'art'))
+from art_paths import record_path  # noqa: E402  (records of shipped files are kept under assets/records/)
 TEXTURES = ROOT / 'mods/PhobosVehicles/Textures/Phobos/Vehicles'
 CELL = 256  # final pixels a cell, as the trailer pieces' stand-ins
 SCALE = 2  # drawn larger, then scaled down
@@ -96,7 +98,7 @@ def write(name):
     image = draw()
     image.save(target, optimize=True)
     digest = hashlib.sha256(target.read_bytes()).hexdigest()
-    target.with_suffix('.record.md').write_text(
+    record_path(target.with_suffix('.record.md')).write_text(
         f'# {target.stem}\n\n**A stand-in**, drawn with Pillow by `assets/phobos-vehicles/draw_bulk_standins.py` on {dt.date.today():%d %B %Y}: '
         f'{what}. No image generator, game art or other author\'s art was used. '
         f'{image.width} x {image.height} px, transparent background, drawn on a clear canvas.\n\n'
