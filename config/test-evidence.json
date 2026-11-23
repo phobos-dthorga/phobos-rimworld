@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "442": ["vehicles.health-tab.figure-column"],
     "441": ["vehicles.hitch.drawn-in-place"],
     "440": {"parts": {
       "the roof tent takes a sleep machine": [{"key": "framework.links-like.linked", "variant": "PhobosCamp_RoofTent"}],

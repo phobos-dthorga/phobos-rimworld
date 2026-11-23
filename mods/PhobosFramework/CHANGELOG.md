@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.266.0] - 2026-11-23 - Draft
+
+The Health tab's figures, in columns
+
+### Changed
+
+- **The Health tab puts a condition's figure under the part's own health** (the owner's word of 23 November 2026: the Systems tab's changes, here too). A reading's value or a condition's severity stands in the health column, where it was written into the line, so figures read down one column; the whole vehicle's lines carry theirs at the right edge. Not yet tested in game: row 442 of the test pass.
+- **A wear row is its reading at the left and what it is coming to at the right**, in its colour, where it was one sentence cut off at the end; **a crew member's row** is who and where at the left and how they are at the right, as the stats above them.
+
 ## [0.265.2] - 2026-11-23 - Draft
 
 A runway jet is no longer judged for a hover

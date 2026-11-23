@@ -584,21 +584,22 @@
   <PhobosVehicleSystems_SettingFieldFixes>Field fixes</PhobosVehicleSystems_SettingFieldFixes>
   <PhobosVehicleSystems_SettingFieldFixesDesc>Colonists can patch leaks and shorts, and re-fit a thrown track or a wrecked wheel, away from a base, using a component.</PhobosVehicleSystems_SettingFieldFixesDesc>
   <PhobosVehicleSystems_HealthCondition>{CONDITION}: {STAGE}</PhobosVehicleSystems_HealthCondition>
-  <PhobosVehicleSystems_HealthConditionFigure>{CONDITION}: {STAGE} ({SEVERITY})</PhobosVehicleSystems_HealthConditionFigure>
   <PhobosVehicleSystems_HealthReactorExplosive>Can explode when badly damaged.</PhobosVehicleSystems_HealthReactorExplosive>
   <PhobosVehicleSystems_HealthArmourClass>{CLASS} armour: stops {STOPS}</PhobosVehicleSystems_HealthArmourClass>
   <PhobosVehicleSystems_HealthCrew>Crew</PhobosVehicleSystems_HealthCrew>
   <PhobosVehicleSystems_HealthWear>Wear</PhobosVehicleSystems_HealthWear>
   <PhobosVehicleSystems_HealthWholeVehicle>Whole vehicle</PhobosVehicleSystems_HealthWholeVehicle>
-  <PhobosVehicleSystems_HealthWearDue>{READING}: {STAGE} in about {TIME}</PhobosVehicleSystems_HealthWearDue>
-  <PhobosVehicleSystems_HealthWearNow>{READING}: {STAGE} now</PhobosVehicleSystems_HealthWearNow>
-  <PhobosVehicleSystems_HealthWearSteady>{READING}: no change lately</PhobosVehicleSystems_HealthWearSteady>
-  <PhobosVehicleSystems_HealthWearFar>{READING}: far from {STAGE}</PhobosVehicleSystems_HealthWearFar>
+  <!-- Framework 0.266.0: a wear row's reading stands at the left and what it is coming to at the right; the line joins them for the tooltip. -->
+  <PhobosVehicleSystems_HealthWearLine>{READING}: {OUTCOME}</PhobosVehicleSystems_HealthWearLine>
+  <PhobosVehicleSystems_HealthWearDue>{STAGE} in about {TIME}</PhobosVehicleSystems_HealthWearDue>
+  <PhobosVehicleSystems_HealthWearNow>{STAGE} now</PhobosVehicleSystems_HealthWearNow>
+  <PhobosVehicleSystems_HealthWearSteady>no change lately</PhobosVehicleSystems_HealthWearSteady>
+  <PhobosVehicleSystems_HealthWearFar>far from {STAGE}</PhobosVehicleSystems_HealthWearFar>
   <PhobosVehicleSystems_HealthMassKg>{MASS} kg</PhobosVehicleSystems_HealthMassKg>
   <PhobosVehicleSystems_HealthMassTip>Empty, it weighs {EMPTY} kg. As loaded now, with its fuel, cargo, crew and ammunition: {NOW} kg.</PhobosVehicleSystems_HealthMassTip>
   <PhobosVehicleSystems_HealthWearTip>At the rate it has worn since its last service or new part, over the last {DAYS} days, idle days included. Drive harder or less and the date moves.</PhobosVehicleSystems_HealthWearTip>
   <PhobosVehicleSystems_HealthCrewNone>Nobody aboard.</PhobosVehicleSystems_HealthCrewNone>
-  <PhobosVehicleSystems_HealthCrewRow>{ROLE}: {NAME}, {CONDITION}</PhobosVehicleSystems_HealthCrewRow>
+  <PhobosVehicleSystems_HealthCrewRow>{ROLE}: {NAME}</PhobosVehicleSystems_HealthCrewRow>
   <PhobosVehicleSystems_HealthStatOperation>Made from its parts ({HOW}):</PhobosVehicleSystems_HealthStatOperation>
   <PhobosVehicleSystems_HealthStatPart>  {PART}: {EFFICIENCY}</PhobosVehicleSystems_HealthStatPart>
   <PhobosVehicleSystems_HealthStatCeiling>(sets the ceiling)</PhobosVehicleSystems_HealthStatCeiling>

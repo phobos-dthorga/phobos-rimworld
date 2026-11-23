@@ -35,6 +35,13 @@ public class ITab_PhobosVehicleHealth : ITab
     const float SheetNeedsWidth = 820f;
     /// <summary>The share of the left column a wear row's words take when its little graph is shown beside them.</summary>
     const float WearWordsShare = 0.74f;
+    /// <summary>The share of the left column a figure or a word at its right edge takes: a whole-vehicle line's figure, a crew
+    /// member's condition.</summary>
+    const float LeftFigureShare = 0.3f;
+    /// <summary>The least share of those words' room that what a reading is coming to keeps, where both cannot fit whole.</summary>
+    const float WearOutcomeLeast = 0.45f;
+    /// <summary>The gap between a wear row's reading and what it is coming to.</summary>
+    const float WearGap = 6f;
 
     public ITab_PhobosVehicleHealth()
     {
@@ -145,12 +152,26 @@ public class ITab_PhobosVehicleHealth : ITab
             {
                 var row = new Rect(rect.x, y, rect.width, Row);
                 Widgets.DrawHighlightIfMouseover(row);
+                // Framework 0.266.0 (the owner's word of 23 Nov 2026: the Systems tab's changes, here too): the reading at the left and what
+                // it is coming to at the right, in its colour, where they were one sentence. The reading keeps its name whole where both
+                // fit; where they do not, each is cut with an ellipsis, never mid-word and silently (found by the owner, 16 Nov 2026:
+                // "Hot-section life used: No"), and the whole line is in the tooltip.
+                float room = rect.width * (figures ? WearWordsShare : 1f) - 4f;
+                float outcomeRoom, readingRoom;
                 using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
                 {
-                    // Cut with an ellipsis where it does not fit, never mid-word and silently (found by the owner, 16 Nov 2026: "Hot-section
-                    // life used: No"); the whole line is in the tooltip.
-                    float room = rect.width * (figures ? WearWordsShare : 1f) - 4f;
-                    Widgets.Label(new Rect(rect.x + 4f, y, room, Row), wear.Label.Truncate(room, view.WearTruncated).Colorize(wear.Colour));
+                    if (wear.ReadingWidth < 0f)
+                    {
+                        wear.ReadingWidth = Text.CalcSize(wear.Reading).x;
+                        wear.OutcomeWidth = Text.CalcSize(wear.Outcome).x;
+                    }
+                    outcomeRoom = Mathf.Min(wear.OutcomeWidth + 2f, Mathf.Max(room - wear.ReadingWidth - WearGap, room * WearOutcomeLeast));
+                    readingRoom = room - outcomeRoom - WearGap;
+                    Widgets.Label(new Rect(rect.x + 4f, y, readingRoom, Row), wear.Reading.Truncate(readingRoom, view.WearTruncated));
+                }
+                using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleRight))
+                {
+                    Widgets.Label(new Rect(rect.x + 4f + room - outcomeRoom, y, outcomeRoom, Row), wear.Outcome.Truncate(outcomeRoom, view.WearTruncated).Colorize(wear.Colour));
                 }
                 if (figures && wear.Ring != null)
                 {
@@ -169,11 +190,20 @@ public class ITab_PhobosVehicleHealth : ITab
             {
                 var line = new Rect(rect.x, y, rect.width, Row);
                 Widgets.DrawHighlightIfMouseover(line);
+                float figureRoom = condition.Figure == null ? 0f : rect.width * LeftFigureShare;
                 using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
                 {
-                    Widgets.Label(new Rect(rect.x + 4f, y, rect.width - 4f, Row), condition.Label.Truncate(rect.width - 4f).Colorize(condition.Colour));
+                    float words = rect.width - 4f - figureRoom;
+                    Widgets.Label(new Rect(rect.x + 4f, y, words, Row), condition.Label.Truncate(words).Colorize(condition.Colour));
                 }
-                TooltipHandler.TipRegion(line, condition.Label);
+                if (condition.Figure != null)
+                {
+                    using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleRight))
+                    {
+                        Widgets.Label(new Rect(rect.xMax - figureRoom, y, figureRoom, Row), condition.Figure.Colorize(condition.Colour));
+                    }
+                }
+                TooltipHandler.TipRegion(line, condition.Figure == null ? condition.Label : condition.Label + "\n" + condition.Figure);
                 if (condition.SystemDefName != null && view.Mode != DisplayMode.Plain && Widgets.ButtonInvisible(line))
                 {
                     ITab_VehicleSystems.ScrollTo(comp.Vehicle.thingIDNumber, condition.SystemDefName);
@@ -201,7 +231,12 @@ public class ITab_PhobosVehicleHealth : ITab
         {
             var row = new Rect(rect.x + 8f, y, rect.width - 8f, Row);
             Widgets.DrawHighlightIfMouseover(row);
-            Widgets.Label(row, crew.Label);
+            float who = row.width * (1f - LeftFigureShare) - 4f;
+            Widgets.Label(new Rect(row.x, y, who, Row), crew.Label.Truncate(who, view.CrewTruncated));
+            using (new TextBlock(TextAnchor.MiddleRight))
+            {
+                Widgets.Label(new Rect(row.xMax - row.width * LeftFigureShare, y, row.width * LeftFigureShare, Row), crew.Condition);
+            }
             TooltipHandler.TipRegion(row, crew.Tip);
             if (!onWorld && crew.Pawn != null && Widgets.ButtonInvisible(row)) CameraJumper.TryJumpAndSelect(crew.Pawn);
             y += Row;
@@ -257,8 +292,8 @@ public class ITab_PhobosVehicleHealth : ITab
             PhobosWidgets.Gauge(new Rect(viewWidth * GaugeX, y + 4f, viewWidth * GaugeShare, Row - 8f), part.HealthShare, part.HealthColour);
             using (new TextBlock(TextAnchor.MiddleRight))
             {
-                Widgets.Label(new Rect(viewWidth * 0.68f, y, viewWidth * 0.14f, Row), part.HealthText);
-                Widgets.Label(new Rect(viewWidth * 0.84f, y, viewWidth * 0.16f, Row), part.EfficiencyText);
+                Widgets.Label(new Rect(viewWidth * HealthColumnX, y, viewWidth * HealthColumnShare, Row), part.HealthText);
+                Widgets.Label(new Rect(viewWidth * EfficiencyColumnX, y, viewWidth * EfficiencyColumnShare, Row), part.EfficiencyText);
             }
             TooltipHandler.TipRegion(row, new TipSignal(part.Tip, part.TipId));
             y += Row;
@@ -266,9 +301,26 @@ public class ITab_PhobosVehicleHealth : ITab
             {
                 var line = new Rect(0f, y, viewWidth, ConditionHeight);
                 Widgets.DrawHighlightIfMouseover(line);
-                using (new TextBlock(GameFont.Tiny))
+                if (condition.Figure == null)
                 {
-                    Widgets.Label(new Rect(24f + indent, y, viewWidth - 24f - indent, ConditionHeight), condition.Label.Colorize(condition.Colour));
+                    using (new TextBlock(GameFont.Tiny))
+                    {
+                        Widgets.Label(new Rect(24f + indent, y, viewWidth - 24f - indent, ConditionHeight), condition.Label.Colorize(condition.Colour));
+                    }
+                }
+                else
+                {
+                    // Framework 0.266.0: its figure under the part's own health, so figures read down one column; its words stop short of it.
+                    float words = viewWidth * HealthColumnX - 28f - indent;
+                    using (new TextBlock(GameFont.Tiny))
+                    {
+                        Widgets.Label(new Rect(24f + indent, y, words, ConditionHeight), condition.Label.Truncate(words, view.ConditionTruncated).Colorize(condition.Colour));
+                    }
+                    using (new TextBlock(GameFont.Tiny, TextAnchor.UpperRight))
+                    {
+                        Widgets.Label(new Rect(viewWidth * HealthColumnX, y, viewWidth * HealthColumnShare, ConditionHeight), condition.Figure.Colorize(condition.Colour));
+                    }
+                    Seen.Note("vehicles.health-tab.figure-column", comp.Vehicle);
                 }
                 if (condition.SystemDefName != null && Widgets.ButtonInvisible(line) && mode != DisplayMode.Plain)
                 {
@@ -321,8 +373,8 @@ public class ITab_PhobosVehicleHealth : ITab
                 }
                 using (new TextBlock(TextAnchor.MiddleRight))
                 {
-                    Widgets.Label(new Rect(viewWidth * 0.68f, y, viewWidth * 0.14f, Row), bundle.WorstText);
-                    Widgets.Label(new Rect(viewWidth * 0.84f, y, viewWidth * 0.16f, Row), bundle.EfficiencyText);
+                    Widgets.Label(new Rect(viewWidth * HealthColumnX, y, viewWidth * HealthColumnShare, Row), bundle.WorstText);
+                    Widgets.Label(new Rect(viewWidth * EfficiencyColumnX, y, viewWidth * EfficiencyColumnShare, Row), bundle.EfficiencyText);
                 }
                 if (pipOver != null)
                 {
@@ -361,6 +413,11 @@ public class ITab_PhobosVehicleHealth : ITab
     const float NameShare = 0.42f;
     const float GaugeX = 0.44f;
     const float GaugeShare = 0.22f;
+    /// <summary>The health column and the efficiency column after it, as shares of the list's width.</summary>
+    const float HealthColumnX = 0.68f;
+    const float HealthColumnShare = 0.14f;
+    const float EfficiencyColumnX = 0.84f;
+    const float EfficiencyColumnShare = 0.16f;
     /// <summary>The gap between a folded row's bar segments; its opening arrow, and how far its name and its members sit in.</summary>
     const float SegmentGap = 3f;
     const float ArrowSize = 14f;
@@ -395,6 +452,9 @@ public class ITab_PhobosVehicleHealth : ITab
         public readonly List<ConditionRow> WholeVehicle = new();
         /// <summary>The wear rows' words as cut to fit, kept so no row is measured twice.</summary>
         public readonly Dictionary<string, string> WearTruncated = new();
+        /// <summary>The crew's rows and the conditions with a figure, as cut to fit: each in its own font and room.</summary>
+        public readonly Dictionary<string, string> CrewTruncated = new();
+        public readonly Dictionary<string, string> ConditionTruncated = new();
         public int WearStamp = -1;
         public DisplayMode WearMode;
 
@@ -425,6 +485,7 @@ public class ITab_PhobosVehicleHealth : ITab
             bool remaining = !quantity.remainingLabel.NullOrEmpty();
             var row = new WearRow
             {
+                Reading = reading,
                 Ring = ring,
                 Min = remaining ? quantity.max : quantity.min,
                 Max = remaining ? quantity.min : quantity.max,
@@ -449,32 +510,35 @@ public class ITab_PhobosVehicleHealth : ITab
                 : TrendRule.SamplesUntil(ring.Count, i => ring[i], nextFrom, WearMinSamples, span * 1e-4, span * 1e-7);
             if (current is { notable: true })
             {
-                row.Label = "PhobosVehicleSystems_HealthWearNow".Translate(reading.Named("READING"), current.label.Named("STAGE")).Resolve();
+                row.Outcome = "PhobosVehicleSystems_HealthWearNow".Translate(current.label.Named("STAGE")).Resolve();
                 row.Colour = current.Severe ? PhobosWidgets.Bad : PhobosWidgets.Caution;
             }
             else if (next != null && samples is double far && far * QuantityHistory.WearStrideTicks > WearFarTicks)
             {
                 // Framework 0.136.1 (the owner's screenshot, 18 Nov 2026: "Clogged in about 298 years"): past a year a date means nothing.
-                row.Label = "PhobosVehicleSystems_HealthWearFar".Translate(reading.Named("READING"), next.label.Named("STAGE")).Resolve();
+                row.Outcome = "PhobosVehicleSystems_HealthWearFar".Translate(next.label.Named("STAGE")).Resolve();
                 row.Colour = PhobosWidgets.Good;
             }
             else if (next != null && samples is double until)
             {
                 int ticks = (int)Math.Min(int.MaxValue / 2, until * QuantityHistory.WearStrideTicks);
-                row.Label = "PhobosVehicleSystems_HealthWearDue".Translate(reading.Named("READING"), next.label.Named("STAGE"), ticks.ToStringTicksToPeriod().Named("TIME")).Resolve();
+                row.Outcome = "PhobosVehicleSystems_HealthWearDue".Translate(next.label.Named("STAGE"), ticks.ToStringTicksToPeriod().Named("TIME")).Resolve();
                 row.Colour = ticks < WearSoonTicks ? PhobosWidgets.Caution : PhobosWidgets.Good;
             }
             else
             {
-                row.Label = "PhobosVehicleSystems_HealthWearSteady".Translate(reading.Named("READING")).Resolve();
+                row.Outcome = "PhobosVehicleSystems_HealthWearSteady".Translate().Resolve();
                 row.Colour = PhobosWidgets.Good;
             }
+            row.Label = "PhobosVehicleSystems_HealthWearLine".Translate(reading.Named("READING"), row.Outcome.Named("OUTCOME")).Resolve();
             return row;
         }
 
         public void Build(CompPhobosVehicleSystems comp, DisplayMode mode)
         {
             Truncated.Clear();
+            CrewTruncated.Clear();
+            ConditionTruncated.Clear();
             Version = comp.HealthViewVersion;
             Mode = mode;
             VehiclePawn vehicle = comp.Vehicle;
@@ -578,8 +642,8 @@ public class ITab_PhobosVehicleHealth : ITab
                     Crew.Add(new CrewRow
                     {
                         Pawn = pawn,
-                        Label = "PhobosVehicleSystems_HealthCrewRow".Translate(role.CapitalizeFirst().Named("ROLE"), pawn.LabelShort.Named("NAME"),
-                            HealthUtility.GetGeneralConditionLabel(pawn, shortVersion: true).Named("CONDITION")).Resolve(),
+                        Label = "PhobosVehicleSystems_HealthCrewRow".Translate(role.CapitalizeFirst().Named("ROLE"), pawn.LabelShort.Named("NAME")).Resolve(),
+                        Condition = HealthUtility.GetGeneralConditionLabel(pawn, shortVersion: true),
                         Tip = pawn.LabelCap + "\n" + HealthUtility.GetGeneralConditionLabel(pawn).CapitalizeFirst(),
                     });
                 }
@@ -778,9 +842,8 @@ public class ITab_PhobosVehicleHealth : ITab
                 NamedArgument name = condition.def!.label.CapitalizeFirst().Named("CONDITION");
                 row.Conditions.Add(new ConditionRow
                 {
-                    Label = figures
-                        ? "PhobosVehicleSystems_HealthConditionFigure".Translate(name, stage.label.Named("STAGE"), condition.severity.ToStringPercent().Named("SEVERITY")).Resolve()
-                        : "PhobosVehicleSystems_HealthCondition".Translate(name, stage.label.Named("STAGE")).Resolve(),
+                    Label = "PhobosVehicleSystems_HealthCondition".Translate(name, stage.label.Named("STAGE")).Resolve(),
+                    Figure = figures ? condition.severity.ToStringPercent() : null,
                     Colour = ITab_VehicleDashboard.StageColour(stage),
                     SystemDefName = string.IsNullOrEmpty(condition.system) ? null : condition.system,
                 });
@@ -804,8 +867,8 @@ public class ITab_PhobosVehicleHealth : ITab
                 if (stage == null || (!stage.notable && stage.effects.Count == 0) || (quantity.hidden && stage.effects.Count == 0)) continue;
                 yield return new ConditionRow
                 {
-                    Label = "PhobosVehicleSystems_InspectFigureStage".Translate(quantity.label.CapitalizeFirst().Named("QUANTITY"),
-                        InspectText.Format(quantity, state.values[q]).Named("VALUE"), stage.label.Named("STAGE")).Resolve(),
+                    Label = "PhobosVehicleSystems_HealthCondition".Translate(quantity.label.CapitalizeFirst().Named("CONDITION"), stage.label.Named("STAGE")).Resolve(),
+                    Figure = InspectText.Format(quantity, state.values[q]),
                     Colour = ITab_VehicleDashboard.StageColour(stage),
                     SystemDefName = state.Def.defName,
                 };
@@ -870,7 +933,13 @@ public class ITab_PhobosVehicleHealth : ITab
 
     sealed class WearRow
     {
+        /// <summary>The whole line, for the tooltip: the reading and what it is coming to.</summary>
         public string Label = "";
+        public string Reading = "";
+        public string Outcome = "";
+        /// <summary>How wide the two are in the tiny font, measured at the first draw (below 0 until then).</summary>
+        public float ReadingWidth = -1f;
+        public float OutcomeWidth;
         public Color Colour = Color.white;
         public string Tip = "";
         public HistoryRing? Ring;
@@ -891,6 +960,8 @@ public class ITab_PhobosVehicleHealth : ITab
     {
         public Pawn? Pawn;
         public string Label = "";
+        /// <summary>The game's own short word for how they are, at the row's right edge.</summary>
+        public string Condition = "";
         public string Tip = "";
     }
 
@@ -953,6 +1024,9 @@ public class ITab_PhobosVehicleHealth : ITab
     sealed class ConditionRow
     {
         public string Label = "";
+        /// <summary>Its figure (a reading's value, a condition's severity), drawn in the health column under the part's own; null for a
+        /// line that is words alone.</summary>
+        public string? Figure;
         public Color Colour;
         public string? SystemDefName;
     }
