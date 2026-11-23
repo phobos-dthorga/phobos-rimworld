@@ -30,7 +30,7 @@ Eight mods. **Needs** is what must be switched on with it, or the mod does not w
 
 | Mod | What it does | Needs | Chapter |
 | --- | --- | --- | --- |
-| [D'thorga Framework] | The shared library; with Vehicle Framework, every vehicle needs looking after | Harmony | [Vehicle care], [Camping] |
+| [D'thorga Framework] | The shared library; with Vehicle Framework, every vehicle needs looking after | Harmony | [Vehicles] (five chapters), [Camping] |
 | [D'thorga Vehicles] | Working trucks, trailers and the V-22 Osprey; real figures for other mods' vehicles | VF, D'thorga Framework | [Working vehicles] |
 | [D'thorga Medical] | Burns and smoke, doctors who act on their own, hospital kit, radiation control | Harmony, D'thorga Framework, VEF | [Medical] |
 | [D'thorga Factory Additions] | Belts from any storage, an automated fabrication bay, new bills | Harmony, D'thorga Framework, VEF, VFE - Factory | [Factory] |
@@ -104,7 +104,7 @@ the same way; each mod's README lists its own.
 [D'thorga Farming]: ../../mods/PhobosFarming/README.md
 [D'thorga Water Tap]: ../../mods/PhobosWaterTap/README.md
 [D'thorga Radio Framework]: ../../mods/PhobosRadioFramework/README.md
-[Vehicle care]: vehicle-care.md
+[Vehicles]: vehicle-systems.md
 [Camping]: camping.md
 [Working vehicles]: working-vehicles.md
 [Medical]: medical.md
@@ -119,7 +119,11 @@ the same way; each mod's README lists its own.
 | Chapter | Mod or area | What it covers |
 | --- | --- | --- |
 | [Getting started](getting-started.md) | Every mod | Installing, load order, settings to decide first, research, adding and removing a mod |
-| [Looking after vehicles](vehicle-care.md) | D'thorga Framework, with VF | Any mod's vehicles: flat batteries, overheating, service, repairs, tuning |
+| [Vehicle systems](vehicle-systems.md) | D'thorga Framework, with VF | Any mod's vehicles: the tabs, lamps, wear, services, batteries and jump-starts |
+| [Vehicle damage and repairs](vehicle-damage-and-repairs.md) | D'thorga Framework, with VF | Hits, knocked-out weapons, glass, fire, replacing parts, hulls |
+| [The vehicle workshop](vehicle-workshop.md) | D'thorga Framework, with VF | The parts bench and dyno bay, parts and kits, fittings, tunes, grades |
+| [Vehicles on the road](vehicles-on-the-road.md) | D'thorga Framework, with VF | Grip, hills, fuel, the world map, depots, towing, parks and the yard |
+| [Aircraft and sling loads](aircraft-and-sling-loads.md) | D'thorga Framework, with VF | Take-off checks, fuel and height, the sling, air ambulance, air defence |
 | [Camping and life on the road](camping.md) | D'thorga Framework and Vehicles | Tents, berths, camp gear, water, lights and the kitchen on a long trip |
 | [Working vehicles](working-vehicles.md) | D'thorga Vehicles | Trucks and trailers that find ore, drill and haul it, move fluids and power a camp |
 | [Submarines](submarines.md) | D'thorga Vehicles and D'thorga Framework | Running a submarine: dive, hide, listen, ping, do research at sea |

@@ -2,7 +2,7 @@
 
 **D'thorga Vehicles** adds six vehicles that do a job: find ore, drill it, haul it, move fluids, power a camp, and explore under
 the sea, and five trailers any of them can tow: a flatbed, two bowsers, the Billy field kitchen and a shower trailer. It also gives other mods' vehicles the figures their real counterparts have. The submarine has
-[its own chapter](submarines.md); looking after any vehicle is in [looking after vehicles](vehicle-care.md).
+[its own chapter](submarines.md); looking after any vehicle starts at [vehicle systems](vehicle-systems.md).
 [Back to the guide](README.md).
 
 ## Read this first (gotchas)
@@ -604,7 +604,7 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
 ## Other mods' vehicles
 
 D'thorga Vehicles also gives other mods' vehicles the systems and figures their real counterparts have, so each climbs, labours and
-bogs like itself. Every other vehicle gets the general systems ([looking after vehicles](vehicle-care.md)).
+bogs like itself. Every other vehicle gets the general systems ([vehicle systems](vehicle-systems.md)).
 
 **Stock helicopters can fly over the map too** (not yet tested in game): switch on **Stock helicopters fly over the map** in D'thorga Framework's settings (it starts off) and the Cherokee, the Louie and the Mosquito take the Osprey's buttons: take off, fly to, hold, circle and land, and they leave and arrive flying. They cannot roll to take off or use ropes or a hoist. Their pictures were drawn for flying straight off the map, so a hover may look a little odd.
 
@@ -613,7 +613,7 @@ bogs like itself. Every other vehicle gets the general systems ([looking after v
 | Big Rig (VVE - Tier 3), M1075 HEMTT (RimThunder - Roaring Tiger) | Air brakes and an air compressor: idle before driving after a long stand |
 | Humvee (HUMVEE) | A 24-volt system from two batteries, with about 60 A of charging |
 | M1A2 and M1A2 SEP (RimThunder) | A gas turbine on tracks with no radiator, which burns hard even at idle |
-| Harrier (Harrier VTOL) | Its real engine's lift ratings, water injection (a mechanic refills it after a hard hover), its own flight phases and a hover check at its real empty mass. Too heavy to hover onto its pad in the day's heat, it lands on a runway ([aircraft](vehicle-care.md#aircraft-and-sling-loads)). It starts as the day-attack AV-8B: its night sight and radar are kits, and the Pegasus 11-61 a fitting. A Harrier built before keeps both, fitted free |
+| Harrier (Harrier VTOL) | Its real engine's lift ratings, water injection (a mechanic refills it after a hard hover), its own flight phases and a hover check at its real empty mass. Too heavy to hover onto its pad in the day's heat, it lands on a runway ([aircraft](aircraft-and-sling-loads.md#before-take-off)). It starts as the day-attack AV-8B: its night sight and radar are kits, and the Pegasus 11-61 a fitting. A Harrier built before keeps both, fitted free |
 | A-10 Warthog and Su-25 Frogfoot (Close Air Support) | Their real twin engines: lose one and the other carries the load, running hot, and the A-10 has an emergency rating for it. They start as their early versions: the A-10A with basic navigation, the first Su-25 with its R-95Sh engines and 128 flares. Fittings bring them up: navigation, autopilot and night sight (any aircraft's kits), the Su-25's R-195 engines and extra dispensers, and the A-10's uprated engines, which were offered but never fielded. **Both engines are changed together**, and the gain starts once both are in. In the air over a map they dodge some of the fire aimed at them, the faster Su-25 more than the A-10, and **Chaff and flares** dodges more for a few seconds. Climate control. Not yet tested in game |
 | UH-60M Black Hawk (UH-60M Black Hawk) | Its two real turboshafts through a rotor drive, its lift checked before launch, a ten-minute rating and a one-engine-out rating, fly-by-wire controls on hydraulics, full navigation, a warning receiver and 60 flare cartridges. A cargo hook rated at 4,082 kg. Its own interior, airdrops and EVAC hoist are its author's, so it takes no rescue hoist, fast-rope bar or litter kit of ours. Not yet tested in game |
 | C-17 Globemaster III (C-17 Globemaster III) | Its four real turbofans, fly-by-wire controls on hydraulics, full navigation, an autopilot, weather radar, a missile warner and 120 flare cartridges. **What its hold carries counts**: a hold full of vehicles makes it climb slowly and burn hard. Lose an engine and it pulls to that side, more for an outer one; each wing's tank feeds the two engines under it, with a cross-feed button. Its own modes, loading, airdrops and sounds are its author's. Built from real parts with D'thorga Patches. Not yet tested in game |
@@ -625,7 +625,7 @@ bogs like itself. Every other vehicle gets the general systems ([looking after v
 | L-ATV (GTek's Vehicles) | 370 hp, the middle of the published figures, Allison six-speed ratios, its real weight, tyres, four-wheel drive and a 740 A alternator |
 | MaxxPro (GTek's Vehicles), Humvee, Land Cruiser J70, T-54 and Wiesel (Frontline Workshop), M113, M48H and the "HEMTT" (Roaring Tiger), M10 Booker and M2A3 Bradley (Desert Sabre), the BMP-1 family, both M1A2s | Their real engines' power, weights and gearboxes where published. The "HEMTT" is really the PLS, so it gets the PLS's figures. The BMP-1 mod left the Workshop on 8 November 2026; its figures wait for anyone with a copy |
 | Goat DE2 (Trains of the Rim) | Diesel-electric: no gearbox, traction motors that heat when pulling hard, rail wheels, air brakes with a compressor |
-| Steam locomotives (Trains of the Rim) | A boiler: hours to raise steam, a water glass, a tender or tanks to refill at a water stop, a fusible plug that melts if the water runs low. The Frisco follows the real 4500 class (a 68,000-litre tender), the tank engine the LB&SCR E2 ([special engines](vehicle-care.md#special-engines)) |
+| Steam locomotives (Trains of the Rim) | A boiler: hours to raise steam, a water glass, a tender or tanks to refill at a water stop, a fusible plug that melts if the water runs low. The Frisco follows the real 4500 class (a 68,000-litre tender), the tank engine the LB&SCR E2 ([special engines](vehicle-systems.md#special-engines)) |
 | Lightning (VVE - Tier 3) | Can run on batteries: turn on **The Lightning runs on batteries** in D'thorga Framework's settings and restart. It then charges parked over a powered conduit from the grid's stored energy (about five batteries' worth for a full charge) instead of taking chemfuel |
 | Vanilla Vehicles Expanded's vehicles | Real weights: bikes lighter, tanks far heavier, so cargo matters on a tank and hardly at all on a bike. Change any weight under Vehicle Framework's "Empty mass" |
 | L-ATV, MaxxPro, M1A2 SEP, M10 Booker, Harrier, A-10, Su-25, Mongoose, Goat shunter, and VVE - Tier 3's vehicles except the Springbok and the Louie | Climate control: the cab holds near 21 °C by itself |
@@ -639,7 +639,7 @@ the Harrier, and others ([the real figures record](../development/vehicle-real-f
 
 - **Tested by the owner:** the survey truck and its boom (9 November 2026); the Busbar's size and look (13 November 2026); a
   helicopter lifting a vehicle on its sling, through take-off to the world map (12 November 2026; see
-  [aircraft and sling loads](vehicle-care.md#aircraft-and-sling-loads)).
+  [aircraft and sling loads](aircraft-and-sling-loads.md#carrying-a-vehicle-on-a-sling)).
 - **Not yet tested in game:** the other five vehicles and the Busbar's power, the trailers and towing, the bowsers and setting up a trailer, every upgrade, the bulk buying, and how the pictures sit. Where each upgrade's
   picture sits on its vehicle is a first placement, to be adjusted once seen in game.
 

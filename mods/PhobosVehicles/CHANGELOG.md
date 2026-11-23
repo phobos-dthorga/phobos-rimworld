@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- **The README's link into the player guide follows its vehicle chapters**: Looking after vehicles became five chapters (vehicle systems, damage and repairs, the workshop, on the road, aircraft and sling loads). Docs only.
+
 ## [0.116.1] - 2026-11-23 - Draft
 
 The Prowler's ICAP fittings get their own pictures

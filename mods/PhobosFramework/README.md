@@ -8,7 +8,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 One of House D'thorga's mods (also spelt dthorga).
 
 Version 0.276.0, built 24 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
-oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
+oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
 ## Read this first (gotchas)
@@ -104,10 +104,10 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   [the player guide's medical chapter](../../docs/player-guide/medical.md).
 - **A glass chain**: glass sand, potash (or soda ash with Vanilla Cooking Expanded), glass panes melted at the electric smelter, plastic
   film, and laminated and armoured panes and vision blocks for our vehicles' glass
-  ([the glass chain](../../docs/player-guide/vehicle-care.md#the-glass-chain)).
+  ([the glass chain](../../docs/player-guide/vehicle-damage-and-repairs.md#the-glass-chain)).
 - **Fighting fires on vehicles**: fires start in the engine bay, the crew compartment or the running gear and spread; a three-charge
   vehicle extinguisher, refilled by a mechanic; and automatic fire suppression for armoured vehicles, recharged with a bottle
-  ([vehicle care](../../docs/player-guide/vehicle-care.md)).
+  ([fire](../../docs/player-guide/vehicle-damage-and-repairs.md#fire)).
 - **A D'thorga research tab** for vehicle parts and workshops; an existing colony gets a project free once if it had already done what
   it replaces ([research](../../docs/player-guide/getting-started.md#research)).
 - **Standby power**: idle buildings draw a tenth of their power and lights in empty rooms go dark, with no work every tick
@@ -119,32 +119,32 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
 ### Vehicle systems (with Vehicle Framework)
 
 Every vehicle gets systems that fit what it is, by what it runs on and whether it drives, floats or flies. The player guide's
-[looking after vehicles](../../docs/player-guide/vehicle-care.md) is the full guide:
+[vehicle chapters](../../docs/player-guide/vehicle-systems.md) are the full guide:
 
 - **Batteries, engines, coolant, oil, tyres, brakes and services**:
-  [what wears out and what fixes it](../../docs/player-guide/vehicle-care.md#what-wears-out-and-what-fixes-it),
-  [jump-starting](../../docs/player-guide/vehicle-care.md#jump-starting).
-- **The Dashboard, Health and Systems tabs**: [the three tabs](../../docs/player-guide/vehicle-care.md#the-three-tabs).
-- **Damage, conditions and knocked-out weapons and tracks**: [damage and repairs](../../docs/player-guide/vehicle-care.md#damage-and-repairs).
-- **Vehicles are taken to a dyno bay for repair by themselves** (0.201.0, not yet tested in game; needs somebody on **Drive** work): [taken to the dyno bay](../../docs/player-guide/vehicle-care.md#taken-to-the-dyno-bay-by-themselves).
-- **The workshop** (parts bench, inspection pit, dyno bay, depot bay) and parts by role: [the workshop](../../docs/player-guide/vehicle-care.md#the-workshop).
+  [what wears out and what fixes it](../../docs/player-guide/vehicle-systems.md#what-wears-out-and-what-fixes-it),
+  [jump-starting](../../docs/player-guide/vehicle-systems.md#jump-starting).
+- **The Dashboard, Health and Systems tabs**: [the three tabs](../../docs/player-guide/vehicle-systems.md#the-three-tabs).
+- **Damage, conditions and knocked-out weapons and tracks**: [damage and repairs](../../docs/player-guide/vehicle-damage-and-repairs.md).
+- **Vehicles are taken to a dyno bay for repair by themselves** (0.201.0, not yet tested in game; needs somebody on **Drive** work): [trips to the dyno bay](../../docs/player-guide/vehicles-on-the-road.md#trips-to-the-dyno-bay).
+- **The workshop** (parts bench, inspection pit, dyno bay, depot bay) and parts by role: [the workshop](../../docs/player-guide/vehicle-workshop.md#the-workshop-buildings).
 - **The service yard** (0.210.0, not yet tested in game; the fuel pump's picture is still to come): servicing, the dyno, fuel and parking
-  in one zone whose size its equipment caps, run from the Fleet board: [the service yard](../../docs/player-guide/vehicle-care.md#the-service-yard).
+  in one zone whose size its equipment caps, run from the Fleet board: [the service yard](../../docs/player-guide/vehicles-on-the-road.md#the-service-yard).
 - **Building upgrades** (0.210.0, not yet tested in game): a charging cable for the fuel pump, a second roller set for the dyno bay, a
-  faster pump for the depot bay: [building upgrades](../../docs/player-guide/vehicle-care.md#building-upgrades). D'thorga Radio
+  faster pump for the depot bay: [building upgrades](../../docs/player-guide/vehicle-workshop.md#building-upgrades). D'thorga Radio
   Framework's desk and antennas use them too (from Radio 0.4.0, experimental): [radio](../../docs/player-guide/radio.md).
-- **Fittings, tunes, grades and families**: [fittings, tunes and grades](../../docs/player-guide/vehicle-care.md#fittings-tunes-and-grades).
-- **Cabs, headlights, the driver, weather and rivers**: [cabs and comfort](../../docs/player-guide/vehicle-care.md#cabs-and-comfort),
-  [headlights](../../docs/player-guide/vehicle-care.md#headlights),
-  [the driver, the weather and rivers](../../docs/player-guide/vehicle-care.md#the-driver-the-weather-and-rivers).
-- **Caravans, fuel reach, the fleet button and garages**: [on the world map](../../docs/player-guide/vehicle-care.md#on-the-world-map).
+- **Fittings, tunes, grades and families**: [fittings, tunes and grades](../../docs/player-guide/vehicle-workshop.md#fittings-tunes-and-grades).
+- **Cabs, headlights, the driver, weather and rivers**: [cabs and comfort](../../docs/player-guide/vehicle-systems.md#cabs-and-comfort),
+  [headlights](../../docs/player-guide/vehicle-systems.md#headlights-and-work-lamps),
+  [driving on a map](../../docs/player-guide/vehicles-on-the-road.md#driving-on-a-map).
+- **Caravans, fuel reach, the fleet button and garages**: [on the world map](../../docs/player-guide/vehicles-on-the-road.md#on-the-world-map).
 - **Aircraft checks, avionics, sling loads, water drops and the air ambulance**:
-  [aircraft and sling loads](../../docs/player-guide/vehicle-care.md#aircraft-and-sling-loads).
+  [aircraft and sling loads](../../docs/player-guide/aircraft-and-sling-loads.md).
 - **Gathering runs** (a truck with a loading grab fetching loose things by itself): [the Talus](../../docs/player-guide/working-vehicles.md#talus-tipper-truck).
-- **Towing and the recovery winch**: [towing a trailer](../../docs/player-guide/vehicle-care.md#towing-a-trailer),
-  [recovering a stuck vehicle](../../docs/player-guide/vehicle-care.md#recovering-a-stuck-vehicle).
-- **Other factions' vehicles and claiming them**: [other factions' vehicles](../../docs/player-guide/vehicle-care.md#other-factions-vehicles).
-- **Electric vehicles, steam and diesel-electric locomotives, boats and aircraft**: [special engines](../../docs/player-guide/vehicle-care.md#special-engines).
+- **Towing and the recovery winch**: [towing a trailer](../../docs/player-guide/vehicles-on-the-road.md#towing-a-trailer),
+  [recovering a stuck vehicle](../../docs/player-guide/vehicles-on-the-road.md#recovering-a-stuck-vehicle).
+- **Other factions' vehicles and claiming them**: [other factions' vehicles](../../docs/player-guide/vehicle-damage-and-repairs.md#other-factions-vehicles).
+- **Electric vehicles, steam and diesel-electric locomotives, boats and aircraft**: [special engines](../../docs/player-guide/vehicle-systems.md#special-engines).
 - **Diving boats, listening arrays, sonar and laboratories aboard**: [submarines](../../docs/player-guide/submarines.md).
 
 ## Settings
@@ -261,5 +261,5 @@ oxygen, the health layer, care choices, protective-gear lines, parts bills and t
 ## Checks done
 
 Every version's checks, and what the owner has tested in game, are in [the changelog](CHANGELOG.md); the latest entry is 0.118.0
-(17 November 2026), not yet tested in game. The vehicle features the owner has tested are listed in the player guide's
-[what has been tested in game](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game).
+(17 November 2026), not yet tested in game. The vehicle features the owner has tested are listed at the end of each of the player guide's
+vehicle chapters, starting with [vehicle systems](../../docs/player-guide/vehicle-systems.md).

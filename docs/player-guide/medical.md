@@ -242,8 +242,8 @@ Expanded's rule).
 **With Search and Rescue, its field responders use these kits where a colonist fell**, as Field rescue work, if they also have
 Doctor work switched on. The airway kits, the hand pump and the decompression kit come just before its own treatment; oxygen and
 fluids after it. **Give your medics kits to carry:** Search and Rescue's restocking does not fetch them. To have casualties carried
-to a parked helicopter instead of a far bed, switch on its **Take casualties aboard** (D'thorga Framework, in the
-[vehicle care chapter](vehicle-care.md)). Not yet tested in game.
+to a parked helicopter instead of a far bed, switch on its **Take casualties aboard** (D'thorga Framework, in
+[aircraft and sling loads](aircraft-and-sling-loads.md#an-air-ambulance)). Not yet tested in game.
 
 ## Radiation
 

@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- **The README's links into the player guide follow its vehicle chapters**: Looking after vehicles became five chapters (vehicle systems, damage and repairs, the workshop, on the road, aircraft and sling loads). Docs only.
+
 ## [0.276.0] - 2026-11-24 - Draft
 
 A vehicle part says what is still to be fitted

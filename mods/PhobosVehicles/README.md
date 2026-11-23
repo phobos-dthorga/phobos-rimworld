@@ -59,7 +59,7 @@ Version 0.116.1, built 23 November 2026 for House D'thorga. **Not yet tested in 
   rifle-proof. **With Combat Extended, a spall liner** (0.94.0) over it: six liner panels, 150 kg, catching the spall a round through
   those plates throws at the crew and passengers. Not yet tested in game.
 - **The general systems come from D'thorga Framework**, not this mod: battery and alternator, coolant and oil, tyres or tracks,
-  brakes, gearbox, wear and service ([looking after vehicles](../../docs/player-guide/vehicle-care.md)).
+  brakes, gearbox, wear and service ([vehicle systems](../../docs/player-guide/vehicle-systems.md)).
 - **Our vehicles are built from parts.** Where RimThunder or Vanilla Vehicles Expanded is installed, a build asks for their parts;
   otherwise for ours, made at the **vehicle parts bench**. Decide **Parts for building** in D'thorga Framework's settings before you
   start (it needs a restart).

@@ -616,7 +616,8 @@ True since Framework 0.131.0, which built decision 1; they were overstated under
 
 - [Vehicle accessories](vehicle-accessories.md): the outlet "burns fuel for it, by the rule already in place".
 - [Vehicle upgrades, round two](../vehicle-upgrades-round-two.md): work lamps run "at a fuel cost".
-- [The player guide's vehicle care chapter](../../player-guide/vehicle-care.md): an idling outlet "burning fuel".
+- [The player guide's camping chapter](../../player-guide/camping.md#camp-accessories-fridge-house-battery-and-power-outlet) (then its vehicle
+  care chapter): an idling outlet "burning fuel".
 - D'thorga Framework's README: the "Accessories load the engine" row.
 
 ## Found along the way
