@@ -250,8 +250,11 @@ stays its own sound with no new code per device.
 | ID | Sound | Mod | Hook | Note |
 | --- | --- | --- | --- | --- |
 | S101 | Water running into bottles (short) | Water Tap | Code (a fill) | |
-| S102 | Base station: squelch and static (loop) | Radio | Code | **Back burner**, like all radio work |
-| S103 | Hand-held: squelch tail and key-up | Radio | Code | Back burner; the private recording library with VK3PKT could supply real ones |
+| S102 | Base station: squelch and static (loop) | Radio | Code (while a station is in use) | **Queued for night 13** (the owner's go of 24 Nov 2026, "to liven things up"), two tries; not wired until picked |
+| S103 | Hand-held: squelch tail and key-up | Radio | Code | **Queued for night 13**, two tries; the private recording library with VK3PKT could still supply real ones |
+| S147 | Linear amplifier: its relay clacking in and out | Radio (0.5.0) | Code (as its station starts and stops sending) | **Queued for night 13**, two tries |
+| S148 | Linear amplifier: its cooling fan under load (loop) | Radio (0.5.0) | Code (while sending) | **Queued for night 13**, two tries; asked low, no whine |
+| S149 | Radio terminal: its computer running (loop) | Radio (0.5.0) | Code (while powered) | **Queued for night 13**, two tries; asked low, no whine, as the owner can't hear high frequencies |
 
 D'thorga Factory Additions' fabrication bay and processes already use Vanilla Furniture Expanded - Factory's own sounds, which suit
 them, and D'thorga Patches adds nothing of its own to hear.

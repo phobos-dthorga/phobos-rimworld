@@ -1,0 +1,95 @@
+[
+  {
+    "name": "n13-coax-icon",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A short coil of thick black coaxial radio cable, loosely looped twice, with a shiny silver screw-on connector plug clearly visible on its free end and a short straight tail of cable. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. Not a tyre, not a ring, not a hose, not a rope. No text, no letters, no numbers, no hands, no people.",
+    "subject": "a short coil of black coaxial cable with a silver connector plug on its free end",
+    "references": [
+      "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/Signal.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/AuxFuelTank.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [131, 132],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "for": "the coax feedline's Architect button",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/CoaxIcon.png",
+      "since": "Radio 0.1.4",
+      "why": "a redraw: the shipped icon reads as a black tyre and its prompt's connector never appeared (agent's review of 24 Nov 2026, the owner agreeing to redo it); icons are made locally. The prompt now rules out a tyre, ring and hose"
+    }
+  },
+  {
+    "name": "n13-signal-none",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A radio signal-strength symbol: four short upright bars in a row rising from short to tall, left to right, all four empty dark grey outlines with no fill, and a small red diagonal slash across them. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One symbol, centred, filling most of the canvas, on a plain pure white background. No antenna, no waves, no text, no letters, no numbers.",
+    "subject": "four empty signal bars with a red slash: no contact",
+    "references": ["mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/Signal.png"],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [131, 132],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "for": "the Radio button on a worn hand-held, when it has no contact",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/SignalNone.png",
+      "since": "not wired yet",
+      "why": "the agent's proposal of 24 Nov 2026, with the owner's go for the queue: four icons, one per outcome, in place of the [|||] text on the Radio button, so the signal reads at a glance; one set, so all four must match"
+    }
+  },
+  {
+    "name": "n13-signal-marginal",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A radio signal-strength symbol: four short upright bars in a row rising from short to tall, left to right; the first bar filled solid muted orange, the other three empty dark grey outlines with no fill. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One symbol, centred, filling most of the canvas, on a plain pure white background. No antenna, no waves, no text, no letters, no numbers.",
+    "subject": "four signal bars, the first filled: a marginal contact",
+    "references": ["mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/Signal.png"],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [131, 132],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "for": "the Radio button on a worn hand-held, on a marginal contact",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/SignalMarginal.png",
+      "since": "not wired yet",
+      "why": "one of four signal-bar icons (the agent's proposal of 24 Nov 2026)"
+    }
+  },
+  {
+    "name": "n13-signal-workable",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A radio signal-strength symbol: four short upright bars in a row rising from short to tall, left to right; the first three bars filled solid muted yellow-green, the tallest bar an empty dark grey outline with no fill. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One symbol, centred, filling most of the canvas, on a plain pure white background. No antenna, no waves, no text, no letters, no numbers.",
+    "subject": "four signal bars, three filled: a workable contact",
+    "references": ["mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/Signal.png"],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [131, 132],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "for": "the Radio button on a worn hand-held, on a workable contact",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/SignalWorkable.png",
+      "since": "not wired yet",
+      "why": "one of four signal-bar icons (the agent's proposal of 24 Nov 2026)"
+    }
+  },
+  {
+    "name": "n13-signal-clean",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A radio signal-strength symbol: four short upright bars in a row rising from short to tall, left to right, all four filled solid muted green. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One symbol, centred, filling most of the canvas, on a plain pure white background. No antenna, no waves, no text, no letters, no numbers.",
+    "subject": "four signal bars, all filled: a clean contact",
+    "references": ["mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/Signal.png"],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [131, 132],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "for": "the Radio button on a worn hand-held, on a clean contact",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/SignalClean.png",
+      "since": "not wired yet",
+      "why": "one of four signal-bar icons (the agent's proposal of 24 Nov 2026)"
+    }
+  }
+]

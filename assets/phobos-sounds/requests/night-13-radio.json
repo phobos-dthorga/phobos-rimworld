@@ -1,0 +1,62 @@
+[
+  {
+    "name": "n13-station-squelch",
+    "engine": "sa3-sfx",
+    "seconds": 6,
+    "seeds": [131, 132],
+    "loop": true,
+    "prompt": "A two-way radio base station on a desk with its squelch open: a soft, even hiss of radio static with faint crackles, steady and unbroken, heard from across a quiet room. Not loud, not alarming. Length: 6 seconds",
+    "art_plan": {
+      "why": "S102, the base station's squelch and static, played quietly while a station is in use (candidates only: the owner's go of 24 Nov 2026 for radio sounds on the night queue, to liven the radio up; nothing is wired until the owner picks)",
+      "sound": "S102"
+    }
+  },
+  {
+    "name": "n13-handheld-keyup",
+    "engine": "sa3-sfx",
+    "seconds": 2,
+    "seeds": [131, 132],
+    "loop": false,
+    "prompt": "A hand-held walkie-talkie: a short click of the push-to-talk key, a fraction of a second of soft static, then the brief rushing squelch tail as the transmission ends. Close to the listener, short and clean. Not loud, not alarming. Length: 2 seconds",
+    "art_plan": {
+      "why": "S103, the hand-held's key-up and squelch tail (candidates only, the owner's go of 24 Nov 2026; real recordings from the owner's library with VK3PKT may yet replace them)",
+      "sound": "S103"
+    }
+  },
+  {
+    "name": "n13-amplifier-relay",
+    "engine": "sa3-sfx",
+    "seconds": 2,
+    "seeds": [131, 132],
+    "loop": false,
+    "prompt": "A radio linear amplifier keying up and down: one firm mechanical relay clack as it switches in, a short pause, then a second clack as it switches out. Two dry clicks from inside a metal cabinet, nothing else. Not loud, not alarming. Length: 2 seconds",
+    "art_plan": {
+      "why": "S147, a linear amplifier's relay as its station starts and stops sending (Radio 0.5.0; candidates only, the owner's go of 24 Nov 2026)",
+      "sound": "S147"
+    }
+  },
+  {
+    "name": "n13-amplifier-fan",
+    "engine": "sa3-sfx",
+    "seconds": 6,
+    "seeds": [131, 132],
+    "loop": true,
+    "prompt": "A heavy radio power amplifier's cooling fan running under load: a low, steady airy whoosh with a soft mechanical hum, even and unbroken, heard from beside the cabinet. Low pitched, no whine, no hiss. Not loud, not alarming. Length: 6 seconds",
+    "art_plan": {
+      "why": "S148, a linear amplifier's cooling fan while its station is sending (Radio 0.5.0; candidates only, the owner's go of 24 Nov 2026)",
+      "sound": "S148"
+    }
+  },
+  {
+    "name": "n13-terminal-hum",
+    "engine": "sa3-sfx",
+    "seconds": 6,
+    "seeds": [131, 132],
+    "loop": true,
+    "prompt": "A desktop computer running quietly in a small room: the low, soft whoosh of its cooling fans and a gentle electrical hum, even and unbroken. Low pitched, no whine, no beeps, no typing. Not loud, not alarming. Length: 6 seconds",
+    "art_plan": {
+      "why": "S149, the radio terminal's computer running (Radio 0.5.0; candidates only, the owner's go of 24 Nov 2026). Kept low: the owner is hard of hearing in the high frequencies, so a high whine would go unheard by them and annoy others",
+      "sound": "S149"
+    }
+  }
+]
