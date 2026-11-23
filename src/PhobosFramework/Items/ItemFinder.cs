@@ -19,8 +19,10 @@ public static class ItemFinder
     public static Thing? FindNearest(Pawn pawn, ThingDef def, float maxDistance = 9999f, Predicate<Thing>? validator = null)
     {
         if (pawn?.Map == null || def == null) return null;
-        return GenClosest.ClosestThingReachable(pawn.Position, pawn.Map, ThingRequest.ForDef(def), PathEndMode.ClosestTouch,
-            TraverseParms.For(pawn), maxDistance, thing => !thing.IsForbidden(pawn) && pawn.CanReserve(thing) && (validator == null || validator(thing)));
+        // A building is found packed (PackedThings, Framework 0.265.0); any other Def as before.
+        return GenClosest.ClosestThingReachable(pawn.Position, pawn.Map, PackedThings.Request(def), PathEndMode.ClosestTouch,
+            TraverseParms.For(pawn), maxDistance, thing => PackedThings.Answers(thing, def) && !thing.IsForbidden(pawn) && pawn.CanReserve(thing)
+                && (validator == null || validator(thing)));
     }
 
     /// <summary>A thing of the Def aboard the caravan: a pawn's inventory or, with Vehicle Framework, a vehicle's cargo (both are

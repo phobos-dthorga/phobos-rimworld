@@ -1216,6 +1216,14 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public int campReachCells = 6;
     public float campAtBaseChance = 0.6f;
     public IntRange campAtBaseSwags = new(1, 3);
+    /// <summary>The cab bunk's sleep accelerator (Framework 0.265.0; vehicle-crew-machines.md, CM2): what it adds to the bunk's rest figure
+    /// and to its sleeper's hunger while it has power. The game's own sleep accelerator's figures (read 23 Nov 2026), kept here so they
+    /// hold without the Ideology DLC's Def.</summary>
+    public float bunkAcceleratorRest = 0.35f;
+    public float bunkAcceleratorHunger = 0.2f;
+    /// <summary>The litters' vitals monitor (Framework 0.265.0; CM5): what it adds to a tend's quality aboard. The game's own vitals
+    /// monitor's figure (read 23 Nov 2026).</summary>
+    public float litterMonitorTendQuality = 0.07f;
     /// <summary>Cab bunks and driving through the night (Framework 0.214.0; vehicle-accessories.md, B2 and B3, authored): a rider takes the bunk
     /// on the move below this rest; a driver may drive on above the first line, and a passenger takes over above the second.</summary>
     public float bunkWantsBelowRest = 0.95f;

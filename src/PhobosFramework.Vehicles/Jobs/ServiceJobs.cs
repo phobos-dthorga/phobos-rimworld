@@ -93,8 +93,8 @@ public class WorkGiver_PhobosLoadServiceSupplies : WorkGiver_Scanner
         return job;
     }
 
-    static Thing? Find(Pawn pawn, ThingDef def) => GenClosest.ClosestThingReachable(pawn.Position, pawn.Map, ThingRequest.ForDef(def),
-        PathEndMode.ClosestTouch, TraverseParms.For(pawn), 9999f, x => !x.IsForbidden(pawn) && pawn.CanReserve(x));
+    /// <summary>The nearest supply of the Def; a building named as a supply is found packed (PackedThings, Framework 0.265.0).</summary>
+    static Thing? Find(Pawn pawn, ThingDef def) => Phobos.Framework.Items.ItemFinder.FindNearest(pawn, def);
 }
 
 /// <summary>Carries the supply to the vehicle and puts it in its cargo.</summary>

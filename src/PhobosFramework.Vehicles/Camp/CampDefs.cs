@@ -14,6 +14,9 @@ public class PhobosCampGearExtension : DefModExtension
     public float work = 150f;
     /// <summary>A seat (Framework 0.219.0, the camp stool): set down beside a camp table where one stands, facing it, so people eat there.</summary>
     public bool besideTable;
+    /// <summary>A bed's machine (Framework 0.265.0, a sleep accelerator; vehicle-crew-machines.md, CM1): set down against the head of a bed of
+    /// the camp, facing it, as the game asks of its own sleep accelerator. One to a bed; with no bed free it stays in the cargo.</summary>
+    public bool besideBedHead;
 }
 
 /// <summary>

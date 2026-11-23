@@ -1043,4 +1043,6 @@
   <PhobosVehicleSystems_GlassGoneWindows>The glass is gone: there is nothing to wind up until it is re-glazed.</PhobosVehicleSystems_GlassGoneWindows>
   <PhobosVehicleSystems_RepairReglaze>re-glazing the {PART}</PhobosVehicleSystems_RepairReglaze>
   <PhobosVehicleSystems_RepairReglazed>{MECHANIC} re-glazed the {VEHICLE}. Its cab is whole again.</PhobosVehicleSystems_RepairReglazed>
+  <!-- Crew machines (Framework 0.265.0): the bed rest stat's explanation line for an accelerated cab bunk. -->
+  <PhobosCrewMachines_StatBunkAccelerator>Sleep accelerator at the bunk's head</PhobosCrewMachines_StatBunkAccelerator>
 </LanguageData>

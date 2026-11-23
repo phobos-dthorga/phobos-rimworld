@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Crew machines (Framework 0.265.0; docs/development/vehicle-crew-machines.md). Not yet tested in game. -->
+
+  <!-- CM2: the cab bunk rests its sleeper faster while its sleep accelerator works. On the game's own bed rest stat, so a caravan's bed, a
+       parked cab and the stat's explanation agree; it acts only on the cab bunk. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/StatDef[defName="BedRestEffectiveness"]/parts</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.StatPart_PhobosBunkAccelerator" />
+    </value>
+  </Operation>
+
+  <!-- Any bed that takes the game's sleep accelerator takes ours too, so players without Ideology can use it beside any bed. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities[li="SleepAccelerator"]</xpath>
+    <value>
+      <li>PhobosCamp_SleepInducer</li>
+    </value>
+  </Operation>
+
+  <!-- With Ideology (the owner's choice: the game's machine, ours otherwise): the bunk fitting takes and gives back the game's sleep
+       accelerator, the game's machine is camp gear set at a bed's head, and ours leaves the build menu. Found by the game's Def, not by
+       the DLC's name. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="SleepAccelerator"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleFittingDef[defName="PhobosFitting_CabBunkAccelerated"]/materials/PhobosCamp_SleepInducer</xpath>
+          <value>
+            <SleepAccelerator>1</SleepAccelerator>
+          </value>
+        </li>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleFittingDef[defName="PhobosFitting_CabBunkAccelerated"]/givesBack/PhobosCamp_SleepInducer</xpath>
+          <value>
+            <SleepAccelerator>1</SleepAccelerator>
+          </value>
+        </li>
+        <li Class="PatchOperationRemove">
+          <xpath>Defs/ThingDef[defName="PhobosCamp_SleepInducer"]/designationCategory</xpath>
+        </li>
+        <li Class="PatchOperationAddModExtension">
+          <xpath>Defs/ThingDef[defName="SleepAccelerator"]</xpath>
+          <value>
+            <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
+              <work>150</work>
+              <besideBedHead>true</besideBedHead>
+            </li>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+</Patch>

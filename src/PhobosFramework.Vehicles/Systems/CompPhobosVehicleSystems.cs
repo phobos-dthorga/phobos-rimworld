@@ -2249,19 +2249,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     }
 
     /// <summary>Uses up so many of a thing from the vehicle's cargo; in a convoy away from any map, from the whole convoy's (Framework 0.181.0, EM1).</summary>
-    internal void TakeFromCargo(ThingDef def, int count)
-    {
-        IEnumerable<Thing>? cargo = CargoNow();
-        if (cargo == null) return;
-        int remaining = count;
-        foreach (Thing thing in cargo.Where(t => t.def == def).ToList())
-        {
-            if (remaining <= 0) break;
-            int take = Mathf.Min(remaining, thing.stackCount);
-            thing.SplitOff(take).Destroy();
-            remaining -= take;
-        }
-    }
+    // A building named as a supply is used up packed (PackedThings, Framework 0.265.0).
+    internal void TakeFromCargo(ThingDef def, int count) => Phobos.Framework.Items.PackedThings.Take(CargoNow(), def, count);
 
     /// <summary>A destroyed part replaced: back to a share of its full health, from which the ordinary free repair continues.</summary>
     internal void RestorePart(VehicleComponent part, float healthShare)
@@ -3074,12 +3063,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     public IEnumerable<ServiceSpec> AllServices() => Props.systems.Select(s => s.def.service).OfType<ServiceSpec>();
 
-    internal int CountInCargo(ThingDef def)
-    {
-        if (ConvoyCaravan() is { } caravan) return Stranding.ConvoyCargo(caravan).Where(t => t.def == def).Sum(t => t.stackCount);
-        ThingOwner? cargo = Vehicle.inventory?.innerContainer;
-        return cargo == null ? 0 : cargo.TotalStackCountOfDef(def);
-    }
+    /// <summary>How many of a supply the cargo holds; a building named as a supply is counted packed (PackedThings, Framework 0.265.0).</summary>
+    internal int CountInCargo(ThingDef def) => Phobos.Framework.Items.PackedThings.Count(CargoNow(), def);
 
     /// <summary>The convoy this vehicle travels in away from any map, whose cargo its repairs and services may use; null on a map, where
     /// haulers bring supplies to the vehicle itself.</summary>

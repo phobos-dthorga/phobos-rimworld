@@ -122,7 +122,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
 | `PhobosFramework` | 3 | 0 | 0 | 0 |
-| `PhobosFramework.Vehicles` | 97 | 15 | 0 | 0 |
+| `PhobosFramework.Vehicles` | 100 | 15 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 1 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
@@ -141,7 +141,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-170 patched methods named in attributes, 23 patch classes that find their target by name (`TargetMethod`), and 17 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+173 patched methods named in attributes, 23 patch classes that find their target by name (`TargetMethod`), and 17 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -199,7 +199,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework.Vehicles</code>: 97 patched methods, 15 by name</summary>
+<details><summary><code>PhobosFramework.Vehicles</code>: 100 patched methods, 15 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles/`) |
 | --- | --- | --- |
@@ -249,6 +249,7 @@ Every HarmonyPatch attribute was read.
 | `MainTabWindow_Research.PostOpen` | postfix | `Service/SetAsideResearchPatches.cs` |
 | `MapTemperature.OutdoorTemp (getter)` | postfix | `Cabins/DeckTents.cs` |
 | `Messages.Message` | prefix | `Service/VehicleMessageLevel.cs` |
+| `Need_Food.FoodFallPerTickAssumingCategory` | postfix | `Camp/CrewMachines.cs` |
 | `Pawn.GetChildHolders` | postfix | `Sling/SlingPatches.cs` |
 | `Pawn.ThreatDisabled` | postfix | `Service/SubmersiblePatches.cs` |
 | `Projectile.Launch` | prefix | `Service/AirborneEvasion.cs` |
@@ -256,6 +257,7 @@ Every HarmonyPatch attribute was read.
 | `ResearchManager.SetCurrentProject` | prefix | `Service/FieldResearchPatches.cs` |
 | `ResearchManager.StopProject` | postfix | `Service/FieldResearchPatches.cs` |
 | `ShortCircuitUtility.DoShortCircuit` | prefix | `Service/ShortCircuits.cs` |
+| `TendUtility.CalculateBaseTendQuality` | postfix | `Camp/CrewMachines.cs` |
 | `ThingOwnerUtility.TryGetFixedTemperature` | postfix | `Service/Patches.cs` |
 | `Toils_LayDown.ApplyBedThoughts` | postfix | `Camp/CampJobs.cs` |
 | `TurretShotReport.HitReportFor` | postfix | `Service/TurretPacePatches.cs` |
@@ -293,6 +295,7 @@ Every HarmonyPatch attribute was read.
 | `VehicleTurret.TurretDisabled (getter)` | postfix | `Service/SubmersiblePatches.cs`, `Service/TurretPacePatches.cs` |
 | `VehicleTurret.TurretRotationTick` | prefix, finalizer | `Service/TurretPacePatches.cs` |
 | `VehicleTurret.WarmupTicks (getter)` | postfix | `Service/TurretPacePatches.cs` |
+| `VehicleTweener.TweenedPosRoot` | postfix | `Hitch/HitchPatches.cs` |
 | `VehicleWorkGiver.JobOnThing` | prefix | `Flight/FlightPatches.cs` |
 | `WorkGiver_DisassembleVehicle.HasJobOnThing` | postfix | `Flight/FlightPatches.cs` |
 | `WorkGiver_RepairVehicle.CanBeWorkedOn` | postfix | `Service/Patches.cs` |

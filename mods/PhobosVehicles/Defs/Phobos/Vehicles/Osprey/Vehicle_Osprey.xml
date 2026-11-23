@@ -859,9 +859,12 @@
         <layouts>
           <li>
             <whenFitted>
-              <li>PhobosFitting_LitterKit</li>
               <li>PhobosFitting_FerryTank</li>
             </whenFitted>
+            <!-- Litters by ability (Framework 0.265.0): the plain litter kit or the one with monitors. -->
+            <whenGranted>
+              <li>Litter</li>
+            </whenGranted>
             <rows>
               <li>TTT</li>
               <li>TTT</li>
@@ -879,9 +882,9 @@
             </rows>
           </li>
           <li>
-            <whenFitted>
-              <li>PhobosFitting_LitterKit</li>
-            </whenFitted>
+            <whenGranted>
+              <li>Litter</li>
+            </whenGranted>
             <rows>
               <li>S.S</li>
               <li>S.S</li>

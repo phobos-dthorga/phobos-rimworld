@@ -144,6 +144,11 @@ Not yet tested in game.
 - **Cab bunk** (40 kg; steel and cloth; research **vehicle parts**): fit it to a heavy truck's **sleeper berth** (wheeled, 3,500 kg
   or more). While the caravan travels, the most tired passenger sleeps in it and arrives rested; stopped, it is one more bed. Drivers
   never take it. In a cab of three or more seats it takes one seat's place.
+- **Cab bunk with sleep accelerator** (not yet tested in game; 60 kg; steel, cloth and a **packed sleep accelerator**, which haulers
+  bring from storage): the same bunk with the machine at its head. Whoever sleeps in it rests **about a third faster** and wakes
+  **20% hungrier**, on the road or parked, while it has power. **It draws heavily while someone is in the bunk**: about 39 A on a
+  12-volt truck, half that on 24 volts, the game's own machine's 400 W. Taking it off gives the machine back. With Ideology it takes the
+  game's sleep accelerator; without, our **sleep inducer** (the same figures, built in the Motor pool tab).
 - **Drive through the night** (a setting, **off by default**; D'thorga Framework's settings, under vehicle systems): vehicle caravans
   keep going at night while every vehicle has a rested driver. When a driver tires, a rested passenger of the same vehicle who can
   drive takes the wheel, and a message says who. **Put two drivers in every vehicle**: if any one vehicle has nobody to take over,
@@ -158,6 +163,17 @@ Not yet tested in game.
   **For a warm cab on a cold night, turn on the Night heater at camp setting and the truck's night heater switch**: it then burns a
   little fuel (0.4 chemfuel an hour) while someone sleeps aboard. Without it, a parked cab is as cold as the night within about an
   hour and a half.
+
+### A sleep machine at camp
+
+Not yet tested in game.
+
+- **Pack a sleep accelerator (or, without Ideology, a sleep inducer) into the cargo** and the camp order sets it against the head of a
+  camp bed, facing it: the roof tent, a camper's beds or a swag. One to a bed; with no bed free it stays in the cargo. A machine waiting
+  to be fitted to a cab bunk is left alone.
+- **It needs power where it stands**: lay a conduit from the vehicle's power outlet or a grid. **Its 400 W in use is more than a 12-volt
+  outlet's 300 W**, so on a light vehicle it needs a 24-volt vehicle's outlet (600 W) or a grid.
+- The roof tent and camper beds take only machines that speed rest, from any mod; no other furniture.
 
 ## Food and water on the road
 

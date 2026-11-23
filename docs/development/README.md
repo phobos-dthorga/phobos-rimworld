@@ -102,7 +102,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [The prisoner transport trailer](vehicle-prisoner-transport.md) (13 Nov 2026): Stockade, the owner's cage trailer. Record only.
 - [Vehicle accessories](vehicle-accessories.md) (13 Nov 2026): a parked vehicle as the heart of a camp, Y1 to Y23, berths. Power budget, camp built.
 - [Hotboxing](vehicle-hotboxing.md) (12 Nov 2026): smoking in a vehicle's cab. Record only.
-- [Crew machines](vehicle-crew-machines.md) (23 Nov 2026): sleep accelerator, supercharger, healing pod trailer, litter monitor, CM1 to CM5. Record only.
+- [Crew machines](vehicle-crew-machines.md) (23 Nov 2026): sleep and medical machines on vehicles, CM1 to CM5. Partly built.
 
 ### Farming
 

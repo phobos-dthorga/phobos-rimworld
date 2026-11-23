@@ -114,10 +114,10 @@ public static class BayTrips
         int count = systems.CountInCargo(def);
         Map? map = systems.Vehicle.Map;
         if (map == null) return count;
-        List<Thing> things = map.listerThings.ThingsOfDef(def);
-        for (int i = 0; i < things.Count; i++)
+        // A building named as a supply is counted packed (PackedThings, Framework 0.265.0).
+        foreach (Thing thing in Phobos.Framework.Items.PackedThings.OnMap(map, def))
         {
-            if (!things[i].IsForbidden(Faction.OfPlayer)) count += things[i].stackCount;
+            if (!thing.IsForbidden(Faction.OfPlayer)) count += thing.stackCount;
         }
         return count;
     }

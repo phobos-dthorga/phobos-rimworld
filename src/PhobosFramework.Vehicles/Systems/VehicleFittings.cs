@@ -184,7 +184,9 @@ public sealed class VehicleFittings
     public List<ThingDefCountClass> MaterialsFor(IEnumerable<ThingDefCountClass> listed)
     {
         double factor = CostFactor(Rules.fitMaterialWeightExponent, Settings.fitMaterialFactor);
-        return listed.Select(m => new ThingDefCountClass(m.thingDef, FitCostRule.Count(m.count, factor))).ToList();
+        // A whole machine (a building named as a material, fitted packed: Framework 0.265.0) is the same one machine on any vehicle.
+        return listed.Select(m => new ThingDefCountClass(m.thingDef,
+            Phobos.Framework.Items.PackedThings.Packs(m.thingDef) ? m.count : FitCostRule.Count(m.count, factor))).ToList();
     }
 
     /// <summary>The work in ticks a fitting or tune takes on this vehicle.</summary>
@@ -672,9 +674,9 @@ public sealed class VehicleFittings
         foreach (ThingDefCountClass back in def.givesBack)
         {
             if (back.thingDef == null || back.count <= 0) continue;
-            Thing thing = ThingMaker.MakeThing(back.thingDef);
-            thing.stackCount = back.count;
-            comp.Vehicle.AddOrTransfer(thing);
+            // A building comes back packed, one thing each (PackedThings, Framework 0.265.0); anything else as one stack.
+            int things = Phobos.Framework.Items.PackedThings.Packs(back.thingDef) ? back.count : 1;
+            for (int i = 0; i < things; i++) comp.Vehicle.AddOrTransfer(Phobos.Framework.Items.PackedThings.Make(back.thingDef, back.count));
             names.Add(back.Label);
         }
         return names.Count == 0 ? null : "PhobosVehicleSystems_FitKitReturned".Translate(names.ToCommaList(useAnd: true).Named("KIT")).Resolve();

@@ -288,6 +288,21 @@ public class When_BunkSleeper : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetComp<CompPhobosCamp>() is { SleeperAsleep: true };
 }
 
+/// <summary>
+/// Someone is in the cab bunk (Framework 0.265.0, the bunk's sleep accelerator): asleep in it on a map, or a rider whose caravan bed it
+/// is, on the road or at a night camp. One comp read and a look at the few people aboard, on the systems' own update.
+/// </summary>
+public class When_BunkInUse : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetComp<CompPhobosCamp>() is { BunkInUse: true };
+}
+
+/// <summary>Someone lies on one of the vehicle's litters (Framework 0.265.0, the litters' vitals monitor draws only then).</summary>
+public class When_LitterInUse : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetComp<CompPhobosLitter>() is { WantsTicks: true };
+}
+
 /// <summary>One of the loadout's electrical loads is on: switched on by the player (if it has a switch) and its own condition holds.</summary>
 /// <summary>While a fitting on the vehicle grants this ability, its part standing (Framework 0.103.0): the work lamps' switch shows once the
 /// lamps are fitted.</summary>

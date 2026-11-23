@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.113.2] - 2026-11-23 - Draft
+
+The Osprey's cabin keeps its litters with either litter kit
+
+### Fixed
+
+- **The Osprey's cabin keeps its litters with the litter kit with vitals monitor** (D'thorga Framework 0.265.0). Its layouts now ask for litters, not for the plain kit by name. Not yet tested in game: row 439 of the test pass.
+
 ## [0.113.1] - 2026-11-23 - Draft
 
 The Cherokee's front and rear engines read as its rotor drive's gearing

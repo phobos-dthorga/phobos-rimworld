@@ -3,6 +3,12 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "440": {"parts": {
+      "the roof tent takes a sleep machine": [{"key": "framework.links-like.linked", "variant": "PhobosCamp_RoofTent"}],
+      "a camper bed takes a sleep machine": [{"key": "framework.links-like.linked", "variant": "PhobosCamp_CamperBed"}]
+    }},
+    "439": ["vehicles.litter-monitor"],
+    "438": ["vehicles.bunk-accelerator"],
     "437": ["vehicles.dashboard.tow-rows"],
     "436": {"parts": {
       "the turbine card": ["vehicles.systems-tab.turbine-rows"],

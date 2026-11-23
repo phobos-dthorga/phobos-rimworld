@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Crew machines (Framework 0.265.0; docs/development/vehicle-crew-machines.md, CM1, CM2 and CM5; the owner's go of 23 Nov 2026). The owner's
+    choices: the game's own machine where it exists, ours otherwise (players without the Ideology DLC); each fitting is fitted from the
+    machine itself, packed, which colonists haul to the vehicle like any material (PackedThings), and taking the fitting off gives the
+    machine back. Patches/CrewMachines.xml swaps in the game's sleep accelerator where Ideology is active and hides ours from the build menu.
+    Loads: the machines' own watts through the outlet's inverter rule (watts / 0.85 / 12 V; halved on 24 V), so 400 W in use is 39.2 A and
+    80 W is 7.8 A. Not yet tested in game.
+  -->
+
+  <ThingDef ParentName="BuildingBase">
+    <!-- Ours, for players without Ideology: the game's sleep accelerator's figures (read 23 Nov 2026): 50 W idle, 400 W while a sleeper uses
+         it, rest +35%, hunger +20% in the bed it faces. Packs up as camp gear; the camp order sets it at a camp bed's head. Cost, work and
+         skill the game's own machine's. -->
+    <defName>PhobosCamp_SleepInducer</defName>
+    <label>sleep inducer</label>
+    <description>A bedside unit that steadies a sleeper's breathing and brain rhythm so they rest deeply in less time. It must stand against the head of a bed, facing it, and the sleeper wakes hungrier. It packs up small enough to travel in a vehicle's cargo, where the camp order sets it out beside a camp bed, and it can be fitted to a cab bunk. It draws a little power standing by and a lot while someone sleeps.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Camp/SleepInducer</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <uiIconScale>0.8</uiIconScale>
+    <defaultPlacingRot>South</defaultPlacingRot>
+    <rotatable>true</rotatable>
+    <researchPrerequisites>
+      <li>MicroelectronicsBasics</li>
+    </researchPrerequisites>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <fillPercent>0.2</fillPercent>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToBuild>6000</WorkToBuild>
+      <Mass>20</Mass>
+      <Flammability>0.7</Flammability>
+    </statBases>
+    <size>(1,1)</size>
+    <costList>
+      <Steel>50</Steel>
+      <ComponentIndustrial>5</ComponentIndustrial>
+    </costList>
+    <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>2027</uiOrder>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsMisc</li>
+    </thingCategories>
+    <tickerType>Normal</tickerType>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>50</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_FacilityInUse">
+        <inUsePowerConsumption>400</inUsePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Facility">
+        <statOffsets>
+          <BedRestEffectiveness>0.35</BedRestEffectiveness>
+          <BedHungerRateFactor>0.20</BedHungerRateFactor>
+        </statOffsets>
+        <maxSimultaneous>1</maxSimultaneous>
+        <mustBePlacedAdjacent>true</mustBePlacedAdjacent>
+        <mustBePlacedAdjacentCardinalToAndFacingBedHead>true</mustBePlacedAdjacentCardinalToAndFacingBedHead>
+      </li>
+    </comps>
+    <placeWorkers>
+      <li>PlaceWorker_ShowFacilitiesConnections</li>
+    </placeWorkers>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
+        <work>150</work>
+        <besideBedHead>true</besideBedHead>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- CM2: the cab bunk with a sleep accelerator at its head. Everything the plain bunk is (its grant, weight limit and steel and cloth),
+         plus the machine, packed, fitted from storage and given back when taken off. Its load runs only while someone is in the bunk. -->
+    <defName>PhobosFitting_CabBunkAccelerated</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/CabBunk</iconPath>
+    <label>cab bunk with sleep accelerator</label>
+    <description>A cab bunk with a sleep accelerator fitted at its head. Whoever sleeps in it, on the road or parked, rests about a third faster and wakes hungrier, while the machine has power. It draws heavily only while someone is in the bunk: about 39 amps on a 12-volt vehicle, half that on 24 volts. Taking it off gives the machine back.</description>
+    <roles><li>SleeperBerth</li></roles>
+    <materials><Steel>20</Steel><Cloth>30</Cloth><PhobosCamp_SleepInducer>1</PhobosCamp_SleepInducer></materials>
+    <givesBack><PhobosCamp_SleepInducer>1</PhobosCamp_SleepInducer></givesBack>
+    <kilograms>60</kilograms>
+    <minKilograms>3500</minKilograms>
+    <tracked>No</tracked>
+    <work>3600</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <grants><li>CabBunk</li><li>BunkAccelerator</li></grants>
+    <loads>
+      <li>
+        <name>bunkAccelerator</name>
+        <label>bunk sleep accelerator</label>
+        <description>The sleep accelerator at the cab bunk's head. Switched on and with power, it speeds the sleeper's rest while someone is in the bunk.</description>
+        <amps>39.2</amps>
+        <toggle>true</toggle>
+        <defaultOn>true</defaultOn>
+        <shedOrder>0</shedOrder>
+        <iconPath>Phobos/VehicleSystems/Fittings/CabBunk</iconPath>
+        <when Class="Phobos.VehicleSystems.When_BunkInUse" />
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TwelveVoltShare" />
+        </ampsInputs>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- CM5: the litter kit with a vitals monitor on the litters. Everything the plain kit is, plus the game's vitals monitor, packed, given
+         back when taken off. Tending on a litter is the monitor's 7% better while it runs (the rules Def's litterMonitorTendQuality); its
+         other offsets reach only a bed, which a litter is not. Its load runs only while someone lies on a litter. -->
+    <defName>PhobosFitting_LitterKitMonitored</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/LitterKit</iconPath>
+    <label>litter kit with vitals monitor</label>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <description>Stanchions and straps for stretchers along the cabin, a first-aid locker, and a vitals monitor wired to the litters. Downed people can be carried aboard and lie on the litters, and anyone in the crew who can doctor tends them while the vehicle stands, a little better while the monitor has power. It draws about 8 amps on a 12-volt vehicle while someone lies on a litter. The frames take up cargo space. Taking it off gives the monitor back.</description>
+    <roles><li>Cabin</li></roles>
+    <materials><Steel>60</Steel><Cloth>40</Cloth><ComponentIndustrial>2</ComponentIndustrial><VitalsMonitor>1</VitalsMonitor></materials>
+    <givesBack><VitalsMonitor>1</VitalsMonitor></givesBack>
+    <work>9000</work>
+    <minSkill>5</minSkill>
+    <statFactors><li><stat>CargoCapacity</stat><factor>0.8</factor></li></statFactors>
+    <grants><li>Litter</li><li>LitterMonitor</li></grants>
+    <loads>
+      <li>
+        <name>litterMonitor</name>
+        <label>litter vitals monitor</label>
+        <description>The vitals monitor on the litters. Switched on and with power, doctors tend patients on the litters a little better.</description>
+        <amps>7.8</amps>
+        <toggle>true</toggle>
+        <defaultOn>true</defaultOn>
+        <shedOrder>3</shedOrder>
+        <iconPath>Phobos/VehicleSystems/Fittings/LitterKit</iconPath>
+        <when Class="Phobos.VehicleSystems.When_LitterInUse" />
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TwelveVoltShare" />
+        </ampsInputs>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

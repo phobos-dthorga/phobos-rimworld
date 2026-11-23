@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/SleepInducer.png",
+  "source": "assets/phobos-vehicles/generated/camp-sleep-inducer/camp-sleep-inducer-2.png",
+  "source_sha256": "d81de232705c5de40fb13284fcb646ebce196036dae443cec76a742fdb84fa2b",
+  "target_sha256": "e696de7807f2ffdcaa4e02d6716cde6554ca40832921931a5eed2c7996736443",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "d81de232705c5de40fb13284fcb646ebce196036dae443cec76a742fdb84fa2b",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T20:30:43",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

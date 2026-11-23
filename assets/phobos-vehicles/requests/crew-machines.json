@@ -1,0 +1,27 @@
+[
+  {
+    "name": "camp-sleep-inducer",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampHeater.png",
+        "role": "our approved camp piece seen from directly above (the camp heater): match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampLantern.png",
+        "role": "our approved camp piece seen from directly above (the camp lantern): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "building": "PhobosCamp_SleepInducer, the sleep inducer (one picture for every facing)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/SleepInducer.png",
+      "size": "drawn by the game at its one-cell footprint; requested at 1024 x 1024",
+      "why": "crew machines (Framework 0.265.0; docs/development/vehicle-crew-machines.md, CM1 and CM2): ours for players without the Ideology DLC; bought at the owner's word, 23 Nov 2026 ('Paid picture now, icons tonight')"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a portable bedside machine in a frontier colony. Images 1 and 2 are our approved camp pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The object fills about 60 percent of the canvas, one unit by one unit, centred, on a plain pure white background.\n\nA compact sleep-aid unit standing on the floor, seen from directly above: a rounded rectangular case of off-white and grey steel with a dark rubber carry handle folded flat across the top, a small round soft-blue indicator lens set into the lid, a few cooling slots along one edge, and a short coiled lead tucked against one side.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted steel and canvas colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, screens, dials, people, animals, vehicles, beds or loose goods. No ground beyond the object, no shadow outside it, no light rays or glow drawn around it, no perspective, no tilt."
+  }
+]

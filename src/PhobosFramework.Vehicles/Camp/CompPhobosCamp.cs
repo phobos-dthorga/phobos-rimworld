@@ -268,6 +268,21 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
     /// <summary>Whether the bunk's sleeper is aboard asleep now: the night heater burns for them (When_BunkSleeper).</summary>
     public bool SleeperAsleep => asleep;
 
+    /// <summary>
+    /// Whether anyone is in the cab bunk now (Framework 0.265.0, the bunk's sleep accelerator draws only then): asleep in it on a map, or a
+    /// rider whose caravan bed it is. Never makes the bunk: a vehicle with none fitted answers no.
+    /// </summary>
+    public bool BunkInUse
+    {
+        get
+        {
+            if (asleep) return true;
+            if (!BunkFitted || Vehicle.GetVehicleCaravan() == null) return false;
+            Thing? bunk = Held.FirstOrDefault(t => t.def == VehicleCampDefOf.PhobosCamp_CabBunk);
+            return bunk != null && Vehicle.AllPawnsAboard.Any(p => p.CurrentCaravanBed() == bunk);
+        }
+    }
+
     /// <summary>The night heater's name in every loadout that has one.</summary>
     const string NightHeaterLoad = "nightHeater";
 
@@ -429,9 +444,19 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
         var gear = new List<MinifiedThing>();
         ThingOwner? cargo = Vehicle.inventory?.innerContainer;
         if (cargo == null) return gear;
+        // A machine aboard for a fitting still to be done (Framework 0.265.0: the bunk's sleep accelerator) is the fitting's, not the camp's.
+        var forFittings = new HashSet<ThingDef>();
+        if (Systems is { Usable: true } systems)
+        {
+            foreach (RepairWork repair in systems.Repairs.Pending)
+            {
+                if (repair.Kind != RepairKind.Fitting || repair.Options.Count == 0) continue;
+                foreach ((ThingDef def, int _) in repair.Options[0]) forFittings.Add(def);
+            }
+        }
         foreach (Thing thing in cargo)
         {
-            if (thing is MinifiedThing { InnerThing: { } inner } minified && inner.def.HasModExtension<PhobosCampGearExtension>()) gear.Add(minified);
+            if (thing is MinifiedThing { InnerThing: { } inner } minified && inner.def.HasModExtension<PhobosCampGearExtension>() && !forFittings.Contains(inner.def)) gear.Add(minified);
         }
         return gear;
     }
@@ -693,8 +718,49 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
         return plan;
     }
 
-    /// <summary>Where a piece comes in the camp's order: a table, then other gear, then seats.</summary>
-    static int GearOrder(ThingDef def) => def.surfaceType == SurfaceType.Eat ? 0 : def.GetModExtension<PhobosCampGearExtension>() is { besideTable: true } ? 2 : 1;
+    /// <summary>Where a piece comes in the camp's order: a table, then other gear (beds among it), then seats, then the beds' machines.</summary>
+    static int GearOrder(ThingDef def) => def.surfaceType == SurfaceType.Eat ? 0
+        : def.GetModExtension<PhobosCampGearExtension>() is { } gear ? (gear.besideBedHead ? 3 : gear.besideTable ? 2 : 1) : 1;
+
+    /// <summary>
+    /// A place against the head of a bed of the plan for a bed's machine (Framework 0.265.0, CM1): the roof tent, a camper's beds or a bed
+    /// set out, one machine to a bed, on a free cell beside a sleeping place and facing it, as the game's facility rule asks.
+    /// </summary>
+    (IntVec3 centre, Rot4 rot, CellRect rect)? BesideBedHead(Plan plan, Map map, HashSet<IntVec3> used, ThingDef def)
+    {
+        if (def.Size.x != 1 || def.Size.z != 1) return null;
+        var beds = new List<(ThingDef bed, IntVec3 centre, Rot4 rot, CellRect rect)>();
+        if (plan.tent is { } tent) beds.Add((VehicleCampDefOf.PhobosCamp_RoofTent, tent.centre, tent.rot, tent.rect));
+        ThingDef camperBed = Granted(CamperRoomyAbility) ? VehicleCampDefOf.PhobosCamp_CamperBedRoomy : VehicleCampDefOf.PhobosCamp_CamperBed;
+        foreach (TentRoom room in plan.rooms)
+        {
+            foreach ((IntVec3 centre, Rot4 rot, CellRect rect) in room.beds) beds.Add((camperBed, centre, rot, rect));
+        }
+        foreach ((MinifiedThing gear, _, IntVec3 centre, Rot4 rot, CellRect rect) in plan.gear)
+        {
+            if (gear.InnerThing.def.IsBed) beds.Add((gear.InnerThing.def, centre, rot, rect));
+        }
+        foreach ((ThingDef bed, IntVec3 centre, Rot4 rot, CellRect rect) in beds)
+        {
+            // One machine to a bed: a bed already served by one in the plan is passed over.
+            if (plan.gear.Any(g => g.gear.InnerThing.def.GetModExtension<PhobosCampGearExtension>() is { besideBedHead: true }
+                && GenAdj.CardinalDirections.Any(step => rect.Contains(g.centre + step)))) continue;
+            int slots = BedUtility.GetSleepingSlotsCount(bed.size);
+            for (int i = 0; i < slots; i++)
+            {
+                IntVec3 slot = BedUtility.GetSleepingSlotPos(i, centre, rot, bed.size);
+                foreach (IntVec3 step in GenAdj.CardinalDirections)
+                {
+                    IntVec3 cell = slot + step;
+                    if (rect.Contains(cell) || !cell.InBounds(map) || plan.rooms.Any(room => room.doorInside == cell)) continue;
+                    if (!RectFree(CellRect.SingleCell(cell), map, used, out _)) continue;
+                    used.Add(cell);
+                    return (cell, Rot4.FromIntVec3(slot - cell), CellRect.SingleCell(cell));
+                }
+            }
+        }
+        return null;
+    }
 
     /// <summary>The most seats a camp sets beside one table (the owner's choice, 22 Nov 2026: up to four).</summary>
     const int SeatsPerTable = 4;
@@ -752,6 +818,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
         }
         // A seat goes beside a table (Framework 0.219.0).
         if (def.GetModExtension<PhobosCampGearExtension>() is { besideTable: true } && BesideTable(plan, map, used, def) is { } seat) return seat;
+        // A bed's machine goes against a bed's head, or stays in the cargo (Framework 0.265.0): anywhere else it would serve nobody.
+        if (def.GetModExtension<PhobosCampGearExtension>() is { besideBedHead: true }) return BesideBedHead(plan, map, used, def);
         Rot4 inward = new(plan.frame.ToMapRotation(CampLayoutRule.In));
         // Inside a closed tent first (Framework 0.217.0): out of the weather, and where a heater's warmth is. The cell inside the flap is kept clear.
         foreach (TentRoom room in plan.rooms)

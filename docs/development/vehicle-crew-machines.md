@@ -1,7 +1,7 @@
 # Crew machines on vehicles and trailers (23 Nov 2026)
 
-**Status (23 Nov 2026):** record only. Nothing is built. The owner chose the four ideas and how they treat the Ideology DLC; the
-order, the figures and every "agent default" below wait for the owner's word.
+**Status (23 Nov 2026):** partly built. CM1, CM2 and CM5 are built in D'thorga Framework 0.265.0 ([what was built](#built-cm1-cm2-and-cm5-23-nov-2026)),
+not yet tested in game; CM3 and CM4 are not built. The figures and every "agent default" below wait for the owner's word.
 
 **A design record.** The owner, 23 November 2026, after asking how a neural supercharger works: "We should probably consider upgrades
 just like the neural supercharge, sleep accelerator, etc. for our vehicles", and then "Oh, trailers too!". Facts marked **[code]** were
@@ -35,7 +35,7 @@ Everything else here is the agent's proposal or default, labelled where it matte
 
 | Machine | From | Size | Weight | Power | What it does |
 | --- | --- | --- | --- | --- | --- |
-| Sleep accelerator | Ideology | 1 by 1 | 20 kg | 50 W | A bed it stands beside, at the head: rest 35% faster, hunger 20% faster in bed. Research: Microelectronics basics |
+| Sleep accelerator | Ideology | 1 by 1 | 20 kg | 50 W idle, **400 W in use** | A bed it stands beside, at the head: rest 35% faster, hunger 20% faster in bed. Research: Microelectronics basics |
 | Neural supercharger | Ideology | 1 by 3 | 20 kg | 400 W | Charges for one day with power on, then gives one person a supercharge for one day: consciousness +10%, learning +25%, hunger +20% |
 | Biosculpter pod | Ideology | 3 by 2 | 50 kg | 200 W working, 50 W idle | One person inside for a cycle: medic 6 days, age reversal 8, pleasure 4, bioregeneration 25 (its own research). 5 nutrition a cycle |
 | Vitals monitor | Base game | 1 by 1 | 20 kg | 80 W | A bed it stands beside: tend quality +7%, immunity gain +2%, surgery success +5% |
@@ -90,7 +90,7 @@ What each draws, by the outlet's rule (watts over 0.85, over the vehicle's volta
 
 | Machine | Watts | Amps at 12 V | Amps at 24 V |
 | --- | --- | --- | --- |
-| Sleep accelerator | 50 | 4.9 | 2.5 |
+| Sleep accelerator, in use (50 W idle) | 400 | 39.2 | 19.6 |
 | Vitals monitor | 80 | 7.8 | 3.9 |
 | Biosculpter pod, working | 200 | 19.6 | 9.8 |
 | Neural supercharger, charging | 400 | 39.2 | 19.6 |
@@ -246,3 +246,31 @@ runs on the caravan's interval.
 
 Kits that are the game's machines need no picture. Ours without Ideology (the camp sleep inducer, the supercharger, the recovery pod),
 the fittings' icons and the pod trailer need art by the art rules, asked for before the first test.
+
+## Built: CM1, CM2 and CM5 (23 Nov 2026)
+
+The owner's cards of 23 Nov 2026: **CM1, CM2 and CM5 now**; fittings take **the packed machine itself**, "and genericize the code where
+reasonable because I see it having other uses elsewhere"; the sleep inducer's picture **paid now**, fitting icons in the night run; the
+supercharger (CM3), when built, **Ideology only**, with no change to hours at the wheel; the pod trailer (CM4) **set up first, road second**.
+Rows 438 to 440 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Rest a sleeper faster in a cab bunk or a camp bed; tend better on a vehicle's litters |
+| What it stops them doing | Running a light vehicle's camp sleep machine from its own outlet: 400 W is over a 12-volt outlet's 300 W |
+| How it changes play | A long haul in shifts, or a short halt, rests more; food and fuel run down faster for it |
+| What outside the vehicle notices | The colonists (rest, hunger), the patient (tend quality), the electrics and fuel, the camp layout |
+
+**Risk: low** (agent's grade, for the owner to confirm): faster hunger and a drained battery, both shown. No setting.
+
+| Piece | Where | Differs from the design |
+| --- | --- | --- |
+| Packed machines as materials | `PackedThings` in the Framework core (`src/PhobosFramework/Items`): finding, counting, taking and giving back a supply ask it, so a building named in a list is answered by that building packed | New: the owner's call for generic code. The item finder, a vehicle's cargo count and take, its supply hauling, bay trips and fitting give-backs all use it; a packed machine is never scaled by a vehicle's weight |
+| CM2 | `PhobosFitting_CabBunkAccelerated`, a second version of the cab bunk on the same sleeper berth: the bunk's steel and cloth plus the machine | The record proposed a mount beside the bunk; a part takes one fitting, so it is the bunk with the machine instead (agent's choice). Rest +35% through a stat part on the game's bed rest (`StatPart_PhobosBunkAccelerator`), hunger +20% through a postfix on the game's hunger, which applies a bed's figure only on a map. **400 W in use** (39.2 A at 12 V), not the 50 W first written: the game's machine draws 50 W idle and 400 W while used |
+| CM5 | `PhobosFitting_LitterKitMonitored`, a second version of the litter kit: its materials plus a packed vitals monitor | As CM2, a second version rather than a second mount. Tend +7% through a postfix on the game's tend sum, within the medicine's cap; the monitor's immunity and surgery offsets reach only a bed, which a litter is not. The Osprey's cabin now picks its layout by the litters, not by the plain kit's name (D'thorga Vehicles 0.113.2) |
+| CM1 | The camp order sets a packed sleep machine against a camp bed's head, facing it (`besideBedHead` on camp gear); the roof tent and camper beds take machines that speed rest from a plain bed's list (the links extension with its stat filter) | Ours, the **sleep inducer**, is built in the Motor pool tab without Ideology and hidden with it; with Ideology the game's machine is camp gear by patch. A machine waiting for a pending fitting is not set out |
+
+**Known limits:** the new fittings borrow the cab bunk's and the litter kit's icons until the night run. Walk-in cabin beds take no camp
+machine: the camp order does not reach a cabin. A remembered spot from an earlier camp is used first, as for other gear, even if it no
+longer faces a bed.
+

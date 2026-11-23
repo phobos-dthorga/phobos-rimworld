@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.265.0] - 2026-11-23 - Draft
+
+Crew machines: a sleep accelerator in the cab bunk and at camp, a vitals monitor on the litters
+
+### Added
+
+- **A cab bunk with a sleep accelerator** (the owner's choice of 23 November 2026, docs/development/vehicle-crew-machines.md, CM2). A second version of the cab bunk, fitted from a packed sleep accelerator (with Ideology) or our sleep inducer (without), which haulers bring from storage. Its sleeper rests about a third faster and grows a fifth hungrier, on the road or parked, while it has power: the game's machine's 400 W in use, 39.2 A on 12 V. Taking it off gives the machine back. Not yet tested in game: row 438 of the test pass.
+- **A litter kit with a vitals monitor** (CM5). A second version of the litter kit, fitted from a packed vitals monitor: tending on the litters is 7% better while it draws power, 7.8 A on 12 V. Not yet tested in game: row 439.
+- **A sleep machine at camp** (CM1). A packed sleep accelerator or sleep inducer in a vehicle's cargo is camp gear: the camp order stands it at a camp bed's head, facing it. The roof tent and camper beds now take machines that speed rest. Without Ideology, the **sleep inducer** is ours, built in the Motor pool tab; its picture is the agent's pick, waiting for the owner's. Not yet tested in game: row 440.
+- **A building can be a material, packed** (the owner's call for generic code). A fitting, repair or service can name a machine that packs up; it is found, counted, carried and used up packed, and given back packed. For other modders: name the building in the materials list.
+
+### Compatibility and limits
+
+- **The camp sleep machine needs 400 W in use, more than a 12-volt outlet's 300 W**: on a light vehicle, power it from a 24-volt vehicle or a grid. The two new fittings borrow the plain bunk's and litter kit's icons until the night run makes their own.
+
 ## [0.264.0] - 2026-11-23 - Draft
 
 One turbine card in the Systems tab
