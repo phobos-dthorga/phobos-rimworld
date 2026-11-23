@@ -28,7 +28,9 @@ public class CompAntenna : ThingComp
     /// <summary>While selected, the map shows this antenna's coverage (Radio 0.2.0); the picture's own service does the work.</summary>
     public override void PostDrawExtraSelectionOverlays()
     {
-        if (parent.Spawned && parent.Faction == RimWorld.Faction.OfPlayer) RadioCoverage.For(parent.Map).Show(parent);
+        if (!parent.Spawned || parent.Faction != RimWorld.Faction.OfPlayer) return;
+        RadioCoverage.For(parent.Map).Show(parent);
+        UI.RadioCoaxView.Draw(parent);
     }
 
     /// <summary>An upgrade fitted or taken off: the net and the picture work it in at once (Radio 0.4.0).</summary>

@@ -30,6 +30,8 @@ The radio comes alive: a step chart, lamps and needles, a mast light, the coax g
   for the fifth of the time voice is keyed; an amplifier's needle shows its output against its rating. Not yet tested in game:
   row 469.
 - **The mast has a red warning light that flashes at night.** Not yet tested in game: row 470.
+- **The coax glows with the signal it carries** while its station or an antenna is selected: bright at the station, dimmer along
+  the run as the cable loses it, bright again past a powered amplifier. Not yet tested in game: row 471.
 
 ## [0.5.0] - 2026-11-24 - Draft
 

@@ -17,17 +17,23 @@ public readonly record struct FeedSegment(float Metres, RadioCoaxExtension Coax)
 /// </summary>
 public sealed class FeedPath
 {
-    public static readonly FeedPath None = new(new List<FeedSegment>(), new List<CompAmplifier>());
+    public static readonly FeedPath None = new(new List<FeedSegment>(), new List<CompAmplifier>(), new List<FeedCell>());
 
     public List<FeedSegment> Segments { get; }
     public List<CompAmplifier> Amplifiers { get; }
+    /// <summary>The run's cells in order from the station to the antenna, each coax or an amplifier (Radio 0.6.0: the coax tint).</summary>
+    public List<FeedCell> Cells { get; }
 
-    public FeedPath(List<FeedSegment> segments, List<CompAmplifier> amplifiers)
+    public FeedPath(List<FeedSegment> segments, List<CompAmplifier> amplifiers, List<FeedCell> cells)
     {
         Segments = segments;
         Amplifiers = amplifiers;
+        Cells = cells;
     }
 }
+
+/// <summary>One cell of a cable run: its coax, or the amplifier standing in it.</summary>
+public readonly record struct FeedCell(IntVec3 Cell, RadioCoaxExtension? Coax, CompAmplifier? Amplifier);
 
 /// <summary>
 /// Walks a Vanilla Expanded Framework pipe net as a cable run. VEF keeps a net when a connector joins it and rebuilds it when
@@ -121,6 +127,7 @@ public static class FeedlineService
         // Walk back, counting coax cells by type and noting each amplifier the path passes through; endpoint cells are not coax.
         var metresByCoax = new Dictionary<RadioCoaxExtension, float>();
         var amplifiers = new List<CompAmplifier>();
+        var cells = new List<FeedCell>();
         var current = reached.Value;
         while (parentOf.TryGetValue(current, out var previous))
         {
@@ -130,18 +137,21 @@ public static class FeedlineService
                 if (amplifier != null)
                 {
                     if (!amplifiers.Contains(amplifier)) amplifiers.Add(amplifier);
+                    cells.Add(new FeedCell(current, null, amplifier));
                 }
                 else
                 {
                     var coax = CoaxAt(map, current, net.def) ?? DefaultCoax;
                     metresByCoax[coax] = (metresByCoax.TryGetValue(coax, out var m) ? m : 0f) + metresPerCell;
+                    cells.Add(new FeedCell(current, coax, null));
                 }
             }
             current = previous;
         }
         var segments = new List<FeedSegment>();
         foreach (var pair in metresByCoax) segments.Add(new FeedSegment(pair.Value, pair.Key));
-        return new FeedPath(segments, amplifiers);
+        cells.Reverse();    // walked back from the antenna; kept from the station out
+        return new FeedPath(segments, amplifiers, cells);
     }
 
     private static CompAmplifier? AmplifierAt(Map map, IntVec3 cell)

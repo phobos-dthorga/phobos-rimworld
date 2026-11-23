@@ -95,7 +95,9 @@ public class CompRadio : ThingComp
     /// <summary>While a station is selected, the map shows its coverage (Radio 0.2.0); the picture's own service does the work.</summary>
     public override void PostDrawExtraSelectionOverlays()
     {
-        if (Props.isStation && parent.Spawned && parent.Faction == Faction.OfPlayer) RadioCoverage.For(parent.Map).Show(parent);
+        if (!Props.isStation || !parent.Spawned || parent.Faction != Faction.OfPlayer) return;
+        RadioCoverage.For(parent.Map).Show(parent);
+        UI.RadioCoaxView.Draw(parent);
     }
 
     public override string CompInspectStringExtra()
