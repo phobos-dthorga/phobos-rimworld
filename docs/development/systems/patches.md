@@ -77,7 +77,7 @@ The parts, grouped by kind. Each names its folder (`mods/PhobosPatches/Mods/<Fol
   it, and the research tab throws. A lock around each read, and blanks removed.
 
 Rows 13, 17, 19, 20 and 22 stand down by themselves, in effect, once the fault is fixed; rows 3, 4, 6 and 16 only in part; rows 2,
-5, 7, 14, 15 and 23 need a check after each update ([register](../temporary-patches.md)). Rows 8 to 12, 18 and 21 belong to
+5, 7, 14, 15 and 23 need a check after each update ([register](../temporary-patches.md)). Rows 8 to 12, 18, 21 and 24 belong to
 [Factory Additions](factory.md) and D'thorga Framework.
 
 ### Fixes our own design needs (permanent)

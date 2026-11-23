@@ -7,11 +7,11 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 ## Read this first
 
-- **66 tie-in folders across six mods** (recounted 17 Nov 2026, with Framework 0.119.0's air-defence tie-in and the two Dead Man's
-  Switch folders of Vehicles 0.63.0 and Factory Additions 0.14.0: 75 entries in the
-  `LoadFolders.xml` lists, because a folder and its `1.7` subfolder are listed as two entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's `LoadFolders.xml`, plus a
-  handful of tie-ins in C# that check for a mod by name. D'thorga Radio has none (Vanilla Expanded Framework's pipe system is a hard
-  dependency there, not a tie-in).
+- **84 tie-in folders across seven mods** (recounted 24 Nov 2026: Vehicles 29, Patches 21, Factory Additions 16, Framework 9,
+  Medical 7, Farming 1, Water Tap 1; 98 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or `Common`
+  subfolder are listed as separate entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's `LoadFolders.xml`,
+  plus a handful of tie-ins in C# that check for a mod by name. D'thorga Radio has none (Vanilla Expanded Framework's pipe system
+  is a hard dependency there, not a tie-in).
 - **No tie-in hard-references another author's assembly.** C# finds their types and Defs by name through
   `src/PhobosFramework/OptionalMods.cs`; code that must name their types sits in its own assembly under the tie-in's `1.7` folder.
 - **A patch for another author's fault** is a tie-in too, and is listed here as one, but its record is
@@ -58,6 +58,8 @@ All XML; the code is in the Framework.
 | RimThunder Roaring Tiger (`aoba.rimthunder.roca`), Desert Sabre (`rimthunderteams.rimthunder.desertsabre`) | Loadouts | `Mods/RimThunderRoaringTiger`, `Mods/RimThunderDesertSabre` |
 | Harrier VTOL (`potemkinvillager.av8bharrier`), Hind (`potemkinvillager.mi24hindhelicopter`), Mongoose (`potemkinvillager.mongooseattackhelicopter`) | Aircraft loadouts | `Mods/HarrierVtol`, `Mods/HindHelicopter`, `Mods/MongooseHelicopter` |
 | EA-6B Prowler (`potemkinvillager.ea6bprowler`) | Aircraft loadout and its ICAP upgrades (0.99.0) | `Mods/EA6BProwler` |
+| Close Air Support (`potemkinvillager.CloseAirSupport`) | Loadouts for the A-10 and Su-25, which start as their early versions, and their service-life fittings | `Mods/CloseAirSupport` |
+| UH-60 Black Hawk (`z3nt3.uh60blackhawk`), C-17 Globemaster III (`z3nt3.c17globemaster`) | Aircraft loadouts | `Mods/UH60Blackhawk`, `Mods/C17Globemaster` |
 | GTek L-ATV (`killerbot.jltv`), MaxxPro (`killerbot.navistarmaxxpro`) | Loadouts | `Mods/GTekLATV`, `Mods/GTekMaxxPro` |
 | Frontline Workshop (`serinairo.frontlineworkshop`), BMP-1 (`turbo.rimworld.bmp1ifv`) | Loadouts | `Mods/FrontlineWorkshop`, `Mods/BMP1` |
 | RimArrow: Search and Rescue (`rimarrow.srt`) | Helicopter loadouts for the Ka-27PS and the Mi-38: turboshafts, rotor drive, hydraulics, sling, hook mount, litter cabin (0.65.0) | `Mods/RimArrowSearchRescue` |
@@ -89,9 +91,15 @@ All XML; the code is in the Framework.
 | Search and Rescue (`ch4acko3.searchandrescue`) | Its field responders use our hand-held kits, as two lanes in its Field rescue work type (0.17.0, SD22) | XML (work givers in its work type) | `Mods/SearchAndRescue` |
 | Atmosphere Overhaul (`acutus.AtmosphereOverhaul.release`), Celsius (`Garwel.Celsius`) | Our fire-heat zones stand down | XML list read by C# | `BurnsAndSmoke/Rules.xml` |
 
+## D'thorga Farming
+
+| Other mod (packageId) | What the tie-in does | Where |
+| --- | --- | --- |
+| Combat Extended (`ceteam.combatextended`) | The combine's armour in Combat Extended's figures (2 mm, 4 MPa; farm machines stop no bullet) | `Mods/CombatExtended` |
+
 ## D'thorga Factory Additions
 
-Hard dependencies: Vanilla Expanded Framework and VFE Factory. All XML unless marked.
+Hard dependencies: Harmony, D'thorga Framework, Vanilla Expanded Framework and VFE Factory. All XML unless marked.
 
 | Other mod (packageId) | What the tie-in does |
 | --- | --- |
@@ -115,6 +123,8 @@ Hard dependencies: Vanilla Expanded Framework and VFE Factory. All XML unless ma
 
 ## D'thorga Water Tap
 
+Hard dependencies: D'thorga Framework and Dubs Bad Hygiene.
+
 | Other mod (packageId) | What the tie-in does |
 | --- | --- |
 | VFE Factory (`VanillaExpanded.VFEFactory`) | The bottle tap is a factory hopper (XML) |
@@ -127,6 +137,9 @@ C# lives in `src/PhobosPatches.*`. Rows marked **fault** are in [patches for oth
 | --- | --- | --- |
 | Harrier VTOL | Build cost (RimThunder's turbine where present), part list, Combat Extended bomb weights and cases, bombs and rockets at The Dead Man's Switch's ammunition printer and lathe; hover gate, sortie and flight-control rules, crew keeps a map open; its dodge chance follows its controls and warning receiver, with a chaff and flares button (0.21.0, A12, A16) | XML + C# |
 | Harrier, Hind, Mongoose | Rearm one ammunition kind at a time (**fault**) | C# |
+| Harrier, Hind, Mongoose, Close Air Support, EA-6B Prowler, with Combat Extended | Bombs and missiles built from parts at their real weight; the missile seeker head | XML (`Mods/AircraftMunitions`) |
+| Close Air Support (`potemkinvillager.CloseAirSupport`) | Shell cost, parts and parts bill for the A-10 and Su-25; realistic handling, a setting (off) | XML + C# (its settings) |
+| UH-60 Black Hawk, C-17 Globemaster III | Shell cost and parts bill | XML |
 | EA-6B Prowler | Parts list, parts bill and shell cost; rearm one kind at a time; its dodge follows its controls and warning receiver, with a chaff and flares button; the ICAP upgrades widen its jamming field; realistic handling, off (0.33.0) | XML + C# |
 | RimThunder (`RimThunder.Core`) | Heavy castings in batches at DMS Expedition's lathe | XML |
 | Vehicle Framework | Fires a vehicle can never lose (**fault**, temporary); the game's progress bar on its work (**fault**) | C# |
@@ -137,6 +150,9 @@ C# lives in `src/PhobosPatches.*`. Rows marked **fault** are in [patches for oth
 | RimPacts (`wowgag.RimPacts`) | War quest countdown; arrival-filter fix (**fault**); the sortie gate says why | C# |
 | Visit Settlements (`ninagoblin.visitsettlements`) | Visited map stays open during a battle (**fault**); food-drop guard (**fault**) | C# |
 | Prison Labor (`avius.prisonlabor`) | Crash guard (**fault**, temporary) | C# |
+| Vanilla Factions Expanded - Classical (`OskarPotocki.VFE.Classical`) | A scorpion raid saved mid-raid loads with its orders (**fault**) | C# |
+| Nice Research Tab (`andromeda.niceresearchtab`) | A lock and blank removal around its cached unlock list (**fault**) | C# |
+| Biotech (`ludeon.rimworld.biotech`) | Mech rechargers draw real power by the mech's body size (a setting, off) | XML + C# |
 | Fortified Features Framework (`AOBA.Framework`) | Haulers keep its drone platforms, and mechanitors its store-carrying mechanoids, topped up with steel (0.22.0, mechanoids with Framework 0.135.0; a `PhobosTopUpDef` naming three members of its platform comp, read by D'thorga Framework) | XML, by name |
 | Vanilla Expanded Framework outposts + Vehicle Framework | Refuses founding an outpost from a caravan holding a vehicle (a setting) | C# |
 

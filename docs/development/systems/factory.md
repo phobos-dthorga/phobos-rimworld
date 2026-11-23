@@ -33,7 +33,7 @@ is this way is in the [decision log](../decisions/factory.md) and the [records](
 - **The stock "Synthesize neutroamine" bill stops taking human meat**; the human-meat bill takes it instead.
 - **The fabrication bay and the deep hopper look exactly like the machining bay and the ordinary hopper.** Select them to tell.
 - **Several patches stand in for faults in Pipe System or VFE Factory** and should come out when their authors fix them. They are
-  in the [register of patches for other authors' faults](../temporary-patches.md), rows 8 to 12.
+  in the [register of patches for other authors' faults](../temporary-patches.md), rows 8 to 12 and 24.
 - **Removing the mod**: take its bills off every machine and let running batches finish, and deconstruct every deep hopper and
   fabrication bay first.
 
@@ -318,8 +318,7 @@ Every tie-in is in the [tie-in register](../tie-in-register.md); each loads from
 - **VFE Factory's own hoppers and taps take no filter**; only storage we mark obeys one.
 - **The output guard covers only hopper-only bills** whose output is not made from stuff and lands on a walkable cell.
 - **The patches for Pipe System's and VFE Factory's faults** are temporary by intent; each needs checking against an author's
-  update ([register](../temporary-patches.md), rows 8 to 12). The output guard and batches in parts also answer a Pipe System
-  fault and are not in the register.
+  update ([register](../temporary-patches.md), rows 8 to 12, and row 24 for the output guard and batches in parts).
 - **Inferred from the code, not tested in game**: `BenchBillGenerator` makes labels unique against the machine's other bills only,
   so two templates on one machine (the fabrication bay carries up to four) could give two bills the same label, and the menu
   filter matches options by label.
