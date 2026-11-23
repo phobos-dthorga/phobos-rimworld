@@ -106,6 +106,7 @@ Use the tool before reading raw files; how to use each is in [`scripts/AGENTS.md
 | Whether an update touched what we patch | `python scripts/upstream.py` |
 | After an update, everything at once | `python scripts/update-check.py` |
 | Which mods patch a method | `python scripts/query-patches.py` |
+| What each vehicle's systems and parts are bound to, and what looks wrong | `python scripts/vehicle-bindings.py` |
 | Time, a frozen game, memory, what is inside the running game | `python scripts/perf.py` (ask first) |
 | How long the game takes to start | `python scripts/startup-impact.py` |
 | Which mods are ready for a game version | `python scripts/version-readiness.py` |

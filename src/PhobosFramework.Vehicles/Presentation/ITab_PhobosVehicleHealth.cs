@@ -160,6 +160,29 @@ public class ITab_PhobosVehicleHealth : ITab
                 y += Row;
             }
         }
+        if (view.WholeVehicle.Count > 0)
+        {
+            // Framework 0.256.0: what the systems with no part of their own say, so nothing the Systems tab warns of is missing here.
+            y += 4f;
+            PhobosWidgets.Section(ref y, rect.x, rect.width, "PhobosVehicleSystems_HealthWholeVehicle".Translate());
+            foreach (ConditionRow condition in view.WholeVehicle)
+            {
+                var line = new Rect(rect.x, y, rect.width, Row);
+                Widgets.DrawHighlightIfMouseover(line);
+                using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
+                {
+                    Widgets.Label(new Rect(rect.x + 4f, y, rect.width - 4f, Row), condition.Label.Truncate(rect.width - 4f).Colorize(condition.Colour));
+                }
+                TooltipHandler.TipRegion(line, condition.Label);
+                if (condition.SystemDefName != null && view.Mode != DisplayMode.Plain && Widgets.ButtonInvisible(line))
+                {
+                    ITab_VehicleSystems.ScrollTo(comp.Vehicle.thingIDNumber, condition.SystemDefName);
+                    if (onWorld) PhobosTabs.OpenWorldTab(typeof(WITab_PhobosVehicleSystems));
+                    else InspectPaneUtility.OpenTab(typeof(ITab_VehicleSystems));
+                }
+                y += Row;
+            }
+        }
         y += 6f;
         using (new TextBlock(GameFont.Small, TextAnchor.UpperLeft))
         {
@@ -367,6 +390,9 @@ public class ITab_PhobosVehicleHealth : ITab
         /// <summary>Part names as cut to fit their column, kept so none is measured twice.</summary>
         public readonly Dictionary<string, string> Truncated = new();
         public readonly List<WearRow> Wear = new();
+        /// <summary>The warnings of systems with no part of their own (the cab, the driver, the flight controls; Framework 0.256.0), which
+        /// the Systems tab shows and the parts list cannot hold.</summary>
+        public readonly List<ConditionRow> WholeVehicle = new();
         /// <summary>The wear rows' words as cut to fit, kept so no row is measured twice.</summary>
         public readonly Dictionary<string, string> WearTruncated = new();
         public int WearStamp = -1;
@@ -565,33 +591,34 @@ public class ITab_PhobosVehicleHealth : ITab
             VehiclePawn vehicle = comp.Vehicle;
             var external = new PartGroup { Header = "PhobosVehicleSystems_HealthExternal".Translate() };
             var internalGroup = new PartGroup { Header = "PhobosVehicleSystems_HealthInternal".Translate() };
-            var roleOf = new Dictionary<string, string>();
-            var firstRolePart = new Dictionary<string, bool>();
-            PhobosVehicleLoadoutDef? loadout = comp.Props.loadout;
+            // Framework 0.256.0: every bound part, the loadout's roles first and then those bound by code (SystemParts), and each system's
+            // warnings under the part the Systems tab lists first for it; a system with no part has them with the whole vehicle.
+            Dictionary<string, string> roleOf = SystemParts.RoleByKey(comp);
             var ordered = new List<VehicleComponent>();
-            if (loadout != null)
+            foreach (string key in roleOf.Keys)
             {
-                foreach (PartRoleSpec spec in loadout.partRoles)
-                {
-                    if (!comp.Props.roleKeys.TryGetValue(spec.role, out List<string>? keys)) continue;
-                    foreach (string key in keys)
-                    {
-                        VehicleComponent? part = vehicle.statHandler.GetComponent(key);
-                        if (part == null || roleOf.ContainsKey(key)) continue;
-                        roleOf[key] = spec.role;
-                        ordered.Add(part);
-                    }
-                }
+                if (vehicle.statHandler.GetComponent(key) is { } bound) ordered.Add(bound);
             }
             foreach (VehicleComponent part in vehicle.statHandler.components)
             {
                 if (!roleOf.ContainsKey(part.props.key)) ordered.Add(part);
             }
+            var homes = new Dictionary<VehicleComponent, List<SystemState>>();
+            WholeVehicle.Clear();
+            foreach (SystemState state in comp.States)
+            {
+                if (!comp.IsEnabled(state)) continue;
+                if (SystemParts.Home(comp, state) is { } home)
+                {
+                    if (!homes.TryGetValue(home, out List<SystemState>? list)) homes[home] = list = new List<SystemState>();
+                    list.Add(state);
+                }
+                else WholeVehicle.AddRange(Stages(state));
+            }
             bool leaking = vehicle.CompFueledTravel?.FuelLeaking == true;
             foreach (VehicleComponent part in ordered)
             {
-                roleOf.TryGetValue(part.props.key, out string? role);
-                PartRow row = MakeRow(comp, part, role, figures, leaking);
+                PartRow row = MakeRow(comp, part, homes.TryGetValue(part, out List<SystemState>? systems) ? systems : null, figures, leaking);
                 (part.Depth == VehicleComponent.VehiclePartDepth.External ? external : internalGroup).Rows.Add(row);
             }
             Parts = new List<PartGroup>();
@@ -649,7 +676,7 @@ public class ITab_PhobosVehicleHealth : ITab
         /// <summary>The words that say where a part sits, from the language file, so a translation folds parts by its own words.</summary>
         static string[] PositionWords => positionWords ??= "PhobosVehicleSystems_HealthPositionWords".Translate().Resolve().Split(',');
 
-        static PartRow MakeRow(CompPhobosVehicleSystems comp, VehicleComponent part, string? role, bool figures, bool leaking)
+        static PartRow MakeRow(CompPhobosVehicleSystems comp, VehicleComponent part, List<SystemState>? systems, bool figures, bool leaking)
         {
             float share = part.MaxHealth > 0f ? part.Health / part.MaxHealth : 0f;
             bool feedsStat = part.props.categories != null && part.props.categories.Count > 0;
@@ -707,7 +734,7 @@ public class ITab_PhobosVehicleHealth : ITab
             if (!comp.Fittings.GradeOf(part.props.key).isDefault) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_GradeLine".Translate(comp.Fittings.GradeOf(part.props.key).label.Named("GRADE")), Colour = PhobosWidgets.Good });
             if (comp.Fittings.FittedOn(part.props.key) is { } fitting) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_FitFittedLine".Translate(fitting.label.Named("FITTING")), Colour = PhobosWidgets.Good });
             if (leaking && HasReactor<Reactor_FuelLeak>(part)) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthLeaking".Translate(), Colour = PhobosWidgets.Bad });
-            if (role != null) AddStages(comp, role, row);
+            if (systems != null) foreach (SystemState state in systems) row.Conditions.AddRange(Stages(state));
             AddConditions(comp, part, figures, row);
             return row;
         }
@@ -766,26 +793,22 @@ public class ITab_PhobosVehicleHealth : ITab
             }
         }
 
-        /// <summary>The stages of every system whose first role is this part's role (so a system's conditions sit under one part, as a
-        /// pawn's condition sits under one body part), when the stage is notable or does something.</summary>
-        static void AddStages(CompPhobosVehicleSystems comp, string role, PartRow row)
+        /// <summary>A system's stages worth a line (notable, or doing something), for the part it sits under (SystemParts.Home) or the
+        /// whole vehicle's list; a system's conditions sit under one part, as a pawn's condition sits under one body part.</summary>
+        static IEnumerable<ConditionRow> Stages(SystemState state)
         {
-            foreach (SystemState state in comp.States)
+            for (int q = 0; q < state.values.Length; q++)
             {
-                if (!comp.IsEnabled(state) || state.Def.roles.Count == 0 || state.Def.roles[0] != role) continue;
-                for (int q = 0; q < state.values.Length; q++)
+                QuantitySpec quantity = state.Def.quantities[q];
+                StageSpec? stage = state.CurrentStage(q);
+                if (stage == null || (!stage.notable && stage.effects.Count == 0) || (quantity.hidden && stage.effects.Count == 0)) continue;
+                yield return new ConditionRow
                 {
-                    QuantitySpec quantity = state.Def.quantities[q];
-                    StageSpec? stage = state.CurrentStage(q);
-                    if (stage == null || (!stage.notable && stage.effects.Count == 0) || (quantity.hidden && stage.effects.Count == 0)) continue;
-                    row.Conditions.Add(new ConditionRow
-                    {
-                        Label = "PhobosVehicleSystems_InspectFigureStage".Translate(quantity.label.CapitalizeFirst().Named("QUANTITY"),
-                            InspectText.Format(quantity, state.values[q]).Named("VALUE"), stage.label.Named("STAGE")).Resolve(),
-                        Colour = ITab_VehicleDashboard.StageColour(stage),
-                        SystemDefName = state.Def.defName,
-                    });
-                }
+                    Label = "PhobosVehicleSystems_InspectFigureStage".Translate(quantity.label.CapitalizeFirst().Named("QUANTITY"),
+                        InspectText.Format(quantity, state.values[q]).Named("VALUE"), stage.label.Named("STAGE")).Resolve(),
+                    Colour = ITab_VehicleDashboard.StageColour(stage),
+                    SystemDefName = state.Def.defName,
+                };
             }
         }
 

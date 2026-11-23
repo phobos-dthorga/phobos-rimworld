@@ -574,3 +574,41 @@ radiator, oil pump, battery, starter, clutch, fuel pump or water pump, so we app
 - SmashPhil, Vehicle Framework 1.6 (`.local/decompiled/VehicleFramework-1.6/`) and its `develop` branch, MIT; read for research, not copied.
 - Our records: [the vehicle health design](vehicle-health-design.md), [utility vehicles](utility-vehicles-design.md),
   [the garage](vehicle-stations.md#the-vehicle-garage-and-fleet-tools-design-8-nov-2026).
+
+## The two tabs, one answer (23 Nov 2026)
+
+**The owner's report:** "The systems page for many aircraft and possibly vehicles too seems to be at odds with the Health page (our
+one), so a bit of an audit might be required." **The owner's ask, during the audit:** "Maybe genericize how these talk with each
+other, so any future updates/additions can just be picked up, where possible?" Built in D'thorga Framework 0.256.0; not yet tested in game
+(rows 426, 427).
+
+**What the code read found (agent's audit; no screenshot was needed to see these):**
+
+- **Two answers to one question.** The Systems tab listed a system's parts by every role it names; the Health tab hung a system's
+  warnings on the part of its *first* role only, and knew only the roles in the loadout's own list.
+- **A turbine with one engine.** The turbine system (and cooling, lubrication and service) names the role "Engine", which the aircraft
+  loadout's generic finder bound to the first part that moves flight speed or has "engine" in its key: one engine of a twin or a
+  four-engined aircraft, or a cover. The numbered roles (Engine1 to Engine4) were never part of those systems.
+- **Parts bound by code were roleless on the Health tab:** weapon mounts, glass, fire-fighting's bracket and systems, the spall liner.
+- **Systems with no part of their own** (cabin, driver, flight controls, auxiliary electrics, water injection) showed their warnings on
+  the Systems tab and nowhere on the Health tab.
+
+**What changed, generic so later additions are picked up:**
+
+- **`SystemParts`**, one service both tabs read: `Of` (the parts a system covers, in its roles' order, each once), `Home` (the first of
+  them, where its warnings sit), `RoleByKey` (every binding, the loadout's roles first, then those bound by code).
+- **Role families** (`RoleFamilyRule`, game-free and tested): any role ending in digits is a member of its base role, so binding
+  Engine1 to EngineN binds "Engine" to all of them, in number order, before the reactors are set; a later numbered role needs nothing.
+  No loadout bound "Engine" beside numbered engines (checked across all fourteen that bind them), so none loses a deliberate binding.
+- **The Health tab** lists every bound part, hangs each enabled system's warnings under its `Home`, and lists the warnings of systems
+  with no part under **Whole vehicle**, each line opening the Systems tab at that system, as part lines do.
+- **The bindings report** (`SystemParts.WriteReport`, at each start; a fault is logged and never thrown) and
+  **`scripts/vehicle-bindings.py`**, which audits it: systems that name roles none of which is bound, roles bound to parts that read like a
+  cover, door, hatch, panel or window, and internal parts that move a stat but no role binds; `show <vehicle>` lists one vehicle's
+  systems, the parts each covers, and the parts nothing binds. It reads what the game did, never a copy of its rules.
+
+**Still open:** the first report, at the owner's next start, will show what the code read could not: other authors' designs whose parts
+a finder bound wrongly. Each finding is then fixed in the loadout that bound it.
+
+**Other factions' vehicles:** the same answer for any faction's vehicle; it changes only what the tabs show.
+

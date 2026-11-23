@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.256.0] - 2026-11-23 - Draft
+
+The Systems and Health tabs agree: one answer for which parts each system covers
+
+### Fixed
+
+- **The Systems and Health tabs now agree on which parts each system covers, and every warning shows on both** (the owner's report of 23 November 2026 that the two disagreed on many aircraft, and the owner's ask to make how they talk to each other generic, so future additions are picked up). Both read one answer (SystemParts). Numbered roles roll up into their base role, so a twin's or a four-engined aircraft's turbine covers every engine, not whichever one part a generic search took for "the engine" (sometimes a cover). The Health tab knows parts bound by code too (weapon mounts, glass, fire-fighting, the spall liner), hangs each system's warnings on the part the Systems tab lists first for it, and lists the warnings of systems with no part of their own (the cab, the driver, the flight controls) under a new Whole vehicle heading. Not yet tested in game: row 426 of the test pass.
+
+### Added
+
+- **A report of what every vehicle was bound to**, written at each start beside the patched-Defs file (VehicleBindings.json), which scripts/vehicle-bindings.py audits for systems with no part, roles bound to covers or doors, and parts no system speaks for. Nothing in play changes. Not yet tested in game: row 427 of the test pass.
+
 ## [0.255.0] - 2026-11-23 - Draft
 
 Engines placed by their loadout where the design does not say

@@ -126,20 +126,11 @@ public partial class ITab_VehicleSystems : ITab
                 rowScratch.Add(q);
             }
             partScratch.Clear();
-            foreach (string role in system.Def.roles)
+            // Framework 0.256.0: the one answer the Health tab reads too (SystemParts), each part once however many of its roles it fills.
+            foreach ((string role, VehicleComponent part) in SystemParts.Of(comp, system))
             {
-                if (!comp.Props.roleKeys.TryGetValue(role, out List<string>? keys)) continue;
-                foreach (string key in keys)
-                {
-                    VehicleComponent? part = comp.Vehicle.statHandler?.GetComponent(key);
-                    if (part == null || (attentionOnly && part.HealthPercent >= WholeShare)) continue;
-                    // One bar a part, however many of the system's roles it fills (Framework 0.119.1; the owner's screenshot of 17 Nov
-                    // 2026: the Cherokee's servos, both pump and lines of its hydraulics, were listed twice).
-                    bool listed = false;
-                    for (int i = 0; i < partScratch.Count && !listed; i++) listed = partScratch[i].part == part;
-                    if (listed) continue;
-                    partScratch.Add((role, part));
-                }
+                if (attentionOnly && part.HealthPercent >= WholeShare) continue;
+                partScratch.Add((role, part));
             }
             if (rowScratch.Count == 0 && partScratch.Count == 0) continue;
             anything = true;

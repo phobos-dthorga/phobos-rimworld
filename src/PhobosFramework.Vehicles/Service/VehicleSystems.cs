@@ -189,6 +189,8 @@ public static class VehicleSystems
         if (props.addedKeys.Contains(FireFighting.CrewSystemKey)) added++;
         // The rest of the parts made one for each part of a role (Framework 0.250.0), after every other part we add, so saved indexes hold.
         added += EachPart.AppendWaiting(def, props, waiting);
+        // Framework 0.256.0: numbered roles roll up into their base role (Engine1 to EngineN are "the engines"), before the reactors are set.
+        SystemParts.RollUpFamilies(props);
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).
         foreach (KeyValuePair<string, List<string>> pair in props.roleKeys)
         {
