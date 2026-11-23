@@ -4,7 +4,8 @@
   "game": "rimworld",
   "rows": {
     "436": {"parts": {
-      "the turbine card": ["vehicles.systems-tab.turbine-rows"]
+      "the turbine card": ["vehicles.systems-tab.turbine-rows"],
+      "the weapons card": ["vehicles.systems-tab.weapon-rows"]
     }},
     "435": ["vehicles.systems-tab.loads-total"],
     "434": ["vehicles.systems-tab.ledger-rows"],

@@ -71,6 +71,7 @@ public partial class ITab_VehicleSystems
         anything = true;
         float top = y;
         Seen.Note("vehicles.systems-tab.weapons-card", comp.Vehicle);
+        Seen.Note("vehicles.systems-tab.weapon-rows", comp.Vehicle);
         PhobosWidgets.CardHeader(ref y, 0f, width, "PhobosVehicleSystems_SysWeapons".Translate(),
             anyOut ? PhobosWidgets.Bad : anySlow ? PhobosWidgets.Caution : PhobosWidgets.Good);
         foreach (VehicleTurret turret in weaponScratch) DrawWeapon(comp, turret, ref y, width, ref hovered);
@@ -81,13 +82,6 @@ public partial class ITab_VehicleSystems
     {
         string name = turret.gizmoLabel.NullOrEmpty() ? turret.def.LabelCap.Resolve() : turret.gizmoLabel;
         VehicleComponent? mount = TurretPace.Mount(turret);
-        float nameEnd = width * 0.38f;
-        using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft))
-        {
-            Widgets.Label(new Rect(6f, y, nameEnd - 10f, Row), name.Truncate(nameEnd - 10f));
-        }
-        if (mount != null) PartChip(comp, mount, new Rect(nameEnd, y + 2f, width - nameEnd - 6f, ChipHeight), ref hovered);
-        y += Row;
 
         // What it is doing: out and why, else unmanned, else ready; then its pace and drive.
         string status;
@@ -108,16 +102,23 @@ public partial class ITab_VehicleSystems
             status = "PhobosVehicleSystems_SysWeaponReady".Translate().Resolve();
             colour = PhobosWidgets.Good;
         }
-        var parts = new List<string> { status.Colorize(colour) };
+        // Framework 0.262.0 (the owner's word of 23 Nov 2026: all the applicable cards): the weapon's row is its name, what it is doing in
+        // its colour, and how fast it works against the right edge while it is slowed. Under it, its mount as a chip below the name and
+        // why it is slow and how it turns below the word, where the whole of it was one line joined by dots.
         TurretPace.Pace pace = TurretPace.For(turret);
-        if (pace.damaged || pace.gunnerHurt || pace.handCranked)
+        bool slowed = pace.damaged || pace.gunnerHurt || pace.handCranked;
+        Rect row = WordRow(ref y, width, name, status, colour, slowed ? Mathf.Min(pace.traverse, Mathf.Min(pace.aim, pace.reload)).ToStringPercent() : "",
+            WordAfterShortName, out bool cut);
+        WordTip(row, name, status, cut, slowed ? "PhobosVehicleSystems_SysWeaponPaceTip".Translate().Resolve() : null);
+
+        weaponDetail.Clear();
+        if (slowed)
         {
-            var why = new List<string>();
-            if (pace.handCranked) why.Add("PhobosVehicleSystems_WeaponHandCranked".Translate().Resolve());
-            if (pace.damaged && mount != null) why.Add("PhobosVehicleSystems_WeaponMountDamaged".Translate((mount.props.label ?? mount.props.key).Named("PART")).Resolve());
-            if (pace.gunnerHurt) why.Add("PhobosVehicleSystems_WeaponGunnerHurt".Translate().Resolve());
-            parts.Add("PhobosVehicleSystems_SysWeaponPace".Translate(Mathf.Min(pace.traverse, Mathf.Min(pace.aim, pace.reload)).ToStringPercent().Named("PACE"),
-                string.Join(", ", why).Named("WHY")).Resolve().Colorize(PhobosWidgets.Caution));
+            weaponWhy.Clear();
+            if (pace.handCranked) weaponWhy.Add("PhobosVehicleSystems_WeaponHandCranked".Translate().Resolve());
+            if (pace.damaged && mount != null) weaponWhy.Add("PhobosVehicleSystems_WeaponMountDamaged".Translate((mount.props.label ?? mount.props.key).Named("PART")).Resolve());
+            if (pace.gunnerHurt) weaponWhy.Add("PhobosVehicleSystems_WeaponGunnerHurt".Translate().Resolve());
+            weaponDetail.Add("PhobosVehicleSystems_SysWeaponSlowed".Translate(string.Join(", ", weaponWhy).Named("WHY")).Resolve().Colorize(PhobosWidgets.Caution));
         }
         WeaponDrive driveKind = TurretPower.DriveOf(comp, turret);
         if (driveKind == WeaponDrive.HandSwung) Seen.Note("vehicles.systems-tab.hand-swung-weapon", comp.Vehicle, turret.key);
@@ -131,9 +132,20 @@ public partial class ITab_VehicleSystems
             WeaponDrive.TurnsWithTurret => "PhobosVehicleSystems_SysDriveWithTurret".Translate(ParentName(turret.attachedTo).Named("TURRET")).Resolve(),
             _ => null,
         };
-        if (drive != null) parts.Add(drive.Colorize(DetailColour));
-        y += PhobosWidgets.WrappedLine(ArrowSize + 8f, y, width - ArrowSize - 14f, string.Join(" · ", parts)) + 4f;
+        if (drive != null) weaponDetail.Add(drive.Colorize(DetailColour));
+        if (mount == null && weaponDetail.Count == 0) return;
+        float nameEnd = width * WordAfterShortName, under = 0f;
+        if (mount != null)
+        {
+            PartChip(comp, mount, new Rect(6f, y, nameEnd - 10f, ChipHeight), ref hovered);
+            under = ChipHeight;
+        }
+        if (weaponDetail.Count > 0) under = Mathf.Max(under, PhobosWidgets.WrappedLine(nameEnd, y + 2f, width - nameEnd - 6f, string.Join(" · ", weaponDetail)) + 2f);
+        y += under + 4f;
     }
+
+    /// <summary>One weapon's second line and its reasons for being slow, reused every frame.</summary>
+    static readonly List<string> weaponDetail = new(), weaponWhy = new();
 
     static string ParentName(VehicleTurret? parent) =>
         parent == null ? "" : parent.gizmoLabel.NullOrEmpty() ? parent.def?.LabelCap.Resolve() ?? parent.key : parent.gizmoLabel;

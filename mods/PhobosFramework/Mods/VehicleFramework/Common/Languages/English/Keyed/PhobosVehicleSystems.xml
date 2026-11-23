@@ -180,7 +180,8 @@
   <PhobosVehicleSystems_SysWeaponUnmanned>no one at it</PhobosVehicleSystems_SysWeaponUnmanned>
   <PhobosVehicleSystems_SysWeaponOut>out of action</PhobosVehicleSystems_SysWeaponOut>
   <PhobosVehicleSystems_SysWeaponOutWhy>out of action: {WHY}</PhobosVehicleSystems_SysWeaponOutWhy>
-  <PhobosVehicleSystems_SysWeaponPace>working at {PACE} ({WHY})</PhobosVehicleSystems_SysWeaponPace>
+  <PhobosVehicleSystems_SysWeaponSlowed>slowed: {WHY}</PhobosVehicleSystems_SysWeaponSlowed>
+  <PhobosVehicleSystems_SysWeaponPaceTip>How fast it turns, aims and reloads now against a whole one: the slowest of the three.</PhobosVehicleSystems_SysWeaponPaceTip>
   <PhobosVehicleSystems_SysDriveHandSwung>swung by hand</PhobosVehicleSystems_SysDriveHandSwung>
   <PhobosVehicleSystems_SysDrivePowered>powered drive</PhobosVehicleSystems_SysDrivePowered>
   <PhobosVehicleSystems_SysDriveWithTurret>turns with the {TURRET}</PhobosVehicleSystems_SysDriveWithTurret>
