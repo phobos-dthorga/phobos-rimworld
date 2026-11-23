@@ -138,7 +138,7 @@ that overturns an earlier one says so. Engine rows from the same records are in 
 [at]: ../vehicle-altitude-and-turbines.md
 [cr]: ../vehicle-cargo-refuel.md
 [ad]: ../air-defence-tie-ins.md
-[sv]: ../aircraft-service-life-upgrades.md
+[sv]: ../archive/aircraft-service-life-upgrades.md
 [mm]: ../modern-military-vehicles.md
 [os]: ../vehicle-osprey.md
 [mu]: ../aircraft-munitions.md

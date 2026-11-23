@@ -79,7 +79,7 @@ reads, so figures from it came through search extracts and are marked so. No pri
 
 ## Starting fits since Vehicles 0.93.0
 
-The owner's choice of 21 Nov 2026 ([aircraft service-life upgrades](../aircraft-service-life-upgrades.md)): each jet starts as its early
+The owner's choice of 21 Nov 2026 ([aircraft service-life upgrades](aircraft-service-life-upgrades.md)): each jet starts as its early
 version and is brought up with fittings. Where the table above gives the later fit, the jet now starts with the earlier:
 
 | | A-10 (as the A-10A) | Su-25 (as first built) |

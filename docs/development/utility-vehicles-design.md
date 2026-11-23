@@ -5,6 +5,8 @@ family, the bulk tanker (Vehicles 0.12.0), the generator set (0.17.0), the surve
 each since given its own picture; not built: the catalogue sketched below and the tanker's quests. The survey truck and its boom
 were tested in game by the owner on 9 Nov 2026, and the Busbar's size and look on 13 Nov 2026; the rest is not yet tested in game.
 
+How upgrades and fittings work now: [systems/upgrades-and-fittings.md](systems/upgrades-and-fittings.md); this record keeps its history.
+
 **The family, each in its own record (17 Nov 2026).** Since 17 Nov 2026 this record is the family's hub: its principles, parts model,
 catalogue and art plan. The bulk tanker's design moved out to a record of its own that day, as the other four already had.
 

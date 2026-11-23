@@ -8,6 +8,8 @@ shared [families](#vehicle-upgrade-families-upgrades-shared-across-many-vehicles
 anything for the Roaring Tiger; the submarine test hull stays bare by the owner's choice. Not yet tested in game, apart from the
 families' check of 13 Nov 2026 (the families record says what passed).
 
+How upgrades and fittings work now: [systems/upgrades-and-fittings.md](systems/upgrades-and-fittings.md); this record keeps its history.
+
 **Changed 18 Nov 2026:** the owner removed VVE - Upgrades Extended from the mod list, as our own upgrades now cover it. What this
 record says about its trees, the Cherokee's five stat nodes among them, describes the list as it stood on 11 Nov 2026.
 
@@ -40,7 +42,7 @@ agent-authored for the owner to pick from, and no figure is set yet.
 | Layer | What it is | Reach | State |
 | --- | --- | --- | --- |
 | Vehicle Framework's upgrade tree | Nodes in an `UpgradeTreeDef`, one tree per vehicle Def | A vehicle has one only if someone wrote it | Ours: six trees. Others: 48 trees from their own mods and two VVE upgrade mods |
-| Our fittings, tunes and part grades | Bolt-ons to a part by role, engine and gearing tunes, salvaged to heavy-duty parts ([tuning and upgrades](vehicle-tuning-and-upgrades.md)) | Any vehicle whose parts we have bound to roles | Built from Framework 0.40.0, with costs revised in 0.91.0; not yet tested in game |
+| Our fittings, tunes and part grades | Bolt-ons to a part by role, engine and gearing tunes, salvaged to heavy-duty parts ([tuning and upgrades](archive/vehicle-tuning-and-upgrades.md)) | Any vehicle whose parts we have bound to roles | Built from Framework 0.40.0, with costs revised in 0.91.0; not yet tested in game |
 | Per-vehicle systems | Loadouts, cabins, real figures, engines, the sling hook | Each vehicle we have patched by name | Built for our six and many of VVE's; mostly not yet tested in game |
 
 From Vehicle Framework's code (our decompile of its 1.6 build, read with `scripts/query-code.py`, in our own words): a node may

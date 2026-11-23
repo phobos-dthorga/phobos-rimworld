@@ -45,3 +45,12 @@ Archived on 23 Nov 2026; how vehicle damage works now: [vehicle damage](../syste
 - [Armour for our armed vehicles](vehicle-armour.md) (18 Nov 2026): classes by the threat stopped; Combat Extended first.
 - [Fire on vehicles](vehicle-fire.md) (22 Nov 2026): what burns a vehicle, fire zones, extinguishers and suppression.
 - [Fires on vehicles that never go out](vehicle-framework-fires.md) (10 Nov 2026): Vehicle Framework's stuck fires and the fix.
+
+## Upgrades and fittings
+
+Archived on 23 Nov 2026; how upgrades and fittings work now: [upgrades and fittings](../systems/upgrades-and-fittings.md).
+
+- [Vehicle tuning and upgrades](vehicle-tuning-and-upgrades.md) (9 Nov 2026): fittings, engine tunes and part grades for any
+  vehicle.
+- [Aircraft service-life upgrades](aircraft-service-life-upgrades.md) (21 Nov 2026): engines, avionics kits, early fits; with
+  [flight](../systems/flight.md) and [engines](../systems/engines-and-drivetrain.md).

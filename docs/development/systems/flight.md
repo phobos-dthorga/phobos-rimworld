@@ -492,9 +492,9 @@ None of these is a test in game.
   map](../archive/vehicle-flight-over-the-map.md), [avionics](../archive/vehicle-avionics.md), [sling
   loads](../archive/vehicle-sling-design.md), [power and lift](../archive/vehicle-power-and-lift-design.md), [Close Air Support's
   jets](../archive/close-air-support-jets.md), [the EA-6B Prowler](../archive/ea6b-prowler.md), [the UH-60M Black
-  Hawk](../archive/uh60-blackhawk.md), [the C-17](../archive/c17-globemaster.md).
+  Hawk](../archive/uh60-blackhawk.md), [the C-17](../archive/c17-globemaster.md), and, with [upgrades and
+  fittings](upgrades-and-fittings.md), [aircraft service-life upgrades](../archive/aircraft-service-life-upgrades.md).
 - **Records kept in place** (they cover flight and another system): [thin air, turbines and aircraft
   fuel](../vehicle-altitude-and-turbines.md), [refuelling from cargo](../vehicle-cargo-refuel.md), [air-defence
-  tie-ins](../air-defence-tie-ins.md), [aircraft service-life upgrades](../aircraft-service-life-upgrades.md), [modern military
-  aircraft and vehicles](../modern-military-vehicles.md), [the V-22 Osprey](../vehicle-osprey.md), [aircraft
-  munitions](../aircraft-munitions.md).
+  tie-ins](../air-defence-tie-ins.md), [modern military aircraft and vehicles](../modern-military-vehicles.md), [the V-22
+  Osprey](../vehicle-osprey.md), [aircraft munitions](../aircraft-munitions.md).

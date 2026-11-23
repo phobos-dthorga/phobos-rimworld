@@ -2,6 +2,8 @@
 
 **Status: built in D'thorga Framework 0.43.0. Not yet tested in game.**
 
+How upgrades and fittings work now: [systems/upgrades-and-fittings.md](systems/upgrades-and-fittings.md); this record keeps its history.
+
 **Merged here on 17 Nov 2026**, each kept as written: [Home depot bays: design](#home-depot-bays-design-9-nov-2026); [The vehicle garage and fleet tools: design](#the-vehicle-garage-and-fleet-tools-design-8-nov-2026).
 
 ## Read this first

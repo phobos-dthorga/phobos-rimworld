@@ -384,7 +384,7 @@ into it and may be stuck: **park it in the open before updating**. The depot bay
 
 **Costs.** Its fittings, tunes and upgrades are priced by weight (work by the kerb mass to the power 0.25, materials to the power 0.5,
 `Rules_VehicleSystems.xml`), so from 6 to 8 tonnes they ask about 7.5 % more work and 15.5 % more materials. The upgrade price table in
-[vehicle-tuning-and-upgrades.md](vehicle-tuning-and-upgrades.md) shows the 6,000 kg figures of 13 Nov 2026.
+[vehicle-tuning-and-upgrades.md](archive/vehicle-tuning-and-upgrades.md) shows the 6,000 kg figures of 13 Nov 2026.
 
 ## Open questions for the owner
 

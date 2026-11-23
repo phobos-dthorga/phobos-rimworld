@@ -4,6 +4,8 @@
 
 How vehicle damage works now: [systems/vehicle-damage.md](systems/vehicle-damage.md); this record keeps its history.
 
+How upgrades and fittings work now: [systems/upgrades-and-fittings.md](systems/upgrades-and-fittings.md); this record keeps its history.
+
 The owner's request, 19 Nov 2026, with the answer that enemies end a [gathering run](vehicle-gathering-runs.md): "perhaps we could
 offer upgrades where we militarize some or all of our service vehicles? Either with advantages only or some disadvantages as a result
 to boot?" Then: "Go ahead and research the militarised service vehicles." This record is that research and the design it leads to.
@@ -197,7 +199,7 @@ The first six shaped the record; the last eight answered its questions.
 
 Mount costs elsewhere run from 75 steel and 3 components at 7,200 work (the HUMVEE's LMG) to 195 steel and 10 components at 57,000 work
 (the L-ATV's remote station). Our own trees already charge more than any of them: work x5 and bulk materials x2.5, scaled by the
-vehicle's weight (`PhobosUpgradeCostsLikeTunes`, [tuning and upgrades](vehicle-tuning-and-upgrades.md)). Kit prices go through it.
+vehicle's weight (`PhobosUpgradeCostsLikeTunes`, [tuning and upgrades](archive/vehicle-tuning-and-upgrades.md)). Kit prices go through it.
 
 ### Smaller findings the build must know [code]
 

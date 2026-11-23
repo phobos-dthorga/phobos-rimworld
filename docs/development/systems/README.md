@@ -9,6 +9,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   sling, refuelling on a journey, avionics, aim, dodging, countermeasures, jamming and the aircraft in the fold. Living.
 - [Vehicle damage](vehicle-damage.md) (23 Nov 2026): conditions, the Health tab, repairs, knock-outs, spall, glass, armour,
   fire, blasts and EMP. Living.
+- [Upgrades and fittings](upgrades-and-fittings.md) (23 Nov 2026): fittings, tunes, part grades, families, upgrade trees and
+  their prices, the dyno bay, parts and parts bills. Living.
 
 ## The template
 

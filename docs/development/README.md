@@ -73,7 +73,7 @@ research or design with nothing built; **living** means kept current by every ch
 
 ### Upgrades and cross-links
 
-- [Vehicle tuning and upgrades](vehicle-tuning-and-upgrades.md) (9 Nov 2026): fittings, engine tunes and part grades for any vehicle. Built.
+- [Upgrades and fittings](systems/upgrades-and-fittings.md) (23 Nov 2026): how fittings, tunes, grades, trees and parts work now. Living.
 - [Vehicle upgrades, round two](vehicle-upgrades-round-two.md) (11 Nov 2026): every vehicle's tree, signature features, shared families. Partly built.
 - [Vehicle cross-links](vehicle-crosslinks.md) (9 to 13 Nov 2026): three rounds of links between systems, crew, weather and damage. Built, bar engine braking.
 - [Refuelling from cargo](vehicle-cargo-refuel.md) (18 Nov 2026): caravans top up from their cans; aircraft set down on the way. Built, untested.
@@ -114,7 +114,6 @@ research or design with nothing built; **living** means kept current by every ch
 - [Striking another map](cross-map-strikes.md) (11 Nov 2026): DMS Expedition's lost shells and rules for our cross-map weapons. Record only.
 - [Air-defence tie-ins](air-defence-tie-ins.md) (13 Nov 2026): IRBM's and The Dead Man's Switch's radars against our aircraft. Partly built.
 - [Unique military vehicles and submarines](military-vehicles-research.md) (9 Nov 2026): real vehicles no mod covers yet. Record only.
-- [Aircraft service-life upgrades](aircraft-service-life-upgrades.md) (21 Nov 2026): engines, avionics kits, early fits. Built, untested.
 - [Per-engine realism](per-engine-realism.md) (23 Nov 2026): power by engine health, yaw, matched axles, wear per engine. Step 1 built, untested.
 - [Walk-in cabins](vehicle-cabins.md) (22 Nov 2026): a vehicle's cabin as a small pocket map; the Osprey first. Built, untested.
 - [Railcars](vehicle-railcars.md) (22 Nov 2026): a loadout for Trains of the Rim's wagons, so they can take fittings. Set aside by the owner; nothing built.
@@ -227,6 +226,8 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Glass on our vehicles](archive/vehicle-glass.md) (22 Nov 2026): glass as a tracked part, and what follows when it breaks; VG1 to VG14. Archived.
 - [Fire on vehicles](archive/vehicle-fire.md) (22 Nov 2026): what burns a vehicle today, a fault in our fire checks; FR1 to FR14. Archived.
 - [Fires on vehicles that never go out](archive/vehicle-framework-fires.md) (10 Nov 2026): Vehicle Framework's stuck fires and the fix. Archived.
+- [Vehicle tuning and upgrades](archive/vehicle-tuning-and-upgrades.md) (9 Nov 2026): fittings, engine tunes and part grades for any vehicle. Archived.
+- [Aircraft service-life upgrades](archive/aircraft-service-life-upgrades.md) (21 Nov 2026): engines, avionics kits, early fits. Archived.
 - [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
 - [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
 - [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

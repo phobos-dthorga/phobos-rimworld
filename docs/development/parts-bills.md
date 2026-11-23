@@ -1,5 +1,7 @@
 # Parts bills: what a built thing is made of, by role (11 Nov 2026)
 
+How upgrades and fittings work now: [systems/upgrades-and-fittings.md](systems/upgrades-and-fittings.md); this record keeps its history.
+
 **Read this first**
 
 - A **parts bill** says what a built thing needs by **role** (an engine, a fuel tank, a pump), not by item. At start-up each role is

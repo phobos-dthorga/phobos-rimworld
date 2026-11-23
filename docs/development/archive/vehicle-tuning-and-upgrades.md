@@ -14,12 +14,12 @@ summarised in our own words.
 ## Read this first
 
 - **From Framework 0.43.0 a tune or a change of grade on a working part waits for a tuning rig** (owner, 9 Nov 2026; a setting, on by default;
-  [the stations record](vehicle-stations.md)). What is below predates that.
+  [the stations record](../vehicle-stations.md)). What is below predates that.
 - **It works on every vehicle from any mod** (owner), through the roles a loadout already binds, so your RimThunder and other vehicles take fittings
   without anyone writing an upgrade tree for them.
 - **Three layers, each doing a different job** (owner): a **fitting** changes how one part performs, a **tune** changes how the whole engine is set
   up, a **grade** changes how tough and how reliable a part is.
-- **Part grades hang on the job that replaces destroyed parts**, so check 1 of the [test pass](in-game-test-pass.md) comes first when testing
+- **Part grades hang on the job that replaces destroyed parts**, so check 1 of the [test pass](../in-game-test-pass.md) comes first when testing
   them. The owner gave the go for them on 9 Nov 2026.
 - **Every figure below is authored**, a gameplay choice to be tuned in play. Nothing is measured from a real machine.
 
@@ -244,4 +244,4 @@ The health goes through Vehicle Framework's own per-part health modifier (from t
 ## Sources
 
 - SmashPhil, Vehicle Framework 1.6 (`.local/decompiled/VehicleFramework-1.6/`) and its `develop` branch, MIT; read for research, not copied.
-- Our records: [vehicle health, slice 3](archive/vehicle-health-design.md#vehicle-health-slice-3-what-it-does-to-the-player-8-nov-2026-built-9-nov-2026), [utility vehicles](utility-vehicles-design.md).
+- Our records: [vehicle health, slice 3](../archive/vehicle-health-design.md#vehicle-health-slice-3-what-it-does-to-the-player-8-nov-2026-built-9-nov-2026), [utility vehicles](../utility-vehicles-design.md).
