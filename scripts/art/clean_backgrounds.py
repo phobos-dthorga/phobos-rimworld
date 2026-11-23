@@ -58,7 +58,7 @@ def originals():
     export records, the derived files the vehicle scripts place, and any generated picture a texture record or a vehicle script names
     (the bodies whose own export record was not kept, and the picks the placement scripts take by name)."""
     found = set()
-    for record in (ROOT / 'mods').rglob('*.export.json'):
+    for record in art_paths.shipped_records('*.export.json'):
         source = resolve(json.loads(record.read_text(encoding='utf-8')).get('source', ''))
         if source:
             found.add(source)
@@ -159,7 +159,7 @@ def stage():
     if STAGE.exists():
         shutil.rmtree(STAGE)
     skipped = []
-    for record_path in sorted((ROOT / 'mods').rglob('*.export.json')):
+    for record_path in art_paths.shipped_records('*.export.json'):
         record = json.loads(record_path.read_text(encoding='utf-8'))
         source = resolve(record.get('source', ''))
         if not source:
@@ -331,7 +331,7 @@ def apply(skip=(), include=(), only=()):
         if record.is_file():
             data = json.loads(record.read_text(encoding='utf-8'))
             data['target'] = entry['shipped']
-            shipped.with_suffix('.export.json').write_text(json.dumps(data, indent=2), encoding='utf-8')
+            art_paths.record_path(shipped.with_suffix('.export.json')).write_text(json.dumps(data, indent=2), encoding='utf-8')
         replaced.append(entry['shipped'])
     for record in art_paths.shipped_records():
         text = record.read_text(encoding='utf-8')

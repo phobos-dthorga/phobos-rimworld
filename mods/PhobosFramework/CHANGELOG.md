@@ -5,6 +5,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- **The exporters' records no longer ship in the mod's folder either** (the owner's word of 23 Nov 2026). The notes saying
+  what each picture was cut from moved beside the art records, in the repository's assets folder; nothing a player sees
+  changes.
+
 ## [0.258.0] - 2026-11-23 - Draft
 
 What the first bindings report found, fixed

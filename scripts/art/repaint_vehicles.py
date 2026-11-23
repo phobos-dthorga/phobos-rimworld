@@ -83,7 +83,7 @@ def mend_flecks(name, folder, master, out, colour, accent):
         return 0
     north = Image.open(out / f'{name}_northm.png').convert('RGBA')
     paint_check.fill_flecks(north, flecks)
-    record_path = out / f'{name}.export.json'
+    record_path = art_paths.record_path(out / f'{name}.export.json')
     record = json.loads(record_path.read_text(encoding='utf-8'))
     for facing, turn in FACINGS.items():
         path = out / f'{name}_{facing}m.png'

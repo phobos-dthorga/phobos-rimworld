@@ -211,7 +211,7 @@ def export_parts(out_root, report):
             base.export_overlay(tiled_skirt(base.mirrored(skirt), size, right, f'skirt-{folder}-right'), like, out, f'{folder}_BodyPlatesRight', right)
             base.layer(out, f'{folder}_BodyPlates', [f'{folder}_BodyPlatesLeft', f'{folder}_BodyPlatesRight'])
             report[f'{folder}/{folder}_BodyPlates'] = {'master': skirt.name, 'fit': [list(left), list(right)]}
-        for record in out.glob('*.export.json'):
+        for record in art_paths.records_under(out, '*.export.json'):
             if record.name.startswith((f'{folder}_RamBar', f'{folder}_BodyPlates')):
                 shutil.move(record, base.EXPORT / record.name)  # a staging folder may be on another drive
         print('wrote', folder, 'ram bar' + (' and body plates' if folder in SKIRT_BOXES else ''))
@@ -232,7 +232,7 @@ def main():
             master, box = master_and_box(truck, kit, work)
             name = f'{folder}_{suffix}'
             base.export_overlay(master, base.EXPORT / transform, out, name, box)
-            for record in out.glob(f'{name}.export.json'):
+            for record in art_paths.records_under(out, f'{name}.export.json'):
                 shutil.move(record, base.EXPORT / record.name)  # beside the bodies' records, where the clean-up tools read them
             report[f'{folder}/{name}'] = {'edit': f'paid-kit-{truck}-{kit}-{PICK}', 'fit': list(box)}
             print('wrote', folder, name)

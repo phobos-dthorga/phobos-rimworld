@@ -147,7 +147,7 @@ def clean_flecks(name, master, out, colours):
     mask = Image.open(out / f'{name}_northm.png').convert('RGBA')
     changed = paint_check.fill_flecks(mask, flecks)
     written = write_facings(mask, out, name, 'm')
-    record_path = out / f'{name}.export.json'
+    record_path = art_paths.record_path(out / f'{name}.export.json')
     data = json.loads(record_path.read_text(encoding='utf-8'))
     for path in written:
         data['files'][path.name] = sha(path)

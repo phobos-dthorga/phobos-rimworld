@@ -10,6 +10,9 @@ tested in game unless an entry says the owner tested it.
 - **The art and sound records no longer ship in the mod's folder** (the owner's choice of 23 Nov 2026, in the docs rewrite).
   The notes saying how each picture and sound was made moved to the repository's assets folder, so installing the mod no longer
   copies them into the game's Mods folder; the next install leaves the old copies in its backup. Nothing a player sees changes.
+- **The exporters' records no longer ship in the mod's folder either** (the owner's word of 23 Nov 2026). The notes saying
+  what each picture was cut from moved beside the art records, in the repository's assets folder; nothing a player sees
+  changes.
 
 ## [0.7.8] - 2026-11-23 - Draft
 

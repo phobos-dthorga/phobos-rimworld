@@ -19,6 +19,8 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import export_batch_b as base  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts' / 'art'))
+import art_paths  # noqa: E402  (records of shipped files are kept under assets/records/)
 
 TRAILER_BOARDS = 2  # Owner's pick (12 Nov 2026).
 GRAB = 3  # Owner's pick.
@@ -102,7 +104,7 @@ def main():
         out.mkdir(parents=True, exist_ok=True)
         for name, master, box, holes in overlays:
             base.export_overlay(master, base.EXPORT / transform, out, name, box, holes)
-            for record in out.glob(f'{name}.export.json'):
+            for record in art_paths.records_under(out, f'{name}.export.json'):
                 record.replace(base.EXPORT / record.name)
             report[f'{folder}/{name}'] = {'master': str(master).replace('\\', '/'), 'fit': list(box)}
             print('wrote', folder, name)

@@ -25,6 +25,7 @@ from PIL import Image, ImageChops, ImageFilter
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import export_sprite  # noqa: E402  (beside this script)
+import art_paths  # noqa: E402  (records of shipped files are kept under assets/records/)
 
 
 def frame(cut, aspect_w, aspect_h):
@@ -135,7 +136,7 @@ def export(base_master, edit_master, target, aspect, size=128, shift=(0, 0), dif
         'date': _dt.datetime.now().isoformat(timespec='seconds'),
         'tool': 'export_overlay.py: the edit\'s added pixels, framed and scaled as export_sprite framed the base',
     }
-    target.with_suffix('.export.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
+    art_paths.record_path(target.with_suffix('.export.json')).write_text(json.dumps(record, indent=2), encoding='utf-8')
     print(f'wrote {target} {sprite.size}; drawSize {draw_size} for a base drawn at {base_cells}')
     return record
 

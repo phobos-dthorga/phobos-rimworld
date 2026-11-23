@@ -308,7 +308,7 @@ def main(argv=None):
     (out / f'{NAME}.layout.json').write_text(json.dumps(layout, indent=2), encoding='utf-8')
     record = {'tool': 'assets/phobos-vehicles/export_osprey.py', 'pick': PICK.relative_to(ROOT).as_posix(), 'pick_sha256': sha(PICK),
               'prescale': prescale, 'paint': PAINT, 'files': {p.name: sha(p) for p in files}}
-    (out / f'{NAME}.osprey-export.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
+    art_paths.record_path(out / f'{NAME}.osprey-export.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
     review(out, work)
     print(f'{len(files)} textures in {out}; review: {work / "review" / "index.html"}')
     return 0

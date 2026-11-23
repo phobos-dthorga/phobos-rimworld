@@ -5,7 +5,7 @@ standing rules for every picture and sound the mods ship or the tools generate. 
 `docs/development/art-pipeline.md`.
 
 - Match RimWorld's look. Record how each texture or sound was made (tool, prompt, date, source hashes) in
-  an asset record: beside it, or for a file the mods ship under `assets/records/`, in the same place as under `mods/`, so deploy
+  an asset record (and an exporter's `.export.json`): beside it, or for a file the mods ship under `assets/records/`, in the same place as under `mods/`, so deploy
   never copies records into the game (the owner's choice of 23 Nov 2026; write it at `art_paths.record_path(...)`, which the art
   audit reads too); disclose AI assistance; never ship the game's or another mod's art. Check
   generator allowance and cost first; never silently buy credit or switch to a costlier generator.

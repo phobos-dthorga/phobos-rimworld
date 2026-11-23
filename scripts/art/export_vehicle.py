@@ -574,7 +574,7 @@ def record(out, name, master, written, details):
         'files': {path.name: sha(path) for path in written},
         'date': _dt.date.today().isoformat(), 'tool': 'scripts/art/export_vehicle.py', **details,
     }
-    (out / f'{name}.export.json').write_text(json.dumps(data, indent=2), encoding='utf-8')
+    art_paths.record_path(out / f'{name}.export.json').write_text(json.dumps(data, indent=2), encoding='utf-8')
 
 
 def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_saturation=MIN_SATURATION, holes=(),

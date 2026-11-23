@@ -42,7 +42,8 @@ class RecordPaths(unittest.TestCase):
         self.assertEqual([p.name for p in art_paths.shipped_records(root=self.root)], ['New.record.md', 'Old.record.md'])
 
     def test_no_record_is_left_in_the_mods(self):
-        left = sorted(p.relative_to(ROOT).as_posix() for p in (ROOT / 'mods').rglob('*.record.md'))
+        left = sorted(p.relative_to(ROOT).as_posix() for pattern in ('*.record.md', '*export.json')
+                      for p in (ROOT / 'mods').rglob(pattern))
         self.assertEqual(left, [], 'records belong under assets/records/ (art_paths.record_path)')
 
 

@@ -327,7 +327,7 @@ def export(source, target, size, aspect, threshold, soft, all_white=False, as_si
         'date': _dt.datetime.now().isoformat(timespec='seconds'),
         'tool': 'export_sprite.py: ' + ('dark shape to a white silhouette' if as_silhouette else 'background white to alpha') + ', crop, pad, Lanczos downscale',
     }
-    target.with_suffix('.export.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
+    art_paths.record_path(target.with_suffix('.export.json')).write_text(json.dumps(record, indent=2), encoding='utf-8')
     print(f'wrote {target} {sprite.size}')
     if left:
         print(white_left_warning(left))
@@ -338,7 +338,7 @@ def sweep(root):
     """Every shipped sprite's record under root, its master cut again as it was exported, and the ones that look as if they kept
     background white (white_left). Reads only; a master no longer on this PC is listed as such."""
     suspects, missing, checked = [], [], 0
-    for record_path in sorted(Path(root).rglob('*.export.json')):
+    for record_path in art_paths.records_under(root, '*.export.json', recursive=True):
         record = json.loads(record_path.read_text(encoding='utf-8'))
         if record.get('silhouette') or record.get('all_white') or 'source' not in record:
             continue

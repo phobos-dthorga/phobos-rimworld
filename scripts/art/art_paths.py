@@ -89,13 +89,14 @@ def record_path(beside, root=ROOT, make=True):
     return target
 
 
-def records_under(folder, pattern='*.record.md', root=ROOT):
+def records_under(folder, pattern='*.record.md', root=ROOT, recursive=False):
     """Every record for the files in `folder` (a folder the mods ship, or any other), wherever it is kept: beside them, then
-    under assets/records/."""
-    found = sorted(Path(folder).glob(pattern))
+    under assets/records/. `recursive` looks in every folder below too."""
+    look = 'rglob' if recursive else 'glob'
+    found = sorted(getattr(Path(folder), look)(pattern))
     mirrored = record_path(Path(folder) / '_', root, make=False).parent
     if mirrored.resolve() != Path(folder).resolve():
-        found += sorted(mirrored.glob(pattern))
+        found += sorted(getattr(mirrored, look)(pattern))
     return found
 
 
