@@ -17,6 +17,9 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 - **A patch for another author's fault** is a tie-in too, and is listed here as one, but its record is
   [patches for other authors' faults](temporary-patches.md), which says when each can go.
 - **Keep this register current**: a change that adds, removes or widens a tie-in adds or edits its row in the same commit.
+  **The gate holds the folders to it** (`tests/test_tie_in_register.py`, 24 Nov 2026): each mod's section must name every
+  conditional folder in its `LoadFolders.xml` as `Mods/<Folder>`, name none that is gone, and the counts above must match.
+  C# tie-ins that check for a mod by name are not checked.
 
 ## How a tie-in is built here
 
@@ -39,7 +42,7 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 | Vehicle Framework + Rimefeller (`dubwise.rimefeller`) | The drill rig's oil-well job; the parked tanker lays Rimefeller's hidden pipeline and pumps crude and chemfuel through it (0.109.0, SD4) | C# | `Mods/VehiclesRimefeller/1.7` |
 | Vehicle Framework + Vanilla Expanded Framework (`OskarPotocki.VanillaFactionsExpanded.Core`) | Parked tankers and rigs join its pipe networks; vehicles refuel from a chemfuel line | C# | `Mods/VehiclesPipes/1.7` |
 | Vehicle Framework + Vanilla Expanded Framework | The vehicle garage outpost and its button on vehicle caravans | C# + XML | `Mods/VehiclesOutposts` |
-| Vehicles at Work (`shengchipangxieyaotuke.vehiclesatwork`) | Its trips leave out vehicles our systems refuse to move, and a called-off trip gives our reason (0.108.4, SD1, VW1); a vehicle with a depot bay is parked in it when it brings one home, and a bay counts as a lot for its Drive work (0.176.0, VW2); its Drive work fetches drivers for our waiting errands, its drivers lists are obeyed, and its trips leave a waiting truck alone (0.177.0, VW3) | C#, by name; XML (Mods/VehiclesAtWork) | `src/PhobosFramework.Vehicles/Service/VehiclesAtWorkPatches.cs` |
+| Vehicles at Work (`shengchipangxieyaotuke.vehiclesatwork`) | Its trips leave out vehicles our systems refuse to move, and a called-off trip gives our reason (0.108.4, SD1, VW1); a vehicle with a depot bay is parked in it when it brings one home, and a bay counts as a lot for its Drive work (0.176.0, VW2); its Drive work fetches drivers for our waiting errands, its drivers lists are obeyed, and its trips leave a waiting truck alone (0.177.0, VW3) | C#, by name; XML (`Mods/VehiclesAtWork`) | `src/PhobosFramework.Vehicles/Service/VehiclesAtWorkPatches.cs` |
 | Vehicle Framework + RimHUD (`Jaxe.RimHUD`) | A RimHUD value for the vehicle a pawn is in | XML | `Mods/VehiclesRimHUD/Common` |
 | Vehicle Framework + The Dead Man's Switch - Expedition (`Aoba.DeadManSwitch.Expedition`) | Aircraft in flight on the world map are tracks its air defence sees and fires at, through its published `AirDefenseExtensionDef`; the warning receiver hears its radars; chaff and flares cut its hit chance and slow its locks; its launch-risk prompt before our take-offs; a closed sky (Fortified Features Framework's alert counter, by name) refuses take-off (0.119.0; AD2, AD3, AD7) | C# + XML | `Mods/VehiclesDmse` |
 | RimThunder (`rimthunder.core`, `aoba.rimthunder.roca`, `rimthunderteams.rimthunder.desertsabre`) | Its vehicles are never stalled by EMP, as its authors chose, but still take the military effect (0.109.0, SD9) | XML list read by C# | `Rules_VehicleSystems.xml` |
@@ -101,60 +104,59 @@ All XML; the code is in the Framework.
 
 Hard dependencies: Harmony, D'thorga Framework, Vanilla Expanded Framework and VFE Factory. All XML unless marked.
 
-| Other mod (packageId) | What the tie-in does |
-| --- | --- |
-| [sbz] Fridge (`sbz.NeatStorageFridge`) | The corpse fridge is a factory hopper |
-| Medicines+ (`Papito.MedicinesPlus.AT`), with Deep Pills (`ODs.DeepPills`, `MayRequire`) | Drug-lab recipes as medicine granulator bills |
-| Ushanka's Biological Warfare (`Ushanka.BiologicalWarfare`) | Vaccines, antiserums and pills as granulator bills |
-| Combat Extended | Psycho as a granulator bill |
-| Dubs Rimatomics | Potassium iodide bill; its machining table's bills at the fabrication bay |
-| Hemofungus (`NoSleep.Hemofungus`) | Hemogen from hemofungus |
-| Complementary Odyssey (`MrHydralisk.ComplementaryOdyssey`) | Vacsop bills |
-| Glitterworld Medicine Production (`MrHydralisk.GlitterworldMedicineProduction`) | Glitterworld medicine bill |
-| Farmable Neutroamine (`kongkim.FarmableNeutroamine`) | Neutroamine synthesizer bill |
-| Passive Exoskeletons (`AgentOrange.PassiveExoskeletons`) | Polyamide on the biofuel refinery |
-| Simple Washing Machine (`local.washingmachine`) | Detergents on the refinery |
-| Vanilla Cooking Expanded (`VanillaExpanded.VCookE`) | Simple soup on the conveyor oven |
-| Vanilla Chemfuel Expanded (`VanillaExpanded.VChemfuelE`) | Our bills draw piped chemfuel; VFE Factory's chemfuel steps re-applied where a Combat Extended clash skips them |
-| VRE Android (`vanillaracesexpanded.android`) | Granulator bills draw piped neutroamine |
-| Vehicle Framework (`SmashPhil.VehicleFramework`) | Every part made at D'thorga Framework's vehicle parts bench as a bill on the automated fabrication bay (0.13.0, SD30) |
-| Dubs Bad Hygiene | **C# + XML**: factory machines draw plumbed water; food bills wait for water and carry food-poisoning rules |
-| The Dead Man's Switch (`aoba.deadmanswitch.core`) | Factory hoppers link to its automatic benches as material sources; its feed hopper is a factory hopper whose filter belts obey (0.14.0, UH6) |
+| Other mod (packageId) | What the tie-in does | Where |
+| --- | --- | --- |
+| [sbz] Fridge (`sbz.NeatStorageFridge`) | The corpse fridge is a factory hopper | `Mods/SbzFridge` |
+| Medicines+ (`Papito.MedicinesPlus.AT`), with Deep Pills (`ODs.DeepPills`, `MayRequire`) | Drug-lab recipes as medicine granulator bills | `Mods/MedicinesPlus` |
+| Ushanka's Biological Warfare (`Ushanka.BiologicalWarfare`) | Vaccines, antiserums and pills as granulator bills | `Mods/BiologicalWarfare` |
+| Combat Extended | Psycho as a granulator bill | `Mods/CombatExtended` |
+| Dubs Rimatomics | Potassium iodide bill; its machining table's bills at the fabrication bay | `Mods/Rimatomics` |
+| Hemofungus (`NoSleep.Hemofungus`) | Hemogen from hemofungus | `Mods/Hemofungus` |
+| Complementary Odyssey (`MrHydralisk.ComplementaryOdyssey`) | Vacsop bills | `Mods/ComplementaryOdyssey` |
+| Glitterworld Medicine Production (`MrHydralisk.GlitterworldMedicineProduction`) | Glitterworld medicine bill | `Mods/GlitterworldMedicine` |
+| Farmable Neutroamine (`kongkim.FarmableNeutroamine`) | Neutroamine synthesizer bill | `Mods/FarmableNeutroamine` |
+| Passive Exoskeletons (`AgentOrange.PassiveExoskeletons`) | Polyamide on the biofuel refinery | `Mods/PassiveExoskeletons` |
+| Simple Washing Machine (`local.washingmachine`) | Detergents on the refinery | `Mods/WashingMachine` |
+| Vanilla Cooking Expanded (`VanillaExpanded.VCookE`) | Simple soup on the conveyor oven | `Mods/VanillaCookingExpanded` |
+| Vanilla Chemfuel Expanded (`VanillaExpanded.VChemfuelE`) | Our bills draw piped chemfuel; VFE Factory's chemfuel steps re-applied where a Combat Extended clash skips them | `Mods/VanillaChemfuelExpanded` |
+| VRE Android (`vanillaracesexpanded.android`) | Granulator bills draw piped neutroamine | `Mods/VanillaRacesExpandedAndroid` |
+| Vehicle Framework (`SmashPhil.VehicleFramework`) | Every part made at D'thorga Framework's vehicle parts bench as a bill on the automated fabrication bay (0.13.0, SD30) | `MayRequire` in `BenchBills_FabricationBay.xml` (no folder) |
+| Dubs Bad Hygiene | **C# + XML**: factory machines draw plumbed water; food bills wait for water and carry food-poisoning rules | `Mods/DubsBadHygiene`, its `1.7` assembly |
+| The Dead Man's Switch (`aoba.deadmanswitch.core`) | Factory hoppers link to its automatic benches as material sources; its feed hopper is a factory hopper whose filter belts obey (0.14.0, UH6) | `Mods/DeadManSwitch` |
 
 ## D'thorga Water Tap
 
 Hard dependencies: D'thorga Framework and Dubs Bad Hygiene.
 
-| Other mod (packageId) | What the tie-in does |
-| --- | --- |
-| VFE Factory (`VanillaExpanded.VFEFactory`) | The bottle tap is a factory hopper (XML) |
+| Other mod (packageId) | What the tie-in does | Where |
+| --- | --- | --- |
+| VFE Factory (`VanillaExpanded.VFEFactory`) | The bottle tap is a factory hopper (XML) | `Mods/VFEFactory` |
 
 ## D'thorga Patches
 
 C# lives in `src/PhobosPatches.*`. Rows marked **fault** are in [patches for other authors' faults](temporary-patches.md).
 
-| Other mod (packageId) | What the tie-in does | Kind |
-| --- | --- | --- |
-| Harrier VTOL | Build cost (RimThunder's turbine where present), part list, Combat Extended bomb weights and cases, bombs and rockets at The Dead Man's Switch's ammunition printer and lathe; hover gate, sortie and flight-control rules, crew keeps a map open; its dodge chance follows its controls and warning receiver, with a chaff and flares button (0.21.0, A12, A16) | XML + C# |
-| Harrier, Hind, Mongoose | Rearm one ammunition kind at a time (**fault**) | C# |
-| Harrier, Hind, Mongoose, Close Air Support, EA-6B Prowler, with Combat Extended | Bombs and missiles built from parts at their real weight; the missile seeker head | XML (`Mods/AircraftMunitions`) |
-| Close Air Support (`potemkinvillager.CloseAirSupport`) | Shell cost, parts and parts bill for the A-10 and Su-25; realistic handling, a setting (off) | XML + C# (its settings) |
-| UH-60 Black Hawk, C-17 Globemaster III | Shell cost and parts bill | XML |
-| EA-6B Prowler | Parts list, parts bill and shell cost; rearm one kind at a time; its dodge follows its controls and warning receiver, with a chaff and flares button; the ICAP upgrades widen its jamming field; realistic handling, off (0.33.0) | XML + C# |
-| RimThunder (`RimThunder.Core`) | Heavy castings in batches at DMS Expedition's lathe | XML |
-| Vehicle Framework | Fires a vehicle can never lose (**fault**, temporary); the game's progress bar on its work (**fault**) | C# |
-| Spaceship Turret Hull + Combat Extended (`MK.SpaceshipTurretHull`) | Combat Extended support for its turret hulls | XML |
-| Combat Extended | Guard against empty ammunition-set entries, Synthriada's fault (**fault**, temporary) | C# |
-| InterRim Ballistic Missile (`kazepsi.irbm`) + Combat Extended | Its close-in weapon systems shoot down CE's shells (0.19.1, AD14; **fault**, temporary; a setting) | C# |
-| InterRim Ballistic Missile (`kazepsi.irbm`) | Paced strategic sweep (**fault**); our blast model for the extinction warhead; quiet "area revealed" letters; Rimatomics fallout and flash-blindness; Combat Extended wall fragments setting; RimPacts assault size after a strike | C# + XML |
-| RimPacts (`wowgag.RimPacts`) | War quest countdown; arrival-filter fix (**fault**); the sortie gate says why | C# |
-| Visit Settlements (`ninagoblin.visitsettlements`) | Visited map stays open during a battle (**fault**); food-drop guard (**fault**) | C# |
-| Prison Labor (`avius.prisonlabor`) | Crash guard (**fault**, temporary) | C# |
-| Vanilla Factions Expanded - Classical (`OskarPotocki.VFE.Classical`) | A scorpion raid saved mid-raid loads with its orders (**fault**) | C# |
-| Nice Research Tab (`andromeda.niceresearchtab`) | A lock and blank removal around its cached unlock list (**fault**) | C# |
-| Biotech (`ludeon.rimworld.biotech`) | Mech rechargers draw real power by the mech's body size (a setting, off) | XML + C# |
-| Fortified Features Framework (`AOBA.Framework`) | Haulers keep its drone platforms, and mechanitors its store-carrying mechanoids, topped up with steel (0.22.0, mechanoids with Framework 0.135.0; a `PhobosTopUpDef` naming three members of its platform comp, read by D'thorga Framework) | XML, by name |
-| Vanilla Expanded Framework outposts + Vehicle Framework | Refuses founding an outpost from a caravan holding a vehicle (a setting) | C# |
+| Other mod (packageId) | What the tie-in does | Kind | Where |
+| --- | --- | --- | --- |
+| Harrier VTOL | Build cost (RimThunder's turbine where present), part list, Combat Extended bomb weights and cases, bombs and rockets at The Dead Man's Switch's ammunition printer and lathe; hover gate, sortie and flight-control rules, crew keeps a map open; its dodge chance follows its controls and warning receiver, with a chaff and flares button (0.21.0, A12, A16) | XML + C# | `Mods/HarrierVtol` |
+| Harrier, Hind, Mongoose | Rearm one ammunition kind at a time (**fault**) | C# | `Mods/AircraftRearm/1.7` |
+| Harrier, Hind, Mongoose, Close Air Support, EA-6B Prowler, with Combat Extended | Bombs and missiles built from parts at their real weight; the missile seeker head | XML (`Mods/AircraftMunitions`) | `Mods/HindHelicopter`, `Mods/MongooseHelicopter` (their missiles) |
+| Close Air Support (`potemkinvillager.CloseAirSupport`) | Shell cost, parts and parts bill for the A-10 and Su-25; realistic handling, a setting (off) | XML + C# (its settings) | `Mods/CloseAirSupport` |
+| UH-60 Black Hawk, C-17 Globemaster III | Shell cost and parts bill | XML | `Mods/UH60Blackhawk`, `Mods/C17Globemaster` |
+| EA-6B Prowler | Parts list, parts bill and shell cost; rearm one kind at a time; its dodge follows its controls and warning receiver, with a chaff and flares button; the ICAP upgrades widen its jamming field; realistic handling, off (0.33.0) | XML + C# | `Mods/EA6BProwler` |
+| RimThunder (`RimThunder.Core`) | Heavy castings in batches at DMS Expedition's lathe | XML | `Mods/RimThunder` |
+| Vehicle Framework | Fires a vehicle can never lose (**fault**, temporary); the game's progress bar on its work (**fault**) | C# | `Mods/VehicleFramework` |
+| Spaceship Turret Hull + Combat Extended (`MK.SpaceshipTurretHull`) | Combat Extended support for its turret hulls | XML | `Mods/SpaceshipTurretHull` |
+| Combat Extended | Guard against empty ammunition-set entries, Synthriada's fault (**fault**, temporary) | C# | `Mods/CombatExtended` |
+| InterRim Ballistic Missile (`kazepsi.irbm`) + Combat Extended | Its close-in weapon systems shoot down CE's shells (0.19.1, AD14; **fault**, temporary; a setting) | C# | `Mods/IRBM` |
+| InterRim Ballistic Missile (`kazepsi.irbm`) | Paced strategic sweep (**fault**); our blast model for the extinction warhead; quiet "area revealed" letters; Rimatomics fallout and flash-blindness; Combat Extended wall fragments setting; RimPacts assault size after a strike | C# + XML | `Mods/IRBM` |
+| RimPacts (`wowgag.RimPacts`) | War quest countdown; arrival-filter fix (**fault**); the sortie gate says why | C# | `Mods/RimPacts/1.7` |
+| Visit Settlements (`ninagoblin.visitsettlements`) | Visited map stays open during a battle (**fault**); food-drop guard (**fault**) | C# | `Mods/VisitSettlements/1.7` |
+| Vanilla Factions Expanded - Classical (`OskarPotocki.VFE.Classical`) | A scorpion raid saved mid-raid loads with its orders (**fault**) | C# | `Mods/Classical/1.7` |
+| Nice Research Tab (`andromeda.niceresearchtab`) | A lock and blank removal around its cached unlock list (**fault**) | C# | `Mods/NiceResearchTab/1.7` |
+| Biotech (`ludeon.rimworld.biotech`) | Mech rechargers draw real power by the mech's body size (a setting, off) | XML + C# | `Mods/Biotech` |
+| Fortified Features Framework (`AOBA.Framework`) | Haulers keep its drone platforms, and mechanitors its store-carrying mechanoids, topped up with steel (0.22.0, mechanoids with Framework 0.135.0; a `PhobosTopUpDef` naming three members of its platform comp, read by D'thorga Framework) | XML, by name | `Mods/Fortified` |
+| Vanilla Expanded Framework outposts + Vehicle Framework | Refuses founding an outpost from a caravan holding a vehicle (a setting) | C# | `Mods/Outposts` |
 
 ## Local only, outside the repository
 

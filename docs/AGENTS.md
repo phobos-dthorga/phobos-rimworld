@@ -22,6 +22,9 @@ for word; the root's rules apply here too.
   builds it. What a version delivered goes in its changelog; the record keeps only what differs from its design.
   `scripts/check-doc-status.py` refuses an opening that says nothing is built while the record records a build, and
   `scripts/check-doc-links.py` checks every `#anchor` against the headings it names.
+- **The tie-in register (`docs/development/tie-in-register.md`) is held to the mods by the gate** (owner's question card, 24 Nov
+  2026): a change that adds, removes or renames a mod's `IfModActive` folder (or its tie-in assembly folder) edits the register's row
+  and its counts in the same commit; `tests/test_tie_in_register.py` fails while a mod's `LoadFolders.xml` and its section disagree.
 - Diagrams are Mermaid and never Figma (the shared rules); do not suggest or mention Figma's connector either.
 - Beyond the shared rule on writing plainly: gotchas at the top, and restate a key detail where it matters again instead of
   "see above".
