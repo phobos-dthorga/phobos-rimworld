@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "448": ["vehicles.set-up-over-pipes"],
     "447": {"parts": {
       "the belt snaps": ["vehicles.sound.belt-snap"],
       "the dyno bay's hoist": ["vehicles.sound.hoist"]

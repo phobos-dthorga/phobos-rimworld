@@ -530,7 +530,10 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
     static IntVec3 CentreFor(CellRect rect, Rot4 rot, IntVec2 size) =>
         rect.Cells.FirstOrDefault(c => GenAdj.OccupiedRect(c, rot, size).Equals(rect), IntVec3.Invalid);
 
-    /// <summary>Why a piece cannot stand on this cell, or null. People and grass are no bar: a bed goes down where someone stands.</summary>
+    /// <summary>Why a piece cannot stand on this cell, or null. People and grass are no bar: a bed goes down where someone stands. Nor is
+    /// what lies under the floor, a pipe or a power conduit (Framework 0.270.1, <see cref="Phobos.Framework.Buildings.BuildOver"/>): only a
+    /// building that stands on the cell blocks. The camp's pieces share this one check, so it does not know which piece comes; a piece
+    /// that itself carried power on would replace a conduit under it, as the game's own building does, and none of the camp's does.</summary>
     string? CellRefusal(IntVec3 cell, Map map, HashSet<IntVec3> used)
     {
         if (!cell.InBounds(map)) return "PhobosSetOut_BlockedEdge".Translate().Resolve();
@@ -538,6 +541,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
         if (!cell.Standable(map) && cell.GetEdifice(map) == null) return "PhobosSetOut_BlockedGround".Translate().Resolve();
         foreach (Thing thing in cell.GetThingList(map))
         {
+            if (thing is Building && !Phobos.Framework.Buildings.BuildOver.Blocks(thing, null)) continue;
             if (thing is Building or Blueprint or Frame) return "PhobosSetOut_BlockedBuilding".Translate(thing.LabelShort.Named("THING")).Resolve();
             if (thing.def.category == ThingCategory.Item) return "PhobosSetOut_BlockedItem".Translate(thing.LabelShort.Named("THING")).Resolve();
             if (thing is Plant { def.plant.IsTree: true }) return "PhobosSetOut_BlockedTree".Translate().Resolve();

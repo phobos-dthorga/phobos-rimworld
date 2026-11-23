@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.270.1] - 2026-11-23 - Draft
+
+A trailer sets up over pipes and conduits
+
+### Fixed
+
+- **A trailer or a camp sets up over what lies under the floor** (the owner's report of 23 November 2026: the field kitchen refused, naming underground pipes as in the way). Setting up treated every building on a cell as an obstacle, pipes and power conduits included, though the game lets you build over them. It now follows the game's own rule: only something standing on the ground blocks, and a piece that would replace what is under it is still refused, so nothing of yours is removed. Not yet tested in game: row 448 of the test pass.
+
 ## [0.270.0] - 2026-11-23 - Draft
 
 Night 12's vehicle sounds

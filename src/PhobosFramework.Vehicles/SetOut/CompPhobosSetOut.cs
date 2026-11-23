@@ -130,7 +130,9 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
         return layout;
     }
 
-    /// <summary>Why this cell cannot take a set-out piece, or null. Every thing in it is looked at, not only buildings: another mod's tent is no edifice.</summary>
+    /// <summary>Why this cell cannot take a set-out piece, or null. Every thing in it is looked at, not only buildings: another mod's tent is
+    /// no edifice. What lies under the floor (a pipe, a power conduit) is no bar, as it is none to the player's own building (Framework
+    /// 0.270.1, <see cref="Phobos.Framework.Buildings.BuildOver"/>).</summary>
     string? CellRefusal(IntVec3 cell, Map map, ThingDef? def)
     {
         if (!cell.InBounds(map)) return "PhobosSetOut_BlockedEdge".Translate().Resolve();
@@ -138,7 +140,15 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
         if (def?.terrainAffordanceNeeded is { } needed && !cell.GetTerrain(map).affordances.Contains(needed)) return "PhobosSetOut_BlockedGround".Translate().Resolve();
         foreach (Thing thing in cell.GetThingList(map))
         {
-            if (thing is Building) return "PhobosSetOut_BlockedBuilding".Translate(thing.LabelShort.Named("THING")).Resolve();
+            if (thing is Building)
+            {
+                if (!Phobos.Framework.Buildings.BuildOver.Blocks(thing, def))
+                {
+                    if (Seen.Wants("vehicles.set-up-over-pipes", Vehicle)) Seen.Note("vehicles.set-up-over-pipes", Vehicle, thing.def.defName);
+                    continue;
+                }
+                return "PhobosSetOut_BlockedBuilding".Translate(thing.LabelShort.Named("THING")).Resolve();
+            }
             if (thing is Blueprint or Frame) return "PhobosSetOut_BlockedBuilding".Translate(thing.LabelShort.Named("THING")).Resolve();
             if (thing is Pawn) return "PhobosSetOut_BlockedPawn".Translate(thing.LabelShort.Named("THING")).Resolve();
             if (thing.def.category == ThingCategory.Item) return "PhobosSetOut_BlockedItem".Translate(thing.LabelShort.Named("THING")).Resolve();
