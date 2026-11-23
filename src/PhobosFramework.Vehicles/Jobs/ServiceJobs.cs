@@ -98,7 +98,8 @@ public class WorkGiver_PhobosLoadServiceSupplies : WorkGiver_Scanner
     static Thing? Find(Pawn pawn, ThingDef def) => Phobos.Framework.Items.ItemFinder.FindNearest(pawn, def);
 }
 
-/// <summary>Carries the supply to the vehicle and puts it in its cargo.</summary>
+/// <summary>Carries the supply to the vehicle and lays it out in its work store (Framework 0.272.0), never its cargo: no cargo room is
+/// needed, so a small hold or another mod's cargo check never stops the work. A vehicle with no store takes it into its cargo as before.</summary>
 public class JobDriver_PhobosLoadServiceSupplies : JobDriver
 {
     const TargetIndex VehicleIndex = TargetIndex.A;
@@ -123,7 +124,8 @@ public class JobDriver_PhobosLoadServiceSupplies : JobDriver
             {
                 Thing? carried = pawn.carryTracker.CarriedThing;
                 if (carried == null) return;
-                pawn.carryTracker.innerContainer.TryTransferToContainer(carried, Vehicle.inventory.innerContainer, carried.stackCount);
+                if (Vehicle.GetComp<CompPhobosVehicleSystems>()?.WorkStore is { } store) store.Stow(pawn, carried);
+                else pawn.carryTracker.innerContainer.TryTransferToContainer(carried, Vehicle.inventory.innerContainer, carried.stackCount);
             },
             defaultCompleteMode = ToilCompleteMode.Instant,
         };

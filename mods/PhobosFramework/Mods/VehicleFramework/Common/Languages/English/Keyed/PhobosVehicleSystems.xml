@@ -1053,6 +1053,9 @@
   <PhobosVehicleSystems_GlassArmoured>armoured glass</PhobosVehicleSystems_GlassArmoured>
   <PhobosVehicleSystems_GlassVisionBlocks>vision blocks</PhobosVehicleSystems_GlassVisionBlocks>
   <PhobosVehicleSystems_GlassWindscreen>windscreen</PhobosVehicleSystems_GlassWindscreen>
+  <!-- Framework 0.272.0: the work store, what haulers lay out beside a vehicle for its own work. -->
+  <PhobosVehicleSystems_WorkStoreInspect>Laid out for its work: {THINGS}</PhobosVehicleSystems_WorkStoreInspect>
+  <PhobosVehicleSystems_WorkStoreSetDown>The {VEHICLE} has no work waiting, so what was laid out for it has been set down beside it.</PhobosVehicleSystems_WorkStoreSetDown>
   <PhobosVehicleSystems_GlassGoneWindscreen>gone</PhobosVehicleSystems_GlassGoneWindscreen>
   <PhobosVehicleSystems_GlassGoneWindows>The glass is gone: there is nothing to wind up until it is re-glazed.</PhobosVehicleSystems_GlassGoneWindows>
   <PhobosVehicleSystems_RepairReglaze>re-glazing the {PART}</PhobosVehicleSystems_RepairReglaze>

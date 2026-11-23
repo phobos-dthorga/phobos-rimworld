@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.272.0] - 2026-11-23 - Draft
+
+Work materials laid out beside the vehicle
+
+### Changed
+
+- **What haulers bring for a vehicle's service, repair or fitting is laid out beside it, not loaded into its cargo** (the owner's report of 23 November 2026: an A-10 refitting its engines filled its 75 kg hold with the two new engines, could take nothing more, and could barely take off). Like Vehicle Framework's own upgrades, the work keeps its materials apart: no cargo room, no weight. Supplies already in the hold that waiting work needs are taken out of it, and leftovers are set down beside the vehicle once no work waits. Not yet tested in game: row 451 of the test pass.
+
+### Fixed
+
+- **A part counted in ones is one on any vehicle**: a heavier vehicle's fitting asked for more of every material, so the A-10's new engines each asked for two turbine assemblies. Only bulk materials (steel, plasteel, components) now grow with the vehicle, as upgrades already did.
+
+### Save compatibility
+
+- Safe to update mid-game. Supplies a vehicle already carries for its work still count, and move out of the hold at its next look.
+
 ## [0.271.0] - 2026-11-23 - Draft
 
 Food in a tank keeps its ingredients, and a caravan eats from it

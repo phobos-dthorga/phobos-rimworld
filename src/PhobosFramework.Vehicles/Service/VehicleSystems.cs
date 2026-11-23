@@ -230,6 +230,8 @@ public static class VehicleSystems
         VehicleEmp.Rate(def, loadout, props);
         def.comps ??= new List<CompProperties>();
         def.comps.Add(props);
+        // The work store (Framework 0.272.0): supplies for its services, repairs and fittings are laid out beside it, never in its cargo.
+        if (!def.comps.Any(c => c is CompProperties_PhobosWorkStore)) def.comps.Add(new CompProperties_PhobosWorkStore());
         // Sling loads (Framework 0.92.0): a loadout that rates a cargo hook gives the helicopter its sling, used once a hook is fitted.
         if (loadout.sling != null && !slingStandsDown && !def.comps.Any(c => c is CompProperties_PhobosSling)) def.comps.Add(new CompProperties_PhobosSling());
         // Countermeasures (Framework 0.180.0): an aircraft whose avionics carry chaff and flare dispensers gets their magazine, which haulers

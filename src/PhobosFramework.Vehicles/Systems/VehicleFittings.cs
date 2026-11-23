@@ -186,9 +186,13 @@ public sealed class VehicleFittings
     public List<ThingDefCountClass> MaterialsFor(IEnumerable<ThingDefCountClass> listed)
     {
         double factor = CostFactor(Rules.fitMaterialWeightExponent, Settings.fitMaterialFactor);
-        // A whole machine (a building named as a material, fitted packed: Framework 0.265.0) is the same one machine on any vehicle.
+        // A whole machine (a building named as a material, fitted packed: Framework 0.265.0) is the same one machine on any vehicle; so is a
+        // part counted in ones (Framework 0.272.0; the owner's A-10 of 23 Nov 2026 asked two turbine assemblies for each engine): only
+        // bulk materials grow with the vehicle, by the rule upgrade nodes already priced by (FitCostRule.IsBulk).
+        int bulkAbove = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().upgradeBulkStackAbove;
         return listed.Select(m => new ThingDefCountClass(m.thingDef,
-            Phobos.Framework.Items.PackedThings.Packs(m.thingDef) ? m.count : FitCostRule.Count(m.count, factor))).ToList();
+            Phobos.Framework.Items.PackedThings.Packs(m.thingDef) || !FitCostRule.IsBulk(m.thingDef.stackLimit, bulkAbove) ? m.count
+                : FitCostRule.Count(m.count, factor))).ToList();
     }
 
     /// <summary>The work in ticks a fitting or tune takes on this vehicle.</summary>

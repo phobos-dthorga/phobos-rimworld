@@ -409,7 +409,10 @@ public static class VehicleSelfTest
         List<ThingDefCountClass> materials = comp.Fittings.MaterialsFor(def.materials);
         for (int i = 0; i < def.materials.Count; i++)
         {
-            int expected = FitCostRule.Count(def.materials[i].count, byWeight(rules.fitMaterialWeightExponent) * settings.fitMaterialFactor);
+            // A part counted in ones, or a packed machine, is one whatever the vehicle (Framework 0.272.0); bulk follows the weight.
+            ThingDef material = def.materials[i].thingDef;
+            bool fixedCount = Phobos.Framework.Items.PackedThings.Packs(material) || !FitCostRule.IsBulk(material.stackLimit, rules.upgradeBulkStackAbove);
+            int expected = fixedCount ? def.materials[i].count : FitCostRule.Count(def.materials[i].count, byWeight(rules.fitMaterialWeightExponent) * settings.fitMaterialFactor);
             test.Expect("A fitting's " + def.materials[i].thingDef.label + " follows the weight and the preset", materials[i].count == expected,
                 "asked " + materials[i].count + ", the rule gives " + expected);
             test.Expect("A fitting never costs none of a material it lists", materials[i].count >= 1);

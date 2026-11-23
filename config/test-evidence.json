@@ -3,6 +3,10 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "451": {"parts": {
+      "haulers lay supplies out": ["vehicles.work-store"],
+      "supplies leave the hold": ["vehicles.work-store.from-cargo"]
+    }},
     "450": ["trailers.caravan-ate-from-tank"],
     "449": {"parts": {
       "the tank takes the vats' ingredients": [{"key": "vehicles.tank-ingredients", "variant": "in"}],

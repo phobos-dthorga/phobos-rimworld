@@ -920,6 +920,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 Lamps.Update();
                 Beams.Update();
                 CookOff.RareTick(this);
+                // The work store (Framework 0.272.0): what the work needs comes out of the cargo room; leftovers are set down once no work is pending.
+                WorkStore?.TakeOutOfCargo(this);
+                WorkStore?.SetDownLeftovers(this);
                 FireWear.RareTick(this, lite: false);
                 // A leaking tank feeds the fire (Framework 0.245.0, FR4; a setting, off): read only while the vehicle burns.
                 LeakFire.RareTick(this);
@@ -2272,9 +2275,18 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (chosen != null) Conditions.Add(def, chosen, role, system, amount, causeKey == null ? null : Phobos.Framework.Persistence.CauseNote.Strain(causeKey, Vehicle.Tile));
     }
 
-    /// <summary>Uses up so many of a thing from the vehicle's cargo; in a convoy away from any map, from the whole convoy's (Framework 0.181.0, EM1).</summary>
+    /// <summary>Uses up so many of a thing from the vehicle's work store, then its cargo; in a convoy away from any map, the whole convoy's
+    /// (Framework 0.181.0, EM1). The store first (Framework 0.272.0), so supplies an older save carried in the hold are still used.</summary>
     // A building named as a supply is used up packed (PackedThings, Framework 0.265.0).
-    internal void TakeFromCargo(ThingDef def, int count) => Phobos.Framework.Items.PackedThings.Take(CargoNow(), def, count);
+    internal void TakeFromCargo(ThingDef def, int count)
+    {
+        int fromStore = WorkStore?.Take(def, count) ?? 0;
+        if (fromStore < count) Phobos.Framework.Items.PackedThings.Take(CargoNow(), def, count - fromStore);
+    }
+
+    /// <summary>Where haulers lay out the supplies for this vehicle's own work (Framework 0.272.0): no cargo room, no weight.</summary>
+    public CompPhobosWorkStore? WorkStore => workStore ??= Vehicle?.GetComp<CompPhobosWorkStore>();
+    CompPhobosWorkStore? workStore;
 
     /// <summary>A destroyed part replaced: back to a share of its full health, from which the ordinary free repair continues.</summary>
     internal void RestorePart(VehicleComponent part, float healthShare)
@@ -3087,8 +3099,10 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     public IEnumerable<ServiceSpec> AllServices() => Props.systems.Select(s => s.def.service).OfType<ServiceSpec>();
 
-    /// <summary>How many of a supply the cargo holds; a building named as a supply is counted packed (PackedThings, Framework 0.265.0).</summary>
-    internal int CountInCargo(ThingDef def) => Phobos.Framework.Items.PackedThings.Count(CargoNow(), def);
+    /// <summary>How many of a supply the work store and the cargo hold between them (the store since Framework 0.272.0); a building named
+    /// as a supply is counted packed (PackedThings, Framework 0.265.0).</summary>
+    internal int CountInCargo(ThingDef def) =>
+        Phobos.Framework.Items.PackedThings.Count(CargoNow(), def) + (WorkStore is { Empty: false } store ? Phobos.Framework.Items.PackedThings.Count(store.Held, def) : 0);
 
     /// <summary>The convoy this vehicle travels in away from any map, whose cargo its repairs and services may use; null on a map, where
     /// haulers bring supplies to the vehicle itself.</summary>
@@ -3098,9 +3112,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     /// <summary>Everything every due service still lacks in the vehicle's cargo, added up by kind (the core's SupplyRules), so the
     /// haulers fetch it all and the vehicle says it all.</summary>
-    public List<(ThingDef def, int count)> MissingSupplies() =>
-        SupplyRules.Shortfall(DueServices().Where(s => s.Def.service != null)
-            .Select(s => s.Def.service!.SuppliesNow.Select(supply => (supply.thingDef, supply.count))).Concat(Repairs.UnmetPayments()), CountInCargo);
+    public List<(ThingDef def, int count)> MissingSupplies() => SupplyRules.Shortfall(SupplyNeeds(), CountInCargo);
+
+    /// <summary>What the due services and the repairs nothing aboard can pay for each ask, one list each.</summary>
+    internal IEnumerable<IEnumerable<(ThingDef thingDef, int count)>> SupplyNeeds() =>
+        DueServices().Where(s => s.Def.service != null)
+            .Select(s => s.Def.service!.SuppliesNow.Select(supply => (supply.thingDef, supply.count))).Concat(Repairs.UnmetPayments());
 
     /// <summary>The first supply the due services still lack, for a hauler to fetch.</summary>
     public bool MissingSupply(out ThingDef? def, out int count)

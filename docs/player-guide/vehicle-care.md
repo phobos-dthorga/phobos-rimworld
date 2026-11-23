@@ -389,8 +389,13 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **Grades**: **salvaged** parts are cheap, frail and fault-prone, and cannot hold a fitting; **heavy-duty** parts cost more, take
   more punishment and shrug off faults. Choose one when a part is destroyed, or to refit a working part.
 - **It is real work.** Materials are brought, then a mechanic works: a turbocharger on a 5-tonne vehicle is about 12 hours and 100
-  steel and 10 components; a power tune about 10 hours. Bigger vehicles cost more. **Demanding work needs a minimum Construction
-  skill**; a mechanic below it is told why.
+  steel and 10 components; a power tune about 10 hours. Bigger vehicles cost more bulk materials (steel, plasteel, components), but **a
+  part counted in ones, such as a new engine, is one whatever the vehicle**. **Demanding work needs a minimum Construction skill**; a
+  mechanic below it is told why.
+- **What haulers bring for the work is laid out beside the vehicle, not loaded into it** (not yet tested in game): it takes no cargo
+  room and adds no weight, so a jet with a small hold can be refitted, and services and repairs work the same way. The vehicle's
+  inspect line lists what is laid out. Supplies already in the hold that the work needs are taken out of it and laid out too. When
+  no work is waiting any more (an order called off, or something to spare), what is left is set down beside the vehicle.
 - **Our own vehicles' upgrades cost the same way**, under the same three settings (**Time to fit and tune**, **Materials to fit and
   tune**, **Bigger vehicles cost more to fit and tune**); taking one off refunds a share of what it cost. Other mods' upgrades keep
   their own costs.
