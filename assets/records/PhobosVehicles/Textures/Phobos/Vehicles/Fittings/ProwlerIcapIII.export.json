@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Fittings/ProwlerIcapIII.png",
+  "source": "assets/vehicle-systems/generated/n12-icap-iii/n12-icap-iii-12.png",
+  "source_sha256": "89a175375ac29efa074045f178145fe0be72b2da20a3e0e8228f3975cd1a8b6f",
+  "target_sha256": "41d3229cb800015fc5d8fcdad509daefe23342cd19c35ead2ce354a5d3c5e299",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "89a175375ac29efa074045f178145fe0be72b2da20a3e0e8228f3975cd1a8b6f",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T23:39:27",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

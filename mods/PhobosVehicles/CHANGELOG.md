@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.116.1] - 2026-11-23 - Draft
+
+The Prowler's ICAP fittings get their own pictures
+
+### Fixed
+
+- **The EA-6B Prowler's ICAP II and ICAP III fittings show their own icons** (the owner's picks of 23 November 2026 on D'thorga Companion's Picks page, the vanilla look, try 12 of each), where they had no picture at all. Made on the owner's graphics card in night 12's run. Not yet tested in game.
+
 ## [0.116.0] - 2026-11-23 - Draft
 
 The paste bowser, the Billy's paste tap and paste bakes
