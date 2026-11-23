@@ -151,11 +151,12 @@
       <li Class="Vehicles.CompProperties_UpgradeTree">
         <def>Phobos_ChaserBin_UpgradeTree</def>
       </li>
-      <!-- How it follows (authored, as the 3 x 7 flatbed's): its axle 4.3 cells behind the hitch, the middle of its picture 0.27 cells
-           ahead of the axle, turned at most 70 degrees from the vehicle towing it. -->
+      <!-- How it follows, measured from its picture (Farming 0.7.9: the flatbed's 4.3 and 0.27 left the drawbar's eye 0.62 cells short of
+           the hitch): the eye 3.41 cells ahead of the picture's middle, its axle 0.17 behind it, so the axle is 3.58 cells behind the hitch.
+           Turned at most 70 degrees from the vehicle towing it (authored). -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
-        <hitchToAxle>4.3</hitchToAxle>
-        <axleToCentre>0.27</axleToCentre>
+        <hitchToAxle>3.58</hitchToAxle>
+        <axleToCentre>0.17</axleToCentre>
         <jackKnifeDegrees>70</jackKnifeDegrees>
         <drawbarPart>Drawbar</drawbarPart>
       </li>

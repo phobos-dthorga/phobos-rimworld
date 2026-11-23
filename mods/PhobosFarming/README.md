@@ -5,7 +5,7 @@ cuts it, row by row by themselves.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.7.8, built 23 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.7.9, built 23 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 

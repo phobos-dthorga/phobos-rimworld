@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.113.3] - 2026-11-23 - Draft
+
+Trailers hitch up close
+
+### Fixed
+
+- **Trailers hitch up close** (the owner's report of 23 November 2026, the fuel bowser behind the L-ATV). The flatbed trailer, both bowsers, the shower trailer and the field kitchen stood up to a tile behind whatever towed them: their tow lengths were guessed, not measured, and put each about 0.8 cells further back than its drawbar reaches. They are now measured from each trailer's picture, its axles too, so it also swings about its own wheels. Not yet tested in game: row 441 of the test pass.
+
+### Save compatibility
+
+- A trailer already hitched moves up to its new place when the map loads, where the ground is clear, or else the next time its vehicle moves.
+
 ## [0.113.2] - 2026-11-23 - Draft
 
 The Osprey's cabin keeps its litters with either litter kit

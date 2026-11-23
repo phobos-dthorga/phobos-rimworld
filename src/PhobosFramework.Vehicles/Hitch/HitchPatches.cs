@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using HarmonyLib;
 using RimWorld.Planet;
+using UnityEngine;
+using Vehicles;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -18,4 +21,29 @@ namespace Phobos.VehicleSystems;
 public static class HeldTrailerStaysHeld
 {
     public static bool Prefix(Pawn pawn) => pawn?.ParentHolder is not CompPhobosHitch;
+}
+
+/// <summary>
+/// A hitched trailer is drawn where its tow puts it, not at the middle of its cells (Framework 0.265.1; the owner's report of 23 Nov 2026,
+/// a trailer standing about a tile off the L-ATV, half a cell of it from the snap to whole cells). Vehicle Framework's glide aims every
+/// vehicle at the middle of its cells, and the one nudge it offers, <c>Transform.position</c>, is drawn twice (its <c>DrawPos</c> adds it and
+/// <c>DynamicDrawPhaseAt</c> adds it again), so an offset there would put the picture and everything asking <c>DrawPos</c> apart. Adding the
+/// rest of the place to the glide's aim keeps them together, and the glide carries it smoothly when the trailer's cells change. Vehicle
+/// Framework has no extension point for it. A postfix: a vehicle not on a hitch gets nought added.
+/// </summary>
+[HarmonyPatch(typeof(VehicleTweener), "TweenedPosRoot")]
+public static class TowedDrawnInPlace
+{
+    public static void Postfix(VehiclePawn ___vehicle, ref Vector3 __result)
+    {
+        Vector3 offset = Hitches.DrawOffset(___vehicle);
+        if (offset == Vector3.zero) return;
+        __result += offset;
+        // Noted here rather than where the offset is worked out: it says the glide took it (the patch applied), not only that we had one.
+        if (Seen.Wants("vehicles.hitch.drawn-in-place", ___vehicle))
+        {
+            Seen.Note("vehicles.hitch.drawn-in-place", ___vehicle, offset.x.ToString("0.00") + ", " + offset.z.ToString("0.00"),
+                values: new List<KeyValuePair<string, double>> { new("offset", offset.magnitude) });
+        }
+    }
 }

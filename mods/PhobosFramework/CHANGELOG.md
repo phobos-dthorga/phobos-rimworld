@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.265.1] - 2026-11-23 - Draft
+
+A hitched trailer is drawn on the hitch
+
+### Fixed
+
+- **A hitched trailer is drawn on the hitch** (the owner's report of 23 November 2026: behind the L-ATV, a trailer stood about a tile off it and half a cell to one side). A trailer's place snapped to whole cells, so it stood up to half a cell off along the tow and across it; it is now drawn where the tow puts it, and the short bar drawn between them ends at the trailer's drawbar eye. D'thorga Vehicles 0.113.3 and D'thorga Farming 0.7.9 fix the rest, their trailers' lengths. Not yet tested in game: row 441 of the test pass.
+
 ## [0.265.0] - 2026-11-23 - Draft
 
 Crew machines: a sleep accelerator in the cab bunk and at camp, a vitals monitor on the litters

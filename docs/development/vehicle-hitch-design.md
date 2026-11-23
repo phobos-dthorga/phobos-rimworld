@@ -231,6 +231,15 @@ The questions as they were put:
   only the turn goes through `Transform.rotation`, and Vehicle Framework's own glide (`VehicleTweener`, a spring toward the cell's
   middle) smooths each step. The gap at the hitch varies by up to half a cell; **a drawbar is drawn from the hitch to the trailer's front**
   each frame, so the eye sees the bar stretch rather than the trailer jump.
+  **Revised in Framework 0.265.1** (the owner's report of 23 Nov 2026: hitched to the L-ATV, the Pintle bowser stood about a tile off
+  it, and half a cell to one side). Two causes. Every trailer's authored lengths put its middle 0.6 to 0.8 cells further back than its
+  picture's drawbar reaches: they were scaled from the first 2 x 5 trailer, whose drawbar was this drawn line, not part of its picture.
+  The lengths are now measured from each picture (the drawbar's eye and the middle of the axles), and
+  `tests/test_trailer_hitch_reach.py` refuses a drawbar trailer whose lengths miss its eye by more than a tenth of a cell. And the
+  snap: a trailer now gets the rest of its place, under a cell, through a postfix on Vehicle Framework's glide target
+  (`TowedDrawnInPlace`, on `VehicleTweener.TweenedPosRoot`), which keeps the picture and everything reading `DrawPos` together where
+  `Transform.position` could not. The drawn line now ends at the drawbar's eye (or the footprint's front, for the recovery tow) and
+  covers only the glide's lag. Not yet tested in game: row 441.
 - **Four facings, not eight.** The trailer Def turns off diagonal facings and is drawn at the nearest of four plus up to 45 degrees.
   Our textures' east and south are the north turned by the export script, so the hand-over between facings should not show. Its
   footprint is the nearest facing's, a simplification at 45 degrees.

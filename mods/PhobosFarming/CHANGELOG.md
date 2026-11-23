@@ -14,6 +14,14 @@ tested in game unless an entry says the owner tested it.
   what each picture was cut from moved beside the art records, in the repository's assets folder; nothing a player sees
   changes.
 
+## [0.7.9] - 2026-11-23 - Draft
+
+The chaser bin hitches up close
+
+### Fixed
+
+- **The chaser bin hitches up close** (the owner's report of 23 November 2026 of trailers standing off the vehicle towing them): it had the flatbed trailer's tow lengths, which put it 0.6 cells behind where its drawbar reaches. They are now measured from its own picture. Not yet tested in game: row 441 of the test pass.
+
 ## [0.7.8] - 2026-11-23 - Draft
 
 The ground shows through the cultivator's roller

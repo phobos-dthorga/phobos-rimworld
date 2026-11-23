@@ -136,12 +136,12 @@
       <li Class="Vehicles.CompProperties_UpgradeTree">
         <def>Phobos_FlatbedTrailer_UpgradeTree</def>
       </li>
-      <!-- How it follows (authored): its axle 4.3 cells behind the hitch and the middle of its picture 0.27 cells ahead of the axle (the
-           3.2 and 0.2 of the 2 x 5 trailer, scaled with its picture by 4/3 in Vehicles 0.54.0), turned at most 70 degrees from the vehicle
-           towing it. -->
+      <!-- How it follows, measured from its picture (Vehicles 0.113.3: the authored 4.3 and 0.27 left the drawbar's eye 0.78 cells short of
+           the hitch): the eye 3.25 cells ahead of the picture's middle, the middle of the tandem axles 1.23 behind it, so the axle is 4.48
+           cells behind the hitch. Turned at most 70 degrees from the vehicle towing it (authored). -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
-        <hitchToAxle>4.3</hitchToAxle>
-        <axleToCentre>0.27</axleToCentre>
+        <hitchToAxle>4.48</hitchToAxle>
+        <axleToCentre>1.23</axleToCentre>
         <jackKnifeDegrees>70</jackKnifeDegrees>
         <drawbarPart>Drawbar</drawbarPart>
         <!-- A camper trailer (Framework 0.216.0, Vehicles 0.97.0; the owner, 22 Nov 2026): its deck takes a roof tent and an awning,

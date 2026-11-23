@@ -28,7 +28,8 @@ public sealed class PhobosHitchPointExtension : DefModExtension
 /// blocks and is blocked and can be shot (owner, 11 Nov 2026). While the vehicle towing it moves, the trailer's axle is dragged after the
 /// hitch by the game-free <see cref="HitchRule"/>; when the axle's pose puts the trailer's footprint on new cells, the trailer is moved there
 /// as Vehicle Framework moves a vehicle (its Position and Rotation, which Vehicle Framework's own patches follow with its regions), and the
-/// part of a turn the four facings cannot show is drawn through its public Transform. No Harmony. Added at start-up to land vehicles with a
+/// part of a turn the four facings cannot show is drawn through its public Transform; the part of its place under a cell is added to Vehicle
+/// Framework's glide by one postfix (<see cref="TowedDrawnInPlace"/>, Framework 0.265.1). Added at start-up to land vehicles with a
 /// loadout. Ticks only while hitched (Vehicle Framework's tick on request), and works only while the vehicle moves or the trailer settles.
 /// </summary>
 public sealed partial class CompPhobosHitch : VehicleComp
@@ -51,6 +52,12 @@ public sealed partial class CompPhobosHitch : VehicleComp
     bool needsLook;
     /// <summary>Why the vehicle it tows may not move, set up for work (an older save could hold one); read with the weight. Derived, never saved.</summary>
     string? heldBySetUp;
+    /// <summary>From the middle of the trailer's cells to where its tow puts it, in map units (Framework 0.265.1): added to Vehicle Framework's
+    /// glide by <see cref="TowedDrawnInPlace"/>. Derived, never saved: set again at the first look after a load.</summary>
+    Vector3 towedDrawOffset;
+
+    /// <summary>Where the trailer's picture stands off the middle of its cells while hitched.</summary>
+    internal Vector3 TowedDrawOffset => towedDrawOffset;
 
     static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
 
@@ -240,6 +247,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
         trailer = null;
         towedKg = 0;
         plainCap = 1f;
+        towedDrawOffset = Vector3.zero;
         Hitches.Forget(was);
         // Let go, a trailer is parked: it lays its pipes where it stands (Framework 0.111.0); a recovered vehicle too (0.120.5, H5).
         if (was.Spawned) Hitches.LookAtPipes(was);
@@ -395,6 +403,10 @@ public sealed partial class CompPhobosHitch : VehicleComp
             SayMoved(towed);
         }
         towed.Transform.rotation = (float)HitchRule.Remainder(pose.Heading);
+        // The rest of the place, under a cell (Framework 0.265.1): the trailer is drawn where the tow puts it, its drawbar's eye on the hitch,
+        // rather than at the middle of its cells up to half a cell off along the tow and across it.
+        (double tx, double tz) = HitchRule.TrueCentre(x, z, size.x, size.z, facing);
+        towedDrawOffset = new Vector3((float)(cx - tx), 0f, (float)(cz - tz));
         return true;
     }
 
@@ -632,17 +644,18 @@ public sealed partial class CompPhobosHitch : VehicleComp
 
     const string GuardKey = "A vehicle's hitch line";
 
-    /// <summary>A drawbar from the hitch to the front of the trailer's picture, drawn with the vehicle, only while towing. The trailer's
-    /// cells snap, and the bar stretches over the difference.</summary>
+    /// <summary>A drawbar from the hitch to the front of the trailer, drawn with the vehicle, only while towing: to its picture's drawbar eye,
+    /// or to its footprint's front where nearer (a vehicle on the recovery tow, whose bar this line is). Drawn in place, the trailer leaves
+    /// it almost nothing to cover but the glide's lag (Framework 0.265.1).</summary>
     public override void PostDraw()
     {
         base.PostDraw();
         if (winchTarget is { Spawned: true }) DrawWinchLine();
-        if (trailer is not { Spawned: true } || Geometry(trailer) == null) return;
+        if (trailer is not { Spawned: true } || Geometry(trailer) is not { } props) return;
         (double hx, double hz) = HitchPoint();
         Vector3 trailerCentre = ((Thing)trailer).DrawPos;
         double radians = (heading) * Mathf.Deg2Rad;
-        float half = trailer.def.Size.z / 2f;
+        float half = Mathf.Min((float)(props.HitchToAxle - props.AxleToCentre), trailer.def.Size.z / 2f);
         float y = AltitudeLayer.Pawn.AltitudeFor();
         var front = new Vector3(trailerCentre.x + (float)System.Math.Sin(radians) * half, y, trailerCentre.z + (float)System.Math.Cos(radians) * half);
         GenDraw.DrawLineBetween(new Vector3((float)hx, y, (float)hz), front, SimpleColor.White, 0.12f);
@@ -677,6 +690,15 @@ public static class Hitches
     {
         Check();
         towing.Remove(trailer);
+    }
+
+    /// <summary>Where a towed vehicle's picture stands off the middle of its cells; nought for any vehicle not on a hitch. Read every frame
+    /// for every vehicle drawn (TowedDrawnInPlace), so nothing is looked up while nothing is towed.</summary>
+    public static Vector3 DrawOffset(VehiclePawn vehicle)
+    {
+        if (towing.Count == 0) return Vector3.zero;
+        Check();
+        return towing.TryGetValue(vehicle, out CompPhobosHitch? hitch) ? hitch!.TowedDrawOffset : Vector3.zero;
     }
 
     /// <summary>

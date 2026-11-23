@@ -14,9 +14,10 @@ namespace Phobos.VehicleSystems;
 /// </summary>
 public sealed class CompProperties_PhobosTrailer : CompProperties
 {
-    /// <summary>From the hitch to the trailer's axle, in cells (the drawbar and the front of the deck).</summary>
+    /// <summary>From the hitch to the trailer's axle, in cells (the drawbar and the front of the deck). The trailer's middle stands
+    /// <c>hitchToAxle - axleToCentre</c> behind the hitch: measure both from the picture, so its drawbar's eye sits on the hitch.</summary>
     public float hitchToAxle = 3.2f;
-    /// <summary>From the axle forward to the middle of the trailer's picture, in cells.</summary>
+    /// <summary>From the axle forward to the middle of the trailer's picture, in cells (the middle of a tandem pair for two axles).</summary>
     public float axleToCentre = 0.2f;
     /// <summary>The most the trailer may stand turned from the vehicle towing it, in degrees (authored, not a force).</summary>
     public float jackKnifeDegrees = 70f;

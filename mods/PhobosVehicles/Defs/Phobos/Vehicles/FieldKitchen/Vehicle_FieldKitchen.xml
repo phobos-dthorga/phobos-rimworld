@@ -146,10 +146,12 @@
       <li Class="Vehicles.CompProperties_UpgradeTree">
         <def>Phobos_FieldKitchen_UpgradeTree</def>
       </li>
-      <!-- How it follows (authored): the bowsers' lengths, the same chassis. -->
+      <!-- How it follows, measured from its picture (Vehicles 0.113.3: the authored 4.9 and 0.31 left the drawbar's eye 0.79 cells short of
+           the hitch): the eye 3.71 cells ahead of the picture's middle, the middle of the tandem axles 1.17 behind it, so the axle is 4.88
+           cells behind the hitch. Turned at most 70 degrees from the vehicle towing it (authored). -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
-        <hitchToAxle>4.9</hitchToAxle>
-        <axleToCentre>0.31</axleToCentre>
+        <hitchToAxle>4.88</hitchToAxle>
+        <axleToCentre>1.17</axleToCentre>
         <jackKnifeDegrees>70</jackKnifeDegrees>
         <drawbarPart>Drawbar</drawbarPart>
         <!-- Its side takes camp gear (Framework 0.217.0, Vehicles 0.98.0; the owner, 22 Nov 2026): a side rail, and the camp order. -->
