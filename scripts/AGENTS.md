@@ -16,6 +16,7 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
 | --- | --- | --- |
 | Anything in a save: pawns, things, map grids, world, mood, what changed | `query-save.py` | `rimworld-save.md` |
 | A fault in the log | `triage-log.py` | `rimworld-log.md` |
+| The modders' reference site (DocFX), and which modder-facing types have no summary | `reference-site.py` | `docs/development/reference-site.md` (this repository) |
 | The game closed by itself; asking Windows for full dumps | `crash-dump.py` (`setup`) | `crash-dump.md` |
 | Which mod defines or patches a Def, and the Def as patched | `query-defs.py` | `rimworld-defs.md` |
 | The game's or another mod's code; what changed between builds | `query-code.py` (`compare`) | `rimworld-code.md`, `code.md` |

@@ -112,6 +112,13 @@
       ],
       "kinds": "folders",
       "why": "older builds unpacked from the assembly archive for comparing (scripts/assembly-archive.py); the archive keeps every one compressed, so these unpack again when needed"
+    },
+    {
+      "name": "Reference site builds",
+      "folder": "{setting:modkitCachePath}",
+      "match": ["rimworld-reference-site"],
+      "kinds": "folders",
+      "why": "the modders' reference site and its work files (scripts/reference-site.py build, about 125 MB); built again in about 45 s"
     }
   ]
 }

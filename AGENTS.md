@@ -103,6 +103,7 @@ Use the tool before reading raw files; how to use each is in [`scripts/AGENTS.md
 | How long the game takes to start | `python scripts/startup-impact.py` |
 | Which mods are ready for a game version | `python scripts/version-readiness.py` |
 | The settings the owner plays with | `python scripts/mod-settings.py` |
+| The modders' reference site; types with no summary | `python scripts/reference-site.py` |
 | The owner's mod list | `python scripts/refresh-mod-list.py` |
 | A mod's Workshop page, comments, a collection | `python scripts/workshop-research.py` |
 | A mod's version, everywhere it is written | `python scripts/release.py constants` |

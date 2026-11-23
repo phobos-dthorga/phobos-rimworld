@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "description": "The modders' reference website (owner's decision D3, 23 Nov 2026; scripts/reference-site.py). projects: the source folders whose XML-facing types get an XML example and must carry a <summary>. categories: the kinds of XML-facing type, matched against each type's nearest base class by name, first match wins, so a narrower kind comes before a wider one. references: the NuGet packages DocFX compiles our source against (versions from Directory.Build.targets). knownGaps: XML-facing types without a <summary> when the check began, so the check blocks only new ones; take a name out when it gets its summary (check --write-baseline).",
+  "repository": "https://github.com/phobos-dthorga/phobos-rimworld",
+  "guides": [
+    "docs/framework-modding.md",
+    "docs/vehicle-systems-modding.md"
+  ],
+  "projects": [
+    "src/PhobosFramework",
+    "src/PhobosFramework.Vehicles",
+    "src/PhobosMedical",
+    "src/PhobosFactory",
+    "src/PhobosFarming"
+  ],
+  "restoreProject": "src/PhobosFramework/PhobosFramework.csproj",
+  "references": [
+    {
+      "package": "Krafs.Rimworld.Ref",
+      "folder": "ref/net10.0",
+      "exclude": [
+        "Microsoft.Extensions.*.dll"
+      ],
+      "why": "the game's reference assemblies; Microsoft.Extensions.* are left out because DocFX's own SDK brings a second copy of them, and the two clash"
+    },
+    {
+      "package": "Lib.Harmony",
+      "folder": "lib/net10.0",
+      "exclude": []
+    }
+  ],
+  "categories": [
+    {
+      "name": "Rules Defs",
+      "bases": [
+        "PhobosRulesDef"
+      ],
+      "form": "def",
+      "where": "One instance in your Defs; the first loaded wins, so patch its figures rather than adding a second."
+    },
+    {
+      "name": "Vehicle system inputs",
+      "bases": [
+        "VehicleSystemInput"
+      ],
+      "form": "li",
+      "container": "inputs",
+      "where": "In a vehicle system's `inputs` (a flow's, a derived quantity's), or any field that takes an input."
+    },
+    {
+      "name": "Vehicle system conditions",
+      "bases": [
+        "VehicleSystemCondition"
+      ],
+      "form": "li",
+      "element": "when",
+      "container": "",
+      "where": "In a flow's or a rule's `when`, or as an `<li>` in a list of conditions (`When_All`, `When_Any`)."
+    },
+    {
+      "name": "Vehicle system effects",
+      "bases": [
+        "VehicleSystemEffect"
+      ],
+      "form": "li",
+      "container": "effects",
+      "where": "In a stage's or an event's `effects`."
+    },
+    {
+      "name": "Vehicle comps",
+      "bases": [
+        "VehicleCompProperties",
+        "VehicleCompProperties_*"
+      ],
+      "form": "li",
+      "container": "comps",
+      "where": "In a VehicleDef's `comps` (Vehicle Framework)."
+    },
+    {
+      "name": "Comps",
+      "bases": [
+        "CompProperties",
+        "CompProperties_*"
+      ],
+      "form": "li",
+      "container": "comps",
+      "where": "In a ThingDef's `comps`."
+    },
+    {
+      "name": "Hediff comps",
+      "bases": [
+        "HediffCompProperties",
+        "HediffCompProperties_*"
+      ],
+      "form": "li",
+      "container": "comps",
+      "where": "In a HediffDef's `comps`."
+    },
+    {
+      "name": "Def extensions",
+      "bases": [
+        "DefModExtension"
+      ],
+      "form": "li",
+      "container": "modExtensions",
+      "where": "In any Def's `modExtensions`, or added to another mod's Def with PatchOperationAddModExtension."
+    },
+    {
+      "name": "Defs",
+      "bases": [
+        "Def",
+        "*Def"
+      ],
+      "form": "def",
+      "where": "A Def of its own in your Defs folder."
+    }
+  ],
+  "knownGaps": [
+    "Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosChemicalDeepening",
+    "Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosIschaemia",
+    "Phobos.Framework.Health.CompProperties_PhobosPatient",
+    "Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades",
+    "Phobos.Medical.Comps.HediffCompProperties_PhobosOnOxygen",
+    "Phobos.VehicleSystems.CompProperties_PhobosBayTrip",
+    "Phobos.VehicleSystems.CompProperties_PhobosDamageLooks",
+    "Phobos.VehicleSystems.CompProperties_PhobosDepotBay",
+    "Phobos.VehicleSystems.CompProperties_PhobosDrillRig",
+    "Phobos.VehicleSystems.CompProperties_PhobosFireFighting",
+    "Phobos.VehicleSystems.CompProperties_PhobosFuelPump",
+    "Phobos.VehicleSystems.CompProperties_PhobosGeneratorSet",
+    "Phobos.VehicleSystems.CompProperties_PhobosHitch",
+    "Phobos.VehicleSystems.CompProperties_PhobosHull",
+    "Phobos.VehicleSystems.CompProperties_PhobosLitter",
+    "Phobos.VehicleSystems.CompProperties_PhobosNodeLooks",
+    "Phobos.VehicleSystems.CompProperties_PhobosRigWork",
+    "Phobos.VehicleSystems.CompProperties_PhobosSling",
+    "Phobos.VehicleSystems.CompProperties_PhobosSurveyTruck",
+    "Phobos.VehicleSystems.CompProperties_PhobosTank",
+    "Phobos.VehicleSystems.CompProperties_PhobosTiltrotor",
+    "Phobos.VehicleSystems.CompProperties_PhobosTipper",
+    "Phobos.VehicleSystems.CompProperties_PhobosTuningRig",
+    "Phobos.VehicleSystems.PhobosVehicleLoadoutDef",
+    "Phobos.VehicleSystems.When_Always",
+    "Phobos.VehicleSystems.When_AmbientAbove",
+    "Phobos.VehicleSystems.When_AmbientBelow",
+    "Phobos.VehicleSystems.When_EngineRunning",
+    "Phobos.VehicleSystems.When_LoadActive",
+    "Phobos.VehicleSystems.When_Moving",
+    "Phobos.VehicleSystems.When_QuantityAbove",
+    "Phobos.VehicleSystems.When_QuantityBelow",
+    "Phobos.VehicleSystems.When_Setting"
+  ]
+}

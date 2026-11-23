@@ -1,0 +1,69 @@
+# The modders' reference website (the owner's decision D3, 23 Nov 2026; scripts/reference-site.py, docs/reference/). Every push to
+# main that touches the C#, the guides or the site's own files builds it on GitHub's machine and keeps it as a Pages artifact.
+#
+# Publishing waits for the owner: the deploy job does nothing until the repository variable PAGES_ENABLED is "true". To switch it
+# on: Settings > Pages > Build and deployment > Source: "GitHub Actions"; then Settings > Secrets and variables > Actions >
+# Variables > New repository variable PAGES_ENABLED = true. Nothing here turns Pages on or changes a setting.
+#
+# It needs no other author's assembly and no secret: DocFX reads our C# files themselves against the game's reference assemblies
+# and Harmony from NuGet, and leaves Vehicle Framework's and the other mods' types unresolved (the script's docstring says why).
+name: Reference site
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "external/phobos-log"
+      - "docs/framework-modding.md"
+      - "docs/vehicle-systems-modding.md"
+      - "docs/reference/**"
+      - "scripts/reference-site.py"
+      - "config/reference-site.json"
+      - "Directory.Build.targets"
+      - ".github/workflows/reference-site.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reference-site
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: true  # external/phobos-modkit (the C# scanner the script uses) and external/phobos-log (compiled into the framework)
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        with:
+          dotnet-version: 10.0.x
+      - name: Install DocFX
+        run: dotnet tool install --global docfx --version 2.81.0
+      # The game's reference assemblies (Krafs.Rimworld.Ref) and Harmony, into the NuGet cache, where the script finds them.
+      - name: Restore the framework's NuGet references
+        run: dotnet restore src/PhobosFramework/PhobosFramework.csproj --nologo
+      - name: Build the site
+        run: python3 scripts/reference-site.py build --no-restore --work "$RUNNER_TEMP/reference-work" --site "$RUNNER_TEMP/reference-site"
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
+        with:
+          path: ${{ runner.temp }}/reference-site
+
+  deploy:
+    needs: build
+    # Off until the owner switches GitHub Pages on and sets the variable (see the top of this file).
+    if: vars.PAGES_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5

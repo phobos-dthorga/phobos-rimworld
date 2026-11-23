@@ -1,0 +1,6 @@
+- name: Guides
+  href: guides/
+- name: XML types
+  href: xml-types.md
+- name: C# reference
+  href: api/

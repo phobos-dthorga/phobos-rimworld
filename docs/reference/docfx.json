@@ -1,0 +1,40 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {"src": "../../src/PhobosFramework", "files": ["**/*.cs"], "exclude": ["obj/**", "bin/**"]},
+        {"src": "../../src/Shared", "files": ["*.cs"]},
+        {"src": "../../external/phobos-log/src/Phobos.Log", "files": ["*.cs"]},
+        {"src": "../../src/PhobosFramework.Vehicles", "files": ["**/*.cs"], "exclude": ["obj/**", "bin/**"]},
+        {"src": "../../src/PhobosMedical", "files": ["**/*.cs"], "exclude": ["obj/**", "bin/**"]},
+        {"src": "../../src/PhobosFactory", "files": ["**/*.cs"], "exclude": ["obj/**", "bin/**"]},
+        {"src": "../../src/PhobosFarming", "files": ["**/*.cs"], "exclude": ["obj/**", "bin/**"]}
+      ],
+      "references": [],
+      "allowCompilationErrors": true,
+      "dest": "api",
+      "memberLayout": "samePage",
+      "namespaceLayout": "flattened",
+      "enumSortOrder": "declaringOrder"
+    }
+  ],
+  "build": {
+    "content": [
+      {"files": ["index.md", "toc.yml", "xml-types.md"]},
+      {"files": ["api/**.yml", "api/index.md"]},
+      {"files": ["guides/*.md", "guides/toc.yml"]}
+    ],
+    "overwrite": [
+      {"files": ["xml-examples/*.md"]}
+    ],
+    "output": "_site",
+    "template": ["default", "modern"],
+    "globalMetadata": {
+      "_appName": "D'thorga for modders",
+      "_appTitle": "D'thorga RimWorld reference",
+      "_appFooter": "D'thorga (dthorga) RimWorld mods: the modders' reference, built from the C# source and the modding guides.",
+      "_enableSearch": true,
+      "_disableContribution": true
+    }
+  }
+}

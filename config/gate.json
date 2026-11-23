@@ -12,6 +12,7 @@
         {"name": "doc index", "run": ["{python}", "scripts/check-doc-index.py"]},
         {"name": "player guide figures", "run": ["{python}", "scripts/art/guide_figures.py", "--check"]},
         {"name": "art records", "run": ["{python}", "scripts/art-audit.py", "check"]},
+        {"name": "reference summaries", "run": ["{python}", "scripts/reference-site.py", "check"]},
         {"name": "picture edges", "run": ["{python}", "scripts/art/edge_check.py", "check"]},
         {"name": "mod layout and text keys", "run": ["{python}", "scripts/check-mod-layout.py"]},
         {"name": "vehicle schemas", "run": ["{python}", "scripts/check-vehicle-schemas.py"]},
