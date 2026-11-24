@@ -19,7 +19,7 @@ An eased battery charge reaches full
 
 ### Fixed
 
-- **A battery charge that eases off near full now reaches full** (the owner's report of 25 November 2026). The battery charging rule gains the last step: when a charger stops at the top, the eased step is taken from its full step, so the level arrives instead of creeping ever closer. D'thorga Patches' mech rechargers use it, which had left mechs waiting on full rechargers. Not yet tested in game.
+- **A battery charge that eases off near full now reaches full** (the owner's report of 25 November 2026). The battery charging rule gains the last step: when a charger stops at the top, the eased step is taken from its full step, so the level arrives instead of creeping ever closer. D'thorga Patches' mech rechargers use it, which had left mechs waiting on full rechargers. Tested in game through the mech rechargers (owner, 25 November 2026).
 
 ## [0.286.0] - 2026-11-25 - Draft
 

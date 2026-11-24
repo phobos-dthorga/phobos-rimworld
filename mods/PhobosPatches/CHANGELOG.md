@@ -27,7 +27,7 @@ Mechs get off a full recharger again
 
 ### Fixed
 
-- **A mech on a recharger finishes its charge and goes back to work** (the owner's report of 25 November 2026). With mech rechargers drawing real power on, the slowing near full only ever closed a quarter of the last sliver, so the charge crept towards full without reaching it and stuck at 99.9999924 of 100; the mech waited on the recharger for good. In the owner's save 23 of 26 mechs had sat there for about 22 days. The last step now ends at full. Mechs stuck in a save finish within a tick of loading. Not yet tested in game; row 287's slowing near full is worth a second look.
+- **A mech on a recharger finishes its charge and goes back to work** (the owner's report of 25 November 2026). With mech rechargers drawing real power on, the slowing near full only ever closed a quarter of the last sliver, so the charge crept towards full without reaching it and stuck at 99.9999924 of 100; the mech waited on the recharger for good. In the owner's save 23 of 26 mechs had sat there for about 22 days. The last step now ends at full. Mechs stuck in a save finish within a tick of loading. Tested in game: the owner saw every stuck mech get up and go back to work (25 November 2026); row 287's slowing near full is worth a second look.
 
 ### Save compatibility
 
