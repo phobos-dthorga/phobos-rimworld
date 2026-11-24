@@ -1,0 +1,40 @@
+{
+  "file": "paid25-well-pipe-rack-2.png",
+  "sha256": "3d284467aab67cf0384a4c68d3b655dff90e6fcdf2294aa603c96864bd92a3ca",
+  "date": "2026-11-25T02:41:05",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for a truck-mounted water-well drilling rig: a rack of well-lining pipes that bolts onto the truck's flat deck. Image 1 is our approved drill rig, seen from directly above: match its outline weight, shading, palette and finish only. Do NOT redraw the drill rig.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall canvas. Four long straight pale grey steel water pipes lying side by side lengthwise from near the TOP edge to near the BOTTOM edge, each with a slightly wider threaded collar at its top end; they rest in three dark steel cradle frames across them (near the top, the middle and the bottom), each frame held down by a yellow ratchet strap. Beside the pipes at the bottom, a small square steel cellar frame lies flat: an open square of dark steel channel with four corner bolts.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, vehicles, wheels, ground, dirt or shadows. No perspective, no tilt.",
+  "seed": 2,
+  "size": [
+    864,
+    1536
+  ],
+  "request_file": "assets/phobos-vehicles/requests/paid-2026-11-25-parts.json",
+  "generator": "Google Nano Banana 2, with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-2/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana 2, with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-2/edit",
+  "request_id": "01a20e37-692c-7371-96e3-cf0ae2de7eff",
+  "usage": null,
+  "cost_usd": 0.16,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    1536,
+    2752
+  ],
+  "asked_resolution": "2K",
+  "asked_aspect_ratio": "9:16",
+  "sent_seed": 2,
+  "size_note": "asked for 864x1536, received 1536x2752",
+  "seconds": 27.0,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/drill-rig-body-north/drill-rig-body-north-2.png",
+      "sha256": "4b5dfe5d15f9527e0a4b3d6da2f058fae1a1806e4390fb3c8ed946ec438e9459",
+      "role": "our approved drill rig body, the owner's pick, seen from directly above: match its outline weight, shading, palette and finish only; do not redraw it"
+    }
+  ]
+}

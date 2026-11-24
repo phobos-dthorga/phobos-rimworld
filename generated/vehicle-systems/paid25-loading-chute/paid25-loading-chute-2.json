@@ -1,0 +1,56 @@
+{
+  "file": "paid25-loading-chute-2.png",
+  "sha256": "aa90066eebff0e588e7b6e80511f172e7f53968d485c3904446a7ea512924cef",
+  "date": "2026-11-25T02:39:02",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for an industrial loading chute in a frontier colony. Images 1 and 2 are our approved yard pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The chute fills about 80 percent of the canvas, one unit by one unit, centred, on a plain pure white background.\n\nA square steel hopper seen from directly above: four sloping grey steel walls narrowing to a dark square opening in the middle, a thick riveted rim around the top with yellow and black hazard striping on its outer edge, a short spout lip sticking out over the BOTTOM edge, and two small lifting lugs on the left and right sides.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/paid-2026-11-25.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 616,
+    "input_tokens_details": {
+      "image_tokens": 320,
+      "text_tokens": 296
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2372
+  },
+  "cost_usd": 0.0567,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 27.0,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/FuelPump.png",
+      "sha256": "789947b441ecbead43d0ec3b126e5a04435ac6a0a6df363cb71009d5105904bc",
+      "role": "our approved yard machine seen from directly above (the fuel pump): match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/InspectionPit.png",
+      "sha256": "92d990867dafaad35d11c0fac1480bf08bd8b008b9337e2d32589521a958879c",
+      "role": "our approved yard building seen from directly above (the inspection pit): match its finish only; do not copy its shape"
+    }
+  ]
+}

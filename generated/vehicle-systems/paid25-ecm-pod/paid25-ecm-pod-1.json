@@ -1,0 +1,56 @@
+{
+  "file": "paid25-ecm-pod-1.png",
+  "sha256": "1ecbdd2f09bc513a6bf3300e55c11c76e112509ec4f4986da8c8c19417333e73",
+  "date": "2026-11-25T02:43:14",
+  "prompt": "GAME UPGRADE ICON. One single object seen from the side and a little above, centred, as an icon on a button in a top-down strategy game.\n\nImages 1 and 2 are our approved fitting icons from the same set: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon of an electronic jamming pod that hangs under an aircraft wing: a long boxy electronics case with rounded blunt ends, NOT pointed, a flat mounting rail along its top with two hanging lugs, a row of three flat dark antenna panels set into its side, two small rounded radome blisters on its underside, and a small air intake scoop at the front with a little ram-air turbine fan for its own power.\n\nIt is an electronics box, not a weapon: no pointed nose, no warhead, no tail fins, no exhaust, no propeller at the back.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of grey, olive drab and a touch of dark glass, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/paid-2026-11-25.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 437,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 309
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2193
+  },
+  "cost_usd": 0.0552,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 26.3,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/FerryTank.png",
+      "sha256": "c1b15187180f82b1d540a82f64e951b10cd769e9f8c49505c834b12b0971b1b0",
+      "role": "our approved fitting icon (the ferry tank): match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png",
+      "sha256": "f4942d92c3e34cf4d79d9e55cd057103bc3cdd298dedfa453819e331ff2b9ec2",
+      "role": "our approved fitting icon (cabin oxygen): match its finish only; do not copy its shape"
+    }
+  ]
+}
