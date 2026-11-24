@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.288.0, built 25 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.289.0, built 25 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -203,6 +203,8 @@ offers to restart). RimWorld saves only what you change.
 | Cabs, camps and caravans | Every closed cab has climate control | Gives climate control to every closed cab, not only modern ones | Off |
 | Cabs, camps and caravans | Walk-in cabins | Colonists can walk into a vehicle's cabin (the Osprey's) to wait, rest or tend the wounded, on the ground or in flight | On |
 | Cabs, camps and caravans | Hotboxing | A rider whose drug policy allows a smoked drug may light up aboard; in a closed cab the others share the high, and a high driver drives slower | On |
+| Cabs, camps and caravans | People use parked vehicles | Colonists go to parked vehicles by themselves: to sit with the radio, for a hotbox session, to warm up or nap in the cab, and to eat and drink from its stores when the map has nothing else. Each vehicle's "Open to the colony" switch keeps one for the road | On |
+| Cabs, camps and caravans | Visitors may flatten the battery | On, a visitor's radio plays on until the battery is flat; off, they turn it off at barely enough to start | Off |
 | Cabs, camps and caravans | Field kitchens cook in a caravan | Once a night, while a caravan rests, its cooks make simple meals from raw food at a field kitchen it carries, up to twenty a cook | On |
 | Cabs, camps and caravans | Trailers can dump waste on the ground | A shower trailer's waste tank has a dump valve that runs its waste onto the ground as Dubs Bad Hygiene's sewage; off, the button is hidden (Dubs Bad Hygiene) | On |
 | Cabs, camps and caravans | Night heater at camp | A vehicle whose night heater switch is on keeps its cab and engine warm at a caravan's camp, and for someone asleep in its cab bunk on a map, for fuel | Off |

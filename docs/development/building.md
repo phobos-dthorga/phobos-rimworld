@@ -123,9 +123,9 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
 | `PhobosFramework` | 3 | 0 | 1 | 0 |
-| `PhobosFramework.Vehicles` | 108 | 16 | 0 | 0 |
+| `PhobosFramework.Vehicles` | 110 | 16 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
-| `PhobosFramework.Vehicles.Hygiene` | 1 | 0 | 0 | 0 |
+| `PhobosFramework.Vehicles.Hygiene` | 2 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
 | `PhobosMedical` | 11 | 0 | 4 | 0 |
 | `PhobosMedical.Hygiene` | 1 | 0 | 0 | 0 |
@@ -142,7 +142,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-181 patched methods named in attributes, 24 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+184 patched methods named in attributes, 24 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -200,7 +200,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework.Vehicles</code>: 108 patched methods, 16 by name</summary>
+<details><summary><code>PhobosFramework.Vehicles</code>: 110 patched methods, 16 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles/`) |
 | --- | --- | --- |
@@ -248,7 +248,9 @@ Every HarmonyPatch attribute was read.
 | `ITab_Vehicle_Upgrades.DrawGrid` | prefix | `Presentation/UpgradeTabScroll.cs` |
 | `ITab_Vehicle_Upgrades.DrawPrerequisites` | postfix | `Service/UpgradeAnyOf.cs` |
 | `JobDriver_RepairVehicle.WorkComplete` | postfix | `Service/Patches.cs` |
-| `JobGiver_GetRest.TryGiveJob` | postfix | `Cabins/DeckTents.cs`, `Camp/BunkSleep.cs` |
+| `JobGiver_GetFood.TryGiveJob` | postfix | `Visits/VisitReasons.cs` |
+| `JobGiver_GetRest.TryGiveJob` | postfix | `Cabins/DeckTents.cs`, `Camp/BunkSleep.cs`, `Visits/VisitReasons.cs` |
+| `JobGiver_SeekSafeTemperature.TryGiveJob` | postfix | `Visits/VisitReasons.cs` |
 | `LaunchProtocol.GetArrivalOptions` | postfix | `Airdrop/AirdropArrival.cs` |
 | `MainTabWindow_Research.PostOpen` | postfix | `Service/SetAsideResearchPatches.cs` |
 | `MapTemperature.OutdoorTemp (getter)` | postfix | `Cabins/DeckTents.cs` |
@@ -334,11 +336,12 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework.Vehicles.Hygiene</code>: 1 patched method</summary>
+<details><summary><code>PhobosFramework.Vehicles.Hygiene</code>: 2 patched methods</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles.Hygiene/`) |
 | --- | --- | --- |
 | `Caravan_NeedsTracker.TrySatisfyPawnNeeds` | prefix | `CaravanWaterAboard.cs` |
+| `JobGiver_DrinkWater.TryGiveJob` | postfix | `VisitDrink.cs` |
 
 </details>
 

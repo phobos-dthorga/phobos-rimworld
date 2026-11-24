@@ -465,6 +465,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// <summary>The cab's windows are down (Framework 0.233.0, hotboxing): smoke clears and the cab's air meets the outside faster. Saved.</summary>
     public bool WindowsDown;
 
+    /// <summary>
+    /// Whether colonists may use this vehicle by themselves while it is parked (Framework 0.289.0, people use parked vehicles; the owner's card
+    /// of 25 Nov 2026: one switch per vehicle, on). Off keeps its stores for the road. Saved; set through <see cref="VehicleVisits.SetOpen"/>.
+    /// </summary>
+    public bool OpenToColony = true;
+
     /// <summary>Winds the windows down or up (Framework 0.253.0: the winder heard going down, S145, the owner's pick).</summary>
     public void SetWindowsDown(bool down)
     {
@@ -711,6 +717,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         pipeUnderlays ??= new Dictionary<string, Phobos.Framework.Persistence.PipeUnderlay>();
         Scribe_Values.Look(ref lastUpdateTick, "PhobosVehicleSystems_LastUpdate", -1);
         Scribe_Values.Look(ref WindowsDown, "PhobosVehicleSystems_WindowsDown", false);
+        Scribe_Values.Look(ref OpenToColony, "PhobosVisit_OpenToColony", true);
         Scribe_Values.Look(ref serviceRequested, "PhobosVehicleSystems_ServiceRequested", false);
         Scribe_Values.Look(ref RefuelFromCargo, "PhobosVehicleSystems_RefuelFromCargo", false);
         Scribe_Values.Look(ref LandedRefuelUntil, "PhobosVehicleSystems_LandedRefuelUntil", 0);
@@ -827,6 +834,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Vehicle.AddEvent(VehicleEventDefOf.HealthChanged, () => HealthViewVersion++);
         // Under Combat Extended a hit raises "damage taken" alone, so the part requirements are asked again here (fault-read K1).
         Vehicle.AddEvent(VehicleEventDefOf.DamageTaken, () => WeaponMounts.AfterDamage(Vehicle));
+        // People use parked vehicles (Framework 0.289.0): visitors climb out as the vehicle is drafted or sets off, before it goes anywhere;
+        // one still aboard as it leaves the map rides on as a rider.
+        Vehicle.AddEvent(VehicleEventDefOf.IgnitionOn, () => VehicleVisits.SettingOff(Vehicle));
+        Vehicle.AddEvent(VehicleEventDefOf.MoveStart, () => VehicleVisits.SettingOff(Vehicle));
+        Vehicle.AddEvent(VehicleEventDefOf.Despawned, () => VehicleVisits.Left(Vehicle));
         // An aircraft taking off hears the refusals the player set to warn only (Framework 0.110.0).
         if (Vehicle.CompVehicleLauncher != null) Vehicle.AddEvent(VehicleEventDefOf.AerialVehicleLaunch, WarnAtLaunch);
         // Framework 0.254.0: grit thrown up as it leaves the ground through Vehicle Framework's own launch.
@@ -3103,6 +3115,21 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         return loadSwitches.TryGetValue(load.name, out bool on) ? on : load.defaultOn;
     }
 
+    /// <summary>Whether a load of this name is fitted and switched on (or has no switch), whether or not it runs now (Framework 0.289.0).</summary>
+    public bool LoadSwitchedOn(string name) => LoadNamed(name) is { } load && LoadAvailable(load) && (!load.toggle || IsOn(load));
+
+    /// <summary>
+    /// A reading kept clear by start-reserve loads, and the line it is kept above (from its own stages; NaN where none refuses a start), for
+    /// what else keeps clear of it (a visitor's radio, Framework 0.289.0). False when the vehicle has no such reading.
+    /// </summary>
+    public bool TryStartLine(string quantity, out float reading, out double line)
+    {
+        line = double.NaN;
+        if (!TryGetQuantity(quantity, out reading)) return false;
+        line = StartLine(quantity);
+        return true;
+    }
+
     /// <summary>Whether this load switches itself now (Framework 0.171.0): it has an automatic rule and the player's setting is on.</summary>
     public bool Automatic(ElectricalLoadSpec load) => load.autoOn != null && VehicleSystemsMod.Settings.autoLights;
 
@@ -3525,6 +3552,18 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             // With the glass gone there is nothing to wind up (Framework 0.238.0, VG4).
             if (Glass.Gone(Vehicle)) windows.Disable("PhobosVehicleSystems_GlassGoneWindows".Translate());
             yield return windows;
+        }
+        // People use parked vehicles (Framework 0.289.0): one switch keeps this vehicle's stores for the road. The game's own forbid picture.
+        if (VehicleVisits.Enabled && Vehicle.Spawned)
+        {
+            yield return new Command_Toggle
+            {
+                defaultLabel = "PhobosVisit_OpenGizmo".Translate(),
+                defaultDesc = "PhobosVisit_OpenGizmoDesc".Translate(Vehicle.LabelShort.Named("VEHICLE")),
+                icon = OpenToColony ? TexCommand.ForbidOff : TexCommand.ForbidOn,
+                isActive = () => OpenToColony,
+                toggleAction = () => VehicleVisits.SetOpen(this, !OpenToColony),
+            };
         }
         if (Props.loadout != null)
         {

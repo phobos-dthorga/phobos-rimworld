@@ -11,8 +11,11 @@ berths, camp gear, the kitchen, water, lights and life aboard. It applies to **e
   vehicle** if you turn it on: one vehicle with nobody to take over stops the whole caravan for the night.
 - **Water needs Dubs Bad Hygiene.** Without it, thirst and washing don't exist, and the crew water tank and camp washing are not offered.
 - **Tanks and stores never fill themselves**: the crew water tank, a lantern's chemfuel, the kitchen box's fuel. Fill them before you go.
-- **Two settings are on by default** and can be switched off, both on the Cabs, camps and caravans page of D'thorga Framework's vehicle
-  systems settings: **Walk-in cabins** (the deck tent and the Osprey's cabin) and **Hotboxing** (smoking aboard is shared in a closed cab).
+- **Three settings are on by default** and can be switched off, all on the Cabs, camps and caravans page of D'thorga Framework's vehicle
+  systems settings: **Walk-in cabins** (the deck tent and the Osprey's cabin), **Hotboxing** (smoking aboard is shared in a closed cab)
+  and **People use parked vehicles** (colonists use a parked vehicle's radio, cab and stores by themselves).
+- **Colonists eat a parked vehicle's food when the map has none.** Turn off a vehicle's **Open to the colony** switch to keep its
+  stores for the road.
 
 ## Camp accessories: fridge, house battery and power outlet
 
@@ -80,6 +83,20 @@ books and tea for a long trip.
 - **Smoking aboard** (setting **Hotboxing**, on): a rider whose drug policy allows a smoked drug may light up. With the cab closed and the
   **windows up**, everyone aboard gets a share and remembers it, good or bad; a high driver drives slower. **Windows down** (a switch on the
   vehicle) clears the smoke, but loses the cab's warmth or cool.
+
+**People use parked vehicles** (setting **People use parked vehicles**, on): your colonists also go to a parked vehicle by
+themselves, at camp or at home. They climb into a free passenger seat, never a driver's, and climb out by themselves when done, when
+danger comes, or before the vehicle sets off.
+
+- **Bored**, they sit in with the **cab stereo** on, reading and having a cuppa from the cargo as riders do. Once the starting battery
+  is down to barely enough to start, they turn the radio off and climb out (setting **Visitors may flatten the battery**, off).
+- **Hotbox sessions**: someone whose drug policy allows a smoke for recreation goes to sit in a closed cab and lights up, and friends
+  are drawn to join them (needs **Hotboxing**).
+- **Cold or hot with no safe room**, they get out of the weather in a closed cab. With its **night heater** switched on (and the setting
+  **Night heater at camp** on), the heater runs for them, burning chemfuel.
+- **Tired with no bed**, they nap sitting up in a cab seat rather than on the ground ("slept sitting up in a cab", −1).
+- **When the map has no food or water for them**, they eat from a vehicle's cargo and drink from its crew water tank.
+- **Open to the colony** (a switch on each vehicle, on): turn it off to keep a vehicle's stores for the road.
 
 **Crew water tank** (with Dubs Bad Hygiene): make the kit at the vehicle parts bench (research **vehicle parts**)
 and fit it in the vehicle's **water tank bay**. It holds **120 litres**.

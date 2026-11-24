@@ -93,10 +93,16 @@ public static class LifeAboard
         foreach (Pawn pawn in aboard.ToList())
         {
             if (pawn.Dead || pawn.needs == null || !pawn.RaceProps.Humanlike) continue;
+            // Asleep in the cab bunk or napping in a seat: the game counts a rider with no job as awake, so the visits say who sleeps
+            // (Framework 0.289.0; before it, a bunk sleeper heard the stereo and could read, snack or smoke).
+            if (VehicleVisits.AsleepAboard(pawn)) continue;
             Need_Joy? joy = pawn.needs.joy;
             if (music && joy != null)
             {
-                joy.GainJoy((float)LifeAboardRule.JoyGained(Rules.stereoJoyPerHour, HoursPerLook), LifeAboardDefOf.HighCulture);
+                // Someone who came to sit and listen (a visit, Framework 0.289.0) gets the game's own rate for a recreation job.
+                bool cameToListen = VehicleVisits.VisitOf(pawn)?.def == VehicleVisitDefOf.PhobosVisit_Radio;
+                double rate = VisitRule.StereoJoyPerHour(cameToListen, Rules.visitStereoJoyPerHour, Rules.stereoJoyPerHour);
+                joy.GainJoy((float)LifeAboardRule.JoyGained(rate, HoursPerLook), LifeAboardDefOf.HighCulture);
                 if (Seen.Wants("vehicles.life-aboard-music", vehicle)) Seen.Note("vehicles.life-aboard-music", vehicle, pawn.LabelShort);
             }
             // Asleep (a cab-bunk sleeper, a caravan rider in bed), nobody reads, snacks, drinks or smokes (fault-read 25 Nov 2026, C7).
@@ -189,7 +195,10 @@ public static class LifeAboard
     {
         if (pawn.drugs == null || pawn.IsTeetotaler()) return false;
         Need_Joy? joy = pawn.needs.joy;
-        bool mayForJoy = joy != null && joy.CurLevel < Rules.smokeJoyBelow && LifeAboardRule.Rested(rider.smokeAt, now, Rules.smokeGapHours * GenDate.TicksPerHour);
+        // Someone who came for a hotbox session (Framework 0.289.0) lights up as their policy allows, without life aboard's own wait.
+        bool session = VehicleVisits.VisitOf(pawn) is { def: var visit, smokedAt: < 0 } && visit == VehicleVisitDefOf.PhobosVisit_Hotbox;
+        bool mayForJoy = joy != null && (session
+            || joy.CurLevel < Rules.smokeJoyBelow && LifeAboardRule.Rested(rider.smokeAt, now, Rules.smokeGapHours * GenDate.TicksPerHour));
         foreach (Thing thing in Within(comp.Vehicle, caravan, pawn))
         {
             if (!Smoked(thing.def)) continue;
@@ -203,6 +212,7 @@ public static class LifeAboard
             if (pawn.needs.food != null) pawn.needs.food.CurLevel += nutrition;
             caravan?.RecacheInventory();
             rider.smokeAt = now;
+            VehicleVisits.Smoked(pawn);
             if (Seen.Wants("vehicles.hotbox-smoke", comp.Vehicle, scheduled ? "scheduled" : "joy")) Seen.Note("vehicles.hotbox-smoke", comp.Vehicle, pawn.LabelShort + ": " + def.label, scheduled ? "scheduled" : "joy");
             Hotbox(comp, pawn, def);
             return true;

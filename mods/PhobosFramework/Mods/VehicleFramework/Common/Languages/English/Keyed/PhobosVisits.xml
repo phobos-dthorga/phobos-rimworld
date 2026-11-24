@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- People use parked vehicles (D'thorga Framework 0.289.0). {VEHICLE}: the vehicle; {PAWN}: the colonist. -->
+  <PhobosVehicleSystems_SettingParkedVehicleUse>People use parked vehicles</PhobosVehicleSystems_SettingParkedVehicleUse>
+  <PhobosVehicleSystems_SettingParkedVehicleUseDesc>On by default. Colonists go to the colony's parked vehicles by themselves: to sit in with the radio on, for a hotbox session with friends, to warm up in the cab when the weather is hurting them, and to nap sitting up when they have no bed. When the map has no food or water for them, they eat from a vehicle's cargo and drink from its crew water tank. They climb out by themselves, and for danger, fire or illness, and before the vehicle sets off. Each vehicle's "Open to the colony" switch keeps its stores for the road. Off, nobody goes to a vehicle unless ordered.</PhobosVehicleSystems_SettingParkedVehicleUseDesc>
+  <PhobosVehicleSystems_SettingVisitorsFlattenBattery>Visitors may flatten the battery</PhobosVehicleSystems_SettingVisitorsFlattenBattery>
+  <PhobosVehicleSystems_SettingVisitorsFlattenBatteryDesc>Off by default. Off, a colonist sitting in a parked vehicle with the radio on turns it off and climbs out once the starting battery is down to barely enough to start the engine. On, nobody watches the battery: the radio plays on, and the vehicle may not start next time. Riders you seated yourself are never stopped either way.</PhobosVehicleSystems_SettingVisitorsFlattenBatteryDesc>
+
+  <PhobosVisit_OpenGizmo>Open to the colony</PhobosVisit_OpenGizmo>
+  <PhobosVisit_OpenGizmoDesc>While this is on, colonists may use the {VEHICLE} by themselves while it is parked: sit in it with the radio, smoke in it, warm up or nap in its cab, and eat and drink from its stores when the map has nothing else. Turn it off to keep its stores for the road; anyone sitting in it climbs out.</PhobosVisit_OpenGizmoDesc>
+  <PhobosVisit_Opened>Colonists may use the {VEHICLE} by themselves while it is parked.</PhobosVisit_Opened>
+  <PhobosVisit_Closed>The {VEHICLE}'s stores are kept for the road: nobody will use it by themselves.</PhobosVisit_Closed>
+
+  <PhobosVisit_OutDanger>{PAWN} climbed out of the {VEHICLE}: there is danger nearby.</PhobosVisit_OutDanger>
+  <PhobosVisit_OutFire>{PAWN} climbed out of the {VEHICLE}: it is on fire.</PhobosVisit_OutFire>
+  <PhobosVisit_OutMoving>{PAWN} climbed out of the {VEHICLE} as it set off.</PhobosVisit_OutMoving>
+  <PhobosVisit_OutUnwell>{PAWN} climbed out of the {VEHICLE} to rest in a bed: they are unwell.</PhobosVisit_OutUnwell>
+  <PhobosVisit_OutBattery>{PAWN} turned the radio off and climbed out of the {VEHICLE}: its battery is getting too low to start the engine.</PhobosVisit_OutBattery>
+</LanguageData>

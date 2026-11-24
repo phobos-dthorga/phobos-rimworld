@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    People use parked vehicles (Framework 0.289.0; docs/development/vehicle-parked-use.md; the owner's cards of 25 Nov 2026: all four uses,
+    climbing in, the radio guarded at the start line, one switch per vehicle). Colonists go to the colony's parked vehicles by themselves:
+    to sit with the radio and to hotbox (recreation choices the game weighs with its own), to warm up when the weather hurts them and to nap
+    when they have no bed (only when the game found no safe room or bed), and to eat and drink from its stores (only when the game found
+    nothing on the map). A visit's longest, the recreation chances and the nap memory are authored, agent defaults for the owner to revise.
+    Another mod adds a reason with a PhobosVehicleVisitDef, its job and a VisitWorker of its own. Not yet tested in game.
+  -->
+
+  <Phobos.VehicleSystems.PhobosVehicleVisitDef>
+    <defName>PhobosVisit_Radio</defName>
+    <label>sitting with the radio on</label>
+    <jobDef>PhobosVehicleSystems_VisitRadio</jobDef>
+    <maxHours>2</maxHours>
+    <workerClass>Phobos.VehicleSystems.VisitWorker_Radio</workerClass>
+  </Phobos.VehicleSystems.PhobosVehicleVisitDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleVisitDef>
+    <defName>PhobosVisit_Hotbox</defName>
+    <label>a hotbox session</label>
+    <jobDef>PhobosVehicleSystems_VisitHotbox</jobDef>
+    <maxHours>2</maxHours>
+    <workerClass>Phobos.VehicleSystems.VisitWorker_Hotbox</workerClass>
+  </Phobos.VehicleSystems.PhobosVehicleVisitDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleVisitDef>
+    <defName>PhobosVisit_Warm</defName>
+    <label>getting out of the weather</label>
+    <jobDef>PhobosVehicleSystems_VisitWarm</jobDef>
+    <workerClass>Phobos.VehicleSystems.VisitWorker_Warm</workerClass>
+  </Phobos.VehicleSystems.PhobosVehicleVisitDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleVisitDef>
+    <defName>PhobosVisit_Nap</defName>
+    <label>a nap sitting up</label>
+    <jobDef>PhobosVehicleSystems_VisitNap</jobDef>
+    <workerClass>Phobos.VehicleSystems.VisitWorker_Nap</workerClass>
+  </Phobos.VehicleSystems.PhobosVehicleVisitDef>
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_VisitRadio</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosVisitVehicle</driverClass>
+    <reportString>going to sit in TargetA with the radio on.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+    <joyKind>HighCulture</joyKind>
+  </JobDef>
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_VisitHotbox</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosVisitVehicle</driverClass>
+    <reportString>going to TargetA for a smoke.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+    <joyKind>Chemical</joyKind>
+  </JobDef>
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_VisitWarm</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosVisitVehicle</driverClass>
+    <reportString>going to get out of the weather in TargetA.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_VisitNap</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosVisitVehicle</driverClass>
+    <reportString>going to nap in TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_TakeFoodFromVehicle</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosTakeFoodFromVehicle</driverClass>
+    <reportString>getting food from TargetA.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_DrinkFromVehicle</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosDrinkFromVehicle</driverClass>
+    <reportString>getting a drink from TargetA.</reportString>
+  </JobDef>
+
+  <!-- Recreation choices. The chances are authored, near the game's own for watching art or a television; with no parked vehicle offering
+       the visit, the chance is nought. A friend's hotbox session makes the second three times as likely (the rules Def). -->
+  <JoyGiverDef>
+    <defName>PhobosVisit_RadioJoy</defName>
+    <giverClass>Phobos.VehicleSystems.JoyGiver_PhobosVehicleVisit</giverClass>
+    <baseChance>1</baseChance>
+    <jobDef>PhobosVehicleSystems_VisitRadio</jobDef>
+    <joyKind>HighCulture</joyKind>
+    <requireChair>false</requireChair>
+    <desireSit>false</desireSit>
+    <countsForRecRoom>false</countsForRecRoom>
+    <requiredCapacities>
+      <li>Hearing</li>
+    </requiredCapacities>
+  </JoyGiverDef>
+
+  <JoyGiverDef>
+    <defName>PhobosVisit_HotboxJoy</defName>
+    <giverClass>Phobos.VehicleSystems.JoyGiver_PhobosVehicleVisit</giverClass>
+    <baseChance>0.8</baseChance>
+    <jobDef>PhobosVehicleSystems_VisitHotbox</jobDef>
+    <joyKind>Chemical</joyKind>
+    <requireChair>false</requireChair>
+    <desireSit>false</desireSit>
+    <countsForRecRoom>false</countsForRecRoom>
+  </JoyGiverDef>
+
+  <!-- A nap of an hour or more sitting up in a cab, -1 (authored): cramped, but out of the weather and off the ground, whose memory it
+       replaces. -->
+  <ThoughtDef>
+    <defName>PhobosSleptSittingUp</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>slept sitting up in a cab</label>
+        <description>No bed, so I slept in a seat. A stiff neck, but it was dry and off the ground.</description>
+        <baseMoodEffect>-1</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>

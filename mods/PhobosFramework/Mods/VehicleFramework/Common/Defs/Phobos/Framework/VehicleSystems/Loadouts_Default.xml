@@ -725,7 +725,7 @@
       <li>
         <name>nightHeater</name>
         <label>night heater</label>
-        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle. Switch it on before you leave; it needs the night heater setting.</description>
+        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle or warms up in its cab. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
         <shedOrder>4</shedOrder>
         <toggle>true</toggle>
@@ -738,6 +738,8 @@
               <conditions>
                 <li Class="Phobos.VehicleSystems.When_CaravanResting" />
                 <li Class="Phobos.VehicleSystems.When_BunkSleeper" />
+                <!-- Framework 0.289.0: for a colonist warming up in a parked cab (people use parked vehicles, PV3). -->
+                <li Class="Phobos.VehicleSystems.When_WarmingVisitor" />
               </conditions>
             </li>
             <li Class="Phobos.VehicleSystems.When_Setting">
@@ -1066,7 +1068,7 @@
       <li>
         <name>nightHeater</name>
         <label>night heater</label>
-        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle. Switch it on before you leave; it needs the night heater setting.</description>
+        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle or warms up in its cab. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
         <shedOrder>4</shedOrder>
         <toggle>true</toggle>
@@ -1079,6 +1081,8 @@
               <conditions>
                 <li Class="Phobos.VehicleSystems.When_CaravanResting" />
                 <li Class="Phobos.VehicleSystems.When_BunkSleeper" />
+                <!-- Framework 0.289.0: for a colonist warming up in a parked cab (people use parked vehicles, PV3). -->
+                <li Class="Phobos.VehicleSystems.When_WarmingVisitor" />
               </conditions>
             </li>
             <li Class="Phobos.VehicleSystems.When_Setting">
@@ -1271,7 +1275,7 @@
       <li>
         <name>nightHeater</name>
         <label>night heater</label>
-        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle. Switch it on before you leave; it needs the night heater setting.</description>
+        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle or warms up in its cab. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
         <shedOrder>4</shedOrder>
         <toggle>true</toggle>
@@ -1284,6 +1288,8 @@
               <conditions>
                 <li Class="Phobos.VehicleSystems.When_CaravanResting" />
                 <li Class="Phobos.VehicleSystems.When_BunkSleeper" />
+                <!-- Framework 0.289.0: for a colonist warming up in a parked cab (people use parked vehicles, PV3). -->
+                <li Class="Phobos.VehicleSystems.When_WarmingVisitor" />
               </conditions>
             </li>
             <li Class="Phobos.VehicleSystems.When_Setting">
@@ -1693,7 +1699,7 @@
       <li>
         <name>nightHeater</name>
         <label>night heater</label>
-        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle. Switch it on before you leave; it needs the night heater setting.</description>
+        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle or warms up in its cab. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
         <shedOrder>4</shedOrder>
         <toggle>true</toggle>
@@ -1706,6 +1712,8 @@
               <conditions>
                 <li Class="Phobos.VehicleSystems.When_CaravanResting" />
                 <li Class="Phobos.VehicleSystems.When_BunkSleeper" />
+                <!-- Framework 0.289.0: for a colonist warming up in a parked cab (people use parked vehicles, PV3). -->
+                <li Class="Phobos.VehicleSystems.When_WarmingVisitor" />
               </conditions>
             </li>
             <li Class="Phobos.VehicleSystems.When_Setting">

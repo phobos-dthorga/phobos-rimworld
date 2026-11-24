@@ -13,6 +13,31 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.289.0] - 2026-11-25 - Draft
+
+People use parked vehicles: the radio, a smoke, a warm cab, a nap and the stores, without orders
+
+### Added
+
+- **People use parked vehicles** (the owner's idea and four answers of 25 November 2026): colonists go to the colony's parked vehicles
+  by themselves. Bored, they sit in with the radio on or join friends for a hotbox session; hurt by the cold or heat with no safe room,
+  they warm up in the cab (the night heater runs for them); tired with no bed, they nap sitting up rather than on the ground. They climb
+  out by themselves, and before the vehicle sets off. Not yet tested in game. How it works:
+  [the design](https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/development/vehicle-parked-use.md).
+- **Food and water from a parked vehicle**: when the map has nothing for them, hungry colonists eat from a vehicle's cargo, as the game
+  already lets them eat from a pack animal's packs, and thirsty ones drink from its crew water tank (Dubs Bad Hygiene).
+- **Open to the colony**, a switch on each vehicle (on), keeps its stores for the road; **two settings** in Cabs, camps and caravans:
+  People use parked vehicles (on) and Visitors may flatten the battery (off: a visitor's radio stops at the start line).
+
+### Fixed
+
+- **Someone asleep in the cab bunk no longer hears the stereo, reads, snacks or smokes**: the game counts a rider as awake, so life
+  aboard treated sleepers as awake.
+
+### Save compatibility
+
+- Safe to add mid-game. Before removing it, take visitors out of vehicles by hand, or they stay aboard as riders.
+
 ## [0.288.0] - 2026-11-25 - Draft
 
 Parachute airdrops: people, cargo and vehicles from the air, on the wind

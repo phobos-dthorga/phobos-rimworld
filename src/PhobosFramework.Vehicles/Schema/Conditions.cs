@@ -289,6 +289,15 @@ public class When_BunkSleeper : VehicleSystemCondition
 }
 
 /// <summary>
+/// Someone warms up in the parked cab (Framework 0.289.0, people use parked vehicles, PV3): the night heater runs for them, as it does for
+/// the bunk's sleeper. One short list read on the systems' own update.
+/// </summary>
+public class When_WarmingVisitor : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => VehicleVisits.WarmingUp(context.Vehicle);
+}
+
+/// <summary>
 /// Someone is in the cab bunk (Framework 0.265.0, the bunk's sleep accelerator): asleep in it on a map, or a rider whose caravan bed it
 /// is, on the road or at a night camp. One comp read and a look at the few people aboard, on the systems' own update.
 /// </summary>

@@ -126,6 +126,14 @@ public class VehicleSystemsSettings : ModSettings
     /// who smokes fills a closed cab, and the others share the high and remember it. Moderate (agent's grade): a mood swing and a slower
     /// driver, never harm beyond the drug's own; on by default. Live.</summary>
     public bool hotboxing = true;
+    /// <summary>People use parked vehicles (Framework 0.289.0; docs/development/vehicle-parked-use.md; the owner's cards of 25 Nov 2026): colonists
+    /// go to the colony's parked vehicles by themselves, to sit with the radio, for a hotbox session, to warm up, to nap with no bed, and to eat
+    /// and drink from its stores when the map has nothing else. Low risk (agent's grade: their own stores and battery, in sight), so on. Each
+    /// vehicle's "Open to the colony" switch keeps one for the road. Live.</summary>
+    public bool parkedVehicleUse = true;
+    /// <summary>A visitor's radio plays on past the starting battery's start line, so a vehicle can be found flat in the morning (Framework
+    /// 0.289.0; the owner's card of 25 Nov 2026: guarded by default, the harsh way as a setting, off). Live.</summary>
+    public bool visitorsFlattenBattery;
     /// <summary>Another mod's air defence sees our aircraft in flight on the world map and may shoot at them (Framework 0.119.0, AD3; owner,
     /// 13 Nov 2026). Shown only while The Dead Man's Switch - Expedition is active. Live.</summary>
     public bool airDefenceSeesAircraft = true;
@@ -309,6 +317,8 @@ public class VehicleSystemsSettings : ModSettings
         "vehicleCabins" => vehicleCabins,
         "driveThroughNight" => driveThroughNight,
         "hotboxing" => hotboxing,
+        "parkedVehicleUse" => parkedVehicleUse,
+        "visitorsFlattenBattery" => visitorsFlattenBattery,
         "lowOilCallsService" => lowOilCallsService,
         "accessoriesLoadEngine" => accessoriesLoadEngine,
         "brakeFade" => brakeFade,
@@ -399,6 +409,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref vehicleCabins, "PhobosVehicleSystems_VehicleCabins", true);
         Scribe_Values.Look(ref driveThroughNight, "PhobosVehicleSystems_DriveThroughNight", false);
         Scribe_Values.Look(ref hotboxing, "PhobosVehicleSystems_Hotboxing", true);
+        Scribe_Values.Look(ref parkedVehicleUse, "PhobosVehicleSystems_ParkedVehicleUse", true);
+        Scribe_Values.Look(ref visitorsFlattenBattery, "PhobosVehicleSystems_VisitorsFlattenBattery", false);
         Scribe_Values.Look(ref airDefenceSeesAircraft, "PhobosVehicleSystems_AirDefenceSeesAircraft", true);
         Scribe_Values.Look(ref lowOilCallsService, "PhobosVehicleSystems_LowOilCallsService", true);
         Scribe_Values.Look(ref accessoriesLoadEngine, "PhobosVehicleSystems_AccessoriesLoadEngine", true);
@@ -797,6 +809,8 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingClimateAll".Translate(), ref s.climateControlAll, d.climateControlAll, "PhobosVehicleSystems_SettingClimateAllDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingVehicleCabins".Translate(), ref s.vehicleCabins, d.vehicleCabins, "PhobosVehicleSystems_SettingVehicleCabinsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingHotboxing".Translate(), ref s.hotboxing, d.hotboxing, "PhobosVehicleSystems_SettingHotboxingDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingParkedVehicleUse".Translate(), ref s.parkedVehicleUse, d.parkedVehicleUse, "PhobosVehicleSystems_SettingParkedVehicleUseDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingVisitorsFlattenBattery".Translate(), ref s.visitorsFlattenBattery, d.visitorsFlattenBattery, "PhobosVehicleSystems_SettingVisitorsFlattenBatteryDesc".Translate());
         list.Section("PhobosVehicleSettings_SectionCamps".Translate());
         list.Check("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, d.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingCaravanCooking".Translate(), ref s.caravanCooking, d.caravanCooking, "PhobosVehicleSystems_SettingCaravanCookingDesc".Translate());

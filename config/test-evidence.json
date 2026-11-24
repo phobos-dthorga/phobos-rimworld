@@ -3,6 +3,25 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "521": {"parts": {
+      "a hungry colonist eats from the cargo": ["vehicles.visit-food"],
+      "a thirsty colonist drinks from the crew tank": ["vehicles.visit-drink"],
+      "visitors climb out as it sets off": [{"key": "vehicles.visit-end", "variant": "PhobosVisit_OutMoving"}],
+      "visitors climb out for danger": [{"key": "vehicles.visit-end", "variant": "PhobosVisit_OutDanger"}]
+    }},
+    "520": {"parts": {
+      "someone the cold hurts warms up in a cab": [{"key": "vehicles.visit", "variant": "PhobosVisit_Warm"}],
+      "someone with no bed naps in a seat": [{"key": "vehicles.visit", "variant": "PhobosVisit_Nap"}]
+    }},
+    "519": {"parts": {
+      "a hotbox session begins": [{"key": "vehicles.visit", "variant": "PhobosVisit_Hotbox"}],
+      "a friend joins it": ["vehicles.visit-join"]
+    }},
+    "518": {"parts": {
+      "a bored colonist sits in with the radio": [{"key": "vehicles.visit", "variant": "PhobosVisit_Radio"}],
+      "they climb out by themselves": [{"key": "vehicles.visit-end", "variant": "done"}],
+      "the radio goes off at the start line": [{"key": "vehicles.visit-end", "variant": "PhobosVisit_OutBattery"}]
+    }},
     "517": {"parts": {
       "raiders by parachute": [{"key": "aircraft.raider", "variant": "parachute"}, {"key": "airdrop.pass", "variant": "raid"}]
     }},

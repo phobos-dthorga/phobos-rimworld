@@ -1,9 +1,11 @@
 # Camping and life aboard
 
-**Status (23 Nov 2026):** living; written from the code at D'thorga Framework 0.269.0 and D'thorga Vehicles 0.114.0. Built: the
+**Status (25 Nov 2026):** living; written from the code at D'thorga Framework 0.269.0 and D'thorga Vehicles 0.114.0, with people
+using parked vehicles added at Framework 0.289.0. Built: the
 power budget (outlet, house battery, fridge), the camp order with tents, awnings, swags, kitchen box, lights and heater, deck
 tents, the camper trailer as a camp, cab bunks and sleeping aboard, driving through the night, caravan cooking, walk-in cabins,
-life aboard and hotboxing, the cab's climate and moods, the crew water tank, and three crew machines. **Passed in game by the
+life aboard and hotboxing, the cab's climate and moods, the crew water tank, three crew machines, and people using parked
+vehicles by themselves. **Passed in game by the
 owner:** none of this system's rows. **Not yet tested in game:** all of it; its rows are listed under [Tests](#tests).
 
 This page says how camping and life aboard work now. Why they are this way is in the [decision
@@ -29,6 +31,8 @@ drivetrains](engines-and-drivetrain.md); towing a trailer is on [hitches and tra
   vehicle's night heater switch), and "Drive through the night".
 - **Walk-in cabins and bunk sleep are for the player's vehicles only.** Other factions pitch a camp once at their bases, and their
   riders may arrive hotboxed; nothing else here runs for them. Cab climate runs only at the full detail tier.
+- **Colonists use parked vehicles by themselves** (Framework 0.289.0): they climb into free passenger seats for the radio, a smoke,
+  warmth or a nap, and take food and water from the stores when the map has none. Each vehicle's "Open to the colony" switch stops it.
 - **Much of this is never saved**: a sleeper on the road, the cab's climate, cab smoke, the night-drive halts, the fridge's
   chilled stacks and the open deck tents. A game loaded mid-halt simply drives on. What is saved is listed under [Saved data and
   removal](#saved-data-and-removal).
@@ -161,6 +165,27 @@ Every 250 ticks the vehicle looks at its riders, on a map and on the road (`Life
 | A treat | A non-drug joy food from the cargo | At most every 4 hours |
 | A drink | 1.5 litres from the crew water tank (Dubs Bad Hygiene; on a map only) | Thirst to full; Dubs' contamination check |
 
+### People use parked vehicles
+
+Colonists go to the colony's parked vehicles by themselves (`Visits/`; record: [people use parked vehicles](../vehicle-parked-use.md)).
+A **visit** walks them over, climbs them into a free passenger seat (never a driver's or a gunner's), and ends by itself; the
+rest of this page's life aboard then applies to them.
+
+| Reason | When | Ends when | Figures (authored unless named) |
+| --- | --- | --- | --- |
+| Radio | A recreation choice, kind "high culture", with a stereo fitted and switched on | Recreation full, the timetable leaves recreation, the stereo stops, or 2 hours | 0.36 recreation an hour (the game's own rate for a recreation job); chance 1 |
+| Hotbox | A recreation choice, kind "chemical": a closed cab, Hotboxing on, and a smoke the policy allows in reach or a friend in the cab | An hour after their smoke, or 2 hours | Friend at 20 opinion; ×3 chance; chance 0.8 |
+| Warm | The game's safe-temperature giver found no room for someone with a serious temperature injury | Comfortable outside, or the cab no longer helps | The night heater runs for them (its switch and setting on) |
+| Nap | The game's rest giver chose the ground | Rested (0.98), or the bunk's wake rules | Rest 0.85 (the ground's 0.8 is the game's); "slept sitting up in a cab" −1 after an hour |
+
+- **Everyone climbs out** for danger, fire, illness, a mental break, the setting or switch turned off, and before the vehicle moves
+  (Vehicle Framework's ignition and move events). The player is told why, except when the reason was simply spent.
+- **Food** (PV4): only when the game's food giver found nothing; the game's own best food from the vehicle's cargo, policy included,
+  taken out and eaten. **Water** (PV5, Dubs Bad Hygiene): only when Dubs found nothing; 1.5 litres from the crew tank.
+- **The battery**: a visitor's radio stops at the start line (the camp lights' line) unless "Visitors may flatten the battery" is on.
+- **Asleep aboard**: the game counts a rider with no job as awake; life aboard now asks the visits, so nappers and bunk sleepers
+  neither hear the stereo nor read, snack or smoke.
+
 ### Hotboxing
 
 - **A rider lights up** when their drug policy schedules a smoked drug (on a map), or for joy (joy below 0.5, at most every six
@@ -242,6 +267,8 @@ All under `src/PhobosFramework.Vehicles/` unless named.
 | `Camp/NightDriving.cs` | The night-driving world component, the rest and arrival postfixes |
 | `Cabins/` | Cabin comp and layout, pocket-map generation, enter and leave jobs, shared seats, deck tents |
 | `LifeAboard/LifeAboard.cs` | Life aboard, hotboxing, the on-the-road world component |
+| `Visits/VehicleVisits.cs`, `Visits/VisitReasons.cs` | People use parked vehicles: the visit service and its saved component, the four reasons, jobs, recreation choices and fallbacks |
+| `src/PhobosFramework.Vehicles.Hygiene/VisitDrink.cs` | A drink from a parked vehicle's crew tank (Dubs Bad Hygiene) |
 | `SetOut/CaravanCooking.cs`, `SetOut/FieldKitchen.cs` | Caravan cooking; the field stove and its copied recipes (shared with the field kitchen trailer) |
 | `Service/CampAccessories.cs`, `Service/CabClimate.cs` | The outlet and fridge; the cab's held temperature |
 | `Service/CaravanWater.cs`, `Service/ThoughtWorker_PhobosCab.cs` | Water sources for a caravan; the cab mood |
@@ -307,11 +334,13 @@ reference](../settings-reference.md#dthorga-framework-and-dthorga-vehicle-system
 | Every closed cab has climate control | Off | Cabs, camps and caravans, Cabs |
 | Walk-in cabins | On | Cabs, camps and caravans, Cabs |
 | Hotboxing | On | Cabs, camps and caravans, Cabs |
+| People use parked vehicles | On | Cabs, camps and caravans, Cabs |
+| Visitors may flatten the battery | Off | Cabs, camps and caravans, Cabs |
 | Night heater at camp | Off | Cabs, camps and caravans, Camps and caravans |
 | Field kitchens cook in a caravan | On | Cabs, camps and caravans, Camps and caravans |
 | Drive through the night | Off | Cabs, camps and caravans, Camps and caravans |
 
-Per-vehicle switches, not settings: the outlet (off when fitted), the night heater (off), the fridge, stereo, reading light, camp
+Per-vehicle switches, not settings: "Open to the colony" (on), the outlet (off when fitted), the night heater (off), the fridge, stereo, reading light, camp
 lights and bunk accelerator (on); the caravan's night-driving switch and its meal halts.
 
 ## Saved data and removal
@@ -324,6 +353,8 @@ lights and bunk accelerator (on); the caravan's night-driving switch and its mea
 - **A cabin** saves its pocket map (`PhobosVehicleCabin_Map`) and its way out the vehicle (`PhobosCabin_Vehicle`).
 - **World components**: the caravans that stop at night (`PhobosNightDrive_Stopping`), and the last cook and meal halts
   (`PhobosCaravanCooking_LastCooked`, `_MealHalts`). Both are keyed by caravan, so a caravan that forms again starts fresh.
+- **Visits** save each visitor, their vehicle, reason and times (`PhobosVisits_List`, `PhobosVisit_*`); each vehicle saves its "Open
+  to the colony" switch (`PhobosVisit_OpenToColony`). A visit whose visitor is no longer aboard is dropped at load.
 - **The crew water tank** saves its litres, quality, the amount when laid and its tower (`PhobosCrewWater_*`).
 - **Removal**: the Framework's "Remove the added parts from this colony's vehicles" sweep clears systems and parts only. **It does
   nothing for camps, cabins, canvas roofs or held bunks**: pack camps up and empty cabins before removing the Framework ([How the
@@ -335,9 +366,9 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
 
 - **Vehicle Framework**: the caravan's bed count (`Caravan_BedsTracker`), its arrival estimates (both overloads), its seat count
   (`AreSlotsAvailable`, shared with the cabin and the bunk), and the caravan's night rest.
-- **RimWorld**: the rest job giver (bunk and deck tent), bed memories, the outdoor temperature (deck tents), food fall (the
+- **RimWorld**: the rest job giver (bunk, deck tent and naps), the food and safe-temperature job givers (parked vehicles, on their "nothing" only), bed memories, the outdoor temperature (deck tents), food fall (the
   accelerator), tend quality (the vitals monitor) and a caravan's drug use (hotboxing).
-- **Dubs Bad Hygiene**: the crew water tank, drinking aboard, the caravan's water source, Billy's kettle, and its basin and shower
+- **Dubs Bad Hygiene**: the crew water tank, drinking aboard and from a parked vehicle (its drink job giver, on its "nothing" only), the caravan's water source, Billy's kettle, and its basin and shower
   as camp gear. Lite mode switches all of it off.
 - **Ideology**: the game's sleep accelerator, found by its Def rather than the DLC's name.
 - **Vanilla Brewing Expanded**: espresso at the kitchen box. **Frontline Workshop, RimThunder, Vanilla Vehicles Expanded**: flat
@@ -375,13 +406,13 @@ None of these is a test in game.
 
 - **Rule tests** (`tests/PhobosFramework.Vehicles.Rules.Tests`): `AccessoryRulesTests`, `AutoLightRuleTests`,
   `CabinLayoutRuleTests`, `CampLayoutRuleTests`, `CampRuleTests`, `CampTentRuleTests`, `CaravanCookRuleTests`,
-  `LifeAboardRuleTests`, `NightDriveRuleTests`, `SetOutRuleTests`. In `tests/PhobosFramework.Rules.Tests`:
+  `LifeAboardRuleTests`, `NightDriveRuleTests`, `SetOutRuleTests`, `VisitRuleTests`. In `tests/PhobosFramework.Rules.Tests`:
   `ShelterAndChargeTests`, `StartReserveRuleTests` (the camp lights' floor).
 - **Python**: `tests/test_check_vehicle_schemas.py` (a bad cabin block) and `tests/test_vehicle_bindings.py` (the cabin system).
 - **In game** ([the test list](../in-game-test-pass.md)): **passed**: none of this system's rows. **Waiting**: accessories 178
   to 180; the camp 315 to 317, 326 to 328, 338, 353; deck tents 329, 330, 337, 357, 358; camp gear drawn 359, 360, 366; bunks and
   night driving 319 to 321, 347, 365; walk-in cabins 314, 349, 350; caravan cooking 152 to 154, 156, 191, 322, 323, 325, 334;
-  life aboard 354 to 356, 364; crew machines 432, 438 to 440; the cab 27, 30, 71, 445; camp lights and the start 482.
+  life aboard 354 to 356, 364; crew machines 432, 438 to 440; people use parked vehicles 518 to 521; the cab 27, 30, 71, 445; camp lights and the start 482.
 
 ## Why it is this way
 

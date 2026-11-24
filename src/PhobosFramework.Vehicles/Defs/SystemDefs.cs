@@ -1341,6 +1341,20 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float smokeClearHours = 1f;
     public float smokeClearHoursOpen = 0.25f;
     public float raiderHotboxChance = 0.05f;
+    /// <summary>
+    /// People use parked vehicles (Framework 0.289.0; docs/development/vehicle-parked-use.md): recreation an hour for someone who came to sit
+    /// with the radio (the game's own 0.36 for a recreation job, read from its code); how far, in cells, a colonist looks for a parked vehicle;
+    /// the opinion that makes a friend and how much likelier a friend's hotbox session draws someone in; the hours a session lasts after the
+    /// smoke; the rest a seat gives a napper (between the ground's 0.8, the game's figure, and a bedroll); and the hours of a nap worth
+    /// remembering. All authored but the 0.36.
+    /// </summary>
+    public float visitStereoJoyPerHour = 0.36f;
+    public float visitReachCells = 60f;
+    public float hotboxFriendOpinion = 20f;
+    public float hotboxFriendFactor = 3f;
+    public float hotboxStayHours = 1f;
+    public float napRestEffectiveness = 0.85f;
+    public float napMemoryHours = 1f;
     public float crewTankLowShare = 0.25f;
     public float nightDriverFitRest = 0.3f;
     public float nightReliefRest = 0.6f;

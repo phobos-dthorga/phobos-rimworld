@@ -236,6 +236,8 @@
               <conditions>
                 <li Class="Phobos.VehicleSystems.When_CaravanResting" />
                 <li Class="Phobos.VehicleSystems.When_BunkSleeper" />
+                <!-- Framework 0.289.0: for a colonist warming up in a parked cab (people use parked vehicles, PV3). -->
+                <li Class="Phobos.VehicleSystems.When_WarmingVisitor" />
               </conditions>
             </li>
             <li Class="Phobos.VehicleSystems.When_Setting">

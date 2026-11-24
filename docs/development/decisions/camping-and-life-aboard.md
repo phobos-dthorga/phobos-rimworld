@@ -1,6 +1,6 @@
 # Decisions: camping and life aboard
 
-**Status (23 Nov 2026):** living; harvested from the records' "Who chose what", owner's decisions and answered questions.
+**Status (25 Nov 2026):** living; harvested from the records' "Who chose what", owner's decisions and answered questions.
 One row a decision. How it works now: [the system page](../systems/camping-and-life-aboard.md). Dates are 2026. **Who**:
 owner; owner's card (a decision card answered); agent default or agent choice (the owner may revise either). A later row that
 overturns an earlier one says so.
@@ -172,6 +172,15 @@ overturns an earlier one says so.
 | 24 Nov | Camp lights draw on the house battery; without one they go out at the "barely enough to start" line | owner's card | Lights ran the start battery flat in about 17 hours, even with a house battery | Framework 0.276.3 changelog |
 | 24 Nov | The floor is the starting power's own warning line (0.2), read from its stages; back on only once charging | agent choice | A start still works at the line in the cold; a warmer morning alone would flick them | Framework 0.276.3 changelog |
 | 24 Nov | No such floor for the fridge or outlet | agent choice | The accessories record lets them run the start battery down by the player's choice (Y5, Y7, Y1) | Framework 0.276.3 changelog |
+| 25 Nov | People go to parked vehicles by themselves | owner | "What about while the vehicle is on a map?" | [pu], Read this first |
+| 25 Nov | All four uses: radio, hotbox, warmth and naps, stores | owner's card | Every one built on what works aboard | [pu], The rows |
+| 25 Nov | Visitors climb in, not stand beside | owner's card | The cab's air and life aboard apply | [pu], The rows |
+| 25 Nov | A visitor's radio stops at the start line; flattening a setting, off | owner's card | Realism as a setting | [pu], Risk, and its setting |
+| 25 Nov | One "Open to the colony" switch a vehicle, on | owner's card | One button decides everything | [pu], Risk, and its setting |
+| 25 Nov | Food, water, warmth and sleep only on the game's "nothing" | agent choice | Never overrides the game | [pu], Read this first |
+| 25 Nov | Radio visit 0.36 an hour, the game's rate; two hours at most | agent default | Read from the game; authored cap | [pu], The rows |
+| 25 Nov | Nap 0.85 rest, -1 memory; friend at 20 opinion, x3 | agent default | Authored | [pu], The rows |
+| 25 Nov | Other factions never visit | agent choice | Their people follow their orders | [pu], Other factions' vehicles |
 
 [ac]: ../archive/vehicle-accessories.md
 [hb]: ../archive/vehicle-hotboxing.md
@@ -179,3 +188,4 @@ overturns an earlier one says so.
 [cm]: ../vehicle-crew-machines.md
 [wm]: ../vehicle-world-map-design.md
 [fk]: ../vehicle-field-kitchen.md
+[pu]: ../vehicle-parked-use.md

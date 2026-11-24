@@ -263,6 +263,18 @@
     <smokeClearHours>1</smokeClearHours>
     <smokeClearHoursOpen>0.25</smokeClearHoursOpen>
     <raiderHotboxChance>0.05</raiderHotboxChance>
+    <!-- People use parked vehicles (Framework 0.289.0; docs/development/vehicle-parked-use.md). Someone who came to sit with the radio gains
+         0.36 recreation an hour, the game's own rate for a recreation job (read from its code: 0.36 / 2500 a tick); the rest is authored. A
+         colonist looks for a parked vehicle within 60 cells; a friend is someone at 20 opinion or more, whose hotbox session draws them in
+         three times as often; a session lasts an hour after the smoke; a nap in a seat rests at 0.85 (the ground is 0.8, the game's figure),
+         and an hour of it is remembered. -->
+    <visitStereoJoyPerHour>0.36</visitStereoJoyPerHour>
+    <visitReachCells>60</visitReachCells>
+    <hotboxFriendOpinion>20</hotboxFriendOpinion>
+    <hotboxFriendFactor>3</hotboxFriendFactor>
+    <hotboxStayHours>1</hotboxStayHours>
+    <napRestEffectiveness>0.85</napRestEffectiveness>
+    <napMemoryHours>1</napMemoryHours>
     <!-- Loads a vehicle gains from what it tows (Framework 0.216.0; docs/development/vehicle-field-kitchen.md). A field kitchen's packed cold
          box runs through the trailer's lead: its own working watts (100 W in its Def) at this vehicle's voltage, while it holds food. Shed
          with the fridge, late among the comforts, so the food outlives the air conditioning. -->
