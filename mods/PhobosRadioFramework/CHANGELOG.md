@@ -17,6 +17,16 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.16.1] - 2026-11-25 - Draft
+
+Fixes from the fault-read of 25 November 2026
+
+### Fixed
+
+- **A vehicle whose remote control kit fails holds, and the player is told** (with D'thorga Framework 0.284.0). With the kit's power
+  shed or its part shot away, a vehicle a station drove stopped without a word and took up its link again silently. Now it holds with
+  a letter saying its kit failed, keeps its buttons, and is told when it works again. Not yet tested in game: row 508.
+
 ## [0.16.0] - 2026-11-25 - Draft
 
 The radio's own sounds

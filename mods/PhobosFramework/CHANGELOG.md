@@ -13,6 +13,38 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.284.0] - 2026-11-25 - Draft
+
+Fixes from the fault-read of 25 November 2026
+
+### Fixed
+
+- **A vehicle on a loop or in a convoy that cannot drive on waits quietly** (fault-read of 25 November 2026, A1). Out of fuel,
+  waiting on set-up work or stalled, it used to ask for its engine every second, and every refusal posted a message. Now it says why
+  once, waits with its engine off where colonists can refuel it, and drives on by itself once it can; its inspect text says what it
+  waits for. A loop vehicle also switches its engine off while it waits at a stop, so it is refuelled and unloaded there as any parked
+  vehicle (an agent default). Not yet tested in game: row 507.
+- **A vehicle whose control kit fails holds, and the player is told** (A4). With its power shed (a flat battery, a short) or its part
+  shot away, a vehicle driven from a station, along a route or by a mechanitor stopped at once without a word, then took up its link
+  again silently. Now it holds where it stands with a letter saying the kit failed, whatever was chosen for a lost link, keeps its
+  buttons so it can be let go, and sends the usual letter when the kit works again. A kit taken off at the workshop still lets the
+  vehicle go quietly. Not yet tested in game: row 508.
+- **Mechanoids come first, as promised** (A3). The linked vehicles' bandwidth was added to the figure the game also uses to allow a new
+  mechanoid, a resurrection or a mech capsule, so vehicles could keep mechanoids out. Now only the bandwidth meter counts them; every
+  such check sees the mechanoids alone, and the newest linked vehicle loses control when they need the room.
+- **A vehicle driven from a station keeps to radio cover with a route kit fitted too** (A2): the cover was asked of the first kit
+  fitted, the route's, which has none.
+- **Convoys keep their limit and their order** (A5, A6). A leader joining another convoy brings its followers into the count of four,
+  and they take the new leader as theirs, so no ring of vehicles can keep itself driving. A follower destroyed or leaving the map now
+  closes the gap behind it, where two followers used to make for one place.
+- **A loop belongs to its map** (A7): taken to another map, a loop vehicle waits there instead of driving the old map's points, and
+  carries on when it is back.
+- **A mechlinked vehicle left behind on a closed map frees its mechanitor's bandwidth** (A8), as it could not be reached to unlink.
+
+### Save compatibility
+
+- Safe on an existing save. A loop running in a save takes the map it is on as its own at its next look.
+
 ## [0.283.0] - 2026-11-25 - Draft
 
 Tank trailers' electric pump, and emptying the shower trailer's waste tank

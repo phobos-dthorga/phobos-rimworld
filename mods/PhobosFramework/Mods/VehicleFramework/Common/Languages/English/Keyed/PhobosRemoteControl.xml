@@ -41,6 +41,8 @@
   <PhobosRemote_InspectComingBack>Link lost: coming back toward its station.</PhobosRemote_InspectComingBack>
   <PhobosRemote_InspectCarryingOn>Link lost: finishing its last drive.</PhobosRemote_InspectCarryingOn>
   <PhobosRemote_InspectCrew>Someone is at the wheel, so no station drives it.</PhobosRemote_InspectCrew>
+  <!-- Framework 0.284.0: a kit still fitted but not working. -->
+  <PhobosRemote_InspectKitDown>Its control kit has no power or is damaged: holding here until it works again.</PhobosRemote_InspectKitDown>
 
   <!-- Letters. -->
   <PhobosRemote_LostLabel>Link lost: {VEHICLE}</PhobosRemote_LostLabel>
@@ -48,6 +50,7 @@
   <PhobosRemote_LostHold>It is holding where it stands until a station reaches it again.</PhobosRemote_LostHold>
   <PhobosRemote_LostComeBack>It is driving back toward its station until the link returns.</PhobosRemote_LostComeBack>
   <PhobosRemote_LostCarryOn>It is finishing the drive it was given, and will wait there.</PhobosRemote_LostCarryOn>
+  <PhobosRemote_LostKitDown>Its control kit has lost its power or been damaged, so it is holding where it stands. Restore the power or repair the kit and it drives again.</PhobosRemote_LostKitDown>
   <PhobosRemote_FoundLabel>Link back: {VEHICLE}</PhobosRemote_FoundLabel>
   <PhobosRemote_FoundText>A station is in touch with {VEHICLE} again, and can drive it.</PhobosRemote_FoundText>
 
@@ -74,6 +77,8 @@
   <PhobosRoute_ConvoyFull>{LEADER}'s convoy is full: {MOST} vehicles follow it already.</PhobosRoute_ConvoyFull>
   <PhobosRoute_Stopped>{VEHICLE} stops following its route.</PhobosRoute_Stopped>
   <PhobosRoute_BrokenUp>{VEHICLE}'s convoy breaks up; each vehicle stays where it is.</PhobosRoute_BrokenUp>
+  <!-- Framework 0.284.0: told once when it cannot drive on, then it waits for the cause to clear. -->
+  <PhobosRoute_Waits>{VEHICLE} cannot drive on and waits where it is: {REASON}</PhobosRoute_Waits>
 
   <!-- The route level: inspect text. -->
   <PhobosRoute_InspectFollowing>Following {AHEAD}, in {LEADER}'s convoy.</PhobosRoute_InspectFollowing>
@@ -86,6 +91,8 @@
   <PhobosRoute_InspectHolding>Its leader is lost: holding here.</PhobosRoute_InspectHolding>
   <PhobosRoute_InspectComingBack>Its leader is lost: driving back to where it last saw it.</PhobosRoute_InspectComingBack>
   <PhobosRoute_InspectCarryingOn>Its leader is lost: finishing its last drive.</PhobosRoute_InspectCarryingOn>
+  <PhobosRoute_InspectCannotDrive>Waiting to drive on: {REASON}</PhobosRoute_InspectCannotDrive>
+  <PhobosRoute_InspectAwayFromLoop>Its loop is on another map: it waits until it is back there.</PhobosRoute_InspectAwayFromLoop>
 
   <!-- The route level: letters. -->
   <PhobosRoute_LostLabel>Leader lost: {VEHICLE}</PhobosRoute_LostLabel>

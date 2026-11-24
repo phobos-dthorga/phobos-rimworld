@@ -26,7 +26,13 @@ public static class RouteRule
         distanceToTarget > nearCells && (!driving || orderToTarget > slackCells);
 
     /// <summary>Whether another follower may join a convoy that has this many already (the owner, 18 Nov 2026: at most four).</summary>
-    public static bool MayJoin(int followers, int most) => followers < Math.Max(0, most);
+    public static bool MayJoin(int followers, int most) => MayJoin(followers, 1, most);
+
+    /// <summary>
+    /// Whether this many vehicles may join a convoy that has this many followers already (Framework 0.284.0): a vehicle joins with its own
+    /// followers behind it, and all of them count against the limit.
+    /// </summary>
+    public static bool MayJoin(int followers, int joining, int most) => followers + Math.Max(1, joining) <= Math.Max(0, most);
 
     /// <summary>The point after this one on a loop, coming back to the first.</summary>
     public static int Next(int index, int count) => count <= 0 ? 0 : (index + 1) % count;

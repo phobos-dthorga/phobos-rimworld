@@ -366,7 +366,10 @@ Framework (D'thorga Framework's new tie-in folder `Mods/VehiclesBiotech`); no ra
 - **Bandwidth [O]:** **by size**, 1 light, 2 medium, 3 heavy or tracked. Heavy and tracked come from the loadout's class; light and
   medium share one class of loadout, so they are told apart by empty mass: **4 t or less is light** [A] (`MechLinkRule`, tested). It is
   **added to the mechanitor's used bandwidth** (the owner, 18 Nov 2026) by one postfix on the game's `Pawn_MechanitorTracker.UsedBandwidth`,
-  so the game's own bandwidth gizmo and its limits on gestation see it; nobody else patches that getter (`query-patches.py`, 25 Nov 2026).
+  **only while the game's bandwidth meter draws** (Framework 0.284.0; fault-read A3): the same getter decides whether a mechanoid may be
+  controlled, resurrected or kept (the game's `CanControlMech`, `HasBandwidthToResurrect`, the band node's warning, other mods' mech
+  capsules), and vehicles counted there kept mechanoids out, against "mechanoids first". Gestation reads the mechanoids' own figure and was
+  never limited by vehicles. Nobody else patches the getter or the meter (`query-patches.py`, 25 Nov 2026).
 - **Mechanoids first [O, 18 Nov 2026]:** when bandwidth runs short, the vehicles lose control first, **the newest link first**: after the
   mechanoids' own use, the oldest links are kept while they fit (`MechLinkRule.Kept`, tested).
 - **Reach:** driven only while the mechanitor is up, on its map, and the vehicle within their command range, through the game's own

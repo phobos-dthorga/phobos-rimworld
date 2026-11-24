@@ -35,6 +35,16 @@ public class RouteRuleTests
     }
 
     [Fact]
+    public void ALeaderJoiningBringsItsFollowersIntoTheCount()
+    {
+        // Framework 0.284.0: two following one leader, joining a convoy of two, makes five behind it: refused.
+        Assert.False(RouteRule.MayJoin(2, 3, 4));
+        Assert.True(RouteRule.MayJoin(1, 3, 4));
+        Assert.True(RouteRule.MayJoin(3, 0, 4));    // nobody joins as fewer than one
+        Assert.False(RouteRule.MayJoin(4, 0, 4));
+    }
+
+    [Fact]
     public void ALoopComesBackToItsFirstPoint()
     {
         Assert.Equal(1, RouteRule.Next(0, 3));

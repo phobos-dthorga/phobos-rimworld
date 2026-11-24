@@ -21,8 +21,14 @@ public readonly record struct RemoteLink(bool Linked, IntVec3 Station, bool Pict
 /// </summary>
 public interface IRemoteControlSource
 {
-    /// <summary>Whether this vehicle carries this source's kit, so it can be driven by it.</summary>
+    /// <summary>Whether this vehicle carries this source's kit and it works, so it can be driven by it.</summary>
     bool Fitted(VehiclePawn vehicle);
+    /// <summary>
+    /// Whether the kit is on the vehicle at all, working or not (Framework 0.284.0): a kit carried but not working (its power shed, its
+    /// part shot away) is a lost link, with the lost-link letter, rather than a kit taken off. A source that cannot tell says
+    /// <see cref="Fitted"/>.
+    /// </summary>
+    bool Carried(VehiclePawn vehicle) => Fitted(vehicle);
     /// <summary>The vehicle's link now. Read from what the source already worked out; nothing is worked out here.</summary>
     RemoteLink LinkOf(VehiclePawn vehicle);
     /// <summary>The player asked for the vehicle to be driven, or let it go: the source works its link out again at once.</summary>
@@ -77,6 +83,20 @@ public static class RemoteControl
     public static IRemoteControlSource? StationSource(VehiclePawn vehicle)
     {
         foreach (var source in sources) if (source.StationToggle && source.Fitted(vehicle)) return source;
+        return null;
+    }
+
+    /// <summary>
+    /// The source of this name (a station's when the name is empty) whose kit is on the vehicle, working or not (Framework 0.284.0), so a
+    /// vehicle whose kit fails keeps its source and acts on a lost link.
+    /// </summary>
+    public static IRemoteControlSource? CarriedSource(VehiclePawn vehicle, string? key)
+    {
+        foreach (var source in sources)
+        {
+            if (key.NullOrEmpty() ? !source.StationToggle : source.Key != key) continue;
+            if (source.Carried(vehicle)) return source;
+        }
         return null;
     }
 
@@ -149,8 +169,14 @@ public sealed class CompPhobosRemoteControl : VehicleComp
     /// </summary>
     public bool WantsPicture => WantedByStation && Vehicle.Drafted;
 
-    /// <summary>The source that drives it, or would: the one the player asked for, if its kit is still on (Framework 0.281.0).</summary>
-    public IRemoteControlSource? Current => drivenBy.NullOrEmpty() ? RemoteControl.StationSource(Vehicle) : RemoteControl.SourceFor(Vehicle, drivenBy!);
+    /// <summary>
+    /// The source that drives it, or would: the one the player asked for, if its kit is still on (Framework 0.281.0), working or not
+    /// (Framework 0.284.0: a failed kit is a lost link, <see cref="KitDown"/>).
+    /// </summary>
+    public IRemoteControlSource? Current => RemoteControl.CarriedSource(Vehicle, drivenBy);
+
+    /// <summary>Asked to be driven, and the kit that drives it is on the vehicle but not working: its power shed or its part shot away.</summary>
+    public bool KitDown => wanted && Current is { } source && !source.Fitted(Vehicle);
 
     /// <summary>The player asked for it to be driven with nobody aboard, that source's setting allows it, and its own crew is not at the wheel.</summary>
     public bool Wanted => wanted && Current is { Enabled: true } && !RemoteControl.CrewDrives(Vehicle);
@@ -215,7 +241,9 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         var source = Current;
         enabled = source is { Enabled: true };
         var want = source != null && Wanted;
-        var link = want ? source!.LinkOf(vehicle) : default;
+        // A kit carried but not working (Framework 0.284.0) asks nothing of its source: the vehicle holds and the player is told why.
+        var kitDown = want && !source!.Fitted(vehicle);
+        var link = want && !kitDown ? source!.LinkOf(vehicle) : default;
         var hadPicture = picture;
         picture = link.Linked && link.Picture;
         if (picture != hadPicture && Seen.Wants("vehicles.remote-picture", vehicle, picture ? "won" : "lost"))
@@ -238,13 +266,13 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         }
         var before = state;
         var after = RemoteControlRule.Next(before, want, link.Linked, lostSinceTick < 0 ? 0 : now - lostSinceTick,
-            PhobosRemoteControlRulesDef.Current.lostLinkDelayTicks, choice, VehicleAutoDrive.Moving(vehicle));
+            PhobosRemoteControlRulesDef.Current.lostLinkDelayTicks, choice, VehicleAutoDrive.Moving(vehicle), kitDown);
         if (after == before) return;
         state = after;
-        Changed(vehicle, before, after);
+        Changed(vehicle, before, after, kitDown);
     }
 
-    void Changed(VehiclePawn vehicle, RemoteState before, RemoteState after)
+    void Changed(VehiclePawn vehicle, RemoteState before, RemoteState after, bool kitDown)
     {
         if (before == RemoteState.ComingBack && comeBackCell.IsValid)
         {
@@ -257,7 +285,8 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         {
             // Each source says it in its own words: a station, a route's leader, a mechanitor (Framework 0.282.0).
             var prefix = Current?.TextPrefix ?? "PhobosRemote_";
-            var key = prefix + after switch
+            // A failed kit says so, whoever's kit it is (Framework 0.284.0).
+            var key = kitDown ? "PhobosRemote_LostKitDown" : prefix + after switch
             {
                 RemoteState.ComingBack => "LostComeBack",
                 RemoteState.CarryingOn => "LostCarryOn",
@@ -266,7 +295,11 @@ public sealed class CompPhobosRemoteControl : VehicleComp
             Find.LetterStack.ReceiveLetter((prefix + "LostLabel").Translate(vehicle.LabelShort.Named("VEHICLE")),
                 (prefix + "LostText").Translate(vehicle.LabelShort.Named("VEHICLE"), key.Translate().Named("ACTION")),
                 LetterDefOf.NegativeEvent, vehicle);
-            if (Seen.Wants("vehicles.remote-lost", vehicle, after.ToString())) Seen.Note("vehicles.remote-lost", vehicle, vehicle.LabelShort, after.ToString());
+            if (kitDown)
+            {
+                if (Seen.Wants("vehicles.remote-kit-down", vehicle)) Seen.Note("vehicles.remote-kit-down", vehicle, vehicle.LabelShort);
+            }
+            else if (Seen.Wants("vehicles.remote-lost", vehicle, after.ToString())) Seen.Note("vehicles.remote-lost", vehicle, vehicle.LabelShort, after.ToString());
         }
         else if (RemoteControlRule.TellsFound(before, after))
         {
@@ -282,6 +315,8 @@ public sealed class CompPhobosRemoteControl : VehicleComp
     {
         if (!station.IsValid || !station.InBounds(vehicle.Map)) return false;
         if (!VehicleAutoDrive.TryFindStandCell(vehicle, station, PhobosRemoteControlRulesDef.Current.comeBackRing, out var cell)) return false;
+        // Asked first (Framework 0.284.0), so a vehicle that cannot go (no fuel, set-up work) holds without Vehicle Framework's refusal message.
+        if (VehicleAutoDrive.CannotDrive(vehicle) != null) return false;
         if (!VehicleAutoDrive.StartEngine(vehicle, out _) || !VehicleAutoDrive.DriveTo(vehicle, cell)) return false;
         comeBackCell = cell;
         return true;
@@ -301,9 +336,10 @@ public sealed class CompPhobosRemoteControl : VehicleComp
     {
         foreach (var gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         var vehicle = Vehicle;
-        if (vehicle.Faction != Faction.OfPlayer || RemoteControl.SourceFor(vehicle) == null) yield break;
+        // A vehicle whose kit has failed keeps its buttons (Framework 0.284.0), so the player can still let it go.
+        if (vehicle.Faction != Faction.OfPlayer || RemoteControl.SourceFor(vehicle) == null && Current == null) yield break;
         // The station's button (Framework 0.281.0: only for a station source; a route has buttons of its own).
-        if (RemoteControl.StationSource(vehicle) is { Enabled: true } station)
+        if ((RemoteControl.StationSource(vehicle) ?? (wanted && Current is { StationToggle: true } held ? held : null)) is { Enabled: true } station)
         {
             yield return new Command_Toggle
             {
@@ -339,6 +375,7 @@ public sealed class CompPhobosRemoteControl : VehicleComp
     {
         // A route says its own (CompPhobosRoute, Framework 0.281.0).
         if (!wanted || Current is not { Enabled: true, StationToggle: true }) return string.Empty;
+        if (KitDown) return "PhobosRemote_InspectKitDown".Translate();
         return state switch
         {
             RemoteState.Unlinked => "PhobosRemote_InspectUnlinked".Translate(),

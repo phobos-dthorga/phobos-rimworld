@@ -85,6 +85,13 @@ public static class VehicleRadios
     }
 
     /// <summary>
+    /// As <see cref="Fitted"/>, working or not (Radio 0.16.1): the remote control kit counts while it is on the vehicle, its power shed or
+    /// its part shot away, so the vehicle acts on a lost link and the player is told, rather than letting go without a word.
+    /// </summary>
+    public static bool Carried(VehiclePawn vehicle) =>
+        Fitted(vehicle) || vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Carries(KitGrant);
+
+    /// <summary>
     /// A test: fits the vehicle control radio to the selected vehicles of the colony until the game is loaded again, so its links can
     /// be seen before any vehicle carries the kit. It changes nothing that is saved.
     /// </summary>
@@ -145,6 +152,8 @@ public sealed class VehicleRadioRule : ICarriedRadioRule
 public sealed class RadioRemoteControl : IRemoteControlSource, IRemoteCoverSource
 {
     public bool Fitted(VehiclePawn vehicle) => vehicle.GetComp<CompRadio>() != null && VehicleRadios.Fitted(vehicle);
+
+    public bool Carried(VehiclePawn vehicle) => vehicle.GetComp<CompRadio>() != null && VehicleRadios.Carried(vehicle);
 
     public RemoteCover? CoverOf(Map map) => RemoteCoverMap.CoverOf(map);
 

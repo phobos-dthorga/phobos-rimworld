@@ -69,4 +69,19 @@ public class RemoteControlRuleTests
     [Fact]
     public void NoDelayActsAtOnce() =>
         Assert.Equal(S.Holding, RemoteControlRule.Next(S.Linked, true, false, 0, 0, LostLinkChoice.Hold, true));
+
+    [Fact]
+    public void AFailedKitHoldsAtOnceAndIsTold()
+    {
+        // Framework 0.284.0: whatever was chosen, no wait and no drive back; the player is told once.
+        var after = RemoteControlRule.Next(S.Linked, true, false, 0, Delay, LostLinkChoice.ComeBack, true, kitDown: true);
+        Assert.Equal(S.Holding, after);
+        Assert.True(RemoteControlRule.TellsLost(S.Linked, after));
+        Assert.Equal(S.Holding, RemoteControlRule.Next(S.Waiting, true, false, 10, Delay, LostLinkChoice.CarryOn, true, kitDown: true));
+        Assert.Equal(S.Holding, RemoteControlRule.Next(S.ComingBack, true, false, 2000, Delay, LostLinkChoice.ComeBack, true, kitDown: true));
+        // Never linked: it keeps waiting. Not asked: off. Back to work: linked again, and told.
+        Assert.Equal(S.Unlinked, RemoteControlRule.Next(S.Off, true, false, 0, Delay, LostLinkChoice.Hold, false, kitDown: true));
+        Assert.Equal(S.Off, RemoteControlRule.Next(S.Holding, false, false, 0, Delay, LostLinkChoice.Hold, false, kitDown: true));
+        Assert.True(RemoteControlRule.TellsFound(S.Holding, RemoteControlRule.Next(S.Holding, true, true, 0, Delay, LostLinkChoice.Hold, false, kitDown: false)));
+    }
 }

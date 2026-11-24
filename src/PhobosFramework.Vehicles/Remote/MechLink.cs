@@ -3,6 +3,7 @@ using System.Linq;
 using HarmonyLib;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
+using RimWorld.Planet;
 using UnityEngine;
 using Vehicles;
 using Verse;
@@ -37,6 +38,10 @@ public sealed class MechControl : IRemoteControlSource
     public static bool KitWorks(VehiclePawn vehicle) =>
         vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(KitGrant) && systems.LoadActive(KitLoad);
 
+    /// <summary>The link is on the vehicle, working or not (Framework 0.284.0): a failed link is a lost link, told, not a let-go.</summary>
+    public bool Carried(VehiclePawn vehicle) =>
+        vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Carries(KitGrant);
+
     public RemoteLink LinkOf(VehiclePawn vehicle)
     {
         if (vehicle.GetComp<CompPhobosMechLink>() is not { } link || link.Why() != null) return default;
@@ -54,11 +59,34 @@ public sealed class MechControl : IRemoteControlSource
 /// </summary>
 public sealed class GameComponent_PhobosMechLinks : GameComponent
 {
+    /// <summary>How often links whose vehicle was left behind are let go: as a vehicle's rare tick.</summary>
+    const int LeftBehindTicks = 250;
+
     readonly List<CompPhobosMechLink> links = new();
 
     public GameComponent_PhobosMechLinks(Game game)
     {
     }
+
+    /// <summary>
+    /// Lets go of a link whose vehicle has been left behind (Framework 0.284.0): its map closed with it on it, so it is held by nothing and
+    /// no button reaches it, yet it took its mechanitor's bandwidth. A vehicle in a caravan, a hold or the air is held by those, and keeps
+    /// its link, as an overseen mechanoid does. A few field reads every 250 ticks while any vehicle is linked.
+    /// </summary>
+    public override void GameComponentTick()
+    {
+        if (links.Count == 0 || Find.TickManager.TicksGame % LeftBehindTicks != 0) return;
+        for (var i = links.Count - 1; i >= 0 && i < links.Count; i--)
+        {
+            var link = links[i];
+            if (!LeftBehind(link.Vehicle)) continue;
+            link.Unlink(quietly: true);
+            links.Remove(link);
+        }
+    }
+
+    static bool LeftBehind(VehiclePawn? vehicle) =>
+        vehicle == null || vehicle.Destroyed || vehicle.Discarded || !vehicle.Spawned && vehicle.ParentHolder == null && vehicle.IsWorldPawn();
 
     public static GameComponent_PhobosMechLinks? Current => Verse.Current.Game?.GetComponent<GameComponent_PhobosMechLinks>();
 
@@ -163,7 +191,8 @@ public sealed class CompPhobosMechLink : VehicleComp
         if (!MechControl.On || !MechControl.KitWorks(Vehicle)) return "PhobosMechLink_NoKit".Translate(Vehicle.LabelShort.Named("VEHICLE"));
         if (pawn.mechanitor == null || pawn.Faction != Faction.OfPlayer) return "PhobosMechLink_NotMechanitor".Translate(pawn.LabelShort.Named("PAWN"));
         var tracker = pawn.mechanitor;
-        var free = tracker.TotalBandwidth - tracker.UsedBandwidth;
+        // The game's used figure counts no vehicle outside its bandwidth meter (Framework 0.284.0), so the links are added here.
+        var free = tracker.TotalBandwidth - tracker.UsedBandwidth - (GameComponent_PhobosMechLinks.Current?.CostOf(pawn) ?? 0);
         if (mechanitor != pawn && Cost > free)
         {
             return "PhobosMechLink_TooLittle".Translate(pawn.LabelShort.Named("MECHANITOR"), Cost.Named("COST"), Mathf.Max(0, free).Named("FREE"));
@@ -293,16 +322,33 @@ public static class MechLinkStartup
 }
 
 /// <summary>
-/// A mechanitor's used bandwidth counts their linked vehicles too (Framework 0.282.0; the owner's choice of 18 Nov 2026, "add to the used
-/// figure", so the game's own bandwidth gizmo and its gestation limits see them). Postfix: it only adds; the sum is a short list read. No
-/// other mod patches this getter (query-patches.py, 25 Nov 2026).
+/// A mechanitor's used bandwidth, as their bandwidth meter shows it, counts their linked vehicles too (Framework 0.282.0; the owner's choice
+/// of 18 Nov 2026, "add to the used figure"). Since 0.284.0 only while the meter draws (<see cref="MechLinkBandwidthGizmoPatch"/>): the
+/// same getter decides whether a mechanoid may be controlled, resurrected or kept (the game's CanControlMech, HasBandwidthToResurrect,
+/// the band node's warning, other mods' mech capsules), and a vehicle counted there would push mechanoids out, against the owner's
+/// "mechanoids first". Postfix: it only adds; the sum is a short list read. No other mod patches this getter (query-patches.py, 25 Nov 2026).
 /// </summary>
 [HarmonyPatch(typeof(Pawn_MechanitorTracker), nameof(Pawn_MechanitorTracker.UsedBandwidth), MethodType.Getter)]
 public static class MechLinkBandwidthPatch
 {
     public static void Postfix(Pawn ___pawn, ref int __result)
     {
-        if (___pawn == null || GameComponent_PhobosMechLinks.Current is not { } links) return;
+        if (!MechLinkBandwidthGizmoPatch.Drawing || ___pawn == null || GameComponent_PhobosMechLinks.Current is not { } links) return;
         __result += links.CostOf(___pawn);
     }
+}
+
+/// <summary>
+/// Marks the game's bandwidth meter while it draws (Framework 0.284.0), so its used figure counts the linked vehicles and nothing else's
+/// does. The meter builds its tooltip in the same call. Main thread only; the finalizer clears the mark even if the meter throws. No other
+/// mod patches the meter (query-patches.py, 25 Nov 2026).
+/// </summary>
+[HarmonyPatch(typeof(MechanitorBandwidthGizmo), nameof(MechanitorBandwidthGizmo.GizmoOnGUI))]
+public static class MechLinkBandwidthGizmoPatch
+{
+    public static bool Drawing { get; private set; }
+
+    public static void Prefix() => Drawing = true;
+
+    public static void Finalizer() => Drawing = false;
 }

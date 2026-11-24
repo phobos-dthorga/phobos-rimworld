@@ -62,8 +62,9 @@ public sealed class RemoteCoverCosts : VehicleCostOffsets
     {
         if (disposed || !VehicleSystemsMod.Settings.remoteKeepToCover || !RemoteControl.On) return false;
         if (settings.vehicle is not { Spawned: true } vehicle || vehicle.Map != map) return false;
-        if (!RemoteControl.Wanted(vehicle) || CompPhobosFieldRun.DrivingARow(vehicle)) return false;
-        if (RemoteControl.SourceFor(vehicle) is not IRemoteCoverSource source || source.CoverOf(map) is not { } cover) return false;
+        if (vehicle.GetComp<CompPhobosRemoteControl>() is not { WantedByStation: true } remote || CompPhobosFieldRun.DrivingARow(vehicle)) return false;
+        // The source that drives it, not the first one fitted (Framework 0.284.0): with a route kit as well, the route's came first and had no cover.
+        if (remote.Current is not IRemoteCoverSource source || source.CoverOf(map) is not { } cover) return false;
         if (cover.Width != map.Size.x || cover.Height != map.Size.z) return false;
         Show(cover);
         if (Seen.Wants("vehicles.remote-cover", vehicle))

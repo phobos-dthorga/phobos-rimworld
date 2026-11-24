@@ -46,13 +46,20 @@ public sealed class RouteControl : IRemoteControlSource
     public static bool KitWorks(VehiclePawn vehicle) =>
         vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(KitGrant) && systems.LoadActive(KitLoad);
 
+    /// <summary>The route kit is on the vehicle, working or not (Framework 0.284.0): a failed kit holds the route rather than ending it.</summary>
+    public bool Carried(VehiclePawn vehicle) => KitCarried(vehicle);
+
+    public static bool KitCarried(VehiclePawn vehicle) =>
+        vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Carries(KitGrant);
+
     public RemoteLink LinkOf(VehiclePawn vehicle)
     {
         if (!vehicle.Spawned || vehicle.GetComp<CompPhobosRoute>() is not { } route) return default;
         return route.Mode switch
         {
             RouteMode.Follow when Convoys.Leads(route.Leader, vehicle.Map) => new RemoteLink(true, route.Leader!.Position),
-            RouteMode.Loop when route.Points.Count >= 2 => new RemoteLink(true, route.Points[0]),
+            // Only on the map its loop was set on (Framework 0.284.0): elsewhere it waits, unlinked, for its return.
+            RouteMode.Loop when route.Points.Count >= 2 && route.OnLoopMap => new RemoteLink(true, route.Points[0]),
             _ => default,
         };
     }
@@ -133,11 +140,18 @@ public sealed class CompPhobosRoute : VehicleComp
     int leg;
     int dwellUntil = -1;
     IntVec3 orderCell = IntVec3.Invalid;
+    /// <summary>The map its loop was set on (Framework 0.284.0), by its unique ID; -1 before then, taken up at the next look.</summary>
+    int loopMapId = -1;
+    /// <summary>Why it cannot drive on now, told once when it starts (Framework 0.284.0). Derived at each look; never saved.</summary>
+    string? waitingWhy;
 
     public RouteMode Mode => mode;
     public VehiclePawn? Ahead => ahead;
     public VehiclePawn? Leader => leader;
     public IReadOnlyList<IntVec3> Points => points;
+
+    /// <summary>Whether the vehicle is on the map its loop's points belong to.</summary>
+    public bool OnLoopMap => loopMapId < 0 || Vehicle.Spawned && Vehicle.Map.uniqueID == loopMapId;
 
     static PhobosRemoteControlRulesDef Rules => PhobosRemoteControlRulesDef.Current;
 
@@ -161,16 +175,21 @@ public sealed class CompPhobosRoute : VehicleComp
         var lead = Convoys.LeaderOf(target);
         if (lead == Vehicle || Convoys.LeaderOf(Vehicle) == lead && mode == RouteMode.Follow) return "PhobosRoute_CannotFollow".Translate(target.LabelShort.Named("TARGET"));
         var behind = Convoys.Followers(lead);
-        if (!RouteRule.MayJoin(behind.Count, Rules.maxFollowers))
+        // Anyone following this vehicle comes along behind it, so a convoy can be joined whole; they count against the limit too
+        // (Framework 0.284.0: a leader with followers could join another convoy past it).
+        var mine = Convoys.Followers(Vehicle);
+        if (!RouteRule.MayJoin(behind.Count, 1 + mine.Count, Rules.maxFollowers))
         {
             return "PhobosRoute_ConvoyFull".Translate(lead.LabelShort.Named("LEADER"), Rules.maxFollowers.Named("MOST"));
         }
         if (mode != RouteMode.None) Stop(quietly: true);
-        // Anyone following this vehicle comes along behind it, so a convoy can be joined whole.
         mode = RouteMode.Follow;
         leader = lead;
         ahead = behind.Count > 0 ? behind[^1].Vehicle : lead;
         orderCell = IntVec3.Invalid;
+        // They take the new leader as theirs, keeping their order behind this vehicle: no follower leads a convoy of its own, so no ring
+        // of vehicles can keep itself linked (Framework 0.284.0).
+        foreach (var follower in mine) follower.leader = lead;
         Remote!.SetWanted(true, RouteControl.SourceKey);
         if (Seen.Wants("vehicles.route-follow", Vehicle)) Seen.Note("vehicles.route-follow", Vehicle, "behind " + ahead.LabelShort);
         return null;
@@ -184,6 +203,7 @@ public sealed class CompPhobosRoute : VehicleComp
         mode = RouteMode.Loop;
         points = new List<IntVec3> { pickUp, dropOff };
         stops = new List<bool> { true, true };
+        loopMapId = Vehicle.Map.uniqueID;
         leg = 0;
         dwellUntil = -1;
         orderCell = IntVec3.Invalid;
@@ -195,7 +215,7 @@ public sealed class CompPhobosRoute : VehicleComp
     /// <summary>Adds a waypoint on the leg it lengthens least (RouteRule.InsertAt).</summary>
     public void AddWaypoint(IntVec3 cell)
     {
-        if (mode != RouteMode.Loop) return;
+        if (mode != RouteMode.Loop || !OnLoopMap) return;
         var at = RouteRule.InsertAt(points.Select(p => (p.x, p.z)).ToList(), (cell.x, cell.z));
         points.Insert(at, cell);
         stops.Insert(at, false);
@@ -205,7 +225,9 @@ public sealed class CompPhobosRoute : VehicleComp
     /// <summary>Stops following or the loop, and hands the vehicle back. Its own followers close up behind the one ahead of it.</summary>
     public void Stop(bool quietly = false)
     {
-        if (mode == RouteMode.Follow && Vehicle.Spawned && leader != null)
+        // Not only while spawned (Framework 0.284.0): a follower destroyed or gone from the map is stopped as it leaves, and the one
+        // behind it must close up then, or two followers would make for one place.
+        if (mode == RouteMode.Follow && leader != null)
         {
             foreach (var behind in Convoys.Followers(leader)) if (behind.ahead == Vehicle) behind.ahead = ahead;
         }
@@ -216,6 +238,8 @@ public sealed class CompPhobosRoute : VehicleComp
         stops.Clear();
         orderCell = IntVec3.Invalid;
         dwellUntil = -1;
+        loopMapId = -1;
+        waitingWhy = null;
         if (Remote is { } remote && remote.WantedBy(RouteControl.SourceKey)) remote.SetWanted(false, null);
         if (!quietly) Messages.Message("PhobosRoute_Stopped".Translate(Vehicle.LabelShort.Named("VEHICLE")), Vehicle, MessageTypeDefOf.SilentInput, false);
     }
@@ -233,17 +257,38 @@ public sealed class CompPhobosRoute : VehicleComp
     void Look()
     {
         var remote = Remote;
-        // Another source took it (the station's button), its kit stopped working, or the setting is off: it lets go.
-        if (remote == null || !remote.WantedBy(RouteControl.SourceKey) || !RouteControl.On || !RouteControl.KitWorks(Vehicle))
+        // Another source took it (the station's button), its kit was taken off, or the setting is off: it lets go. A kit still on but
+        // not working (its power shed, its part shot away) holds the route instead: the remote control comp tells the player (0.284.0).
+        if (remote == null || !remote.WantedBy(RouteControl.SourceKey) || !RouteControl.On || !RouteControl.KitCarried(Vehicle))
         {
             Stop(quietly: !RouteControl.On);
             return;
         }
+        if (mode == RouteMode.Loop && loopMapId < 0) loopMapId = Vehicle.Map.uniqueID;
         // Lost, waiting or acting on it: the remote control comp's choices have it.
         if (remote.State != RemoteState.Linked) return;
-        if (!Vehicle.Drafted && !VehicleAutoDrive.StartEngine(Vehicle, out _)) return;
         if (mode == RouteMode.Follow) LookFollowing();
         else LookLooping();
+    }
+
+    /// <summary>
+    /// Whether it can drive now, its engine started (Framework 0.284.0). Asked before every drive order rather than asking Vehicle Framework to
+    /// start the engine, which refuses with a message each time: a vehicle out of fuel or waiting on set-up work is told once and waits,
+    /// undrafted, where colonists can refuel it, and goes on by itself once it can.
+    /// </summary>
+    bool Ready()
+    {
+        var why = VehicleAutoDrive.CannotDrive(Vehicle);
+        if (why != waitingWhy)
+        {
+            waitingWhy = why;
+            if (why != null)
+            {
+                Messages.Message("PhobosRoute_Waits".Translate(Vehicle.LabelShort.Named("VEHICLE"), why.Named("REASON")), Vehicle,
+                    MessageTypeDefOf.NegativeEvent, false);
+            }
+        }
+        return why == null && VehicleAutoDrive.StartEngine(Vehicle, out _);
     }
 
     void LookFollowing()
@@ -275,7 +320,12 @@ public sealed class CompPhobosRoute : VehicleComp
                     dwellUntil = now + Rules.loopDwellTicks;
                     if (Seen.Wants("vehicles.route-stop", Vehicle, leg == 0 ? "pick-up" : "drop-off")) Seen.Note("vehicles.route-stop", Vehicle, Vehicle.LabelShort, leg == 0 ? "pick-up" : "drop-off");
                 }
-                if (now < dwellUntil) return;
+                if (now < dwellUntil)
+                {
+                    // Its engine off while it waits at a stop (Framework 0.284.0 [A]), so colonists refuel and unload it as any parked vehicle.
+                    if (Vehicle.Drafted) VehicleAutoDrive.StopEngine(Vehicle);
+                    return;
+                }
             }
             dwellUntil = -1;
             leg = RouteRule.Next(leg, points.Count);
@@ -293,6 +343,7 @@ public sealed class CompPhobosRoute : VehicleComp
         var driving = orderCell.IsValid && VehicleAutoDrive.HeadingFor(Vehicle, orderCell);
         var orderToTarget = orderCell.IsValid ? orderCell.DistanceTo(target) : double.MaxValue;
         if (!RouteRule.NeedsOrder(Vehicle.Position.DistanceTo(target), driving, orderToTarget, Rules.followNearCells, Rules.followSlackCells)) return;
+        if (!Ready()) return;
         for (var ring = 0; ring <= Rules.standRingCells; ring++)
         {
             if (!VehicleAutoDrive.TryFindStandCell(Vehicle, target, ring, out var cell)) continue;
@@ -321,10 +372,12 @@ public sealed class CompPhobosRoute : VehicleComp
                 action = () => Convoys.BreakUp(vehicle),
             };
         }
-        if (!RouteControl.KitWorks(vehicle)) yield break;
+        // A failed kit keeps the buttons that end a route (Framework 0.284.0); starting one needs it working.
+        if (!RouteControl.KitCarried(vehicle)) yield break;
         switch (mode)
         {
             case RouteMode.None:
+                if (!RouteControl.KitWorks(vehicle)) break;
                 yield return new Command_Action
                 {
                     defaultLabel = "PhobosRoute_GizmoFollow".Translate(),
@@ -401,7 +454,11 @@ public sealed class CompPhobosRoute : VehicleComp
     public override string CompInspectStringExtra()
     {
         if (mode == RouteMode.None) return string.Empty;
+        // Framework 0.284.0: a failed kit, a loop away from its map, and what keeps it from driving on, each said.
+        if (Remote is { KitDown: true }) return "PhobosRemote_InspectKitDown".Translate();
+        if (mode == RouteMode.Loop && !OnLoopMap) return "PhobosRoute_InspectAwayFromLoop".Translate();
         var state = Remote?.State ?? RemoteState.Off;
+        if (state is RemoteState.Linked && waitingWhy != null) return "PhobosRoute_InspectCannotDrive".Translate(waitingWhy.Named("REASON"));
         if (state is RemoteState.Holding) return "PhobosRoute_InspectHolding".Translate();
         if (state is RemoteState.ComingBack) return "PhobosRoute_InspectComingBack".Translate();
         if (state is RemoteState.CarryingOn) return "PhobosRoute_InspectCarryingOn".Translate();
@@ -455,6 +512,7 @@ public sealed class CompPhobosRoute : VehicleComp
         Scribe_Values.Look(ref leg, "PhobosRoute_Leg");
         Scribe_Values.Look(ref dwellUntil, "PhobosRoute_DwellUntil", -1);
         Scribe_Values.Look(ref orderCell, "PhobosRoute_OrderCell", IntVec3.Invalid);
+        Scribe_Values.Look(ref loopMapId, "PhobosRoute_LoopMap", -1);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             points ??= new List<IntVec3>();

@@ -709,6 +709,12 @@ public sealed class VehicleFittings
         return names.Count == 0 ? null : "PhobosVehicleSystems_FitKitReturned".Translate(names.ToCommaList(useAnd: true).Named("KIT")).Resolve();
     }
 
+    /// <summary>
+    /// Whether a fitting that grants this ability is on the vehicle, working or not (Framework 0.284.0): its part may be shot away. A kit
+    /// that is carried but does not work is a fault to report, not a kit taken off.
+    /// </summary>
+    public bool Carries(string ability) => fitted.Any(f => f.def != null && f.def.grants.Contains(ability) && Counts(f));
+
     /// <summary>Whether a fitting on this vehicle grants this ability (a cargo hook), its part still standing.</summary>
     public bool Grants(string ability) => fitted.Any(f => f.def != null && f.def.grants.Contains(ability) && Counts(f)
         && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f });

@@ -64,6 +64,18 @@ public static class RemoteControlRule
         }
     }
 
+    /// <summary>
+    /// As <see cref="Next(RemoteState, bool, bool, int, int, LostLinkChoice, bool)"/>, with the kit itself failed (Framework 0.284.0; its power
+    /// shed or its part shot away): it cannot drive the vehicle at all, so there is no wait and no drive back; it holds at once, and the
+    /// player is told. One never linked keeps waiting.
+    /// </summary>
+    public static RemoteState Next(RemoteState state, bool wanted, bool linked, int lostFor, int delayTicks, LostLinkChoice choice, bool moving,
+        bool kitDown)
+    {
+        if (wanted && kitDown) return state is RemoteState.Off or RemoteState.Unlinked ? RemoteState.Unlinked : RemoteState.Holding;
+        return Next(state, wanted, linked, lostFor, delayTicks, choice, moving);
+    }
+
     static RemoteState Act(LostLinkChoice choice, bool moving) => choice switch
     {
         LostLinkChoice.ComeBack => RemoteState.ComingBack,
