@@ -1,0 +1,40 @@
+[
+  {
+    "name": "paid25-well-pipe-rack",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-2/edit",
+    "width": 864,
+    "height": 1536,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "assets/phobos-vehicles/generated/drill-rig-body-north/drill-rig-body-north-2.png",
+       "role": "our approved drill rig body, the owner's pick, seen from directly above: match its outline weight, shading, palette and finish only; do not redraw it"}
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_DrillRig, footprint (3, 10), drawSize (4, 11); the WellDrillingKit node (Rimefeller tie-in, DrillRig_WellKit.xml), which has no overlay yet",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/DrillRig_WellRack_{north,east,south}.png",
+      "this_request": "the part drawn alone on white and laid on the deck by script (assets/AGENTS.md: a part that sits on a vehicle and stands alone); east and south from the body's own transform",
+      "why": "owed since 12 Nov 2026: OpenAI's moderation refused the casing rack twice as violence; fal at the owner's card, 25 Nov 2026"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for a truck-mounted water-well drilling rig: a rack of well-lining pipes that bolts onto the truck's flat deck. Image 1 is our approved drill rig, seen from directly above: match its outline weight, shading, palette and finish only. Do NOT redraw the drill rig.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Tall canvas. Four long straight pale grey steel water pipes lying side by side lengthwise from near the TOP edge to near the BOTTOM edge, each with a slightly wider threaded collar at its top end; they rest in three dark steel cradle frames across them (near the top, the middle and the bottom), each frame held down by a yellow ratchet strap. Beside the pipes at the bottom, a small square steel cellar frame lies flat: an open square of dark steel channel with four corner bolts.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, vehicles, wheels, ground, dirt or shadows. No perspective, no tilt."
+  },
+  {
+    "name": "paid25-jammer-mast",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1536,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "assets/phobos-vehicles/generated/generator-set-body-north/generator-set-body-north-3.png",
+       "role": "our approved Busbar generator set body, the owner's pick, seen from directly above: match its outline weight, shading, palette and finish only; do not redraw it"}
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_GeneratorSet (the Busbar); the GroundJammer node (UpgradeTree_GeneratorSet.xml), which has no overlay and borrows the Osprey's jammer icon",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/GeneratorSet/GeneratorSet_JammerMast_{north,east,south}.png, and the node's icon cut from the same part",
+      "this_request": "the part drawn alone on white and laid on the rear deck by script (assets/AGENTS.md: a part that sits on a vehicle and stands alone); east and south from the body's own transform",
+      "why": "art owed since Vehicles 0.100.0 (22 Nov 2026); paid at the owner's card, 25 Nov 2026"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for a truck-mounted generator set: a folding radio jammer mast that lies flat across the truck's rear deck. Image 1 is our approved generator truck, seen from directly above: match its outline weight, shading, palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Wide canvas. The folded mast lies horizontally from the LEFT edge to the RIGHT edge: on the left, a round dark steel turntable base with six bolts; from it, a thick telescopic steel mast tube in three nested sections, pale grey, lying left to right; at its right end, the jammer head: a cluster of four short flat olive-drab antenna paddles fanned out, with a small dark radome dome in their middle. A thin black cable runs along the mast. The whole part is about four times as wide as it is tall.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted steel and olive colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, vehicles, wheels, ground or shadows. No perspective, no tilt."
+  }
+]

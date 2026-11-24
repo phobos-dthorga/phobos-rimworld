@@ -1,0 +1,149 @@
+[
+  {
+    "name": "paid25-loading-chute",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/FuelPump.png",
+       "role": "our approved yard machine seen from directly above (the fuel pump): match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/InspectionPit.png",
+       "role": "our approved yard building seen from directly above (the inspection pit): match its finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "building": "the bulk bunker's loading chute (PhobosVehicles, BulkBunker/LoadingChute.xml), one cell, rotatable, one picture for every facing",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/LoadingChute/LoadingChute.png",
+      "size": "256 x 256 as the stand-in it replaces; requested at 1024 x 1024",
+      "why": "a Pillow stand-in standing on the map; paid as an in-world piece (owner's card, 25 Nov 2026)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for an industrial loading chute in a frontier colony. Images 1 and 2 are our approved yard pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The chute fills about 80 percent of the canvas, one unit by one unit, centred, on a plain pure white background.\n\nA square steel hopper seen from directly above: four sloping grey steel walls narrowing to a dark square opening in the middle, a thick riveted rim around the top with yellow and black hazard striping on its outer edge, a short spout lip sticking out over the BOTTOM edge, and two small lifting lugs on the left and right sides.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+  },
+  {
+    "name": "paid25-canvas-flap",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTent_north.png",
+       "role": "our approved canvas camp piece seen from directly above (the roof tent): match its outline weight, shading, canvas colours and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_north.png",
+       "role": "our approved canvas camp piece seen from directly above (the swag): match its finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "building": "Phobos_CanvasDoor, the canvas flap in Billy's field tent (SetOut.xml): a door, so the picture is the leaf the game slides aside to open",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CanvasFlap.png",
+      "size": "one cell; requested at 1024 x 1024, exported at 128; the game's tint is dropped as the picture carries its own colour",
+      "why": "uses the base game's simple door, tinted; paid as an in-world piece (owner's card, 25 Nov 2026)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game sprite for the door flap of a canvas field tent in a frontier colony, as a door leaf seen from directly above. Images 1 and 2 are our approved canvas camp pieces, seen from directly above: match their outline weight, shading, canvas colours and finish only. Do NOT copy their shapes.\n\nSquare canvas. The flap is a long horizontal band running from the LEFT edge to the RIGHT edge of the canvas, about one third of the canvas tall, centred vertically, on a plain pure white background.\n\nA heavy sand-coloured canvas door flap seen edge-on from above as a thick band: a rolled canvas roll along its top edge, two dark leather buckled straps crossing it, a darker stitched seam along its length, and a stiffened bottom hem.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles, poles, ropes, pegs or tent walls. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+  },
+  {
+    "name": "paid25-cabin-seat-north",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampStool_north.png",
+       "role": "our approved seat seen from directly above (the camp stool): match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CamperBed_north.png",
+       "role": "our approved camp furniture seen from directly above (the camper bed): match its finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "building": "PhobosCabinSeat, a seat inside a vehicle's walk-in cabin (Cabins.xml); north facing, east and south turned by script",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Cabins/CabinSeat_north.png",
+      "size": "one cell; requested at 1024 x 1024, exported at 128",
+      "why": "uses the base game's dining chair; paid as an in-world piece (owner's card, 25 Nov 2026)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game furniture sprite for a crew seat inside a military transport's cabin. Images 1 and 2 are our approved pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The seat fills about 65 percent of the canvas, one unit by one unit, centred, on a plain pure white background. The person sitting in it faces UP the canvas.\n\nA troop seat seen from directly above: a seat of olive-green webbing stretched on a dark steel tube frame, a padded backrest along the BOTTOM edge of the seat, short armrests on the left and right, and a grey lap belt lying open across the seat with a steel buckle.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+  },
+  {
+    "name": "paid25-cabin-litter-north",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CamperBed_north.png",
+       "role": "our approved bed seen from directly above (the camper bed): match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_north.png",
+       "role": "our approved bedroll seen from directly above (the swag): match its finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "building": "PhobosCabinLitter, a stretcher bed inside a vehicle's walk-in cabin (Cabins.xml), 1 x 2 drawn at 2 x 2; north facing, east and south turned by script",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Cabins/CabinLitter_north.png",
+      "size": "drawn at 2 x 2 for a 1 x 2 bed; requested at 1024 x 1024, exported at 256",
+      "why": "uses the base game's hospital bed; paid as an in-world piece (owner's card, 25 Nov 2026)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game furniture sprite for a casualty litter bed inside a military transport's cabin. Images 1 and 2 are our approved beds from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The litter is one unit wide and two units long: a tall narrow shape filling about 45 percent of the canvas width and 90 percent of its height, centred, on a plain pure white background.\n\nA military stretcher litter on a low steel rack seen from directly above: an olive-green canvas bed stretched between two long dark steel poles, the pole handles sticking out a little past each end, a thin pale pillow at the TOP end, a folded grey blanket across the lower half, and two black buckled straps across the middle.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive, canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, red crosses, people, animals, vehicles or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+  },
+  {
+    "name": "paid25-cabin-way-out",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/InspectionPit.png",
+       "role": "our approved floor-level piece seen from directly above (the inspection pit): match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampStool_north.png",
+       "role": "our approved cabin-family piece seen from directly above: match its finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "building": "PhobosCabinWayOut, the walk-in cabin's door or ramp out (Cabins.xml), one cell, one picture",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Cabins/CabinWayOut.png",
+      "size": "one cell; requested at 1024 x 1024, exported at 128",
+      "why": "uses the base game's simple door; paid as an in-world piece (owner's card, 25 Nov 2026)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game floor sprite for the exit hatch in the floor of a military transport's cabin. Images 1 and 2 are our approved pieces, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The hatch fills about 85 percent of the canvas, one unit by one unit, centred, on a plain pure white background.\n\nA square exit plate seen from directly above: a dark grey steel plate with a raised non-slip diamond tread, a thick yellow and black striped border, a recessed pull handle near the BOTTOM edge, two hinges along the TOP edge, and a small round green lamp in one corner.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, arrows, words like EXIT, logos, people, animals, vehicles or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+  },
+  {
+    "name": "paid25-ecm-pod",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/FerryTank.png",
+       "role": "our approved fitting icon (the ferry tank): match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png",
+       "role": "our approved fitting icon (cabin oxygen): match its finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "fitting": "PhobosFitting_EcmPod, the ECM pod (Fittings_EcmPod.xml)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/EcmPod.png",
+      "size": "exported at 128",
+      "why": "no picture yet; four local tries (nights 12 and 13) all came out as a torpedo or missile; paid at the owner's card, 25 Nov 2026"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from the side and a little above, centred, as an icon on a button in a top-down strategy game.\n\nImages 1 and 2 are our approved fitting icons from the same set: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon of an electronic jamming pod that hangs under an aircraft wing: a long boxy electronics case with rounded blunt ends, NOT pointed, a flat mounting rail along its top with two hanging lugs, a row of three flat dark antenna panels set into its side, two small rounded radome blisters on its underside, and a small air intake scoop at the front with a little ram-air turbine fan for its own power.\n\nIt is an electronics box, not a weapon: no pointed nose, no warhead, no tail fins, no exhaust, no propeller at the back.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of grey, olive drab and a touch of dark glass, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "paid25-coax-icon",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/Signal.png",
+       "role": "our approved radio icon (the signal antenna): match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/FerryTank.png",
+       "role": "our approved icon of the same game: match its finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "for": "the coax feedline's icon (Radio Framework)",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/CoaxIcon.png",
+      "size": "exported at 128",
+      "why": "the shipped icon reads as a black tyre; the night-13 local redraw was rejected (owner, 25 Nov 2026); paid at the owner's card the same day"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImages 1 and 2 are our approved icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon of a short piece of radio coaxial cable: one thick black cable lying in a loose S-curve from lower left to upper right. Its upper end has a chunky silver screw-on connector with a knurled nut and a gold centre pin. Its lower end is cut and stripped in steps so the layers show plainly: the black outer jacket, then a band of copper braid, then white insulation, then a bright copper centre wire.\n\nIt is one short cable, not a coil: no loops, no ring, no wheel, no tyre, no hose reel.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with the copper and silver as the only bright colours, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, radios, antennas, text, letters, numbers, logos or brand marks."
+  }
+]
