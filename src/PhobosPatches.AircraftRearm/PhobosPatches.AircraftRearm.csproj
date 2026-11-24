@@ -8,7 +8,7 @@
     <ModFolder>PhobosPatches</ModFolder>
     <TieInFolder>Mods/AircraftRearm/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.41.0</Version>
+    <Version>0.42.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
@@ -21,6 +21,11 @@
     </Reference>
     <Reference Include="SmashTools">
       <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- 1.7 moved shared types such as ReadOnlyList into CoreLib (the destination picker's targets, SortieFuel). -->
+    <Reference Include="CoreLib" Condition="Exists('$(VehicleFrameworkAssemblies)\CoreLib.dll')">
+      <HintPath>$(VehicleFrameworkAssemblies)\CoreLib.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UpdateLogTool">

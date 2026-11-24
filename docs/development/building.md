@@ -43,7 +43,7 @@ Generated from the project files by `python scripts/doc-tables.py --write`: chan
 | `PhobosMedical` | `mods/PhobosMedical/` | `PhobosFramework` | `PipeSystem` | yes | `PhobosMedical.Rules.Tests` |
 | `PhobosMedical.Hygiene` | `mods/PhobosMedical/Mods/DubsBadHygiene/` | `PhobosMedical`, `PhobosFramework.Hygiene` | `BadHygiene` | yes | none |
 | `PhobosMedical.UsefulMarks` | `mods/PhobosMedical/Mods/UsefulMarks/` | `PhobosMedical` | `UsefulColonistBar` | no | none |
-| `PhobosPatches.AircraftRearm` | `mods/PhobosPatches/Mods/AircraftRearm/` | `PhobosFramework` | `Vehicles`, `SmashTools`, `UpdateLogTool` | yes | none |
+| `PhobosPatches.AircraftRearm` | `mods/PhobosPatches/Mods/AircraftRearm/` | `PhobosFramework` | `Vehicles`, `SmashTools`, `CoreLib`, `UpdateLogTool` | yes | none |
 | `PhobosPatches.Biotech` | `mods/PhobosPatches/Mods/Biotech/` | `PhobosFramework` | none | yes | none |
 | `PhobosPatches.Classical` | `mods/PhobosPatches/Mods/Classical/` | `PhobosFramework` | none | yes | none |
 | `PhobosPatches.CloseAirSupport` | `mods/PhobosPatches/Mods/CloseAirSupport/` | `PhobosFramework` | none | no | none |
@@ -129,7 +129,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
 | `PhobosMedical` | 11 | 0 | 4 | 0 |
 | `PhobosMedical.Hygiene` | 1 | 0 | 0 | 0 |
-| `PhobosPatches.AircraftRearm` | 0 | 0 | 8 | 0 |
+| `PhobosPatches.AircraftRearm` | 0 | 0 | 10 | 0 |
 | `PhobosPatches.Biotech` | 2 | 0 | 0 | 0 |
 | `PhobosPatches.Classical` | 1 | 0 | 0 | 0 |
 | `PhobosPatches.CombatExtended` | 1 | 1 | 1 | 0 |
@@ -142,7 +142,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-180 patched methods named in attributes, 24 patch classes that find their target by name (`TargetMethod`), and 24 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+180 patched methods named in attributes, 24 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 

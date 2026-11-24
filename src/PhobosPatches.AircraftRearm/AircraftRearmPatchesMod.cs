@@ -11,7 +11,7 @@ public class AircraftRearmPatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.41.0";
+    public const string ModVersion = "0.42.0";
     public const string LogPrefix = "[D'thorga Patches]";
 
     public AircraftRearmPatchesMod(ModContentPack content) : base(content)
@@ -22,7 +22,10 @@ public class AircraftRearmPatchesMod : Mod
         // The fixed-wing framework is in play with the Harrier, Close Air Support or the Prowler; the helicopters have none.
         if (ModsConfig.IsActive("potemkinvillager.av8bharrier") || ModsConfig.IsActive("potemkinvillager.CloseAirSupport")
             || ModsConfig.IsActive("potemkinvillager.ea6bprowler"))
+        {
             SortieOverHome.Apply(harmony, report);
+            SortieFuel.Apply(harmony, report);
+        }
         LongEventHandler.ExecuteWhenFinished(report.Log);
     }
 }

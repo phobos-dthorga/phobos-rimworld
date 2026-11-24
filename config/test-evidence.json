@@ -6,7 +6,8 @@
     "508": ["vehicles.remote-kit-down"],
     "506": {"parts": {
       "a sortie comes in over a home with a runway it fits": [{"key": "patches.sortie-over-home", "variant": "runway"}],
-      "a sortie comes in over a home with no runway it fits": [{"key": "patches.sortie-over-home", "variant": "no-runway"}]
+      "a sortie comes in over a home with no runway it fits": [{"key": "patches.sortie-over-home", "variant": "no-runway"}],
+      "a strike short of fuel is refused": ["patches.sortie-fuel"]
     }},
     "503": {"parts": {
       "the waste tank stays beneath a parked, packed trailer": ["trailers.waste-tank-parked"],

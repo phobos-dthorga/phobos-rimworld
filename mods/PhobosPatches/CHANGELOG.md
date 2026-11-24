@@ -21,6 +21,18 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.42.0] - 2026-11-25 - Draft
+
+A strike needs its fuel again
+
+### Fixed
+
+- **A jet's strike needs the fuel to get there, stay over the target and come back** (the owner's word of 25 November 2026). The Harrier, A-10, Su-25 and Prowler refuse a strike unless the tank holds the trip there, time over the target, the trip back and a tenth of the tank in reserve, but on RimWorld 1.7 that check never ran, so a jet could set off with only enough fuel to arrive. The destination picker now refuses such a target, saying how much fuel the strike needs and how much is aboard, and draws its line red. The figures are the jets' own. Not yet tested in game: row 506 of the test pass.
+
+### Save compatibility
+
+- Safe to add and remove.
+
 ## [0.41.0] - 2026-11-25 - Draft
 
 Sorties over your own maps

@@ -211,7 +211,7 @@ recharger's battery and taper are authored; dodge and hover limits are the Frame
 | --- | --- |
 | `PhobosPatches.Harrier` (`Phobos.VehiclePatches`) | `AirborneCrewKeepsMap`, `RimPactsArrivalFilter`, `SortieGate`, `HoverGate` |
 | | `HarrierEvasion`, `BombCaseRename`, `DisassemblyTrace` |
-| `PhobosPatches.AircraftRearm` | `RearmOneKind`: one kind to a magazine, per aircraft namespace; `SortieOverHome` (0.41.0): a fixed-wing sortie may strike a home map, its arrival, circling point and return judged as on a strike map |
+| `PhobosPatches.AircraftRearm` | `RearmOneKind`: one kind to a magazine, per aircraft namespace; `SortieOverHome` (0.41.0): a fixed-wing sortie may strike a home map, its arrival, circling point and return judged as on a strike map; `SortieFuel` (0.42.0): the jets' own sortie fuel sum applied in Vehicle Framework 1.7's destination picker |
 | `PhobosPatches.CloseAirSupport` | `CloseAirSupportPatchesMod`: its page and the handling flag |
 | `PhobosPatches.Prowler` | `ProwlerPatches` (dodge, jam reach, salvo, its page), `ProwlerJamFields` |
 | `PhobosPatches.VehicleFramework` | Fires (`VehicleFrameworkPatchesMod`, `AttachedFireRule`), the work bar, `TurretGraphicWhileLoading`, `TurretQueueSave` |

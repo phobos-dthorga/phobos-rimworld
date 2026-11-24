@@ -105,14 +105,16 @@ public static class SortieOverHome
 
     // ---- Who is on a sortie ----
 
-    static bool Targeting(VehiclePawn? vehicle) =>
+    /// <summary>Whether the player is choosing this jet's sortie target now (the framework's SortieTargeting, read by name).</summary>
+    internal static bool Targeting(VehiclePawn? vehicle) =>
         vehicle != null && (ReferenceEquals(vehicle, lowered) || sortieTargeting?.DeclaringType?.IsInstanceOfType(vehicle) == true
             && sortieTargeting.GetValue(vehicle) is true);
 
-    static bool IsFixedWing(VehiclePawn vehicle) =>
-        fixedWingProps!.DeclaringType!.IsInstanceOfType(vehicle) && fixedWingProps.GetValue(vehicle) != null;
+    /// <summary>Whether a vehicle is one of the fixed-wing framework's jets; false when its code was not found.</summary>
+    internal static bool IsFixedWing(VehiclePawn vehicle) =>
+        fixedWingProps?.DeclaringType?.IsInstanceOfType(vehicle) == true && fixedWingProps.GetValue(vehicle) != null;
 
-    static Map? HomeAt(GlobalTargetInfo target) =>
+    internal static Map? HomeAt(GlobalTargetInfo target) =>
         target.WorldObject is MapParent { HasMap: true } parent && parent.Map.IsPlayerHome ? parent.Map : null;
 
     // ---- The target check: the framework's home refusal stood down for a sortie ----

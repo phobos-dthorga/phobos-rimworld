@@ -118,8 +118,9 @@ explains refusals.
   it, or else flies back to a home that has one. Launch to World Map still lands at a home. The sortie button's own description
   still says to use Launch for a colony; that text is the jets' mod's own.
 - **Fuel decides time on station, not distance.** World flight costs about 0.16 fuel and a minute a tile, so a 30-tile sortie costs
-  about 5 fuel each way; over a map the jet burns 250 fuel in about 6 hours. A sortie is refused unless the tank holds the trip there
-  and back, an hour over the target and a 10% reserve.
+  about 5 fuel each way; over a map the jet burns 250 fuel in about 6 hours. A strike is refused unless the tank holds the trip there
+  and back, about an hour and a half over the target (3,600 ticks) and a 10% reserve; the destination picker says how much it needs
+  and draws the line red. On RimWorld 1.7 this check is D'thorga Patches' (from 0.42.0): the jets' own stopped running there.
 - **It comes home by itself** when its rockets and bombs are spent or fuel runs low, to the map it took off from if that has a
   runway, else the nearest home map with one.
 - **Home needs a full beacon runway**, 24 cells by 5 for the Harrier: four beacons on the corners of a rectangle, 23 cells apart

@@ -3,4 +3,6 @@
   <!-- The destination's label when a fixed-wing jet's sortie targets one of your own home maps, such as where your gravship stands
        (src/PhobosPatches.AircraftRearm/SortieOverHome.cs). -->
   <PhobosAircraftPatches_FlySortieTo>Fly a sortie over {PLACE}</PhobosAircraftPatches_FlySortieTo>
+  <!-- A fixed-wing jet's strike refused for fuel (src/PhobosPatches.AircraftRearm/SortieFuel.cs). -->
+  <PhobosAircraftPatches_SortieNotEnoughFuel>{VEHICLE} needs {NEEDED} fuel for this strike (there and back, time over the target and a reserve) and has {HAS}. Refuel it first, or pick a nearer target.</PhobosAircraftPatches_SortieNotEnoughFuel>
 </LanguageData>
