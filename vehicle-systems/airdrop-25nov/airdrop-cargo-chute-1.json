@@ -1,0 +1,56 @@
+{
+  "file": "airdrop-cargo-chute-1.png",
+  "sha256": "9c1a1711cbd6d391f064dfcf221f602f05f8bbac6c9c4611caf262c26a9cf5c8",
+  "date": "2026-11-25T09:05:44",
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a packed military cargo parachute set lying on the floor, two things together: on the left, a tall rounded olive-drab canvas deployment bag holding the packed canopy, tied shut at its top with a cord, with two short dark olive webbing risers and a steel connector link coming out of the top; on the right, beside it, a flat folded square of olive canvas cargo-bag cover with tan cargo straps rolled up and buckled on top of it. Images 1 and 2 are our approved items: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, muted olive, tan and steel colours, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, no open canopy, no crates, no text, letters, numbers, stencils or logos.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/airdrop-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 397,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 269
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2153
+  },
+  "cost_usd": 0.055,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 27.4,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+      "sha256": "e87881c2eaa33875a2fb402aa19e1df2da1687c7045a51f37998760a9db607b9",
+      "role": "our approved packed canvas kit (the deck tent kit): match its outline weight, shading, olive canvas colours and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+      "sha256": "d37079e8b417fd4c303a4c6413cc4d2dbba1203749030e0421f26bad46fd4feb",
+      "role": "our approved kit item (the roof tent kit): match its finish only; do not copy its shape"
+    }
+  ]
+}

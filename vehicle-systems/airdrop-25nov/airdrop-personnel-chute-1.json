@@ -1,0 +1,56 @@
+{
+  "file": "airdrop-personnel-chute-1.png",
+  "sha256": "6ea0b5d0c6adb7d64f56a0191893b1621f4d594a0a1a293ff47f428a8f2d4a73",
+  "date": "2026-11-25T09:04:45",
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a packed military static-line personnel parachute lying on the floor: a squarish olive-drab canvas pack with rounded corners, closed with flaps held by a short row of small steel pins, and its harness of wide olive webbing lying folded around it: two shoulder straps looping out from the top, a chest strap and two leg straps with steel quick-release buckles, and a pale yellow static-line strap stowed in neat loops on the front of the pack. Images 1 and 2 are our approved items: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, muted olive and steel colours, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, no helmet, no open canopy, no text, letters, numbers, stencils or logos.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/airdrop-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 394,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 266
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2150
+  },
+  "cost_usd": 0.055,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 27.5,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+      "sha256": "e87881c2eaa33875a2fb402aa19e1df2da1687c7045a51f37998760a9db607b9",
+      "role": "our approved packed canvas kit (the deck tent kit): match its outline weight, shading, olive canvas colours and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SlingSet.png",
+      "sha256": "1466196f6e73bb63c1c0f094c4f4ddb44460353ad6a03c12fa0edc49720478d0",
+      "role": "our approved webbing item (the sling set): match its strap and buckle finish only; do not copy its shape"
+    }
+  ]
+}
