@@ -17,7 +17,12 @@ public static class MoveRefusals
         if (vehicle.GetComp<CompPhobosVehicleSystems>() is { Usable: true, MoveRefusal: { } systems }) return systems;
         foreach (ThingComp comp in vehicle.AllComps)
         {
-            if (comp is CompPhobosSetUp { HoldRefusal: { } held }) return held;
+            if (comp is CompPhobosSetUp { HoldRefusal: { } held })
+            {
+                // Seen in play (Framework 0.293.0, row 20): a set-up vehicle refused to move.
+                Seen.Note("vehicles.move-refused-set-up", vehicle);
+                return held;
+            }
             if (comp is CompPhobosCamp { HoldRefusal: { } camp }) return camp;
             if (comp is CompPhobosSubmersible { SettledRefusal: { } settled }) return settled;
         }

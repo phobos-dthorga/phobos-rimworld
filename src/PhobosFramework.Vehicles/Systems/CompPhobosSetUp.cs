@@ -326,16 +326,23 @@ public abstract class CompPhobosSetUp : VehicleComp
     {
         // On a tow bar or a hitch it is not standing anywhere to work (Framework 0.111.0; vehicle-trailers.md, B0.2): the recovery tow could
         // otherwise drag a tanker with its hoses out.
+        // Seen in play (Framework 0.293.0, rows 81 and 107): each refusal, by its case.
         if (Hitches.Towing(Vehicle) is { } towedBy)
         {
+            Seen.Note("vehicles.set-up-refused", Vehicle, "on a tow", "towed");
             return "PhobosTrailer_SetUpWhileTowed".Translate(Vehicle.LabelShort.Named("VEHICLE"), towedBy.Vehicle.LabelShort.Named("TRACTOR")).Resolve();
         }
         // A trailer has no crew and no engine: a colonist sets it up by hand instead (B0.1).
         if (SetUpByHand) return null;
         if (Vehicle.Drafted) return null;
-        if (Vehicle.AllPawnsAboard.Count == 0) return "PhobosVehicleSystems_SetUpNoCrew".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (Vehicle.AllPawnsAboard.Count == 0)
+        {
+            Seen.Note("vehicles.set-up-refused", Vehicle, "no crew aboard", "no-crew");
+            return "PhobosVehicleSystems_SetUpNoCrew".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        }
         // Work that runs off the battery (the tanker's electric pump, Framework 0.116.0) needs someone aboard to start it, not the engine.
         if (!engineNeeded) return null;
+        Seen.Note("vehicles.set-up-refused", Vehicle, "engine off", "engine-off");
         return "PhobosVehicleSystems_SetUpEngineOff".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
     }
 

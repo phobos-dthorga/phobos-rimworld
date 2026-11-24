@@ -1088,6 +1088,8 @@ public sealed class VehicleFittings
             comp.Conditions.RemoveOn(order.partKey);    // a new part has none of the old one's troubles
             comp.RestorePart(part, 1f);
             text = "PhobosVehicleSystems_GradeDone".Translate(who, vehicle, part.props.label.Named("PART"), order.grade.label.Named("GRADE")).Resolve();
+            // Seen in play (Framework 0.293.0, row 9): a part's grade changed, by the grade fitted.
+            Seen.Note("vehicles.grade-done", comp.Vehicle, part.props.label, order.grade.defName);
         }
         else if (order.tune != null)
         {

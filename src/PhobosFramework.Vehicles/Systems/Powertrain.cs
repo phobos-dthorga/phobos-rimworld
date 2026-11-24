@@ -837,7 +837,13 @@ public sealed class Powertrain
         if (OwnSurface || !comp.TryGetQuantity("treadWear", out float wear)) return 1;
         // Framework 0.197.0: a node's soft-ground grip (dual wheels) adds to the fittings' factor.
         double bonus = comp.Vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_SoftGroundGripBonus);
-        return TreadRules.GripFactor(wear) * TreadRules.SoftGroundFactor(groundGrip, comp.Fittings.ParameterFactor(RunningGearSystem, SoftGroundGripParameter) + bonus);
+        double worn = TreadRules.GripFactor(wear);
+        double grip = worn * TreadRules.SoftGroundFactor(groundGrip, comp.Fittings.ParameterFactor(RunningGearSystem, SoftGroundGripParameter) + bonus);
+        // Seen in play (Framework 0.293.0, row 35): worn tread losing grip on soft ground.
+        if (worn < 1 && groundGrip < 1 && Seen.Wants("vehicles.tread-grip", comp.Vehicle))
+            Seen.Note("vehicles.tread-grip", comp.Vehicle, "worn tread on soft ground", null,
+                new[] { new KeyValuePair<string, double>("wear", wear), new KeyValuePair<string, double>("grip", grip) });
+        return grip;
     }
 
     /// <summary>What rain, falling snow and ice under the wheels do to grip on a map (cross-links G5, Framework 0.113.0; WeatherGripRule): the
@@ -861,6 +867,13 @@ public sealed class Powertrain
             VehicleSystemsMod.StagesLog.Debug(vehicle.LabelShort + " (" + vehicle.ThingID + ") grip from the weather x" + factor.ToString("0.##") + " (rain "
                 + map.weatherManager.RainRate.ToString("0.##") + ", ground wet " + ground.ToString("0.##") + ", snow " + map.weatherManager.SnowRate.ToString("0.##")
                 + (open ? "" : ", under a roof") + (map.terrainGrid.TerrainAt(cell)?.IsIce == true ? ", on ice" : "") + ")");
+        }
+        // Seen in play (Framework 0.293.0, row 109): what took grip, by its case: ice underfoot, falling snow, falling rain.
+        if (factor < 1 && Seen.On)
+        {
+            string? cause = map.terrainGrid.TerrainAt(cell)?.IsIce == true ? "ice" : open && map.weatherManager.SnowRate > 0f ? "snow"
+                : map.weatherManager.RainRate > 0f ? "rain" : null;
+            if (cause != null) Seen.Note("vehicles.weather-grip", vehicle, cause, cause);
         }
         // Seen in play (row 300): grip still short after the rain has stopped, from the wet ground alone.
         if (factor < 1 && map.weatherManager.RainRate <= 0f && ground > 0f && Seen.Wants("vehicles.wet-ground-grip", vehicle, "after-rain"))

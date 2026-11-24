@@ -219,6 +219,9 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
         OverdriveStop stop = OverdriveRule.MustStop(lowest, RigProps.overdriveOffBelow, coolant, RigProps.overdriveHotAbove);
         if (stop == OverdriveStop.None) return;
         overdrive = false;
+        // Seen in play (Framework 0.293.0, row 18): overdrive dropped out by itself, by why.
+        string why = stop == OverdriveStop.PartWorn ? "worn" : "hot";
+        Seen.Note("vehicles.overdrive-stopped", Vehicle, why, why);
         Tell((stop == OverdriveStop.PartWorn ? "PhobosVehicleSystems_OverdriveStoppedWorn" : "PhobosVehicleSystems_OverdriveStoppedHot").Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.CautionInput);
     }
 

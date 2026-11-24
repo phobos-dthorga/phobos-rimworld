@@ -523,6 +523,8 @@ public sealed class VehicleRepairs
                 comp.RestorePart(repair.Part!, comp.Fittings.NearRig() ? Rules.replacedPartHealthAtRig : Rules.replacedPartHealth);
                 // Framework 0.178.0 (row 252): which part a destroyed one was replaced with, by the first thing paid (a reduction gearbox, a flight computer).
                 if (payment.Count > 0) Seen.Note("vehicles.part-replaced", comp.Vehicle, repair.Part!.props.label, payment[0].def.defName);
+                // Seen in play (Framework 0.293.0, row 36): a part fitted properly at a tuning rig.
+                if (comp.Fittings.NearRig()) Seen.Note("vehicles.part-replaced-at-rig", comp.Vehicle, repair.Part!.props.label);
                 NotifyRepairable();
                 text = "PhobosVehicleSystems_RepairReplaced".Translate(who, vehicle, repair.Part!.props.label.Named("PART")).Resolve();
                 break;

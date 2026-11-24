@@ -269,6 +269,8 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
             Vehicle.Map.deepResourceGrid.SetAt(cell, ore, count - 1);
             buffer += 1f;
             bufferKind = ore;
+            // Seen in play (Framework 0.293.0, row 15): a piped resource raised into the buffer, never an item.
+            Seen.Note("vehicles.drill-piped", Vehicle, ore.defName);
         }
     }
 
@@ -287,6 +289,8 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         IEnumerable<IntVec3> reach = GenRadial.RadialCellsAround(hole, Props.storageReach, true).Where(c => !footprint.Contains(c));
         StorageNearby.Place(thing, map, reach, Vehicle.Faction, hole, p => p != hole && !footprint.Contains(p), out Building_Storage? into);
         if (into != null) Seen.Note("vehicles.rig-into-storage", Vehicle, into.LabelShort);
+        // Seen in play (Framework 0.293.0, row 14): a portion drilled, wherever it went.
+        Seen.Note("vehicles.drill-portion", Vehicle, ore.defName);
         VehicleWorkSounds.Play(Vehicle, "Portion");
         Find.HistoryEventsManager.RecordEvent(new HistoryEvent(HistoryEventDefOf.Mined, worker.Named(HistoryEventArgsNames.Doer)));
         ReadNext();

@@ -143,8 +143,17 @@ public sealed partial class CompPhobosHitch : VehicleComp
     {
         foreach (CompPhobosSetUp setUp in candidate.GetComps<CompPhobosSetUp>())
         {
-            if (setUp.HandOrder == HandSetUpOrder.SetUp) return "PhobosHitch_SetUpOnTheWay".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
-            if (setUp.HoldRefusal != null || setUp.Deployed) return "PhobosHitch_PackUpFirst".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
+            // Seen in play (Framework 0.293.0, row 107): hitching refused, by why.
+            if (setUp.HandOrder == HandSetUpOrder.SetUp)
+            {
+                Seen.Note("vehicles.hitch.refused-set-up", candidate, "being set up", "on-the-way");
+                return "PhobosHitch_SetUpOnTheWay".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
+            }
+            if (setUp.HoldRefusal != null || setUp.Deployed)
+            {
+                Seen.Note("vehicles.hitch.refused-set-up", candidate, "set up", "pack-up-first");
+                return "PhobosHitch_PackUpFirst".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
+            }
         }
         // A vehicle with its camp out (Framework 0.212.0) is not towed away from it.
         if (candidate.GetComp<CompPhobosCamp>() is { HoldRefusal: { } camp }) return camp;

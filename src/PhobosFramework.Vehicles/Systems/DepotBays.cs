@@ -108,6 +108,8 @@ public sealed class CompPhobosDepotBay : ThingComp
         if (amount <= 0f) return;
         tank.ConsumeFuel(amount);
         fuel.Refuel(amount);
+        // Seen in play (Framework 0.293.0, row 12): the bay refuelled its vehicle with nobody there.
+        Seen.Note("vehicles.depot-bay.refuelled", vehicle);
         status = "PhobosVehicleSystems_BayRefuelling".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve();
     }
 

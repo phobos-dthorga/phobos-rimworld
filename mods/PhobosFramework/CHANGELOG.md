@@ -13,6 +13,18 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.291.0] - 2026-11-25 - Draft
+
+Thirteen more mechanics the test list can see
+
+### Added
+
+- **Seen-in-play notes for thirteen test rows that had none** (the owner's choice by card, 25 November 2026, "in batches"): a part's
+  grade changed, the depot bay refuelling on its own, drill portions and piped resources, overdrive dropping out (worn or hot), a
+  set-up truck refusing to move, worn tread on soft ground, a part fitted at the tuning rig, battery drive and what happens when it
+  runs flat, set-up refused (no crew, engine off, on a tow), hitching a set-up vehicle refused, rain, snow and ice taking grip, and
+  ammunition cooking off. They are written only with the seen-in-play setting on, and change nothing in play. Not yet tested in game.
+
 ## [0.290.0] - 2026-11-25 - Draft
 
 Quiet stages the test list can see in saves

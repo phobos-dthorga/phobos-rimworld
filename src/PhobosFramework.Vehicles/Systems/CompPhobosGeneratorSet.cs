@@ -196,9 +196,16 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
             {
                 if (Vehicle.Drafted) Vehicle.ignition.Drafted = false;
                 Tell("PhobosVehicleSystems_BatteryDriveFlatStopped".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.NegativeEvent);
+                Seen.Note("vehicles.battery-drive", Vehicle, "flat, stopped", "flat-stopped");
             }
-            else Tell("PhobosVehicleSystems_BatteryDriveFlatEngine".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.CautionInput);
+            else
+            {
+                Tell("PhobosVehicleSystems_BatteryDriveFlatEngine".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.CautionInput);
+                Seen.Note("vehicles.battery-drive", Vehicle, "flat, the engine takes over", "engine");
+            }
         }
+        // Seen in play (Framework 0.293.0, row 72): moving on the battery alone, and what follows when it runs flat (above).
+        if (nowOn) Seen.Note("vehicles.battery-drive", Vehicle, "moving on the battery", "moving");
         wasOnBattery = nowOn;
         lastCell = Vehicle.Position;
     }

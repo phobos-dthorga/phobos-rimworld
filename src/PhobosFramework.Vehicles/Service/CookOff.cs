@@ -64,6 +64,12 @@ public static class CookOff
         Consume(vehicle, used);
         float radius = (float)CookOffRule.Radius(used, rules.cookOffRadiusBase, rules.cookOffRadiusPerCubeRootKg, rules.cookOffRadiusMax);
         int damage = CookOffRule.Damage(used, rules.cookOffDamageBase, rules.cookOffDamagePerCubeRootKg, rules.cookOffDamageMax);
+        // Seen in play (Framework 0.293.0, row 111): ammunition aboard cooked off in the fire.
+        if (Seen.Wants("vehicles.cook-off", vehicle))
+            Seen.Note("vehicles.cook-off", vehicle, null, null, new[]
+            {
+                new System.Collections.Generic.KeyValuePair<string, double>("aboardKg", aboardKg), new System.Collections.Generic.KeyValuePair<string, double>("usedKg", used),
+            });
         if (VehicleSystemsMod.StagesLog.DebugEnabled)
         {
             VehicleSystemsMod.StagesLog.Debug(vehicle.LabelShort + " (" + vehicle.ThingID + ") cook-off: " + aboardKg.ToString("0.#") + " kg aboard, " + used.ToString("0.#")
