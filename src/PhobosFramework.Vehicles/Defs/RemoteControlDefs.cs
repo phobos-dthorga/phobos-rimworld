@@ -31,6 +31,13 @@ public class PhobosRemoteControlRulesDef : PhobosRulesDef
     public float loopArriveCells = 3f;
     /// <summary>How long a vehicle on a loop waits at each stop for its loading or unloading, in ticks (2,500: an hour of the game's).</summary>
     public int loopDwellTicks = 2500;
+    /// <summary>
+    /// At a stop a loop vehicle's engine is off (Framework 0.284.0), unless its battery is nearly flat (the owner's card of 25 Nov 2026,
+    /// Framework 0.286.0): below this share of charge the engine runs to charge it, until it is above <see cref="loopChargeStopAbove"/>.
+    /// Two figures, so the engine does not flick on and off at one line [A].
+    /// </summary>
+    public float loopChargeStartBelow = 0.25f;
+    public float loopChargeStopAbove = 0.5f;
     /// <summary>The mechanitor level (Framework 0.282.0, step 7b): a land vehicle of this empty mass or less costs 1 bandwidth, a heavier one 2,
     /// a heavy or tracked one 3 (the owner's card: by size). Light and medium share one class of loadout, so their line is this mass [A].</summary>
     public float mechLightMaxKg = 4000f;

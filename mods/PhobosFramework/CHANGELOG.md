@@ -13,6 +13,16 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.286.0] - 2026-11-25 - Draft
+
+A loop truck charges a low battery at its stops
+
+### Changed
+
+- **A loop truck keeps its engine running at a stop while its battery is low** (the owner's card of 25 November 2026). It still
+  switches off while it waits, so colonists refuel and unload it, unless its battery is below a quarter: then the engine runs to charge
+  it until it is above half, and its text says so. Both figures are authored, in the remote control rules. Not yet tested in game: row 507.
+
 ## [0.285.0] - 2026-11-25 - Draft
 
 Our own remote weapon station follows the remote-gun rule on any truck

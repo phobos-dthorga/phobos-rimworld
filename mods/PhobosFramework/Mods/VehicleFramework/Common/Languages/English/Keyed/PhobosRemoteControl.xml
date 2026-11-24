@@ -83,6 +83,7 @@
   <!-- The route level: inspect text. -->
   <PhobosRoute_InspectFollowing>Following {AHEAD}, in {LEADER}'s convoy.</PhobosRoute_InspectFollowing>
   <PhobosRoute_InspectLooping>Running its loop: driving to the {TO}.</PhobosRoute_InspectLooping>
+  <PhobosRoute_InspectChargingAtStop>Running its loop: waiting at the {STOP} for {TIME}, its engine running to charge a low battery.</PhobosRoute_InspectChargingAtStop>
   <PhobosRoute_InspectWaitingAtStop>Running its loop: waiting at the {STOP} for {TIME}.</PhobosRoute_InspectWaitingAtStop>
   <PhobosRoute_PickUp>pick-up</PhobosRoute_PickUp>
   <PhobosRoute_DropOff>drop-off</PhobosRoute_DropOff>

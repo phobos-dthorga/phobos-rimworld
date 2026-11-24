@@ -34,6 +34,17 @@ public static class RouteRule
     /// </summary>
     public static bool MayJoin(int followers, int joining, int most) => followers + Math.Max(1, joining) <= Math.Max(0, most);
 
+    /// <summary>
+    /// Whether a loop vehicle waiting at a stop charges its battery with its engine (Framework 0.286.0; the owner's card of 25 Nov 2026):
+    /// it starts below <paramref name="startBelow"/> and keeps on until above <paramref name="stopAbove"/>, so it does not flick on and off
+    /// at one line. A vehicle with no battery never does (<paramref name="charge"/> NaN).
+    /// </summary>
+    public static bool ChargesAtStop(bool charging, double charge, double startBelow, double stopAbove)
+    {
+        if (double.IsNaN(charge)) return false;
+        return charging ? charge <= Math.Max(startBelow, stopAbove) : charge < startBelow;
+    }
+
     /// <summary>The point after this one on a loop, coming back to the first.</summary>
     public static int Next(int index, int count) => count <= 0 ? 0 : (index + 1) % count;
 

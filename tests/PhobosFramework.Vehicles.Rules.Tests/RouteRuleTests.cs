@@ -35,6 +35,18 @@ public class RouteRuleTests
     }
 
     [Fact]
+    public void ALowBatteryKeepsTheEngineOnAtAStopUntilCharged()
+    {
+        // Framework 0.286.0: on below a quarter, off again above half; nothing in between changes it.
+        Assert.False(RouteRule.ChargesAtStop(false, 0.6, 0.25, 0.5));
+        Assert.False(RouteRule.ChargesAtStop(false, 0.3, 0.25, 0.5));
+        Assert.True(RouteRule.ChargesAtStop(false, 0.2, 0.25, 0.5));
+        Assert.True(RouteRule.ChargesAtStop(true, 0.4, 0.25, 0.5));
+        Assert.False(RouteRule.ChargesAtStop(true, 0.55, 0.25, 0.5));
+        Assert.False(RouteRule.ChargesAtStop(false, double.NaN, 0.25, 0.5));
+    }
+
+    [Fact]
     public void ALeaderJoiningBringsItsFollowersIntoTheCount()
     {
         // Framework 0.284.0: two following one leader, joining a convoy of two, makes five behind it: refused.

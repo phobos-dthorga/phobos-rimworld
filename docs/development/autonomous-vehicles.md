@@ -352,6 +352,10 @@ Built 25 Nov 2026, not yet tested in game, on the owner's go ("You may proceed")
   vehicle is selected. Nothing for a whole map per tick or frame.
 - **Other factions:** a raid's convoy would stop when its leader is destroyed, by the same rule, once another faction's vehicles carry
   the kit; nothing gives them one today.
+- **The engine at a stop [O, 25 Nov 2026]:** off while it waits, so colonists refuel and unload it as a parked vehicle (Framework
+  0.284.0), "unless perhaps the battery is nearly out of energy" (0.286.0): below a quarter of its charge the engine runs to charge it
+  until it is above half (`RouteRule.ChargesAtStop`, tested; both figures authored, in the rules Def). A remote gun on it may rest while
+  the engine is off.
 - **Still open:** loading and unloading at the stops by the vehicle's own gear (a tipper tipping into the bunker), helicopter rounds
   (their own step), and the buttons' own pictures (borrowed until drawn).
 

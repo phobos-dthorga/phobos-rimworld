@@ -144,6 +144,8 @@ public sealed class CompPhobosRoute : VehicleComp
     int loopMapId = -1;
     /// <summary>Why it cannot drive on now, told once when it starts (Framework 0.284.0). Derived at each look; never saved.</summary>
     string? waitingWhy;
+    /// <summary>Whether it is running its engine at a stop to charge its battery (Framework 0.286.0). Never saved: worked out again.</summary>
+    bool charging;
 
     public RouteMode Mode => mode;
     public VehiclePawn? Ahead => ahead;
@@ -322,17 +324,35 @@ public sealed class CompPhobosRoute : VehicleComp
                 }
                 if (now < dwellUntil)
                 {
-                    // Its engine off while it waits at a stop (Framework 0.284.0 [A]), so colonists refuel and unload it as any parked vehicle.
-                    if (Vehicle.Drafted) VehicleAutoDrive.StopEngine(Vehicle);
+                    EngineAtStop();
                     return;
                 }
             }
             dwellUntil = -1;
+            charging = false;
             leg = RouteRule.Next(leg, points.Count);
             orderCell = IntVec3.Invalid;
             point = points[leg];
         }
         DriveToward(point);
+    }
+
+    /// <summary>
+    /// Its engine off while it waits at a stop (Framework 0.284.0, the owner's card of 25 Nov 2026), so colonists refuel and unload it as any
+    /// parked vehicle; unless its battery is nearly flat (0.286.0), when the engine runs to charge it until it is well up again.
+    /// </summary>
+    void EngineAtStop()
+    {
+        var charge = Vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.TryGetQuantity("charge", out var c) ? c : double.NaN;
+        charging = RouteRule.ChargesAtStop(charging, charge, Rules.loopChargeStartBelow, Rules.loopChargeStopAbove);
+        if (charging)
+        {
+            if (!Vehicle.Drafted) Ready();
+        }
+        else if (Vehicle.Drafted)
+        {
+            VehicleAutoDrive.StopEngine(Vehicle);
+        }
     }
 
     /// <summary>Orders a drive to a place near the target, unless one in hand already makes for it or the vehicle is there.</summary>
@@ -470,6 +490,11 @@ public sealed class CompPhobosRoute : VehicleComp
         if (dwellUntil >= 0)
         {
             var left = Mathf.Max(0, dwellUntil - Find.TickManager.TicksGame);
+            if (charging)
+            {
+                return "PhobosRoute_InspectChargingAtStop".Translate((leg == 0 ? "PhobosRoute_PickUp" : "PhobosRoute_DropOff").Translate().Named("STOP"),
+                    left.ToStringTicksToPeriod().Named("TIME"));
+            }
             return "PhobosRoute_InspectWaitingAtStop".Translate((leg == 0 ? "PhobosRoute_PickUp" : "PhobosRoute_DropOff").Translate().Named("STOP"),
                 left.ToStringTicksToPeriod().Named("TIME"));
         }
