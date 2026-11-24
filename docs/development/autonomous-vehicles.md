@@ -228,7 +228,8 @@ Built 24 Nov 2026, not yet tested in game; its antenna picture waits for the own
   Talus, Ullage, Kelly, Datum and Busbar, loaded only with the Radio Framework (D'thorga Vehicles' tie-in folder `Mods/RadioFramework`).
   It sits at (22, 12) in each tree, after the truck's own upgrades in row 12: a tie-in goes last and never in a row of its own, and
   the tanker's lower rows are full. It needs the research **remote vehicle control** (the radio's, after software radio, 1,500 [A]),
-  and costs 25 steel and 4 components, 2,000 work [A]. It borrows the radio's signal icon until its own is drawn.
+  and costs 25 steel, 3 components and **an advanced component** [O: the owner, 25 Nov 2026, "the upgrade should require an
+  advanced component"; the controller that works the servos is a computer, as the radio terminal's is], 2,000 work [A]. It borrows the radio's signal icon until its own is drawn.
 - **What it does:** each truck names the radio's vehicle control radio as its fitting, with this node as the upgrade that fits it
   (`VehicleRadioFitting`), so every truck is built with the radio and the remote control (step 2's start-up), which stay off the net
   until the node is done. Nothing else on the truck changes.

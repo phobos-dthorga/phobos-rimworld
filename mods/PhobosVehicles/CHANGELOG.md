@@ -13,6 +13,16 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.117.1] - 2026-11-25 - Draft
+
+The remote control kit takes an advanced component
+
+### Changed
+
+- **The remote control kit now costs 25 steel, 3 components and an advanced component**, in place of 4 components (the owner, 25
+  November 2026): its controller, which turns the station's orders into steering, pedals and gears, is a computer, as the radio
+  terminal's is. A kit already fitted is unchanged. Not yet tested in game: row 489.
+
 ## [0.117.0] - 2026-11-24 - Draft
 
 A remote control kit for the five service trucks

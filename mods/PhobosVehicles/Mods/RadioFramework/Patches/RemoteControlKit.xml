@@ -4,7 +4,8 @@
        docs/development/autonomous-vehicles.md, step 4; the owner's card of 24 Nov 2026: "a kit for our trucks"). Loaded only with the
        Radio Framework. Each truck gets the kit's upgrade node, in row 12 after its own upgrades (a tie-in goes last, never in a row of
        its own), and names the Radio Framework's vehicle control radio as its fitting, which that node puts in place: every truck is
-       built with the radio and D'thorga Framework's remote control, which stay off the net until the node is fitted. The node borrows
+       built with the radio and D'thorga Framework's remote control, which stay off the net until the node is fitted. Its cost takes an advanced component for the controller that
+       works the servos (the owner, 25 Nov 2026), as the radio terminal's computer does. The node borrows
        the radio's signal icon until its own is drawn; its antenna picture on the cab waits for the owner's pick. Cost and work
        authored. Not yet tested in game. -->
   <!-- The Talus tipper truck: the kit's upgrade. -->
@@ -28,7 +29,8 @@ If the station loses touch: holds, comes back or carries on, as chosen on the tr
           </researchPrerequisites>
           <ingredients>
             <Steel>25</Steel>
-            <ComponentIndustrial>4</ComponentIndustrial>
+            <ComponentIndustrial>3</ComponentIndustrial>
+            <ComponentSpacer>1</ComponentSpacer>
           </ingredients>
         </li>
     </value>
@@ -64,7 +66,8 @@ If the station loses touch: holds, comes back or carries on, as chosen on the tr
           </researchPrerequisites>
           <ingredients>
             <Steel>25</Steel>
-            <ComponentIndustrial>4</ComponentIndustrial>
+            <ComponentIndustrial>3</ComponentIndustrial>
+            <ComponentSpacer>1</ComponentSpacer>
           </ingredients>
         </li>
     </value>
@@ -100,7 +103,8 @@ If the station loses touch: holds, comes back or carries on, as chosen on the tr
           </researchPrerequisites>
           <ingredients>
             <Steel>25</Steel>
-            <ComponentIndustrial>4</ComponentIndustrial>
+            <ComponentIndustrial>3</ComponentIndustrial>
+            <ComponentSpacer>1</ComponentSpacer>
           </ingredients>
         </li>
     </value>
@@ -136,7 +140,8 @@ If the station loses touch: holds, comes back or carries on, as chosen on the tr
           </researchPrerequisites>
           <ingredients>
             <Steel>25</Steel>
-            <ComponentIndustrial>4</ComponentIndustrial>
+            <ComponentIndustrial>3</ComponentIndustrial>
+            <ComponentSpacer>1</ComponentSpacer>
           </ingredients>
         </li>
     </value>
@@ -172,7 +177,8 @@ If the station loses touch: holds, comes back or carries on, as chosen on the tr
           </researchPrerequisites>
           <ingredients>
             <Steel>25</Steel>
-            <ComponentIndustrial>4</ComponentIndustrial>
+            <ComponentIndustrial>3</ComponentIndustrial>
+            <ComponentSpacer>1</ComponentSpacer>
           </ingredients>
         </li>
     </value>
