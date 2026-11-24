@@ -154,6 +154,10 @@ overturns an earlier one says so.
 | 24 Nov | Each new path checked for the whole line; a snag's cost and up to 3 paths | agent choice | Same follow rule as in play | [sy], The wider way round |
 | 24 Nov | No way wide enough: say so once and drive it anyway | agent choice | The old stop is the worst case | [sy], The wider way round |
 | 24 Nov | Risk low; a setting, on by default | agent choice | Only lengthens a route | [sy], The wider way round |
+| 24 Nov | The wider way stands down while a field run drives a row | agent choice | A row is driven cell for cell | Framework 0.278.1 changelog |
+| 25 Nov | No firm-ground cost for heavy vehicles' routes | owner's card | VF prices terrain already; mud 15 times a floor | [sy], The wider way round |
+| 25 Nov | No crop cost for errands' routes | owner's card | VF harms no plant; a crop costs as mud | [sy], The wider way round |
+| 25 Nov | Keeping to radio cover designed with its cost first, not built | owner's card | The radio's performance rule | [av], Proposal: keeping to radio cover |
 
 [hi]: ../archive/vehicle-hitch-design.md
 [tr]: ../vehicle-trailers.md
@@ -163,3 +167,4 @@ overturns an earlier one says so.
 [em]: ../vehicle-emergent-play.md
 [bt]: ../archive/vehicle-bay-trips.md
 [sy]: ../systems/hitches-and-trailers.md
+[av]: ../autonomous-vehicles.md

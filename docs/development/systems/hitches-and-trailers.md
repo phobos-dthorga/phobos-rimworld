@@ -107,6 +107,18 @@ trailer stopped by a fence.
   case is the old behaviour, a stop with a message. So its setting, **Vehicles that tow take a wider way round**, is on by default.
 - **Other factions' vehicles**: no other faction hitches, so it never applies to them. A captured trailer towed by the player's
   vehicle is checked as any other.
+- **Other uses of the same extension point, checked 25 Nov 2026 and left on the owner's cards:**
+  - **Heavy vehicles preferring firm ground**: Vehicle Framework already adds each cell's terrain path cost (or the vehicle
+    author's own figure) and its snow, times ten, to a step of ten, so mud at 14 is about fifteen times dearer than a floor for
+    every vehicle (`PathGridCalculator`, read in the 1.7 decompile). That is the figure our drivetrain reads its rolling
+    resistance and grip from. What it cannot know is rain and load; the owner left those.
+  - **Errands going round growing crops**: Vehicle Framework never damages a plant (it runs over pawns only), and adds a
+    thing's own path cost to its cell, 14 for a crop such as corn as written, so a field is already as dear as mud. Nothing to
+    protect.
+  - **A remote-driven vehicle keeping to radio cover**: a proposal with its cost, in
+    [autonomous vehicles](../autonomous-vehicles.md#proposal-keeping-to-radio-cover-step-8-not-built).
+- **A cost grid must stand down for a drive that needs exact cells** (learned at 0.278.1): ask of any new one which of our runs
+  drive a line cell for cell.
 
 ### The load on the tractor
 

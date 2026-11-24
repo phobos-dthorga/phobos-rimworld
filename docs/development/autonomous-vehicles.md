@@ -5,7 +5,8 @@ Vehicles 0.117.0: the vehicle control and picture kinds, control taking channels
 radios fitted to vehicles ([step 2](#step-2-radios-fitted-to-vehicles-radio-0100)), vehicles driven from a station with their lost-link
 choices and letters ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)), the kit on the five service trucks
 ([step 4](#step-4-the-kit-on-the-trucks-vehicles-01170-radio-0120)) and the colonist at the console
-([step 5](#step-5-the-operator-radio-0120)). The kit's antenna picture waits for the owner's pick; steps 6 and 7 are not built.
+([step 5](#step-5-the-operator-radio-0120)). The kit's antenna picture waits for the owner's pick; steps 6 and 7 are not built, and
+step 8 ([keeping to radio cover](#proposal-keeping-to-radio-cover-step-8-not-built)) is a proposal waiting on a measurement.
 Nothing is tested in game.
 
 The owner, 24 Nov 2026: "the real feature I wish to implement soon is autonomous vehicles and perhaps their weapon systems too, all
@@ -257,6 +258,54 @@ Built 24 Nov 2026, not yet tested in game.
 - **Its cost:** the net already walks the free colonists for their radios each pass; it now also reads each one's job driver (a
   type check) to find operators. The work giver reads a list the net keeps; the job checks one dictionary each tick it runs.
 
+## Proposal: keeping to radio cover (step 8, not built)
+
+The owner's card of 25 Nov 2026 ("Design it, with its cost"), after the wider way round for towing
+([hitches and trailers](systems/hitches-and-trailers.md#the-wider-way-round)) showed how one of our mods can add costs to Vehicle
+Framework's path finder. **Nothing here is built, and nothing is until its cost is measured and the owner has seen it.**
+
+- **What it would do [A]:** a vehicle driven from a station pays more to cross ground where its control link would fail, so its
+  route bends toward ground the stations reach. It only makes a way dearer, never closes it: an order to a spot with no cover is
+  still obeyed, and the vehicle still loses its link there.
+- **How it reaches the path finder [code, read 24 Nov 2026]:** Vehicle Framework's newer path finder (on in its 1.7 release)
+  makes one of every `VehicleCostOffsets` type per map and asks each, per path request, whether it applies. Ours would apply only
+  to a vehicle under station control. No Harmony patch; the towing grid (`Hitch/TowClearanceCosts.cs`) is the pattern.
+- **Where the cover comes from [A]:** a coarse map of the control link, one cell per 4 by 4 block, as the coverage overlay's quick
+  pass takes ([radio visuals](radio-visuals.md#as-built-radio-020-24-nov-2026)): the same walk, inputs and arithmetic as a real
+  contact, so the route cannot disagree with the link. **Not the overlay's own figures**: those are for a hand-held; this is the
+  kit's radio and whip, in the control mode, against stations that have an operator. Each block's cells take its sample.
+- **It softens a weak point this design chose.** "A convoy is planned around where the link holds" is the player's work today.
+  With this, the truck does part of that planning. So it is **a setting [A]**, and whether it starts on is the owner's card, put
+  with the measured cost.
+- **Where the code would go [A]:** the grid in D'thorga Framework's vehicle part, which must never name the radio; the cover from
+  the Radio Framework's Vehicle Framework tie-in, through a seam beside `IRemoteControlSource` (a source that can say which
+  ground it covers). A route or mechanitor source that has no notion of cover simply gives none.
+
+**Its cost, stated before building** (the radio's performance rule). **Every figure is an estimate [A] until measured.**
+
+| What | How much | How often | What starts it again |
+| --- | --- | --- | --- |
+| No vehicle under station control on the map | Nothing: the grid answers "does not apply" from one field | Per path request | — |
+| The cover map | About 3,900 samples on a 250 by 250 map, each one walk per station antenna in reach | Once, spread over frames at the overlay's budget (1.5 ms a frame, itself an authored guess) | A building that is an edifice, coax or an antenna port spawning or going; a roof changing; the noise sources changing; an operator taking or leaving a console |
+| A path request while the map is being worked out | The last finished map is used; none on the first pass | Per request | — |
+| Writing into Vehicle Framework's grid | Only blocks whose answer changed, 16 cells each | At the end of a pass | — |
+| Memory | One short per map cell in Vehicle Framework's grid (125 KB on a 250 by 250 map), one byte per block for ours | While the map is loaded | — |
+
+- **What must be measured first:** the coverage overlay's quick pass has never been timed on the owner's colony; its record says
+  so. **One press of the dev action "Time coverage of selected station or antenna"**, with a station selected, gives
+  microseconds a cell, and this proposal's cost follows from it. Then `python scripts/perf.py` before and after, asked for first.
+- **The four questions.** *Lets the player do:* send a remote truck across a map with rock and thick walls without tracing the
+  link by eye. *Stops them doing:* nothing; off, routes are as before. *Changes how they play:* masts are still sited for the
+  ground the trucks cross, but a truck forgives a careless order. *What outside notices:* nothing beyond the vehicle; a chosen
+  default **[A]**.
+- **Risk [A]: low.** It lengthens a route and loses nothing; the worst case is today's lost link.
+- **Other factions:** their vehicles join no net of ours, so it never applies to them and costs nothing with several on a map.
+- **What a next game would need:** nothing here is game-free; it is Vehicle Framework's path finder and the radio's link.
+
+Two other uses of the same extension point were checked on 25 Nov 2026 and **left, on the owner's cards**: heavy vehicles
+preferring firm ground, and errands going round growing crops. Vehicle Framework already prices both; the finding is in
+[hitches and trailers](systems/hitches-and-trailers.md#the-wider-way-round).
+
 ## The four questions
 
 - **What it lets the player do:** send a truck where no colonist should go (a supply run past a raid, a fire, a toxic fallout zone),
@@ -318,6 +367,7 @@ Built 24 Nov 2026, not yet tested in game.
 | 5 | The operator's job and work type. **Built in Radio 0.12.0** | Radio | 2 |
 | 6 | The picture link and remote guns | Framework, Vehicles | 5 and MV8's remote weapon station |
 | 7 | The route level (MV4) and mechanitor level (MV6) feeding the same comp | Framework | 3 |
+| 8 | Keeping to radio cover: a proposal, [above](#proposal-keeping-to-radio-cover-step-8-not-built). **Not built; waits on the overlay's measured cost and the owner's card** | Framework, Radio | 3, and the measurement |
 
 **Test rows** come with each step. **Settings**, as listed under risks, come with step 3 and step 6.
 
@@ -330,6 +380,8 @@ Built 24 Nov 2026, not yet tested in game.
 - **Icons for the two buttons**, borrowed until made.
 - **The antenna overlay's picture**: two paid tries drawn 24 Nov 2026; the owner's pick, then fitting by script on the five trucks.
 - **The lost-link letter's reason**: when the operator leaves, the letter should say so rather than "lost its link".
+- **Step 8's measurement and card**: the owner's press of "Time coverage of selected station or antenna", then a card with the
+  cost and whether keeping to radio cover starts on.
 
 ## Who chose what
 
@@ -337,5 +389,9 @@ Built 24 Nov 2026, not yet tested in game.
   lost link per vehicle, hold by default; remote guns only with an operator and a picture, plus a setting to fire alone, off by
   default. Earlier, 18 and 19 Nov 2026: the three levels, the seat stays, four followers, a remote station that fires with nobody
   aboard.
+- **Owner (25 Nov 2026), by card:** keeping to radio cover is designed with its cost before anything is built; no firm-ground
+  cost and no crop cost for vehicles' routes.
+- **Agent (25 Nov 2026), for the owner to revise:** everything in the step 8 proposal: the coarse cover map, what starts it
+  again, the seam, the setting, the risk grade.
 - **Agent (24 Nov 2026), for the owner to revise:** the two kinds and their modes, pre-emption, the work type, two vehicles per
   operator, the delay, the risk grades, other factions' vehicles always in control, where the code goes, the steps.
