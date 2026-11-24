@@ -1,0 +1,56 @@
+{
+  "file": "paid25-cabin-seat-north-2.png",
+  "sha256": "9d87a42c0dc0b1489e9a7926b3281acb65ecca67e147caadcc7e18dd21848a2c",
+  "date": "2026-11-25T02:40:50",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game furniture sprite for a crew seat inside a military transport's cabin. Images 1 and 2 are our approved pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The seat fills about 65 percent of the canvas, one unit by one unit, centred, on a plain pure white background. The person sitting in it faces UP the canvas.\n\nA troop seat seen from directly above: a seat of olive-green webbing stretched on a dark steel tube frame, a padded backrest along the BOTTOM edge of the seat, short armrests on the left and right, and a grey lap belt lying open across the seat with a steel buckle.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/paid-2026-11-25.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 617,
+    "input_tokens_details": {
+      "image_tokens": 320,
+      "text_tokens": 297
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2373
+  },
+  "cost_usd": 0.0567,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 27.2,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampStool_north.png",
+      "sha256": "cbd9985ed2c843a034cedb89f9a784c2d1577997ec89efada3dcfc0172c88a14",
+      "role": "our approved seat seen from directly above (the camp stool): match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CamperBed_north.png",
+      "sha256": "d0d6ae108d025f3d7764d7765d98d840b261a8804e121a88f36e40dd8fba1bf5",
+      "role": "our approved camp furniture seen from directly above (the camper bed): match its finish only; do not copy its shape"
+    }
+  ]
+}

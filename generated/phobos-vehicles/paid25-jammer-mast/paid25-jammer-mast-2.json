@@ -1,0 +1,51 @@
+{
+  "file": "paid25-jammer-mast-2.png",
+  "sha256": "570accaff638c316710a824c5823f2fc73e7b7c8e89d71fca2668ade9381ff5a",
+  "date": "2026-11-25T02:41:49",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for a truck-mounted generator set: a folding radio jammer mast that lies flat across the truck's rear deck. Image 1 is our approved generator truck, seen from directly above: match its outline weight, shading, palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background: nothing else on the canvas. Wide canvas. The folded mast lies horizontally from the LEFT edge to the RIGHT edge: on the left, a round dark steel turntable base with six bolts; from it, a thick telescopic steel mast tube in three nested sections, pale grey, lying left to right; at its right end, the jammer head: a cluster of four short flat olive-drab antenna paddles fanned out, with a small dark radome dome in their middle. A thin black cable runs along the mast. The whole part is about four times as wide as it is tall.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted steel and olive colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, vehicles, wheels, ground or shadows. No perspective, no tilt.",
+  "seed": 2,
+  "size": [
+    1536,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/paid-2026-11-25-parts.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1482,
+    "input_tokens_details": {
+      "image_tokens": 1152,
+      "text_tokens": 330
+    },
+    "output_tokens": 1372,
+    "output_tokens_details": {
+      "image_tokens": 1372,
+      "text_tokens": 0
+    },
+    "total_tokens": 2854
+  },
+  "cost_usd": 0.052,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1536x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1536,
+    1024
+  ],
+  "seconds": 21.4,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/generator-set-body-north/generator-set-body-north-3.png",
+      "sha256": "d5002f5b6a9aa11cbb3a5699e751fa991190b76e2f7923fdf3e5ecdce0eb8dcb",
+      "role": "our approved Busbar generator set body, the owner's pick, seen from directly above: match its outline weight, shading, palette and finish only; do not redraw it"
+    }
+  ]
+}

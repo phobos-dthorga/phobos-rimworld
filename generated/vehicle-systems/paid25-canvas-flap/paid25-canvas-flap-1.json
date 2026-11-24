@@ -1,0 +1,56 @@
+{
+  "file": "paid25-canvas-flap-1.png",
+  "sha256": "0af93c65197d68a74127acf19184779e170f69d3107115ef807f4001526fe048",
+  "date": "2026-11-25T02:39:30",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game sprite for the door flap of a canvas field tent in a frontier colony, as a door leaf seen from directly above. Images 1 and 2 are our approved canvas camp pieces, seen from directly above: match their outline weight, shading, canvas colours and finish only. Do NOT copy their shapes.\n\nSquare canvas. The flap is a long horizontal band running from the LEFT edge to the RIGHT edge of the canvas, about one third of the canvas tall, centred vertically, on a plain pure white background.\n\nA heavy sand-coloured canvas door flap seen edge-on from above as a thick band: a rolled canvas roll along its top edge, two dark leather buckled straps crossing it, a darker stitched seam along its length, and a stiffened bottom hem.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles, poles, ropes, pegs or tent walls. No ground beyond the object, no shadow outside it, no perspective, no tilt.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/paid-2026-11-25.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 689,
+    "input_tokens_details": {
+      "image_tokens": 384,
+      "text_tokens": 305
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2445
+  },
+  "cost_usd": 0.0573,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 27.3,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTent_north.png",
+      "sha256": "606884376a59c1e9e6f5c7e5f7e4bcc398b2331dbff5d608fd896f42f02b80c9",
+      "role": "our approved canvas camp piece seen from directly above (the roof tent): match its outline weight, shading, canvas colours and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_north.png",
+      "sha256": "935379ccab4eee5eca092fdf1ae4e865ac07b22cfd92edc650df0ecf092c4ac9",
+      "role": "our approved canvas camp piece seen from directly above (the swag): match its finish only; do not copy its shape"
+    }
+  ]
+}
