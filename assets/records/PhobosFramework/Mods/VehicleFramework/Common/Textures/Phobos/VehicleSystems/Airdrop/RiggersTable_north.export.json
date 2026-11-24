@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/RiggersTable_north.png",
+  "source": "assets/vehicle-systems/generated/airdrop-riggers-table/airdrop-riggers-table-2.png",
+  "source_sha256": "ee7d444d4fcc77d9147d6ccb0d4863618b38a0ceeedbfeeb7d461591d9680662",
+  "target_sha256": "cb38bd7aac2fc1929fbb73f3416f2eee237ebffc647049e043f73ef8a22a0f14",
+  "size": [
+    576,
+    192
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "ee7d444d4fcc77d9147d6ccb0d4863618b38a0ceeedbfeeb7d461591d9680662",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-25T09:49:29",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

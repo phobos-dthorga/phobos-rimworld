@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/HeavyDropRig.png",
+  "source": "assets/vehicle-systems/generated/airdrop-heavy-rig/airdrop-heavy-rig-2.png",
+  "source_sha256": "551b78b8ee2f3c3a435b4700360d65a10c38b895392871c2169b5166a147c2ea",
+  "target_sha256": "f85b59f2c91f649c781f9f5ff0b093f3b32097a3938054f1e3bc7e5fef321f12",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "551b78b8ee2f3c3a435b4700360d65a10c38b895392871c2169b5166a147c2ea",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-25T09:49:26",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

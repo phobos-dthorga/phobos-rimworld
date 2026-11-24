@@ -63,6 +63,8 @@ Parachute airdrops: people, cargo and vehicles from the air, on the wind
   ground outside your turrets; with Combat Extended, a CIWS shoots at them as they come down.
 - **Three settings** on the Aircraft page, Airdrops section: landings can hurt and damage (on); vehicles may drop with their crew
   inside (off, high risk); other authors' aircraft use D'thorga airdrops, the C-17 (off).
+- **Its pictures**, the owner's picks of 25 November 2026: the open canopy, the cargo bundle, the drop platform under a vehicle, the
+  three packed items, the spent canopy and platform, and the rigger's table with its four facings, made with a paid image service.
 
 ### Save compatibility
 

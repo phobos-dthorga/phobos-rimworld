@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CargoBundle.png",
+  "source": "assets/vehicle-systems/generated/airdrop-bundle/airdrop-bundle-1.png",
+  "source_sha256": "479b2befc6535f3d304cc983d92215e71d91394b5187f874222e511cff471a94",
+  "target_sha256": "ec5db70ea52f863db677a6228e3bffb0a504fefaad4aea0dffa2a02ca4ebe7a0",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "479b2befc6535f3d304cc983d92215e71d91394b5187f874222e511cff471a94",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-25T09:49:16",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
