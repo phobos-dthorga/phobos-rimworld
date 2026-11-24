@@ -1,0 +1,25 @@
+[
+ {
+  "name": "remote-weapon-station-fal",
+  "engine": "fal",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+    "role": "Image 1 is our approved Talus tipper truck, seen from directly above with its cab at the top: match its outline weight, shading, olive and steel palette and finish only, and use it to judge the scale of a roof-mounted gun; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "the remote weapon station (MV8) on the Talus and Busbar, a turning turret",
+   "this_request": "turret drawn alone on white, two tries; the owner picks one card; shipped as a Vehicle Framework turret picture that turns about the canvas centre; OpenAI refused the turret on 25 Nov 2026 (moderation, illicit), as it refused the Osprey's guns, which fal then drew",
+   "design": "docs/development/vehicle-militarised-service-vehicles.md, The gun ring and its guns; docs/development/autonomous-vehicles.md, step 6"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for our service trucks: a remote weapon station, a compact armoured gun mount worked from inside the vehicle with nobody at it. Image 1 is our approved Talus tipper truck, seen from above with its cab at the top: match its outline weight, shading, olive and steel palette and finish only. Do NOT redraw the truck.\n\nDraw ONLY this turret, alone on a plain pure white background, its turning centre at the EXACT CENTRE of the canvas and its gun pointing STRAIGHT UP the canvas. At the centre, a low round turret ring with a squat armoured cradle on it, olive drab with gunmetal edges. On the cradle, a heavy machine gun: a ribbed receiver and a long thin barrel with a flash hider, the barrel running straight up from the centre to about 10 percent below the top edge. On the left of the gun, a rectangular sight box with a small dark camera lens at its front. On the right of the gun, a rectangular ammunition box with a short belt feed into the receiver. The whole turret body, without the barrel, about 40 percent of the canvas wide, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no roof, no people, animals, soil, dust, mud, damage, smoke, muzzle flash, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "model": "fal-ai/nano-banana-pro/edit"
+ }
+]

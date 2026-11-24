@@ -395,6 +395,8 @@
         <fuelConsumptionWorldMultiplier>0.5</fuelConsumptionWorldMultiplier>
         <fuelCapacity>120</fuelCapacity>
       </li>
+      <!-- The remote weapon station's turret comp (D'thorga Vehicles 0.119.0): empty until the upgrade fits the gun. -->
+      <li Class="Vehicles.CompProperties_VehicleTurrets" />
       <li Class="Vehicles.CompProperties_UpgradeTree">
         <def>Phobos_Tipper_UpgradeTree</def>
       </li>

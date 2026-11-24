@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The service trucks' remote weapon station (D'thorga Vehicles 0.119.0, Framework 0.285.0; docs/development/vehicle-militarised-service-vehicles.md,
+       "The gun ring and its guns", MV8; the owner's cards of 19 and 25 Nov 2026). Our own powered mount with a .50 heavy machine gun, sighted
+       by camera and fired with nobody aboard: no crew role names it, so Vehicle Framework counts it as manned, and D'thorga Framework's rule
+       decides instead (PhobosRemoteGunExtension): it fires only while a radio station's operator has the truck's picture, or when the
+       setting "Remote guns fire on their own" is on, on any truck, kit or not ("Picture link, or the setting", 25 Nov 2026). Its key names no
+       hand-swung gun, so D'thorga Framework's weapon rules read it as powered: it draws the 40 A turret drive while it tracks a target and
+       stops without power, as an autonomous station has nobody to crank it. Fitted by the trucks' upgrade trees, never standing on the Def.
+       Figures [A] authored unless marked; the .50's own as the Osprey's ramp gun (Turrets_Osprey.xml). -->
+  <Vehicles.VehicleTurretDef ParentName="VehicleTurretBase">
+    <defName>PhobosTurret_RemoteWeaponStation</defName>
+    <label>remote weapon station</label>
+    <description>A powered mount on the cab roof with a heavy .50 machine gun, aimed through a camera sight and fired from afar or by itself, with nobody aboard.</description>
+    <turretType>Rotatable</turretType>
+    <graphicData>
+      <!-- Drawn alone on white and framed on its turret ring's centre (assets/phobos-vehicles/export_remote_weapon_station.py), so it turns
+           on its ring: the ring is about 1.15 cells across and the barrel reaches 1.33 cells forward of its centre. -->
+      <texPath>Phobos/Vehicles/Turrets/RemoteWeaponStation</texPath>
+      <graphicClass>Vehicles.Graphic_Turret</graphicClass>
+      <shaderType>Cutout</shaderType>
+      <drawSize>(3, 3)</drawSize>
+    </graphicData>
+    <matchParentColor>false</matchParentColor>
+    <gizmoIconTexPath>Phobos/Vehicles/Upgrades/RemoteWeaponStation</gizmoIconTexPath>
+    <!-- A 200-round belt, fed from steel as the Osprey's .50 is: a quarter of a steel a round [A]. -->
+    <magazineCapacity>200</magazineCapacity>
+    <chargePerAmmoCount>0.25</chargePerAmmoCount>
+    <genericAmmo>true</genericAmmo>
+    <ammunition>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+    </ammunition>
+    <!-- Reloaded by hand from outside, slower than a gunner beside the gun [A]. A powered mount turns faster than a gun swung by hand [A]. -->
+    <reloadTimer>14</reloadTimer>
+    <warmUpTimer>1.2</warmUpTimer>
+    <rotationSpeed>2.4</rotationSpeed>
+    <minRange>1.5</minRange>
+    <maxRange>36</maxRange>
+    <projectile>Bullet_SniperRifle</projectile>
+    <shotSound>Shot_Minigun</shotSound>
+    <fireModes>
+      <li>
+        <label>Automatic</label>
+        <shotsPerBurst>12</shotsPerBurst>
+        <ticksBetweenShots>3</ticksBetweenShots>
+        <ticksBetweenBursts>75</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Auto</texPath>
+      </li>
+      <li>
+        <label>Burst</label>
+        <shotsPerBurst>6</shotsPerBurst>
+        <ticksBetweenShots>3</ticksBetweenShots>
+        <ticksBetweenBursts>75</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Burst</texPath>
+      </li>
+      <li>
+        <label>Single shot</label>
+        <shotsPerBurst>1</shotsPerBurst>
+        <ticksBetweenShots>3</ticksBetweenShots>
+        <ticksBetweenBursts>40</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Single</texPath>
+      </li>
+    </fireModes>
+    <modExtensions>
+      <!-- The firing rule's marker (D'thorga Framework 0.285.0). -->
+      <li Class="Phobos.VehicleSystems.PhobosRemoteGunExtension" />
+      <!-- Combat Extended's own .50 BMG muzzle speed (163), as the Osprey's. A stabilised mount sways and kicks less than a gun swung by
+           hand (half the Osprey's sway, two thirds its recoil) and fires from a cab roof [A]. -->
+      <li Class="Vehicles.CETurretDataDefModExtension">
+        <ammoSet>AmmoSet_50BMG</ammoSet>
+        <speed>163</speed>
+        <sway>0.65</sway>
+        <spread>0.04</spread>
+        <recoil>1.1</recoil>
+        <shotHeight>2.6</shotHeight>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleTurretDef>
+</Defs>

@@ -61,6 +61,7 @@ and life on the road](camping.md). [Back to the guide](README.md).
 - **Guns that no seat works**, such as the L-ATV's, **fire only while the station has the vehicle's picture**: the vehicle must be
   drafted, and in good reach, since the picture needs a stronger signal than orders. Its text says "orders and picture" or
   "orders only". The setting **"Remote guns fire on their own"** (off) lets them fire with nobody watching.
+  **Our own remote weapon station** on the Talus and Busbar follows the same rule **whether or not the truck has the control kit**.
 - **Someone must work the station**: **turn on Remote operation for a colonist in the Work tab**. They stand at the console while a
   vehicle wants driving, and drive **two at once**; a third waits for another station's operator. When they leave to eat or sleep,
   the vehicle loses its link.

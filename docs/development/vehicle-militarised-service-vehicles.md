@@ -1,6 +1,6 @@
 # Militarised service vehicles: research and design (19 Nov 2026)
 
-**Status (19 Nov 2026):** a design record, partly built: every armour kit is built (Vehicles 0.80.0 and 0.86.0); the guns, smoke and remote station are not. Its prerequisite, the trucks' armour by class (MV2), is in Framework 0.154.0 and Vehicles 0.76.0; the kits with no picture (engine and tank guards, run-flat tyres, EMP hardening) and the truck armour research are in Vehicles 0.80.0 and Framework 0.158.0. The drawn kits, the guns and the under-fire switch are not built, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
+**Status (25 Nov 2026):** a design record, partly built: every armour kit is built (Vehicles 0.80.0 and 0.86.0), and the remote weapon station is built on the Talus and Busbar ([built](#the-remote-weapon-station-built-vehicles-01190-framework-02850), Vehicles 0.119.0 and Framework 0.285.0, not yet tested in game); the gun ring, the hand-swung guns and smoke are not. Its prerequisite, the trucks' armour by class (MV2), is in Framework 0.154.0 and Vehicles 0.76.0; the kits with no picture (engine and tank guards, run-flat tyres, EMP hardening) and the truck armour research are in Vehicles 0.80.0 and Framework 0.158.0. The drawn kits, the guns and the under-fire switch are not built, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
 
 How vehicle damage works now: [systems/vehicle-damage.md](systems/vehicle-damage.md); this record keeps its history.
 
@@ -329,6 +329,31 @@ Classes are those of [the armour design](archive/vehicle-armour.md): Splinter 5 
 | Ullage tanker | Yes | No | No | No | Self-defence only: nobody wants a tanker of fuel in a firefight |
 | Busbar generator set | Yes | No | No | Yes | Self-defence, and a station it can power itself while it runs the camp |
 | Datum survey truck | No | No | No | No | 4.5 tonnes of delicate gear: cab armour and smoke only |
+
+### The remote weapon station, built (Vehicles 0.119.0, Framework 0.285.0)
+
+Built 25 Nov 2026 on the owner's "Let's work on our own remote weapon station", not yet tested in game. What differs from the table
+above:
+
+- **A node of its own, not on a ring [A].** Neither the gun ring nor the hand-swung guns are built, so the station stands alone at
+  (29, 12) on the Talus and the Busbar, after a new research, **remote weapon station** (2,000), which follows truck armour and the
+  game's gun turrets [A]. When the ring and its guns are built, the station becomes either/or with them, as the table says.
+- **The gun [code: `Turrets_RemoteWeaponStation.xml`]:** the Osprey's .50 figures (200 rounds fed from steel, Combat Extended's .50 BMG)
+  on a powered, stabilised mount: it turns half as fast again, sways half as much and kicks two thirds as much as a gun swung by hand,
+  and reloads slower from outside (14 seconds) [A]. It stops when the cab it stands on is destroyed. 80 steel, 6 components and an
+  advanced component; 4,000 work [A]. 250 kg as the table says, loading the engine as cargo on both, taking cargo room on the Talus only.
+- **Power:** its key names no hand-swung gun, so D'thorga Framework's weapon rules read it as powered. The 40 A turret drive is the
+  loadouts' existing load: it draws only while the station tracks a target, and without power the station stops, as an autonomous
+  mount has nobody to crank it (Framework 0.120.0's rule).
+- **The firing rule on any truck [O, 25 Nov 2026: "Picture link, or the setting"]:** a marker on its Def,
+  `PhobosRemoteGunExtension` (Framework 0.285.0), puts it under the remote-gun rule with or without the remote control kit: it fires
+  only while a radio station's operator has the truck's picture, or when "Remote guns fire on their own" is on. Without the Radio
+  Framework there is no picture, so it fires only with that setting.
+- **The picture:** drawn on fal.ai, the owner's pick of two
+  ([its record](../../assets/phobos-vehicles/requests/remote-weapon-station-record.md)), framed on its ring's centre so it turns on its
+  ring, on the cab roof left of the remote kit's antenna (agent placement). The node's icon is fitted from it until a drawn icon is picked.
+- **Other factions:** a raider's or captured truck would carry the same rule, as its Def carries the marker; no code fits it to their
+  trucks today (above). **Parked at a base we attack**, a fitted station has no picture from us, so it fires only with the setting on.
 
 ### Smoke dischargers
 

@@ -161,6 +161,7 @@ flowchart TB
   PhobosHeavyCabPlates["Heavy cab plates"]
   PhobosSuppressionEngine["Engine fire suppression"]
   PhobosSuppressionCrew["Crew fire suppression"]
+  PhobosRemoteWeaponStation["Remote weapon station"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates

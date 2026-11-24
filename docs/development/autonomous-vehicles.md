@@ -3,8 +3,9 @@
 **Status (25 Nov 2026):** every step is built: 1 to 5 and 8 in Radio Framework 0.9.0 to 0.14.0, D'thorga Framework 0.278.0 and 0.279.0
 and D'thorga Vehicles 0.117.0 to 0.117.3; step 6, [the picture link and remote guns](#step-6-the-picture-link-and-remote-guns-framework-02800-radio-0150),
 in Framework 0.280.0 and Radio 0.15.0; step 7a, [the route level](#step-7a-the-route-level-framework-02810), in Framework 0.281.0; step 7b,
-[the mechanitor level](#step-7b-the-mechanitor-level-framework-02820), in Framework 0.282.0. Left: our own remote weapon station (MV8),
-the buttons' own pictures, and helicopter rounds.
+[the mechanitor level](#step-7b-the-mechanitor-level-framework-02820), in Framework 0.282.0; our own remote weapon station (MV8) in
+Vehicles 0.119.0 and Framework 0.285.0 ([its record](vehicle-militarised-service-vehicles.md#the-remote-weapon-station-built-vehicles-01190-framework-02850)).
+Left: the buttons' own pictures, and helicopter rounds.
 Nothing is tested in game.
 
 The owner, 24 Nov 2026: "the real feature I wish to implement soon is autonomous vehicles and perhaps their weapon systems too, all
@@ -122,7 +123,7 @@ flowchart LR
 ### Remote guns
 
 - **The gun is the remote weapon station** designed in [militarised service vehicles](vehicle-militarised-service-vehicles.md)
-  (MV8), not yet built; this needs it first.
+  (MV8), built in Vehicles 0.119.0 on the Talus and Busbar.
 - **By default, only with an operator and a picture link [O]**: the operator aims it by hand through Vehicle Framework's own
   targeting, or it picks its own targets while the picture holds (the operator watching). On orders only, or with no link, it holds
   fire.
@@ -260,8 +261,9 @@ Built 24 Nov 2026, not yet tested in game.
 
 Built 25 Nov 2026, not yet tested in game. The owner's cards of 25 Nov 2026: **third-party vehicles come in, by a fitting for any
 vehicle [O]**; **remote guns are the turrets no seat works [O]**; **they fire on a picture link, or with the setting [O]**, the same
-rule with or without the Radio Framework. **Our own remote weapon station (MV8) is not built**: the first remote guns are other
-authors', such as GTek's L-ATV's, which already fire with nobody aboard.
+rule with or without the Radio Framework. The first remote guns were other authors', such as GTek's L-ATV's, which already fire
+with nobody aboard; **our own remote weapon station (MV8) followed in Vehicles 0.119.0**, under the same rule on any truck, kit or not, by
+a marker on its Def (Framework 0.285.0).
 
 - **The kit as a fitting [code: the Radio Framework's `Mods/VehicleFramework/Common/Defs/RemoteControlKit.xml`]:** "remote control
   kit", fitted at the vehicle workshop on any Vehicle Framework vehicle with a D'thorga loadout, in a new **control radio bay** every
@@ -292,8 +294,10 @@ authors', such as GTek's L-ATV's, which already fire with nobody aboard.
   turret check runs only when Vehicle Framework re-checks a turret or the answer changes. Nothing per tick or frame.
 - **Other factions:** their vehicles carry the comps too but join no net of ours and never have the kit fitted by us, so their guns
   fire as their authors built them.
-- **Still open:** our own remote weapon station (MV8), with its picture; aiming by hand through the picture is Vehicle Framework's
-  own targeting while the turret is manned, untested.
+- **Our own station (Framework 0.285.0) [code: `Remote/RemoteGuns.cs`]:** a turret whose Def carries `PhobosRemoteGunExtension` is
+  governed by the rule on any vehicle, so without the kit (and so without the Radio Framework) it fires only with the setting. The comp
+  re-checks its guns when the kit, the picture or the setting changes, compared as one number (`RemoteGuns.Inputs`).
+- **Still open:** aiming by hand through the picture is Vehicle Framework's own targeting while the turret is manned, untested.
 
 ### Step 7: the route and mechanitor levels (decided 25 Nov 2026, not built)
 

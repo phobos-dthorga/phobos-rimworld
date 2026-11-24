@@ -624,6 +624,60 @@ Kit weight: 30 kg more, carried as cargo.</upgradeExplanation>
             <ComponentIndustrial>2</ComponentIndustrial>
           </ingredients>
         </li>
+    <li>
+      <!-- The remote weapon station (D'thorga Vehicles 0.119.0, Framework 0.285.0; vehicle-militarised-service-vehicles.md, MV8; the owner's
+           guns by role, 19 Nov 2026). Free-standing for now: the design hangs it from the gun ring, either/or with the hand-swung guns, and
+           neither is built yet, so it is its own node until they are [A]. On the cab roof left of the remote kit's antenna, its ring's centre
+           read off the shipped north texture (agent placement, to revise once seen in game). 250 kg (the design's figure [A]) loads the
+           engine as cargo would. The Busbar's cargo room is untouched (owner, 19 Nov 2026: cargo room on the Talus only). It stops with the cab it stands on. -->
+      <key>PhobosRemoteWeaponStation</key>
+      <label>Remote weapon station</label>
+      <displayLabel>true</displayLabel>
+      <description>A powered mount on the cab roof with a heavy .50 machine gun and a camera sight. Nobody sits at it: it fires while a radio operator watches through its camera, so a truck can defend itself with nobody aboard.</description>
+      <upgradeExplanation>On the cab roof: a .50 heavy machine gun on a powered mount, worked with nobody aboard.
+It fires only while a radio operator watches through its camera, unless remote guns are allowed to fire on their own.
+Turret drive: draws power while it tracks a target, and stops without power.
+Kit weight: 250 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Upgrades/RemoteWeaponStation</icon>
+      <work>4000</work>
+      <gridCoordinate>(29, 12)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_RemoteWeaponStation</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.TurretUpgrade">
+          <turrets>
+            <li>
+              <key>RemoteWeaponStation</key>
+              <def>PhobosTurret_RemoteWeaponStation</def>
+              <gizmoLabel>Remote weapon station</gizmoLabel>
+              <component>
+                <key>Cab</key>
+                <healthPercent>0</healthPercent>
+              </component>
+              <renderProperties>
+                <north>(-0.1, 2.53)</north>
+              </renderProperties>
+            </li>
+          </turrets>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>250</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>80</Steel>
+        <ComponentIndustrial>6</ComponentIndustrial>
+        <ComponentSpacer>1</ComponentSpacer>
+      </ingredients>
+    </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

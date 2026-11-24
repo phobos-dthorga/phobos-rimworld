@@ -154,8 +154,8 @@ public sealed class CompPhobosRemoteControl : VehicleComp
     IntVec3 comeBackCell = IntVec3.Invalid;
     /// <summary>Whether its station has its picture now (Framework 0.280.0). Derived from the link at each look; never saved.</summary>
     bool picture;
-    /// <summary>Whether its remote guns could fire at the last look, so a change re-checks them (Framework 0.280.0). Never saved.</summary>
-    bool? gunsMayFire;
+    /// <summary>What decided its remote guns at the last look (RemoteGuns.Inputs), so a change re-checks them (Framework 0.280.0). Never saved.</summary>
+    int? gunInputs;
 
     /// <summary>It asks for no tick of its own: the vehicle's rare tick reaches every comp.</summary>
     public override bool TickByRequest => true;
@@ -227,9 +227,10 @@ public sealed class CompPhobosRemoteControl : VehicleComp
     void CheckGuns()
     {
         if (!RemoteGuns.HasAny(Vehicle)) return;
-        var now = RemoteGuns.MayFire(Vehicle);
-        if (gunsMayFire == now) return;
-        gunsMayFire = now;
+        // Since 0.285.0 a gun may be governed by its Def rather than the kit, so what is compared is what decides, not one answer.
+        var now = RemoteGuns.Inputs(Vehicle);
+        if (gunInputs == now) return;
+        gunInputs = now;
         RemoteGuns.Recache(Vehicle);
     }
 

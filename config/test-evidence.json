@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "512": ["vehicles.remote-station"],
     "508": ["vehicles.remote-kit-down"],
     "506": {"parts": {
       "a sortie comes in over a home with a runway it fits": [{"key": "patches.sortie-over-home", "variant": "runway"}],

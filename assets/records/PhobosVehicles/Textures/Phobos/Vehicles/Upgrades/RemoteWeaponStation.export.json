@@ -1,0 +1,24 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/RemoteWeaponStation.png",
+  "source": "assets/phobos-vehicles/generated/remote-weapon-station-fal/remote-weapon-station-fal-1.png",
+  "source_sha256": "0cfa059827316daa659582de39ea4a1c58ee2a4b57a0131c92f81adf9a6d331c",
+  "target_sha256": "1fdacf271e9015596916a623a0a4d494271e88c343c2dc48cd3761abf00805c1",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "ai_mask": "0cfa059827316daa659582de39ea4a1c58ee2a4b57a0131c92f81adf9a6d331c",
+  "white_left": [],
+  "ring_centre_px": [
+    512.0,
+    663.0
+  ],
+  "ring_radius_px": 259.0,
+  "draw_cells": 3,
+  "ring_cells": 1.15,
+  "reach_cells": 1.33,
+  "date": "2026-11-25T05:50:43",
+  "tool": "assets/phobos-vehicles/export_remote_weapon_station.py: export_sprite cut-out, upgrade icon fitted from the turret picture, premultiplied Lanczos"
+}

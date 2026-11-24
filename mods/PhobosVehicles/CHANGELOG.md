@@ -13,6 +13,30 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.119.0] - 2026-11-25 - Draft
+
+The remote weapon station
+
+### Added
+
+- **A remote weapon station for the Talus and the Busbar**: a .50 heavy machine gun on a powered roof mount with a camera sight, worked
+  with nobody aboard (MV8; the owner's guns by role of 19 November 2026). Fit it at the vehicle workshop after the new research remote
+  weapon station, which follows truck armour and gun turrets. It fires only while a radio station's operator has the truck's picture,
+  or by itself when D'thorga Framework's setting "Remote guns fire on their own" is on (the owner's card of 25 November 2026), with or
+  without the remote control kit. It weighs 250 kg, carried as cargo (cargo room on the Talus only), draws the turret drive's power while
+  it tracks a target, and stops without power or when its cab is destroyed. Drawn on fal.ai, the owner's pick of two. Not yet tested in
+  game: row 512.
+
+### Compatibility and limits
+
+- It stands on its own node for now; once the gun ring and the hand-swung guns are built it becomes one choice among them.
+- Without the Radio Framework there is no picture to watch through, so the station fires only with that setting on.
+- Its place on the cab roof, its figures and its research are agent choices, to revise once seen in game.
+
+### Save compatibility
+
+- Safe on an existing save. The Talus and Busbar gain an empty turret slot, filled only when the upgrade is fitted.
+
 ## [0.118.0] - 2026-11-25 - Draft
 
 The electric pump on the tank trailers, and the shower trailer pumps while packed

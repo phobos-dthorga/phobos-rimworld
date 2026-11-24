@@ -106,6 +106,11 @@ Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehi
   - **Body plates** (Talus, Ullage and Kelly): skirts along both sides make the tipping body, tank or deck rifle-proof.
   - **Spall liner** (with Combat Extended; over the armoured cab, beside the heavy plates): panels inside the cab that catch the
     spall described below. Four **spall liner panels**, made at the parts bench after **truck armour** research. 200 kg.
+- **Remote weapon station** (Talus and Busbar, after **remote weapon station** research, which follows truck armour and gun turrets):
+  a .50 heavy machine gun on a powered roof mount with a camera sight. **Nobody sits at it**: it fires only while a radio station's
+  operator has the truck's picture (see [driven from a station](vehicles-on-the-road.md#driven-from-a-station)), or by itself when
+  **"Remote guns fire on their own"** is on. **Without D'thorga Radio Framework it fires only with that setting.** It feeds from steel
+  like other vehicle guns, draws the truck's battery while it tracks a target, and **stops without power** or when the cab is destroyed. 250 kg.
 - **With its armoured cab, the Talus may keep gathering while enemies are about**: in **Gather what**, set **When enemies come** to
   **keep working**. It starts on stop. Whoever drives it is still in the fight.
 

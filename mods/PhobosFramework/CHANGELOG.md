@@ -13,6 +13,18 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.285.0] - 2026-11-25 - Draft
+
+Our own remote weapon station follows the remote-gun rule on any truck
+
+### Added
+
+- **A marker for a remote weapon station of ours** (for D'thorga Vehicles 0.119.0's station on the Talus and Busbar; the owner's card of
+  25 November 2026, "Picture link, or the setting", one rule everywhere). A gun whose Def carries it fires only while a radio station's
+  operator has the vehicle's picture, or when "Remote guns fire on their own" is on, whether or not the vehicle has the remote control
+  kit; without the Radio Framework, only with the setting. Another author's gun on a vehicle without the kit is unchanged. Not yet
+  tested in game: row 512.
+
 ## [0.284.0] - 2026-11-25 - Draft
 
 Fixes from the fault-read of 25 November 2026

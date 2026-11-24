@@ -145,6 +145,26 @@
     </modExtensions>
   </ResearchProjectDef>
 
+  <!-- The service trucks' remote weapon station (D'thorga Vehicles 0.119.0; vehicle-militarised-service-vehicles.md, MV8). After truck
+       armour and the game's gun turrets, which teach an unmanned gun that finds its own targets [A]. Beside the armour tiers. -->
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_RemoteWeaponStation</defName>
+    <label>remote weapon station</label>
+    <description>A powered roof mount for a heavy machine gun, aimed through a camera, for the Talus and Busbar: a truck that defends itself with nobody aboard.</description>
+    <baseCost>2000</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>5.4</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_TruckArmour</li>
+      <li>GunTurrets</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
   <ResearchProjectDef ParentName="PhobosResearchTruckBase">
     <defName>PhobosResearch_Trailers</defName>
     <label>towing and trailers</label>

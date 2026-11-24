@@ -12,4 +12,10 @@ public static class RemoteGunRule
     /// (owner: "Picture link, or the setting").
     /// </summary>
     public static bool MayFire(bool kitFitted, bool picture, bool fireAlone) => !kitFitted || picture || fireAlone;
+
+    /// <summary>
+    /// As above, for a gun that is a remote weapon station of ours (Framework 0.285.0): the rule governs it on any vehicle, kit or not, so
+    /// without a picture (no kit, no Radio Framework) it fires only with the setting.
+    /// </summary>
+    public static bool MayFire(bool kitFitted, bool ours, bool picture, bool fireAlone) => MayFire(kitFitted || ours, picture, fireAlone);
 }
