@@ -21,6 +21,18 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.42.1] - 2026-11-25 - Draft
+
+Mechs get off a full recharger again
+
+### Fixed
+
+- **A mech on a recharger finishes its charge and goes back to work** (the owner's report of 25 November 2026). With mech rechargers drawing real power on, the slowing near full only ever closed a quarter of the last sliver, so the charge crept towards full without reaching it and stuck at 99.9999924 of 100; the mech waited on the recharger for good. In the owner's save 23 of 26 mechs had sat there for about 22 days. The last step now ends at full. Mechs stuck in a save finish within a tick of loading. Not yet tested in game; row 287's slowing near full is worth a second look.
+
+### Save compatibility
+
+- Safe to add and remove; nothing new is saved.
+
 ## [0.42.0] - 2026-11-25 - Draft
 
 A strike needs its fuel again

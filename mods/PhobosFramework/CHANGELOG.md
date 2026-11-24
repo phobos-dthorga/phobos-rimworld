@@ -13,6 +13,14 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.286.1] - 2026-11-25 - Draft
+
+An eased battery charge reaches full
+
+### Fixed
+
+- **A battery charge that eases off near full now reaches full** (the owner's report of 25 November 2026). The battery charging rule gains the last step: when a charger stops at the top, the eased step is taken from its full step, so the level arrives instead of creeping ever closer. D'thorga Patches' mech rechargers use it, which had left mechs waiting on full rechargers. Not yet tested in game.
+
 ## [0.286.0] - 2026-11-25 - Draft
 
 A loop truck charges a low battery at its stops

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using HarmonyLib;
+using Phobos.Framework.Rules;
 using RimWorld;
 using Verse;
 
@@ -61,8 +62,9 @@ public static class RechargerRealPowerPatch
         ChargeFigures figures = MechCharging.FiguresAt(mech, energy, charge);
         if (sameMech && figures.Taper < 1f)
         {
-            float gained = energy.CurLevel - __state.Level;
-            if (gained > 0f) energy.CurLevel = __state.Level + gained * figures.Taper;
+            // Eased from the full step when the game's add stopped at the top, so the last of a charge arrives (0.42.1).
+            if (energy.CurLevel > __state.Level)
+                energy.CurLevel = (float)BatteryChargeRule.TaperedLevel(__state.Level, energy.CurLevel, MechCharging.FullStepPerTick, figures.Taper, max);
             // Waste follows the energy put in. A fall means a wastepack was just made and the count restarted: leave it.
             float waste = ___wasteProduced - __state.Waste;
             if (waste > 0f) ___wasteProduced = __state.Waste + waste * figures.Taper;

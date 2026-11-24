@@ -84,6 +84,9 @@ public static class MechCharging
     /// <summary>The share of a battery the game's recharger adds in a day at full rate: its own 50 units a day over the mech's maximum.</summary>
     public static float FractionPerDay(float maxEnergy) => maxEnergy > 0f ? Building_MechCharger.ChargePerDay / maxEnergy : 0f;
 
+    /// <summary>What the game's recharger adds to a mech's energy in one tick at the full rate: its 50 units a day over a day's ticks.</summary>
+    public static float FullStepPerTick => Building_MechCharger.ChargePerDay / GenDate.TicksPerDay;
+
     public static float Fraction(Need_MechEnergy energy)
     {
         float max = energy.MaxLevel;

@@ -30,6 +30,21 @@ public static class BatteryChargeRule
         return 1 - (1 - floor) * (level - from) / (1 - from);
     }
 
+    /// <summary>
+    /// The level after one charging step eased by the taper (Framework 0.286.1). <paramref name="after"/> is the level the charger
+    /// reached at its full rate, and <paramref name="fullStep"/> what one step adds when nothing stops it. A charger that stops at the
+    /// top adds only the gap left, and easing that gap closes only a share of it each step: the level creeps towards full and never
+    /// gets there, until rounding freezes it just short (mechs sat on their rechargers for weeks at 99.9999924 of 100, D'thorga
+    /// Patches 0.42.1). So when the charger stopped at the top, the eased step is taken from the full step, and it ends at the top.
+    /// </summary>
+    public static double TaperedLevel(double before, double after, double fullStep, double taper, double max)
+    {
+        double gained = after - before;
+        if (gained <= 0) return after;
+        double step = after >= max ? Math.Max(gained, Math.Max(0, fullStep)) : gained;
+        return Math.Min(before + step * Clamp01(taper), max);
+    }
+
     /// <summary>The power going into the battery, in watts: its capacity, times the share of it the full rate adds in a day, times
     /// the taper.</summary>
     public static double StoredWatts(double capacityWattDays, double fractionPerDay, double taper = 1) =>

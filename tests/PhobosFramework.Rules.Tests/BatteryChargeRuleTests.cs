@@ -98,6 +98,33 @@ public class BatteryChargeRuleTests
         Assert.Equal(2, BatteryChargeRule.DaysToReach(0, 1, HalfADay, EasesFrom, 1), 9);
 
     [Fact]
+    public void AnEasedChargeReachesFullWhenTheChargerStopsAtTheTop()
+    {
+        // The game's recharger adds 50/60000 a tick and stops at the top; easing only the gap it reports never arrived (0.286.1).
+        const float Max = 100f, FullStep = 50f / 60000f;
+        float level = 99.99f;
+        int steps = 0;
+        while (level < Max && steps < 1000)
+        {
+            float after = Math.Min(level + FullStep, Max);
+            level = (float)BatteryChargeRule.TaperedLevel(level, after, FullStep, RateWhenFull, Max);
+            steps++;
+        }
+        Assert.Equal(Max, level);
+        Assert.True(steps < 100);
+        // A mech already stuck just short of full finishes in one step.
+        Assert.Equal(Max, (float)BatteryChargeRule.TaperedLevel(99.9999924f, Max, FullStep, RateWhenFull, Max));
+    }
+
+    [Fact]
+    public void BelowTheTopOnlyWhatWasAddedIsEased()
+    {
+        Assert.Equal(50.25, BatteryChargeRule.TaperedLevel(50, 51, 1, 0.25, 100), 9);
+        Assert.Equal(50.5, BatteryChargeRule.TaperedLevel(50, 52, 1, 0.25, 100), 9);
+        Assert.Equal(40, BatteryChargeRule.TaperedLevel(50, 40, 1, 0.25, 100), 9);
+    }
+
+    [Fact]
     public void AChargeThatStopsBeforeFullNeverArrives()
     {
         Assert.True(double.IsPositiveInfinity(BatteryChargeRule.DaysToReach(0, 1, HalfADay, EasesFrom, 0)));
