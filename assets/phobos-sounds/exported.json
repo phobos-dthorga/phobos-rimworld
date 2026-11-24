@@ -6966,5 +6966,245 @@
       "cfg": 1.0,
       "prompt": "A heavy truck's clutch slipping as it pulls away under load: the engine note flaring up while a dry friction grind and faint squeal rise, then catching and settling. Not loud, not alarming. Length: 3 seconds"
     }
+  },
+  "StationSquelch": {
+    "name": "StationSquelch",
+    "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/StationSquelch.ogg",
+    "sha256": "3ec791c0ae7f07bac724e728a956b5ae24cac1d68170c900929ac5764b01cab3",
+    "master_sha256": "6c6752d92f8f9f3295646f7581c2cb59044f07832e4c0b2ea7e72a4e320d2dff",
+    "fingerprint": "7844140d2d394b5594fd9ff89e1cb751b4988ab64b6f48ff6dd4dcaaca50db59",
+    "date": "2026-11-25",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        4.5
+      ],
+      "loop_match": 0.459,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -40.08 LUFS",
+      "gain_db": 5.52
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -40.3,
+      "true_peak": -17.5,
+      "seconds": 4.05,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 131,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A two-way radio base station on a desk with its squelch open: a soft, even hiss of radio static with faint crackles, steady and unbroken, heard from across a quiet room. Not loud, not alarming. Length: 6 seconds"
+    }
+  },
+  "HandheldKeyUp": {
+    "name": "HandheldKeyUp",
+    "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/HandheldKeyUp.ogg",
+    "sha256": "ad8d1f40769d51799d7e1f9f92494ce4c1d63449a92c95a31c338483505aa135",
+    "master_sha256": "9e0d8c0bbe720ae3d188691d87af4b6e7dec8865cf9a00f75f285deb42743181",
+    "fingerprint": "622279ef9c552674ed2c5bc76e3bf36db5d18d3949567a59373b982c19fcff3f",
+    "date": "2026-11-25",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -3.72 dBTP",
+      "gain_db": -2.42
+    },
+    "reference": {
+      "defName": "Checkbox_TurnedOn",
+      "effective": "peak -18.8 dB",
+      "volume": [
+        14.0,
+        14.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -26.2,
+      "true_peak": -3.8,
+      "seconds": 1.37,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 131,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A hand-held walkie-talkie: a short click of the push-to-talk key, a fraction of a second of soft static, then the brief rushing squelch tail as the transmission ends. Close to the listener, short and clean. Not loud, not alarming. Length: 2 seconds"
+    }
+  },
+  "AmplifierRelay": {
+    "name": "AmplifierRelay",
+    "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/AmplifierRelay.ogg",
+    "sha256": "f2dd4adb98eef3c41c66d1bfe918dd92c8b28bfcd20ec8d65cfe8a05b6b023bc",
+    "master_sha256": "780b71e1ba08d164439101535b6a86ca62ac67d5686369af0f812aa8fdff69a5",
+    "fingerprint": "5aef2b2c8ab1fcc9f74c889752b560c9bae548f43ebaefcd00edd6c54fd1efb7",
+    "date": "2026-11-25",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -3.72 dBTP",
+      "gain_db": -0.22
+    },
+    "reference": {
+      "defName": "Checkbox_TurnedOn",
+      "effective": "peak -18.8 dB",
+      "volume": [
+        14.0,
+        14.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -26.0,
+      "true_peak": -3.2,
+      "seconds": 1.23,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 131,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A radio linear amplifier keying up and down: one firm mechanical relay clack as it switches in, a short pause, then a second clack as it switches out. Two dry clicks from inside a metal cabinet, nothing else. Not loud, not alarming. Length: 2 seconds"
+    }
+  },
+  "AmplifierFan": {
+    "name": "AmplifierFan",
+    "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/AmplifierFan.ogg",
+    "sha256": "7ecc39c2d790a7ba0890489bb91816423329a1a66eb4dd15bde1a0ec71fff43d",
+    "master_sha256": "cd40039bd5642ef1edf8b9246b885c444aa99320e3f9aff59fc3ed6564211b32",
+    "fingerprint": "c703e5add57117eefa2e6c7f69814eda8503a57ce031eae295b50a6f4f2355b2",
+    "date": "2026-11-25",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.6,
+        4.8773
+      ],
+      "loop_match": 0.487,
+      "loop_crossfade_s": 0.5,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -37.08 LUFS",
+      "gain_db": -4.68
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -37.1,
+      "true_peak": -24.1,
+      "seconds": 3.78,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 132,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy radio power amplifier's cooling fan running under load: a low, steady airy whoosh with a soft mechanical hum, even and unbroken, heard from beside the cabinet. Low pitched, no whine, no hiss. Not loud, not alarming. Length: 6 seconds"
+    }
+  },
+  "TerminalHum": {
+    "name": "TerminalHum",
+    "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/TerminalHum.ogg",
+    "sha256": "a97b0d8888bf5b810dd760486ef48bc5dacfbb04b38d4b698ccbe065206bc61e",
+    "master_sha256": "af0f1bacb148d5006c473b8542d93a2064c299a79487f293616162632c77d4f7",
+    "fingerprint": "4cef0d23def9f80eed58ccfc61342fb1d81e6ca70dba4c1890d3a6a11ab7a8e0",
+    "date": "2026-11-25",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.7,
+        4.9616
+      ],
+      "loop_match": 0.712,
+      "loop_crossfade_s": 0.75,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -40.08 LUFS",
+      "gain_db": 9.22
+    },
+    "reference": {
+      "defName": "Hemopump_Ambience",
+      "effective": "-37.1 LUFS",
+      "volume": [
+        50.0,
+        50.0
+      ],
+      "distance": [
+        5.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -40.1,
+      "true_peak": -26.9,
+      "seconds": 3.51,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 131,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A desktop computer running quietly in a small room: the low, soft whoosh of its cooling fans and a gentle electrical hum, even and unbroken. Low pitched, no whine, no beeps, no typing. Not loud, not alarming. Length: 6 seconds"
+    }
   }
 }

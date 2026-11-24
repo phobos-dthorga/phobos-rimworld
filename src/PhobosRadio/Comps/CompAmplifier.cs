@@ -3,6 +3,7 @@ using Phobos.Radio.Physics;
 using Phobos.Radio.Services;
 using RimWorld;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.Radio;
 
@@ -34,6 +35,13 @@ public class CompAmplifier : ThingComp
 {
     private const int RareTicks = 250;
     private bool sending;
+
+    /// <summary>Its cooling fan while it sends (Radio 0.16.0, S148); nothing saved, worked out again after a load.</summary>
+    private readonly Phobos.Framework.Sounds.SustainedSound fan = new();
+
+    /// <summary>Whether its state has been worked out since it spawned or was loaded: the first look sets it quietly, so a load never clacks
+    /// every working amplifier's relay at once.</summary>
+    private bool settled;
 
     /// <summary>Its station is in use and it is powered: it amplifies and draws (the needle, Radio 0.6.0).</summary>
     public bool Sending => sending;
@@ -67,13 +75,24 @@ public class CompAmplifier : ThingComp
             var sendingDraw = inUse ? OutputWatts(station) / station!.Mode.transmitEfficiency * station.Mode.dutyCycle : 0f;
             if (inUse != sending || inUse) power.PowerOutput = -(standby + sendingDraw);
         }
+        // The relay clacks in as it starts sending and out as it stops (S147); the fan runs while it sends (S148). Only on a change.
+        if (settled && inUse != sending) RadioSoundDefOf.PhobosRadio_AmplifierRelay.PlayOneShot(new TargetInfo(parent.Position, parent.Map));
+        settled = true;
         sending = inUse;
+        fan.Set(RadioSoundDefOf.PhobosRadio_AmplifierFan, sending, parent);
         if (inUse)
         {
             var output = OutputWatts(station);
             var waste = (output / station!.Mode.transmitEfficiency - output) * station.Mode.dutyCycle;
             GenTemperature.PushHeat(parent, waste * RadioRulesDef.Current.heatPerWattSecond * RareTicks / 60f);
         }
+    }
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        fan.End();
+        settled = false;
+        base.PostDeSpawn(map, mode);
     }
 
     /// <summary>Switched on or off, or an upgrade changed: the net and the coverage picture work it in at once.</summary>

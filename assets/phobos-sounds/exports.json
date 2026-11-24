@@ -1874,6 +1874,66 @@
       "offset_db": -3,
       "volume": 11,
       "why": "A worn part complaining, the twin of the brake squeal at a stop, at its level. The exporter flags a whine, which is the slipping clutch's own faint squeal: exported with the owner's override, 23 Nov 2026. The owner's pick on the Companion's Picks page, 23 Nov 2026."
+    },
+    {
+      "name": "StationSquelch",
+      "use": "S102: a radio station's squelch and static, quietly, while it is in use",
+      "picked": "2026-11-25",
+      "candidate": "n13-station-squelch/n13-station-squelch-131.flac",
+      "kind": "loop",
+      "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/StationSquelch.ogg",
+      "reference": "Hemopump_Ambience",
+      "offset_db": -9,
+      "volume": 50,
+      "why": "A station's set talking quietly to itself beside its operator: 9 dB under Biotech's hemopump, the machine hum the concentrator sits beside, as the owner asked for radio sounds to be low. The owner's pick on the Companion's Picks page, 25 Nov 2026."
+    },
+    {
+      "name": "HandheldKeyUp",
+      "use": "S103: a hand-held keyed up, with its squelch tail, as the Radio button is pressed",
+      "picked": "2026-11-25",
+      "candidate": "n13-handheld-keyup/n13-handheld-keyup-131.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/HandheldKeyUp.ogg",
+      "reference": "Checkbox_TurnedOn",
+      "offset_db": -2,
+      "volume": 14,
+      "why": "A button's own sound, so at the level of the switch click, beside the game's checkbox. The owner's pick on the Companion's Picks page, 25 Nov 2026."
+    },
+    {
+      "name": "AmplifierRelay",
+      "use": "S147: a linear amplifier's relay as its station starts and stops sending",
+      "picked": "2026-11-25",
+      "candidate": "n13-amplifier-relay/n13-amplifier-relay-131.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/AmplifierRelay.ogg",
+      "reference": "Checkbox_TurnedOn",
+      "offset_db": -2,
+      "volume": 14,
+      "why": "A relay clacking in, the switch click's level and its own sound (a relay is not a switch). Try 132 was clipped. The owner's pick on the Companion's Picks page, 25 Nov 2026."
+    },
+    {
+      "name": "AmplifierFan",
+      "use": "S148: a linear amplifier's cooling fan while its station is sending",
+      "picked": "2026-11-25",
+      "candidate": "n13-amplifier-fan/n13-amplifier-fan-132.flac",
+      "kind": "loop",
+      "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/AmplifierFan.ogg",
+      "reference": "Hemopump_Ambience",
+      "offset_db": -6,
+      "volume": 50,
+      "why": "A small fan under load, 6 dB under the hemopump; the exporter joins its loop where the dip is least. The owner's pick on the Companion's Picks page, 25 Nov 2026."
+    },
+    {
+      "name": "TerminalHum",
+      "use": "S149: the radio terminal's computer running, while powered",
+      "picked": "2026-11-25",
+      "candidate": "n13-terminal-hum/n13-terminal-hum-131.flac",
+      "kind": "loop",
+      "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/TerminalHum.ogg",
+      "reference": "Hemopump_Ambience",
+      "offset_db": -9,
+      "volume": 50,
+      "why": "Kept low, 9 dB under the hemopump: it runs whenever the terminal has power, and the owner asked for no whine. The owner picked try 132 on the Picks page, 25 Nov 2026, but it is only full for about 3 s of its 6 and its best loop was 2.8 s, under the 3 s minimum; by card the same day the owner took try 131, which loops cleanly at 3.5 s."
     }
   ]
 }

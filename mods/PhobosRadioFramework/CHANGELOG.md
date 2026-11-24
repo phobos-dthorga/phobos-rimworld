@@ -17,6 +17,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.16.0] - 2026-11-25 - Draft
+
+The radio's own sounds
+
+### Added
+
+- **Radios make sounds now**, all kept low: a station's set gives a quiet squelch and static while it is in touch with someone; a
+  linear amplifier's relay clacks in as it starts sending and out as it stops, and its fan runs while it sends; the radio terminal's
+  computer hums whenever it has power; and pressing a hand-held's Radio button keys the set up, with its squelch tail. Made with
+  generative AI and picked by the owner from two tries each (25 November 2026). D'thorga Framework's sound volume setting scales
+  them all. Not yet tested in game: row 505.
+
+### Compatibility and limits
+
+- Safe with a running save; nothing is saved. No new settings.
+- Each sound starts or stops only when a radio's state changes, worked out every 250 ticks as before, so a station or amplifier
+  can take up to about four seconds to fall quiet after its last contact goes.
+
 ## [0.15.1] - 2026-11-25 - Draft
 
 A coax icon that looks like coax

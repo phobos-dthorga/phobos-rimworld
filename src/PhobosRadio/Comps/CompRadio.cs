@@ -51,6 +51,9 @@ public class CompRadio : ThingComp
     private const int RareTicks = 250;
     private bool transmitting;
 
+    /// <summary>The set's squelch and static while the station is in use (Radio 0.16.0, S102); nothing saved, worked out again after a load.</summary>
+    private readonly Phobos.Framework.Sounds.SustainedSound squelch = new();
+
     /// <summary>A station in use: in touch with someone, so it sends for the mode's duty cycle (the lamp and needle, Radio 0.6.0).</summary>
     public bool Transmitting => transmitting;
 
@@ -92,10 +95,18 @@ public class CompRadio : ThingComp
                 powerComp.PowerOutput = -(basePower + (inUse ? TransmitDrawWatts : 0f));
             }
         }
+        // Started or ended only when the state changes; Set returns at once while it already matches.
+        squelch.Set(RadioSoundDefOf.PhobosRadio_StationSquelch, transmitting, parent);
         if (transmitting)
         {
             GenTemperature.PushHeat(parent, WasteHeatWatts * RadioRulesDef.Current.heatPerWattSecond * RareTicks / 60f);
         }
+    }
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        squelch.End();
+        base.PostDeSpawn(map, mode);
     }
 
     public override IEnumerable<Gizmo> CompGetWornGizmosExtra()

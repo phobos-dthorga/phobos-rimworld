@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The radio's own sounds (Radio 0.16.0; docs/development/sound-catalogue.md, S102, S103, S147 to S149): agent-made with Stable Audio 3
+       Small SFX on night 13 and picked by the owner on the Picks page, 25 Nov 2026. Each is levelled by scripts/art/export_sound.py against
+       the game sound its entry in assets/phobos-sounds/exports.json names, whose volume these copy; the loops sit 6 to 9 dB under Biotech's
+       hemopump, as the owner asked radio sounds to be low. Every one carries PhobosSoundVolumeExtension, so D'thorga Framework's one sound
+       volume setting scales it. They start and stop when a radio's state changes, worked out at its rare tick; nothing plays per tick. -->
+
+  <!-- S102: a station's set talking quietly to itself while it is in use (CompRadio). -->
+  <SoundDef>
+    <defName>PhobosRadio_StationSquelch</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>1</maxSimultaneous>
+    <maxVoices>1</maxVoices>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Radio/StationSquelch</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S103: a hand-held keyed up, with its squelch tail, as the Radio button is pressed (SignalGizmo). -->
+  <SoundDef>
+    <defName>PhobosRadio_HandheldKeyUp</defName>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <onCamera>True</onCamera>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Radio/HandheldKeyUp</clipPath>
+          </li>
+        </grains>
+        <volumeRange>14~14</volumeRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S147: a linear amplifier's relay clacking in as its station starts sending, and out as it stops (CompAmplifier). -->
+  <SoundDef>
+    <defName>PhobosRadio_AmplifierRelay</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Radio/AmplifierRelay</clipPath>
+          </li>
+        </grains>
+        <volumeRange>14~14</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S148: a linear amplifier's cooling fan while its station is sending (CompAmplifier). -->
+  <SoundDef>
+    <defName>PhobosRadio_AmplifierFan</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>1</maxSimultaneous>
+    <maxVoices>1</maxVoices>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Radio/AmplifierFan</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S149: the radio terminal's computer running, while it has power (its CompProperties_Power's soundAmbientPowered, the game's own). -->
+  <SoundDef>
+    <defName>PhobosRadio_TerminalHum</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>1</maxSimultaneous>
+    <maxVoices>1</maxVoices>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Radio/TerminalHum</clipPath>
+          </li>
+        </grains>
+        <volumeRange>50</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+</Defs>

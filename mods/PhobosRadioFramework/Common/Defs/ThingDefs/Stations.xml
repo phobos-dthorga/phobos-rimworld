@@ -136,6 +136,9 @@
         <compClass>CompPowerTrader</compClass>
         <shortCircuitInRain>true</shortCircuitInRain>
         <basePowerConsumption>150</basePowerConsumption>
+        <!-- Its computer running while powered (Radio 0.16.0, S149): the game's own powered-ambient sound, started and ended by the
+             power comp, so no code of ours runs for it. -->
+        <soundAmbientPowered>PhobosRadio_TerminalHum</soundAmbientPowered>
       </li>
       <li Class="CompProperties_Flickable" />
       <li Class="CompProperties_Breakdownable" />

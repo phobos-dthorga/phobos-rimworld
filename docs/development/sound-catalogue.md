@@ -250,11 +250,11 @@ stays its own sound with no new code per device.
 | ID | Sound | Mod | Hook | Note |
 | --- | --- | --- | --- | --- |
 | S101 | Water running into bottles (short) | Water Tap | Code (a fill) | |
-| S102 | Base station: squelch and static (loop) | Radio | Code (while a station is in use) | **Queued for night 13** (the owner's go of 24 Nov 2026, "to liven things up"), two tries; not wired until picked |
-| S103 | Hand-held: squelch tail and key-up | Radio | Code | **Queued for night 13**, two tries; the private recording library with VK3PKT could still supply real ones |
-| S147 | Linear amplifier: its relay clacking in and out | Radio (0.5.0) | Code (as its station starts and stops sending) | **Queued for night 13**, two tries |
-| S148 | Linear amplifier: its cooling fan under load (loop) | Radio (0.5.0) | Code (while sending) | **Queued for night 13**, two tries; asked low, no whine |
-| S149 | Radio terminal: its computer running (loop) | Radio (0.5.0) | Code (while powered) | **Queued for night 13**, two tries; asked low, no whine, as the owner can't hear high frequencies |
+| S102 | Base station: squelch and static (loop) | Radio | Code (while a station is in use) | **Built: Radio 0.16.0** (the owner's pick, 25 Nov 2026, try 131), while a station is in use; not yet tested in game |
+| S103 | Hand-held: squelch tail and key-up | Radio | Code | **Built: Radio 0.16.0** (try 131), as the Radio button is pressed (agent's choice of when); the recording library with VK3PKT could still replace it |
+| S147 | Linear amplifier: its relay clacking in and out | Radio (0.5.0) | Code (as its station starts and stops sending) | **Built: Radio 0.16.0** (try 131; 132 was clipped), as the amplifier starts and stops sending |
+| S148 | Linear amplifier: its cooling fan under load (loop) | Radio (0.5.0) | Code (while sending) | **Built: Radio 0.16.0** (try 132, its loop joined where the dip was least), while sending |
+| S149 | Radio terminal: its computer running (loop) | Radio (0.5.0) | Code (while powered) | **Built: Radio 0.16.0** (try 131 by the owner's card: their pick, 132, looped at only 2.8 s), the power comp's own powered sound |
 
 D'thorga Factory Additions' fabrication bay and processes already use Vanilla Furniture Expanded - Factory's own sounds, which suit
 them, and D'thorga Patches adds nothing of its own to hear.

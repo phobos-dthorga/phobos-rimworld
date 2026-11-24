@@ -59,6 +59,8 @@ public static class SignalGizmo
             defaultLabel = label,
             defaultDesc = title + "\n" + description,
             icon = RadioTextures.SignalFor(link?.Outcome),
+            // Keying the set up to listen, with its squelch tail (Radio 0.16.0, S103; agent's choice of when, for the owner to revise).
+            activateSound = RadioSoundDefOf.PhobosRadio_HandheldKeyUp,
             action = () =>
             {
                 if (wearer == null) return;
