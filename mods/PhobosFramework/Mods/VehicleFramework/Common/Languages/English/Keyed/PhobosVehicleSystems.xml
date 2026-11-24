@@ -1062,6 +1062,7 @@
   <PhobosVehicleSystems_GlassVisionBlocks>vision blocks</PhobosVehicleSystems_GlassVisionBlocks>
   <PhobosVehicleSystems_GlassWindscreen>windscreen</PhobosVehicleSystems_GlassWindscreen>
   <!-- Framework 0.272.0: the work store, what haulers lay out beside a vehicle for its own work. -->
+  <PhobosVehicleSystems_WorkStoreSurplusSetDown>What was laid out for the {VEHICLE} beyond what its waiting work needs has been set down beside it.</PhobosVehicleSystems_WorkStoreSurplusSetDown>
   <PhobosVehicleSystems_WorkStoreInspect>Laid out for its work: {THINGS}</PhobosVehicleSystems_WorkStoreInspect>
   <PhobosVehicleSystems_WorkStoreSetDown>The {VEHICLE} has no work waiting, so what was laid out for it has been set down beside it.</PhobosVehicleSystems_WorkStoreSetDown>
   <PhobosVehicleSystems_GlassGoneWindscreen>gone</PhobosVehicleSystems_GlassGoneWindscreen>

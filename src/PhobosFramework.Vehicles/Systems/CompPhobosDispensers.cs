@@ -120,7 +120,8 @@ public sealed class CompPhobosDispensers : VehicleComp, IThingHolder
             {
                 Thing thing = cargo[i];
                 if (thing.def != cartridge) continue;
-                moved += cargo.TryTransferToContainer(thing, magazine, Math.Min(moving - moved, thing.stackCount));
+                // Counted truly (Framework 0.286.2): the game's own answer counts a stack merged into the magazine as nought.
+                moved += Phobos.Framework.Items.ThingMoves.Transfer(cargo, thing, magazine, Math.Min(moving - moved, thing.stackCount));
             }
             if (moved > 0 && Seen.Wants("aircraft.magazine-from-cargo", Vehicle))
             {

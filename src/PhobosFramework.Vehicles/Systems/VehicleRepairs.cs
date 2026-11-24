@@ -441,6 +441,15 @@ public sealed class VehicleRepairs
         }
     }
 
+    /// <summary>Each waiting repair's payment (Framework 0.286.2): the one it can pay now, else our own, as <see cref="UnmetPayments"/> asks.</summary>
+    public IEnumerable<IEnumerable<(ThingDef thingDef, int count)>> Payments()
+    {
+        foreach (RepairWork repair in Pending)
+        {
+            if ((AffordableOption(repair) ?? repair.Options.FirstOrDefault()) is { } option) yield return option.Select(line => (line.def, line.count));
+        }
+    }
+
     /// <summary>Another mod's part that would do instead of the thing the haulers cannot find.</summary>
     public IEnumerable<(ThingDef def, int count)> AlternativesFor(ThingDef wanted)
     {

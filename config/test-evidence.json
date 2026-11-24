@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "513": ["vehicles.work-store.surplus"],
     "512": ["vehicles.remote-station"],
     "508": ["vehicles.remote-kit-down"],
     "506": {"parts": {

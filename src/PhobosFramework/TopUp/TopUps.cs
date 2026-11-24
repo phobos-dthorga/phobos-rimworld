@@ -336,7 +336,7 @@ public static class TopUps
         int moved = 0;
         if (StoreOf(target) is { } store && wanted > 0)
         {
-            moved = pawn.carryTracker.innerContainer.TryTransferToContainer(carried, store, Math.Min(wanted, carried.stackCount));
+            moved = Items.ThingMoves.Transfer(pawn.carryTracker.innerContainer, carried, store, Math.Min(wanted, carried.stackCount));
         }
         if (pawn.carryTracker.CarriedThing != null) pawn.carryTracker.TryDropCarriedThing(pawn.Position, ThingPlaceMode.Near, out _);
         if (moved > 0)

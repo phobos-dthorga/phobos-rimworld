@@ -41,7 +41,7 @@ public sealed class CompPhobosWorkStore : VehicleComp, IThingHolder
     /// <summary>Takes what a hauler carries into the store. Returns how many went in.</summary>
     public int Stow(Pawn hauler, Thing carried)
     {
-        int moved = hauler.carryTracker.innerContainer.TryTransferToContainer(carried, held, carried.stackCount);
+        int moved = ThingMoves.Transfer(hauler.carryTracker.innerContainer, carried, held, carried.stackCount);
         if (moved > 0 && Seen.Wants("vehicles.work-store", Vehicle)) Seen.Note("vehicles.work-store", Vehicle, carried.def.defName + " x" + moved);
         return moved;
     }
@@ -66,7 +66,9 @@ public sealed class CompPhobosWorkStore : VehicleComp, IThingHolder
             foreach (Thing thing in cargo.InnerListForReading.Where(t => PackedThings.Answers(t, def)).ToList())
             {
                 if (left <= 0) break;
-                int done = cargo.TryTransferToContainer(thing, held, System.Math.Min(left, thing.stackCount));
+                // Counted truly (Framework 0.286.2): the game's own answer counts a stack merged into the store as nought, and this loop then
+                // emptied the owner's HEMTT of 975 steel.
+                int done = ThingMoves.Transfer(cargo, thing, held, System.Math.Min(left, thing.stackCount));
                 left -= done;
                 moved += done;
             }
@@ -74,13 +76,27 @@ public sealed class CompPhobosWorkStore : VehicleComp, IThingHolder
         if (moved > 0 && Seen.Wants("vehicles.work-store.from-cargo", Vehicle)) Seen.Note("vehicles.work-store.from-cargo", Vehicle, moved + " things");
     }
 
-    /// <summary>Sets the leftovers down beside the vehicle once it has no work pending (on its rare look, on a map only).</summary>
+    /// <summary>
+    /// Sets down beside the vehicle whatever the waiting work cannot use (on its rare look, on a map only): everything once no work waits,
+    /// and otherwise what is beyond the work's needs (Framework 0.286.2; the owner's HEMTT of 25 Nov 2026 kept 975 steel after its fittings
+    /// were called off, because one other piece of work still waited and the store was only ever emptied whole).
+    /// </summary>
     public void SetDownLeftovers(CompPhobosVehicleSystems systems)
     {
         if (Empty || !Vehicle.Spawned || Vehicle.Faction != Faction.OfPlayer) return;
-        if (systems.Repairs.Pending.Count > 0 || systems.DueServices().Any(s => s.Def.service != null && s.Def.service.SuppliesNow.Any())) return;
-        held.TryDropAll(Vehicle.Position, Vehicle.Map, ThingPlaceMode.Near);
-        Messages.Message("PhobosVehicleSystems_WorkStoreSetDown".Translate(Vehicle.LabelShort.Named("VEHICLE")), Vehicle, MessageTypeDefOf.NeutralEvent);
+        List<Thing> lots = held.InnerListForReading.ToList();
+        List<int> surplus = SupplyRules.Surplus(lots.Select(t => (PackedThings.CountsAs(t)!, t.stackCount)).ToList(), systems.WorkSupplyNeeds());
+        int setDown = 0;
+        for (int i = 0; i < lots.Count; i++)
+        {
+            if (surplus[i] <= 0) continue;
+            int before = lots[i].stackCount;
+            if (held.TryDrop(lots[i], Vehicle.Position, Vehicle.Map, ThingPlaceMode.Near, surplus[i], out Thing _)) setDown += System.Math.Min(before, surplus[i]);
+        }
+        if (setDown <= 0) return;
+        string key = Empty ? "PhobosVehicleSystems_WorkStoreSetDown" : "PhobosVehicleSystems_WorkStoreSurplusSetDown";
+        Messages.Message(key.Translate(Vehicle.LabelShort.Named("VEHICLE")), Vehicle, MessageTypeDefOf.NeutralEvent);
+        if (!Empty && Seen.Wants("vehicles.work-store.surplus", Vehicle)) Seen.Note("vehicles.work-store.surplus", Vehicle, setDown + " things");
     }
 
     public override void PostDestroy(DestroyMode mode, Map previousMap)
@@ -94,7 +110,11 @@ public sealed class CompPhobosWorkStore : VehicleComp, IThingHolder
     public override string CompInspectStringExtra()
     {
         if (Empty || Vehicle?.Faction != Faction.OfPlayer) return "";
-        string things = held.InnerListForReading.Select(t => t.LabelCap).ToCommaList(useAnd: true);
+        // Stacks of one kind added up (Framework 0.286.2): thirteen "steel x75" in a row read as a list stuck in a loop.
+        IEnumerable<string> single = held.InnerListForReading.Where(t => t.def.stackLimit <= 1).Select(t => t.LabelCap.ToString());
+        IEnumerable<string> stacked = held.InnerListForReading.Where(t => t.def.stackLimit > 1).GroupBy(t => (t.def, t.Stuff))
+            .Select(g => GenLabel.ThingLabel(g.Key.def, g.Key.Stuff, g.Sum(t => t.stackCount)).CapitalizeFirst());
+        string things = stacked.Concat(single).ToCommaList(useAnd: true);
         return "PhobosVehicleSystems_WorkStoreInspect".Translate(things.Named("THINGS"));
     }
 

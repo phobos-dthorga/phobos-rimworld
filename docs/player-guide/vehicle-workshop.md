@@ -220,8 +220,8 @@ still be fitted on its own below.
 - **Demanding work needs a minimum Construction skill**; a mechanic below it is told why.
 - **What haulers bring is laid out beside the vehicle, not loaded into it**: it takes no cargo room and
   adds no weight, so a jet with a small hold can be refitted, and services and repairs work the same way. The vehicle's inspect
-  line lists what is laid out. Supplies already in the hold that the work needs are taken out of it and laid out too. When no work
-  is waiting any more (an order called off, or something to spare), what is left is set down beside the vehicle.
+  line lists what is laid out. Supplies already in the hold that the work needs are taken out of it and laid out too. Anything
+  beyond what the waiting work needs (an order called off, or something to spare) is set down beside the vehicle.
 - **Serious work waits for the dyno bay**: a tune, a change of grade on a working part, or a heavy overhaul ordered away from one
   waits, and says so. Your land vehicles can be taken there by themselves: see [trips to the dyno
   bay](vehicles-on-the-road.md#trips-to-the-dyno-bay).

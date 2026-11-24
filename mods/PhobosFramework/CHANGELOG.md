@@ -13,6 +13,16 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.286.2] - 2026-11-25 - Draft
+
+A vehicle's laid-out materials stay at what its work needs
+
+### Fixed
+
+- **Supplies taken out of a vehicle's hold for its work are counted truly** (the owner's report of 25 November 2026). The game counts a stack that merges into one already laid out as nothing moved, so the work kept taking more: the owner's HEMTT laid out 975 steel for five fittings needing about a hundred. The countermeasure magazine's first fill from cargo and the top-up machines' deliveries are counted the same way now.
+- **What a vehicle's waiting work cannot use is set down beside it**, not only once all its work is done: cancelling a fitting now sets down what only that fitting needed, even while other work still waits. The surplus already laid out in a save is set down at the vehicle's next look.
+- **The Laid out for its work line adds stacks of one kind together**, so it reads "steel x976", not a long run of "steel x75". Not yet tested in game: row 513.
+
 ## [0.286.1] - 2026-11-25 - Draft
 
 An eased battery charge reaches full

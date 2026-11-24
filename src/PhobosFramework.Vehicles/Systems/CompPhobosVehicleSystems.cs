@@ -3215,6 +3215,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         DueServices().Where(s => s.Def.service != null)
             .Select(s => s.Def.service!.SuppliesNow.Select(supply => (supply.thingDef, supply.count))).Concat(Repairs.UnmetPayments());
 
+    /// <summary>What all the waiting work could use, met or not (Framework 0.286.2): the due services' supplies and each repair's payment, so the
+    /// work store keeps that much and sets down the rest. Always covers <see cref="SupplyNeeds"/>, so nothing set down is fetched again.</summary>
+    internal IEnumerable<IEnumerable<(ThingDef thingDef, int count)>> WorkSupplyNeeds() =>
+        DueServices().Where(s => s.Def.service != null)
+            .Select(s => s.Def.service!.SuppliesNow.Select(supply => (supply.thingDef, supply.count))).Concat(Repairs.Payments());
+
     /// <summary>The first supply the due services still lack, for a hauler to fetch.</summary>
     public bool MissingSupply(out ThingDef? def, out int count)
     {

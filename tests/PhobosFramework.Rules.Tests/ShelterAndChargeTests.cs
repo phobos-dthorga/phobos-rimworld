@@ -82,4 +82,21 @@ public class SupplyRuleTests
     [Fact]
     public void NothingIsShortWhenEverythingIsAboard() =>
         Assert.Empty(SupplyRules.Shortfall(new[] { new[] { ("steel", 15) } }, _ => 20));
+
+    [Fact]
+    public void LaidOutBeyondTheWaitingWorkIsSurplusLotByLot()
+    {
+        // The owner's HEMTT: thirteen full stacks of steel and some components, for a bunk (20 steel) and a fuel heater (20 steel, 3 components).
+        var held = new System.Collections.Generic.List<(string, int)> { ("steel", 75), ("steel", 75), ("component", 5), ("steel", 75) };
+        var needs = new[] { new[] { ("steel", 20), ("cloth", 30) }, new[] { ("steel", 20), ("component", 3) } };
+        Assert.Equal(new[] { 35, 75, 2, 75 }, SupplyRules.Surplus(held, needs));
+    }
+
+    [Fact]
+    public void EverythingIsSurplusWithNoWorkWaiting() =>
+        Assert.Equal(new[] { 75, 5 }, SupplyRules.Surplus(new[] { ("steel", 75), ("component", 5) }, System.Array.Empty<(string, int)[]>()));
+
+    [Fact]
+    public void NothingIsSurplusWhenTheWorkNeedsItAll() =>
+        Assert.Equal(new[] { 0, 0 }, SupplyRules.Surplus(new[] { ("steel", 60), ("steel", 40) }, new[] { new[] { ("steel", 70) }, new[] { ("steel", 30) } }));
 }
