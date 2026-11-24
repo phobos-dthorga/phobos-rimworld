@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-22T20:16:11Z",
+ "checked": "2026-11-24T02:53:41Z",
  "clonesRead": 24,
  "days": 30,
  "findings": [
@@ -32,16 +32,6 @@
    "ours": "src/PhobosPatches.CombatExtended/KeepGuns/SidearmLoopGuard.cs:110",
    "repository": "https://github.com/CombatExtended-Continued/CombatExtended",
    "subject": "Use ammo gen per mag override for ad hoc mag size"
-  },
-  {
-   "commit": "a7bfa781e",
-   "date": "2026-10-25",
-   "link": "https://github.com/CombatExtended-Continued/CombatExtended/commit/a7bfa781e",
-   "member": "VehicleArmorPatch.HitComponent",
-   "mod": "Combat Extended",
-   "ours": "src/PhobosFramework.Vehicles/Service/Spall.cs:85",
-   "repository": "https://github.com/CombatExtended-Continued/CombatExtended",
-   "subject": "Use SDK-provided csc for build workflows"
   },
   {
    "commit": "6fc0644",
@@ -122,6 +112,46 @@
    "ours": "src/PhobosFactory/Patches/BatchInPartsPatches.cs:10",
    "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
    "subject": "Slightly change/update/fix advanced processor's processes"
+  },
+  {
+   "commit": "bd1052b4",
+   "date": "2026-11-22",
+   "link": "https://github.com/SmashPhil/Vehicle-Framework/commit/bd1052b4",
+   "member": "ITab_Vehicle_Upgrades.Vehicle",
+   "mod": "Vehicle Framework",
+   "ours": "src/PhobosFramework.Vehicles/Presentation/UpgradeTabScroll.cs:28",
+   "repository": "https://github.com/SmashPhil/Vehicle-Framework",
+   "subject": "VF-418: Add research prerequisite list to upgrade node panel."
+  },
+  {
+   "commit": "a09bcb11",
+   "date": "2026-11-22",
+   "link": "https://github.com/SmashPhil/Vehicle-Framework/commit/a09bcb11",
+   "member": "VehicleTurret.OnDestroy",
+   "mod": "Vehicle Framework",
+   "ours": "src/PhobosPatches.Harrier/DisassemblyTrace.cs:277",
+   "repository": "https://github.com/SmashPhil/Vehicle-Framework",
+   "subject": "Fix ComponentRequirement subscribing to vehicle but never unsubscribing."
+  },
+  {
+   "commit": "a09bcb11",
+   "date": "2026-11-22",
+   "link": "https://github.com/SmashPhil/Vehicle-Framework/commit/a09bcb11",
+   "member": "ComponentRequirement.key",
+   "mod": "Vehicle Framework",
+   "ours": "src/PhobosFramework.Vehicles/Service/WeaponMounts.cs:33",
+   "repository": "https://github.com/SmashPhil/Vehicle-Framework",
+   "subject": "Fix ComponentRequirement subscribing to vehicle but never unsubscribing."
+  },
+  {
+   "commit": "a09bcb11",
+   "date": "2026-11-22",
+   "link": "https://github.com/SmashPhil/Vehicle-Framework/commit/a09bcb11",
+   "member": "ComponentRequirement.healthPercent",
+   "mod": "Vehicle Framework",
+   "ours": "src/PhobosFramework.Vehicles/Service/WeaponMounts.cs:34",
+   "repository": "https://github.com/SmashPhil/Vehicle-Framework",
+   "subject": "Fix ComponentRequirement subscribing to vehicle but never unsubscribing."
   },
   {
    "commit": "b46032a6",
