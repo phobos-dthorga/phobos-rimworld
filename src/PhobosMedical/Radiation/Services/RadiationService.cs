@@ -29,7 +29,8 @@ public static class RadiationService
         dose.AddDose(Today, grays);
         dose.lastSource = source;
         LateEffects.OnDose(pawn, dose, grays);
-        Refresh(pawn, dose);
+        // The effective dose, the course and the late effects are worked out at the next step, a few seconds on, not at every dose
+        // (fault-read 25 Nov 2026, F3): Rimatomics doses every 15 ticks for each radioactive thing near a pawn.
         if (Seen.Wants("radiation.dose-taken", pawn)) Seen.Note("radiation.dose-taken", pawn, (grays * 1000f).ToString("0") + " mGy from " + (source ?? "unknown"));
     }
 
@@ -41,6 +42,20 @@ public static class RadiationService
         made.Severity = 0.0001f;
         pawn.health.AddHediff(made);
         return made;
+    }
+
+    /// <summary>
+    /// The radiation model turned off: anyone in the middle of a course is let out of it (fault-read 25 Nov 2026, F2), their early sickness
+    /// and illness taken away, rather than left at the stage they had reached for good. Their dose is kept, for if it is turned on again.
+    /// </summary>
+    public static void StandDown(Pawn pawn)
+    {
+        HediffSet set = pawn.health.hediffSet;
+        bool early = set.HasHediff(RadiationDefOf.PhobosRadiation_EarlySickness), ill = set.HasHediff(RadiationDefOf.PhobosRadiation_Illness);
+        if (!early && !ill) return;
+        SetPresent(pawn, RadiationDefOf.PhobosRadiation_EarlySickness, false, 0f);
+        SetPresent(pawn, RadiationDefOf.PhobosRadiation_Illness, false, 0f);
+        if (DoseOf(pawn, create: false) is { InCourse: true } dose) dose.EndCourse(Today);
     }
 
     /// <summary>The step: repair, the course, the illness and the blood count.</summary>

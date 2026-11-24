@@ -111,7 +111,7 @@ public class Port_Reservoirs : TankPort
             reason = "PhobosReservoir_NoneInReach".Translate(contents.label.Named("LOAD")).Resolve();
             return 0f;
         }
-        float given = best.Add(Math.Min(most, tank.Amount), tank.Ingredients);
+        float given = best.Add(Math.Min(most, tank.Amount), tank.Ingredients, tank.SpoilHours);
         if (given > 0f && Seen.Wants("vehicles.reservoir-filled", best.parent)) Seen.Note("vehicles.reservoir-filled", best.parent, vehicle.LabelShort);
         return given;
     }

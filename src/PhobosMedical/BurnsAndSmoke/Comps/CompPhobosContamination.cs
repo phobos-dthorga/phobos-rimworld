@@ -59,7 +59,9 @@ public class CompPhobosContamination : ThingComp
     public float Dust => dust <= 0f || Find.TickManager == null ? 0f
         : dust * (float)Phobos.Radiation.Rules.ContaminationRule.DustLeft((Find.TickManager.TicksGame - dustTick) / 60000.0);
 
-    public bool Dusty => Phobos.Radiation.RadiationPart.Settings.contamination && Dust >= Phobos.Radiation.Defs.PhobosRadiationRulesDef.Current.dustToWash;
+    // Only while the radiation model is on (fault-read 25 Nov 2026, F9): with it off, nothing doses, so no garment is shown or filtered dusty.
+    public bool Dusty => Phobos.Radiation.RadiationPart.On && Phobos.Radiation.RadiationPart.Settings.contamination
+        && Dust >= Phobos.Radiation.Defs.PhobosRadiationRulesDef.Current.dustToWash;
 
     public void AddDust(float amount)
     {

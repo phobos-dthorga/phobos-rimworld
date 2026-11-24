@@ -19,7 +19,7 @@ public static class AttachedFires
         {
             foreach (AttachableThing attachment in attachments)
             {
-                if (attachment is not Fire { Destroyed: false }) continue;
+                if (attachment is not Fire fire || !BurnsOn(thing, fire)) continue;
                 // Seen in play: a fire the game's own check would have missed, on a thing larger than a cell.
                 if (thing.def.size != IntVec2.One) Seen.Note("framework.fire-on-vehicle", thing);
                 return true;
@@ -27,6 +27,13 @@ public static class AttachedFires
         }
         return thing.IsBurning();
     }
+
+    /// <summary>
+    /// Whether an attached fire burns on the thing where it stands now (fault-read 25 Nov 2026, D4): Vehicle Framework keeps a vehicle's
+    /// attached fires when it leaves a map, so one left on the map it came from would otherwise still count (D'thorga Patches puts them out
+    /// on leaving, but the Framework does not need it).
+    /// </summary>
+    static bool BurnsOn(Thing thing, Fire fire) => !fire.Destroyed && fire.Spawned && fire.Map == thing.Map;
 
     /// <summary>The game destroys a fire smaller than this.</summary>
     public const float SmallestFire = 0.1f;
@@ -39,7 +46,7 @@ public static class AttachedFires
         if (attachments == null) return 0f;
         foreach (AttachableThing attachment in attachments)
         {
-            if (attachment is Fire { Destroyed: false } fire && fire.fireSize > biggest) biggest = fire.fireSize;
+            if (attachment is Fire fire && BurnsOn(thing!, fire) && fire.fireSize > biggest) biggest = fire.fireSize;
         }
         return biggest;
     }
@@ -59,7 +66,7 @@ public static class AttachedFires
         var fires = new List<Fire>();
         foreach (AttachableThing attachment in attachments)
         {
-            if (attachment is Fire { Destroyed: false } fire) fires.Add(fire);
+            if (attachment is Fire fire && BurnsOn(thing!, fire)) fires.Add(fire);
         }
         int out_ = 0;
         foreach (Fire fire in fires)

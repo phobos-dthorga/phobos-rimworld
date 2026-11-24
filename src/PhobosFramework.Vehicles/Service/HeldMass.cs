@@ -33,7 +33,8 @@ public static class HeldMass
 
     static double Of(Thing thing) => thing switch
     {
-        VehiclePawn held => held.GetStatValue(VehicleStatDefOf.Mass),
+        // A vehicle in the hold weighs its kilograms (fault-read 25 Nov 2026, E3): Vehicle Framework's Mass is on each author's own scale.
+        VehiclePawn held => held.GetComp<CompPhobosVehicleSystems>()?.Powertrain?.MassKg() ?? Powertrain.KerbFor(held.VehicleDef, null, null),
         Pawn pawn => pawn.GetStatValue(StatDefOf.Mass),
         _ => thing.GetStatValue(StatDefOf.Mass) * thing.stackCount,
     };

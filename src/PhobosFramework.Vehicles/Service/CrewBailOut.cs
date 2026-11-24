@@ -70,6 +70,9 @@ public static class CrewBailOut
         int aboard = vehicle.AllPawnsAboard.Count;
         if (aboard == 0 || Phobos.Framework.Environment.AttachedFires.Biggest(vehicle) <= 0f) return;
         if (vehicle.vehiclePather?.Moving == true || When_Airborne.Airborne(comp, live: true)) return;
+        // A vehicle the player has drafted keeps its crew, to drive it out of the fire (the owner's card of 25 Nov 2026, fault-read D11): the
+        // order wins, with its consequence, until the fire reaches the crew compartment.
+        if (vehicle.Drafted && !(FireFighting.CompOf(vehicle) is { } fire && (fire.burning & FireZones.CrewCompartment) != 0)) return;
         vehicle.DisembarkAll();
         Messages.Message("PhobosVehicleSystems_CrewBailedOutOwn".Translate(vehicle.LabelShort.Named("VEHICLE"), aboard.Named("COUNT")), vehicle,
             MessageTypeDefOf.NegativeEvent);

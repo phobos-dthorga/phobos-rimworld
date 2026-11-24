@@ -94,8 +94,23 @@ public static class JamFields
                 break;
             }
         }
+        // Maps that have closed are let go (fault-read 25 Nov 2026, D5): keyed by map, the cache kept every temporary map it was asked
+        // about, and all it held, until the next load; and so are vehicles told while on one.
+        if (byMap.Count > 0) PruneClosed();
         byMap[map] = (now, fields);
         return fields;
+    }
+
+    static void PruneClosed()
+    {
+        List<Map>? gone = null;
+        foreach (Map key in byMap.Keys)
+        {
+            if (key.Disposed || !Find.Maps.Contains(key)) (gone ??= new List<Map>()).Add(key);
+        }
+        if (gone == null) return;
+        foreach (Map key in gone) byMap.Remove(key);
+        told.RemoveWhere(vehicle => vehicle.Destroyed || vehicle.Discarded);
     }
 
     /// <summary>A field of a faction hostile to this thing's that covers where it is now, or null.</summary>

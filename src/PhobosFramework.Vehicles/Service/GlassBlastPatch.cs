@@ -1,3 +1,4 @@
+using System.Reflection;
 using HarmonyLib;
 using Verse;
 
@@ -13,4 +14,22 @@ namespace Phobos.VehicleSystems;
 public static class GlassBlastPatch
 {
     public static void Postfix(Explosion __instance) => Glass.Explosion(__instance);
+}
+
+/// <summary>
+/// The same for Combat Extended's blasts (fault-read 25 Nov 2026, D1): its explosion is the game's Explosion, but it starts through its own
+/// method, which never calls StartExplosion, so every shell, grenade and cook-off under CE broke no glass beyond its own reach. A postfix on
+/// CE's start, found by name; not applied without CE.
+/// </summary>
+[HarmonyPatch]
+public static class GlassBlastCombatExtendedPatch
+{
+    static bool Prepare() => TargetMethod() != null;
+
+    static MethodBase? TargetMethod() => AccessTools.Method("CombatExtended.ExplosionCE:StartExplosionCE");
+
+    public static void Postfix(object __instance)
+    {
+        if (__instance is Explosion explosion) Glass.Explosion(explosion);
+    }
 }

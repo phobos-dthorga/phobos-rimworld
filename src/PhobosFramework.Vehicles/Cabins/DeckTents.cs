@@ -133,7 +133,7 @@ public static class DeckTents
             thing.DeSpawn();
             if (!vehicle.inventory.innerContainer.TryAdd(thing)) thing.Destroy();
         }
-        PocketMapUtility.DestroyPocketMap(cabin);
+        VehicleCabins.CloseMap(cabin);
         comp.SetCabin(null);
         caravan.RecacheVehiclesOrConvertCaravan();
         if (moved.Count == 0) return;
@@ -186,6 +186,24 @@ public static class TentSleepers
     {
         Check();
         return assigned.TryGetValue(pawn, out CompPhobosCamp? camp) && camp.IsTentSleeper(pawn) ? camp : null;
+    }
+}
+
+/// <summary>
+/// A bed in a deck tent or a walk-in cabin is slept in, never owned (fault-read 25 Nov 2026, C3). The game's lie-down job claims any
+/// non-medical bed it uses, and claiming one gives up the bed the colonist owns: a tent sleeper lost their own bed at home on the first
+/// night, and owned nothing once the tent closed and its bed went. A prefix that skips the original, recorded here as the rules ask:
+/// there is no extension point between the job and the claim, and the game's own toil ignores the answer, so skipping changes nothing
+/// else. The colonist still sleeps in the tent's bed, as anyone sleeps in a bed they do not own.
+/// </summary>
+[HarmonyPatch(typeof(Pawn_Ownership), nameof(Pawn_Ownership.ClaimBedIfNonMedical))]
+public static class CabinBedsUnclaimed
+{
+    public static bool Prefix(Building_Bed newBed, ref bool __result)
+    {
+        if (newBed?.Map is not { } map || DeckTents.Of(map) == null) return true;
+        __result = false;
+        return false;
     }
 }
 

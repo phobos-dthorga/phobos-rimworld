@@ -101,6 +101,20 @@ public class CompRadioMarks : ThingComp
     /// </summary>
     private bool Keyed()
     {
+        // Worked out once a tick, not each time a frame draws a lamp or a needle (fault-read 25 Nov 2026, F5): its station's lookups are
+        // per tick at most, as the cost table says.
+        var now = Find.TickManager.TicksGame;
+        if (keyedTick == now) return keyed;
+        keyedTick = now;
+        keyed = WorkOutKeyed();
+        return keyed;
+    }
+
+    private int keyedTick = -1;
+    private bool keyed;
+
+    private bool WorkOutKeyed()
+    {
         CompRadio? station;
         if (parent.TryGetComp<CompRadio>() is { Props.isStation: true } own)
         {

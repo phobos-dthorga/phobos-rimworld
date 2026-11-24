@@ -25,8 +25,11 @@ public class JobDriver_PhobosEnterCabin : JobDriver
         this.FailOn(() => !VehicleCabins.Offered(Vehicle) || VehicleCabins.EnterRefusal(Vehicle, 0) != null);
         if (Carried != null)
         {
-            this.FailOnDespawnedNullOrForbidden(TargetIndex.B);
-            yield return Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.ClosestTouch).FailOnSomeonePhysicallyInteracting(TargetIndex.B);
+            // On the whole job only that the person still exists: once lifted they are no longer spawned (fault-read 25 Nov 2026, C1).
+            // That they stand on the map and are not forbidden matters for the walk to them, as for the game's own carry to bed.
+            this.FailOnDestroyedOrNull(TargetIndex.B);
+            yield return Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.ClosestTouch)
+                .FailOnDespawnedNullOrForbidden(TargetIndex.B).FailOnSomeonePhysicallyInteracting(TargetIndex.B);
             yield return Toils_Haul.StartCarryThing(TargetIndex.B);
         }
         yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
@@ -73,8 +76,11 @@ public class JobDriver_PhobosLeaveCabin : JobDriver
         this.FailOn(() => VehicleCabins.LeaveRefusal(WayOut.Vehicle) != null);
         if (Carried != null)
         {
-            this.FailOnDespawnedNullOrForbidden(TargetIndex.B);
-            yield return Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.ClosestTouch).FailOnSomeonePhysicallyInteracting(TargetIndex.B);
+            // On the whole job only that the person still exists: once lifted they are no longer spawned (fault-read 25 Nov 2026, C1).
+            // That they stand on the map and are not forbidden matters for the walk to them, as for the game's own carry to bed.
+            this.FailOnDestroyedOrNull(TargetIndex.B);
+            yield return Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.ClosestTouch)
+                .FailOnDespawnedNullOrForbidden(TargetIndex.B).FailOnSomeonePhysicallyInteracting(TargetIndex.B);
             yield return Toils_Haul.StartCarryThing(TargetIndex.B);
         }
         yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.OnCell);

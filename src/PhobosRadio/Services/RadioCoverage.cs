@@ -115,6 +115,7 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
             map.events.BuildingSpawned -= OnBuilding;
             map.events.BuildingDespawned -= OnBuilding;
             map.events.RoofChanged -= OnRoof;
+            map.events.CellFogChanged -= OnFog;
             listening = false;
         }
         byMap.Remove(map);
@@ -160,6 +161,7 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
         map.events.BuildingSpawned += OnBuilding;
         map.events.BuildingDespawned += OnBuilding;
         map.events.RoofChanged += OnRoof;
+        map.events.CellFogChanged += OnFog;
         listening = true;
     }
 
@@ -171,6 +173,13 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
     }
 
     private void OnRoof(IntVec3 cell) => changes++;
+
+    /// <summary>Cells revealed from fog are painted at the next pass (fault-read 25 Nov 2026, F4); counted apart, as the cover map does not
+    /// care what the player can see.</summary>
+    private void OnFog(IntVec3 cell, bool fogged) => fogChanges++;
+
+    private int fogChanges;
+    private int subjectFogChanges;
 
     /// <summary>Something the picture is drawn from changed with no map event: an upgrade fitted or taken off (Radio 0.4.0).</summary>
     public void NotifyChanged() => changes++;
@@ -196,9 +205,11 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
         var noiseSignature = RadioNet.For(map).Noise.Signature;
         if (thing == subject)
         {
-            var changed = changes != subjectChanges || noiseSignature != subjectNoise || metresPerCell != subjectMetresPerCell;
+            var changed = changes != subjectChanges || fogChanges != subjectFogChanges || noiseSignature != subjectNoise
+                || metresPerCell != subjectMetresPerCell;
             if (!changed) return;
             subjectChanges = changes;
+            subjectFogChanges = fogChanges;
             subjectNoise = noiseSignature;
             subjectMetresPerCell = metresPerCell;
             CollectEnds(thing, metresPerCell);
@@ -208,6 +219,7 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
         }
         subject = thing;
         subjectChanges = changes;
+        subjectFogChanges = fogChanges;
         subjectNoise = noiseSignature;
         subjectMetresPerCell = metresPerCell;
         fullScaleDb = Mathf.Max(1f, RadioRulesDef.Current.coverageFullScaleDb);
@@ -357,6 +369,8 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
             ? radio
             : thing.TryGetComp<CompFeedlinePort>() is { } port ? FeedlineService.StationOn(port) : null;
         if (station == null || !station.parent.Spawned) return;
+        // An unpowered or switched-off desk reaches nobody, as the net counts it (fault-read 25 Nov 2026, F4): it paints nothing.
+        if (station.parent.TryGetComp<CompPowerTrader>() is { PowerOn: false }) return;
         var noise = RadioNet.For(map).Noise;
         var first = true;
         foreach (var endpoint in RadioNet.StationEndpoints(station, metresPerCell))
@@ -387,10 +401,16 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
     {
         if (kinds != null) return kinds;
         kinds = new List<Kind>();
+        var seen = new HashSet<(ModeDef, float, float, float, float)>();
         foreach (var def in DefDatabase<ThingDef>.AllDefsListForReading)
         {
+            // Hand-helds only (fault-read 25 Nov 2026, F1): a vehicle's radio is a ThingDef too (Vehicle Framework's VehicleDefs are), given
+            // at start-up, and painted every cell about 13 dB too good. A pawn's own Def (a vehicle, an animal) is no hand-held.
+            if (def.race != null) continue;
             var props = def.GetCompProperties<CompProperties_Radio>();
             if (props == null || props.isStation || props.mode == null || props.transmitPowerWatts <= 0) continue;
+            // One kind for each set of figures, however many Defs share them: each kind costs a combination at every cell.
+            if (!seen.Add((props.mode, props.transmitPowerWatts, props.antennaGainDbi, props.antennaHeightMetres, props.noiseFigureDb))) continue;
             kinds.Add(new Kind(props));
         }
         return kinds;

@@ -195,6 +195,27 @@ public static class Glass
         if (!On || vehicle.VehicleDef.type != VehicleType.Land || PartOf(vehicle) is not { } glass) return 1f;
         GlassState state = StateOf(glass);
         if (state == GlassState.Sound) return 1f;
+        // Asked every tick a vehicle moves: worked out once a rare tick (fault-read 25 Nov 2026, D6), as the light and weather change slowly.
+        int now = Find.TickManager.TicksGame;
+        ViewCache cache = views.GetOrCreateValue(vehicle);
+        if (cache.state == state && now - cache.tick < GenTicks.TickRareInterval && now >= cache.tick) return cache.factor;
+        cache.factor = WorkOutView(vehicle, state);
+        cache.state = state;
+        cache.tick = now;
+        return cache.factor;
+    }
+
+    sealed class ViewCache
+    {
+        public int tick = int.MinValue / 2;
+        public GlassState state;
+        public float factor = 1f;
+    }
+
+    static readonly System.Runtime.CompilerServices.ConditionalWeakTable<VehiclePawn, ViewCache> views = new();
+
+    static float WorkOutView(VehiclePawn vehicle, GlassState state)
+    {
         Map? map = vehicle.MapHeld;
         bool dark = map != null && GenCelestial.CurCelestialSunGlow(map) < 0.3f;
         WeatherDef? weather = map?.weatherManager?.curWeather;

@@ -103,4 +103,6 @@
   <PhobosRadio_SheetHeader>Link budget on {BAND} at {FREQUENCY} MHz, {MODE}</PhobosRadio_SheetHeader>
   <PhobosRadio_SheetAntennas>Antennas: {FIRST} and {SECOND}</PhobosRadio_SheetAntennas>
   <PhobosRadio_SheetDirectionLimiting>{DIRECTION} (this direction limits the link)</PhobosRadio_SheetDirectionLimiting>
+  <!-- Radio Framework 0.16.1: a level on the link budget's steps. -->
+  <PhobosRadio_BudgetLevelDbm>{LEVEL} dBm</PhobosRadio_BudgetLevelDbm>
 </LanguageData>

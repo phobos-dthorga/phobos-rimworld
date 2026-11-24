@@ -88,7 +88,17 @@ public static class RadiationDebugActions
         Log.Message(text.ToString());
     }
 
-    /// <summary>Removes our three radiation conditions and any of Rimatomics' (so none are converted back), and returns how many went.</summary>
+    /// <summary>Our own radiation conditions beyond the dose and the course (fault-read 25 Nov 2026, F8): the late effects of Medical 0.23.0 and
+    /// the medicines. The game's own cancer, cataract and sterility stay: they can come from elsewhere.</summary>
+    static readonly HediffDef[] alsoOurs =
+    {
+        RadiationDefOf.PhobosRadiation_Leukaemia, RadiationDefOf.PhobosRadiation_TemporarySterility, RadiationDefOf.PhobosRadiation_PrenatalMalformation,
+        RadiationDefOf.PhobosRadiation_PrenatalBrainInjury, RadiationDefOf.PhobosRadiation_OnAntiemetic, RadiationDefOf.PhobosRadiation_OnMarrowStimulant,
+        RadiationDefOf.PhobosRadiation_OnPrussianBlue,
+    };
+
+    /// <summary>Removes our radiation conditions (the dose, the course, the late effects and medicines of ours) and any of Rimatomics' (so
+    /// none are converted back), and returns how many went.</summary>
     static int Remove(Pawn pawn)
     {
         if (pawn.health?.hediffSet == null) return 0;
@@ -96,7 +106,8 @@ public static class RadiationDebugActions
         foreach (Hediff hediff in pawn.health.hediffSet.hediffs)
         {
             if (hediff.def == RadiationDefOf.PhobosRadiation_Dose || hediff.def == RadiationDefOf.PhobosRadiation_EarlySickness
-                || hediff.def == RadiationDefOf.PhobosRadiation_Illness || RimatomicsConversion.IsRimatomics(hediff.def))
+                || hediff.def == RadiationDefOf.PhobosRadiation_Illness || System.Array.IndexOf(alsoOurs, hediff.def) >= 0
+                || RimatomicsConversion.IsRimatomics(hediff.def))
             {
                 gone.Add(hediff);
             }

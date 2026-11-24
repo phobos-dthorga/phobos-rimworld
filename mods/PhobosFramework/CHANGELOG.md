@@ -17,6 +17,13 @@ tested in game unless an entry says the owner tested it.
 
 Fixes from the fault-read of 25 November 2026
 
+### Changed
+
+- **A vehicle you have drafted keeps its crew while it burns** (the owner's card of 25 November 2026, fault-read D11), so they can
+  drive it out of the fire; they bail out once it is undrafted, or once the fire reaches the crew compartment.
+- **People in a walk-in cabin drink from the crew water tank on a map too** (the owner's card, C5), as the seated riders do; they
+  already ate from the cargo there.
+
 ### Fixed
 
 - **A vehicle on a loop or in a convoy that cannot drive on waits quietly** (fault-read of 25 November 2026, A1). Out of fuel,
@@ -40,10 +47,39 @@ Fixes from the fault-read of 25 November 2026
 - **A loop belongs to its map** (A7): taken to another map, a loop vehicle waits there instead of driving the old map's points, and
   carries on when it is back.
 - **A mechlinked vehicle left behind on a closed map frees its mechanitor's bandwidth** (A8), as it could not be reached to unlink.
+- **Per-wheel brakes keep their wear on an older save** (E1): on the first load after Framework 0.250.0, every brake but the first came
+  back new. Not yet tested in game: row 509.
+- **A tank trailer's electric pump draws power only while it pushes** (B1): it asked for its 750 W whenever it was not on Hold, full,
+  empty or loading, so a shower trailer left on Load ran a tractor's battery down.
+- **An emptied tank forgets its last load** (B2): a compartment drained by the showers, a caravan or a towed refuel kept its old
+  quality, so clean water pumped in later read as contaminated, and pumped out marked the colony's towers contaminated.
+- **Carrying someone into or out of a walk-in cabin works** (C1): the job ended as the person was lifted. Not yet tested in game: row 510.
+- **A deck-tent or cabin sleeper keeps their own bed** (C3): sleeping in the tent's bed gave up their bed at home. Not yet tested in
+  game: row 510.
+- **Nobody can go into a hitched vehicle's deck tent** (C2), where they would have been left behind, unfed, when it drove off.
+- **A cabin whose vehicle is gone sets its people down** (C4): a vehicle sold, abandoned or killed off a map left them on its inside for
+  good. Each hour, such a cabin is emptied onto its last map or your home.
+- **Under Combat Extended, blasts crack glass well beyond their own reach again** (D1), as without it. Not yet tested in game: row 511.
+- **A fire a suppression system put out does not come straight back** (D2), and **tyres smoulder after any fire is put out** (D3), the
+  extinguisher's included.
+- **Fires left on the map a vehicle came from no longer count** (D4) when D'thorga Patches is not installed: its crew bailed out every
+  look and its work was refused.
+- **Compression brakes on every heavy diesel** (E2): other authors' heavy trucks and tanks, on our class drivetrains, never had one.
+- **Smaller fixes**: the Billy's paste tap no longer raises the "Need food hopper" alert (B3); a set-up shower trailer's water goes back
+  into its tank when it leaves (B4); the dump valve closes when its setting is turned off (B5); road refuels keep their fractions (B6);
+  food keeps its age through a pump, and a packed paste tap ages (B7); road meals record their ingredients (B8); a bed left standing
+  when a caravan leaves is picked up again rather than made anew (C6); nobody asleep reads, snacks or smokes (C7); closing a cabin keeps
+  the world map in view (C8); a sleeper belongs to one tent and one bunk (C9); the bunk walk checks once a second (C10); the jamming
+  cache lets closed maps go (D5); cracked glass is judged once a rare tick (D6); the spall liner's label is translatable (D7); the
+  start-up report's cook-off line (D8); the jamming pod's note only in the air (D9); a shot-away extinguisher bracket no longer reads
+  "empty" (D10); a vehicle in the C-17's hold weighs its kilograms (E3); an aircraft does not relight its engines after a load (E4); a
+  starved engine counts as out, descents regenerate whatever the fuel setting, and a thrust craft keeps its thrust fittings (E5).
 
 ### Save compatibility
 
 - Safe on an existing save. A loop running in a save takes the map it is on as its own at its next look.
+- A brake already made new by an earlier load stays new: only a first load from before 0.250.0 keeps the old wear. A colonist who lost
+  their bed to a deck tent before this owns none until given one again.
 
 ## [0.283.0] - 2026-11-25 - Draft
 

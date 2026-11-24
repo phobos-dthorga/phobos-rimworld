@@ -70,6 +70,11 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
     ThingOwner<Thing>? held;
     /// <summary>The tent and gear standing beside it now, and the place in the layout each came from, in step.</summary>
     List<Thing> placed = new();
+    /// <summary>
+    /// A roof tent or camper bed left standing because someone slept in it when the vehicle left (fault-read 25 Nov 2026, C6): picked up
+    /// again at the next pitch where it stands, and never made anew while it still stands elsewhere.
+    /// </summary>
+    List<Thing> leftBehind = new();
     List<string> placedSlots = new();
     /// <summary>The awning's poles standing now.</summary>
     List<Thing> poles = new();
@@ -161,25 +166,34 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
             Messages.Message("PhobosDeckTent_Full".Translate(name, TentBeds.Named("COUNT")).Resolve(), Vehicle, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
+        // One tent each (fault-read 25 Nov 2026, C9): chosen here, they leave the other vehicle's list.
+        if (TentSleepers.TentOf(pawn) is { } other && other != this) other.ForgetTentSleeper(pawn);
         tentSleepers.Add(pawn);
         TentSleepers.Note(this, pawn, true);
         Messages.Message("PhobosDeckTent_Assigned".Translate(who, name).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
     }
 
+    /// <summary>Takes a colonist off this tent's sleepers, when they are chosen for another vehicle's.</summary>
+    internal void ForgetTentSleeper(Pawn pawn)
+    {
+        if (tentSleepers.Remove(pawn)) TentSleepers.Note(this, pawn, false);
+    }
+
     Command_Action TentSleepersGizmo()
     {
-        tentSleepers.RemoveAll(p => p == null || p.Dead || p.Destroyed);
+        // Read, never changed, while the button is drawn (fault-read 25 Nov 2026, C9): the dead are left out here and pruned when one is added.
+        List<Pawn> sleepers = tentSleepers.Where(p => p != null && !p.Dead && !p.Destroyed).ToList();
         return new Command_Action
         {
-            defaultLabel = tentSleepers.Count == 0
+            defaultLabel = sleepers.Count == 0
                 ? "PhobosDeckTent_GizmoNobody".Translate().Resolve()
-                : "PhobosDeckTent_GizmoSleepers".Translate(string.Join(", ", tentSleepers.Select(p => p.LabelShort)).Named("NAMES")).Resolve(),
+                : "PhobosDeckTent_GizmoSleepers".Translate(string.Join(", ", sleepers.Select(p => p.LabelShort)).Named("NAMES")).Resolve(),
             defaultDesc = "PhobosDeckTent_GizmoDesc".Translate(Vehicle.LabelShort.Named("VEHICLE"), TentBeds.Named("COUNT")).Resolve(),
             icon = SystemIcons.For("Phobos/VehicleSystems/Fittings/DeckTent"),
             action = () =>
             {
                 var options = new List<FloatMenuOption>();
-                foreach (Pawn pawn in Vehicle.Map.mapPawns.FreeColonistsSpawned.Concat(tentSleepers).Distinct().OrderBy(p => p.LabelShort))
+                foreach (Pawn pawn in Vehicle.Map.mapPawns.FreeColonistsSpawned.Concat(sleepers).Distinct().OrderBy(p => p.LabelShort))
                 {
                     Pawn chosen = pawn;
                     string label = (tentSleepers.Contains(pawn) ? "PhobosDeckTent_OptionSleeps" : "PhobosDeckTent_OptionFree").Translate(pawn.LabelShort.Named("PAWN")).Resolve();
@@ -289,6 +303,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
     void AssignSleeper(Pawn? pawn)
     {
         Pawn? before = bunkSleeper;
+        // One bunk each (fault-read 25 Nov 2026, C9): chosen here, they leave the other vehicle's bunk.
+        if (pawn != null && BunkSleepers.BunkOf(pawn) is { } other && other != this) other.AssignSleeper(null);
         if (asleep && before != null && before != pawn) Wake("PhobosBunk_WokenReassigned");
         bunkSleeper = pawn;
         BunkSleepers.Note(this, before, pawn);
@@ -1000,6 +1016,30 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
 
     // ---- Pitching and striking ----
 
+    /// <summary>
+    /// The roof tent or camper bed to pitch: the one held aboard; else one left behind standing here, unoccupied, picked up again; else a new
+    /// one, unless one left behind still stands somewhere (fault-read 25 Nov 2026, C6: it was made anew from nothing). Null: none to pitch.
+    /// </summary>
+    Thing? PieceFor(ThingDef def, Map map)
+    {
+        if (Held.FirstOrDefault(t => t.def == def) is { } held)
+        {
+            Held.Remove(held);
+            return held;
+        }
+        leftBehind.RemoveAll(t => t == null || t.Destroyed);
+        foreach (Thing standing in leftBehind)
+        {
+            if (standing.def != def || !standing.Spawned || standing.Map != map) continue;
+            if (standing is Building_Bed { CurOccupants: var sleeping } && sleeping.Any()) continue;
+            leftBehind.Remove(standing);
+            standing.DeSpawn();
+            return standing;
+        }
+        if (leftBehind.Any(t => t.def == def)) return null;
+        return ThingMaker.MakeThing(def);
+    }
+
     void Pitch(Plan plan, bool fromCargo)
     {
         if (plan.refusal != null || IsPitched) return;
@@ -1008,11 +1048,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
         pitchedSide = plan.side;
         LooksChanged();
         // The tent first: its own canvas roof over its bed.
-        if (plan.tent is { } tent)
+        if (plan.tent is { } tent && PieceFor(VehicleCampDefOf.PhobosCamp_RoofTent, map) is { } thing)
         {
-            Thing? thing = Held.FirstOrDefault(t => t.def == VehicleCampDefOf.PhobosCamp_RoofTent);
-            if (thing != null) Held.Remove(thing);
-            else thing = ThingMaker.MakeThing(VehicleCampDefOf.PhobosCamp_RoofTent);
             if (thing.Faction != faction) thing.SetFaction(faction);
             Thing spawned = GenSpawn.Spawn(thing, tent.centre, map, tent.rot, WipeMode.VanishOrMoveAside);
             if (spawned is Building_PhobosRoofTent roofTent) CanvasRoofs.Lay(map, tent.rect.Cells, roofTent.roof);
@@ -1056,9 +1093,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
             }
             foreach ((IntVec3 centre, Rot4 rot, _) in room.beds)
             {
-                Thing? bed = Held.FirstOrDefault(t => t.def == bedDef);
-                if (bed != null) Held.Remove(bed);
-                else bed = ThingMaker.MakeThing(bedDef);
+                if (PieceFor(bedDef, map) is not { } bed) continue;
                 if (bed.Faction != faction) bed.SetFaction(faction);
                 placed.Add(GenSpawn.Spawn(bed, centre, map, rot, WipeMode.VanishOrMoveAside));
                 placedSlots.Add(CamperBedSlot);
@@ -1140,6 +1175,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
                 // A camper's bed in use stays where it is, if the vehicle must go without it.
                 if (leaving && piece is Building_Bed { CurOccupants: var sleeping } && sleeping.Any())
                 {
+                    leftBehind.Add(piece);
                     left++;
                     continue;
                 }
@@ -1405,6 +1441,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
         Scribe_Deep.Look(ref held, "PhobosCamp_Held", this);
         Scribe_Collections.Look(ref placed, "PhobosCamp_Placed", LookMode.Reference);
         Scribe_Collections.Look(ref placedSlots, "PhobosCamp_PlacedSlots", LookMode.Value);
+        Scribe_Collections.Look(ref leftBehind, "PhobosCamp_LeftBehind", LookMode.Reference);
         Scribe_Collections.Look(ref poles, "PhobosCamp_Poles", LookMode.Reference);
         Scribe_Collections.Look(ref tentWalls, "PhobosCamp_TentWalls", LookMode.Reference);
         Scribe_Values.Look(ref preferredSide, "PhobosCamp_Side", CampLayoutRule.Left);
@@ -1421,6 +1458,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
         {
             placed ??= new List<Thing>();
             placedSlots ??= new List<string>();
+            leftBehind ??= new List<Thing>();
+            leftBehind.RemoveAll(t => t == null);
             poles ??= new List<Thing>();
             spotSlots ??= new List<string>();
             spotCells ??= new List<IntVec3>();

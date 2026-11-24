@@ -284,6 +284,8 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
         if (tower is { Spawned: true }) TopUp();
         if (septic is { Spawned: true } && Septic is { } tank)
         {
+            // The dump valve closes when its setting is turned off (fault-read 25 Nov 2026, B5): its button is gone with it.
+            if (dumping && !VehicleSystemsMod.Settings.FlagOn("trailerWasteDump")) SetDumping(false);
             if (dumping) Dump(tank);
             else DrainToSewer(tank);
         }
@@ -413,6 +415,12 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
         if (tower is { Spawned: true })
         {
             if (Props.ownWater && mode != DestroyMode.KillFinalize && Tower is { } own) ownWater += own.WaterStorage;
+            // A tank-fed tower's working water goes back into the tank, as at packing up (fault-read 25 Nov 2026, B4); Dubs' unlimited
+            // pumping filled it from nothing, so then it goes.
+            else if (!Props.ownWater && mode != DestroyMode.KillFinalize && !UnlimitedPumping && Props.water != null && Tower is { WaterStorage: > 0f } fed)
+            {
+                Tank?.PutIn(Props.water, fed.WaterStorage, (int)fed.WaterQuality);
+            }
             tower.Destroy(DestroyMode.Vanish);
         }
         tower = null;

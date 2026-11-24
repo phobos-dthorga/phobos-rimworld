@@ -26,6 +26,11 @@ Fixes from the fault-read of 25 November 2026
 - **A vehicle whose remote control kit fails holds, and the player is told** (with D'thorga Framework 0.284.0). With the kit's power
   shed or its part shot away, a vehicle a station drove stopped without a word and took up its link again silently. Now it holds with
   a letter saying its kit failed, keeps its buttons, and is told when it works again. Not yet tested in game: row 508.
+- **The coverage overlay paints a hand-held's reach** (F1): it counted every vehicle's radio as a hand-held, about 13 dB too good, and
+  worked one picture for each vehicle design. Not yet tested in game: row 511.
+- **Smaller fixes**: an unpowered desk paints no coverage, and cells revealed from fog are painted (F4); the desk's and amplifier's
+  lamps are worked out once a tick, not each frame (F5); the coax glow lifts at an amplifier to its own output, never chained (F6); the
+  link budget's levels are translatable, and the waterfall opens on its station's floor, naming every band (F7).
 
 ## [0.16.0] - 2026-11-25 - Draft
 

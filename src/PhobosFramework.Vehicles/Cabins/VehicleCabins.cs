@@ -35,6 +35,9 @@ public static class VehicleCabins
         NamedArgument name = vehicle.LabelShort.Named("VEHICLE");
         if (!vehicle.Spawned) return "PhobosCabin_NotHere".Translate(name).Resolve();
         if (OnMapFlight.Airborne(vehicle)) return "PhobosCabin_InTheAir".Translate(name).Resolve();
+        // Nobody goes in while it is towed (fault-read 25 Nov 2026, C2): a trailer riding in a hitch off the map has no ticks of its own, so
+        // people in its deck tent would be left on its inside, unfed, when the vehicle towing it drove off or joined a caravan.
+        if (Hitches.Towing(vehicle) is { } towedBy) return "PhobosCabin_Hitched".Translate(name, towedBy.Vehicle.LabelShort.Named("TRACTOR")).Resolve();
         if (Room(vehicle) < people) return "PhobosCabin_Full".Translate(name).Resolve();
         return null;
     }
@@ -237,7 +240,7 @@ public static class VehicleCabins
     {
         VehiclePawn vehicle = comp.Vehicle;
         SetDownLeftovers(cabin, vehicle.Map, vehicle.Position);
-        PocketMapUtility.DestroyPocketMap(cabin);
+        CloseMap(cabin);
         comp.SetCabin(null);
         if (Seen.Wants("vehicles.cabin-closed", vehicle)) Seen.Note("vehicles.cabin-closed", vehicle);
     }
@@ -259,6 +262,24 @@ public static class VehicleCabins
     public static void Evacuate(CompPhobosVehicleCabin comp, Map? previousMap, IntVec3 at)
     {
         if (comp.Cabin is not { } cabin) return;
+        EvacuateMap(cabin, comp.Vehicle.LabelShort, previousMap, at);
+        comp.SetCabin(null);
+    }
+
+    /// <summary>
+    /// Closes a cabin's map (the game's own way), keeping the view the player had (fault-read 25 Nov 2026, C8): the game's call sets the world
+    /// view off, which pulled the player off the world map whenever a caravan's cabin closed.
+    /// </summary>
+    public static void CloseMap(Map cabin)
+    {
+        WorldRenderMode wanted = Find.World.renderer.wantedMode;
+        PocketMapUtility.DestroyPocketMap(cabin);
+        Find.World.renderer.wantedMode = wanted;
+    }
+
+    /// <summary>Sets everyone on a cabin's map, and what they left there, down on a map, then closes it. The vehicle's label names it.</summary>
+    static void EvacuateMap(Map cabin, string vehicleLabel, Map? previousMap, IntVec3 at)
+    {
         Map? to = previousMap is { Disposed: false } ? previousMap : (cabin.Parent as PocketMapParent)?.sourceMap;
         if (to == null || to.Disposed) to = Find.AnyPlayerHomeMap;
         if (to != null)
@@ -272,9 +293,49 @@ public static class VehicleCabins
                 GenSpawn.Spawn(pawn, cell, to);
             }
             SetDownLeftovers(cabin, to, near);
-            Messages.Message("PhobosCabin_Evacuated".Translate(comp.Vehicle.LabelShort.Named("VEHICLE")), new TargetInfo(near, to), MessageTypeDefOf.NegativeEvent);
+            Messages.Message("PhobosCabin_Evacuated".Translate(vehicleLabel.Named("VEHICLE")), new TargetInfo(near, to), MessageTypeDefOf.NegativeEvent);
         }
-        PocketMapUtility.DestroyPocketMap(cabin);
-        comp.SetCabin(null);
+        CloseMap(cabin);
+    }
+
+    /// <summary>
+    /// Every in-game hour (fault-read 25 Nov 2026, C4): a cabin whose vehicle stopped being without being destroyed on a map (killed while
+    /// off one, sold, abandoned from a caravan, left on a map that closed) would keep its people on its inside for ever, with its map running.
+    /// Any cabin map whose vehicle is gone, or no longer the player's, is emptied onto its last map or the player's home, and closed.
+    /// </summary>
+    internal static void SweepOrphans()
+    {
+        foreach (PocketMapParent pocket in Find.World.pocketMaps.ToList())
+        {
+            if (pocket.Map is not { } map || WayOut(map) == null) continue;
+            CompPhobosVehicleCabin? comp = DeckTents.Of(map);
+            VehiclePawn? vehicle = comp?.Vehicle;
+            if (vehicle != null && !Orphaned(vehicle)) continue;
+            if (comp != null)
+            {
+                Evacuate(comp, null, IntVec3.Invalid);
+                continue;
+            }
+            EvacuateMap(map, "PhobosCabin_LostVehicle".Translate().Resolve(), null, IntVec3.Invalid);
+        }
+    }
+
+    /// <summary>Whether a cabin's vehicle no longer carries it: gone, not the player's, or lying among the world's pawns rather than on a
+    /// map, in a caravan, in a hitch or in flight.</summary>
+    static bool Orphaned(VehiclePawn vehicle) =>
+        vehicle.Destroyed || vehicle.Discarded || vehicle.Faction != Faction.OfPlayer
+        || (!vehicle.Spawned && (vehicle.ParentHolder == null || vehicle.ParentHolder is RimWorld.Planet.WorldPawns));
+}
+
+/// <summary>Runs the cabins' orphan sweep once an in-game hour (fault-read 25 Nov 2026, C4). Saves nothing.</summary>
+public sealed class WorldComponent_PhobosCabinSweep : RimWorld.Planet.WorldComponent
+{
+    public WorldComponent_PhobosCabinSweep(RimWorld.Planet.World world) : base(world) { }
+
+    public override void WorldComponentTick()
+    {
+        base.WorldComponentTick();
+        if (Find.TickManager.TicksGame % GenDate.TicksPerHour != 0 || Find.World.pocketMaps.Count == 0) return;
+        VehicleCabins.SweepOrphans();
     }
 }

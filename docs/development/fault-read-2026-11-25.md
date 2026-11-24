@@ -1,7 +1,6 @@
 # Fault-read of the untested work since 21 Nov (25 Nov 2026)
 
-**Status (25 Nov 2026):** 51 faults and smaller points found by reading, across six areas; none fixed yet. The owner's choices on
-fixing are recorded below once given.
+**Status (25 Nov 2026):** 51 faults and smaller points found by reading, across six areas. All fixed, none tested in game: area A by the radio-autonomy session, the rest in D'thorga Framework 0.284.0, Radio Framework 0.16.1 and Medical 0.26.2 ([as fixed](#as-fixed-framework-02840-radio-framework-0161-medical-0262)); one point kept as it is (B4's overflow).
 
 The owner chose a fault-read as the next work (25 Nov 2026, question card: "Fault-read (Recommended)"), with 437 test rows waiting and
 58 passed. Its scope is the gameplay code built since [the fault-read of 21 Nov](fault-read-2026-11-21.md): 171 code commits, D'thorga
@@ -129,3 +128,34 @@ to tank transfers and the waste tank's lay, take-up and priority; cabins opening
 striking; the burnt-out hull, the turret queue save and other factions' fire; brakes per wheel apart from E1, descents, turbine
 ratings, the service yard and the recipe-loop fix; the radio's coverage passes, link paths and feedlines; radiation's course maths,
 saves and Biotech gates. Every Seen key in these areas has its evidence row, and every Keyed string used exists.
+
+## As fixed (Framework 0.284.0, Radio Framework 0.16.1, Medical 0.26.2)
+
+Areas B to F were fixed by the session that ran the read, on the owner's "Fix all now" (25 Nov 2026); area A by the radio-autonomy
+session, which marked its own rows. **None of it is tested in game**: rows 509 to 511, with rows 501 to 508 for the work they fix.
+
+- **B**: B1 the pump asks for power only while it pushes (out to plumbing, a vehicle or a building, or driving a transfer for a tank
+  with no pump of its own), and stops asking when nothing takes the load; B2 `TakeOut` clears a drained compartment; B3 a postfix on
+  the game's hopper alert takes our paste taps out; B4 a set-up trailer that despawns puts its tower's water back in the tank; **water
+  over a brim-full tank at pack-up is still lost, as it would overflow (kept, an agent choice)**; B5 the valve closes with its setting;
+  B6 the fraction goes back into the tank; B7 the older load's spoil clock wins through a pump and into the tap, a packed tap ages at
+  the temperature where it is held, and a tap under one serving empties; B8 road meals register what they took, through the game's own
+  ingredients.
+- **C**: C1 only "still exists" on the whole job, "spawned and not forbidden" on the walk; C2 entering a towed vehicle's cabin is
+  refused; C3 a prefix stops our cabin and tent beds being claimed (a recorded skip); C4 a world component empties a cabin whose vehicle
+  is gone, not the player's, or among the world's pawns, each in-game hour; **C5's food part was the reader's misreading** (the cabin
+  look runs on a map too), its water part fixed; C6 a bed left behind is remembered, picked up again where it stands, and never made
+  anew while it stands elsewhere; C7 nobody asleep takes part in life aboard; C8 closing a cabin keeps the world view; C9 one tent and
+  one bunk each, and the button no longer changes saved state; C10 the bunk walk checks once a second.
+- **D**: D1 a by-name postfix on Combat Extended's `StartExplosionCE`; D2 a suppressed zone's clock stops and the zone feeding it starts
+  again; D3 `TyreFire.WentOut` on every way a fire goes out; D4 attached fires count only spawned on the vehicle's map; D5 the jamming
+  cache drops closed maps; D6 the view factor cached a rare tick; D7 the liner's label and health in the spall rules Def; D8 the report
+  line moved; D9 airborne checked first; D10 charges read whatever the bracket's state; D11 as the owner chose.
+- **E**: E1 a part copied for an older save keeps that health; E2 one rated power, worked out once, for the drivetrain and the brake; E3
+  a held vehicle weighs its powertrain's kilograms, or its kerb figure; E4 the first look after a load records the engines as they are;
+  E5 starved engines are out, regeneration before the fuel setting's return, thrust fittings after lift-to-weight.
+- **F**: F1 pawn Defs left out and kinds deduplicated by their figures; F2 the giver ends a course once with the model off; F3 a dose is
+  recorded and the next step works out the rest; F4 an unpowered desk paints nothing, fog counted apart from the cover map's changes;
+  F5 the keyed state once a tick; F6 an amplifier lifts the glow to its own full-drive output, never chained; F7 a Keyed dBm label,
+  the waterfall started on the station's floor, every band named; F8 our late effects and medicines in the dev action; F9 dust shown
+  only with the model on.

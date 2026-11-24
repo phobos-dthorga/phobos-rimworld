@@ -74,7 +74,11 @@ public static class CargoRefuel
         foreach ((CompPhobosTank tank, PhobosTankContentsDef contents, _) in TowedFuel(vehicle).ToList())
         {
             if (taken >= most) break;
-            taken += (int)tank.TakeOut(contents, most - taken, out _);
+            float got = tank.TakeOut(contents, most - taken, out int quality);
+            int whole = (int)got;
+            // Only whole units are poured: the fraction goes back into the tank (fault-read 25 Nov 2026, B6).
+            if (got - whole > 0f) tank.PutIn(contents, got - whole, quality);
+            taken += whole;
         }
         return taken;
     }

@@ -29,6 +29,9 @@
     <linerSpentAt>0.25</linerSpentAt>
     <linerNarrowAbove>0.5</linerNarrowAbove>
     <linerWearPerStopped>0.5</linerWearPerStopped>
+    <!-- The liner part added to other authors' vehicles marked as lined (Framework 0.284.0): its label on their Health tabs, and its health. -->
+    <linerLabel>spall liner</linerLabel>
+    <linerHealth>60</linerHealth>
     <!-- Four panels line a cab (the upgrade's own cost); a re-line takes one for each quarter missing. -->
     <panelsPerLiner>4</panelsPerLiner>
     <linerPanel>PhobosVehicles_SpallLinerPanel</linerPanel>

@@ -101,10 +101,16 @@ public sealed class Powertrain
         EngineXml engine = def?.engine ?? new EngineXml();
         AlternatorRatio = Get("alternatorRatio", engine.alternatorRatio);
         ElectronicsShare = Get("electronicsShare", engine.electronicsShare);
+        // The engine's rated power before fittings, by the vehicle's own figure, its loadout's, or its class's per tonne: one answer for the
+        // drivetrain and the compression brake (fault-read 25 Nov 2026, E2: the brake read only the loadout's, NaN on a class drivetrain).
+        double ratedKw = vehicleDef.GetModExtension<PhobosVehicleFiguresExtension>() is { } own && PhobosVehicleFiguresExtension.Given(own.ratedKilowatts)
+            ? own.ratedKilowatts
+            : Get("ratedKilowatts", engine.ratedKilowatts) is float rated && !float.IsNaN(rated) && rated > 0 ? rated
+            : Get("kilowattsPerTonne", engine.kilowattsPerTonne) * KerbKg / 1000;
         double compression = Get("compressionBrakeShare", engine.compressionBrakeShare);
         CompressionBrakeShare = compression >= 0 ? compression
             : engine.kind == EngineKind.Piston && engine.fuel == EngineFuel.Diesel && engine.idleFuelShare <= 0
-              && Get("ratedKilowatts", engine.ratedKilowatts) >= DescentRule.CompressionBrakeFromKw ? 1 : 0;
+              && ratedKw >= DescentRule.CompressionBrakeFromKw ? 1 : 0;
         // Fittings and tunes move only piston engines' figures (their Defs say so); a change builds the powertrain again.
         VehicleFittings fittings = comp.Fittings;
         ForcedInduction = engine.turbocharged || fittings.Grants(ForcedInductionGrant);
@@ -118,11 +124,7 @@ public sealed class Powertrain
             LaunchRpm = engine.launchRpm,
             RatedRpm = engine.ratedRpm,
             // An inlet barrier's filter costs a share of the power (Framework 0.150.0); fitted or not, read when the systems are built.
-            RatedPowerKw = fittings.PowerFactor * (1f - comp.Vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_InletBarrierLoss))
-                * (vehicleDef.GetModExtension<PhobosVehicleFiguresExtension>() is { } own && PhobosVehicleFiguresExtension.Given(own.ratedKilowatts)
-                ? own.ratedKilowatts
-                : Get("ratedKilowatts", engine.ratedKilowatts) is float rated && !float.IsNaN(rated) && rated > 0 ? rated
-                : Get("kilowattsPerTonne", engine.kilowattsPerTonne) * KerbKg / 1000),
+            RatedPowerKw = fittings.PowerFactor * (1f - comp.Vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_InletBarrierLoss)) * ratedKw,
             FrictionConstant = engine.frictionConstant,
             FrictionLinear = engine.frictionLinear,
             FrictionQuadratic = engine.frictionQuadratic,
@@ -172,8 +174,6 @@ public sealed class Powertrain
         {
             Turbine = MakeTurbine(t, includeWet: true);
             dryTurbine = MakeTurbine(t, includeWet: false);
-            // A re-engining or a hotter engine (aircraft service-life upgrades): a change of fittings builds the powertrain again.
-            foreach (TurbineSpec turbine in new[] { Turbine, dryTurbine }) ApplyFittings(turbine, fittings);
             waterTankKg = t.waterInjection?.tankKilograms ?? 0;
             waterKgPerSecond = t.waterInjection?.kilogramsPerSecond ?? 0;
             float limit = Get("transmissionLimit", t.transmissionLimit);
@@ -189,6 +189,9 @@ public sealed class Powertrain
                     foreach (TurbineRating rating in turbine.Ratings) rating.ThrustKn = thrust * rating.Share / Math.Max(0.01, top);
                 }
             }
+            // A re-engining or a hotter engine (aircraft service-life upgrades): a change of fittings builds the powertrain again. After the
+            // thrust a lift-to-weight sets, so a thrust-lifted craft keeps its fittings' thrust (fault-read 25 Nov 2026, E5).
+            foreach (TurbineSpec turbine in new[] { Turbine, dryTurbine }) ApplyFittings(turbine, fittings);
         }
     }
 
@@ -389,9 +392,10 @@ public sealed class Powertrain
     public (int working, int engines) Engines()
     {
         int working = 0;
-        foreach (string role in engineRoles)
+        for (int i = 0; i < engineRoles.Length; i++)
         {
-            if (comp.PartEfficiency(role, 1f) > TurbineModel.EngineOutBelow) working++;
+            // An engine its side tank starves is out too, as the engine orders count it (fault-read 25 Nov 2026, E5).
+            if (comp.PartEfficiency(engineRoles[i], 1f) > TurbineModel.EngineOutBelow && !comp.SideTanks.Starved(i)) working++;
         }
         return (working, engineRoles.Length);
     }
@@ -1051,12 +1055,10 @@ public sealed class Powertrain
         bool followsModel = VehicleFittings.FuelFollowsModel;
         // A stage's fuel factor joins the fittings' (Framework 0.123.0: a clogged air filter, cross-links G8).
         double tuned = comp.Fittings.TunedFuelFactor * comp.EngineFuelFactor;
-        if ((!followsModel && tuned == 1) || !Full || !Ground || hours <= 0) return;
+        if (!Full || !Ground || hours <= 0) return;
         CompFueledTravel? fuel = comp.Vehicle.CompFueledTravel;
-        // Standing work turns the engine with nobody driving (Framework 0.131.0): the model burns for it too, where the work says it may
-        // and the fuel follows the model; otherwise the work burns its own fixed rate, as before.
-        bool working = comp.WorkTurningEngine && followsModel && comp.WorkFuelFromModel;
-        // Framework 0.251.0: an electric drive puts a descent back into its pack, after its losses.
+        // Framework 0.251.0: an electric drive puts a descent back into its pack, after its losses. Whatever the fuel setting: it is part of
+        // descents, not of load-dependent fuel (fault-read 25 Nov 2026, E5).
         if (fuel != null && fuel.Props.electricPowered && Result.RegenKw > 0)
         {
             PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
@@ -1064,6 +1066,10 @@ public sealed class Powertrain
             VehicleFuel.GiveBack(comp.Vehicle, (float)(share * fuel.FuelCapacity), FuelUse.Engine, comp);
             if (Seen.Wants("vehicles.descent-regen", comp.Vehicle)) Seen.Note("vehicles.descent-regen", comp.Vehicle, Result.RegenKw.ToString("0") + " kW");
         }
+        if (!followsModel && tuned == 1) return;
+        // Standing work turns the engine with nobody driving (Framework 0.131.0): the model burns for it too, where the work says it may
+        // and the fuel follows the model; otherwise the work burns its own fixed rate, as before.
+        bool working = comp.WorkTurningEngine && followsModel && comp.WorkFuelFromModel;
         if (fuel == null || fuel.Props.electricPowered || !(comp.EngineRunningRaw || working)) return;
         // On a map Vehicle Framework burns its daily rate while moving and half of it idling; on the world map its own per-tick world
         // rate (with the author's world multiplier) while the caravan moves, and nothing while it stands. With nobody at the controls

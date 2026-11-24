@@ -363,7 +363,7 @@ public static class Spall
         if (!MarkedLined(def) || !OptionalMods.IsActive(OptionalMods.CombatExtended) || def.components == null || def.components.Any(p => p.key == LinerKey)) return;
         var add = new PartToAdd
         {
-            key = LinerKey, label = "spall liner", health = 60, depth = VehicleComponent.VehiclePartDepth.Internal, hitWeight = 0.05f,
+            key = LinerKey, label = Rules.linerLabel, health = (int)Rules.linerHealth, depth = VehicleComponent.VehiclePartDepth.Internal, hitWeight = 0.05f,
             cellsOf = props.roleKeys.ContainsKey("Cabin") ? "Cabin" : "Engine", armor = new List<StatModifier>(), countsTowardDestruction = false,
         };
         def.components.Add(VehicleSystems.MakePart(def, add, props));

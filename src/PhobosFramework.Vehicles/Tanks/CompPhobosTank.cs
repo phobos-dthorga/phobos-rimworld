@@ -140,6 +140,8 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
     public int SelectedIndex => Mathf.Clamp(selected, 0, Mathf.Max(0, compartments.Count - 1));
     public PhobosTankContentsDef? Contents => Selected.contents;
     public float Amount => Selected.amount;
+    /// <summary>The selected compartment's spoilage clock, in hours (fault-read 25 Nov 2026, B7): a port passes it on with the load.</summary>
+    public float SpoilHours => Selected.spoilHours;
     /// <summary>What the selected compartment's load was made from (Framework 0.271.0, NP1): ports read it to pass it on, and add to it.</summary>
     public IReadOnlyList<ThingDef> Ingredients => Selected.ingredients;
     /// <summary>A port adds what a load it drew in was made from.</summary>
@@ -549,8 +551,15 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
     /// <summary>Whether the pump buttons are offered: set up, or a trailer that pumps packed and stands on the map.</summary>
     public bool OffersPumpModes => deployed || (Props.pumpsPacked && Fitted != null && Vehicle.Spawned);
 
-    /// <summary>Whether its electric pump asks for power now: fitted on a trailer that needs it, and pumping.</summary>
-    public bool PumpWantsPower => Props.needsPumpPower && ElectricPump && PumpReady && mode != TankPumpMode.Hold && !stalled;
+    /// <summary>
+    /// Whether its pump had something to push at the last look: a load out to plumbing, a vehicle or a building, or a transfer with a tank
+    /// beside it that has no pump of its own. Loading by gravity, a full or empty tank, or nowhere taking the load asks nothing (fault-read
+    /// 25 Nov 2026, B1). Derived, never saved.
+    /// </summary>
+    bool pushWanted;
+
+    /// <summary>Whether its electric pump asks for power now: fitted on a trailer that needs it, and with something to push.</summary>
+    public bool PumpWantsPower => Props.needsPumpPower && ElectricPump && PumpReady && mode != TankPumpMode.Hold && !stalled && pushWanted;
 
     /// <summary>What the trailer's electric pump draws through a lead now, in watts: its own figure while it asks for power.</summary>
     public float PumpWattsWanted => PumpWantsPower ? Props.electricPumpWatts : 0f;
@@ -667,6 +676,8 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         if (moved <= 0f) return 0f;
         from.amount -= moved;
         into.quality = Mathf.Max(into.quality, from.quality);
+        // Its age goes with it: the older of the two loads sets the clock (fault-read 25 Nov 2026, B7), so pumping food across never freshens it.
+        into.spoilHours = into.HasLoad ? Mathf.Max(into.spoilHours, from.spoilHours) : from.spoilHours;
         // What it was made from goes with it (Framework 0.271.0, NP1).
         into.AddIngredients(from.ingredients);
         if (!from.HasLoad) from.Clear();
@@ -678,6 +689,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
     {
         pumpStatus = null;
         transferStatus = null;
+        pushWanted = false;
         TankCompartment compartment = Selected;
         PhobosTankContentsDef? fluid = compartment.contents;
         if (mode == TankPumpMode.Hold) return;
@@ -713,6 +725,8 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
                 return;
             }
             bool tankWasEmpty = !HasLoad;
+            // A tank beside it giving with no pump of its own is drawn by this one's (fault-read 25 Nov 2026, B1): that wants power.
+            if (Props.needsPumpPower && TanksBeside().Any(tank => tank.GivesNow(fluid) && !tank.PumpPushes)) pushWanted = true;
             // Another tank beside it, set up and pumping out the same, comes first (Framework 0.111.0): the tanker fills a bowser, or a bowser a tanker.
             float moved = GiverBeside(fluid) is { } giver ? giver.GiveTo(compartment, most) : RunPorts(fluid, most, load: true);
             if (moved <= 0f) return;
@@ -728,12 +742,16 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
             pumpStatus = "PhobosVehicleSystems_TankEmpty".Translate().Resolve();
             return;
         }
+        // A tank beside it taking with no pump of its own is filled by this one's (fault-read 25 Nov 2026, B1): that wants power.
+        if (Props.needsPumpPower && TanksBeside().Any(tank => tank.TakesNow(fluid) && !tank.PumpPushes)) pushWanted = true;
         // A tank beside it set up to take the same draws from this one on its own round; this one gives nothing else meanwhile.
         if (LoaderBeside(fluid) is { } loader)
         {
             transferStatus = "PhobosTank_InspectGivingTo".Translate(loader.Vehicle.LabelShort.Named("OTHER")).Resolve();
             return;
         }
+        // Pushing out to plumbing, a vehicle or a building wants the pump's power.
+        pushWanted = true;
         // A trailer with no powered pump pushes nothing out by itself (Framework 0.283.0): it is emptied only by a pump beside it, above.
         if (!PumpPushes)
         {
@@ -745,7 +763,12 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
             Seen.Note("trailers.electric-pump", Vehicle, PumpPowerSource.ToString(), PumpPowerSource.ToString());
         }
         float given = RunPorts(fluid, TankRule.Moved(rate, HoursPerRareTick, ThickFactor(fluid), compartment.amount, float.MaxValue), load: false);
-        if (given <= 0f) return;
+        // Nowhere took the load: the pump stands idle and asks for nothing until the next look.
+        if (given <= 0f)
+        {
+            pushWanted = false;
+            return;
+        }
         compartment.amount = Mathf.Max(0f, compartment.amount - given);
         if (!compartment.HasLoad) compartment.Clear();
         AfterLoadChange();
@@ -945,6 +968,9 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
             compartment.amount -= take;
             taken += take;
             quality = Mathf.Max(quality, compartment.quality);
+            // Emptied, it forgets its load as every other drain does (fault-read 25 Nov 2026, B2): its quality, ingredients and
+            // freshness would otherwise mark the next load, and clean water pumped in later would read as contaminated.
+            if (!compartment.HasLoad) compartment.Clear();
         }
         if (taken > 0f) AfterLoadChange();
         return taken;

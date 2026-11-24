@@ -70,7 +70,9 @@ public class JobDriver_PhobosBunkSleep : JobDriver
     protected override IEnumerable<Toil> MakeNewToils()
     {
         this.FailOnDespawnedOrNull(TargetIndex.A);
-        this.FailOn(() => Vehicle.GetComp<CompPhobosCamp>() is not { } camp || camp.BedtimeRefusal(pawn) != null);
+        // Checked once a second, not every tick (fault-read 25 Nov 2026, C10): the refusal scans for threats and tests the path.
+        this.FailOn(() => pawn.IsHashIntervalTick(GenTicks.TicksPerRealSecond)
+            && (Vehicle.GetComp<CompPhobosCamp>() is not { } camp || camp.BedtimeRefusal(pawn) != null));
         yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
         yield return Toils_General.Wait(ClimbTicks).WithProgressBarToilDelay(TargetIndex.A);
         var climb = ToilMaker.MakeToil("ClimbIntoBunk");

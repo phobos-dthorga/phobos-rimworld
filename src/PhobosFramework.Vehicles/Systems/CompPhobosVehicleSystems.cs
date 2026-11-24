@@ -1015,6 +1015,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             VehicleComponent? part = Vehicle.statHandler.GetComponent(key);
             if (part == null) continue;
             double? saved = savedPartHealth.TryGetValue(key, out float value) ? value : null;
+            // A part added one for each part of a role to an older save took the worn health of the one it replaces as it was made
+            // (PartsOnLoad, Framework 0.273.3): it keeps that, rather than starting whole (fault-read 25 Nov 2026, E1).
+            if (saved == null && EachPart.HealthFrom(Vehicle.VehicleDef, key) != null) saved = part.Health;
             // A spall liner starts at nothing, "not fitted", unless the save holds its health or its upgrade is fitted (Framework 0.207.0):
             // Vehicle Framework makes every part whole, which would hand a new truck a liner nobody fitted.
             float health = key == Spall.LinerKey

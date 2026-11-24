@@ -27,10 +27,11 @@ public static class AirborneEvasion
         if (launcher == vehicle || !vehicle.Spawned || vehicle.Destroyed) return 0f;
         AvionicsFit? fit = AirCombat.Systems(vehicle)?.Props.loadout?.avionics;
         bool dodges = fit is { mapEvasion: > 0f };
+        // On the ground nothing is dodged: asked first, so the pod's note is never written for a parked aircraft (fault-read 25 Nov 2026, D9).
+        if (!OnMapFlight.Airborne(vehicle)) return 0f;
         // A self-protection jamming pod (Framework 0.226.0) fools an automated turret's aim, on any aircraft, its own dodge or not.
         float pod = EcmPod.ChanceAgainst(vehicle, launcher);
         if (!dodges && pod <= 0f) return 0f;
-        if (!OnMapFlight.Airborne(vehicle)) return 0f;
         float dodge = dodges ? AirCombat.Evasion(vehicle, Mathf.Clamp01(fit!.mapEvasion)) : 0f;
         return 1f - (1f - dodge) * (1f - pod);
     }

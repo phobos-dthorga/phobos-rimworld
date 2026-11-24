@@ -111,9 +111,9 @@ public static class BudgetSteps
             // Engineer: the level at the start and at the end.
             Text.Anchor = TextAnchor.LowerLeft;
             GUI.color = Gain;
-            Widgets.Label(new Rect(plot.x + 2f, Y(levels[0]) - 16f, stepWidth * 2f, 16f), $"{levels[0]:0} dBm");
+            Widgets.Label(new Rect(plot.x + 2f, Y(levels[0]) - 16f, stepWidth * 2f, 16f), "PhobosRadio_BudgetLevelDbm".Translate(levels[0].ToString("0").Named("LEVEL")));
             GUI.color = Floor;
-            Widgets.Label(new Rect(plot.x + stepWidth * (levels.Length - 2), arrive + 14f, stepWidth * 2f, 16f), $"{direction.ReceivedDbm:0} dBm");
+            Widgets.Label(new Rect(plot.x + stepWidth * (levels.Length - 2), arrive + 14f, stepWidth * 2f, 16f), "PhobosRadio_BudgetLevelDbm".Translate(direction.ReceivedDbm.ToString("0").Named("LEVEL")));
             GUI.color = Color.white;
         }
         Text.Anchor = TextAnchor.UpperLeft;

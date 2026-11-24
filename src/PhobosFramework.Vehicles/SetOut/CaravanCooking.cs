@@ -253,7 +253,7 @@ public class PhobosCaravanCooking : WorldComponent
             if (Seen.Wants("trailers.caravan-kettle-water", kitchen)) Seen.Note("trailers.caravan-kettle-water", kitchen, drawn.ToString("0.#") + " L");
         }
 
-        TakeNutrition(raw, meals * perMeal);
+        List<ThingDef> madeFrom = TakeNutrition(raw, meals * perMeal);
         BurnFuel(burners, carriedFuel, meals * rules.fuelPerMeal);
 
         int poisoned = 0, left = meals;
@@ -270,8 +270,8 @@ public class PhobosCaravanCooking : WorldComponent
             cook.skills.Learn(SkillDefOf.Cooking, byThisCook * rules.experiencePerMeal);
         }
 
-        Give(caravan, mealDef, meals - poisoned, null);
-        Give(caravan, mealDef, poisoned, FoodPoisonCause.IncompetentCook);
+        Give(caravan, mealDef, meals - poisoned, null, madeFrom);
+        Give(caravan, mealDef, poisoned, FoodPoisonCause.IncompetentCook, madeFrom);
         NamedArgument count = meals.Named("COUNT"), meal = mealDef.label.Named("MEAL");
         string said = way switch
         {
@@ -312,18 +312,22 @@ public class PhobosCaravanCooking : WorldComponent
         thing.def.IsNutritionGivingIngestible && recipe.fixedIngredientFilter.Allows(thing) && (recipe.defaultIngredientFilter?.Allows(thing) ?? true)
         && recipe.ingredients[0].filter.Allows(thing);
 
-    /// <summary>Takes this much nutrition from the raw food, the most plentiful first, splitting stacks as the game's cooks would.</summary>
-    static void TakeNutrition(List<Thing> raw, float wanted)
+    /// <summary>Takes this much nutrition from the raw food, the most plentiful first, splitting stacks as the game's cooks would. Returns
+    /// what it took, for the meals' ingredients (fault-read 25 Nov 2026, B8: precepts read them).</summary>
+    static List<ThingDef> TakeNutrition(List<Thing> raw, float wanted)
     {
+        var used = new List<ThingDef>();
         foreach (Thing thing in raw.OrderByDescending(t => t.stackCount))
         {
-            if (wanted <= 0.0001f) return;
+            if (wanted <= 0.0001f) break;
             float each = thing.GetStatValue(StatDefOf.Nutrition);
             if (each <= 0f) continue;
             int count = Mathf.Min(thing.stackCount, Mathf.CeilToInt(wanted / each - 0.0001f));
             wanted -= count * each;
+            if (count > 0 && !used.Contains(thing.def)) used.Add(thing.def);
             thing.SplitOff(count).Destroy();
         }
+        return used;
     }
 
     static void BurnFuel(List<CompRefuelable> burners, List<Thing> carried, float wanted)
@@ -344,7 +348,7 @@ public class PhobosCaravanCooking : WorldComponent
         }
     }
 
-    static void Give(Caravan caravan, ThingDef mealDef, int count, FoodPoisonCause? poison)
+    static void Give(Caravan caravan, ThingDef mealDef, int count, FoodPoisonCause? poison, List<ThingDef> madeFrom)
     {
         while (count > 0)
         {
@@ -353,6 +357,11 @@ public class PhobosCaravanCooking : WorldComponent
             Thing meals = ThingMaker.MakeThing(mealDef);
             meals.stackCount = stack;
             if (poison is { } cause) meals.TryGetComp<CompFoodPoisonable>()?.SetPoisoned(cause);
+            // What they were cooked from, as a stove's meals record it (the game keeps the first three).
+            if (meals.TryGetComp<CompIngredients>() is { } ingredients)
+            {
+                foreach (ThingDef food in madeFrom) ingredients.RegisterIngredient(food);
+            }
             CaravanInventoryUtility.GiveThing(caravan, meals);
         }
     }

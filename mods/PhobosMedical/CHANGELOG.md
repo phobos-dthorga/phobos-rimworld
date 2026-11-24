@@ -21,6 +21,19 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.26.2] - 2026-11-25 - Draft
+
+Fixes from the fault-read of 25 November 2026
+
+### Fixed
+
+- **Turning the radiation model off ends a sickness in progress** (F2): anyone part-way through a course kept their early sickness or
+  illness for good, vomiting or at a life-threatening stage. Their dose is kept for if it is turned on again.
+- **Rimatomics' doses cost less** (F3): each dose, every few ticks for each radioactive thing near someone, worked out their whole
+  course at once; it now waits for the next regular look, a few seconds on.
+- **Smaller fixes**: the dev action to remove radiation takes our late effects and medicines too (F8); clothes are not shown dusty
+  while the radiation model is off (F9).
+
 ## [0.26.1] - 2026-11-24 - Draft
 
 Radiation sickness no longer comes back with no new dose

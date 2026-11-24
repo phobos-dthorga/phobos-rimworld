@@ -263,10 +263,15 @@ public static class FireFighting
         {
             if (!FireFightingRule.Discharges(comp.burning, zone, (ready & zone) != 0)) continue;
             (FireZones left, double share) = FireFightingRule.Suppress(comp.burning, zone);
+            FireZones wereBurning = comp.burning;
             comp.spent |= zone;
             comp.burning = left;
+            // Its spread clock stops, and the zone feeding it starts again, so it is not relit at the next look (fault-read 25 Nov 2026, D2).
+            comp.Quenched(zone, Find.TickManager.TicksGame);
             if (left == FireZones.None)
             {
+                // Tyres that burned may smoulder and light again (FR11), however the fire went out (fault-read 25 Nov 2026, D3).
+                TyreFire.WentOut(comp, wereBurning);
                 AttachedFires.PutOut(vehicle);
                 comp.ClearZones();
             }
@@ -346,7 +351,12 @@ public static class FireFighting
         AttachedFires.KnockDown(vehicle, Rules.knockDown);
         comp.charges = FireFightingRule.AfterUse(comp.charges);
         bool out_ = AttachedFires.Biggest(vehicle) <= 0f;
-        if (out_) comp.ClearZones();
+        if (out_)
+        {
+            // Tyres that burned may smoulder and light again (FR11), however the fire went out (fault-read 25 Nov 2026, D3).
+            TyreFire.WentOut(comp, comp.burning);
+            comp.ClearZones();
+        }
         // Framework 0.253.0: its own sound (S142, the owner's pick), in place of the game's Interact_BeatFire.
         VehicleSystemSoundDefOf.PhobosVehicleSystems_Extinguisher.PlayOneShot(new TargetInfo(vehicle.Position, vehicle.Map));
         FleckMaker.ThrowMicroSparks(vehicle.DrawPos, vehicle.Map);
@@ -422,7 +432,9 @@ public sealed class CompPhobosFireFighting : VehicleComp
     public bool ExtinguisherFittedAtAll => Systems is { Usable: true } systems && systems.Fittings.Grants(FireFighting.ExtinguisherAbility);
     /// <summary>An extinguisher in a bracket not shot away: one that can be used.</summary>
     public bool ExtinguisherFitted => ExtinguisherFittedAtAll && FireFighting.PartWorks(Vehicle, FireFighting.BracketKey);
-    public int Charges => ExtinguisherFitted ? Mathf.Max(0, charges) : 0;
+    /// <summary>The charges left in it, its bracket shot away or not (fault-read 25 Nov 2026, D10: a broken bracket read as "empty"); whether it
+    /// can be used is <see cref="ExtinguisherFitted"/>'s answer.</summary>
+    public int Charges => ExtinguisherFittedAtAll ? Mathf.Max(0, charges) : 0;
     public FireZones Fitted => FireFighting.FittedSystems(Vehicle);
     /// <summary>Fitted, not spent, and its part not shot away.</summary>
     public FireZones Ready
@@ -442,6 +454,23 @@ public sealed class CompPhobosFireFighting : VehicleComp
         if ((zones & FireZones.RunningGear) != 0 && gearSince < 0) gearSince = now;
         if ((zones & FireZones.EngineBay) != 0 && engineSince < 0) engineSince = now;
         if ((zones & FireZones.CrewCompartment) != 0 && crewSince < 0) crewSince = now;
+    }
+
+    /// <summary>A zone put out by its suppression system: its clock stops, and the zone that feeds it (running gear to engine, engine to
+    /// crew) starts its clock again, so it must burn its full time before it reaches the zone again (fault-read 25 Nov 2026, D2).</summary>
+    internal void Quenched(FireZones zone, int now)
+    {
+        if ((zone & FireZones.RunningGear) != 0) gearSince = -1;
+        if ((zone & FireZones.EngineBay) != 0)
+        {
+            engineSince = -1;
+            if ((burning & FireZones.RunningGear) != 0) gearSince = now;
+        }
+        if ((zone & FireZones.CrewCompartment) != 0)
+        {
+            crewSince = -1;
+            if ((burning & FireZones.EngineBay) != 0) engineSince = now;
+        }
     }
 
     internal double HoursBurning(FireZones zone, int now)

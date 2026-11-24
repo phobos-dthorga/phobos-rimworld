@@ -508,6 +508,8 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.autoLights) report.Off("lights switching themselves", "off (setting)");
         if (!Settings.weatherGrip) report.Off("weather on grip", "off (setting)");
         if (!Settings.ammoCookOff) report.Off("ammunition cook-off", "off (setting)");
+        // Fault-read 25 Nov 2026, D8: under its own setting's line, where it had slipped beneath the tyre bursts'.
+        else if (!CookOff.AmmoSystemOn) report.Off("ammunition cook-off", "Combat Extended's ammunition is not in use");
         if (!Settings.fireWearOthers) report.Off("fire wearing other factions' vehicles", "off (setting)");
         if (!Settings.fireWearUnderFireproof) report.Off("ground fire wearing fireproof vehicles' soft parts", "off (setting)");
         if (!Settings.playerCrewsBailOut) report.Off("your crews leaving a burning vehicle", "off (setting)");
@@ -517,7 +519,6 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.lopsidedThrust) report.Off("lopsided thrust costing twin jets their dodge", "off (setting)");
         if (!Settings.enginesStartInTurn) report.Off("aircraft engines lighting one after another", "off (setting)");
         if (Settings.tyreBursts) report.On("burning tyres bursting (setting)");
-        else if (!CookOff.AmmoSystemOn) report.Off("ammunition cook-off", "Combat Extended's ammunition is not in use");
         if (!Settings.spallInsideVehicles) report.Off("spall inside vehicles", "off (setting)");
         else if (!OptionalMods.IsActive(OptionalMods.CombatExtended)) report.Off("spall inside vehicles", "needs Combat Extended");
         else if (!Spall.Ready) report.Off("spall inside vehicles", "Combat Extended's vehicle armour functions not found");

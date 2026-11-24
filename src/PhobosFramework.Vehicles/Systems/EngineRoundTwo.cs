@@ -21,6 +21,8 @@ public sealed class StartSequence
     readonly CompPhobosVehicleSystems comp;
     int startedTick = -1;
     bool wasOn;
+    /// <summary>Whether it has had its first look. Derived, never saved.</summary>
+    bool noted;
 
     public StartSequence(CompPhobosVehicleSystems comp) => this.comp = comp;
 
@@ -32,6 +34,14 @@ public sealed class StartSequence
     /// <summary>Called at each update with Vehicle Framework's sign that the engine is on.</summary>
     public void Note(bool on)
     {
+        // The first look after a load, or after the systems are built again, finds the engines as they were: running ones stay lit, with no
+        // new start (fault-read 25 Nov 2026, E4: a drafted aircraft lit its engines again after every load).
+        if (!noted)
+        {
+            noted = true;
+            wasOn = on;
+            return;
+        }
         if (on && !wasOn) startedTick = Find.TickManager.TicksGame;
         if (!on) startedTick = -1;
         wasOn = on;

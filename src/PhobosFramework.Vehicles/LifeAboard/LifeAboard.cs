@@ -69,6 +69,16 @@ public static class LifeAboard
             Puff(vehicle);
         }
         List<Pawn> aboard = vehicle.AllPawnsAboard;
+        // People in a walk-in cabin drink from the crew water tank on a map too, as the seated riders do (the owner's card of 25 Nov 2026,
+        // fault-read C5); they already eat from the cargo there (VehicleCabins.Feed).
+        if (caravan == null && Drink != null && vehicle.Faction == Faction.OfPlayer)
+        {
+            foreach (Pawn pawn in VehicleCabins.Occupants(vehicle))
+            {
+                if (pawn.Dead || pawn.Downed || !pawn.Awake() || pawn.needs == null) continue;
+                if (Drink(vehicle, pawn) && Seen.Wants("vehicles.life-aboard-drink", vehicle)) Seen.Note("vehicles.life-aboard-drink", vehicle, pawn.LabelShort);
+            }
+        }
         if (aboard.Count == 0) return;
         if (vehicle.Faction != Faction.OfPlayer)
         {
@@ -89,7 +99,8 @@ public static class LifeAboard
                 joy.GainJoy((float)LifeAboardRule.JoyGained(Rules.stereoJoyPerHour, HoursPerLook), LifeAboardDefOf.HighCulture);
                 if (Seen.Wants("vehicles.life-aboard-music", vehicle)) Seen.Note("vehicles.life-aboard-music", vehicle, pawn.LabelShort);
             }
-            if (driving.Contains(pawn) || pawn.Downed || pawn.InMentalState) continue;
+            // Asleep (a cab-bunk sleeper, a caravan rider in bed), nobody reads, snacks, drinks or smokes (fault-read 25 Nov 2026, C7).
+            if (driving.Contains(pawn) || pawn.Downed || pawn.InMentalState || !pawn.Awake()) continue;
             Rider rider = riders.GetOrCreateValue(pawn);
             // On a map only: in a caravan the game, and Dubs' tie-in, already give its people water.
             if (caravan == null && Drink != null && Drink(vehicle, pawn) && Seen.Wants("vehicles.life-aboard-drink", vehicle)) Seen.Note("vehicles.life-aboard-drink", vehicle, pawn.LabelShort);

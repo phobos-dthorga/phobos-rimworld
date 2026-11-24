@@ -47,12 +47,13 @@ public class CompPhobosReservoir : ThingComp
     /// <summary>Whether it takes this load.</summary>
     public bool Holds(PhobosTankContentsDef? contents) => contents != null && contents == Props.contents;
 
-    /// <summary>Puts up to <paramref name="units"/> in, with what they were made from; returns how many went in.</summary>
-    public float Add(float units, IEnumerable<ThingDef>? madeFrom)
+    /// <summary>Puts up to <paramref name="units"/> in, with what they were made from and how old they are (in spoilage hours); returns how
+    /// many went in. The older load sets the clock (fault-read 25 Nov 2026, B7).</summary>
+    public float Add(float units, IEnumerable<ThingDef>? madeFrom, float ageHours = 0f)
     {
         float added = Mathf.Min(units, Space);
         if (added <= 0f) return 0f;
-        if (amount <= 0f) spoilHours = 0f;
+        spoilHours = amount <= 0f ? ageHours : Mathf.Max(spoilHours, ageHours);
         amount += added;
         if (madeFrom != null)
         {
@@ -69,7 +70,8 @@ public class CompPhobosReservoir : ThingComp
     {
         if (amount < units) return false;
         amount -= units;
-        if (amount < 0.01f) Empty();
+        // Less than a serving left can never be taken: the dregs go (fault-read 25 Nov 2026, B7).
+        if (amount < 1f) Empty();
         return true;
     }
 
@@ -83,7 +85,9 @@ public class CompPhobosReservoir : ThingComp
     public override void CompTickRare()
     {
         base.CompTickRare();
-        if (amount <= 0f || Props.contents is not { spoilsAfterDays: > 0f } contents || !parent.Spawned) return;
+        // Packed in its trailer it ages too (fault-read 25 Nov 2026, B7): the trailer's packed pieces are ticked for it (HeldGoods), at the
+        // temperature where it is held, which the game's AmbientTemperature finds through its holders, on a map or on the road.
+        if (amount <= 0f || Props.contents is not { spoilsAfterDays: > 0f } contents || parent.Destroyed) return;
         spoilHours = TankRule.NextSpoilHours(spoilHours, parent.AmbientTemperature, HoursPerRareTick, Props.spoilRate);
         if (!TankRule.Spoiled(spoilHours, contents.spoilsAfterDays)) return;
         Messages.Message("PhobosReservoir_Spoiled".Translate(parent.LabelShort.Named("THING"), contents.label.Named("LOAD")).Resolve(), parent,

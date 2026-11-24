@@ -15,10 +15,16 @@ public class HediffGiver_PhobosRadiation : HediffGiver
 
     public override void OnIntervalPassed(Pawn pawn, Hediff cause)
     {
-        if (pawn.Dead || pawn.health?.hediffSet == null || !RadiationPart.On) return;
+        if (pawn.Dead || pawn.health?.hediffSet == null) return;
         int interval = PhobosRadiationRulesDef.Current.intervalTicks;
         if (interval < GiverIntervalTicks) interval = GiverIntervalTicks;
         if ((Find.TickManager.TicksGame + pawn.HashOffset()) % interval >= GiverIntervalTicks) return;
+        // Turned off mid-course, the course is ended once rather than frozen (fault-read 25 Nov 2026, F2).
+        if (!RadiationPart.On)
+        {
+            RadiationService.StandDown(pawn);
+            return;
+        }
         if (!pawn.health.hediffSet.HasHediff(RadiationDefOf.PhobosRadiation_Dose) && !RimatomicsConversion.HasAny(pawn)) return;
         RadiationService.Step(pawn);
     }

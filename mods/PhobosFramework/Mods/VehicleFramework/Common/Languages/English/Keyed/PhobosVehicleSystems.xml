@@ -108,6 +108,7 @@
   <PhobosCabin_NotHere>the {VEHICLE} is not here.</PhobosCabin_NotHere>
   <PhobosCabin_Full>the {VEHICLE} is full: its seats and its cabin hold the same people.</PhobosCabin_Full>
   <PhobosCabin_InTheAir>the {VEHICLE} is in the air.</PhobosCabin_InTheAir>
+  <PhobosCabin_Hitched>the {VEHICLE} is hitched to {TRACTOR}: unhitch it first.</PhobosCabin_Hitched>
   <PhobosCabin_NoVehicle>the vehicle it belonged to is gone.</PhobosCabin_NoVehicle>
   <PhobosCabin_LeaveInFlight>the {VEHICLE} is flying between places; nobody can leave until it lands.</PhobosCabin_LeaveInFlight>
   <PhobosCabin_LeaveInTheAir>the {VEHICLE} is in the air; nobody can leave until it lands.</PhobosCabin_LeaveInTheAir>
@@ -117,6 +118,7 @@
   <PhobosCabin_NoRoom>There is nowhere for {PAWN} to stand on the other side.</PhobosCabin_NoRoom>
   <PhobosCabin_CouldNotOpen>The {VEHICLE}'s cabin could not be opened.</PhobosCabin_CouldNotOpen>
   <PhobosCabin_Evacuated>The {VEHICLE} is lost. Everyone in its cabin is out, with what was left there.</PhobosCabin_Evacuated>
+  <PhobosCabin_LostVehicle>vehicle</PhobosCabin_LostVehicle>
   <PhobosVehicleSystems_SettingRoughLandings>Rough landings</PhobosVehicleSystems_SettingRoughLandings>
   <PhobosVehicleSystems_SettingRoughLandingsDesc>On by default. An aircraft that lands where its crew cannot see to land, in poor visibility with its instruments out, or with its flight controls shot about, may come down hard and damage its landing gear. A working autopilot halves the risk. Never harms the crew.</PhobosVehicleSystems_SettingRoughLandingsDesc>
   <PhobosVehicleSystems_SettingAvionicsAim>Sights and weather affect an aircraft's aim</PhobosVehicleSystems_SettingAvionicsAim>

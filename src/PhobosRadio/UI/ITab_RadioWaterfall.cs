@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Phobos.Radio.Physics;
 using Phobos.Radio.Services;
 using RimWorld;
@@ -67,8 +68,9 @@ public class ITab_RadioWaterfall : ITab
         }
 
         Text.Font = GameFont.Small;
-        Widgets.Label(new Rect(rect.x, rect.y, rect.width, 24f), "PhobosRadio_WaterfallTitle".Translate((station.Props.bands.Count > 0
-            ? station.Props.bands[0].LabelCap.ToString() : string.Empty).Named("BAND")));
+        // Every band the station has (fault-read 25 Nov 2026, F7: it named the first only).
+        Widgets.Label(new Rect(rect.x, rect.y, rect.width, 24f), "PhobosRadio_WaterfallTitle".Translate(
+            string.Join(", ", station.Props.bands.Select(band => band.LabelCap.ToString())).Named("BAND")));
         var spectrum = new Rect(rect.x, rect.y + 26f, rect.width, SpectrumHeight);
         DrawSpectrum(spectrum);
         var fall = new Rect(rect.x, spectrum.yMax + 2f, rect.width, rect.height - SpectrumHeight - 26f - 64f);
@@ -91,6 +93,10 @@ public class ITab_RadioWaterfall : ITab
         var dark = (Color32)RadioPalette.At(0f);
         for (var i = 0; i < pixels.Length; i++) pixels[i] = dark;
         nextRow = 0f;
+        // The spectrum line and the needed line start from this station's own floor, not from 0 dBm and the last station's (fault-read
+        // 25 Nov 2026, F7): opened while paused, or on another station, they had sat at the top until a row was added.
+        Read(station);
+        for (var b = 0; b < Bins; b++) latest[b] = floorDbm;
     }
 
     /// <summary>The station's links as the net last worked them out: each hand-held's level arriving here, and the floor here.</summary>

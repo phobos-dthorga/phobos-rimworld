@@ -63,15 +63,19 @@ public static class RadioCoaxView
         }
     }
 
-    /// <summary>The level after one more cell: less its coax's loss, or raised by a powered amplifier (as the link budget raises it).</summary>
+    /// <summary>
+    /// The level after one more cell: less its coax's loss, or raised by a powered amplifier to what it sends from the station's full drive,
+    /// never chained through another (fault-read 25 Nov 2026, F6: two in a row showed some 400 W). The link budget lets the strongest powered
+    /// amplifier decide (Amplifier.ThroughWatts); the glow shows each where it stands, so a weaker one after a stronger lifts nothing.
+    /// </summary>
     private static double Step(double levelDb, FeedCell cell, float driveWatts, BandDef band, float metresPerCell)
     {
         if (cell.Amplifier is { } amplifier)
         {
             var props = amplifier.Props;
             if (!amplifier.Powered) return levelDb - props.lossDb;
-            var outWatts = Amplifier.OutputWatts(driveWatts * Mathf.Pow(10f, (float)(levelDb / 10.0)), props.gainDb, props.ratedOutputWatts);
-            return 10.0 * System.Math.Log10(System.Math.Max(outWatts, 1e-9) / driveWatts);
+            var outWatts = Amplifier.OutputWatts(driveWatts, props.gainDb, props.ratedOutputWatts);
+            return System.Math.Max(levelDb, 10.0 * System.Math.Log10(System.Math.Max(outWatts, 1e-9) / driveWatts));
         }
         var coax = cell.Coax;
         return coax == null ? levelDb : levelDb - Coax.LossDb(metresPerCell, coax.lossDbPer100m, coax.referenceMHz, band.centreMHz);

@@ -32,6 +32,10 @@ public class PhobosSpallRulesDef : PhobosRulesDef
     public float linerSpentAt = 0.25f;
     public float linerNarrowAbove = 0.5f;
     public float linerWearPerStopped = 0.5f;
+    /// <summary>The liner part added to other authors' vehicles marked as lined: its label, as their Health tabs show it, and its health
+    /// (fault-read 25 Nov 2026, D7: written in code before). Ours take theirs from the loadout patch.</summary>
+    [MustTranslate] public string linerLabel = "spall liner";
+    public float linerHealth = 60f;
     /// <summary>Liner panels that line one vehicle; a re-line takes one for each such share of the liner's health missing.</summary>
     public int panelsPerLiner = 4;
     /// <summary>The panel item, by name: it is D'thorga Vehicles' and loads only with Combat Extended, so the Framework never needs it.</summary>
