@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    How a jump stays with a person (Framework 0.288.0; docs/development/airdrop.md, "Landing"): each person landing by parachute notes a
+    jump in their records, and remembers it for a day: glad of it, or sore after a hard landing that hurt them. Given in code on landing,
+    one or the other. Mood figures are authored [A], small beside the game's own (a good meal +5, sleeping on the ground -4).
+    Valid while despawned: a person dropped onto a tile with no map lands straight into a caravan. Agent-authored text, held for the
+    owner's review. Not yet tested in game.
+  -->
+  <ThoughtDef>
+    <defName>Phobos_JumpedFromAircraft</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>jumped from an aircraft</label>
+        <description>I stepped out of an aircraft, felt the canopy open above me, and came down safely. What a rush.</description>
+        <baseMoodEffect>4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>Phobos_HardLanding</defName>
+    <thoughtClass>Thought_Memory</thoughtClass>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>hard landing</label>
+        <description>I hit the ground hard under my parachute, and I am still hurting from it.</description>
+        <baseMoodEffect>-4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <RecordDef>
+    <defName>Phobos_Jumps</defName>
+    <label>parachute jumps</label>
+    <description>How many times I have jumped from an aircraft by parachute.</description>
+    <type>Int</type>
+  </RecordDef>
+</Defs>

@@ -33,4 +33,12 @@ public class RaidLandingRuleTests
         Assert.True(double.IsPositiveInfinity(RaidLandingRule.Score(RaidLanding.Closest, 61, false)));
         Assert.True(RaidLandingRule.Score(RaidLanding.Closest, 8, false) < RaidLandingRule.Score(RaidLanding.Closest, 30, false));
     }
+
+    [Fact]
+    public void AParachuteDropKeepsOutOfTurretReach()
+    {
+        Assert.Equal(double.PositiveInfinity, RaidLandingRule.Score(RaidLanding.Parachute, 20, true));
+        Assert.Equal(20, RaidLandingRule.Score(RaidLanding.Parachute, 20, false), 6);
+        Assert.NotEqual(RaidLanding.Parachute, RaidLandingRule.Choose(0.999));
+    }
 }

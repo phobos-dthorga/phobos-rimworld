@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.287.0, built 25 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.288.0, built 25 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -162,6 +162,9 @@ offers to restart). RimWorld saves only what you change.
 | Aircraft and sling loads | Rough landings | An aircraft landing blind, or with its flight controls shot about, may come down hard and damage its landing gear; a working autopilot halves the risk. Never harms the crew | On |
 | Aircraft and sling loads | Sights and weather affect an aircraft's aim | A damaged or basic sight misses more; so does every aircraft at night without a night sight, and in rain, fog or snow, with a working radar giving back half | On |
 | Aircraft and sling loads | Stock helicopters fly over the map | The Cherokee, the Louie and the Mosquito take off, fly about, hover, circle and land on the map as the Osprey does, and leave and arrive flying; their pictures were drawn for flying straight off the map, so a hover may look a little odd. Off: they fly as their authors made them | Off |
+| Aircraft and sling loads | Airdrop landings can hurt and damage | People landing by parachute are hurt at the real rate (about 5 in 1,000 jumps, more at night, in wind, with heavy kit, on first jumps and when dropped low); cargo and vehicles now and then land hard. Off: everything lands unharmed, still carried by the wind | On |
+| Aircraft and sling loads | Vehicles may drop with their crew inside | A vehicle dropped by parachute keeps its crew inside, as Soviet airborne troops did in 1973 and 1976; they are hurt far more often than a jumper. High risk. Off: a vehicle with people inside stays in the hold | Off |
+| Aircraft and sling loads | Other authors' aircraft use D'thorga airdrops (the C-17) | The C-17 Globemaster III drops with real parachutes, wind and landings in place of its own airdrop. Any fault while it flies a drop on D'thorga's flight is D'thorga's. Off: it works exactly as its author made it | Off |
 | Aircraft and sling loads | The Dead Man's Switch - Expedition's air defence sees aircraft (shown with that mod) | Its radars track aircraft in flight on the world map and may fire; a launch towards a defence asks first | On |
 | Aircraft and sling loads | Hot days lift less / A ground crew hooks the load up / Weather can ground a lift / Slung loads fly slower and burn more / Emergency release and drops | Each sling rule on its own | All on |
 | Steam and electric | Realistic feed water | Off: a water stop draws a tenth of the real tender | Off |

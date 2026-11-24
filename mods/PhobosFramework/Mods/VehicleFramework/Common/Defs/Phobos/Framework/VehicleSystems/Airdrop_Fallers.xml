@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Loads coming down under parachutes (D'thorga Framework 0.288.0; docs/development/airdrop.md). Built on the game's SkyfallerBase, so Combat
+  Extended gives them its CIWS handling as it does drop pods. PhobosParachuteFaller sets each one's falling time and drift itself, draws the
+  canopy over the load, and never hits a roof. The speed is the drawn height per tick left (cells): a jump from 1,000 ft shows about 16 cells
+  up as it starts (authored).
+-->
+<Defs>
+
+  <ThingDef Name="PhobosParachuteFallerBase" ParentName="SkyfallerBase" Abstract="True">
+    <thingClass>Phobos.VehicleSystems.PhobosParachuteFaller</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Airdrop/CanopyOpen</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Cutout</shaderType>
+    </graphicData>
+    <skyfaller>
+      <movementType>ConstantSpeed</movementType>
+      <speed>0.01</speed>
+      <hitRoof>false</hitRoof>
+      <shadow>Things/Skyfaller/SkyfallerShadowCircle</shadow>
+      <ticksToImpactRange>60~60</ticksToImpactRange>
+      <cameraShake>0</cameraShake>
+    </skyfaller>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosParachuteFallerBase">
+    <defName>Phobos_ParachuteFaller_Person</defName>
+    <label>parachutist</label>
+    <graphicData>
+      <drawSize>(2.4, 2.4)</drawSize>
+    </graphicData>
+    <skyfaller>
+      <shadowSize>(1.0, 1.0)</shadowSize>
+    </skyfaller>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosParachuteFallerBase">
+    <defName>Phobos_ParachuteFaller_Bundle</defName>
+    <label>cargo bundle under a parachute</label>
+    <graphicData>
+      <drawSize>(3.4, 3.4)</drawSize>
+    </graphicData>
+    <skyfaller>
+      <shadowSize>(1.4, 1.4)</shadowSize>
+    </skyfaller>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosParachuteFallerBase">
+    <defName>Phobos_ParachuteFaller_Vehicle</defName>
+    <label>vehicle under parachutes</label>
+    <graphicData>
+      <drawSize>(4, 4)</drawSize>
+    </graphicData>
+    <skyfaller>
+      <shadowSize>(3, 3)</shadowSize>
+    </skyfaller>
+  </ThingDef>
+
+</Defs>

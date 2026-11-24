@@ -1,0 +1,200 @@
+[
+  {
+    "name": "airdrop-canopy",
+    "title": "Airdrop: open canopy (CanopyOpen)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_north.png",
+       "role": "our approved canvas piece seen from directly above (the swag): match its outline weight, shading, canvas colours and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+       "role": "our approved olive canvas kit (the deck tent kit): match its olive canvas colours and finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "for": "the open canopy drawn over a falling person, cargo bundle or vehicle (three at once for a heavy drop), scaled in code (docs/development/airdrop.md, Art)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CanopyOpen.png",
+      "size": "requested at 1024 x 1024, exported at 512 x 512 so it stays sharp scaled up over a vehicle",
+      "why": "new in-world picture for the airdrop feature; paid at the owner's card of 25 Nov 2026 (nine pictures, two tries each, US$1.50 cap)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. The round shape stays a true circle on the canvas, not an ellipse. Show no side view.\n\nCreate an ORIGINAL game sprite for a round military parachute canopy, fully open and inflated, seen from directly above while it falls. Images 1 and 2 are our approved canvas pieces from the same game, seen from above: match their outline weight, shading, olive canvas colours and finish only. Do NOT copy their shapes.\n\nSquare canvas. The canopy is one round dome filling about 90 percent of the canvas, centred, on a plain pure white background.\n\nThe canopy seen from above: a round olive-drab nylon dome divided into about twenty wedge-shaped panels by thin darker seams running from the centre out to the rim; the panels shaded in two or three olive tones so the dome reads as rounded, lit from the top of the canvas; a small round lighter-coloured vent opening at the very centre with a ring of short tapes around it; a gently scalloped rim where the panels billow out between the seams; and short thin pale suspension-line stubs just showing at the rim where each seam ends.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, cargo, crates, vehicles, harness or anything hanging below the canopy. No sky, clouds, ground or shadow outside the canopy, no perspective, no tilt."
+  },
+  {
+    "name": "airdrop-bundle",
+    "title": "Airdrop: cargo bundle under its canopy (CargoBundle)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SlingSet.png",
+       "role": "our approved strap-and-rigging item (the sling set): match its outline weight, shading, strap colours and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+       "role": "our approved olive canvas kit (the deck tent kit): match its olive canvas colours and finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "for": "a cargo bundle falling under its canopy, drawn beneath CanopyOpen",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CargoBundle.png",
+      "size": "requested at 1024 x 1024, exported at 256 x 256",
+      "why": "new in-world picture for the airdrop feature; paid at the owner's card of 25 Nov 2026"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game sprite for an air-dropped military cargo bundle, seen from directly above as it hangs under its parachute. Images 1 and 2 are our approved pieces from the same game: match their outline weight, shading, strap and canvas colours and finish only. Do NOT copy their shapes.\n\nSquare canvas. The bundle is square, filling about 75 percent of the canvas, centred, on a plain pure white background.\n\nThe bundle seen from above: a squarish load wrapped in a heavy olive-drab canvas cover, its top bulging a little with a few soft folds; four wide tan cargo straps crossing it, two running top to bottom and two running left to right, with small steel buckles; the straps meeting at one round steel ring in the very centre where the parachute hooks on; and the corners of a pale plywood skid board just showing beneath the canvas at the four corners.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive, tan and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, stencils, logos, people, parachute, canopy, lines or ropes going off the bundle. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+  },
+  {
+    "name": "airdrop-platform",
+    "title": "Airdrop: drop platform under a vehicle (DropPlatform)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 768,
+    "height": 1536,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+       "role": "our approved metal workshop piece seen from directly above (the parts bench): match its outline weight, shading, steel colours and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampTable_north.png",
+       "role": "our approved slatted piece seen from directly above (the camp table): match its finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "for": "the heavy-drop platform drawn beneath a vehicle while it falls, scaled in code to the vehicle (north facing: the vehicle's front at the top)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/DropPlatform.png",
+      "size": "portrait 1:2; requested at 768 x 1536, exported at 256 x 512",
+      "why": "new in-world picture for the airdrop feature; paid at the owner's card of 25 Nov 2026"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game sprite for an empty military heavy-drop airdrop platform, the flat metal pallet a vehicle is strapped to before it is dropped by parachute. Images 1 and 2 are our approved pieces from the same game, seen from directly above: match their outline weight, shading, steel colours and finish only. Do NOT copy their shapes.\n\nTall portrait canvas. The platform is a long rectangle with its long sides running from the TOP edge to the BOTTOM edge, filling the canvas with a small even margin, on a plain pure white background.\n\nThe platform seen from above: a flat bare-aluminium deck made of several panels laid across it, with thin dark seams between the panels; a raised steel side rail along the whole of the left edge and the whole of the right edge, with small round tie-down rings spaced evenly along both rails; slightly rounded corners; and on the deck, four evenly spaced flat rectangular stacks of yellow-tan cardboard honeycomb crush pads, their tops showing a simple honeycomb of large hexagon cells.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted aluminium grey and tan colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, stencils, logos, people, vehicles, cargo, straps across the deck, parachutes or wheels. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+  },
+  {
+    "name": "airdrop-spent-canopy",
+    "title": "Airdrop: spent parachute (SpentParachute)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+       "role": "our approved olive canvas item (the deck tent kit): match its outline weight, shading, olive canvas colours and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SlingSet.png",
+       "role": "our approved rigging item (the sling set): match its finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "for": "the spent parachute item left where a canopy landed, carried home and repacked",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/SpentParachute.png",
+      "size": "requested at 1024 x 1024, exported at 128 x 128 as our items are",
+      "why": "new in-world item for the airdrop feature; paid at the owner's card of 25 Nov 2026"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a used round military parachute lying crumpled on the ground after landing: a loose heap of olive-drab nylon canopy in soft billowing folds, one edge of the canopy spread out a little so a few of its panel seams show, and a tangle of thin pale tan suspension lines trailing out of the heap in loose loops to one side, ending in two short dark olive webbing risers with small steel links. Images 1 and 2 are our approved items: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, muted olive and tan colours, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, no harness on anyone, no cargo, no ground or grass, no text, letters, numbers or logos."
+  },
+  {
+    "name": "airdrop-personnel-chute",
+    "title": "Airdrop: personnel parachute (PersonnelParachute)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+       "role": "our approved packed canvas kit (the deck tent kit): match its outline weight, shading, olive canvas colours and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SlingSet.png",
+       "role": "our approved webbing item (the sling set): match its strap and buckle finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "for": "the packed personnel parachute item, one per jumper",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/PersonnelParachute.png",
+      "size": "requested at 1024 x 1024, exported at 128 x 128",
+      "why": "new in-world item for the airdrop feature; paid at the owner's card of 25 Nov 2026"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a packed military static-line personnel parachute lying on the floor: a squarish olive-drab canvas pack with rounded corners, closed with flaps held by a short row of small steel pins, and its harness of wide olive webbing lying folded around it: two shoulder straps looping out from the top, a chest strap and two leg straps with steel quick-release buckles, and a pale yellow static-line strap stowed in neat loops on the front of the pack. Images 1 and 2 are our approved items: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, muted olive and steel colours, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, no helmet, no open canopy, no text, letters, numbers, stencils or logos."
+  },
+  {
+    "name": "airdrop-cargo-chute",
+    "title": "Airdrop: cargo parachute (CargoParachute)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+       "role": "our approved packed canvas kit (the deck tent kit): match its outline weight, shading, olive canvas colours and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+       "role": "our approved kit item (the roof tent kit): match its finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "for": "the packed cargo parachute item, one per cargo bundle",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CargoParachute.png",
+      "size": "requested at 1024 x 1024, exported at 128 x 128",
+      "why": "new in-world item for the airdrop feature; paid at the owner's card of 25 Nov 2026"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a packed military cargo parachute set lying on the floor, two things together: on the left, a tall rounded olive-drab canvas deployment bag holding the packed canopy, tied shut at its top with a cord, with two short dark olive webbing risers and a steel connector link coming out of the top; on the right, beside it, a flat folded square of olive canvas cargo-bag cover with tan cargo straps rolled up and buckled on top of it. Images 1 and 2 are our approved items: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, muted olive, tan and steel colours, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, no open canopy, no crates, no text, letters, numbers, stencils or logos."
+  },
+  {
+    "name": "airdrop-heavy-rig",
+    "title": "Airdrop: heavy-drop rig (HeavyDropRig)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SlingSet.png",
+       "role": "our approved rigging item (the sling set): match its outline weight, shading, strap and steel colours and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+       "role": "our approved olive canvas kit (the deck tent kit): match its canvas colours and finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "for": "the heavy-drop rig item, one per vehicle dropped",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/HeavyDropRig.png",
+      "size": "requested at 1024 x 1024, exported at 128 x 128",
+      "why": "new in-world item for the airdrop feature; paid at the owner's card of 25 Nov 2026"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a heavy-drop rigging kit set out together as one compact pile: at the bottom, three short flat bare-aluminium platform panels stacked on each other with their ends showing; on the right of them, a short stack of flat yellow-tan cardboard honeycomb pads with large hexagon cells on top; and lying across the top, one big fat olive-drab canvas bag holding a cluster of packed parachute canopies, tied with tan straps, with a heavy steel clevis link on one end. Images 1 and 2 are our approved items: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, muted aluminium grey, olive and tan colours, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, no vehicles, no open canopy, no text, letters, numbers, stencils or logos."
+  },
+  {
+    "name": "airdrop-spent-platform",
+    "title": "Airdrop: spent drop platform (SpentPlatform)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SlingSet.png",
+       "role": "our approved rigging item (the sling set): match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+       "role": "our approved olive canvas kit (the deck tent kit): match its canvas colours and finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "for": "the spent drop platform item left where a vehicle landed, carried home and refurbished",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/SpentPlatform.png",
+      "size": "requested at 1024 x 1024, exported at 128 x 128",
+      "why": "new in-world item for the airdrop feature; paid at the owner's card of 25 Nov 2026"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a used section of a heavy-drop airdrop platform after landing: a short flat bare-aluminium platform with a low steel side rail on each side, lying a little askew; on it, several yellow-tan cardboard honeycomb pads crushed flat and torn, their crumpled edges splayed out; and on one end of the platform, a heaped bundle of olive-drab parachute canopy with a few tangled tan lines. Images 1 and 2 are our approved items: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, muted aluminium grey, tan and olive colours, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, no vehicles, no wheels, no fire or smoke, no ground or grass, no text, letters, numbers, stencils or logos."
+  },
+  {
+    "name": "airdrop-riggers-table",
+    "title": "Airdrop: rigger's table (RiggersTable, 4 x 1)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1536,
+    "height": 512,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+       "role": "our approved workbench seen from directly above (the parts bench, 3 x 1): match its outline weight, shading, palette, framing and finish only; do not copy its parts or layout"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+       "role": "our approved olive canvas kit (the deck tent kit): match its olive canvas colours only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "building": "the rigger's table, a work table that packs and repacks parachutes and rigs platforms: 4 x 1 cells, drawn at (4.5, 1.5) as our parts bench (3 x 1) is drawn at (3.5, 1.5); Graphic_Multi, the rigger standing at the BOTTOM edge in the north facing (the interaction cell in front)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/RiggersTable_north.png, with _east, _south and _west turned by script",
+      "size": "3:1; requested at 1536 x 512, exported at 576 x 192 north (192 x 576 east and west)",
+      "why": "new in-world building for the airdrop feature (owner's answer 9: a rigger's table of our own); paid at the owner's card of 25 Nov 2026"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a parachute rigger's packing table in a military workshop. Image 1 is our approved workbench from the same game, seen from directly above: match its outline weight, shading, palette, framing and finish only, not its parts. Image 2 is our approved olive canvas kit: match its olive canvas colours only. Do NOT copy their shapes.\n\nWide canvas, three times as wide as it is tall. The table is a long rectangle with its long sides running from the LEFT edge to the RIGHT edge, filling the canvas with a small even margin, on a plain pure white background. The rigger works standing at the BOTTOM edge.\n\nThe table seen from above: a long smooth pale wooden table top inside a thin dark steel frame; laid flat along most of the table's length, a long olive-drab parachute canopy folded into a narrow flattened strip with its folded panels stacked, held down by three small khaki canvas shot bags; from the canopy's end, its suspension lines run in neat parallel pale tan lines to a small closed olive parachute pack at the LEFT end of the table; at the RIGHT end, a steel tension clamp holding the canopy's apex; and near the BOTTOM edge, a flat wooden packing paddle and a small open tool roll with a hook knife and a few steel pins.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted wood, olive and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, stencils, logos, people, hands, chairs, lamps or anything off the table. No floor beyond the table, no shadow outside it, no perspective, no tilt."
+  }
+]

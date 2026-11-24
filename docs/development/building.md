@@ -123,7 +123,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
 | `PhobosFramework` | 3 | 0 | 1 | 0 |
-| `PhobosFramework.Vehicles` | 107 | 16 | 0 | 0 |
+| `PhobosFramework.Vehicles` | 108 | 16 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 1 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
@@ -142,7 +142,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-180 patched methods named in attributes, 24 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+181 patched methods named in attributes, 24 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -200,7 +200,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework.Vehicles</code>: 107 patched methods, 16 by name</summary>
+<details><summary><code>PhobosFramework.Vehicles</code>: 108 patched methods, 16 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles/`) |
 | --- | --- | --- |
@@ -249,6 +249,7 @@ Every HarmonyPatch attribute was read.
 | `ITab_Vehicle_Upgrades.DrawPrerequisites` | postfix | `Service/UpgradeAnyOf.cs` |
 | `JobDriver_RepairVehicle.WorkComplete` | postfix | `Service/Patches.cs` |
 | `JobGiver_GetRest.TryGiveJob` | postfix | `Cabins/DeckTents.cs`, `Camp/BunkSleep.cs` |
+| `LaunchProtocol.GetArrivalOptions` | postfix | `Airdrop/AirdropArrival.cs` |
 | `MainTabWindow_Research.PostOpen` | postfix | `Service/SetAsideResearchPatches.cs` |
 | `MapTemperature.OutdoorTemp (getter)` | postfix | `Cabins/DeckTents.cs` |
 | `MechanitorBandwidthGizmo.GizmoOnGUI` | prefix, finalizer | `Remote/MechLink.cs` |

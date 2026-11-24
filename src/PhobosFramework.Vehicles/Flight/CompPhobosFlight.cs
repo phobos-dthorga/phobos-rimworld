@@ -96,6 +96,13 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
     /// </summary>
     public bool onlyWithStockSetting;
 
+    /// <summary>
+    /// Flies on our flight only while it makes a parachute drop pass (Framework 0.288.0; docs/development/airdrop.md): set on another
+    /// author's aeroplane given our airdrop (the C-17), so its take-off, landing and world flight stay its author's. It comes in over the edge
+    /// already flying, makes its pass and leaves; on the ground our flight never answers for it.
+    /// </summary>
+    public bool onlyInDrops;
+
     /// <summary>The sound it makes in the air on our flight (Framework 0.174.0). Left out, the sound its Def starts on Vehicle Framework's launch
     /// event, if any.</summary>
     public SoundDef? flightSound;
@@ -183,7 +190,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
     /// Whether our flight answers for this aircraft now (Framework 0.160.0): always for our own aircraft; for a stock helicopter only with the
     /// player's setting on. One already in the air finishes its flight first, whatever the setting.
     /// </summary>
-    public bool Active => Airborne || !Props.onlyWithStockSetting || VehicleSystemsMod.Settings.stockHelicoptersFly;
+    public bool Active => Airborne || (!Props.onlyInDrops && (!Props.onlyWithStockSetting || VehicleSystemsMod.Settings.stockHelicoptersFly));
 
     /// <summary>Whether this vehicle flies on the map on our own flight now: it has the comp, and the comp is active.</summary>
     public static bool FliesOnOurs(VehiclePawn? vehicle) => vehicle?.GetComp<CompPhobosFlight>() is { Active: true };
@@ -251,6 +258,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         Scribe_Values.Look(ref orbitClockwise, "PhobosFlight_OrbitClockwise", true);
         ExposeLines();
         ExposeRaider();
+        ExposeDrop();
         if (Scribe.mode == LoadSaveMode.PostLoadInit && departNodes is { Count: 0 }) departNodes = null;
     }
 
@@ -312,6 +320,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         departNodes = null;
         departAction = null;
         raider = null;
+        drop = null;
         inTransit = false;
         hoverCosted = false;
         Vehicle.Transform.rotation = 0f;
@@ -592,6 +601,8 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         IArrivalAction action = departAction!;
         departNodes = null;
         departAction = null;
+        // Framework 0.288.0: a drop cut short by the edge ends here; what did not go stays aboard for home.
+        EndDrop(null);
         state = FlightState.Ground;
         climb = 0f;
         speed = 0f;
@@ -928,6 +939,8 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
                 break;
         }
         if (v.Spawned) HoverPathCost(v);
+        // Framework 0.288.0: a parachute drop under way.
+        if (drop != null && v.Spawned && Airborne) DropStep(dt);
         if (raider != null && v.Spawned && Airborne && (now + v.thingIDNumber) % RaiderThinkTicks == 0) RaiderThink();
         // Framework 0.161.0: a load to lift or set down from a hover.
         if (v.Spawned && Airborne && (now + v.thingIDNumber) % RaiderThinkTicks == 15) v.GetComp<CompPhobosSling>()?.FlightThink(this);

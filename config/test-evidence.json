@@ -3,6 +3,22 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "517": {"parts": {
+      "raiders by parachute": [{"key": "aircraft.raider", "variant": "parachute"}, {"key": "airdrop.pass", "variant": "raid"}]
+    }},
+    "516": {"parts": {
+      "a pass after a journey": ["airdrop.arrived"],
+      "a caravan on an empty tile": [{"key": "airdrop.tile", "variant": "caravan"}],
+      "a depot on an empty tile": [{"key": "airdrop.tile", "variant": "depot"}],
+      "a gift to a settlement": [{"key": "airdrop.tile", "variant": "gift"}]
+    }},
+    "515": {"parts": {
+      "a drop pass": [{"key": "airdrop.pass", "variant": "ours"}],
+      "a hover drop, climbed and low": [{"key": "airdrop.hover", "variant": "climbed"}, {"key": "airdrop.hover", "variant": "low"}],
+      "loads land": ["airdrop.landed"],
+      "a first jump": ["airdrop.novice"],
+      "a vehicle in and out of the hold": [{"key": "vehicle.hold", "variant": "loaded"}, {"key": "vehicle.hold", "variant": "unloaded"}]
+    }},
     "513": ["vehicles.work-store.surplus"],
     "512": ["vehicles.remote-station"],
     "508": ["vehicles.remote-kit-down"],

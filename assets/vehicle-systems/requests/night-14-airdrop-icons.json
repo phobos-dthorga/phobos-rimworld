@@ -1,0 +1,102 @@
+[
+  {
+    "name": "n14-airdrop-drop-here",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A round olive parachute canopy seen from the side with a small olive cargo bundle hanging under it on thin lines, falling toward a bold amber target ring below it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+    "subject": "a round olive parachute canopy with a small cargo bundle under it, falling toward an amber target ring",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/Release.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [141, 142],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Drop here (a hover drop from the aircraft's drop height)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/DropHere.png",
+      "why": "the airdrop's buttons (docs/development/airdrop.md; owner's answer 9, 25 Nov 2026: the buttons' icons on the free night run); icons are made locally"
+    }
+  },
+  {
+    "name": "n14-airdrop-drop-low",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A small round olive parachute canopy only half open, with a small olive cargo bundle under it, just above a flat pale ground line, with a bold amber warning triangle beside it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no exclamation mark, no hands, no people, no aircraft.",
+    "subject": "a half-open parachute with a cargo bundle just above the ground, with an amber warning triangle",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/Release.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [141, 142],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Drop low (drop from where it hovers, below the minimum height, with a warning)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/DropLow.png",
+      "why": "the airdrop's buttons (owner's answer 9, 25 Nov 2026); icons are made locally"
+    }
+  },
+  {
+    "name": "n14-airdrop-load-hold",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The open rear ramp of a grey cargo hold seen from the side, a sloping ramp leading up into a dark doorway, with a bold green arrow pointing up the ramp into the hold. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicles.",
+    "subject": "an open rear cargo ramp leading into a dark hold, with a green arrow pointing in",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/Lift.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [141, 142],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Load into hold (then click a vehicle beside the ramp)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/LoadHold.png",
+      "why": "the hold's buttons (airdrop design, MV5; owner's answer 9, 25 Nov 2026); icons are made locally"
+    }
+  },
+  {
+    "name": "n14-airdrop-unload-hold",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, The open rear ramp of a grey cargo hold seen from the side, a sloping ramp leading down out of a dark doorway, with a bold amber arrow pointing down the ramp out of the hold. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicles.",
+    "subject": "an open rear cargo ramp leading out of a dark hold, with an amber arrow pointing out",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/Release.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [141, 142],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Unload hold (each vehicle out behind the ramp)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/UnloadHold.png",
+      "why": "the hold's buttons (airdrop design, MV5; owner's answer 9, 25 Nov 2026); icons are made locally"
+    }
+  },
+  {
+    "name": "n14-airdrop-airdrop-on",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A small grey cargo aircraft seen from above flying across a pale round map tile, with three tiny olive parachutes dropping below its path toward an amber target ring on the tile. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people. No vehicle other than the one described.",
+    "subject": "a cargo aircraft over a round map tile, dropping three small parachutes toward an amber target ring",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/Release.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [141, 142],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Airdrop on <place> (the world map's arrival option and its targeter)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/AirdropOn.png",
+      "why": "the airdrop's buttons (owner's answer 9, 25 Nov 2026); icons are made locally"
+    }
+  }
+]

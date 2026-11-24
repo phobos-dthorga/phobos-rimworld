@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The rigger's table and its work (Framework 0.288.0; docs/development/airdrop.md, "Parachutes and the rigger's table"): a long packing
+    table where parachutes are made, repacked and rigged. Real riggers pack on long tables, with the canopy laid out its whole length.
+
+    EVERY FIGURE HERE IS AUTHORED, for the owner's review: size, build cost, every recipe's materials, work and skill.
+    - Research: D'thorga Framework's "vehicle parts" (PhobosResearch_VehicleParts), the same as the sling set, the other kit an aircraft
+      carries (agent's choice). The Framework has no aircraft research of its own, and the Osprey's ("tiltrotor aircraft") belongs to
+      D'thorga Vehicles: gating a Framework table on it would hide parachutes from anyone flying another author's aircraft (the C-17) or a
+      later aircraft of ours. No new project added.
+    - Work: the game's hour is 2,500 work at normal speed. Real riggers pack at least two T-11s an hour [P] (US Army, from a search
+      summary; docs/development/airdrop.md), so a repack is 1,250 work. Making a new one is set beside the game's tailoring (a parka:
+      80 fabric, 8,000 work; a shirt: 40 fabric, 1,600 work).
+    - Materials: canopy fabric is cloth or synthread (real canopies are nylon); steel stands for the harness hardware, risers' links and
+      the platform. The fabric counts are a gameplay compression: a real G-11 canopy alone would be hundreds of cloth.
+    - Repacking costs little or nothing beyond work; a cargo parachute's repack renews its bag's ties and padding, and a platform's
+      refurbishment renews its crushable pads and worn fittings (steel for both, a simplification: real pads are paper honeycomb).
+    Agent-authored text, held for the owner's review. Not yet tested in game.
+  -->
+
+  <!-- The table. 4 by 1 cells, a cell longer than the game's tailoring benches (3 by 1) so it reads as a long table beside them [A]. No power:
+       packing is hand work. Its picture is drawn for that 4 by 1 footprint at 4.5 by 1.5 cells (south and north pictures 3:1, east and west
+       1:3, Graphic_Multi). CutoutComplex as the game's own benches: mask pictures (RiggersTable_northm and the rest; red for the frame,
+       which takes the wood or steel's colour, black for the canopy) keep the canopy its own colour. -->
+  <ThingDef ParentName="BenchBase">
+    <defName>Phobos_RiggersTable</defName>
+    <label>rigger's table</label>
+    <description>A long, smooth table for packing parachutes. A canopy is laid out along its whole length, its lines straightened and checked, and folded into its pack. Here new parachutes and heavy-drop rigs are made, spent parachutes are repacked, and spent drop platforms are refurbished.</description>
+    <thingClass>Building_WorkTable</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Airdrop/RiggersTable</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(4.5,1.5)</drawSize>
+      <shaderType>CutoutComplex</shaderType>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>0.20</staticSunShadowHeight>
+    <costStuffCount>80</costStuffCount>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+    </stuffCategories>
+    <altitudeLayer>Building</altitudeLayer>
+    <fillPercent>0.5</fillPercent>
+    <useHitPoints>true</useHitPoints>
+    <statBases>
+      <WorkToBuild>2000</WorkToBuild>
+      <MaxHitPoints>180</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <size>(4,1)</size>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>120</uiOrder>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <hasInteractionCell>true</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <surfaceType>Item</surfaceType>
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </researchPrerequisites>
+    <inspectorTabs>
+      <li>ITab_Bills</li>
+    </inspectorTabs>
+    <building>
+      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+      <paintable>true</paintable>
+      <workTableRoomRole>Workshop</workTableRoomRole>
+      <workTableNotInRoomRoleFactor>0.8</workTableNotInRoomRoleFactor>
+    </building>
+    <comps>
+      <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+          <li>ToolCabinet</li>
+        </linkableFacilities>
+      </li>
+    </comps>
+    <placeWorkers>
+      <li>PlaceWorker_ShowFacilitiesConnections</li>
+      <li>PlaceWorker_PreventInteractionSpotOverlap</li>
+    </placeWorkers>
+  </ThingDef>
+
+  <!-- Sends colonists to the table's bills (a bench with no work giver is never worked). Tailoring, the work type of the game's tailoring
+       benches, as packing is fabric work; just below their priority (110) (agent's choice). -->
+  <WorkGiverDef>
+    <defName>Phobos_DoBillsRiggersTable</defName>
+    <label>pack parachutes</label>
+    <giverClass>WorkGiver_DoBill</giverClass>
+    <workType>Tailoring</workType>
+    <priorityInType>105</priorityInType>
+    <fixedBillGiverDefs>
+      <li>Phobos_RiggersTable</li>
+    </fixedBillGiverDefs>
+    <verb>pack at</verb>
+    <gerund>packing at</gerund>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+  </WorkGiverDef>
+
+  <!-- What every recipe at the table shares. -->
+  <RecipeDef Name="PhobosRiggerRecipeBase" Abstract="True">
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Tailor</effectWorking>
+    <soundWorking>Recipe_Tailor</soundWorking>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <recipeUsers>
+      <li>Phobos_RiggersTable</li>
+    </recipeUsers>
+  </RecipeDef>
+
+  <!-- Make new. 60 fabric and 6 steel, 3,000 work (about 1.2 hours). -->
+  <RecipeDef ParentName="PhobosRiggerRecipeBase">
+    <defName>Phobos_MakePersonnelParachute</defName>
+    <label>make personnel parachute</label>
+    <description>Sew and pack a new personnel parachute, with its harness and reserve.</description>
+    <jobString>Making a personnel parachute.</jobString>
+    <workAmount>3000</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Cloth</li>
+            <li>Synthread</li>
+          </thingDefs>
+        </filter>
+        <count>60</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>6</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Cloth</li>
+        <li>Synthread</li>
+        <li>Steel</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Phobos_PersonnelParachute>1</Phobos_PersonnelParachute>
+    </products>
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+  </RecipeDef>
+
+  <!-- 200 fabric (a G-12's canopy has about three times a T-11's area [I]) and 15 steel, 6,000 work (about 2.4 hours). -->
+  <RecipeDef ParentName="PhobosRiggerRecipeBase">
+    <defName>Phobos_MakeCargoParachute</defName>
+    <label>make cargo parachute</label>
+    <description>Sew and pack a new cargo parachute, with its cargo bag, slings and padding.</description>
+    <jobString>Making a cargo parachute.</jobString>
+    <workAmount>6000</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Cloth</li>
+            <li>Synthread</li>
+          </thingDefs>
+        </filter>
+        <count>200</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Cloth</li>
+        <li>Synthread</li>
+        <li>Steel</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Phobos_CargoParachute>1</Phobos_CargoParachute>
+    </products>
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+  </RecipeDef>
+
+  <!-- 300 fabric, 150 steel and 2 components (the parachute release and its timer), 12,000 work (about 4.8 hours). Machining sounds:
+       most of it is the platform. -->
+  <RecipeDef ParentName="PhobosRiggerRecipeBase">
+    <defName>Phobos_MakeHeavyDropRig</defName>
+    <label>make heavy-drop rig</label>
+    <description>Build a drop platform, cut its crushable pads, and pack its cluster of three large parachutes, ready to carry one vehicle.</description>
+    <jobString>Making a heavy-drop rig.</jobString>
+    <workAmount>12000</workAmount>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Cloth</li>
+            <li>Synthread</li>
+          </thingDefs>
+        </filter>
+        <count>300</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>150</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>ComponentIndustrial</li>
+          </thingDefs>
+        </filter>
+        <count>2</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Cloth</li>
+        <li>Synthread</li>
+        <li>Steel</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Phobos_HeavyDropRig>1</Phobos_HeavyDropRig>
+    </products>
+    <skillRequirements>
+      <Crafting>6</Crafting>
+    </skillRequirements>
+  </RecipeDef>
+
+  <!-- Repack: a spent parachute alone, 1,250 work (half an hour: two an hour, as real riggers pack). -->
+  <RecipeDef ParentName="PhobosRiggerRecipeBase">
+    <defName>Phobos_RepackPersonnelParachute</defName>
+    <label>repack personnel parachute</label>
+    <description>Lay out a spent personnel parachute, check its canopy and lines, and pack it again ready to jump.</description>
+    <jobString>Repacking a parachute.</jobString>
+    <workAmount>1250</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Phobos_SpentParachute</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Phobos_SpentParachute</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Phobos_PersonnelParachute>1</Phobos_PersonnelParachute>
+    </products>
+    <skillRequirements>
+      <Crafting>3</Crafting>
+    </skillRequirements>
+  </RecipeDef>
+
+  <!-- A spent cargo parachute and 10 fabric for the bag's new ties and padding, 2,500 work (an hour; a bigger canopy than a T-11). -->
+  <RecipeDef ParentName="PhobosRiggerRecipeBase">
+    <defName>Phobos_RepackCargoParachute</defName>
+    <label>repack cargo parachute</label>
+    <description>Lay out a spent cargo parachute, check its canopy, lines and bag, renew its ties and padding, and pack it again.</description>
+    <jobString>Repacking a cargo parachute.</jobString>
+    <workAmount>2500</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Phobos_SpentCargoParachute</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Cloth</li>
+            <li>Synthread</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Phobos_SpentCargoParachute</li>
+        <li>Cloth</li>
+        <li>Synthread</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Phobos_CargoParachute>1</Phobos_CargoParachute>
+    </products>
+    <skillRequirements>
+      <Crafting>3</Crafting>
+    </skillRequirements>
+  </RecipeDef>
+
+  <!-- A spent platform and 40 steel (new crushable pads and worn fittings), 5,000 work (about 2 hours). -->
+  <RecipeDef ParentName="PhobosRiggerRecipeBase">
+    <defName>Phobos_RefurbishDropPlatform</defName>
+    <label>refurbish drop platform</label>
+    <description>Straighten a spent drop platform, fit new crushable pads and straps, and repack its three parachutes, making a heavy-drop rig again.</description>
+    <jobString>Refurbishing a drop platform.</jobString>
+    <workAmount>5000</workAmount>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Phobos_SpentDropPlatform</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>40</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Phobos_SpentDropPlatform</li>
+        <li>Steel</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Phobos_HeavyDropRig>1</Phobos_HeavyDropRig>
+    </products>
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+  </RecipeDef>
+</Defs>

@@ -65,6 +65,13 @@ public partial class CompPhobosFlight
             return;
         }
         if (taken.Count > 0 && Seen.On) Seen.Note("aircraft.raid-spot-apart", v, taken.Count + " taken");
+        // Framework 0.288.0: by parachute, a drop pass upwind of open ground beyond the turrets; it flies on out of the far edge.
+        if (raider.mode == RaidLanding.Parachute)
+        {
+            BeginArrivalPass(cell, null, null, raid: true);
+            Seen.Note("aircraft.raider", v, variant: "parachute");
+            return;
+        }
         orbitX = orbitZ = float.NaN;
         if (raider.mode == RaidLanding.RopeClose)
         {
@@ -106,7 +113,11 @@ public partial class CompPhobosFlight
                 {
                     Leave();
                 }
-                else if (plan.mode == RaidLanding.RopeClose || plan.tries >= RaiderTries)
+                else if (plan.mode == RaidLanding.Parachute && Dropping)
+                {
+                    // Still letting its raiders go.
+                }
+                else if (plan.mode == RaidLanding.RopeClose || plan.mode == RaidLanding.Parachute || plan.tries >= RaiderTries)
                 {
                     if (LandingCell().IsValid)
                     {

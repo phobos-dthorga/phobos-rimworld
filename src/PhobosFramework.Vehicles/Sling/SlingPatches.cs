@@ -25,7 +25,8 @@ public static class Patch_PawnChildHolders_Sling
         // in the owner's recording of 18 Nov 2026; the comps are found once per vehicle.
         if (!Found.TryGetValue(vehicle, out Holders? held))
         {
-            held = new Holders(vehicle.GetComp<CompPhobosSling>(), vehicle.GetComp<CompPhobosLitter>(), vehicle.GetComp<CompPhobosHitch>());
+            held = new Holders(vehicle.GetComp<CompPhobosSling>(), vehicle.GetComp<CompPhobosLitter>(), vehicle.GetComp<CompPhobosHitch>(),
+                vehicle.GetComp<CompPhobosHold>());
             // Kept only once the vehicle's comps exist: asked while it loads, an empty answer must not stick.
             if (vehicle.AllComps.Count > 0) Found.AddOrUpdate(vehicle, held);
         }
@@ -33,6 +34,8 @@ public static class Patch_PawnChildHolders_Sling
         if (held.Litter is { Patients.Count: > 0 } litter && !outChildren.Contains(litter)) outChildren.Add(litter);
         // A trailer or a towed vehicle taken along off the map (hitch slice 3, Framework 0.104.0), with anyone riding in it.
         if (held.Hitch is { HoldsTowed: true } hitch && !outChildren.Contains(hitch)) outChildren.Add(hitch);
+        // Vehicles in a hold (Framework 0.288.0; docs/development/airdrop.md, MV5).
+        if (held.Hold is { Held.Count: > 0 } hold && !outChildren.Contains(hold)) outChildren.Add(hold);
     }
 
     sealed class Holders
@@ -40,9 +43,11 @@ public static class Patch_PawnChildHolders_Sling
         public readonly CompPhobosSling? Sling;
         public readonly CompPhobosLitter? Litter;
         public readonly CompPhobosHitch? Hitch;
+        public readonly CompPhobosHold? Hold;
 
-        public Holders(CompPhobosSling? sling, CompPhobosLitter? litter, CompPhobosHitch? hitch)
+        public Holders(CompPhobosSling? sling, CompPhobosLitter? litter, CompPhobosHitch? hitch, CompPhobosHold? hold)
         {
+            Hold = hold;
             Sling = sling;
             Litter = litter;
             Hitch = hitch;

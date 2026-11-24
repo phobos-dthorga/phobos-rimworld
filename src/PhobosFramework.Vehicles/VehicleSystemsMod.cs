@@ -215,6 +215,15 @@ public class VehicleSystemsSettings : ModSettings
     /// (Framework 0.160.0; owner, 18 Nov 2026: a setting, off by default). Off, they fly as their authors made them. Live, for a helicopter
     /// on the ground; one in the air finishes its flight first.</summary>
     public bool stockHelicoptersFly;
+    /// <summary>Parachute airdrops can hurt people and damage what lands (Framework 0.288.0; docs/development/airdrop.md; the owner's card of
+    /// 25 Nov 2026: the real figures, on). Off, everything lands unharmed; the wind still carries it. Live.</summary>
+    public bool airdropLandingRisk = true;
+    /// <summary>A vehicle may be dropped with its crew inside, as the Soviet Kentavr and Reaktavr drops did (Framework 0.288.0; the owner's
+    /// card of 25 Nov 2026: high risk, so off). Off, a vehicle's crew rides down in the aircraft's seats or jumps. Live.</summary>
+    public bool airdropCrewInside;
+    /// <summary>Other authors' aircraft given our airdrop in XML (the C-17) drop on it, replacing their own (Framework 0.288.0; the owner's card
+    /// of 25 Nov 2026: off by default). Their faults while on ours are D'thorga's. Live, for the next flight.</summary>
+    public bool stockAircraftAirdrop;
     /// <summary>A resting caravan's cooks turn its raw food into simple meals at a field kitchen it carries, once a night (Framework 0.121.0;
     /// vehicle-field-kitchen.md; owner, 13 Nov 2026: a setting, on by default). Live.</summary>
     public bool caravanCooking = true;
@@ -325,6 +334,9 @@ public class VehicleSystemsSettings : ModSettings
         "shockSpall" => shockSpall,
         "raidersArriveByAir" => raidersArriveByAir,
         "stockHelicoptersFly" => stockHelicoptersFly,
+        "airdropLandingRisk" => airdropLandingRisk,
+        "airdropCrewInside" => airdropCrewInside,
+        "stockAircraftAirdrop" => stockAircraftAirdrop,
         "caravanCooking" => caravanCooking,
         "trailerWasteDump" => trailerWasteDump,
         "jumpStartNeedsKit" => jumpStartNeedsKit,
@@ -416,6 +428,9 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref shockSpall, "PhobosVehicleSystems_ShockSpall", true);
         Scribe_Values.Look(ref raidersArriveByAir, "PhobosVehicleSystems_RaidersArriveByAir", true);
         Scribe_Values.Look(ref stockHelicoptersFly, "PhobosVehicleSystems_StockHelicoptersFly", false);
+        Scribe_Values.Look(ref airdropLandingRisk, "PhobosVehicleSystems_AirdropLandingRisk", true);
+        Scribe_Values.Look(ref airdropCrewInside, "PhobosVehicleSystems_AirdropCrewInside", false);
+        Scribe_Values.Look(ref stockAircraftAirdrop, "PhobosVehicleSystems_StockAircraftAirdrop", false);
         Scribe_Values.Look(ref caravanCooking, "PhobosVehicleSystems_CaravanCooking", true);
         Scribe_Values.Look(ref trailerWasteDump, "PhobosVehicleSystems_TrailerWasteDump", true);
         Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
@@ -525,6 +540,9 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.caravanCooking) report.Off("caravan cooking", "off (setting)");
         if (!Settings.raidersArriveByAir) report.Off("raiders arriving by aircraft", "off (setting)");
         if (Settings.stockHelicoptersFly) report.On("stock helicopters flying over the map (setting)");
+        if (!Settings.airdropLandingRisk) report.Off("airdrop landing injuries and damage", "off (setting)");
+        if (Settings.airdropCrewInside) report.On("vehicles airdropped with their crew inside (setting)");
+        if (Settings.stockAircraftAirdrop) report.On("other authors' aircraft on D'thorga's airdrop; their faults while on it are D'thorga's (setting)");
         if (Settings.jumpStartNeedsKit) report.On("jump-start leads must be crafted (setting)");
         else report.Off("jump-start leads", "free (setting)");
         if (Settings.assumeBoosterPack) report.On("booster pack assumed on every vehicle (setting)");
@@ -669,6 +687,10 @@ public class VehicleSystemsMod : SettingsBookMod
         {
             list.Check("PhobosVehicleSystems_SettingAirDefenceSees".Translate(), ref s.airDefenceSeesAircraft, d.airDefenceSeesAircraft, "PhobosVehicleSystems_SettingAirDefenceSeesDesc".Translate());
         }
+        list.Section("PhobosAirdrop_Section".Translate());
+        list.Check("PhobosAirdrop_SettingLandingRisk".Translate(), ref s.airdropLandingRisk, d.airdropLandingRisk, "PhobosAirdrop_SettingLandingRiskDesc".Translate());
+        list.Check("PhobosAirdrop_SettingCrewInside".Translate(), ref s.airdropCrewInside, d.airdropCrewInside, "PhobosAirdrop_SettingCrewInsideDesc".Translate());
+        list.Check("PhobosAirdrop_SettingStockAircraft".Translate(), ref s.stockAircraftAirdrop, d.stockAircraftAirdrop, "PhobosAirdrop_SettingStockAircraftDesc".Translate());
         list.Section("PhobosSling_Section".Translate());
         list.Check("PhobosSling_SettingHeat".Translate(), ref s.slingHeatDerating, d.slingHeatDerating, "PhobosSling_SettingHeatDesc".Translate());
         list.Check("PhobosSling_SettingCrew".Translate(), ref s.slingGroundCrew, d.slingGroundCrew, "PhobosSling_SettingCrewDesc".Translate());

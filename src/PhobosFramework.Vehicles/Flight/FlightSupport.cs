@@ -301,6 +301,7 @@ public static class FlightGizmos
         yield return circle;
 
         foreach (Gizmo gizmo in LineGizmos(flight)) yield return gizmo;
+        foreach (Gizmo gizmo in AirdropGizmos(flight)) yield return gizmo;
 
         string size = SizeName(flight.OrbitSize);
         string way = WayName(flight.OrbitClockwise);
@@ -322,6 +323,41 @@ public static class FlightGizmos
         };
         if (busy || flight.State == FlightState.Settling) land.Disable("PhobosFlight_RefuseNotFlying".Translate(who));
         yield return land;
+    }
+
+    /// <summary>Parachute drops (Framework 0.288.0; docs/development/airdrop.md): shown only on an aircraft that can drop. A drop pass over a
+    /// chosen point, and a drop from where it hovers, from its drop height or low from here.</summary>
+    static IEnumerable<Gizmo> AirdropGizmos(CompPhobosFlight flight)
+    {
+        VehiclePawn vehicle = flight.Vehicle;
+        if (Airdrop.Ext(vehicle) == null) yield break;
+        NamedArgument who = vehicle.LabelShort.Named("VEHICLE");
+        string what = Airdrop.Refusal(vehicle, out string summary) == null ? summary : "";
+        var pass = new Command_Action
+        {
+            defaultLabel = "PhobosAirdrop_DropPass".Translate(),
+            defaultDesc = "PhobosAirdrop_DropPassDesc".Translate(who, what.Named("WHAT")),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Airdrop/AirdropOn"),
+            action = () => AirdropTargeter.Begin(vehicle.Map, Airdrop.Jumpers(vehicle).Any() ? ParachuteLoad.Person
+                : Airdrop.Cargo(vehicle).Any() ? ParachuteLoad.Bundle : ParachuteLoad.Vehicle, flight.DropPass),
+        };
+        if (flight.DropPassRefusal(IntVec3.Invalid) is { } passRefused) pass.Disable(passRefused);
+        yield return pass;
+        if (!flight.HoversSteadily) yield break;
+        var here = new Command_Action
+        {
+            defaultLabel = "PhobosAirdrop_DropHere".Translate(),
+            defaultDesc = "PhobosAirdrop_DropHereDesc".Translate(who, what.Named("WHAT")),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Airdrop/DropHere"),
+            action = () => Find.WindowStack.Add(new FloatMenu(new List<FloatMenuOption>
+            {
+                new("PhobosAirdrop_DropHereClimb".Translate(), () => flight.DropHere(low: false)),
+                new("PhobosAirdrop_DropHereLow".Translate((flight.HeightMetresNow / (float)ParachuteRule.MetresPerFoot).ToString("0").Named("FEET")),
+                    () => flight.DropHere(low: true)),
+            })),
+        };
+        if (flight.DropHereRefusal() is { } hereRefused) here.Disable(hereRefused);
+        yield return here;
     }
 
     /// <summary>Ropes and the hoist (Framework 0.155.0): shown only with their fittings; a stop while at work.</summary>

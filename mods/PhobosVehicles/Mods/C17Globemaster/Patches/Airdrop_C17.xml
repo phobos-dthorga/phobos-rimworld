@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    The C-17 Globemaster III (z3nt3) drops on D'thorga's airdrop, only with the player's "Other authors' aircraft use D'thorga airdrops"
+    setting, which starts off (D'thorga Framework 0.288.0, D'thorga Vehicles 0.120.0; docs/development/airdrop.md; the owner's card of
+    25 Nov 2026: "Ours replaces its drop, setting"). With it on, its own "Airdrop on" option, shown in its Airdrop mode, is replaced by ours;
+    its hold (CompC17Airlifter's vehicles, read by name) drops on rigs; and it flies our pass over the map only while it makes one. Off,
+    nothing here acts: its take-off, landing, world flight, modes, hold and own airdrop are exactly its author's.
+    Its figures: two paratroop doors, 60,000 lb on one platform [P, Boeing]; four platforms a pass and four bundles a second (authored,
+    from the C-17's sequential drops of 110,000 lb [P, Boeing]).
+  -->
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Vehicles.VehicleDef[defName="C17_Globemaster"]/modExtensions</xpath>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Vehicles.VehicleDef[defName="C17_Globemaster"]</xpath>
+      <value>
+        <modExtensions />
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="C17_Globemaster"]/modExtensions</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosAirdropExtension">
+        <jumpDoors>2</jumpDoors>
+        <bundlesPerSecond>4</bundlesPerSecond>
+        <platforms>4</platforms>
+        <heaviestPlatformKg>27216</heaviestPlatformKg>
+        <holdComps>
+          <li>C17Globemaster.CompC17Airlifter</li>
+        </holdComps>
+        <onlyWithStockSetting>true</onlyWithStockSetting>
+        <stockModeComp>C17Globemaster.CompC17Airlifter</stockModeComp>
+        <stockModeField>mode</stockModeField>
+        <stockModeValue>Airdrop</stockModeValue>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Our flight, for its drop pass only. Speeds and turn are authored at the map's compressed scale: fast and wide, as a jet transport
+       flies; it never hovers, so it flies its pass through and out. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="C17_Globemaster"]/comps</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosFlight">
+        <onlyInDrops>true</onlyInDrops>
+        <speedCellsPerSecond>12</speedCellsPerSecond>
+        <accelerationCellsPerSecond>2</accelerationCellsPerSecond>
+        <turnDegreesPerSecond>12</turnDegreesPerSecond>
+        <climbSeconds>10</climbSeconds>
+        <descentSeconds>12</descentSeconds>
+        <fallSeconds>6</fallSeconds>
+        <flightHeightMetres>90</flightHeightMetres>
+        <workHeightMetres>90</workHeightMetres>
+        <orbitSpeedCellsPerSecond>9</orbitSpeedCellsPerSecond>
+        <orbitRadiusCells>45</orbitRadiusCells>
+        <shortestRollCells>20</shortestRollCells>
+        <fullRollCells>40</fullRollCells>
+        <needsBuiltFloor>false</needsBuiltFloor>
+      </li>
+    </value>
+  </Operation>
+</Patch>

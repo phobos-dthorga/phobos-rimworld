@@ -120,7 +120,17 @@ public static class RaiderFlight
             return false;
         }
         left.RemoveAll(seated.Contains);
-        flight.BeginRaid(RaidLandingRule.Choose(Rand.Value));
+        // Framework 0.288.0 (docs/development/airdrop.md; the owner's card of 25 Nov 2026): an aircraft that can drop brings some raids in
+        // by parachute, with a packed parachute for each of its raiders.
+        bool chutes = vehicle.def.GetModExtension<PhobosAirdropExtension>() is { onlyWithStockSetting: false } drops
+            && Rand.Chance((float)RaidLandingRule.ParachuteShare);
+        if (chutes)
+        {
+            Thing packed = ThingMaker.MakeThing(AirdropDefOf.Phobos_PersonnelParachute);
+            packed.stackCount = seated.Count + vehicle.def.GetModExtension<PhobosAirdropExtension>()!.raiderSpareChutes;
+            vehicle.inventory.innerContainer.TryAdd(packed);
+        }
+        flight.BeginRaid(chutes ? RaidLanding.Parachute : RaidLandingRule.Choose(Rand.Value));
         return true;
     }
 
@@ -206,7 +216,7 @@ public static class RaiderFlight
             double score = RaidLandingRule.Score(mode, (c - middle).LengthHorizontal, covered);
             if (score >= best) continue;
             Rot4 facing = Rot4.FromAngleFlat((middle - c).AngleFlat);
-            bool fits = mode == RaidLanding.RopeClose
+            bool fits = mode is RaidLanding.RopeClose or RaidLanding.Parachute
                 ? OpenAround(map, c)
                 : FlightRules.SpotRefusal(vehicle, c, facing, forced: false, knowsGround: true) == null;
             if (!fits) continue;

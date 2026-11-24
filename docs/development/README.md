@@ -61,6 +61,7 @@ research or design with nothing built; **living** means kept current by every ch
 
 - [Engines and drivetrains](systems/engines-and-drivetrain.md) (23 Nov 2026): how engines, gears, loads and fuel work now. Living.
 - [Flight](systems/flight.md) (23 Nov 2026): how aircraft fly, lift, refuel, see, dodge and jam now. Living.
+- [Parachute airdrops](airdrop.md) (25 Nov 2026): people, cargo and vehicles by parachute on the wind; the vehicle hold; the C-17's study. Built, untested.
 - [The world map and the cab](vehicle-world-map-design.md) (8 Nov 2026): caravans, cab climate, booster packs, ground and cab moods. Built.
 - [Real figures for named vehicles](vehicle-real-figures-design.md) (8 Nov 2026): power, weights, gearboxes; kerb mass; class by empty mass. Built.
 

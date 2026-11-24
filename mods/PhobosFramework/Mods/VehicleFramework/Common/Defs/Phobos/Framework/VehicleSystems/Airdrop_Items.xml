@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Parachutes for airdrops (Framework 0.288.0; docs/development/airdrop.md, "Parachutes and the rigger's table"). An aircraft drops a
+    person only with a personnel parachute aboard, a bundle of cargo (up to 1,000 kg) only with a cargo parachute, and a vehicle only with
+    a heavy-drop rig. Each canopy lands as a spent one, and a vehicle's platform as a spent platform, to be carried home and repacked or
+    refurbished at the rigger's table (Airdrop_RiggersTable.xml, where every recipe and its cost is).
+
+    EVERY FIGURE HERE IS AUTHORED, for the owner's review. Masses are real ballparks [S], labelled beside each item; hit points,
+    stack limits and deterioration are gameplay choices. Market values are not real prices: each is set at about what its materials and
+    work are worth by the game's own reckoning, so making parachutes to sell never beats the game's economy, and each spent item is worth
+    a little less than a packed one less its repack materials, so repacking only pays for the work. Agent-authored text, held for the
+    owner's review. Not yet tested in game.
+
+    Pictures (being drawn, paid art, US$1.50 cap): Phobos/VehicleSystems/Airdrop/. Both spent canopies use SpentParachute; the cargo one is
+    drawn larger.
+  -->
+
+  <!-- Their own storage category inside our vehicle parts (itself inside the game's Manufactured), so a shelf for aircraft kit can take
+       them alone. Agent's choice of parent. -->
+  <ThingCategoryDef>
+    <defName>Phobos_Parachutes</defName>
+    <label>parachutes</label>
+    <description>Parachutes and drop rigs for airdrops, packed or spent.</description>
+    <parent>PhobosCategory_VehicleParts</parent>
+    <iconPath>Phobos/VehicleSystems/Airdrop/PersonnelParachute</iconPath>
+  </ThingCategoryDef>
+
+  <ThingDef Name="PhobosParachuteBase" ParentName="ResourceBase" Abstract="True">
+    <soundInteract>Standard_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <techLevel>Industrial</techLevel>
+    <thingCategories>
+      <li>Phobos_Parachutes</li>
+    </thingCategories>
+    <statBases>
+      <!-- Nylon canopies rot in sun and rain [I]; cloth's own rate is 4. -->
+      <DeteriorationRate>2</DeteriorationRate>
+      <Flammability>1</Flammability>
+    </statBases>
+  </ThingDef>
+
+  <!-- A T-11 assembly, main and reserve, is about 14 kg [S]. -->
+  <ThingDef ParentName="PhobosParachuteBase">
+    <defName>Phobos_PersonnelParachute</defName>
+    <label>personnel parachute</label>
+    <description>A packed parachute for one person, with its harness and reserve, rigged to open by a static line as the jumper leaves the aircraft. Each person who jumps from an aircraft needs one aboard. It lands as a spent parachute, which can be carried home and repacked at a rigger's table.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Airdrop/PersonnelParachute</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Mass>14</Mass>
+      <MarketValue>110</MarketValue>
+    </statBases>
+  </ThingDef>
+
+  <!-- A G-12 cargo parachute is about 60 kg [S]; its A-22 bag adds about 10 kg [A]. -->
+  <ThingDef ParentName="PhobosParachuteBase">
+    <defName>Phobos_CargoParachute</defName>
+    <label>cargo parachute</label>
+    <description>A large packed parachute with its cargo bag, slings and padding, for dropping supplies from an aircraft. One carries a bundle of up to 1,000 kg. It lands as a spent cargo parachute, which can be carried home and repacked at a rigger's table.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Airdrop/CargoParachute</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1.2</drawSize>
+    </graphicData>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <Mass>70</Mass>
+      <MarketValue>350</MarketValue>
+    </statBases>
+  </ThingDef>
+
+  <!-- A 16 ft Type V platform is about 1,400 lb (635 kg) [P, TM 10-1670-268-20P]; a cluster of three G-11 canopies about 375 kg [S,
+       approximate, not verified]; the crush pads and straps a little more. About 1,000 kg in all [A]. -->
+  <ThingDef ParentName="PhobosParachuteBase">
+    <defName>Phobos_HeavyDropRig</defName>
+    <label>heavy-drop rig</label>
+    <description>Everything needed to drop one vehicle from an aircraft: a metal platform, crushable pads that soften the landing, tie-down straps, and a cluster of three large parachutes. Each vehicle dropped needs one aboard. The platform lands under the vehicle as a spent drop platform, which can be carried home and refurbished at a rigger's table.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Airdrop/HeavyDropRig</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1.5</drawSize>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Metal_Drop</soundDrop>
+    <stackLimit>1</stackLimit>
+    <statBases>
+      <MaxHitPoints>300</MaxHitPoints>
+      <Mass>1000</Mass>
+      <MarketValue>840</MarketValue>
+      <DeteriorationRate>1</DeteriorationRate>
+      <Flammability>0.6</Flammability>
+    </statBases>
+  </ThingDef>
+
+  <!-- What lands. Same masses as packed: nothing is lost in a drop. -->
+  <ThingDef ParentName="PhobosParachuteBase">
+    <defName>Phobos_SpentParachute</defName>
+    <label>spent parachute</label>
+    <description>A used personnel parachute, its canopy and lines gathered up after a jump. Carry it home and repack it at a rigger's table to use it again.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Airdrop/SpentParachute</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Mass>14</Mass>
+      <MarketValue>100</MarketValue>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosParachuteBase">
+    <defName>Phobos_SpentCargoParachute</defName>
+    <label>spent cargo parachute</label>
+    <description>A used cargo parachute and its bag, gathered up after a drop. Carry it home and repack it at a rigger's table to use it again.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Airdrop/SpentParachute</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1.5</drawSize>
+    </graphicData>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <Mass>70</Mass>
+      <MarketValue>320</MarketValue>
+    </statBases>
+  </ThingDef>
+
+  <!-- The spent platform stands for the whole spent rig: its canopies gathered onto it and its crushed pads, so refurbishing it gives a
+       whole rig back (agent's choice). -->
+  <ThingDef ParentName="PhobosParachuteBase">
+    <defName>Phobos_SpentDropPlatform</defName>
+    <label>spent drop platform</label>
+    <description>A drop platform after a vehicle has landed on it, with its crushed pads, loose straps and used parachutes piled on top. Carry it home and refurbish it at a rigger's table to make a heavy-drop rig again.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Airdrop/SpentPlatform</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1.5</drawSize>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Metal_Drop</soundDrop>
+    <stackLimit>1</stackLimit>
+    <statBases>
+      <MaxHitPoints>300</MaxHitPoints>
+      <Mass>1000</Mass>
+      <MarketValue>760</MarketValue>
+      <DeteriorationRate>1</DeteriorationRate>
+      <Flammability>0.6</Flammability>
+    </statBases>
+  </ThingDef>
+</Defs>

@@ -269,6 +269,16 @@ aircraft's mass, so a loaded A-10 or Prowler weighs what its stores really do. R
 Hind, Mongoose, Close Air Support and Prowler (a temporary patch). Their recipes and prices belong to [aircraft
 munitions](../archive/aircraft-munitions.md).
 
+### Parachute airdrops and the hold
+
+An aircraft whose Def carries `PhobosAirdropExtension` drops by parachute (Framework 0.288.0; [the design](../airdrop.md)): a
+**drop pass** on our flight (`CompPhobosFlight.Drop.cs`: a straight line through the release point upwind of the target, people then
+bundles then vehicles, then on out), a **hover drop**, and from the world map `ArrivalAction_PhobosAirdrop` (a map, an empty tile as a
+caravan or depot, a gift). Each load is a `PhobosParachuteFaller`, a skyfaller and active transporter whose ground cell moves along its
+drift while its drawn height falls, so Combat Extended's CIWS leads and hits it as it does a drop pod. Drift is the Army's D = K x A x V
+at a fifth of its real length (`ParachuteRule`), on the map's wind (`PhobosWind`: Combat Extended's, else ours). `CompPhobosHold`
+carries vehicles off the map behind a ramp. The C-17 flies our pass only (`onlyInDrops`) and only with its setting on.
+
 ## How it works
 
 ```mermaid

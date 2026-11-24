@@ -13,6 +13,37 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.288.0] - 2026-11-25 - Draft
+
+Parachute airdrops: people, cargo and vehicles from the air, on the wind
+
+### Added
+
+- **Parachute airdrops** (the owner's request and ten answers of 25 November 2026): an aircraft that can drop makes a **Drop pass**
+  over a chosen point, letting go upwind so the wind carries everything onto it, or drops from where it hovers (**Drop here**, from its
+  drop height or low). People jump first, then cargo in bundles of up to a tonne, then vehicles from its hold, each on its own
+  parachute, drifting by the US Army's own drift formula, scaled to the map. Not yet tested in game. How it works:
+  [the design](https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/development/airdrop.md).
+- **Airdrops from the world map**: "Airdrop on" a map flies there, makes the pass and flies home; on a tile with no map the people
+  form a caravan (cargo alone waits at a depot); "Gift by airdrop" drops cargo on a friendly settlement for goodwill.
+- **Real parachutes and a rigger's table**: personnel and cargo parachutes and heavy-drop rigs, made, repacked and refurbished at a
+  new rigger's table (research: vehicle parts). Every landing leaves a spent canopy or platform to carry home. The figures and
+  costs are authored for the owner's review.
+- **Landings can hurt**: people at the real T-11 rate (about 5 in 1,000), raised at night, in wind, with heavy kit, on first jumps
+  and when dropped low; cargo and vehicles now and then land hard. Each jump goes on a person's record with a thought.
+- **A hold for vehicles** (MV5): a vehicle with a hold takes another of yours aboard over its ramp (**Load into hold**, **Unload
+  hold**); its crew rides in the passenger seats and its weight counts as load.
+- **Wind with a direction**: Combat Extended's when it is on, else one of ours that wanders by the same rule.
+- **Paratrooper raids**: under "Raiders arrive by air", an aircraft that can drop brings some raids in by parachute, upwind of open
+  ground outside your turrets; with Combat Extended, a CIWS shoots at them as they come down.
+- **Three settings** on the Aircraft page, Airdrops section: landings can hurt and damage (on); vehicles may drop with their crew
+  inside (off, high risk); other authors' aircraft use D'thorga airdrops, the C-17 (off).
+
+### Save compatibility
+
+- Safe to add mid-game. Removing it mid-drop loses what is falling; land everything first. Parachute items left in a save become
+  unknown things if the mod is removed.
+
 ## [0.287.0] - 2026-11-25 - Draft
 
 The save says which version of each D'thorga mod was running when

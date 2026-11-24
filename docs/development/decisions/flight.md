@@ -126,12 +126,23 @@ that overturns an earlier one says so. Engine rows from the same records are in 
 | 23 Nov | The C-17 in; engines placed by wing; its hold counts as weight | owner's card | "Yes, by wing"; "Count the hold" | [c17], Read this first |
 | 23 Nov | Ka-27PS, Mi-38 engines; thruster craft get lopsided thrust | owner | Yes to the audit's follow-ups | [c17], The audit's follow-ups |
 | 23 Nov | People in the Black Hawk's interior not weighed | agent choice | Too small to matter | [c17], The fleet audit that followed |
+| 25 Nov | Parachute airdrops for any aircraft, the vehicle hold included | owner's card | "Everything, hold included" | [drop], The owner's answers |
+| 25 Nov | Ours replaces the C-17's own airdrop, behind a setting that starts off | owner's card | "Ours replaces its drop, setting" | [drop], The owner's answers |
+| 25 Nov | Real parachutes, recovered and repacked at a rigger's table of our own | owner's card | Real, recovered and repacked; a table | [drop], The owner's answers |
+| 25 Nov | Real landing risks on; vehicles with their crew inside off | owner's card | Real figures; crew inside is high risk | [drop], Risk |
+| 25 Nov | Wind direction from Combat Extended, ours without it | owner | "My game does" have a direction | [drop], Wind |
+| 25 Nov | Empty tiles: caravan, depot or a gift to a settlement | owner's card | As recommended | [drop], From the world map |
+| 25 Nov | Paratrooper raids, against anti-aircraft guns and CIWS | owner's card | "Make sure it works against anti-aircraft guns, CIWS" | [drop], Raiders by parachute |
+| 25 Nov | Hover drops too | owner's card | As recommended | [drop], Dropping from our flight |
+| 25 Nov | Drift scaled to a fifth on the map; falling time to half | agent choice | Real drift crosses a whole map | [drop], What drops, and how |
+| 25 Nov | Vehicle Framework's paratrooper save fault left alone | owner's card | Not dire | [drop], The other studies |
 
 [fo]: ../archive/vehicle-flight-over-the-map.md
 [av]: ../archive/vehicle-avionics.md
 [sl]: ../archive/vehicle-sling-design.md
 [uh]: ../archive/uh60-blackhawk.md
 [c17]: ../archive/c17-globemaster.md
+[drop]: ../airdrop.md
 [cas]: ../archive/close-air-support-jets.md
 [pr]: ../archive/ea6b-prowler.md
 [pl]: ../archive/vehicle-power-and-lift-design.md

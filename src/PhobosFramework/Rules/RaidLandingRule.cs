@@ -11,6 +11,9 @@ public enum RaidLanding
     RopeClose,
     /// <summary>Lands as close to the colony as it can, whatever the turrets.</summary>
     Closest,
+    /// <summary>Drops them by parachute on a pass, onto open ground beyond the turrets (Framework 0.288.0; docs/development/airdrop.md). Only an
+    /// aircraft that can drop takes it, by <see cref="RaidLandingRule.ParachuteShare"/>; never drawn by <see cref="RaidLandingRule.Choose"/>.</summary>
+    Parachute,
 }
 
 /// <summary>
@@ -30,6 +33,9 @@ public static class RaidLandingRule
 
     /// <summary>Cells beyond a turret's range a cautious landing keeps clear of (authored).</summary>
     public const double TurretMarginCells = 4;
+
+    /// <summary>The share of raids by an aircraft that can drop that come by parachute (Framework 0.288.0; authored).</summary>
+    public const double ParachuteShare = 0.4;
 
     /// <summary>The way for a roll in [0, 1).</summary>
     public static RaidLanding Choose(double roll)
@@ -52,7 +58,7 @@ public static class RaidLandingRule
     public static double Score(RaidLanding mode, double distanceCells, bool inTurretReach)
     {
         if (distanceCells < NearestCells || distanceCells > FarthestCells) return double.PositiveInfinity;
-        if (mode == RaidLanding.OutsideTurrets && inTurretReach) return double.PositiveInfinity;
+        if (mode is RaidLanding.OutsideTurrets or RaidLanding.Parachute && inTurretReach) return double.PositiveInfinity;
         return distanceCells;
     }
 }

@@ -1,7 +1,7 @@
 # Aircraft and sling loads
 
 Flying with D'thorga Framework: the checks before take-off, what keeps an aircraft in the air, how it burns fuel and chooses its
-height, carrying a vehicle on a sling, water drops, the air ambulance and air defence. It works on **every Vehicle Framework
+height, carrying a vehicle on a sling, dropping people, cargo and vehicles by parachute, water drops, the air ambulance and air defence. It works on **every Vehicle Framework
 aircraft from any mod**: helicopters, jets and pods. What every vehicle shares (the tabs, wear, batteries) is in [vehicle
 systems](vehicle-systems.md); the aircraft of D'thorga Vehicles, such as the V-22 Osprey, are in [working
 vehicles](working-vehicles.md). [Back to the guide](README.md).
@@ -20,6 +20,8 @@ vehicles](working-vehicles.md). [Back to the guide](README.md).
    is allowed with a warning but strains the hook's mount: **repair the mount before it gives way.**
 5. **Cut the engines drops the aircraft where it is.** To land and switch off safely, switch the engines off the ordinary way: it
    lands on the nearest clear spot first.
+6. **A parachute drop needs a packed parachute in the cargo for each person, each tonne of cargo and each vehicle.** Without one,
+   that load stays aboard. **The wind carries everything downwind**: the drop targeter shows how far, and where the aircraft lets go.
 
 ## Before take-off
 
@@ -248,6 +250,46 @@ repair it, drive it, tow it or lift it home. **A helicopter that crashes drops i
 
 **Each of these is a setting** under **Sling loads** in D'thorga Framework's settings: hot days, ground crew, weather, slower
 flight, and release and drops.
+
+## Dropping by parachute
+
+Aircraft that can drop (the Osprey; the C-17 with its setting on) put people, cargo and vehicles down by parachute, anywhere they can
+fly, without landing. The design and its sources: [parachute airdrops](../development/airdrop.md).
+
+1. **Make the parachutes at a rigger's table** (Motor pool, after researching vehicle parts): a **personnel parachute** for each
+   jumper, a **cargo parachute** for each bundle of up to a tonne of cargo, a **heavy-drop rig** for each vehicle. **Load them into
+   the aircraft's cargo.**
+2. **Load what goes**: people in its passenger seats (the pilots stay aboard), goods in its cargo, a vehicle in its hold.
+3. **Drop pass**: press it in the air and point at the ground. **The line shows where the aircraft lets go and the ring where loads
+   may land**; the words by the mouse give the wind and the drift. It flies straight over the line, drops people, then cargo, then
+   vehicles, and flies on.
+4. **Drop here** (aircraft that hover): it climbs to the height parachutes are dropped from and drops where it is, then comes back
+   down. **Drop low** drops at once from its present height, below the safe height: **landings are much rougher, and too low a
+   canopy never opens.**
+5. **From the world map**, a loaded aircraft offers **Airdrop on** a map (it makes its pass and flies home), **Airdrop here** on an
+   empty place (people form a caravan there; cargo alone waits at a depot to collect) and **Gift by airdrop** to a friendly
+   settlement (cargo only, for goodwill).
+
+**Landing:**
+
+- **The wind decides where things land.** Real crews do not jump over 13 knots: above it, and at night, you are warned, and
+  landings are rougher. With Combat Extended the wind is its own; without, a wind of D'thorga's wanders the same way.
+- **People are rarely hurt**, about 5 in 1,000 jumps, more often at night, in strong wind, with heavy kit, on their first five jumps
+  and when they must come down away from open ground. Each jump goes on their record, with a good thought, or a bad one if hurt.
+- **Cargo spills beside its spent canopy; a vehicle lands on its platform**, worn a little, and now and then hard. Nothing lands on a
+  roof or inside a wall: it comes down on the nearest open ground.
+- **Every canopy is left on the ground as a spent parachute**, every platform as a spent platform. **Carry them home and repack them
+  at the rigger's table**, for little or nothing.
+- **Enemies drop too**: some raids by air come by parachute, upwind of open ground outside your turrets. Shoot at the aircraft on its
+  pass; with Combat Extended, a CIWS shoots at them as they come down. Their spent canopies are yours to take.
+
+**The hold:** an aircraft with a hold (the Osprey takes one vehicle up to 2 by 3 cells and 2,500 kg) takes a vehicle of yours aboard
+with **Load into hold**: park it close behind the ramp. Its crew rides in the passenger seats. **Unload hold** drives it out of the
+ramp. No aircraft, and nothing carrying, towing or holding another vehicle.
+
+**Settings** (Aircraft page, Airdrops): **Airdrop landings can hurt and damage** (on); **Vehicles may drop with their crew inside**
+(off: high risk, after the Soviet drops of 1973 and 1976); **Other authors' aircraft use D'thorga airdrops** (off: the C-17's own
+airdrop is replaced by ours while it is on).
 
 ## Fighting a fire from the air
 

@@ -13,6 +13,20 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.120.0] - 2026-11-25 - Draft
+
+The Osprey drops by parachute and carries a small vehicle; the C-17 can drop on D'thorga airdrops
+
+### Added
+
+- **The Osprey drops by parachute** (D'thorga Framework 0.288.0): its passengers, cargo and a vehicle from its new hold, from a
+  drop pass or a hover; two jumpers a second, one vehicle a pass. Not yet tested in game.
+- **The Osprey's hold** takes one vehicle up to 2 by 3 cells and 2,500 kg, as the real V-22 carries the Internally Transportable
+  Vehicle (authored size and weight).
+- **The C-17 Globemaster III on D'thorga airdrops**, only with Framework's "Other authors' aircraft use D'thorga airdrops" setting
+  (off): in its Airdrop mode, its own drop is replaced by ours, its hold drops on rigs, and it flies our pass only while dropping.
+  Off, the C-17 is exactly as its author made it.
+
 ## [0.119.0] - 2026-11-25 - Draft
 
 The remote weapon station

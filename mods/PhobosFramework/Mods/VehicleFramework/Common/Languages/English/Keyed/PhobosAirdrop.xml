@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Parachute airdrops and the vehicle hold (D'thorga Framework 0.288.0; docs/development/airdrop.md). -->
+
+  <!-- Settings -->
+  <PhobosAirdrop_Section>Airdrops</PhobosAirdrop_Section>
+  <PhobosAirdrop_SettingLandingRisk>Airdrop landings can hurt and damage</PhobosAirdrop_SettingLandingRisk>
+  <PhobosAirdrop_SettingLandingRiskDesc>People landing by parachute can be hurt, at the real rate of a modern military parachute (about 5 in 1,000 jumps), more often at night, in strong wind, with heavy kit, on their first jumps, when dropped too low or away from open ground. Cargo and vehicles can land hard and be damaged. Off, everything lands unharmed; the wind still carries it.</PhobosAirdrop_SettingLandingRiskDesc>
+  <PhobosAirdrop_SettingCrewInside>Vehicles may drop with their crew inside</PhobosAirdrop_SettingCrewInside>
+  <PhobosAirdrop_SettingCrewInsideDesc>A vehicle dropped by parachute may keep its crew inside, as Soviet airborne troops did in 1973 and 1976. High risk: the crew is hurt far more often than a jumper, and badly on a hard landing. Off, a vehicle with people inside stays in the hold.</PhobosAirdrop_SettingCrewInsideDesc>
+  <PhobosAirdrop_SettingStockAircraft>Other authors' aircraft use D'thorga airdrops (the C-17)</PhobosAirdrop_SettingStockAircraft>
+  <PhobosAirdrop_SettingStockAircraftDesc>Other authors' aircraft given D'thorga airdrops in XML, such as the C-17 Globemaster III, drop people, cargo and vehicles with real parachutes, wind and landings, in place of their own airdrop. Off, they work exactly as their authors made them. Any fault while one flies a drop on D'thorga's flight is D'thorga's, not its author's.</PhobosAirdrop_SettingStockAircraftDesc>
+
+  <!-- What it can drop -->
+  <PhobosAirdrop_RefuseCannot>{VEHICLE} cannot drop by parachute.</PhobosAirdrop_RefuseCannot>
+  <PhobosAirdrop_RefuseNothing>{VEHICLE} has nothing to drop: no passengers, no cargo and no vehicles in its hold.</PhobosAirdrop_RefuseNothing>
+  <PhobosAirdrop_RefuseNoChutes>{VEHICLE} carries no parachutes for what it has aboard. Load personnel parachutes, cargo parachutes or heavy-drop rigs into its cargo.</PhobosAirdrop_RefuseNoChutes>
+  <PhobosAirdrop_Summary>Jumpers: {PEOPLE}. Cargo bundles: {BUNDLES}. Vehicles: {VEHICLES}.</PhobosAirdrop_Summary>
+  <PhobosAirdrop_SummaryHeldBack>Staying aboard for want of parachutes: {PEOPLE} people, {BUNDLES} bundles, {VEHICLES} vehicles.</PhobosAirdrop_SummaryHeldBack>
+  <PhobosAirdrop_RefuseBusy>{VEHICLE} is already dropping.</PhobosAirdrop_RefuseBusy>
+  <PhobosAirdrop_RefuseNotHovering>{VEHICLE} must be hovering steadily to drop from where it is.</PhobosAirdrop_RefuseNotHovering>
+  <PhobosAirdrop_RefuseOffMap>That point is off the map.</PhobosAirdrop_RefuseOffMap>
+  <PhobosAirdrop_RefuseThickRoof>That point is under a mountain's roof.</PhobosAirdrop_RefuseThickRoof>
+
+  <!-- Buttons -->
+  <PhobosAirdrop_DropPass>Drop pass</PhobosAirdrop_DropPass>
+  <PhobosAirdrop_DropPassDesc>Choose a point. {VEHICLE} flies a straight line over it and lets go upwind, so the wind carries everything onto it: people first, then cargo bundles, then vehicles from its hold. Each needs its parachute from the cargo. Then it flies on and holds.\n\n{WHAT}</PhobosAirdrop_DropPassDesc>
+  <PhobosAirdrop_DropHere>Drop here</PhobosAirdrop_DropHere>
+  <PhobosAirdrop_DropHereDesc>{VEHICLE} drops from where it hovers, after climbing to the height parachutes are dropped from, or low from where it is. The wind carries the loads.\n\n{WHAT}</PhobosAirdrop_DropHereDesc>
+  <PhobosAirdrop_DropHereClimb>Climb to drop height, then drop</PhobosAirdrop_DropHereClimb>
+  <PhobosAirdrop_DropHereLow>Drop low, from here ({FEET} ft, below the safe height)</PhobosAirdrop_DropHereLow>
+
+  <!-- Wind and warnings -->
+  <PhobosAirdrop_WindCalm>Calm: loads come straight down.</PhobosAirdrop_WindCalm>
+  <PhobosAirdrop_Wind>Wind {KNOTS} kt toward the {TOWARD}: loads drift about {METRES} m (shown as {CELLS} cells).</PhobosAirdrop_Wind>
+  <PhobosAirdrop_WarnWind>The wind ({KNOTS} kt) is over the {LIMIT} kt limit for parachutes: landings are rougher.</PhobosAirdrop_WarnWind>
+  <PhobosAirdrop_WarnNight>Night: landings are rougher in the dark.</PhobosAirdrop_WarnNight>
+  <PhobosAirdrop_WarnLow>{FEET} ft is below the {MINIMUM} ft minimum: canopies have less time to slow the loads.</PhobosAirdrop_WarnLow>
+  <PhobosAirdrop_WarnNoOpen>{FEET} ft is too low for a canopy to open: loads will fall.</PhobosAirdrop_WarnNoOpen>
+  <PhobosAirdrop_CompassN>north</PhobosAirdrop_CompassN>
+  <PhobosAirdrop_CompassNE>north-east</PhobosAirdrop_CompassNE>
+  <PhobosAirdrop_CompassE>east</PhobosAirdrop_CompassE>
+  <PhobosAirdrop_CompassSE>south-east</PhobosAirdrop_CompassSE>
+  <PhobosAirdrop_CompassS>south</PhobosAirdrop_CompassS>
+  <PhobosAirdrop_CompassSW>south-west</PhobosAirdrop_CompassSW>
+  <PhobosAirdrop_CompassW>west</PhobosAirdrop_CompassW>
+  <PhobosAirdrop_CompassNW>north-west</PhobosAirdrop_CompassNW>
+
+  <!-- Messages -->
+  <PhobosAirdrop_MsgStarted>{VEHICLE} is making its drop. {WHAT} {WIND}</PhobosAirdrop_MsgStarted>
+  <PhobosAirdrop_MsgStoppedMoved>{VEHICLE} stopped dropping: it moved off its hover.</PhobosAirdrop_MsgStoppedMoved>
+  <PhobosAirdrop_MsgDone>{VEHICLE} has dropped. Jumpers: {PEOPLE}. Cargo bundles: {BUNDLES}. Vehicles: {VEHICLES}.</PhobosAirdrop_MsgDone>
+  <PhobosAirdrop_MsgStillAboard>Still aboard: {WHAT}</PhobosAirdrop_MsgStillAboard>
+  <PhobosAirdrop_MsgHurtLanding>{PERSON} was hurt landing by parachute.</PhobosAirdrop_MsgHurtLanding>
+  <PhobosAirdrop_MsgVehicleLanded>{VEHICLE} has landed on its platform.</PhobosAirdrop_MsgVehicleLanded>
+  <PhobosAirdrop_MsgVehicleLandedHard>{VEHICLE} landed hard on its platform: {HARM}.</PhobosAirdrop_MsgVehicleLandedHard>
+  <PhobosAirdrop_MsgZoneGone>{VEHICLE} found no drop zone: the place is gone. It has come down there as a caravan.</PhobosAirdrop_MsgZoneGone>
+  <PhobosAirdrop_MsgLandedInstead>{VEHICLE} could not come in for its drop pass and has landed in the middle of the map instead, with nothing dropped.</PhobosAirdrop_MsgLandedInstead>
+  <PhobosAirdrop_MsgNoFuelHome>{VEHICLE} lacks the fuel to fly home after its drop and has come down where it is, as a caravan.</PhobosAirdrop_MsgNoFuelHome>
+  <PhobosAirdrop_MsgCaravanFormed>{VEHICLE} dropped its people there, and they have formed a caravan. Jumpers: {PEOPLE}. Cargo bundles: {BUNDLES}. Vehicles: {VEHICLES}.</PhobosAirdrop_MsgCaravanFormed>
+  <PhobosAirdrop_MsgDepotLaid>{VEHICLE} dropped its load there with nobody to take it: it waits at a depot to be collected. Cargo bundles: {BUNDLES}. Vehicles: {VEHICLES}.</PhobosAirdrop_MsgDepotLaid>
+  <PhobosAirdrop_MsgGiftDropped>{VEHICLE} dropped its cargo on {PLACE} as a gift.</PhobosAirdrop_MsgGiftDropped>
+
+  <!-- World map arrival options -->
+  <PhobosAirdrop_OptionOnMap>Airdrop on {PLACE}</PhobosAirdrop_OptionOnMap>
+  <PhobosAirdrop_OptionGift>Gift by airdrop to {PLACE}</PhobosAirdrop_OptionGift>
+  <PhobosAirdrop_OptionOnTile>Airdrop here (people form a caravan; cargo alone waits at a depot)</PhobosAirdrop_OptionOnTile>
+
+  <!-- The hold -->
+  <PhobosHold_Load>Load into hold</PhobosHold_Load>
+  <PhobosHold_LoadDesc>Choose a vehicle of yours behind the ramp of {VEHICLE} to take aboard. Its crew rides in the passenger seats. The hold takes vehicles up to {WIDTH} by {LENGTH} cells and {KILOGRAMS} kg in all, but no aircraft, and nothing carrying, towing or holding another vehicle.</PhobosHold_LoadDesc>
+  <PhobosHold_Unload>Unload hold</PhobosHold_Unload>
+  <PhobosHold_UnloadDesc>Drive every vehicle in the hold of {VEHICLE} out of the ramp, facing away.</PhobosHold_UnloadDesc>
+  <PhobosHold_RefuseNotOnGround>{VEHICLE} must be on the ground.</PhobosHold_RefuseNotOnGround>
+  <PhobosHold_RefuseNotOurs>{LOAD} is not one of your vehicles here.</PhobosHold_RefuseNotOurs>
+  <PhobosHold_RefuseAircraft>{LOAD} is an aircraft: aircraft are not carried in a hold.</PhobosHold_RefuseAircraft>
+  <PhobosHold_RefuseNested>{LOAD} is carrying, towing or holding another vehicle.</PhobosHold_RefuseNested>
+  <PhobosHold_RefuseTooBig>{LOAD} is too big for the hold of {VEHICLE}, which takes up to {WIDTH} by {LENGTH} cells.</PhobosHold_RefuseTooBig>
+  <PhobosHold_RefuseFull>The hold of {VEHICLE} is full.</PhobosHold_RefuseFull>
+  <PhobosHold_RefuseTooHeavy>{LOAD} weighs {KILOGRAMS} kg; the hold has room for {ROOM} kg more.</PhobosHold_RefuseTooHeavy>
+  <PhobosHold_RefuseNotAtRamp>{LOAD} must be close behind the ramp of {VEHICLE}.</PhobosHold_RefuseNotAtRamp>
+  <PhobosHold_RefuseNoSeats>{LOAD} has {COUNT} aboard, more than the free passenger seats of {VEHICLE}.</PhobosHold_RefuseNoSeats>
+  <PhobosHold_RefuseEmpty>The hold of {VEHICLE} is empty.</PhobosHold_RefuseEmpty>
+  <PhobosHold_MsgLoaded>{LOAD} drove aboard {VEHICLE}.</PhobosHold_MsgLoaded>
+  <PhobosHold_MsgNoRoom>No room behind the ramp: {COUNT} vehicles stay in the hold of {VEHICLE}.</PhobosHold_MsgNoRoom>
+  <PhobosHold_InspectEmpty>Hold: empty (up to {KILOGRAMS} kg)</PhobosHold_InspectEmpty>
+  <PhobosHold_Inspect>Hold: {VEHICLES} ({KILOGRAMS} of {LIMIT} kg)</PhobosHold_Inspect>
+</LanguageData>
