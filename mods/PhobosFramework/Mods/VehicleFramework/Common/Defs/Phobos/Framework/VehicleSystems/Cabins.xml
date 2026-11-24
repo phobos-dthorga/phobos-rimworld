@@ -3,8 +3,8 @@
   <!--
     Walk-in cabins (Framework, vehicle cabins; owner, 22 Nov 2026; docs/development/vehicle-cabins.md): a vehicle's cabin is a small pocket map,
     the game's own (in every copy, DLC or not), made when the first person goes in and removed once nobody is inside and the vehicle stands
-    on a map. Its edge is the cabin's wall, so no wall is built. The pictures are the base game's (a dining chair, a hospital bed, a simple
-    door) and our ferry tank fitting's. The temperature below, 21 degrees C, is only the fallback: since Framework 0.230.0 a cabin
+    on a map. Its edge is the cabin's wall, so no wall is built. The seat, litter and way out are our own pictures (the owner's picks of
+    25 Nov 2026, Framework 0.280.1), the bunks our swag and the tanks our ferry tank fitting's. The temperature below, 21 degrees C, is only the fallback: since Framework 0.230.0 a cabin
     takes its vehicle's cab temperature where the vehicle's Cabin system works one out (DeckTentAir). Not yet tested in game.
   -->
   <BiomeDef>
@@ -65,7 +65,7 @@
     <label>cabin seat</label>
     <description>A fold-down seat along the cabin wall, with a reading light above it.</description>
     <graphicData>
-      <texPath>Things/Building/Furniture/DiningChair</texPath>
+      <texPath>Phobos/VehicleSystems/Cabins/CabinSeat</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(1,1)</drawSize>
     </graphicData>
@@ -92,9 +92,9 @@
     <description>A stretcher held in a frame along the cabin wall, for a wounded or sick passenger. Doctors aboard tend whoever lies on it.</description>
     <thingClass>Building_Bed</thingClass>
     <graphicData>
-      <texPath>Things/Building/Furniture/Bed/HospitalBed</texPath>
+      <texPath>Phobos/VehicleSystems/Cabins/CabinLitter</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
+      <shaderType>Cutout</shaderType>
       <drawSize>(2,2)</drawSize>
     </graphicData>
     <size>(1,2)</size>
@@ -201,7 +201,7 @@
     <description>The cabin's door or ramp, leading out beside the vehicle wherever it stands. It cannot be opened in the air.</description>
     <thingClass>Phobos.VehicleSystems.Building_PhobosCabinWayOut</thingClass>
     <graphicData>
-      <texPath>Things/Building/Door/DoorSimple_Mover</texPath>
+      <texPath>Phobos/VehicleSystems/Cabins/CabinWayOut</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(1,1)</drawSize>
     </graphicData>

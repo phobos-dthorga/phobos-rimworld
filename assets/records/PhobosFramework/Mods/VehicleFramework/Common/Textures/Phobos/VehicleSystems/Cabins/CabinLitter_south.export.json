@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Cabins/CabinLitter_south.png",
+  "source": "assets/vehicle-systems/generated/paid25-cabin-litter-north/paid25-cabin-litter-north-1.png",
+  "source_sha256": "77c33342059e8c6d7f8b4a20c0e2c074cfc8655dad69fa59ea596e651e00fbab",
+  "target_sha256": "b34174d34b61e26e0f1aeacec0d3f768b1005b5f25237587cad175e9611cc4d1",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "77c33342059e8c6d7f8b4a20c0e2c074cfc8655dad69fa59ea596e651e00fbab",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-25T03:06:06",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

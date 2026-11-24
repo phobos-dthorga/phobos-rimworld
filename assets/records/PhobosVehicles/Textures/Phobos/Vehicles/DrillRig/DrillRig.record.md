@@ -111,3 +111,12 @@ with it instead of keeping the master's olive, and `repaint_vehicles.py`'s `mend
 - `DrillRig_RemoteKit_north.png`: SHA-256 `caa334f7b3fd9430df11b897e04db1ba0d820995f8d6867b481d732f87f19704`
 - `DrillRig_RemoteKit_east.png`: SHA-256 `6c62caec477437023fba8090f2e53631f3f54c356b83c7de3a69a9dd1d10700c`
 - `DrillRig_RemoteKit_south.png`: SHA-256 `4f78a869a1b16718a57f53202127ad89f47d43454e57ca8187a510932f63ad88`
+
+## Oil well kit's pipe rack (D'thorga Vehicles 0.117.3)
+
+**AI-generated through fal** (Google's Nano Banana 2 edit model, fal-ai/nano-banana-2/edit), drawn alone on white, picked by the owner on 25 November 2026 (try 1 of 2, on the Picks page; the request is `assets/phobos-vehicles/requests/paid-2026-11-25-parts.json`), and fitted on this body's transform by `assets/phobos-vehicles/export_paid25_parts.py`, so it registers with the body in every facing. OpenAI's image API had refused the part twice (12 Nov 2026, reading the casing as ammunition), so it went through fal. Its only reference was this body's own picked master, for style. The background AI looked at the original first. Placement is the agent's, to revise once seen in game.
+
+- Master: `paid25-well-pipe-rack-1`, SHA-256 `2bb148a8393715fd2b0c7c2c70eae1416ee247efe1afcf740ac66b61390cdf5c`
+- `DrillRig_WellRack_north.png`: SHA-256 `fcd6231a2127a74f81ef258f48bef89ed91f3f3874cd0eadda250acdb3e32432`
+- `DrillRig_WellRack_east.png`: SHA-256 `72c317017a5960d699d81a93f94f15066862f2453817bdf899f01b3f365bc634`
+- `DrillRig_WellRack_south.png`: SHA-256 `eb07e336d37f622db5399b2b12f86b0342faecd2793681965273f915d5f03da4`

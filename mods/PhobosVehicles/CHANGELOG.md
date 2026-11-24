@@ -13,6 +13,25 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.117.3] - 2026-11-25 - Draft
+
+The jammer mast and the oil well kit on their trucks, and the loading chute's own picture
+
+### Changed
+
+- **The Busbar shows its jammer mast**: folded across the rear deck behind the generator housing, turntable, three-section mast and
+  paddle antennas, in every facing. The upgrade has its own icon, cut from the same picture, in place of the Osprey's jammer it
+  borrowed. Made with generative AI and picked by the owner (25 November 2026). Its place is a first placement, to revise once seen in
+  game. Not yet tested in game: row 495.
+- **The drill rig shows its oil well kit** (with Rimefeller): four well pipes strapped in cradles and a cellar frame, on the deck
+  beside the mast slot, in every facing. Made with generative AI, the owner's pick; a first placement. Not yet tested in game: row 495.
+- **The bulk bunker's loading chute has its own picture**: a steel hopper with a hazard-striped rim and a spout, in place of the plain
+  stand-in. Made with generative AI, the owner's pick. Not yet tested in game: row 495.
+
+### Compatibility and limits
+
+- Safe with a running save; only pictures change. No new settings.
+
 ## [0.117.2] - 2026-11-25 - Draft
 
 The remote control kit's antenna on the cab

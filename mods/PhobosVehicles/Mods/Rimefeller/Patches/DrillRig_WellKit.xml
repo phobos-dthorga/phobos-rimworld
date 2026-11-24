@@ -30,6 +30,19 @@
           <Steel>100</Steel>
           <ComponentIndustrial>4</ComponentIndustrial>
         </ingredients>
+        <!-- The pipe rack and cellar frame on the deck beside the mast slot: the owner's pick of 25 Nov 2026 (paid, try 1), laid on by
+             assets/phobos-vehicles/export_paid25_parts.py (Vehicles 0.117.3). Placement is the agent's, to revise once seen in game. -->
+        <graphicOverlays>
+          <li>
+            <graphicData>
+              <texPath>Phobos/Vehicles/DrillRig/DrillRig_WellRack</texPath>
+              <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+              <drawSize>(4, 11)</drawSize>
+              <shaderType>Cutout</shaderType>
+              <layer>1</layer>
+            </graphicData>
+          </li>
+        </graphicOverlays>
       </li>
     </value>
   </Operation>

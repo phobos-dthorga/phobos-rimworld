@@ -1,15 +1,19 @@
 {
   "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/CoaxIcon.png",
-  "source": "assets/phobos-radio/generated/coax-icon/coax-icon-12.png",
-  "source_sha256": "0e946ba599247a1d26bfeb5c332fdcecb53e285c17ed2d32ab96fa036bd3dfca",
-  "target_sha256": "fb176342ef04af437e58c80964a73dd66631ab70c510047f616fcc1666d6169c",
+  "source": "assets/vehicle-systems/generated/paid25-coax-icon/paid25-coax-icon-1.png",
+  "source_sha256": "b607c385d2ca2fb31cfcf26c4aa85458572895b941865dace4d6dd6a19340c78",
+  "target_sha256": "95ff21957ae7be7bc6577c57c35a2d7b51ce0d2b6c8ed8881e9dacc40c8e3e3f",
   "size": [
     128,
     128
   ],
-  "white_threshold": 250,
-  "soft_edge": 20,
-  "all_white": true,
-  "date": "2026-11-07T08:31:09",
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "b607c385d2ca2fb31cfcf26c4aa85458572895b941865dace4d6dd6a19340c78",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-25T03:06:13",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

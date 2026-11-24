@@ -61,15 +61,14 @@
     <description>A door flap in a field tent's canvas wall. The trailer that pitched it takes it down again when it packs up.</description>
     <thingClass>Phobos.VehicleSystems.Building_PhobosCanvasDoor</thingClass>
     <graphicData>
-      <texPath>Things/Building/Door/DoorSimple_Mover</texPath>
+      <!-- Our own canvas flap, the owner's pick of 25 Nov 2026 (Framework 0.280.1): it carries its colour, so no tint. -->
+      <texPath>Phobos/VehicleSystems/Camp/CanvasFlap</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <color>(176, 164, 128)</color>
       <damageData>
         <enabled>false</enabled>
       </damageData>
     </graphicData>
-    <uiIconPath>Things/Building/Door/DoorSimple_MenuIcon</uiIconPath>
-    <uiIconColor>(176, 164, 128)</uiIconColor>
+    <uiIconPath>Phobos/VehicleSystems/Camp/CanvasFlap</uiIconPath>
     <stuffCategories Inherit="False" />
     <costStuffCount>0</costStuffCount>
     <designationCategory IsNull="True" />

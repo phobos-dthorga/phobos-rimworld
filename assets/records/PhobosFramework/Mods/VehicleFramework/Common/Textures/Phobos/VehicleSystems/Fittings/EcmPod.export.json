@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/EcmPod.png",
+  "source": "assets/vehicle-systems/generated/paid25-ecm-pod/paid25-ecm-pod-2.png",
+  "source_sha256": "e2039ace333d76f56ead9613781ec0b17e2775365d3e50f72e71b3e56790e0e5",
+  "target_sha256": "b574ad7e7bb9c59d5551b0236124941b7cce50f5c3d3bc30bbf2bd3bf7881fb7",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "e2039ace333d76f56ead9613781ec0b17e2775365d3e50f72e71b3e56790e0e5",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-25T03:06:10",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

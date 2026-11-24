@@ -17,6 +17,20 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.15.1] - 2026-11-25 - Draft
+
+A coax icon that looks like coax
+
+### Changed
+
+- **The coax feedline's icon is redrawn**: a short bend of black cable with a screw-on connector at one end and its layers stripped
+  back at the other, in place of the coil that read as a tyre. Made with generative AI and picked by the owner (25 November 2026).
+  Not yet tested in game: row 495.
+
+### Compatibility and limits
+
+- Safe with a running save; only a picture changes. No new settings.
+
 ## [0.15.0] - 2026-11-25 - Draft
 
 The remote control kit for any vehicle, and the vehicle's picture

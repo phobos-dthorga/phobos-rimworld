@@ -13,6 +13,25 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.280.1] - 2026-11-25 - Draft
+
+Our own pictures in the walk-in cabin, the tent flap and the ECM pod
+
+### Changed
+
+- **The walk-in cabin has its own furniture pictures**: an olive webbing crew seat with a lap belt, a stretcher litter with a pillow
+  and blanket, and a tread-plate floor hatch for the way out, in place of the base game's dining chair, hospital bed and door. The
+  litter's pillow is at its head in every facing, as on the game's own beds. Made with generative AI and picked by the owner from
+  two tries each (25 November 2026). Not yet tested in game: row 495.
+- **Billy's field tent has a canvas flap** for its door, sand-coloured with leather straps, in place of the base game's door tinted
+  tan; the build menu shows the same picture. Made with generative AI, the owner's pick. Not yet tested in game: row 495.
+- **The ECM pod fitting has its own icon**: a box of electronics with antenna panels and radome blisters. It had none before. Made
+  with generative AI, the owner's pick. Not yet tested in game: row 495.
+
+### Compatibility and limits
+
+- Safe with a running save; only pictures change. No new settings.
+
 ## [0.280.0] - 2026-11-25 - Draft
 
 Remote guns: a gun no seat works waits for the station's picture

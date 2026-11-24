@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/GeneratorSet/Upgrades/JammerMast.png",
+  "source": "assets/phobos-vehicles/generated/paid25-jammer-mast/paid25-jammer-mast-2.png",
+  "source_sha256": "570accaff638c316710a824c5823f2fc73e7b7c8e89d71fca2668ade9381ff5a",
+  "target_sha256": "7983b1c9a6e4407ee94f6a85dd156b6f745ced857b065848a7c09fd18ceb80f6",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "570accaff638c316710a824c5823f2fc73e7b7c8e89d71fca2668ade9381ff5a",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-25T03:04:47",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
