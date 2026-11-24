@@ -1,11 +1,11 @@
 # Autonomous vehicles by radio (24 Nov 2026)
 
 **Status (24 Nov 2026):** steps 1 to 5 of 7 are built, in Radio Framework 0.9.0 to 0.12.0, D'thorga Framework 0.278.0 and D'thorga
-Vehicles 0.117.0: the vehicle control and picture kinds, control taking channels from talk ([radio stations](radio-stations.md#kinds-radio-080)),
+Vehicles 0.117.0 to 0.117.2: the vehicle control and picture kinds, control taking channels from talk ([radio stations](radio-stations.md#kinds-radio-080)),
 radios fitted to vehicles ([step 2](#step-2-radios-fitted-to-vehicles-radio-0100)), vehicles driven from a station with their lost-link
 choices and letters ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)), the kit on the five service trucks
 ([step 4](#step-4-the-kit-on-the-trucks-vehicles-01170-radio-0120)) and the colonist at the console
-([step 5](#step-5-the-operator-radio-0120)). The kit's antenna picture waits for the owner's pick; steps 6 and 7 are not built, and
+([step 5](#step-5-the-operator-radio-0120)). Steps 6 and 7 are not built, and
 step 8 ([keeping to radio cover](#proposal-keeping-to-radio-cover-step-8-not-built)) is a proposal waiting on a measurement.
 Nothing is tested in game.
 
@@ -24,8 +24,7 @@ beside it. **[A]** an agent's default or authored figure, for the owner to revis
 
 - **Built so far: steps 1 to 5**: the ledger's kinds and pre-emption, radios fitted to vehicles, driving from a station, **the
   remote control kit as an upgrade on the five service trucks** (after the research "remote vehicle control") and **the colonist at
-  the console** (the work type "Remote operation"). The kit's antenna picture on the cab waits for the owner's pick. Nothing is
-  tested in game.
+  the console** (the work type "Remote operation"), with the kit's antenna drawn on the cab. Nothing is tested in game.
 - **The owner's four cards of 24 Nov 2026 [O]:** our **service trucks get a remote-control kit first**; **a colonist works the
   console** while vehicles are driven; **lost link is chosen per vehicle, hold by default**; **remote guns fire only while an
   operator has a picture link**, with a setting, **off by default**, that lets them fire on their own.
@@ -223,7 +222,7 @@ Built 24 Nov 2026, not yet tested in game.
 
 ### Step 4: the kit on the trucks (Vehicles 0.117.0, Radio 0.12.0)
 
-Built 24 Nov 2026, not yet tested in game; its antenna picture waits for the owner's pick.
+Built 24 Nov 2026, its antenna picture 25 Nov 2026 (Vehicles 0.117.2); not yet tested in game.
 
 - **The upgrade [code: `mods/PhobosVehicles/Mods/RadioFramework/Patches/RemoteControlKit.xml`]:** "Remote control kit" on the
   Talus, Ullage, Kelly, Datum and Busbar, loaded only with the Radio Framework (D'thorga Vehicles' tie-in folder `Mods/RadioFramework`).
@@ -235,9 +234,10 @@ Built 24 Nov 2026, not yet tested in game; its antenna picture waits for the own
   (`VehicleRadioFitting`), so every truck is built with the radio and the remote control (step 2's start-up), which stay off the net
   until the node is done. Nothing else on the truck changes.
 - **The picture [A]:** a whip antenna on the cab, bent back and tied down as real military trucks carry them (straight up, seen from
-  above, it would be a dot), drawn alone on white by the paid route and laid on each truck's three facings by script once picked
-  ([the record](../../assets/phobos-vehicles/requests/remote-kit-antenna-record.md)). The node carries no picture until then, as the
-  tree check requires.
+  above, it would be a dot), drawn alone on white by the paid route ([the record](../../assets/phobos-vehicles/requests/remote-kit-antenna-record.md)).
+  **The owner picked try 1 on 25 Nov 2026**; it is laid on each truck's three facings by `assets/phobos-vehicles/export_remote_kit.py`
+  (Vehicles 0.117.2): the mount near the front of the roof on its right, the whip tied back along it, drawn on layer 4 above the
+  cab armour [A placement, to revise once seen in game].
 
 ### Step 5: the operator (Radio 0.12.0)
 
@@ -363,7 +363,7 @@ preferring firm ground, and errands going round growing crops. Vehicle Framework
 | 1 | The two kinds, and pre-emption in the ledger, with tests. **Built in Radio 0.9.0** | Radio | Nothing |
 | 2 | A seam in the net for radios that are not worn; the tie-in adds kitted vehicles and shows their links. **Built in Radio 0.10.0** | Radio | 1 |
 | 3 | The kit's comp, the move-check postfix, lost-link choices and letters. **Built in Framework 0.278.0 and Radio 0.11.0** | Framework | 2 to be useful |
-| 4 | The kit as an upgrade node on the five service trucks, with its antenna overlay (art first, as the owner's rule says). **Built in Vehicles 0.117.0 and Radio 0.12.0; the picture waits for the owner's pick** | Vehicles | 3 |
+| 4 | The kit as an upgrade node on the five service trucks, with its antenna overlay (art first, as the owner's rule says). **Built in Vehicles 0.117.0 and Radio 0.12.0; its antenna picture in 0.117.2** | Vehicles | 3 |
 | 5 | The operator's job and work type. **Built in Radio 0.12.0** | Radio | 2 |
 | 6 | The picture link and remote guns | Framework, Vehicles | 5 and MV8's remote weapon station |
 | 7 | The route level (MV4) and mechanitor level (MV6) feeding the same comp | Framework | 3 |
@@ -378,7 +378,6 @@ preferring firm ground, and errands going round growing crops. Vehicle Framework
 - ~~**What the second Vehicle Framework seat checks need**, and whether a moving crewless truck needs help to keep ticking: read at
   step 3.~~ Read: it keeps ticking; caravans and aircraft are known limits ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)).
 - **Icons for the two buttons**, borrowed until made.
-- **The antenna overlay's picture**: two paid tries drawn 24 Nov 2026; the owner's pick, then fitting by script on the five trucks.
 - **The lost-link letter's reason**: when the operator leaves, the letter should say so rather than "lost its link".
 - **Step 8's measurement and card**: the owner's press of "Time coverage of selected station or antenna", then a card with the
   cost and whether keeping to radio cover starts on.

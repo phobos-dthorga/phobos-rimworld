@@ -6,7 +6,7 @@
        its own), and names the Radio Framework's vehicle control radio as its fitting, which that node puts in place: every truck is
        built with the radio and D'thorga Framework's remote control, which stay off the net until the node is fitted. Its cost takes an advanced component for the controller that
        works the servos (the owner, 25 Nov 2026), as the radio terminal's computer does. The node borrows
-       the radio's signal icon until its own is drawn; its antenna picture on the cab waits for the owner's pick. Cost and work
+       the radio's signal icon until its own is drawn. Its antenna is drawn on the cab, on layer 4, above the cab armour (0.117.2). Cost and work
        authored. Not yet tested in game. -->
   <!-- The Talus tipper truck: the kit's upgrade. -->
   <Operation Class="PatchOperationAdd">
@@ -190,6 +190,121 @@ If the station loses touch: holds, comes back or carries on, as chosen on the tr
       <li Class="Phobos.Radio.Vehicles.VehicleRadioFitting">
         <fitting>PhobosRadio_FittingVehicleControl</fitting>
         <upgradeNode>PhobosRemoteControlKit</upgradeNode>
+      </li>
+    </value>
+  </Operation>
+  <!-- The Talus tipper truck: the kit's antenna on the cab while it is fitted (D'thorga Vehicles 0.117.2, the owner's pick of 25 Nov 2026). -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Tipper"]/comps/li[@Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks"]/slots</xpath>
+    <value>
+      <li>
+        <key>remoteKit</key>
+        <looks>
+          <li>
+            <node>PhobosRemoteControlKit</node>
+            <look>
+              <graphicData>
+                <texPath>Phobos/Vehicles/Tipper/Tipper_RemoteKit</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 9)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>4</layer>
+              </graphicData>
+            </look>
+          </li>
+        </looks>
+      </li>
+    </value>
+  </Operation>
+  <!-- The Ullage bulk tanker: the kit's antenna on the cab while it is fitted (D'thorga Vehicles 0.117.2, the owner's pick of 25 Nov 2026). -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Tanker"]/comps/li[@Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks"]/slots</xpath>
+    <value>
+      <li>
+        <key>remoteKit</key>
+        <looks>
+          <li>
+            <node>PhobosRemoteControlKit</node>
+            <look>
+              <graphicData>
+                <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_RemoteKit</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 11)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>4</layer>
+              </graphicData>
+            </look>
+          </li>
+        </looks>
+      </li>
+    </value>
+  </Operation>
+  <!-- The Kelly drill rig: the kit's antenna on the cab while it is fitted (D'thorga Vehicles 0.117.2, the owner's pick of 25 Nov 2026). -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_DrillRig"]/comps/li[@Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks"]/slots</xpath>
+    <value>
+      <li>
+        <key>remoteKit</key>
+        <looks>
+          <li>
+            <node>PhobosRemoteControlKit</node>
+            <look>
+              <graphicData>
+                <texPath>Phobos/Vehicles/DrillRig/DrillRig_RemoteKit</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 11)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>4</layer>
+              </graphicData>
+            </look>
+          </li>
+        </looks>
+      </li>
+    </value>
+  </Operation>
+  <!-- The Datum survey truck: the kit's antenna on the cab while it is fitted (D'thorga Vehicles 0.117.2, the owner's pick of 25 Nov 2026). -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_SurveyTruck"]/comps/li[@Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks"]/slots</xpath>
+    <value>
+      <li>
+        <key>remoteKit</key>
+        <looks>
+          <li>
+            <node>PhobosRemoteControlKit</node>
+            <look>
+              <graphicData>
+                <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_RemoteKit</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 8)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>4</layer>
+              </graphicData>
+            </look>
+          </li>
+        </looks>
+      </li>
+    </value>
+  </Operation>
+  <!-- The Busbar generator set: the kit's antenna on the cab while it is fitted (D'thorga Vehicles 0.117.2, the owner's pick of 25 Nov 2026). -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_GeneratorSet"]/comps/li[@Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks"]/slots</xpath>
+    <value>
+      <li>
+        <key>remoteKit</key>
+        <looks>
+          <li>
+            <node>PhobosRemoteControlKit</node>
+            <look>
+              <graphicData>
+                <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_RemoteKit</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 9)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>4</layer>
+              </graphicData>
+            </look>
+          </li>
+        </looks>
       </li>
     </value>
   </Operation>

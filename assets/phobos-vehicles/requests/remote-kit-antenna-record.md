@@ -20,5 +20,9 @@ asked, with the thick outline and steel greys of our trucks, nothing extra drawn
 
 **Card:** `review_cards.py sprites ... --size 128 --aspect 3:5`, offered on D'thorga Companion's Picks page.
 
-**Decision:** waiting for the owner's pick. Then: the pick to `art-masters`, the other to `art-references`, and the fitting by
-script on the five trucks' cabs in their three facings.
+**Decision (owner, 25 Nov 2026):** try 1 ("I'm gobsmacked you were able to do that image without dithering! Perhaps #1?"). Fitted by `assets/phobos-vehicles/export_remote_kit.py` on the five trucks' cabs in their three facings (D'thorga Vehicles 0.117.2): the mount near the front of each roof on its right, the whip tied back along it, 190 game pixels long; agent placement, checked by the agent tinted at game pixels and enlarged in all three facings. **Kept local for now:** the near-copy check (`scripts/art/near_copy.py`, 25 Nov 2026)
+flags both tries on structure alone (0.64 to 0.67, at or over 0.6) against two of the game's sprites, a security door's under-layer and
+the select-carried-pawn button, at hash distances of 29 to 32 (a copy is 12 or less) and different proportions. Looked at side by side
+by the agent: a grey square and a tiny pawn beside a long thin whip, plainly unlike; it is the open fault T16 (flat patches, here the
+white canvas, score as alike). By the rule a flagged image stays off the public branches, so try 1 goes to `art-masters` and try 2 to
+`art-references` once T16 is fixed and the check passes them.

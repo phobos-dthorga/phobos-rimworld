@@ -13,6 +13,17 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.117.2] - 2026-11-25 - Draft
+
+The remote control kit's antenna on the cab
+
+### Added
+
+- **A truck with the remote control kit shows its antenna**: a whip on the cab roof, bent back and tied down as military trucks
+  carry theirs, with the radio's box beside its mount (the owner's pick of 25 November 2026, try 1 of 2, made with generative AI).
+  It is drawn on all five service trucks in every facing, above the armoured cab and its plates. Its place is a first placement, to
+  revise once seen in game. Not yet tested in game: row 489.
+
 ## [0.117.1] - 2026-11-25 - Draft
 
 The remote control kit takes an advanced component
