@@ -42,6 +42,8 @@
     {"image": "mods/PhobosMedical/*/Textures/Phobos/Medical/Things/LiquidOxygenStore_Frost.png",
      "reason": "the store's frost is drawn in code by design, registered to the store's outline"},
     {"image": "mods/PhobosFramework/*/Textures/Phobos/VehicleSystems/Switch.png",
-     "reason": "the load switch is kept as drawn (owner, 10 Nov 2026)"}
+     "reason": "the load switch is kept as drawn (owner, 10 Nov 2026)"},
+    {"image": "mods/PhobosRadioFramework/*/Textures/Phobos/Radio/UI/Signal?*.png",
+     "reason": "the four signal levels stay drawn by script as one matched set (owner, 24 Nov 2026; level colours picked 25 Nov 2026)"}
   ]
 }

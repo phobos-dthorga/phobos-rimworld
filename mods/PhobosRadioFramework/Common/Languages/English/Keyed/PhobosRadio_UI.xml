@@ -19,7 +19,7 @@
   <PhobosRadio_SettingInTouchThoughtDesc>A small mood bonus for a free colonist wearing a hand-held with a working link to a base station. Turn it off to keep the radios as a pure readout.</PhobosRadio_SettingInTouchThoughtDesc>
 
   <!-- Gizmos. -->
-  <PhobosRadio_GizmoLabel>Radio {BARS}</PhobosRadio_GizmoLabel>
+  <PhobosRadio_GizmoLabel>Radio: {OUTCOME}</PhobosRadio_GizmoLabel>
   <PhobosRadio_GizmoNoStation>Radio: no station</PhobosRadio_GizmoNoStation>
   <PhobosRadio_GizmoBusy>Radio: net busy</PhobosRadio_GizmoBusy>
   <PhobosRadio_NetBusy>Every channel that can hear this radio is taken by others; it waits for one to come free.</PhobosRadio_NetBusy>

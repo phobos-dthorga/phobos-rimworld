@@ -17,6 +17,22 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.13.0] - 2026-11-25 - Draft
+
+Signal bars on the Radio button
+
+### Changed
+
+- **The Radio button shows its signal as bars**: four bars rising left to right, lit orange for a marginal contact, yellow-green
+  for a workable one and green for a clean one, and four grey bars under a red slash with no contact, no station or no power. The
+  button's label now says the level in words ("Radio: workable") in place of the text bars. The same button on a vehicle's built-in
+  radio shows them too. The bars are drawn by script, in the colours the owner picked. Not yet tested in game.
+
+### Compatibility and limits
+
+- Safe with a running save; nothing is saved. No new settings.
+- The station's button keeps its antenna icon, and the Net tab and tooltips keep their text bars.
+
 ## [0.12.0] - 2026-11-24 - Draft
 
 A colonist at the console: remote operation, and the research for the vehicle kit

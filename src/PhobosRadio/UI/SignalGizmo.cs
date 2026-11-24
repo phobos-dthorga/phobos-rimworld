@@ -1,3 +1,4 @@
+using Phobos.Radio.Physics;
 using Phobos.Radio.Services;
 using UnityEngine;
 using Verse;
@@ -8,6 +9,21 @@ namespace Phobos.Radio.UI;
 public static class RadioTextures
 {
     public static readonly Texture2D Signal = ContentFinder<Texture2D>.Get("Phobos/Radio/UI/Signal");
+
+    // One icon per outcome for the Radio button (Radio 0.13.0; drawn by scripts/art/draw_signal_bars.py, the owner's pick of 25 Nov 2026).
+    private static readonly Texture2D SignalNone = ContentFinder<Texture2D>.Get("Phobos/Radio/UI/SignalNone");
+    private static readonly Texture2D SignalMarginal = ContentFinder<Texture2D>.Get("Phobos/Radio/UI/SignalMarginal");
+    private static readonly Texture2D SignalWorkable = ContentFinder<Texture2D>.Get("Phobos/Radio/UI/SignalWorkable");
+    private static readonly Texture2D SignalClean = ContentFinder<Texture2D>.Get("Phobos/Radio/UI/SignalClean");
+
+    /// <summary>The bars for a link's outcome; no link is no contact.</summary>
+    public static Texture2D SignalFor(LinkOutcome? outcome) => outcome switch
+    {
+        LinkOutcome.Clean => SignalClean,
+        LinkOutcome.Workable => SignalWorkable,
+        LinkOutcome.Marginal => SignalMarginal,
+        _ => SignalNone,
+    };
 }
 
 /// <summary>The signal-bars gizmo on a worn hand-held or a station. Reads the net; delegates nothing yet.</summary>
@@ -30,7 +46,7 @@ public static class SignalGizmo
                 ? "PhobosRadio_GizmoNoStation".Translate()
                 : busy
                     ? "PhobosRadio_GizmoBusy".Translate()
-                    : "PhobosRadio_GizmoLabel".Translate(LinkText.Bars(link!.Outcome).ToString().Named("BARS"));
+                    : "PhobosRadio_GizmoLabel".Translate(LinkText.OutcomeLabel(link!.Outcome).ToString().Named("OUTCOME"));
         var description = unpowered
             ? "PhobosRadio_StationNoPower".Translate().Resolve()
             : (busy ? "PhobosRadio_NetBusy".Translate() + "\n" : "") + (standingBy ? "PhobosRadio_StandingBy".Translate() + "\n" : "") +
@@ -42,7 +58,7 @@ public static class SignalGizmo
         {
             defaultLabel = label,
             defaultDesc = title + "\n" + description,
-            icon = RadioTextures.Signal,
+            icon = RadioTextures.SignalFor(link?.Outcome),
             action = () =>
             {
                 if (wearer == null) return;
