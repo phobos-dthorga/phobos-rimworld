@@ -14,5 +14,14 @@
     <comeBackRing>5</comeBackRing>
     <!-- Keeping to radio cover (Framework 0.279.0): a step wholly where the link would fail is worth about eight cells of detour. -->
     <uncoveredCellCost>8</uncoveredCellCost>
+    <!-- The route level (Framework 0.281.0; step 7a): at most four followers (the owner, 18 Nov 2026); the rest authored. -->
+    <maxFollowers>4</maxFollowers>
+    <followGapCells>2</followGapCells>
+    <followNearCells>2</followNearCells>
+    <followSlackCells>4</followSlackCells>
+    <standRingCells>4</standRingCells>
+    <loopArriveCells>3</loopArriveCells>
+    <!-- An hour of the game's at each stop, for colonists to load or unload it. -->
+    <loopDwellTicks>2500</loopDwellTicks>
   </Phobos.VehicleSystems.PhobosRemoteControlRulesDef>
 </Defs>

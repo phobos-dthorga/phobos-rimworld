@@ -17,5 +17,20 @@ public class PhobosRemoteControlRulesDef : PhobosRulesDef
     /// wholly out of cover worth about eight cells of detour.</summary>
     public int uncoveredCellCost = 8;
 
+    // The route level (Framework 0.281.0; autonomous-vehicles.md, step 7a). All authored, agent defaults for the owner to revise.
+    /// <summary>The most followers a leader may have (the owner, 18 Nov 2026: four, as the US Army's leader-follower trucks were fielded).</summary>
+    public int maxFollowers = 4;
+    /// <summary>Clear cells a follower keeps between itself and the vehicle ahead, beyond both their half lengths.</summary>
+    public int followGapCells = 2;
+    /// <summary>A follower this near its aim gives no new order; one whose drive ends this far off the aim gives a fresh one.</summary>
+    public float followNearCells = 2f;
+    public float followSlackCells = 4f;
+    /// <summary>How far round its aim a vehicle looks for a place to stand, in rings of cells.</summary>
+    public int standRingCells = 4;
+    /// <summary>A loop's point counts as reached within this many cells.</summary>
+    public float loopArriveCells = 3f;
+    /// <summary>How long a vehicle on a loop waits at each stop for its loading or unloading, in ticks (2,500: an hour of the game's).</summary>
+    public int loopDwellTicks = 2500;
+
     public static PhobosRemoteControlRulesDef Current => Current<PhobosRemoteControlRulesDef>();
 }

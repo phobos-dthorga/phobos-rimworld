@@ -8,7 +8,8 @@ choices and letters ([step 3](#step-3-driven-from-a-station-framework-02780-radi
 ([step 5](#step-5-the-operator-radio-0120)), and step 8, [keeping to radio cover](#step-8-keeping-to-radio-cover-framework-02790-radio-0140)
 (Framework 0.279.0, Radio 0.14.0), built on the owner's go before its cost was measured, and step 6, [the picture link and remote
 guns](#step-6-the-picture-link-and-remote-guns-framework-02800-radio-0150) with the kit as a fitting for any vehicle (Framework 0.280.0,
-Radio 0.15.0). Step 7 is not built.
+Radio 0.15.0), and step 7a, [the route level](#step-7a-the-route-level-framework-02810) (Framework 0.281.0). Step 7b, the mechanitor
+level, is decided and not built.
 Nothing is tested in game.
 
 The owner, 24 Nov 2026: "the real feature I wish to implement soon is autonomous vehicles and perhaps their weapon systems too, all
@@ -321,6 +322,40 @@ the used bandwidth, so vehicles lose control first, newest first**, within the m
 
 Each part states its cost in this record before it is built, as the radio's rule asks of this record.
 
+### Step 7a: the route level (Framework 0.281.0)
+
+Built 25 Nov 2026, not yet tested in game, on the owner's go ("You may proceed") and the cards above. Needs no other mod.
+
+- **The kit [code: `Fittings_Route.xml`]:** "route kit", a fitting for any vehicle with a D'thorga loadout, on a new **sensor bar**
+  every land vehicle has (`RouteKitMount`). 30 steel, 4 components and an advanced component, as the owner chose for the remote control
+  kit's controller; 20 kg, 3,000 work, Construction 5; about 3 A at 12 V on the battery, shed late, and it works only with that power
+  on [A]. Research **leader-follower driving** (1,500, after vehicle parts and microelectronics) [A].
+- **One comp drives it [code: `Remote/Route.cs`]:** `CompPhobosRoute` asks the remote control comp of step 3 to drive the vehicle
+  through a new source, `RouteControl` (the remote control comp now remembers which source drives it, and keeps the station's button
+  for the radio). So **the lost-link choices, delay and letters are step 3's**: a follower whose leader is lost holds by default, and
+  the letter says "leader lost". D'thorga Framework gives every design with the sensor bar the remote control and route comps, off
+  until a kit is in, so this needs no radio.
+- **Follow:** the **Follow** button (choose a vehicle) or the fleet board's **Add a follower** puts the vehicle at the end of that
+  vehicle's convoy, **at most four behind one leader [O]**. Each follower keeps behind the vehicle ahead of it, its half length and
+  the other's plus two clear cells [A], and orders a fresh drive only when its aim has moved more than four cells from the drive in
+  hand (`RouteRule`, tested). **The leader needs a crew at its wheel, or a station driving it** (step 3): a radio-driven truck can lead
+  a convoy. Leaving closes the gap behind; **Break up the convoy** sends every follower its own way.
+- **Loop:** the **Run a loop** button: the pick-up stop, then the drop-off [O]; **Add a waypoint** puts a point on the leg it lengthens
+  least [O: optional waypoints]. It waits **an hour of the game's at each stop** [A] for colonists to load or unload it (it cannot load
+  itself, as the 18 Nov record says), then drives on. Selected, it shows its loop, or its line to the vehicle ahead.
+- **The fleet board:** a follower is listed under its leader, as a trailer under its tractor; its row says "following X" or "running
+  its loop"; the chosen vehicle's pane has **Convoy** buttons: add a follower, follow another vehicle, leave, break up [O].
+- **Remote guns stay the station's [A]:** a route has no picture to watch through, so a gun on a vehicle with only the route kit fires
+  as its author built it (step 6's rule applies to the station's kit).
+- **A new setting, "Vehicles follow a leader and run loops by themselves"**, on by default (moderate risk, as remote control's).
+- **Its cost:** a field read each tick for a vehicle that is not routing; while one routes, one look a second [A] (a few distances,
+  and a drive order only when its aim has moved); the fleet board lists convoys at its own refresh. Drawing a route only while the
+  vehicle is selected. Nothing for a whole map per tick or frame.
+- **Other factions:** a raid's convoy would stop when its leader is destroyed, by the same rule, once another faction's vehicles carry
+  the kit; nothing gives them one today.
+- **Still open:** loading and unloading at the stops by the vehicle's own gear (a tipper tipping into the bunker), helicopter rounds
+  (their own step), and the buttons' own pictures (borrowed until drawn).
+
 ## Step 8: keeping to radio cover (Framework 0.279.0, Radio 0.14.0)
 
 The owner's card of 25 Nov 2026 ("Design it, with its cost"), after the wider way round for towing
@@ -461,7 +496,7 @@ preferring firm ground, and errands going round growing crops. Vehicle Framework
 | 4 | The kit as an upgrade node on the five service trucks, with its antenna overlay (art first, as the owner's rule says). **Built in Vehicles 0.117.0 and Radio 0.12.0; its antenna picture in 0.117.2** | Vehicles | 3 |
 | 5 | The operator's job and work type. **Built in Radio 0.12.0** | Radio | 2 |
 | 6 | The picture link and remote guns. **Built in Framework 0.280.0 and Radio 0.15.0**, with the kit as a fitting for any vehicle; the remote guns are other authors' turrets no seat works until MV8 builds ours | Framework, Radio | 5 |
-| 7 | The route level (MV4) and mechanitor level (MV6) feeding the same comp. **Decided by card 25 Nov 2026** ([above](#step-7-the-route-and-mechanitor-levels-decided-25-nov-2026-not-built)): 7a route first, then 7b mechanitor; not built | Framework | 3 |
+| 7 | The route level (MV4) and mechanitor level (MV6) feeding the same comp. **Decided by card 25 Nov 2026** ([above](#step-7-the-route-and-mechanitor-levels-decided-25-nov-2026-not-built)): **7a, the route level, built in Framework 0.281.0**; 7b, the mechanitor level, not built | Framework | 3 |
 | 8 | Keeping to radio cover, [above](#step-8-keeping-to-radio-cover-framework-02790-radio-0140). **Built in Framework 0.279.0 and Radio 0.14.0; its cost still to be measured** | Framework, Radio | 3 |
 
 **Test rows** come with each step. **Settings**, as listed under risks, come with step 3 and step 6.

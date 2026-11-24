@@ -76,6 +76,18 @@ and life on the road](camping.md). [Back to the guide](README.md).
 - **Give it a driver before it joins a caravan**: it cannot be driven from a station on the world map.
 - A colonist at the wheel drives it the ordinary way. A setting, "Remote control of vehicles by radio", turns it all off.
 
+### Convoys and loops
+
+- **A vehicle with the route kit drives itself without a radio**: fit the **route kit** at the vehicle workshop, after the research
+  **leader-follower driving**. It draws a little on the battery.
+- **Follow:** press **Follow** and choose a vehicle. It joins the end of that vehicle's convoy, **at most four behind one leader**,
+  and keeps behind the vehicle ahead. **The leader needs someone at its wheel**, or a radio station driving it.
+- **Run a loop:** press **Run a loop**, then choose the **pick-up**, then the **drop-off**. It drives back and forth, **waiting an hour
+  at each stop for colonists to load or unload it**. **Add a waypoint** to make it go a certain way.
+- **If the leader is lost**, the follower does what you chose for a lost link: hold, come back or carry on. A letter tells you.
+- **The fleet board** lists followers under their leader, and its pane can add a follower, leave the convoy or break it up.
+- A setting, "Vehicles follow a leader and run loops by themselves", turns it all off.
+
 ### In the dark
 
 - **Driving in the dark with the headlights off is slower**: a land vehicle goes at 85% of its speed over ground the game counts

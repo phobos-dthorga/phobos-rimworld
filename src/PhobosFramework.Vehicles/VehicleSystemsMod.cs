@@ -74,6 +74,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A remote gun (a turret no seat works, on a vehicle with the remote control kit) fires by itself without a station's picture
     /// (Framework 0.280.0; the owner's card of 24 Nov 2026: off by default, the risk is high). Live.</summary>
     public bool remoteGunsFireAlone;
+    /// <summary>A vehicle with the route kit may follow a leader or run a loop with nobody aboard (Framework 0.281.0; autonomous-vehicles.md,
+    /// step 7a: the risk is moderate, so on by default). Live: off, no vehicle follows or loops, and one doing so stops.</summary>
+    public bool routeControl = true;
     /// <summary>A vehicle driven from afar prefers ground where its link holds (Framework 0.279.0; autonomous-vehicles.md, step 8: risk low,
     /// so on by default, an agent default for the owner to revise). Live.</summary>
     public bool remoteKeepToCover = true;
@@ -359,6 +362,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref remoteControl, "PhobosVehicleSystems_RemoteControl", true);
         Scribe_Values.Look(ref remoteKeepToCover, "PhobosVehicleSystems_RemoteKeepToCover", true);
         Scribe_Values.Look(ref remoteGunsFireAlone, "PhobosVehicleSystems_RemoteGunsFireAlone", false);
+        Scribe_Values.Look(ref routeControl, "PhobosVehicleSystems_RouteControl", true);
         Scribe_Values.Look(ref powerPointLargeSocket, "PhobosVehicleSystems_PowerPointLargeSocket", false);
         Scribe_Values.Look(ref enemyFitSets, "PhobosVehicleSystems_EnemyFitSets", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
@@ -773,6 +777,8 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingRemoteKeepToCover".Translate(), ref s.remoteKeepToCover, d.remoteKeepToCover, "PhobosVehicleSystems_SettingRemoteKeepToCoverDesc".Translate());
         // Framework 0.280.0 (step 6): remote guns, high risk, so off by default (the owner's card of 24 Nov 2026).
         list.Check("PhobosVehicleSystems_SettingRemoteGunsFireAlone".Translate(), ref s.remoteGunsFireAlone, d.remoteGunsFireAlone, "PhobosVehicleSystems_SettingRemoteGunsFireAloneDesc".Translate());
+        // Framework 0.281.0 (step 7a): the route level, moderate risk, so on by default.
+        list.Check("PhobosVehicleSystems_SettingRouteControl".Translate(), ref s.routeControl, d.routeControl, "PhobosVehicleSystems_SettingRouteControlDesc".Translate());
     }
 
     static void DrawDisplay(SettingsList list)

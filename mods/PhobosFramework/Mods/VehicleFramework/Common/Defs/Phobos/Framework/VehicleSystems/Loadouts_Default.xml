@@ -376,6 +376,22 @@
         </add>
       </li>
       <li>
+        <!-- Framework 0.281.0, the route level (docs/development/autonomous-vehicles.md, step 7a; the owner's card of 25 Nov 2026: "a fitting
+             for any vehicle"): a sensor bar on the cab roof for the route kit's cameras and radar, appended to every land vehicle so the kit
+             has a part to go on and is lost with it. Outside, exposed; health and hit weight authored, a light fixture's. -->
+        <role>RouteKitMount</role>
+        <add>
+          <key>PhobosRouteKitMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>sensor bar</label>
+          <health>15</health>
+          <depth>External</depth>
+          <hitWeight>0.15</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <!-- Framework 0.129.0, vehicle accessories (docs/development/vehicle-accessories.md, the power budget): a bay in the cargo space for a
              12 V fridge, a tray for a house battery and a panel for a power outlet, appended to every land vehicle so each accessory has a
              part to go on and is lost with it (one fitting to a part). Inside the body; health and hit weight authored, small boxes'. -->

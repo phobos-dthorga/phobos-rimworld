@@ -13,6 +13,10 @@
   <PhobosVehicleSystems_SettingRemoteGunsFireAlone>Remote guns fire on their own</PhobosVehicleSystems_SettingRemoteGunsFireAlone>
   <PhobosVehicleSystems_SettingRemoteGunsFireAloneDesc>Off by default. A gun that no seat works, such as a remote weapon station, on a vehicle fitted with the remote control kit, fires only while a radio station's operator has the vehicle's picture and can watch what it shoots at. On, it fires at enemies by itself, with nobody watching: it may waste ammunition, start a fight early or shoot through friends. Vehicles without the kit fire as their makers built them, either way.</PhobosVehicleSystems_SettingRemoteGunsFireAloneDesc>
 
+  <!-- Framework 0.281.0: the route level (autonomous-vehicles.md, step 7a). -->
+  <PhobosVehicleSystems_SettingRouteControl>Vehicles follow a leader and run loops by themselves</PhobosVehicleSystems_SettingRouteControl>
+  <PhobosVehicleSystems_SettingRouteControlDesc>On by default. A vehicle fitted with the route kit can follow a crewed vehicle in a convoy, up to four behind one leader, or run back and forth between two stops you mark, with nobody aboard. If its leader is lost it does what you chose for it: hold, come back or carry on. Off, no vehicle follows or runs a loop, and one doing so stops.</PhobosVehicleSystems_SettingRouteControlDesc>
+
   <!-- Buttons. -->
   <PhobosRemote_GizmoDrive>Drive from a station</PhobosRemote_GizmoDrive>
   <PhobosRemote_GizmoDriveDesc>Lets a radio station drive this vehicle while nobody is at its wheel: once a station has it, draft it and give it orders as usual. It holds a control channel at that station while this is on, and a colonist at the wheel still drives it the ordinary way. Turn it off to park it and free the channel.</PhobosRemote_GizmoDriveDesc>
@@ -42,4 +46,49 @@
   <PhobosRemote_LostCarryOn>It is finishing the drive it was given, and will wait there.</PhobosRemote_LostCarryOn>
   <PhobosRemote_FoundLabel>Link back: {VEHICLE}</PhobosRemote_FoundLabel>
   <PhobosRemote_FoundText>A station is in touch with {VEHICLE} again, and can drive it.</PhobosRemote_FoundText>
+
+  <!-- The route level (Framework 0.281.0): buttons. -->
+  <PhobosRoute_GizmoFollow>Follow</PhobosRoute_GizmoFollow>
+  <PhobosRoute_GizmoFollowDesc>Choose a vehicle to follow with nobody aboard: it joins the end of that vehicle's convoy, up to {MOST} behind one leader. The leader needs someone at its wheel, or a station driving it; if the leader is lost, this vehicle does what you chose for a lost link.</PhobosRoute_GizmoFollowDesc>
+  <PhobosRoute_GizmoLoop>Run a loop</PhobosRoute_GizmoLoop>
+  <PhobosRoute_GizmoLoopDesc>Mark two stops, the pick-up first and then the drop-off: the vehicle drives back and forth between them with nobody aboard, waiting an hour at each for colonists to load or unload it. Add waypoints afterwards to send it a certain way.</PhobosRoute_GizmoLoopDesc>
+  <PhobosRoute_PickUpFirst>Choose the pick-up stop.</PhobosRoute_PickUpFirst>
+  <PhobosRoute_DropOffNext>Now choose the drop-off stop.</PhobosRoute_DropOffNext>
+  <PhobosRoute_GizmoWaypoint>Add a waypoint</PhobosRoute_GizmoWaypoint>
+  <PhobosRoute_GizmoWaypointDesc>Choose a spot the vehicle must pass on its loop. It goes on the way out or the way back, whichever it lengthens least.</PhobosRoute_GizmoWaypointDesc>
+  <PhobosRoute_GizmoStopFollowing>Stop following</PhobosRoute_GizmoStopFollowing>
+  <PhobosRoute_GizmoStopFollowingDesc>Leaves the convoy and stops where it is. Any vehicle behind it closes up on the one ahead.</PhobosRoute_GizmoStopFollowingDesc>
+  <PhobosRoute_GizmoStopLoop>Stop the loop</PhobosRoute_GizmoStopLoop>
+  <PhobosRoute_GizmoStopLoopDesc>Stops where it is and forgets its loop.</PhobosRoute_GizmoStopLoopDesc>
+  <PhobosRoute_GizmoBreakUp>Break up the convoy ({COUNT})</PhobosRoute_GizmoBreakUp>
+  <PhobosRoute_GizmoBreakUpDesc>Every vehicle following this one stops following and stays where it is.</PhobosRoute_GizmoBreakUpDesc>
+
+  <!-- The route level: refusals and messages. -->
+  <PhobosRoute_NoKit>{VEHICLE} has no working route kit: it needs the kit fitted, and power for it.</PhobosRoute_NoKit>
+  <PhobosRoute_NotNow>{VEHICLE} cannot follow or run a loop by itself now.</PhobosRoute_NotNow>
+  <PhobosRoute_CannotFollow>Cannot follow {TARGET}: choose another vehicle on this map, not one in this vehicle's own convoy.</PhobosRoute_CannotFollow>
+  <PhobosRoute_ConvoyFull>{LEADER}'s convoy is full: {MOST} vehicles follow it already.</PhobosRoute_ConvoyFull>
+  <PhobosRoute_Stopped>{VEHICLE} stops following its route.</PhobosRoute_Stopped>
+  <PhobosRoute_BrokenUp>{VEHICLE}'s convoy breaks up; each vehicle stays where it is.</PhobosRoute_BrokenUp>
+
+  <!-- The route level: inspect text. -->
+  <PhobosRoute_InspectFollowing>Following {AHEAD}, in {LEADER}'s convoy.</PhobosRoute_InspectFollowing>
+  <PhobosRoute_InspectLooping>Running its loop: driving to the {TO}.</PhobosRoute_InspectLooping>
+  <PhobosRoute_InspectWaitingAtStop>Running its loop: waiting at the {STOP} for {TIME}.</PhobosRoute_InspectWaitingAtStop>
+  <PhobosRoute_PickUp>pick-up</PhobosRoute_PickUp>
+  <PhobosRoute_DropOff>drop-off</PhobosRoute_DropOff>
+  <PhobosRoute_Waypoint>next waypoint</PhobosRoute_Waypoint>
+  <PhobosRoute_InspectWaiting>Its leader is lost: carrying on for a few seconds.</PhobosRoute_InspectWaiting>
+  <PhobosRoute_InspectHolding>Its leader is lost: holding here.</PhobosRoute_InspectHolding>
+  <PhobosRoute_InspectComingBack>Its leader is lost: driving back to where it last saw it.</PhobosRoute_InspectComingBack>
+  <PhobosRoute_InspectCarryingOn>Its leader is lost: finishing its last drive.</PhobosRoute_InspectCarryingOn>
+
+  <!-- The route level: letters. -->
+  <PhobosRoute_LostLabel>Leader lost: {VEHICLE}</PhobosRoute_LostLabel>
+  <PhobosRoute_LostText>{VEHICLE} has lost the vehicle it was following: its leader is gone, has nobody at its wheel, or has left the map. {ACTION}</PhobosRoute_LostText>
+  <PhobosRoute_LostHold>It is holding where it stands until its leader is driven again.</PhobosRoute_LostHold>
+  <PhobosRoute_LostComeBack>It is driving back to where it last saw its leader.</PhobosRoute_LostComeBack>
+  <PhobosRoute_LostCarryOn>It is finishing the drive it was on, and will wait there.</PhobosRoute_LostCarryOn>
+  <PhobosRoute_FoundLabel>Leader back: {VEHICLE}</PhobosRoute_FoundLabel>
+  <PhobosRoute_FoundText>{VEHICLE}'s leader is driven again, and it follows once more.</PhobosRoute_FoundText>
 </LanguageData>

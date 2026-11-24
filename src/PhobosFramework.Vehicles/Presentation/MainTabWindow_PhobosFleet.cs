@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Interface;
+using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using UnityEngine;
+using Vehicles;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -184,8 +186,9 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
         {
             foreach (FleetEntry entry in rows)
             {
-                // A towed vehicle sits under what pulls it, when that is in the list too.
+                // A towed vehicle sits under what pulls it, and a follower under its convoy's leader, when that is in the list too.
                 if (entry.TowedBy != null && inList.Contains(entry.TowedBy)) continue;
+                if (entry.FollowerOf != null && inList.Contains(entry.FollowerOf)) continue;
                 lines.Add(new Line(entry, indented: false));
                 AddTowed(entry, 0);
             }
@@ -200,6 +203,14 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
                 if (towed.TowedBy != front || towed == front) continue;
                 lines.Add(new Line(towed, indented: true));
                 AddTowed(towed, depth + 1);
+            }
+            // Framework 0.281.0: a convoy's followers under its leader.
+            if (depth > 0) return;
+            foreach (FleetEntry follower in sorted)
+            {
+                if (follower.FollowerOf != front || follower == front) continue;
+                lines.Add(new Line(follower, indented: true));
+                AddTowed(follower, depth + 1);
             }
         }
 
@@ -482,6 +493,70 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
 
     // ---- The pane beside the list ----
 
+    /// <summary>
+    /// The convoy buttons for the chosen vehicle (Framework 0.281.0): add a follower (any of the map's vehicles with a working route kit and
+    /// nothing else to do), follow another vehicle, leave the convoy, or break it up. Each delegates to the vehicle's route comp.
+    /// </summary>
+    float DrawConvoy(float y, float width, VehiclePawn vehicle)
+    {
+        var route = vehicle.GetComp<CompPhobosRoute>();
+        var followers = Convoys.Followers(vehicle);
+        bool kit = route != null && RouteControl.KitWorks(vehicle);
+        if (route == null && followers.Count == 0) return y;
+        float top = y;
+        PhobosWidgets.CardHeader(ref y, 0f, width, "PhobosFleet_DetailConvoy".Translate(), null);
+        if (followers.Count > 0) y += Words(6f, y, width - 12f, "PhobosFleet_ConvoyLeads".Translate(followers.Count.Named("COUNT")), Color.white);
+        if (route is { Mode: RouteMode.Follow, Leader: { } leader }) y += Words(6f, y, width - 12f, "PhobosFleet_ConvoyFollows".Translate(leader.LabelShort.Named("LEADER")), Color.white);
+        var button = new Rect(6f, y, width - 12f, 26f);
+        if (route?.Mode != RouteMode.Follow && RouteRule.MayJoin(followers.Count, PhobosRemoteControlRulesDef.Current.maxFollowers))
+        {
+            if (Widgets.ButtonText(button, "PhobosFleet_ConvoyAdd".Translate()))
+            {
+                var options = new List<FloatMenuOption>();
+                foreach (Pawn pawn in vehicle.Map.mapPawns.SpawnedPawnsInFaction(Faction.OfPlayer))
+                {
+                    if (pawn is not VehiclePawn other || other == vehicle || other.GetComp<CompPhobosRoute>() is not { Mode: RouteMode.None } candidate
+                        || !RouteControl.KitWorks(other)) continue;
+                    options.Add(new FloatMenuOption(other.LabelShortCap, () =>
+                    {
+                        if (candidate.Follow(vehicle) is { } why) Messages.Message(why, other, MessageTypeDefOf.RejectInput, false);
+                    }));
+                }
+                if (options.Count == 0) options.Add(new FloatMenuOption("PhobosFleet_ConvoyNoneFree".Translate(), null));
+                Find.WindowStack.Add(new FloatMenu(options));
+            }
+            y += 30f;
+            button.y = y;
+        }
+        if (kit && route!.Mode == RouteMode.None && Widgets.ButtonText(button, "PhobosFleet_ConvoyFollow".Translate()))
+        {
+            var options = new List<FloatMenuOption>();
+            foreach (Pawn pawn in vehicle.Map.mapPawns.SpawnedPawnsInFaction(Faction.OfPlayer))
+            {
+                if (pawn is not VehiclePawn other || other == vehicle) continue;
+                options.Add(new FloatMenuOption(other.LabelShortCap, () =>
+                {
+                    if (route.Follow(other) is { } why) Messages.Message(why, vehicle, MessageTypeDefOf.RejectInput, false);
+                }));
+            }
+            Find.WindowStack.Add(new FloatMenu(options));
+        }
+        if (kit && route!.Mode == RouteMode.None) { y += 30f; button.y = y; }
+        if (route is { Mode: RouteMode.Follow })
+        {
+            if (Widgets.ButtonText(button, "PhobosFleet_ConvoyLeave".Translate())) route.Stop();
+            y += 30f;
+            button.y = y;
+        }
+        if (followers.Count > 0)
+        {
+            if (Widgets.ButtonText(button, "PhobosFleet_ConvoyBreakUp".Translate())) Convoys.BreakUp(vehicle);
+            y += 30f;
+        }
+        PhobosWidgets.CardEnd(top, ref y, 0f, width);
+        return y;
+    }
+
     void DrawDetail(Rect rect)
     {
         Widgets.DrawMenuSection(rect);
@@ -542,6 +617,9 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
 
         // The service yard (Framework 0.210.0): the yard it stands in or waits for, its dyno line and pumps, and the orders that go with them.
         if (entry.Kind == FleetKind.Own && entry.Vehicle is { Spawned: true } inMap) y = DrawYard(y, width, entry, inMap);
+
+        // Convoys and loops (Framework 0.281.0): form and change a convoy here as with the vehicle's own buttons.
+        if (entry.Kind == FleetKind.Own && entry.Vehicle is { Spawned: true } routed && RouteControl.On) y = DrawConvoy(y, width, routed);
 
         if (entry.Systems != null)
         {

@@ -13,6 +13,37 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.281.0] - 2026-11-25 - Draft
+
+Convoys and loops: vehicles that follow a leader or run between two stops by themselves
+
+### Added
+
+- **A route kit, a fitting for any vehicle**, after the new research leader-follower driving (the owner's cards of 25 November 2026).
+  With it a vehicle can **follow** a crewed vehicle with nobody aboard, up to four behind one leader, or **run a loop** between a
+  pick-up and a drop-off you mark, waiting an hour at each for colonists to load or unload it, with waypoints if you want it to go a
+  certain way. If its leader is lost it does what you chose for a lost link, hold by default, and a letter says so. A leader can be
+  a truck driven from a radio station. Not yet tested in game: rows 496 to 498.
+- **Convoys on the fleet board**: followers are listed under their leader, and the chosen vehicle's pane can add a follower, follow
+  another vehicle, leave the convoy or break it up.
+- **A new setting, "Vehicles follow a leader and run loops by themselves"**, on by default, in the Vehicle Systems settings under
+  Remote control.
+- **Every land vehicle has a sensor bar**, the part the route kit goes on.
+
+### Changed
+
+- **The remote control comp remembers what drives a vehicle**: a station, or its route. The "Drive from a station" button stays the
+  radio's. Saves from before count as a station's.
+
+### Compatibility and limits
+
+- A vehicle on a loop cannot load or unload itself; colonists do it while it waits.
+- The route buttons and the kit borrow existing pictures until their own are drawn.
+
+### Save compatibility
+
+- Safe on an existing save: the new bar is added to vehicles at the next load. A routing vehicle saves its convoy or loop.
+
 ## [0.280.1] - 2026-11-25 - Draft
 
 Our own pictures in the walk-in cabin, the tent flap and the ECM pod

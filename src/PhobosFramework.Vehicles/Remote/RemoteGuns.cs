@@ -45,7 +45,8 @@ public static class RemoteGuns
     public static bool MayFire(VehiclePawn vehicle)
     {
         var comp = vehicle.GetComp<CompPhobosRemoteControl>();
-        var kitFitted = comp != null && RemoteControl.SourceFor(vehicle) != null;
+        // The station's kit only (Framework 0.281.0): a route has no picture to watch through, so a gun on it fires as its author built it [A].
+        var kitFitted = comp != null && RemoteControl.StationSource(vehicle) != null;
         return RemoteGunRule.MayFire(kitFitted, comp is { HasPicture: true }, FireAlone);
     }
 

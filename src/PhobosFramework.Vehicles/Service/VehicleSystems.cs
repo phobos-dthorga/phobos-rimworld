@@ -242,6 +242,13 @@ public static class VehicleSystems
         }
         // The litter kit (Framework 0.101.0): a loadout that names a cabin gives the vehicle its litters, used once the kit is fitted there.
         if (props.roleKeys.ContainsKey(LitterRoles.Cabin) && !def.comps.Any(c => c is CompProperties_PhobosLitter)) def.comps.Add(new CompProperties_PhobosLitter());
+        // Working without a crew (Framework 0.281.0; autonomous-vehicles.md, step 7a): a design with the route kit's sensor mount gets the
+        // remote control comp and the route comp, off until a kit is fitted, so the route level needs no other mod.
+        if (props.roleKeys.ContainsKey("RouteKitMount"))
+        {
+            if (!def.comps.Any(c => c is CompProperties_PhobosRemoteControl)) def.comps.Add(new CompProperties_PhobosRemoteControl());
+            if (!def.comps.Any(c => c is CompProperties_PhobosRoute)) def.comps.Add(new CompProperties_PhobosRoute());
+        }
         // The hitch (Framework 0.101.0): every land vehicle with a loadout can tow a trailer, unless its loadout says not; whether it may tow
         // now (our drivetrain, or the player's setting for others) is asked when the player orders it.
         // A trailer never gets one, whatever its loadout says: nothing tows a trailer behind a trailer.

@@ -3,6 +3,12 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "498": {"parts": {
+      "a loop starts": ["vehicles.route-loop"],
+      "it waits at the pick-up": [{"key": "vehicles.route-stop", "variant": "pick-up"}],
+      "it waits at the drop-off": [{"key": "vehicles.route-stop", "variant": "drop-off"}]
+    }},
+    "496": ["vehicles.route-follow"],
     "494": {"parts": {
       "the picture won": [{"key": "vehicles.remote-picture", "variant": "won"}],
       "the picture lost": [{"key": "vehicles.remote-picture", "variant": "lost"}]

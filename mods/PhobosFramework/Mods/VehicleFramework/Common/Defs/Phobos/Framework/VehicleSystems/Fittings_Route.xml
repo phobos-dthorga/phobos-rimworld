@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The route kit (D'thorga Framework 0.281.0; docs/development/autonomous-vehicles.md, step 7a; the owner's cards of 25 Nov 2026: a
+       fitting for any vehicle). Fitted at the vehicle workshop on any vehicle with a D'thorga loadout, on the sensor bar every land vehicle
+       has (Loadouts_Default.xml). It grants RouteControl: the vehicle may follow a leader (at most four to one, the owner's) or run a loop
+       between two stops, with nobody aboard, and stops when its leader is lost. It draws on the battery and works only with that load on.
+       Real basis: the US Army's leader-follower trucks, and the four that followed a crewed leader near Puckapunyal in June 2023. Cost:
+       an advanced component for its controller, as the owner chose for the remote control kit; load, weight, work and skill authored.
+       It borrows a picture until its own is drawn. Not yet tested in game. -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_RouteKit</defName>
+    <iconPath>Phobos/VehicleSystems/Hitch/Hitch</iconPath>
+    <label>route kit</label>
+    <description>Cameras and a small radar on a bar over the cab, a controller, and servos on the wheel, pedals and gear lever. With it the vehicle can follow a crewed vehicle in a convoy, or run back and forth between two stops you mark, with nobody aboard. It cannot load or unload itself, go anywhere new or fight; if its leader is lost, it stops. It draws on the battery. The driver's seat stays.</description>
+    <roles><li>RouteKitMount</li></roles>
+    <materials><Steel>30</Steel><ComponentIndustrial>4</ComponentIndustrial><ComponentSpacer>1</ComponentSpacer></materials>
+    <kilograms>20</kilograms>
+    <work>3000</work>
+    <minSkill>5</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleAutonomy</researchPrerequisite>
+    <grants><li>RouteControl</li></grants>
+    <loads>
+      <li>
+        <!-- Cameras, radar, controller and servos at rest: about 3 A at 12 V (authored), halved on a 24 V truck. Shed late: a vehicle that
+             loses it stops. -->
+        <name>routeKit</name>
+        <label>route kit</label>
+        <description>The route kit's sensors, controller and servos. With power, the vehicle can follow a leader or run its loop by itself.</description>
+        <amps>3</amps>
+        <shedOrder>9</shedOrder>
+        <iconPath>Phobos/VehicleSystems/Hitch/Hitch</iconPath>
+      </li>
+    </loads>
+    <feed>
+      <load>routeKit</load>
+    </feed>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

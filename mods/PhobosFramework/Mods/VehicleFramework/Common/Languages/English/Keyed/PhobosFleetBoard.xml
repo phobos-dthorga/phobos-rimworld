@@ -21,6 +21,9 @@
   <PhobosFleet_DoingOverrun>rolling on, unable to stop</PhobosFleet_DoingOverrun>
   <PhobosFleet_DoingAir>in the air</PhobosFleet_DoingAir>
   <PhobosFleet_DoingErrand>out on a run by itself</PhobosFleet_DoingErrand>
+  <!-- Framework 0.281.0: the route level. -->
+  <PhobosFleet_DoingFollowing>following {AHEAD} by itself</PhobosFleet_DoingFollowing>
+  <PhobosFleet_DoingLoop>running its loop by itself</PhobosFleet_DoingLoop>
   <PhobosFleet_DoingSetUp>set up and working</PhobosFleet_DoingSetUp>
   <PhobosFleet_DoingSetUpStalled>set up, but stopped</PhobosFleet_DoingSetUpStalled>
   <PhobosFleet_DoingWinching>winching {TOWED}</PhobosFleet_DoingWinching>
@@ -63,6 +66,15 @@
   <PhobosFleet_DetailRegular>Its regular driver: {NAME}</PhobosFleet_DetailRegular>
   <PhobosFleet_DetailJourney>This journey: {DISTANCE} so far, from {PLACE}.</PhobosFleet_DetailJourney>
   <PhobosFleet_DetailFaults>Faults</PhobosFleet_DetailFaults>
+  <!-- Framework 0.281.0: convoys. -->
+  <PhobosFleet_DetailConvoy>Convoy</PhobosFleet_DetailConvoy>
+  <PhobosFleet_ConvoyLeads>Leads a convoy: {COUNT} following.</PhobosFleet_ConvoyLeads>
+  <PhobosFleet_ConvoyFollows>Follows in {LEADER}'s convoy.</PhobosFleet_ConvoyFollows>
+  <PhobosFleet_ConvoyAdd>Add a follower</PhobosFleet_ConvoyAdd>
+  <PhobosFleet_ConvoyNoneFree>No vehicle on this map has a working route kit and is free to follow.</PhobosFleet_ConvoyNoneFree>
+  <PhobosFleet_ConvoyFollow>Follow another vehicle</PhobosFleet_ConvoyFollow>
+  <PhobosFleet_ConvoyLeave>Leave the convoy</PhobosFleet_ConvoyLeave>
+  <PhobosFleet_ConvoyBreakUp>Break up the convoy</PhobosFleet_ConvoyBreakUp>
   <PhobosFleet_DetailNoFaults>None.</PhobosFleet_DetailNoFaults>
   <PhobosFleet_DetailFault>{CONDITION}: {PART}</PhobosFleet_DetailFault>
   <PhobosFleet_DetailFaultStage>{CONDITION}: {PART} ({STAGE})</PhobosFleet_DetailFaultStage>

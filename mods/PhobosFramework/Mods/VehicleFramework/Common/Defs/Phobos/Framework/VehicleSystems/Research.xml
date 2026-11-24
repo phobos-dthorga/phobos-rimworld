@@ -124,6 +124,28 @@
     </modExtensions>
   </ResearchProjectDef>
 
+  <!-- Framework 0.281.0 (docs/development/autonomous-vehicles.md, step 7a): the route kit. Cost and place authored. -->
+  <ResearchProjectDef ParentName="PhobosResearchVehicleBase">
+    <defName>PhobosResearch_VehicleAutonomy</defName>
+    <label>leader-follower driving</label>
+    <description>A kit of cameras, radar and a controller that lets a vehicle follow a crewed leader, or run back and forth between two stops, with nobody aboard. Up to four may follow one leader; if the leader is lost, they stop.</description>
+    <baseCost>1500</baseCost>
+    <researchViewX>0</researchViewX>
+    <researchViewY>2.4</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+      <li>MicroelectronicsBasics</li>
+    </prerequisites>
+    <customUnlockTexts>
+      <li>Fitting: route kit</li>
+    </customUnlockTexts>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
   <ResearchProjectDef ParentName="PhobosResearchVehicleBase">
     <defName>PhobosResearch_Turbines</defName>
     <label>turbine engines</label>

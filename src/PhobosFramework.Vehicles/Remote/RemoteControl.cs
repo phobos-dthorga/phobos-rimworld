@@ -29,6 +29,18 @@ public interface IRemoteControlSource
     void WantChanged(VehiclePawn vehicle);
     /// <summary>The icon of the button that asks for it, or null for ours.</summary>
     Texture2D? Icon { get; }
+    /// <summary>
+    /// Its name, saved with a vehicle it drives (Framework 0.281.0), so a vehicle with two kits knows which one drives it. Stable once a save
+    /// holds it.
+    /// </summary>
+    string Key => GetType().Name;
+    /// <summary>
+    /// Whether it is asked for with the "Drive from a station" button and has a picture to watch through (a station: the radio), rather than
+    /// buttons of its own (the route level). Remote guns answer only to such a source.
+    /// </summary>
+    bool StationToggle => true;
+    /// <summary>Whether its setting lets it drive now.</summary>
+    bool Enabled => RemoteControl.On;
 }
 
 /// <summary>The sources, and whether the setting lets any vehicle be driven from afar.</summary>
@@ -45,15 +57,32 @@ public static class RemoteControl
     /// <summary>The setting "Remote control of vehicles by radio" (on by default; the risk is moderate). Live.</summary>
     public static bool On => VehicleSystemsMod.Settings.remoteControl;
 
-    /// <summary>The source whose kit this vehicle carries, or null.</summary>
+    /// <summary>The first source whose kit this vehicle carries, or null.</summary>
     public static IRemoteControlSource? SourceFor(VehiclePawn vehicle)
     {
         foreach (var source in sources) if (source.Fitted(vehicle)) return source;
         return null;
     }
 
-    /// <summary>Whether the player has asked for this vehicle to be driven from afar, with the setting on: a source asks its link for it.</summary>
-    public static bool Wanted(VehiclePawn vehicle) => vehicle.GetComp<CompPhobosRemoteControl>() is { Wanted: true };
+    /// <summary>The source of this name, if the vehicle carries its kit (Framework 0.281.0).</summary>
+    public static IRemoteControlSource? SourceFor(VehiclePawn vehicle, string key)
+    {
+        foreach (var source in sources) if (source.Key == key && source.Fitted(vehicle)) return source;
+        return null;
+    }
+
+    /// <summary>The station-driven source whose kit this vehicle carries (the radio's), or null (Framework 0.281.0).</summary>
+    public static IRemoteControlSource? StationSource(VehiclePawn vehicle)
+    {
+        foreach (var source in sources) if (source.StationToggle && source.Fitted(vehicle)) return source;
+        return null;
+    }
+
+    /// <summary>
+    /// Whether the player has asked for this vehicle to be driven from a station, with the setting on: a station source asks its link for
+    /// it. A vehicle on a route answers no here (Framework 0.281.0), so it asks no radio channel.
+    /// </summary>
+    public static bool Wanted(VehiclePawn vehicle) => vehicle.GetComp<CompPhobosRemoteControl>() is { WantedByStation: true };
 
     /// <summary>
     /// Whether the vehicle's own crew can drive it, as Vehicle Framework counts them (VehiclePawn.HasEnoughOperators), read without our
@@ -91,6 +120,11 @@ public class CompProperties_PhobosRemoteControl : CompProperties
 public sealed class CompPhobosRemoteControl : VehicleComp
 {
     bool wanted;
+    /// <summary>Which source drives it (Framework 0.281.0): a source's <see cref="IRemoteControlSource.Key"/>; empty for a station's, as
+    /// saves from before this knew only the radio.</summary>
+    string? drivenBy;
+    /// <summary>Whether that source's setting let it drive at the last look: what the move check reads. Never saved.</summary>
+    bool? enabled;
     LostLinkChoice choice = LostLinkChoice.Hold;
     RemoteState state = RemoteState.Off;
     int lostSinceTick = -1;
@@ -111,23 +145,41 @@ public sealed class CompPhobosRemoteControl : VehicleComp
     /// Whether it asks its station for a picture as well as orders (Framework 0.280.0; the record's kinds table: the picture is held while
     /// the operator drives it under direct orders): asked to be driven, and drafted.
     /// </summary>
-    public bool WantsPicture => Wanted && Vehicle.Drafted;
+    public bool WantsPicture => WantedByStation && Vehicle.Drafted;
 
-    /// <summary>The player asked for it to be driven from afar, the setting allows it, and its own crew is not at the wheel.</summary>
-    public bool Wanted => wanted && RemoteControl.On && !RemoteControl.CrewDrives(Vehicle);
+    /// <summary>The source that drives it, or would: the one the player asked for, if its kit is still on (Framework 0.281.0).</summary>
+    public IRemoteControlSource? Current => drivenBy.NullOrEmpty() ? RemoteControl.StationSource(Vehicle) : RemoteControl.SourceFor(Vehicle, drivenBy!);
 
-    /// <summary>Whether a station drives it now: what Vehicle Framework's move check reads. One field and the setting.</summary>
-    public bool Drives => RemoteControl.On && RemoteControlRule.Drives(state);
+    /// <summary>The player asked for it to be driven with nobody aboard, that source's setting allows it, and its own crew is not at the wheel.</summary>
+    public bool Wanted => wanted && Current is { Enabled: true } && !RemoteControl.CrewDrives(Vehicle);
+
+    /// <summary>Asked to be driven from a station (the radio), not along a route.</summary>
+    public bool WantedByStation => Wanted && Current is { StationToggle: true };
+
+    /// <summary>Asked to be driven by the source of this name.</summary>
+    public bool WantedBy(string key) => wanted && drivenBy == key;
+
+    /// <summary>Whether something drives it now: what Vehicle Framework's move check reads. Fields only, after the first look.</summary>
+    public bool Drives => RemoteControlRule.Drives(state) && (enabled ??= Current is { Enabled: true });
 
     public RemoteState State => state;
     public LostLinkChoice Choice => choice;
 
-    /// <summary>The player's ask, from the button: the source works the link out at once, and the vehicle can be drafted straight away.</summary>
-    public void SetWanted(bool on)
+    /// <summary>The "Drive from a station" button: asks the station source, or lets the vehicle go.</summary>
+    public void SetWanted(bool on) => SetWanted(on, on ? RemoteControl.StationSource(Vehicle)?.Key : null);
+
+    /// <summary>
+    /// The player's ask (Framework 0.281.0: by a source's name, so the route level asks too): the sources work the link out at once, and the
+    /// vehicle can be drafted straight away. Asking one source lets the other go.
+    /// </summary>
+    public void SetWanted(bool on, string? key)
     {
-        if (wanted == on) return;
+        var before = Current;
+        if (wanted == on && (!on || drivenBy == key)) return;
         wanted = on;
-        if (RemoteControl.SourceFor(Vehicle) is { } source) source.WantChanged(Vehicle);
+        drivenBy = on ? key : null;
+        before?.WantChanged(Vehicle);
+        if (Current is { } now && now != before) now.WantChanged(Vehicle);
         Look();
     }
 
@@ -158,7 +210,8 @@ public sealed class CompPhobosRemoteControl : VehicleComp
     {
         var vehicle = Vehicle;
         if (!vehicle.Spawned) return;
-        var source = RemoteControl.SourceFor(vehicle);
+        var source = Current;
+        enabled = source is { Enabled: true };
         var want = source != null && Wanted;
         var link = want ? source!.LinkOf(vehicle) : default;
         var hadPicture = picture;
@@ -200,21 +253,24 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         if (after == RemoteState.Linked && Seen.Wants("vehicles.remote-control", vehicle)) Seen.Note("vehicles.remote-control", vehicle, vehicle.LabelShort);
         if (RemoteControlRule.TellsLost(before, after))
         {
-            var key = after switch
+            // A route has a leader, not a station (Framework 0.281.0).
+            var route = Current is { StationToggle: false };
+            var key = (route ? "PhobosRoute_" : "PhobosRemote_") + after switch
             {
-                RemoteState.ComingBack => "PhobosRemote_LostComeBack",
-                RemoteState.CarryingOn => "PhobosRemote_LostCarryOn",
-                _ => "PhobosRemote_LostHold",
+                RemoteState.ComingBack => "LostComeBack",
+                RemoteState.CarryingOn => "LostCarryOn",
+                _ => "LostHold",
             };
-            Find.LetterStack.ReceiveLetter("PhobosRemote_LostLabel".Translate(vehicle.LabelShort.Named("VEHICLE")),
-                "PhobosRemote_LostText".Translate(vehicle.LabelShort.Named("VEHICLE"), key.Translate().Named("ACTION")),
+            Find.LetterStack.ReceiveLetter((route ? "PhobosRoute_LostLabel" : "PhobosRemote_LostLabel").Translate(vehicle.LabelShort.Named("VEHICLE")),
+                (route ? "PhobosRoute_LostText" : "PhobosRemote_LostText").Translate(vehicle.LabelShort.Named("VEHICLE"), key.Translate().Named("ACTION")),
                 LetterDefOf.NegativeEvent, vehicle);
             if (Seen.Wants("vehicles.remote-lost", vehicle, after.ToString())) Seen.Note("vehicles.remote-lost", vehicle, vehicle.LabelShort, after.ToString());
         }
         else if (RemoteControlRule.TellsFound(before, after))
         {
-            Find.LetterStack.ReceiveLetter("PhobosRemote_FoundLabel".Translate(vehicle.LabelShort.Named("VEHICLE")),
-                "PhobosRemote_FoundText".Translate(vehicle.LabelShort.Named("VEHICLE")), LetterDefOf.NeutralEvent, vehicle);
+            var route = Current is { StationToggle: false };
+            Find.LetterStack.ReceiveLetter((route ? "PhobosRoute_FoundLabel" : "PhobosRemote_FoundLabel").Translate(vehicle.LabelShort.Named("VEHICLE")),
+                (route ? "PhobosRoute_FoundText" : "PhobosRemote_FoundText").Translate(vehicle.LabelShort.Named("VEHICLE")), LetterDefOf.NeutralEvent, vehicle);
             if (Seen.Wants("vehicles.remote-found", vehicle)) Seen.Note("vehicles.remote-found", vehicle, vehicle.LabelShort);
         }
     }
@@ -243,15 +299,19 @@ public sealed class CompPhobosRemoteControl : VehicleComp
     {
         foreach (var gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         var vehicle = Vehicle;
-        if (vehicle.Faction != Faction.OfPlayer || !RemoteControl.On || RemoteControl.SourceFor(vehicle) is not { } source) yield break;
-        yield return new Command_Toggle
+        if (vehicle.Faction != Faction.OfPlayer || RemoteControl.SourceFor(vehicle) == null) yield break;
+        // The station's button (Framework 0.281.0: only for a station source; a route has buttons of its own).
+        if (RemoteControl.StationSource(vehicle) is { Enabled: true } station)
         {
-            defaultLabel = "PhobosRemote_GizmoDrive".Translate(),
-            defaultDesc = "PhobosRemote_GizmoDriveDesc".Translate(),
-            icon = source.Icon ?? SystemIcons.Switch,
-            isActive = () => wanted,
-            toggleAction = () => SetWanted(!wanted),
-        };
+            yield return new Command_Toggle
+            {
+                defaultLabel = "PhobosRemote_GizmoDrive".Translate(),
+                defaultDesc = "PhobosRemote_GizmoDriveDesc".Translate(),
+                icon = station.Icon ?? SystemIcons.Switch,
+                isActive = () => wanted && Current is { StationToggle: true },
+                toggleAction = () => SetWanted(!(wanted && Current is { StationToggle: true })),
+            };
+        }
         yield return new Command_Action
         {
             defaultLabel = ChoiceLabel(choice),
@@ -275,7 +335,8 @@ public sealed class CompPhobosRemoteControl : VehicleComp
 
     public override string CompInspectStringExtra()
     {
-        if (!wanted || !RemoteControl.On) return string.Empty;
+        // A route says its own (CompPhobosRoute, Framework 0.281.0).
+        if (!wanted || Current is not { Enabled: true, StationToggle: true }) return string.Empty;
         return state switch
         {
             RemoteState.Unlinked => "PhobosRemote_InspectUnlinked".Translate(),
@@ -293,6 +354,7 @@ public sealed class CompPhobosRemoteControl : VehicleComp
     {
         base.PostExposeData();
         Scribe_Values.Look(ref wanted, "PhobosRemote_Wanted");
+        Scribe_Values.Look(ref drivenBy, "PhobosRemote_DrivenBy");
         Scribe_Values.Look(ref choice, "PhobosRemote_Choice", LostLinkChoice.Hold);
         Scribe_Values.Look(ref state, "PhobosRemote_State", RemoteState.Off);
         Scribe_Values.Look(ref lostSinceTick, "PhobosRemote_LostSince", -1);

@@ -66,6 +66,8 @@ public sealed class FleetEntry
     public string? Waiting;
     /// <summary>The row of the vehicle pulling this one, so a trailer sits under its tractor.</summary>
     public FleetEntry? TowedBy;
+    /// <summary>The row of the convoy leader this one follows, so a follower sits under its leader (Framework 0.281.0).</summary>
+    public FleetEntry? FollowerOf;
     public CompPhobosVehicleSystems? Systems;
     /// <summary>The world object holding it, when it is on no map.</summary>
     public WorldObject? Place;
@@ -247,6 +249,15 @@ public static class FleetService
             }
             if (towed != entry) towed.TowedBy = entry;
         }
+        // Convoys (Framework 0.281.0): a follower sits under its leader.
+        foreach (FleetEntry entry in entries)
+        {
+            if (entry.Vehicle?.GetComp<CompPhobosRoute>() is { Mode: RouteMode.Follow, Leader: { } leader }
+                && byVehicle.TryGetValue(leader, out FleetEntry? leading) && leading != entry)
+            {
+                entry.FollowerOf = leading;
+            }
+        }
         foreach (FleetEntry entry in entries) Describe(entry);
         if (Seen.On) NoteSeen(entries);
         return entries;
@@ -426,6 +437,13 @@ public static class FleetService
         if (OnMapFlight.Airborne(vehicle)) return "PhobosFleet_DoingAir".Translate();
         if (systems?.Overrun != null) return "PhobosFleet_DoingOverrun".Translate();
         if (vehicle.GetComp<CompPhobosHitch>()?.Winching is { } winched) return "PhobosFleet_DoingWinching".Translate(winched.LabelShort.Named("TOWED"));
+        // The route level (Framework 0.281.0): following in a convoy, or running a loop.
+        if (vehicle.GetComp<CompPhobosRoute>() is { Mode: not RouteMode.None } route)
+        {
+            return route.Mode == RouteMode.Follow
+                ? "PhobosFleet_DoingFollowing".Translate((route.Ahead?.LabelShort ?? "?").Named("AHEAD"))
+                : "PhobosFleet_DoingLoop".Translate();
+        }
         // A bay trip says where it stands (Framework 0.201.0), before the plain "on an errand".
         if (vehicle.GetComp<CompPhobosBayTrip>()?.DoingLine is { } trip) return trip;
         // In a service yard, or in its dyno line (Framework 0.210.0): on the dyno, waiting, being fuelled or charged, parked.
