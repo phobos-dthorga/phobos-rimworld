@@ -299,6 +299,28 @@ authors', such as GTek's L-ATV's, which already fire with nobody aboard.
 - **Still open:** our own remote weapon station (MV8), with its picture; aiming by hand through the picture is Vehicle Framework's
   own targeting while the turret is manned, untested.
 
+### Step 7: the route and mechanitor levels (decided 25 Nov 2026, not built)
+
+The other two of the three levels the owner chose on 18 Nov 2026 ([modern military vehicles](modern-military-vehicles.md#working-without-a-crew-three-levels-of-one-system)),
+feeding the remote control comp of step 3 through the same seam as the radio (`IRemoteControlSource`), so the lost-link choices,
+letters and remote-gun rule serve them too. **Neither needs the Radio Framework** (18 Nov 2026). Already chosen then: **at most four
+followers to a leader**; **the seat stays**; **followers stop when the leader is lost**; mechanitor control **adds the vehicle's cost to
+the used bandwidth, so vehicles lose control first, newest first**, within the mechanitor's command range (about 25 cells) on their map.
+
+**The owner's cards of 25 Nov 2026 [O]:**
+
+| Question | The owner's choice |
+| --- | --- |
+| How a vehicle gets the route kit | **A fitting for any vehicle** with a D'thorga loadout, as the remote control kit is |
+| How a loop is marked | **Two stops (pick-up and drop-off), with optional waypoints** in between to force the way |
+| How a follower is given its leader | **Both**: a Follow button on the follower (click the leader), and convoys formed and edited on the fleet board |
+| Helicopters' rounds between our own places | **Later, a step of their own**; step 7 is ground vehicles |
+| What a mechanitor needs | **A fitting of its own**, a mech control link for any vehicle with a loadout, after its own research following the game's basic mechtech (Biotech) |
+| A vehicle's bandwidth | **By size**: 1 light, 2 medium, 3 heavy or tracked, from its loadout's class |
+| Order | **7a, the route level, first**, committed for testing; then **7b, the mechanitor level** |
+
+Each part states its cost in this record before it is built, as the radio's rule asks of this record.
+
 ## Step 8: keeping to radio cover (Framework 0.279.0, Radio 0.14.0)
 
 The owner's card of 25 Nov 2026 ("Design it, with its cost"), after the wider way round for towing
@@ -439,7 +461,7 @@ preferring firm ground, and errands going round growing crops. Vehicle Framework
 | 4 | The kit as an upgrade node on the five service trucks, with its antenna overlay (art first, as the owner's rule says). **Built in Vehicles 0.117.0 and Radio 0.12.0; its antenna picture in 0.117.2** | Vehicles | 3 |
 | 5 | The operator's job and work type. **Built in Radio 0.12.0** | Radio | 2 |
 | 6 | The picture link and remote guns. **Built in Framework 0.280.0 and Radio 0.15.0**, with the kit as a fitting for any vehicle; the remote guns are other authors' turrets no seat works until MV8 builds ours | Framework, Radio | 5 |
-| 7 | The route level (MV4) and mechanitor level (MV6) feeding the same comp | Framework | 3 |
+| 7 | The route level (MV4) and mechanitor level (MV6) feeding the same comp. **Decided by card 25 Nov 2026** ([above](#step-7-the-route-and-mechanitor-levels-decided-25-nov-2026-not-built)): 7a route first, then 7b mechanitor; not built | Framework | 3 |
 | 8 | Keeping to radio cover, [above](#step-8-keeping-to-radio-cover-framework-02790-radio-0140). **Built in Framework 0.279.0 and Radio 0.14.0; its cost still to be measured** | Framework, Radio | 3 |
 
 **Test rows** come with each step. **Settings**, as listed under risks, come with step 3 and step 6.
@@ -464,6 +486,9 @@ preferring firm ground, and errands going round growing crops. Vehicle Framework
 - **Owner (25 Nov 2026), by card:** keeping to radio cover is designed with its cost before anything is built; no firm-ground
   cost and no crop cost for vehicles' routes.
 - **Owner (25 Nov 2026):** "You can continue with Step #8": build it before the measurement.
+- **Owner (25 Nov 2026), by card, step 7:** the route kit a fitting for any vehicle; loops by two stops with optional waypoints;
+  leaders by a Follow button and on the fleet board; helicopter rounds later; a mech control link fitting after basic mechtech;
+  bandwidth by size (1, 2, 3); 7a before 7b.
 - **Owner (25 Nov 2026), by card, step 6:** third-party vehicles join by a fitting for any vehicle; remote guns are the turrets no
   seat works; they fire on a picture link, or with the fire-alone setting, with or without the Radio Framework. Earlier the same day:
   the kit takes an advanced component.
