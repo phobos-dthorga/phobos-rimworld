@@ -21,5 +21,6 @@
     <li IfModActiveAll="SmashPhil.VehicleFramework,Aoba.DeadManSwitch.Expedition">Mods/VehiclesDmse/Common</li>
     <li IfModActiveAll="SmashPhil.VehicleFramework,Aoba.DeadManSwitch.Expedition">Mods/VehiclesDmse/1.7</li>
     <li IfModActiveAll="SmashPhil.VehicleFramework,shengchipangxieyaotuke.vehiclesatwork">Mods/VehiclesAtWork/Common</li>
+    <li IfModActiveAll="SmashPhil.VehicleFramework,Ludeon.RimWorld.Biotech">Mods/VehiclesBiotech/Common</li>
   </v1.7>
 </loadFolders>

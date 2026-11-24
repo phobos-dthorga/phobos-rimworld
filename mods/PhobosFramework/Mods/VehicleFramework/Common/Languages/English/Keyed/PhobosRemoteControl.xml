@@ -17,6 +17,10 @@
   <PhobosVehicleSystems_SettingRouteControl>Vehicles follow a leader and run loops by themselves</PhobosVehicleSystems_SettingRouteControl>
   <PhobosVehicleSystems_SettingRouteControlDesc>On by default. A vehicle fitted with the route kit can follow a crewed vehicle in a convoy, up to four behind one leader, or run back and forth between two stops you mark, with nobody aboard. If its leader is lost it does what you chose for it: hold, come back or carry on. Off, no vehicle follows or runs a loop, and one doing so stops.</PhobosVehicleSystems_SettingRouteControlDesc>
 
+  <!-- Framework 0.282.0: the mechanitor level (autonomous-vehicles.md, step 7b). -->
+  <PhobosVehicleSystems_SettingMechControl>Mechanitors can drive vehicles</PhobosVehicleSystems_SettingMechControl>
+  <PhobosVehicleSystems_SettingMechControlDesc>On by default. A vehicle fitted with the mech control link can be linked to one of your mechanitors, who then drives it with nobody aboard, within their command range, as they command mechanoids. It takes some of their bandwidth by its size: 1 for a light vehicle, 2 for a medium one, 3 for a heavy or tracked one. Mechanoids come first: when bandwidth runs short, the newest linked vehicle loses control first. Off, no mechanitor drives a vehicle, and one driven so stops.</PhobosVehicleSystems_SettingMechControlDesc>
+
   <!-- Buttons. -->
   <PhobosRemote_GizmoDrive>Drive from a station</PhobosRemote_GizmoDrive>
   <PhobosRemote_GizmoDriveDesc>Lets a radio station drive this vehicle while nobody is at its wheel: once a station has it, draft it and give it orders as usual. It holds a control channel at that station while this is on, and a colonist at the wheel still drives it the ordinary way. Turn it off to park it and free the channel.</PhobosRemote_GizmoDriveDesc>
@@ -91,4 +95,31 @@
   <PhobosRoute_LostCarryOn>It is finishing the drive it was on, and will wait there.</PhobosRoute_LostCarryOn>
   <PhobosRoute_FoundLabel>Leader back: {VEHICLE}</PhobosRoute_FoundLabel>
   <PhobosRoute_FoundText>{VEHICLE}'s leader is driven again, and it follows once more.</PhobosRoute_FoundText>
+
+  <!-- The mechanitor level (Framework 0.282.0): buttons, words and letters. -->
+  <PhobosMechLink_GizmoLink>Link to a mechanitor</PhobosMechLink_GizmoLink>
+  <PhobosMechLink_GizmoLinkDesc>Choose one of your mechanitors to drive this vehicle with nobody aboard, within their command range. It takes {COST} of their bandwidth, after their mechanoids; draft it and give it orders as usual.</PhobosMechLink_GizmoLinkDesc>
+  <PhobosMechLink_GizmoUnlink>Unlink from {MECHANITOR}</PhobosMechLink_GizmoUnlink>
+  <PhobosMechLink_GizmoUnlinkDesc>Frees the vehicle and the bandwidth it takes; the vehicle stops where it is.</PhobosMechLink_GizmoUnlinkDesc>
+  <PhobosMechLink_NotLinked>Not linked to a mechanitor.</PhobosMechLink_NotLinked>
+  <PhobosMechLink_NoKit>{VEHICLE} has no working mech control link: it needs the link fitted, and power for it.</PhobosMechLink_NoKit>
+  <PhobosMechLink_NotMechanitor>{PAWN} is not a mechanitor of this colony.</PhobosMechLink_NotMechanitor>
+  <PhobosMechLink_TooLittle>{MECHANITOR} has too little bandwidth to spare: this vehicle takes {COST}, and only {FREE} is free.</PhobosMechLink_TooLittle>
+  <PhobosMechLink_Downed>{MECHANITOR} is down and commands nothing.</PhobosMechLink_Downed>
+  <PhobosMechLink_OutOfReach>Beyond {MECHANITOR}'s command range.</PhobosMechLink_OutOfReach>
+  <PhobosMechLink_NoBandwidth>{MECHANITOR}'s bandwidth does not cover it now: their mechanoids come first.</PhobosMechLink_NoBandwidth>
+  <PhobosMechLink_Unlinked>{VEHICLE} is no longer linked to {MECHANITOR}.</PhobosMechLink_Unlinked>
+  <PhobosMechLink_Freed>{MECHANITOR} can no longer drive {VEHICLE}: the link is gone, and it stops where it is.</PhobosMechLink_Freed>
+  <PhobosMechLink_InspectLinked>Linked to {MECHANITOR}: {COST} bandwidth.</PhobosMechLink_InspectLinked>
+  <PhobosMechLink_InspectWaiting>Out of the mechanitor's control: carrying on for a few seconds.</PhobosMechLink_InspectWaiting>
+  <PhobosMechLink_InspectHolding>Out of the mechanitor's control: holding here.</PhobosMechLink_InspectHolding>
+  <PhobosMechLink_InspectComingBack>Out of the mechanitor's control: driving back toward them.</PhobosMechLink_InspectComingBack>
+  <PhobosMechLink_InspectCarryingOn>Out of the mechanitor's control: finishing its last drive.</PhobosMechLink_InspectCarryingOn>
+  <PhobosMechLink_LostLabel>Out of control: {VEHICLE}</PhobosMechLink_LostLabel>
+  <PhobosMechLink_LostText>{VEHICLE} has slipped out of its mechanitor's control: they are down, out of range, or short of bandwidth. {ACTION}</PhobosMechLink_LostText>
+  <PhobosMechLink_LostHold>It is holding where it stands until they can drive it again.</PhobosMechLink_LostHold>
+  <PhobosMechLink_LostComeBack>It is driving back toward its mechanitor.</PhobosMechLink_LostComeBack>
+  <PhobosMechLink_LostCarryOn>It is finishing the drive it was on, and will wait there.</PhobosMechLink_LostCarryOn>
+  <PhobosMechLink_FoundLabel>Back in control: {VEHICLE}</PhobosMechLink_FoundLabel>
+  <PhobosMechLink_FoundText>{VEHICLE}'s mechanitor can drive it again.</PhobosMechLink_FoundText>
 </LanguageData>

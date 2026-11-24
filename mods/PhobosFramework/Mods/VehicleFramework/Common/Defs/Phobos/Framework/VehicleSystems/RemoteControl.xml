@@ -23,5 +23,8 @@
     <loopArriveCells>3</loopArriveCells>
     <!-- An hour of the game's at each stop, for colonists to load or unload it. -->
     <loopDwellTicks>2500</loopDwellTicks>
+    <!-- The mechanitor level (Framework 0.282.0; step 7b): bandwidth by size, 1 light, 2 medium, 3 heavy or tracked (the owner's card);
+         a light vehicle is this many kilograms empty or less (authored). -->
+    <mechLightMaxKg>4000</mechLightMaxKg>
   </Phobos.VehicleSystems.PhobosRemoteControlRulesDef>
 </Defs>

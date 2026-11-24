@@ -1,0 +1,308 @@
+using System.Collections.Generic;
+using System.Linq;
+using HarmonyLib;
+using Phobos.Framework.Vehicles.Rules;
+using RimWorld;
+using UnityEngine;
+using Vehicles;
+using Verse;
+
+namespace Phobos.VehicleSystems;
+
+/// <summary>
+/// The mechanitor level as a source for the remote control comp (Framework 0.282.0; docs/development/autonomous-vehicles.md, step 7b; the
+/// owner's choices of 18 and 25 Nov 2026). A vehicle with the mech control link fitting, its power on, linked to a mechanitor, is driven
+/// while that mechanitor is up, on its map, within the game's own command range (Pawn_MechanitorTracker.CanCommandTo, so other mods' range
+/// changes carry over) and the mechanitor's bandwidth still covers it after their mechanoids. The vehicle never becomes a mechanoid and
+/// never goes feral. Biotech only.
+/// </summary>
+public sealed class MechControl : IRemoteControlSource
+{
+    public const string SourceKey = "mechanitor";
+    /// <summary>What the mech control link fitting grants, and the electrical load that powers it (Fittings_MechLink.xml).</summary>
+    public const string KitGrant = "MechControl";
+    public const string KitLoad = "mechLink";
+
+    /// <summary>The setting "Mechanitors can drive vehicles", on by default, and Biotech active. Live.</summary>
+    public static bool On => VehicleSystemsMod.Settings.mechControl && ModsConfig.BiotechActive;
+
+    public string Key => SourceKey;
+    public bool StationToggle => false;
+    public bool Enabled => On;
+    public string TextPrefix => "PhobosMechLink_";
+    public Texture2D? Icon => null;
+
+    public bool Fitted(VehiclePawn vehicle) => KitWorks(vehicle);
+
+    public static bool KitWorks(VehiclePawn vehicle) =>
+        vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(KitGrant) && systems.LoadActive(KitLoad);
+
+    public RemoteLink LinkOf(VehiclePawn vehicle)
+    {
+        if (vehicle.GetComp<CompPhobosMechLink>() is not { } link || link.Why() != null) return default;
+        return new RemoteLink(true, link.Mechanitor!.Position);
+    }
+
+    public void WantChanged(VehiclePawn vehicle)
+    {
+    }
+}
+
+/// <summary>
+/// The links of this game, so a mechanitor's bandwidth can count their vehicles at once (Framework 0.282.0). Derived from the vehicles' own
+/// saved links at load; never saved itself.
+/// </summary>
+public sealed class GameComponent_PhobosMechLinks : GameComponent
+{
+    readonly List<CompPhobosMechLink> links = new();
+
+    public GameComponent_PhobosMechLinks(Game game)
+    {
+    }
+
+    public static GameComponent_PhobosMechLinks? Current => Verse.Current.Game?.GetComponent<GameComponent_PhobosMechLinks>();
+
+    public void Add(CompPhobosMechLink link)
+    {
+        if (!links.Contains(link)) links.Add(link);
+    }
+
+    public void Remove(CompPhobosMechLink link) => links.Remove(link);
+
+    /// <summary>A mechanitor's linked vehicles, oldest link first.</summary>
+    public List<CompPhobosMechLink> Of(Pawn mechanitor)
+    {
+        links.RemoveAll(l => l.Vehicle == null || l.Vehicle.Destroyed || l.Mechanitor == null);
+        return links.Where(l => l.Mechanitor == mechanitor).OrderBy(l => l.LinkedTick).ToList();
+    }
+
+    /// <summary>What a mechanitor's linked vehicles take from their bandwidth, all of them, in control or not, as overseen mechanoids do.</summary>
+    public int CostOf(Pawn mechanitor)
+    {
+        var sum = 0;
+        foreach (var link in links) if (link.Mechanitor == mechanitor && link.Vehicle is { Destroyed: false }) sum += link.Cost;
+        return sum;
+    }
+}
+
+/// <summary>
+/// Lets a mechanitor drive a vehicle through the mech control link fitting. It takes no figures (they are in PhobosRemoteControlRulesDef);
+/// D'thorga Framework gives it to every design with the control radio bay, so XML seldom names it.
+/// </summary>
+public class CompProperties_PhobosMechLink : CompProperties
+{
+    public CompProperties_PhobosMechLink() => compClass = typeof(CompPhobosMechLink);
+}
+
+/// <summary>
+/// A vehicle's link to a mechanitor (Framework 0.282.0; docs/development/autonomous-vehicles.md, step 7b). The player links it to one of the
+/// colony's mechanitors with a button; it then asks the remote control comp to drive it through the mechanitor source, so the lost-link
+/// choices, delay and letters are step 3's. It counts against that mechanitor's bandwidth by its size (MechLinkRule), all of it, as an
+/// overseen mechanoid does; when the bandwidth runs short the newest vehicles lose control first. A mechanitor's death, or the loss of
+/// their mechlink, frees the vehicle, which stops. It looks on the vehicle's rare tick; nothing per tick.
+/// </summary>
+public sealed class CompPhobosMechLink : VehicleComp
+{
+    Pawn? mechanitor;
+    int linkedTick = -1;
+    int cost = -1;
+
+    public override bool TickByRequest => true;
+
+    public Pawn? Mechanitor => mechanitor;
+    public int LinkedTick => linkedTick;
+
+    static PhobosRemoteControlRulesDef Rules => PhobosRemoteControlRulesDef.Current;
+
+    /// <summary>Its bandwidth, by its size, worked out once.</summary>
+    public int Cost
+    {
+        get
+        {
+            if (cost >= 0) return cost;
+            var systems = Vehicle.GetComp<CompPhobosVehicleSystems>();
+            var kind = systems?.Props.loadout?.kind ?? "";
+            var heavy = kind.Contains("Heavy") || kind.Contains("Tracked");
+            var kerb = systems?.Powertrain?.KerbKg ?? double.NaN;
+            return cost = MechLinkRule.Cost(heavy, kerb, Rules.mechLightMaxKg);
+        }
+    }
+
+    CompPhobosRemoteControl? Remote => Vehicle.GetComp<CompPhobosRemoteControl>();
+
+    /// <summary>Why the mechanitor cannot drive it now, or null when it can.</summary>
+    public string? Why()
+    {
+        if (mechanitor == null) return "PhobosMechLink_NotLinked".Translate();
+        if (!MechControl.On || !MechControl.KitWorks(Vehicle)) return "PhobosMechLink_NoKit".Translate(Vehicle.LabelShort.Named("VEHICLE"));
+        if (mechanitor.Downed) return "PhobosMechLink_Downed".Translate(mechanitor.LabelShort.Named("MECHANITOR"));
+        if (!Vehicle.Spawned || !mechanitor.Spawned || mechanitor.Map != Vehicle.Map || mechanitor.mechanitor == null
+            || !mechanitor.mechanitor.CanCommandTo(Vehicle))
+        {
+            return "PhobosMechLink_OutOfReach".Translate(mechanitor.LabelShort.Named("MECHANITOR"));
+        }
+        if (!Kept()) return "PhobosMechLink_NoBandwidth".Translate(mechanitor.LabelShort.Named("MECHANITOR"));
+        return null;
+    }
+
+    /// <summary>Whether the mechanitor's bandwidth, after their mechanoids, still covers this vehicle among their older links.</summary>
+    bool Kept()
+    {
+        var tracker = mechanitor?.mechanitor;
+        if (tracker == null || GameComponent_PhobosMechLinks.Current is not { } all) return false;
+        var mine = all.Of(mechanitor!);
+        var kept = MechLinkRule.Kept(tracker.TotalBandwidth, tracker.UsedBandwidthFromSubjects + tracker.UsedBandwidthFromGestation,
+            mine.Select(l => l.Cost).ToList());
+        var at = mine.IndexOf(this);
+        return at >= 0 && at < kept;
+    }
+
+    /// <summary>Links the vehicle to a mechanitor of the colony. Null when done, or why not.</summary>
+    public string? LinkTo(Pawn pawn)
+    {
+        if (!MechControl.On || !MechControl.KitWorks(Vehicle)) return "PhobosMechLink_NoKit".Translate(Vehicle.LabelShort.Named("VEHICLE"));
+        if (pawn.mechanitor == null || pawn.Faction != Faction.OfPlayer) return "PhobosMechLink_NotMechanitor".Translate(pawn.LabelShort.Named("PAWN"));
+        var tracker = pawn.mechanitor;
+        var free = tracker.TotalBandwidth - tracker.UsedBandwidth;
+        if (mechanitor != pawn && Cost > free)
+        {
+            return "PhobosMechLink_TooLittle".Translate(pawn.LabelShort.Named("MECHANITOR"), Cost.Named("COST"), Mathf.Max(0, free).Named("FREE"));
+        }
+        Unlink(quietly: true);
+        mechanitor = pawn;
+        linkedTick = Find.TickManager.TicksGame;
+        GameComponent_PhobosMechLinks.Current?.Add(this);
+        Remote?.SetWanted(true, MechControl.SourceKey);
+        if (Seen.Wants("vehicles.mech-link", Vehicle)) Seen.Note("vehicles.mech-link", Vehicle, "to " + pawn.LabelShort, null);
+        return null;
+    }
+
+    /// <summary>Lets the mechanitor go; the vehicle stops where it is.</summary>
+    public void Unlink(bool quietly = false, string? why = null)
+    {
+        if (mechanitor == null) return;
+        var was = mechanitor;
+        GameComponent_PhobosMechLinks.Current?.Remove(this);
+        mechanitor = null;
+        linkedTick = -1;
+        if (Remote is { } remote && remote.WantedBy(MechControl.SourceKey)) remote.SetWanted(false, null);
+        if (!quietly && Vehicle.Spawned)
+        {
+            Messages.Message(why ?? "PhobosMechLink_Unlinked".Translate(Vehicle.LabelShort.Named("VEHICLE"), was.LabelShort.Named("MECHANITOR")),
+                Vehicle, MessageTypeDefOf.NeutralEvent, false);
+        }
+    }
+
+    /// <summary>A mechanitor who has died, or lost their mechlink, frees the vehicle; a downed one keeps it and commands nothing.</summary>
+    public override void CompTickRare()
+    {
+        if (mechanitor == null) return;
+        if (mechanitor.Dead || mechanitor.Destroyed || mechanitor.mechanitor == null)
+        {
+            Unlink(why: "PhobosMechLink_Freed".Translate(Vehicle.LabelShort.Named("VEHICLE"), mechanitor.LabelShort.Named("MECHANITOR")));
+            return;
+        }
+        // Another source took it (the station's button or a route): it lets go of the mechanitor.
+        if (Remote is { } remote && !remote.WantedBy(MechControl.SourceKey)) Unlink(quietly: true);
+    }
+
+    public override IEnumerable<Gizmo> CompGetGizmosExtra()
+    {
+        foreach (var gizmo in base.CompGetGizmosExtra()) yield return gizmo;
+        var vehicle = Vehicle;
+        if (vehicle.Faction != Faction.OfPlayer || !vehicle.Spawned || !MechControl.On) yield break;
+        if (mechanitor != null)
+        {
+            yield return new Command_Action
+            {
+                defaultLabel = "PhobosMechLink_GizmoUnlink".Translate(mechanitor.LabelShort.Named("MECHANITOR")),
+                defaultDesc = "PhobosMechLink_GizmoUnlinkDesc".Translate(),
+                icon = MechLinkIcons.Unlink,
+                action = () => Unlink(),
+            };
+            yield break;
+        }
+        if (!MechControl.KitWorks(vehicle)) yield break;
+        yield return new Command_Action
+        {
+            defaultLabel = "PhobosMechLink_GizmoLink".Translate(),
+            defaultDesc = "PhobosMechLink_GizmoLinkDesc".Translate(Cost.Named("COST")),
+            icon = MechLinkIcons.Link,
+            action = () =>
+            {
+                var parameters = new TargetingParameters
+                {
+                    canTargetPawns = true,
+                    canTargetBuildings = false,
+                    validator = t => t.Thing is Pawn p && p.mechanitor != null && p.Faction == Faction.OfPlayer && p.Map == vehicle.Map,
+                };
+                Find.Targeter.BeginTargeting(parameters, target =>
+                {
+                    if (target.Thing is Pawn chosen && LinkTo(chosen) is { } why) Messages.Message(why, vehicle, MessageTypeDefOf.RejectInput, false);
+                });
+            },
+        };
+    }
+
+    public override string CompInspectStringExtra()
+    {
+        if (mechanitor == null) return string.Empty;
+        var state = Remote?.State ?? RemoteState.Off;
+        var lost = state switch
+        {
+            RemoteState.Waiting => "PhobosMechLink_InspectWaiting",
+            RemoteState.Holding => "PhobosMechLink_InspectHolding",
+            RemoteState.ComingBack => "PhobosMechLink_InspectComingBack",
+            RemoteState.CarryingOn => "PhobosMechLink_InspectCarryingOn",
+            _ => null,
+        };
+        var head = "PhobosMechLink_InspectLinked".Translate(mechanitor.LabelShort.Named("MECHANITOR"), Cost.Named("COST")).Resolve();
+        if (lost != null) return head + "\n" + lost.Translate();
+        return Why() is { } why && mechanitor != null ? head + "\n" + why : head;
+    }
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        base.PostDeSpawn(map, mode);
+        // Destroyed: the link goes with it. Off the map it keeps its link, takes no orders, and still counts, as an overseen mechanoid does.
+        if (mode != DestroyMode.Vanish) Unlink(quietly: true);
+    }
+
+    public override void PostExposeData()
+    {
+        base.PostExposeData();
+        Scribe_References.Look(ref mechanitor, "PhobosMechLink_Mechanitor");
+        Scribe_Values.Look(ref linkedTick, "PhobosMechLink_LinkedTick", -1);
+        if (Scribe.mode == LoadSaveMode.PostLoadInit && mechanitor != null) GameComponent_PhobosMechLinks.Current?.Add(this);
+    }
+}
+
+/// <summary>The mech link's button pictures: the game's own select-all-mechanoids icon (Pawn_MechanitorTracker uses it), and ours.</summary>
+[StaticConstructorOnStartup]
+public static class MechLinkIcons
+{
+    public static readonly Texture2D Link = SystemIcons.For("UI/Icons/SelectAllMechs");
+    public static readonly Texture2D Unlink = SystemIcons.For("Phobos/VehicleSystems/Hitch/Unhitch");
+}
+
+/// <summary>Registers the mechanitor level as a source of the remote control comp at start-up (Framework 0.282.0).</summary>
+[StaticConstructorOnStartup]
+public static class MechLinkStartup
+{
+    static MechLinkStartup() => RemoteControl.Register(new MechControl());
+}
+
+/// <summary>
+/// A mechanitor's used bandwidth counts their linked vehicles too (Framework 0.282.0; the owner's choice of 18 Nov 2026, "add to the used
+/// figure", so the game's own bandwidth gizmo and its gestation limits see them). Postfix: it only adds; the sum is a short list read. No
+/// other mod patches this getter (query-patches.py, 25 Nov 2026).
+/// </summary>
+[HarmonyPatch(typeof(Pawn_MechanitorTracker), nameof(Pawn_MechanitorTracker.UsedBandwidth), MethodType.Getter)]
+public static class MechLinkBandwidthPatch
+{
+    public static void Postfix(Pawn ___pawn, ref int __result)
+    {
+        if (___pawn == null || GameComponent_PhobosMechLinks.Current is not { } links) return;
+        __result += links.CostOf(___pawn);
+    }
+}

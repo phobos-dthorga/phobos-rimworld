@@ -88,6 +88,15 @@ and life on the road](camping.md). [Back to the guide](README.md).
 - **The fleet board** lists followers under their leader, and its pane can add a follower, leave the convoy or break it up.
 - A setting, "Vehicles follow a leader and run loops by themselves", turns it all off.
 
+### Mechlinked vehicles (Biotech)
+
+- **A mechanitor can drive a vehicle with nobody aboard**: research **mechlinked vehicles** (after basic mechtech) and fit the **mech
+  control link** at the vehicle workshop. It goes where a radio control kit would, so a vehicle takes one or the other.
+- **Press "Link to a mechanitor"** and choose one. **Draft the vehicle and give it orders as usual**, within the mechanitor's command range.
+- **It takes their bandwidth by size**: 1 light, 2 medium, 3 heavy or tracked. **Mechanoids come first**: short of bandwidth, the newest
+  linked vehicle loses control first.
+- **Out of range, or with the mechanitor down**, it does what you chose for a lost link (hold by default). If the mechanitor dies, it is freed and stops.
+
 ### In the dark
 
 - **Driving in the dark with the headlights off is slower**: a land vehicle goes at 85% of its speed over ground the game counts

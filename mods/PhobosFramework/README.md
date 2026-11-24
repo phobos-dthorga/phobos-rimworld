@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.281.0, built 25 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.282.0, built 25 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -205,6 +205,7 @@ offers to restart). RimWorld saves only what you change.
 | Cabs, camps and caravans | Drive through the night | Vehicle caravans keep going at night while every vehicle has a rested driver, swapping tired drivers for rested passengers; journeys take about half the time. Each caravan also has its own switch | Off |
 | Cabs, camps and caravans | Warn before a parked vehicle is lost | Days of warning; 0 turns it off | 3 days |
 | Remote control | Vehicles follow a leader and run loops by themselves | A vehicle with the route kit follows a crewed leader (four at most) or runs between two stops, with nobody aboard. Off: none does, and one doing so stops | On |
+| Remote control | Mechanitors can drive vehicles | With Biotech: a vehicle with the mech control link, linked to a mechanitor, is driven by them through their bandwidth (1, 2 or 3 by size). Off: none is, and one driven so stops | On |
 | Remote control | Remote guns fire on their own | A gun that no seat works, on a vehicle with the remote control kit, fires by itself without a station's picture. Off: only while a station has the picture | Off |
 | Remote control | Remote control of vehicles by radio | A vehicle with the radio's control kit can be driven from a radio station with nobody aboard, and does what you chose when its link is lost. Off: none is, and one driving stops | On |
 | Remote control | Vehicles driven from afar keep to radio cover | A vehicle driven from a station prefers a way its stations reach, going round ground where it would lose its link. Off: it takes the way it would with a driver | On |

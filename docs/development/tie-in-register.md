@@ -7,8 +7,8 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 ## Read this first
 
-- **86 tie-in folders across eight mods** (recounted 25 Nov 2026: Vehicles 30, Patches 21, Factory Additions 16, Framework 9,
-  Medical 7, Farming 1, Radio Framework 1, Water Tap 1; 101 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
+- **87 tie-in folders across eight mods** (recounted 25 Nov 2026: Vehicles 30, Patches 21, Factory Additions 16, Framework 10,
+  Medical 7, Farming 1, Radio Framework 1, Water Tap 1; 102 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
   `Common` subfolder are listed as separate entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's
   `LoadFolders.xml`, plus a handful of tie-ins in C# that check for a mod by name. D'thorga Radio Framework's first, Vehicle
   Framework, came in its 0.10.0 (Vanilla Expanded Framework's pipe system is a hard dependency there, not a tie-in).
@@ -44,6 +44,7 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 | Vehicle Framework + Vanilla Expanded Framework | The vehicle garage outpost and its button on vehicle caravans | C# + XML | `Mods/VehiclesOutposts` |
 | Vehicles at Work (`shengchipangxieyaotuke.vehiclesatwork`) | Its trips leave out vehicles our systems refuse to move, and a called-off trip gives our reason (0.108.4, SD1, VW1); a vehicle with a depot bay is parked in it when it brings one home, and a bay counts as a lot for its Drive work (0.176.0, VW2); its Drive work fetches drivers for our waiting errands, its drivers lists are obeyed, and its trips leave a waiting truck alone (0.177.0, VW3) | C#, by name; XML (`Mods/VehiclesAtWork`) | `src/PhobosFramework.Vehicles/Service/VehiclesAtWorkPatches.cs` |
 | Vehicle Framework + RimHUD (`Jaxe.RimHUD`) | A RimHUD value for the vehicle a pawn is in | XML | `Mods/VehiclesRimHUD/Common` |
+| Vehicle Framework + Biotech (`Ludeon.RimWorld.Biotech`) | Mechlinked vehicles (0.282.0): the mech control link fitting and its research, after basic mechtech ([autonomous vehicles by radio](autonomous-vehicles.md), step 7b) | XML | `Mods/VehiclesBiotech/Common` |
 | Vehicle Framework + The Dead Man's Switch - Expedition (`Aoba.DeadManSwitch.Expedition`) | Aircraft in flight on the world map are tracks its air defence sees and fires at, through its published `AirDefenseExtensionDef`; the warning receiver hears its radars; chaff and flares cut its hit chance and slow its locks; its launch-risk prompt before our take-offs; a closed sky (Fortified Features Framework's alert counter, by name) refuses take-off (0.119.0; AD2, AD3, AD7) | C# + XML | `Mods/VehiclesDmse` |
 | RimThunder (`rimthunder.core`, `aoba.rimthunder.roca`, `rimthunderteams.rimthunder.desertsabre`) | Its vehicles are never stalled by EMP, as its authors chose, but still take the military effect (0.109.0, SD9) | XML list read by C# | `Rules_VehicleSystems.xml` |
 | Combat Extended (`CETeam.CombatExtended`) | Its smoke inhalation and smoke sensitivity read by our gas rules; vehicle hit weights and blast penetration under its armour; its ammunition system setting and which ammunition cooks off, read for ammunition cooking off in a burning vehicle's cargo (Framework 0.113.0, cross-links G13); its public list of hit boxes, joined so it shoots at an armoured vehicle's full width (Framework 0.154.0) | C#, by name | `src/PhobosFramework/Gases/CombatExtendedSmoke.cs`, `MaskFactor.cs`, `CombatExtendedRules`, `src/PhobosFramework/CombatExtendedAmmo.cs`, `src/PhobosFramework.Vehicles/Armour/CombatExtendedHitWidth.cs` |

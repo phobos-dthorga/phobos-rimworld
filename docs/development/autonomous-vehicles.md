@@ -1,15 +1,10 @@
 # Autonomous vehicles by radio (24 Nov 2026)
 
-**Status (24 Nov 2026):** steps 1 to 5 of 7 are built, in Radio Framework 0.9.0 to 0.12.0, D'thorga Framework 0.278.0 and D'thorga
-Vehicles 0.117.0 to 0.117.2: the vehicle control and picture kinds, control taking channels from talk ([radio stations](radio-stations.md#kinds-radio-080)),
-radios fitted to vehicles ([step 2](#step-2-radios-fitted-to-vehicles-radio-0100)), vehicles driven from a station with their lost-link
-choices and letters ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)), the kit on the five service trucks
-([step 4](#step-4-the-kit-on-the-trucks-vehicles-01170-radio-0120)) and the colonist at the console
-([step 5](#step-5-the-operator-radio-0120)), and step 8, [keeping to radio cover](#step-8-keeping-to-radio-cover-framework-02790-radio-0140)
-(Framework 0.279.0, Radio 0.14.0), built on the owner's go before its cost was measured, and step 6, [the picture link and remote
-guns](#step-6-the-picture-link-and-remote-guns-framework-02800-radio-0150) with the kit as a fitting for any vehicle (Framework 0.280.0,
-Radio 0.15.0), and step 7a, [the route level](#step-7a-the-route-level-framework-02810) (Framework 0.281.0). Step 7b, the mechanitor
-level, is decided and not built.
+**Status (25 Nov 2026):** every step is built: 1 to 5 and 8 in Radio Framework 0.9.0 to 0.14.0, D'thorga Framework 0.278.0 and 0.279.0
+and D'thorga Vehicles 0.117.0 to 0.117.3; step 6, [the picture link and remote guns](#step-6-the-picture-link-and-remote-guns-framework-02800-radio-0150),
+in Framework 0.280.0 and Radio 0.15.0; step 7a, [the route level](#step-7a-the-route-level-framework-02810), in Framework 0.281.0; step 7b,
+[the mechanitor level](#step-7b-the-mechanitor-level-framework-02820), in Framework 0.282.0. Left: our own remote weapon station (MV8),
+the buttons' own pictures, and helicopter rounds.
 Nothing is tested in game.
 
 The owner, 24 Nov 2026: "the real feature I wish to implement soon is autonomous vehicles and perhaps their weapon systems too, all
@@ -356,6 +351,37 @@ Built 25 Nov 2026, not yet tested in game, on the owner's go ("You may proceed")
 - **Still open:** loading and unloading at the stops by the vehicle's own gear (a tipper tipping into the bunker), helicopter rounds
   (their own step), and the buttons' own pictures (borrowed until drawn).
 
+### Step 7b: the mechanitor level (Framework 0.282.0)
+
+Built 25 Nov 2026, not yet tested in game, on the owner's go ("Let's do 7b") and the cards of 25 Nov 2026. Needs Biotech and Vehicle
+Framework (D'thorga Framework's new tie-in folder `Mods/VehiclesBiotech`); no radio.
+
+- **The kit [code: `Mods/VehiclesBiotech/.../MechLink.xml`]:** "mech control link", a fitting for any vehicle with a D'thorga loadout
+  [O], in the **control radio bay** (one fitting to a part, so a vehicle takes this or the radio's remote control kit there [A]). 20
+  steel, 3 components and an advanced component; 12 kg, 2,500 work, Construction 5; about 2 A at 12 V, shed late, working only with
+  that power on [A]. Research **mechlinked vehicles** (1,200), after the game's **basic mechtech** [O].
+- **Linking [code: `Remote/MechLink.cs`]:** **Link to a mechanitor** on the vehicle, then choose one of the colony's mechanitors; it is
+  refused when they have too little bandwidth free. **Unlink** frees it, and it stops. Linked, it asks the remote control comp of step 3
+  to drive it through a third source, `MechControl`, so the lost-link choices, delay and letters serve it too, in a mechanitor's words.
+- **Bandwidth [O]:** **by size**, 1 light, 2 medium, 3 heavy or tracked. Heavy and tracked come from the loadout's class; light and
+  medium share one class of loadout, so they are told apart by empty mass: **4 t or less is light** [A] (`MechLinkRule`, tested). It is
+  **added to the mechanitor's used bandwidth** (the owner, 18 Nov 2026) by one postfix on the game's `Pawn_MechanitorTracker.UsedBandwidth`,
+  so the game's own bandwidth gizmo and its limits on gestation see it; nobody else patches that getter (`query-patches.py`, 25 Nov 2026).
+- **Mechanoids first [O, 18 Nov 2026]:** when bandwidth runs short, the vehicles lose control first, **the newest link first**: after the
+  mechanoids' own use, the oldest links are kept while they fit (`MechLinkRule.Kept`, tested).
+- **Reach:** driven only while the mechanitor is up, on its map, and the vehicle within their command range, through the game's own
+  `CanCommandTo` (24.9 cells), so Combat Extended's and Alpha Genes' changes to that range carry over. Out of reach it does what was chosen
+  for a lost link, hold by default, and a letter says it slipped out of control.
+- **Freed and downed:** a mechanitor who dies or loses their mechlink frees the vehicle, which stops; a downed one keeps it and commands
+  nothing. **A vehicle never goes feral** and never becomes a mechanoid (the 18 Nov code read).
+- **Remote guns [A]:** as for the route, a gun on a mechanitor-driven vehicle fires as its author built it; the picture rule is the
+  station's.
+- **A new setting, "Mechanitors can drive vehicles"**, on by default, shown only with Biotech.
+- **Its cost:** the bandwidth postfix adds a short list read wherever the game asks a mechanitor's used bandwidth; each linked vehicle
+  checks its mechanitor on its rare tick; reach and bandwidth are read when the remote control comp looks, every 250 ticks. Nothing per
+  tick or frame for a map.
+- **Other factions:** only the colony's mechanitors can be chosen, so another faction's vehicles are never linked.
+
 ## Step 8: keeping to radio cover (Framework 0.279.0, Radio 0.14.0)
 
 The owner's card of 25 Nov 2026 ("Design it, with its cost"), after the wider way round for towing
@@ -496,7 +522,7 @@ preferring firm ground, and errands going round growing crops. Vehicle Framework
 | 4 | The kit as an upgrade node on the five service trucks, with its antenna overlay (art first, as the owner's rule says). **Built in Vehicles 0.117.0 and Radio 0.12.0; its antenna picture in 0.117.2** | Vehicles | 3 |
 | 5 | The operator's job and work type. **Built in Radio 0.12.0** | Radio | 2 |
 | 6 | The picture link and remote guns. **Built in Framework 0.280.0 and Radio 0.15.0**, with the kit as a fitting for any vehicle; the remote guns are other authors' turrets no seat works until MV8 builds ours | Framework, Radio | 5 |
-| 7 | The route level (MV4) and mechanitor level (MV6) feeding the same comp. **Decided by card 25 Nov 2026** ([above](#step-7-the-route-and-mechanitor-levels-decided-25-nov-2026-not-built)): **7a, the route level, built in Framework 0.281.0**; 7b, the mechanitor level, not built | Framework | 3 |
+| 7 | The route level (MV4) and mechanitor level (MV6) feeding the same comp. **Decided by card 25 Nov 2026** ([above](#step-7-the-route-and-mechanitor-levels-decided-25-nov-2026-not-built)): **7a, the route level, built in Framework 0.281.0**; **7b, the mechanitor level, built in Framework 0.282.0** | Framework | 3 |
 | 8 | Keeping to radio cover, [above](#step-8-keeping-to-radio-cover-framework-02790-radio-0140). **Built in Framework 0.279.0 and Radio 0.14.0; its cost still to be measured** | Framework, Radio | 3 |
 
 **Test rows** come with each step. **Settings**, as listed under risks, come with step 3 and step 6.

@@ -244,6 +244,12 @@ public static class VehicleSystems
         if (props.roleKeys.ContainsKey(LitterRoles.Cabin) && !def.comps.Any(c => c is CompProperties_PhobosLitter)) def.comps.Add(new CompProperties_PhobosLitter());
         // Working without a crew (Framework 0.281.0; autonomous-vehicles.md, step 7a): a design with the route kit's sensor mount gets the
         // remote control comp and the route comp, off until a kit is fitted, so the route level needs no other mod.
+        // The mechanitor level (Framework 0.282.0, step 7b): its link goes in the control radio bay.
+        if (props.roleKeys.ContainsKey("RemoteKitMount"))
+        {
+            if (!def.comps.Any(c => c is CompProperties_PhobosRemoteControl)) def.comps.Add(new CompProperties_PhobosRemoteControl());
+            if (!def.comps.Any(c => c is CompProperties_PhobosMechLink)) def.comps.Add(new CompProperties_PhobosMechLink());
+        }
         if (props.roleKeys.ContainsKey("RouteKitMount"))
         {
             if (!def.comps.Any(c => c is CompProperties_PhobosRemoteControl)) def.comps.Add(new CompProperties_PhobosRemoteControl());

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The mechanitor level (D'thorga Framework 0.282.0; docs/development/autonomous-vehicles.md, step 7b; the owner's cards of 25 Nov 2026).
+       Loaded only with Vehicle Framework and Biotech. The research follows the game's basic mechtech, as the owner chose; cost and place
+       authored. The fitting goes in the control radio bay every land vehicle has (one fitting to a part, so a vehicle takes this or the
+       Radio Framework's remote control kit there). It grants MechControl: linked to a mechanitor, the vehicle is driven through their
+       bandwidth, 1, 2 or 3 by its size, within their command range. It draws on the battery and works only with that load on. Cost: an
+       advanced component for the receiver, as the other kits; weight, work and skill authored. It borrows a picture until its own is drawn.
+       Not yet tested in game. -->
+  <ResearchProjectDef ParentName="PhobosResearchVehicleBase">
+    <defName>PhobosResearch_MechVehicleLink</defName>
+    <label>mechlinked vehicles</label>
+    <description>A receiver and servos that let a mechanitor drive a vehicle through their mechlink, as they command their mechanoids, with nobody aboard. Each vehicle takes some of the mechanitor's bandwidth by its size; mechanoids come first.</description>
+    <baseCost>1200</baseCost>
+    <researchViewX>0</researchViewX>
+    <researchViewY>0.6</researchViewY>
+    <prerequisites>
+      <li>BasicMechtech</li>
+    </prerequisites>
+    <customUnlockTexts>
+      <li>Fitting: mech control link</li>
+    </customUnlockTexts>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_MechControlLink</defName>
+    <iconPath>Phobos/VehicleSystems/Diagnose</iconPath>
+    <label>mech control link</label>
+    <description>A mechlink receiver behind the dashboard and servos on the wheel, pedals and gear lever. Linked to one of your mechanitors, the vehicle can be driven by them with nobody aboard, within their command range, as they command mechanoids. It takes some of their bandwidth by its size, after their mechanoids. It draws on the battery. The driver's seat stays.</description>
+    <roles><li>RemoteKitMount</li></roles>
+    <materials><Steel>20</Steel><ComponentIndustrial>3</ComponentIndustrial><ComponentSpacer>1</ComponentSpacer></materials>
+    <kilograms>12</kilograms>
+    <work>2500</work>
+    <minSkill>5</minSkill>
+    <researchPrerequisite>PhobosResearch_MechVehicleLink</researchPrerequisite>
+    <grants><li>MechControl</li></grants>
+    <loads>
+      <li>
+        <!-- The receiver and servos at rest: about 2 A at 12 V (authored), halved on a 24 V truck. Shed late. -->
+        <name>mechLink</name>
+        <label>mech control link</label>
+        <description>The mech control link's receiver and servos. With power, a linked mechanitor can drive the vehicle.</description>
+        <amps>2</amps>
+        <shedOrder>9</shedOrder>
+        <iconPath>Phobos/VehicleSystems/Diagnose</iconPath>
+      </li>
+    </loads>
+    <feed>
+      <load>mechLink</load>
+    </feed>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

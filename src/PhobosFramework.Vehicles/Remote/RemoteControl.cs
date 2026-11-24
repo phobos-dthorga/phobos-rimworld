@@ -41,6 +41,8 @@ public interface IRemoteControlSource
     bool StationToggle => true;
     /// <summary>Whether its setting lets it drive now.</summary>
     bool Enabled => RemoteControl.On;
+    /// <summary>The start of its letters' text keys (Framework 0.282.0): a station's, a route's or a mechanitor's own words for a lost link.</summary>
+    string TextPrefix => "PhobosRemote_";
 }
 
 /// <summary>The sources, and whether the setting lets any vehicle be driven from afar.</summary>
@@ -253,24 +255,24 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         if (after == RemoteState.Linked && Seen.Wants("vehicles.remote-control", vehicle)) Seen.Note("vehicles.remote-control", vehicle, vehicle.LabelShort);
         if (RemoteControlRule.TellsLost(before, after))
         {
-            // A route has a leader, not a station (Framework 0.281.0).
-            var route = Current is { StationToggle: false };
-            var key = (route ? "PhobosRoute_" : "PhobosRemote_") + after switch
+            // Each source says it in its own words: a station, a route's leader, a mechanitor (Framework 0.282.0).
+            var prefix = Current?.TextPrefix ?? "PhobosRemote_";
+            var key = prefix + after switch
             {
                 RemoteState.ComingBack => "LostComeBack",
                 RemoteState.CarryingOn => "LostCarryOn",
                 _ => "LostHold",
             };
-            Find.LetterStack.ReceiveLetter((route ? "PhobosRoute_LostLabel" : "PhobosRemote_LostLabel").Translate(vehicle.LabelShort.Named("VEHICLE")),
-                (route ? "PhobosRoute_LostText" : "PhobosRemote_LostText").Translate(vehicle.LabelShort.Named("VEHICLE"), key.Translate().Named("ACTION")),
+            Find.LetterStack.ReceiveLetter((prefix + "LostLabel").Translate(vehicle.LabelShort.Named("VEHICLE")),
+                (prefix + "LostText").Translate(vehicle.LabelShort.Named("VEHICLE"), key.Translate().Named("ACTION")),
                 LetterDefOf.NegativeEvent, vehicle);
             if (Seen.Wants("vehicles.remote-lost", vehicle, after.ToString())) Seen.Note("vehicles.remote-lost", vehicle, vehicle.LabelShort, after.ToString());
         }
         else if (RemoteControlRule.TellsFound(before, after))
         {
-            var route = Current is { StationToggle: false };
-            Find.LetterStack.ReceiveLetter((route ? "PhobosRoute_FoundLabel" : "PhobosRemote_FoundLabel").Translate(vehicle.LabelShort.Named("VEHICLE")),
-                (route ? "PhobosRoute_FoundText" : "PhobosRemote_FoundText").Translate(vehicle.LabelShort.Named("VEHICLE")), LetterDefOf.NeutralEvent, vehicle);
+            var prefix = Current?.TextPrefix ?? "PhobosRemote_";
+            Find.LetterStack.ReceiveLetter((prefix + "FoundLabel").Translate(vehicle.LabelShort.Named("VEHICLE")),
+                (prefix + "FoundText").Translate(vehicle.LabelShort.Named("VEHICLE")), LetterDefOf.NeutralEvent, vehicle);
             if (Seen.Wants("vehicles.remote-found", vehicle)) Seen.Note("vehicles.remote-found", vehicle, vehicle.LabelShort);
         }
     }

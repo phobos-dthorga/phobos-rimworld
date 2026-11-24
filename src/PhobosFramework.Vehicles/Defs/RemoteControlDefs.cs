@@ -31,6 +31,9 @@ public class PhobosRemoteControlRulesDef : PhobosRulesDef
     public float loopArriveCells = 3f;
     /// <summary>How long a vehicle on a loop waits at each stop for its loading or unloading, in ticks (2,500: an hour of the game's).</summary>
     public int loopDwellTicks = 2500;
+    /// <summary>The mechanitor level (Framework 0.282.0, step 7b): a land vehicle of this empty mass or less costs 1 bandwidth, a heavier one 2,
+    /// a heavy or tracked one 3 (the owner's card: by size). Light and medium share one class of loadout, so their line is this mass [A].</summary>
+    public float mechLightMaxKg = 4000f;
 
     public static PhobosRemoteControlRulesDef Current => Current<PhobosRemoteControlRulesDef>();
 }

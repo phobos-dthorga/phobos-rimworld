@@ -13,6 +13,30 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.282.0] - 2026-11-25 - Draft
+
+Mechlinked vehicles: a mechanitor drives a vehicle through their bandwidth
+
+### Added
+
+- **A mech control link, a fitting for any vehicle**, after the new research mechlinked vehicles, which follows basic mechtech (the
+  owner's cards of 25 November 2026; Biotech). Link the vehicle to one of your mechanitors and they drive it with nobody aboard, within
+  their command range, as they command mechanoids. It takes their bandwidth by its size, 1 for a light vehicle, 2 medium, 3 heavy or
+  tracked, and the game's own bandwidth meter counts it. Mechanoids come first: when bandwidth runs short, the newest linked vehicle
+  loses control first. Out of range, or with its mechanitor down, it does what you chose for a lost link; a mechanitor's death frees it.
+  Not yet tested in game: rows 499 and 500.
+- **A new setting, "Mechanitors can drive vehicles"**, on by default, in the Vehicle Systems settings under Remote control, shown only
+  with Biotech.
+
+### Compatibility and limits
+
+- The link goes in the control radio bay, so a vehicle takes this or the Radio Framework's remote control kit, not both.
+- Loaded only with Biotech. The link and its buttons borrow existing pictures until their own are drawn.
+
+### Save compatibility
+
+- Safe on an existing save. A linked vehicle saves its mechanitor; with the mod removed the link is forgotten and the bandwidth freed.
+
 ## [0.281.0] - 2026-11-25 - Draft
 
 Convoys and loops: vehicles that follow a leader or run between two stops by themselves

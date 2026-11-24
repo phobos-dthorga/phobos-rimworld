@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "499": ["vehicles.mech-link"],
     "498": {"parts": {
       "a loop starts": ["vehicles.route-loop"],
       "it waits at the pick-up": [{"key": "vehicles.route-stop", "variant": "pick-up"}],

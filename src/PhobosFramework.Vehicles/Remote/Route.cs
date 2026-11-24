@@ -37,6 +37,7 @@ public sealed class RouteControl : IRemoteControlSource
     public string Key => SourceKey;
     public bool StationToggle => false;
     public bool Enabled => On;
+    public string TextPrefix => "PhobosRoute_";
     public Texture2D? Icon => null;
 
     /// <summary>The route kit is on the vehicle, its part standing and its power on.</summary>

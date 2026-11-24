@@ -123,7 +123,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
 | `PhobosFramework` | 3 | 0 | 1 | 0 |
-| `PhobosFramework.Vehicles` | 103 | 15 | 0 | 0 |
+| `PhobosFramework.Vehicles` | 104 | 15 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 1 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
@@ -142,7 +142,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-176 patched methods named in attributes, 23 patch classes that find their target by name (`TargetMethod`), and 18 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+177 patched methods named in attributes, 23 patch classes that find their target by name (`TargetMethod`), and 18 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -200,7 +200,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework.Vehicles</code>: 103 patched methods, 15 by name</summary>
+<details><summary><code>PhobosFramework.Vehicles</code>: 104 patched methods, 15 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles/`) |
 | --- | --- | --- |
@@ -254,6 +254,7 @@ Every HarmonyPatch attribute was read.
 | `Need_Food.FoodFallPerTickAssumingCategory` | postfix | `Camp/CrewMachines.cs` |
 | `Pawn.GetChildHolders` | postfix | `Sling/SlingPatches.cs` |
 | `Pawn.ThreatDisabled` | postfix | `Service/SubmersiblePatches.cs` |
+| `Pawn_MechanitorTracker.UsedBandwidth (getter)` | postfix | `Remote/MechLink.cs` |
 | `Projectile.Launch` | prefix | `Service/AirborneEvasion.cs` |
 | `ResearchManager.IsCurrentProject` | postfix | `Service/FieldResearchPatches.cs` |
 | `ResearchManager.SetCurrentProject` | prefix | `Service/FieldResearchPatches.cs` |
