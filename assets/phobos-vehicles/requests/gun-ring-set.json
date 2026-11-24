@@ -1,0 +1,166 @@
+[
+ {
+  "name": "gun-ring",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+    "role": "Image 1 is our approved Talus tipper truck, seen from directly above with its cab at the top: match its outline weight, shading, olive and steel palette and finish only, and use it to judge the scale of a roof-mounted part; do not redraw it"
+   },
+   {
+    "image": "assets/phobos-vehicles/generated/remote-weapon-station-fal/remote-weapon-station-fal-1.png",
+    "role": "Image 2 is our approved remote weapon station for the same trucks: match its outline weight, olive drab and gunmetal palette, shading and level of detail, so the parts read as one family; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "the gun ring set on the Talus and the other trucks by role (MV8): the gun ring, the empty mount a gunner's weapon turns on, before any gun is fitted",
+   "this_request": "drawn alone on white, two tries; the owner picks one card; shipped as a cab-roof overlay under the gun",
+   "design": "docs/development/vehicle-militarised-service-vehicles.md, The gun ring and its guns; the owner's card of 25 Nov 2026, gun ring first"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for our service trucks' cab-roof gun ring: the gun ring, the empty mount a gunner's weapon turns on, before any gun is fitted. Images 1 and 2 are our own approved art: match their outline weight, shading, olive drab and gunmetal palette and finish only. Do NOT redraw them.\n\nDraw ONLY this ring, alone on a plain pure white background, centred on the canvas. A flat round steel ring about 70 percent of the canvas wide, a hand's width deep, olive drab on top with gunmetal inner and outer edges, a few bolt heads around it, and a short gunmetal post at its exact centre where a gun's pintle drops in. The middle of the ring is OPEN: show nothing inside it but the post on two thin crossbars. Seen exactly round from above.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no roof, no people, animals, soil, dust, mud, damage, smoke, muzzle flash, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "holes": {
+   "1": [
+    [
+     643,
+     644
+    ],
+    [
+     380,
+     644
+    ],
+    [
+     643,
+     380
+    ],
+    [
+     380,
+     380
+    ]
+   ],
+   "2": [
+    [
+     580,
+     443
+    ],
+    [
+     443,
+     443
+    ],
+    [
+     580,
+     581
+    ],
+    [
+     443,
+     580
+    ]
+   ]
+  }
+ },
+ {
+  "name": "ring-gun-762",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+    "role": "Image 1 is our approved Talus tipper truck, seen from directly above with its cab at the top: match its outline weight, shading, olive and steel palette and finish only, and use it to judge the scale of a roof-mounted part; do not redraw it"
+   },
+   {
+    "image": "assets/phobos-vehicles/generated/remote-weapon-station-fal/remote-weapon-station-fal-1.png",
+    "role": "Image 2 is our approved remote weapon station for the same trucks: match its outline weight, olive drab and gunmetal palette, shading and level of detail, so the parts read as one family; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "the gun ring set on the Talus and the other trucks by role (MV8): a general-purpose machine gun swung by hand on the ring",
+   "this_request": "drawn alone on white, two tries; the owner picks one card; shipped as a Vehicle Framework turret picture that turns about the canvas centre (the pintle)",
+   "design": "docs/development/vehicle-militarised-service-vehicles.md, The gun ring and its guns; the owner's card of 25 Nov 2026, gun ring first"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for our service trucks' cab-roof gun ring: a general-purpose machine gun swung by hand on the ring. Images 1 and 2 are our own approved art: match their outline weight, shading, olive drab and gunmetal palette and finish only. Do NOT redraw them.\n\nDraw ONLY this gun on its pintle mount, alone on a plain pure white background, the pintle's pivot at the EXACT CENTRE of the canvas and the barrel pointing STRAIGHT UP the canvas. Below the pivot, toward the bottom of the canvas, the gun's rear: two spade grips and a small ammunition box on the left side with a short belt into the receiver. A slim 7.62 mm machine gun: a narrow receiver with a feed cover, a folded bipod along the barrel, a slim barrel with a flash hider and a carrying handle, the barrel reaching from the centre to about 12 percent below the top edge. Gunmetal and black with olive drab on the ammunition box. The gun narrow: about 12 percent of the canvas wide, the box about 18 percent.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no roof, no people, animals, soil, dust, mud, damage, smoke, muzzle flash, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "ring-gun-50",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2,
+   3
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+    "role": "Image 1 is our approved Talus tipper truck, seen from directly above with its cab at the top: match its outline weight, shading, olive and steel palette and finish only, and use it to judge the scale of a roof-mounted part; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "the gun ring set on the Talus and the other trucks by role (MV8): a heavy .50 machine gun swung by hand on the ring",
+   "this_request": "drawn alone on white, two tries; the owner picks one card; shipped as a Vehicle Framework turret picture that turns about the canvas centre (the pintle); tries 1 and 2 were drawn with our remote weapon station as a second reference (25 Nov 2026), and try 1 redrew the station instead of the part, so try 3 is drawn with the truck alone (the owner's go, 25 Nov 2026)",
+   "design": "docs/development/vehicle-militarised-service-vehicles.md, The gun ring and its guns; the owner's card of 25 Nov 2026, gun ring first"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for our service trucks' cab-roof gun ring: a heavy .50 machine gun swung by hand on the ring. Image 1 is our own approved art: match its outline weight, shading, olive drab and gunmetal palette and finish only. Do NOT redraw it. Draw no turret ring, no round base plate, no camera and no sight box: only the part described.\n\nDraw ONLY this gun on its pintle mount, alone on a plain pure white background, the pintle's pivot at the EXACT CENTRE of the canvas and the barrel pointing STRAIGHT UP the canvas. Below the pivot, toward the bottom of the canvas, the gun's rear: two spade grips and a butterfly trigger, and an olive drab ammunition box on the left side with a belt into the receiver. A heavy machine gun: a broad boxy receiver, a thick perforated barrel jacket near the receiver, then a long thin barrel with a flash hider reaching from the centre to about 8 percent below the top edge. Gunmetal and black. The receiver about 16 percent of the canvas wide, the box about 20 percent.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no roof, no people, animals, soil, dust, mud, damage, smoke, muzzle flash, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "ring-gun-40",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2,
+   3
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+    "role": "Image 1 is our approved Talus tipper truck, seen from directly above with its cab at the top: match its outline weight, shading, olive and steel palette and finish only, and use it to judge the scale of a roof-mounted part; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "the gun ring set on the Talus and the other trucks by role (MV8): a 40 mm automatic grenade launcher swung by hand on the ring",
+   "this_request": "drawn alone on white, two tries; the owner picks one card; shipped as a Vehicle Framework turret picture that turns about the canvas centre (the pintle); tries 1 and 2 were drawn with our remote weapon station as a second reference (25 Nov 2026), and try 1 redrew the station instead of the part, so try 3 is drawn with the truck alone (the owner's go, 25 Nov 2026)",
+   "design": "docs/development/vehicle-militarised-service-vehicles.md, The gun ring and its guns; the owner's card of 25 Nov 2026, gun ring first"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for our service trucks' cab-roof gun ring: a 40 mm automatic grenade launcher swung by hand on the ring. Image 1 is our own approved art: match its outline weight, shading, olive drab and gunmetal palette and finish only. Do NOT redraw it. Draw no turret ring, no round base plate, no camera and no sight box: only the part described.\n\nDraw ONLY this gun on its pintle mount, alone on a plain pure white background, the pintle's pivot at the EXACT CENTRE of the canvas and the barrel pointing STRAIGHT UP the canvas. Below the pivot, toward the bottom of the canvas, the gun's rear: two spade grips, and a squat olive drab ammunition can on the left side with a belt of fat grenade rounds into the receiver. An automatic grenade launcher: a large square box receiver with a top cover, and a short thick barrel with a ribbed cooling sleeve reaching from the centre to about 25 percent below the top edge. Gunmetal and black. The receiver about 22 percent of the canvas wide, the can about 22 percent.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no roof, no people, animals, soil, dust, mud, damage, smoke, muzzle flash, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "gun-shield",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2,
+   3
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+    "role": "Image 1 is our approved Talus tipper truck, seen from directly above with its cab at the top: match its outline weight, shading, olive and steel palette and finish only, and use it to judge the scale of a roof-mounted part; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "the gun ring set on the Talus and the other trucks by role (MV8): the gun shield, armour plates that turn with the gun and cover the gunner",
+   "this_request": "drawn alone on white, two tries; the owner picks one card; shipped as a picture that turns with the gun about the canvas centre; tries 1 and 2 were drawn with our remote weapon station as a second reference (25 Nov 2026), and try 1 redrew the station instead of the part, so try 3 is drawn with the truck alone (the owner's go, 25 Nov 2026)",
+   "design": "docs/development/vehicle-militarised-service-vehicles.md, The gun ring and its guns; the owner's card of 25 Nov 2026, gun ring first"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for our service trucks' cab-roof gun ring: the gun shield, armour plates that turn with the gun and cover the gunner. Image 1 is our own approved art: match its outline weight, shading, olive drab and gunmetal palette and finish only. Do NOT redraw it. Draw no turret ring, no round base plate, no camera and no sight box: only the part described.\n\nDraw ONLY this shield, alone on a plain pure white background. Its turning centre is the EXACT CENTRE of the canvas, where a gun's pivot will be, and the shield stands IN FRONT of that centre, in the upper half of the canvas: a wide curved armour plate bent around the centre like a shallow arc, about 70 percent of the canvas wide, its middle about 20 percent of the canvas above the centre, with two short wings angled back at its ends and a narrow vertical slot in its middle for a barrel to pass through. Seen from above the plates are thick lines of olive drab steel with gunmetal edges and a few bolt heads. Leave the centre and the lower half of the canvas EMPTY white.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no roof, no people, animals, soil, dust, mud, damage, smoke, muzzle flash, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ }
+]

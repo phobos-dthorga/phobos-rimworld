@@ -60,11 +60,19 @@ def attempts(request_file: Path, entry: dict) -> list[Path]:
     return [p for seed in entry.get('seeds', [1]) if (p := folder / f"{entry['name']}-{seed}.png").is_file()]
 
 
-def export(original: Path, out: Path, size: int, aspect: str) -> Path:
+def export(original: Path, out: Path, size: int, aspect: str, holes=()) -> Path:
+    """holes: points of the original in white the object encloses that is background (a ring's open middle), cleared as the sprite
+    exporter's --hole does. A request names them per try under "holes" (the owner's note of 25 Nov 2026: white left in a ring's centre)."""
     out.parent.mkdir(parents=True, exist_ok=True)
+    hole_args = [part for x, y in holes for part in ('--hole', f'{x},{y}')]
     subprocess.run([sys.executable, str(ROOT / 'scripts' / 'art' / 'export_sprite.py'), str(original), str(out), '--size', str(size),
-                    '--aspect', aspect], check=True, stdout=subprocess.DEVNULL)
+                    '--aspect', aspect, *hole_args], check=True, stdout=subprocess.DEVNULL)
     return out
+
+
+def holes_of(entry: dict, original: Path) -> list:
+    """The request's holes for one try, by its seed: {"holes": {"2": [[x, y], ...]}}."""
+    return entry.get('holes', {}).get(original.stem.rsplit('-', 1)[-1], [])
 
 
 def edge_note(path: Path) -> str:
@@ -119,7 +127,8 @@ def sprites(args) -> int:
         made = attempts(request_file, entry)
         if not made:
             continue
-        exports = [(p.stem.rsplit('-', 1)[-1], export(p, folder / 'export' / p.name, args.size, args.aspect)) for p in made]
+        exports = [(p.stem.rsplit('-', 1)[-1], export(p, folder / 'export' / p.name, args.size, args.aspect, holes_of(entry, p)))
+                   for p in made]
         out = folder / f"{n:02d}-{entry['name']}.png"
         sprite_card(f"{entry['name']}: {' or '.join(l for l, _ in exports)} (x3 above, actual size below; soil and stone)", exports, out)
         print(out)
