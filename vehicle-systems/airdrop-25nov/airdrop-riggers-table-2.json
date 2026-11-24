@@ -1,0 +1,56 @@
+{
+  "file": "airdrop-riggers-table-2.png",
+  "sha256": "ee7d444d4fcc77d9147d6ccb0d4863618b38a0ceeedbfeeb7d461591d9680662",
+  "date": "2026-11-25T09:09:04",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a parachute rigger's packing table in a military workshop. Image 1 is our approved workbench from the same game, seen from directly above: match its outline weight, shading, palette, framing and finish only, not its parts. Image 2 is our approved olive canvas kit: match its olive canvas colours only. Do NOT copy their shapes.\n\nWide canvas, three times as wide as it is tall. The table is a long rectangle with its long sides running from the LEFT edge to the RIGHT edge, filling the canvas with a small even margin, on a plain pure white background. The rigger works standing at the BOTTOM edge.\n\nThe table seen from above: a long smooth pale wooden table top inside a thin dark steel frame; laid flat along most of the table's length, a long olive-drab parachute canopy folded into a narrow flattened strip with its folded panels stacked, held down by three small khaki canvas shot bags; from the canopy's end, its suspension lines run in neat parallel pale tan lines to a small closed olive parachute pack at the LEFT end of the table; at the RIGHT end, a steel tension clamp holding the canopy's apex; and near the BOTTOM edge, a flat wooden packing paddle and a small open tool roll with a hook knife and a few steel pins.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted wood, olive and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, stencils, logos, people, hands, chairs, lamps or anything off the table. No floor beyond the table, no shadow outside it, no perspective, no tilt.",
+  "seed": 2,
+  "size": [
+    1536,
+    512
+  ],
+  "request_file": "assets/vehicle-systems/requests/airdrop-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 826,
+    "input_tokens_details": {
+      "image_tokens": 400,
+      "text_tokens": 426
+    },
+    "output_tokens": 535,
+    "output_tokens_details": {
+      "image_tokens": 535,
+      "text_tokens": 0
+    },
+    "total_tokens": 1361
+  },
+  "cost_usd": 0.0214,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1536x512",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1536,
+    512
+  ],
+  "seconds": 15.0,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+      "sha256": "67ac7e90566d266295400f8684a770a990aed414645bf3c1335efe2251f28785",
+      "role": "our approved workbench seen from directly above (the parts bench, 3 x 1): match its outline weight, shading, palette, framing and finish only; do not copy its parts or layout"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+      "sha256": "e87881c2eaa33875a2fb402aa19e1df2da1687c7045a51f37998760a9db607b9",
+      "role": "our approved olive canvas kit (the deck tent kit): match its olive canvas colours only; do not copy its shape"
+    }
+  ]
+}

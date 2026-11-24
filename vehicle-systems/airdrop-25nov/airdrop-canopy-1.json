@@ -1,0 +1,56 @@
+{
+  "file": "airdrop-canopy-1.png",
+  "sha256": "4dee3dcc0044505890bac29a5124bdda5025876cbc8fa451ea2594ddac51ee51",
+  "date": "2026-11-25T09:00:32",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. The round shape stays a true circle on the canvas, not an ellipse. Show no side view.\n\nCreate an ORIGINAL game sprite for a round military parachute canopy, fully open and inflated, seen from directly above while it falls. Images 1 and 2 are our approved canvas pieces from the same game, seen from above: match their outline weight, shading, olive canvas colours and finish only. Do NOT copy their shapes.\n\nSquare canvas. The canopy is one round dome filling about 90 percent of the canvas, centred, on a plain pure white background.\n\nThe canopy seen from above: a round olive-drab nylon dome divided into about twenty wedge-shaped panels by thin darker seams running from the centre out to the rim; the panels shaded in two or three olive tones so the dome reads as rounded, lit from the top of the canvas; a small round lighter-coloured vent opening at the very centre with a ring of short tapes around it; a gently scalloped rim where the panels billow out between the seams; and short thin pale suspension-line stubs just showing at the rim where each seam ends.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, cargo, crates, vehicles, harness or anything hanging below the canopy. No sky, clouds, ground or shadow outside the canopy, no perspective, no tilt.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/airdrop-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 548,
+    "input_tokens_details": {
+      "image_tokens": 192,
+      "text_tokens": 356
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2304
+  },
+  "cost_usd": 0.056,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 30.7,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_north.png",
+      "sha256": "f2ab909de7b3f9cbc113900737e6ce220a595b117df8acfa1c4b389c63830ea5",
+      "role": "our approved canvas piece seen from directly above (the swag): match its outline weight, shading, canvas colours and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+      "sha256": "e87881c2eaa33875a2fb402aa19e1df2da1687c7045a51f37998760a9db607b9",
+      "role": "our approved olive canvas kit (the deck tent kit): match its olive canvas colours and finish only; do not copy its shape"
+    }
+  ]
+}
