@@ -66,6 +66,16 @@ public class StageSpec
     [MustTranslate] public string? labelEngineOff;
     /// <summary>Whether Plain mode names this stage on the inspect line (a normal stage stays quiet there).</summary>
     public bool notable;
+    /// <summary>
+    /// Whether entering this stage is kept in the vehicle's event log and noted as seen in play, with no inspect line, lamp, chime or report
+    /// tone (Framework 0.290.0; the owner's choice by card, 25 Nov 2026, "logged only, no lamps", so a test row can be evidenced from saves
+    /// without the stage looking like a warning). The log is what the graphs mark, so it still marks them. A notable stage is always
+    /// logged as well.
+    /// </summary>
+    public bool logged;
+
+    /// <summary>Whether entering this stage is kept in the event log and noted as seen in play: notable or logged.</summary>
+    public bool Recorded => notable || logged;
     public List<VehicleSystemEffect> effects = new();
 
     /// <summary>Whether the stage stops the vehicle or harms it (a refusal, damage, an explosion, a forced stop): a red lamp on the dashboard, and

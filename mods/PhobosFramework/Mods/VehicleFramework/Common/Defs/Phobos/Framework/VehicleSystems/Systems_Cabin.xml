@@ -99,6 +99,8 @@
           <li>
             <from>0.5</from>
             <label>burning</label>
+            <!-- Kept in the event log for the test list, with no lamp or inspect line (Framework 0.290.0, the owner's card). -->
+            <logged>true</logged>
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
                 <perHourParameter>nightHeaterFuelPerHour</perHourParameter>

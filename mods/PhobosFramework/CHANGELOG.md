@@ -13,6 +13,17 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.290.0] - 2026-11-25 - Draft
+
+Quiet stages the test list can see in saves
+
+### Added
+
+- **A vehicle stage can be logged without being shown** (the owner's choice by card, 25 November 2026, "logged only, no lamps"): a
+  stage marked logged is kept in the vehicle's event log and noted as seen in play, with no inspect line, dashboard lamp, chime or
+  report tone; it still marks the vehicle's graphs, as the event log does. The night heater burning, the electric night heater
+  drawing and rough ground are logged, so test rows 27, 71 and 31 can be evidenced from saves. Not yet tested in game.
+
 ## [0.289.0] - 2026-11-25 - Draft
 
 People use parked vehicles: the radio, a smoke, a warm cab, a nap and the stores, without orders

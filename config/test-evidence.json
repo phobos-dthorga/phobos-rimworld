@@ -3,6 +3,9 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "71": {"parts": {"the electric night heater draws through the night": [{"key": "saved.vehicle-stage.nightHeaterDraw", "variant": "0"}, {"key": "vehicles.stage.nightHeaterDraw", "variant": "drawing"}]}},
+    "31": {"parts": {"rough ground wears tread and wheels": [{"key": "saved.vehicle-stage.groundRoughness", "variant": "0"}, {"key": "vehicles.stage.groundRoughness", "variant": "rough"}]}},
+    "27": {"parts": {"night heater runs at camp": [{"key": "saved.vehicle-stage.nightHeaterRunning", "variant": "0"}, {"key": "vehicles.stage.nightHeaterRunning", "variant": "burning"}]}},
     "510": {"parts": {"a patient carried in and out": [{"key": "vehicles.cabin-entered", "variant": "carrying"}, {"key": "vehicles.cabin-left", "variant": "carrying"}]}},
     "493": {"parts": {"the kit fitted to another mod's vehicle": ["vehicles.fitting-done.PhobosFitting_RemoteControlKit"]}},
     "476": {"parts": {"second transceiver fitted": [{"key": "framework.building-upgrade.fitted", "variant": "PhobosRadio_UpgradeSecondTransceiver"}]}},

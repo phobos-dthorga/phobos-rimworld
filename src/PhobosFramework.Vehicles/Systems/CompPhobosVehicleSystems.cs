@@ -2106,10 +2106,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                     // A red lamp lighting: one soft chime (the dashboard shows the same rule).
                     if (entered.notable && entered.Severe && state.Def.quantities[q].telltale != null) VehicleSystemSounds.Chime(this);
                     // A stage worth a look marks the graphs; not the stages a load works out again (they are not saved).
-                    if (entered.notable && state.staged) RecordEvent(VehicleEventKind.Stage, state.Def.defName, state.Def.quantities[q].name, index);
+                    // A logged stage (Framework 0.290.0) is kept too, for the test list's saved histories.
+                    if (entered.Recorded && state.staged) RecordEvent(VehicleEventKind.Stage, state.Def.defName, state.Def.quantities[q].name, index);
                     // Seen in play (Framework 0.123.0): the key is built from the quantity's name; config/test-evidence.json lists it as a prefix.
                     // Framework 0.138.0: the stage is the note's case, so a warning and the refusal after it are both noted, per vehicle.
-                    if (entered.notable && state.staged && Seen.On)
+                    if (entered.Recorded && state.staged && Seen.On)
                     {
                         string key = "vehicles.stage." + state.Def.quantities[q].name;
                         // A refusal straight from a warning that stood unnoted (entered at load, which notes nothing, or in an earlier

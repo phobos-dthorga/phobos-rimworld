@@ -88,6 +88,8 @@
           <li>
             <from>8</from>
             <label>rough</label>
+            <!-- Kept in the event log for the test list, with no lamp or inspect line (Framework 0.290.0, the owner's card). -->
+            <logged>true</logged>
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_DamagePart">
                 <role>Wheels</role>
