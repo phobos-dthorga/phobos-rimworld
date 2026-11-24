@@ -26,6 +26,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [In-game test pass](in-game-test-pass.md) (from 8 Nov 2026): the checks for the owner's next session, and what passes. Living.
 - [Seen-in-play checks](seen-in-play-checks.md) (18 Nov 2026): figures, order, parts and staleness for test notes. Built, untested in game.
 - [Test automation](test-automation.md) (25 Nov 2026): save and live checks, saved histories as test evidence. Partly built, untested in game.
+- [Rows still without evidence](test-automation-rows.md) (25 Nov 2026): 188 waiting rows sorted by what would stand for them. Record only.
 - [Patches for other authors' faults](temporary-patches.md) (10 Nov 2026): each such patch, temporary or permanent, and how to retire it. Living.
 - [Tie-ins with other mods](tie-in-register.md) (13 Nov 2026): every tie-in folder and C# tie-in, by our mod. Living.
 - [Dependency audit](dependency-audit-2026-11-16.md) (16 Nov 2026): what the mods we build on changed during the owner's break. Decisions answered.

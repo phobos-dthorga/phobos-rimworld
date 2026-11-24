@@ -2,8 +2,9 @@
 
 **Status (25 Nov 2026):** At the owner's word ("let's do #1 through #3, and I especially want to do #4", then "Document everything
 though"). Built: save checks (phobos-modkit 1.119.0), live checks (1.120.0), saved histories (1.121.0), the version ledger
-(Framework 0.287.0), `config/checks.json` and the saved mapping. Not yet built: part 1's notes batch and Companion's pages. Live checks
-are untested on the owner's game; nothing here is tested in game.
+(Framework 0.287.0), `config/checks.json` and the saved mapping, evidence for 26 more rows, and Companion 0.91.0's Run the checks.
+Not yet built: part 1's new notes ([the rows still without evidence](test-automation-rows.md)). Live checks are untested on the
+owner's game; nothing here is tested in game or on screen.
 
 The owner asked whether anything could (semi-)automate fulfilling the test list, "perhaps even our new debugging (and memory)
 capabilities with Companion". Of ten options offered that day, the owner chose four. This record designs them; how each tool works
@@ -105,7 +106,9 @@ D'thorga mod's version with the tick it began running, only when it changed. A s
 **An event from before the ledger's first entry has no known version and is never counted as fresh**: honest, at the cost of
 evidence from saves made before the ledger.
 
-**Which saves:** *agent default*, every save in the Saves folder, newest first, the same event (thing, tick, kind) counted once.
+**Which saves:** *agent default*, the newest four in the Saves folder (`saves` in the mapping), the same event (thing, key, case,
+tick) counted once, from the oldest save holding it. Four keeps a first run to seconds per new save; the event log's 15 days reach
+back further than four saves in the owner's play anyway.
 
 **The mapping** lives in `config/test-evidence.json` beside the rows: which saved lists become notes, and the keys they make
 (`saved.vehicle-stage.<quantity>`, `saved.vehicle-service.<system>`, `saved.vehicle-fault.<condition>`,
@@ -140,18 +143,57 @@ page, behind its snapshot card.
 
 - A check's two levels, `fault` and `look`.
 - Save checks run on the newest save by default.
-- Saved histories read every save in the folder, the same event counted once.
+- Saved histories read the newest four saves, the same event counted once.
+- Save checks and live checks start with the rules in As built, all on vehicles; the work store's 300 and 100 are authored lines.
+- A saved order problem is a lead, not a fault (the event log's hourly merge, under Limits).
 - An event older than the ledger is never fresh evidence.
 - Live check limits: 1,000 items per object, 5,000 objects per kind.
 - The first batch of new notes: chosen by the agent, as listed below once built.
 
 ## Build steps
 
-| Step | Where | What |
+| Step | Where | What | State |
+| --- | --- | --- | --- |
+| 1 | phobos-modkit | The check engine, its expressions, and save checks for RimWorld (`rimworld-save checks`) | Built, 1.119.0 |
+| 2 | phobos-modkit | The heap reader's `values` request, and live checks (`rimworld-perf look-check`) | Built, 1.120.0 |
+| 3 | phobos-modkit | Saved histories as notes, read by test-pass itself (not a report of their own: see As built) | Built, 1.121.0 |
+| 4 | phobos-rimworld | The version ledger in D'thorga Framework; `config/checks.json`; the saved-history mapping; the kit's pin | Built, Framework 0.287.0 |
+| 5 | phobos-rimworld | Evidence for rows that have none: saved keys first, then a batch of new seen-in-play notes | 26 rows mapped (25 Nov); the rest listed in [the rows still without evidence](test-automation-rows.md); new notes not yet written |
+| 6 | D'thorga Companion | Save checks on its Reports page (kit 1.122.0 finds the check file through the games list); Run the checks on the Explorer page, from the snapshot held (kit 1.123.0) | Built, Companion 0.91.0; untested on screen |
+
+## As built (25 Nov 2026)
+
+### How to use it
+
+| Question | Command | Notes |
 | --- | --- | --- |
-| 1 | phobos-modkit | The check engine, its expressions, and save checks for RimWorld (`rimworld-save checks`) |
-| 2 | phobos-modkit | The heap reader's `values` request, and live checks (`rimworld-perf look-check`) |
-| 3 | phobos-modkit | Saved histories as notes (`rimworld-save notes`), read by test-pass |
-| 4 | phobos-rimworld | The version ledger in D'thorga Framework; `config/checks.json`; the saved-history mapping; the kit's pin |
-| 5 | phobos-rimworld | The first batch of new seen-in-play notes |
-| 6 | D'thorga Companion | Save checks in Since you last played; live checks on the Explorer page |
+| Is anything in my newest save wrong? | `python scripts/query-save.py checks` | `--save PG20` for another; `--check "work-store*"` for some |
+| Is anything in my running game wrong? | `python scripts/perf.py look-check` | **Ask the owner first, and ask them to save**: one snapshot, about half a second's pause |
+| What has the test list seen, saves included? | `python scripts/test-pass.py report` | `--no-saves` to leave the saves out; first run of a new save indexes it |
+| Where are the rules? | `config/checks.json` | Language: phobos-modkit `docs/checks.md`. A new rule that would have caught a fault goes in with its fix |
+
+### What each part does, as built
+
+- **Save checks** run the `save` checks in `config/checks.json` over a save: seven at first, all on vehicles. Two are kinds the kit knows
+  (NaN or infinity saved; references to things the save does not hold), four are rules on values (battery, coolant and oil between 0
+  and 1, no part below 0 health, the event log's 64 and the logbook's 200 caps), and one is "worth a look": a work store holding over
+  300 things. **Over PG20 it finds the HEMTT's 981 things laid out for 5 fit orders**, a day before the owner did; the newest saves are
+  clean. A thing another holds (the store's steel) is read from the index: its def, ID and stack count.
+- **Live checks** run the `live` checks from one snapshot. Two at first, both "worth a look": a work store holding more than its waiting
+  repairs and fittings could use (every option counted, plus an authored 100 for due services' supplies, which are not read), and a
+  destroyed vehicle's systems still in memory (garbage or a leak: `perf.py look-why` tells them apart). **Not yet run on the owner's game.**
+- **Saved histories**: test-pass reads the newest four saves' vehicle event logs and logbooks (about 350 notes on 25 Nov 2026) unless
+  given `--no-saves`. Keys: `saved.vehicle-stage.<quantity>` with the stage's position in its list as the case (for `turbineStart`, 0 is
+  "too weak to light" and 1 "barely enough to light"), `saved.vehicle-fault.<condition>`, `saved.vehicle-service.<system>`,
+  `saved.vehicle-jump-start`, `saved.logbook.<entry kind>`. Rows 69 and 74 take them beside the game's notes, with three order rules.
+- **The version ledger** (Framework 0.287.0): saves made before it hold none, so their notes are version 0 and stale for any row naming
+  a version; evidence from them starts counting once the owner plays on with 0.287.0.
+
+### Limits
+
+- **An event log keeps the same event once an hour** (Framework's own rule, for its graphs). An order rule can then miss a warning
+  repeated within the hour and report a refusal as out of order. Treat a saved order problem as a lead, not a fault.
+- Saved notes are only for the player's vehicles: our event logs and logbooks keep nothing for other factions'.
+- A live check reads one instant: a list mid-rebuild can break a rule for that moment only. Run it again before believing a finding.
+- Save checks read vehicles only, so far. Pawns (1,463 in the owner's colony) would take far longer; a pawn check should narrow its
+  `select` by def.
