@@ -50,4 +50,12 @@ public class CaravanCookRuleTests
     [InlineData(0, 10)]
     [InlineData(2, 0)]
     public void NoCooksOrNoShareMeansNoMeals(int cooks, int perCook) => Assert.Equal(0, CaravanCookRule.Meals(cooks, perCook, 100, 0.5, 100, 0.5));
+
+    [Theory]
+    [InlineData(CaravanCookRule.Way.Camp, true, 0)]
+    [InlineData(CaravanCookRule.Way.Camp, false, 0.02)]
+    [InlineData(CaravanCookRule.Way.Simmer, true, 0.02)]
+    [InlineData(CaravanCookRule.Way.Halt, true, 0.02)]
+    public void AClosedTentAtCampKeepsTheOutdoorChanceOff(CaravanCookRule.Way way, bool closedTent, double chance) =>
+        Assert.Equal(chance, CaravanCookRule.PlaceChance(way, closedTent, 0.02));
 }

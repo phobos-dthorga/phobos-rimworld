@@ -7,6 +7,7 @@ using RimWorld;
 using Vehicles;
 using Verse;
 using Verse.AI;
+using Verse.AI.Group;
 
 namespace Phobos.VehicleSystems;
 
@@ -124,8 +125,16 @@ public class VisitWorker_Warm : VisitWorker
     public override string? Done(CompPhobosVehicleSystems comp, VehicleVisit visit)
     {
         VehiclePawn vehicle = comp.Vehicle;
-        if (VehicleVisits.ComfortableOutside(visit.pawn, vehicle.Position, vehicle.Map)) return "";
-        if (!VisitShared.CabComfortable(comp, visit.pawn) && !VisitShared.NightHeaterReady(comp)) return "";
+        Pawn pawn = visit.pawn;
+        if (VehicleVisits.ComfortableOutside(pawn, vehicle.Position, vehicle.Map)) return "";
+        // The heater must be running, not only switched on (fault-read F5): shed, kept for the start or on a flat battery, it gives
+        // nothing. Given the systems' first look after climbing in.
+        bool settled = Find.TickManager.TicksGame - visit.since > VehicleVisits.LookTicks * 2;
+        bool heating = settled ? comp.LoadRunning(NightHeaterLoad) : VisitShared.NightHeaterReady(comp);
+        if (!VisitShared.CabComfortable(comp, pawn) && !heating) return "";
+        // Hunger and tiredness bring them out: a warm-up has no end of its own, and a rider gets no meals or bed (fault-read F5).
+        if (pawn.needs?.food is { CurCategory: >= HungerCategory.UrgentlyHungry }) return "";
+        if (pawn.needs?.rest is { CurCategory: >= RestCategory.VeryTired }) return "";
         return null;
     }
 }
@@ -199,18 +208,22 @@ public class JobDriver_PhobosTakeFoodFromVehicle : JobDriver
         {
             Thing source = Food;
             ThingDef def = source.def;
+            bool chilled = Vehicle.GetComp<CompPhobosVehicleSystems>()?.ChilledTemperature(source) != null;
             int count = System.Math.Min(System.Math.Max(1, job.count), source.stackCount);
             string label = source.LabelNoCount;
             ThingOwner packs = pawn.inventory.innerContainer;
             // Counted by what left the cargo: a portion that merges into a stack the colonist already carries is still taken (ThingMoves).
             int moved = ThingMoves.Transfer(Vehicle.inventory.innerContainer, source, packs, count);
             if (moved <= 0) return;
-            Thing? taken = packs.Contains(source) ? source : packs.FirstOrDefault(t => t.def == def);
+            // The stack the portion went into (fault-read F9): one that stacks with what was taken, never another of its kind.
+            Thing? taken = packs.Contains(source) ? source : packs.FirstOrDefault(t => t.def == def && t.CanStackWith(source));
             if (taken == null) return;
             Job eat = JobMaker.MakeJob(JobDefOf.Ingest, taken);
             eat.count = moved;
             pawn.jobs.jobQueue.EnqueueFirst(eat);
-            if (Seen.Wants("vehicles.visit-food", Vehicle)) Seen.Note("vehicles.visit-food", Vehicle, pawn.LabelShort + ": " + label);
+            string from = chilled ? "chilled" : "cargo";
+            if (Seen.Wants("vehicles.visit-food", Vehicle, from)) Seen.Note("vehicles.visit-food", Vehicle, pawn.LabelShort + ": " + label, from);
+            VehicleVisits.LogFirstToday(Vehicle, VehicleVisitDefOf.PhobosLog_VisitFood, pawn);
         };
         take.defaultCompleteMode = ToilCompleteMode.Instant;
         yield return take;
@@ -272,9 +285,11 @@ public class JoyGiver_PhobosVehicleVisit : JoyGiver
 [HarmonyPatch(typeof(JobGiver_GetFood), "TryGiveJob")]
 public static class VisitFood
 {
-    public static void Postfix(Pawn pawn, ref Job? __result)
+    public static void Postfix(Pawn pawn, ref Job? __result, HungerCategory ___minCategory, float ___maxLevelPercentage)
     {
         if (__result != null || !VehicleVisits.MayVisit(pawn) || pawn.needs?.food is not { } food) return;
+        // The giver's own limits (fault-read F4): a duty calls it with a floor of its own, and the game returns nothing above it.
+        if (food.CurCategory < ___minCategory || food.CurLevelPercentage > ___maxLevelPercentage) return;
         if (VehicleVisits.Candidates(pawn.Map).Count == 0) return;
         FoodPreferability least = food.CurCategory >= HungerCategory.UrgentlyHungry ? FoodPreferability.DesperateOnlyForHumanlikes : FoodPreferability.RawBad;
         CompPhobosVehicleSystems? comp = VehicleVisits.Nearest(pawn, c => Best(c, pawn, least) != null, climbIn: false);
@@ -284,8 +299,34 @@ public static class VisitFood
         __result = job;
     }
 
-    static Thing? Best(CompPhobosVehicleSystems comp, Pawn pawn, FoodPreferability least) =>
-        FoodUtility.BestFoodInInventory(comp.Vehicle, pawn, least, FoodPreferability.MealLavish);
+    /// <summary>
+    /// The food to take: the most preferred the colonist will eat, tested as the game's <c>BestFoodInInventory</c> tests a pack animal's food
+    /// (food policy included); among equals, a stack the 12-volt fridge keeps cold first, as you reach into the fridge before the dry box
+    /// (Framework 0.292.0).
+    /// </summary>
+    static Thing? Best(CompPhobosVehicleSystems comp, Pawn pawn, FoodPreferability least)
+    {
+        if (comp.Vehicle.inventory?.innerContainer is not { } cargo) return null;
+        Thing? best = null;
+        bool bestChilled = false;
+        for (int i = 0; i < cargo.Count; i++)
+        {
+            Thing thing = cargo[i];
+            if (!thing.def.IsNutritionGivingIngestible || !thing.IngestibleNow || thing.def.IsDrug) continue;
+            FoodPreferability preference = thing.def.ingestible!.preferability;
+            if (preference < least || preference > FoodPreferability.MealLavish) continue;
+            if (!pawn.WillEat(thing, comp.Vehicle, careIfNotAcceptableForTitle: true)) continue;
+            bool chilled = comp.ChilledTemperature(thing) != null;
+            if (best != null)
+            {
+                FoodPreferability held = best.def.ingestible!.preferability;
+                if (preference < held || preference == held && (bestChilled || !chilled)) continue;
+            }
+            best = thing;
+            bestChilled = chilled;
+        }
+        return best;
+    }
 }
 
 /// <summary>
@@ -299,7 +340,8 @@ public static class VisitWarm
     {
         if (__result != null || !VehicleVisits.MayVisit(pawn)) return;
         if (__instance.requiresInjury && !pawn.health.hediffSet.HasTemperatureInjury(TemperatureInjuryStage.Serious)) return;
-        if (VehicleVisits.ComfortableOutside(pawn, pawn.Position, pawn.Map)) return;
+        FloatRange range = pawn.ComfortableTemperatureRange();
+        if (VisitRule.Comfortable(pawn.AmbientTemperature, range.min, range.max)) return;
         __result = VehicleVisits.JobFor(pawn, VehicleVisitDefOf.PhobosVisit_Warm);
     }
 }
@@ -316,6 +358,8 @@ public static class VisitNap
     {
         if (__result == null || __result.def != JobDefOf.LayDown || __result.targetA.Thing is Building_Bed) return;
         if (!VehicleVisits.MayVisit(pawn) || HealthAIUtility.ShouldSeekMedicalRest(pawn)) return;
+        // Their group's duty forbids beds (forming a caravan): no seat either (fault-read F9).
+        if (pawn.GetLord()?.CurLordToil is { AllowRestingInBed: false }) return;
         if (VehicleVisits.JobFor(pawn, VehicleVisitDefOf.PhobosVisit_Nap) is { } nap) __result = nap;
     }
 }

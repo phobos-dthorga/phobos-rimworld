@@ -275,6 +275,18 @@
     <hotboxStayHours>1</hotboxStayHours>
     <napRestEffectiveness>0.85</napRestEffectiveness>
     <napMemoryHours>1</napMemoryHours>
+    <!-- A chat aboard (Framework 0.292.0), authored: two or more awake riders in a vehicle on a map give each other 0.1 social recreation an
+         hour (below life aboard's 0.9 line), and a pair chats about every 2 hours, with the game's own chit-chat memories and log line. -->
+    <chatJoyPerHour>0.1</chatJoyPerHour>
+    <chatGapHours>2</chatGapHours>
+    <!-- Defenders in their trucks (Framework 0.292.0), authored: at a hostile base each parked vehicle has someone sitting in it half the time,
+         three at most; they notice one of the player's people within 25 cells, or a hit, or climb out after 3 hours anyway; the scramble out
+         takes 90 to 180 ticks (one and a half to three seconds). -->
+    <baseDefenderChance>0.5</baseDefenderChance>
+    <baseDefendersMax>3</baseDefendersMax>
+    <baseDefenderNoticeCells>25</baseDefenderNoticeCells>
+    <baseDefenderMaxHours>3</baseDefenderMaxHours>
+    <baseDefenderScrambleTicks>180</baseDefenderScrambleTicks>
     <!-- Loads a vehicle gains from what it tows (Framework 0.216.0; docs/development/vehicle-field-kitchen.md). A field kitchen's packed cold
          box runs through the trailer's lead: its own working watts (100 W in its Def) at this vehicle's voltage, while it holds food. Shed
          with the fridge, late among the comforts, so the food outlives the air conditioning. -->

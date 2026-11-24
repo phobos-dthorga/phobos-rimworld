@@ -13,6 +13,40 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.292.0] - 2026-11-25 - Draft
+
+People use parked vehicles: a fault-read's fixes, visitors making room, chats aboard and defenders in their trucks
+
+### Added
+
+- **Visitors make room for a boarding order** (the owner's follow-up picks of 25 November 2026): order someone into a vehicle full of
+  visitors and one climbs out, with a message; a caravan being formed counts their seats as free. Not yet tested in game.
+- **A chat aboard**: two or more colonists sitting in a vehicle on a map pass the time talking, with the game's own chit-chat memories
+  and social log line.
+- **The vehicle's logbook** has a line for the first visit of each kind in a day (the radio, a smoke, a warm-up, a nap, a meal from the
+  stores), and a hungry colonist takes food from the 12-volt fridge first.
+- **Defenders in their trucks**: at a hostile base you attack, a few of its people are sitting in its parked vehicles, and climb out
+  when your people come near, the truck is shot, or a few hours pass. Under the setting People use parked vehicles.
+
+### Fixed
+
+- **Visits survive a save and load**: every visit was dropped at each load, so a napper stopped resting and a visitor rode off when the
+  vehicle was driven. Found by a fault-read of 0.289.0, as were the fixes below.
+- **No more in-and-out visits**: a colonist who should rest in a bed is no longer sent to sit or nap in a vehicle (a warm-up still is),
+  and a visit, like the cab bunk's sleeper, is no longer put out after five idle hours.
+- **A warm-up needs the heater running**, not only switched on, and hunger or tiredness brings the visitor out.
+- **Visitors keep to proper seats**: never an upgraded gun seat, a reserved seat or a role they cannot fill; they climb out as an
+  aircraft takes off; someone you move into the driver's seat is no longer treated as a visitor.
+- **Food from the cargo** respects the hunger limits a duty sets, and is eaten from the stack it went into; no nap where a group forbids
+  beds (forming a caravan); the warm-up reads the colonist's own air, as the game does.
+- **Camping loose ends**: packing up takes each closed room's work; the cab bunk's sleeper may take the bunk's own seat place, and no
+  longer counts twice; meals at a night camp with a closed tent no longer take the outdoor food-poisoning chance; another faction's
+  hotbox roll is no longer rolled again at each load.
+
+### Save compatibility
+
+- Safe to add mid-game. Before removing it, take visitors out of vehicles by hand.
+
 ## [0.291.0] - 2026-11-25 - Draft
 
 Thirteen more mechanics the test list can see

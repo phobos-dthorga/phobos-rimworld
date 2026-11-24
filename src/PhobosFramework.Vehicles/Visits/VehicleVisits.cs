@@ -22,6 +22,8 @@ public class PhobosVehicleVisitDef : Def
     public float maxHours;
     /// <summary>The worker: what the vehicle offers, and when the visitor is done.</summary>
     public Type workerClass = typeof(VisitWorker);
+    /// <summary>The vehicle's logbook line for the first such visit of the day (Framework 0.292.0); none when left out.</summary>
+    public Phobos.Framework.Persistence.PhobosLogEntryDef? logEntry;
 
     [Unsaved] VisitWorker? worker;
 
@@ -91,18 +93,29 @@ public class GameComponent_PhobosVehicleVisits : GameComponent
     {
     }
 
+    /// <summary>Set by a load: the visits are checked against who is aboard at the first tick.</summary>
+    bool checkAfterLoad;
+
     public override void ExposeData()
     {
         Scribe_Collections.Look(ref visits, "PhobosVisits_List", LookMode.Deep);
         if (Scribe.mode != LoadSaveMode.PostLoadInit) return;
         visits ??= new List<VehicleVisit>();
-        // A visit whose person or vehicle is gone, or who is no longer aboard it, is dropped: they ride on, if at all, as any rider would.
-        visits.RemoveAll(v => v.pawn == null || v.vehicle == null || v.def == null || !v.vehicle.AllPawnsAboard.Contains(v.pawn));
+        visits.RemoveAll(v => v.pawn == null || v.vehicle == null || v.def == null);
+        // Who is aboard is known only once Vehicle Framework's own load step has run, after this one (fault-read F1): before it, every
+        // vehicle reads as empty and every visit was dropped at each load. So the check waits for the first tick.
+        checkAfterLoad = visits.Count > 0;
     }
 
     public override void GameComponentTick()
     {
         if (visits.Count == 0) return;
+        if (checkAfterLoad)
+        {
+            checkAfterLoad = false;
+            // A visit whose person is no longer in a passenger seat of its vehicle is dropped: they ride on, if at all, as any rider would.
+            visits.RemoveAll(v => !VehicleVisits.StillVisiting(v));
+        }
         VehicleVisits.Rest(visits);
         if (Find.TickManager.TicksGame % VehicleVisits.LookTicks == 0) VehicleVisits.Look(this);
     }
@@ -182,9 +195,23 @@ public static class VehicleVisits
         return comps;
     }
 
-    /// <summary>A passenger seat with room: never a driver's or a gunner's.</summary>
-    static VehicleRoleHandler? FreeSeat(VehiclePawn vehicle) =>
-        vehicle.handlers?.FirstOrDefault(h => h.role != null && h.role.handlingTypes == HandlingType.None && h.AreSlotsAvailable);
+    /// <summary>
+    /// A passenger seat with room that this person may take: never a driver's or a gunner's (read after upgrades: the Osprey's crew chief seat
+    /// becomes a gun seat), never one another has reserved, and never a role they cannot fill (fault-read F6).
+    /// </summary>
+    static VehicleRoleHandler? FreeSeat(VehiclePawn vehicle, Pawn pawn) =>
+        vehicle.handlers?.FirstOrDefault(h => h.role != null && h.role.HandlingTypes == HandlingType.None && h.AreSlotsAvailableAndReservable && h.CanOperateRole(pawn));
+
+    /// <summary>Whether this visitor still sits in a passenger seat of their vehicle: the player has not moved them, nor taken them out.</summary>
+    internal static bool StillVisiting(VehicleVisit visit)
+    {
+        if (visit.pawn == null || visit.vehicle?.handlers == null || visit.pawn.Dead) return false;
+        foreach (VehicleRoleHandler handler in visit.vehicle.handlers)
+        {
+            if (handler.role != null && handler.role.HandlingTypes == HandlingType.None && handler.thingOwner != null && handler.thingOwner.Contains(visit.pawn)) return true;
+        }
+        return false;
+    }
 
     /// <summary>
     /// Whether this person may use this vehicle now: the setting on, the vehicle open to the colony, parked here, not setting off, flying or
@@ -198,7 +225,7 @@ public static class VehicleVisits
         if (!vehicle.Spawned || vehicle.Map != pawn.Map || vehicle.Faction != Faction.OfPlayer) return false;
         if (vehicle.Drafted || vehicle.vehiclePather is { Moving: true } || OnMapFlight.Airborne(vehicle)) return false;
         if (Phobos.Framework.Environment.AttachedFires.OnFire(vehicle)) return false;
-        if (climbIn && FreeSeat(vehicle) == null) return false;
+        if (climbIn && FreeSeat(vehicle, pawn) == null) return false;
         return pawn.CanReach(vehicle, PathEndMode.Touch, Danger.Some);
     }
 
@@ -233,11 +260,11 @@ public static class VehicleVisits
     /// <summary>Whether any parked vehicle on this person's map offers them this reason now, without the path check (a recreation chance).</summary>
     public static bool AnyOffers(Pawn pawn, PhobosVehicleVisitDef def)
     {
-        if (!MayVisit(pawn)) return false;
+        if (!MayVisit(pawn) || UnwellFor(pawn, def)) return false;
         float reach = Rules.visitReachCells;
         foreach (CompPhobosVehicleSystems comp in Candidates(pawn.Map))
         {
-            if (!comp.OpenToColony || comp.Vehicle.Drafted || FreeSeat(comp.Vehicle) == null) continue;
+            if (!comp.OpenToColony || comp.Vehicle.Drafted || FreeSeat(comp.Vehicle, pawn) == null) continue;
             if (comp.Vehicle.Position.DistanceTo(pawn.Position) > reach) continue;
             if (def.Worker.Offers(comp, pawn)) return true;
         }
@@ -247,10 +274,17 @@ public static class VehicleVisits
     /// <summary>The job that takes this person to the nearest vehicle offering this reason, or null.</summary>
     public static Job? JobFor(Pawn pawn, PhobosVehicleVisitDef def)
     {
-        if (def.jobDef == null) return null;
+        if (def.jobDef == null || UnwellFor(pawn, def)) return null;
         CompPhobosVehicleSystems? comp = Nearest(pawn, c => def.Worker.Offers(c, pawn), climbIn: true);
         return comp == null ? null : JobMaker.MakeJob(def.jobDef, comp.Vehicle);
     }
+
+    /// <summary>
+    /// Whether this person should rest in a bed for their health, so a visit would only put them straight out again (fault-read F2). Never
+    /// for a warm-up: the cold is what hurts them, and a cab beats the weather.
+    /// </summary>
+    static bool UnwellFor(Pawn pawn, PhobosVehicleVisitDef def) =>
+        def != VehicleVisitDefOf.PhobosVisit_Warm && HealthAIUtility.ShouldSeekMedicalRest(pawn);
 
     static Dictionary<JobDef, PhobosVehicleVisitDef>? byJob;
 
@@ -281,8 +315,18 @@ public static class VehicleVisits
         if (Component is not { } component || vehicle.GetComp<CompPhobosVehicleSystems>() is not { } comp) return false;
         if (!MayUse(comp, pawn, climbIn: true) || !def.Worker.Offers(comp, pawn)) return false;
         bool friendAboard = def == VehicleVisitDefOf.PhobosVisit_Hotbox && FriendAboard(pawn, vehicle);
-        if (FreeSeat(vehicle) is not { } seat || !vehicle.TryAddPawn(pawn, seat)) return false;
+        if (FreeSeat(vehicle, pawn) is not { } seat) return false;
+        VisitSeats.seatingVisitor = true;
+        try
+        {
+            if (!vehicle.TryAddPawn(pawn, seat)) return false;
+        }
+        finally
+        {
+            VisitSeats.seatingVisitor = false;
+        }
         component.visits.Add(new VehicleVisit { pawn = pawn, vehicle = vehicle, def = def, since = Find.TickManager.TicksGame });
+        if (def.logEntry != null) LogFirstToday(vehicle, def.logEntry, pawn);
         if (Seen.Wants("vehicles.visit", vehicle, def.defName)) Seen.Note("vehicles.visit", vehicle, pawn.LabelShort, def.defName);
         if (friendAboard && Seen.Wants("vehicles.visit-join", vehicle)) Seen.Note("vehicles.visit-join", vehicle, pawn.LabelShort);
         return true;
@@ -310,11 +354,46 @@ public static class VehicleVisits
             historical: false);
     }
 
+    /// <summary>Whether anyone visits this vehicle now (one count when nobody visits anything).</summary>
+    public static bool AnyVisitorIn(VehiclePawn vehicle)
+    {
+        if (Component is not { } component || component.visits.Count == 0) return false;
+        foreach (VehicleVisit visit in component.visits)
+        {
+            if (visit.vehicle == vehicle) return true;
+        }
+        return false;
+    }
+
+    /// <summary>Someone else is being seated in this full passenger seat: a visitor in it climbs out first, and the player is told.</summary>
+    public static void MakeRoom(VehiclePawn vehicle, VehicleRoleHandler handler)
+    {
+        if (Component is not { } component) return;
+        foreach (VehicleVisit visit in component.visits.ToList())
+        {
+            if (visit.vehicle != vehicle || handler.thingOwner == null || !handler.thingOwner.Contains(visit.pawn)) continue;
+            End(component, visit, "PhobosVisit_OutMakeRoom");
+            return;
+        }
+    }
+
     /// <summary>The vehicle is setting off (drafted or moving, Vehicle Framework's events): every visitor climbs out first, and the player is told.</summary>
     public static void SettingOff(VehiclePawn vehicle)
     {
         if (Component is not { } component || component.visits.Count == 0) return;
-        foreach (VehicleVisit visit in component.visits.Where(v => v.vehicle == vehicle).ToList()) End(component, visit, "PhobosVisit_OutMoving");
+        foreach (VehicleVisit visit in component.visits.Where(v => v.vehicle == vehicle).ToList())
+        {
+            // Someone the player has moved into a driving or gun seat is theirs now, never put out (fault-read F8).
+            if (StillVisiting(visit)) End(component, visit, "PhobosVisit_OutMoving");
+            else component.visits.Remove(visit);
+        }
+    }
+
+    /// <summary>Someone left the vehicle (Vehicle Framework's event): a visit whose person is gone ends there, so a quick return is no visit.</summary>
+    public static void Exited(VehiclePawn vehicle)
+    {
+        if (Component is not { } component || component.visits.Count == 0) return;
+        component.visits.RemoveAll(v => v.vehicle == vehicle && !StillVisiting(v));
     }
 
     /// <summary>The vehicle has left the map with visitors still aboard (a caravan formed at once): they ride on as riders, their visits over.</summary>
@@ -342,12 +421,15 @@ public static class VehicleVisits
         {
             Pawn pawn = visit.pawn;
             VehiclePawn vehicle = visit.vehicle;
-            if (pawn == null || vehicle == null || pawn.Dead || pawn.Destroyed || !vehicle.AllPawnsAboard.Contains(pawn))
+            // Moved into another seat or taken out by the player: theirs now, never a visitor's (fault-read F8).
+            if (pawn == null || vehicle == null || pawn.Destroyed || !StillVisiting(visit))
             {
                 component.visits.Remove(visit);
                 continue;
             }
             if (!vehicle.Spawned) continue;
+            // Vehicle Framework puts everyone out of a vehicle idle for five hours (fault-read F3): a visit is its own reason to stay.
+            CrewOnStation.Engaged(vehicle);
             if (vehicle.GetComp<CompPhobosVehicleSystems>() is not { } comp)
             {
                 End(component, visit, "");
@@ -366,10 +448,32 @@ public static class VehicleVisits
         if (GenHostility.AnyHostileActiveThreatToPlayer(vehicle.Map, countDormantPawnsAsHostile: false)) return "PhobosVisit_OutDanger";
         if (Phobos.Framework.Environment.AttachedFires.OnFire(vehicle)) return "PhobosVisit_OutFire";
         if (vehicle.Drafted || vehicle.vehiclePather is { Moving: true }) return "PhobosVisit_OutMoving";
-        if (HealthAIUtility.ShouldSeekMedicalRest(pawn)) return "PhobosVisit_OutUnwell";
+        if (visit.def != VehicleVisitDefOf.PhobosVisit_Warm && HealthAIUtility.ShouldSeekMedicalRest(pawn)) return "PhobosVisit_OutUnwell";
         if (pawn.InMentalState) return "";
         if (VisitRule.OverTime(visit.since, Find.TickManager.TicksGame, visit.def.maxHours, GenDate.TicksPerHour)) return "";
         return null;
+    }
+
+    // ---- The logbook ----
+
+    static readonly Dictionary<(VehiclePawn, Def), int> loggedAt = new();
+    static Game? loggedGame;
+
+    /// <summary>
+    /// A line in the vehicle's logbook for the first visit of its kind there in a day (Framework 0.292.0), so the book tells the story without
+    /// filling with every cuppa. Not saved: after a load, the next visit may write its line again.
+    /// </summary>
+    public static void LogFirstToday(VehiclePawn vehicle, Phobos.Framework.Persistence.PhobosLogEntryDef entry, Pawn pawn)
+    {
+        if (loggedGame != Current.Game)
+        {
+            loggedAt.Clear();
+            loggedGame = Current.Game;
+        }
+        int now = Find.TickManager.TicksGame;
+        if (loggedAt.TryGetValue((vehicle, entry), out int at) && now - at < GenDate.TicksPerDay) return;
+        loggedAt[(vehicle, entry)] = now;
+        VehicleStory.Of(vehicle, entry, pawn.LabelShort);
     }
 
     // ---- Shared by the reasons ----
@@ -428,6 +532,7 @@ public static class VehicleVisitDefOf
     public static JobDef PhobosVehicleSystems_TakeFoodFromVehicle = null!;
     public static JobDef PhobosVehicleSystems_DrinkFromVehicle = null!;
     public static ThoughtDef PhobosSleptSittingUp = null!;
+    public static Phobos.Framework.Persistence.PhobosLogEntryDef PhobosLog_VisitFood = null!;
 
     static VehicleVisitDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(VehicleVisitDefOf));
 }

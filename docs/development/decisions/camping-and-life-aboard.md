@@ -181,6 +181,12 @@ overturns an earlier one says so.
 | 25 Nov | Radio visit 0.36 an hour, the game's rate; two hours at most | agent default | Read from the game; authored cap | [pu], The rows |
 | 25 Nov | Nap 0.85 rest, -1 memory; friend at 20 opinion, x3 | agent default | Authored | [pu], The rows |
 | 25 Nov | Other factions never visit | agent choice | Their people follow their orders | [pu], Other factions' vehicles |
+| 25 Nov | Follow-ups: fault-read, seat fix, small gaps, loose ends, defenders | owner's card | All four groups | [pu], Follow-ups (Framework 0.292.0) |
+| 25 Nov | A visitor makes room for a boarding order | agent choice | The owner's pick of the seat fix | [pu], Follow-ups (Framework 0.292.0) |
+| 25 Nov | A warm-up is the one visit an unwell colonist still makes | agent choice | The cold is what hurts them | [pu], The fault-read's fixes |
+| 25 Nov | Chat aboard: 0.1 social an hour, a chat each 2 hours | agent default | Authored | [pu], Follow-ups (Framework 0.292.0) |
+| 25 Nov | No outdoor food-poisoning chance at a night camp with a closed tent (overturns "not pitched on the road") | agent choice | Closed tents exist now | [pu], Follow-ups (Framework 0.292.0) |
+| 25 Nov | Defenders: half the trucks, three at most, 25 cells, 3 hours; under the same setting | agent default | Authored; one switch | [pu], Follow-ups (Framework 0.292.0) |
 
 [ac]: ../archive/vehicle-accessories.md
 [hb]: ../archive/vehicle-hotboxing.md

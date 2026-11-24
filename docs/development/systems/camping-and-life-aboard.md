@@ -183,6 +183,14 @@ rest of this page's life aboard then applies to them.
 - **Food** (PV4): only when the game's food giver found nothing; the game's own best food from the vehicle's cargo, policy included,
   taken out and eaten. **Water** (PV5, Dubs Bad Hygiene): only when Dubs found nothing; 1.5 litres from the crew tank.
 - **The battery**: a visitor's radio stops at the start line (the camp lights' line) unless "Visitors may flatten the battery" is on.
+- **Making room**: a visitor's seat counts as free to a boarding order, and they climb out as the other is seated (0.292.0).
+- **A chat aboard** (0.292.0): two or more awake colonists aboard a vehicle on a map give each other 0.1 social recreation an hour
+  below 0.9, and a pair chats about every 2 hours with the game's chit-chat memories and social log line (authored).
+- **The logbook** has one line a day per vehicle for each kind of visit, and for a meal from the stores; food from the cargo is the
+  most preferred, the fridge's cold stack first among equals.
+- **Defenders in their trucks** (0.292.0): at a hostile base, some of its people sit in its parked vehicles when the map is made and
+  climb out when the player's people come within 25 cells, the vehicle is hit, or three hours pass (authored).
+- **Staying aboard**: a visit, and the cab bunk's sleeper, keep Vehicle Framework from putting everyone out after five idle hours.
 - **Asleep aboard**: the game counts a rider with no job as awake; life aboard now asks the visits, so nappers and bunk sleepers
   neither hear the stereo nor read, snack or smoke.
 
@@ -268,6 +276,7 @@ All under `src/PhobosFramework.Vehicles/` unless named.
 | `Cabins/` | Cabin comp and layout, pocket-map generation, enter and leave jobs, shared seats, deck tents |
 | `LifeAboard/LifeAboard.cs` | Life aboard, hotboxing, the on-the-road world component |
 | `Visits/VehicleVisits.cs`, `Visits/VisitReasons.cs` | People use parked vehicles: the visit service and its saved component, the four reasons, jobs, recreation choices and fallbacks |
+| `Visits/VisitSeats.cs`, `Visits/BaseDefenders.cs` | Visitors make room for a boarding order; defenders sitting in their trucks at a hostile base |
 | `src/PhobosFramework.Vehicles.Hygiene/VisitDrink.cs` | A drink from a parked vehicle's crew tank (Dubs Bad Hygiene) |
 | `SetOut/CaravanCooking.cs`, `SetOut/FieldKitchen.cs` | Caravan cooking; the field stove and its copied recipes (shared with the field kitchen trailer) |
 | `Service/CampAccessories.cs`, `Service/CabClimate.cs` | The outlet and fridge; the cab's held temperature |
@@ -354,7 +363,8 @@ lights and bunk accelerator (on); the caravan's night-driving switch and its mea
 - **World components**: the caravans that stop at night (`PhobosNightDrive_Stopping`), and the last cook and meal halts
   (`PhobosCaravanCooking_LastCooked`, `_MealHalts`). Both are keyed by caravan, so a caravan that forms again starts fresh.
 - **Visits** save each visitor, their vehicle, reason and times (`PhobosVisits_List`, `PhobosVisit_*`); each vehicle saves its "Open
-  to the colony" switch (`PhobosVisit_OpenToColony`). A visit whose visitor is no longer aboard is dropped at load.
+  to the colony" switch (`PhobosVisit_OpenToColony`) and another faction's hotbox roll (`PhobosLifeAboard_RaiderRolled`). A base's map
+  saves who sits in its trucks (`PhobosDefenders_*`). A visit whose visitor is no longer aboard is dropped at load.
 - **The crew water tank** saves its litres, quality, the amount when laid and its tower (`PhobosCrewWater_*`).
 - **Removal**: the Framework's "Remove the added parts from this colony's vehicles" sweep clears systems and parts only. **It does
   nothing for camps, cabins, canvas roofs or held bunks**: pack camps up and empty cabins before removing the Framework ([How the
@@ -393,12 +403,9 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
 - **The arrival estimate ignores meal halts and relief tiredness**; it is an estimate.
 - **A cabin's tank cell holds no fuel**; it only takes the cell.
 - **Found while writing (inferred from the code, not tested in game):**
-  - **Packing up undercounts closed rooms.** Setting up adds 900 for each room; packing up adds 900 once
-    (`CompPhobosCamp.cs:932,939`).
-  - **A parked bunk sleeper takes a free passenger seat**, and the bunk already takes one in bigger cabs, so a cab with one seat
-    left may refuse with the bunk empty (`CompPhobosCamp.cs:310-327`; `Cabins/CabinSharedSeats.cs:26-29`).
-  - **The food-poisoning chance applies to every caravan meal**, in a tent too (`CaravanCooking.cs:21,265`).
-  - **A raider's hotbox roll is not saved**, so each load rolls again for raider vehicles still on the map.
+  - *Fixed in Framework 0.292.0:* packing up counted closed rooms once; a parked bunk sleeper's seat was taken twice; night-camp meals
+    in a closed tent took the outdoor food-poisoning chance; a raider's hotbox roll was rolled again at each load; the cab bunk's
+    sleeper was put out by Vehicle Framework after five idle hours.
 
 ## Tests
 
@@ -412,7 +419,7 @@ None of these is a test in game.
 - **In game** ([the test list](../in-game-test-pass.md)): **passed**: none of this system's rows. **Waiting**: accessories 178
   to 180; the camp 315 to 317, 326 to 328, 338, 353; deck tents 329, 330, 337, 357, 358; camp gear drawn 359, 360, 366; bunks and
   night driving 319 to 321, 347, 365; walk-in cabins 314, 349, 350; caravan cooking 152 to 154, 156, 191, 322, 323, 325, 334;
-  life aboard 354 to 356, 364; crew machines 432, 438 to 440; people use parked vehicles 518 to 521; the cab 27, 30, 71, 445; camp lights and the start 482.
+  life aboard 354 to 356, 364; crew machines 432, 438 to 440; people use parked vehicles 518 to 525; the cab 27, 30, 71, 445; camp lights and the start 482.
 
 ## Why it is this way
 

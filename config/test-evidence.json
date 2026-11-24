@@ -45,6 +45,19 @@
     "17": {"parts": {"Tip unloads behind the truck": [{"key": "vehicles.tipper-work-fuel", "variant": "tip"}]}},
     "2": {"parts": {"a hit radiator stays holed": ["saved.vehicle-fault.PhobosVehicleCondition_HoledRadiator"]}},
     "1": {"parts": {"a destroyed part is replaced": ["vehicles.part-replaced"]}},
+    "525": {"parts": {
+      "defenders sit in their trucks at a hostile base": ["vehicles.base-defenders"],
+      "they climb out when someone comes near": [{"key": "vehicles.base-defenders-out", "variant": "near"}],
+      "they climb out when the truck is hit": [{"key": "vehicles.base-defenders-out", "variant": "hit"}]
+    }},
+    "523": {"parts": {
+      "a visit's line in the logbook": [{"key": "vehicles.logbook", "variant": "PhobosLog_VisitRadio"}, {"key": "vehicles.logbook", "variant": "PhobosLog_VisitHotbox"}, {"key": "vehicles.logbook", "variant": "PhobosLog_VisitNap"}],
+      "food from the fridge first": [{"key": "vehicles.visit-food", "variant": "chilled"}],
+      "riders chat aboard": ["vehicles.visit-chat"]
+    }},
+    "522": {"parts": {
+      "a visitor climbs out to make room for a boarding order": [{"key": "vehicles.visit-end", "variant": "PhobosVisit_OutMakeRoom"}]
+    }},
     "521": {"parts": {
       "a hungry colonist eats from the cargo": ["vehicles.visit-food"],
       "a thirsty colonist drinks from the crew tank": ["vehicles.visit-drink"],

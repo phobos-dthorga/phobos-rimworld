@@ -471,6 +471,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// </summary>
     public bool OpenToColony = true;
 
+    /// <summary>Another faction's vehicle has had its one roll for arriving hotboxed (Framework 0.292.0: saved, so a load never rolls again).</summary>
+    public bool RaiderHotboxRolled;
+
     /// <summary>Winds the windows down or up (Framework 0.253.0: the winder heard going down, S145, the owner's pick).</summary>
     public void SetWindowsDown(bool down)
     {
@@ -718,6 +721,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Scribe_Values.Look(ref lastUpdateTick, "PhobosVehicleSystems_LastUpdate", -1);
         Scribe_Values.Look(ref WindowsDown, "PhobosVehicleSystems_WindowsDown", false);
         Scribe_Values.Look(ref OpenToColony, "PhobosVisit_OpenToColony", true);
+        Scribe_Values.Look(ref RaiderHotboxRolled, "PhobosLifeAboard_RaiderRolled", false);
         Scribe_Values.Look(ref serviceRequested, "PhobosVehicleSystems_ServiceRequested", false);
         Scribe_Values.Look(ref RefuelFromCargo, "PhobosVehicleSystems_RefuelFromCargo", false);
         Scribe_Values.Look(ref LandedRefuelUntil, "PhobosVehicleSystems_LandedRefuelUntil", 0);
@@ -839,6 +843,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Vehicle.AddEvent(VehicleEventDefOf.IgnitionOn, () => VehicleVisits.SettingOff(Vehicle));
         Vehicle.AddEvent(VehicleEventDefOf.MoveStart, () => VehicleVisits.SettingOff(Vehicle));
         Vehicle.AddEvent(VehicleEventDefOf.Despawned, () => VehicleVisits.Left(Vehicle));
+        // Taking off through Vehicle Framework's own launch need not draft it first (fault-read F7); someone getting out ends their visit (F8).
+        Vehicle.AddEvent(VehicleEventDefOf.AerialVehicleLaunch, () => VehicleVisits.SettingOff(Vehicle));
+        Vehicle.AddEvent(VehicleEventDefOf.PawnExited, () => VehicleVisits.Exited(Vehicle));
+        // Defenders in their trucks (Framework 0.292.0): a hit on another faction's vehicle at its base brings its sitters out.
+        Vehicle.AddEvent(VehicleEventDefOf.DamageTaken, () => MapComponent_PhobosBaseDefenders.Hit(Vehicle));
         // An aircraft taking off hears the refusals the player set to warn only (Framework 0.110.0).
         if (Vehicle.CompVehicleLauncher != null) Vehicle.AddEvent(VehicleEventDefOf.AerialVehicleLaunch, WarnAtLaunch);
         // Framework 0.254.0: grit thrown up as it leaves the ground through Vehicle Framework's own launch.

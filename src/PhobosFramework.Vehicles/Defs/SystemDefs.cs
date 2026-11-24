@@ -1365,6 +1365,19 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float hotboxStayHours = 1f;
     public float napRestEffectiveness = 0.85f;
     public float napMemoryHours = 1f;
+    /// <summary>A chat aboard (Framework 0.292.0, PV8), authored: the social recreation an hour two or more awake riders give each other in a
+    /// vehicle on a map, below life aboard's recreation line; and the hours between chats a pair has, on average, each with the game's
+    /// own chit-chat memories and social log line.</summary>
+    public float chatJoyPerHour = 0.1f;
+    public float chatGapHours = 2f;
+    /// <summary>Defenders in their trucks (Framework 0.292.0), authored: at a hostile base, the chance each parked vehicle has someone sitting in
+    /// it, and the most at one base; how near one of the player's people comes before they notice, in cells; the hours before they climb out
+    /// anyway; and the most ticks their scramble out takes (at least half of it).</summary>
+    public float baseDefenderChance = 0.5f;
+    public int baseDefendersMax = 3;
+    public float baseDefenderNoticeCells = 25f;
+    public float baseDefenderMaxHours = 3f;
+    public int baseDefenderScrambleTicks = 180;
     public float crewTankLowShare = 0.25f;
     public float nightDriverFitRest = 0.3f;
     public float nightReliefRest = 0.6f;

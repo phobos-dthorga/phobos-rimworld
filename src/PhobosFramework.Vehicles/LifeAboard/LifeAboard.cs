@@ -47,7 +47,6 @@ public static class LifeAboard
     sealed class Cab
     {
         public float smoke;
-        public bool rolled;
     }
 
     static readonly ConditionalWeakTable<Pawn, Rider> riders = new();
@@ -82,9 +81,10 @@ public static class LifeAboard
         if (aboard.Count == 0) return;
         if (vehicle.Faction != Faction.OfPlayer)
         {
-            RaiderRoll(comp, cab, aboard);
+            RaiderRoll(comp, aboard);
             return;
         }
+        if (caravan == null && aboard.Count > 1) Chat(vehicle, aboard);
         HashSet<Pawn> driving = new(VehicleStory.Drivers(vehicle));
         bool music = comp.Fittings.Grants("CabStereo") && comp.LoadRunning(StereoLoad);
         bool dark = When_Dark.IsDark(vehicle);
@@ -124,6 +124,33 @@ public static class LifeAboard
                 rider.treatAt = now;
             }
         }
+    }
+
+    // ---- A chat ----
+
+    /// <summary>
+    /// A chat aboard (Framework 0.292.0; docs/development/vehicle-parked-use.md, PV8). The game's own talk needs both people on the map, and
+    /// riders are not, so nobody aboard a vehicle on a map ever talked. Two or more awake colonists aboard together pass the time: a little
+    /// social recreation each while bored, and now and then a chat between two of them, with the game's own chit-chat memories and its line in
+    /// the social log. On the road the game already lets a resting caravan talk.
+    /// </summary>
+    static void Chat(VehiclePawn vehicle, List<Pawn> aboard)
+    {
+        List<Pawn> talking = aboard.Where(p => !p.Dead && !p.Downed && !p.InMentalState && p.RaceProps.Humanlike && p.Faction == Faction.OfPlayer
+            && p.needs?.joy != null && p.Awake() && !VehicleVisits.AsleepAboard(p) && p.health.capacities.CapableOf(PawnCapacityDefOf.Talking)).ToList();
+        if (talking.Count < 2) return;
+        foreach (Pawn pawn in talking)
+        {
+            if (pawn.needs.joy.CurLevel < Rules.lifeAboardJoyBelow) pawn.needs.joy.GainJoy((float)LifeAboardRule.JoyGained(Rules.chatJoyPerHour, HoursPerLook), JoyKindDefOf.Social);
+        }
+        if (Rules.chatGapHours <= 0f || !Rand.Chance(LookTicks / (Rules.chatGapHours * GenDate.TicksPerHour))) return;
+        Pawn first = talking.RandomElement();
+        Pawn second = talking.Where(p => p != first).RandomElement();
+        InteractionDef chat = InteractionDefOf.Chitchat;
+        if (chat.initiatorThought != null) first.needs.mood?.thoughts?.memories?.TryGainMemory(chat.initiatorThought, second);
+        if (chat.recipientThought != null) second.needs.mood?.thoughts?.memories?.TryGainMemory(chat.recipientThought, first);
+        Find.PlayLog.Add(new PlayLogEntry_Interaction(chat, first, second, null));
+        if (Seen.Wants("vehicles.visit-chat", vehicle)) Seen.Note("vehicles.visit-chat", vehicle, first.LabelShort + " and " + second.LabelShort);
     }
 
     // ---- A book, a treat ----
@@ -263,10 +290,11 @@ public static class LifeAboard
     /// Another faction's driver lights up on the way in, now and then (the owner, 12 Nov 2026: a rare roll): once a vehicle arrives with people
     /// aboard, a small chance its driver takes the base game's smokeleaf high, and the cab fills. Slower through the driver rule, as ours are.
     /// </summary>
-    static void RaiderRoll(CompPhobosVehicleSystems comp, Cab cab, List<Pawn> aboard)
+    static void RaiderRoll(CompPhobosVehicleSystems comp, List<Pawn> aboard)
     {
-        if (cab.rolled || !VehicleSystemsMod.Settings.hotboxing || !comp.Vehicle.Spawned) return;
-        cab.rolled = true;
+        // The roll is saved on the vehicle (Framework 0.292.0): before, each load rolled again for raiders still on the map.
+        if (comp.RaiderHotboxRolled || !VehicleSystemsMod.Settings.hotboxing || !comp.Vehicle.Spawned) return;
+        comp.RaiderHotboxRolled = true;
         if (!Rand.Chance(Rules.raiderHotboxChance)) return;
         ThingDef? joint = DefDatabase<ThingDef>.GetNamedSilentFail("SmokeleafJoint");
         IngestionOutcomeDoer_GiveHediff? high = joint?.ingestible?.outcomeDoers?.OfType<IngestionOutcomeDoer_GiveHediff>().FirstOrDefault(d => d.hediffDef != null);

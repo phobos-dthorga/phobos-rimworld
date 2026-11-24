@@ -9,6 +9,12 @@ namespace Phobos.Framework.Vehicles.Rules;
 public static class CaravanCookRule
 {
     /// <summary>The way a caravan cooks.</summary>
+    /// <summary>
+    /// The flat chance added to a meal for where it is cooked (Framework 0.292.0): the game's outdoor figure, unless the caravan camps with a
+    /// closed tent to cook in. A meal simmered on the move or at a quick halt is always cooked in the open.
+    /// </summary>
+    public static double PlaceChance(Way way, bool closedTent, double outdoorChance) => way == Way.Camp && closedTent ? 0 : outdoorChance;
+
     public enum Way
     {
         /// <summary>It does not cook now.</summary>

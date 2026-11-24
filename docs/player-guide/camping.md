@@ -96,7 +96,11 @@ danger comes, or before the vehicle sets off.
   **Night heater at camp** on), the heater runs for them, burning chemfuel.
 - **Tired with no bed**, they nap sitting up in a cab seat rather than on the ground ("slept sitting up in a cab", −1).
 - **When the map has no food or water for them**, they eat from a vehicle's cargo and drink from its crew water tank.
+- **Riders chat**: two or more colonists sitting in a parked vehicle pass the time talking.
+- **Boarding a full vehicle**: a visitor climbs out to make room for anyone you order aboard.
 - **Open to the colony** (a switch on each vehicle, on): turn it off to keep a vehicle's stores for the road.
+- **At a hostile base you attack**, some of its people may be sitting in their parked trucks. Sneak up, and they lose a moment
+  climbing out; they come out at once if the truck is shot at.
 
 **Crew water tank** (with Dubs Bad Hygiene): make the kit at the vehicle parts bench (research **vehicle parts**)
 and fit it in the vehicle's **water tank bay**. It holds **120 litres**.

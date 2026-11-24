@@ -199,6 +199,16 @@ public class PhobosCaravanCooking : WorldComponent
     }
 
     /// <summary>Cooks the night's meals the given way, and says what happened. Returns the meals made.</summary>
+    /// <summary>Whether a vehicle in the caravan carries a closed tent (a room its camp would pitch) to cook in at camp.</summary>
+    static bool ClosedTent(Caravan caravan)
+    {
+        foreach (Pawn pawn in caravan.PawnsListForReading)
+        {
+            if (pawn is VehiclePawn vehicle && vehicle.GetComp<CompPhobosCamp>() is { } camp && camp.Fit.Rooms > 0) return true;
+        }
+        return false;
+    }
+
     static int Cook(Caravan caravan, CaravanKitchen at, CaravanCookRule.Way way)
     {
         PhobosCaravanCookingExtension rules = at.Rules;
@@ -256,13 +266,15 @@ public class PhobosCaravanCooking : WorldComponent
         List<ThingDef> madeFrom = TakeNutrition(raw, meals * perMeal);
         BurnFuel(burners, carriedFuel, meals * rules.fuelPerMeal);
 
+        // At camp in a closed tent (a walled awning, a rear tent, a camper), not under the sky: no outdoor chance (Framework 0.292.0).
+        float place = (float)CaravanCookRule.PlaceChance(way, ClosedTent(caravan), rules.outdoorPoisonChance);
         int poisoned = 0, left = meals;
         foreach (Pawn cook in cooks)
         {
             int byThisCook = Mathf.Min(left, perCook);
             if (byThisCook <= 0) break;
             left -= byThisCook;
-            float chance = Mathf.Clamp01(cook.GetStatValue(StatDefOf.FoodPoisonChance) + rules.outdoorPoisonChance);
+            float chance = Mathf.Clamp01(cook.GetStatValue(StatDefOf.FoodPoisonChance) + place);
             for (int i = 0; i < byThisCook; i++)
             {
                 if (Rand.Chance(chance)) poisoned++;

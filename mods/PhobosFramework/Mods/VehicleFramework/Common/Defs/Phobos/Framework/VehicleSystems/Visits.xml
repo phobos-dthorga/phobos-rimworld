@@ -15,6 +15,7 @@
     <jobDef>PhobosVehicleSystems_VisitRadio</jobDef>
     <maxHours>2</maxHours>
     <workerClass>Phobos.VehicleSystems.VisitWorker_Radio</workerClass>
+    <logEntry>PhobosLog_VisitRadio</logEntry>
   </Phobos.VehicleSystems.PhobosVehicleVisitDef>
 
   <Phobos.VehicleSystems.PhobosVehicleVisitDef>
@@ -23,6 +24,7 @@
     <jobDef>PhobosVehicleSystems_VisitHotbox</jobDef>
     <maxHours>2</maxHours>
     <workerClass>Phobos.VehicleSystems.VisitWorker_Hotbox</workerClass>
+    <logEntry>PhobosLog_VisitHotbox</logEntry>
   </Phobos.VehicleSystems.PhobosVehicleVisitDef>
 
   <Phobos.VehicleSystems.PhobosVehicleVisitDef>
@@ -30,6 +32,7 @@
     <label>getting out of the weather</label>
     <jobDef>PhobosVehicleSystems_VisitWarm</jobDef>
     <workerClass>Phobos.VehicleSystems.VisitWorker_Warm</workerClass>
+    <logEntry>PhobosLog_VisitWarm</logEntry>
   </Phobos.VehicleSystems.PhobosVehicleVisitDef>
 
   <Phobos.VehicleSystems.PhobosVehicleVisitDef>
@@ -37,6 +40,7 @@
     <label>a nap sitting up</label>
     <jobDef>PhobosVehicleSystems_VisitNap</jobDef>
     <workerClass>Phobos.VehicleSystems.VisitWorker_Nap</workerClass>
+    <logEntry>PhobosLog_VisitNap</logEntry>
   </Phobos.VehicleSystems.PhobosVehicleVisitDef>
 
   <JobDef>
@@ -106,6 +110,38 @@
     <desireSit>false</desireSit>
     <countsForRecRoom>false</countsForRecRoom>
   </JoyGiverDef>
+
+  <!-- The vehicle's logbook lines (Framework 0.292.0): the first visit of each kind in a day, so the book tells the story without filling
+       with every cuppa. {WHO}: the visitor; {PLACE}: where. Agent-authored text for the owner's review. -->
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_VisitRadio</defName>
+    <label>radio on</label>
+    <text>{WHO} sat in with the radio on {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_VisitHotbox</defName>
+    <label>a smoke in the cab</label>
+    <text>{WHO} lit up in the cab {PLACE}, and the smoke stayed in.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_VisitWarm</defName>
+    <label>out of the weather</label>
+    <text>{WHO} sheltered from the weather in the cab {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_VisitNap</defName>
+    <label>slept in a seat</label>
+    <text>With no bed to be had, {WHO} slept sitting up in the cab {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_VisitFood</defName>
+    <label>fed from the stores</label>
+    <text>With no food to be had, {WHO} ate from the stores {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
 
   <!-- A nap of an hour or more sitting up in a cab, -1 (authored): cramped, but out of the weather and off the ground, whose memory it
        replaces. -->

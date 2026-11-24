@@ -1,7 +1,8 @@
 # People use parked vehicles (25 Nov 2026)
 
-**Status (25 Nov 2026):** built in D'thorga Framework 0.289.0, PV0 to PV7 ([as built](#as-built-framework-02890)); not yet tested in game
-(test rows 518 to 521). PV8, a chat aboard, is not built.
+**Status (25 Nov 2026):** built: PV0 to PV7 in D'thorga Framework 0.289.0 ([as built](#as-built-framework-02890)); a fault-read's fixes and
+the follow-ups in 0.292.0 ([follow-ups](#follow-ups-framework-02920)): PV8 a chat aboard, the seat fix, the logbook, fridge first, defenders
+in their trucks. Not yet tested in game (test rows 518 to 525).
 
 How camping and life aboard work now: [systems/camping-and-life-aboard.md](systems/camping-and-life-aboard.md). This record adds
 the half that page does not have: **people on foot choosing, by themselves, to go to a parked vehicle** for what it carries.
@@ -83,7 +84,8 @@ the owner's card.
 ## Other factions' vehicles
 
 - **In a raid on us:** nothing. Raiders follow their raid's orders, never recreation or needs jobs of this kind **[I]**.
-- **Parked at a base we attack:** nothing. Its people defend the base under their own orders **[I]**.
+- **Parked at a base we attack:** since 0.292.0, a few of its people are sitting in their parked vehicles when the map is made, and
+  climb out when the player's people come near, the vehicle is hit, or three hours pass ([follow-ups](#follow-ups-framework-02920)).
 - **Captured:** it becomes ours, and everything here works on it.
 - **Guests, visitors and prisoners** never visit a colony's vehicle (agent default).
 
@@ -121,10 +123,53 @@ Everything else here is the agent's proposal or default, labelled where it matte
   as it leaves the map rides on as a rider, the visit over.
 - **The bunk's sleeper is now asleep to life aboard too.** The game counts a rider with no job as awake, so before this a bunk sleeper
   heard the stereo and could read, snack or smoke; one check now covers bunk sleepers and nappers.
-- **Differs from the design above:** the fridge's cold stacks are not taken first (the game's own choice of the best food is used), and
-  the logbook line is not built.
-- **Known limits:** a visitor takes a free passenger seat, so a boarding order on a full vehicle waits until they climb out or the
-  vehicle is drafted; nappers rest at a flat figure, with no comfort from the seat beyond their memory.
+- **Differed from the design above** until 0.292.0: the fridge's cold stacks were not taken first, the logbook line was not built,
+  and a boarding order on a vehicle full of visitors waited; all three are now built ([follow-ups](#follow-ups-framework-02920)).
+- **Known limit:** nappers rest at a flat figure, with no comfort from the seat beyond their memory.
+
+## Follow-ups (Framework 0.292.0)
+
+The owner's picks of 25 Nov 2026, from the agent's list of follow-ups: all four groups.
+
+### The fault-read's fixes
+
+A fresh agent read the 0.289.0 code against the game's and Vehicle Framework's (F1 to F9); every finding is fixed:
+
+- **F1, every load dropped every visit**: Vehicle Framework fills its list of who is aboard only in its own load step, after ours, so
+  the check now waits for the first tick, and reads the passenger seats themselves.
+- **F2, an unwell colonist went in and out**: someone who should rest in a bed is no longer sent to sit, smoke or nap (a warm-up
+  still is: the cold is what hurts them).
+- **F3, Vehicle Framework puts everyone out after five idle hours**: a visit, and the cab bunk's sleeper (the same gap since 0.215.0),
+  now keep the vehicle engaged as our stations do (`CrewOnStation`).
+- **F4, the food fallback ignored the giver's own hunger limits**: a duty calling it with its own floor no longer gets a meal from
+  the cargo above that floor.
+- **F5, a warm-up trusted the heater's switch**: it now needs the heater running, and hunger or tiredness bring the visitor out.
+- **F6, seats**: the role's handling after upgrades (the Osprey's crew chief seat becomes a gun seat), seats others have reserved,
+  and roles the visitor cannot fill; the cab bunk's seat choice too.
+- **F7, taking off**: Vehicle Framework's launch puts visitors out, as drafting does.
+- **F8, people the player moved**: someone moved into a driving or gun seat, or taken out, is no longer a visitor.
+- **F9, smaller**: the warm-up reads the colonist's own air, as the game does; no nap where the colonist's group forbids beds
+  (forming a caravan); the food eaten is the stack the portion went into.
+
+### Built
+
+- **The seat fix:** a visitor's passenger seat counts as free to a boarding order, and the visitor climbs out (with a message) as the
+  other is seated; a caravan being formed counts their seats as free. Three small patches on Vehicle Framework's seat code
+  (`Visits/VisitSeats.cs`), each acting only for the player's vehicle with a visitor aboard.
+- **PV8, a chat aboard** (`LifeAboard.Chat`): two or more awake colonists aboard a vehicle on a map give each other 0.1 social
+  recreation an hour while below 0.9, and a pair chats about every 2 hours with the game's own chit-chat memories and social log line
+  [A]. On the road the game already lets a resting caravan talk.
+- **The logbook:** one line a day per vehicle for each kind of visit and for a meal from the stores (not saved: a load may repeat it).
+- **Fridge first:** the most preferred food the colonist will eat, by the game's own tests; among equals, the fridge's cold stack.
+- **Defenders in their trucks** (`Visits/BaseDefenders.cs`): on the first tick of a hostile base's map, each of its parked vehicles
+  has someone sitting in a passenger seat half the time, three at most [A]. They keep their lord's orders aboard (neither the game's
+  despawn nor Vehicle Framework's boarding touches a lord, read from both codes) and climb out 90 to 180 ticks after one of the
+  player's people comes within 25 cells, at once when the vehicle is hit, or after 3 hours [A]. Only with "People use parked
+  vehicles" on (agent choice: one switch for the family). Never on a map older than an hour, so a save loaded mid-attack gets none.
+- **Older loose ends fixed** (from the camping system page): packing up counts each closed room's work; the bunk's sleeper may take
+  the bunk's own seat place, and a sleeper in the bunk no longer counts twice; at a night camp with a closed tent fitted, meals no longer
+  take the outdoor food-poisoning chance (simmered and halted meals still do; this overturns the field kitchen record's "the tent is
+  not pitched on the road", agent choice since closed tents exist); a raider's hotbox roll is saved.
 
 ## Sources
 

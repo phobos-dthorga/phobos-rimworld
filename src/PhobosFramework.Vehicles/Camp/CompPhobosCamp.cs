@@ -328,9 +328,18 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
         return null;
     }
 
-    /// <summary>A passenger seat with room, for the sleeper to lie down in (the bunk sits behind the seats).</summary>
-    VehicleRoleHandler? PassengerSeat() =>
-        Vehicle.handlers?.FirstOrDefault(h => h.role != null && h.role.handlingTypes == HandlingType.None && h.AreSlotsAvailable);
+    /// <summary>
+    /// A passenger seat with room, for the sleeper to lie down in (the bunk sits behind the seats). Where the bunk takes a seat's place, the
+    /// sleeper may take that place (Framework 0.292.0): before, a cab with only the bunk's place left refused its own sleeper.
+    /// </summary>
+    VehicleRoleHandler? PassengerSeat()
+    {
+        using (CabinSharedSeats.BunkSleeperBoarding())
+        {
+            // The role's handling after upgrades, and seats others have reserved left alone (fault-read of 25 Nov 2026, F6).
+            return Vehicle.handlers?.FirstOrDefault(h => h.role != null && h.role.HandlingTypes == HandlingType.None && h.AreSlotsAvailableAndReservable);
+        }
+    }
 
     /// <summary>The sleeper has reached the vehicle: aboard, and asleep in the bunk.</summary>
     internal void ClimbIn(Pawn pawn)
@@ -340,7 +349,11 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
             Messages.Message(refusal, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
-        if (PassengerSeat() is not { } seat || !Vehicle.TryAddPawn(pawn, seat)) return;
+        if (PassengerSeat() is not { } seat) return;
+        using (CabinSharedSeats.BunkSleeperBoarding())
+        {
+            if (!Vehicle.TryAddPawn(pawn, seat)) return;
+        }
         asleep = true;
         asleepSince = Find.TickManager.TicksGame;
         startWarned = false;
@@ -358,6 +371,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
             return;
         }
         bool still = Vehicle.vehiclePather is not { Moving: true };
+        // Vehicle Framework puts everyone out of a vehicle idle for five hours: a sleeper is reason to stay (fault-read of 25 Nov 2026, F3).
+        if (Vehicle.IsHashIntervalTick(WakeCheckTicks)) CrewOnStation.Engaged(Vehicle);
         if (still && Bunk is { } bunk) sleeper.needs?.rest?.TickResting(bunk.GetStatValue(StatDefOf.BedRestEffectiveness));
         if (!Vehicle.IsHashIntervalTick(WakeCheckTicks)) return;
         if (Vehicle.Drafted && !startWarned)
@@ -956,7 +971,9 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
             {
                 if (placed.Any(p => p.def == VehicleCampDefOf.PhobosCamp_RoofTent)) work += rules.campTentWork;
                 if (poles.Count > 0) work += rules.campAwningWork;
-                if (tentWalls.Count > 0) work += rules.campRoomWork;
+                // Each closed room, as setting up counts them (Framework 0.292.0; it counted one however many stood). The walls do not say
+                // which room they belong to, so the fittings that made them do.
+                if (tentWalls.Count > 0) work += Mathf.Max(1, Fit.Rooms) * rules.campRoomWork;
                 work += placed.Where(p => p.def != VehicleCampDefOf.PhobosCamp_RoofTent && !IsCamperBed(p.def)).Sum(p => GearWork(p.def));
             }
             return Mathf.Max(work, 1f);
