@@ -13,6 +13,14 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.278.1] - 2026-11-24 - Draft
+
+A field run's rows stay on their cells
+
+### Fixed
+
+- **A tractor working a row keeps to the row** with the wider way round on. A tractor with an implement on its hitch counts as towing, so the wider way's cost near fences and walls (0.277.0) could have drawn a long row beside a fence a cell away from it, and the implement would have worked the wrong strip. The wider way now stands down while a field run drives a row; the drive to each row's start still takes it. Found by reading the code, not in play. Not yet tested in game.
+
 ## [0.278.0] - 2026-11-24 - Draft
 
 Vehicles driven from a station: remote control with nobody aboard

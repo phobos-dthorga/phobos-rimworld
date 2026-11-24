@@ -85,6 +85,10 @@ trailer stopped by a fence.
 - **How it reaches the path finder**: our `TowClearanceCosts` is a `VehicleCostOffsets`, Vehicle Framework's public extension
   point for its newer path finder, which makes one per map by itself and asks each whether it applies to a request. Ours applies
   only to a vehicle with something on its hitch and nothing towing it, so no other vehicle's paths change. No Harmony patch.
+- **Not while a field run drives a row** (Framework 0.278.1): a tractor with an implement on its hitch counts as towing, and a
+  row is one straight order with the strip on the row's cells, so the costs would draw a long row beside a fence a cell away
+  from it. Costs and route check both stand down for that drive (`CompPhobosHitch.TakesWiderWay`); the drive to a row's start
+  still takes the wider way.
 - **The route check**: when the driving vehicle takes a new path, the whole line is driven along it beforehand, by the same follow
   rule, jack-knife limit, facings and test of the ground as in play, 4 steps a cell, up to 300 cells ahead (`towCheckSteps`,
   `towCheckMostCells`). Where a vehicle of the line would not fit, a **snag** of 30 more is laid within 3 cells of the spot for

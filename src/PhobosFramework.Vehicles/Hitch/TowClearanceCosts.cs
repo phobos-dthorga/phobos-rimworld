@@ -47,7 +47,7 @@ public sealed class TowClearanceCosts : VehicleCostOffsets
     public override bool ShouldApplyFor(in PathSettings settings)
     {
         if (disposed || !VehicleSystemsMod.Settings.hitchWiderWay) return false;
-        if (settings.vehicle is not { Spawned: true } vehicle || vehicle.Map != map || !CompPhobosHitch.DrivesATow(vehicle)) return false;
+        if (settings.vehicle is not { Spawned: true } vehicle || vehicle.Map != map || !CompPhobosHitch.TakesWiderWay(vehicle)) return false;
         Refresh();
         return true;
     }

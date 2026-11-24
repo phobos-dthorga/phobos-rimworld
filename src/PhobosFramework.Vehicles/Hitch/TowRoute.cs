@@ -30,6 +30,13 @@ public sealed partial class CompPhobosHitch
     /// <summary>Whether this vehicle drives a tow: something on its hitch, and nothing towing it.</summary>
     public static bool DrivesATow(VehiclePawn vehicle) => vehicle.GetComp<CompPhobosHitch>() is { trailer: not null } hitch && hitch.Tower == null;
 
+    /// <summary>
+    /// Whether the wider way round applies to this vehicle now: it drives a tow, and no field run of its own is driving a row (Framework
+    /// 0.278.1). A row is one straight order with the implement's strip on the row's cells; the clearance costs would draw a long row beside
+    /// a fence a cell away from it, and the implement would work the wrong strip.
+    /// </summary>
+    public static bool TakesWiderWay(VehiclePawn vehicle) => DrivesATow(vehicle) && vehicle.GetComp<CompPhobosFieldRun>() is not { WorkingRow: true };
+
     /// <summary>From the middle of a vehicle of this kind back to its hitch, in cells: its Def's own point, or just behind its rear edge.</summary>
     static float HitchBehind(ThingDef def) => def.GetModExtension<PhobosHitchPointExtension>() is { behindCentre: >= 0f } point
         ? point.behindCentre
@@ -38,7 +45,7 @@ public sealed partial class CompPhobosHitch
     /// <summary>Called each tick the vehicle that drives the tow moves: a path not yet looked at is checked once.</summary>
     void LookAtRoute()
     {
-        if (!VehicleSystemsMod.Settings.hitchWiderWay || Vehicle.vehiclePather is not { } pather) return;
+        if (!VehicleSystemsMod.Settings.hitchWiderWay || Vehicle.vehiclePather is not { } pather || !TakesWiderWay(Vehicle)) return;
         if (pather.curPath is not { IsValid: true } path || ReferenceEquals(path, routeChecked)) return;
         if (pather.RequestStatus == VehiclePathFollower.PathRequestStatus.Calculating) return;
         if (TowClearanceCosts.On(Vehicle.Map) is not { } grid) return;
