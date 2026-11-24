@@ -10,7 +10,7 @@ namespace Phobos.RimPactsPatches;
 /// </summary>
 public class RimPactsPatchesMod : Mod
 {
-    public const string ModVersion = "0.40.0";
+    public const string ModVersion = "0.41.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "RimPacts");
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>

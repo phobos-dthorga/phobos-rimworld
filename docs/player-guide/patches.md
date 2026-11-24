@@ -113,7 +113,10 @@ Read from the Harrier's own code, not seen in play. The Harrier mod does all of 
 explains refusals.
 
 - **Sortie** (the button on the jet) opens the world map. Pick a site or settlement: an open map gives "fly to" and "land" choices; a
-  closed one is entered from the map edge. **Your own home map is refused**; use Launch to fly home.
+  closed one is entered from the map edge. **Your own maps can be struck too** (from 0.41.0, for the Harrier, A-10, Su-25 and
+  Prowler alike), the gravship's included: choose a point to circle, and when done the jet lands on that map's runway if one fits
+  it, or else flies back to a home that has one. Launch to World Map still lands at a home. The sortie button's own description
+  still says to use Launch for a colony; that text is the jets' mod's own.
 - **Fuel decides time on station, not distance.** World flight costs about 0.16 fuel and a minute a tile, so a 30-tile sortie costs
   about 5 fuel each way; over a map the jet burns 250 fuel in about 6 hours. A sortie is refused unless the tank holds the trip there
   and back, an hour over the target and a 10% reserve.

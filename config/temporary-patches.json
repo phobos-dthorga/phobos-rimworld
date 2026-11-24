@@ -28,6 +28,7 @@
     {"row": 22, "patch": "TurretQueueSavePatch", "mod": "Vehicle Framework", "file": "Vehicles.dll", "members": ["CompVehicleTurrets.PostExposeData"]},
     {"row": "23 (Nice Research Tab)", "patch": "ResearchUnlocksGuard", "mod": "Nice Research Tab", "file": "NiceResearchTab.dll", "members": ["ExtraCategoryDef.CacheAll", "NodeServer.*"]},
     {"row": "23 (Vanilla Expanded Framework)", "patch": "ResearchUnlocksGuard", "mod": "Vanilla Expanded Framework", "file": "PipeSystem.dll", "members": ["ResearchProjectDef_UnlockedDefs_Patch.Postfix"]},
-    {"row": 24, "patch": "TrySpawnAtCellPatch", "mod": "Vanilla Expanded Framework", "file": "PipeSystem.dll", "members": ["Process.TrySpawnAtCell", "Process.SpawnOrPushToNet"]}
+    {"row": 24, "patch": "TrySpawnAtCellPatch", "mod": "Vanilla Expanded Framework", "file": "PipeSystem.dll", "members": ["Process.TrySpawnAtCell", "Process.SpawnOrPushToNet"]},
+    {"row": 25, "patch": "SortieOverHome", "mod": "Close Air Support: A-10 Warthog & Su-25 Frogfoot", "file": "FixedWingAircraftFramework.dll", "members": ["CompVehicleLauncher_CanTarget_FixedWingSortiePatch.Prefix", "ArrivalAction_LandToCell_Arrived_VtolPatch.ArriveFixedWing", "LandingTargeter_GetPosState_VtolPatch.IsFixedWingLoiterTarget", "VtolFlightController.HomeForReturn"]}
   ]
 }

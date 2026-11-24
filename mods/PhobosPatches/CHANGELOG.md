@@ -21,6 +21,18 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.41.0] - 2026-11-25 - Draft
+
+Sorties over your own maps
+
+### Fixed
+
+- **A jet's sortie may strike any of your own maps, the gravship's included** (the owner's report and choices of 25 November 2026). The Harrier, A-10, Su-25 and Prowler refused a sortie onto a home map, saying to use Launch instead, and since RimWorld 1.7 a map holding your grav engine counts as a home, so a gravship parked at an enemy site could get no air support at all. A sortie now flies to a home like any strike: you choose a point to circle, the jet comes in over it, and when done it lands on that map's runway if one fits it, or else flies back to a home that has one. Launch to World Map still lands at a home as before. Not yet tested in game: row 506 of the test pass.
+
+### Save compatibility
+
+- Safe to add and remove. A jet saved mid-sortie over a home map forgets it was on a sortie and, on arrival, lands as Launch would.
+
 ## [0.40.0] - 2026-11-23 - Draft
 
 The C-17 Globemaster III built from real parts

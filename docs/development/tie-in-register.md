@@ -150,6 +150,7 @@ C# lives in `src/PhobosPatches.*`. Rows marked **fault** are in [patches for oth
 | --- | --- | --- | --- |
 | Harrier VTOL | Build cost (RimThunder's turbine where present), part list, Combat Extended bomb weights and cases, bombs and rockets at The Dead Man's Switch's ammunition printer and lathe; hover gate, sortie and flight-control rules, crew keeps a map open; its dodge chance follows its controls and warning receiver, with a chaff and flares button (0.21.0, A12, A16) | XML + C# | `Mods/HarrierVtol` |
 | Harrier, Hind, Mongoose | Rearm one ammunition kind at a time (**fault**) | C# | `Mods/AircraftRearm/1.7` |
+| Harrier, Close Air Support, EA-6B Prowler (their shared fixed-wing framework) | A sortie may strike a home map, the gravship's included (**fault**, 0.41.0) | C# | `Mods/AircraftRearm/1.7` |
 | Harrier, Hind, Mongoose, Close Air Support, EA-6B Prowler, with Combat Extended | Bombs and missiles built from parts at their real weight; the missile seeker head | XML (`Mods/AircraftMunitions`) | `Mods/HindHelicopter`, `Mods/MongooseHelicopter` (their missiles) |
 | Close Air Support (`potemkinvillager.CloseAirSupport`) | Shell cost, parts and parts bill for the A-10 and Su-25; realistic handling, a setting (off) | XML + C# (its settings) | `Mods/CloseAirSupport` |
 | UH-60 Black Hawk, C-17 Globemaster III | Shell cost and parts bill | XML | `Mods/UH60Blackhawk`, `Mods/C17Globemaster` |

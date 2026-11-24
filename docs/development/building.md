@@ -123,13 +123,13 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
 | `PhobosFramework` | 3 | 0 | 1 | 0 |
-| `PhobosFramework.Vehicles` | 104 | 15 | 0 | 0 |
+| `PhobosFramework.Vehicles` | 107 | 16 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 1 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
 | `PhobosMedical` | 11 | 0 | 4 | 0 |
 | `PhobosMedical.Hygiene` | 1 | 0 | 0 | 0 |
-| `PhobosPatches.AircraftRearm` | 0 | 0 | 2 | 0 |
+| `PhobosPatches.AircraftRearm` | 0 | 0 | 8 | 0 |
 | `PhobosPatches.Biotech` | 2 | 0 | 0 | 0 |
 | `PhobosPatches.Classical` | 1 | 0 | 0 | 0 |
 | `PhobosPatches.CombatExtended` | 1 | 1 | 1 | 0 |
@@ -142,7 +142,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-177 patched methods named in attributes, 23 patch classes that find their target by name (`TargetMethod`), and 18 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+180 patched methods named in attributes, 24 patch classes that find their target by name (`TargetMethod`), and 24 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -200,7 +200,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework.Vehicles</code>: 104 patched methods, 15 by name</summary>
+<details><summary><code>PhobosFramework.Vehicles</code>: 107 patched methods, 16 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles/`) |
 | --- | --- | --- |
@@ -209,6 +209,7 @@ Every HarmonyPatch attribute was read.
 | `AerialVehicleArrivalModeWorker_TargetedDrop.VehicleArrived` | prefix | `Flight/FlightJourneys.cs` |
 | `AerialVehicleInFlight.InitiateCrashEvent` | prefix | `Sling/SlingPatches.cs` |
 | `AerialVehicleInFlight.Vehicles (getter)` | postfix | `Sling/SlingPatches.cs` |
+| `Alert_PasteDispenserNeedsHopper.BadDispensers (getter)` | postfix | `Tanks/PasteTapAlertPatch.cs` |
 | `ArrivalAction_LandToCell.SpawnSkyfaller` | prefix | `Flight/FlightJourneys.cs` |
 | `Building_Trap.CheckSpring` | prefix | `Service/VehicleTraps.cs` |
 | `Caravan.NightResting (getter)` | postfix | `Camp/NightDriving.cs` |
@@ -250,11 +251,13 @@ Every HarmonyPatch attribute was read.
 | `JobGiver_GetRest.TryGiveJob` | postfix | `Cabins/DeckTents.cs`, `Camp/BunkSleep.cs` |
 | `MainTabWindow_Research.PostOpen` | postfix | `Service/SetAsideResearchPatches.cs` |
 | `MapTemperature.OutdoorTemp (getter)` | postfix | `Cabins/DeckTents.cs` |
+| `MechanitorBandwidthGizmo.GizmoOnGUI` | prefix, finalizer | `Remote/MechLink.cs` |
 | `Messages.Message` | prefix | `Service/VehicleMessageLevel.cs` |
 | `Need_Food.FoodFallPerTickAssumingCategory` | postfix | `Camp/CrewMachines.cs` |
 | `Pawn.GetChildHolders` | postfix | `Sling/SlingPatches.cs` |
 | `Pawn.ThreatDisabled` | postfix | `Service/SubmersiblePatches.cs` |
 | `Pawn_MechanitorTracker.UsedBandwidth (getter)` | postfix | `Remote/MechLink.cs` |
+| `Pawn_Ownership.ClaimBedIfNonMedical` | prefix | `Cabins/DeckTents.cs` |
 | `Projectile.Launch` | prefix | `Service/AirborneEvasion.cs` |
 | `ResearchManager.IsCurrentProject` | postfix | `Service/FieldResearchPatches.cs` |
 | `ResearchManager.SetCurrentProject` | prefix | `Service/FieldResearchPatches.cs` |
@@ -311,6 +314,7 @@ Every HarmonyPatch attribute was read.
 | by name in TargetMethod | postfix | `Camp/NightDriving.cs` |
 | by name in TargetMethod | prefix | `Flight/FlightPatches.cs` |
 | by name in TargetMethod | postfix | `Service/AirborneEvasion.cs` |
+| by name in TargetMethod | postfix | `Service/GlassBlastPatch.cs` |
 | by name in TargetMethod | postfix | `Service/SetAsideResearchPatches.cs` |
 | by name in TargetMethod | prefix | `Service/TurretPacePatches.cs` |
 | by name in TargetMethod | prefix | `Service/VehicleTraps.cs` |

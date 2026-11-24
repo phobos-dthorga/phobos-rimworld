@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The destination's label when a fixed-wing jet's sortie targets one of your own home maps, such as where your gravship stands
+       (src/PhobosPatches.AircraftRearm/SortieOverHome.cs). -->
+  <PhobosAircraftPatches_FlySortieTo>Fly a sortie over {PLACE}</PhobosAircraftPatches_FlySortieTo>
+</LanguageData>
