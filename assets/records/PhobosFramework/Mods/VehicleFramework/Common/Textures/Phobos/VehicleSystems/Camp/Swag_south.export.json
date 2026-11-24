@@ -1,5 +1,5 @@
 {
-  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_north.png",
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_south.png",
   "source": "assets/vehicle-systems/generated/camp-swag/camp-swag-11.png",
   "source_sha256": "b77942f0c40b6fd5fadbf22bb4199173e6bfcfe1bd26684622654a12d9201ba6",
   "target_sha256": "935379ccab4eee5eca092fdf1ae4e865ac07b22cfd92edc650df0ecf092c4ac9",

@@ -28,6 +28,12 @@ Our own pictures in the walk-in cabin, the tent flap and the ECM pod
 - **The ECM pod fitting has its own icon**: a box of electronics with antenna panels and radome blisters. It had none before. Made
   with generative AI, the owner's pick. Not yet tested in game: row 495.
 
+### Fixed
+
+- **The camper bed and the swag lie the right way round**: their pillow and hood were at the foot, so a colonist slept with
+  their feet on the pillow. A bed's picture now faces from head to foot as the game's own beds do, in every facing; the swag's
+  bunks in cabs and cabins are fixed with it. Not yet tested in game: row 495.
+
 ### Compatibility and limits
 
 - Safe with a running save; only pictures change. No new settings.

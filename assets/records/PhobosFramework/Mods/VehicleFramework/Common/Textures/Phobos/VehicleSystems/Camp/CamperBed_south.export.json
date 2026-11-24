@@ -1,5 +1,5 @@
 {
-  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CamperBed_north.png",
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CamperBed_south.png",
   "source": "assets/phobos-vehicles/generated/camp-camper-bed-north/camp-camper-bed-north-2.png",
   "source_sha256": "77d79e39bc09a1157bc88519c8ff6093a50bba30221ca841311487133cf651d2",
   "target_sha256": "d0d6ae108d025f3d7764d7765d98d840b261a8804e121a88f36e40dd8fba1bf5",
