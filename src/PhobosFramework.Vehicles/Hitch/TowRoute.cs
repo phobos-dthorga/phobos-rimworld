@@ -35,7 +35,7 @@ public sealed partial class CompPhobosHitch
     /// 0.278.1). A row is one straight order with the implement's strip on the row's cells; the clearance costs would draw a long row beside
     /// a fence a cell away from it, and the implement would work the wrong strip.
     /// </summary>
-    public static bool TakesWiderWay(VehiclePawn vehicle) => DrivesATow(vehicle) && vehicle.GetComp<CompPhobosFieldRun>() is not { WorkingRow: true };
+    public static bool TakesWiderWay(VehiclePawn vehicle) => DrivesATow(vehicle) && !CompPhobosFieldRun.DrivingARow(vehicle);
 
     /// <summary>From the middle of a vehicle of this kind back to its hitch, in cells: its Def's own point, or just behind its rear edge.</summary>
     static float HitchBehind(ThingDef def) => def.GetModExtension<PhobosHitchPointExtension>() is { behindCentre: >= 0f } point

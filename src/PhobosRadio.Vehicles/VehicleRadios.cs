@@ -41,6 +41,8 @@ public static class VehicleRadios
     {
         CarriedRadios.Register(new VehicleRadioRule());
         RemoteControl.Register(new RadioRemoteControl());
+        // Radio 0.14.0: the cover map for vehicles driven from afar works a little each tick, through the net's own tick.
+        RadioNet.Ticked += RemoteCoverMap.Tick;
         foreach (var def in DefDatabase<VehicleDef>.AllDefsListForReading)
         {
             var radio = def.GetModExtension<VehicleRadioFitting>()?.fitting?.radio;
@@ -108,15 +110,20 @@ public sealed class VehicleRadioRule : ICarriedRadioRule
 /// The radio as what drives a vehicle from afar (Radio 0.11.0; the autonomous vehicles record, step 3): a vehicle is linked while a
 /// station serves its radio on a channel and, since 0.12.0 (step 5), a colonist works that station with a hand free for it; it comes
 /// back toward that station. It reads the net's last pass; nothing is worked out here
-/// but a dictionary lookup.
+/// but a dictionary lookup. Since 0.14.0 (step 8) it also says which ground its stations cover (<see cref="RemoteCoverMap"/>), and a vehicle
+/// asked to be driven keeps that map at work.
 /// </summary>
-public sealed class RadioRemoteControl : IRemoteControlSource
+public sealed class RadioRemoteControl : IRemoteControlSource, IRemoteCoverSource
 {
     public bool Fitted(VehiclePawn vehicle) => vehicle.GetComp<CompRadio>() != null && VehicleRadios.Fitted(vehicle);
+
+    public RemoteCover? CoverOf(Map map) => RemoteCoverMap.CoverOf(map);
 
     public RemoteLink LinkOf(VehiclePawn vehicle)
     {
         if (!vehicle.Spawned) return default;
+        // Asked for only while the vehicle is wanted, on its rare tick: that keeps its map's cover worked out.
+        RemoteCoverMap.Want(vehicle);
         // Served on a channel, and (Radio 0.12.0, step 5) a colonist works that station with a hand free for this vehicle.
         var net = RadioNet.For(vehicle.Map);
         var station = net?.ServedBy(vehicle);
@@ -125,7 +132,10 @@ public sealed class RadioRemoteControl : IRemoteControlSource
 
     public void WantChanged(VehiclePawn vehicle)
     {
-        if (vehicle.Spawned) RadioNet.For(vehicle.Map)?.MarkDirty();
+        if (!vehicle.Spawned) return;
+        RadioNet.For(vehicle.Map)?.MarkDirty();
+        // Start the cover map at once, so it is ready by the vehicle's first drive or soon after.
+        if (RemoteControl.Wanted(vehicle)) RemoteCoverMap.Want(vehicle);
     }
 
     public Texture2D? Icon => RadioTextures.Signal;

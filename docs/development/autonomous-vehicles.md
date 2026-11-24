@@ -5,8 +5,8 @@ Vehicles 0.117.0 to 0.117.2: the vehicle control and picture kinds, control taki
 radios fitted to vehicles ([step 2](#step-2-radios-fitted-to-vehicles-radio-0100)), vehicles driven from a station with their lost-link
 choices and letters ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)), the kit on the five service trucks
 ([step 4](#step-4-the-kit-on-the-trucks-vehicles-01170-radio-0120)) and the colonist at the console
-([step 5](#step-5-the-operator-radio-0120)). Steps 6 and 7 are not built, and
-step 8 ([keeping to radio cover](#proposal-keeping-to-radio-cover-step-8-not-built)) is a proposal waiting on a measurement.
+([step 5](#step-5-the-operator-radio-0120)), and step 8, [keeping to radio cover](#step-8-keeping-to-radio-cover-framework-02790-radio-0140)
+(Framework 0.279.0, Radio 0.14.0), built on the owner's go before its cost was measured. Steps 6 and 7 are not built.
 Nothing is tested in game.
 
 The owner, 24 Nov 2026: "the real feature I wish to implement soon is autonomous vehicles and perhaps their weapon systems too, all
@@ -258,11 +258,13 @@ Built 24 Nov 2026, not yet tested in game.
 - **Its cost:** the net already walks the free colonists for their radios each pass; it now also reads each one's job driver (a
   type check) to find operators. The work giver reads a list the net keeps; the job checks one dictionary each tick it runs.
 
-## Proposal: keeping to radio cover (step 8, not built)
+## Step 8: keeping to radio cover (Framework 0.279.0, Radio 0.14.0)
 
 The owner's card of 25 Nov 2026 ("Design it, with its cost"), after the wider way round for towing
 ([hitches and trailers](systems/hitches-and-trailers.md#the-wider-way-round)) showed how one of our mods can add costs to Vehicle
-Framework's path finder. **Nothing here is built, and nothing is until its cost is measured and the owner has seen it.**
+Framework's path finder. **Built the same day on the owner's word, "You can continue with Step #8"**, before the measurement the
+design asked for: the cost below is still an estimate, and **the measurement is now test row 492's first step**, with a dev action
+of its own. The design as written follows; what was built differently is [below it](#as-built-framework-02790-radio-0140).
 
 - **What it would do [A]:** a vehicle driven from a station pays more to cross ground where its control link would fail, so its
   route bends toward ground the stations reach. It only makes a way dearer, never closes it: an order to a spot with no cover is
@@ -300,7 +302,37 @@ Framework's path finder. **Nothing here is built, and nothing is until its cost 
   default **[A]**.
 - **Risk [A]: low.** It lengthens a route and loses nothing; the worst case is today's lost link.
 - **Other factions:** their vehicles join no net of ours, so it never applies to them and costs nothing with several on a map.
-- **What a next game would need:** nothing here is game-free; it is Vehicle Framework's path finder and the radio's link.
+- **What a next game would need:** nothing here is game-free but turning blocks into cell costs (`Rules/RemoteCoverRule.cs`); the
+  rest is Vehicle Framework's path finder and the radio's link.
+
+### As built (Framework 0.279.0, Radio 0.14.0)
+
+All **[code]**, nothing tested in game. What differs from, or settles, the design above:
+
+- **No operator in the sum [A]**, changed from the design. The cover is every powered station's antennas, manned or not: who sits at
+  the console is not the ground, and counting it would redraw routes each time the operator eats. The link itself still needs the
+  operator, as before.
+- **Worked out per tick, not per frame [A]**, at most 0.5 ms of real time a tick (`remoteCoverBudgetMsPerTick`), so a map that is
+  not on screen keeps up too, and nothing runs while paused. It runs through the radio net's own tick (`RadioNet.Ticked`), so **no map
+  component is added to the save**, and only on a map where a vehicle was asked to be driven in the last 1,000 ticks
+  (`remoteCoverWantedTicks`). It looks for a change every 250 ticks (`remoteCoverLookTicks`); a change during a pass finishes the
+  pass, then starts another, so a busy noise source cannot keep it from ever finishing.
+- **What starts it again**: the coverage overlay's own change count (walls, doors, rock, coax, antenna ports, roofs, upgrades; exposed
+  as `RadioCoverage.ChangeCount`), the noise snapshot's signature, the cell scale, the block size, the powered stations
+  (`RadioNet.Stations`) and the vehicle's radio kind. The operator is no longer among them.
+- **The sample**: the first cell of each block a vehicle could stand on and is not fogged, through `LinkBudgetService.Evaluate` from
+  the vehicle's own radio to each antenna in turn, stopping at the first in touch. A block with no such cell costs nothing.
+- **The cost [A]**: 8 a cell out of cover (`uncoveredCellCost`, D'thorga Framework's remote control rules): a step wholly out of
+  cover is worth about eight cells of detour.
+- **The seam**: `IRemoteCoverSource`, optional beside `IRemoteControlSource`, gives a `RemoteCover` (blocks, never changed once
+  handed out); the grid, `RemoteCoverCosts`, rewrites only when a newer one appears, and only the cells that changed.
+- **Stands down while a field run drives a row**, the rule learned for the wider way round, now one helper for both
+  (`CompPhobosFieldRun.DrivingARow`). A truck driven from afar that also tows takes both costs.
+- **The setting**: "Vehicles driven from afar keep to radio cover", **on [A]**, by the shared rule for a low risk. The design left
+  the default to the owner's card; this is the card still owed, and a one-word change.
+- **The measurement**: the dev action **Time radio cover for selected vehicle** runs one whole pass and logs milliseconds,
+  microseconds a sample and how many ticks that is at the budget. Its figures go here once the owner sends them.
+- **Seen in play**: `radio.remote-cover` when a pass finishes, `vehicles.remote-cover` when a path takes the costs; row 492.
 
 Two other uses of the same extension point were checked on 25 Nov 2026 and **left, on the owner's cards**: heavy vehicles
 preferring firm ground, and errands going round growing crops. Vehicle Framework already prices both; the finding is in
@@ -367,7 +399,7 @@ preferring firm ground, and errands going round growing crops. Vehicle Framework
 | 5 | The operator's job and work type. **Built in Radio 0.12.0** | Radio | 2 |
 | 6 | The picture link and remote guns | Framework, Vehicles | 5 and MV8's remote weapon station |
 | 7 | The route level (MV4) and mechanitor level (MV6) feeding the same comp | Framework | 3 |
-| 8 | Keeping to radio cover: a proposal, [above](#proposal-keeping-to-radio-cover-step-8-not-built). **Not built; waits on the overlay's measured cost and the owner's card** | Framework, Radio | 3, and the measurement |
+| 8 | Keeping to radio cover, [above](#step-8-keeping-to-radio-cover-framework-02790-radio-0140). **Built in Framework 0.279.0 and Radio 0.14.0; its cost still to be measured** | Framework, Radio | 3 |
 
 **Test rows** come with each step. **Settings**, as listed under risks, come with step 3 and step 6.
 
@@ -379,8 +411,8 @@ preferring firm ground, and errands going round growing crops. Vehicle Framework
   step 3.~~ Read: it keeps ticking; caravans and aircraft are known limits ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)).
 - **Icons for the two buttons**, borrowed until made.
 - **The lost-link letter's reason**: when the operator leaves, the letter should say so rather than "lost its link".
-- **Step 8's measurement and card**: the owner's press of "Time coverage of selected station or antenna", then a card with the
-  cost and whether keeping to radio cover starts on.
+- **Step 8's measurement and card**: the owner's press of "Time radio cover for selected vehicle" (row 492), then a card with the
+  cost and whether keeping to radio cover stays on by default.
 
 ## Who chose what
 
@@ -390,7 +422,8 @@ preferring firm ground, and errands going round growing crops. Vehicle Framework
   aboard.
 - **Owner (25 Nov 2026), by card:** keeping to radio cover is designed with its cost before anything is built; no firm-ground
   cost and no crop cost for vehicles' routes.
-- **Agent (25 Nov 2026), for the owner to revise:** everything in the step 8 proposal: the coarse cover map, what starts it
-  again, the seam, the setting, the risk grade.
+- **Owner (25 Nov 2026):** "You can continue with Step #8": build it before the measurement.
+- **Agent (25 Nov 2026), for the owner to revise:** everything in step 8: the coarse cover map, what starts it again, no operator in
+  the sum, the tick budget and its figures, the cost of 8, the seam, the setting and its default, the risk grade.
 - **Agent (24 Nov 2026), for the owner to revise:** the two kinds and their modes, pre-emption, the work type, two vehicles per
   operator, the delay, the risk grades, other factions' vehicles always in control, where the code goes, the steps.

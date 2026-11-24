@@ -17,6 +17,22 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.14.0] - 2026-11-25 - Draft
+
+Vehicles driven from afar keep to radio cover
+
+### Added
+
+- **A vehicle driven from a station knows where its stations reach** (the owner's go-ahead of 25 November 2026, the autonomous vehicles record's step 8, with D'thorga Framework 0.279.0). While one is asked to be driven, the map is worked out a little each tick, one sample per 4 by 4 block, through the very sums every contact uses, from the vehicle's own radio to every powered station's antennas. The vehicle's routes then go round ground where it would lose its link. Whether a station has an operator is left out, so routes do not change each time the operator eats. A dev action, "Time radio cover for selected vehicle", times a whole pass. Not yet tested in game.
+
+### Compatibility and limits
+
+- **The first drive after asking may not use it**: the map takes some seconds to work out, and is worked out again after a station, an antenna, a wall, a roof or a noise source changes.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved, and no map component is added.
+
 ## [0.13.0] - 2026-11-25 - Draft
 
 Signal bars on the Radio button

@@ -175,6 +175,20 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
     /// <summary>Something the picture is drawn from changed with no map event: an upgrade fitted or taken off (Radio 0.4.0).</summary>
     public void NotifyChanged() => changes++;
 
+    /// <summary>
+    /// How many times something a contact can see has changed on this map: a wall, a door, rock, coax or an antenna port built or gone, a
+    /// roof, an upgrade (Radio 0.14.0). The cover map reads it, so it is worked out again on exactly the overlay's events; asking starts
+    /// the counting.
+    /// </summary>
+    public int ChangeCount
+    {
+        get
+        {
+            Listen();
+            return changes;
+        }
+    }
+
     /// <summary>Starts again for a new subject; works again over the old picture when what it was drawn from has changed.</summary>
     private void Refresh(Thing thing)
     {

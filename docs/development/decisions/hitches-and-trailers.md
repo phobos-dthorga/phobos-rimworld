@@ -157,7 +157,8 @@ overturns an earlier one says so.
 | 24 Nov | The wider way stands down while a field run drives a row | agent choice | A row is driven cell for cell | Framework 0.278.1 changelog |
 | 25 Nov | No firm-ground cost for heavy vehicles' routes | owner's card | VF prices terrain already; mud 15 times a floor | [sy], The wider way round |
 | 25 Nov | No crop cost for errands' routes | owner's card | VF harms no plant; a crop costs as mud | [sy], The wider way round |
-| 25 Nov | Keeping to radio cover designed with its cost first, not built | owner's card | The radio's performance rule | [av], Proposal: keeping to radio cover |
+| 25 Nov | Keeping to radio cover designed with its cost first, not built (overturned 25 Nov) | owner's card | The radio's performance rule | [av], Step 8: keeping to radio cover |
+| 25 Nov | Keeping to radio cover built before its measurement (overturns 25 Nov) | owner | "You can continue with Step #8" | [av], Step 8: keeping to radio cover |
 
 [hi]: ../archive/vehicle-hitch-design.md
 [tr]: ../vehicle-trailers.md

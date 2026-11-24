@@ -115,8 +115,8 @@ trailer stopped by a fence.
   - **Errands going round growing crops**: Vehicle Framework never damages a plant (it runs over pawns only), and adds a
     thing's own path cost to its cell, 14 for a crop such as corn as written, so a field is already as dear as mud. Nothing to
     protect.
-  - **A remote-driven vehicle keeping to radio cover**: a proposal with its cost, in
-    [autonomous vehicles](../autonomous-vehicles.md#proposal-keeping-to-radio-cover-step-8-not-built).
+  - **A remote-driven vehicle keeping to radio cover**: built in Framework 0.279.0 and Radio 0.14.0, in
+    [autonomous vehicles](../autonomous-vehicles.md#step-8-keeping-to-radio-cover-framework-02790-radio-0140).
 - **A cost grid must stand down for a drive that needs exact cells** (learned at 0.278.1): ask of any new one which of our runs
   drive a line cell for cell.
 

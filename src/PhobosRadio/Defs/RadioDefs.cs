@@ -183,6 +183,15 @@ public class RadioRulesDef : Def
     /// <summary>How opaque the overlay is over the map, from 0 to 1. Authored.</summary>
     public float coverageOpacity = 0.45f;
 
+    // Keeping to radio cover (Radio 0.14.0; autonomous-vehicles.md, step 8), worked out by the Vehicle Framework tie-in. Performance first:
+    // these bound what it costs. All authored; measure and tune.
+    /// <summary>The most real time the cover map spends in one tick, in milliseconds.</summary>
+    public float remoteCoverBudgetMsPerTick = 0.5f;
+    /// <summary>The cover map is worked out only while a vehicle on the map was asked to be driven from afar within this many ticks.</summary>
+    public int remoteCoverWantedTicks = 1000;
+    /// <summary>How often the cover map looks for a change it must be worked out again for, in ticks.</summary>
+    public int remoteCoverLookTicks = 250;
+
     /// <summary>How often links are recomputed. A pawn walks about four cells in 60 ticks.</summary>
     public int recomputeIntervalTicks = 60;
 

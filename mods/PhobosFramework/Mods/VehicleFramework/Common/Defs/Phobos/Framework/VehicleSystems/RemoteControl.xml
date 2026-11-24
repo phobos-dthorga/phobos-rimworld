@@ -12,5 +12,7 @@
     <lostLinkDelayTicks>600</lostLinkDelayTicks>
     <!-- A vehicle coming back stops on a ring this many cells round its station. -->
     <comeBackRing>5</comeBackRing>
+    <!-- Keeping to radio cover (Framework 0.279.0): a step wholly where the link would fail is worth about eight cells of detour. -->
+    <uncoveredCellCost>8</uncoveredCellCost>
   </Phobos.VehicleSystems.PhobosRemoteControlRulesDef>
 </Defs>

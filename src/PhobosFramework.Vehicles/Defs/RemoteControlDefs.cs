@@ -12,6 +12,10 @@ public class PhobosRemoteControlRulesDef : PhobosRulesDef
     public int lostLinkDelayTicks = 600;
     /// <summary>How far round its station a vehicle coming back looks for a place to stop, in cells.</summary>
     public int comeBackRing = 5;
+    /// <summary>Keeping to radio cover (Framework 0.279.0): the extra cost of a cell where a vehicle driven from afar would lose its link.
+    /// Vehicle Framework averages it over the vehicle's footprint and weighs it ten to one against a step of ten, so 8 makes each step
+    /// wholly out of cover worth about eight cells of detour.</summary>
+    public int uncoveredCellCost = 8;
 
     public static PhobosRemoteControlRulesDef Current => Current<PhobosRemoteControlRulesDef>();
 }

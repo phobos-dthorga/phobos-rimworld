@@ -101,6 +101,12 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
     /// <summary>Whether it drives a row now, its implement working: the implement's work load on the engine (When_FieldWorking).</summary>
     public bool WorkingRow => phase == FieldRunPhase.Row;
 
+    /// <summary>
+    /// Whether this vehicle's field run drives a row now: one straight order with the implement's strip on the row's own cells, so no cost
+    /// grid of ours may bend it (Framework 0.278.1 for the wider way round; 0.279.0 for keeping to radio cover).
+    /// </summary>
+    public static bool DrivingARow(VehiclePawn vehicle) => vehicle.GetComp<CompPhobosFieldRun>() is { WorkingRow: true };
+
     /// <summary>Whether this run lowers that implement now: it drives a row, and the implement is the one working it (Framework 0.193.0: in a
     /// chain, a cart or a second implement behind the worker stays lifted and drags nothing).</summary>
     public bool Lowers(VehiclePawn implement) => phase == FieldRunPhase.Row && Worker != null && workerVehicle == implement;

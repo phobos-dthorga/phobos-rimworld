@@ -13,6 +13,22 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.279.0] - 2026-11-25 - Draft
+
+Vehicles driven from afar keep to radio cover
+
+### Added
+
+- **A vehicle driven from a station prefers a way where its link holds** (the owner's go-ahead of 25 November 2026, the autonomous vehicles record's step 8). It pays more to cross ground where its stations would not reach it, so its route bends round hills, rock and thick walls when the way round is not too much longer. It never refuses an order: sent out of reach, it still goes and loses its link there. The ground covered comes from D'thorga Radio Framework 0.14.0. A setting, on by default: "Vehicles driven from afar keep to radio cover". Not yet tested in game.
+
+### Changed
+
+- **A field run's rows are kept exact for every cost of ours**: the wider way round's stand-down while a row is driven (0.278.1) is now one rule shared with keeping to radio cover. Nothing in play changes.
+
+### Save compatibility
+
+- Safe on an existing save: nothing new is saved.
+
 ## [0.278.1] - 2026-11-24 - Draft
 
 A field run's rows stay on their cells

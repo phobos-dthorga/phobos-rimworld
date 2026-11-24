@@ -71,6 +71,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A vehicle fitted with a control radio may be driven from a radio station with nobody aboard (Framework 0.278.0;
     /// docs/development/autonomous-vehicles.md: the risk is moderate, so on by default). Live: off, no vehicle is driven from afar.</summary>
     public bool remoteControl = true;
+    /// <summary>A vehicle driven from afar prefers ground where its link holds (Framework 0.279.0; autonomous-vehicles.md, step 8: risk low,
+    /// so on by default, an agent default for the owner to revise). Live.</summary>
+    public bool remoteKeepToCover = true;
     public bool powerPointLargeSocket;
     /// <summary>Another faction's vehicle may be found with fittings and a tune.</summary>
     public bool enemyFitSets = true;
@@ -351,6 +354,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref hitchOthersPlainRule, "PhobosVehicleSystems_HitchOthersPlainRule", false);
         Scribe_Values.Look(ref hitchWiderWay, "PhobosVehicleSystems_HitchWiderWay", true);
         Scribe_Values.Look(ref remoteControl, "PhobosVehicleSystems_RemoteControl", true);
+        Scribe_Values.Look(ref remoteKeepToCover, "PhobosVehicleSystems_RemoteKeepToCover", true);
         Scribe_Values.Look(ref powerPointLargeSocket, "PhobosVehicleSystems_PowerPointLargeSocket", false);
         Scribe_Values.Look(ref enemyFitSets, "PhobosVehicleSystems_EnemyFitSets", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
@@ -762,6 +766,7 @@ public class VehicleSystemsMod : SettingsBookMod
         // The remote control of vehicles (Framework 0.278.0; docs/development/autonomous-vehicles.md): a vehicle with no crew, driven from afar.
         list.Section("PhobosVehicleSettings_SectionRemote".Translate());
         list.Check("PhobosVehicleSystems_SettingRemoteControl".Translate(), ref s.remoteControl, d.remoteControl, "PhobosVehicleSystems_SettingRemoteControlDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingRemoteKeepToCover".Translate(), ref s.remoteKeepToCover, d.remoteKeepToCover, "PhobosVehicleSystems_SettingRemoteKeepToCoverDesc".Translate());
     }
 
     static void DrawDisplay(SettingsList list)

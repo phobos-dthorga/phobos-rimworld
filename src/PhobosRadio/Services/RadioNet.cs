@@ -101,9 +101,17 @@ public sealed class RadioNet : MapComponent
         }
     }
 
+    /// <summary>
+    /// Each tick, after the net (Radio 0.14.0): a tie-in that works something out a little at a time on a map with a net (the cover map
+    /// for vehicles driven from afar) hangs on here, so it needs no map component of its own in the save. Keep a handler cheap when it has
+    /// nothing to do.
+    /// </summary>
+    public static event System.Action<RadioNet>? Ticked;
+
     public override void MapComponentTick()
     {
         if (dirty || Find.TickManager.TicksGame >= nextRecomputeTick) Recompute();
+        Ticked?.Invoke(this);
     }
 
     public override void MapRemoved()
@@ -133,6 +141,16 @@ public sealed class RadioNet : MapComponent
     {
         EnsureFresh();
         return inTouchByStation.TryGetValue(station, out var count) ? count : 0;
+    }
+
+    /// <summary>The powered base stations the last pass counted (Radio 0.14.0, for the cover map). Read only; the net owns the list.</summary>
+    public IReadOnlyList<CompRadio> Stations
+    {
+        get
+        {
+            EnsureFresh();
+            return stations;
+        }
     }
 
     /// <summary>The station serving a colonist's radio on one of its channels, or null.</summary>

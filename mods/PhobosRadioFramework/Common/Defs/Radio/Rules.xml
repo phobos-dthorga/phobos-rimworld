@@ -40,6 +40,12 @@
     <coverageBudgetMsPerFrame>1.5</coverageBudgetMsPerFrame>
     <coverageCoarseBlockCells>4</coverageCoarseBlockCells>
     <coverageOpacity>0.45</coverageOpacity>
+    <!-- Keeping to radio cover (Radio 0.14.0; autonomous-vehicles.md, step 8): where a vehicle's control radio keeps its link, one sample per
+         block of the overlay's quick pass, worked out only while a vehicle on the map is asked to be driven from afar (and for this many
+         ticks after), at most this much real time a tick, and looked at again for changes this often. All authored; measure and tune. -->
+    <remoteCoverBudgetMsPerTick>0.5</remoteCoverBudgetMsPerTick>
+    <remoteCoverWantedTicks>1000</remoteCoverWantedTicks>
+    <remoteCoverLookTicks>250</remoteCoverLookTicks>
     <recomputeIntervalTicks>60</recomputeIntervalTicks>
 
     <!-- The vanilla heater turns 175 W into 21 heat per second (Core, Buildings_Temperature.xml). -->

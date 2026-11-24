@@ -65,6 +65,10 @@ and life on the road](camping.md). [Back to the guide](README.md).
 - **Choose what it does if the link is lost**: **hold** where it is (the default), **come back** toward its station, or **carry
   on** with its last drive. It waits ten seconds first, in case the link returns. A letter tells you, and another when a station has
   it again.
+- **It keeps to radio cover where it can**: its routes go round ground behind hills, rock and thick walls where no station would
+  reach it, when the way round is not too much longer. It never refuses an order, so a drive out of reach still loses the link.
+  The map of where stations reach takes some seconds to work out after you press the button, and again after a station, antenna,
+  wall or roof changes. A setting, "Vehicles driven from afar keep to radio cover", turns this part off.
 - **Give it a driver before it joins a caravan**: it cannot be driven from a station on the world map.
 - A colonist at the wheel drives it the ordinary way. A setting, "Remote control of vehicles by radio", turns it all off.
 

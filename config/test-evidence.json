@@ -3,6 +3,10 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "492": {"parts": {
+      "the cover map is worked out": [{"key": "radio.remote-cover"}],
+      "a driven vehicle's path takes the cover costs": [{"key": "vehicles.remote-cover"}]
+    }},
     "490": ["radio.operator"],
     "488": {"parts": {
       "it holds": [{"key": "vehicles.remote-lost", "variant": "Holding"}],
