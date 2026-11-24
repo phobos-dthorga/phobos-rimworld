@@ -1,0 +1,109 @@
+{
+  "description": "Rules that say when a save, or the running game, holds a state our mods should never be in (docs/development/test-automation.md). Save checks: python scripts/query-save.py checks. Live checks, which take a snapshot of the running game (ask the owner first): python scripts/perf.py look-check. How a check is written: external/phobos-modkit/docs/checks.md. A finding is not an in-game test, and a rule can be wrong.",
+  "checks": [
+    {
+      "id": "vehicle-numbers",
+      "title": "Vehicles saved no NaN or infinity in our values",
+      "source": "save",
+      "kind": "numbers",
+      "select": {"class": "Vehicles.VehiclePawn"},
+      "why": "A NaN or infinity is the mark of a division by nothing; once saved it spreads through every figure worked out from it."
+    },
+    {
+      "id": "vehicle-references",
+      "title": "Vehicles refer only to things the save holds",
+      "source": "save",
+      "kind": "references",
+      "select": {"class": "Vehicles.VehiclePawn"},
+      "why": "The game drops a reference to a thing it cannot find when it loads, with an error: a hitch, a winch or a crew job left pointing at nothing."
+    },
+    {
+      "id": "vehicle-levels",
+      "title": "A vehicle's battery charge, coolant and oil stay between empty and full",
+      "source": "save",
+      "select": {"class": "Vehicles.VehiclePawn"},
+      "read": {
+        "charge": "PhobosVehicleSystems_Values[**/charge]",
+        "coolant": "PhobosVehicleSystems_Values[**/coolantLevel]",
+        "oil": "PhobosVehicleSystems_Values[**/oilLevel]"
+      },
+      "fault": "min([charge, coolant, oil]) < 0 or max([charge, coolant, oil]) > 1.0001",
+      "says": "charge {charge}, coolant {coolant}, oil {oil}",
+      "why": "Each is a share of full (Framework's vehicle systems); outside 0 to 1 a rule has added or taken past its end. The 0.0001 allows for rounding."
+    },
+    {
+      "id": "vehicle-part-health",
+      "title": "No vehicle part's health is below nothing",
+      "source": "save",
+      "select": {"class": "Vehicles.VehiclePawn"},
+      "read": {"health": "PhobosVehicleSystems_PartHealth[*]"},
+      "fault": "min(health) < 0",
+      "says": "lowest part health {min(health)}"
+    },
+    {
+      "id": "vehicle-event-log-cap",
+      "title": "A vehicle's event log keeps no more than its 64 events",
+      "source": "save",
+      "select": {"class": "Vehicles.VehiclePawn"},
+      "read": {"events": "PhobosVehicleSystems_Events/li[*]/tick"},
+      "fault": "count(events) > 64",
+      "says": "{count(events)} events kept",
+      "why": "VehicleEventLog.MaxCount is 64; more means its trimming stopped working and the save will keep growing."
+    },
+    {
+      "id": "vehicle-logbook-cap",
+      "title": "A vehicle's logbook keeps no more than its 200 entries",
+      "source": "save",
+      "select": {"class": "Vehicles.VehiclePawn"},
+      "read": {"entries": "PhobosVehicleSystems_Logbook/li[*]/tick"},
+      "fault": "count(entries) > 200",
+      "says": "{count(entries)} entries kept",
+      "why": "LogbookRule.DefaultCap is 200; more means its trimming stopped working."
+    },
+    {
+      "id": "work-store-heavy",
+      "title": "A work store holds far more than any order of fittings takes",
+      "source": "save",
+      "level": "look",
+      "select": {"class": "Vehicles.VehiclePawn"},
+      "read": {
+        "stacks": "PhobosWorkStore_Held/innerList/li[*]/stackCount",
+        "kinds": "PhobosWorkStore_Held/innerList/li[*]/def",
+        "orders": "PhobosVehicleSystems_FitOrders/li[*]/fitting"
+      },
+      "fault": "sum(stacks) > 300",
+      "says": "{sum(stacks)} things laid out ({unique(kinds)}) for {count(orders)} fit orders",
+      "row": "513",
+      "why": "Since Framework 0.286.2 the store keeps only what the waiting work needs. 300 is an authored line: about the most steel a heavy truck's dearest fittings take together."
+    },
+    {
+      "id": "work-store-beyond-needs",
+      "title": "A work store holds no more than its waiting work could use",
+      "source": "live",
+      "level": "look",
+      "select": {"type": "Phobos.VehicleSystems.CompPhobosVehicleSystems"},
+      "read": {
+        "held": "workStore.held.innerList[].stackCount",
+        "needs": "repairs.cached[].Options[]._items[].Item2",
+        "vehicle": "parent.def.defName",
+        "number": "parent.thingIDNumber"
+      },
+      "when": "sum(held) > 0",
+      "fault": "sum(held) > sum(needs) + 100",
+      "says": "{vehicle}{number}: {sum(held)} laid out, its waiting repairs and fittings could use {sum(needs)}",
+      "row": "513",
+      "why": "Reads every option of every waiting repair, so it allows more than the store keeps. Due services' supplies are not read: 100 is an authored allowance for them."
+    },
+    {
+      "id": "destroyed-vehicle-systems",
+      "title": "No destroyed vehicle's systems are still held in memory",
+      "source": "live",
+      "level": "look",
+      "select": {"type": "Phobos.VehicleSystems.CompPhobosVehicleSystems"},
+      "read": {"state": "parent.mapIndexOrState", "vehicle": "parent.def.defName", "number": "parent.thingIDNumber"},
+      "fault": "state == -2",
+      "says": "{vehicle}{number} was destroyed",
+      "why": "A snapshot includes garbage the collector has not reclaimed yet: a finding here is a leak only if python scripts/perf.py look-why Phobos.VehicleSystems.CompPhobosVehicleSystems finds something still holding it."
+    }
+  ]
+}

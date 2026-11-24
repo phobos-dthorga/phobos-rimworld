@@ -198,6 +198,10 @@ a save does not hold, for phobos-modkit's mood report. It runs while the game wr
   is seen working in a session, a line goes to `PhobosSnapshots/SeenInPlay.jsonl` and the log, for phobos-modkit's test pass and
   D'thorga Companion's Tests page. A note proves the code ran without error, never that the result looked right. "Say when a
   listed test happens (dev mode only)" adds a message when a note stands for a waiting test row.
+- **The version ledger** (`GameComponent_PhobosVersionLedger`, Framework 0.287.0, no setting): at each start of a game, new or
+  loaded, one line "tick|mod name|version" for every running D'thorga mod whose version changed since its last line. phobos-modkit's
+  test-pass reads the lines from saves, so an event a vehicle saved names the version that recorded it, and evidence older than a
+  test row's change is never fresh ([test automation](../test-automation.md)). Nothing runs during play.
 - **`PhobosTiming`**: a dev-mode timing scope, free outside dev mode.
 - **The patched Defs dump** ("Write every Def with all patches applied at the next start", dev mode): a patch operation of ours
   keeps the game's patched XML document, then writes it to `PhobosPatchedDefs/PatchedDefs.xml` for phobos-modkit's Def tool.
@@ -310,7 +314,8 @@ The developer section shows only in dev mode. "Write every Def ..." takes effect
 
 ## Saved data and removal
 
-- **Saved with the game**: `PartStore`'s records by key (a record whose mod was removed is kept untouched, in case it returns);
+- **Saved with the game**: the version ledger's lines (`PhobosFramework_VersionLedger`, Framework 0.287.0); `PartStore`'s records
+  by key (a record whose mod was removed is kept untouched, in case it returns);
   logbooks, cause notes, practice hours, history rings and charges with the things that own them; nothing else of these services.
 - **Not saved**: long jobs, loop trails, recall prices, the sub-tabs' state, error notes, the log keeper's counts, seen-in-play's
   memory.

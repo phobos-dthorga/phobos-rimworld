@@ -15,6 +15,7 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
 | The question | Script | How it works |
 | --- | --- | --- |
 | Anything in a save: pawns, things, map grids, world, mood, what changed | `query-save.py` | `rimworld-save.md` |
+| A state our rules say should never be: in a save (`query-save.py checks`) or the running game (`perf.py look-check`, ask first) | `query-save.py`, `perf.py` | `checks.md` |
 | A fault in the log | `triage-log.py` | `rimworld-log.md` |
 | The modders' reference site (DocFX), and which modder-facing types have no summary | `reference-site.py` | `docs/development/reference-site.md` (this repository) |
 | The game closed by itself; asking Windows for full dumps | `crash-dump.py` (`setup`) | `crash-dump.md` |
@@ -58,6 +59,12 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
 
 - **Answer questions about a save with `python scripts/query-save.py`** (`thing <ID>` for everything one thing saved, such as
   a vehicle's systems and fault history), and read the raw save only for what the index does not hold.
+- **Run `python scripts/query-save.py checks` over a reported save before reading it by hand** (owner's choice, 25 Nov 2026,
+  after the HEMTT's 975 steel sat in four saves unnoticed): its rules are `config/checks.json`, and **a new rule that would have
+  caught a fault goes there in the change that fixes it**. Live checks (`perf.py look-check`) take a snapshot: **ask first**. A
+  finding is something to look at, never a test (`docs/development/test-automation.md`).
+- **test-pass reads the saves' histories too** (`saved` in `config/test-evidence.json`): a key under `saved.` is the kit's, from a
+  vehicle's event log or logbook, never a `Seen.Note`; its version comes from Framework's version ledger (0.287.0).
 - Read the owner's `Player.log` before assuming a reported fault is the owner's error, and **start with
   `python scripts/triage-log.py`**. Open the raw log only for what the summary cannot answer.
 - **When the game closes by itself with little in its log, run `python scripts/crash-dump.py`** (owner, 9 Nov 2026). For a

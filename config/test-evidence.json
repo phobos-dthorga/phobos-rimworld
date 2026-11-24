@@ -514,12 +514,16 @@
     }},
     "8": ["vehicles.tune-done.PhobosTune_EnginePower", "vehicles.tune-done.PhobosTune_GearingShort"],
     "69": {"parts": {
-      "a piston engine's battery warning": [{"key": "vehicles.stage.startingPower", "detail": "*: barely enough to start"}],
-      "a turbine's battery warning": [{"key": "vehicles.stage.turbineStart", "detail": "*: barely enough to light"}]
+      "a piston engine's battery warning": [{"key": "vehicles.stage.startingPower", "detail": "*: barely enough to start"},
+                                            {"key": "saved.vehicle-stage.startingPower", "variant": "1"}],
+      "a turbine's battery warning": [{"key": "vehicles.stage.turbineStart", "detail": "*: barely enough to light"},
+                                      {"key": "saved.vehicle-stage.turbineStart", "variant": "1"}]
     }},
     "74": {"parts": {
-      "the low-air lamp": [{"key": "vehicles.stage.airPressure", "detail": "*: low air"}],
-      "the brakes lock": [{"key": "vehicles.stage.airPressure", "detail": "*: brakes held on"}]
+      "the low-air lamp": [{"key": "vehicles.stage.airPressure", "detail": "*: low air"},
+                           {"key": "saved.vehicle-stage.airPressure", "variant": "1"}],
+      "the brakes lock": [{"key": "vehicles.stage.airPressure", "detail": "*: brakes held on"},
+                          {"key": "saved.vehicle-stage.airPressure", "variant": "0"}]
     }},
     "76": ["vehicles.stage.darkDriving"],
     "103": ["vehicles.stage.turbineOverLimit"],
@@ -952,7 +956,16 @@
      "then": {"key": "vehicles.stage.turbineStart", "detail": "*: too weak to light"}},
     {"name": "the low-air lamp before the brakes lock", "row": "74",
      "first": {"key": "vehicles.stage.airPressure", "detail": "*: low air"},
-     "then": {"key": "vehicles.stage.airPressure", "detail": "*: brakes held on"}}
+     "then": {"key": "vehicles.stage.airPressure", "detail": "*: brakes held on"}},
+    {"name": "a piston engine warns before its battery cannot start it, in the saves' event logs", "row": "69",
+     "first": {"key": "saved.vehicle-stage.startingPower", "variant": "1"},
+     "then": {"key": "saved.vehicle-stage.startingPower", "variant": "0"}},
+    {"name": "a turbine warns before its battery cannot light it, in the saves' event logs", "row": "69",
+     "first": {"key": "saved.vehicle-stage.turbineStart", "variant": "1"},
+     "then": {"key": "saved.vehicle-stage.turbineStart", "variant": "0"}},
+    {"name": "the low-air lamp before the brakes lock, in the saves' event logs", "row": "74",
+     "first": {"key": "saved.vehicle-stage.airPressure", "variant": "1"},
+     "then": {"key": "saved.vehicle-stage.airPressure", "variant": "0"}}
   ],
   "shared": {
     "vehicles.turret-hand-cranked": "rows 124 and 137 both test a gun cranked by hand: 124 the turret drive on a flat battery, 137 each gun on its own mount",
@@ -971,6 +984,22 @@
     "vehicles.stage.": "a notable stage entered, by the quantity's name (Framework 0.123.0)",
     "vehicles.condition.": "a part given a condition, by the condition's defName (Framework 0.123.0)",
     "vehicles.fitting-done.": "a fitting finished, by its defName (Framework 0.123.0)",
-    "vehicles.tune-done.": "a tune finished, by its defName (Framework 0.123.0)"
+    "vehicles.tune-done.": "a tune finished, by its defName (Framework 0.123.0)",
+    "saved.": "a note the kit reads from the saves' histories, by the saved section below; no code writes it (docs/development/test-automation.md)"
+  },
+  "saved": {
+    "saves": 4,
+    "ledger": "PhobosFramework_VersionLedger",
+    "sources": [
+      {"name": "vehicle event logs", "mod": "D'thorga Framework", "select": {"class": "Vehicles.VehiclePawn"},
+       "list": "PhobosVehicleSystems_Events", "tick": "tick", "defaults": {"kind": "Stage", "stage": "-1"},
+       "keyBy": "kind",
+       "keys": {"Stage": "saved.vehicle-stage.{detail}", "Service": "saved.vehicle-service.{system}",
+                "Fault": "saved.vehicle-fault.{detail}", "JumpStart": "saved.vehicle-jump-start"},
+       "variant": "{stage}", "detail": "{system} {detail} stage {stage}"},
+      {"name": "vehicle logbooks", "mod": "D'thorga Framework", "select": {"class": "Vehicles.VehiclePawn"},
+       "list": "PhobosVehicleSystems_Logbook", "tick": "tick", "key": "saved.logbook.{def}",
+       "detail": "{def} {subject} {detail}", "values": {"value": "value"}}
+    ]
   }
 }

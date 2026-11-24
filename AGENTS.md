@@ -89,6 +89,7 @@ Use the tool before reading raw files; how to use each is in [`scripts/AGENTS.md
 | --- | --- |
 | What the test list waits for; the owner's verdicts | `python scripts/test-pass.py report`; `apply --verdict ... --apply` |
 | Anything in a save | `python scripts/query-save.py` |
+| Whether a save, or the running game, holds a state our rules say it never should | `python scripts/query-save.py checks`; `python scripts/perf.py look-check` (ask first) |
 | A fault in the log | `python scripts/triage-log.py` |
 | The game closed by itself | `python scripts/crash-dump.py` |
 | Which mod defines or patches a Def, and the Def as patched | `python scripts/query-defs.py` |

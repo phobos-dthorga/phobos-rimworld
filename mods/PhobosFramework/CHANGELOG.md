@@ -13,6 +13,22 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.287.0] - 2026-11-25 - Draft
+
+The save says which version of each D'thorga mod was running when
+
+### Added
+
+- **A version ledger in each save** (the owner's choice of 25 November 2026, for testing from saves): at each start of a game, a
+  line for every running D'thorga mod whose version changed, with the tick it began. The test tools read it, so an event a vehicle
+  saved counts as evidence only for test rows its version could have met. Nothing runs during play; it has no setting.
+  How it is used: [test automation](https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/development/test-automation.md).
+
+### Save compatibility
+
+- Safe to add mid-game: the first load starts the ledger. A save keeps the few lines if the mod is removed, as it keeps every
+  D'thorga Framework record.
+
 ## [0.286.2] - 2026-11-25 - Draft
 
 A vehicle's laid-out materials stay at what its work needs
