@@ -8,7 +8,7 @@ already drive the systems that match what they really are, on top of the general
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**: [working
 vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.116.1, built 23 November 2026 for House D'thorga. **Partly tested in game:** the survey truck and its boom (owner,
+Version 0.117.0, built 24 November 2026 for House D'thorga. **Partly tested in game:** the survey truck and its boom (owner,
 9 November 2026), the Busbar's size and look (owner, 13 November 2026), the tanker's electric pump, its upgrade tree and its load
 counting as weight, the Talus gathering by itself, a truck with nobody aboard calling for a driver, the trucks' upgrade trees, and
 the fuel bowser and flatbed sitting on their drawbars. Everything else is not yet tested in game.
@@ -76,6 +76,8 @@ chapter](../../docs/player-guide/working-vehicles.md), with the field kitchen an
 - **Each vehicle has its own research on the D'thorga tab**, after **vehicle parts**, and is built from parts in the Architect's
   **motor pool** tab. Its upgrades need the research they name, and cost what D'thorga Framework's fittings and tunes do.
 - **The bulk bunker and the loading chute** (motor pool tab, after the tipper's research), for trucks to tip into and load from.
+- **A remote control kit for the five service trucks**, with D'thorga Radio Framework: a colonist at a radio station drives
+  the truck with nobody aboard ([the guide](../../docs/player-guide/vehicles-on-the-road.md#driven-from-a-station)).
 - **Other mods' vehicles get their real counterparts' systems and figures**: air brakes on the Big Rig and HEMTT, gas turbines on
   the aircraft and helicopters, real engines and weights on military vehicles, boilers on steam locomotives, cargo hooks on
   helicopters, climate control on modern vehicles. The full list is in [the

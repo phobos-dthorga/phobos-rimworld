@@ -106,7 +106,8 @@ public sealed class VehicleRadioRule : ICarriedRadioRule
 
 /// <summary>
 /// The radio as what drives a vehicle from afar (Radio 0.11.0; the autonomous vehicles record, step 3): a vehicle is linked while a
-/// station serves its radio on a channel, and comes back toward that station. It reads the net's last pass; nothing is worked out here
+/// station serves its radio on a channel and, since 0.12.0 (step 5), a colonist works that station with a hand free for it; it comes
+/// back toward that station. It reads the net's last pass; nothing is worked out here
 /// but a dictionary lookup.
 /// </summary>
 public sealed class RadioRemoteControl : IRemoteControlSource
@@ -116,8 +117,10 @@ public sealed class RadioRemoteControl : IRemoteControlSource
     public RemoteLink LinkOf(VehiclePawn vehicle)
     {
         if (!vehicle.Spawned) return default;
-        var station = RadioNet.For(vehicle.Map)?.ServedBy(vehicle);
-        return station == null ? default : new RemoteLink(true, station.Position);
+        // Served on a channel, and (Radio 0.12.0, step 5) a colonist works that station with a hand free for this vehicle.
+        var net = RadioNet.For(vehicle.Map);
+        var station = net?.ServedBy(vehicle);
+        return station == null || !net!.Drives(station, vehicle) ? default : new RemoteLink(true, station.Position);
     }
 
     public void WantChanged(VehiclePawn vehicle)

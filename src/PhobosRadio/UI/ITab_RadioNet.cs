@@ -52,10 +52,12 @@ public class ITab_RadioNet : ITab
             var isBest = wearer != null && net.TryGetBest(wearer, out var best) && best != null && best.B.Thing == station;
             // Which channel serves them here, that the net is busy for them (Radio 0.7.0), or that a vehicle stands by (0.10.0).
             var channel = net.ChannelOf(station, pair.A.Thing);
+            // A vehicle on a channel that nobody here drives yet (Radio 0.12.0).
+            var waiting = pair.A.Thing is Pawn vehicle && net.WaitsForOperator(vehicle) ? " " + "PhobosRadio_TabWaitingOperator".Translate().ToString() : "";
             var where = channel >= 0
-                ? " " + "PhobosRadio_TabOnChannel".Translate((channel + 1).Named("CHANNEL"))
-                : wearer != null && net.IsBusy(wearer) ? " " + "PhobosRadio_TabBusy".Translate()
-                : wearer != null && net.IsStandingBy(wearer) ? " " + "PhobosRadio_TabStandingBy".Translate() : "";
+                ? " " + "PhobosRadio_TabOnChannel".Translate((channel + 1).Named("CHANNEL")).ToString() + waiting
+                : wearer != null && net.IsBusy(wearer) ? " " + "PhobosRadio_TabBusy".Translate().ToString()
+                : wearer != null && net.IsStandingBy(wearer) ? " " + "PhobosRadio_TabStandingBy".Translate().ToString() : "";
             var head = $"{LinkText.Bars(pair.Outcome)} {who}: {LinkText.OutcomeLabel(pair.Outcome)}" +
                        (isBest ? " " + "PhobosRadio_TabBestStation".Translate() : "") + where;
             Widgets.Label(new Rect(row.x + 4f, row.y + 2f, row.width - 8f, 24f), head);

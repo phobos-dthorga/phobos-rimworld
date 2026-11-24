@@ -62,6 +62,12 @@ public sealed class RadioNet : MapComponent
     private readonly HashSet<Pawn> carriers = new();
     /// <summary>Built-in radios whose links are worked out but which ask no channel (<see cref="CarriedRadioUse.StandingBy"/>).</summary>
     private readonly HashSet<Thing> standingBy = new();
+    /// <summary>The colonist working each station, at its console (Radio 0.12.0), counted at each pass.</summary>
+    private readonly Dictionary<Thing, Pawn> operatorAt = new();
+    /// <summary>How many vehicles each station serves on its channels (Radio 0.12.0).</summary>
+    private readonly Dictionary<Thing, int> vehiclesOn = new();
+    /// <summary>The stations that serve a vehicle and have nobody working them (Radio 0.12.0): the operator's work.</summary>
+    private readonly List<Thing> stationsWantingOperator = new();
     /// <summary>The station each radio in touch is served by, kept between recomputes so a holder keeps its channel. Never saved.</summary>
     private Dictionary<int, int> held = new();
     private readonly Dictionary<Pawn, Thing> servedBy = new();
@@ -149,6 +155,50 @@ public sealed class RadioNet : MapComponent
         EnsureFresh();
         return standingBy.Contains(pawn);
     }
+
+    /// <summary>The colonist working this station now, or null (Radio 0.12.0).</summary>
+    public Pawn? OperatorAt(Thing station)
+    {
+        EnsureFresh();
+        return operatorAt.TryGetValue(station, out var pawn) ? pawn : null;
+    }
+
+    /// <summary>How many vehicles this station serves on its channels (Radio 0.12.0).</summary>
+    public int VehiclesOn(Thing station)
+    {
+        EnsureFresh();
+        return vehiclesOn.TryGetValue(station, out var count) ? count : 0;
+    }
+
+    /// <summary>Whether this station serves a vehicle and so has work for an operator (Radio 0.12.0).</summary>
+    public bool HasVehiclesToDrive(Thing station) => VehiclesOn(station) > 0;
+
+    /// <summary>Whether this station serves a vehicle and nobody works it (Radio 0.12.0).</summary>
+    public bool WantsOperator(Thing station) => HasVehiclesToDrive(station) && OperatorAt(station) == null;
+
+    /// <summary>The stations that serve a vehicle with nobody working them (Radio 0.12.0).</summary>
+    public IReadOnlyList<Thing> StationsWantingOperator
+    {
+        get
+        {
+            EnsureFresh();
+            return stationsWantingOperator;
+        }
+    }
+
+    /// <summary>
+    /// Whether a station drives this vehicle's radio now (Radio 0.12.0; the autonomous vehicles record, step 5): it serves it on a channel,
+    /// a colonist works the station, and the vehicle is among the first the operator can drive at once (the rules' vehicles per
+    /// operator, the ledger's order deciding which).
+    /// </summary>
+    public bool Drives(Thing station, Thing radio)
+    {
+        var place = PlaceOf(station, radio);
+        return place >= 0 && OperatorAt(station) != null && place < RadioRulesDef.Current.vehiclesPerOperator;
+    }
+
+    /// <summary>A vehicle served by a station that does not drive it: nobody works the station, or its operator has their hands full.</summary>
+    public bool WaitsForOperator(Pawn vehicle) => ServedBy(vehicle) is { } station && !Drives(station, vehicle);
 
     /// <summary>In touch with a station, but every station that can hear them has its channels full: the net is busy for them.</summary>
     public bool IsBusy(Pawn pawn)
@@ -256,6 +306,9 @@ public sealed class RadioNet : MapComponent
         mobileRadios.Clear();
         carriers.Clear();
         standingBy.Clear();
+        operatorAt.Clear();
+        vehiclesOn.Clear();
+        stationsWantingOperator.Clear();
         servedBy.Clear();
         busy.Clear();
         servedOn.Clear();
@@ -370,6 +423,8 @@ public sealed class RadioNet : MapComponent
                 continue;
             }
             if (wearer != null) servedBy[wearer] = station.parent;
+            // A radio built into a vehicle is the vehicle itself (Radio 0.12.0): count it for the operator's work.
+            if (radio is Pawn) vehiclesOn[station.parent] = (vehiclesOn.TryGetValue(station.parent, out var vehicles) ? vehicles : 0) + 1;
             if (!servedOn.TryGetValue(station.parent, out var list)) servedOn[station.parent] = list = new List<Thing>();
             list.Add(radio);
             kindOf[radio] = kind;
@@ -396,6 +451,7 @@ public sealed class RadioNet : MapComponent
                 start += heldHere;
             }
             channelsOf[station.parent] = new StationChannels(total, ledgers);
+            if (vehiclesOn.ContainsKey(station.parent) && !operatorAt.ContainsKey(station.parent)) stationsWantingOperator.Add(station.parent);
         }
     }
 
@@ -424,6 +480,8 @@ public sealed class RadioNet : MapComponent
     {
         foreach (var pawn in map.mapPawns.FreeColonistsSpawned)
         {
+            // A colonist working a station's console is its operator (Radio 0.12.0).
+            if (pawn.jobs?.curDriver is Work.JobDriver_RemoteOperation { AtConsole: true, Station: { } station }) operatorAt[station] = pawn;
             if (!Counts(pawn) || pawn.apparel == null) continue;
             foreach (var apparel in pawn.apparel.WornApparel)
             {

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The operator's work (Radio 0.12.0; docs/development/autonomous-vehicles.md, step 5; the owner's card of 24 Nov 2026: "a colonist works
+       the console"). A work type of its own, so the player can put one colonist on it [A]. It asks no skill [A]; it is intellectual work, as
+       research is, so a colonist who cannot do intellectual work cannot do it. Placed high in the work list [A], since there is work only
+       while a vehicle is asked to be driven from a station. Not yet tested in game. -->
+  <WorkTypeDef>
+    <defName>PhobosRadio_RemoteOperation</defName>
+    <labelShort>remote</labelShort>
+    <pawnLabel>Remote operator</pawnLabel>
+    <gerundLabel>remote operating</gerundLabel>
+    <description>Work a radio station so it can drive vehicles that have nobody aboard.</description>
+    <verb>Operate</verb>
+    <naturalPriority>1050</naturalPriority>
+    <disabledForSlaves>true</disabledForSlaves>
+    <workTags>
+      <li>Intellectual</li>
+      <li>AllWork</li>
+    </workTags>
+  </WorkTypeDef>
+
+  <WorkGiverDef>
+    <defName>PhobosRadio_OperateStation</defName>
+    <label>drive vehicles from a radio station</label>
+    <giverClass>Phobos.Radio.Work.WorkGiver_RemoteOperation</giverClass>
+    <workType>PhobosRadio_RemoteOperation</workType>
+    <verb>operate</verb>
+    <gerund>operating</gerund>
+    <priorityInType>50</priorityInType>
+    <requiredCapacities>
+      <li>Sight</li>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <JobDef>
+    <defName>PhobosRadio_OperateStation</defName>
+    <driverClass>Phobos.Radio.Work.JobDriver_RemoteOperation</driverClass>
+    <reportString>driving vehicles from TargetA.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+</Defs>

@@ -235,6 +235,7 @@ flowchart TB
   PhobosSuppressionEngine["Engine fire suppression"]
   PhobosSuppressionCrew["Crew fire suppression"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
+  PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
   TwoCompartments --> ThreeCompartments
   PhobosArmouredCab --> PhobosHeavyCabPlates
   PhobosArmouredCab --> PhobosSuppressionEngine
@@ -255,7 +256,7 @@ flowchart TB
   any2 --> ElectricPump
   any2 --> HoseReel
   classDef tiein stroke-dasharray: 5 5
-  class PhobosSpallLiner,PressureVessel,LightPressureVessel,HeavyWallVessel tiein
+  class PhobosSpallLiner,PhobosRemoteControlKit,PressureVessel,LightPressureVessel,HeavyWallVessel tiein
 ```
 
 ## Bulk trading and quests (owner's decisions, 9 Nov 2026; not built)

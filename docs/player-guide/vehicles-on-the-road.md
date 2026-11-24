@@ -56,7 +56,10 @@ and life on the road](camping.md). [Back to the guide](README.md).
 ### Driven from a station
 
 - **A vehicle with the radio's control kit can be driven with nobody aboard**, from a radio station (with D'thorga Radio
-  Framework). **No vehicle carries the kit yet**; it comes as an upgrade on the service trucks.
+  Framework). On the five service trucks it is the upgrade **Remote control kit**, after the research **remote vehicle control**.
+- **Someone must work the station**: **turn on Remote operation for a colonist in the Work tab**. They stand at the console while a
+  vehicle wants driving, and drive **two at once**; a third waits for another station's operator. When they leave to eat or sleep,
+  the vehicle loses its link.
 - **Press "Drive from a station"**, wait for a station to reach it, then **draft it and give it orders as usual**. It holds a
   control channel at that station while the button is on; **turn it off to park it** and free the channel.
 - **Choose what it does if the link is lost**: **hold** where it is (the default), **come back** toward its station, or **carry

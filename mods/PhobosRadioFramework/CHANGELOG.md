@@ -17,6 +17,25 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.12.0] - 2026-11-24 - Draft
+
+A colonist at the console: remote operation, and the research for the vehicle kit
+
+### Added
+
+- **A new work type, Remote operation**: a colonist assigned to it works a radio station while it serves a vehicle asked to be
+  driven from it, standing at the console until food, sleep or something more urgent calls them away. **Turn it on for someone in
+  the Work tab.** A station drives a vehicle only while a colonist works it; one colonist drives two vehicles at once, and a third
+  waits for another station's operator. The station says who works it and how many vehicles it serves, and the Net tab and the
+  vehicle's radio button say when a vehicle waits for an operator. Not yet tested in game: row 490.
+- **A new research, remote vehicle control**, after software radio: D'thorga Vehicles' remote control kit for its service trucks
+  needs it. Not yet tested in game: row 489.
+
+### Compatibility and limits
+
+- Safe with a running save: the operator's job saves whether they have reached the console. No new settings.
+- When the operator leaves, the vehicle's letter says its link was lost, not why.
+
 ## [0.11.0] - 2026-11-24 - Draft
 
 Driven from a station: a vehicle's radio takes its channel while it is driven

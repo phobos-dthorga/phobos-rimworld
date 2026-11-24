@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The remote control kit on our five service trucks (D'thorga Vehicles 0.117.0, Radio Framework 0.12.0, Framework 0.279.0;
+       docs/development/autonomous-vehicles.md, step 4; the owner's card of 24 Nov 2026: "a kit for our trucks"). Loaded only with the
+       Radio Framework. Each truck gets the kit's upgrade node, in row 12 after its own upgrades (a tie-in goes last, never in a row of
+       its own), and names the Radio Framework's vehicle control radio as its fitting, which that node puts in place: every truck is
+       built with the radio and D'thorga Framework's remote control, which stay off the net until the node is fitted. The node borrows
+       the radio's signal icon until its own is drawn; its antenna picture on the cab waits for the owner's pick. Cost and work
+       authored. Not yet tested in game. -->
+  <!-- The Talus tipper truck: the kit's upgrade. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tipper_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosRemoteControlKit</key>
+          <label>Remote control kit</label>
+          <displayLabel>true</displayLabel>
+          <description>A data radio and a whip antenna on the cab, and servos on the wheel, pedals and gear lever. With a radio station in reach and a colonist working it, the truck can be driven from the station with nobody aboard. The driver's seat stays, so anyone can still climb in and drive.</description>
+          <upgradeExplanation>Can be driven from a radio station with nobody aboard ("Drive from a station").
+Control radio: 25 W on VHF, a whip about 3 m up.
+If the station loses touch: holds, comes back or carries on, as chosen on the truck.</upgradeExplanation>
+          <icon>Phobos/Radio/UI/Signal</icon>
+          <work>2000</work>
+          <gridCoordinate>(22, 12)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosRadio_RemoteVehicles</li>
+          </researchPrerequisites>
+          <ingredients>
+            <Steel>25</Steel>
+            <ComponentIndustrial>4</ComponentIndustrial>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Talus tipper truck: the radio it carries once the kit is fitted. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Tipper"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.Vehicles.VehicleRadioFitting">
+        <fitting>PhobosRadio_FittingVehicleControl</fitting>
+        <upgradeNode>PhobosRemoteControlKit</upgradeNode>
+      </li>
+    </value>
+  </Operation>
+  <!-- The Ullage bulk tanker: the kit's upgrade. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tanker_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosRemoteControlKit</key>
+          <label>Remote control kit</label>
+          <displayLabel>true</displayLabel>
+          <description>A data radio and a whip antenna on the cab, and servos on the wheel, pedals and gear lever. With a radio station in reach and a colonist working it, the truck can be driven from the station with nobody aboard. The driver's seat stays, so anyone can still climb in and drive.</description>
+          <upgradeExplanation>Can be driven from a radio station with nobody aboard ("Drive from a station").
+Control radio: 25 W on VHF, a whip about 3 m up.
+If the station loses touch: holds, comes back or carries on, as chosen on the truck.</upgradeExplanation>
+          <icon>Phobos/Radio/UI/Signal</icon>
+          <work>2000</work>
+          <gridCoordinate>(22, 12)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosRadio_RemoteVehicles</li>
+          </researchPrerequisites>
+          <ingredients>
+            <Steel>25</Steel>
+            <ComponentIndustrial>4</ComponentIndustrial>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Ullage bulk tanker: the radio it carries once the kit is fitted. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Tanker"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.Vehicles.VehicleRadioFitting">
+        <fitting>PhobosRadio_FittingVehicleControl</fitting>
+        <upgradeNode>PhobosRemoteControlKit</upgradeNode>
+      </li>
+    </value>
+  </Operation>
+  <!-- The Kelly drill rig: the kit's upgrade. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_DrillRig_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosRemoteControlKit</key>
+          <label>Remote control kit</label>
+          <displayLabel>true</displayLabel>
+          <description>A data radio and a whip antenna on the cab, and servos on the wheel, pedals and gear lever. With a radio station in reach and a colonist working it, the truck can be driven from the station with nobody aboard. The driver's seat stays, so anyone can still climb in and drive.</description>
+          <upgradeExplanation>Can be driven from a radio station with nobody aboard ("Drive from a station").
+Control radio: 25 W on VHF, a whip about 3 m up.
+If the station loses touch: holds, comes back or carries on, as chosen on the truck.</upgradeExplanation>
+          <icon>Phobos/Radio/UI/Signal</icon>
+          <work>2000</work>
+          <gridCoordinate>(22, 12)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosRadio_RemoteVehicles</li>
+          </researchPrerequisites>
+          <ingredients>
+            <Steel>25</Steel>
+            <ComponentIndustrial>4</ComponentIndustrial>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Kelly drill rig: the radio it carries once the kit is fitted. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_DrillRig"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.Vehicles.VehicleRadioFitting">
+        <fitting>PhobosRadio_FittingVehicleControl</fitting>
+        <upgradeNode>PhobosRemoteControlKit</upgradeNode>
+      </li>
+    </value>
+  </Operation>
+  <!-- The Datum survey truck: the kit's upgrade. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_SurveyTruck_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosRemoteControlKit</key>
+          <label>Remote control kit</label>
+          <displayLabel>true</displayLabel>
+          <description>A data radio and a whip antenna on the cab, and servos on the wheel, pedals and gear lever. With a radio station in reach and a colonist working it, the truck can be driven from the station with nobody aboard. The driver's seat stays, so anyone can still climb in and drive.</description>
+          <upgradeExplanation>Can be driven from a radio station with nobody aboard ("Drive from a station").
+Control radio: 25 W on VHF, a whip about 3 m up.
+If the station loses touch: holds, comes back or carries on, as chosen on the truck.</upgradeExplanation>
+          <icon>Phobos/Radio/UI/Signal</icon>
+          <work>2000</work>
+          <gridCoordinate>(22, 12)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosRadio_RemoteVehicles</li>
+          </researchPrerequisites>
+          <ingredients>
+            <Steel>25</Steel>
+            <ComponentIndustrial>4</ComponentIndustrial>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Datum survey truck: the radio it carries once the kit is fitted. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_SurveyTruck"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.Vehicles.VehicleRadioFitting">
+        <fitting>PhobosRadio_FittingVehicleControl</fitting>
+        <upgradeNode>PhobosRemoteControlKit</upgradeNode>
+      </li>
+    </value>
+  </Operation>
+  <!-- The Busbar generator set: the kit's upgrade. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_GeneratorSet_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosRemoteControlKit</key>
+          <label>Remote control kit</label>
+          <displayLabel>true</displayLabel>
+          <description>A data radio and a whip antenna on the cab, and servos on the wheel, pedals and gear lever. With a radio station in reach and a colonist working it, the truck can be driven from the station with nobody aboard. The driver's seat stays, so anyone can still climb in and drive.</description>
+          <upgradeExplanation>Can be driven from a radio station with nobody aboard ("Drive from a station").
+Control radio: 25 W on VHF, a whip about 3 m up.
+If the station loses touch: holds, comes back or carries on, as chosen on the truck.</upgradeExplanation>
+          <icon>Phobos/Radio/UI/Signal</icon>
+          <work>2000</work>
+          <gridCoordinate>(22, 12)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosRadio_RemoteVehicles</li>
+          </researchPrerequisites>
+          <ingredients>
+            <Steel>25</Steel>
+            <ComponentIndustrial>4</ComponentIndustrial>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Busbar generator set: the radio it carries once the kit is fitted. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_GeneratorSet"]</xpath>
+    <value>
+      <li Class="Phobos.Radio.Vehicles.VehicleRadioFitting">
+        <fitting>PhobosRadio_FittingVehicleControl</fitting>
+        <upgradeNode>PhobosRemoteControlKit</upgradeNode>
+      </li>
+    </value>
+  </Operation>
+</Patch>

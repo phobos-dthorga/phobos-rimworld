@@ -1,0 +1,25 @@
+[
+ {
+  "name": "remote-kit-antenna",
+  "engine": "openai",
+  "quality": "high",
+  "width": 768,
+  "height": 1280,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+    "role": "Image 1 is our approved Talus tipper truck, seen from directly above with its cab at the top: match its outline weight, shading, steel greys and finish only, and use it to judge the antenna's scale beside a cab roof; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "the remote control kit (PhobosRemoteControlKit) on the five service trucks: Talus, Ullage, Kelly, Datum, Busbar",
+   "this_request": "part drawn alone on white, two tries; the owner picks one card; fitted by script onto each truck's cab roof in its three facings",
+   "design": "docs/development/autonomous-vehicles.md, step 4"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for our service trucks: a vehicle radio whip antenna, as it is carried on a truck's cab roof with the whip bent back and tied down, the way soldiers tie whip antennas down on military trucks. Image 1 is our approved Talus tipper truck, seen from above with its cab at the top: match its outline weight, shading, steel greys and finish only. Do NOT redraw the truck.\n\nDraw ONLY this part, alone on a plain pure white background. Near the TOP of the canvas: a small round black antenna mount, a squat disc with a short coiled spring on it, about 12 percent of the canvas width across. From it, one long thin dark grey whip rod runs DOWN the canvas in a gentle shallow arc, bending slightly to one side, about 80 percent of the canvas height long and only a few pixels thick, its thickness even along its length. Near the bottom end, a small black tie-down clip holds the whip's tip. A small grey box for the data radio sits just beside the mount, with one short cable from the box into the mount.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no cab, no roof panel, no people, animals, soil, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces."
+ }
+]

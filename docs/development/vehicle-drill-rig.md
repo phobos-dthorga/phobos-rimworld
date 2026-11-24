@@ -211,6 +211,7 @@ flowchart TB
   PhobosSuppressionEngine["Engine fire suppression"]
   PhobosSuppressionCrew["Crew fire suppression"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
+  PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
   WellDrillingKit["Oil well kit (tie-in: Rimefeller)"]
   DeepchemHead["Deepchem head (tie-in: VanillaChemfuelExpanded)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates
@@ -218,7 +219,7 @@ flowchart TB
   PhobosArmouredCab --> PhobosSuppressionCrew
   PhobosArmouredCab --> PhobosSpallLiner
   classDef tiein stroke-dasharray: 5 5
-  class PhobosSpallLiner,WellDrillingKit,DeepchemHead tiein
+  class PhobosSpallLiner,PhobosRemoteControlKit,WellDrillingKit,DeepchemHead tiein
 ```
 
 Vehicle Framework nodes (`UpgradeNode`: `work`, `ingredients`, `researchPrerequisites`, `prerequisiteNodes`, `disableIfUpgradeNodesEnabled`,

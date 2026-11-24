@@ -13,6 +13,22 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.117.0] - 2026-11-24 - Draft
+
+A remote control kit for the five service trucks
+
+### Added
+
+- **The Talus, Ullage, Kelly, Datum and Busbar take a remote control kit** (with D'thorga Radio Framework; the owner's card of 24
+  November 2026, "a kit for our trucks"): an upgrade with a data radio, a whip antenna and servos on the controls, after the
+  research remote vehicle control. Once fitted, a radio station can drive the truck with nobody aboard, a colonist working the
+  station, and the truck does what you chose for it if the station loses touch. The driver's seat stays. It borrows the radio's
+  signal icon, and draws no antenna on the cab until its picture is picked. Not yet tested in game: row 489.
+
+### Compatibility and limits
+
+- Loaded only with D'thorga Radio Framework. Safe to add to a running colony; trucks already built get the radio at the next load.
+
 ## [0.116.1] - 2026-11-23 - Draft
 
 The Prowler's ICAP fittings get their own pictures

@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "490": ["radio.operator"],
     "488": {"parts": {
       "it holds": [{"key": "vehicles.remote-lost", "variant": "Holding"}],
       "it comes back": [{"key": "vehicles.remote-lost", "variant": "ComingBack"}],

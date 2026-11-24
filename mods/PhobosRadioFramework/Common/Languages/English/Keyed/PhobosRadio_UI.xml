@@ -28,6 +28,10 @@
   <PhobosRadio_TabOnChannel>(channel {CHANNEL})</PhobosRadio_TabOnChannel>
   <PhobosRadio_TabBusy>(net busy: no free channel)</PhobosRadio_TabBusy>
   <PhobosRadio_TabStandingBy>(standing by)</PhobosRadio_TabStandingBy>
+  <PhobosRadio_TabWaitingOperator>(waiting for an operator)</PhobosRadio_TabWaitingOperator>
+  <PhobosRadio_WaitingOperator>Waiting for an operator: a colonist must work the station that serves it, and have a hand free for it.</PhobosRadio_WaitingOperator>
+  <PhobosRadio_StationOperator>Vehicles on its channels: {COUNT}. {OPERATOR} is working it, and drives up to {MAX} at once.</PhobosRadio_StationOperator>
+  <PhobosRadio_StationNoOperator>Vehicles on its channels: {COUNT}. Nobody is working it, so it drives none: a colonist assigned to remote operation will come.</PhobosRadio_StationNoOperator>
   <PhobosRadio_StandingBy>Standing by: this radio takes a channel only while it is driven from a station.</PhobosRadio_StandingBy>
   <PhobosRadio_GizmoNoPower>Radio: station has no power</PhobosRadio_GizmoNoPower>
   <PhobosRadio_StationNoPower>The base station has no power, so there is nothing to reach.</PhobosRadio_StationNoPower>

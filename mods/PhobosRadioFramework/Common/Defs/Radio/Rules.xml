@@ -25,6 +25,9 @@
     <!-- Channels (Radio 0.7.0): each 25 kHz wide, as on a trunked radio system (the owner, 24 Nov 2026). A mode takes as many as
          its bandwidth needs, and radios share one by taking turns, as many as the mode's duty cycle allows. -->
     <channelWidthHz>25000</channelWidthHz>
+    <!-- The remote control of vehicles (Radio 0.12.0): one colonist working a station drives this many vehicles at once; a station
+         takes one operator. Authored, an agent default for the owner to revise. -->
+    <vehiclesPerOperator>2</vehiclesPerOperator>
 
     <noiseRadiusDefaultCells>12</noiseRadiusDefaultCells>
     <!-- A source's noise fades smoothly to nothing over the last third of its radius, so its edge is a glow, not a ring (the

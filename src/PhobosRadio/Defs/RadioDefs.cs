@@ -159,6 +159,12 @@ public class RadioRulesDef : Def
     /// </summary>
     public float channelWidthHz = 25000f;
 
+    /// <summary>
+    /// How many vehicles one colonist at a station can drive at once (Radio 0.12.0; docs/development/autonomous-vehicles.md: an agent
+    /// default). A station takes one operator, so this is also how many vehicles one station drives.
+    /// </summary>
+    public int vehiclesPerOperator = 2;
+
     // Noise sources without a radius of their own reach this far.
     public int noiseRadiusDefaultCells = 12;
     /// <summary>

@@ -33,5 +33,6 @@
     <li IfModActive="ludeon.rimworld.biotech">Mods/Biotech</li>
     <li IfModActive="dubwise.rimefeller">Mods/Rimefeller</li>
     <li IfModActive="aoba.deadmanswitch.core">Mods/DeadManSwitch</li>
+    <li IfModActive="PhobosDthorga.RadioFramework">Mods/RadioFramework</li>
   </v1.7>
 </loadFolders>

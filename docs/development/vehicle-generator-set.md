@@ -248,12 +248,13 @@ flowchart TB
   PhobosSuppressionEngine["Engine fire suppression"]
   PhobosSuppressionCrew["Crew fire suppression"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
+  PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates
   PhobosArmouredCab --> PhobosSuppressionEngine
   PhobosArmouredCab --> PhobosSuppressionCrew
   PhobosArmouredCab --> PhobosSpallLiner
   classDef tiein stroke-dasharray: 5 5
-  class PhobosSpallLiner tiein
+  class PhobosSpallLiner,PhobosRemoteControlKit tiein
 ```
 
 Every node moves a figure; none changes the parts list (principle 8). Node keys are stable once a save can hold them.

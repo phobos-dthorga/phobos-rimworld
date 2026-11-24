@@ -1,10 +1,12 @@
 # Autonomous vehicles by radio (24 Nov 2026)
 
-**Status (24 Nov 2026):** steps 1 to 3 of 7 are built, in Radio Framework 0.9.0 to 0.11.0 and D'thorga Framework 0.278.0: the
-vehicle control and picture kinds, control taking channels from talk ([radio stations](radio-stations.md#kinds-radio-080)), radios
-fitted to vehicles ([step 2](#step-2-radios-fitted-to-vehicles-radio-0100)), and vehicles driven from a station with their lost-link
-choices and letters ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)). No vehicle carries the kit yet (step 4: a
-dev action fits it for a session), and no operator is asked for yet (step 5). Steps 4 to 7 are not built. Nothing is tested in game.
+**Status (24 Nov 2026):** steps 1 to 5 of 7 are built, in Radio Framework 0.9.0 to 0.12.0, D'thorga Framework 0.278.0 and D'thorga
+Vehicles 0.117.0: the vehicle control and picture kinds, control taking channels from talk ([radio stations](radio-stations.md#kinds-radio-080)),
+radios fitted to vehicles ([step 2](#step-2-radios-fitted-to-vehicles-radio-0100)), vehicles driven from a station with their lost-link
+choices and letters ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)), the kit on the five service trucks
+([step 4](#step-4-the-kit-on-the-trucks-vehicles-01170-radio-0120)) and the colonist at the console
+([step 5](#step-5-the-operator-radio-0120)). The kit's antenna picture waits for the owner's pick; steps 6 and 7 are not built.
+Nothing is tested in game.
 
 The owner, 24 Nov 2026: "the real feature I wish to implement soon is autonomous vehicles and perhaps their weapon systems too, all
 via our radio framework." **[O]** It builds on what the owner chose on 18 and 19 Nov 2026 in
@@ -19,10 +21,10 @@ beside it. **[A]** an agent's default or authored figure, for the owner to revis
 
 ## Read this first
 
-- **Built so far: the ledger's kinds and pre-emption** (step 1, Radio 0.9.0), **radios fitted to vehicles** (step 2, Radio
-  0.10.0) **and driving from a station** (step 3, Framework 0.278.0 and Radio 0.11.0). No vehicle carries the kit yet: a dev
-  action fits it to a vehicle until the game is loaded again. **Until step 5 no operator is needed**: a powered station that
-  serves the vehicle's control channel is enough. Nothing is tested in game.
+- **Built so far: steps 1 to 5**: the ledger's kinds and pre-emption, radios fitted to vehicles, driving from a station, **the
+  remote control kit as an upgrade on the five service trucks** (after the research "remote vehicle control") and **the colonist at
+  the console** (the work type "Remote operation"). The kit's antenna picture on the cab waits for the owner's pick. Nothing is
+  tested in game.
 - **The owner's four cards of 24 Nov 2026 [O]:** our **service trucks get a remote-control kit first**; **a colonist works the
   console** while vehicles are driven; **lost link is chosen per vehicle, hold by default**; **remote guns fire only while an
   operator has a picture link**, with a setting, **off by default**, that lets them fire on their own.
@@ -90,9 +92,10 @@ flowchart LR
 
 - **A colonist works the console [O]**: a job at a radio desk or terminal, like research, given by a work type the player orders
   as usual [A: "Remote operation", its own work type, so the player can put one colonist on it]. While the operator is at the
-  console, that station controls vehicles; when they leave, sleep, eat or are downed, its vehicles lose control.
-- **An operator drives two vehicles at once [A]**, a figure in the rules Def. A third waits for a second operator, at the same or
-  another station.
+  console, that station controls vehicles; when they leave, sleep, eat or are downed, its vehicles lose control. **Built in Radio
+  0.12.0** ([step 5](#step-5-the-operator-radio-0120)).
+- **An operator drives two vehicles at once [A]**, a figure in the rules Def. A third waits for a second operator, at another
+  station: **a station takes one operator [A]** (built so; a second seat at one station waits for a need).
 - **No skill is asked at first [A].** A skill could later shorten the lost-link delay or steady the aim; nothing here needs it.
 
 ### Under control
@@ -127,6 +130,12 @@ flowchart LR
   fire.
 - **"Remote guns fire on their own" [O], off by default**: with it on, a remote gun fires at enemies by itself when its link is weak
   or lost, as GTek's L-ATV station does. Its risk is high (below), so it starts off.
+- **How the L-ATV does it [code: its installed XML, 24 Nov 2026, at the owner's suggestion]:** GTek's Oshkosh L-ATV
+  (`killerbot.jltv`) ships no assembly. Its three main guns are upgrade nodes (`Vehicles.TurretUpgrade`) whose turret no seat
+  names: its only roles are a driver (`Movement`) and three passengers. Vehicle Framework counts a turret no role names as manned
+  (`VehicleTurret.IsManned`, read 18 Nov 2026), so the gun aims and fires with nobody aboard once its auto-targeting is on. **It
+  drives with a driver only**: nothing in it moves a crewless vehicle. So it is the model for step 6's remote weapon station (a
+  turret no seat names, plus our rule for when it may fire), and our step 3 has no precedent there.
 - **An armed crewless vehicle is a threat.** Vehicle Framework ignores an empty vehicle unless a comp says it is a threat
   (18 Nov read, `VehiclePawn_AI.cs:92-106`); our kit says so while a gun is fitted. The owner accepted this with the remote station.
 
@@ -187,8 +196,8 @@ Built 24 Nov 2026, not yet tested in game.
   back within the delay tells nobody.
 - **The setting "Remote control of vehicles by radio"** (D'thorga Vehicle Systems settings, the crews page, "Remote control"; on by
   default, as the risk table says). Off, the buttons go, no vehicle is driven from afar, and one driving stops where it is.
-- **Until step 5 [A]:** no operator is asked for: a powered station that serves the control channel drives the vehicle. Step 5
-  adds the colonist at the console and the two vehicles each.
+- **Until step 5 [A]:** no operator was asked for: a powered station that served the control channel drove the vehicle. Step 5
+  (Radio 0.12.0) adds the colonist at the console and the two vehicles each.
 - **Read in Vehicle Framework's code at this step (24 Nov 2026):**
   - **Ticking:** `VehiclePawn.Tick` runs `BaseTickOptimized`, and with it the pather, every tick whoever is aboard; only
     `TickInterval` slows to every 250 ticks for an empty vehicle (`UpdateRateTicks`), and only when its tick list is empty. **[code:
@@ -210,6 +219,42 @@ Built 24 Nov 2026, not yet tested in game.
   letters only when the state changes.
 - **Other factions:** nothing here acts on a vehicle not of the colony: the buttons are the player's, and the radio serves the
   colony's vehicles only. As the record says, a raid's vehicle keeps its own control.
+
+### Step 4: the kit on the trucks (Vehicles 0.117.0, Radio 0.12.0)
+
+Built 24 Nov 2026, not yet tested in game; its antenna picture waits for the owner's pick.
+
+- **The upgrade [code: `mods/PhobosVehicles/Mods/RadioFramework/Patches/RemoteControlKit.xml`]:** "Remote control kit" on the
+  Talus, Ullage, Kelly, Datum and Busbar, loaded only with the Radio Framework (D'thorga Vehicles' tie-in folder `Mods/RadioFramework`).
+  It sits at (22, 12) in each tree, after the truck's own upgrades in row 12: a tie-in goes last and never in a row of its own, and
+  the tanker's lower rows are full. It needs the research **remote vehicle control** (the radio's, after software radio, 1,500 [A]),
+  and costs 25 steel and 4 components, 2,000 work [A]. It borrows the radio's signal icon until its own is drawn.
+- **What it does:** each truck names the radio's vehicle control radio as its fitting, with this node as the upgrade that fits it
+  (`VehicleRadioFitting`), so every truck is built with the radio and the remote control (step 2's start-up), which stay off the net
+  until the node is done. Nothing else on the truck changes.
+- **The picture [A]:** a whip antenna on the cab, bent back and tied down as real military trucks carry them (straight up, seen from
+  above, it would be a dot), drawn alone on white by the paid route and laid on each truck's three facings by script once picked
+  ([the record](../../assets/phobos-vehicles/requests/remote-kit-antenna-record.md)). The node carries no picture until then, as the
+  tree check requires.
+
+### Step 5: the operator (Radio 0.12.0)
+
+Built 24 Nov 2026, not yet tested in game.
+
+- **The work [code: `src/PhobosRadio/Work/RemoteOperation.cs`, `Common/Defs/Work.xml`]:** the work type **Remote operation**
+  (Work tab "remote", high in the list [A]; intellectual work, no skill asked [A]; off for slaves, as research is). A station that serves a
+  vehicle asked to be driven, with nobody working it, has work: an assigned colonist walks to it, stands beside it facing it, and
+  stays while it serves a vehicle. A stint lasts 2,000 ticks before they look again at what else needs them, so food, sleep and
+  anything more urgent take them away as usual [A].
+- **One operator per station [A]:** the colonist holds the station. **Two vehicles each** (`vehiclesPerOperator` in the radio's
+  rules Def [A]): the first two in the station's control channels, in the ledger's order, are driven; a third waits.
+- **What it changes:** a vehicle is linked (step 3) only while its station both serves it on a channel and has an operator with a
+  hand free for it. When the operator leaves, its vehicles lose their link, and after the delay do what was chosen for them. The
+  lost-link letter says the link was lost; it does not yet say it was the operator who left (a follow-up: a reason from the source).
+- **What shows:** the station's inspect text names its operator and how many vehicles it serves, or says nobody works it; the Net
+  tab marks a served vehicle "(waiting for an operator)", and the vehicle's radio button says the same.
+- **Its cost:** the net already walks the free colonists for their radios each pass; it now also reads each one's job driver (a
+  type check) to find operators. The work giver reads a list the net keeps; the job checks one dictionary each tick it runs.
 
 ## The four questions
 
@@ -268,8 +313,8 @@ Built 24 Nov 2026, not yet tested in game.
 | 1 | The two kinds, and pre-emption in the ledger, with tests. **Built in Radio 0.9.0** | Radio | Nothing |
 | 2 | A seam in the net for radios that are not worn; the tie-in adds kitted vehicles and shows their links. **Built in Radio 0.10.0** | Radio | 1 |
 | 3 | The kit's comp, the move-check postfix, lost-link choices and letters. **Built in Framework 0.278.0 and Radio 0.11.0** | Framework | 2 to be useful |
-| 4 | The kit as an upgrade node on the five service trucks, with its antenna overlay (art first, as the owner's rule says) | Vehicles | 3 |
-| 5 | The operator's job and work type | Radio | 2 |
+| 4 | The kit as an upgrade node on the five service trucks, with its antenna overlay (art first, as the owner's rule says). **Built in Vehicles 0.117.0 and Radio 0.12.0; the picture waits for the owner's pick** | Vehicles | 3 |
+| 5 | The operator's job and work type. **Built in Radio 0.12.0** | Radio | 2 |
 | 6 | The picture link and remote guns | Framework, Vehicles | 5 and MV8's remote weapon station |
 | 7 | The route level (MV4) and mechanitor level (MV6) feeding the same comp | Framework | 3 |
 
@@ -282,7 +327,8 @@ Built 24 Nov 2026, not yet tested in game.
 - ~~**What the second Vehicle Framework seat checks need**, and whether a moving crewless truck needs help to keep ticking: read at
   step 3.~~ Read: it keeps ticking; caravans and aircraft are known limits ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)).
 - **Icons for the two buttons**, borrowed until made.
-- **The antenna overlay's picture**: small, but it is art, so it waits for the owner's pick before the first test.
+- **The antenna overlay's picture**: two paid tries drawn 24 Nov 2026; the owner's pick, then fitting by script on the five trucks.
+- **The lost-link letter's reason**: when the operator leaves, the letter should say so rather than "lost its link".
 
 ## Who chose what
 

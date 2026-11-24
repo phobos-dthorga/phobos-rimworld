@@ -22,6 +22,8 @@ public static class SignalGizmo
         // In touch, but every channel that can hear it is taken (Radio 0.7.0).
         var busy = link != null && wearer?.Map != null && RadioNet.For(wearer.Map).IsBusy(wearer);
         var standingBy = wearer?.Map != null && RadioNet.For(wearer.Map).IsStandingBy(wearer);
+        // A vehicle on a channel that nobody at its station drives yet (Radio 0.12.0).
+        var waiting = radio.parent is Pawn && wearer?.Map != null && RadioNet.For(wearer.Map).WaitsForOperator(wearer);
         var label = unpowered
             ? "PhobosRadio_GizmoNoPower".Translate()
             : link == null
@@ -32,6 +34,7 @@ public static class SignalGizmo
         var description = unpowered
             ? "PhobosRadio_StationNoPower".Translate().Resolve()
             : (busy ? "PhobosRadio_NetBusy".Translate() + "\n" : "") + (standingBy ? "PhobosRadio_StandingBy".Translate() + "\n" : "") +
+              (waiting ? "PhobosRadio_WaitingOperator".Translate() + "\n" : "") +
               LinkText.Describe(link, mode);
         // A built-in radio's own label is the vehicle's: name the radio's kind instead.
         var title = radio.parent is Pawn ? radio.Kind.LabelCap.ToString() : radio.parent.LabelCap.ToString();

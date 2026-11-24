@@ -233,12 +233,13 @@ flowchart TB
   PhobosSuppressionCrew["Crew fire suppression"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   Hydrogeology["Groundwater sensor (tie-in: DubsBadHygiene)"]
+  PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates
   PhobosArmouredCab --> PhobosSuppressionEngine
   PhobosArmouredCab --> PhobosSuppressionCrew
   PhobosArmouredCab --> PhobosSpallLiner
   classDef tiein stroke-dasharray: 5 5
-  class PhobosSpallLiner,Hydrogeology tiein
+  class PhobosSpallLiner,Hydrogeology,PhobosRemoteControlKit tiein
 ```
 
 Vehicle Framework nodes (`UpgradeNode`: `work`, `ingredients`, `researchPrerequisites`, `prerequisiteNodes`, `disableIfUpgradeNodesEnabled`,

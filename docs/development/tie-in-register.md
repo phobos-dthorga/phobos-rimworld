@@ -7,8 +7,8 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 ## Read this first
 
-- **85 tie-in folders across eight mods** (recounted 24 Nov 2026: Vehicles 29, Patches 21, Factory Additions 16, Framework 9,
-  Medical 7, Farming 1, Radio Framework 1, Water Tap 1; 99 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
+- **86 tie-in folders across eight mods** (recounted 24 Nov 2026: Vehicles 30, Patches 21, Factory Additions 16, Framework 9,
+  Medical 7, Farming 1, Radio Framework 1, Water Tap 1; 100 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
   `Common` subfolder are listed as separate entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's
   `LoadFolders.xml`, plus a handful of tie-ins in C# that check for a mod by name. D'thorga Radio Framework's first, Vehicle
   Framework, came in its 0.10.0 (Vanilla Expanded Framework's pipe system is a hard dependency there, not a tie-in).
@@ -76,6 +76,7 @@ All XML; the code is in the Framework.
 | Vanilla Expanded Framework | The garage outpost Def | `Mods/VehicleOutposts` |
 | Vanilla Expanded Framework | The bulk bunker is a factory hopper (Pipe System's mark), for VFE Factory's belts and machines (0.63.0, UH2) | `MayRequire` in `Defs/Phobos/Vehicles/BulkBunker/BulkBunker.xml` |
 | The Dead Man's Switch (`aoba.deadmanswitch.core`) | The bulk bunker links to its automatic benches as a material source (0.63.0, UH2) | `Mods/DeadManSwitch` |
+| D'thorga Radio Framework (`PhobosDthorga.RadioFramework`) | The remote control kit on our five service trucks (0.117.0): its upgrade node, and the vehicle control radio each truck carries once it is fitted ([autonomous vehicles by radio](autonomous-vehicles.md), step 4) | `Mods/RadioFramework` |
 | Vanilla Vehicles Expanded, VFE Power (`vanillaexpanded.vfepower`), RimThunder Core (`RimThunder.Core`) | `MayRequire` research prerequisites | `Defs/Phobos/Vehicles/Research.xml` |
 | RimThunder, Vanilla Vehicles Expanded, Rimefeller, Vanilla Gravship Expanded | Their engines, transmissions, tyres, wheels, radiators, batteries, alternators, tanks, suspension, wiring, exhausts, castings, synthylene and oxygen canisters stand in for our parts, by role | Framework's `PartSupplies.xml` |
 

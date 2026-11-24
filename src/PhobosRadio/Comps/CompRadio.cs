@@ -159,6 +159,16 @@ public class CompRadio : ThingComp
         sb.Append("PhobosRadio_StationAntenna".Translate(net.AntennaLabelFor(parent).ToString().Named("ANTENNA")));
         sb.AppendLine();
         sb.Append(LinkText.ChannelsLine(net.ChannelsOf(parent)));
+        // Vehicles it serves, and who works it to drive them (Radio 0.12.0).
+        var vehicles = net.VehiclesOn(parent);
+        if (vehicles > 0)
+        {
+            sb.AppendLine();
+            sb.Append(net.OperatorAt(parent) is { } operatorPawn
+                ? "PhobosRadio_StationOperator".Translate(vehicles.Named("COUNT"), operatorPawn.LabelShort.Named("OPERATOR"),
+                    RadioRulesDef.Current.vehiclesPerOperator.Named("MAX"))
+                : "PhobosRadio_StationNoOperator".Translate(vehicles.Named("COUNT")));
+        }
         var coverage = RadioCoverage.For(parent.Map).InspectLine(parent);
         if (coverage != null)
         {
