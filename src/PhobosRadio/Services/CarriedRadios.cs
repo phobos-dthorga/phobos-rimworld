@@ -12,6 +12,11 @@ public enum CarriedRadioUse
     StandingBy,
     /// <summary>It asks a channel of its kind, as a worn hand-held does.</summary>
     InUse,
+    /// <summary>
+    /// In use, and asking a picture as well (Radio 0.15.0; the autonomous vehicles record, step 6): the vehicle picture kind's channels at
+    /// the same station, where the picture's margin on the same path holds (Physics.OtherMode).
+    /// </summary>
+    InUseWithPicture,
 }
 
 /// <summary>

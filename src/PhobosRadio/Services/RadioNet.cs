@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Phobos.Radio.Physics;
 using RimWorld;
@@ -62,6 +63,12 @@ public sealed class RadioNet : MapComponent
     private readonly HashSet<Pawn> carriers = new();
     /// <summary>Built-in radios whose links are worked out but which ask no channel (<see cref="CarriedRadioUse.StandingBy"/>).</summary>
     private readonly HashSet<Thing> standingBy = new();
+    /// <summary>Built-in radios that ask a picture too (<see cref="CarriedRadioUse.InUseWithPicture"/>; Radio 0.15.0).</summary>
+    private readonly HashSet<Thing> wantsPicture = new();
+    /// <summary>Those whose picture the station serving their orders also serves (Radio 0.15.0).</summary>
+    private readonly HashSet<Thing> pictureServed = new();
+    /// <summary>The picture kind's name: a vehicle's camera, two channels at once (Radio 0.9.0's ChannelKinds.xml).</summary>
+    public const string PictureKindName = "PhobosRadio_KindVehiclePicture";
     /// <summary>The colonist working each station, at its console (Radio 0.12.0), counted at each pass.</summary>
     private readonly Dictionary<Thing, Pawn> operatorAt = new();
     /// <summary>How many vehicles each station serves on its channels (Radio 0.12.0).</summary>
@@ -173,6 +180,19 @@ public sealed class RadioNet : MapComponent
         EnsureFresh();
         return standingBy.Contains(pawn);
     }
+
+    /// <summary>
+    /// Whether the station serving this vehicle's orders serves its picture too (Radio 0.15.0, step 6): asked for while it is driven drafted,
+    /// and only where the picture's own margin holds, so the picture fails first as the vehicle goes further or behind cover.
+    /// </summary>
+    public bool HasPicture(Pawn vehicle)
+    {
+        EnsureFresh();
+        return pictureServed.Contains(vehicle);
+    }
+
+    /// <summary>A vehicle picture's id in the ledger: the radio's own, negated, so it never meets a thing's.</summary>
+    private static int PictureId(Thing radio) => -radio.thingIDNumber - 1;
 
     /// <summary>The colonist working this station now, or null (Radio 0.12.0).</summary>
     public Pawn? OperatorAt(Thing station)
@@ -324,6 +344,8 @@ public sealed class RadioNet : MapComponent
         mobileRadios.Clear();
         carriers.Clear();
         standingBy.Clear();
+        wantsPicture.Clear();
+        pictureServed.Clear();
         operatorAt.Clear();
         vehiclesOn.Clear();
         stationsWantingOperator.Clear();
@@ -428,9 +450,40 @@ public sealed class RadioNet : MapComponent
             foreach (var link in links) best.Add(link.B.Thing.thingIDNumber);
             candidates.Add(new ChannelCandidate(radio.thingIDNumber, kind, best));
         }
+        // A vehicle's picture (Radio 0.15.0, step 6): a second use of its radio, of the picture kind, offered to the stations where the
+        // picture's margin on the same path holds, best first. Its id is the radio's, negated, so it never meets a thing's.
+        var pictureKind = wantsPicture.Count == 0 ? null : DefDatabase<ChannelKindDef>.GetNamedSilentFail(PictureKindName);
+        if (pictureKind != null)
+        {
+            foreach (var (radio, _, links) in ordered)
+            {
+                if (!wantsPicture.Contains(radio)) continue;
+                var best = new List<int>(links.Count);
+                foreach (var link in links)
+                {
+                    var pictureMargin = OtherMode.MarginDb(link.MarginDb, link.Mode.bandwidthHz, link.Mode.requiredSnrDb,
+                        pictureKind.Mode.bandwidthHz, pictureKind.Mode.requiredSnrDb);
+                    if (pictureMargin >= 0) best.Add(link.B.Thing.thingIDNumber);
+                }
+                if (best.Count > 0) candidates.Add(new ChannelCandidate(PictureId(radio), pictureKind.LedgerIndex, best));
+            }
+            // The ledger serves kinds in their order: keep each kind's candidates in the order they were added (strongest first).
+            candidates = candidates.OrderBy(c => c.Kind).ToList();
+        }
 
         var served = Channels.Allocate(channelsByStation, shapes, candidates, held);
         held = served;
+        // Pictures served, by station; one counts only where the same station serves the vehicle's orders.
+        var picturesOn = new Dictionary<int, int>();
+        if (pictureKind != null)
+        {
+            foreach (var radio in wantsPicture)
+            {
+                if (!served.TryGetValue(PictureId(radio), out var pictureStation)) continue;
+                picturesOn[pictureStation] = (picturesOn.TryGetValue(pictureStation, out var p) ? p : 0) + 1;
+                if (served.TryGetValue(radio.thingIDNumber, out var orderStation) && orderStation == pictureStation) pictureServed.Add(radio);
+            }
+        }
         var kindOf = new Dictionary<Thing, int>();
         foreach (var (radio, kind, _) in ordered)
         {
@@ -459,6 +512,8 @@ public sealed class RadioNet : MapComponent
                 list.Sort((a, b) => kindOf[a] != kindOf[b] ? kindOf[a].CompareTo(kindOf[b]) : a.thingIDNumber.CompareTo(b.thingIDNumber));
                 foreach (var radio in list) placeOf[radio] = (station.parent, kindOf[radio], counts[kindOf[radio]]++);
             }
+            // Its pictures hold channels of their own kind too (Radio 0.15.0).
+            if (pictureKind != null && picturesOn.TryGetValue(station.parent.thingIDNumber, out var pictures)) counts[pictureKind.LedgerIndex] += pictures;
             var total = channelsByStation[station.parent.thingIDNumber];
             var ledgers = new KindLedger[kinds.Count];
             var start = 0;
@@ -517,6 +572,7 @@ public sealed class RadioNet : MapComponent
             mobileRadios.Add((radio, pawn));
             carriers.Add(pawn);
             if (use == CarriedRadioUse.StandingBy) standingBy.Add(pawn);
+            if (use == CarriedRadioUse.InUseWithPicture) wantsPicture.Add(pawn);
         }
     }
 

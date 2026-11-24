@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The remote control kit as a fitting for any vehicle (Radio Framework 0.15.0, D'thorga Framework 0.280.0;
+       docs/development/autonomous-vehicles.md, step 6; the owner's card of 25 Nov 2026: "a fitting for any vehicle"). Fitted at the
+       vehicle workshop on any Vehicle Framework vehicle with a D'thorga loadout, in the control radio bay every land vehicle has
+       (Loadouts_Default.xml). It grants RemoteControl, which puts the vehicle control radio in place (the Radio Framework's tie-in gives
+       every such design the radio and the remote control at start-up, off until this is fitted). It draws on the battery, and works
+       only with that load on. Our five service trucks keep their own upgrade node, which does the same. Its cost matches that node
+       (the owner, 25 Nov 2026: an advanced component). Load, weight, work and skill authored. It borrows the radio's signal icon until
+       its own is drawn. Not yet tested in game. -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_RemoteControlKit</defName>
+    <iconPath>Phobos/Radio/UI/Signal</iconPath>
+    <label>remote control kit</label>
+    <description>A data radio and its whip antenna, a controller and servos on the wheel, pedals and gear lever. With a radio station in reach and a colonist working it, the vehicle can be driven from the station with nobody aboard, and any gun on it that no seat works fires while the station has its picture. It draws on the battery; with the battery flat it does nothing. The driver's seat stays, so anyone can still climb in and drive.</description>
+    <roles><li>RemoteKitMount</li></roles>
+    <materials><Steel>25</Steel><ComponentIndustrial>3</ComponentIndustrial><ComponentSpacer>1</ComponentSpacer></materials>
+    <kilograms>15</kilograms>
+    <work>2000</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>PhobosRadio_RemoteVehicles</researchPrerequisite>
+    <grants><li>RemoteControl</li></grants>
+    <loads>
+      <li>
+        <!-- The data radio on receive, the controller and the servos at rest: about 2 A at 12 V (authored, a mobile radio's standby and a
+             small controller's), halved on a 24 V truck. Shed late: a vehicle driven from afar that loses it stops. -->
+        <name>remoteKit</name>
+        <label>remote control kit</label>
+        <description>The remote control kit's radio, controller and servos. With power, a radio station can drive the vehicle.</description>
+        <amps>2</amps>
+        <shedOrder>9</shedOrder>
+        <iconPath>Phobos/Radio/UI/Signal</iconPath>
+      </li>
+    </loads>
+    <feed>
+      <load>remoteKit</load>
+    </feed>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

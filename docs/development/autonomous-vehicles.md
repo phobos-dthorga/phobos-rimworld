@@ -6,7 +6,9 @@ radios fitted to vehicles ([step 2](#step-2-radios-fitted-to-vehicles-radio-0100
 choices and letters ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)), the kit on the five service trucks
 ([step 4](#step-4-the-kit-on-the-trucks-vehicles-01170-radio-0120)) and the colonist at the console
 ([step 5](#step-5-the-operator-radio-0120)), and step 8, [keeping to radio cover](#step-8-keeping-to-radio-cover-framework-02790-radio-0140)
-(Framework 0.279.0, Radio 0.14.0), built on the owner's go before its cost was measured. Steps 6 and 7 are not built.
+(Framework 0.279.0, Radio 0.14.0), built on the owner's go before its cost was measured, and step 6, [the picture link and remote
+guns](#step-6-the-picture-link-and-remote-guns-framework-02800-radio-0150) with the kit as a fitting for any vehicle (Framework 0.280.0,
+Radio 0.15.0). Step 7 is not built.
 Nothing is tested in game.
 
 The owner, 24 Nov 2026: "the real feature I wish to implement soon is autonomous vehicles and perhaps their weapon systems too, all
@@ -258,6 +260,45 @@ Built 24 Nov 2026, not yet tested in game.
 - **Its cost:** the net already walks the free colonists for their radios each pass; it now also reads each one's job driver (a
   type check) to find operators. The work giver reads a list the net keeps; the job checks one dictionary each tick it runs.
 
+### Step 6: the picture link and remote guns (Framework 0.280.0, Radio 0.15.0)
+
+Built 25 Nov 2026, not yet tested in game. The owner's cards of 25 Nov 2026: **third-party vehicles come in, by a fitting for any
+vehicle [O]**; **remote guns are the turrets no seat works [O]**; **they fire on a picture link, or with the setting [O]**, the same
+rule with or without the Radio Framework. **Our own remote weapon station (MV8) is not built**: the first remote guns are other
+authors', such as GTek's L-ATV's, which already fire with nobody aboard.
+
+- **The kit as a fitting [code: the Radio Framework's `Mods/VehicleFramework/Common/Defs/RemoteControlKit.xml`]:** "remote control
+  kit", fitted at the vehicle workshop on any Vehicle Framework vehicle with a D'thorga loadout, in a new **control radio bay** every
+  land vehicle now has (D'thorga Framework's `Loadouts_Default.xml`, `RemoteKitMount`). Its cost matches the trucks' node (25 steel, 3
+  components, an advanced component [O]); 15 kg, 2,000 work, Construction 4 [A]. It draws about 2 A at 12 V on the battery, shed late,
+  and works only with that power on [A]. It needs the research remote vehicle control. Our five trucks keep their node; either puts
+  the radio in place.
+- **How the radio reaches those vehicles:** at start-up the radio's tie-in gives every design with a D'thorga loadout the vehicle
+  control radio and the remote control, off until the kit is in (`VehicleRadios.Fitted`: the node, or the fitting granting
+  `RemoteControl` with its load on). Those designs already carry our systems comp, so this changes nothing about how often they tick
+  (step 3's reading).
+- **The picture link [code: `Physics/OtherMode.cs`, `RadioNet`]:** a vehicle driven from a station **and drafted** asks a picture as
+  well as orders (`CarriedRadioUse.InUseWithPicture`): a second use of its radio, of the vehicle picture kind (two channels), offered
+  to the stations where the picture's margin holds. That margin follows from the control link on the same path with no second walk: a
+  picture four times as wide lifts the noise floor 6 dB, and it asks 9 dB more, so it has **15 dB less margin** than the orders, and
+  fails first as the vehicle goes further or behind cover. An approximation, labelled in its code: exact where thermal noise rules,
+  a little pessimistic near the colony's own noise. A picture counts only where the same station serves the orders. The vehicle's text
+  reads "orders and picture" or "orders only".
+- **Remote guns [code: `Remote/RemoteGuns.cs`, `Rules/RemoteGunRule.cs`]:** a turret no seat works, on a vehicle with the kit, fires
+  only while its station has the picture, or always when **"Remote guns fire on their own"** is on (off by default [O]). A vehicle
+  without the kit fires as its author built it. **One postfix** on Vehicle Framework's `VehicleTurret.RecacheMannedStatus` turns
+  "manned" into "not manned" for such a turret when it may not fire; Vehicle Framework then neither aims, fires nor reloads it
+  (`TurretDisabled`, `CanTarget`, read in its 1.7 build). The vehicle's comp asks its turrets again only when whether they may fire
+  changes, at most every 250 ticks. Nobody else patches that method (`query-patches.py`, 25 Nov 2026).
+- **A threat when armed:** Vehicle Framework already treats a vehicle with an enabled turret as a target, crew or none (the
+  militarised trucks record's code read), so nothing of ours was needed.
+- **Its cost:** the picture is one more candidate in the ledger for each vehicle driven drafted, and one subtraction per link; the
+  turret check runs only when Vehicle Framework re-checks a turret or the answer changes. Nothing per tick or frame.
+- **Other factions:** their vehicles carry the comps too but join no net of ours and never have the kit fitted by us, so their guns
+  fire as their authors built them.
+- **Still open:** our own remote weapon station (MV8), with its picture; aiming by hand through the picture is Vehicle Framework's
+  own targeting while the turret is manned, untested.
+
 ## Step 8: keeping to radio cover (Framework 0.279.0, Radio 0.14.0)
 
 The owner's card of 25 Nov 2026 ("Design it, with its cost"), after the wider way round for towing
@@ -397,7 +438,7 @@ preferring firm ground, and errands going round growing crops. Vehicle Framework
 | 3 | The kit's comp, the move-check postfix, lost-link choices and letters. **Built in Framework 0.278.0 and Radio 0.11.0** | Framework | 2 to be useful |
 | 4 | The kit as an upgrade node on the five service trucks, with its antenna overlay (art first, as the owner's rule says). **Built in Vehicles 0.117.0 and Radio 0.12.0; its antenna picture in 0.117.2** | Vehicles | 3 |
 | 5 | The operator's job and work type. **Built in Radio 0.12.0** | Radio | 2 |
-| 6 | The picture link and remote guns | Framework, Vehicles | 5 and MV8's remote weapon station |
+| 6 | The picture link and remote guns. **Built in Framework 0.280.0 and Radio 0.15.0**, with the kit as a fitting for any vehicle; the remote guns are other authors' turrets no seat works until MV8 builds ours | Framework, Radio | 5 |
 | 7 | The route level (MV4) and mechanitor level (MV6) feeding the same comp | Framework | 3 |
 | 8 | Keeping to radio cover, [above](#step-8-keeping-to-radio-cover-framework-02790-radio-0140). **Built in Framework 0.279.0 and Radio 0.14.0; its cost still to be measured** | Framework, Radio | 3 |
 
@@ -423,6 +464,9 @@ preferring firm ground, and errands going round growing crops. Vehicle Framework
 - **Owner (25 Nov 2026), by card:** keeping to radio cover is designed with its cost before anything is built; no firm-ground
   cost and no crop cost for vehicles' routes.
 - **Owner (25 Nov 2026):** "You can continue with Step #8": build it before the measurement.
+- **Owner (25 Nov 2026), by card, step 6:** third-party vehicles join by a fitting for any vehicle; remote guns are the turrets no
+  seat works; they fire on a picture link, or with the fire-alone setting, with or without the Radio Framework. Earlier the same day:
+  the kit takes an advanced component.
 - **Agent (25 Nov 2026), for the owner to revise:** everything in step 8: the coarse cover map, what starts it again, no operator in
   the sum, the tick budget and its figures, the cost of 8, the seam, the setting and its default, the risk grade.
 - **Agent (24 Nov 2026), for the owner to revise:** the two kinds and their modes, pre-emption, the work type, two vehicles per

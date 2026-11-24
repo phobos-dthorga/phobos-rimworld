@@ -3,6 +3,10 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "494": {"parts": {
+      "the picture won": [{"key": "vehicles.remote-picture", "variant": "won"}],
+      "the picture lost": [{"key": "vehicles.remote-picture", "variant": "lost"}]
+    }},
     "492": {"parts": {
       "the cover map is worked out": [{"key": "radio.remote-cover"}],
       "a driven vehicle's path takes the cover costs": [{"key": "vehicles.remote-cover"}]

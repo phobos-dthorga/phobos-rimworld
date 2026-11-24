@@ -56,7 +56,11 @@ and life on the road](camping.md). [Back to the guide](README.md).
 ### Driven from a station
 
 - **A vehicle with the radio's control kit can be driven with nobody aboard**, from a radio station (with D'thorga Radio
-  Framework). On the five service trucks it is the upgrade **Remote control kit**, after the research **remote vehicle control**.
+  Framework). On the five service trucks it is the upgrade **Remote control kit**, after the research **remote vehicle control**;
+  **on any other vehicle it is a fitting** of the same name, fitted at the vehicle workshop. It draws a little on the battery.
+- **Guns that no seat works**, such as the L-ATV's, **fire only while the station has the vehicle's picture**: the vehicle must be
+  drafted, and in good reach, since the picture needs a stronger signal than orders. Its text says "orders and picture" or
+  "orders only". The setting **"Remote guns fire on their own"** (off) lets them fire with nobody watching.
 - **Someone must work the station**: **turn on Remote operation for a colonist in the Work tab**. They stand at the console while a
   vehicle wants driving, and drive **two at once**; a third waits for another station's operator. When they leave to eat or sleep,
   the vehicle loses its link.

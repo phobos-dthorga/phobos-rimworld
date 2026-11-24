@@ -359,6 +359,23 @@
         </add>
       </li>
       <li>
+        <!-- Framework 0.280.0, the remote control of vehicles (docs/development/autonomous-vehicles.md, step 6; the owner's card of 25 Nov
+             2026: "a fitting for any vehicle"): a bay behind the dashboard for the remote control kit's data radio and servo controller,
+             appended to every land vehicle so the kit has a part to go on and is lost with it. Inside the body; health and hit weight
+             authored, a small box's. -->
+        <role>RemoteKitMount</role>
+        <add>
+          <key>PhobosRemoteKitMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>control radio bay</label>
+          <health>20</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <!-- Framework 0.129.0, vehicle accessories (docs/development/vehicle-accessories.md, the power budget): a bay in the cargo space for a
              12 V fridge, a tray for a house battery and a panel for a power outlet, appended to every land vehicle so each accessory has a
              part to go on and is lost with it (one fitting to a part). Inside the body; health and hit weight authored, small boxes'. -->

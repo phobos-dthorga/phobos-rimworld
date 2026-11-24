@@ -17,6 +17,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.15.0] - 2026-11-25 - Draft
+
+The remote control kit for any vehicle, and the vehicle's picture
+
+### Added
+
+- **The remote control kit is a fitting for any vehicle** with a D'thorga loadout (the owner's card of 25 November 2026): fit it at
+  the vehicle workshop, in the control radio bay, after the research remote vehicle control. It costs what the service trucks' upgrade
+  does, draws a little on the battery, and stops with it flat. With it, the L-ATV, the MaxxPro, the HUMVEE and the rest can be driven
+  from a station. Not yet tested in game: row 493.
+- **A vehicle driven from a station and drafted asks for its picture too**: two more channels of the vehicle picture kind at the
+  same station. The picture needs a stronger signal than orders do, so it fails first as the vehicle goes further or behind cover.
+  Its guns that no seat works fire only while the picture holds. Not yet tested in game: row 494.
+
+### Compatibility and limits
+
+- Safe with a running save: nothing new is saved. The fitting loads only with Vehicle Framework.
+
 ## [0.14.0] - 2026-11-25 - Draft
 
 Vehicles driven from afar keep to radio cover

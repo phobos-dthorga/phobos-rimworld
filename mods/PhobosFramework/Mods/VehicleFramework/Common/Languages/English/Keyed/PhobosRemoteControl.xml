@@ -9,6 +9,9 @@
   <!-- Framework 0.279.0: keeping to radio cover (autonomous-vehicles.md, step 8). -->
   <PhobosVehicleSystems_SettingRemoteKeepToCover>Vehicles driven from afar keep to radio cover</PhobosVehicleSystems_SettingRemoteKeepToCover>
   <PhobosVehicleSystems_SettingRemoteKeepToCoverDesc>On by default. A vehicle driven from a radio station prefers a way where its stations can still reach it, and goes round ground behind hills, rock and thick walls where it would lose its link, if the way round is not too much longer. It never refuses an order: sent somewhere out of reach, it still goes, and loses its link there. The map of where the stations reach is worked out a little at a time after a station, an antenna, a wall or a roof changes. Off, a vehicle driven from afar takes the same way it would with a driver.</PhobosVehicleSystems_SettingRemoteKeepToCoverDesc>
+  <!-- Framework 0.280.0: remote guns (autonomous-vehicles.md, step 6). -->
+  <PhobosVehicleSystems_SettingRemoteGunsFireAlone>Remote guns fire on their own</PhobosVehicleSystems_SettingRemoteGunsFireAlone>
+  <PhobosVehicleSystems_SettingRemoteGunsFireAloneDesc>Off by default. A gun that no seat works, such as a remote weapon station, on a vehicle fitted with the remote control kit, fires only while a radio station's operator has the vehicle's picture and can watch what it shoots at. On, it fires at enemies by itself, with nobody watching: it may waste ammunition, start a fight early or shoot through friends. Vehicles without the kit fire as their makers built them, either way.</PhobosVehicleSystems_SettingRemoteGunsFireAloneDesc>
 
   <!-- Buttons. -->
   <PhobosRemote_GizmoDrive>Drive from a station</PhobosRemote_GizmoDrive>
@@ -23,7 +26,8 @@
 
   <!-- Inspect text. -->
   <PhobosRemote_InspectUnlinked>Driven from a station: waiting for a station to reach it.</PhobosRemote_InspectUnlinked>
-  <PhobosRemote_InspectLinked>Driven from a station.</PhobosRemote_InspectLinked>
+  <PhobosRemote_InspectLinked>Driven from a station: orders only, no picture.</PhobosRemote_InspectLinked>
+  <PhobosRemote_InspectLinkedPicture>Driven from a station: orders and picture.</PhobosRemote_InspectLinkedPicture>
   <PhobosRemote_InspectWaiting>Driven from a station: link lost, carrying on for a few seconds.</PhobosRemote_InspectWaiting>
   <PhobosRemote_InspectHolding>Link lost: holding here until a station reaches it.</PhobosRemote_InspectHolding>
   <PhobosRemote_InspectComingBack>Link lost: coming back toward its station.</PhobosRemote_InspectComingBack>

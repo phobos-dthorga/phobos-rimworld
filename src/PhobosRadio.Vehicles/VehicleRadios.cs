@@ -30,9 +30,11 @@ public class VehicleRadioFitting : DefModExtension
 
 /// <summary>
 /// The tie-in's start-up: each vehicle def that names a radio fitting gets that radio's comp, and D'thorga Framework's remote control
-/// (Radio 0.11.0), so every vehicle of it is built with both; the rule that tells the net what a vehicle's radio does; and the radio as
-/// a source the remote control reads its links from.
-/// <para>Cost: once at start-up, one pass over the vehicle defs. Nothing runs per tick.</para>
+/// (Radio 0.11.0), so every vehicle of it is built with both; since 0.15.0 (step 6; the owner's card of 25 Nov 2026, "a fitting for any
+/// vehicle") so does every design D'thorga Framework gives a loadout, with the vehicle control radio, for the remote control kit fitting;
+/// the rule that tells the net what a vehicle's radio does; and the radio as a source the remote control reads its links from.
+/// <para>Cost: once at start-up, one pass over the vehicle defs. Nothing runs per tick. A design given the comps but not the kit costs the
+/// net one rule check a pass for each of the colony's vehicles of it.</para>
 /// </summary>
 [StaticConstructorOnStartup]
 public static class VehicleRadios
@@ -43,22 +45,43 @@ public static class VehicleRadios
         RemoteControl.Register(new RadioRemoteControl());
         // Radio 0.14.0: the cover map for vehicles driven from afar works a little each tick, through the net's own tick.
         RadioNet.Ticked += RemoteCoverMap.Tick;
+        var kitRadio = DefDatabase<RadioFittingDef>.GetNamedSilentFail(KitRadioName)?.radio;
         foreach (var def in DefDatabase<VehicleDef>.AllDefsListForReading)
         {
-            var radio = def.GetModExtension<VehicleRadioFitting>()?.fitting?.radio;
+            // A design that names a fitting (our trucks), or one with a loadout of ours, which can take the kit fitting (Radio 0.15.0).
+            var radio = def.GetModExtension<VehicleRadioFitting>()?.fitting?.radio
+                        ?? (def.comps.Exists(comp => comp is CompProperties_PhobosVehicleSystems) ? kitRadio : null);
             if (radio == null) continue;
             if (!def.comps.Exists(comp => comp is CompProperties_Radio)) def.comps.Add(radio);
             if (!def.comps.Exists(comp => comp is CompProperties_PhobosRemoteControl)) def.comps.Add(new CompProperties_PhobosRemoteControl());
         }
     }
 
-    /// <summary>Whether the vehicle's upgrade that fits its radio is done, or none is named.</summary>
+    /// <summary>The vehicle control radio, which the kit puts in place.</summary>
+    public const string KitRadioName = "PhobosRadio_FittingVehicleControl";
+    /// <summary>What the remote control kit fitting grants, and the electrical load that powers it (Radio 0.15.0; RemoteControlKit.xml).</summary>
+    public const string KitGrant = "RemoteControl";
+    public const string KitLoad = "remoteKit";
+
+    /// <summary>Vehicles given a radio by the dev action for this session (never saved).</summary>
+    private static readonly HashSet<int> fittedForSession = new();
+
+    /// <summary>
+    /// Whether the vehicle's radio is in place: the upgrade its design names is done (or it names none), or (Radio 0.15.0) the remote control
+    /// kit fitting is on it with its part standing and its power on, or the dev action gave it one for this session.
+    /// </summary>
     public static bool Fitted(VehiclePawn vehicle)
     {
-        var key = vehicle.VehicleDef.GetModExtension<VehicleRadioFitting>()?.upgradeNode;
-        if (string.IsNullOrEmpty(key)) return true;
-        var tree = vehicle.CompUpgradeTree;
-        return tree?.Props?.def?.GetNode(key) is { } node && tree.NodeUnlocked(node);
+        var extension = vehicle.VehicleDef.GetModExtension<VehicleRadioFitting>();
+        if (extension != null)
+        {
+            var key = extension.upgradeNode;
+            if (string.IsNullOrEmpty(key)) return true;
+            var tree = vehicle.CompUpgradeTree;
+            if (tree?.Props?.def?.GetNode(key) is { } node && tree.NodeUnlocked(node)) return true;
+        }
+        if (fittedForSession.Contains(vehicle.thingIDNumber)) return true;
+        return vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(KitGrant) && systems.LoadActive(KitLoad);
     }
 
     /// <summary>
@@ -82,12 +105,16 @@ public static class VehicleRadios
             if (selected is not VehiclePawn vehicle) continue;
             // The remote control comes with it (Radio 0.11.0), so the vehicle can be driven from a station in the test too.
             SessionComps.Add(vehicle, new CompProperties_PhobosRemoteControl());
-            if (CarriedRadios.FitForSession(vehicle, fitting.radio) != null) fitted++;
+            // Since 0.15.0 most vehicles carry the radio already, waiting for the kit: the session counts as the kit.
+            var had = vehicle.GetComp<CompRadio>() != null;
+            if (!had) CarriedRadios.FitForSession(vehicle, fitting.radio);
+            if (fittedForSession.Add(vehicle.thingIDNumber)) fitted++;
             else skipped++;
+            RadioNet.For(vehicle.Map)?.MarkDirty();
         }
         Log.Message(fitted + skipped == 0
             ? "[PhobosRadio] Select one or more vehicles first."
-            : $"[PhobosRadio] Fitted a control radio to {fitted} vehicle(s); {skipped} already had a radio.");
+            : $"[PhobosRadio] Fitted a control radio to {fitted} vehicle(s) for this session; {skipped} already had one.");
     }
 }
 
@@ -102,7 +129,9 @@ public sealed class VehicleRadioRule : ICarriedRadioRule
     {
         if (carrier is not VehiclePawn vehicle) return null;
         if (!VehicleRadios.Fitted(vehicle)) return CarriedRadioUse.Off;
-        return RemoteControl.Wanted(vehicle) ? CarriedRadioUse.InUse : CarriedRadioUse.StandingBy;
+        if (!RemoteControl.Wanted(vehicle)) return CarriedRadioUse.StandingBy;
+        // Driven drafted, it asks a picture too (Radio 0.15.0, step 6).
+        return vehicle.GetComp<CompPhobosRemoteControl>() is { WantsPicture: true } ? CarriedRadioUse.InUseWithPicture : CarriedRadioUse.InUse;
     }
 }
 
@@ -127,7 +156,9 @@ public sealed class RadioRemoteControl : IRemoteControlSource, IRemoteCoverSourc
         // Served on a channel, and (Radio 0.12.0, step 5) a colonist works that station with a hand free for this vehicle.
         var net = RadioNet.For(vehicle.Map);
         var station = net?.ServedBy(vehicle);
-        return station == null || !net!.Drives(station, vehicle) ? default : new RemoteLink(true, station.Position);
+        if (station == null || !net!.Drives(station, vehicle)) return default;
+        // And its picture, where the same station serves it (Radio 0.15.0, step 6).
+        return new RemoteLink(true, station.Position, net.HasPicture(vehicle));
     }
 
     public void WantChanged(VehiclePawn vehicle)

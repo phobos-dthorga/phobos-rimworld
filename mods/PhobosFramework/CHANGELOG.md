@@ -13,6 +13,28 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.280.0] - 2026-11-25 - Draft
+
+Remote guns: a gun no seat works waits for the station's picture
+
+### Added
+
+- **A gun that no seat works, on a vehicle with the remote control kit, fires only while a radio station has the vehicle's
+  picture**, so an operator can watch what it shoots at (the owner's cards of 25 November 2026). GTek's L-ATV's guns are such guns.
+  A vehicle without the kit fires as its maker built it. The vehicle's text now says "orders and picture" or "orders only". Not yet
+  tested in game: row 494.
+- **A new setting, "Remote guns fire on their own"**, off by default, in the Vehicle Systems settings under Remote control: on, such
+  guns fire by themselves with nobody watching.
+- **Every land vehicle has a control radio bay**, the part the Radio Framework's remote control kit fitting goes on.
+
+### Compatibility and limits
+
+- Our own remote weapon station is not built yet; the remote guns are other mods' turrets that no seat works.
+
+### Save compatibility
+
+- Safe on an existing save: the new bay is added to vehicles at the next load, and nothing new is saved.
+
 ## [0.279.0] - 2026-11-25 - Draft
 
 Vehicles driven from afar keep to radio cover

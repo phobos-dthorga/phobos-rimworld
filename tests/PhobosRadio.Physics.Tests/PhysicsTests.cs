@@ -355,6 +355,28 @@ public class ChannelTests
     }
 }
 
+public class OtherModeTests
+{
+    [Fact]
+    public void APictureNeedsFifteenDecibelsMoreThanOrders()
+    {
+        // Control: 12.5 kHz, 6 dB asked. Picture: 50 kHz (four times as wide, 6 dB more noise), 15 dB asked (9 dB more): 15 dB less margin.
+        Assert.Equal(5.0, OtherMode.MarginDb(20, 12500, 6, 50000, 15), 1);
+        Assert.Equal(-15.0, OtherMode.MarginDb(0, 12500, 6, 50000, 15), 1);
+    }
+
+    [Fact]
+    public void TheSameModeKeepsItsMargin() => Assert.Equal(12.0, OtherMode.MarginDb(12, 12500, 12, 12500, 12), 6);
+
+    [Fact]
+    public void ItAgreesWithTheFloorWhereThermalNoiseRules()
+    {
+        // Worked from the floors themselves: the difference in thermal floors plus the difference in what each mode asks.
+        var floors = NoiseFloor.ThermalDbm(50000, 8) - NoiseFloor.ThermalDbm(12500, 8);
+        Assert.Equal(30 - floors - 9, OtherMode.MarginDb(30, 12500, 6, 50000, 15), 6);
+    }
+}
+
 public class CoaxTests
 {
     [Fact]

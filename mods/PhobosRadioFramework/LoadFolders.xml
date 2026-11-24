@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <loadFolders>
-  <!-- RimWorld 1.7 only. The Vehicle Framework tie-in (Radio 0.10.0: radios fitted to vehicles) loads only with that mod. -->
+  <!-- RimWorld 1.7 only. The Vehicle Framework tie-in (Radio 0.10.0: radios fitted to vehicles; 0.15.0: the remote control kit fitting)
+       loads only with that mod. -->
   <v1.7>
     <li>/</li>
     <li>Common</li>
     <li>1.7</li>
+    <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework/Common</li>
     <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework/1.7</li>
   </v1.7>
 </loadFolders>

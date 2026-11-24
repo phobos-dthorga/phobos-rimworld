@@ -7,8 +7,8 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 ## Read this first
 
-- **86 tie-in folders across eight mods** (recounted 24 Nov 2026: Vehicles 30, Patches 21, Factory Additions 16, Framework 9,
-  Medical 7, Farming 1, Radio Framework 1, Water Tap 1; 100 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
+- **86 tie-in folders across eight mods** (recounted 25 Nov 2026: Vehicles 30, Patches 21, Factory Additions 16, Framework 9,
+  Medical 7, Farming 1, Radio Framework 1, Water Tap 1; 101 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
   `Common` subfolder are listed as separate entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's
   `LoadFolders.xml`, plus a handful of tie-ins in C# that check for a mod by name. D'thorga Radio Framework's first, Vehicle
   Framework, came in its 0.10.0 (Vanilla Expanded Framework's pipe system is a hard dependency there, not a tie-in).
@@ -131,7 +131,7 @@ Hard dependencies: D'thorga Framework and Vanilla Expanded Framework.
 
 | Other mod (packageId) | What the tie-in does | Where |
 | --- | --- | --- |
-| Vehicle Framework (`SmashPhil.VehicleFramework`) | Radios fitted to vehicles (0.10.0): a vehicle whose def names a radio fitting is built with that radio, and joins the radio net once its upgrade is done; its own assembly, `src/PhobosRadio.Vehicles` ([autonomous vehicles by radio](autonomous-vehicles.md), step 2) | `Mods/VehicleFramework/1.7` |
+| Vehicle Framework (`SmashPhil.VehicleFramework`) | Radios fitted to vehicles (0.10.0): a vehicle whose def names a radio fitting is built with that radio, and joins the radio net once its upgrade is done; its own assembly, `src/PhobosRadio.Vehicles` ([autonomous vehicles by radio](autonomous-vehicles.md), step 2). Since 0.15.0 (step 6) also the remote control kit fitting for any vehicle with a D'thorga loadout, in `Common` | `Mods/VehicleFramework/Common`, `Mods/VehicleFramework/1.7` |
 
 ## D'thorga Water Tap
 

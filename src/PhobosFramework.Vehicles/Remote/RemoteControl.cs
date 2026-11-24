@@ -9,8 +9,11 @@ using Verse;
 
 namespace Phobos.VehicleSystems;
 
-/// <summary>A vehicle's link to whatever drives it from afar, as its source reports it: whether it has one, and where that station stands.</summary>
-public readonly record struct RemoteLink(bool Linked, IntVec3 Station);
+/// <summary>
+/// A vehicle's link to whatever drives it from afar, as its source reports it: whether it has one, where that station stands, and (Framework
+/// 0.280.0, step 6) whether the station also has the vehicle's picture, so an operator can watch and aim its guns.
+/// </summary>
+public readonly record struct RemoteLink(bool Linked, IntVec3 Station, bool Picture = false);
 
 /// <summary>
 /// Whatever can drive a vehicle with nobody aboard (Framework 0.278.0; docs/development/autonomous-vehicles.md, step 3): the Radio
@@ -93,9 +96,22 @@ public sealed class CompPhobosRemoteControl : VehicleComp
     int lostSinceTick = -1;
     IntVec3 station = IntVec3.Invalid;
     IntVec3 comeBackCell = IntVec3.Invalid;
+    /// <summary>Whether its station has its picture now (Framework 0.280.0). Derived from the link at each look; never saved.</summary>
+    bool picture;
+    /// <summary>Whether its remote guns could fire at the last look, so a change re-checks them (Framework 0.280.0). Never saved.</summary>
+    bool? gunsMayFire;
 
     /// <summary>It asks for no tick of its own: the vehicle's rare tick reaches every comp.</summary>
     public override bool TickByRequest => true;
+
+    /// <summary>Whether a station drives it and has its picture: an operator can watch it and aim its guns (Framework 0.280.0).</summary>
+    public bool HasPicture => picture && Drives;
+
+    /// <summary>
+    /// Whether it asks its station for a picture as well as orders (Framework 0.280.0; the record's kinds table: the picture is held while
+    /// the operator drives it under direct orders): asked to be driven, and drafted.
+    /// </summary>
+    public bool WantsPicture => Wanted && Vehicle.Drafted;
 
     /// <summary>The player asked for it to be driven from afar, the setting allows it, and its own crew is not at the wheel.</summary>
     public bool Wanted => wanted && RemoteControl.On && !RemoteControl.CrewDrives(Vehicle);
@@ -119,8 +135,22 @@ public sealed class CompPhobosRemoteControl : VehicleComp
 
     public override void CompTickRare()
     {
-        if (!Vehicle.Spawned || (!wanted && state == RemoteState.Off)) return;
-        Look();
+        if (!Vehicle.Spawned) return;
+        if (wanted || state != RemoteState.Off) Look();
+        CheckGuns();
+    }
+
+    /// <summary>
+    /// Re-checks its remote guns when whether they may fire has changed (Framework 0.280.0): a picture won or lost, the kit fitted or
+    /// taken off, the setting changed. Vehicle Framework keeps a turret's manned state until something asks it again.
+    /// </summary>
+    void CheckGuns()
+    {
+        if (!RemoteGuns.HasAny(Vehicle)) return;
+        var now = RemoteGuns.MayFire(Vehicle);
+        if (gunsMayFire == now) return;
+        gunsMayFire = now;
+        RemoteGuns.Recache(Vehicle);
     }
 
     /// <summary>Its link now, and the state that follows from it.</summary>
@@ -131,6 +161,12 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         var source = RemoteControl.SourceFor(vehicle);
         var want = source != null && Wanted;
         var link = want ? source!.LinkOf(vehicle) : default;
+        var hadPicture = picture;
+        picture = link.Linked && link.Picture;
+        if (picture != hadPicture && Seen.Wants("vehicles.remote-picture", vehicle, picture ? "won" : "lost"))
+        {
+            Seen.Note("vehicles.remote-picture", vehicle, vehicle.LabelShort, picture ? "won" : "lost");
+        }
         var now = Find.TickManager.TicksGame;
         if (link.Linked)
         {
@@ -200,6 +236,7 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         state = RemoteState.Off;
         lostSinceTick = -1;
         comeBackCell = IntVec3.Invalid;
+        picture = false;
     }
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
@@ -242,7 +279,8 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         return state switch
         {
             RemoteState.Unlinked => "PhobosRemote_InspectUnlinked".Translate(),
-            RemoteState.Linked => "PhobosRemote_InspectLinked".Translate(),
+            // Orders and picture, or orders only (Framework 0.280.0): in Plain display the record's words, never a figure.
+            RemoteState.Linked => picture ? "PhobosRemote_InspectLinkedPicture".Translate() : "PhobosRemote_InspectLinked".Translate(),
             RemoteState.Waiting => "PhobosRemote_InspectWaiting".Translate(),
             RemoteState.Holding => "PhobosRemote_InspectHolding".Translate(),
             RemoteState.ComingBack => "PhobosRemote_InspectComingBack".Translate(),
