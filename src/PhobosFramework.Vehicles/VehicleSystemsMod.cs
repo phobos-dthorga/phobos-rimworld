@@ -218,6 +218,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A resting caravan's cooks turn its raw food into simple meals at a field kitchen it carries, once a night (Framework 0.121.0;
     /// vehicle-field-kitchen.md; owner, 13 Nov 2026: a setting, on by default). Live.</summary>
     public bool caravanCooking = true;
+    /// <summary>A trailer's waste tank has a dump valve onto the ground (Framework 0.283.0; the owner's card of 25 Nov 2026). Its risk is low
+    /// (ordered, seen, stopped at will: fouled ground and colonists who walk through it), so on by default (the shared risk rule). Live.</summary>
+    public bool trailerWasteDump = true;
     /// <summary>A jump-start needs a crafted jump-start kit, in stock or aboard (owner, 8 Nov 2026: default on). Live.</summary>
     public bool jumpStartNeedsKit = true;
     /// <summary>Every vehicle is assumed to carry a booster pack, so a jump-start needs no other vehicle (owner, 8 Nov 2026: off). Live.</summary>
@@ -323,6 +326,7 @@ public class VehicleSystemsSettings : ModSettings
         "raidersArriveByAir" => raidersArriveByAir,
         "stockHelicoptersFly" => stockHelicoptersFly,
         "caravanCooking" => caravanCooking,
+        "trailerWasteDump" => trailerWasteDump,
         "jumpStartNeedsKit" => jumpStartNeedsKit,
         "assumeBoosterPack" => assumeBoosterPack,
         "cabMoods" => cabMoods,
@@ -413,6 +417,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref raidersArriveByAir, "PhobosVehicleSystems_RaidersArriveByAir", true);
         Scribe_Values.Look(ref stockHelicoptersFly, "PhobosVehicleSystems_StockHelicoptersFly", false);
         Scribe_Values.Look(ref caravanCooking, "PhobosVehicleSystems_CaravanCooking", true);
+        Scribe_Values.Look(ref trailerWasteDump, "PhobosVehicleSystems_TrailerWasteDump", true);
         Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
         Scribe_Values.Look(ref assumeBoosterPack, "PhobosVehicleSystems_AssumeBoosterPack", false);
         Scribe_Values.Look(ref cabMoods, "PhobosVehicleSystems_CabMoods", true);
@@ -772,6 +777,7 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Section("PhobosVehicleSettings_SectionCamps".Translate());
         list.Check("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, d.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingCaravanCooking".Translate(), ref s.caravanCooking, d.caravanCooking, "PhobosVehicleSystems_SettingCaravanCookingDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingTrailerWasteDump".Translate(), ref s.trailerWasteDump, d.trailerWasteDump, "PhobosVehicleSystems_SettingTrailerWasteDumpDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingDriveThroughNight".Translate(), ref s.driveThroughNight, d.driveThroughNight, "PhobosVehicleSystems_SettingDriveThroughNightDesc".Translate());
         list.SliderInt("PhobosVehicleSystems_SettingParkedWarning".Translate(s.parkedWarningDays.Named("DAYS")), ref s.parkedWarningDays, d.parkedWarningDays, 0, 14,
             "PhobosVehicleSettings_ParkedWarningDesc".Translate());

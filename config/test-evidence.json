@@ -3,6 +3,17 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "503": {"parts": {
+      "the waste tank stays beneath a parked, packed trailer": ["trailers.waste-tank-parked"],
+      "it drains into the colony's sewer": ["trailers.waste-to-sewer"],
+      "the dump valve runs it onto the ground": ["trailers.waste-dump"]
+    }},
+    "502": {"parts": {
+      "the pump runs off the grid hook-up": [{"key": "trailers.electric-pump", "variant": "Grid"}],
+      "the pump runs off the set-out power point": [{"key": "trailers.electric-pump", "variant": "PowerPoint"}],
+      "the pump runs off the towing vehicle's battery": [{"key": "trailers.electric-pump", "variant": "TowingVehicle"}, "trailers.electric-pump-in-tow"]
+    }},
+    "501": ["trailers.packed-pump"],
     "499": ["vehicles.mech-link"],
     "498": {"parts": {
       "a loop starts": ["vehicles.route-loop"],

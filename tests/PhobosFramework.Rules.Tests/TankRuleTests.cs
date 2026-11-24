@@ -128,4 +128,24 @@ public class TankRuleTests
 
     [Fact]
     public void TheBlastNeverPassesItsCap() => Assert.Equal(15f, TankRule.ExplosionRadius(4500f, 4500f, 12f, 1.4f, 15f), 3);
+
+    [Theory]
+    [InlineData(false, false, false, true)]
+    [InlineData(true, false, true, false)]
+    [InlineData(true, true, false, false)]
+    [InlineData(true, true, true, true)]
+    public void ATrailerPushesOnlyWithAPoweredPump(bool needsPower, bool fitted, bool powered, bool expected) =>
+        Assert.Equal(expected, TankRule.Pushes(needsPower, fitted, powered));
+
+    [Theory]
+    [InlineData(true, false, true)]
+    [InlineData(false, true, true)]
+    [InlineData(false, false, false)]
+    public void EitherPumpMovesALoadBetweenTanks(bool giver, bool taker, bool expected) => Assert.Equal(expected, TankRule.Transfers(giver, taker));
+
+    [Fact]
+    public void ADrainLetsGoItsRate() => Assert.Equal(75f, TankRule.Drained(1000f, 300f, 0.25f), 3);
+
+    [Fact]
+    public void ADrainNeverLetsGoMoreThanIsHeld() => Assert.Equal(20f, TankRule.Drained(20f, 300f, 0.25f), 3);
 }

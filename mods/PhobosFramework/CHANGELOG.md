@@ -13,6 +13,36 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.283.0] - 2026-11-25 - Draft
+
+Tank trailers' electric pump, and emptying the shower trailer's waste tank
+
+### Added
+
+- **Tank trailers need a powered pump to push their load out** (the owner's cards of 25 November 2026). A trailer has no engine: with
+  the new Electric pump upgrade fitted (D'thorga Vehicles) it runs off the grid through a conduit touching it where it is parked, off a
+  power point it has set out, or off the towing vehicle's battery (a new trailer pump line on that vehicle's Systems tab, about 60 A at
+  12 volts, shed early). Without, it works by gravity: it can be filled, and emptied by a pump beside it, but pushes nothing out, and
+  its pane says why. Two tanks pass a load only with a pump on one side. Not yet tested in game: row 502.
+- **A tank trailer may pump while packed** where its Def says so (the shower trailer): its Load, Unload and Hold buttons show while it
+  stands, parked or on a hitch whose vehicle has stopped. Not yet tested in game: row 501.
+- **The shower trailer's waste tank is emptied four ways, set up or not.** It stays beneath the trailer whenever it is parked; plumbed
+  to a colony septic tank, treatment plant or outlet it drains into them by itself (300 units an hour); an Empty at button sets when
+  colonists empty it into sludge drums (10 to 75 percent, or never); and an Open dump valve button runs it onto the ground as Dubs
+  Bad Hygiene's sewage, closing itself when empty. Not yet tested in game: row 503.
+- **A new setting, "Trailers can dump waste on the ground"**, on by default, in the Vehicle Systems settings under Cabs, camps and
+  caravans. Off, the dump valve's button is hidden.
+
+### Compatibility and limits
+
+- **A bowser without the electric pump no longer delivers by itself**, including one already set up on Unload in a save: fit the
+  upgrade and give it power. Loading needs no pump. Road top-ups from a towed bowser are unchanged (its tap fills cans by gravity).
+- The pump's 750 W and the drain's 300 units an hour are authored figures. The dump valve is a button, not a colonist's job.
+
+### Save compatibility
+
+- Safe on an existing save. A parked shower trailer lays its waste tank at its next look; hitching takes it up with its waste aboard.
+
 ## [0.282.0] - 2026-11-25 - Draft
 
 Mechlinked vehicles: a mechanitor drives a vehicle through their bandwidth

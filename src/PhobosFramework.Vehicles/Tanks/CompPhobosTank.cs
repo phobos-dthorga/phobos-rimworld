@@ -108,6 +108,10 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
 
     /// <summary>Why the pump last did nothing, for the inspect line. Derived, never saved.</summary>
     string? pumpStatus;
+    /// <summary>When the towing vehicle last ran this trailer's electric pump through its lead (TrailerPumpInTow). Derived, never saved.</summary>
+    int poweredInTowTick = -TowWordLastsTicks - 1;
+    /// <summary>Word from the towing vehicle holds for two of its looks, as a cold box's does.</summary>
+    const int TowWordLastsTicks = 2 * GenTicks.TickRareInterval;
 
     public CompProperties_PhobosTank Props => (CompProperties_PhobosTank)props;
     public float Temperature => temperature;
@@ -272,7 +276,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
     public override void PostDraw()
     {
         base.PostDraw();
-        if (!deployed || mode == TankPumpMode.Hold || pumpStatus != null || Fitted == null) return;
+        if (!PumpReady || mode == TankPumpMode.Hold || pumpStatus != null || Fitted == null) return;
         float capacity = CompartmentCapacity;
         if (capacity > 0f) Phobos.Framework.Interface.MapProgressBar.DrawOver(Vehicle, Amount / capacity);
     }
@@ -374,13 +378,14 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         base.CompTickRare();
         leaking = false;
         RareTank();
+        MeterPump();
         SyncSounds();
     }
 
     /// <summary>The pump while it moves a load, and a leak while one runs (docs/development/sound-catalogue.md). Presentation only.</summary>
     void SyncSounds()
     {
-        VehicleWorkSounds.Loop(Vehicle, "Pump", deployed && mode != TankPumpMode.Hold && pumpStatus == null);
+        VehicleWorkSounds.Loop(Vehicle, "Pump", PumpReady && mode != TankPumpMode.Hold && pumpStatus == null);
         VehicleWorkSounds.Loop(Vehicle, "Leak", leaking);
     }
 
@@ -394,7 +399,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         {
             temperature = outside;
             ventWarned = false;
-            if (fitting != null && deployed) Pump();
+            if (fitting != null && PumpReady) Pump();
             return;
         }
         temperature = TankRule.NextTemperature(temperature, outside, HoursPerRareTick, fitting.hoursToOutside);
@@ -402,7 +407,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         Leak();
         Vent(outside);
         Spoil(fitting);
-        if (deployed) Pump();
+        if (PumpReady) Pump();
     }
 
     bool Burst()
@@ -526,12 +531,85 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
     protected override bool NeedsEngineNow => !ElectricPump;
 
     /// <summary>Set up, pumping in or out, and not stalled: when the electric pump draws on the battery.</summary>
-    public bool PumpWorking => deployed && mode != TankPumpMode.Hold && !stalled;
+    public bool PumpWorking => PumpReady && mode != TankPumpMode.Hold && !stalled;
+
+    // ---- Pumping while packed, and a trailer's electric pump (Framework 0.283.0; the owner's cards of 25 Nov 2026) ----
+
+    /// <summary>
+    /// Whether it may pump though packed: a trailer whose Def lets it (the shower trailer), standing still, unhitched or on a hitch whose
+    /// towing vehicle has stopped.
+    /// </summary>
+    public bool PumpsPackedNow =>
+        Props.pumpsPacked && !deployed && Fitted != null && Vehicle.Spawned && !StillMoving
+        && !(Hitches.Towing(Vehicle) is { } towedBy && towedBy.Vehicle.vehiclePather is { Moving: true });
+
+    /// <summary>Set up, or standing packed where its Def lets it pump.</summary>
+    public bool PumpReady => deployed || PumpsPackedNow;
+
+    /// <summary>Whether the pump buttons are offered: set up, or a trailer that pumps packed and stands on the map.</summary>
+    public bool OffersPumpModes => deployed || (Props.pumpsPacked && Fitted != null && Vehicle.Spawned);
+
+    /// <summary>Whether its electric pump asks for power now: fitted on a trailer that needs it, and pumping.</summary>
+    public bool PumpWantsPower => Props.needsPumpPower && ElectricPump && PumpReady && mode != TankPumpMode.Hold && !stalled;
+
+    /// <summary>What the trailer's electric pump draws through a lead now, in watts: its own figure while it asks for power.</summary>
+    public float PumpWattsWanted => PumpWantsPower ? Props.electricPumpWatts : 0f;
+
+    /// <summary>The towing vehicle runs the pump through the trailer's lead now (TrailerPumpInTow.Power).</summary>
+    internal void PoweredInTow(int tick) => poweredInTowTick = tick;
+
+    bool PoweredInTowNow
+    {
+        get
+        {
+            int since = Find.TickManager.TicksGame - poweredInTowTick;
+            return since >= 0 && since <= TowWordLastsTicks && Hitches.Towing(Vehicle) != null;
+        }
+    }
+
+    /// <summary>The grid hook-up beneath a parked trailer (VehicleConduits), when it has one.</summary>
+    CompPowerTrader? PumpMeter => Props.needsPumpPower && Vehicle.GetComp<CompPhobosTrailer>() is { } trailer ? VehicleConduits.Meter(trailer) : null;
+
+    /// <summary>
+    /// Where the electric pump's power comes from now: the power point of what it has set out, the grid through the hook-up beneath it, or
+    /// the towing vehicle's battery through its lead. Null with none.
+    /// </summary>
+    public TrailerPumpPower PumpPowerSource
+    {
+        get
+        {
+            if (Vehicle.GetComp<CompPhobosSetOut>() is { Powered: true }) return TrailerPumpPower.PowerPoint;
+            if (PumpMeter is { PowerOn: true, PowerNet.HasActivePowerSource: true }) return TrailerPumpPower.Grid;
+            if (PoweredInTowNow) return TrailerPumpPower.TowingVehicle;
+            return TrailerPumpPower.None;
+        }
+    }
+
+    /// <summary>Whether the pump can push its load out now: always for a truck's tank; for a trailer, its electric pump fitted and powered.</summary>
+    public bool PumpPushes =>
+        TankRule.Pushes(Props.needsPumpPower, ElectricPump, Props.needsPumpPower && ElectricPump && PumpPowerSource != TrailerPumpPower.None);
+
+    /// <summary>
+    /// Asks the grid hook-up for the pump's draw while it runs on it, and nothing otherwise, so the grid pays for what it gives. While a
+    /// set-out power point is wired, the point carries it instead (CompPhobosSetOut counts this as one of its loads).
+    /// </summary>
+    void MeterPump()
+    {
+        if (PumpMeter is not { } meter) return;
+        bool onPoint = Vehicle.GetComp<CompPhobosSetOut>() is { Powered: true };
+        meter.PowerOutput = PumpWantsPower && !onPoint ? -Props.electricPumpWatts : 0f;
+    }
+
+    /// <summary>Why the trailer's pump cannot push now, for the inspect line: no electric pump, or no power for it.</summary>
+    string NoPushLine => ElectricPump
+        ? "PhobosTank_PumpNoPower".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve()
+        : "PhobosTank_PumpGravityOnly".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
 
     /// <summary>Why the electric pump cannot run on the battery now (the engine off and the battery flat), or null.</summary>
     string? BatteryPumpRefusal()
     {
-        if (!ElectricPump) return null;
+        // A trailer's electric pump runs on a lead, never a battery of its own (Framework 0.283.0): its power is PumpPowerSource's.
+        if (!ElectricPump || Props.needsPumpPower) return null;
         CompPhobosVehicleSystems? systems = Vehicle.GetComp<CompPhobosVehicleSystems>();
         if (systems == null || systems.EngineRunning) return null;
         return Feeds.Refusal(systems, ElectricPumpFeed, "PhobosVehicleSystems_TankPumpName".Translate().Resolve());
@@ -554,13 +632,13 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
     /// <summary>What it is giving to another tank, for the inspect line. Derived, never saved.</summary>
     string? transferStatus;
 
-    /// <summary>Whether this tank is set up, pumping out, and has this fluid in its selected compartment to give.</summary>
+    /// <summary>Whether this tank is set up (or pumping packed), pumping out, and has this fluid in its selected compartment to give.</summary>
     bool GivesNow(PhobosTankContentsDef fluid) =>
-        deployed && mode == TankPumpMode.Unload && !stalled && Selected.contents == fluid && Selected.HasLoad && PumpBlocked() == null;
+        PumpReady && mode == TankPumpMode.Unload && !stalled && Selected.contents == fluid && Selected.HasLoad && PumpBlocked() == null;
 
-    /// <summary>Whether this tank is set up, pumping in, set to this fluid, with room and a sound shell.</summary>
+    /// <summary>Whether this tank is set up (or pumping packed), pumping in, set to this fluid, with room and a sound shell.</summary>
     bool TakesNow(PhobosTankContentsDef fluid) =>
-        deployed && mode == TankPumpMode.Load && !stalled && Selected.contents == fluid && Space > 0.5f && ShellTakesLoad && PumpBlocked() == null;
+        PumpReady && mode == TankPumpMode.Load && !stalled && Selected.contents == fluid && Space > 0.5f && ShellTakesLoad && PumpBlocked() == null;
 
     /// <summary>The player's other tanks within reach of the hose.</summary>
     IEnumerable<CompPhobosTank> TanksBeside()
@@ -573,9 +651,12 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         }
     }
 
-    CompPhobosTank? GiverBeside(PhobosTankContentsDef fluid) => TanksBeside().FirstOrDefault(tank => tank.GivesNow(fluid));
+    // Framework 0.283.0: a load passes between two tanks only with a pump on one side (TankRule.Transfers); two trailers by gravity alone move nothing.
+    CompPhobosTank? GiverBeside(PhobosTankContentsDef fluid) =>
+        TanksBeside().FirstOrDefault(tank => tank.GivesNow(fluid) && TankRule.Transfers(tank.PumpPushes, PumpPushes));
 
-    CompPhobosTank? LoaderBeside(PhobosTankContentsDef fluid) => TanksBeside().FirstOrDefault(tank => tank.TakesNow(fluid));
+    CompPhobosTank? LoaderBeside(PhobosTankContentsDef fluid) =>
+        TanksBeside().FirstOrDefault(tank => tank.TakesNow(fluid) && TankRule.Transfers(PumpPushes, tank.PumpPushes));
 
     /// <summary>Gives up to <paramref name="most"/> of its selected compartment to another tank's compartment, which the caller then adds to; returns what
     /// moved. The worse water of the two is kept (Dubs Bad Hygiene's contamination).</summary>
@@ -616,7 +697,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         // The electric pump with the engine off runs on the battery, and waits while it is flat (Framework 0.116.0, W3).
         pumpStatus = BatteryPumpRefusal();
         if (pumpStatus != null) return;
-        if (ElectricPump && Vehicle.GetComp<CompPhobosVehicleSystems>() is { EngineRunning: false }) Seen.Note("vehicles.tank-pump-on-battery", Vehicle);
+        if (ElectricPump && !Props.needsPumpPower && Vehicle.GetComp<CompPhobosVehicleSystems>() is { EngineRunning: false }) Seen.Note("vehicles.tank-pump-on-battery", Vehicle);
         float rate = Vehicle.GetStatValue(TankDefOf.Phobos_PumpRate);
         if (mode == TankPumpMode.Load)
         {
@@ -635,6 +716,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
             // Another tank beside it, set up and pumping out the same, comes first (Framework 0.111.0): the tanker fills a bowser, or a bowser a tanker.
             float moved = GiverBeside(fluid) is { } giver ? giver.GiveTo(compartment, most) : RunPorts(fluid, most, load: true);
             if (moved <= 0f) return;
+            if (!deployed && Seen.Wants("trailers.packed-pump", Vehicle)) Seen.Note("trailers.packed-pump", Vehicle, moved.ToString("0") + " " + fluid.defName);
             if (tankWasEmpty) temperature = ArrivalTemperature(fluid, Outside);
             compartment.residue = null;
             compartment.amount += moved;
@@ -651,6 +733,16 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         {
             transferStatus = "PhobosTank_InspectGivingTo".Translate(loader.Vehicle.LabelShort.Named("OTHER")).Resolve();
             return;
+        }
+        // A trailer with no powered pump pushes nothing out by itself (Framework 0.283.0): it is emptied only by a pump beside it, above.
+        if (!PumpPushes)
+        {
+            pumpStatus = NoPushLine;
+            return;
+        }
+        if (Props.needsPumpPower && Seen.Wants("trailers.electric-pump", Vehicle))
+        {
+            Seen.Note("trailers.electric-pump", Vehicle, PumpPowerSource.ToString(), PumpPowerSource.ToString());
         }
         float given = RunPorts(fluid, TankRule.Moved(rate, HoursPerRareTick, ThickFactor(fluid), compartment.amount, float.MaxValue), load: false);
         if (given <= 0f) return;
@@ -1034,8 +1126,13 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         for (int i = 0; i < Compartments.Count; i++) lines.Add(InspectLine(Compartments[i], i, room));
         if (HasLoad) lines.Add("PhobosVehicleSystems_TankInspectTemperature".Translate(temperature.ToStringTemperature("F0").Named("TEMPERATURE")).Resolve());
         if (NeedsPurge) lines.Add("PhobosVehicleSystems_TankInspectNeedsPurge".Translate(ResidueLabels.Named("CONTENTS")).Resolve());
-        if (deployed && pumpStatus != null) lines.Add(pumpStatus);
-        if (deployed && transferStatus != null) lines.Add(transferStatus);
+        if (PumpReady && pumpStatus != null) lines.Add(pumpStatus);
+        if (PumpReady && transferStatus != null) lines.Add(transferStatus);
+        // Framework 0.283.0: a trailer pumping packed waits while it is towed along.
+        if (!PumpReady && OffersPumpModes && mode != TankPumpMode.Hold)
+        {
+            lines.Add("PhobosTank_PackedPumpWaits".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve());
+        }
         if (HandOrderLine is { } waiting) lines.Add(waiting);
         return string.Join("\n", lines);
     }

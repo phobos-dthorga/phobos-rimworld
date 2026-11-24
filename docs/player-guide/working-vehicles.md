@@ -315,15 +315,24 @@ the tank means water, an orange one fuel** (repaint either as you like).
      plumbing it touches. Parked, it lays hidden plumbing under itself, so a pipe touching any side joins it. It keeps the worst water
      it was filled with. **Water freezes in it below 0 °C.**
 4. **Tank to tank:** one tank set up on **Unload**, another within reach of its hose on **Load**, both holding the same: the loading one
-   pumps from the other at its own pump's rate. The tanker fills a bowser this way, and a bowser fills the tanker.
+   pumps from the other at its own pump's rate. The tanker fills a bowser this way, and a bowser fills the tanker. **One of the two
+   needs a working pump** (see below): two bowsers with no electric pump between them move nothing.
 5. **Pack up** before you hitch it (1,000 work). A colonist comes for that too, and the pump holds at once. **A bowser cannot be
    hitched while it is set up, or while a colonist is on the way to set it up.**
 
 **Its weight is the towing vehicle's to pull**: a full bowser weighs about 4.5 tonnes with water, 4 with fuel.
 
+**A trailer has no engine, so its pump needs the Electric pump upgrade and power.** Without both, a bowser works **by gravity only**:
+it can still be **filled** (plumbing, a chemfuel line or stacks put load in), and **emptied by a pump beside it** (the tanker, or a
+trailer that has one), but it **pushes nothing out by itself**, and its inspect pane says so. With the pump fitted, it runs off:
+- **the grid**: run a conduit to any side of the parked trailer, and the grid pays the pump's 750 W while it pumps;
+- **a power point** a trailer has set out (the shower trailer's, while its tent is up);
+- **the towing vehicle's battery** (the shower trailer, which pumps while hitched to a vehicle that has stopped): its Systems tab
+  gains a **trailer pump** line, about 60 amps on a 12-volt vehicle, so a long pump-out runs the battery down.
+
 **Upgrades:** a **lagged tank** (the load takes four times as long to reach the outside temperature, so water freezes later and fuel
 stays thin longer in the cold; it shows as a padded jacket) and a **second hose** (half as much again an hour; a second reel across the
-front). The pump has no sound of its own yet; the hoses, relief valve, leaks and purges sound as the tanker's do.
+front), and the **electric pump** above. The pump has no sound of its own yet; the hoses, relief valve, leaks and purges sound as the tanker's do.
 
 ## Billy field kitchen
 
@@ -403,14 +412,25 @@ water tank, two showers and two flushing toilets.
    with **two showers and two toilets** inside, a **water heater** outside the tent and a **power point**. Everything is plumbed into
    the trailer.
 3. **Fill its tank**: set a water bowser beside it on **Unload** and the shower trailer on **Load**, or fill it from plumbing with a
-   water tower. Every shower and flush comes off its tank.
+   water tower. Every shower and flush comes off its tank. **No need to set it up first**: the shower trailer shows **Load**,
+   **Unload** and **Hold** while packed too, parked or on a hitch whose vehicle has stopped. To pump its water **out**, it needs the
+   **electric pump** and power, as the bowsers do (above); filling needs neither, but one of the two tanks needs a pump.
 4. **Fuel the water heater with chemfuel.** It burns only while the showers want hot water. Plugged in, it **burns half the chemfuel**.
    Without hot water, people wash cold and dislike it.
-5. **The waste tank** fills as the toilets are used (about 70 flushes). Your colonists empty it into **sludge drums** when it is half
-   full, as they do a septic tank, or a tanker parked against the trailer's rear can pump it out. Its inspect pane shows how full it is.
-6. **Pack up** before towing: the water in its pipes goes back into the tank, and the waste stays aboard.
+5. **The waste tank** fills as the toilets are used (about 70 flushes); **showers add nothing to it**. It stays beneath the trailer
+   whenever it is parked unhitched, **set up or packed**, and its inspect pane shows how full it is. Four ways to empty it:
+   - **Sludge drums**: your colonists empty it at the level its **Empty at** button sets (10, 25, 50 or 75 % full, or never; 50 % to
+     start, as Dubs' septic tanks).
+   - **A sewer**: plumb it to a septic tank, treatment plant or sewage outlet, and its waste drains into them by itself, about 300
+     units an hour (the whole tank in a little over three hours). **Your colony's toilets never drain into the trailer.**
+   - **A sludge tanker**: the tanker, set to fecal sludge and parked against the trailer's rear on **Load**, pumps it out.
+   - **The dump valve**: **Open dump valve** lets it run onto the ground beside the trailer as Dubs' sewage, which fouls the ground,
+     smells and can make colonists who walk through it ill. It closes by itself when the tank is empty. Turn the button off with
+     **Trailers can dump waste on the ground** in D'thorga Framework's settings.
+6. **Pack up** before towing: the water in its pipes goes back into the tank, and the waste stays aboard. Hitching takes the waste tank
+   up too, with its waste, and closes the dump valve.
 
-**Upgrades:** the water bowser's **lagged tank** and **second hose**, and a **third shower**.
+**Upgrades:** the water bowser's **lagged tank**, **second hose** and **electric pump**, and a **third shower**.
 
 ## Ullage bulk tanker
 

@@ -56,9 +56,13 @@
       <li Class="DubsBadHygiene.CompProperties_Pipe">
         <mode>Sewage</mode>
       </li>
+      <!-- Priority -1 (Vehicles 0.118.0; it was 2, level with Dubs' treatment plant and above its septic tank's 1): Dubs sends a net's
+           sewage to its highest priority, so a trailer joined to the colony's plumbing took the colony's toilets' waste. Below everything
+           of Dubs' (its outlet is 0), it takes only its own toilets' waste, and only when nothing else on its pipes can; D'thorga
+           Framework drains it into them by gravity (the sewer hookup). -->
       <li Class="DubsBadHygiene.CompProperties_SepticTank">
         <capacity>1000</capacity>
-        <priority>2</priority>
+        <priority>-1</priority>
         <TreatedPerDay>0</TreatedPerDay>
       </li>
     </comps>

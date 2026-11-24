@@ -1,6 +1,6 @@
 # Working trailers: the shared base and a catalogue (13 Nov 2026)
 
-**Status (22 Nov 2026):** built in D'thorga Framework 0.111.0, 0.121.0, 0.133.0 and 0.216.0 (and Vehicles 0.54.0 to 0.56.0, 0.59.0 and 0.97.0): set up and pack up by hand (B0.1), the hitch that respects it (B0.2), the power lead (B0.3), set-out pieces and canvas rooms (B0.4), the Pintle flatbed at 3 x 7, the water and fuel bowsers (Q3, Q4), the Billy field kitchen (Q1), the shower trailer (Q7) a trailer's own systems (tyres, our Health tab), water on the road ([what was built](#water-on-the-road-22-nov-2026)) and the flatbed as a camper trailer; not built: the dry-goods locker and every other trailer in the catalogue. Not yet tested in game.
+**Status (22 Nov 2026):** built in D'thorga Framework 0.111.0, 0.121.0, 0.133.0 and 0.216.0 (and Vehicles 0.54.0 to 0.56.0, 0.59.0 and 0.97.0): set up and pack up by hand (B0.1), the hitch that respects it (B0.2), the power lead (B0.3), set-out pieces and canvas rooms (B0.4), the Pintle flatbed at 3 x 7, the water and fuel bowsers (Q3, Q4), the Billy field kitchen (Q1), the shower trailer (Q7) a trailer's own systems (tyres, our Health tab), water on the road ([what was built](#water-on-the-road-22-nov-2026)) and the flatbed as a camper trailer, and (Framework 0.283.0, Vehicles 0.118.0) the tank trailers' electric pump and the shower trailer's waste tank ([what was built](#tank-trailers-pumps-and-the-shower-trailers-waste-framework-02830-vehicles-01180-25-nov-2026)); not built: the dry-goods locker and every other trailer in the catalogue. Not yet tested in game.
 
 How camping and life aboard work now: [systems/camping-and-life-aboard.md](systems/camping-and-life-aboard.md); this record keeps its history.
 
@@ -577,6 +577,86 @@ by the agent on 21 Nov 2026 and listed as open; the owner said proceed on 22 Nov
   is worked out again, the game's sum is run with and without the food in the chosen vehicles' trailers and the difference added to Vehicle
   Framework's figure, so its route and speed stay in it (`TowedLarderForming`); a trailer chosen to go by itself is counted already.
 
+## Tank trailers' pumps and the shower trailer's waste (Framework 0.283.0, Vehicles 0.118.0, 25 Nov 2026)
+
+The owner asked (25 Nov 2026) for the Billy and the shower trailer to take water without setting up, for showers to add nothing to the
+waste tank, and for ways to empty the waste tank set up or not; then, mid-work, "What if we introduce an electrical pump upgrade?".
+Their cards of the same day chose everything below marked **owner**.
+
+**What was found first** (read in Dubs Bad Hygiene 1.7 with `query-code`):
+
+- **Showers add no waste**: only toilets, latrines and washing machines call `PlumbingNet.PushSewage` (`Building_toilet.TryUseFlush`,
+  `Building_Latrine.TryUseFlush`, `Building_WashingMachine.Tick`); a basin's and a bath's `sewageUsedPerTick` are never read. Our road
+  washing adds nothing either. Nothing to change.
+- **The Billy already fills while packed** (Framework 0.219.0, row 336): its own water's hidden tank lies beneath it whenever it is
+  parked. Nothing to change; row 336 waits on the owner's look.
+- **The shower trailer's pump ran only while set up**, and its set-up is the tent.
+- **Fault: the waste tank outranked Dubs' septic tanks.** Its stand-in had priority 2 (Dubs' septic tank 1, treatment plant 2, outlet
+  0), and `PushSewage` sends all waste to the highest unblocked priority on a net, so a set-up shower trailer joined to the colony's
+  plumbing took the colony's toilets' waste. The owner had noticed it too.
+- **A trailer's pump needed no power at all**: no engine, yet 400 L an hour for free.
+
+### What was built
+
+| Piece | Choice | Where |
+| --- | --- | --- |
+| The shower trailer pumps while packed: Load, Unload and Hold, parked or on a hitch whose vehicle has stopped | owner | `CompPhobosTank.PumpsPackedNow`, `pumpsPacked` |
+| An **Electric pump** upgrade on all four Pintle tank trailers (water, fuel and paste bowsers, shower trailer) | owner | the four trees and bills |
+| Without it, or without power, a tank trailer works by gravity: it can be filled, and emptied by a pump beside it, but pushes nothing out | owner | `TankRule.Pushes`, `TankRule.Transfers` |
+| Its power: the set-out power point, the grid through the hook-up conduit beneath it when parked, or the towing vehicle's battery | owner (point and tow battery); grid hook-up for "power point when parked" is the agent's reading | `PumpPowerSource`, `VehicleConduits`, `TrailerPumpInTow` |
+| The waste tank stays beneath the trailer whenever it is parked, packed or not | owner | `CompPhobosTrailerPlumbing.SettleOwnWater` |
+| Its priority drops to -1, below everything of Dubs' | owner (fault fix) | `Phobos_TrailerSepticStandIn` |
+| Sewer hookup: plumbed to a colony septic tank, treatment plant or outlet, its waste drains into them by gravity at 300 units an hour | owner; the rate is authored | `DrainToSewer` |
+| "Empty at" levels for Dubs' haulers: 10, 25, 50 (Dubs' default), 75 % or never | owner; the levels are the agent's | `TrailerWasteGizmos` |
+| A dump valve onto the ground, as Dubs' own sewage, 300 units an hour, closing itself when empty; its own setting, on | owner; the setting and its default follow the shared risk rule | `Dump`, `trailerWasteDump` |
+
+**Agent choices, for the owner to revise:**
+
+- **"Power point when parked" is the grid hook-up.** A parked trailer with the electric pump gets the same hidden hook-up conduit a
+  parked vehicle with a battery has (Framework 0.108.0, 0.120.0): a conduit touching any side joins it to the grid, which pays the
+  pump's 750 W while it runs. No second building beside a packed trailer. The shower trailer's set-out power point still powers it
+  while the tent is up.
+- **The bowsers keep their set-up as their pumping state** (it is their hoses out). Only the shower trailer pumps packed, because its
+  set-up is a tent. So the towing vehicle's battery serves only the shower trailer; a bowser can't be set up while hitched.
+- **Loading needs no pump.** Plumbing's towers, a fuel line and poured stacks all push or fall into the tank. A simplification: a real
+  tank fed from a vehicle's fuel tank would need a pump.
+- **Road top-ups are unchanged.** On the road a towed bowser's tap fills cans by gravity, which the stop time already counts.
+- **The dump valve is a button, not a colonist's job**, as the tank's pump modes are buttons. The valve closes by itself when the
+  tank is empty, and on hitching.
+- **750 W** for the pump (a one-horsepower transfer pump; about 60 A from a 12-volt battery), **300 units an hour** for the drain, and
+  a dump radius of 3.9 cells: authored.
+
+### The four questions
+
+- **What it lets the player do**: fill the shower trailer without pitching its tent; empty its waste tank without setting up, into
+  the colony's sewers, by hand into drums at a chosen level, by a sludge tanker, or onto the ground; run a trailer's pump off the grid
+  or the towing vehicle.
+- **What it stops them doing**: pumping a tank trailer out for free. Without the electric pump fitted and powered, a bowser can no
+  longer deliver by itself: **a bowser already set up on Unload in a save stops delivering until the upgrade is fitted**. The colony's
+  toilets no longer fill a shower trailer.
+- **How it changes the way they play**: the electric pump becomes the first upgrade for a working bowser, and its power a planning
+  question (a conduit to the parking spot, or a tractor left standing with a charged battery). The waste tank becomes something to
+  plumb or service rather than a dead end once full.
+- **What outside the trailer notices**: the colony's grid pays for the pump, and the towing vehicle's battery runs down (shed with
+  the camp lights, so the starter outlasts it). Dubs' own colonists empty the waste tank and its sewers take the waste; dumped waste
+  is Dubs' sewage on the map, which fouls the ground, smells and can make colonists who walk through it ill.
+
+### Risk
+
+- **The dump valve: low.** The player orders it and sees it: the waste runs out at a fixed rate beside the trailer, the button and
+  the inspect line say so, and closing the valve stops it. What is at risk is a fouled patch of ground and colonists who walk through
+  it. Its own setting, **"Trailers can dump waste on the ground"**, starts on (the shared rule: on unless high).
+- **Gravity only: not a risk to things or people**; it can halt a delivery, which the inspect line names.
+
+### Other factions' vehicles
+
+The pump rules work on any faction's tank trailer; only the player's are parked for pipes, so another faction's trailer never lays a
+hook-up or waste tank. A captured trailer keeps its upgrades and follows the player's rules at once.
+
+### Not yet tested in game
+
+Rows 501 to 504.
+
 ## Upgrade trees as they stand
 
 **The tree as it stands**, drawn from its Defs by `python scripts/check-upgrade-trees.py --write` and kept current by the gate (never edit it by hand): a box holds alternatives, an arrow is what an upgrade needs, an "any one" joint is one of our any-of links, a crossed line joins two that cannot both be fitted, and a dashed node comes only with a tie-in.
@@ -599,6 +679,7 @@ flowchart TB
 flowchart TB
   PhobosBowserLagging["Lagged tank"]
   PhobosBowserSecondHose["Second hose"]
+  PhobosTrailerElectricPump["Electric pump"]
 ```
 
 ### The water bowser (Dubs Bad Hygiene)
@@ -608,6 +689,7 @@ flowchart TB
 flowchart TB
   PhobosBowserLagging["Lagged tank"]
   PhobosBowserSecondHose["Second hose"]
+  PhobosTrailerElectricPump["Electric pump"]
 ```
 
 ### The shower trailer (Dubs Bad Hygiene)
@@ -618,6 +700,7 @@ flowchart TB
   PhobosBowserLagging["Lagged tank"]
   PhobosBowserSecondHose["Second hose"]
   PhobosShowerThirdShower["Third shower"]
+  PhobosTrailerElectricPump["Electric pump"]
 ```
 
 ## Questions for the owner

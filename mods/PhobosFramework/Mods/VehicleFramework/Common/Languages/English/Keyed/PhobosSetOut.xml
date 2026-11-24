@@ -50,6 +50,27 @@
   <PhobosKettleWater_NotEnough>Not enough water: each batch needs {LITRES} L. Fill the kitchen's tank from a water bowser or plumbing.</PhobosKettleWater_NotEnough>
   <PhobosTrailerPlumbing_InspectOwnWater>Water tank: {LITRES} of {CAPACITY} L.</PhobosTrailerPlumbing_InspectOwnWater>
   <PhobosTrailerPlumbing_InspectWaste>Waste tank: {PERCENT} full.</PhobosTrailerPlumbing_InspectWaste>
+  <!-- Framework 0.283.0: emptying the waste tank. -->
+  <PhobosTrailerPlumbing_InspectEmptyAt>Emptied into sludge drums at {PERCENT} full.</PhobosTrailerPlumbing_InspectEmptyAt>
+  <PhobosTrailerPlumbing_InspectEmptyNever>Left for the dump valve, a sewer or a sludge tanker: nobody empties it into drums.</PhobosTrailerPlumbing_InspectEmptyNever>
+  <PhobosTrailerPlumbing_InspectDumping>Dump valve open: the waste is running onto the ground.</PhobosTrailerPlumbing_InspectDumping>
+  <PhobosTrailerPlumbing_EmptyAtSet>{VEHICLE}'s waste tank will be emptied into sludge drums at {PERCENT} full.</PhobosTrailerPlumbing_EmptyAtSet>
+  <PhobosTrailerPlumbing_EmptyNever>Nobody will empty {VEHICLE}'s waste tank into sludge drums.</PhobosTrailerPlumbing_EmptyNever>
+  <PhobosTrailerPlumbing_GizmoEmptyAt>Empty at {PERCENT}</PhobosTrailerPlumbing_GizmoEmptyAt>
+  <PhobosTrailerPlumbing_GizmoEmptyAtNever>Empty: never</PhobosTrailerPlumbing_GizmoEmptyAtNever>
+  <PhobosTrailerPlumbing_GizmoEmptyAtDesc>How full the waste tank gets before colonists empty it into sludge drums. Lower means more trips with smaller loads.</PhobosTrailerPlumbing_GizmoEmptyAtDesc>
+  <PhobosTrailerPlumbing_OptionEmptyAt>At {PERCENT} full</PhobosTrailerPlumbing_OptionEmptyAt>
+  <PhobosTrailerPlumbing_OptionEmptyNever>Never (leave it for a sewer or a sludge tanker)</PhobosTrailerPlumbing_OptionEmptyNever>
+  <PhobosTrailerPlumbing_GizmoDump>Open dump valve</PhobosTrailerPlumbing_GizmoDump>
+  <PhobosTrailerPlumbing_GizmoDumpClose>Close dump valve</PhobosTrailerPlumbing_GizmoDumpClose>
+  <PhobosTrailerPlumbing_GizmoDumpDesc>Let the waste tank run out onto the ground beside it. Quick and free, but the ground is fouled, it smells, and colonists who walk through it can fall ill. The valve closes by itself when the tank is empty.</PhobosTrailerPlumbing_GizmoDumpDesc>
+  <PhobosTrailerPlumbing_DumpOpened>The dump valve of {VEHICLE} is open: its waste is running onto the ground.</PhobosTrailerPlumbing_DumpOpened>
+  <PhobosTrailerPlumbing_Dumped>The waste tank of {VEHICLE} is empty, and its dump valve is closed.</PhobosTrailerPlumbing_Dumped>
+  <PhobosTrailerPlumbing_DumpNowhere>The ground beside {VEHICLE} can take no more waste: the valve waits.</PhobosTrailerPlumbing_DumpNowhere>
+  <PhobosTrailerPlumbing_DumpHitched>{VEHICLE} has to stand unhitched to empty its waste tank.</PhobosTrailerPlumbing_DumpHitched>
+  <PhobosTrailerPlumbing_DumpEmpty>The waste tank of {VEHICLE} is empty.</PhobosTrailerPlumbing_DumpEmpty>
+  <PhobosVehicleSystems_SettingTrailerWasteDump>Trailers can dump waste on the ground</PhobosVehicleSystems_SettingTrailerWasteDump>
+  <PhobosVehicleSystems_SettingTrailerWasteDumpDesc>A shower trailer's waste tank has a dump valve: opened, its waste runs out onto the ground beside it as Dubs Bad Hygiene's sewage, which fouls the ground and can make colonists who walk through it ill. Off, the button is hidden, and the tank is emptied only into sludge drums, a sewer or a sludge tanker.</PhobosVehicleSystems_SettingTrailerWasteDumpDesc>
   <!-- A building's store of a tank load (Framework 0.273.0; the Billy's paste tap). -->
   <PhobosReservoir_Inspect>{LOAD}: {AMOUNT} of {CAPACITY} {UNITS}</PhobosReservoir_Inspect>
   <PhobosReservoir_Spoiled>The {LOAD} in the {THING} has spoiled and been thrown out.</PhobosReservoir_Spoiled>

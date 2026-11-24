@@ -284,6 +284,28 @@
           <li Class="Phobos.VehicleSystems.Input_TowedColdBoxAmps" />
         </ampsInputs>
       </li>
+      <!-- Framework 0.283.0 (the owner's card of 25 Nov 2026): a tank trailer's electric pump, run through the trailer's lead while it
+           stands on a stopped hitch and pumps: its own watts (750 W in its Def, authored: a one-horsepower transfer pump) at this vehicle's
+           voltage, about 60 A at 12 volts, so a long pump-out runs a starting battery down. Shed early, with the camp lights, so the
+           starter outlasts it. -->
+      <li>
+        <name>trailerPump</name>
+        <label>trailer pump</label>
+        <description>The electric pump of a tank trailer in tow, run through the trailer's lead while the vehicle stands and the trailer pumps. Switched on and with power, the trailer can pump its load out.</description>
+        <!-- 1 times its input: the amps come from the pump's own watts (Input_TowedPumpAmps), as the cold box's do. -->
+        <amps>1</amps>
+        <toggle>true</toggle>
+        <defaultOn>true</defaultOn>
+        <shedOrder>1</shedOrder>
+        <iconPath>Phobos/VehicleSystems/Tank/Unload</iconPath>
+        <available Class="Phobos.VehicleSystems.When_TowedPump" />
+        <when Class="Phobos.VehicleSystems.When_TowedPump">
+          <inUse>true</inUse>
+        </when>
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TowedPumpAmps" />
+        </ampsInputs>
+      </li>
     </towLoads>
     <!-- Loads a vehicle gains from its camp (Framework 0.231.0): its 12-volt camp lights on poles, each its own watts (10 W in its Def,
          authored: an LED light bar) at this vehicle's voltage, while it is dark and they are switched on. Shed early among the comforts,

@@ -15,7 +15,8 @@ public static class TankGizmos
         if (tank.Compartments.Count > 1) yield return CompartmentButton(tank);
         yield return ContentsButton(tank);
         yield return DeployButton(tank);
-        if (!tank.Deployed) yield break;
+        // Framework 0.283.0: a trailer that pumps packed (the shower trailer) offers its pump without its set-up.
+        if (!tank.OffersPumpModes) yield break;
         yield return ModeButton(tank, TankPumpMode.Load, "PhobosVehicleSystems_TankGizmoLoad".Translate(), "PhobosVehicleSystems_TankGizmoLoadDesc".Translate(), "Load");
         yield return ModeButton(tank, TankPumpMode.Unload, "PhobosVehicleSystems_TankGizmoUnload".Translate(), "PhobosVehicleSystems_TankGizmoUnloadDesc".Translate(), "Unload");
         yield return ModeButton(tank, TankPumpMode.Hold, "PhobosVehicleSystems_TankGizmoHold".Translate(), "PhobosVehicleSystems_TankGizmoHoldDesc".Translate(), "Hold");

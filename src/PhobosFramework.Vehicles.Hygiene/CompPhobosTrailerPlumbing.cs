@@ -29,6 +29,13 @@ public class CompProperties_PhobosTrailerPlumbing : VehicleCompProperties
     public ThingDef? towerDefWithNode;
     public string? towerNode;
     public IntVec2 septicCell = new(1, -3);
+    /// <summary>
+    /// How fast the waste tank empties by gravity, in Dubs' sewage units an hour (Framework 0.283.0, authored): into the colony's sewers
+    /// through its plumbing, or onto the ground through its dump valve. The full 1,000 in a little over three hours.
+    /// </summary>
+    public float drainPerHour = 300f;
+    /// <summary>How far from its waste tank the dump valve's waste may run, in cells (authored).</summary>
+    public float dumpRadius = 3.9f;
 
     public CompProperties_PhobosTrailerPlumbing() => compClass = typeof(CompPhobosTrailerPlumbing);
 }
@@ -40,15 +47,31 @@ public class CompProperties_PhobosTrailerPlumbing : VehicleCompProperties
 /// stand-in septic tank beneath it, which is the trailer's waste tank: Dubs' own colonists empty it into sludge drums when it is half full, and our
 /// tanker pumps it out from beside the trailer's rear. Packing up gives the tower's water back to the tank and keeps the waste in the trailer, and
 /// hidden plumbing is laid under everything the trailer sets out, so its showers, toilets and water heater join its pipes. No Harmony.
+/// <para>
+/// Framework 0.283.0 (the owner's cards of 25 Nov 2026): the waste tank stays beneath the trailer whenever it is parked, set up or not, so
+/// Dubs' colonists and a sludge tanker empty it without setting up; it ranks below every sewage handler of Dubs' (its Def's priority), so the
+/// colony's toilets never drain into it, and while its plumbing joins a colony septic tank, treatment plant or outlet it drains into them by
+/// gravity (the sewer hookup). The player sets how full it gets before Dubs' colonists empty it, and may open its dump valve onto the ground.
+/// </para>
 /// </summary>
 public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
 {
+    const float HoursPerRareTick = GenTicks.TickRareInterval / (float)GenDate.TicksPerHour;
+    /// <summary>The fullness Dubs' colonists empty it at when the player has not chosen: Dubs' own default.</summary>
+    public const float DefaultEmptyAt = 0.5f;
+
     Thing? tower;
     Thing? septic;
     float waste;
     float ownWater;
     float ownWaterAtLay;
     PipeUnderlay underlay = new();
+    /// <summary>How full the waste tank gets before Dubs' colonists empty it; 1 or more, never (they leave it).</summary>
+    float emptyAt = DefaultEmptyAt;
+    /// <summary>Whether its dump valve is open, letting the waste run onto the ground.</summary>
+    bool dumping;
+    /// <summary>Why the dump valve last let nothing go, for the inspect line. Derived, never saved.</summary>
+    string? dumpStatus;
 
     public CompProperties_PhobosTrailerPlumbing Props => (CompProperties_PhobosTrailerPlumbing)props;
 
@@ -105,14 +128,23 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
     /// </summary>
     public void SettleOwnWater(bool parked)
     {
-        if (!Props.ownWater || PlumbingFeed.LiteMode || !Vehicle.Spawned) return;
+        if (PlumbingFeed.LiteMode || !Vehicle.Spawned) return;
         bool setOut = Vehicle.GetComp<CompPhobosSetOut>() is { IsSetOut: true };
-        if (parked && tower is not { Spawned: true })
+        if (Props.ownWater)
         {
-            LayTower(Vehicle.Map);
-            if (Seen.Wants("trailers.own-water-parked", Vehicle)) Seen.Note("trailers.own-water-parked", Vehicle, OwnWater.ToString("0") + " L");
+            if (parked && tower is not { Spawned: true })
+            {
+                LayTower(Vehicle.Map);
+                if (Seen.Wants("trailers.own-water-parked", Vehicle)) Seen.Note("trailers.own-water-parked", Vehicle, OwnWater.ToString("0") + " L");
+            }
+            else if (!parked && !setOut && tower is { Spawned: true }) TakeUpTower();
         }
-        else if (!parked && !setOut && tower is { Spawned: true }) TakeUpTower();
+        // Framework 0.283.0: the waste tank too, so it is emptied without setting up (the owner's card of 25 Nov 2026).
+        if (Props.septicDef != null)
+        {
+            if (parked && septic is not { Spawned: true }) LaySeptic(Vehicle.Map);
+            else if (!parked && !setOut && septic is { Spawned: true }) TakeUpSeptic();
+        }
     }
 
     public string? SetUpPartRefusal() => null;
@@ -130,6 +162,7 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
     {
         Map map = Vehicle.Map;
         LayTower(map);
+        LaySeptic(map);
         // Hidden plumbing under all the trailer set out and under itself, so the pieces' pipes join the trailer's.
         CellRect area = SetOutArea();
         int before = underlay.Changes;
@@ -139,7 +172,7 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
         if (Seen.Wants("trailers.shower-plumbing-laid", Vehicle)) Seen.Note("trailers.shower-plumbing-laid", Vehicle, area.Area + " cells piped");
     }
 
-    /// <summary>The hidden water tower and waste tank beneath it, with what it carries in them.</summary>
+    /// <summary>The hidden water tower beneath it, with the water it carries.</summary>
     void LayTower(Map map)
     {
         if (tower is not { Spawned: true } && TowerDef != null)
@@ -154,17 +187,28 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
                 ownWaterAtLay = own.WaterStorage;
             }
         }
-        if (septic is not { Spawned: true } && Props.septicDef != null)
+    }
+
+    /// <summary>The hidden waste tank beneath it, with the waste it carries, set to empty at the player's level.</summary>
+    void LaySeptic(Map map)
+    {
+        if (septic is { Spawned: true } || Props.septicDef == null) return;
+        septic = GenSpawn.Spawn(ThingMaker.MakeThing(Props.septicDef), Cell(Props.septicCell), map, WipeMode.Vanish);
+        septic.SetFaction(Vehicle.Faction);
+        if (Septic is { } tank)
         {
-            septic = GenSpawn.Spawn(ThingMaker.MakeThing(Props.septicDef), Cell(Props.septicCell), map, WipeMode.Vanish);
-            septic.SetFaction(Vehicle.Faction);
-            if (Septic is { } tank)
-            {
-                tank.sewageBuffer = waste;
-                tank.AllowDrain = true;
-                waste = 0f;
-            }
+            tank.sewageBuffer = waste;
+            waste = 0f;
+            ApplyEmptyAt(tank);
         }
+        if (Seen.Wants("trailers.waste-tank-parked", Vehicle)) Seen.Note("trailers.waste-tank-parked", Vehicle, Waste.ToString("0") + " units");
+    }
+
+    void ApplyEmptyAt(CompSepticTank tank)
+    {
+        // Dubs' colonists leave it alone while the valve is open, or when the player chose never.
+        tank.SetAllow(emptyAt < 1f && !dumping);
+        if (emptyAt < 1f) tank.SetPcntToEmpty(emptyAt);
     }
 
     CellRect SetOutArea()
@@ -181,15 +225,17 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
     {
         Map map = Vehicle.Map;
         // A trailer with its own water keeps its tank while it stays parked (Framework 0.219.0): only what was laid under the set-out pieces goes.
-        bool keepTower = Props.ownWater && Vehicle.GetComp<CompPhobosTrailer>() is { ParkedForPipes: true };
-        if (!keepTower) TakeUpTower();
+        // Framework 0.283.0: its waste tank stays too, so it can still be emptied.
+        bool parked = Vehicle.GetComp<CompPhobosTrailer>() is { ParkedForPipes: true };
+        if (!(Props.ownWater && parked)) TakeUpTower();
+        if (!parked) TakeUpSeptic();
         CellRect area = SetOutArea();
         int before = underlay.Changes;
         underlay.Clear();
         if (underlay.Changes != before) DubsPipes.Redraw(map, area.ExpandedBy(8));
     }
 
-    /// <summary>Takes the hidden tower and waste tank up, their water and waste back aboard.</summary>
+    /// <summary>Takes the hidden tower up, its water back aboard.</summary>
     void TakeUpTower()
     {
         if (Tower is { } water && tower is { Spawned: true })
@@ -202,6 +248,13 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
             tower.Destroy(DestroyMode.Vanish);
         }
         tower = null;
+    }
+
+    /// <summary>Takes the hidden waste tank up, its waste back aboard. The dump valve closes with it: nothing runs out on the road.</summary>
+    void TakeUpSeptic()
+    {
+        dumping = false;
+        dumpStatus = null;
         if (Septic is { } tank && septic is { Spawned: true })
         {
             // The waste stays in the trailer; emptied first, so Dubs never spills it across the map as the stand-in goes.
@@ -229,6 +282,120 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
     {
         base.CompTickRare();
         if (tower is { Spawned: true }) TopUp();
+        if (septic is { Spawned: true } && Septic is { } tank)
+        {
+            if (dumping) Dump(tank);
+            else DrainToSewer(tank);
+        }
+    }
+
+    // ---- Emptying the waste tank (Framework 0.283.0; the owner's cards of 25 Nov 2026) ----
+
+    /// <summary>The plumbing the waste tank stands on, while it is laid.</summary>
+    CompPipe? SepticPipe => septic is { Spawned: true } ? septic.TryGetComp<CompPipe>() : null;
+
+    /// <summary>
+    /// The sewer hookup: while the trailer's plumbing joins a colony septic tank, treatment plant or outlet that can take more, its waste runs
+    /// into them by gravity, at its drain rate. They outrank it (its Def's priority), so Dubs' own plumbing sends this waste to them.
+    /// </summary>
+    void DrainToSewer(CompSepticTank tank)
+    {
+        if (tank.sewageBuffer < 1f || SepticPipe?.pipeNet is not { } net) return;
+        if (!net.Sewers.Any(sewer => sewer != tank && !sewer.Blocked && sewer.Props.priority > tank.Props.priority)) return;
+        float amount = Phobos.Framework.Rules.TankRule.Drained(tank.sewageBuffer, Props.drainPerHour, HoursPerRareTick);
+        if (amount <= 0f || !net.PushSewage(amount)) return;
+        tank.sewageBuffer -= amount;
+        if (Seen.Wants("trailers.waste-to-sewer", Vehicle)) Seen.Note("trailers.waste-to-sewer", Vehicle, amount.ToString("0") + " units");
+    }
+
+    /// <summary>
+    /// The dump valve: the waste runs onto the ground beside the waste tank as Dubs' own sewage, at its drain rate, filling the nearest cells
+    /// that can take more (the limit Dubs' outlets keep to). The valve closes by itself once the tank is empty.
+    /// </summary>
+    void Dump(CompSepticTank tank)
+    {
+        dumpStatus = null;
+        if (tank.sewageBuffer < 1f)
+        {
+            SetDumping(false);
+            Messages.Message("PhobosTrailerPlumbing_Dumped".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.TaskCompletion, historical: false);
+            return;
+        }
+        if (SepticPipe?.MapComp is not { } hygiene)
+        {
+            return;
+        }
+        IntVec3 from = septic!.Position;
+        CellRect footprint = Vehicle.OccupiedRect();
+        float limit = ModOption.SewageGridCapacity.Val * 3f;
+        IntVec3 spot = IntVec3.Invalid;
+        foreach (IntVec3 cell in GenRadial.RadialCellsAround(from, Props.dumpRadius, useCenter: false))
+        {
+            if (!cell.InBounds(Vehicle.Map) || footprint.Contains(cell) || !hygiene.CanHaveSewage(cell)) continue;
+            if (hygiene.SewageGrid.ValueAt(cell) > limit) continue;
+            spot = cell;
+            break;
+        }
+        if (!spot.IsValid)
+        {
+            dumpStatus = "PhobosTrailerPlumbing_DumpNowhere".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+            return;
+        }
+        float amount = Phobos.Framework.Rules.TankRule.Drained(tank.sewageBuffer, Props.drainPerHour, HoursPerRareTick);
+        hygiene.SewageGrid.AddAt(spot, amount);
+        tank.sewageBuffer -= amount;
+        if (Seen.Wants("trailers.waste-dump", Vehicle)) Seen.Note("trailers.waste-dump", Vehicle, amount.ToString("0") + " units");
+    }
+
+    /// <summary>Whether the waste tank stands beneath it now, to be emptied.</summary>
+    public bool WasteTankLaid => septic is { Spawned: true };
+
+    /// <summary>How full the waste tank gets before Dubs' colonists empty it; 1 or more means never.</summary>
+    public float EmptyAt => emptyAt;
+
+    public bool Dumping => dumping;
+
+    /// <summary>Sets how full the waste tank gets before Dubs' colonists empty it into sludge drums; 1 or more means they leave it.</summary>
+    public void SetEmptyAt(float level)
+    {
+        emptyAt = Mathf.Max(0.1f, level);
+        if (Septic is { } tank && septic is { Spawned: true }) ApplyEmptyAt(tank);
+        Messages.Message((emptyAt >= 1f
+            ? "PhobosTrailerPlumbing_EmptyNever".Translate(Vehicle.LabelShort.Named("VEHICLE"))
+            : "PhobosTrailerPlumbing_EmptyAtSet".Translate(Vehicle.LabelShort.Named("VEHICLE"), emptyAt.ToStringPercent().Named("PERCENT"))).Resolve(),
+            Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+    }
+
+    /// <summary>Why the dump valve cannot be opened now, or null.</summary>
+    public string? DumpRefusal()
+    {
+        if (!WasteTankLaid) return "PhobosTrailerPlumbing_DumpHitched".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (Waste < 1f) return "PhobosTrailerPlumbing_DumpEmpty".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        return null;
+    }
+
+    /// <summary>Opens or closes the dump valve. While it is open, Dubs' colonists leave the tank to it.</summary>
+    public void SetDumping(bool open)
+    {
+        if (open && DumpRefusal() is { } refused)
+        {
+            Messages.Message(refused, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        dumping = open;
+        dumpStatus = null;
+        if (Septic is { } tank && septic is { Spawned: true }) ApplyEmptyAt(tank);
+        if (open)
+        {
+            Messages.Message("PhobosTrailerPlumbing_DumpOpened".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.CautionInput, historical: false);
+        }
+    }
+
+    public override System.Collections.Generic.IEnumerable<Gizmo> CompGetGizmosExtra()
+    {
+        foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
+        if (Vehicle.Faction != Faction.OfPlayer || Props.septicDef == null || PlumbingFeed.LiteMode) yield break;
+        foreach (Gizmo gizmo in TrailerWasteGizmos.For(this)) yield return gizmo;
     }
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
@@ -262,7 +429,12 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
             if (PlumbingFeed.LiteMode) return null;
             if (Props.ownWater) return "PhobosTrailerPlumbing_InspectOwnWater".Translate(OwnWater.ToString("0").Named("LITRES"), OwnWaterCapacity.ToString("0").Named("CAPACITY")).Resolve();
             if (WasteCapacity <= 0f) return null;
-            return "PhobosTrailerPlumbing_InspectWaste".Translate(Mathf.Clamp01(Waste / WasteCapacity).ToStringPercent().Named("PERCENT")).Resolve();
+            string line = "PhobosTrailerPlumbing_InspectWaste".Translate(Mathf.Clamp01(Waste / WasteCapacity).ToStringPercent().Named("PERCENT")).Resolve();
+            // Framework 0.283.0: what empties it, and the valve's state.
+            if (dumping) return line + "\n" + (dumpStatus ?? "PhobosTrailerPlumbing_InspectDumping".Translate().Resolve());
+            return line + "\n" + (emptyAt >= 1f
+                ? "PhobosTrailerPlumbing_InspectEmptyNever".Translate().Resolve()
+                : "PhobosTrailerPlumbing_InspectEmptyAt".Translate(emptyAt.ToStringPercent().Named("PERCENT")).Resolve());
         }
         catch (System.Exception e) { UiGuard.Report(GuardKey, e); return null; }
     }
@@ -279,6 +451,8 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
         Scribe_Values.Look(ref ownWaterAtLay, "PhobosTrailerPlumbing_OwnWaterAtLay");
         Scribe_Deep.Look(ref underlay, "PhobosTrailerPlumbing_Underlay");
         underlay ??= new PipeUnderlay();
+        Scribe_Values.Look(ref emptyAt, "PhobosTrailerPlumbing_EmptyAt", DefaultEmptyAt);
+        Scribe_Values.Look(ref dumping, "PhobosTrailerPlumbing_Dumping");
     }
 }
 

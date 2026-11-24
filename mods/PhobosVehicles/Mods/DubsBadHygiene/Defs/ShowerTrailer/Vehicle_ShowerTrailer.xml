@@ -235,6 +235,10 @@
         </fittings>
         <shellPart>TankShell</shellPart>
         <valvePart>TankFittings</valvePart>
+        <!-- Vehicles 0.118.0 (the owner's cards of 25 Nov 2026): it pumps while packed, so it fills without pitching its tent; and with no
+             engine, it pushes water out only with its electric pump fitted and powered. -->
+        <pumpsPacked>true</pumpsPacked>
+        <needsPumpPower>true</needsPumpPower>
       </li>
       <!-- D'thorga Framework's node looks: the bowser's upgrades on its body (owner's picks, 16 Nov 2026): the lagged tank's jacket over the
            tank, and the second hose reel across the front of the tank (agent placement). -->

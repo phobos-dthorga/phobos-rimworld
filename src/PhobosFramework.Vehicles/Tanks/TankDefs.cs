@@ -132,6 +132,18 @@ public class TankDamageOverlay
     public GraphicDataOverlay? overlay;
 }
 
+/// <summary>Where a tank trailer's electric pump takes its power from now (Framework 0.283.0).</summary>
+public enum TrailerPumpPower
+{
+    None,
+    /// <summary>The power point of what it has set out, wired to a grid.</summary>
+    PowerPoint,
+    /// <summary>The grid hook-up beneath it while it is parked (VehicleConduits).</summary>
+    Grid,
+    /// <summary>The towing vehicle's battery, through the trailer's lead (TrailerPumpInTow).</summary>
+    TowingVehicle,
+}
+
 public class CompProperties_PhobosTank : VehicleCompProperties
 {
     public List<TankFitting> fittings = new();
@@ -165,6 +177,19 @@ public class CompProperties_PhobosTank : VehicleCompProperties
     public List<TankDamageOverlay> damageOverlays = new();
     /// <summary>The hose laid out while the tanker is set up.</summary>
     public GraphicDataOverlay? hosesOut;
+    /// <summary>
+    /// Pumps while packed (Framework 0.283.0; the owner's card of 25 Nov 2026, the shower trailer): a trailer whose set-up is something else
+    /// (a tent) may pump while it stands packed, parked or on a hitch that has stopped, so it is filled without pitching anything.
+    /// </summary>
+    public bool pumpsPacked;
+    /// <summary>
+    /// Needs pump power (Framework 0.283.0; the owner's cards of 25 Nov 2026, every Pintle tank trailer): with no engine, its pump pushes only
+    /// with the electric pump upgrade fitted and powered (a power point, a grid hook-up or the towing vehicle's battery). Without, it works by
+    /// gravity: it can be filled, and emptied by a pump beside it, but it pushes nothing out by itself.
+    /// </summary>
+    public bool needsPumpPower;
+    /// <summary>What the electric pump draws while it runs, in watts (authored: a one-horsepower transfer pump).</summary>
+    public float electricPumpWatts = 750f;
 
     public CompProperties_PhobosTank() => compClass = typeof(CompPhobosTank);
 }

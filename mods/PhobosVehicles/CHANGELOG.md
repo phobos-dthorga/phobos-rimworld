@@ -13,6 +13,27 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.118.0] - 2026-11-25 - Draft
+
+The electric pump on the tank trailers, and the shower trailer pumps while packed
+
+### Added
+
+- **An Electric pump upgrade on all four Pintle tank trailers**: the water, fuel and paste bowsers and the shower trailer (the owner's
+  cards of 25 November 2026). Without it, a trailer can be filled and emptied by a pump beside it, but pushes nothing out by itself
+  (D'thorga Framework 0.283.0). 15 steel and an electric motor. Not yet tested in game: row 502.
+- **The shower trailer fills without setting up**: it pumps while packed, parked or on a stopped hitch. Not yet tested in game: row 501.
+
+### Fixed
+
+- **The colony's toilets no longer drain into a shower trailer**: its waste tank ranked above Dubs Bad Hygiene's septic tanks, so a
+  set-up trailer joined to the colony's plumbing took their waste. It now ranks below all of Dubs' and drains into them instead. Not
+  yet tested in game: row 504.
+
+### Save compatibility
+
+- Safe on an existing save. A bowser set up on Unload stops delivering until its electric pump is fitted and powered.
+
 ## [0.117.3] - 2026-11-25 - Draft
 
 The jammer mast and the oil well kit on their trucks, and the loading chute's own picture

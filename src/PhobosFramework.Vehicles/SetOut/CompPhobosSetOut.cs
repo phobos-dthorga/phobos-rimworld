@@ -347,6 +347,8 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
                 }
             }
         }
+        // Framework 0.283.0: the trailer's own electric pump runs through the same power point while it is set up.
+        if (Vehicle.GetComp<CompPhobosTank>() is { } tank) watts += tank.PumpWattsWanted;
         trader.PowerOutput = -System.Math.Max(1f, watts);
     }
 

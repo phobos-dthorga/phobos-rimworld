@@ -62,6 +62,32 @@
         <ComponentIndustrial>1</ComponentIndustrial>
       </ingredients>
     </li>
+    <li>
+      <!-- Vehicles 0.118.0 (the owner's cards of 25 Nov 2026): a trailer has no engine, so without this its pump pushes nothing out.
+           Its motor comes from the parts bill; nothing visible on the body, so no overlay; the picture is the Ullage's electric pump's.
+           Materials and work authored. -->
+      <key>PhobosTrailerElectricPump</key>
+      <label>Electric pump</label>
+      <displayLabel>true</displayLabel>
+      <description>An electric motor on the pump, so the trailer can pump its load out. It runs off the grid through a conduit touching the trailer where it is parked, off a power point it has set out, or off the battery of the vehicle towing it. Without it, the trailer can only be filled, or emptied by a pump beside it.</description>
+      <icon>Phobos/VehicleSystems/Fittings/DeepCycleBattery</icon>
+      <work>1500</work>
+      <gridCoordinate>(17, 2)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_ElectricPump</def>
+              <value>1</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>15</Steel>
+      </ingredients>
+    </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.282.0, built 25 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.283.0, built 25 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -201,6 +201,7 @@ offers to restart). RimWorld saves only what you change.
 | Cabs, camps and caravans | Walk-in cabins | Colonists can walk into a vehicle's cabin (the Osprey's) to wait, rest or tend the wounded, on the ground or in flight | On |
 | Cabs, camps and caravans | Hotboxing | A rider whose drug policy allows a smoked drug may light up aboard; in a closed cab the others share the high, and a high driver drives slower | On |
 | Cabs, camps and caravans | Field kitchens cook in a caravan | Once a night, while a caravan rests, its cooks make simple meals from raw food at a field kitchen it carries, up to twenty a cook | On |
+| Cabs, camps and caravans | Trailers can dump waste on the ground | A shower trailer's waste tank has a dump valve that runs its waste onto the ground as Dubs Bad Hygiene's sewage; off, the button is hidden (Dubs Bad Hygiene) | On |
 | Cabs, camps and caravans | Night heater at camp | A vehicle whose night heater switch is on keeps its cab and engine warm at a caravan's camp, and for someone asleep in its cab bunk on a map, for fuel | Off |
 | Cabs, camps and caravans | Drive through the night | Vehicle caravans keep going at night while every vehicle has a rested driver, swapping tired drivers for rested passengers; journeys take about half the time. Each caravan also has its own switch | Off |
 | Cabs, camps and caravans | Warn before a parked vehicle is lost | Days of warning; 0 turns it off | 3 days |

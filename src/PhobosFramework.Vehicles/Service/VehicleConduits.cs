@@ -44,10 +44,14 @@ public sealed class VehicleConduits : VehiclePipes.ILink
 
     public static Thing MakeConduit() => ThingMaker.MakeThing(Conduit);
 
-    /// <summary>A 12 or 24 volt battery of our electrics, or a traction battery: anything that charges from shore power.</summary>
+    /// <summary>
+    /// A 12 or 24 volt battery of our electrics, or a traction battery: anything that charges from shore power. Framework 0.283.0: or a tank
+    /// trailer with its electric pump fitted, which runs on the grid through the same hook-up while it is parked.
+    /// </summary>
     static bool HasBattery(VehiclePipes.IHost comp) =>
         (comp is CompPhobosVehicleSystems systems && systems.Props.systems.Any(system => system.def.quantities.Any(quantity => quantity.name == "charge")))
-        || comp.Vehicle.CompFueledTravel is { Props.electricPowered: true };
+        || comp.Vehicle.CompFueledTravel is { Props.electricPowered: true }
+        || (comp is CompPhobosTrailer && comp.Vehicle.GetComp<CompPhobosTank>() is { Props.needsPumpPower: true, ElectricPump: true });
 
     static bool CanLay(IntVec3 cell, Map map)
     {

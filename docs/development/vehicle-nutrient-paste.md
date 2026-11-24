@@ -93,4 +93,5 @@ The fuel bowser's, copied (NP3): the lagged tank, which halves the paste's spoil
 flowchart TB
   PhobosBowserLagging["Lagged tank"]
   PhobosBowserSecondHose["Second hose"]
+  PhobosTrailerElectricPump["Electric pump"]
 ```

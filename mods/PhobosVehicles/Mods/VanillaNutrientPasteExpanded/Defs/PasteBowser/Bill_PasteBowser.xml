@@ -23,6 +23,13 @@
           <Hose>1</Hose>
         </parts>
       </li>
+      <!-- Vehicles 0.118.0: the electric pump's motor; its node's own steel is the pump body and mounting. -->
+      <li>
+        <key>PhobosTrailerElectricPump</key>
+        <parts>
+          <ElectricMotor>1</ElectricMotor>
+        </parts>
+      </li>
     </nodes>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

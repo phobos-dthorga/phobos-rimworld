@@ -64,6 +64,21 @@ public static class TankRule
         return whole > 0 || limit < unitsPerItem ? whole : 1;
     }
 
+    /// <summary>
+    /// Whether a tank can push its load out now (Framework 0.283.0; the owner's cards of 25 Nov 2026): one that needs no pump power always
+    /// can (a truck's engine or battery drives it); a tank trailer only with its electric pump fitted and powered. Without, it works by gravity.
+    /// </summary>
+    public static bool Pushes(bool needsPumpPower, bool pumpFitted, bool powered) => !needsPumpPower || (pumpFitted && powered);
+
+    /// <summary>
+    /// Whether one tank can pass its load to another beside it (Framework 0.283.0): either one's pump will do, the giver's pushing or the
+    /// taker's drawing. Two tanks with no pump between them move nothing: a hose laid flat has no fall to run down.
+    /// </summary>
+    public static bool Transfers(bool giverPushes, bool takerPushes) => giverPushes || takerPushes;
+
+    /// <summary>Units of waste a gravity drain lets go in this step: its rate, never more than is held (Framework 0.283.0).</summary>
+    public static float Drained(float held, float perHour, float hours) => MathF.Max(0f, MathF.Min(held, perHour * hours));
+
     /// <summary>How much one of a tank's equal compartments holds. Filled alike, they still add up to the whole tank.</summary>
     public static float CompartmentCapacity(float capacity, int compartments) => capacity / MathF.Max(1, compartments);
 
