@@ -77,8 +77,16 @@
       "they climb out by themselves": [{"key": "vehicles.visit-end", "variant": "done"}],
       "the radio goes off at the start line": [{"key": "vehicles.visit-end", "variant": "PhobosVisit_OutBattery"}]
     }},
+    "534": ["aircraft.map-removed"],
+    "533": {"parts": {
+      "a bundle de-rigged": ["airdrop.de-rigged"],
+      "a wrecked hold's vehicle to a depot": [{"key": "vehicle.hold", "variant": "to-depot"}]
+    }},
+    "532": [{"key": "airdrop.landed", "variant": "bundle-guided*"}],
+    "531": ["airdrop.canopy-failed"],
     "517": {"parts": {
-      "raiders by parachute": [{"key": "aircraft.raider", "variant": "parachute"}, {"key": "airdrop.pass", "variant": "raid"}]
+      "raiders by parachute": [{"key": "aircraft.raider", "variant": "parachute"}, {"key": "airdrop.pass", "variant": "raid"}],
+      "a CIWS brings them down": [{"key": "airdrop.intercepted", "variant": "shredded"}, {"key": "airdrop.intercepted", "variant": "holed"}]
     }},
     "516": {"parts": {
       "a pass after a journey": ["airdrop.arrived"],

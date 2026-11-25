@@ -51,6 +51,34 @@ public static class FlightRegistry
 
     /// <summary>Whether this vehicle is in the air on its map on our flight.</summary>
     public static bool InAir(VehiclePawn? vehicle) => Get(vehicle) != null;
+
+    /// <summary>The aircraft of ours in the air over this map now (Framework 0.293.0: for a map about to be removed).</summary>
+    public static List<CompPhobosFlight> Over(Map map)
+    {
+        var found = new List<CompPhobosFlight>();
+        if (!Any) return found;
+        foreach (KeyValuePair<VehiclePawn, CompPhobosFlight> pair in airborne)
+        {
+            if (pair.Key.Spawned && pair.Key.Map == map && pair.Value.Airborne) found.Add(pair.Value);
+        }
+        return found;
+    }
+}
+
+/// <summary>
+/// A map removed under an aircraft of ours in the air (Framework 0.293.0; docs/development/airdrop.md, follow-ups; the UH-60's own safeguard,
+/// read 25 Nov 2026): before it goes, the player's aircraft leaves it, on its journey home if it has one, or down on the world map as a
+/// caravan at that place; a raid's aircraft goes home. Before this, it was put back on the ground on a map about to vanish. A prefix that
+/// changes nothing else.
+/// </summary>
+[HarmonyLib.HarmonyPatch(typeof(Game), nameof(Game.DeinitAndRemoveMap))]
+public static class Patch_DeinitAndRemoveMap_Flight
+{
+    public static void Prefix(Map map)
+    {
+        if (map == null || !FlightRegistry.Any) return;
+        foreach (CompPhobosFlight flight in FlightRegistry.Over(map)) flight.LeaveBeforeMapGoes();
+    }
 }
 
 /// <summary>The rules our flight reads from the game: where it may come down, what its engines leave it, and its headings.</summary>

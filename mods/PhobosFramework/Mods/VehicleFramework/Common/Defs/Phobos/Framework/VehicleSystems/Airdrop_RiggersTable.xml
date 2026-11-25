@@ -325,6 +325,110 @@
     </skillRequirements>
   </RecipeDef>
 
+  <!-- Framework 0.293.0: a guided cargo parachute, new: as a cargo parachute (200 fabric, 15 steel) with a guidance unit of 3 components and
+       the square canopy's extra work, 8,000 work in all; after microelectronics (authored). -->
+  <RecipeDef ParentName="PhobosRiggerRecipeBase">
+    <defName>Phobos_MakeGuidedCargoParachute</defName>
+    <label>make guided cargo parachute</label>
+    <description>Sew a square steerable canopy, fit its guidance unit and pack it with its cargo bag.</description>
+    <jobString>Making a guided cargo parachute.</jobString>
+    <workAmount>8000</workAmount>
+    <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Cloth</li>
+            <li>Synthread</li>
+          </thingDefs>
+        </filter>
+        <count>200</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>ComponentIndustrial</li>
+          </thingDefs>
+        </filter>
+        <count>3</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Cloth</li>
+        <li>Synthread</li>
+        <li>Steel</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Phobos_GuidedCargoParachute>1</Phobos_GuidedCargoParachute>
+    </products>
+    <skillRequirements>
+      <Crafting>6</Crafting>
+    </skillRequirements>
+  </RecipeDef>
+
+  <!-- Framework 0.293.0: a spent cargo parachute repacked as a guided one, with a new guidance unit (2 components) and 10 fabric, 3,500
+       work (authored). -->
+  <RecipeDef ParentName="PhobosRiggerRecipeBase">
+    <defName>Phobos_RepackGuidedCargoParachute</defName>
+    <label>repack as guided cargo parachute</label>
+    <description>Lay out a spent cargo parachute, renew its ties and padding, fit a guidance unit and pack it again.</description>
+    <jobString>Repacking a guided cargo parachute.</jobString>
+    <workAmount>3500</workAmount>
+    <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Phobos_SpentCargoParachute</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Cloth</li>
+            <li>Synthread</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>ComponentIndustrial</li>
+          </thingDefs>
+        </filter>
+        <count>2</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Phobos_SpentCargoParachute</li>
+        <li>Cloth</li>
+        <li>Synthread</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Phobos_GuidedCargoParachute>1</Phobos_GuidedCargoParachute>
+    </products>
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+  </RecipeDef>
+
   <!-- A spent platform and 40 steel (new crushable pads and worn fittings), 5,000 work (about 2 hours). -->
   <RecipeDef ParentName="PhobosRiggerRecipeBase">
     <defName>Phobos_RefurbishDropPlatform</defName>

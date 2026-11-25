@@ -72,4 +72,20 @@ public class ParachuteRuleTests
         Assert.Equal(1.5, ParachuteRule.ScatterCells(0), 6);
         Assert.Equal(4.5, ParachuteRule.ScatterCells(30), 6);
     }
+
+    [Fact]
+    public void ABraceCutsTheRiskByTheStudysFactor()
+    {
+        Assert.Equal(1 / 1.84, ParachuteRule.AnkleBraceFactor, 6);
+    }
+
+    [Fact]
+    public void CanopiesFailLessTheBetterTheyArePacked()
+    {
+        Assert.Equal(0, ParachuteRule.FailureChance(-1), 6);
+        Assert.Equal(0.03, ParachuteRule.FailureChance(0), 6);
+        Assert.Equal(0, ParachuteRule.FailureChance(6), 6);
+        Assert.Equal(0, ParachuteRule.FailureChance(9), 6);
+        for (int q = 1; q < ParachuteRule.FailureByQuality.Length; q++) Assert.True(ParachuteRule.FailureChance(q) < ParachuteRule.FailureChance(q - 1));
+    }
 }

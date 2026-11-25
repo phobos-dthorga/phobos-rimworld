@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Combat Extended's CIWS against parachute loads (D'thorga Framework 0.293.0; docs/development/airdrop.md, "Air defence against drops").
+    Combat Extended gives every skyfaller built on the game's SkyfallerBase its own CIWS handling with 22 hit points, so a CIWS already
+    shoots at loads carrying enemies, as at drop pods. A vehicle on its platform under three canopies takes more to bring down than a jumper:
+    its own handling at 80 hit points (authored). Only with Combat Extended active.
+  -->
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Combat Extended</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/ThingDef[defName="Phobos_ParachuteFaller_Vehicle"]</xpath>
+      <value>
+        <comps Inherit="False">
+          <li Class="CombatExtended.CompProperties_CIWSImpactHandler">
+            <compClass>CombatExtended.CompCIWSImpactHandler_Skyfaller</compClass>
+            <HP>80</HP>
+          </li>
+        </comps>
+      </value>
+    </match>
+  </Operation>
+</Patch>

@@ -4,6 +4,9 @@
     python assets/vehicle-systems/ship_airdrop.py --pick airdrop-canopy=2  a pick given by hand (repeatable; overrides the page)
     python assets/vehicle-systems/ship_airdrop.py --dry-run                say what would ship, writing nothing
 
+The same day's second batch (the guided cargo parachute and the ankle braces, `airdrop-guided-chute` and `airdrop-ankle-braces`) is in
+the same request file and ships the same way.
+
 Each pick is looked at by the background AI on the processor (safe beside the game), exported by scripts/art/export_sprite.py at its
 game size, and given its record under assets/records. The rigger's table is drawn north (the rigger at the bottom edge, as the game
 draws a bench whose interaction cell is in front) and turned by script for east (90 degrees clockwise), south and west (90 degrees
@@ -45,6 +48,10 @@ PICKS = {
     'airdrop-spent-platform': (f'{AIRDROP}/SpentPlatform', 128, '1:1', False, 'the spent drop platform item left where a vehicle landed'),
     'airdrop-riggers-table': (f'{AIRDROP}/RiggersTable', 192, '3:1', True,
                               "the rigger's table, a 4 x 1 work table drawn at (4.5, 1.5), Graphic_Multi with four facings"),
+    # The second batch of the same day (run 20261125-1034, the owner's card: two pictures, two tries each), same request file.
+    'airdrop-guided-chute': (f'{AIRDROP}/GuidedCargoParachute', 128, '1:1', False,
+                             'the packed guided cargo parachute item (a square canopy in its bag with a small guidance unit)'),
+    'airdrop-ankle-braces': (f'{AIRDROP}/AnkleBraces', 128, '1:1', False, 'the parachute ankle braces item, as it lies in a stockpile'),
 }
 # The table's facings from its north picture: (facing, turn). PIL's ROTATE_270 turns clockwise.
 TURNS = (('east', Image.Transpose.ROTATE_270), ('south', Image.Transpose.ROTATE_180), ('west', Image.Transpose.ROTATE_90))

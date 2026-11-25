@@ -136,6 +136,10 @@ that overturns an earlier one says so. Engine rows from the same records are in 
 | 25 Nov | Hover drops too | owner's card | As recommended | [drop], Dropping from our flight |
 | 25 Nov | Drift scaled to a fifth on the map; falling time to half | agent choice | Real drift crosses a whole map | [drop], What drops, and how |
 | 25 Nov | Vehicle Framework's paratrooper save fault left alone | owner's card | Not dire | [drop], The other studies |
+| 25 Nov | All four study follow-ups: AA read, safety fixes, realism, ramp guide and de-rigging | owner's card | Chosen together | [drop], Follow-ups from the study |
+| 25 Nov | Canopy failure by the packer's skill behind a setting, off | owner | "Gated by a setting, disabled by default" | [drop], Follow-ups from the study |
+| 25 Nov | Paid pictures for the braces and guided parachute; commit after the picks | owner's card | "Paid, then commit together" | [drop], Follow-ups from the study |
+| 25 Nov | IRBM's CIWS hit: half shredded (downed), half holed | agent choice | IRBM intercepts almost every load | [drop], Air defence against drops |
 
 [fo]: ../archive/vehicle-flight-over-the-map.md
 [av]: ../archive/vehicle-avionics.md

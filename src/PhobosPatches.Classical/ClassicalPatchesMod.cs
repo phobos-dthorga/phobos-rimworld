@@ -15,7 +15,7 @@ public class ClassicalPatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.42.1";
+    public const string ModVersion = "0.43.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Classical");
     const string Feature = "temporary fix: a save made during a scorpion raid loads with the raid's orders";

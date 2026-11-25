@@ -80,7 +80,7 @@ public class MissilePatchesMod : SettingsBookMod
 {
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.42.1";
+    public const string ModVersion = "0.43.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "IRBM");
 
@@ -103,6 +103,9 @@ public class MissilePatchesMod : SettingsBookMod
         // answers that with its own assembly, and no patch of ours would be found (17 Nov 2026; tests/test_no_executing_assembly.py).
         HarmonyPatchApplier.ApplyEach(harmony, typeof(MissilePatchesMod).Assembly, LogPrefix);
         Strike.RimPactsAssaultSize.Apply(harmony);
+        // Patches 0.43.0 (docs/development/airdrop.md, "Air defence against drops"): IRBM's CIWS marks a falling load as intercepted and
+        // applies its effect only in the game's skyfaller impact, which D'thorga's parachute loads never call; Framework asks this instead.
+        SkyfallerInterception.Check = thing => thing is RimWorld.Skyfaller skyfaller && IRBM.SkyfallerInterceptionUtility.IsIntercepted(skyfaller);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
 

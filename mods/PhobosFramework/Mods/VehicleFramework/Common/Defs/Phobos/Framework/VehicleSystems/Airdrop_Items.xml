@@ -55,6 +55,13 @@
       <Mass>14</Mass>
       <MarketValue>110</MarketValue>
     </statBases>
+    <comps>
+      <!-- Framework 0.293.0: the packer's work, as the game's own quality from their Crafting skill; read only with the setting "Packers'
+           skill decides whether canopies fail" (off by default). -->
+      <li>
+        <compClass>CompQuality</compClass>
+      </li>
+    </comps>
   </ThingDef>
 
   <!-- A G-12 cargo parachute is about 60 kg [S]; its A-22 bag adds about 10 kg [A]. -->
@@ -73,6 +80,13 @@
       <Mass>70</Mass>
       <MarketValue>350</MarketValue>
     </statBases>
+    <comps>
+      <!-- Framework 0.293.0: the packer's work, as the game's own quality from their Crafting skill; read only with the setting "Packers'
+           skill decides whether canopies fail" (off by default). -->
+      <li>
+        <compClass>CompQuality</compClass>
+      </li>
+    </comps>
   </ThingDef>
 
   <!-- A 16 ft Type V platform is about 1,400 lb (635 kg) [P, TM 10-1670-268-20P]; a cluster of three G-11 canopies about 375 kg [S,
@@ -96,6 +110,97 @@
       <DeteriorationRate>1</DeteriorationRate>
       <Flammability>0.6</Flammability>
     </statBases>
+    <comps>
+      <!-- Framework 0.293.0: the packer's work, as the game's own quality from their Crafting skill; read only with the setting "Packers'
+           skill decides whether canopies fail" (off by default). -->
+      <li>
+        <compClass>CompQuality</compClass>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- A GPS-guided cargo parachute (Framework 0.293.0): the Joint Precision Airdrop System's 2K, up to 2,200 lb [P, US Marine Corps], a
+       steerable canopy and a small guidance unit. It steers its bundle onto the point whatever the wind (within about 150 m in reality
+       [P]; a couple of cells here [A]). Mass and value authored. -->
+  <ThingDef ParentName="PhobosParachuteBase">
+    <defName>Phobos_GuidedCargoParachute</defName>
+    <label>guided cargo parachute</label>
+    <description>A packed cargo parachute that steers itself: a square canopy, a cargo bag and a small guidance unit that reads its position from satellites and pulls its lines to fly the bundle onto the chosen point, whatever the wind. One carries a bundle of up to 1,000 kg, and an aircraft uses these before plain cargo parachutes. It lands as a spent cargo parachute; the guidance unit is fitted again when it is repacked.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Airdrop/GuidedCargoParachute</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1.2</drawSize>
+    </graphicData>
+    <techLevel>Spacer</techLevel>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <Mass>75</Mass>
+      <MarketValue>620</MarketValue>
+    </statBases>
+    <comps>
+      <!-- Framework 0.293.0: the packer's work, as the game's own quality from their Crafting skill; read only with the setting "Packers'
+           skill decides whether canopies fail" (off by default). -->
+      <li>
+        <compClass>CompQuality</compClass>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- Parachute ankle braces (Framework 0.293.0): worn on the feet under anything else, they nearly halve landing injuries: the risk
+       without one is 1.84 times [P, Knapik and colleagues, 2016]. Mass and value authored. -->
+  <ThingDef ParentName="ApparelBase">
+    <defName>Phobos_AnkleBraces</defName>
+    <label>parachute ankle braces</label>
+    <description>A pair of stiff braces worn around the ankles, under boots, to keep them from turning on a parachute landing. Worn when jumping, they nearly halve the chance of being hurt on landing.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Airdrop/AnkleBraces</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <techLevel>Industrial</techLevel>
+    <thingCategories>
+      <li>Apparel</li>
+    </thingCategories>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Mass>0.6</Mass>
+      <WorkToMake>900</WorkToMake>
+      <EquipDelay>2</EquipDelay>
+      <Flammability>0.6</Flammability>
+    </statBases>
+    <costList>
+      <Cloth>15</Cloth>
+      <Steel>4</Steel>
+    </costList>
+    <recipeMaker>
+      <unfinishedThingDef>UnfinishedApparel</unfinishedThingDef>
+      <recipeUsers>
+        <li>HandTailoringBench</li>
+        <li>ElectricTailoringBench</li>
+      </recipeUsers>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <effectWorking>Tailor</effectWorking>
+      <soundWorking>Recipe_Tailor</soundWorking>
+      <defaultIngredientFilter>
+        <categories>
+          <li>Root</li>
+        </categories>
+      </defaultIngredientFilter>
+    </recipeMaker>
+    <apparel>
+      <bodyPartGroups>
+        <li>Feet</li>
+      </bodyPartGroups>
+      <layers>
+        <li>OnSkin</li>
+      </layers>
+      <tags>
+        <li>Phobos_Airborne</li>
+      </tags>
+      <canBeGeneratedToSatisfyWarmth>false</canBeGeneratedToSatisfyWarmth>
+      <canBeGeneratedToSatisfyToxicEnvironmentResistance>false</canBeGeneratedToSatisfyToxicEnvironmentResistance>
+    </apparel>
   </ThingDef>
 
   <!-- What lands. Same masses as packed: nothing is lost in a drop. -->

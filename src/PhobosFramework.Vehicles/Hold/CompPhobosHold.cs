@@ -175,13 +175,26 @@ public sealed class CompPhobosHold : VehicleComp, IThingHolder, IVehicleCarriedL
     {
         base.PostDestroy(mode, previousMap);
         if (held.Count == 0 || previousMap == null) return;
-        // Destroyed with vehicles aboard: they are put out beside it, wherever there is room; one with no room anywhere is lost with it.
+        // Destroyed with vehicles aboard: they are put out beside it, wherever there is room. Framework 0.293.0 (the follow-ups of 25 Nov
+        // 2026): one with no room anywhere waits at a depot on the world map beside this place, as a lost convoy does, never in limbo.
+        PhobosSlingWreck? depot = null;
         foreach (VehiclePawn vehicle in held.InnerListForReading.ToList())
         {
-            if (!SlingPlacement.TryFindClear(vehicle.VehicleDef, Rot4.North, previousMap, parent.Position, GenRadial.MaxRadialPatternRadius - 1f, CellRect.Empty, out IntVec3 spot))
-                continue;
             held.Remove(vehicle);
-            GenSpawn.Spawn(vehicle, spot, previousMap, Rot4.North, WipeMode.Vanish);
+            if (SlingPlacement.TryFindClear(vehicle.VehicleDef, Rot4.North, previousMap, parent.Position, GenRadial.MaxRadialPatternRadius - 1f, CellRect.Empty, out IntVec3 spot))
+            {
+                GenSpawn.Spawn(vehicle, spot, previousMap, Rot4.North, WipeMode.Vanish);
+                continue;
+            }
+            if (depot == null)
+            {
+                RimWorld.Planet.PlanetTile near = PhobosSlingWreck.FreeTileNear(previousMap.Tile);
+                depot = PhobosSlingWreck.MakeDepot(near.Valid ? near : previousMap.Tile);
+            }
+            depot.Keep(vehicle);
+            Seen.Note("vehicle.hold", vehicle, variant: "to-depot");
+            if (vehicle.Faction == Faction.OfPlayer)
+                Messages.Message("PhobosHold_MsgToDepot".Translate(vehicle.LabelShort.Named("LOAD")).Resolve(), depot, MessageTypeDefOf.NegativeEvent);
         }
     }
 
@@ -214,6 +227,23 @@ public sealed class CompPhobosHold : VehicleComp, IThingHolder, IVehicleCarriedL
         };
         if (UnloadRefusal() is { } refused) unload.Disable(refused);
         yield return unload;
+    }
+
+    /// <summary>Its loading area behind the ramp, drawn while it is selected on the ground (Framework 0.293.0; the C-17's own zone, read 25
+    /// Nov 2026): a vehicle reaching into it can be taken aboard.</summary>
+    public override void PostDrawExtraSelectionOverlays()
+    {
+        base.PostDrawExtraSelectionOverlays();
+        VehiclePawn v = Vehicle;
+        if (!v.Spawned || v.Faction != Faction.OfPlayer || FlightRegistry.InAir(v) || held.Count >= Props.slots) return;
+        CellRect body = v.OccupiedRect();
+        Map map = v.Map;
+        var cells = new List<IntVec3>();
+        foreach (IntVec3 c in GenRadial.RadialCellsAround(RampCell(), Props.rampReachCells, useCenter: true))
+        {
+            if (c.InBounds(map) && !body.Contains(c)) cells.Add(c);
+        }
+        GenDraw.DrawFieldEdges(cells, Color.cyan);
     }
 
     public override string CompInspectStringExtra()

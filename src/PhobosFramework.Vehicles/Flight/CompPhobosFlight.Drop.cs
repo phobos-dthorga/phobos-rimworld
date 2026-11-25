@@ -5,6 +5,7 @@ using Phobos.Framework.Environment;
 using Phobos.Framework.Rules;
 using RimWorld;
 using RimWorld.Planet;
+using SmashTools;
 using UnityEngine;
 using Vehicles;
 using Vehicles.World;
@@ -71,6 +72,48 @@ public partial class CompPhobosFlight
     public bool Dropping => drop != null;
 
     void ExposeDrop() => Scribe_Deep.Look(ref drop, "PhobosFlight_Airdrop");
+
+    /// <summary>
+    /// Its map is about to be removed while it is in the air (Framework 0.293.0): on a journey home it hands over at once; a raid's aircraft
+    /// goes home; otherwise it comes down on the world map as a caravan at that place, with everyone aboard. A drop under way ends; what has
+    /// not gone stays aboard.
+    /// </summary>
+    public void LeaveBeforeMapGoes()
+    {
+        VehiclePawn v = Vehicle;
+        if (!Airborne || !v.Spawned) return;
+        EndDrop(null);
+        if (state == FlightState.LineWork) DropLines();
+        if (raider != null)
+        {
+            Vanish();
+            return;
+        }
+        if (Departing)
+        {
+            HandOver();
+            return;
+        }
+        Map map = v.Map;
+        PlanetTile tile = map.Tile;
+        state = FlightState.Ground;
+        climb = 0f;
+        speed = 0f;
+        ClearTarget();
+        orbitX = orbitZ = float.NaN;
+        v.Transform.rotation = 0f;
+        FlightRegistry.Remove(this);
+        StopTicking();
+        EndFlightSound();
+        v.GetComp<CompPhobosLitter>()?.HoldThroughDespawn();
+        v.DeSpawn(DestroyMode.Vanish);
+        map.GetDetachedMapComponent<VehiclePositionManager>()?.ReleaseClaimed(v);
+        AerialVehicleInFlight flight = AerialVehicleInFlight.Create(v, tile);
+        flight.SwitchToCaravan();
+        Seen.Note("aircraft.map-removed", v);
+        if (v.Faction == Faction.OfPlayer)
+            Messages.Message("PhobosFlight_MsgMapGoneCaravan".Translate(v.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.NeutralEvent);
+    }
 
     /// <summary>The kind of load a drop's line is laid for: the first it carries of people, bundles, vehicles.</summary>
     ParachuteLoad MainLoad()
@@ -276,22 +319,25 @@ public partial class CompPhobosFlight
         bool peopleLeft = Airdrop.Jumpers(v).Any() && Airdrop.Count(v, AirdropDefOf.Phobos_PersonnelParachute) > 0;
         if (peopleLeft)
         {
-            while (run.nextPerson <= 0f && Airdrop.Jumpers(v).FirstOrDefault() is { } jumper && Airdrop.UseOne(v, AirdropDefOf.Phobos_PersonnelParachute))
+            while (run.nextPerson <= 0f && Airdrop.Jumpers(v).FirstOrDefault() is { } jumper && Airdrop.UseOne(v, AirdropDefOf.Phobos_PersonnelParachute, out int packed))
             {
                 if (!v.RemovePawn(jumper)) break;
-                PhobosParachuteFaller.Release(map, jumper, ParachuteLoad.Person, Spread(ramp, run.people), Feet(run, ParachuteLoad.Person), from);
+                PhobosParachuteFaller.Release(map, jumper, ParachuteLoad.Person, Spread(ramp, run.people), Feet(run, ParachuteLoad.Person), from, quality: packed);
                 run.people++;
                 run.nextPerson += 1f / Mathf.Max(1, ext.jumpDoors);
             }
             return true;
         }
         if (run.raid) return false;
-        bool bundlesLeft = Airdrop.Cargo(v).Any() && Airdrop.Count(v, AirdropDefOf.Phobos_CargoParachute) > 0;
+        bool bundlesLeft = Airdrop.Cargo(v).Any() && Airdrop.CargoChutes(v) > 0;
         if (bundlesLeft)
         {
-            if (run.nextBundle <= 0f && Airdrop.UseOne(v, AirdropDefOf.Phobos_CargoParachute) && Airdrop.TakeBundle(v) is { } bundle)
+            // Framework 0.293.0: a guided canopy first, steering itself onto the point; the packer's quality goes with each.
+            if (run.nextBundle <= 0f && Airdrop.NextCargoChute(v) is { } chute && Airdrop.UseOne(v, chute, out int packedBundle) && Airdrop.TakeBundle(v) is { } bundle)
             {
-                PhobosParachuteFaller faller = PhobosParachuteFaller.Release(map, bundle[0], ParachuteLoad.Bundle, ramp, Feet(run, ParachuteLoad.Bundle), from);
+                Vector3? aim = chute == AirdropDefOf.Phobos_GuidedCargoParachute ? run.target.ToVector3Shifted() : null;
+                PhobosParachuteFaller faller = PhobosParachuteFaller.Release(map, bundle[0], ParachuteLoad.Bundle, ramp, Feet(run, ParachuteLoad.Bundle), from,
+                    quality: packedBundle, guidedTo: aim);
                 for (int i = 1; i < bundle.Count; i++) faller.innerContainer.TryAdd(bundle[i], canMergeWithExistingStacks: false);
                 run.bundles++;
                 run.nextBundle = 1f / Mathf.Max(0.1f, ext.bundlesPerSecond);
@@ -302,10 +348,10 @@ public partial class CompPhobosFlight
         VehiclePawn? next = DroppableVehicle(v, ext);
         if (next == null || Airdrop.Count(v, AirdropDefOf.Phobos_HeavyDropRig) <= 0) return false;
         if (run.nextVehicle > 0f) return true;
-        if (Airdrop.UseOne(v, AirdropDefOf.Phobos_HeavyDropRig) && Airdrop.TakeHeld(v, next))
+        if (Airdrop.UseOne(v, AirdropDefOf.Phobos_HeavyDropRig, out int packedRig) && Airdrop.TakeHeld(v, next))
         {
             bool crew = next.AllPawnsAboard.Any();
-            PhobosParachuteFaller.Release(map, next, ParachuteLoad.Vehicle, ramp, Feet(run, ParachuteLoad.Vehicle), from, withCrew: crew);
+            PhobosParachuteFaller.Release(map, next, ParachuteLoad.Vehicle, ramp, Feet(run, ParachuteLoad.Vehicle), from, withCrew: crew, quality: packedRig);
             run.vehicles++;
             run.platformsLeft--;
             run.nextVehicle = SecondsPerPlatform;

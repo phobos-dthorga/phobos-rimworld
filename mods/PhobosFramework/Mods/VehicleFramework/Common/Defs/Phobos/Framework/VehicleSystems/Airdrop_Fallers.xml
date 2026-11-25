@@ -57,4 +57,37 @@
     </skyfaller>
   </ThingDef>
 
+  <!-- A cargo bundle on the ground (Framework 0.293.0; the follow-ups of 25 Nov 2026): an A-22 bag on its skid, its cargo still strapped in
+       until a colonist de-rigs it, as real bundles are. Marked for opening when it lands; opened, it spills its cargo. It uses the
+       bundle's own picture. De-rigging takes about 15 game minutes (authored). -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>Phobos_LandedCargoBundle</defName>
+    <label>landed cargo bundle</label>
+    <description>A bundle of supplies dropped by parachute, still strapped up in its cargo bag on its skid. A colonist must de-rig it to get the supplies out.</description>
+    <thingClass>Phobos.VehicleSystems.PhobosLandedBundle</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Airdrop/CargoBundle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1.3, 1.3)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>30</pathCost>
+    <fillPercent>0.4</fillPercent>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <tickerType>Never</tickerType>
+    <drawerType>MapMeshOnly</drawerType>
+    <useHitPoints>true</useHitPoints>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Flammability>0.8</Flammability>
+    </statBases>
+    <building>
+      <isInert>true</isInert>
+      <claimable>false</claimable>
+      <deconstructible>false</deconstructible>
+      <expandHomeArea>false</expandHomeArea>
+    </building>
+  </ThingDef>
 </Defs>

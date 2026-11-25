@@ -13,6 +13,37 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.293.0] - 2026-11-25 - Draft
+
+Airdrops: braces, guided parachutes, bundles to de-rig, packers' skill, and air defence that works against them
+
+### Added
+
+- **Parachute ankle braces** (the owner's four follow-ups of 25 November 2026): worn under boots, made at a tailoring bench, they
+  divide a jumper's injury risk by 1.84, the study's figure. Not yet tested in game.
+- **A guided cargo parachute** after microelectronics: made or repacked at the rigger's table, used before plain cargo parachutes,
+  it steers its bundle onto the point whatever the wind.
+- **Bundles land strapped in their bag**, marked for a colonist to de-rig with the game's own Open order; the cargo comes out
+  beside it.
+- **Packed parachutes have a quality** from the packer's Crafting skill, and a new setting, **Packers' skill decides whether
+  canopies fail** (off), lets a badly packed one fail: a rough landing on the reserve, or a hard one for cargo and vehicles.
+- **The hold's loading area** is drawn in cyan behind the ramp when a carrier with room is selected.
+- **Their pictures**, the owner's picks.
+
+### Fixed
+
+- **A hold destroyed with no room for its vehicles** sends them to a depot on the world map; before, they stayed in a holder that
+  was gone.
+- **An aircraft over a map that is given up** carries on home, or comes down on the world map as a caravan; before, it came down on
+  the map as it vanished.
+- **Air defence against drops** (the owner's ask): InterRim Ballistic Missile's CIWS now has an effect on parachute loads it
+  intercepts (half come down downed, the rest roughly), through D'thorga Patches; under Combat Extended a vehicle under parachutes
+  takes 80 hits to bring down, and a downed load lands on the map, never off its top edge.
+
+### Save compatibility
+
+- Safe to add mid-game. Parachutes packed before this have no quality and never fail.
+
 ## [0.292.0] - 2026-11-25 - Draft
 
 People use parked vehicles: a fault-read's fixes, visitors making room, chats aboard and defenders in their trucks

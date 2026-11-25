@@ -52,6 +52,9 @@ public static class AirdropDefOf
     public static ThingDef Phobos_SpentParachute = null!;
     public static ThingDef Phobos_SpentCargoParachute = null!;
     public static ThingDef Phobos_SpentDropPlatform = null!;
+    public static ThingDef Phobos_GuidedCargoParachute = null!;
+    public static ThingDef Phobos_AnkleBraces = null!;
+    public static ThingDef Phobos_LandedCargoBundle = null!;
     public static ThingDef Phobos_ParachuteFaller_Person = null!;
     public static ThingDef Phobos_ParachuteFaller_Bundle = null!;
     public static ThingDef Phobos_ParachuteFaller_Vehicle = null!;
@@ -77,7 +80,8 @@ public static class Airdrop
 
     /// <summary>Whether this is a parachute or rig (packed or spent): never dropped as cargo.</summary>
     public static bool IsChute(ThingDef def) =>
-        def == AirdropDefOf.Phobos_PersonnelParachute || def == AirdropDefOf.Phobos_CargoParachute || def == AirdropDefOf.Phobos_HeavyDropRig;
+        def == AirdropDefOf.Phobos_PersonnelParachute || def == AirdropDefOf.Phobos_CargoParachute || def == AirdropDefOf.Phobos_HeavyDropRig
+        || def == AirdropDefOf.Phobos_GuidedCargoParachute;
 
     /// <summary>People who jump: everyone in a seat that does nothing (passengers, a crew chief), awake.</summary>
     public static IEnumerable<Pawn> Jumpers(VehiclePawn v)
@@ -125,14 +129,31 @@ public static class Airdrop
     public static int Count(VehiclePawn v, ThingDef def) => v.inventory.innerContainer.TotalStackCountOfDef(def);
 
     /// <summary>Uses one parachute from its cargo. False when it has none.</summary>
-    public static bool UseOne(VehiclePawn v, ThingDef def)
+    public static bool UseOne(VehiclePawn v, ThingDef def) => UseOne(v, def, out _);
+
+    /// <summary>
+    /// Uses one parachute from its cargo, the best packed first, and gives the packer's quality (the game's, 0 Awful to 6 Legendary; -1 when
+    /// it has none). False when it has none (Framework 0.293.0).
+    /// </summary>
+    public static bool UseOne(VehiclePawn v, ThingDef def, out int quality)
     {
-        Thing? stack = v.inventory.innerContainer.InnerListForReading.FirstOrDefault(t => t.def == def);
+        quality = -1;
+        Thing? stack = v.inventory.innerContainer.InnerListForReading.Where(t => t.def == def)
+            .OrderByDescending(t => t.TryGetQuality(out QualityCategory q) ? (int)q : -1).FirstOrDefault();
         if (stack == null) return false;
+        if (stack.TryGetQuality(out QualityCategory found)) quality = (int)found;
         Thing one = stack.SplitOff(1);
         if (!one.Destroyed) one.Destroy();
         return true;
     }
+
+    /// <summary>How many cargo parachutes it carries, guided and plain (Framework 0.293.0).</summary>
+    public static int CargoChutes(VehiclePawn v) => Count(v, AirdropDefOf.Phobos_GuidedCargoParachute) + Count(v, AirdropDefOf.Phobos_CargoParachute);
+
+    /// <summary>The cargo parachute it uses next: a guided one while it has any, as real crews choose them for precision; null when none.</summary>
+    public static ThingDef? NextCargoChute(VehiclePawn v) =>
+        Count(v, AirdropDefOf.Phobos_GuidedCargoParachute) > 0 ? AirdropDefOf.Phobos_GuidedCargoParachute
+        : Count(v, AirdropDefOf.Phobos_CargoParachute) > 0 ? AirdropDefOf.Phobos_CargoParachute : null;
 
     /// <summary>
     /// Takes the next bundle out of its cargo, up to a tonne (ParachuteRule.BundleKilograms): whole stacks while they fit, then part of the
@@ -180,7 +201,7 @@ public static class Airdrop
         if (Ext(v) is not { } ext) return "PhobosAirdrop_RefuseCannot".Translate(who).Resolve();
         int people = Jumpers(v).Count(), bundles = BundlesNeeded(v), vehicles = HeldVehicles(v).Count(h => VehicleKg(h) <= ext.heaviestPlatformKg);
         if (people + bundles + vehicles == 0) return "PhobosAirdrop_RefuseNothing".Translate(who).Resolve();
-        int chutes = Count(v, AirdropDefOf.Phobos_PersonnelParachute), cargoChutes = Count(v, AirdropDefOf.Phobos_CargoParachute),
+        int chutes = Count(v, AirdropDefOf.Phobos_PersonnelParachute), cargoChutes = CargoChutes(v),
             rigs = Count(v, AirdropDefOf.Phobos_HeavyDropRig);
         int goPeople = Math.Min(people, chutes), goBundles = Math.Min(bundles, cargoChutes), goVehicles = Math.Min(vehicles, rigs);
         if (goPeople + goBundles + goVehicles == 0) return "PhobosAirdrop_RefuseNoChutes".Translate(who).Resolve();

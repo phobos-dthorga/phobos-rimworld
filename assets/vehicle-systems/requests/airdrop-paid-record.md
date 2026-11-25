@@ -41,3 +41,31 @@ joined to the frame is kept, so no island or speck is left. The close is set per
 `airdrop-personnel-chute`, `airdrop-cargo-chute`, `airdrop-heavy-rig`, `airdrop-spent-platform`, `airdrop-riggers-table`. On the
 answers: `python assets/vehicle-systems/ship_airdrop.py` (it reads them), then archive the picks to `art-masters` and the other tries to
 `art-references` with `scripts/art/archive_branch.py`, and `picks settle` each in the commit that ships it.
+
+## Second batch: the guided cargo parachute and the ankle braces (25 Nov 2026)
+
+**The owner's direction.** A question card of 25 Nov 2026: two more in-world items for the airdrop (the guided cargo parachute and the
+parachute ankle braces), two tries each, about US$0.22, from the US$0.62 left of the day's US$1.50 cap; "Paid, then commit together".
+The run's own cap was US$0.40. The two requests are added to the same file, [airdrop-paid.json](airdrop-paid.json)
+(`airdrop-guided-chute`, `airdrop-ankle-braces`), and the run skipped the eighteen pictures already made.
+
+| Step | Run | Cost |
+| --- | --- | --- |
+| Dry run (ceiling, US$0.149 a picture at most) | none sent | at most US$0.60 |
+| Both, two tries each, cap US$0.40 | `generated/run-20261125-1034.md` | US$0.221 |
+| **Day's total** | 22 pictures, no refusals, no timeouts | **US$1.103 of US$1.50** |
+
+About US$0.055 a picture at 1024 x 1024, medium quality, as before; every returned size equalled the size asked.
+
+**References, our own only, for style**: the two parachute items picked earlier the same day, `Airdrop/CargoParachute.png` and
+`Airdrop/PersonnelParachute.png`, each with its role in the request and the prompt. No game or other author's art was uploaded.
+
+**Review (agent, from the originals and the review cards).** All four match the brief: the item angle of the earlier parachute items,
+a thick near-black outline, olive and tan, no text, logos or people. Guided chute: try 1 is a flat strapped bag with a tan box and a
+thin upright antenna, the coiled lines at the lower right; try 2 has the box strapped lower with a short knob of an antenna and the
+risers trailing out at the bottom. Ankle braces: try 1 reads as two short braces with a foot stirrup and a padded collar; try 2 is
+open-backed shells (it could read as shin or forearm guards). The cards' edge check found 0 loose specks on all four.
+Cards: `cards/airdrop-paid/01-airdrop-guided-chute.png` and `01-airdrop-ankle-braces.png` in the art working folder (the card number is 01 because each was drawn with `--only`).
+
+**Decision.** Waiting: offered on the Picks page as `airdrop-guided-chute` and `airdrop-ankle-braces`. On the answers, the same as the
+first batch: `python assets/vehicle-systems/ship_airdrop.py` (or `--pick airdrop-guided-chute=N`), archive, and `picks settle`.

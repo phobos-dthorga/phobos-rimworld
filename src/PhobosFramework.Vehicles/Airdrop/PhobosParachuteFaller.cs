@@ -28,6 +28,10 @@ public class PhobosParachuteFaller : Skyfaller, IActiveTransporter
     public Rot4 vehicleRot = Rot4.North;
     public string from = "";
     public bool landWithCrew;
+    /// <summary>The packer's quality of its canopy (the game's, 0 Awful to 6 Legendary; -1 unknown). Framework 0.293.0.</summary>
+    public int chuteQuality = -1;
+    /// <summary>A guided canopy, steering itself onto its point (Framework 0.293.0).</summary>
+    public bool guided;
 
     ActiveTransporterInfo? info;
 
@@ -63,7 +67,10 @@ public class PhobosParachuteFaller : Skyfaller, IActiveTransporter
         get
         {
             float up = Mathf.Max(ticksToImpact, 0) * def.skyfaller.speed;
-            return new Vector3(groundX, def.Altitude, groundZ + up);
+            // Framework 0.293.0: drawn no higher than the map's top edge, since Combat Extended puts what a CIWS shoots down at the drawn
+            // point; above the edge it would be off the map.
+            float top = Spawned ? Map.Size.z - 1.01f : float.MaxValue;
+            return new Vector3(groundX, def.Altitude, Mathf.Min(groundZ + up, top));
         }
     }
 
@@ -175,6 +182,8 @@ public class PhobosParachuteFaller : Skyfaller, IActiveTransporter
         Scribe_Values.Look(ref vehicleRot, "PhobosChute_VehicleRot", Rot4.North);
         Scribe_Values.Look(ref from, "PhobosChute_From", "");
         Scribe_Values.Look(ref landWithCrew, "PhobosChute_WithCrew");
+        Scribe_Values.Look(ref chuteQuality, "PhobosChute_Quality", -1);
+        Scribe_Values.Look(ref guided, "PhobosChute_Guided");
     }
 
     // ---- Letting go ----
@@ -192,10 +201,11 @@ public class PhobosParachuteFaller : Skyfaller, IActiveTransporter
     /// (ParachuteRule, the map's wind, the map's scale) and how long it falls, and spawns it falling. The load must be in no container and
     /// not spawned. Returns where it is expected to land (before scatter is known to the player: the drifted point).
     /// </summary>
-    public static PhobosParachuteFaller Release(Map map, Thing contents, ParachuteLoad kind, Vector3 release, float heightFeet, string from, bool withCrew = false)
+    public static PhobosParachuteFaller Release(Map map, Thing contents, ParachuteLoad kind, Vector3 release, float heightFeet, string from, bool withCrew = false,
+        int quality = -1, Vector3? guidedTo = null)
     {
         ParachuteRule.Figures figures = ParachuteRule.For(kind);
-        Vector3 landing = Landing(map, kind, release, heightFeet, scatter: true);
+        Vector3 landing = guidedTo is { } aim ? Guided(map, aim) : Landing(map, kind, release, heightFeet, scatter: true);
         double seconds = ParachuteRule.Opens(heightFeet)
             ? ParachuteRule.DescentSeconds(heightFeet, figures.DescentFeetPerSecond)
             : Math.Sqrt(2 * heightFeet * ParachuteRule.MetresPerFoot / 9.81);
@@ -204,6 +214,8 @@ public class PhobosParachuteFaller : Skyfaller, IActiveTransporter
         faller.Plan(kind, release, landing, ticks, heightFeet);
         faller.from = from;
         faller.landWithCrew = withCrew;
+        faller.chuteQuality = quality;
+        faller.guided = guidedTo != null;
         if (contents is VehiclePawn vehicle) faller.vehicleRot = vehicle.Rotation;
         faller.innerContainer.TryAdd(contents, canMergeWithExistingStacks: false);
         IntVec3 cell = release.ToIntVec3().ClampInsideMap(map);
@@ -226,6 +238,14 @@ public class PhobosParachuteFaller : Skyfaller, IActiveTransporter
         point.x = Mathf.Clamp(point.x, 1f, map.Size.x - 1.01f);
         point.z = Mathf.Clamp(point.z, 1f, map.Size.z - 1.01f);
         point.y = 0f;
+        return point;
+    }
+
+    /// <summary>Where a guided canopy comes down: on its point, within its small spread, whatever the wind (Framework 0.293.0).</summary>
+    static Vector3 Guided(Map map, Vector3 aim)
+    {
+        Vector2 spread = Rand.InsideUnitCircle * (float)ParachuteRule.GuidedScatterCells;
+        var point = new Vector3(Mathf.Clamp(aim.x + spread.x, 1f, map.Size.x - 1.01f), 0f, Mathf.Clamp(aim.z + spread.y, 1f, map.Size.z - 1.01f));
         return point;
     }
 

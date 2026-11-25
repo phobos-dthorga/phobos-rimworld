@@ -145,7 +145,7 @@ public static class AirdropOffMap
         var items = new List<Thing>();
         var spent = new List<Thing>();
         int bundles = 0;
-        while (Airdrop.Cargo(v).Any() && Airdrop.UseOne(v, AirdropDefOf.Phobos_CargoParachute) && Airdrop.TakeBundle(v) is { } bundle)
+        while (Airdrop.Cargo(v).Any() && Airdrop.NextCargoChute(v) is { } chute && Airdrop.UseOne(v, chute) && Airdrop.TakeBundle(v) is { } bundle)
         {
             items.AddRange(bundle);
             spent.Add(ThingMaker.MakeThing(AirdropDefOf.Phobos_SpentCargoParachute));

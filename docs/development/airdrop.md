@@ -257,6 +257,41 @@ cluster); a cargo bundle; a drop platform beneath a vehicle; a spent canopy; a p
 heavy-drop rig; a spent drop platform; the rigger's table. The buttons' icons (drop, drop low, load into hold, unload hold, airdrop on)
 go in the local night run, with confirmed existing icons of ours until then.
 
+## Follow-ups from the study (25 Nov 2026; Framework 0.293.0)
+
+The owner asked "Was there anything else interesting in the source(s)?" and chose all four follow-ups offered, with one condition: the packer's
+skill rule "gated by a setting, disabled by default".
+
+| Follow-up | What was built | Real basis or reason | Who chose |
+| --- | --- | --- | --- |
+| A hold destroyed with no room for its vehicles | They wait at a depot on the world map beside the place, as a lost convoy does; before, they stayed in a destroyed holder | The C-17 kills and destroys in the same case | Owner's card; depot is the agent's choice |
+| A map removed under an aircraft in the air | It hands over on its journey home if it has one; a raid's aircraft goes home; otherwise it comes down on the world map as a caravan at that place | The UH-60's own safeguard (a prefix on Game.DeinitAndRemoveMap that flies it home) | Owner's card; caravan is the agent's choice |
+| The packer's skill | Packed parachutes and rigs carry the game's quality from their maker's Crafting skill; with **"Packers' skill decides whether canopies fail"** on (off by default), a canopy fails at 3 % (awful) to none (legendary): a jumper lands on the reserve at ten times the risk; cargo and vehicles land hard (a vehicle as from 20 m) | The rigger's pledge: a rigger must be ready to jump any parachute they packed. Rates **[A]**: no sourced malfunction rate fits | Owner's card, setting off |
+| Ankle braces | Worn on the feet under anything else, made at a tailoring bench (15 cloth, 4 steel, no research); a jumper wearing them has the risk divided by 1.84 | Knapik and colleagues (2016): the risk without a brace is 1.84 times **[P]** | Owner's card; recipe **[A]** |
+| A GPS-guided cargo parachute | Made or repacked at the rigger's table after microelectronics (3 or 2 components); used before plain cargo parachutes; steers its bundle onto the point whatever the wind, within 2 cells | JPADS 2K: up to 2,200 lb, within about 150 m **[P, US Marine Corps]** | Owner's card; figures **[A]** |
+| The ramp's loading area | Drawn in cyan behind the ramp while a carrier with room is selected on the ground | The C-17's own zone | Owner's card |
+| Bundles de-rigged | A bundle lands as a landed cargo bundle (the bundle's own picture), marked for the game's "Open" order when it is the player's; a colonist de-rigs it in about 15 game minutes and the cargo comes out beside it | Real A-22 bundles are de-rigged by hand | Owner's card; time **[A]** |
+
+**Air defence against drops** (the read owed since 25 Nov 2026): see [the next section](#air-defence-against-drops).
+
+## Air defence against drops
+
+Read in code on 25 Nov 2026 **[code]** (the read the design owed: "make sure it works against anti-aircraft guns, CIWS, etc.").
+Two things are in the air during a drop: **the aircraft on its pass** (a vehicle spawned on the map) and **each falling load** (a
+skyfaller and active transporter). Nothing below is tested in game.
+
+| System | The aircraft on its pass | Falling loads | Done (Framework 0.293.0, Patches 0.43.0) |
+| --- | --- | --- | --- |
+| **Combat Extended** CIWS (its KPV; under CE, DMS's GateKeeper and DMSE's Vulcan and Dawnblade) | As an ordinary ground target only: no CIWS verb aims at a vehicle | **Yes**: loads carrying enemies (people or vehicles); bundles of cargo are never shot. Our three loads are listed, ticked, in each CIWS's target dialog | A vehicle's load takes 80 hits to bring down (CE's skyfaller default 22 for a jumper), by an XML patch only with CE; the drawn height is kept inside the map, since CE spills a downed load at its drawn point |
+| **InterRim Ballistic Missile**'s CIWS | Only in its ground mode, as any hostile target | **Marked "intercepted" but nothing happened**: its effect runs in the game's skyfaller impact, which our loads never call | A hook in the Framework (`SkyfallerInterception`), filled by the IRBM tie-in with IRBM's public check: an intercepted load's canopy is shredded half the time (its people come down downed, as IRBM leaves drop-pod raiders) or holed (the reserve's risk; a vehicle lands as from 20 m) |
+| **The Dead Man's Switch - Expedition** and Fortified | As an ordinary ground target (its flak and field air defence) | Only through the CE verbs above; its own long-range system takes skyfallers only from the game's skyfaller maker | Left alone. **Keep spawning loads with GenSpawn**: through the game's skyfaller maker DMSE would take hostile loads off the map while its radar is up |
+| **Vehicle Framework** | No on-map air defence (its flak is on the world map) | No | Nothing to do |
+
+**Agent's view:** a CIWS shooting down paratroopers is right for Combat Extended; the CE handler still kills everyone inside a load it
+brings down (a vehicle too), which is harsh and CE's own rule; a softer outcome needs a tie-in assembly naming CE's types, left for the
+owner to ask for. Making IRBM's CIWS shoot at the aircraft itself would need a Harmony postfix like the CE-shells one: not done, offered.
+Your own CIWS also shoots at your own drop if it carries a hostile person (a prisoner, say): CE's rule.
+
 ## What a next game would need
 
 The wind (a direction and a speed in knots) and the parachute rule (`ParachuteRule`: drift, descent, injury and minimum height) are

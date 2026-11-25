@@ -173,6 +173,44 @@ public static class ParachuteRule
         return Math.Min(1, chance);
     }
 
+    /// <summary>An ankle brace's share of the risk: the risk without one is 1.84 times (Knapik and colleagues), so with one it is 1/1.84
+    /// (Framework 0.293.0).</summary>
+    public const double AnkleBraceFactor = 1 / 1.84;
+
+    // ---- A canopy that fails (Framework 0.293.0; behind the player's setting, off by default) ----
+
+    /// <summary>
+    /// The chance a packed canopy malfunctions, by the packer's work: the game's quality, Awful (0) to Legendary (6). All authored: no
+    /// sourced malfunction rate was found that fits; a real jumper's reserve makes most a hard landing, not a death.
+    /// </summary>
+    public static readonly double[] FailureByQuality = { 0.03, 0.01, 0.003, 0.001, 0.0003, 0.0001, 0 };
+
+    /// <summary>The chance a canopy packed at this quality fails; none when the quality is unknown (below 0).</summary>
+    public static double FailureChance(int quality) =>
+        quality < 0 ? 0 : FailureByQuality[Math.Min(quality, FailureByQuality.Length - 1)];
+
+    /// <summary>A person whose canopy fails lands on the reserve, roughly: their risk this many times over (authored).</summary>
+    public const double ReserveFactor = 10;
+
+    /// <summary>A bundle or vehicle whose canopy fails lands hard, from this height for a vehicle (authored, twice an ordinary hard
+    /// landing).</summary>
+    public const double FailedCanopyMetres = 20;
+
+    // ---- A GPS-guided cargo parachute (JPADS; Framework 0.293.0) ----
+
+    /// <summary>
+    /// How far a guided bundle lands from its point, cells (authored: it steers against the wind; the Marine Corps' 150 m for the 2K is
+    /// within a few cells at the map's share).
+    /// </summary>
+    public const double GuidedScatterCells = 2;
+
+    /// <summary>
+    /// A load shot at by an interceptor that hits (another mod's CIWS): the share whose canopy is shredded, so its people come down downed,
+    /// as InterRim Ballistic Missile's own interception leaves drop pod raiders (Framework 0.293.0; authored). The rest come down holed, at
+    /// the reserve's risk.
+    /// </summary>
+    public const double InterceptedDownedShare = 0.5;
+
     /// <summary>The share of injuries to the head; the rest are to an ankle, a foot or a leg (authored split; the Army names the head and the
     /// ankles as the most injured).</summary>
     public const double HeadInjuryShare = 0.2;

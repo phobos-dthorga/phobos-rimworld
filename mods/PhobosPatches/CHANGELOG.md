@@ -21,6 +21,17 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.43.0] - 2026-11-25 - Draft
+
+InterRim Ballistic Missile's CIWS against D'thorga's parachute drops
+
+### Added
+
+- **Its CIWS brings down parachute loads** (D'thorga Framework 0.293.0; the owner's ask of 25 November 2026 that drops "work
+  against anti-aircraft guns, CIWS"): it already marked them intercepted, but its effect runs only on the game's own skyfallers.
+  D'thorga Framework now asks it, and half the loads it intercepts come down with their people downed, the rest roughly. Not yet
+  tested in game.
+
 ## [0.42.1] - 2026-11-25 - Draft
 
 Mechs get off a full recharger again

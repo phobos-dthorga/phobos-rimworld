@@ -276,19 +276,28 @@ fly, without landing. The design and its sources: [parachute airdrops](../develo
   landings are rougher. With Combat Extended the wind is its own; without, a wind of D'thorga's wanders the same way.
 - **People are rarely hurt**, about 5 in 1,000 jumps, more often at night, in strong wind, with heavy kit, on their first five jumps
   and when they must come down away from open ground. Each jump goes on their record, with a good thought, or a bad one if hurt.
-- **Cargo spills beside its spent canopy; a vehicle lands on its platform**, worn a little, and now and then hard. Nothing lands on a
+- **Cargo lands still strapped in its bag**, beside its spent canopy, **marked for a colonist to de-rig** (about a quarter of an
+  hour), and comes out beside it. **A vehicle lands on its platform**, worn a little, and now and then hard. Nothing lands on a
   roof or inside a wall: it comes down on the nearest open ground.
 - **Every canopy is left on the ground as a spent parachute**, every platform as a spent platform. **Carry them home and repack them
   at the rigger's table**, for little or nothing.
+- **Parachute ankle braces** (tailoring bench, no research) nearly halve a jumper's chance of being hurt. Put them on before boots.
+- **A guided cargo parachute** (rigger's table, after microelectronics) steers its bundle onto the point whatever the wind. The
+  aircraft uses these before plain cargo parachutes.
+- **Packed parachutes have a quality**, from the packer's Crafting skill. With **Packers' skill decides whether canopies fail** on
+  (off by default), a badly packed canopy can fail: a jumper lands roughly on the reserve, and cargo or a vehicle lands hard.
 - **Enemies drop too**: some raids by air come by parachute, upwind of open ground outside your turrets. Shoot at the aircraft on its
   pass; with Combat Extended, a CIWS shoots at them as they come down. Their spent canopies are yours to take.
+  InterRim Ballistic Missile's CIWS also brings them down: half come down unable to fight, the rest roughly.
+- **If you leave a map while an aircraft is flying over it**, the aircraft carries on home if it was heading there, or comes down
+  on the world map as a caravan.
 
 **The hold:** an aircraft with a hold (the Osprey takes one vehicle up to 2 by 3 cells and 2,500 kg) takes a vehicle of yours aboard
-with **Load into hold**: park it close behind the ramp. Its crew rides in the passenger seats. **Unload hold** drives it out of the
+with **Load into hold**: park it inside the cyan area drawn behind the ramp when the aircraft is selected. Its crew rides in the passenger seats. **Unload hold** drives it out of the
 ramp. No aircraft, and nothing carrying, towing or holding another vehicle.
 
 **Settings** (Aircraft page, Airdrops): **Airdrop landings can hurt and damage** (on); **Vehicles may drop with their crew inside**
-(off: high risk, after the Soviet drops of 1973 and 1976); **Other authors' aircraft use D'thorga airdrops** (off: the C-17's own
+(off: high risk, after the Soviet drops of 1973 and 1976); **Packers' skill decides whether canopies fail** (off); **Other authors' aircraft use D'thorga airdrops** (off: the C-17's own
 airdrop is replaced by ours while it is on).
 
 ## Fighting a fire from the air
