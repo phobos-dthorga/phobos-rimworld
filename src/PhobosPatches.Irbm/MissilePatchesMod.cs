@@ -38,6 +38,9 @@ public class MissilePatchesSettings : ModSettings
     public bool quietReveals = true;
     /// <summary>IRBM's CIWS also intercepts Combat Extended's shells (Patches 0.19.1, AD14; owner, 13 Nov 2026: patch it).</summary>
     public bool ciwsShells = true;
+    /// <summary>IRBM's CIWS also fires at enemy aircraft in the air over the map, D'thorga's flight (Patches 0.44.0; the owner's ask of 26 Nov
+    /// 2026). It aims only at aircraft hostile to the player, so it starts on. Live.</summary>
+    public bool ciwsAircraft = true;
 
     /// <summary>Dubs Rimatomics' own high-yield strike makes six (WorldObject_ICBMfission, read 7 Nov 2026).</summary>
     public const int MaxFalloutClouds = 6;
@@ -66,6 +69,7 @@ public class MissilePatchesSettings : ModSettings
         Scribe_Values.Look(ref shadowAndShelter, "PhobosMissilePatches_ShadowAndShelter", true);
         Scribe_Values.Look(ref quietReveals, "PhobosMissilePatches_QuietReveals", true);
         Scribe_Values.Look(ref ciwsShells, "PhobosMissilePatches_CiwsShells", true);
+        Scribe_Values.Look(ref ciwsAircraft, "PhobosMissilePatches_CiwsAircraft", true);
     }
 }
 
@@ -80,7 +84,7 @@ public class MissilePatchesMod : SettingsBookMod
 {
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.43.0";
+    public const string ModVersion = "0.44.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "IRBM");
 
@@ -248,6 +252,7 @@ public class MissilePatchesMod : SettingsBookMod
         {
             list.Section("PhobosMissilePatches_SectionDefence".Translate());
             list.Check("PhobosMissilePatches_SettingCiwsShells".Translate(), ref s.ciwsShells, d.ciwsShells, "PhobosMissilePatches_SettingCiwsShellsDesc".Translate());
+            list.Check("PhobosMissilePatches_SettingCiwsAircraft".Translate(), ref s.ciwsAircraft, d.ciwsAircraft, "PhobosMissilePatches_SettingCiwsAircraftDesc".Translate());
         }
     }
 

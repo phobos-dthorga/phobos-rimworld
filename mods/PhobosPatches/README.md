@@ -11,7 +11,7 @@ munitions, **Biotech**'s mech rechargers and **The Dead Man's Switch**'s drone p
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.43.0, built 25 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.44.0, built 25 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out), one missile strike on an earlier version (owner, 7 November 2026), the Prison Labor
 guard, drone platforms kept topped up and drones called home in time, soldiers going back to their own guns, sidearms that loop
 being stopped, mech rechargers drawing real power, and the Nice Research Tab guard. Everything else is not yet tested in game.
@@ -132,6 +132,7 @@ strike leaves behind, from the fireball onwards.
 | Shadow and shelter from the strike | Anyone under a roof is spared burns and flash blindness; the dose is cut by what stood over them (a sixth behind stone, almost none in rock); flash blindness is worse at night; your people's doses come on a letter. Off: everyone not under rock takes burns, blindness and the whole dose | On |
 | Vehicles in the strike (with D'thorga Framework's vehicles) | Vehicles in the fireball are gone with everyone aboard; further out the blast wrecks or batters them by their weight, heat burns tyres and hoses, a running engine takes the pulse, and the people aboard are thrown about and take the dose the hull lets through. Off: a vehicle takes one blow to one spot, which armour usually shrugs off | On |
 | Close-in weapon systems shoot down Combat Extended shells (only with Combat Extended) | Off: they leave CE's mortar and artillery shells alone | On |
+| CIWS fires at enemy aircraft | Close-in weapon systems also fire at enemy aircraft flying over the map, such as one making a parachute drop, damaging its parts; never at your own. Off: they fire only at shells, missiles and drop pods | On |
 
 ### Harrier jump jet
 

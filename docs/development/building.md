@@ -132,7 +132,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.AircraftRearm` | 0 | 0 | 10 | 0 |
 | `PhobosPatches.Biotech` | 2 | 0 | 0 | 0 |
 | `PhobosPatches.Classical` | 1 | 0 | 0 | 0 |
-| `PhobosPatches.CombatExtended` | 1 | 1 | 1 | 0 |
+| `PhobosPatches.CombatExtended` | 1 | 2 | 1 | 0 |
 | `PhobosPatches.Harrier` | 13 | 5 | 5 | 0 |
 | `PhobosPatches.Irbm` | 6 | 0 | 1 | 0 |
 | `PhobosPatches.NiceResearchTab` | 1 | 0 | 0 | 0 |
@@ -142,7 +142,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-187 patched methods named in attributes, 24 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+187 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -399,11 +399,12 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosPatches.CombatExtended</code>: 1 patched method, 1 by name</summary>
+<details><summary><code>PhobosPatches.CombatExtended</code>: 1 patched method, 2 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosPatches.CombatExtended/`) |
 | --- | --- | --- |
 | `Pawn_EquipmentTracker.DropAllEquipment` | postfix | `KeepGuns/DroppedWhenDownedPatch.cs` |
+| by name in TargetMethod | prefix | `Airdrop/ShotDownParachutes.cs` |
 | by name in TargetMethod | postfix | `KeepGuns/SidearmLoopGuard.cs` |
 
 </details>
@@ -434,9 +435,9 @@ Every HarmonyPatch attribute was read.
 
 | Patched method | Kinds | Where (in `src/PhobosPatches.Irbm/`) |
 | --- | --- | --- |
-| `Building_CIWS.FindBestTarget` | postfix | `Patches/CiwsShellsPatches.cs` |
-| `Building_CIWS.InterceptionSuccess` | postfix | `Patches/CiwsShellsPatches.cs` |
-| `Building_CIWS.IsTargetValid` | postfix | `Patches/CiwsShellsPatches.cs` |
+| `Building_CIWS.FindBestTarget` | postfix | `Patches/CiwsAircraftPatches.cs`, `Patches/CiwsShellsPatches.cs` |
+| `Building_CIWS.InterceptionSuccess` | prefix, postfix | `Patches/CiwsAircraftPatches.cs`, `Patches/CiwsShellsPatches.cs` |
+| `Building_CIWS.IsTargetValid` | postfix | `Patches/CiwsAircraftPatches.cs`, `Patches/CiwsShellsPatches.cs` |
 | `FogGrid.FloodUnfogAdjacent` | prefix | `Patches/QuietRevealPatches.cs` |
 | `StrategicImpactCountdown.ApplyStrategicDamage` | prefix, finalizer | `Patches/QuietRevealPatches.cs`, `Patches/StrategicDamagePatches.cs` |
 | `StrategicImpactCountdown.OnWhiteScreenReached` | prefix | `Patches/WhiteScreenPatch.cs` |

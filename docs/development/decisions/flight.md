@@ -140,6 +140,8 @@ that overturns an earlier one says so. Engine rows from the same records are in 
 | 25 Nov | Canopy failure by the packer's skill behind a setting, off | owner | "Gated by a setting, disabled by default" | [drop], Follow-ups from the study |
 | 25 Nov | Paid pictures for the braces and guided parachute; commit after the picks | owner's card | "Paid, then commit together" | [drop], Follow-ups from the study |
 | 25 Nov | IRBM's CIWS hit: half shredded (downed), half holed | agent choice | IRBM intercepts almost every load | [drop], Air defence against drops |
+| 26 Nov | A softer outcome for a load CE's CIWS brings down; IRBM's CIWS fires at enemy aircraft | owner | "I'll have the optional extras" | [drop], Air defence against drops |
+| 26 Nov | CE's shoot-down: canopy shredded, people downed, vehicle as from 20 m; IRBM hit 4 points; its setting on | agent choice | Mirrors IRBM's own; no risk to the player | [drop], Air defence against drops |
 
 [fo]: ../archive/vehicle-flight-over-the-map.md
 [av]: ../archive/vehicle-avionics.md

@@ -32,6 +32,9 @@ public class PhobosParachuteFaller : Skyfaller, IActiveTransporter
     public int chuteQuality = -1;
     /// <summary>A guided canopy, steering itself onto its point (Framework 0.293.0).</summary>
     public bool guided;
+    /// <summary>Brought down by another mod's interceptor (Framework 0.297.0): it lands at once, its canopy shredded. Not saved: it lands
+    /// in the same tick.</summary>
+    public bool shotDown;
 
     ActiveTransporterInfo? info;
 
@@ -84,6 +87,19 @@ public class PhobosParachuteFaller : Skyfaller, IActiveTransporter
             if (cell != Position) Position = cell;
         }
         base.Tick();
+    }
+
+    /// <summary>
+    /// Brought down by an interceptor that would otherwise end it its own way (Combat Extended's CIWS kills everyone inside): it comes down
+    /// where it is now, its canopy shredded, as an intercepted load does (the owner's ask of 26 Nov 2026 for a softer outcome).
+    /// </summary>
+    public void ShootDown()
+    {
+        if (hasImpacted || !Spawned) return;
+        shotDown = true;
+        hasImpacted = true;
+        ParachuteLanding.Land(this);
+        Destroy();
     }
 
     protected override void Impact()

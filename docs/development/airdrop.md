@@ -287,10 +287,20 @@ skyfaller and active transporter). Nothing below is tested in game.
 | **The Dead Man's Switch - Expedition** and Fortified | As an ordinary ground target (its flak and field air defence) | Only through the CE verbs above; its own long-range system takes skyfallers only from the game's skyfaller maker | Left alone. **Keep spawning loads with GenSpawn**: through the game's skyfaller maker DMSE would take hostile loads off the map while its radar is up |
 | **Vehicle Framework** | No on-map air defence (its flak is on the world map) | No | Nothing to do |
 
-**Agent's view:** a CIWS shooting down paratroopers is right for Combat Extended; the CE handler still kills everyone inside a load it
-brings down (a vehicle too), which is harsh and CE's own rule; a softer outcome needs a tie-in assembly naming CE's types, left for the
-owner to ask for. Making IRBM's CIWS shoot at the aircraft itself would need a Harmony postfix like the CE-shells one: not done, offered.
 Your own CIWS also shoots at your own drop if it carries a hostile person (a prisoner, say): CE's rule.
+
+**The two extras the owner asked for (26 Nov 2026; Framework 0.297.0, Patches 0.44.0):**
+
+- **A softer outcome when Combat Extended's CIWS brings a load down.** CE's own kills everyone inside, a vehicle too. Ours brings the
+  load down where it is, its canopy shredded: its people downed (as InterRim Ballistic Missile leaves drop-pod raiders), a vehicle
+  landing as from 20 m, cargo damaged. Done without a reference to CE's assembly: a prefix, by name, on CE's
+  `CompCIWSImpactHandler_Skyfaller.OnDestroying` in D'thorga Patches' CE tie-in, which hands our loads to the Framework
+  (`ShotDownFallers`) and leaves every other skyfaller to CE.
+- **InterRim Ballistic Missile's CIWS fires at enemy aircraft** in the air over the map, behind **CIWS fires at enemy aircraft**
+  (D'thorga Patches, on: it never aims at the player's aircraft). With nothing else to shoot, it takes the first enemy aircraft the
+  Framework names (`AirTargets`); each hit IRBM rolls does 4 points of bullet damage through the aircraft's own parts (**[A]**: IRBM
+  rolls a hit most ticks it fires, so a burst's worth each).
+
 
 ## What a next game would need
 

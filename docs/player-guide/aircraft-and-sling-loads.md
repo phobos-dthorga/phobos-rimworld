@@ -288,7 +288,9 @@ fly, without landing. The design and its sources: [parachute airdrops](../develo
   (off by default), a badly packed canopy can fail: a jumper lands roughly on the reserve, and cargo or a vehicle lands hard.
 - **Enemies drop too**: some raids by air come by parachute, upwind of open ground outside your turrets. Shoot at the aircraft on its
   pass; with Combat Extended, a CIWS shoots at them as they come down. Their spent canopies are yours to take.
-  InterRim Ballistic Missile's CIWS also brings them down: half come down unable to fight, the rest roughly.
+  InterRim Ballistic Missile's CIWS also brings them down: half come down unable to fight, the rest roughly; and it fires at
+  their aircraft as it crosses (**CIWS fires at enemy aircraft** in D'thorga Patches, on). A load Combat Extended's CIWS shoots down
+  comes down where it is: its people unable to fight, a vehicle landing hard, rather than everyone inside killed.
 - **If you leave a map while an aircraft is flying over it**, the aircraft carries on home if it was heading there, or comes down
   on the world map as a caravan.
 

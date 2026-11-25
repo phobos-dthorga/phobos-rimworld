@@ -28,3 +28,45 @@ public static class SkyfallerInterception
         }
     }
 }
+
+/// <summary>
+/// A falling thing of ours brought down by another mod's interceptor, handed our own outcome rather than that mod's (Framework 0.297.0; the
+/// owner's ask of 26 Nov 2026 for a softer outcome than Combat Extended's, which kills everyone inside). D'thorga Framework's vehicle part
+/// fills <see cref="Handler"/> for its parachute loads; D'thorga Patches' Combat Extended tie-in calls <see cref="TryShootDown"/>.
+/// </summary>
+public static class ShotDownFallers
+{
+    /// <summary>Lands a falling thing of ours as shot down and returns true; false for anything else.</summary>
+    public static Func<Thing, bool>? Handler;
+
+    /// <summary>Whether ours took it: when true, the other mod's own outcome must not run.</summary>
+    public static bool TryShootDown(Thing? thing)
+    {
+        if (Handler == null || thing == null) return false;
+        try
+        {
+            return Handler(thing);
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+}
+
+/// <summary>
+/// Enemy aircraft in the air over a map, for another mod's air defence to aim at (Framework 0.297.0; the owner's ask of 26 Nov 2026 that
+/// InterRim Ballistic Missile's CIWS also fire at the aircraft on a drop pass). D'thorga Framework's vehicle part fills the three
+/// functions; a tie-in reads them. Nothing filled, there are none.
+/// </summary>
+public static class AirTargets
+{
+    /// <summary>Aircraft hostile to the player in the air over this map now.</summary>
+    public static Func<Map, System.Collections.Generic.IEnumerable<Thing>>? Over;
+
+    /// <summary>Whether this is still an aircraft hostile to the player in the air.</summary>
+    public static Func<Thing, bool>? IsHostileInAir;
+
+    /// <summary>Hits an aircraft in the air with this much bullet damage.</summary>
+    public static Action<Thing, float>? Hit;
+}

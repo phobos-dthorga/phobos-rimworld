@@ -44,8 +44,9 @@ public static class ParachuteLanding
         bool failed = Risky && VehicleSystemsMod.Settings.airdropPackerSkill && Rand.Chance((float)ParachuteRule.FailureChance(faller.chuteQuality));
         // Framework 0.293.0: shot at by another mod's interceptor (InterRim Ballistic Missile's CIWS, through its tie-in): half the time the
         // canopy is shredded and its people come down downed, as that mod leaves drop pod raiders; else it is holed, as a failed canopy.
-        bool intercepted = !VehicleSystemsMod.Settings.showOnly && SkyfallerInterception.Of(faller);
-        bool shredded = intercepted && Rand.Chance((float)ParachuteRule.InterceptedDownedShare);
+        bool intercepted = !VehicleSystemsMod.Settings.showOnly && (faller.shotDown || SkyfallerInterception.Of(faller));
+        // Framework 0.297.0: shot down by Combat Extended's CIWS, the canopy is shredded: its people come down downed.
+        bool shredded = intercepted && (faller.shotDown || Rand.Chance((float)ParachuteRule.InterceptedDownedShare));
         failed |= intercepted;
         bool hard = Risky && faller.load != ParachuteLoad.Person
             && (failed || Rand.Chance((float)ParachuteRule.HardLandingChance) || !ParachuteRule.Opens(faller.heightFeet));

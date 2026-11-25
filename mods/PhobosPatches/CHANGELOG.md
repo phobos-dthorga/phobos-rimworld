@@ -21,6 +21,18 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.44.0] - 2026-11-26 - Draft
+
+Close-in weapons against D'thorga's drops: a softer end under Combat Extended, and enemy aircraft for InterRim Ballistic Missile
+
+### Added
+
+- **InterRim Ballistic Missile's CIWS fires at enemy aircraft** in the air over the map, such as one making a parachute drop (the
+  owner's ask of 26 November 2026, with D'thorga Framework 0.297.0): each hit damages its parts. A new setting, **CIWS fires at enemy
+  aircraft** (on: it never aims at your own). Not yet tested in game.
+- **A D'thorga parachute load brought down by Combat Extended's CIWS comes down alive**, with its people downed, rather than everyone
+  inside killed; every other skyfaller ends as Combat Extended ends it.
+
 ## [0.43.0] - 2026-11-25 - Draft
 
 InterRim Ballistic Missile's CIWS against D'thorga's parachute drops

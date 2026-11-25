@@ -13,6 +13,18 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.297.0] - 2026-11-26 - Draft
+
+Airdrops: a softer end when Combat Extended's CIWS brings a load down, and enemy aircraft for other mods' air defence
+
+### Added
+
+- **A load shot down by Combat Extended's CIWS comes down alive** (the owner's ask of 26 November 2026, with D'thorga Patches 0.44.0):
+  where it was hit, its canopy shredded, its people downed, a vehicle landing hard and cargo damaged, rather than everyone inside
+  killed. Other skyfallers keep Combat Extended's own end. Not yet tested in game.
+- **Enemy aircraft over a map can be named, checked and hit** by other mods' air defence, through D'thorga Patches: InterRim
+  Ballistic Missile's CIWS now fires at them.
+
 ## [0.296.1] - 2026-11-26 - Draft
 
 Steam locomotives have plumbing beneath them
