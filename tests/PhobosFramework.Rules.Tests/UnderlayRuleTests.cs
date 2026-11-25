@@ -43,4 +43,19 @@ public class UnderlayRuleTests
     [Fact]
     public void ACellAlreadyHeldIsNotAdoptedTwice() =>
         Assert.False(UnderlayRule.Adopts(adoptedBefore: false, oldHiddenKind: true, cellAlreadyHeld: true));
+
+    [Fact]
+    public void AFixedTopUpTakesWater() =>
+        Assert.True(UnderlayRule.ServiceTakesWater(10f, null, null));
+
+    [Fact]
+    public void ALocomotivesWaterStopTakesWaterThroughItsParameter()
+    {
+        Assert.True(UnderlayRule.ServiceTakesWater(0f, "feedWaterLitres", "feedWaterLitresScaled"));
+        Assert.True(UnderlayRule.ServiceTakesWater(0f, null, "feedWaterLitresScaled"));
+    }
+
+    [Fact]
+    public void AServiceWithNoWaterTakesNone() =>
+        Assert.False(UnderlayRule.ServiceTakesWater(0f, null, ""));
 }

@@ -13,6 +13,14 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.296.1] - 2026-11-26 - Draft
+
+Steam locomotives have plumbing beneath them
+
+### Fixed
+
+- **Steam locomotives lay plumbing beneath them when parked** (found while answering the owner's question of 25 November 2026 about the jets). The Frisco and the Tommy draw their boiler water from plumbing, but the check for whether a vehicle takes water read only a fixed figure of litres, and a boiler's water stop sets its litres per locomotive. So a pipe run passes under a parked locomotive now, as under every other vehicle that takes water. Not yet tested in game.
+
 ## [0.296.0] - 2026-11-25 - Draft
 
 A picture can turn with a vehicle's turret

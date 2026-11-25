@@ -60,7 +60,8 @@ public static class VehiclePipes
 
     /// <summary>Whether the vehicle's own systems use this much water (a service's top-up), for a link deciding whether to lay plumbing.</summary>
     public static bool SystemsTakeWater(IHost host) =>
-        host is CompPhobosVehicleSystems systems && systems.Props.systems.Any(system => system.def.service is { waterLitres: > 0f });
+        host is CompPhobosVehicleSystems systems && systems.Props.systems.Any(system => system.def.service is { } service
+            && Phobos.Framework.Rules.UnderlayRule.ServiceTakesWater(service.waterLitres, service.waterLitresParameter, service.scaledWaterLitresParameter));
 
     /// <summary>The vehicle's tank, which says by its contents what it pumps through: on a truck or a trailer alike.</summary>
     public static CompPhobosTank? Tank(IHost host) => host.Vehicle.GetComp<CompPhobosTank>();

@@ -14,6 +14,13 @@ public static class UnderlayRule
         spawned && players && !moving && (!engineOn || setUp);
 
     /// <summary>
+    /// Whether a service draws water, so its vehicle lays plumbing: a fixed figure of litres, or a parameter that holds them (Framework 0.296.1:
+    /// the steam locomotives' water stop sets its litres per loadout, and laid none while only the fixed figure was read).
+    /// </summary>
+    public static bool ServiceTakesWater(float litres, string? litresParameter, string? scaledLitresParameter) =>
+        litres > 0f || !string.IsNullOrEmpty(litresParameter) || !string.IsNullOrEmpty(scaledLitresParameter);
+
+    /// <summary>
     /// Whether a piece found on a thing's own footprint is taken back as the thing's own, once, after a load: only a piece of the old hidden kind earlier
     /// versions laid, on a cell the thing holds nothing on, by an underlay saved before Framework 0.108.0 (one that never adopted). A loading fault in
     /// Framework 0.107.0 lost track of such pieces; they stood orphaned under the things that laid them.
