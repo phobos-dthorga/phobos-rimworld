@@ -1,0 +1,56 @@
+{
+  "file": "airdrop-ankle-braces-1.png",
+  "sha256": "0f89b85f5e75ca1a52fddd4fdf991f3b8f74ebe8f3e330f8f16ae9fb2b535b58",
+  "date": "2026-11-25T10:35:31",
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object pair, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a pair of stiff military parachute ankle braces lying side by side on the floor, a left one and a right one, mirror images of each other. Each brace is an open, empty L-shaped ankle support: a stiff black plastic shell cupping the back and sides of the ankle, with a padded olive-drab fabric lining showing at its open top, and two wide olive webbing straps with tan hook-and-loop ends and small steel D-rings wrapped across the front. Images 1 and 2 are our approved parachute items from the same game: match their outline weight, shading, palette, item angle and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, black, olive and tan colours with a little steel, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo feet, legs, boots, socks or people inside or beside them, no text, letters, numbers, stencils or logos.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/airdrop-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 415,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 287
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2171
+  },
+  "cost_usd": 0.0551,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 28.3,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/PersonnelParachute.png",
+      "sha256": "c95416e8d5d08c774b8304a6ff07f5b72956b2f738f16a22fa03b15d1ebff1a2",
+      "role": "our approved packed personnel parachute (the owner's pick of 25 Nov 2026): match its outline weight, shading, olive webbing and buckle colours, item angle and finish; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CargoParachute.png",
+      "sha256": "f9ae154413fb9851a3b3df90f17f6801e4f12bf2ece117bb827a56f521600ba9",
+      "role": "our approved packed cargo parachute (the owner's pick of 25 Nov 2026): match its finish only; do not copy its shape"
+    }
+  ]
+}
