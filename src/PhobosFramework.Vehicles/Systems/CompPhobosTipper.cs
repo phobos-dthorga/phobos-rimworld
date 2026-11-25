@@ -296,6 +296,8 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
         deployed = false;
         lastTipEnd = kind;
         lastTipReason = reason;
+        // Seen in play (Framework 0.298.0, row 17): the ground behind was full, so the rest stays aboard.
+        if (kind == UnloadEnd.PlaceFull) Seen.Note("vehicles.tip-ground-full", Vehicle);
         VehicleWorkSounds.Loop(Vehicle, "Rams", false);
         VehicleWorkSounds.Play(Vehicle, "Tailgate");
         if (tipForRun)

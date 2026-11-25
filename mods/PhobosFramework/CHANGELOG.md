@@ -13,6 +13,17 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.298.0] - 2026-11-26 - Draft
+
+Five more mechanics the test list can see
+
+### Added
+
+- **Seen-in-play notes for five more test rows** (the owner's word, 26 November 2026: "let's do what's left"): a condition patched
+  in the field, the tipper keeping the rest aboard when the ground behind is full, a vehicle that is no trailer hitched and towed like
+  one, every shed load back on after the repair, and a tent or cabin bed slept in without being claimed. Written only with the
+  seen-in-play setting on; nothing in play changes. Not yet tested in game.
+
 ## [0.297.0] - 2026-11-26 - Draft
 
 Airdrops: a softer end when Combat Extended's CIWS brings a load down, and enemy aircraft for other mods' air defence

@@ -33,7 +33,7 @@ public class ProwlerPatchesMod : SettingsBookMod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.44.0";
+    public const string ModVersion = "0.45.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public const string RealisticHandlingFlag = "PhobosProwlerPatches.realisticHandling";
 

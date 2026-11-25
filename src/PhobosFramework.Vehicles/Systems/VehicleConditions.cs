@@ -152,6 +152,8 @@ public sealed class VehicleConditions
     {
         condition.severity = (float)SeverityRule.FieldFixed(condition.severity);
         condition.fieldFixed = true;
+        // Seen in play (Framework 0.298.0, row 2): a condition patched in the field, by which condition.
+        Seen.Note("vehicles.field-fix", comp.Vehicle, condition.def?.defName);
     }
 
     /// <summary>Removes every condition the service clears. Returns how many went.</summary>

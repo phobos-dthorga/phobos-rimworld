@@ -18,7 +18,10 @@ public static class BedsideFluids
     {
         if (rules.fluidsFacilities.Count == 0 || !HasDrip(pawn, rules)) return false;
         if (FluidsService.CurrentQuality(pawn) >= rules.dripFluidsQuality) return false;
-        return FluidsService.Give(pawn, rules.dripFluidsQuality);
+        bool given = FluidsService.Give(pawn, rules.dripFluidsQuality);
+        // Seen in play (Medical 0.27.0, row 95): a drip stand beside the bed gave burn-shock fluids.
+        if (given) Phobos.Medical.Seen.Note("medical.bedside-fluids", pawn);
+        return given;
     }
 
     static bool HasDrip(Pawn pawn, PhobosBurnRulesDef rules)

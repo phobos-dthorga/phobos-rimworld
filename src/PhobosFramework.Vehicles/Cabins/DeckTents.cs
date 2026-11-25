@@ -203,6 +203,8 @@ public static class CabinBedsUnclaimed
     {
         if (newBed?.Map is not { } map || DeckTents.Of(map) == null) return true;
         __result = false;
+        // Seen in play (Framework 0.298.0, row 510): a tent or cabin bed slept in without being claimed, so the bed at home stays theirs.
+        Seen.Note("vehicles.tent-bed-kept", newBed);
         return false;
     }
 }

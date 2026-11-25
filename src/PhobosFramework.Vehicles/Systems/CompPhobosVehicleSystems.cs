@@ -1991,6 +1991,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         {
             VehicleNotices.Send("PhobosVehicleSystems_MsgLoadsRestored".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle,
                 MessageTypeDefOf.PositiveEvent);
+            // Seen in play (Framework 0.298.0, row 77): every shed load back on once charging works again.
+            Seen.Note("vehicles.loads-restored", Vehicle);
         }
     }
 

@@ -21,6 +21,16 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.27.0] - 2026-11-26 - Draft
+
+The drip stand's fluids, seen in play
+
+### Added
+
+- **A seen-in-play note when a drip stand gives burn-shock fluids** (the owner's word, 26 November 2026, to give the test list's
+  remaining rows evidence), so test row 95 can be flagged as seen working. Written only with D'thorga Framework's seen-in-play setting
+  on; nothing in play changes. Not yet tested in game.
+
 ## [0.26.2] - 2026-11-25 - Draft
 
 Fixes from the fault-read of 25 November 2026

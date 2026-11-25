@@ -158,7 +158,7 @@ page, behind its snapshot card.
 | 2 | phobos-modkit | The heap reader's `values` request, and live checks (`rimworld-perf look-check`) | Built, 1.120.0 |
 | 3 | phobos-modkit | Saved histories as notes, read by test-pass itself (not a report of their own: see As built) | Built, 1.121.0 |
 | 4 | phobos-rimworld | The version ledger in D'thorga Framework; `config/checks.json`; the saved-history mapping; the kit's pin | Built, Framework 0.287.0 |
-| 5 | phobos-rimworld | Evidence for rows that have none: saved keys first, then a batch of new seen-in-play notes | 26 rows mapped (25 Nov); 3 by `logged` stages (Framework 0.290.0); 13 by the first batch of notes (0.291.0); 12 by the second (0.295.0); 29 note claims left in [the rows still without evidence](test-automation-rows.md) |
+| 5 | phobos-rimworld | Evidence for rows that have none: saved keys first, then a batch of new seen-in-play notes | 26 rows mapped (25 Nov); 3 by `logged` stages (Framework 0.290.0); 13 by the first batch of notes (0.291.0); 12 by the second (0.295.0); 7 by the third (0.298.0, Medical 0.27.0, Patches 0.45.0); 22 note claims left in [the rows still without evidence](test-automation-rows.md) |
 | 6 | D'thorga Companion | Save checks on its Reports page (kit 1.122.0 finds the check file through the games list); Run the checks on the Explorer page, from the snapshot held (kit 1.123.0) | Built, Companion 0.91.0; untested on screen |
 
 ## As built (25 Nov 2026)

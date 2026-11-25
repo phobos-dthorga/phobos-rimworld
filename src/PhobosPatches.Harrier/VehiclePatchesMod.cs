@@ -31,7 +31,7 @@ public class VehiclePatchesMod : SettingsBookMod
 
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.44.0";
+    public const string ModVersion = "0.45.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Harrier");
     /// <summary>The temporary disassembly trace (DisassemblyTrace): written while this log is ticked under D'thorga Framework's Detailed logs.

@@ -210,6 +210,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
             new LookTargets(Vehicle, candidate), MessageTypeDefOf.TaskCompletion);
         VehicleStory.Hitched(Vehicle, candidate);
         if (RecoveryTowWarning(candidate) != null) Seen.Note("vehicles.tow-over-ratio", Vehicle, candidate.LabelShort);
+        // Seen in play (Framework 0.298.0, row 68): a vehicle that is no trailer, hitched and towed like one.
+        if (candidate.GetComp<CompPhobosVehicleSystems>() is not { IsTrailer: true }) Seen.Note("vehicles.hitch.vehicle-tow", Vehicle, candidate.LabelShort);
         if (Tower != null && Seen.Wants("vehicles.hitch.chain", Vehicle))
         {
             Seen.Note("vehicles.hitch.chain", Vehicle, candidate.LabelShort, values: new List<KeyValuePair<string, double>> { new("behind", CountBehind(HeadOf(Vehicle))) });

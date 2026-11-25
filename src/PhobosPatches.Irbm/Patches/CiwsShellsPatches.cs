@@ -97,6 +97,11 @@ public static class CiwsShellDestroyedPatch
 {
     public static void Postfix(ILoadReferenceable target)
     {
-        if (CiwsShells.IsShell(target) && target is Thing { Destroyed: false } shell) shell.Destroy();
+        if (CiwsShells.IsShell(target) && target is Thing { Destroyed: false } shell)
+        {
+            // Seen in play (Patches 0.45.0, row 98): a CIWS shot down a Combat Extended shell.
+            Seen.Note("patches.ciws-shell", shell, shell.def.defName);
+            shell.Destroy();
+        }
     }
 }

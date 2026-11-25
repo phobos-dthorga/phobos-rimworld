@@ -21,6 +21,16 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.45.0] - 2026-11-26 - Draft
+
+The CIWS against shells, seen in play
+
+### Added
+
+- **A seen-in-play note when the CIWS shoots down a Combat Extended shell** (InterRim Ballistic Missile part; the owner's word, 26
+  November 2026, to give the test list's remaining rows evidence), so test row 98 can be flagged as seen working. Written only with
+  D'thorga Framework's seen-in-play setting on; nothing in play changes. Not yet tested in game.
+
 ## [0.44.0] - 2026-11-26 - Draft
 
 Close-in weapons against D'thorga's drops: a softer end under Combat Extended, and enemy aircraft for InterRim Ballistic Missile
