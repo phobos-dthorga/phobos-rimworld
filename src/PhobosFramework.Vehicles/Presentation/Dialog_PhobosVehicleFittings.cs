@@ -227,7 +227,11 @@ public class Dialog_PhobosVehicleFittings : Window
             // Each setting as a picture and its name; the one the vehicle runs on lit, as the Dashboard lights a switch that is on.
             var button = new Rect(x, y, ButtonWidth, TuneButtonHeight);
             bool isCurrent = tune == current;
+            // Research it waits for (Framework 0.294.0): drawn faded, as a refused fitting is, saying why when pressed.
+            string? refusal = isCurrent ? null : VehicleFittings.TuneRefusal(tune);
             Widgets.DrawOptionBackground(button, isCurrent);
+            Color before = GUI.color;
+            if (refusal != null) GUI.color = new Color(1f, 1f, 1f, 0.35f);
             if (isCurrent) Widgets.DrawBoxSolid(new Rect(button.x + 2f, button.yMax - 4f, button.width - 4f, 3f), PhobosWidgets.Good);
             float textX = button.x + 4f;
             if (tune.Icon is { } icon)
@@ -236,9 +240,11 @@ public class Dialog_PhobosVehicleFittings : Window
                 textX += 36f;
             }
             using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(textX, button.y, button.xMax - textX - 2f, button.height), tune.LabelCap);
+            GUI.color = before;
+            if (refusal != null) PhobosWidgets.RefusalMark(button, NeedsResearchMark);
             if (!isCurrent && Mouse.IsOver(button)) previewTune = tune;
             if (!isCurrent && Widgets.ButtonInvisible(button)) Fittings.OrderTune(tune);
-            if (Mouse.IsOver(button)) hoverDetails = TuneTip(tune);
+            if (Mouse.IsOver(button)) hoverDetails = TuneTip(tune) + (refusal != null ? "\n\n" + refusal.Colorize(PhobosWidgets.Bad) : "");
             x += ButtonWidth + Gap;
         }
         // What the setting it runs on now changes, or the one the mouse rests on would, unless work on it is ordered.
@@ -353,7 +359,7 @@ public class Dialog_PhobosVehicleFittings : Window
                 var button = new Rect(x, y, PhobosWidgets.ChoiceWidth(def.Icon, def.LabelCap, PictureButton), PictureButton);
                 string? refusal = parts.Select(part => Fittings.Refusal(def, part)).FirstOrDefault(r => r != null);
                 bool all = fitted.All(f => f == def);
-                bool clicked = Choice(button, def.Icon, def.LabelCap, all, refusal, orders.Any(o => o.fitting == def), out bool over);
+                bool clicked = Choice(button, def.Icon, def.LabelCap, all, refusal, orders.Any(o => o.fitting == def), def.researchPrerequisite, out bool over);
                 if (over) hoverDetails = FittingTip(def, refusal);
                 if (clicked)
                 {
@@ -376,7 +382,7 @@ public class Dialog_PhobosVehicleFittings : Window
             var button = new Rect(x, y, PhobosWidgets.ChoiceWidth(grade.Icon, grade.LabelCap, PictureButton), PictureButton);
             bool lit = parts.All(part => Fittings.GradeOf(part.props.key) == grade && part.Health > 0f);
             string? refusal = parts.Select(part => Fittings.Refusal(grade, part)).FirstOrDefault(r => r != null);
-            bool clicked = Choice(button, grade.Icon, grade.LabelCap, lit, refusal, orders.Any(o => o.grade == grade), out bool over);
+            bool clicked = Choice(button, grade.Icon, grade.LabelCap, lit, refusal, orders.Any(o => o.grade == grade), grade.researchPrerequisite, out bool over);
             if (over) hoverDetails = GradeTip(parts, grade, refusal);
             if (clicked)
             {
@@ -501,7 +507,15 @@ public class Dialog_PhobosVehicleFittings : Window
     /// ordered, dimmed with its reason in the tooltip when it cannot be chosen yet. Returns whether it was clicked to choose it.
     /// </summary>
     static bool Choice(Rect rect, UnityEngine.Texture2D? icon, string label, bool lit, string? refusal, bool ordered, out bool over) =>
-        PhobosWidgets.ChoiceButton(rect, icon, label, lit, refusal != null, ordered, out over);
+        Choice(rect, icon, label, lit, refusal, ordered, null, out over);
+
+    /// <summary>As above, with <paramref name="research"/> waited for marked on the button itself (Framework 0.294.0).</summary>
+    static bool Choice(Rect rect, UnityEngine.Texture2D? icon, string label, bool lit, string? refusal, bool ordered, ResearchProjectDef? research,
+        out bool over) =>
+        PhobosWidgets.ChoiceButton(rect, icon, label, lit, refusal != null, ordered, research is { IsFinished: false } ? NeedsResearchMark : null, out over);
+
+    /// <summary>The word across a choice's foot while research holds it back (the owner's card of 25 Nov 2026: dimmed alone, it "looked normal").</summary>
+    static string NeedsResearchMark => "PhobosVehicleSystems_MarkNeedsResearch".Translate();
 
     string FittingTip(PhobosVehicleFittingDef def, string? refusal)
     {

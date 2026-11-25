@@ -416,7 +416,14 @@ public static class PhobosWidgets
     /// ordered, dimmed when it cannot be chosen yet. Returns whether it was clicked to choose it; <paramref name="over"/> says whether the
     /// mouse rests on it, so the caller can show its details only then.
     /// </summary>
-    public static bool ChoiceButton(Rect rect, Texture2D? icon, string label, bool lit, bool refused, bool ordered, out bool over)
+    public static bool ChoiceButton(Rect rect, Texture2D? icon, string label, bool lit, bool refused, bool ordered, out bool over) =>
+        ChoiceButton(rect, icon, label, lit, refused, ordered, null, out over);
+
+    /// <summary>
+    /// As above, with a short word across the button's foot saying what holds it back, such as "Needs research" (Framework 0.294.0; the
+    /// owner's card of 25 Nov 2026: a refused choice dimmed alone "looked normal"). Drawn only on a refused choice.
+    /// </summary>
+    public static bool ChoiceButton(Rect rect, Texture2D? icon, string label, bool lit, bool refused, bool ordered, string? mark, out bool over)
     {
         Widgets.DrawOptionBackground(rect, lit);
         if (lit) Widgets.DrawBoxSolid(new Rect(rect.x + 2f, rect.yMax - 4f, rect.width - 4f, 3f), Good);
@@ -426,8 +433,20 @@ public static class PhobosWidgets
         if (icon != null) GUI.DrawTexture(rect.ContractedBy(4f), icon);
         else using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleCenter)) Widgets.Label(rect, label);
         GUI.color = before;
+        if (refused && !mark.NullOrEmpty()) RefusalMark(rect, mark!);
         over = Mouse.IsOver(rect);
         return !lit && !ordered && !refused && Widgets.ButtonInvisible(rect);
+    }
+
+    /// <summary>A dark strip across a button's foot with a word in amber: what holds the choice back, seen without hovering.</summary>
+    public static void RefusalMark(Rect rect, string mark)
+    {
+        var strip = new Rect(rect.x + 1f, rect.yMax - 16f, rect.width - 2f, 15f);
+        Widgets.DrawBoxSolid(strip, new Color(0f, 0f, 0f, 0.7f));
+        Color before = GUI.color;
+        GUI.color = Caution;
+        using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleCenter)) Widgets.Label(strip, mark);
+        GUI.color = before;
     }
 
     /// <summary>

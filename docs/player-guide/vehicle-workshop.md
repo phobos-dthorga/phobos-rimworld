@@ -161,7 +161,8 @@ heavy-duty air filter, a deep-cycle battery or a battery warmer. **A fitting is 
 
 ### Tunes
 
-Tunes are for **piston engines only**, and need a dyno bay in reach.
+Tunes are for **piston engines only**, and need a dyno bay in reach. **Every tune but the stock one needs vehicle tuning research**,
+and the low and high boost need **turbines** too; going back to stock never needs any.
 
 | Row | Choice | What it does |
 | --- | --- | --- |
@@ -228,7 +229,8 @@ still be fitted on its own below.
 - **Our own vehicles' upgrades cost the same way**, under the same three settings: **Time to fit and tune**, **Materials to fit
   and tune** and **Bigger vehicles cost more to fit and tune**. Taking one off refunds a share of what it cost. Other mods'
   upgrades keep their own costs.
-- **An upgrade waiting for research refuses, and names the project.**
+- **An upgrade waiting for research refuses, and names the project.** In **Fittings and tunes**, a fitting, grade or tune your
+  research has not reached shows faded with **Needs research** across its foot; rest the mouse on it for the project's name.
 
 How fittings and upgrades work underneath is in the reference page on [upgrades and
 fittings](../development/systems/upgrades-and-fittings.md), and the buildings in [stations, the yard and

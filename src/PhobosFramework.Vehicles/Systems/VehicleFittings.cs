@@ -1004,8 +1004,27 @@ public sealed class VehicleFittings
         }
     }
 
+    /// <summary>Why this tune cannot be ordered now (research it waits for, Framework 0.294.0); null when it can. As built never waits.</summary>
+    public static string? TuneRefusal(PhobosVehicleTuneDef tune)
+    {
+        if (tune.isDefault) return null;
+        foreach (ResearchProjectDef project in tune.researchPrerequisites)
+        {
+            if (project != null && !project.IsFinished)
+            {
+                return "PhobosVehicleSystems_FitNoResearch".Translate(project.LabelCap.Named("RESEARCH")).Resolve();
+            }
+        }
+        return null;
+    }
+
     public void OrderTune(PhobosVehicleTuneDef tune)
     {
+        if (TuneRefusal(tune) is { } why)
+        {
+            Messages.Message(why, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
         orders.RemoveAll(o => o.tune != null && o.tune.axis == tune.axis);
         Add(new FitOrder { tune = tune });
     }

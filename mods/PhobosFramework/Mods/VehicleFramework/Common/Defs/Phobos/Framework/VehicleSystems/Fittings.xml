@@ -520,6 +520,10 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_EngineEconomy</defName>
+    <!-- Framework 0.294.0 (the owner's card of 25 Nov 2026): tunes after vehicle tuning. -->
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleTuning</li>
+    </researchPrerequisites>
     <iconPath>Phobos/VehicleSystems/Fittings/TuneEngineEconomy</iconPath>
     <label>economy tune</label>
     <description>Leaner and gentler. A little less power, less heat and less fuel.</description>
@@ -547,6 +551,10 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_EnginePower</defName>
+    <!-- Framework 0.294.0 (the owner's card of 25 Nov 2026): tunes after vehicle tuning. -->
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleTuning</li>
+    </researchPrerequisites>
     <iconPath>Phobos/VehicleSystems/Fittings/TuneEnginePower</iconPath>
     <label>power tune</label>
     <description>Richer and harder. More power, paid for in heat and fuel.</description>
@@ -562,6 +570,10 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_GearingLong</defName>
+    <!-- Framework 0.294.0 (the owner's card of 25 Nov 2026): tunes after vehicle tuning. -->
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleTuning</li>
+    </researchPrerequisites>
     <iconPath>Phobos/VehicleSystems/Fittings/TuneGearingLong</iconPath>
     <label>tall final drive</label>
     <description>Taller ratios. Lower revs and less strain at a cruise, weaker on a heavy pull. It cannot make the vehicle faster than it was built to go.</description>
@@ -588,6 +600,10 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_GearingShort</defName>
+    <!-- Framework 0.294.0 (the owner's card of 25 Nov 2026): tunes after vehicle tuning. -->
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleTuning</li>
+    </researchPrerequisites>
     <iconPath>Phobos/VehicleSystems/Fittings/TuneGearingShort</iconPath>
     <label>short final drive</label>
     <description>Lower ratios. It pulls harder with a heavy load and tops out sooner.</description>
@@ -606,6 +622,11 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_BoostLow</defName>
+    <!-- Framework 0.294.0 (the owner's card of 25 Nov 2026): tunes after vehicle tuning, boost after turbines too. -->
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleTuning</li>
+      <li>PhobosResearch_Turbines</li>
+    </researchPrerequisites>
     <iconPath>Phobos/VehicleSystems/Fittings/TuneBoostLow</iconPath>
     <label>low boost</label>
     <description>The wastegate opens early. A little less power, and a cooler, gentler engine.</description>
@@ -633,6 +654,11 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_BoostHigh</defName>
+    <!-- Framework 0.294.0 (the owner's card of 25 Nov 2026): tunes after vehicle tuning, boost after turbines too. -->
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleTuning</li>
+      <li>PhobosResearch_Turbines</li>
+    </researchPrerequisites>
     <iconPath>Phobos/VehicleSystems/Fittings/TuneBoostHigh</iconPath>
     <label>high boost</label>
     <description>The wastegate held shut longer. More power, paid for in heat and fuel.</description>

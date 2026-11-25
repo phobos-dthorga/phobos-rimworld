@@ -13,6 +13,18 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.294.0] - 2026-11-25 - Draft
+
+Research marked on the fittings window, and tunes after their research
+
+### Changed
+
+- **A fitting, grade or tune your research has not reached says so on its button**: "Needs research" across its foot, as well as
+  the project's name when the mouse rests on it (the owner's report of 25 November 2026: a remote control kit waiting for its
+  research only looked faded, and read as ready).
+- **Tunes need research** (the owner's card of 25 November 2026): every engine and gearing tune but stock after vehicle tuning, the low
+  and high boost after turbines too. Going back to stock never needs any. A tune already on a vehicle stays.
+
 ## [0.293.0] - 2026-11-25 - Draft
 
 Airdrops: braces, guided parachutes, bundles to de-rig, packers' skill, and air defence that works against them

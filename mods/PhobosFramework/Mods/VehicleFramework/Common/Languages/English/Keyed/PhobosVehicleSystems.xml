@@ -1071,4 +1071,6 @@
   <PhobosVehicleSystems_RepairReglazed>{MECHANIC} re-glazed the {VEHICLE}. Its cab is whole again.</PhobosVehicleSystems_RepairReglazed>
   <!-- Crew machines (Framework 0.265.0): the bed rest stat's explanation line for an accelerated cab bunk. -->
   <PhobosCrewMachines_StatBunkAccelerator>Sleep accelerator at the bunk's head</PhobosCrewMachines_StatBunkAccelerator>
+  <!-- Framework 0.294.0: across a fitting, grade or tune button whose research is not done. -->
+  <PhobosVehicleSystems_MarkNeedsResearch>Needs research</PhobosVehicleSystems_MarkNeedsResearch>
 </LanguageData>

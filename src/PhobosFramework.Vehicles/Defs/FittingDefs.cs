@@ -189,6 +189,11 @@ public class PhobosVehicleTuneDef : Def
     public float flatFuelFactor = 1f;
     public float finalDriveFactor = 1f;
     public List<ParameterFactorSpec> parameterFactors = new();
+    /// <summary>
+    /// The research it needs, all of it (Framework 0.294.0; the owner's card of 25 Nov 2026: tunes after vehicle tuning, boost after
+    /// turbines too). The setting as built never needs any: going back to it is always allowed.
+    /// </summary>
+    public List<ResearchProjectDef> researchPrerequisites = new();
 
     public override IEnumerable<string> ConfigErrors()
     {
