@@ -45,6 +45,14 @@ public static class RouteRule
         return charging ? charge <= Math.Max(startBelow, stopAbove) : charge < startBelow;
     }
 
+    /// <summary>
+    /// Whether a loop vehicle leaves a stop (Framework 0.299.0; the owner's cards of 26 Nov 2026): once it has done its own work there, emptied
+    /// at the drop-off or loaded anything at the pick-up, it goes at once; otherwise, or when its own work left the job half done (storage
+    /// full, nothing in reach), it waits out the stop's time for colonists.
+    /// </summary>
+    public static bool LeavesStop(bool workedItself, bool dropOff, bool emptied, bool loadedAny, bool waitOver) =>
+        waitOver || workedItself && (dropOff ? emptied : loadedAny);
+
     /// <summary>The point after this one on a loop, coming back to the first.</summary>
     public static int Next(int index, int count) => count <= 0 ? 0 : (index + 1) % count;
 

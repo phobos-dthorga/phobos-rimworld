@@ -47,6 +47,20 @@ public class RouteRuleTests
     }
 
     [Fact]
+    public void ALoopLeavesAStopOnceItsOwnWorkIsDone()
+    {
+        // Framework 0.299.0: tipped empty at the drop-off, or loaded at the pick-up: away at once.
+        Assert.True(RouteRule.LeavesStop(workedItself: true, dropOff: true, emptied: true, loadedAny: false, waitOver: false));
+        Assert.True(RouteRule.LeavesStop(true, dropOff: false, emptied: false, loadedAny: true, waitOver: false));
+        // Storage full, or nothing in the grab's reach: it waits for colonists until the stop's time is over.
+        Assert.False(RouteRule.LeavesStop(true, dropOff: true, emptied: false, loadedAny: false, waitOver: false));
+        Assert.False(RouteRule.LeavesStop(true, dropOff: false, emptied: false, loadedAny: false, waitOver: false));
+        Assert.True(RouteRule.LeavesStop(true, dropOff: true, emptied: false, loadedAny: false, waitOver: true));
+        // No gear of its own: as before, the stop's time.
+        Assert.False(RouteRule.LeavesStop(false, dropOff: true, emptied: false, loadedAny: false, waitOver: false));
+    }
+
+    [Fact]
     public void ALeaderJoiningBringsItsFollowersIntoTheCount()
     {
         // Framework 0.284.0: two following one leader, joining a convoy of two, makes five behind it: refused.

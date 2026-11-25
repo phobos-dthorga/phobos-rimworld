@@ -257,6 +257,12 @@ public partial class CompPhobosGatherRun : CompPhobosVehicleRun
     /// </summary>
     bool Wants(Thing thing) => Wants(thing, ChosenArea);
 
+    /// <summary>
+    /// What a loop's pick-up lifts with the grab (Framework 0.299.0): what this run's "Gather what" allows, by the same test, wherever it lies
+    /// in the grab's reach, the run's area aside.
+    /// </summary>
+    public bool WantedOnLoop(Thing thing) => Wants(thing, null);
+
     bool Wants(Thing thing, Area? within)
     {
         Map? map = Vehicle.Map;

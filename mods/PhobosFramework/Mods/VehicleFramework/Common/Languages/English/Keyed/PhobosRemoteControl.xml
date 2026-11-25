@@ -58,7 +58,7 @@
   <PhobosRoute_GizmoFollow>Follow</PhobosRoute_GizmoFollow>
   <PhobosRoute_GizmoFollowDesc>Choose a vehicle to follow with nobody aboard: it joins the end of that vehicle's convoy, up to {MOST} behind one leader. The leader needs someone at its wheel, or a station driving it; if the leader is lost, this vehicle does what you chose for a lost link.</PhobosRoute_GizmoFollowDesc>
   <PhobosRoute_GizmoLoop>Run a loop</PhobosRoute_GizmoLoop>
-  <PhobosRoute_GizmoLoopDesc>Mark two stops, the pick-up first and then the drop-off: the vehicle drives back and forth between them with nobody aboard, waiting an hour at each for colonists to load or unload it. Add waypoints afterwards to send it a certain way.</PhobosRoute_GizmoLoopDesc>
+  <PhobosRoute_GizmoLoopDesc>Mark two stops, the pick-up first and then the drop-off: the vehicle drives back and forth between them with nobody aboard, waiting an hour at each for colonists to load or unload it. A truck that tips unloads itself at the drop-off, backing up to a bunker or stockpile the stop is on, and one with a loading grab loads itself at the pick-up with what its Gather what allows; each drives on as soon as it is done. Add waypoints afterwards to send it a certain way.</PhobosRoute_GizmoLoopDesc>
   <PhobosRoute_PickUpFirst>Choose the pick-up stop.</PhobosRoute_PickUpFirst>
   <PhobosRoute_DropOffNext>Now choose the drop-off stop.</PhobosRoute_DropOffNext>
   <PhobosRoute_GizmoWaypoint>Add a waypoint</PhobosRoute_GizmoWaypoint>
@@ -84,6 +84,11 @@
   <PhobosRoute_InspectFollowing>Following {AHEAD}, in {LEADER}'s convoy.</PhobosRoute_InspectFollowing>
   <PhobosRoute_InspectLooping>Running its loop: driving to the {TO}.</PhobosRoute_InspectLooping>
   <PhobosRoute_InspectChargingAtStop>Running its loop: waiting at the {STOP} for {TIME}, its engine running to charge a low battery.</PhobosRoute_InspectChargingAtStop>
+  <!-- Framework 0.299.0: a loop's own work at its stops. -->
+  <PhobosRoute_InspectBackingUp>Running its loop: backing up to tip at the drop-off.</PhobosRoute_InspectBackingUp>
+  <PhobosRoute_InspectTipping>Running its loop: tipping its load at the drop-off.</PhobosRoute_InspectTipping>
+  <PhobosRoute_InspectLifting>Running its loop: lifting its load at the pick-up with its grab.</PhobosRoute_InspectLifting>
+  <PhobosRoute_StopNotEmptied>{VEHICLE} could not tip all of its load at the drop-off. {REASON} It waits there for colonists, then drives on.</PhobosRoute_StopNotEmptied>
   <PhobosRoute_InspectWaitingAtStop>Running its loop: waiting at the {STOP} for {TIME}.</PhobosRoute_InspectWaitingAtStop>
   <PhobosRoute_PickUp>pick-up</PhobosRoute_PickUp>
   <PhobosRoute_DropOff>drop-off</PhobosRoute_DropOff>

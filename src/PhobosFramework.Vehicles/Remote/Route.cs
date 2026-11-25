@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework;
+using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using UnityEngine;
@@ -67,6 +68,21 @@ public sealed class RouteControl : IRemoteControlSource
     public void WantChanged(VehiclePawn vehicle)
     {
     }
+}
+
+/// <summary>What a loop vehicle is doing by itself at a stop (Framework 0.299.0).</summary>
+public enum LoopStopWork
+{
+    /// <summary>Not begun: it has just arrived, or has no gear of its own to work with.</summary>
+    None,
+    /// <summary>Driving tail first to the bunker or stockpile the drop-off is on.</summary>
+    BackingUp,
+    /// <summary>Tipping its load.</summary>
+    Unloading,
+    /// <summary>Lifting its load with the grab.</summary>
+    Gathering,
+    /// <summary>Its own work is over, done or not: it leaves, or waits out the stop's time.</summary>
+    Done,
 }
 
 /// <summary>Convoys: a leader and up to four followers, each keeping behind the one ahead of it (the owner, 18 Nov 2026).</summary>
@@ -146,6 +162,21 @@ public sealed class CompPhobosRoute : VehicleComp
     string? waitingWhy;
     /// <summary>Whether it is running its engine at a stop to charge its battery (Framework 0.286.0). Never saved: worked out again.</summary>
     bool charging;
+    /// <summary>What it is doing by itself at this stop, and how that went (Framework 0.299.0; the owner's cards of 26 Nov 2026).</summary>
+    LoopStopWork stopWork;
+    bool workedItself;
+    bool emptied;
+    bool loadedAny;
+    IntVec3 backUpCell = IntVec3.Invalid;
+    int backUpFacing = -1;
+    /// <summary>Drives to the back-up spot tried since arriving; never saved. After three it tips where it stands.</summary>
+    int backUpTries;
+    /// <summary>Whether a worker's test has been handed back since a load: it is not saved, and the worker does nothing until it has it.</summary>
+    bool workResumed;
+
+    IVehicleUnloadWorker? Unloader => Vehicle.AllComps.OfType<IVehicleUnloadWorker>().FirstOrDefault();
+    IVehicleGatherWorker? Grab => Vehicle.AllComps.OfType<IVehicleGatherWorker>().FirstOrDefault();
+    static bool AllAboard(Thing thing) => true;
 
     public RouteMode Mode => mode;
     public VehiclePawn? Ahead => ahead;
@@ -234,6 +265,7 @@ public sealed class CompPhobosRoute : VehicleComp
             foreach (var behind in Convoys.Followers(leader)) if (behind.ahead == Vehicle) behind.ahead = ahead;
         }
         if (orderCell.IsValid && Vehicle.Spawned) VehicleAutoDrive.Halt(Vehicle, orderCell);
+        EndStopWork();
         mode = RouteMode.None;
         ahead = leader = null;
         points.Clear();
@@ -314,7 +346,8 @@ public sealed class CompPhobosRoute : VehicleComp
         if (points.Count < 2) return;
         leg = Mathf.Clamp(leg, 0, points.Count - 1);
         var point = points[leg];
-        if (RouteRule.Reached(Vehicle.Position.DistanceTo(point), Rules.loopArriveCells))
+        // Working at a stop, it stays with the work even where backing up took it beyond the arrival distance (Framework 0.299.0).
+        if (stopWork != LoopStopWork.None || RouteRule.Reached(Vehicle.Position.DistanceTo(point), Rules.loopArriveCells))
         {
             var now = Find.TickManager.TicksGame;
             if (stops[leg])
@@ -324,11 +357,14 @@ public sealed class CompPhobosRoute : VehicleComp
                     dwellUntil = now + Rules.loopDwellTicks;
                     if (Seen.Wants("vehicles.route-stop", Vehicle, leg == 0 ? "pick-up" : "drop-off")) Seen.Note("vehicles.route-stop", Vehicle, Vehicle.LabelShort, leg == 0 ? "pick-up" : "drop-off");
                 }
-                if (now < dwellUntil)
+                StopWorkStep(point, dropOff: leg != 0);
+                if (!RouteRule.LeavesStop(stopWork == LoopStopWork.Done && workedItself, leg != 0, emptied, loadedAny, now >= dwellUntil))
                 {
-                    EngineAtStop();
+                    // The engine runs while its own gear works; otherwise off, as at any stop.
+                    if (stopWork is LoopStopWork.None or LoopStopWork.Done) EngineAtStop();
                     return;
                 }
+                EndStopWork();
             }
             dwellUntil = -1;
             charging = false;
@@ -337,6 +373,175 @@ public sealed class CompPhobosRoute : VehicleComp
             point = points[leg];
         }
         DriveToward(point);
+    }
+
+    // ---- Working at a stop by itself (Framework 0.299.0; the owner's cards of 26 Nov 2026) ----
+
+    /// <summary>
+    /// One look at a stop: at the drop-off a vehicle that can tip backs up to the bunker or stockpile the stop is on (or tips where it stands
+    /// if the stop is on none) and tips everything aboard; at the pick-up one with the loading grab lifts what its "Gather what" allows within
+    /// reach. Without such gear it does nothing here, and waits for colonists as before. The workers are the gathering runs' own.
+    /// </summary>
+    void StopWorkStep(IntVec3 point, bool dropOff)
+    {
+        switch (stopWork)
+        {
+            case LoopStopWork.None:
+                BeginStopWork(point, dropOff);
+                break;
+            case LoopStopWork.BackingUp:
+                BackingUpStep();
+                break;
+            case LoopStopWork.Unloading:
+                if (Unloader is not { } unloader)
+                {
+                    stopWork = LoopStopWork.Done;
+                    break;
+                }
+                if (!workResumed)
+                {
+                    workResumed = true;
+                    unloader.ResumeUnloading(AllAboard);
+                }
+                if (unloader.Unloading) break;
+                AfterUnloading(unloader.LastUnloadEnd, unloader.LastUnloadReason);
+                break;
+            case LoopStopWork.Gathering:
+                if (Grab is not { } grab || Vehicle.GetComp<CompPhobosGatherRun>() is not { } run)
+                {
+                    stopWork = LoopStopWork.Done;
+                    break;
+                }
+                if (!workResumed)
+                {
+                    workResumed = true;
+                    grab.ResumeGathering(run.WantedOnLoop);
+                }
+                if (grab.Gathering) break;
+                loadedAny |= grab.GatheredLoads > 0;
+                stopWork = LoopStopWork.Done;
+                break;
+        }
+    }
+
+    void BeginStopWork(IntVec3 point, bool dropOff)
+    {
+        if (dropOff)
+        {
+            if (Unloader is not { CanUnloadAtAll: true } unloader || Vehicle.inventory.innerContainer.Count == 0)
+            {
+                stopWork = LoopStopWork.Done;
+                return;
+            }
+            if (!Ready()) return;
+            if (PlaceAt(point) is { } place && VehicleAutoDrive.TryFindBackUpSpot(Vehicle, place.Cells, place.BackUpFacing(), null, out IntVec3 stand, out Rot4 facing))
+            {
+                if (stand == Vehicle.Position)
+                {
+                    VehicleAutoDrive.Face(Vehicle, facing);
+                }
+                else if (VehicleAutoDrive.DriveTo(Vehicle, stand, facing))
+                {
+                    stopWork = LoopStopWork.BackingUp;
+                    backUpCell = stand;
+                    backUpFacing = facing.AsInt;
+                    backUpTries = 1;
+                    return;
+                }
+            }
+            StartUnloading(unloader);
+            return;
+        }
+        if (Grab is not { CanGatherAtAll: true } grab || Vehicle.GetComp<CompPhobosGatherRun>() is not { } run)
+        {
+            stopWork = LoopStopWork.Done;
+            return;
+        }
+        if (!Ready()) return;
+        GatherWorkEnd started = grab.StartGathering(run.WantedOnLoop, out _);
+        workedItself = true;
+        if (started == GatherWorkEnd.None)
+        {
+            stopWork = LoopStopWork.Gathering;
+            workResumed = true;
+            if (Seen.Wants("vehicles.route-self-work", Vehicle, "lift")) Seen.Note("vehicles.route-self-work", Vehicle, Vehicle.LabelShort, "lift");
+            return;
+        }
+        // Nothing in reach that it gathers: it waits for colonists.
+        stopWork = LoopStopWork.Done;
+    }
+
+    /// <summary>On its way tail first: there, it turns and tips; stopped short or blocked, it tries again, and after three tries tips where it is.</summary>
+    void BackingUpStep()
+    {
+        if (Unloader is not { } unloader)
+        {
+            stopWork = LoopStopWork.Done;
+            return;
+        }
+        if (VehicleAutoDrive.Moving(Vehicle) && VehicleAutoDrive.HeadingFor(Vehicle, backUpCell)) return;
+        var facing = backUpFacing >= 0 ? new Rot4(backUpFacing) : Vehicle.Rotation;
+        if (Vehicle.Position == backUpCell)
+        {
+            VehicleAutoDrive.Face(Vehicle, facing);
+            StartUnloading(unloader);
+            return;
+        }
+        if (backUpTries < 3 && Ready() && VehicleAutoDrive.DriveTo(Vehicle, backUpCell, facing))
+        {
+            backUpTries++;
+            return;
+        }
+        StartUnloading(unloader);
+    }
+
+    void StartUnloading(IVehicleUnloadWorker unloader)
+    {
+        workedItself = true;
+        UnloadEnd started = unloader.StartUnloading(AllAboard, out string? refusal);
+        if (started == UnloadEnd.None)
+        {
+            stopWork = LoopStopWork.Unloading;
+            workResumed = true;
+            if (Seen.Wants("vehicles.route-self-work", Vehicle, "tip")) Seen.Note("vehicles.route-self-work", Vehicle, Vehicle.LabelShort, "tip");
+            return;
+        }
+        AfterUnloading(started, refusal);
+    }
+
+    /// <summary>Emptied, it leaves at once; with some still aboard, the player is told why once, and it waits out the stop's time for colonists.</summary>
+    void AfterUnloading(UnloadEnd end, string? reason)
+    {
+        stopWork = LoopStopWork.Done;
+        emptied = end == UnloadEnd.Emptied;
+        if (emptied || end == UnloadEnd.Stopped) return;
+        Messages.Message("PhobosRoute_StopNotEmptied".Translate(Vehicle.LabelShort.Named("VEHICLE"), (reason ?? "").Named("REASON")), Vehicle,
+            MessageTypeDefOf.CautionInput, false);
+    }
+
+    /// <summary>The colony's storage building or stockpile the stop's cell is on, if any.</summary>
+    UnloadPlace? PlaceAt(IntVec3 cell)
+    {
+        Map map = Vehicle.Map;
+        if (!cell.InBounds(map)) return null;
+        foreach (Thing thing in cell.GetThingList(map))
+        {
+            if (thing is Building_Storage store && store.Faction == Faction.OfPlayer) return new UnloadPlace(store, null);
+        }
+        return map.zoneManager.ZoneAt(cell) is Zone_Stockpile zone && zone.Cells.Count > 0 ? new UnloadPlace(null, zone) : null;
+    }
+
+    /// <summary>Stops its own work, quietly, and forgets the stop: on leaving it, or when the loop ends.</summary>
+    void EndStopWork()
+    {
+        if (stopWork == LoopStopWork.Unloading && Unloader is { Unloading: true } unloader) unloader.StopUnloading();
+        if (stopWork == LoopStopWork.Gathering && Grab is { Gathering: true } grab) grab.StopGathering();
+        stopWork = LoopStopWork.None;
+        workedItself = emptied = loadedAny = false;
+        backUpCell = IntVec3.Invalid;
+        backUpFacing = -1;
+        backUpTries = 0;
+        workResumed = false;
     }
 
     /// <summary>
@@ -489,6 +694,10 @@ public sealed class CompPhobosRoute : VehicleComp
         {
             return "PhobosRoute_InspectFollowing".Translate((ahead?.LabelShort ?? "?").Named("AHEAD"), (leader?.LabelShort ?? "?").Named("LEADER"));
         }
+        // Framework 0.299.0: its own work at a stop, said.
+        if (stopWork == LoopStopWork.BackingUp) return "PhobosRoute_InspectBackingUp".Translate();
+        if (stopWork == LoopStopWork.Unloading) return "PhobosRoute_InspectTipping".Translate();
+        if (stopWork == LoopStopWork.Gathering) return "PhobosRoute_InspectLifting".Translate();
         if (dwellUntil >= 0)
         {
             var left = Mathf.Max(0, dwellUntil - Find.TickManager.TicksGame);
@@ -540,6 +749,12 @@ public sealed class CompPhobosRoute : VehicleComp
         Scribe_Values.Look(ref dwellUntil, "PhobosRoute_DwellUntil", -1);
         Scribe_Values.Look(ref orderCell, "PhobosRoute_OrderCell", IntVec3.Invalid);
         Scribe_Values.Look(ref loopMapId, "PhobosRoute_LoopMap", -1);
+        Scribe_Values.Look(ref stopWork, "PhobosRoute_StopWork");
+        Scribe_Values.Look(ref workedItself, "PhobosRoute_WorkedItself");
+        Scribe_Values.Look(ref emptied, "PhobosRoute_Emptied");
+        Scribe_Values.Look(ref loadedAny, "PhobosRoute_LoadedAny");
+        Scribe_Values.Look(ref backUpCell, "PhobosRoute_BackUpCell", IntVec3.Invalid);
+        Scribe_Values.Look(ref backUpFacing, "PhobosRoute_BackUpFacing", -1);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             points ??= new List<IntVec3>();

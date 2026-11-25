@@ -85,6 +85,9 @@ and life on the road](camping.md). [Back to the guide](README.md).
   and keeps behind the vehicle ahead. **The leader needs someone at its wheel**, or a radio station driving it.
 - **Run a loop:** press **Run a loop**, then choose the **pick-up**, then the **drop-off**. It drives back and forth, **waiting an hour
   at each stop for colonists to load or unload it**. **Add a waypoint** to make it go a certain way.
+- **A tipper unloads itself, and a Talus with the loading grab loads itself.** Put the **drop-off on a bulk bunker or stockpile**: the
+  truck backs up to it and tips, or tips behind itself if the stop is on neither. Put the **pick-up beside the pile**: the grab lifts
+  what the truck's **Gather what** allows within reach. Done, it drives on at once; storage full or nothing in reach, it waits its hour.
 - **If the leader is lost**, the follower does what you chose for a lost link: hold, come back or carry on. A letter tells you.
 - **The fleet board** lists followers under their leader, and its pane can add a follower, leave the convoy or break it up.
 - A setting, "Vehicles follow a leader and run loops by themselves", turns it all off.

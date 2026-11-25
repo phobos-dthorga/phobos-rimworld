@@ -356,8 +356,16 @@ Built 25 Nov 2026, not yet tested in game, on the owner's go ("You may proceed")
   0.284.0), "unless perhaps the battery is nearly out of energy" (0.286.0): below a quarter of its charge the engine runs to charge it
   until it is above half (`RouteRule.ChargesAtStop`, tested; both figures authored, in the rules Def). A remote gun on it may rest while
   the engine is off.
-- **Still open:** loading and unloading at the stops by the vehicle's own gear (a tipper tipping into the bunker), helicopter rounds
-  (their own step), and the buttons' own pictures (borrowed until drawn).
+- **Working at its stops (Framework 0.299.0) [code: `Remote/Route.cs`, `RouteRule.LeavesStop`]:** the owner's cards of 26 Nov 2026:
+  tippers now, tankers later [O]; at the drop-off it **backs up to the bunker or stockpile the stop is on** and tips, or tips where it
+  stands [O]; **it leaves once empty** [O]; and **a Talus with the loading grab loads itself at the pick-up** [O], with what its gathering
+  run's Gather what allows, within the grab's reach [A, a decision in `config/decisions.json`]. It tips everything aboard [A, also a
+  decision]. The tip and the grab are the gathering runs' own workers (`IVehicleUnloadWorker`, `IVehicleGatherWorker`), backing up
+  through `VehicleAutoDrive.TryFindBackUpSpot`; three failed drives to the back-up spot and it tips where it is. Storage full or nothing
+  in reach, it waits out the stop's hour, told once why. The engine runs while its own gear works. Its stop work is saved; the workers'
+  tests are handed back after a load. Cost: one look a second while at a stop, as before.
+- **Still open:** tankers pumping out at the drop-off (their own step), helicopter rounds (their own step), and the buttons' own
+  pictures (borrowed until drawn).
 
 ### Step 7b: the mechanitor level (Framework 0.282.0)
 

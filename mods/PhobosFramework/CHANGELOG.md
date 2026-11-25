@@ -13,6 +13,20 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.299.0] - 2026-11-26 - Draft
+
+A loop truck unloads and loads itself at its stops
+
+### Added
+
+- **A truck that tips unloads itself at a loop's drop-off** (the owner's cards of 26 November 2026). Put the drop-off on a bulk bunker or
+  a stockpile and it backs up to it and tips; on neither, it tips behind itself. It drives on as soon as it is empty.
+- **A Talus with the loading grab loads itself at a loop's pick-up**: it lifts what its Gather what allows within the grab's reach, and
+  drives on once loaded. Put the pick-up beside the pile.
+- Storage full, or nothing in reach, it says so once and waits out the stop's hour for colonists, as before. Tankers pumping out at the
+  drop-off are a later step. Two choices are open on D'thorga Companion's Decisions page: whether the grab should drive about the pick-up,
+  and whether only what Gather what allows is tipped. Not yet tested in game: row 538.
+
 ## [0.298.0] - 2026-11-26 - Draft
 
 Five more mechanics the test list can see

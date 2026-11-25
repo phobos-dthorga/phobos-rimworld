@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "538": ["vehicles.route-self-work"],
     "98": {"parts": {"the CIWS kills incoming shells": ["patches.ciws-shell"]}},
     "95": {"parts": {"a drip stand gives burn-shock fluids": ["medical.bedside-fluids"]}},
     "535": ["vehicles.turret-follow"],
