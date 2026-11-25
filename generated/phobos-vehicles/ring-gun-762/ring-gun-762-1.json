@@ -1,0 +1,44 @@
+{
+  "file": "ring-gun-762-1.png",
+  "sha256": "7882f23707c34318197e4a719b73aecf244826d6cabd79df1345f6c8a7920600",
+  "date": "2026-11-25T06:22:19",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for our service trucks' cab-roof gun ring: a general-purpose machine gun swung by hand on the ring. Images 1 and 2 are our own approved art: match their outline weight, shading, olive drab and gunmetal palette and finish only. Do NOT redraw them.\n\nDraw ONLY this gun on its pintle mount, alone on a plain pure white background, the pintle's pivot at the EXACT CENTRE of the canvas and the barrel pointing STRAIGHT UP the canvas. Below the pivot, toward the bottom of the canvas, the gun's rear: two spade grips and a small ammunition box on the left side with a short belt into the receiver. A slim 7.62 mm machine gun: a narrow receiver with a feed cover, a folded bipod along the barrel, a slim barrel with a flash hider and a carrying handle, the barrel reaching from the centre to about 12 percent below the top edge. Gunmetal and black with olive drab on the ammunition box. The gun narrow: about 12 percent of the canvas wide, the box about 18 percent.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no roof, no people, animals, soil, dust, mud, damage, smoke, muzzle flash, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/gun-ring-set.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a20f02-006c-7023-a7f1-9816fb81d9b3",
+  "usage": null,
+  "cost_usd": 0.15,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "asked_resolution": "1K",
+  "asked_aspect_ratio": "1:1",
+  "sent_seed": 1,
+  "seconds": 23.9,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+      "sha256": "2243b95387beb7ea5f418c2f240554dd65d352e41a9e0765457155d9663ad00e",
+      "role": "Image 1 is our approved Talus tipper truck, seen from directly above with its cab at the top: match its outline weight, shading, olive and steel palette and finish only, and use it to judge the scale of a roof-mounted part; do not redraw it"
+    },
+    {
+      "image": "assets/phobos-vehicles/generated/remote-weapon-station-fal/remote-weapon-station-fal-1.png",
+      "sha256": "0cfa059827316daa659582de39ea4a1c58ee2a4b57a0131c92f81adf9a6d331c",
+      "role": "Image 2 is our approved remote weapon station for the same trucks: match its outline weight, olive drab and gunmetal palette, shading and level of detail, so the parts read as one family; do not redraw it"
+    }
+  ]
+}
