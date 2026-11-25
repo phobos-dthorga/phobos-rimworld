@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-24T02:53:41Z",
+ "checked": "2026-11-25T00:40:52Z",
  "clonesRead": 24,
  "days": 30,
  "findings": [
@@ -9,7 +9,7 @@
    "link": "https://github.com/CombatExtended-Continued/CombatExtended/commit/592d03d66",
    "member": "ProjectileCE.launcher",
    "mod": "Combat Extended",
-   "ours": "src/PhobosFramework.Vehicles/Service/AirborneEvasion.cs:94",
+   "ours": "src/PhobosFramework.Vehicles/Service/AirborneEvasion.cs:95",
    "repository": "https://github.com/CombatExtended-Continued/CombatExtended",
    "subject": "add core changes from vge patch"
   },
