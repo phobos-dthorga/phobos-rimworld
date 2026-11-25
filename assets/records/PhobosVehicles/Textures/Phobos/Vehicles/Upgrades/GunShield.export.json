@@ -1,0 +1,18 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/GunShield.png",
+  "source": "assets/phobos-vehicles/generated/gun-shield/gun-shield-2.png",
+  "source_sha256": "f8550d72edf61e73ba05eec96e78828dee9bcd067ff11c0885f3ac3de535aab3",
+  "target_sha256": "fc2766cf0cae29e0f481b200365daddb5501efdb1a94758f7637b4bc216c07b3",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "ai_mask": "f8550d72edf61e73ba05eec96e78828dee9bcd067ff11c0885f3ac3de535aab3",
+  "holes": [],
+  "white_left": [],
+  "draw_cells": 1.5,
+  "date": "2026-11-25T17:53:47",
+  "tool": "assets/phobos-vehicles/export_gun_ring.py: export_sprite cut-out, upgrade icon fitted from the shipped picture, premultiplied Lanczos"
+}

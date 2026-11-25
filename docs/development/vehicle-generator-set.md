@@ -232,6 +232,10 @@ sleeping near a running set was offered as a job for it and not taken.
 <!-- upgrade-tree: Phobos_GeneratorSet_UpgradeTree -->
 ```mermaid
 flowchart TB
+  subgraph alt1 ["Only one of these"]
+    PhobosRemoteWeaponStation["Remote weapon station"]
+    PhobosRingGun762["Ring gun, 7.62 mm"]
+  end
   BiggerAlternator["Uprated alternator"]
   CableReel["Cable reel"]
   BatteryBuffer["Battery buffer"]
@@ -247,12 +251,16 @@ flowchart TB
   PhobosHeavyCabPlates["Heavy cab plates"]
   PhobosSuppressionEngine["Engine fire suppression"]
   PhobosSuppressionCrew["Crew fire suppression"]
-  PhobosRemoteWeaponStation["Remote weapon station"]
+  PhobosGunRing["Gun ring"]
+  PhobosGunShield["Gun shield"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates
   PhobosArmouredCab --> PhobosSuppressionEngine
   PhobosArmouredCab --> PhobosSuppressionCrew
+  PhobosGunRing --> PhobosRemoteWeaponStation
+  PhobosGunRing --> PhobosGunShield
+  PhobosGunRing --> PhobosRingGun762
   PhobosArmouredCab --> PhobosSpallLiner
   classDef tiein stroke-dasharray: 5 5
   class PhobosSpallLiner,PhobosRemoteControlKit tiein

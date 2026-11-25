@@ -412,6 +412,8 @@
         <fuelConsumptionWorldMultiplier>0.5</fuelConsumptionWorldMultiplier>
         <fuelCapacity>120</fuelCapacity>
       </li>
+      <!-- The gun ring's turret comp (D'thorga Vehicles 0.121.0): empty until an upgrade fits a gun. -->
+      <li Class="Vehicles.CompProperties_VehicleTurrets" />
       <li Class="Vehicles.CompProperties_UpgradeTree">
         <def>Phobos_Tanker_UpgradeTree</def>
       </li>
@@ -708,6 +710,52 @@
                     <drawSize>(4, 11)</drawSize>
                     <shaderType>Cutout</shaderType>
                     <layer>3</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+          <li>
+            <!-- The gun ring (D'thorga Vehicles 0.121.0): on the cab roof under the gun, where its turrets stand. -->
+            <key>gunRing</key>
+            <looks>
+              <li>
+                <node>PhobosGunRing</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/Turrets/GunRing</texPath>
+                    <graphicClass>Graphic_Single</graphicClass>
+                    <drawSize>(1.5, 1.5)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <drawOffsetNorth>(-0.01, 0, 2.89)</drawOffsetNorth>
+                    <drawOffsetEast>(2.89, 0, 0.01)</drawOffsetEast>
+                    <drawOffsetSouth>(0.01, 0, -2.89)</drawOffsetSouth>
+                    <drawOffsetWest>(-2.89, 0, -0.01)</drawOffsetWest>
+                    <layer>5</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+          <li>
+            <!-- The gun shield (D'thorga Vehicles 0.121.0, Framework 0.296.0: the owner's card of 25 Nov 2026, our code draws it): turned
+                 with whichever ring gun is fitted. -->
+            <key>gunShield</key>
+            <followsTurrets>
+              <li>RingPintle762</li>
+              <li>RingPintle50</li>
+              <li>RingPintle40</li>
+            </followsTurrets>
+            <looks>
+              <li>
+                <node>PhobosGunShield</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/Turrets/GunShield</texPath>
+                    <graphicClass>Graphic_Single</graphicClass>
+                    <drawSize>(1.5, 1.5)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>6</layer>
                   </graphicData>
                 </look>
               </li>

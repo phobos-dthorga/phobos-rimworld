@@ -1,0 +1,18 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/RingGun762.png",
+  "source": "assets/phobos-vehicles/generated/ring-gun-762/ring-gun-762-1.png",
+  "source_sha256": "7882f23707c34318197e4a719b73aecf244826d6cabd79df1345f6c8a7920600",
+  "target_sha256": "a94b490a1e65b6d398f55778010ed2480974e0fef336f50b84e7585befe61dc3",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "ai_mask": "7882f23707c34318197e4a719b73aecf244826d6cabd79df1345f6c8a7920600",
+  "holes": [],
+  "white_left": [],
+  "draw_cells": 2,
+  "date": "2026-11-25T17:53:36",
+  "tool": "assets/phobos-vehicles/export_gun_ring.py: export_sprite cut-out, upgrade icon fitted from the shipped picture, premultiplied Lanczos"
+}

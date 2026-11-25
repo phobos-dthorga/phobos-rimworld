@@ -1,0 +1,18 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Turrets/RingGun40.png",
+  "source": "assets/phobos-vehicles/generated/ring-gun-40/ring-gun-40-3.png",
+  "source_sha256": "810303fb71a0272c8baa3c6d69782d397d5e2247729f7bfb35a43ec75bb39d08",
+  "target_sha256": "5f11048f7f6faaf875b5408ae89394fd5277183e7d3509cc92468162e46a18e7",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "ai_mask": "810303fb71a0272c8baa3c6d69782d397d5e2247729f7bfb35a43ec75bb39d08",
+  "holes": [],
+  "white_left": [],
+  "draw_cells": 2,
+  "date": "2026-11-25T17:53:43",
+  "tool": "assets/phobos-vehicles/export_gun_ring.py: export_sprite cut-out, the whole canvas, its centre the pivot, premultiplied Lanczos"
+}

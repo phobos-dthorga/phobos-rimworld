@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The service trucks' gun ring guns (D'thorga Vehicles 0.121.0; vehicle-militarised-service-vehicles.md, "The gun ring and its guns",
+       MV8; the owner's cards of 19 and 25 Nov 2026, and the picks of 25 Nov 2026). Our own, swung by hand by the gunner the ring seats:
+       their keys name a pintle, which D'thorga Framework's weapon rules read as hand-swung, so they draw no turret drive and need someone
+       at them to fire. Either/or on the ring. Fitted by the trucks' upgrade trees, never standing on a Def. Figures [A] authored unless
+       marked; the 7.62 mm and .50 as the Osprey's ramp guns (Turrets_Osprey.xml). Without Combat Extended each is fed from steel, as
+       Vehicle Framework's own generic ammunition is. -->
+  <Vehicles.VehicleTurretDef ParentName="VehicleTurretBase">
+    <defName>PhobosTurret_RingPintle762</defName>
+    <label>7.62 mm ring gun</label>
+    <description>A general-purpose machine gun on the cab-roof ring, swung by hand by the gunner.</description>
+    <turretType>Rotatable</turretType>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Turrets/RingGun762</texPath>
+      <graphicClass>Vehicles.Graphic_Turret</graphicClass>
+      <shaderType>Cutout</shaderType>
+      <drawSize>(2, 2)</drawSize>
+    </graphicData>
+    <matchParentColor>false</matchParentColor>
+    <gizmoIconTexPath>Phobos/Vehicles/Upgrades/RingGun762</gizmoIconTexPath>
+    <magazineCapacity>200</magazineCapacity>
+    <chargePerAmmoCount>0.05</chargePerAmmoCount>
+    <genericAmmo>true</genericAmmo>
+    <ammunition>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+    </ammunition>
+    <reloadTimer>8</reloadTimer>
+    <warmUpTimer>1</warmUpTimer>
+    <rotationSpeed>2</rotationSpeed>
+    <minRange>1.5</minRange>
+    <maxRange>30</maxRange>
+    <projectile>Bullet_LMG</projectile>
+    <shotSound>Shot_Minigun</shotSound>
+    <fireModes>
+      <li>
+        <label>Automatic</label>
+        <shotsPerBurst>20</shotsPerBurst>
+        <ticksBetweenShots>5</ticksBetweenShots>
+        <ticksBetweenBursts>60</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Auto</texPath>
+      </li>
+      <li>
+        <label>Burst</label>
+        <shotsPerBurst>8</shotsPerBurst>
+        <ticksBetweenShots>5</ticksBetweenShots>
+        <ticksBetweenBursts>60</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Burst</texPath>
+      </li>
+      <li>
+        <label>Single shot</label>
+        <shotsPerBurst>1</shotsPerBurst>
+        <ticksBetweenShots>5</ticksBetweenShots>
+        <ticksBetweenBursts>30</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Single</texPath>
+      </li>
+    </fireModes>
+    <modExtensions>
+      <!-- Combat Extended's own 7.62x51 mm muzzle speed (156), as the Osprey's; a swung gun's sway and spread, fired from a cab roof [A]. -->
+      <li Class="Vehicles.CETurretDataDefModExtension">
+        <ammoSet>AmmoSet_762x51mmNATO</ammoSet>
+        <speed>156</speed>
+        <sway>1.2</sway>
+        <spread>0.05</spread>
+        <recoil>0.9</recoil>
+        <shotHeight>2.6</shotHeight>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleTurretDef>
+  <Vehicles.VehicleTurretDef ParentName="VehicleTurretBase">
+    <defName>PhobosTurret_RingPintle50</defName>
+    <label>.50 ring gun</label>
+    <description>A heavy .50 machine gun on the cab-roof ring, swung by hand by the gunner: slower to swing, and it hits much harder and further.</description>
+    <turretType>Rotatable</turretType>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Turrets/RingGun50</texPath>
+      <graphicClass>Vehicles.Graphic_Turret</graphicClass>
+      <shaderType>Cutout</shaderType>
+      <drawSize>(2, 2)</drawSize>
+    </graphicData>
+    <matchParentColor>false</matchParentColor>
+    <gizmoIconTexPath>Phobos/Vehicles/Upgrades/RingGun50</gizmoIconTexPath>
+    <magazineCapacity>200</magazineCapacity>
+    <chargePerAmmoCount>0.25</chargePerAmmoCount>
+    <genericAmmo>true</genericAmmo>
+    <ammunition>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+    </ammunition>
+    <reloadTimer>10</reloadTimer>
+    <warmUpTimer>1.2</warmUpTimer>
+    <rotationSpeed>1.6</rotationSpeed>
+    <minRange>1.5</minRange>
+    <maxRange>36</maxRange>
+    <projectile>Bullet_SniperRifle</projectile>
+    <shotSound>Shot_Minigun</shotSound>
+    <fireModes>
+      <li>
+        <label>Automatic</label>
+        <shotsPerBurst>12</shotsPerBurst>
+        <ticksBetweenShots>3</ticksBetweenShots>
+        <ticksBetweenBursts>75</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Auto</texPath>
+      </li>
+      <li>
+        <label>Burst</label>
+        <shotsPerBurst>6</shotsPerBurst>
+        <ticksBetweenShots>3</ticksBetweenShots>
+        <ticksBetweenBursts>75</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Burst</texPath>
+      </li>
+      <li>
+        <label>Single shot</label>
+        <shotsPerBurst>1</shotsPerBurst>
+        <ticksBetweenShots>3</ticksBetweenShots>
+        <ticksBetweenBursts>40</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Single</texPath>
+      </li>
+    </fireModes>
+    <modExtensions>
+      <!-- Combat Extended's own .50 BMG muzzle speed (163), as the Osprey's; a swung heavy gun's sway, spread and kick [A]. -->
+      <li Class="Vehicles.CETurretDataDefModExtension">
+        <ammoSet>AmmoSet_50BMG</ammoSet>
+        <speed>163</speed>
+        <sway>1.3</sway>
+        <spread>0.04</spread>
+        <recoil>1.6</recoil>
+        <shotHeight>2.6</shotHeight>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleTurretDef>
+  <Vehicles.VehicleTurretDef ParentName="VehicleTurretBase">
+    <defName>PhobosTurret_RingPintle40</defName>
+    <label>40 mm ring launcher</label>
+    <description>An automatic grenade launcher on the cab-roof ring, swung by hand by the gunner: it lobs explosive grenades in short bursts, and cannot fire close in.</description>
+    <turretType>Rotatable</turretType>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Turrets/RingGun40</texPath>
+      <graphicClass>Vehicles.Graphic_Turret</graphicClass>
+      <shaderType>Cutout</shaderType>
+      <drawSize>(2, 2)</drawSize>
+    </graphicData>
+    <matchParentColor>false</matchParentColor>
+    <gizmoIconTexPath>Phobos/Vehicles/Upgrades/RingGun40</gizmoIconTexPath>
+    <magazineCapacity>48</magazineCapacity>
+    <chargePerAmmoCount>0.75</chargePerAmmoCount>
+    <genericAmmo>true</genericAmmo>
+    <ammunition>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+    </ammunition>
+    <reloadTimer>12</reloadTimer>
+    <warmUpTimer>1.4</warmUpTimer>
+    <rotationSpeed>1.4</rotationSpeed>
+    <minRange>8</minRange>
+    <maxRange>34</maxRange>
+    <projectile>Proj_GrenadeFrag</projectile>
+    <shotSound>Shot_Minigun</shotSound>
+    <fireModes>
+      <li>
+        <label>Burst</label>
+        <shotsPerBurst>3</shotsPerBurst>
+        <ticksBetweenShots>9</ticksBetweenShots>
+        <ticksBetweenBursts>60</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Burst</texPath>
+      </li>
+      <li>
+        <label>Single shot</label>
+        <shotsPerBurst>1</shotsPerBurst>
+        <ticksBetweenShots>9</ticksBetweenShots>
+        <ticksBetweenBursts>40</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Single</texPath>
+      </li>
+    </fireModes>
+    <modExtensions>
+      <!-- Combat Extended's 40x53 mm grenades, which carry their own speed; Frontline Workshop's Mk 19 sway and spread, read for comparison only. Without Combat Extended it fires the game's frag grenade, three-quarters of a steel a round [A: a 40 mm round is about 0.35 kg]. -->
+      <li Class="Vehicles.CETurretDataDefModExtension">
+        <ammoSet>AmmoSet_40x53mmGrenade</ammoSet>
+        <sway>0.92</sway>
+        <spread>0.15</spread>
+        <shotHeight>2.6</shotHeight>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleTurretDef>
+</Defs>

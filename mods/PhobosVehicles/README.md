@@ -8,7 +8,7 @@ already drive the systems that match what they really are, on top of the general
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**: [working
 vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.120.0, built 25 November 2026 for House D'thorga. **Partly tested in game:** the survey truck and its boom (owner,
+Version 0.121.0, built 25 November 2026 for House D'thorga. **Partly tested in game:** the survey truck and its boom (owner,
 9 November 2026), the Busbar's size and look (owner, 13 November 2026), the tanker's electric pump, its upgrade tree and its load
 counting as weight, the Talus gathering by itself, a truck with nobody aboard calling for a driver, the trucks' upgrade trees, and
 the fuel bowser and flatbed sitting on their drawbars. Everything else is not yet tested in game.
@@ -78,7 +78,9 @@ chapter](../../docs/player-guide/working-vehicles.md), with the field kitchen an
 - **The bulk bunker and the loading chute** (motor pool tab, after the tipper's research), for trucks to tip into and load from.
 - **A remote control kit for the five service trucks**, with D'thorga Radio Framework: a colonist at a radio station drives
   the truck with nobody aboard ([the guide](../../docs/player-guide/vehicles-on-the-road.md#driven-from-a-station)).
-- **A remote weapon station for the Talus and Busbar**: a .50 on a powered roof mount, fired with nobody aboard, only while a radio
+- **A gun ring for the Talus, Kelly, Ullage and Busbar**: a gunner's seat on the cab roof and a 7.62 mm, .50 or 40 mm gun on it,
+  with a gun shield ([the guide](../../docs/player-guide/working-vehicles.md#armour-and-kits)).
+- **A remote weapon station for the Talus and Busbar**, on the gun ring: a .50 on a powered roof mount, fired with nobody aboard, only while a radio
   station watches through its camera, or by itself with D'thorga Framework's setting **Remote guns fire on their own**; without the
   Radio Framework, only with that setting ([the guide](../../docs/player-guide/working-vehicles.md#armour-and-kits)).
 - **Other mods' vehicles get their real counterparts' systems and figures**: air brakes on the Big Rig and HEMTT, gas turbines on

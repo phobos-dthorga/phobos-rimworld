@@ -1,6 +1,6 @@
 # Militarised service vehicles: research and design (19 Nov 2026)
 
-**Status (25 Nov 2026):** a design record, partly built: every armour kit is built (Vehicles 0.80.0 and 0.86.0), and the remote weapon station is built on the Talus and Busbar ([built](#the-remote-weapon-station-built-vehicles-01190-framework-02850), Vehicles 0.119.0 and Framework 0.285.0, not yet tested in game); the gun ring, the hand-swung guns and smoke are not. Its prerequisite, the trucks' armour by class (MV2), is in Framework 0.154.0 and Vehicles 0.76.0; the kits with no picture (engine and tank guards, run-flat tyres, EMP hardening) and the truck armour research are in Vehicles 0.80.0 and Framework 0.158.0. The drawn kits, the guns and the under-fire switch are not built, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
+**Status (25 Nov 2026):** a design record, partly built: every armour kit is built (Vehicles 0.80.0 and 0.86.0), the remote weapon station is built on the Talus and Busbar ([built](#the-remote-weapon-station-built-vehicles-01190-framework-02850), Vehicles 0.119.0 and Framework 0.285.0), and the gun ring, its three guns and the shield ([built](#the-gun-ring-built-vehicles-01210-framework-02960), Vehicles 0.121.0 and Framework 0.296.0), none yet tested in game; smoke, the ammunition locker and the extra mounts are not. Its prerequisite, the trucks' armour by class (MV2), is in Framework 0.154.0 and Vehicles 0.76.0; the kits with no picture (engine and tank guards, run-flat tyres, EMP hardening) and the truck armour research are in Vehicles 0.80.0 and Framework 0.158.0. The drawn kits, the guns and the under-fire switch are not built, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
 
 How vehicle damage works now: [systems/vehicle-damage.md](systems/vehicle-damage.md); this record keeps its history.
 
@@ -354,6 +354,27 @@ above:
   ring, on the cab roof left of the remote kit's antenna (agent placement). The node's icon is fitted from it until a drawn icon is picked.
 - **Other factions:** a raider's or captured truck would carry the same rule, as its Def carries the marker; no code fits it to their
   trucks today (above). **Parked at a base we attack**, a fitted station has no picture from us, so it fires only with the setting on.
+
+### The gun ring, built (Vehicles 0.121.0, Framework 0.296.0)
+
+Built 25 Nov 2026 on the owner's cards ("Build the ring now"; the weapons block; the shield drawn by our code), not yet tested in game.
+What differs from the tables above:
+
+- **A weapons block in each tree [O, 25 Nov 2026]:** the armour columns were full, so the ring (12, 12), the shield (17, 12) and the guns
+  (2, 17), (7, 17), (12, 17) and the station (17, 17) sit bottom left. The guns and the station are either/or; all need the ring.
+- **Research [A]:** truck guns (1,500), after truck armour and gunsmithing, at (2, 5.4); the grenade launcher also needs mortars. The
+  station's research moved to (3, 5.4), after truck guns and gun turrets, so no line crosses a box.
+- **The seat:** the ring adds a gunner role on the driver's cell, Turret handling for the three guns, exposed; the shield edits it to
+  not exposed. The station is in no role, so it stays remote.
+- **The guns [code: `Turrets_GunRing.xml`]:** the 7.62 mm and .50 as the Osprey's ramp guns; the 40 mm fires the game's frag grenade
+  without Combat Extended (48 rounds, three-quarters of a steel each [A]) and Combat Extended's 40x53 mm grenades with it. Their keys
+  name a pintle, so D'thorga Framework's weapon rules read them as hand-swung: no turret drive.
+- **The pictures:** the owner's picks of five parts drawn on fal.ai ([their record](../../assets/phobos-vehicles/requests/gun-ring-set-record.md)),
+  each exported whole about its pivot, on its own scale (the guns two cells, the ring and shield one and a half), at the ring's place
+  on each cab roof left of the antenna (agent placement). The ring is a fixed picture; **the shield turns with the gun through a new
+  Framework picture slot that follows a turret** (`followsTurrets` in `CompProperties_PhobosNodeLooks`), since Vehicle Framework takes
+  no turret that never fires.
+- **Weights:** the design's; costs and work authored. Cargo room on the Talus only.
 
 ### Smoke dischargers
 

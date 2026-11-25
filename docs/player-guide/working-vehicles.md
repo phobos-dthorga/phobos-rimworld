@@ -106,7 +106,11 @@ Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehi
   - **Body plates** (Talus, Ullage and Kelly): skirts along both sides make the tipping body, tank or deck rifle-proof.
   - **Spall liner** (with Combat Extended; over the armoured cab, beside the heavy plates): panels inside the cab that catch the
     spall described below. Four **spall liner panels**, made at the parts bench after **truck armour** research. 200 kg.
-- **Remote weapon station** (Talus and Busbar, after **remote weapon station** research, which follows truck armour and gun turrets):
+- **Gun ring** (Talus, Kelly, Ullage and Busbar, after **truck guns** research, which follows truck armour and gunsmithing): a ring on
+  the cab roof with a **gunner's seat**. On it, one gun, **swung by a gunner aboard**: a **7.62 mm machine gun** (all four), a **.50
+  heavy machine gun** or a **40 mm grenade launcher** (Talus and Kelly; the launcher also needs mortars). The gunner is **exposed** until
+  you fit a **gun shield**, plates that turn with the gun. Ring 120 kg, guns 40 to 110 kg, shield 180 kg.
+- **Remote weapon station** (Talus and Busbar, **on the gun ring** instead of a gun, after **remote weapon station** research, which follows truck guns and gun turrets):
   a .50 heavy machine gun on a powered roof mount with a camera sight. **Nobody sits at it**: it fires only while a radio station's
   operator has the truck's picture (see [driven from a station](vehicles-on-the-road.md#driven-from-a-station)), or by itself when
   **"Remote guns fire on their own"** is on. **Without D'thorga Radio Framework it fires only with that setting.** It feeds from steel

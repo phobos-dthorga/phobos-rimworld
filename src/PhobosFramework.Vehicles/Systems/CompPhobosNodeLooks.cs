@@ -43,6 +43,12 @@ public class NodeLookSlot
     public string key = "";
     /// <summary>In order: the first whose node is fitted is shown, else the stock look (<see cref="NodeLookRule"/>).</summary>
     public List<NodeLook> looks = new();
+    /// <summary>
+    /// Turret keys (Framework 0.296.0; the owner's card of 25 Nov 2026, the gun shield): the slot's picture is drawn where the first of
+    /// these turrets on the vehicle stands and turned with it, about the picture's centre, as Vehicle Framework turns a turret. Empty for a
+    /// picture that stays put.
+    /// </summary>
+    public List<string> followsTurrets = new();
 }
 
 public class CompProperties_PhobosNodeLooks : VehicleCompProperties
@@ -79,6 +85,8 @@ public class CompPhobosNodeLooks : VehicleComp
     bool registered;
     /// <summary>The fittings' change count when the pictures were last set; -1 to set them again. Never saved.</summary>
     int fittingsVersion = -1;
+    /// <summary>The pictures shown now that follow a turret, set again at each refresh (Framework 0.296.0). Never saved.</summary>
+    readonly List<(NodeLookSlot slot, GraphicOverlay overlay)> following = new();
 
     CompProperties_PhobosNodeLooks Props => (CompProperties_PhobosNodeLooks)props;
 
@@ -143,6 +151,7 @@ public class CompPhobosNodeLooks : VehicleComp
         if (renderer == null) return;
         VehicleFittings? fittings = Systems?.Fittings;
         fittingsVersion = fittings?.Version ?? -1;
+        following.Clear();
         foreach (NodeLookSlot slot in Props.slots)
         {
             string key = KeyPrefix + slot.key;
@@ -150,7 +159,42 @@ public class CompPhobosNodeLooks : VehicleComp
             if (!Vehicle.Spawned) continue;
             int chosen = NodeLookRule.Choose(slot.looks.Select(l => l.Stock ? (bool?)null : Met(l, fittings)).ToList());
             GraphicDataOverlay? look = chosen < 0 ? null : slot.looks[chosen].look;
-            if (look != null) renderer.AddOverlay(key, GraphicOverlay.Create(look, Vehicle));
+            if (look == null) continue;
+            GraphicOverlay overlay = GraphicOverlay.Create(look, Vehicle);
+            renderer.AddOverlay(key, overlay);
+            if (slot.followsTurrets.Count == 0) continue;
+            following.Add((slot, overlay));
+            // A picture that turns with a turret, shown (Framework 0.296.0, row 536): the gun shield.
+            if (Seen.Wants("vehicles.turret-follow", Vehicle, slot.key)) Seen.Note("vehicles.turret-follow", Vehicle, Vehicle.LabelShort, slot.key);
+        }
+        if (following.Count > 0) Follow();
+    }
+
+    /// <summary>
+    /// Keeps each turret-following picture on its turret, turned as the turret is (Framework 0.296.0): a few field writes a frame, and only
+    /// while such a picture is shown, so a vehicle without one pays a list count. Presentation only.
+    /// </summary>
+    public override void PostDraw()
+    {
+        base.PostDraw();
+        if (following.Count > 0) Follow();
+    }
+
+    void Follow()
+    {
+        IReadOnlyList<VehicleTurret>? turrets = Vehicle.CompVehicleTurrets?.Turrets;
+        if (turrets == null) return;
+        Rot8 facing = Vehicle.FullRotation;
+        foreach ((NodeLookSlot slot, GraphicOverlay overlay) in following)
+        {
+            VehicleTurret? gun = null;
+            for (int i = 0; i < turrets.Count && gun == null; i++)
+            {
+                if (slot.followsTurrets.Contains(turrets[i].key)) gun = turrets[i];
+            }
+            if (gun == null) continue;
+            overlay.Transform.rotation = gun.TurretRotation - facing.AsAngle;
+            OverlayPosition.Set(overlay.Transform, gun.TurretOffset(facing));
         }
     }
 }

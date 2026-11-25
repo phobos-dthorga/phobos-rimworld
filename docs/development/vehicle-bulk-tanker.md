@@ -234,12 +234,17 @@ flowchart TB
   PhobosHeavyCabPlates["Heavy cab plates"]
   PhobosSuppressionEngine["Engine fire suppression"]
   PhobosSuppressionCrew["Crew fire suppression"]
+  PhobosGunRing["Gun ring"]
+  PhobosGunShield["Gun shield"]
+  PhobosRingGun762["Ring gun, 7.62 mm"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
   TwoCompartments --> ThreeCompartments
   PhobosArmouredCab --> PhobosHeavyCabPlates
   PhobosArmouredCab --> PhobosSuppressionEngine
   PhobosArmouredCab --> PhobosSuppressionCrew
+  PhobosGunRing --> PhobosGunShield
+  PhobosGunRing --> PhobosRingGun762
   PhobosArmouredCab --> PhobosSpallLiner
   any1(("any one"))
   LiquidTank -.- any1

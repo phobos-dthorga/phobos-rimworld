@@ -558,8 +558,8 @@ Kit weight: 30 kg more, carried as cargo.</upgradeExplanation>
         </li>
     <li>
       <!-- The remote weapon station (D'thorga Vehicles 0.119.0, Framework 0.285.0; vehicle-militarised-service-vehicles.md, MV8; the owner's
-           guns by role, 19 Nov 2026). Free-standing for now: the design hangs it from the gun ring, either/or with the hand-swung guns, and
-           neither is built yet, so it is its own node until they are [A]. On the cab roof left of the remote kit's antenna, its ring's centre
+           guns by role, 19 Nov 2026). Since 0.121.0 it stands on the gun ring, either/or with the ring's hand-swung guns, in the weapons
+           block (the owner's cards of 25 Nov 2026). On the cab roof left of the remote kit's antenna, its ring's centre
            read off the shipped north texture (agent placement, to revise once seen in game). 250 kg (the design's figure [A]) loads the
            engine as cargo would. Taking cargo room on the Talus only (owner, 19 Nov 2026). It stops with the cab it stands on. -->
       <key>PhobosRemoteWeaponStation</key>
@@ -573,11 +573,19 @@ Cargo room: 250 kg less.
 Kit weight: 250 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/RemoteWeaponStation</icon>
       <work>4000</work>
-      <gridCoordinate>(29, 12)</gridCoordinate>
+      <gridCoordinate>(17, 17)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_RemoteWeaponStation</li>
       </researchPrerequisites>
+      <prerequisiteNodes>
+        <li>PhobosGunRing</li>
+      </prerequisiteNodes>
+      <disableIfUpgradeNodesEnabled>
+        <li>PhobosRingGun762</li>
+        <li>PhobosRingGun50</li>
+        <li>PhobosRingGun40</li>
+      </disableIfUpgradeNodesEnabled>
       <upgrades>
         <li Class="Vehicles.TurretUpgrade">
           <turrets>
@@ -613,6 +621,279 @@ Kit weight: 250 kg more, carried as cargo.</upgradeExplanation>
         <Steel>80</Steel>
         <ComponentIndustrial>6</ComponentIndustrial>
         <ComponentSpacer>1</ComponentSpacer>
+      </ingredients>
+    </li>
+    <li>
+      <!-- The gun ring and its guns (D'thorga Vehicles 0.121.0, Framework 0.296.0; vehicle-militarised-service-vehicles.md, MV8; the owner's guns by role of 19 Nov 2026, and the weapons block of 25 Nov 2026). Weights the design's; costs and work authored [A]. The ring seats a gunner who works the hand-swung guns; the remote weapon station needs the ring too, and no gunner. -->
+      <key>PhobosGunRing</key>
+      <label>Gun ring</label>
+      <displayLabel>true</displayLabel>
+      <description>A steel ring on the cab roof with a gunner's seat, for a gun swung by hand. The gunner stands half out of the cab, exposed, until a gun shield is fitted.</description>
+      <upgradeExplanation>On the cab roof: a gunner's seat and a ring for one of the ring guns, or the remote weapon station.\nThe gunner is exposed to fire until a gun shield is fitted.\nCargo room: 120 kg less.\nKit weight: 120 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Upgrades/GunRing</icon>
+      <work>2500</work>
+      <gridCoordinate>(12, 12)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckGuns</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.VehicleUpgrade">
+          <roles>
+            <li>
+              <key>gunner</key>
+              <label>gunner</label>
+              <handlingTypes>Turret</handlingTypes>
+              <slots>1</slots>
+              <slotsToOperate>1</slotsToOperate>
+              <turretIds>
+                <li>RingPintle762</li>
+                <li>RingPintle50</li>
+                <li>RingPintle40</li>
+              </turretIds>
+              <exposed>true</exposed>
+              <hitbox>
+                <cells>
+                  <li>(0, 3)</li>
+                </cells>
+              </hitbox>
+            </li>
+          </roles>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>CargoCapacity</def>
+              <value>-120</value>
+            </li>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>120</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>60</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosGunShield</key>
+      <label>Gun shield</label>
+      <displayLabel>true</displayLabel>
+      <description>Bent armour plates on the ring that turn with the gun, so the gunner is no longer exposed.</description>
+      <upgradeExplanation>On the ring: plates that turn with the gun and cover the gunner.\nThe gunner is no longer exposed.\nCargo room: 180 kg less.\nKit weight: 180 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Upgrades/GunShield</icon>
+      <work>2500</work>
+      <gridCoordinate>(17, 12)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckGuns</li>
+      </researchPrerequisites>
+      <prerequisiteNodes>
+        <li>PhobosGunRing</li>
+      </prerequisiteNodes>
+      <upgrades>
+        <li Class="Vehicles.VehicleUpgrade">
+          <roles>
+            <li>
+              <key>gunner</key>
+              <editKey>gunShield</editKey>
+              <exposed>false</exposed>
+            </li>
+          </roles>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>CargoCapacity</def>
+              <value>-180</value>
+            </li>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>180</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>120</Steel>
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosRingGun762</key>
+      <label>Ring gun, 7.62 mm</label>
+      <displayLabel>true</displayLabel>
+      <description>A general-purpose machine gun on the ring, swung by hand by the gunner. Light, quick to swing, and fed from a belt in a box beside it.</description>
+      <upgradeExplanation>On the gun ring: a general-purpose machine gun on the ring, swung by hand by the gunner. Light, quick to swing, and fed from a belt in a box beside it.\nNeeds the gunner at it to fire.\nCargo room: 40 kg less.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Upgrades/RingGun762</icon>
+      <work>2000</work>
+      <gridCoordinate>(2, 17)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckGuns</li>
+      </researchPrerequisites>
+      <prerequisiteNodes>
+        <li>PhobosGunRing</li>
+      </prerequisiteNodes>
+      <disableIfUpgradeNodesEnabled>
+        <li>PhobosRingGun50</li>
+        <li>PhobosRingGun40</li>
+        <li>PhobosRemoteWeaponStation</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.TurretUpgrade">
+          <turrets>
+            <li>
+              <key>RingPintle762</key>
+              <def>PhobosTurret_RingPintle762</def>
+              <gizmoLabel>Ring gun, 7.62 mm</gizmoLabel>
+              <component>
+                <key>Cab</key>
+                <healthPercent>0</healthPercent>
+              </component>
+              <renderProperties>
+                <north>(-0.12, 2.45)</north>
+              </renderProperties>
+            </li>
+          </turrets>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>CargoCapacity</def>
+              <value>-40</value>
+            </li>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>40</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>40</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosRingGun50</key>
+      <label>Ring gun, .50</label>
+      <displayLabel>true</displayLabel>
+      <description>A heavy .50 machine gun on the ring, swung by hand by the gunner: slower to swing, and it hits much harder and further.</description>
+      <upgradeExplanation>On the gun ring: a heavy .50 machine gun on the ring, swung by hand by the gunner: slower to swing, and it hits much harder and further.\nNeeds the gunner at it to fire.\nCargo room: 90 kg less.\nKit weight: 90 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Upgrades/RingGun50</icon>
+      <work>2500</work>
+      <gridCoordinate>(7, 17)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckGuns</li>
+      </researchPrerequisites>
+      <prerequisiteNodes>
+        <li>PhobosGunRing</li>
+      </prerequisiteNodes>
+      <disableIfUpgradeNodesEnabled>
+        <li>PhobosRingGun762</li>
+        <li>PhobosRingGun40</li>
+        <li>PhobosRemoteWeaponStation</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.TurretUpgrade">
+          <turrets>
+            <li>
+              <key>RingPintle50</key>
+              <def>PhobosTurret_RingPintle50</def>
+              <gizmoLabel>Ring gun, .50</gizmoLabel>
+              <component>
+                <key>Cab</key>
+                <healthPercent>0</healthPercent>
+              </component>
+              <renderProperties>
+                <north>(-0.12, 2.45)</north>
+              </renderProperties>
+            </li>
+          </turrets>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>CargoCapacity</def>
+              <value>-90</value>
+            </li>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>90</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>70</Steel>
+        <ComponentIndustrial>3</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosRingGun40</key>
+      <label>Ring launcher, 40 mm</label>
+      <displayLabel>true</displayLabel>
+      <description>An automatic grenade launcher on the ring, swung by hand by the gunner: explosive grenades in short bursts, the heaviest rounds of the three.</description>
+      <upgradeExplanation>On the gun ring: an automatic grenade launcher on the ring, swung by hand by the gunner: explosive grenades in short bursts, the heaviest rounds of the three.\nNeeds the gunner at it to fire.\nCargo room: 110 kg less.\nKit weight: 110 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Upgrades/RingGun40</icon>
+      <work>3000</work>
+      <gridCoordinate>(12, 17)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckGuns</li>
+        <li>Mortars</li>
+      </researchPrerequisites>
+      <prerequisiteNodes>
+        <li>PhobosGunRing</li>
+      </prerequisiteNodes>
+      <disableIfUpgradeNodesEnabled>
+        <li>PhobosRingGun762</li>
+        <li>PhobosRingGun50</li>
+        <li>PhobosRemoteWeaponStation</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.TurretUpgrade">
+          <turrets>
+            <li>
+              <key>RingPintle40</key>
+              <def>PhobosTurret_RingPintle40</def>
+              <gizmoLabel>Ring launcher, 40 mm</gizmoLabel>
+              <component>
+                <key>Cab</key>
+                <healthPercent>0</healthPercent>
+              </component>
+              <renderProperties>
+                <north>(-0.12, 2.45)</north>
+              </renderProperties>
+            </li>
+          </turrets>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>CargoCapacity</def>
+              <value>-110</value>
+            </li>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>110</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>80</Steel>
+        <ComponentIndustrial>4</ComponentIndustrial>
       </ingredients>
     </li>
     </nodes>

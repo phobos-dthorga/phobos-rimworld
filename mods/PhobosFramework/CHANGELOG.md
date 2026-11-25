@@ -13,6 +13,16 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.296.0] - 2026-11-25 - Draft
+
+A picture can turn with a vehicle's turret
+
+### Added
+
+- **A picture slot that follows a turret**: a vehicle's upgrade picture can stand where one of its turrets stands and turn with it,
+  for any gun of a list (the owner's card of 25 November 2026: our code draws the gun shield, since Vehicle Framework takes no turret
+  that never fires). D'thorga Vehicles' gun shield is the first. Not yet tested in game: row 535.
+
 ## [0.295.0] - 2026-11-25 - Draft
 
 Twelve more mechanics the test list can see

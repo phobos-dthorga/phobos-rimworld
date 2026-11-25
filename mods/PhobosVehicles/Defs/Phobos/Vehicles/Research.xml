@@ -145,17 +145,38 @@
     </modExtensions>
   </ResearchProjectDef>
 
-  <!-- The service trucks' remote weapon station (D'thorga Vehicles 0.119.0; vehicle-militarised-service-vehicles.md, MV8). After truck
-       armour and the game's gun turrets, which teach an unmanned gun that finds its own targets [A]. Beside the armour tiers. -->
+  <!-- The service trucks' gun ring and its guns (D'thorga Vehicles 0.121.0; vehicle-militarised-service-vehicles.md, MV8). After truck
+       armour and the game's gunsmithing [A]; the grenade launcher also needs mortars. Beside the armour tiers. -->
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_TruckGuns</defName>
+    <label>truck guns</label>
+    <description>A ring on a service truck's cab roof with a gunner's seat, and the machine guns and grenade launcher to put on it.</description>
+    <baseCost>1500</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>5.4</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_TruckArmour</li>
+      <li>Gunsmithing</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <!-- The service trucks' remote weapon station (D'thorga Vehicles 0.119.0; vehicle-militarised-service-vehicles.md, MV8). After the
+       game's gun turrets, which teach an unmanned gun that finds its own targets [A], and since 0.121.0 after truck guns (which follows
+       truck armour), as the station stands on the gun ring. -->
   <ResearchProjectDef ParentName="PhobosResearchTruckBase">
     <defName>PhobosResearch_RemoteWeaponStation</defName>
     <label>remote weapon station</label>
     <description>A powered roof mount for a heavy machine gun, aimed through a camera, for the Talus and Busbar: a truck that defends itself with nobody aboard.</description>
     <baseCost>2000</baseCost>
-    <researchViewX>2</researchViewX>
+    <researchViewX>3</researchViewX>
     <researchViewY>5.4</researchViewY>
     <prerequisites>
-      <li>PhobosResearch_TruckArmour</li>
+      <li>PhobosResearch_TruckGuns</li>
       <li>GunTurrets</li>
     </prerequisites>
     <modExtensions>

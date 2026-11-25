@@ -150,6 +150,12 @@ flowchart TB
     RockBody["Rock body"]
     BulkBody["Bulk body"]
   end
+  subgraph alt2 ["Only one of these"]
+    PhobosRemoteWeaponStation["Remote weapon station"]
+    PhobosRingGun762["Ring gun, 7.62 mm"]
+    PhobosRingGun50["Ring gun, .50"]
+    PhobosRingGun40["Ring launcher, 40 mm"]
+  end
   HighSides["Greedy boards"]
   PhobosLoadingGrab["Loading grab"]
   PhobosEngineGuards["Engine and tank guards"]
@@ -161,12 +167,18 @@ flowchart TB
   PhobosHeavyCabPlates["Heavy cab plates"]
   PhobosSuppressionEngine["Engine fire suppression"]
   PhobosSuppressionCrew["Crew fire suppression"]
-  PhobosRemoteWeaponStation["Remote weapon station"]
+  PhobosGunRing["Gun ring"]
+  PhobosGunShield["Gun shield"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates
   PhobosArmouredCab --> PhobosSuppressionEngine
   PhobosArmouredCab --> PhobosSuppressionCrew
+  PhobosGunRing --> PhobosRemoteWeaponStation
+  PhobosGunRing --> PhobosGunShield
+  PhobosGunRing --> PhobosRingGun762
+  PhobosGunRing --> PhobosRingGun50
+  PhobosGunRing --> PhobosRingGun40
   PhobosArmouredCab --> PhobosSpallLiner
   classDef tiein stroke-dasharray: 5 5
   class PhobosSpallLiner,PhobosRemoteControlKit tiein

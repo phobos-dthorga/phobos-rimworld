@@ -13,6 +13,30 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.121.0] - 2026-11-25 - Draft
+
+The gun ring and its guns
+
+### Added
+
+- **A gun ring for the Talus, Kelly, Ullage and Busbar**: a steel ring on the cab roof with a gunner's seat, after the new research
+  truck guns, which follows truck armour and gunsmithing (MV8; the owner's guns by role of 19 November 2026). On it, one of our own
+  guns, swung by hand by the gunner: a 7.62 mm machine gun on all four, a .50 heavy machine gun and a 40 mm grenade launcher on the
+  Talus and Kelly (the launcher after mortars too). The gunner stands exposed until a **gun shield** is fitted, armour plates that turn
+  with the gun. The ring 120 kg, the guns 40, 90 and 110 kg, the shield 180 kg, all carried as cargo (cargo room on the Talus only).
+  Drawn on fal.ai, the owner's picks. Not yet tested in game: row 535.
+
+### Changed
+
+- **The remote weapon station stands on the gun ring**, either/or with the ring's guns, as the design has it, and its research now
+  follows truck guns as well as gun turrets. A station fitted before this keeps working: the ring is asked for only to fit one.
+- **The trucks' weapons have a block of their own** in the upgrade tree, bottom left, as their armour columns were full (the owner's
+  card of 25 November 2026).
+
+### Save compatibility
+
+- Safe on an existing save. The Kelly and Ullage gain an empty turret slot, filled only when a gun is fitted.
+
 ## [0.120.0] - 2026-11-25 - Draft
 
 The Osprey drops by parachute and carries a small vehicle; the C-17 can drop on D'thorga airdrops

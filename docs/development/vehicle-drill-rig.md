@@ -198,6 +198,11 @@ flowchart TB
     DiamondBit["Diamond core bit"]
     RcHammer["RC hammer"]
   end
+  subgraph alt2 ["Only one of these"]
+    PhobosRingGun762["Ring gun, 7.62 mm"]
+    PhobosRingGun50["Ring gun, .50"]
+    PhobosRingGun40["Ring launcher, 40 mm"]
+  end
   TallMast["Tall mast"]
   ElectricPowerPack["Electric power pack"]
   WorkLights["Work lights"]
@@ -210,6 +215,8 @@ flowchart TB
   PhobosHeavyCabPlates["Heavy cab plates"]
   PhobosSuppressionEngine["Engine fire suppression"]
   PhobosSuppressionCrew["Crew fire suppression"]
+  PhobosGunRing["Gun ring"]
+  PhobosGunShield["Gun shield"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
   WellDrillingKit["Oil well kit (tie-in: Rimefeller)"]
@@ -217,6 +224,10 @@ flowchart TB
   PhobosArmouredCab --> PhobosHeavyCabPlates
   PhobosArmouredCab --> PhobosSuppressionEngine
   PhobosArmouredCab --> PhobosSuppressionCrew
+  PhobosGunRing --> PhobosGunShield
+  PhobosGunRing --> PhobosRingGun762
+  PhobosGunRing --> PhobosRingGun50
+  PhobosGunRing --> PhobosRingGun40
   PhobosArmouredCab --> PhobosSpallLiner
   classDef tiein stroke-dasharray: 5 5
   class PhobosSpallLiner,PhobosRemoteControlKit,WellDrillingKit,DeepchemHead tiein

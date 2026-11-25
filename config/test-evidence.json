@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "535": ["vehicles.turret-follow"],
     "507": {"parts": {"a dry loop vehicle waits and carries on": ["vehicles.route-waiting"]}},
     "106": {"parts": {"Ullage fills from the bowser, tank to tank": ["vehicles.tank-to-tank"]}},
     "96": {"parts": {"iodide taken before the line": ["framework.protection-dose"]}},
