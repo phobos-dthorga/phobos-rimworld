@@ -30,7 +30,10 @@ public class Alert_PhobosUnprotectedBehindLine : Alert
     public override AlertReport GetReport()
     {
         Recheck();
-        return unprotected.Count == 0 ? AlertReport.Inactive : AlertReport.CulpritsAre(unprotected);
+        if (unprotected.Count == 0) return AlertReport.Inactive;
+        // Seen in play (Framework 0.295.0, row 32): the alert raised for someone unprotected behind the line.
+        Seen.Note("framework.protection-unprotected-alert", unprotected[0]);
+        return AlertReport.CulpritsAre(unprotected);
     }
 
     public override TaggedString GetExplanation()

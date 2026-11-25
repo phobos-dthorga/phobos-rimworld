@@ -318,6 +318,9 @@ public class PhobosWaterRun : Thing, IThingHolder
         VehiclePawn? helicopter = Helicopter;
         Map map = Map;
         if (helicopter == null || map == null) return;
+        // Seen in play (Framework 0.295.0, row 60): a water drop run ended, with the fires it put out.
+        if (Seen.Wants("vehicles.water-drop", helicopter))
+            Seen.Note("vehicles.water-drop", helicopter, null, null, new[] { new System.Collections.Generic.KeyValuePair<string, double>("doused", doused) });
         held.Remove(helicopter);
         IntVec3 cell = padCell;
         if (!SlingPlacement.Fits(helicopter.VehicleDef, padRotation, map, padCell, CellRect.Empty)

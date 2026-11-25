@@ -96,6 +96,9 @@ public class Port_RimefellerOil : TankPort
             reason = "PhobosVehicleSystems_TankPipeEmpty".Translate().Resolve();
             return 0f;
         }
+        // Seen in play (Framework 0.295.0, row 94): the tanker filled from Rimefeller's pipeline.
+        string way = chemfuel ? "chemfuel-in" : "crude-in";
+        Phobos.VehicleSystems.Seen.Note("vehicles.tank-pipeline", tank.Vehicle, way, way);
         return taken;
     }
 
@@ -119,6 +122,12 @@ public class Port_RimefellerOil : TankPort
         double left = chemfuel ? net.PushFuel(offered) : net.PushCrude(offered);
         float stored = (float)Math.Max(0.0, offered - left);
         if (stored <= 0f) reason = "PhobosVehicleSystems_TankPipeFull".Translate().Resolve();
+        else
+        {
+            // Seen in play (Framework 0.295.0, row 94): the tanker emptied into Rimefeller's pipeline.
+            string way = chemfuel ? "chemfuel-out" : "crude-out";
+            Phobos.VehicleSystems.Seen.Note("vehicles.tank-pipeline", tank.Vehicle, way, way);
+        }
         return stored;
     }
 }

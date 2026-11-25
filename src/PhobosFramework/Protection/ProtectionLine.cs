@@ -211,6 +211,8 @@ public static class ProtectionLine
         }
         zones.NoteDoseTried(pawn, Verse.Find.TickManager.TicksGame + TurnBackTicks);
         if (dose == null) return false;
+        // Seen in play (Framework 0.295.0, row 96): a dose sent for before crossing the line.
+        Seen.Note("framework.protection-dose", pawn, dose.def.defName);
         MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, "PhobosProtection_TakingDose".Translate(dose.def.label.Named("DRUG")));
         Start(pawn, new List<Job> { DrugAIUtility.IngestAndTakeToInventoryJob(dose, pawn, 1) });
         return true;

@@ -747,6 +747,8 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         // A tank beside it set up to take the same draws from this one on its own round; this one gives nothing else meanwhile.
         if (LoaderBeside(fluid) is { } loader)
         {
+            // Seen in play (Framework 0.295.0, row 106): a tank beside it drawing from this one, tank to tank.
+            Seen.Note("vehicles.tank-to-tank", Vehicle, loader.Vehicle.LabelShort);
             transferStatus = "PhobosTank_InspectGivingTo".Translate(loader.Vehicle.LabelShort.Named("OTHER")).Resolve();
             return;
         }

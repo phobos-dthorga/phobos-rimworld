@@ -194,6 +194,8 @@ public static class DepotBays
         if (refused != null)
         {
             Messages.Message(refused, vehicle, MessageTypeDefOf.RejectInput, historical: false);
+            // Seen in play (Framework 0.295.0, row 91): Go to bay refused, with its reason given.
+            Seen.Note("vehicles.depot-bay.refused", vehicle);
             return;
         }
         if (!vehicle.Drafted) vehicle.ignition.Drafted = true;

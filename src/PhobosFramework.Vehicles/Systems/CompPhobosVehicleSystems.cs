@@ -3443,6 +3443,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (need == null || spec == null) return false;
         RaiseForStart(need, spec);
         AfterStart(need);
+        // Seen in play (Framework 0.295.0, row 58): a start from a generator set's service lead.
+        Seen.Note("vehicles.service-lead-start", Vehicle, source.LabelShort);
         if (Vehicle.Faction == Faction.OfPlayer)
         {
             Messages.Message("PhobosVehicleSystems_LeadStarted".Translate(source.LabelShort.Named("SOURCE"), Vehicle.LabelShort.Named("VEHICLE")),

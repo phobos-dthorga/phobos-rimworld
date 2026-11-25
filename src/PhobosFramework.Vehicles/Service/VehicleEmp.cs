@@ -59,7 +59,14 @@ public static class EmpNoStunPatch
 {
     public static void Postfix(VehicleComponent __instance, ref int __result)
     {
-        if (__result > 0 && __instance.vehicle != null && VehicleEmp.NeverStunned(__instance.vehicle.VehicleDef)) __result = 0;
+        if (__result <= 0 || __instance.vehicle == null) return;
+        // Seen in play (Framework 0.295.0, row 92): an EMP stalls a vehicle, or a design that is never stalled takes only the harm.
+        if (VehicleEmp.NeverStunned(__instance.vehicle.VehicleDef))
+        {
+            __result = 0;
+            Seen.Note("vehicles.emp-stun", __instance.vehicle, "never stunned", "never-stunned");
+        }
+        else Seen.Note("vehicles.emp-stun", __instance.vehicle, "stunned", "stunned");
     }
 }
 

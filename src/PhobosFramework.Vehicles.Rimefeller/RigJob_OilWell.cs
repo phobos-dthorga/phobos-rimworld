@@ -87,6 +87,9 @@ public class RigJob_OilWell : RigSideJob
         var well = (Building_WellHead)ThingMaker.MakeThing(deep ? DubDef.DeepOilWellHead : DubDef.OilWellHead);
         well.Deep = deep;
         GenPlace.TryPlaceThing(well, rig.Hole, rig.Vehicle.Map, ThingPlaceMode.Direct);
+        // Seen in play (Framework 0.295.0, row 16): the rig left a well head, deep or shallow.
+        string kind = deep ? "deep" : "shallow";
+        Phobos.VehicleSystems.Seen.Note("vehicles.oil-well-head", rig.Vehicle, kind, kind);
         rig.Tell("PhobosVehicleSystems_WellDone".Translate(rig.Vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.TaskCompletion);
         rig.Reread();
     }

@@ -93,6 +93,8 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder, IKeepsTicking
         Messages.Message("PhobosLitter_Loaded".Translate(carrier.LabelShort.Named("CARRIER"), patient.LabelShort.Named("PATIENT"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
             Vehicle, MessageTypeDefOf.TaskCompletion, historical: false);
         LitterService.NotifyLoaded(this);
+        // Seen in play (Framework 0.295.0, row 61): a patient strapped into the litter by a carrier.
+        Seen.Note("vehicles.litter-loaded", Vehicle, patient.def.defName);
         return true;
     }
 

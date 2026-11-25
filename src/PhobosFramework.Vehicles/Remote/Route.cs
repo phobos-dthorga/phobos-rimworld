@@ -286,6 +286,8 @@ public sealed class CompPhobosRoute : VehicleComp
             waitingWhy = why;
             if (why != null)
             {
+                // Seen in play (Framework 0.295.0, row 507): a vehicle on a route waits where it is, told once.
+                Seen.Note("vehicles.route-waiting", Vehicle, why);
                 Messages.Message("PhobosRoute_Waits".Translate(Vehicle.LabelShort.Named("VEHICLE"), why.Named("REASON")), Vehicle,
                     MessageTypeDefOf.NegativeEvent, false);
             }

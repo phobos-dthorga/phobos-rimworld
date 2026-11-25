@@ -13,6 +13,19 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.295.0] - 2026-11-25 - Draft
+
+Twelve more mechanics the test list can see
+
+### Added
+
+- **Seen-in-play notes for twelve more test rows** (the owner's choice by card, 25 November 2026, "in batches"; the second batch):
+  the game's log turned back on after its limit, the drill rig leaving a Rimefeller well head, the radiation-line alert raised and a
+  dose fetched before the line, a start from a generator set's service lead, a water-drop run with the fires it put out, a patient
+  strapped into the litter, Vehicles at Work kept off a refused truck and Go to bay refused, an EMP stalling a vehicle (never a
+  design that is never stalled), crude and chemfuel through Rimefeller's pipeline, tank to tank, and a vehicle on a route waiting
+  where it is. Written only with the seen-in-play setting on; nothing in play changes. Not yet tested in game.
+
 ## [0.294.0] - 2026-11-25 - Draft
 
 Research marked on the fittings window, and tunes after their research

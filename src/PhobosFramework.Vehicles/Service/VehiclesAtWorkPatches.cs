@@ -64,7 +64,12 @@ public static class VehiclesAtWorkCanMovePatch
 
     public static void Postfix(Pawn v, ref bool __result)
     {
-        if (__result && VehiclesAtWork.Refusal(v) != null) __result = false;
+        if (__result && VehiclesAtWork.Refusal(v) != null)
+        {
+            __result = false;
+            // Seen in play (Framework 0.295.0, row 91): Vehicles at Work kept from a truck we refuse.
+            Seen.Note("vehicles.vaw-refused", v);
+        }
     }
 }
 

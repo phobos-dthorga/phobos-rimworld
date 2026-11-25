@@ -105,6 +105,8 @@ public static class GameLogKeeper
         }
         revivals++;
         Log.ResetMessageCount();
+        // Seen in play (Framework 0.295.0, row 5): the game's log turned back on after its limit.
+        Seen.Note("framework.log-revived");
         HostLog.Write(Category, HostLevel.Warning, "The game's log reached its 10,000-message limit and was turned back on (" + Ordinal(revivals)
             + " time this session, of at most " + GameLogRule.MaxRevivals + "; the setting \"Keep the game's log going\" turns this off). "
             + "The loudest message since the last time: " + loudest);
