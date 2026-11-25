@@ -23,7 +23,11 @@ safeguards, the models, the owner's first picks, style training, the vanilla spr
   into `config/picks.json` (ignored: it names files in the art work folder) through `scripts/art/art_picks.py` and phobos-modkit's
   `picks`. **Apply an answer, then settle it**: export the chosen try, record it as usual, and run
   `python -m phobos_modkit picks settle --root . --id ID` (from `external/phobos-modkit/python`, with `--root ../../..`); the
-  answers are read with `picks list`. Cards in a conversation stay for when the Companion is not at hand.
+  answers are read with `picks list`. Cards in a conversation stay for when the Companion is not at hand. **Cards that ship as
+  one file are one pick** (kit 1.125.0; the owner's choice "One pick per file", 25 Nov 2026): `review_cards.py` gives each card
+  its `slot`, the request's `art_plan.ships_as` (else its `target`), so one icon asked in several wordings is picked once. **A
+  pick already in the game settles by itself** when the Companion's Picks page reads it, or with `picks settle --root ../../..
+  --applied`. Sounds have no slot yet: their export target is not in the sound folder.
 
 ## Routes in use
 

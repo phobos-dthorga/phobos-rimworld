@@ -45,8 +45,13 @@ def _picks():
 
 
 def offer(name: str, title: str, kind: str, tries: list[tuple[str, str, Path, str]], in_use: str | None = None,
-          context: str = "", source: str = "", root: Path = ROOT) -> dict:
-    """Offers one pick: tries as (id, label, file, note). Offering the same name again replaces it, for tries made again."""
+          context: str = "", source: str = "", root: Path = ROOT, slot: str | None = None) -> dict:
+    """Offers one pick: tries as (id, label, file, note). Offering the same name again replaces it, for tries made again.
+
+    `slot` is the file the tries ship as (phobos-modkit 1.125.0, the owner's choice "One pick per file"): cards with the same slot,
+    such as one icon asked in several wordings, are one pick on the Companion's Picks page, and picking one answers them all."""
     item = {"id": item_id(name, kind), "title": title, "kind": kind, "inUse": in_use, "context": context, "from": source,
             "tries": [{"id": pick_id(try_id), "label": label, "path": str(path), "note": note} for try_id, label, path, note in tries]}
+    if slot:
+        item["slot"] = slot
     return _picks().offer(root, item, grounds=GROUNDS if kind == "picture" else None)

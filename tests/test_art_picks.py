@@ -26,6 +26,17 @@ class ArtPicksTests(unittest.TestCase):
     def read(self):
         return json.loads((self.root / 'config' / 'picks.json').read_text(encoding='utf-8'))
 
+    def test_cards_that_ship_as_one_file_carry_its_slot(self):
+        try_file = Path(self.dir.name) / 'purge-1.png'
+        try_file.write_bytes(b'png')
+        for name in ('purge-a', 'purge-b'):
+            art_picks.offer(name, name, 'picture', [('1', 'Try 1', try_file, '')], root=self.root,
+                            slot='mods/Sample/Textures/Purge.png')
+        art_picks.offer('kettle', 'kettle', 'picture', [('1', 'Try 1', try_file, '')], root=self.root)
+        slots = {p['id']: p.get('slot') for p in self.read()['picks']}
+        self.assertEqual(slots, {'purge-a': 'mods/Sample/Textures/Purge.png', 'purge-b': 'mods/Sample/Textures/Purge.png',
+                                 'kettle': None})
+
     def test_a_name_becomes_a_pick_id(self):
         self.assertEqual(art_picks.pick_id('Billy Kettle (redraw)'), 'billy-kettle-redraw')
         self.assertEqual(art_picks.pick_id('!!'), 'pick')

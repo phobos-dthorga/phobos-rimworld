@@ -134,10 +134,13 @@ def sprites(args) -> int:
         print(out)
         if not args.no_offer:
             # The same tries, offered on the Companion's Picks page (the owner's choice of 23 Nov 2026): the exports, as shipped.
+            # Each card's slot is the file it ships as (the request's art_plan.ships_as, else its target), so the cards of one
+            # icon asked in several wordings are one pick (phobos-modkit 1.125.0; the owner's choice "One pick per file").
             art_picks.offer(entry['name'], entry.get('title') or entry['name'], 'picture',
                             [(label, f'Try {label}', path, edge_note(path)) for label, path in exports],
                             in_use=entry.get('target'), source=request_file.relative_to(ROOT).as_posix()
-                            if request_file.is_relative_to(ROOT) else str(request_file))
+                            if request_file.is_relative_to(ROOT) else str(request_file),
+                            slot=(entry.get('art_plan') or {}).get('ships_as') or entry.get('target'))
     return 0
 
 
