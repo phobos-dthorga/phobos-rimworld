@@ -300,6 +300,8 @@ public class ServiceSpec
     public string? waterLitresParameter;
     /// <summary>Draw only the share the due quantity is short of its restored value (a half-empty tender takes half its litres).</summary>
     public bool waterForShortfall;
+    /// <summary>The litres are for each engine, times the vehicle's engines (Framework 0.300.0: a compressor wash rinses every engine).</summary>
+    public bool waterPerEngine;
     /// <summary>A parameter holding a scaled-down figure used instead, unless the player chose realistic water (the setting named by
     /// <see cref="realisticWaterSetting"/>): a steam tender's real 68,000 L would empty most colonies' towers.</summary>
     public string? scaledWaterLitresParameter;
@@ -344,6 +346,9 @@ public class PhobosVehicleSystemDef : Def
     /// once one is fitted). Null: it always runs.</summary>
     public string? needsGrant;
     public ServiceSpec? service;
+    /// <summary>Systems that always come with this one (Framework 0.300.0: the gas turbine brings its compressor wash), added once to every
+    /// vehicle whose loadout names this system, after the loadout's own list.</summary>
+    public List<PhobosVehicleSystemDef> comesWith = new();
     public JumpStartSpec? jumpStart;
     /// <summary>The part roles the system reads; the schema check warns when a loadout binds none of them.</summary>
     public List<string> roles = new();
@@ -1079,6 +1084,12 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// adds to the fuel burned for the same work, as a share of the condition lost.</summary>
     public float generatorRatedRpm = 4000f;
     public float turbineWearFuelPenalty = 0.45f;
+    /// <summary>A turbine's compressor fouling (Framework 0.300.0; CompressorFoulingRule): fouling gained per running hour on paving, how much
+    /// faster rough ground fouls it in step with the intake's exposure, and the share of output lost when fully fouled (all authored, the
+    /// loss inside the few percent published for fouled gas turbines).</summary>
+    public float compressorFoulingPerHour = 0.01f;
+    public float compressorFoulingRoughFactor = 2f;
+    public float compressorFoulingFullLoss = 0.05f;
     /// <summary>The longest integration step in hours.</summary>
     public float stepHours = 0.025f;
     /// <summary>A stage's message is not repeated within this many hours, so a value hovering on a threshold stays quiet.</summary>

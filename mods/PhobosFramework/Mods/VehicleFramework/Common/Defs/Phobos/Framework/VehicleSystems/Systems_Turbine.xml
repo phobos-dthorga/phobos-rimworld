@@ -22,6 +22,10 @@
     <roles>
       <li>Engine</li>
     </roles>
+    <!-- Framework 0.300.0: every gas turbine has its compressor wash (below), whatever its loadout lists. -->
+    <comesWith>
+      <li>PhobosVehicleSystem_CompressorWash</li>
+    </comesWith>
     <parameters>
       <temperatureFollowRate>60</temperatureFollowRate>
       <coolDownRate>2.5</coolDownRate>
@@ -335,6 +339,72 @@
       </restores>
       <waterLitres>227</waterLitres>
       <work>400</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <!--
+    The compressor wash (Framework 0.300.0; docs/development/compressor-wash.md; the owner's cards of 26 Nov 2026). Dust, grit and salt drawn in
+    with the air coat a gas turbine's compressor blades, so it moves less air: less power for the same fuel, and a hotter turbine for the same
+    work. Ground crews rinse it with water to win the power back. Sources and labels:
+    - Compressor fouling is the commonest cause of a gas turbine's lost performance, recovered in large part by washing (secondary: Meher-Homji
+      and Bromley, "Gas turbine axial compressor fouling and washing", Texas A&M Turbomachinery Symposium, 2004). The 5% largest loss, the
+      rate, and the 20 litres an engine are authored ballpark figures, not taken from any one engine's manual.
+    - The rate is CompressorFoulingRule's (Rules_VehicleSystems.xml): faster on rough ground in step with the intake exposure the grit rule reads.
+    - A wash is due at half fouled; nothing ever stops the engine, so an aircraft never washed is only weaker.
+    The gas turbine brings this system with it (comesWith), so every loadout that names a gas turbine has it.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_CompressorWash</defName>
+    <label>compressor wash</label>
+    <description>Dust, grit and salt coat the turbine's compressor as it runs, faster on rough ground than on paving. A dirty compressor gives less power, so the engine runs hotter and burns more fuel. A mechanic washes it with water.</description>
+    <quantities>
+      <li>
+        <name>compressorFouling</name>
+        <description>How dirty the compressor is. The dirtier it is, the less power the turbine gives and the more fuel it burns.</description>
+        <label>compressor dirt</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>dirty</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgCompressorDirty</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>fouling</name>
+        <quantity>compressorFouling</quantity>
+        <kind>Into</kind>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_CompressorFouling" />
+        </inputs>
+      </li>
+    </flows>
+    <service>
+      <label>a compressor wash</label>
+      <dueQuantity>compressorFouling</dueQuantity>
+      <dueAbove>0.5</dueAbove>
+      <restores>
+        <li>
+          <quantity>compressorFouling</quantity>
+          <value>0</value>
+        </li>
+      </restores>
+      <!-- About 20 litres for each engine (authored ballpark), from plumbing under or beside the vehicle, free without Dubs Bad Hygiene. -->
+      <waterLitres>20</waterLitres>
+      <waterPerEngine>true</waterPerEngine>
+      <work>600</work>
     </service>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 </Defs>

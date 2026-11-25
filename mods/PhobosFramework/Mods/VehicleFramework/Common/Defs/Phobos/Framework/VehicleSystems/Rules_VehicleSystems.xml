@@ -71,6 +71,13 @@
     <airCoolingExponent>0.8</airCoolingExponent>
     <generatorRatedRpm>4000</generatorRatedRpm>
     <turbineWearFuelPenalty>0.45</turbineWearFuelPenalty>
+    <!-- Framework 0.300.0 (docs/development/compressor-wash.md; the owner's cards of 26 Nov 2026): a turbine's compressor fouls by
+         compressorFoulingPerHour of a full fouling each running hour on paving, faster on rough ground by compressorFoulingRoughFactor
+         times the rough share times the intake's exposure, and fully fouled gives compressorFoulingFullLoss less output (authored; a wash
+         falls due at half fouled, about 50 hours on paving and 25 on rough ground for an aircraft's usual exposure of 0.5). -->
+    <compressorFoulingPerHour>0.01</compressorFoulingPerHour>
+    <compressorFoulingRoughFactor>2</compressorFoulingRoughFactor>
+    <compressorFoulingFullLoss>0.05</compressorFoulingFullLoss>
     <replacedPartHealth>0.25</replacedPartHealth>
     <!-- Framework 0.73.0 (docs/development/vehicle-crosslinks.md, S1, S2 and T1; owner, 10 Nov 2026). All authored. -->
     <replacedPartHealthAtRig>0.6</replacedPartHealthAtRig>

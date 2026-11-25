@@ -103,6 +103,12 @@ take-off power longer than allowed; a message says when one has run too long.
   Systems tab lists each, and an overhaul does the most worn engine, so a twin may need two overhauls, one kit each. A worn hot
   section's breakdowns hit the worn engine.
 - **A twin-engined aircraft's new engines go in as a matched pair**: see [the vehicle workshop](vehicle-workshop.md#fittings).
+- **A turbine's compressor gets dirty as it runs** (the setting **Turbine compressors get dirty**, on by default): dust and grit coat
+  it, faster on rough ground than on paving. A dirty compressor gives up to 5% less power, so the engine runs hotter for the same work
+  and burns about 2% more fuel. **A wash is asked for after about 50 hours of running on paving, or about 25 on rough ground.** A
+  mechanic does it wherever the vehicle is parked, with **about 20 litres of water for each engine**. With Dubs Bad Hygiene the water
+  comes from plumbing under or beside the vehicle, and a parked turbine vehicle has plumbing beneath it while its engine is off, so a
+  pipe run joins it; without Dubs the water is free.
 
 ## Fuel
 
@@ -111,7 +117,7 @@ take-off power longer than allowed; a message says when one has run too long.
 | Where | What it burns |
 | --- | --- |
 | **Between places**, in good order, nothing switched on | Exactly what its author set |
-| **Between places**, with a worn hot section, cabin air or heavy electrical loads | A few per cent more |
+| **Between places**, with a worn hot section, a dirty compressor, cabin air or heavy electrical loads | A few per cent more |
 | **Over a map, flying about** | What its author set |
 | **A lift-off, a climb, a hover** | More: a Harrier hovering down onto its pad burns about twice what it does flying about |
 | **Idling on the ground with a pilot aboard** | About a quarter to two-fifths of the flying rate |

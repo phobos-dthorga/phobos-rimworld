@@ -13,6 +13,19 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.300.0] - 2026-11-26 - Draft
+
+A turbine's compressor gets dirty, and a water wash clears it
+
+### Added
+
+- **A turbine's compressor gets dirty as it runs, and a mechanic washes it with water** (the owner's question of 25 November 2026 about plumbing under the jets, and four cards of 26 November). Dust and grit coat it, faster on rough ground than on paving: at worst it gives 5% less power, so it runs hotter and burns about 2% more fuel. A wash, about 20 litres of water for each engine wherever the vehicle is parked, falls due after about 50 hours of running on paving or 25 on rough ground. The setting Turbine compressors get dirty, on by default, turns it off. Not yet tested in game: row 539.
+- **Every turbine vehicle has plumbing beneath it when parked with its engine off**, as the wash takes water: the A-10, the Frogfoot, the Cherokee, the helicopters, the Osprey and the Abrams among them, so a pipe run joins them.
+
+### Save compatibility
+
+- Safe to update: turbine vehicles in a save start with clean compressors.
+
 ## [0.299.0] - 2026-11-26 - Draft
 
 A loop truck unloads and loads itself at its stops

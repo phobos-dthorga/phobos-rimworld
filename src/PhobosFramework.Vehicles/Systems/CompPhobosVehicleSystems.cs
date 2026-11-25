@@ -3300,6 +3300,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         {
             litres = (float)fromParameter;
         }
+        // Framework 0.300.0: a compressor wash rinses each engine, so a four-engined aircraft takes four times a single's water.
+        if (service.waterPerEngine) litres *= Powertrain.EngineRolesOf(this).Length;
         if (litres > 0f && service.waterForShortfall)
         {
             QuantityRestore? restore = service.restores.FirstOrDefault(r => r.quantity == service.dueQuantity);

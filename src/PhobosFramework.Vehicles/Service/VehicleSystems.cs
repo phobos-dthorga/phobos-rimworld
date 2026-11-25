@@ -126,6 +126,17 @@ public static class VehicleSystems
             }
             props.systems.Add(new ResolvedSystem(entry.def, parameters));
         }
+        // Framework 0.300.0: a system brings those it always comes with (the gas turbine its compressor wash), once, after the loadout's own,
+        // so every loadout that names it has them, whether it inherits its list or writes its own.
+        for (int i = 0; i < props.systems.Count; i++)
+        {
+            foreach (PhobosVehicleSystemDef with in props.systems[i].def.comesWith)
+            {
+                if (with == null || props.systems.Any(s => s.def == with)) continue;
+                props.systems.Add(new ResolvedSystem(with, ParameterRule.Resolve(with.parameters.AsDoubles(),
+                    Enumerable.Empty<KeyValuePair<string, double>>(), new List<string>())));
+            }
+        }
         Tuning.Fill(props, def);
         int added = 0;
         // Bind every role to the design's own parts first, so an appended part's "cells of" can name any found role.

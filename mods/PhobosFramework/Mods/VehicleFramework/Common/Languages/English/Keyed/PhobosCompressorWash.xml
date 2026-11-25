@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Framework 0.300.0: a turbine's compressor fouls as it runs, and a water wash clears it (docs/development/compressor-wash.md). -->
+  <PhobosVehicleSystems_SettingCompressorFouling>Turbine compressors get dirty</PhobosVehicleSystems_SettingCompressorFouling>
+  <PhobosVehicleSystems_SettingCompressorFoulingDesc>On by default: dust, grit and salt drawn into a turbine slowly coat its compressor, faster on rough ground than on paving. A dirty compressor gives up to 5% less power, so the engine runs hotter for the same work and burns about 2% more fuel. A mechanic washes it with water, about 20 litres for each engine, wherever the vehicle is parked; a wash is due after about 50 hours of running on paving, or about 25 on rough ground. Jets, helicopters and turbine tanks are affected. Off, nothing gets dirty and a dirty compressor costs nothing. Takes effect at once.</PhobosVehicleSystems_SettingCompressorFoulingDesc>
+  <PhobosVehicleSystems_MsgCompressorDirty>The {VEHICLE}'s turbine compressor is dirty and losing power. A mechanic should wash it with water.</PhobosVehicleSystems_MsgCompressorDirty>
+</LanguageData>

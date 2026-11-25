@@ -4,6 +4,7 @@
   "game": "rimworld",
   "rows": {
     "538": ["vehicles.route-self-work"],
+    "539": {"parts": {"a turbine's compressor gets dirty": [{"key": "saved.vehicle-stage.compressorFouling", "variant": "0"}], "a mechanic washes it": ["saved.vehicle-service.PhobosVehicleSystem_CompressorWash"]}},
     "98": {"parts": {"the CIWS kills incoming shells": ["patches.ciws-shell"]}},
     "95": {"parts": {"a drip stand gives burn-shock fluids": ["medical.bedside-fluids"]}},
     "535": ["vehicles.turret-follow"],

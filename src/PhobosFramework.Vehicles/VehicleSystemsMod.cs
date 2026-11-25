@@ -178,6 +178,10 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>An aircraft's turbine engines light one after another before it may take off, about 6 game minutes each (Framework 0.252.0,
     /// per-engine realism round two, step 9). Risk low, the agent's grade (a few seconds' wait): on. Live.</summary>
     public bool enginesStartInTurn = true;
+    /// <summary>A turbine's compressor fouls as it runs, faster on rough ground, costing it a little output and fuel until a water wash clears
+    /// it (Framework 0.300.0; the owner's cards of 26 Nov 2026). Risk low, the agent's grade (at most 5% less output, a wash asked for at
+    /// half): on. Off, nothing fouls and fouling already gained costs nothing. Live.</summary>
+    public bool compressorFouling = true;
     /// <summary>Each leg between tiles is flown at a height of its own: over the highest ground, under the ceiling the engines reach and the
     /// oxygen line, with fuel and speed following it (Framework 0.141.0; owner, 18 Nov 2026: build it). Off, every leg is flown as its author
     /// made it, with avionics A14's fixed figures for a jet whose oxygen is out. Live.</summary>
@@ -429,6 +433,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref damagedEnginesWeaker, "PhobosVehicleSystems_DamagedEnginesWeaker", true);
         Scribe_Values.Look(ref lopsidedThrust, "PhobosVehicleSystems_LopsidedThrust", true);
         Scribe_Values.Look(ref enginesStartInTurn, "PhobosVehicleSystems_EnginesStartInTurn", true);
+        Scribe_Values.Look(ref compressorFouling, "PhobosVehicleSystems_CompressorFouling", true);
         Scribe_Values.Look(ref cruiseHeight, "PhobosVehicleSystems_CruiseHeight", true);
         Scribe_Values.Look(ref ammoCookOff, "PhobosVehicleSystems_AmmoCookOff", true);
         Scribe_Values.Look(ref fireWearOthers, "PhobosVehicleSystems_FireWearOthers", true);
@@ -550,6 +555,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.damagedEnginesWeaker) report.Off("damaged turbine engines giving less power", "off (setting)");
         if (!Settings.lopsidedThrust) report.Off("lopsided thrust costing twin jets their dodge", "off (setting)");
         if (!Settings.enginesStartInTurn) report.Off("aircraft engines lighting one after another", "off (setting)");
+        if (!Settings.compressorFouling) report.Off("turbine compressors fouling", "off (setting)");
         if (Settings.tyreBursts) report.On("burning tyres bursting (setting)");
         if (!Settings.spallInsideVehicles) report.Off("spall inside vehicles", "off (setting)");
         else if (!OptionalMods.IsActive(OptionalMods.CombatExtended)) report.Off("spall inside vehicles", "needs Combat Extended");
@@ -693,6 +699,8 @@ public class VehicleSystemsMod : SettingsBookMod
             "PhobosVehicleSystems_SettingLopsidedThrustDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingEnginesStartInTurn".Translate(), ref s.enginesStartInTurn, d.enginesStartInTurn,
             "PhobosVehicleSystems_SettingEnginesStartInTurnDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingCompressorFouling".Translate(), ref s.compressorFouling, d.compressorFouling,
+            "PhobosVehicleSystems_SettingCompressorFoulingDesc".Translate());
         list.Radio("PhobosVehicleSystems_SettingHoverLimit".Translate(), ref s.hoverLimit, d.hoverLimit,
             (VehicleSystemsSettings.HoverLimit[])System.Enum.GetValues(typeof(VehicleSystemsSettings.HoverLimit)),
             limit => ("PhobosVehicleSystems_Hover" + limit).Translate(), limit => ("PhobosVehicleSystems_Hover" + limit + "Desc").Translate());

@@ -147,6 +147,10 @@ come off the power left for driving**, are burned on the Willans line and heat t
 - **A one-engine-out rating** opens only with another engine out (the T700's control arms it at 51 % torque or below, TM
   1-1520-238-10).
 - **Grit** from rough ground can strike an aircraft's intakes in take-off, landing and taxi phases (authored rates by exposure).
+- **Compressor fouling** (Framework 0.300.0, [compressor-wash.md](../compressor-wash.md)): every gas turbine brings its compressor wash
+  (`comesWith`). Fouling grows while the engine runs, faster on rough ground by the same intake exposure, and multiplies the turbine's
+  condition by down to 0.95, so it gives less, runs hotter and burns more through `turbineWearFuelPenalty`. A water wash (about 20 L
+  per engine) clears it, so turbine vehicles take water and lay plumbing when parked.
 - **Diesel-electric traction motors** heat with the square of their pull over the continuous rating, fitted to a US Army
   switcher manual's short-time ratings (TM 55-2210-223-12); running hot from 155 °C, burning from 180 °C.
 - **Steam**: a cold boiler refuses to move below half its working pressure; low water melts a fusible plug, or, with "Boiler

@@ -275,6 +275,23 @@ public class Input_Turbine : VehicleSystemInput
     }
 }
 
+/// <summary>
+/// How fast a turbine's compressor fouls now, per hour (Framework 0.300.0; CompressorFoulingRule): while its engine runs, faster on rough
+/// ground in step with the loadout's intake exposure (the figure step 10's grit rule reads); nothing with the engine stopped or the setting
+/// off. Off the map (a world flight) the ground counts as paving.
+/// </summary>
+public class Input_CompressorFouling : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context)
+    {
+        CompPhobosVehicleSystems comp = context.Comp;
+        if (!VehicleSystemsMod.Settings.compressorFouling || !comp.EngineRunning) return 0f;
+        PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+        return (float)CompressorFoulingRule.PerHour(rules.compressorFoulingPerHour, rules.compressorFoulingRoughFactor,
+            StripDebris.RoughShare(comp.Vehicle), comp.Props.loadout?.intakeDebris ?? 0f);
+    }
+}
+
 /// <summary>A diesel-electric's traction motors: their pull ÷ their continuous rating (above 1 they heat), 0 without a rating.</summary>
 public class Input_TractionLoad : VehicleSystemInput
 {

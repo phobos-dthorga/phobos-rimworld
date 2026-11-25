@@ -466,8 +466,20 @@ public sealed class Powertrain
     double Condition()
     {
         float life = comp.TryGetQuantity("hotSectionLife", out float used) ? used : 0f;
-        return life <= 1f ? 1 - 0.1 * life : Math.Max(0.6, 0.9 - 0.15 * (life - 1f));
+        double hotSection = life <= 1f ? 1 - 0.1 * life : Math.Max(0.6, 0.9 - 0.15 * (life - 1f));
+        return hotSection * CompressorFactor();
     }
+
+    /// <summary>Framework 0.300.0: what a fouled compressor leaves of the turbine's output (CompressorFoulingRule), 1 with the setting off or
+    /// with no compressor wash among the vehicle's systems.</summary>
+    double CompressorFactor()
+    {
+        if (!VehicleSystemsMod.Settings.compressorFouling || !comp.TryGetQuantity(CompressorFouling, out float fouling)) return 1;
+        return CompressorFoulingRule.ConditionFactor(fouling, PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().compressorFoulingFullLoss);
+    }
+
+    /// <summary>The compressor wash system's quantity (Systems_Turbine.xml).</summary>
+    public const string CompressorFouling = "compressorFouling";
 
     /// <summary>Total mass now in kilograms: empty mass, cargo, passengers, ordnance in the turrets and fuel. Recomputed when cargo or
     /// passengers change, and at most every 250 ticks otherwise (fuel burns down).</summary>
