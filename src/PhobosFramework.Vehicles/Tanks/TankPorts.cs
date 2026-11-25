@@ -164,6 +164,8 @@ public class Port_RefuelableBuildings : TankPort
             float given = Math.Min(most, refuelable.GetFuelCountToFullyRefuel());
             if (given <= 0f) continue;
             refuelable.Refuel(given);
+            // Seen in play (Framework 0.301.0, row 93): a tank's hose filled a fuelled building beside it, such as a generator.
+            Seen.Note("vehicles.tank-to-generator", building, self.LabelShort, "filled");
             return given;
         }
         reason = "PhobosVehicleSystems_TankNoBuildingBeside".Translate().Resolve();

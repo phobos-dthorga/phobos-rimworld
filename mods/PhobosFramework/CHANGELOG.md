@@ -13,6 +13,27 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.301.0] - 2026-11-26 - Draft
+
+The last of the test list's mechanics it can see
+
+### Added
+
+- **Seen-in-play notes for nineteen more test rows** (the owner's word, 26 November 2026: "let's do what's left"), the last batch the
+  list of rows without evidence called for: a tune ordered away from the rig, the generator set feeding the grid with or without
+  anyone aboard and stopping when dry, a tank leaking in flight, low oil calling a service, a service done with kits or raw materials,
+  fuel above a smaller tank coming back in containers, a held trailer set down on arrival, a tank run dry, a tanker's hose filling a
+  generator, a blind take-off refused or warned of, a bowser set up, loading and unloading, a wreck falling with only its mounts left,
+  an autonomous turret's drive standing by, an accessory coming back off, a tank's load spoiling, a route's follower losing and
+  hearing its leader, a mechanitor's bandwidth falling short, and an older save's brakes taking their wear at each wheel. Written
+  only with the seen-in-play setting on; nothing in play changes. Not yet tested in game.
+
+### Changed
+
+- **Two notes now say which case they saw**, so each test row stands on its own case: grit striking an aircraft's engine says
+  whether it was our own flight, Vehicle Framework's or a phase's grit, and a building upgrade's delivered and taken-off notes
+  name the upgrade, as its fitted note already did. Nothing in play changes.
+
 ## [0.300.0] - 2026-11-26 - Draft
 
 A turbine's compressor gets dirty, and a water wash clears it

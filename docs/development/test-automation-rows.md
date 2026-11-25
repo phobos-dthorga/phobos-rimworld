@@ -11,47 +11,23 @@ claims about how something looks, sounds or reads: no note can stand for them. *
 version took away. The sites are an agent's reading of the code on 25 Nov 2026: check each before writing a note there.
 
 **Done since:** rows 27, 71 and 31 by stages marked `logged` (Framework 0.290.0, the owner's card: "logged only, no lamps"),
-13 rows by the first batch of notes (Framework 0.291.0), 12 by the second (0.295.0) and 7 by the third (Framework 0.298.0,
-Medical 0.27.0, Patches 0.45.0). A stage the event log should keep without showing anything can be
+13 rows by the first batch of notes (Framework 0.291.0), 12 by the second (0.295.0), 7 by the third (Framework 0.298.0,
+Medical 0.27.0, Patches 0.45.0) and 21 by the fourth (Framework 0.301.0, Radio Framework 0.17.0), which also narrowed the
+held-back pairs by case or listed them under `shared`. A stage the event log should keep without showing anything can be
 marked `logged` the same way, with no C#.
 
-## Need a new note (22)
+## Need a new note (2)
 
 | # | Row | Claim | Key | Where | Why |
 | --- | --- | --- | --- | --- | --- |
-| 10 | Stations | the tune waits for the rig, then is done | vehicles.tune-waits-for-rig | src/PhobosFramework.Vehicles/Systems/VehicleFittings.cs:768 AtRig (where a waiting order is refused) | Waiting on AtRig has no note; vehicles.tune-done.* shows only the finish. |
-| 11 | Generator set | the set feeds the grid when set up | vehicles.generator-set.feeding | src/PhobosFramework.Vehicles/Systems/CompPhobosGeneratorSet.cs (power output update; method not pinned) | No note when the generator set starts or stops feeding. |
-| 22 | A holed tank in flight | a holed tank leaks through a long flight | aircraft.leak-in-flight | src/PhobosFramework.Vehicles/Flight (world-flight fuel burn; method not pinned) | In-flight fuel loss from a holed tank has no note; the fault key only shows the hole. |
 | 28 | A worn engine | a worn engine burns oil faster and calls a service | vehicles.oil-burn-worn | mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/Systems_Lubrication.xml (oil burn; code not pinned) | Oil burn by engine health is a model figure; no note says the rate rose. |
-| 37 | Service kits | a service done with kits, not raw materials | vehicles.service-kit-used | src/PhobosFramework.Vehicles/Defs/SystemDefs.cs:261 Matches (GameComponent_PhobosServiceKits) | Kit use has no note; variant kit or raw. |
-| 67 | Long range: extra fuel tanks | a full tank taken off leaves fuel in containers | vehicles.aux-tank-fuel-returned | src/PhobosFramework.Vehicles/Systems/VehicleFittings.cs (removal branch of the finished-order method; not pinned) | Removal refund of fuel has no note. |
-| 70 | Hitch slice 3: reading a tow, and trailers on journeys | the trailer arrives with its truck | vehicles.trailer-arrived | src/PhobosFramework.Vehicles/Hitch (trailer placed on map arrival; not pinned) | Placement of a towed trailer on arrival has no note (vehicles.trailer-towed-world is a map catch-up). |
-| 73 | A tank run dry | a tank run dry damages the fuel pump | vehicles.ran-dry | src/PhobosFramework.Vehicles/Systems/CompPhobosVehicleSystems.cs OnVehicleEvent (OutOfFuel effects, Systems_Lubrication.xml:369) | The OutOfFuel onEvent (When_RanDry) damages the pump with a message but no note. |
-| 81 | Setting up needs a crew and a running engine | keeps feeding with nobody aboard; stops when dry | vehicles.generator-set.feeding | src/PhobosFramework.Vehicles/Systems/CompPhobosGeneratorSet.cs (feed stop; not pinned) | Generator set feed stop has no note. |
-| 93 | The tanker fills a generator | the tanker fills a generator first | vehicles.tank-to-generator | src/PhobosFramework.Vehicles/Tanks/CompPhobosTank.cs (pump-out target; not pinned) | Pump-out target choice has no note. |
-| 99 | Blind take-offs refused | blind take-off refused, or warned only | aircraft.blind-launch | mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/Systems_Avionics.xml:83 (refusal reason; the code reading launch refusals not pinned) | The refusal is an attitude-stage reason under When_PoorVisibility; entering the stage does not mean a refusal, so a note is needed at the launch refusal; variant refused or warned. |
-| 105 | The fuel bowser | bowser set up, loads and unloads | vehicles.bowser-transfer | src/PhobosFramework.Vehicles/Tanks/CompPhobosTank.cs:750 (transfer status) | Bowser tank transfers have no note; trailers.set-out is the camp set-out, not a bowser. |
-| 119 | Wrecks fall when their own parts are gone | a wreck falls when its own parts are gone | vehicles.wreck-own-parts-gone | src/PhobosFramework.Vehicles/Systems (enemy wreck destruction; not pinned) | The destroy decision has no note; site not found in a quick search. |
-| 148 | An empty vehicle on the grid charges; an autonomous turret draws only  | turret drive stands by until a target | vehicles.turret-drive-standby | src/PhobosFramework.Vehicles/Systems (turret drive load; not pinned) | The drive's standby state has no note. |
 | 169 | Hoppers shared with The Dead Man's Switch | the auto mill cuts from a linked hopper | factory.hopper-shared | src/PhobosFactory (hopper link to a DMS mill; not pinned) | Factory link use has no note. |
-| 180 | Accessories weigh what they weigh, and come back off | the fridge comes back off | vehicles.accessory-returned | src/PhobosFramework.Vehicles/Systems/VehicleFittings.cs (removal branch; not pinned) | Accessory removal refund has no note. |
-| 452 | The paste bowser | plain spoils after 4 days, lagged after 8 | vehicles.tank-spoiled | src/PhobosFramework.Vehicles/Tanks/CompPhobosTank.cs (paste spoilage; not pinned) | Spoilage in a tank has no note; detail the days. |
-| 474 | Channels | a sixth radio is net busy | radio.net-busy | src/PhobosRadio (channel allocation; not pinned) | Channel allocation has no note; variant served or busy. |
-| 475 | Channels across two stations | a second station takes the overflow | radio.channel-station | src/PhobosRadio (channel allocation; not pinned) | Allocation across stations has no note. |
-| 497 | Leader lost | Leader lost, then back | vehicles.route-leader | src/PhobosFramework.Vehicles/Remote/Route.cs (leader watch; not pinned) | Following's leader loss has a letter but no note; variant lost or back. |
-| 500 | Mechanoids first | the newest linked vehicle loses control first | vehicles.mech-link-short | src/PhobosFramework.Vehicles/Remote/MechLink.cs (bandwidth check; not pinned) | Bandwidth shortfall has no note. |
-| 509 | Per-wheel brakes keep their wear on an older save | per-wheel brakes keep an old save's wear | vehicles.older-save-brakes | src/PhobosFramework.Vehicles/Systems (brake wear migration on load; not pinned) | The load-time spread of brake wear has no note. |
 
-## Held back: an existing note another row shares (7)
+## Held back: an existing note another row shares (2)
 
 | # | Row | Claim | Key | Where | Why |
 | --- | --- | --- | --- | --- | --- |
-| 4 | Repairs in a caravan | a repair done at a caravan's halt | vehicles.convoy-repair |  | Noted when a repair completes on a vehicle in a caravan, not spawned (VehicleRepairs.cs:587). |
-| 26 | Research tree | the upgrade button refuses and names the project | vehicles.upgrade-needs-research |  | Noted at the research refusal (mapped to row 195); the owner already confirmed this part. |
 | 87 | Old hidden pipes found, and pipes and conduits beneath every parked ve | a truck against a powered run charges | vehicles.grid-hook-up (charging only) |  | Noted for a real grid draw with no loads carried (CompPhobosVehicleSystems.cs:2781). |
-| 191 | Billy's kettle takes water | a batch takes water from Billy | trailers.kettle-water-drawn |  | Noted when the kettle draws its litres per batch from the plumbing (CompPhobosKettleWater.cs:37); mapped to row 156 only. |
-| 423 | The fleet brought in line: grit at a stock launch, and three more twin | grit strikes at a stock take-off or landing | aircraft.strip-debris |  | Noted by StripDebris on Vehicle Framework's AerialVehicleLaunch (the stock launch path, CompPhobosVehicleSystems.cs:833) at EngineRoundTwo.cs:168; mapped to row 409 only. |
-| 504 | The colony's toilets never drain into a shower trailer | the trailer drains into the septic tank | trailers.waste-to-sewer |  | Noted when the trailer's waste goes to the colony's sewer (mapped to row 503). |
 | 511 | Under Combat Extended, blasts crack glass; the radio overlay | a near-miss blast cracks the glass | vehicles.glass (cracked) |  | Glass.Damage notes 'cracked' with cause 'a blast' from the explosion path (Glass.cs:256 to 143); the variant alone does not say blast. |
 
 ## Replaced (2)

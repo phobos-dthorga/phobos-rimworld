@@ -1,10 +1,10 @@
 # Test automation: checks, saved histories and live looks (25 Nov 2026)
 
-**Status (25 Nov 2026):** At the owner's word ("let's do #1 through #3, and I especially want to do #4", then "Document everything
+**Status (26 Nov 2026):** At the owner's word ("let's do #1 through #3, and I especially want to do #4", then "Document everything
 though"). Built: save checks (phobos-modkit 1.119.0), live checks (1.120.0), saved histories (1.121.0), the version ledger
 (Framework 0.287.0), `config/checks.json` and the saved mapping, evidence for 26 more rows, and Companion 0.91.0's Run the checks.
-Not yet built: part 1's new notes ([the rows still without evidence](test-automation-rows.md)). Live checks are untested on the
-owner's game; nothing here is tested in game or on screen.
+Part 1's new notes are built in four batches (Framework 0.291.0 to 0.301.0, 26 Nov); two claims are left in [the rows still without
+evidence](test-automation-rows.md). Live checks are untested on the owner's game; nothing here is tested in game or on screen.
 
 The owner asked whether anything could (semi-)automate fulfilling the test list, "perhaps even our new debugging (and memory)
 capabilities with Companion". Of ten options offered that day, the owner chose four. This record designs them; how each tool works
@@ -158,7 +158,7 @@ page, behind its snapshot card.
 | 2 | phobos-modkit | The heap reader's `values` request, and live checks (`rimworld-perf look-check`) | Built, 1.120.0 |
 | 3 | phobos-modkit | Saved histories as notes, read by test-pass itself (not a report of their own: see As built) | Built, 1.121.0 |
 | 4 | phobos-rimworld | The version ledger in D'thorga Framework; `config/checks.json`; the saved-history mapping; the kit's pin | Built, Framework 0.287.0 |
-| 5 | phobos-rimworld | Evidence for rows that have none: saved keys first, then a batch of new seen-in-play notes | 26 rows mapped (25 Nov); 3 by `logged` stages (Framework 0.290.0); 13 by the first batch of notes (0.291.0); 12 by the second (0.295.0); 7 by the third (0.298.0, Medical 0.27.0, Patches 0.45.0); 22 note claims left in [the rows still without evidence](test-automation-rows.md) |
+| 5 | phobos-rimworld | Evidence for rows that have none: saved keys first, then a batch of new seen-in-play notes | 26 rows mapped (25 Nov); 3 by `logged` stages (Framework 0.290.0); 13 by the first batch of notes (0.291.0); 12 by the second (0.295.0); 7 by the third (0.298.0, Medical 0.27.0, Patches 0.45.0); 21 by the fourth (0.301.0, Radio Framework 0.17.0), with the held-back pairs narrowed by case or listed under `shared`; 2 note claims left in [the rows still without evidence](test-automation-rows.md): row 28's oil burn, and row 169, whose work another mod's code does |
 | 6 | D'thorga Companion | Save checks on its Reports page (kit 1.122.0 finds the check file through the games list); Run the checks on the Explorer page, from the snapshot held (kit 1.123.0) | Built, Companion 0.91.0; untested on screen |
 
 ## As built (25 Nov 2026)

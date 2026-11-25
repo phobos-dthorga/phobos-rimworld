@@ -382,7 +382,12 @@ public abstract class CompPhobosSetUp : VehicleComp
             return;
         }
         // Framework 0.120.5 (fault-read K4): an empty fuel tank stalls only work that needs the engine; the tanker's electric pump runs on.
-        if (Vehicle.CompFueledTravel is { EmptyTank: true } && NeedsEngineNow) Stall("PhobosVehicleSystems_SetUpStalledDry".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve());
+        if (Vehicle.CompFueledTravel is { EmptyTank: true } && NeedsEngineNow)
+        {
+            Stall("PhobosVehicleSystems_SetUpStalledDry".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve());
+            // Seen in play (Framework 0.301.0, row 81): a generator set stopped feeding when its tank ran dry.
+            if (this is CompPhobosGeneratorSet) Seen.Note("vehicles.generator-set.stopped-dry", Vehicle);
+        }
         else if (before == true && !ignition && NeedsEngineNow) Stall("PhobosVehicleSystems_SetUpStalledOff".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve());
     }
 

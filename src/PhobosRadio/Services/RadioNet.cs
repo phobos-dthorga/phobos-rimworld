@@ -485,15 +485,22 @@ public sealed class RadioNet : MapComponent
             }
         }
         var kindOf = new Dictionary<Thing, int>();
-        foreach (var (radio, kind, _) in ordered)
+        foreach (var (radio, kind, links) in ordered)
         {
             var wearer = CompRadio.HolderOf(radio);
             if (!served.TryGetValue(radio.thingIDNumber, out var stationId) || !stationById.TryGetValue(stationId, out var station))
             {
-                if (wearer != null) busy.Add(wearer);
+                if (wearer != null)
+                {
+                    busy.Add(wearer);
+                    // Seen in play (Radio 0.17.0, row 474): a radio in reach with no channel left for it is net busy.
+                    Seen.Note("radio.net-busy", wearer, null, "busy");
+                }
                 continue;
             }
             if (wearer != null) servedBy[wearer] = station.parent;
+            // Seen in play (Radio 0.17.0, row 475): a station other than the radio's best took it, the best one's channels being full.
+            if (wearer != null && links[0].B.Thing != station.parent) Seen.Note("radio.channel-station", station.parent, wearer.LabelShort, "overflow");
             // A radio built into a vehicle is the vehicle itself (Radio 0.12.0): count it for the operator's work.
             if (radio is Pawn) vehiclesOn[station.parent] = (vehiclesOn.TryGetValue(station.parent, out var vehicles) ? vehicles : 0) + 1;
             if (!servedOn.TryGetValue(station.parent, out var list)) servedOn[station.parent] = list = new List<Thing>();

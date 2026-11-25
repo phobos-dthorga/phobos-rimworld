@@ -1027,6 +1027,8 @@ public sealed class VehicleFittings
         }
         orders.RemoveAll(o => o.tune != null && o.tune.axis == tune.axis);
         Add(new FitOrder { tune = tune });
+        // Seen in play (Framework 0.301.0, row 10): a tune ordered away from the rig, which waits for it.
+        if (RigMissing) Seen.Note("vehicles.tune-waits-for-rig", comp.Vehicle, tune.defName, "ordered-away");
     }
 
     /// <summary>Asks for a part of this grade: a refit of a working part, or what a destroyed part is replaced with.</summary>
@@ -1124,7 +1126,12 @@ public sealed class VehicleFittings
             string label = old?.label ?? "";
             fitted.RemoveAll(f => f.partKey == order.partKey);
             text = "PhobosVehicleSystems_FitRemovedDone".Translate(who, label.Named("FITTING"), vehicle, PartLabel(order.partKey).Named("PART")).Resolve();
-            if (GiveBack(old) is { } back) text += " " + back;
+            if (GiveBack(old) is { } back)
+            {
+                text += " " + back;
+                // Seen in play (Framework 0.301.0, row 180): an accessory taken off came back as an item.
+                Seen.Note("vehicles.accessory-returned", comp.Vehicle, old?.defName, "removed");
+            }
         }
         else
         {
@@ -1226,6 +1233,9 @@ public sealed class VehicleFittings
         if (vehicle.Faction != Faction.OfPlayer) return;
         if (drained > 0)
         {
+            // Seen in play (Framework 0.301.0, row 67): the fuel above a smaller tank came back in containers.
+            if (Seen.Wants("vehicles.aux-tank-fuel-returned", vehicle))
+                Seen.Note("vehicles.aux-tank-fuel-returned", vehicle, null, null, new[] { new KeyValuePair<string, double>("units", drained) });
             VehicleNotices.Send("PhobosVehicleSystems_TankDrained".Translate(vehicle.LabelShort.Named("VEHICLE"), drained.Named("COUNT"),
                 tank.Props.fuelType!.label.Named("FUEL")), Where, MessageTypeDefOf.NeutralEvent);
         }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Phobos.Framework.Vehicles.Rules;
 using Vehicles;
 
@@ -16,11 +17,21 @@ public class VehicleStatWorker_PhobosBodyIntegrity : VehicleStatWorker
     {
         var uncounted = vehicle.GetComp<CompPhobosVehicleSystems>()?.Props.uncountedKeys;
         var rule = new IntegrityRule();
+        bool mountWhole = false;
         foreach (VehicleComponent component in vehicle.statHandler.components)
         {
             bool counts = uncounted == null || uncounted.Count == 0 || !uncounted.Contains(component.props.key);
             rule.Add(component.Health, component.MaxHealth, counts);
+            if (!counts && component.Health > 0f) mountWhole = true;
         }
-        return base.TransformValue(vehicle, (float)rule.Fraction());
+        double fraction = rule.Fraction();
+        // Seen in play (Framework 0.301.0, row 119): a wreck falls with its own parts gone, though an uncounted mount still stands.
+        if (fraction < 0.01 && mountWhole)
+        {
+            string whose = vehicle.Faction == RimWorld.Faction.OfPlayer ? "player" : "other";
+            if (Seen.Wants("vehicles.wreck-own-parts-gone", vehicle, whose))
+                Seen.Note("vehicles.wreck-own-parts-gone", vehicle, null, whose, new[] { new KeyValuePair<string, double>("own parts", fraction) });
+        }
+        return base.TransformValue(vehicle, (float)fraction);
     }
 }

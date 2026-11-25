@@ -2188,6 +2188,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 }
             }
         }
+        // Seen in play (Framework 0.301.0, row 73): a tank run dry, under a running engine (the fuel pump's damage) or drained while parked.
+        if (eventDef.defName == "OutOfFuel") Seen.Note("vehicles.ran-dry", Vehicle, null, RanDry ? "running" : "parked");
     }
 
     /// <summary>The health of each bound part when the systems last looked, by part key; derived, never saved.</summary>
@@ -3208,7 +3210,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         foreach (ServiceDueRule rule in service.alsoDue)
         {
             if (rule.setting != null && !VehicleSystemsMod.Settings.FlagOn(rule.setting)) continue;
-            if (TryGetQuantity(rule.quantity, out float value) && ThresholdRule.Passes(value, rule.above, rule.below)) return true;
+            if (TryGetQuantity(rule.quantity, out float value) && ThresholdRule.Passes(value, rule.above, rule.below))
+            {
+                // Seen in play (Framework 0.301.0, row 28): a service called by a player's setting, such as low oil calling one.
+                if (rule.setting != null) Seen.Note("vehicles.setting-calls-service", Vehicle, rule.quantity, rule.setting);
+                return true;
+            }
         }
         return false;
     }
@@ -3340,6 +3347,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (water > 0f && !VehicleWater.TryDraw(Vehicle, water)) return false;
         ThingOwner cargo = Vehicle.inventory.innerContainer;
         foreach (ThingDefCountClass supply in service.SuppliesNow) TakeFromCargo(supply.thingDef, supply.count);
+        // Seen in play (Framework 0.301.0, row 37): a service that takes kits or raw materials, done with whichever the colony's choice says.
+        if (service.rawSupplies.Count > 0) Seen.Note("vehicles.service-kit-used", Vehicle, service.label, GameComponent_PhobosServiceKits.RawAccepted ? "raw" : "kit");
         foreach (QuantityRestore restore in service.restores)
         {
             // Framework 0.247.0, generic since 0.248.0: a quantity kept per part is restored on the most worn part (or its axle) alone.

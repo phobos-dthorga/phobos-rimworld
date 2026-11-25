@@ -182,7 +182,15 @@ public sealed class CompPhobosMechLink : VehicleComp
         var kept = MechLinkRule.Kept(tracker.TotalBandwidth, tracker.UsedBandwidthFromSubjects + tracker.UsedBandwidthFromGestation,
             mine.Select(l => l.Cost).ToList());
         var at = mine.IndexOf(this);
-        return at >= 0 && at < kept;
+        var keep = at >= 0 && at < kept;
+        // Seen in play (Framework 0.301.0, row 500): bandwidth short, the newest linked vehicle loses control first.
+        if (!keep && at >= 0 && Seen.Wants("vehicles.mech-link-short", Vehicle))
+        {
+            Seen.Note("vehicles.mech-link-short", Vehicle, mechanitor!.LabelShort, null, new[] {
+                new KeyValuePair<string, double>("place", at), new KeyValuePair<string, double>("kept", kept),
+                new KeyValuePair<string, double>("links", mine.Count) });
+        }
+        return keep;
     }
 
     /// <summary>Links the vehicle to a mechanitor of the colony. Null when done, or why not.</summary>

@@ -505,6 +505,10 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
             if (!compartment.HasLoad || fluid == null || fluid.spoilsAfterDays <= 0f) continue;
             compartment.spoilHours = TankRule.NextSpoilHours(compartment.spoilHours, temperature, HoursPerRareTick, fitting.spoilRate);
             if (!TankRule.Spoiled(compartment.spoilHours, fluid.spoilsAfterDays)) continue;
+            // Seen in play (Framework 0.301.0, row 452): a tank's load spoiled, lagged (a slower rate) or plain.
+            string lagging = fitting.spoilRate < 1f ? "lagged" : "plain";
+            if (Seen.Wants("vehicles.tank-spoiled", Vehicle, lagging))
+                Seen.Note("vehicles.tank-spoiled", Vehicle, fluid.defName, lagging, new[] { new KeyValuePair<string, double>("rate", fitting.spoilRate) });
             Tell("PhobosVehicleSystems_TankSpoiled".Translate(Vehicle.LabelShort.Named("VEHICLE"), fluid.label.Named("CONTENTS"), fluid.spoilWord.Named("SPOILED")), MessageTypeDefOf.NegativeEvent);
             Pollute(fluid, compartment.amount);
             compartment.Clear();
@@ -730,6 +734,8 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
             // Another tank beside it, set up and pumping out the same, comes first (Framework 0.111.0): the tanker fills a bowser, or a bowser a tanker.
             float moved = GiverBeside(fluid) is { } giver ? giver.GiveTo(compartment, most) : RunPorts(fluid, most, load: true);
             if (moved <= 0f) return;
+            // Seen in play (Framework 0.301.0, row 105): a bowser (a tank set up by hand) loading, then unloading below.
+            if (Seen.Wants("vehicles.bowser-transfer", Vehicle, "load") && SetUpByHand) Seen.Note("vehicles.bowser-transfer", Vehicle, fluid.defName, "load");
             if (!deployed && Seen.Wants("trailers.packed-pump", Vehicle)) Seen.Note("trailers.packed-pump", Vehicle, moved.ToString("0") + " " + fluid.defName);
             if (tankWasEmpty) temperature = ArrivalTemperature(fluid, Outside);
             compartment.residue = null;
@@ -772,6 +778,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
             return;
         }
         compartment.amount = Mathf.Max(0f, compartment.amount - given);
+        if (Seen.Wants("vehicles.bowser-transfer", Vehicle, "unload") && SetUpByHand) Seen.Note("vehicles.bowser-transfer", Vehicle, fluid.defName, "unload");
         if (!compartment.HasLoad) compartment.Clear();
         AfterLoadChange();
     }
@@ -1051,7 +1058,12 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
 
     protected override string? HandSetUpRefusal() => CannotDeploy();
 
-    protected override void FinishByHand(bool on, Pawn worker) => ApplyDeployed(on);
+    protected override void FinishByHand(bool on, Pawn worker)
+    {
+        ApplyDeployed(on);
+        // Seen in play (Framework 0.301.0, row 105): a colonist set the bowser up by hand.
+        if (on) Seen.Note("vehicles.bowser-transfer", Vehicle, worker.LabelShort, "set-up");
+    }
 
     void ApplyDeployed(bool on)
     {

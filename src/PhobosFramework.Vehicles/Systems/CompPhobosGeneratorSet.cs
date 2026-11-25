@@ -395,6 +395,13 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
             load = step.Load;
             outputWatts = step.OutputWatts;
             running = offered > 0f;
+            // Seen in play (Framework 0.301.0, rows 11 and 81): the set feeding the camp's grid, with or without anyone aboard.
+            if (step.OutputWatts > 0f)
+            {
+                string aboard = Vehicle.AllPawnsAboard.Count == 0 ? "unattended" : "crewed";
+                if (Seen.Wants("vehicles.generator-set.feeding", Vehicle, aboard))
+                    Seen.Note("vehicles.generator-set.feeding", Vehicle, null, aboard, new[] { new KeyValuePair<string, double>("watts", step.OutputWatts) });
+            }
             runningLoop.Set(Props.runningSound, running, Vehicle);
             float used = WorkFuel(step.FuelUsed, DaysPerRareTick);
             if (used > 0f) BurnWorkFuel(used);

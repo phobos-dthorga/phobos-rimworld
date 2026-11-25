@@ -95,6 +95,9 @@ public static class PartsOnLoad
                     && __instance.components.FirstOrDefault(c => c.props.key == source) is { } original)
                 {
                     HealthField?.SetValue(component, Math.Clamp(component.MaxHealth * original.HealthPercent, 0f, component.MaxHealth));
+                    // Seen in play (Framework 0.301.0, row 509): a part added per wheel took the wear of the one part an older save held.
+                    if (Seen.Wants("vehicles.older-save-brakes", vehicle))
+                        Seen.Note("vehicles.older-save-brakes", vehicle, props.key, null, new[] { new KeyValuePair<string, double>("health", original.HealthPercent) });
                 }
                 __instance.components.Add(component);
                 if (byKeys != null) byKeys[props.key] = component;

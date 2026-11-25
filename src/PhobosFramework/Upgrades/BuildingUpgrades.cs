@@ -109,7 +109,10 @@ public static class BuildingUpgrades
             comp.AddDelivered(carried.def, moved);
             Thing used = carried.SplitOff(moved);
             if (!used.Destroyed) used.Destroy();
-            if (Seen.Wants("framework.building-upgrade.delivered", comp.parent)) Seen.Note("framework.building-upgrade.delivered", comp.parent, carried.def.label + " x" + moved);
+            // The case is the upgrade's name (Framework 0.301.0), so each building's test row stands on its own upgrades.
+            string? upgrade = comp.Ordered?.defName;
+            if (Seen.Wants("framework.building-upgrade.delivered", comp.parent, upgrade))
+                Seen.Note("framework.building-upgrade.delivered", comp.parent, carried.def.label + " x" + moved, upgrade);
         }
         if (pawn.carryTracker.CarriedThing != null) pawn.carryTracker.TryDropCarriedThing(pawn.Position, ThingPlaceMode.Near, out _);
         return moved;
@@ -142,7 +145,7 @@ public static class BuildingUpgrades
             if (comp.parent.Spawned) PutDown(refund, comp.parent.Position, comp.parent.Map);
             Messages.Message("PhobosUpgrade_Removed".Translate(def.label.Named("UPGRADE"), comp.parent.LabelShort.Named("BUILDING")).Resolve(),
                 comp.parent, MessageTypeDefOf.PositiveEvent, historical: false);
-            Seen.Note("framework.building-upgrade.removed", comp.parent, def.label);
+            Seen.Note("framework.building-upgrade.removed", comp.parent, def.label, def.defName);
             return;
         }
         Messages.Message("PhobosUpgrade_Fitted".Translate(def.label.Named("UPGRADE"), comp.parent.LabelShort.Named("BUILDING")).Resolve(),

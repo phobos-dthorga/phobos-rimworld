@@ -139,6 +139,8 @@ public sealed partial class CompPhobosHitch : IThingHolder
         TrailerPose first = HitchRule.Limit(hx, hz, HitchRule.Follow(hx, hz, stand, props.HitchToAxle), Heading(), props.JackKnife, props.HitchToAxle);
         bool follows = PoseFits(first, props, towed, map);
         if (!Place(towed, at, map, rotation)) return;
+        // Seen in play (Framework 0.301.0, row 70): a held trailer set down on arrival beside its vehicle, following or let go.
+        Seen.Note("vehicles.trailer-arrived", towed, Vehicle.LabelShort, follows ? "behind" : "let-go");
         Remember(stand);
         settle = SettleTicks;
         needsLook = true;

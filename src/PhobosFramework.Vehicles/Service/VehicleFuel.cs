@@ -25,7 +25,13 @@ public static class VehicleFuel
         comp ??= vehicle.GetComp<CompPhobosVehicleSystems>();
         comp?.FuelLog.Note(use, burned);
         // Framework 0.252.0: a leak drains one side of a twin's tanks (SideTanks).
-        if (use == FuelUse.Leak) comp?.SideTanks.NoteLeak(burned);
+        if (use == FuelUse.Leak)
+        {
+            comp?.SideTanks.NoteLeak(burned);
+            // Seen in play (Framework 0.301.0, row 22): a holed tank leaking while its aircraft is in flight.
+            if (vehicle.CompVehicleLauncher is { inFlight: true } && Seen.Wants("aircraft.leak-in-flight", vehicle))
+                Seen.Note("aircraft.leak-in-flight", vehicle, null, "leaking", new[] { new KeyValuePair<string, double>("units", burned) });
+        }
         // An aircraft settles its fuel by what its tank is seen to lose (Framework 0.132.0): our own burns are not anyone else's.
         comp?.Powertrain?.NoteOwnFuel(burned);
         return burned;

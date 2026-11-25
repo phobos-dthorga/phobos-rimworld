@@ -308,7 +308,11 @@ public static class TurretPower
             claimed = true;
             if (handler.thingOwner is { Count: > 0 }) return true;
         }
-        return !claimed && turret.targetInfo.IsValid;
+        if (claimed) return false;
+        // Seen in play (Framework 0.301.0, row 148): an autonomous turret's drive stands by until it has a target.
+        bool tracking = turret.targetInfo.IsValid;
+        Seen.Note("vehicles.turret-drive-standby", vehicle, turret.def?.defName, tracking ? "running" : "standby");
+        return tracking;
     }
 
     /// <summary>Whether this weapon is turned by a powered drive: its own, or that of the turret it goes with.</summary>

@@ -123,7 +123,7 @@ public static class StripDebris
     {
         VehiclePawn vehicle = comp.Vehicle;
         if (!vehicle.Spawned || Exposure(comp) <= 0f || OnOurOwnFlight(vehicle) || ModelsItsOwnTakeOff(comp, Rules)) return;
-        OnEvent(vehicle, RoughShare(vehicle), "take-off");
+        OnEvent(vehicle, RoughShare(vehicle), "take-off", "stock");
     }
 
     /// <summary>At each update: an aircraft in a phase that throws debris may take a strike; one back on the ground from Vehicle
@@ -139,25 +139,25 @@ public static class StripDebris
         if (VehicleSystemsMod.Settings.showOnly || Exposure(comp) <= 0f || comp.Powertrain is not { IsAircraft: true } train) return;
         if (!vehicle.Spawned) return;
         PhobosLandingSurfaceRulesDef rules = Rules;
-        if (landed && !OnOurOwnFlight(vehicle) && !ModelsItsOwnTakeOff(comp, rules)) OnEvent(vehicle, RoughShare(vehicle), "touch-down");
+        if (landed && !OnOurOwnFlight(vehicle) && !ModelsItsOwnTakeOff(comp, rules)) OnEvent(vehicle, RoughShare(vehicle), "touch-down", "stock");
         if (train.Phase is not { } phase) return;
         DebrisPhase? throwing = rules.debrisPhases.FirstOrDefault(p => p.phase == phase);
         // A phase that throws grit only on the move (taxiing): an aircraft standing with its engines on throws none.
         if (throwing == null || (throwing.movingOnly && !moved)) return;
         double chance = StripDebrisRule.Chance(rules.debrisPerHour, Exposure(comp), throwing.weight, RoughShare(vehicle), hours) * (1 - Barrier(vehicle));
-        if (chance > 0 && Rand.Chance((float)chance)) Strike(comp, rules, phase);
+        if (chance > 0 && Rand.Chance((float)chance)) Strike(comp, rules, phase, "phase");
     }
 
-    /// <summary>At a lift-off or touch-down of an aircraft on our own flight.</summary>
-    public static void OnEvent(VehiclePawn vehicle, double roughShare, string when)
+    /// <summary>At a lift-off or touch-down: of an aircraft on our own flight, or (<paramref name="how"/> "stock") on Vehicle Framework's.</summary>
+    public static void OnEvent(VehiclePawn vehicle, double roughShare, string when, string how = "own-flight")
     {
         if (VehicleSystemsMod.Settings.showOnly || CompPhobosVehicleSystems.Of(vehicle) is not { Usable: true } comp || Exposure(comp) <= 0f) return;
         PhobosLandingSurfaceRulesDef rules = Rules;
         double chance = StripDebrisRule.EventChance(rules.debrisPerEvent, Exposure(comp), roughShare, Barrier(vehicle));
-        if (chance > 0 && Rand.Chance((float)chance)) Strike(comp, rules, when);
+        if (chance > 0 && Rand.Chance((float)chance)) Strike(comp, rules, when, how);
     }
 
-    static void Strike(CompPhobosVehicleSystems comp, PhobosLandingSurfaceRulesDef rules, string when)
+    static void Strike(CompPhobosVehicleSystems comp, PhobosLandingSurfaceRulesDef rules, string when, string how)
     {
         VehiclePawn vehicle = comp.Vehicle;
         List<string> roles = Powertrain.EngineRolesOf(comp).Where(role => comp.PartsOf(role).Any(p => p.HealthPercent > rules.engineWearFloor)).ToList();
@@ -165,7 +165,8 @@ public static class StripDebris
         string role = roles.RandomElement();
         VehicleComponent? part = comp.PartsOf(role).FirstOrDefault();
         comp.WearRole(role, 0f, rules.debrisDamage, rules.engineWearFloor);
-        if (Seen.Wants("aircraft.strip-debris", vehicle)) Seen.Note("aircraft.strip-debris", vehicle, when);
+        // The case says which flight it was (Framework 0.301.0): our own ("own-flight"), Vehicle Framework's ("stock"), or a phase's grit.
+        if (Seen.Wants("aircraft.strip-debris", vehicle, how)) Seen.Note("aircraft.strip-debris", vehicle, when, how);
         if (vehicle.Faction != Faction.OfPlayer) return;
         Messages.Message("PhobosVehicleSystems_StripDebris".Translate(vehicle.LabelShort.Named("VEHICLE"), (part?.props.label ?? role).Named("PART")).Resolve(),
             vehicle, MessageTypeDefOf.NegativeEvent);

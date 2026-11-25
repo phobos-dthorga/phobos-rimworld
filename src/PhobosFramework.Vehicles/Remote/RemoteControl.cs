@@ -301,6 +301,8 @@ public sealed class CompPhobosRemoteControl : VehicleComp
                 if (Seen.Wants("vehicles.remote-kit-down", vehicle)) Seen.Note("vehicles.remote-kit-down", vehicle, vehicle.LabelShort);
             }
             else if (Seen.Wants("vehicles.remote-lost", vehicle, after.ToString())) Seen.Note("vehicles.remote-lost", vehicle, vehicle.LabelShort, after.ToString());
+            // Seen in play (Framework 0.301.0, row 497): a route's follower lost its leader, then (below) heard it again.
+            if (!kitDown && drivenBy == RouteControl.SourceKey) Seen.Note("vehicles.route-leader", vehicle, null, "lost");
         }
         else if (RemoteControlRule.TellsFound(before, after))
         {
@@ -308,6 +310,7 @@ public sealed class CompPhobosRemoteControl : VehicleComp
             Find.LetterStack.ReceiveLetter((prefix + "FoundLabel").Translate(vehicle.LabelShort.Named("VEHICLE")),
                 (prefix + "FoundText").Translate(vehicle.LabelShort.Named("VEHICLE")), LetterDefOf.NeutralEvent, vehicle);
             if (Seen.Wants("vehicles.remote-found", vehicle)) Seen.Note("vehicles.remote-found", vehicle, vehicle.LabelShort);
+            if (drivenBy == RouteControl.SourceKey) Seen.Note("vehicles.route-leader", vehicle, null, "back");
         }
     }
 

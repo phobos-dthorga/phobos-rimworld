@@ -17,6 +17,16 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.17.0] - 2026-11-26 - Draft
+
+Channels, seen in play
+
+### Added
+
+- **Seen-in-play notes for the channels** (the owner's word, 26 November 2026, to give the test list's remaining rows evidence): a
+  radio in reach with no channel left for it is net busy, and a second station takes a radio its best station had no channel for.
+  Written only with D'thorga Framework's seen-in-play setting on; nothing in play changes. Not yet tested in game.
+
 ## [0.16.1] - 2026-11-25 - Draft
 
 Fixes from the fault-read of 25 November 2026

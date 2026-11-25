@@ -107,10 +107,21 @@ public class Effect_RefuseLaunch : VehicleSystemEffect
 
     bool WarnOnly => warnOnlySetting != null && VehicleSystemsMod.Settings.FlagOn(warnOnlySetting);
 
-    public override string? LaunchRefusal(SystemContext context) => WarnOnly ? null : Reason(context);
+    public override string? LaunchRefusal(SystemContext context)
+    {
+        if (WarnOnly) return null;
+        // Seen in play (Framework 0.301.0, row 99): a take-off refused by a stage the warn-only setting could soften (blind flight).
+        if (warnOnlySetting != null) Seen.Note("aircraft.blind-launch", context.Vehicle, null, "refused");
+        return Reason(context);
+    }
 
-    public override string? LaunchWarning(SystemContext context) =>
-        !WarnOnly ? null : warning.NullOrEmpty() ? Reason(context) : warning!.Translate(context.Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+    public override string? LaunchWarning(SystemContext context)
+    {
+        if (!WarnOnly) return null;
+        // Seen in play (Framework 0.301.0, row 99): with the warn-only setting on, the same take-off warned of instead.
+        Seen.Note("aircraft.blind-launch", context.Vehicle, null, "warned");
+        return warning.NullOrEmpty() ? Reason(context) : warning!.Translate(context.Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+    }
 
     string Reason(SystemContext context) => reason.Translate(context.Vehicle.LabelShort.Named("VEHICLE")).Resolve();
 }
