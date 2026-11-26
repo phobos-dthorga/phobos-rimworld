@@ -13,6 +13,16 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.301.2] - 2026-11-26 - Draft
+
+The airdrop's buttons get their own pictures
+
+### Fixed
+
+- **The airdrop's buttons have pictures of their own**: Drop here, Drop low, Load into hold, Unload hold and Airdrop on, and the
+  Parachutes storage category no longer borrows the packed parachute's picture. AI-generated (OpenAI's image service), picked by
+  the owner. Not yet seen in game.
+
 ## [0.301.1] - 2026-11-26 - Draft
 
 The jets are known again after their authors' rename

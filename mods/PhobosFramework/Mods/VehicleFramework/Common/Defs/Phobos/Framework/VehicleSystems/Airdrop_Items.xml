@@ -23,7 +23,7 @@
     <label>parachutes</label>
     <description>Parachutes and drop rigs for airdrops, packed or spent.</description>
     <parent>PhobosCategory_VehicleParts</parent>
-    <iconPath>Phobos/VehicleSystems/Airdrop/PersonnelParachute</iconPath>
+    <iconPath>Phobos/VehicleSystems/Categories/Parachutes</iconPath>
   </ThingCategoryDef>
 
   <ThingDef Name="PhobosParachuteBase" ParentName="ResourceBase" Abstract="True">

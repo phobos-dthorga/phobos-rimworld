@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/LoadHold.png",
+  "source": "assets/vehicle-systems/generated/airdrop-icon-load-hold/airdrop-icon-load-hold-1.png",
+  "source_sha256": "3de2a89ebc9c0fbcff51d7c960d111217351f1977e1b25ca9d195d0325b8fb25",
+  "target_sha256": "b2bb68efc610449f342ffd3c1f8aab0019151b57159ac88c6084ebcffe113740",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "3de2a89ebc9c0fbcff51d7c960d111217351f1977e1b25ca9d195d0325b8fb25",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-26T11:38:04",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

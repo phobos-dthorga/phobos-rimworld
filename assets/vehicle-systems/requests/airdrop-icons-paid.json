@@ -1,0 +1,134 @@
+[
+  {
+    "name": "airdrop-icon-drop-here",
+    "title": "Airdrop button: Drop here (DropHere)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+       "role": "our approved button icon of the same game (land here): match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CargoBundle.png",
+       "role": "our approved cargo bundle seen from above: match its olive canvas and tan strap colours only; do not copy its shape or view"}
+    ],
+    "art_plan": {
+      "button": "Drop here (a hover drop from the aircraft's drop height)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/DropHere.png",
+      "size": "exported at 128",
+      "why": "the night-14 local tries were all rejected (owner, 26 Nov 2026: 'they'll have to be paid')"
+    },
+    "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved pictures from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"drop the cargo here\": a round olive-drab parachute canopy, fully open, in the upper half, with four thin pale lines running down to one small squarish olive cargo bundle wrapped in tan straps. Below the bundle, a short dashed amber line points straight down to a bold amber target ring with a small cross in its centre, lying flat on the ground at the bottom of the icon. The canopy, bundle and target are lined up on one vertical axis.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with the amber target as the only bright colour, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No aircraft, people, hands, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "airdrop-icon-drop-low",
+    "title": "Airdrop button: Drop low (DropLow)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+       "role": "our approved button icon of the same game (land here): match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CargoBundle.png",
+       "role": "our approved cargo bundle seen from above: match its olive canvas and tan strap colours only; do not copy its shape or view"}
+    ],
+    "art_plan": {
+      "button": "Drop low (drop from where it hovers, below the minimum height, with a warning)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/DropLow.png",
+      "size": "exported at 128",
+      "why": "the night-14 local tries were all rejected (owner, 26 Nov 2026)"
+    },
+    "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved pictures from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"drop from too low, risky\": a small olive-drab parachute canopy only half opened, still long and narrow like a tulip, its lines hanging down to one small squarish olive cargo bundle wrapped in tan straps. The bundle is only a short way above a flat pale ground strip along the bottom of the icon. Beside the bundle, a bold height marker: a short vertical red and amber striped bar with flat end caps, spanning the small gap between the bundle and the ground, showing the drop is too short.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with the red and amber marker as the only bright colours, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No aircraft, people, hands, text, letters, numbers, exclamation marks, logos or brand marks."
+  },
+  {
+    "name": "airdrop-icon-load-hold",
+    "title": "Hold button: Load into hold (LoadHold)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/Lift.png",
+       "role": "our approved button icon of the same game (lift a load, with a green arrow): match its outline weight, shading, palette, arrow style and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+       "role": "our approved button icon with a grey aircraft: match its grey aircraft colours and finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "button": "Load into hold (then click a vehicle beside the ramp)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/LoadHold.png",
+      "size": "exported at 128",
+      "why": "the night-14 local tries were all rejected (owner, 26 Nov 2026)"
+    },
+    "prompt": "GAME BUTTON ICON. One object seen from behind and a little to one side, from slightly above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved icons from the same game: match their outline weight, shading, palette, arrow style and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"drive a vehicle into the aircraft's hold\": the tail end of a grey military cargo aircraft's fuselage, seen from behind, its tail fin rising at the top. Its wide rear loading ramp is lowered to the ground, a flat grey ramp with ribbed treads sloping down towards the viewer, and the hold behind it is a dark open doorway. A bold green arrow runs UP the ramp and INTO the dark hold.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted grey palette with the green arrow as the only bright colour, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No vehicles, people, hands, wings in the foreground, text, letters, numbers, roundels, logos or brand marks."
+  },
+  {
+    "name": "airdrop-icon-unload-hold",
+    "title": "Hold button: Unload hold (UnloadHold)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/Release.png",
+       "role": "our approved button icon of the same game (release a load, with amber parts): match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+       "role": "our approved button icon with a grey aircraft and an amber arrow: match its grey aircraft colours, amber arrow style and finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "button": "Unload hold (each vehicle out behind the ramp)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/UnloadHold.png",
+      "size": "exported at 128",
+      "why": "the night-14 local tries were all rejected (owner, 26 Nov 2026)"
+    },
+    "prompt": "GAME BUTTON ICON. One object seen from behind and a little to one side, from slightly above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved icons from the same game: match their outline weight, shading, palette, arrow style and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"drive the vehicles out of the aircraft's hold\": the tail end of a grey military cargo aircraft's fuselage, seen from behind, its tail fin rising at the top. Its wide rear loading ramp is lowered to the ground, a flat grey ramp with ribbed treads sloping down towards the viewer, and the hold behind it is a dark open doorway. A bold amber arrow comes OUT of the dark hold and runs DOWN the ramp towards the viewer.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted grey palette with the amber arrow as the only bright colour, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No vehicles, people, hands, wings in the foreground, text, letters, numbers, roundels, logos or brand marks."
+  },
+  {
+    "name": "airdrop-icon-airdrop-on",
+    "title": "World map: Airdrop on <place> (AirdropOn)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+       "role": "our approved button icon of the same game (land here, a grey aircraft over a ring): match its outline weight, shading, palette and finish only; do not copy its layout"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CanopyOpen.png",
+       "role": "our approved parachute canopy seen from above: match its olive canopy colours and panel seams only; do not copy its view"}
+    ],
+    "art_plan": {
+      "button": "Airdrop on <place> (the world map's arrival option and its targeter)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/AirdropOn.png",
+      "size": "exported at 128",
+      "why": "the night-14 local tries were all rejected (owner, 26 Nov 2026); kept apart from the Land icon so the two are not confused"
+    },
+    "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved pictures from the same game: match their outline weight, shading, palette and finish only, not their layout.\n\nCreate an ORIGINAL icon meaning \"airdrop onto this place on the world map\": at the bottom, one flat six-sided hexagon tile of green and tan land, like a single tile of a world map, with a small bold amber pin marker standing in its centre. Above it, THREE small round olive-drab parachutes are falling towards the tile, each with a tiny squarish olive cargo bundle hanging below it, spread out side by side at slightly different heights. At the very top, a small grey cargo aircraft seen from below flies across from left to right.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with the amber pin as the only bright colour, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No circle or ring around the icon, no people, hands, text, letters, numbers, roundels, logos or brand marks."
+  },
+  {
+    "name": "airdrop-icon-category",
+    "title": "Stockpile category: Parachutes (Categories/Parachutes)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Categories/VehicleParts.png",
+       "role": "our approved stockpile category icon of the same game: match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/PersonnelParachute.png",
+       "role": "our approved packed personnel parachute item: match its olive canvas, harness and buckle colours only; draw a simpler icon, not a copy"}
+    ],
+    "art_plan": {
+      "button": "the Parachutes stockpile category (Phobos_Parachutes)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Categories/Parachutes.png",
+      "size": "exported at 128",
+      "why": "the night-14 local tries read as a sack (owner rejected all, 26 Nov 2026); on a pick, point Phobos_Parachutes' iconPath at it"
+    },
+    "prompt": "GAME CATEGORY ICON. One single object seen from the front and a little above, centred, as an icon for a storage category in a top-down strategy game.\n\nImages 1 and 2 are our approved pictures from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon of a packed parachute: a squarish, flat olive-drab canvas pack, like a backpack, standing upright, its front closed with four flaps folded in and held by tan straps with small steel buckles. A bright silver D-shaped ripcord handle is clipped on the front, and the folded top of an olive canopy with a few pale suspension lines just peeks out from under the top flap, so it reads plainly as a parachute and not as a bag or sack.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted olive and tan palette with the silver handle as the only bright detail, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, harness worn on a body, text, letters, numbers, logos or brand marks."
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/DropHere.png",
+  "source": "assets/vehicle-systems/generated/airdrop-icon-drop-here/airdrop-icon-drop-here-1.png",
+  "source_sha256": "83006b2c8c50470d76300e142a7069d856cd1aaf3d048c318f259ab64671fd17",
+  "target_sha256": "92f4cdf9b91c36048e5103321047c77063bb2a77c1dbc96325b9bbdb00d3cbde",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "83006b2c8c50470d76300e142a7069d856cd1aaf3d048c318f259ab64671fd17",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-26T11:37:59",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
