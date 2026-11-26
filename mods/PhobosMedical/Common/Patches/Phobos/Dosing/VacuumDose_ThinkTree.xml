@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Someone caught in vacuum takes a vacuum-resisting dose they carry (D'thorga Medical 0.30.0), just ahead of the game's own search for
+     air in the constant think tree, which interrupts whatever the person is doing; at the usual hook it would always come second. No
+     Harmony. Without Odyssey the search for air is not in the tree, and this does nothing. -->
+<Patch>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThinkTreeDef[defName="HumanlikeConstant"]//li[@Class="JobGiver_FindOxygen"]</xpath>
+    <match Class="PatchOperationInsert">
+      <xpath>Defs/ThinkTreeDef[defName="HumanlikeConstant"]//li[@Class="JobGiver_FindOxygen"]</xpath>
+      <order>Prepend</order>
+      <value>
+        <li Class="Phobos.Dosing.Jobs.JobGiver_PhobosVacuumDose" />
+      </value>
+    </match>
+  </Operation>
+</Patch>

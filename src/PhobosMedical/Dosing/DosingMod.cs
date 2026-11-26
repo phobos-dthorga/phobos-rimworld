@@ -43,6 +43,10 @@ public class DosingSettings : ModSettings
     /// <summary>A medicine worth this much silver or more is rare, and kept for saving a life; zero keeps none back (the owner's
     /// answer of 26 Nov 2026: "a configurable setting via a slider... 300 silver is the default").</summary>
     public float rareItemMarketValue = 300f;
+    /// <summary>Who gives something that keeps toxins out while toxic exposure is under way (Medical 0.30.0).</summary>
+    public CareMode toxicMode = CareMode.DoctorsAndSelf;
+    /// <summary>Someone caught in vacuum takes a vacuum-resisting dose they carry (Medical 0.30.0).</summary>
+    public bool vacuumRescue = true;
 
     public override void ExposeData()
     {
@@ -62,6 +66,8 @@ public class DosingSettings : ModSettings
         Scribe_Values.Look(ref unmetAlert, "PhobosDosing_UnmetAlert", true);
         Scribe_Values.Look(ref breathingMode, "PhobosDosing_BreathingMode", CareMode.DoctorsOnly);
         Scribe_Values.Look(ref rareItemMarketValue, "PhobosDosing_RareItemMarketValue", 300f);
+        Scribe_Values.Look(ref toxicMode, "PhobosDosing_ToxicMode", CareMode.DoctorsAndSelf);
+        Scribe_Values.Look(ref vacuumRescue, "PhobosDosing_VacuumRescue", true);
     }
 }
 
@@ -105,6 +111,14 @@ public static class DosingMod
         }
         if (Settings.enabled)
         {
+            string toxic = "protection from toxins while exposed: " + NamesOf(DoseIndex.ToxicOptions);
+            if (CareModeRule.DoctorsMay(Settings.toxicMode)) report.On(toxic + (CareModeRule.SelfMay(Settings.toxicMode) ? ", doctors and self" : ", doctors only"));
+            else report.Off(toxic, "setting");
+            if (ModsConfig.OdysseyActive)
+            {
+                string vacuum = "caught in vacuum: " + NamesOf(DoseIndex.VacuumOptions);
+                if (Settings.vacuumRescue) report.On(vacuum); else report.Off(vacuum, "setting");
+            }
             string breathing = "helps to breathing: " + NamesOf(DoseIndex.BreathingOptions);
             if (CareModeRule.DoctorsMay(Settings.breathingMode)) report.On(breathing); else report.Off(breathing, "setting");
             report.On(Settings.rareItemMarketValue > 0f ? "rare from " + Settings.rareItemMarketValue.ToString("0") + " silver" : "no rare mark");
@@ -171,6 +185,9 @@ public static class DosingMod
         list.Radio("PhobosDosing_SettingCureMode".Translate(), ref s.cureMode, d.cureMode, CureModes, ModeLabel, tip: "PhobosDosing_SettingCureModeDesc".Translate());
         list.Radio("PhobosDosing_SettingPreventionMode".Translate(), ref s.preventionMode, d.preventionMode, PreventionModes, ModeLabel,
             tip: "PhobosDosing_SettingPreventionModeDesc".Translate());
+        list.Radio("PhobosDosing_SettingToxicMode".Translate(), ref s.toxicMode, d.toxicMode, PreventionModes, ModeLabel, tip: "PhobosDosing_SettingToxicModeDesc".Translate());
+        if (ModsConfig.OdysseyActive)
+            list.Check("PhobosDosing_SettingVacuumRescue".Translate(), ref s.vacuumRescue, d.vacuumRescue, "PhobosDosing_SettingVacuumRescueDesc".Translate());
         list.Radio("PhobosDosing_SettingPreventionReserve".Translate(), ref s.preventionReserve, d.preventionReserve, ReserveChoices, count => count.ToString(),
             tip: "PhobosDosing_SettingPreventionReserveDesc".Translate());
         list.Check("PhobosDosing_SettingUnmetAlert".Translate(), ref s.unmetAlert, d.unmetAlert, "PhobosDosing_SettingUnmetAlertDesc".Translate());

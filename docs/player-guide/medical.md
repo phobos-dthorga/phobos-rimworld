@@ -144,8 +144,10 @@ its name.
 | Down or in bed, pain 40% or more | The best painkiller in reach, net of its side effects |
 | Pain 80% or more, and no painkiller can be given | A sedative |
 | A disease that can kill, and immunity would come too late | A medical drug that speeds immunity. **A patient already winning gets none**, so stock lasts |
+| On their feet in vacuum and being harmed (a hull breach) | A vacuum medicine they carry, such as vacsop, taken at once before going to find air. Nobody fetches one from the shelf |
 | Down or in bed, breathing at 30% or less | Something that adds to breathing, such as smelling salts: time bought until oxygen or an operation. Looked for before anything else |
 | Down or in bed, with a condition something in stock cures outright | The cure, the gentlest first |
+| Toxins building up and still around them (polluted ground, tox gas, outdoors in toxic fallout) | Something that keeps toxins out, such as AntiTox, again as it wears off: a doctor gives it to those in bed, and people on their feet take their own |
 | Someone in the colony has a disease that strikes groups, and this person is unprotected | A preventive from stock: a doctor gives it to those in bed, and people on their feet take their own |
 
 - **Never given**: a second painkiller while one still works, anything during an overdose, a dose that would leave consciousness or
@@ -164,6 +166,9 @@ its name.
   zero keeps nothing back). Nothing that begins a dependency that kills when it stops (luciferium) is ever given by rule.
 - **A stimulant for breathing buys time, nothing more**: it is given again as it wears off, never where something blocks the
   airway or a machine breathes for the patient, and nobody is woken with it.
+- **AntiTox lasts about 2½ hours**, so someone working all day in toxic fallout takes about six a day. **It keeps the preventives'
+  reserve** (5 by default). For planned work in a toxic place, paint a **toxic controlled area** instead (below).
+- **To have people carry vacsop**, set it to be taken to inventory in their drug policy: nobody fetches it once caught in vacuum.
 - **Blood loss is More Injuries' work**: its doctors give blood bags and hemogen packs on their own. Its epinephrine is left for
   cardiac arrest.
 - **A "Medicine needed" alert** names anyone who needs something your colony knows how to make while none of it is in stock.
@@ -301,6 +306,17 @@ On by default (**Radiation sickness runs its real course**, on the **Radiation**
 - **With Rimatomics,** our model takes its radiation for people (robots keep Rimatomics' own), and anyone already carrying Rimatomics'
   radiation sickness has it converted once.
 
+## Toxic control
+
+Masks on, or AntiTox taken, before stepping onto polluted ground, a waste dump or a toxic vent's patch. **Always available.**
+
+1. Paint a **toxic controlled area** from the zone tab over the ground. Its paint tools show the game's home-area pictures for now.
+2. **Keep AntiTox and masks just outside the line**, not forbidden. Anything inside the area is never fetched.
+3. A colonist going in who is not on AntiTox takes one first, unless only the reserve is left. **60% toxic environment
+   resistance** gets them across: AntiTox alone, or a gas mask; a face mask needs something more. Gear put on at the line comes off
+   on the way out. With neither in reach, they turn back and leave the area alone for an hour.
+4. **Drafted colonists cross as they are.** Once inside, anyone whose toxins build up takes another AntiTox as the last wears off.
+
 ## Radiation control (with Rimatomics)
 
 ![The radiation control point and the tools to paint and clear a controlled area](images/radiation-control.png)
@@ -311,7 +327,7 @@ Suits on inside, off at the door, as a real plant runs it. **Only with Rimatomic
    area** (zone tab) over open ground or several rooms.
 2. **Keep suits and masks just outside the line**, on a shelf, not forbidden. Gear inside the area is never fetched.
 3. **Keep potassium iodide just outside too.** A colonist going in who is not on iodide takes a tablet first ("Taking potassium
-   iodide first"). With the radiation model on, iodide fills the thyroid so fallout's radioactive iodine cannot lodge there; it does
+   iodide first"). It is not taken below the preventives' reserve (5 by default). With the radiation model on, iodide fills the thyroid so fallout's radioactive iodine cannot lodge there; it does
    nothing against the dose itself (without the model, it takes Rimatomics' radiation sickness down). For fallout over the whole map,
    schedule iodide in a drug policy instead.
 4. A colonist without **75% toxic environment resistance** stops at the line, puts on the fewest, nearest items that get them there

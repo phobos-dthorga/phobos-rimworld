@@ -74,6 +74,12 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     public float breathingRescueLevel = 0.3f;
     /// <summary>An item must add at least this to breathing, after any breathing it costs, to count as a help to it. Authored.</summary>
     public float minBreathingGain = 0.1f;
+    /// <summary>Toxic exposure counts as under way from this toxic buildup: about two of the game's fallout ticks unprotected. Authored.</summary>
+    public float toxicExposureFrom = 0.04f;
+    /// <summary>An item must keep out at least this share of toxic buildup to count as protection against it. Authored.</summary>
+    public float minToxicCut = 0.25f;
+    /// <summary>An item must add at least this to vacuum resistance to count as protection against vacuum. Authored.</summary>
+    public float minVacuumGain = 0.25f;
     /// <summary>Prevention is for someone whose chance factor of catching the disease (the game's own) is this or more. Authored.</summary>
     public float preventionMinRisk = 0.5f;
     /// <summary>Conditions that count as an outbreak besides the ones found by what they are (a disease an event of the game brings, or

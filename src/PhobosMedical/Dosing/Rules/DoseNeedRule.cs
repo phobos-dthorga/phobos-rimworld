@@ -15,6 +15,10 @@ public enum DoseNeed
     Prevention,
     /// <summary>The patient can barely breathe: an item that raises breathing, as a bridge to oxygen or surgery (Medical 0.29.0).</summary>
     Breathing,
+    /// <summary>Toxic buildup has begun and its source is still around the person: an item that cuts what they take in (Medical 0.30.0).</summary>
+    Toxic,
+    /// <summary>The person is caught in vacuum and harmed by it: an item that raises vacuum resistance (Medical 0.30.0).</summary>
+    Vacuum,
 }
 
 /// <summary>

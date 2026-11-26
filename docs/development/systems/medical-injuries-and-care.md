@@ -234,15 +234,18 @@ if no pain relief can come, the disease drug still does. Nothing that gives a di
 Since Medical 0.28.0 every reason for a dose is a row of one table, a `PhobosCareNeedDef` (`Defs/Phobos/Dosing/CareNeeds.xml`). A
 row gives its order, how serious it is, whether it keeps the player's reserve and whether an unmet one raises the alert; its worker
 class (`Dosing/Needs/`) reads the patient. `DoseService` is the engine every worker calls: one safety rule and one choice. A doctor
-looks at the rows in order, and the first with something to give decides the dose. **Not yet tested in game** (rows 590 to 593).
+looks at the rows in order, and the first with something to give decides the dose. **Not yet tested in game** (rows 590 to 593,
+605 to 607).
 
 | Order | Need | Who qualifies | How serious | Switch |
 | --- | --- | --- | --- | --- |
+| 2 | Caught in vacuum | On their feet in vacuum and harmed by it, carrying something that raises vacuum resistance | Life-threatening | Self only: a tick (on) |
 | 5 | Breathing rescue | Down or in bed, breathing at 0.3 or under and not capped there | Life-threatening | Nobody, or doctors (default) |
 | 10 | Cure | Down or in bed, with a visible bad condition some indexed item removes | Serious; life-threatening when the condition can kill | Nobody, or doctors (default) |
 | 20 | Pain relief | As *Doctors who dose* says | Serious | The dosing switch, and self-medication's own |
 | 30 | Help against a disease | As above | Life-threatening | Its own tick |
 | 35 | Radiation medicine | By dose and stage; **the radiation part keeps its own choice, work giver and job** | Life-threatening | The radiation model's |
+| 38 | Protection from toxins | Toxic buildup at 0.04 or more and its source still around them | Minor | Nobody, doctors, or doctors and self (default) |
 | 40 | Prevention in an outbreak | An outbreak disease is on the map and this person could still catch it | Minor | Nobody, doctors, or doctors and self (default) |
 
 **A breathing rescue** (0.29.0). A help to breathing is a medical drug whose conditions, at its dose, add 0.1 or more to breathing
@@ -252,6 +255,27 @@ or an operation, never a cure. **Not where a condition caps breathing at or unde
 adds to breathing and cannot lift a ceiling. For this need alone the safety rule does not ask the breathing floor, since the
 patient is under it already; it asks that the dose gives more breathing than it takes. **Consciousness is not read**: nobody is
 woken with a stimulant (the owner's choice: an awake patient in pain is tended worse).
+
+**Protection while exposed** (0.30.0; the owner's cards of 26 Nov 2026). An item protects against toxins when its conditions, at its
+dose, keep out a quarter or more of toxic buildup: the game multiplies what a person takes in by one less each of the two toxic
+resistances (`ToxicUtility.DoPawnToxicDamage`), so Medicines+' AntiTox (0.5 and 0.6) keeps out 80%, for about 2.4 hours. Exposure is
+under way when the buildup is 0.04 or more and its source is at the person's cell: polluted ground, ground that builds toxins, tox gas,
+or open sky under toxic fallout or toxic weather, the places the game deals it from. Doctors give it to someone down or in bed there;
+people on their feet take their own at the painkillers' hook, after a preventive. A minor need, with the preventives' reserve.
+
+**Caught in vacuum** (0.30.0, Odyssey). Someone on their feet standing at half vacuum or more, with vacuum resistance under 1, takes
+an item they carry that adds a quarter or more to vacuum resistance (Complementary Odyssey's vacsop: 0.5 for a day, and no vacuum
+burns). The giver is a node in the game's **constant** think tree just ahead of its search for air (`JobGiver_FindOxygen`), because
+that tree interrupts any job and the search for air would otherwise always come first; on a map not in vacuum it costs one field
+read. Only what they carry: nobody walks into vacuum to fetch one and no doctor goes in. Life-threatening, so a rare item may be used;
+no reserve, since nothing comes off the shelf. Drafted, downed, raging or ordered people are not interrupted.
+
+**The toxic controlled area** (0.30.0): a second protective-gear line beside the radiation one, painted from the zone menu, always
+loaded. Toxic environment resistance 0.6 to cross, and any medical drug raising either toxic resistance as its preventive, found by
+what it does (the Framework's `preventiveStats`): AntiTox alone passes, as does a gas mask (0.8); a face mask (0.5) needs more. Its
+paint tools show the game's home-area pictures until their own are made. **Every line's dose now goes through dosing's safety and the
+reserve** (`DoseService.LineDoseAllowed`): someone who will not take it, is overdosed or is still on the last dose is not sent, and the
+shelf keeps the preventives' reserve, potassium iodide at the radiation line included.
 
 **Cures.** The index lists an item as a cure when one of its outcomes removes conditions: an outcome class named in the rules'
 `removalReaders` (the class's full name and the field holding the conditions; Ushanka's Biological Warfare's antiserums), or `cures`
@@ -547,7 +571,7 @@ None of these is a test in game.
   `BurnedOffTests`, `BurnShockRuleTests`, `CarbonMonoxideRuleTests`, `AirwayRuleTests`, `EscharRuleTests`, `ChemicalRuleTests`,
   `CausticRuleTests`, `FireHeatRuleTests`), `Dosing/` (`DoseEffectRuleTests`, `DoseNeedRuleTests`, `DoseSafetyRuleTests`,
   `DoseChoiceRuleTests`, `ImmunityTests`, `BleedingHoldTests`, `SelfDoseRuleTests`, `FussingRuleTests`, `CareSafetyRuleTests`, `StockReserveRuleTests`, `PreventionRuleTests`, `CareScoreTests`,
-  `CareSafetyOrderTests`, `BreathingRescueTests`) and `Triage/`
+  `CareSafetyOrderTests`, `BreathingRescueTests`, `ExposureTests`) and `Triage/`
   (`ConditionClassRuleTests`, `AuthorityRuleTests`, `OperationChoiceRuleTests`, `TriageRuleTests`).
 - **Dev actions** (`*/Debug/`): five "Burns:" (burn load, fire heat at the mouse cell, start an airway burn, heal caustic eyes,
   scorch plants), four "Dosing:" (the index, disease drugs, self-medication, a patient's decision), three "Triage:" (the index,

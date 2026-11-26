@@ -21,6 +21,40 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.30.0] - 2026-11-26 - Draft
+
+Protection while exposed: toxins, vacuum, and a toxic controlled area
+
+### Added
+
+- **People taking in toxins take something that keeps them out.** Someone whose toxic buildup has begun and who is still in its
+  source (polluted ground, tox gas, outdoors in toxic fallout) takes whatever in stock keeps toxins out, such as AntiTox, again as it
+  wears off; doctors give it to those down or in bed there. It keeps the preventives' reserve. A setting: nobody, doctors, or doctors
+  and self (the default). Not yet tested in game: row 605 of the test pass.
+- **A toxic controlled area**, painted from the zone tab: colonists stop at its edge, take AntiTox if it is in reach, put on masks
+  until they are protected enough, and take the masks off on the way out. Its paint tools show the game's home-area pictures for now.
+  Not yet tested in game: row 606.
+- **Someone caught in vacuum takes a vacuum medicine they carry**, such as vacsop, at once, before going to find air. Nobody fetches
+  one from the shelf and no doctor goes in. With Odyssey; a setting, on. Not yet tested in game: row 607.
+
+### Changed
+
+- **A dose at any protective-gear line keeps the reserve and the dosing rules**: nobody is sent for one they will not take, while
+  overdosed or while the last still works, and the last five on the shelf stay there. That includes potassium iodide at the
+  radiation line.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.327.0 or later.
+
+### Save compatibility
+
+- Safe with an existing save. Two new settings start at their defaults; a painted toxic controlled area is saved with the map.
+
+### Compatibility and limits
+
+- Our own caustic gas is not counted as a toxic source: the game's toxic resistances do not govern it.
+
 ## [0.29.0] - 2026-11-26 - Draft
 
 A breathing rescue, and the rare-medicine mark as a setting

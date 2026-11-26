@@ -72,6 +72,27 @@ public static class BreathingRescueRule
 }
 
 /// <summary>
+/// Whether toxic exposure is under way (Medical 0.30.0; the owner's card of 26 Nov 2026, "while exposure is under way"): the buildup
+/// has begun, and its source is still around the person: polluted ground, ground that builds toxins by itself, tox gas, or open sky
+/// while toxic fallout or toxic weather lasts (the sources the game itself deals toxic buildup from). Someone the game already keeps
+/// fully from it (both resistances add up to nothing taken in) is left alone. Game-free.
+/// </summary>
+public static class ExposureRule
+{
+    public static bool ToxicUnderWay(float buildup, float buildupFrom, bool sourceNow, float intakeFactor) =>
+        buildup >= buildupFrom && sourceNow && intakeFactor > 0.001f;
+
+    /// <summary>What the game lets through of a toxic source, from the two resistances it reads.</summary>
+    public static float IntakeFactor(float toxicResistance, float toxicEnvironmentResistance) =>
+        Clamp01(1f - toxicResistance) * Clamp01(1f - toxicEnvironmentResistance);
+
+    /// <summary>Caught in vacuum: standing where the game harms the person (half vacuum or more) with less resistance than keeps it out.</summary>
+    public static bool CaughtInVacuum(float vacuumHere, float vacuumResistance) => vacuumHere >= 0.5f && vacuumResistance < 1f;
+
+    static float Clamp01(float value) => value < 0f ? 0f : value > 1f ? 1f : value;
+}
+
+/// <summary>
 /// Who prevention is for: someone the disease could still strike. The game's own figure is the chance factor of catching it: 0 for
 /// someone immune by a condition or a gene, or who has it already; below 1 for someone with immunity left over from an earlier bout;
 /// 1 for everyone else. Game-free.

@@ -8,19 +8,24 @@ using Verse.AI;
 namespace Phobos.Medical.Protection;
 
 /// <summary>
-/// D'thorga Medical's protective-gear part (docs/development/radiation-control-line.md): a radiation control point and a radiation
-/// controlled area, for Rimatomics (owner, 10 Nov 2026), built on D'thorga Framework's protective-gear lines. Its Defs load only with
-/// Rimatomics; the hooks below cost a field read on any map without a line.
+/// D'thorga Medical's protective-gear part (docs/development/radiation-control-line.md), built on D'thorga Framework's protective-gear
+/// lines: a radiation control point and a radiation controlled area, for Rimatomics (owner, 10 Nov 2026), whose Defs load only with
+/// it; and a toxic controlled area (Medical 0.30.0; the owner's card of 26 Nov 2026), always. The hooks below cost a field read on any
+/// map without a line.
 /// </summary>
 internal static class ProtectionPart
 {
     public const string RadiationZone = "PhobosZone_RadiationControlled";
+    public const string ToxicZone = "PhobosZone_ToxicControlled";
+
+    /// <summary>From the mod's constructor: a dose taken at any line goes through the dosing part's safety and the player's reserve.</summary>
+    internal static void Start() => ProtectionLine.DoseAllowed = Phobos.Dosing.Services.DoseService.LineDoseAllowed;
 
     internal static LoadReport Report(LoadReport report)
     {
         int kinds = DefDatabase<ProtectionZoneDef>.AllDefsListForReading.Count;
         return kinds == 0
-            ? report.Off("protective-gear lines", "Rimatomics not active")
+            ? report.Off("protective-gear lines", "no kind of line loaded")
             : report.On("protective-gear lines: " + kinds + " kind" + (kinds == 1 ? "" : "s") + " (" + string.Join(", ", DefDatabase<ProtectionZoneDef>.AllDefsListForReading.ConvertAll(d => d.defName)) + ")");
     }
 }
@@ -43,6 +48,26 @@ public sealed class Designator_PhobosRadiationAreaClear : Designator_PhobosProte
     }
 
     protected override string ZoneDefName => ProtectionPart.RadiationZone;
+}
+
+/// <summary>Paints the toxic controlled area (Medical 0.30.0). Its own pictures are to come; until then, the game's home-area ones.</summary>
+public sealed class Designator_PhobosToxicAreaExpand : Designator_PhobosProtectionArea
+{
+    public Designator_PhobosToxicAreaExpand() : base(true, "Phobos/Medical/Protection/ToxicAreaExpand")
+    {
+    }
+
+    protected override string ZoneDefName => ProtectionPart.ToxicZone;
+}
+
+/// <summary>Clears the toxic controlled area.</summary>
+public sealed class Designator_PhobosToxicAreaClear : Designator_PhobosProtectionArea
+{
+    public Designator_PhobosToxicAreaClear() : base(false, "Phobos/Medical/Protection/ToxicAreaClear")
+    {
+    }
+
+    protected override string ZoneDefName => ProtectionPart.ToxicZone;
 }
 
 /// <summary>

@@ -21,10 +21,17 @@ public readonly struct StageEffect
     public readonly float ImmunityGain;
     /// <summary>The stage's mean days between vomits; 0 or less means it causes none.</summary>
     public readonly float VomitMtbDays;
+    /// <summary>What the stage adds to the game's toxic resistance and toxic environment resistance, and to vacuum resistance (0.30.0).</summary>
+    public readonly float ToxicResistance;
+    public readonly float ToxicEnvironmentResistance;
+    public readonly float VacuumResistance;
 
     public StageEffect(float painFactor, float painOffset, float consciousnessOffset, float consciousnessSetMax, float breathingOffset, float bleedFactor, float immunityGain = 0f,
-        float vomitMtbDays = 0f)
+        float vomitMtbDays = 0f, float toxicResistance = 0f, float toxicEnvironmentResistance = 0f, float vacuumResistance = 0f)
     {
+        ToxicResistance = toxicResistance;
+        ToxicEnvironmentResistance = toxicEnvironmentResistance;
+        VacuumResistance = vacuumResistance;
         VomitMtbDays = vomitMtbDays;
         ImmunityGain = immunityGain;
         PainFactor = painFactor;
@@ -62,10 +69,17 @@ public readonly struct DoseEffect
     /// <summary>Breathing added by offsets, over every condition the dose gives; 0 when none (Medical 0.29.0). A cost elsewhere in
     /// the same dose is kept apart in <see cref="BreathingCost"/>: the two are weighed against each other, never netted here.</summary>
     public readonly float BreathingGain;
+    /// <summary>The share of toxic buildup the dose keeps out, 0 to 1 (Medical 0.30.0). The game multiplies what a person takes in by
+    /// one less each of the two toxic resistances (ToxicUtility.DoPawnToxicDamage), so the share is one less that product.</summary>
+    public readonly float ToxicCut;
+    /// <summary>Vacuum resistance added by the dose, 0 when none (Medical 0.30.0).</summary>
+    public readonly float VacuumGain;
 
     public DoseEffect(float painRelief, float consciousnessCost, float consciousnessCap, float breathingCost, float bleedIncrease, float addictiveness, bool recreational, bool sedative, float immunityGain = 0f,
-        float vomitsPerDay = 0f, float breathingGain = 0f)
+        float vomitsPerDay = 0f, float breathingGain = 0f, float toxicCut = 0f, float vacuumGain = 0f)
     {
+        ToxicCut = toxicCut;
+        VacuumGain = vacuumGain;
         BreathingGain = breathingGain;
         VomitsPerDay = vomitsPerDay;
         ImmunityGain = immunityGain;
@@ -100,6 +114,9 @@ public static class DoseEffectRule
         float immunityGain = 0f;
         float vomitsPerDay = 0f;
         float breathingGain = 0f;
+        float toxicResistance = 0f;
+        float toxicEnvironmentResistance = 0f;
+        float vacuumResistance = 0f;
         for (int i = 0; i < stages.Count; i++)
         {
             StageEffect stage = stages[i];
@@ -112,11 +129,15 @@ public static class DoseEffectRule
             bleedFactor *= stage.BleedFactor;
             immunityGain += stage.ImmunityGain;
             if (stage.VomitMtbDays > 0f) vomitsPerDay += 1f / stage.VomitMtbDays;
+            toxicResistance += stage.ToxicResistance;
+            toxicEnvironmentResistance += stage.ToxicEnvironmentResistance;
+            vacuumResistance += stage.VacuumResistance;
         }
         float relief = Clamp01(1f - painFactor + (painOffset < 0f ? -painOffset : 0f));
         bool sedative = consciousnessCap <= sedativeCeiling;
         return new DoseEffect(relief, Clamp01(consciousnessCost), consciousnessCap, Clamp01(breathingCost), bleedFactor > 1f ? bleedFactor - 1f : 0f,
-            addictiveness < 0f ? 0f : addictiveness, recreational, sedative, immunityGain > 0f ? immunityGain : 0f, vomitsPerDay, breathingGain);
+            addictiveness < 0f ? 0f : addictiveness, recreational, sedative, immunityGain > 0f ? immunityGain : 0f, vomitsPerDay, breathingGain,
+            1f - (1f - Clamp01(toxicResistance)) * (1f - Clamp01(toxicEnvironmentResistance)), vacuumResistance > 0f ? vacuumResistance : 0f);
     }
 
     static float Clamp01(float value) => value < 0f ? 0f : value > 1f ? 1f : value;

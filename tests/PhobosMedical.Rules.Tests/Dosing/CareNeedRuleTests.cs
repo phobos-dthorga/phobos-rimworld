@@ -280,3 +280,102 @@ public class BreathingRescueTests
         Assert.Equal(DoseRefusal.None, DoseSafetyRule.Check(Salts, DoseNeed.Breathing, 0f, false, new PatientState(0.6f, 0.1f, 0f, true, 0.6f), Limits));
     }
 }
+
+/// <summary>
+/// Protection while exposed, D'thorga Medical 0.30.0. AntiTox's stage is Medicines+' as read on 26 Nov 2026 (toxic resistance +0.5,
+/// toxic environment resistance +0.6); vacsop's is Complementary Odyssey's (vacuum resistance +0.5).
+/// </summary>
+public class ExposureTests
+{
+    static readonly StageEffect AntiToxStage = new(1f, 0f, 0f, 1f, 0f, 1f, 0f, 0f, 0.5f, 0.6f);
+    static readonly StageEffect VacsopStage = new(1f, 0f, 0f, 1f, 0f, 1f, 0f, 0f, 0f, 0f, 0.5f);
+    static DoseEffect AntiTox => DoseEffectRule.Combine(new[] { AntiToxStage }, 0f, false, 0.1f);
+    static DoseEffect Vacsop => DoseEffectRule.Combine(new[] { VacsopStage }, 0f, false, 0.1f);
+    static readonly DoseLimits Limits = new(0.25f, 0.3f, 0.4f, false, false, 0.3f);
+    static readonly PatientState Working = new(1f, 1f, 0f, true);
+
+    [Fact]
+    public void TheTwoToxicResistancesMultiplyAsTheGameAppliesThem()
+    {
+        // The game takes in (1 - 0.5) x (1 - 0.6) = 0.2 of the toxins: 80% kept out.
+        Assert.Equal(0.8f, AntiTox.ToxicCut, 4);
+        Assert.Equal(0.2f, ExposureRule.IntakeFactor(0.5f, 0.6f), 4);
+        Assert.Equal(0f, ExposureRule.IntakeFactor(1f, 0f), 4);
+        Assert.Equal(1f, ExposureRule.IntakeFactor(-0.2f, 0f), 4);
+        Assert.Equal(0f, Fixtures.Morphine.ToxicCut);
+    }
+
+    [Fact]
+    public void ResistancesAddAcrossConditionsAndAreHeldToOne()
+    {
+        DoseEffect two = DoseEffectRule.Combine(new[] { AntiToxStage, new StageEffect(1f, 0f, 0f, 1f, 0f, 1f, 0f, 0f, 0.7f, 0f) }, 0f, false, 0.1f);
+        // Toxic resistance 0.5 + 0.7 is held at 1: nothing gets through.
+        Assert.Equal(1f, two.ToxicCut, 4);
+        Assert.Equal(0.5f, Vacsop.VacuumGain, 4);
+    }
+
+    [Fact]
+    public void ExposureIsUnderWayOnlyWithBuildupBegunASourceNowAndSomethingGettingThrough()
+    {
+        Assert.True(ExposureRule.ToxicUnderWay(0.04f, 0.04f, true, 1f));
+        Assert.False(ExposureRule.ToxicUnderWay(0.03f, 0.04f, true, 1f));
+        // Out of the fallout, off the polluted ground: the buildup alone is not exposure.
+        Assert.False(ExposureRule.ToxicUnderWay(0.5f, 0.04f, false, 1f));
+        // Fully kept out already (a hazard suit): nothing to add.
+        Assert.False(ExposureRule.ToxicUnderWay(0.5f, 0.04f, true, 0f));
+    }
+
+    [Fact]
+    public void CaughtInVacuumIsWhereTheGameHarmsAndResistanceFallsShort()
+    {
+        Assert.True(ExposureRule.CaughtInVacuum(1f, 0f));
+        Assert.True(ExposureRule.CaughtInVacuum(0.5f, 0.9f));
+        Assert.False(ExposureRule.CaughtInVacuum(0.49f, 0f));
+        Assert.False(ExposureRule.CaughtInVacuum(1f, 1f));
+    }
+
+    [Fact]
+    public void ProtectionIsWorthTheShareItKeepsOutLessItsCosts()
+    {
+        Assert.Equal(0.8f, DoseChoiceRule.Score(AntiTox, DoseNeed.Toxic, false, CareFixtures.Weights), 4);
+        Assert.Equal(0.5f, DoseChoiceRule.Score(Vacsop, DoseNeed.Vacuum, false, CareFixtures.Weights), 4);
+        Assert.True(DoseChoiceRule.WorthwhileForExposure(AntiTox, DoseNeed.Toxic, 0.25f, CareFixtures.Weights));
+        Assert.True(DoseChoiceRule.WorthwhileForExposure(Vacsop, DoseNeed.Vacuum, 0.25f, CareFixtures.Weights));
+        // Each is protection against its own hazard only.
+        Assert.False(DoseChoiceRule.WorthwhileForExposure(AntiTox, DoseNeed.Vacuum, 0.25f, CareFixtures.Weights));
+        Assert.False(DoseChoiceRule.WorthwhileForExposure(Vacsop, DoseNeed.Toxic, 0.25f, CareFixtures.Weights));
+        Assert.False(DoseChoiceRule.WorthwhileForExposure(Fixtures.Morphine, DoseNeed.Toxic, 0.25f, CareFixtures.Weights));
+        // A minimum of zero would index everything: refused.
+        Assert.False(DoseChoiceRule.WorthwhileForExposure(AntiTox, DoseNeed.Toxic, 0f, CareFixtures.Weights));
+    }
+
+    [Fact]
+    public void ARecreationalDrugIsNeverProtection()
+    {
+        DoseEffect recreational = DoseEffectRule.Combine(new[] { AntiToxStage }, 0.05f, true, 0.1f);
+        Assert.False(DoseChoiceRule.WorthwhileForExposure(recreational, DoseNeed.Toxic, 0.25f, CareFixtures.Weights));
+    }
+
+    [Fact]
+    public void TheSafetyRuleAsksForProtectionAndKeepsItsOtherChecks()
+    {
+        Assert.Equal(DoseRefusal.None, DoseSafetyRule.Check(AntiTox, DoseNeed.Toxic, 0f, false, Working, Limits));
+        Assert.Equal(DoseRefusal.None, DoseSafetyRule.Check(Vacsop, DoseNeed.Vacuum, 0f, false, Working, Limits));
+        Assert.Equal(DoseRefusal.NoProtection, DoseSafetyRule.Check(Vacsop, DoseNeed.Toxic, 0f, false, Working, Limits));
+        Assert.Equal(DoseRefusal.NoProtection, DoseSafetyRule.Check(Fixtures.Thornweed, DoseNeed.Vacuum, 0f, false, Working, Limits));
+        // A dose still working is not doubled: AntiTox is taken again only as it wears off.
+        Assert.Equal(DoseRefusal.StillActive, DoseSafetyRule.Check(AntiTox, DoseNeed.Toxic, 0.5f, false, Working, Limits));
+        // A hard bleed holds a painkiller, never protection.
+        Assert.Equal(DoseRefusal.None, DoseSafetyRule.Check(AntiTox, DoseNeed.Toxic, 0f, false, new PatientState(1f, 1f, 0f, true, 0.6f), Limits));
+        Assert.Equal(DoseRefusal.PatientWillNotTake, DoseSafetyRule.Check(AntiTox, DoseNeed.Toxic, 0f, false, new PatientState(1f, 1f, 0f, false), Limits));
+    }
+
+    [Fact]
+    public void ProtectionIsAMinorNeedSoNothingAddictiveAndNothingRare()
+    {
+        Assert.Equal(DoseRefusal.AddictiveForMinorNeed, CareSafetyRule.Check(CareSeriousness.Minor, 0.02f, false, false));
+        Assert.Equal(DoseRefusal.RareItemKept, CareSafetyRule.Check(CareSeriousness.Minor, 0f, false, true));
+        // Caught in vacuum is life-threatening: a rare item may be used there.
+        Assert.Equal(DoseRefusal.None, CareSafetyRule.Check(CareSeriousness.LifeThreatening, 0f, false, true));
+    }
+}

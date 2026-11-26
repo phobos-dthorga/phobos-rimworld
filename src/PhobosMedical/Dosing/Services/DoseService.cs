@@ -273,7 +273,7 @@ public static class DoseService
     /// of reach is struck out and the rule asked again, so the answer is the one it would give with every item looked for first:
     /// the best allowed option that someone can actually fetch. Reads and rewrites the shared candidate list.
     /// </summary>
-    static void ChooseInReach(DoseDecision decision, Pawn? doctor, Pawn patient, bool own, bool bleeding, DoseWeights weights)
+    static void ChooseInReach(DoseDecision decision, Pawn? doctor, Pawn patient, bool own, bool bleeding, DoseWeights weights, bool ownOnly = false)
     {
         while (true)
         {
@@ -282,7 +282,7 @@ public static class DoseService
             DoseVerdict verdict = decision.Verdicts[chosen];
             if (verdict.Item == null)
             {
-                Thing? item = own ? FindOwnItem(patient, verdict.Option.Def) : FindItem(doctor, patient, verdict.Option.Def);
+                Thing? item = ownOnly ? Carried(patient, verdict.Option.Def) : own ? FindOwnItem(patient, verdict.Option.Def) : FindItem(doctor, patient, verdict.Option.Def);
                 verdict = new DoseVerdict(verdict.Option, item, verdict.Present, verdict.Refusal, verdict.Score);
                 decision.Verdicts[chosen] = verdict;
             }
@@ -322,7 +322,9 @@ public static class DoseService
         bool rare = CareSafetyRule.Rare(option.MarketValue, DosingMod.Settings.rareItemMarketValue);
         refusal = CareSafetyRule.Check(SeriousnessFor(option, need, care), option.Effect.Addictiveness, beginsLethalDependency, rare);
         if (refusal != DoseRefusal.None) return refusal;
-        if (care.UsesReserve && patient.Map != null && !StockReserveRule.MayTake(InStock(patient.Map, option.Def), DosingMod.Settings.preventionReserve))
+        // What a person carries is not the shelf's: the reserve is counted against the stock on the map, and taking one's own leaves it.
+        if (care.UsesReserve && patient.Map != null && !Carries(patient, option.Def)
+            && !StockReserveRule.MayTake(InStock(patient.Map, option.Def), DosingMod.Settings.preventionReserve))
             return DoseRefusal.ReserveKept;
         return DoseRefusal.None;
     }
@@ -349,6 +351,43 @@ public static class DoseService
             if (things[i].Spawned && !things[i].IsForbidden(Faction.OfPlayer)) count += things[i].stackCount;
         }
         return count;
+    }
+
+    static bool Carries(Pawn pawn, ThingDef def)
+    {
+        ThingOwner<Thing>? inventory = pawn.inventory?.innerContainer;
+        if (inventory == null) return false;
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].def == def) return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// The D'thorga Framework protective-gear line's question (Framework 0.327.0): may this pawn take this preventive dose at the line?
+    /// The pawn's own willingness (never overridden for a dose they take themself), no dose during an overdose, none while an earlier
+    /// one is still working, and the player's reserve of preventives, counted against the shelf (owner's card of 26 Nov 2026).
+    /// </summary>
+    public static bool LineDoseAllowed(Pawn pawn, Thing dose)
+    {
+        PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
+        HediffSet set = pawn.health.hediffSet;
+        if (!WillTake(pawn, dose.def)) return false;
+        if ((set.GetFirstHediffOfDef(HediffDefOf.DrugOverdose)?.Severity ?? 0f) >= rules.overdoseLimit) return false;
+        List<IngestionOutcomeDoer>? doers = dose.def.ingestible?.outcomeDoers;
+        if (doers != null)
+        {
+            for (int i = 0; i < doers.Count; i++)
+            {
+                if (doers[i] is not IngestionOutcomeDoer_GiveHediff give || give.hediffDef == null) continue;
+                float severity = give.severity > 0f ? give.severity : give.hediffDef.initialSeverity;
+                float existing = set.GetFirstHediffOfDef(give.hediffDef)?.Severity ?? 0f;
+                if (severity > 0f && existing / severity >= rules.redoseBelowFraction) return false;
+            }
+        }
+        if (dose.ParentHolder is Pawn_InventoryTracker || dose.Map == null) return true;
+        return StockReserveRule.MayTake(InStock(dose.Map, dose.def), DosingMod.Settings.preventionReserve);
     }
 
     /// <summary>Whether any of an item is on the map at all, forbidden or not: what an unmet need looks for.</summary>
@@ -466,7 +505,7 @@ public static class DoseService
             if (pawn.IsSlave) Medical.Seen.Note("medical.slave-self-dose", pawn, chosen.Option.Def.label);
             return DrugAIUtility.IngestAndTakeToInventoryJob(chosen.Item, pawn, 1);
         }
-        return PreventionService.SelfJob(pawn);
+        return PreventionService.SelfJob(pawn) ?? ExposureService.SelfToxicJob(pawn);
     }
 
     /// <summary>
@@ -482,36 +521,54 @@ public static class DoseService
     /// What this pawn would take against the outbreak diseases they are unprotected from (Medical 0.28.0): the doctors' safety and
     /// choice, the higher floor of someone on their feet, the reserve, and the drug policy where it can speak about the item.
     /// </summary>
-    public static DoseDecision SelfPreventionDecide(Pawn pawn, List<HediffDef> targets, bool everyItem = false)
+    public static DoseDecision SelfPreventionDecide(Pawn pawn, List<HediffDef> targets, bool everyItem = false) =>
+        targets.Count == 0
+            ? new DoseDecision { Need = DoseNeed.None }
+            : SelfCareDecide(pawn, DoseNeed.Prevention, DoseIndex.PreventionOptions, new CareContext(CareSeriousness.Minor, targets, true), false, everyItem);
+
+    /// <summary>
+    /// What this pawn would take for themself for one care need (Medical 0.30.0, from 0.28.0's prevention): the doctors' safety and
+    /// choice, the higher floor of someone on their feet, and the drug policy where it can speak about the item. With
+    /// <paramref name="ownOnly"/>, only what they carry: someone caught in vacuum does not go looking.
+    /// </summary>
+    public static DoseDecision SelfCareDecide(Pawn pawn, DoseNeed need, IReadOnlyList<DoseOption> options, in CareContext care, bool ownOnly, bool everyItem = false)
     {
         PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
-        var decision = new DoseDecision { Need = targets.Count == 0 ? DoseNeed.None : DoseNeed.Prevention };
-        if (decision.Need == DoseNeed.None) return decision;
-        IReadOnlyList<DoseOption> options = DoseIndex.PreventionOptions;
+        var decision = new DoseDecision { Need = need };
         var limits = new DoseLimits(rules.redoseBelowFraction, rules.overdoseLimit, rules.selfCapacityFloor, false, false, rules.bleedHoldRate);
-        var care = new CareContext(CareSeriousness.Minor, targets, true);
         DrugPolicy? policy = pawn.drugs?.CurrentPolicy;
         int desire = DrugDesire(pawn);
         candidates.Clear();
         for (int i = 0; i < options.Count; i++)
         {
             DoseOption option = options[i];
-            if (!Answers(option, DoseNeed.Prevention, targets)) continue;
-            bool present = IsPresent(pawn, pawn, option.Def);
+            if (!Answers(option, need, care.Targets)) continue;
+            bool present = ownOnly ? Carries(pawn, option.Def) : IsPresent(pawn, pawn, option.Def);
             DoseRefusal refusal = DoseRefusal.None;
             Thing? item = null;
-            if (present) refusal = PreventionPolicyPermits(pawn, policy, option, desire) ? Evaluate(option, pawn, DoseNeed.Prevention, 0f, limits, care) : DoseRefusal.PolicyForbids;
+            if (present) refusal = PreventionPolicyPermits(pawn, policy, option, desire) ? Evaluate(option, pawn, need, 0f, limits, care) : DoseRefusal.PolicyForbids;
             bool allowed = present && refusal == DoseRefusal.None;
             if (allowed && everyItem)
             {
-                item = FindOwnItem(pawn, option.Def);
+                item = ownOnly ? Carried(pawn, option.Def) : FindOwnItem(pawn, option.Def);
                 allowed = item != null;
             }
             candidates.Add(new DoseCandidate(option.Effect, allowed));
-            decision.Verdicts.Add(new DoseVerdict(option, item, present, refusal, DoseChoiceRule.Score(option.Effect, DoseNeed.Prevention, false, rules.Weights)));
+            decision.Verdicts.Add(new DoseVerdict(option, item, present, refusal, DoseChoiceRule.Score(option.Effect, need, false, rules.Weights)));
         }
-        ChooseInReach(decision, pawn, pawn, true, false, rules.Weights);
+        ChooseInReach(decision, pawn, pawn, true, false, rules.Weights, ownOnly);
         return decision;
+    }
+
+    static Thing? Carried(Pawn pawn, ThingDef def)
+    {
+        ThingOwner<Thing>? inventory = pawn.inventory?.innerContainer;
+        if (inventory == null) return null;
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].def == def) return inventory[i];
+        }
+        return null;
     }
 
     /// <summary>
@@ -567,6 +624,8 @@ public static class DoseService
             job.count = 1;
             Medical.Seen.Note("medical.dose-job-made", patient, chosen.Option.Def.label);
             if (decision.Need == DoseNeed.Cure && Medical.Seen.Wants("medical.cure-job-made", patient)) Medical.Seen.Note("medical.cure-job-made", patient, chosen.Option.Def.label);
+            if (decision.Need == DoseNeed.Toxic && Medical.Seen.Wants("medical.toxic-job-made", patient))
+                Medical.Seen.Note("medical.toxic-job-made", patient, chosen.Option.Def.label);
             if (decision.Need == DoseNeed.Breathing && Medical.Seen.Wants("medical.breathing-job-made", patient))
                 Medical.Seen.Note("medical.breathing-job-made", patient, chosen.Option.Def.label);
             if (decision.Need == DoseNeed.Prevention && Medical.Seen.Wants("medical.prevention-job-made", patient))

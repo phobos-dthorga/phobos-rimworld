@@ -66,6 +66,12 @@
          from which a medicine is rare is a setting since 0.29.0, 300 silver by default. -->
     <breathingRescueLevel>0.3</breathingRescueLevel>
     <minBreathingGain>0.1</minBreathingGain>
+    <!-- Protection while exposed (D'thorga Medical 0.30.0), all authored: toxic exposure counts as under way from a toxic buildup of
+         0.04, where the game's first stage begins; an item must keep out a quarter of the buildup, or add a quarter to vacuum resistance,
+         to count as protection. -->
+    <toxicExposureFrom>0.04</toxicExposureFrom>
+    <minToxicCut>0.25</minToxicCut>
+    <minVacuumGain>0.25</minVacuumGain>
     <!-- Prevention is for someone whose chance of catching the disease is at least half what an unprotected person's is: the game's
          own chance factor, which falls as immunity left over from an earlier bout rises (authored). -->
     <preventionMinRisk>0.5</preventionMinRisk>

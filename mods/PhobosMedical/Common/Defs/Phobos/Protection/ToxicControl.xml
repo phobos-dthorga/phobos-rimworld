@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A toxic controlled area (D'thorga Medical 0.30.0; the owner's card of 26 Nov 2026: "Both", a line as well as protection taken while
+     exposed; docs/development/medical-care-needs.md). Painted from the zone menu around polluted ground, a wastepack dump or a toxic vent.
+     Colonists stop at its edge, take a medicine that keeps toxins out if one is in reach (any medical drug whose condition raises one of
+     the two toxic resistances, found by what it does: Medicines+' AntiTox), and put on gear until they are protected enough, then go in;
+     they take the gear off again just outside. The game reads both resistances when it deals toxic buildup (ToxicUtility); the line asks
+     for toxic environment resistance, which worn gear raises. 0.6 is authored, a gameplay choice: AntiTox alone (0.6), a gas mask
+     alone (0.8), or a face mask (0.5) with something more. -->
+<Defs>
+
+  <Phobos.Framework.Protection.ProtectionZoneDef>
+    <defName>PhobosZone_ToxicControlled</defName>
+    <label>toxic controlled area</label>
+    <description>Where toxins are expected: polluted ground, tox gas, a waste dump. Colonists stop at its edge to take a medicine that keeps toxins out and put on gear, and take the gear off again just outside.</description>
+    <stat>ToxicEnvironmentResistance</stat>
+    <required>0.6</required>
+    <!-- A sickly yellow-green, the colour the game's pollution is drawn in. -->
+    <color>(0.62, 0.78, 0.18)</color>
+    <preventiveStats>
+      <li>ToxicEnvironmentResistance</li>
+      <li>ToxicResistance</li>
+    </preventiveStats>
+  </Phobos.Framework.Protection.ProtectionZoneDef>
+
+</Defs>

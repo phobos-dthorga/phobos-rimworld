@@ -3,7 +3,9 @@
 **Status (26 Nov 2026):** the first build (slices A and B: the table, cures, prevention in an outbreak, the reserve and the alert)
 is in D'thorga Medical 0.28.0 ([as built](#as-built-medical-0280)), not yet tested in game (rows 590 to 592 of
 [the test pass](in-game-test-pass.md)). Slice C is in 0.29.0 as a breathing rescue ([as built](#as-built-medical-0290)), not yet
-tested in game (row 593): blood loss was left to More Injuries by the owner's choice. Slices D and E are designed, not built. The owner answered all eight cards on 26 Nov 2026
+tested in game (row 593): blood loss was left to More Injuries by the owner's choice. Slice D is in 0.30.0 (with Framework
+0.327.0) as protection while exposed ([as built](#as-built-medical-0300)), not yet tested in game (rows 605 to 607). Slice E is
+designed, not built. The owner answered all eight cards on 26 Nov 2026
 ([the answers](#the-owners-answers-26-nov-2026-by-card-with-every-option-offered)) and then said "Go ahead and build the first slice".
 
 The owner, 26 Nov 2026: "I want to expand the range of medically relevant things that are automatically either taken or given by/to
@@ -58,6 +60,30 @@ This section keeps only where the build differs from the design below, and what 
   Rimatomics). The "before exposure" row of the table below was written without that: slice D starts from it.
 - **Rare items** (card 5) are in as chosen, for every row, pain included. Read from the patched Defs, nothing reaches 300 silver
   among the items whose Def states a value; the owner made the mark a setting (0.29.0).
+
+## As built: Medical 0.30.0
+
+The owner, 26 Nov 2026: "Go ahead and build before exposure next". Reading the game and the owner's mods changed the slice again, and
+two cards settled it ([the third round](#the-third-round-26-nov-2026-by-card-with-every-option-offered)).
+
+- **"About to enter" was already solved, for planned work.** D'thorga Framework's protective-gear line stops a colonist at a painted
+  area's edge and gives a named preventive first (potassium iodide at the radiation line, Medical 0.16.0). The toxic controlled area is
+  a second line on it. The Framework gained `preventiveStats`, so a line's preventive is found by what it does, and
+  `ProtectionLine.DoseAllowed`, so Medical's safety and the reserve apply to every line's dose, iodide included.
+- **Exposure under way is read from the game's own sources**, at the person's cell: polluted ground, toxic terrain, tox gas, and open
+  sky under toxic fallout or toxic weather (ToxicUtility, GasUtility, WeatherWorker in the game's code). Nothing scans the map.
+- **The two toxic resistances multiply** in the game's own sum, so AntiTox keeps out 80%, not 60%; the index reads both.
+- **AntiTox lasts about 2.4 hours** (0.05 at a dose, falling 0.5 a day): someone working all day in fallout takes about six. The
+  reserve holds the last five on the shelf.
+- **Vacuum needed a different hook.** The game's search for air sits in the constant think tree, which interrupts any job, so a giver
+  at the painkillers' hook would almost never run in a breach. Ours is inserted ahead of it by an XML patch, with no Harmony, and does
+  nothing without Odyssey.
+- **Vacuum is life-threatening and takes no reserve**: only what the person carries, which never came off the shelf. Agent choice.
+- **Agent choices, for the owner to revise:** buildup 0.04 marks exposure as under way (the game's first stage); a quarter kept out,
+  or a quarter of vacuum resistance added, makes an item protection; the toxic line asks 0.6; no alert for either (protection, not
+  treatment); adults only for vacuum, as for every dose taken oneself; the toxic area's paint tools use the game's home-area pictures
+  until their own are made.
+- **Not read:** our own caustic gas and the Framework's gases, which the game's toxic resistances do not govern.
 
 ## As built: Medical 0.29.0
 
@@ -234,7 +260,8 @@ coffee, alcohol and the like, except where a recreational painkiller is already 
 ## Slices
 
 **The owner's order (cards 1 and 8):** A and B together as the first build, then C; D and E after, in an order not yet chosen.
-**Done so far:** A and B (0.28.0); C as a breathing rescue, with blood loss left to More Injuries (0.29.0).
+**Done so far:** A and B (0.28.0); C as a breathing rescue, with blood loss left to More Injuries (0.29.0); D as protection while
+exposed and a toxic controlled area (0.30.0). E waits.
 
 | Slice | What | Change in play |
 | --- | --- | --- |
@@ -323,6 +350,25 @@ the owner chose the agent's lean.
 - Breathing, and waking the unconscious: also a stimulant for anyone unconscious (consciousness 30% or less) who is not sedated.
   About one dose every hour and a half for each unconscious patient.
 - Skip collapse for now: nothing built; another slice next.
+
+## The third round (26 Nov 2026, by card), with every option offered
+
+Put when building slice D, once the game and the owner's mods had been read. The chosen option is first and marked.
+
+### 11. When people take AntiTox by rule
+
+- **Chosen: both.** Taken while exposed anywhere, and a line the player can paint for planned work in a toxic place. (The agent leaned
+  to the first alone.)
+- While exposure is under way: someone whose toxic buildup has begun and who stands in its source takes one; a doctor gives one to
+  someone down or in bed there. No painting. About six a day in fallout; the reserve of 5 holds the last ones.
+- At a line you paint: a toxic controlled area, like the radiation line. Only where painted: fallout and stray gas not covered, and
+  anyone with no gear turned back.
+
+### 12. What vacsop does by rule
+
+- **Chosen: taken when caught in vacuum.** Someone standing in vacuum and harmed takes a vacsop they carry at once: it halves the
+  harm and stops the burns. Nobody walks into vacuum to fetch one, and doctors do not go in.
+- Leave vacuum to the game: Odyssey's own avoidance and vacsuits handle it, and vacsop stays for the player's own orders.
 
 ## The decisions left open by the first build, as answered (26 Nov 2026, on the Decisions page)
 

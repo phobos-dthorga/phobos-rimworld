@@ -182,6 +182,14 @@ public static class ProtectionLine
     }
 
     /// <summary>
+    /// A content mod's word on whether this pawn may take this preventive dose now (Framework 0.327.0): D'thorga Medical's dosing safety,
+    /// the player's reserve of preventives and the pawn's own willingness. Null takes every dose found, as before.
+    /// </summary>
+    public static System.Func<Pawn, Thing, bool>? DoseAllowed;
+
+    static bool MayTake(Pawn pawn, Thing dose) => DoseAllowed == null || DoseAllowed(pawn, dose);
+
+    /// <summary>
     /// Sends a pawn going in for a dose of the zone's preventive drug, when it has none of the zone's preventive conditions and one is in
     /// its inventory or in reach outside every zone; true when sent. Tried once an hour at most, so a dose that never arrives is no loop.
     /// </summary>
@@ -189,11 +197,11 @@ public static class ProtectionLine
     {
         List<ThingDef> drugs = zone.PreventiveDrugs;
         if (drugs.Count == 0 || zones.DoseTriedLately(pawn)) return false;
-        foreach (HediffDef condition in zone.preventiveHediffs)
+        foreach (HediffDef condition in zone.PreventiveConditions)
         {
             if (pawn.health.hediffSet.HasHediff(condition)) return false;
         }
-        Thing? dose = pawn.inventory?.innerContainer.FirstOrDefault(t => drugs.Contains(t.def));
+        Thing? dose = pawn.inventory?.innerContainer.FirstOrDefault(t => drugs.Contains(t.def) && MayTake(pawn, t));
         if (dose == null)
         {
             float best = float.MaxValue;
@@ -203,7 +211,7 @@ public static class ProtectionLine
                 {
                     if (thing.IsForbidden(pawn) || zones.ZoneAt(thing.Position) != null) continue;
                     float distance = (thing.Position - pawn.Position).LengthHorizontalSquared;
-                    if (distance >= best || !pawn.CanReserveAndReach(thing, PathEndMode.ClosestTouch, Danger.Some)) continue;
+                    if (distance >= best || !MayTake(pawn, thing) || !pawn.CanReserveAndReach(thing, PathEndMode.ClosestTouch, Danger.Some)) continue;
                     best = distance;
                     dose = thing;
                 }

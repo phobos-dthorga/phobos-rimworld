@@ -79,6 +79,8 @@ public static class DoseIndex
     static List<DoseOption>? cureOptions;
     static List<DoseOption>? preventionOptions;
     static List<DoseOption>? breathingOptions;
+    static List<DoseOption>? toxicOptions;
+    static List<DoseOption>? vacuumOptions;
     static HashSet<HediffDef>? curable;
     static HashSet<HediffDef>? preventableOutbreaks;
 
@@ -130,6 +132,26 @@ public static class DoseIndex
         }
     }
 
+    /// <summary>Items that keep out toxic buildup (Medical 0.30.0).</summary>
+    public static IReadOnlyList<DoseOption> ToxicOptions
+    {
+        get
+        {
+            if (toxicOptions == null) Build();
+            return toxicOptions!;
+        }
+    }
+
+    /// <summary>Items that raise vacuum resistance (Medical 0.30.0).</summary>
+    public static IReadOnlyList<DoseOption> VacuumOptions
+    {
+        get
+        {
+            if (vacuumOptions == null) Build();
+            return vacuumOptions!;
+        }
+    }
+
     /// <summary>Every condition some indexed cure removes: the cheap first test of whether a patient could be cured.</summary>
     public static HashSet<HediffDef> Curable
     {
@@ -151,7 +173,7 @@ public static class DoseIndex
     }
 
     /// <summary>Whether any list holds anything: the work giver's first test.</summary>
-    public static bool Any => Options.Count > 0 || ImmunityOptions.Count > 0 || CureOptions.Count > 0 || PreventionOptions.Count > 0 || BreathingOptions.Count > 0;
+    public static bool Any => Options.Count > 0 || ImmunityOptions.Count > 0 || CureOptions.Count > 0 || PreventionOptions.Count > 0 || BreathingOptions.Count > 0 || ToxicOptions.Count > 0;
 
     static DoseIndex() => _ = Options;
 
@@ -162,6 +184,8 @@ public static class DoseIndex
         var builtCures = new List<DoseOption>();
         var builtPrevention = new List<DoseOption>();
         var builtBreathing = new List<DoseOption>();
+        var builtToxic = new List<DoseOption>();
+        var builtVacuum = new List<DoseOption>();
         var builtCurable = new HashSet<HediffDef>();
         var builtPreventable = new HashSet<HediffDef>();
         PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
@@ -216,6 +240,10 @@ public static class DoseIndex
             if (givesDisease) continue;
             if (stages.Count > 0 && def.IsDrug && DoseChoiceRule.WorthwhileForBreathing(effect, rules.minBreathingGain, rules.Weights))
                 builtBreathing.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value));
+            if (stages.Count > 0 && def.IsDrug && DoseChoiceRule.WorthwhileForExposure(effect, DoseNeed.Toxic, rules.minToxicCut, rules.Weights))
+                builtToxic.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value));
+            if (stages.Count > 0 && def.IsDrug && DoseChoiceRule.WorthwhileForExposure(effect, DoseNeed.Vacuum, rules.minVacuumGain, rules.Weights))
+                builtVacuum.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value));
             if (cures.Count > 0 && DoseChoiceRule.WorthwhileForCare(effect, DoseNeed.Cure, rules.Weights))
             {
                 builtCures.Add(new DoseOption(def, hediffs.ToArray(), effect, cures: cures.ToArray(), lethalDependency: dependency, marketValue: value));
@@ -234,6 +262,8 @@ public static class DoseIndex
         cureOptions = builtCures;
         preventionOptions = builtPrevention;
         breathingOptions = builtBreathing;
+        toxicOptions = builtToxic;
+        vacuumOptions = builtVacuum;
         curable = builtCurable;
         preventableOutbreaks = builtPreventable;
     }
@@ -341,6 +371,15 @@ public static class DoseIndex
         float immunityGain = 0f;
         if (stage.statOffsets != null) immunityGain += stage.statOffsets.GetStatOffsetFromList(StatDefOf.ImmunityGainSpeed);
         if (stage.statFactors != null) immunityGain += stage.statFactors.GetStatFactorFromList(StatDefOf.ImmunityGainSpeed) - 1f;
-        return new StageEffect(stage.painFactor, stage.painOffset, consciousnessOffset, consciousnessSetMax, breathingOffset, stage.totalBleedFactor, immunityGain, stage.vomitMtbDays);
+        float toxic = 0f, toxicEnvironment = 0f, vacuum = 0f;
+        if (stage.statOffsets != null)
+        {
+            toxic = stage.statOffsets.GetStatOffsetFromList(StatDefOf.ToxicResistance);
+            toxicEnvironment = stage.statOffsets.GetStatOffsetFromList(StatDefOf.ToxicEnvironmentResistance);
+            // Odyssey's stat: null without it.
+            if (StatDefOf.VacuumResistance != null) vacuum = stage.statOffsets.GetStatOffsetFromList(StatDefOf.VacuumResistance);
+        }
+        return new StageEffect(stage.painFactor, stage.painOffset, consciousnessOffset, consciousnessSetMax, breathingOffset, stage.totalBleedFactor, immunityGain, stage.vomitMtbDays,
+            toxic, toxicEnvironment, vacuum);
     }
 }

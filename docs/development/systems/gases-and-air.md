@@ -121,7 +121,8 @@ Framework's. No Def of ours uses the emitter today.
 ### Protective-gear lines
 
 A **protective-gear line** marks off ground where people need gear. A `ProtectionZoneDef` names the stat worn gear must raise,
-how much is enough, the colour of its painted area and, optionally, conditions to be under before going in (a preventive drug).
+how much is enough, the colour of its painted area and, optionally, what to take before going in: conditions to be under
+(`preventiveHediffs`), or stats a medical drug raises (`preventiveStats`, Framework 0.327.0), so any mod's drug counts by what it does.
 
 - **Two ways to draw a line**: a **control point**, a sign that closes off the room it faces (or the room past the door it
   faces), worked out afresh whenever asked, so a wall built or knocked down changes it at once; or a **painted area**, drawn
@@ -134,15 +135,18 @@ how much is enough, the colour of its painted area and, optionally, conditions t
 - **No gear in reach**: the colonist turns back, says so once, and treats the zone as outside its allowed area for an hour, so
   the game's work search offers it other work. A colonist sent to suit up three times within that hour, and still unprotected
   at the line, is turned back too.
-- **A preventive dose**: a colonist with none of the zone's preventive conditions takes a dose of any drug that gives one, from
-  its inventory or from outside every zone, before suiting up; tried at most once an hour.
+- **A preventive dose**: a colonist with none of the zone's preventive conditions takes a dose of any drug that gives one, or that
+  raises one of its preventive stats, from its inventory or from outside every zone, before suiting up; tried at most once an hour.
+  **A content mod may refuse a dose** (`ProtectionLine.DoseAllowed`, 0.327.0): D'thorga Medical applies its dosing safety and the
+  player's reserve of preventives, so the last ones on the shelf stay there.
 - **Drafted colonists, animals, prisoners, slaves and guests cross freely.** An order is the player's call. The alert
   **Unprotected behind the line** lists the colony's living people and animals behind a line without enough protection,
   including anyone painted in; machines are left out.
 
-The only line defined is D'thorga Medical's **radiation controlled area** (with Rimatomics): toxic environment resistance 0.75,
-which takes Rimatomics' suit and mask (0.40 each) or gear as good, and potassium iodide as its preventive condition. The 0.75 is
-authored.
+Two lines are defined, both D'thorga Medical's. The **radiation controlled area** (with Rimatomics): toxic environment resistance
+0.75, which takes Rimatomics' suit and mask (0.40 each) or gear as good, and potassium iodide as its preventive condition. The **toxic
+controlled area** (Medical 0.30.0, always): toxic environment resistance 0.6, and any medical drug raising either toxic resistance as
+its preventive (Medicines+' AntiTox, 0.6 by itself). Both figures are authored.
 
 ### What D'thorga Medical builds on this
 
@@ -252,7 +256,7 @@ The modders' types, linked to [the reference site](https://phobos-dthorga.github
 - **[`PhobosSuppliedOxygenExtension`][r6]** (`carbonMonoxideHalfLifeHours`, `healingFactor`) and
   **[`PhobosOxygenResponsiveExtension`][r7]** (`minSeverity`, `healingPerDayOnOxygen`), on `HediffDef`s; read through
   [`PhobosBreathing`][r8].
-- **[`ProtectionZoneDef`][r9]**: `stat`, `required`, `color`, `preventiveHediffs`. Its `ConfigErrors` refuses no stat and a
+- **[`ProtectionZoneDef`][r9]**: `stat`, `required`, `color`, `preventiveHediffs`, `preventiveStats`. Its `ConfigErrors` refuses no stat and a
   requirement of nothing. A control point is a building with **[`CompProperties_PhobosControlPoint`][r10]** (`zone`) and
   `PlaceWorker_PhobosControlPoint`; a painted area subclasses `Designator_PhobosProtectionArea`. The step logic is
   [`ProtectionLine`][r11].

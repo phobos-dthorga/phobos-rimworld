@@ -26,6 +26,8 @@ public enum DoseRefusal
     ReserveKept,
     /// <summary>The item takes as much breathing as it gives, or gives none (Medical 0.29.0).</summary>
     NoBreathingGain,
+    /// <summary>The item does not protect against what the person is exposed to (Medical 0.30.0).</summary>
+    NoProtection,
     /// <summary>Self-medication only: the pawn's drug policy does not allow it. Never reaches a doctor's refusal text.</summary>
     PolicyForbids,
 }
@@ -94,6 +96,10 @@ public static class DoseSafetyRule
         else if (need == DoseNeed.Breathing)
         {
             if (effect.BreathingGain <= effect.BreathingCost) return DoseRefusal.NoBreathingGain;
+        }
+        else if (need == DoseNeed.Toxic || need == DoseNeed.Vacuum)
+        {
+            if ((need == DoseNeed.Toxic ? effect.ToxicCut : effect.VacuumGain) <= 0f) return DoseRefusal.NoProtection;
         }
         else if (need != DoseNeed.Cure && need != DoseNeed.Prevention && !effect.RelievesPain)
         {

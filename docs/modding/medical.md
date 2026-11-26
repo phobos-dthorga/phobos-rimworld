@@ -114,6 +114,10 @@ Say what one of your items cures or prevents where its Defs cannot show it:
 - **A help to breathing needs no extension**: a medical drug whose condition, at its dose, adds 0.1 or more to breathing after
   any breathing it costs (`minBreathingGain`) is given to a patient at `breathingRescueLevel` (0.3) or under. Keep an item out
   with `neverAutoDose`, as our More Injuries tie-in does for its epinephrine.
+- **Protection while exposed needs no extension either** (0.30.0): a medical drug whose condition, at its dose, keeps out a quarter
+  or more of toxic buildup (the game multiplies what a pawn takes in by one less each toxic resistance) or adds a quarter or more to
+  vacuum resistance is given while exposure is under way (`toxicExposureFrom`, `minToxicCut`, `minVacuumGain`). The vacuum giver is a
+  node in the game's constant think tree, ahead of `JobGiver_FindOxygen` (`Patches/Phobos/Dosing/VacuumDose_ThinkTree.xml`).
 - A cure or a preventive scores 1 minus the costs above and a quarter for each vomit a day; a sedative, a recreational drug or an
   item that gives a disease is never either.
 
@@ -216,7 +220,11 @@ The record: [Radiation control](../development/archive/radiation-control-line.md
 
 The machinery is D'thorga Framework's (`Phobos.Framework.Protection`): a `ProtectionZoneDef` names a stat and how much of it is
 needed, `CompProperties_PhobosControlPoint` makes a building a control point, and `Designator_PhobosProtectionArea` paints an
-area. Any mod can add a kind of line in XML; the two Harmony hooks live in D'thorga Medical.
+area. Any mod can add a kind of line in XML; the two Harmony hooks live in D'thorga Medical. Medical's own lines are the radiation
+controlled area (with Rimatomics) and, since 0.30.0, the toxic controlled area (`Common/Defs/Phobos/Protection/ToxicControl.xml`), whose
+preventive is found by `preventiveStats`. Medical sets `ProtectionLine.DoseAllowed` (`DoseService.LineDoseAllowed`): a dose at any
+line is refused to someone who will not take it, during an overdose, while an earlier one still works, or below the preventives'
+reserve.
 
 ## Checks done
 

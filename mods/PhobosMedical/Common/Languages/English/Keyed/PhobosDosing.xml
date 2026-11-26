@@ -26,6 +26,10 @@
   <PhobosDosing_ModeDoctorsAndSelf>Doctors, and people take their own</PhobosDosing_ModeDoctorsAndSelf>
   <PhobosDosing_SettingBreathingMode>Who gives a stimulant to someone who can barely breathe</PhobosDosing_SettingBreathingMode>
   <PhobosDosing_SettingBreathingModeDesc>With doctors, a patient who is down or in bed with breathing at 30% or less is given whatever in stock adds to breathing, such as smelling salts, again each time it wears off. It buys time until oxygen or an operation; it cures nothing. It is not given where something is blocking the airway or breathing for the patient, because it could not help there. Nobody is woken with it.</PhobosDosing_SettingBreathingModeDesc>
+  <PhobosDosing_SettingToxicMode>Who gives something that keeps toxins out, while toxins are building up</PhobosDosing_SettingToxicMode>
+  <PhobosDosing_SettingToxicModeDesc>When someone's toxic buildup has begun and they are still in its source (polluted ground, tox gas, or outdoors in toxic fallout), they are given whatever in stock keeps toxins out, such as AntiTox, again as it wears off. Doctors give it to people who are down or in bed there; with the last choice, people on their feet also take their own. It never uses anything addictive, and keeps the preventives' reserve below. For planned work in a toxic place, paint a toxic controlled area from the zone menu: people take it, and put on masks, at its edge.</PhobosDosing_SettingToxicModeDesc>
+  <PhobosDosing_SettingVacuumRescue>Someone caught in vacuum takes a vacuum medicine they carry</PhobosDosing_SettingVacuumRescue>
+  <PhobosDosing_SettingVacuumRescueDesc>On, someone standing in vacuum and harmed by it, such as after a hull breach, at once takes something they carry that raises vacuum resistance, such as vacsop, before going to find air. Nobody walks into vacuum to fetch one, and no doctor goes in. To have people carry it, set the drug to be taken to inventory in their drug policy.</PhobosDosing_SettingVacuumRescueDesc>
   <PhobosDosing_SettingRareMark>A medicine is rare, and kept for saving a life, from: {SILVER} silver</PhobosDosing_SettingRareMark>
   <PhobosDosing_SettingRareMarkNone>A medicine is rare, and kept for saving a life, from: never (no medicine is kept back)</PhobosDosing_SettingRareMarkNone>
   <PhobosDosing_SettingRareMarkDesc>A medicine worth this much or more is given by rule only when the patient's life is at stake; for anything less it is kept, and a right-click on the patient says so. Slide to zero to keep no medicine back. Your own orders are never held back by this.</PhobosDosing_SettingRareMarkDesc>
@@ -55,6 +59,7 @@
   <PhobosDosing_RefusalAddictiveForMinorNeed>{DRUG} is addictive, and this is not serious enough for it</PhobosDosing_RefusalAddictiveForMinorNeed>
   <PhobosDosing_RefusalRareItemKept>{DRUG} is rare, and kept for saving a life</PhobosDosing_RefusalRareItemKept>
   <PhobosDosing_RefusalNoBreathingGain>{DRUG} would not help the patient breathe</PhobosDosing_RefusalNoBreathingGain>
+  <PhobosDosing_RefusalNoProtection>{DRUG} would not protect against it</PhobosDosing_RefusalNoProtection>
   <PhobosDosing_RefusalReserveKept>the last of the {DRUG} is being kept in reserve</PhobosDosing_RefusalReserveKept>
 
   <PhobosDosing_UnmetAlert>Medicine needed</PhobosDosing_UnmetAlert>

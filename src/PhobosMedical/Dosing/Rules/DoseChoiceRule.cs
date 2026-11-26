@@ -76,6 +76,15 @@ public static class DoseChoiceRule
         effect.BreathingGain - effect.BreathingCost >= minBreathingGain && !effect.Sedative && !effect.Recreational
         && Score(effect, DoseNeed.Breathing, false, weights) > 0f;
 
+    /// <summary>
+    /// Whether an item is worth indexing as protection against toxins or vacuum (Medical 0.30.0): it must keep out at least the given
+    /// share of toxic buildup, or add at least the given vacuum resistance, its costs below that, and never be a sedative or a
+    /// recreational drug.
+    /// </summary>
+    public static bool WorthwhileForExposure(DoseEffect effect, DoseNeed need, float minimum, DoseWeights weights) =>
+        (need == DoseNeed.Toxic ? effect.ToxicCut : need == DoseNeed.Vacuum ? effect.VacuumGain : 0f) >= minimum && minimum > 0f
+        && !effect.Sedative && !effect.Recreational && Score(effect, need, false, weights) > 0f;
+
     public static float Score(DoseEffect effect, bool patientBleeding, DoseWeights weights) => Score(effect, DoseNeed.PainRelief, patientBleeding, weights);
 
     /// <summary>What the dose is worth for this need, net of its side effects.</summary>
@@ -84,15 +93,29 @@ public static class DoseChoiceRule
         float bleedWeight = patientBleeding ? weights.Bleed : weights.Bleed * weights.BleedWhenNotBleeding;
         // A cure removes the condition and a preventive stops it: the whole benefit, the same for every item that does it, so the
         // choice between two of them is by their costs alone.
-        bool care = need == DoseNeed.Cure || need == DoseNeed.Prevention;
-        float vomit = care || need == DoseNeed.Breathing ? weights.Vomit * effect.VomitsPerDay : 0f;
-        return (care ? 1f : need == DoseNeed.Immunity ? effect.ImmunityGain : need == DoseNeed.Breathing ? effect.BreathingGain : effect.PainRelief)
+        float vomit = CountsVomit(need) ? weights.Vomit * effect.VomitsPerDay : 0f;
+        return Benefit(effect, need)
             - (vomit > 1f ? 1f : vomit)
             - (effect.Sedative ? 0f : weights.Consciousness * effect.ConsciousnessCost)
             - weights.Breathing * effect.BreathingCost
             - bleedWeight * effect.BleedIncrease
             - weights.Addiction * effect.Addictiveness;
     }
+
+    /// <summary>What the dose is for: the whole of it for a cure or a preventive, the share it gives for every other need.</summary>
+    static float Benefit(DoseEffect effect, DoseNeed need) => need switch
+    {
+        DoseNeed.Cure or DoseNeed.Prevention => 1f,
+        DoseNeed.Immunity => effect.ImmunityGain,
+        DoseNeed.Breathing => effect.BreathingGain,
+        DoseNeed.Toxic => effect.ToxicCut,
+        DoseNeed.Vacuum => effect.VacuumGain > 1f ? 1f : effect.VacuumGain,
+        _ => effect.PainRelief,
+    };
+
+    /// <summary>Vomiting counts against the care needs of 0.28.0 and later; the pain and immunity scores are as they were before.</summary>
+    static bool CountsVomit(DoseNeed need) =>
+        need is DoseNeed.Cure or DoseNeed.Prevention or DoseNeed.Breathing or DoseNeed.Toxic or DoseNeed.Vacuum;
 
     /// <summary>The index of the chosen candidate, or -1 when none may be given.</summary>
     public static int Choose(IReadOnlyList<DoseCandidate> candidates, DoseNeed need, bool patientBleeding, DoseWeights weights)

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The toxic controlled area's paint and clear tools join the zone tab beside the game's own areas (D'thorga Medical 0.30.0). -->
+<Patch>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/DesignationCategoryDef[defName="Zone"]/specialDesignatorClasses</xpath>
+    <value>
+      <li>Phobos.Medical.Protection.Designator_PhobosToxicAreaExpand</li>
+      <li>Phobos.Medical.Protection.Designator_PhobosToxicAreaClear</li>
+    </value>
+  </Operation>
+</Patch>

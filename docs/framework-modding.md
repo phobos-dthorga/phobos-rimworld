@@ -175,6 +175,9 @@ Medical's radiation control area (`mods/PhobosMedical/Mods/Rimatomics/Defs/Phobo
 - **A doorway line**: give a rotatable building `CompProperties_PhobosControlPoint` (with `PlaceWorker_PhobosControlPoint`) to close
   off the room it faces.
 - **A painted area**: subclass `Designator_PhobosProtectionArea`.
+- **A dose before going in**: `preventiveHediffs` names conditions (any drug giving one counts); `preventiveStats` names stats (any
+  medical drug whose condition raises one counts, found by effect; Framework 0.327.0). `ProtectionLine.DoseAllowed` lets a content mod
+  refuse a dose, as D'thorga Medical does for its safety and reserve.
 - Colonists stop at the line to fetch and put on gear, judged by its effect, and take it off on the way out. Animals, prisoners,
   guests and drafted colonists cross as they are. An alert, **Unprotected behind the line**, names everyone of the colony's standing
   behind a line without enough protection.

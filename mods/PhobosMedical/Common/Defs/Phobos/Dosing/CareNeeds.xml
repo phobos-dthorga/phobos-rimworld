@@ -59,6 +59,31 @@
   </Phobos.Dosing.Defs.PhobosCareNeedDef>
 
   <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_Vacuum</defName>
+    <label>caught in vacuum</label>
+    <description>Someone is caught in vacuum and harmed by it, and carries something that raises vacuum resistance. They take it themselves; no doctor goes in (0.30.0).</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_Vacuum</workerClass>
+    <order>2</order>
+    <seriousness>LifeThreatening</seriousness>
+    <defaultMode>DoctorsAndSelf</defaultMode>
+    <!-- What someone carries is theirs to use: the shelf's reserve does not count. -->
+    <alertWhenUnmet>false</alertWhenUnmet>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_Toxic</defName>
+    <label>protection from toxins</label>
+    <description>Toxic buildup has begun and its source is still around the person: something in stock keeps toxins out while they are there (0.30.0).</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_Toxic</workerClass>
+    <order>38</order>
+    <seriousness>Minor</seriousness>
+    <defaultMode>DoctorsAndSelf</defaultMode>
+    <usesReserve>true</usesReserve>
+    <!-- Protection, not treatment: a colony with no AntiTox is not nagged through every fallout (agent default, owner to revise). -->
+    <alertWhenUnmet>false</alertWhenUnmet>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
     <defName>PhobosCare_Prevention</defName>
     <label>prevention in an outbreak</label>
     <description>A disease that strikes groups is in the colony, and this person is unprotected against it.</description>

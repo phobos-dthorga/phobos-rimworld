@@ -15,6 +15,22 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.327.0] - 2026-11-26 - Draft
+
+Protective-gear lines find their preventive by what it does
+
+### Added
+
+- **A protective-gear line can name stats as well as conditions for its dose before going in**: any medical drug whose condition
+  raises one counts, from whatever mod made it. D'thorga Medical's toxic controlled area is the first to use it. Not yet tested in
+  game: row 606.
+- **For modders: a content mod may refuse a line's dose** (ProtectionLine.DoseAllowed), as D'thorga Medical does for its dosing
+  safety and reserve. Nothing changes without one.
+
+### Save compatibility
+
+- Safe with an existing save. Nothing new is saved.
+
 ## [0.326.0] - 2026-11-26 - Draft
 
 Vehicles' lamps, heat shimmer and flares

@@ -113,6 +113,39 @@ public class CareNeedWorker_Breathing : CareNeedWorker
             : null;
 }
 
+/// <summary>
+/// Toxic exposure under way (Medical 0.30.0; the owner's card of 26 Nov 2026): a patient down or in bed whose toxic buildup has begun
+/// and who is still in its source is given something that keeps toxins out. People on their feet take their own
+/// (<see cref="ExposureService"/>). A minor need: nothing addictive, nothing rare, and never below the player's reserve.
+/// </summary>
+public class CareNeedWorker_Toxic : CareNeedWorker
+{
+    public override CareMode Mode => DosingMod.Settings.toxicMode;
+
+    CareContext Care => new(def.seriousness, null, def.usesReserve);
+
+    public override bool Wanted(Pawn patient, DosingSettings settings, PhobosDosingRulesDef rules) =>
+        DoseIndex.ToxicOptions.Count > 0 && Patients.IsLyingDown(patient) && ExposureService.ToxicNow(patient, rules);
+
+    public override DoseDecision? Decide(Pawn? doctor, Pawn patient, bool everyItem) =>
+        DoseService.DecideCare(doctor, patient, DoseNeed.Toxic, DoseIndex.ToxicOptions, Care, everyItem);
+
+    public override bool AnyAllowed(Pawn patient, DosingSettings settings, PhobosDosingRulesDef rules) =>
+        DoseService.AnyCareAllowed(patient, DoseNeed.Toxic, DoseIndex.ToxicOptions, Care);
+}
+
+/// <summary>
+/// Caught in vacuum (Medical 0.30.0; the owner's card of 26 Nov 2026): the person takes a vacuum-resisting dose they carry, on the spot.
+/// No doctor goes into vacuum for it, so it is never a doctor's work; the giver is <see cref="Jobs.JobGiver_PhobosVacuumDose"/>, ahead of
+/// the game's own search for air. On the table for its switch and the load line.
+/// </summary>
+public class CareNeedWorker_Vacuum : CareNeedWorker
+{
+    public override CareMode Mode => DosingMod.Settings.vacuumRescue ? CareMode.DoctorsAndSelf : CareMode.Off;
+
+    public override bool DosedByDoctors => false;
+}
+
 /// <summary>Pain, and at extreme pain a sedative: the dosing part's first need, as it has worked since Emergency Dosing.</summary>
 public class CareNeedWorker_Pain : CareNeedWorker
 {

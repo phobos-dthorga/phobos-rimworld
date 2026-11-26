@@ -27,30 +27,70 @@ public class ProtectionZoneDef : Def
     /// </summary>
     public System.Collections.Generic.List<HediffDef> preventiveHediffs = new();
 
-    System.Collections.Generic.List<ThingDef>? preventiveDrugs;
+    /// <summary>
+    /// Stats a medical drug may raise to count as a preventive here (Framework 0.327.0): any item whose condition, at its dose, adds to
+    /// one of them is offered at the line, found by what it does rather than by name. Optional; recreational drugs never count this way.
+    /// </summary>
+    public System.Collections.Generic.List<StatDef> preventiveStats = new();
 
-    /// <summary>Every item whose ingestion gives one of the preventive conditions, found once.</summary>
+    System.Collections.Generic.List<ThingDef>? preventiveDrugs;
+    System.Collections.Generic.List<HediffDef>? preventiveConditions;
+
+    /// <summary>Every item whose ingestion gives one of the preventive conditions, or raises one of the preventive stats, found once.</summary>
     public System.Collections.Generic.List<ThingDef> PreventiveDrugs
     {
         get
         {
-            if (preventiveDrugs != null) return preventiveDrugs;
-            preventiveDrugs = new System.Collections.Generic.List<ThingDef>();
-            if (preventiveHediffs.Count == 0) return preventiveDrugs;
+            if (preventiveDrugs == null) FindPreventives();
+            return preventiveDrugs!;
+        }
+    }
+
+    /// <summary>The conditions that mean a pawn has had its preventive: the named ones, and those the drugs found by stat give.</summary>
+    public System.Collections.Generic.List<HediffDef> PreventiveConditions
+    {
+        get
+        {
+            if (preventiveConditions == null) FindPreventives();
+            return preventiveConditions!;
+        }
+    }
+
+    void FindPreventives()
+    {
+        var drugs = new System.Collections.Generic.List<ThingDef>();
+        var conditions = new System.Collections.Generic.List<HediffDef>(preventiveHediffs);
+        if (preventiveHediffs.Count > 0 || preventiveStats.Count > 0)
+        {
             foreach (ThingDef def in DefDatabase<ThingDef>.AllDefsListForReading)
             {
                 if (def.ingestible?.outcomeDoers == null || def.category != ThingCategory.Item) continue;
                 foreach (IngestionOutcomeDoer doer in def.ingestible.outcomeDoers)
                 {
-                    if (doer is IngestionOutcomeDoer_GiveHediff give && give.hediffDef != null && preventiveHediffs.Contains(give.hediffDef))
-                    {
-                        preventiveDrugs.Add(def);
-                        break;
-                    }
+                    if (doer is not IngestionOutcomeDoer_GiveHediff give || give.hediffDef == null) continue;
+                    bool named = preventiveHediffs.Contains(give.hediffDef);
+                    if (!named && !(def.IsDrug && !def.IsNonMedicalDrug && RaisesPreventiveStat(give))) continue;
+                    if (!drugs.Contains(def)) drugs.Add(def);
+                    if (!conditions.Contains(give.hediffDef)) conditions.Add(give.hediffDef);
                 }
             }
-            return preventiveDrugs;
         }
+        preventiveDrugs = drugs;
+        preventiveConditions = conditions;
+    }
+
+    /// <summary>Whether the condition an outcome gives, at the stage of its dose, adds to one of the preventive stats.</summary>
+    bool RaisesPreventiveStat(IngestionOutcomeDoer_GiveHediff give)
+    {
+        if (preventiveStats.Count == 0 || give.hediffDef.stages == null || give.hediffDef.stages.Count == 0) return false;
+        float severity = give.severity > 0f ? give.severity : give.hediffDef.initialSeverity;
+        HediffStage stage = give.hediffDef.stages[give.hediffDef.StageAtSeverity(severity)];
+        if (stage.statOffsets == null) return false;
+        foreach (StatDef stat in preventiveStats)
+        {
+            if (stat != null && stage.statOffsets.GetStatOffsetFromList(stat) > 0f) return true;
+        }
+        return false;
     }
 
     public override System.Collections.Generic.IEnumerable<string> ConfigErrors()
