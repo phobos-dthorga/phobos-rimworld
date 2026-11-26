@@ -104,6 +104,17 @@
       "fault": "state == -2",
       "says": "{vehicle}{number} was destroyed",
       "why": "A snapshot includes garbage the collector has not reclaimed yet: a finding here is a leak only if python scripts/perf.py look-why Phobos.VehicleSystems.CompPhobosVehicleSystems finds something still holding it."
+    },
+    {
+      "id": "jet-own-copy",
+      "title": "Each jet's guns are its own mod's copy of the fixed-wing code",
+      "source": "save",
+      "select": {"def": "*_Jet"},
+      "read": {"jet": "def", "guns": "turrets/li[*]@Class"},
+      "fault": "(jet == \"Harrier_Jet\" and (contains(guns, \"CloseAirSupport.Flight.VtolVehicleTurret\") or contains(guns, \"EA6BProwler.Flight.VtolVehicleTurret\"))) or ((jet == \"Warthog_Jet\" or jet == \"Frogfoot_Jet\") and (contains(guns, \"AV8BHarrier.Flight.VtolVehicleTurret\") or contains(guns, \"EA6BProwler.Flight.VtolVehicleTurret\"))) or (jet == \"Prowler_Jet\" and (contains(guns, \"AV8BHarrier.Flight.VtolVehicleTurret\") or contains(guns, \"CloseAirSupport.Flight.VtolVehicleTurret\")))",
+      "says": "a {jet} saved with another jet mod's guns: {unique(guns)}",
+      "row": "555",
+      "why": "Since 26 Nov 2026 the Harrier, Close Air Support and the Prowler each carry their own copy of the flight code. A jet saved under another mod's copy runs that code without its own fixed-wing data: no Sortie, a hover for a take-off (Patches 0.45.2 puts it right on load). A check cannot read a thing's own class, so this reads its guns, saved with it."
     }
   ]
 }

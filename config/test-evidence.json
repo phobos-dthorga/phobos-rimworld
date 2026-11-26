@@ -38,6 +38,7 @@
       "or things from the cargo": [{"key": "vehicles.contract-done", "variant": "DeliverThings"}]}},
     "553": {"parts": {"a caravan starts the work at the settlement": ["vehicles.contract-work"],
       "and finishes it": [{"key": "vehicles.contract-done", "variant": "WorkOnSite"}]}},
+    "555": {"parts": {"the save's jets load as their own mods' jets": ["framework.class-family-rehome"]}},
     "549": {"parts": {"an aircraft takes off on a leg to a place with a map": [{"key": "aircraft.round-leg", "variant": "map"}],
       "and waits at its stop there": [{"key": "aircraft.round-stop", "variant": "map"}]}},
     "550": {"parts": {"a leg to open ground": [{"key": "aircraft.round-leg", "variant": "tile"}],

@@ -13,6 +13,17 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.309.0] - 2026-11-26 - Draft
+
+Copies of a class load as their owner's
+
+### Added
+
+- **A saved object can load as the copy of its class its own mod holds** (class families, for modders). When an author splits a shared
+  framework into a copy per mod, a mod registers the namespaces as one family, and each object in a save is made from the copy its
+  thing's Def names, even in a save already written with the wrong one. The jets' fix in D'thorga Patches 0.45.2 is the first to use it;
+  without a family registered nothing changes. Not yet tested in game: row 555.
+
 ## [0.308.1] - 2026-11-26 - Draft
 
 Contracts come from as far as trade requests

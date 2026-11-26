@@ -46,7 +46,7 @@
     "PhobosFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.308.1",
+      "value": "0.309.0",
       "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {
@@ -154,7 +154,7 @@
     "PhobosPatches.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.45.1",
+      "value": "0.45.2",
       "description": "D'thorga Patches's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {

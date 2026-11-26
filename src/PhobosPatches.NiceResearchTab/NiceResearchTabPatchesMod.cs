@@ -15,7 +15,7 @@ public class NiceResearchTabPatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.45.1";
+    public const string ModVersion = "0.45.2";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Nice Research Tab");
     const string Feature = "temporary guard: research projects' unlock lists are read one at a time and kept free of blanks";

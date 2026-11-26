@@ -30,6 +30,9 @@
     {"row": "23 (Vanilla Expanded Framework)", "patch": "ResearchUnlocksGuard", "mod": "Vanilla Expanded Framework", "file": "PipeSystem.dll", "members": ["ResearchProjectDef_UnlockedDefs_Patch.Postfix"]},
     {"row": 24, "patch": "TrySpawnAtCellPatch", "mod": "Vanilla Expanded Framework", "file": "PipeSystem.dll", "members": ["Process.TrySpawnAtCell", "Process.SpawnOrPushToNet"]},
     {"row": 25, "patch": "SortieOverHome", "mod": "Close Air Support: A-10 Warthog & Su-25 Frogfoot", "file": "A10Warthog.dll", "members": ["CompVehicleLauncher_CanTarget_FixedWingSortiePatch.Prefix", "ArrivalAction_LandToCell_Arrived_VtolPatch.ArriveFixedWing", "LandingTargeter_GetPosState_VtolPatch.IsFixedWingLoiterTarget", "VtolFlightController.HomeForReturn"]},
-    {"row": 26, "patch": "SortieFuel", "mod": "Close Air Support: A-10 Warthog & Su-25 Frogfoot", "file": "A10Warthog.dll", "members": ["FixedWingSortieUtility.TryFuelForSortie", "CompVehicleLauncher_HasEnoughFuel_FixedWingSortiePatch.Postfix"]}
+    {"row": 26, "patch": "SortieFuel", "mod": "Close Air Support: A-10 Warthog & Su-25 Frogfoot", "file": "A10Warthog.dll", "members": ["FixedWingSortieUtility.TryFuelForSortie", "CompVehicleLauncher_HasEnoughFuel_FixedWingSortiePatch.Postfix"]},
+    {"row": "27 (Harrier)", "patch": "JetClasses", "mod": "Harrier VTOL Attack Aircraft", "file": "AV8BHarrier.dll", "members": ["OldSaves.GetBackCompatibleType", "OldSaves.Register"]},
+    {"row": "27 (Close Air Support)", "patch": "JetClasses", "mod": "Close Air Support: A-10 Warthog & Su-25 Frogfoot", "file": "A10Warthog.dll", "members": ["OldSaves.GetBackCompatibleType", "OldSaves.Register"]},
+    {"row": "27 (Prowler)", "patch": "JetClasses", "mod": "EA-6B Prowler Electronic Attack Aircraft", "file": "EA6BProwler.dll", "members": ["OldSaves.GetBackCompatibleType", "OldSaves.Register"]}
   ]
 }

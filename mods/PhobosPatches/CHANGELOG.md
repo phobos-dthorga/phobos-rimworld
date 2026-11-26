@@ -21,6 +21,23 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.45.2] - 2026-11-26 - Draft
+
+Each jet flies as itself again
+
+### Fixed
+
+- **The Harriers, A-10 and Su-25 in a save made before 26 November 2026 fly as themselves again**, with their Sortie button and
+  their runway take-off (the owner's report: the A-10 had no Sortie and hovered when told to take off). That day's update of the
+  three jet mods let the Prowler's old-save converter claim every jet, so they ran the Prowler's code without its fixed-wing data, and
+  every save since kept them that way. Each jet, and its guns, now loads as its own mod's, through D'thorga Framework 0.309.0. Not yet
+  tested in game: row 555.
+
+### Save compatibility
+
+- **Saves written since the jets' update are put right on load too**, the owner's PG21 to PG23 among them; the next save keeps them
+  right. Nothing else in a save changes.
+
 ## [0.45.1] - 2026-11-26 - Draft
 
 The jets' patches follow their authors' rename

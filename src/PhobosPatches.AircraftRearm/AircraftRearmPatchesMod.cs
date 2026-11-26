@@ -11,7 +11,7 @@ public class AircraftRearmPatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.45.1";
+    public const string ModVersion = "0.45.2";
     public const string LogPrefix = "[D'thorga Patches]";
 
     public AircraftRearmPatchesMod(ModContentPack content) : base(content)
@@ -23,6 +23,7 @@ public class AircraftRearmPatchesMod : Mod
         // the helicopters have none. SortieFuel reads which jets SortieOverHome found, so it comes second.
         if (FixedWingCopies.AnyActive)
         {
+            JetClasses.Register(report);
             SortieOverHome.Apply(harmony, report);
             SortieFuel.Apply(harmony, report);
         }
