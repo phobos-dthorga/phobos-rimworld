@@ -1,0 +1,56 @@
+{
+  "file": "airdrop-icon-airdrop-on-2.png",
+  "sha256": "b5af1b14bd33b82c6bc25d13a8f7709e15cd8c7a56783c3ebb459f43f9ea19b4",
+  "date": "2026-11-26T11:05:51",
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved pictures from the same game: match their outline weight, shading, palette and finish only, not their layout.\n\nCreate an ORIGINAL icon meaning \"airdrop onto this place on the world map\": at the bottom, one flat six-sided hexagon tile of green and tan land, like a single tile of a world map, with a small bold amber pin marker standing in its centre. Above it, THREE small round olive-drab parachutes are falling towards the tile, each with a tiny squarish olive cargo bundle hanging below it, spread out side by side at slightly different heights. At the very top, a small grey cargo aircraft seen from below flies across from left to right.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with the amber pin as the only bright colour, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No circle or ring around the icon, no people, hands, text, letters, numbers, roundels, logos or brand marks.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/airdrop-icons-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1395,
+    "input_tokens_details": {
+      "image_tokens": 1088,
+      "text_tokens": 307
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 3151
+  },
+  "cost_usd": 0.0629,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 38.5,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+      "sha256": "14fac957571227f63501ada80d0397adf34f49832bb3fb31dcadfe413efb6f13",
+      "role": "our approved button icon of the same game (land here, a grey aircraft over a ring): match its outline weight, shading, palette and finish only; do not copy its layout"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CanopyOpen.png",
+      "sha256": "9ce9bc1a6cddc42e2a882c948ec1bb906a3dd4f9d577ffca4582ecfca0a95780",
+      "role": "our approved parachute canopy seen from above: match its olive canopy colours and panel seams only; do not copy its view"
+    }
+  ]
+}

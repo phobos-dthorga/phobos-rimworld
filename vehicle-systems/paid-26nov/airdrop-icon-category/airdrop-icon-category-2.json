@@ -1,0 +1,56 @@
+{
+  "file": "airdrop-icon-category-2.png",
+  "sha256": "3d06c3492bf78bb0616f79550bbae408e2a93d03b9362cd4edda40cfaf1c5206",
+  "date": "2026-11-26T11:07:12",
+  "prompt": "GAME CATEGORY ICON. One single object seen from the front and a little above, centred, as an icon for a storage category in a top-down strategy game.\n\nImages 1 and 2 are our approved pictures from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon of a packed parachute: a squarish, flat olive-drab canvas pack, like a backpack, standing upright, its front closed with four flaps folded in and held by tan straps with small steel buckles. A bright silver D-shaped ripcord handle is clipped on the front, and the folded top of an olive canopy with a few pale suspension lines just peeks out from under the top flap, so it reads plainly as a parachute and not as a bag or sack.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted olive and tan palette with the silver handle as the only bright detail, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, harness worn on a body, text, letters, numbers, logos or brand marks.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/airdrop-icons-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 421,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 293
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2177
+  },
+  "cost_usd": 0.0552,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 41.7,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Categories/VehicleParts.png",
+      "sha256": "e7a79efcfd3af77f40e11c91b7637723884282b64d58202f5801eaefcfbb952f",
+      "role": "our approved stockpile category icon of the same game: match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/PersonnelParachute.png",
+      "sha256": "c95416e8d5d08c774b8304a6ff07f5b72956b2f738f16a22fa03b15d1ebff1a2",
+      "role": "our approved packed personnel parachute item: match its olive canvas, harness and buckle colours only; draw a simpler icon, not a copy"
+    }
+  ]
+}
