@@ -1,0 +1,56 @@
+{
+  "file": "ro-cabinet-2.png",
+  "sha256": "45f3428e96e10f9d75e249e94b663d8369745f9f7450a3ac0959b79979af5306",
+  "date": "2026-11-26T17:34:26",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game sprite part: a compact reverse-osmosis water treatment unit, seen from directly above, as it sits bolted to the deck of a water tanker. Image 1 is our approved hose reel on a tanker's deck, seen from above: match its outline weight, shading, palette and finish only. Image 2 is our approved water bowser trailer seen from above, for style and scale only: do not draw the trailer.\n\nDraw ONLY the treatment unit, alone and centred on a plain pure white background. It is a rectangle about twice as long as it is wide, running top to bottom, filling about 75 percent of the canvas height: a light grey steel equipment cabinet with a louvred vent panel on its lid and two small hinges along one edge; beside it, on the same frame, two long white cylindrical membrane pressure housings lying side by side, each with a dark rounded end cap at both ends; a few short pale blue pipes joining the housings to the cabinet; a small dark electric pump motor at one end.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo trailer, tank, truck, deck, people, text, letters, numbers, logos, gauges, dials, water, shadow outside the object, perspective or tilt.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/ro-kit-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1782,
+    "input_tokens_details": {
+      "image_tokens": 1424,
+      "text_tokens": 358
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 3538
+  },
+  "cost_usd": 0.0659,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 36.5,
+  "references": [
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/BulkTanker/BulkTanker_HoseReel_north.png",
+      "sha256": "244560f30bc1e9e752ca1a31e4dabbda836d12ba1f717e4c2f33e3d34360f779",
+      "role": "our approved overlay part on the Ullage tanker's deck, seen from directly above: match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/PintleBowser/PintleBowser_north.png",
+      "sha256": "c47174be8716b6945eb6e4891fdf49e22d7987d0730536992381314517dc7e44",
+      "role": "our approved Pintle water bowser seen from directly above, the trailer this cabinet will sit on: for style and scale only; do not draw the trailer"
+    }
+  ]
+}
