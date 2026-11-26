@@ -11,7 +11,8 @@
   <WorkGiverDef>
     <defName>PhobosFramework_BuildersLoadUpgradeMaterials</defName>
     <label>bring materials for vehicle upgrades</label>
-    <giverClass>Vehicles.WorkGiver_BringUpgradeMaterial</giverClass>
+    <!-- Vehicle Framework's own class, with only a seen-in-play note added (Framework 0.303.2; test row 546). -->
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosBuildersLoadUpgradeMaterials</giverClass>
     <workType>Construction</workType>
     <verb>bring materials for</verb>
     <gerund>bringing materials for</gerund>

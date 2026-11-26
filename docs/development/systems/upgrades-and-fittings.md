@@ -155,7 +155,8 @@ flag next spawns. One ships: the Harrier's night sight and radar.
 - **What it lets the player do**: leave vehicle upgrades to builders and construction drones. **What it stops**: nothing; haulers
   still help. **How play changes**: upgrades start without force-ordering a hauler. **Who notices outside the vehicle**: the
   builders, whose Construction time now includes the fetching. **Risk**: none to things or people, so no setting (agent choice).
-  Not yet tested in game.
+  Not yet tested in game (row 546). Since 0.303.2 the Def names our subclass of Vehicle Framework's work giver, which only adds the
+  seen-in-play note `vehicles.builders-bring-materials` (variant non-hauler or builder).
 
 ### Prices ("priced like tunes")
 
@@ -357,7 +358,7 @@ None of these is a test in game.
 - **The self-test** in game covers fittings, tunes, grades, replacement and tanks on a throwaway vehicle.
 - **In game** ([test list](../in-game-test-pass.md)): **passed** 8, 161, 165, 176, 195, 231, 282, 294, 298; **passed in part** 64;
   **waiting** 9, 10, 37, 42, 44, 46 to 48, 53, 65, 68, 80, 125, 163, 178 to 180, 220, 224, 225, 232, 292, 296, 297, 306, 307, 327
-  to 330, 367, 368, 400, 403, 432, 438 to 440.
+  to 330, 367, 368, 400, 403, 432, 438 to 440, 546.
 
 ## Why it is this way
 
