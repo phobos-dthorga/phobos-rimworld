@@ -1,0 +1,56 @@
+{
+  "file": "c27j-icon-firetank-1.png",
+  "sha256": "4252c29bb65f94ad12236dae4734eb0564b49ce83f6c6b6e5925483fbfe61656",
+  "date": "2026-11-26T21:07:28",
+  "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of a roll-on fire-fighting tank for an aircraft's hold: one long rounded pale grey water tank lying on a flat steel cargo pallet, a muted red band round its middle, a filler cap on top and one thick bent discharge pipe leaving its side with a flared nozzle.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/c27j-icons-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 393,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 265
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2149
+  },
+  "cost_usd": 0.055,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 27.4,
+  "references": [
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+      "sha256": "630b84ea6add8674669649be77801d0358f27d3454f28af46d7acebb0e8c2d29",
+      "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InfraredJammer.png",
+      "sha256": "4f208c8f301653360d82df2b80969b95a748ddcb0bac60aab704ff17151a8bad",
+      "role": "our approved upgrade icon of an aircraft fit (the Osprey's infrared jammer): match its finish only; do not copy its shape"
+    }
+  ]
+}

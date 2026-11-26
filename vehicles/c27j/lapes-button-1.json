@@ -1,0 +1,56 @@
+{
+  "file": "lapes-button-1.png",
+  "sha256": "63bfb052ca17ab041dd932b501c5409c39567e5a0a15b6bc7ea225ae14a869de",
+  "date": "2026-11-26T21:03:43",
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved pictures from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"pull the load out low and let it slide\": a flat olive-drab cargo platform with one squarish olive load strapped on it with tan straps, sliding along the ground toward the RIGHT, a small puff of tan dust kicked up behind it on the left. Ahead of it on the right, one small round olive-drab parachute, open and leaning back, its thin pale lines running to the front of the platform, pulling it. A short bold amber arrow along the ground points right, the way it slides. The ground is one thin flat line.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with the amber arrow as the only bright colour, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No aircraft, people, hands, text, letters, numbers, logos or brand marks.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/c27j-icons-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1390,
+    "input_tokens_details": {
+      "image_tokens": 1088,
+      "text_tokens": 302
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 3146
+  },
+  "cost_usd": 0.0629,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 102.0,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/DropHere.png",
+      "sha256": "92f4cdf9b91c36048e5103321047c77063bb2a77c1dbc96325b9bbdb00d3cbde",
+      "role": "our approved button icon of the same set (drop here): match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CanopyOpen.png",
+      "sha256": "9ce9bc1a6cddc42e2a882c948ec1bb906a3dd4f9d577ffca4582ecfca0a95780",
+      "role": "our approved parachute canopy: match its olive canopy colours only; do not copy its shape or view"
+    }
+  ]
+}
