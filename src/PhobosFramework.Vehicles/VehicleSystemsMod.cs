@@ -297,6 +297,11 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A hostile settlement within six tiles finds a depot after days set by its distance and strips it (Framework 0.200.0, DP7,
     /// with DP10's wars; high risk: off by the owner's rule). Live.</summary>
     public bool depotHostileNeighbours;
+    /// <summary>How often settlements offer contracts for the player's vehicles, as a share of the game's own trade requests (Framework
+    /// 0.308.0; owner's card of 26 Nov 2026: a slider, "how often or least often they desire"); 0 offers none. Live.</summary>
+    public float contractFrequency = 1f;
+    /// <summary>The slider's far end: three times as often as the game's trade requests (agent's figure).</summary>
+    public const float ContractFrequencyMost = 3f;
     /// <summary>How far the vehicle systems' messages nobody asked for are quietened (Framework 0.186.0, VehicleMessageLevel; owner's
     /// choice of 20 Nov 2026: a setting; agent default: every message, as before). Live.</summary>
     public MessageLevel messageLevel = MessageLevel.All;
@@ -475,6 +480,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref depotWeather, "PhobosVehicleSystems_DepotWeather", true);
         Scribe_Values.Look(ref depotFuelAgeing, "PhobosVehicleSystems_DepotFuelAgeing", true);
         Scribe_Values.Look(ref depotHostileNeighbours, "PhobosVehicleSystems_DepotHostileNeighbours", false);
+        Scribe_Values.Look(ref contractFrequency, "PhobosVehicleSystems_ContractFrequency", 1f);
         Scribe_Values.Look(ref messageLevel, "PhobosVehicleSystems_MessageLevel", MessageLevel.All);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
@@ -518,8 +524,17 @@ public class VehicleSystemsMod : SettingsBookMod
         HarmonyPatchApplier.ApplyEach(new Harmony(HarmonyId), typeof(VehicleSystemsMod).Assembly, LogPrefix);
         // Before the load line, which counts them (Framework 0.125.0, UH12).
         LongEventHandler.ExecuteWhenFinished(VehicleLoadOut.AddSwitches);
+        LongEventHandler.ExecuteWhenFinished(Contracts.ApplyFrequency);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
         Phobos.Framework.Work.PhobosGameEvents.GameLoaded += VehicleSelfTest.AfterLoad;
+    }
+
+    /// <summary>The settings window closing writes the book: a reset to defaults there changes the contract frequency without its slider,
+    /// so the quest's weight is set again here.</summary>
+    public override void WriteSettings()
+    {
+        base.WriteSettings();
+        Contracts.ApplyFrequency();
     }
 
     static void LogLoaded()
@@ -561,6 +576,8 @@ public class VehicleSystemsMod : SettingsBookMod
         else if (!OptionalMods.IsActive(OptionalMods.CombatExtended)) report.Off("spall inside vehicles", "needs Combat Extended");
         else if (!Spall.Ready) report.Off("spall inside vehicles", "Combat Extended's vehicle armour functions not found");
         if (!Settings.caravanCooking) report.Off("caravan cooking", "off (setting)");
+        if (Settings.contractFrequency <= 0f) report.Off("settlements' contracts for vehicles", "never offered (setting)");
+        else if (Settings.contractFrequency != 1f) report.On("settlements' contracts for vehicles at " + Settings.contractFrequency.ToStringPercent() + " of trade requests (setting)");
         if (!Settings.raidersArriveByAir) report.Off("raiders arriving by aircraft", "off (setting)");
         if (Settings.stockHelicoptersFly) report.On("stock helicopters flying over the map (setting)");
         if (!Settings.airdropLandingRisk) report.Off("airdrop landing injuries and damage", "off (setting)");
@@ -833,6 +850,14 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingDriveThroughNight".Translate(), ref s.driveThroughNight, d.driveThroughNight, "PhobosVehicleSystems_SettingDriveThroughNightDesc".Translate());
         list.SliderInt("PhobosVehicleSystems_SettingParkedWarning".Translate(s.parkedWarningDays.Named("DAYS")), ref s.parkedWarningDays, d.parkedWarningDays, 0, 14,
             "PhobosVehicleSettings_ParkedWarningDesc".Translate());
+        // Contracts (Framework 0.308.0; docs/development/vehicle-contracts.md): the owner's card of 26 Nov 2026 asked for a slider; it
+        // moves in quarters of the game's trade request rate, so it always lands on a round figure.
+        list.Section("PhobosVehicleSettings_SectionContracts".Translate());
+        string share = s.contractFrequency <= 0f ? "PhobosVehicleSystems_ContractNever".Translate().Resolve() : s.contractFrequency.ToStringPercent();
+        if (list.Slider("PhobosVehicleSystems_SettingContractFrequency".Translate(share.Named("SHARE")), ref s.contractFrequency, d.contractFrequency, 0f,
+                VehicleSystemsSettings.ContractFrequencyMost, "PhobosVehicleSystems_SettingContractFrequencyDesc".Translate(),
+                value => Phobos.Framework.Rules.ContractRule.Frequency(value, VehicleSystemsSettings.ContractFrequencyMost)))
+            Contracts.ApplyFrequency();
         // The remote control of vehicles (Framework 0.278.0; docs/development/autonomous-vehicles.md): a vehicle with no crew, driven from afar.
         list.Section("PhobosVehicleSettings_SectionRemote".Translate());
         list.Check("PhobosVehicleSystems_SettingRemoteControl".Translate(), ref s.remoteControl, d.remoteControl, "PhobosVehicleSystems_SettingRemoteControlDesc".Translate());

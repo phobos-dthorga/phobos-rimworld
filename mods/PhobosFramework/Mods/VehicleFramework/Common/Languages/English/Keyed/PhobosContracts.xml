@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settlements' contracts for the player's vehicles (Framework 0.308.0; docs/development/vehicle-contracts.md). Agent-authored, held for the owner's review. -->
+<LanguageData>
+
+  <!-- The settlement's line -->
+  <PhobosContract_Inspect>Contract: {REQUEST}. {TIME} left.</PhobosContract_Inspect>
+  <PhobosContract_InspectWork>Work done: {DONE} of {HOURS} hours.</PhobosContract_InspectWork>
+  <PhobosContract_InspectWorking>{CARAVAN} is {WORKING}.</PhobosContract_InspectWorking>
+  <PhobosContract_InspectResting>{CARAVAN} is resting for the night; the work goes on in the morning.</PhobosContract_InspectResting>
+  <PhobosContract_InspectHeldUp>The work is held up: {REASON}</PhobosContract_InspectHeldUp>
+
+  <!-- The caravan's buttons -->
+  <PhobosContract_Fulfil>Fulfil contract</PhobosContract_Fulfil>
+  <PhobosContract_FulfilDesc>Hand over what {SETTLEMENT} asked for: {REQUEST}.</PhobosContract_FulfilDesc>
+  <PhobosContract_FulfilConfirm>Hand over {REQUEST} to {SETTLEMENT}?</PhobosContract_FulfilConfirm>
+  <PhobosContract_StartWork>Start the work</PhobosContract_StartWork>
+  <PhobosContract_StartWorkDesc>Start the work {SETTLEMENT} asked for: {REQUEST}. The caravan stays while it is done, and its truck burns its own fuel. Leaving stops the work; what is done is kept.</PhobosContract_StartWorkDesc>
+  <PhobosContract_StopWork>Stop the work</PhobosContract_StopWork>
+  <PhobosContract_StopWorkDesc>Stop the work at {SETTLEMENT}. What is done is kept, for this caravan or another to finish before the contract runs out.</PhobosContract_StopWorkDesc>
+
+  <!-- Why not -->
+  <PhobosContract_ShortFluid>The caravan's tanks hold {HAVE} of the {WANT} {UNIT} of {FLUID} asked for.</PhobosContract_ShortFluid>
+  <PhobosContract_ShortThings>The caravan carries {HAVE} of what was asked for: {REQUEST}.</PhobosContract_ShortThings>
+  <PhobosContract_NoVehicle>No vehicle in the caravan can do this work.</PhobosContract_NoVehicle>
+  <PhobosContract_NoHand>Nobody in the caravan is fit to do the work: it needs someone able in {SKILL}.</PhobosContract_NoHand>
+  <PhobosContract_NoHandAny>Nobody in the caravan is fit to tend the work.</PhobosContract_NoHandAny>
+  <PhobosContract_NoFuel>{VEHICLE} is out of fuel.</PhobosContract_NoFuel>
+
+  <!-- Messages -->
+  <PhobosContract_Started>{CARAVAN} has started {WORKING} at {SETTLEMENT}.</PhobosContract_Started>
+  <PhobosContract_StoppedByOrder>The work at {SETTLEMENT} has stopped. What is done is kept.</PhobosContract_StoppedByOrder>
+  <PhobosContract_Left>{CARAVAN} has left {SETTLEMENT}, so the work there has stopped. What is done is kept.</PhobosContract_Left>
+  <PhobosContract_HeldUp>The work at {SETTLEMENT} is held up: {REASON}</PhobosContract_HeldUp>
+
+  <!-- Settings -->
+  <PhobosVehicleSettings_SectionContracts>Contracts</PhobosVehicleSettings_SectionContracts>
+  <PhobosVehicleSystems_ContractNever>never</PhobosVehicleSystems_ContractNever>
+  <PhobosVehicleSystems_SettingContractFrequency>How often settlements offer contracts: {SHARE}</PhobosVehicleSystems_SettingContractFrequency>
+  <PhobosVehicleSystems_SettingContractFrequencyDesc>Nearby settlements hire your vehicles: a load of chemfuel, water or stone, spare parts, or a truck's work at the settlement (a ground survey, a water bore, power for some days). The figure is how often, beside the game's own trade requests: 100% is as often as those, 0% offers none. A contract is offered only while you own a vehicle that can do it, and pays the game's usual quest rewards.</PhobosVehicleSystems_SettingContractFrequencyDesc>
+
+</LanguageData>

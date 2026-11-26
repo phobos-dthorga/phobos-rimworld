@@ -133,7 +133,8 @@ research or design with nothing built; **living** means kept current by every ch
 - [Vehicle simulation references](vehicle-references.md) (8 Nov 2026): the study library behind the vehicle designs. Research.
 - [World elevation and descents](world-elevation-and-descents.md) (18 Nov 2026): tile heights measured; descents, altitude, radio line of sight. Research.
 - [Animating our vehicles](vehicle-animation-research.md) (9 Nov 2026): what can move, and where motion helps. Partly built; the boom owner-tested.
-- [Emergent play around the vehicles](vehicle-emergent-play.md) (20 Nov 2026): where unplanned stories could come from; three audits, EM1 to EM29. Partly built.
+- [Emergent play around the vehicles](vehicle-emergent-play.md) (20 Nov 2026): where unplanned stories could come from; three audits, EM1 to EM45. Partly built.
+- [Contracts](vehicle-contracts.md) (26 Nov 2026): settlements hire the player's trucks through the quest window; EM45 with EM9. Built.
 - [Traps and vehicles](vehicle-traps.md) (21 Nov 2026): your vehicles pass over your traps when you did not send them; a setting. Built 0.213.0, untested.
 
 ## D'thorga Medical

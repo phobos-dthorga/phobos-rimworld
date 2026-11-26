@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Every settlement can hold a contract for the player's vehicles (Framework 0.308.0; docs/development/vehicle-contracts.md), beside the
+     game's own trade request comp. Its quest sets it; with no contract open it does nothing. -->
+<Patch>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorldObjectDef[defName="Settlement"]/comps</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.WorldObjectCompProperties_PhobosContract" />
+    </value>
+  </Operation>
+</Patch>

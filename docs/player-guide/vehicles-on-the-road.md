@@ -324,6 +324,31 @@ the fleet board.
 
 **The depot's line says how old its fuel is and when it will be found.**
 
+### Contracts from settlements
+
+**Nearby settlements hire your vehicles**, through the quest window, as they send the game's own trade requests. A contract is offered
+only while you own a vehicle that can do it.
+
+| Contract | What does it |
+| --- | --- |
+| Chemfuel, 400 to 1,000 litres | A tanker or a fuel bowser |
+| Water, 600 to 1,500 litres (Dubs Bad Hygiene) | A tanker or a water bowser |
+| Stone, 40 to 80 chunks | Offered with a Talus tipper; any chunks the caravan carries count |
+| Spare parts, one to three of one kind | Anyone who keeps vehicles |
+| A ground survey, 12 to 24 hours | A Datum survey truck, and someone with Intellectual skill |
+| A water bore, 18 to 36 hours (Dubs Bad Hygiene) | A Kelly drill rig, and someone with Mining skill |
+| Power, two to four days | A Busbar generator set, and anyone to tend it; it runs day and night |
+
+1. **Accept the quest** and send a caravan to the settlement before the time runs out.
+2. **For a delivery, press Fulfil contract** there: it takes exactly what was asked from the tanks or the cargo, towed trailers too.
+3. **For work, press Start the work** and leave the caravan there. The settlement's line counts the hours. The crew rests at night
+   (except for power); the truck burns its own fuel; the better the hand's skill, the faster it goes, and they learn as they work.
+   **Leaving stops the work and keeps what is done.**
+4. The quest pays the game's usual rewards into the caravan, and the settlement's faction likes you better.
+
+**How often** is the setting **How often settlements offer contracts** (Crews page, **Contracts**): from never to three times as often
+as trade requests, in quarters; as often as trade requests by default.
+
 ### Garages
 
 **Garages** (needs Vanilla Expanded Framework): a stopped convoy can set one up. Vehicles left there stay with no time limit, and

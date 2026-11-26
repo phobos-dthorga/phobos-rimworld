@@ -13,6 +13,22 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.122.0] - 2026-11-26 - Draft
+
+Settlements hire the trucks
+
+### Added
+
+- **Settlements hire our trucks through the quest window**, with D'thorga Framework 0.308.0's contracts (the owner's cards of 26 November
+  2026: all seven kinds). A load of chemfuel for a tanker or fuel bowser, 40 to 80 stone chunks when you own a Talus, a ground survey by
+  the Datum, a water bore by the Kelly and two to four days of power from the Busbar; water and the bore with Dubs Bad Hygiene only. Each
+  is offered only while you own a truck that can do it. Amounts, worth and fuel are agent's figures, and the words are agent-authored,
+  held for the owner's review. Not yet tested in game: rows 551 to 553.
+
+### Save compatibility
+
+- Safe on an existing save.
+
 ## [0.121.0] - 2026-11-25 - Draft
 
 The gun ring and its guns

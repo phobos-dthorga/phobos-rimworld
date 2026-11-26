@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settlements' contracts for the player's vehicles (Framework 0.308.0; docs/development/vehicle-contracts.md; EM45 with EM9). The quest is
+     shaped as the game's own trade request (Core's Script_TradeRequest.xml): a nearby settlement, a time limit from the journey, the game's
+     own rewards valued from the work, paid to the caravan, a failure if the faction turns hostile. How often it is offered is a setting, a
+     share of the trade request's weight (1.1 here, the same figure). Every word here is agent-authored, held for the owner's review. -->
+<Defs>
+
+  <QuestScriptDef>
+    <defName>PhobosVehicleContract</defName>
+    <rootSelectionWeight>1.1</rootSelectionWeight>
+    <rootMinProgressScore>8</rootMinProgressScore>
+    <defaultChallengeRating>1</defaultChallengeRating>
+    <expireDaysRange>4~8</expireDaysRange>
+    <questNameRules>
+      <rulesStrings>
+        <li>questName->Contract for [settlement_label]</li>
+        <li>questName->Work for [settlement_label]</li>
+        <li>questName->[settlement_label] calls for a truck</li>
+        <li>questName->A job at [settlement_label]</li>
+      </rulesStrings>
+    </questNameRules>
+    <questDescriptionRules>
+      <rulesStrings>
+        <li>questDescription->A nearby settlement, [settlement_label], has heard of your vehicles and wants to hire them. They ask for:
+\n  [contractRequest]
+\n[contractHowTo] They will pay when it is done.[travelTime]</li>
+        <li>travelTime(canCaravan==True,priority=1)-> The estimated travel time is [estimatedTravelTime_duration].</li>
+        <li>travelTime-></li>
+      </rulesStrings>
+    </questDescriptionRules>
+    <root Class="QuestNode_Sequence">
+      <nodes>
+        <li Class="QuestNode_GetMap" />
+        <li Class="QuestNode_GetNearbySettlement">
+          <maxTileDistance>24</maxTileDistance>
+          <storeAs>settlement</storeAs>
+          <storeFactionLeaderAs>asker</storeFactionLeaderAs>
+          <storeCanCaravanAs>canCaravan</storeCanCaravanAs>
+          <canBeSpace>false</canBeSpace>
+        </li>
+        <li Class="QuestNode_GetFactionOf">
+          <thing>$asker</thing>
+          <storeAs>faction</storeAs>
+        </li>
+        <li Class="QuestNode_Letter">
+          <inSignal>faction.BecameHostileToPlayer</inSignal>
+          <label TKey="LetterLabelQuestFailed">Quest failed: [resolvedQuestName]</label>
+          <text TKey="LetterTextQuestFailed">[faction_name] became hostile to you.</text>
+        </li>
+        <li Class="QuestNode_End">
+          <inSignal>faction.BecameHostileToPlayer</inSignal>
+          <outcome>Fail</outcome>
+        </li>
+        <!-- The game's own time limit from the journey, then the work's own days on top for work at the settlement. -->
+        <li Class="QuestNode_TradeRequest_RandomOfferDuration">
+          <settlement>$settlement</settlement>
+          <storeAs>timeout</storeAs>
+          <storeEstimatedTravelTimeAs>estimatedTravelTime</storeEstimatedTravelTimeAs>
+        </li>
+        <li Class="Phobos.VehicleSystems.QuestNode_PhobosContract_Pick">
+          <settlement>$settlement</settlement>
+          <timeoutVar>timeout</timeoutVar>
+          <storeOfferAs>contractOffer</storeOfferAs>
+          <storeValueAs>contractValue</storeValueAs>
+          <storeRequestAs>contractRequest</storeRequestAs>
+          <storeHowToAs>contractHowTo</storeHowToAs>
+        </li>
+        <li Class="Phobos.VehicleSystems.QuestNode_PhobosContract_Initiate">
+          <settlement>$settlement</settlement>
+          <offer>$contractOffer</offer>
+          <duration>$timeout</duration>
+        </li>
+        <li Class="QuestNode_GetMapWealth">
+          <map>$map</map>
+          <storeAs>mapWealth</storeAs>
+        </li>
+        <li Class="QuestNode_EvaluateSimpleCurve">
+          <value>$mapWealth</value>
+          <storeAs>wealthRewardValueFactor</storeAs>
+          <curve>
+            <points>
+              <li>0, 1.15</li>
+              <li>50000, 1</li>
+              <li>300000, 0.85</li>
+            </points>
+          </curve>
+        </li>
+        <li Class="QuestNode_Set">
+          <name>rewardValue</name>
+          <value>$($contractValue * $wealthRewardValueFactor * randFloat(1.5, 2.1))</value>
+        </li>
+        <li Class="QuestNode_GiveRewards">
+          <inSignal>settlement.PhobosContractDone</inSignal>
+          <parms>
+            <allowGoodwill>true</allowGoodwill>
+            <allowRoyalFavor>true</allowRoyalFavor>
+            <chosenPawnSignal>ChosenPawnForReward</chosenPawnSignal>
+            <giveToCaravan>true</giveToCaravan>
+          </parms>
+          <useDifficultyFactor>false</useDifficultyFactor>
+          <nodeIfChosenPawnSignalUsed Class="QuestNode_Letter">
+            <letterDef>ChoosePawn</letterDef>
+            <label TKey="LetterLabelFavorReceiver">[asker_faction_royalFavorLabel]</label>
+            <text TKey="LetterTextFavorReceiver">Who should be credited with [asker_faction_royalFavorLabel] for the work done for [settlement_label]?</text>
+            <chosenPawnSignal>ChosenPawnForReward</chosenPawnSignal>
+            <useColonistsFromCaravanArg>true</useColonistsFromCaravanArg>
+          </nodeIfChosenPawnSignalUsed>
+        </li>
+        <li Class="QuestNode_Delay">
+          <delayTicks>$timeout</delayTicks>
+          <isQuestTimeout>true</isQuestTimeout>
+          <outSignalComplete>PhobosContractTimeout</outSignalComplete>
+        </li>
+        <li Class="QuestNode_End">
+          <inSignal>settlement.PhobosContractDone</inSignal>
+          <outcome>Success</outcome>
+          <sendStandardLetter>true</sendStandardLetter>
+        </li>
+        <li Class="QuestNode_End">
+          <inSignal>PhobosContractTimeout</inSignal>
+          <outcome>Fail</outcome>
+        </li>
+      </nodes>
+    </root>
+  </QuestScriptDef>
+
+  <!-- EM9's first call for help: a named spare part, for anyone who keeps vehicles of ours. Worth the part's own market value. -->
+  <Phobos.VehicleSystems.PhobosContractDef>
+    <defName>PhobosContract_SpareParts</defName>
+    <label>spare parts</label>
+    <kind>DeliverThings</kind>
+    <things>
+      <li>PhobosVehicles_EngineAssembly</li>
+      <li>PhobosVehicles_DrivetrainKit</li>
+      <li>PhobosVehicles_ElectricalKit</li>
+      <li>PhobosVehicles_Transmission</li>
+      <li>PhobosVehicles_HydraulicActuator</li>
+      <li>PhobosVehicles_ElectricMotor</li>
+    </things>
+    <amountRange>1~3</amountRange>
+    <request>{AMOUNT} {THING}, to get their own vehicles running again</request>
+    <howTo>Bring them in a caravan.</howTo>
+  </Phobos.VehicleSystems.PhobosContractDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_Contract</defName>
+    <label>contract</label>
+    <text>Worked a contract for {SUBJECT} {PLACE}: {DETAIL}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+</Defs>

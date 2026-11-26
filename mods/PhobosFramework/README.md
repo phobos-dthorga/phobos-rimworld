@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.307.0, built 26 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.308.0, built 26 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -36,7 +36,7 @@ oxygen working (5 November 2026) and a handful of vehicle features (listed at th
 - **Before removing it** (after the mods that need it): if vehicles used the systems, load the colony, press **Remove the added
   parts from this colony's vehicles** in **D'thorga Vehicle Systems**' settings and save, or saved vehicles may fail to load.
   **Empty parks, yards, garages, sling wrecks, convoys, depots, litters and extra fuel tanks first**: whatever is in them goes
-  with the mod. The whole list is in [Removing a mod](../../docs/player-guide/getting-started.md#removing-a-mod).
+  with the mod. **Finish or let run out every open contract from a settlement** too: its quest would not load. The whole list is in [Removing a mod](../../docs/player-guide/getting-started.md#removing-a-mod).
 - **Build a vehicle parts bench early** (research **Vehicle parts**; Architect > **D'thorga** > **Motor pool**): our parts, kits
   and booster packs are made only there. **Tick the Vehicle parts storage category in a stockpile**, or the bench overshoots "Do
   until you have X".
@@ -212,6 +212,7 @@ offers to restart). RimWorld saves only what you change.
 | Cabs, camps and caravans | Night heater at camp | A vehicle whose night heater switch is on keeps its cab and engine warm at a caravan's camp, and for someone asleep in its cab bunk on a map, for fuel | Off |
 | Cabs, camps and caravans | Drive through the night | Vehicle caravans keep going at night while every vehicle has a rested driver, swapping tired drivers for rested passengers; journeys take about half the time. Each caravan also has its own switch | Off |
 | Cabs, camps and caravans | Warn before a parked vehicle is lost | Days of warning; 0 turns it off | 3 days |
+| Contracts | How often settlements offer contracts | Settlements hire your vehicles for deliveries and work on site; the figure is beside the game's trade requests, in quarters from never to 300% | 100% |
 | Remote control | Vehicles follow a leader, run loops and fly rounds by themselves | A vehicle with the route kit follows a crewed leader (four at most) or runs between two stops, with nobody aboard; an aircraft flies a round of places with its pilot aboard. Off: none does, and one doing so stops | On |
 | Remote control | Mechanitors can drive vehicles | With Biotech: a vehicle with the mech control link, linked to a mechanitor, is driven by them through their bandwidth (1, 2 or 3 by size). Off: none is, and one driven so stops | On |
 | Remote control | Remote guns fire on their own | A gun that no seat works, on a vehicle with the remote control kit, fires by itself without a station's picture. Off: only while a station has the picture | Off |

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The two water contracts, only with Dubs Bad Hygiene, which gives water its worth in play (Vehicles 0.122.0; docs/development/vehicle-contracts.md).
+     Figures are the agent's: a litre of water is worth 1 silver here; the drill rig burns 0.6 fuel an hour driving its drill. Every word is
+     agent-authored, held for the owner's review. -->
+<Defs>
+
+  <Phobos.VehicleSystems.PhobosContractDef>
+    <defName>PhobosContract_Water</defName>
+    <label>water delivery</label>
+    <kind>DeliverFluid</kind>
+    <fluid>PhobosTank_Water</fluid>
+    <amountRange>600~1500</amountRange>
+    <step>50</step>
+    <valuePerUnit>1</valuePerUnit>
+    <request>{AMOUNT} litres of {THING}, while their well is dry</request>
+    <howTo>A tanker or a water bowser can bring it in one trip.</howTo>
+  </Phobos.VehicleSystems.PhobosContractDef>
+
+  <!-- A water bore by the Kelly: hours of drilling at the settlement by someone with Mining skill. -->
+  <Phobos.VehicleSystems.PhobosContractDef>
+    <defName>PhobosContract_WaterBore</defName>
+    <label>water bore</label>
+    <kind>WorkOnSite</kind>
+    <vehicleComp>Phobos.VehicleSystems.CompPhobosDrillRig</vehicleComp>
+    <amountRange>18~36</amountRange>
+    <step>2</step>
+    <valuePerUnit>50</valuePerUnit>
+    <skill>Mining</skill>
+    <fuelPerHour>0.6</fuelPerHour>
+    <request>a new water bore, about {AMOUNT} hours of drilling</request>
+    <howTo>Send a drill rig with someone who knows drilling, and let the caravan stay while it drills.</howTo>
+    <working>drilling a water bore</working>
+  </Phobos.VehicleSystems.PhobosContractDef>
+
+</Defs>

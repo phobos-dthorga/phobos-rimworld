@@ -13,6 +13,27 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.308.0] - 2026-11-26 - Draft
+
+Settlements hire your vehicles
+
+### Added
+
+- **Settlements offer contracts for your vehicles**, as quests shaped like the game's own trade requests (the owner's cards of 26
+  November 2026). A nearby settlement asks for a delivery or for a truck's work there, only while you own a vehicle that can do it; a
+  caravan that reaches it presses **Fulfil contract**, or **Start the work** and stays for the hours. The game's own rewards are paid
+  into the caravan, the faction is pleased as for a trade request, and the truck's logbook keeps it. Each kind is XML, so other mods add
+  their own; this mod brings one, a call for spare vehicle parts. Not yet tested in game: rows 551 to 553.
+- **Work at a settlement keeps the caravan there**: the truck burns its own fuel, the best hand works at their skill's pace and learns
+  as they go, the crew rests at night unless the work runs through it, and leaving or stopping keeps what is done. What holds the work
+  up is said once. Figures are the agent's; the words are agent-authored, held for the owner's review.
+- **A new setting, How often settlements offer contracts** (Crews page, Contracts): a slider in steps of 25% from never to 300% of the
+  game's trade request rate, 100% by default (the owner's card: a slider). Not yet tested in game: row 554.
+
+### Save compatibility
+
+- Safe to add to an existing save. **Before removing this mod, finish or let run out every open contract**: its quest holds a part of ours.
+
 ## [0.307.0] - 2026-11-26 - Draft
 
 An aircraft flies a round between places

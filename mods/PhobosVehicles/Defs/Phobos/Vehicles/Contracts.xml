@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- What settlements may hire our trucks for (Vehicles 0.122.0, with D'thorga Framework 0.308.0's contracts; docs/development/vehicle-contracts.md;
+     the owner's card of 26 Nov 2026: all seven kinds). Each is offered only while the player owns a truck that can do it. Amounts, worth a
+     unit and fuel an hour are the agent's figures, chosen so a contract is worth about what the game's own trade requests ask (500 to 2,500
+     silver); the generator set's fuel is its own full-load figure, 9 a day. Every word is agent-authored, held for the owner's review.
+     Water and the water bore are in Mods/DubsBadHygiene. -->
+<Defs>
+
+  <!-- Chemfuel by the tanker load, in the Ullage or a fuel bowser. Worth chemfuel's own market value a litre. -->
+  <Phobos.VehicleSystems.PhobosContractDef>
+    <defName>PhobosContract_Chemfuel</defName>
+    <label>chemfuel delivery</label>
+    <kind>DeliverFluid</kind>
+    <fluid>PhobosTank_Chemfuel</fluid>
+    <amountRange>400~1000</amountRange>
+    <step>50</step>
+    <request>{AMOUNT} litres of {THING}, brought in bulk for their generators</request>
+    <howTo>A tanker or a fuel bowser can bring it in one trip.</howTo>
+  </Phobos.VehicleSystems.PhobosContractDef>
+
+  <!-- A load of stone for the Talus. A chunk is worth 15 silver here (agent's figure: about the blocks it cuts into, less the cutting). -->
+  <Phobos.VehicleSystems.PhobosContractDef>
+    <defName>PhobosContract_Stone</defName>
+    <label>stone delivery</label>
+    <kind>DeliverThings</kind>
+    <vehicleComp>Phobos.VehicleSystems.CompPhobosTipper</vehicleComp>
+    <thingCategory>StoneChunks</thingCategory>
+    <amountRange>40~80</amountRange>
+    <step>5</step>
+    <valuePerUnit>15</valuePerUnit>
+    <request>{AMOUNT} stone chunks of any rock, for a new wall</request>
+    <howTo>A tipper truck carries a load like this in one trip.</howTo>
+  </Phobos.VehicleSystems.PhobosContractDef>
+
+  <!-- A ground survey by the Datum: hours of work at the settlement by someone with Intellectual skill, the truck burning a little fuel on
+       its console and boom. -->
+  <Phobos.VehicleSystems.PhobosContractDef>
+    <defName>PhobosContract_Survey</defName>
+    <label>ground survey</label>
+    <kind>WorkOnSite</kind>
+    <vehicleComp>Phobos.VehicleSystems.CompPhobosSurveyTruck</vehicleComp>
+    <amountRange>12~24</amountRange>
+    <step>1</step>
+    <valuePerUnit>70</valuePerUnit>
+    <skill>Intellectual</skill>
+    <fuelPerHour>0.2</fuelPerHour>
+    <request>a survey of the ground around their settlement, about {AMOUNT} hours of work</request>
+    <howTo>Send a survey truck with someone who can read its instruments, and let the caravan stay while the work is done.</howTo>
+    <working>surveying the ground</working>
+  </Phobos.VehicleSystems.PhobosContractDef>
+
+  <!-- Power from the Busbar while the settlement's own is down: it runs day and night, at its full-load fuel figure. -->
+  <Phobos.VehicleSystems.PhobosContractDef>
+    <defName>PhobosContract_Power</defName>
+    <label>power supply</label>
+    <kind>WorkOnSite</kind>
+    <vehicleComp>Phobos.VehicleSystems.CompPhobosGeneratorSet</vehicleComp>
+    <amountRange>48~96</amountRange>
+    <step>12</step>
+    <valuePerUnit>20</valuePerUnit>
+    <fuelPerHour>0.375</fuelPerHour>
+    <worksAtNight>true</worksAtNight>
+    <request>{AMOUNT} hours of power from a generator truck while their own generator is mended</request>
+    <howTo>Send a generator truck with someone to tend it, and let the caravan stay for the time.</howTo>
+    <working>powering the settlement</working>
+  </Phobos.VehicleSystems.PhobosContractDef>
+
+</Defs>
