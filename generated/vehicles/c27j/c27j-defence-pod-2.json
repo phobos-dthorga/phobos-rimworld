@@ -1,0 +1,39 @@
+{
+  "file": "c27j-defence-pod-2.png",
+  "sha256": "9fff02143c17644b290626470c3abd728c5e8e467c4def5f205d26d458331a7d",
+  "date": "2026-11-26T20:37:42",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite of ONE small defensive aids pod for a military transport aircraft, bolted onto the top of its landing-gear fairing. Image 1 is our own approved aircraft: match its outline weight, shading, pale grey materials and finish only. Do NOT redraw it, and draw no aircraft.\n\nDraw ONLY this one pod, alone on a plain pure white background, centred on the canvas. A slim rounded-rectangle base plate in the same pale grey as Image 1, its long side running from the TOP to the BOTTOM of the canvas, with a few small bolt heads round its edge. On its TOP half, a small round infrared jammer turret: a dark glossy glass dome inside a mid-grey ring. On its BOTTOM half, a flat rectangular chaff and flare dispenser: a dark grey box whose top face shows a neat grid of small round cartridge caps, three across and five down. The whole pod is about 30 percent of the canvas wide and 60 percent of the canvas tall.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, one small soft highlight on the dome, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo aircraft, no wing, no fairing, no people, smoke, flame, flares, text, letters, numbers, logos, symbols, dust or damage. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/c27j-overlays.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a21737-64a2-7c20-af0b-ee7045e380d7",
+  "usage": null,
+  "cost_usd": 0.15,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "asked_resolution": "1K",
+  "asked_aspect_ratio": "1:1",
+  "sent_seed": 2,
+  "seconds": 41.7,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/c27j-body/c27j-body-1.png",
+      "sha256": "7178d782ec8a6d74055cc3db7599569e220356f194b39b29fe5700208d125e6f",
+      "role": "Image 1 is our approved C-27J aircraft (the owner's body pick, 26 Nov 2026), seen from directly above: match its outline weight, shading, pale grey materials and finish only; do not redraw it"
+    }
+  ]
+}

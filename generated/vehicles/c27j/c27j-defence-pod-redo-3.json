@@ -1,0 +1,39 @@
+{
+  "file": "c27j-defence-pod-redo-3.png",
+  "sha256": "9d4a4300fd93fc58b2b2b2bba400b0a4d5beb7de9fed7c58f982cf42e8322b2e",
+  "date": "2026-11-26T21:54:58",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite of ONE defensive aids fairing for a military transport aircraft, faired onto the top of its landing-gear housing. Image 1 is our own approved aircraft: match its outline weight, shading, pale grey materials and finish only. Do NOT redraw it, and draw no aircraft.\n\nDraw ONLY this one fairing, alone on a plain pure white background, centred on the canvas, its length running from the TOP to the BOTTOM of the canvas. It is a long, slim, streamlined teardrop in the same pale grey as Image 1: narrow and pointed at its TOP end, widest two thirds of the way down, ending in a short rounded tail at the BOTTOM. Near its rounded tail sits a small low jammer turret: a short squat cylinder turned sideways, with one small dark rectangular faceted window facing to the LEFT, not a round dome. Along its pointed front half, two small flush dark grey rectangular hatches one behind the other, each with a tiny neat grid of round cartridge ends, sunk level with the skin. A thin panel seam runs round the fairing's base with a few tiny rivets. The whole fairing is about 22 percent of the canvas wide and 70 percent of the canvas tall.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo aircraft, no wing, no plate, no ring, no round dome, no camera lens look, no people, smoke, flame, flares, text, letters, numbers, logos, symbols, dust or damage. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 3,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/c27j-overlays.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a2177e-2575-7063-8aea-91e99bad4b7e",
+  "usage": null,
+  "cost_usd": 0.15,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "asked_resolution": "1K",
+  "asked_aspect_ratio": "1:1",
+  "sent_seed": 3,
+  "seconds": 35.8,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/c27j-body/c27j-body-1.png",
+      "sha256": "7178d782ec8a6d74055cc3db7599569e220356f194b39b29fe5700208d125e6f",
+      "role": "Image 1 is our approved C-27J aircraft (the owner's body pick, 26 Nov 2026), seen from directly above: match its outline weight, shading, pale grey materials and finish only; do not redraw it"
+    }
+  ]
+}

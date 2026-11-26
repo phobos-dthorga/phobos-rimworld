@@ -1,0 +1,40 @@
+{
+  "file": "c27j-spray-boom-1.png",
+  "sha256": "1533c6ccdf68f9ef4f441afddc9f53f85d60d16808c4c30af40c475ef463b707",
+  "date": "2026-11-26T20:35:20",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite of ONE water-bombing discharge pipe, the part of an aircraft's roll-on fire-fighting tank that reaches out of its side door to spray water. Image 1 is our own approved aircraft: match its outline weight, shading, pale grey materials and finish only. Do NOT redraw it, and draw no aircraft, door or tank.\n\nDraw ONLY the pipe, alone on a plain pure white background, centred on the canvas. From the BOTTOM of the canvas: a round flat mounting flange with a ring of small bolt heads; then one thick, round, pale grey metal pipe rising straight toward the TOP of the canvas for a little over half its length; then a smooth bend of about 60 degrees toward the LEFT of the canvas; then a short straight end that widens into a flat, flared nozzle with a dark open mouth at its tip. A thin dark band clamps the pipe just above the flange. The whole part is about 65 percent of the canvas tall and 40 percent of the canvas wide; the pipe is about 10 percent of the canvas wide.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, a soft highlight along the pipe, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo aircraft, no door, no tank, no water, spray, mist, splash, smoke, people, text, letters, numbers, logos, symbols, dust or damage. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "size": [
+    1366,
+    2048
+  ],
+  "request_file": "assets/phobos-vehicles/requests/c27j-overlays.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a21735-1ddf-7e13-8f2a-c10d798aa8f0",
+  "usage": null,
+  "cost_usd": 0.15,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    1696,
+    2528
+  ],
+  "asked_resolution": "2K",
+  "asked_aspect_ratio": "2:3",
+  "sent_seed": 1,
+  "size_note": "asked for 1366x2048, received 1696x2528",
+  "seconds": 47.2,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/c27j-body/c27j-body-1.png",
+      "sha256": "7178d782ec8a6d74055cc3db7599569e220356f194b39b29fe5700208d125e6f",
+      "role": "Image 1 is our approved C-27J aircraft (the owner's body pick, 26 Nov 2026), seen from directly above: match its outline weight, shading, pale grey materials and finish only; do not redraw it"
+    }
+  ]
+}
