@@ -337,6 +337,27 @@
           <li Class="Phobos.VehicleSystems.Input_TowedPumpAmps" />
         </ampsInputs>
       </li>
+      <!-- Framework 0.318.0 (the owner's cards of 26 Nov 2026: parked and on the road): a tank trailer's reverse-osmosis kit, run through
+           the trailer's lead while it treats, on a map or the world map: its own watts (1,500 W in its Def, agent's figure) at this vehicle's
+           voltage, about 125 A at 12 volts and 62 A at 24, so a towing vehicle's alternator carries it only while it drives, and a long
+           treatment at a halt runs the battery down. Shed early, with the trailer pump. -->
+      <li>
+        <name>trailerTreatment</name>
+        <label>trailer water treatment</label>
+        <description>The reverse-osmosis kit of a tank trailer in tow, run through the trailer's lead while it treats water. Switched on and with power, it makes the trailer's untreated water clean.</description>
+        <amps>1</amps>
+        <toggle>true</toggle>
+        <defaultOn>true</defaultOn>
+        <shedOrder>1</shedOrder>
+        <iconPath>Phobos/VehicleSystems/Tank/ReverseOsmosisKit</iconPath>
+        <available Class="Phobos.VehicleSystems.When_TowedTreatment" />
+        <when Class="Phobos.VehicleSystems.When_TowedTreatment">
+          <inUse>true</inUse>
+        </when>
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TowedTreatmentAmps" />
+        </ampsInputs>
+      </li>
     </towLoads>
     <!-- Loads a vehicle gains from its camp (Framework 0.231.0): its 12-volt camp lights on poles, each its own watts (10 W in its Def,
          authored: an LED light bar) at this vehicle's voltage, while it is dark and they are switched on. Shed early among the comforts,

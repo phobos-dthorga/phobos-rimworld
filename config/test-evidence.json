@@ -45,6 +45,8 @@
     "565": {"parts": {"a running survey finds a lump near the convoy": ["vehicles.road-survey-find"]}},
     "566": {"parts": {"a bore is drilled": [{"key": "vehicles.road-bore", "variant": "drilled"}],
       "and fills the tanks": [{"key": "vehicles.road-bore", "variant": "filled"}]}},
+    "570": {"parts": {"a parked kit treats a load clean": [{"key": "vehicles.water-treated", "detail": "on a map*"}]}},
+    "571": {"parts": {"a kit treats on the road": [{"key": "vehicles.water-treated", "detail": "on the road*"}]}},
     "551": {"parts": {"a settlement's contract is offered": ["vehicles.contract-offered"]}},
     "552": {"parts": {"a fluid is handed over from the tanks": [{"key": "vehicles.contract-done", "variant": "DeliverFluid"}],
       "or things from the cargo": [{"key": "vehicles.contract-done", "variant": "DeliverThings"}]}},

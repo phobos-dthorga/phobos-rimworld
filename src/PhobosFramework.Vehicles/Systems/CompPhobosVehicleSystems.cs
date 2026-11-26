@@ -436,7 +436,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
 
     bool Enabled(SystemState state) => !VehicleSystemsMod.Settings.disabledSystems.Contains(state.Def.defName) && (!state.Def.needsClosedCab || ClosedCab)
-        && (state.Def.needsGrant == null || Fittings.Grants(state.Def.needsGrant));
+        && (state.Def.needsGrant == null || Fittings.Grants(state.Def.needsGrant))
+        && (state.Def.needsStat == null || Vehicle.GetStatValue(state.Def.needsStat) > 0f);
 
     /// <summary>Whether a system runs on this vehicle now (not switched off in the settings, and its cab is closed if it needs one).</summary>
     public bool IsEnabled(SystemState state) => Enabled(state);
@@ -1248,6 +1249,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (Hitch is { Trailer: not null } && LoadRuns(ColdInTow.LoadName)) ColdInTow.Chill(Vehicle);
         // A tank trailer's electric pump behind it runs while its load on this vehicle runs (Framework 0.283.0).
         if (Hitch is { Trailer: not null } && LoadRuns(TrailerPumpInTow.LoadName)) TrailerPumpInTow.Power(Vehicle);
+        // A tank trailer's reverse-osmosis kit behind it treats while its load on this vehicle runs, on a map or the world map (Framework 0.318.0).
+        if (Hitch is { Trailer: not null } && LoadRuns(TrailerTreatmentInTow.LoadName)) TrailerTreatmentInTow.Power(Vehicle);
         // Crosslink 5: the alternator takes shaft power for what the loads draw, so the engine works a little harder for them.
         float driveLoad = EngineLoad;
         bool wanted = drafted || caravanMoving || flying || (train?.IsAircraft == true && train.AircraftRunning) || workWanted;

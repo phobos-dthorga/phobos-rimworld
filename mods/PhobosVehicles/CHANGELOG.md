@@ -13,6 +13,21 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.124.0] - 2026-11-26 - Draft
+
+The reverse-osmosis kit
+
+### Added
+
+- **A reverse-osmosis kit for the water bowser and the Ullage** (Dubs Bad Hygiene only; the owner's idea and cards of 26 November
+  2026): an upgrade that makes the tank's untreated water clean to drink, drawn as a cabinet across the bowser's rear deck and on the
+  Ullage's frame behind the cab (the owner's picks; agent placement). On the Ullage it needs a liquid tank. It costs 25 steel, 4
+  components and its first membrane cartridge (the agent's figures). Not yet tested in game: rows 570 to 572.
+
+### Save compatibility
+
+- Safe to add. The water bowser now has its own loadout, with the same parts as before.
+
 ## [0.123.0] - 2026-11-26 - Draft
 
 The C-27J Spartan

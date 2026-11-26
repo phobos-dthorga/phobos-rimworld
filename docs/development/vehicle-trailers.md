@@ -692,6 +692,7 @@ flowchart TB
   PhobosBowserLagging["Lagged tank"]
   PhobosBowserSecondHose["Second hose"]
   PhobosTrailerElectricPump["Electric pump"]
+  PhobosBowserReverseOsmosis["Reverse-osmosis kit"]
 ```
 
 ### The shower trailer (Dubs Bad Hygiene)

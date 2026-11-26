@@ -377,6 +377,8 @@ as trade requests, in quarters; as often as trade requests by default.
   pumps **untreated water** (as from a river) into the convoy's water tanks until they are full. It **burns the Kelly's fuel and wears
   its drill bit**: about a dozen bores to a new bit. **Driving on ends it.** Only tanks already set to water are filled, crew water
   tanks too.
+- **Treat it on the way**: a water bowser or Ullage with the [reverse-osmosis kit](working-vehicles.md#pintle-water-and-fuel-bowsers) makes bore or
+  river water clean while the convoy drives, on the towing vehicle's or the truck's own electrics.
 
 ### Garages
 

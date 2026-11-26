@@ -74,6 +74,34 @@
         <Steel>15</Steel>
       </ingredients>
     </li>
+    <li>
+      <!-- Vehicles 0.124.0 (the owner's idea and cards of 26 Nov 2026): the reverse-osmosis kit, at the US Army's Lightweight Water
+           Purifier's rate, drawn as a cabinet on the rear deck. Its first membrane cartridge comes with it. Materials and work authored. -->
+      <key>PhobosBowserReverseOsmosis</key>
+      <label>Reverse-osmosis kit</label>
+      <displayLabel>true</displayLabel>
+      <description>A pump, a pre-filter and two membrane housings in a cabinet on the deck: it passes the tank's untreated water through the membranes, about 470 litres an hour, and the water comes out clean to drink. A quarter of what passes runs off as reject. It draws 1,500 W, from the grid where the trailer stands or the lead of the vehicle towing it, and its membrane wears out in time: a mechanic fits a new membrane cartridge.</description>
+      <icon>Phobos/VehicleSystems/Tank/ReverseOsmosisKit</icon>
+      <work>3000</work>
+      <gridCoordinate>(17, 2)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_WaterTreatment</def>
+              <value>470</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>25</Steel>
+        <ComponentIndustrial>4</ComponentIndustrial>
+        <PhobosVehicles_MembraneCartridge>1</PhobosVehicles_MembraneCartridge>
+      </ingredients>
+    </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

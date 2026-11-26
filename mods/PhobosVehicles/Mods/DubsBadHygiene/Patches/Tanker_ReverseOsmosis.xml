@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The Ullage's reverse-osmosis kit (Vehicles 0.124.0; the owner's cards of 26 Nov 2026), only with Dubs Bad Hygiene, where water has a
+       quality to treat: the node (it needs a liquid tank, as the electric pump does), its cabinet on the left frame strip behind the cab
+       (assets/phobos-vehicles/export_ro_kit.py; agent placement), the water treatment system and the kit's load on the truck's own
+       electrics: 1,500 W at its voltage while it treats, shed third with the tank's pump. Materials and work authored. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tanker_UpgradeTree"]/nodes</xpath>
+    <value>
+      <li>
+        <key>ReverseOsmosisKit</key>
+        <label>Reverse-osmosis kit</label>
+        <displayLabel>true</displayLabel>
+        <description>A pump, a pre-filter and two membrane housings in a cabinet on the frame: it passes the tank's untreated water through the membranes, about 470 litres an hour, and the water comes out clean to drink. A quarter of what passes runs off as reject. It draws 1,500 W from the truck's electrics, and its membrane wears out in time: a mechanic fits a new membrane cartridge.</description>
+        <icon>Phobos/VehicleSystems/Tank/ReverseOsmosisKit</icon>
+        <work>3000</work>
+        <gridCoordinate>(12, 17)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <upgrades>
+          <li Class="Vehicles.StatUpgrade">
+            <vehicleStats>
+              <li>
+                <def>Phobos_WaterTreatment</def>
+                <value>470</value>
+              </li>
+            </vehicleStats>
+          </li>
+          <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+        </upgrades>
+        <ingredients>
+          <Steel>25</Steel>
+          <ComponentIndustrial>4</ComponentIndustrial>
+          <PhobosVehicles_MembraneCartridge>1</PhobosVehicles_MembraneCartridge>
+        </ingredients>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tanker_UpgradeTree"]/modExtensions/li[@Class="Phobos.VehicleSystems.PhobosUpgradeAnyOf"]/links</xpath>
+    <value>
+      <li>
+        <node>ReverseOsmosisKit</node>
+        <anyOf>
+          <li>LiquidTank</li>
+          <li>InsulatedLiquidTank</li>
+          <li>HighVolumeLiquidTank</li>
+        </anyOf>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Tanker"]/comps/li[@Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks"]/slots</xpath>
+    <value>
+      <li>
+        <key>roKit</key>
+        <looks>
+          <li>
+            <node>ReverseOsmosisKit</node>
+            <look>
+              <graphicData>
+                <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_ROKit</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 11)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>3</layer>
+              </graphicData>
+            </look>
+          </li>
+        </looks>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="PhobosVehicleLoadout_BulkTanker"]/systems</xpath>
+    <value>
+      <li><def>PhobosVehicleSystem_WaterTreatment</def></li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="PhobosVehicleLoadout_BulkTanker"]/loads</xpath>
+    <value>
+      <li>
+        <name>waterTreatment</name>
+        <label>water treatment</label>
+        <description>The reverse-osmosis kit, drawing while it treats the tank's water: about 62 A on 24 volts. With the engine off it runs on the battery until the battery is flat.</description>
+        <amps>1</amps>
+        <shedOrder>3</shedOrder>
+        <iconPath>Phobos/VehicleSystems/Tank/ReverseOsmosisKit</iconPath>
+        <available Class="Phobos.VehicleSystems.When_StatAbove">
+          <stat>Phobos_WaterTreatment</stat>
+          <value>0</value>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_TankTreating" />
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TankTreatmentAmps" />
+        </ampsInputs>
+      </li>
+    </value>
+  </Operation>
+</Patch>

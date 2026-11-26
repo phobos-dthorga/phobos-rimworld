@@ -345,6 +345,9 @@ public class PhobosVehicleSystemDef : Def
     /// <summary>The system stands down unless a fitting on the vehicle grants this ability (Framework 0.129.0: the house battery runs only
     /// once one is fitted). Null: it always runs.</summary>
     public string? needsGrant;
+    /// <summary>The system stands down unless this vehicle stat is above zero (Framework 0.318.0: an upgrade node fits it, as the
+    /// reverse-osmosis kit's water treatment). Null: it always runs.</summary>
+    public VehicleStatDef? needsStat;
     public ServiceSpec? service;
     /// <summary>Systems that always come with this one (Framework 0.300.0: the gas turbine brings its compressor wash), added once to every
     /// vehicle whose loadout names this system, after the loadout's own list.</summary>

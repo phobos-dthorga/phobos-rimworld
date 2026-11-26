@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The water bowser's own loadout (Vehicles 0.124.0): the trailer loadout with a side rail, as every tank trailer's (D'thorga Framework's
+    PhobosVehicleLoadout_TrailerCampSide, whose part it repeats in the same order, so a saved bowser loads with the same parts), and the
+    reverse-osmosis kit's water treatment system, which runs only while the kit is fitted (its needsStat).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutTrailer">
+    <defName>PhobosVehicleLoadout_WaterBowser</defName>
+    <label>water bowser</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>Phobos_WaterBowser</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_WaterTreatment</def></li>
+    </systems>
+    <partRoles>
+      <li>
+        <role>SideRail</role>
+        <add>
+          <key>PhobosSideRail</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>side rail</label>
+          <health>25</health>
+          <depth>External</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <cellsOf>Wheels</cellsOf>
+        </add>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

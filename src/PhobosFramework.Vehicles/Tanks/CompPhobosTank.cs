@@ -31,6 +31,9 @@ public class TankCompartment : IExposable
     public float spoilHours;
     /// <summary>A number a port may keep about the load's quality (Dubs Bad Hygiene's contamination level).</summary>
     public int quality;
+    /// <summary>Litres of this load the reverse-osmosis kit has passed through its membrane so far (Framework 0.318.0; WaterTreatment):
+    /// once it reaches the amount, the load is clean.</summary>
+    public float treated;
     /// <summary>
     /// What the load was made from (Framework 0.271.0; docs/development/vehicle-nutrient-paste.md, NP1): the game's own meal ingredients,
     /// taken from what it was drawn from and handed on to what it fills, so paste made from human meat never comes out clean. Every
@@ -58,6 +61,7 @@ public class TankCompartment : IExposable
         amount = 0f;
         spoilHours = 0f;
         quality = 0;
+        treated = 0f;
         ingredients.Clear();
     }
 
@@ -68,6 +72,7 @@ public class TankCompartment : IExposable
         Scribe_Values.Look(ref amount, "PhobosTankAmount");
         Scribe_Values.Look(ref spoilHours, "PhobosTankSpoilHours");
         Scribe_Values.Look(ref quality, "PhobosTankQuality");
+        Scribe_Values.Look(ref treated, "PhobosTankTreated");
         Scribe_Collections.Look(ref ingredients, "PhobosTankIngredients", LookMode.Def);
         // A fluid whose mod has gone: a load of nothing would break the tank's menus.
         if (Scribe.mode == LoadSaveMode.PostLoadInit && contents == null) amount = 0f;
@@ -97,6 +102,18 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
 
     List<TankCompartment> compartments = new();
     int selected;
+    /// <summary>The reverse-osmosis kit's switch (Framework 0.318.0; WaterTreatment), on unless the player turns it off.</summary>
+    bool treatOn = true;
+
+    public bool TreatOn
+    {
+        get => treatOn;
+        set => treatOn = value;
+    }
+
+    /// <summary>The kit changed the load: its weight is worked out again.</summary>
+    internal void AfterTreatment() => AfterLoadChange();
+
     float temperature = 21f;
     TankPumpMode mode = TankPumpMode.Hold;
     bool ventWarned;
@@ -248,6 +265,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         Scribe_Values.Look(ref selected, "PhobosTankSelected");
         Scribe_Values.Look(ref temperature, "PhobosTankTemperature", 21f);
         Scribe_Values.Look(ref mode, "PhobosTankMode", TankPumpMode.Hold);
+        Scribe_Values.Look(ref treatOn, "PhobosTankTreatOn", true);
         compartments ??= new List<TankCompartment>();
     }
 
@@ -412,6 +430,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         Leak();
         Vent(outside);
         Spoil(fitting);
+        WaterTreatment.Step(this, PumpMeter is { PowerOn: true, PowerNet.HasActivePowerSource: true });
         if (PumpReady) Pump();
     }
 
@@ -613,7 +632,8 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
     {
         if (PumpMeter is not { } meter) return;
         bool onPoint = Vehicle.GetComp<CompPhobosSetOut>() is { Powered: true };
-        meter.PowerOutput = PumpWantsPower && !onPoint ? -Props.electricPumpWatts : 0f;
+        // Framework 0.318.0: the reverse-osmosis kit of a parked trailer draws on the same hook-up, so the meter carries both.
+        meter.PowerOutput = -((PumpWantsPower && !onPoint ? Props.electricPumpWatts : 0f) + WaterTreatment.GridWatts(this));
     }
 
     /// <summary>Why the trailer's pump cannot push now, for the inspect line: no electric pump, or no power for it.</summary>
@@ -1191,6 +1211,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         foreach (Gizmo gizmo in base.CompCaravanGizmos()) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer || Fitted == null) yield break;
         foreach (Gizmo gizmo in TankGizmos.ForCaravan(this)) yield return gizmo;
+        if (WaterTreatment.Toggle(this) is { } treat) yield return treat;
     }
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
@@ -1198,6 +1219,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer || Fitted == null) yield break;
         foreach (Gizmo gizmo in TankGizmos.For(this)) yield return gizmo;
+        if (WaterTreatment.Toggle(this) is { } treat) yield return treat;
         // An empty tank still holding a residue: the button sends the nearest colonist to purge it (Framework 0.242.0).
         if (Vehicle.Spawned && NeedsPurge)
         {

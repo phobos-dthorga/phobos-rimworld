@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The reverse-osmosis kit's membrane (Framework 0.318.0; docs/development/vehicle-road-work.md; the owner's cards of 26 Nov 2026: a membrane
+     cartridge item, renewed by a mechanic's service). With Dubs Bad Hygiene only, where water has a quality to treat. The system runs only on
+     a vehicle whose kit is fitted (needsStat). Its wear comes from the litres treated (WaterTreatment.Treat, about 50,000 a membrane:
+     the agent's figure, no source read gives one). Costs, work and words are the agent's. -->
+<Defs>
+
+  <!-- A cartridge: the membrane rolled in its housing sleeve, with its seals. Made like the other service kits at the vehicle parts bench. -->
+  <ThingDef ParentName="PhobosServiceKitBase">
+    <defName>PhobosVehicles_MembraneCartridge</defName>
+    <label>membrane cartridge</label>
+    <description>A reverse-osmosis membrane rolled in its cartridge, with new seals and a pre-filter. A mechanic fits it to a vehicle's water treatment kit when the old membrane is spent, with one loaded aboard. A new kit comes with its first.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Parts/MembraneCartridge</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <MarketValue>60</MarketValue>
+      <Mass>5</Mass>
+      <Flammability>0.6</Flammability>
+      <WorkToMake>1200</WorkToMake>
+    </statBases>
+    <costList>
+      <ComponentIndustrial>1</ComponentIndustrial>
+      <Cloth>10</Cloth>
+      <Chemfuel>5</Chemfuel>
+    </costList>
+  </ThingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_WaterTreatment</defName>
+    <label>water treatment</label>
+    <description>The reverse-osmosis kit's membrane: it wears as it treats water, and a spent one stops the kit until a new membrane cartridge is fitted.</description>
+    <needsStat>Phobos_WaterTreatment</needsStat>
+    <quantities>
+      <li>
+        <name>membraneWear</name>
+        <label>membrane wear</label>
+        <description>How much of the membrane's life is used, by the litres it has treated.</description>
+        <wearTrend>true</wearTrend>
+        <remainingLabel>membrane</remainingLabel>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <from>0.7</from>
+            <to>0.95</to>
+            <label>worn membrane</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>0.95</from>
+            <label>spent membrane</label>
+            <notable>true</notable>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <service>
+      <label>a new membrane</label>
+      <dueQuantity>membraneWear</dueQuantity>
+      <dueAbove>0.7</dueAbove>
+      <restores>
+        <li>
+          <quantity>membraneWear</quantity>
+          <value>0</value>
+        </li>
+      </restores>
+      <supplies>
+        <PhobosVehicles_MembraneCartridge>1</PhobosVehicles_MembraneCartridge>
+      </supplies>
+      <work>800</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+</Defs>

@@ -13,6 +13,30 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.318.0] - 2026-11-26 - Draft
+
+The reverse-osmosis kit's machinery
+
+### Added
+
+- **A tank's reverse-osmosis kit treats untreated water** (the owner's idea and cards of 26 November 2026), with D'thorga Vehicles'
+  upgrade: about 470 litres an hour (the US Army's Lightweight Water Purifier's 125 gallons), **a quarter run off as reject**, until all
+  of a compartment's water has passed and it is clean to drink. **Treat water** switches it, on by default. Parked and on the road: a
+  truck on its own electrics, a parked trailer on the grid hook-up, a trailer in tow on its towing vehicle's lead, drawing 1,500 W (the
+  agent's figure). Not yet tested in game: rows 570 and 571.
+- **Its membrane wears by the litres treated**, about 50,000 to a membrane (the agent's figure): a mechanic fits a **membrane
+  cartridge**, a new item made at the vehicle parts bench, with Dubs Bad Hygiene. Pictures AI-generated (OpenAI), picked by the owner.
+  Not yet tested in game: row 572.
+
+### Changed
+
+- **A vehicle system can run only while an upgrade is fitted** (a system Def's needsStat), so no vehicle without the kit is asked for a
+  membrane cartridge.
+
+### Save compatibility
+
+- Safe to add. A tank's treatment progress is saved with it; removing the mod leaves the water as it is.
+
 ## [0.317.0] - 2026-11-26 - Draft
 
 Work on the road: a survey while driving and a water bore at a halt

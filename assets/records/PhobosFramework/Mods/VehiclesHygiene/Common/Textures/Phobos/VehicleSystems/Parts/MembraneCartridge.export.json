@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehiclesHygiene/Common/Textures/Phobos/VehicleSystems/Parts/MembraneCartridge.png",
+  "source": "assets/phobos-vehicles/generated/item-membrane-cartridge/item-membrane-cartridge-1.png",
+  "source_sha256": "8bfa7f90994cf3e95af28976105b87311304da83df27ec7a89cd62bb03114017",
+  "target_sha256": "4584090025c798f2e50c43cdb64f4ffd5bca44112ae3016cc46815c2c7ad2a60",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "8bfa7f90994cf3e95af28976105b87311304da83df27ec7a89cd62bb03114017",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-26T18:46:37",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

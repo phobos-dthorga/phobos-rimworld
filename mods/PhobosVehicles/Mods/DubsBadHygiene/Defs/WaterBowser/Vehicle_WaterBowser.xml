@@ -282,6 +282,25 @@
               </li>
             </looks>
           </li>
+          <!-- Vehicles 0.124.0 (the owner's picks of 26 Nov 2026): the reverse-osmosis kit's cabinet across the rear deck, in the dark box's
+               place beside the hose reel (assets/phobos-vehicles/export_ro_kit.py; agent placement). -->
+          <li>
+            <key>roKit</key>
+            <looks>
+              <li>
+                <node>PhobosBowserReverseOsmosis</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/PintleBowser/PintleBowser_ROKit</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(5, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>3</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
           <!-- Vehicles 0.102.0, camp gear drawn on our vehicles (the owner's "everything on ours", 22 Nov 2026): a rolled awning, side fly, awning walls or rear tent on the side rail, on the side the camp is pitched (0.105.0). -->
           <li>
             <key>campSideRoll</key>

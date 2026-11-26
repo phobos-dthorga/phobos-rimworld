@@ -1,0 +1,51 @@
+[
+ {
+  "name": "ro-cabinet",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [1, 2],
+  "references": [
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/BulkTanker/BulkTanker_HoseReel_north.png",
+    "role": "our approved overlay part on the Ullage tanker's deck, seen from directly above: match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/PintleBowser/PintleBowser_north.png",
+    "role": "our approved Pintle water bowser seen from directly above, the trailer this cabinet will sit on: for style and scale only; do not draw the trailer"
+   }
+  ],
+  "art_plan": {
+   "part": "the reverse-osmosis water treatment cabinet, seen from directly above, alone",
+   "ships_as": "laid by script on the Pintle water bowser's and the Ullage tanker's deck as the kit's upgrade overlay (docs/development/vehicle-road-work.md)",
+   "why": "the owner's idea and cards of 26 Nov 2026: a reverse-osmosis kit with its own picture, drawn as a cabinet on the tank; a part that sits on a vehicle is drawn alone on white and laid on by script (assets/AGENTS.md)"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game sprite part: a compact reverse-osmosis water treatment unit, seen from directly above, as it sits bolted to the deck of a water tanker. Image 1 is our approved hose reel on a tanker's deck, seen from above: match its outline weight, shading, palette and finish only. Image 2 is our approved water bowser trailer seen from above, for style and scale only: do not draw the trailer.\n\nDraw ONLY the treatment unit, alone and centred on a plain pure white background. It is a rectangle about twice as long as it is wide, running top to bottom, filling about 75 percent of the canvas height: a light grey steel equipment cabinet with a louvred vent panel on its lid and two small hinges along one edge; beside it, on the same frame, two long white cylindrical membrane pressure housings lying side by side, each with a dark rounded end cap at both ends; a few short pale blue pipes joining the housings to the cabinet; a small dark electric pump motor at one end.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo trailer, tank, truck, deck, people, text, letters, numbers, logos, gauges, dials, water, shadow outside the object, perspective or tilt."
+ },
+ {
+  "name": "item-membrane-cartridge",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [1, 2],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TyreSet.png",
+    "role": "our approved vehicle part item from the same family (a tyre set): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DriveBelt.png",
+    "role": "our approved vehicle part item from the same family (a drive belt): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "item": "the membrane cartridge, the reverse-osmosis kit's renewable membrane",
+   "ships_as": "mods/PhobosFramework/Mods/VehiclesHygiene/Common/Textures/Phobos/VehicleSystems/Parts/MembraneCartridge.png",
+   "size": "drawn at the game's 64 px item size; requested at 16 times that",
+   "why": "the owner's card of 26 Nov 2026: a membrane cartridge item, crafted at the vehicle parts bench, with its own paid picture made with the kit's pilot; things in the game world use the paid service"
+  },
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One tidy object, centred.\n\nCreate an ORIGINAL game item sprite for the D'thorga membrane cartridge: a replacement filter element for a reverse-osmosis water purifier. Image 1 is our approved tyre set and image 2 our approved drive belt, from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the cartridge, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA long white cylindrical filter cartridge lying on its side, wrapped in a pale translucent outer layer with a few thin bands around it, a dark grey moulded end cap at each end, and a short pale blue pipe stub sticking out of the centre of the nearer end cap.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: one big shape, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, labels, water, dust, floor, ground or cast shadow."
+ }
+]

@@ -2,7 +2,8 @@
 
 **Status (26 Nov 2026):** the running survey (EM30) and the water bore (EM34) are built in D'thorga Framework 0.317.0
 ([as built](#as-built-framework-03170)), not yet tested in game (rows 565 to 567 of [the test pass](in-game-test-pass.md)); the
-reverse-osmosis kit comes after them and is not built.
+reverse-osmosis kit is built in Framework 0.318.0 and Vehicles 0.124.0 ([as built](#the-reverse-osmosis-kit-as-built-framework-03180-vehicles-01240)), not yet tested in
+game (rows 570 to 572).
 
 Rows EM30 and EM34 of [emergent play](vehicle-emergent-play.md#h-work-on-the-road-26-nov-2026), the second round of group H after
 [contracts](vehicle-contracts.md). The owner, 26 Nov 2026: "Build the running survey and water bore next", then, on the cards' options
@@ -131,13 +132,29 @@ osmosis. The same output figures on the Department of Defense's [Gulflink page o
 [Aqua-Chem's own page](https://aqua-chem.com/tactical-water-purification-system/), a maker's claim. **Not given by any of them**: the
 unit's own draw, its recovery (reject) ratio, and its membranes' life. Those three figures here are the agent's.
 
-### The reverse-osmosis kit (after this batch)
+### The reverse-osmosis kit as built (Framework 0.318.0, Vehicles 0.124.0)
 
-The owner's idea, recorded as designed so far [A]: an upgrade node on the Pintle water bowser and the Ullage; while fitted and powered
-(the vehicle's battery and alternator, or a hook-up), water pumped into the tank comes in clean, at a rate a kit can treat; its
-membrane is a wearing part with its own service; the picture is a cabinet on the tank, paid art under the art rules (pilot first, the
-owner's pick). Open for that batch: how fast it treats, how much power, whether it treats water already in the tank, the membrane's
-life and what replaces it.
+The design it was built from was recorded before the second round of cards: an upgrade on the water bowser and the Ullage, treating
+water while fitted and powered, a wearing membrane with its own service, a cabinet drawn on the tank. As built:
+
+| What | How (code) |
+| --- | --- |
+| **The node** | "Reverse-osmosis kit" on the water bowser's tree (17, 2) and, by a Dubs Bad Hygiene patch, the Ullage's (12, 17), where it needs any one of the liquid tanks as the electric pump does. Its stat `Phobos_WaterTreatment` is **470 litres an hour** (the Lightweight Water Purifier's 125 gallons); it rebuilds the vehicle's systems (`PhobosSystemsUpgrade`). It costs 25 steel, 4 components and **its first membrane cartridge** [A] |
+| **Treating** | `WaterTreatment` (core): while the kit is fitted, switched on (**Treat water**, on by default), its membrane not spent, and a compartment holds untreated water (a fluid marked `treatable`, Dubs Bad Hygiene's water, above the clean level), it passes the untreated litres through `TreatmentRule`: **a quarter runs off as reject**, the rest is counted on the compartment (`treated`, saved); once all of it has passed, the compartment is clean (quality 0). New untreated water raises the quality again, and the whole compartment is treated anew [A, a simplification: quality is one number a compartment] |
+| **Power, parked** | **The Ullage** draws through its own load `waterTreatment` (1,500 W at its voltage, about 62 A at 24 V; shed third with the pump; available only with the kit). **A parked bowser** draws through the grid hook-up beneath it: its conduits are now laid for the kit too, and its meter carries the pump's watts and the kit's together |
+| **Power, on the road** | **A bowser in tow** draws through the towing vehicle's new tow load `trailerTreatment`, as the trailer pump does; a trailer has no look of its own off the map, so **the towing vehicle's look treats it**, map or world map. **The Ullage** treats in a caravan on its own electrics, the engine running while the convoy drives |
+| **The membrane** | The water treatment system (`PhobosVehicleSystem_WaterTreatment`, Dubs folder), which runs only where the kit is fitted (a new `needsStat` on system Defs, checked in `Enabled()`, so no vehicle without the kit is ever asked for a cartridge). Its `membraneWear` rises by the litres treated, **about 50,000 a membrane** [A]; worn at 70 %, spent at 95 %, when the kit stops. A service fits a **membrane cartridge** (made at the vehicle parts bench from a component, 10 cloth and 5 chemfuel [A]) |
+| **The look** | The owner's picks: the cabinet across the bowser's rear deck and on the Ullage's left frame strip, the cartridge, and the kit's icon cut from the cabinet ([the art record](../../assets/phobos-vehicles/requests/ro-kit-paid-record.md)) |
+
+**What the power figures mean in play** [I]: 1,500 W is about 62 A at 24 volts, so the Ullage's 100 A alternator carries the kit and its
+40 A pump together only just; with the engine off, the battery goes flat in about an hour and a half. On a 12-volt tow vehicle the kit
+draws about 125 A, and it is shed first, with the trailer pump, when the charging cannot keep up. A big treatment is a job for the grid, or for
+the road.
+
+**What outside notices**: the colony's and the caravan's drinking water (Dubs Bad Hygiene reads the quality when anyone drinks), the
+grid's power, the towing vehicle's electrics and battery, the mechanics (the membrane's service), the crafters (the cartridge).
+
+**Risk (agent's grade): low.** It changes nothing it is not switched to; a flat battery is the load-shedding the electrics already have.
 
 ## As built (Framework 0.317.0)
 

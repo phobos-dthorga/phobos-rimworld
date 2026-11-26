@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehiclesHygiene/Common/Textures/Phobos/VehicleSystems/Tank/ReverseOsmosisKit.png",
+  "source": "assets/phobos-vehicles/generated/ro-cabinet/ro-cabinet-2.png",
+  "source_sha256": "45f3428e96e10f9d75e249e94b663d8369745f9f7450a3ac0959b79979af5306",
+  "target_sha256": "ad6d1f2bea7fae5a3a510a11f7663bfd4cab5061e3d1d74b076a7fa6a50c7e78",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "45f3428e96e10f9d75e249e94b663d8369745f9f7450a3ac0959b79979af5306",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-26T18:46:39",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

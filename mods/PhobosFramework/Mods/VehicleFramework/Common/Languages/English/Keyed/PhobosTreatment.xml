@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The reverse-osmosis kit (Framework 0.318.0; docs/development/vehicle-road-work.md). Agent-authored, held for the owner's review. -->
+<LanguageData>
+
+  <PhobosTreatment_Gizmo>Treat water</PhobosTreatment_Gizmo>
+  <PhobosTreatment_GizmoDesc>Pass the tank's untreated water through the reverse-osmosis membrane, {RATE} litres an hour, until all of it is clean to drink. {REJECT} of what passes runs off as reject, so the tank ends with less than it held. It draws {WATTS} W while it works: from the vehicle's own electrics, from the grid where a trailer stands, or from the lead of the vehicle towing it. Switch it off to keep the battery for starting.</PhobosTreatment_GizmoDesc>
+  <PhobosTreatment_StateWorking>{LITRES} litres still to treat, at {RATE} litres an hour. Membrane: {MEMBRANE} left.</PhobosTreatment_StateWorking>
+  <PhobosTreatment_StateClean>The water in the tank is clean. Membrane: {MEMBRANE} left.</PhobosTreatment_StateClean>
+  <PhobosTreatment_StateOff>Switched off. Membrane: {MEMBRANE} left.</PhobosTreatment_StateOff>
+  <PhobosTreatment_StateSpent>The membrane is spent: a mechanic must fit a new membrane cartridge before the kit works again.</PhobosTreatment_StateSpent>
+
+</LanguageData>

@@ -342,6 +342,7 @@ trailer that has one), but it **pushes nothing out by itself**, and its inspect 
 **Upgrades:** a **lagged tank** (the load takes four times as long to reach the outside temperature, so water freezes later and fuel
 stays thin longer in the cold; it shows as a padded jacket) and a **second hose** (half as much again an hour; a second reel across the
 front), and the **electric pump** above. The pump has no sound of its own yet; the hoses, relief valve, leaks and purges sound as the tanker's do.
+- **Reverse-osmosis kit** (Dubs Bad Hygiene only; an upgrade, drawn as a cabinet on the water bowser's rear deck): **Treat water** passes the tank's untreated water (from a river, a bore or a well) through its membrane, **about 470 litres an hour**, and it comes out **clean to drink**. **A quarter of what passes runs off as reject**, so you end with less than you started with. It draws **1,500 W**: from the grid through a conduit touching the bowser where it is parked, or from the lead of the vehicle towing it, on a map or on the road (a 12-volt tow vehicle's battery runs down fast while it stands). Its membrane wears: **a mechanic fits a new membrane cartridge** (made at the vehicle parts bench) when it is spent. The button says how much is left to treat and how much membrane is left.
 
 ## Billy field kitchen
 
@@ -493,6 +494,7 @@ goes when it drives off.
   the same number box and arrows as the trade window. You pay the game's price with the caravan's silver; what is on offer depends on
   what the settlement trades, only fluids that exist as items can be bought, and the same fluid can't be bought there again for 15
   days. Visiting traders don't sell by the tanker-load.
+- **Reverse-osmosis kit** (Dubs Bad Hygiene only; an upgrade, drawn as a cabinet on the Ullage behind the cab; it needs a liquid tank): **Treat water** passes the tank's untreated water (from a river, a bore or a well) through its membrane, **about 470 litres an hour**, and it comes out **clean to drink**. **A quarter of what passes runs off as reject**, so you end with less than you started with. It draws **1,500 W**: from the truck's own electrics, about 62 A, alongside the electric pump; with the engine off it runs the battery down. Its membrane wears: **a mechanic fits a new membrane cartridge** (made at the vehicle parts bench) when it is spent. The button says how much is left to treat and how much membrane is left.
 
 ## Busbar generator set
 

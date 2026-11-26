@@ -51,7 +51,8 @@ public sealed class VehicleConduits : VehiclePipes.ILink
     static bool HasBattery(VehiclePipes.IHost comp) =>
         (comp is CompPhobosVehicleSystems systems && systems.Props.systems.Any(system => system.def.quantities.Any(quantity => quantity.name == "charge")))
         || comp.Vehicle.CompFueledTravel is { Props.electricPowered: true }
-        || (comp is CompPhobosTrailer && comp.Vehicle.GetComp<CompPhobosTank>() is { Props.needsPumpPower: true, ElectricPump: true });
+        || (comp is CompPhobosTrailer && comp.Vehicle.GetComp<CompPhobosTank>() is { Props.needsPumpPower: true } tank
+            && (tank.ElectricPump || WaterTreatment.Fitted(tank)));
 
     static bool CanLay(IntVec3 cell, Map map)
     {

@@ -238,6 +238,7 @@ flowchart TB
   PhobosGunShield["Gun shield"]
   PhobosRingGun762["Ring gun, 7.62 mm"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
+  ReverseOsmosisKit["Reverse-osmosis kit (tie-in: DubsBadHygiene)"]
   PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
   TwoCompartments --> ThreeCompartments
   PhobosArmouredCab --> PhobosHeavyCabPlates
@@ -261,7 +262,7 @@ flowchart TB
   any2 --> ElectricPump
   any2 --> HoseReel
   classDef tiein stroke-dasharray: 5 5
-  class PhobosSpallLiner,PhobosRemoteControlKit,PressureVessel,LightPressureVessel,HeavyWallVessel tiein
+  class PhobosSpallLiner,ReverseOsmosisKit,PhobosRemoteControlKit,PressureVessel,LightPressureVessel,HeavyWallVessel tiein
 ```
 
 ## Bulk trading and quests (owner's decisions, 9 Nov 2026; not built)

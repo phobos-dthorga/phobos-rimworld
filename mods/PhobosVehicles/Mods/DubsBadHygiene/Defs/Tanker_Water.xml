@@ -3,6 +3,8 @@
   <!-- Water in the tanker. It freezes at 0 C and spills as nothing worth drawing. -->
   <Phobos.VehicleSystems.PhobosTankContentsDef DBHLite="true">
     <defName>PhobosTank_Water</defName>
+    <!-- Vehicles 0.124.0: the reverse-osmosis kit can treat it. -->
+    <treatable>true</treatable>
     <label>water</label>
     <description>Water for the plumbing.</description>
     <phase>Liquid</phase>

@@ -27,6 +27,8 @@ public enum TankFoodStatus
 /// </summary>
 public class PhobosTankContentsDef : Def
 {
+    /// <summary>The reverse-osmosis kit can treat it (Framework 0.318.0): water, where a water mod gives water its quality.</summary>
+    public bool treatable;
     public TankPhase phase = TankPhase.Liquid;
     /// <summary>What one unit is called in the tank's readout (litres, for instance).</summary>
     public string unitLabel = "units";
@@ -190,6 +192,9 @@ public class CompProperties_PhobosTank : VehicleCompProperties
     public bool needsPumpPower;
     /// <summary>What the electric pump draws while it runs, in watts (authored: a one-horsepower transfer pump).</summary>
     public float electricPumpWatts = 750f;
+    /// <summary>The reverse-osmosis kit's draw while it treats (Framework 0.318.0; agent's figure: the US Army's Lightweight Water Purifier runs
+    /// on a 3 kW generator, and its manual gives no draw).</summary>
+    public float treatmentWatts = 1500f;
 
     public CompProperties_PhobosTank() => compClass = typeof(CompPhobosTank);
 }
@@ -203,6 +208,8 @@ public static class TankDefOf
     public static VehicleStatDef Phobos_RigControl = null!;
     /// <summary>Above zero while the electric pump upgrade is fitted (Framework 0.116.0, W3).</summary>
     public static VehicleStatDef Phobos_ElectricPump = null!;
+    /// <summary>Litres an hour the reverse-osmosis kit treats; above zero while it is fitted (Framework 0.318.0).</summary>
+    public static VehicleStatDef Phobos_WaterTreatment = null!;
     public static JobDef PhobosVehicleSystems_PurgeTank = null!;
 
     static TankDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(TankDefOf));
