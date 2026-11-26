@@ -6,7 +6,8 @@ is in D'thorga Medical 0.28.0 ([as built](#as-built-medical-0280)), not yet test
 tested in game (row 593): blood loss was left to More Injuries by the owner's choice. Slice D is in 0.30.0 (with Framework
 0.327.0) as protection while exposed ([as built](#as-built-medical-0300)), not yet tested in game (rows 605 to 607). Slice E, the
 long-term needs, is in 0.31.0 ([as built](#as-built-medical-0310)), each off until turned on, not yet tested in game (rows 613 to
-615). Every slice is built. The owner answered all eight cards on 26 Nov 2026
+615). Every slice is built. The record's small gaps were closed on 27 Nov 2026 in 0.32.0 ([as built](#as-built-medical-0320)), not
+yet tested in game (rows 654 and 655). The owner answered all eight cards on 26 Nov 2026
 ([the answers](#the-owners-answers-26-nov-2026-by-card-with-every-option-offered)) and then said "Go ahead and build the first slice".
 
 The owner, 26 Nov 2026: "I want to expand the range of medically relevant things that are automatically either taken or given by/to
@@ -54,13 +55,47 @@ This section keeps only where the build differs from the design below, and what 
 - **The wider index reads what the first two needs use**: conditions removed (through the rules' readers, or declared),
   `makeImmuneTo`, and vomiting. Gains to bleeding, breathing and the rest wait for the needs that use them (slice C).
 - **Declared effects cover cures and prevention.** Vanilla Races Expanded - Genie's antibiotics are still not read: their class is
-  not in the code read here, and a declaration made unread would be a guess.
+  not in the code read here, and a declaration made unread would be a guess. (Read since 0.32.0, from their public source.)
 - **The alert speaks only of what the colony can make** (a recipe that makes the item is available now), and not of prevention.
   Both are agent defaults: a colony with no drug laboratory would otherwise be told of every ache.
 - **Potassium iodide before entering a radiation area already exists** (D'thorga Medical 0.16.0, the protection part, with Dubs
   Rimatomics). The "before exposure" row of the table below was written without that: slice D starts from it.
 - **Rare items** (card 5) are in as chosen, for every row, pain included. Read from the patched Defs, nothing reaches 300 silver
   among the items whose Def states a value; the owner made the mark a setting (0.29.0).
+
+## As built: Medical 0.32.0
+
+The owner, 27 Nov 2026: "Go ahead and close those small gaps next", of the four the record left open. Each was read from the mods' own
+public source and the Defs as patched before anything was built.
+
+- **Vanilla Races Expanded - Genie's antibiotics are read now** (their public source, read 27 Nov 2026). They give their condition
+  through two outcome classes of the mod's own, so the rules Def gained **given-condition readers**: a class's full name and the fields
+  holding the condition, the severity, and anything that makes the effect depend on the taker. The antibiotics add 10% to the speed of
+  gaining immunity (more for someone with a weak-immunity gene, which the index does not read), so they join the drugs for fighting a
+  disease that is winning. **Their "cures existing infections" is that immunity speed alone**: nothing else in their code touches a
+  condition.
+- **Items used on oneself are read when they are swallowed.** The game applies an item's use effects when it is swallowed, through its
+  own outcome for that, and the dose job is the game's own swallowing, so those effects happen exactly as their mod wrote them. The game's
+  own use-effect comp is read by type, and Vanilla Factions Expanded - Medieval 2's comp through a reader (its public source, read 27 Nov
+  2026). In the owner's game that adds the **draughts**: the painkiller draught takes 80% of the pain, the immunization draught adds 35% to
+  immunity speed, and the antitox draught keeps out 62.5% of toxic buildup, each listed with its cost. **Items only used, never
+  swallowed** (Biotech's healer mech serum, which mends the worst condition, among others) still are not: the dose job swallows. Agent's
+  choice: a doctor using an item on a patient would be a job of its own.
+- **A harm a dose brings alongside its work no longer holds back the next dose.** Every draught but the antitox one leaves 0.2 toxic
+  buildup; counted as the dose "still working", any toxic buildup at all would have refused the draught. A condition the game marks
+  harmful, given by an item that also gives one it does not, now counts only for the danger check (so someone already full of toxins is
+  still refused). An item whose only condition is marked harmful counts as before.
+- **What the unpriced items are worth**, worked out by the game's own rule (`StatWorker_MarketValue`: what goes into making it, plus
+  0.0036 silver for each unit of work) from the Defs as written; not read in a running game. A Biological Warfare antiserum is worth about
+  137 silver, a vaccine about 120, and **Glittertech's addiction remover about 534**: over the 300-silver mark, so **it is never given by
+  rule at the default mark** (addiction is a serious need, not a life-threatening one), and addictol is used alone. The new dev action
+  "Dosing: log every care list, with worth" prints the game's own figure for every item on every list, and whether the player's mark
+  holds it back.
+- **Gains to bleeding, consciousness and the blood capacities: surveyed, and left unread on purpose.** Nothing in the owner's game slows
+  bleeding. What raises consciousness or the blood capacities is epinephrine (kept out: Search and Rescue gives it), smelling salts
+  (already the breathing rescue), hard and social drugs, hemogen packs, and Glittertech's scarlet smelling salts. The two needs that
+  would use them, waking the unconscious and treating blood loss, were declined on cards 9 and 10, so reading them would change
+  nothing a doctor does. Agent's choice: read them when a need asks.
 
 ## As built: Medical 0.31.0
 
@@ -124,7 +159,7 @@ for it changed the slice, and two cards settled how ([the second round](#the-sec
 - **Agent choices, for the owner to revise:** the level (0.3) is triage's mark for a vital capacity; a help to breathing must add
   0.1 or more after its own cost; the need is looked at before every other row; it is doctors only, and the alert covers it.
 - **The index now reads breathing gained.** Gains to bleeding, consciousness and the blood capacities are still unread: nothing
-  built uses them.
+  built uses them (surveyed in 0.32.0, and left so on purpose).
 
 ## What exists today
 
@@ -217,7 +252,7 @@ never on any list, without naming it. `neverAutoDose` stays as the hand-written 
 | --- | --- | --- |
 | Ingested items | Built | The main route for every need here |
 | Bedside devices by tag | Built | Unchanged; a need may name a device tag as its answer later |
-| Items used on oneself (the game's use effects) | Not read | Read later, only if a need has nothing ingested; most in the owner's list are not medical |
+| Items used on oneself (the game's use effects) | Read when swallowed (0.32.0) | Items only used, never swallowed, are not: the dose job swallows |
 | More Injuries' applied items (tourniquets, saline, blood bags, splints) | Search and Rescue gives them | Left to it: it covers them and has no extension point (read 6 Nov 2026) |
 | Worn protection (masks) | D'thorga Medical's protection part | Not this record |
 
@@ -330,7 +365,8 @@ Options are listed as they were put; the chosen one is first and marked. On ever
 **A correction to the card as put.** The card named Hydra as such an item. That was the agent's mistake: Hydra's Def gives it a
 market value of 64. Read the same day, none of the surveyed items whose Def states a value reaches 300 (the regeneration serum is
 150, Tyrox 105, clozapine 52, AntiTox 50, Neuroglue 18, smelling salts 16); Biological Warfare's antiserums and vaccines and the
-addiction remover state none in their own Defs, so theirs is not yet known. The rule stands as chosen and may match nothing in the
+addiction remover state none in their own Defs, so theirs is not yet known (worked out in 0.32.0: about 137, 120 and 534, so the
+remover is held back at the default mark). The rule stands as chosen and may match nothing in the
 owner's game today; whether 300 is the right mark for medicines is open.
 
 ### 6. Addictive medicines
@@ -444,6 +480,17 @@ Each was an agent's choice in the 0.28.0 build, put to the owner with its option
 - Lower it to 100: Tyrox and the regeneration serum kept for life-threatening needs only.
 - No mark: cost never holds a medicine back.
 
+## The fifth round (27 Nov 2026, by card), with every option offered
+
+Put while closing the small gaps (0.32.0), once the game's own pricing rule showed what the unpriced items are worth.
+
+### 17. Glittertech's addiction remover, worth about 534 silver and so over the rare mark
+
+- **Chosen: leave it held back** (the agent's lean). The rule stands as chosen on card 5: a rare item only to save a life. Addictol
+  still covers an addiction, and the slider lets a player raise the mark above 534 to free the remover. Nothing changed in code.
+- Addiction ignores the mark: once the player turns the addiction need on, the remover may be used whatever it costs.
+- Long-term care ignores the mark: all five long-term needs, each off by default, may use rare items once switched on.
+
 ## Agent defaults (for the owner to revise)
 
 - **Who is covered** is unchanged: the people dosing covers now, by care level and by the existing settings for slaves and guests.
@@ -461,7 +508,11 @@ Each was an agent's choice in the 0.28.0 build, put to the owner with its option
 - **"About to enter a hazard" has no cheap reading yet.** Toxic ground and vacuum are known per cell; knowing someone is about to
   walk there needs their job's destination. To be worked out in slice D.
 - **Custom outcome classes need one small reader each.** Four mods' classes were seen in the survey; a class nobody has written a
-  reader for stays invisible until an item declares its effect.
+  reader for stays invisible until an item declares its effect. Since 0.32.0 a reader is a few lines of the rules Def, for a class that
+  removes conditions or one that gives them.
+- **A drug's tolerance holds the next dose back** (seen in 0.32.0, not changed): Genie's antibiotics last 12 hours, but their tolerance
+  counts for the redose check until it falls to a quarter of a dose, about a day. The game's own drugs with a tolerance are treated the
+  same way.
 - **Mental strain as a medical need is a judgement.** The game treats mood through recreation and comfort; a drug for it is the
   least convincing need here (agent's view).
 - **Not generic across games yet:** this is RimWorld's health model end to end. A next game would need its own readers; only the
@@ -472,3 +523,9 @@ Each was an agent's choice in the 0.28.0 build, put to the owner with its option
 The owner's patched Defs file (written 19 Nov 2026 by game 1.7.5013 with 364 active mods), read locally with a throwaway script for
 every ingested item's outcomes and the stage each gives; the mods named are their authors' work, read and summarised in our own
 words, with nothing copied. D'thorga Medical's own code and Defs as of commit 9580b031. No outside medical figures are used.
+
+For 0.32.0 (27 Nov 2026): the public source of Vanilla Races Expanded - Genie (github.com/Vanilla-Expanded/VanillaRacesExpanded-Genie,
+its two outcome classes) and of Vanilla Factions Expanded - Medieval 2 (github.com/Vanilla-Expanded/VanillaFactionsExpanded-Medieval2,
+its use-effect comp), both by the Vanilla Expanded team; the game's own market value rule, read through `query-code.py`; and the same
+patched Defs file, read with a throwaway script for every item that gives a condition through a use effect, or slows bleeding or raises
+consciousness or a blood capacity.

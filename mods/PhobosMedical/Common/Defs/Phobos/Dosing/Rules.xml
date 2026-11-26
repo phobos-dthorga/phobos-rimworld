@@ -112,5 +112,28 @@
         <field>hediffDefsToRemove</field>
       </li>
     </removalReaders>
+    <!-- How to read "this item gives this condition" from another mod's own class (D'thorga Medical 0.32.0), read from their public
+         source on 27 Nov 2026. Vanilla Races Expanded - Genie gives its antibiotics' condition, and their tolerance, through two outcome
+         classes of its own; the stronger conditions it gives people with weak-immunity genes are not read, so the index reads the
+         ordinary dose. Vanilla Factions Expanded - Medieval 2's draughts are swallowed and work through use effects: its own comp gives a
+         condition at a severity, takes some away when the figure is negative (the antitox draught clears toxic buildup), and gives
+         nothing to someone without the gene it names. The game's own use-effect comp needs no reader. A class no loaded mod has is
+         skipped. -->
+    <givenConditionReaders>
+      <li>
+        <className>VanillaRacesExpandedGenies.IngestionOutcomeDoer_GiveHediff_Discriminating</className>
+        <severityField>severity</severityField>
+      </li>
+      <li>
+        <className>VanillaRacesExpandedGenies.IngestionOutcomeDoer_GiveHediff_Weighted</className>
+        <severityField>severity</severityField>
+      </li>
+      <li>
+        <className>VFEMedieval.CompProperties_UseEffectAddHediffWithSeverity</className>
+        <severityField>severity</severityField>
+        <negativeTakesAway>true</negativeTakesAway>
+        <skipWhenSetField>neededGene</skipWhenSetField>
+      </li>
+    </givenConditionReaders>
   </Phobos.Dosing.Defs.PhobosDosingRulesDef>
 </Defs>

@@ -99,6 +99,9 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     /// <summary>How to read "this item removes these conditions" from another mod's own outcome class, as data: the class by its full
     /// name and the field holding the conditions. Read only; the class's code runs when the game gives the item, as always.</summary>
     public List<RemovalReader> removalReaders = new();
+    /// <summary>How to read "this item gives this condition" from another mod's own class (Medical 0.32.0): an outcome class, or a
+    /// use-effect comp on an item the game applies through its use-on-swallowing outcome. Read only, as the removal readers are.</summary>
+    public List<GivenConditionReader> givenConditionReaders = new();
 
     public DoseWeights Weights => new(consciousnessWeight, breathingWeight, bleedWeight, addictionWeight, bleedWeightWhenNotBleeding, vomitWeight);
 
@@ -126,6 +129,28 @@ public class RemovalReader
     public string doerClass = "";
     /// <summary>The field on it that holds a condition or a list of conditions.</summary>
     public string field = "";
+}
+
+/// <summary>
+/// One class of another mod's that gives a condition when an item is swallowed (Medical 0.32.0): an outcome class (Vanilla Races Expanded -
+/// Genie's antibiotics), or a use-effect comp's properties on an item the game applies through its use-on-swallowing outcome (Vanilla
+/// Factions Expanded - Medieval 2's draughts). The game's own use-effect comp needs no reader. A class no loaded mod has is skipped.
+/// </summary>
+public class GivenConditionReader
+{
+    /// <summary>The class's full name, such as Namespace.ClassName.</summary>
+    public string className = "";
+    /// <summary>The field holding the condition given.</summary>
+    public string conditionField = "hediffDef";
+    /// <summary>The field holding the severity given; empty, or zero or less without <see cref="negativeTakesAway"/>, means the
+    /// condition's own starting severity.</summary>
+    public string severityField = "";
+    /// <summary>A negative severity takes that much away from a condition already there, rather than meaning "the default": such an
+    /// effect gives nothing and is not read.</summary>
+    public bool negativeTakesAway;
+    /// <summary>A field that, when set, makes the effect depend on the taker (a gene they must have): such an effect is not read,
+    /// because the index is the same for everyone.</summary>
+    public string skipWhenSetField = "";
 }
 
 /// <summary>

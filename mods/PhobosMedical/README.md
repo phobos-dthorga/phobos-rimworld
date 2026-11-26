@@ -7,7 +7,7 @@ neither is required.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide's [medical
 chapter](../../docs/player-guide/medical.md)**; this README holds the gotchas, the settings and the links.
 
-Version 0.31.0, built 26 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
+Version 0.32.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
 D'thorga Medical (11 November 2026), burns, dosing, the oxygen concentrator, the burn unit bed and the save bridge on the five
 mods it replaced (3 to 6 November 2026), and, on D'thorga Medical itself, doctors' work with many wounded, field care giving way to
 the carry, and, with Rimatomics, radiation sickness running its real course and converting once. Everything else is not yet tested

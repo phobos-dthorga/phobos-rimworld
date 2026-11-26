@@ -87,6 +87,14 @@ public readonly struct DoseLimits
 /// </summary>
 public static class DoseSafetyRule
 {
+    /// <summary>
+    /// Whether a condition a dose gives counts for the redose check (Medical 0.32.0). A harm an item brings alongside its work, such as
+    /// the toxic buildup a medieval draught leaves, is not the dose still working, so it never holds the next dose back; the danger check
+    /// still counts it. When an item gives only harmful conditions, each still counts, as before: a mod that leaves its working condition
+    /// marked harmful must not have it doubled.
+    /// </summary>
+    public static bool CountsForRedose(bool harmful, bool itemGivesHarmless) => !harmful || !itemGivesHarmless;
+
     public static DoseRefusal Check(DoseEffect effect, DoseNeed need, float activeFraction, bool reachesDanger, PatientState patient, DoseLimits limits)
     {
         if (need == DoseNeed.Immunity)

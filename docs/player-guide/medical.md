@@ -170,6 +170,11 @@ its name.
   next time it strikes, not this one.
 - **A rare medicine is kept for saving a life**: one worth 300 silver or more, unless you move the mark in the settings (a slider;
   zero keeps nothing back). Nothing that begins a dependency that kills when it stops (luciferium) is ever given by rule.
+  **Glittertech's addiction remover is worth about 534 silver**, so at the default mark it is never given for an addiction: move the
+  mark above that if you want it used. Biological Warfare's antiserums (about 137) and vaccines (about 120) are under it.
+- **Medicines from other mods count when they do the job**: Vanilla Races Expanded - Genie's antibiotics for a disease that is winning,
+  and the draughts of Vanilla Factions Expanded - Medieval 2 (painkiller, immunization and antitox). A draught's toxic buildup counts
+  against it: someone already badly poisoned is not given one.
 - **A stimulant for breathing buys time, nothing more**: it is given again as it wears off, never where something blocks the
   airway or a machine breathes for the patient, and nobody is woken with it.
 - **AntiTox lasts about 2½ hours**, so someone working all day in toxic fallout takes about six a day. **It keeps the preventives'

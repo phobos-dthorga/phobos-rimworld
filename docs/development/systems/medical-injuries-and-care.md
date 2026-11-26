@@ -235,7 +235,7 @@ Since Medical 0.28.0 every reason for a dose is a row of one table, a `PhobosCar
 row gives its order, how serious it is, whether it keeps the player's reserve and whether an unmet one raises the alert; its worker
 class (`Dosing/Needs/`) reads the patient. `DoseService` is the engine every worker calls: one safety rule and one choice. A doctor
 looks at the rows in order, and the first with something to give decides the dose. **Not yet tested in game** (rows 590 to 593,
-605 to 607, 613 to 615).
+605 to 607, 613 to 615, 654 and 655).
 
 | Order | Need | Who qualifies | How serious | Switch |
 | --- | --- | --- | --- | --- |
@@ -300,6 +300,22 @@ no alert. The items, found by what they do:
   loses rolls a rising chance of degeneration in DMS's code, and an empty one brings worse, so it is kept topped up.
 
 A condition with no stages (Hydra's) now counts for the redose check, so a dose still working is not doubled.
+
+**What the index reads besides the game's own outcome** (0.32.0). A condition given through another mod's own class is read through
+the rules' `givenConditionReaders`: the class's full name, its condition and severity fields, whether a negative severity takes away
+rather than gives, and a field that makes the effect depend on the taker (such an effect is not read). Vanilla Races Expanded - Genie's
+antibiotics come in that way (+10% immunity speed: a drug for fighting disease). **Items swallowed through the game's
+use-on-swallowing outcome** (`IngestionOutcomeDoer_UseThing`) have their use effects read: the game's `CompProperties_UseEffectAddHediff`
+by type, another mod's comp through a reader. Vanilla Factions Expanded - Medieval 2's draughts come in that way: the painkiller draught
+(80% of the pain), the immunization draught (+35% immunity speed) and the antitox draught (62.5% of toxic buildup kept out). **A harm
+an item brings alongside its work** (a condition the game marks harmful, from an item that also gives one it does not: the draughts'
+toxic buildup) counts for the danger check and not for the redose check (`DoseSafetyRule.CountsForRedose`). Items only used, never
+swallowed, are not read: the dose job swallows.
+
+**What an item is worth** is the game's own figure: for an item whose Def states none, the game works it out from what goes into
+making it. Biological Warfare's antiserums come to about 137 silver and vaccines about 120; Glittertech's addiction remover to about
+534, over the default rare mark, so it is not given for an addiction. The dev action "Dosing: log every care list, with worth" prints
+every list with each item's figure and whether the mark holds it back.
 
 **Cures.** The index lists an item as a cure when one of its outcomes removes conditions: an outcome class named in the rules'
 `removalReaders` (the class's full name and the field holding the conditions; Ushanka's Biological Warfare's antiserums), or `cures`

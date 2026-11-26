@@ -455,4 +455,37 @@ public class LongTermTests
         // Luciferium heals old wounds too, and is refused for the dependency it begins.
         Assert.Equal(DoseRefusal.LethalDependency, CareSafetyRule.Check(CareSeriousness.Serious, 0.05f, true, false));
     }
+
+    [Fact]
+    public void ASideHarmNeverHoldsBackTheNextDose()
+    {
+        // A medieval painkiller draught gives its own condition and 0.2 toxic buildup: the buildup left from anything else is not the
+        // draught still working, so it does not count for the redose check (Medical 0.32.0). The draught's own condition does.
+        Assert.False(DoseSafetyRule.CountsForRedose(harmful: true, itemGivesHarmless: true));
+        Assert.True(DoseSafetyRule.CountsForRedose(harmful: false, itemGivesHarmless: true));
+        // An item whose only condition is marked harmful (a mod that left the flag at its default) is counted as before.
+        Assert.True(DoseSafetyRule.CountsForRedose(harmful: true, itemGivesHarmless: false));
+    }
+
+    [Fact]
+    public void ADraughtsToxicCostLeavesItWorthGivingForPain()
+    {
+        // The painkiller draught at its starting severity takes 80% of the pain; its 0.2 toxic buildup costs 0.10 consciousness.
+        // 0.8 - 0.5 x 0.10 = 0.75: it is indexed, and scores below a clean medicine that takes as much pain.
+        DoseEffect draught = DoseEffectRule.Combine(new[] { new StageEffect(0.2f, 0f, 0f, 1f, 0f, 1f), new StageEffect(1f, 0f, -0.1f, 1f, 0f, 1f) }, 0f, false, 0.1f);
+        DoseEffect clean = DoseEffectRule.Combine(new[] { new StageEffect(0.2f, 0f, 0f, 1f, 0f, 1f) }, 0f, false, 0.1f);
+        Assert.True(DoseChoiceRule.Worthwhile(draught, 0.3f, CareFixtures.Weights));
+        Assert.Equal(0.75f, DoseChoiceRule.Score(draught, false, CareFixtures.Weights), 4);
+        var both = new[] { new DoseCandidate(draught, true), new DoseCandidate(clean, true) };
+        Assert.Equal(1, DoseChoiceRule.Choose(both, DoseNeed.PainRelief, false, CareFixtures.Weights));
+    }
+
+    [Fact]
+    public void TheAntitoxDraughtProtectsAgainstToxins()
+    {
+        // Its potent stage adds 0.25 toxic resistance and 0.5 toxic environment resistance: 1 - 0.75 x 0.5 keeps out 62.5%.
+        DoseEffect draught = DoseEffectRule.Combine(new[] { new StageEffect(1f, 0f, 0f, 1f, 0f, 1f, toxicResistance: 0.25f, toxicEnvironmentResistance: 0.5f) }, 0f, false, 0.1f);
+        Assert.Equal(0.625f, draught.ToxicCut, 4);
+        Assert.True(DoseChoiceRule.WorthwhileForExposure(draught, DoseNeed.Toxic, 0.25f, CareFixtures.Weights));
+    }
 }

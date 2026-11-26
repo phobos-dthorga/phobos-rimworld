@@ -21,6 +21,38 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.32.0] - 2026-11-27 - Draft
+
+Care needs: antibiotics, draughts, and what rare medicines are worth
+
+### Added
+
+- **Vanilla Races Expanded - Genie's antibiotics are given for a disease that is winning**, like the game's own drugs for fighting
+  disease. Not yet tested in game: row 655 of the test pass.
+- **Medieval draughts are given and taken by rule** (Vanilla Factions Expanded - Medieval 2): the painkiller draught for pain, the
+  immunization draught for a disease that is winning, and the antitox draught against toxins, each weighed with the toxic buildup it
+  leaves. Not yet tested in game: row 654.
+- **A dev action lists every care list with what each item is worth** and whether the rare mark holds it back.
+
+### Changed
+
+- **Toxic buildup a medicine leaves no longer stops the next dose** as if the medicine were still working; someone close to dangerous
+  toxic buildup is still refused.
+
+### Balance
+
+- **Glittertech's addiction remover is held back at the default rare mark**: the game prices it at about 534 silver, so it is kept for
+  saving a life and addictol is used alone. Lower the mark in Settings, Emergency dosing, to change that.
+
+### Save compatibility
+
+- Safe with an existing save. No new settings.
+
+### Compatibility and limits
+
+- What the antibiotics and draughts do is read from their mods' code by name: a rename there stops them being found until the rules
+  follow.
+
 ## [0.31.0] - 2026-11-26 - Draft
 
 Long-term care: strain, addiction, old wounds, missing parts and biogel

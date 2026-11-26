@@ -665,6 +665,7 @@ public static class DoseService
         for (int i = 0; i < option.Hediffs.Count; i++)
         {
             DoseHediff dose = option.Hediffs[i];
+            if (!dose.ForRedose) continue;
             float existing = set.GetFirstHediffOfDef(dose.Def)?.Severity ?? 0f;
             if (dose.Severity > 0f && existing / dose.Severity > fraction) fraction = existing / dose.Severity;
         }

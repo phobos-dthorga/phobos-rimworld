@@ -58,6 +58,45 @@ public static class DosingDebugActions
         Log.Message(text.ToString());
     }
 
+    /// <summary>
+    /// Every list the care needs choose from, with what each item is worth by the game's own price and whether it is kept for saving a
+    /// life at the player's rare mark (Medical 0.32.0): the price of an item whose Def states none is worked out by the game, so this is
+    /// the one place it can be read.
+    /// </summary>
+    [DebugAction(DebugCategory.Name, "Dosing: log every care list, with worth", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
+    public static void LogEveryList()
+    {
+        float mark = DosingMod.Settings.rareItemMarketValue;
+        var text = new StringBuilder(DosingMod.LogPrefix).Append(" every care list; the rare mark is ").Append(mark.ToString("0")).Append(" silver:");
+        AppendList(text, "pain relief", DoseIndex.Options, mark);
+        AppendList(text, "fighting disease", DoseIndex.ImmunityOptions, mark);
+        AppendList(text, "cures", DoseIndex.CureOptions, mark);
+        AppendList(text, "prevention", DoseIndex.PreventionOptions, mark);
+        AppendList(text, "breathing", DoseIndex.BreathingOptions, mark);
+        AppendList(text, "toxins", DoseIndex.ToxicOptions, mark);
+        AppendList(text, "vacuum", DoseIndex.VacuumOptions, mark);
+        AppendList(text, "close to a major break", DoseIndex.StrainOptions, mark);
+        AppendList(text, "addiction", DoseIndex.AddictionOptions, mark);
+        AppendList(text, "old wounds", DoseIndex.OldWoundOptions, mark);
+        AppendList(text, "missing parts", DoseIndex.RegrowthOptions, mark);
+        AppendList(text, "reservoirs", DoseIndex.ReservoirOptions, mark);
+        Log.Message(text.ToString());
+    }
+
+    static void AppendList(StringBuilder text, string name, System.Collections.Generic.IReadOnlyList<DoseOption> list, float mark)
+    {
+        text.Append("\n").Append(name).Append(" (").Append(list.Count).Append("):");
+        foreach (DoseOption option in list)
+        {
+            text.Append("\n  ").Append(option.Def.defName).Append(" (").Append(option.Def.label).Append("): worth ").Append(option.MarketValue.ToString("0"))
+                .Append(CareSafetyRule.Rare(option.MarketValue, mark) ? ", rare: only to save a life" : "");
+            foreach (DoseHediff dose in option.Hediffs)
+            {
+                text.Append("; gives ").Append(dose.Def.defName).Append(' ').Append(dose.Severity.ToString("0.00")).Append(dose.ForRedose ? "" : " (a side harm)");
+            }
+        }
+    }
+
     static void AppendCare(StringBuilder text, DoseOption option, System.Collections.Generic.IReadOnlyList<HediffDef> conditions)
     {
         DoseEffect e = option.Effect;

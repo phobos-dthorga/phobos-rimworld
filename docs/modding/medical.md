@@ -109,6 +109,13 @@ Say what one of your items cures or prevents where its Defs cannot show it:
 - **A preventive needs no extension** when the condition it gives carries the game's `makeImmuneTo` on the stage at its dose.
 - **A cure that works through an outcome class of your own** can be read without an extension on each item: patch a reader into the
   rules Def's `removalReaders`, with the class's full name (`doerClass`) and the `field` holding a condition or a list of them.
+- **A condition given through an outcome class of your own, or through a use effect** (0.32.0), can be read without an extension:
+  patch a `GivenConditionReader` into the rules Def's `givenConditionReaders`, with the class's full name (`className`), the
+  `conditionField` (`hediffDef` by default) and `severityField` holding them, `negativeTakesAway` when a negative severity reduces a
+  condition already there, and `skipWhenSetField` for a field that makes the effect depend on the taker. A use effect is read only on
+  an item swallowed through the game's `IngestionOutcomeDoer_UseThing`; the game's own `CompProperties_UseEffectAddHediff` needs no
+  reader. A condition the game marks harmful (`isBad`), given beside one it does not, is a side harm: it counts for the danger check,
+  never for the redose check.
 - **Prevention acts only for an outbreak disease**: one that an `IncidentDef` brings (`diseaseIncident`), one with Vanilla Expanded
   Framework's spreadable comp, or one you patch into the rules Def's `outbreakDiseases`.
 - **A help to breathing needs no extension**: a medical drug whose condition, at its dose, adds 0.1 or more to breathing after

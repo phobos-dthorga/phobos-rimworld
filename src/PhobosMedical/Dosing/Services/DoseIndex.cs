@@ -19,12 +19,15 @@ public readonly struct DoseHediff
     public readonly float Severity;
     /// <summary>The lowest severity at which a stage is life-threatening or carries a death clock, or the lethal severity; huge when none.</summary>
     public readonly float DangerSeverity;
+    /// <summary>Whether it counts for the redose check: false for a harm the item brings alongside its work (Medical 0.32.0).</summary>
+    public readonly bool ForRedose;
 
-    public DoseHediff(HediffDef def, float severity, float dangerSeverity)
+    public DoseHediff(HediffDef def, float severity, float dangerSeverity, bool forRedose = true)
     {
         Def = def;
         Severity = severity;
         DangerSeverity = dangerSeverity;
+        ForRedose = forRedose;
     }
 }
 
@@ -227,6 +230,7 @@ public static class DoseIndex
         PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
         HashSet<HediffDef> outbreaks = OutbreakKinds(rules);
         Dictionary<Type, FieldInfo> readers = RemovalReaders(rules);
+        Dictionary<Type, GivenReader> givers = GivenReaders(rules);
         var addictionClasses = new HashSet<string>(rules.addictionTreatments);
         var regrowthClasses = new HashSet<string>(rules.regrowthClasses);
         Dictionary<Type, (ReservoirReader reader, FieldInfo amount)> refills = RefillReaders(rules);
@@ -251,37 +255,71 @@ public static class DoseIndex
             bool treatsAddiction = false, healsOldWounds = false, regrowsParts = false;
             ReservoirReader? reservoir = null;
             float refillAmount = 0f;
-            for (int j = 0; j < doers.Count; j++)
+
+            // One condition the item gives, at the severity given (zero or less: the condition's own starting severity). Fed by the game's
+            // outcome class, by another mod's class through the rules' readers, and by use effects on an item swallowed (Medical 0.32.0).
+            void Give(HediffDef condition, float given)
             {
-                if (doers[j] is not IngestionOutcomeDoer_GiveHediff give)
-                {
-                    if (doers[j] == null) continue;
-                    if (readers.TryGetValue(doers[j].GetType(), out FieldInfo? field)) AddConditions(cures, field.GetValue(doers[j]));
-                    if (refills.TryGetValue(doers[j].GetType(), out var refill) && ToFloat(refill.amount.GetValue(doers[j])) is float amount && amount > 0f)
-                    {
-                        reservoir = refill.reader;
-                        refillAmount = amount;
-                    }
-                    continue;
-                }
-                if (give.hediffDef == null) continue;
-                float severity = give.severity > 0f ? give.severity : give.hediffDef.initialSeverity;
+                float severity = given > 0f ? given : condition.initialSeverity;
                 // What a condition does in its comps or its class (Medical 0.31.0): read whether it has stages or not.
-                ReadTreatments(give.hediffDef, addictionClasses, regrowthClasses, ref treatsAddiction, ref healsOldWounds, ref regrowsParts);
-                if (give.hediffDef.stages == null || give.hediffDef.stages.Count == 0)
+                ReadTreatments(condition, addictionClasses, regrowthClasses, ref treatsAddiction, ref healsOldWounds, ref regrowsParts);
+                if (condition.stages == null || condition.stages.Count == 0)
                 {
                     // A condition with no stages (Hydra's) still counts for the redose check: one working dose is not doubled.
                     if (treatsAddiction || healsOldWounds || regrowsParts)
-                        hediffs.Add(new DoseHediff(give.hediffDef, severity, ConditionDanger.DangerSeverity(give.hediffDef)));
-                    continue;
+                        hediffs.Add(new DoseHediff(condition, severity, ConditionDanger.DangerSeverity(condition)));
+                    return;
                 }
-                if (give.hediffDef.PossibleToDevelopImmunityNaturally()) givesDisease = true;
-                HediffStage stage = give.hediffDef.stages[give.hediffDef.StageAtSeverity(severity)];
+                if (condition.PossibleToDevelopImmunityNaturally()) givesDisease = true;
+                HediffStage stage = condition.stages[condition.StageAtSeverity(severity)];
                 stages.Add(Read(stage));
                 AddConditions(prevents, stage.makeImmuneTo);
                 if (stage.statOffsets != null) breakDrop -= stage.statOffsets.GetStatOffsetFromList(StatDefOf.MentalBreakThreshold);
-                hediffs.Add(new DoseHediff(give.hediffDef, severity, ConditionDanger.DangerSeverity(give.hediffDef)));
+                hediffs.Add(new DoseHediff(condition, severity, ConditionDanger.DangerSeverity(condition)));
             }
+
+            void GiveRead(GivenReader reader, object source)
+            {
+                if (reader.SkipWhenSet != null && reader.SkipWhenSet.GetValue(source) != null) return;
+                if (reader.Condition.GetValue(source) is not HediffDef condition) return;
+                float given = reader.Severity != null && ToFloat(reader.Severity.GetValue(source)) is float severity ? severity : 0f;
+                if (given < 0f && reader.Source.negativeTakesAway) return;
+                Give(condition, given);
+            }
+
+            for (int j = 0; j < doers.Count; j++)
+            {
+                IngestionOutcomeDoer doer = doers[j];
+                if (doer == null) continue;
+                if (doer is IngestionOutcomeDoer_GiveHediff give)
+                {
+                    if (give.hediffDef != null) Give(give.hediffDef, give.severity);
+                    continue;
+                }
+                if (doer is IngestionOutcomeDoer_UseThing)
+                {
+                    // Swallowing applies the item's use effects (the game's own outcome for it): read the ones that give a condition.
+                    List<CompProperties>? comps = def.comps;
+                    for (int k = 0; comps != null && k < comps.Count; k++)
+                    {
+                        if (comps[k] is CompProperties_UseEffectAddHediff add)
+                        {
+                            if (add.hediffDef != null) Give(add.hediffDef, 0f);
+                        }
+                        else if (comps[k] != null && givers.TryGetValue(comps[k].GetType(), out GivenReader? useReader)) GiveRead(useReader, comps[k]);
+                    }
+                    continue;
+                }
+                Type doerType = doer.GetType();
+                if (givers.TryGetValue(doerType, out GivenReader? reader)) GiveRead(reader, doer);
+                if (readers.TryGetValue(doerType, out FieldInfo? field)) AddConditions(cures, field.GetValue(doer));
+                if (refills.TryGetValue(doerType, out var refill) && ToFloat(refill.amount.GetValue(doer)) is float amount && amount > 0f)
+                {
+                    reservoir = refill.reader;
+                    refillAmount = amount;
+                }
+            }
+            MarkSideHarms(hediffs);
             if (extension != null)
             {
                 AddConditions(cures, extension.cures);
@@ -471,6 +509,65 @@ public static class DoseIndex
             readers[type] = field;
         }
         return readers;
+    }
+
+    /// <summary>A given-condition reader whose class a loaded mod has, with the fields it names (Medical 0.32.0).</summary>
+    sealed class GivenReader
+    {
+        public readonly GivenConditionReader Source;
+        public readonly FieldInfo Condition;
+        public readonly FieldInfo? Severity;
+        public readonly FieldInfo? SkipWhenSet;
+
+        public GivenReader(GivenConditionReader source, FieldInfo condition, FieldInfo? severity, FieldInfo? skipWhenSet)
+        {
+            Source = source;
+            Condition = condition;
+            Severity = severity;
+            SkipWhenSet = skipWhenSet;
+        }
+    }
+
+    /// <summary>
+    /// The rules' given-condition readers whose class a loaded mod has. A reader naming a field its class does not have is said once in
+    /// the log, as the removal readers are: the other mod changed, and its items would silently stop being read.
+    /// </summary>
+    static Dictionary<Type, GivenReader> GivenReaders(PhobosDosingRulesDef rules)
+    {
+        const BindingFlags Fields = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+        var found = new Dictionary<Type, GivenReader>();
+        foreach (GivenConditionReader reader in rules.givenConditionReaders)
+        {
+            if (reader == null || reader.className.NullOrEmpty()) continue;
+            Type? type = OptionalMods.TypeNamed(reader.className);
+            if (type == null) continue;
+            FieldInfo? condition = type.GetField(reader.conditionField, Fields);
+            FieldInfo? severity = reader.severityField.NullOrEmpty() ? null : type.GetField(reader.severityField, Fields);
+            FieldInfo? skip = reader.skipWhenSetField.NullOrEmpty() ? null : type.GetField(reader.skipWhenSetField, Fields);
+            if (condition == null || (severity == null && !reader.severityField.NullOrEmpty()) || (skip == null && !reader.skipWhenSetField.NullOrEmpty()))
+            {
+                Log.Warning(DosingMod.LogPrefix + " a given-condition reader names a field " + reader.className + " does not have: its items are not read.");
+                continue;
+            }
+            found[type] = new GivenReader(reader, condition, severity, skip);
+        }
+        return found;
+    }
+
+    /// <summary>Marks a harm the item brings alongside its work, so it never holds back the next dose (Medical 0.32.0).</summary>
+    static void MarkSideHarms(List<DoseHediff> hediffs)
+    {
+        bool givesHarmless = false;
+        for (int i = 0; i < hediffs.Count; i++)
+        {
+            if (!hediffs[i].Def.isBad) givesHarmless = true;
+        }
+        for (int i = 0; i < hediffs.Count; i++)
+        {
+            DoseHediff dose = hediffs[i];
+            if (!DoseSafetyRule.CountsForRedose(dose.Def.isBad, givesHarmless))
+                hediffs[i] = new DoseHediff(dose.Def, dose.Severity, dose.DangerSeverity, forRedose: false);
+        }
     }
 
     /// <summary>The addiction a drug can begin, when that addiction's own stages can kill (the game's luciferium need is the model).</summary>
