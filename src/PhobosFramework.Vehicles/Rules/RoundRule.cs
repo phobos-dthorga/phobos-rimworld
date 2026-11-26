@@ -28,6 +28,22 @@ public static class RoundRule
     /// <summary>The most stops a round has (authored: enough for any supply run, few enough to read in a menu).</summary>
     public const int MostStops = 8;
 
+    /// <summary>
+    /// The next stop after <paramref name="at"/> it may fly to (Framework 0.315.0): stops it may not (an ally's town turned hostile) are passed
+    /// over; -1 when it may fly to none but where it is.
+    /// </summary>
+    public static int NextUsable(int at, IReadOnlyList<bool> usable)
+    {
+        int count = usable.Count;
+        for (int step = 1; step <= count; step++)
+        {
+            int index = ((at < 0 ? -1 : at) + step) % count;
+            if (index == at) break;
+            if (usable[index]) return index;
+        }
+        return -1;
+    }
+
     public static int WaitTicks(float hours) => (int)Math.Round(Math.Max(0f, hours) * TicksPerHour);
 
     /// <summary>Whether there is fuel aboard for the next leg with its margin; an aircraft that takes no fuel always has.</summary>

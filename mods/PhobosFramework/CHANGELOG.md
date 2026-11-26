@@ -13,6 +13,22 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.315.0] - 2026-11-26 - Draft
+
+Rounds to allies' towns, and the round on the world map
+
+### Added
+
+- **A round can stop at an ally's town, to trade or to give** (the owner's cards of 26 November 2026). Click the town while planning;
+  under **Its stops** choose **Trade here** (it lands beside the town and waits for you to trade, with someone aboard to talk) or **Give
+  gifts here** (it hands everything aboard to the town for goodwill, then waits). A town that turns hostile is passed over.
+- **The round is drawn on the world map** while the aircraft is selected there, or while you plan it: a line along each leg, each stop
+  numbered, and the leg it flies next brighter. Not yet tested in game: rows 568 and 569.
+
+### Changed
+
+- **Waits at stops is now Its stops**, with the trade or gift choice for an ally's town beside each wait.
+
 ## [0.314.0] - 2026-11-26 - Draft
 
 Lost-link letters say why

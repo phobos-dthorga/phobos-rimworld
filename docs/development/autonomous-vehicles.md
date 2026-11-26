@@ -544,8 +544,30 @@ run loops and fly rounds by themselves" (the route setting, relabelled; on) cove
   Vehicle Framework's launch check and fuel sum); on open ground the same from one world component that walks the player's caravans every
   250 ticks; nothing in flight. Saved: the stops, whether it runs, which stop and the wait's end.
 - **Other factions:** a round is the player's own; enemy aircraft are unchanged.
-- **Still open:** its buttons' and the kit's own pictures (night 16; they borrow the flight's until then); a round drawn on the world map
-  while selected.
+- **Still open:** its buttons' and the kit's own pictures (night 16; they borrow the flight's until then).
+
+### Rounds, part two: allies' towns and the round on the world map (Framework 0.315.0)
+
+The owner's go of 26 Nov 2026 ("Let's build #1 and #4") and their cards the same day: **at an ally's town, trade or give, chosen per
+stop** [O]; **the round drawn with lines and numbered stops, the next leg brighter** [O].
+
+**As built [code: `Flight/Rounds.cs`: `RoundStopAction`, `ArrivalAction_PhobosRoundGift`, `RoundDrawing`; `RoundRule.NextUsable`,
+tested]:** clicking another faction's town while planning adds it as a stop of its own (no landing spot: it lands beside it as a
+caravan), set to **Trade** [A, the first of the two]; **Its stops** (the old "Waits at stops", relabelled) sets it to **Give gifts** or back,
+beside the wait. **Trade:** it lands as a caravan on the town's tile, where the game's own Trade button is, says so once, and waits its
+time; trading needs someone aboard who can talk, so a crewless round's trade stop only waits [A]. **Give gifts:** a new arrival action
+hands everything aboard that is not a person to the town as the game's own gift (`FactionGiftUtility.GiveGift`, for goodwill, as the
+airdrop's gift), then lands there as a caravan and waits. A town whose people have turned hostile since is passed over on the way round
+(`RoundRule.NextUsable`); with every other stop such a town, it waits and says why. **On the world map**, while the aircraft is selected
+there (in flight or as a caravan) or its round is being planned: each leg along the globe's curve, the stops numbered, the leg it is
+flying or about to fly brighter and its stop's number shaded. Drawn from the rounds' world component's update and GUI; nothing saved.
+
+- **The four questions:** it lets a round supply allies or trade on a schedule; it stops nothing; it makes goodwill something a round
+  earns with what it carries; outside it, the ally's faction notices (goodwill from the game's own gift; the trade window is the game's).
+- **Risk: low [A].** A gift takes only what the player loaded; an ally's town is no more dangerous than open ground.
+- **Its cost:** drawing only while the world map shows a selected aircraft with a round: a line piece every 1.5 degrees of each leg and a
+  label a stop, each frame; nothing otherwise. The hostile check is a faction lookup a stop, at each leaving.
+- **Still open:** a round's own icons (night 16).
 
 ### Crewless rounds (Framework 0.310.0)
 

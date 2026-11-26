@@ -15,9 +15,27 @@ namespace Phobos.VehicleSystems;
 // An aircraft's round between places (Framework 0.307.0; docs/development/autonomous-vehicles.md, step 9; the owner's cards of 26 Nov 2026):
 // stops picked on the world map, a landing spot on each place with a map, a wait set per stop; flown by a pilot aboard, whatever is loaded.
 
+/// <summary>What it does at an ally's town (Framework 0.315.0; the owner's card: chosen per stop).</summary>
+public enum RoundStopAction
+{
+    /// <summary>It lands as a caravan beside the town and waits its time for the player to trade (someone aboard must talk).</summary>
+    Trade,
+    /// <summary>It hands everything aboard to the town for goodwill, then waits its time there as a caravan.</summary>
+    Gift,
+}
+
 /// <summary>One stop of a round: a tile, and on a place with a map the spot it lands on there and the way it faces.</summary>
 public sealed class RoundStop : IExposable
 {
+    /// <summary>At an ally's town: trade or give (Framework 0.315.0). Unused elsewhere.</summary>
+    public RoundStopAction action = RoundStopAction.Trade;
+
+    /// <summary>The town, when this stop is another faction's (an ally's when picked).</summary>
+    public Settlement? Town => parent is Settlement { Faction: { } faction } town && faction != Faction.OfPlayer ? town : null;
+
+    /// <summary>Whether it may fly here now: anywhere but a town whose people have turned hostile since.</summary>
+    public bool Usable => Town is not { } town || !town.Faction.HostileTo(Faction.OfPlayer);
+
     public PlanetTile tile = PlanetTile.Invalid;
     /// <summary>The place, when it had a map as the stop was picked; null for a tile with no map, where it lands as a caravan.</summary>
     public MapParent? parent;
@@ -38,6 +56,7 @@ public sealed class RoundStop : IExposable
         Scribe_Values.Look(ref cell, "cell", IntVec3.Invalid);
         Scribe_Values.Look(ref rot, "rot", Rot4.North);
         Scribe_Values.Look(ref waitTicks, "waitTicks", RoundRule.WaitTicks(RoundRule.DefaultWaitHours));
+        Scribe_Values.Look(ref action, "action", RoundStopAction.Trade);
     }
 }
 
@@ -114,6 +133,16 @@ public sealed class CompPhobosRound : VehicleComp
         Messages.Message("PhobosRound_StopAdded".Translate(Vehicle.LabelShort.Named("VEHICLE"), stops.Count.Named("INDEX"), stops[stops.Count - 1].Label.Named("PLACE")),
             MessageTypeDefOf.SilentInput, false);
     }
+
+    /// <summary>Trade or give at an ally's town (Framework 0.315.0).</summary>
+    public void SetAction(int index, RoundStopAction action)
+    {
+        if (index < 0 || index >= stops.Count || stops[index].Town == null) return;
+        stops[index].action = action;
+    }
+
+    /// <summary>The stop it is at or flying to, or -1.</summary>
+    public int At => at;
 
     public void SetWait(int index, float hours)
     {
@@ -215,9 +244,21 @@ public sealed class CompPhobosRound : VehicleComp
             waitUntil = now + stops[at].waitTicks;
             string variant = caravan != null ? "tile" : "map";
             if (Seen.Wants("aircraft.round-stop", Vehicle, variant)) Seen.Note("aircraft.round-stop", Vehicle, stops[at].Label, variant);
+            // At an ally's town to trade (Framework 0.315.0): the game's own Trade button is on the caravan now.
+            if (caravan != null && stops[at].Town is { } town && stops[at].action == RoundStopAction.Trade)
+            {
+                Messages.Message("PhobosRound_ReadyToTrade".Translate(Vehicle.LabelShort.Named("VEHICLE"), town.LabelCap.Named("PLACE"),
+                    stops[at].waitTicks.ToStringTicksToPeriod().Named("WAIT")), caravan, MessageTypeDefOf.PositiveEvent, false);
+                if (Seen.Wants("aircraft.round-trade", Vehicle)) Seen.Note("aircraft.round-trade", Vehicle, town.LabelCap);
+            }
         }
         if (!RoundRule.WaitOver(now, waitUntil)) return;
-        int next = RouteRule.Next(at, stops.Count);
+        int next = RoundRule.NextUsable(at, stops.Select(s => s.Usable).ToList());
+        if (next < 0)
+        {
+            Waits("PhobosRound_WaitNowhere".Translate().Resolve());
+            return;
+        }
         if (LeaveRefusal(stops[next], caravan) is { } why)
         {
             Waits(why);
@@ -261,7 +302,10 @@ public sealed class CompPhobosRound : VehicleComp
         var data = new TargetData<GlobalTargetInfo>();
         data.targets.Add(new GlobalTargetInfo(stop.tile));
         // A place whose map has gone since it was picked (abandoned, or a camp packed up) is landed on as a tile.
-        IArrivalAction action = stop.OnMap ? new ArrivalAction_LandToCell(Vehicle, stop.parent!, stop.cell, stop.rot) : new ArrivalAction_LandToCaravan(Vehicle);
+        // At an ally's town it gives everything aboard as it lands, or lands to trade (Framework 0.315.0).
+        IArrivalAction action = stop.Town is { } town && stop.action == RoundStopAction.Gift ? new ArrivalAction_PhobosRoundGift(Vehicle, town)
+            : stop.Town == null && stop.OnMap ? new ArrivalAction_LandToCell(Vehicle, stop.parent!, stop.cell, stop.rot)
+            : new ArrivalAction_LandToCaravan(Vehicle);
         at = next;
         waitUntil = -1;
         waitingWhy = null;
@@ -288,7 +332,7 @@ public sealed class CompPhobosRound : VehicleComp
         {
             int left = Mathf.Max(0, waitUntil - Find.TickManager.TicksGame);
             return "PhobosRound_InspectAtStop".Translate(stops[at].Label.Named("PLACE"), left.ToStringTicksToPeriod().Named("TIME"),
-                stops[RouteRule.Next(at, stops.Count)].Label.Named("NEXT")).Resolve();
+                stops[Mathf.Max(0, RoundRule.NextUsable(at, stops.Select(s => s.Usable).ToList()))].Label.Named("NEXT")).Resolve();
         }
         return crewless ? "PhobosRound_InspectFlyingCrewless".Translate().Resolve() : "PhobosRound_InspectFlying".Translate().Resolve();
     }
@@ -319,11 +363,23 @@ public sealed class CompPhobosRound : VehicleComp
     }
 }
 
-/// <summary>Looks at aircraft flying a round that stand as caravans on tiles with no map (Framework 0.307.0), every 250 ticks.</summary>
+/// <summary>Looks at aircraft flying a round that stand as caravans on tiles with no map (Framework 0.307.0), every 250 ticks; and draws the
+/// rounds of selected aircraft on the world map (Framework 0.315.0).</summary>
 public class WorldComponent_PhobosRounds : WorldComponent
 {
     public WorldComponent_PhobosRounds(World world) : base(world)
     {
+    }
+
+    /// <summary>The rounds of selected aircraft, and the one being planned, drawn while the world map is shown (Framework 0.315.0).</summary>
+    public override void WorldComponentUpdate()
+    {
+        foreach (CompPhobosRound round in RoundDrawing.Shown()) RoundDrawing.DrawLines(round);
+    }
+
+    public override void WorldComponentOnGUI()
+    {
+        foreach (CompPhobosRound round in RoundDrawing.Shown()) RoundDrawing.DrawNumbers(round);
     }
 
     public override void WorldComponentTick()
@@ -404,15 +460,29 @@ public static class RoundGizmos
         {
             int index = i;
             RoundStop stop = round.Stops[i];
-            string label = "PhobosRound_StopLine".Translate((i + 1).Named("INDEX"), stop.Label.Named("PLACE"), stop.waitTicks.ToStringTicksToPeriod().Named("WAIT"));
+            string wait = stop.waitTicks.ToStringTicksToPeriod();
+            string label = stop.Town == null
+                ? "PhobosRound_StopLine".Translate((i + 1).Named("INDEX"), stop.Label.Named("PLACE"), wait.Named("WAIT")).Resolve()
+                : "PhobosRound_StopLineTown".Translate((i + 1).Named("INDEX"), stop.Label.Named("PLACE"), wait.Named("WAIT"),
+                    (stop.action == RoundStopAction.Gift ? "PhobosRound_ActionGift" : "PhobosRound_ActionTrade").Translate().Named("ACTION")).Resolve();
             options.Add(new FloatMenuOption(label, () => Find.WindowStack.Add(new FloatMenu(WaitOptions(round, index)))));
         }
         return options;
     }
 
-    static List<FloatMenuOption> WaitOptions(CompPhobosRound round, int index) =>
-        RoundRule.WaitChoices.Select(hours => new FloatMenuOption(RoundRule.WaitTicks(hours) == 0 ? "PhobosRound_WaitNone".Translate().Resolve()
-            : RoundRule.WaitTicks(hours).ToStringTicksToPeriod(), () => round.SetWait(index, hours))).ToList();
+    static List<FloatMenuOption> WaitOptions(CompPhobosRound round, int index)
+    {
+        var options = new List<FloatMenuOption>();
+        if (round.Stops[index].Town != null)
+        {
+            options.Add(new FloatMenuOption("PhobosRound_SetTrade".Translate(), () => round.SetAction(index, RoundStopAction.Trade)));
+            options.Add(new FloatMenuOption("PhobosRound_SetGift".Translate(), () => round.SetAction(index, RoundStopAction.Gift)));
+        }
+        options.AddRange(RoundRule.WaitChoices.Select(hours => new FloatMenuOption("PhobosRound_SetWait".Translate(
+            (RoundRule.WaitTicks(hours) == 0 ? "PhobosRound_WaitNone".Translate().Resolve() : RoundRule.WaitTicks(hours).ToStringTicksToPeriod()).Named("WAIT")),
+            () => round.SetWait(index, hours))));
+        return options;
+    }
 }
 
 /// <summary>
@@ -422,8 +492,12 @@ public static class RoundGizmos
 /// </summary>
 public static class RoundPlanner
 {
+    /// <summary>The round being planned, drawn on the world map while its picker runs (Framework 0.315.0).</summary>
+    public static CompPhobosRound? Planning { get; private set; }
+
     public static void Begin(CompPhobosRound round)
     {
+        Planning = round;
         round.BeginPlan();
         PickNext(round);
     }
@@ -445,6 +519,12 @@ public static class RoundPlanner
             return false;
         }
         VehiclePawn vehicle = round.Vehicle;
+        // An ally's town (Framework 0.315.0): it lands beside it, to trade by default; the stops menu can make it a gift instead.
+        if (target.WorldObject is Settlement { Faction: { } faction } town && faction != Faction.OfPlayer)
+        {
+            round.AddStop(town.Tile, town, IntVec3.Invalid, Rot4.North);
+            return false;
+        }
         if (target.WorldObject is MapParent { HasMap: true } parent)
         {
             Map map = parent.Map;
@@ -470,5 +550,140 @@ public static class RoundPlanner
         if (vehicle.CompVehicleLauncher is not { } launcher || vehicle.CompFueledTravel is not { } fuel || !last.Valid) return default;
         float needed = launcher.FuelNeededToLaunchAtDist(WorldHelper.GetTilePos(last), target.Tile) * (float)RoundRule.FuelMargin;
         return "PhobosRound_LegFuel".Translate(Mathf.CeilToInt(needed).Named("NEEDED"), Mathf.FloorToInt(fuel.FuelCapacity).Named("CAPACITY"));
+    }
+}
+
+/// <summary>
+/// Arriving at an ally's town to give (Framework 0.315.0; the owner's card: trade or give, chosen per stop): everything aboard that is not a
+/// person goes to the town as the game's own gift, for goodwill, as an airdrop's gift does; then it lands there as a caravan and waits its
+/// time. A town turned hostile on the way gets nothing.
+/// </summary>
+public class ArrivalAction_PhobosRoundGift : VehicleArrivalAction
+{
+    Settlement? town;
+
+    public ArrivalAction_PhobosRoundGift() { }
+
+    public ArrivalAction_PhobosRoundGift(VehiclePawn vehicle, Settlement town) : base(vehicle) => this.town = town;
+
+    public override void Arrived(GlobalTargetInfo target)
+    {
+        AerialVehicleInFlight? flight = AerialVehicle;
+        Give();
+        flight?.SwitchToCaravan();
+    }
+
+    void Give()
+    {
+        if (town is not { Spawned: true, Faction: { } faction } || faction.HostileTo(Faction.OfPlayer))
+        {
+            Messages.Message("PhobosRound_GiftRefused".Translate(vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.NegativeEvent, false);
+            return;
+        }
+        List<Thing> items = vehicle.inventory.innerContainer.Where(thing => thing is not Pawn).ToList();
+        if (items.Count == 0)
+        {
+            Messages.Message("PhobosRound_GiftNothing".Translate(vehicle.LabelShort.Named("VEHICLE"), town.LabelCap.Named("PLACE")), MessageTypeDefOf.NeutralEvent, false);
+            return;
+        }
+        var pod = new ActiveTransporterInfo();
+        foreach (Thing item in items)
+        {
+            vehicle.inventory.innerContainer.Remove(item);
+            pod.innerContainer.TryAdd(item, canMergeWithExistingStacks: false);
+        }
+        FactionGiftUtility.GiveGift(new List<ActiveTransporterInfo> { pod }, town);
+        Seen.Note("aircraft.round-gift", vehicle, town.LabelCap);
+        Messages.Message("PhobosRound_GiftGiven".Translate(vehicle.LabelShort.Named("VEHICLE"), town.LabelCap.Named("PLACE")), town, MessageTypeDefOf.PositiveEvent, false);
+    }
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        Scribe_References.Look(ref town, "PhobosRound_Town");
+    }
+}
+
+/// <summary>
+/// The round drawn on the world map (Framework 0.315.0; the owner's card: lines and numbered stops, the next leg brighter): for an aircraft
+/// selected on the world map (in flight or standing as a caravan) and for the round being planned. Each leg follows the globe's curve.
+/// Presentation only; nothing is saved.
+/// <para>Cost: nothing unless the world map is shown with such an aircraft selected; then a few line pieces a leg and a label a stop, each
+/// frame.</para>
+/// </summary>
+public static class RoundDrawing
+{
+    static Material? legMaterial;
+    static Material? nextMaterial;
+    static Material LegMaterial => legMaterial ??= MaterialPool.MatFrom(GenDraw.LineTexPath, ShaderDatabase.WorldOverlayTransparent, new Color(0.55f, 0.75f, 0.95f, 0.6f), 3590);
+    static Material NextMaterial => nextMaterial ??= MaterialPool.MatFrom(GenDraw.LineTexPath, ShaderDatabase.WorldOverlayTransparent, new Color(1f, 0.8f, 0.3f, 0.95f), 3591);
+    const float Lift = 0.05f;
+    const float DegreesPerPiece = 1.5f;
+
+    /// <summary>The rounds to draw now.</summary>
+    public static IEnumerable<CompPhobosRound> Shown()
+    {
+        if (!WorldRendererUtility.WorldSelected) yield break;
+        if (RoundPlanner.Planning is { } planning && Find.WorldTargeter.IsTargeting && planning.Stops.Count > 0) yield return planning;
+        foreach (WorldObject selected in Find.WorldSelector.SelectedObjects)
+        {
+            if (selected.Faction != Faction.OfPlayer) continue;
+            if (selected is AerialVehicleInFlight aircraft && aircraft.Vehicle?.GetComp<CompPhobosRound>() is { } flying && flying.Stops.Count > 1) yield return flying;
+            else if (selected is VehicleCaravan caravan)
+            {
+                foreach (VehiclePawn vehicle in caravan.VehiclesListForReading)
+                {
+                    if (vehicle.GetComp<CompPhobosRound>() is { } standing && standing.Stops.Count > 1) yield return standing;
+                }
+            }
+        }
+    }
+
+    public static void DrawLines(CompPhobosRound round)
+    {
+        IReadOnlyList<RoundStop> stops = round.Stops;
+        int count = stops.Count;
+        int legs = count == 2 ? 1 : count;
+        if (round == RoundPlanner.Planning && Find.WorldTargeter.IsTargeting) legs = count - 1;
+        int next = round.Running ? round.At : -1;
+        for (int i = 0; i < legs; i++)
+        {
+            int to = (i + 1) % count;
+            bool bright = next >= 0 && to == next;
+            Arc(Find.WorldGrid.GetTileCenter(stops[i].tile), Find.WorldGrid.GetTileCenter(stops[to].tile), bright ? NextMaterial : LegMaterial, bright ? 1.2f : 0.7f);
+        }
+    }
+
+    /// <summary>A line along the globe's surface from one point to another, in short straight pieces.</summary>
+    static void Arc(Vector3 a, Vector3 b, Material material, float width)
+    {
+        float radius = a.magnitude + Lift;
+        float degrees = Vector3.Angle(a, b);
+        int pieces = Mathf.Max(1, Mathf.CeilToInt(degrees / DegreesPerPiece));
+        Vector3 previous = a.normalized * radius;
+        for (int i = 1; i <= pieces; i++)
+        {
+            Vector3 point = Vector3.Slerp(a, b, i / (float)pieces).normalized * radius;
+            GenDraw.DrawWorldLineBetween(previous, point, material, width);
+            previous = point;
+        }
+    }
+
+    /// <summary>Each stop's number, where it faces the camera.</summary>
+    public static void DrawNumbers(CompPhobosRound round)
+    {
+        IReadOnlyList<RoundStop> stops = round.Stops;
+        Text.Font = GameFont.Small;
+        Text.Anchor = TextAnchor.MiddleCenter;
+        for (int i = 0; i < stops.Count; i++)
+        {
+            Vector3 centre = Find.WorldGrid.GetTileCenter(stops[i].tile);
+            if (WorldRendererUtility.HiddenBehindTerrainNow(centre)) continue;
+            Vector2 at = GenWorldUI.WorldToUIPosition(centre);
+            var rect = new Rect(at.x - 11f, at.y - 30f, 22f, 22f);
+            Widgets.DrawBoxSolid(rect, round.Running && i == round.At ? new Color(0.45f, 0.32f, 0.08f, 0.9f) : new Color(0.1f, 0.1f, 0.12f, 0.85f));
+            Widgets.Label(rect, (i + 1).ToString());
+        }
+        Text.Anchor = TextAnchor.UpperLeft;
     }
 }

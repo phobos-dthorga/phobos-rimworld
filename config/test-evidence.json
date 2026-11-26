@@ -3,6 +3,15 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "560": [{"key": "aircraft.aeroplane-roll", "expect": {"cells": ">= 12"}}],
+    "562": {"parts": {
+      "still bars": [{"key": "vehicles.propellers-drawn", "variant": "still"}],
+      "a blur while turning": [{"key": "vehicles.propellers-drawn", "variant": "turning"}]
+    }},
+    "564": {"parts": {
+      "paratroopers from a raiding aeroplane": ["aircraft.aeroplane-raid"],
+      "comes down with no engines": ["aircraft.aeroplane-engines-out"]
+    }},
     "541": ["radio.turret-by-radio"],
     "540": ["radio.remote-turret"],
     "509": {"parts": {"per-wheel brakes keep an old save's wear": [{"key": "vehicles.older-save-brakes", "expect": {"health": "< 1"}}]}},
@@ -44,6 +53,8 @@
     "558": {"parts": {"a stranded vehicle mended on the spot is driven home": ["vehicles.contract-mended"]}},
     "559": {"parts": {"the casualty lies at the place": [{"key": "vehicles.contract-site", "variant": "Casualty"}],
       "and is handed over at the settlement": [{"key": "vehicles.contract-done", "variant": "Casualty"}]}},
+    "568": {"parts": {"a round lands at an ally's town to trade": ["aircraft.round-trade"],
+      "and gives everything aboard at another": ["aircraft.round-gift"]}},
     "556": {"parts": {"a crewless leg to a place with a map": [{"key": "aircraft.round-crewless", "variant": "map"}],
       "a crewless leg to open ground": [{"key": "aircraft.round-crewless", "variant": "tile"}]}},
     "549": {"parts": {"an aircraft takes off on a leg to a place with a map": [{"key": "aircraft.round-leg", "variant": "map"}],

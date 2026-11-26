@@ -27,6 +27,17 @@ public class RoundRuleTests
     }
 
     [Fact]
+    public void ARoundPassesOverAStopItMayNotFlyTo()
+    {
+        // Framework 0.315.0: an ally's town turned hostile is passed over; round the end back to the first.
+        Assert.Equal(1, RoundRule.NextUsable(0, new[] { true, true, true }));
+        Assert.Equal(2, RoundRule.NextUsable(0, new[] { true, false, true }));
+        Assert.Equal(0, RoundRule.NextUsable(2, new[] { true, true, true }));
+        // Nowhere else to go.
+        Assert.Equal(-1, RoundRule.NextUsable(0, new[] { true, false, false }));
+    }
+
+    [Fact]
     public void ItLeavesOnlyOnceItsWaitIsOver()
     {
         Assert.False(RoundRule.WaitOver(now: 100, waitUntil: -1));

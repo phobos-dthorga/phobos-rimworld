@@ -4,13 +4,19 @@
 
   <!-- Buttons. -->
   <PhobosRound_GizmoPlan>Plan a round</PhobosRound_GizmoPlan>
-  <PhobosRound_GizmoPlanDesc>Plan a round for this aircraft to fly by itself, with its pilot aboard. Where it stands is the first stop. Click the next places on the world map, up to {MOST} stops in all; on a place with a map, pick the spot it lands on there. Right-click or press Escape when done. Planning again starts afresh.</PhobosRound_GizmoPlanDesc>
+  <PhobosRound_GizmoPlanDesc>Plan a round for this aircraft to fly by itself, with its pilot aboard. Where it stands is the first stop. Click the next places on the world map, up to {MOST} stops in all; on a place with a map, pick the spot it lands on there. An ally's town is a stop too: it trades there, or gives gifts, as you set under its stops. Right-click or press Escape when done. Planning again starts afresh.</PhobosRound_GizmoPlanDesc>
   <PhobosRound_GizmoFly>Fly its round</PhobosRound_GizmoFly>
   <PhobosRound_GizmoFlyDesc>Fly the planned round, stop after stop and back to the first, again and again. At each stop it waits its time for colonists to unload, load and refuel it, then flies on once it has a pilot aboard, or a working optionally piloted kit, and the fuel for the next leg.</PhobosRound_GizmoFlyDesc>
   <PhobosRound_GizmoStop>Stop its round</PhobosRound_GizmoStop>
   <PhobosRound_GizmoStopDesc>Stop flying the round. One already in the air still lands at the stop it was flying to. The plan is kept.</PhobosRound_GizmoStopDesc>
-  <PhobosRound_GizmoWaits>Waits at stops</PhobosRound_GizmoWaits>
-  <PhobosRound_GizmoWaitsDesc>How long it waits at each stop before flying on.</PhobosRound_GizmoWaitsDesc>
+  <PhobosRound_GizmoWaits>Its stops</PhobosRound_GizmoWaits>
+  <PhobosRound_GizmoWaitsDesc>How long it waits at each stop before flying on, and at an ally's town whether it trades there or gives everything aboard as a gift.</PhobosRound_GizmoWaitsDesc>
+  <PhobosRound_StopLineTown>Stop {INDEX}: {PLACE} ({ACTION}, waits {WAIT})</PhobosRound_StopLineTown>
+  <PhobosRound_ActionTrade>trades</PhobosRound_ActionTrade>
+  <PhobosRound_ActionGift>gives gifts</PhobosRound_ActionGift>
+  <PhobosRound_SetTrade>Trade here: land beside the town and wait for you to trade</PhobosRound_SetTrade>
+  <PhobosRound_SetGift>Give gifts here: hand over everything aboard for goodwill</PhobosRound_SetGift>
+  <PhobosRound_SetWait>Wait {WAIT}</PhobosRound_SetWait>
   <PhobosRound_StopLine>Stop {INDEX}: {PLACE} (waits {WAIT})</PhobosRound_StopLine>
   <PhobosRound_WaitNone>No wait</PhobosRound_WaitNone>
   <PhobosRound_LegFuel>This leg: about {NEEDED} fuel (its tanks hold {CAPACITY}).</PhobosRound_LegFuel>
@@ -37,6 +43,11 @@
   <PhobosRound_WaitNoPilot>nobody is aboard to fly it. Put a pilot aboard, or fit an optionally piloted kit.</PhobosRound_WaitNoPilot>
   <PhobosRound_WaitKitDown>nobody is aboard, and its optionally piloted kit has no power or is damaged.</PhobosRound_WaitKitDown>
   <PhobosRound_WaitAutopilotDown>nobody is aboard, and the autopilot its optionally piloted kit flies through is not working.</PhobosRound_WaitAutopilotDown>
+  <PhobosRound_WaitNowhere>every other stop is at a town whose people have turned hostile.</PhobosRound_WaitNowhere>
+  <PhobosRound_ReadyToTrade>{VEHICLE} has landed beside {PLACE} on its round and waits {WAIT} for you to trade.</PhobosRound_ReadyToTrade>
+  <PhobosRound_GiftGiven>{VEHICLE} has handed everything aboard to {PLACE} as a gift.</PhobosRound_GiftGiven>
+  <PhobosRound_GiftNothing>{VEHICLE} reached {PLACE} with nothing aboard to give.</PhobosRound_GiftNothing>
+  <PhobosRound_GiftRefused>{VEHICLE} gave nothing: the town it flew to is gone or no longer friendly.</PhobosRound_GiftRefused>
   <PhobosRound_WaitFuel>it needs about {NEEDED} fuel for the leg to {PLACE} and has {ABOARD}. Refuel it and it flies on.</PhobosRound_WaitFuel>
 
   <!-- Inspect lines. -->
