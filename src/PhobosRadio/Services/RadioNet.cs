@@ -83,6 +83,12 @@ public sealed class RadioNet : MapComponent
     private readonly Dictionary<Thing, int> turretsOn = new();
     /// <summary>Whether enemies were about at the last pass, when a station calls an operator for its turrets [A]. Only read with turrets.</summary>
     private bool threat;
+    /// <summary>
+    /// The radios of base turrets no coax reaches (Radio 0.20.0): fixed radios, worked out with the hand-helds and vehicles at each pass.
+    /// </summary>
+    private readonly List<CompRadio> fixedRadios = new();
+    /// <summary>The control kind's name: a vehicle's orders, one channel for two radios (Radio 0.9.0's ChannelKinds.xml).</summary>
+    public const string ControlKindName = "PhobosRadio_KindVehicleControl";
     /// <summary>The station each radio in touch is served by, kept between recomputes so a holder keeps its channel. Never saved.</summary>
     private Dictionary<int, int> held = new();
     private readonly Dictionary<Pawn, Thing> servedBy = new();
@@ -368,6 +374,7 @@ public sealed class RadioNet : MapComponent
         turretWatched.Clear();
         turretsOn.Clear();
         threat = false;
+        fixedRadios.Clear();
         servedBy.Clear();
         busy.Clear();
         servedOn.Clear();
@@ -386,6 +393,7 @@ public sealed class RadioNet : MapComponent
         CollectStations();
         // Before the check below, so a vehicle's radio still shows "no station" (Radio 0.10.0).
         CollectMobileRadios();
+        CollectTurretRadios();
         if (stations.Count == 0) return;
 
         var metresPerCell = RadioMod.Settings.metresPerCell;
@@ -406,6 +414,20 @@ public sealed class RadioNet : MapComponent
                 pairs.Add(link);
                 if (strongest == null || link.MarginDb > strongest.MarginDb) strongest = link;
                 if (!bestByPawn.TryGetValue(wearer, out var best) || link.MarginDb > best.MarginDb) bestByPawn[wearer] = link;
+            }
+            // Base turrets' own radios (Radio 0.20.0): fixed, so each is one more link per station, worked out as a hand-held's.
+            foreach (var fixedRadio in fixedRadios)
+            {
+                var fixedEnd = RadioEndpoint.BuiltIn(fixedRadio.parent, fixedRadio.parent.Position, fixedRadio);
+                LinkEvaluation? link = null;
+                foreach (var stationEnd in stationEnds)
+                {
+                    var candidate = LinkBudgetService.Evaluate(map, fixedEnd, stationEnd, noise, rules, metresPerCell);
+                    if (candidate != null && (link == null || candidate.MarginDb > link.MarginDb)) link = candidate;
+                }
+                if (link == null) continue;
+                pairs.Add(link);
+                if (strongest == null || link.MarginDb > strongest.MarginDb) strongest = link;
             }
             // With nobody to reach yet, a mast on the coax is what the station would use, before its built-in whip.
             antennaLabelByStation[station.parent] = strongest?.B.AntennaLabel ?? stationEnds[stationEnds.Count > 1 ? 1 : 0].AntennaLabel;
@@ -451,19 +473,67 @@ public sealed class RadioNet : MapComponent
     private void ServeTurrets(RadioRulesDef rules)
     {
         if (turrets.Count == 0) return;
+        // The hands taken at each station by radios of the control kind (vehicles and turrets by radio, Radio 0.20.0), ahead of coax turrets.
+        var controlKind = DefDatabase<ChannelKindDef>.GetNamedSilentFail(ControlKindName)?.LedgerIndex ?? -1;
+        var controlOn = new Dictionary<Thing, int>();
+        foreach (var entry in placeOf.Values)
+        {
+            if (entry.kind == controlKind) controlOn[entry.station] = (controlOn.TryGetValue(entry.station, out var c) ? c : 0) + 1;
+        }
+        var coaxOn = new Dictionary<Thing, int>();
+        foreach (var turret in turrets)
+        {
+            if (!turret.parent.Spawned) continue;
+            Thing at;
+            bool hand;
+            if (coaxStation.TryGetValue(turret.parent, out var station))
+            {
+                at = station;
+                var place = (controlOn.TryGetValue(at, out var control) ? control : 0) + (coaxOn.TryGetValue(at, out var before) ? before : 0);
+                coaxOn[at] = before + 1;
+                hand = RemoteTurretRule.HasHand(operatorAt.ContainsKey(at), place, rules.vehiclesPerOperator);
+            }
+            else if (placeOf.TryGetValue(turret.parent, out var served))
+            {
+                // By its own radio (Radio 0.20.0): served on the control kind, its picture on the same station, and a hand in the ledger's order.
+                at = served.station;
+                hand = pictureServed.Contains(turret.parent) && RemoteTurretRule.HasHand(operatorAt.ContainsKey(at), served.place, rules.vehiclesPerOperator);
+                if (hand && Seen.Wants("radio.turret-by-radio", turret.parent)) Seen.Note("radio.turret-by-radio", turret.parent, at.LabelShort);
+            }
+            else continue;
+            turretStation[turret.parent] = at;
+            turretsOn[at] = (turretsOn.TryGetValue(at, out var on) ? on : 0) + 1;
+            if (hand) turretWatched.Add(turret.parent);
+            if (threat && !operatorAt.ContainsKey(at) && !stationsWantingOperator.Contains(at)) stationsWantingOperator.Add(at);
+        }
+    }
+
+    /// <summary>Each turret's powered station on its coax, found before the links (Radio 0.20.0): coax first, its own radio otherwise.</summary>
+    private readonly Dictionary<Thing, Thing> coaxStation = new();
+
+    /// <summary>
+    /// The radios of base turrets no coax reaches (Radio 0.20.0): while enemies are about each asks a control channel and the picture, as a
+    /// driven vehicle does [A]; otherwise it stands by, its link worked out and shown but no channel held.
+    /// <para>Cost: nothing without turrets; with them, one feedline walk each and the game's threat check, once a pass.</para>
+    /// </summary>
+    private void CollectTurretRadios()
+    {
+        coaxStation.Clear();
+        if (turrets.Count == 0) return;
         threat = GenHostility.AnyHostileActiveThreatToPlayer(map);
         turrets.Sort((a, b) => a.parent.thingIDNumber.CompareTo(b.parent.thingIDNumber));
         foreach (var turret in turrets)
         {
-            if (!turret.parent.Spawned || turret.Port is not { } port) continue;
-            var station = FeedlineService.StationOn(port);
-            if (station == null || !stations.Contains(station)) continue;
-            var at = station.parent;
-            turretStation[turret.parent] = at;
-            var place = (vehiclesOn.TryGetValue(at, out var vehicles) ? vehicles : 0) + (turretsOn.TryGetValue(at, out var before) ? before : 0);
-            turretsOn[at] = before + 1;
-            if (RemoteTurretRule.HasHand(operatorAt.ContainsKey(at), place, rules.vehiclesPerOperator)) turretWatched.Add(turret.parent);
-            if (threat && !operatorAt.ContainsKey(at) && !stationsWantingOperator.Contains(at)) stationsWantingOperator.Add(at);
+            if (!turret.parent.Spawned) continue;
+            if (turret.Port is { } port && FeedlineService.StationOn(port) is { } station && stations.Contains(station))
+            {
+                coaxStation[turret.parent] = station.parent;
+                continue;
+            }
+            if (turret.parent.TryGetComp<CompRadio>() is not { } radio || radio.Props.isStation) continue;
+            fixedRadios.Add(radio);
+            if (threat) wantsPicture.Add(turret.parent);
+            else standingBy.Add(turret.parent);
         }
     }
 

@@ -30,8 +30,9 @@ public class CompProperties_RemoteTurret : CompProperties
 
 /// <summary>
 /// A turret that fires only while a radio station's operator watches it, or when remote guns may fire on their own (the owner's rule of
-/// 25 Nov 2026). Watched means: on the feedline of a powered station whose console a colonist works, and among that operator's hands,
-/// after the station's vehicles (the owner's card of 26 Nov 2026). The net works that out in its own pass; this reads its answer.
+/// 25 Nov 2026). Watched means: on the feedline of a powered station whose console a colonist works, or, with no coax to one, in its own
+/// radio's reach with that station serving its picture (Radio 0.20.0); and among that operator's hands, after the station's vehicles (the
+/// owner's card of 26 Nov 2026). The net works that out in its own pass; this reads its answer.
 /// <para>Cost: registering with the net on spawn; one set lookup when the gun looks for a target.</para>
 /// </summary>
 public class CompRemoteTurret : ThingComp

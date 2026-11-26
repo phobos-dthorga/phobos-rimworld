@@ -481,7 +481,7 @@ Two other uses of the same extension point were checked on 25 Nov 2026 and **lef
 preferring firm ground, and errands going round growing crops. Vehicle Framework already prices both; the finding is in
 [hitches and trailers](systems/hitches-and-trailers.md#the-wider-way-round).
 
-## The base turret (designed 26 Nov 2026; slice 1 built in Radio 0.18.0)
+## The base turret (designed 26 Nov 2026; built in Radio 0.18.0 to 0.20.0)
 
 The owner's word of 25 Nov 2026 on the remote weapon station's picks ("How about we use both? Since I see this being applied to both
 vehicles and ground-stations"), and the cards of 26 Nov 2026. A ground remote weapon station for the colony's defences: the station's
@@ -524,7 +524,14 @@ second try as its turning top, on a pedestal of its own (paid picture, the owner
   everything appropriate supported by it: a CE twin of the building class on Combat Extended's `Building_TurretGunCE`, with the same
   three overrides (it has the same hooks), and a patch shaped as Combat Extended's own for the game's mini-turret: the class swapped, the
   steel belt removed, the gun made CE-compatible with its .50 BMG from a 200-round magazine [figures A].
-- **Not yet:** its own radio link (slice 2).
+
+**Slice 2, built (Radio 0.20.0), not yet tested in game.** Its own radio (`CompProperties_Radio` on the turret: the vehicle control radio's
+figures, a whip two metres up [A]) joins the net as a fixed radio (`RadioNet.CollectTurretRadios`): one more link per station for each
+turret no coax reaches, worked out in the net's pass as a hand-held's is. While enemies are about it asks a control channel and its
+picture, as a driven vehicle does; otherwise it stands by, its link worked out but no channel held [A]. Coax first: a turret on a
+powered station's feedline never asks the air. Its hand is its place in the station's control kind, shared with the vehicles; coax
+turrets take theirs after every radio of that kind. **Still to do: the measurement** with `perf.py` on the owner's colony, with several
+turrets placed, before and after (the radio's rule), asked of the owner first.
 
 ## The four questions
 

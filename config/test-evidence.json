@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "541": ["radio.turret-by-radio"],
     "540": ["radio.remote-turret"],
     "509": {"parts": {"per-wheel brakes keep an old save's wear": [{"key": "vehicles.older-save-brakes", "expect": {"health": "< 1"}}]}},
     "504": {"parts": {"the trailer's waste drains into the colony's septic tank": ["trailers.waste-to-sewer"]}},
@@ -116,6 +117,10 @@
       "a bored colonist sits in with the radio": [{"key": "vehicles.visit", "variant": "PhobosVisit_Radio"}],
       "they climb out by themselves": [{"key": "vehicles.visit-end", "variant": "done"}],
       "the radio goes off at the start line": [{"key": "vehicles.visit-end", "variant": "PhobosVisit_OutBattery"}]
+    }},
+    "543": {"parts": {
+      "asked over the comms console": ["airdrop.supply-requested"],
+      "their aircraft's pass": ["airdrop.supply-pass"]
     }},
     "537": ["airdrop.aircraft-hit"],
     "536": [{"key": "airdrop.intercepted", "variant": "shredded"}],

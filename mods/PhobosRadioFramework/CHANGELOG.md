@@ -17,6 +17,23 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.20.0] - 2026-11-26 - Draft
+
+The remote gun turret by its own radio
+
+### Added
+
+- **A remote gun turret no coax reaches links by its own radio** (the owner's card of 26 November 2026, "Either"). A whip on its mount
+  joins the radio net as a driven vehicle's radio does: while enemies are about it asks the station in reach for a control channel and
+  its picture, and fires once the station serves both and an operator has a hand free for it; the rest of the time it stands by,
+  holding no channel. Walls, range and noise decide its link as for any radio. A turret on a station's coax uses the coax, and its
+  radio stays quiet. Its whip's figures are authored. Not yet tested in game: row 541.
+
+### Compatibility and limits
+
+- Its cost to the net (one more link per station for each turret not on coax, worked out with the net's pass) is to be measured on
+  the owner's colony.
+
 ## [0.19.0] - 2026-11-26 - Draft
 
 The remote gun turret under Combat Extended

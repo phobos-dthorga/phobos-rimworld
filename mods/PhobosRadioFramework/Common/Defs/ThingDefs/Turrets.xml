@@ -7,7 +7,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosRadio_RemoteTurret</defName>
     <label>remote gun turret</label>
-    <description>A .50 heavy machine gun on a powered mount with a camera sight, on an armoured pedestal. Nobody sits at it: it fires while a colonist at a radio station watches through its camera, and that colonist can aim it. Connect it to a radio station with coax. It is fed a belt of rounds made from steel, and holds fire without power.</description>
+    <description>A .50 heavy machine gun on a powered mount with a camera sight, on an armoured pedestal. Nobody sits at it: it fires while a colonist at a radio station watches through its camera, and that colonist can aim it. Connect it to a radio station with coax, or leave it in its own radio's reach of one. It is fed a belt of rounds made from steel, and holds fire without power.</description>
     <thingClass>Phobos.Radio.Building_PhobosRemoteTurret</thingClass>
     <drawerType>MapMeshAndRealTime</drawerType>
     <graphicData>
@@ -83,6 +83,19 @@
         <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
       </li>
       <li Class="Phobos.Radio.CompProperties_RemoteTurret" />
+      <!-- Its own radio (Radio 0.20.0; the owner's card of 26 Nov 2026, "Either"): for a turret no coax reaches, the vehicle control radio's
+           figures [A], a whip about two metres up on the mount. Coax comes first: on a station's feedline its radio stays silent. -->
+      <li Class="Phobos.Radio.CompProperties_Radio">
+        <bands>
+          <li>PhobosRadio_VHF</li>
+        </bands>
+        <mode>PhobosRadio_ControlData</mode>
+        <channelKind>PhobosRadio_KindVehicleControl</channelKind>
+        <transmitPowerWatts>25</transmitPowerWatts>
+        <noiseFigureDb>8</noiseFigureDb>
+        <antennaGainDbi>0</antennaGainDbi>
+        <antennaHeightMetres>2</antennaHeightMetres>
+      </li>
     </comps>
     <building>
       <combatPower>60</combatPower>
