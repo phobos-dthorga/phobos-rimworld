@@ -13,6 +13,23 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.306.0] - 2026-11-26 - Draft
+
+Drop zone markers, allied supply drops and the airdrop's sounds
+
+### Added
+
+- **Drop zone markers**: a signal panel built in the Motor pool tab, which drops aim at. Drops near it land closer together, closer
+  still by day, when it puts up violet smoke for the run-in that shows the crew the wind; at night its small lights show the spot. The
+  drop targeter opens on it. A raid's drop gains nothing from it. Picture AI-generated (OpenAI's image service), picked by the owner.
+  Not yet tested in game.
+- **Allied supply drops**: on the comms console, an industrial-or-better ally can be asked for a supply drop of food, medicine or
+  materials, about 800 silver's worth, for 15 goodwill, at most once a day. Their aircraft crosses the map a few hours later and drops
+  bundles on your first marker (else the trade drop spot); an ally with no aircraft sends the bundles down from unseen. Not yet tested in
+  game.
+- **The airdrop's sounds**: a canopy opening overhead, a bundle landing and a vehicle's platform landing, under the one volume setting.
+  Made with generative AI (Stable Audio 3) on this PC, picked by the owner. Not yet heard in game.
+
 ## [0.305.0] - 2026-11-26 - Draft
 
 A loop tanker fills up at the pick-up

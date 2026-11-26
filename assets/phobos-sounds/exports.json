@@ -1934,6 +1934,42 @@
       "offset_db": -9,
       "volume": 50,
       "why": "Kept low, 9 dB under the hemopump: it runs whenever the terminal has power, and the owner asked for no whine. The owner picked try 132 on the Picks page, 25 Nov 2026, but it is only full for about 3 s of its 6 and its best loop was 2.8 s, under the 3 s minimum; by card the same day the owner took try 131, which loops cleanly at 3.5 s."
+    },
+    {
+      "name": "AirdropCanopyOpens",
+      "use": "S150: a parachute canopy opening overhead as a load leaves an aircraft",
+      "picked": "2026-11-26",
+      "candidate": "n15-airdrop-canopy-opens/n15-airdrop-canopy-opens-151.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/Airdrop/CanopyOpens.ogg",
+      "reference": "Metal_Drop",
+      "offset_db": -6,
+      "volume": 25,
+      "why": "Airdrop sounds, night 15 (docs/development/airdrop.md, round three): the owner's pick on the Companion's Picks page, 26 Nov 2026; reference and offset are agent choices. 6 dB under a metal drop: it is heard from the ground, high overhead."
+    },
+    {
+      "name": "AirdropBundleLands",
+      "use": "S151: a cargo bundle landing under its parachute",
+      "picked": "2026-11-26",
+      "candidate": "n15-airdrop-bundle-lands/n15-airdrop-bundle-lands-152.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/Airdrop/BundleLands.ogg",
+      "reference": "Metal_Drop",
+      "offset_db": -3,
+      "volume": 25,
+      "why": "Airdrop sounds, night 15 (docs/development/airdrop.md, round three): the owner's pick on the Companion's Picks page, 26 Nov 2026; reference and offset are agent choices."
+    },
+    {
+      "name": "AirdropPlatformLands",
+      "use": "S152: a vehicle's drop platform landing",
+      "picked": "2026-11-26",
+      "candidate": "n15-airdrop-platform-lands/n15-airdrop-platform-lands-152.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/Airdrop/PlatformLands.ogg",
+      "reference": "Metal_Drop",
+      "offset_db": 0,
+      "volume": 30,
+      "why": "Airdrop sounds, night 15 (docs/development/airdrop.md, round three): the owner's pick on the Companion's Picks page, 26 Nov 2026; reference and offset are agent choices. A little louder: a vehicle on its platform is the heaviest thing that lands."
     }
   ]
 }

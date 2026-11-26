@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/DropZoneMarker.png",
+  "source": "assets/vehicle-systems/generated/airdrop-dz-marker/airdrop-dz-marker-4.png",
+  "source_sha256": "2790934007170da2b2cd2f39280295de5ea2614b134ce4db5cf44f33fb20174d",
+  "target_sha256": "f8cb438a9d8e07e6220709e8ad06034b056c9ab41c730db6d299b51e62c5f291",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "2790934007170da2b2cd2f39280295de5ea2614b134ce4db5cf44f33fb20174d",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-26T14:03:38",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

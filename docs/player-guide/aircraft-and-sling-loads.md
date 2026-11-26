@@ -300,6 +300,14 @@ fly, without landing. The design and its sources: [parachute airdrops](../develo
 - **If you leave a map while an aircraft is flying over it**, the aircraft carries on home if it was heading there, or comes down
   on the world map as a caravan.
 
+**Drop zone markers** (Motor pool, after vehicle parts): lay a marker on open ground where you want drops. Drops aimed near it land
+closer together, the drop targeter opens on it, and allies' supply drops come down on it. By day it puts up violet smoke while an aircraft
+drops on it, showing the crew the wind, so loads land closer still; by night its small lights show the spot.
+
+**Supply drops from allies:** on the comms console, an industrial-or-better ally offers **Request a supply drop** (15 goodwill, once a
+day): choose food, medicine or materials. A few hours later their aircraft crosses the map and the bundles drift down onto your marker,
+or near your trade drop spot; colonists de-rig them.
+
 **The hold:** an aircraft with a hold (the Osprey takes one vehicle up to 2 by 3 cells and 2,500 kg) takes a vehicle of yours aboard
 with **Load into hold**: park it inside the cyan area drawn behind the ramp when the aircraft is selected. Its crew rides in the passenger seats. **Unload hold** drives it out of the
 ramp. No aircraft, and nothing carrying, towing or holding another vehicle.

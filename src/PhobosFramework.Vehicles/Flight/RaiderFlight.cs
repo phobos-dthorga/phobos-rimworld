@@ -86,18 +86,7 @@ public static class RaiderFlight
             vehicle?.Destroy();
             return false;
         }
-        if (vehicle.CompFueledTravel is { } fuel) fuel.Refuel(fuel.FuelCapacity);
-        // The crew to fly it: the faction's own people, not part of the raid, who leave with it.
-        PawnKindDef crewKind = faction.def.basicMemberKind ?? PawnKindDefOf.Villager;
-        foreach (VehicleRoleHandler handler in vehicle.handlers.Where(h => (h.role.HandlingTypes & HandlingType.Movement) != 0))
-        {
-            while (handler.AreSlotsAvailable)
-            {
-                Pawn crew = PawnGenerator.GeneratePawn(new PawnGenerationRequest(crewKind, faction, PawnGenerationContext.NonPlayer, map.Tile,
-                    forceGenerateNewPawn: true, mustBeCapableOfViolence: false));
-                if (!vehicle.TryAddPawn(crew, handler)) break;
-            }
-        }
+        FuelAndCrew(vehicle, faction, map);
         var seated = new List<Pawn>();
         foreach (Pawn pawn in left)
         {
@@ -132,6 +121,23 @@ public static class RaiderFlight
         }
         flight.BeginRaid(chutes ? RaidLanding.Parachute : RaidLandingRule.Choose(Rand.Value));
         return true;
+    }
+
+    /// <summary>Fills a faction's aircraft with fuel and its flight crew: the faction's own people, not part of any raid, who leave with it
+    /// (Framework 0.306.0: shared by raids and allies' supply drops).</summary>
+    public static void FuelAndCrew(VehiclePawn vehicle, Faction faction, Map map)
+    {
+        if (vehicle.CompFueledTravel is { } fuel) fuel.Refuel(fuel.FuelCapacity);
+        PawnKindDef crewKind = faction.def.basicMemberKind ?? PawnKindDefOf.Villager;
+        foreach (VehicleRoleHandler handler in vehicle.handlers.Where(h => (h.role.HandlingTypes & HandlingType.Movement) != 0))
+        {
+            while (handler.AreSlotsAvailable)
+            {
+                Pawn crew = PawnGenerator.GeneratePawn(new PawnGenerationRequest(crewKind, faction, PawnGenerationContext.NonPlayer, map.Tile,
+                    forceGenerateNewPawn: true, mustBeCapableOfViolence: false));
+                if (!vehicle.TryAddPawn(crew, handler)) break;
+            }
+        }
     }
 
     static void Unseat(VehiclePawn vehicle, List<Pawn> seated)

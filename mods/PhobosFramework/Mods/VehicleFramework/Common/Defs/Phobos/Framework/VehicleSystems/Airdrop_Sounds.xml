@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The airdrop's sounds (D'thorga Framework 0.306.0; docs/development/sound-catalogue.md, S150 to S152): made locally with Stable Audio 3
+    (generative AI), the owner's picks of the night-15 candidates on 26 Nov 2026, levelled by scripts/art/export_sound.py
+    (assets/phobos-sounds/exports.json). Played by Phobos.VehicleSystems.AirdropSounds by these defNames. Not yet heard in game.
+  -->
+
+  <!-- S150: a canopy opening overhead as a load leaves. Beside the game's Metal_Drop -6 dB: heard from the ground, high up. -->
+  <SoundDef>
+    <defName>Phobos_Airdrop_CanopyOpens</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/Airdrop/CanopyOpens</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <pitchRange>0.92~1.08</pitchRange>
+        <distRange>25~80</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S151: a cargo bundle landing. Beside the game's Metal_Drop -3 dB. -->
+  <SoundDef>
+    <defName>Phobos_Airdrop_BundleLands</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/Airdrop/BundleLands</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <pitchRange>0.94~1.06</pitchRange>
+        <distRange>15~50</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S152: a vehicle's drop platform landing. Level with the game's Metal_Drop: the heaviest thing that lands. -->
+  <SoundDef>
+    <defName>Phobos_Airdrop_PlatformLands</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/Airdrop/PlatformLands</clipPath>
+          </li>
+        </grains>
+        <volumeRange>30</volumeRange>
+        <distRange>20~60</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+</Defs>

@@ -7206,5 +7206,131 @@
       "cfg": 1.0,
       "prompt": "A desktop computer running quietly in a small room: the low, soft whoosh of its cooling fans and a gentle electrical hum, even and unbroken. Low pitched, no whine, no beeps, no typing. Not loud, not alarming. Length: 6 seconds"
     }
+  },
+  "AirdropCanopyOpens": {
+    "name": "AirdropCanopyOpens",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/Airdrop/CanopyOpens.ogg",
+    "sha256": "f56fc932784ecaf1833d38258cc08f8dbc787e388e0bfb239b6e2dbd3bac9658",
+    "master_sha256": "2fcdfe1fde1689da126df71bc1ffed80c0810800ecc69cc246a58c6c015a3cf6",
+    "fingerprint": "15c47575e8d0e9153c3ac2cf3b05e0088a6aebbce164cab75e5c7d8b4e85d36c",
+    "date": "2026-11-26",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -16.66 dBTP",
+      "gain_db": -15.26
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -38.8,
+      "true_peak": -16.7,
+      "seconds": 1.26,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 151,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A large round military parachute canopy snapping open high overhead: a deep fabric whump and a short rustle of nylon and lines as it fills with air, heard from the ground some distance away, with faint wind. Not loud, not alarming. Length: 3 seconds"
+    }
+  },
+  "AirdropBundleLands": {
+    "name": "AirdropBundleLands",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/Airdrop/BundleLands.ogg",
+    "sha256": "1a7dae9f7564039338b0889e69e59e44ef07d88e5713a2fbe958e89ce82dcdf5",
+    "master_sha256": "176d32785eca11fdbbace055034b5d17f929117935ed3e518676fecb902fd0d5",
+    "fingerprint": "3516b162529c6e38a995596096b6a63d2a9f02945e307d5b7e612e682e574678",
+    "date": "2026-11-26",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -13.66 dBTP",
+      "gain_db": -8.56
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.7,
+      "true_peak": -14.3,
+      "seconds": 1.06,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 152,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy canvas-wrapped supply bundle on a wooden skid landing on open ground after a parachute drop: a dull, soft thud, a creak of wood and straps, and the canopy settling with a rustle. Not loud, not alarming. Length: 2 seconds"
+    }
+  },
+  "AirdropPlatformLands": {
+    "name": "AirdropPlatformLands",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/Airdrop/PlatformLands.ogg",
+    "sha256": "b516417f5114f29a4aee06c3170bbb64888e07d0e5fe049e8649bf4e5d6a6a80",
+    "master_sha256": "25f5e6b1a89a1884440d0a11e1f84c6bc323c8619a054fd23166918a8719d14d",
+    "fingerprint": "83cb75b698090062e603a7f6407f81df3a45ad7ae172c9fd7f3c6d873102fe99",
+    "date": "2026-11-26",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -12.24 dBTP",
+      "gain_db": -8.64
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -32.8,
+      "true_peak": -12.3,
+      "seconds": 1.31,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 152,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A vehicle on a heavy aluminium drop platform landing under parachutes: a deep muffled crunch of honeycomb cardboard crushing, a metallic thump and the vehicle's suspension rocking, then large canopies collapsing with a long rustle. Not loud, not alarming. Length: 3 seconds"
+    }
   }
 }

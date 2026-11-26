@@ -142,6 +142,12 @@ that overturns an earlier one says so. Engine rows from the same records are in 
 | 25 Nov | IRBM's CIWS hit: half shredded (downed), half holed | agent choice | IRBM intercepts almost every load | [drop], Air defence against drops |
 | 26 Nov | A softer outcome for a load CE's CIWS brings down; IRBM's CIWS fires at enemy aircraft | owner | "I'll have the optional extras" | [drop], Air defence against drops |
 | 26 Nov | CE's shoot-down: canopy shredded, people downed, vehicle as from 20 m; IRBM hit 4 points; its setting on | agent choice | Mirrors IRBM's own; no risk to the player | [drop], Air defence against drops |
+| 26 Nov | Next: the C-27J, drop zone markers, allied supply drops, airdrop sounds and a review list | owner's card | All four chosen | [drop], Round three |
+| 26 Nov | Markers: half the scatter within 15 cells; the targeter and allies aim at them | owner's card | "Aim point and less scatter" | [drop], Drop zone markers |
+| 26 Nov | Markers put up violet smoke by day (scatter 0.7 of that again) and show lights by night | owner's card | "Panel plus smoke" | [drop], Drop zone markers |
+| 26 Nov | Supply drops by comms request (15 goodwill, a day apart); the player picks food, medicine or materials | owner's card | As recommended | [drop], Allied supply drops |
+| 26 Nov | C-27J at the Osprey's scale; hold 2 x 5, 8,600 kg; all four fits; art by fal, cap after the plan | owner's card | As recommended | [c27], The owner's decisions |
+| 26 Nov | C-27J LAPES on by default, against the high-risk rule | owner's card | "Yes, on by default" | [c27], LAPES |
 
 [fo]: ../archive/vehicle-flight-over-the-map.md
 [av]: ../archive/vehicle-avionics.md
@@ -149,6 +155,7 @@ that overturns an earlier one says so. Engine rows from the same records are in 
 [uh]: ../archive/uh60-blackhawk.md
 [c17]: ../archive/c17-globemaster.md
 [drop]: ../airdrop.md
+[c27]: ../vehicle-c27j.md
 [cas]: ../archive/close-air-support-jets.md
 [pr]: ../archive/ea6b-prowler.md
 [pl]: ../archive/vehicle-power-and-lift-design.md

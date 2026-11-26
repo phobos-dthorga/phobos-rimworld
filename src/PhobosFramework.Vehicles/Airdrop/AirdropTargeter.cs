@@ -29,6 +29,8 @@ public static class AirdropTargeter
     public static void Begin(Map map, ParachuteLoad main, Action<IntVec3> pick)
     {
         float feet = (float)ParachuteRule.For(main).PlannedFeet;
+        // Framework 0.306.0: the view opens on a drop zone marker, where the drop most likely goes.
+        if (DropZoneMarkers.First(map) is { } marker) CameraJumper.TryJump(marker);
         Find.Targeter.BeginTargeting(Cells,
             target => pick(target.Cell),
             highlightAction: target => Draw(map, main, feet, target.Cell),

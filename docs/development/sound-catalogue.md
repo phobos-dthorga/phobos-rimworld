@@ -297,6 +297,9 @@ weapons stay their authors' own: we never replace another mod's vehicle sounds.
 | S144 | Purge the tank: a hose into a hollow tank, then a gurgling drain | Purge the tank (Framework 0.242.0) | **Shipped, Framework 0.253.0**: try 81, the owner's pick of 23 Nov 2026 on the Companion's Picks page, as `TankPurge.ogg` |
 | S145 | Windows down: a hand-crank winder | Hotboxing's windows switch (Framework 0.233.0) | **Shipped, Framework 0.253.0**: try 83, the owner's pick of 23 Nov 2026 on the Companion's Picks page, as `WindowsDown.ogg` |
 | S146 | Vehicle glass cracking: a stone chip on a windscreen | Vehicle glass (Vehicles 0.106.0) | **Shipped, Framework 0.253.0**: try 82, the owner's pick of 23 Nov 2026 on the Companion's Picks page, as `GlassCrack.ogg` |
+| S150 | A parachute canopy opening overhead | Airdrops (Framework 0.306.0) | Shipped: the owner's pick, try 151 of `night-15-airdrop.json`, beside Metal_Drop -6 dB |
+| S151 | A cargo bundle landing | Airdrops (Framework 0.306.0) | Shipped: the owner's pick, try 152, beside Metal_Drop -3 dB |
+| S152 | A vehicle's drop platform landing | Airdrops (Framework 0.306.0) | Shipped: the owner's pick, try 152, level with Metal_Drop |
 | S127 | Radio phases 2 to 4 (HF static crashes, dish rotator, direction finding, moonbounce) | Back burner | radio-framework-design.md |
 
 ## Order of work (agent's proposal)

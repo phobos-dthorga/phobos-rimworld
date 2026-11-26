@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    A drop zone marker (D'thorga Framework 0.306.0; docs/development/airdrop.md, "Drop zone markers"; the owner's card of 26 Nov 2026: "Aim point
+    and less scatter"): a pathfinder's bright signal panel staked out on open ground, as real pathfinder teams mark a drop zone (the US Army's
+    VS-17 panel, about 1.8 by 0.6 m [S]). Drops aimed within 15 cells of one scatter half as much, and less again by day, when it puts up
+    violet smoke for the run-in (the owner's card of the same day: "Panel plus smoke"); by night its lights are on. The drop targeter opens on
+    it; an ally's supply drop aims at it. Cost, work, hit points and the lights' reach and colour authored, for the owner's review. Not yet
+    tested in game.
+  -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>Phobos_DropZoneMarker</defName>
+    <label>drop zone marker</label>
+    <description>A bright signal panel staked flat on open ground, marking where aircraft should drop their loads. By day it puts up violet smoke as an aircraft drops on it, showing the crew the wind; by night its small lights show the spot. Parachute drops aimed near it land closer together, closer still by day, and allies dropping supplies aim at it.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Airdrop/DropZoneMarker</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1.6, 1.6)</drawSize>
+    </graphicData>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <passability>Standable</passability>
+    <rotatable>false</rotatable>
+    <clearBuildingArea>false</clearBuildingArea>
+    <building>
+      <isInert>true</isInert>
+      <expandHomeArea>false</expandHomeArea>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+    </building>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsMisc</li>
+    </thingCategories>
+    <statBases>
+      <MaxHitPoints>40</MaxHitPoints>
+      <WorkToBuild>300</WorkToBuild>
+      <Mass>2</Mass>
+      <Flammability>0.8</Flammability>
+    </statBases>
+    <costList>
+      <Cloth>15</Cloth>
+      <Steel>2</Steel>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </researchPrerequisites>
+    <placeWorkers>
+      <li>PlaceWorker_NotUnderRoof</li>
+    </placeWorkers>
+    <tickerType>Rare</tickerType>
+    <comps>
+      <li Class="CompProperties_Glower">
+        <compClass>Phobos.VehicleSystems.CompPhobosMarkerLights</compClass>
+        <glowRadius>3</glowRadius>
+        <glowColor>(255,150,70,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

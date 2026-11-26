@@ -188,12 +188,24 @@ public partial class CompPhobosFlight
             departNodes = home;
             departAction = homeAction;
         }
-        else if (raid && raider != null)
+        else if (raider != null)
         {
-            // A raid's aircraft leaves by the far edge it flies out over.
+            // A raid's or an ally's aircraft leaves by the far edge it flies out over (Framework 0.306.0: an ally's too).
             raider.exitX = targetX;
             raider.exitZ = targetZ;
         }
+    }
+
+    /// <summary>
+    /// An ally's supply drop (Framework 0.306.0; the owner's card of 26 Nov 2026): just come in over the edge with its goods and cargo parachutes
+    /// aboard, it makes a pass over the point and leaves by the far edge, as a raid's aircraft leaves (its plan is a raider's, landing by
+    /// parachute, so it goes home once nothing is aboard to drop).
+    /// </summary>
+    public void BeginSupplyDrop(IntVec3 cell)
+    {
+        raider = new RaiderPlan { mode = RaidLanding.Parachute, stage = RaiderStage.Inbound, exitX = x, exitZ = z };
+        BeginArrivalPass(cell, null, null, raid: false);
+        Seen.Note("airdrop.supply-pass", Vehicle);
     }
 
     void BeginPass(IntVec3 cell, Vector3 release, double along, bool raid)
@@ -266,6 +278,8 @@ public partial class CompPhobosFlight
     {
         AirdropRun run = drop!;
         VehiclePawn v = Vehicle;
+        // Framework 0.306.0: a marker near the point puts up its smoke while we, or an ally, drop on it; never for a raid's crew.
+        if (!run.raid) DropZoneMarkers.Smoke(v.Map, run.target);
         if (run.hover)
         {
             if (state != FlightState.Hover)
@@ -313,6 +327,8 @@ public partial class CompPhobosFlight
         Map map = v.Map;
         Vector3 ramp = RampPoint();
         string from = v.LabelShort;
+        // A marker of ours helps our own and allies' drops, never a raid's (Framework 0.306.0).
+        float marked = run.raid ? 1f : DropZoneMarkers.ScatterShare(map, run.target);
         run.nextPerson -= dt;
         run.nextBundle -= dt;
         run.nextVehicle -= dt;
@@ -322,7 +338,7 @@ public partial class CompPhobosFlight
             while (run.nextPerson <= 0f && Airdrop.Jumpers(v).FirstOrDefault() is { } jumper && Airdrop.UseOne(v, AirdropDefOf.Phobos_PersonnelParachute, out int packed))
             {
                 if (!v.RemovePawn(jumper)) break;
-                PhobosParachuteFaller.Release(map, jumper, ParachuteLoad.Person, Spread(ramp, run.people), Feet(run, ParachuteLoad.Person), from, quality: packed);
+                PhobosParachuteFaller.Release(map, jumper, ParachuteLoad.Person, Spread(ramp, run.people), Feet(run, ParachuteLoad.Person), from, quality: packed, scatterShare: marked);
                 run.people++;
                 run.nextPerson += 1f / Mathf.Max(1, ext.jumpDoors);
             }
@@ -337,7 +353,7 @@ public partial class CompPhobosFlight
             {
                 Vector3? aim = chute == AirdropDefOf.Phobos_GuidedCargoParachute ? run.target.ToVector3Shifted() : null;
                 PhobosParachuteFaller faller = PhobosParachuteFaller.Release(map, bundle[0], ParachuteLoad.Bundle, ramp, Feet(run, ParachuteLoad.Bundle), from,
-                    quality: packedBundle, guidedTo: aim);
+                    quality: packedBundle, guidedTo: aim, scatterShare: marked);
                 for (int i = 1; i < bundle.Count; i++) faller.innerContainer.TryAdd(bundle[i], canMergeWithExistingStacks: false);
                 run.bundles++;
                 run.nextBundle = 1f / Mathf.Max(0.1f, ext.bundlesPerSecond);
@@ -351,7 +367,7 @@ public partial class CompPhobosFlight
         if (Airdrop.UseOne(v, AirdropDefOf.Phobos_HeavyDropRig, out int packedRig) && Airdrop.TakeHeld(v, next))
         {
             bool crew = next.AllPawnsAboard.Any();
-            PhobosParachuteFaller.Release(map, next, ParachuteLoad.Vehicle, ramp, Feet(run, ParachuteLoad.Vehicle), from, withCrew: crew, quality: packedRig);
+            PhobosParachuteFaller.Release(map, next, ParachuteLoad.Vehicle, ramp, Feet(run, ParachuteLoad.Vehicle), from, withCrew: crew, quality: packedRig, scatterShare: marked);
             run.vehicles++;
             run.platformsLeft--;
             run.nextVehicle = SecondsPerPlatform;

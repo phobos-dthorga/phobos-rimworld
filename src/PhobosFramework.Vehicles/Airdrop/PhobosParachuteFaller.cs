@@ -218,10 +218,10 @@ public class PhobosParachuteFaller : Skyfaller, IActiveTransporter
     /// not spawned. Returns where it is expected to land (before scatter is known to the player: the drifted point).
     /// </summary>
     public static PhobosParachuteFaller Release(Map map, Thing contents, ParachuteLoad kind, Vector3 release, float heightFeet, string from, bool withCrew = false,
-        int quality = -1, Vector3? guidedTo = null)
+        int quality = -1, Vector3? guidedTo = null, float scatterShare = 1f)
     {
         ParachuteRule.Figures figures = ParachuteRule.For(kind);
-        Vector3 landing = guidedTo is { } aim ? Guided(map, aim) : Landing(map, kind, release, heightFeet, scatter: true);
+        Vector3 landing = guidedTo is { } aim ? Guided(map, aim) : Landing(map, kind, release, heightFeet, scatter: true, scatterShare);
         double seconds = ParachuteRule.Opens(heightFeet)
             ? ParachuteRule.DescentSeconds(heightFeet, figures.DescentFeetPerSecond)
             : Math.Sqrt(2 * heightFeet * ParachuteRule.MetresPerFoot / 9.81);
@@ -236,19 +236,21 @@ public class PhobosParachuteFaller : Skyfaller, IActiveTransporter
         faller.innerContainer.TryAdd(contents, canMergeWithExistingStacks: false);
         IntVec3 cell = release.ToIntVec3().ClampInsideMap(map);
         GenSpawn.Spawn(faller, cell, map, WipeMode.Vanish);
+        if (ParachuteRule.Opens(heightFeet)) AirdropSounds.Play(AirdropSounds.CanopyOpens, map, cell);
         return faller;
     }
 
     /// <summary>Where a load let go over <paramref name="release"/> comes down: drifted downwind by the map's share of the real drift, with a
     /// random scatter when asked (none for the targeter's preview). A true point, kept inside the map.</summary>
-    public static Vector3 Landing(Map map, ParachuteLoad kind, Vector3 release, float heightFeet, bool scatter)
+    public static Vector3 Landing(Map map, ParachuteLoad kind, Vector3 release, float heightFeet, bool scatter, float scatterShare = 1f)
     {
         float cells = DriftCells(map, kind, heightFeet);
         Vector3 downwind = PhobosWind.Downwind(map);
         Vector3 point = release + downwind * cells;
         if (scatter)
         {
-            Vector2 spread = Rand.InsideUnitCircle * (float)ParachuteRule.ScatterCells(cells);
+            // Framework 0.306.0: half the scatter near a drop zone marker (DropZoneMarkers).
+            Vector2 spread = Rand.InsideUnitCircle * (float)ParachuteRule.ScatterCells(cells) * scatterShare;
             point += new Vector3(spread.x, 0f, spread.y);
         }
         point.x = Mathf.Clamp(point.x, 1f, map.Size.x - 1.01f);

@@ -202,6 +202,7 @@ public static class ParachuteLanding
             crate.Fill(things);
             crate.SetFaction(Faction.OfPlayer);
             GenSpawn.Spawn(crate, cell, map, WipeMode.VanishOrMoveAside);
+            AirdropSounds.Play(AirdropSounds.BundleLands, map, cell);
             if (crate.Spawned) return;
         }
         foreach (Thing thing in things)
@@ -228,6 +229,7 @@ public static class ParachuteLanding
         }
         GenSpawn.Spawn(vehicle, spot, map, rot, WipeMode.VanishOrMoveAside);
         if (!vehicle.Spawned) return;
+        AirdropSounds.Play(AirdropSounds.PlatformLands, map, spot);
         vehicle.EventRegistry[VehicleEventDefOf.AerialVehicleLanding]?.ExecuteEvents();
         if (Risky) CompPhobosVehicleSystems.Of(vehicle)?.WearLanding(LandingWearShare);
         string? harm = hard ? SlingDrops.Fall(vehicle, (float)(failed ? ParachuteRule.FailedCanopyMetres : ParachuteRule.HardLandingMetres)) : null;

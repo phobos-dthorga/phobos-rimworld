@@ -5,7 +5,8 @@
     python assets/vehicle-systems/ship_airdrop.py --dry-run                say what would ship, writing nothing
 
 The same day's second batch (the guided cargo parachute and the ankle braces, `airdrop-guided-chute` and `airdrop-ankle-braces`) is in
-the same request file and ships the same way.
+the same request file and ships the same way, as does the third, of 26 Nov 2026 (the drop zone marker, `airdrop-dz-marker`: the
+panel with its smoke pot and lamp, tries 3 and 4, which replaced the panel-only tries 1 and 2 the same day).
 
 Each pick is looked at by the background AI on the processor (safe beside the game), exported by scripts/art/export_sprite.py at its
 game size, and given its record under assets/records. The rigger's table is drawn north (the rigger at the bottom edge, as the game
@@ -52,7 +53,15 @@ PICKS = {
     'airdrop-guided-chute': (f'{AIRDROP}/GuidedCargoParachute', 128, '1:1', False,
                              'the packed guided cargo parachute item (a square canopy in its bag with a small guidance unit)'),
     'airdrop-ankle-braces': (f'{AIRDROP}/AnkleBraces', 128, '1:1', False, 'the parachute ankle braces item, as it lies in a stockpile'),
+    # The third batch (26 Nov 2026, the owner's card "Aim point and less scatter": one picture, two tries, cap US$0.15), same file.
+    # Its tries 1 and 2 (the panel alone) were replaced the same day by tries 3 and 4 (the owner's card "Panel + smoke pot + lamp"):
+    # the waiting pick offers 3 and 4, so `--pick airdrop-dz-marker=3` or `=4`.
+    'airdrop-dz-marker': (f'{AIRDROP}/DropZoneMarker', 256, '1:1', False,
+                          "the drop zone marker, a pathfinder's signal panel staked flat on the ground with a violet smoke pot "
+                          'and a battery beacon lamp beside it, a building drawn at (1.6, 1.6)'),
 }
+# The day each pick's tries were made, where it is not the first batch's 25 Nov 2026.
+MADE = {'airdrop-dz-marker': '26 Nov 2026'}
 # The table's facings from its north picture: (facing, turn). PIL's ROTATE_270 turns clockwise.
 TURNS = (('east', Image.Transpose.ROTATE_270), ('south', Image.Transpose.ROTATE_180), ('west', Image.Transpose.ROTATE_90))
 
@@ -158,7 +167,7 @@ def ship(pick_id, attempt):
         export(master, files[0], size, aspect)
     w, h = Image.open(files[0]).size
     lines = [f'# {base.name}', '',
-             f'Made on 25 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, {what}. '
+             f'Made on {MADE.get(pick_id, "25 Nov 2026")} with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, {what}. '
              f'Picked by the owner from two attempts (attempt {attempt}) on the Picks page (pick `{pick_id}`). Exported by '
              f'`scripts/art/export_sprite.py` at {w} x {h} ({aspect}) after the background AI had looked at the master, by '
              f'`assets/vehicle-systems/ship_airdrop.py`. The prompt and its references are in `{REQUEST}`; the master and its record '

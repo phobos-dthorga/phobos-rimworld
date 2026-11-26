@@ -91,4 +91,16 @@
   <PhobosHold_MsgNoRoom>No room behind the ramp: {COUNT} vehicles stay in the hold of {VEHICLE}.</PhobosHold_MsgNoRoom>
   <PhobosHold_InspectEmpty>Hold: empty (up to {KILOGRAMS} kg)</PhobosHold_InspectEmpty>
   <PhobosHold_Inspect>Hold: {VEHICLES} ({KILOGRAMS} of {LIMIT} kg)</PhobosHold_Inspect>
+
+  <!-- Allied supply drops (Framework 0.306.0) -->
+  <PhobosSupply_Option>Request a supply drop ({GOODWILL} goodwill)</PhobosSupply_Option>
+  <PhobosSupply_Choose>{FACTION} can drop about {VALUE} silver's worth of supplies by parachute within a few hours. What do you need?</PhobosSupply_Choose>
+  <PhobosSupply_Sent>{FACTION} will drop the supplies within a few hours. Lay a drop zone marker if you want them on a particular spot.</PhobosSupply_Sent>
+  <PhobosSupply_KindFood>Food</PhobosSupply_KindFood>
+  <PhobosSupply_KindMedicine>Medicine</PhobosSupply_KindMedicine>
+  <PhobosSupply_KindMaterials>Materials (steel and components)</PhobosSupply_KindMaterials>
+  <PhobosSupply_RefuseTech>{FACTION} has no aircraft to drop supplies from.</PhobosSupply_RefuseTech>
+  <PhobosSupply_RefuseOnItsWay>A supply drop from {FACTION} is already on its way.</PhobosSupply_RefuseOnItsWay>
+  <PhobosSupply_LetterLabel>Supply drop</PhobosSupply_LetterLabel>
+  <PhobosSupply_LetterText>{FACTION} is dropping the {KIND} you asked for. The bundles come down under parachutes, drifting with the wind; colonists will de-rig them where they land.</PhobosSupply_LetterText>
 </LanguageData>

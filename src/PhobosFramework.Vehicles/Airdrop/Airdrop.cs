@@ -55,6 +55,7 @@ public static class AirdropDefOf
     public static ThingDef Phobos_GuidedCargoParachute = null!;
     public static ThingDef Phobos_AnkleBraces = null!;
     public static ThingDef Phobos_LandedCargoBundle = null!;
+    public static ThingDef Phobos_DropZoneMarker = null!;
     public static ThingDef Phobos_ParachuteFaller_Person = null!;
     public static ThingDef Phobos_ParachuteFaller_Bundle = null!;
     public static ThingDef Phobos_ParachuteFaller_Vehicle = null!;

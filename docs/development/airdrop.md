@@ -1,8 +1,9 @@
 # Parachute airdrops: people, cargo and vehicles from the air (25 Nov 2026)
 
-**Status (25 Nov 2026):** built in D'thorga Framework 0.288.0 and D'thorga Vehicles 0.120.0, with the owner's ten answers: the drop
-pass and hover drop, the world-map arrival, the parachutes and rigger's table, the hold, the wind, the raids and the C-17's tie-in. Its
-in-world art waits for the owner's picks. Not yet tested in game (test rows 514 to 517).
+**Status (26 Nov 2026):** built in D'thorga Framework 0.288.0 and D'thorga Vehicles 0.120.0, with the owner's ten answers: the drop
+pass and hover drop, the world-map arrival, the parachutes and rigger's table, the hold, the wind, the raids and the C-17's tie-in; round
+three (drop zone markers with smoke and lights, allied supply drops, the sounds) in Framework 0.306.0, art and sounds the owner's picks.
+Not yet tested in game (test rows 514 to 517, 542 to 544).
 
 The owner asked on 25 Nov 2026: "The C-17 Globetrotter has the ability to eject cargo and vehicles out of its backside and allow them to
 drop to the ground safely via parachute. I wish for you to study this code and [add] it as an ability to our own Framework and where ever
@@ -301,6 +302,44 @@ Your own CIWS also shoots at your own drop if it carries a hostile person (a pri
   Framework names (`AirTargets`); each hit IRBM rolls does 4 points of bullet damage through the aircraft's own parts (**[A]**: IRBM
   rolls a hit most ticks it fires, so a burst's worth each).
 
+
+## Round three (26 Nov 2026; Framework 0.306.0)
+
+The owner asked "Anything more we should continue with, other than testing?" and chose four: the C-27J (its own record,
+[vehicle-c27j.md](vehicle-c27j.md)), and the three below, by cards the same day.
+
+### Drop zone markers
+
+A pathfinder's signal panel (the US Army's VS-17, about 1.8 by 0.6 m **[S]**), built in the Motor pool tab after vehicle parts (15 cloth,
+2 steel **[A]**). **Owner's card: "Aim point and less scatter"**: a drop aimed within 15 cells of one scatters half as much **[A]**; the
+drop targeter opens on the first marker laid; an ally's supply drop aims at it. Its picture is paid: by the owner's card after smoke was
+added, the panel with a violet smoke pot and a beacon lamp staked beside it, a thin wisp only (the game draws the moving smoke); the
+owner picked try 4 of four (tries 1 and 2, panel only, superseded).
+
+**Owner's card, the same day: "Panel plus smoke"** (the owner asked whether a marker should not be a smoke signal: real drop zones use
+both, panels as the standing marker and coloured smoke popped for the run-in, which confirms the spot and shows the crew the wind at the
+ground **[S]**). By day, while we or an ally drop on a point near it, the marker puts up violet smoke (one of the M18 grenade's colours
+**[S]**) carried downwind: looks only, never the game's blinding smoke. Our crews already let go upwind of the point by the drift worked
+out from the wind, as a real crew does, so the smoke's gain is a truer wind: by day the scatter near a marker is cut to 0.7 of the half
+again (0.35 of the usual) **[A]**. By night its small lights show the spot (no power needed, battery beacons **[A]**) and the scatter stays
+at half. A raid's crew gains nothing from our markers.
+
+### Allied supply drops
+
+**Owner's cards: a comms console request, and the player chooses the kind.** An industrial-or-better ally (the game's own "must be an
+ally") offers **Request a supply drop** for 15 goodwill (military aid costs 25), once a day per faction **[A]**: food (survival packs, or
+pemmican from a lower-tech ally), medicine (industrial) or materials (steel and components), about 800 silver's worth **[A]**. Two to four
+hours later **[A]** its aircraft (an aircraft of ours fit for the faction, the Osprey today) comes in over an edge, makes a pass over the
+first drop zone marker (else the game's trade drop spot), and leaves by the far edge; the bundles land strapped up for colonists to
+de-rig. With no aircraft to send, they come down from one unseen overhead. A letter says what is coming. **Allies' fighters** already
+come by air through the game's own "request military aid", which our air assault serves.
+
+### Sounds and the review list
+
+Three sounds, made on the processor beside the game (`assets/phobos-sounds/requests/night-15-airdrop.json`): a canopy opening (S150), a
+bundle landing (S151) and a platform landing (S152), shipped with the owner's picks of 26 Nov 2026 (151, 152 and 152). The authored figures the
+owner may want to revise (the drift share, the fall-time share, the Osprey's hold, the CIWS hit) are on D'thorga Companion's Decisions
+page (`config/decisions.json`).
 
 ## What a next game would need
 
