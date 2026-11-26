@@ -47,6 +47,13 @@ public sealed class ConvoyRemoteReach : IRemoteReachSource
         pawn.Spawned ? CrossBand.For(pawn)?.WorldEnd
         : pawn.GetCaravan() is { } convoy ? ConvoyReachSource.ConvoyEnd(convoy, ConvoyRadio.Mast(convoy)) : null;
 
+    /// <summary>Radio 0.26.0: the person's end between tiles for another faction's doctor, with the hand-held's hop to a cross-band vehicle.</summary>
+    public (RelayNode End, double HopMarginDb)? WorldEnd(Pawn pawn)
+    {
+        if (pawn.Spawned) return CrossBand.For(pawn) is { } gateway ? (gateway.WorldEnd, gateway.MapMarginDb) : null;
+        return WorldEndOf(pawn) is { } end ? (end, double.PositiveInfinity) : null;
+    }
+
     /// <summary>The first colony each gateway vehicle reaches, kept a tenth of a game hour, as a convoy's reach is: a call's look asks often.</summary>
     static readonly Dictionary<VehiclePawn, (int tick, (Map Home, double MarginDb)? first)> firstKept = new();
     const int KeepTicks = 250;

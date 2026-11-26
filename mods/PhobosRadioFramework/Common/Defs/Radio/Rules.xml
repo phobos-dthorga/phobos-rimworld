@@ -55,6 +55,20 @@
     <adviceLookTicks>60</adviceLookTicks>
     <adviceRetryTicks>250</adviceRetryTicks>
     <adviceOfferKeepTicks>250</adviceOfferKeepTicks>
+    <!-- The Elmer and another faction's doctor (Radio 0.26.0). The owner's cards of 27 Nov 2026: half again faster learning while talked
+         through, a little Social for the adviser, allies free once a day, neutral factions for goodwill. The Social rate, the doctors'
+         Medicine, the goodwill cost and floor, the call window and the search's reach and keeping are agent defaults, authored. -->
+    <adviceLearnFactor>1.5</adviceLearnFactor>
+    <adviceTeachSocialPerTick>0.05</adviceTeachSocialPerTick>
+    <factionDoctorIndustrial>10</factionDoctorIndustrial>
+    <factionDoctorSpacer>14</factionDoctorSpacer>
+    <factionDoctorUltra>16</factionDoctorUltra>
+    <factionAllyEveryTicks>60000</factionAllyEveryTicks>
+    <factionNeutralGoodwillCost>3</factionNeutralGoodwillCost>
+    <factionGoodwillFloor>0</factionGoodwillFloor>
+    <factionCallWindowTicks>2500</factionCallWindowTicks>
+    <factionReachKeepTicks>2500</factionReachKeepTicks>
+    <factionSearchTiles>100</factionSearchTiles>
 
     <!-- The vanilla heater turns 175 W into 21 heat per second (Core, Buildings_Temperature.xml). -->
     <heatPerWattSecond>0.12</heatPerWattSecond>

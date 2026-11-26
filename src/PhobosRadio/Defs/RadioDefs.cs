@@ -230,6 +230,31 @@ public class RadioRulesDef : Def
     /// <summary>How long an offer of help found for an act with no job is kept before it is looked for again, in ticks (agent default).</summary>
     public int adviceOfferKeepTicks = 250;
 
+    // The Elmer and another faction's doctor (Radio 0.26.0; the owner's cards of 27 Nov 2026). The learning factor, the Social to the adviser,
+    // the ally's day and the goodwill model are the owner's; the figures marked agent default are authored, for the owner to revise.
+    /// <summary>How much faster a carer learns the skill while talked through: half again (the owner's card).</summary>
+    public float adviceLearnFactor = 1.5f;
+    /// <summary>Social experience the adviser gains a tick on a call, "a little" (the owner's card): half what a crafter gains at a bench
+    /// (agent default; the game gives 0.1 a tick of work at 1x).</summary>
+    public float adviceTeachSocialPerTick = 0.05f;
+    /// <summary>A faction's doctor's Medicine by how advanced it is (agent defaults): industrial, spacer, ultra and beyond. None before
+    /// industry: no radio.</summary>
+    public int factionDoctorIndustrial = 10;
+    public int factionDoctorSpacer = 14;
+    public int factionDoctorUltra = 16;
+    /// <summary>An ally opens a new call at most once a day (the owner's card), in ticks.</summary>
+    public int factionAllyEveryTicks = 60000;
+    /// <summary>Goodwill a neutral faction asks for a new call (agent default; the owner's card: "a small goodwill cost").</summary>
+    public int factionNeutralGoodwillCost = 3;
+    /// <summary>A neutral faction never takes goodwill below this for its doctor (agent default), so the help never turns it hostile.</summary>
+    public int factionGoodwillFloor = 0;
+    /// <summary>A call stays open this long after its last use, so a convoy's tends an hour apart are one call (agent default), in ticks.</summary>
+    public int factionCallWindowTicks = 2500;
+    /// <summary>How long a search for a faction's settlement in reach is kept, for a map or a convoy (agent default), in ticks.</summary>
+    public int factionReachKeepTicks = 2500;
+    /// <summary>Settlements further than this in tiles are not looked at (agent default): past three hops of the best masts.</summary>
+    public int factionSearchTiles = 100;
+
     /// <summary>
     /// Heat pushed into the room per watt of waste per second. The vanilla heater turns 175 W into
     /// 21 heat per second, so 0.12 (read from Core's Buildings_Temperature.xml, 19 Oct 2026).

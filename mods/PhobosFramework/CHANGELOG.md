@@ -18,6 +18,22 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.336.0] - 2026-11-27 - Draft
+
+Learning faster while someone helps
+
+### Added
+
+- **A person helped from elsewhere can learn the skill faster while the help lasts** (Phobos.Framework.Skills: Teach and StopTeaching;
+  the Radio Framework's advice by radio is the first to use it). Each gain of experience in that skill is multiplied before the game's
+  own learn rate, passions and daily limit apply; losses are left alone. Without the Radio Framework nothing changes. Not yet tested in
+  game: row 650.
+
+### Compatibility and limits
+
+- A new Harmony patch on the game's skill learning, a prefix that never skips it. While nobody is being taught it costs one count
+  check each time anyone learns.
+
 ## [0.335.0] - 2026-11-27 - Draft
 
 Supply trucks park to be loaded, the sling lifts packed buildings, stacks and a cargo net, the litter captures downed enemies, and a voice radio bay

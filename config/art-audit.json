@@ -30,6 +30,7 @@
      "reason": "the Crawler's body on the submarine test hull: kept, dev-only and cannot be built"},
     {"texture": "UI/Gizmos/ExtractOxygen_Gizmo",
      "reason": "Vanilla Gravship Expanded's own canister button on the liquid oxygen store, used in place (allowed reuse)"},
+    {"texture": "Phobos/Radio/World/RelayMast", "owner": "PhobosRadio_SettlementRadio", "reason": "another faction's settlement radio is never drawn: it has a picture only because the game asks every thing for one (Radio 0.26.0)"},
     {"texture": "UI/Buttons/*", "reason": "the game's own buttons, used in place (allowed reuse)"},
     {"texture": "Phobos/VehicleSystems/FireMode/*", "reason": "a gun's fire-mode buttons, shared by every turret of ours (D'thorga Framework 0.152.0)"},
     {"texture": "Damage/*", "reason": "the game's own damage overlays, used in place"},

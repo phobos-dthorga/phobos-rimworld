@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Another faction's doctor by radio (Radio 0.26.0; docs/development/radio-advice-and-relays.md, the owner's cards of 27 Nov 2026: "By real
+    radio reach" and "Allies free, others goodwill"). Each industrial or more advanced faction's settlement is heard as a radio of this kind on
+    its tile, reached through the same link budget and relays as everything else. Every figure here is the agent's, authored, for the owner
+    to revise: a settlement keeps a 50 W base station on a 20 m mast with a 3 dBi collinear, on both bands, as a well-set colony could.
+  -->
+
+  <ThingDef>
+    <defName>PhobosRadio_SettlementRadio</defName>
+    <label>settlement radio</label>
+    <description>The radio of another faction's settlement. It never stands on a map.</description>
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <graphicData>
+      <texPath>Phobos/Radio/World/RelayMast</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <tickerType>Never</tickerType>
+    <selectable>false</selectable>
+    <alwaysHaulable>false</alwaysHaulable>
+    <tradeability>None</tradeability>
+    <useHitPoints>false</useHitPoints>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Radio">
+        <bands>
+          <li>PhobosRadio_VHF</li>
+          <li>PhobosRadio_UHF</li>
+        </bands>
+        <mode>PhobosRadio_VoiceFM</mode>
+        <transmitPowerWatts>50</transmitPowerWatts>
+        <noiseFigureDb>6</noiseFigureDb>
+        <antennaGainDbi>3</antennaGainDbi>
+        <antennaHeightMetres>20</antennaHeightMetres>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- Why a neutral faction's goodwill fell: the player asked for its doctor on the radio. -->
+  <HistoryEventDef>
+    <defName>PhobosRadio_DoctorByRadio</defName>
+    <label>asked for their doctor by radio</label>
+  </HistoryEventDef>
+</Defs>

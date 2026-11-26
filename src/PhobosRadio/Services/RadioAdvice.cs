@@ -15,6 +15,8 @@ namespace Phobos.Radio.Services;
 // RadioAdviceDef names is talked through it by a more skilled colonist in radio touch: half the skill gap on a workable or clean link, a
 // quarter on a marginal one (AdviceRule). What the lift does to the work is D'thorga Framework's skill lift (Phobos.Framework.Skills); this
 // file finds the adviser, keeps the calls and books the adviser's time. Nothing here is saved: a call is worked out again after a load.
+// Since Radio 0.26.0 (the owner's cards of 27 Nov 2026) the carer learns the skill half again as fast while a call is live (the Elmer), the
+// adviser gains a little Social, and when no colonist can help, another faction's doctor may (FactionDoctors, whose terms are saved).
 
 /// <summary>Where the adviser takes the call: in bed on a hand-held, standing where they are with one, or at a radio station's desk.</summary>
 public enum AdvicePlace
@@ -22,6 +24,8 @@ public enum AdvicePlace
     InBed,
     InPlace,
     AtDesk,
+    /// <summary>At another faction's settlement (Radio 0.26.0): their doctor, never on the player's maps.</summary>
+    Afar,
 }
 
 /// <summary>A home a person off the map reaches by radio: its map, the link's margin, and what the person reaches it through.</summary>
@@ -37,6 +41,12 @@ public interface IRemoteReachSource
 
     /// <summary>Whether a map with no station of the player's still has a way home for those on it (Radio 0.25.0: a cross-band vehicle).</summary>
     bool Serves(Map map) => false;
+
+    /// <summary>
+    /// This person's own end between world tiles, for a call that searches its own chain (Radio 0.26.0: another faction's doctor), and the
+    /// margin of any hop before it (a hand-held to a cross-band vehicle); null with none.
+    /// </summary>
+    (RelayNode End, double HopMarginDb)? WorldEnd(Pawn pawn) => null;
 }
 
 /// <summary>Where a person off the map reaches home by radio, when a tie-in can say (Radio 0.23.0): a convoy's reach home.</summary>
@@ -51,13 +61,18 @@ public static class RemoteReach
 
     /// <summary>Whether people on this map may reach home through a tie-in, with no station of their own (Radio 0.25.0).</summary>
     public static bool Serves(Map map) => source?.Serves(map) == true;
+
+    /// <summary>This person's end between world tiles, when a tie-in can say (Radio 0.26.0).</summary>
+    public static (RelayNode End, double HopMarginDb)? WorldEndOf(Pawn pawn) => source?.WorldEnd(pawn);
 }
 
 /// <summary>One adviser found for one carer, and what the call would lift them to.</summary>
 public sealed class AdviceOffer
 {
-    public AdviceOffer(Pawn carer, Pawn adviser, RadioAdviceDef def, int level, LinkOutcome outcome, AdvicePlace place, Thing? station, bool aid)
+    public AdviceOffer(Pawn carer, Pawn adviser, RadioAdviceDef def, int level, LinkOutcome outcome, AdvicePlace place, Thing? station, bool aid,
+        Faction? faction = null)
     {
+        Faction = faction;
         Carer = carer;
         Adviser = adviser;
         Def = def;
@@ -66,10 +81,17 @@ public sealed class AdviceOffer
         Place = place;
         Station = station;
         Aid = aid;
-        Reason = (aid ? "PhobosRadioAdvice_ReasonAid" : "PhobosRadioAdvice_Reason").Translate(adviser.LabelShort.Named("ADVISER"),
-            def.skill.label.Named("SKILL"), SkillLifts.OwnLevel(adviser, def.skill).Named("LEVEL"), def.aid?.label.Named("AID") ?? "".Named("AID"))
-            .Resolve();
+        Reason = faction != null
+            ? (aid ? "PhobosRadioAdvice_ReasonFactionAid" : "PhobosRadioAdvice_ReasonFaction").Translate(adviser.LabelShort.Named("ADVISER"),
+                faction.Name.Named("FACTION"), def.skill.label.Named("SKILL"), SkillLifts.OwnLevel(adviser, def.skill).Named("LEVEL"),
+                def.aid?.label.Named("AID") ?? "".Named("AID")).Resolve()
+            : (aid ? "PhobosRadioAdvice_ReasonAid" : "PhobosRadioAdvice_Reason").Translate(adviser.LabelShort.Named("ADVISER"),
+                def.skill.label.Named("SKILL"), SkillLifts.OwnLevel(adviser, def.skill).Named("LEVEL"), def.aid?.label.Named("AID") ?? "".Named("AID"))
+                .Resolve();
     }
+
+    /// <summary>Another faction whose doctor this is (Radio 0.26.0), or null for a colonist.</summary>
+    public Faction? Faction { get; }
 
     public Pawn Carer { get; }
     public Pawn Adviser { get; }
@@ -157,6 +179,8 @@ public static class RadioAdvice
         offers.Clear();
         lastSaid.Clear();
         tradeShown = null;
+        SkillLifts.ClearTeaching();
+        FactionDoctors.Clear();
     }
 
     // ---- Finding an adviser ----
@@ -173,7 +197,12 @@ public static class RadioAdvice
         if (carer.Spawned)
         {
             var net = RadioNet.For(carer.Map);
-            if (net.ServedBy(carer) != null && net.TryGetBest(carer, out var link) && link != null) return SeekAt(carer, def, carer.Map, link.Budget.Outcome);
+            if (net.ServedBy(carer) != null && net.TryGetBest(carer, out var link) && link != null)
+            {
+                Map map = carer.Map;
+                LinkOutcome own = link.Budget.Outcome;
+                return SeekAt(carer, def, map, own) ?? SeekFaction(carer, def, map, map.Tile, () => FactionDoctors.StationEnds(map), own);
+            }
             // Radio 0.25.0: no station of theirs serves them (a camp, a site): through a cross-band vehicle on the map, as from a convoy.
         }
         // Off the map: the colony the convoy reaches first, then (Radio 0.24.1) each other colony it reaches, through a repeater station
@@ -182,7 +211,32 @@ public static class RadioAdvice
         {
             if (SeekAt(carer, def, remote.Home, rules.MarginBands.Classify(remote.MarginDb)) is { } offer) return offer;
         }
+        // Radio 0.26.0: nobody at any colony in reach can help: another faction's doctor, from the convoy's radio or the cross-band vehicle.
+        if (def.fromFactions && FactionDoctors.On && RemoteReach.WorldEndOf(carer) is { } end)
+        {
+            LinkOutcome hop = double.IsPositiveInfinity(end.HopMarginDb) ? LinkOutcome.Clean : rules.MarginBands.Classify(end.HopMarginDb);
+            return SeekFaction(carer, def, end.End.Owner, end.End.Tile, () => new[] { end.End }, hop);
+        }
         return null;
+    }
+
+    /// <summary>
+    /// Another faction's doctor for a carer no colonist can help (Radio 0.26.0), or null: a settlement in reach of <paramref name="origin"/>'s
+    /// radio whose faction would help now, a doctor made for it, free of another call, who knows more than the carer.
+    /// </summary>
+    private static AdviceOffer? SeekFaction(Pawn carer, RadioAdviceDef def, object origin, PlanetTile tile, System.Func<IReadOnlyList<RelayNode>> froms,
+        LinkOutcome carerOutcome)
+    {
+        if (!def.fromFactions || !FactionDoctors.On || carerOutcome == LinkOutcome.NoContact) return null;
+        if (FactionDoctors.Reach(origin, tile, froms) is not { } link || FactionDoctors.DoctorOf(link.Faction) is not { } doctor) return null;
+        if (byAdviser.ContainsKey(doctor)) return null;
+        var rules = RadioRulesDef.Current;
+        int own = SkillLifts.OwnLevel(carer, def.skill);
+        bool aid = def.aid != null && HasAid(carer, def.aid);
+        var outcome = AdviceRule.Worse(carerOutcome, rules.MarginBands.Classify(link.MarginDb));
+        int level = AdviceRule.EffectiveLevel(own, SkillLifts.OwnLevel(doctor, def.skill),
+            AdviceRule.Share(outcome, rules.adviceShareSolid, rules.adviceShareMarginal, aid ? def.aidShare : 0.0));
+        return level <= own ? null : new AdviceOffer(carer, doctor, def, level, outcome, AdvicePlace.Afar, null, aid, link.Faction);
     }
 
     /// <summary>The best adviser at one colony for a carer whose own link there has this outcome, or null.</summary>
@@ -317,9 +371,24 @@ public static class RadioAdvice
     {
         if (!ready || defs.Count == 0) return;
         int now = Find.TickManager.TicksGame;
+        FactionDoctors.MakeWanted();
+        var teach = RadioRulesDef.Current;
         foreach (AdviceCall call in calls.Values.ToList())
         {
-            if (Ends(call) is { } dropped) End(call, dropped);
+            if (Ends(call) is { } dropped)
+            {
+                End(call, dropped);
+                continue;
+            }
+            if (!call.Live) continue;
+            Pawn adviser = call.Offer.Adviser;
+            // Radio 0.26.0: the adviser gains a little Social for the call (the owner's card); another faction's call stays open while used.
+            if (call.Offer.Faction is { } faction) FactionDoctors.Using(faction);
+            else if (adviser.Spawned && adviser.skills != null && teach.adviceTeachSocialPerTick > 0f)
+            {
+                adviser.skills.Learn(SkillDefOf.Social, teach.adviceTeachSocialPerTick * teach.adviceLookTicks);
+                if (Seen.Wants("radio.elmer-teacher", adviser)) Seen.Note("radio.elmer-teacher", adviser, call.Offer.Carer.LabelShort);
+            }
         }
         if (byJob.Count == 0) return;
         var rules = RadioRulesDef.Current;
@@ -356,7 +425,7 @@ public static class RadioAdvice
         var call = new AdviceCall(offer);
         calls[offer.Carer] = call;
         byAdviser[offer.Adviser] = call;
-        if (offer.Place == AdvicePlace.InBed)
+        if (offer.Place is AdvicePlace.InBed or AdvicePlace.Afar)
         {
             GoLive(call);
             return;
@@ -380,12 +449,22 @@ public static class RadioAdvice
     private static void GoLive(AdviceCall call)
     {
         if (call.Live) return;
-        call.Live = true;
         AdviceOffer offer = call.Offer;
+        // Radio 0.26.0: another faction's doctor comes on their terms (an ally's day, a neutral faction's goodwill), or not at all.
+        if (offer.Faction is { } faction && !FactionDoctors.Charge(faction, offer.Adviser, offer.Carer))
+        {
+            End(call, dropped: false);
+            return;
+        }
+        call.Live = true;
         Say(offer, "PhobosRadioAdvice_CallOpened", MessageTypeDefOf.SilentInput);
         Thank(offer);
-        if (Seen.Wants("radio.advice", offer.Adviser, offer.Def.act))
-            Seen.Note("radio.advice", offer.Adviser, offer.Carer.LabelShort + " at " + offer.Def.skill.label + " " + offer.Level + ", " + offer.Place, offer.Def.act);
+        // Radio 0.26.0, the Elmer: the carer learns the skill half again as fast while talked through (the owner's card).
+        SkillLifts.Teach(offer.Carer, offer.Def.skill, RadioRulesDef.Current.adviceLearnFactor);
+        if (Seen.Wants("radio.elmer", offer.Carer, offer.Def.act)) Seen.Note("radio.elmer", offer.Carer, offer.Def.skill.label, offer.Def.act);
+        string variant = offer.Def.act + (offer.Faction != null ? "-faction" : "");
+        if (Seen.Wants("radio.advice", offer.Adviser, variant))
+            Seen.Note("radio.advice", offer.Adviser, offer.Carer.LabelShort + " at " + offer.Def.skill.label + " " + offer.Level + ", " + offer.Place, variant);
     }
 
     /// <summary>Why a call should end now (true: dropped while the carer still works; false: the work is done), or null to go on.</summary>
@@ -394,6 +473,12 @@ public static class RadioAdvice
         AdviceOffer offer = call.Offer;
         Pawn carer = offer.Carer, adviser = offer.Adviser;
         if (carer.Destroyed || carer.Dead || !carer.Spawned || !Matches(carer.CurJob, offer.Def) || !Enabled(offer.Def)) return false;
+        if (offer.Place == AdvicePlace.Afar)
+        {
+            // Another faction's doctor: the call holds while the faction will still help and the carer is in touch.
+            if (!FactionDoctors.On || offer.Faction == null || FactionDoctors.StandingOf(offer.Faction) == FactionStanding.Hostile) return true;
+            return InTouch(carer) ? null : true;
+        }
         if (adviser.Destroyed || adviser.Dead || !adviser.Spawned || adviser.Downed || !adviser.Awake() || adviser.InMentalState || adviser.Drafted) return true;
         if (offer.Place == AdvicePlace.InBed ? !adviser.InBed() : adviser.CurJob?.def != RadioAdviceDefOf.PhobosRadio_AdviseByRadio) return true;
         if (!InTouch(carer)) return true;
@@ -416,6 +501,7 @@ public static class RadioAdvice
         if (!calls.TryGetValue(offer.Carer, out var held) || held != call) return;
         calls.Remove(offer.Carer);
         byAdviser.Remove(offer.Adviser);
+        SkillLifts.StopTeaching(offer.Carer);
         nextTry[offer.Carer] = Find.TickManager.TicksGame + RadioRulesDef.Current.adviceRetryTicks;
         if (offer.Adviser.CurJob is { } job && job.def == RadioAdviceDefOf.PhobosRadio_AdviseByRadio && job.targetA.Thing == offer.Carer)
             offer.Adviser.jobs.EndCurrentJob(JobCondition.Succeeded);
@@ -432,6 +518,14 @@ public static class RadioAdvice
     public static void Book(AdviceOffer offer)
     {
         Pawn adviser = offer.Adviser;
+        // Radio 0.26.0: another faction's doctor is paid for on their terms; a colonist adviser gains a little Social for the time booked.
+        if (offer.Faction is { } faction) FactionDoctors.Charge(faction, adviser, offer.Carer);
+        else if (adviser.Spawned && adviser.skills != null)
+        {
+            var rules = RadioRulesDef.Current;
+            adviser.skills.Learn(SkillDefOf.Social, rules.adviceTeachSocialPerTick * offer.Def.bookedTicks);
+            if (Seen.Wants("radio.elmer-teacher", adviser)) Seen.Note("radio.elmer-teacher", adviser, offer.Carer.LabelShort + ", booked");
+        }
         if (adviser.Spawned && offer.Place != AdvicePlace.InBed && !byAdviser.ContainsKey(adviser) && Interruptible(adviser) && !adviser.Drafted)
         {
             Job job = JobMaker.MakeJob(RadioAdviceDefOf.PhobosRadio_AdviseByRadioBooked, offer.Carer, offer.Station == null ? LocalTargetInfo.Invalid : offer.Station);
@@ -447,7 +541,7 @@ public static class RadioAdvice
             Thank(offer);
         }
         if (lastSaid.Count > 256) lastSaid.Clear();
-        string variant = offer.Def.act + (offer.Carer.Spawned ? "" : "-road");
+        string variant = offer.Def.act + (offer.Faction != null ? "-faction" : "") + (offer.Carer.Spawned ? "" : "-road");
         if (Seen.Wants("radio.advice", offer.Adviser, variant))
             Seen.Note("radio.advice", offer.Adviser, offer.Carer.LabelShort + " at " + offer.Def.skill.label + " " + offer.Level + (offer.Aid ? ", with the aid" : ""), variant);
     }
@@ -458,6 +552,7 @@ public static class RadioAdvice
         if (tradeShown == null || TradeSession.Active) return;
         AdviceOffer offer = tradeShown;
         tradeShown = null;
+        SkillLifts.StopTeaching(offer.Carer);
         Book(offer);
     }
 
@@ -488,6 +583,8 @@ public static class RadioAdvice
                 {
                     if (!TradeSession.Active || TradeSession.playerNegotiator != pawn || Offer(pawn, def) is not { } talks) continue;
                     tradeShown = talks;
+                    // Radio 0.26.0, the Elmer: what the talks teach the negotiator, they learn half again as fast.
+                    SkillLifts.Teach(pawn, skill, RadioRulesDef.Current.adviceLearnFactor);
                     return LiftOf(talks, live: false);
                 }
                 // On the road an act has no job, so help on offer is what counts; on a map only a gate (a repair's minimum skill) asks ahead.
@@ -506,13 +603,18 @@ public static class RadioAdvice
     }
 }
 
-/// <summary>Looks at the colony for calls to open and end, at the rules' interval, and watches the trade talks each frame. Saves nothing.</summary>
+/// <summary>
+/// Looks at the colony for calls to open and end, at the rules' interval, and watches the trade talks each frame. Saves only other factions'
+/// doctors and their calls' times (Radio 0.26.0); a save without them loads with none.
+/// </summary>
 public class GameComponent_RadioAdvice : GameComponent
 {
     public GameComponent_RadioAdvice(Game game)
     {
         RadioAdvice.Clear();
     }
+
+    public override void ExposeData() => FactionDoctors.ExposeData();
 
     public override void GameComponentTick()
     {

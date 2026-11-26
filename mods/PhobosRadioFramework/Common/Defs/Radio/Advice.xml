@@ -23,6 +23,7 @@
     </jobs>
     <!-- A convoy tends on its own schedule, once every 1250 ticks (the game's caravan tending): the adviser stays on the radio that long. -->
     <bookedTicks>1250</bookedTicks>
+    <fromFactions>true</fromFactions>
     <aid>PhobosRadio_MedicalChest</aid>
     <aidShare>0.1667</aidShare>
   </Phobos.Radio.RadioAdviceDef>
@@ -44,6 +45,7 @@
       <li>DoBill</li>
     </jobs>
     <medicalBillsOnly>true</medicalBillsOnly>
+    <fromFactions>true</fromFactions>
     <aid>PhobosRadio_MedicalChest</aid>
     <aidShare>0.1667</aidShare>
     <!-- A moderate risk (the agent's grade, for the owner to confirm): a call that drops part-way leaves the surgeon at their own skill. -->

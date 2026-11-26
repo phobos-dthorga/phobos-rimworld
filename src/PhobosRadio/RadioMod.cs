@@ -27,6 +27,11 @@ public class RadioSettings : ModSettings
     /// the window, and each starts on (docs/development/radio-advice-and-relays.md, "Risk and settings").
     /// </summary>
     public List<string> adviceOff = new();
+    /// <summary>
+    /// Whether another faction's doctor gives advice by radio (Radio 0.26.0; the owner's cards of 27 Nov 2026). A low risk (the agent's grade:
+    /// a neutral faction's goodwill, never below the rules' floor), so on by default (docs/development/radio-advice-and-relays.md).
+    /// </summary>
+    public bool factionAdvice = true;
 
     public override void ExposeData()
     {
@@ -38,6 +43,7 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref deskWaterfall, "deskWaterfall", false);
         Scribe_Collections.Look(ref adviceOff, "adviceOff", LookMode.Value);
         adviceOff ??= new List<string>();
+        Scribe_Values.Look(ref factionAdvice, "factionAdvice", true);
     }
 }
 
@@ -88,6 +94,10 @@ public class RadioMod : Mod
             if (on) Settings.adviceOff.Remove(advice.defName);
             else if (!Settings.adviceOff.Contains(advice.defName)) Settings.adviceOff.Add(advice.defName);
         }
+        // Radio 0.26.0: another faction's doctor by radio, on until turned off.
+        listing.Gap();
+        listing.CheckboxLabeled("PhobosRadio_SettingFactionAdvice".Translate(), ref Settings.factionAdvice,
+            "PhobosRadio_SettingFactionAdviceDesc".Translate());
         listing.End();
     }
 }

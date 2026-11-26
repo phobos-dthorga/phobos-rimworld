@@ -36,6 +36,9 @@ public class RadioAdviceDef : Def
     /// <summary>Something whose presence near the carer adds <see cref="aidShare"/> of the gap (the numbered medical chest).</summary>
     public ThingDef? aid;
     public float aidShare;
+    /// <summary>Another faction's doctor may give it, by radio from one of its settlements in reach (Radio 0.26.0; medicine only, an agent
+    /// default: the owner's card was for a doctor).</summary>
+    public bool fromFactions;
     /// <summary>A riskier act has its own switch in the mod settings, on until the player switches it off (designs.md).</summary>
     public bool ownSetting;
     [MustTranslate] public string? settingLabel;
@@ -60,6 +63,10 @@ public static class RadioAdviceDefOf
     public static JobDef PhobosRadio_AdviseByRadio = null!;
     public static JobDef PhobosRadio_AdviseByRadioBooked = null!;
     public static ThoughtDef PhobosRadio_TalkedThrough = null!;
+    /// <summary>Why a neutral faction's goodwill fell: its doctor's help by radio (Radio 0.26.0).</summary>
+    public static HistoryEventDef PhobosRadio_DoctorByRadio = null!;
+    /// <summary>The radio of another faction's settlement, never on a map (Radio 0.26.0).</summary>
+    public static ThingDef PhobosRadio_SettlementRadio = null!;
 
     static RadioAdviceDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(RadioAdviceDefOf));
 }

@@ -22,6 +22,28 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.26.0] - 2026-11-27 - Draft
+
+The Elmer, and other factions' doctors by radio
+
+### Added
+
+- **A colonist talked through a job by radio learns that skill half again as fast** while the call lasts (the owner's card of 27
+  November 2026), and the adviser gains a little Social for the time on the radio. A convoy's tends give no experience in the game,
+  so on the road nothing changes. Not yet tested in game: row 650.
+- **Other factions' doctors give advice by radio** when none of your colonists can help: a doctor at an industrial or more advanced
+  faction's settlement in radio reach of your station, a convoy or a cross-band vehicle, through relays as any call. Allies help free,
+  a new call at most once a day; a neutral faction asks 3 goodwill a call and never takes its goodwill below 0; hostile factions never
+  help (the owner's cards of 27 November 2026). Each faction's doctor is the same person each time. Tending and operations only. Rows
+  651 to 653.
+- **A setting, Other factions' doctors give advice by radio**, on by default.
+
+### Compatibility and limits
+
+- The doctors' Medicine (10, 14 or 16 by how advanced the faction is), the goodwill cost and floor, the hour a call stays open, the
+  settlement's radio and the 100-tile search are agent defaults, for the owner to revise. Safe with a running save: the game now saves
+  each faction's doctor and when its last call was, and loads an older save with none.
+
 ## [0.25.0] - 2026-11-27 - Draft
 
 The cross-band last hop: a hand-held talks home through a vehicle

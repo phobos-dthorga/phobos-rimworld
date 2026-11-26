@@ -120,6 +120,33 @@ public static class SkillLifts
         }
     }
 
+    // ---- Learning while helped (Framework 0.336.0) ----
+
+    static readonly Dictionary<Pawn, (SkillDef skill, float factor)> teaching = new();
+
+    /// <summary>
+    /// The person learns <paramref name="skill"/> faster while someone helps them (the Elmer, the owner's card of 27 Nov 2026: half again):
+    /// every gain of experience in that skill is multiplied by <paramref name="factor"/> until <see cref="StopTeaching"/>. Only the help's
+    /// source calls it, when the help is live; the game's own learning does the rest (its passions, its daily saturation).
+    /// </summary>
+    public static void Teach(Pawn pawn, SkillDef skill, float factor)
+    {
+        if (factor > 1f) teaching[pawn] = (skill, factor);
+    }
+
+    /// <summary>The help has ended: the person learns at their own rate again.</summary>
+    public static void StopTeaching(Pawn pawn) => teaching.Remove(pawn);
+
+    /// <summary>Forgets everyone being taught (a new game or a load: the source opens its calls again).</summary>
+    public static void ClearTeaching() => teaching.Clear();
+
+    /// <summary>What a gain of experience is multiplied by now for this person and skill: 1 unless someone is teaching them it.</summary>
+    public static float LearnFactor(Pawn? pawn, SkillDef skill)
+    {
+        if (teaching.Count == 0 || pawn == null || !teaching.TryGetValue(pawn, out var taught) || taught.skill != skill) return 1f;
+        return taught.factor;
+    }
+
     // ---- Stats ----
 
     /// <summary>
