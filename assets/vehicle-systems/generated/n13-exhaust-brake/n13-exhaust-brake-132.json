@@ -1,0 +1,33 @@
+{
+  "file": "n13-exhaust-brake-132.png",
+  "sha256": "cd25206cdc41a3eee0e855ab02646235874088b19152666e304aba642a421041",
+  "date": "2026-11-24T05:17:48",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A straight length of a diesel truck's exhaust pipe seen from the side, lying horizontally, with a bulging round valve body set in the middle of it and a small air cylinder with a short lever bolted to the top of the valve body. The pipe's two open ends show as dark rings at left and right. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted steel palette, readable when shrunk to a thumbnail. One object, centred, filling most of the canvas, on a plain pure white background. No fan, no turbine, no vanes, no blades. No text, no letters, no numbers, no hands, no people.",
+  "negative_prompt": "",
+  "seed": 132,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/night-13-icons.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 145.1,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Snorkel.png",
+      "sha256": "5cf9e13184eb94727b50eccb27cec3abaafa532b0c4d990d1d69f4d3628c6821"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyAirFilter.png",
+      "sha256": "b2be9987ea94a42a1b45af0966083fe9e6502fd28f59bb6fcde3a60fe416558e"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
