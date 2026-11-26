@@ -5,6 +5,9 @@ A design record for D'thorga Medical. **Nothing is built and nothing is tested i
 
 How injuries and care works now: [systems/medical-injuries-and-care.md](systems/medical-injuries-and-care.md); this record keeps its history.
 
+**Proposal 1 was taken into [care needs](medical-care-needs.md) on 26 Nov 2026**, as its "prevention in an outbreak" need; proposals 2
+to 4 stay here.
+
 ## Read this first
 
 - **What exists already** (read from the game's Defs and the owner's mods, 7 Nov 2026):
