@@ -516,6 +516,17 @@ game (rows 632 and 633).
 - **What it stops**: a colony short of the listed things sends a truck out part-loaded; a list longer than the wait goes unfinished.
 - **Cost**: a look every 250 ticks at a stop (every 60 while driving out); the list is built once on arrival from the map's lister.
 
+## Supply runs, round three (Framework 0.335.0)
+
+The owner, 27 Nov 2026: "1, 2, and 4", the second being the truck parking near the stockpile at a colony; by card **"Your spot, else near
+its list"**. Not yet tested in game (row 641).
+
+- **It parks to be loaded**: entering a colony stop, it drives (as an errand, `VehicleAutoDrive`) to the player's spot for that stop
+  (`SupplyStop.parkCell`, set from the stop's menu with **Where it parks here**), else beside the nearest unforbidden stack of the first
+  thing on its loading list that the colony has, else, delivering, beside the nearest stockpile cell; room for it is found by Vehicle
+  Framework's own tests, ring by ring out to 8 [A]. Only then does its stop begin (delivery, loading, waiting). Refused, blocked or stuck
+  three times [A], it parks where it stands.
+
 ## Who chose what
 
 - **Owner (26 Nov 2026):** the batch; the six answers above; the reverse-osmosis kit's idea, its vehicles and its timing; documenting

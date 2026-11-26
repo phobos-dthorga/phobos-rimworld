@@ -331,6 +331,10 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Heavy vehicles bog on soft, wet ground on the world map (Framework 0.324.0, EM43; moderate risk by the agent's grade, so on,
     /// as the record of 26 Nov 2026 has it). Live.</summary>
     public bool bogging = true;
+    /// <summary>Taking casualties aboard also collects downed enemies the game would let you capture, as prisoners (Framework 0.335.0,
+    /// EM21(d); the owner's card of 27 Nov 2026, "Order it, and collect them too"). Each capture costs goodwill as the game's own does, so
+    /// it has its own setting: moderate risk by the agent's grade, so on. Live.</summary>
+    public bool litterCollectsEnemies = true;
     /// <summary>Whether a crewless supply run needs radio reach home the whole way or only to set off and at its stops (Framework 0.329.0;
     /// the owner's card of 26 Nov 2026: "a setting ... to their preferred playing style"; agent default: the whole way). Live.</summary>
     public SupplyRunRadio supplyRunRadio = SupplyRunRadio.AllTheWay;
@@ -528,6 +532,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref trailerFaults, "PhobosVehicleSystems_TrailerFaults", true);
         Scribe_Values.Look(ref testHoleInsects, "PhobosVehicleSystems_TestHoleInsects", false);
         Scribe_Values.Look(ref bogging, "PhobosVehicleSystems_Bogging", true);
+        Scribe_Values.Look(ref litterCollectsEnemies, "PhobosVehicleSystems_LitterCollectsEnemies", true);
         Scribe_Values.Look(ref supplyRunRadio, "PhobosVehicleSystems_SupplyRunRadio", SupplyRunRadio.AllTheWay);
         Scribe_Values.Look(ref supplyRunLostLink, "PhobosVehicleSystems_SupplyRunLostLink", SupplyRunLostLink.Hold);
         Scribe_Values.Look(ref messageLevel, "PhobosVehicleSystems_MessageLevel", MessageLevel.All);
@@ -637,6 +642,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.trailerFaults) report.Off("trailers on wrecked gear crawl", "towed at full speed (setting)");
         if (Settings.testHoleInsects) report.On("insects in test holes (setting)");
         if (!Settings.bogging) report.Off("heavy vehicles bogging on soft ground", "never stuck (setting)");
+        if (!Settings.litterCollectsEnemies) report.Off("litters collecting downed enemies", "only by order (setting)");
         if (Settings.supplyRunRadio != SupplyRunRadio.AllTheWay) report.On("crewless supply runs need reach only at stops (setting)");
         if (Settings.supplyRunLostLink != SupplyRunLostLink.Hold) report.On("crewless supply runs out of reach: " + Settings.supplyRunLostLink + " (setting)");
         if (!Settings.raidersArriveByAir) report.Off("raiders arriving by aircraft", "off (setting)");
@@ -922,6 +928,9 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingTrailerFaults".Translate(), ref s.trailerFaults, d.trailerFaults, "PhobosVehicleSystems_SettingTrailerFaultsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingTestHoleInsects".Translate(), ref s.testHoleInsects, d.testHoleInsects, "PhobosVehicleSystems_SettingTestHoleInsectsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingBogging".Translate(), ref s.bogging, d.bogging, "PhobosVehicleSystems_SettingBoggingDesc".Translate());
+        // Framework 0.335.0 (EM21(d)): the litter collects downed enemies as prisoners.
+        list.Check("PhobosVehicleSystems_SettingLitterCollectsEnemies".Translate(), ref s.litterCollectsEnemies, d.litterCollectsEnemies,
+            "PhobosVehicleSystems_SettingLitterCollectsEnemiesDesc".Translate());
         list.SliderInt("PhobosVehicleSystems_SettingParkedWarning".Translate(s.parkedWarningDays.Named("DAYS")), ref s.parkedWarningDays, d.parkedWarningDays, 0, 14,
             "PhobosVehicleSettings_ParkedWarningDesc".Translate());
         // Contracts (Framework 0.308.0; docs/development/vehicle-contracts.md): the owner's card of 26 Nov 2026 asked for a slider; it

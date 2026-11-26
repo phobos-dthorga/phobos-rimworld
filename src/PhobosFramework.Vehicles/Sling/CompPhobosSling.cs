@@ -106,12 +106,24 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// <summary>Whether this is a destroyed vehicle's hull, which the sling can lift (Framework 0.197.0, EM21(b)).</summary>
     public static bool IsHull(Thing? thing) => thing is VehicleBuilding { VehicleDef: not null } hull && hull.GetComp<CompPhobosHull>() != null;
 
+    /// <summary>
+    /// Whether this is a thing the sling lifts besides vehicles and hulls (Framework 0.335.0; docs/development/vehicle-emergent-play.md, EM21(b);
+    /// the owner's card of 27 Nov 2026): any item (a packed building, a stack, a corpse), or a cargo net with what lies in it. Never a pawn.
+    /// </summary>
+    public static bool IsLiftableThing(Thing? thing) => thing is Building_PhobosCargoNet || thing is { def.category: ThingCategory.Item } and not Pawn;
+
     /// <summary>The design whose size a load has: the vehicle's, or that of the vehicle a hull was.</summary>
     static VehicleDef? DesignOf(Thing load) => load is VehiclePawn vehicle ? vehicle.VehicleDef : (load as VehicleBuilding)?.VehicleDef;
 
     /// <summary>Any load's weight: a vehicle's as above; a hull's is what its vehicle weighed empty (authored: a wreck keeps its steel).</summary>
-    public static double KilogramsOf(Thing load) => load is VehiclePawn vehicle ? LoadKilograms(vehicle)
-        : load is VehicleBuilding { VehicleDef: { } design } ? Powertrain.KerbFor(design, null, null) : load.GetStatValue(StatDefOf.Mass);
+    public static double KilogramsOf(Thing load) => load switch
+    {
+        VehiclePawn vehicle => LoadKilograms(vehicle),
+        VehicleBuilding { VehicleDef: { } design } => Powertrain.KerbFor(design, null, null),
+        // Framework 0.335.0: a net weighs itself and what it holds; a stack weighs every piece (a packed building weighs as the building).
+        Building_PhobosCargoNet net => net.Kilograms,
+        _ => load.GetStatValue(StatDefOf.Mass) * load.stackCount,
+    };
 
     bool HasSlingSet => Vehicle.inventory?.innerContainer.Any(t => t.def == VehicleSystemsThingDefOf.PhobosVehicleSystems_SlingSet) == true;
 
@@ -243,12 +255,27 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         return null;
     }
 
-    /// <summary>Why this load cannot be lifted now, or null: a vehicle, or a hull.</summary>
+    /// <summary>Why this thing cannot be lifted now, or null (Framework 0.335.0, EM21(b)): an item or a cargo net, as a hull is judged.
+    /// Anyone's may be lifted, as a hull may: carrying off another faction's things is the player's choice.</summary>
+    public string? RefusalForThing(Thing thing)
+    {
+        NamedArgument name = thing.LabelShort.Named("LOAD");
+        if (!IsLiftableThing(thing)) return "PhobosSling_NotLiftable".Translate(name).Resolve();
+        if (!thing.Spawned || thing.Map != Vehicle.Map) return "PhobosSling_NotHere".Translate(name).Resolve();
+        if (thing.Position.DistanceTo(Vehicle.Position) > Rules.slingReachCells) return "PhobosSling_TooFar".Translate(name, Rules.slingReachCells.Named("CELLS")).Resolve();
+        if (thing.OccupiedRect().Any(cell => cell.Roofed(thing.Map))) return "PhobosSling_Roofed".Translate(name).Resolve();
+        double weight = KilogramsOf(thing);
+        if (HoverPilot.For(Vehicle) != null && !FlightRules.WouldHoverWith(Vehicle, weight))
+            return "PhobosSling_TooHeavyToHover".Translate(Vehicle.LabelShort.Named("HELICOPTER"), name, weight.ToString("N0").Named("WEIGHT")).Resolve();
+        return null;
+    }
+
+    /// <summary>Why this load cannot be lifted now, or null: a vehicle, a hull, or since Framework 0.335.0 an item or a cargo net.</summary>
     public string? RefusalForLoad(Thing load) => load switch
     {
         VehiclePawn vehicle => RefusalFor(vehicle),
         VehicleBuilding hull => RefusalForHull(hull),
-        _ => "PhobosSling_NotLiftable".Translate(load.LabelShort.Named("LOAD")).Resolve(),
+        _ => RefusalForThing(load),
     };
 
     /// <summary>Why the helicopter cannot take off with its chosen load, or null (Vehicle Framework's launch check asks; SlingPatches).</summary>
@@ -369,6 +396,8 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         Rot4 facing = load.Rotation;
         Vector3 stood = ((Thing)load).DrawPos;
         (load as VehiclePawn)?.vehiclePather?.StopDead();
+        // Framework 0.335.0: a cargo net takes up what lies in it.
+        (load as Building_PhobosCargoNet)?.Gather();
         load.DeSpawn();
         if (!held.TryAdd(load, canMergeWithExistingStacks: false))
         {
@@ -502,6 +531,9 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         }
         liftedFrom = null;
         if (load is VehicleBuilding) Seen.Note("vehicles.sling-hull", load, variant: "set-down");
+        if (load is Building_PhobosCargoNet net) net.Spill();
+        if (IsLiftableThing(load) && Seen.Wants("vehicles.sling-thing", Vehicle, load is Building_PhobosCargoNet ? "net" : load is MinifiedThing ? "packed" : "stack"))
+            Seen.Note("vehicles.sling-thing", Vehicle, load.LabelShort, load is Building_PhobosCargoNet ? "net" : load is MinifiedThing ? "packed" : "stack");
         return true;
     }
 
@@ -611,6 +643,34 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
             string name = hull.LabelShort;
             hull.Destroy();
             Say("PhobosSling_ReleasedHull".Translate(Vehicle.LabelShort.Named("HELICOPTER"), name.Named("LOAD")).Resolve(), MessageTypeDefOf.NegativeEvent);
+            return;
+        }
+        if (Load is { } thing && IsLiftableThing(thing))
+        {
+            // Framework 0.335.0: a thing let go falls to the ground below and lies there as a depot a caravan can collect from; a net's
+            // contents fall with it, and the net comes apart.
+            PlanetTile spot = PhobosSlingWreck.FreeTileNear(below);
+            if (!spot.Valid)
+            {
+                Say("PhobosSling_ReleaseNoTile".Translate(thing.LabelShort.Named("LOAD")).Resolve(), MessageTypeDefOf.RejectInput, historical: false);
+                return;
+            }
+            held.Remove(thing);
+            liftedFrom = null;
+            string what = thing.LabelShort;
+            PhobosSlingWreck depot = Depots.At(spot) ?? PhobosSlingWreck.MakeDepot(spot);
+            if (thing is Building_PhobosCargoNet net)
+            {
+                foreach (Thing inside in net.Netted.ToList())
+                {
+                    net.Netted.Remove(inside);
+                    depot.Keep(inside);
+                }
+                net.Destroy();
+            }
+            else depot.Keep(thing);
+            Say("PhobosSling_ReleasedThing".Translate(Vehicle.LabelShort.Named("HELICOPTER"), what.Named("LOAD")).Resolve(), new LookTargets(depot),
+                MessageTypeDefOf.NegativeEvent);
             return;
         }
         if (Carried is not { } load) return;
@@ -952,7 +1012,10 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
                 canTargetPawns = true,
                 // Framework 0.197.0: a destroyed vehicle's hull is a building, and can be lifted too.
                 canTargetBuildings = true,
-                validator = target => target.Thing is VehiclePawn || IsHull(target.Thing),
+                // Framework 0.335.0 (EM21(b)): a packed building, a stack of anything, or a cargo net with what lies in it.
+                canTargetItems = true,
+                mapObjectTargetsMustBeAutoAttackable = false,
+                validator = target => target.Thing is VehiclePawn || IsHull(target.Thing) || IsLiftableThing(target.Thing),
             }, target =>
             {
                 if (target.Thing is { } load) Choose(load);

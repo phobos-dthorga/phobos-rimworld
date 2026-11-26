@@ -2,6 +2,7 @@
 <LanguageData>
   <!-- The litter kit (Framework 0.101.0): downed people carried on litters aboard a vehicle. docs/development/vehicle-upgrades-round-two.md -->
   <PhobosLitter_CarryTo>Carry {PATIENT} to a litter aboard {VEHICLE}</PhobosLitter_CarryTo>
+  <PhobosLitter_CaptureTo>Capture {PATIENT}: carry them to a litter aboard {VEHICLE}</PhobosLitter_CaptureTo>
   <PhobosLitter_CarryToCannot>{ORDER}: {REASON}</PhobosLitter_CarryToCannot>
 
   <PhobosLitter_NoKit>{VEHICLE} has no litter kit. A mechanic can fit one in the fittings and tunes.</PhobosLitter_NoKit>

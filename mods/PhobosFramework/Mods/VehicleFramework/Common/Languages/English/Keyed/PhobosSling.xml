@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <!-- Sling loads (Framework 0.92.0): a helicopter lifts a vehicle on a sling. docs/development/vehicle-sling-design.md -->
-  <PhobosSling_LiftGizmo>Lift a vehicle or a hull</PhobosSling_LiftGizmo>
-  <PhobosSling_LiftGizmoDesc>Choose a vehicle parked outdoors within {CELLS} cells to carry hanging from the cargo hook. Today the hook lifts up to {CAPACITY} kg, the vehicle, its cargo and the people aboard together. When the helicopter takes off, the vehicle goes with it, and it is set down beside the helicopter where it lands. The hull of a destroyed vehicle can be lifted the same way, to be taken apart at home.</PhobosSling_LiftGizmoDesc>
+  <PhobosSling_LiftGizmo>Lift with the sling</PhobosSling_LiftGizmo>
+  <PhobosSling_LiftGizmoDesc>Choose a vehicle parked outdoors within {CELLS} cells to carry hanging from the cargo hook. Today the hook lifts up to {CAPACITY} kg, the vehicle, its cargo and the people aboard together. When the helicopter takes off, the vehicle goes with it, and it is set down beside the helicopter where it lands. The hull of a destroyed vehicle can be lifted the same way, to be taken apart at home, and so can a packed building, a stack of anything, or a cargo net with everything in it.</PhobosSling_LiftGizmoDesc>
   <PhobosSling_NotLiftable>{LOAD} cannot be lifted on a sling.</PhobosSling_NotLiftable>
   <PhobosSling_ReleasedHull>{HELICOPTER} let {LOAD} go. It fell from cruising height and broke up: nothing is left of it.</PhobosSling_ReleasedHull>
+  <PhobosSling_ReleasedThing>{HELICOPTER} let {LOAD} go. It fell to the ground below, where a caravan can collect what is left of it.</PhobosSling_ReleasedThing>
+  <PhobosSling_NetInspect>In the net: {COUNT} stacks, {WEIGHT} kg with the net. A helicopter's sling lifts it with everything in it.</PhobosSling_NetInspect>
   <PhobosSling_ReleaseHullOnMapDesc>Let {LOAD} go where it hangs. It falls from the helicopter's height onto the nearest clear ground below and lands hard. A hull already badly damaged breaks up, and nothing is left to take apart.</PhobosSling_ReleaseHullOnMapDesc>
   <PhobosSling_ReleaseHullOnMapConfirm>Let {LOAD} fall about {METRES} m? It may break up, leaving nothing to take apart.</PhobosSling_ReleaseHullOnMapConfirm>
   <PhobosSling_ReleaseHullGizmoDesc>Let {LOAD} go. It falls from cruising height and breaks up below: nothing is left to recover. The helicopter flies on lighter.</PhobosSling_ReleaseHullGizmoDesc>

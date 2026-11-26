@@ -393,6 +393,22 @@
         </add>
       </li>
       <li>
+        <!-- Framework 0.335.0, the cross-band last hop (docs/development/radio-advice-and-relays.md; the owner's card of 27 Nov 2026: a new
+             dual-band radio fitting): a small bay beside the control radio for the Radio Framework's dual-band voice radio, appended to every
+             land vehicle so the radio has a part to go on and is lost with it. Inside the body; health and hit weight authored, a small box's. -->
+        <role>VoiceRadioMount</role>
+        <add>
+          <key>PhobosVoiceRadioMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>voice radio bay</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <!-- Framework 0.328.0, radio relays (docs/development/vehicle-road-work.md; the owner's card of 26 Nov 2026: a relay between tiles
              needs a repeater): a small bay beside the control radio for the Radio Framework's repeater kit, appended to every land vehicle so
              the kit has a part to go on and is lost with it. Inside the body; health and hit weight authored, a small box's. -->

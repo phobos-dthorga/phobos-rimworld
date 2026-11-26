@@ -21,6 +21,22 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+
+## [0.25.0] - 2026-11-27 - Draft
+
+The cross-band last hop: a hand-held talks home through a vehicle
+
+### Added
+
+- **The dual-band radio**, a fitting for any land vehicle (the owner's card: a new dual-band fitting; 12 steel, 2 components, after local
+  radio, about 2 A): a colonist's hand-held, VHF or UHF, on a camp, site or ambush map talks home through it, through any relay, as a real
+  cross-band set does. Advice by radio uses it, so a medic away from home can be talked through tending. Its figures are the agent's; it
+  borrows the repeater kit's icon until its own is drawn. Row 645.
+
+### Compatibility and limits
+
+- Only advice by radio uses it yet; the in-touch mood still needs a station.
+
 ## [0.24.2] - 2026-11-27 - Draft
 
 The numbered medical chest, the repeater kit and the relay mast get their own pictures

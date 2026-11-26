@@ -34,6 +34,9 @@ public readonly record struct RemoteHome(double MarginDb, Map Home);
 public interface IRemoteReachSource
 {
     IEnumerable<RemoteHome> Homes(Pawn pawn);
+
+    /// <summary>Whether a map with no station of the player's still has a way home for those on it (Radio 0.25.0: a cross-band vehicle).</summary>
+    bool Serves(Map map) => false;
 }
 
 /// <summary>Where a person off the map reaches home by radio, when a tie-in can say (Radio 0.23.0): a convoy's reach home.</summary>
@@ -45,6 +48,9 @@ public static class RemoteReach
 
     /// <summary>The colonies this person reaches, the first reached first; asked one by one as the caller goes on.</summary>
     public static IEnumerable<RemoteHome> Of(Pawn pawn) => source?.Homes(pawn) ?? Enumerable.Empty<RemoteHome>();
+
+    /// <summary>Whether people on this map may reach home through a tie-in, with no station of their own (Radio 0.25.0).</summary>
+    public static bool Serves(Map map) => source?.Serves(map) == true;
 }
 
 /// <summary>One adviser found for one carer, and what the call would lift them to.</summary>
@@ -167,8 +173,8 @@ public static class RadioAdvice
         if (carer.Spawned)
         {
             var net = RadioNet.For(carer.Map);
-            if (net.ServedBy(carer) == null || !net.TryGetBest(carer, out var link) || link == null) return null;
-            return SeekAt(carer, def, carer.Map, link.Budget.Outcome);
+            if (net.ServedBy(carer) != null && net.TryGetBest(carer, out var link) && link != null) return SeekAt(carer, def, carer.Map, link.Budget.Outcome);
+            // Radio 0.25.0: no station of theirs serves them (a camp, a site): through a cross-band vehicle on the map, as from a convoy.
         }
         // Off the map: the colony the convoy reaches first, then (Radio 0.24.1) each other colony it reaches, through a repeater station
         // among the relays, until one has someone who can help. The others are asked only when the first could not help.
@@ -319,7 +325,8 @@ public static class RadioAdvice
         var rules = RadioRulesDef.Current;
         foreach (Map map in Find.Maps)
         {
-            if (RadioNet.For(map).Stations.Count == 0) continue;
+            // Radio 0.25.0: a map with no station is looked at too when a cross-band vehicle there gives its people a way home.
+            if (RadioNet.For(map).Stations.Count == 0 && !RemoteReach.Serves(map)) continue;
             foreach (Pawn pawn in map.mapPawns.FreeColonistsSpawned)
             {
                 // After a load: an adviser still on a call nothing keeps steps away from the radio; the call is opened again below.
@@ -397,7 +404,9 @@ public static class RadioAdvice
     private static bool InTouch(Pawn pawn)
     {
         var net = RadioNet.For(pawn.Map);
-        return net.ServedBy(pawn) != null && net.TryGetBest(pawn, out var link) && link != null && link.Budget.Outcome != LinkOutcome.NoContact;
+        if (net.ServedBy(pawn) != null) return net.TryGetBest(pawn, out var link) && link != null && link.Budget.Outcome != LinkOutcome.NoContact;
+        // Radio 0.25.0: through a cross-band vehicle, kept a short while by the tie-in, so a live call's look costs no new search.
+        return RemoteReach.Of(pawn).Any(home => RadioRulesDef.Current.MarginBands.Classify(home.MarginDb) != LinkOutcome.NoContact);
     }
 
     /// <summary>Ends a call. <paramref name="dropped"/>: the carer still works and goes on alone, and is told so.</summary>

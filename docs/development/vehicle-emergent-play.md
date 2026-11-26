@@ -600,6 +600,16 @@ alive; another faction's building stays put. A rock chunk weighs 25 kg in the ga
 was the only part in the Dubs tie-in, but the water itself (`PhobosTank_Water`) and the water bowser are Dubs-only too, so it would bring
 a vehicle into every game; the question is in `config/decisions.json` (`river-water-without-dubs`).
 
+**Since built (Framework 0.335.0, rows 642 to 644; the owner's cards of 27 Nov 2026):** the rest of EM21. **(b) The sling lifts a packed
+building, a stack of anything, and a cargo net** ("Also a cargo net of many stacks"): `CompPhobosSling.IsLiftableThing`; a stack
+weighs every piece, a packed building as the building; the net (`Building_PhobosCargoNet`, a 2 by 2 stockpile your haulers fill) takes
+up what lies in its cells as it is lifted and lets it out where it is set down; let go in flight, a thing lands as a depot. They are
+lifted at take-off, not from a hover [A]. The net's picture is bought (US$0.11, two tries, the owner's pick waiting). **(d) The litter
+captures a downed enemy** ("Order it, and collect them too"): wherever the game would let a colonist capture them, they become the
+player's prisoner as they are put aboard (`Pawn_GuestTracker.CapturedBy`, the faction's goodwill loss included), by order or by
+collection; collecting them has its own setting, **Litters collect downed enemies as prisoners**, on (moderate risk [A]: a goodwill
+loss the player sees in the message, no loss of their own things).
+
 ## As built: batch 4, what is lost stays (20 Nov 2026, Framework 0.187.0)
 
 The owner's answer to question 5: "both" (a lost convoy as a site, and a hull on the map). Not yet tested in game; row 261.

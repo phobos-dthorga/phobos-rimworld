@@ -273,7 +273,7 @@ of nodes and at most three hops, each hop one link budget a band. The builder st
 | Vehicles and the mast site as relay nodes; the repeater kit (`PhobosFitting_RepeaterKit`) in a repeater bay on every land vehicle | Built | Radio 0.22.0, Framework 0.328.0 |
 | Plane earth (`Propagation.PlaneEarthPathLossDb`) and site height by hilliness (`Propagation.SiteHeightMetres`), both in `EvaluateWorld` | Built | Radio Framework 0.22.0 |
 | Home stations (the repeater upgrade), the radio relay post, channels at relays (`RelayLedger`, game-free, tested) | Built | Radio Framework 0.24.0 |
-| Cross-band last hop | Not started | Radio Framework |
+| Cross-band last hop: the dual-band radio fitting, a hand-held through it on a map no station serves (`CrossBand`) | Built | Radio Framework 0.25.0 |
 | Radio advice: tending, surgery, vehicle repairs, trade talks, the numbered medical chest | Built | Radio Framework 0.23.0, Framework 0.330.0 |
 
 Built by another session (road-work-three) to this record's shape; what the version delivered is in the Radio Framework's changelog.
@@ -306,6 +306,29 @@ relay post"). Built by road-work-four. Every figure is the agent's. Not yet test
   its Def and never saved. Unmanned, it relays nothing. Its world icon borrows the mast antenna's picture.
 - **Cost**: a search asks the ledger once a relay (a few short lists); the station source walks each home map's stations, as the
   convoy's home ends already do; the post source walks the world objects, as the mast source does. Nothing runs on its own. Not measured.
+
+### As built (Radio 0.25.0, 27 Nov 2026): the cross-band last hop
+
+The owner, 27 Nov 2026: "1, 2, and 4" of road-work-five's suggestions, the first being the cross-band hop, and by card **a new dual-band
+radio fitting** (against making the control radio dual-band, or the repeater kit). Built by road-work-five. Not yet tested in game (row 645).
+
+| Option offered (27 Nov 2026) | Chosen |
+| --- | --- |
+| How a vehicle gets a radio a hand-held talks through: a new dual-band fitting (the agent's lean); the control radio made dual-band; part of the repeater kit | **A new dual-band fitting** |
+
+- **The fitting** (`PhobosFitting_DualBandRadio`, `CrossBand.xml` in the Radio Framework's vehicle folder): a 25 W voice radio on VHF and
+  UHF on a 3 m whip [A], 12 steel and 2 components, 2 A, after local radio [A], in a **voice radio bay** every land vehicle has
+  (D'thorga Framework's `Loadouts_Default.xml`). Its radio is a stateless set (`PhobosRadio_DualBandUnit`) the link budget reads.
+- **The hop** (`CrossBand.For`): a colonist with a worn hand-held, on a map where no station serves them, reaches a dual-band vehicle of
+  the player's on that map by the map's own link budget (walls and all; a marginal link counts); the vehicle's end between tiles is a
+  relay node on the map's tile, and its chain home is the convoy's (`ConvoyReachSource.ChainHome`). The link home is the worse of the
+  two. Advice by radio uses it: a map with no station is looked at when such a vehicle is there (`IRemoteReachSource.Serves`), a carer no
+  station serves is helped through it (`RemoteReach.Of`), and a live call holds while it lasts.
+- **For radio-elmer's faction doctors**: `ConvoyRemoteReach.WorldEndOf(pawn)` gives a convoy's end or the gateway vehicle's.
+- **Cost**: asked per pawn only by advice, each answer kept 250 ticks: one map link budget per dual-band vehicle on the map, and one
+  world chain search per gateway vehicle, also kept 250 ticks. Not measured.
+- **Limits**: only advice uses it yet (the in-touch mood thought and the map's own net still need a station); the gateway takes no
+  channel of its own.
 
 ## The cards as put
 

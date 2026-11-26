@@ -1,0 +1,28 @@
+[
+  {
+    "name": "building-cargo-net",
+    "title": "Cargo net laid on the ground (CargoNet)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SlingSet.png",
+        "role": "our approved item from the same mod (the sling set, lifting strops on a ring): match its outline weight, shading, palette and finish, and the look of its webbing and steel ring; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/FireBucket.png",
+        "role": "our approved item from the same mod: match its outline weight, shading and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "building": "PhobosVehicleSystems_CargoNet, the cargo net (Framework 0.335.0; docs/development/vehicle-emergent-play.md, EM21(b); the owner's card of 27 Nov 2026: 'Also a cargo net of many stacks')",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/CargoNet.png",
+      "size": "drawn by the game on 2 by 2 cells; requested at 1024",
+      "why": "a building lying in the game world, so the paid service (assets/AGENTS.md); it borrows the sling set's picture until picked"
+    },
+    "prompt": "GAME FLOOR OBJECT SPRITE. Seen straight from above, like a mat lying flat on the ground in a top-down strategy game, filling a square.\n\nCreate an ORIGINAL game sprite for a helicopter cargo net spread flat and empty on the ground, ready to be filled and lifted. Images 1 and 2 are our approved items from the same game: match their outline weight, shading, palette and finish only; image 1 also shows the look of our lifting webbing and steel rings. Do NOT copy their shapes.\n\nDraw ONLY the net, alone on a plain pure white background, filling about 90 percent of the square canvas.\n\nA square net of thick olive-drab woven webbing straps crossing in a coarse diamond grid, with gaps of plain white background between the straps. A heavier border strap runs round all four edges, and at each corner a short strap leads to a small dull steel ring; the four rings lie just inside the corners.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every strap, soft flat cel shading with two or three tones, muted olive and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, cargo, boxes, people, ground, grass or shadow outside the net."
+  }
+]

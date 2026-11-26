@@ -53,12 +53,20 @@ public sealed class ConvoyReachSource : IConvoyReachSource
     /// Its relay places are booked under the convoy and that colony together, apart from the convoy's own reach home. Asked only when the
     /// colony the convoy reaches first could not help (advice by radio), so with one colony it never runs.
     /// </summary>
-    public static double? MarginTo(Caravan convoy, Map colony)
+    public static double? MarginTo(Caravan convoy, Map colony) =>
+        ConvoyEnd(convoy, ConvoyRadio.Mast(convoy)) is { } start ? ChainHome(start, colony, (convoy, colony))?.MarginDb : null;
+
+    /// <summary>
+    /// The colony a world end reaches first, through any relay, and how much its weakest hop has to spare, or null (Radio 0.25.0): any
+    /// colony's stations, or only <paramref name="only"/>'s; the places it takes at relays are booked under <paramref name="leaseHolder"/>.
+    /// A convoy's end, or a cross-band vehicle's on a map of its own (<see cref="CrossBand"/>).
+    /// </summary>
+    public static (Map Home, double MarginDb)? ChainHome(RelayNode start, Map? only, object leaseHolder)
     {
-        if (ConvoyEnd(convoy, ConvoyRadio.Mast(convoy)) is not { } start) return null;
-        List<RelayNode> targets = HomeEnds(colony);
+        List<RelayNode> targets = HomeEnds(only);
         if (targets.Count == 0) return null;
-        return RelayNodes.BestChain(start, targets, RelayNodes.All().ToList(), leaseHolder: (convoy, colony)) is { } found ? found.chain.WorstMarginDb : null;
+        if (RelayNodes.BestChain(start, targets, RelayNodes.All().ToList(), leaseHolder) is not { } found) return null;
+        return found.nodes[found.chain.Path[found.chain.Path.Count - 1]].Owner is Map home ? (home, found.chain.WorstMarginDb) : null;
     }
 
     /// <summary>Each powered station's ends on each home map, or on one map only, as targets.</summary>

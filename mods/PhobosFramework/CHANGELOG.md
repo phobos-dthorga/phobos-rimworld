@@ -17,6 +17,29 @@ tested in game unless an entry says the owner tested it.
 
 
 
+
+## [0.335.0] - 2026-11-27 - Draft
+
+Supply trucks park to be loaded, the sling lifts packed buildings, stacks and a cargo net, the litter captures downed enemies, and a voice radio bay
+
+### Added
+
+- **A supply truck parks to be loaded at a colony** (the owner's card: your spot, else near its list): beside the things on its loading
+  list, by the nearest stockpile when delivering, or where you pick (Its stops, then the stop, then Where it parks here). Row 641.
+- **The litter captures a downed enemy** (EM21; the owner's card: order it, and collect them too): right-click Capture ... aboard, and
+  Take casualties aboard brings them too; they become your prisoners as they are put aboard, as when your people capture one, at the same
+  cost in goodwill. Row 642.
+- **A new setting, Litters collect downed enemies as prisoners** (D'thorga Vehicle Systems settings, on by default): off, an enemy is
+  taken only when you order it.
+- **The sling lifts a packed building or a stack of anything, and a cargo net** (EM21; the owner's card): build a cargo net (Motor pool,
+  after turbines; 60 cloth, 20 steel), let haulers fill it, and Lift with the sling takes it with all it holds, let out where it is set
+  down. Let go in flight, a load lands as a depot. The net borrows the sling set's picture until its bought one is picked. Rows 643, 644.
+- **A voice radio bay on every land vehicle**, for D'thorga Radio Framework's dual-band radio.
+
+### Save compatibility
+
+- Safe to add. Removing the mod mid-game: a cargo net is lost with what lies in it, so empty it first.
+
 ## [0.334.0] - 2026-11-27 - Draft
 
 The fittings audit: an extinguisher keeps its charges, and the grid pays for heaters and the house battery's charge

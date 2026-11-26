@@ -25,6 +25,9 @@
   <PhobosSupplyRun_LoadExplain>While it waits here, your people load these into it, less what it already carries. It leaves once all of it is loaded, or when its waiting time is up.</PhobosSupplyRun_LoadExplain>
   <PhobosSupplyRun_LoadHave>has {COUNT}</PhobosSupplyRun_LoadHave>
   <PhobosSupplyRun_Loaded>{VEHICLE} is loaded at {PLACE} and sets off.</PhobosSupplyRun_Loaded>
+  <PhobosSupplyRun_ParkPick>Where it parks here</PhobosSupplyRun_ParkPick>
+  <PhobosSupplyRun_ParkClear>Park near what it loads</PhobosSupplyRun_ParkClear>
+  <PhobosSupplyRun_ParkSet>{VEHICLE} will park there at {PLACE}.</PhobosSupplyRun_ParkSet>
   <PhobosSupplyRun_LoadedPart>{VEHICLE}'s time at {PLACE} is up and it sets off with only part of its loading list.</PhobosSupplyRun_LoadedPart>
 
   <!-- What it does -->

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The cargo net (Framework 0.335.0; docs/development/vehicle-emergent-play.md, EM21(b); the owner's card of 27 Nov 2026, "Also a cargo net of
+    many stacks"): a heavy net laid on the ground as a small stockpile of 2 by 2 cells, filled by haulers by its storage settings; a
+    helicopter's sling lifts it with all it holds (Phobos.VehicleSystems.Building_PhobosCargoNet). Real basis: a helicopter cargo net, a
+    square of webbing gathered to a ring at the hook. Cost, size, work and weight are the agent's proposals; one stack a cell, as a stockpile.
+    It borrows the sling set's picture until its own, a bought one as it lies in the world, is picked. Not yet tested in game.
+  -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosVehicleSystems_CargoNet</defName>
+    <label>cargo net</label>
+    <description>A square of heavy webbing laid on the ground, with its corners gathered to a ring a helicopter's cargo hook can take. Your haulers fill it like a stockpile, by what you allow it; a helicopter with the sling then lifts the net with everything in it, and lets it all out where the net is set down.</description>
+    <thingClass>Phobos.VehicleSystems.Building_PhobosCargoNet</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/SlingSet</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,2)</drawSize>
+    </graphicData>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <passability>Standable</passability>
+    <surfaceType>Item</surfaceType>
+    <canOverlapZones>false</canOverlapZones>
+    <size>(2,2)</size>
+    <rotatable>false</rotatable>
+    <useHitPoints>true</useHitPoints>
+    <costList>
+      <Cloth>60</Cloth>
+      <Steel>20</Steel>
+    </costList>
+    <statBases>
+      <WorkToBuild>1200</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>1</Flammability>
+      <Mass>30</Mass>
+      <Beauty>-2</Beauty>
+    </statBases>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>140</uiOrder>
+    <researchPrerequisites>
+      <li>PhobosResearch_Turbines</li>
+    </researchPrerequisites>
+    <inspectorTabs>
+      <li>ITab_Storage</li>
+    </inspectorTabs>
+    <building>
+      <preventDeteriorationOnTop>false</preventDeteriorationOnTop>
+      <ignoreStoredThingsBeauty>true</ignoreStoredThingsBeauty>
+      <maxItemsInCell>1</maxItemsInCell>
+      <blueprintClass>Blueprint_Storage</blueprintClass>
+      <fixedStorageSettings>
+        <filter>
+          <categories>
+            <li>Foods</li>
+            <li>Manufactured</li>
+            <li>ResourcesRaw</li>
+            <li>Items</li>
+            <li>Weapons</li>
+            <li>Apparel</li>
+            <li>BuildingsArt</li>
+          </categories>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <priority>Normal</priority>
+      </defaultStorageSettings>
+    </building>
+  </ThingDef>
+</Defs>

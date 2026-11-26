@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The dual-band radio (Radio Framework 0.25.0; docs/development/radio-advice-and-relays.md, "Two kinds, by physics"; the owner's card of
+       27 Nov 2026, "New dual-band radio fitting"): a voice radio on VHF and UHF in the voice radio bay every land vehicle has
+       (Loadouts_Default.xml). A colonist's hand-held on a map no station serves talks to it on either band, and it sends the call on at once
+       between tiles toward home (Phobos.Radio.Vehicles.CrossBand): cross-band repeat, as many dual-band sets do. Cost, research, load, weight,
+       work, skill and figures are the agent's proposals for the owner to revise; the radio is a 25 W mobile set on a 3 m whip, as the control
+       radio. It borrows the repeater kit's picture until its own icon is drawn. Not yet tested in game. -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_DualBandRadio</defName>
+    <iconPath>Phobos/Radio/Fittings/RepeaterKit</iconPath>
+    <label>dual-band radio</label>
+    <description>A voice radio on both the VHF and UHF bands, with its own whip. Your colonists' hand-helds talk to it from anywhere it reaches on the same map, and it sends their calls on at once toward home: so someone at a camp, a ruin or a fight away from your colonies can still reach home through the vehicle, and be talked through tending or a repair. It draws a little on the battery.</description>
+    <roles><li>VoiceRadioMount</li></roles>
+    <materials><Steel>12</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <kilograms>5</kilograms>
+    <work>1200</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosRadio_LocalRadio</researchPrerequisite>
+    <grants><li>RadioCrossBand</li></grants>
+    <loads>
+      <li>
+        <!-- A mobile voice set listening on two bands and keyed now and then: about 2 A at 12 V on average (authored), halved on a 24 V truck.
+             Shed early: a vehicle that loses it only stops passing calls on. -->
+        <name>dualBandRadio</name>
+        <label>dual-band radio</label>
+        <description>The dual-band radio. With power, colonists' hand-helds on this map talk home through the vehicle.</description>
+        <amps>2</amps>
+        <shedOrder>4</shedOrder>
+        <iconPath>Phobos/Radio/Fittings/RepeaterKit</iconPath>
+      </li>
+    </loads>
+    <feed>
+      <load>dualBandRadio</load>
+    </feed>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <!-- The radio inside it, as a thing the link budget can read: never on a map (Phobos.Radio.Vehicles.CrossBand makes one and reads it). -->
+  <ThingDef>
+    <defName>PhobosRadio_DualBandUnit</defName>
+    <label>dual-band radio</label>
+    <description>The dual-band radio in a vehicle's voice radio bay. It never stands on a map.</description>
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <graphicData>
+      <texPath>Phobos/Radio/Fittings/RepeaterKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <tickerType>Never</tickerType>
+    <selectable>false</selectable>
+    <alwaysHaulable>false</alwaysHaulable>
+    <tradeability>None</tradeability>
+    <useHitPoints>false</useHitPoints>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Radio">
+        <bands>
+          <li>PhobosRadio_VHF</li>
+          <li>PhobosRadio_UHF</li>
+        </bands>
+        <mode>PhobosRadio_VoiceFM</mode>
+        <transmitPowerWatts>25</transmitPowerWatts>
+        <noiseFigureDb>8</noiseFigureDb>
+        <antennaGainDbi>0</antennaGainDbi>
+        <antennaHeightMetres>3</antennaHeightMetres>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

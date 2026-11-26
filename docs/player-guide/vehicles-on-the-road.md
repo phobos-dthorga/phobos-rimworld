@@ -416,6 +416,9 @@ load**, **fetch the depot's goods** or **only wait**, and how long it waits. **S
 - **At a colony, give its stop a loading list** (in **Its stops**, pick the stop, then **Loading list**): your people carry those
   things to it while it waits, less what it already carries. **It leaves as soon as all of it is loaded, or with part of it when its
   waiting time is up**, and says which. Fetching is from depots.
+- **At a colony it parks to be loaded** (from Framework 0.335.0): beside the things on its loading list, or by your nearest
+  stockpile when it delivers. **Its stops**, then the stop, then **Where it parks here**, picks the spot yourself. If it cannot get
+  there, it waits where it stands.
 
 ### The ground: bogging and grit
 

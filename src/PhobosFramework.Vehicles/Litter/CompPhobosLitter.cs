@@ -76,7 +76,8 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder, IKeepsTicking
         if (!KitFitted) return "PhobosLitter_NoKit".Translate(vehicle).Resolve();
         if (Free <= 0) return "PhobosLitter_Full".Translate(vehicle).Resolve();
         if (!patient.Downed) return "PhobosLitter_NotDowned".Translate(patient.LabelShort.Named("PATIENT")).Resolve();
-        if (patient.HostileTo(Faction.OfPlayer)) return "PhobosLitter_Hostile".Translate(patient.LabelShort.Named("PATIENT")).Resolve();
+        // Framework 0.335.0 (EM21(d)): an enemy is taken only where the game would let your people capture them, and is captured aboard.
+        if (patient.HostileTo(Faction.OfPlayer) && !Capturable(patient)) return "PhobosLitter_Hostile".Translate(patient.LabelShort.Named("PATIENT")).Resolve();
         if (!Vehicle.Spawned || patient.MapHeld != Vehicle.Map) return "PhobosLitter_NotHere".Translate(vehicle).Resolve();
         if (Vehicle.vehiclePather is { Moving: true }) return "PhobosLitter_Moving".Translate(vehicle).Resolve();
         // A helicopter that flies on the map by itself (the Hind) is spawned while in the air: nobody is carried up to it.
@@ -97,6 +98,7 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder, IKeepsTicking
             return false;
         }
         Vehicle.RequestTickStart(this);
+        CaptureIfEnemy(patient, carrier);
         Messages.Message("PhobosLitter_Loaded".Translate(carrier.LabelShort.Named("CARRIER"), patient.LabelShort.Named("PATIENT"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
             Vehicle, MessageTypeDefOf.TaskCompletion, historical: false);
         LitterService.NotifyLoaded(this);
@@ -107,13 +109,31 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder, IKeepsTicking
 
     /// <summary>Whether a downed person can be laid on a litter straight from the hoist's stretcher (Framework 0.155.0): kit fitted, a litter
     /// free, not hostile. The hover and the map were the hoist's to judge.</summary>
-    public bool TakesFromHoist(Pawn patient) => KitFitted && Free > 0 && patient.Downed && !patient.HostileTo(Faction.OfPlayer);
+    public bool TakesFromHoist(Pawn patient) => KitFitted && Free > 0 && patient.Downed && (!patient.HostileTo(Faction.OfPlayer) || Capturable(patient));
+
+    /// <summary>
+    /// Whether a downed enemy may be put on a litter as a prisoner (Framework 0.335.0; docs/development/vehicle-emergent-play.md, EM21(d); the
+    /// owner's card of 27 Nov 2026): wherever the game itself lets a colonist capture them (<c>CanBeCaptured</c>), and downed.
+    /// </summary>
+    public static bool Capturable(Pawn pawn) => pawn.Downed && pawn.HostileTo(Faction.OfPlayer) && pawn.CanBeCaptured();
+
+    /// <summary>
+    /// An enemy put aboard becomes the player's prisoner then and there, as the game makes a downed enemy joining a caravan one, and as its own
+    /// capture does at the bed: <c>CapturedBy</c>, with its faction's goodwill loss, the record and the tale. The litter never reaches a bed.
+    /// </summary>
+    static void CaptureIfEnemy(Pawn patient, Pawn? carrier)
+    {
+        if (!patient.HostileTo(Faction.OfPlayer) || patient.IsPrisonerOfColony || patient.guest == null) return;
+        patient.guest.CapturedBy(Faction.OfPlayer, carrier);
+        Seen.Note("vehicles.litter-captured", patient, patient.Faction?.Name ?? "");
+    }
 
     /// <summary>Lays a downed person on a litter from the hoist, which holds them in <paramref name="from"/>. False when no litter takes them.</summary>
     public bool LoadFromHoist(Pawn patient, ThingOwner from)
     {
         if (!TakesFromHoist(patient) || !from.TryTransferToContainer(patient, held, canMergeWithExistingStacks: false)) return false;
         Vehicle.RequestTickStart(this);
+        CaptureIfEnemy(patient, null);
         LitterService.NotifyLoaded(this);
         return true;
     }
@@ -347,7 +367,9 @@ public class FloatMenuOptionProvider_PhobosLitter : FloatMenuOptionProvider
 
     public override IEnumerable<FloatMenuOption> GetOptionsFor(Pawn clickedPawn, FloatMenuContext context)
     {
-        if (clickedPawn is VehiclePawn || !clickedPawn.Downed || !clickedPawn.Spawned || clickedPawn.HostileTo(Faction.OfPlayer)) yield break;
+        if (clickedPawn is VehiclePawn || !clickedPawn.Downed || !clickedPawn.Spawned) yield break;
+        bool capture = clickedPawn.HostileTo(Faction.OfPlayer);
+        if (capture && !CompPhobosLitter.Capturable(clickedPawn)) yield break;
         Pawn carrier = context.FirstSelectedPawn;
         if (carrier == clickedPawn) yield break;
         Map map = clickedPawn.Map;
@@ -357,7 +379,7 @@ public class FloatMenuOptionProvider_PhobosLitter : FloatMenuOptionProvider
         foreach (CompPhobosLitter? litter in litters)
         {
             VehiclePawn vehicle = litter!.Vehicle;
-            string label = "PhobosLitter_CarryTo".Translate(clickedPawn.LabelShort.Named("PATIENT"), vehicle.LabelShort.Named("VEHICLE")).Resolve();
+            string label = (capture ? "PhobosLitter_CaptureTo" : "PhobosLitter_CarryTo").Translate(clickedPawn.LabelShort.Named("PATIENT"), vehicle.LabelShort.Named("VEHICLE")).Resolve();
             string? refusal = litter.RefusalFor(clickedPawn);
             if (refusal == null && !carrier.CanReserveAndReach(clickedPawn, PathEndMode.OnCell, Danger.Deadly)) refusal = "PhobosLitter_NoPath".Translate(clickedPawn.LabelShort.Named("PATIENT")).Resolve();
             if (refusal == null && !carrier.CanReach(vehicle, PathEndMode.Touch, Danger.Deadly)) refusal = "PhobosLitter_NoPath".Translate(vehicle.LabelShort.Named("PATIENT")).Resolve();

@@ -9,7 +9,7 @@
     <AssemblyName>PhobosRadio.CombatExtended</AssemblyName>
     <ModFolder>PhobosRadioFramework</ModFolder>
     <TieInFolder>Mods/CombatExtended/</TieInFolder>
-    <Version>0.24.2</Version>
+    <Version>0.25.0</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>

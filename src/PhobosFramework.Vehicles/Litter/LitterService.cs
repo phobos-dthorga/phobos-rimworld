@@ -91,7 +91,14 @@ public static class LitterService
     }
 
     static bool IsCasualty(Pawn pawn) =>
-        Patients.OnTheGround(pawn) && ((Patients.IsPlayersPerson(pawn) && Patients.CareLevel(pawn) != MedicalCareCategory.NoCare) || IsStrangerInNeed(pawn));
+        Patients.OnTheGround(pawn) && ((Patients.IsPlayersPerson(pawn) && Patients.CareLevel(pawn) != MedicalCareCategory.NoCare) || IsStrangerInNeed(pawn)
+            || IsEnemyToCapture(pawn));
+
+    /// <summary>
+    /// A downed enemy the game would let the player capture, while the setting allows (Framework 0.335.0, EM21(d); the owner's card of 27 Nov
+    /// 2026, "Order it, and collect them too"): put aboard, they become prisoners (<see cref="CompPhobosLitter.Capturable"/>).
+    /// </summary>
+    static bool IsEnemyToCapture(Pawn pawn) => VehicleSystemsMod.Settings.litterCollectsEnemies && pawn.Spawned && !pawn.Dead && CompPhobosLitter.Capturable(pawn);
 
     /// <summary>
     /// A downed stranger who is no enemy: a refugee from a crashed pod, a traveller hurt on the road (Framework 0.187.0;

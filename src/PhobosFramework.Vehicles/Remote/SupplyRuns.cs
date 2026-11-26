@@ -47,6 +47,8 @@ public sealed class SupplyStop : IExposable
     public int waitTicks = RoundRule.WaitTicks(RoundRule.DefaultWaitHours);
     /// <summary>At a colony: what colonists load into it while it waits (Framework 0.332.0), each a kind of thing and how many in all.</summary>
     public List<ThingDefCountClass> load = new();
+    /// <summary>At a colony: where the player wants it to park (Framework 0.335.0), or invalid to park near what it loads.</summary>
+    public IntVec3 parkCell = IntVec3.Invalid;
 
     /// <summary>A colony map of the player's at this stop, entered at its edge.</summary>
     public Map? HomeMap => place is MapParent { HasMap: true, Faction.IsPlayer: true } parent ? parent.Map : null;
@@ -65,6 +67,7 @@ public sealed class SupplyStop : IExposable
         Scribe_Values.Look(ref action, "PhobosRunAction");
         Scribe_Values.Look(ref waitTicks, "PhobosRunWait", RoundRule.WaitTicks(RoundRule.DefaultWaitHours));
         Scribe_Collections.Look(ref load, "PhobosRunLoad", LookMode.Deep);
+        Scribe_Values.Look(ref parkCell, "PhobosRunParkCell", IntVec3.Invalid);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             load ??= new List<ThingDefCountClass>();
@@ -108,6 +111,14 @@ public sealed class CompPhobosSupplyRun : VehicleComp
     IntVec3 exitCell = IntVec3.Invalid;
     /// <summary>Whether colonists are loading it from its stop's list.</summary>
     bool loading;
+    /// <summary>Where it is driving to park at a colony stop (Framework 0.335.0), or invalid; and whether it has parked there.</summary>
+    IntVec3 parkTarget = IntVec3.Invalid;
+    bool parked;
+    /// <summary>How many times it has set off for its parking place this stop; after a few it parks where it stands (not saved).</summary>
+    int parkTries;
+    const int MostParkTries = 3;
+    /// <summary>The rings round its target it looks for room to park in, nearest first (the player's own spot is tried on the spot first).</summary>
+    const int ParkRings = 8;
 
     public IReadOnlyList<SupplyStop> Stops => stops;
     public bool Running => running;
@@ -205,7 +216,10 @@ public sealed class CompPhobosSupplyRun : VehicleComp
         heldForLink = false;
         StopLoading();
         if (exitCell.IsValid && Vehicle.Spawned) VehicleAutoDrive.Halt(Vehicle, exitCell);
+        if (parkTarget.IsValid && Vehicle.Spawned) VehicleAutoDrive.Halt(Vehicle, parkTarget);
         exitCell = IntVec3.Invalid;
+        parkTarget = IntVec3.Invalid;
+        parked = false;
         if (Vehicle.Spawned || !RemoteControl.CrewDrives(Vehicle) && Vehicle.GetVehicleCaravan() is { } convoy && !convoy.vehiclePather.Moving) crewless = false;
         Messages.Message("PhobosSupplyRun_Stopped".Translate(Vehicle.LabelShort.Named("VEHICLE")), Vehicle, MessageTypeDefOf.SilentInput, false);
     }
@@ -215,7 +229,7 @@ public sealed class CompPhobosSupplyRun : VehicleComp
     public override void CompTick()
     {
         base.CompTick();
-        if (!Vehicle.Spawned || !Gen.IsHashIntervalTick(Vehicle, exitCell.IsValid ? DrivingOutTicks : LookTicks)) return;
+        if (!Vehicle.Spawned || !Gen.IsHashIntervalTick(Vehicle, exitCell.IsValid || parkTarget.IsValid ? DrivingOutTicks : LookTicks)) return;
         if (!running)
         {
             crewless = false;
@@ -258,8 +272,26 @@ public sealed class CompPhobosSupplyRun : VehicleComp
         {
             at = here;
             waitUntil = -1;
+            parked = false;
         }
         int now = Find.TickManager.TicksGame;
+        // Framework 0.335.0 (the owner's card of 27 Nov 2026, "Your spot, else near its list"): at a colony it first drives to park where it is
+        // loaded and unloaded, rather than waiting at the edge it came in by.
+        if (waitUntil < 0 && !parked && stops[at].HomeMap == map)
+        {
+            if (!parkTarget.IsValid)
+            {
+                parkTries = 0;
+                parkTarget = ParkingFor(stops[at]);
+                if (!parkTarget.IsValid) parked = true;
+                else crewless = !RemoteControl.CrewDrives(Vehicle);
+            }
+            if (!parked)
+            {
+                DriveToPark();
+                if (!parked) return;
+            }
+        }
         if (waitUntil < 0)
         {
             Arrive(stops[at], null);
@@ -305,6 +337,7 @@ public sealed class CompPhobosSupplyRun : VehicleComp
         {
             VehicleAutoDrive.Halt(Vehicle, exitCell);
             exitCell = IntVec3.Invalid;
+            parked = false;
             if (Seen.Wants("vehicles.supply-run", Vehicle, "edge")) Seen.Note("vehicles.supply-run", Vehicle, map.Parent.LabelCap, "edge");
             int next = Next;
             VehicleCaravan? convoy = CaravanHelper.ExitMapAndCreateVehicleCaravan(new Pawn[] { Vehicle }, Faction.OfPlayer, map.Tile, stops[next].tile, stops[next].tile, sendMessage: false);
@@ -324,6 +357,83 @@ public sealed class CompPhobosSupplyRun : VehicleComp
             crewless = false;
             Waits(VehicleAutoDrive.CannotDrive(Vehicle) ?? "PhobosSupplyRun_WaitCannotLeave".Translate().Resolve());
         }
+    }
+
+    // ---- Parking at a colony (Framework 0.335.0) ----
+
+    /// <summary>
+    /// Where it parks at this colony stop, or invalid to stay where it stands: room for it at the player's spot, else beside the nearest of
+    /// the things on its loading list, else (delivering) beside the nearest stockpile, each by Vehicle Framework's own tests
+    /// (<see cref="VehicleAutoDrive.TryFindStandCell(VehiclePawn, IntVec3, int, out IntVec3)"/>), nearest ring first.
+    /// </summary>
+    IntVec3 ParkingFor(SupplyStop stop)
+    {
+        Map map = Vehicle.Map;
+        IntVec3 from = Vehicle.Position;
+        IntVec3 target = IntVec3.Invalid;
+        int firstRing = 1;
+        if (stop.parkCell.IsValid && stop.parkCell.InBounds(map))
+        {
+            target = stop.parkCell;
+            firstRing = 0;
+        }
+        else
+        {
+            foreach (ThingDefCountClass want in stop.load)
+            {
+                Thing? nearest = map.listerThings.ThingsOfDef(want.thingDef)
+                    .Where(t => t.Spawned && !t.IsForbidden(Faction.OfPlayer) && !t.Position.Fogged(map))
+                    .OrderBy(t => t.Position.DistanceToSquared(from)).FirstOrDefault();
+                if (nearest == null) continue;
+                target = nearest.Position;
+                break;
+            }
+            if (!target.IsValid && stop.action == SupplyStopAction.Deliver)
+            {
+                IntVec3 best = IntVec3.Invalid;
+                foreach (Zone_Stockpile pile in map.zoneManager.AllZones.OfType<Zone_Stockpile>())
+                {
+                    foreach (IntVec3 cell in pile.Cells)
+                        if (!best.IsValid || cell.DistanceToSquared(from) < best.DistanceToSquared(from)) best = cell;
+                }
+                target = best;
+            }
+        }
+        if (!target.IsValid) return IntVec3.Invalid;
+        for (int ring = firstRing; ring <= ParkRings; ring++)
+            if (VehicleAutoDrive.TryFindStandCell(Vehicle, target, ring, out IntVec3 cell)) return cell;
+        return IntVec3.Invalid;
+    }
+
+    /// <summary>A look while it drives to park: there, it stops and its stop begins; refused or stuck a few times, it parks where it stands.</summary>
+    void DriveToPark()
+    {
+        if (Vehicle.Position.InHorDistOf(parkTarget, 1.5f))
+        {
+            Parked();
+            return;
+        }
+        if (VehicleAutoDrive.HeadingFor(Vehicle, parkTarget) && VehicleAutoDrive.Moving(Vehicle)) return;
+        if (parkTries++ >= MostParkTries || VehicleAutoDrive.CannotDrive(Vehicle) != null || !VehicleAutoDrive.StartEngine(Vehicle, out _)
+            || !VehicleAutoDrive.DriveTo(Vehicle, parkTarget))
+            Parked();
+    }
+
+    void Parked()
+    {
+        if (parkTarget.IsValid) VehicleAutoDrive.Halt(Vehicle, parkTarget);
+        if (Seen.Wants("vehicles.supply-run", Vehicle, "parked"))
+            Seen.Note("vehicles.supply-run", Vehicle, Vehicle.Position.InHorDistOf(parkTarget, 1.5f) ? "at its place" : "where it stood", "parked");
+        parkTarget = IntVec3.Invalid;
+        parked = true;
+        VehicleAutoDrive.StopEngine(Vehicle);
+    }
+
+    /// <summary>Sets where it parks at this colony stop, or clears it with an invalid cell.</summary>
+    public void SetParking(int index, IntVec3 cell)
+    {
+        if (LoadRefusal(index) != null) return;
+        stops[index].parkCell = cell;
     }
 
     // ---- Loading at a colony (Framework 0.332.0) ----
@@ -589,6 +699,8 @@ public sealed class CompPhobosSupplyRun : VehicleComp
         Scribe_Values.Look(ref heldForLink, "PhobosRunHeldForLink");
         Scribe_Values.Look(ref exitCell, "PhobosRunExitCell", IntVec3.Invalid);
         Scribe_Values.Look(ref loading, "PhobosRunLoading");
+        Scribe_Values.Look(ref parkTarget, "PhobosRunParkTarget", IntVec3.Invalid);
+        Scribe_Values.Look(ref parked, "PhobosRunParked");
         if (Scribe.mode == LoadSaveMode.PostLoadInit) stops ??= new List<SupplyStop>();
     }
 }
@@ -640,6 +752,21 @@ public static class SupplyRunPlanner
 
     static readonly float[] WaitHours = { 0f, 1f, 6f, 24f };
 
+    /// <summary>Shows the colony's map and asks for the cell it parks at.</summary>
+    static void PickParking(CompPhobosSupplyRun run, int index)
+    {
+        if (run.Stops[index].HomeMap is not { } map) return;
+        Current.Game.CurrentMap = map;
+        CameraJumper.TryHideWorld();
+        Find.Targeter.BeginTargeting(new TargetingParameters { canTargetLocations = true, canTargetPawns = false, canTargetBuildings = false },
+            target =>
+            {
+                run.SetParking(index, target.Cell);
+                Messages.Message("PhobosSupplyRun_ParkSet".Translate(run.Vehicle.LabelShort.Named("VEHICLE"), run.Stops[index].Label.Named("PLACE")),
+                    new LookTargets(target.Cell, map), MessageTypeDefOf.SilentInput, false);
+            });
+    }
+
     static void StopMenu(CompPhobosSupplyRun run, int index)
     {
         var options = new List<FloatMenuOption>();
@@ -656,6 +783,15 @@ public static class SupplyRunPlanner
         options.Add(run.LoadRefusal(index) is { } noLoad
             ? new FloatMenuOption(loadLabel + ": " + noLoad, null)
             : new FloatMenuOption(loadLabel, () => Find.WindowStack.Add(new Dialog_PhobosSupplyLoad(run, index))));
+        // Framework 0.335.0: where it parks there.
+        string parkLabel = "PhobosSupplyRun_ParkPick".Translate().Resolve();
+        if (run.LoadRefusal(index) is { } noPark) options.Add(new FloatMenuOption(parkLabel + ": " + noPark, null));
+        else
+        {
+            options.Add(new FloatMenuOption(parkLabel, () => PickParking(run, index)));
+            if (run.Stops[index].parkCell.IsValid)
+                options.Add(new FloatMenuOption("PhobosSupplyRun_ParkClear".Translate(), () => run.SetParking(index, IntVec3.Invalid)));
+        }
         Find.WindowStack.Add(new FloatMenu(options));
     }
 }

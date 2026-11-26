@@ -13,6 +13,8 @@
 
   <PhobosVehicleSystems_SettingBogging>Heavy vehicles bog on soft ground</PhobosVehicleSystems_SettingBogging>
   <PhobosVehicleSystems_SettingBoggingDesc>On by default. On the world map, a heavy vehicle (over 12 tonnes laden) sinks a little on each soft, wet tile it crosses (swamps, and flat ground with heavy rain, unless frozen), and sticks when it has sunk far enough: the heavier, the sooner, and tracks spread the weight. The convoy stops until a winch, a tow or the ground firming up frees it; a load of stone under the wheels frees it at once. Off: never stuck.</PhobosVehicleSystems_SettingBoggingDesc>
+  <PhobosVehicleSystems_SettingLitterCollectsEnemies>Litters collect downed enemies as prisoners</PhobosVehicleSystems_SettingLitterCollectsEnemies>
+  <PhobosVehicleSystems_SettingLitterCollectsEnemiesDesc>On by default. With Take casualties aboard on, a vehicle's litters also take downed enemies who could be captured, and each becomes your prisoner as they are put aboard, as when your people capture one: their faction thinks less of you. Off: an enemy is taken only when you order it.</PhobosVehicleSystems_SettingLitterCollectsEnemiesDesc>
 
   <!-- Any halt job -->
   <PhobosRoadWork_JobHeldUp>{CARAVAN}'s work at the halt is held up: {REASON}</PhobosRoadWork_JobHeldUp>

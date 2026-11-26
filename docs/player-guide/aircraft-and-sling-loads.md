@@ -249,10 +249,21 @@ repair it, drive it, tow it or lift it home. **A helicopter that crashes drops i
 
 **What a destroyed vehicle leaves can be carried home the same way**.
 
-- Press **Lift a vehicle or a hull** and click the hull; the helicopter's crew hooks it up at once, with no colonist needed.
+- Press **Lift with the sling** and click the hull; the helicopter's crew hooks it up at once, with no colonist needed.
 - Set down at home, **take it apart for its salvaged parts**.
 - A hull weighs what the vehicle did empty, so a heavy wreck needs a strong hook.
 - **Do not release a hull in flight**: it breaks up and nothing is left.
+
+### Lifting packed buildings, stacks and a cargo net
+
+**Since Framework 0.335.0 the sling lifts a packed (uninstalled) building, or one stack of anything**, by its weight: a generator to
+an outpost, steel to someone cut off.
+
+- **For many stacks at once, build a cargo net** (Motor pool tab, after turbines: 60 cloth, 20 steel, 2 by 2 cells). Set what it may
+  hold in its storage tab and your haulers fill it like a stockpile. **Lift with the sling** takes the net and **everything in it**;
+  where it is set down, the load is let out onto its cells. Its pane shows what it holds and its weight.
+- **The crew hooks them up at once.** The helicopter lifts them as it takes off, not from a hover.
+- **Let go in flight, they fall to the ground below** and lie there as a depot a caravan can collect from.
 
 **Each of these is a setting** under **Sling loads** in D'thorga Framework's settings: hot days, ground crew, weather, slower
 flight, and release and drops.
@@ -358,6 +369,10 @@ space.
   first when a field medic is at hand.
 - **A downed stranger who is no enemy** (a refugee from a crashed pod, a hurt traveller) is carried too.
   Set down, a colonist must still be told to rescue them, as the game asks for any stranger.
+- **A downed enemy becomes your prisoner as they are put aboard** (from Framework 0.335.0), as when your people capture one, and
+  **their faction thinks less of you**. Right-click them with a colonist: **Capture ... aboard**. With **Take casualties aboard** on,
+  carriers bring them by themselves too, unless **Litters collect downed enemies as prisoners** is off (D'thorga Vehicle Systems
+  settings, on by default).
 - **Switch it off before you leave** if you do not want it working at the next landing site. It cannot be switched on while the
   helicopter moves or flies.
 

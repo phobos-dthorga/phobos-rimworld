@@ -1,0 +1,25 @@
+[
+ {
+  "name": "n17-dual-band-radio",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small dark grey mobile radio set with two short black whip aerials of different lengths on top, a round speaker grille and a coiled handset cable. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a small dark grey mobile radio set with two short black whip aerials of different lengths on top, a round speaker grille and a coiled handset cable",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   195,
+   196
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "fitting": "PhobosFitting_DualBandRadio, the dual-band radio (Radio Framework 0.25.0; docs/development/radio-advice-and-relays.md, the cross-band last hop)",
+   "ships_as": "mods/PhobosRadioFramework/Mods/VehicleFramework/Common/Textures/Phobos/Radio/Fittings/DualBandRadio.png",
+   "why": "a fitting icon, made locally (assets/AGENTS.md); it borrows the repeater kit's icon since Radio 0.25.0"
+  }
+ }
+]

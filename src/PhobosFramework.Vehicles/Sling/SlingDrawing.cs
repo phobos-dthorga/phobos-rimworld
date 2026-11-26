@@ -127,18 +127,29 @@ public static class SlingDrawing
         // A hull (Framework 0.197.0) is drawn as Vehicle Framework draws it standing: by the picture of the vehicle it was. After a load
         // that picture is gone until the hull next stands on a map; then nothing is drawn, and the hull is carried all the same.
         VehiclePawn? picture = load as VehiclePawn ?? (load as VehicleBuilding)?.vehicle;
-        if (picture == null) return;
-        Rot8 facing = load is VehiclePawn ? picture.FullRotation : new Rot8(load.Rotation);
+        if (picture == null && load is VehicleBuilding) return;
         (double x, double z, double paidOut) = SlingRule.Hang(hook.x - ground.x, hook.z - ground.z, StropCells,
             stood.HasValue ? stood.Value.x - ground.x : null, stood.HasValue ? stood.Value.z - ground.z : null);
 
         // One layer below the helicopter, so its body and rotors cover the load as they would from above.
         var at = new Vector3(ground.x + (float)x, hook.y - Altitudes.AltInc, ground.z + (float)z);
-        if (!DrawVehicle(picture, at, facing)) return;
+        float length;
+        if (picture != null)
+        {
+            Rot8 facing = load is VehiclePawn ? picture.FullRotation : new Rot8(load.Rotation);
+            if (!DrawVehicle(picture, at, facing)) return;
+            length = picture.VehicleDef.Size.z;
+        }
+        else
+        {
+            // Framework 0.335.0 (EM21(b)): a packed building, a stack or a cargo net hangs as its own picture.
+            load.Graphic?.Draw(at, load.Rotation, load);
+            length = load.def.Size.z;
+        }
 
         if (paidOut <= 0 || (hook - at).MagnitudeHorizontal() < StropsFromCells) return;
         float between = hook.y - Altitudes.AltInc / 2f;
-        Vector3 along = load.Rotation.FacingCell.ToVector3() * (picture.VehicleDef.Size.z * StropSpread);
+        Vector3 along = load.Rotation.FacingCell.ToVector3() * (length * StropSpread);
         var from = new Vector3(hook.x, between, hook.z);
         var middle = new Vector3(at.x, between, at.z);
         DrawStrop(from, middle + along);
