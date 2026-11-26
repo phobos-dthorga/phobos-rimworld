@@ -95,8 +95,13 @@ and life on the road](camping.md). [Back to the guide](README.md).
 - **A tanker fills itself at the pick-up**, from the pipe under the stop or a tank beside it set to give, into compartments you have
   **set to a contents**. Full, or its source dry, it drives on.
 - **If the leader is lost**, the follower does what you chose for a lost link: hold, come back or carry on. A letter tells you.
+- **An aircraft flies a round between places by itself**, with its **pilot aboard**. Press **Plan a round**: where it stands is the first
+  stop; click the next places on the world map (up to eight), picking a **landing spot** on each place with a map; right-click when done.
+  Then **Fly its round**. At each stop it waits (an hour unless you set **Waits at stops**) for colonists to unload, load and **refuel**
+  it, then flies on if it has the fuel for the next leg with some to spare. On open ground it lands as a caravan. It never stops at an
+  enemy's town.
 - **The fleet board** lists followers under their leader, and its pane can add a follower, leave the convoy or break it up.
-- A setting, "Vehicles follow a leader and run loops by themselves", turns it all off.
+- A setting, "Vehicles follow a leader, run loops and fly rounds by themselves", turns it all off.
 
 ### Mechlinked vehicles (Biotech)
 

@@ -14,8 +14,8 @@
   <PhobosVehicleSystems_SettingRemoteGunsFireAloneDesc>Off by default. A gun that no seat works, such as a remote weapon station, on a vehicle fitted with the remote control kit, fires only while a radio station's operator has the vehicle's picture and can watch what it shoots at. On, it fires at enemies by itself, with nobody watching: it may waste ammunition, start a fight early or shoot through friends. Vehicles without the kit fire as their makers built them, either way.</PhobosVehicleSystems_SettingRemoteGunsFireAloneDesc>
 
   <!-- Framework 0.281.0: the route level (autonomous-vehicles.md, step 7a). -->
-  <PhobosVehicleSystems_SettingRouteControl>Vehicles follow a leader and run loops by themselves</PhobosVehicleSystems_SettingRouteControl>
-  <PhobosVehicleSystems_SettingRouteControlDesc>On by default. A vehicle fitted with the route kit can follow a crewed vehicle in a convoy, up to four behind one leader, or run back and forth between two stops you mark, with nobody aboard. If its leader is lost it does what you chose for it: hold, come back or carry on. Off, no vehicle follows or runs a loop, and one doing so stops.</PhobosVehicleSystems_SettingRouteControlDesc>
+  <PhobosVehicleSystems_SettingRouteControl>Vehicles follow a leader, run loops and fly rounds by themselves</PhobosVehicleSystems_SettingRouteControl>
+  <PhobosVehicleSystems_SettingRouteControlDesc>On by default. A vehicle fitted with the route kit can follow a crewed vehicle in a convoy, up to four behind one leader, or run back and forth between two stops you mark, with nobody aboard. If its leader is lost it does what you chose for it: hold, come back or carry on. An aircraft that flies on the map can fly a round of places you pick on the world map, with its pilot aboard. Off, no vehicle follows, runs a loop or flies a round, and one doing so stops.</PhobosVehicleSystems_SettingRouteControlDesc>
 
   <!-- Framework 0.282.0: the mechanitor level (autonomous-vehicles.md, step 7b). -->
   <PhobosVehicleSystems_SettingMechControl>Mechanitors can drive vehicles</PhobosVehicleSystems_SettingMechControl>

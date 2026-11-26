@@ -13,6 +13,24 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.307.0] - 2026-11-26 - Draft
+
+An aircraft flies a round between places
+
+### Added
+
+- **An aircraft flies a round between places by itself, with its pilot aboard** (the owner's cards of 26 November 2026). Press Plan a
+  round, then click up to eight places on the world map in order, picking a landing spot on each place with a map; Fly its round sets
+  it going, stop after stop and back to the first. It carries whatever colonists load, and on open ground lands as a caravan.
+- **Each stop has its own wait** (an hour unless set otherwise, from none to a day): colonists unload, load and refuel it meanwhile. It
+  flies on only with a pilot aboard and the fuel for the next leg with a sixth to spare; short of either, it says why once and waits.
+  It never stops at an enemy's town. Every aircraft that flies on the map on our flight can do it. Not yet tested in game: rows 549 and 550.
+
+### Changed
+
+- **The setting for routes now covers rounds too**: it reads "Vehicles follow a leader, run loops and fly rounds by themselves", still on
+  by default.
+
 ## [0.306.0] - 2026-11-26 - Draft
 
 Drop zone markers, allied supply drops and the airdrop's sounds

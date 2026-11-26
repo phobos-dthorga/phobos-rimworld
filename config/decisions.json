@@ -65,6 +65,32 @@
    "asked": "2026-11-26"
   },
   {
+   "id": "round-fuel-margin",
+   "question": "An aircraft on a round flies a leg only with the fuel for it and a sixth to spare. Is a sixth right?",
+   "context": "Built in Framework 0.307.0 (rows 549-550), as the airdrop's way home. Short of it, it waits at the stop until refuelled. Vehicle Framework's own figure for the leg is its burn at cruise; our cruise height and engine model change it on the way.",
+   "options": [
+    {
+     "id": "sixth",
+     "label": "A sixth more (1.15)",
+     "detail": "As built"
+    },
+    {
+     "id": "quarter",
+     "label": "A quarter more (1.25)",
+     "detail": "Safer against headwinds of our own model; shorter legs"
+    },
+    {
+     "id": "exact",
+     "label": "Exactly the leg's fuel",
+     "detail": "Longest legs; a leg that burns more than planned ends on open ground"
+    }
+   ],
+   "lean": "sixth",
+   "why": "The same margin as the airdrop's way home, so one rule holds for both",
+   "from": "docs/development/autonomous-vehicles.md",
+   "asked": "2026-11-26"
+  },
+  {
    "id": "loop-tanker-nothing-takes",
    "question": "At a loop's drop-off, when nothing takes a tanker's load, should it keep pumping until its hour is up?",
    "context": "Built in Framework 0.303.0 (row 545): it says so once, keeps its pump running in case room is made (a tower drawn down, a tank emptied), and drives on at the hour's end; emptied, it leaves at once.",

@@ -5,7 +5,9 @@ and D'thorga Vehicles 0.117.0 to 0.117.3; step 6, [the picture link and remote g
 in Framework 0.280.0 and Radio 0.15.0; step 7a, [the route level](#step-7a-the-route-level-framework-02810), in Framework 0.281.0; step 7b,
 [the mechanitor level](#step-7b-the-mechanitor-level-framework-02820), in Framework 0.282.0; our own remote weapon station (MV8) in
 Vehicles 0.119.0 and Framework 0.285.0 ([its record](vehicle-militarised-service-vehicles.md#the-remote-weapon-station-built-vehicles-01190-framework-02850)).
-Left: the buttons' own pictures, and helicopter rounds.
+Since then (26 Nov 2026): loops work at their stops (Framework 0.299.0 to 0.305.0), the base turret (Radio 0.18.0 to 0.20.0), and
+[step 9, an aircraft's round between places](#step-9-an-aircrafts-round-between-places-framework-03070) (Framework 0.307.0). Left: the
+buttons' own pictures (queued for night 16), crewless rounds, and the turret radio's measurement.
 Nothing is tested in game.
 
 The owner, 24 Nov 2026: "the real feature I wish to implement soon is autonomous vehicles and perhaps their weapon systems too, all
@@ -383,8 +385,8 @@ Built 25 Nov 2026, not yet tested in game, on the owner's go ("You may proceed")
   loaded [O, the cards above]; **if its source runs dry part way it leaves with what it has** [A, as the grab leaves with any load];
   with nothing taken on at all it says why once and keeps pumping its hour. The tank comes before the grab. Saved: which way it pumps.
   Cost: as at the drop-off.
-- **Still open:** helicopter rounds (their own step), and the buttons' own pictures (queued for the night run, the owner's card of 26
-  Nov 2026).
+- **Still open:** the buttons' own pictures (queued for night 16, the owner's card of 26 Nov 2026). Helicopter rounds became
+  [step 9](#step-9-an-aircrafts-round-between-places-framework-03070).
 
 ### Step 7b: the mechanitor level (Framework 0.282.0)
 
@@ -499,6 +501,51 @@ All **[code]**, nothing tested in game. What differs from, or settles, the desig
 Two other uses of the same extension point were checked on 25 Nov 2026 and **left, on the owner's cards**: heavy vehicles
 preferring firm ground, and errands going round growing crops. Vehicle Framework already prices both; the finding is in
 [hitches and trailers](systems/hitches-and-trailers.md#the-wider-way-round).
+
+## Step 9: an aircraft's round between places (Framework 0.307.0)
+
+Step 7 left "helicopters' rounds between our own places" for a step of their own [O, 25 Nov 2026]. The owner's go of 26 Nov 2026 ("You
+may proceed with all of these") and their cards the same day:
+
+| Question | The owner's choice |
+| --- | --- |
+| Who flies it | **Either**: a pilot aboard now; crewless, by the route kit, a later step once an empty aircraft can be held in the air |
+| Where it may stop | **Any tile picked** |
+| What it carries | **Whatever is loaded**, by colonists at each stop as for any flight |
+| How its stops are set | **Picked on the world map**, with a landing spot on each place with a map, as the airdrop's target is picked |
+| How long it waits | **Set per stop** |
+
+**As built [code: `Flight/Rounds.cs`, `RoundRule`, tested]:** every aircraft on our flight that flies on the map (not those on it only for
+drops) gets `CompPhobosRound` at start-up. **Plan a round** clears the plan and makes where it stands the first stop; each click on the
+world map adds the next, up to eight [A]; on a place with a map the player picks the landing spot with Vehicle Framework's own landing
+picker (in bounds and not under a roof, its own test), then goes on picking; right-click ends it. A place is refused if it is the stop
+before it, or an enemy's town [A]. **Fly its round** sets it going: at each stop it waits that stop's time (an hour by default, as a loop's;
+choices none to a day, as preset buttons) [A], then takes off for the next once **Vehicle Framework's own launch check passes** (a pilot
+aboard, not overloaded, not roofed in: `CanLaunchWithCargoCapacity`) and it has **the fuel for the leg and a sixth to spare**
+(`RoundRule.FuelMargin`, as the airdrop's way home [A]). Short of either, it waits there and says why once. A leg to a place with a map
+lands at its spot through `ArrivalAction_LandToCell`, which our flight turns into an arrival over the edge and a landing; a leg to a tile
+with no map, or a place whose map has gone since, lands as a caravan (`ArrivalAction_LandToCaravan`) and flies on from there, alone in
+its caravan [A]. If its spot is taken when it arrives it holds in the air, says so, and goes on once landed by hand. It finds its place
+in the round by the tile it stands on, so a hand landing at any stop puts it back on its round. The setting "Vehicles follow a leader,
+run loops and fly rounds by themselves" (the route setting, relabelled; on) covers it [A].
+
+- **What it lets the player do:** supply outposts, mining camps and allies' neighbours on a schedule without sending a colonist's caravan
+  each time, and move people between colonies.
+- **What it stops them doing:** nothing new; a pilot on a round is away from the colony for its legs, as on any flight.
+- **How it changes the way they play:** fuel and landing spots become standing work at each stop (a fuel dump and a clear pad at every
+  outpost), and the waits set how often a place is served.
+- **What outside it notices:** the places it lands at, whose colonists unload and refuel it; the world map, where it flies and stands as
+  a caravan on open ground, open to the game's caravan events there; Vehicle Framework's own flight, landing and fuel. Nothing else yet
+  (an ally does not trade with it; a later step could).
+- **Risk: moderate [A, for the owner to confirm].** The player can lose an aircraft and its pilot at an open-ground stop (a caravan
+  ambush) or a place raided while it waits; one at a time, and each stop is one the player picked. So it is on with the route setting,
+  not a setting of its own off by default (the shared design rule).
+- **Its cost:** nothing while no round is flown. While one is: on a map, a look every 250 ticks (a few comparisons and, at the wait's end,
+  Vehicle Framework's launch check and fuel sum); on open ground the same from one world component that walks the player's caravans every
+  250 ticks; nothing in flight. Saved: the stops, whether it runs, which stop and the wait's end.
+- **Other factions:** a round is the player's own; enemy aircraft are unchanged.
+- **Still open:** crewless rounds (the route kit holding an empty aircraft in flight, and on open ground); its four buttons' own pictures
+  (night 16; they borrow the flight's until then); a round drawn on the world map while selected.
 
 ## The base turret (designed 26 Nov 2026; built in Radio 0.18.0 to 0.20.0)
 
