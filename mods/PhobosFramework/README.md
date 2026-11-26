@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.319.0, built 26 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.320.0, built 26 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -192,6 +192,7 @@ offers to restart). RimWorld saves only what you change.
 | Repairs, service and fittings | Replacing an engine or transmission costs / Replacing any other part costs | The share of the part's materials a replacement takes | 100% / 50% |
 | Repairs, service and fittings | Field fixes | Patch leaks and shorts, and re-fit a thrown track or wrecked wheel, away from a base | On |
 | Repairs, service and fittings | Low oil calls for a service | A service falls due once oil is below 60% | On |
+| Repairs, service and fittings | A failing turbocharger can damage the engine | A turbo that fails with the engine running takes 15% of the engine's health once | On |
 | Repairs, service and fittings | This colony: services take raw materials instead of kits | Saved with the colony. On: services take steel, components and chemfuel instead of kits | Off (on for a colony from before kits) |
 | Repairs, service and fittings (dyno bay trips) | Vehicles are taken to a dyno bay for repair by themselves | A land vehicle with work that sends it is driven to a dyno bay, repaired and driven home | On |
 | Repairs, service and fittings (dyno bay trips) | What sends a vehicle to a dyno bay | Bay-only work alone; broken, or bay-only work; any repair or service due | Broken, or bay-only work |

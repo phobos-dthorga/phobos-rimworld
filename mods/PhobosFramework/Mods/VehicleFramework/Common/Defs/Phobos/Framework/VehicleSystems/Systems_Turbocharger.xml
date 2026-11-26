@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The turbocharger (Framework 0.320.0; docs/development/vehicle-turbocharger.md; the owner's cards of 26 Nov 2026: "modelled like the rest
+    of the components, and with the rest of the components"). A part of its own (Turbochargers.cs appends it to every design with a piston
+    engine) and this system, which runs only while the vehicle has a turbocharger: built in (the engine's Def says turbocharged) or fitted
+    (the turbocharger fitting grants Turbocharger). The lubrication system brings it with it (comesWith), so every piston loadout has it.
+    Not yet tested in game.
+
+    Sources and labels:
+    - A turbocharger's shaft runs on plain bearings fed by the engine's own oil; oil starvation is the commonest cause of turbocharger
+      failure, and stopping a hot engine at once cooks the oil left in the bearing housing ("coking"). Secondary: turbocharger makers'
+      service literature as commonly cited (Garrett's and Holset's failure guides; no figure checked). Every rate below is authored.
+    - Dust past a clogged or leaking air filter erodes the compressor wheel's blades. Secondary, the same literature; rates authored.
+    - Boost builds with engine speed and load (turbo lag at low speed): the curves are authored, shaped like a typical diesel's.
+    - Wear on boost: about 2,500 hours at full boost to wear a standard-boost turbo out (authored; a road turbo lasts roughly the engine's
+      life between overhauls). Low boost half that wear, high boost three times it.
+    - A worn turbo passes oil past its seals (blue smoke, oil burned); one that fails takes back what it added: the fitting's power
+      (x0.83 cancels its x1.2), or for an engine turbocharged as built about 0.7 of its rated power, a naturally aspirated engine's share
+      (authored; turbocharging commonly adds a third or more to a diesel's output). The thin-air hold goes with it (Powertrain.AirPowerShare).
+    - A turbo that fails with the engine running can send pieces of its compressor wheel into the engine: 15% of the engine's health, once
+      (authored), behind the "a failing turbocharger can damage the engine" setting (on).
+    Its health is the part's own: hits, fire and blasts wear it like any part, and a destroyed one is replaced from the turbocharger repair
+    supply (PartSupplies.xml).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Turbocharger</defName>
+    <label>turbocharger</label>
+    <description>The turbocharger: exhaust gas spins a compressor that forces more air into the engine. It runs on the engine's oil, so low oil wears it fast; dust past a clogged air filter, high boost and stopping the engine while it is hot wear it too. A worn one smokes, burns oil and loses boost; one that fails can take a piece out of the engine.</description>
+    <needsGrant>Turbocharger</needsGrant>
+    <roles>
+      <li>Turbocharger</li>
+      <li>Engine</li>
+    </roles>
+    <parameters>
+      <!-- How fast the turbocharger's heat follows the engine's load, a share of the gap an hour (authored: it settles in about ten game
+           minutes, so a short idle cools it). -->
+      <turboHeatRate>6</turboHeatRate>
+    </parameters>
+    <quantities>
+      <li>
+        <name>turboBoost</name>
+        <label>boost</label>
+        <description>How hard the turbocharger is pushing air into the engine, as a share of its full boost. It builds with engine speed and load, and a worn turbocharger gives less.</description>
+        <unit>Fraction</unit>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Turbocharger</role>
+            <missing>0</missing>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_EngineRunning" />
+          <li Class="Phobos.VehicleSystems.Input_EngineRpm">
+            <!-- Turbo lag: little boost at idle, full boost from mid revs (authored). -->
+            <curve>
+              <points>
+                <li>(0, 0.05)</li>
+                <li>(800, 0.05)</li>
+                <li>(1300, 0.5)</li>
+                <li>(1700, 1)</li>
+                <li>(8000, 1)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_EngineLoad">
+            <curve>
+              <points>
+                <li>(0, 0.1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <!-- Wear on boost, by the boost tune (authored): standard about 2,500 hours at full boost to wear it out, low half that, high three
+                 times it. -->
+            <from>0.6</from>
+            <label>on boost</label>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Turbocharger</role>
+                <sharePerHour>0.0002</sharePerHour>
+                <when Class="Phobos.VehicleSystems.When_Tune">
+                  <tune>PhobosTune_BoostLow</tune>
+                </when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Turbocharger</role>
+                <sharePerHour>0.0004</sharePerHour>
+                <when Class="Phobos.VehicleSystems.When_Tune">
+                  <tune>PhobosTune_BoostStandard</tune>
+                </when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Turbocharger</role>
+                <sharePerHour>0.0012</sharePerHour>
+                <when Class="Phobos.VehicleSystems.When_Tune">
+                  <tune>PhobosTune_BoostHigh</tune>
+                </when>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>turboCondition</name>
+        <label>turbocharger</label>
+        <description>What is left of the turbocharger. Worn, it smokes blue, burns oil and gives less boost; failed, the engine loses what the turbo gave it and holds no power in thin air.</description>
+        <unit>Fraction</unit>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_PartHealth">
+            <role>Turbocharger</role>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.001</to>
+            <label>failed</label>
+            <notable>true</notable>
+            <effects>
+              <!-- A fitted turbo gives back its x1.2 (x0.83); an engine turbocharged as built drops to about a naturally aspirated one's
+                   share (authored). -->
+              <li Class="Phobos.VehicleSystems.Effect_EnginePower">
+                <factor>0.83</factor>
+                <when Class="Phobos.VehicleSystems.When_FittingGrants">
+                  <ability>Turbocharger</ability>
+                </when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_EnginePower">
+                <factor>0.7</factor>
+                <when Class="Phobos.VehicleSystems.When_TurbochargedAsBuilt" />
+              </li>
+              <!-- Pieces of the compressor wheel into a running engine, once as it fails (authored), behind its setting. -->
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Engine</role>
+                <share>0.15</share>
+                <when Class="Phobos.VehicleSystems.When_All">
+                  <conditions>
+                    <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+                    <li Class="Phobos.VehicleSystems.When_Setting">
+                      <setting>turboFailureDamagesEngine</setting>
+                    </li>
+                  </conditions>
+                </when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+                <quantity>oilLevel</quantity>
+                <perHour>-0.01</perHour>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <perHour>40</perHour>
+                <scale>0.9</scale>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTurboFailed</message>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.001</from>
+            <to>0.2</to>
+            <label>failing</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_EnginePower">
+                <factor>0.92</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+                <quantity>oilLevel</quantity>
+                <perHour>-0.004</perHour>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <perHour>20</perHour>
+                <scale>0.7</scale>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTurboFailing</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.2</from>
+            <to>0.5</to>
+            <label>worn</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_EnginePower">
+                <factor>0.97</factor>
+              </li>
+              <!-- Oil past worn seals: as much again as the engine's own burn (Systems_Lubrication.xml's 0.15% an hour, authored). -->
+              <li Class="Phobos.VehicleSystems.Effect_RateQuantity">
+                <quantity>oilLevel</quantity>
+                <perHour>-0.0015</perHour>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <perHour>8</perHour>
+                <scale>0.5</scale>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTurboWorn</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>turboOilFeed</name>
+        <label>turbo oil feed</label>
+        <description>Oil reaching the turbocharger's bearings, from the engine's oil pump. Low oil or a weak pump starves them and wears the turbocharger fast.</description>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>oilPressure</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <!-- Nothing reaching the bearings: about two running hours to ruin it, faster than the engine's own five (authored). -->
+            <to>0.15</to>
+            <label>dry</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Turbocharger</role>
+                <sharePerHour>0.5</sharePerHour>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+            </effects>
+          </li>
+          <li>
+            <!-- Low oil: about twenty running hours (authored). An idling engine on a half-empty sump reads here. -->
+            <from>0.15</from>
+            <to>0.5</to>
+            <label>starved</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Turbocharger</role>
+                <sharePerHour>0.05</sharePerHour>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>turboGrit</name>
+        <label>grit in the intake</label>
+        <description>Dust getting past a clogged air filter into the compressor, worse in deserts and sandstorms. It erodes the turbocharger's blades; an engine service fits a clean filter.</description>
+        <unit>Plain</unit>
+        <!-- The dust factor reaches 12 in a desert sandstorm (DustRule), so the reading may too. -->
+        <max>12</max>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>airFilter</quantity>
+            <!-- Only a filter past clogged lets grit by (the service system's clogged stage starts at 0.7). -->
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.7, 0)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>0</value>
+            </fallback>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Dust" />
+          <li Class="Phobos.VehicleSystems.Input_EngineRunning" />
+        </derivedFrom>
+        <stages>
+          <li>
+            <!-- About a hundred running hours to ruin it (authored). -->
+            <from>0.3</from>
+            <to>1</to>
+            <label>dusty</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Turbocharger</role>
+                <sharePerHour>0.01</sharePerHour>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <!-- A clogged filter in a desert or a sandstorm: about twenty running hours (authored). -->
+            <from>1</from>
+            <label>sandblasted</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>Turbocharger</role>
+                <sharePerHour>0.05</sharePerHour>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>turboHeat</name>
+        <label>turbo heat</label>
+        <description>How hot the turbocharger runs, following the engine's load. Stopping the engine while it is hot cooks the oil in its bearings and wears it: let the engine idle a little before switching off.</description>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <from>0.6</from>
+            <label>hot</label>
+            <notable>true</notable>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>turboHeating</name>
+        <quantity>turboHeat</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_EngineLoad" />
+        <factorParameter>turboHeatRate</factorParameter>
+      </li>
+    </flows>
+    <onEvents>
+      <li>
+        <!-- A hot shutdown: 1% of the turbocharger's health each time the engine is switched off hot (authored). -->
+        <eventDef>IgnitionOff</eventDef>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+            <role>Turbocharger</role>
+            <share>0.01</share>
+            <when Class="Phobos.VehicleSystems.When_QuantityAbove">
+              <quantity>turboHeat</quantity>
+              <value>0.6</value>
+            </when>
+          </li>
+        </effects>
+      </li>
+    </onEvents>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

@@ -846,8 +846,9 @@ public sealed class VehicleFittings
     public const string BoostAbility = "Boost";
 
     /// <summary>Whether a fitting on the vehicle grants boost (Framework 0.123.0), counted from what is fitted, so a boost tune stands down the
-    /// moment its turbocharger is taken off or lost.</summary>
-    bool HasBoost => fitted.Any(f => f.def != null && f.def.grants.Contains(BoostAbility) && Counts(f));
+    /// moment its turbocharger is taken off or lost. An engine turbocharged as built has boost to tune too (Framework 0.320.0: its
+    /// turbocharger is a part like the fitted one).</summary>
+    internal bool HasBoost => fitted.Any(f => f.def != null && f.def.grants.Contains(BoostAbility) && Counts(f)) || Turbochargers.BuiltIn(comp.Props);
 
     /// <summary>The tunes that act now: all of them, but a boost tune only while its turbocharger is fitted.</summary>
     IEnumerable<PhobosVehicleTuneDef> ActiveTunes() => tunes.Where(t => t.axis != VehicleTuneAxis.Boost || HasBoost);

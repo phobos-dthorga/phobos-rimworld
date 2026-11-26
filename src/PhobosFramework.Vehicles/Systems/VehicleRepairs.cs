@@ -260,6 +260,7 @@ public sealed class VehicleRepairs
                 // A part re-fitted in the field still waits for its proper replacement (M3).
                 if (part.Health > 0f && !Refitted(part)) continue;
                 if (OwnGoodsParts.Is(part.props.key)) continue;    // re-lined or re-glazed below, never replaced
+                if (Turbochargers.Absent(comp.Vehicle, part)) continue;    // no turbocharger on this engine: nothing to replace (Framework 0.320.0)
 
                 List<List<(ThingDef def, int count)>> options = ReplacementOptions(part, out float work);
                 if (options.Count == 0) continue;

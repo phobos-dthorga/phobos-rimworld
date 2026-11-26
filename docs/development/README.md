@@ -114,6 +114,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Unique military vehicles and submarines](military-vehicles-research.md) (9 Nov 2026): real vehicles no mod covers yet. Record only.
 - [Per-engine realism](per-engine-realism.md) (23 Nov 2026): power by engine health, yaw, matched axles, wear per engine. Step 1 built, untested.
 - [Compressor wash](compressor-wash.md) (26 Nov 2026): a turbine's compressor fouls as it runs and a water wash clears it. Built, untested.
+- [The turbocharger as a part and a system](vehicle-turbocharger.md) (26 Nov 2026): its part, readings, wear and failure. Built, untested.
 - [Railcars](vehicle-railcars.md) (22 Nov 2026): a loadout for Trains of the Rim's wagons, so they can take fittings. Set aside by the owner; nothing built.
 - [Modern military aircraft and vehicles](modern-military-vehicles.md) (18 Nov 2026): the Osprey, armed candidates, crewless fits. Record only.
 - [The V-22 Osprey](vehicle-osprey.md) (18 Nov 2026): our first aircraft: figures, parts, guns, upgrades, art plan. Record only.

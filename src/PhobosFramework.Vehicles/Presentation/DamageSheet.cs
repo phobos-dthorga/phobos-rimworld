@@ -47,7 +47,7 @@ public static class DamageSheet
         if (vehicle.statHandler?.components == null) return parts;
         foreach (VehicleComponent part in vehicle.statHandler.components)
         {
-            if (Spall.Unfitted(vehicle, part)) continue;    // a spall liner not fitted would paint the cab red (Framework 0.209.0)
+            if (AbsentParts.Is(vehicle, part)) continue;    // a spall liner not fitted would paint the cab red (Framework 0.209.0); a turbo likewise (0.320.0)
             parts.Add(new SheetPart(part.props.key, (part.props.label ?? part.props.key).CapitalizeFirst(), part.MaxHealth > 0f ? part.Health / part.MaxHealth : 0f));
         }
         return parts;

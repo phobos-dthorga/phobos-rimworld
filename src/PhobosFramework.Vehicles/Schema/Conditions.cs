@@ -321,6 +321,22 @@ public class When_Granted : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Comp.Fittings.Grants(ability);
 }
 
+/// <summary>The design's engine is turbocharged as built (Framework 0.320.0: a built-in turbocharger that fails takes the engine down to a
+/// naturally aspirated one's power, where a fitted one only gives back what it added).</summary>
+public class When_TurbochargedAsBuilt : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => Turbochargers.BuiltIn(context.Comp.Props);
+}
+
+/// <summary>This tune is the one set on its axis now (Framework 0.320.0: the high boost tune wears the turbocharger faster). A tune
+/// standing down, as a boost tune does with its turbocharger gone, does not hold.</summary>
+public class When_Tune : VehicleSystemCondition
+{
+    public PhobosVehicleTuneDef? tune;
+    protected override bool HoldsRaw(SystemContext context) => tune != null && context.Comp.Fittings.Current(tune.axis) == tune
+        && (tune.axis != VehicleTuneAxis.Boost || context.Comp.Fittings.HasBoost);
+}
+
 /// <summary>
 /// Someone of the vehicle's own faction stands within <c>radius</c> cells of it, or did within the last <c>holdHours</c> (Framework 0.171.0:
 /// the work lamps switching themselves). People and mechanoids count, animals do not; those inside a vehicle are not on the map and do not.

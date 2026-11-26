@@ -436,8 +436,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
 
     bool Enabled(SystemState state) => !VehicleSystemsMod.Settings.disabledSystems.Contains(state.Def.defName) && (!state.Def.needsClosedCab || ClosedCab)
-        && (state.Def.needsGrant == null || Fittings.Grants(state.Def.needsGrant))
+        && (state.Def.needsGrant == null || Grants(state.Def.needsGrant))
         && (state.Def.needsStat == null || Vehicle.GetStatValue(state.Def.needsStat) > 0f);
+
+    /// <summary>Whether the vehicle has this ability for a system's needsGrant: a fitting grants it, or the design has it built in (Framework
+    /// 0.320.0: an engine turbocharged as built has its turbocharger).</summary>
+    public bool Grants(string ability) => Fittings.Grants(ability) || (ability == Turbochargers.Grant && Turbochargers.BuiltIn(Props));
 
     /// <summary>Whether a system runs on this vehicle now (not switched off in the settings, and its cab is closed if it needs one).</summary>
     public bool IsEnabled(SystemState state) => Enabled(state);
@@ -1045,8 +1049,10 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             if (saved == null && EachPart.HealthFrom(Vehicle.VehicleDef, key) != null) saved = part.Health;
             // A spall liner starts at nothing, "not fitted", unless the save holds its health or its upgrade is fitted (Framework 0.207.0):
             // Vehicle Framework makes every part whole, which would hand a new truck a liner nobody fitted.
+            // The turbocharger likewise starts at nothing on an engine without one (Framework 0.320.0).
             float health = key == Spall.LinerKey
                 ? Spall.StartingHealth(Vehicle, part, saved.HasValue ? (float)saved.Value : null)
+                : key == Turbochargers.Key ? Turbochargers.StartingHealth(this, part, saved.HasValue ? (float)saved.Value : null)
                 : (float)PartHealthRule.Restored(saved, saveHeldParts, part.Health, part.MaxHealth);
             if (Mathf.Abs(part.Health - health) > 0.01f) part.SetHealth(health);
             RememberPartHealth(part);
@@ -2272,6 +2278,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         HealthViewVersion++;
         // A newly fitted extinguisher arrives full (Framework 0.241.0, FR10).
         FireFighting.FittingsChanged(this);
+        // A turbocharger fitted is a new one, and one taken off leaves its part at nothing (Framework 0.320.0).
+        Turbochargers.FittingsChanged(this);
     }
 
     /// <summary>The part-health memory beside each part's health now, for the dev action.</summary>

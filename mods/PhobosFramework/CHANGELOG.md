@@ -13,6 +13,30 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.320.0] - 2026-11-26 - Draft
+
+The turbocharger as a part and a system
+
+### Added
+
+- **The turbocharger is a part of its own** (the owner's cards of 26 November 2026): every turbocharged engine, fitted or built in as on
+  the medium and heavy diesels, has a turbocharger row on the Health tab and a card on the Systems tab with its boost and turbo heat. A
+  vehicle without one shows neither. Hits, fire and blasts wear it, and a dead one is replaced from the repairs list. Not yet tested in
+  game: row 576. How it works: docs/development/vehicle-turbocharger.md.
+- **Turbochargers wear out and fail**: low oil, dust past a clogged air filter, high boost and switching off a hot engine all wear one. A
+  worn turbo smokes blue, burns oil and loses boost; a failed one takes back the power it gave and holds no power in thin air. Not yet
+  tested in game: row 577.
+- **A new setting, A failing turbocharger can damage the engine** (on): a turbo that fails with the engine running takes 15% of the
+  engine's health once.
+
+### Changed
+
+- **Boost tunes for built-in turbos**: an engine turbocharged as built can now take the low and high boost tunes, as a fitted turbo can.
+
+### Save compatibility
+
+- Safe to add to a save: a vehicle with a turbocharger gets the part whole, one without gets nothing it can see.
+
 ## [0.319.0] - 2026-11-26 - Draft
 
 Smoke dischargers and the ammunition locker

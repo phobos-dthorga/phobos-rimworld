@@ -40,7 +40,7 @@
     <defName>PhobosFitting_Turbocharger</defName>
     <iconPath>Phobos/VehicleSystems/Fittings/Turbocharger</iconPath>
     <label>turbocharger</label>
-    <description>Exhaust gas spins a compressor that forces more air into the engine. More power, more heat and a thirstier engine.</description>
+    <description>Exhaust gas spins a compressor that forces more air into the engine. More power, more heat and a thirstier engine. It is a part of its own, fed by the engine's oil: low oil, dust past a clogged air filter, high boost and stopping the engine hot all wear it, and a worn one smokes, burns oil and loses its boost.</description>
     <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
     <materials><Steel>100</Steel><ComponentIndustrial>10</ComponentIndustrial></materials>
     <work>30000</work>
@@ -51,8 +51,9 @@
     <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>1.25</factor><label>engine heat at full load</label></li></parameterFactors>
     <piston>Yes</piston>
     <powerCounts>Yes</powerCounts>
-    <!-- Framework 0.123.0: it opens the boost tune (the Boost axis, below). -->
-    <grants><li>Boost</li></grants>
+    <!-- Framework 0.123.0: it opens the boost tune (the Boost axis, below). Framework 0.320.0: it puts the turbocharger part on the
+         vehicle and wakes its system (Systems_Turbocharger.xml). -->
+    <grants><li>Boost</li><li>Turbocharger</li></grants>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>

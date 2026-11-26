@@ -29,6 +29,10 @@
       <li>Engine</li>
       <li>OilPump</li>
     </roles>
+    <!-- Framework 0.320.0: every oiled engine brings the turbocharger's system, which runs only while one is built in or fitted. -->
+    <comesWith>
+      <li>PhobosVehicleSystem_Turbocharger</li>
+    </comesWith>
     <parameters>
       <oilBurnPerHour>0.0015</oilBurnPerHour>
       <oilFollowRate>3</oilFollowRate>

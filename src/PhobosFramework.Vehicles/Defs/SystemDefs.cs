@@ -1088,6 +1088,10 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// pressure (1: in step; below 1, a little less than in step). The record gives each figure's source or says it is authored.</summary>
     public float turbochargerHoldsToMetres = 1500f;
     public float airCoolingExponent = 0.8f;
+    /// <summary>The turbocharger as a part of its own (Framework 0.320.0; docs/development/vehicle-turbocharger.md): the part's label and
+    /// health on every design with a piston engine, there only while a turbocharger is built in or fitted (authored: a radiator's health).</summary>
+    [MustTranslate] public string turbochargerPartLabel = "turbocharger";
+    public int turbochargerPartHealth = 30;
     /// <summary>Turbines (Framework 0.132.0): the speed a turbine's accessory gearbox turns its generator at with the engine at full
     /// speed, in rpm, where its efficiency is read (authored: mid-curve, where an alternator works best); and what a worn hot section
     /// adds to the fuel burned for the same work, as a share of the condition lost.</summary>

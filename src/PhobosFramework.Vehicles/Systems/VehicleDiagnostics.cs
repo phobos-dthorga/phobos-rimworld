@@ -78,7 +78,7 @@ public sealed class VehicleDiagnostics
         }
         foreach (VehicleComponent part in vehicle.statHandler.components.OrderBy(p => p.HealthPercent))
         {
-            if (Spall.Unfitted(vehicle, part)) continue;    // a spall liner not fitted is no fault (Framework 0.209.0)
+            if (AbsentParts.Is(vehicle, part)) continue;    // a spall liner or turbocharger not fitted is no fault (Framework 0.209.0, 0.320.0)
             PhobosVehiclePartGradeDef grade = comp.Fittings.GradeOf(part.props.key);
             report.parts.Add(new DiagnosisPart
             {

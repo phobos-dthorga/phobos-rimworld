@@ -127,6 +127,23 @@
     </substitutes>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
+  <!-- Framework 0.320.0 (docs/development/vehicle-turbocharger.md): a turbocharger shot or worn to nothing is replaced, at about a third of
+       the fitting's own materials (authored, the same share as the other small parts). Never in a build's bill: the part is there only
+       while a turbocharger is built in or fitted. -->
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_Turbocharger</defName>
+    <label>turbocharger</label>
+    <description>Forces more air into the engine for more power. Worn, it smokes and burns oil; failed, the engine loses what it gave.</description>
+    <roles>
+      <li>Turbocharger</li>
+    </roles>
+    <materials>
+      <Steel>30</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </materials>
+    <work>2000</work>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_Battery</defName>
     <label>battery</label>

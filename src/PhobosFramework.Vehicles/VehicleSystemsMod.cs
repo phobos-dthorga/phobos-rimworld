@@ -140,6 +140,10 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>An engine's service falls due as soon as its oil is low, so a worn engine burning oil calls a mechanic early (owner, 10 Nov
     /// 2026: oil use is a reason to service, with a setting to make it only a cost: on). Live.</summary>
     public bool lowOilCallsService = true;
+    /// <summary>A turbocharger that fails while the engine runs sends pieces of its compressor wheel into the engine, taking a share of the
+    /// engine's health (Framework 0.320.0; the owner's card of 26 Nov 2026). Risk moderate, the agent's grade the owner chose (a slow loss seen
+    /// coming: low boost and blue smoke first): on. Live.</summary>
+    public bool turboFailureDamagesEngine = true;
     /// <summary>Lights, heaters and climate control take power from the engine through the alternator, so they cost a little heat, and
     /// fuel when fuel follows the engine model (crosslink 5; owner, 10 Nov 2026: on, with this setting to turn it off). Live.</summary>
     public bool accessoriesLoadEngine = true;
@@ -335,6 +339,7 @@ public class VehicleSystemsSettings : ModSettings
         "parkedVehicleUse" => parkedVehicleUse,
         "visitorsFlattenBattery" => visitorsFlattenBattery,
         "lowOilCallsService" => lowOilCallsService,
+        "turboFailureDamagesEngine" => turboFailureDamagesEngine,
         "accessoriesLoadEngine" => accessoriesLoadEngine,
         "brakeFade" => brakeFade,
         "roughGroundWear" => roughGroundWear,
@@ -429,6 +434,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref visitorsFlattenBattery, "PhobosVehicleSystems_VisitorsFlattenBattery", false);
         Scribe_Values.Look(ref airDefenceSeesAircraft, "PhobosVehicleSystems_AirDefenceSeesAircraft", true);
         Scribe_Values.Look(ref lowOilCallsService, "PhobosVehicleSystems_LowOilCallsService", true);
+        Scribe_Values.Look(ref turboFailureDamagesEngine, "PhobosVehicleSystems_TurboFailureDamagesEngine", true);
         Scribe_Values.Look(ref accessoriesLoadEngine, "PhobosVehicleSystems_AccessoriesLoadEngine", true);
         Scribe_Values.Look(ref brakeFade, "PhobosVehicleSystems_BrakeFade", true);
         Scribe_Values.Look(ref roughGroundWear, "PhobosVehicleSystems_RoughGroundWear", true);
@@ -556,6 +562,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (Settings.realisticFeedWater) report.On("realistic feed water (setting)");
         if (Settings.nightHeater) report.On("night heater at camp (setting)");
         if (!Settings.lowOilCallsService) report.Off("low oil calling a service", "off (setting)");
+        if (!Settings.turboFailureDamagesEngine) report.Off("a failing turbocharger damaging its engine", "off (setting)");
         if (!Settings.accessoriesLoadEngine) report.Off("accessories loading the engine", "off (setting)");
         if (!Settings.brakeFade) report.Off("brakes heating and fading on descents", "off (setting)");
         if (!Settings.roughGroundWear) report.Off("rough-ground wear", "off (setting)");
@@ -810,6 +817,8 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingFieldFixes".Translate(), ref s.fieldFixes, d.fieldFixes, "PhobosVehicleSystems_SettingFieldFixesDesc".Translate());
         list.Section("PhobosVehicleSettings_SectionService".Translate());
         list.Check("PhobosVehicleSystems_SettingLowOilService".Translate(), ref s.lowOilCallsService, d.lowOilCallsService, "PhobosVehicleSystems_SettingLowOilServiceDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingTurboFailureDamagesEngine".Translate(), ref s.turboFailureDamagesEngine, d.turboFailureDamagesEngine,
+            "PhobosVehicleSystems_SettingTurboFailureDamagesEngineDesc".Translate());
         if (GameComponent_PhobosServiceKits.InGame)
         {
             // This colony's own choice, saved with it (S4): shown here for convenience, changed only through its service, never reset here.

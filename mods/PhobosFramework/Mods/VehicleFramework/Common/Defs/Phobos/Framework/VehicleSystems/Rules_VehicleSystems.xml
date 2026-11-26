@@ -68,6 +68,10 @@
          cooling follows the air's pressure to the power airCoolingExponent; a turbine's generator is costed at generatorRatedRpm times
          its spool share; a worn hot section burns turbineWearFuelPenalty of its lost condition more for the same work. -->
     <turbochargerHoldsToMetres>1500</turbochargerHoldsToMetres>
+    <!-- Framework 0.320.0 (docs/development/vehicle-turbocharger.md; the owner's cards of 26 Nov 2026): the turbocharger is a part of its
+         own on every design with a piston engine, there only while one is built in or fitted. Health authored, a radiator's. -->
+    <turbochargerPartLabel>turbocharger</turbochargerPartLabel>
+    <turbochargerPartHealth>30</turbochargerPartHealth>
     <airCoolingExponent>0.8</airCoolingExponent>
     <generatorRatedRpm>4000</generatorRatedRpm>
     <turbineWearFuelPenalty>0.45</turbineWearFuelPenalty>

@@ -682,6 +682,8 @@ public class ITab_PhobosVehicleHealth : ITab
             bool leaking = vehicle.CompFueledTravel?.FuelLeaking == true;
             foreach (VehicleComponent part in ordered)
             {
+                // A turbocharger is shown only on an engine that has one (Framework 0.320.0; the owner's card of 26 Nov 2026: hidden until fitted).
+                if (Turbochargers.Absent(vehicle, part)) continue;
                 PartRow row = MakeRow(comp, part, homes.TryGetValue(part, out List<SystemState>? systems) ? systems : null, figures, leaking);
                 (part.Depth == VehicleComponent.VehiclePartDepth.External ? external : internalGroup).Rows.Add(row);
             }

@@ -127,7 +127,7 @@ heavy-duty air filter, a deep-cycle battery or a battery warmer. **A fitting is 
 | --- | --- | --- |
 | **Uprated radiator** | Radiator | The engine sheds heat faster, so it is slower to boil on a long pull |
 | **Oil cooler** | Engine | Cooler oil burns away more slowly, so the engine goes further between services |
-| **Turbocharger** | Engine | More power, more heat and more fuel; holds its power in high country; adds a **Boost** tune |
+| **Turbocharger** | Engine | More power, more heat and more fuel; holds its power in high country; adds a **Boost** tune. It becomes a part of its own, with a row on the Health tab and a card on the Systems tab |
 | **Heavy-duty alternator** | Alternator | The battery charges faster, and heavy electrical loads are easier to carry |
 | **Deep-cycle battery** | Battery | Holds more charge, so the vehicle runs its loads longer with the engine off |
 | **Block heater** | Engine | Parked beside power, engine off, it stays warm: an easy cold start, less wear, a warm cab at once |
@@ -171,13 +171,28 @@ and the low and high boost need **turbines** too; going back to stock never need
 | | Power | Richer and harder: more power, paid for in heat and fuel |
 | **Final drive** | Tall | Lower revs and less strain at a cruise, weaker on a heavy pull |
 | | Short | Pulls harder with a heavy load, and tops out sooner |
-| **Boost** (with a turbocharger) | Low | A little less power, and a cooler, gentler engine |
+| **Boost** (with a turbocharger, fitted or built in) | Low | A little less power, and a cooler, gentler engine |
 | | High | A tenth more power, paid for in heat and fuel |
 
 Each row also has **stock** (standard boost for the turbocharger): the engine as it was built.
 
 - **A tall final drive cannot make a vehicle faster than it was built to go.**
 - **Take the turbocharger off and the boost stops.**
+
+### Looking after a turbocharger
+
+Medium and heavy diesel trucks come with a turbocharger built in; any piston engine can have one fitted. Either way it is a part of
+its own: a **turbocharger** row on the Health tab and a **turbocharger** card on the Systems tab, with its **boost** and **turbo heat**.
+A vehicle without one shows neither.
+
+- **Keep the oil up.** The turbo runs on the engine's oil, and low oil wears it out within a day of driving, far faster than the engine.
+- **Service the air filter in dusty country.** A clogged filter lets grit into the turbo, worst in deserts and sandstorms.
+- **High boost wears it about three times as fast as standard**; low boost halves the wear.
+- **Let a hard-worked engine idle a little before you switch it off.** Stopping while the turbo reads **hot** wears it a little each time.
+- **A worn turbo smokes blue, burns oil and gives less boost**, with a message; a mechanic can mend it. One that **fails** takes back
+  the power it gave, holds no power in high country, and needs a new turbocharger from the repairs list.
+- **A turbo that fails with the engine running can take 15% of the engine's health.** The setting **A failing turbocharger can damage
+  the engine** (vehicle settings, Service section) is on by default.
 
 ### Grades
 

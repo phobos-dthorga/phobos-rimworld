@@ -285,10 +285,11 @@ public sealed class Powertrain
     public bool BreathesAir => Spec.Engine is EngineKind.Piston or EngineKind.Turboshaft or EngineKind.Turbofan;
 
     /// <summary>The share of its rated power thin air leaves this engine at a height in metres (AirRule): a naturally aspirated piston
-    /// engine loses it from the sea up, a turbocharged one holds it to its limit, a turbine follows the air's pressure.</summary>
+    /// engine loses it from the sea up, a turbocharged one holds it to its limit, a turbine follows the air's pressure. A turbocharger
+    /// shot or worn to nothing holds nothing (Framework 0.320.0): the engine breathes as a naturally aspirated one until it is replaced.</summary>
     public double AirPowerShare(double elevationMetres) => Spec.Engine switch
     {
-        EngineKind.Piston => AirRule.PistonPower(elevationMetres, ForcedInduction, HoldsPowerToMetres),
+        EngineKind.Piston => AirRule.PistonPower(elevationMetres, ForcedInduction && Turbochargers.Works(comp), HoldsPowerToMetres),
         EngineKind.Turboshaft or EngineKind.Turbofan => AirRule.PressureRatio(elevationMetres),
         _ => 1,
     };
