@@ -234,15 +234,24 @@ if no pain relief can come, the disease drug still does. Nothing that gives a di
 Since Medical 0.28.0 every reason for a dose is a row of one table, a `PhobosCareNeedDef` (`Defs/Phobos/Dosing/CareNeeds.xml`). A
 row gives its order, how serious it is, whether it keeps the player's reserve and whether an unmet one raises the alert; its worker
 class (`Dosing/Needs/`) reads the patient. `DoseService` is the engine every worker calls: one safety rule and one choice. A doctor
-looks at the rows in order, and the first with something to give decides the dose. **Not yet tested in game** (rows 590 to 592).
+looks at the rows in order, and the first with something to give decides the dose. **Not yet tested in game** (rows 590 to 593).
 
 | Order | Need | Who qualifies | How serious | Switch |
 | --- | --- | --- | --- | --- |
+| 5 | Breathing rescue | Down or in bed, breathing at 0.3 or under and not capped there | Life-threatening | Nobody, or doctors (default) |
 | 10 | Cure | Down or in bed, with a visible bad condition some indexed item removes | Serious; life-threatening when the condition can kill | Nobody, or doctors (default) |
 | 20 | Pain relief | As *Doctors who dose* says | Serious | The dosing switch, and self-medication's own |
 | 30 | Help against a disease | As above | Life-threatening | Its own tick |
 | 35 | Radiation medicine | By dose and stage; **the radiation part keeps its own choice, work giver and job** | Life-threatening | The radiation model's |
 | 40 | Prevention in an outbreak | An outbreak disease is on the map and this person could still catch it | Minor | Nobody, doctors, or doctors and self (default) |
+
+**A breathing rescue** (0.29.0). A help to breathing is a medical drug whose conditions, at its dose, add 0.1 or more to breathing
+after any breathing they cost (Medicines+' smelling salts: +0.2 for two hours). A patient at 0.3 or under, where triage calls a
+vital capacity immediate, is given one where they lie, and again once the last is under a quarter of its dose: a bridge to oxygen
+or an operation, never a cure. **Not where a condition caps breathing at or under the level** (`BreathingRescueRule`): a stimulant
+adds to breathing and cannot lift a ceiling. For this need alone the safety rule does not ask the breathing floor, since the
+patient is under it already; it asks that the dose gives more breathing than it takes. **Consciousness is not read**: nobody is
+woken with a stimulant (the owner's choice: an awake patient in pain is tended worse).
 
 **Cures.** The index lists an item as a cure when one of its outcomes removes conditions: an outcome class named in the rules'
 `removalReaders` (the class's full name and the field holding the conditions; Ushanka's Biological Warfare's antiserums), or `cures`
@@ -265,7 +274,8 @@ preventive to those down or in bed, and people on their feet take their own, at 
 - never an item that begins a dependency that kills when it stops (the addiction's own stages threaten life), unless the patient
   has that addiction already;
 - an addictive item only for a serious or life-threatening need;
-- an item worth 300 silver or more only for a life-threatening need (triage's mark for a rare tool);
+- an item at or over the player's rare mark only for a life-threatening need (a setting since 0.29.0: a slider, 300 silver by
+  default, the figure triage uses for a rare tool; zero keeps nothing back);
 - a need that keeps the reserve (prevention) never takes an item below it, counted per item over the unforbidden stock on the map
   (5 by default).
 
@@ -517,6 +527,10 @@ Every tie-in is in the [tie-in register](../tie-in-register.md). None is require
 - **Prevention reaches only what an item already prevents, and only once a disease is in the colony.** Our own vaccines, hygiene and
   masks are designed, not built ([vaccines and prevention](../vaccines-and-prevention.md)); the other care needs (blood loss,
   collapse, before exposure, the long-term ones) are designed, not built ([care needs](../medical-care-needs.md)).
+- **Blood loss is left to More Injuries** (the owner's choice, 26 Nov 2026): its doctors transfuse blood bags on their own, and it
+  counts a hemogen pack as one, so a need of ours would send a second doctor. **Its epinephrine is kept out of automatic dosing**
+  (`Mods/MoreInjuries`, `neverAutoDose`): the risk it carries is applied in More Injuries' code, and Search and Rescue gives it for
+  cardiac arrest.
 - **A cure hidden in another mod's code is not found** until a reader names its outcome class or the item declares it. Nothing
   checks a reader's class and field against the other mod's updates but the one warning in the log at start-up.
 - **Mechanoid doctors** never dose or take the ordered operate work (`canBeDoneByMechs` false).
@@ -533,7 +547,7 @@ None of these is a test in game.
   `BurnedOffTests`, `BurnShockRuleTests`, `CarbonMonoxideRuleTests`, `AirwayRuleTests`, `EscharRuleTests`, `ChemicalRuleTests`,
   `CausticRuleTests`, `FireHeatRuleTests`), `Dosing/` (`DoseEffectRuleTests`, `DoseNeedRuleTests`, `DoseSafetyRuleTests`,
   `DoseChoiceRuleTests`, `ImmunityTests`, `BleedingHoldTests`, `SelfDoseRuleTests`, `FussingRuleTests`, `CareSafetyRuleTests`, `StockReserveRuleTests`, `PreventionRuleTests`, `CareScoreTests`,
-  `CareSafetyOrderTests`) and `Triage/`
+  `CareSafetyOrderTests`, `BreathingRescueTests`) and `Triage/`
   (`ConditionClassRuleTests`, `AuthorityRuleTests`, `OperationChoiceRuleTests`, `TriageRuleTests`).
 - **Dev actions** (`*/Debug/`): five "Burns:" (burn load, fire heat at the mouse cell, start an airway burn, heal caustic eyes,
   scorch plants), four "Dosing:" (the index, disease drugs, self-medication, a patient's decision), three "Triage:" (the index,

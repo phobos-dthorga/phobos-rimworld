@@ -21,6 +21,36 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.29.0] - 2026-11-26 - Draft
+
+A breathing rescue, and the rare-medicine mark as a setting
+
+### Added
+
+- **A stimulant for someone who can barely breathe.** A patient down or in bed with breathing at 30% or less is given whatever in
+  stock adds to breathing (smelling salts, from a mod that has them), again as it wears off: time bought until oxygen or an
+  operation, not a cure. It is looked for before anything else, and not given where something caps the patient's breathing. A
+  setting: nobody, or doctors (the default). The Medicine needed alert covers it. Not yet tested in game: row 593 of the test
+  pass.
+- **The mark from which a medicine is rare is a setting** (the owner's answer of 26 November 2026): a slider from 0 to 2,000
+  silver, 300 by default; at zero no medicine is kept back.
+
+### Changed
+
+- **More Injuries' epinephrine stays out of automatic dosing.** Its adrenaline adds to breathing, but its risk is applied in More
+  Injuries' own code, and it is kept for cardiac arrest, where Search and Rescue's responders give it. Orders of your own are
+  untouched.
+
+### Save compatibility
+
+- Safe with an existing save. Two new settings start at their defaults.
+
+### Compatibility and limits
+
+- Blood loss is left to More Injuries, whose doctors transfuse blood bags and hemogen packs on their own; nothing of ours acts on
+  it.
+- Nobody is woken with a stimulant: only breathing is read.
+
 ## [0.28.0] - 2026-11-26 - Draft
 
 Cures and prevention by rule: the first care needs

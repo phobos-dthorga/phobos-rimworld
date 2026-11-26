@@ -7,6 +7,17 @@
        lowest first: a cure removes the disease, so it comes before relief of its pain and before a drug that only helps fight it;
        prevention is last because nobody is ill yet. Seriousness and order are authored. -->
   <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_Breathing</defName>
+    <label>breathing rescue</label>
+    <description>A patient can barely breathe, and something in stock adds to breathing until oxygen or an operation can.</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_Breathing</workerClass>
+    <!-- First of all: nothing else matters to someone who is suffocating (0.29.0). -->
+    <order>5</order>
+    <seriousness>LifeThreatening</seriousness>
+    <defaultMode>DoctorsOnly</defaultMode>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
     <defName>PhobosCare_Cure</defName>
     <label>cure</label>
     <description>A patient has a condition that something in stock removes outright.</description>

@@ -42,11 +42,11 @@ public sealed class DoseOption
     public readonly IReadOnlyList<HediffDef> Prevents;
     /// <summary>The addiction this item can begin when that addiction can kill, or null: never begun by rule.</summary>
     public readonly HediffDef? LethalDependency;
-    /// <summary>Worth the rules' rare mark or more: kept for saving a life.</summary>
-    public readonly bool Rare;
+    /// <summary>What one is worth, by the game's own market value: at the player's rare mark or over, it is kept for saving a life.</summary>
+    public readonly float MarketValue;
 
     public DoseOption(ThingDef def, IReadOnlyList<DoseHediff> hediffs, DoseEffect effect, IReadOnlyList<HediffDef>? cures = null, IReadOnlyList<HediffDef>? prevents = null,
-        HediffDef? lethalDependency = null, bool rare = false)
+        HediffDef? lethalDependency = null, float marketValue = 0f)
     {
         Def = def;
         Hediffs = hediffs;
@@ -54,16 +54,16 @@ public sealed class DoseOption
         Cures = cures ?? None;
         Prevents = prevents ?? None;
         LethalDependency = lethalDependency;
-        Rare = rare;
+        MarketValue = marketValue;
     }
 }
 
 /// <summary>
 /// Every ingestible in the game that answers a care need, found by what its Defs say it does, never by name (owner's rule, 5 Nov
 /// 2026): each outcome that gives a condition is read at the dose's severity for pain, consciousness, breathing, bleeding, vomiting,
-/// immunity gain and the conditions it makes the taker immune to, and the drug comp for addictiveness and category. Four lists:
-/// painkillers (items whose relief is too small to matter or whose score cannot pass zero are left out), the medical drugs that speed
-/// up immunity, cures and preventives (Medical 0.28.0). A cure is read from an outcome class the rules' readers know, or declared on
+/// immunity gain, breathing gained and the conditions it makes the taker immune to, and the drug comp for addictiveness and category.
+/// Five lists: painkillers (items whose relief is too small to matter or whose score cannot pass zero are left out), the medical drugs
+/// that speed up immunity, cures and preventives (Medical 0.28.0), and helps to breathing (0.29.0). A cure is read from an outcome class the rules' readers know, or declared on
 /// the item (<see cref="PhobosDosingExtension"/>). Built once, on first use after the Defs load. An effect a mod applies from its own
 /// code rather than its XML stays invisible here unless it is declared; that is recorded in the design record as a limit. An item
 /// that gives a disease itself is never a drug for immunity, a cure or a preventive, whatever else it does.
@@ -78,6 +78,7 @@ public static class DoseIndex
     static List<DoseOption>? immunityOptions;
     static List<DoseOption>? cureOptions;
     static List<DoseOption>? preventionOptions;
+    static List<DoseOption>? breathingOptions;
     static HashSet<HediffDef>? curable;
     static HashSet<HediffDef>? preventableOutbreaks;
 
@@ -119,6 +120,16 @@ public static class DoseIndex
         }
     }
 
+    /// <summary>Items that add to breathing: a bridge for a patient who can barely breathe.</summary>
+    public static IReadOnlyList<DoseOption> BreathingOptions
+    {
+        get
+        {
+            if (breathingOptions == null) Build();
+            return breathingOptions!;
+        }
+    }
+
     /// <summary>Every condition some indexed cure removes: the cheap first test of whether a patient could be cured.</summary>
     public static HashSet<HediffDef> Curable
     {
@@ -140,7 +151,7 @@ public static class DoseIndex
     }
 
     /// <summary>Whether any list holds anything: the work giver's first test.</summary>
-    public static bool Any => Options.Count > 0 || ImmunityOptions.Count > 0 || CureOptions.Count > 0 || PreventionOptions.Count > 0;
+    public static bool Any => Options.Count > 0 || ImmunityOptions.Count > 0 || CureOptions.Count > 0 || PreventionOptions.Count > 0 || BreathingOptions.Count > 0;
 
     static DoseIndex() => _ = Options;
 
@@ -150,6 +161,7 @@ public static class DoseIndex
         var builtImmunity = new List<DoseOption>();
         var builtCures = new List<DoseOption>();
         var builtPrevention = new List<DoseOption>();
+        var builtBreathing = new List<DoseOption>();
         var builtCurable = new HashSet<HediffDef>();
         var builtPreventable = new HashSet<HediffDef>();
         PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
@@ -196,22 +208,24 @@ public static class DoseIndex
             CompProperties_Drug? drug = def.GetCompProperties<CompProperties_Drug>();
             DoseEffect effect = DoseEffectRule.Combine(stages, drug?.addictiveness ?? 0f, def.IsNonMedicalDrug, rules.sedativeConsciousnessCeiling);
             HediffDef? dependency = LethalDependency(drug);
-            bool rare = CareSafetyRule.Rare(def.BaseMarketValue, rules.rareItemMarketValue);
+            float value = def.BaseMarketValue;
             if (stages.Count > 0 && DoseChoiceRule.Worthwhile(effect, rules.minPainRelief, rules.Weights))
-                built.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, rare: rare));
+                built.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value));
             if (stages.Count > 0 && def.IsDrug && !givesDisease && DoseChoiceRule.WorthwhileForImmunity(effect, rules.minImmunityGain, rules.Weights))
-                builtImmunity.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, rare: rare));
+                builtImmunity.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value));
             if (givesDisease) continue;
+            if (stages.Count > 0 && def.IsDrug && DoseChoiceRule.WorthwhileForBreathing(effect, rules.minBreathingGain, rules.Weights))
+                builtBreathing.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value));
             if (cures.Count > 0 && DoseChoiceRule.WorthwhileForCare(effect, DoseNeed.Cure, rules.Weights))
             {
-                builtCures.Add(new DoseOption(def, hediffs.ToArray(), effect, cures: cures.ToArray(), lethalDependency: dependency, rare: rare));
+                builtCures.Add(new DoseOption(def, hediffs.ToArray(), effect, cures: cures.ToArray(), lethalDependency: dependency, marketValue: value));
                 builtCurable.UnionWith(cures);
             }
             // A preventive is listed for the outbreak diseases it stops, and for nothing else it happens to make immune to.
             prevents.RemoveAll(condition => !outbreaks.Contains(condition));
             if (prevents.Count > 0 && DoseChoiceRule.WorthwhileForCare(effect, DoseNeed.Prevention, rules.Weights))
             {
-                builtPrevention.Add(new DoseOption(def, hediffs.ToArray(), effect, prevents: prevents.ToArray(), lethalDependency: dependency, rare: rare));
+                builtPrevention.Add(new DoseOption(def, hediffs.ToArray(), effect, prevents: prevents.ToArray(), lethalDependency: dependency, marketValue: value));
                 builtPreventable.UnionWith(prevents);
             }
         }
@@ -219,6 +233,7 @@ public static class DoseIndex
         immunityOptions = builtImmunity;
         cureOptions = builtCures;
         preventionOptions = builtPrevention;
+        breathingOptions = builtBreathing;
         curable = builtCurable;
         preventableOutbreaks = builtPreventable;
     }

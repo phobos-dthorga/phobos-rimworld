@@ -2,7 +2,8 @@
 
 **Status (26 Nov 2026):** the first build (slices A and B: the table, cures, prevention in an outbreak, the reserve and the alert)
 is in D'thorga Medical 0.28.0 ([as built](#as-built-medical-0280)), not yet tested in game (rows 590 to 592 of
-[the test pass](in-game-test-pass.md)). Slices C to E are designed, not built. The owner answered all eight cards on 26 Nov 2026
+[the test pass](in-game-test-pass.md)). Slice C is in 0.29.0 as a breathing rescue ([as built](#as-built-medical-0290)), not yet
+tested in game (row 593): blood loss was left to More Injuries by the owner's choice. Slices D and E are designed, not built. The owner answered all eight cards on 26 Nov 2026
 ([the answers](#the-owners-answers-26-nov-2026-by-card-with-every-option-offered)) and then said "Go ahead and build the first slice".
 
 The owner, 26 Nov 2026: "I want to expand the range of medically relevant things that are automatically either taken or given by/to
@@ -36,10 +37,10 @@ This section keeps only where the build differs from the design below, and what 
 - **Prevention is worth less in the game as it stands than the design assumed.** The game's disease events pick their victims when
   they fire, and nothing in the owner's mods (read 26 Nov 2026) passes a disease between people. So a preventive taken once a
   disease is in the colony protects against the next strike, not the one under way. It is built as designed and chosen; the
-  trigger is an open decision (`prevention-trigger` in `config/decisions.json`).
+  owner kept the trigger as built ([answered](#the-decisions-left-open-by-the-first-build-as-answered-26-nov-2026-on-the-decisions-page)).
 - **A drug policy cannot allow or forbid a plain medicine**: it has a tick for joy and for an addiction, and a schedule, nothing
   else. As built (agent's reading of card 4): the policy decides for an item that addicts or is taken for pleasure; for a plain
-  medicine the need's own switch is the gate. An open decision (`prevention-self-policy`).
+  medicine the need's own switch is the gate. The owner kept it as built.
 - **The old switches are kept.** Pain's row follows the dosing switch and self-medication's tick, and the disease drug's row its
   own tick, so nothing the owner has set changes; only the two new needs have the three-way choice. Agent's choice, to keep saved
   settings as they are.
@@ -56,7 +57,28 @@ This section keeps only where the build differs from the design below, and what 
 - **Potassium iodide before entering a radiation area already exists** (D'thorga Medical 0.16.0, the protection part, with Dubs
   Rimatomics). The "before exposure" row of the table below was written without that: slice D starts from it.
 - **Rare items** (card 5) are in as chosen, for every row, pain included. Read from the patched Defs, nothing reaches 300 silver
-  among the items whose Def states a value; an open decision (`rare-item-mark`).
+  among the items whose Def states a value; the owner made the mark a setting (0.29.0).
+
+## As built: Medical 0.29.0
+
+The owner, 26 Nov 2026: "Decisions are made and you can go ahead and build blood loss and collapse next". Reading the owner's mods
+for it changed the slice, and two cards settled how ([the second round](#the-second-round-26-nov-2026-by-card-with-every-option-offered)).
+
+- **Blood loss is not built: More Injuries does it already.** It counts a hemogen pack as a blood bag (a mod extension on the pack)
+  and its doctors transfuse on their own (`WorkGiver_UseBloodBag`, its public source); Search and Rescue plans it too. The needs
+  table's "new" for blood loss was wrong: the survey read the item's Defs and not who already gives it.
+- **Collapse is a breathing rescue only.** Search and Rescue gives More Injuries' epinephrine for cardiac arrest (its
+  `MedicalLogistics`, read in its public source), so that left Medicines+' smelling salts. The owner chose breathing at 30% or
+  less, and not waking the unconscious.
+- **More Injuries' epinephrine is kept out of automatic dosing** with `neverAutoDose`, in our More Injuries tie-in folder. By its
+  Def it would be a help to breathing (+0.125); its risk is applied in More Injuries' code, which the index cannot see.
+- **The rare mark is a setting** (the owner's answer on the Decisions page: "Make it a configurable setting via a slider for
+  players to set. 300 silver is the default"): 0 to 2,000 silver in steps of 25; zero keeps nothing back. The rules Def no longer
+  holds the figure.
+- **Agent choices, for the owner to revise:** the level (0.3) is triage's mark for a vital capacity; a help to breathing must add
+  0.1 or more after its own cost; the need is looked at before every other row; it is doctors only, and the alert covers it.
+- **The index now reads breathing gained.** Gains to bleeding, consciousness and the blood capacities are still unread: nothing
+  built uses them.
 
 ## What exists today
 
@@ -212,6 +234,7 @@ coffee, alcohol and the like, except where a recreational painkiller is already 
 ## Slices
 
 **The owner's order (cards 1 and 8):** A and B together as the first build, then C; D and E after, in an order not yet chosen.
+**Done so far:** A and B (0.28.0); C as a breathing rescue, with blood loss left to More Injuries (0.29.0).
 
 | Slice | What | Change in play |
 | --- | --- | --- |
@@ -280,6 +303,52 @@ owner's game today; whether 300 is the right mark for medicines is open.
 - **Chosen: blood loss and collapse.** The two that save a life.
 - Before exposure: the one a player with toxic ground or vacuum work meets most often.
 - The long-term needs.
+
+## The second round (26 Nov 2026, by card), with every option offered
+
+Put after the first build, once the owner's mods had been read for slice C. The chosen option is first and marked; on both cards
+the owner chose the agent's lean.
+
+### 9. Blood loss, which More Injuries already treats
+
+- **Chosen: leave it to More Injuries.** Nothing built for blood loss; this record says why, so it is not proposed again.
+- Build it for games without More Injuries: a blood-loss need that stands down whenever More Injuries is active, using the
+  Emergency transfusion mod's hemogen packs. It would do nothing in the owner's game.
+
+### 10. What counts as collapse
+
+- **Chosen: breathing at 30% or less.** A doctor gives a stimulant that raises breathing to a patient close to suffocating, as a
+  bridge until oxygen or surgery. Epinephrine stays with Search and Rescue. Nobody is woken: an awake patient in pain is tended
+  worse, and rousing someone out cold from blood loss is not real medicine.
+- Breathing, and waking the unconscious: also a stimulant for anyone unconscious (consciousness 30% or less) who is not sedated.
+  About one dose every hour and a half for each unconscious patient.
+- Skip collapse for now: nothing built; another slice next.
+
+## The decisions left open by the first build, as answered (26 Nov 2026, on the Decisions page)
+
+Each was an agent's choice in the 0.28.0 build, put to the owner with its options. The chosen option is first and marked.
+
+### When people take a preventive by rule
+
+- **Chosen: while someone has it.** As built: it reacts to a strike, and guards against a second one while the first runs.
+- Always, where the biome brings it: standing protection, as a drug policy's schedule already gives; uses stock steadily, held by
+  the reserve.
+- A setting for either.
+
+### What lets someone take a plain medicine on their own
+
+- **Chosen: the need's own setting.** As built: a plain medicine needs no policy line; the policy decides for anything addictive
+  or taken for pleasure.
+- Only if scheduled in the policy: nobody takes one unless that drug is scheduled for them.
+- Doctors give it to everyone: nobody takes their own.
+
+### The mark from which a medicine is rare
+
+- **Chosen, in the owner's own words: "Make it a configurable setting via a slider for players to set. 300 silver is the
+  default."** Built in 0.29.0.
+- Keep 300: one mark for rare tools and rare medicines.
+- Lower it to 100: Tyrox and the regeneration serum kept for life-threatening needs only.
+- No mark: cost never holds a medicine back.
 
 ## Agent defaults (for the owner to revise)
 

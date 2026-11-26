@@ -59,10 +59,14 @@ public readonly struct DoseEffect
     /// <summary>How often the dose makes the patient vomit, per day, over every condition it gives; 0 when never. Counted only for the
     /// care needs of Medical 0.28.0 (a cure, prevention): the pain and immunity scores are as they were.</summary>
     public readonly float VomitsPerDay;
+    /// <summary>Breathing added by offsets, over every condition the dose gives; 0 when none (Medical 0.29.0). A cost elsewhere in
+    /// the same dose is kept apart in <see cref="BreathingCost"/>: the two are weighed against each other, never netted here.</summary>
+    public readonly float BreathingGain;
 
     public DoseEffect(float painRelief, float consciousnessCost, float consciousnessCap, float breathingCost, float bleedIncrease, float addictiveness, bool recreational, bool sedative, float immunityGain = 0f,
-        float vomitsPerDay = 0f)
+        float vomitsPerDay = 0f, float breathingGain = 0f)
     {
+        BreathingGain = breathingGain;
         VomitsPerDay = vomitsPerDay;
         ImmunityGain = immunityGain;
         PainRelief = painRelief;
@@ -95,6 +99,7 @@ public static class DoseEffectRule
         float bleedFactor = 1f;
         float immunityGain = 0f;
         float vomitsPerDay = 0f;
+        float breathingGain = 0f;
         for (int i = 0; i < stages.Count; i++)
         {
             StageEffect stage = stages[i];
@@ -103,6 +108,7 @@ public static class DoseEffectRule
             if (stage.ConsciousnessOffset < 0f) consciousnessCost -= stage.ConsciousnessOffset;
             if (stage.ConsciousnessSetMax < consciousnessCap) consciousnessCap = stage.ConsciousnessSetMax;
             if (stage.BreathingOffset < 0f) breathingCost -= stage.BreathingOffset;
+            else breathingGain += stage.BreathingOffset;
             bleedFactor *= stage.BleedFactor;
             immunityGain += stage.ImmunityGain;
             if (stage.VomitMtbDays > 0f) vomitsPerDay += 1f / stage.VomitMtbDays;
@@ -110,7 +116,7 @@ public static class DoseEffectRule
         float relief = Clamp01(1f - painFactor + (painOffset < 0f ? -painOffset : 0f));
         bool sedative = consciousnessCap <= sedativeCeiling;
         return new DoseEffect(relief, Clamp01(consciousnessCost), consciousnessCap, Clamp01(breathingCost), bleedFactor > 1f ? bleedFactor - 1f : 0f,
-            addictiveness < 0f ? 0f : addictiveness, recreational, sedative, immunityGain > 0f ? immunityGain : 0f, vomitsPerDay);
+            addictiveness < 0f ? 0f : addictiveness, recreational, sedative, immunityGain > 0f ? immunityGain : 0f, vomitsPerDay, breathingGain);
     }
 
     static float Clamp01(float value) => value < 0f ? 0f : value > 1f ? 1f : value;

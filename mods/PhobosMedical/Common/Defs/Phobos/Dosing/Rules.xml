@@ -61,9 +61,11 @@
     <!-- Care needs (D'thorga Medical 0.28.0). What one vomit a day counts against a cure or a preventive: four a day cancel the
          whole benefit, which keeps an emetic off both lists (authored). -->
     <vomitWeight>0.25</vomitWeight>
-    <!-- An item worth this much silver or more is rare and kept for saving a life: the mark triage uses for a rare tool (the owner's
-         choice, 26 Nov 2026). Zero switches the rule off. -->
-    <rareItemMarketValue>300</rareItemMarketValue>
+    <!-- A breathing rescue (D'thorga Medical 0.29.0): breathing at or under 0.3, where triage calls a vital capacity immediate (the
+         owner's choice, 26 Nov 2026), and an item that adds at least 0.1 to breathing after anything it costs (authored). The mark
+         from which a medicine is rare is a setting since 0.29.0, 300 silver by default. -->
+    <breathingRescueLevel>0.3</breathingRescueLevel>
+    <minBreathingGain>0.1</minBreathingGain>
     <!-- Prevention is for someone whose chance of catching the disease is at least half what an unprotected person's is: the game's
          own chance factor, which falls as immunity left over from an earlier bout rises (authored). -->
     <preventionMinRisk>0.5</preventionMinRisk>

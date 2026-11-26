@@ -24,6 +24,8 @@ public enum DoseRefusal
     RareItemKept,
     /// <summary>Taking it would leave fewer in stock than the player keeps back (Medical 0.28.0; the owner's card of 26 Nov 2026).</summary>
     ReserveKept,
+    /// <summary>The item takes as much breathing as it gives, or gives none (Medical 0.29.0).</summary>
+    NoBreathingGain,
     /// <summary>Self-medication only: the pawn's drug policy does not allow it. Never reaches a doctor's refusal text.</summary>
     PolicyForbids,
 }
@@ -89,6 +91,10 @@ public static class DoseSafetyRule
         {
             if (effect.ImmunityGain <= 0f) return DoseRefusal.NoImmunityGain;
         }
+        else if (need == DoseNeed.Breathing)
+        {
+            if (effect.BreathingGain <= effect.BreathingCost) return DoseRefusal.NoBreathingGain;
+        }
         else if (need != DoseNeed.Cure && need != DoseNeed.Prevention && !effect.RelievesPain)
         {
             // A cure or a preventive was matched to the patient's condition by the index before it came here.
@@ -105,7 +111,9 @@ public static class DoseSafetyRule
         if (patient.Overdose >= limits.OverdoseLimit) return DoseRefusal.Overdosed;
         if (reachesDanger) return DoseRefusal.DangerousDose;
         if (patient.Consciousness - effect.ConsciousnessCost < limits.CapacityFloor) return DoseRefusal.Consciousness;
-        if (patient.Breathing - effect.BreathingCost < limits.CapacityFloor) return DoseRefusal.Breathing;
+        // A patient given something because they can barely breathe is under the floor already: there the dose must add breathing
+        // (checked above), and the floor is not asked. For every other need the floor is as it was.
+        if (need != DoseNeed.Breathing && patient.Breathing - effect.BreathingCost < limits.CapacityFloor) return DoseRefusal.Breathing;
         return DoseRefusal.None;
     }
 }

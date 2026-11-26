@@ -303,6 +303,7 @@
     "590": ["medical.cure-job-made"],
     "591": {"parts": {"people on their feet take their own": ["medical.prevention-self"], "a doctor gives one to someone in bed": ["medical.prevention-job-made"]}},
     "592": ["medical.care-unmet"],
+    "593": ["medical.breathing-job-made"],
     "454": ["vehicles.paste-bake"],
     "453": {"parts": {
       "a tank fills the tap": ["vehicles.reservoir-filled"],

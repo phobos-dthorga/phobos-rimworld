@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- More Injuries' epinephrine autoinjector stays out of automatic dosing (D'thorga Medical 0.29.0; the owner's choice of 26 Nov
+       2026). Its adrenaline adds to breathing, so by its Def alone it would be given to anyone who can barely breathe; but the risk
+       it carries is applied in More Injuries' own code (a secondary condition on the adrenaline), which the dose index cannot see,
+       and it is the medicine for cardiac arrest, which Search and Rescue's responders give by themselves. The player's own orders
+       and More Injuries' first aid are untouched. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="Epinephrine"]/modExtensions</xpath>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/ThingDef[defName="Epinephrine"]</xpath>
+      <value>
+        <modExtensions>
+          <li Class="Phobos.Dosing.Defs.PhobosDosingExtension">
+            <neverAutoDose>true</neverAutoDose>
+          </li>
+        </modExtensions>
+      </value>
+    </nomatch>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/ThingDef[defName="Epinephrine"]/modExtensions</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDosingExtension">
+          <neverAutoDose>true</neverAutoDose>
+        </li>
+      </value>
+    </match>
+  </Operation>
+</Patch>

@@ -318,7 +318,9 @@ public static class DoseService
         if (refusal != DoseRefusal.None) return refusal;
         // What the care needs add (Medical 0.28.0), after the dose itself has passed: someone already dependent is not begun on anything.
         bool beginsLethalDependency = option.LethalDependency != null && !set.HasHediff(option.LethalDependency);
-        refusal = CareSafetyRule.Check(SeriousnessFor(option, need, care), option.Effect.Addictiveness, beginsLethalDependency, option.Rare);
+        // The rare mark is the player's (a setting since Medical 0.29.0), so it is asked here and not fixed when the index is built.
+        bool rare = CareSafetyRule.Rare(option.MarketValue, DosingMod.Settings.rareItemMarketValue);
+        refusal = CareSafetyRule.Check(SeriousnessFor(option, need, care), option.Effect.Addictiveness, beginsLethalDependency, rare);
         if (refusal != DoseRefusal.None) return refusal;
         if (care.UsesReserve && patient.Map != null && !StockReserveRule.MayTake(InStock(patient.Map, option.Def), DosingMod.Settings.preventionReserve))
             return DoseRefusal.ReserveKept;
@@ -565,6 +567,8 @@ public static class DoseService
             job.count = 1;
             Medical.Seen.Note("medical.dose-job-made", patient, chosen.Option.Def.label);
             if (decision.Need == DoseNeed.Cure && Medical.Seen.Wants("medical.cure-job-made", patient)) Medical.Seen.Note("medical.cure-job-made", patient, chosen.Option.Def.label);
+            if (decision.Need == DoseNeed.Breathing && Medical.Seen.Wants("medical.breathing-job-made", patient))
+                Medical.Seen.Note("medical.breathing-job-made", patient, chosen.Option.Def.label);
             if (decision.Need == DoseNeed.Prevention && Medical.Seen.Wants("medical.prevention-job-made", patient))
                 Medical.Seen.Note("medical.prevention-job-made", patient, chosen.Option.Def.label);
             return job;

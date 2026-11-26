@@ -95,6 +95,7 @@ All XML; the code is in the Framework.
 | VFE Medical (`vanillaexpanded.vfemedical`) | Its intravenous drip stand keeps a burn-shock patient on fluids (0.16.0, SD23) | XML list read by C# | `BurnsAndSmoke/Rules.xml` |
 | Search and Rescue (`ch4acko3.searchandrescue`) | Its field responders use our hand-held kits, as two lanes in its Field rescue work type (0.17.0, SD22) | XML (work givers in its work type) | `Mods/SearchAndRescue` |
 | Atmosphere Overhaul (`acutus.AtmosphereOverhaul.release`), Celsius (`Garwel.Celsius`) | Our fire-heat zones stand down | XML list read by C# | `BurnsAndSmoke/Rules.xml` |
+| More Injuries | Its epinephrine autoinjector is kept out of automatic dosing: its risk is in More Injuries' code, and it is kept for cardiac arrest (0.29.0) | XML | `Mods/MoreInjuries` |
 | Ushanka's Biological Warfare (`ushanka.biologicalwarfare`) | Its antiserums are read as cures, through its outcome class's list of conditions removed, so doctors give them (0.28.0) | XML list read by C#, by name | `Dosing/Rules.xml` (`removalReaders`) |
 
 ## D'thorga Farming

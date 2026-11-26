@@ -13,6 +13,8 @@ public enum DoseNeed
     Cure,
     /// <summary>A disease is on the map and this person is unprotected: an item that makes them immune to it (Medical 0.28.0).</summary>
     Prevention,
+    /// <summary>The patient can barely breathe: an item that raises breathing, as a bridge to oxygen or surgery (Medical 0.29.0).</summary>
+    Breathing,
 }
 
 /// <summary>

@@ -68,6 +68,14 @@ public static class DoseChoiceRule
     public static bool WorthwhileForCare(DoseEffect effect, DoseNeed need, DoseWeights weights) =>
         !effect.Sedative && !effect.Recreational && Score(effect, need, false, weights) > 0f;
 
+    /// <summary>
+    /// Whether an item is worth indexing as a help to breathing (Medical 0.29.0): a real gain left after any breathing it costs, its
+    /// other costs below that gain, and never a sedative or a recreational drug.
+    /// </summary>
+    public static bool WorthwhileForBreathing(DoseEffect effect, float minBreathingGain, DoseWeights weights) =>
+        effect.BreathingGain - effect.BreathingCost >= minBreathingGain && !effect.Sedative && !effect.Recreational
+        && Score(effect, DoseNeed.Breathing, false, weights) > 0f;
+
     public static float Score(DoseEffect effect, bool patientBleeding, DoseWeights weights) => Score(effect, DoseNeed.PainRelief, patientBleeding, weights);
 
     /// <summary>What the dose is worth for this need, net of its side effects.</summary>
@@ -77,8 +85,8 @@ public static class DoseChoiceRule
         // A cure removes the condition and a preventive stops it: the whole benefit, the same for every item that does it, so the
         // choice between two of them is by their costs alone.
         bool care = need == DoseNeed.Cure || need == DoseNeed.Prevention;
-        float vomit = care ? weights.Vomit * effect.VomitsPerDay : 0f;
-        return (care ? 1f : need == DoseNeed.Immunity ? effect.ImmunityGain : effect.PainRelief)
+        float vomit = care || need == DoseNeed.Breathing ? weights.Vomit * effect.VomitsPerDay : 0f;
+        return (care ? 1f : need == DoseNeed.Immunity ? effect.ImmunityGain : need == DoseNeed.Breathing ? effect.BreathingGain : effect.PainRelief)
             - (vomit > 1f ? 1f : vomit)
             - (effect.Sedative ? 0f : weights.Consciousness * effect.ConsciousnessCost)
             - weights.Breathing * effect.BreathingCost

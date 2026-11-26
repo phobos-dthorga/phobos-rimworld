@@ -199,3 +199,84 @@ public class CareSafetyOrderTests
         Assert.Equal(DoseRefusal.StillActive, DoseSafetyRule.Check(CareFixtures.Vaccine, DoseNeed.Prevention, 0.5f, false, new PatientState(0.8f, 1f, 0f, true), limits));
     }
 }
+
+/// <summary>
+/// The breathing rescue of D'thorga Medical 0.29.0: who it is for, what counts as a help to breathing, and the one place the safety
+/// rule differs for it. The smelling salts stage is Medicines+' as read on 26 Nov 2026: breathing +0.2, consciousness +0.1, pain x0.9.
+/// </summary>
+public class BreathingRescueTests
+{
+    static readonly StageEffect SaltsStage = new(0.9f, 0f, 0.1f, 1f, 0.2f, 1f);
+    static DoseEffect Salts => DoseEffectRule.Combine(new[] { SaltsStage }, 0f, false, 0.1f);
+    static readonly DoseLimits Limits = new(0.25f, 0.3f, 0.15f, false, false, 0.3f);
+
+    [Fact]
+    public void ItIsForSomeoneAtTheLevelOrUnderWhoseBreathingIsNotCapped()
+    {
+        Assert.True(BreathingRescueRule.NeedsRescue(0.3f, 0.3f, 1f));
+        Assert.True(BreathingRescueRule.NeedsRescue(0.05f, 0.3f, 1f));
+        Assert.False(BreathingRescueRule.NeedsRescue(0.31f, 0.3f, 1f));
+        // A ceiling at or under the level: a stimulant adds to breathing and cannot lift it, so it would be spent for nothing.
+        Assert.False(BreathingRescueRule.NeedsRescue(0.2f, 0.3f, 0.2f));
+        Assert.False(BreathingRescueRule.NeedsRescue(0.3f, 0.3f, 0.3f));
+        // A ceiling above the level leaves room for the gain to count.
+        Assert.True(BreathingRescueRule.NeedsRescue(0.2f, 0.3f, 0.5f));
+    }
+
+    [Fact]
+    public void BreathingGainedAndBreathingCostAreKeptApart()
+    {
+        Assert.Equal(0.2f, Salts.BreathingGain, 4);
+        Assert.Equal(0f, Salts.BreathingCost);
+        DoseEffect mixed = DoseEffectRule.Combine(new[] { SaltsStage, new StageEffect(1f, 0f, 0f, 1f, -0.3f, 1f) }, 0f, false, 0.1f);
+        Assert.Equal(0.2f, mixed.BreathingGain, 4);
+        Assert.Equal(0.3f, mixed.BreathingCost, 4);
+        Assert.Equal(0f, Fixtures.Morphine.BreathingGain);
+    }
+
+    [Fact]
+    public void AHelpToBreathingNeedsARealGainLeftAfterItsCosts()
+    {
+        Assert.True(DoseChoiceRule.WorthwhileForBreathing(Salts, 0.1f, CareFixtures.Weights));
+        DoseEffect slight = DoseEffectRule.Combine(new[] { new StageEffect(1f, 0f, 0f, 1f, 0.05f, 1f) }, 0f, false, 0.1f);
+        Assert.False(DoseChoiceRule.WorthwhileForBreathing(slight, 0.1f, CareFixtures.Weights));
+        DoseEffect givesAndTakes = DoseEffectRule.Combine(new[] { SaltsStage, new StageEffect(1f, 0f, 0f, 1f, -0.15f, 1f) }, 0f, false, 0.1f);
+        Assert.False(DoseChoiceRule.WorthwhileForBreathing(givesAndTakes, 0.1f, CareFixtures.Weights));
+        DoseEffect recreational = DoseEffectRule.Combine(new[] { SaltsStage }, 0.05f, true, 0.1f);
+        Assert.False(DoseChoiceRule.WorthwhileForBreathing(recreational, 0.1f, CareFixtures.Weights));
+        Assert.False(DoseChoiceRule.WorthwhileForBreathing(Fixtures.Morphine, 0.1f, CareFixtures.Weights));
+    }
+
+    [Fact]
+    public void TheScoreIsTheGainLessTheCosts()
+    {
+        Assert.Equal(0.2f, DoseChoiceRule.Score(Salts, DoseNeed.Breathing, false, CareFixtures.Weights), 4);
+        // Half the consciousness cost and a quarter for a vomit a day count against it.
+        DoseEffect harsh = DoseEffectRule.Combine(new[] { new StageEffect(1f, 0f, -0.2f, 1f, 0.4f, 1f, 0f, 1f) }, 0f, false, 0.1f);
+        Assert.Equal(0.4f - 0.1f - 0.25f, DoseChoiceRule.Score(harsh, DoseNeed.Breathing, false, CareFixtures.Weights), 4);
+        var both = new[] { new DoseCandidate(harsh, true), new DoseCandidate(Salts, true) };
+        Assert.Equal(1, DoseChoiceRule.Choose(both, DoseNeed.Breathing, false, CareFixtures.Weights));
+    }
+
+    [Fact]
+    public void TheBreathingFloorIsNotAskedOfARescueAndStillIsOfEverythingElse()
+    {
+        var suffocating = new PatientState(0.6f, 0.1f, 0f, true);
+        Assert.Equal(DoseRefusal.None, DoseSafetyRule.Check(Salts, DoseNeed.Breathing, 0f, false, suffocating, Limits));
+        // Asked for as a painkiller, with no breathing cost at all, the same patient is still under the floor: as before 0.29.0.
+        Assert.Equal(DoseRefusal.Breathing, DoseSafetyRule.Check(Fixtures.Thornweed, DoseNeed.PainRelief, 0f, false, suffocating, Limits));
+    }
+
+    [Fact]
+    public void AnItemThatTakesTheBreathingItGivesIsRefusedAndTheOtherChecksStand()
+    {
+        var suffocating = new PatientState(0.6f, 0.1f, 0f, true);
+        DoseEffect givesAndTakes = DoseEffectRule.Combine(new[] { SaltsStage, new StageEffect(1f, 0f, 0f, 1f, -0.2f, 1f) }, 0f, false, 0.1f);
+        Assert.Equal(DoseRefusal.NoBreathingGain, DoseSafetyRule.Check(givesAndTakes, DoseNeed.Breathing, 0f, false, suffocating, Limits));
+        Assert.Equal(DoseRefusal.NoBreathingGain, DoseSafetyRule.Check(Fixtures.Thornweed, DoseNeed.Breathing, 0f, false, suffocating, Limits));
+        Assert.Equal(DoseRefusal.StillActive, DoseSafetyRule.Check(Salts, DoseNeed.Breathing, 0.5f, false, suffocating, Limits));
+        Assert.Equal(DoseRefusal.Overdosed, DoseSafetyRule.Check(Salts, DoseNeed.Breathing, 0f, false, new PatientState(0.6f, 0.1f, 0.5f, true), Limits));
+        // A hard bleed holds a painkiller, never a breath.
+        Assert.Equal(DoseRefusal.None, DoseSafetyRule.Check(Salts, DoseNeed.Breathing, 0f, false, new PatientState(0.6f, 0.1f, 0f, true, 0.6f), Limits));
+    }
+}

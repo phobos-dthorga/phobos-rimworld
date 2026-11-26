@@ -144,7 +144,8 @@ its name.
 | Down or in bed, pain 40% or more | The best painkiller in reach, net of its side effects |
 | Pain 80% or more, and no painkiller can be given | A sedative |
 | A disease that can kill, and immunity would come too late | A medical drug that speeds immunity. **A patient already winning gets none**, so stock lasts |
-| Down or in bed, with a condition something in stock cures outright | The cure, the gentlest first. Looked for before anything else |
+| Down or in bed, breathing at 30% or less | Something that adds to breathing, such as smelling salts: time bought until oxygen or an operation. Looked for before anything else |
+| Down or in bed, with a condition something in stock cures outright | The cure, the gentlest first |
 | Someone in the colony has a disease that strikes groups, and this person is unprotected | A preventive from stock: a doctor gives it to those in bed, and people on their feet take their own |
 
 - **Never given**: a second painkiller while one still works, anything during an overdose, a dose that would leave consciousness or
@@ -159,8 +160,12 @@ its name.
   **It keeps a reserve**: never below 5 of a preventive in stock (0, 5, 10 or 20 in the settings). Treatment may use the last one.
 - **Diseases do not pass from person to person in the game by itself.** A preventive taken when plague strikes protects against the
   next time it strikes, not this one.
-- **A rare item, worth 300 silver or more, is kept for saving a life**, and nothing that begins a dependency that kills when it
-  stops (luciferium) is ever given by rule.
+- **A rare medicine is kept for saving a life**: one worth 300 silver or more, unless you move the mark in the settings (a slider;
+  zero keeps nothing back). Nothing that begins a dependency that kills when it stops (luciferium) is ever given by rule.
+- **A stimulant for breathing buys time, nothing more**: it is given again as it wears off, never where something blocks the
+  airway or a machine breathes for the patient, and nobody is woken with it.
+- **Blood loss is More Injuries' work**: its doctors give blood bags and hemogen packs on their own. Its epinephrine is left for
+  cardiac arrest.
 - **A "Medicine needed" alert** names anyone who needs something your colony knows how to make while none of it is in stock.
 - **A patient in extreme pain flinches while being tended**, so the tend comes out up to a quarter worse. Pain relief prevents it.
 - **Colonists up and about fetch their own painkiller** at 40% pain, by their drug policy. Teetotalers, children and masochists never

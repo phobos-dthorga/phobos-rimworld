@@ -69,9 +69,11 @@ public class PhobosDosingRulesDef : PhobosRulesDef
 
     /// <summary>What one vomit a day counts against a cure or a preventive: four a day cancel the whole benefit. Authored.</summary>
     public float vomitWeight = 0.25f;
-    /// <summary>An item worth this much silver or more is rare, and kept for saving a life: the mark triage uses for a rare tool (the
-    /// owner's card of 26 Nov 2026). Zero or less switches the rule off.</summary>
-    public float rareItemMarketValue = 300f;
+    /// <summary>Breathing at or under this is a breathing rescue: where triage calls a vital capacity immediate (the owner's card of 26
+    /// Nov 2026).</summary>
+    public float breathingRescueLevel = 0.3f;
+    /// <summary>An item must add at least this to breathing, after any breathing it costs, to count as a help to it. Authored.</summary>
+    public float minBreathingGain = 0.1f;
     /// <summary>Prevention is for someone whose chance factor of catching the disease (the game's own) is this or more. Authored.</summary>
     public float preventionMinRisk = 0.5f;
     /// <summary>Conditions that count as an outbreak besides the ones found by what they are (a disease an event of the game brings, or

@@ -67,6 +67,52 @@ public class CareNeedWorker
     }
 }
 
+/// <summary>
+/// A breathing rescue (Medical 0.29.0; the owner's card of 26 Nov 2026): a patient down or in bed whose breathing is at the rules' level
+/// or under, and not held there by a ceiling, is given something that adds to breathing: a bridge until oxygen or an operation, never
+/// a cure. Life-threatening, so it is looked at first. Nobody is woken with it: consciousness is not read.
+/// </summary>
+public class CareNeedWorker_Breathing : CareNeedWorker
+{
+    public override CareMode Mode => DosingMod.Settings.breathingMode;
+
+    CareContext Care => new(def.seriousness, null, def.usesReserve);
+
+    public override bool Wanted(Pawn patient, DosingSettings settings, PhobosDosingRulesDef rules) =>
+        DoseIndex.BreathingOptions.Count > 0 && Patients.IsLyingDown(patient) && Struggling(patient, rules);
+
+    /// <summary>Breathing at the level or under, on a flesh body, with no condition capping it there.</summary>
+    public static bool Struggling(Pawn patient, PhobosDosingRulesDef rules)
+    {
+        if (!patient.RaceProps.IsFlesh) return false;
+        float breathing = patient.health.capacities.GetLevel(PawnCapacityDefOf.Breathing);
+        if (breathing > rules.breathingRescueLevel) return false;
+        float ceiling = 1f;
+        List<Hediff> hediffs = patient.health.hediffSet.hediffs;
+        for (int i = 0; i < hediffs.Count; i++)
+        {
+            List<PawnCapacityModifier>? mods = hediffs[i].CurStage?.capMods;
+            if (mods == null) continue;
+            for (int j = 0; j < mods.Count; j++)
+            {
+                if (mods[j].capacity == PawnCapacityDefOf.Breathing && mods[j].setMax < ceiling) ceiling = mods[j].setMax;
+            }
+        }
+        return BreathingRescueRule.NeedsRescue(breathing, rules.breathingRescueLevel, ceiling);
+    }
+
+    public override DoseDecision? Decide(Pawn? doctor, Pawn patient, bool everyItem) =>
+        DoseService.DecideCare(doctor, patient, DoseNeed.Breathing, DoseIndex.BreathingOptions, Care, everyItem);
+
+    public override bool AnyAllowed(Pawn patient, DosingSettings settings, PhobosDosingRulesDef rules) =>
+        DoseService.AnyCareAllowed(patient, DoseNeed.Breathing, DoseIndex.BreathingOptions, Care);
+
+    public override string? Unmet(Pawn patient, DosingSettings settings, PhobosDosingRulesDef rules) =>
+        Wanted(patient, settings, rules) && NoneInStockButKnown(patient.Map, DoseIndex.BreathingOptions, null, DoseNeed.Breathing)
+            ? "PhobosDosing_UnmetBreathing".Translate().Resolve()
+            : null;
+}
+
 /// <summary>Pain, and at extreme pain a sedative: the dosing part's first need, as it has worked since Emergency Dosing.</summary>
 public class CareNeedWorker_Pain : CareNeedWorker
 {

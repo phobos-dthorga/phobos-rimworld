@@ -49,6 +49,12 @@ public static class DosingDebugActions
         foreach (DoseOption option in DoseIndex.CureOptions) AppendCare(text, option, option.Cures);
         text.Append('\n').Append(DosingMod.LogPrefix).Append(" preventives (the outbreak diseases each stops):");
         foreach (DoseOption option in DoseIndex.PreventionOptions) AppendCare(text, option, option.Prevents);
+        text.Append('\n').Append(DosingMod.LogPrefix).Append(" helps to breathing:");
+        foreach (DoseOption option in DoseIndex.BreathingOptions)
+        {
+            AppendCare(text, option, System.Array.Empty<HediffDef>());
+            text.Append(", breathing +").Append(option.Effect.BreathingGain.ToString("0.00"));
+        }
         Log.Message(text.ToString());
     }
 
@@ -59,7 +65,7 @@ public static class DosingDebugActions
         foreach (HediffDef condition in conditions) text.Append(' ').Append(condition.defName);
         text.Append("; consciousness -").Append(e.ConsciousnessCost.ToString("0.00")).Append(", breathing -").Append(e.BreathingCost.ToString("0.00"))
             .Append(", vomits a day ").Append(e.VomitsPerDay.ToString("0.00")).Append(", addictiveness ").Append(e.Addictiveness.ToString("0.00"))
-            .Append(option.Rare ? ", rare" : "").Append(option.LethalDependency != null ? ", begins " + option.LethalDependency.defName : "");
+            .Append(", worth ").Append(option.MarketValue.ToString("0")).Append(option.LethalDependency != null ? ", begins " + option.LethalDependency.defName : "");
     }
 
     [DebugAction(DebugCategory.Name, "Dosing: log self-medication for selected pawns", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]

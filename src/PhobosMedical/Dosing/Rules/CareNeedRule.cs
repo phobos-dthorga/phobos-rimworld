@@ -61,6 +61,17 @@ public static class StockReserveRule
 }
 
 /// <summary>
+/// Who a breathing rescue is for (Medical 0.29.0; the owner's card of 26 Nov 2026: breathing at 30% or less): someone at or under the
+/// level whose breathing is not held there by a ceiling. A stimulant adds to breathing; it cannot lift a ceiling (a blocked airway,
+/// a machine breathing for the patient), so under one it would be spent for nothing. Game-free.
+/// </summary>
+public static class BreathingRescueRule
+{
+    /// <param name="lowestCeiling">The lowest ceiling any of the patient's conditions sets on breathing; 1 or more when none.</param>
+    public static bool NeedsRescue(float breathing, float rescueLevel, float lowestCeiling) => breathing <= rescueLevel && lowestCeiling > rescueLevel;
+}
+
+/// <summary>
 /// Who prevention is for: someone the disease could still strike. The game's own figure is the chance factor of catching it: 0 for
 /// someone immune by a condition or a gene, or who has it already; below 1 for someone with immunity left over from an earlier bout;
 /// 1 for everyone else. Game-free.

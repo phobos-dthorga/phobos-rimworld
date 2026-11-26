@@ -5,6 +5,7 @@ using Phobos.Dosing.Services;
 using Phobos.Framework;
 using Phobos.Medical;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace Phobos.Dosing;
@@ -37,6 +38,11 @@ public class DosingSettings : ModSettings
     public int preventionReserve = 5;
     /// <summary>An alert names anyone with a care need nothing in stock answers (the owner's card of 26 Nov 2026).</summary>
     public bool unmetAlert = true;
+    /// <summary>Who gives a stimulant to a patient who can barely breathe (Medical 0.29.0): nobody, or doctors.</summary>
+    public CareMode breathingMode = CareMode.DoctorsOnly;
+    /// <summary>A medicine worth this much silver or more is rare, and kept for saving a life; zero keeps none back (the owner's
+    /// answer of 26 Nov 2026: "a configurable setting via a slider... 300 silver is the default").</summary>
+    public float rareItemMarketValue = 300f;
 
     public override void ExposeData()
     {
@@ -54,6 +60,8 @@ public class DosingSettings : ModSettings
         Scribe_Values.Look(ref preventionMode, "PhobosDosing_PreventionMode", CareMode.DoctorsAndSelf);
         Scribe_Values.Look(ref preventionReserve, "PhobosDosing_PreventionReserve", 5);
         Scribe_Values.Look(ref unmetAlert, "PhobosDosing_UnmetAlert", true);
+        Scribe_Values.Look(ref breathingMode, "PhobosDosing_BreathingMode", CareMode.DoctorsOnly);
+        Scribe_Values.Look(ref rareItemMarketValue, "PhobosDosing_RareItemMarketValue", 300f);
     }
 }
 
@@ -71,6 +79,9 @@ public static class DosingMod
     static readonly CareMode[] PreventionModes = { CareMode.Off, CareMode.DoctorsOnly, CareMode.DoctorsAndSelf };
     /// <summary>Round figures on buttons (the owner's card of 26 Nov 2026).</summary>
     static readonly int[] ReserveChoices = { 0, 5, 10, 20 };
+    /// <summary>The rare mark's slider: zero (no medicine kept back) to well past the dearest medicine a mod is likely to add, in steps of 25 silver.</summary>
+    const float RareMarkMax = 2000f;
+    const float RareMarkStep = 25f;
 
     public static DosingSettings Settings => MedicalMod.Settings.dosing;
 
@@ -94,6 +105,9 @@ public static class DosingMod
         }
         if (Settings.enabled)
         {
+            string breathing = "helps to breathing: " + NamesOf(DoseIndex.BreathingOptions);
+            if (CareModeRule.DoctorsMay(Settings.breathingMode)) report.On(breathing); else report.Off(breathing, "setting");
+            report.On(Settings.rareItemMarketValue > 0f ? "rare from " + Settings.rareItemMarketValue.ToString("0") + " silver" : "no rare mark");
             string cures = "cures: " + NamesOf(DoseIndex.CureOptions);
             if (CareModeRule.DoctorsMay(Settings.cureMode)) report.On(cures); else report.Off(cures, "setting");
             string prevention = "prevention in an outbreak: " + NamesOf(DoseIndex.PreventionOptions);
@@ -153,12 +167,18 @@ public static class DosingMod
         list.Check("PhobosDosing_SettingImmunity".Translate(), ref s.immunityDosing, d.immunityDosing, "PhobosDosing_SettingImmunityDesc".Translate());
         list.Check("PhobosDosing_SettingFussing".Translate(), ref s.fussing, d.fussing, "PhobosDosing_SettingFussingDesc".Translate());
         list.Section("PhobosDosing_SectionCareNeeds".Translate());
+        list.Radio("PhobosDosing_SettingBreathingMode".Translate(), ref s.breathingMode, d.breathingMode, CureModes, ModeLabel, tip: "PhobosDosing_SettingBreathingModeDesc".Translate());
         list.Radio("PhobosDosing_SettingCureMode".Translate(), ref s.cureMode, d.cureMode, CureModes, ModeLabel, tip: "PhobosDosing_SettingCureModeDesc".Translate());
         list.Radio("PhobosDosing_SettingPreventionMode".Translate(), ref s.preventionMode, d.preventionMode, PreventionModes, ModeLabel,
             tip: "PhobosDosing_SettingPreventionModeDesc".Translate());
         list.Radio("PhobosDosing_SettingPreventionReserve".Translate(), ref s.preventionReserve, d.preventionReserve, ReserveChoices, count => count.ToString(),
             tip: "PhobosDosing_SettingPreventionReserveDesc".Translate());
         list.Check("PhobosDosing_SettingUnmetAlert".Translate(), ref s.unmetAlert, d.unmetAlert, "PhobosDosing_SettingUnmetAlertDesc".Translate());
+        string rareLabel = s.rareItemMarketValue > 0f
+            ? "PhobosDosing_SettingRareMark".Translate(s.rareItemMarketValue.ToString("0").Named("SILVER"))
+            : "PhobosDosing_SettingRareMarkNone".Translate();
+        list.Slider(rareLabel, ref s.rareItemMarketValue, d.rareItemMarketValue, 0f, RareMarkMax, "PhobosDosing_SettingRareMarkDesc".Translate(),
+            value => Mathf.Round(value / RareMarkStep) * RareMarkStep);
         list.Section("PhobosDosing_SectionSelf".Translate());
         list.Check("PhobosDosing_SettingSelfMedication".Translate(), ref s.selfMedication, d.selfMedication, "PhobosDosing_SettingSelfMedicationDesc".Translate());
         list.Check("PhobosDosing_SettingSlavesSelfMedicate".Translate(), ref s.slavesSelfMedicate, d.slavesSelfMedicate, "PhobosDosing_SettingSlavesSelfMedicateDesc".Translate());

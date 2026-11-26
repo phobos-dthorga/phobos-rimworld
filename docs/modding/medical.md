@@ -111,6 +111,9 @@ Say what one of your items cures or prevents where its Defs cannot show it:
   rules Def's `removalReaders`, with the class's full name (`doerClass`) and the `field` holding a condition or a list of them.
 - **Prevention acts only for an outbreak disease**: one that an `IncidentDef` brings (`diseaseIncident`), one with Vanilla Expanded
   Framework's spreadable comp, or one you patch into the rules Def's `outbreakDiseases`.
+- **A help to breathing needs no extension**: a medical drug whose condition, at its dose, adds 0.1 or more to breathing after
+  any breathing it costs (`minBreathingGain`) is given to a patient at `breathingRescueLevel` (0.3) or under. Keep an item out
+  with `neverAutoDose`, as our More Injuries tie-in does for its epinephrine.
 - A cure or a preventive scores 1 minus the costs above and a quarter for each vomit a day; a sedative, a recreational drug or an
   item that gives a disease is never either.
 
