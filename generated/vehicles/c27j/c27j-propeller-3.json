@@ -1,0 +1,45 @@
+{
+  "file": "c27j-propeller-3.png",
+  "sha256": "4d93010b535a51a5c138e74541c271d51ad638dc131e4e28cce6eb658395e7fc",
+  "date": "2026-11-26T16:17:32",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down. No perspective, no tilt.\n\nCreate an ORIGINAL game sprite of one aircraft's six-bladed turboprop propeller, seen from directly above as it sits on a parked aeroplane: the propeller turns in an upright plane across the aircraft, so from above it is seen EDGE ON, as a thin bar, with its spinner pointing straight up the canvas (forward).\n\nImage 1 is our approved aircraft: match its thick near-black outline weight and its soft flat cel shading only. Do NOT copy its shape or its colours, and draw no aircraft. Image 2 is this propeller from above, drawn to scale: keep its shape, its proportions and its position exactly, part for part: the pointed spinner in the middle pointing up, one long blade straight out to each side, and two shorter blades on each side overlapping the inner half of the long one. Redraw it in the finish of Image 1 with real detail.\n\nWide canvas. The propeller is centred and spans nine tenths of the canvas width, on a plain pure white background.\n\nThe spinner: a smooth, glossy black, pointed bullet nose, seen from above as a pointed arch, with one soft dark grey highlight along it; no hub cap, no bolts, no detail. The blades: slim, matte-to-satin black, each seen edge on as a thin, gently curved dark sliver that sweeps back toward its tip in a scimitar curve: narrow at the root, widening a little, then tapering to the tip. The whole propeller is a thin, slightly irregular bar only about a tenth as deep as it is wide, with the spinner standing forward of it.\n\nAll black. NO orange, yellow, white or coloured tip bands, stripes or markings.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art, not a blueprint.\n\nNo aircraft, engine, nacelle, wing, face-on disc, round hub, motion blur, spinning disc, shadow, people, text, letters, numbers, logos, dust or damage.",
+  "seed": 3,
+  "size": [
+    2048,
+    878
+  ],
+  "request_file": "assets/phobos-vehicles/requests/c27j-paid.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a21649-1d70-7420-99bd-cdcd57655714",
+  "usage": null,
+  "cost_usd": 0.15,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    3168,
+    1344
+  ],
+  "asked_resolution": "2K",
+  "asked_aspect_ratio": "21:9",
+  "sent_seed": 3,
+  "size_note": "asked for 2048x878, received 3168x1344",
+  "seconds": 47.3,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/osprey-trial-nano-banana-pro/osprey-trial-nano-banana-pro-1.png",
+      "sha256": "1de0291ec5c8191e0a37cba45d998bdf9acd6b1f8d98aa3a6d601ee564562f18",
+      "role": "our approved aircraft body (the owner's Osprey pick): match its outline weight and shading only; do not copy its shape or colours, and draw no aircraft"
+    },
+    {
+      "image": "assets/phobos-vehicles/references/c27j-propeller-edge-plan.png",
+      "sha256": "35074067e8ef933abbc8d1482925bfd45770237d8e84dc887fe25efffd8b6224",
+      "role": "this propeller from straight above, edge on, drawn by our own script (draw_c27j_plan.py) from its published diameter: keep its shape, proportions and position exactly"
+    }
+  ]
+}

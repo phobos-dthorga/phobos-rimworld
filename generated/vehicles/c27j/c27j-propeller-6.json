@@ -1,0 +1,45 @@
+{
+  "file": "c27j-propeller-6.png",
+  "sha256": "232b5d4ae42d31d73ddf718ad3336d4d739e575154168fbe2bd7d491f997c492",
+  "date": "2026-11-26T16:22:21",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down. No perspective, no tilt.\n\nImage 1 is our aircraft's six-bladed turboprop propeller seen from directly above, EDGE ON, its pointed spinner pointing up the canvas and its blades a thin bar across it. Its shape, size and position are right. Draw exactly this propeller again, at the same size and in the same position on the same wide canvas: the same glossy black pointed bullet spinner with its soft dark grey highlight, and the same thin, gently curved black blade slivers sweeping back toward their tips, one long blade out to each side and two shorter ones on each side over its inner half, as Image 2 lays out.\n\nFix one thing: in Image 1 the outer halves of the long blades are soft and blurred at their edges. Give every blade, all the way to its tip, the same crisp, unbroken, thick near-black outline as the spinner, with a clean flat matte-to-satin black fill inside it: no blur, no soft or feathered edges, no grey haze or pale halo around any blade.\n\nAll black. NO orange, yellow, white or coloured tip bands, stripes or markings. A plain pure white background.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art, not a blueprint.\n\nNo aircraft, engine, nacelle, wing, face-on disc, round hub, extra blades, motion blur, spinning disc, shadow, people, text, letters, numbers, logos, dust or damage.",
+  "seed": 6,
+  "size": [
+    2048,
+    878
+  ],
+  "request_file": "assets/phobos-vehicles/requests/c27j-paid.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a2164d-93c5-75a0-89ec-1ff4f1c98355",
+  "usage": null,
+  "cost_usd": 0.15,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    3168,
+    1344
+  ],
+  "asked_resolution": "2K",
+  "asked_aspect_ratio": "21:9",
+  "sent_seed": 6,
+  "size_note": "asked for 2048x878, received 3168x1344",
+  "seconds": 32.6,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/c27j-propeller/c27j-propeller-4.png",
+      "sha256": "98dc7401ac3e6b9f7e6a12ff15d98d34660918263eabc1b88671898061bf07eb",
+      "role": "our propeller, try 4 of this request: its shape, size and position are right, its outer blade edges soft; the drawing to repeat with crisp outlines"
+    },
+    {
+      "image": "assets/phobos-vehicles/references/c27j-propeller-edge-plan.png",
+      "sha256": "35074067e8ef933abbc8d1482925bfd45770237d8e84dc887fe25efffd8b6224",
+      "role": "this propeller from straight above, edge on, drawn by our own script (draw_c27j_plan.py) from its published diameter: its layout"
+    }
+  ]
+}

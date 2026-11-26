@@ -1,0 +1,39 @@
+{
+  "made_by": "assets/phobos-vehicles/draw_c27j_plan.py (Pillow shapes; no generator, no photograph, no other art)",
+  "pixels_a_metre": 82.06,
+  "published": {
+    "length_m": 22.7,
+    "span_m": 28.7,
+    "propeller_m": 4.115,
+    "fuselage_width_m": 3.7,
+    "wing_area_m2": 82
+  },
+  "approximate_for_layout_only": {
+    "wing_le_m": 8.3,
+    "chords_m": [
+      3.4,
+      1.8
+    ],
+    "engine_at_m": 4.5,
+    "nacelle_m": [
+      1.3,
+      4.3,
+      12.4
+    ],
+    "gear_fairing_m": [
+      8.6,
+      13.6,
+      0.55
+    ],
+    "tailplane_span_m": 11.0,
+    "hub_m": 0.8,
+    "blade_chord_m": 0.34
+  },
+  "wing_area_drawn_m2": 81.8,
+  "files": {
+    "c27j-plan.png": "6b68255959250cfc1a567169010c5938887e001dc10cba6550cf4d547820bc2a",
+    "c27j-plan-check.png": "d3b406992797977542b2c83d4f2f2ed52d7c5792876c09a5e444dc2e06b79b33",
+    "c27j-propeller-plan.png": "b9ac12422f470971ad8a302457c58f9dd2312ad1d1accefda445db060aeee356",
+    "c27j-propeller-edge-plan.png": "35074067e8ef933abbc8d1482925bfd45770237d8e84dc887fe25efffd8b6224"
+  }
+}

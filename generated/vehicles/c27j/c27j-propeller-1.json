@@ -1,0 +1,44 @@
+{
+  "file": "c27j-propeller-1.png",
+  "sha256": "ef2bf7fbe620fc2e92f815aa12bf588942bd83336e03ad28d7fb196dc0944f9d",
+  "date": "2026-11-26T15:26:18",
+  "prompt": "ORTHOGRAPHIC VIEW STRAIGHT DOWN THE PROPELLER'S SHAFT. Camera directly above the propeller, which lies flat, so its whole disc faces the camera. Show no side faces.\n\nCreate an ORIGINAL game sprite of one six-bladed turboprop propeller, still, alone on white, for an aircraft overlay.\n\nImage 1 is our approved aircraft rotor: match its outline weight, its shading and its finish only. Do NOT copy its three blades or their shape. Image 2 is this propeller's layout, drawn to scale: keep its six blades, their angles, their length and their curve, and the size of its hub, exactly, and redraw it in the finish of Image 1 with real detail.\n\nSquare canvas. The propeller's centre is at the centre of the canvas and its blade tips reach nine tenths of the way across it, on a plain pure white background.\n\nSix slender composite blades 60 degrees apart, each one smooth continuous shape with an unbroken thick near-black outline: narrow at the root, widest a little past mid-blade, then sweeping gently back toward a rounded tip, a scimitar shape, with a thin muted orange band near each tip. At the centre, a round domed spinner about a fifth of the disc across, with each blade root tucked neatly under it. Dark grey blades, a pale grey spinner.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art, not a blueprint.\n\nNo aircraft, engine, nacelle, motion blur, spinning disc, shadow, people, text, letters, numbers, logos, dust or damage.",
+  "seed": 1,
+  "size": [
+    4096,
+    4096
+  ],
+  "request_file": "assets/phobos-vehicles/requests/c27j-paid.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a21619-f8e3-7303-b3dd-2cd52714fa80",
+  "usage": null,
+  "cost_usd": 0.3,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    4096,
+    4096
+  ],
+  "asked_resolution": "4K",
+  "asked_aspect_ratio": "1:1",
+  "sent_seed": 1,
+  "seconds": 66.5,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/osprey-rotor-clean-4k/osprey-rotor-clean-4k-1.png",
+      "sha256": "941a55ad4ce052c91d5535fb4fcf44c501133fe3036bf64b0227594f9ff5997c",
+      "role": "our approved Osprey rotor (on art-masters): match its outline weight, shading and finish only; do not copy its three blades or their shape"
+    },
+    {
+      "image": "assets/phobos-vehicles/references/c27j-propeller-plan.png",
+      "sha256": "b9ac12422f470971ad8a302457c58f9dd2312ad1d1accefda445db060aeee356",
+      "role": "this propeller's layout, drawn by our own script (draw_c27j_plan.py) from its published diameter: keep its six blades, their angles, length and curve, and its hub size"
+    }
+  ]
+}

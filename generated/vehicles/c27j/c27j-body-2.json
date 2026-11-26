@@ -1,0 +1,45 @@
+{
+  "file": "c27j-body-2.png",
+  "sha256": "a24529648e1ddad0551941f62d98a8a7a368d260862a966071fd7f63dbd056f1",
+  "date": "2026-11-26T15:25:11",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. The aircraft's centre line runs straight up the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite of a twin-engine turboprop military transport aeroplane for a hard-scrabble frontier colony: a high-winged tactical airlifter with a rear loading ramp, parked on the ground.\n\nImage 1 is our approved aircraft from the same maker: match its outline weight, its shading, its finish and its pale grey materials only. Do NOT copy its shape or its layout: it is a different aircraft. Image 2 is this aircraft's plan, drawn to scale: keep its layout and its proportions exactly, part for part, and redraw every part in the finish of Image 1 with real detail.\n\nDraw the BARE AIRFRAME only. The two propellers are drawn separately as overlays, so leave them out: each engine nacelle ends at its front in a plain pointed spinner cone with NO blades, NO propeller disc and NO blur.\n\nLandscape canvas. The aircraft is centred and its wingspan fills nine tenths of the canvas width, on a plain pure white background. North facing: the rounded nose and cockpit at the TOP edge, the T-tail at the BOTTOM edge.\n\nIts plan, from top to bottom: a short rounded nose with a dark glazed cockpit canopy; a long, wide, straight fuselage with a rounded roof; a long straight high wing set across the top of the fuselage a little forward of the middle, constant in width out to the engines and then tapering to squared tips; a long slim engine nacelle on each wing, close to the fuselage, reaching well ahead of the wing's leading edge and a little behind its trailing edge, ending at the front in a pointed spinner cone; a streamlined main-gear fairing bulging out low on each side of the fuselage beneath and behind the wing; a rear fuselage that narrows toward the tail, with the outline of a closed loading ramp across it; a thin fin along the centre line with a wide, slightly swept tailplane across its top at the very rear (a T-tail).\n\nMaterials: pale grey airframe panels, slightly darker grey nacelles and walkway strips along the wing, dark blue-grey cockpit glazing, small panel lines, hatches, flap lines along the wing's trailing edge and rivet rows.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, many small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art, not a blueprint.\n\nNo propellers, propeller blades, propeller discs, rotors, guns, missiles, pods, probes, antennas, people, cargo, dust, dirt, damage, text, letters, numbers, logos, flags, roundels, dials, screens or lamps. No floor, ground, runway, shadow outside the aircraft, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 2,
+  "size": [
+    4096,
+    3277
+  ],
+  "request_file": "assets/phobos-vehicles/requests/c27j-paid.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a21618-e848-7421-84c0-84d1d7959b55",
+  "usage": null,
+  "cost_usd": 0.3,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    4608,
+    3712
+  ],
+  "asked_resolution": "4K",
+  "asked_aspect_ratio": "5:4",
+  "sent_seed": 2,
+  "size_note": "asked for 4096x3277, received 4608x3712",
+  "seconds": 63.6,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/osprey-trial-nano-banana-pro/osprey-trial-nano-banana-pro-1.png",
+      "sha256": "1de0291ec5c8191e0a37cba45d998bdf9acd6b1f8d98aa3a6d601ee564562f18",
+      "role": "our approved aircraft body (the owner's Osprey pick of 18 Nov 2026): match its outline weight, shading and finish only; do not copy its shape or layout"
+    },
+    {
+      "image": "assets/phobos-vehicles/references/c27j-plan.png",
+      "sha256": "6b68255959250cfc1a567169010c5938887e001dc10cba6550cf4d547820bc2a",
+      "role": "this aircraft's plan, drawn by our own script (draw_c27j_plan.py) from published dimensions: keep its layout and proportions exactly"
+    }
+  ]
+}
