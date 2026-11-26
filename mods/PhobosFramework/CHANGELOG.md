@@ -13,6 +13,17 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.302.0] - 2026-11-26 - Draft
+
+Aeroplanes on our flight
+
+### Added
+
+- **Our flight can carry an aeroplane, which never hovers**: an aircraft's flight can now say it cannot hover at all. It takes off
+  along a strip, its roll growing with its weight up to its maximum take-off weight, refuses to go over that weight (saying how much
+  to shed), lands rolling on a strip of its own length, circles where a helicopter would hold, and refuses hover drops, sling loads,
+  the hoist and ropes. Nothing uses it yet: it is the first step of the C-27J Spartan. Not yet tested in game.
+
 ## [0.301.2] - 2026-11-26 - Draft
 
 The airdrop's buttons get their own pictures

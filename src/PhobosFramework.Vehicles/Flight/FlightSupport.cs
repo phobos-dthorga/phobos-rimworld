@@ -106,6 +106,8 @@ public static class FlightRules
     public static FlightHold Hold(VehiclePawn vehicle, float margin, float forwardShare)
     {
         if (!float.IsNaN(margin) && margin <= 0f) return FlightHold.Falling;
+        // Framework 0.302.0: an aeroplane never hovers, whatever the setting; it flies forward while any engine runs.
+        if (NeverHovers(vehicle)) return FlightHold.ForwardOnly;
         VehicleSystemsSettings settings = VehicleSystemsMod.Settings;
         if (settings.showOnly || settings.hoverLimit == VehicleSystemsSettings.HoverLimit.WarnOnly) return FlightHold.Hover;
         FlightHold judged = FlightPathRule.Judge(margin, forwardShare);
@@ -118,6 +120,7 @@ public static class FlightRules
     /// are not judged.</summary>
     public static bool WouldHoverWith(VehiclePawn vehicle, double extraKg)
     {
+        if (NeverHovers(vehicle)) return false;
         if (CompPhobosVehicleSystems.Of(vehicle) is not { Powertrain: { JudgesHover: true } train } systems) return true;
         if (VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Full) return true;
         if (train.Engines().working <= 0) return false;
@@ -125,6 +128,9 @@ public static class FlightRules
         float share = train.Profile?.forwardFlightShare ?? 0.6f;
         return Hold(vehicle, dry || wet ? Mathf.Max(1f, (float)m) : (float)m, share) == FlightHold.Hover;
     }
+
+    /// <summary>Whether this aircraft is an aeroplane on our flight, which can never hover (Framework 0.302.0: its flight's canHover).</summary>
+    public static bool NeverHovers(VehiclePawn vehicle) => vehicle.GetComp<CompPhobosFlight>() is { Props.canHover: false };
 
     /// <summary>Whether a straight lift-off is refused for weight, heat or height under the player's setting; the margin it judged.</summary>
     public static bool HoverRefused(VehiclePawn vehicle, out float margin)

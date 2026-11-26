@@ -65,6 +65,17 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
     public int fullRollCells = 20;
     /// <summary>Whether its strip must be a built floor (a jet's would); rough ground does for most.</summary>
     public bool needsBuiltFloor;
+
+    /// <summary>
+    /// Whether it can hover at all (Framework 0.302.0; docs/development/vehicle-c27j.md): false for an aeroplane, which takes off along a strip
+    /// by its weight (TakeoffRule), lands rolling, circles where a rotorcraft would hold, and never drops from a hover, slings a load or works a
+    /// hoist or ropes. A rotorcraft's ability to hover is still judged by its engines.
+    /// </summary>
+    public bool canHover = true;
+    /// <summary>An aeroplane's maximum take-off weight, kilograms: its full roll at this weight, and it may not go over it. 0: no limit.</summary>
+    public float maxTakeoffKilograms;
+    /// <summary>The strip a rolling landing needs, cells (Framework 0.302.0); left out, its full roll.</summary>
+    public int landingRollCells = -1;
     /// <summary>Its speed leaving the ground at the end of a roll, as a share of its top speed over the map (authored).</summary>
     public float liftOffSpeedShare = 0.6f;
     /// <summary>Its speed circling, cells a second (Framework 0.153.0); left out, seven tenths of its top speed (authored).</summary>
@@ -118,6 +129,9 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
     /// <summary>Seconds for its rotors to run down to rest once the engines stop (authored; a real rotor takes longer without a brake).</summary>
     public float rotorRunDownSeconds = 10f;
 
+    /// <summary>The strip a rolling landing needs, cells.</summary>
+    public int LandingRollCells => landingRollCells > 0 ? landingRollCells : fullRollCells;
+
     /// <summary>Its speed circling, cells a second.</summary>
     public float OrbitSpeed => float.IsNaN(orbitSpeedCellsPerSecond) ? speedCellsPerSecond * 0.7f : orbitSpeedCellsPerSecond;
 
@@ -134,6 +148,8 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
         if (workHeightMetres <= 0f || workHeightMetres > flightHeightMetres) yield return "workHeightMetres must be above 0 and no more than flightHeightMetres";
         if (ropePoints < 1 || ropeSlideMetresPerSecond <= 0f || hoistLoadedMetresPerSecond <= 0f || hoistEmptyMetresPerSecond <= 0f || hoistRatedKilograms <= 0f)
             yield return "ropePoints, rope and hoist speeds and the hoist's rated load must be positive";
+        if (!canHover && (maxTakeoffKilograms < 0f)) yield return "maxTakeoffKilograms may not be negative";
+        if (landingRollCells > 0 && landingRollCells < shortestRollCells) yield return "landingRollCells may not be shorter than shortestRollCells";
         if (orbitRadiusCells < tightest) yield return $"orbitRadiusCells {orbitRadiusCells} is tighter than it can turn at its circling speed ({tightest:0.0} cells)";
     }
 }
@@ -228,6 +244,8 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
     PhobosVehicleFlightProfileDef? Profile => CompPhobosVehicleSystems.Of(Vehicle)?.Powertrain?.Profile;
     float ForwardShare => Profile?.forwardFlightShare ?? 0.6f;
     float RollingShare => Profile?.rollingShare ?? float.NaN;
+    /// <summary>Whether it can roll along a strip at all: an aeroplane always; a rotorcraft whose flight profile gives a rolling share.</summary>
+    bool CanRoll => !Props.canHover || !float.IsNaN(RollingShare);
     float HeightCells => Props.flightHeightMetres / FlightRules.MetresPerCell;
 
     // ---- Saving ----
@@ -355,16 +373,36 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
     /// </summary>
     public (RollVerdict Verdict, int Cells, float Margin) RollNeed()
     {
+        if (!Props.canHover)
+        {
+            // Framework 0.302.0: an aeroplane always rolls, its roll set by its weight against its maximum take-off weight; with every engine
+            // out, or over that weight, it does not go.
+            float em = FlightRules.Margin(Vehicle);
+            if (!float.IsNaN(em) && em <= 0f) return (RollVerdict.Refused, 0, em);
+            double kg = MassKgNow();
+            if (!TakeoffRule.MayTakeOff(kg, Props.maxTakeoffKilograms)) return (RollVerdict.Refused, 0, em);
+            return (RollVerdict.Rolls, TakeoffRule.RollCells(kg, Props.maxTakeoffKilograms, Props.shortestRollCells, Props.fullRollCells), em);
+        }
         if (!FlightRules.HoverRefused(Vehicle, out float m)) return (RollVerdict.Straight, 0, m);
         RollVerdict verdict = RollRule.Judge(m, RollingShare);
         return (verdict, verdict == RollVerdict.Rolls ? RollRule.StripCells(m, RollingShare, Props.shortestRollCells, Props.fullRollCells) : 0, m);
     }
+
+    /// <summary>Its weight now, kilograms: the engine model's, else Vehicle Framework's mass stat.</summary>
+    double MassKgNow() => CompPhobosVehicleSystems.Of(Vehicle)?.Powertrain is { } train ? train.MassKg() : Vehicle.GetStatValue(StatDefOf.Mass);
 
     /// <summary>Too heavy even to roll: how much lighter it must be, where it can roll at all.</summary>
     string TooHeavy(float m)
     {
         VehiclePawn v = Vehicle;
         NamedArgument who = v.LabelShort.Named("VEHICLE");
+        if (!Props.canHover)
+        {
+            // Framework 0.302.0: an aeroplane over its maximum take-off weight sheds the difference; with its engines out, it is not its weight.
+            double over = TakeoffRule.ShedKg(MassKgNow(), Props.maxTakeoffKilograms);
+            if (over <= 0) return "PhobosFlight_WhyEngines".Translate().Resolve();
+            return "PhobosFlight_RefuseTooHeavyShed".Translate(who, Mathf.Max(1f, (float)over).ToString("0").Named("KILOGRAMS")).Resolve();
+        }
         double keep = RollRule.WeightShareToRoll(m, RollingShare, rotor: true);
         if (double.IsNaN(keep) || CompPhobosVehicleSystems.Of(v)?.Powertrain is not { } train) return "PhobosFlight_RefuseTooHeavy".Translate(who).Resolve();
         float shed = Mathf.Max(1f, (float)(train.MassKg() * (1 - keep)));
@@ -736,8 +774,8 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         if (NeedsRollingLanding())
         {
             // Framework 0.151.0: it cannot hover, so it lands on a strip of its full roll ahead of the spot, facing as asked.
-            if (float.IsNaN(RollingShare)) return "PhobosFlight_RefuseCannotHoverNoStrip".Translate(who).Resolve();
-            return FlightRules.StripRefusal(Vehicle, cell, rot, Props.fullRollCells, Props.needsBuiltFloor, out _) is { } strip
+            if (!CanRoll) return "PhobosFlight_RefuseCannotHoverNoStrip".Translate(who).Resolve();
+            return FlightRules.StripRefusal(Vehicle, cell, rot, Props.LandingRollCells, Props.needsBuiltFloor, out _) is { } strip
                 ? "PhobosFlight_RefuseLand".Translate(who, strip.Named("WHY")).Resolve() : null;
         }
         return FlightRules.SpotRefusal(Vehicle, cell, rot, forced: false) is { } why
@@ -1095,10 +1133,10 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         }
         // Framework 0.151.0: one that cannot hover lands rolling on a clear strip ahead of its spot; chosen while it could hover, the strip
         // is looked at now.
-        if (landCell.IsValid && (landRolling || hold == FlightHold.ForwardOnly) && !float.IsNaN(RollingShare))
+        if (landCell.IsValid && (landRolling || hold == FlightHold.ForwardOnly) && CanRoll)
         {
             // Fault-read W7 (Framework 0.167.0): the whole strip is looked at as it arrives, a rolling landing chosen earlier too.
-            if (FlightRules.StripRefusal(Vehicle, landCell, landRot, Props.fullRollCells, Props.needsBuiltFloor, out _) == null)
+            if (FlightRules.StripRefusal(Vehicle, landCell, landRot, Props.LandingRollCells, Props.needsBuiltFloor, out _) == null)
             {
                 BeginRollingLanding();
                 return;
@@ -1194,7 +1232,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         heading = landRot.AsAngle;
         rollFromX = x;
         rollFromZ = z;
-        rollCells = Props.fullRollCells;
+        rollCells = Props.LandingRollCells;
         IntVec3 end = landCell + landRot.FacingCell * rollCells;
         Vector3 c = Ext_Vehicles.TrueCenter(end, new Rot8(landRot), v.VehicleDef.Size, 0f);
         (targetX, targetZ) = (c.x, c.z);
