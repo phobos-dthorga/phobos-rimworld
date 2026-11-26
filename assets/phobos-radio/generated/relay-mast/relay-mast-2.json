@@ -1,0 +1,56 @@
+{
+  "file": "relay-mast-2.png",
+  "sha256": "19056636d1b5528642f835a02bf2eab9ac380f5b48eb4728d73c1a0db580d158",
+  "date": "2026-11-26T23:32:52",
+  "prompt": "STEEP HIGH-ANGLE VIEW FROM ABOVE AND SLIGHTLY IN FRONT, exactly as the game RimWorld draws its standing lamps: we look mostly DOWN onto the object's top; its height is strongly foreshortened; its foot at the BOTTOM of the canvas and its top towards the TOP. No side-on view, no isometric angle, no tilt.\n\nCreate an ORIGINAL game sprite for a small portable radio relay mast left standing in the wilderness. Images 1 and 2 are our approved antennas from the same game: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nPortrait canvas. The mast fills about 80 percent of the canvas height, centred, on a plain pure white background.\n\nA slim galvanised steel lattice mast on a small square steel base plate, held by three thin guy wires pegged into the ground around it. At its top, a short vertical antenna rod with a small ball tip. Halfway up, a small tilted dark blue solar panel on a bracket. At its foot, a rugged weatherproof grey radio box with a short black cable running up the mast.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted galvanised steel and grey with the dark blue panel, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals, vehicles or ground texture. No shadow outside the object.",
+  "seed": 2,
+  "size": [
+    1024,
+    1536
+  ],
+  "request_file": "assets/phobos-radio/requests/advice-and-relays-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1248,
+    "input_tokens_details": {
+      "image_tokens": 920,
+      "text_tokens": 328
+    },
+    "output_tokens": 1372,
+    "output_tokens_details": {
+      "image_tokens": 1372,
+      "text_tokens": 0
+    },
+    "total_tokens": 2620
+  },
+  "cost_usd": 0.0502,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1536",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1536
+  ],
+  "seconds": 19.7,
+  "references": [
+    {
+      "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Mast.png",
+      "sha256": "bd538397cac78e79d5c6897307349910f249fdeca835e425794503268d867bb6",
+      "role": "our approved mast antenna from the same mod: match its outline weight, shading, palette, finish and steep view from above only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/WhipFullSize.png",
+      "sha256": "1515bc6f4440c97670325176169602a8fc0fba0f9b7359ce8eed3838d9453b02",
+      "role": "our approved whip antenna from the same mod: match its galvanised steel colours only; do not copy its shape"
+    }
+  ]
+}

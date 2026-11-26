@@ -1,0 +1,56 @@
+{
+  "file": "item-medical-chest-2.png",
+  "sha256": "ade678835021d6b709482531e9e2f665e5b6ded6ff65834223c4e428603429e9",
+  "date": "2026-11-26T23:31:01",
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for a medical chest kept at a remote outpost, so a doctor on the radio can say exactly which item to use. Images 1 and 2 are our approved items from the same game: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA sturdy rectangular olive-green steel chest with rounded corners and two folding carry handles, its hinged lid propped open. Inside, a neat grid of small compartments holding white boxes, small brown bottles, rolled bandages and a pair of scissors, each compartment marked only by a small round coloured dot. On the inside of the open lid, a pale paper chart showing the simple outline of a human body divided into a few coloured areas.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive, steel and paper colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, crosses, crescents, logos, labels, people, animals or ground. No shadow outside the object.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-radio/requests/advice-and-relays-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 433,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 305
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2189
+  },
+  "cost_usd": 0.0552,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 36.6,
+  "references": [
+    {
+      "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Handheld.png",
+      "sha256": "e1fea8cc2c0b19b6b051b41db196155dcd15795d1fe0ee969025cb32062f994d",
+      "role": "our approved radio item from the same mod (the hand-held radio): match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/FluidsKit.png",
+      "sha256": "3e386dcd73ffe98d6e5f4ef72fca11aabb530c9ff058580679aaf5e2831db647",
+      "role": "our approved medical kit item from the same game: match its outline weight, shading and finish only; do not copy its shape or contents"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "file": "icon-repeater-kit-1.png",
+  "sha256": "46888db7ad3ced3a2d600acc8f6d39c390ac18cb21c542124d1bc13c5c441195",
+  "date": "2026-11-26T23:31:30",
+  "prompt": "GAME BUTTON ICON. One small group of objects seen from above at a slight angle, centred, as an icon on a button in a top-down strategy game.\n\nImages 1 and 2 are our approved radio equipment from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon for a vehicle's radio repeater kit: a compact dark grey radio box with a row of small green and amber indicator lights and two round antenna sockets on top, and beside it a squat brick-shaped metal duplexer filter of six small polished silver cylinders in two rows, joined to the box by two short black coaxial cables with screw-on connectors. A short black whip antenna lies across the front.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, muted dark steel and black with small green and amber lights, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No vehicles, people, hands, text, letters, numbers, logos or brand marks.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-radio/requests/advice-and-relays-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 395,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 267
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2151
+  },
+  "cost_usd": 0.055,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 28.6,
+  "references": [
+    {
+      "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Handheld.png",
+      "sha256": "e1fea8cc2c0b19b6b051b41db196155dcd15795d1fe0ee969025cb32062f994d",
+      "role": "our approved radio item from the same mod: match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/LinearAmplifier.png",
+      "sha256": "c7be8937987fcbdc2d02067e9ea6a1608c6f5537b99f37b1004b22edde6786bb",
+      "role": "our approved radio equipment from the same mod (a linear amplifier): match its dark steel colours and finish only; do not copy its shape"
+    }
+  ]
+}
