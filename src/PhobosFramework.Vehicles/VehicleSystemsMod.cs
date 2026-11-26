@@ -244,6 +244,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>The packer's skill (the parachute's quality) decides whether a canopy fails (Framework 0.293.0; the owner's card of 25 Nov 2026:
     /// "gated by a setting, disabled by default"). Off, canopies never fail. Live.</summary>
     public bool airdropPackerSkill;
+    /// <summary>An aeroplane that can may pull a vehicle out low over a strip on its platform (LAPES, Framework 0.323.0; the owner's card of
+    /// 26 Nov 2026: on by default, against the rule that high-risk behaviours start off). Off, the order is not offered. Live.</summary>
+    public bool airdropLapes = true;
     /// <summary>Other authors' aircraft given our airdrop in XML (the C-17) drop on it, replacing their own (Framework 0.288.0; the owner's card
     /// of 25 Nov 2026: off by default). Their faults while on ours are D'thorga's. Live, for the next flight.</summary>
     public bool stockAircraftAirdrop;
@@ -380,6 +383,7 @@ public class VehicleSystemsSettings : ModSettings
         "airdropLandingRisk" => airdropLandingRisk,
         "airdropCrewInside" => airdropCrewInside,
         "airdropPackerSkill" => airdropPackerSkill,
+        "airdropLapes" => airdropLapes,
         "stockAircraftAirdrop" => stockAircraftAirdrop,
         "caravanCooking" => caravanCooking,
         "trailerWasteDump" => trailerWasteDump,
@@ -480,6 +484,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref airdropLandingRisk, "PhobosVehicleSystems_AirdropLandingRisk", true);
         Scribe_Values.Look(ref airdropCrewInside, "PhobosVehicleSystems_AirdropCrewInside", false);
         Scribe_Values.Look(ref airdropPackerSkill, "PhobosVehicleSystems_AirdropPackerSkill", false);
+        Scribe_Values.Look(ref airdropLapes, "PhobosVehicleSystems_AirdropLapes", true);
         Scribe_Values.Look(ref stockAircraftAirdrop, "PhobosVehicleSystems_StockAircraftAirdrop", false);
         Scribe_Values.Look(ref caravanCooking, "PhobosVehicleSystems_CaravanCooking", true);
         Scribe_Values.Look(ref trailerWasteDump, "PhobosVehicleSystems_TrailerWasteDump", true);
@@ -618,6 +623,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.airdropLandingRisk) report.Off("airdrop landing injuries and damage", "off (setting)");
         if (Settings.airdropCrewInside) report.On("vehicles airdropped with their crew inside (setting)");
         if (Settings.airdropPackerSkill) report.On("parachutes can fail by their packer's skill (setting)");
+        if (!Settings.airdropLapes) report.Off("low-level extraction (LAPES)", "off (setting)");
         if (Settings.stockAircraftAirdrop) report.On("other authors' aircraft on D'thorga's airdrop; their faults while on it are D'thorga's (setting)");
         if (Settings.jumpStartNeedsKit) report.On("jump-start leads must be crafted (setting)");
         else report.Off("jump-start leads", "free (setting)");
@@ -772,6 +778,7 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosAirdrop_SettingLandingRisk".Translate(), ref s.airdropLandingRisk, d.airdropLandingRisk, "PhobosAirdrop_SettingLandingRiskDesc".Translate());
         list.Check("PhobosAirdrop_SettingCrewInside".Translate(), ref s.airdropCrewInside, d.airdropCrewInside, "PhobosAirdrop_SettingCrewInsideDesc".Translate());
         list.Check("PhobosAirdrop_SettingPackerSkill".Translate(), ref s.airdropPackerSkill, d.airdropPackerSkill, "PhobosAirdrop_SettingPackerSkillDesc".Translate());
+        list.Check("PhobosAirdrop_SettingLapes".Translate(), ref s.airdropLapes, d.airdropLapes, "PhobosAirdrop_SettingLapesDesc".Translate());
         list.Check("PhobosAirdrop_SettingStockAircraft".Translate(), ref s.stockAircraftAirdrop, d.stockAircraftAirdrop, "PhobosAirdrop_SettingStockAircraftDesc".Translate());
         list.Section("PhobosSling_Section".Translate());
         list.Check("PhobosSling_SettingHeat".Translate(), ref s.slingHeatDerating, d.slingHeatDerating, "PhobosSling_SettingHeatDesc".Translate());

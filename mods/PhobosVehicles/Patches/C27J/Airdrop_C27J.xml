@@ -8,6 +8,8 @@
     9,000 kg on two platforms, 6,000 kg on one [P1, P2]; the pass's two at 6,000 each is authored, within the hold's one vehicle of 8,600 kg).
     Its hold: one vehicle up to 2 by 5 cells and 8,600 kg (owner's card of 26 Nov 2026), within its cargo (11,300 kg); the real hold is 2.45 m
     wide at the floor and 8.58 m long, 11.43 m with the ramp [P2, P3]. Not yet tested in game.
+    LAPES (Framework 0.323.0; the owner's card of 26 Nov 2026: on by default): one vehicle of up to 5,000 kg pulled out low over a strip
+    [P1, P2]. Not yet tested in game.
   -->
 
   <Operation Class="PatchOperationConditional">
@@ -28,6 +30,7 @@
         <bundlesPerSecond>2</bundlesPerSecond>
         <platforms>2</platforms>
         <heaviestPlatformKg>6000</heaviestPlatformKg>
+        <lapesKg>5000</lapesKg>
       </li>
     </value>
   </Operation>

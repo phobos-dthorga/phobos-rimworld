@@ -26,7 +26,8 @@ public static class ParachuteLanding
     /// <summary>The share of each landing part's health an ordinary platform landing wears (authored).</summary>
     const float LandingWearShare = 0.03f;
 
-    static bool Risky => VehicleSystemsMod.Settings.airdropLandingRisk && !VehicleSystemsMod.Settings.showOnly;
+    /// <summary>Whether landings can hurt and damage now: the player's setting, and not the show-only mode.</summary>
+    internal static bool Risky => VehicleSystemsMod.Settings.airdropLandingRisk && !VehicleSystemsMod.Settings.showOnly;
 
     /// <summary>Lands everything the faller carries where it is now, and leaves its spent canopy or platform.</summary>
     public static void Land(PhobosParachuteFaller faller)
@@ -220,7 +221,30 @@ public static class ParachuteLanding
     static void LandVehicle(VehiclePawn vehicle, Map map, IntVec3 near, PhobosParachuteFaller faller, bool hard, bool night, float knots, ParachuteRule.Figures figures,
         bool failed = false)
     {
-        Rot4 rot = faller.vehicleRot;
+        if (PutVehicleDown(vehicle, map, near, faller.vehicleRot, hard, failed ? ParachuteRule.FailedCanopyMetres : ParachuteRule.HardLandingMetres, out string? harm)
+            is not { } spot) return;
+        foreach (Pawn crew in vehicle.AllPawnsAboard.ToList())
+        {
+            if (!crew.Dead) LandPerson(crew, map, spot, faller, night, knots, ParachuteRule.Person, crewInside: true, failed: failed);
+        }
+        SayVehicleLanded(vehicle, hard, harm);
+    }
+
+    /// <summary>
+    /// A vehicle pulled out low on its platform has slid to rest (LAPES, Framework 0.323.0): put down facing the way it slid, as a platform
+    /// landing puts it down, worn a little, now and then hard. Nobody rides a LAPES load, so there is no crew to land.
+    /// </summary>
+    public static void LandExtracted(VehiclePawn vehicle, Map map, IntVec3 near, Rot4 rot, bool hard)
+    {
+        if (PutVehicleDown(vehicle, map, near, rot, hard, ParachuteRule.HardLandingMetres, out string? harm) == null) return;
+        SayVehicleLanded(vehicle, hard, harm);
+    }
+
+    /// <summary>Puts a landing vehicle on the nearest clear footprint, worn a little, and hard from <paramref name="hardMetres"/> when
+    /// <paramref name="hard"/>. Its spot, or null when it could not be spawned.</summary>
+    static IntVec3? PutVehicleDown(VehiclePawn vehicle, Map map, IntVec3 near, Rot4 rot, bool hard, double hardMetres, out string? harm)
+    {
+        harm = null;
         if (!SlingPlacement.TryFindClear(vehicle.VehicleDef, rot, map, near, VehicleSearch, CellRect.Empty, out IntVec3 spot)
             && !SlingPlacement.TryFindClear(vehicle.VehicleDef, rot, map, near, GenRadial.MaxRadialPatternRadius - 1f, CellRect.Empty, out spot))
         {
@@ -228,21 +252,20 @@ public static class ParachuteLanding
             spot = near.ClampInsideMap(map);
         }
         GenSpawn.Spawn(vehicle, spot, map, rot, WipeMode.VanishOrMoveAside);
-        if (!vehicle.Spawned) return;
+        if (!vehicle.Spawned) return null;
         AirdropSounds.Play(AirdropSounds.PlatformLands, map, spot);
         vehicle.EventRegistry[VehicleEventDefOf.AerialVehicleLanding]?.ExecuteEvents();
         if (Risky) CompPhobosVehicleSystems.Of(vehicle)?.WearLanding(LandingWearShare);
-        string? harm = hard ? SlingDrops.Fall(vehicle, (float)(failed ? ParachuteRule.FailedCanopyMetres : ParachuteRule.HardLandingMetres)) : null;
-        foreach (Pawn crew in vehicle.AllPawnsAboard.ToList())
-        {
-            if (!crew.Dead) LandPerson(crew, map, spot, faller, night, knots, ParachuteRule.Person, crewInside: true, failed: failed);
-        }
-        if (vehicle.Faction == Faction.OfPlayer)
-        {
-            Messages.Message(hard
-                    ? "PhobosAirdrop_MsgVehicleLandedHard".Translate(vehicle.LabelShort.Named("VEHICLE"), (harm ?? "").Named("HARM")).Resolve()
-                    : "PhobosAirdrop_MsgVehicleLanded".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve(),
-                vehicle, hard ? MessageTypeDefOf.NegativeEvent : MessageTypeDefOf.PositiveEvent);
-        }
+        if (hard) harm = SlingDrops.Fall(vehicle, (float)hardMetres);
+        return spot;
+    }
+
+    static void SayVehicleLanded(VehiclePawn vehicle, bool hard, string? harm)
+    {
+        if (vehicle.Faction != Faction.OfPlayer) return;
+        Messages.Message(hard
+                ? "PhobosAirdrop_MsgVehicleLandedHard".Translate(vehicle.LabelShort.Named("VEHICLE"), (harm ?? "").Named("HARM")).Resolve()
+                : "PhobosAirdrop_MsgVehicleLanded".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve(),
+            vehicle, hard ? MessageTypeDefOf.NegativeEvent : MessageTypeDefOf.PositiveEvent);
     }
 }

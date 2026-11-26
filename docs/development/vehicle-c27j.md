@@ -2,8 +2,9 @@
 
 **Status (26 Nov 2026):** the aeroplane itself built: our flight's aeroplane switch and take-off rule (Framework 0.302.0), then the
 aircraft with its hold, drops, defensive aids, raids and edge-on propellers (Framework 0.316.0, Vehicles 0.123.0), on the owner's picked
-art. Not built: LAPES and the three hold fits (gun kit, fire-fighting tank, stretchers), the fits' overlays, its sounds. Not yet tested
-in game.
+art; then LAPES (Framework 0.323.0, Vehicles 0.126.0; [airdrops](airdrop.md#lapes-26-nov-2026-framework-03230-vehicles-01260)). Not built: the
+three hold fits (gun kit, fire-fighting tank, stretchers) and their overlays (pictures made, awaiting the owner's picks), its sounds
+(candidates offered). Not yet tested in game.
 
 The owner asked, 26 Nov 2026, after the parachute airdrops were built ([airdrops](airdrop.md)): "C-27J Spartan", the transport aeroplane
 that record and [modern military vehicles](modern-military-vehicles.md) (MV7, "the rough-strip transport aeroplane") named as the real
@@ -86,6 +87,9 @@ explained in a comment beside it there. The main ones:
 - **People**: 2 pilots, a loadmaster, and 40 passenger seats (the RAAF's fit **[P4]**).
 
 ## LAPES (owner's card: on by default)
+
+**Built** (Framework 0.323.0, Vehicles 0.126.0): how it works, its figures and what is unconfirmed are in
+[airdrops](airdrop.md#lapes-26-nov-2026-framework-03230-vehicles-01260). The C-27J's limit is `lapesKg` 5,000 in its airdrop patch.
 
 - **An order on the drop buttons**: pick a clear, level strip and its direction, as a landing strip is picked. The aircraft descends to
   its LAPES height along it and its platform (up to 5,000 kg **[P]**) is pulled out of the ramp on an extraction chute, sliding to a stop

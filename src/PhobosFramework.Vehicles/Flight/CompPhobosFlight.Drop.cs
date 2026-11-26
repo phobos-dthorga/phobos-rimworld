@@ -33,6 +33,15 @@ public class AirdropRun : IExposable
     public int people, bundles, vehicles, platformsLeft;
     /// <summary>Whether a raid's drop (its people only; no messages to the player).</summary>
     public bool raid;
+    /// <summary>
+    /// A low-altitude extraction over a strip (LAPES, Framework 0.323.0): <see cref="target"/> is where the platform touches down, the line
+    /// runs along <see cref="lapesRot"/>. Whether it has reached its approach point and turned onto the line; where it was last sent (to see
+    /// the player send it elsewhere); and how often it has gone round after coming in off the line.
+    /// </summary>
+    public bool lapes, linedUp;
+    public Rot4 lapesRot = Rot4.North;
+    public float aimX = float.NaN, aimZ = float.NaN;
+    public int goRounds;
 
     public void ExposeData()
     {
@@ -52,6 +61,12 @@ public class AirdropRun : IExposable
         Scribe_Values.Look(ref vehicles, "vehicles");
         Scribe_Values.Look(ref platformsLeft, "platformsLeft");
         Scribe_Values.Look(ref raid, "raid");
+        Scribe_Values.Look(ref lapes, "lapes");
+        Scribe_Values.Look(ref linedUp, "linedUp");
+        Scribe_Values.Look(ref lapesRot, "lapesRot", Rot4.North);
+        Scribe_Values.Look(ref aimX, "aimX", float.NaN);
+        Scribe_Values.Look(ref aimZ, "aimZ", float.NaN);
+        Scribe_Values.Look(ref goRounds, "goRounds");
     }
 }
 
@@ -280,6 +295,11 @@ public partial class CompPhobosFlight
         VehiclePawn v = Vehicle;
         // Framework 0.306.0: a marker near the point puts up its smoke while we, or an ally, drop on it; never for a raid's crew.
         if (!run.raid) DropZoneMarkers.Smoke(v.Map, run.target);
+        if (run.lapes)
+        {
+            LapesStep(run, dt);
+            return;
+        }
         if (run.hover)
         {
             if (state != FlightState.Hover)

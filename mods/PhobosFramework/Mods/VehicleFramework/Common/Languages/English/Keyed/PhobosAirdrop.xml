@@ -10,6 +10,8 @@
   <PhobosAirdrop_SettingCrewInsideDesc>A vehicle dropped by parachute may keep its crew inside, as Soviet airborne troops did in 1973 and 1976. High risk: the crew is hurt far more often than a jumper, and badly on a hard landing. Off, a vehicle with people inside stays in the hold.</PhobosAirdrop_SettingCrewInsideDesc>
   <PhobosAirdrop_SettingPackerSkill>Packers' skill decides whether canopies fail</PhobosAirdrop_SettingPackerSkill>
   <PhobosAirdrop_SettingPackerSkillDesc>Each parachute and drop rig is only as good as the person who packed it: its quality comes from their Crafting skill, and a badly packed one can fail. A jumper then lands roughly on the reserve, and cargo or a vehicle lands hard. Off, canopies never fail, whoever packed them.</PhobosAirdrop_SettingPackerSkillDesc>
+  <PhobosAirdrop_SettingLapes>Aircraft may pull vehicles out low over a strip (LAPES)</PhobosAirdrop_SettingLapes>
+  <PhobosAirdrop_SettingLapesDesc>An aircraft built for it, such as the C-27J Spartan, may fly a few feet over a clear strip and let its extraction parachute pull a vehicle out of the ramp on its platform, to slide to a stop: no wind drift and no parachute to wait for. High risk: the vehicle lands hard more often than by parachute, and now and then the aircraft strikes the ground and damages its landing gear and belly. Off, the order is not offered.</PhobosAirdrop_SettingLapesDesc>
   <PhobosAirdrop_SettingStockAircraft>Other authors' aircraft use D'thorga airdrops (the C-17)</PhobosAirdrop_SettingStockAircraft>
   <PhobosAirdrop_SettingStockAircraftDesc>Other authors' aircraft given D'thorga airdrops in XML, such as the C-17 Globemaster III, drop people, cargo and vehicles with real parachutes, wind and landings, in place of their own airdrop. Off, they work exactly as their authors made them. Any fault while one flies a drop on D'thorga's flight is D'thorga's, not its author's.</PhobosAirdrop_SettingStockAircraftDesc>
 
@@ -23,6 +25,10 @@
   <PhobosAirdrop_RefuseNotHovering>{VEHICLE} must be hovering steadily to drop from where it is.</PhobosAirdrop_RefuseNotHovering>
   <PhobosAirdrop_RefuseOffMap>That point is off the map.</PhobosAirdrop_RefuseOffMap>
   <PhobosAirdrop_RefuseThickRoof>That point is under a mountain's roof.</PhobosAirdrop_RefuseThickRoof>
+  <PhobosAirdrop_RefuseLapesCannot>{VEHICLE} cannot pull a load out low.</PhobosAirdrop_RefuseLapesCannot>
+  <PhobosAirdrop_RefuseLapesNoLoad>{VEHICLE} has no vehicle in its hold it can pull out low: one of up to {KILOGRAMS} kg, with nobody inside.</PhobosAirdrop_RefuseLapesNoLoad>
+  <PhobosAirdrop_RefuseLapesNoRig>{VEHICLE} has no heavy-drop rig in its cargo for the platform.</PhobosAirdrop_RefuseLapesNoRig>
+  <PhobosAirdrop_RefuseLapesStrip>The strip is not clear: {WHY}</PhobosAirdrop_RefuseLapesStrip>
 
   <!-- Buttons -->
   <PhobosAirdrop_DropPass>Drop pass</PhobosAirdrop_DropPass>
@@ -31,6 +37,8 @@
   <PhobosAirdrop_DropHereDesc>{VEHICLE} drops from where it hovers, after climbing to the height parachutes are dropped from, or low from where it is. The wind carries the loads.\n\n{WHAT}</PhobosAirdrop_DropHereDesc>
   <PhobosAirdrop_DropHereClimb>Climb to drop height, then drop</PhobosAirdrop_DropHereClimb>
   <PhobosAirdrop_DropHereLow>Drop low, from here ({FEET} ft, below the safe height)</PhobosAirdrop_DropHereLow>
+  <PhobosAirdrop_Lapes>Low extraction</PhobosAirdrop_Lapes>
+  <PhobosAirdrop_LapesDesc>Choose where the load touches down and the way it slides, on a clear, level strip. {VEHICLE} flies back along the line, turns onto it, comes down to a few feet and, as its ramp crosses the point, an extraction parachute pulls one vehicle of up to {KILOGRAMS} kg out of its hold on a platform, to slide to a stop along the strip. Nobody may be inside it, and it needs a heavy-drop rig from the cargo. No wind drift, but a harder landing than by parachute, and a small chance of the aircraft striking the ground.</PhobosAirdrop_LapesDesc>
 
   <!-- Wind and warnings -->
   <PhobosAirdrop_WindCalm>Calm: loads come straight down.</PhobosAirdrop_WindCalm>
@@ -56,6 +64,13 @@
   <PhobosAirdrop_MsgHurtLanding>{PERSON} was hurt landing by parachute.</PhobosAirdrop_MsgHurtLanding>
   <PhobosAirdrop_MsgVehicleLanded>{VEHICLE} has landed on its platform.</PhobosAirdrop_MsgVehicleLanded>
   <PhobosAirdrop_MsgVehicleLandedHard>{VEHICLE} landed hard on its platform: {HARM}.</PhobosAirdrop_MsgVehicleLandedHard>
+  <PhobosAirdrop_MsgLapesStarted>{VEHICLE} is lining up to pull {LOAD} out low over the strip.</PhobosAirdrop_MsgLapesStarted>
+  <PhobosAirdrop_MsgLapesCalledOff>{VEHICLE} has called off its low extraction; the load stays aboard.</PhobosAirdrop_MsgLapesCalledOff>
+  <PhobosAirdrop_MsgLapesGoRound>{VEHICLE} came in off the line and is going round to try again.</PhobosAirdrop_MsgLapesGoRound>
+  <PhobosAirdrop_MsgLapesGaveUp>{VEHICLE} could not line up over the strip and has given up; the load stays aboard.</PhobosAirdrop_MsgLapesGaveUp>
+  <PhobosAirdrop_MsgLapesNothing>{VEHICLE} had nothing left it could pull out low.</PhobosAirdrop_MsgLapesNothing>
+  <PhobosAirdrop_MsgLapesStrike>{VEHICLE} struck the ground as its load went out, damaging its landing gear and belly.</PhobosAirdrop_MsgLapesStrike>
+  <PhobosAirdrop_MsgLapesStrikeHarm>{VEHICLE} struck the ground hard as its load went out: {HARM}.</PhobosAirdrop_MsgLapesStrikeHarm>
   <PhobosAirdrop_MsgZoneGone>{VEHICLE} found no drop zone: the place is gone. It has come down there as a caravan.</PhobosAirdrop_MsgZoneGone>
   <PhobosAirdrop_MsgLandedInstead>{VEHICLE} could not come in for its drop pass and has landed in the middle of the map instead, with nothing dropped.</PhobosAirdrop_MsgLandedInstead>
   <PhobosAirdrop_MsgNoFuelHome>{VEHICLE} lacks the fuel to fly home after its drop and has come down where it is, as a caravan.</PhobosAirdrop_MsgNoFuelHome>

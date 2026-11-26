@@ -90,4 +90,20 @@
       <expandHomeArea>false</expandHomeArea>
     </building>
   </ThingDef>
+
+  <!-- A vehicle on its platform sliding to rest after a low-altitude extraction (LAPES; Framework 0.323.0; airdrop.md, "LAPES"). It draws
+       the platform, the vehicle and its trailing extraction chute itself, and puts the vehicle down when it stops. -->
+  <ThingDef>
+    <defName>Phobos_LapesPlatform</defName>
+    <label>vehicle sliding on its platform</label>
+    <thingClass>Phobos.VehicleSystems.PhobosLapesPlatform</thingClass>
+    <category>Ethereal</category>
+    <altitudeLayer>Pawn</altitudeLayer>
+    <tickerType>Normal</tickerType>
+    <drawerType>RealtimeOnly</drawerType>
+    <useHitPoints>false</useHitPoints>
+    <selectable>false</selectable>
+    <rotatable>false</rotatable>
+    <drawOffscreen>true</drawOffscreen>
+  </ThingDef>
 </Defs>

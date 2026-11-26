@@ -341,10 +341,39 @@ bundle landing (S151) and a platform landing (S152), shipped with the owner's pi
 owner may want to revise (the drift share, the fall-time share, the Osprey's hold, the CIWS hit) are on D'thorga Companion's Decisions
 page (`config/decisions.json`).
 
+## LAPES (26 Nov 2026; Framework 0.323.0, Vehicles 0.126.0)
+
+**Owner's card (the C-27J, 26 Nov 2026): LAPES on by default**, against our rule that high-risk behaviours start off. A low-altitude
+parachute extraction: the aircraft flies a few feet over a clear strip and an extraction chute pulls a vehicle out of the ramp on its
+platform, which slides to a stop. No drift and no canopy to wait for, so it lands where it is put, for a harder landing.
+
+- **The order** (**Low extraction**, beside the drop pass): the player picks where the platform touches down and the way it slides, as a
+  landing is picked. The strip ahead must be clear and level for the aircraft's width: the slide, the platform's length and one cell
+  (`LapesRule.StripCells`). The aircraft flies to a point back along the line (twice the pass's run-on), turns onto it, comes down to
+  8 ft (5 to 10 ft in the Army's airdrop reference and GlobalSecurity **[S]**), and lets go as its ramp crosses the point.
+- **What goes**: one vehicle from the hold of up to the aircraft's `lapesKg` (the C-27J's 5,000 kg **[P1, P2]**), with nobody inside (no
+  crew rode a LAPES load), and one heavy-drop rig from the cargo. A spent platform and a spent cargo parachute (the extraction chute) are
+  left beside it to repack.
+- **The slide**: 150 ft, the middle of the one figure found ("typically 100 to 200 feet"), **unconfirmed**: it comes from an AI-written
+  encyclopedia, and no primary source was found (searched 26 Nov 2026). On the map at the drift's share (0.2), about 6 cells, over
+  2.5 seconds **[A]**, slowing evenly. Drawn as the platform and vehicle with the extraction chute trailing ahead, throwing dust.
+- **Risk** (with **Airdrop landings can hurt and damage** on): the load lands hard at five times the parachute's chance (0.1 **[A]**; no
+  LAPES damage rate was found), damaged as a hard parachute landing damages it; the aircraft strikes the ground at 1 in 100 **[A]** (two
+  fatal LAPES accidents are on record, 1982 and 1987 **[S]**, against deliveries the sources do not count), wearing a quarter of each
+  landing part's health, and one strike in ten also takes a fall's damage to the airframe **[A]**.
+- **Going wrong**: coming in more than 20 degrees or 2 cells off the line **[A]**, it goes round from the approach point, twice at most,
+  then gives up; sent anywhere else, it calls the run off. The load stays aboard either way.
+- **The setting**: **Aircraft may pull vehicles out low over a strip (LAPES)**, D'thorga Framework's Airdrops section, on; off, the order
+  is not offered. Live.
+- **Other factions**: raids and allies keep to parachutes (a LAPES run needs a strip the attacker would have to know); a captured C-27J
+  can do it as ours. Agent's choice, for the owner to revise.
+- **Not yet tested in game** (test rows 587 to 589).
+
 ## What a next game would need
 
 The wind (a direction and a speed in knots) and the parachute rule (`ParachuteRule`: drift, descent, injury and minimum height) are
 game-free and live in the Framework core; a next game needs its own falling thing, its own aircraft and its own wind source.
+`LapesRule` (the slide, the strip, the height and the risks) is game-free too; a next game needs its own sliding platform.
 
 ## The figures
 

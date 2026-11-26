@@ -35,11 +35,17 @@ public class PhobosAirdropExtension : DefModExtension
     public string stockModeValue = "Airdrop";
     /// <summary>A raid's aircraft carries this many spare personnel parachutes beyond one each (authored).</summary>
     public int raiderSpareChutes;
+    /// <summary>
+    /// The heaviest vehicle it may pull out low on a platform over a strip (LAPES, Framework 0.323.0), kilograms; 0 (the default) when it
+    /// cannot. An aeroplane with a rear ramp that flies steadily a few feet up: a helicopter or tiltrotor does not.
+    /// </summary>
+    public float lapesKg;
 
     public override IEnumerable<string> ConfigErrors()
     {
         foreach (string error in base.ConfigErrors()) yield return error;
         if (jumpDoors < 1 || bundlesPerSecond <= 0f || platforms < 0 || heaviestPlatformKg < 0f) yield return "PhobosAirdropExtension: jumpDoors, bundlesPerSecond, platforms and heaviestPlatformKg must be positive";
+        if (lapesKg < 0f) yield return "PhobosAirdropExtension: lapesKg must not be negative";
     }
 }
 
@@ -59,6 +65,7 @@ public static class AirdropDefOf
     public static ThingDef Phobos_ParachuteFaller_Person = null!;
     public static ThingDef Phobos_ParachuteFaller_Bundle = null!;
     public static ThingDef Phobos_ParachuteFaller_Vehicle = null!;
+    public static ThingDef Phobos_LapesPlatform = null!;
     public static ThoughtDef Phobos_JumpedFromAircraft = null!;
     public static ThoughtDef Phobos_HardLanding = null!;
     public static RecordDef Phobos_Jumps = null!;

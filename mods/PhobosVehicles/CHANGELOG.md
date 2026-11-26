@@ -13,6 +13,15 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.126.0] - 2026-11-26 - Draft
+
+The C-27J's low extraction
+
+### Added
+
+- **The C-27J can pull a vehicle of up to 5,000 kg out low over a strip** (LAPES, D'thorga Framework 0.323.0; the owner's card of 26
+  November 2026: on by default), the real aircraft's limit. Not yet tested in game: rows 587 to 589.
+
 ## [0.125.0] - 2026-11-26 - Draft
 
 Smoke dischargers, the ammunition locker and extra gun mounts

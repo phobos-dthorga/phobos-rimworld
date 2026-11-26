@@ -659,9 +659,14 @@ motor pool, from aircraft parts as the Osprey is.
   doors, bundles two a second, and up to two vehicles on platforms of up to 6,000 kg each ([dropping by parachute](aircraft-and-sling-loads.md#dropping-by-parachute)).
 - **Defensive aids**, its one upgrade so far: an infrared jammer and chaff and flare dispensers, cued by its missile warning receiver.
   Haulers fill the dispensers' 60 cartridges once it is fitted.
+- **Low extraction (LAPES)**: in flight, press **Low extraction** and pick where the load should touch down and the way it slides, on a
+  clear, level strip. It lines up, comes down to a few feet and an extraction parachute pulls one vehicle of up to 5,000 kg, with nobody
+  inside, out of the ramp on its platform; it slides about 6 cells and stops, right where you put it, with no wind drift. It needs a
+  heavy-drop rig in its cargo. **The load lands hard more often than by parachute, and now and then the aircraft strikes the ground**
+  and damages its landing gear. Switch it off in D'thorga Framework's settings (Airdrops).
 - **Its propellers** show as bars across the engines' noses from above, blurring as they spin up.
 - **Enemy C-27Js bring paratroopers**: they cross the map and drop them, and your guns and close-in weapons can shoot them down.
-- **Still to come:** low-level drops along a strip (LAPES), and its hold fits: a side gun, a fire-fighting tank and stretchers.
+- **Still to come:** its hold fits: a side gun, a fire-fighting tank and stretchers.
 
 ## Other mods' vehicles
 

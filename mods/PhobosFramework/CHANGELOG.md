@@ -13,6 +13,32 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.323.0] - 2026-11-26 - Draft
+
+Low extraction (LAPES): a vehicle pulled out low over a strip
+
+### Added
+
+- **Low extraction (LAPES) for aircraft built for it** (the owner's card of 26 November 2026, for the C-27J: on by default): press Low
+  extraction in flight and pick where the load touches down and the way it slides. The aircraft lines up, comes down to 8 ft and an
+  extraction chute pulls one empty vehicle out of the hold on its platform, to slide about 6 cells to a stop: no wind drift. It takes a
+  heavy-drop rig and leaves a spent platform and chute to repack. Coming in off the line it goes round, twice at most; sent elsewhere,
+  it calls the run off. Not yet tested in game: rows 587 and 588.
+- **A new setting** (vehicle settings, Airdrops section): Aircraft may pull vehicles out low over a strip (LAPES), **on**. With
+  Airdrop landings can hurt and damage on, the load lands hard at 1 in 10 and the aircraft strikes the ground at 1 in 100, wearing its
+  landing gear. Off, the order is not offered. Row 589.
+
+### Compatibility and limits
+
+- **The slide's 150 ft is unconfirmed**: the one figure found is from an AI-written encyclopedia; the height is sourced, the risks are
+  the agent's. How it works: docs/development/airdrop.md, LAPES. Other authors' aircraft get it with lapesKg on their airdrop extension.
+- **Raids and allies keep to parachutes.** A captured C-27J can do it as yours.
+- **The Low extraction button shows the drop pass's icon for now**; its own is made and waits for the owner's pick.
+
+### Save compatibility
+
+- Safe to add. A save made during a run keeps it; a sliding platform saved mid-slide finishes when loaded.
+
 ## [0.322.0] - 2026-11-26 - Draft
 
 Work on the road, third round: survey halts, test holes, tipping, ambushes and wrecked trailers

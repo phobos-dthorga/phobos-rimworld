@@ -383,6 +383,21 @@ public static class FlightGizmos
         };
         if (flight.DropPassRefusal(IntVec3.Invalid) is { } passRefused) pass.Disable(passRefused);
         yield return pass;
+        // LAPES (Framework 0.323.0): where the platform touches down and the way it slides, picked as a landing is.
+        if (flight.CanLapes)
+        {
+            var lapes = new Command_Action
+            {
+                defaultLabel = "PhobosAirdrop_Lapes".Translate(),
+                defaultDesc = "PhobosAirdrop_LapesDesc".Translate(who, (Airdrop.Ext(vehicle)?.lapesKg ?? 0f).ToString("N0").Named("KILOGRAMS")),
+                // Our drop pass's icon until the owner picks LAPES's own (assets/phobos-vehicles/requests/c27j-icons-paid.json, lapes-button).
+                icon = SystemIcons.For("Phobos/VehicleSystems/Airdrop/AirdropOn"),
+                action = () => LandingTargeter.Instance.BeginTargeting(vehicle, vehicle.Map, (target, rot) => flight.LapesPass(target.Cell, rot),
+                    target => flight.LapesRefusal(target.Cell, vehicle.Rotation) == null, allowRotating: true),
+            };
+            if (flight.LapesRefusal(IntVec3.Invalid, Rot4.North) is { } lapesRefused) lapes.Disable(lapesRefused);
+            yield return lapes;
+        }
         if (!flight.HoversSteadily) yield break;
         var here = new Command_Action
         {
