@@ -62,12 +62,14 @@ public static class RaiderFlight
     /// <summary>Candidate spots looked at for a landing (authored: enough to find open ground on a crowded map, once a raid).</summary>
     const int Candidates = 400;
 
-    /// <summary>A raiders' aircraft for this faction, by weight, or null where none of ours suits it.</summary>
+    /// <summary>A raiders' aircraft for this faction, by weight, or null where none of ours suits it. An aeroplane that cannot drop is never
+    /// one (Framework 0.316.0; docs/development/vehicle-c27j.md): it could neither land on a raid's spot nor hover for ropes.</summary>
     public static VehicleDef? AircraftFor(Faction faction)
     {
         var fit = DefDatabase<VehicleDef>.AllDefsListForReading
             .Where(d => d.GetModExtension<PhobosRaiderAircraftExtension>() is { } ext && faction.def.techLevel >= ext.minTechLevel
-                && d.comps.Any(c => c is CompProperties_PhobosFlight))
+                && d.comps.FirstOrDefault(c => c is CompProperties_PhobosFlight) is CompProperties_PhobosFlight props
+                && (props.canHover || d.GetModExtension<PhobosAirdropExtension>() is { onlyWithStockSetting: false }))
             .ToList();
         return fit.Count == 0 ? null : fit.RandomElementByWeight(d => d.GetModExtension<PhobosRaiderAircraftExtension>()!.weight);
     }
@@ -110,11 +112,13 @@ public static class RaiderFlight
         }
         left.RemoveAll(seated.Contains);
         // Framework 0.288.0 (docs/development/airdrop.md; the owner's card of 25 Nov 2026): an aircraft that can drop brings some raids in
-        // by parachute, with a packed parachute for each of its raiders.
+        // by parachute, with a packed parachute for each of its raiders. An aeroplane always does (Framework 0.316.0; vehicle-c27j.md): it cannot
+        // hover for ropes, and a raid's landing spot is a footprint, not the strip it would need.
         bool chutes = vehicle.def.GetModExtension<PhobosAirdropExtension>() is { onlyWithStockSetting: false } drops
-            && Rand.Chance((float)RaidLandingRule.ParachuteShare);
+            && (FlightRules.NeverHovers(vehicle) || Rand.Chance((float)RaidLandingRule.ParachuteShare));
         if (chutes)
         {
+            if (FlightRules.NeverHovers(vehicle)) Seen.Note("aircraft.aeroplane-raid", vehicle);
             Thing packed = ThingMaker.MakeThing(AirdropDefOf.Phobos_PersonnelParachute);
             packed.stackCount = seated.Count + vehicle.def.GetModExtension<PhobosAirdropExtension>()!.raiderSpareChutes;
             vehicle.inventory.innerContainer.TryAdd(packed);

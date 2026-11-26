@@ -1,0 +1,63 @@
+{
+  "body": {
+    "cells_long": 26.672,
+    "draw_size": [
+      34,
+      27
+    ],
+    "pixels_a_cell": 120,
+    "width_cells": 33.54,
+    "colours": {
+      "color": [
+        225,
+        224,
+        234
+      ],
+      "colorTwo": null
+    },
+    "pick_to_texture": 0.9430188307415946
+  },
+  "propellers": {
+    "draw_size": [
+      5.0,
+      2.5
+    ],
+    "hubs": [
+      [
+        -5.26,
+        7.12
+      ],
+      [
+        5.26,
+        7.12
+      ]
+    ],
+    "hubs_as_measured": {
+      "Left": [
+        -5.26,
+        7.118
+      ],
+      "Right": [
+        5.267,
+        7.118
+      ]
+    },
+    "hub_is": "the blade plane at the spinner's base, on the nacelle's centre line",
+    "picture": {
+      "centre_x": 1584.0,
+      "span_px": 2784,
+      "tip_y": 252,
+      "blades_from_y": 794
+    }
+  },
+  "footprint": {
+    "size": [
+      5,
+      11
+    ],
+    "reaches_forward_cells": 5.5,
+    "nose_at_cells": 13.365,
+    "half_width_cells": 2.5,
+    "fuselage_half_width_cells": 2.17
+  }
+}

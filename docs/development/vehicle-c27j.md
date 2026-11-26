@@ -1,7 +1,9 @@
 # The C-27J Spartan: design (26 Nov 2026)
 
-**Status (26 Nov 2026):** designed, with the owner's eight answers of 26 Nov 2026; not built. It is our first aeroplane: a twin-turboprop
-transport with a vehicle hold, parachute drops, rough strips and LAPES, and four fits. Not yet tested in game.
+**Status (26 Nov 2026):** the aeroplane itself built: our flight's aeroplane switch and take-off rule (Framework 0.302.0), then the
+aircraft with its hold, drops, defensive aids, raids and edge-on propellers (Framework 0.316.0, Vehicles 0.123.0), on the owner's picked
+art. Not built: LAPES and the three hold fits (gun kit, fire-fighting tank, stretchers), the fits' overlays, its sounds. Not yet tested
+in game.
 
 The owner asked, 26 Nov 2026, after the parachute airdrops were built ([airdrops](airdrop.md)): "C-27J Spartan", the transport aeroplane
 that record and [modern military vehicles](modern-military-vehicles.md) (MV7, "the rough-strip transport aeroplane") named as the real
@@ -60,6 +62,20 @@ the RAAF's *Aircraft of the RAAF* (A34) **[P4]**, Leonardo's 2021 presentation *
 
 ## The aircraft in game (agent defaults, for the owner's review)
 
+As built (Vehicles 0.123.0), the Defs in `mods/PhobosVehicles/Defs/Phobos/Vehicles/C27J/` and `Patches/C27J/`; each authored figure is
+explained in a comment beside it there. The main ones:
+
+| Figure | In game | Basis |
+| --- | --- | --- |
+| Mass stat, flight speed | 2,200; 22 | The Osprey's 1,950 and 17.5, scaled by empty weight and by 602 km/h **[I]** |
+| Cargo | 11,300 kg, the real maximum payload **[P1]**; the hold 8,600 kg (owner's card) | Take-off is judged on the whole weight: with full fuel it lifts about 5,800 kg, so a full hold needs less fuel, as the real one (owner's card, 26 Nov 2026: "Keep the real trade"). Drag the fuel bar's target down, or have a colonist take fuel out (Vehicle Framework's own) |
+| Fuel | 2,830 units, 12,168 L of the real 9,734 kg **[P1]** | About 2.5 times the Osprey's endurance **[I]** |
+| Flight | 9 cells a second, turn 24 degrees a second, circle 18 cells at 7 a second; rolls 12 to 35 cells, landing 25 **[A]** | The map's compressed scale |
+| Propellers | Edge-on bars from above, still or a blur (owner's card, 26 Nov 2026: "Edge-on bar"; Framework's `CompPhobosPropellers`) | A tractor propeller spins upright ahead of its nacelle |
+| Defensive aids | One node: the infrared jammer and chaff and flare dispensers, 60 cartridges **[A]** (owner's card: per aircraft; Framework's `countermeasuresByUpgrade`) | The RAAF's suite **[P4]** |
+| Raids | Always paratroopers: an aeroplane cannot land on a spot or rope down | Framework's raider flight |
+| Walk-in cabin | None yet | The cabins record: no new cabin until the Osprey's is tested |
+
 - **Footprint 5 x 11, picture about (34, 27)** at the Osprey's 1.175 cells a metre (owner's card).
 - **Our systems**: a loadout with two turbines driving propellers through gearboxes (the turboshaft kind and the rotor drive standing in
   for turboprops **[I]**: our engine model has no turboprop kind), fly-by-wire hydraulics, avionics with weather radar, two fuel tanks.
@@ -81,13 +97,19 @@ the RAAF's *Aircraft of the RAAF* (A34) **[P4]**, Leonardo's 2021 presentation *
 
 | Node | What it does | Real basis |
 | --- | --- | --- |
-| Defensive aids | Missile warning, chaff and flares, from our existing dispensers and warning receiver | The RAAF's suite **[P4]** |
+| Defensive aids | **Built**: infrared jammer, chaff and flares, cued by the built-in missile warning receiver | The RAAF's suite **[P4]** |
 | Stretchers | 36 stretchers in the hold, from our litter kit; either/or with the gun kit and the tank (they fill the hold) | **[P1]** |
 | MC-27J gun kit | A 30 mm gun on a pallet, firing from the left door while it circles a point; either/or with the stretchers and the tank | Leonardo's MC-27J **[S]** |
 | Fire-fighting tank | A roll-on tank of 7,950 L sprayed along a pass, putting out fires beneath; either/or with the others | Leonardo's fit **[P1]** |
 
 The three hold fits are either/or (they fill the same hold); defensive aids stand alone. The tree's Mermaid diagram comes from
 `scripts/check-upgrade-trees.py --write` once built.
+
+<!-- upgrade-tree: Phobos_C27J_UpgradeTree -->
+```mermaid
+flowchart TB
+  DefensiveAids["Defensive aids"]
+```
 
 ## Other factions' C-27Js
 
@@ -102,6 +124,13 @@ The three hold fits are either/or (they fill the same hold); defensive aids stan
 The base body drawn bare in three facings with paint masks; one overlay per visible fit (the gun pallet's barrel at the left door, the
 tank's spray boom, the defensive pods; the stretchers are inside and need none); the icon. Every picture is planned before the first is
 made (the vehicle rule), and the cost cap is asked by card first.
+
+**The plan and its cap (owner's cards, 26 Nov 2026):** ten paid pictures on Nano Banana Pro through fal, capped at US$3.00, raised to
+US$3.60 for a propeller redraw: the body from above (2 tries), the propeller (2), then the three fit overlays as edits of the picked body
+(2 each). The upgrade icons go to the local night run; damage marks and paint masks are made by script. The first propeller pair, drawn
+face-on with orange tip bands, the owner rejected ("Neither propeller is up to standard"), with a photo of the real one: all black, a
+black bullet spinner, slim swept scimitar blades. Redrawn as seen from above, edge-on; the photo, not being our art, was never sent.
+Requests and records: `assets/phobos-vehicles/requests/c27j-paid.json` and its record.
 
 ## Order of work (agent's proposal)
 

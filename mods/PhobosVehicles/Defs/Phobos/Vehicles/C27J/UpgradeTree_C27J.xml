@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The C-27J Spartan's upgrades (docs/development/vehicle-c27j.md, "The upgrade tree"). This slice has the one that stands alone, the
+       defensive aids; the three hold fits (stretchers, the MC-27J gun kit, the fire-fighting tank), either/or with each other, come in the
+       next slice. Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_C27J_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <!-- The RAAF's self-protection suite [P4]: the missile warning receiver built into its avionics cues turrets that blind heat-seeking
+           missiles, as the Osprey's infrared jammer, and chaff and flare dispensers fed from a magazine haulers top up (the owner's card of
+           26 Nov 2026: per aircraft; Framework 0.316.0's Phobos_Countermeasures). Its draw, 40 A, is authored, in its loadout. Its icon is the
+           Osprey's jammer's until its own is drawn, and it has no overlay until its pods are drawn. -->
+      <key>DefensiveAids</key>
+      <label>Defensive aids</label>
+      <displayLabel>true</displayLabel>
+      <description>A self-protection set cued by the missile warning receiver: turrets that blind heat-seeking missiles, and dispensers that fire chaff and flares from a magazine haulers keep topped up. Air defences hit far less often and lock on more slowly; the turrets draw power while the engines run.</description>
+      <icon>Phobos/Vehicles/Osprey/Upgrades/InfraredJammer</icon>
+      <work>3500</work>
+      <gridCoordinate>(2, 2)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_OspreyInfraredJammer</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_InfraredJammer</def>
+              <value>1</value>
+            </li>
+            <li>
+              <def>Phobos_Countermeasures</def>
+              <value>1</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <!-- Its flight computer comes from its parts bill (Bill_C27J.xml): the turrets are what is left, as the Osprey's jammer. -->
+      <ingredients>
+        <Steel>20</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+        <ComponentSpacer>1</ComponentSpacer>
+      </ingredients>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+</Defs>

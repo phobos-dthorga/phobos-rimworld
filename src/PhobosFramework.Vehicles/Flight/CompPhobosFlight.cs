@@ -378,7 +378,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             // Framework 0.302.0: an aeroplane always rolls, its roll set by its weight against its maximum take-off weight; with every engine
             // out, or over that weight, it does not go.
             float em = FlightRules.Margin(Vehicle);
-            if (!float.IsNaN(em) && em <= 0f) return (RollVerdict.Refused, 0, em);
+            if ((!float.IsNaN(em) && em <= 0f) || FlightRules.EnginesOut(Vehicle)) return (RollVerdict.Refused, 0, em);
             double kg = MassKgNow();
             if (!TakeoffRule.MayTakeOff(kg, Props.maxTakeoffKilograms)) return (RollVerdict.Refused, 0, em);
             return (RollVerdict.Rolls, TakeoffRule.RollCells(kg, Props.maxTakeoffKilograms, Props.shortestRollCells, Props.fullRollCells), em);
@@ -506,6 +506,14 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
     void BeginRoll(int cells)
     {
         VehiclePawn v = Vehicle;
+        // Framework 0.316.0: an aeroplane's roll by its weight (TakeoffRule), its cells and weight the evidence.
+        if (!Props.canHover && Seen.Wants("aircraft.aeroplane-roll", v))
+        {
+            Seen.Note("aircraft.aeroplane-roll", v, values: new List<KeyValuePair<string, double>>
+            {
+                new("cells", cells), new("kg", MassKgNow()), new("maxTakeoffKg", Props.maxTakeoffKilograms),
+            });
+        }
         v.vehiclePather.StopDead();
         Vector3 centre = v.TrueCenter();
         x = rollFromX = centre.x;
@@ -1061,6 +1069,8 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         if (state == FlightState.RollingLanding) return;
         if (hold == FlightHold.Falling)
         {
+            // Framework 0.316.0: an aeroplane with every engine out comes down.
+            if (!Props.canHover) Seen.Note("aircraft.aeroplane-engines-out", v);
             BeginFall("PhobosFlight_WhyEngines".Translate().Resolve());
             return;
         }

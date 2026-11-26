@@ -260,6 +260,27 @@
       </li>
     </modExtensions>
   </ResearchProjectDef>
+  <!-- The C-27J Spartan (docs/development/vehicle-c27j.md): after the Osprey's research [A], whose turbines and airframe it builds on; 4,000
+       [A], below the tiltrotor's 6,000, as a conventional aeroplane is the simpler machine. Its defensive aids share the Osprey's infrared
+       jammer project. Place authored: the column of the Osprey's upgrades is full, and a line further right would cross one of them, so it
+       sits at the foot of that column. -->
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_C27J</defName>
+    <label>turboprop transport</label>
+    <description>A twin-turboprop transport aeroplane that takes off and lands on rough strips, carries a small vehicle in its hold and drops by parachute. Unlocks the C-27J Spartan.</description>
+    <baseCost>4000</baseCost>
+    <researchViewX>3</researchViewX>
+    <researchViewY>6.0</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_Osprey</li>
+    </prerequisites>
+    <!-- Brand new: it replaces nothing an existing colony has already researched. -->
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
 
   <!-- The V-22 Osprey's upgrades, each its own small project (the record's "Cost and research", decided as written by the owner on
        18 Nov 2026; D'thorga Vehicles 0.72.0). Costs and places authored. -->

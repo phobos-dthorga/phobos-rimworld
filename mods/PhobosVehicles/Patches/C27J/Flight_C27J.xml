@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    The C-27J flies over a map on our own flight as an aeroplane (D'thorga Framework 0.302.0's never-hover switch; docs/development/vehicle-c27j.md).
+    A patch file of its own, as the Osprey's, so its Def (Defs/Phobos/Vehicles/C27J/Vehicle_C27J.xml) is never edited by two pieces of work at
+    once. It takes off along a strip whose length grows with its weight against its maximum take-off weight, refuses over that weight, lands
+    rolling on a strip, circles where a rotorcraft would hold, and never drops from a hover, slings a load, or works ropes or a hoist.
+    Not yet tested in game.
+  -->
+
+  <!-- The flight comp. Speeds over a map, turn, climb and descent are authored at the map's compressed scale, in proportion to its speed between
+       places (22) as the Osprey's are to its 17.5: 9 cells a second against the Osprey's 7. Slower to speed up and to turn than the Osprey [A].
+       Its flight height over a map is the Osprey's 60 m [A], a low transit height for a map, so its shadow sits as the Osprey's does. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_C27J"]/comps</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosFlight">
+        <speedCellsPerSecond>9</speedCellsPerSecond>
+        <accelerationCellsPerSecond>1.2</accelerationCellsPerSecond>
+        <turnDegreesPerSecond>24</turnDegreesPerSecond>
+        <climbSeconds>10</climbSeconds>
+        <descentSeconds>12</descentSeconds>
+        <fallSeconds>4</fallSeconds>
+        <flightHeightMetres>60</flightHeightMetres>
+        <!-- An aeroplane: it never hovers. Its roll by weight against its 32,500 kg maximum take-off weight [P1, P4]: 35 cells at that weight
+             (690 m at full weight [P1, P5] at the map's compressed scale [A]), 12 at its lightest [A]; it lands on 25 cells (390 m [P1, P5],
+             at the same scale [A]). Rough ground does (a gravel strip of CBR 4 [P]), so no built floor. -->
+        <canHover>false</canHover>
+        <maxTakeoffKilograms>32500</maxTakeoffKilograms>
+        <shortestRollCells>12</shortestRollCells>
+        <fullRollCells>35</fullRollCells>
+        <landingRollCells>25</landingRollCells>
+        <needsBuiltFloor>false</needsBuiltFloor>
+        <!-- Circling: 7 cells a second and a tightest circle of 18 cells (both authored, at the map's compressed scale; wider than the
+             Osprey's 12, as an aeroplane's turn is), against the 16.7 its 24 degrees a second would allow at that speed. -->
+        <orbitSpeedCellsPerSecond>7</orbitSpeedCellsPerSecond>
+        <orbitRadiusCells>18</orbitRadiusCells>
+        <!-- Its propellers (Vehicle_C27J.xml's two overlays): 27 degrees a tick at full speed (authored: a six-blade propeller turned more than
+             30 degrees a tick looks to turn backwards on screen; the real 1,020 rpm or so would be 102). Spun up over 15 seconds as the
+             engines start and run down over 20 (authored). -->
+        <rotorDegreesPerTick>27</rotorDegreesPerTick>
+        <rotorSpinUpSeconds>15</rotorSpinUpSeconds>
+        <rotorRunDownSeconds>20</rotorRunDownSeconds>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Raiders may come in aboard it (owner's design, "Other factions' C-27Js"): factions of industrial technology or better, with the player's
+       "Raiders arrive by air" setting on. It cannot hover or land on a raid's spot, so it always drops its raiders by parachute on a pass and
+       flies on out of the far edge (D'thorga Framework's raider flight, for an aeroplane). Allies' supply drops may send it too. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_C27J"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosRaiderAircraftExtension">
+        <minTechLevel>Industrial</minTechLevel>
+        <weight>1</weight>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Drawn over hidden ground while it flies there: the game hides a thing on a fogged cell unless its Def says otherwise. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_C27J"]</xpath>
+    <value>
+      <seeThroughFog>true</seeThroughFog>
+    </value>
+  </Operation>
+</Patch>

@@ -627,6 +627,27 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   stop shell fragments and pistol bullets. The armour kit makes the cockpit and both cabins rifle-proof. The **Health** tab names each
   part's armour.
 
+## C-27J Spartan
+
+Our first aeroplane, Leonardo's twin-turboprop transport: research **turboprop transport** (after tiltrotor aircraft) and build it at the
+motor pool, from aircraft parts as the Osprey is.
+
+- **It never hovers.** It takes off along a strip and lands on one, circles wherever a helicopter would hold, and cannot hook a sling
+  load, work ropes or a hoist, or drop from a hover. Its drops are passes.
+- **Crew:** two pilots, both needed; a loadmaster at the ramp; 40 seats in the hold.
+- **Its take-off roll grows with its weight**: about 12 cells light, up to 35 at its full 32,500 kg. Select it and the strip ahead is
+  outlined, green when clear. **Rough ground will do**; it needs no built floor. Landing it rolls on about 25 cells.
+- **Too heavy, it will not go**, and the button says how many kilograms to shed. **Its fuel counts**: with full tanks it lifts about
+  5,800 kg, so for a heavy load drag its fuel bar's target down, or have a colonist take fuel out, as the real aircraft trades fuel for
+  payload.
+- **Its hold takes one vehicle up to 2 by 5 cells and 8,600 kg**, loaded up the ramp, and **it drops by parachute**: people from two
+  doors, bundles two a second, and up to two vehicles on platforms of up to 6,000 kg each ([dropping by parachute](aircraft-and-sling-loads.md#dropping-by-parachute)).
+- **Defensive aids**, its one upgrade so far: an infrared jammer and chaff and flare dispensers, cued by its missile warning receiver.
+  Haulers fill the dispensers' 60 cartridges once it is fitted.
+- **Its propellers** show as bars across the engines' noses from above, blurring as they spin up.
+- **Enemy C-27Js bring paratroopers**: they cross the map and drop them, and your guns and close-in weapons can shoot them down.
+- **Still to come:** low-level drops along a strip (LAPES), and its hold fits: a side gun, a fire-fighting tank and stretchers.
+
 ## Other mods' vehicles
 
 D'thorga Vehicles also gives other mods' vehicles the systems and figures their real counterparts have, so each climbs, labours and

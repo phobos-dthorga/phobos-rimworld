@@ -196,6 +196,24 @@ Osprey holds nearly steady.
 | S137 | Fast rope | Code | Generated; at the foot of the lines as each person starts down |
 | — | Rescue hoist, forward flight | | None, by the owner's choice: "Not needed amongst all the other sounds" |
 
+### C-27J Spartan (`Phobos_C27J`; two Rolls-Royce AE2100 turboprops, six-bladed propellers)
+
+Candidates only (26 Nov 2026; the owner's card the same day: "Real recordings first"): real recordings of the C-27J from public-domain
+DVIDS videos (`assets/phobos-sounds/recordings/c27j.json`), the rest generated (`assets/phobos-sounds/requests/night-17-c27j.json`).
+The propellers' blade-pass comb, measured by the agent on those recordings: about 72 Hz at ground idle, about 102 Hz in flight
+(roughly 720 and 1,020 rpm for six blades; our inference, not a published figure).
+
+| ID | Sound | Hook | Note |
+| --- | --- | --- | --- |
+| S153 | Engines idling (loop) | XML | Real recording candidates (nine cuts, two aircraft); not picked |
+| S154 | Engines under take-off power (loop) | XML | Generated (night 17), judged against the 102 Hz comb; the recordings hold only a Doppler pass |
+| S155 | Cruising overhead, heard from the ground (loop) | Code | Generated (night 17) |
+| S156 | Landing: roll-out and reverse pitch | Code | Real recording candidates (four cuts); not picked |
+| S157 | Engine start | XML | Generated (night 17); no recording found |
+| S158 | Engine stop | XML | Generated (night 17); no recording found |
+| S159 | Cargo ramp | XML | Generated (night 17); as cargo goes in or out |
+| S160 | Crew door | XML | Generated (night 17); as people board or leave |
+
 ### Thane tractors (`Phobos_TractorT60Standard` and `T60F`, `T130Standard` and `T130RC`, the T400 to come; D'thorga Farming)
 
 **In D'thorga Farming's batch two** (20 Nov 2026; not yet installed or tested in game): the owner's picks by question card from the

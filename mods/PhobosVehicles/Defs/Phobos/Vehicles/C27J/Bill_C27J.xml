@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- What the C-27J is made of, by role (docs/development/parts-bills.md, "Aircraft and turbine parts"; the Osprey's bill its template). Its
+       blueprint's cost list is its shell; each role is filled at start-up by an installed mod's part where it suits the aircraft's weight,
+       and by ours otherwise. Two turbine engines; two propeller reduction gearboxes (the rotor drive standing in [I]); two six-blade
+       propellers (rotor blades); the two flight-control runs and the avionics bay (flight computers); three hydraulic actuators, the ramp's,
+       the flaps' and the landing gear's [A]; two wing tanks; three landing gear legs (nose and two main); two alternators and two batteries;
+       wiring; hydraulics. Counts follow the real layout where known; what each costs is authored, held for the owner's review. -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_C27J</defName>
+    <label>C-27J Spartan parts</label>
+    <target>Phobos_C27J_Blueprint</target>
+    <!-- Turbines: without this word the engine roles are filled by the piston-engine supply (the Osprey's fault-read D2). -->
+    <tags>
+      <li>Turbine</li>
+    </tags>
+    <parts>
+      <Engine1>1</Engine1>
+      <Engine2>1</Engine2>
+      <RotorDrive>2</RotorDrive>
+      <RotorBlades>2</RotorBlades>
+      <FlightControl>2</FlightControl>
+      <Avionics>1</Avionics>
+      <Actuator>3</Actuator>
+      <FuelTank>2</FuelTank>
+      <LandingGear>3</LandingGear>
+      <Alternator>2</Alternator>
+      <Battery>2</Battery>
+      <Wiring>1</Wiring>
+      <HydraulicPump>1</HydraulicPump>
+      <HydraulicLines>1</HydraulicLines>
+    </parts>
+    <!-- Upgrade nodes that fit a real part: the defensive aids are run by a flight computer, as the Osprey's infrared jammer is; the node's own
+         ingredients are the turrets beside it. -->
+    <nodes>
+      <li>
+        <key>DefensiveAids</key>
+        <parts>
+          <Avionics>1</Avionics>
+        </parts>
+      </li>
+    </nodes>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+</Defs>

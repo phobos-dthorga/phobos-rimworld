@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The C-27J Spartan, our first aeroplane (docs/development/vehicle-c27j.md, slice 2 of its "Order of work"; MV7 in
+    modern-military-vehicles.md, "the rough-strip transport aeroplane"). It keeps its real name (that record's decision 12). Its figures are
+    the record's: real kilograms and kilowatts, marked there [P] primary, [S] secondary, [I] inferred, [A] authored. It never hovers: it
+    flies on our own flight as an aeroplane (Patches/C27J/Flight_C27J.xml), and carries a vehicle in its hold and drops by parachute
+    (Patches/C27J/Airdrop_C27J.xml). Not yet tested in game.
+
+    Footprint 5 x 11 (owner's card of 26 Nov 2026: the Osprey's scale): cells x -2 to 2, z -5 (tail) to 5 (nose). The picture is 34 x 27
+    cells (28.7 m span and 22.7 m length [S] at the Osprey's 1.175 cells a metre); the wings and nacelles reach far past the footprint, so
+    their parts are laid on its outer columns, one outer part to a cell (vehicle-armour.md): the cockpit across the two nose rows, the hold
+    down the middle in three parts, the wings and nacelles on the outer columns of rows 3 to 1, the main gear in the sponsons beside the
+    centre hold, the ramp across rows -2 and -3, the tail across the last two. Agent placement, for the owner to revise.
+    Part keys are saved by position: append only, never reorder.
+
+    Not drawn yet (agent's choice, the art not being made): damage looks per part, the cracked glass, and the overlays of the fits. Not
+    given (agent's choice): a walk-in cabin, which waits on the gate the cabins record sets (the Osprey's cabin measured first), and sounds
+    of its own, which wait to be made (every vehicle sounds like itself); it keeps Vehicle Framework's own draft sounds until then.
+  -->
+  <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
+    <defName>Phobos_C27J</defName>
+    <label>C-27J Spartan</label>
+    <description>Leonardo C-27J Spartan: a twin-turboprop transport aeroplane. It cannot hover: it takes off along a strip of clear, level ground, rough ground will do, and needs a longer one the heavier it is; it lands on one too. Two pilots fly it; a loadmaster works the ramp; 40 can ride in the hold, or one small vehicle up to 8,600 kg. It drops people, cargo and vehicles by parachute. Unarmoured as built.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/C27J/C27J</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <!-- 28.7 m span and 22.7 m length [S] at 1.175 cells a metre (owner's card: the Osprey's scale): the exported canvas is 34 x 27
+           cells at 120 px a cell, the airframe 33.5 x 26.7 of it (C27J.layout.json; assets/phobos-vehicles/export_c27j.py). -->
+      <drawSize>(34, 27)</drawSize>
+      <!-- The pick's own grey, measured by the export (C27J.transform.json). It has no second colour (no band or stripe), so the paint
+           masks are main paint only and colorTwo paints nothing; it repeats the main grey. -->
+      <color>(225, 224, 234)</color>
+      <colorTwo>(225, 224, 234)</colorTwo>
+    </graphicData>
+    <fillPercent>1</fillPercent>
+    <buildDef>Phobos_C27J_Blueprint</buildDef>
+    <size>(5, 11)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Air</vehicleType>
+    <statBases>
+      <!-- Read only for collisions: every part carries its own armour by class, which overrides these (vehicle-armour.md). Heat stays the
+           whole aircraft's. -->
+      <ArmorRating_Blunt>0.1</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.1</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.8</Flammability>
+      <!-- 15,000 [A]: below the Osprey's 18,000, as the real aircraft costs well under a V-22. -->
+      <MarketValue>15000</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <!-- 2,200: the Osprey's 1,950 for 15,032 kg empty, scaled to the C-27J's 17,000 kg [P4] [I]. -->
+      <Mass>2200</Mass>
+      <!-- 22: the Osprey's 17.5 for 463 to 493 km/h, scaled to the C-27J's 602 km/h cruise [P1] [I]. -->
+      <FlightSpeed>22</FlightSpeed>
+      <!-- Taxiing on its wheels [A], as the Osprey. -->
+      <MoveSpeed>4</MoveSpeed>
+      <!-- Real kilograms: its 11,300 kg maximum payload [P1, P4]. The owner's hold (8,600 kg, one vehicle) fits within it. Our flight's
+           take-off check holds it to its 32,500 kg maximum take-off weight [P1, P4] with what is aboard: with full fuel (9,734 kg) it lifts
+           5,766 kg; more payload needs less fuel, as the real aircraft trades them [I]. -->
+      <CargoCapacity>11300</CargoCapacity>
+      <RepairRate>0.4</RepairRate>
+      <AccelerationRate>0.03</AccelerationRate>
+    </vehicleStats>
+    <race>
+      <baseBodySize>12</baseBodySize>
+    </race>
+    <properties>
+      <visibilityWeight>9</visibilityWeight>
+      <roles>
+        <li>
+          <key>pilot</key>
+          <label>pilot</label>
+          <!-- Two pilots, both needed [P4]. -->
+          <slots>2</slots>
+          <slotsToOperate>2</slotsToOperate>
+          <handlingTypes>
+            <li>Movement</li>
+          </handlingTypes>
+          <hitbox>
+            <cells>
+              <li>(-1, 5)</li>
+              <li>(1, 5)</li>
+            </cells>
+          </hitbox>
+        </li>
+        <li>
+          <key>loadmaster</key>
+          <label>loadmaster</label>
+          <!-- Works the ramp and the hold [P4]. -->
+          <slots>1</slots>
+          <hitbox>
+            <cells>
+              <li>(0, -3)</li>
+            </cells>
+          </hitbox>
+        </li>
+        <li>
+          <key>passenger</key>
+          <label>passenger</label>
+          <!-- 40 seats, the RAAF's fit [P4] (60 troops at most [P1]). -->
+          <slots>40</slots>
+          <hitbox>
+            <cells>
+              <li>(-1, 2)</li>
+              <li>(0, 2)</li>
+              <li>(1, 2)</li>
+              <li>(-1, -1)</li>
+              <li>(0, -1)</li>
+              <li>(1, -1)</li>
+            </cells>
+          </hitbox>
+        </li>
+      </roles>
+    </properties>
+    <components>
+      <!-- Armour by class (docs/development/vehicle-c27j.md; vehicle-armour.md): unarmoured as the real one is, so every part is Skin but the
+           engines and propeller gearboxes, Splinter, as the Osprey's. Combat Extended's figures are in Mods/CombatExtended/Patches/C27J_Armour.xml.
+           One outer part to a cell. Health authored, a little above the Osprey's for the larger airframe. -->
+      <!-- Outer parts, one to a cell. -->
+      <li>
+        <key>Cockpit</key>
+        <label>cockpit</label>
+        <health>200</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitWeight>2</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(-2, 5)</li><li>(-1, 5)</li><li>(0, 5)</li><li>(1, 5)</li><li>(2, 5)</li>
+            <li>(-2, 4)</li><li>(-1, 4)</li><li>(0, 4)</li><li>(1, 4)</li><li>(2, 4)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>BodyIntegrity</li>
+        </categories>
+      </li>
+      <li>
+        <key>ForwardHold</key>
+        <label>forward hold</label>
+        <health>300</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitWeight>3</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(-1, 3)</li><li>(0, 3)</li><li>(1, 3)</li>
+            <li>(-1, 2)</li><li>(0, 2)</li><li>(1, 2)</li>
+            <li>(-1, 1)</li><li>(0, 1)</li><li>(1, 1)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>BodyIntegrity</li>
+        </categories>
+      </li>
+      <li>
+        <key>CentreHold</key>
+        <label>centre hold</label>
+        <health>300</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitWeight>3</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(-1, 0)</li><li>(0, 0)</li><li>(1, 0)</li>
+            <li>(-2, -1)</li><li>(-1, -1)</li><li>(0, -1)</li><li>(1, -1)</li><li>(2, -1)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>BodyIntegrity</li>
+        </categories>
+      </li>
+      <li>
+        <key>AftHold</key>
+        <label>aft hold and ramp</label>
+        <health>280</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitWeight>3</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(-2, -2)</li><li>(-1, -2)</li><li>(0, -2)</li><li>(1, -2)</li><li>(2, -2)</li>
+            <li>(-2, -3)</li><li>(-1, -3)</li><li>(0, -3)</li><li>(1, -3)</li><li>(2, -3)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>BodyIntegrity</li>
+        </categories>
+      </li>
+      <li>
+        <key>LeftWing</key>
+        <label>left wing</label>
+        <health>200</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitWeight>2</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(-2, 3)</li><li>(-2, 1)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>RightWing</key>
+        <label>right wing</label>
+        <health>200</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitWeight>2</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(2, 3)</li><li>(2, 1)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>LeftNacelle</key>
+        <label>left nacelle</label>
+        <health>160</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(-2, 2)</li>
+          </cells>
+        </hitbox>
+      </li>
+      <li>
+        <key>RightNacelle</key>
+        <label>right nacelle</label>
+        <health>160</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(2, 2)</li>
+          </cells>
+        </hitbox>
+      </li>
+      <li>
+        <key>LeftMainGear</key>
+        <label>left main gear</label>
+        <health>100</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <tags>
+          <li>Wheel</li>
+        </tags>
+        <hitbox>
+          <cells>
+            <li>(-2, 0)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>MoveSpeed</li>
+        </categories>
+      </li>
+      <li>
+        <key>RightMainGear</key>
+        <label>right main gear</label>
+        <health>100</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <tags>
+          <li>Wheel</li>
+        </tags>
+        <hitbox>
+          <cells>
+            <li>(2, 0)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>MoveSpeed</li>
+        </categories>
+      </li>
+      <li>
+        <key>Tail</key>
+        <label>tail</label>
+        <health>180</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitWeight>2</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(-2, -4)</li><li>(-1, -4)</li><li>(0, -4)</li><li>(1, -4)</li><li>(2, -4)</li>
+            <li>(-2, -5)</li><li>(-1, -5)</li><li>(0, -5)</li><li>(1, -5)</li><li>(2, -5)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <!-- Inner parts. The engines and tanks may explode or leak, as the Osprey's; the chances are authored. -->
+      <li>
+        <key>LeftEngine</key>
+        <label>left engine</label>
+        <health>140</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.25</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
+        </armor>
+        <priorityStatEfficiency>true</priorityStatEfficiency>
+        <hitbox>
+          <cells>
+            <li>(-2, 2)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightSpeed</li>
+        </categories>
+        <reactors>
+          <li Class="Vehicles.Reactor_Explosive">
+            <chance>0.05</chance>
+            <healthPercent>0.25</healthPercent>
+            <radius>3</radius>
+            <damageDef>Flame</damageDef>
+          </li>
+        </reactors>
+      </li>
+      <li>
+        <key>RightEngine</key>
+        <label>right engine</label>
+        <health>140</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.25</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
+        </armor>
+        <priorityStatEfficiency>true</priorityStatEfficiency>
+        <hitbox>
+          <cells>
+            <li>(2, 2)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightSpeed</li>
+        </categories>
+        <reactors>
+          <li Class="Vehicles.Reactor_Explosive">
+            <chance>0.05</chance>
+            <healthPercent>0.25</healthPercent>
+            <radius>3</radius>
+            <damageDef>Flame</damageDef>
+          </li>
+        </reactors>
+      </li>
+      <li>
+        <!-- Each engine turns its propeller through a reduction gearbox [I]; no cross-shaft, unlike the Osprey's. -->
+        <key>LeftPropellerGearbox</key>
+        <label>left propeller gearbox</label>
+        <health>110</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.25</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(-2, 2)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightSpeed</li>
+        </categories>
+      </li>
+      <li>
+        <key>RightPropellerGearbox</key>
+        <label>right propeller gearbox</label>
+        <health>110</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.25</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(2, 2)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightSpeed</li>
+        </categories>
+      </li>
+      <li>
+        <!-- Its fuel is in its wings [I]: one tank a side, each feeding its own engine (the loadout's side tanks). -->
+        <key>LeftWingFuelTank</key>
+        <label>left wing tank</label>
+        <health>120</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(-2, 3)</li><li>(-2, 1)</li>
+          </cells>
+        </hitbox>
+        <reactors>
+          <li Class="Vehicles.Reactor_FuelLeak" />
+          <li Class="Vehicles.Reactor_Explosive">
+            <chance>0.1</chance>
+            <healthPercent>0.25</healthPercent>
+            <radius>4</radius>
+            <damageDef>Flame</damageDef>
+          </li>
+        </reactors>
+      </li>
+      <li>
+        <key>RightWingFuelTank</key>
+        <label>right wing tank</label>
+        <health>120</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(2, 3)</li><li>(2, 1)</li>
+          </cells>
+        </hitbox>
+        <reactors>
+          <li Class="Vehicles.Reactor_FuelLeak" />
+          <li Class="Vehicles.Reactor_Explosive">
+            <chance>0.1</chance>
+            <healthPercent>0.25</healthPercent>
+            <radius>4</radius>
+            <damageDef>Flame</damageDef>
+          </li>
+        </reactors>
+      </li>
+      <!-- The flight controls: their runs from the cockpit and the tail's surfaces [I]. Vehicle Framework averages a stat's parts, so control
+           falls off as each goes. -->
+      <li>
+        <key>FlightControlForward</key>
+        <label>flight controls, cockpit</label>
+        <health>60</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(0, 4)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>FlightControlAft</key>
+        <label>flight controls, tail</label>
+        <health>60</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(0, -4)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>Hydraulics</key>
+        <label>hydraulics</label>
+        <health>80</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(-1, 0)</li><li>(1, 0)</li><li>(0, -2)</li>
+          </cells>
+        </hitbox>
+        <reactors>
+          <li Class="Vehicles.Reactor_FuelLeak" />
+        </reactors>
+      </li>
+      <li>
+        <!-- Keyed as the aircraft loadout's Avionics role looks for it, so it is bound and no second bay is added. -->
+        <key>PhobosAvionics</key>
+        <label>avionics bay</label>
+        <health>60</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(-1, 5)</li><li>(0, 5)</li><li>(1, 5)</li>
+          </cells>
+        </hitbox>
+      </li>
+      <li>
+        <key>NoseGear</key>
+        <label>nose gear</label>
+        <health>70</health>
+        <!-- Inner, so the cockpit keeps its cells to itself (one outer part to a cell), as the Osprey's. -->
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
+        <tags>
+          <li>Wheel</li>
+        </tags>
+        <hitbox>
+          <cells>
+            <li>(0, 4)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>MoveSpeed</li>
+        </categories>
+      </li>
+    </components>
+    <modExtensions>
+      <!-- Armour by class: Combat Extended shoots at its 5-cell width [A], as the Osprey's, and the parts our systems append go inside, so each
+           cell keeps one outer part. -->
+      <li Class="Phobos.VehicleSystems.PhobosArmourExtension">
+        <hitWidthCells>5</hitWidthCells>
+      </li>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <!-- Real figures: 17,000 kg empty [P4]; two Rolls-Royce AE2100-D2A of 3,458 kW each, take-off and maximum continuous alike [P6]. -->
+        <emptyKilograms>17000</emptyKilograms>
+        <ratedKilowatts>6916</ratedKilowatts>
+      </li>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleCabinExtension">
+        <climateControl>true</climateControl>
+      </li>
+    </modExtensions>
+    <comps>
+      <!-- Its two six-blade propellers, 4.115 m across [P6] (4.8 cells), seen edge-on from above as bars across the nacelles' noses (the owner's
+           card of 26 Nov 2026: "Edge-on bar"), still while they stand and a see-through blur while they turn, after our flight's spin-up.
+           Measured off the picked art at export (export_c27j.py, C27J.layout.json): each hub is the blade plane at its spinner's base,
+           on the nacelle's centre line, 5.26 cells either side and 7.12 ahead of the picture's middle (measured 5.260 and 5.267: the
+           average, so the two stay mirror images). The pictures are 5 x 2.5 cells centred on the hub: the 4.84-cell blades across, the
+           black spinner forward of them. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosPropellers">
+        <stillPath>Phobos/Vehicles/C27J/C27J_Propeller</stillPath>
+        <spinPath>Phobos/Vehicles/C27J/C27J_PropellerSpin</spinPath>
+        <drawSize>(5, 2.5)</drawSize>
+        <hubs>
+          <li>(-5.26, 7.12)</li>
+          <li>(5.26, 7.12)</li>
+        </hubs>
+      </li>
+      <li Class="Vehicles.CompProperties_FueledTravel">
+        <fuelType>Chemfuel</fuelType>
+        <leakDef>Filth_Fuel</leakDef>
+        <!-- In the Osprey's units, 4.3 L a unit [A]: 9,734 kg [P1] at 0.80 kg a litre [A] is 12,168 L, 2,830 units. It burns 153 a day, so a
+             full tank lasts 18.5 days against the Osprey's 7.5: the real fuel lasts 2.5 times as long (9.4 hours at 0.6 of both engines'
+             3,458 kW and the AE2100's 0.25 kg a kWh [S, Wikipedia], against the Osprey's 3.8) [I]. By Vehicle Framework's formula its range is
+             3.1 times the Osprey's, as 9.4 hours at 602 km/h (5,650 km) is 3.2 times the 1,770 km the Osprey's figures give [I]. -->
+        <fuelConsumptionRate>153</fuelConsumptionRate>
+        <fuelCapacity>2830</fuelCapacity>
+      </li>
+      <li Class="Vehicles.CompProperties_VehicleLauncher">
+        <!-- Vehicle Framework's launcher carries it between places. On a map our own flight takes off along a strip, flies off the edge and
+             hands over, and arrives in flight, so Vehicle Framework's animation is skipped (D'thorga Framework's Patch_Launch_Flight); its
+             default take-off, a straight climb away rather than the VTOL's lift, stands where it is still drawn. Curves authored, the Osprey's
+             climb-away half: the picture rises up the screen as it climbs, and its shadow fades. No runway restriction of Vehicle Framework's:
+             our flight checks the strip itself. -->
+        <launchProtocol Class="Vehicles.DefaultTakeoff">
+          <launchProperties>
+            <maxTicks>240</maxTicks>
+            <zPositionCurve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.4, 8)</li>
+                <li>(1, 40)</li>
+              </points>
+            </zPositionCurve>
+            <shadowAlphaCurve>
+              <points>
+                <li>(0, 0.9)</li>
+                <li>(1, 0)</li>
+              </points>
+            </shadowAlphaCurve>
+          </launchProperties>
+          <landingProperties>
+            <maxTicks>240</maxTicks>
+            <zPositionCurve>
+              <points>
+                <li>(0, 40)</li>
+                <li>(0.6, 8)</li>
+                <li>(1, 0)</li>
+              </points>
+            </zPositionCurve>
+            <shadowAlphaCurve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(1, 0.9)</li>
+              </points>
+            </shadowAlphaCurve>
+          </landingProperties>
+        </launchProtocol>
+      </li>
+      <!-- Its upgrades: UpgradeTree_C27J.xml. -->
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_C27J_UpgradeTree</def>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
+    <defName>Phobos_C27J_Blueprint</defName>
+    <label>C-27J Spartan</label>
+    <description>Leonardo C-27J Spartan: a twin-turboprop transport aeroplane for two pilots, a loadmaster and 40 passengers, or one small vehicle in its hold. It needs a strip to take off and land.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/C27J/C27J</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(34, 27)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>650</MaxHitPoints>
+      <!-- 55,000 [A]: a little below the Osprey's 60,000, as a conventional aeroplane is simpler to build than a tiltrotor. -->
+      <WorkToBuild>55000</WorkToBuild>
+      <Flammability>0.8</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>PhobosResearch_C27J</li>
+    </researchPrerequisites>
+    <size>(5, 11)</size>
+    <!-- The shell only [A]: steel stands for its aluminium airframe, a little plasteel for its composite parts. Its engines, gearboxes,
+         propellers, flight computers, actuators, tanks, landing gear and electrics are in Bill_C27J.xml, filled at start-up
+         (docs/development/parts-bills.md). -->
+    <costList>
+      <Steel>1300</Steel>
+      <Plasteel>60</Plasteel>
+      <ComponentIndustrial>24</ComponentIndustrial>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <thingToSpawn>Phobos_C27J</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+
+  <!-- Two Rolls-Royce AE2100-D2A turboprops, 3,458 kW each, take-off and maximum continuous alike [P6]: one rating. Our engine model has no
+       turboprop kind, so they are turboshafts driving propellers through the rotor drive [I], as the design record says. Turbine temperature
+       limit, rated speed and idle share authored, the turboshaft class's figures (no AE2100 limit was looked up). ratedKilowatts is the whole
+       aircraft's; the count of working engines is read from its Engine1 and Engine2 parts. Full fuel 9,734 kg [P1]. -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_AE2100</defName>
+    <label>twin AE2100 turboprops</label>
+    <engine>
+      <kind>Turboshaft</kind>
+      <ratedRpm>15000</ratedRpm>
+      <ratedKilowatts>6916</ratedKilowatts>
+      <idleFuelShare>0.2</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>800</temperatureLimit></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+    <mass>
+      <emptyKilograms>17000</emptyKilograms>
+      <fuelKilogramsFull>9734</fuelKilogramsFull>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!-- An aeroplane on our own flight: no phase is a hover (so nothing judges it for one: it never hovers), and every demand is authored as a
+       share of maximum continuous. The reader's hover phase is what our flight calls its climbs and descents onto a spot. -->
+  <Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+    <defName>PhobosFlightProfile_C27J</defName>
+    <label>turboprop transport</label>
+    <cabinBleed>0.005</cabinBleed>
+    <reader Class="Phobos.VehicleSystems.PhaseReader_OwnFlight" />
+    <phases>
+      <li><phase>Idle</phase><label>engines turning</label><demand>0.15</demand><moving>false</moving></li>
+      <li><phase>Hover</phase><label>climbing or coming down</label><demand>0.8</demand></li>
+      <li><phase>Forward</phase><label>flying over the map</label><demand>0.6</demand></li>
+      <li><phase>WorldFlight</phase><label>cruising</label><demand>0.6</demand></li>
+      <!-- A take-off roll runs the engines flat out; a rolling landing asks less as it slows (both authored, as the Osprey's). -->
+      <li><phase>TakeoffRoll</phase><label>rolling to take off</label><demand>1.0</demand></li>
+      <li><phase>RunwayLanding</phase><label>landing on a strip</label><demand>0.4</demand></li>
+    </phases>
+    <mapFuelPhase>Forward</mapFuelPhase>
+  </Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_C27J</defName>
+    <label>turboprop transport</label>
+    <priority>Vehicle</priority>
+    <!-- Grit in the intakes on rough ground: 0.4 (authored: built for gravel strips, its intakes under high-mounted engines, but its propellers
+         throw grit as they bite). A tank in each wing feeds its own engine, with a cross-feed (authored layout). -->
+    <intakeDebris>0.4</intakeDebris>
+    <sideTanks>true</sideTanks>
+    <!-- Lopsided thrust with one engine out: 0.2 (authored), as the C-17's: its propellers sit 4.5 m out on the wing [I], further from the
+         centre line than the jets' 0.15. -->
+    <engineOutYaw>0.2</engineOutYaw>
+    <selector>
+      <vehicleDefs>
+        <li>Phobos_C27J</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <!-- The rotor drive stands in for the propeller gearboxes [I]: our engine model has no turboprop kind. -->
+      <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_AE2100</def>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_C27J</flightProfile>
+    <!-- Its 9,144 m ceiling [P1]; a design cruise height of 6,100 m (20,000 ft, authored); a pressurised cabin [I]; lift as a propeller
+         aircraft between places. -->
+    <cruise>
+      <designMetres>6100</designMetres>
+      <ceilingMetres>9144</ceilingMetres>
+      <lift>Propeller</lift>
+      <pressurised>true</pressurised>
+    </cruise>
+    <!-- Its fit (the record's "Our systems"): full instruments and navigation, an autopilot, weather radar, and the missile warning receiver
+         that cues its defensive aids, built in as on the Osprey [I]. The defensive aids themselves are its upgrade (UpgradeTree_C27J.xml): its
+         chaff and flare dispensers come only with that node (countermeasuresByUpgrade, Framework 0.316.0; the owner's card of 26 Nov 2026), a
+         magazine of 60 cartridges (authored, two of the framework's default 30).
+         Crew oxygen for a loss of pressure. Air track on Dead Man's Switch's scales (authored): its 325-knot cruise a little faster than the
+         A-10's 12, its 28.7 m span between the A-10's and the C-17's. -->
+    <avionics>
+      <navigation>Full</navigation>
+      <autopilot>true</autopilot>
+      <radar>true</radar>
+      <warning>true</warning>
+      <countermeasures>true</countermeasures>
+      <countermeasuresByUpgrade>true</countermeasuresByUpgrade>
+      <countermeasureCartridges>60</countermeasureCartridges>
+      <oxygen>true</oxygen>
+      <cruisesHigh>true</cruisesHigh>
+      <airTrack>
+        <speed>12.5</speed>
+        <cruiseMetres>6100</cruiseMetres>
+        <lowCruiseMetres>3050</lowCruiseMetres>
+        <size>2.4</size>
+      </airTrack>
+    </avionics>
+    <!-- The defensive aids' draw (UpgradeTree_C27J.xml), only while that node is fitted and the engines run: 40 A authored, the Osprey's
+         infrared jammer's. -->
+    <loads>
+      <li>
+        <name>infraredJammer</name>
+        <label>defensive aids</label>
+        <description>The turrets that blind heat-seeking missiles, ready to act on the missile warning receiver's cue.</description>
+        <amps>40</amps>
+        <available Class="Phobos.VehicleSystems.When_StatAbove">
+          <stat>Phobos_InfraredJammer</stat>
+          <value>0</value>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+    </loads>
+    <!-- The aircraft loadout puts its generator, battery, starter, avionics bay, ferry tank tie-downs and cabin oxygen panel on the engine's
+         cells, which here is the left nacelle out on the wing. They go in the forward hold's cells instead [A], as on the Osprey (fault-read
+         A2): the batteries, avionics and cabin fittings are in the real fuselage [I], and one place keeps both nacelles alike. -->
+    <cellsOfRemap>
+      <li>
+        <from>Engine</from>
+        <to>Cabin</to>
+      </li>
+    </cellsOfRemap>
+    <partRoles>
+      <li>
+        <role>Engine1</role>
+        <find>
+          <li><key>LeftEngine</key></li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li><key>RightEngine</key></li>
+        </find>
+      </li>
+      <li>
+        <role>RotorDrive</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>PropellerGearbox</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>FlightControl</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>FlightControl</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicPump</role>
+        <find>
+          <li><key>Hydraulics</key></li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <find>
+          <li><key>Hydraulics</key></li>
+        </find>
+      </li>
+      <li>
+        <role>Cabin</role>
+        <find>
+          <li><key>ForwardHold</key></li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

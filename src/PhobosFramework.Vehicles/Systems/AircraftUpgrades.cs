@@ -10,6 +10,8 @@ public static class AircraftUpgradeDefOf
 {
     public static VehicleStatDef Phobos_SlingKilograms = null!;
     public static VehicleStatDef Phobos_InfraredJammer = null!;
+    /// <summary>Chaff and flare dispensers fitted by a node, where the loadout's come only that way (Framework 0.316.0).</summary>
+    public static VehicleStatDef Phobos_Countermeasures = null!;
     public static VehicleStatDef Phobos_TerrainRadar = null!;
     public static VehicleStatDef Phobos_InletBarrierLoss = null!;
     public static VehicleStatDef Phobos_KitKilograms = null!;

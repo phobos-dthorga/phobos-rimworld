@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    The C-27J drops by parachute and carries a vehicle in its hold (D'thorga Framework's airdrop, docs/development/airdrop.md;
+    docs/development/vehicle-c27j.md). A patch file of its own, as its flight's is. Being an aeroplane, it drops only on a pass, never from a
+    hover (Framework 0.302.0).
+    Drops: two jump doors (the real side doors), two bundles a second down the ramp, and two platforms a pass of up to 6,000 kg each (the real
+    9,000 kg on two platforms, 6,000 kg on one [P1, P2]; the pass's two at 6,000 each is authored, within the hold's one vehicle of 8,600 kg).
+    Its hold: one vehicle up to 2 by 5 cells and 8,600 kg (owner's card of 26 Nov 2026), within its cargo (11,300 kg); the real hold is 2.45 m
+    wide at the floor and 8.58 m long, 11.43 m with the ramp [P2, P3]. Not yet tested in game.
+  -->
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_C27J"]/modExtensions</xpath>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_C27J"]</xpath>
+      <value>
+        <modExtensions />
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_C27J"]/modExtensions</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosAirdropExtension">
+        <jumpDoors>2</jumpDoors>
+        <bundlesPerSecond>2</bundlesPerSecond>
+        <platforms>2</platforms>
+        <heaviestPlatformKg>6000</heaviestPlatformKg>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_C27J"]/comps</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosHold">
+        <maxSize>(2, 5)</maxSize>
+        <maxKg>8600</maxKg>
+        <slots>1</slots>
+        <rampReachCells>6</rampReachCells>
+      </li>
+    </value>
+  </Operation>
+</Patch>

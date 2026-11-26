@@ -13,6 +13,24 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.316.0] - 2026-11-26 - Draft
+
+Aeroplanes: propellers from above, chaff and flares by upgrade, and raids by parachute
+
+### Added
+
+- **Propellers seen from above**: an aeroplane's propellers can be drawn as a bar across each engine's nose, still while they stand and a
+  blur once spun up, as a real propeller looks from above; Vehicle Framework's own overlay can only spin a flat disc. The C-27J's first.
+  Not yet tested in game.
+- **Chaff and flares as an upgrade**: an aircraft's design may now carry its chaff and flare dispensers only once an upgrade fits them,
+  aircraft by aircraft; until then haulers load no cartridges into it. The C-27J's defensive aids are the first. Not yet tested in game.
+
+### Fixed
+
+- **An aeroplane with every engine out comes down**, and does not take off; before, with no hover to judge, it could fly on.
+- **A raiding aeroplane always brings its raiders by parachute**: it can neither land on a raid's spot nor hover for ropes, so it no
+  longer tries. Not yet tested in game.
+
 ## [0.315.0] - 2026-11-26 - Draft
 
 Rounds to allies' towns, and the round on the world map

@@ -2,13 +2,14 @@
 
 Vehicles that keep running only while they are looked after. It adds working vehicles of its own, the **Talus** tipper truck,
 **Ullage** bulk tanker, **Kelly** drill rig, **Datum** survey truck, **Busbar** generator set and **Fathom** seabed crawler, with
-the **Pintle** trailers, the **Billy** field kitchen and the **V-22 Osprey** tiltrotor, and gives the vehicles of other mods you
-already drive the systems that match what they really are, on top of the general systems D'thorga Framework gives every vehicle.
+the **Pintle** trailers, the **Billy** field kitchen, the **V-22 Osprey** tiltrotor and the **C-27J Spartan** transport, and gives
+the vehicles of other mods you already drive the systems that match what they really are, on top of the general systems D'thorga
+Framework gives every vehicle.
 
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**: [working
 vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.122.1, built 26 November 2026 for House D'thorga. **Partly tested in game:** the survey truck and its boom (owner,
+Version 0.123.0, built 26 November 2026 for House D'thorga. **Partly tested in game:** the survey truck and its boom (owner,
 9 November 2026), the Busbar's size and look (owner, 13 November 2026), the tanker's electric pump, its upgrade tree and its load
 counting as weight, the Talus gathering by itself, a truck with nobody aboard calling for a driver, the trucks' upgrade trees, and
 the fuel bowser and flatbed sitting on their drawbars. Everything else is not yet tested in game.
@@ -71,6 +72,7 @@ chapter](../../docs/player-guide/working-vehicles.md), with the field kitchen an
 | [Billy field kitchen](../../docs/player-guide/working-vehicles.md#billy-field-kitchen) | 3 x 8 | A kitchen tent at camp; cooks in a resting caravan |
 | [Pintle shower trailer](../../docs/player-guide/working-vehicles.md#pintle-shower-trailer) | 3 x 8 | Showers and toilets at camp |
 | [V-22 Osprey](../../docs/player-guide/working-vehicles.md#v-22-osprey) | 5 x 9 | A tiltrotor with two pilots, a crew chief and 24 seats: lifts off like a helicopter, crosses the world like an aeroplane |
+| [C-27J Spartan](../../docs/player-guide/working-vehicles.md#c-27j-spartan) | 5 x 11 | A turboprop transport from rough strips: 40 seats or one small vehicle, and parachute drops |
 | [X-1 submarine test hull](../../docs/player-guide/submarines.md#the-x-1-test-hull) | 4 x 9 | Dev mode only, for trying out diving; cannot be built |
 
 - **Each vehicle has its own research on the D'thorga tab**, after **vehicle parts**, and is built from parts in the Architect's

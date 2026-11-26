@@ -1,0 +1,94 @@
+[
+  {
+    "name": "n17-c27j-start",
+    "engine": "sa3-sfx",
+    "seconds": 12,
+    "seeds": [171, 172],
+    "loop": false,
+    "prompt": "A twin-engine military turboprop transport aircraft starting its engines on the ground: an electric starter whine winding up, a soft pop as the first turbine lights, the turbine spooling up to a steady whine while a large six-bladed propeller begins to turn slowly and gathers speed, then the second engine joining. Outdoors, some distance away. Not loud, not alarming. Length: 12 seconds",
+    "art_plan": {
+      "why": "S157, the C-27J Spartan's engine start. No public-domain recording of a start was found (assets/phobos-sounds/recordings/c27j.json, 26 Nov 2026), so it is generated. Candidates only: nothing is wired until the owner picks",
+      "sound": "S157",
+      "ships_as": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/EngineStart.ogg"
+    }
+  },
+  {
+    "name": "n17-c27j-stop",
+    "engine": "sa3-sfx",
+    "seconds": 12,
+    "seeds": [171, 172],
+    "loop": false,
+    "prompt": "A twin-engine military turboprop transport aircraft shutting down on the ground: two turbine whines falling away slowly while large six-bladed propellers swish slower and slower to a stop, a last soft clunk, ending in silence. Outdoors, some distance away. Not loud, not alarming. Length: 12 seconds",
+    "art_plan": {
+      "why": "S158, the C-27J Spartan's engine stop. No recording of a shutdown was found (c27j.json). Candidates only",
+      "sound": "S158",
+      "ships_as": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/EngineStop.ogg"
+    }
+  },
+  {
+    "name": "n17-c27j-load",
+    "engine": "sa3-sfx",
+    "seconds": 8,
+    "seeds": [171, 172],
+    "loop": true,
+    "prompt": "A twin-engine military turboprop transport aircraft at full take-off power on the ground: a deep, even propeller drone with a steady low beat from two large six-bladed propellers and a strong turbine roar, powerful but steady and unchanging, continuous. Outdoors, some distance away. Not loud, not alarming. Length: 8 seconds",
+    "comb": {
+      "hz": 102,
+      "tolerance_hz": 4,
+      "harmonics": 1,
+      "what": "propeller comb at flight power (the six-bladed propellers' blade passes)",
+      "source": "the agent's measurement, 26 Nov 2026, on DVIDS recordings (assets/phobos-sounds/recordings/c27j.json): 101.9 to 102.3 Hz on six cabin cuts in flight from three aircraft, about 1,020 rpm for six blades (our inference, not a published figure). Only the first line falls under the comb check's 180 Hz, so it is a weaker check than the Osprey's"
+    },
+    "art_plan": {
+      "why": "S154, the C-27J Spartan under take-off power (loop). The recordings have only a take-off pass, whose pitch slides by Doppler, so the steady loop is generated and judged against the measured comb. Candidates only",
+      "sound": "S154",
+      "ships_as": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/EngineLoad.ogg"
+    }
+  },
+  {
+    "name": "n17-c27j-flyover",
+    "engine": "sa3-sfx",
+    "seconds": 8,
+    "seeds": [171, 172],
+    "loop": true,
+    "prompt": "A twin-engine turboprop transport aircraft cruising high overhead, heard from the ground: a soft, distant, even propeller drone with a gentle low hum, steady and unchanging, continuous, with faint wind. Outdoors. Not loud, not alarming. Length: 8 seconds",
+    "comb": {
+      "hz": 102,
+      "tolerance_hz": 6,
+      "harmonics": 1,
+      "what": "propeller comb at cruise (the six-bladed propellers' blade passes, heard from far off)",
+      "source": "the agent's measurement, 26 Nov 2026 (c27j.json): about 102 Hz in flight; the wider tolerance allows for a distant aircraft's small Doppler drift (agent's choice)"
+    },
+    "art_plan": {
+      "why": "S155, the C-27J Spartan cruising overhead, heard from the ground (loop). The recordings hold only short Doppler passes, so the loop is generated. Candidates only",
+      "sound": "S155",
+      "ships_as": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Flyover.ogg"
+    }
+  },
+  {
+    "name": "n17-c27j-door",
+    "engine": "sa3-sfx",
+    "seconds": 3,
+    "seeds": [171, 172],
+    "loop": false,
+    "prompt": "The side crew door of a military transport aircraft being opened and then closed: a lever latch clacking, a light aluminium door swinging on its hinge, and a firm click as it locks. Close, quiet surroundings. Not loud, not alarming. Length: 3 seconds",
+    "art_plan": {
+      "why": "S160, the C-27J Spartan's crew door. The one boarding recording found (DVIDS 552570) has the door already open and voices over it, so the door is generated. Candidates only",
+      "sound": "S160",
+      "ships_as": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Door.ogg"
+    }
+  },
+  {
+    "name": "n17-c27j-ramp",
+    "engine": "sa3-sfx",
+    "seconds": 7,
+    "seeds": [171, 172],
+    "loop": false,
+    "prompt": "The heavy rear cargo ramp of a military transport aircraft lowering on hydraulics: a steady hydraulic pump whine, metal creaks and the hum of a long hinge, ending in a heavy, soft clunk as the ramp rests on the ground. Close, quiet surroundings. Not loud, not alarming. Length: 7 seconds",
+    "art_plan": {
+      "why": "S159, the C-27J Spartan's cargo ramp, played as cargo goes in or out (the Osprey's S135 the model). No recording of the ramp moving was found; one has it already open in flight (DVIDS 1007438). Candidates only",
+      "sound": "S159",
+      "ships_as": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Ramp.ogg"
+    }
+  }
+]

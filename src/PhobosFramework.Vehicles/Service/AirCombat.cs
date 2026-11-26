@@ -46,6 +46,8 @@ public static class AirCombat
     public static bool Works(VehiclePawn? vehicle, string quantity)
     {
         if (Systems(vehicle) is not { Usable: true } comp) return false;
+        // Framework 0.316.0: dispensers that come with an upgrade work only once it is fitted.
+        if (quantity == CountermeasuresQuantity && !CarriesCountermeasures(vehicle)) return false;
         // Inside a hostile jamming field, a radar and a warning receiver are blinded (Framework 0.225.0, JamFields).
         if (JamFields.Jams(vehicle!, quantity)) return false;
         // Built first if nothing has looked yet (Framework 0.120.5, fault-read A6): another faction's systems are made on first look, so its
@@ -68,6 +70,14 @@ public static class AirCombat
     /// <summary>Whether the aircraft carries the capability at all (whatever its state).</summary>
     public static bool Carries(VehiclePawn? vehicle, Func<AvionicsFit, bool> capability) =>
         Systems(vehicle)?.Props.loadout?.avionics is { } fit && capability(fit);
+
+    /// <summary>
+    /// Whether this aircraft carries chaff and flare dispensers (Framework 0.316.0): its loadout's, and, where they come only with an upgrade
+    /// node (<see cref="AvionicsFit.countermeasuresByUpgrade"/>), that node fitted.
+    /// </summary>
+    public static bool CarriesCountermeasures(VehiclePawn? vehicle) =>
+        Systems(vehicle)?.Props.loadout?.avionics is { countermeasures: true } fit
+        && (!fit.countermeasuresByUpgrade || vehicle!.GetStatValue(AircraftUpgradeDefOf.Phobos_Countermeasures) > 0f);
 
     /// <summary>How the aircraft looks to an air defence: its loadout's figures, or the rules' defaults.</summary>
     public static AirTrackSpec Track(VehiclePawn? vehicle) => Systems(vehicle)?.Props.loadout?.avionics?.airTrack ?? DefaultTrack;
@@ -194,7 +204,7 @@ public static class AirCombat
             Warning.Tracked => "PhobosAirCombat_WarnTracked".Translate(who, where),
             Warning.LockedOn => "PhobosAirCombat_WarnLockedOn".Translate(who, where),
             _ when fired => "PhobosAirCombat_WarnLaunchedFired".Translate(who, where),
-            _ when Carries(vehicle, fit => fit.countermeasures) => "PhobosAirCombat_WarnLaunchedNoCartridges".Translate(who, where),
+            _ when CarriesCountermeasures(vehicle) => "PhobosAirCombat_WarnLaunchedNoCartridges".Translate(who, where),
             _ => "PhobosAirCombat_WarnLaunched".Translate(who, where),
         };
         MessageTypeDef type = warning == Warning.Tracked ? MessageTypeDefOf.CautionInput : MessageTypeDefOf.ThreatBig;
@@ -296,7 +306,7 @@ public static class AirCombat
     /// <summary>Whether this vehicle gets the salvo button: it carries dispensers and a tie-in scales its dodge chance.</summary>
     public static bool HasMapSalvo(VehiclePawn vehicle)
     {
-        if (!Carries(vehicle, fit => fit.countermeasures)) return false;
+        if (!CarriesCountermeasures(vehicle)) return false;
         // Framework 0.203.0: an aircraft given our own dodge (AirborneEvasion) has a chance for a salvo to add to.
         if (Carries(vehicle, fit => fit.mapEvasion > 0f)) return true;
         foreach (Func<VehiclePawn, bool> check in mapSalvoVehicles)

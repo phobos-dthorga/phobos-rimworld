@@ -13,6 +13,23 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.123.0] - 2026-11-26 - Draft
+
+The C-27J Spartan
+
+### Added
+
+- **The C-27J Spartan**, our first aeroplane: Leonardo's twin-turboprop transport, researched after the Osprey. It never hovers: it
+  takes off along a strip that grows with its weight, rough ground will do, and lands rolling. Two pilots, a loadmaster and 40 seats,
+  or one vehicle up to 2 by 5 cells and 8,600 kg in its hold; it drops people, bundles and up to two vehicles by parachute. Its fuel
+  counts against its take-off weight, as on the real aircraft. One upgrade so far, defensive aids. Enemy C-27Js bring paratroopers.
+  Picture AI-generated (Google's Nano Banana Pro), picked by the owner; its own sounds come later. Not yet tested in game: rows 560 to 564.
+
+### Compatibility and limits
+
+- Low-level drops along a strip (LAPES), its three hold fits (a side gun, a fire-fighting tank, stretchers), a walk-in cabin and its
+  own sounds are still to come. It keeps Vehicle Framework's default sounds until then.
+
 ## [0.122.1] - 2026-11-26 - Draft
 
 The Osprey's hold takes a bigger vehicle

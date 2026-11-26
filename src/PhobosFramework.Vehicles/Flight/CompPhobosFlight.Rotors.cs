@@ -20,6 +20,10 @@ public partial class CompPhobosFlight
 
     float? rotorFull;
 
+    /// <summary>The share of full speed its rotors or propellers turn at now, 0 to 1 (Framework 0.316.0: what <see cref="CompPhobosPropellers"/>
+    /// draws by); with no rotor rate of its own, 1 while they are driven.</summary>
+    public float RotorShare => RotorFull > 0f ? Mathf.Clamp01(rotorRate / RotorFull) : RotorsDriven ? 1f : 0f;
+
     /// <summary>The rotors' full rate, degrees a tick: the Def's, else the full rate of the aircraft's own take-off animation, else none.</summary>
     float RotorFull => rotorFull ??= ReadRotorFull();
 
@@ -47,12 +51,11 @@ public partial class CompPhobosFlight
     {
         float full = RotorFull;
         if (full <= 0f) return;
-        GraphicOverlayRenderer? renderer = Vehicle.DrawTracker?.overlayRenderer;
-        if (renderer == null) return;
         bool wasStill = rotorRate <= 0f;
         rotorRate = (float)RotorRule.Next(rotorRate, full, RotorsDriven, 1.0 / TicksPerSecond, Props.rotorSpinUpSeconds, Props.rotorRunDownSeconds);
         if (rotorRate <= 0f) return;
-        renderer.SetAcceleration(rotorRate);
+        // Framework 0.316.0: the rate is kept whether or not Vehicle Framework draws a rotor overlay, as our propeller bars read it.
+        Vehicle.DrawTracker?.overlayRenderer?.SetAcceleration(rotorRate);
         if (wasStill && Seen.On) Seen.Note("aircraft.rotors-turning", Vehicle);
     }
 

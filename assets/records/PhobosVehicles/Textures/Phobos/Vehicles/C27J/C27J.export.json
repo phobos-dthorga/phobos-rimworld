@@ -1,0 +1,47 @@
+{
+  "master": "c27j-export/c27j-body-at-scale.png",
+  "master_sha256": "467503651a3b1ffe4441234bce41ea2a706aa868a2b3ee0af21b64d85c6f52d6",
+  "files": {
+    "C27J_north.png": "704fd883a13185dece02b877416d31b9e6169dc7b4a265f1834f05177da70e19",
+    "C27J_east.png": "f7432ba69c6df284c71dc17474618a621633b5cc46d57f9533e670af7a71e061",
+    "C27J_south.png": "6551008799a29ef8db951d4b421ea5b3cb4d12becfc72d4b48ff68eddc27f354",
+    "C27J_northm.png": "d5050173495befebdef64255698480155df91d67606e905be733a2b18cc4410a",
+    "C27J_eastm.png": "8406e9961717db641ec2cbbb9fa879f280e7086cd609020da196ddbd267d8c2a",
+    "C27J_southm.png": "4c075a7c649dbc391088c1da91eb2a63fcf4f4ae6323c639a2bb0dc297623c9b",
+    "C27J_icon.png": "3807ff5735b1d2f5516251e199df353238b1cf7c66502e9407629a991e612518"
+  },
+  "date": "2026-11-26",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "body",
+  "cells_long": 26.6725,
+  "draw_size": [
+    34,
+    27
+  ],
+  "width_cells": 33.54,
+  "colours": {
+    "color": [
+      225,
+      224,
+      234
+    ],
+    "colorTwo": null
+  },
+  "min_saturation": 0.0,
+  "main_max_saturation": 0.15,
+  "trim": 1,
+  "line": [
+    0.45,
+    9
+  ],
+  "main_hue": [
+    200,
+    280
+  ],
+  "accent_hue": [
+    999,
+    999
+  ],
+  "holes": [],
+  "ai_mask": "467503651a3b1ffe4441234bce41ea2a706aa868a2b3ee0af21b64d85c6f52d6"
+}

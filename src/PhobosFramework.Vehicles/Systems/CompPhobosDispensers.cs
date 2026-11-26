@@ -50,7 +50,9 @@ public sealed class CompPhobosDispensers : VehicleComp, IThingHolder
 
     /// <summary>How many cartridges the magazine holds when full.</summary>
     /// <summary>The magazine: the loadout's, and more where dispensers have been fitted (aircraft service-life upgrades).</summary>
-    public int Capacity => Math.Max(0, (int)Math.Round(Props.capacity * ((parent as VehiclePawn) is { } vehicle && CompPhobosVehicleSystems.Of(vehicle) is { } systems
+    /// Framework 0.316.0: none until fitted, where the dispensers come with an upgrade node.
+    public int Capacity => parent is VehiclePawn fitted && !AirCombat.CarriesCountermeasures(fitted) ? 0
+        : Math.Max(0, (int)Math.Round(Props.capacity * ((parent as VehiclePawn) is { } vehicle && CompPhobosVehicleSystems.Of(vehicle) is { } systems
         ? systems.Fittings.CartridgeFactor : 1f)));
 
     /// <summary>How many cartridges are loaded.</summary>

@@ -1,0 +1,296 @@
+{
+ "set": "c27j",
+ "about": "Real recordings of the Leonardo (Alenia) C-27J Spartan, for its sounds (owner, 19 Nov 2026: a real, named machine may sound like itself from real recordings; assets/AGENTS.md). Every source is a DVIDS video marked PUBLIC DOMAIN on its page. Credit each by name, and say that the appearance of US Department of Defense visual information does not imply or constitute DoD endorsement. Every source's sound is lossy AAC (68 to 96 kb/s). Cuts and roles are the agent's first reading (26 Nov 2026) from spectrograms and a frame every 2 to 10 seconds, for the owner to judge on the listening page; nothing here is picked. No source has an engine start, an engine stop, a crew door or the ramp moving, nor a steady take-off-power or cruise loop heard from outside: those are generated (assets/phobos-sounds/requests/night-17-c27j.json).",
+ "licence": "Public domain (US federal government work), per each DVIDS page; DVIDS asks for credit and the no-endorsement line",
+ "sources": {
+  "130803": {
+   "page": "https://www.dvidshub.net/video/130803",
+   "title": "Maryland National Guard HALO Training",
+   "credit": "Sgt. 1st Class W. Michael Houk, National Guard Bureau",
+   "file_url": "https://d34w7g4gy10iej.cloudfront.net/video/1111/DOD_100281949/DOD_100281949-720x406-800k.mp4",
+   "sha256": "6cc1691d508b688f6aa9bc15fb4b540a21f53d91d69e765d9c6b41de9a877db8",
+   "seen": "B-roll of a Maryland ANG 175th Wing C-27J at Aberdeen Proving Ground, 18 Nov 2011: 6 to 24 s taxiing past; 92 to 155 s taxiing up and props turning close; 215 to 250 s taxi and take-off; 264 to 310 s landing roll-out far off, the props slowing from about 100 to 72 Hz near 300 s; 320 to 356 s taxiing up close. A steady line near 1 kHz runs through most of it (origin unclear)"
+  },
+  "140398": {
+   "page": "https://www.dvidshub.net/video/140398",
+   "title": "179th Airlift Wing Media Day",
+   "credit": "Staff Sgt. Steven Engle, Ohio National Guard",
+   "file_url": "https://d34w7g4gy10iej.cloudfront.net/video/1203/DOD_100352311/DOD_100352311-720x406-800k.mp4",
+   "sha256": "6b9d3a7fed4dfb8a35779e0ffd509e669b109aee2f406806a57c3cc9fdf2542f",
+   "seen": "0 to 370 s interviews (unusable); 379 to 405 s C-27J 87013 holding on the runway at ground idle, close; 408 to 444 s take-off roll and the climb-out passing the camera (near 431 s); 446 to 512 s approach, touchdown and roll-out past the camera with a broadband roar (likely reverse pitch; unconfirmed); 513 to 815 s cabin sound under 'tower radio chatter' cards, radio voices in places. A narrow notch or tone between 500 and 800 Hz runs through the file (an edit or camera artefact, not the aircraft)"
+  },
+  "873927": {
+   "page": "https://www.dvidshub.net/video/873927",
+   "title": "Airborne Operation (B-Roll)",
+   "credit": "Davide Dalla Massara, US Army",
+   "file_url": "https://d34w7g4gy10iej.cloudfront.net/video/2302/DOD_109466824/DOD_109466824.mp4",
+   "sha256": "02efee782e755439eedc9ce20989f21e19b8e98023091b529d2477a099d0edb3",
+   "seen": "An Italian Air Force C-27J over Alpe di Siusi, 16 Feb 2023: 4 to 12 s and 49 to 58 s inside in flight (a 101.5 Hz comb, some low camera wind rumble); 12 to 16 s the aircraft passing overhead; 17 to 27 s jumpers at the open door. 873928 is the same footage under music"
+  },
+  "1007438": {
+   "page": "https://www.dvidshub.net/video/1007438",
+   "title": "TFP 26 Joint Aerial Delivery Event",
+   "credit": "Staff Sgt. Melyssa Vazquez, US Special Operations Command Europe",
+   "file_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111714519/DOD_111714519.mp4",
+   "sha256": "8abe94340bfbd17aeb9242f35625f81757de31948929c81e34c0af5bd7a28b0f",
+   "seen": "A Romanian Air Force C-27J, 15 May 2026: 5 to 22 s inside with the ramp open in flight; 22 to 33 s the aircraft far overhead from the ground"
+  }
+ },
+ "cuts": [
+  {
+   "role": "c27j-idle",
+   "source": "140398",
+   "start": 379,
+   "seconds": 8,
+   "loop": true,
+   "note": "holding on the runway at ground idle, close; it reaches 0 dBFS (9 peak samples): listen for clipping"
+  },
+  {
+   "role": "c27j-idle",
+   "source": "140398",
+   "start": 387,
+   "seconds": 8,
+   "loop": true,
+   "note": "holding on the runway at ground idle, close"
+  },
+  {
+   "role": "c27j-idle",
+   "source": "140398",
+   "start": 396,
+   "seconds": 8,
+   "loop": true,
+   "note": "holding on the runway at ground idle, close"
+  },
+  {
+   "role": "c27j-idle",
+   "source": "130803",
+   "start": 120,
+   "seconds": 8,
+   "loop": true,
+   "note": "taxiing up, props turning close; strong turbine whine: listen for voices"
+  },
+  {
+   "role": "c27j-idle",
+   "source": "130803",
+   "start": 128,
+   "seconds": 8,
+   "loop": true,
+   "note": "props turning close: listen for voices"
+  },
+  {
+   "role": "c27j-idle",
+   "source": "130803",
+   "start": 140,
+   "seconds": 8,
+   "loop": true,
+   "note": "props turning close: listen for voices"
+  },
+  {
+   "role": "c27j-idle",
+   "source": "130803",
+   "start": 322,
+   "seconds": 8,
+   "loop": true,
+   "note": "taxiing up close, quieter"
+  },
+  {
+   "role": "c27j-idle",
+   "source": "130803",
+   "start": 334,
+   "seconds": 8,
+   "loop": true,
+   "note": "taxiing up close, quieter"
+  },
+  {
+   "role": "c27j-idle",
+   "source": "130803",
+   "start": 345,
+   "seconds": 8,
+   "loop": true,
+   "note": "close to the nose, props turning"
+  },
+  {
+   "role": "c27j-taxi",
+   "source": "130803",
+   "start": 95,
+   "seconds": 8,
+   "loop": true,
+   "note": "taxiing with the props near flight speed (a comb near 100 Hz)",
+   "comb": {
+    "hz": 102,
+    "tolerance_hz": 4,
+    "harmonics": 1,
+    "what": "propeller comb at flight power (the six-bladed propellers' blade passes)",
+    "source": "the agent's measurement, 26 Nov 2026: sound_review.py found 101.9 to 102.3 Hz on all six cabin cuts in flight (three aircraft: DVIDS 873927, 140398, 1007438), and a take-off pass slides from about 123 to 86 Hz by Doppler (140398); about 1,020 rpm for six blades (our inference, not a published figure). Only the first line falls under the comb check's 180 Hz, so it is a weaker check than the Osprey's"
+   }
+  },
+  {
+   "role": "c27j-taxi",
+   "source": "130803",
+   "start": 8,
+   "seconds": 18,
+   "note": "taxiing past, far",
+   "comb": false
+  },
+  {
+   "role": "c27j-takeoff",
+   "source": "140398",
+   "start": 409,
+   "seconds": 35,
+   "note": "take-off roll, lift-off and climb-out passing the camera near 431 s (Doppler)",
+   "comb": false
+  },
+  {
+   "role": "c27j-takeoff",
+   "source": "130803",
+   "start": 236,
+   "seconds": 20,
+   "note": "take-off far off, very quiet",
+   "comb": false
+  },
+  {
+   "role": "c27j-flyover",
+   "source": "140398",
+   "start": 424,
+   "seconds": 20,
+   "note": "the climb-out passing the camera: a Doppler pass, not a loop",
+   "comb": false
+  },
+  {
+   "role": "c27j-flyover",
+   "source": "873927",
+   "start": 12,
+   "seconds": 5,
+   "note": "passing overhead in flight, short; it reaches 0 dBFS",
+   "comb": false
+  },
+  {
+   "role": "c27j-landing",
+   "source": "140398",
+   "start": 483,
+   "seconds": 28,
+   "note": "roll-out past the camera with a broadband roar (likely reverse pitch and braking; unconfirmed)",
+   "comb": false
+  },
+  {
+   "role": "c27j-landing",
+   "source": "140398",
+   "start": 462,
+   "seconds": 50,
+   "note": "approach, touchdown (not distinct) and the roll-out",
+   "comb": false
+  },
+  {
+   "role": "c27j-landing",
+   "source": "130803",
+   "start": 262,
+   "seconds": 32,
+   "note": "landing roll-out far off, quiet",
+   "comb": false
+  },
+  {
+   "role": "c27j-landing",
+   "source": "130803",
+   "start": 294,
+   "seconds": 18,
+   "note": "the props slowing from about 100 to 72 Hz after landing, quiet",
+   "comb": false
+  },
+  {
+   "role": "c27j-cabin",
+   "source": "873927",
+   "start": 4,
+   "seconds": 8,
+   "loop": true,
+   "note": "inside in flight, a clean 101.5 Hz comb, low camera wind rumble",
+   "comb": {
+    "hz": 102,
+    "tolerance_hz": 4,
+    "harmonics": 1,
+    "what": "propeller comb at flight power (the six-bladed propellers' blade passes)",
+    "source": "the agent's measurement, 26 Nov 2026: sound_review.py found 101.9 to 102.3 Hz on all six cabin cuts in flight (three aircraft: DVIDS 873927, 140398, 1007438), and a take-off pass slides from about 123 to 86 Hz by Doppler (140398); about 1,020 rpm for six blades (our inference, not a published figure). Only the first line falls under the comb check's 180 Hz, so it is a weaker check than the Osprey's"
+   }
+  },
+  {
+   "role": "c27j-cabin",
+   "source": "873927",
+   "start": 49,
+   "seconds": 8,
+   "loop": true,
+   "note": "inside in flight",
+   "comb": {
+    "hz": 102,
+    "tolerance_hz": 4,
+    "harmonics": 1,
+    "what": "propeller comb at flight power (the six-bladed propellers' blade passes)",
+    "source": "the agent's measurement, 26 Nov 2026: sound_review.py found 101.9 to 102.3 Hz on all six cabin cuts in flight (three aircraft: DVIDS 873927, 140398, 1007438), and a take-off pass slides from about 123 to 86 Hz by Doppler (140398); about 1,020 rpm for six blades (our inference, not a published figure). Only the first line falls under the comb check's 180 Hz, so it is a weaker check than the Osprey's"
+   }
+  },
+  {
+   "role": "c27j-cabin",
+   "source": "140398",
+   "start": 655,
+   "seconds": 10,
+   "loop": true,
+   "note": "inside in flight, between radio voices: listen for them",
+   "comb": {
+    "hz": 102,
+    "tolerance_hz": 4,
+    "harmonics": 1,
+    "what": "propeller comb at flight power (the six-bladed propellers' blade passes)",
+    "source": "the agent's measurement, 26 Nov 2026: sound_review.py found 101.9 to 102.3 Hz on all six cabin cuts in flight (three aircraft: DVIDS 873927, 140398, 1007438), and a take-off pass slides from about 123 to 86 Hz by Doppler (140398); about 1,020 rpm for six blades (our inference, not a published figure). Only the first line falls under the comb check's 180 Hz, so it is a weaker check than the Osprey's"
+   }
+  },
+  {
+   "role": "c27j-cabin",
+   "source": "140398",
+   "start": 733,
+   "seconds": 12,
+   "loop": true,
+   "note": "inside in flight, between radio voices: listen for them",
+   "comb": {
+    "hz": 102,
+    "tolerance_hz": 4,
+    "harmonics": 1,
+    "what": "propeller comb at flight power (the six-bladed propellers' blade passes)",
+    "source": "the agent's measurement, 26 Nov 2026: sound_review.py found 101.9 to 102.3 Hz on all six cabin cuts in flight (three aircraft: DVIDS 873927, 140398, 1007438), and a take-off pass slides from about 123 to 86 Hz by Doppler (140398); about 1,020 rpm for six blades (our inference, not a published figure). Only the first line falls under the comb check's 180 Hz, so it is a weaker check than the Osprey's"
+   }
+  },
+  {
+   "role": "c27j-cabin",
+   "source": "1007438",
+   "start": 5.5,
+   "seconds": 16,
+   "loop": true,
+   "note": "inside with the ramp open in flight",
+   "comb": {
+    "hz": 102,
+    "tolerance_hz": 4,
+    "harmonics": 1,
+    "what": "propeller comb at flight power (the six-bladed propellers' blade passes)",
+    "source": "the agent's measurement, 26 Nov 2026: sound_review.py found 101.9 to 102.3 Hz on all six cabin cuts in flight (three aircraft: DVIDS 873927, 140398, 1007438), and a take-off pass slides from about 123 to 86 Hz by Doppler (140398); about 1,020 rpm for six blades (our inference, not a published figure). Only the first line falls under the comb check's 180 Hz, so it is a weaker check than the Osprey's"
+   }
+  },
+  {
+   "role": "c27j-cabin",
+   "source": "873927",
+   "start": 17,
+   "seconds": 10,
+   "note": "jumpers at the open door in flight: wind and engines",
+   "comb": {
+    "hz": 102,
+    "tolerance_hz": 4,
+    "harmonics": 1,
+    "what": "propeller comb at flight power (the six-bladed propellers' blade passes)",
+    "source": "the agent's measurement, 26 Nov 2026: sound_review.py found 101.9 to 102.3 Hz on all six cabin cuts in flight (three aircraft: DVIDS 873927, 140398, 1007438), and a take-off pass slides from about 123 to 86 Hz by Doppler (140398); about 1,020 rpm for six blades (our inference, not a published figure). Only the first line falls under the comb check's 180 Hz, so it is a weaker check than the Osprey's"
+   }
+  }
+ ],
+ "comb": {
+  "hz": 72,
+  "tolerance_hz": 3,
+  "harmonics": 2,
+  "what": "propeller comb on the ground (the six-bladed propellers' blade passes at ground idle)",
+  "source": "the agent's measurement, 26 Nov 2026: sound_review.py found 70.1 to 73.9 Hz on all nine ground-idle cuts (DVIDS 130803 and 140398, two different aircraft): about 72 Hz, which for a six-bladed Dowty R391 propeller is about 720 rpm (our inference, not a published figure); only two lines fall under the comb check's 180 Hz, so the check is weaker than the Osprey's"
+ }
+}

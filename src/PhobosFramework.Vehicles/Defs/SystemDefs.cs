@@ -606,6 +606,12 @@ public class AvionicsFit
     /// <summary>How many cartridges the dispensers' magazine holds (Framework 0.180.0; owner, 20 Nov 2026: countermeasures handled as
     /// ammunition, loaded into the dispensers, not carried as cargo). Read only where <see cref="countermeasures"/> is carried.</summary>
     public int countermeasureCartridges = 30;
+    /// <summary>
+    /// Its dispensers come only with an upgrade node, aircraft by aircraft (Framework 0.316.0; the owner's card of 26 Nov 2026 for the C-27J's
+    /// defensive aids): the node raises <c>Phobos_Countermeasures</c>; until then the aircraft carries no chaff or flares and its magazine
+    /// takes no cartridges. Read only where <see cref="countermeasures"/> is carried.
+    /// </summary>
+    public bool countermeasuresByUpgrade;
     public bool oxygen;
     /// <summary>The aircraft cruises where its crew needs oxygen (Framework 0.119.0, avionics A14): with its oxygen out it flies low.</summary>
     public bool cruisesHigh;

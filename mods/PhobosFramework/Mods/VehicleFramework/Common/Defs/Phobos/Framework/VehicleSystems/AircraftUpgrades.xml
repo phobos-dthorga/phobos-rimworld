@@ -33,6 +33,22 @@
     </showOnVehicleTypes>
   </Vehicles.VehicleStatDef>
   <Vehicles.VehicleStatDef>
+    <!-- Framework 0.316.0: chaff and flare dispensers fitted by a node, for an aircraft whose loadout carries them only that way (the C-27J's
+         defensive aids). -->
+    <defName>Phobos_Countermeasures</defName>
+    <label>chaff and flare dispensers</label>
+    <description>Dispensers that fire chaff and flares when the missile warning receiver hears a threat, from a magazine of cartridges that haulers keep topped up.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Air</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
     <defName>Phobos_TerrainRadar</defName>
     <label>terrain-following radar</label>
     <description>A radar that lets the aircraft fly low and blind, at night and in weather.</description>

@@ -1,0 +1,71 @@
+[
+  {
+    "name": "c27j-body",
+    "title": "C-27J Spartan: the bare body from above",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 3277,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-trial-nano-banana-pro/osprey-trial-nano-banana-pro-1.png",
+        "role": "our approved aircraft body (the owner's Osprey pick of 18 Nov 2026): match its outline weight, shading and finish only; do not copy its shape or layout"
+      },
+      {
+        "image": "assets/phobos-vehicles/references/c27j-plan.png",
+        "role": "this aircraft's plan, drawn by our own script (draw_c27j_plan.py) from published dimensions: keep its layout and proportions exactly"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "the C-27J Spartan, footprint (5, 11); the picture about 34 x 27 cells (span x length) at the Osprey's 1.175 cells a metre (owner's card, 26 Nov 2026)",
+      "measured_against": "the Osprey (picture about 30 x 20.5 cells, the owner's hero vehicle) and the Mi-38 it was scaled from (24.79 cells for 21.1 m): the C-27J is the biggest picture on the list",
+      "size": "4K at 5:4, the largest Nano Banana Pro makes; the span fills nine tenths of the width. At 128 px a cell the drawn size is 4,352 x 3,456 px, so the 1.5x rule (6,528 px across) cannot be met by one picture; see the record",
+      "overlays_planned_on_this_canvas": [
+        "two propellers (still, and the spinning blur by script), laid at each spinner by script",
+        "MC-27J gun kit barrel at the left door",
+        "fire-fighting tank spray boom",
+        "defensive aids pods",
+        "damage looks by part"
+      ],
+      "design": "docs/development/vehicle-c27j.md",
+      "record": "assets/phobos-vehicles/requests/c27j-paid-record.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. The aircraft's centre line runs straight up the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite of a twin-engine turboprop military transport aeroplane for a hard-scrabble frontier colony: a high-winged tactical airlifter with a rear loading ramp, parked on the ground.\n\nImage 1 is our approved aircraft from the same maker: match its outline weight, its shading, its finish and its pale grey materials only. Do NOT copy its shape or its layout: it is a different aircraft. Image 2 is this aircraft's plan, drawn to scale: keep its layout and its proportions exactly, part for part, and redraw every part in the finish of Image 1 with real detail.\n\nDraw the BARE AIRFRAME only. The two propellers are drawn separately as overlays, so leave them out: each engine nacelle ends at its front in a plain pointed spinner cone with NO blades, NO propeller disc and NO blur.\n\nLandscape canvas. The aircraft is centred and its wingspan fills nine tenths of the canvas width, on a plain pure white background. North facing: the rounded nose and cockpit at the TOP edge, the T-tail at the BOTTOM edge.\n\nIts plan, from top to bottom: a short rounded nose with a dark glazed cockpit canopy; a long, wide, straight fuselage with a rounded roof; a long straight high wing set across the top of the fuselage a little forward of the middle, constant in width out to the engines and then tapering to squared tips; a long slim engine nacelle on each wing, close to the fuselage, reaching well ahead of the wing's leading edge and a little behind its trailing edge, ending at the front in a pointed spinner cone; a streamlined main-gear fairing bulging out low on each side of the fuselage beneath and behind the wing; a rear fuselage that narrows toward the tail, with the outline of a closed loading ramp across it; a thin fin along the centre line with a wide, slightly swept tailplane across its top at the very rear (a T-tail).\n\nMaterials: pale grey airframe panels, slightly darker grey nacelles and walkway strips along the wing, dark blue-grey cockpit glazing, small panel lines, hatches, flap lines along the wing's trailing edge and rivet rows.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, many small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art, not a blueprint.\n\nNo propellers, propeller blades, propeller discs, rotors, guns, missiles, pods, probes, antennas, people, cargo, dust, dirt, damage, text, letters, numbers, logos, flags, roundels, dials, screens or lamps. No floor, ground, runway, shadow outside the aircraft, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "c27j-propeller",
+    "title": "C-27J Spartan: one six-blade propeller, edge on from above",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 2048,
+    "height": 878,
+    "seeds": [
+      4,
+      5,
+      6
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/c27j-propeller/c27j-propeller-4.png",
+        "role": "our propeller, try 4 of this request: its shape, size and position are right, its outer blade edges soft; the drawing to repeat with crisp outlines"
+      },
+      {
+        "image": "assets/phobos-vehicles/references/c27j-propeller-edge-plan.png",
+        "role": "this propeller from straight above, edge on, drawn by our own script (draw_c27j_plan.py) from its published diameter: its layout"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "the C-27J Spartan's propeller, 4.115 m across (EASA), so about 4.8 cells at 1.175 cells a metre: 619 px at 128 px a cell, 929 px by the 1.5x rule",
+      "size": "2K at 21:9 (the coordinator's brief: 4K was six times more than needed); the bar about nine tenths of the width",
+      "this_request": "one correction of try 4 (tries 5 and 6): its soft outer blade edges left a pale fringe after the cut-out. Try 4 itself was made from the edge-on plan and the Osprey pick (finish), with the prompt in its own record (generated/c27j-propeller/c27j-propeller-4.json); try 3 the same, rejected for eight blades, two angled forward",
+      "superseded": "tries 1 and 2 (4K, face on, grey with orange tip bands): rejected by the owner, 26 Nov 2026, \"Neither propeller is up to standard\"",
+      "design": "docs/development/vehicle-c27j.md",
+      "record": "assets/phobos-vehicles/requests/c27j-paid-record.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down. No perspective, no tilt.\n\nImage 1 is our aircraft's six-bladed turboprop propeller seen from directly above, EDGE ON, its pointed spinner pointing up the canvas and its blades a thin bar across it. Its shape, size and position are right. Draw exactly this propeller again, at the same size and in the same position on the same wide canvas: the same glossy black pointed bullet spinner with its soft dark grey highlight, and the same thin, gently curved black blade slivers sweeping back toward their tips, one long blade out to each side and two shorter ones on each side over its inner half, as Image 2 lays out.\n\nFix one thing: in Image 1 the outer halves of the long blades are soft and blurred at their edges. Give every blade, all the way to its tip, the same crisp, unbroken, thick near-black outline as the spinner, with a clean flat matte-to-satin black fill inside it: no blur, no soft or feathered edges, no grey haze or pale halo around any blade.\n\nAll black. NO orange, yellow, white or coloured tip bands, stripes or markings. A plain pure white background.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art, not a blueprint.\n\nNo aircraft, engine, nacelle, wing, face-on disc, round hub, extra blades, motion blur, spinning disc, shadow, people, text, letters, numbers, logos, dust or damage."
+  }
+]
