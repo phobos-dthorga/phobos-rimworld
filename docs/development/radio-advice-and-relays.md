@@ -173,7 +173,11 @@ Built on the owner's word of 26 Nov 2026, not yet tested in game (rows 620 to 62
 - **Chest** [A]: within 8 cells or in the carer's room, carried, or anywhere in the convoy's inventory.
 - **Thought** [A]: the carer gains "talked me through it by radio", +6 opinion of the adviser for 10 days. The patient gets nothing.
 - **Not built**: learning faster while talked through; other factions' advice; a downed adviser (a person must be able to take a job
-  or lie awake in bed); advice in person without a radio.
+  or lie awake in bed); advice in person without a radio. **Aiming at one colony through another's repeater** [A, set aside 27 Nov
+  2026]: with two colonies, a convoy reaches whichever answers best, and only that colony's people advise. Asking again aimed at the
+  other colony, so its station's repeater carries the call, would replace the places the convoy's own reach holds at each relay (Radio
+  0.24.0 holds them per caller), and costs one more chain search per colony; worth it only if the owner finds two-colony convoys short of
+  advice in play.
 - **Cost, as built**: every 60 ticks, a set lookup on each colonist's job on maps with a station; a search of the home map's colonists
   only for one doing advisable work with no call, at most once every 250 ticks each; an offer for a person off the map kept 250 ticks.
   A read of a lifted stat costs two dictionary lookups when no call is live. **To measure with `scripts/perf.py`** before and after,
