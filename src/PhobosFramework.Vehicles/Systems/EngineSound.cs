@@ -27,6 +27,13 @@ public class PhobosEngineSoundExtension : DefModExtension
     public float fallbackRatedRpm = 2400f;
     /// <summary>Silent while the engine turns for work, for a vehicle whose work has its own running sound (the generator set).</summary>
     public bool silentWhileWorking;
+    /// <summary>Its sound in the air, heard from the ground (Framework 0.331.0; the C-27J's, the owner's picks of 26 Nov 2026): played in
+    /// place of the idle and load loops once an aircraft on our flight is off the ground. Left out, the loops play in the air too, as the
+    /// Osprey's do.</summary>
+    public SoundDef? aloftSound;
+    /// <summary>Its sound taxiing (Framework 0.331.0): played in place of the idle and load loops while it moves on the ground under its
+    /// own power. Left out, the loops play.</summary>
+    public SoundDef? taxiSound;
 }
 
 /// <summary>Plays one vehicle's engine sound, from its systems' engine speed and load. Presentation only; nothing is saved.</summary>
@@ -42,21 +49,40 @@ public sealed class EngineSound
     readonly PhobosEngineSoundExtension props;
     readonly SustainedSound idle = new();
     readonly SustainedSound load = new();
+    readonly SustainedSound aloft = new();
+    readonly SustainedSound taxi = new();
+    readonly CompPhobosFlight? flight;
+    EngineVoice voice;
     double pitch = double.NaN;
     double blend;
 
-    EngineSound(PhobosEngineSoundExtension props) => this.props = props;
+    EngineSound(PhobosEngineSoundExtension props, CompPhobosFlight? flight)
+    {
+        this.props = props;
+        this.flight = flight;
+    }
 
     /// <summary>The engine sound for this vehicle, or null if its Def names none.</summary>
     public static EngineSound? For(VehiclePawn vehicle) =>
-        vehicle.def.GetModExtension<PhobosEngineSoundExtension>() is { } props ? new EngineSound(props) : null;
+        vehicle.def.GetModExtension<PhobosEngineSoundExtension>() is { } props ? new EngineSound(props, vehicle.GetComp<CompPhobosFlight>()) : null;
 
     public void Tick(CompPhobosVehicleSystems comp)
     {
         VehiclePawn vehicle = comp.Vehicle;
-        bool on = comp.EngineRunning && vehicle.Spawned && !(props.silentWhileWorking && comp.WorkTurningEngine);
+        bool running = comp.EngineRunning && vehicle.Spawned && !(props.silentWhileWorking && comp.WorkTurningEngine);
+        bool onGround = flight == null || flight.State == FlightState.Ground;
+        EngineVoice now = EngineSoundRule.Voice(running, flight?.Climb ?? 0f, onGround && vehicle.vehiclePather?.Moving == true,
+            props.aloftSound != null, props.taxiSound != null);
+        if (now != voice)
+        {
+            if (Seen.On && now is EngineVoice.Aloft or EngineVoice.Taxi) Seen.Note("vehicle.engine-voice", vehicle, now == EngineVoice.Aloft ? "aloft" : "taxi");
+            voice = now;
+        }
+        bool on = now == EngineVoice.Engine;
         idle.Set(props.idleSound, on, vehicle);
         load.Set(props.loadSound, on, vehicle);
+        aloft.Set(props.aloftSound, now == EngineVoice.Aloft, vehicle);
+        taxi.Set(props.taxiSound, now == EngineVoice.Taxi, vehicle);
         if (!on)
         {
             pitch = double.NaN;
@@ -79,5 +105,8 @@ public sealed class EngineSound
     {
         idle.End();
         load.End();
+        aloft.End();
+        taxi.End();
+        voice = EngineVoice.Silent;
     }
 }

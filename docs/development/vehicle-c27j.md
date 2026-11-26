@@ -4,8 +4,8 @@
 aircraft with its hold, drops, defensive aids, raids and edge-on propellers (Framework 0.316.0, Vehicles 0.123.0), on the owner's picked
 art; then LAPES (Framework 0.323.0, Vehicles 0.126.0; [airdrops](airdrop.md#lapes-26-nov-2026-framework-03230-vehicles-01260)); its own
 voice (Vehicles 0.127.0) and defensive aids pods (0.127.1); then the three hold fits with their pictures (Framework 0.329.0, Vehicles 0.128.0).
-Not built: its flyover, taxi and cabin sounds (picked, waiting for a flight hook), filling the tank from a bowser or tanker, and its damage
-looks (the parts are cut, waiting for the owner's look). Not yet tested in game.
+Then its damage looks and cracked glass, its sounds in the air, taxiing and in the cabin, and the tank filled from a bowser, a tanker or
+plumbing (Vehicles 0.129.0, Framework 0.331.0). Not yet tested in game.
 
 The owner asked, 26 Nov 2026, after the parachute airdrops were built ([airdrops](airdrop.md)): "C-27J Spartan", the transport aeroplane
 that record and [modern military vehicles](modern-military-vehicles.md) (MV7, "the rough-strip transport aeroplane") named as the real
@@ -34,7 +34,7 @@ choices, agent defaults and agent choices are labelled as such.
 | Hold | **2 x 5 cells, 8,600 kg**, one vehicle |
 | LAPES | **Yes, on by default** |
 | Fits | **All four**: the MC-27J gun kit, the fire-fighting tank, stretchers, defensive aids |
-| Filling the fire-fighting tank | **Pump from open water**: a colonist runs the pump while it stands within reach of open water; a bowser or a tanker where those exist (not built yet) |
+| Filling the fire-fighting tank | **Pump from open water**: a colonist runs the pump while it stands within reach of open water; a bowser or a tanker where those exist (built in Framework 0.331.0, with plumbing first: the agent's order) |
 | The gun kit's fight | **Circle left, gun on the centre**: told to circle, it turns left so the gun faces the centre; on other legs it fires only on its left |
 | The gun kit's barrel | **The slim one** (try 1; the owner, 26 Nov 2026: "Use the slim barrel on the gun kit") |
 | Art | **Nano Banana Pro through fal, as the Osprey**; a cost cap asked once the picture list is planned |
@@ -150,7 +150,8 @@ Requests and records: `assets/phobos-vehicles/requests/c27j-paid.json` and its r
 The body pick cut into the Def's own parts with Segment Anything on the processor (`scripts/art/name_parts.py --cpu`, about 3 minutes;
 `assets/phobos-vehicles/requests/c27j-parts.json`, boxes from the plan checked against the pick). The review picture is kept in the
 art tools' working folder (`parts/7178d782.../review.png`). Each part takes the bulk tanker's damage marks below 60% health, as the
-Osprey's do, once the owner has seen the cut.
+Osprey's do. **Built** (Vehicles 0.129.0, 27 Nov 2026), after the owner's look at the cut ("the damage looks appears to be okay"): one
+picture per part by `export_c27j.py`, and the cracked glass by the tool every vehicle's glass uses. Not yet tested in game: row 625.
 
 | Part (the Def's key) | Cut | Score |
 | --- | --- | --- |

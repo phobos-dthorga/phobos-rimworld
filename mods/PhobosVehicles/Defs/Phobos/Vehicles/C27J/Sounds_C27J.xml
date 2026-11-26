@@ -185,4 +185,78 @@
       <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
     </modExtensions>
   </SoundDef>
+  <SoundDef>
+    <!-- In the air, heard from the ground (S155, D'thorga Vehicles 0.129.0): the owner's two picks played in turn, each whole, a random one
+         after another with two seconds' crossfade (agent's), so neither's join is ever heard: the generated cruise (night 17, try 171) and
+         a real pass with its Doppler fall (DVIDS 140398). Played by D'thorga Framework in place of the engine loops once it is off the ground. -->
+    <defName>PhobosVehicles_C27JAloft</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Folder">
+            <clipFolderPath>Phobos/Vehicles/C27J/Aloft</clipFolderPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>30~90</distRange>
+        <sustainLoop>False</sustainLoop>
+        <sustainIntervalRange>-2~-2</sustainIntervalRange>
+        <sustainAttack>2</sustainAttack>
+        <sustainRelease>2</sustainRelease>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- Taxiing (S161, Vehicles 0.129.0): the owner's pick, a real recording of the Maryland ANG's C-27J taxiing at Aberdeen with its propellers near flight speed (DVIDS 130803). Played in place of the engine loops while it moves on the ground. -->
+    <defName>PhobosVehicles_C27JTaxi</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/C27J/Taxi</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- Inside the cabin in flight (S162, Vehicles 0.129.0): the owner's pick, a real recording from a C-27J's cabin (DVIDS 140398). Played on the camera while the player follows it between tiles on the world map, as if riding along. -->
+    <defName>PhobosVehicles_C27JCabin</defName>
+    <sustain>True</sustain>
+    <context>Any</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/C27J/Cabin</clipPath>
+          </li>
+        </grains>
+        <volumeRange>18</volumeRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
 </Defs>

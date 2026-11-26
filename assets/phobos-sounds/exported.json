@@ -7651,5 +7651,196 @@
       "start": 120,
       "seconds": 8
     }
+  },
+  "C27JAloftCruise": {
+    "name": "C27JAloftCruise",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Aloft/Cruise.ogg",
+    "sha256": "55f7a0a3f61f41949e00cf21392affb2f2aeb2004c1ce54ac928b30f18f2ec3b",
+    "master_sha256": "e96296638aca2c98990986ca04107327419e3f55a0c974bfd86df077bb8efdd5",
+    "fingerprint": "04ed67a144c4a02e52e1c16afc932116d277d4c32bc3ebdd13c2fa573cf3cc67",
+    "date": "2026-11-27",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -16.94 LUFS",
+      "gain_db": 8.9
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -17.7,
+      "true_peak": -1.1,
+      "seconds": 6.55,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 171,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A twin-engine turboprop transport aircraft cruising high overhead, heard from the ground: a soft, distant, even propeller drone with a gentle low hum, steady and unchanging, continuous, with faint wind. Outdoors. Not loud, not alarming. Length: 8 seconds"
+    }
+  },
+  "C27JAloftPass": {
+    "name": "C27JAloftPass",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Aloft/Pass.ogg",
+    "sha256": "b5c35bb0b3bcfef9d69647de31d3de7096deb58aa5ce398b0d2a13ac100149fd",
+    "master_sha256": "aaf7b62e4d3fa3db35f551b30243a452f12cd393c74ad9e83588d553d8873024",
+    "fingerprint": "843c48faa94733ab3355970a2a58f9bf171aede475da11bb066c0ff349729d31",
+    "date": "2026-11-27",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -16.94 LUFS",
+      "gain_db": -0.5
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.0,
+      "true_peak": -0.7,
+      "seconds": 20.0,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://www.dvidshub.net/video/140398",
+      "source_title": "179th Airlift Wing Media Day",
+      "credit": "Staff Sgt. Steven Engle, Ohio National Guard",
+      "licence": "Public domain (US federal government work), per each DVIDS page; DVIDS asks for credit and the no-endorsement line",
+      "source_sha256": "6b9d3a7fed4dfb8a35779e0ffd509e669b109aee2f406806a57c3cc9fdf2542f",
+      "start": 424,
+      "seconds": 20
+    }
+  },
+  "C27JTaxi": {
+    "name": "C27JTaxi",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Taxi.ogg",
+    "sha256": "b480279983c55deaa729704a4143d81e7a774c024797c5b9de912da8165a8752",
+    "master_sha256": "24a3705497629fa0ca583761d6565d17d4848421d37df04694a9a609979dd488",
+    "fingerprint": "13049c6ad3dcbbef91e45ac2381ff017dbc9cbcb15ace8b85d0785bc33611008",
+    "date": "2026-11-27",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        17.5488
+      ],
+      "loop_match": 0.129,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -16.94 LUFS",
+      "gain_db": 16.5
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -17.7,
+      "true_peak": -1.1,
+      "seconds": 17.1,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://www.dvidshub.net/video/130803",
+      "source_title": "Maryland National Guard HALO Training",
+      "credit": "Sgt. 1st Class W. Michael Houk, National Guard Bureau",
+      "licence": "Public domain (US federal government work), per each DVIDS page; DVIDS asks for credit and the no-endorsement line",
+      "source_sha256": "6cc1691d508b688f6aa9bc15fb4b540a21f53d91d69e765d9c6b41de9a877db8",
+      "start": 8,
+      "seconds": 18
+    }
+  },
+  "C27JCabin": {
+    "name": "C27JCabin",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Cabin.ogg",
+    "sha256": "94bbc679e4bd2689f959ada65304d148442150450c4a5b63e05587106c12c246",
+    "master_sha256": "e03a665cdc92845062d6c8d0043aecb8ebd435a3ec405d4a957ff9ccffecefd0",
+    "fingerprint": "82f1587172b19ecb6b6297b7c3b4c98db86569e03c2937c12ca523b97f855e31",
+    "date": "2026-11-27",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        11.7855
+      ],
+      "loop_match": 0.562,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -21.61 LUFS",
+      "gain_db": -2.51
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.6,
+      "true_peak": -4.3,
+      "seconds": 11.34,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://www.dvidshub.net/video/140398",
+      "source_title": "179th Airlift Wing Media Day",
+      "credit": "Staff Sgt. Steven Engle, Ohio National Guard",
+      "licence": "Public domain (US federal government work), per each DVIDS page; DVIDS asks for credit and the no-endorsement line",
+      "source_sha256": "6b9d3a7fed4dfb8a35779e0ffd509e669b109aee2f406806a57c3cc9fdf2542f",
+      "start": 733,
+      "seconds": 12
+    }
   }
 }

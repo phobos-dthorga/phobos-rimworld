@@ -14,7 +14,7 @@
     centre hold, the ramp across rows -2 and -3, the tail across the last two. Agent placement, for the owner to revise.
     Part keys are saved by position: append only, never reorder.
 
-    Not drawn yet (agent's choice, the art not being made): damage looks per part, the cracked glass, and the overlays of the fits. Not
+    Damage looks per part and the cracked glass since D'thorga Vehicles 0.129.0, the fits' overlays since 0.128.0. Not
     given (agent's choice): a walk-in cabin, which waits on the gate the cabins record sets (the Osprey's cabin measured first). Its own
     voice since D'thorga Vehicles 0.127.0 (Sounds_C27J.xml).
   -->
@@ -586,6 +586,9 @@
       <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
         <idleSound>PhobosVehicles_C27JEngineIdle</idleSound>
         <loadSound>PhobosVehicles_C27JEngineLoad</loadSound>
+        <!-- In the air and taxiing (D'thorga Framework 0.331.0): each in place of the two loops above. -->
+        <aloftSound>PhobosVehicles_C27JAloft</aloftSound>
+        <taxiSound>PhobosVehicles_C27JTaxi</taxiSound>
         <idlePitch>1</idlePitch>
         <ratedPitch>1</ratedPitch>
       </li>
@@ -625,6 +628,160 @@
       </li>
     </soundOneShotsOnEvent>
     <comps>
+      <!-- Damage pictures while a part is below 60% health (D'thorga Vehicles 0.129.0; the owner saw the parts cut on 27 Nov 2026): the
+           bulk tanker's marks clipped to each part's outline from Segment Anything, by assets/phobos-vehicles/export_c27j.py, as the
+           Osprey's are. Agent placements. Over the fits' overlays (layer 1), under nothing else. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosDamageLooks">
+        <looks>
+          <!-- Cracked or broken glass, as every vehicle's (Framework 0.238.0): cracks only, over the cockpit's glass as drawn, shown
+               while the glass is below 70 % (cracked or gone). Made by assets/vehicle-systems/lay_cracked_glass.py. -->
+          <li>
+            <part>PhobosGlass</part>
+            <belowHealth>0.7</belowHealth>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/C27J/C27J_DamageGlass</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(34, 27)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>3</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>Cockpit</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/C27J/C27J_DamageCockpit</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(34, 27)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>ForwardHold</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/C27J/C27J_DamageForwardHold</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(34, 27)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>CentreHold</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/C27J/C27J_DamageCentreHold</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(34, 27)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>AftHold</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/C27J/C27J_DamageAftHold</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(34, 27)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>LeftWing</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/C27J/C27J_DamageLeftWing</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(34, 27)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>RightWing</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/C27J/C27J_DamageRightWing</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(34, 27)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>LeftNacelle</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/C27J/C27J_DamageLeftNacelle</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(34, 27)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>RightNacelle</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/C27J/C27J_DamageRightNacelle</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(34, 27)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>LeftMainGear</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/C27J/C27J_DamageLeftMainGear</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(34, 27)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>RightMainGear</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/C27J/C27J_DamageRightMainGear</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(34, 27)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>Tail</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/C27J/C27J_DamageTail</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(34, 27)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+        </looks>
+      </li>
       <!-- Its fire-fighting tank (D'thorga Framework 0.329.0): empty and silent until the FireTank node gives it its 7,950 L. The pump
            reaches 6 cells to open water and moves 400 L a minute [A]; a pass wets a strip 3 cells wide. -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosFireTank">

@@ -210,12 +210,14 @@ clean but for one try's strong highs. The export refuses a clip or a whine, so a
 | --- | --- | --- | --- |
 | S153 | Engines idling (loop) | XML | **Shipped** (Vehicles 0.127.0): the owner's pick, a real recording (DVIDS 130803), a 9.5 kHz tone notched out |
 | S154 | Engines under take-off power (loop) | XML | **Shipped** (Vehicles 0.127.0): the owner's pick, generated (night 17, try 171); the recordings' take-off cuts were rejected ("too much empty space") |
-| S155 | Cruising overhead, heard from the ground (loop) | Code | Picked (generated try 171, and a real Doppler pass, DVIDS 140398); not shipped: our flight has no hook for it yet. The real taxi and cabin cuts were picked too and wait for theirs |
+| S155 | In the air, heard from the ground | Code | **Shipped** (Vehicles 0.129.0, Framework 0.331.0's aloftSound): the owner's two picks played in turn, each whole with a crossfade: generated try 171 and a real Doppler pass (DVIDS 140398) |
 | S156 | Landing: roll-out and reverse pitch | Code | **Shipped** (Vehicles 0.127.0): the owner's pick, a real recording (DVIDS 130803) |
 | S157 | Engine start | XML | **Shipped** (Vehicles 0.127.0): generated, try 172 |
 | S158 | Engine stop | XML | **Shipped** (Vehicles 0.127.0): generated, try 172 |
 | S159 | Cargo ramp | XML | **Shipped** (Vehicles 0.127.0): generated, try 172, as cargo goes in or out |
 | S160 | Crew door | XML | **Shipped** (Vehicles 0.127.0): generated, try 171, as people board or leave |
+| S161 | Taxiing (loop) | Code | **Shipped** (Vehicles 0.129.0, Framework 0.331.0's taxiSound): the owner's pick, a real recording (DVIDS 130803), in place of the engine loops while it moves on the ground |
+| S162 | Inside the cabin in flight (loop) | Code | **Shipped** (Vehicles 0.129.0, Framework 0.331.0's cabinSound): the owner's pick, a real recording (DVIDS 140398), on the camera while the player follows it on the world map |
 
 ### Thane tractors (`Phobos_TractorT60Standard` and `T60F`, `T130Standard` and `T130RC`, the T400 to come; D'thorga Farming)
 

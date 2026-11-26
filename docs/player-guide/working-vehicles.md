@@ -665,13 +665,17 @@ motor pool, from aircraft parts as the Osprey is.
   heavy-drop rig in its cargo. **The load lands hard more often than by parachute, and now and then the aircraft strikes the ground**
   and damages its landing gear. Switch it off in D'thorga Framework's settings (Airdrops).
 - **Its propellers** show as bars across the engines' noses from above, blurring as they spin up.
+- **It sounds like itself**: its own engines, a different sound once it is in the air and while it taxis, and **its cabin, heard on
+  the world map while you have it selected in flight**.
+- **Its damage shows** part by part, and its cockpit glass cracks.
 - **Enemy C-27Js bring paratroopers**: they cross the map and drop them, and your guns and close-in weapons can shoot them down.
 - **Its hold fits**, one at a time, as each fills the hold, and each weighing as cargo:
   - **Stretchers**: 36 for downed people, tended by anyone in the crew who can doctor.
   - **MC-27J gun kit**: a 30 mm cannon out of the left door, worked by the loadmaster. **Told to circle, it always turns left**, so the
     gun faces the centre and fires on what is inside the circle.
-  - **Fire-fighting tank**: 7,950 litres. Land within 6 cells of a river, lake or marsh and press **Pump water aboard**: a colonist
-    fills it in about 20 game minutes. **Full, it weighs nearly 8 tonnes more**, so its take-off roll grows. In the air, **Water drop
+  - **Fire-fighting tank**: 7,950 litres. Land beside water and press **Pump water aboard**: a colonist fills it in about 20 game
+    minutes. The pump takes plumbing under or beside it first (with Dubs Bad Hygiene), then a water bowser or tanker of water parked
+    beside it, then a river, lake or marsh within 6 cells. **Full, it weighs nearly 8 tonnes more**, so its take-off roll grows. In the air, **Water drop
     pass** empties it along a line through the point you pick, about 26 cells long, putting out the fires beneath.
 
 ## Other mods' vehicles

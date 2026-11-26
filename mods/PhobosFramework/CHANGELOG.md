@@ -16,6 +16,31 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.331.0] - 2026-11-27 - Draft
+
+An engine's sound in the air and taxiing, a cabin heard on the world map, and a fire-fighting tank filled from a tanker or plumbing
+
+### Added
+
+- **An engine voice may sound different in the air and taxiing** (PhobosEngineSoundExtension's aloftSound and taxiSound): once an
+  aircraft on our flight is 5% of its flight height off the ground, its aloft sound plays in place of the idle and load loops, and while
+  it moves on the ground under its own power, its taxi sound. A vehicle without them sounds as before. The C-27J first. Row 626.
+- **An aircraft's cabin, heard on the world map** (CompProperties_PhobosFlight's cabinSound): with the world map open and the aircraft
+  alone selected in flight, its cabin sound plays as if riding along; it stops when the map closes, the selection changes, it lands or
+  the game is paused. When it plays is the agent's choice, for the owner to revise. Row 626.
+- **A fire-fighting tank fills from a water tanker or plumbing too** (the owner's card of 26 November 2026, "a bowser or a tanker where
+  those exist"): Pump water aboard draws first from Dubs Bad Hygiene's plumbing under or beside the aircraft, then from a water bowser,
+  shower trailer or tanker of water parked within its own hose's reach, then from open water, each half second from whichever answers,
+  so a tanker run dry hands over to the river. With Dubs Bad Hygiene, plumbing is laid under a parked aircraft with a tank fitted, as
+  under every vehicle that takes water. Rows 627 and 628.
+
+### Compatibility and limits
+
+- **The tanker's own pump and its Load or Unload setting are not asked**: the aircraft's pump draws from it (a simplification, the
+  agent's). A tanker set to unload does not push water into an aircraft by itself.
+- **Water from plumbing comes in gulps of about 290 L**: towers holding less stop the pump rather than give their last litres.
+
+
 ## [0.330.0] - 2026-11-26 - Draft
 
 Skill lifts: someone helping from elsewhere counts in the work

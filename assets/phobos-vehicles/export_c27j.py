@@ -14,6 +14,9 @@ propeller's try 4 with its outline redrawn by script; requests/c27j-paid-record.
   C27J_Propeller               the still propeller from straight above, edge on, centred on its hub (the blade plane at the spinner's
                                base), 4.115 m across [P, EASA]
   C27J_PropellerSpin           the same turning: a see-through blur of the blades by script, the spinner kept crisp
+  C27J_Damage<Part>            each part's damage look (27 Nov 2026): the bulk tanker's marks clipped to the part's mask from Segment
+                               Anything (requests/c27j-parts.json), shown by Framework's damage looks below 60% health
+  C27J_DamageGlass             cracks over the cockpit's glass, by assets/vehicle-systems/lay_cracked_glass.py, as every vehicle's
   C27J.layout.json             the hubs, the propellers' drawSize and the footprint's reach, in cells from the body's centre (x right, y
                                forward, facing north): the figures the Def's CompProperties_PhobosPropellers takes
 
@@ -28,6 +31,7 @@ import argparse
 import hashlib
 import json
 import math
+import subprocess
 import sys
 from pathlib import Path
 
@@ -87,6 +91,24 @@ PROPELLER_PLANE_Y = 955
 PROPELLER_DRAW = (5.0, 2.5)       # cells: across the blades (4.84 with the outline) and fore and aft, centred on the hub
 SPIN_ALPHA = (0.22, 0.62)         # The blur's opacity at the hub and at most toward the tips [A]
 PREVIEW = {'soil': (92, 76, 58), 'stone': (48, 48, 52)}
+# Damage looks (27 Nov 2026; the owner saw the parts cut: "the damage looks appears to be okay"): the bulk tanker's marks, as the
+# Osprey's, clipped to each part's mask from Segment Anything (requests/c27j-parts.json), one picture per part of the Def.
+MARKS = {'body': G / 'bulk-tanker-damage-body/bulk-tanker-damage-body-1.png',
+         'tank': G / 'bulk-tanker-damage-tank/bulk-tanker-damage-tank-1.png'}
+# (the Def's part, its masks, marks master, turned for a wide part, where in the marks to start): agent placements, each starting
+# somewhere of its own so neighbouring parts never repeat the same marks
+DAMAGE_PARTS = [('Cockpit', ['Cockpit'], 'body', True, (0, 0)),
+                ('ForwardHold', ['ForwardHold'], 'tank', True, (300, 0)),
+                ('CentreHold', ['CentreHold'], 'body', True, (600, 0)),
+                ('AftHold', ['AftHold'], 'tank', False, (0, 0)),
+                ('LeftWing', ['LeftWing'], 'tank', True, (0, 0)),
+                ('RightWing', ['RightWing'], 'body', True, (200, 0)),
+                ('LeftNacelle', ['LeftNacelle'], 'body', False, (100, 300)),
+                ('RightNacelle', ['RightNacelle'], 'tank', False, (300, 500)),
+                ('LeftMainGear', ['LeftMainGear'], 'tank', False, (200, 700)),
+                ('RightMainGear', ['RightMainGear'], 'body', False, (100, 900)),
+                ('Tail', ['Tail'], 'body', True, (400, 300))]
+CRACKS = ROOT / 'assets/vehicle-systems/generated/cracked-windscreen/cracked-windscreen-1.png'   # One master for every vehicle's glass
 
 
 def sha(path):
@@ -197,6 +219,46 @@ def pipe_overlay(mapping):
     tx, ty = DOOR_AT[0] * mapping.total + mapping.offset[0], DOOR_AT[1] * mapping.total + mapping.offset[1]
     canvas.alpha_composite(small, (round(tx - fx * factor), round(ty - fy * factor)))
     return canvas
+
+
+def damage_look(mapping, folder, parts, source, rotate, start):
+    """A part's damage on the body's canvas: marks clipped to its mask on the pick, shrunk premultiplied by the pick's own mapping,
+    so a hole is the tanker's size in cells (export_vehicle.damage_marks)."""
+    mask = Image.new('L', Image.open(PICK).size, 0)
+    for part in parts:
+        mask = ImageChops.lighter(mask, Image.open(folder / f'{part}.png').convert('L'))
+    box = mask.getbbox()
+    marks = ev.clip_marks(ev.damage_marks(MARKS[source], mapping.total, PIXELS_PER_CELL, rotate), mask, box, start)
+    small = premultiplied(marks, mapping.total)
+    canvas = Image.new('RGBA', tuple(mapping.canvas), (0, 0, 0, 0))
+    tx, ty = box[0] * mapping.total + mapping.offset[0], box[1] * mapping.total + mapping.offset[1]
+    canvas.alpha_composite(small, (max(0, round(tx)), max(0, round(ty))), (max(0, -round(tx)), max(0, -round(ty))))
+    return canvas
+
+
+def cracked_glass(out):
+    """Cracks over the cockpit's own glass, by the one tool every vehicle's glass uses (lay_cracked_glass.py), from the shipped north."""
+    tool = ROOT / 'assets/vehicle-systems/lay_cracked_glass.py'
+    subprocess.run([sys.executable, str(tool), str(CRACKS), str(out / f'{NAME}_north.png'), str(out / f'{NAME}_DamageGlass')], check=True)
+    return [out / f'{NAME}_DamageGlass_{facing}.png' for facing in ev.FACINGS]
+
+
+def damage_card(out, colour, path):
+    """Every damage look at once over the body, tinted, on dark ground; in game each shows only as its own part wears."""
+    body = tinted(Image.open(out / f'{NAME}_north.png').convert('RGBA'), Image.open(out / f'{NAME}_northm.png'), colour)
+    canvas = Image.new('RGBA', body.size, PREVIEW['stone'] + (255,))
+    canvas.alpha_composite(body)
+    plain = canvas.copy()
+    for name, *_ in DAMAGE_PARTS:
+        canvas.alpha_composite(Image.open(out / f'{NAME}_Damage{name}_north.png'))
+    canvas.alpha_composite(Image.open(out / f'{NAME}_DamageGlass_north.png'))
+    half = (body.width // 2, body.height // 2)
+    card = Image.new('RGB', (half[0] * 2 + 30, half[1]), (30, 30, 32))
+    card.paste(plain.resize(half, Image.LANCZOS).convert('RGB'), (0, 0))
+    card.paste(canvas.resize(half, Image.LANCZOS).convert('RGB'), (half[0] + 30, 0))
+    path.parent.mkdir(parents=True, exist_ok=True)
+    card.save(path)
+    return path
 
 
 def propeller_cut():
@@ -350,6 +412,10 @@ def main(argv=None):
     gun_path = out / f'{NAME}_GunKit.png'
     gun_turret().save(gun_path, optimize=True)
     files.append(gun_path)
+    parts = art_paths.find('parts', sha(PICK))
+    for name, masks, source, rotate, start in DAMAGE_PARTS:
+        files += ev.write_facings(damage_look(mapping, parts, masks, source, rotate, start), out, f'{NAME}_Damage{name}')
+    files += cracked_glass(out)
     hubs = {side: mapping.cells(x, base) for side, (x, _, base) in SPINNERS.items()}
     across = round((abs(hubs['Left'][0]) + abs(hubs['Right'][0])) / 2, 2)
     forward = round((hubs['Left'][1] + hubs['Right'][1]) / 2, 2)
@@ -369,6 +435,7 @@ def main(argv=None):
               'prescale': prescale, 'paint': PAINT, 'pixels_a_cell': PIXELS_PER_CELL, 'files': {p.name: sha(p) for p in files}}
     art_paths.record_path(out / f'{NAME}.c27j-export.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
     card = review_card(out, layout, tuple(result['colours']['color']), art_paths.work('cards', 'c27j-export') / '01-c27j-body-propellers.png')
+    damage_card(out, tuple(result['colours']['color']), art_paths.work('cards', 'c27j-export') / '02-c27j-damage.png')
     print(f'hubs {layout["propellers"]["hubs"]} (measured {hubs}); propeller drawSize {list(PROPELLER_DRAW)}')
     print(f'{len(files)} textures in {out}; card: {card}')
     return 0

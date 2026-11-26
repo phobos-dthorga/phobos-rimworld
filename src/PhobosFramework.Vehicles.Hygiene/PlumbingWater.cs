@@ -37,7 +37,9 @@ public sealed class PlumbingLink : VehiclePipes.ILink
         // Framework 0.219.0 (the owner, 22 Nov 2026: the Billy was "exempt"): a trailer with its own water, such as the field kitchen.
         || comp.Vehicle.GetComp<CompPhobosTrailerPlumbing>() is { OwnsWater: true }
         // Framework 0.232.0: a crew water tank fitted.
-        || comp.Vehicle.GetComp<CompPhobosCrewWater>() is { Fitted: true };
+        || comp.Vehicle.GetComp<CompPhobosCrewWater>() is { Fitted: true }
+        // Framework 0.331.0: an aircraft's fire-fighting tank fitted, so its pump can draw from a run touching it.
+        || comp.Vehicle.GetComp<CompPhobosFireTank>() is { Fitted: true };
 
     public void Update(VehiclePipes.IHost comp)
     {

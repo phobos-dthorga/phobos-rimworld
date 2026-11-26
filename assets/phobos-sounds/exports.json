@@ -2057,6 +2057,57 @@
       "offset_db": 3,
       "volume": 35,
       "why": "The C-27J's own voice (Vehicles 0.127.0): the owner's pick of 26 Nov 2026 on the Picks page from night 17's generated candidates, made on the processor (assets/phobos-sounds/requests/night-17-c27j.json); reference and offset are agent choices, as the Osprey's: as our trucks' doors sit."
+    },
+    {
+      "name": "C27JAloftCruise",
+      "use": "S155: C-27J Spartan in the air, heard from the ground (one of two, played in turn)",
+      "picked": "2026-11-26",
+      "candidate": "n17-c27j-flyover/n17-c27j-flyover-171.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Aloft/Cruise.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": 6,
+      "volume": 21,
+      "why": "The C-27J's own voice (Vehicles 0.129.0): the owner's pick of 26 Nov 2026 on the Picks page from night 17's generated candidates; played in turn with the real pass by the aloft sound's sustainer, each whole with a crossfade, so its loop seam is never heard (the listening page flagged one). Its propellers turn at about 78 Hz against the real 102 Hz, a flag the owner heard and picked through. Reference and offset are agent choices: at the idle's level, as heard from the ground."
+    },
+    {
+      "name": "C27JAloftPass",
+      "use": "S155: C-27J Spartan passing over, heard from the ground (one of two, played in turn)",
+      "picked": "2026-11-26",
+      "recording": "c27j",
+      "candidate": "c27j-flyover/c27j-flyover-140398-04240.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Aloft/Pass.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": 6,
+      "volume": 21,
+      "why": "The C-27J's own voice (Vehicles 0.129.0): the owner's pick of 26 Nov 2026 on the Picks page from the real recordings' listening page (assets/phobos-sounds/recordings/c27j.json, public-domain DVIDS video; the record credits it): a real pass with its Doppler fall, played in turn with the generated cruise. Reference and offset as the cruise's."
+    },
+    {
+      "name": "C27JTaxi",
+      "use": "S161: C-27J Spartan taxiing (loop)",
+      "picked": "2026-11-26",
+      "recording": "c27j",
+      "candidate": "c27j-taxi/c27j-taxi-130803-00080.flac",
+      "kind": "loop",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Taxi.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": 6,
+      "volume": 21,
+      "why": "The C-27J's own voice (Vehicles 0.129.0): the owner's pick of 26 Nov 2026 on the Picks page from the real recordings' listening page (assets/phobos-sounds/recordings/c27j.json, public-domain DVIDS video; the record credits it): taxiing with the propellers near flight speed, played in place of the engine loops while it moves on the ground. Reference and offset are agent choices, at the idle's level."
+    },
+    {
+      "name": "C27JCabin",
+      "use": "S162: C-27J Spartan, inside the cabin in flight (loop), heard on the world map",
+      "picked": "2026-11-26",
+      "recording": "c27j",
+      "candidate": "c27j-cabin/c27j-cabin-140398-07330.flac",
+      "kind": "loop",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Cabin.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": 0,
+      "volume": 18,
+      "why": "The C-27J's own voice (Vehicles 0.129.0): the owner's pick of 26 Nov 2026 on the Picks page from the real recordings' listening page (assets/phobos-sounds/recordings/c27j.json, public-domain DVIDS video; the record credits it): the cabin in flight, played on the camera while the player follows the aircraft on the world map. Reference and offset are agent choices: a step under the idle, as it plays alone with nothing else of the map's to mix with."
     }
   ]
 }

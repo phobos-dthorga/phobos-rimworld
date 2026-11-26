@@ -139,27 +139,12 @@ def radar_nose():
                                   'why': 'the model drew a nose of a slightly different shape; made from the pick, it lines up'})
 
 
-def marks(name, rotate=False):
-    """A damage marks master (the bulk tanker's, our art of 8 Nov 2026) as near-black with alpha, at the pick's scale so a bullet
-    hole is the same size in game on every vehicle: the master's 1,536 px are taken as the tanker's 10 cells [A]."""
-    sys.path.insert(0, str(ROOT / 'scripts' / 'art'))
-    from export_vehicle import marks_to_alpha
-    picture = marks_to_alpha(Image.open(MARKS[name]).convert('RGB'))
-    if rotate:
-        picture = picture.transpose(Image.ROTATE_90)
-    factor = MARKS_GAME_PX / GAME_PX_PER_PICK_PX
-    return picture.resize((round(picture.width * factor), round(picture.height * factor)), Image.LANCZOS)
-
-
 def damage_layer(part_mask, box, source, rotate, start):
-    """Marks over a part's box, from a starting point of their own in the master, clipped to the part's outline."""
-    picture = marks(source, rotate)
-    width, height = box[2] - box[0], box[3] - box[1]
-    x = min(max(0, start[0]), max(0, picture.width - width))
-    y = min(max(0, start[1]), max(0, picture.height - height))
-    crop = picture.crop((x, y, x + width, y + height))
-    crop.putalpha(ImageChops.multiply(crop.getchannel('A'), part_mask.crop(box)))
-    return crop
+    """Marks over a part's box, from a starting point of their own in the master, clipped to the part's outline: the shared exporter's
+    damage_marks and clip_marks (the master's 1,536 px taken as the tanker's 10 cells [A], so a bullet hole is one size on every vehicle)."""
+    sys.path.insert(0, str(ROOT / 'scripts' / 'art'))
+    from export_vehicle import clip_marks, damage_marks
+    return clip_marks(damage_marks(MARKS[source], GAME_PX_PER_PICK_PX, 128, rotate), part_mask, box, start)
 
 
 def damage():

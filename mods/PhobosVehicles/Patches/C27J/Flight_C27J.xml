@@ -41,6 +41,8 @@
         <rotorDegreesPerTick>27</rotorDegreesPerTick>
         <rotorSpinUpSeconds>15</rotorSpinUpSeconds>
         <rotorRunDownSeconds>20</rotorRunDownSeconds>
+        <!-- Its cabin, heard while the player follows it on the world map (D'thorga Framework 0.331.0). -->
+        <cabinSound>PhobosVehicles_C27JCabin</cabinSound>
       </li>
     </value>
   </Operation>

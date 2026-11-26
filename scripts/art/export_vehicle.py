@@ -520,6 +520,40 @@ def marks_to_alpha(image):
     return result
 
 
+MARKS_MASTER_CELLS = 10  # A damage marks master's height is taken as the bulk tanker's 10 cells, so a bullet hole is one size on every vehicle [A]
+
+
+def damage_marks(master, game_px_per_picture_px, pixels_per_cell=PIXELS_PER_CELL, rotate=False):
+    """A damage marks master (the bulk tanker's, our art of 8 Nov 2026) as near-black with alpha, at another picture's scale: so a mark
+    laid on that picture, which the export shrinks by game_px_per_picture_px, ends the same size in cells as on the tanker. Turned a
+    quarter for a wide part. Shared by the aircraft's damage looks (the Osprey's of 19 Nov 2026, the C-27J's of 27 Nov 2026)."""
+    picture = marks_to_alpha(Image.open(master).convert('RGB'))
+    factor = MARKS_MASTER_CELLS * pixels_per_cell / picture.height / game_px_per_picture_px   # by the master's own height, before turning
+    if rotate:
+        picture = picture.transpose(Image.ROTATE_90)
+    return picture.resize((round(picture.width * factor), round(picture.height * factor)), Image.LANCZOS)
+
+
+def clip_marks(marks, part_mask, box, start):
+    """Marks over a part's box, from a starting point of their own in the marks, clipped to the part's outline (an L mask the size of
+    the picture the part was cut from). A part larger than the marks (the C-27J's 28.7 m wing) takes them mirrored edge to edge, so the
+    soot runs on across the join instead of stopping at a straight line."""
+    width, height = box[2] - box[0], box[3] - box[1]
+    if marks.width < width or marks.height < height:
+        across, down = -(-width // marks.width), -(-height // marks.height)
+        tiled = Image.new('RGBA', (marks.width * across, marks.height * down), (0, 0, 0, 0))
+        for i in range(across):
+            for j in range(down):
+                tile = marks.transpose(Image.FLIP_LEFT_RIGHT) if i % 2 else marks
+                tiled.paste(tile.transpose(Image.FLIP_TOP_BOTTOM) if j % 2 else tile, (i * marks.width, j * marks.height))
+        marks = tiled
+    x = min(max(0, start[0]), max(0, marks.width - width))
+    y = min(max(0, start[1]), max(0, marks.height - height))
+    crop = marks.crop((x, y, x + width, y + height))
+    crop.putalpha(ImageChops.multiply(crop.getchannel('A'), part_mask.crop(box)))
+    return crop
+
+
 LIGHT_MARK_COLOUR = (236, 240, 244)  # Cracks in glass keep only their lightness: near-white lines and stars, whatever glass was drawn round them.
 LIGHT_MARK_FLOOR = 10  # Less than this much brighter than the glass around it is the glass itself, not a crack.
 LIGHT_MARK_GAIN = 3  # How quickly a crack turns opaque as it stands out (authored, 23 Nov 2026).

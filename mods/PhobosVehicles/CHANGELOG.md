@@ -13,6 +13,26 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.129.0] - 2026-11-27 - Draft
+
+The C-27J's damage looks, its sounds in the air, taxiing and in the cabin, and its tank filled from a tanker or plumbing
+
+### Added
+
+- **The C-27J shows its damage** (the owner saw the parts cut on 27 November 2026: "the damage looks appears to be okay"): each of its
+  eleven parts carries the bulk tanker's damage marks below 60% health, clipped to the part's outline, and its cockpit glass cracks
+  below 70%, as every vehicle's does. Row 625.
+- **The C-27J sounds like itself in the air, taxiing and inside** (the owner's picks of 26 November 2026): in the air, a generated cruise
+  and a real pass with its Doppler fall, played in turn; taxiing, a real recording of it taxiing; and its cabin in flight, a real
+  recording, heard on the world map while you follow it. The real recordings are public-domain DVIDS video, credited in each sound's
+  record. Row 626.
+
+### Changed
+
+- **The C-27J's fire-fighting tank fills from a water bowser, a tanker or plumbing as well as open water** (D'thorga Framework 0.331.0).
+  Rows 627 and 628.
+
+
 ## [0.128.0] - 2026-11-26 - Draft
 
 The C-27J's hold fits: stretchers, the MC-27J gun kit and the fire-fighting tank

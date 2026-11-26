@@ -343,6 +343,12 @@
       "a repair talked through on the road": [{"key": "radio.advice", "variant": "PhobosVehicleRepair-road"}]}},
     "624": {"parts": {"trade talks at home": [{"key": "radio.advice", "variant": "Trade"}],
       "trade talks from a convoy": [{"key": "radio.advice", "variant": "Trade-road"}]}},
+    "626": {"parts": {"in the air it sounds as itself from the ground": [{"key": "vehicle.engine-voice", "variant": "aloft"}],
+      "taxiing it sounds as itself": [{"key": "vehicle.engine-voice", "variant": "taxi"}],
+      "its cabin is heard on the world map": ["aircraft.cabin-sound"]}},
+    "627": {"parts": {"the pump draws from a tanker beside it": [{"key": "aircraft.fire-tank-source", "variant": "tanker"}],
+      "then from open water": [{"key": "aircraft.fire-tank-source", "variant": "open-water"}]}},
+    "628": [{"key": "aircraft.fire-tank-source", "variant": "plumbing"}],
     "454": ["vehicles.paste-bake"],
     "453": {"parts": {
       "a tank fills the tap": ["vehicles.reservoir-filled"],

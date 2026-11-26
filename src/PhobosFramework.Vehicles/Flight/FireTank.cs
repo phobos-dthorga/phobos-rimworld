@@ -65,6 +65,13 @@ public class CompPhobosFireTank : VehicleComp, IVehicleCarriedLoad
     /// <summary>The litres the pump moves each tick.</summary>
     public float LitresPerTick => Props.litresPerMinute / TicksPerMinute;
 
+    /// <summary>The ticks between the pump's gulps (Framework 0.331.0): half a second, so plumbing and a tanker are drawn on in pieces of a
+    /// few hundred litres rather than every tick.</summary>
+    public const int GulpTicks = 30;
+
+    /// <summary>The litres its next gulp takes: half a second's pumping, no more than the room left.</summary>
+    public float Gulp => Mathf.Max(0f, Mathf.Min(LitresPerTick * GulpTicks, Capacity - Litres));
+
     public override void PostExposeData()
     {
         base.PostExposeData();
@@ -85,6 +92,57 @@ public class CompPhobosFireTank : VehicleComp, IVehicleCarriedLoad
         litres = Litres - taken;
         if (taken > 0f) CarriedLoads.Changed(Vehicle);
         return taken;
+    }
+
+    /// <summary>
+    /// Where the pump draws from now (Framework 0.331.0; the owner's card of 26 Nov 2026, "a bowser or a tanker where those exist"):
+    /// plumbing under or beside it when Dubs Bad Hygiene's tie-in gives water, else a tanker or bowser of the colony's parked within its
+    /// own hose's reach with water in it, else open water within the pump's reach. The order is the agent's: treated water first, then
+    /// water already drawn, then the river.
+    /// </summary>
+    public FireTankSource SourceNow(float litres, out CompPhobosTank? tanker)
+    {
+        tanker = null;
+        if (!Vehicle.Spawned || litres <= 0f) return FireTankSource.None;
+        if (VehicleWater.HasSource && VehicleWater.CanDraw(Vehicle, litres, out _)) return FireTankSource.Plumbing;
+        tanker = TankerInReach();
+        if (tanker != null) return FireTankSource.Tanker;
+        return WaterInReach().IsValid ? FireTankSource.OpenWater : FireTankSource.None;
+    }
+
+    /// <summary>Takes up to this much from the source; what it gave. Open water gives all of it; plumbing all or none (Dubs' towers).</summary>
+    public float DrawFrom(FireTankSource source, CompPhobosTank? tanker, float litres)
+    {
+        switch (source)
+        {
+            case FireTankSource.Plumbing:
+                return VehicleWater.TryDraw(Vehicle, litres) ? litres : 0f;
+            case FireTankSource.Tanker:
+                return tanker != null && tanker.FireWater(out PhobosTankContentsDef? fluid) > 0f && fluid != null ? tanker.TakeOut(fluid, litres, out _) : 0f;
+            case FireTankSource.OpenWater:
+                return litres;
+            default:
+                return 0f;
+        }
+    }
+
+    /// <summary>
+    /// A tank of the colony's holding water that puts out fires, parked within its own hose's reach of the aircraft's nearest cell (a
+    /// water bowser, a shower trailer, a bulk tanker loaded with water). Its own pump's setting is not asked: the aircraft's pump draws
+    /// (a simplification, the agent's).
+    /// </summary>
+    CompPhobosTank? TankerInReach()
+    {
+        VehiclePawn v = Vehicle;
+        if (v.Faction == null) return null;
+        CellRect rect = v.OccupiedRect();
+        foreach (Pawn pawn in v.Map.mapPawns.SpawnedPawnsInFaction(v.Faction))
+        {
+            if (pawn == v || pawn is not VehiclePawn other || other.GetComp<CompPhobosTank>() is not { } tank) continue;
+            if (rect.ClosestCellTo(other.Position).DistanceTo(other.Position) > tank.Props.hoseReach) continue;
+            if (tank.FireWater(out _) >= 1f) return tank;
+        }
+        return null;
     }
 
     /// <summary>Open water the pump's hose reaches from where it stands, or invalid.</summary>
@@ -109,7 +167,9 @@ public class CompPhobosFireTank : VehicleComp, IVehicleCarriedLoad
         if (!Fitted) return "PhobosFireTank_RefuseNone".Translate(who).Resolve();
         if (Full) return "PhobosFireTank_RefuseFull".Translate(who).Resolve();
         if (!v.Spawned || v.GetComp<CompPhobosFlight>() is { Airborne: true }) return "PhobosFireTank_RefuseNotLanded".Translate(who).Resolve();
-        if (!WaterInReach().IsValid) return "PhobosFireTank_RefuseNoWater".Translate(who, Props.pumpReachCells.Named("CELLS")).Resolve();
+        if (SourceNow(Gulp, out _) == FireTankSource.None)
+            return (VehicleWater.HasSource ? "PhobosFireTank_RefuseNoWaterPlumbing" : "PhobosFireTank_RefuseNoWater")
+                .Translate(who, Props.pumpReachCells.Named("CELLS")).Resolve();
         return null;
     }
 
@@ -138,6 +198,15 @@ public class CompPhobosFireTank : VehicleComp, IVehicleCarriedLoad
         return "PhobosFireTank_Inspect".Translate(Mathf.RoundToInt(Litres).ToString("N0").Named("LITRES"),
             Mathf.RoundToInt(Capacity).ToString("N0").Named("CAPACITY")).Resolve();
     }
+}
+
+/// <summary>Where a fire-fighting tank's pump draws from (Framework 0.331.0).</summary>
+public enum FireTankSource
+{
+    None,
+    Plumbing,
+    Tanker,
+    OpenWater,
 }
 
 [DefOf]
@@ -169,7 +238,8 @@ public static class FireTankSend
     }
 }
 
-/// <summary>Walks to the vehicle and runs the pump, the tank filling as it works, until it is full or the water or the tank is gone.</summary>
+/// <summary>Walks to the vehicle and runs the pump, the tank filling as it works, until it is full or the water or the tank is gone. It
+/// draws a gulp each half second from whichever source answers then (Framework 0.331.0), so a tanker run dry hands over to the river.</summary>
 public class JobDriver_PhobosPumpFireTank : JobDriver
 {
     const TargetIndex VehicleIndex = TargetIndex.A;
@@ -177,6 +247,16 @@ public class JobDriver_PhobosPumpFireTank : JobDriver
 
     VehiclePawn Vehicle => (VehiclePawn)job.GetTarget(VehicleIndex).Thing;
     CompPhobosFireTank? Tank => Vehicle.GetComp<CompPhobosFireTank>();
+
+    /// <summary>The source of the last gulp, for the seen-in-play note when it changes. Not saved: a loaded job notes its source again.</summary>
+    FireTankSource drawingFrom;
+
+    static string SourceName(FireTankSource source) => source switch
+    {
+        FireTankSource.Plumbing => "plumbing",
+        FireTankSource.Tanker => "tanker",
+        _ => "open-water",
+    };
 
     public override bool TryMakePreToilReservations(bool errorOnFailed) => true;
 
@@ -188,19 +268,27 @@ public class JobDriver_PhobosPumpFireTank : JobDriver
         var pump = new Toil { defaultCompleteMode = ToilCompleteMode.Never };
         pump.initAction = () =>
         {
-            if (Tank?.WaterInReach().IsValid != true) EndJobWith(JobCondition.Incompletable);
+            if (Tank is not { } tank || tank.SourceNow(tank.Gulp, out _) == FireTankSource.None) EndJobWith(JobCondition.Incompletable);
         };
         pump.tickAction = () =>
         {
             CompPhobosFireTank? tank = Tank;
-            if (tank == null) return;
-            // The water is looked for again every half second: a frozen lake or a moved vehicle stops the pump.
-            if (pawn.IsHashIntervalTick(30) && !tank.WaterInReach().IsValid)
+            if (tank == null || !pawn.IsHashIntervalTick(CompPhobosFireTank.GulpTicks)) return;
+            // The source is looked for again at every gulp: a frozen lake, a tanker run dry, empty towers or a moved vehicle stop the pump.
+            float want = tank.Gulp;
+            FireTankSource source = tank.SourceNow(want, out CompPhobosTank? tanker);
+            float got = tank.DrawFrom(source, tanker, want);
+            if (got <= 0f)
             {
                 EndJobWith(JobCondition.Incompletable);
                 return;
             }
-            tank.Pump(tank.LitresPerTick);
+            if (source != drawingFrom)
+            {
+                drawingFrom = source;
+                if (Seen.On) Seen.Note("aircraft.fire-tank-source", Vehicle, SourceName(source));
+            }
+            tank.Pump(got);
             if (!tank.Full) return;
             Seen.Note("aircraft.fire-tank-filled", Vehicle);
             if (Vehicle.Faction == Faction.OfPlayer)

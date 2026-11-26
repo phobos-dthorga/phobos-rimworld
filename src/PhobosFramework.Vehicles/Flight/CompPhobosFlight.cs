@@ -118,6 +118,10 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
     /// event, if any.</summary>
     public SoundDef? flightSound;
 
+    /// <summary>The sound inside it in flight (Framework 0.331.0), heard while the player follows it between tiles on the world map:
+    /// a sustained sound for the camera (<see cref="GameComponent_PhobosCabinSound"/>). Left out, none.</summary>
+    public SoundDef? cabinSound;
+
     /// <summary>
     /// How fast its drawn rotors turn at full speed, degrees a tick (Framework 0.173.0): Vehicle Framework's rotor overlays (Graphic_Propeller)
     /// are turned only inside its own take-off and landing animation, which our flight replaces. Left out, the full rate of the aircraft's own
