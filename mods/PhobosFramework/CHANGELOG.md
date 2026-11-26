@@ -13,6 +13,22 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.310.0] - 2026-11-26 - Draft
+
+An aircraft flies its round with nobody aboard
+
+### Added
+
+- **An aircraft flies its round with nobody aboard, by an optionally piloted kit** (the owner's cards of 26 November 2026). Every aircraft
+  gains a flight computer bay; the kit goes in it at the vehicle workshop after vehicle autonomy research, once the aircraft has the
+  autopilot, built in or fitted. With no pilot aboard it takes off, flies each leg and lands at each stop by itself, on open ground as an
+  empty caravan; with a pilot aboard, the pilot flies. With the kit unpowered or damaged, or its autopilot not working, it waits at its
+  stop and says why. Its picture is borrowed until drawn. Not yet tested in game: row 556.
+
+### Changed
+
+- **A round flies a leg on exactly the fuel it needs** (the owner's answer on the Decisions page), no longer with a sixth to spare.
+
 ## [0.309.0] - 2026-11-26 - Draft
 
 Copies of a class load as their owner's

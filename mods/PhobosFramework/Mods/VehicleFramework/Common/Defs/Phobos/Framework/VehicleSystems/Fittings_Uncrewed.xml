@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The optionally piloted kit (D'thorga Framework 0.310.0; docs/development/autonomous-vehicles.md, step 9; the owner's card of 26 Nov
+       2026: "its own kit, needs autopilot"). Fitted at the vehicle workshop on any aircraft with a D'thorga loadout, in the flight computer
+       bay every aircraft has (Loadouts_Default.xml), and offered only where the autopilot is built in or fitted, since it flies through the
+       autopilot's servos. It grants CrewlessFlight: the aircraft flies its round with nobody aboard, landing at each stop as with a pilot.
+       Real basis: Sikorsky's MATRIX system, which flew a Black Hawk with nobody aboard in February 2022, and the unmanned K-MAX that carried
+       cargo to US Marines in Afghanistan from 2011 to 2014. Cost: two advanced components for its flight computer and links; load, weight,
+       work and skill authored. It borrows a picture until its own is drawn. Not yet tested in game. -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_OptionallyPilotedKit</defName>
+    <iconPath>Phobos/VehicleSystems/Flight/FlyTo</iconPath>
+    <label>optionally piloted kit</label>
+    <description>A flight computer, cameras, a laser range-finder and data links, working the controls through the autopilot's servos. With it the aircraft can fly its round between places with nobody aboard, taking off, flying each leg and landing at each stop by itself. It cannot fight, pick a new place or load itself. It needs the autopilot, and draws on the battery. The pilot's seat stays: with a pilot aboard, the pilot flies.</description>
+    <roles><li>UncrewedKitMount</li></roles>
+    <kinds><li>Aircraft</li></kinds>
+    <materials><Steel>20</Steel><ComponentIndustrial>6</ComponentIndustrial><ComponentSpacer>2</ComponentSpacer></materials>
+    <kilograms>40</kilograms>
+    <work>4000</work>
+    <minSkill>7</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleAutonomy</researchPrerequisite>
+    <needsParameters>
+      <li><system>PhobosVehicleSystem_Avionics</system><parameter>autopilot</parameter><value>1</value></li>
+    </needsParameters>
+    <grants><li>CrewlessFlight</li></grants>
+    <loads>
+      <li>
+        <!-- The flight computer, sensors and links: about 5 A at 28 V (authored). Shed late: an aircraft that loses it in flight lands on. -->
+        <name>kitUncrewed</name>
+        <label>optionally piloted kit</label>
+        <description>The flight computer, its sensors and data links. With power, the aircraft can fly its round with nobody aboard.</description>
+        <amps>5</amps>
+        <shedOrder>9</shedOrder>
+      </li>
+    </loads>
+    <feed>
+      <load>kitUncrewed</load>
+    </feed>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

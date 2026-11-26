@@ -417,7 +417,14 @@ public static class RemoteControlOperatorsPatch
 {
     public static void Postfix(VehiclePawn __instance, ref bool __result)
     {
-        if (__result || !__instance.Spawned) return;
+        if (__result) return;
+        // Framework 0.310.0: an aircraft flying its round with nobody aboard, by its optionally piloted kit, in the air and between places too.
+        if (__instance.GetComp<CompPhobosRound>() is { FliesCrewless: true })
+        {
+            __result = true;
+            return;
+        }
+        if (!__instance.Spawned) return;
         if (__instance.GetComp<CompPhobosRemoteControl>() is { Drives: true }) __result = true;
     }
 }

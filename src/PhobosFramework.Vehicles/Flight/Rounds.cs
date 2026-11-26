@@ -50,8 +50,9 @@ public class CompProperties_PhobosRound : CompProperties
 
 /// <summary>
 /// An aircraft flying a round (Framework 0.307.0). At each stop it waits that stop's time, for colonists to unload, load and refuel it, then
-/// takes off for the next once Vehicle Framework would let it launch (a pilot aboard, not overloaded, not under a roof) and it has the fuel
-/// for the leg with a sixth to spare; otherwise it waits there and says why once. A place with a map it lands on at the spot picked; a tile
+/// takes off for the next once Vehicle Framework would let it launch (a pilot aboard, or from 0.310.0 a working optionally piloted kit; not
+/// overloaded, not under a roof) and it has the fuel for the leg (0.310.0, the owner's answer: exactly that); otherwise it waits there and says
+/// why once. A place with a map it lands on at the spot picked; a tile
 /// with none it lands on as a caravan. Vehicle Framework flies each leg; the round only orders it.
 /// <para>Cost: nothing while no round is flown; while one is, a look every 250 ticks on a map (a few comparisons), and the same for a caravan
 /// from <see cref="WorldComponent_PhobosRounds"/>; nothing in flight.</para>
@@ -66,6 +67,18 @@ public sealed class CompPhobosRound : VehicleComp
     int waitUntil = -1;
     /// <summary>Why it waits past its time, told once when it starts; derived at each look, never saved.</summary>
     string? waitingWhy;
+    /// <summary>
+    /// Whether it flies with nobody aboard (Framework 0.310.0): set as it leaves a stop with no pilot and a working optionally piloted kit, and
+    /// kept until it lands at a stop with its round stopped. Vehicle Framework's crew check reads it (RemoteControlOperatorsPatch). Saved.
+    /// </summary>
+    bool crewless;
+
+    /// <summary>What the optionally piloted kit grants, and the electrical load that powers it (Fittings_Uncrewed.xml).</summary>
+    public const string KitGrant = "CrewlessFlight";
+    public const string KitLoad = "kitUncrewed";
+
+    /// <summary>Whether it flies with nobody aboard now: Vehicle Framework's crew check answers yes for it (one field read).</summary>
+    public bool FliesCrewless => crewless;
 
     public IReadOnlyList<RoundStop> Stops => stops;
     public bool Running => running;
@@ -145,7 +158,13 @@ public sealed class CompPhobosRound : VehicleComp
     public override void CompTick()
     {
         base.CompTick();
-        if (!running || !Vehicle.Spawned || !Gen.IsHashIntervalTick(Vehicle, LookTicks)) return;
+        if (!(running || crewless) || !Vehicle.Spawned || !Gen.IsHashIntervalTick(Vehicle, LookTicks)) return;
+        if (!running)
+        {
+            // Its round stopped while it flew with nobody aboard: once down, it is an empty aircraft again.
+            if (Vehicle.GetComp<CompPhobosFlight>() is not { Airborne: true }) crewless = false;
+            return;
+        }
         Look(null);
     }
 
@@ -153,6 +172,16 @@ public sealed class CompPhobosRound : VehicleComp
     internal void LookInCaravan(VehicleCaravan caravan)
     {
         if (running) Look(caravan);
+        else crewless = false;
+    }
+
+    /// <summary>Why its optionally piloted kit cannot fly it now, or null: not fitted, without power, or its autopilot not working.</summary>
+    string? KitRefusal()
+    {
+        if (Vehicle.GetComp<CompPhobosVehicleSystems>() is not { } systems || !systems.Fittings.Carries(KitGrant)) return "PhobosRound_WaitNoPilot".Translate().Resolve();
+        if (!systems.Fittings.Grants(KitGrant) || !systems.LoadActive(KitLoad)) return "PhobosRound_WaitKitDown".Translate().Resolve();
+        if (!AirCombat.Works(Vehicle, AirCombat.AutopilotQuantity)) return "PhobosRound_WaitAutopilotDown".Translate().Resolve();
+        return null;
     }
 
     void Look(VehicleCaravan? caravan)
@@ -203,7 +232,19 @@ public sealed class CompPhobosRound : VehicleComp
         if (Vehicle.CompVehicleLauncher is not { } launcher) return "PhobosRound_WaitNoLauncher".Translate().Resolve();
         if (caravan != null && (caravan.LeadVehicle != Vehicle || caravan.VehiclesListForReading.Count > 1))
             return "PhobosRound_WaitCaravanOthers".Translate().Resolve();
-        if (!launcher.CanLaunchWithCargoCapacity(out string reason)) return reason;
+        // With a pilot aboard the pilot flies; with nobody, its optionally piloted kit, if it works (Framework 0.310.0).
+        bool before = crewless;
+        crewless = false;
+        if (!RemoteControl.CrewDrives(Vehicle))
+        {
+            if (KitRefusal() is { } kit) return kit;
+            crewless = true;
+        }
+        if (!launcher.CanLaunchWithCargoCapacity(out string reason))
+        {
+            crewless = before;
+            return reason;
+        }
         if (Vehicle.CompFueledTravel is { } fuel)
         {
             float needed = launcher.FuelNeededToLaunchAtDist(next.tile);
@@ -225,6 +266,7 @@ public sealed class CompPhobosRound : VehicleComp
         waitUntil = -1;
         waitingWhy = null;
         if (Seen.Wants("aircraft.round-leg", Vehicle, stop.OnMap ? "map" : "tile")) Seen.Note("aircraft.round-leg", Vehicle, stop.Label, stop.OnMap ? "map" : "tile");
+        if (crewless && Seen.Wants("aircraft.round-crewless", Vehicle, stop.OnMap ? "map" : "tile")) Seen.Note("aircraft.round-crewless", Vehicle, stop.Label, stop.OnMap ? "map" : "tile");
         if (caravan != null) caravan.Launch(data, action);
         else Vehicle.CompVehicleLauncher.Launch(data, action);
     }
@@ -248,7 +290,7 @@ public sealed class CompPhobosRound : VehicleComp
             return "PhobosRound_InspectAtStop".Translate(stops[at].Label.Named("PLACE"), left.ToStringTicksToPeriod().Named("TIME"),
                 stops[RouteRule.Next(at, stops.Count)].Label.Named("NEXT")).Resolve();
         }
-        return "PhobosRound_InspectFlying".Translate().Resolve();
+        return crewless ? "PhobosRound_InspectFlyingCrewless".Translate().Resolve() : "PhobosRound_InspectFlying".Translate().Resolve();
     }
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
@@ -272,6 +314,7 @@ public sealed class CompPhobosRound : VehicleComp
         Scribe_Values.Look(ref running, "PhobosRound_Running");
         Scribe_Values.Look(ref at, "PhobosRound_At", -1);
         Scribe_Values.Look(ref waitUntil, "PhobosRound_WaitUntil", -1);
+        Scribe_Values.Look(ref crewless, "PhobosRound_Crewless");
         if (Scribe.mode == LoadSaveMode.PostLoadInit) stops ??= new List<RoundStop>();
     }
 }
@@ -293,7 +336,7 @@ public class WorldComponent_PhobosRounds : WorldComponent
             if (caravans[i] is not VehicleCaravan convoy || convoy.Faction != Faction.OfPlayer) continue;
             foreach (VehiclePawn vehicle in convoy.VehiclesListForReading.ToList())
             {
-                if (vehicle.GetComp<CompPhobosRound>() is { Running: true } round) round.LookInCaravan(convoy);
+                if (vehicle.GetComp<CompPhobosRound>() is { } round && (round.Running || round.FliesCrewless)) round.LookInCaravan(convoy);
             }
         }
     }

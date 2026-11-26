@@ -546,7 +546,13 @@ public sealed class VehicleFittings
             (spec.system.Length == 0 || system.def.defName == spec.system) && system.parameters.ContainsKey(spec.parameter)));
     }
 
-    bool Suits(PhobosVehicleFittingDef def) => def.Suits(comp.Repairs.Kilograms, HasPiston, IsTracked, PowerCounts, comp.EngineFuel == EngineFuel.Diesel)
+    /// <summary>Whether every capability the fitting needs is already there, built in or fitted (Framework 0.310.0).</summary>
+    bool NeedsMet(PhobosVehicleFittingDef def) => def.needsParameters.All(spec => comp.Props.systems.Any(system =>
+        (spec.system.Length == 0 || system.def.defName == spec.system)
+        && (system.parameters.TryGetValue(spec.parameter, out double built) && built >= spec.value
+            || ParameterFloor(system.def.defName, spec.parameter) >= spec.value)));
+
+    bool Suits(PhobosVehicleFittingDef def) => NeedsMet(def) && def.Suits(comp.Repairs.Kilograms, HasPiston, IsTracked, PowerCounts, comp.EngineFuel == EngineFuel.Diesel)
         && def.SuitsLoadout(comp.Props.loadout)
         && (!def.flatDeckOnly || comp.Vehicle.def.HasModExtension<PhobosFlatDeckExtension>())
         && MovesSomethingHere(def);

@@ -6,14 +6,14 @@
   <PhobosRound_GizmoPlan>Plan a round</PhobosRound_GizmoPlan>
   <PhobosRound_GizmoPlanDesc>Plan a round for this aircraft to fly by itself, with its pilot aboard. Where it stands is the first stop. Click the next places on the world map, up to {MOST} stops in all; on a place with a map, pick the spot it lands on there. Right-click or press Escape when done. Planning again starts afresh.</PhobosRound_GizmoPlanDesc>
   <PhobosRound_GizmoFly>Fly its round</PhobosRound_GizmoFly>
-  <PhobosRound_GizmoFlyDesc>Fly the planned round, stop after stop and back to the first, again and again. At each stop it waits its time for colonists to unload, load and refuel it, then flies on once it has a pilot aboard and the fuel for the next leg.</PhobosRound_GizmoFlyDesc>
+  <PhobosRound_GizmoFlyDesc>Fly the planned round, stop after stop and back to the first, again and again. At each stop it waits its time for colonists to unload, load and refuel it, then flies on once it has a pilot aboard, or a working optionally piloted kit, and the fuel for the next leg.</PhobosRound_GizmoFlyDesc>
   <PhobosRound_GizmoStop>Stop its round</PhobosRound_GizmoStop>
   <PhobosRound_GizmoStopDesc>Stop flying the round. One already in the air still lands at the stop it was flying to. The plan is kept.</PhobosRound_GizmoStopDesc>
   <PhobosRound_GizmoWaits>Waits at stops</PhobosRound_GizmoWaits>
   <PhobosRound_GizmoWaitsDesc>How long it waits at each stop before flying on.</PhobosRound_GizmoWaitsDesc>
   <PhobosRound_StopLine>Stop {INDEX}: {PLACE} (waits {WAIT})</PhobosRound_StopLine>
   <PhobosRound_WaitNone>No wait</PhobosRound_WaitNone>
-  <PhobosRound_LegFuel>This leg: about {NEEDED} fuel with some to spare (its tanks hold {CAPACITY}).</PhobosRound_LegFuel>
+  <PhobosRound_LegFuel>This leg: about {NEEDED} fuel (its tanks hold {CAPACITY}).</PhobosRound_LegFuel>
   <PhobosRound_TileLabel>the open ground at {LAT}, {LONG}</PhobosRound_TileLabel>
 
   <!-- Refusals. -->
@@ -34,6 +34,9 @@
   <PhobosRound_WaitNotAtStop>it is not at a stop of its round. Fly it to one and it carries on from there.</PhobosRound_WaitNotAtStop>
   <PhobosRound_WaitNoLauncher>it cannot fly between places.</PhobosRound_WaitNoLauncher>
   <PhobosRound_WaitCaravanOthers>other vehicles travel with it. Split them off and it flies on.</PhobosRound_WaitCaravanOthers>
+  <PhobosRound_WaitNoPilot>nobody is aboard to fly it. Put a pilot aboard, or fit an optionally piloted kit.</PhobosRound_WaitNoPilot>
+  <PhobosRound_WaitKitDown>nobody is aboard, and its optionally piloted kit has no power or is damaged.</PhobosRound_WaitKitDown>
+  <PhobosRound_WaitAutopilotDown>nobody is aboard, and the autopilot its optionally piloted kit flies through is not working.</PhobosRound_WaitAutopilotDown>
   <PhobosRound_WaitFuel>it needs about {NEEDED} fuel for the leg to {PLACE} and has {ABOARD}. Refuel it and it flies on.</PhobosRound_WaitFuel>
 
   <!-- Inspect lines. -->
@@ -41,4 +44,5 @@
   <PhobosRound_InspectAtStop>Flying its round: at {PLACE}, on to {NEXT} in {TIME}.</PhobosRound_InspectAtStop>
   <PhobosRound_InspectWaiting>Flying its round, waiting: {REASON}</PhobosRound_InspectWaiting>
   <PhobosRound_InspectFlying>Flying its round.</PhobosRound_InspectFlying>
+  <PhobosRound_InspectFlyingCrewless>Flying its round with nobody aboard.</PhobosRound_InspectFlyingCrewless>
 </LanguageData>

@@ -521,8 +521,8 @@ world map adds the next, up to eight [A]; on a place with a map the player picks
 picker (in bounds and not under a roof, its own test), then goes on picking; right-click ends it. A place is refused if it is the stop
 before it, or an enemy's town [A]. **Fly its round** sets it going: at each stop it waits that stop's time (an hour by default, as a loop's;
 choices none to a day, as preset buttons) [A], then takes off for the next once **Vehicle Framework's own launch check passes** (a pilot
-aboard, not overloaded, not roofed in: `CanLaunchWithCargoCapacity`) and it has **the fuel for the leg and a sixth to spare**
-(`RoundRule.FuelMargin`, as the airdrop's way home [A]). Short of either, it waits there and says why once. A leg to a place with a map
+aboard, not overloaded, not roofed in: `CanLaunchWithCargoCapacity`) and it has **the fuel for the leg** (`RoundRule.FuelMargin`: a sixth
+to spare in 0.307.0 [A]; **exactly the leg's fuel from 0.310.0, the owner's answer on the Decisions page** [O]). Short of either, it waits there and says why once. A leg to a place with a map
 lands at its spot through `ArrivalAction_LandToCell`, which our flight turns into an arrival over the edge and a landing; a leg to a tile
 with no map, or a place whose map has gone since, lands as a caravan (`ArrivalAction_LandToCaravan`) and flies on from there, alone in
 its caravan [A]. If its spot is taken when it arrives it holds in the air, says so, and goes on once landed by hand. It finds its place
@@ -544,8 +544,35 @@ run loops and fly rounds by themselves" (the route setting, relabelled; on) cove
   Vehicle Framework's launch check and fuel sum); on open ground the same from one world component that walks the player's caravans every
   250 ticks; nothing in flight. Saved: the stops, whether it runs, which stop and the wait's end.
 - **Other factions:** a round is the player's own; enemy aircraft are unchanged.
-- **Still open:** crewless rounds (the route kit holding an empty aircraft in flight, and on open ground); its four buttons' own pictures
-  (night 16; they borrow the flight's until then); a round drawn on the world map while selected.
+- **Still open:** its buttons' and the kit's own pictures (night 16; they borrow the flight's until then); a round drawn on the world map
+  while selected.
+
+### Crewless rounds (Framework 0.310.0)
+
+The owner's go of 26 Nov 2026 ("let's do the crewless rounds next") and their cards the same day: **an aircraft kit of its own, which needs
+the autopilot** [O] (the truck route kit's servos work a wheel and pedals, and aircraft have no sensor bar for it); **open-ground stops
+allowed with nobody aboard, as with a pilot** [O].
+
+**As built [code: `Flight/Rounds.cs`, `RemoteControlOperatorsPatch`, `VehicleFittings.NeedsMet`]:** every aircraft with a D'thorga loadout
+gains a **flight computer bay** (Loadouts_Default.xml), for the **optionally piloted kit** (`Fittings_Uncrewed.xml`: two advanced
+components, 5 A, after vehicle autonomy research; all authored [A]). The kit is offered only where the autopilot is built in or fitted: a
+new fitting field, `needsParameters`, for any fitting that needs another's capability. As it leaves a stop with nobody to fly it (no
+pilot in the seats that fly, `RemoteControl.CrewDrives`) and a working kit (fitted, powered, its autopilot working: `AirCombat.Works`),
+the round marks the leg **crewless**; Vehicle Framework's crew check (`HasEnoughOperators`, our existing postfix) then answers yes for it
+on the map, in the air and as a caravan, by reading that one field. With a pilot aboard the pilot flies [A]. It stays crewless until it is
+down with its round stopped, so an empty aircraft is never left able to be drafted. On open ground it stands as a caravan with no one in
+it, which the game reads as a caravan whose people are all down: it cannot walk, which it never does, and it can be lost to what finds it
+there (the owner's choice). Real basis: Sikorsky's MATRIX, which flew a Black Hawk with nobody aboard in February 2022, and the unmanned
+K-MAX that carried cargo to US Marines in Afghanistan from 2011 to 2014.
+
+- **The four questions:** it lets the player run a supply round without spending a pilot; it stops nothing new; it makes the kit, the
+  autopilot and fuel at each stop the round's standing work; outside it, the places it lands at and the world map notice it, as with a
+  pilot, and an empty caravan on open ground is a target for the game's caravan events.
+- **Risk: moderate [A, for the owner to confirm]**, as with a pilot: one aircraft at a time, no person at risk, every stop picked by the
+  player. On with the route setting.
+- **Its cost:** the crew check reads one more component, only when Vehicle Framework has said no (an aircraft short of crew); the round's
+  looks as before.
+- **Still open:** the kit's own picture (night 16).
 
 ## The base turret (designed 26 Nov 2026; built in Radio 0.18.0 to 0.20.0)
 

@@ -1496,6 +1496,22 @@
         </add>
       </li>
       <li>
+        <!-- Framework 0.310.0, crewless rounds (docs/development/autonomous-vehicles.md, step 9; the owner's card of 26 Nov 2026: a kit of its
+             own): a bay for the optionally piloted kit's flight computer and data links, appended to every aircraft so the kit has a part to
+             go on and is lost with it. Inside, as the autopilot's; health and hit weights authored. -->
+        <role>UncrewedKitMount</role>
+        <add>
+          <key>PhobosFlightComputerBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>flight computer bay</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <role>SensorMount</role>
         <add>
           <key>PhobosSensorStation</key>

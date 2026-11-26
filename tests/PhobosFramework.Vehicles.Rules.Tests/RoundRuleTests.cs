@@ -16,10 +16,12 @@ public class RoundRuleTests
     }
 
     [Fact]
-    public void ALegNeedsItsFuelAndSomeToSpare()
+    public void ALegNeedsExactlyItsFuel()
     {
-        Assert.True(RoundRule.HasFuelFor(aboard: 115, needed: 100));
-        Assert.False(RoundRule.HasFuelFor(aboard: 110, needed: 100));
+        // The owner's answer (26 Nov 2026): exactly the leg's fuel, no margin.
+        Assert.True(RoundRule.HasFuelFor(aboard: 100, needed: 100));
+        Assert.False(RoundRule.HasFuelFor(aboard: 99, needed: 100));
+        Assert.False(RoundRule.HasFuelFor(aboard: 110, needed: 100, margin: 1.15));
         // An aircraft that burns nothing on the way always has.
         Assert.True(RoundRule.HasFuelFor(aboard: 0, needed: 0));
     }

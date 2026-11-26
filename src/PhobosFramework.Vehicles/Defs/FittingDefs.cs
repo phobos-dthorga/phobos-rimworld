@@ -105,6 +105,11 @@ public class PhobosVehicleFittingDef : Def
     public List<string> kinds = new();
     /// <summary>Raised figures while the part stands: an avionics kit's capability (aircraft service-life upgrades).</summary>
     public List<ParameterFloorSpec> parameterFloors = new();
+    /// <summary>
+    /// Offered only where these figures already stand at least this high, built in or by another fitting (Framework 0.310.0: the optionally
+    /// piloted kit needs the autopilot). Empty: no such need.
+    /// </summary>
+    public List<ParameterFloorSpec> needsParameters = new();
     /// <summary>A factor on a turbine's rated thrust and on its output against demand (aircraft service-life upgrades: a re-engining).
     /// Shared across several engines by the share-per-part rule.</summary>
     public float thrustFactor = 1f;

@@ -297,5 +297,28 @@
       "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/RoundWaits.png",
       "why": "the aircraft's round between places (docs/development/autonomous-vehicles.md, step 9; the owner's cards of 26 Nov 2026), borrowing the flight's own icons until drawn; icons are made locally"
     }
+  },
+  {
+    "name": "n16-optionally-piloted-kit",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A small grey helicopter seen from the side with an empty cockpit window, a small dark camera ball under its nose and short green data-link waves above it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+    "subject": "a small grey helicopter seen from the side with an empty cockpit window, a small dark camera ball under its nose and short green data-link waves above it",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      161,
+      162
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Optionally piloted kit (a fitting's icon)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/OptionallyPilotedKit.png",
+      "why": "the crewless rounds' kit (docs/development/autonomous-vehicles.md, step 9; the owner's card of 26 Nov 2026), borrowing the flight's Fly to icon until drawn; icons are made locally"
+    }
   }
 ]
