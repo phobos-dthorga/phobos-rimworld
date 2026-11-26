@@ -110,5 +110,10 @@
   <PhobosRadio_TurretNoStation>No working radio station on its coax or, while enemies are about, in its radio's reach: it holds fire. Connect it to a station with coax, or bring a station within reach.</PhobosRadio_TurretNoStation>
   <PhobosRadio_TurretNoOperator>Linked to {STATION}, with nobody at the console: it holds fire. While enemies are about, a colonist on remote operation takes the console.</PhobosRadio_TurretNoOperator>
   <PhobosRadio_TurretNoHand>Linked to {STATION}, but the operator's hands are full with vehicles and other turrets, or its picture finds no channel: it holds fire.</PhobosRadio_TurretNoHand>
+  <!-- Why a vehicle driven from a station has no link, said in the lost-link letter (Radio 0.20.1). -->
+  <PhobosRadio_VehicleWhyNoOperator>Nobody is working the console at {STATION} any more.</PhobosRadio_VehicleWhyNoOperator>
+  <PhobosRadio_VehicleWhyHandsFull>{OPERATOR} at {STATION} has their hands full with other vehicles.</PhobosRadio_VehicleWhyHandsFull>
+  <PhobosRadio_VehicleWhyChannelsFull>Every channel of the stations that can hear it is in use.</PhobosRadio_VehicleWhyChannelsFull>
+  <PhobosRadio_VehicleWhyOutOfReach>No working radio station can hear it: it is out of reach, too much stands in the way, or the station has lost its power.</PhobosRadio_VehicleWhyOutOfReach>
   <PhobosRadio_TurretFiresAlone>Fires at enemies by itself, with nobody watching.</PhobosRadio_TurretFiresAlone>
 </LanguageData>

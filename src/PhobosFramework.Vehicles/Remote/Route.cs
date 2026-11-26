@@ -59,8 +59,16 @@ public sealed class RouteControl : IRemoteControlSource
         return route.Mode switch
         {
             RouteMode.Follow when Convoys.Leads(route.Leader, vehicle.Map) => new RemoteLink(true, route.Leader!.Position),
+            // Why it has lost its leader (Framework 0.314.0): gone or away, or nobody driving it.
+            RouteMode.Follow => new RemoteLink(false, IntVec3.Invalid)
+            {
+                Why = route.Leader is { Spawned: true, Destroyed: false } leader && leader.Map == vehicle.Map
+                    ? "PhobosRoute_WhyLeaderUndriven".Translate(leader.LabelShort.Named("LEADER")).Resolve()
+                    : "PhobosRoute_WhyLeaderGone".Translate().Resolve(),
+            },
             // Only on the map its loop was set on (Framework 0.284.0): elsewhere it waits, unlinked, for its return.
             RouteMode.Loop when route.Points.Count >= 2 && route.OnLoopMap => new RemoteLink(true, route.Points[0]),
+            RouteMode.Loop => new RemoteLink(false, IntVec3.Invalid) { Why = "PhobosRoute_WhyOffLoopMap".Translate().Resolve() },
             _ => default,
         };
     }

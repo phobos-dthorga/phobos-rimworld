@@ -13,6 +13,17 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.314.0] - 2026-11-26 - Draft
+
+Lost-link letters say why
+
+### Changed
+
+- **A letter about a vehicle's lost link now says why**: a station's operator has left the console or has their hands full, every
+  channel is in use, or no station can hear it; a follower's leader has gone, left the map or has nobody at its wheel; a loop vehicle is
+  away from its loop's place; a mechanitor is down, out of range or short of bandwidth. Before, it said only that the link was lost. Not
+  yet tested in game.
+
 ## [0.311.1] - 2026-11-26 - Draft
 
 The exhaust brake's new picture

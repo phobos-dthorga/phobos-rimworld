@@ -698,7 +698,11 @@ turrets placed, before and after (the radio's rule), asked of the owner first.
 - ~~**What the second Vehicle Framework seat checks need**, and whether a moving crewless truck needs help to keep ticking: read at
   step 3.~~ Read: it keeps ticking; caravans and aircraft are known limits ([step 3](#step-3-driven-from-a-station-framework-02780-radio-0110)).
 - **Icons for the two buttons**, borrowed until made.
-- **The lost-link letter's reason**: when the operator leaves, the letter should say so rather than "lost its link".
+- ~~**The lost-link letter's reason**: when the operator leaves, the letter should say so rather than "lost its link".~~ Built (Framework
+  0.314.0, Radio 0.20.1, the owner's go of 26 Nov 2026): `RemoteLink.Why`, an in-world sentence each source gives when it has no link (the
+  radio: no operator, hands full, channels full, out of reach; the route: leader gone or undriven, off the loop's place; the mechanitor:
+  its own `Why()`), said in the letter as `{REASON}`, with a source's general line where it cannot say. A property rather than a new
+  position, so a Radio Framework built against an older Framework still loads.
 - **Step 8's measurement and card**: the owner's press of "Time radio cover for selected vehicle" (row 492), then a card with the
   cost and whether keeping to radio cover stays on by default.
 

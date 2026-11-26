@@ -44,7 +44,9 @@ public sealed class MechControl : IRemoteControlSource
 
     public RemoteLink LinkOf(VehiclePawn vehicle)
     {
-        if (vehicle.GetComp<CompPhobosMechLink>() is not { } link || link.Why() != null) return default;
+        if (vehicle.GetComp<CompPhobosMechLink>() is not { } link) return default;
+        // Its own reason, said in the lost-link letter (Framework 0.314.0).
+        if (link.Why() is { } why) return new RemoteLink(false, IntVec3.Invalid) { Why = why };
         return new RemoteLink(true, link.Mechanitor!.Position);
     }
 

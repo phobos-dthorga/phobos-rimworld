@@ -17,6 +17,16 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.20.1] - 2026-11-26 - Draft
+
+A lost link's reason
+
+### Changed
+
+- **A vehicle driven from a station that loses its link says why in its letter** (with D'thorga Framework 0.314.0): nobody is working
+  the console any more, the operator has their hands full with other vehicles, every channel that can hear it is in use, or no working
+  station can hear it. Not yet tested in game.
+
 ## [0.20.0] - 2026-11-26 - Draft
 
 The remote gun turret by its own radio

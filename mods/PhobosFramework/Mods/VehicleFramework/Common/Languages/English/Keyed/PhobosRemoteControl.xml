@@ -46,7 +46,8 @@
 
   <!-- Letters. -->
   <PhobosRemote_LostLabel>Link lost: {VEHICLE}</PhobosRemote_LostLabel>
-  <PhobosRemote_LostText>{VEHICLE} has lost its link to the station that was driving it. {ACTION}</PhobosRemote_LostText>
+  <PhobosRemote_LostText>{VEHICLE} has lost its link to the station that was driving it. {REASON} {ACTION}</PhobosRemote_LostText>
+  <PhobosRemote_WhyUnknown>Its signal is gone.</PhobosRemote_WhyUnknown>
   <PhobosRemote_LostHold>It is holding where it stands until a station reaches it again.</PhobosRemote_LostHold>
   <PhobosRemote_LostComeBack>It is driving back toward its station until the link returns.</PhobosRemote_LostComeBack>
   <PhobosRemote_LostCarryOn>It is finishing the drive it was given, and will wait there.</PhobosRemote_LostCarryOn>
@@ -109,7 +110,11 @@
 
   <!-- The route level: letters. -->
   <PhobosRoute_LostLabel>Leader lost: {VEHICLE}</PhobosRoute_LostLabel>
-  <PhobosRoute_LostText>{VEHICLE} has lost the vehicle it was following: its leader is gone, has nobody at its wheel, or has left the map. {ACTION}</PhobosRoute_LostText>
+  <PhobosRoute_LostText>{VEHICLE} has lost the vehicle it was following. {REASON} {ACTION}</PhobosRoute_LostText>
+  <PhobosRoute_WhyUnknown>Its leader is gone, has nobody at its wheel, or has left the map.</PhobosRoute_WhyUnknown>
+  <PhobosRoute_WhyLeaderGone>Its leader is gone, or has left the map.</PhobosRoute_WhyLeaderGone>
+  <PhobosRoute_WhyLeaderUndriven>Nobody is at {LEADER}'s wheel, and no station drives it.</PhobosRoute_WhyLeaderUndriven>
+  <PhobosRoute_WhyOffLoopMap>It is away from the place its loop was set on.</PhobosRoute_WhyOffLoopMap>
   <PhobosRoute_LostHold>It is holding where it stands until its leader is driven again.</PhobosRoute_LostHold>
   <PhobosRoute_LostComeBack>It is driving back to where it last saw its leader.</PhobosRoute_LostComeBack>
   <PhobosRoute_LostCarryOn>It is finishing the drive it was on, and will wait there.</PhobosRoute_LostCarryOn>
@@ -136,7 +141,8 @@
   <PhobosMechLink_InspectComingBack>Out of the mechanitor's control: driving back toward them.</PhobosMechLink_InspectComingBack>
   <PhobosMechLink_InspectCarryingOn>Out of the mechanitor's control: finishing its last drive.</PhobosMechLink_InspectCarryingOn>
   <PhobosMechLink_LostLabel>Out of control: {VEHICLE}</PhobosMechLink_LostLabel>
-  <PhobosMechLink_LostText>{VEHICLE} has slipped out of its mechanitor's control: they are down, out of range, or short of bandwidth. {ACTION}</PhobosMechLink_LostText>
+  <PhobosMechLink_LostText>{VEHICLE} has slipped out of its mechanitor's control. {REASON} {ACTION}</PhobosMechLink_LostText>
+  <PhobosMechLink_WhyUnknown>Its mechanitor is down, out of range, or short of bandwidth.</PhobosMechLink_WhyUnknown>
   <PhobosMechLink_LostHold>It is holding where it stands until they can drive it again.</PhobosMechLink_LostHold>
   <PhobosMechLink_LostComeBack>It is driving back toward its mechanitor.</PhobosMechLink_LostComeBack>
   <PhobosMechLink_LostCarryOn>It is finishing the drive it was on, and will wait there.</PhobosMechLink_LostCarryOn>

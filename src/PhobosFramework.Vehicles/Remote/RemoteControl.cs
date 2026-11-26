@@ -13,7 +13,14 @@ namespace Phobos.VehicleSystems;
 /// A vehicle's link to whatever drives it from afar, as its source reports it: whether it has one, where that station stands, and (Framework
 /// 0.280.0, step 6) whether the station also has the vehicle's picture, so an operator can watch and aim its guns.
 /// </summary>
-public readonly record struct RemoteLink(bool Linked, IntVec3 Station, bool Picture = false);
+public readonly record struct RemoteLink(bool Linked, IntVec3 Station, bool Picture = false)
+{
+    /// <summary>
+    /// Why it has no link, in-world and as a whole sentence, when its source can say (Framework 0.314.0): the lost-link letter says it. A
+    /// property rather than a fourth position, so a source built against an older Framework still loads.
+    /// </summary>
+    public string? Why { get; init; }
+}
 
 /// <summary>
 /// Whatever can drive a vehicle with nobody aboard (Framework 0.278.0; docs/development/autonomous-vehicles.md, step 3): the Radio
@@ -234,6 +241,9 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         RemoteGuns.Recache(Vehicle);
     }
 
+    /// <summary>Why its link went, from its source's last answer (Framework 0.314.0); derived at each look, never saved.</summary>
+    string? lostWhy;
+
     /// <summary>Its link now, and the state that follows from it.</summary>
     void Look()
     {
@@ -245,6 +255,7 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         // A kit carried but not working (Framework 0.284.0) asks nothing of its source: the vehicle holds and the player is told why.
         var kitDown = want && !source!.Fitted(vehicle);
         var link = want && !kitDown ? source!.LinkOf(vehicle) : default;
+        if (!link.Linked && link.Why != null) lostWhy = link.Why;
         var hadPicture = picture;
         picture = link.Linked && link.Picture;
         if (picture != hadPicture && Seen.Wants("vehicles.remote-picture", vehicle, picture ? "won" : "lost"))
@@ -256,6 +267,7 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         {
             lostSinceTick = -1;
             station = link.Station;
+            lostWhy = null;
         }
         else if (!want)
         {
@@ -293,9 +305,12 @@ public sealed class CompPhobosRemoteControl : VehicleComp
                 RemoteState.CarryingOn => "LostCarryOn",
                 _ => "LostHold",
             };
+            // Why, in its source's words where it can say (Framework 0.314.0): the operator left the console, the leader left the map.
+            var why = kitDown ? "" : lostWhy ?? (prefix + "WhyUnknown").Translate().Resolve();
             Find.LetterStack.ReceiveLetter((prefix + "LostLabel").Translate(vehicle.LabelShort.Named("VEHICLE")),
-                (prefix + "LostText").Translate(vehicle.LabelShort.Named("VEHICLE"), key.Translate().Named("ACTION")),
+                (prefix + "LostText").Translate(vehicle.LabelShort.Named("VEHICLE"), why.Named("REASON"), key.Translate().Named("ACTION")).Resolve().Replace("  ", " "),
                 LetterDefOf.NegativeEvent, vehicle);
+
             if (kitDown)
             {
                 if (Seen.Wants("vehicles.remote-kit-down", vehicle)) Seen.Note("vehicles.remote-kit-down", vehicle, vehicle.LabelShort);

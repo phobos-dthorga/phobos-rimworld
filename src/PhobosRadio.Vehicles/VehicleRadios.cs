@@ -166,8 +166,27 @@ public sealed class RadioRemoteControl : IRemoteControlSource, IRemoteCoverSourc
         RemoteCoverMap.Want(vehicle);
         // Served on a channel, and (Radio 0.12.0, step 5) a colonist works that station with a hand free for this vehicle.
         var net = RadioNet.For(vehicle.Map);
-        var station = net?.ServedBy(vehicle);
-        if (station == null || !net!.Drives(station, vehicle)) return default;
+        if (net == null) return default;
+        var station = net.ServedBy(vehicle);
+        // Why it is not driven, for the lost-link letter (Radio 0.20.1): no station hears it or its channels are full; or the station that
+        // serves it has nobody at the console, or its operator's hands are full.
+        if (station == null)
+        {
+            return new RemoteLink(false, IntVec3.Invalid)
+            {
+                Why = net.IsBusy(vehicle) ? "PhobosRadio_VehicleWhyChannelsFull".Translate().Resolve() : "PhobosRadio_VehicleWhyOutOfReach".Translate().Resolve(),
+            };
+        }
+        if (!net.Drives(station, vehicle))
+        {
+            var label = station.LabelShort.Named("STATION");
+            return new RemoteLink(false, IntVec3.Invalid)
+            {
+                Why = net.OperatorAt(station) is { } busy
+                    ? "PhobosRadio_VehicleWhyHandsFull".Translate(busy.LabelShort.Named("OPERATOR"), label).Resolve()
+                    : "PhobosRadio_VehicleWhyNoOperator".Translate(label).Resolve(),
+            };
+        }
         // And its picture, where the same station serves it (Radio 0.15.0, step 6).
         return new RemoteLink(true, station.Position, net.HasPicture(vehicle));
     }
