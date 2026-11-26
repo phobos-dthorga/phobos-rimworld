@@ -1,0 +1,118 @@
+[
+ {
+  "name": "lapes-button",
+  "title": "Airdrop button: Low extraction (Lapes)",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/DropHere.png",
+    "role": "our approved button icon of the same set (drop here): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CanopyOpen.png",
+    "role": "our approved parachute canopy: match its olive canopy colours only; do not copy its shape or view"
+   }
+  ],
+  "art_plan": {
+   "button": "Low extraction (LAPES): a platform pulled out low over a strip by its extraction chute, sliding to a stop",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/Lapes.png",
+   "size": "exported at 128",
+   "why": "the airdrop buttons are made paid (owner, 26 Nov 2026: 'they'll have to be paid'); this one's route is the owner's to confirm"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved pictures from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"pull the load out low and let it slide\": a flat olive-drab cargo platform with one squarish olive load strapped on it with tan straps, sliding along the ground toward the RIGHT, a small puff of tan dust kicked up behind it on the left. Ahead of it on the right, one small round olive-drab parachute, open and leaning back, its thin pale lines running to the front of the platform, pulling it. A short bold amber arrow along the ground points right, the way it slides. The ground is one thin flat line.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with the amber arrow as the only bright colour, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No aircraft, people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "c27j-icon-defensiveaids",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+    "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InfraredJammer.png",
+    "role": "our approved upgrade icon of an aircraft fit (the Osprey's infrared jammer): match its finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "vehicle": "Phobos_C27J",
+   "upgrade_node": "DefensiveAids",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/C27J/Upgrades/DefensiveAids.png",
+   "record": "assets/phobos-vehicles/requests/c27j-overlays-record.md",
+   "why": "the C-27J's upgrade icons; the route (paid or local on the processor) is the owner's to choose, 26 Nov 2026"
+  },
+  "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of an aircraft's defensive aids pod: a slim rounded pale grey plate with a small dark glass jammer dome at one end and a dark grey dispenser box with a neat grid of round flare cartridge caps at the other, two small bright amber flares arcing away from it with short trails.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "c27j-icon-gunkit",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+    "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InfraredJammer.png",
+    "role": "our approved upgrade icon of an aircraft fit (the Osprey's infrared jammer): match its finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "vehicle": "Phobos_C27J",
+   "upgrade_node": "GunKit",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/C27J/Upgrades/GunKit.png",
+   "record": "assets/phobos-vehicles/requests/c27j-overlays-record.md",
+   "why": "the C-27J's upgrade icons; the route (paid or local on the processor) is the owner's to choose, 26 Nov 2026"
+  },
+  "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of a roll-on aircraft gun kit: one 30 mm automatic cannon with a long slim dark gunmetal barrel and a slotted muzzle brake, on a low olive gun mount bolted to a flat steel cargo pallet with roller rails, a squarish olive ammunition box beside it. It points to the right.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "c27j-icon-firetank",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+    "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InfraredJammer.png",
+    "role": "our approved upgrade icon of an aircraft fit (the Osprey's infrared jammer): match its finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "vehicle": "Phobos_C27J",
+   "upgrade_node": "FireTank",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/C27J/Upgrades/FireTank.png",
+   "record": "assets/phobos-vehicles/requests/c27j-overlays-record.md",
+   "why": "the C-27J's upgrade icons; the route (paid or local on the processor) is the owner's to choose, 26 Nov 2026"
+  },
+  "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of a roll-on fire-fighting tank for an aircraft's hold: one long rounded pale grey water tank lying on a flat steel cargo pallet, a muted red band round its middle, a filler cap on top and one thick bent discharge pipe leaving its side with a flared nozzle.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+ }
+]

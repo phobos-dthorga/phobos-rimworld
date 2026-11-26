@@ -1,0 +1,74 @@
+[
+ {
+  "name": "c27j-gun-barrel",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1366,
+  "height": 2048,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/c27j-body/c27j-body-1.png",
+    "role": "Image 1 is our approved C-27J aircraft (the owner's body pick, 26 Nov 2026), seen from directly above: match its outline weight, shading, pale grey materials and finish only; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "the MC-27J gun kit: a 30 mm gun on a pallet in the hold, firing through the left jump door; only the barrel shows from above, reaching out of the door",
+   "this_request": "the barrel alone on white, pointing to the top, two tries; laid by script at the left jump door (about x 2,067 to 2,113, y 2,353 to 2,467 in the body pick), turned to point out to the left, about 1.3 m of it beyond the fuselage side (agent's figure)",
+   "design": "docs/development/vehicle-c27j.md, The upgrade tree and Art",
+   "record": "assets/phobos-vehicles/requests/c27j-overlays-record.md"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite of ONE 30 mm automatic cannon barrel, the part of an aircraft's side-firing gun that reaches out of its door. Image 1 is our own approved aircraft: match its outline weight, shading and finish only. Do NOT redraw it, and draw no aircraft, door or gun body.\n\nDraw ONLY the barrel, alone on a plain pure white background, centred on the canvas, perfectly straight and pointing straight toward the TOP of the canvas. From the BOTTOM up: a short round dark gunmetal mounting collar, a little wider than the barrel; then one long, slim, straight dark gunmetal barrel of even width; then at the top a short, slightly wider muzzle brake with a few small slots along its sides and a dark round bore at its very tip. The whole part is about 70 percent of the canvas tall and about 7 percent of the canvas wide at the barrel, the collar and the muzzle brake about twice that. It is symmetrical left to right.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, a soft highlight running along the barrel's length, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo aircraft, no door, no gun body, no ammunition belt, no people, smoke, flame, muzzle flash, text, letters, numbers, logos, symbols, dust or damage. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "c27j-spray-boom",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1366,
+  "height": 2048,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/c27j-body/c27j-body-1.png",
+    "role": "Image 1 is our approved C-27J aircraft (the owner's body pick, 26 Nov 2026), seen from directly above: match its outline weight, shading, pale grey materials and finish only; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "the fire-fighting tank: a roll-on tank in the hold sprayed through the left jump door; only its discharge pipe shows from above, reaching out of the door and bending aft",
+   "this_request": "the pipe alone on white, two tries: its flanged base at the bottom, rising, then bending to the left; laid by script at the left jump door turned a quarter turn anticlockwise, so it reaches out to the left and bends toward the tail, about 1 m beyond the fuselage side (agent's figure)",
+   "design": "docs/development/vehicle-c27j.md, The upgrade tree and Art",
+   "record": "assets/phobos-vehicles/requests/c27j-overlays-record.md"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite of ONE water-bombing discharge pipe, the part of an aircraft's roll-on fire-fighting tank that reaches out of its side door to spray water. Image 1 is our own approved aircraft: match its outline weight, shading, pale grey materials and finish only. Do NOT redraw it, and draw no aircraft, door or tank.\n\nDraw ONLY the pipe, alone on a plain pure white background, centred on the canvas. From the BOTTOM of the canvas: a round flat mounting flange with a ring of small bolt heads; then one thick, round, pale grey metal pipe rising straight toward the TOP of the canvas for a little over half its length; then a smooth bend of about 60 degrees toward the LEFT of the canvas; then a short straight end that widens into a flat, flared nozzle with a dark open mouth at its tip. A thin dark band clamps the pipe just above the flange. The whole part is about 65 percent of the canvas tall and 40 percent of the canvas wide; the pipe is about 10 percent of the canvas wide.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, a soft highlight along the pipe, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo aircraft, no door, no tank, no water, spray, mist, splash, smoke, people, text, letters, numbers, logos, symbols, dust or damage. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "c27j-defence-pod",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/c27j-body/c27j-body-1.png",
+    "role": "Image 1 is our approved C-27J aircraft (the owner's body pick, 26 Nov 2026), seen from directly above: match its outline weight, shading, pale grey materials and finish only; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "defensive aids: the infrared jammer and the chaff and flare dispensers (built, Framework 0.316.0); one pod on each main-gear fairing",
+   "this_request": "one pod alone on white, two tries; laid by script on the left main-gear fairing (about x 1,947 to 2,087, y 1,900 to 2,180 in the body pick) and mirrored onto the right; its look is the agent's design, not a drawing of the RAAF's fit",
+   "design": "docs/development/vehicle-c27j.md, The upgrade tree and Art",
+   "record": "assets/phobos-vehicles/requests/c27j-overlays-record.md"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite of ONE small defensive aids pod for a military transport aircraft, bolted onto the top of its landing-gear fairing. Image 1 is our own approved aircraft: match its outline weight, shading, pale grey materials and finish only. Do NOT redraw it, and draw no aircraft.\n\nDraw ONLY this one pod, alone on a plain pure white background, centred on the canvas. A slim rounded-rectangle base plate in the same pale grey as Image 1, its long side running from the TOP to the BOTTOM of the canvas, with a few small bolt heads round its edge. On its TOP half, a small round infrared jammer turret: a dark glossy glass dome inside a mid-grey ring. On its BOTTOM half, a flat rectangular chaff and flare dispenser: a dark grey box whose top face shows a neat grid of small round cartridge caps, three across and five down. The whole pod is about 30 percent of the canvas wide and 60 percent of the canvas tall.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, one small soft highlight on the dome, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo aircraft, no wing, no fairing, no people, smoke, flame, flares, text, letters, numbers, logos, symbols, dust or damage. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ }
+]

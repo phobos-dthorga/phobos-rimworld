@@ -201,7 +201,10 @@ Osprey holds nearly steady.
 Candidates only (26 Nov 2026; the owner's card the same day: "Real recordings first"): real recordings of the C-27J from public-domain
 DVIDS videos (`assets/phobos-sounds/recordings/c27j.json`), the rest generated (`assets/phobos-sounds/requests/night-17-c27j.json`).
 The propellers' blade-pass comb, measured by the agent on those recordings: about 72 Hz at ground idle, about 102 Hz in flight
-(roughly 720 and 1,020 rpm for six blades; our inference, not a published figure).
+(roughly 720 and 1,020 rpm for six blades; our inference, not a published figure). **Made and offered (26 Nov 2026)**: the twelve generated
+candidates on the processor beside the game, and both sets on D'thorga Companion's Picks page. The measured flags: both crew door tries
+clip; both ramp tries carry a 9.5 kHz whine; both flyovers turn at about 77 to 80 Hz against the real 102 Hz; the start and stop are
+clean but for one try's strong highs. The export refuses a clip or a whine, so a flagged pick is fixed or made again.
 
 | ID | Sound | Hook | Note |
 | --- | --- | --- | --- |

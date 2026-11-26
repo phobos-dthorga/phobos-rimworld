@@ -1,6 +1,6 @@
 """Cut a vehicle master into its named parts with Segment Anything 2.1 (Meta, Apache 2.0), prompted at the places its plan gives.
 
-    <ComfyUI python> -I scripts/art/name_parts.py PARTS.json
+    <ComfyUI python> -I scripts/art/name_parts.py [--cpu] PARTS.json
 
 The owner's rule of 18 Nov 2026 (AGENTS.md): every vehicle master is cut into its named parts wherever a part earns it, for a damage
 look on that part, the anchor of anything that turns or sits on the body, a paint region, or the part as its own overlay. The grid
@@ -21,6 +21,9 @@ PARTS.json says, in the plan's metres (across from the centre line, back from th
 Writes to parts/<the master's SHA-256>/ in the art tools' working folder (art_paths.py; formerly .local/art): one mask per part (white is the part), parts.json with each part's area, box, centre
 and score in the master's pixels, and review.png: the picture on dark ground with every part outlined and named. Uses the graphics
 card and refuses while RimWorld runs (the owner's rule: no GPU work while gaming); graphics memory is released at the end.
+
+--cpu runs on the processor (26 Nov 2026, the owner's request to work without the graphics card): slower, but it leaves the graphics
+card alone, so it may run while the game does, as sam_lift.py's --cpu. Without it the tool refuses while RimWorld runs.
 """
 import hashlib
 import json
@@ -129,11 +132,13 @@ def review(image, parts, path):
 
 
 def main(argv):
+    cpu = '--cpu' in argv
+    argv = [arg for arg in argv if arg != '--cpu']
     if len(argv) != 1:
         print(__doc__)
         return 2
-    if game_running():
-        print('Refused: RimWorld is running, and this uses the graphics card.')
+    if not cpu and game_running():
+        print('Refused: RimWorld is running, and this uses the graphics card. --cpu runs on the processor instead.')
         return 1
     spec = json.loads(Path(argv[0]).read_text(encoding='utf-8'))
     master = ROOT / spec['master']
@@ -142,7 +147,7 @@ def main(argv):
     height, width = pixels.shape[:2]
     inside = ~(pixels.min(axis=2) >= WHITE)
     to_px, extent = mapping(inside, spec['frame'])
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device = 'cpu' if cpu or not torch.cuda.is_available() else 'cuda'
     started = time.time()
     processor = Sam2Processor.from_pretrained(MODEL)
     model = Sam2Model.from_pretrained(MODEL).to(device).eval()

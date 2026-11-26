@@ -1,0 +1,31 @@
+[
+ {
+  "name": "c27j-icon-gunkit-fal",
+  "engine": "fal",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+    "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InfraredJammer.png",
+    "role": "our approved upgrade icon of an aircraft fit (the Osprey's infrared jammer): match its finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "vehicle": "Phobos_C27J",
+   "upgrade_node": "GunKit",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/C27J/Upgrades/GunKit.png",
+   "record": "assets/phobos-vehicles/requests/c27j-overlays-record.md",
+   "why": "the same icon on Nano Banana Pro through fal, after OpenAI's filter refused both tries as a weapon (26 Nov 2026; rule 7: a refusal changes the route); within the owner's US$1.19 cap for these icons"
+  },
+  "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of a roll-on aircraft gun kit: one 30 mm automatic cannon with a long slim dark gunmetal barrel and a slotted muzzle brake, on a low olive gun mount bolted to a flat steel cargo pallet with roller rails, a squarish olive ammunition box beside it. It points to the right.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks.",
+  "model": "fal-ai/nano-banana-pro/edit"
+ }
+]
