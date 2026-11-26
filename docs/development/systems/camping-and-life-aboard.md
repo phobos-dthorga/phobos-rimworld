@@ -48,7 +48,8 @@ loads to them.
 | Fitting | What it does | Figures (authored unless named) |
 | --- | --- | --- |
 | Power outlet | Feeds a camp's grid what its users ask beyond other producers, through an inverter | 300 W at 12 V (600 at 24 V); 85 %; off when fitted |
-| House battery | A second battery for camp loads, charged once the start battery is nearly full | 100 Ah; shore charger 10 A; camp loads stop at 10 % |
+| House battery (lead-acid) | A second battery for camp loads, charged once the start battery is nearly full; freezes run down in deep cold (a setting) | 100 Ah, 25 kg; shore charger 10 A; camp loads stop at 50 % |
+| Lithium house battery | The same, behind Microelectronics: lighter, deeper, never freezes, no charge below 0 °C | 100 Ah, 12 kg; camp loads stop at 10 % |
 | 12-volt fridge | Keeps the cargo food closest to spoiling cold, whole stacks only | 30 kg at 4 °C (or colder air); 0.2 to 1.5 A by the air's heat |
 
 - **The amps an outlet draws** are its watts ÷ 0.85 ÷ the vehicle's volts (`Rules/CampRule.cs:23-25`).
@@ -56,7 +57,11 @@ loads to them.
   from a secondary source (REDARC), marked unverified in `Systems_HouseBattery.xml`. Above 0.8 charge it tapers; it loses about
   5 % a month by itself.
 - **Loads marked `campLoad`** (the fridge, the outlet and, since Framework 0.276.3, the camp lights) draw only on the house battery
-  when one is fitted, and stop at its cutoff rather than being shed.
+  when one is fitted, and stop at its cutoff rather than being shed. The cut-off is the fitted battery system's own `houseCutoff`
+  (Framework 0.333.0; [the house battery record](../house-battery.md)).
+- **The charge travels with the battery** (Framework 0.333.0): the battery kit holds its charge (`CompPhobosCharges`, shown as a
+  percentage), fitting takes it over and taking it off gives it back (`kitCarries`). **A 24-volt vehicle takes two 12-volt batteries
+  in series** (`unitVolts`): twice the cost, weight and what comes back, for 100 Ah at 24 V.
 - **Without a house battery, the camp lights keep the start** (Framework 0.276.3, the owner's card of 24 Nov 2026): a load with
   `startReserve` goes out as the starting power enters the "barely enough to start" band, 0.2, the top of the stage above the
   no-start one in `Systems_Electrical.xml` (`StartReserveRule.Line` reads it from the stages; no figure of its own). A message says

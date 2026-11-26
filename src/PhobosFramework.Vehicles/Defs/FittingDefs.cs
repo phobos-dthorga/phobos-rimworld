@@ -97,6 +97,19 @@ public class PhobosVehicleFittingDef : Def
     /// <summary>What taking the fitting off gives back into the cargo (owner, 13 Nov 2026: a removed accessory gives its kit back; brackets
     /// and wiring are not returned). Empty: nothing comes back, as before.</summary>
     public List<ThingDefCountClass> givesBack = new();
+    /// <summary>
+    /// The voltage of one unit of this fitting (Framework 0.333.0; the owner's card of 27 Nov 2026, "two batteries"): a vehicle whose
+    /// electrical system runs at a multiple of it takes that many in series, so its materials, its kilograms and what comes back when it is
+    /// taken off are all that many times over (FittingRule.UnitsInSeries). A 12-volt house battery is two on a 24-volt truck. 0: one unit
+    /// on any vehicle.
+    /// </summary>
+    public float unitVolts;
+    /// <summary>
+    /// A system quantity that travels with the kit (Framework 0.333.0: a house battery's charge, "houseCharge"): fitting it sets the
+    /// quantity from the kits it was made from (their <c>CompPhobosCharges</c>), and taking it off writes the quantity back into the kits
+    /// it gives back, so the charge belongs to the battery, never to the vehicle's tray. Null: nothing travels.
+    /// </summary>
+    public string? kitCarries;
     /// <summary>Only vehicles on one of these loadouts (aircraft service-life upgrades: the Harrier's engine fits only a Harrier). Empty: any.</summary>
     public List<PhobosVehicleLoadoutDef> loadouts = new();
     /// <summary>Only vehicles whose Def says they have a flat deck (PhobosFlatDeckExtension; Framework 0.217.0, the deck tent).</summary>
@@ -152,6 +165,8 @@ public class PhobosVehicleFittingDef : Def
             if (spec.parameter.NullOrEmpty()) yield return "a parameter floor names no parameter";
         }
         if (kilograms < 0f) yield return "kilograms must not be below 0";
+        if (unitVolts < 0f) yield return "unitVolts must not be below 0";
+        if (!kitCarries.NullOrEmpty() && givesBack.Count == 0) yield return "kitCarries needs a kit in givesBack to carry it";
         if (fuelCapacityFactor <= 0f) yield return "fuelCapacityFactor must be above 0";
         foreach (StatFactorSpec spec in statFactors)
         {

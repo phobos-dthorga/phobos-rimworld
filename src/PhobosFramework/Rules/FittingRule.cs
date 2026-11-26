@@ -58,4 +58,25 @@ public static class FittingRule
     /// </summary>
     public static double WearAfterRenewing(double wear, int notYetRenewed) =>
         notYetRenewed <= 1 ? 0 : Math.Max(0, wear) * (notYetRenewed - 1) / notYetRenewed;
+
+    /// <summary>
+    /// How many units of a fixed voltage a vehicle's electrical system takes in series (Framework 0.333.0, the house battery: the owner's
+    /// card of 27 Nov 2026, "two batteries" on a 24-volt vehicle). Two 12-volt batteries make a 24-volt bank of the same ampere-hours and
+    /// twice the energy, so a 24-volt truck pays for, carries and gets back two. Never fewer than one; a unit of no stated voltage is one.
+    /// </summary>
+    public static int UnitsInSeries(double systemVolts, double unitVolts) =>
+        unitVolts <= 0 || systemVolts <= unitVolts ? 1 : Math.Max(1, (int)Math.Round(systemVolts / unitVolts));
+
+    /// <summary>
+    /// The share a fitting takes over from the kits it was made from (Framework 0.333.0: a house battery's charge travels with the
+    /// battery). Several kits in series charge and discharge together, so the bank holds their average; with no kit read (a fitting
+    /// given by a dev action or an older save) it holds <paramref name="fallback"/>. Always between nothing and full.
+    /// </summary>
+    public static double CarriedShare(System.Collections.Generic.IReadOnlyList<double> kitShares, double fallback)
+    {
+        if (kitShares.Count == 0) return Math.Clamp(fallback, 0, 1);
+        double sum = 0;
+        for (int i = 0; i < kitShares.Count; i++) sum += Math.Clamp(kitShares[i], 0, 1);
+        return sum / kitShares.Count;
+    }
 }

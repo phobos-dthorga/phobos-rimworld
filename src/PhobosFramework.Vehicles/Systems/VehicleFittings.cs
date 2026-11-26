@@ -195,6 +195,17 @@ public sealed class VehicleFittings
                 : FitCostRule.Count(m.count, factor))).ToList();
     }
 
+    /// <summary>How many units of this fitting the vehicle takes in series (Framework 0.333.0): two 12-volt house batteries on a 24-volt truck.</summary>
+    public int UnitsOf(PhobosVehicleFittingDef? def) =>
+        def == null || def.unitVolts <= 0f ? 1 : FittingRule.UnitsInSeries(comp.ElectricalVolts(), def.unitVolts);
+
+    /// <summary>The materials a fitting takes on this vehicle: its list, times the units in series, then by the vehicle's weight as above.</summary>
+    public List<ThingDefCountClass> MaterialsFor(PhobosVehicleFittingDef def)
+    {
+        int units = UnitsOf(def);
+        return MaterialsFor(units == 1 ? def.materials : def.materials.Select(m => new ThingDefCountClass(m.thingDef, m.count * units)));
+    }
+
     /// <summary>The work in ticks a fitting or tune takes on this vehicle.</summary>
     public float WorkFor(float listed) => FitCostRule.Work(listed, CostFactor(Rules.fitWorkWeightExponent, Settings.fitTimeFactor));
 
@@ -693,24 +704,34 @@ public sealed class VehicleFittings
         get
         {
             float kilograms = 0f;
-            foreach (FittedPart part in fitted) kilograms += part.def?.kilograms ?? 0f;
+            foreach (FittedPart part in fitted) kilograms += (part.def?.kilograms ?? 0f) * UnitsOf(part.def);
             return kilograms;
         }
     }
 
     /// <summary>Puts what a fitting gives back when taken off into the vehicle's cargo (owner, 13 Nov 2026: a removed accessory gives its kit
     /// back), and returns the sentence saying so, or null when it gives nothing.</summary>
-    string? GiveBack(PhobosVehicleFittingDef? def)
+    /// <param name="carried">What the fitting's <c>kitCarries</c> quantity held as it came off (a house battery's charge), written into each
+    /// kit that holds charges; null leaves the kits as made (full).</param>
+    string? GiveBack(PhobosVehicleFittingDef? def, float? carried = null)
     {
         if (def == null || def.givesBack.Count == 0) return null;
         var names = new List<string>();
+        int units = UnitsOf(def);
         foreach (ThingDefCountClass back in def.givesBack)
         {
             if (back.thingDef == null || back.count <= 0) continue;
-            // A building comes back packed, one thing each (PackedThings, Framework 0.265.0); anything else as one stack.
-            int things = Phobos.Framework.Items.PackedThings.Packs(back.thingDef) ? back.count : 1;
-            for (int i = 0; i < things; i++) comp.Vehicle.AddOrTransfer(Phobos.Framework.Items.PackedThings.Make(back.thingDef, back.count));
-            names.Add(back.Label);
+            // A building comes back packed, one thing each (PackedThings, Framework 0.265.0), and so does a thing that never stacks (two house
+            // batteries off a 24-volt truck, Framework 0.333.0); anything else as one stack.
+            int total = back.count * units;
+            bool singly = Phobos.Framework.Items.PackedThings.Packs(back.thingDef) || back.thingDef.stackLimit <= 1;
+            for (int i = 0; i < (singly ? total : 1); i++)
+            {
+                Thing made = Phobos.Framework.Items.PackedThings.Make(back.thingDef, singly ? 1 : total);
+                if (carried.HasValue && made.TryGetComp<Phobos.Framework.Items.CompPhobosCharges>() is { } charges) charges.SetShare(carried.Value);
+                comp.Vehicle.AddOrTransfer(made);
+            }
+            names.Add(units == 1 ? back.Label : new ThingDefCountClass(back.thingDef, total).Label);
         }
         return names.Count == 0 ? null : "PhobosVehicleSystems_FitKitReturned".Translate(names.ToCommaList(useAnd: true).Named("KIT")).Resolve();
     }
@@ -1094,7 +1115,43 @@ public sealed class VehicleFittings
     public int SkillOf(FitOrder order) => order.tune?.minSkill ?? order.fitting?.minSkill ?? order.grade?.minSkill ?? 0;
 
     public IEnumerable<ThingDefCountClass> MaterialsOf(FitOrder order) =>
-        MaterialsFor(order.tune?.materials ?? order.fitting?.materials ?? Enumerable.Empty<ThingDefCountClass>());
+        order.fitting != null ? MaterialsFor(order.fitting) : MaterialsFor(order.tune?.materials ?? Enumerable.Empty<ThingDefCountClass>());
+
+    /// <summary>What a fitting's <c>kitCarries</c> quantity holds now (a house battery's charge), read while the fitting is still on; null
+    /// when it carries nothing or the quantity is not running.</summary>
+    float? CarriedNow(PhobosVehicleFittingDef? def) =>
+        def?.kitCarries is { } quantity && comp.TryGetQuantity(quantity, out float value) ? value : null;
+
+    /// <summary>
+    /// A fitting just put on takes over what its kits held (Framework 0.333.0; the owner's report of 27 Nov 2026 that the house battery was not
+    /// modelled appropriately): the charge of the batteries used to fit it, their average for two in series, or full when no kit was read (a
+    /// dev action's fitting). Before, the charge stayed with the vehicle's tray: a flat battery taken off and fitted to another vehicle came
+    /// up full, and a new one fitted where a flat one had been came up flat.
+    /// </summary>
+    void TakeOverKitShare(PhobosVehicleFittingDef def, string partKey)
+    {
+        if (def.kitCarries.NullOrEmpty()) return;
+        List<double> shares = comp.TakeTakenShares(def.givesBack.Where(b => b.thingDef != null).Select(b => b.thingDef));
+        float share = (float)FittingRule.CarriedShare(shares, KitFullShare);
+        comp.SetQuantity(def.kitCarries!, share);
+        if (Seen.Wants("vehicles.kit-carries.fitted", comp.Vehicle, def.defName))
+        {
+            Seen.Note("vehicles.kit-carries.fitted", comp.Vehicle, PartLabel(partKey) + ": " + share.ToStringPercent(), def.defName,
+                values: new[] { new KeyValuePair<string, double>("share", share), new KeyValuePair<string, double>("units", UnitsOf(def)),
+                    new KeyValuePair<string, double>("kitsRead", shares.Count) });
+        }
+    }
+
+    /// <summary>A kit nobody read is taken as new: full.</summary>
+    const double KitFullShare = 1.0;
+
+    /// <summary>Seen in play (Framework 0.333.0, row 639): a fitting taken off gave its kits back holding what it held.</summary>
+    void NoteKitShareReturned(PhobosVehicleFittingDef? def, float? carried)
+    {
+        if (def == null || !carried.HasValue || !Seen.Wants("vehicles.kit-carries.returned", comp.Vehicle, def.defName)) return;
+        Seen.Note("vehicles.kit-carries.returned", comp.Vehicle, carried.Value.ToStringPercent(), def.defName,
+            values: new[] { new KeyValuePair<string, double>("share", carried.Value), new KeyValuePair<string, double>("units", UnitsOf(def)) });
+    }
 
     /// <summary>Does the order, says what was done, and returns the sentence. Materials are the repair's to take.</summary>
     public string Complete(FitOrder order, Pawn mechanic)
@@ -1131,24 +1188,32 @@ public sealed class VehicleFittings
         {
             PhobosVehicleFittingDef? old = FittedOn(order.partKey);
             string label = old?.label ?? "";
+            float? carried = CarriedNow(old);    // read while it is still on, so its system still runs
             fitted.RemoveAll(f => f.partKey == order.partKey);
             text = "PhobosVehicleSystems_FitRemovedDone".Translate(who, label.Named("FITTING"), vehicle, PartLabel(order.partKey).Named("PART")).Resolve();
-            if (GiveBack(old) is { } back)
+            if (GiveBack(old, carried) is { } back)
             {
                 text += " " + back;
                 // Seen in play (Framework 0.301.0, row 180): an accessory taken off came back as an item.
                 Seen.Note("vehicles.accessory-returned", comp.Vehicle, old?.defName, "removed");
+                NoteKitShareReturned(old, carried);
             }
         }
         else
         {
             Renew(order.fitting!, order.partKey);
             PhobosVehicleFittingDef? replaced = FittedOn(order.partKey);
+            float? replacedCarried = CarriedNow(replaced);
             fitted.RemoveAll(f => f.partKey == order.partKey);
             fitted.Add(new FittedPart { partKey = order.partKey, def = order.fitting });
+            TakeOverKitShare(order.fitting!, order.partKey);
             text = "PhobosVehicleSystems_FitDone".Translate(who, order.fitting!.label.Named("FITTING"), vehicle, PartLabel(order.partKey).Named("PART")).Resolve();
-            // A fitting put on over another takes that one off: its kit comes back too (Framework 0.129.0).
-            if (replaced != null && replaced != order.fitting && GiveBack(replaced) is { } back) text += " " + back;
+            // A fitting put on over another takes that one off: its kit comes back too (Framework 0.129.0), holding what it held (0.333.0).
+            if (replaced != null && replaced != order.fitting && GiveBack(replaced, replacedCarried) is { } back)
+            {
+                text += " " + back;
+                NoteKitShareReturned(replaced, replacedCarried);
+            }
             if (Seen.On) Seen.Note("vehicles.fitting-done." + order.fitting.defName, comp.Vehicle, PartLabel(order.partKey));
             // A matched set made whole by this part (Framework 0.246.0): the effect starts now.
             if (Seen.On && order.fitting.matchedSet && GroupWhole(order.fitting, order.partKey))

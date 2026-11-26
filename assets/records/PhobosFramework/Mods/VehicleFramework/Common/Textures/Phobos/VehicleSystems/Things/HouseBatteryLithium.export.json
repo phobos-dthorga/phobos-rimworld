@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/HouseBatteryLithium.png",
+  "source": "assets/phobos-vehicles/generated/item-house-battery-lithium/item-house-battery-lithium-1.png",
+  "source_sha256": "4ac76b8b0a95521ce1e21c7731cd0210140b00347c0e6c7f4dfc91d58d33c3da",
+  "target_sha256": "80536c337cac772704173952ddf0c7b1945d1a0e3c63421a7e7a240d6519d6bd",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "4ac76b8b0a95521ce1e21c7731cd0210140b00347c0e6c7f4dfc91d58d33c3da",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T03:40:35",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

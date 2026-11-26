@@ -1130,7 +1130,8 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// <summary>The fridge: how much cargo food it keeps cold, and how cold (authored: a 47 L compressor fridge's useful load, 4 degrees C).</summary>
     public float fridgeKilograms = 30f;
     public float fridgeDegrees = 4f;
-    /// <summary>The house battery's low-voltage cut-off: camp loads stop below this share of its charge, as a real one's does (authored).</summary>
+    /// <summary>The house battery's low-voltage cut-off: camp loads stop below this share of its charge, as a real one's does (authored). Since
+    /// Framework 0.333.0 only the fallback: each house battery system names its own (<c>houseCutoff</c>: lead-acid half, lithium a tenth).</summary>
     public float houseBatteryCutoff = 0.1f;
     /// <summary>The share of full health a replaced part comes back with; ordinary repair does the rest.</summary>
     public float replacedPartHealth = 0.25f;

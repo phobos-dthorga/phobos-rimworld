@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The lithium house battery (Framework 0.333.0; the owner's card of 27 Nov 2026, "both, as two fittings": lead-acid early, lithium as a better
+    fitting behind later research; docs/development/house-battery.md). The lead-acid one's sibling (Systems_HouseBattery.xml), on the same tray
+    and the same quantity, houseCharge, so the camp loads, the dashboard and the charge carried in the battery work the same for either. It runs
+    only once a lithium house battery is fitted (needsGrant). Not yet tested in game.
+
+    Sources and labels:
+    - A lithium iron phosphate (LiFePO4) battery of 100 Ah weighs roughly 11 to 13 kg, and may be used down to about a tenth of its charge
+      (secondary, manufacturers' figures; unverified): houseCutoff 0.1 is authored on it.
+    - Its battery management system refuses to charge it below about 0 degrees C, since charging cold plates lithium onto the cells
+      (secondary, manufacturers' figures; unverified). It still gives power in the cold. The 0 to 2 degrees C ramp is authored.
+    - It takes nearly full current until it is almost full (authored taper: full to 95 %), and loses about 3 % a month standing (authored).
+    - The charging from the alternator and from shore power is the lead-acid one's, with the same simplification.
+    Charge is a fraction of the battery's capacity, so every flow below is amperes divided by ampere-hours: a fraction per hour.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_HouseBatteryLithium</defName>
+    <label>lithium house battery</label>
+    <description>A second, lithium battery for the camp's fridge, power outlet and camp lights, charged while the engine runs once the starting battery is full, or from shore power. It never flattens the battery that starts the engine, gives nearly all its charge before it stops the camp loads, and never freezes; but it will not take a charge below freezing.</description>
+    <needsGrant>HouseBatteryLithium</needsGrant>
+    <roles>
+      <li>HouseBatteryTray</li>
+    </roles>
+    <parameters>
+      <houseAmpHours>100</houseAmpHours>
+      <houseShoreChargeAmps>10</houseShoreChargeAmps>
+      <houseCutoff>0.1</houseCutoff>
+    </parameters>
+    <quantities>
+      <li>
+        <name>houseCharge</name>
+        <label>house battery</label>
+        <description>What the lithium house battery holds for the camp loads. It fills while the engine runs once the starting battery is full, or from shore power, but not below freezing; below a tenth the camp loads stop.</description>
+        <telltale>Phobos/VehicleSystems/Dash/Battery</telltale>
+        <showOnDashboard>true</showOnDashboard>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <stages>
+          <li>
+            <to>0.2</to>
+            <label>low</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgHouseBatteryLow</message>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.2</from>
+            <label>charged</label>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>houseCharging</name>
+        <quantity>houseCharge</quantity>
+        <kind>Into</kind>
+        <divideByParameter>houseAmpHours</divideByParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_ElectricalBalance">
+            <side>Surplus</side>
+            <fromSystem>PhobosVehicleSystem_Electrical</fromSystem>
+            <drivenByRole>Belt</drivenByRole>
+            <supplyFactor Class="Phobos.VehicleSystems.Input_AlternatorOutput" />
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <curve>
+              <points>
+                <li>(0.9, 0)</li>
+                <li>(0.98, 1)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>houseCharge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.95, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Ambient">
+            <!-- No charge below freezing. -->
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(2, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <name>houseShoreCharging</name>
+        <quantity>houseCharge</quantity>
+        <kind>Into</kind>
+        <factorParameter>houseShoreChargeAmps</factorParameter>
+        <divideByParameter>houseAmpHours</divideByParameter>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning">
+          <invert>true</invert>
+        </when>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_ShorePower" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>houseCharge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.95, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Ambient">
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(2, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <name>houseDrain</name>
+        <quantity>houseCharge</quantity>
+        <kind>From</kind>
+        <divideByParameter>houseAmpHours</divideByParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_CampLoadAmps" />
+        </inputs>
+      </li>
+      <li>
+        <!-- About 3 % a month (authored). -->
+        <name>houseSelfDischarge</name>
+        <quantity>houseCharge</quantity>
+        <kind>From</kind>
+        <factor>0.00004</factor>
+      </li>
+    </flows>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

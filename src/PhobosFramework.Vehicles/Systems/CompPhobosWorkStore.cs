@@ -47,7 +47,7 @@ public sealed class CompPhobosWorkStore : VehicleComp, IThingHolder
     }
 
     /// <summary>Uses up so many of a supply from the store. Returns how many were taken; the cargo makes up the rest.</summary>
-    public int Take(ThingDef def, int count) => PackedThings.Take(held.InnerListForReading.ToList(), def, count);
+    public int Take(ThingDef def, int count, System.Action<Thing>? taking = null) => PackedThings.Take(held.InnerListForReading.ToList(), def, count, taking);
 
     /// <summary>
     /// Moves out of the cargo what the waiting work still needs and the store lacks (on its rare look, on a map only): supplies an older save

@@ -91,6 +91,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [The field kitchen trailer](vehicle-field-kitchen.md) (13 Nov 2026): Billy, the owner's kitchen on wheels. Built; enemy bases and locker not.
 - [The prisoner transport trailer](vehicle-prisoner-transport.md) (13 Nov 2026): Stockade, the owner's cage trailer. Record only.
 - [Camping and life aboard](systems/camping-and-life-aboard.md) (23 Nov 2026): how camps, berths, cabins, the cab and life aboard work now. Living.
+- [The house battery, made honest](house-battery.md) (27 Nov 2026): charge with the battery, two on 24 V, lead-acid and lithium, frost. Built, untested.
 - [Crew machines](vehicle-crew-machines.md) (23 Nov 2026): sleep and medical machines on vehicles, CM1 to CM5. Partly built.
 - [Nutrient paste on vehicles](vehicle-nutrient-paste.md) (23 Nov 2026): paste in tanks, on pipes, on the road, NP1 to NP5. Record only.
 - [People use parked vehicles](vehicle-parked-use.md) (25 Nov 2026): colonists use a parked vehicle by themselves. Built, untested.

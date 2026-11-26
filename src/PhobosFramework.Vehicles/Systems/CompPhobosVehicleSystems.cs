@@ -1800,7 +1800,27 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     bool OnHouseBattery(ElectricalLoadSpec load) => load.campLoad && HouseBatteryFitted;
 
     /// <summary>Whether the house battery is above its low-voltage cut-off (true while its reading is unknown).</summary>
-    bool HouseBatteryRuns => !TryGetQuantity(HouseChargeQuantity, out float house) || CampRule.HouseBatteryRuns(house, Rules.houseBatteryCutoff);
+    bool HouseBatteryRuns => !TryGetQuantity(HouseChargeQuantity, out float house) || CampRule.HouseBatteryRuns(house, HouseCutoff());
+
+    const string HouseCutoffParameter = "houseCutoff";
+
+    /// <summary>
+    /// The fitted house battery's low-voltage cut-off, as a share of its charge (Framework 0.333.0; the owner's card of 27 Nov 2026, "both, as
+    /// two fittings"): its own system's <c>houseCutoff</c>, half for lead-acid and a tenth for lithium, or the rules Def's figure for a house
+    /// battery system that names none.
+    /// </summary>
+    double HouseCutoff()
+    {
+        if (states != null)
+        {
+            foreach (SystemState state in states)
+            {
+                if (!Enabled(state) || !state.system.parameters.ContainsKey(HouseCutoffParameter) || state.Def.QuantityIndex(HouseChargeQuantity) < 0) continue;
+                return new SystemContext(this, state).Parameter(HouseCutoffParameter);
+            }
+        }
+        return Rules.houseBatteryCutoff;
+    }
 
     /// <summary>The watts the power outlet gives the camp now (Framework 0.129.0, Y1). Derived, never saved.</summary>
     public float OutletWatts { get; private set; }
@@ -2423,8 +2443,42 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     // A building named as a supply is used up packed (PackedThings, Framework 0.265.0).
     internal void TakeFromCargo(ThingDef def, int count)
     {
-        int fromStore = WorkStore?.Take(def, count) ?? 0;
-        if (fromStore < count) Phobos.Framework.Items.PackedThings.Take(CargoNow(), def, count - fromStore);
+        int fromStore = WorkStore?.Take(def, count, NoteTaken) ?? 0;
+        if (fromStore < count) Phobos.Framework.Items.PackedThings.Take(CargoNow(), def, count - fromStore, NoteTaken);
+    }
+
+    /// <summary>
+    /// What the things just used up held, by Def (Framework 0.333.0: a house battery's charge, read from the battery a fitting was made
+    /// from). Kept only for the tick it was taken in, since a fitting reads it in the same breath as its materials are paid. Never saved.
+    /// </summary>
+    readonly List<(ThingDef def, double share)> takenShares = new();
+    int takenTick = -1;
+
+    void NoteTaken(Thing thing)
+    {
+        if (thing.TryGetComp<Phobos.Framework.Items.CompPhobosCharges>() is not { } charges) return;
+        int now = Find.TickManager?.TicksGame ?? 0;
+        if (now != takenTick)
+        {
+            takenShares.Clear();
+            takenTick = now;
+        }
+        for (int i = 0; i < thing.stackCount; i++) takenShares.Add((thing.def, charges.Share));
+    }
+
+    /// <summary>The shares of the things of these Defs used up this tick, which are then forgotten; empty when none were.</summary>
+    internal List<double> TakeTakenShares(IEnumerable<ThingDef> defs)
+    {
+        var shares = new List<double>();
+        if (takenTick != (Find.TickManager?.TicksGame ?? 0)) return shares;
+        var wanted = new HashSet<ThingDef>(defs);
+        for (int i = takenShares.Count - 1; i >= 0; i--)
+        {
+            if (!wanted.Contains(takenShares[i].def)) continue;
+            shares.Add(takenShares[i].share);
+            takenShares.RemoveAt(i);
+        }
+        return shares;
     }
 
     /// <summary>Where haulers lay out the supplies for this vehicle's own work (Framework 0.272.0): no cargo room, no weight.</summary>

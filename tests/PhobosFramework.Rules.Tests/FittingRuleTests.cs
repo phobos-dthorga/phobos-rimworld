@@ -130,4 +130,29 @@ public class FittingRuleTests
     {
         Assert.Equal(0, FittingRule.WearAfterRenewing(-0.2, 4), 9);
     }
+
+    [Theory]
+    [InlineData(12, 12, 1)]
+    [InlineData(24, 12, 2)]
+    [InlineData(48, 12, 4)]
+    [InlineData(6, 12, 1)]
+    [InlineData(24, 0, 1)]
+    [InlineData(0, 12, 1)]
+    public void A24VoltVehicleTakesTwo12VoltUnitsInSeries(double system, double unit, int expected) =>
+        Assert.Equal(expected, FittingRule.UnitsInSeries(system, unit));
+
+    [Fact]
+    public void BatteriesInSeriesHoldTheirAverageCharge() =>
+        Assert.Equal(0.6, FittingRule.CarriedShare(new[] { 0.4, 0.8 }, 1), 9);
+
+    [Fact]
+    public void WithNoKitReadTheFallbackCounts()
+    {
+        Assert.Equal(1, FittingRule.CarriedShare(System.Array.Empty<double>(), 1), 9);
+        Assert.Equal(0, FittingRule.CarriedShare(System.Array.Empty<double>(), -0.5), 9);
+    }
+
+    [Fact]
+    public void AKitShareOutsideNothingToFullIsHeldInside() =>
+        Assert.Equal(0.5, FittingRule.CarriedShare(new[] { 1.5, -0.5 }, 1), 9);
 }

@@ -47,15 +47,21 @@ public static class PackedThings
     }
 
     /// <summary>Uses up so many of a supply from these things, destroying what is taken. Returns how many were taken.</summary>
-    public static int Take(IEnumerable<Thing>? things, ThingDef? wanted, int count)
+    /// <param name="taking">Shown each thing taken just before it is destroyed (Framework 0.333.0: a house battery's charge is read from
+    /// the battery used to fit it). Null: nothing is told.</param>
+    /// <remarks>Things that hold charges (<see cref="CompPhobosCharges"/>) are taken fullest first, so a fitting gets the best battery
+    /// aboard; any other things are taken in the order they come, as before.</remarks>
+    public static int Take(IEnumerable<Thing>? things, ThingDef? wanted, int count, System.Action<Thing>? taking = null)
     {
         if (things == null || wanted == null || count <= 0) return 0;
         int taken = 0;
-        foreach (Thing thing in things.Where(t => Answers(t, wanted)).ToList())
+        foreach (Thing thing in things.Where(t => Answers(t, wanted)).OrderByDescending(t => t.TryGetComp<CompPhobosCharges>()?.Share ?? 0f).ToList())
         {
             if (taken >= count) break;
             int take = System.Math.Min(count - taken, thing.stackCount);
-            thing.SplitOff(take).Destroy();
+            Thing used = thing.SplitOff(take);
+            taking?.Invoke(used);
+            used.Destroy();
             taken += take;
         }
         return taken;

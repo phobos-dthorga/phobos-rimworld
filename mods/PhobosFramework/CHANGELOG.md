@@ -17,6 +17,34 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.333.0] - 2026-11-27 - Draft
+
+The house battery, made honest: its charge travels with it, two on 24 volts, lead-acid and lithium
+
+### Added
+
+- **A lithium house battery, a second fitting for the house battery tray** (needs microelectronics): 12 kg, it gives nearly all its
+  charge before it cuts the camp loads off at a tenth, and never freezes, but takes no charge below 0 °C. Not yet tested in game: row 640.
+- **A setting, Run-down house batteries freeze** (Vehicle Systems settings, Camps; on by default): off, a lead-acid house battery never freezes.
+
+### Changed
+
+- **A house battery's charge now belongs to the battery, not the vehicle**: the battery shows its charge on its inspect line, fitting
+  it gives the vehicle that charge, and taking it off gives the charge back. Before, a flat battery moved to another vehicle came up
+  full, and a new one fitted where a flat one had been came up flat. A fitting uses the fullest battery aboard. Not yet tested in game: row 639.
+- **A 24-volt vehicle takes two house batteries, wired in series**: twice the cost and weight, and both come back when taken off.
+  Before, one battery gave it twice the energy it gives a 12-volt vehicle. The fittings window says why.
+- **The lead-acid house battery stops the camp loads at half its charge**, not a tenth, as lead-acid batteries are spared, with its low
+  warning at 60 %; **and run down in deep cold it freezes**, warning first, and is lost after about half a day. How it was chosen:
+  docs/development/house-battery.md.
+
+### Save compatibility
+
+- Safe on an existing save. A fitted house battery keeps its charge; one lying in storage counts as full. A lead-acid house battery
+  between a tenth and half charge stops its camp loads at once, until it is charged.
+- A 24-volt vehicle that already carries one house battery keeps it as fitted and its weight is now counted as two; taking it off
+  gives two back.
+
 ## [0.332.0] - 2026-11-27 - Draft
 
 Supply trucks drive to the edge and load to a list, the winch drags wrecks, chunks and carcasses, and raiders' fuel counts the world rate

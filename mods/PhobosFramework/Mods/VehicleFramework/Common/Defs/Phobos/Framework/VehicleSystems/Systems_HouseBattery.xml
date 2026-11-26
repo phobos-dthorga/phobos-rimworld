@@ -2,35 +2,48 @@
 <Defs>
   <!--
     The house battery (Framework 0.129.0; docs/development/vehicle-accessories.md, Y5): a second battery for the camp loads (the fridge, the power
-    outlet), so they never flatten the battery that starts the engine. It runs only once a house battery is fitted (needsGrant).
+    outlet, the camp lights), so they never flatten the battery that starts the engine. It runs only once a lead-acid house battery is fitted
+    (needsGrant). Its lithium sibling is Systems_HouseBatteryLithium.xml; both share the quantity houseCharge, and only one is ever fitted.
     Not yet tested in game.
+
+    Framework 0.333.0 (the owner's cards of 27 Nov 2026, "lead-acid, honest" and "both, as two fittings"; docs/development/house-battery.md):
+    it weighed 25 kg like lead-acid but ran down to a tenth like lithium, and cold never touched it. Now it stops at half its charge and a
+    run-down one freezes in deep cold. Its charge travels with the battery (the fitting's kitCarries), and a 24-volt vehicle takes two in
+    series (the fitting's unitVolts), so 100 Ah here is 100 Ah at the vehicle's own voltage.
 
     Sources and labels:
     - A second battery behind an isolator or a DC-DC charger takes the camp loads so the starting battery is never drained. Secondary: REDARC's
       explanation of dual battery systems (unverified; see the accessories record's sources).
-    - 100 Ah, the low-voltage cut-off (the rules Def's houseBatteryCutoff), the 10 A shore charger and the charging taper are authored.
+    - Lead-acid deep-cycle batteries are usually drawn to about half their charge for a long life, and low-voltage cut-offs for them sit near
+      that (secondary, common practice; unverified): houseCutoff 0.5 is authored on it.
+    - A lead-acid battery's electrolyte freezes at a higher temperature the emptier it is: roughly -8 degrees C flat, about -24 at half and far
+      below -50 full (secondary: commonly published freezing-point tables; unverified). The frost figure below follows that shape (authored
+      curves, as the starting battery's); a freezing battery cracks over about half a day (authored: 2 a hour on a 25-health tray).
+    - 100 Ah, the 10 A shore charger and the charging taper are authored.
     - It charges from what the alternator gives beyond the vehicle's own loads once the starting battery is nearly full (authored: from 90 %,
       fully from 98 %), which is how an isolator behaves. While both batteries charge together the same surplus is counted for each, a
-      simplification.
+      simplification (at most about a tenth more than the alternator gives, only while the starting battery is above 90 % and this one below 80 %).
     Charge is a fraction of the battery's capacity, so every flow below is amperes divided by ampere-hours: a fraction per hour.
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_HouseBattery</defName>
     <label>house battery</label>
-    <description>A second battery for the camp's fridge, power outlet and camp lights, charged while the engine runs once the starting battery is full, or from shore power. It never flattens the battery that starts the engine.</description>
-    <needsGrant>HouseBattery</needsGrant>
+    <description>A second, lead-acid battery for the camp's fridge, power outlet and camp lights, charged while the engine runs once the starting battery is full, or from shore power. It never flattens the battery that starts the engine, and stops the camp loads at half its charge to spare itself. Run down in deep cold, it freezes.</description>
+    <needsGrant>HouseBatteryLeadAcid</needsGrant>
     <roles>
       <li>HouseBatteryTray</li>
     </roles>
     <parameters>
       <houseAmpHours>100</houseAmpHours>
       <houseShoreChargeAmps>10</houseShoreChargeAmps>
+      <!-- Framework 0.333.0: the low-voltage cut-off, as a share of the charge (CompPhobosVehicleSystems.HouseCutoff). -->
+      <houseCutoff>0.5</houseCutoff>
     </parameters>
     <quantities>
       <li>
         <name>houseCharge</name>
         <label>house battery</label>
-        <description>What the house battery holds for the camp loads. It fills while the engine runs once the starting battery is full, or from shore power; below a tenth the camp loads stop.</description>
+        <description>What the house battery holds for the camp loads. It fills while the engine runs once the starting battery is full, or from shore power; below half the camp loads stop, to spare it.</description>
         <telltale>Phobos/VehicleSystems/Dash/Battery</telltale>
         <showOnDashboard>true</showOnDashboard>
         <unit>Fraction</unit>
@@ -39,7 +52,8 @@
         <startsAt>Full</startsAt>
         <stages>
           <li>
-            <to>0.2</to>
+            <!-- A warning a tenth before the cut-off (authored). -->
+            <to>0.6</to>
             <label>low</label>
             <notable>true</notable>
             <effects>
@@ -49,8 +63,58 @@
             </effects>
           </li>
           <li>
-            <from>0.2</from>
+            <from>0.6</from>
             <label>charged</label>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- Framework 0.333.0: a run-down battery in deep cold, 0 to 1. The product of the cold (1 at -40 degrees C, none above -10) and how
+             empty it is (1 flat, none from 60 %), behind the player's setting; it freezes where their product passes 0.05. At half charge
+             it starts to freeze near -19 degrees C, at a fifth near -12, flat near -11 (authored; the tables give about -24, -15 and
+             -8, so it errs a little early at half). -->
+        <name>houseFrost</name>
+        <description>How cold-soaked the run-down house battery is. A frozen one cracks.</description>
+        <telltale>Phobos/VehicleSystems/Dash/Frost</telltale>
+        <label>house battery frost</label>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Setting">
+            <setting>houseBatteryFreezes</setting>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Ambient">
+            <curve>
+              <points>
+                <li>(-40, 1)</li>
+                <li>(-10, 0)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>houseCharge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.6, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.05</from>
+            <label>freezing</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
+                <role>HouseBatteryTray</role>
+                <perHour>2</perHour>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgHouseBatteryFreezing</message>
+              </li>
+            </effects>
           </li>
         </stages>
       </li>

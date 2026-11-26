@@ -204,6 +204,7 @@
       <li><def>PhobosVehicleSystem_Driver</def></li>
       <!-- Framework 0.129.0: the house battery, which runs only once one is fitted (its system's needsGrant). -->
       <li><def>PhobosVehicleSystem_HouseBattery</def></li>
+      <li><def>PhobosVehicleSystem_HouseBatteryLithium</def></li>
     </systems>
     <partRoles>
       <li>
@@ -554,6 +555,7 @@
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_Driver</def></li>
       <li><def>PhobosVehicleSystem_HouseBattery</def></li>
+      <li><def>PhobosVehicleSystem_HouseBatteryLithium</def></li>
     </systems>
     <loads>
       <li>
@@ -825,6 +827,7 @@
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_Driver</def></li>
       <li><def>PhobosVehicleSystem_HouseBattery</def></li>
+      <li><def>PhobosVehicleSystem_HouseBatteryLithium</def></li>
     </systems>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
@@ -867,6 +870,7 @@
       <li><def>PhobosVehicleSystem_PowerSteering</def></li>
       <!-- Framework 0.129.0: the house battery, which runs only once one is fitted. -->
       <li><def>PhobosVehicleSystem_HouseBattery</def></li>
+      <li><def>PhobosVehicleSystem_HouseBatteryLithium</def></li>
     </systems>
     <partRoles>
       <li>

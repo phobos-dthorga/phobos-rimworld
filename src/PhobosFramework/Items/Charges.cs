@@ -54,6 +54,13 @@ public class CompPhobosCharges : ThingComp
     /// <summary>Sets the charge, for dev actions.</summary>
     public void DebugSet(float uses) => charge = System.Math.Max(0f, System.Math.Min(Props.uses, uses));
 
+    /// <summary>How full it is, nothing to whole (Framework 0.333.0: a house battery's charge, which travels with the battery between
+    /// vehicles). Props.uses of 100 makes the inspect line a percentage.</summary>
+    public float Share => Props.uses <= 0 ? 0f : Charge / Props.uses;
+
+    /// <summary>Sets how full it is, nothing to whole: what a fitting held when it was taken off.</summary>
+    public void SetShare(float share) => charge = Props.uses * System.Math.Max(0f, System.Math.Min(1f, share));
+
     public override void PostExposeData()
     {
         base.PostExposeData();

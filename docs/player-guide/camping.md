@@ -26,11 +26,19 @@ the kit back in the cargo.
 | Accessory | What it does | What it costs to run |
 | --- | --- | --- |
 | **12-volt fridge** (20 kg) | Keeps up to 30 kg of the cargo's food at 4 °C, choosing what would spoil first. It has its own switch | 0.2 to 1.5 A, more in the heat |
-| **House battery** (25 kg) | A second 100 Ah battery for the fridge, outlet and 12-volt camp lights, so they never flatten the battery that starts the engine. Below a tenth it cuts them off | Charges while driving once the starting battery is full, or on shore power |
+| **House battery** (25 kg, lead-acid) | A second 100 Ah battery for the fridge, outlet and 12-volt camp lights, so they never flatten the battery that starts the engine. At half its charge it cuts them off, to spare itself | Charges while driving once the starting battery is full, or on shore power |
+| **Lithium house battery** (12 kg, needs **microelectronics**) | The same job, but it gives nearly all its charge (it cuts off at a tenth) and never freezes | As the lead-acid one, but **it will not charge below 0 °C** |
 | **Power outlet** (4 kg) | Switched on while parked, the conduit beneath the vehicle powers lamps, a radio or a bench wired to it, up to 300 W (600 W on a 24 V truck) | What it gives, in amps: a 200 W radio is about 20 A on 12 V |
 
 - **Without a house battery, the fridge and outlet drain the starting battery with the engine off.** A fridge alone flattens a stock
   battery in under two days parked; the vehicle warns when the battery gets too weak to start.
+- **A house battery keeps its charge when taken off.** Its inspect line shows how full it is, and fitting it gives the vehicle that
+  charge, so you can swap a flat one for a charged spare. A fitting uses the fullest battery aboard.
+- **A 24-volt vehicle** (heavy trucks, the Humvee, the MaxxPro, trains) **takes two house batteries**, wired in series: twice the cost
+  and weight, and both come back when taken off. The fittings window says so.
+- **A run-down lead-acid house battery freezes in deep cold**, cracks and is lost: the emptier it is, the less cold it takes (below
+  about −10 °C when flat). You are warned when it starts; running the engine or moving somewhere warmer saves it. The setting
+  **Run-down house batteries freeze** (Vehicle Systems settings, Camps) switches this off.
 - **To run a camp longer, leave the engine idling**: the outlet keeps its conduit down and the alternator carries it, burning fuel.
 - **The outlet gives only what its devices ask**, and never fills a colony's batteries. Switched on, the vehicle draws nothing from
   that grid.

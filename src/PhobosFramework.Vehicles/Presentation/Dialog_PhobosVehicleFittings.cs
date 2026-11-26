@@ -467,7 +467,7 @@ public class Dialog_PhobosVehicleFittings : Window
             float work = 0f;
             foreach (VehicleFittings.FamilyStep step in model.Steps)
             {
-                foreach (ThingDefCountClass m in Fittings.MaterialsFor(step.Fitting.materials)) materials[m.thingDef] = (materials.TryGetValue(m.thingDef, out int had) ? had : 0) + m.count;
+                foreach (ThingDefCountClass m in Fittings.MaterialsFor(step.Fitting)) materials[m.thingDef] = (materials.TryGetValue(m.thingDef, out int had) ? had : 0) + m.count;
                 work += Fittings.WorkFor(step.Fitting.work);
             }
             tip += "\n" + Materials(materials.Select(kv => new ThingDefCountClass(kv.Key, kv.Value)));
@@ -517,12 +517,21 @@ public class Dialog_PhobosVehicleFittings : Window
     /// <summary>The word across a choice's foot while research holds it back (the owner's card of 25 Nov 2026: dimmed alone, it "looked normal").</summary>
     static string NeedsResearchMark => "PhobosVehicleSystems_MarkNeedsResearch".Translate();
 
+    /// <summary>Says when this vehicle takes several units in series (Framework 0.333.0: two 12-volt house batteries on 24-volt electrics).</summary>
+    string? UnitsNote(PhobosVehicleFittingDef def)
+    {
+        int units = Fittings.UnitsOf(def);
+        if (units <= 1) return null;
+        return "PhobosVehicleSystems_FitUnitsNote".Translate(units.Named("COUNT"), ((int)def.unitVolts).Named("UNIT"), ((int)(def.unitVolts * units)).Named("VOLTS")).Resolve();
+    }
+
     string FittingTip(PhobosVehicleFittingDef def, string? refusal)
     {
-        string tip = def.LabelCap + " (" + Materials(Fittings.MaterialsFor(def.materials)) + ")\n" + Hours(def.work) + "\n\n" + def.description;
+        string tip = def.LabelCap + " (" + Materials(Fittings.MaterialsFor(def)) + ")\n" + Hours(def.work) + "\n\n" + def.description;
         if (FittingText.Effects(def, VehicleSystemsMod.Settings.displayMode == DisplayMode.Plain) is { } effects) tip += "\n\n" + effects;
         if (def.minSkill > 0) tip += "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(def.minSkill.Named("SKILL")).CapitalizeFirst();
         if (def.matchedSet) tip += "\n\n" + (def.matchedPerAxle ? "PhobosVehicleSystems_FitAxleNote" : "PhobosVehicleSystems_FitSetNote").Translate(Fittings.SetSize(def).Named("COUNT")).Resolve();
+        if (UnitsNote(def) is { } units) tip += "\n\n" + units;
         if (refusal != null) tip += "\n\n" + refusal.Colorize(PhobosWidgets.Bad);
         return tip;
     }
@@ -580,10 +589,11 @@ public class Dialog_PhobosVehicleFittings : Window
         foreach (PhobosVehicleFittingDef def in Fittings.OptionsFor(part))
         {
             if (def == on) continue;
-            string label = def.LabelCap + " (" + Materials(Fittings.MaterialsFor(def.materials)) + ")";
+            string label = def.LabelCap + " (" + Materials(Fittings.MaterialsFor(def)) + ")";
             string tip = def.description + (FittingText.Effects(def, VehicleSystemsMod.Settings.displayMode == DisplayMode.Plain) is { } effects ? "\n\n" + effects : "")
                 + (def.minSkill > 0 ? "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(def.minSkill.Named("SKILL")).CapitalizeFirst() : "")
-                + (def.matchedSet ? "\n\n" + (def.matchedPerAxle ? "PhobosVehicleSystems_FitAxleNote" : "PhobosVehicleSystems_FitSetNote").Translate(Fittings.SetSize(def).Named("COUNT")).Resolve() : "");
+                + (def.matchedSet ? "\n\n" + (def.matchedPerAxle ? "PhobosVehicleSystems_FitAxleNote" : "PhobosVehicleSystems_FitSetNote").Translate(Fittings.SetSize(def).Named("COUNT")).Resolve() : "")
+                + (UnitsNote(def) is { } units ? "\n\n" + units : "");
             string? refusal = Fittings.Refusal(def, part);
             PhobosVehicleFittingDef captured = def;
             string text = refusal == null ? label : label + ": " + refusal;

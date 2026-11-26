@@ -134,6 +134,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A visitor's radio plays on past the starting battery's start line, so a vehicle can be found flat in the morning (Framework
     /// 0.289.0; the owner's card of 25 Nov 2026: guarded by default, the harsh way as a setting, off). Live.</summary>
     public bool visitorsFlattenBattery;
+    /// <summary>A lead-acid house battery left run down in deep cold freezes and cracks, and is lost with its tray (Framework 0.333.0; the owner's
+    /// card of 27 Nov 2026, "lead-acid, honest"). A slow loss with a warning, so on by default (shared rules, designs.md). Live.</summary>
+    public bool houseBatteryFreezes = true;
     /// <summary>Another mod's air defence sees our aircraft in flight on the world map and may shoot at them (Framework 0.119.0, AD3; owner,
     /// 13 Nov 2026). Shown only while The Dead Man's Switch - Expedition is active. Live.</summary>
     public bool airDefenceSeesAircraft = true;
@@ -363,6 +366,7 @@ public class VehicleSystemsSettings : ModSettings
         "hotboxing" => hotboxing,
         "parkedVehicleUse" => parkedVehicleUse,
         "visitorsFlattenBattery" => visitorsFlattenBattery,
+        "houseBatteryFreezes" => houseBatteryFreezes,
         "lowOilCallsService" => lowOilCallsService,
         "turboFailureDamagesEngine" => turboFailureDamagesEngine,
         "accessoriesLoadEngine" => accessoriesLoadEngine,
@@ -458,6 +462,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref hotboxing, "PhobosVehicleSystems_Hotboxing", true);
         Scribe_Values.Look(ref parkedVehicleUse, "PhobosVehicleSystems_ParkedVehicleUse", true);
         Scribe_Values.Look(ref visitorsFlattenBattery, "PhobosVehicleSystems_VisitorsFlattenBattery", false);
+        Scribe_Values.Look(ref houseBatteryFreezes, "PhobosVehicleSystems_HouseBatteryFreezes", true);
         Scribe_Values.Look(ref airDefenceSeesAircraft, "PhobosVehicleSystems_AirDefenceSeesAircraft", true);
         Scribe_Values.Look(ref lowOilCallsService, "PhobosVehicleSystems_LowOilCallsService", true);
         Scribe_Values.Look(ref turboFailureDamagesEngine, "PhobosVehicleSystems_TurboFailureDamagesEngine", true);
@@ -597,6 +602,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (Settings.boilerExplosions) report.On("boiler explosions (setting)");
         if (Settings.realisticFeedWater) report.On("realistic feed water (setting)");
         if (Settings.nightHeater) report.On("night heater at camp (setting)");
+        if (!Settings.houseBatteryFreezes) report.Off("a run-down lead-acid house battery freezing in deep cold", "off (setting)");
         if (!Settings.lowOilCallsService) report.Off("low oil calling a service", "off (setting)");
         if (!Settings.turboFailureDamagesEngine) report.Off("a failing turbocharger damaging its engine", "off (setting)");
         if (!Settings.accessoriesLoadEngine) report.Off("accessories loading the engine", "off (setting)");
@@ -907,6 +913,7 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingVisitorsFlattenBattery".Translate(), ref s.visitorsFlattenBattery, d.visitorsFlattenBattery, "PhobosVehicleSystems_SettingVisitorsFlattenBatteryDesc".Translate());
         list.Section("PhobosVehicleSettings_SectionCamps".Translate());
         list.Check("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, d.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingHouseBatteryFreezes".Translate(), ref s.houseBatteryFreezes, d.houseBatteryFreezes, "PhobosVehicleSystems_SettingHouseBatteryFreezesDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingCaravanCooking".Translate(), ref s.caravanCooking, d.caravanCooking, "PhobosVehicleSystems_SettingCaravanCookingDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingTrailerWasteDump".Translate(), ref s.trailerWasteDump, d.trailerWasteDump, "PhobosVehicleSystems_SettingTrailerWasteDumpDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingDriveThroughNight".Translate(), ref s.driveThroughNight, d.driveThroughNight, "PhobosVehicleSystems_SettingDriveThroughNightDesc".Translate());

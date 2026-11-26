@@ -1,0 +1,25 @@
+[
+  {
+    "name": "item-house-battery-lithium",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/HouseBattery.png",
+        "role": "our approved lead-acid house battery, the same family: match its outline weight, shading, palette and finish only; do not copy its shape, its strap or its colour"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicleSystems_HouseBatteryLithiumUnit, the lithium house battery kit (Framework 0.333.0); also the lithium house battery fitting's icon",
+      "size": "drawn by the game on one cell at drawSize 0.8; requested at 1024",
+      "this_request": "the house battery round (owner's cards of 27 Nov 2026, 'both, as two fittings'), two attempts, the owner picking one card"
+    },
+    "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga lithium house battery: a modern lithium battery for a camping vehicle, with its isolator. Image 1 is our approved lead-acid house battery from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape, its carry strap or its dark grey colour.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 70 percent of the canvas. Square canvas.\n\nA slimmer, smaller battery box than a lead-acid one, with crisp squared edges, its case a pale blue-grey with a darker blue band around its middle, two neat recessed terminals on its top (one capped red, one capped black), a small raised panel on the top for its management board with a row of tiny cooling slots, and a small pale isolator box with two short cables clipped to its side.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, plus or minus signs, logos, brand marks, dials, screens, lights, sparks or shadow beyond the object."
+  }
+]
