@@ -192,6 +192,81 @@
       },
       "row": "67",
       "why": "As for the Cherokee: the Harrier's stock tank is 250. The Harrier saves its own vehicle class, so it is chosen by its def: a class select of Vehicles.VehiclePawn never reaches it."
+    },
+    {
+      "id": "heavy-controls-flight-control",
+      "title": "Heavy controls halve an aircraft's flight control, or cut it to 0.7 with manual reversion",
+      "source": "save",
+      "select": {
+        "class": "*VehiclePawn"
+      },
+      "read": {
+        "hydraulics": "PhobosVehicleSystems_History_PhobosVehicleSystem_FlightHydraulics_flightHydraulics",
+        "control": "PhobosVehicleSystems_History_PhobosVehicleSystem_FlightControls_flightControl",
+        "kind": "def"
+      },
+      "when": "count(samples(hydraulics, 0, 1)) >= 10 and last(samples(hydraulics, 0, 1)) < 0.4 and max(samples(hydraulics, 0, 1)) >= 0.7",
+      "note": {
+        "key": "check.vehicle.heavy-controls",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "share": "round(last(samples(control, 0, 1)) / max(samples(control, 0, 1)), 3)"
+        },
+        "variant": "{'manual reversion' if kind == 'Warthog_Jet' or kind == 'Frogfoot_Jet' else 'powered'}",
+        "detail": "flight control {round(last(samples(control, 0, 1)), 3)} of its day's best {round(max(samples(control, 0, 1)), 3)}, hydraulics {round(last(samples(hydraulics, 0, 1)), 3)}"
+      },
+      "row": "101",
+      "why": "Figures for row 101, from the saved graph histories (kit 1.130.0; test automation round two). Below 0.4 flight hydraulics the controls are heavy and FlightControl is multiplied by 0.5, or by 0.7 where the loadout has manual reversion (Systems_Avionics.xml; the A-10's and Su-25's loadouts). Read only when the hydraulics were sound (0.7 or more) earlier in the saved day, so the day's best flight control is the sound one; a part damaged in between muddies the share. flightControl is derived, so only its history holds it. Ranges 0..1 from Systems_FlightControls.xml and Systems_Avionics.xml."
+    },
+    {
+      "id": "camp-night-heater-coolant",
+      "title": "A camped vehicle's night heater keeps its coolant warm",
+      "source": "save",
+      "select": {
+        "class": "*VehiclePawn",
+        "place": "world object"
+      },
+      "read": {
+        "heater": "PhobosVehicleSystems_Loads[nightHeater]",
+        "coolant": "PhobosVehicleSystems_History_PhobosVehicleSystem_Cooling_coolantTemperature",
+        "pack": "PhobosVehicleSystems_History_PhobosVehicleSystem_TractionBattery_packTemperature"
+      },
+      "when": "heater == True and pack == None and count(samples(coolant, -60, 200)) >= 40",
+      "note": {
+        "key": "check.vehicle.camp-coolant",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "coolant": "round(last(samples(coolant, -60, 200)), 1)",
+          "lowest4h": "round(min(tail(samples(coolant, -60, 200), 40)), 1)"
+        }
+      },
+      "row": "27",
+      "why": "Figures for row 27, from the saved graph histories (kit 1.130.0). The night heater runs only at a caravan's camp (or for a bunk sleeper), pulling the coolant toward engineHeaterTarget 40 C, full below 35 (Systems_Cooling.xml), where a truck camped without it sits at the air's temperature. A vehicle in a caravan is a world object in the save, and only the player switches loads, so a world-object vehicle with its night heater on is the player's caravan. Read the save made at camp: a caravan on the move runs its engine hot. Range -60..200 from Systems_Cooling.xml."
+    },
+    {
+      "id": "camp-electric-night-heater",
+      "title": "An electric vehicle's night heater costs about a fifth of its charge over ten hours, and holds the pack near 15 C",
+      "source": "save",
+      "select": {
+        "class": "*VehiclePawn",
+        "place": "world object"
+      },
+      "read": {
+        "heater": "PhobosVehicleSystems_Loads[nightHeater]",
+        "charge": "PhobosVehicleSystems_History_PhobosVehicleSystem_Electrical_charge",
+        "pack": "PhobosVehicleSystems_History_PhobosVehicleSystem_TractionBattery_packTemperature"
+      },
+      "when": "heater == True and pack != None and count(samples(charge, 0, 1)) >= 100 and max(diffs(tail(samples(charge, 0, 1), 100))) <= 0.0005",
+      "note": {
+        "key": "check.vehicle.camp-electric",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "fall10h": "round(first(tail(samples(charge, 0, 1), 100)) - last(samples(charge, 0, 1)), 3)",
+          "pack": "round(last(samples(pack, -60, 200)), 1)"
+        }
+      },
+      "row": "71",
+      "why": "Figures for row 71, from the saved graph histories (kit 1.130.0). nightHeaterShare is 0.02 of the charge an hour, about a fifth over ten hours, and nightHeaterPackTarget 15 C (Systems_Electric.xml). Read only when the charge never rose over the last ten hours (no charging in between) and the vehicle is a world object with its night heater on: the player's caravan. Ranges: charge 0..1 (Systems_Electrical.xml), pack -60..200 (Systems_Electric.xml)."
     }
   ]
 }

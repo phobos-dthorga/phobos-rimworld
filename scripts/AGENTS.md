@@ -67,8 +67,9 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
   vehicle's event log or logbook, never a `Seen.Note`; its version comes from Framework's version ledger (0.287.0).
 - **A figure a save holds is evidence through a save check's `note`** (owner's choice, 26 Nov 2026; kit 1.129.0): a key under
   `check.` is the kit's, one note per thing per save, judged by the row's `expect`. Give the rule `row`, map the key in the same
-  change, and add a `fault` for what the design says is impossible. Choose jets by `def`: they save their own vehicle class. Vehicle
-  Framework saves its own parts by place (`statHandler/components/li[N]`), so say in `why` which part and as of when. D'thorga
+  change, and add a `fault` for what the design says is impossible. Select `{"class": "*VehiclePawn"}`, or a `def`: jets save their own vehicle class. Vehicle
+  Framework saves its own parts by place (`statHandler/components/li[N]`), so say in `why` which part and as of when. **A graph
+  history is read with `samples(path, min, max)`** (kit 1.130.0): take the range from the quantity's Def and name it in `why`. D'thorga
   Companion 0.101.0 runs the save checks by itself on the newest save: **a finding on Home is not the owner's error to explain**.
 - Read the owner's `Player.log` before assuming a reported fault is the owner's error, and **start with
   `python scripts/triage-log.py`**. Open the raw log only for what the summary cannot answer.

@@ -2,8 +2,9 @@
 
 **Round two (26 Nov 2026):** at the owner's word ("Let's do #1 through #3", then "Don't forget to write it up as well, especially in
 the Companion's own guide"): figures from saves as evidence (kit 1.129.0, three rules for rows 9 and 67), and the save checks run by
-themselves in D'thorga Companion (0.101.0). The first live check on the owner's game waits for their save and "go". See
-[Round two](#round-two-26-nov-2026).
+themselves in D'thorga Companion (0.101.0). Then, on their go-ahead ("build the graph history decoding too"), figures from the saved
+graph histories (kit 1.130.0, three rules for rows 27, 71 and 101). The first live check on the owner's game waits for their save and
+"go". See [Round two](#round-two-26-nov-2026).
 
 **Status (26 Nov 2026):** At the owner's word ("let's do #1 through #3, and I especially want to do #4", then "Document everything
 though"). Built: save checks (phobos-modkit 1.119.0), live checks (1.120.0), saved histories (1.121.0), the version ledger
@@ -242,12 +243,41 @@ the range (a half-empty tank, a damaged part) simply does not count, rather than
 - **HID_JLTV20213714 has had coolant level 0 for the whole saved day, its coolant temperature holding at 27 to 31 C in -15 C air.**
   Possibly holed in battle and nothing to cool, or a quantity that stops moving when empty. Not investigated.
 
+### Figures from the graph histories (kit 1.130.0)
+
+Every vehicle saves its last day of each quantity it shows, `PhobosVehicleSystems_History_<system>_<quantity>`: 240 samples, one each
+tenth of an hour, base64 16-bit values scaled over the quantity's range (`QuantityHistory.cs`, `HistoryCodec`). The kit's `samples(text,
+low, high)` reads them, and `first`, `last`, `at`, `tail`, `diffs` and `mean` take a level, a rate or a step. **The range in a rule
+comes from the quantity's Def**: a wrong one gives wrong figures with no error. Derived quantities (flight control, crew oxygen) are in
+the histories only.
+
+| Rule | Row | Figure and expectation | When it reads | Design source |
+| --- | --- | --- | --- | --- |
+| `heavy-controls-flight-control` | 101 | `share`: flight control now over the day's best; `0.45..0.55` powered, `0.65..0.75` with manual reversion (A-10, Su-25) | Hydraulics below 0.4 now, sound (0.7 or more) earlier that day | Systems_Avionics.xml: FlightControl x 0.5, or 0.7 with manualReversion |
+| `camp-night-heater-coolant` | 27 | `coolant` at the save `20..45`, and the lowest of the last 4 hours | A caravan's vehicle (a world object) with its night heater on, not electric | Systems_Cooling.xml: toward engineHeaterTarget 40, full below 35 |
+| `camp-electric-night-heater` | 71 | `fall10h`: charge lost over ten hours `0.12..0.28`; `pack` at the save `10..20` | The same, electric, with no charging in the last ten hours | Systems_Electric.xml: nightHeaterShare 0.02 an hour, pack target 15 |
+
+**How the owner gets these figures:** save while the caravan is still camped (rows 27 and 71), and while the aircraft's hydraulics are
+low (row 101). A save made later, with the caravan moving or the fluid topped up, simply does not count. **None applies in PG23**: no
+caravan was camped and no aircraft had heavy controls. Every rule was run over it without error.
+
+**Agent choices, owner to revise:** a caravan is told by its place in the save (a world object) and the night heater switched on, since
+only the player switches loads; the day's best flight control stands for the sound one; the ranges of each expectation.
+
+**Found on the way, not investigated:**
+
+- **Two other factions' vehicles on the world map, a VVE_Tango (22725564) and a VVE_Highwayman (22726608), hold coolant at 200 C
+  and cab at 80 C, the top of each scale, for the whole of the last ten hours.** Possibly a vehicle off any map whose temperatures
+  run away with no air to cool them. Other factions' vehicles keep no event log, so nothing else shows it.
+- **Some vehicles new to the world hold one or two samples**, a few dropping from full charge to nothing in one step: a rule on a
+  history narrows by `count(samples(...))`.
+- **The HEMTT (21684925), on the map with its night heater switched on, lost 0.215 of its charge over ten hours with no charging**,
+  its coolant at the air's temperature (as designed: the heater runs only at camp). Something else drew it down; a lead only.
+
 ### Next, if wanted
 
-- **The saved graph histories are the biggest store of figures.** Every vehicle keeps 24 hours of samples for each quantity it shows
-  (base64, 16-bit, scaled over the quantity's range), derived ones included. A kit function to decode them (`history(path, min,
-  max)`, with `last` or `at`) would let figure rules cover rows 27, 28 (and its missing oil-burn note), 29, 30, 34, 71, 92, 101, 144
-  and 396.
+- **More history rules**: rows 28 (oil burn, with engine hours from `Service_engineHours`), 29, 30, 34, 92 (an EMP's single drop:
+  `min(diffs(charge))`), 144 and 396. Each needs a condition a save can show; the agent's reading has the figures.
 - **Figures on notes we already write**: a `share` on `vehicles.part-replaced` and `part-replaced-at-rig` (rows 1 and 36: 0.25 and
   0.6), a `factor` on `vehicles.grade-done` (row 9, any part); row 509's per-wheel brake wear is saved and readable.
 - **Live figure notes**: a snapshot is not kept and needs the running game's own ledger for a version; the kit refuses a `note` on
