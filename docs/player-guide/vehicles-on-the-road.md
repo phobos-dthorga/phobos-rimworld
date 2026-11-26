@@ -92,6 +92,8 @@ and life on the road](camping.md). [Back to the guide](README.md).
   pipeline for it under the stop, or a tank or vehicle beside it set to **Load** the same. It sets up, empties every compartment, packs
   up and drives on. If nothing takes the load, it says so and keeps pumping until its hour is up. A tanker **trailer** still needs
   colonists.
+- **A tanker fills itself at the pick-up**, from the pipe under the stop or a tank beside it set to give, into compartments you have
+  **set to a contents**. Full, or its source dry, it drives on.
 - **If the leader is lost**, the follower does what you chose for a lost link: hold, come back or carry on. A letter tells you.
 - **The fleet board** lists followers under their leader, and its pane can add a follower, leave the convoy or break it up.
 - A setting, "Vehicles follow a leader and run loops by themselves", turns it all off.

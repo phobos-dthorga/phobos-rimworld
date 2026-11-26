@@ -81,7 +81,7 @@ public enum LoopStopWork
     Unloading,
     /// <summary>Lifting its load with the grab.</summary>
     Gathering,
-    /// <summary>A tanker pumping its load out (Framework 0.303.0).</summary>
+    /// <summary>A tanker pumping its load out at the drop-off (Framework 0.303.0), or in at the pick-up (0.305.0).</summary>
     Pumping,
     /// <summary>Its own work is over, done or not: it leaves, or waits out the stop's time.</summary>
     Done,
@@ -175,8 +175,10 @@ public sealed class CompPhobosRoute : VehicleComp
     int backUpTries;
     /// <summary>Whether a worker's test has been handed back since a load: it is not saved, and the worker does nothing until it has it.</summary>
     bool workResumed;
-    /// <summary>Whether it set its tank pumping out at this stop (Framework 0.303.0), so it stops the pump and packs up on leaving. Saved.</summary>
+    /// <summary>Whether it set its tank pumping at this stop (Framework 0.303.0), so it stops the pump and packs up on leaving. Saved.</summary>
     bool pumped;
+    /// <summary>Whether that pumping is filling it at the pick-up (Framework 0.305.0) rather than emptying it at the drop-off. Saved.</summary>
+    bool pumpLoading;
     /// <summary>When its tank's load last fell, and to what; never saved: worked out again from the next look.</summary>
     int pumpProgressTick = -1;
     float pumpLastLoad = -1f;
@@ -447,7 +449,7 @@ public sealed class CompPhobosRoute : VehicleComp
             if (Tank is { HasLoad: true } tank)
             {
                 if (!Ready()) return;
-                StartPumping(tank);
+                StartPumping(tank, loading: false);
                 return;
             }
             if (Unloader is not { CanUnloadAtAll: true } unloader || Vehicle.inventory.innerContainer.Count == 0)
@@ -472,6 +474,13 @@ public sealed class CompPhobosRoute : VehicleComp
                 }
             }
             StartUnloading(unloader);
+            return;
+        }
+        // A tanker with room fills itself where it stands (Framework 0.305.0): from what its pump reaches there, as when set loading by hand.
+        if (Tank is { } filler && HasRoom(filler))
+        {
+            if (!Ready()) return;
+            StartPumping(filler, loading: true);
             return;
         }
         if (Grab is not { CanGatherAtAll: true } grab || Vehicle.GetComp<CompPhobosGatherRun>() is not { } run)
@@ -541,14 +550,15 @@ public sealed class CompPhobosRoute : VehicleComp
             MessageTypeDefOf.CautionInput, false);
     }
 
-    // ---- A tanker pumping out at the drop-off (Framework 0.303.0; the owner's word of 26 Nov 2026) ----
+    // ---- A tanker pumping at its stops: out at the drop-off (Framework 0.303.0), in at the pick-up (0.305.0); the owner's word, 26 Nov 2026 ----
 
     /// <summary>
-    /// Sets the tank up where it stands and its pump to pumping out, quietly: its inspect line says what it does. It pumps into whatever its
-    /// pump reaches there, as it would set pumping by hand (plumbing, a tank or a vehicle taking the same beside it). Unable to set up (the
-    /// pump damaged, the load frozen in), it says why once and waits out the stop's time for colonists.
+    /// Sets the tank up where it stands and its pump going, quietly: its inspect line says what it does. It pumps out into, or in from, whatever
+    /// its pump reaches there, as it would set going by hand (plumbing or a pipeline under it, a tank or vehicle beside it set the other way).
+    /// It fills only compartments already set to a contents, with that contents. Unable to set up (the pump damaged, the load frozen in), it
+    /// says why once and waits out the stop's time for colonists.
     /// </summary>
-    void StartPumping(CompPhobosTank tank)
+    void StartPumping(CompPhobosTank tank, bool loading)
     {
         workedItself = true;
         if (!tank.PumpReady)
@@ -567,21 +577,24 @@ public sealed class CompPhobosRoute : VehicleComp
                 return;
             }
         }
-        if (!SelectedHasLoad(tank)) NextLoadedCompartment(tank);
-        tank.SetMode(TankPumpMode.Unload, quietly: true);
+        pumpLoading = loading;
+        if (!SelectedWants(tank)) NextWantedCompartment(tank);
+        tank.SetMode(loading ? TankPumpMode.Load : TankPumpMode.Unload, quietly: true);
         pumped = true;
         stopWork = LoopStopWork.Pumping;
         pumpProgressTick = Find.TickManager.TicksGame;
         pumpLastLoad = LoadOf(tank);
         pumpIdleTries = 0;
         pumpIdleTold = false;
-        if (Seen.Wants("vehicles.route-pump", Vehicle, "started")) Seen.Note("vehicles.route-pump", Vehicle, Vehicle.LabelShort, "started");
+        string variant = loading ? "filling" : "started";
+        if (Seen.Wants("vehicles.route-pump", Vehicle, variant)) Seen.Note("vehicles.route-pump", Vehicle, Vehicle.LabelShort, variant);
     }
 
     /// <summary>
-    /// One look while it pumps: emptied, it leaves; a compartment emptied, or one whose load nothing there takes for a while (RouteRule.PumpIdle),
-    /// and it turns to the next with a load. Once every loaded one has stood idle the player is told why once, and it keeps pumping until the
-    /// stop's time is up, in case room is made [A].
+    /// One look while it pumps. Emptied at the drop-off, or full at the pick-up, it leaves. A compartment done with, or one whose pump moves
+    /// nothing for a while (RouteRule.PumpIdle), and it turns to the next it still wants. Once every one has stood idle: at the pick-up with
+    /// something taken on, it leaves with what it has [A]; otherwise the player is told why once, and it keeps pumping until the stop's time is
+    /// up, in case room is made or more comes [A].
     /// </summary>
     void PumpingStep()
     {
@@ -590,54 +603,75 @@ public sealed class CompPhobosRoute : VehicleComp
             stopWork = LoopStopWork.Done;
             return;
         }
-        if (!tank.HasLoad)
+        float load = LoadOf(tank);
+        if (pumpLoading && load > pumpLastLoad + 0.01f) loadedAny = true;
+        if (!pumpLoading && !tank.HasLoad || pumpLoading && !HasRoom(tank))
         {
-            emptied = true;
+            emptied = !pumpLoading;
+            if (pumpLoading) loadedAny = true;
             stopWork = LoopStopWork.Done;
-            if (Seen.Wants("vehicles.route-pump", Vehicle, "emptied")) Seen.Note("vehicles.route-pump", Vehicle, Vehicle.LabelShort, "emptied");
+            string variant = pumpLoading ? "filled" : "emptied";
+            if (Seen.Wants("vehicles.route-pump", Vehicle, variant)) Seen.Note("vehicles.route-pump", Vehicle, Vehicle.LabelShort, variant);
             return;
         }
-        // Set back to hold or packed away by a player's hand: the pumping is theirs now.
-        if (tank.Mode != TankPumpMode.Unload || !tank.PumpReady)
+        // Set to another mode or packed away by a player's hand: the pumping is theirs now.
+        if (tank.Mode != (pumpLoading ? TankPumpMode.Load : TankPumpMode.Unload) || !tank.PumpReady)
         {
             stopWork = LoopStopWork.Done;
             return;
         }
         int now = Find.TickManager.TicksGame;
-        float load = LoadOf(tank);
-        if (load < pumpLastLoad - 0.01f)
+        if (pumpLoading ? load > pumpLastLoad + 0.01f : load < pumpLastLoad - 0.01f)
         {
             pumpLastLoad = load;
             pumpProgressTick = now;
             pumpIdleTries = 0;
             return;
         }
-        bool selectedEmpty = !SelectedHasLoad(tank);
-        if (!selectedEmpty && !RouteRule.PumpIdle(now - pumpProgressTick, Rules.loopPumpIdleTicks)) return;
-        if (!selectedEmpty) pumpIdleTries++;
-        if (pumpIdleTries >= tank.Compartments.Count(c => c.HasLoad) && !pumpIdleTold)
+        bool selectedDone = !SelectedWants(tank);
+        if (!selectedDone && !RouteRule.PumpIdle(now - pumpProgressTick, Rules.loopPumpIdleTicks)) return;
+        if (!selectedDone) pumpIdleTries++;
+        if (pumpIdleTries >= tank.Compartments.Count(c => Wants(tank, c)))
         {
-            pumpIdleTold = true;
-            string why = tank.PumpStatus ?? "PhobosRoute_PumpNothingTakes".Translate().Resolve();
-            Messages.Message("PhobosRoute_PumpNotEmptied".Translate(Vehicle.LabelShort.Named("VEHICLE"), why.Named("REASON")), Vehicle,
-                MessageTypeDefOf.CautionInput, false);
+            // Filled part way and the source has run dry: it carries what it has.
+            if (pumpLoading && loadedAny)
+            {
+                stopWork = LoopStopWork.Done;
+                if (Seen.Wants("vehicles.route-pump", Vehicle, "filled")) Seen.Note("vehicles.route-pump", Vehicle, Vehicle.LabelShort, "filled");
+                return;
+            }
+            if (!pumpIdleTold)
+            {
+                pumpIdleTold = true;
+                string why = tank.PumpStatus ?? (pumpLoading ? "PhobosRoute_PumpNothingGives" : "PhobosRoute_PumpNothingTakes").Translate().Resolve();
+                Messages.Message((pumpLoading ? "PhobosRoute_PumpNotFilled" : "PhobosRoute_PumpNotEmptied").Translate(Vehicle.LabelShort.Named("VEHICLE"), why.Named("REASON")),
+                    Vehicle, MessageTypeDefOf.CautionInput, false);
+            }
         }
-        NextLoadedCompartment(tank);
+        NextWantedCompartment(tank);
         pumpLastLoad = LoadOf(tank);
         pumpProgressTick = now;
     }
 
     static float LoadOf(CompPhobosTank tank) => tank.Compartments.Sum(c => c.amount);
 
-    static bool SelectedHasLoad(CompPhobosTank tank) => tank.Compartments[tank.SelectedIndex].HasLoad;
+    /// <summary>A compartment set to a contents with room for more of it, while the shell holds a load.</summary>
+    static bool Room(CompPhobosTank tank, TankCompartment c) => c.contents != null && c.amount < tank.CompartmentCapacity - 0.5f && tank.ShellTakesLoad;
 
-    /// <summary>Moves the pump on to the next compartment with a load, if any other has one.</summary>
-    static void NextLoadedCompartment(CompPhobosTank tank)
+    static bool HasRoom(CompPhobosTank tank) => tank.Compartments.Any(c => Room(tank, c));
+
+    /// <summary>Whether the pump still has work in this compartment: a load to give at the drop-off, room to fill at the pick-up.</summary>
+    bool Wants(CompPhobosTank tank, TankCompartment c) => pumpLoading ? Room(tank, c) : c.HasLoad;
+
+    bool SelectedWants(CompPhobosTank tank) => Wants(tank, tank.Compartments[tank.SelectedIndex]);
+
+    /// <summary>Moves the pump on to the next compartment it still has work in, if any other.</summary>
+    void NextWantedCompartment(CompPhobosTank tank)
     {
         for (int i = 0; i < tank.Compartments.Count; i++)
         {
             tank.SelectNextCompartment(quietly: true);
-            if (SelectedHasLoad(tank)) return;
+            if (SelectedWants(tank)) return;
         }
     }
 
@@ -665,6 +699,7 @@ public sealed class CompPhobosRoute : VehicleComp
             if (tank.Deployed) tank.SetDeployed(false, quietly: true);
         }
         pumped = false;
+        pumpLoading = false;
         pumpProgressTick = -1;
         pumpLastLoad = -1f;
         pumpIdleTries = 0;
@@ -831,7 +866,7 @@ public sealed class CompPhobosRoute : VehicleComp
         if (stopWork == LoopStopWork.BackingUp) return "PhobosRoute_InspectBackingUp".Translate();
         if (stopWork == LoopStopWork.Unloading) return "PhobosRoute_InspectTipping".Translate();
         if (stopWork == LoopStopWork.Gathering) return "PhobosRoute_InspectLifting".Translate();
-        if (stopWork == LoopStopWork.Pumping) return "PhobosRoute_InspectPumping".Translate();
+        if (stopWork == LoopStopWork.Pumping) return pumpLoading ? "PhobosRoute_InspectFilling".Translate() : "PhobosRoute_InspectPumping".Translate();
         if (dwellUntil >= 0)
         {
             var left = Mathf.Max(0, dwellUntil - Find.TickManager.TicksGame);
@@ -890,6 +925,7 @@ public sealed class CompPhobosRoute : VehicleComp
         Scribe_Values.Look(ref backUpCell, "PhobosRoute_BackUpCell", IntVec3.Invalid);
         Scribe_Values.Look(ref backUpFacing, "PhobosRoute_BackUpFacing", -1);
         Scribe_Values.Look(ref pumped, "PhobosRoute_Pumped");
+        Scribe_Values.Look(ref pumpLoading, "PhobosRoute_PumpLoading");
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             points ??= new List<IntVec3>();

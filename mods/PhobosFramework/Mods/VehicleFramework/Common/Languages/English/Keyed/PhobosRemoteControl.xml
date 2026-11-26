@@ -89,7 +89,10 @@
   <PhobosRoute_InspectTipping>Running its loop: tipping its load at the drop-off.</PhobosRoute_InspectTipping>
   <PhobosRoute_InspectLifting>Running its loop: lifting its load at the pick-up with its grab.</PhobosRoute_InspectLifting>
   <PhobosRoute_InspectPumping>Running its loop: pumping its load out at the drop-off.</PhobosRoute_InspectPumping>
-  <PhobosRoute_PumpNotSetUp>{VEHICLE} could not set up to pump out its load at the drop-off. {REASON} It waits there for colonists, then drives on.</PhobosRoute_PumpNotSetUp>
+  <PhobosRoute_InspectFilling>Running its loop: filling its tank at the pick-up.</PhobosRoute_InspectFilling>
+  <PhobosRoute_PumpNotSetUp>{VEHICLE} could not set up its pump at the stop. {REASON} It waits there for colonists, then drives on.</PhobosRoute_PumpNotSetUp>
+  <PhobosRoute_PumpNotFilled>{VEHICLE} could not fill its tank at the pick-up. {REASON} Its pump keeps running there in case some comes, then it drives on.</PhobosRoute_PumpNotFilled>
+  <PhobosRoute_PumpNothingGives>Nothing within reach of its hose gives what its tank is set to carry: no pipe, tank or vehicle with it, or all are empty.</PhobosRoute_PumpNothingGives>
   <PhobosRoute_PumpNotEmptied>{VEHICLE} could not pump out all of its load at the drop-off. {REASON} Its pump keeps running there in case room is made, then it drives on.</PhobosRoute_PumpNotEmptied>
   <PhobosRoute_PumpNothingTakes>Nothing within reach of its hose takes the load: no pipe, tank or vehicle for it, or all are full.</PhobosRoute_PumpNothingTakes>
   <PhobosRoute_StopNotEmptied>{VEHICLE} could not tip all of its load at the drop-off. {REASON} It waits there for colonists, then drives on.</PhobosRoute_StopNotEmptied>

@@ -13,6 +13,19 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.305.0] - 2026-11-26 - Draft
+
+A loop tanker fills up at the pick-up
+
+### Added
+
+- **A tanker fills itself at a loop's pick-up** (the owner's go of 26 November 2026). It sets up where it stands and pumps in from
+  whatever its hose reaches there, as when you set it loading by hand: the pipe or pipeline under it, or a tank or vehicle beside it set
+  to give the same. It fills only compartments already set to a contents. Full, it packs up and drives on at once; if what it draws from
+  runs dry part way, it drives on with what it has.
+- If nothing gives it anything, it says so once and keeps its pump running until its hour at the stop is up, then drives on. With the
+  drop-off of 0.303.0, a tanker can now run a loop on its own from a well or tank to a tower. Not yet tested in game: row 548.
+
 ## [0.303.2] - 2026-11-26 - Draft
 
 Builders bringing upgrade materials can be seen in play

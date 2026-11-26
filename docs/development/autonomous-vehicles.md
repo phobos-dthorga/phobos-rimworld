@@ -376,8 +376,15 @@ Built 25 Nov 2026, not yet tested in game, on the owner's go ("You may proceed")
   Its set-up, pump and compartment orders are quiet (`quietly`), so a tanker on a loop puts up no messages at each stop; its inspect
   line says it is pumping. Saved: whether it set its pump going; the rest is worked out again. Cost: one look a second while at the
   stop, a sum over its compartments; the pumping itself is the tank's own rare tick, as by hand.
-- **Still open:** tankers filling themselves at the pick-up (not asked yet), helicopter rounds (their own step), and the buttons' own
-  pictures (borrowed until drawn).
+- **Tankers filling at the pick-up (Framework 0.305.0) [code: `Remote/Route.cs`]:** the owner's go of 26 Nov 2026 ("You may proceed
+  with all of these"), the mirror of the drop-off: a vehicle whose own tank has room in a compartment **already set to a contents** sets
+  up and pumps in from whatever its pump reaches (a port's plumbing or pipeline, a tank beside it set to give the same) [A]. It never
+  chooses a contents for itself [A]: an empty tank set to nothing waits for colonists. **Full, it leaves at once**, as the grab does once
+  loaded [O, the cards above]; **if its source runs dry part way it leaves with what it has** [A, as the grab leaves with any load];
+  with nothing taken on at all it says why once and keeps pumping its hour. The tank comes before the grab. Saved: which way it pumps.
+  Cost: as at the drop-off.
+- **Still open:** helicopter rounds (their own step), and the buttons' own pictures (queued for the night run, the owner's card of 26
+  Nov 2026).
 
 ### Step 7b: the mechanitor level (Framework 0.282.0)
 

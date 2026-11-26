@@ -33,6 +33,8 @@
       "it leaves on its hitch": ["trailers.caravan-leaves-on-hitch"],
       "an unhitched trailer something else sends stays": ["trailers.caravan-left-unhitched"]}},
     "546": {"parts": {"a uca, which cannot haul, brings an upgrade's materials": [{"key": "vehicles.builders-bring-materials", "variant": "non-hauler"}]}},
+    "548": {"parts": {"a loop tanker starts filling at the pick-up": [{"key": "vehicles.route-pump", "variant": "filling"}],
+      "and drives on once full": [{"key": "vehicles.route-pump", "variant": "filled"}]}},
     "545": {"parts": {"a loop tanker starts pumping out at the drop-off": [{"key": "vehicles.route-pump", "variant": "started"}],
       "and drives on once empty": [{"key": "vehicles.route-pump", "variant": "emptied"}]}},
     "539": {"parts": {"a turbine's compressor gets dirty": [{"key": "saved.vehicle-stage.compressorFouling", "variant": "0"}], "a mechanic washes it": ["saved.vehicle-service.PhobosVehicleSystem_CompressorWash"]}},
@@ -1100,6 +1102,9 @@
     }}
   },
   "order": [
+    {"name": "a loop tanker starts filling before it is full", "row": "548",
+     "first": {"key": "vehicles.route-pump", "variant": "filling"},
+     "then": {"key": "vehicles.route-pump", "variant": "filled"}},
     {"name": "a loop tanker starts pumping before it is emptied", "row": "545",
      "first": {"key": "vehicles.route-pump", "variant": "started"},
      "then": {"key": "vehicles.route-pump", "variant": "emptied"}},
