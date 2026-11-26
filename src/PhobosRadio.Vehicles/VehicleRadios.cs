@@ -43,6 +43,8 @@ public static class VehicleRadios
     {
         CarriedRadios.Register(new VehicleRadioRule());
         RemoteControl.Register(new RadioRemoteControl());
+        // Radio 0.21.0 (EM33): a convoy's reach home on the world map, asked by D'thorga Framework.
+        ConvoyRadio.Register(new ConvoyReachSource());
         // Radio 0.18.0: the base turret follows D'thorga Framework's "Remote guns fire on their own", which lives in its Vehicle Framework part.
         RemoteTurrets.FireAloneSwitch = () => RemoteGuns.FireAlone;
         // Radio 0.14.0: the cover map for vehicles driven from afar works a little each tick, through the net's own tick.

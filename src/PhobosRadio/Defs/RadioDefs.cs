@@ -137,6 +137,18 @@ public class RadioFittingDef : Def
 /// </summary>
 public class RadioRulesDef : Def
 {
+    /// <summary>
+    /// What one world tile counts as for radio reach between tiles, in metres (Radio 0.21.0). <b>A gameplay choice, not the world's size</b>
+    /// (owner, 26 Nov 2026: "We'll have to make adjustments for the sake of gameplay. Sometimes it's not always about realism but more about
+    /// gameplay", and then: "I'd even treat it as 1 tile = 1 km for the sake of radios"): the world is about 30 km a tile for everything
+    /// else (owner, 18 Nov 2026), at which VHF would never leave home's tile. At 1 km a convoy's VHF reaches home from about 20 tiles, 26
+    /// with a 10 m mast.
+    /// </summary>
+    public float metresPerWorldTile = 1000f;
+    /// <summary>What lies past the radio horizon between two tiles, in dB: enough that no VHF or UHF link closes (authored; diffraction
+    /// beyond the horizon is not modelled).</summary>
+    public float overHorizonLossDb = 200f;
+
     // Margin bands, in dB, above which each outcome starts.
     public float marginalDb = 0f;
     public float workableDb = 6f;

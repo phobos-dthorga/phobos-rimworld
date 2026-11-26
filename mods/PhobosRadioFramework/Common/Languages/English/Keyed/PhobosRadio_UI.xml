@@ -116,4 +116,11 @@
   <PhobosRadio_VehicleWhyChannelsFull>Every channel of the stations that can hear it is in use.</PhobosRadio_VehicleWhyChannelsFull>
   <PhobosRadio_VehicleWhyOutOfReach>No working radio station can hear it: it is out of reach, too much stands in the way, or the station has lost its power.</PhobosRadio_VehicleWhyOutOfReach>
   <PhobosRadio_TurretFiresAlone>Fires at enemies by itself, with nobody watching.</PhobosRadio_TurretFiresAlone>
+
+  <!-- A convoy's reach home on the world map (Radio 0.21.0) -->
+  <PhobosRadioReach_InTouch>In radio reach of {HOME}: {KM} km away, inside the {HORIZON} km horizon, {MARGIN} dB to spare.</PhobosRadioReach_InTouch>
+  <PhobosRadioReach_OverHorizon>Out of radio reach of {HOME}: {KM} km away, past the {HORIZON} km horizon. A higher aerial at either end reaches further.</PhobosRadioReach_OverHorizon>
+  <PhobosRadioReach_TooWeak>Out of radio reach of {HOME}: {KM} km away, and the signal is too weak ({MARGIN} dB short).</PhobosRadioReach_TooWeak>
+  <PhobosRadioReach_NoStation>Out of radio reach of home: no powered radio station at home.</PhobosRadioReach_NoStation>
+
 </LanguageData>

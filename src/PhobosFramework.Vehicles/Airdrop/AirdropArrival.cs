@@ -18,6 +18,8 @@ public enum AirdropDestination
     Map,
     Tile,
     Gift,
+    /// <summary>Onto a convoy of the player's in radio reach of home, which talks the drop in (Framework 0.325.0, EM33).</summary>
+    Convoy,
 }
 
 /// <summary>
@@ -29,6 +31,8 @@ public class ArrivalAction_PhobosAirdrop : VehicleArrivalAction
 {
     AirdropDestination destination;
     MapParent? target;
+    /// <summary>The convoy a radio-guided drop is for (Framework 0.325.0).</summary>
+    public Caravan? convoy;
     IntVec3 dropCell = IntVec3.Invalid;
     MapParent? originParent;
     IntVec3 originCell = IntVec3.Invalid;
@@ -61,7 +65,9 @@ public class ArrivalAction_PhobosAirdrop : VehicleArrivalAction
         }
         AerialVehicleInFlight? flight = AerialVehicle;
         PlanetTile tile = flight?.Tile ?? globalTarget.Tile;
-        AirdropOffMap.Drop(vehicle, tile, destination == AirdropDestination.Gift ? target as Settlement : null);
+        // Framework 0.325.0 (EM33): a convoy still on the tile takes the drop straight in; one that has moved on misses it.
+        Caravan? into = destination == AirdropDestination.Convoy && convoy is { Destroyed: false } c && c.Tile == tile ? c : null;
+        AirdropOffMap.Drop(vehicle, tile, destination == AirdropDestination.Gift ? target as Settlement : null, into);
         FlyHome(flight, tile);
     }
 
@@ -121,6 +127,7 @@ public class ArrivalAction_PhobosAirdrop : VehicleArrivalAction
     {
         base.ExposeData();
         Scribe_Values.Look(ref destination, "PhobosAirdrop_Destination");
+        Scribe_References.Look(ref convoy, "PhobosAirdrop_Convoy");
         Scribe_References.Look(ref target, "PhobosAirdrop_Target");
         Scribe_Values.Look(ref dropCell, "PhobosAirdrop_DropCell", IntVec3.Invalid);
         Scribe_References.Look(ref originParent, "PhobosAirdrop_OriginParent");
@@ -139,7 +146,7 @@ public static class AirdropOffMap
     /// <summary>The wind assumed over a tile with no map, knots: an ordinary breeze, force 3 (authored).</summary>
     const float AssumedKnots = 8.5f;
 
-    public static void Drop(VehiclePawn v, PlanetTile tile, Settlement? giftTo)
+    public static void Drop(VehiclePawn v, PlanetTile tile, Settlement? giftTo, Caravan? into = null)
     {
         PhobosAirdropExtension ext = Airdrop.Ext(v) ?? new PhobosAirdropExtension();
         var items = new List<Thing>();
@@ -175,6 +182,18 @@ public static class AirdropOffMap
             spent.Add(ThingMaker.MakeThing(AirdropDefOf.Phobos_SpentDropPlatform));
         }
         items.AddRange(spent);
+        // Framework 0.325.0 (EM33): talked in by a convoy's radio, everything lands with the convoy and joins it.
+        if (into != null)
+        {
+            foreach (Pawn person in people) into.AddPawn(person, addCarriedPawnToWorldPawnsIfAny: true);
+            foreach (VehiclePawn vehicle in vehicles) into.AddPawn(vehicle, addCarriedPawnToWorldPawnsIfAny: true);
+            foreach (Thing item in items) CaravanInventoryUtility.GiveThing(into, item);
+            if (into is VehicleCaravan joined) joined.RecacheVehicles();
+            Seen.Note("airdrop.tile", v, variant: "convoy");
+            Messages.Message("PhobosAirdrop_MsgIntoConvoy".Translate(v.LabelShort.Named("VEHICLE"), into.LabelCap.Named("CONVOY"), people.Count.Named("PEOPLE"),
+                bundles.Named("BUNDLES"), vehicles.Count.Named("VEHICLES")).Resolve(), into, MessageTypeDefOf.PositiveEvent);
+            return;
+        }
         if (people.Count > 0)
         {
             var members = new List<Pawn>(people);
@@ -256,6 +275,19 @@ public static class Patch_GetArrivalOptions_Airdrop
                 yield return new ArrivalOption("PhobosAirdrop_OptionGift".Translate(settlement.LabelCap.Named("PLACE")),
                     data => vehicle.CompVehicleLauncher.Launch(data, new ArrivalAction_PhobosAirdrop(vehicle, AirdropDestination.Gift, settlement, IntVec3.Invalid)));
             }
+            yield break;
+        }
+        // Framework 0.325.0 (EM33): a convoy of the player's can be dropped to only when it is in radio reach of home, to talk the drop in.
+        // Without the Radio Framework there is no option, as before.
+        if (place is Caravan convoy && convoy.Faction == Faction.OfPlayer && ConvoyRadio.Available)
+        {
+            if (ConvoyRadio.InTouch(convoy))
+                yield return new ArrivalOption("PhobosAirdrop_OptionConvoy".Translate(convoy.LabelCap.Named("CONVOY")), data =>
+                    vehicle.CompVehicleLauncher.Launch(data, new ArrivalAction_PhobosAirdrop(vehicle, AirdropDestination.Convoy, null, IntVec3.Invalid) { convoy = convoy }));
+            else
+                yield return new ArrivalOption("PhobosAirdrop_OptionConvoyOut".Translate(convoy.LabelCap.Named("CONVOY")), _ =>
+                    Messages.Message("PhobosAirdrop_MsgConvoyOut".Translate(convoy.LabelCap.Named("CONVOY"), (ConvoyRadio.Of(convoy)?.Line ?? "").Named("WHY")).Resolve(),
+                        convoy, MessageTypeDefOf.RejectInput, historical: false));
             yield break;
         }
         if (place != null || !target.Tile.Valid) yield break;

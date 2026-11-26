@@ -78,6 +78,17 @@ mountain.
 signal-to-noise ratio, the margin and which direction limits the link; **Engineer** shows every term. The window a radio's button
 opens can show one level more than your setting.
 
+## Convoys on the world map
+
+**A convoy with a radio fitted** (the remote control kit on any of its vehicles) **can reach home** while it is near: the convoy's line
+says whether it is in reach, how far home is, and the horizon of the two aerials. A powered **radio station** at home with a **mast
+antenna** reaches furthest. **For radio, a world tile counts as 1 km** (a gameplay choice), so a convoy reaches home from about **20
+tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
+
+- **Home warns of ambushes** ahead: each way out is a little likelier.
+- **An aircraft can drop to the convoy** (Airdrop to the convoy, when choosing where to fly): the convoy talks it in, and everything
+  dropped joins it.
+
 ## Try it
 
 1. Research local radio. Build the station indoors under a built roof, craft a VHF hand-held and wear it.

@@ -97,12 +97,14 @@ public static class AmbushChoices
         public readonly float DriveThrough;
         public readonly float TurnBack;
         public readonly string? Stuck;
+        public readonly bool Warned;
 
-        public Odds(float driveThrough, float turnBack, string? stuck)
+        public Odds(float driveThrough, float turnBack, string? stuck, bool warned)
         {
             DriveThrough = driveThrough;
             TurnBack = turnBack;
             Stuck = stuck;
+            Warned = warned;
         }
     }
 
@@ -113,8 +115,11 @@ public static class AmbushChoices
         float speed = AmbushRule.SpeedTerm(convoy.TicksPerMove, CaravanTicksPerMoveUtility.DefaultTicksPerMove);
         float armour = AmbushRule.ArmourTerm(MeanOuterArmour(convoy), FullArmourNow);
         bool allMove = stuck == null;
-        return new Odds(AmbushRule.Chance(AmbushChoice.DriveThrough, speed, armour, allMove), AmbushRule.Chance(AmbushChoice.TurnBack, speed, armour, allMove),
-            stuck == null ? null : "PhobosAmbush_Stuck".Translate(stuck.LabelShort.Named("VEHICLE")).Resolve());
+        // Framework 0.325.0 (EM33): home, in radio reach, warns of trouble ahead.
+        bool warned = ConvoyRadio.InTouch(convoy);
+        return new Odds(AmbushRule.Chance(AmbushChoice.DriveThrough, speed, armour, allMove, warned),
+            AmbushRule.Chance(AmbushChoice.TurnBack, speed, armour, allMove, warned),
+            stuck == null ? null : "PhobosAmbush_Stuck".Translate(stuck.LabelShort.Named("VEHICLE")).Resolve(), warned);
     }
 
     /// <summary>The convoy's vehicles' mean sharp armour over their outer parts, Vehicle Framework's own ratings with upgrades.</summary>
@@ -177,7 +182,14 @@ public static class AmbushChoices
         var convoy = (VehicleCaravan)parms.target;
         Odds odds = OddsFor(convoy);
         string who = parms.faction?.Name ?? "PhobosAmbush_Animals".Translate().Resolve();
-        var node = new DiaNode("PhobosAmbush_Text".Translate(convoy.LabelCap.Named("CONVOY"), who.Named("WHO")));
+        string text = "PhobosAmbush_Text".Translate(convoy.LabelCap.Named("CONVOY"), who.Named("WHO")).Resolve();
+        if (odds.Warned)
+        {
+            text += "\n\n" + "PhobosAmbush_Warned".Translate().Resolve();
+            if (Seen.Wants("vehicles.radio-reach", convoy.VehiclesListForReading.FirstOrDefault(), "warned"))
+                Seen.Note("vehicles.radio-reach", convoy.VehiclesListForReading.FirstOrDefault(), "ambush warned", "warned");
+        }
+        var node = new DiaNode(text);
         DiaOption Option(string label, AmbushChoice choice)
         {
             var option = new DiaOption(label)

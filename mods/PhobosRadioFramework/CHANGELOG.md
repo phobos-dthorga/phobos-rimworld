@@ -17,6 +17,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+
+## [0.21.0] - 2026-11-26 - Draft
+
+A first step beyond the map: a convoy's reach home
+
+### Added
+
+- **A convoy's radio reaches home on the world map** (with D'thorga Framework's vehicles): its best fitted vehicle radio against your
+  home's powered stations, through the same link budget as every contact, out to the radio horizon of the two aerials. A Datum's mast
+  lifts the convoy's end. Not yet tested in game: rows 600 and 601.
+- **For radio, a world tile counts as 1 km**, a gameplay choice (the owner: "I'd even treat it as 1 tile = 1 km for the sake of
+  radios"); the world is about 30 km a tile for everything else, where VHF would never leave home's tile. So a convoy reaches home from
+  about 20 tiles, 26 with a 10 m mast.
+
+### Compatibility and limits
+
+- Between tiles there are no walls, hills or local noise yet, and nothing past the horizon: simplifications. HF is still to come.
+
 ## [0.20.2] - 2026-11-26 - Draft
 
 Stations turn as they are placed

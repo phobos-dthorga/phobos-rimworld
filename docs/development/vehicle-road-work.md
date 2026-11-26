@@ -7,7 +7,8 @@ game (rows 570 to 572); the survey halt (EM31), the test hole (EM35), tipping in
 trailers (EM42) are built in Framework 0.322.0 ([the third round](#the-third-round-the-survey-halt-the-test-hole-tipping-ambushes-and-trailer-faults-framework-03220)),
 not yet tested in game (rows 582 to 586); ground already read (EM32), the quarry halt (EM36), drop and hook (EM41), the
 ambush's hits, bogging (EM43) and grit (EM39) are built in Framework 0.324.0 ([the fourth round](#the-fourth-round-read-ground-quarries-drop-and-hook-gauntlets-bogging-and-grit-framework-03240)),
-not yet tested in game (rows 594 to 599).
+not yet tested in game (rows 594 to 599); the radio mast (EM33) is built in Framework 0.325.0 and Radio 0.21.0
+([the radio mast](#the-radio-mast-em33-framework-03250-radio-0210)), not yet tested in game (rows 600 and 601).
 
 Rows EM30 and EM34 of [emergent play](vehicle-emergent-play.md#h-work-on-the-road-26-nov-2026), the second round of group H after
 [contracts](vehicle-contracts.md). The owner, 26 Nov 2026: "Build the running survey and water bore next", then, on the cards' options
@@ -379,13 +380,63 @@ radio mast, is its own round, below. Not yet tested in game (rows 594 to 599).
 Raiders bring no convoys onto the world map, so none of this touches them. Grit eases the player's vehicles' path costs only: Vehicle
 Framework asks the same costs for any vehicle, so another faction's vehicle caravan crossing a gritted tile would go easier too [I].
 
+## The radio mast (EM33; Framework 0.325.0, Radio 0.21.0)
+
+The owner, 26 Nov 2026, by card: a convoy in reach of home gets **both** an airdrop talked in and an early ambush warning. On how far a
+world tile is, the owner asked "What does the literature on the Internet say?". **No source gives one**: the RimWorld wiki has none, and
+the Ludeon forum's planet-size thread refuses automated reading. The project had already decided **about 30 km** (owner, 18 Nov 2026,
+[world elevation](world-elevation-and-descents.md#how-big-a-tile-is): our vehicles' speed and an Earth-sized planet agree). The agent
+first offered 7 km from a miscount of the game's tiles, then corrected it. At 30 km a tile, VHF from a 10 m mast reaches about 26 km, so a
+convoy could never be in reach off home's own tile. Asked whether 30 km was an assumption (it is an estimate: the game never says), the
+owner: **"We'll have to make adjustments for the sake of gameplay. Sometimes it's not always about realism but more about gameplay."**
+The agent offered 7 km (the walker's anchor); the owner went further: **"I'd even treat it as 1 tile = 1 km for the sake of radios."**
+So **the radio counts a tile as 1 km** for reach between tiles, a gameplay choice; the world stays about 30 km for everything else. This is the radio's first step into its phase 2, on the owner's cards. Not yet tested in game (rows 600 and 601).
+
+| Option offered (26 Nov 2026) | Chosen |
+| --- | --- |
+| HF near-vertical skywave, keeping 30 km (the agent's lean) | No |
+| A shared tile-size setting, VHF now | No |
+| The radio alone uses 7 km | Taken further by the owner: **1 km a tile** |
+| VHF as written at 30 km (home tile only); VHF plus relays; records only | No |
+
+### How it works
+
+- **The reach**: D'thorga Framework asks (`ConvoyRadio`), the Radio Framework's vehicle tie-in answers (`ConvoyReachSource`), so without
+  the Radio Framework a convoy is never in reach and nothing shows. The convoy's best fitted vehicle radio (the remote control kit's) is
+  one end, its aerial at the fitting's 3 m or a Datum's 10 m mast [A]; each powered station on each home map, through each of its
+  aerials, is the other. **One link budget**: `LinkBudgetService.EvaluateWorld`, free space over the distance between the tiles at 1 km a
+  tile, both directions, on the best shared band, and **nothing past the radio horizon** of the two aerials, 4.12 (sqrt h1 + sqrt h2) km
+  (the four-thirds Earth line of sight; past it a 200 dB loss [A] closes nothing). No walls, hills, tile heights or local noise between
+  tiles: simplifications. The best link decides.
+- **What the figures give**: a 3 m fitting to a 10 m home mast, 20 km (about 20 tiles); a 10 m mast to a 10 m mast, 26 km (about 26
+  tiles).
+- **The mast** (Raise the mast, on the Datum, with the Radio Framework): a halt job with no work to finish, standing until the convoy
+  drives on or the player lowers it; refused with no radio in the convoy.
+- **The warning**: a convoy in reach when an ambush comes gets 10 points [A] on each way out, within the same 5 to 90 % limits, said in the
+  ambush window.
+- **The drop**: choosing where an aircraft that can drop flies, a convoy of the player's is a target: **Airdrop to** it in reach
+  (`AirdropDestination.Convoy`); out of reach the option refuses, saying why. On arrival, if the convoy is still on the tile, people,
+  vehicles and cargo join it; if it has moved on, the drop lands on the tile as any other. The aircraft flies home as after any drop.
+
+### Cost (the radio's first rule)
+
+- **Asked, never running**: a convoy's reach is worked out only when something asks (its inspect line, an ambush, an aircraft's targets),
+  at most once a tenth of a game hour for each convoy, kept between. Each ask: one budget for each home station's aerial on each shared
+  band (a handful). **No map is walked; nothing ticks on its own.** Not yet measured: a recording before and after, on the owner's colony
+  with the owner's go, is owed by the radio's rules.
+
+### Other factions
+
+Only the player's convoys and stations take part; raiders bring no convoys onto the world map.
+
 ## Who chose what
 
 - **Owner (26 Nov 2026):** the batch; the six answers above; the reverse-osmosis kit's idea, its vehicles and its timing; documenting
   every option; the third round's five rows; the test hole's insects off; one named roll for ambushes; warn, then allow, for wrecked
   trailers; the five icons queued for night 16; the fourth round's rows and its three answers (moving convoys only, some hits on the
-  way, a reading decides a map's ore); bogging's four ways out.
+  way, a reading decides a map's ore); bogging's four ways out; EM33's both (a drop talked in and a warning), and radio reach over realism for gameplay, at 1 km a tile.
 - **Agent:** every figure marked [A]; the find's 2 to 6 tiles; the 250 mm dry line; the kit's design so far; in the third round, the
   shapes of the survey halt's reading, the test hole's yield, the ambush odds and the wrecked trailer's crawl, the ambush choice for
   moving convoys only, and the three settings' places and defaults (the ambush choice and the crawl on); in the fourth round, every
-  figure marked [A], the soft-ground and sinking rules, the quarry's ground shares, grit's relief and days, and bogging's setting on.
+  figure marked [A], the soft-ground and sinking rules, the quarry's ground shares, grit's relief and days, and bogging's setting on; for EM33, the
+  10 m mast, the 10-point warning and the over-horizon loss.

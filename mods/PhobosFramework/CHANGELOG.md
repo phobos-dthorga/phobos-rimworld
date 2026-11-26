@@ -14,6 +14,24 @@ tested in game unless an entry says the owner tested it.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
 
+
+## [0.325.0] - 2026-11-26 - Draft
+
+A convoy's radio reach home (with D'thorga Radio Framework)
+
+### Added
+
+- **A Datum can raise its boom as a radio mast at a halt** (Raise the mast), lifting the convoy's radio aerial to 10 m so it reaches
+  home from further away. With D'thorga Radio Framework only; the convoy's line says whether it is in reach. Not yet tested in game: row 600.
+- **Home warns a convoy in radio reach of an ambush ahead**: each way out is 10 points likelier. Not yet tested in game: row 600.
+- **An aircraft can drop to a convoy in radio reach** (Airdrop to the convoy): the convoy talks it in, and everything dropped joins it;
+  out of reach the option says why. Before, a tile with a caravan on it could not be dropped on. Not yet tested in game: row 601.
+  How it works: docs/development/vehicle-road-work.md.
+
+### Save compatibility
+
+- Safe to add. Removing the Framework mid-game lowers any raised mast.
+
 ## [0.324.0] - 2026-11-26 - Draft
 
 Work on the road, fourth round: read ground, quarries, drop and hook, gauntlets, bogging and grit

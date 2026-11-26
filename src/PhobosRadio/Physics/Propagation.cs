@@ -29,6 +29,14 @@ public static class Propagation
     }
 
     /// <summary>
+    /// The radio horizon between two antennas over smooth ground, in metres: 4.12 (sqrt h1 + sqrt h2) km with the heights in metres, the
+    /// line of sight under the usual four-thirds Earth radius for VHF and UHF (the design's VHF/UHF row; ITU-R P.526 treats the same smooth
+    /// Earth). Past it a VHF link fails (Radio 0.21.0): diffraction beyond the horizon is left out, a labelled simplification.
+    /// </summary>
+    public static double RadioHorizonMetres(double heightAMetres, double heightBMetres) =>
+        4120.0 * (Math.Sqrt(Math.Max(0.0, heightAMetres)) + Math.Sqrt(Math.Max(0.0, heightBMetres)));
+
+    /// <summary>
     /// What obstructions cost on a band. The band's factor applies to walls and built roofs, which a shorter wavelength gets through by way
     /// of openings wide enough for it; rock and natural roofs have no openings and absorb, so they count in full (owner, 9 Nov 2026). A
     /// labelled simplification: real rock absorbs somewhat more at higher frequencies, and this leaves the two bands equal there.

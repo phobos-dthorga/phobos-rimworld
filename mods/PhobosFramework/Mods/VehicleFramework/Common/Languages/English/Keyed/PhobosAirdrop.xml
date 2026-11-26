@@ -85,6 +85,10 @@
   <!-- World map arrival options -->
   <PhobosAirdrop_OptionOnMap>Airdrop on {PLACE}</PhobosAirdrop_OptionOnMap>
   <PhobosAirdrop_OptionGift>Gift by airdrop to {PLACE}</PhobosAirdrop_OptionGift>
+  <PhobosAirdrop_OptionConvoy>Airdrop to {CONVOY} (it talks the drop in by radio; everything joins it)</PhobosAirdrop_OptionConvoy>
+  <PhobosAirdrop_OptionConvoyOut>Airdrop to {CONVOY} (out of radio reach)</PhobosAirdrop_OptionConvoyOut>
+  <PhobosAirdrop_MsgConvoyOut>{CONVOY} is out of radio reach of home, so it cannot talk a drop in. {WHY}</PhobosAirdrop_MsgConvoyOut>
+  <PhobosAirdrop_MsgIntoConvoy>{VEHICLE} dropped to {CONVOY}, guided in by radio: {PEOPLE} people, {BUNDLES} bundles and {VEHICLES} vehicles joined it.</PhobosAirdrop_MsgIntoConvoy>
   <PhobosAirdrop_OptionOnTile>Airdrop here (people form a caravan; cargo alone waits at a depot)</PhobosAirdrop_OptionOnTile>
 
   <!-- The hold -->

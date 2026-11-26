@@ -871,6 +871,26 @@ public static class RoadWork
             MessageTypeDefOf.PositiveEvent, historical: false);
     }
 
+    // ---- The mast (EM33) ----
+
+    /// <summary>Why the Datum cannot hold its boom up as a mast here now, or null: a stopped convoy that has a radio to lift.</summary>
+    public static string? MastRefusal(Caravan caravan, VehiclePawn truck)
+    {
+        if (HaltRefusal(caravan) is { } halt) return halt;
+        if (!ConvoyRadio.Available) return "PhobosRadioReach_NoRadioMod".Translate().Resolve();
+        if (ConvoyRadio.Of(caravan) == null) return "PhobosRadioReach_NoRadio".Translate().Resolve();
+        return null;
+    }
+
+    public static void StartMast(Caravan caravan, VehiclePawn truck)
+    {
+        Start(new RoadMast { caravan = caravan, vehicle = truck },
+            "PhobosRadioReach_MastUp".Translate(truck.LabelShort.Named("VEHICLE"), ConvoyRadio.MastMetres.ToString("0").Named("METRES")).Resolve());
+        ConvoyRadio.Forget(caravan);
+        if (ConvoyRadio.Of(caravan) is { } reach && Seen.Wants("vehicles.radio-reach", truck, "mast"))
+            Seen.Note("vehicles.radio-reach", truck, reach.DistanceKm.ToString("0") + " km of " + reach.HorizonKm.ToString("0") + (reach.InTouch ? ", in reach" : ", out"), "mast");
+    }
+
     // ---- What the caravan's inspect pane says ----
 
     public static IEnumerable<string> InspectLines(VehicleCaravan caravan)
@@ -896,6 +916,8 @@ public static class RoadWork
                 : "PhobosAmbush_InspectHeld".Translate(time.Named("TIME")).Resolve();
         }
         if (work.Gritted(caravan.Tile)) yield return "PhobosGround_InspectGritted".Translate().Resolve();
+        // Framework 0.325.0 (EM33): the convoy's radio reach home, with the Radio Framework installed and a radio aboard.
+        if (ConvoyRadio.Of(caravan) is { } reach) yield return reach.Line;
     }
 }
 

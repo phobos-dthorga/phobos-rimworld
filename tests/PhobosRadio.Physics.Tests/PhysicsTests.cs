@@ -477,3 +477,14 @@ public class RemoteTurretRuleTests
         Assert.False(RemoteTurretRule.HasHand(operatorAtConsole: false, place: 0, handsPerOperator: 2));
     }
 }
+
+public class RadioHorizonTests
+{
+    [Theory]
+    [InlineData(10.0, 10.0, 26057.0)]
+    [InlineData(3.0, 10.0, 20165.0)]
+    [InlineData(0.0, 0.0, 0.0)]
+    [InlineData(-5.0, 4.0, 8240.0)]
+    public void TheHorizonGrowsWithTheRootOfEachHeight(double a, double b, double metres) =>
+        Xunit.Assert.Equal(metres, Phobos.Radio.Physics.Propagation.RadioHorizonMetres(a, b), 0);
+}

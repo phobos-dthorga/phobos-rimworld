@@ -398,6 +398,10 @@ as trade requests, in quarters; as often as trade requests by default.
 - **Hook up from the depot** (any truck with a free hitch, at a depot holding a trailer): pick the trailer from the menu and it is on the
   hitch at once, with no need to drive onto the depot's ground.
 
+- **Raise the mast** (a Datum, at a halt, **with D'thorga Radio Framework**): the boom goes up as a 10 m radio mast, so a convoy with a
+  radio fitted reaches home from further out. In reach of home, ambushes come with a warning and an aircraft can **airdrop to the
+  convoy** ([radio](radio.md#convoys-on-the-world-map)). Driving on lowers it.
+
 ### The ground: bogging and grit
 
 - **Heavy vehicles bog on soft ground**: a vehicle **over 12 tonnes laden** sinks a little on each **swampy or very wet flat** tile it

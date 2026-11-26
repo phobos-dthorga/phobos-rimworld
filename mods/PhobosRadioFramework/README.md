@@ -1,11 +1,11 @@
 # D'thorga Radio Framework
 
 Radio that works like radio: every contact is decided by a real link budget, and doubling the distance costs 6 dB. This is **Phase
-1**: local VHF and UHF on one map.
+1**: local VHF and UHF on one map, with a first step beyond it from 0.21.0: a convoy's reach home on the world map.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.20.2, built 26 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.21.0, built 26 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -19,6 +19,8 @@ Version 0.20.2, built 26 November 2026 for House D'thorga. **Not yet tested in g
   are D'thorga Framework's. Load it after Core, the DLCs, Harmony, Vanilla Expanded Framework and D'thorga Framework; its About
   file asks for that order, so RimSort sorts it for you. Harmony comes with D'thorga Framework.
 - **RimWorld 1.7 only.**
+- **On the world map (from 0.21.0) a tile counts as 1 km for radio**, a gameplay choice: a convoy with a radio fitted reaches a home
+  station with a mast antenna from about 20 tiles, 26 with a Datum's mast up. Needs D'thorga Framework's vehicles.
 - **Decide before you start a colony: Metres per map cell** (default 1, from 0.5 to 30). It changes every distance and coax loss,
   so changing it in a running colony changes which radios reach each other.
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a hand-held together.

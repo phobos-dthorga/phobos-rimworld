@@ -145,6 +145,19 @@
   <PhobosGround_GritOut>{VEHICLE} has run out of stone to spread as grit, and has stopped spreading.</PhobosGround_GritOut>
   <PhobosGround_InspectGritted>The way here is gritted: easier going in the snow.</PhobosGround_InspectGritted>
 
+  <!-- The mast and the convoy's reach home (with the Radio Framework) -->
+  <PhobosRadioReach_MastGizmo>Raise the mast</PhobosRadioReach_MastGizmo>
+  <PhobosRadioReach_MastGizmoDesc>Hold the survey boom up as a radio mast while the convoy is stopped, lifting the convoy's radio aerial to {METRES} m so it reaches home from further away. Driving on lowers it.</PhobosRadioReach_MastGizmoDesc>
+  <PhobosRadioReach_MastDownGizmo>Lower the mast</PhobosRadioReach_MastDownGizmo>
+  <PhobosRadioReach_MastDownGizmoDesc>Fold the boom down again. The convoy's radio goes back to its own aerial.</PhobosRadioReach_MastDownGizmoDesc>
+  <PhobosRadioReach_MastUp>{VEHICLE} raises its boom as a radio mast, {METRES} m up.</PhobosRadioReach_MastUp>
+  <PhobosRadioReach_MastDown>{VEHICLE} lowers its mast.</PhobosRadioReach_MastDown>
+  <PhobosRadioReach_MastLeft>{CARAVAN} drove on and lowered its mast.</PhobosRadioReach_MastLeft>
+  <PhobosRadioReach_InspectMast>{VEHICLE}'s boom is up as a radio mast, {METRES} m.</PhobosRadioReach_InspectMast>
+  <PhobosRadioReach_NoRadioMod>There is no radio here to lift.</PhobosRadioReach_NoRadioMod>
+  <PhobosRadioReach_NoRadio>No vehicle in the convoy has a radio fitted.</PhobosRadioReach_NoRadio>
+  <PhobosAmbush_Warned>Home is in radio reach and warned of trouble on the road ahead: each way out is a little likelier.</PhobosAmbush_Warned>
+
   <!-- Trailer faults -->
   <PhobosTrailerFault_CouplingWarning>{TRAILER}'s {PART} is wrecked: it can be towed, but only dragged at a crawl ({SHARE} of the speed), and its running gear will wear further. Repair it first if you can.</PhobosTrailerFault_CouplingWarning>
   <PhobosTrailerFault_Wrecked>{TRAILER}, behind {VEHICLE}, is on a wrecked {PART}. It is being dragged at a crawl. Repair it, carry on slowly, or leave it at a depot.</PhobosTrailerFault_Wrecked>

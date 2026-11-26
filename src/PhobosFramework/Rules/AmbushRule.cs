@@ -60,6 +60,15 @@ public static class AmbushRule
     /// <summary>0 for no armour, 1 at the reference rating or more: the vehicles' mean outer armour against sharp hits.</summary>
     public static float ArmourTerm(float meanSharpRating, float reference) => reference <= 0f ? 0f : Math.Clamp(meanSharpRating / reference, 0f, 1f);
 
+    /// <summary>What a warning by radio from home adds to each way out (Framework 0.325.0, EM33; agent's figure).</summary>
+    public const float WarnedBonus = 0.1f;
+
+    /// <summary>The chance the way out works; 0 to fight, and 0 when a vehicle of the convoy cannot move. A convoy warned by radio from home
+    /// gets <see cref="WarnedBonus"/> more, within the same limits.</summary>
+    public static float Chance(AmbushChoice choice, float speedTerm, float armourTerm, bool allCanMove, bool warned) =>
+        choice == AmbushChoice.Fight || !allCanMove ? 0f
+            : Math.Clamp(Chance(choice, speedTerm, armourTerm, allCanMove) + (warned ? WarnedBonus : 0f), Least, Most);
+
     /// <summary>The chance the way out works; 0 to fight, and 0 when a vehicle of the convoy cannot move.</summary>
     public static float Chance(AmbushChoice choice, float speedTerm, float armourTerm, bool allCanMove)
     {
