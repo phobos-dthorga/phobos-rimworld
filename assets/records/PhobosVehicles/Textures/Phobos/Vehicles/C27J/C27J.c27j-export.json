@@ -28,6 +28,9 @@
     "C27J_southm.png": "4c075a7c649dbc391088c1da91eb2a63fcf4f4ae6323c639a2bb0dc297623c9b",
     "C27J_icon.png": "3807ff5735b1d2f5516251e199df353238b1cf7c66502e9407629a991e612518",
     "C27J_Propeller.png": "a8ee4d43673f867925c112d2cde7304439c1034c91c6e329528a565ab6e79226",
-    "C27J_PropellerSpin.png": "0b789e860550a7b3024a777a401c2d7c95ef36b89d69dfadd9e53e4a28430439"
+    "C27J_PropellerSpin.png": "0b789e860550a7b3024a777a401c2d7c95ef36b89d69dfadd9e53e4a28430439",
+    "C27J_DefensiveAids_north.png": "f8bf82c038a7997a56871539ee3a7977ba4b33f28bceb5b3323a131a0ed2bce8",
+    "C27J_DefensiveAids_east.png": "c35cb0a5baee463110e310770598165d6a286c6f8a346e4fbff97049abb217dd",
+    "C27J_DefensiveAids_south.png": "47874cf15c60ea77f8372acefe5f9b9cc9b4b9c81fd4449a9480d6f41b1ab90f"
   }
 }

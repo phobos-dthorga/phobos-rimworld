@@ -13,7 +13,7 @@
       <!-- The RAAF's self-protection suite [P4]: the missile warning receiver built into its avionics cues turrets that blind heat-seeking
            missiles, as the Osprey's infrared jammer, and chaff and flare dispensers fed from a magazine haulers top up (the owner's card of
            26 Nov 2026: per aircraft; Framework 0.316.0's Phobos_Countermeasures). Its draw, 40 A, is authored, in its loadout. Its own icon since
-           D'thorga Vehicles 0.127.0 (the owner's pick of 26 Nov 2026); no overlay until its pods are drawn. -->
+           D'thorga Vehicles 0.127.0, and its pods on both gear fairings since 0.127.1 (the owner's picks of 26 Nov 2026). -->
       <key>DefensiveAids</key>
       <label>Defensive aids</label>
       <displayLabel>true</displayLabel>
@@ -45,6 +45,18 @@
         <ComponentIndustrial>2</ComponentIndustrial>
         <ComponentSpacer>1</ComponentSpacer>
       </ingredients>
+      <!-- A pod on each main-gear fairing, on the body's canvas (assets/phobos-vehicles/export_c27j.py; agent placement). -->
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/C27J/C27J_DefensiveAids</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(34, 27)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
     </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>

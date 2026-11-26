@@ -56,6 +56,12 @@ FOOTPRINT = (5, 11)               # The Def's size, for the layout's check of wh
 PAINT = {'main_hue': (200, 280), 'accent_hue': (999, 999), 'min_saturation': 0.0, 'main_max_saturation': 0.15}
 LINES = (0.45, 9)                 # As the Osprey's: seams and rivets taken whole with the paint around them (export_osprey.py)
 HEADROOM = 1.03                   # The body is pre-shrunk to this much above its drawn size, so the exporter still only shrinks
+# The defensive aids pods (Vehicles 0.127.x; requests/c27j-overlays-record.md): the owner's pick of the redraw, try 4, drawn alone on white
+# and laid here, one on each main-gear fairing, the right the left turned over. Agent placements, measured on the pick: the left fairing's
+# middle, and a pod about 1.4 m long at the pick's 148.7 px a metre; the fuselage's centre line is midway between the spinners.
+POD = G / 'c27j-defence-pod-redo/c27j-defence-pod-redo-4.png'
+POD_AT = (2017, 2045)
+POD_LENGTH_PX = 210
 # The spinners in the pick's pixels, measured 26 Nov 2026: each a cone from its tip (y 819) to its base line (y 968), 142 px across at
 # the base, centred on x 1635 and 2974.5 (the nacelles' own centres).
 SPINNERS = {'Left': (1635.0, 819, 968), 'Right': (2974.5, 819, 968)}
@@ -117,6 +123,24 @@ class Mapping:
     def cells(self, x, y):
         tx, ty = x * self.total + self.offset[0], y * self.total + self.offset[1]
         return round((tx - self.canvas[0] / 2) / PIXELS_PER_CELL, 3), round(-(ty - self.canvas[1] / 2) / PIXELS_PER_CELL, 3)
+
+
+def pod_overlay(mapping):
+    """The two defensive aids pods on the body's canvas: cut from their white ground, the soft edge taken in a pixel as the Osprey's
+    overlays are, shrunk premultiplied, the right pod the left mirrored about the centre line."""
+    rgb = Image.open(POD).convert('RGB')
+    cut = white_to_alpha(rgb, background=ai_background(POD))
+    part = cut.crop(cut.getchannel('A').point(lambda alpha: 255 if alpha >= 128 else 0).getbbox())
+    part.putalpha(part.getchannel('A').filter(ImageFilter.MinFilter(3)))
+    factor = POD_LENGTH_PX / part.height * mapping.total
+    size = (max(1, round(part.width * factor)), max(1, round(part.height * factor)))
+    small = part.convert('RGBa').resize(size, Image.LANCZOS).convert('RGBA')
+    centre_line = (SPINNERS['Left'][0] + SPINNERS['Right'][0]) / 2
+    canvas = Image.new('RGBA', tuple(mapping.canvas), (0, 0, 0, 0))
+    for x, picture in ((POD_AT[0], small), (2 * centre_line - POD_AT[0], small.transpose(Image.FLIP_LEFT_RIGHT))):
+        tx, ty = x * mapping.total + mapping.offset[0], POD_AT[1] * mapping.total + mapping.offset[1]
+        canvas.alpha_composite(picture, (round(tx - picture.width / 2), round(ty - picture.height / 2)))
+    return canvas
 
 
 def propeller_cut():
@@ -265,6 +289,7 @@ def main(argv=None):
         to_game(picture, measured['centre_x'], factor).save(path, optimize=True)
         files.append(path)
 
+    files += ev.write_facings(pod_overlay(mapping), out, f'{NAME}_DefensiveAids')
     hubs = {side: mapping.cells(x, base) for side, (x, _, base) in SPINNERS.items()}
     across = round((abs(hubs['Left'][0]) + abs(hubs['Right'][0])) / 2, 2)
     forward = round((hubs['Left'][1] + hubs['Right'][1]) / 2, 2)

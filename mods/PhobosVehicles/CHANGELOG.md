@@ -13,6 +13,15 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.127.1] - 2026-11-26 - Draft
+
+The C-27J's defensive aids pods
+
+### Fixed
+
+- **The C-27J's defensive aids upgrade shows its pods**: a streamlined fairing on each main-gear fairing, with flush flare hatches and a
+  small jammer window (the owner's pick of the redraw, 26 November 2026). It had shown nothing on the aircraft. Not yet tested in game.
+
 ## [0.127.0] - 2026-11-26 - Draft
 
 The C-27J's own voice

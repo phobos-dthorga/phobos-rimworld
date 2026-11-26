@@ -52,6 +52,17 @@ pod about 140 px against 770 (5.5x).
 
 **Near-copy**: every reference was our own art, so the run's own check had nothing to compare against, by design.
 
+## The owner's picks (26 Nov 2026) and the pod redrawn
+
+- **Gun barrel: try 1**, with "Maybe both of these can be used?" (asked back: which use). **Pipe: try 2.** Both wait for the fits.
+- **Pod: neither** ("This looks more like a Ring doorbell thingy than a defence pod"). One correction (rule 7): a round dome in a ring on
+  a flat plate reads as a doorbell, so the redraw asked for a long streamlined fairing, a squat jammer turret with a faceted window facing
+  out, and flush flare hatches, and forbade a plate, a ring and a round dome (`c27j-defence-pod-redo`, tries 3 and 4, US$0.30). Both came
+  out clean, 0 loose specks. **The owner picked try 4**, shipped on the body's canvas (Vehicles 0.127.1).
+- **Icons**: LAPES button 1, defensive aids 2, gun kit 1, fire tank 1; the first two shipped (Framework 0.325.1, Vehicles 0.127.0).
+
+**Spent on stage 2 in all: US$1.20** of the C-27J art cap (US$0.60 left), and about US$0.65 of the icons' US$1.19.
+
 ## Owed
 
 - The owner's picks (Picks page), then the parts laid on the body by script (east and south facings turned from north), paint kept off
