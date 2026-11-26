@@ -485,7 +485,9 @@ dictionary look-up for the tow. A held trailer is caught up once per tractor rar
 **Limits and open questions.** The trailer's worn stages lower its own move speed, which nothing reads while it is towed: the real
 cost is a burst tyre damaging the axles. **Nothing yet stops a trailer with wrecked axles from being towed**: the hitch never read the
 axles, though the systems' "cannot move" message now names them (`Mobility.StoppedByDamage`). Whether a tow should refuse is the
-owner's call. The settings window gains a **Trailers** checkbox among the loadout kinds (agent default: on).
+owner's call. **The owner's answer (26 Nov 2026, by card): warn, then allow**, as the unwise orders do (EM29): the tow goes ahead
+with a plain warning, and the trailer crawls and wears further. Not built; it is row EM42 of
+[emergent play](vehicle-emergent-play.md#h-work-on-the-road-26-nov-2026). The settings window gains a **Trailers** checkbox among the loadout kinds (agent default: on).
 
 ## Water on the road (22 Nov 2026)
 
