@@ -20,6 +20,8 @@ public static class RadioUpgrades
     public const string Channels = "channels";
     /// <summary>How much quieter a station's receiver is, in dB, taken off its noise figure: a receive preamplifier.</summary>
     public const string NoiseFigureReductionDb = "noiseFigureReductionDb";
+    /// <summary>Whether a station passes calls on between world tiles, 1 for yes (Radio 0.24.0): the repeater.</summary>
+    public const string Repeater = "repeater";
 
     /// <summary>A figure on a building: what its fitted upgrades set, else its own.</summary>
     public static float Figure(Thing thing, string name, float own) =>

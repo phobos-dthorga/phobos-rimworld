@@ -3,8 +3,8 @@
   <!-- Recovery (Framework 0.103.0): the recovery winch and the recovery tow. docs/development/vehicle-upgrades-round-two.md -->
   <PhobosRecovery_HitchGizmo>Hitch a trailer or vehicle</PhobosRecovery_HitchGizmo>
   <PhobosRecovery_HitchGizmoDesc>Choose a trailer, or a vehicle to tow home on the tow bar, standing within {CELLS} cells. A colonist walks over and couples it, and it is set straight behind this vehicle. Its weight, and everything in it, then adds to the weight the engine must pull.</PhobosRecovery_HitchGizmoDesc>
-  <PhobosRecovery_WinchGizmo>Winch a vehicle</PhobosRecovery_WinchGizmo>
-  <PhobosRecovery_WinchGizmoDesc>Choose a stuck, broken or empty vehicle within {CELLS} cells. With someone aboard to work it, the winch drags it towards this vehicle a little at a time. The winch pulls up to {RATED} kg, but never more than this vehicle can hold on its brakes: a heavy vehicle in deep mud may be too much for it.</PhobosRecovery_WinchGizmoDesc>
+  <PhobosRecovery_WinchGizmo>Winch something in</PhobosRecovery_WinchGizmo>
+  <PhobosRecovery_WinchGizmoDesc>Choose a stuck, broken or empty vehicle, a wreck, a chunk of rock or of a crashed ship, or a carcass, within {CELLS} cells. With someone aboard to work it, the winch drags it towards this vehicle a little at a time. A vehicle on its wheels rolls; anything else is dragged, which takes a far harder pull. The winch pulls up to {RATED} kg, but never more than this vehicle can hold on its brakes: something heavy in deep mud may be too much for it.</PhobosRecovery_WinchGizmoDesc>
   <PhobosRecovery_StopWinchGizmo>Stop winching</PhobosRecovery_StopWinchGizmo>
   <PhobosRecovery_StopWinchGizmoDesc>Stop pulling {TOWED}. It stays where it is now.</PhobosRecovery_StopWinchGizmoDesc>
 
@@ -24,6 +24,7 @@
   <PhobosRecovery_WaitingToHitch>{TRACTOR} is waiting for someone to couple {TOWED}.</PhobosRecovery_WaitingToHitch>
   <PhobosRecovery_NobodyAboard>Nobody is aboard {TRACTOR} to work the winch.</PhobosRecovery_NobodyAboard>
   <PhobosRecovery_NotItself>A vehicle cannot winch itself.</PhobosRecovery_NotItself>
+  <PhobosRecovery_NotWinchable>The winch cannot take hold of {TOWED}: it pulls vehicles, wrecks, chunks, a crashed ship's pieces and the dead.</PhobosRecovery_NotWinchable>
   <PhobosRecovery_NotOurs>{TOWED} is not ours. Claim it first.</PhobosRecovery_NotOurs>
   <PhobosRecovery_NotHere>{TOWED} is not here.</PhobosRecovery_NotHere>
   <PhobosRecovery_AlreadyTowed>{TOWED} is hitched to {TOW}.</PhobosRecovery_AlreadyTowed>

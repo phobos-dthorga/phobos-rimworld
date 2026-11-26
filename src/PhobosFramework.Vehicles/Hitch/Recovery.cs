@@ -28,7 +28,8 @@ public sealed partial class CompPhobosHitch
     /// <summary>The ability the recovery winch fitting grants.</summary>
     public const string RecoveryAbility = "RecoveryWinch";
 
-    VehiclePawn? winchTarget;
+    /// <summary>What the winch is pulling: a vehicle, or since Framework 0.332.0 a hull, a chunk, a carcass or a building that can be dragged.</summary>
+    Thing? winchTarget;
     int winchWait;
     double winchRequired = -1, winchAvailable = -1;
 
@@ -38,8 +39,33 @@ public sealed partial class CompPhobosHitch
     /// <summary>Whether this vehicle may take an ordinary vehicle on its hitch: the winch's tow bar, and a hitch that can tow at all.</summary>
     bool CanRecover => CanWinch;
 
-    /// <summary>The vehicle the winch is pulling, or null.</summary>
-    public VehiclePawn? Winching => winchTarget;
+    /// <summary>What the winch is pulling, or null.</summary>
+    public Thing? Winching => winchTarget;
+
+    /// <summary>
+    /// Whether the winch can take hold of this thing at all (Framework 0.332.0; EM21(a), the owner's card of 27 Nov 2026: the winch pulls
+    /// by the pull it needs, chunks, hulls and a carcass too): a vehicle, a destroyed vehicle's hull, a chunk of stone or slag, a corpse, or
+    /// a building whose Def says it can be dragged (<see cref="PhobosWinchableExtension"/>: the crashed ship's chunks). Never a pawn alive.
+    /// </summary>
+    public static bool Winchable(Thing thing) => thing switch
+    {
+        VehiclePawn => true,
+        VehicleBuilding { VehicleDef: not null } => true,
+        Corpse => true,
+        Pawn => false,
+        _ => thing.def.thingCategories?.Contains(ThingCategoryDefOf.Chunks) == true || thing.def.IsWithinCategory(ThingCategoryDefOf.StoneChunks)
+            || thing.def.HasModExtension<PhobosWinchableExtension>(),
+    };
+
+    /// <summary>What a thing weighs on the winch, in kilograms: a vehicle's or a hull's as the sling weighs them; a building's as its Def
+    /// says; anything else the game's own mass, the whole stack.</summary>
+    static double WinchKilograms(Thing thing) => thing switch
+    {
+        VehiclePawn vehicle => CompPhobosSling.LoadKilograms(vehicle),
+        VehicleBuilding => CompPhobosSling.KilogramsOf(thing),
+        _ when thing.def.GetModExtension<PhobosWinchableExtension>() is { } winchable => winchable.kilograms,
+        _ => thing.GetStatValue(StatDefOf.Mass) * thing.stackCount,
+    };
 
     /// <summary>A vehicle the recovery tow can take: a land vehicle that is not a trailer and not an aircraft.</summary>
     static bool IsRecoveryCandidate(VehiclePawn vehicle) =>
@@ -87,7 +113,7 @@ public sealed partial class CompPhobosHitch
 
     /// <summary>Whether a vehicle's wheels or tracks turn, so it rolls rather than being dragged: Vehicle Framework gives a vehicle whose
     /// running gear is destroyed no speed.</summary>
-    static bool Rolls(VehiclePawn vehicle) => vehicle.GetStatValue(VehicleStatDefOf.MoveSpeed) > 0.1f;
+    static bool Rolls(Thing thing) => thing is VehiclePawn vehicle && vehicle.GetStatValue(VehicleStatDefOf.MoveSpeed) > 0.1f;
 
     static (double Rolling, double Grip) GroundAt(Map map, IntVec3 cell)
     {
@@ -96,14 +122,14 @@ public sealed partial class CompPhobosHitch
     }
 
     /// <summary>The pull it takes to move <paramref name="stuck"/> where it stands, in kilograms-force.</summary>
-    double RequiredFor(VehiclePawn stuck) => RequiredAt(stuck, stuck.Position);
+    double RequiredFor(Thing stuck) => RequiredAt(stuck, stuck.Position);
 
-    /// <summary>The pull it takes to move a vehicle standing on this cell of its map, in kilograms-force: the winch's sum, also what
-    /// pushing it by hand must overcome (Framework 0.201.0, bay trips).</summary>
-    internal static double RequiredAt(VehiclePawn stuck, IntVec3 cell)
+    /// <summary>The pull it takes to move a thing standing on this cell of its map, in kilograms-force: the winch's sum, also what
+    /// pushing a vehicle by hand must overcome (Framework 0.201.0, bay trips). Anything but a vehicle on its wheels is dragged.</summary>
+    internal static double RequiredAt(Thing stuck, IntVec3 cell)
     {
         (double rolling, double grip) = GroundAt(stuck.Map, cell);
-        return RecoveryRule.Required(CompPhobosSling.LoadKilograms(stuck), RecoveryRule.Resistance(rolling, grip, Rolls(stuck), Rules.winchMireAdd));
+        return RecoveryRule.Required(WinchKilograms(stuck), RecoveryRule.Resistance(rolling, grip, Rolls(stuck), Rules.winchMireAdd));
     }
 
     /// <summary>The pull this vehicle's winch can give where it stands, in kilograms-force.</summary>
@@ -114,7 +140,7 @@ public sealed partial class CompPhobosHitch
     }
 
     /// <summary>The empty cells between this vehicle's footprint and another's, the larger of the two axes.</summary>
-    int GapTo(VehiclePawn other)
+    int GapTo(Thing other)
     {
         CellRect a = Vehicle.OccupiedRect(), b = other.OccupiedRect();
         int gapX = Mathf.Max(0, Mathf.Max(a.minX - b.maxX, b.minX - a.maxX) - 1);
@@ -123,7 +149,7 @@ public sealed partial class CompPhobosHitch
     }
 
     /// <summary>Close enough that the winch has done its work: at most one cell between the two.</summary>
-    bool Beside(VehiclePawn other) => GapTo(other) <= 1;
+    bool Beside(Thing other) => GapTo(other) <= 1;
 
     // ---- What the player orders ----
 
@@ -146,21 +172,33 @@ public sealed partial class CompPhobosHitch
         Feeds.Refusal(Systems, Feeds.ForAbility(Systems, RecoveryAbility), "PhobosRecovery_WinchName".Translate().Resolve());
 
     /// <summary>Why this vehicle's winch cannot pull <paramref name="stuck"/> now, or null.</summary>
-    public string? WinchRefusalFor(VehiclePawn stuck)
+    public string? WinchRefusalFor(Thing stuck)
     {
         if (stuck == Vehicle) return "PhobosRecovery_NotItself".Translate().Resolve();
-        // Framework 0.187.0 (EM21): another faction's vehicle may be winched where the claim order could take it (nobody aboard, nobody of
-        // theirs armed nearby): a wreck left on the field is pulled clear before anyone decides whether to claim it. It stays theirs.
-        if (stuck.Faction != Faction.OfPlayer && VehicleClaims.Refusal(stuck) != null) return "PhobosRecovery_NotOurs".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
+        if (!Winchable(stuck)) return "PhobosRecovery_NotWinchable".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
         if (!stuck.Spawned || stuck.Map != Vehicle.Map) return "PhobosRecovery_NotHere".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
-        if (stuck.GetComp<CompVehicleLauncher>() != null) return "PhobosRecovery_NoAircraft".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
-        if (stuck.VehicleDef.type != VehicleType.Land) return "PhobosRecovery_LandOnly".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
-        if (Hitches.Towing(stuck) is { } other) return "PhobosRecovery_AlreadyTowed".Translate(stuck.LabelShort.Named("TOWED"), other.Vehicle.LabelShort.Named("TOW")).Resolve();
+        if (stuck is VehiclePawn vehicle)
+        {
+            // Framework 0.187.0 (EM21): another faction's vehicle may be winched where the claim order could take it (nobody aboard, nobody
+            // of theirs armed nearby): a wreck left on the field is pulled clear before anyone decides whether to claim it. It stays theirs.
+            if (vehicle.Faction != Faction.OfPlayer && VehicleClaims.Refusal(vehicle) != null) return "PhobosRecovery_NotOurs".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
+            if (vehicle.GetComp<CompVehicleLauncher>() != null) return "PhobosRecovery_NoAircraft".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
+            if (vehicle.VehicleDef.type != VehicleType.Land) return "PhobosRecovery_LandOnly".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
+            if (Hitches.Towing(vehicle) is { } other) return "PhobosRecovery_AlreadyTowed".Translate(stuck.LabelShort.Named("TOWED"), other.Vehicle.LabelShort.Named("TOW")).Resolve();
+        }
+        else if (stuck.Faction is { } owner && owner != Faction.OfPlayer && stuck is Building)
+        {
+            // A building of another faction's stays where it is: the winch takes only what nobody owns, or what is the player's.
+            return "PhobosRecovery_NotOurs".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
+        }
         if (GapTo(stuck) > Rules.winchReachCells) return "PhobosRecovery_TooFar".Translate(stuck.LabelShort.Named("TOWED"), Rules.winchReachCells.Named("CELLS")).Resolve();
         if (Beside(stuck)) return "PhobosRecovery_AlreadyBeside".Translate(stuck.LabelShort.Named("TOWED"), Vehicle.LabelShort.Named("TRACTOR")).Resolve();
-        if (stuck.vehiclePather is { Moving: true }) return "PhobosRecovery_TowedMoving".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
-        // Framework 0.120.5 (fault-read H7): as the hitch refuses since 0.111.0, the winch leaves a vehicle set up for work where it stands.
-        if (SetUpRefusal(stuck) is { } setUp) return setUp;
+        if (stuck is VehiclePawn moving)
+        {
+            if (moving.vehiclePather is { Moving: true }) return "PhobosRecovery_TowedMoving".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
+            // Framework 0.120.5 (fault-read H7): as the hitch refuses since 0.111.0, the winch leaves a vehicle set up for work where it stands.
+            if (SetUpRefusal(moving) is { } setUp) return setUp;
+        }
         double required = RequiredFor(stuck), available = Available();
         if (!RecoveryRule.CanPull(required, available))
         {
@@ -170,7 +208,7 @@ public sealed partial class CompPhobosHitch
         return null;
     }
 
-    public void StartWinch(VehiclePawn stuck)
+    public void StartWinch(Thing stuck)
     {
         if ((WinchRefusal() ?? WinchRefusalFor(stuck)) is { } refusal)
         {
@@ -178,7 +216,9 @@ public sealed partial class CompPhobosHitch
             return;
         }
         winchTarget = stuck;
-        if (stuck.Faction != Faction.OfPlayer) Seen.Note("vehicles.winch-foreign", Vehicle, stuck.LabelShort);
+        if (stuck is VehiclePawn && stuck.Faction != Faction.OfPlayer) Seen.Note("vehicles.winch-foreign", Vehicle, stuck.LabelShort);
+        if (stuck is not VehiclePawn && Seen.Wants("vehicles.winch-thing", Vehicle, WinchKind(stuck)))
+            Seen.Note("vehicles.winch-thing", Vehicle, stuck.LabelShort, WinchKind(stuck));
         winchRequired = RequiredFor(stuck);
         winchAvailable = Available();
         winchWait = RecoveryRule.TicksPerCell(Rules.winchTicksPerCell, winchRequired, winchAvailable);
@@ -191,10 +231,10 @@ public sealed partial class CompPhobosHitch
     /// <summary>Stops the winch, with this message for the player or none.</summary>
     void StopWinch(string? message, MessageTypeDef? type = null)
     {
-        VehiclePawn? was = winchTarget;
+        Thing? was = winchTarget;
         winchTarget = null;
         // Where the winch left it, it lays its pipes again (fault-read H5).
-        if (was != null) Hitches.LookAtPipes(was);
+        if (was is VehiclePawn wasVehicle) Hitches.LookAtPipes(wasVehicle);
         winchWait = 0;
         winchRequired = winchAvailable = -1;
         if (trailer == null) Vehicle.RequestTickStop(this);
@@ -207,7 +247,7 @@ public sealed partial class CompPhobosHitch
     /// <summary>One tick of the winch: checks it may go on, and every so often drags the stuck vehicle one cell nearer.</summary>
     void WinchTick()
     {
-        VehiclePawn stuck = winchTarget!;
+        Thing stuck = winchTarget!;
         string tractor = Vehicle.LabelShort, towed = stuck.LabelShort;
         if (!stuck.Spawned || !Vehicle.Spawned || stuck.Map != Vehicle.Map)
         {
@@ -219,7 +259,7 @@ public sealed partial class CompPhobosHitch
             StopWinch("PhobosRecovery_StoppedTractorMoved".Translate(tractor.Named("TRACTOR"), towed.Named("TOWED")).Resolve());
             return;
         }
-        if (stuck.vehiclePather is { Moving: true })
+        if (stuck is VehiclePawn { vehiclePather.Moving: true })
         {
             StopWinch("PhobosRecovery_StoppedTowedMoved".Translate(tractor.Named("TRACTOR"), towed.Named("TOWED")).Resolve());
             return;
@@ -264,8 +304,8 @@ public sealed partial class CompPhobosHitch
         winchWait = RecoveryRule.TicksPerCell(Rules.winchTicksPerCell, winchRequired, winchAvailable);
     }
 
-    /// <summary>Drags the stuck vehicle one cell towards this one: straight along the line if it can, otherwise along either axis alone.</summary>
-    bool TryDrag(VehiclePawn stuck)
+    /// <summary>Drags the stuck thing one cell towards this vehicle: straight along the line if it can, otherwise along either axis alone.</summary>
+    bool TryDrag(Thing stuck)
     {
         Map map = Vehicle.Map;
         (int dx, int dz) = RecoveryRule.Step(stuck.Position.x, stuck.Position.z, Vehicle.Position.x, Vehicle.Position.z);
@@ -279,18 +319,30 @@ public sealed partial class CompPhobosHitch
         {
             if (step == IntVec3.Zero) continue;
             IntVec3 cell = stuck.Position + step;
-            // Vehicle Framework's own footprint, as the hitch reads it (Framework 0.120.5, fault-read H1).
-            CellRect next = stuck.VehicleRect(cell, stuck.Rotation);
-            if (!ClearFor(next, map, stuck)) continue;
-            // As Vehicle Framework moves a vehicle a cell; shared with a brakeless overrun since Framework 0.188.0 (H2 and H5 live there).
-            VehicleShift.MoveOneCell(stuck, cell);
+            if (stuck is VehiclePawn vehicle)
+            {
+                // Vehicle Framework's own footprint, as the hitch reads it (Framework 0.120.5, fault-read H1).
+                if (!ClearFor(vehicle.VehicleRect(cell, vehicle.Rotation), map, stuck)) continue;
+                // As Vehicle Framework moves a vehicle a cell; shared with a brakeless overrun since Framework 0.188.0 (H2 and H5 live there).
+                VehicleShift.MoveOneCell(vehicle, cell);
+                return true;
+            }
+            // Not a vehicle: its own cells, moved by the step (a vehicle's footprint is Vehicle Framework's, above).
+            if (!ClearFor(stuck.OccupiedRect().MovedBy(new IntVec2(step.x, step.z)), map, stuck)) continue;
+            // Framework 0.332.0: anything else is lifted off the map and set down a cell on, as the game moves a thing: the same thing, kept whole.
+            Rot4 rotation = stuck.Rotation;
+            stuck.DeSpawn(DestroyMode.Vanish);
+            GenSpawn.Spawn(stuck, cell, map, rotation, WipeMode.FullRefund);
             return true;
         }
         return false;
     }
 
-    /// <summary>Whether a dragged vehicle can stand on these cells: on the map, on walkable ground, clear of every other vehicle.</summary>
-    static bool ClearFor(CellRect rect, Map map, VehiclePawn mover)
+    /// <summary>
+    /// Whether a dragged thing can stand on these cells: on the map, on walkable ground, clear of every other vehicle; anything but a vehicle
+    /// also clear of buildings, items and anyone standing there, so nothing is pushed aside or buried.
+    /// </summary>
+    static bool ClearFor(CellRect rect, Map map, Thing mover)
     {
         if (!rect.InBounds(map)) return false;
         foreach (IntVec3 c in rect)
@@ -299,11 +351,23 @@ public sealed partial class CompPhobosHitch
             List<Thing> things = c.GetThingList(map);
             for (int i = 0; i < things.Count; i++)
             {
-                if (things[i] is VehiclePawn other && other != mover) return false;
+                Thing there = things[i];
+                if (there == mover) continue;
+                if (there is VehiclePawn) return false;
+                if (mover is not VehiclePawn && (there is Pawn || there.def.category is ThingCategory.Building or ThingCategory.Item)) return false;
             }
         }
         return true;
     }
+
+    /// <summary>What kind of thing the winch has hold of, for a seen-in-play note: a hull, a chunk, a carcass or a building.</summary>
+    static string WinchKind(Thing thing) => thing switch
+    {
+        VehicleBuilding => "hull",
+        Corpse => "corpse",
+        Building => "building",
+        _ => "chunk",
+    };
 
     // ---- What the player sees ----
 
@@ -317,11 +381,13 @@ public sealed partial class CompPhobosHitch
             action = () => Find.Targeter.BeginTargeting(new TargetingParameters
             {
                 canTargetPawns = true,
-                canTargetBuildings = false,
-                validator = target => target.Thing is VehiclePawn stuck && stuck != Vehicle,
+                canTargetBuildings = true,
+                canTargetItems = true,
+                mapObjectTargetsMustBeAutoAttackable = false,
+                validator = target => target.Thing is { } stuck && stuck != Vehicle && Winchable(stuck),
             }, target =>
             {
-                if (target.Thing is VehiclePawn stuck) StartWinch(stuck);
+                if (target.Thing is { } stuck) StartWinch(stuck);
             }),
         };
         if (WinchRefusal() is { } refusal) command.Disable(refusal);
@@ -339,7 +405,7 @@ public sealed partial class CompPhobosHitch
 
     string WinchInspectLine()
     {
-        VehiclePawn stuck = winchTarget!;
+        Thing stuck = winchTarget!;
         if (winchRequired < 0 && stuck.Spawned && Vehicle.Spawned)
         {
             winchRequired = RequiredFor(stuck);
@@ -360,4 +426,14 @@ public sealed partial class CompPhobosHitch
         Vector3 stuck = ((Thing)winchTarget!).DrawPos;
         GenDraw.DrawLineBetween(front, new Vector3(stuck.x, y, stuck.z), SimpleColor.White, 0.06f);
     }
+}
+
+/// <summary>
+/// Marks a building the recovery winch may drag, and what it weighs (Framework 0.332.0; EM21(a)): a crashed ship's chunk, which the game
+/// gives no mass. Added to other authors' Defs by an XML patch, so any author can mark their own.
+/// </summary>
+public class PhobosWinchableExtension : DefModExtension
+{
+    /// <summary>Its weight on the winch, in kilograms.</summary>
+    public float kilograms = 1000f;
 }

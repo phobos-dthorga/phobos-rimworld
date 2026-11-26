@@ -150,6 +150,12 @@ public class RadioRulesDef : Def
     public float overHorizonLossDb = 200f;
     /// <summary>The most hops a relayed call may take (Radio 0.22.0): two relays, three hops (radio-autonomy's lean, agent default).</summary>
     public int maxRelayHops = 3;
+    /// <summary>How many 25 kHz channels a repeater has between tiles (Radio 0.24.0): one pair, in and out, as the relay design leans
+    /// (agent default). A relay node can name its own (a relay post's two repeaters).</summary>
+    public int repeaterChannels = 2;
+    /// <summary>How long a call keeps its place at a relay without being asked about again, in ticks (Radio 0.24.0; agent default: a game
+    /// hour, ten times the longest a convoy's reach is kept).</summary>
+    public int relayLeaseTicks = 2500;
 
     // Margin bands, in dB, above which each outcome starts.
     public float marginalDb = 0f;

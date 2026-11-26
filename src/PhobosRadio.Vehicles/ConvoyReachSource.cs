@@ -91,6 +91,8 @@ public sealed class ConvoyReachSource : IConvoyReachSource
         double margin = LinkBudgetService.EvaluateWorld(start.End, nearest.End, far, rules, start.SiteMetres, nearest.SiteMetres)?.MarginDb ?? double.NegativeInfinity;
         string why = (far > reachable ? "PhobosRadioReach_OverHorizon" : "PhobosRadioReach_TooWeak").Translate(nearest.Label.Named("HOME"),
             (far / 1000.0).ToString("0").Named("KM"), (reachable / 1000.0).ToString("0").Named("HORIZON"), margin.ToString("0").Named("MARGIN")).Resolve();
+        // Radio 0.24.0: a relay that would have carried it, full of other calls.
+        if (RelayNodes.BusyFor(convoy) is { } busy) why += " " + "PhobosRadioReach_RelayBusy".Translate(busy.Named("RELAYS")).Resolve();
         return new ConvoyReach(false, far / 1000.0, reachable / 1000.0, margin, why);
     }
 

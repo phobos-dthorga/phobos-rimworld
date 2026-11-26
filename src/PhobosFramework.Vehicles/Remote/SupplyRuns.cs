@@ -4,6 +4,7 @@ using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using RimWorld.Planet;
+using SmashTools;
 using UnityEngine;
 using Vehicles;
 using Vehicles.World;
@@ -44,9 +45,14 @@ public sealed class SupplyStop : IExposable
     public WorldObject? place;
     public SupplyStopAction action;
     public int waitTicks = RoundRule.WaitTicks(RoundRule.DefaultWaitHours);
+    /// <summary>At a colony: what colonists load into it while it waits (Framework 0.332.0), each a kind of thing and how many in all.</summary>
+    public List<ThingDefCountClass> load = new();
 
     /// <summary>A colony map of the player's at this stop, entered at its edge.</summary>
     public Map? HomeMap => place is MapParent { HasMap: true, Faction.IsPlayer: true } parent ? parent.Map : null;
+
+    /// <summary>How many of this kind its loading list asks for.</summary>
+    public int LoadOf(ThingDef def) => load.FirstOrDefault(l => l.thingDef == def)?.count ?? 0;
 
     public string Label => place != null && !place.Destroyed ? place.LabelCap
         : "PhobosRound_TileLabel".Translate(Find.WorldGrid.LongLatOf(tile).x.ToStringLongitude().Named("LONG"),
@@ -58,6 +64,12 @@ public sealed class SupplyStop : IExposable
         Scribe_References.Look(ref place, "PhobosRunPlace");
         Scribe_Values.Look(ref action, "PhobosRunAction");
         Scribe_Values.Look(ref waitTicks, "PhobosRunWait", RoundRule.WaitTicks(RoundRule.DefaultWaitHours));
+        Scribe_Collections.Look(ref load, "PhobosRunLoad", LookMode.Deep);
+        if (Scribe.mode == LoadSaveMode.PostLoadInit)
+        {
+            load ??= new List<ThingDefCountClass>();
+            load.RemoveAll(l => l?.thingDef == null);
+        }
     }
 }
 
@@ -71,7 +83,7 @@ public class CompProperties_PhobosSupplyRun : CompProperties
 }
 
 /// <summary>
-/// A truck's supply run (Framework 0.329.0; docs/development/vehicle-road-work.md; the owner's word of 26 Nov 2026, "Do the Fleet board,
+/// A truck's supply run (Framework 0.328.0; docs/development/vehicle-road-work.md; the owner's word of 26 Nov 2026, "Do the Fleet board,
 /// relays, and crewless supply runs", and cards): a round of stops picked on the world map, depots, open tiles and the player's colonies,
 /// driven with a driver aboard or, with the route kit working, with nobody, as an aircraft's round is flown. Between stops it is a convoy
 /// of its own; at a colony it enters the map at its edge; at each stop it delivers, fetches or only waits, as set. A crewless run answers to
@@ -80,6 +92,10 @@ public class CompProperties_PhobosSupplyRun : CompProperties
 public sealed class CompPhobosSupplyRun : VehicleComp
 {
     const int LookTicks = 250;
+    /// <summary>A look while it drives to the map's edge, so it leaves within a second of arriving there.</summary>
+    const int DrivingOutTicks = 60;
+    /// <summary>The loading list's step buttons (the owner's way: preset buttons, round values).</summary>
+    public static readonly int[] LoadSteps = { 10, 100 };
 
     List<SupplyStop> stops = new();
     bool running;
@@ -88,6 +104,10 @@ public sealed class CompPhobosSupplyRun : VehicleComp
     bool crewless;
     bool heldForLink;
     string? waitingWhy;
+    /// <summary>The edge cell it drives to before leaving a colony's map (Framework 0.332.0), or invalid.</summary>
+    IntVec3 exitCell = IntVec3.Invalid;
+    /// <summary>Whether colonists are loading it from its stop's list.</summary>
+    bool loading;
 
     public IReadOnlyList<SupplyStop> Stops => stops;
     public bool Running => running;
@@ -142,6 +162,19 @@ public sealed class CompPhobosSupplyRun : VehicleComp
         stops[index].waitTicks = RoundRule.WaitTicks(hours);
     }
 
+    /// <summary>Why this stop can have no loading list, or null: colonists load only at a colony of the player's.</summary>
+    public string? LoadRefusal(int index) =>
+        index < 0 || index >= stops.Count || stops[index].HomeMap == null ? "PhobosSupplyRun_RefuseLoadOffMap".Translate().Resolve() : null;
+
+    /// <summary>Sets how many of this kind colonists load at this stop; none takes it off the list.</summary>
+    public void SetLoad(int index, ThingDef def, int count)
+    {
+        if (LoadRefusal(index) != null || def == null) return;
+        List<ThingDefCountClass> load = stops[index].load;
+        load.RemoveAll(l => l.thingDef == def);
+        if (count > 0) load.Add(new ThingDefCountClass(def, count));
+    }
+
     public string? StartRefusal()
     {
         if (!RouteControl.On) return "PhobosRound_RefuseSettingOff".Translate().Resolve();
@@ -170,6 +203,9 @@ public sealed class CompPhobosSupplyRun : VehicleComp
         waitUntil = -1;
         waitingWhy = null;
         heldForLink = false;
+        StopLoading();
+        if (exitCell.IsValid && Vehicle.Spawned) VehicleAutoDrive.Halt(Vehicle, exitCell);
+        exitCell = IntVec3.Invalid;
         if (Vehicle.Spawned || !RemoteControl.CrewDrives(Vehicle) && Vehicle.GetVehicleCaravan() is { } convoy && !convoy.vehiclePather.Moving) crewless = false;
         Messages.Message("PhobosSupplyRun_Stopped".Translate(Vehicle.LabelShort.Named("VEHICLE")), Vehicle, MessageTypeDefOf.SilentInput, false);
     }
@@ -179,13 +215,14 @@ public sealed class CompPhobosSupplyRun : VehicleComp
     public override void CompTick()
     {
         base.CompTick();
-        if (!Vehicle.Spawned || !Gen.IsHashIntervalTick(Vehicle, LookTicks)) return;
+        if (!Vehicle.Spawned || !Gen.IsHashIntervalTick(Vehicle, exitCell.IsValid ? DrivingOutTicks : LookTicks)) return;
         if (!running)
         {
             crewless = false;
             return;
         }
-        LookOnMap();
+        if (exitCell.IsValid) DriveOut(Vehicle.Map);
+        else LookOnMap();
     }
 
     void Waits(string why)
@@ -226,24 +263,107 @@ public sealed class CompPhobosSupplyRun : VehicleComp
         if (waitUntil < 0)
         {
             Arrive(stops[at], null);
+            StartLoading(stops[at]);
             waitUntil = now + stops[at].waitTicks;
         }
-        if (!RoundRule.WaitOver(now, waitUntil)) return;
+        // The owner's card of 27 Nov 2026, "Loaded, or time up": with a loading list it leaves once the list is loaded, or when its time is up.
+        // Registering again is a no-op while registered, and puts the haulers back to work after a load.
+        if (loading) map.GetCachedMapComponent<VehicleReservationManager>().RegisterLister(Vehicle, ReservationType.LoadVehicle);
+        bool loaded = loading && !AnyLeftToLoad;
+        if (!loaded && !RoundRule.WaitOver(now, waitUntil)) return;
         if (LeaveRefusal(null) is { } why)
         {
             Waits(why);
             return;
         }
-        int next = Next;
+        if (loading)
+        {
+            Messages.Message((loaded ? "PhobosSupplyRun_Loaded" : "PhobosSupplyRun_LoadedPart").Translate(Vehicle.LabelShort.Named("VEHICLE"),
+                stops[at].Label.Named("PLACE")), Vehicle, loaded ? MessageTypeDefOf.TaskCompletion : MessageTypeDefOf.CautionInput, false);
+            if (Seen.Wants("vehicles.supply-run", Vehicle, "loaded")) Seen.Note("vehicles.supply-run", Vehicle, loaded ? "all" : "part", "loaded");
+        }
+        StopLoading();
+        // Framework 0.332.0: it drives to the map's edge before leaving, as any convoy does (Vehicle Framework's own exit spot).
         crewless = !RemoteControl.CrewDrives(Vehicle);
-        VehicleCaravan? convoy = CaravanHelper.ExitMapAndCreateVehicleCaravan(new Pawn[] { Vehicle }, Faction.OfPlayer, map.Tile, stops[next].tile, stops[next].tile, sendMessage: false);
-        if (convoy == null)
+        if (!CellFinderExtended.TryFindBestExitSpot(Vehicle, out IntVec3 edge))
         {
             crewless = false;
             Waits("PhobosSupplyRun_WaitCannotLeave".Translate().Resolve());
             return;
         }
-        Head(convoy, next);
+        exitCell = edge;
+        DriveOut(map);
+    }
+
+    /// <summary>
+    /// A look while it drives to the edge: at the edge it leaves as a convoy of its own; otherwise it keeps (or takes again) its drive there,
+    /// starting its engine as a driver would. A crewless run's crew check answers yes from here (RemoteControlOperatorsPatch).
+    /// </summary>
+    void DriveOut(Map map)
+    {
+        if (Vehicle.Position.InHorDistOf(exitCell, Vehicle.VehicleDef.Size.z))
+        {
+            VehicleAutoDrive.Halt(Vehicle, exitCell);
+            exitCell = IntVec3.Invalid;
+            if (Seen.Wants("vehicles.supply-run", Vehicle, "edge")) Seen.Note("vehicles.supply-run", Vehicle, map.Parent.LabelCap, "edge");
+            int next = Next;
+            VehicleCaravan? convoy = CaravanHelper.ExitMapAndCreateVehicleCaravan(new Pawn[] { Vehicle }, Faction.OfPlayer, map.Tile, stops[next].tile, stops[next].tile, sendMessage: false);
+            if (convoy == null)
+            {
+                crewless = false;
+                Waits("PhobosSupplyRun_WaitCannotLeave".Translate().Resolve());
+                return;
+            }
+            Head(convoy, next);
+            return;
+        }
+        if (VehicleAutoDrive.HeadingFor(Vehicle, exitCell) && VehicleAutoDrive.Moving(Vehicle)) return;
+        if (VehicleAutoDrive.CannotDrive(Vehicle) is { } refused || !VehicleAutoDrive.StartEngine(Vehicle, out _) || !VehicleAutoDrive.DriveTo(Vehicle, exitCell))
+        {
+            exitCell = IntVec3.Invalid;
+            crewless = false;
+            Waits(VehicleAutoDrive.CannotDrive(Vehicle) ?? "PhobosSupplyRun_WaitCannotLeave".Translate().Resolve());
+        }
+    }
+
+    // ---- Loading at a colony (Framework 0.332.0) ----
+
+    bool AnyLeftToLoad => Vehicle.cargoToLoad != null && Vehicle.cargoToLoad.Any(t => t.CountToTransfer > 0);
+
+    /// <summary>
+    /// Asks colonists to load the stop's list, less what it carries already, from what lies on the map unforbidden: Vehicle Framework's own
+    /// loading, as its cargo window sets it (VehiclePawn.cargoToLoad and the "load vehicle" lister), so haulers carry it in by the game's
+    /// work priorities. What the colony lacks is loaded as far as it goes.
+    /// </summary>
+    void StartLoading(SupplyStop stop)
+    {
+        if (stop.HomeMap == null || stop.load.Count == 0 || !Vehicle.Spawned) return;
+        Map map = Vehicle.Map;
+        Vehicle.cargoToLoad ??= new List<TransferableOneWay>();
+        Vehicle.cargoToLoad.Clear();
+        foreach (ThingDefCountClass want in stop.load)
+        {
+            int need = want.count - Vehicle.inventory.innerContainer.TotalStackCountOfDef(want.thingDef);
+            if (need <= 0) continue;
+            List<Thing> stacks = map.listerThings.ThingsOfDef(want.thingDef)
+                .Where(t => t.Spawned && !t.IsForbidden(Faction.OfPlayer) && !t.Position.Fogged(map)).ToList();
+            if (stacks.Count == 0) continue;
+            var transfer = new TransferableOneWay();
+            transfer.things.AddRange(stacks);
+            transfer.AdjustTo(Mathf.Min(need, transfer.MaxCount));
+            if (transfer.CountToTransfer > 0) Vehicle.cargoToLoad.Add(transfer);
+        }
+        if (Vehicle.cargoToLoad.Count == 0) return;
+        map.GetCachedMapComponent<VehicleReservationManager>().RegisterLister(Vehicle, ReservationType.LoadVehicle);
+        loading = true;
+    }
+
+    void StopLoading()
+    {
+        if (!loading) return;
+        loading = false;
+        Vehicle.cargoToLoad?.Clear();
+        if (Vehicle.Spawned) Vehicle.Map.GetCachedMapComponent<VehicleReservationManager>().RemoveLister(Vehicle, ReservationType.LoadVehicle);
     }
 
     void Head(VehicleCaravan convoy, int next)
@@ -467,6 +587,8 @@ public sealed class CompPhobosSupplyRun : VehicleComp
         Scribe_Values.Look(ref waitUntil, "PhobosRunWaitUntil", -1);
         Scribe_Values.Look(ref crewless, "PhobosRunCrewless");
         Scribe_Values.Look(ref heldForLink, "PhobosRunHeldForLink");
+        Scribe_Values.Look(ref exitCell, "PhobosRunExitCell", IntVec3.Invalid);
+        Scribe_Values.Look(ref loading, "PhobosRunLoading");
         if (Scribe.mode == LoadSaveMode.PostLoadInit) stops ??= new List<SupplyStop>();
     }
 }
@@ -530,11 +652,92 @@ public static class SupplyRunPlanner
         }
         foreach (float hours in WaitHours)
             options.Add(new FloatMenuOption("PhobosSupplyRun_WaitFor".Translate(RoundRule.WaitTicks(hours).ToStringTicksToPeriod().Named("WAIT")), () => run.SetWait(index, hours)));
+        string loadLabel = "PhobosSupplyRun_LoadList".Translate(run.Stops[index].load.Count.Named("COUNT")).Resolve();
+        options.Add(run.LoadRefusal(index) is { } noLoad
+            ? new FloatMenuOption(loadLabel + ": " + noLoad, null)
+            : new FloatMenuOption(loadLabel, () => Find.WindowStack.Add(new Dialog_PhobosSupplyLoad(run, index))));
         Find.WindowStack.Add(new FloatMenu(options));
     }
 }
 
-/// <summary>Looks at the supply runs whose trucks are convoys on the world map, a few times a game hour (Framework 0.329.0).</summary>
+/// <summary>
+/// A colony stop's loading list (Framework 0.332.0): every kind of thing the colony has counted, and anything already on the list, each with
+/// how many the colony has and how many to load, set by preset buttons. Presentation only: the run's comp keeps the list.
+/// </summary>
+public sealed class Dialog_PhobosSupplyLoad : Window
+{
+    const float Row = 30f;
+    readonly CompPhobosSupplyRun run;
+    readonly int index;
+    Vector2 scroll;
+
+    public Dialog_PhobosSupplyLoad(CompPhobosSupplyRun run, int index)
+    {
+        this.run = run;
+        this.index = index;
+        doCloseX = true;
+        doCloseButton = true;
+        absorbInputAroundWindow = true;
+    }
+
+    public override Vector2 InitialSize => new(620f, 640f);
+
+    List<(ThingDef def, int have)> Rows()
+    {
+        SupplyStop stop = run.Stops[index];
+        Map? map = stop.HomeMap;
+        var counted = map?.resourceCounter.AllCountedAmounts.Where(p => p.Value > 0).ToDictionary(p => p.Key, p => p.Value) ?? new Dictionary<ThingDef, int>();
+        foreach (ThingDefCountClass line in stop.load)
+            if (!counted.ContainsKey(line.thingDef)) counted[line.thingDef] = map?.resourceCounter.GetCount(line.thingDef) ?? 0;
+        return counted.Select(p => (p.Key, p.Value)).OrderByDescending(r => stop.LoadOf(r.Key) > 0).ThenBy(r => r.Key.label).ToList();
+    }
+
+    public override void DoWindowContents(Rect inRect)
+    {
+        if (index >= run.Stops.Count)
+        {
+            Close();
+            return;
+        }
+        SupplyStop stop = run.Stops[index];
+        Text.Font = GameFont.Medium;
+        Widgets.Label(new Rect(inRect.x, inRect.y, inRect.width, 34f), "PhobosSupplyRun_LoadTitle".Translate(stop.Label.Named("PLACE")));
+        Text.Font = GameFont.Small;
+        Widgets.Label(new Rect(inRect.x, inRect.y + 36f, inRect.width, 44f), "PhobosSupplyRun_LoadExplain".Translate());
+        List<(ThingDef def, int have)> rows = Rows();
+        var outer = new Rect(inRect.x, inRect.y + 84f, inRect.width, inRect.height - 84f - CloseButSize.y - 10f);
+        var view = new Rect(0f, 0f, outer.width - 16f, rows.Count * Row);
+        Widgets.BeginScrollView(outer, ref scroll, view);
+        for (int i = 0; i < rows.Count; i++)
+        {
+            (ThingDef def, int have) = rows[i];
+            var rect = new Rect(0f, i * Row, view.width, Row);
+            if (i % 2 == 1) Widgets.DrawLightHighlight(rect);
+            Widgets.ThingIcon(new Rect(rect.x, rect.y + 3f, 24f, 24f), def);
+            int want = stop.LoadOf(def);
+            Text.Anchor = TextAnchor.MiddleLeft;
+            Widgets.Label(new Rect(rect.x + 30f, rect.y, 200f, Row), def.LabelCap.Truncate(200f));
+            Widgets.Label(new Rect(rect.x + 232f, rect.y, 90f, Row), "PhobosSupplyRun_LoadHave".Translate(have.Named("COUNT")));
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Widgets.Label(new Rect(rect.x + 322f, rect.y, 60f, Row), want.ToString());
+            Text.Anchor = TextAnchor.UpperLeft;
+            float x = rect.x + 386f;
+            foreach (int step in CompPhobosSupplyRun.LoadSteps.Reverse())
+            {
+                if (Widgets.ButtonText(new Rect(x, rect.y + 2f, 44f, Row - 4f), "-" + step) && want > 0) run.SetLoad(index, def, Mathf.Max(0, want - step));
+                x += 46f;
+            }
+            foreach (int step in CompPhobosSupplyRun.LoadSteps)
+            {
+                if (Widgets.ButtonText(new Rect(x, rect.y + 2f, 44f, Row - 4f), "+" + step)) run.SetLoad(index, def, want + step);
+                x += 46f;
+            }
+        }
+        Widgets.EndScrollView();
+    }
+}
+
+/// <summary>Looks at the supply runs whose trucks are convoys on the world map, a few times a game hour (Framework 0.328.0).</summary>
 public sealed class WorldComponent_PhobosSupplyRuns : WorldComponent
 {
     public WorldComponent_PhobosSupplyRuns(World world) : base(world) { }

@@ -7,7 +7,7 @@
     <RootNamespace>Phobos.Radio</RootNamespace>
     <AssemblyName>PhobosRadio</AssemblyName>
     <ModFolder>PhobosRadioFramework</ModFolder>
-    <Version>0.23.0</Version>
+    <Version>0.24.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- D'thorga Framework, for its building upgrades (Radio 0.4.0); Private=false: its DLL ships only in its own mod. -->
@@ -16,6 +16,11 @@
          (CC BY-NC-ND 4.0) permits depending on it, not redistributing it. -->
     <Reference Include="PipeSystem">
       <HintPath>$(VefAssemblies)\PipeSystem.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- Its Outposts.dll (Radio 0.24.0), for the relay post, an outpost of its own outposts code; the same licence and the same terms. -->
+    <Reference Include="Outposts">
+      <HintPath>$(VefAssemblies)\Outposts.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

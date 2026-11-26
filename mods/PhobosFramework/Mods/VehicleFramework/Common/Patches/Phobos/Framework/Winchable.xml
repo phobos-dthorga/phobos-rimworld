@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The recovery winch drags a crashed ship's chunk (Framework 0.332.0; docs/development/vehicle-emergent-play.md, EM21(a); the owner's
+       card of 27 Nov 2026). The game gives a chunk no mass, so its weight on the winch is authored: 3 tonnes for a 2 by 2 chunk of hull
+       plate (agent's figure, for the owner to revise): dragged on firm ground it takes under half the winch's rated pull, and soft
+       ground can stall it. Odyssey's mechanoid
+       chunk is matched when that DLC is active; the vanilla chunk always. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="ShipChunk" or defName="ShipChunk_Mech"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosWinchableExtension">
+        <kilograms>3000</kilograms>
+      </li>
+    </value>
+  </Operation>
+</Patch>

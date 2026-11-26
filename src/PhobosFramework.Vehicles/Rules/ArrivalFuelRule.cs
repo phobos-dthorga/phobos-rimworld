@@ -7,7 +7,7 @@ namespace Phobos.Framework.Vehicles.Rules;
 /// owner's choice of 20 Nov 2026: fuel by distance, with a floor). A full tank less the fuel for the trip from that faction's nearest
 /// settlement, by Vehicle Framework's own figures: a world tile takes round(60 / speed) x 340 ticks to cross
 /// (<c>VehicleCaravanTicksPerMoveUtility.MoveSpeedToTileSpeed</c>), and the tank burns its rate x 1/60,000 a tick
-/// (<c>CompFueledTravel.ConsumptionRatePerTickRaw</c>). Never below <see cref="FloorShare"/> of the tank (authored), so a raid from far
+/// (<c>CompFueledTravel.ConsumptionRatePerTickRaw</c>, times its world multiplier between tiles, which the caller folds into the rate). Never below <see cref="FloorShare"/> of the tank (authored), so a raid from far
 /// away still arrives able to move; distance shows when its tank is holed, as a fuller tank leaks for longer. The trip's road, terrain
 /// and rests are left out, a simplification: fuel burns only while a convoy moves, and the ticks per tile are Vehicle Framework's base.
 /// </summary>

@@ -18,7 +18,14 @@
   <PhobosSupplyRun_ActionFetch>fetch the depot's goods</PhobosSupplyRun_ActionFetch>
   <PhobosSupplyRun_WaitFor>Wait {WAIT}</PhobosSupplyRun_WaitFor>
   <PhobosSupplyRun_RefuseTown>Not another faction's town.</PhobosSupplyRun_RefuseTown>
-  <PhobosSupplyRun_RefuseFetchOnMap>At a colony, people load it by hand while it waits.</PhobosSupplyRun_RefuseFetchOnMap>
+  <PhobosSupplyRun_RefuseFetchOnMap>At a colony, give it a loading list instead: your people load it while it waits.</PhobosSupplyRun_RefuseFetchOnMap>
+  <PhobosSupplyRun_RefuseLoadOffMap>Only at one of your colonies, where people can load it.</PhobosSupplyRun_RefuseLoadOffMap>
+  <PhobosSupplyRun_LoadList>Loading list ({COUNT} kinds)</PhobosSupplyRun_LoadList>
+  <PhobosSupplyRun_LoadTitle>Loading list at {PLACE}</PhobosSupplyRun_LoadTitle>
+  <PhobosSupplyRun_LoadExplain>While it waits here, your people load these into it, less what it already carries. It leaves once all of it is loaded, or when its waiting time is up.</PhobosSupplyRun_LoadExplain>
+  <PhobosSupplyRun_LoadHave>has {COUNT}</PhobosSupplyRun_LoadHave>
+  <PhobosSupplyRun_Loaded>{VEHICLE} is loaded at {PLACE} and sets off.</PhobosSupplyRun_Loaded>
+  <PhobosSupplyRun_LoadedPart>{VEHICLE}'s time at {PLACE} is up and it sets off with only part of its loading list.</PhobosSupplyRun_LoadedPart>
 
   <!-- What it does -->
   <PhobosSupplyRun_Started>{VEHICLE} sets off on its supply run of {COUNT} stops.</PhobosSupplyRun_Started>

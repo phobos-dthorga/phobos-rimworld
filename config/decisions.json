@@ -63,6 +63,27 @@
    "why": "One turbo part stands for one turbo; a second fitting on it has no physical meaning and makes the failure harsher than either alone",
    "from": "docs/development/vehicle-turbocharger.md",
    "asked": "2026-11-26"
+  },
+  {
+   "id": "river-water-without-dubs",
+   "question": "Should water tankers and the water bowser exist without Dubs Bad Hygiene, filling from rivers to fight fires?",
+   "context": "Your card of 27 Nov 2026 chose 'Both', including river water without Dubs. The card was wrong: it said only the river intake was Dubs-only, but the water itself and the water bowser are too. Without Dubs, water's only use would be fighting fires: the helicopter's bucket and the C-27J's fire tank.",
+   "options": [
+    {
+     "id": "bring-it",
+     "label": "Bring water to every game",
+     "detail": "Water and the water bowser without Dubs, filling from rivers, lakes or the sea; plumbing and treatment stay with Dubs"
+    },
+    {
+     "id": "keep-dubs",
+     "label": "Keep it with Dubs",
+     "detail": "As now: without Dubs, the bucket and the C-27J's tank draw straight from open water"
+    }
+   ],
+   "lean": "keep-dubs",
+   "why": "Without Dubs the bucket and the C-27J's tank already draw from open water, so a water bowser would add a vehicle with little to do",
+   "from": "docs/development/vehicle-emergent-play.md",
+   "asked": "2026-11-27"
   }
  ]
 }

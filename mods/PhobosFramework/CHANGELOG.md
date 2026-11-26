@@ -16,6 +16,31 @@ tested in game unless an entry says the owner tested it.
 
 
 
+
+## [0.332.0] - 2026-11-27 - Draft
+
+Supply trucks drive to the edge and load to a list, the winch drags wrecks, chunks and carcasses, and raiders' fuel counts the world rate
+
+### Added
+
+- **A supply truck drives to the edge of the map** before it leaves a colony, as any convoy does, with a driver or with nobody aboard;
+  stopping the run halts it. Not yet tested in game: row 632.
+- **A loading list at a colony stop** (Its stops, then the stop, then Loading list; the owner's card: leave once loaded, or when time is
+  up): your people load the listed things into it while it waits, less what it carries, and it leaves as soon as all is loaded or with
+  part of it when its time is up, saying which. Set with preset buttons. Not yet tested in game: row 633.
+- **The recovery winch drags a wreck, a chunk of rock or slag, a crashed ship's chunk or a carcass** (EM21; the owner's card), by the
+  pull it takes: a wreck weighs what its vehicle did empty, a ship's chunk 3 tonnes (the agent's figure), the rest what the game says.
+  Nothing alive, and nothing dragged over another thing or a person. The button is now Winch something in. Not yet tested in game: row 634.
+
+### Fixed
+
+- **Raiders' trucks arrived with twice the fuel for their trip burnt when their world fuel rate is halved** (our heavy trucks): the trip
+  now counts Vehicle Framework's world multiplier, as its convoys burn fuel. The row for raiders' fuel (278) is untested still.
+
+### Save compatibility
+
+- Safe to add. A supply run saved mid-way carries on; a truck that was loading at a stop goes on loading.
+
 ## [0.331.0] - 2026-11-27 - Draft
 
 An engine's sound in the air and taxiing, a cabin heard on the world map, and a fire-fighting tank filled from a tanker or plumbing

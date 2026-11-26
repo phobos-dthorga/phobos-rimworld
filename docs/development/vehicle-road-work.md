@@ -496,6 +496,26 @@ site, hilltops by hilliness, plane-earth fading). Built to that, but for home st
 - **Cost**: nothing while no run runs. A run on a map: a look every 250 ticks; on the world map, one world component walking the player's
   convoys every 250 ticks, and for a crewless run all the way, one reach ask (itself cached a tenth of an hour).
 
+## Supply runs, round two (Framework 0.332.0)
+
+The owner, 27 Nov 2026: "1, 2, 3, and 4", the second of road-work-four's suggestions being the two simplifications 0.328.0 had left in
+supply runs; by card, **with a loading list it leaves once loaded, or when its time is up** ("Loaded, or time up"). Not yet tested in
+game (rows 632 and 633).
+
+- **It drives to the map's edge**: leaving a colony's map, the truck takes Vehicle Framework's own exit spot
+  (`CellFinderExtended.TryFindBestExitSpot`) and drives there through D'thorga Framework's errand driving (`VehicleAutoDrive`: the
+  engine, the crew check, the ordered drive), looked at every second; at the edge it becomes a convoy as before. With nobody aboard, the
+  crew check answers yes for the run (`RemoteControlOperatorsPatch`). Stopping the run halts the drive. A map with no way to the edge
+  makes it wait and say so. (Vehicle Framework turns a vehicle reaching a colony map's edge into nothing by itself: a home map has no
+  exit cells, so it is our errand that leaves.)
+- **A loading list at a colony stop** (`SupplyStop.load`): kinds of thing and how many, set in a window from the stop's menu with
+  preset buttons (10 and 100), listing what the colony has counted. On arrival it asks colonists to load the list less what it carries,
+  from what lies unforbidden on the map, through Vehicle Framework's own loading (`cargoToLoad` and the "load vehicle" lister, as its
+  cargo window sets them), so haulers carry it in by the game's work priorities. It leaves once nothing is left to load, or when its
+  wait is up with part of it, and says which. It stands where it entered, at the map's edge: haulers walk there.
+- **What it stops**: a colony short of the listed things sends a truck out part-loaded; a list longer than the wait goes unfinished.
+- **Cost**: a look every 250 ticks at a stop (every 60 while driving out); the list is built once on arrival from the map's lister.
+
 ## Who chose what
 
 - **Owner (26 Nov 2026):** the batch; the six answers above; the reverse-osmosis kit's idea, its vehicles and its timing; documenting

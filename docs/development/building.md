@@ -56,7 +56,7 @@ Generated from the project files by `python scripts/doc-tables.py --write`: chan
 | `PhobosPatches.RimPacts` | `mods/PhobosPatches/Mods/RimPacts/` | `PhobosFramework` | none | yes | `PhobosPatches.Rules.Tests` |
 | `PhobosPatches.VehicleFramework` | `mods/PhobosPatches/Mods/VehicleFramework/` | `PhobosFramework` | `Vehicles`, `SmashTools` | yes | `PhobosPatches.Rules.Tests` |
 | `PhobosPatches.VisitSettlements` | `mods/PhobosPatches/Mods/VisitSettlements/` | `PhobosFramework` | none | yes | `PhobosPatches.Rules.Tests` |
-| `PhobosRadio` | `mods/PhobosRadioFramework/` | `PhobosFramework` | `PipeSystem` | no | `PhobosRadio.Physics.Tests` |
+| `PhobosRadio` | `mods/PhobosRadioFramework/` | `PhobosFramework` | `PipeSystem`, `Outposts` | no | `PhobosRadio.Physics.Tests` |
 | `PhobosRadio.CombatExtended` | `mods/PhobosRadioFramework/Mods/CombatExtended/` | `PhobosRadio`, `PhobosFramework` | `CombatExtended` | no | none |
 | `PhobosRadio.Vehicles` | `mods/PhobosRadioFramework/Mods/VehicleFramework/` | `PhobosRadio`, `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `SmashTools` | no | none |
 | `PhobosWaterTap` | `mods/PhobosWaterTap/` | `PhobosFramework.Hygiene` | `BadHygiene` | no | `PhobosWaterTap.Rules.Tests` |

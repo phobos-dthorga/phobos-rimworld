@@ -33,7 +33,9 @@ public static class RaidFuel
         if (map.Parent is Settlement home && home.Faction == faction) return;
         if (!NearestSettlement(faction, map.Tile, out float tiles)) return;
         double speed = vehicle.GetStatValue(VehicleStatDefOf.MoveSpeed) * vehicle.WorldSpeedMultiplier;
-        double rate = fuel.ConsumptionRatePerTickRaw / ArrivalFuelRule.FuelPerTickPerRate;
+        // Between tiles Vehicle Framework burns the raw rate times the vehicle's world multiplier (CompFueledTravel.ConsumptionRateWorldPerTick):
+        // half for our heavy trucks, which arrived with twice the trip's fuel gone until Framework 0.332.0.
+        double rate = fuel.ConsumptionRatePerTickRaw * fuel.Props.fuelConsumptionWorldMultiplier / ArrivalFuelRule.FuelPerTickPerRate;
         double trip = ArrivalFuelRule.TripFuel(tiles, rate, speed);
         float target = (float)ArrivalFuelRule.Arrival(fuel.FuelCapacity, trip);
         float now = fuel.Fuel;

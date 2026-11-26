@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The radio relay post (Radio 0.24.0; the owner's card of 27 Nov 2026, "Our own relay post"): an outpost of Vanilla Expanded Framework's
+    own outposts code, offered in its "create outpost" window like any other, staffed by colonists and producing nothing; while anyone
+    keeps it, it passes radio calls on from its tile, and a hilltop tile lifts its mast as any relay's (the owner's card: by hilliness).
+    Every figure is the agent's, for the owner to revise: the cost (a mast, two repeaters and a solar set), one person to keep it, a 20 m
+    mast and 50 W on VHF, and four channels (two repeaters). Its world icon borrows the mast antenna's picture until its own is drawn.
+    Not yet tested in game.
+  -->
+
+  <WorldObjectDef ParentName="OutpostBase">
+    <defName>PhobosRadio_RelayPost</defName>
+    <label>radio relay post</label>
+    <description>A small staffed post with a tall radio mast, two repeaters and a solar set. While someone keeps it, it passes your convoys' radio calls on toward home: up to four vehicles driven by radio at once, or ten convoys talking by turns. A post on a hill or a mountain reaches much further. It produces nothing.</description>
+    <worldObjectClass>Phobos.Radio.Services.Outpost_PhobosRelayPost</worldObjectClass>
+    <expandingIconTexture>Phobos/Radio/Things/Mast</expandingIconTexture>
+    <modExtensions>
+      <li Class="Phobos.Radio.Services.PhobosRelayPostExtension">
+        <MinPawns>1</MinPawns>
+        <DisplaySkills>
+          <li>Intellectual</li>
+        </DisplaySkills>
+        <CostToMake>
+          <Steel>120</Steel>
+          <ComponentIndustrial>8</ComponentIndustrial>
+        </CostToMake>
+        <!-- It makes nothing; a long cycle keeps the outposts code's production timer from doing anything often. -->
+        <TicksPerProduction>3600000</TicksPerProduction>
+        <radio>PhobosRadio_RelayPostUnit</radio>
+        <channels>4</channels>
+      </li>
+    </modExtensions>
+  </WorldObjectDef>
+
+  <ThingDef>
+    <defName>PhobosRadio_RelayPostUnit</defName>
+    <label>relay post radio</label>
+    <description>The relay radio inside a relay post. It never stands on a map.</description>
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Mast</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <tickerType>Never</tickerType>
+    <selectable>false</selectable>
+    <alwaysHaulable>false</alwaysHaulable>
+    <tradeability>None</tradeability>
+    <useHitPoints>false</useHitPoints>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Radio">
+        <bands>
+          <li>PhobosRadio_VHF</li>
+        </bands>
+        <mode>PhobosRadio_ControlData</mode>
+        <channelKind>PhobosRadio_KindVehicleControl</channelKind>
+        <transmitPowerWatts>50</transmitPowerWatts>
+        <noiseFigureDb>8</noiseFigureDb>
+        <antennaGainDbi>0</antennaGainDbi>
+        <antennaHeightMetres>20</antennaHeightMetres>
+        <channels>4</channels>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

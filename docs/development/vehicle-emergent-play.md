@@ -4,8 +4,8 @@
 logbook, records and tales, the trip report, stranded convoys) and batch 2 in 0.185.0 (EM29(a): four unwise orders go ahead with a
 warning), batch 3 in 0.187.0 (EM20, EM21(a) and (c), EM27's small links) and batch 4 in the same version (EM2 and EM3: hulls,
 salvaged parts, lost convoys), and a small round in 0.188.0 (EM29(b) brakes, EM16 the snow forecast, EM18 the gravship's warning),
-and EM11 with EM12 in 0.190.0 (hours on type, "their" vehicle), and EM5 in 0.192.0 (raiders' fuel by distance), and EM21(b)'s hull lift in
-0.197.0; not yet tested in game. The four batches the owner asked for are built
+and EM11 with EM12 in 0.190.0 (hours on type, "their" vehicle), and EM5 in 0.192.0 (raiders' fuel by distance; its trip fuel fixed in
+0.332.0 to count Vehicle Framework's world multiplier), and EM21(b)'s hull lift in 0.197.0, and the rest of EM21(a) in 0.332.0; not yet tested in game. The four batches the owner asked for are built
 (the owner's word, 20 Nov 2026); every other row is an idea, not built. The owner answered four of the questions the same day
 ([the answers](#questions-for-the-owner)). Group H, work on the road (EM30 to EM45), was recorded on 26 Nov 2026
 ([group H](#h-work-on-the-road-26-nov-2026)); of it, **EM45 is built** with EM9's first kind (spare parts) in Framework 0.308.0 and
@@ -589,6 +589,16 @@ became a rework that lets the sling carry either.
 
 **Kept out:** the solar flare (the owner's choice, not taken), and the rest of EM21: the sling lifting items, a hull or a packed building
 (EM21(b)), and the litter carrying a downed enemy as a prisoner (EM21(d)).
+
+**Since built (Framework 0.332.0, row 634; the owner's card of 27 Nov 2026, "Both"):** the rest of EM21(a). **The winch drags a
+destroyed vehicle's hull, a chunk of rock or slag, a corpse, and a building whose Def says it may be dragged** (`PhobosWinchableExtension`,
+patched onto the crashed ship's chunks at 3 tonnes [A], since the game gives them no mass). Anything but a vehicle on its wheels is
+dragged, by the same pull rule (`RecoveryRule`), weighing what the sling weighs a hull at, or the game's own mass; it moves a cell at a
+time by being lifted off the map and set down again, only onto cells clear of buildings, items and anyone standing. Never a pawn
+alive; another faction's building stays put. A rock chunk weighs 25 kg in the game, so it is an easy pull: the game's figure is kept.
+**The other half of that card, tankers filling from a river without Dubs Bad Hygiene, is not built:** the agent's card said the intake
+was the only part in the Dubs tie-in, but the water itself (`PhobosTank_Water`) and the water bowser are Dubs-only too, so it would bring
+a vehicle into every game; the question is in `config/decisions.json` (`river-water-without-dubs`).
 
 ## As built: batch 4, what is lost stays (20 Nov 2026, Framework 0.187.0)
 

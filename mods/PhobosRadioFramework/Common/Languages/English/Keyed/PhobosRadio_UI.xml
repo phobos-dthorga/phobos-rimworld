@@ -133,6 +133,11 @@
   <PhobosRadio_RelayRefuseHere>A relay mast already stands here.</PhobosRadio_RelayRefuseHere>
   <PhobosRadio_RelayRefuseShort>It needs {STEEL} steel and {COMPONENTS} components; the convoy carries {HAVESTEEL} and {HAVECOMPONENTS}.</PhobosRadio_RelayRefuseShort>
   <PhobosRadioReach_NoStation>Out of radio reach of home: no powered radio station at home.</PhobosRadioReach_NoStation>
+  <PhobosRadioReach_RelayBusy>{RELAYS} would pass the call on, but every channel there is in use.</PhobosRadioReach_RelayBusy>
+  <PhobosRadio_RelayUse>Passing on {CALLS} calls: {HELD} of {CHANNELS} channels in use.</PhobosRadio_RelayUse>
+  <PhobosRadio_RelayUseFull>Passing on {CALLS} calls: all {CHANNELS} channels in use. Another call has to wait, unless it is orders to a vehicle.</PhobosRadio_RelayUseFull>
+  <PhobosRadio_RelayPostLine>A relay mast, {METRES} m, on {CHANNELS} channels: passes radio calls on toward home.</PhobosRadio_RelayPostLine>
+  <PhobosRadio_RelayPostUnmanned>Nobody is keeping the relay: it passes nothing on.</PhobosRadio_RelayPostUnmanned>
 
   <!-- Advice by radio (Radio 0.23.0) -->
   <PhobosRadioAdvice_Reason>Talked through by radio by {ADVISER} ({SKILL} {LEVEL})</PhobosRadioAdvice_Reason>

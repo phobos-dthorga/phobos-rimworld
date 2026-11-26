@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The station's repeater (Radio 0.24.0; the owner's card of 27 Nov 2026, "Station upgrade": a colony's station becomes a relay between
+    world tiles through a building upgrade, as the second transceiver is fitted). With it, a powered station passes on a convoy's call aimed
+    at another colony (a call that reaches any colony is home already). Real basis: a base station's duplexer and a second receiver, so it
+    hears and sends at once, as a hilltop repeater does. Cost, work, skill and research are the agent's proposals, matched to the vehicles'
+    repeater kit and a little more for a desk set; the two channels it relays on are the rules' repeaterChannels. Not yet tested in game.
+  -->
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeRepeater</defName>
+    <label>repeater</label>
+    <description>A duplexer and a second receiver beside the desk, so the station can hear a call and send it on at once. With it, the station passes your convoys' radio calls on toward your other colonies, on two channels: up to five convoys talking by turns, or two vehicles driven by radio.</description>
+    <buildings>
+      <li>PhobosRadio_BaseStation</li>
+    </buildings>
+    <costList>
+      <Steel>25</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <work>1000</work>
+    <constructionSkill>5</constructionSkill>
+    <researchPrerequisite>PhobosRadio_RemoteVehicles</researchPrerequisite>
+    <figures>
+      <!-- 1: the station relays between tiles (Phobos.Radio.Services.RadioUpgrades.Repeater). -->
+      <li><name>repeater</name><value>1</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+</Defs>

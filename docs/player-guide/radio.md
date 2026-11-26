@@ -90,6 +90,14 @@ tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
   kit** fitted (a Datum's mast lifts it), or a **relay mast** (Put up a relay mast, on a stopped convoy: 60 steel and 4 components). Up to
   two relays; the convoy's line names them. A relay mast stands until you take it down from the world map. **Hills reach further**: small
   hills lift an aerial 30 m, large hills 100 m, mountains 300 m.
+- **A radio relay post** (from 0.24.0): an outpost you found from **Create outpost** with **120 steel and 8 components**, leaving at
+  least one colonist to keep it. A 20 m mast and four channels; **put it on a hill**. With nobody left there, it passes nothing on.
+- **Your other colonies' stations** pass calls on once their base station has the **repeater** upgrade (25 steel, 3 components, after
+  remote-controlled vehicles). This only helps a call meant for one colony, such as **advice by radio** from a doctor there: a call that
+  reaches any of your colonies is home already.
+- **A relay has only so many channels** (from 0.24.0): a repeater has two, enough for **five convoys talking by turns, or two vehicles
+  driven by radio**; a relay post has four. **Orders to a vehicle push talk aside.** A full relay is passed over, and the convoy's line
+  says so; the relay's own pane says how busy it is.
 - **An aircraft can drop to the convoy** (Airdrop to the convoy, when choosing where to fly): the convoy talks it in, and everything
   dropped joins it.
 

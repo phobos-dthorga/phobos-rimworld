@@ -11,15 +11,20 @@ namespace Phobos.Radio.Services;
 /// <summary>
 /// One place a call can be passed on from, on the world map: its radio end, its tile, a label for the player, what owns it (a convoy, a
 /// vehicle, a mast), so a convoy never relays its own call, whether its source declares a repeater on it (a vehicle's repeater kit; a
-/// mast always), and the height its tile's ground lifts it by (its source supplies it: Propagation.SiteHeightMetres).
+/// mast always), the height its tile's ground lifts it by (its source supplies it: Propagation.SiteHeightMetres), and since Radio 0.24.0
+/// how many channels it has to relay on (0: the rules' <see cref="RadioRulesDef.repeaterChannels"/>).
 /// </summary>
-public sealed record RelayNode(RadioEndpoint End, PlanetTile Tile, string Label, object Owner, bool Repeater = false, double SiteMetres = 0)
+public sealed record RelayNode(RadioEndpoint End, PlanetTile Tile, string Label, object Owner, bool Repeater = false, double SiteMetres = 0, int Channels = 0)
 {
     /// <summary>The height a tile's ground lifts a node on it by.</summary>
     public static double SiteOf(PlanetTile tile) => Propagation.SiteHeightMetres((int)Find.WorldGrid[tile].hilliness);
+
+    /// <summary>The channels it relays on.</summary>
+    public int ChannelsOrRules => Channels > 0 ? Channels : RadioRulesDef.Current.repeaterChannels;
 }
 
-/// <summary>Something that offers relays: the vehicles tie-in (halted convoys, parked vehicles), relay masts, later outposts and stations.</summary>
+/// <summary>Something that offers relays: the vehicles tie-in (halted convoys, parked vehicles), relay masts, home stations with a
+/// repeater, relay posts.</summary>
 public interface IRelaySource
 {
     IEnumerable<RelayNode> Nodes();
@@ -28,11 +33,17 @@ public interface IRelaySource
 /// <summary>
 /// The relays on the world map, from every registered source (Radio 0.22.0; radio-autonomy's relay design). A relay is a hop, never a
 /// second system: every hop goes through <see cref="LinkBudgetService.EvaluateWorld"/>, and <see cref="RelayRule"/> picks the chain whose
-/// worst hop has the most to spare. Relayed calls take no channels at a relay yet (the design leans two: a limit of this first slice).
+/// worst hop has the most to spare. Since Radio 0.24.0 a relayed call takes channels at each relay it passes through (<see cref="RelayLedger"/>):
+/// a relay with no room for the caller's kind is left out of its search, and the chain found holds its places until the caller stops asking.
+/// <para>Cost: the ledger is a few lists, asked once a relay a search; nothing runs on its own and nothing is saved.</para>
 /// </summary>
 public static class RelayNodes
 {
-    static readonly List<IRelaySource> sources = new() { new RelayMastSource() };
+    static readonly List<IRelaySource> sources = new() { new RelayMastSource(), new HomeStationRelaySource(), new RelayPostSource() };
+    static readonly RelayLedger ledger = new();
+    static readonly Dictionary<object, string> busy = new();
+    static Game? ledgerGame;
+    static KindShape[]? shapes;
 
     public static void Register(IRelaySource source)
     {
@@ -42,6 +53,52 @@ public static class RelayNodes
     /// <summary>Every relay now that may pass a call on.</summary>
     public static IEnumerable<RelayNode> All() => sources.SelectMany(s => s.Nodes()).Where(CanRelay);
 
+    /// <summary>The ledger of this game: started afresh when a game is loaded or begun, since nothing in it is saved.</summary>
+    static RelayLedger Ledger
+    {
+        get
+        {
+            if (ledgerGame != Current.Game)
+            {
+                ledger.Clear();
+                busy.Clear();
+                ledgerGame = Current.Game;
+            }
+            return ledger;
+        }
+    }
+
+    /// <summary>Each channel kind's shape, as a station's ledger counts it.</summary>
+    static KindShape[] Shapes
+    {
+        get
+        {
+            if (shapes != null) return shapes;
+            var rules = RadioRulesDef.Current;
+            var kinds = ChannelKindDef.InOrder;
+            shapes = new KindShape[kinds.Count];
+            for (var k = 0; k < kinds.Count; k++)
+                shapes[k] = new KindShape(Channels.PerUse(kinds[k].Mode.bandwidthHz, rules.channelWidthHz), Channels.RadiosPerUse(kinds[k].Mode.dutyCycle), kinds[k].preempts);
+            return shapes;
+        }
+    }
+
+    static int KindOf(RelayNode node) => (node.End.Thing?.TryGetComp<CompRadio>()?.Kind ?? ChannelKindDef.LocalVoice).LedgerIndex;
+
+    /// <summary>How many calls pass through the relay this owns now, and the channels they hold there.</summary>
+    public static (int Calls, int Held) Use(object owner) => Ledger.Use(owner, Shapes, Find.TickManager.TicksGame);
+
+    /// <summary>A relay's line for its inspect pane: the calls through it and its channels in use, or null with none.</summary>
+    public static string? UseLine(object owner, int channels)
+    {
+        var (calls, held) = Use(owner);
+        if (calls == 0) return null;
+        return (held >= channels ? "PhobosRadio_RelayUseFull" : "PhobosRadio_RelayUse").Translate(calls.Named("CALLS"), held.Named("HELD"), channels.Named("CHANNELS")).Resolve();
+    }
+
+    /// <summary>The relays that would have carried this caller's last call but had no room, as a list for the player, or null.</summary>
+    public static string? BusyFor(object caller) => busy.TryGetValue(caller, out var names) && ledgerGame == Current.Game ? names : null;
+
     /// <summary>
     /// Whether this node may pass a call on between tiles: the one place relaying is gated (the owner's card of 26 Nov 2026, "Two kinds, by
     /// physics": between tiles it needs a repeater). Its source declares one, or its radio relays by itself.
@@ -50,13 +107,25 @@ public static class RelayNodes
 
     /// <summary>
     /// The best chain from one end to any of the targets, through the relays, on the world map: the hops' distances at the rules' metres
-    /// a tile, each evaluated once, the chain at most the rules' hops. Null when nothing reaches.
+    /// a tile, each evaluated once, the chain at most the rules' hops. Null when nothing reaches. A relay with no room for the caller (the
+    /// owner of <paramref name="from"/>) is left out; the chain found holds a place at each of its relays for the rules' lease, and a caller
+    /// that finds none lets go of its places. A target is any end the caller names: home's stations for "reach home", or one colony's alone,
+    /// so another colony's station with a repeater relays toward it.
     /// </summary>
     public static (RelayRule.Chain chain, List<RelayNode> nodes)? BestChain(RelayNode from, IReadOnlyList<RelayNode> targets, IEnumerable<RelayNode> relays)
     {
         var rules = RadioRulesDef.Current;
+        int now = Find.TickManager.TicksGame;
+        int kind = KindOf(from);
+        RelayLedger leases = Ledger;
+        var full = new List<RelayNode>();
         var nodes = new List<RelayNode> { from };
-        nodes.AddRange(relays.Where(r => r.Owner != from.Owner));
+        foreach (RelayNode relay in relays)
+        {
+            if (relay.Owner == from.Owner) continue;
+            if (leases.HasRoom(relay.Owner, from.Owner, kind, Shapes, relay.ChannelsOrRules, now)) nodes.Add(relay);
+            else full.Add(relay);
+        }
         int firstTarget = nodes.Count;
         nodes.AddRange(targets);
         double? Hop(int a, int b)
@@ -66,7 +135,49 @@ public static class RelayNodes
                 ? link.MarginDb : null;
         }
         RelayRule.Chain chain = RelayRule.Best(nodes.Count, 0, i => i >= firstTarget, i => i < firstTarget, Hop, rules.maxRelayHops);
-        return chain.Found ? (chain, nodes) : null;
+        busy.Remove(from.Owner);
+        if (!chain.Found)
+        {
+            leases.Release(from.Owner);
+            if (full.Count > 0)
+            {
+                busy[from.Owner] = full.Select(r => r.Label).Distinct().ToCommaList(useAnd: true);
+                if (Seen.Wants("radio.relay-busy", from.End.Thing)) Seen.Note("radio.relay-busy", from.End.Thing, busy[from.Owner]);
+            }
+            return null;
+        }
+        var held = chain.Path.Skip(1).Take(chain.Relays).Select(i => nodes[i]).ToList();
+        leases.Hold(from.Owner, kind, held.Select(r => r.Owner), Shapes, owner => held.First(r => r.Owner == owner).ChannelsOrRules, now, now + rules.relayLeaseTicks);
+        foreach (RelayNode relay in held)
+        {
+            if (relay.Owner is Outpost_PhobosRelayPost && Seen.Wants("radio.relay-post", from.End.Thing)) Seen.Note("radio.relay-post", from.End.Thing, relay.Label);
+            else if (relay.Owner is Thing { Spawned: true } && Seen.Wants("radio.relay-station", from.End.Thing)) Seen.Note("radio.relay-station", from.End.Thing, relay.Label);
+        }
+        return (chain, nodes);
+    }
+}
+
+/// <summary>
+/// The colony's own stations as relays between tiles (Radio 0.24.0; the owner's cards of 26 and 27 Nov 2026: "home station" among the four
+/// relay sites, and "Station upgrade" for how one becomes a relay): each powered station on a home map with the repeater upgrade fitted.
+/// It passes on only a call aimed at another colony, since a call that reaches any colony is home already.
+/// </summary>
+public sealed class HomeStationRelaySource : IRelaySource
+{
+    public IEnumerable<RelayNode> Nodes()
+    {
+        if (Find.Maps == null) yield break;
+        foreach (Map map in Find.Maps)
+        {
+            if (!map.IsPlayerHome) continue;
+            foreach (CompRadio station in RadioNet.For(map).Stations)
+            {
+                if (RadioUpgrades.Figure(station.parent, RadioUpgrades.Repeater, 0f) < 1f) continue;
+                if (station.parent.TryGetComp<CompPowerTrader>() is { PowerOn: false }) continue;
+                foreach (RadioEndpoint end in RadioNet.StationEndpoints(station, RadioMod.Settings.metresPerCell))
+                    yield return new RelayNode(end, map.Tile, map.Parent.LabelCap, station.parent, Repeater: true, SiteMetres: RelayNode.SiteOf(map.Tile));
+            }
+        }
     }
 }
 
@@ -131,6 +242,7 @@ public class WorldObject_PhobosRelayMast : WorldObject, IThingHolder
     {
         string text = base.GetInspectString();
         string line = "PhobosRadio_RelayInspect".Translate((Radio?.Props.antennaHeightMetres ?? 0f).ToString("0").Named("METRES")).Resolve();
+        if (RelayNodes.UseLine(this, RadioRulesDef.Current.repeaterChannels) is { } use) line += "\n" + use;
         return text.NullOrEmpty() ? line : text + "\n" + line;
     }
 

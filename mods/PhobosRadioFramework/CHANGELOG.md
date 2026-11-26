@@ -19,6 +19,29 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+
+## [0.24.0] - 2026-11-27 - Draft
+
+Channels at relays, colony stations as relays, and the radio relay post
+
+### Added
+
+- **A relay has only so many channels**: a repeater two, enough for five convoys talking by turns or two vehicles driven by radio; orders
+  to a vehicle push talk aside, as at a station. A full relay is passed over, the convoy's radio line names it, and a relay's pane says
+  how busy it is. A call keeps its place while its convoy is still asked about. Not yet tested in game: row 629.
+- **The base station's repeater upgrade** (the owner's card: a station upgrade; 25 steel, 3 components, after remote-controlled vehicles):
+  a colony's station passes a call on toward another colony, such as advice by radio from a doctor there. Not yet tested in game: row 630.
+- **The radio relay post** (the owner's card: our own relay post), an outpost from Create outpost: 120 steel and 8 components and one
+  colonist to keep it, a 20 m mast with four channels, best on a hill. It produces nothing. Its world icon borrows the mast antenna's
+  picture. Not yet tested in game: row 631.
+- Every figure is the agent's, for the owner to revise. The design is docs/development/radio-advice-and-relays.md.
+
+### Compatibility and limits
+
+- The relay post needs an outposts content mod (such as Vanilla Outposts Expanded) for its Create outpost button; Vanilla Expanded
+  Framework, already required, holds the outposts code.
+- Safe to add. Nothing new is saved but the post itself; removing the mod mid-game leaves a relay post as a broken outpost to abandon.
+
 ## [0.23.0] - 2026-11-26 - Draft
 
 Advice by radio: a skilled colonist talks another through the work

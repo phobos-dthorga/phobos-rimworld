@@ -3,8 +3,9 @@
 **Status (26 Nov 2026):** partly built. Relays between world tiles are built in Radio Framework 0.22.0 (halted convoys and depot
 vehicles with the repeater kit, the relay mast, site height by hilliness, plane-earth fading); not yet tested in game: rows 609 and 610.
 Radio advice is built in Radio Framework 0.23.0 with D'thorga Framework 0.330.0 ([as built](#as-built-radio-0230-26-nov-2026)); not yet
-tested in game: rows 620 to 624. The hand-held's cross-band hop between tiles, home stations and outposts as relays, and channels at
-relays are not started.
+tested in game: rows 620 to 624. Home stations and outposts as relays, and channels at relays, are built in Radio Framework 0.24.0
+([as built](#as-built-radio-0240-27-nov-2026)); not yet tested in game: rows 629 to 631. The hand-held's cross-band hop between tiles
+is not started.
 
 The owner, 26 Nov 2026: "An idea I just had is a doctor providing medical support/advice over the radio! We even have this in
 Australia, right now. This could work with other skills just as well too. If we were to implement all this, how would it look, before
@@ -220,8 +221,8 @@ The owner chose all four offered.
 | --- | --- |
 | A halted convoy, or a radio-fitted vehicle left at a depot, with the repeater kit | Built in Radio 0.22.0; not yet tested in game (row 609) |
 | A relay mast a stopped convoy builds on a tile and leaves: 25 W on 10 m, 60 steel and 4 components [A] | Built in Radio 0.22.0; not yet tested in game (row 610) |
-| A colony's own base station, between two convoys or to a second colony | Not started |
-| A world outpost with a relay mast, a tie-in with Vanilla Outposts Expanded | Not started |
+| A colony's own base station, between two convoys or to a second colony | Built in Radio 0.24.0, with the station's repeater upgrade; not yet tested in game (row 630) |
+| A world outpost with a relay mast, a tie-in with Vanilla Outposts Expanded | Built in Radio 0.24.0 as the radio relay post, an outpost of Vanilla Expanded Framework's; not yet tested in game (row 631) |
 
 ### High ground [O]
 
@@ -265,10 +266,40 @@ of nodes and at most three hops, each hop one link budget a band. The builder st
 | The gate: a radio's `relays` field, off by default; a node relays when its source declares a repeater or its radio's field is on (`RelayNodes.CanRelay`) | Built | Radio Framework 0.22.0 |
 | Vehicles and the mast site as relay nodes; the repeater kit (`PhobosFitting_RepeaterKit`) in a repeater bay on every land vehicle | Built | Radio 0.22.0, Framework 0.328.0 |
 | Plane earth (`Propagation.PlaneEarthPathLossDb`) and site height by hilliness (`Propagation.SiteHeightMetres`), both in `EvaluateWorld` | Built | Radio Framework 0.22.0 |
-| Cross-band last hop, home stations, outposts, channels at relays | Not started | Radio Framework |
+| Home stations (the repeater upgrade), the radio relay post, channels at relays (`RelayLedger`, game-free, tested) | Built | Radio Framework 0.24.0 |
+| Cross-band last hop | Not started | Radio Framework |
 | Radio advice: tending, surgery, vehicle repairs, trade talks, the numbered medical chest | Built | Radio Framework 0.23.0, Framework 0.330.0 |
 
 Built by another session (road-work-three) to this record's shape; what the version delivered is in the Radio Framework's changelog.
+
+### As built (Radio 0.24.0, 27 Nov 2026)
+
+The owner, 27 Nov 2026: "1, 2, 3, and 4" (of road-work-four's suggestions: home stations and outposts as relays, channels at relays), and
+by card: **a station becomes a relay through an upgrade** ("Station upgrade") and **an outpost through our own relay post** ("Our own
+relay post"). Built by road-work-four. Every figure is the agent's. Not yet tested in game (rows 629 to 631).
+
+| Option offered (27 Nov 2026) | Chosen |
+| --- | --- |
+| A station relays through: a repeater upgrade (the agent's lean); every powered station; a separate building | **The upgrade** |
+| An outpost relays as: our own relay post (lean); any outpost given a repeater kit; none, as a mast can stand on an outpost's tile | **Our own relay post** |
+
+- **Channels at relays** (rule 5): `RelayLedger` (game-free, 10 tests) counts a relay's channels by kind as a station's ledger does,
+  one use taking twice its channels (one in, one out) and its radios taking turns. A repeater has the rules' `repeaterChannels` (2 [A]):
+  five convoys talking (voice, keyed a fifth of the time) or two vehicles driven by radio (control, keyed half the time); a picture
+  needs more than a repeater has. Vehicle control pre-empts talk, as at a station. **A call holds a lease** at each relay on its chain,
+  renewed each time its convoy is asked about and lapsing after `relayLeaseTicks` (a game hour [A]) when it is not; nothing is saved.
+  `RelayNodes.BestChain` leaves out a relay with no room for the caller and holds the places of the chain it finds; the convoy's line
+  names a full relay that would have carried it. A call's kind is its radio's (`CompRadio.Kind`).
+- **Home stations**: the base station's **repeater** upgrade (`PhobosRadio_UpgradeRepeater`, 25 steel and 3 components, Construction 5,
+  after remote-controlled vehicles [A]) sets the figure `repeater` (`RadioUpgrades.Repeater`); each powered station with it on a home map
+  is a relay (`HomeStationRelaySource`). It helps only a call aimed at one colony: a call that reaches any colony is home already, and a
+  target is never passed through. Radio advice is such a call; radio-autonomy aims it at each adviser's colony after this version.
+- **The radio relay post** (`PhobosRadio_RelayPost`, `Outpost_PhobosRelayPost`): an outpost of Vanilla Expanded Framework's own outposts
+  code, which the Radio Framework depends on already, so its "create outpost" window offers it with no code of ours. 120 steel and 8
+  components, one colonist to keep it [A]; it produces nothing; a 50 W VHF relay radio on a 20 m mast with four channels [A], made from
+  its Def and never saved. Unmanned, it relays nothing. Its world icon borrows the mast antenna's picture.
+- **Cost**: a search asks the ledger once a relay (a few short lists); the station source walks each home map's stations, as the
+  convoy's home ends already do; the post source walks the world objects, as the mast source does. Nothing runs on its own. Not measured.
 
 ## The cards as put
 

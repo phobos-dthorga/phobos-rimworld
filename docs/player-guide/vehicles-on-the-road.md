@@ -412,7 +412,10 @@ load**, **fetch the depot's goods** or **only wait**, and how long it waits. **S
 - **With D'thorga Radio Framework**, a crewless run is driven by radio: **Crewless supply runs need radio reach** (Remote section) asks for
   reach **all the way** (the default; relays stretch it) or only **to set off and at stops**. **A crewless supply truck out of reach**
   **holds** where it is (the default), **carries on** or **turns back**.
-- **At a colony, people load it by hand** while it waits; fetching is from depots.
+- **It drives to the edge of the map** before it leaves a colony, as any convoy does (from Framework 0.332.0).
+- **At a colony, give its stop a loading list** (in **Its stops**, pick the stop, then **Loading list**): your people carry those
+  things to it while it waits, less what it already carries. **It leaves as soon as all of it is loaded, or with part of it when its
+  waiting time is up**, and says which. Fetching is from depots.
 
 ### The ground: bogging and grit
 
@@ -489,9 +492,12 @@ Any land vehicle can tow a trailer such as the [Pintle flatbed](working-vehicles
 
 **Fit the recovery winch** (the **Recovery** family in the fittings window) to a land vehicle.
 
-- **Press Winch a vehicle** and pick a stuck, broken or empty vehicle within 12 cells. **Someone must be aboard to work the
-  winch.** It drags the vehicle in a cell at a time, slower the heavier the pull, and stops beside you. **Stop winching** ends it
-  at any time.
+- **Press Winch something in** and pick a stuck, broken or empty vehicle within 12 cells, or since Framework 0.332.0 **a wreck, a
+  chunk of rock, a crashed ship's chunk or a carcass**. **Someone must be aboard to work the winch.** It drags it in a cell at a time,
+  slower the heavier the pull, and stops beside you. **Stop winching** ends it at any time. Nothing alive can be picked, and it never
+  drags anything over another thing or a person.
+- **What things weigh on the winch**: a wreck what its vehicle weighed empty; a crashed ship's chunk 3 tonnes; a rock chunk or a
+  carcass what the game says it weighs.
 - **Whether the winch can manage** is worked out from both vehicles' weight and ground: a vehicle in deep mud is far harder to
   move than one on gravel, and one whose wheels are wrecked is dragged, which is harder still. **The winch pulls up to 5,443 kg,
   but never more than your vehicle holds on its brakes, so park the winching vehicle on firm ground.** A refusal says both

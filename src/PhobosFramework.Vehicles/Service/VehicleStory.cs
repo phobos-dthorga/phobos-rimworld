@@ -163,14 +163,16 @@ public static class VehicleStory
     }
 
     /// <summary>A stuck vehicle winched out: both logbooks, the record and a tale for whoever worked the winch.</summary>
-    public static void Winched(VehiclePawn tractor, VehiclePawn stuck)
+    public static void Winched(VehiclePawn tractor, Thing stuck)
     {
         Pawn? driver = Driver(tractor) ?? tractor.AllPawnsAboard.FirstOrDefault(p => p.RaceProps.Humanlike);
         if (tractor.GetComp<CompPhobosVehicleSystems>() is { Usable: true } a) Log(a, VehicleStoryDefOf.PhobosLog_Winched, who: driver?.LabelShort ?? "", subject: stuck.LabelShort);
-        if (stuck.GetComp<CompPhobosVehicleSystems>() is { Usable: true } b) Log(b, VehicleStoryDefOf.PhobosLog_WinchedOut, subject: tractor.LabelShort);
+        // Framework 0.332.0: the winch drags a hull, a chunk or a carcass too; the record and the tale stay for vehicles recovered.
+        if (stuck is not VehiclePawn recovered) return;
+        if (recovered.GetComp<CompPhobosVehicleSystems>() is { Usable: true } b) Log(b, VehicleStoryDefOf.PhobosLog_WinchedOut, subject: tractor.LabelShort);
         if (driver == null || tractor.Faction != Faction.OfPlayer) return;
         driver.records?.Increment(VehicleStoryDefOf.PhobosRecord_VehiclesRecovered);
-        Tale(VehicleStoryDefOf.PhobosTale_VehicleRecovered, driver, stuck);
+        Tale(VehicleStoryDefOf.PhobosTale_VehicleRecovered, driver, recovered);
     }
 
     /// <summary>A vehicle taken from another faction: its logbook begins here.</summary>
