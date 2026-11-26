@@ -256,8 +256,8 @@
   "name": "n16-supply-start",
   "engine": "klein-base",
   "lora_comparison": false,
-  "prompt": "phobosvanilla, A small olive cargo truck loaded with grey crates driving round a bold green circular arrow. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
-  "subject": "a small olive cargo truck loaded with grey crates driving round a bold green circular arrow",
+  "prompt": "phobosvanilla, A small olive cargo truck loaded with grey crates driving forward, with one bold green curved arrow sweeping round behind it and ending in a single clear arrowhead, an open loop, not a closed ring. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a small olive cargo truck loaded with grey crates driving forward, with one bold green curved arrow sweeping round behind it and ending in a single clear arrowhead, an open loop, not a closed ring",
   "references": [
    "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
    "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
@@ -266,7 +266,9 @@
   "height": 1024,
   "seeds": [
    193,
-   194
+   194,
+   199,
+   200
   ],
   "lora": "phobos-private-vanilla.safetensors",
   "art_plan": {
