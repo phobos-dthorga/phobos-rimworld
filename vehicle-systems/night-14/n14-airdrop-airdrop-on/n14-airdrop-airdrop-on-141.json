@@ -1,0 +1,33 @@
+{
+  "file": "n14-airdrop-airdrop-on-141.png",
+  "sha256": "452182d34e53874e785109d011469ca4a85402137614a0764e85d1798f8df2b7",
+  "date": "2026-11-25T18:29:36",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A small grey cargo aircraft seen from above flying across a pale round map tile, with three tiny olive parachutes dropping below its path toward an amber target ring on the tile. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people. No vehicle other than the one described.",
+  "negative_prompt": "",
+  "seed": 141,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/night-14-airdrop-icons.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 145.4,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+      "sha256": "14fac957571227f63501ada80d0397adf34f49832bb3fb31dcadfe413efb6f13"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/Release.png",
+      "sha256": "b978f9534760426d363fd33bf46031443bf2bf976bf44adc1ba9a3a8304baf8f"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

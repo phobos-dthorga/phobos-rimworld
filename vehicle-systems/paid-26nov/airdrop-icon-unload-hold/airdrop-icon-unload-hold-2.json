@@ -1,0 +1,56 @@
+{
+  "file": "airdrop-icon-unload-hold-2.png",
+  "sha256": "46326eeeb3a097bf58f85e24c415731caf0218f3a366ef1f33e999e0c1386f11",
+  "date": "2026-11-26T11:04:35",
+  "prompt": "GAME BUTTON ICON. One object seen from behind and a little to one side, from slightly above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved icons from the same game: match their outline weight, shading, palette, arrow style and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"drive the vehicles out of the aircraft's hold\": the tail end of a grey military cargo aircraft's fuselage, seen from behind, its tail fin rising at the top. Its wide rear loading ramp is lowered to the ground, a flat grey ramp with ribbed treads sloping down towards the viewer, and the hold behind it is a dark open doorway. A bold amber arrow comes OUT of the dark hold and runs DOWN the ramp towards the viewer.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted grey palette with the amber arrow as the only bright colour, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No vehicles, people, hands, wings in the foreground, text, letters, numbers, roundels, logos or brand marks.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/airdrop-icons-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 425,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 297
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2181
+  },
+  "cost_usd": 0.0552,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 37.3,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/Release.png",
+      "sha256": "b978f9534760426d363fd33bf46031443bf2bf976bf44adc1ba9a3a8304baf8f",
+      "role": "our approved button icon of the same game (release a load, with amber parts): match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+      "sha256": "14fac957571227f63501ada80d0397adf34f49832bb3fb31dcadfe413efb6f13",
+      "role": "our approved button icon with a grey aircraft and an amber arrow: match its grey aircraft colours, amber arrow style and finish only; do not copy its shape"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "file": "airdrop-icon-drop-low-2.png",
+  "sha256": "e047f68a23efb41771be3a4a85175889ed2ef34c49d95aa45b2ba64f82ada4a8",
+  "date": "2026-11-26T11:01:58",
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved pictures from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"drop from too low, risky\": a small olive-drab parachute canopy only half opened, still long and narrow like a tulip, its lines hanging down to one small squarish olive cargo bundle wrapped in tan straps. The bundle is only a short way above a flat pale ground strip along the bottom of the icon. Beside the bundle, a bold height marker: a short vertical red and amber striped bar with flat end caps, spanning the small gap between the bundle and the ground, showing the drop is too short.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with the red and amber marker as the only bright colours, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No aircraft, people, hands, text, letters, numbers, exclamation marks, logos or brand marks.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/airdrop-icons-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 622,
+    "input_tokens_details": {
+      "image_tokens": 320,
+      "text_tokens": 302
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2378
+  },
+  "cost_usd": 0.0568,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 36.1,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+      "sha256": "14fac957571227f63501ada80d0397adf34f49832bb3fb31dcadfe413efb6f13",
+      "role": "our approved button icon of the same game (land here): match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CargoBundle.png",
+      "sha256": "ec5db70ea52f863db677a6228e3bffb0a504fefaad4aea0dffa2a02ca4ebe7a0",
+      "role": "our approved cargo bundle seen from above: match its olive canvas and tan strap colours only; do not copy its shape or view"
+    }
+  ]
+}

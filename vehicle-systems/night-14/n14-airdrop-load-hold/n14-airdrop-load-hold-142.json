@@ -1,0 +1,33 @@
+{
+  "file": "n14-airdrop-load-hold-142.png",
+  "sha256": "5143312791f5222e7701b1621e98bec3e072d1a16cb6fc1f64639a4c479af35c",
+  "date": "2026-11-25T18:22:20",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The open rear ramp of a grey cargo hold seen from the side, a sloping ramp leading up into a dark doorway, with a bold green arrow pointing up the ramp into the hold. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicles.",
+  "negative_prompt": "",
+  "seed": 142,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/night-14-airdrop-icons.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 143.6,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/Lift.png",
+      "sha256": "3d9bfdf640220f9ead4b22007e76ea1ee8b051d48d122e56b8e1b12f37a3085b"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+      "sha256": "14fac957571227f63501ada80d0397adf34f49832bb3fb31dcadfe413efb6f13"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
