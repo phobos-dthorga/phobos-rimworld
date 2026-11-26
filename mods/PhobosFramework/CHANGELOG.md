@@ -13,6 +13,16 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.308.1] - 2026-11-26 - Draft
+
+Contracts come from as far as trade requests
+
+### Fixed
+
+- **Settlements as far away as for the game's trade requests offer contracts**, 32 tiles, not 24. The shorter reach rested on the
+  agent's mistaken claim that trucks travel slower than pack animals; the owner questioned it. A convoy still gets the game's time limit
+  for a walking caravan, so it has time to spare.
+
 ## [0.308.0] - 2026-11-26 - Draft
 
 Settlements hire your vehicles

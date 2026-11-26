@@ -1,6 +1,6 @@
 # Contracts: settlements hire the player's vehicles (26 Nov 2026)
 
-**Status (26 Nov 2026):** built in D'thorga Framework 0.308.0 (the contract system and the spare-parts kind) and D'thorga Vehicles 0.122.0
+**Status (26 Nov 2026):** built in D'thorga Framework 0.308.0 (the contract system and the spare-parts kind; the reach fixed in 0.308.1) and D'thorga Vehicles 0.122.0
 (the six truck kinds); not yet tested in game (rows 551 to 554 of [the test pass](in-game-test-pass.md)). EM9's tow and casualty flight are
 not built.
 
@@ -47,7 +47,10 @@ contract that runs out only fails its quest. So it has no on/off setting of its 
 Shaped line for line as the game's `TradeRequest` quest [code: its Def in Core's `Script_TradeRequest.xml`, read with
 `query-defs.py show TradeRequest --type QuestScriptDef`]:
 
-1. A nearby settlement, within **24 tiles** [A; the trade request's is 32, cut because trucks are slower than pack animals].
+1. A nearby settlement, within **32 tiles**, the trade request's own reach (Framework 0.308.1). 0.308.0 cut it to 24 on the agent's
+   claim that trucks are slower than pack animals; the owner questioned it, and it was wrong: a truck drives far faster than a pack
+   animal walks, and the time limit is the game's estimate for a plain walking caravan, so a convoy has time to spare. What limits a
+   truck is ground it cannot cross and fuel, neither a reason to shorten the reach.
 2. The game's own time limit from the journey (`QuestNode_TradeRequest_RandomOfferDuration`).
 3. **Our node chooses the contract** (`QuestNode_PhobosContract_Pick`): one kind the player's vehicles can do, by each kind's weight; the
    settlement must have no contract open. For work on site, it adds the work's days at the slowest pace (`ContractRule.WorkDays`) to the
@@ -131,7 +134,8 @@ let every contract run out first.** With none open, settlements' saved fields ar
 
 - **Owner (26 Nov 2026):** contracts first; build them; all seven kinds; the game's own rewards; the caravan stays for the work; a slider
   for how often.
-- **Agent:** every figure marked [A]; the 24-tile reach; the slider's 25% steps and 300% end; the setting's page; the logbook entry;
+- **Owner (26 Nov 2026, later):** questioned the 24-tile reach; it is back to the trade request's 32.
+- **Agent:** every figure marked [A]; the slider's 25% steps and 300% end; the setting's page; the logbook entry;
   learning while working; the low risk grade; using the trade request's icon.
 
 ## Sources

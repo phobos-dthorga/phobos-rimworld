@@ -32,7 +32,7 @@
       <nodes>
         <li Class="QuestNode_GetMap" />
         <li Class="QuestNode_GetNearbySettlement">
-          <maxTileDistance>24</maxTileDistance>
+          <maxTileDistance>32</maxTileDistance>
           <storeAs>settlement</storeAs>
           <storeFactionLeaderAs>asker</storeFactionLeaderAs>
           <storeCanCaravanAs>canCaravan</storeCanCaravanAs>
