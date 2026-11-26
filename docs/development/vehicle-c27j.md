@@ -136,6 +136,23 @@ face-on with orange tip bands, the owner rejected ("Neither propeller is up to s
 black bullet spinner, slim swept scimitar blades. Redrawn as seen from above, edge-on; the photo, not being our art, was never sent.
 Requests and records: `assets/phobos-vehicles/requests/c27j-paid.json` and its record.
 
+### Parts for damage looks (26 Nov 2026; agent's placements, for the owner's look before any export)
+
+The body pick cut into the Def's own parts with Segment Anything on the processor (`scripts/art/name_parts.py --cpu`, about 3 minutes;
+`assets/phobos-vehicles/requests/c27j-parts.json`, boxes from the plan checked against the pick). The review picture is kept in the
+art tools' working folder (`parts/7178d782.../review.png`). Each part takes the bulk tanker's damage marks below 60% health, as the
+Osprey's do, once the owner has seen the cut.
+
+| Part (the Def's key) | Cut | Score |
+| --- | --- | --- |
+| Cockpit, ForwardHold, CentreHold, AftHold | The fuselage, banded at 4, 9 and 14 m back (the plan's) | 0.84 |
+| LeftWing, RightWing | Whole, root to tip | 0.90, 0.92 |
+| LeftNacelle, RightNacelle | Whole, spinner to exhaust | 0.98, 0.99 |
+| LeftMainGear, RightMainGear | The fairing behind the wing | 0.87, 0.83 |
+| Tail | Tailplane and fin | 0.98 |
+
+The paint repair from the same session's grid map was tried and is not used: 0 visible flecks with or without it (`export_c27j.py`).
+
 ## Order of work (agent's proposal)
 
 1. Our flight's aeroplane switch and the take-off rule (Framework), with tests.

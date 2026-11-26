@@ -97,7 +97,8 @@ edge-on try without a fringe. Both bodies are usable.
   Laid at each nacelle's front, the bar sits across the spinner the body already draws; which spinner shows is decided when the overlay
   is laid on.
 - Done after the picks: the spinning blur (by script), the east and south facings, the paint masks (by region) and the archive.
-  Still owed: the paint repaired with Segment Anything's parts map and the parts cut for damage looks (both on the graphics card, on the
-  owner's go with the game closed), and the overlays of stage 2.
+  The paint repair with Segment Anything's parts map, tried 26 Nov 2026 on the processor (the owner asked for the work without the
+  graphics card): 0 visible flecks with or without it, so the region paint stays (`export_c27j.py`). Still owed: the parts cut for
+  damage looks. Stage 2's overlays are made: [c27j-overlays-record.md](c27j-overlays-record.md).
 - The run report says the spend was "worked out from the token counts OpenAI returned" and that the images were "made on OpenAI's
   servers": wording carried over from the OpenAI engine; these were fal's, priced at the table's ceiling.

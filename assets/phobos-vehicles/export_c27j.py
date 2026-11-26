@@ -20,8 +20,9 @@ propeller's try 4 with its outline redrawn by script; requests/c27j-paid-record.
 The body's two spinners are darkened to black by script before export (the owner's description of the real one, 26 Nov 2026: "ALL
 BLACK" spinner), so the propeller's own black spinner, narrower than the one the body drew, leaves no grey sliver beside it. The
 grey airframe is the main paint; it has no second colour (no band, no stripe), so the masks are main paint only. Paint is decided by
-region (the Segment Anything repair needs the graphics card, not used while the owner's game runs: `paint_segments.py` and
-`repaint_vehicles.py` can repair it later on the owner's go).
+region. The Segment Anything repair was tried and is not used (26 Nov 2026): its parts map of c27j-body-at-scale.png, made by
+`paint_segments.py --cpu` beside the game in 13 minutes, moved 1,624 pixels of the north mask, and `paint_check.py`'s check found 0 visible
+flecks both ways: one paint and no accent leave regions nothing to get wrong. The map is kept for the damage looks.
 """
 import argparse
 import hashlib

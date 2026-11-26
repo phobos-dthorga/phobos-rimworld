@@ -1,0 +1,216 @@
+{
+ "about": "The C-27J Spartan's named parts, for scripts/art/name_parts.py (26 Nov 2026), for its damage looks. Boxes are in the plan's metres (across from the centre line, back from the nose), from assets/phobos-vehicles/draw_c27j_plan.py, checked against the owner's body pick (try 1, about 148.7 px a metre, the nose at y 180): its nacelles run 4.3 to 13.2 m back, its gear fairings show only behind the wing, 11.6 to 13.4 m, and its tailplane 19.8 to 22.2 m. Names follow the Def's parts (Vehicle_C27J.xml). Agent placements, for the owner to see before anything is exported. Second cut: a prompt at each wing root, and the roots marked as not the fuselage, after the first left a ragged edge at the left root.",
+ "master": "assets/phobos-vehicles/generated/c27j-body/c27j-body-1.png",
+ "frame": {
+  "left_m": -14.35,
+  "right_m": 14.35,
+  "front_m": 0.0,
+  "rear_m": 22.7
+ },
+ "objects": [
+  {
+   "name": "Fuselage",
+   "box_m": [
+    -1.85,
+    0.0,
+    1.85,
+    22.7
+   ],
+   "pick": "best",
+   "priority": 2,
+   "points_m": [
+    [
+     0,
+     6.0
+    ],
+    [
+     0,
+     16.0
+    ]
+   ],
+   "negative_m": [
+    [
+     -2.9,
+     10.2
+    ],
+    [
+     2.9,
+     10.2
+    ]
+   ]
+  },
+  {
+   "name": "LeftWing",
+   "box_m": [
+    -14.35,
+    8.2,
+    -1.85,
+    12.3
+   ],
+   "pick": "best",
+   "priority": 1,
+   "points_m": [
+    [
+     -8.5,
+     10.0
+    ],
+    [
+     -11.5,
+     10.2
+    ],
+    [
+     -3.0,
+     10.2
+    ]
+   ]
+  },
+  {
+   "name": "RightWing",
+   "box_m": [
+    1.85,
+    8.2,
+    14.35,
+    12.3
+   ],
+   "pick": "best",
+   "priority": 1,
+   "points_m": [
+    [
+     8.5,
+     10.0
+    ],
+    [
+     11.5,
+     10.2
+    ],
+    [
+     3.0,
+     10.2
+    ]
+   ]
+  },
+  {
+   "name": "LeftNacelle",
+   "box_m": [
+    -5.2,
+    4.2,
+    -3.8,
+    13.3
+   ],
+   "pick": "best",
+   "priority": 3,
+   "points_m": [
+    [
+     -4.5,
+     6.0
+    ],
+    [
+     -4.5,
+     12.6
+    ]
+   ]
+  },
+  {
+   "name": "RightNacelle",
+   "box_m": [
+    3.8,
+    4.2,
+    5.2,
+    13.3
+   ],
+   "pick": "best",
+   "priority": 3,
+   "points_m": [
+    [
+     4.5,
+     6.0
+    ],
+    [
+     4.5,
+     12.6
+    ]
+   ]
+  },
+  {
+   "name": "LeftMainGear",
+   "box_m": [
+    -2.7,
+    11.0,
+    -1.7,
+    13.8
+   ],
+   "pick": "best",
+   "priority": 3,
+   "points_m": [
+    [
+     -2.2,
+     12.5
+    ]
+   ]
+  },
+  {
+   "name": "RightMainGear",
+   "box_m": [
+    1.7,
+    11.0,
+    2.7,
+    13.8
+   ],
+   "pick": "best",
+   "priority": 3,
+   "points_m": [
+    [
+     2.2,
+     12.5
+    ]
+   ]
+  },
+  {
+   "name": "Tail",
+   "box_m": [
+    -5.6,
+    19.4,
+    5.6,
+    22.7
+   ],
+   "pick": "best",
+   "priority": 3,
+   "points_m": [
+    [
+     -3.0,
+     21.0
+    ],
+    [
+     3.0,
+     21.0
+    ]
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "name": "Cockpit",
+   "of": "Fuselage",
+   "from_m": 0.0,
+   "to_m": 4.0
+  },
+  {
+   "name": "ForwardHold",
+   "of": "Fuselage",
+   "from_m": 4.0,
+   "to_m": 9.0
+  },
+  {
+   "name": "CentreHold",
+   "of": "Fuselage",
+   "from_m": 9.0,
+   "to_m": 14.0
+  },
+  {
+   "name": "AftHold",
+   "of": "Fuselage",
+   "from_m": 14.0,
+   "to_m": 22.7
+  }
+ ]
+}
