@@ -54,6 +54,10 @@
   <PhobosHitch_OwnHalfOnly>{TRAILER} joins only its own front half.</PhobosHitch_OwnHalfOnly>
   <PhobosHitch_PivotOnly>The hitch of {TRACTOR} is the pivot for its own rear half, and takes nothing else.</PhobosHitch_PivotOnly>
   <PhobosHitch_NoEngine>{TRAILER} has no engine and no seat: hitch it to a vehicle to move it.</PhobosHitch_NoEngine>
+  <!-- Framework 0.303.1: trailers in the window for forming a caravan, and when it leaves. -->
+  <PhobosHitch_CaravanNotHitched>Not hitched. A trailer cannot drive itself: hitch it behind a vehicle going in this caravan, and it goes along with that vehicle.</PhobosHitch_CaravanNotHitched>
+  <PhobosHitch_CaravanGoesWithTractor>Hitched: it goes with the vehicle towing it, and is chosen whenever that vehicle is. Its load counts with the caravan's.</PhobosHitch_CaravanGoesWithTractor>
+  <PhobosHitch_CaravanLeftUnhitched>{TRAILER} was not hitched to anything, so it stays behind.</PhobosHitch_CaravanLeftUnhitched>
   <PhobosHitch_WorldTowing>{TRACTOR} tows {TRAILER}: {WEIGHT} kg.</PhobosHitch_WorldTowing>
   <PhobosHitch_InspectPlainCap>Held to {CAP} of its speed by the weight behind it.</PhobosHitch_InspectPlainCap>
   <PhobosHitch_InspectWaiting>Waiting for someone to couple {TRAILER}.</PhobosHitch_InspectWaiting>

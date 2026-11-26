@@ -37,6 +37,9 @@ trips, which use the recovery tow and pushing, are on [stations, yard and depots
   only D'thorga Farming's Defs name them.
 - **Off the map, a trailer is held inside its tractor's hitch**, not in the caravan. The game's food, water and pack lists never
   see it, so our patches add its cargo back; it has no ticks of its own, and its tractor's rare tick catches it up.
+- **In the Form caravan window a trailer follows its hitch** (Framework 0.303.1): an unhitched one cannot be ticked, and a hitched
+  one is ticked exactly when its tractor is. When the caravan leaves, no trailer is a member: a hitched one goes in its hitch, an
+  unhitched one stays. See [Forming a caravan](#forming-a-caravan).
 - **The "Trailers" kind can be switched off** (on by default; needs a restart). Off, trailers lose their loadout: tyres and our
   Health tab.
 
@@ -217,6 +220,39 @@ for 0.25 chemfuel when hot.
 - **Towed tanks refuel the caravan; towed kitchens cook**; a towed trailer can be left at a depot; a lost convoy keeps its
   trailers with its tractors.
 
+### Forming a caravan
+
+Framework 0.303.1, from the owner's report of 26 Nov 2026: a flatbed was offered as ready to go beside a HEMTT it stood nowhere
+near. Vehicle Framework's window lists every vehicle on the map as a member of its own and knows nothing of the hitch; a trailer has
+no seats, so it passed as needing no crew, and the caravan took it from wherever it stood. The owner chose all three of the
+agent's proposed fixes ("Build all three").
+
+- **What it lets the player do:** take a hitched trailer's room and load as part of the caravan: it is ticked with its tractor, the
+  Mass line counts its cargo room, and the caravan's people load it from the Items tab. **What it stops:** sending a trailer that is
+  not hitched, which had crossed the map by itself. **How play changes:** hitch first, then form the caravan.
+- **The tile** (`TrailerTileRefusal`, a postfix on the window's private `CanCaravan`): a trailer is never ticked by hand.
+  Unhitched, its tooltip says to hitch it behind a vehicle going in the caravan; hitched, that it goes with the vehicle towing it.
+  Vehicle Framework sorts tiles that cannot be ticked last, so a hitched trailer sits at the end of the list, not beside its tractor.
+- **The tick** (`TrailersGoWithTheirTractor`, a prefix on the window's drawing): each frame, every trailer's row is set to its
+  tractor's, from the front of a line back, and the window works its figures out again when one changed.
+- **While it forms**, a hitched trailer is a member of the forming caravan, so it is loaded. Vehicle Framework drafts each member
+  every 100 ticks, and a trailer refuses with a message: a trailer in a forming caravan is left undrafted without one
+  (`TrailerNotDraftedForCaravan`). Undrafted, it is given no journey of its own and its hitch moves it. It is never the lead
+  vehicle the caravan waits on at the exit (`TrailerNeverLeads`), since it stops its drawbar's length short of where its tractor
+  stands.
+- **Leaving** (`TrailersLeaveOnTheirHitch`, a prefix on `CaravanHelper.ExitMapAndCreateVehicleCaravan`): trailers are taken out
+  of the members. A hitched one goes in its hitch as its tractor leaves (as above); an unhitched one stays where it stands, with a
+  message for the player's. This is the backstop for anything else that sends one. A list of nothing but trailers is left as it
+  was, since a caravan of nothing cannot be made; the window never allows it.
+- **Who else notices:** the player's caravan figures (mass, days of food) and Vehicle Framework's "leave vehicles behind"
+  confirmation when re-forming, which names an unhitched trailer as left behind. **Other factions:** the window and forming are the
+  player's; the leaving rule applies to any faction's caravan that leaves through Vehicle Framework, with no message.
+- **Risk: low** (agent's grade, for the owner to confirm): nothing is lost; a trailer left unhitched stays on the map, and the
+  message says so. No setting.
+- **Saves:** nothing saved. A trailer that joined a caravan as a member before 0.303.1 is set down unhitched when that caravan
+  arrives; hitch it again. Splitting a caravan on the world map is left as it was, so such a trailer can still be moved between
+  halves.
+
 ### Recovery: the winch and the recovery tow
 
 - **The recovery winch** is a fitting (an electric motor, 65 steel and a component; 7,000 work; skill 5). It draws on the
@@ -281,6 +317,7 @@ All under `src/PhobosFramework.Vehicles/` unless named.
 | `Hitch/Couplings.cs`, `Rules/CouplingRule.cs` | Coupling Defs, the extension and adapters; the match |
 | `Hitch/HitchJobs.cs`, `Hitch/TrailerSetUp.cs` | The coupling job; set-up and pack-up by hand |
 | `Hitch/HitchPatches.cs`, `Hitch/TowedLarder.cs` | A held trailer stays held; the drawn place; food in tow |
+| `Hitch/CaravanForming.cs` | Trailers in the Form caravan window, while it forms and as it leaves |
 | `SetOut/CompPhobosSetOut.cs`, `SetOut/SetOutDefs.cs`, `SetOut/CompPhobosTrailerSetUp.cs` | Set-out pieces and rooms; a plain trailer set-up |
 | `SetOut/ColdInTow.cs`, `Systems/CompPhobosSetUp.cs` | The cold box on the lead and goods ageing; the shared set-up base |
 | `Rules/HitchRule.cs`, `Rules/TowRule.cs`, `Rules/RecoveryRule.cs`, `Rules/PushRule.cs` | The game-free rules |

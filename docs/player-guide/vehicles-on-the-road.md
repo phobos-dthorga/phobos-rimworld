@@ -346,6 +346,9 @@ Any land vehicle can tow a trailer such as the [Pintle flatbed](working-vehicles
 - **A trailer goes on journeys with its vehicle**: form a caravan with the vehicle and the trailer comes along, with its cargo.
   Its weight slows the caravan. On arrival it is set down behind the vehicle, still hitched; at the map's edge, where there is no
   room behind, it is set down beside and swings into line as you drive off.
+- **Hitch first, then form the caravan.** In the Form caravan window a trailer cannot be ticked by hand: a hitched one is ticked
+  with the vehicle towing it, and its cargo room counts, so the Items tab can load it; an unhitched one stays unticked, and its
+  tooltip says to hitch it. A trailer that is not hitched never leaves with a caravan.
 - **A trailer's tyres wear as it is towed**, on the map and on journeys, faster off the roads, just like a vehicle's. Its
   **Health** tab shows them, and its **Systems** tab lists the tread and the tyre service. **A service fits new tyres from a tyre
   set**: haulers bring it and a constructor does the work. **Worn-through tyres can burst and damage the trailer's axles.** A

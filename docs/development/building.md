@@ -124,7 +124,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
 | `PhobosFramework` | 3 | 0 | 1 | 0 |
-| `PhobosFramework.Vehicles` | 114 | 16 | 0 | 0 |
+| `PhobosFramework.Vehicles` | 119 | 16 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 2 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
@@ -143,7 +143,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-188 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+193 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -201,7 +201,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework.Vehicles</code>: 114 patched methods, 16 by name</summary>
+<details><summary><code>PhobosFramework.Vehicles</code>: 119 patched methods, 16 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles/`) |
 | --- | --- | --- |
@@ -217,6 +217,7 @@ Every HarmonyPatch attribute was read.
 | `Caravan_BedsTracker.GetUsableBeds` | postfix | `Camp/Berths.cs` |
 | `Caravan_BedsTracker.RecalculateUsedBeds` | postfix | `Camp/Berths.cs` |
 | `Caravan_NeedsTracker.IngestDrug` | postfix | `LifeAboard/LifeAboard.cs` |
+| `CaravanHelper.ExitMapAndCreateVehicleCaravan` | prefix | `Hitch/CaravanForming.cs` |
 | `CaravanInventoryUtility.TryGetBestFood` | postfix | `Hitch/TowedLarder.cs` |
 | `CompFueledTravel.CanDraft` | postfix | `Systems/BatteryDrive.cs` |
 | `CompFueledTravel.CanMove` | postfix | `Systems/BatteryDrive.cs` |
@@ -233,6 +234,7 @@ Every HarmonyPatch attribute was read.
 | `DaysWorthOfFoodCalculator.ApproxDaysWorthOfFood` | postfix | `Hitch/TowedLarder.cs` |
 | `DeepResourceGrid.AnyActiveDeepScannersOnMap` | postfix | `Service/Patches.cs` |
 | `Dialog_FormCaravan.DaysWorthOfFood (getter)` | prefix, postfix | `Hitch/TowedLarder.cs` |
+| `Dialog_FormCaravan.DoWindowContents` | prefix | `Hitch/CaravanForming.cs` |
 | `Explosion.StartExplosion` | postfix | `Service/GlassBlastPatch.cs` |
 | `Ext_Vehicles.TryDropAllOutsideVehicle` | prefix | `Flight/FlightPatches.cs` |
 | `Ext_Vehicles.TryDropOutsideVehicle` | prefix | `Flight/FlightPatches.cs` |
@@ -255,6 +257,7 @@ Every HarmonyPatch attribute was read.
 | `JobGiver_GetRest.TryGiveJob` | postfix | `Cabins/DeckTents.cs`, `Camp/BunkSleep.cs`, `Visits/VisitReasons.cs` |
 | `JobGiver_SeekSafeTemperature.TryGiveJob` | postfix | `Visits/VisitReasons.cs` |
 | `LaunchProtocol.GetArrivalOptions` | postfix | `Airdrop/AirdropArrival.cs` |
+| `LordJob_FormAndSendVehicles.DetermineLeadVehicle` | postfix | `Hitch/CaravanForming.cs` |
 | `MainTabWindow_Research.PostOpen` | postfix | `Service/SetAsideResearchPatches.cs` |
 | `MapTemperature.OutdoorTemp (getter)` | postfix | `Cabins/DeckTents.cs` |
 | `MechanitorBandwidthGizmo.GizmoOnGUI` | prefix, finalizer | `Remote/MechLink.cs` |
@@ -273,6 +276,7 @@ Every HarmonyPatch attribute was read.
 | `TendUtility.CalculateBaseTendQuality` | postfix | `Camp/CrewMachines.cs` |
 | `ThingOwnerUtility.TryGetFixedTemperature` | postfix | `Service/Patches.cs` |
 | `Toils_LayDown.ApplyBedThoughts` | postfix | `Camp/CampJobs.cs` |
+| `TransferableVehicleWidget.CanCaravan` | postfix | `Hitch/CaravanForming.cs` |
 | `TurretShotReport.HitReportFor` | postfix | `Service/TurretPacePatches.cs` |
 | `VehicleCaravan.Notify_MemberDied` | prefix | `Service/LostConvoys.cs` |
 | `VehicleCaravanPathingHelper.EstimatedTicksToArrive` | prefix, postfix, finalizer | `Camp/NightDriving.cs` |
@@ -280,6 +284,7 @@ Every HarmonyPatch attribute was read.
 | `VehicleComponent.ApplyEMPDamage` | prefix, postfix, finalizer | `Service/VehicleEmp.cs` |
 | `VehicleDef.ResolveReferences` | prefix | `Service/Patches.cs` |
 | `VehicleDrawTracker.DrawPos (getter)` | postfix | `Flight/FlightPatches.cs` |
+| `VehicleIgnitionController.Drafted (setter)` | prefix | `Hitch/CaravanForming.cs` |
 | `VehiclePathFollower.CostToPayThisTick` | postfix | `Service/Patches.cs` |
 | `VehiclePathFollower.PatherArrived` | prefix, postfix | `Service/BrakeOverrun.cs` |
 | `VehiclePawn.AddOrTransfer` | prefix | `Flight/FlightPatches.cs` |

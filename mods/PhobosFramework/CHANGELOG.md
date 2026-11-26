@@ -13,6 +13,23 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.303.1] - 2026-11-26 - Draft
+
+Trailers follow their hitch when a caravan forms
+
+### Fixed
+
+- **A trailer that is not hitched can no longer be sent in a caravan** (the owner's report of 26 November 2026). The Form caravan
+  window offered it as ready, and the caravan took it from wherever it stood, however far away. Now its tile cannot be ticked and
+  says to hitch it first, and any unhitched trailer something else sends stays where it is, with a message.
+- **A hitched trailer is ticked with the vehicle towing it**, so the window counts its cargo room and your people load it from the
+  Items tab. It still travels on its hitch, never as a caravan member, and no longer flashes "no engine" while the caravan forms.
+
+### Save compatibility
+
+- Safe mid-game; nothing is saved. A trailer already in a caravan as a member is set down unhitched when it arrives: hitch it again.
+  Not yet tested in game: row 547.
+
 ## [0.303.0] - 2026-11-26 - Draft
 
 A loop tanker pumps out at the drop-off
