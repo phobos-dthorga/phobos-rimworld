@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-25T00:40:52Z",
+ "checked": "2026-11-26T00:17:35Z",
  "clonesRead": 24,
  "days": 30,
  "findings": [
@@ -52,6 +52,16 @@
    "ours": "src/PhobosFactory/Patches/BillRepairPatches.cs:32",
    "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
    "subject": "Advanced item processor supports constant resource draw from CompResourceTrader"
+  },
+  {
+   "commit": "91b45928",
+   "date": "2026-11-21",
+   "link": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework/commit/91b45928",
+   "member": "ProcessStack.currentProcess",
+   "mod": "Vanilla Expanded Framework",
+   "ours": "src/PhobosFactory/Services/BillRepair.cs:63",
+   "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
+   "subject": "PipeSystem: skip an idle bill whose ingredients are not on the map"
   },
   {
    "commit": "a72a70d0",
