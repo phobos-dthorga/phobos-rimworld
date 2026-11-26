@@ -41,6 +41,7 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
 | The paths and settings a script reads | `settings.py` | `settings.md` |
 | Whether textures need encoding | `textures.py` | `rimworld-textures.md` |
 | Everything a commit needs checked (the gate) | `check-all.py` | `gate.md` |
+| Whether a fitting, tune or upgrade node declares a grant, figure, mount or key nothing reads | the kit's `effects` (gate step "declared effects") | `effects.md` |
 | Harmony targets and by-name lookups | `check-targets.py` | `rimworld-targets.md` |
 | The generated tables in our docs: projects, Harmony patches, what each mod needs, each mod's settings | `doc-tables.py` | `doc-tables.md` |
 | What the tools, builds and tests left behind | `cleanup.py` | `cleanup.md` |
@@ -257,6 +258,11 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
   after adding, removing or relabelling a setting**; a fix to a label or tooltip goes in the Keyed file. The READMEs' settings
   tables for players stay hand-written (agent choice of 23 Nov 2026, owner to revise: the generated text is not yet plain enough
   for a player's page).
+- **Every grant, figure, mount, carried store and upgrade-node key our fittings, tunes and upgrade trees declare must be read by
+  something** (the owner's choice of 27 Nov 2026, after the fittings audit: "yes, as a gate check"): the gate's "declared effects" step,
+  phobos-modkit's `effects check`, by this repository's `config/effects.json`. **A new fitting or node that fails it is finished, not
+  excused**: add what reads it, or, only where the name is a deliberate marker, an `accepted` entry with why. A new kind of reader (a
+  Def field naming a grant or a figure) goes in the table's `readers`. Run `effects list` for the whole picture.
 - **`python scripts/check-targets.py` checks what the compiler cannot** (owner, 9 Nov 2026; part of the gate): it says the
   Harmony and by-name targets still exist, never that the code still behaves. **Write a by-name tie-in so it can be read** (17
   Nov 2026, after the Mongoose crash fix had to be checked by hand): the full `"Namespace.Type:Member"` or a fixed type name

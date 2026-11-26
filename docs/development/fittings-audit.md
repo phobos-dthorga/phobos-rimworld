@@ -1,7 +1,8 @@
 # The fittings audit: what each fitting promises, and what is modelled
 
 **Status (27 Nov 2026):** five gaps found; four fixed in D'thorga Framework 0.334.0, not yet tested in game (rows 646 to 649). The check that
-keeps it so is still to be built, in phobos-modkit. Smaller gaps listed below are left open.
+keeps it so is built: phobos-modkit 1.133.0's `effects`, the gate's "declared effects" step, by `config/effects.json` (it also shows on
+D'thorga Companion's Reports page). Smaller gaps listed below are left open.
 
 After the house battery ([its record](house-battery.md)), the owner asked on 27 Nov 2026 which other fittings and customisations were
 "available but not actually modelled in any circumstance". Every fitting (65), tune (9) and upgrade node (159) of ours was read by a
@@ -48,5 +49,5 @@ fitting one. No new setting.
 
 ## For a next game
 
-The audit itself is game-free in shape: Defs that declare effects by name, and readers in Defs and code. Built as a phobos-modkit check, a
-next game needs only a data file naming its Def types and where their effects are read.
+The check is game-free (phobos-modkit `effects`, docs/effects.md there): a next game needs only its own `config/effects.json`, naming
+its Def types and where their effects are read, and a reader for its data's form if that is not XML.

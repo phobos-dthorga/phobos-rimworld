@@ -1,0 +1,53 @@
+{
+  "description": "Our vehicle fittings, tunes and upgrade nodes: every grant, figure, mount, carried store and node key they declare, and whether a Def or our C# reads it (the fittings audit of 27 Nov 2026, docs/development/fittings-audit.md). Engine mounts Engine1 to Engine8 are named in code (Powertrain.MaxEngines).",
+  "data": ["mods/**/*.xml"],
+  "skip": ["mods/**/Languages/**/*.xml"],
+  "code": ["src/**/*.cs"],
+  "kinds": [
+    {
+      "element": "Phobos.VehicleSystems.PhobosVehicleFittingDef",
+      "id": "defName",
+      "label": "fitting",
+      "effects": [
+        {"what": "grant", "path": "grants/li", "readers": {"tags": ["needsGrant", "ability"], "code": true}},
+        {"what": "figure", "path": "parameterFactors/li/parameter",
+         "readers": {"tags": ["parameter", "factorParameter", "divideByParameter", "scaleByParameter", "capacityParameter", "supplyParameter",
+                              "openAboveParameter", "openBelowParameter", "perHourParameter", "kilowattsParameter", "waterLitresParameter",
+                              "scaledWaterLitresParameter"], "code": true},
+         "definedBy": {"tagNamed": true}},
+        {"what": "figure floor", "path": "parameterFloors/li/parameter",
+         "readers": {"tags": ["parameter", "factorParameter", "divideByParameter", "scaleByParameter", "capacityParameter", "supplyParameter",
+                              "openAboveParameter", "openBelowParameter", "perHourParameter", "kilowattsParameter"], "code": true},
+         "definedBy": {"tagNamed": true}},
+        {"what": "mount", "path": "roles/li", "readers": {"tags": ["role"], "code": true, "built": "Engine[1-8]"}},
+        {"what": "carried store", "path": "kitCarries", "readers": {"tags": ["name"], "code": true}}
+      ]
+    },
+    {
+      "element": "Phobos.VehicleSystems.PhobosVehicleTuneDef",
+      "id": "defName",
+      "label": "tune",
+      "effects": [
+        {"what": "figure", "path": "parameterFactors/li/parameter",
+         "readers": {"tags": ["parameter", "factorParameter", "divideByParameter", "scaleByParameter", "capacityParameter", "supplyParameter",
+                              "openAboveParameter", "openBelowParameter", "perHourParameter", "kilowattsParameter"], "code": true},
+         "definedBy": {"tagNamed": true}}
+      ]
+    },
+    {
+      "element": "Vehicles.UpgradeTreeDef",
+      "id": "defName",
+      "label": "upgrade node",
+      "effects": [
+        {"what": "a node with no upgrades of its own", "path": "nodes/li/key", "unless": "upgrades",
+         "readers": {"tags": ["node"], "tagEndings": ["Node"], "code": true}}
+      ]
+    }
+  ],
+  "accepted": [
+    {"entry": "PhobosFitting_ProwlerIcapII", "value": "ProwlerIcapII",
+     "why": "a name for the suite; what it does is its jamming factor, its figure floor and its load, all read. Nothing asks for the suite by name yet"},
+    {"entry": "PhobosFitting_ProwlerIcapIII", "value": "ProwlerIcapIII",
+     "why": "a name for the suite; what it does is its jamming factor, its figure floors and its load, all read. Nothing asks for the suite by name yet"}
+  ]
+}
