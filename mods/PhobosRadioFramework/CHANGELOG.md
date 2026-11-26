@@ -17,6 +17,16 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.20.2] - 2026-11-26 - Draft
+
+Stations turn as they are placed
+
+### Fixed
+
+- **The radio base station and the radio terminal can be turned while placing them** (the owner's report of 26 November 2026), as
+  most furniture can; the transmit lamp and meter needle turn with the desk. Stations already built stay as they are. Not yet tested in
+  game: row 581.
+
 ## [0.20.1] - 2026-11-26 - Draft
 
 A lost link's reason

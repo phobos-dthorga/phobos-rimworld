@@ -65,16 +65,19 @@ public class CompRadioMarks : ThingComp
         if (!parent.Spawned || Props.marks.Count == 0) return;
         var centre = parent.DrawPos;
         centre.y = AltitudeLayer.BuildingOnTop.AltitudeFor();
+        // A building turned as it was placed (the stations, Radio 0.20.2) turns its marks with it; an unturnable one is always north.
+        var rotation = parent.Rotation;
+        var turn = rotation.AsAngle;
         foreach (var mark in Props.marks)
         {
-            var at = centre + mark.offset;
+            var at = centre + mark.offset.RotatedBy(rotation);
             switch (mark.kind)
             {
                 case RadioMarkKind.TransmitLamp:
-                    if (Keyed()) Square(at, mark.size, SolidColorMaterials.SimpleSolidColorMaterial(LampColour), 45f);
+                    if (Keyed()) Square(at, mark.size, SolidColorMaterials.SimpleSolidColorMaterial(LampColour), 45f + turn);
                     break;
                 case RadioMarkKind.Needle:
-                    Needle(at, mark.length, NeedleFraction());
+                    Needle(at, mark.length, NeedleFraction(), turn);
                     break;
                 case RadioMarkKind.WarningLight:
                     if (parent.Map.skyManager.CurSkyGlow < NightGlow && (Find.TickManager.TicksGame + Seed) % FlashTicks < FlashOnTicks)
@@ -149,9 +152,9 @@ public class CompRadioMarks : ThingComp
     private static void Square(Vector3 at, float size, Material material, float degrees) =>
         Graphics.DrawMesh(MeshPool.plane10, Matrix4x4.TRS(at, Quaternion.Euler(0f, degrees, 0f), new Vector3(size, 1f, size)), material, 0);
 
-    private static void Needle(Vector3 pivot, float length, float fraction)
+    private static void Needle(Vector3 pivot, float length, float fraction, float turn)
     {
-        var degrees = NeedleRestDegrees + NeedleSweepDegrees * fraction;
+        var degrees = NeedleRestDegrees + NeedleSweepDegrees * fraction + turn;
         var rotation = Quaternion.Euler(0f, degrees, 0f);
         var middle = pivot + rotation * new Vector3(0f, 0f, length / 2f);
         Graphics.DrawMesh(MeshPool.plane10, Matrix4x4.TRS(middle, rotation, new Vector3(NeedleThickness, 1f, length)),
