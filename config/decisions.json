@@ -110,32 +110,6 @@
    "why": "A tower in use drains while it waits, and an hour lost is cheaper than a load driven round for nothing",
    "from": "docs/development/autonomous-vehicles.md",
    "asked": "2026-11-26"
-  },
-  {
-   "id": "airdrop-ciws-hit",
-   "question": "InterRim Ballistic Missile's CIWS does 4 points of bullet damage to an enemy aircraft per hit it rolls. Keep 4?",
-   "context": "IRBM rolls a hit most ticks it fires, so this brings an Osprey down in well under a minute of fire.",
-   "options": [
-    {
-     "id": "four",
-     "label": "4",
-     "detail": "As built"
-    },
-    {
-     "id": "two",
-     "label": "2",
-     "detail": "Aircraft survive a pass more often"
-    },
-    {
-     "id": "eight",
-     "label": "8",
-     "detail": "A CIWS is deadly to anything crossing"
-    }
-   ],
-   "lean": "four",
-   "why": "Authored; no figure fits IRBM's per-tick roll",
-   "from": "docs/development/airdrop.md",
-   "asked": "2026-11-26"
   }
  ]
 }

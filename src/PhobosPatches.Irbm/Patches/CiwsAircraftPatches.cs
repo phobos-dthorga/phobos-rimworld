@@ -15,9 +15,9 @@ namespace Phobos.MissilePatches.Patches;
 /// </summary>
 internal static class CiwsAircraft
 {
-    /// <summary>The bullet damage of one hit IRBM rolls on an aircraft (authored: a short burst of 20 mm; IRBM rolls a hit most ticks it
-    /// fires, so a few points each).</summary>
-    public const float DamagePerHit = 4f;
+    /// <summary>The bullet damage of one hit IRBM rolls on an aircraft (a short burst of 20 mm; IRBM rolls a hit most ticks it fires). 8: the
+    /// owner's answer on the Decisions page, 26 Nov 2026 (it was 4, authored).</summary>
+    public const float DamagePerHit = 8f;
 
     public static bool On => MissilePatchesMod.Settings.ciwsAircraft && AirTargets.Over != null;
 

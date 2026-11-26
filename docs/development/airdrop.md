@@ -300,9 +300,8 @@ Your own CIWS also shoots at your own drop if it carries a hostile person (a pri
   (`ShotDownFallers`) and leaves every other skyfaller to CE.
 - **InterRim Ballistic Missile's CIWS fires at enemy aircraft** in the air over the map, behind **CIWS fires at enemy aircraft**
   (D'thorga Patches, on: it never aims at the player's aircraft). With nothing else to shoot, it takes the first enemy aircraft the
-  Framework names (`AirTargets`); each hit IRBM rolls does 4 points of bullet damage through the aircraft's own parts (**[A]**: IRBM
-  rolls a hit most ticks it fires, so a burst's worth each).
-
+  Framework names (`AirTargets`); each hit IRBM rolls does 8 points of bullet damage through the aircraft's own parts (the owner's
+  answer of 26 Nov 2026, it was 4; IRBM rolls a hit most ticks it fires, so a burst's worth each).
 
 ## Round three (26 Nov 2026; Framework 0.306.0)
 

@@ -21,6 +21,15 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.45.3] - 2026-11-26 - Draft
+
+InterRim's CIWS hits enemy aircraft harder
+
+### Balance
+
+- **InterRim Ballistic Missile's CIWS does 8 points of damage to an enemy aircraft per hit, up from 4**, the owner's answer on the
+  Decisions page: an aircraft crossing its arc comes down in about half the time. Not yet tested in game.
+
 ## [0.45.2] - 2026-11-26 - Draft
 
 Each jet flies as itself again
