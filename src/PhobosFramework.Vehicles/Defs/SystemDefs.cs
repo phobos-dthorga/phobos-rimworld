@@ -539,6 +539,9 @@ public class ElectricalLoadSpec
     public VehicleSystemCondition? available;
     /// <summary>The load lights the ground ahead of the vehicle while it runs (headlights, Framework 0.104.0). Null: it casts no light.</summary>
     public BeamSpec? beam;
+    /// <summary>The lamps seen on the vehicle while the load runs (Framework 0.326.0: headlamps and tail lamps, navigation lights, a beacon),
+    /// drawn under the Vehicle effects setting. Null: none seen.</summary>
+    public List<LampSpec>? lamps;
     /// <summary>
     /// When the charging fails, the order loads are switched off to save the battery (cross-links G16 and avionics A6, Framework 0.106.0):
     /// 1 goes first (air conditioning), higher ranks later (the lights last). 0, the default, is essential and never shed (instruments,

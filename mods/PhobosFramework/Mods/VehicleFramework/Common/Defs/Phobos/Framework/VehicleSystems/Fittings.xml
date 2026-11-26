@@ -337,6 +337,23 @@
     <feed>
       <load>winch</load>
     </feed>
+    <!-- Framework 0.326.0 (vehicle effects, slice 3): amber beacons on the cab roof, flashing in turn while the vehicle is at recovery work
+         (When_Recovering: winching, or an ordinary vehicle on the tow bar), as a real recovery truck warns everyone near. Two LED beacons of
+         about 12 W on 12 V, so 2 A (authored); lights are shed last. The glow is drawn with the Vehicle effects setting. -->
+    <loads>
+      <li>
+        <name>recoveryBeacons</name>
+        <label>recovery beacons</label>
+        <description>Amber beacons on the roof that flash while the vehicle winches or tows another vehicle, to warn everyone near.</description>
+        <amps>2</amps>
+        <shedOrder>6</shedOrder>
+        <when Class="Phobos.VehicleSystems.When_Recovering" />
+        <lamps>
+          <li><forward>0.3</forward><right>0.45</right><colour>(1, 0.62, 0.08, 1)</colour><size>0.9</size><pattern>Flash</pattern><periodSeconds>0.8</periodSeconds><litShare>0.35</litShare></li>
+          <li><forward>0.3</forward><right>-0.45</right><colour>(1, 0.62, 0.08, 1)</colour><size>0.9</size><pattern>Flash</pattern><periodSeconds>0.8</periodSeconds><phase>0.5</phase><litShare>0.35</litShare></li>
+        </lamps>
+      </li>
+    </loads>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>

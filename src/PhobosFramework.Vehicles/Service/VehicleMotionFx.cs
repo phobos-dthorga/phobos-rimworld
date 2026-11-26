@@ -15,11 +15,12 @@ namespace Phobos.VehicleSystems;
 /// soft ground and snow that fade; rotor downwash; a rough landing's burst. One per spawned vehicle with our systems, any faction's, run by
 /// the Framework core's emitter only while it is on screen on the map being looked at. Nothing is saved.
 /// </summary>
-public sealed class VehicleMotionFx : IFxSource
+public sealed partial class VehicleMotionFx : IFxSource
 {
     readonly CompPhobosVehicleSystems comp;
     Vector3 lastPos;
     bool hasLast;
+    int lastEmit = -1;
     float rutCarry;
     bool rightSide;
 
@@ -43,23 +44,39 @@ public sealed class VehicleMotionFx : IFxSource
     public void Emit(Map map, int ticks)
     {
         FxLevel level = VehicleFx.Level;
-        if (level == FxLevel.Off || MapComponent_PhobosFx.For(map) is not { } fx) return;
+        if (level == FxLevel.Off || MapComponent_PhobosFx.For(map) is not { } fx)
+        {
+            anyLampLit = false;
+            return;
+        }
         VehiclePawn v = comp.Vehicle;
         Vector3 pos = v.DrawPos;
+        int now = Find.TickManager.TicksGame;
+        // Back on screen after a while (the emitter skips it off screen): where it was then says nothing of its speed now.
+        bool fresh = lastEmit < 0 || now - lastEmit > 2 * ticks;
+        if (fresh) hasLast = false;
+        lastEmit = now;
         float moved = hasLast ? new Vector2(pos.x - lastPos.x, pos.z - lastPos.z).magnitude : 0f;
         lastPos = pos;
         hasLast = true;
-        float speed = moved / (ticks / 60f);    // cells a second
+        bool jumped = moved > 6f;    // a jump (a teleport, a load) is no drive
+        float speed = jumped ? 0f : moved / (ticks / 60f);    // cells a second
         float density = (float)FxRule.Density(level, false, Rules.lightShare);
         string? kind = comp.Props.loadout?.kind;
-        if (kind == "Aircraft")
+        bool aircraft = kind == "Aircraft";
+        bool airborne = OnMapFlight.Airborne(v);
+        // Braking is judged only between two looks on the ground in a row; a jump or a return to the screen starts afresh.
+        LookAtLamps(v, speed, !aircraft && kind != "Boat" && !airborne && !jumped && !fresh);
+        HeatShimmer(fx, v, density, ticks, aircraft);
+        MoveFlares(fx, density);
+        if (aircraft)
         {
             Downwash(fx, map, v, density, ticks);
             return;
         }
-        if (kind == "Boat" || OnMapFlight.Airborne(v)) return;
+        if (kind == "Boat" || airborne) return;
         if (!comp.Props.trailer) Exhaust(fx, v, density, ticks);
-        if (speed < Rules.groundMinSpeed || moved > 6f) return;    // a jump (a teleport, a load) is no drive
+        if (speed < Rules.groundMinSpeed || jumped) return;
         Wheels(fx, map, v, speed, moved, density, level, ticks);
     }
 

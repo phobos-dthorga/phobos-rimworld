@@ -52,6 +52,34 @@
     <downwashPerHour>900</downwashPerHour>
     <downwashReachMetres>30</downwashReachMetres>
     <touchdownPuffs>10</touchdownPuffs>
+
+    <!-- Slice 3 (Framework 0.326.0): lamps, heat shimmer, flares. Lamps are drawn each frame from the game's own fire glow, tinted, above the
+         night's darkness; their places and colours are on each electrical load's lamps. Brake lamps light while a land vehicle loses a
+         quarter of its speed between looks, stopping included, and stay lit a little after. -->
+    <brakeDropShare>0.25</brakeDropShare>
+    <brakeHoldSeconds>1.2</brakeHoldSeconds>
+    <brakeGlowScale>1.4</brakeGlowScale>
+    <!-- Heat shimmer behind a running turbine or jet (the game's own heat-distortion shader, as its hellfire cannon uses): per engine an
+         hour, a third of it at idle; where the jet pipe sits, as a share of half the drawn length (behind the middle is negative). -->
+    <shimmerPerHour>900</shimmerPerHour>
+    <shimmerIdleShare>0.35</shimmerIdleShare>
+    <shimmerScale>1.1</shimmerScale>
+    <shimmerTurbofanForward>-0.85</shimmerTurbofanForward>
+    <shimmerTurboshaftForward>-0.2</shimmerTurboshaftForward>
+    <shimmerThrusterForward>-0.75</shimmerThrusterForward>
+    <shimmerSpreadShare>0.5</shimmerSpreadShare>
+    <!-- A salvo's flares: thrown behind and to both sides in pairs, slowed by the air, burning white for four seconds with a trail of white
+         smoke (a magnesium and PTFE flare burns at some 2000 C and its smoke is mostly magnesium fluoride and oxide: secondary, commonly
+         cited; the figures here are authored), and a glitter of chaff. -->
+    <flaresPerSalvo>6</flaresPerSalvo>
+    <flareSeconds>4</flareSeconds>
+    <flareSpeed>4</flareSpeed>
+    <flareDragSeconds>1.2</flareDragSeconds>
+    <flareSize>1.3</flareSize>
+    <flareGlow>(1, 0.95, 0.8, 1)</flareGlow>
+    <flareSmoke>(1, 1, 1, 0.6)</flareSmoke>
+    <chaffSparks>14</chaffSparks>
+    <chaff>(0.85, 0.88, 0.95, 0.9)</chaff>
   </Phobos.VehicleSystems.PhobosVehicleFxRulesDef>
 
   <!-- A rut, laid flat under vehicles and stretched along the way they went: the game's own dust puff, tinted (no new picture). -->
@@ -65,5 +93,26 @@
     <fadeInTime>0.05</fadeInTime>
     <solidTime>40</solidTime>
     <fadeOutTime>8</fadeOutTime>
+  </FleckDef>
+
+  <!-- Heat shimmer behind a turbine or jet (Framework 0.326.0): the game's own heat-wave distortion (its hellfire cannon's, base game, no DLC),
+       gentler and slower, drawn over aircraft in the air. A look to tune by eye. -->
+  <FleckDef ParentName="FleckGlowDistortBackground">
+    <defName>PhobosFleck_HeatShimmer</defName>
+    <fleckSystemClass>FleckSystemThrown</fleckSystemClass>
+    <altitudeLayer>Weather</altitudeLayer>
+    <graphicData>
+      <texPath>Things/Mote/Black</texPath>
+      <shaderParameters>
+        <_distortionIntensity>0.012</_distortionIntensity>
+        <_brightnessMultiplier>1.0</_brightnessMultiplier>
+        <_DistortionTex>/Things/Mote/MoteHellfireCannon_HeatWaveDistortion</_DistortionTex>
+      </shaderParameters>
+      <drawSize>(1.2, 1.2)</drawSize>
+    </graphicData>
+    <fadeInTime>0.1</fadeInTime>
+    <solidTime>0.25</solidTime>
+    <fadeOutTime>0.6</fadeOutTime>
+    <growthRate>1.2</growthRate>
   </FleckDef>
 </Defs>

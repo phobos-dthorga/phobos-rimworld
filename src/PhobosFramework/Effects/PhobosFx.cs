@@ -48,6 +48,40 @@ public interface IFxSource
     void Emit(Map map, int ticks);
 }
 
+/// <summary>A source that also draws something each frame while it is on screen (Framework 0.326.0: lamps and burning flares, which must
+/// stay put on a moving, turning thing, as a fleck left in place each pass would not). Drawing only: decide what to draw in
+/// <see cref="IFxSource.Emit"/> and keep it, so a frame costs a few draw calls.</summary>
+public interface IFxDrawn
+{
+    void Draw(Map map);
+}
+
+/// <summary>
+/// A soft glow drawn straight to the screen for one frame (Framework 0.326.0, slice 3: lamps, beacons, flares): the game's own fire glow
+/// picture, tinted, through its additive glow shader, on the layer above the night's darkness, so a lamp shines at night as a lamp does.
+/// No picture of ours.
+/// </summary>
+public static class PhobosGlow
+{
+    static Material? material;
+    static readonly MaterialPropertyBlock block = new();
+    static readonly int ColourId = Shader.PropertyToID("_Color");
+
+    /// <summary>The height glows are drawn at: above the darkness of night and over aircraft in the air, under the fog of war.</summary>
+    public static readonly float Altitude = AltitudeLayer.VisEffects.AltitudeFor();
+
+    static Material Material => material ??= MaterialPool.MatFrom("Things/Mote/FireGlow", ShaderDatabase.MoteGlow, Color.white);
+
+    /// <summary>Draws one glow of <paramref name="size"/> cells across at this place on the map, in this colour (its alpha the brightness).</summary>
+    public static void Draw(Vector3 at, float size, Color colour)
+    {
+        if (size <= 0f || colour.a <= 0f) return;
+        block.SetColor(ColourId, colour);
+        Matrix4x4 matrix = Matrix4x4.TRS(new Vector3(at.x, Altitude, at.z), Quaternion.identity, new Vector3(size, 1f, size));
+        Graphics.DrawMesh(MeshPool.plane10, matrix, Material, 0, null, 0, block);
+    }
+}
+
 /// <summary>
 /// The visual effects emitter (Framework 0.321.0; docs/development/vehicle-effects.md; the owner's cards of 26 Nov 2026). Every
 /// <see cref="PassTicks"/> ticks, on the map being looked at only, it makes the flecks of every thing on screen: the steady puffs asked for
@@ -106,13 +140,54 @@ public sealed class MapComponent_PhobosFx : MapComponent
         for (int i = 0; i < count; i++) Make(thing, emission);
     }
 
-    /// <summary>Registers a thing that works its own effects out each pass; one per thing.</summary>
-    public void AddSource(Thing thing, IFxSource source) => sources[thing] = source;
+    /// <summary>Registers a thing that works its own effects out each pass; one per thing. One that also draws each frame
+    /// (<see cref="IFxDrawn"/>) is drawn while it is on screen.</summary>
+    public void AddSource(Thing thing, IFxSource source)
+    {
+        sources[thing] = source;
+        if (source is IFxDrawn drawnSource) drawn[thing] = drawnSource;
+        else drawn.Remove(thing);
+    }
 
     public void RemoveSource(Thing thing)
     {
         sources.Remove(thing);
+        drawn.Remove(thing);
         holds.Remove(thing);
+    }
+
+    /// <summary>The source registered for a thing, or null (Framework 0.326.0: a salvo's flares are handed to the aircraft's own).</summary>
+    public IFxSource? SourceOf(Thing thing) => sources.TryGetValue(thing, out IFxSource? source) ? source : null;
+
+    readonly Dictionary<Thing, IFxDrawn> drawn = new();
+    readonly List<Thing> drawScratch = new();
+
+    /// <summary>Each frame, on the map being looked at: draws every drawing source on screen (Framework 0.326.0). Nothing when none is.</summary>
+    public override void MapComponentUpdate()
+    {
+        if (drawn.Count == 0 || map != Find.CurrentMap) return;
+        CellRect view = Find.CameraDriver.CurrentViewRect.ExpandedBy(4);
+        drawScratch.Clear();
+        drawScratch.AddRange(drawn.Keys);
+        foreach (Thing thing in drawScratch)
+        {
+            if (!thing.Spawned || thing.Map != map)
+            {
+                drawn.Remove(thing);
+                continue;
+            }
+            if (!view.Contains(thing.Position)) continue;
+            try
+            {
+                drawn[thing].Draw(map);
+            }
+            catch (Exception error)
+            {
+                // Looks only: a drawing that fails is dropped, never allowed to throw each frame.
+                drawn.Remove(thing);
+                FrameworkMod.Logger.WarnOnce("a light on " + thing.LabelShort + " failed and is switched off for it: " + error.Message);
+            }
+        }
     }
 
     /// <summary>Whether a thing is on this map, the one being looked at, and on screen (with a margin, so smoke drifting in is seen).</summary>

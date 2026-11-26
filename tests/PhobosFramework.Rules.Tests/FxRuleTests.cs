@@ -1,3 +1,4 @@
+using System;
 using Phobos.Framework.Rules;
 using Xunit;
 
@@ -65,4 +66,32 @@ public class FxRuleTests
     [Fact]
     public void ExhaustRisesWithLoad() =>
         Assert.True(FxRule.ExhaustRate(0.5, 0.15, 20, 200) < FxRule.ExhaustRate(0.9, 0.15, 20, 200));
+
+    [Theory]
+    [InlineData(false, 7, 60, 0, 0.2, true)]    // steady: always
+    [InlineData(true, 0, 60, 0, 0.2, true)]     // a flash opens its period
+    [InlineData(true, 11, 60, 0, 0.2, true)]
+    [InlineData(true, 13, 60, 0, 0.2, false)]
+    [InlineData(true, 30, 60, 0.5, 0.2, true)]  // half a period late: its turn comes halfway
+    [InlineData(true, 0, 60, 0.5, 0.2, false)]
+    [InlineData(true, 5, 0, 0, 0.2, false)]     // no period: never
+    public void LampsFlashInTurn(bool flashing, long ticks, double period, double phase, double litShare, bool expected) =>
+        Assert.Equal(expected, FxRule.LampLit(flashing, ticks, period, phase, litShare));
+
+    [Theory]
+    [InlineData(3, 0, 0.3, 0.25, true)]       // stopping
+    [InlineData(3, 2, 0.3, 0.25, true)]       // lost a third
+    [InlineData(3, 2.5, 0.3, 0.25, false)]    // a little slower: no
+    [InlineData(0.2, 0, 0.3, 0.25, false)]    // was barely moving
+    [InlineData(2, 3, 0.3, 0.25, false)]      // speeding up
+    public void BrakeLampsLightWhenSlowing(double before, double now, double min, double drop, bool expected) =>
+        Assert.Equal(expected, FxRule.Slowing(before, now, min, drop));
+
+    [Fact]
+    public void DragSlowsAThrownFlare()
+    {
+        Assert.Equal(1, FxRule.Drag(0, 1.2), 6);
+        Assert.Equal(Math.Exp(-1), FxRule.Drag(1.2, 1.2), 6);
+        Assert.Equal(0, FxRule.Drag(1, 0), 6);
+    }
 }

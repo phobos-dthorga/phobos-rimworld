@@ -321,6 +321,15 @@ public class When_Granted : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Comp.Fittings.Grants(ability);
 }
 
+/// <summary>The vehicle is at recovery work (Framework 0.326.0: its beacon flashes): its winch is pulling a vehicle, or it has an ordinary
+/// vehicle, not a trailer, on its tow bar.</summary>
+public class When_Recovering : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) =>
+        context.Comp.Hitch is { } hitch
+        && (hitch.Winching != null || hitch.Trailer is { } towed && towed.GetComp<CompPhobosTrailer>() == null);
+}
+
 /// <summary>The design's engine is turbocharged as built (Framework 0.320.0: a built-in turbocharger that fails takes the engine down to a
 /// naturally aspirated one's power, where a fitted one only gives back what it added).</summary>
 public class When_TurbochargedAsBuilt : VehicleSystemCondition

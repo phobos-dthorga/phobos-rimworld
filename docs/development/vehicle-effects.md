@@ -1,8 +1,8 @@
 # Vehicles' visual effects
 
-**Status (26 Nov 2026):** slices 1 and 2 built in D'thorga Framework 0.321.0: the faults' signs, what moving vehicles and aircraft throw
-up, the shared emitter and the Vehicle effects setting. Slice 3 (beacons and lights, heat shimmer, flares) waits for the owner. Not yet
-tested in game (rows 578 to 580).
+**Status (26 Nov 2026):** all three slices built. Slices 1 and 2 in D'thorga Framework 0.321.0 (the faults' signs, what moving vehicles
+and aircraft throw up, the shared emitter and the Vehicle effects setting); slice 3 in 0.326.0 (lamps, heat shimmer, flares). Not yet
+tested in game (rows 578 to 580, 602 to 604).
 
 The owner, 26 Nov 2026: "Is there any other FX we can apply to our vehicles and aircraft?" Before this, every vehicle system shared one
 grey smoke puff (overheating, the boiler, the turbo), and most faults showed only by sound: a diesel knock, a brake squeal, a clutch
@@ -15,7 +15,7 @@ slip, a tyre burst, a failed start. The owner is hearing impaired, so a fault th
 | Slice 1, the faults' signs | **All four**: coloured smoke; engine faults seen; brakes, clutch and tyres; sparks and drips |
 | Slice 2, moving vehicles | **All four**: exhaust by load; wheel dust and spray; downwash and touchdowns; fading wheel tracks |
 | The setting's start | **Full** (presets Off, Light, Full) |
-| Slice 3 (beacons and lights, heat shimmer, flares) | **Later**, once slices 1 and 2 have been seen |
+| Slice 3 (beacons and lights, heat shimmer, flares) | **Later**, once slices 1 and 2 have been seen; then, the same day: **"let's go ahead with Slice #3"** |
 
 ## How it works
 
@@ -73,6 +73,35 @@ Every figure is in `VehicleEffects.xml`, authored.
 flies. Nothing is thrown up on paving, floors or bare rock: a reason to pave a yard, as the modern-military record already suggests for a
 helipad.
 
+## Slice 3: lamps, heat shimmer, flares
+
+Built in Framework 0.326.0 on the owner's go-ahead. **No picture or shader of ours**: the glows are the game's own fire glow, tinted, and
+the shimmer is the game's own heat-wave distortion (its hellfire cannon's, in the base game, no DLC). Every place, rate, size and colour
+is authored, in `VehicleEffects.xml` and on each load's `lamps`.
+
+| What | When | Looks |
+| --- | --- | --- |
+| Headlamps and tail lamps | While the headlights burn (their own rule, so other factions' vehicles light up at night as they move) | Two warm white lamps at the front, two dim red at the back |
+| Brake lamps | A land vehicle that loses a quarter of its speed between looks, stopping included, by day or night; held 1.2 seconds | The tail lamps bright red and larger |
+| A boat's navigation lights | The boat's existing navigation lights load (night, engine running) | Red to port, green to starboard, white at the stern and a white masthead light |
+| An aircraft's navigation lights | The aircraft's existing navigation lights load (night, engine running) | Red on the left wingtip, green on the right, white at the tail, a red anti-collision beacon flashing once a second and white wingtip strobes, placed on the drawn aircraft |
+| Recovery beacons | A vehicle with the recovery winch, while it winches or has an ordinary vehicle on its tow bar (`When_Recovering`) | Two amber beacons on the roof, flashing in turn |
+| Heat shimmer | A running turbine or jet: turbofans at the tail, turboshafts a little behind the middle (helicopters, the Osprey, the C-27J's turboprops) or at a turbine truck's stack, thrusters at the back; one stream per engine, placed by where each sits, by its output, a third of it at idle | The air rippling behind the engine, drifting back |
+| Flares and chaff | A countermeasures salvo fired over a map (the salvo button, or a tie-in's dodge): every salvo goes through `AirCombat.SpendSalvo` | Six flares thrown out behind and to both sides in pairs, slowed by the air, burning white for four seconds with a trail of white smoke; a glitter of chaff behind |
+
+**The recovery beacons are a load of the recovery winch fitting**, so they come and go with it and draw 2 A while they flash (an
+accessory uses something real). **The lamps draw nothing of their own**: the headlights and navigation lights already drew their amps
+before they were seen; brake lamps are taken as part of what a running vehicle's electrics carry (a simplification).
+
+**Reversing lamps are left out**: Vehicle Framework keeps a reverse flag, but nothing in it ever sets it, so vehicles never drive
+backwards and a reversing lamp could never light. A choice of the agent's, for the owner to revise if Vehicle Framework ever reverses.
+
+**How it is drawn.** Lamps and burning flares are drawn each frame (the emitter's new `IFxDrawn`, `PhobosGlow`), so they stay on a moving,
+turning vehicle; which lamps burn, and whether it is braking, is decided at each 15-tick pass, so a frame costs a few draw calls per
+vehicle on screen. They are drawn above the night's darkness, as lamps shine at night, and above aircraft in the air. A flare's flicker
+comes from noise, never the game's random numbers. The flares' smoke and the shimmer are flecks, thinned at the Light setting; the lamps
+are not (a lamp is a sign).
+
 ## The four questions
 
 - **What it lets the player do**: see a vehicle's faults on the map at a glance, without the Health tab and without sound; see where
@@ -92,7 +121,10 @@ None: nothing a player owns is touched. The Vehicle effects setting is for perfo
 The same signs on any faction's vehicle while its systems run; another faction's vehicle runs its systems at the lite tier or not at all, so
 most of its fault signs show only once it is captured. The fuel drips, the dust, mud, spray, ruts, downwash and touchdowns need no systems
 and show on any vehicle. **The exhaust does need them** (it reads the engine's load), so a raider's truck throws up dust but shows no
-exhaust: a known limit, cheap to lift later by reading Vehicle Framework's own ignition. The
+exhaust: a known limit, cheap to lift later by reading Vehicle Framework's own ignition. Slice 3: **headlamps, tail lamps and brake lamps
+show on other factions' vehicles too** (the headlights' own rule reaches them: a raid driving in at night lights itself up), as does heat
+shimmer while their engines run; **their navigation lights do not** (that load runs on our full systems only, a known limit), nor do
+recovery beacons, which need the winch fitting. A salvo's flares show for any aircraft whose salvo goes through ours. The
 cost is the emitter's, which is on screen only.
 
 ## Performance

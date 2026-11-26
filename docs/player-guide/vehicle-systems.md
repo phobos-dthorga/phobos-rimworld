@@ -107,7 +107,12 @@ Gelled fuel coughs white at the key; a turbine with a weak battery lights with a
 Moving vehicles show how hard they work and where they go: **exhaust** that grows with the load (white from a cold engine on a freezing
 morning), **dust, mud, snow or spray** behind the wheels, and **ruts** on soft ground and snow that fade after a while. A helicopter near
 the ground blows a **ring of dust or spray** beneath it; a rough landing throws up tyre smoke. **Paving, floors and bare rock throw up
-nothing**, so a paved yard or helipad stays clear. **The setting Vehicle effects** (vehicle
+nothing**, so a paved yard or helipad stays clear.
+
+Vehicles show their **lamps** too: headlamps and red tail lamps at night, **brake lamps** that flare red as a vehicle slows (by day too),
+an aircraft's red and green wingtip lights with a flashing red beacon and white strobes, and a boat's red, green and white lights. A
+truck with the **recovery winch** flashes two **amber beacons** while it winches or tows another vehicle. Turbines and jets leave **heat
+shimmer** behind them, and an aircraft's **countermeasure salvo** throws out burning flares and a glitter of chaff. **The setting Vehicle effects** (vehicle
 settings, Effects section) is **Full** to start; **Light** keeps every fault's sign but thins the rest; **Off** draws nothing.
 
 ## What wears out and what fixes it

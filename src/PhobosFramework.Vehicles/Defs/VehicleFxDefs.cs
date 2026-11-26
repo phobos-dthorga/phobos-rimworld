@@ -104,4 +104,72 @@ public class PhobosVehicleFxRulesDef : PhobosRulesDef
 
     /// <summary>A rough landing's burst of tyre smoke and dust.</summary>
     public int touchdownPuffs = 10;
+
+    // ---- Slice 3 (Framework 0.326.0): lamps, heat shimmer, flares ----
+
+    /// <summary>Brake lamps: lit while a land vehicle that was moving at <see cref="groundMinSpeed"/> or more loses
+    /// <see cref="brakeDropShare"/> of its speed between looks (stopping included), and held <see cref="brakeHoldSeconds"/> after; drawn at
+    /// full brightness and <see cref="brakeGlowScale"/> times the lamp's size.</summary>
+    public float brakeDropShare = 0.25f;
+    public float brakeHoldSeconds = 1.2f;
+    public float brakeGlowScale = 1.4f;
+
+    /// <summary>Heat shimmer behind a running turbine or jet: an hour's shimmers per engine at full output, a third of that at idle.</summary>
+    public float shimmerPerHour = 900f;
+    public float shimmerIdleShare = 0.35f;
+    public float shimmerScale = 1.1f;
+    /// <summary>Where the jet pipe is, as a share of half the drawn length ahead of the middle (behind, negative): a jet's at its tail, a
+    /// turboshaft's (a helicopter, the Osprey's nacelles, a turbine truck) a little behind the middle, thrusters at the back.</summary>
+    public float shimmerTurbofanForward = -0.85f;
+    public float shimmerTurboshaftForward = -0.2f;
+    public float shimmerThrusterForward = -0.75f;
+    /// <summary>How far out across the drawn width the outermost engine of several sits, as a share of half the width.</summary>
+    public float shimmerSpreadShare = 0.5f;
+
+    /// <summary>A salvo's flares: how many, thrown out behind and to both sides at <see cref="flareSpeed"/> cells a second, slowed by the
+    /// air (<see cref="flareDragSeconds"/>), burning <see cref="flareSeconds"/> seconds with a trail of white smoke.</summary>
+    public int flaresPerSalvo = 6;
+    public float flareSeconds = 4f;
+    public float flareSpeed = 4f;
+    public float flareDragSeconds = 1.2f;
+    public float flareSize = 1.3f;
+    public Color flareGlow = new(1f, 0.95f, 0.8f, 1f);
+    public Color flareSmoke = new(1f, 1f, 1f, 0.6f);
+    /// <summary>A salvo's chaff: a glitter of this many sparks behind the aircraft.</summary>
+    public int chaffSparks = 14;
+    public Color chaff = new(0.85f, 0.88f, 0.95f, 0.9f);
+}
+
+/// <summary>How a lamp burns (Framework 0.326.0).</summary>
+public enum LampPattern
+{
+    /// <summary>Always while lit.</summary>
+    Steady,
+    /// <summary>A short flash once a period (a beacon, a strobe).</summary>
+    Flash,
+}
+
+/// <summary>
+/// A lamp of an electrical load (Framework 0.326.0, slice 3; docs/development/vehicle-effects.md): a glow drawn on the vehicle while its load
+/// runs (headlights, navigation lights, a recovery beacon), turning with it. Its place is in shares of half the vehicle's length (ahead of
+/// the middle) and half its width (to its right), of its footprint, or of its drawn picture where <see cref="drawn"/> (an aircraft's
+/// wingtips reach past its footprint). The glow is the game's own fire glow, tinted; no picture of ours. Every figure is authored.
+/// </summary>
+public class LampSpec
+{
+    public float forward;
+    public float right;
+    public Color colour = Color.white;
+    /// <summary>The glow's size across, cells.</summary>
+    public float size = 0.6f;
+    public LampPattern pattern = LampPattern.Steady;
+    public float periodSeconds = 1f;
+    /// <summary>How late in the period its flash comes, 0 to 1 (two lamps half a period apart take turns).</summary>
+    public float phase;
+    /// <summary>The share of each period a flash lasts.</summary>
+    public float litShare = 0.2f;
+    /// <summary>Places on the drawn picture rather than the footprint.</summary>
+    public bool drawn;
+    /// <summary>A brake lamp: also lit, brighter and larger, while the vehicle slows, whether or not its load runs (a tail lamp).</summary>
+    public bool brake;
 }

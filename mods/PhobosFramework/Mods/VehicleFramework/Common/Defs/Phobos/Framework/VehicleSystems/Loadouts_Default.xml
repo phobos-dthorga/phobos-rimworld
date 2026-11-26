@@ -635,6 +635,15 @@
           <ahead>5</ahead>
           <colour>(255,228,190,0)</colour>
         </beam>
+        <!-- Framework 0.326.0 (vehicle effects, slice 3): the lamps seen on the vehicle, drawn with the Vehicle effects setting. Two headlamps,
+             warm white, while the headlights burn; two tail lamps, dim red with the headlights and bright red while the vehicle slows (brake
+             lamps, which light by day too). Places are shares of half the vehicle's length and width; sizes and colours authored. -->
+        <lamps>
+          <li><forward>0.95</forward><right>0.6</right><colour>(1, 0.92, 0.78, 0.85)</colour><size>0.55</size></li>
+          <li><forward>0.95</forward><right>-0.6</right><colour>(1, 0.92, 0.78, 0.85)</colour><size>0.55</size></li>
+          <li><forward>-0.97</forward><right>0.65</right><colour>(1, 0.1, 0.05, 0.45)</colour><size>0.4</size><brake>true</brake></li>
+          <li><forward>-0.97</forward><right>-0.65</right><colour>(1, 0.1, 0.05, 0.45)</colour><size>0.4</size><brake>true</brake></li>
+        </lamps>
       </li>
       <li>
         <name>cabHeater</name>
@@ -978,6 +987,15 @@
           <ahead>5</ahead>
           <colour>(255,228,190,0)</colour>
         </beam>
+        <!-- Framework 0.326.0 (vehicle effects, slice 3): the lamps seen on the vehicle, drawn with the Vehicle effects setting. Two headlamps,
+             warm white, while the headlights burn; two tail lamps, dim red with the headlights and bright red while the vehicle slows (brake
+             lamps, which light by day too). Places are shares of half the vehicle's length and width; sizes and colours authored. -->
+        <lamps>
+          <li><forward>0.95</forward><right>0.6</right><colour>(1, 0.92, 0.78, 0.85)</colour><size>0.55</size></li>
+          <li><forward>0.95</forward><right>-0.6</right><colour>(1, 0.92, 0.78, 0.85)</colour><size>0.55</size></li>
+          <li><forward>-0.97</forward><right>0.65</right><colour>(1, 0.1, 0.05, 0.45)</colour><size>0.4</size><brake>true</brake></li>
+          <li><forward>-0.97</forward><right>-0.65</right><colour>(1, 0.1, 0.05, 0.45)</colour><size>0.4</size><brake>true</brake></li>
+        </lamps>
       </li>
       <li>
         <name>cabHeater</name>
@@ -1184,6 +1202,14 @@
             <li Class="Phobos.VehicleSystems.When_EngineRunning" />
           </conditions>
         </when>
+        <!-- Framework 0.326.0 (vehicle effects, slice 3): the lights seen, as the collision rules place them: red to port, green to
+             starboard, white at the stern and a white masthead light ahead. Places, sizes and colours authored. -->
+        <lamps>
+          <li><forward>0.3</forward><right>-0.9</right><colour>(1, 0.12, 0.08, 0.9)</colour><size>0.45</size></li>
+          <li><forward>0.3</forward><right>0.9</right><colour>(0.15, 1, 0.3, 0.9)</colour><size>0.45</size></li>
+          <li><forward>-0.97</forward><right>0</right><colour>(1, 1, 0.95, 0.8)</colour><size>0.4</size></li>
+          <li><forward>0.6</forward><right>0</right><colour>(1, 1, 0.95, 0.8)</colour><size>0.45</size></li>
+        </lamps>
       </li>
       <li>
         <!-- Framework 0.243.0 (the owner's report of 23 Nov 2026; docs/development/vehicle-engine-loads.md, "The alternator, right-sized"): a
@@ -1652,6 +1678,17 @@
             <li Class="Phobos.VehicleSystems.When_EngineRunning" />
           </conditions>
         </when>
+        <!-- Framework 0.326.0 (vehicle effects, slice 3): the lights seen, placed on the drawn aircraft: red on the left wingtip, green on
+             the right, white at the tail, a red anti-collision beacon flashing at the middle and white strobes at the wingtips. Places,
+             flash rates, sizes and colours authored. -->
+        <lamps>
+          <li><forward>0</forward><right>-0.95</right><colour>(1, 0.12, 0.08, 0.9)</colour><size>0.5</size><drawn>true</drawn></li>
+          <li><forward>0</forward><right>0.95</right><colour>(0.15, 1, 0.3, 0.9)</colour><size>0.5</size><drawn>true</drawn></li>
+          <li><forward>-0.97</forward><right>0</right><colour>(1, 1, 0.95, 0.8)</colour><size>0.45</size><drawn>true</drawn></li>
+          <li><forward>0.1</forward><right>0</right><colour>(1, 0.15, 0.1, 0.95)</colour><size>0.75</size><pattern>Flash</pattern><periodSeconds>1</periodSeconds><litShare>0.2</litShare><drawn>true</drawn></li>
+          <li><forward>0</forward><right>-0.95</right><colour>(1, 1, 1, 1)</colour><size>0.9</size><pattern>Flash</pattern><periodSeconds>1.3</periodSeconds><phase>0.5</phase><litShare>0.08</litShare><drawn>true</drawn></li>
+          <li><forward>0</forward><right>0.95</right><colour>(1, 1, 1, 1)</colour><size>0.9</size><pattern>Flash</pattern><periodSeconds>1.3</periodSeconds><phase>0.5</phase><litShare>0.08</litShare><drawn>true</drawn></li>
+        </lamps>
       </li>
       <li>
         <!-- Added in Framework 0.21.2: aircraft had no cab heater, so a closed cockpit could only cool. Real aircraft heat it with bleed air from the engines (general); the amps, for the valves and fan, are authored. -->

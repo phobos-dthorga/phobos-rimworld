@@ -15,6 +15,27 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.326.0] - 2026-11-26 - Draft
+
+Vehicles' lamps, heat shimmer and flares
+
+### Added
+
+- **Vehicles show their lamps** (the owner's go-ahead for slice 3, 26 November 2026): headlamps and red tail lamps while the headlights
+  burn, brake lamps that flare as a vehicle slows (by day too), an aircraft's wingtip lights, beacon and strobes, and a boat's navigation
+  lights. Not yet tested in game: row 602. How it works: docs/development/vehicle-effects.md.
+- **The recovery winch brings amber beacons**, flashing in turn while the vehicle winches or tows another vehicle; they draw 2 A from
+  its electrics while they flash. Not yet tested in game: row 602.
+- **Turbines and jets leave heat shimmer behind them** while they run, one stream per engine, stronger as they work. Not yet tested in
+  game: row 603.
+- **A countermeasure salvo over a map is seen**: flares thrown out behind in pairs, burning with white smoke trails, and a glitter of
+  chaff. Not yet tested in game: row 604.
+- Reversing lamps are left out: vehicles never drive backwards. All of it follows the Vehicle effects setting; no new setting.
+
+### Save compatibility
+
+- Looks only: safe to add and to remove. The recovery winch's beacons are a new load on the fitting, worked out at each look, never saved.
+
 ## [0.325.1] - 2026-11-26 - Draft
 
 The Low extraction button's own icon

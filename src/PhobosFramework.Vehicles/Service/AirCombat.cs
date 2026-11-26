@@ -126,6 +126,8 @@ public static class AirCombat
         if (!CanDispense(vehicle) || Magazine(vehicle) is not { } magazine) return false;
         if (!magazine.Spend(Math.Max(1, Rules.cartridgesPerSalvo))) return false;
         Seen.Note("aircraft.countermeasures-salvo", vehicle);
+        // Framework 0.326.0: fired over a map, the salvo is seen, flares and chaff (on the world map nothing is drawn).
+        if (vehicle.Spawned) VehicleMotionFx.Salvo(vehicle);
         return true;
     }
 

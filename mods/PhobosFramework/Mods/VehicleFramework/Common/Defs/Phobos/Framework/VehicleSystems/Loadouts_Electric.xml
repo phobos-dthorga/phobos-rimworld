@@ -194,6 +194,15 @@
           <ahead>5</ahead>
           <colour>(235,240,255,0)</colour>
         </beam>
+        <!-- Framework 0.326.0 (vehicle effects, slice 3): the lamps seen on the vehicle, drawn with the Vehicle effects setting. Two headlamps,
+             warm white, while the headlights burn; two tail lamps, dim red with the headlights and bright red while the vehicle slows (brake
+             lamps, which light by day too). Places are shares of half the vehicle's length and width; sizes and colours authored. -->
+        <lamps>
+          <li><forward>0.95</forward><right>0.6</right><colour>(1, 0.92, 0.78, 0.85)</colour><size>0.55</size></li>
+          <li><forward>0.95</forward><right>-0.6</right><colour>(1, 0.92, 0.78, 0.85)</colour><size>0.55</size></li>
+          <li><forward>-0.97</forward><right>0.65</right><colour>(1, 0.1, 0.05, 0.45)</colour><size>0.4</size><brake>true</brake></li>
+          <li><forward>-0.97</forward><right>-0.65</right><colour>(1, 0.1, 0.05, 0.45)</colour><size>0.4</size><brake>true</brake></li>
+        </lamps>
       </li>
       <li>
         <name>cabHeater</name>

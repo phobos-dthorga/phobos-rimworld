@@ -66,4 +66,29 @@ public static class FxRule
         double share = Math.Clamp((load - idleLoad) / Math.Max(1e-6, 1 - idleLoad), 0, 1);
         return cruise + (hard - cruise) * share * share;
     }
+
+    /// <summary>
+    /// Whether a lamp is lit at this tick (Framework 0.326.0, slice 3): a steady lamp always; a flashing one for the first
+    /// <paramref name="litShare"/> of each period of <paramref name="periodTicks"/>, started <paramref name="phase"/> (0 to 1) of a period
+    /// late, so two lamps half a period apart take turns (a recovery truck's pair).
+    /// </summary>
+    public static bool LampLit(bool flashing, long ticks, double periodTicks, double phase, double litShare)
+    {
+        if (!flashing) return true;
+        if (periodTicks <= 0 || litShare <= 0) return false;
+        double at = (ticks / periodTicks - phase) % 1.0;
+        if (at < 0) at += 1;
+        return at < Math.Min(1, litShare);
+    }
+
+    /// <summary>Whether a vehicle is slowing hard enough to light its brake lamps (Framework 0.326.0): it was moving at
+    /// <paramref name="minSpeed"/> or more and has lost <paramref name="dropShare"/> of that speed or more since the last look, stopping
+    /// included.</summary>
+    public static bool Slowing(double previousSpeed, double speed, double minSpeed, double dropShare) =>
+        previousSpeed >= minSpeed && speed <= previousSpeed * (1 - Math.Clamp(dropShare, 0, 1));
+
+    /// <summary>What is left of a thrown thing's speed after <paramref name="seconds"/> in air that slows it by a time constant of
+    /// <paramref name="timeConstantSeconds"/> (a flare thrown from an aircraft, Framework 0.326.0).</summary>
+    public static double Drag(double seconds, double timeConstantSeconds) =>
+        timeConstantSeconds <= 0 ? 0 : Math.Exp(-Math.Max(0, seconds) / timeConstantSeconds);
 }
