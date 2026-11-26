@@ -13,6 +13,33 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+
+## [0.324.0] - 2026-11-26 - Draft
+
+Work on the road, fourth round: read ground, quarries, drop and hook, gauntlets, bogging and grit
+
+### Added
+
+- **A map opened on a tile a Datum read has the read ore** (the owner's answer of 26 Nov 2026 on the Decisions page): one lump of about
+  the read size, once, and the map's deep ore shows without a scanner. Not yet tested in game: row 594.
+- **A Kelly with the RC hammer can quarry stone at a halt** (Quarry stone): chunks of the tile's rock into the Talus or the cargo, more on
+  hills, until the convoy can carry no more. Not yet tested in game: row 595.
+- **A trailer left at a depot can be hooked up again from the world map** (Hook up from the depot), with no visit to the depot's map. Not
+  yet tested in game: row 596.
+- **Driving through an ambush now costs some hits** (the owner's answer of 26 Nov 2026): three on each vehicle's outer parts, much
+  lighter with armour. Not yet tested in game: row 597.
+- **Heavy vehicles bog on soft, wet ground on the world map**: over 12 tonnes laden, they sink a little on each swampy or very wet flat
+  tile and stick in time; the convoy waits for a winch (about 1.5 hours), a tow (3) or firmer ground (24), and 10 stone chunks under the
+  wheels free one at once (Lay stone under the wheels). Frozen ground and hills never bog; tracks spread the weight. A new setting,
+  Heavy vehicles bog on soft ground, on. Not yet tested in game: row 598.
+- **A Talus can spread grit on snowy tiles** (Spread grit): 2 stone chunks a tile, and the tile is easier going for every convoy of
+  yours for five days. Not yet tested in game: row 599.
+  Every figure is the agent's, for the owner to revise; how it works: docs/development/vehicle-road-work.md.
+
+### Save compatibility
+
+- Safe to add. Removing the Framework mid-game drops a convoy's wait, its sinking and the grit; a map already made keeps its ore.
+
 ## [0.323.0] - 2026-11-26 - Draft
 
 Low extraction (LAPES): a vehicle pulled out low over a strip

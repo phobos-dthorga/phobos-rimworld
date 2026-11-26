@@ -166,6 +166,45 @@ public static class Depots
         return true;
     }
 
+    // ---- Hooking a trailer up again (Framework 0.324.0, EM41) ----
+
+    /// <summary>Why this vehicle of the convoy cannot hook up this trailer from the depot here (any trailer, when null), or null. The convoy
+    /// must stand on the depot's tile; the hitch says the rest.</summary>
+    public static string? HookUpRefusal(VehicleCaravan caravan, VehiclePawn tractor, VehiclePawn? trailer)
+    {
+        if (caravan.vehiclePather is { MovingNow: true }) return "PhobosDepot_Moving".Translate().Resolve();
+        if (tractor.GetComp<CompPhobosHitch>() is not { } hitch) return "PhobosHitch_NotFitted".Translate(tractor.LabelShort.Named("TRACTOR")).Resolve();
+        if (trailer == null) return hitch.Refusal();
+        if (At(caravan.Tile) is not { } depot || !depot.Vehicles.Contains(trailer)) return "PhobosDepot_NoDepotHere".Translate().Resolve();
+        return hitch.HookUpRefusal(trailer);
+    }
+
+    /// <summary>
+    /// The trailer out of the depot and onto the vehicle's hitch, off the map, as if it had been towed there (the owner's "drop and hook",
+    /// EM41): no visit to the depot's map. A trailer on wrecked gear is said plainly first, as coupling one on a map is (EM42).
+    /// </summary>
+    public static void HookUp(VehicleCaravan caravan, VehiclePawn tractor, VehiclePawn trailer)
+    {
+        if (HookUpRefusal(caravan, tractor, trailer) is { } refusal)
+        {
+            Messages.Message(refusal, caravan, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        PhobosSlingWreck depot = At(caravan.Tile)!;
+        if (TrailerFaults.CouplingWarning(trailer) is { } wrecked) Messages.Message(wrecked, caravan, MessageTypeDefOf.CautionInput, historical: false);
+        if (!tractor.GetComp<CompPhobosHitch>()!.TakeHeld(trailer))
+        {
+            Messages.Message("PhobosDepot_HookFailed".Translate(trailer.LabelShort.Named("TRAILER")).Resolve(), caravan, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        caravan.RecacheVehicles();
+        depot.RemoveIfEmpty();
+        VehicleStory.Hitched(tractor, trailer);
+        Messages.Message("PhobosDepot_Hooked".Translate(tractor.LabelShort.Named("TRACTOR"), trailer.LabelShort.Named("TRAILER")).Resolve(), caravan,
+            MessageTypeDefOf.TaskCompletion, historical: false);
+        if (Seen.Wants("vehicles.depot-hook", trailer)) Seen.Note("vehicles.depot-hook", trailer, tractor.LabelShort);
+    }
+
     // ---- Fuel (DP2, DP3(b)) ----
 
     /// <summary>The tank compartments of a depot's vehicles that hold this fuel, and how a tank unit pours into a vehicle's tank (one for

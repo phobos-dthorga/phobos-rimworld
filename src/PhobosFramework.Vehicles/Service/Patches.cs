@@ -21,13 +21,14 @@ namespace Phobos.VehicleSystems;
 /// </summary>
 /// <summary>
 /// Counts a set-up survey truck as an active deep scanner, so placing a deep drill shows the ore it found. The game asks only about colony buildings, and has no other way in. A postfix; only ever turns false to true.
+/// Since Framework 0.324.0 (EM32), a map on a tile a survey halt read counts too: the ground was read, so its deep ore shows. One set look-up.
 /// </summary>
 [HarmonyPatch(typeof(DeepResourceGrid), nameof(DeepResourceGrid.AnyActiveDeepScannersOnMap))]
 public static class SurveyTruckCountsAsScanner
 {
     public static void Postfix(ref bool __result, Map ___map)
     {
-        if (!__result) __result = CompPhobosSurveyTruck.AnySetUp(___map);
+        if (!__result) __result = CompPhobosSurveyTruck.AnySetUp(___map) || WorldComponent_PhobosRoadWork.Current?.HasOreReading(___map.Tile) == true;
     }
 }
 

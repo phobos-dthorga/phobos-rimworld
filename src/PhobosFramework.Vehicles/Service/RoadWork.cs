@@ -124,6 +124,37 @@ public sealed class RoadTestHole : RoadHaltJob
     }
 }
 
+/// <summary>The Kelly with its hammer bit quarrying stone chunks at a halt (Framework 0.324.0, EM36).</summary>
+public sealed class RoadQuarry : RoadHaltJob
+{
+    /// <summary>Chunks broken out but not yet whole: carried to the next step.</summary>
+    public float progress;
+    /// <summary>Chunks given so far.</summary>
+    public int made;
+
+    public override string? Refusal(bool starting) => RoadWork.QuarryRefusal(caravan!, vehicle!, starting);
+
+    public override void Work(float hours) => RoadWork.QuarryWork(this, hours);
+
+    public override string LeftText() => "PhobosRoadWork_QuarryLeft".Translate(caravan!.LabelCap.Named("CARAVAN"), made.Named("COUNT")).Resolve();
+
+    public override string InspectLine() => "PhobosRoadWork_InspectQuarry".Translate(vehicle!.LabelShort.Named("VEHICLE"), made.Named("COUNT")).Resolve();
+
+    public override void Ended()
+    {
+        if (made <= 0) return;
+        VehicleStory.Of(vehicle, RoadWorkDefOf.PhobosLog_Quarry, detail: made.ToString("N0"));
+    }
+
+    public override void ExposeData()
+    {
+        Scribe_References.Look(ref caravan, "PhobosQuarryCaravan");
+        Scribe_References.Look(ref vehicle, "PhobosQuarryRig");
+        Scribe_Values.Look(ref progress, "PhobosQuarryProgress");
+        Scribe_Values.Look(ref made, "PhobosQuarryMade");
+    }
+}
+
 /// <summary>
 /// What a survey halt read of a world tile (Framework 0.322.0, EM31): its deep ore and roughly how much, and its yearly rain (the water
 /// bore's yield). Fixed for the tile: the same tile always reads the same. A simplification: no map is made, so this is not the ore a map
@@ -150,16 +181,49 @@ public sealed class TileReading : IExposable
     }
 }
 
-/// <summary>A convoy that turned back from an ambush, waiting for the ambushers to give up the road (Framework 0.322.0, EM44).</summary>
+/// <summary>A convoy waiting before it can drive on: turned back from an ambush (Framework 0.322.0, EM44), or a vehicle stuck in soft ground
+/// (0.325.0, EM43). A wait saved before 0.325.0 is an ambush's.</summary>
 public sealed class ConvoyHold : IExposable
 {
     public Caravan? caravan;
     public int until;
+    /// <summary><see cref="RoadGround.HoldAmbush"/> or <see cref="RoadGround.HoldBogged"/>.</summary>
+    public int kind;
+    /// <summary>The stuck vehicle, for a bogged convoy.</summary>
+    public VehiclePawn? stuck;
 
     public void ExposeData()
     {
         Scribe_References.Look(ref caravan, "PhobosHoldCaravan");
         Scribe_Values.Look(ref until, "PhobosHoldUntil");
+        Scribe_Values.Look(ref kind, "PhobosHoldKind");
+        Scribe_References.Look(ref stuck, "PhobosHoldStuck");
+    }
+}
+
+/// <summary>How far a heavy vehicle has sunk on soft ground since it was last freed (Framework 0.325.0, EM43): state, saved.</summary>
+public sealed class SinkMark : IExposable
+{
+    public VehiclePawn? vehicle;
+    public float sunk;
+
+    public void ExposeData()
+    {
+        Scribe_References.Look(ref vehicle, "PhobosSinkVehicle");
+        Scribe_Values.Look(ref sunk, "PhobosSinkMeasure");
+    }
+}
+
+/// <summary>A winter tile a Talus has gritted, until the grit is gone (Framework 0.325.0, EM39).</summary>
+public sealed class GritMark : IExposable
+{
+    public PlanetTile tile = PlanetTile.Invalid;
+    public int until;
+
+    public void ExposeData()
+    {
+        Scribe_Values.Look(ref tile, "PhobosGritTile", PlanetTile.Invalid);
+        Scribe_Values.Look(ref until, "PhobosGritUntil");
     }
 }
 
@@ -173,6 +237,15 @@ public sealed class WorldComponent_PhobosRoadWork : WorldComponent
     List<RoadHaltJob> halts = new();
     List<TileReading> readings = new();
     List<ConvoyHold> holds = new();
+    List<SinkMark> sinks = new();
+    List<GritMark> grit = new();
+    /// <summary>The Taluses spreading grit as they drive (EM39).</summary>
+    List<VehiclePawn> spreaders = new();
+    /// <summary>The tile each moving convoy was last seen on, to know when it reaches a new one. Derived, never saved: after a load the first
+    /// look counts the tile it stands on as reached.</summary>
+    readonly Dictionary<Caravan, PlanetTile> lastTiles = new();
+    /// <summary>Gritted tiles and until when, for the path costs' frequent question. Derived, rebuilt when grit is laid or wears off.</summary>
+    Dictionary<PlanetTile, int>? gritUntil;
 
     public WorldComponent_PhobosRoadWork(World world) : base(world)
     {
@@ -203,24 +276,84 @@ public sealed class WorldComponent_PhobosRoadWork : WorldComponent
 
     public TileReading? ReadingAt(PlanetTile tile) => readings.FirstOrDefault(r => r.tile == tile);
 
-    public void AddReading(TileReading reading) => readings.Add(reading);
+    /// <summary>The tiles read with an ore, for the deep ore overlay's frequent question (EM32). Derived, rebuilt when a reading is added.</summary>
+    HashSet<PlanetTile>? oreTiles;
+
+    public bool HasOreReading(PlanetTile tile) => (oreTiles ??= readings.Where(r => r.ore != null).Select(r => r.tile).ToHashSet()).Contains(tile);
+
+    public void AddReading(TileReading reading)
+    {
+        readings.Add(reading);
+        oreTiles = null;
+    }
 
     public bool AnyHolds => holds.Count > 0;
 
-    /// <summary>The tick until which a convoy waits after turning back, or 0.</summary>
-    public int HeldUntil(Caravan caravan) => holds.FirstOrDefault(h => h.caravan == caravan)?.until ?? 0;
+    /// <summary>The tick until which a convoy waits, or 0.</summary>
+    public int HeldUntil(Caravan caravan) => HoldOf(caravan)?.until ?? 0;
 
-    public void Hold(Caravan caravan, int until)
+    public ConvoyHold? HoldOf(Caravan caravan) => holds.FirstOrDefault(h => h.caravan == caravan);
+
+    public void Hold(Caravan caravan, int until, int kind, VehiclePawn? stuck)
     {
         holds.RemoveAll(h => h.caravan == caravan);
-        holds.Add(new ConvoyHold { caravan = caravan, until = until });
+        holds.Add(new ConvoyHold { caravan = caravan, until = until, kind = kind, stuck = stuck });
+    }
+
+    public void Release(Caravan caravan) => holds.RemoveAll(h => h.caravan == caravan);
+
+    // ---- The ground (EM43, EM39) ----
+
+    /// <summary>Adds to how far a vehicle has sunk; returns the total.</summary>
+    public float AddSink(VehiclePawn vehicle, float measure)
+    {
+        SinkMark? mark = sinks.FirstOrDefault(s => s.vehicle == vehicle);
+        if (measure <= 0f) return mark?.sunk ?? 0f;
+        if (mark == null) sinks.Add(mark = new SinkMark { vehicle = vehicle });
+        mark.sunk += measure;
+        return mark.sunk;
+    }
+
+    public void ClearSink(VehiclePawn vehicle) => sinks.RemoveAll(s => s.vehicle == vehicle);
+
+    public List<VehiclePawn> Spreaders => spreaders;
+
+    public bool AnyGrit => grit.Count > 0;
+
+    public bool Gritted(PlanetTile tile)
+    {
+        gritUntil ??= grit.ToDictionary(g => g.tile, g => g.until);
+        return gritUntil.TryGetValue(tile, out int until) && until > Find.TickManager.TicksGame;
+    }
+
+    public void Grit(PlanetTile tile, int until)
+    {
+        grit.RemoveAll(g => g.tile == tile);
+        grit.Add(new GritMark { tile = tile, until = until });
+        gritUntil = null;
+    }
+
+    /// <summary>True, once, when a moving convoy stands on a tile other than the one it was last seen on.</summary>
+    public bool Reached(Caravan caravan, out PlanetTile tile)
+    {
+        tile = caravan.Tile;
+        if (lastTiles.TryGetValue(caravan, out PlanetTile last) && last == tile) return false;
+        lastTiles[caravan] = tile;
+        return true;
     }
 
     public override void WorldComponentTick()
     {
         if (Find.TickManager.TicksGame % RoadWork.Interval != 0) return;
         int now = Find.TickManager.TicksGame;
-        if (holds.Count > 0) holds.RemoveAll(h => h.caravan == null || h.caravan.Destroyed || h.until <= now);
+        if (holds.Count > 0)
+        {
+            foreach (ConvoyHold done in holds.Where(h => h.caravan != null && !h.caravan.Destroyed && h.until <= now).ToList())
+                RoadWork.HoldEnded(done);
+            holds.RemoveAll(h => h.caravan == null || h.caravan.Destroyed || h.until <= now);
+        }
+        if (grit.Count > 0 && grit.RemoveAll(g => g.until <= now) > 0) gritUntil = null;
+        if (lastTiles.Count > 0) foreach (Caravan gone in lastTiles.Keys.Where(c => c.Destroyed).ToList()) lastTiles.Remove(gone);
         RoadWork.Step(this);
     }
 
@@ -230,6 +363,9 @@ public sealed class WorldComponent_PhobosRoadWork : WorldComponent
         Scribe_Collections.Look(ref halts, "PhobosRoadHalts", LookMode.Deep);
         Scribe_Collections.Look(ref readings, "PhobosRoadReadings", LookMode.Deep);
         Scribe_Collections.Look(ref holds, "PhobosRoadHolds", LookMode.Deep);
+        Scribe_Collections.Look(ref sinks, "PhobosRoadSinks", LookMode.Deep);
+        Scribe_Collections.Look(ref grit, "PhobosRoadGrit", LookMode.Deep);
+        Scribe_Collections.Look(ref spreaders, "PhobosRoadSpreaders", LookMode.Reference);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             bores ??= new List<RoadBore>();
@@ -240,6 +376,12 @@ public sealed class WorldComponent_PhobosRoadWork : WorldComponent
             halts.RemoveAll(h => h?.caravan == null || h.vehicle == null);
             readings.RemoveAll(r => r == null || !r.tile.Valid);
             holds.RemoveAll(h => h?.caravan == null);
+            sinks ??= new List<SinkMark>();
+            grit ??= new List<GritMark>();
+            spreaders ??= new List<VehiclePawn>();
+            sinks.RemoveAll(s => s?.vehicle == null);
+            grit.RemoveAll(g => g == null || !g.tile.Valid);
+            spreaders.RemoveAll(v => v == null);
         }
     }
 }
@@ -274,7 +416,10 @@ public static class RoadWork
     {
         foreach (Caravan caravan in Find.WorldObjects.Caravans)
         {
-            if (caravan is VehicleCaravan convoy && convoy.Faction == Faction.OfPlayer && Moving(convoy)) SurveyStep(convoy);
+            if (caravan is not VehicleCaravan convoy || convoy.Faction != Faction.OfPlayer || !Moving(convoy)) continue;
+            SurveyStep(convoy);
+            // Framework 0.325.0 (EM43, EM39): the ground under a convoy reaching a new tile.
+            if (work.Reached(convoy, out PlanetTile tile)) RoadGround.Entered(work, convoy, tile);
         }
         foreach (RoadHaltJob job in work.Jobs.ToList()) JobStep(work, job);
     }
@@ -567,6 +712,54 @@ public static class RoadWork
         if (Seen.Wants("vehicles.road-test-hole", rig, "proved")) Seen.Note("vehicles.road-test-hole", rig, detail, "proved");
     }
 
+    // ---- The quarry halt (EM36) ----
+
+    /// <summary>The rig's factor on stone; above 1 only with a bit made for breaking rock (the hammer's 1.5): read by its effect, not its name.</summary>
+    static float StoneFactor(VehiclePawn rig) => rig.GetStatValue(RigDefOf.Phobos_BedrockFactor);
+
+    /// <summary>The stone chunk of the tile's first natural rock, or null where there is none.</summary>
+    public static ThingDef? QuarryChunk(Caravan caravan) =>
+        Find.World.NaturalRockTypesIn(caravan.Tile).Select(rock => rock.building?.mineableThing).FirstOrDefault(chunk => chunk != null);
+
+    static int Hilliness(Caravan caravan) => (int)Find.WorldGrid[caravan.Tile].hilliness;
+
+    /// <summary>Why the rig cannot quarry here now, in-world, or null: it needs a bit for rock, rock in the ground, and room in the convoy.</summary>
+    public static string? QuarryRefusal(Caravan caravan, VehiclePawn rig, bool starting)
+    {
+        if (HaltRefusal(caravan) is { } halt) return halt;
+        if (StoneFactor(rig) <= 1f) return "PhobosRoadWork_QuarryNoBit".Translate(rig.LabelShort.Named("VEHICLE")).Resolve();
+        if (QuarryChunk(caravan) == null || RoadHaltRule.QuarryRate(StoneFactor(rig), Hilliness(caravan)) <= 0f)
+            return "PhobosRoadWork_QuarryNoRock".Translate().Resolve();
+        if (RigRefusal(caravan, rig) is { } rigWhy) return rigWhy;
+        if (caravan.MassUsage >= caravan.MassCapacity) return "PhobosRoadWork_QuarryFull".Translate(caravan.LabelCap.Named("CARAVAN")).Resolve();
+        return null;
+    }
+
+    public static void StartQuarry(Caravan caravan, VehiclePawn rig) =>
+        Start(new RoadQuarry { caravan = caravan, vehicle = rig },
+            "PhobosRoadWork_QuarryStarted".Translate(rig.LabelShort.Named("VEHICLE"), QuarryChunk(caravan)!.label.Named("CHUNK"),
+                RoadHaltRule.QuarryRate(StoneFactor(rig), Hilliness(caravan)).ToString("0.#").Named("RATE")).Resolve());
+
+    /// <summary>
+    /// A step of quarrying: drilled hours, as a bore drills them, give chunks at <see cref="RoadHaltRule.QuarryRate"/>; each whole chunk goes
+    /// into the convoy's cargo, the tipper first. It stops itself when the convoy can carry no more (its refusal, said once, then ended).
+    /// </summary>
+    public static void QuarryWork(RoadQuarry job, float hours)
+    {
+        Caravan caravan = job.caravan!;
+        VehiclePawn rig = job.vehicle!;
+        float drilled = Drill(caravan, rig, hours);
+        if (drilled <= 0f) return;
+        job.progress += drilled * RoadHaltRule.QuarryRate(StoneFactor(rig), Hilliness(caravan));
+        int whole = (int)job.progress;
+        if (whole <= 0) return;
+        job.progress -= whole;
+        job.made += GiveToConvoy(caravan, QuarryChunk(caravan)!, whole);
+        if (Seen.Wants("vehicles.road-quarry", rig)) Seen.Note("vehicles.road-quarry", rig, job.made + " chunks");
+        if (caravan.MassUsage >= caravan.MassCapacity)
+            End(job, "PhobosRoadWork_QuarryFull".Translate(caravan.LabelCap.Named("CARAVAN")).Resolve(), MessageTypeDefOf.TaskCompletion);
+    }
+
     /// <summary>Puts this much of a thing into the convoy's cargo, a tipper's hold first, then wherever the game puts a caravan's goods.</summary>
     static int GiveToConvoy(Caravan caravan, ThingDef def, int count)
     {
@@ -670,6 +863,14 @@ public static class RoadWork
         if (Seen.Wants("vehicles.road-tip", tipper)) Seen.Note("vehicles.road-tip", tipper, count + " items");
     }
 
+    /// <summary>A wait has run out: a stuck vehicle is free (an ambush's wait ends quietly; the convoy's line stops counting).</summary>
+    public static void HoldEnded(ConvoyHold hold)
+    {
+        if (hold.kind != RoadGround.HoldBogged || hold.caravan == null) return;
+        Messages.Message("PhobosGround_FreedInTime".Translate((hold.stuck?.LabelShort ?? hold.caravan.LabelShort).Named("VEHICLE")).Resolve(), hold.caravan,
+            MessageTypeDefOf.PositiveEvent, historical: false);
+    }
+
     // ---- What the caravan's inspect pane says ----
 
     public static IEnumerable<string> InspectLines(VehicleCaravan caravan)
@@ -687,8 +888,14 @@ public static class RoadWork
             yield return job.heldUp != null ? "PhobosRoadWork_InspectJobHeldUp".Translate(job.heldUp.Named("REASON")).Resolve() : job.InspectLine();
         }
         if (work.ReadingAt(caravan.Tile) is { } reading) yield return "PhobosRoadWork_InspectReading".Translate(ReadingText(reading).Named("READING")).Resolve();
-        int held = work.HeldUntil(caravan) - Find.TickManager.TicksGame;
-        if (held > 0) yield return "PhobosAmbush_InspectHeld".Translate(held.ToStringTicksToPeriod().Named("TIME")).Resolve();
+        if (work.HoldOf(caravan) is { } hold && hold.until > Find.TickManager.TicksGame)
+        {
+            string time = (hold.until - Find.TickManager.TicksGame).ToStringTicksToPeriod();
+            yield return hold.kind == RoadGround.HoldBogged
+                ? "PhobosGround_InspectBogged".Translate((hold.stuck?.LabelShort ?? caravan.LabelShort).Named("VEHICLE"), time.Named("TIME")).Resolve()
+                : "PhobosAmbush_InspectHeld".Translate(time.Named("TIME")).Resolve();
+        }
+        if (work.Gritted(caravan.Tile)) yield return "PhobosGround_InspectGritted".Translate().Resolve();
     }
 }
 
@@ -702,6 +909,8 @@ public static class RoadWorkDefOf
     public static Phobos.Framework.Persistence.PhobosLogEntryDef PhobosLog_TippedAtDepot = null!;
     public static Phobos.Framework.Persistence.PhobosLogEntryDef PhobosLog_AmbushEscaped = null!;
     public static Phobos.Framework.Persistence.PhobosLogEntryDef PhobosLog_TrailerWrecked = null!;
+    public static Phobos.Framework.Persistence.PhobosLogEntryDef PhobosLog_Quarry = null!;
+    public static Phobos.Framework.Persistence.PhobosLogEntryDef PhobosLog_Bogged = null!;
 
     static RoadWorkDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(RoadWorkDefOf));
 }

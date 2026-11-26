@@ -113,5 +113,97 @@
    "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/TestHole.png",
    "why": "work on the road (docs/development/vehicle-road-work.md); new with the test hole (EM35); the owner, 26 Nov 2026: 'Add the local GPU icons to the queue for later tonight'; icons are made locally"
   }
+ },
+ {
+  "name": "n16-quarry",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A short heavy grey hammer drill bit striking a cracked grey rock face, three broken grey stone chunks falling away from it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a short heavy grey hammer drill bit striking a cracked grey rock face, three broken grey stone chunks falling away from it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   181,
+   182
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Quarry stone (the Kelly's hammer bit at a halt)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/Quarry.png",
+   "why": "work on the road (docs/development/vehicle-road-work.md); new with the quarry halt (EM36), borrowing the tile's chunk picture; the owner, 26 Nov 2026: 'Add the local GPU icons to the queue for later tonight'; icons are made locally"
+  }
+ },
+ {
+  "name": "n16-grit",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The open tailgate of a small olive tipper truck seen from behind, scattering a fan of small grey grit stones onto white snow. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "the open tailgate of a small olive tipper truck seen from behind, scattering a fan of small grey grit stones onto white snow",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   183,
+   184
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Spread grit (the Talus on winter tiles)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/Grit.png",
+   "why": "work on the road (docs/development/vehicle-road-work.md); new with grit on snow (EM39), borrowing the tip button's picture; the owner, 26 Nov 2026: 'Add the local GPU icons to the queue for later tonight'; icons are made locally"
+  }
+ },
+ {
+  "name": "n16-stone-under-wheels",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A large dark truck tyre sunk in brown mud, with a short row of flat grey stones laid in front of it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a large dark truck tyre sunk in brown mud, with a short row of flat grey stones laid in front of it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   185,
+   186
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Lay stone under the wheels (a vehicle stuck in soft ground)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/StoneUnderWheels.png",
+   "why": "work on the road (docs/development/vehicle-road-work.md); new with bogging (EM43), borrowing the tip button's picture; the owner, 26 Nov 2026: 'Add the local GPU icons to the queue for later tonight'; icons are made locally"
+  }
+ },
+ {
+  "name": "n16-hook-from-depot",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small grey wooden supply crate with a short amber flag beside it and a bold green tow hook and chain pulling away from it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a small grey wooden supply crate with a short amber flag beside it and a bold green tow hook and chain pulling away from it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   187,
+   188
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Hook up from the depot (a trailer left at a depot)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/HookFromDepot.png",
+   "why": "work on the road (docs/development/vehicle-road-work.md); new with drop and hook (EM41), borrowing the hitch's picture; the owner, 26 Nov 2026: 'Add the local GPU icons to the queue for later tonight'; icons are made locally"
+  }
  }
 ]

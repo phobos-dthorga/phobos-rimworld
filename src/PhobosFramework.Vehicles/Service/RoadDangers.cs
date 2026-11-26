@@ -111,8 +111,7 @@ public static class AmbushChoices
     {
         VehiclePawn? stuck = convoy.VehiclesListForReading.FirstOrDefault(Mobility.Stopped);
         float speed = AmbushRule.SpeedTerm(convoy.TicksPerMove, CaravanTicksPerMoveUtility.DefaultTicksPerMove);
-        float full = OptionalMods.IsActive(OptionalMods.CombatExtended) ? FullArmourCombatExtended : FullArmour;
-        float armour = AmbushRule.ArmourTerm(MeanOuterArmour(convoy), full);
+        float armour = AmbushRule.ArmourTerm(MeanOuterArmour(convoy), FullArmourNow);
         bool allMove = stuck == null;
         return new Odds(AmbushRule.Chance(AmbushChoice.DriveThrough, speed, armour, allMove), AmbushRule.Chance(AmbushChoice.TurnBack, speed, armour, allMove),
             stuck == null ? null : "PhobosAmbush_Stuck".Translate(stuck.LabelShort.Named("VEHICLE")).Resolve());
@@ -125,20 +124,48 @@ public static class AmbushChoices
         int vehicles = 0;
         foreach (VehiclePawn vehicle in convoy.VehiclesListForReading)
         {
-            if (vehicle.statHandler?.components is not { } parts) continue;
-            float vehicleSum = 0f;
-            int outer = 0;
-            foreach (VehicleComponent part in parts)
-            {
-                if (part.Depth != VehicleComponent.VehiclePartDepth.External) continue;
-                vehicleSum += part.ArmorRating(DamageArmorCategoryDefOf.Sharp, out _);
-                outer++;
-            }
-            if (outer == 0) continue;
-            sum += vehicleSum / outer;
+            if (OuterParts(vehicle).Count == 0) continue;
+            sum += OuterArmour(vehicle);
             vehicles++;
         }
         return vehicles == 0 ? 0f : sum / vehicles;
+    }
+
+    static List<VehicleComponent> OuterParts(VehiclePawn vehicle) =>
+        vehicle.statHandler?.components?.Where(p => p.Depth == VehicleComponent.VehiclePartDepth.External).ToList() ?? new List<VehicleComponent>();
+
+    /// <summary>One vehicle's mean sharp armour over its outer parts.</summary>
+    static float OuterArmour(VehiclePawn vehicle)
+    {
+        List<VehicleComponent> outer = OuterParts(vehicle);
+        return outer.Count == 0 ? 0f : outer.Average(p => p.ArmorRating(DamageArmorCategoryDefOf.Sharp, out _));
+    }
+
+    static float FullArmourNow => OptionalMods.IsActive(OptionalMods.CombatExtended) ? FullArmourCombatExtended : FullArmour;
+
+    /// <summary>
+    /// Getting through costs some hits (the owner's answer of 26 Nov 2026 on the Decisions page): each vehicle takes
+    /// <see cref="AmbushRule.GauntletHits"/> on outer parts, each lessened by its own armour. Which part a hit lands on is where the shot
+    /// fell, not a second roll of the outcome. Returns the hits taken.
+    /// </summary>
+    static int RunGauntlet(VehicleCaravan convoy)
+    {
+        int hits = 0;
+        float full = FullArmourNow;
+        foreach (VehiclePawn vehicle in convoy.VehiclesListForReading)
+        {
+            List<VehicleComponent> outer = OuterParts(vehicle);
+            if (outer.Count == 0) continue;
+            float damage = AmbushRule.HitDamage(AmbushRule.ArmourTerm(OuterArmour(vehicle), full));
+            for (int i = 0; i < AmbushRule.GauntletHits; i++)
+            {
+                VehicleComponent part = outer.RandomElement();
+                part.SetHealth(Mathf.Max(0f, part.Health - damage));
+                hits++;
+            }
+            if (Seen.Wants("vehicles.road-gauntlet", vehicle)) Seen.Note("vehicles.road-gauntlet", vehicle, damage.ToString("0.#") + " a hit");
+        }
+        return hits;
     }
 
     /// <summary>
@@ -196,10 +223,11 @@ public static class AmbushChoices
         if (choice == AmbushChoice.TurnBack)
         {
             convoy.vehiclePather.StopDead();
-            WorldComponent_PhobosRoadWork.Current?.Hold(convoy, Find.TickManager.TicksGame + (int)(AmbushRule.TurnBackHoldHours * GenDate.TicksPerHour));
+            WorldComponent_PhobosRoadWork.Current?.Hold(convoy, Find.TickManager.TicksGame + (int)(AmbushRule.TurnBackHoldHours * GenDate.TicksPerHour), RoadGround.HoldAmbush, null);
         }
-        string text = (choice == AmbushChoice.DriveThrough ? "PhobosAmbush_DroveThrough" : "PhobosAmbush_TurnedBack")
-            .Translate(convoy.LabelCap.Named("CONVOY"), AmbushRule.TurnBackHoldHours.ToString("0").Named("HOURS")).Resolve();
+        string text = choice == AmbushChoice.DriveThrough
+            ? "PhobosAmbush_DroveThrough".Translate(convoy.LabelCap.Named("CONVOY"), RunGauntlet(convoy).Named("HITS")).Resolve()
+            : "PhobosAmbush_TurnedBack".Translate(convoy.LabelCap.Named("CONVOY"), AmbushRule.TurnBackHoldHours.ToString("0").Named("HOURS")).Resolve();
         Messages.Message(text, convoy, MessageTypeDefOf.PositiveEvent, historical: true);
         foreach (VehiclePawn vehicle in convoy.VehiclesListForReading)
             VehicleStory.Of(vehicle, RoadWorkDefOf.PhobosLog_AmbushEscaped, detail: (choice == AmbushChoice.DriveThrough ? "PhobosAmbush_LogDrove" : "PhobosAmbush_LogTurned").Translate().Resolve());

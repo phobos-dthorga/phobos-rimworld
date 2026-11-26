@@ -45,4 +45,16 @@
     <text>Was dragged on a wrecked {DETAIL} {PLACE}.</text>
   </Phobos.Framework.Persistence.PhobosLogEntryDef>
 
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_Quarry</defName>
+    <label>quarried stone</label>
+    <text>Quarried {DETAIL} stone chunks {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_Bogged</defName>
+    <label>bogged</label>
+    <text>Stuck in soft ground {PLACE}. {DETAIL}</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
 </Defs>

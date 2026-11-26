@@ -11,6 +11,9 @@
   <PhobosVehicleSystems_SettingTestHoleInsects>Insects in test holes</PhobosVehicleSystems_SettingTestHoleInsects>
   <PhobosVehicleSystems_SettingTestHoleInsectsDesc>Off by default. On: a drill rig's test hole on the road can break into insect tunnels, by the game's own deep drill rule, and the convoy must fight them. On, a test hole brings up 4 portions; off, 3. Your people can die, so it starts off.</PhobosVehicleSystems_SettingTestHoleInsectsDesc>
 
+  <PhobosVehicleSystems_SettingBogging>Heavy vehicles bog on soft ground</PhobosVehicleSystems_SettingBogging>
+  <PhobosVehicleSystems_SettingBoggingDesc>On by default. On the world map, a heavy vehicle (over 12 tonnes laden) sinks a little on each soft, wet tile it crosses (swamps, and flat ground with heavy rain, unless frozen), and sticks when it has sunk far enough: the heavier, the sooner, and tracks spread the weight. The convoy stops until a winch, a tow or the ground firming up frees it; a load of stone under the wheels frees it at once. Off: never stuck.</PhobosVehicleSystems_SettingBoggingDesc>
+
   <!-- Any halt job -->
   <PhobosRoadWork_JobHeldUp>{CARAVAN}'s work at the halt is held up: {REASON}</PhobosRoadWork_JobHeldUp>
   <PhobosRoadWork_Busy>{VEHICLE} is busy with other work at this halt.</PhobosRoadWork_Busy>
@@ -62,6 +65,19 @@
   <PhobosRoadWork_TestHoleInsectsLabel>Insects from the test hole</PhobosRoadWork_TestHoleInsectsLabel>
   <PhobosRoadWork_TestHoleInsectsText>{VEHICLE}'s test hole broke into an insect tunnel. They are coming up out of the ground, and the convoy has to fight.</PhobosRoadWork_TestHoleInsectsText>
 
+  <!-- The quarry halt -->
+  <PhobosRoadWork_QuarryGizmo>Quarry stone</PhobosRoadWork_QuarryGizmo>
+  <PhobosRoadWork_QuarryGizmoDesc>Break stone chunks out of the ground here with the hammer bit, into the convoy's cargo, the tipper's hold first. Hills give more than flat land. It needs someone able in Mining, works by day, burns the rig's fuel and wears its bit, and stops when the convoy can carry no more. The convoy must stay put.</PhobosRoadWork_QuarryGizmoDesc>
+  <PhobosRoadWork_QuarryStopGizmo>Stop quarrying</PhobosRoadWork_QuarryStopGizmo>
+  <PhobosRoadWork_QuarryStopGizmoDesc>Stop breaking out stone. The chunks already broken out stay in the cargo.</PhobosRoadWork_QuarryStopGizmoDesc>
+  <PhobosRoadWork_QuarryNoBit>{VEHICLE} needs a hammer bit to break out rock.</PhobosRoadWork_QuarryNoBit>
+  <PhobosRoadWork_QuarryNoRock>There is no rock here to quarry.</PhobosRoadWork_QuarryNoRock>
+  <PhobosRoadWork_QuarryFull>{CARAVAN} can carry no more stone.</PhobosRoadWork_QuarryFull>
+  <PhobosRoadWork_QuarryStarted>{VEHICLE} starts breaking out {CHUNK}: about {RATE} an hour of work.</PhobosRoadWork_QuarryStarted>
+  <PhobosRoadWork_QuarryStopped>The quarry is stopped after {COUNT} chunks.</PhobosRoadWork_QuarryStopped>
+  <PhobosRoadWork_QuarryLeft>{CARAVAN} drove on from its quarry after {COUNT} chunks.</PhobosRoadWork_QuarryLeft>
+  <PhobosRoadWork_InspectQuarry>{VEHICLE} is quarrying stone: {COUNT} chunks so far.</PhobosRoadWork_InspectQuarry>
+
   <!-- The water bore -->
   <PhobosRoadWork_BoreGizmo>Drill a water bore</PhobosRoadWork_BoreGizmo>
   <PhobosRoadWork_BoreGizmoDesc>Drill a bore here and pump the ground water into the convoy's water tanks. {RAIN} mm of rain falls here a year, so the bore would give about {LITRES} litres an hour once drilled. The water is untreated, as from a river. Drilling takes hours of work by someone with Mining skill, stops at night, burns the rig's fuel and wears its drill bit. The convoy must stay put.</PhobosRoadWork_BoreGizmoDesc>
@@ -99,11 +115,35 @@
   <PhobosAmbush_TurnBack>Turn back ({CHANCE} to get away; the convoy stops and waits {HOURS} hours for the road to clear)</PhobosAmbush_TurnBack>
   <PhobosAmbush_Stuck>{VEHICLE} cannot move: there is no way out but to fight.</PhobosAmbush_Stuck>
   <PhobosAmbush_Caught>{CONVOY} could not get away: the ambush is sprung.</PhobosAmbush_Caught>
-  <PhobosAmbush_DroveThrough>{CONVOY} drove through the ambush and got past.</PhobosAmbush_DroveThrough>
+  <PhobosAmbush_DroveThrough>{CONVOY} drove through the ambush and got past, taking {HITS} hits on the way.</PhobosAmbush_DroveThrough>
   <PhobosAmbush_TurnedBack>{CONVOY} turned back from the ambush and got away. It waits {HOURS} hours for the road to clear.</PhobosAmbush_TurnedBack>
   <PhobosAmbush_LogDrove>drove through it</PhobosAmbush_LogDrove>
   <PhobosAmbush_LogTurned>turned back from it</PhobosAmbush_LogTurned>
   <PhobosAmbush_InspectHeld>Waiting for the road to clear after turning back from an ambush: {TIME} more.</PhobosAmbush_InspectHeld>
+
+  <!-- Hooking up from a depot -->
+  <PhobosDepot_HookGizmo>Hook up from the depot</PhobosDepot_HookGizmo>
+  <PhobosDepot_HookGizmoDesc>Hook a trailer left at the depot here onto {TRACTOR}, without driving onto the depot's ground. The convoy must stop.</PhobosDepot_HookGizmoDesc>
+  <PhobosDepot_HookNotTrailer>{TRAILER} is not a trailer: drive it away from the depot's ground.</PhobosDepot_HookNotTrailer>
+  <PhobosDepot_HookFailed>{TRAILER} could not be hooked up.</PhobosDepot_HookFailed>
+  <PhobosDepot_Hooked>{TRACTOR} hooked up {TRAILER} from the depot.</PhobosDepot_Hooked>
+
+  <!-- The ground: bogging and grit -->
+  <PhobosGround_Bogged>{VEHICLE} is stuck in soft ground and the convoy has stopped. {WAY} Laying {CHUNKS} stone chunks under its wheels frees it at once.</PhobosGround_Bogged>
+  <PhobosGround_WayWinch>The winch will pull it out in about {HOURS} hours.</PhobosGround_WayWinch>
+  <PhobosGround_WayTow>Another vehicle will drag it out in about {HOURS} hours.</PhobosGround_WayTow>
+  <PhobosGround_WayWait>With nothing to pull it out, it will take about {HOURS} hours for the ground to firm up.</PhobosGround_WayWait>
+  <PhobosGround_InspectBogged>{VEHICLE} is stuck in soft ground: {TIME} until it is free.</PhobosGround_InspectBogged>
+  <PhobosGround_FreedInTime>{VEHICLE} is out of the soft ground: the convoy can drive on.</PhobosGround_FreedInTime>
+  <PhobosGround_StoneGizmo>Lay stone under the wheels</PhobosGround_StoneGizmo>
+  <PhobosGround_StoneGizmoDesc>Lay {CHUNKS} stone chunks from the convoy's cargo under the stuck wheels, to free it at once.</PhobosGround_StoneGizmoDesc>
+  <PhobosGround_NotStuck>Nothing in the convoy is stuck.</PhobosGround_NotStuck>
+  <PhobosGround_NoStone>It needs {CHUNKS} stone chunks; the convoy carries {HAVE}.</PhobosGround_NoStone>
+  <PhobosGround_Freed>{CHUNKS} stone chunks under {VEHICLE}'s wheels freed it: the convoy can drive on.</PhobosGround_Freed>
+  <PhobosGround_GritGizmo>Spread grit</PhobosGround_GritGizmo>
+  <PhobosGround_GritGizmoDesc>While the convoy drives through winter country, spread grit from the convoy's stone on each snowy tile it reaches: {CHUNKS} chunks a tile. Gritted tiles are easier going for every convoy of yours for {DAYS} days.</PhobosGround_GritGizmoDesc>
+  <PhobosGround_GritOut>{VEHICLE} has run out of stone to spread as grit, and has stopped spreading.</PhobosGround_GritOut>
+  <PhobosGround_InspectGritted>The way here is gritted: easier going in the snow.</PhobosGround_InspectGritted>
 
   <!-- Trailer faults -->
   <PhobosTrailerFault_CouplingWarning>{TRAILER}'s {PART} is wrecked: it can be towed, but only dragged at a crawl ({SHARE} of the speed), and its running gear will wear further. Repair it first if you can.</PhobosTrailerFault_CouplingWarning>

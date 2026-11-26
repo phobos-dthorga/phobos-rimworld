@@ -280,16 +280,12 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
     void FindHere(Pawn worker)
     {
         Map map = Vehicle.Map;
-        if (!CellFinderLoose.TryFindRandomNotEdgeCellWith(10, x => CanScatterAt(x, map), map, out IntVec3 centre))
+        ThingDef ore = DefDatabase<ThingDef>.AllDefs.RandomElementByWeight(def => def.deepCommonality * SensorFactor(def));
+        int cells = Mathf.CeilToInt(ore.deepLumpSizeRange.RandomInRange);
+        if (!DeepLumps.Scatter(map, ore, cells, out IntVec3 centre))
         {
             Tell("PhobosVehicleSystems_SurveyNoGround".Translate().Resolve(), MessageTypeDefOf.NeutralEvent);
             return;
-        }
-        ThingDef ore = DefDatabase<ThingDef>.AllDefs.RandomElementByWeight(def => def.deepCommonality * SensorFactor(def));
-        int cells = Mathf.CeilToInt(ore.deepLumpSizeRange.RandomInRange);
-        foreach (IntVec3 cell in GridShapeMaker.IrregularLump(centre, map, cells))
-        {
-            if (CanScatterAt(cell, map) && !cell.InNoBuildEdgeArea(map)) map.deepResourceGrid.SetAt(cell, ore, ore.deepCountPerCell);
         }
         MapComponent_PhobosSurvey? record = map.GetComponent<MapComponent_PhobosSurvey>();
         if (record != null) record.finds++;
@@ -306,14 +302,6 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
             if (weight.ore == ore && weight.stat != null && Vehicle.GetStatValue(weight.stat) > 0f) factor *= weight.factor;
         }
         return factor;
-    }
-
-    /// <summary>The game's test for ground a lump can go in.</summary>
-    static bool CanScatterAt(IntVec3 cell, Map map)
-    {
-        TerrainDef? terrain = map.terrainGrid.BaseTerrainAt(cell);
-        if (terrain != null && terrain.IsWater && terrain.passability == Traversability.Impassable) return false;
-        return cell.GetAffordances(map).Contains(ThingDefOf.DeepDrill.terrainAffordanceNeeded) && map.deepResourceGrid.ThingDefAt(cell) == null;
     }
 
     public override void PostDrawExtraSelectionOverlays()

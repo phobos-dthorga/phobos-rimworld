@@ -325,6 +325,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A test hole on the world map can break into insect tunnels, by the game's deep drill rule (Framework 0.322.0, EM35; the
     /// owner's card of 26 Nov 2026: high risk, so off; with it off a test hole yields a little less). Live.</summary>
     public bool testHoleInsects;
+    /// <summary>Heavy vehicles bog on soft, wet ground on the world map (Framework 0.324.0, EM43; moderate risk by the agent's grade, so on,
+    /// as the record of 26 Nov 2026 has it). Live.</summary>
+    public bool bogging = true;
     /// <summary>How far the vehicle systems' messages nobody asked for are quietened (Framework 0.186.0, VehicleMessageLevel; owner's
     /// choice of 20 Nov 2026: a setting; agent default: every message, as before). Live.</summary>
     public MessageLevel messageLevel = MessageLevel.All;
@@ -513,6 +516,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref ambushChoices, "PhobosVehicleSystems_AmbushChoices", true);
         Scribe_Values.Look(ref trailerFaults, "PhobosVehicleSystems_TrailerFaults", true);
         Scribe_Values.Look(ref testHoleInsects, "PhobosVehicleSystems_TestHoleInsects", false);
+        Scribe_Values.Look(ref bogging, "PhobosVehicleSystems_Bogging", true);
         Scribe_Values.Look(ref messageLevel, "PhobosVehicleSystems_MessageLevel", MessageLevel.All);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
@@ -618,6 +622,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.ambushChoices) report.Off("choosing how to meet an ambush", "convoys always fight (setting)");
         if (!Settings.trailerFaults) report.Off("trailers on wrecked gear crawl", "towed at full speed (setting)");
         if (Settings.testHoleInsects) report.On("insects in test holes (setting)");
+        if (!Settings.bogging) report.Off("heavy vehicles bogging on soft ground", "never stuck (setting)");
         if (!Settings.raidersArriveByAir) report.Off("raiders arriving by aircraft", "off (setting)");
         if (Settings.stockHelicoptersFly) report.On("stock helicopters flying over the map (setting)");
         if (!Settings.airdropLandingRisk) report.Off("airdrop landing injuries and damage", "off (setting)");
@@ -899,6 +904,7 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingAmbushChoices".Translate(), ref s.ambushChoices, d.ambushChoices, "PhobosVehicleSystems_SettingAmbushChoicesDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingTrailerFaults".Translate(), ref s.trailerFaults, d.trailerFaults, "PhobosVehicleSystems_SettingTrailerFaultsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingTestHoleInsects".Translate(), ref s.testHoleInsects, d.testHoleInsects, "PhobosVehicleSystems_SettingTestHoleInsectsDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingBogging".Translate(), ref s.bogging, d.bogging, "PhobosVehicleSystems_SettingBoggingDesc".Translate());
         list.SliderInt("PhobosVehicleSystems_SettingParkedWarning".Translate(s.parkedWarningDays.Named("DAYS")), ref s.parkedWarningDays, d.parkedWarningDays, 0, 14,
             "PhobosVehicleSettings_ParkedWarningDesc".Translate());
         // Contracts (Framework 0.308.0; docs/development/vehicle-contracts.md): the owner's card of 26 Nov 2026 asked for a slider; it

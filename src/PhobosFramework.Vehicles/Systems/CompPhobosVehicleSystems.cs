@@ -3565,6 +3565,26 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         return lines.Count == 0 ? null : string.Join("\n", lines);
     }
 
+    /// <summary>
+    /// On the world map, the vehicle stuck in soft ground offers a load of stone under its wheels (Framework 0.324.0, EM43). The rules are
+    /// RoadGround's; a refusal greys it with its reason. Borrows the tip button's picture until its own is drawn.
+    /// </summary>
+    public override IEnumerable<Gizmo> CompCaravanGizmos()
+    {
+        foreach (Gizmo gizmo in base.CompCaravanGizmos()) yield return gizmo;
+        if (Vehicle.Faction != Faction.OfPlayer || Vehicle.GetVehicleCaravan() is not { } convoy
+            || WorldComponent_PhobosRoadWork.Current?.HoldOf(convoy) is not { kind: RoadGround.HoldBogged } hold || hold.stuck != Vehicle) yield break;
+        var stone = new Command_Action
+        {
+            defaultLabel = "PhobosGround_StoneGizmo".Translate().Resolve(),
+            defaultDesc = "PhobosGround_StoneGizmoDesc".Translate(Phobos.Framework.Rules.GroundRule.StoneChunks.Named("CHUNKS")).Resolve(),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Stations/Tip"),
+            action = () => RoadGround.LayStone(convoy),
+        };
+        if (RoadGround.StoneRefusal(convoy) is { } refused) stone.Disable(refused);
+        yield return stone;
+    }
+
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
     {
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;

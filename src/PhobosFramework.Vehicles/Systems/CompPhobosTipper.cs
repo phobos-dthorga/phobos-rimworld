@@ -769,6 +769,16 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
         };
         if (RoadWork.TipRefusal(convoy, Vehicle) is { } refused) tip.Disable(refused);
         yield return tip;
+        // Framework 0.324.0 (EM39): grit winter tiles from the load as the convoy drives. Borrows the tip button's picture until its own is drawn.
+        yield return new Command_Toggle
+        {
+            defaultLabel = "PhobosGround_GritGizmo".Translate().Resolve(),
+            defaultDesc = "PhobosGround_GritGizmoDesc".Translate(Phobos.Framework.Rules.GroundRule.GritChunks.Named("CHUNKS"),
+                Phobos.Framework.Rules.GroundRule.GritDays.ToString("0").Named("DAYS")).Resolve(),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Stations/Tip"),
+            isActive = () => RoadGround.Spreading(Vehicle),
+            toggleAction = () => RoadGround.SetSpreading(Vehicle, !RoadGround.Spreading(Vehicle)),
+        };
     }
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()

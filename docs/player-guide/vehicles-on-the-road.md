@@ -387,8 +387,26 @@ as trade requests, in quarters; as often as trade requests by default.
   skill brings up **3 portions of the read ore**, into a Talus's hold if one rides along, otherwise the convoy's cargo. One hole to a
   tile. It burns fuel and wears the bit, like a bore. **Insects in test holes** (off by default) lets a hole break into insect tunnels,
   as the game's deep drills can: the convoy must fight them, and the hole is lost; with it on, a hole that gets through brings up 4.
+- **Quarry stone** (a Kelly with the **RC hammer**): stop and press it, with a **Mining** hand aboard. It breaks stone chunks of the
+  tile's own rock out of the ground by day, into a Talus's hold first, **more on hills than on flat land**, until the convoy can carry
+  no more. It burns fuel and wears the bit, like a bore.
+- **A map opened on a read tile** (a camp, a settlement, an ambush) **has the read ore** in its deep ground, and its deep ore shows
+  without a scanner.
 - **Tip the load here** (a Talus): its whole load goes into a **depot** on the tile, made if there is none, in one press: to lighten the
   convoy for a climb, or leave a stock for the way back. The depot window takes it back out.
+
+- **Hook up from the depot** (any truck with a free hitch, at a depot holding a trailer): pick the trailer from the menu and it is on the
+  hitch at once, with no need to drive onto the depot's ground.
+
+### The ground: bogging and grit
+
+- **Heavy vehicles bog on soft ground**: a vehicle **over 12 tonnes laden** sinks a little on each **swampy or very wet flat** tile it
+  crosses, and **sticks** when it has sunk far enough (the heavier, the sooner; tracks spread the weight). **Frozen ground and hills
+  never bog.** The convoy stops, and the message says how it gets out: a **winch truck** in the convoy in about **1.5 hours**, another
+  vehicle **towing** in about **3**, or the ground firming up in about **24**. **Lay stone under the wheels** (on the stuck truck) uses
+  **10 stone chunks** to free it at once. **Heavy vehicles bog on soft ground** (Camps section, **on**) switches it off.
+- **Spread grit** (a Talus, in winter, with stone aboard): each snowy tile the convoy reaches takes **2 chunks**, and that tile is
+  **easier going for every convoy of yours for five days**. Out of stone, it stops and says so.
 
 ### Ambushes
 
@@ -397,7 +415,8 @@ as trade requests, in quarters; as often as trade requests by default.
 - **Stop and fight**: the game's own ambush.
 - **Drive through** or **Turn back**: each shows **its chance**, which rises with the convoy's speed and the armour on its vehicles.
   Turning back is the likelier escape, but the convoy then **waits 4 hours** for the road to clear (its line counts down). **If the
-  chance fails, the ambush goes ahead.** A vehicle that cannot move means you must fight.
+  chance fails, the ambush goes ahead.** A vehicle that cannot move means you must fight. **Getting through costs a few hits** on each
+  vehicle, much lighter with armour kits.
 
 A convoy at a halt, or camped for the night, is caught standing and fights. **Choose how to meet an ambush** (Camps section, **on** by
 default) switches the choice off.

@@ -102,6 +102,19 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         };
         if (!proving && (busy != null ? busyText : RoadWork.TestHoleRefusal(convoy, Vehicle, starting: true)) is { } holeRefused) hole.Disable(holeRefused);
         yield return hole;
+        // Framework 0.324.0 (EM36): break stone out with the hammer bit. Borrows the tile's own chunk picture until its own is drawn.
+        bool quarrying = busy is RoadQuarry;
+        ThingDef? chunk = RoadWork.QuarryChunk(convoy);
+        var quarry = new Command_Action
+        {
+            defaultLabel = (quarrying ? "PhobosRoadWork_QuarryStopGizmo" : "PhobosRoadWork_QuarryGizmo").Translate().Resolve(),
+            defaultDesc = quarrying ? "PhobosRoadWork_QuarryStopGizmoDesc".Translate().Resolve() : "PhobosRoadWork_QuarryGizmoDesc".Translate().Resolve(),
+            icon = chunk?.uiIcon ?? SystemIcons.For("Phobos/VehicleSystems/Stations/Tip"),
+            action = quarrying ? () => RoadWork.Stop(busy!, "PhobosRoadWork_QuarryStopped".Translate(((RoadQuarry)busy!).made.Named("COUNT")).Resolve())
+                : () => RoadWork.StartQuarry(convoy, Vehicle),
+        };
+        if (!quarrying && (busy != null ? busyText : RoadWork.QuarryRefusal(convoy, Vehicle, starting: true)) is { } quarryRefused) quarry.Disable(quarryRefused);
+        yield return quarry;
     }
 
     /// <summary>The game's own figures (CompDeepDrill and CompCreatesInfestations).</summary>

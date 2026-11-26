@@ -5,7 +5,9 @@
 reverse-osmosis kit is built in Framework 0.318.0 and Vehicles 0.124.0 ([as built](#the-reverse-osmosis-kit-as-built-framework-03180-vehicles-01240)), not yet tested in
 game (rows 570 to 572); the survey halt (EM31), the test hole (EM35), tipping into a depot (EM37), ambush choices (EM44) and wrecked
 trailers (EM42) are built in Framework 0.322.0 ([the third round](#the-third-round-the-survey-halt-the-test-hole-tipping-ambushes-and-trailer-faults-framework-03220)),
-not yet tested in game (rows 582 to 586).
+not yet tested in game (rows 582 to 586); ground already read (EM32), the quarry halt (EM36), drop and hook (EM41), the
+ambush's hits, bogging (EM43) and grit (EM39) are built in Framework 0.324.0 ([the fourth round](#the-fourth-round-read-ground-quarries-drop-and-hook-gauntlets-bogging-and-grit-framework-03240)),
+not yet tested in game (rows 594 to 599).
 
 Rows EM30 and EM34 of [emergent play](vehicle-emergent-play.md#h-work-on-the-road-26-nov-2026), the second round of group H after
 [contracts](vehicle-contracts.md). The owner, 26 Nov 2026: "Build the running survey and water bore next", then, on the cards' options
@@ -294,11 +296,96 @@ The halt jobs, the reading and tipping are the player's convoys' own. **An ambus
 choice is for the player's vehicles. **A captured trailer on wrecked gear** crawls like any of the player's. Raiders bring no trailers
 (EM7), so nothing else changes for them.
 
+## The fourth round: read ground, quarries, drop and hook, gauntlets, bogging and grit (Framework 0.324.0)
+
+The owner, 26 Nov 2026, on the agent's next candidates: "let's do all of the candidates except for EM38", after answering the Decisions
+page: a moving convoy only for the ambush choice (as built), **"Some hits on the way"** for driving through, and **"Yes, as EM32 later"**
+for a reading deciding a map's ore. On bogging, by card: **its own or a mate's winch, a tow by another vehicle, a load of Talus stone,
+and waiting for the ground to dry** all free a stuck vehicle. Everything else here is the agent's, for the owner to revise. EM33, the
+radio mast, is its own round, below. Not yet tested in game (rows 594 to 599).
+
+### The fourth round: read this first
+
+- **One new setting**, Camps section: **Heavy vehicles bog on soft ground** (on: moderate risk, as the record of 26 Nov 2026 graded it).
+- **Bogging is state, never a roll**: a heavy vehicle sinks a measured amount on each soft tile and sticks at a whole measure, so the
+  ground and the load say when it is coming.
+- **The fourth round's buttons borrow pictures** until night 16 draws theirs (queued with the first five).
+
+### Ground already read (EM32)
+
+- **A map made on a read tile** gets the read ore as one lump of about the read size (the read units over the game's units a cell),
+  laid once by a map component when the map first starts, with the game's own placement rules (the survey truck's find's, now one helper,
+  `DeepLumps`). A map already open when the tile was read gets it the next time it loads. The deep ore shows without a scanner on any map
+  whose tile carries a reading with an ore: the same postfix that counts a set-up survey truck as a scanner (one set look-up).
+
+### The quarry halt (EM36)
+
+| Question | Answer |
+| --- | --- |
+| **What it lets the player do** | Make stone where there is none: for a camp, a contract, grit, or freeing a stuck truck |
+| **What it stops them doing** | Free stone: a day's drilling, fuel, bit wear, and only with the hammer |
+| **How it changes the way they play** | The Kelly and the Talus work as a pair on the road; hills are worth stopping on |
+| **What outside the thing notices** | The convoy's cargo (the tipper first); the logbook |
+
+- **The button**: **Quarry stone** on the Kelly. Refused, with why, without a bit made for rock (read by its effect: the bit's factor on
+  stone above 1, which the RC hammer's 1.5 is), with no natural rock on the tile, or when the convoy can carry no more.
+- **The rate** [A]: 2 chunks an hour at the plain pace, times the bit's stone factor, times the ground: a half on flat land, three
+  quarters on small hills, all on large hills, a quarter more in mountains. By day, at the Mining hand's pace, with the bore's fuel and bit
+  wear. The tile's first natural rock gives the chunk.
+
+### Drop and hook (EM41)
+
+- **Hook up from the depot**, on any vehicle of a stopped convoy with a free hitch, at a depot holding a trailer: a menu of its trailers,
+  each refused with its reason (the hitch's own: what it already tows, a broken drawbar, the couplings). The trailer goes straight onto the
+  hitch's off-map holder, as a trailer towed off a map rides, so it is towed from there with no visit to the depot's map. Trailers only:
+  a vehicle that drives itself is still driven away from the depot's map.
+
+### The gauntlet: hits when driving through (the owner's answer)
+
+- **Three hits on each vehicle** [A], each on one of its outer parts, each 12 damage [A], **three quarters of it turned away by full
+  armour** [A] (the same armour measure as the odds). Which part a hit lands on is where the shot fell, not a second roll of the outcome.
+  The message counts the hits.
+
+### Bogging (EM43)
+
+| Question | Answer |
+| --- | --- |
+| **What it lets the player do** | Choose a route by the ground; carry stone, or a winch truck, for the wet country |
+| **What it stops them doing** | Driving 20 t anywhere in the wet |
+| **How it changes the way they play** | The Kelly's weight becomes a route decision; the winch earns its place on the road |
+| **What outside the thing notices** | The convoy (stopped and counting down); the logbook; the stone in its cargo |
+
+- **Soft ground** [A]: the world map has no mud, so a tile's softness is its swampiness (from 0.5) or, on flat land and small hills, its
+  yearly rain from 1,400 mm (fully soft at 2,800 mm). **Frozen ground (the season's temperature at the tile at or below 0 C) and large
+  hills or mountains are firm.**
+- **Sinking** [A]: a vehicle under 12 t laden never sinks; above, it sinks (laden mass - 12 t) / 24 t of a measure on a fully soft tile,
+  scaled by the softness, a quarter of that on tracks. At a whole measure it sticks and starts again from nothing: a 20 t truck about
+  every third fully soft tile, a 36 t one every tile. Aircraft never sink. Looked at once a tile, for the convoy and what it tows.
+- **Getting out** (the owner's card): the fastest the convoy has, chosen for the player: **a winch truck** (any vehicle whose fitting
+  grants the winch, the stuck one included) about 1.5 hours [A]; **another vehicle with a hitch** about 3 hours [A]; otherwise **waiting
+  for the ground to firm up**, about 24 hours [A] (the world map has no weather to dry it, so this is a fixed wait, a simplification).
+  **Lay stone under the wheels**, on the stuck vehicle, uses 10 stone chunks [A] from the convoy's cargo, towed trailers too, and frees it
+  at once. The convoy's wait shares the ambush's (its vehicles refuse to move, the line counts down), with its cause saved.
+
+### Grit on snow (EM39)
+
+- **Spread grit**, a switch on the Talus in a convoy: on each tile the moving convoy reaches with any winter on it (Vehicle Framework's
+  own winter share), 2 stone chunks [A] from the convoy's cargo grit it for **5 days** [A]. **A gritted tile's winter cost is a quarter of
+  what it was for every vehicle of the player's** [A], through three postfixes on Vehicle Framework's winter path costs (one set look-up
+  while any grit lies; none otherwise). Out of stone, the switch goes off and says so.
+
+### Other factions, the fourth round
+
+Raiders bring no convoys onto the world map, so none of this touches them. Grit eases the player's vehicles' path costs only: Vehicle
+Framework asks the same costs for any vehicle, so another faction's vehicle caravan crossing a gritted tile would go easier too [I].
+
 ## Who chose what
 
 - **Owner (26 Nov 2026):** the batch; the six answers above; the reverse-osmosis kit's idea, its vehicles and its timing; documenting
   every option; the third round's five rows; the test hole's insects off; one named roll for ambushes; warn, then allow, for wrecked
-  trailers; the five icons queued for night 16.
+  trailers; the five icons queued for night 16; the fourth round's rows and its three answers (moving convoys only, some hits on the
+  way, a reading decides a map's ore); bogging's four ways out.
 - **Agent:** every figure marked [A]; the find's 2 to 6 tiles; the 250 mm dry line; the kit's design so far; in the third round, the
   shapes of the survey halt's reading, the test hole's yield, the ambush odds and the wrecked trailer's crawl, the ambush choice for
-  moving convoys only, and the three settings' places and defaults (the ambush choice and the crawl on).
+  moving convoys only, and the three settings' places and defaults (the ambush choice and the crawl on); in the fourth round, every
+  figure marked [A], the soft-ground and sinking rules, the quarry's ground shares, grit's relief and days, and bogging's setting on.

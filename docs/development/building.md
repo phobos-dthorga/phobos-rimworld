@@ -124,7 +124,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
 | `PhobosFramework` | 4 | 0 | 1 | 0 |
-| `PhobosFramework.Vehicles` | 120 | 16 | 0 | 0 |
+| `PhobosFramework.Vehicles` | 122 | 16 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 2 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
@@ -143,7 +143,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-195 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+197 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -202,7 +202,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework.Vehicles</code>: 120 patched methods, 16 by name</summary>
+<details><summary><code>PhobosFramework.Vehicles</code>: 122 patched methods, 16 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles/`) |
 | --- | --- | --- |
@@ -320,6 +320,8 @@ Every HarmonyPatch attribute was read.
 | `VehicleTurret.WarmupTicks (getter)` | postfix | `Service/TurretPacePatches.cs` |
 | `VehicleTweener.TweenedPosRoot` | postfix | `Hitch/HitchPatches.cs` |
 | `VehicleWorkGiver.JobOnThing` | prefix | `Flight/FlightPatches.cs` |
+| `WinterPathingHelper.GetCurrentWinterMovementDifficultyFor` | postfix | `Service/RoadGround.cs` |
+| `WinterPathingHelper.GetCurrentWinterMovementDifficultyOffset` | postfix | `Service/RoadGround.cs` |
 | `WorkGiver_DisassembleVehicle.HasJobOnThing` | postfix | `Flight/FlightPatches.cs` |
 | `WorkGiver_RepairVehicle.CanBeWorkedOn` | postfix | `Service/Patches.cs` |
 | `WorldObject.IncidentTargetTags` | postfix | `Service/SubmersiblePatches.cs` |

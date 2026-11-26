@@ -272,7 +272,7 @@ public static class Contracts
         TankLarder.Vehicles(caravan).Sum(v => v.GetComp<CompPhobosTank>()?.Compartments.Where(c => c.contents == fluid).Sum(c => c.amount) ?? 0f);
 
     /// <summary>Everything the caravan carries, its towed trailers' cargo too: a flatbed of stone counts.</summary>
-    static IEnumerable<Thing> Carried(Caravan caravan)
+    public static IEnumerable<Thing> Carried(Caravan caravan)
     {
         foreach (Thing thing in CaravanInventoryUtility.AllInventoryItems(caravan)) yield return thing;
         foreach (VehiclePawn towed in Hitches.InTow(caravan))

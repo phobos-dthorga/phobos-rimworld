@@ -38,6 +38,16 @@ public static class AmbushRule
     public const float TurnBackHoldHours = 4f;
     /// <summary>How many times walking pace counts as full speed.</summary>
     public const float FullSpeedOverWalking = 3f;
+    /// <summary>Hits each vehicle takes on its outer parts driving through (Framework 0.324.0; the owner's answer of 26 Nov 2026 on the
+    /// Decisions page: "Some hits on the way").</summary>
+    public const int GauntletHits = 3;
+    /// <summary>Damage a hit does to an unarmoured part.</summary>
+    public const float GauntletDamage = 12f;
+    /// <summary>The share of that full armour turns away.</summary>
+    public const float GauntletArmourStops = 0.75f;
+
+    /// <summary>Damage one hit does to a vehicle with this armour term (0 to 1).</summary>
+    public static float HitDamage(float armourTerm) => GauntletDamage * (1f - GauntletArmourStops * Math.Clamp(armourTerm, 0f, 1f));
 
     /// <summary>0 at walking pace or slower, 1 at <see cref="FullSpeedOverWalking"/> times it or faster, from ticks a world tile takes.</summary>
     public static float SpeedTerm(int convoyTicksPerMove, int walkingTicksPerMove)
