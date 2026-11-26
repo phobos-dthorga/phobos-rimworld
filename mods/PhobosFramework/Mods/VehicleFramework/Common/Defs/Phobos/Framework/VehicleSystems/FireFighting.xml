@@ -97,7 +97,7 @@
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosVehicleSystems_ExtinguisherKit</defName>
     <label>vehicle extinguisher</label>
-    <description>A dry-powder fire extinguisher in its bracket, to fit in a vehicle's cab. Fitted, its three charges let the crew, or a colonist beside the vehicle, knock down a fire on it; a small fire goes out. A mechanic refills it at the vehicle with an extinguisher refill.</description>
+    <description>A dry-powder fire extinguisher in its bracket, to fit in a vehicle's cab. Fitted, its three charges let the crew, or a colonist beside the vehicle, knock down a fire on it; a small fire goes out. A mechanic refills it at the vehicle with an extinguisher refill. Taken off, it keeps the charges it has left.</description>
     <graphicData>
       <texPath>Phobos/VehicleSystems/Things/ExtinguisherKit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -115,6 +115,14 @@
     <thingCategories>
       <li>PhobosCategory_VehicleParts</li>
     </thingCategories>
+    <comps>
+      <!-- Framework 0.334.0: the kit holds its own charges, which go with it onto a vehicle and back off again (the fitting's kitCarries);
+           a new one is full, and only kits holding the same charges stack. Uses match the rules' extinguisherCharges (3). -->
+      <li Class="Phobos.Framework.Items.CompProperties_PhobosCharges">
+        <uses>3</uses>
+        <inspectKey>PhobosFireFighting_KitCharges</inspectKey>
+      </li>
+    </comps>
   </ThingDef>
 
   <ThingDef ParentName="ResourceBase">
@@ -233,11 +241,13 @@
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_Extinguisher</defName>
     <label>vehicle extinguisher</label>
-    <description>A dry-powder extinguisher in the cab: three charges, each knocking a fire on the vehicle down, refilled by a mechanic.</description>
+    <description>A dry-powder extinguisher in the cab: three charges, each knocking a fire on the vehicle down, refilled by a mechanic. It holds the charges its kit had, and taken off gives them back to the kit.</description>
     <iconPath>Phobos/VehicleSystems/Things/ExtinguisherKit</iconPath>
     <roles><li>ExtinguisherBracket</li></roles>
     <materials><PhobosVehicleSystems_ExtinguisherKit>1</PhobosVehicleSystems_ExtinguisherKit></materials>
     <givesBack><PhobosVehicleSystems_ExtinguisherKit>1</PhobosVehicleSystems_ExtinguisherKit></givesBack>
+    <!-- Framework 0.334.0: its charges travel with the kit (CompPhobosFireFighting's kit store), as a house battery's charge does. -->
+    <kitCarries>extinguisherCharges</kitCarries>
     <kilograms>9</kilograms>
     <work>300</work>
     <minSkill>1</minSkill>

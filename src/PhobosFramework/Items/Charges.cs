@@ -58,8 +58,21 @@ public class CompPhobosCharges : ThingComp
     /// vehicles). Props.uses of 100 makes the inspect line a percentage.</summary>
     public float Share => Props.uses <= 0 ? 0f : Charge / Props.uses;
 
-    /// <summary>Sets how full it is, nothing to whole: what a fitting held when it was taken off.</summary>
-    public void SetShare(float share) => charge = Props.uses * System.Math.Max(0f, System.Math.Min(1f, share));
+    /// <summary>Sets how full it is, nothing to whole: what a fitting held when it was taken off. Rounded to four places, so a third of
+    /// three uses is one whole use again rather than a hair under it (Framework 0.334.0, the extinguisher kit).</summary>
+    public void SetShare(float share) => charge = (float)System.Math.Round(Props.uses * System.Math.Max(0f, System.Math.Min(1f, share)), 4);
+
+    /// <summary>Only things holding the same charge stack (Framework 0.334.0): before, a part-used kit merged into a full stack and the
+    /// stack took one charge for all. A thing that holds no charges never stacks with one that does.</summary>
+    public override bool AllowStackWith(Thing other) =>
+        other.TryGetComp<CompPhobosCharges>() is { } theirs && System.Math.Abs(theirs.Charge - Charge) < 1e-3f;
+
+    /// <summary>A piece split off a stack keeps the stack's charge, rather than coming out new and full.</summary>
+    public override void PostSplitOff(Thing piece)
+    {
+        base.PostSplitOff(piece);
+        if (piece.TryGetComp<CompPhobosCharges>() is { } split) split.charge = Charge;
+    }
 
     public override void PostExposeData()
     {

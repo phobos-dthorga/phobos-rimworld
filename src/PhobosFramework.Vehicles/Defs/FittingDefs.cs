@@ -107,9 +107,18 @@ public class PhobosVehicleFittingDef : Def
     /// <summary>
     /// A system quantity that travels with the kit (Framework 0.333.0: a house battery's charge, "houseCharge"): fitting it sets the
     /// quantity from the kits it was made from (their <c>CompPhobosCharges</c>), and taking it off writes the quantity back into the kits
-    /// it gives back, so the charge belongs to the battery, never to the vehicle's tray. Null: nothing travels.
+    /// it gives back, so the charge belongs to the battery, never to the vehicle's tray. Null: nothing travels. Since Framework 0.334.0 the
+    /// name may be a store a comp keeps instead of a quantity (<see cref="IPhobosKitStore"/>: "extinguisherCharges").
     /// </summary>
     public string? kitCarries;
+    /// <summary>
+    /// Watts the fitting draws straight from the colony's grid, at mains voltage, while the parked vehicle is hooked up with its engine off
+    /// and <see cref="gridWhen"/> holds (Framework 0.334.0, the fittings audit: a block heater or a battery warmer warmed the vehicle from the
+    /// grid without the grid paying). Billed through the vehicle's hook-up beside its loads and chargers. 0: it draws nothing from the grid.
+    /// </summary>
+    public float gridWatts;
+    /// <summary>When the grid draw runs (a thermostat: the block heater while the coolant is below its mark). Null: whenever hooked up.</summary>
+    public VehicleSystemCondition? gridWhen;
     /// <summary>Only vehicles on one of these loadouts (aircraft service-life upgrades: the Harrier's engine fits only a Harrier). Empty: any.</summary>
     public List<PhobosVehicleLoadoutDef> loadouts = new();
     /// <summary>Only vehicles whose Def says they have a flat deck (PhobosFlatDeckExtension; Framework 0.217.0, the deck tent).</summary>
@@ -167,6 +176,8 @@ public class PhobosVehicleFittingDef : Def
         if (kilograms < 0f) yield return "kilograms must not be below 0";
         if (unitVolts < 0f) yield return "unitVolts must not be below 0";
         if (!kitCarries.NullOrEmpty() && givesBack.Count == 0) yield return "kitCarries needs a kit in givesBack to carry it";
+        if (gridWatts < 0f) yield return "gridWatts must not be below 0";
+        if (gridWhen != null && gridWatts <= 0f) yield return "gridWhen has no gridWatts to switch";
         if (fuelCapacityFactor <= 0f) yield return "fuelCapacityFactor must be above 0";
         foreach (StatFactorSpec spec in statFactors)
         {

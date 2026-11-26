@@ -92,6 +92,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [The prisoner transport trailer](vehicle-prisoner-transport.md) (13 Nov 2026): Stockade, the owner's cage trailer. Record only.
 - [Camping and life aboard](systems/camping-and-life-aboard.md) (23 Nov 2026): how camps, berths, cabins, the cab and life aboard work now. Living.
 - [The house battery, made honest](house-battery.md) (27 Nov 2026): charge with the battery, two on 24 V, lead-acid and lithium, frost. Built, untested.
+- [The fittings audit](fittings-audit.md) (27 Nov 2026): which fittings' promises were only partly modelled; four fixed. Built, untested.
 - [Crew machines](vehicle-crew-machines.md) (23 Nov 2026): sleep and medical machines on vehicles, CM1 to CM5. Partly built.
 - [Nutrient paste on vehicles](vehicle-nutrient-paste.md) (23 Nov 2026): paste in tanks, on pipes, on the road, NP1 to NP5. Record only.
 - [People use parked vehicles](vehicle-parked-use.md) (25 Nov 2026): colonists use a parked vehicle by themselves. Built, untested.
@@ -152,7 +153,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Medical save bridge](archive/medical-save-bridge.md) (3 Nov 2026): why adding More Injuries beside MSE2 wiped wounds, and the bridge. Archived.
 - [Ventilation and hydrogen](ventilation-and-hydrogen.md) (7 Nov 2026): the electrolyser's hydrogen, vents, and workstation gases. Record only.
 - [Vaccines and prevention](vaccines-and-prevention.md) (7 Nov 2026): doctors preventing disease in healthy pawns. Record only.
-- [Care needs](medical-care-needs.md) (26 Nov 2026): every medical item given or taken by rule, by need; the owner's answers. Built 0.28.0 to 0.31.0.
+- [Care needs](medical-care-needs.md) (26 Nov 2026): every medical item given or taken by rule, by need; the owner's answers. Built 0.28.0 to 0.32.0.
 
 ## D'thorga Patches
 

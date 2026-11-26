@@ -130,7 +130,7 @@ heavy-duty air filter, a deep-cycle battery or a battery warmer. **A fitting is 
 | **Turbocharger** | Engine | More power, more heat and more fuel; holds its power in high country; adds a **Boost** tune. It becomes a part of its own, with a row on the Health tab and a card on the Systems tab |
 | **Heavy-duty alternator** | Alternator | The battery charges faster, and heavy electrical loads are easier to carry |
 | **Deep-cycle battery** | Battery | Holds more charge, so the vehicle runs its loads longer with the engine off |
-| **Block heater** | Engine | Parked beside power, engine off, it stays warm: an easy cold start, less wear, a warm cab at once |
+| **Block heater** | Engine | Parked beside power, engine off, it stays warm: an easy cold start, less wear, a warm cab at once. The grid pays: 750 W while it heats |
 | **Heavy-duty springs** | Each axle | Carries a bigger load, for a harder, slightly slower ride |
 | **Road tyres** | Each axle | Quicker on the move, and wear out sooner |
 | **Snorkel** | Engine | A light vehicle can cross a river without drawing water into its engine |
@@ -140,15 +140,15 @@ heavy-duty air filter, a deep-cycle battery or a battery warmer. **A fitting is 
 | **Transmission cooler** | Transmission | A cooler gearbox when hauling heavy in the heat |
 | **Gear-reduction starter** | Starter | A cold engine starts on a tired battery, and each start takes less from it |
 | **Cab insulation** | Cab | The cab holds its warmth or cool far longer, and the night heater burns less |
-| **Fuel heater** | Fuel pump | Fuel never gels, however cold |
-| **Battery warmer** | Battery | Parked beside a powered grid, the battery stays above freezing |
+| **Fuel heater** | Fuel pump | Keeps fuel thin while it has power, until the battery is down to its start; only matters with **Fuel thickens in deep cold** on |
+| **Battery warmer** | Battery | Parked beside a powered grid, the battery stays above freezing. The grid pays: 80 W below 5 °C |
 | **Cargo hook** | A helicopter's hook mount | Lifts a vehicle on a sling |
 | **Fast-rope bar**, **rescue hoist** | The Osprey | See [working vehicles](working-vehicles.md#v-22-osprey) |
 | **Cabin oxygen** | An aircraft's oxygen panel | Oxygen for everyone aboard while the engine runs |
 | **Litter kit** | A helicopter's cabin | Up to 4 casualties lying down: see [aircraft](aircraft-and-sling-loads.md#an-air-ambulance) |
 | **Navigation set**, **autopilot**, **night sight**, **radar** | An aircraft | Avionics it lacks: see [aircraft](aircraft-and-sling-loads.md#avionics) |
 | **Optionally piloted kit** | An aircraft with the autopilot | Flies its round with nobody aboard: see [on the road](vehicles-on-the-road.md#convoys-and-loops) |
-| **Vehicle extinguisher** | Any vehicle | Three charges against a fire on it |
+| **Vehicle extinguisher** | Any vehicle | Three charges against a fire on it; taken off, the kit keeps the charges it has left |
 
 - **Wheels are grouped into axles**; a choice on an axle is ordered for each of its wheels. **Tyres, heavy-duty springs and
   heavy-duty brakes go on both wheels of an axle together**, even when ordered from one wheel's own menu, and an axle gains

@@ -191,6 +191,8 @@ message says when it reaches the crew.
   aboard, **the nearest free colonist runs over**. To choose who, select a colonist and right-click the vehicle. Each use knocks
   the fire down and puts a small one out.
 - **A mechanic refills it at the vehicle** with an **extinguisher refill** from the parts bench, without being told, as a repair.
+- **Taken off, the kit keeps the charges it has left**, shown on its inspect line, and brings them to the next vehicle. Only kits
+  holding the same charges stack together.
 - **Automatic fire suppression** on our trucks with the armoured cab: **Engine fire suppression** and **Crew fire suppression**,
   two upgrades (a **suppressant bottle** each, 30 kg as cargo). Each goes off by itself, once, when fire is in its own part of the
   truck, puts it out, and is **spent** until a mechanic recharges it with another bottle. **Another author's armoured vehicle** (a

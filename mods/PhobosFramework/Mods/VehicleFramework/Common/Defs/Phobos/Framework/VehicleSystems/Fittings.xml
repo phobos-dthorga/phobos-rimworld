@@ -95,6 +95,13 @@
     <minSkill>3</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
     <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>blockHeaterAbsent</parameter><factor>0</factor></li></parameterFactors>
+    <!-- Framework 0.334.0 (the fittings audit): the colony's grid pays for it, while it heats (the heating flow's thermostat, off at 40
+         degrees C). 750 W is authored, within the usual run of plug-in block heaters, about 400 to 1,500 W (secondary, unverified). -->
+    <gridWatts>750</gridWatts>
+    <gridWhen Class="Phobos.VehicleSystems.When_QuantityBelow">
+      <quantity>coolantTemperature</quantity>
+      <value>40</value>
+    </gridWhen>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
@@ -491,18 +498,42 @@
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
-    <!-- F7: an electric fuel heater in the line, so the fuel never gels (fuelGelExposure to 0, the block heater's pattern). It matters only with
-         the fuel gelling setting on. -->
+    <!-- F7: an electric fuel heater in the line and filter. It matters only with the fuel gelling setting on, and its description says, in the
+         game's own words, that it has nothing to do where the cold does not thicken the fuel (the owner's card of 27 Nov 2026: "leave it
+         offered, say so"); the setting's own description names it.
+         Framework 0.334.0 (the fittings audit): it draws power. Before, it took fuelGelExposure to 0 for nothing. Now a load keeps the fuel thin
+         while it runs (Systems_Lubrication.xml, fuelGel): while the setting is on and the air is below the -8 degrees C where gelling starts, on
+         the alternator, the grid or the battery, going out before the battery cannot start the engine (startReserve, as the camp lights do).
+         12 A at 12 V (150 W, half the amps on 24 V) is authored, at the low end of fuel filter heaters of about 150 to 300 W (secondary,
+         unverified). The agent's choices of the day, for the owner to revise. -->
     <defName>PhobosFitting_FuelHeater</defName>
     <iconPath>Phobos/VehicleSystems/Fittings/FuelHeater</iconPath>
     <label>fuel heater</label>
-    <description>An electric heater in the fuel line and filter. The fuel stays thin in the deepest cold, so the engine starts where the fuel would otherwise have gelled.</description>
+    <description>An electric heater in the fuel line and filter. Where the cold thickens the fuel, it keeps it thin while it has power, so the engine starts where the fuel would otherwise have gelled. It draws on the battery, or the alternator while the engine runs, or the grid while the vehicle is plugged in; parked off the grid it goes out before the battery is too low to start the engine, and then the fuel can gel. Where the cold does not thicken the fuel, it has nothing to do.</description>
     <roles><li>FuelPump</li></roles>
     <materials><Steel>20</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
     <work>5000</work>
     <minSkill>3</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
-    <parameterFactors><li><system>PhobosVehicleSystem_Fuel</system><parameter>fuelGelExposure</parameter><factor>0</factor><label>fuel gelling in the cold</label></li></parameterFactors>
+    <loads>
+      <li>
+        <name>fuelHeater</name>
+        <label>fuel heater</label>
+        <description>The heater in the fuel line and filter, keeping the fuel from gelling in deep cold.</description>
+        <amps>12</amps>
+        <shedOrder>2</shedOrder>
+        <startReserve>startingPower</startReserve>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Setting"><setting>fuelGelling</setting></li>
+            <li Class="Phobos.VehicleSystems.When_AmbientBelow"><celsius>-8</celsius></li>
+          </conditions>
+        </when>
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TwelveVoltShare" />
+        </ampsInputs>
+      </li>
+    </loads>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
@@ -518,6 +549,12 @@
     <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
     <!-- No system named: the 12 V electrics of an electric vehicle carry the same figure. -->
     <parameterFactors><li><parameter>batteryWarmerAbsent</parameter><factor>0</factor></li></parameterFactors>
+    <!-- Framework 0.334.0 (the fittings audit): the grid pays for it while the air is below the 5 degrees C it warms the battery to
+         (Input_BatteryTemperature's warmTo). 80 W is authored, as battery blankets of about 60 to 80 W are (secondary, unverified). -->
+    <gridWatts>80</gridWatts>
+    <gridWhen Class="Phobos.VehicleSystems.When_AmbientBelow">
+      <celsius>5</celsius>
+    </gridWhen>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>

@@ -153,7 +153,8 @@ More on some of these:
 - **Low air.** Heavy trucks have air brakes. At **low air**, keep the engine running; below that the brakes lock until the engine
   has idled a few minutes.
 - **Fuel pump.** A pump at half its health or less starves the engine, which then labours on hills and under load.
-- **Cold fuel.** A **fuel heater** fitting keeps fuel from ever gelling.
+- **Cold fuel.** A **fuel heater** fitting keeps fuel from gelling while it has power: from the alternator, the grid, or the battery,
+  until the battery is down to what it needs to start the engine. It only matters with **Fuel thickens in deep cold** on.
 - **Running hours.** The engine counts as running while the vehicle is drafted, moving in a caravan or flying, with fuel aboard.
   Idling counts as half the work.
 
@@ -201,7 +202,7 @@ booster pack.
 ### Cold starts
 
 - **Cold oil makes a start harder on the battery.** Below freezing a parked vehicle is harder to start; deep frost can stop it.
-- **A block heater** (a fitting) keeps a vehicle parked beside power warm.
+- **A block heater** (a fitting) keeps a vehicle parked beside power warm, and the colony's grid pays for it (750 W while it heats).
 - **The night heater** keeps a caravan's engine warm at camp. It needs the **Night heater at camp** setting, and the vehicle's
   night heater switch on before it leaves. It burns the same way for someone asleep in a parked truck's cab bunk.
 - **Electric vehicles have their own night heater**: the same switch and setting keep the cab and the

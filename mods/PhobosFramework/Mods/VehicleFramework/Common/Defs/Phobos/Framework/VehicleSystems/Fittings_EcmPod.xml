@@ -12,7 +12,7 @@
     <defName>PhobosFitting_EcmPod</defName>
     <iconPath>Phobos/VehicleSystems/Fittings/EcmPod</iconPath>
     <label>self-protection jamming pod</label>
-    <description>A jamming pod on a pylon that listens for the radars that aim guns at the aircraft and answers them with false echoes. Automated turrets miss it more often, and air defences on the way to a place take longer to lock on and hit it less. Guns aimed by eye are not fooled. It draws power while it works.</description>
+    <description>A jamming pod on a pylon that listens for the radars that aim guns at the aircraft and answers them with false echoes. Automated turrets miss it more often, and air defences on the way to a place take longer to lock on and hit it less. Guns aimed by eye are not fooled. It works only in the air and while it has power: on a flat battery, or with its power cut to save the battery, it is silent.</description>
     <roles><li>EcmPodMount</li></roles>
     <kinds><li>Aircraft</li></kinds>
     <materials><Steel>25</Steel><ComponentIndustrial>8</ComponentIndustrial><ComponentSpacer>1</ComponentSpacer></materials>
@@ -28,6 +28,8 @@
         <description>The self-protection jamming pod's receiver and transmitters.</description>
         <amps>15</amps>
         <shedOrder>3</shedOrder>
+        <!-- Framework 0.334.0 (the fittings audit): it draws only in the air, and the pod works only while this load runs (EcmPod.Works). -->
+        <when Class="Phobos.VehicleSystems.When_Airborne" />
       </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>

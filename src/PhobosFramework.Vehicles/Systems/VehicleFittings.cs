@@ -755,10 +755,43 @@ public sealed class VehicleFittings
             foreach (FittedPart part in fitted)
             {
                 if (part.def == null || part.def.jamRadiusFactor == 1f || !Counts(part)) continue;
-                if (comp.Vehicle.statHandler?.GetComponent(part.partKey) is { Health: > 0f }) factor *= part.def.jamRadiusFactor;
+                // Framework 0.334.0 (the fittings audit): a jamming suite works only while its own loads have power.
+                if (comp.Vehicle.statHandler?.GetComponent(part.partKey) is { Health: > 0f } && Powered(part.def)) factor *= part.def.jamRadiusFactor;
             }
             return factor;
         }
+    }
+
+    /// <summary>
+    /// Whether a fitting's own electrical loads run now (Framework 0.334.0, the fittings audit: the ECM pod and the Prowler's ICAP suites
+    /// worked on a flat battery). A fitting with no loads needs no power. Another faction's vehicle, or one ticked at less than full detail,
+    /// is never refused, as <see cref="Feeds"/> does.
+    /// </summary>
+    public bool Powered(PhobosVehicleFittingDef def)
+    {
+        if (def.loads.Count == 0 || comp.Tier != Phobos.Framework.Rules.DetailTier.Full || comp.Vehicle.Faction != Faction.OfPlayer) return true;
+        foreach (ElectricalLoadSpec load in def.loads)
+        {
+            if (!comp.LoadActive(load.name)) return false;
+        }
+        return true;
+    }
+
+    /// <summary>Whether a fitting granting this ability is on a standing part and its loads have power (Framework 0.334.0: the ECM pod).</summary>
+    public bool GrantsPowered(string ability) => FittedDefs().Any(def => def.grants.Contains(ability) && Powered(def));
+
+    /// <summary>
+    /// The watts the fittings on standing parts draw straight from the grid now (Framework 0.334.0: the block heater and the battery warmer),
+    /// each while its own condition holds; the hook-up bills them. Asked only while the vehicle is hooked up with its engine off.
+    /// </summary>
+    public double GridDrawWatts(SystemContext context)
+    {
+        double watts = 0;
+        foreach (PhobosVehicleFittingDef def in FittedDefs())
+        {
+            if (def.gridWatts > 0f && (def.gridWhen == null || def.gridWhen.Holds(context))) watts += def.gridWatts;
+        }
+        return watts;
     }
 
     /// <summary>The part whose fitting grants this ability (the cargo hook's mount), still standing; null with none (Framework 0.185.0).</summary>
@@ -1117,10 +1150,10 @@ public sealed class VehicleFittings
     public IEnumerable<ThingDefCountClass> MaterialsOf(FitOrder order) =>
         order.fitting != null ? MaterialsFor(order.fitting) : MaterialsFor(order.tune?.materials ?? Enumerable.Empty<ThingDefCountClass>());
 
-    /// <summary>What a fitting's <c>kitCarries</c> quantity holds now (a house battery's charge), read while the fitting is still on; null
-    /// when it carries nothing or the quantity is not running.</summary>
+    /// <summary>What a fitting's <c>kitCarries</c> store holds now (a house battery's charge, an extinguisher's charges: KitStores), read while the fitting is still on; null
+    /// when it carries nothing or no store of that name is running.</summary>
     float? CarriedNow(PhobosVehicleFittingDef? def) =>
-        def?.kitCarries is { } quantity && comp.TryGetQuantity(quantity, out float value) ? value : null;
+        def?.kitCarries is { } store && KitStores.TryGet(comp, store, out float value) ? value : null;
 
     /// <summary>
     /// A fitting just put on takes over what its kits held (Framework 0.333.0; the owner's report of 27 Nov 2026 that the house battery was not
@@ -1133,7 +1166,7 @@ public sealed class VehicleFittings
         if (def.kitCarries.NullOrEmpty()) return;
         List<double> shares = comp.TakeTakenShares(def.givesBack.Where(b => b.thingDef != null).Select(b => b.thingDef));
         float share = (float)FittingRule.CarriedShare(shares, KitFullShare);
-        comp.SetQuantity(def.kitCarries!, share);
+        KitStores.Set(comp, def.kitCarries!, share);
         if (Seen.Wants("vehicles.kit-carries.fitted", comp.Vehicle, def.defName))
         {
             Seen.Note("vehicles.kit-carries.fitted", comp.Vehicle, PartLabel(partKey) + ": " + share.ToStringPercent(), def.defName,

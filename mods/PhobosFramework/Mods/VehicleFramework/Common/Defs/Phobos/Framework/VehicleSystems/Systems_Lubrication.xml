@@ -416,8 +416,16 @@
             <setting>fuelGelling</setting>
           </li>
           <li Class="Phobos.VehicleSystems.Input_Parameter">
-            <!-- Framework 0.123.0: the fuel heater fitting takes it to 0. -->
+            <!-- Framework 0.123.0: the fuel heater fitting took it to 0. Since 0.334.0 the heater works through its load below instead. -->
             <parameter>fuelGelExposure</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Condition">
+            <!-- Framework 0.334.0 (the fittings audit): a fuel heater keeps the fuel thin only while its load runs, from the alternator, the
+                 grid or the battery; once it goes out to keep the start, the fuel can gel. Nothing without one fitted (no such load). -->
+            <condition Class="Phobos.VehicleSystems.When_LoadActive">
+              <load>fuelHeater</load>
+              <invert>true</invert>
+            </condition>
           </li>
           <li Class="Phobos.VehicleSystems.Input_Ambient">
             <curve>

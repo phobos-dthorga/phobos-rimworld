@@ -23,6 +23,7 @@
   <PhobosFireFighting_UsedOut>{PAWN} put out the fire on the {VEHICLE} with its extinguisher. {LEFT} charges left.</PhobosFireFighting_UsedOut>
   <PhobosFireFighting_UsedDown>{PAWN} knocked the fire on the {VEHICLE} down with its extinguisher, but it still burns. {LEFT} charges left.</PhobosFireFighting_UsedDown>
   <PhobosFireFighting_Inspect>Extinguisher: {LEFT} of {FULL} charges</PhobosFireFighting_Inspect>
+  <PhobosFireFighting_KitCharges>{COUNT} of {MAX} charges left</PhobosFireFighting_KitCharges>
   <PhobosFireFighting_RepairRefill>refilling the extinguisher</PhobosFireFighting_RepairRefill>
   <PhobosFireFighting_Refilled>{MECHANIC} refilled the {VEHICLE}'s extinguisher.</PhobosFireFighting_Refilled>
 

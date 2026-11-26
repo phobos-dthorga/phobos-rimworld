@@ -176,8 +176,9 @@ public static class FireFighting
             Seen.Note("vehicles.suppression-fitted", vehicle, ZoneWord(zone), fitted ? "fitted" : "removed");
     }
 
-    /// <summary>From a fitting or a tune coming or going: a newly fitted extinguisher arrives full; one taken off keeps its charges with the
-    /// vehicle, so refitting it is never a free refill. Another author's suppression fitting arrives ready.</summary>
+    /// <summary>From a fitting or a tune coming or going: a fitted extinguisher holds the charges its kit held (Framework 0.334.0: the
+    /// fitting's kitCarries, through <see cref="CompPhobosFireFighting"/>'s kit store), and one taken off gives them back to its kit; one fitted
+    /// with no kit read (another faction's set) arrives full. Another author's suppression fitting arrives ready.</summary>
     internal static void FittingsChanged(CompPhobosVehicleSystems systems)
     {
         if (CompOf(systems.Vehicle) is not { } comp) return;
@@ -413,8 +414,26 @@ public sealed class CompProperties_PhobosFireFighting : CompProperties
 
 /// <summary>A vehicle's fire zones, its extinguisher's charges and its spent suppression systems (FR10). Its buttons only present: each
 /// asks <see cref="FireFighting"/>.</summary>
-public sealed class CompPhobosFireFighting : VehicleComp
+public sealed class CompPhobosFireFighting : VehicleComp, IPhobosKitStore
 {
+    /// <summary>The extinguisher fitting's kitCarries (Framework 0.334.0): its charges travel with the kit.</summary>
+    public const string ExtinguisherStore = "extinguisherCharges";
+
+    public bool TryGetKitShare(string store, out float share)
+    {
+        share = 0f;
+        if (store != ExtinguisherStore || charges < 0) return false;
+        share = FireFighting.Rules.extinguisherCharges <= 0 ? 0f : Mathf.Clamp01((float)charges / FireFighting.Rules.extinguisherCharges);
+        return true;
+    }
+
+    public bool TrySetKitShare(string store, float share)
+    {
+        if (store != ExtinguisherStore) return false;
+        charges = Mathf.RoundToInt(Mathf.Clamp01(share) * FireFighting.Rules.extinguisherCharges);
+        return true;
+    }
+
     internal FireZones burning;
     internal int gearSince = -1, engineSince = -1, crewSince = -1;
     /// <summary>The extinguisher's charges; below none before one was ever fitted to this vehicle.</summary>

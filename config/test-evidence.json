@@ -340,6 +340,12 @@
       "a 24-volt vehicle takes two": [{"key": "vehicles.kit-carries.fitted", "variant": "PhobosFitting_HouseBattery", "expect": {"units": "> 1"}}]}},
     "640": {"parts": {"a lithium house battery fitted": [{"key": "vehicles.kit-carries.fitted", "variant": "PhobosFitting_HouseBatteryLithium"}],
       "a run-down lead-acid one freezes in deep cold": [{"key": "vehicles.stage.houseFrost", "variant": "freezing"}]}},
+    "646": {"parts": {"the extinguisher takes its kit's charges": [{"key": "vehicles.kit-carries.fitted", "variant": "PhobosFitting_Extinguisher", "expect": {"kitsRead": "> 0"}}],
+      "taken off, it gives them back": [{"key": "vehicles.kit-carries.returned", "variant": "PhobosFitting_Extinguisher"}]}},
+    "647": {"parts": {"the grid pays for the house battery's charge": [{"key": "vehicles.grid-hook-up", "expect": {"houseA": "> 0"}}]}},
+    "648": {"parts": {"the grid pays for the heaters": [{"key": "vehicles.grid-hook-up", "expect": {"heaterW": "> 0"}}],
+      "a fuel heater goes out to keep the start": [{"key": "vehicles.kept-for-start", "detail": "*fuel heater*"}]}},
+    "649": {"parts": {"a pod with no power does nothing": [{"key": "aircraft.ecm-pod", "variant": "unpowered"}]}},
     "620": {"parts": {"a call opens while tending": [{"key": "radio.advice", "variant": "Tend"}],
       "a call dropped out of touch": ["radio.advice-dropped"]}},
     "621": [{"key": "radio.advice", "variant": "Surgery"}],
@@ -359,6 +365,12 @@
     "631": ["radio.relay-post"],
     "632": [{"key": "vehicles.supply-run", "variant": "edge"}],
     "633": [{"key": "vehicles.supply-run", "variant": "loaded"}],
+    "641": [{"key": "vehicles.supply-run", "variant": "parked"}],
+    "642": ["vehicles.litter-captured"],
+    "643": {"parts": {"a packed building": [{"key": "vehicles.sling-thing", "variant": "packed"}],
+      "a stack": [{"key": "vehicles.sling-thing", "variant": "stack"}]}},
+    "644": [{"key": "vehicles.sling-thing", "variant": "net"}],
+    "645": ["radio.cross-band"],
     "634": {"parts": {"a hull": [{"key": "vehicles.winch-thing", "variant": "hull"}],
       "a chunk": [{"key": "vehicles.winch-thing", "variant": "chunk"}],
       "a ship chunk": [{"key": "vehicles.winch-thing", "variant": "building"}],
@@ -479,7 +491,7 @@
       "the Busbar's mast jams while set up and running": ["vehicles.ground-jammer"]
     }},
     "344": {"parts": {
-      "an automated turret's shot at an aircraft with the pod": ["aircraft.ecm-pod"]
+      "an automated turret's shot at an aircraft with the pod": [{"key": "aircraft.ecm-pod", "variant": "jammed"}]
     }},
     "343": {"parts": {
       "a vehicle inside a hostile field has its radar or warning receiver jammed": [{"key": "vehicles.jammed", "variant": "radar"}, {"key": "vehicles.jammed", "variant": "warningReceiver"}]
@@ -1277,6 +1289,7 @@
      "then": {"key": "vehicles.route-leader", "variant": "back"}}
   ],
   "shared": {
+    "vehicles.grid-hook-up": "rows 149, 647 and 648 each judge the hook-up's draw by a different figure: 149 the loads it carries (loadsA, W) and its charging, 647 the house battery's charge it pays for (houseA), 648 the heaters it pays for (heaterW)",
     "vehicles.turret-hand-cranked": "rows 124 and 137 both test a gun cranked by hand: 124 the turret drive on a flat battery, 137 each gun on its own mount",
     "vehicles.spall-liner-caught": "rows 304 and 394 both see a liner catch spall: 304 on our trucks, 394 on another author's vehicle marked as lined (the Bradley)",
     "vehicles.spall-relined": "rows 305 and 394 both see a liner re-lined: 305 on our trucks, 394 on another author's vehicle marked as lined (the Bradley)",

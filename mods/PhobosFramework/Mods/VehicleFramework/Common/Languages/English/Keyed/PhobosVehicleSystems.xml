@@ -22,7 +22,7 @@
   <PhobosVehicleSystems_SettingShowOnly>Figures only, no consequences</PhobosVehicleSystems_SettingShowOnly>
   <PhobosVehicleSystems_SettingShowOnlyDesc>The systems run and show their state, but nothing happens to the vehicles: no wear, failures, refusals or slowing. Messages still tell you what would have happened.</PhobosVehicleSystems_SettingShowOnlyDesc>
   <PhobosVehicleSystems_SettingFuelGelling>Fuel thickens in deep cold</PhobosVehicleSystems_SettingFuelGelling>
-  <PhobosVehicleSystems_SettingFuelGellingDesc>Below about -8 °C chemfuel behaves like diesel and gels: a cold vehicle will not start until it is warmer, in a heated room or on a warmer day. Off by default, because nothing says chemfuel is diesel.</PhobosVehicleSystems_SettingFuelGellingDesc>
+  <PhobosVehicleSystems_SettingFuelGellingDesc>Below about -8 °C chemfuel behaves like diesel and gels: a cold vehicle will not start until it is warmer, in a heated room or on a warmer day. Off by default, because nothing says chemfuel is diesel. The fuel heater fitting matters only with this on: it keeps the fuel thin while it has power.</PhobosVehicleSystems_SettingFuelGellingDesc>
   <PhobosVehicleSystems_DrivetrainOff>Drivetrain off</PhobosVehicleSystems_DrivetrainOff>
   <PhobosVehicleSystems_DrivetrainOffDesc>No gears, engine speed or traction. Engine load stays the simple moving-or-idling figure the other systems used before.</PhobosVehicleSystems_DrivetrainOffDesc>
   <PhobosVehicleSystems_DrivetrainDisplayOnly>Drivetrain shown, speeds unchanged</PhobosVehicleSystems_DrivetrainDisplayOnly>

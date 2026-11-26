@@ -2854,7 +2854,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             if (OutletWatts > 0f && Seen.Wants("vehicles.outlet-giving", Vehicle)) Seen.Note("vehicles.outlet-giving", Vehicle, OutletWatts.ToString("0") + " W");
             return;
         }
-        double carried = 0, charging = 0;
+        double carried = 0, charging = 0, houseCharging = 0, heaterWatts = 0;
         if (!EngineRunning && NetOffers(meter))
         {
             carried = HookUpRule.CarriedAmps(loadAmps, Rules.hookUpRatingAmps);
@@ -2869,9 +2869,16 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                     chargerAmps = new SystemContext(this, state).Parameter("shoreChargeAmps");
                     break;
                 }
+                // Framework 0.334.0 (the fittings audit of 27 Nov 2026): the house battery's shore charger is paid for too. Before, only the
+                // starting battery's charger was billed, and the house battery filled from nowhere. What flowed into it at the last update,
+                // which with the engine off is the shore charger's alone, so its taper and a lithium one's refusal in frost are followed.
+                if (HouseBatteryFitted) houseCharging = IntoAmps(HouseChargeQuantity, "houseAmpHours");
+                // Framework 0.334.0 (the fittings audit): the block heater and the battery warmer run off the mains, so they are billed at
+                // their own watts, with no 12-volt supply between. A service lead's generator gives them their warmth, as it does the charge.
+                if (states is { Count: > 0 }) heaterWatts = Fittings.GridDrawWatts(new SystemContext(this, states[0]));
             }
-            charging = HookUpRule.ChargeAmps(chargerAmps, charge);
-            GridWatts = (float)HookUpRule.GridWatts(carried, charging, ElectricalVolts(), Rules.hookUpEfficiency);
+            charging = HookUpRule.ChargeAmps(chargerAmps, charge) + houseCharging;
+            GridWatts = (float)(HookUpRule.GridWatts(carried, charging, ElectricalVolts(), Rules.hookUpEfficiency) + PowerUnits.ToGameWatts(heaterWatts));
         }
         meter.PowerOutput = -GridWatts;
         // Framework 0.137.3: noted only for a real draw. A full battery on the grid settles where the charger's last trickle matches the
@@ -2881,7 +2888,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         {
             Seen.Note("vehicles.grid-hook-up", Vehicle, GridWatts.ToString("0") + " W: loads " + carried.ToString("0.0") + " A, charging " + charging.ToString("0.0") + " A",
                 carried >= SeenLoadsAmps ? "carrying loads" : "charging only",
-                new[] { Figure("W", GridWatts), Figure("loadsA", carried), Figure("chargingA", charging) });
+                new[] { Figure("W", GridWatts), Figure("loadsA", carried), Figure("chargingA", charging), Figure("houseA", houseCharging),
+                    Figure("heaterW", heaterWatts) });
         }
     }
 

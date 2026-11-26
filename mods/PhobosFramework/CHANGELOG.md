@@ -17,6 +17,40 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.334.0] - 2026-11-27 - Draft
+
+The fittings audit: an extinguisher keeps its charges, and the grid pays for heaters and the house battery's charge
+
+### Changed
+
+- **A vehicle extinguisher's charges now belong to its kit**: taken off, the kit keeps the charges it has left (its inspect line says
+  how many) and brings them to the next vehicle. Before, an empty extinguisher moved to a vehicle that never had one came up full.
+  Not yet tested in game: row 646.
+- **The colony's grid pays for a house battery's shore charge**: before, only the starting battery's charger was billed, and the house
+  battery filled from nowhere. Not yet tested in game: row 647.
+- **A block heater and a battery warmer draw on the colony's grid while they heat**: 750 W while the engine is below 40 °C, 80 W below
+  5 °C. Before, they warmed the vehicle for nothing. Not yet tested in game: row 648.
+- **A fuel heater draws power and keeps the fuel thin only while it runs**: from the alternator, the grid or the battery, going out
+  before the battery is too low to start the engine, after which the fuel can gel. It still matters only with Fuel thickens in deep
+  cold on, which its description and that setting now say. Not yet tested in game: row 648.
+- **The self-protection jamming pod works only while it has power**, and draws only in the air; the Prowler's improved jamming suites
+  widen the jamming field only while theirs runs. Not yet tested in game: row 649.
+
+### Fixed
+
+- **Kits holding different charges no longer stack together**, and a piece split off a stack keeps the stack's charge. Before, a
+  part-used kit merged into a full stack took the stack's count.
+
+### Save compatibility
+
+- Safe on an existing save. An extinguisher already fitted keeps its charges; kits lying in storage count as full. A fuel heater
+  already fitted now needs power to keep the fuel thin.
+
+### Compatibility and limits
+
+- The Prowler's improved jamming suites' descriptions, in D'thorga Vehicles, do not yet say they need power. Other gaps the audit
+  found are listed in docs/development/fittings-audit.md.
+
 ## [0.333.0] - 2026-11-27 - Draft
 
 The house battery, made honest: its charge travels with it, two on 24 volts, lead-acid and lithium
