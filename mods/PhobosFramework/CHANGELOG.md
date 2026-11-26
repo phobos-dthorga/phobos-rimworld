@@ -26,6 +26,10 @@ Vehicles' visual effects
   it works: docs/development/vehicle-effects.md.
 - **A new setting, Vehicle effects** (Effects section): Full to start, Light keeps every fault's sign but thins the rest, Off draws
   nothing. Drawn only on the map you are looking at, and never saved.
+- **Moving vehicles throw up what they drive through**: exhaust that grows with the engine's work, dust, mud, snow and water spray behind
+  the wheels, and ruts on soft ground that fade. Paving throws up nothing. Not yet tested in game: row 579.
+- **Helicopters blow up their downwash, and rough landings smoke**: a ring of dust or spray beneath a rotorcraft near the ground, gone by
+  about 30 m, and tyre smoke at a rough landing. Not yet tested in game: row 580.
 
 ### Save compatibility
 

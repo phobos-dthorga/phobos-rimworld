@@ -1,7 +1,8 @@
 # Vehicles' visual effects
 
-**Status (26 Nov 2026):** slice 1 (the faults' signs) built in D'thorga Framework 0.321.0, with the shared emitter and the Vehicle effects
-setting. Slice 2 (what moving vehicles and aircraft throw up) is next. Not yet tested in game (row 578).
+**Status (26 Nov 2026):** slices 1 and 2 built in D'thorga Framework 0.321.0: the faults' signs, what moving vehicles and aircraft throw
+up, the shared emitter and the Vehicle effects setting. Slice 3 (beacons and lights, heat shimmer, flares) waits for the owner. Not yet
+tested in game (rows 578 to 580).
 
 The owner, 26 Nov 2026: "Is there any other FX we can apply to our vehicles and aircraft?" Before this, every vehicle system shared one
 grey smoke puff (overheating, the boiler, the turbo), and most faults showed only by sound: a diesel knock, a brake squeal, a clutch
@@ -52,13 +53,25 @@ Smoke's colour says what burns (secondary: engine makers' and mechanics' diagnos
 **A choice of the agent's, for the owner to revise**: the owner's card said "a black cough on a failed start". Fuel cranked through without
 firing comes out white, so a gelled-fuel start coughs white; a flat battery only clicks, and an empty fuel feed shows nothing.
 
-## Slice 2: what moving vehicles throw up (next)
+## Slice 2: what moving vehicles throw up
 
-Exhaust that follows the engine's load (a diesel's darker, a petrol's faint, white from a cold engine in cold air); dust, sand, mud, snow
-and water spray thrown up by the wheels, by the ground and the place's dust; ruts on soft ground and snow that fade; rotor downwash under
-a helicopter near the ground (dust, spray over water, nothing on paving); tyre smoke and dust at a rough landing. The figures are in
-`VehicleEffects.xml`. **Close Air Support's jets draw their own wash and touchdowns**, so ours stands aside for any aircraft another flight
-mod flies.
+One source per spawned vehicle with our systems (`VehicleMotionFx`), registered as it spawns and run by the emitter only while on screen.
+Every figure is in `VehicleEffects.xml`, authored.
+
+| What | When | Looks |
+| --- | --- | --- |
+| Exhaust | A running piston engine above idle load; more the harder it works | A diesel's grey, a petrol's faint, white from a cold engine below 5 C until its coolant passes 50 C |
+| Dust or sand | Moving faster than 0.3 cells a second on ground that takes footprints | Thrown back from the rear wheels, more with speed and in dusty country (DustRule) |
+| Mud | The same, on ground wetter than half (the ground wetness of 0.204.0) | Dark clods |
+| Snow | Snow deeper than 0.15 | White spray |
+| Water | Fording | Splashes |
+| Ruts | Soft ground or snow | A pair every 0.6 cells, laid back along the path, lasting 40 seconds (15 at Light) before fading; never saved |
+| Downwash | A helicopter or tiltrotor (it hovers on rotors; a fixed-wing plane's propellers do not count) with its rotor turning, below 30 m | A ring of dust, sand, snow or spray, blown outward, strongest on the ground; nothing on paving |
+| A rough landing | When the rough-landing rule judges one | Tyre smoke and dust at the wheels |
+
+**Close Air Support's jets draw their own wash and touchdowns**, so the touchdown burst stands aside for any aircraft another flight mod
+flies. Nothing is thrown up on paving, floors or bare rock: a reason to pave a yard, as the modern-military record already suggests for a
+helipad.
 
 ## The four questions
 
@@ -77,7 +90,9 @@ None: nothing a player owns is touched. The Vehicle effects setting is for perfo
 ## Other factions' vehicles
 
 The same signs on any faction's vehicle while its systems run; another faction's vehicle runs its systems at the lite tier or not at all, so
-most of its fault signs show only once it is captured. The fuel drips and slice 2's effects need no systems and show on any vehicle. The
+most of its fault signs show only once it is captured. The fuel drips, the dust, mud, spray, ruts, downwash and touchdowns need no systems
+and show on any vehicle. **The exhaust does need them** (it reads the engine's load), so a raider's truck throws up dust but shows no
+exhaust: a known limit, cheap to lift later by reading Vehicle Framework's own ignition. The
 cost is the emitter's, which is on screen only.
 
 ## Performance

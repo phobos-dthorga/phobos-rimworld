@@ -18,5 +18,52 @@
     <debris>(0.35, 0.3, 0.25, 0.9)</debris>
     <!-- The Light setting draws this share of what moving vehicles throw up. -->
     <lightShare>0.4</lightShare>
+
+    <!-- Slice 2: what moving vehicles throw up. Exhaust follows the engine's load: nothing at idle, a haze cruising, puffs working hard;
+         a diesel's darker than a petrol's, a cold engine's white in cold air until its coolant warms. -->
+    <exhaustIdleLoad>0.15</exhaustIdleLoad>
+    <exhaustCruisePerHour>25</exhaustCruisePerHour>
+    <exhaustHardPerHour>260</exhaustHardPerHour>
+    <exhaustDiesel>(0.3, 0.3, 0.3, 0.45)</exhaustDiesel>
+    <exhaustPetrol>(0.75, 0.75, 0.75, 0.2)</exhaustPetrol>
+    <exhaustCondensesBelow>5</exhaustCondensesBelow>
+    <exhaustWarmCoolant>50</exhaustWarmCoolant>
+    <!-- The wheels: an hour's puffs at full speed (4 cells a second) and above, dust scaled by the place's dust (DustRule: a desert three
+         times wet country, a sandstorm more). Ground that takes footprints throws dust or sand; wet ground mud; deep snow spray; water a
+         splash. Paving, floors and bare rock throw up nothing and keep no ruts. -->
+    <groundPerHour>320</groundPerHour>
+    <groundFullSpeed>4</groundFullSpeed>
+    <groundMinSpeed>0.3</groundMinSpeed>
+    <snowFromDepth>0.15</snowFromDepth>
+    <mudFromWetness>0.5</mudFromWetness>
+    <dust>(0.72, 0.62, 0.46, 0.6)</dust>
+    <sand>(0.86, 0.78, 0.58, 0.6)</sand>
+    <mud>(0.33, 0.25, 0.17, 0.85)</mud>
+    <snow>(1, 1, 1, 0.85)</snow>
+    <!-- Ruts: a pair every 0.6 cells on soft ground or snow, lasting 40 seconds before they fade (15 at the Light setting). -->
+    <rutEveryCells>0.6</rutEveryCells>
+    <rutSeconds>40</rutSeconds>
+    <rutSecondsLight>15</rutSecondsLight>
+    <rutWidth>0.3</rutWidth>
+    <rutSoil>(0.25, 0.2, 0.15, 0.35)</rutSoil>
+    <rutSnow>(0.55, 0.6, 0.72, 0.4)</rutSnow>
+    <!-- Rotor downwash: full on the ground with the rotor at speed, none from 30 m up (authored; a helicopter's downwash raises dust well
+         below that). -->
+    <downwashPerHour>900</downwashPerHour>
+    <downwashReachMetres>30</downwashReachMetres>
+    <touchdownPuffs>10</touchdownPuffs>
   </Phobos.VehicleSystems.PhobosVehicleFxRulesDef>
+
+  <!-- A rut, laid flat under vehicles and stretched along the way they went: the game's own dust puff, tinted (no new picture). -->
+  <FleckDef ParentName="FleckBase">
+    <defName>PhobosFleck_Rut</defName>
+    <graphicData>
+      <texPath>Things/Mote/DustPuff</texPath>
+      <renderInstanced>true</renderInstanced>
+    </graphicData>
+    <altitudeLayer>Filth</altitudeLayer>
+    <fadeInTime>0.05</fadeInTime>
+    <solidTime>40</solidTime>
+    <fadeOutTime>8</fadeOutTime>
+  </FleckDef>
 </Defs>

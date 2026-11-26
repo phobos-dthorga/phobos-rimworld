@@ -24,6 +24,10 @@ public partial class CompPhobosFlight
     /// draws by); with no rotor rate of its own, 1 while they are driven.</summary>
     public float RotorShare => RotorFull > 0f ? Mathf.Clamp01(rotorRate / RotorFull) : RotorsDriven ? 1f : 0f;
 
+    /// <summary>Whether it hovers on rotors of its own, a helicopter or a tiltrotor, so their downwash reaches the ground (Framework 0.321.0);
+    /// a fixed-wing aircraft's propellers do not count.</summary>
+    public bool HoversOnRotors => Props.canHover && RotorFull > 0f;
+
     /// <summary>The rotors' full rate, degrees a tick: the Def's, else the full rate of the aircraft's own take-off animation, else none.</summary>
     float RotorFull => rotorFull ??= ReadRotorFull();
 

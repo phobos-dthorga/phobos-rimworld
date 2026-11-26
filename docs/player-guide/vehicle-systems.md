@@ -102,7 +102,12 @@ A vehicle with a fault shows it on the map, not only on its tabs and in its soun
 | **Sparks** from the engine | Shorted wiring, or a seizing engine | Repair it now |
 | **Drips** underneath | A fuel leak | Repair the tank |
 
-Gelled fuel coughs white at the key; a turbine with a weak battery lights with a flash of flame. **The setting Vehicle effects** (vehicle
+Gelled fuel coughs white at the key; a turbine with a weak battery lights with a flash of flame.
+
+Moving vehicles show how hard they work and where they go: **exhaust** that grows with the load (white from a cold engine on a freezing
+morning), **dust, mud, snow or spray** behind the wheels, and **ruts** on soft ground and snow that fade after a while. A helicopter near
+the ground blows a **ring of dust or spray** beneath it; a rough landing throws up tyre smoke. **Paving, floors and bare rock throw up
+nothing**, so a paved yard or helipad stays clear. **The setting Vehicle effects** (vehicle
 settings, Effects section) is **Full** to start; **Light** keeps every fault's sign but thins the rest; **Off** draws nothing.
 
 ## What wears out and what fixes it

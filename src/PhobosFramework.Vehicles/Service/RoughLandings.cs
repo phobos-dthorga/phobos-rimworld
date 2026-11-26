@@ -70,6 +70,8 @@ public static class RoughLandings
             return;
         }
         comp.WearLanding(rules.roughLandingWear);
+        // Framework 0.321.0: and seen: tyre smoke and dust at the wheels.
+        VehicleMotionFx.Touchdown(vehicle);
         if (Seen.Wants("aircraft.rough-landing", vehicle, variant)) Seen.Note("aircraft.rough-landing", vehicle, poor && !instruments ? "blind" : "controls", variant);
         if (vehicle.Faction == Faction.OfPlayer)
         {

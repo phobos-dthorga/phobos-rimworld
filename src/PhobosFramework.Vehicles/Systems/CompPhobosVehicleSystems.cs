@@ -768,6 +768,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         fittings?.SyncFuelCapacity(FuelExcess.Keep);    // extra tanks, before the tank first burns and is trimmed to capacity
         RestorePartHealths();
         if (Usable && !respawningAfterLoad) Fittings.RollEnemySet();
+        // Framework 0.321.0: what it throws up as it moves, drawn by its map's effects emitter (registered only; nothing is made here).
+        VehicleMotionFx.Register(this);
         // Aircraft service-life upgrades: a vehicle from an older save keeps what its loadout no longer starts with.
         if (Usable) Fittings.GiveOlderSaveFittings();
         // Raiders arrive with the journey behind them (Framework 0.192.0, EM5): set once, on another faction's first spawn.
@@ -806,6 +808,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (mode != DestroyMode.WillReplace) VehiclePipes.Leave(this);
         VehicleSystemSounds.EndAll(this);
         engineSound?.End();
+        if (Vehicle != null) VehicleMotionFx.Unregister(Vehicle, map);
         base.PostDeSpawn(map, mode);
         if (Vehicle != null) spawned.Remove(Vehicle);
     }
