@@ -26,6 +26,9 @@
     <IrbmAssemblies Condition="'$(IrbmAssemblies)' == ''">$(WorkshopRoot)\3682304832\1.6\Assemblies</IrbmAssemblies>
     <!-- The Dead Man's Switch - Expedition ships a 1.7 build (12 November 2026); D'thorga Framework's air-defence tie-in compiles against it. -->
     <DmseAssemblies Condition="'$(DmseAssemblies)' == ''">$(WorkshopRoot)\3689879335\$(GameVersion)\Assemblies</DmseAssemblies>
+    <!-- Combat Extended ships one Assemblies folder for every game version (checked 26 November 2026); the radio's Combat Extended
+         tie-in compiles against it. -->
+    <CombatExtendedAssemblies Condition="'$(CombatExtendedAssemblies)' == ''">$(WorkshopRoot)\2890901044\Assemblies</CombatExtendedAssemblies>
     <!-- Where the built assembly lands: mods/<ModFolder>/<TieInFolder/><GameVersion>/Assemblies/. OutDir, not OutputPath:
          by the time this file is imported the SDK has already turned OutputPath into OutDir, and OutDir is what the
          build writes to. -->

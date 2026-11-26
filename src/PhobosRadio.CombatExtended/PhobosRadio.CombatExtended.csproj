@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Radio Framework's Combat Extended tie-in (Radio 0.19.0; docs/development/autonomous-vehicles.md, the base turret): the remote
+       gun turret's building as Combat Extended's own turret, keeping the radio's firing rule. Its own assembly in Mods/CombatExtended/1.7,
+       which LoadFolders.xml loads only while Combat Extended is active; its patches there give the turret Combat Extended's .50 BMG.
+       RimWorld 1.7 only. Combat Extended's assembly is referenced from the installed mod, never copied. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.Radio.CombatExtended</RootNamespace>
+    <AssemblyName>PhobosRadio.CombatExtended</AssemblyName>
+    <ModFolder>PhobosRadioFramework</ModFolder>
+    <TieInFolder>Mods/CombatExtended/</TieInFolder>
+    <Version>0.19.0</Version>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosRadio/PhobosRadio.csproj" Private="false" />
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="CombatExtended">
+      <HintPath>$(CombatExtendedAssemblies)\CombatExtended.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

@@ -17,6 +17,17 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.19.0] - 2026-11-26 - Draft
+
+The remote gun turret under Combat Extended
+
+### Added
+
+- **The remote gun turret takes Combat Extended's ammunition when Combat Extended is installed** (the owner's question of 26 November
+  2026: everything appropriate supported by it). It becomes Combat Extended's own turret, keeping the radio's rule that it fires only
+  while a station watches it (or on its own with the setting), and fires .50 BMG from a 200-round magazine that colonists reload, in
+  place of the steel belt. Its aim, spread and range are authored. Not yet tested in game: row 540.
+
 ## [0.18.0] - 2026-11-26 - Draft
 
 The remote gun turret
@@ -35,7 +46,7 @@ The remote gun turret
 
 - Linked by coax only for now; its own radio, for a turret no coax reaches, is the next step.
 - Without Vehicle Framework there is no "fire on their own" switch, so it fires only while a station watches it.
-- Under Combat Extended it fires the game's own .50 round from its steel belt; Combat Extended ammunition for it is a later step.
+- Under Combat Extended it fires the game's own .50 round from its steel belt; Combat Extended ammunition came in 0.19.0.
 
 ## [0.17.0] - 2026-11-26 - Draft
 

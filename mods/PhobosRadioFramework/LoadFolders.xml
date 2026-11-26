@@ -8,5 +8,8 @@
     <li>1.7</li>
     <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework/Common</li>
     <li IfModActive="SmashPhil.VehicleFramework">Mods/VehicleFramework/1.7</li>
+    <!-- Radio 0.19.0: the remote gun turret as Combat Extended's own turret, with its .50 BMG. -->
+    <li IfModActive="CETeam.CombatExtended">Mods/CombatExtended/Common</li>
+    <li IfModActive="CETeam.CombatExtended">Mods/CombatExtended/1.7</li>
   </v1.7>
 </loadFolders>

@@ -520,7 +520,11 @@ second try as its turning top, on a pedestal of its own (paid picture, the owner
 - **The switch:** the radio's Vehicle Framework tie-in hands D'thorga Framework's "Remote guns fire on their own" to the radio at start-up.
 - **The pictures:** the pedestal (the owner's pick, 1.4 cells about its centre) and the top (the station's try 2, framed on its ring,
   0.85 cells across, in a 2.25-cell square), by `assets/phobos-radio/export_remote_turret.py`.
-- **Not yet:** its own radio link (slice 2) and Combat Extended ammunition.
+- **Combat Extended (Radio 0.19.0) [code: `src/PhobosRadio.CombatExtended`, `Mods/CombatExtended`]:** the owner's question of 26 Nov 2026,
+  everything appropriate supported by it: a CE twin of the building class on Combat Extended's `Building_TurretGunCE`, with the same
+  three overrides (it has the same hooks), and a patch shaped as Combat Extended's own for the game's mini-turret: the class swapped, the
+  steel belt removed, the gun made CE-compatible with its .50 BMG from a 200-round magazine [figures A].
+- **Not yet:** its own radio link (slice 2).
 
 ## The four questions
 

@@ -32,7 +32,7 @@ Research **local radio** (after Microelectronics basics).
 | Coax feedline | Architect, D'thorga, Radio: 2 steel a cell | Laid like conduit, from the station to an antenna. Loses signal along its length; runs under walls |
 | Whip antenna | Architect, D'thorga, Radio: 15 steel | 3 m high. The cheap way to get the antenna outside |
 | Mast antenna | Architect, D'thorga, Radio: 60 steel, 1 component | 10 m high, with a little gain. **Sees over walls** |
-| Remote gun turret | Architect, D'thorga, Radio: 120 steel, 6 components, 1 advanced component; after **remote turrets** | A .50 that **fires only while a colonist at a station watches it**: connect it to the station **with coax**. That colonist can aim it. **While enemies are about, a colonist with Remote operation takes the console.** It takes one of their two hands, after any vehicles they drive. Haulers feed its belt with steel; it needs power |
+| Remote gun turret | Architect, D'thorga, Radio: 120 steel, 6 components, 1 advanced component; after **remote turrets** | A .50 that **fires only while a colonist at a station watches it**: connect it to the station **with coax**. That colonist can aim it. **While enemies are about, a colonist with Remote operation takes the console.** It takes one of their two hands, after any vehicles they drive. Haulers feed its belt with steel (**with Combat Extended, colonists reload it with .50 BMG**); it needs power |
 
 ## How a contact is decided
 

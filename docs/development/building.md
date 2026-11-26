@@ -57,10 +57,11 @@ Generated from the project files by `python scripts/doc-tables.py --write`: chan
 | `PhobosPatches.VehicleFramework` | `mods/PhobosPatches/Mods/VehicleFramework/` | `PhobosFramework` | `Vehicles`, `SmashTools` | yes | `PhobosPatches.Rules.Tests` |
 | `PhobosPatches.VisitSettlements` | `mods/PhobosPatches/Mods/VisitSettlements/` | `PhobosFramework` | none | yes | `PhobosPatches.Rules.Tests` |
 | `PhobosRadio` | `mods/PhobosRadioFramework/` | `PhobosFramework` | `PipeSystem` | no | `PhobosRadio.Physics.Tests` |
+| `PhobosRadio.CombatExtended` | `mods/PhobosRadioFramework/Mods/CombatExtended/` | `PhobosRadio`, `PhobosFramework` | `CombatExtended` | no | none |
 | `PhobosRadio.Vehicles` | `mods/PhobosRadioFramework/Mods/VehicleFramework/` | `PhobosRadio`, `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `SmashTools` | no | none |
 | `PhobosWaterTap` | `mods/PhobosWaterTap/` | `PhobosFramework.Hygiene` | `BadHygiene` | no | `PhobosWaterTap.Rules.Tests` |
 
-30 projects (23 using Harmony) and 7 test projects. Read from each project file as written: MSBuild is not run, so a value set only in `Directory.Build.props` or `Directory.Build.targets` is not shown. Harmony: its own C# files have `using HarmonyLib` or a `[HarmonyPatch]`. Test projects: those that reference the project or compile its files.
+31 projects (23 using Harmony) and 7 test projects. Read from each project file as written: MSBuild is not run, so a value set only in `Directory.Build.props` or `Directory.Build.targets` is not shown. Harmony: its own C# files have `using HarmonyLib` or a `[HarmonyPatch]`. Test projects: those that reference the project or compile its files.
 <!-- end generated -->
 
 What the table cannot read from the files, kept by hand:
@@ -123,7 +124,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
 | `PhobosFramework` | 3 | 0 | 1 | 0 |
-| `PhobosFramework.Vehicles` | 113 | 16 | 0 | 0 |
+| `PhobosFramework.Vehicles` | 114 | 16 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 2 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
@@ -142,7 +143,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-187 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+188 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -200,7 +201,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework.Vehicles</code>: 113 patched methods, 16 by name</summary>
+<details><summary><code>PhobosFramework.Vehicles</code>: 114 patched methods, 16 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles/`) |
 | --- | --- | --- |
@@ -235,6 +236,7 @@ Every HarmonyPatch attribute was read.
 | `Explosion.StartExplosion` | postfix | `Service/GlassBlastPatch.cs` |
 | `Ext_Vehicles.TryDropAllOutsideVehicle` | prefix | `Flight/FlightPatches.cs` |
 | `Ext_Vehicles.TryDropOutsideVehicle` | prefix | `Flight/FlightPatches.cs` |
+| `FactionDialogMaker.FactionDialogFor` | postfix | `Airdrop/SupplyDrops.cs` |
 | `FireUtility.TryAttachFire` | prefix, postfix | `Flight/FlightPatches.cs`, `Service/FireFighting.cs` |
 | `FlightPath.ConsumeNode` | prefix | `Service/LandingCheck.cs` |
 | `FuelTargetUpdater.LaunchStatus` | postfix | `Service/FlightCargoReachPatches.cs` |

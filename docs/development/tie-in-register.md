@@ -7,8 +7,8 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 ## Read this first
 
-- **87 tie-in folders across eight mods** (recounted 25 Nov 2026: Vehicles 30, Patches 21, Factory Additions 16, Framework 10,
-  Medical 7, Farming 1, Radio Framework 1, Water Tap 1; 102 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
+- **88 tie-in folders across eight mods** (recounted 26 Nov 2026: Vehicles 30, Patches 21, Factory Additions 16, Framework 10,
+  Medical 7, Farming 1, Radio Framework 2, Water Tap 1; 104 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
   `Common` subfolder are listed as separate entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's
   `LoadFolders.xml`, plus a handful of tie-ins in C# that check for a mod by name. D'thorga Radio Framework's first, Vehicle
   Framework, came in its 0.10.0 (Vanilla Expanded Framework's pipe system is a hard dependency there, not a tie-in).
@@ -133,6 +133,7 @@ Hard dependencies: D'thorga Framework and Vanilla Expanded Framework.
 | Other mod (packageId) | What the tie-in does | Where |
 | --- | --- | --- |
 | Vehicle Framework (`SmashPhil.VehicleFramework`) | Radios fitted to vehicles (0.10.0): a vehicle whose def names a radio fitting is built with that radio, and joins the radio net once its upgrade is done; its own assembly, `src/PhobosRadio.Vehicles` ([autonomous vehicles by radio](autonomous-vehicles.md), step 2). Since 0.15.0 (step 6) also the remote control kit fitting for any vehicle with a D'thorga loadout, in `Common` | `Mods/VehicleFramework/Common`, `Mods/VehicleFramework/1.7` |
+| Combat Extended (`CETeam.CombatExtended`) | The remote gun turret (0.19.0) as Combat Extended's own turret, keeping the radio's firing rule, with its .50 BMG from a 200-round magazine in place of the steel belt; its own assembly, `src/PhobosRadio.CombatExtended` ([autonomous vehicles by radio](autonomous-vehicles.md), the base turret) | `Mods/CombatExtended/Common`, `Mods/CombatExtended/1.7` |
 
 ## D'thorga Water Tap
 
