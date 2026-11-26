@@ -2,8 +2,9 @@
 
 **Status (26 Nov 2026):** partly built. Relays between world tiles are built in Radio Framework 0.22.0 (halted convoys and depot
 vehicles with the repeater kit, the relay mast, site height by hilliness, plane-earth fading); not yet tested in game: rows 609 and 610.
-Radio advice is not built and waits for the owner's go (their card: "Record, then wait"). The hand-held's cross-band hop, home stations
-and outposts as relays, and channels at relays are not started.
+Radio advice is built in Radio Framework 0.23.0 with D'thorga Framework 0.330.0 ([as built](#as-built-radio-0230-26-nov-2026)); not yet
+tested in game: rows 620 to 624. The hand-held's cross-band hop between tiles, home stations and outposts as relays, and channels at
+relays are not started.
 
 The owner, 26 Nov 2026: "An idea I just had is a doctor providing medical support/advice over the radio! We even have this in
 Australia, right now. This could work with other skills just as well too. If we were to implement all this, how would it look, before
@@ -20,8 +21,8 @@ doctor: a remote doctor talks an unskilled pawn through treatment", "an Elmer wh
 
 - **Only what the status line names is built.** Every figure marked **[A]** is the agent's proposal; **[O]** is the
   owner's choice, by card on 26 Nov 2026.
-- **Radio advice is a Phase 4 item of the radio's roadmap.** Building it ahead of its gates needs the owner's word, as the remote
-  control of vehicles did. The owner has asked for the record first.
+- **Radio advice was a Phase 4 item of the radio's roadmap**, brought forward on the owner's word (26 Nov 2026: "go ahead and build
+  the radio advice").
 - **Reach between world tiles (Radio 0.21.0) is itself not yet tested in game** (rows 600 and 601), and both ideas lean on it.
 - **Not yet checked:** whether a mod on the owner's list already gives advice by radio; how the skill lift reaches the game's tending
   and surgery code; which skill our vehicle repairs read. Each is checked before any build.
@@ -123,8 +124,8 @@ the radio design's Phase 4.
 ### Risk and settings
 
 - **Tending, repairs and trade: no risk [A].** Advice never makes a result worse than working alone; it costs the adviser's time.
-  Who may be pulled to the radio is a work type in the Work tab, as Remote operation is.
-- **Surgery: moderate [A], for the owner to confirm.** The player may attempt an operation they would not have tried alone, and a call
+  Who may be pulled to the radio is decided by the work's own work type in the Work tab (as built: see below).
+- **Surgery: moderate [O]** (the owner's card of 26 Nov 2026, "Moderate, on by default"). The player may attempt an operation they would not have tried alone, and a call
   that drops part-way leaves the carer at their own skill. One person can be lost; the player chooses the bill and can see the link
   before starting. So it gets its own setting, on by default.
 
@@ -146,6 +147,36 @@ To be measured with `python scripts/perf.py` before and after, as every radio fe
 - **The mechanic's row:** D'thorga Vehicles' radio tie-in.
 - **For another game:** the rule (a share of a skill gap by link quality) is game-free and could move to phobos-modkit's side with the
   link budget; the jobs and stats are RimWorld's.
+
+### As built (Radio 0.23.0, 26 Nov 2026)
+
+Built on the owner's word of 26 Nov 2026, not yet tested in game (rows 620 to 624). Where it differs from the design above:
+
+- **The lift is D'thorga Framework's, for any helper** (Framework 0.330.0, `Phobos.Framework.Skills`): a source registers, and a
+  stat part added in code to each lifted stat raises the stat's factors for the skill to the lifted level (the game's own two kinds of
+  factor are read) or slows a work speed while a call is live. The help shows as a line in the stat's explanation. A vehicle repair's
+  minimum skill asks the same seam. A tend on the road, which has no job, is wrapped by a Harmony prefix on the game's tending (it never
+  skips it), so help read for its quality is booked once the tend is done. Advice by radio is the first source; a later one (the Elmer,
+  a manual) adds no code there.
+- **Who may advise is the work's own work type, switched on** [A]: Doctor for medicine, Construction for repairs, and for trade anyone
+  not incapable of social work. No new Work tab column.
+- **A call takes no channel of its own** [A]: the two radios already hold theirs in the ledger. The "advice call" kind was dropped.
+- **Where the adviser takes it** [A]: on a hand-held where they stand (a job that holds them there), in bed with no job if they are
+  resting there awake, or at the nearest powered station's desk they can reach, if they carry no radio. In the trade talks the game
+  stops, so only an adviser already on a hand-held can take the call.
+- **Acts with no job** [A]: a convoy's tend, a convoy's repair and the trade talks are helped at once, and the adviser is then booked on
+  the radio: 1250 ticks after a convoy's tend (the game's caravan tending interval), 2500 after a repair or trade. A message for the
+  same carer and act on the road is said at most once a day.
+- **A carer must have a radio**: a hand-held served by a station on their map, or a convoy whose radio reaches home. Between tiles the
+  adviser must be on the home map the convoy reaches. A carer on another map with no station of its own gets no advice yet.
+- **Chest** [A]: within 8 cells or in the carer's room, carried, or anywhere in the convoy's inventory.
+- **Thought** [A]: the carer gains "talked me through it by radio", +6 opinion of the adviser for 10 days. The patient gets nothing.
+- **Not built**: learning faster while talked through; other factions' advice; a downed adviser (a person must be able to take a job
+  or lie awake in bed); advice in person without a radio.
+- **Cost, as built**: every 60 ticks, a set lookup on each colonist's job on maps with a station; a search of the home map's colonists
+  only for one doing advisable work with no call, at most once every 250 ticks each; an offer for a person off the map kept 250 ticks.
+  A read of a lifted stat costs two dictionary lookups when no call is live. **To measure with `scripts/perf.py`** before and after,
+  on the owner's colony, when the owner says go.
 
 ## Relays
 
@@ -235,7 +266,7 @@ of nodes and at most three hops, each hop one link budget a band. The builder st
 | Vehicles and the mast site as relay nodes; the repeater kit (`PhobosFitting_RepeaterKit`) in a repeater bay on every land vehicle | Built | Radio 0.22.0, Framework 0.328.0 |
 | Plane earth (`Propagation.PlaneEarthPathLossDb`) and site height by hilliness (`Propagation.SiteHeightMetres`), both in `EvaluateWorld` | Built | Radio Framework 0.22.0 |
 | Cross-band last hop, home stations, outposts, channels at relays | Not started | Radio Framework |
-| Radio advice | Not started: waits for the owner's go | Radio Framework, Medical, Vehicles |
+| Radio advice: tending, surgery, vehicle repairs, trade talks, the numbered medical chest | Built | Radio Framework 0.23.0, Framework 0.330.0 |
 
 Built by another session (road-work-three) to this record's shape; what the version delivered is in the Radio Framework's changelog.
 
@@ -253,6 +284,8 @@ Each card as the owner saw it on 26 Nov 2026, the chosen option first and marked
 | 6 | Which things can relay between tiles (several may be chosen) | **All four: halted or parked vehicle, relay mast site, home station, world outpost** | None left out |
 | 7 | Whether high ground lifts a relay's aerial | **By hilliness** (the agent's lean) | By the difference in elevation between the two tiles: a high plateau would count as a peak. Not yet: every site flat |
 | 8 | Whether distance makes a link between tiles fade | **Plane-earth fading** | Keep as built, in or out (the agent's lean). Keep in or out now, and later let high ground between two tiles block the path |
+| 9 | Buy the three pictures (chest, repeater kit icon, relay mast), two tries each | **Buy all three, cap US$0.90** (the agent's lean; spent about US$0.32) | The chest only, cap US$0.30. Not now |
+| 10 | How risky surgery talked through is | **Moderate, on by default** (the agent's lean) | High, off by default. Low, no switch |
 
 ## Sources
 

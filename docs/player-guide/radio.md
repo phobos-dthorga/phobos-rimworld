@@ -93,6 +93,28 @@ tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
 - **An aircraft can drop to the convoy** (Airdrop to the convoy, when choosing where to fly): the convoy talks it in, and everything
   dropped joins it.
 
+## Advice by radio
+
+**A more skilled colonist can talk another through their work by radio**: tending, an operation, a repair of one of our vehicles, or
+trade talks. Nothing to press: it happens by itself when both are in radio touch.
+
+- **Who gives advice**: a colonist more skilled in the work, with that work **switched on in the Work tab** (Doctor for tending and
+  operations, Construction for repairs; anyone not incapable of social work for trade), awake, and not busy with something more
+  urgent. They stop and take the call **on a hand-held where they stand**, **in bed** if they are resting there, or **at a radio
+  station's desk** if they carry no radio.
+- **Who is helped**: a colonist wearing a hand-held in touch with a station, or anyone in a **convoy whose radio reaches home**.
+- **How much**: the carer works as if **half the gap** to the adviser's skill were closed, a **quarter** on a marginal link, a little
+  slower while every step is spoken. A Medicine 3 colonist talked through by a Medicine 16 doctor works as Medicine 9. The carer's
+  stat card shows the help.
+- **A numbered medical chest** (drug lab, after local radio and medicine production: 20 steel, 15 cloth, 1 medicine), carried, in the
+  convoy or kept nearby, closes **a sixth more** for medical advice. It is never used up.
+- **Repairs**: a repair that needs more Construction than your mechanic has can be done while someone better talks them through it,
+  at home or with the convoy's repair button.
+- **On the road and in trade talks**, which have no job of their own, the adviser stays on the radio for a while afterwards: about
+  half an hour after a convoy's tend, an hour after a repair or trade.
+- **If the call drops** (out of touch, or the adviser called away), the carer carries on alone, at their own skill.
+- **Surgery talked through** has its own setting, **Radio advice during surgery**, on by default.
+
 ## Try it
 
 1. Research local radio. Build the station indoors under a built roof, craft a VHF hand-held and wear it.

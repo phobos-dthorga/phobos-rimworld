@@ -39,4 +39,22 @@
     <reportString>driving vehicles from TargetA.</reportString>
     <casualInterruptible>false</casualInterruptible>
   </JobDef>
+
+  <!-- Advice by radio (Radio 0.23.0): talking another colonist through their work, while they do it; and a booked stretch on the radio after
+       help given on the road or in trade talks, which have no job of their own. -->
+  <JobDef>
+    <defName>PhobosRadio_AdviseByRadio</defName>
+    <driverClass>Phobos.Radio.Work.JobDriver_AdviseByRadio</driverClass>
+    <reportString>talking TargetA through it by radio.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+    <suspendable>false</suspendable>
+  </JobDef>
+
+  <JobDef>
+    <defName>PhobosRadio_AdviseByRadioBooked</defName>
+    <driverClass>Phobos.Radio.Work.JobDriver_AdviseByRadio</driverClass>
+    <reportString>on the radio with TargetA.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+    <suspendable>false</suspendable>
+  </JobDef>
 </Defs>

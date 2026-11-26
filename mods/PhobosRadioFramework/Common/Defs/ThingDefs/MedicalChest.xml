@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The numbered medical chest (Radio 0.23.0; docs/development/radio-advice-and-relays.md, "Kit that would make it better"): after the
+       Royal Flying Doctor Service's chests, whose numbered items let a doctor prescribe by radio, with a body chart to say where it hurts.
+       Carried by the carer or in their convoy, or kept in the room or within 8 cells, it adds a sixth of the skill gap to medical advice.
+       It is never used up and is not medicine. Cost, work, skill and research are agent defaults, authored, for the owner to revise. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosRadio_MedicalChest</defName>
+    <label>numbered medical chest</label>
+    <description>A steel chest of medical supplies, every item numbered, with a body chart of numbered areas inside the lid. A doctor on the radio can say exactly which item to use and where, so advice by radio goes further when one is at hand: carried, in the convoy, or nearby. It is never used up.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/MedicalChest</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>1</stackLimit>
+    <healthAffectsPrice>true</healthAffectsPrice>
+    <useHitPoints>true</useHitPoints>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Mass>6</Mass>
+      <Flammability>0.6</Flammability>
+      <DeteriorationRate>1</DeteriorationRate>
+      <WorkToMake>1600</WorkToMake>
+    </statBases>
+    <costList>
+      <Steel>20</Steel>
+      <Cloth>15</Cloth>
+      <MedicineIndustrial>1</MedicineIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+      <researchPrerequisites>
+        <li>PhobosRadio_LocalRadio</li>
+        <li>MedicineProduction</li>
+      </researchPrerequisites>
+      <skillRequirements>
+        <Crafting>3</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <tradeTags>
+      <li>ExoticMisc</li>
+    </tradeTags>
+  </ThingDef>
+</Defs>

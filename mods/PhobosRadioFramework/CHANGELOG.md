@@ -19,6 +19,33 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.23.0] - 2026-11-26 - Draft
+
+Advice by radio: a skilled colonist talks another through the work
+
+### Added
+
+- **A more skilled colonist in radio touch talks another through tending, surgery, a vehicle repair or the trade talks** (the
+  owner's cards of 26 November 2026). The carer works as if half the skill gap were closed, a quarter on a marginal link, and a
+  little slower, every step spoken. The adviser stops what they are doing and takes the call where they stand on a hand-held, in bed
+  if they are resting there, or at a station's desk. They need the work switched on (Doctor for medicine, Construction for repairs).
+  A message says who talks whom through what; another says when a call drops, and the carer carries on alone. Not yet tested in
+  game: rows 620 and 621.
+- **On the road too**: a convoy's tends and repairs are talked through from home while its radio reaches home, the adviser staying
+  on the radio for a while afterwards. Rows 622 and 623.
+- **Trade talks**: a negotiator on a hand-held, or in a convoy in reach, trades with a better negotiator on the radio, who spends an
+  hour on it once the talks close. Row 624.
+- **A numbered medical chest**, made at the drug lab after local radio and medicine production: carried, in the convoy or nearby,
+  it lets medical advice close a sixth more of the gap. Never used up.
+- **A setting, Radio advice during surgery**, on by default: surgery talked through is a moderate risk, as a dropped call leaves the
+  surgeon at their own skill.
+- **The carer thinks better of the adviser** for a while after.
+
+### Compatibility and limits
+
+- A call takes no channel of its own: the two radios already hold theirs. The figures beyond the owner's shares (the slower work,
+  the chest's sixth, the booked times) are agent defaults. Safe with a running save: nothing new is saved.
+
 ## [0.22.0] - 2026-11-26 - Draft
 
 Relays on the world map

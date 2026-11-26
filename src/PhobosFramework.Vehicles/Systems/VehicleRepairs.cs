@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Defs;
 using Phobos.Framework.Rules;
+using Phobos.Framework.Skills;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using RimWorld.Planet;
@@ -422,11 +423,13 @@ public sealed class VehicleRepairs
     /// <summary>The first repair that could start now, or null.</summary>
     public RepairWork? Ready => Pending.FirstOrDefault(Workable);
 
-    /// <summary>The first repair that could start now and this mechanic has the skill for, or null.</summary>
+    /// <summary>The first repair that could start now and this mechanic has the skill for, or null. Since Framework 0.330.0 the skill counts as
+    /// lifted where someone talks the mechanic through it (<see cref="SkillLifts"/>: the Radio Framework's advice by radio).</summary>
     public RepairWork? ReadyFor(Pawn mechanic)
     {
         // A mechanoid has no skills to read: the game gives it a fixed level instead.
-        int skill = mechanic.skills?.GetSkill(SkillDefOf.Construction)?.Level ?? (mechanic.RaceProps.IsMechanoid ? mechanic.RaceProps.mechFixedSkillLevel : 0);
+        int skill = mechanic.skills != null ? SkillLifts.Level(mechanic, SkillDefOf.Construction, SkillActs.VehicleRepair)
+            : mechanic.RaceProps.IsMechanoid ? mechanic.RaceProps.mechFixedSkillLevel : 0;
         return Pending.FirstOrDefault(r => FittingRule.SkilledEnough(skill, r.MinSkill) && Workable(r));
     }
 

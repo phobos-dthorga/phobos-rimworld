@@ -209,6 +209,21 @@ public class RadioRulesDef : Def
     /// <summary>How often links are recomputed. A pawn walks about four cells in 60 ticks.</summary>
     public int recomputeIntervalTicks = 60;
 
+    // Advice by radio (Radio 0.23.0; docs/development/radio-advice-and-relays.md). The shares are the owner's card of 26 Nov 2026 ("Half");
+    // the rest are agent defaults, authored, for the owner to revise.
+    /// <summary>The share of the skill gap a call closes on a workable or clean link: half (the owner's card).</summary>
+    public float adviceShareSolid = 0.5f;
+    /// <summary>The share on a marginal link: a quarter (the owner's card).</summary>
+    public float adviceShareMarginal = 0.25f;
+    /// <summary>Work speed while talked through, every step spoken: about 30% longer (agent default).</summary>
+    public float adviceWorkSpeedFactor = 0.77f;
+    /// <summary>How often colonists' work is looked at for a call to open or end, in ticks (agent default; a tend takes several hundred).</summary>
+    public int adviceLookTicks = 60;
+    /// <summary>How long a colonist no adviser was found for waits before the next search, in ticks (agent default).</summary>
+    public int adviceRetryTicks = 250;
+    /// <summary>How long an offer of help found for an act with no job is kept before it is looked for again, in ticks (agent default).</summary>
+    public int adviceOfferKeepTicks = 250;
+
     /// <summary>
     /// Heat pushed into the room per watt of waste per second. The vanilla heater turns 175 W into
     /// 21 heat per second, so 0.12 (read from Core's Buildings_Temperature.xml, 19 Oct 2026).

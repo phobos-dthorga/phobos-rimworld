@@ -82,7 +82,7 @@ public sealed class ConvoyReachSource : IConvoyReachSource
                     (metres / 1000.0).ToString("0").Named("KM"), found.chain.WorstMarginDb.ToString("0").Named("MARGIN")).Resolve();
             if (found.chain.Relays > 0 && Seen.Wants("radio.relay-chain", start.End.Thing))
                 Seen.Note("radio.relay-chain", start.End.Thing, found.chain.Relays + " relays, " + found.chain.WorstMarginDb.ToString("0") + " dB");
-            return new ConvoyReach(true, metres / 1000.0, horizon / 1000.0, found.chain.WorstMarginDb, line);
+            return new ConvoyReach(true, metres / 1000.0, horizon / 1000.0, found.chain.WorstMarginDb, line, home.Tile);
         }
         // Out of reach: said against the nearest home, directly.
         RelayNode nearest = homes.OrderBy(h => Find.WorldGrid.ApproxDistanceInTiles(convoy.Tile, h.Tile)).First();

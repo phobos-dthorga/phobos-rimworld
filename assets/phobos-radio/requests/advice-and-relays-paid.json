@@ -1,0 +1,81 @@
+[
+  {
+    "name": "item-medical-chest",
+    "title": "Numbered medical chest (MedicalChest)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Handheld.png",
+        "role": "our approved radio item from the same mod (the hand-held radio): match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/FluidsKit.png",
+        "role": "our approved medical kit item from the same game: match its outline weight, shading and finish only; do not copy its shape or contents"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosRadio_MedicalChest, the numbered medical chest (Radio 0.23.0; docs/development/radio-advice-and-relays.md)",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/MedicalChest.png",
+      "size": "drawn by the game on one cell; requested at 1024",
+      "why": "an item in the game world, so the paid service (assets/AGENTS.md; the owner, 26 Nov 2026: the local model was not up to the stereo kit)"
+    },
+    "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for a medical chest kept at a remote outpost, so a doctor on the radio can say exactly which item to use. Images 1 and 2 are our approved items from the same game: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA sturdy rectangular olive-green steel chest with rounded corners and two folding carry handles, its hinged lid propped open. Inside, a neat grid of small compartments holding white boxes, small brown bottles, rolled bandages and a pair of scissors, each compartment marked only by a small round coloured dot. On the inside of the open lid, a pale paper chart showing the simple outline of a human body divided into a few coloured areas.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive, steel and paper colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, crosses, crescents, logos, labels, people, animals or ground. No shadow outside the object."
+  },
+  {
+    "name": "icon-repeater-kit",
+    "title": "Repeater kit fitting icon (RepeaterKit)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Handheld.png",
+        "role": "our approved radio item from the same mod: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/LinearAmplifier.png",
+        "role": "our approved radio equipment from the same mod (a linear amplifier): match its dark steel colours and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "fitting": "PhobosFitting_RepeaterKit, the repeater kit (Radio 0.22.0, built by the road-work session; the owner's card of 26 Nov 2026: a relay between tiles needs a repeater, a duplexer)",
+      "ships_as": "mods/PhobosRadioFramework/Mods/VehicleFramework/Common/Textures/Phobos/Radio/Fittings/RepeaterKit.png",
+      "size": "exported at 128, the fittings window's icon",
+      "why": "it borrows the mast antenna's picture; the owner asked for paid art for kits (26 Nov 2026)"
+    },
+    "prompt": "GAME BUTTON ICON. One small group of objects seen from above at a slight angle, centred, as an icon on a button in a top-down strategy game.\n\nImages 1 and 2 are our approved radio equipment from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon for a vehicle's radio repeater kit: a compact dark grey radio box with a row of small green and amber indicator lights and two round antenna sockets on top, and beside it a squat brick-shaped metal duplexer filter of six small polished silver cylinders in two rows, joined to the box by two short black coaxial cables with screw-on connectors. A short black whip antenna lies across the front.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, muted dark steel and black with small green and amber lights, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No vehicles, people, hands, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "relay-mast",
+    "title": "Relay mast on the world map and its button (RelayMast)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1536,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Mast.png",
+        "role": "our approved mast antenna from the same mod: match its outline weight, shading, palette, finish and steep view from above only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/WhipFullSize.png",
+        "role": "our approved whip antenna from the same mod: match its galvanised steel colours only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "world_object": "PhobosRadio_RelayMast, a relay mast a stopped convoy puts up and leaves on a tile (Radio 0.22.0, built by the road-work session)",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/World/RelayMast.png",
+      "size": "the world map's expanding icon and the 'Put up a relay mast' button, exported at 128; requested portrait at the cheapest size",
+      "camera": "a steep view from above and a little in front, as the mast antenna is drawn",
+      "why": "both borrow the mast antenna's picture; the owner asked for paid art (26 Nov 2026)"
+    },
+    "prompt": "STEEP HIGH-ANGLE VIEW FROM ABOVE AND SLIGHTLY IN FRONT, exactly as the game RimWorld draws its standing lamps: we look mostly DOWN onto the object's top; its height is strongly foreshortened; its foot at the BOTTOM of the canvas and its top towards the TOP. No side-on view, no isometric angle, no tilt.\n\nCreate an ORIGINAL game sprite for a small portable radio relay mast left standing in the wilderness. Images 1 and 2 are our approved antennas from the same game: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nPortrait canvas. The mast fills about 80 percent of the canvas height, centred, on a plain pure white background.\n\nA slim galvanised steel lattice mast on a small square steel base plate, held by three thin guy wires pegged into the ground around it. At its top, a short vertical antenna rod with a small ball tip. Halfway up, a small tilted dark blue solar panel on a bracket. At its foot, a rugged weatherproof grey radio box with a short black cable running up the mast.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted galvanised steel and grey with the dark blue panel, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals, vehicles or ground texture. No shadow outside the object."
+  }
+]

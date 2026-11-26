@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -21,6 +22,11 @@ public class RadioSettings : ModSettings
     public bool terminalNoise = true;
     /// <summary>Whether the radio desk shows a Waterfall tab too (Radio 0.6.0; off, the owner's choice of 24 Nov 2026).</summary>
     public bool deskWaterfall;
+    /// <summary>
+    /// Kinds of advice by radio switched off, by Def name (Radio 0.23.0): only a kind with its own switch, a riskier one (surgery), is listed in
+    /// the window, and each starts on (docs/development/radio-advice-and-relays.md, "Risk and settings").
+    /// </summary>
+    public List<string> adviceOff = new();
 
     public override void ExposeData()
     {
@@ -30,6 +36,8 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref inTouchThought, "inTouchThought", true);
         Scribe_Values.Look(ref terminalNoise, "terminalNoise", true);
         Scribe_Values.Look(ref deskWaterfall, "deskWaterfall", false);
+        Scribe_Collections.Look(ref adviceOff, "adviceOff", LookMode.Value);
+        adviceOff ??= new List<string>();
     }
 }
 
@@ -70,6 +78,16 @@ public class RadioMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingDeskWaterfall".Translate(), ref Settings.deskWaterfall,
             "PhobosRadio_SettingDeskWaterfallDesc".Translate());
+        // Radio 0.23.0: a riskier kind of advice by radio has its own switch, on until turned off.
+        foreach (RadioAdviceDef advice in DefDatabase<RadioAdviceDef>.AllDefsListForReading)
+        {
+            if (!advice.ownSetting) continue;
+            bool on = !Settings.adviceOff.Contains(advice.defName);
+            listing.Gap();
+            listing.CheckboxLabeled(advice.settingLabel, ref on, advice.settingDescription);
+            if (on) Settings.adviceOff.Remove(advice.defName);
+            else if (!Settings.adviceOff.Contains(advice.defName)) Settings.adviceOff.Add(advice.defName);
+        }
         listing.End();
     }
 }

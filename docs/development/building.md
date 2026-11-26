@@ -123,7 +123,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory` | 14 | 0 | 0 | 0 |
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
-| `PhobosFramework` | 4 | 0 | 1 | 0 |
+| `PhobosFramework` | 5 | 0 | 1 | 0 |
 | `PhobosFramework.Vehicles` | 122 | 16 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 2 | 0 | 0 | 0 |
@@ -143,7 +143,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-197 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+198 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -191,7 +191,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework</code>: 4 patched methods</summary>
+<details><summary><code>PhobosFramework</code>: 5 patched methods</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework/`) |
 | --- | --- | --- |
@@ -199,6 +199,7 @@ Every HarmonyPatch attribute was read.
 | `DesignationCategoryDef.ResolvedAllowedDesignators (getter)` | postfix | `UI/ArchitectSubTabs.cs` |
 | `MainTabWindow_Architect.CacheDesPanels` | postfix | `UI/ArchitectSubTabs.cs` |
 | `Pawn_JobTracker.StartJob` | postfix | `Work/LoopWatch.cs` |
+| `TendUtility.DoTend` | prefix, finalizer | `Skills/TendActScope.cs` |
 
 </details>
 

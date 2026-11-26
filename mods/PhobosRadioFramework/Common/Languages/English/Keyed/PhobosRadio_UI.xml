@@ -134,4 +134,11 @@
   <PhobosRadio_RelayRefuseShort>It needs {STEEL} steel and {COMPONENTS} components; the convoy carries {HAVESTEEL} and {HAVECOMPONENTS}.</PhobosRadio_RelayRefuseShort>
   <PhobosRadioReach_NoStation>Out of radio reach of home: no powered radio station at home.</PhobosRadioReach_NoStation>
 
+  <!-- Advice by radio (Radio 0.23.0) -->
+  <PhobosRadioAdvice_Reason>Talked through by radio by {ADVISER} ({SKILL} {LEVEL})</PhobosRadioAdvice_Reason>
+  <PhobosRadioAdvice_ReasonAid>Talked through by radio by {ADVISER} ({SKILL} {LEVEL}), with a {AID} at hand</PhobosRadioAdvice_ReasonAid>
+  <PhobosRadioAdvice_CallOpened>{ADVISER} is talking {CARER} through {ACT} by radio: {CARER} works as {SKILL} {LEVEL} instead of {OWN}, a little slower.</PhobosRadioAdvice_CallOpened>
+  <PhobosRadioAdvice_CallDropped>{ADVISER}'s radio call with {CARER} dropped. {CARER} carries on alone, at {SKILL} {OWN}.</PhobosRadioAdvice_CallDropped>
+  <PhobosRadioAdvice_Helped>{ADVISER} talked {CARER} through {ACT} by radio: {CARER} worked as {SKILL} {LEVEL} instead of {OWN}.</PhobosRadioAdvice_Helped>
+
 </LanguageData>

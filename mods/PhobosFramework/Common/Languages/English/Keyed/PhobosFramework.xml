@@ -159,4 +159,7 @@
   <!-- The season ahead at a place (Framework 0.188.0) -->
   <PhobosSeason_SnowComes>Snow reaches the ground {PLACE} in about {DAYS} days.</PhobosSeason_SnowComes>
   <PhobosSeason_SnowLifts>The snow {PLACE} lifts in about {DAYS} days.</PhobosSeason_SnowLifts>
+  <!-- Skill lifts (Framework 0.330.0): someone helping from elsewhere, in a stat's explanation -->
+  <PhobosSkillLift_ExplainLift>{REASON}: works as {SKILL} {LEVEL} instead of {OWN}</PhobosSkillLift_ExplainLift>
+  <PhobosSkillLift_ExplainSlow>{REASON}: every step is spoken: x{FACTOR}</PhobosSkillLift_ExplainSlow>
 </LanguageData>

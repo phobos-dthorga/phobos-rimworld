@@ -1,5 +1,7 @@
 using Phobos.Framework.Debug;
 using Phobos.Framework.Interface;
+using Phobos.Framework.Rules;
+using Phobos.Framework.Skills;
 using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
@@ -88,9 +90,14 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
         else if (mechanic == null) command.Disable("PhobosVehicleSystems_CaravanRepairNoMechanic".Translate().Resolve());
         else if (comp.Repairs.ReadyFor(mechanic) == null) command.Disable(ready == null ? comp.Repairs.NeedsLine(shown)
             : "PhobosVehicleSystems_FitNeedsSkill".Translate(ready.MinSkill.Named("SKILL")).CapitalizeFirst().Resolve());
+        // Framework 0.330.0: a mechanic below the repair's skill may be talked through it from elsewhere (the Radio Framework's advice).
+        SkillLift? lift = mechanic != null && ready != null && !FittingRule.SkilledEnough(SkillLifts.OwnLevel(mechanic, SkillDefOf.Construction), ready.MinSkill)
+            ? SkillLifts.Best(mechanic, SkillDefOf.Construction, SkillActs.VehicleRepair) : null;
+        if (lift != null && !command.Disabled) command.defaultDesc += "\n\n" + lift.Reason;
         command.action = () =>
         {
-            if (mechanic != null) comp.Repairs.CompleteReady(mechanic);
+            if (mechanic != null && comp.Repairs.CompleteReady(mechanic) && lift != null)
+                SkillLifts.Used(mechanic, SkillDefOf.Construction, SkillActs.VehicleRepair, lift);
         };
         return command;
     }

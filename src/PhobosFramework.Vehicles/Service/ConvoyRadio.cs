@@ -6,8 +6,9 @@ using Verse;
 
 namespace Phobos.VehicleSystems;
 
-/// <summary>Whether a convoy can talk to home now, and why: what the radio's own link budget found (EM33).</summary>
-public readonly record struct ConvoyReach(bool InTouch, double DistanceKm, double HorizonKm, double MarginDb, string Line);
+/// <summary>Whether a convoy can talk to home now, and why: what the radio's own link budget found (EM33). <paramref name="HomeTile"/> is the
+/// home it reaches (Framework 0.330.0, for advice by radio), or -1.</summary>
+public readonly record struct ConvoyReach(bool InTouch, double DistanceKm, double HorizonKm, double MarginDb, string Line, int HomeTile = -1);
 
 /// <summary>Something that can answer whether a convoy is in radio reach of home: the Radio Framework's tie-in, when it is installed.</summary>
 public interface IConvoyReachSource

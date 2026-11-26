@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Advice by radio (Radio 0.23.0; docs/development/radio-advice-and-relays.md, the owner's cards of 26 Nov 2026: tending, surgery, vehicle
+       field repairs and trade talks; half the skill gap, a quarter on a marginal link; any radio in reach). A more skilled colonist in radio
+       touch talks another through the work. The shares are in the rules Def; what each kind lifts, slows and books is here. Booked times,
+       the chest's share and the work an adviser needs switched on are agent defaults, authored, for the owner to revise. -->
+
+  <Phobos.Radio.RadioAdviceDef>
+    <defName>PhobosRadio_AdviceTending</defName>
+    <label>tending by radio</label>
+    <actLabel>tending</actLabel>
+    <skill>Medicine</skill>
+    <act>Tend</act>
+    <workType>Doctor</workType>
+    <liftedStats>
+      <li>MedicalTendQuality</li>
+    </liftedStats>
+    <slowedStats>
+      <li>MedicalTendSpeed</li>
+    </slowedStats>
+    <jobs>
+      <li>TendPatient</li>
+    </jobs>
+    <!-- A convoy tends on its own schedule, once every 1250 ticks (the game's caravan tending): the adviser stays on the radio that long. -->
+    <bookedTicks>1250</bookedTicks>
+    <aid>PhobosRadio_MedicalChest</aid>
+    <aidShare>0.1667</aidShare>
+  </Phobos.Radio.RadioAdviceDef>
+
+  <Phobos.Radio.RadioAdviceDef>
+    <defName>PhobosRadio_AdviceSurgery</defName>
+    <label>surgery by radio</label>
+    <actLabel>an operation</actLabel>
+    <skill>Medicine</skill>
+    <act>Surgery</act>
+    <workType>Doctor</workType>
+    <liftedStats>
+      <li>MedicalSurgerySuccessChance</li>
+    </liftedStats>
+    <slowedStats>
+      <li>MedicalOperationSpeed</li>
+    </slowedStats>
+    <jobs>
+      <li>DoBill</li>
+    </jobs>
+    <medicalBillsOnly>true</medicalBillsOnly>
+    <aid>PhobosRadio_MedicalChest</aid>
+    <aidShare>0.1667</aidShare>
+    <!-- A moderate risk (the agent's grade, for the owner to confirm): a call that drops part-way leaves the surgeon at their own skill. -->
+    <ownSetting>true</ownSetting>
+    <settingLabel>Radio advice during surgery</settingLabel>
+    <settingDescription>A more skilled colonist in radio touch can talk a surgeon through an operation, raising its chance of success. If the call drops part-way, the surgeon finishes at their own skill. On by default.</settingDescription>
+  </Phobos.Radio.RadioAdviceDef>
+
+  <Phobos.Radio.RadioAdviceDef>
+    <defName>PhobosRadio_AdviceTrade</defName>
+    <label>trade talks by radio</label>
+    <actLabel>the trade talks</actLabel>
+    <skill>Social</skill>
+    <act>Trade</act>
+    <liftedStats>
+      <li>TradePriceImprovement</li>
+    </liftedStats>
+    <trade>true</trade>
+    <!-- Trading stops the game, so the call's hour on the radio is taken when the talks close. -->
+    <bookedTicks>2500</bookedTicks>
+  </Phobos.Radio.RadioAdviceDef>
+</Defs>

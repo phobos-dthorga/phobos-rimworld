@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.22.0, built 26 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.23.0, built 26 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -58,6 +58,9 @@ figures are here.
   needle while sending; the mast flashes a red light at night; the coax glows with its signal while its station is selected; the
   radio terminal has a **Waterfall** tab (the desk too, with the setting *Show the waterfall on the radio desk*, off by default).
 - **An "In touch with home" mood** for a colonist whose radio reaches a base station.
+- **Advice by radio (0.23.0)**: a more skilled colonist in touch talks another through tending, an operation, a vehicle repair or
+  trade talks, at home or from a convoy in reach: half the skill gap closed, a quarter on a marginal link, a little slower
+  ([the guide](../../docs/player-guide/radio.md#advice-by-radio)). A **numbered medical chest** closes a sixth more for medicine.
 - **Upgrades** for the desk and the antennas, fitted by builders.
 
 | Thing | Where | What it is |
@@ -70,6 +73,7 @@ figures are here.
 | Mast antenna | Architect → D'thorga → Radio, 60 steel + 1 component | 1 × 1, 10 m high, 3 dBi. Sees over walls |
 | Radio terminal (0.5.0) | Architect → D'thorga → Radio, 120 steel + 6 components + 1 advanced component | 3 × 2, 150 W, 10 W out, a 2 dB receiver, a weak stub antenna (about −5 dBi at 1 m); its computer makes noise out to 8 cells |
 | Linear amplifier (0.5.0) | Architect → D'thorga → Radio, 40 steel + 2 components | 1 × 1, in the coax: ten times what the station sends, up to 100 W; 20 W on standby, more while sending; 0.5 dB lost on receive |
+| Numbered medical chest (0.23.0) | Drug lab, 20 steel + 15 cloth + 1 medicine | An item: carried, in a convoy or kept nearby, it lets advice by radio close a sixth more of the skill gap for medicine. Never used up |
 | Heavy linear amplifier (0.5.0) | Architect → D'thorga → Radio, 80 steel + 4 components + 1 advanced component | The same, up to 400 W; 40 W on standby, four times the draw and heat while sending |
 
 **What decides a link**, with its figures:
@@ -104,6 +108,7 @@ In **Options > Mod settings > D'thorga Radio Framework**.
 | Metres per map cell | What one map cell measures. **Decide before you start a colony**: changing it later changes every distance and coax loss, so links that worked may stop. 1 m matches the furniture, about 26 m matches walking speed | 1 (0.5 to 30) |
 | "In touch with home" mood | A small mood bonus for a free colonist wearing a hand-held with a working link to a base station. Off keeps the radios a pure readout | On |
 | Display mode | How much of the working to show: **Plain** (bars and a reason), **Operator** (adds the band and the margin) or **Engineer** (every term). The outcome is the same in each | Plain |
+| Radio advice during surgery | A more skilled colonist in radio touch can talk a surgeon through an operation, raising its chance of success; a dropped call leaves the surgeon at their own skill | On |
 
 ## More
 

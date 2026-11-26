@@ -47,6 +47,14 @@
     <remoteCoverWantedTicks>1000</remoteCoverWantedTicks>
     <remoteCoverLookTicks>250</remoteCoverLookTicks>
     <recomputeIntervalTicks>60</recomputeIntervalTicks>
+    <!-- Advice by radio (Radio 0.23.0). The shares of the skill gap closed are the owner's card of 26 Nov 2026 ("Half": a half on a workable
+         or clean link, a quarter on a marginal one); the work speed while talked through and the intervals are agent defaults, authored. -->
+    <adviceShareSolid>0.5</adviceShareSolid>
+    <adviceShareMarginal>0.25</adviceShareMarginal>
+    <adviceWorkSpeedFactor>0.77</adviceWorkSpeedFactor>
+    <adviceLookTicks>60</adviceLookTicks>
+    <adviceRetryTicks>250</adviceRetryTicks>
+    <adviceOfferKeepTicks>250</adviceOfferKeepTicks>
 
     <!-- The vanilla heater turns 175 W into 21 heat per second (Core, Buildings_Temperature.xml). -->
     <heatPerWattSecond>0.12</heatPerWattSecond>

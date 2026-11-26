@@ -47,6 +47,8 @@ public static class VehicleRadios
         ConvoyRadio.Register(new ConvoyReachSource());
         // Radio 0.22.0: halted convoys and vehicles parked at depots relay calls on.
         RelayNodes.Register(new VehicleRelaySource());
+        // Radio 0.23.0: a convoy's reach home carries advice by radio to the people in it.
+        RemoteReach.Register(new ConvoyRemoteReach());
         // Radio 0.18.0: the base turret follows D'thorga Framework's "Remote guns fire on their own", which lives in its Vehicle Framework part.
         RemoteTurrets.FireAloneSwitch = () => RemoteGuns.FireAlone;
         // Radio 0.14.0: the cover map for vehicles driven from afar works a little each tick, through the net's own tick.

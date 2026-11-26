@@ -18,4 +18,19 @@
       </li>
     </stages>
   </ThoughtDef>
+
+  <!-- Radio 0.23.0: talked through work by radio. A better opinion of the adviser; figures authored, an agent default. -->
+  <ThoughtDef>
+    <defName>PhobosRadio_TalkedThrough</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>10</durationDays>
+    <stackLimit>5</stackLimit>
+    <stackLimitForSameOtherPawn>1</stackLimitForSameOtherPawn>
+    <stages>
+      <li>
+        <label>talked me through it by radio</label>
+        <baseOpinionOffset>6</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
 </Defs>

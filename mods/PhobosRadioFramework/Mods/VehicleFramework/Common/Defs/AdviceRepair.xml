@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Advice by radio for D'thorga Framework's vehicle repairs (Radio 0.23.0; the owner's card of 26 Nov 2026, "Vehicle field repairs"). A
+       repair may need a minimum Construction skill: a mechanic below it can do it while a better one talks them through, at home on a map or
+       on the road. It lifts no quality (a repair never fails); it slows the work while the call is live. -->
+  <Phobos.Radio.RadioAdviceDef>
+    <defName>PhobosRadio_AdviceVehicleRepair</defName>
+    <label>vehicle repairs by radio</label>
+    <actLabel>a vehicle repair</actLabel>
+    <skill>Construction</skill>
+    <act>PhobosVehicleRepair</act>
+    <workType>Construction</workType>
+    <slowedStats>
+      <li>ConstructionSpeed</li>
+    </slowedStats>
+    <jobs>
+      <li>PhobosVehicleSystems_RepairWithSupplies</li>
+    </jobs>
+    <gate>true</gate>
+    <bookedTicks>2500</bookedTicks>
+  </Phobos.Radio.RadioAdviceDef>
+</Defs>

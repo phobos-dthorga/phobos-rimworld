@@ -16,6 +16,22 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.330.0] - 2026-11-26 - Draft
+
+Skill lifts: someone helping from elsewhere counts in the work
+
+### Added
+
+- **A person can count as more skilled for one act when someone helps them from elsewhere** (Phobos.Framework.Skills.SkillLifts; the
+  Radio Framework's advice by radio is the first to use it). The help shows as a line in the stat's explanation, for tending, surgery,
+  trade prices and work speeds alike. A tend on the road, with no job, is wrapped so help read for its quality is counted once it is
+  done. Without the Radio Framework nothing changes. Not yet tested in game: rows 620 to 624.
+- **A vehicle repair's minimum skill counts that help**, at home and from a convoy's repair button, whose tooltip names who helps.
+
+### Compatibility and limits
+
+- A new Harmony patch on the game's tending, a prefix that never skips it, beside Search and Rescue's and Colony Hospital's own.
+
 ## [0.329.0] - 2026-11-26 - Draft
 
 Stretchers by upgrade, side guns and fire-fighting tanks, for the C-27J's hold fits

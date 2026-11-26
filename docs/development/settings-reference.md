@@ -316,5 +316,5 @@ Generated from the mod's source code and language files by `python scripts/doc-t
 
 4 settings, in the order the settings window draws them. **Default** is what the game uses until the setting is changed. A setting the window shows only in some games (another mod active, another setting on) is listed all the same.
 
-Saved, but not found drawn in the window by the reader (kept by the window itself, or drawn by code it cannot follow): `displayMode`.
+Saved, but not found drawn in the window by the reader (kept by the window itself, or drawn by code it cannot follow): `displayMode`, `adviceOff`.
 <!-- end generated -->
