@@ -1,0 +1,51 @@
+{
+  "file": "item-house-battery-lithium-2.png",
+  "sha256": "dab8ea2481187898fc44aafddda7a668f9b9270c35af78fbbf73e686e3e34f4a",
+  "date": "2026-11-27T03:18:39",
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga lithium house battery: a modern lithium battery for a camping vehicle, with its isolator. Image 1 is our approved lead-acid house battery from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape, its carry strap or its dark grey colour.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 70 percent of the canvas. Square canvas.\n\nA slimmer, smaller battery box than a lead-acid one, with crisp squared edges, its case a pale blue-grey with a darker blue band around its middle, two neat recessed terminals on its top (one capped red, one capped black), a small raised panel on the top for its management board with a row of tiny cooling slots, and a small pale isolator box with two short cables clipped to its side.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, plus or minus signs, logos, brand marks, dials, screens, lights, sparks or shadow beyond the object.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/house-battery-lithium.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 379,
+    "input_tokens_details": {
+      "image_tokens": 64,
+      "text_tokens": 315
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2135
+  },
+  "cost_usd": 0.0548,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 32.0,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/HouseBattery.png",
+      "sha256": "6abecd0073053f5aee0dc816c9aa099b19da5ac7399f51b8681884e2c9bbeaf0",
+      "role": "our approved lead-acid house battery, the same family: match its outline weight, shading, palette and finish only; do not copy its shape, its strap or its colour"
+    }
+  ]
+}
