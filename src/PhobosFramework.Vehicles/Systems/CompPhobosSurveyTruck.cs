@@ -170,7 +170,25 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
     public override IEnumerable<Gizmo> CompCaravanGizmos()
     {
         foreach (Gizmo gizmo in base.CompCaravanGizmos()) yield return gizmo;
-        if (Vehicle.Faction != Faction.OfPlayer || !LongRangeFitted) yield break;
+        if (Vehicle.Faction != Faction.OfPlayer) yield break;
+        // Framework 0.322.0 (EM31): stop and read the ground under the convoy. Borrows the survey array's picture until its own is drawn.
+        if (Vehicle.GetVehicleCaravan() is { } convoy)
+        {
+            bool reading = WorldComponent_PhobosRoadWork.Current?.JobOn(Vehicle) is RoadSurveyHalt;
+            var halt = new Command_Action
+            {
+                defaultLabel = (reading ? "PhobosRoadWork_SurveyHaltStopGizmo" : "PhobosRoadWork_SurveyHaltGizmo").Translate().Resolve(),
+                defaultDesc = reading ? "PhobosRoadWork_SurveyHaltStopGizmoDesc".Translate().Resolve()
+                    : "PhobosRoadWork_SurveyHaltGizmoDesc".Translate(RoadHaltRule.SurveyHaltHours.ToString("0").Named("HOURS")).Resolve(),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Stations/SurveyArray"),
+                action = reading
+                    ? () => RoadWork.Stop(WorldComponent_PhobosRoadWork.Current!.JobOn(Vehicle)!, "PhobosRoadWork_SurveyHaltStopped".Translate().Resolve())
+                    : () => RoadWork.StartSurveyHalt(convoy, Vehicle),
+            };
+            if (!reading && RoadWork.SurveyHaltRefusal(convoy, Vehicle, starting: true) is { } refused) halt.Disable(refused);
+            yield return halt;
+        }
+        if (!LongRangeFitted) yield break;
         yield return new Command_Toggle
         {
             defaultLabel = "PhobosRoadWork_SurveyGizmo".Translate().Resolve(),

@@ -1,9 +1,11 @@
-# Work on the road: the running survey, the water bore and the reverse-osmosis kit (26 Nov 2026)
+# Work on the road: surveys, bores, test holes, depots, ambushes and trailer faults (26 Nov 2026)
 
 **Status (26 Nov 2026):** the running survey (EM30) and the water bore (EM34) are built in D'thorga Framework 0.317.0
 ([as built](#as-built-framework-03170)), not yet tested in game (rows 565 to 567 of [the test pass](in-game-test-pass.md)); the
 reverse-osmosis kit is built in Framework 0.318.0 and Vehicles 0.124.0 ([as built](#the-reverse-osmosis-kit-as-built-framework-03180-vehicles-01240)), not yet tested in
-game (rows 570 to 572).
+game (rows 570 to 572); the survey halt (EM31), the test hole (EM35), tipping into a depot (EM37), ambush choices (EM44) and wrecked
+trailers (EM42) are built in Framework 0.322.0 ([the third round](#the-third-round-the-survey-halt-the-test-hole-tipping-ambushes-and-trailer-faults-framework-03220)),
+not yet tested in game (rows 582 to 586).
 
 Rows EM30 and EM34 of [emergent play](vehicle-emergent-play.md#h-work-on-the-road-26-nov-2026), the second round of group H after
 [contracts](vehicle-contracts.md). The owner, 26 Nov 2026: "Build the running survey and water bore next", then, on the cards' options
@@ -180,10 +182,123 @@ What differs from the design above, or was settled while building:
   left alone [A].
 - **Not at another faction's settlement** [A]: that is the settlement's ground.
 - **The bore button** borrows the water drop's picture until its own is drawn. **Owed**: both buttons' own icons, for the local night run.
+  **Queued for night 16** (the owner, 26 Nov 2026: "Add the local GPU icons to the queue for later tonight when I'm asleep, so it doesn't
+  get lost"), with the three new buttons below: `assets/vehicle-systems/requests/night-16-road-icons.json`.
 - **Logbook**: "Found ... on the road" on the Datum, "Drilled a water bore ... of water" on the Kelly.
+
+## The third round: the survey halt, the test hole, tipping, ambushes and trailer faults (Framework 0.322.0)
+
+The owner, 26 Nov 2026: "build EM31, EM37, EM35, EM44, and EM42 next, please". No cards were asked for this round: the owner's earlier
+answers (EM35's insects, EM44's roll, EM42's "warn, then allow") are kept, and **everything else here is the agent's, for the owner to
+revise** (the open choices are in `config/decisions.json`). Not yet tested in game (rows 582 to 586 of [the test pass](in-game-test-pass.md)).
+
+### The third round: read this first
+
+- **The settings**, in D'thorga Framework's vehicle settings, Camps section: **Choose how to meet an ambush** (on), **Trailers on wrecked
+  gear crawl** (on), **Insects in test holes** (off, the owner's card: high risk).
+- **The survey halt and the test hole go together**: the Datum reads a tile first; only then can the Kelly prove it. **A tile is read
+  once and proved once**: the ground does not change.
+- **The ambush choice comes only to a convoy on the move.** A convoy camped for the night, or stopped, is caught standing and fights,
+  as the game has it.
+- **Simplification:** a tile's reading is not the ore a map opened there would scatter: the game makes a map's deep ore only when the map
+  is made. Making the two agree is EM32's work, still to come.
+
+### The shared piece: halt jobs
+
+The bore's code became the shape every halt job shares (`RoadHaltJob`): a convoy's vehicle, a refusal that says why it cannot start or go
+on, a step of work a tenth of a game hour, and one ending (the convoy drives on, the player stops it, or it finishes). **One job per
+vehicle at a time**; the Datum and the Kelly may work at the same halt. The bore keeps its saved keys and its own list, so a save made
+with Framework 0.317.0 to 0.321.0 loads with its bores in place.
+
+### The survey halt (EM31)
+
+| Question | Answer |
+| --- | --- |
+| **What it lets the player do** | Decide whether a tile is worth the Kelly, and whether a bore will come up dry, before spending a day on it |
+| **What it stops them doing** | Reading a tile twice for more: the reading is fixed for the tile |
+| **How it changes the way they play** | A survey becomes a stop the convoy plans for, and the Datum and the Kelly travel together |
+| **What outside the thing notices** | The test hole (needs it); the caravan's inspect pane (the reading stays shown on that tile); the logbook |
+
+- **The button**: **Survey halt** on any Datum in a convoy (no kit needed: it is the deployed truck's own deep console). Greyed with its
+  reason when the convoy moves, is at someone's settlement, has nobody able in Intellectual work, the truck is out of fuel, or the tile is
+  read already (the reading is shown).
+- **The work**: 6 hours [A] at the console at the plain pace, by day only, at the hand's research speed times the truck's scan rate, as
+  the deployed truck counts its work; the hand learns Intellectual at the truck's own rate. The console idles the engine at its set-up
+  rate (8 fuel a day, the Def's).
+- **The reading** [A]: the tile's deep ore, picked by the game's own deep commonality and sized within the game's own lump range and
+  units a cell, from a value fixed for the tile (the same tile always reads the same); no bedrock, no ore. With Dubs Bad Hygiene, what a
+  water bore would give, or that it would come up dry.
+
+### The test hole (EM35)
+
+| Question | Answer |
+| --- | --- |
+| **What it lets the player do** | Bring home a sample of a find without a drilling camp |
+| **What it stops them doing** | A free yield: a day's drilling, fuel, bit wear, and with the setting on the game's insects |
+| **How it changes the way they play** | A find is worth a detour; the Kelly earns its place in a convoy |
+| **What outside the thing notices** | The convoy's cargo (the tipper's hold first); the game's insects; the logbook |
+
+- **The button**: **Drill a test hole** on the Kelly, beside the water bore's. It needs this tile read with an ore; refused, with why,
+  for no reading, no ore, a tile already proved, an ore the rig only pipes (chemfuel), a wrecked bit, no Mining hand, or no fuel.
+- **The work**: 12 hours of drilling [A] at the plain pace, by day, at the Mining hand's pace, with the bore's fuel (0.6 an hour) and bit
+  wear (0.25 health an hour) [A].
+- **The yield**: 4 portions of the read ore (the game's own portion size) with the insects' setting on, **3 with it off** (the owner's
+  card: "a little less"), never more than the tile holds [A]. Into the tipper's hold if the convoy has one, otherwise the convoy's cargo.
+- **The insects** (setting off by default): the game's deep drill rule, rolled as the rig rolls it on a map: the storyteller's own mean
+  time between infestations a drill, its difficulty factor, and the rig's own threat points (30 to 60 % of the threat points, 200 to
+  1,000). A convoy has no map, so the insects open an encounter map round it, as an ambush does; the hole's yield is lost.
+
+### Tip the load into a depot (EM37)
+
+- **The button**: **Tip the load here** on the Talus in a convoy: everything in its hold goes into the depot on the tile, made if there
+  is none. Refused, with why, for an empty hold or anything the depot itself refuses (a moving convoy, another place on the tile, ground
+  that takes no depot).
+- **Why it is worth a button**: the depot window could already leave items one by one; this is one press, and a lighter truck climbs
+  faster, as the drivetrain moves the real mass. The depot window takes it back out.
+
+### Ambushes: fight, drive through or turn back (EM44)
+
+| Question | Answer |
+| --- | --- |
+| **What it lets the player do** | Run a gauntlet with armour and speed, or fall back from a fight they cannot win |
+| **What it stops them doing** | A certain escape: a way out is a roll, and a failed one is the ambush |
+| **How it changes the way they play** | Armour kits and speed matter before a fight, not only in it |
+| **What outside the thing notices** | The ambushers (no fight, or theirs); the convoy (held after turning back); the logbook |
+
+- **When**: the game's ambush (any faction's, or a manhunting pack) on a convoy of the player's vehicles **that is moving** [A: a moving
+  convoy sees it coming; one at a halt is caught standing]. The game stops for a window with three choices; like the game's own
+  choice windows, it closes only by a choice.
+- **Fight**: the game's own ambush, unchanged.
+- **The named roll, "drive through or turn back"** (the owner's card: one named roll, shaped by state): its odds are shown on each
+  choice. **Drive through**: 35 % [A], plus up to 30 % for armour and up to 25 % for speed. **Turn back**: 55 % [A], plus up to 15 % for
+  armour and up to 20 % for speed. Never under 5 % or over 90 %. **Speed**: the convoy's own pace on the world map, from walking pace
+  (nothing) to three times it (all) [A]. **Armour**: the vehicles' mean outer armour against sharp hits, Vehicle Framework's own ratings
+  with upgrades, full at 1.0 without Combat Extended and 10 mm with it [A]. **Any vehicle that cannot move rules both out.**
+- **Getting through**: the convoy goes on its way. **Turning back**: it stops and waits **4 hours** [A] for the road to clear (its
+  vehicles refuse to move, and the inspect pane counts it down). **A failed roll**: the game's ambush.
+- **Cost to run**: nothing until an ambush; the convoy's move check looks at the wait list only while a convoy waits.
+
+### A trailer on wrecked gear (EM42)
+
+- **Coupling** a trailer whose running gear has a destroyed part (a part that feeds its speed) is allowed, with a plain warning first
+  (the owner's card: "warn, then allow", as EM29's unwise orders).
+- **Once one is behind a vehicle**, on a map or on the road, the driver is told once ("being dragged at a crawl"), and the logbook
+  says so. With **Trailers on wrecked gear crawl** on, the front vehicle keeps **a quarter of its speed** [A], and every damaged
+  running part of the wreck **loses 2 % of its full health an hour** it is dragged [A], so a worn tyre beside a wrecked axle goes
+  too. The way out is the player's: repair it, carry on slowly, or leave it at a depot (the depot window already takes towed trailers).
+- **Read on the front vehicle's rare tick** for its whole line, so a wreck two trailers back counts once.
+
+### Other factions
+
+The halt jobs, the reading and tipping are the player's convoys' own. **An ambush on another faction's convoy** is not asked about: the
+choice is for the player's vehicles. **A captured trailer on wrecked gear** crawls like any of the player's. Raiders bring no trailers
+(EM7), so nothing else changes for them.
 
 ## Who chose what
 
 - **Owner (26 Nov 2026):** the batch; the six answers above; the reverse-osmosis kit's idea, its vehicles and its timing; documenting
-  every option.
-- **Agent:** every figure marked [A]; the find's 2 to 6 tiles; the 250 mm dry line; the kit's design so far.
+  every option; the third round's five rows; the test hole's insects off; one named roll for ambushes; warn, then allow, for wrecked
+  trailers; the five icons queued for night 16.
+- **Agent:** every figure marked [A]; the find's 2 to 6 tiles; the 250 mm dry line; the kit's design so far; in the third round, the
+  shapes of the survey halt's reading, the test hole's yield, the ambush odds and the wrecked trailer's crawl, the ambush choice for
+  moving convoys only, and the three settings' places and defaults (the ambush choice and the crawl on).

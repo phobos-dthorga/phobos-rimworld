@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Work on the road (Framework 0.317.0; docs/development/vehicle-road-work.md; EM30 and EM34): the logbook's entries for the running survey's
-     finds and the water bores. Agent-authored, held for the owner's review. -->
+<!-- Work on the road (Framework 0.317.0 and 0.322.0; docs/development/vehicle-road-work.md; EM30, EM31, EM34, EM35, EM37, EM42 and EM44):
+     the logbook's entries. Agent-authored, held for the owner's review. -->
 <Defs>
 
   <Phobos.Framework.Persistence.PhobosLogEntryDef>
@@ -13,6 +13,36 @@
     <defName>PhobosLog_Bore</defName>
     <label>water bore</label>
     <text>Drilled a water bore {PLACE}: {DETAIL} of water.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_SurveyHalt</defName>
+    <label>survey halt</label>
+    <text>Read the ground {PLACE}. At the console: {WHO}. {DETAIL}</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_TestHole</defName>
+    <label>test hole</label>
+    <text>Drilled a test hole {PLACE} and brought up {DETAIL}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_TippedAtDepot</defName>
+    <label>tipped at a depot</label>
+    <text>Tipped its load into a depot {PLACE}: {DETAIL} things.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_AmbushEscaped</defName>
+    <label>ambush escaped</label>
+    <text>Ran into an ambush {PLACE} and {DETAIL}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_TrailerWrecked</defName>
+    <label>dragged on wrecked gear</label>
+    <text>Was dragged on a wrecked {DETAIL} {PLACE}.</text>
   </Phobos.Framework.Persistence.PhobosLogEntryDef>
 
 </Defs>

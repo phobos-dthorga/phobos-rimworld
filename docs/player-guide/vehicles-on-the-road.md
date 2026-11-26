@@ -365,7 +365,8 @@ as trade requests, in quarters; as often as trade requests by default.
 
 ### Work on the road
 
-**Two working vehicles earn their keep on a journey.** Each has a button on the world map, and the convoy's line says how it goes.
+**The working vehicles earn their keep on a journey.** Each has a button on the world map, and the convoy's line says how it goes.
+**Work at a halt needs the convoy stopped and away from towns, and each vehicle does one job at a time**; driving on ends it.
 
 - **Survey on the road** (a [Datum](working-vehicles.md#datum-survey-truck) with its **long-range kit**): switch it on and, while the
   convoy drives, someone aboard who is **not driving** reads the console. **They need Intellectual skill**; the better it is, the
@@ -379,6 +380,33 @@ as trade requests, in quarters; as often as trade requests by default.
   tanks too.
 - **Treat it on the way**: a water bowser or Ullage with the [reverse-osmosis kit](working-vehicles.md#pintle-water-and-fuel-bowsers) makes bore or
   river water clean while the convoy drives, on the towing vehicle's or the truck's own electrics.
+- **Survey halt** (any Datum, no kit needed): stop and press it. Someone with **Intellectual** skill reads the ground for about **six
+  hours of daytime work**, then a message says **which deep ore lies under the tile and roughly how much**, and, with Dubs Bad Hygiene,
+  what a water bore would give. **A tile reads the same every time**, so it is read once; the convoy's line keeps showing it.
+- **Drill a test hole** (a Kelly, **on a tile the Datum has read**): about **12 hours of daytime drilling** by someone with **Mining**
+  skill brings up **3 portions of the read ore**, into a Talus's hold if one rides along, otherwise the convoy's cargo. One hole to a
+  tile. It burns fuel and wears the bit, like a bore. **Insects in test holes** (off by default) lets a hole break into insect tunnels,
+  as the game's deep drills can: the convoy must fight them, and the hole is lost; with it on, a hole that gets through brings up 4.
+- **Tip the load here** (a Talus): its whole load goes into a **depot** on the tile, made if there is none, in one press: to lighten the
+  convoy for a climb, or leave a stock for the way back. The depot window takes it back out.
+
+### Ambushes
+
+**A convoy that is driving sees an ambush coming.** The game stops and you choose:
+
+- **Stop and fight**: the game's own ambush.
+- **Drive through** or **Turn back**: each shows **its chance**, which rises with the convoy's speed and the armour on its vehicles.
+  Turning back is the likelier escape, but the convoy then **waits 4 hours** for the road to clear (its line counts down). **If the
+  chance fails, the ambush goes ahead.** A vehicle that cannot move means you must fight.
+
+A convoy at a halt, or camped for the night, is caught standing and fights. **Choose how to meet an ambush** (Camps section, **on** by
+default) switches the choice off.
+
+### A trailer on wrecked gear
+
+**A trailer whose axle or tyres are wrecked can still be towed**, after a warning. The towing vehicle **crawls at a quarter of its speed**
+and the trailer's damaged running gear **wears further** as it is dragged; you are told when it starts. Repair it, carry on slowly, or
+leave it at a [depot](#depots). **Trailers on wrecked gear crawl** (Camps section, **on**) switches the crawl off.
 
 ### Garages
 

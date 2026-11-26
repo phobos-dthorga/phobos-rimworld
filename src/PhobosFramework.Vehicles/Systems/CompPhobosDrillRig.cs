@@ -71,19 +71,37 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     public override IEnumerable<Gizmo> CompCaravanGizmos()
     {
         foreach (Gizmo gizmo in base.CompCaravanGizmos()) yield return gizmo;
-        if (Vehicle.Faction != Faction.OfPlayer || !CaravanWater.HasSource || Vehicle.GetVehicleCaravan() is not { } convoy) yield break;
-        bool boring = WorldComponent_PhobosRoadWork.Current?.BoreOf(convoy) != null;
-        var bore = new Command_Action
+        if (Vehicle.Faction != Faction.OfPlayer || Vehicle.GetVehicleCaravan() is not { } convoy) yield break;
+        RoadHaltJob? busy = WorldComponent_PhobosRoadWork.Current?.JobOn(Vehicle);
+        string busyText = "PhobosRoadWork_Busy".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (CaravanWater.HasSource)
         {
-            defaultLabel = (boring ? "PhobosRoadWork_BoreStopGizmo" : "PhobosRoadWork_BoreGizmo").Translate().Resolve(),
-            defaultDesc = boring ? "PhobosRoadWork_BoreStopGizmoDesc".Translate().Resolve()
-                : "PhobosRoadWork_BoreGizmoDesc".Translate(RoadWork.Rainfall(convoy).ToString("0").Named("RAIN"),
-                    BoreRule.LitresPerHour(RoadWork.Rainfall(convoy)).ToString("0").Named("LITRES")).Resolve(),
-            icon = SystemIcons.For("Phobos/VehicleSystems/Sling/WaterDrop"),
-            action = boring ? () => RoadWork.StopBore(convoy) : () => RoadWork.StartBore(convoy, Vehicle),
+            bool boring = busy is RoadBore;
+            var bore = new Command_Action
+            {
+                defaultLabel = (boring ? "PhobosRoadWork_BoreStopGizmo" : "PhobosRoadWork_BoreGizmo").Translate().Resolve(),
+                defaultDesc = boring ? "PhobosRoadWork_BoreStopGizmoDesc".Translate().Resolve()
+                    : "PhobosRoadWork_BoreGizmoDesc".Translate(RoadWork.Rainfall(convoy).ToString("0").Named("RAIN"),
+                        BoreRule.LitresPerHour(RoadWork.Rainfall(convoy)).ToString("0").Named("LITRES")).Resolve(),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Sling/WaterDrop"),
+                action = boring ? () => RoadWork.StopBore(convoy) : () => RoadWork.StartBore(convoy, Vehicle),
+            };
+            if (!boring && (busy != null ? busyText : RoadWork.BoreRefusal(convoy, Vehicle, starting: true)) is { } refused) bore.Disable(refused);
+            yield return bore;
+        }
+        // Framework 0.322.0 (EM35): prove a find the survey halt read here. Borrows the game's deep drill picture until its own is drawn.
+        bool proving = busy is RoadTestHole;
+        string desc = "PhobosRoadWork_TestHoleGizmoDesc".Translate(RoadHaltRule.TestHoleHours.ToString("0").Named("HOURS")).Resolve();
+        if (VehicleSystemsMod.Settings.testHoleInsects) desc += " " + "PhobosRoadWork_TestHoleInsectsDesc".Translate().Resolve();
+        var hole = new Command_Action
+        {
+            defaultLabel = (proving ? "PhobosRoadWork_TestHoleStopGizmo" : "PhobosRoadWork_TestHoleGizmo").Translate().Resolve(),
+            defaultDesc = proving ? "PhobosRoadWork_TestHoleStopGizmoDesc".Translate().Resolve() : desc,
+            icon = ThingDefOf.DeepDrill.uiIcon,
+            action = proving ? () => RoadWork.Stop(busy!, "PhobosRoadWork_TestHoleStopped".Translate().Resolve()) : () => RoadWork.StartTestHole(convoy, Vehicle),
         };
-        if (!boring && RoadWork.BoreRefusal(convoy, Vehicle, starting: true) is { } refused) bore.Disable(refused);
-        yield return bore;
+        if (!proving && (busy != null ? busyText : RoadWork.TestHoleRefusal(convoy, Vehicle, starting: true)) is { } holeRefused) hole.Disable(holeRefused);
+        yield return hole;
     }
 
     /// <summary>The game's own figures (CompDeepDrill and CompCreatesInfestations).</summary>

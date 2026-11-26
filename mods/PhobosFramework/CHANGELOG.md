@@ -13,6 +13,38 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.322.0] - 2026-11-26 - Draft
+
+Work on the road, third round: survey halts, test holes, tipping, ambushes and wrecked trailers
+
+### Added
+
+- **A Datum can stop and read the ground** (Survey halt, on any Datum in a convoy): about 6 hours at the console by day says the deep
+  ore under the tile and roughly how much, and with Dubs Bad Hygiene what a water bore would give. A tile reads the same every time, so
+  it is read once. Not yet tested in game: row 582.
+- **A Kelly can prove that find with a test hole** (Drill a test hole): about 12 hours of drilling by day brings up 3 portions of the
+  read ore into the Talus or the convoy's cargo, for fuel and drill-bit wear. Not yet tested in game: row 583.
+- **The Talus can tip its whole load into a depot** (Tip the load here) on the world map, in one press, to lighten a climb or leave a
+  stock for the way back. Not yet tested in game: row 584.
+- **A convoy that sees an ambush coming can drive through or turn back**: the game stops and offers Stop and fight, Drive through or
+  Turn back, each way out with its odds, which rise with the convoy's speed and armour; a failed roll is the game's ambush, and turning
+  back waits 4 hours. Only a convoy on the move is asked. Not yet tested in game: row 585.
+- **A trailer on wrecked running gear can be towed, with a warning**, and is dragged at a quarter of the speed, its damaged gear wearing
+  further (the owner's "warn, then allow"). Not yet tested in game: row 586.
+- **Three new settings** (vehicle settings, Camps section): Choose how to meet an ambush (on), Trailers on wrecked gear crawl (on),
+  Insects in test holes (off; on, a test hole yields 4 portions and can break into insect tunnels, as the game's deep drills can).
+  Every figure is the agent's, for the owner to revise; how it works: docs/development/vehicle-road-work.md.
+
+### Changed
+
+- **The water bore is now one of the convoy's halt jobs**, sharing their rules: its held-up messages say "work at the halt", and the
+  Kelly runs one job at a time.
+
+### Save compatibility
+
+- Safe to add. Bores saved with 0.317.0 to 0.321.0 load as they were. Removing the Framework mid-game drops any halt work, readings
+  and a convoy's wait after turning back.
+
 ## [0.321.0] - 2026-11-26 - Draft
 
 Vehicles' visual effects

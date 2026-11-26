@@ -124,7 +124,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
 | `PhobosFramework` | 4 | 0 | 1 | 0 |
-| `PhobosFramework.Vehicles` | 119 | 16 | 0 | 0 |
+| `PhobosFramework.Vehicles` | 120 | 16 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 2 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
@@ -143,7 +143,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-194 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+195 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -202,7 +202,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework.Vehicles</code>: 119 patched methods, 16 by name</summary>
+<details><summary><code>PhobosFramework.Vehicles</code>: 120 patched methods, 16 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework.Vehicles/`) |
 | --- | --- | --- |
@@ -250,6 +250,7 @@ Every HarmonyPatch attribute was read.
 | `GenRecipe.MakeRecipeProducts` | postfix | `SetOut/PasteBake.cs` |
 | `GravshipPlacementUtility.PlaceGravshipInMap` | postfix | `Service/GravshipLandingAlignment.cs` |
 | `GravshipUtility.PreLaunchConfirmation` | postfix | `Service/GravshipLaunchWarning.cs` |
+| `IncidentWorker_Ambush.TryExecuteWorker` | prefix | `Service/RoadDangers.cs` |
 | `ITab_Vehicle_Upgrades.DrawButtons` | prefix | `Service/UpgradeResearch.cs` |
 | `ITab_Vehicle_Upgrades.DrawGrid` | prefix | `Presentation/UpgradeTabScroll.cs` |
 | `ITab_Vehicle_Upgrades.DrawPrerequisites` | postfix | `Service/UpgradeAnyOf.cs` |

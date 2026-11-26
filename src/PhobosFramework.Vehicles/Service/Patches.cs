@@ -420,6 +420,8 @@ public static class CaravanRefusalPatch
         if (!__result || __instance.Spawned) return;
         CompPhobosVehicleSystems? comp = __instance.GetComp<CompPhobosVehicleSystems>();
         if (comp != null && comp.Usable && comp.MoveRefusal != null) __result = false;
+        // Framework 0.322.0 (EM44): a convoy that turned back from an ambush waits for the road to clear. Cheap: only while any convoy waits.
+        else if (AmbushChoices.Holding(__instance)) __result = false;
     }
 }
 

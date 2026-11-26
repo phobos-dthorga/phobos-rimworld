@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Work on the road (Framework 0.317.0; docs/development/vehicle-road-work.md): the running survey and the water bore. Agent-authored, held for the owner's review. -->
+<!-- Work on the road (Framework 0.317.0 and 0.322.0; docs/development/vehicle-road-work.md): the running survey, the water bore, the survey
+     halt, the test hole, tipping into a depot, ambushes and trailer faults. Agent-authored, held for the owner's review. -->
 <LanguageData>
+
+  <!-- The settings (Framework 0.322.0) -->
+  <PhobosVehicleSystems_SettingAmbushChoices>Choose how to meet an ambush</PhobosVehicleSystems_SettingAmbushChoices>
+  <PhobosVehicleSystems_SettingAmbushChoicesDesc>On by default. When a convoy of your vehicles is ambushed while it drives, the game stops and you choose: stop and fight (as the game does), drive through, or turn back. A way out is a chance, shown on each choice, that rises with the convoy's speed and its vehicles' armour; if it fails, the ambush goes ahead. A convoy that turns back waits 4 hours. Off: convoys always fight, as in the game.</PhobosVehicleSystems_SettingAmbushChoicesDesc>
+  <PhobosVehicleSystems_SettingTrailerFaults>Trailers on wrecked gear crawl</PhobosVehicleSystems_SettingTrailerFaults>
+  <PhobosVehicleSystems_SettingTrailerFaultsDesc>On by default. A vehicle towing a trailer whose running gear has a wrecked part keeps only a quarter of its speed, and the trailer's damaged running gear wears further while it is dragged. You are warned either way. Off: wrecked trailers are towed at full speed, as before.</PhobosVehicleSystems_SettingTrailerFaultsDesc>
+  <PhobosVehicleSystems_SettingTestHoleInsects>Insects in test holes</PhobosVehicleSystems_SettingTestHoleInsects>
+  <PhobosVehicleSystems_SettingTestHoleInsectsDesc>Off by default. On: a drill rig's test hole on the road can break into insect tunnels, by the game's own deep drill rule, and the convoy must fight them. On, a test hole brings up 4 portions; off, 3. Your people can die, so it starts off.</PhobosVehicleSystems_SettingTestHoleInsectsDesc>
+
+  <!-- Any halt job -->
+  <PhobosRoadWork_JobHeldUp>{CARAVAN}'s work at the halt is held up: {REASON}</PhobosRoadWork_JobHeldUp>
+  <PhobosRoadWork_Busy>{VEHICLE} is busy with other work at this halt.</PhobosRoadWork_Busy>
+  <PhobosRoadWork_InspectJobHeldUp>The work at the halt is held up: {REASON}</PhobosRoadWork_InspectJobHeldUp>
 
   <!-- The running survey -->
   <PhobosRoadWork_SurveyGizmo>Survey on the road</PhobosRoadWork_SurveyGizmo>
@@ -10,13 +24,51 @@
   <PhobosRoadWork_InspectSurvey>{VEHICLE} surveys the ground on the way, for {ORE}.</PhobosRoadWork_InspectSurvey>
   <PhobosRoadWork_InspectSurveyHeldUp>The survey waits: {REASON}</PhobosRoadWork_InspectSurveyHeldUp>
 
+  <!-- The survey halt -->
+  <PhobosRoadWork_SurveyHaltGizmo>Survey halt</PhobosRoadWork_SurveyHaltGizmo>
+  <PhobosRoadWork_SurveyHaltGizmoDesc>Stop here for about {HOURS} hours of work at the console, by day, and read the ground under the convoy: which ore lies deep here and roughly how much, and, where water has a use, what a water bore would give. A tile reads the same every time, so it is read once. A drill rig can then prove the find with a test hole. Someone with Intellectual skill must do it; the convoy must stay put.</PhobosRoadWork_SurveyHaltGizmoDesc>
+  <PhobosRoadWork_SurveyHaltStopGizmo>Stop the survey halt</PhobosRoadWork_SurveyHaltStopGizmo>
+  <PhobosRoadWork_SurveyHaltStopGizmoDesc>Stop reading the ground. Nothing is learnt until the reading is finished.</PhobosRoadWork_SurveyHaltStopGizmoDesc>
+  <PhobosRoadWork_SurveyHaltDone>This ground is already read: {READING}</PhobosRoadWork_SurveyHaltDone>
+  <PhobosRoadWork_SurveyHaltNoHand>Nobody in the convoy is fit to read the console: it needs someone able in Intellectual work.</PhobosRoadWork_SurveyHaltNoHand>
+  <PhobosRoadWork_SurveyHaltStarted>{VEHICLE} stops to read the ground here: about {HOURS} hours at the console.</PhobosRoadWork_SurveyHaltStarted>
+  <PhobosRoadWork_SurveyHaltRead>{CARAVAN} has read the ground here. {READING}</PhobosRoadWork_SurveyHaltRead>
+  <PhobosRoadWork_SurveyHaltStopped>The survey halt is stopped before the reading was finished.</PhobosRoadWork_SurveyHaltStopped>
+  <PhobosRoadWork_SurveyHaltLeft>{CARAVAN} drove on before the ground was read.</PhobosRoadWork_SurveyHaltLeft>
+  <PhobosRoadWork_InspectSurveyHalt>{VEHICLE} is reading the ground: {SHARE} done.</PhobosRoadWork_InspectSurveyHalt>
+  <PhobosRoadWork_InspectReading>The ground here: {READING}</PhobosRoadWork_InspectReading>
+  <PhobosRoadWork_ReadingOre>About {UNITS} {ORE} lies deep under the ground.</PhobosRoadWork_ReadingOre>
+  <PhobosRoadWork_ReadingNoOre>No deep ore worth drilling for lies under the ground.</PhobosRoadWork_ReadingNoOre>
+  <PhobosRoadWork_ReadingNoBedrock>There is no bedrock here to hold deep ore.</PhobosRoadWork_ReadingNoBedrock>
+  <PhobosRoadWork_ReadingWater>A water bore would give about {LITRES} litres an hour.</PhobosRoadWork_ReadingWater>
+  <PhobosRoadWork_ReadingDry>A water bore would come up dry.</PhobosRoadWork_ReadingDry>
+
+  <!-- The test hole -->
+  <PhobosRoadWork_TestHoleGizmo>Drill a test hole</PhobosRoadWork_TestHoleGizmo>
+  <PhobosRoadWork_TestHoleGizmoDesc>Prove the ore the survey halt read here: about {HOURS} hours of drilling by day, bringing up a few portions into the convoy's cargo, the tipper's hold first. It needs someone able in Mining, burns the rig's fuel and wears its drill bit. A tile takes one test hole. The convoy must stay put.</PhobosRoadWork_TestHoleGizmoDesc>
+  <PhobosRoadWork_TestHoleInsectsDesc>Deep drilling can break into insect tunnels, as the game's deep drills do.</PhobosRoadWork_TestHoleInsectsDesc>
+  <PhobosRoadWork_TestHoleStopGizmo>Stop the test hole</PhobosRoadWork_TestHoleStopGizmo>
+  <PhobosRoadWork_TestHoleStopGizmoDesc>Stop drilling. Nothing comes up until the hole is finished.</PhobosRoadWork_TestHoleStopGizmoDesc>
+  <PhobosRoadWork_TestHoleNotRead>The ground here has not been read: a survey halt comes first.</PhobosRoadWork_TestHoleNotRead>
+  <PhobosRoadWork_TestHoleNoOre>The reading found no deep ore here to prove.</PhobosRoadWork_TestHoleNoOre>
+  <PhobosRoadWork_TestHoleProved>The {ORE} here is already proved.</PhobosRoadWork_TestHoleProved>
+  <PhobosRoadWork_TestHolePiped>The {ORE} here only comes up through a well head, not a test hole.</PhobosRoadWork_TestHolePiped>
+  <PhobosRoadWork_TestHoleStarted>{VEHICLE} starts a test hole: about {HOURS} hours of drilling.</PhobosRoadWork_TestHoleStarted>
+  <PhobosRoadWork_TestHoleDone>{CARAVAN}'s test hole proved the find: {AMOUNT} brought up.</PhobosRoadWork_TestHoleDone>
+  <PhobosRoadWork_TestHoleStopped>The test hole is stopped before it was finished.</PhobosRoadWork_TestHoleStopped>
+  <PhobosRoadWork_TestHoleLeft>{CARAVAN} drove on and left its test hole unfinished.</PhobosRoadWork_TestHoleLeft>
+  <PhobosRoadWork_InspectTestHole>Drilling a test hole: {SHARE} done.</PhobosRoadWork_InspectTestHole>
+  <PhobosRoadWork_Amount>{COUNT} {ORE}</PhobosRoadWork_Amount>
+  <PhobosRoadWork_TestHoleInsectsLabel>Insects from the test hole</PhobosRoadWork_TestHoleInsectsLabel>
+  <PhobosRoadWork_TestHoleInsectsText>{VEHICLE}'s test hole broke into an insect tunnel. They are coming up out of the ground, and the convoy has to fight.</PhobosRoadWork_TestHoleInsectsText>
+
   <!-- The water bore -->
   <PhobosRoadWork_BoreGizmo>Drill a water bore</PhobosRoadWork_BoreGizmo>
   <PhobosRoadWork_BoreGizmoDesc>Drill a bore here and pump the ground water into the convoy's water tanks. {RAIN} mm of rain falls here a year, so the bore would give about {LITRES} litres an hour once drilled. The water is untreated, as from a river. Drilling takes hours of work by someone with Mining skill, stops at night, burns the rig's fuel and wears its drill bit. The convoy must stay put.</PhobosRoadWork_BoreGizmoDesc>
   <PhobosRoadWork_BoreStopGizmo>Stop the bore</PhobosRoadWork_BoreStopGizmo>
   <PhobosRoadWork_BoreStopGizmoDesc>Stop drilling or pumping. The water already pumped stays in the tanks.</PhobosRoadWork_BoreStopGizmoDesc>
   <PhobosRoadWork_BoreNoWater>Nothing here gives water a use.</PhobosRoadWork_BoreNoWater>
-  <PhobosRoadWork_BoreMoving>The convoy must stop to drill.</PhobosRoadWork_BoreMoving>
+  <PhobosRoadWork_BoreMoving>The convoy must stop for this.</PhobosRoadWork_BoreMoving>
   <PhobosRoadWork_BoreSettlement>Not in someone else's settlement.</PhobosRoadWork_BoreSettlement>
   <PhobosRoadWork_BoreDry>The ground here is dry: {RAIN} mm of rain a year, under the {LINE} mm a bore needs.</PhobosRoadWork_BoreDry>
   <PhobosRoadWork_BoreBitWrecked>{VEHICLE}'s drill bit is wrecked.</PhobosRoadWork_BoreBitWrecked>
@@ -28,10 +80,33 @@
   <PhobosRoadWork_BoreFull>{CARAVAN}'s water tanks are full from the bore: {LITRES} litres.</PhobosRoadWork_BoreFull>
   <PhobosRoadWork_BoreStopped>The bore is stopped after {LITRES} litres.</PhobosRoadWork_BoreStopped>
   <PhobosRoadWork_BoreLeft>{CARAVAN} drove on and left its bore after {LITRES} litres.</PhobosRoadWork_BoreLeft>
-  <PhobosRoadWork_BoreHeldUp>{CARAVAN}'s bore is held up: {REASON}</PhobosRoadWork_BoreHeldUp>
   <PhobosRoadWork_InspectDrilling>Drilling a water bore: {SHARE} of the way down.</PhobosRoadWork_InspectDrilling>
   <PhobosRoadWork_InspectPumping>Pumping from the bore: {LITRES} litres an hour, {PUMPED} litres so far.</PhobosRoadWork_InspectPumping>
-  <PhobosRoadWork_InspectBoreHeldUp>The bore is held up: {REASON}</PhobosRoadWork_InspectBoreHeldUp>
   <PhobosRoadWork_Litres>{LITRES} litres</PhobosRoadWork_Litres>
+
+  <!-- Tip into a depot -->
+  <PhobosRoadWork_TipGizmo>Tip the load here</PhobosRoadWork_TipGizmo>
+  <PhobosRoadWork_TipGizmoDesc>Tip everything {VEHICLE} carries into a depot on this tile, making one if there is none, to lighten the convoy for a climb or leave a stock for the way back. The depot window takes it back out. The convoy must stop.</PhobosRoadWork_TipGizmoDesc>
+  <PhobosRoadWork_TipEmpty>{VEHICLE} carries nothing to tip.</PhobosRoadWork_TipEmpty>
+  <PhobosRoadWork_Tipped>{VEHICLE} tipped its load into the depot here: {COUNT} things.</PhobosRoadWork_Tipped>
+
+  <!-- Ambushes -->
+  <PhobosAmbush_Title>Ambush ahead</PhobosAmbush_Title>
+  <PhobosAmbush_Text>{CONVOY} has spotted an ambush ahead: {WHO} lying in wait by the way. There is a moment to choose: stop and fight, put the foot down and try to drive through, or turn round and fall back.\n\nThe odds of a way out rise with the convoy's speed and the armour on its vehicles. If a way out fails, the ambush goes ahead.</PhobosAmbush_Text>
+  <PhobosAmbush_Animals>wild animals</PhobosAmbush_Animals>
+  <PhobosAmbush_Fight>Stop and fight</PhobosAmbush_Fight>
+  <PhobosAmbush_DriveThrough>Drive through ({CHANCE} to get past)</PhobosAmbush_DriveThrough>
+  <PhobosAmbush_TurnBack>Turn back ({CHANCE} to get away; the convoy stops and waits {HOURS} hours for the road to clear)</PhobosAmbush_TurnBack>
+  <PhobosAmbush_Stuck>{VEHICLE} cannot move: there is no way out but to fight.</PhobosAmbush_Stuck>
+  <PhobosAmbush_Caught>{CONVOY} could not get away: the ambush is sprung.</PhobosAmbush_Caught>
+  <PhobosAmbush_DroveThrough>{CONVOY} drove through the ambush and got past.</PhobosAmbush_DroveThrough>
+  <PhobosAmbush_TurnedBack>{CONVOY} turned back from the ambush and got away. It waits {HOURS} hours for the road to clear.</PhobosAmbush_TurnedBack>
+  <PhobosAmbush_LogDrove>drove through it</PhobosAmbush_LogDrove>
+  <PhobosAmbush_LogTurned>turned back from it</PhobosAmbush_LogTurned>
+  <PhobosAmbush_InspectHeld>Waiting for the road to clear after turning back from an ambush: {TIME} more.</PhobosAmbush_InspectHeld>
+
+  <!-- Trailer faults -->
+  <PhobosTrailerFault_CouplingWarning>{TRAILER}'s {PART} is wrecked: it can be towed, but only dragged at a crawl ({SHARE} of the speed), and its running gear will wear further. Repair it first if you can.</PhobosTrailerFault_CouplingWarning>
+  <PhobosTrailerFault_Wrecked>{TRAILER}, behind {VEHICLE}, is on a wrecked {PART}. It is being dragged at a crawl. Repair it, carry on slowly, or leave it at a depot.</PhobosTrailerFault_Wrecked>
 
 </LanguageData>

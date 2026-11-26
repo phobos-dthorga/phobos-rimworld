@@ -25,5 +25,5 @@ public static class BoreRule
         Dry(rainfallMillimetres) ? 0f : Math.Min(MostLitresPerHour, (rainfallMillimetres - DryBelowMillimetres) * LitresPerHourPerMillimetre);
 
     /// <summary>Hours drilled in one step, at the hand's pace; the rest of the step, once drilled, pumps.</summary>
-    public static float Drilled(float drilledSoFar, float hours, float pace) => Math.Min(DrillHours, drilledSoFar + Math.Max(0f, hours * pace));
+    public static float Drilled(float drilledSoFar, float hours, float pace) => RoadHaltRule.Worked(drilledSoFar, hours, pace, DrillHours);
 }

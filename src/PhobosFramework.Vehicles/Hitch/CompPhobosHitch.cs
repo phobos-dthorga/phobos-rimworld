@@ -65,6 +65,16 @@ public sealed partial class CompPhobosHitch : VehicleComp
 
     /// <summary>The trailer this vehicle tows, or null.</summary>
     public VehiclePawn? Trailer => trailer;
+
+    /// <summary>A vehicle anywhere behind this one on wrecked running gear, as the last rare look found it (Framework 0.322.0, EM42;
+    /// <see cref="TrailerFaults.Look"/>). Derived, never saved.</summary>
+    public VehiclePawn? DraggingWreck { get; set; }
+
+    /// <summary>Whether a rare look has run since the load, so a wreck already behind is not announced again after loading.</summary>
+    public bool LookedForWreck { get; set; }
+
+    /// <summary>The share of its speed the vehicle keeps while it drags a wreck, with the setting on; 1 otherwise.</summary>
+    public float CrawlCap => trailer != null && DraggingWreck != null && VehicleSystemsMod.Settings.trailerFaults ? Phobos.Framework.Rules.TrailerFaultRule.CrawlShare : 1f;
     /// <summary>The trailer chosen for hitching, waiting for a colonist.</summary>
     public VehiclePawn? Pending => pending;
 
@@ -171,6 +181,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
         }
         // Framework 0.185.0 (EM29): an over-heavy tow is allowed, and said plainly first.
         if (RecoveryTowWarning(candidate) is { } warning) Say(warning, new LookTargets(Vehicle, candidate), MessageTypeDefOf.CautionInput, historical: false);
+        // Framework 0.322.0 (EM42, the owner's "warn, then allow"): a trailer on wrecked running gear is towed, said plainly first.
+        if (TrailerFaults.CouplingWarning(candidate) is { } wrecked) Say(wrecked, new LookTargets(Vehicle, candidate), MessageTypeDefOf.CautionInput, historical: false);
         pending = candidate;
         Hitches.NoteWaiting(this, true);
         Say("PhobosHitch_Chosen".Translate(Vehicle.LabelShort.Named("TRACTOR"), candidate.LabelShort.Named("TRAILER")).Resolve()
@@ -210,6 +222,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
             new LookTargets(Vehicle, candidate), MessageTypeDefOf.TaskCompletion);
         VehicleStory.Hitched(Vehicle, candidate);
         if (RecoveryTowWarning(candidate) != null) Seen.Note("vehicles.tow-over-ratio", Vehicle, candidate.LabelShort);
+        if (Seen.Wants("vehicles.trailer-fault", candidate, "coupled") && TrailerFaults.Wrecked(candidate) != null) Seen.Note("vehicles.trailer-fault", candidate, Vehicle.LabelShort, "coupled");
         // Seen in play (Framework 0.298.0, row 68): a vehicle that is no trailer, hitched and towed like one.
         if (candidate.GetComp<CompPhobosVehicleSystems>() is not { IsTrailer: true }) Seen.Note("vehicles.hitch.vehicle-tow", Vehicle, candidate.LabelShort);
         if (Tower != null && Seen.Wants("vehicles.hitch.chain", Vehicle))

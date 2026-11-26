@@ -1,0 +1,117 @@
+[
+ {
+  "name": "n16-road-survey",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small olive truck seen from the side driving along a pale dirt road, a short green dotted trail of survey marks on the ground behind it and a small amber gauge dial on its roof. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a small olive truck seen from the side driving along a pale dirt road, a short green dotted trail of survey marks on the ground behind it and a small amber gauge dial on its roof",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   171,
+   172
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Road survey (the Datum surveys while its convoy drives)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/RoadSurvey.png",
+   "why": "work on the road (docs/development/vehicle-road-work.md); borrows the long-range survey station's icon since Framework 0.317.0; the owner, 26 Nov 2026: 'Add the local GPU icons to the queue for later tonight'; icons are made locally"
+  }
+ },
+ {
+  "name": "n16-road-bore",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small grey steel well head with a short pipe, bright blue water gushing out of the pipe's mouth into a puddle on brown ground. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a small grey steel well head with a short pipe, bright blue water gushing out of the pipe's mouth into a puddle on brown ground",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   173,
+   174
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Drill a water bore (the Kelly at a halt)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/Bore.png",
+   "why": "work on the road (docs/development/vehicle-road-work.md); borrows the sling's water drop since Framework 0.317.0; the owner, 26 Nov 2026: 'Add the local GPU icons to the queue for later tonight'; icons are made locally"
+  }
+ },
+ {
+  "name": "n16-survey-halt",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small olive truck parked with a tall thin mast raised on its back, three bold green rings spreading on the brown ground beneath it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a small olive truck parked with a tall thin mast raised on its back, three bold green rings spreading on the brown ground beneath it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   175,
+   176
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Survey halt (the Datum stops to read the tile)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/SurveyHalt.png",
+   "why": "work on the road (docs/development/vehicle-road-work.md); new with the survey halt (EM31); the owner, 26 Nov 2026: 'Add the local GPU icons to the queue for later tonight'; icons are made locally"
+  }
+ },
+ {
+  "name": "n16-tip-load",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small olive tipper truck seen from the side with its rear bed raised, a heap of grey stone chunks sliding off the back onto a small pile beside a short amber flag. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a small olive tipper truck seen from the side with its rear bed raised, a heap of grey stone chunks sliding off the back onto a small pile beside a short amber flag",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   177,
+   178
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Tip the load here (the Talus leaves its load as a depot)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/TipLoad.png",
+   "why": "work on the road (docs/development/vehicle-road-work.md); new with tip into a depot (EM37); the owner, 26 Nov 2026: 'Add the local GPU icons to the queue for later tonight'; icons are made locally"
+  }
+ },
+ {
+  "name": "n16-test-hole",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A short grey drill bit pointing down into a small round hole in brown ground, with two small shining ore chunks lying beside the hole. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a short grey drill bit pointing down into a small round hole in brown ground, with two small shining ore chunks lying beside the hole",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   179,
+   180
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Drill a test hole (the Kelly proves a find)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/TestHole.png",
+   "why": "work on the road (docs/development/vehicle-road-work.md); new with the test hole (EM35); the owner, 26 Nov 2026: 'Add the local GPU icons to the queue for later tonight'; icons are made locally"
+  }
+ }
+]

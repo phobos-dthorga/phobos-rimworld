@@ -313,6 +313,15 @@ public class VehicleSystemsSettings : ModSettings
     public bool contractSiteDanger;
     /// <summary>The slider's far end: three times as often as the game's trade requests (agent's figure).</summary>
     public const float ContractFrequencyMost = 3f;
+    /// <summary>A moving convoy of the player's vehicles may choose to drive through or turn back from an ambush, on one named roll (Framework
+    /// 0.322.0, EM44; the owner's card of 26 Nov 2026: its own setting; agent default: on, as the game's fight stays the first choice). Live.</summary>
+    public bool ambushChoices = true;
+    /// <summary>A vehicle dragging a trailer on wrecked running gear crawls, and the gear wears further (Framework 0.322.0, EM42; the
+    /// owner's card of 26 Nov 2026: its own setting, on). Live.</summary>
+    public bool trailerFaults = true;
+    /// <summary>A test hole on the world map can break into insect tunnels, by the game's deep drill rule (Framework 0.322.0, EM35; the
+    /// owner's card of 26 Nov 2026: high risk, so off; with it off a test hole yields a little less). Live.</summary>
+    public bool testHoleInsects;
     /// <summary>How far the vehicle systems' messages nobody asked for are quietened (Framework 0.186.0, VehicleMessageLevel; owner's
     /// choice of 20 Nov 2026: a setting; agent default: every message, as before). Live.</summary>
     public MessageLevel messageLevel = MessageLevel.All;
@@ -496,6 +505,9 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref depotHostileNeighbours, "PhobosVehicleSystems_DepotHostileNeighbours", false);
         Scribe_Values.Look(ref contractFrequency, "PhobosVehicleSystems_ContractFrequency", 1f);
         Scribe_Values.Look(ref contractSiteDanger, "PhobosVehicleSystems_ContractSiteDanger", false);
+        Scribe_Values.Look(ref ambushChoices, "PhobosVehicleSystems_AmbushChoices", true);
+        Scribe_Values.Look(ref trailerFaults, "PhobosVehicleSystems_TrailerFaults", true);
+        Scribe_Values.Look(ref testHoleInsects, "PhobosVehicleSystems_TestHoleInsects", false);
         Scribe_Values.Look(ref messageLevel, "PhobosVehicleSystems_MessageLevel", MessageLevel.All);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
@@ -598,6 +610,9 @@ public class VehicleSystemsMod : SettingsBookMod
         if (Settings.contractFrequency <= 0f) report.Off("settlements' contracts for vehicles", "never offered (setting)");
         else if (Settings.contractFrequency != 1f) report.On("settlements' contracts for vehicles at " + Settings.contractFrequency.ToStringPercent() + " of trade requests (setting)");
         if (Settings.contractSiteDanger) report.On("enemies may wait at contract sites (setting)");
+        if (!Settings.ambushChoices) report.Off("choosing how to meet an ambush", "convoys always fight (setting)");
+        if (!Settings.trailerFaults) report.Off("trailers on wrecked gear crawl", "towed at full speed (setting)");
+        if (Settings.testHoleInsects) report.On("insects in test holes (setting)");
         if (!Settings.raidersArriveByAir) report.Off("raiders arriving by aircraft", "off (setting)");
         if (Settings.stockHelicoptersFly) report.On("stock helicopters flying over the map (setting)");
         if (!Settings.airdropLandingRisk) report.Off("airdrop landing injuries and damage", "off (setting)");
@@ -873,6 +888,10 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingCaravanCooking".Translate(), ref s.caravanCooking, d.caravanCooking, "PhobosVehicleSystems_SettingCaravanCookingDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingTrailerWasteDump".Translate(), ref s.trailerWasteDump, d.trailerWasteDump, "PhobosVehicleSystems_SettingTrailerWasteDumpDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingDriveThroughNight".Translate(), ref s.driveThroughNight, d.driveThroughNight, "PhobosVehicleSystems_SettingDriveThroughNightDesc".Translate());
+        // Work on the road, third round (Framework 0.322.0; docs/development/vehicle-road-work.md): EM44, EM42 and EM35.
+        list.Check("PhobosVehicleSystems_SettingAmbushChoices".Translate(), ref s.ambushChoices, d.ambushChoices, "PhobosVehicleSystems_SettingAmbushChoicesDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingTrailerFaults".Translate(), ref s.trailerFaults, d.trailerFaults, "PhobosVehicleSystems_SettingTrailerFaultsDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingTestHoleInsects".Translate(), ref s.testHoleInsects, d.testHoleInsects, "PhobosVehicleSystems_SettingTestHoleInsectsDesc".Translate());
         list.SliderInt("PhobosVehicleSystems_SettingParkedWarning".Translate(s.parkedWarningDays.Named("DAYS")), ref s.parkedWarningDays, d.parkedWarningDays, 0, 14,
             "PhobosVehicleSettings_ParkedWarningDesc".Translate());
         // Contracts (Framework 0.308.0; docs/development/vehicle-contracts.md): the owner's card of 26 Nov 2026 asked for a slider; it

@@ -288,7 +288,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     /// <summary>The share of its speed the vehicle may use this tick (the path follower's patch reads it): the drivetrain model's, and a
     /// tow's on the plain rule where the model does not work the tow out (Framework 0.101.0).</summary>
-    public float SpeedCap => Usable ? (Powertrain?.SpeedCap ?? 1f) * (Hitch?.PlainSpeedCap ?? 1f) * (BatteryDrive is { OnBattery: true } drive ? drive.SpeedFactor : 1f)
+    public float SpeedCap => Usable ? (Powertrain?.SpeedCap ?? 1f) * (Hitch?.PlainSpeedCap ?? 1f) * (Hitch?.CrawlCap ?? 1f) * (BatteryDrive is { OnBattery: true } drive ? drive.SpeedFactor : 1f)
         * Glass.ViewFactor(Vehicle) : 1f;
 
     IVehicleBatteryDrive? batteryDrive;
@@ -950,6 +950,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                     }
                 }
                 NoticeStopped();
+                // A trailer on wrecked gear behind it (Framework 0.322.0, EM42): told once, crawled, worn further.
+                if (Hitch != null) TrailerFaults.Look(this, GenTicks.TickRareInterval / (float)GenDate.TicksPerHour);
                 // Journeys away from any map (Framework 0.181.0, EM25): one state read on a vehicle at home.
                 VehicleTrips.Look(this);
                 // Hours on type and "their" vehicle (Framework 0.190.0, EM11 and EM12): a few dictionary additions while it moves.

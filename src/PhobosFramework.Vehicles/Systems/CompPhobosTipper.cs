@@ -752,6 +752,25 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
         }
     }
 
+    /// <summary>
+    /// On the world map (Framework 0.322.0, EM37; docs/development/vehicle-road-work.md): tip the whole load into a depot here. The rules are
+    /// RoadWork's; a refusal greys the button with its reason. Borrows the tip button's picture until its own is drawn.
+    /// </summary>
+    public override IEnumerable<Gizmo> CompCaravanGizmos()
+    {
+        foreach (Gizmo gizmo in base.CompCaravanGizmos()) yield return gizmo;
+        if (Vehicle.Faction != Faction.OfPlayer || Vehicle.GetVehicleCaravan() is not { } convoy) yield break;
+        var tip = new Command_Action
+        {
+            defaultLabel = "PhobosRoadWork_TipGizmo".Translate().Resolve(),
+            defaultDesc = "PhobosRoadWork_TipGizmoDesc".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Stations/Tip"),
+            action = () => RoadWork.TipLoad(convoy, Vehicle),
+        };
+        if (RoadWork.TipRefusal(convoy, Vehicle) is { } refused) tip.Disable(refused);
+        yield return tip;
+    }
+
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
     {
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
