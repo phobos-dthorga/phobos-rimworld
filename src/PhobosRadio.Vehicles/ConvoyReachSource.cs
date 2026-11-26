@@ -119,7 +119,7 @@ public sealed class ConvoyReachSource : IConvoyReachSource
         {
             defaultLabel = "PhobosRadio_RelayBuildGizmo".Translate(),
             defaultDesc = "PhobosRadio_RelayBuildGizmoDesc".Translate(10.Named("METRES"), MastSteel.Named("STEEL"), MastComponents.Named("COMPONENTS")),
-            icon = ContentFinder<Texture2D>.Get("Phobos/Radio/Things/Mast", reportFailure: false) ?? BaseContent.BadTex,
+            icon = ContentFinder<Texture2D>.Get("Phobos/Radio/World/RelayMast", reportFailure: false) ?? BaseContent.BadTex,
             action = () => BuildMast(convoy),
         };
         if (MastRefusal(convoy) is { } refused) build.Disable(refused);

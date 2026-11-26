@@ -2,8 +2,8 @@
 <Defs>
   <!-- Relays on the world map (Radio 0.22.0; the owner's card of 26 Nov 2026: "A relay mast built on a tile"). A relay mast is a world
        site holding one relay radio, never on a map; its figures are an agent default, all authored, for the owner to revise: the vehicle
-       control radio's power and band on a 10 m mast, as the mast antenna stands. The site borrows the mast antenna's picture until its own
-       is drawn. -->
+       control radio's power and band on a 10 m mast, as the mast antenna stands. Its world icon is the relay mast's own picture (Radio
+       0.24.2, the owner's pick of 27 Nov 2026). -->
 
   <WorldObjectDef>
     <defName>PhobosRadio_RelayMast</defName>
@@ -12,7 +12,7 @@
     <worldObjectClass>Phobos.Radio.Services.WorldObject_PhobosRelayMast</worldObjectClass>
     <texture>World/WorldObjects/Ambush</texture>
     <expandingIcon>true</expandingIcon>
-    <expandingIconTexture>Phobos/Radio/Things/Mast</expandingIconTexture>
+    <expandingIconTexture>Phobos/Radio/World/RelayMast</expandingIconTexture>
     <expandingIconPriority>70</expandingIconPriority>
     <canHaveFaction>false</canHaveFaction>
   </WorldObjectDef>
@@ -24,7 +24,7 @@
     <thingClass>ThingWithComps</thingClass>
     <category>Item</category>
     <graphicData>
-      <texPath>Phobos/Radio/Things/Mast</texPath>
+      <texPath>Phobos/Radio/World/RelayMast</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <tickerType>Never</tickerType>

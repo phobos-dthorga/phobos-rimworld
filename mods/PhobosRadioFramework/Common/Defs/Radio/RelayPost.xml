@@ -5,7 +5,7 @@
     own outposts code, offered in its "create outpost" window like any other, staffed by colonists and producing nothing; while anyone
     keeps it, it passes radio calls on from its tile, and a hilltop tile lifts its mast as any relay's (the owner's card: by hilliness).
     Every figure is the agent's, for the owner to revise: the cost (a mast, two repeaters and a solar set), one person to keep it, a 20 m
-    mast and 50 W on VHF, and four channels (two repeaters). Its world icon borrows the mast antenna's picture until its own is drawn.
+    mast and 50 W on VHF, and four channels (two repeaters). Its world icon is the relay mast's picture (Radio 0.24.2).
     Not yet tested in game.
   -->
 
@@ -14,7 +14,7 @@
     <label>radio relay post</label>
     <description>A small staffed post with a tall radio mast, two repeaters and a solar set. While someone keeps it, it passes your convoys' radio calls on toward home: up to four vehicles driven by radio at once, or ten convoys talking by turns. A post on a hill or a mountain reaches much further. It produces nothing.</description>
     <worldObjectClass>Phobos.Radio.Services.Outpost_PhobosRelayPost</worldObjectClass>
-    <expandingIconTexture>Phobos/Radio/Things/Mast</expandingIconTexture>
+    <expandingIconTexture>Phobos/Radio/World/RelayMast</expandingIconTexture>
     <modExtensions>
       <li Class="Phobos.Radio.Services.PhobosRelayPostExtension">
         <MinPawns>1</MinPawns>
@@ -40,7 +40,7 @@
     <thingClass>ThingWithComps</thingClass>
     <category>Item</category>
     <graphicData>
-      <texPath>Phobos/Radio/Things/Mast</texPath>
+      <texPath>Phobos/Radio/World/RelayMast</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <tickerType>Never</tickerType>

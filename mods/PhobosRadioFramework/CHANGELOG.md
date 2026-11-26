@@ -21,6 +21,19 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.24.2] - 2026-11-27 - Draft
+
+The numbered medical chest, the repeater kit and the relay mast get their own pictures
+
+### Fixed
+
+- **The numbered medical chest had no picture** since 0.23.0. It now has its own: an olive steel chest, open, with numbered
+  compartments and a body chart in the lid.
+- **The repeater kit and the relay mast had borrowed the mast antenna's picture.** The repeater kit's icon, in the fittings window
+  and its power load, is now a radio box with its duplexer; the relay mast and the radio relay post show a small guyed solar mast on
+  the world map, as does the convoy's Put up a relay mast button.
+- All three were drawn by a paid image service (the owner's picks of 27 Nov 2026, about US$0.32 for six tries).
+
 ## [0.24.1] - 2026-11-27 - Draft
 
 The base station's repeater carries advice by radio

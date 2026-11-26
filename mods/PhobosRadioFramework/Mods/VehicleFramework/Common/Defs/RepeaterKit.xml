@@ -5,11 +5,11 @@
        repeater bay every land vehicle has (Loadouts_Default.xml). It grants RadioRepeater: with it, and the remote control kit's radio aboard,
        the vehicle passes calls on between tiles while it stands still (halted in a convoy, or left at a depot). Real basis: a mobile
        repeater's duplexer, which lets one radio hear and send at once on a split pair. Cost, research, load, weight, work and skill are the
-       agent's proposals for the owner to revise; the two channels it would hold are not yet counted. It borrows the mast's picture until
-       its own is drawn. Not yet tested in game. -->
+       agent's proposals for the owner to revise; the two channels it would hold are not yet counted. Its icon is its own picture (Radio 0.24.2,
+       the owner's pick of 27 Nov 2026). Not yet tested in game. -->
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_RepeaterKit</defName>
-    <iconPath>Phobos/Radio/Things/Mast</iconPath>
+    <iconPath>Phobos/Radio/Fittings/RepeaterKit</iconPath>
     <label>repeater kit</label>
     <description>A duplexer and a second receiver for the vehicle's control radio, so it can hear a call and send it on at once. With it, a vehicle standing still on the world map (in a stopped convoy, or left at a depot) passes your convoys' radio calls on toward home. It needs the remote control kit's radio, and draws on the battery.</description>
     <roles><li>RepeaterMount</li></roles>
@@ -28,7 +28,7 @@
         <description>The repeater kit's second receiver. With power, the vehicle passes radio calls on while it stands still.</description>
         <amps>1</amps>
         <shedOrder>4</shedOrder>
-        <iconPath>Phobos/Radio/Things/Mast</iconPath>
+        <iconPath>Phobos/Radio/Fittings/RepeaterKit</iconPath>
       </li>
     </loads>
     <feed>

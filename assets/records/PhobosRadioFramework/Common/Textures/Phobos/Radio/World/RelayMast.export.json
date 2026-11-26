@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/World/RelayMast.png",
+  "source": "assets/phobos-radio/generated/relay-mast/relay-mast-2.png",
+  "source_sha256": "19056636d1b5528642f835a02bf2eab9ac380f5b48eb4728d73c1a0db580d158",
+  "target_sha256": "9f9849cc6586819eeb48338136ebd040b173cc309738560f48bc53b2b37dbc3f",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "19056636d1b5528642f835a02bf2eab9ac380f5b48eb4728d73c1a0db580d158",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T03:51:07",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

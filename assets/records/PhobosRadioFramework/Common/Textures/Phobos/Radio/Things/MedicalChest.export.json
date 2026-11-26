@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/MedicalChest.png",
+  "source": "assets/phobos-radio/generated/item-medical-chest/item-medical-chest-2.png",
+  "source_sha256": "ade678835021d6b709482531e9e2f665e5b6ded6ff65834223c4e428603429e9",
+  "target_sha256": "0e862569cf66fe14aec822ac9799091746101eba4b17874311d889cb5b256f61",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "ade678835021d6b709482531e9e2f665e5b6ded6ff65834223c4e428603429e9",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T03:51:00",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
