@@ -174,7 +174,7 @@ page, behind its snapshot card.
 | Question | Command | Notes |
 | --- | --- | --- |
 | Is anything in my newest save wrong? | `python scripts/query-save.py checks` | `--save PG20` for another; `--check "work-store*"` for some |
-| Is anything in my running game wrong? | `python scripts/perf.py look-check` | **Ask the owner first, and ask them to save**: one snapshot, about half a second's pause |
+| Is anything in my running game wrong? | `python scripts/perf.py look-check --freeze` | **Ask the owner first, and ask them to save**. On the owner's game a snapshot has no room (below), so `--freeze`: the game stands still for the read (28.6 s, 27 Nov 2026), 120 s at most |
 | What has the test list seen, saves included? | `python scripts/test-pass.py report` | `--no-saves` to leave the saves out; first run of a new save indexes it |
 | Where are the rules? | `config/checks.json` | Language: phobos-modkit `docs/checks.md`. A new rule that would have caught a fault goes in with its fix |
 
@@ -203,7 +203,7 @@ screen**.
 
 | # | What | Where | State |
 | --- | --- | --- | --- |
-| 1 | The first live check on the owner's game (`python scripts/perf.py look-check`) | Nothing to build | **Waiting for the owner**: RimWorld was closed; ask first, and ask them to save |
+| 1 | The first live check on the owner's game (`python scripts/perf.py look-check`) | phobos-modkit 1.132.0 (`--freeze`, and a fix) | **Run on 27 Nov 2026**: both live checks found nothing across 216 vehicles (below) |
 | 2 | Figures as evidence: a save check's `note` makes figures from each thing into notes, which test-pass reads from the newest saves and `expect` judges | phobos-modkit 1.129.0; three rules in `config/checks.json`; rows 9 and 67 in `config/test-evidence.json` | Built; untested in game |
 | 3 | Save checks run by themselves: each scan of Companion's page list runs every report the manifest marks with `waits`, and shows its count beside Reports, beside the report and on Home | phobos-modkit 1.129.0 (`waits`); D'thorga Companion 0.101.0 | Built; untested on screen |
 
@@ -280,6 +280,23 @@ only the player switches loads; the day's best flight control stands for the sou
   switched on, rightly never ran away from camp.
 - **Some vehicles new to the world hold one or two samples**, a few dropping from full charge to nothing in one step: a rule on a
   history narrows by `count(samples(...))`.
+
+### The first live check (27 Nov 2026)
+
+The owner saved and said go. Two faults came first, neither in the game:
+
+- **The live reader refused the check file**: it read the save checks too, and did not know the save adapter's kinds (`numbers`,
+  `references`). Fixed in phobos-modkit 1.132.0: it reads only the checks it runs.
+- **Windows refused the snapshot** (error 1450). A snapshot copies the game, which takes about its private memory in free commit:
+  RimWorld held 21.3 GB, and the machine had 19.6 GB of commit left (63 GB of RAM and a fixed 35 GB page file, 78.5 GB in use).
+  Of four ways offered (a larger page file, closing programs, freezing the game, leaving it), **the owner chose freezing**.
+  phobos-modkit 1.132.0's **`look-check --freeze`** suspends the game's threads and reads it in place, with no copy, then always
+  lets it go: when done, at 120 s, on Ctrl+C, and, if the reader is stopped first, by the reader's `thaw`, which the kit runs at once.
+
+**The result:** the game stood still for 28,552 ms; **both live checks found nothing** (work stores holding more than their work
+needs; destroyed vehicles' systems still held in memory), each over 216 vehicle systems. Afterwards all 90 of the game's threads
+were running. **Agent default, owner to revise:** the 120 s freeze limit. Companion's "Run the checks" holds a snapshot (`serve`),
+which never freezes, so on this machine it meets the same error 1450; it would need its own freeze button.
 
 ### Next, if wanted
 

@@ -61,7 +61,8 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
   a vehicle's systems and fault history), and read the raw save only for what the index does not hold.
 - **Run `python scripts/query-save.py checks` over a reported save before reading it by hand** (owner's choice, 25 Nov 2026,
   after the HEMTT's 975 steel sat in four saves unnoticed): its rules are `config/checks.json`, and **a new rule that would have
-  caught a fault goes there in the change that fixes it**. Live checks (`perf.py look-check`) take a snapshot: **ask first**. A
+  caught a fault goes there in the change that fixes it**. Live checks (`perf.py look-check`) take a snapshot: **ask first**; on the
+  owner's game a snapshot has no room (error 1450), so add `--freeze` (the game stands still while it is read, 120 s at most). A
   finding is something to look at, never a test (`docs/development/test-automation.md`).
 - **test-pass reads the saves' histories too** (`saved` in `config/test-evidence.json`): a key under `saved.` is the kit's, from a
   vehicle's event log or logbook, never a `Seen.Note`; its version comes from Framework's version ledger (0.287.0).
