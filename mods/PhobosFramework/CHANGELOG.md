@@ -13,6 +13,17 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.301.1] - 2026-11-26 - Draft
+
+The jets are known again after their authors' rename
+
+### Fixed
+
+- **The Harrier, Close Air Support's jets and the Prowler are known as jets again.** Their authors' update of 26 November 2026 gave
+  each mod its own copy of the fixed-wing flight code under its own name, so the aim scatter on their guns, and the catch-all jet
+  loadout for a jet design no loadout names, found none of them. Both now name all three copies; the four jets D'thorga Vehicles
+  names were never affected. Not yet tested in game.
+
 ## [0.301.0] - 2026-11-26 - Draft
 
 The last of the test list's mechanics it can see

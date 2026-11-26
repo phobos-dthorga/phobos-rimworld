@@ -41,7 +41,8 @@ public static class DisassemblyTrace
     public static void Apply(Harmony instance)
     {
         harmony = instance;
-        Type? vtol = AccessTools.TypeByName("FixedWingAircraftFramework.VtolVehiclePawn");
+        // The Harrier's own copy of the fixed-wing framework since 26 Nov 2026 (Patches 0.45.1); FixedWingAircraftFramework before.
+        Type? vtol = AccessTools.TypeByName("AV8BHarrier.Flight.VtolVehiclePawn");
         MethodInfo? vtolDestroy = vtol == null ? null : AccessTools.DeclaredMethod(vtol, "Destroy", new[] { typeof(DestroyMode) });
         if (vtolDestroy == null)
         {

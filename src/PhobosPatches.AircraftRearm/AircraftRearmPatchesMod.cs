@@ -11,7 +11,7 @@ public class AircraftRearmPatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.45.0";
+    public const string ModVersion = "0.45.1";
     public const string LogPrefix = "[D'thorga Patches]";
 
     public AircraftRearmPatchesMod(ModContentPack content) : base(content)
@@ -19,9 +19,9 @@ public class AircraftRearmPatchesMod : Mod
         var report = new LoadReport(LogPrefix, ModVersion, "Aircraft rearming and sorties");
         var harmony = new Harmony(PackageId);
         RearmOneKind.Apply(harmony, report);
-        // The fixed-wing framework is in play with the Harrier, Close Air Support or the Prowler; the helicopters have none.
-        if (ModsConfig.IsActive("potemkinvillager.av8bharrier") || ModsConfig.IsActive("potemkinvillager.CloseAirSupport")
-            || ModsConfig.IsActive("potemkinvillager.ea6bprowler"))
+        // The fixed-wing framework is in play with the Harrier, Close Air Support or the Prowler (each its own copy since 26 Nov 2026);
+        // the helicopters have none. SortieFuel reads which jets SortieOverHome found, so it comes second.
+        if (FixedWingCopies.AnyActive)
         {
             SortieOverHome.Apply(harmony, report);
             SortieFuel.Apply(harmony, report);

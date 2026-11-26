@@ -11,12 +11,16 @@
     components. Both mods' Combat Extended patches give the Mk. 82 its real 227 kg, so that weight is the guard: it holds only under CE.
     The case's figures and the fill ratio are explained in the Harrier's Bombs_HarrierVtol.xml, beside the Mk. 84.
 
+    Since 26 Nov 2026 the two mods no longer share that item: each carries its own Mk. 82, HFW_Bomb500lb in the Harrier and CAS_Bomb500lb
+    in Close Air Support, and both their CE patches still give it 227 kg (read that day). Everything below names both, so each Mk. 82 that
+    exists is made the same way, and the guard holds while either is under CE (0.45.1; FWA_Bomb500lb before).
+
     The Mk. 82 case is also the case of Close Air Support's FAB-250 and RBK-250 (owner's card, 23 Nov 2026: intermediate parts): all
     three are 250 kg-class bombs, and their bodies weigh much the same (secondary sources in the record). One case for all three is a
     gameplay simplification.
   -->
   <Operation Class="PatchOperationConditional">
-    <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/statBases[Mass="227"]</xpath>
+    <xpath>Defs/ThingDef[defName="HFW_Bomb500lb" or defName="CAS_Bomb500lb"]/statBases[Mass="227"]</xpath>
     <match Class="PatchOperationSequence">
       <operations>
         <li Class="PatchOperationAdd">
@@ -75,7 +79,7 @@
 
         <!-- Mk. 82, 227 kg: a 140 kg case, 10 kg FSX, 15 kg chemfuel and two components, 166 kg in all. -->
         <li Class="PatchOperationReplace">
-          <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/costList</xpath>
+          <xpath>Defs/ThingDef[defName="HFW_Bomb500lb" or defName="CAS_Bomb500lb"]/costList</xpath>
           <value>
             <costList>
               <PhobosBombMk82Case>1</PhobosBombMk82Case>
@@ -87,7 +91,7 @@
         </li>
         <li Class="PatchOperationRemove">
           <success>Always</success>
-          <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/statBases/MarketValue</xpath>
+          <xpath>Defs/ThingDef[defName="HFW_Bomb500lb" or defName="CAS_Bomb500lb"]/statBases/MarketValue</xpath>
         </li>
 
         <!--
@@ -99,7 +103,7 @@
           <success>Always</success>
           <xpath>Defs/ThingDef[defName="DMS_TableAmmoPrinter"]</xpath>
           <match Class="PatchOperationAdd">
-            <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/recipeMaker/recipeUsers</xpath>
+            <xpath>Defs/ThingDef[defName="HFW_Bomb500lb" or defName="CAS_Bomb500lb"]/recipeMaker/recipeUsers</xpath>
             <value>
               <li>DMS_TableAmmoPrinter</li>
             </value>

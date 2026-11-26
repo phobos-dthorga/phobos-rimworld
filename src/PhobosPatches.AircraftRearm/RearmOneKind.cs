@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using Phobos.Framework;
@@ -21,18 +22,14 @@ public static class RearmOneKind
 {
     sealed record Aircraft(string PackageId, string Label, string Namespace, string JobDefName);
 
-    static readonly Aircraft[] Aircrafts =
+    // The helicopters each carry their own copy of the rearm code. The jets (the Harrier; Close Air Support's A-10 and Su-25 from Patches
+    // 0.29.0; the Prowler from 0.33.0) shared one fixed-wing framework until 26 Nov 2026, and now each carries its own copy too, with its
+    // own rearm job (Patches 0.45.1; FixedWingCopies).
+    static readonly Aircraft[] Aircrafts = new Aircraft[]
     {
-        new("potemkinvillager.av8bharrier", "the Harrier", "FixedWingAircraftFramework", "FWA_RearmVehicle"),
         new("potemkinvillager.mi24hindhelicopter", "the Hind", "Mi24HindHelicopter", "Hind_RearmVehicle"),
         new("potemkinvillager.mongooseattackhelicopter", "the Mongoose", "MongooseAttackHelicopter", "Mongoose_RearmVehicle"),
-        // Patches 0.29.0: Close Air Support's A-10 and Su-25 rearm through the same fixed-wing framework as the Harrier (the same file, read
-        // 21 Nov 2026), so with both mods active the one patch serves both.
-        new("potemkinvillager.CloseAirSupport", "the A-10 and Su-25", "FixedWingAircraftFramework", "FWA_RearmVehicle"),
-        // Patches 0.33.0: the EA-6B Prowler's jammer pods and missiles rearm through the same fixed-wing framework (its own copy loads only
-        // when none of the others is active; read 22 Nov 2026), so the one patch serves it too.
-        new("potemkinvillager.ea6bprowler", "the Prowler", "FixedWingAircraftFramework", "FWA_RearmVehicle"),
-    };
+    }.Concat(FixedWingCopies.All.Select(jet => new Aircraft(jet.PackageId, jet.Label, jet.Namespace, jet.RearmJob))).ToArray();
 
     static readonly Dictionary<Type, Func<Pawn, VehicleTurret, Predicate<ThingDef>, int, Thing?>> findAmmo = new();
     static readonly HashSet<string> rearmJobs = new();
@@ -53,7 +50,8 @@ public static class RearmOneKind
                 report.Off(feature, "its code has changed");
                 continue;
             }
-            // Two aircraft mods on one framework share its rearm code: patch it once.
+            // Two aircraft mods on one framework share its rearm code: patch it once. (No two do since 26 Nov 2026, when each jet mod took
+            // its own copy; kept in case two come to share one again.)
             if (findAmmo.ContainsKey(giver))
             {
                 report.On(feature);

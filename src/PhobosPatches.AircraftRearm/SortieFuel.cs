@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CoreLib.Collections;
@@ -25,47 +26,68 @@ namespace Phobos.AircraftRearmPatches;
 /// base or any map that is not a home, whether by Sortie or Launch), and to a home when it is a sortie (SortieOverHome, 0.41.0). It runs last,
 /// after D'thorga Framework's refuel-from-cargo allowance, since a strike's fuel must be in the tank. Temporary: it stands down by itself if
 /// Vehicle Framework has a HasEnoughFuel again (the author's own rule would then run) or the framework's fuel sum is not found.
+///
+/// Since 26 Nov 2026 each jet mod carries its own copy of that framework (FixedWingCopies): each jet is held to its own copy's rule, found
+/// by its class, and a copy whose sum is not found leaves only its own jets unchecked (Patches 0.45.1).
 /// </summary>
 public static class SortieFuel
 {
-    static MethodInfo? tryFuel;
+    /// <summary>Each copy's jet class and its fuel sum, TryFuelForSortie(jet, target, out needed).</summary>
+    static readonly List<(Type Pawn, MethodInfo TryFuel)> rules = new();
     static Func<GlobalTargetInfo>? underMouse;
 
     public static void Apply(Harmony harmony, LoadReport report)
     {
-        const string feature = "a jet's strike needs the fuel to get there, stay over the target and come back";
         // Expected to be absent on Vehicle Framework 1.7: looked for by comparing names, so the member-targets check (which reads
         // direct lookups and would flag one that finds nothing) does not report it as a broken target.
-        if (typeof(CompVehicleLauncher).GetMethods(AccessTools.all).Any(m => m.Name == "HasEnoughFuel"))
-        {
-            report.Off(feature, "Vehicle Framework checks it through the jets' own rule again");
-            return;
-        }
-        Type? utility = AccessTools.TypeByName("FixedWingAircraftFramework.FixedWingSortieUtility");
-        tryFuel = utility == null ? null : AccessTools.Method(utility, "TryFuelForSortie");
+        bool authorsOwn = typeof(CompVehicleLauncher).GetMethods(AccessTools.all).Any(m => m.Name == "HasEnoughFuel");
         MethodInfo? mouse = AccessTools.Method(typeof(FlightPathTargetUpdater), "CurrentTargetUnderMouse");
         MethodInfo? validate = AccessTools.Method(typeof(FuelTargetUpdater), nameof(FuelTargetUpdater.ValidateTargets));
         MethodInfo? status = AccessTools.Method(typeof(FuelTargetUpdater), "LaunchStatus");
-        if (tryFuel == null || tryFuel.GetParameters().Length != 3 || mouse == null || validate == null || status == null)
+        bool vehicleFramework = mouse != null && validate != null && status != null;
+        foreach (FixedWingCopies.Copy copy in FixedWingCopies.Active())
         {
-            report.Off(feature, "the fixed-wing framework's or Vehicle Framework's code has changed");
-            return;
+            string feature = "a strike by " + copy.Label + " needs the fuel to get there, stay over the target and come back";
+            if (authorsOwn)
+            {
+                report.Off(feature, "Vehicle Framework checks it through the jets' own rule again");
+                continue;
+            }
+            Type? pawn = copy.Type("VtolVehiclePawn");
+            Type? utility = copy.Type("FixedWingSortieUtility");
+            MethodInfo? tryFuel = utility == null ? null : AccessTools.Method(utility, "TryFuelForSortie");
+            if (!vehicleFramework || pawn == null || tryFuel == null || tryFuel.GetParameters().Length != 3)
+            {
+                report.Off(feature, vehicleFramework ? "its code has changed" : "Vehicle Framework's code has changed");
+                continue;
+            }
+            rules.Add((pawn, tryFuel));
+            report.On(feature);
         }
+        if (rules.Count == 0) return;
+        // Vehicle Framework's destination picker, once for every copy.
         underMouse = AccessTools.MethodDelegate<Func<GlobalTargetInfo>>(mouse);
         harmony.Patch(validate, postfix: new HarmonyMethod(typeof(SortieFuel), nameof(ValidatePostfix)) { priority = Priority.Last });
         harmony.Patch(status, postfix: new HarmonyMethod(typeof(SortieFuel), nameof(StatusPostfix)) { priority = Priority.Last });
-        report.On(feature);
+    }
+
+    /// <summary>The fuel sum of the copy this jet belongs to; null for any other vehicle.</summary>
+    static MethodInfo? RuleFor(VehiclePawn vehicle)
+    {
+        foreach ((Type pawn, MethodInfo tryFuel) in rules)
+            if (pawn.IsInstanceOfType(vehicle)) return tryFuel;
+        return null;
     }
 
     /// <summary>The fuel a strike on this target needs, where the author's rule applies and the tank holds less; null otherwise.</summary>
     static float? Short(VehiclePawn? vehicle, GlobalTargetInfo target)
     {
         if (vehicle?.CompFueledTravel is not { } fuel || !target.IsValid || target.WorldObject is not MapParent) return null;
-        if (!SortieOverHome.IsFixedWing(vehicle)) return null;
+        if (RuleFor(vehicle) is not { } tryFuel || !SortieOverHome.IsFixedWing(vehicle)) return null;
         // A home is a strike target only on a sortie; Launch to World Map onto a home lands there, outside the rule.
         if (SortieOverHome.HomeAt(target) != null && !SortieOverHome.Targeting(vehicle)) return null;
         object?[] args = { vehicle, target, null };
-        if (tryFuel!.Invoke(null, args) is not true || args[2] is not float needed) return null;
+        if (tryFuel.Invoke(null, args) is not true || args[2] is not float needed) return null;
         return fuel.Fuel < needed ? needed : null;
     }
 

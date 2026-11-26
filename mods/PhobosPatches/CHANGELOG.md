@@ -21,6 +21,19 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.45.1] - 2026-11-26 - Draft
+
+The jets' patches follow their authors' rename
+
+### Fixed
+
+- **The Harrier, Close Air Support and Prowler patches work again after their authors' update of 26 November 2026.** Each mod now
+  carries its own copy of the fixed-wing flight code under its own name, and its own Mk. 82 and rearm job, so since that update our
+  patches found nothing and quietly did nothing: the Mk. 82's recipe, case and benches; rearming one kind at a time; sorties over a
+  home map; the sortie fuel check; and the A-10, Su-25 and Prowler's realistic handling. Each now names every copy, and with two or
+  three of the mods active each jet keeps to its own. The authors' rearm fault is unchanged, so that fix stays. Not yet tested in
+  game.
+
 ## [0.45.0] - 2026-11-26 - Draft
 
 The CIWS against shells, seen in play

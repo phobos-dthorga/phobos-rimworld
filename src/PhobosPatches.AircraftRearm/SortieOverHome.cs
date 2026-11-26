@@ -38,19 +38,71 @@ namespace Phobos.AircraftRearmPatches;
 /// The record of which jet is on a sortie over which home is not saved: after a load mid-sortie the jet behaves as the framework does
 /// (it lands at the home it arrives over, or on the spot when it has no runway there). Temporary: the author is active, and this stands down
 /// by itself (report "off") if the framework's members it reaches by name change. docs/development/temporary-patches.md has its row.
+///
+/// Since 26 Nov 2026 each jet mod carries its own copy of that framework under its own namespace (FixedWingCopies), so this patches every
+/// copy it finds and keeps each copy's members apart, telling a jet's copy by its class (Patches 0.45.1).
 /// </summary>
 public static class SortieOverHome
 {
-    const string Ns = "FixedWingAircraftFramework.";
+    /// <summary>One jet mod's copy of the fixed-wing framework: the members this reaches, found by name.</summary>
+    sealed class Flight
+    {
+        public Type Pawn = null!;
+        public PropertyInfo SortieTargeting = null!;
+        public MethodInfo SetSortieTargeting = null!;
+        public PropertyInfo FixedWingProps = null!;
+        public FieldInfo RunwayLength = null!;
+        public FieldInfo RunwayWidth = null!;
+        public Type RunwaysComponent = null!;
+        public PropertyInfo Runways = null!;
+        public Type Controller = null!;
+        public FieldInfo ControllerVehicle = null!;
+        public MethodInfo Away = null!;
+        public MethodInfo Arrive = null!;
+        public MethodInfo IsLoiter = null!;
 
-    static PropertyInfo? sortieTargeting;
-    static MethodInfo? setSortieTargeting;
-    static PropertyInfo? fixedWingProps;
-    static FieldInfo? runwayLength;
-    static FieldInfo? runwayWidth;
-    static Type? runwaysComponent;
-    static PropertyInfo? runways;
-    static FieldInfo? controllerVehicle;
+        /// <summary>The copy's members, or null when any is missing or its arrival no longer reads the home flag once.</summary>
+        public static Flight? Find(FixedWingCopies.Copy copy)
+        {
+            Type? pawn = copy.Type("VtolVehiclePawn");
+            Type? props = copy.Type("FixedWingProperties");
+            Type? controller = copy.Type("VtolFlightController");
+            Type? arrival = copy.Type("ArrivalAction_LandToCell_Arrived_VtolPatch");
+            Type? loiter = copy.Type("LandingTargeter_GetPosState_VtolPatch");
+            Type? runwaysComponent = copy.Type("MapComponent_FixedWingRunways");
+            PropertyInfo? sortie = pawn == null ? null : AccessTools.Property(pawn, "SortieTargeting");
+            MethodInfo? setSortie = sortie?.GetSetMethod(true);
+            PropertyInfo? fixedWingProps = pawn == null ? null : AccessTools.Property(pawn, "FixedWingProps");
+            FieldInfo? length = props == null ? null : AccessTools.Field(props, "runwayLength");
+            FieldInfo? width = props == null ? null : AccessTools.Field(props, "runwayWidth");
+            PropertyInfo? runways = runwaysComponent == null ? null : AccessTools.Property(runwaysComponent, "Runways");
+            FieldInfo? vehicle = controller == null ? null : AccessTools.Field(controller, "vehicle");
+            MethodInfo? away = controller == null ? null : AccessTools.PropertyGetter(controller, "IsAwayFromHome");
+            MethodInfo? arrive = arrival == null ? null : AccessTools.Method(arrival, "ArriveFixedWing");
+            MethodInfo? isLoiter = loiter == null ? null : AccessTools.Method(loiter, "IsFixedWingLoiterTarget");
+            if (pawn == null || sortie == null || setSortie == null || fixedWingProps == null || length == null || width == null
+                || runwaysComponent == null || runways == null || controller == null || vehicle == null || away == null || arrive == null
+                || isLoiter == null || !ReadsHomeOnce(arrive))
+                return null;
+            return new Flight
+            {
+                Pawn = pawn, SortieTargeting = sortie, SetSortieTargeting = setSortie, FixedWingProps = fixedWingProps, RunwayLength = length,
+                RunwayWidth = width, RunwaysComponent = runwaysComponent, Runways = runways, Controller = controller, ControllerVehicle = vehicle,
+                Away = away, Arrive = arrive, IsLoiter = isLoiter,
+            };
+        }
+    }
+
+    /// <summary>The copies found, one for each active jet mod whose code still matches; at most three.</summary>
+    static readonly List<Flight> flights = new();
+
+    /// <summary>The copy a jet belongs to, by its class; null for any other vehicle.</summary>
+    static Flight? For(VehiclePawn vehicle)
+    {
+        foreach (Flight flight in flights)
+            if (flight.Pawn.IsInstanceOfType(vehicle)) return flight;
+        return null;
+    }
 
     /// <summary>The jet being checked by CanTarget with its sortie flag lowered, so the arrival-option label still reads it as a sortie.</summary>
     [ThreadStatic] static VehiclePawn? lowered;
@@ -66,53 +118,41 @@ public static class SortieOverHome
 
     public static void Apply(Harmony harmony, LoadReport report)
     {
-        const string feature = "a fixed-wing sortie may strike a home map, the gravship's included";
-        Type? pawn = AccessTools.TypeByName(Ns + "VtolVehiclePawn");
-        Type? props = AccessTools.TypeByName(Ns + "FixedWingProperties");
-        Type? controller = AccessTools.TypeByName(Ns + "VtolFlightController");
-        Type? arrival = AccessTools.TypeByName(Ns + "ArrivalAction_LandToCell_Arrived_VtolPatch");
-        Type? loiter = AccessTools.TypeByName(Ns + "LandingTargeter_GetPosState_VtolPatch");
-        runwaysComponent = AccessTools.TypeByName(Ns + "MapComponent_FixedWingRunways");
-        sortieTargeting = pawn == null ? null : AccessTools.Property(pawn, "SortieTargeting");
-        setSortieTargeting = sortieTargeting?.GetSetMethod(true);
-        fixedWingProps = pawn == null ? null : AccessTools.Property(pawn, "FixedWingProps");
-        runwayLength = props == null ? null : AccessTools.Field(props, "runwayLength");
-        runwayWidth = props == null ? null : AccessTools.Field(props, "runwayWidth");
-        runways = runwaysComponent == null ? null : AccessTools.Property(runwaysComponent, "Runways");
-        controllerVehicle = controller == null ? null : AccessTools.Field(controller, "vehicle");
-        MethodInfo? away = controller == null ? null : AccessTools.PropertyGetter(controller, "IsAwayFromHome");
-        MethodInfo? arrive = arrival == null ? null : AccessTools.Method(arrival, "ArriveFixedWing");
-        MethodInfo? isLoiter = loiter == null ? null : AccessTools.Method(loiter, "IsFixedWingLoiterTarget");
         MethodInfo canTarget = AccessTools.Method(typeof(CompVehicleLauncher), nameof(CompVehicleLauncher.CanTarget));
         MethodInfo options = AccessTools.Method(typeof(LaunchProtocol), nameof(LaunchProtocol.GetArrivalOptions), new[] { typeof(GlobalTargetInfo) });
         MethodInfo localMap = AccessTools.Method(typeof(LaunchProtocol), nameof(LaunchProtocol.StartTargetingLocalMap));
-        if (setSortieTargeting == null || fixedWingProps == null || runwayLength == null || runwayWidth == null || runways == null
-            || controllerVehicle == null || away == null || arrive == null || isLoiter == null || canTarget == null || options == null
-            || localMap == null || !ReadsHomeOnce(arrive))
+        bool vehicleFramework = canTarget != null && options != null && localMap != null;
+        foreach (FixedWingCopies.Copy copy in FixedWingCopies.Active())
         {
-            report.Off(feature, "the fixed-wing framework's code has changed");
-            return;
+            string feature = "a sortie of " + copy.Label + " may strike a home map, the gravship's included";
+            Flight? flight = vehicleFramework ? Flight.Find(copy) : null;
+            if (flight == null)
+            {
+                report.Off(feature, vehicleFramework ? "its code has changed" : "Vehicle Framework's code has changed");
+                continue;
+            }
+            harmony.Patch(flight.IsLoiter, postfix: new HarmonyMethod(typeof(SortieOverHome), nameof(LoiterPostfix)));
+            harmony.Patch(flight.Arrive, transpiler: new HarmonyMethod(typeof(SortieOverHome), nameof(ArriveTranspiler)));
+            harmony.Patch(flight.Away, postfix: new HarmonyMethod(typeof(SortieOverHome), nameof(AwayPostfix)));
+            flights.Add(flight);
+            report.On(feature);
         }
+        if (flights.Count == 0) return;
+        // Vehicle Framework's own steps, once for every copy.
         harmony.Patch(canTarget, prefix: new HarmonyMethod(typeof(SortieOverHome), nameof(CanTargetPrefix)) { priority = Priority.First },
             finalizer: new HarmonyMethod(typeof(SortieOverHome), nameof(CanTargetFinalizer)));
         harmony.Patch(options, postfix: new HarmonyMethod(typeof(SortieOverHome), nameof(OptionsPostfix)) { priority = Priority.Last });
-        harmony.Patch(isLoiter, postfix: new HarmonyMethod(typeof(SortieOverHome), nameof(LoiterPostfix)));
         harmony.Patch(localMap, prefix: new HarmonyMethod(typeof(SortieOverHome), nameof(OrderedPrefix)) { priority = Priority.First });
-        harmony.Patch(arrive, transpiler: new HarmonyMethod(typeof(SortieOverHome), nameof(ArriveTranspiler)));
-        harmony.Patch(away, postfix: new HarmonyMethod(typeof(SortieOverHome), nameof(AwayPostfix)));
-        report.On(feature);
     }
 
     // ---- Who is on a sortie ----
 
-    /// <summary>Whether the player is choosing this jet's sortie target now (the framework's SortieTargeting, read by name).</summary>
+    /// <summary>Whether the player is choosing this jet's sortie target now (its copy's SortieTargeting, read by name).</summary>
     internal static bool Targeting(VehiclePawn? vehicle) =>
-        vehicle != null && (ReferenceEquals(vehicle, lowered) || sortieTargeting?.DeclaringType?.IsInstanceOfType(vehicle) == true
-            && sortieTargeting.GetValue(vehicle) is true);
+        vehicle != null && (ReferenceEquals(vehicle, lowered) || For(vehicle)?.SortieTargeting.GetValue(vehicle) is true);
 
-    /// <summary>Whether a vehicle is one of the fixed-wing framework's jets; false when its code was not found.</summary>
-    internal static bool IsFixedWing(VehiclePawn vehicle) =>
-        fixedWingProps?.DeclaringType?.IsInstanceOfType(vehicle) == true && fixedWingProps.GetValue(vehicle) != null;
+    /// <summary>Whether a vehicle is a jet of one of the copies found; false when its code was not found.</summary>
+    internal static bool IsFixedWing(VehiclePawn vehicle) => For(vehicle) is { } flight && flight.FixedWingProps.GetValue(vehicle) != null;
 
     internal static Map? HomeAt(GlobalTargetInfo target) =>
         target.WorldObject is MapParent { HasMap: true } parent && parent.Map.IsPlayerHome ? parent.Map : null;
@@ -127,7 +167,7 @@ public static class SortieOverHome
         __state = false;
         VehiclePawn vehicle = __instance.Vehicle;
         if (!target.IsValid || !Targeting(vehicle) || !IsFixedWing(vehicle) || HomeAt(target) == null) return;
-        setSortieTargeting!.Invoke(vehicle, new object[] { false });
+        For(vehicle)!.SetSortieTargeting.Invoke(vehicle, new object[] { false });
         lowered = vehicle;
         __state = true;
     }
@@ -136,7 +176,7 @@ public static class SortieOverHome
     {
         if (!__state) return;
         lowered = null;
-        setSortieTargeting!.Invoke(__instance.Vehicle, new object[] { true });
+        For(__instance.Vehicle)?.SetSortieTargeting.Invoke(__instance.Vehicle, new object[] { true });
     }
 
     /// <summary>The destination reads "fly sortie to", not the framework's "land at", for a sortie to a home.</summary>
@@ -216,7 +256,11 @@ public static class SortieOverHome
     /// <summary>Over a home it was sent to strike that has no runway it fits, the jet counts as away, so it flies back to a home with one.</summary>
     public static void AwayPostfix(object __instance, ref bool __result)
     {
-        if (__result || controllerVehicle!.GetValue(__instance) is not VehiclePawn vehicle || !sorties.TryGetValue(vehicle, out Over? over)) return;
+        if (__result) return;
+        Flight? flight = null;
+        foreach (Flight each in flights)
+            if (each.Controller.IsInstanceOfType(__instance)) flight = each;
+        if (flight?.ControllerVehicle.GetValue(__instance) is not VehiclePawn vehicle || !sorties.TryGetValue(vehicle, out Over? over)) return;
         if (!vehicle.Spawned || vehicle.Map != over.Map)
         {
             sorties.Remove(vehicle);
@@ -228,12 +272,12 @@ public static class SortieOverHome
     /// <summary>The framework's own test for a home to return to: a beacon runway at least as long and as wide as the jet needs.</summary>
     static bool HasRunwayFor(VehiclePawn vehicle, Map map)
     {
-        object? props = fixedWingProps!.GetValue(vehicle);
-        if (props == null) return false;
-        int length = (int)runwayLength!.GetValue(props)!;
-        int width = (int)runwayWidth!.GetValue(props)!;
-        MapComponent? component = map.components.FirstOrDefault(c => runwaysComponent!.IsInstanceOfType(c));
-        if (component == null || runways!.GetValue(component) is not IEnumerable<CellRect> rects) return false;
+        // Each copy keeps its own runways component on a map, so the jet's own copy is read.
+        if (For(vehicle) is not { } flight || flight.FixedWingProps.GetValue(vehicle) is not { } props) return false;
+        int length = (int)flight.RunwayLength.GetValue(props)!;
+        int width = (int)flight.RunwayWidth.GetValue(props)!;
+        MapComponent? component = map.components.FirstOrDefault(c => flight.RunwaysComponent.IsInstanceOfType(c));
+        if (component == null || flight.Runways.GetValue(component) is not IEnumerable<CellRect> rects) return false;
         foreach (CellRect rect in rects)
             if (Math.Max(rect.Width, rect.Height) >= length && Math.Min(rect.Width, rect.Height) >= width) return true;
         return false;

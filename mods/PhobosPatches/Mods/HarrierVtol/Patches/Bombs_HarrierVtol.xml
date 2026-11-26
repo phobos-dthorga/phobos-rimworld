@@ -39,7 +39,8 @@
     reads its ID from the digits at the end of name + number), so they were renamed; BombCaseRename.cs carries older saves across.
   -->
   <Operation Class="PatchOperationConditional">
-    <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/statBases[Mass="227"]</xpath>
+    <!-- The Harrier's own Mk. 82 since 26 Nov 2026 (0.45.1; FWA_Bomb500lb, shared with Close Air Support, before). -->
+    <xpath>Defs/ThingDef[defName="HFW_Bomb500lb"]/statBases[Mass="227"]</xpath>
     <match Class="PatchOperationSequence">
       <operations>
 

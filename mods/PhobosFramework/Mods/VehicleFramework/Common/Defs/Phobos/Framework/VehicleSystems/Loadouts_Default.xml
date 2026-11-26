@@ -1741,8 +1741,11 @@
     <label>jet aircraft</label>
     <rank>1</rank>
     <selector>
+      <!-- One copy of the fixed-wing framework in each jet mod since 26 Nov 2026 (Framework 0.301.1); FixedWingAircraftFramework before. -->
       <thingClasses>
-        <li>FixedWingAircraftFramework.VtolVehiclePawn</li>
+        <li>AV8BHarrier.Flight.VtolVehiclePawn</li>
+        <li>CloseAirSupport.Flight.VtolVehiclePawn</li>
+        <li>EA6BProwler.Flight.VtolVehiclePawn</li>
       </thingClasses>
     </selector>
     <flightProfile>PhobosFlightProfile_FixedWingJet</flightProfile>

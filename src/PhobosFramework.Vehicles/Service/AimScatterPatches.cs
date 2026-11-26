@@ -59,15 +59,21 @@ public static class TurretScatterPace
 }
 
 /// <summary>
-/// The two flight frameworks' turrets, which override the firing (the fixed-wing framework's for the Harrier and Close Air Support's jets,
-/// rabiosus's VTOL Vehicle for the Hind and the Mongoose). Reached by name: no core assembly references either. A framework that is not
-/// loaded, or renames the method, is simply not patched.
+/// The two flight frameworks' turrets, which override the firing (the fixed-wing framework's for the Harrier, Close Air Support's jets and
+/// the Prowler, one copy in each mod; rabiosus's VTOL Vehicle for the Hind and the Mongoose). Reached by name: no core assembly references
+/// either. A framework that is not loaded, or renames the method, is simply not patched.
 /// </summary>
 [HarmonyPatch]
 public static class FrameworkTurretScatterPace
 {
-    // scripts/check-targets.py reads these names.
-    static readonly string[] Targets = { "FixedWingAircraftFramework.VtolVehicleTurret:FireTurret", "VTOLVehicle.VtolVehicleTurret:FireTurret" };
+    // scripts/check-targets.py reads these names. The fixed-wing framework is one copy in each jet mod since 26 Nov 2026 (Framework 0.301.1).
+    static readonly string[] Targets =
+    {
+        "AV8BHarrier.Flight.VtolVehicleTurret:FireTurret",
+        "CloseAirSupport.Flight.VtolVehicleTurret:FireTurret",
+        "EA6BProwler.Flight.VtolVehicleTurret:FireTurret",
+        "VTOLVehicle.VtolVehicleTurret:FireTurret",
+    };
 
     static bool Prepare() => Found().GetEnumerator().MoveNext();
 
@@ -99,7 +105,9 @@ public static class FrameworkTurretAimSway
     // scripts/check-targets.py reads these names.
     static readonly string[] Targets =
     {
-        "FixedWingAircraftFramework.VtolVehicleTurret:FireTurretCEFromFirePoint",
+        "AV8BHarrier.Flight.VtolVehicleTurret:FireTurretCEFromFirePoint",
+        "CloseAirSupport.Flight.VtolVehicleTurret:FireTurretCEFromFirePoint",
+        "EA6BProwler.Flight.VtolVehicleTurret:FireTurretCEFromFirePoint",
         "VTOLVehicle.VtolVehicleTurret:FireTurretCEFromFirePoint",
     };
 

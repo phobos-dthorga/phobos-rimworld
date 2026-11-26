@@ -23,13 +23,13 @@
     <flag>PhobosCloseAirSupportPatches.realisticHandling</flag>
     <operations>
       <li Class="PatchOperationReplace">
-        <xpath>Defs/Vehicles.VehicleDef[defName="Warthog_Jet"]/modExtensions/li[@Class="FixedWingAircraftFramework.FixedWingProperties"]/maxSpeed</xpath>
+        <xpath>Defs/Vehicles.VehicleDef[defName="Warthog_Jet"]/modExtensions/li[@Class="CloseAirSupport.Flight.FixedWingProperties"]/maxSpeed</xpath>
         <value>
           <maxSpeed>0.20</maxSpeed>
         </value>
       </li>
       <li Class="PatchOperationReplace">
-        <xpath>Defs/Vehicles.VehicleDef[defName="Warthog_Jet"]/modExtensions/li[@Class="FixedWingAircraftFramework.FixedWingProperties"]/cruiseSpeed</xpath>
+        <xpath>Defs/Vehicles.VehicleDef[defName="Warthog_Jet"]/modExtensions/li[@Class="CloseAirSupport.Flight.FixedWingProperties"]/cruiseSpeed</xpath>
         <value>
           <cruiseSpeed>0.16</cruiseSpeed>
         </value>
@@ -41,13 +41,13 @@
         </value>
       </li>
       <li Class="PatchOperationReplace">
-        <xpath>Defs/Vehicles.VehicleDef[defName="Frogfoot_Jet"]/modExtensions/li[@Class="FixedWingAircraftFramework.FixedWingProperties"]/maxSpeed</xpath>
+        <xpath>Defs/Vehicles.VehicleDef[defName="Frogfoot_Jet"]/modExtensions/li[@Class="CloseAirSupport.Flight.FixedWingProperties"]/maxSpeed</xpath>
         <value>
           <maxSpeed>0.26</maxSpeed>
         </value>
       </li>
       <li Class="PatchOperationReplace">
-        <xpath>Defs/Vehicles.VehicleDef[defName="Frogfoot_Jet"]/modExtensions/li[@Class="FixedWingAircraftFramework.FixedWingProperties"]/cruiseSpeed</xpath>
+        <xpath>Defs/Vehicles.VehicleDef[defName="Frogfoot_Jet"]/modExtensions/li[@Class="CloseAirSupport.Flight.FixedWingProperties"]/cruiseSpeed</xpath>
         <value>
           <cruiseSpeed>0.21</cruiseSpeed>
         </value>

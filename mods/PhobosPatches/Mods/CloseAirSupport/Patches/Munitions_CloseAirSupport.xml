@@ -24,7 +24,8 @@
     silver. The authors' work, skill and bulk stand.
   -->
   <Operation Class="PatchOperationConditional">
-    <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/statBases[Mass="227"]</xpath>
+    <!-- Close Air Support's own Mk. 82 since 26 Nov 2026 (0.45.1; FWA_Bomb500lb, shared with the Harrier, before). -->
+    <xpath>Defs/ThingDef[defName="CAS_Bomb500lb"]/statBases[Mass="227"]</xpath>
     <match Class="PatchOperationSequence">
       <operations>
 
