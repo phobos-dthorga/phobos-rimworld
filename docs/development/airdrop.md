@@ -199,7 +199,8 @@ Read from the decompile `.local/decompiled/C17Globemaster-1.7-2026-11-22` (the i
   the player's vehicles only; no nesting (nothing slinging, towing, holding or being towed, and no aircraft); a size limit in cells
   (`maxSize`) and a weight limit (`maxKg`).
 - **The Osprey** carries small vehicles internally in reality (the Internally Transportable Vehicle was made to fit its cabin **[S]**): its
-  hold takes one vehicle up to 2 by 3 cells and 2,500 kg (**[A]**).
+  hold takes one vehicle up to 2 by 4 cells and 3,500 kg (the owner's answer on the Decisions page, 26 Nov 2026; it was 2 by 3 and
+  2,500 kg), and it drops one of up to 3,500 kg on a platform (the owner, the same day).
 
 ### Parachutes and the rigger's table
 

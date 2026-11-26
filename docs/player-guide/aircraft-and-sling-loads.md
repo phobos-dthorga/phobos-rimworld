@@ -308,7 +308,7 @@ drops on it, showing the crew the wind, so loads land closer still; by night its
 day): choose food, medicine or materials. A few hours later their aircraft crosses the map and the bundles drift down onto your marker,
 or near your trade drop spot; colonists de-rig them.
 
-**The hold:** an aircraft with a hold (the Osprey takes one vehicle up to 2 by 3 cells and 2,500 kg) takes a vehicle of yours aboard
+**The hold:** an aircraft with a hold (the Osprey takes one vehicle up to 2 by 4 cells and 3,500 kg, and can drop it by parachute) takes a vehicle of yours aboard
 with **Load into hold**: park it inside the cyan area drawn behind the ramp when the aircraft is selected. Its crew rides in the passenger seats. **Unload hold** drives it out of the
 ramp. No aircraft, and nothing carrying, towing or holding another vehicle.
 

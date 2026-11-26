@@ -13,6 +13,16 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.122.1] - 2026-11-26 - Draft
+
+The Osprey's hold takes a bigger vehicle
+
+### Balance
+
+- **The Osprey's hold takes one vehicle up to 2 by 4 cells and 3,500 kg** (it was 2 by 3 and 2,500 kg), the owner's answer on the
+  Decisions page: past the real cabin's size, so Vanilla Vehicles Expanded's cars and the L-ATV now fit. It drops one of up to 3,500 kg
+  by parachute too (it was 2,500 kg). Not yet tested in game.
+
 ## [0.122.0] - 2026-11-26 - Draft
 
 Settlements hire the trucks

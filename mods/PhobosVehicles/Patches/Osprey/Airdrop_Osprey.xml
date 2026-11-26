@@ -4,8 +4,9 @@
     The Osprey drops by parachute and carries a small vehicle in its hold (D'thorga Framework 0.288.0, D'thorga Vehicles 0.120.0;
     docs/development/airdrop.md). A patch file of its own, as its flight's is. Its jumpers go out of the ramp and the side door, two at a time
     (authored from the V-22's two exits); bundles two a second down the ramp (authored); one vehicle on a platform per pass.
-    Its hold: the V-22's cabin was built to take the Internally Transportable Vehicle [S, Wikipedia: Growler]; authored here as one vehicle
-    up to 2 by 3 cells and 2,500 kg, within its cargo.
+    Its hold: the V-22's cabin was built to take the Internally Transportable Vehicle [S, Wikipedia: Growler]; one vehicle up to 2 by 4 cells
+    and 3,500 kg, within its cargo (the owner's answer on the Decisions page, 26 Nov 2026, past the real cabin's size); it drops one of up to
+    3,500 kg on a platform too (the owner, the same day: "Raise the Osprey's drop limit to 3,500 kg too").
   -->
 
   <Operation Class="PatchOperationConditional">
@@ -25,7 +26,7 @@
         <jumpDoors>2</jumpDoors>
         <bundlesPerSecond>2</bundlesPerSecond>
         <platforms>1</platforms>
-        <heaviestPlatformKg>2500</heaviestPlatformKg>
+        <heaviestPlatformKg>3500</heaviestPlatformKg>
       </li>
     </value>
   </Operation>
@@ -34,8 +35,8 @@
     <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Osprey"]/comps</xpath>
     <value>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosHold">
-        <maxSize>(2, 3)</maxSize>
-        <maxKg>2500</maxKg>
+        <maxSize>(2, 4)</maxSize>
+        <maxKg>3500</maxKg>
         <slots>1</slots>
         <rampReachCells>6</rampReachCells>
       </li>
