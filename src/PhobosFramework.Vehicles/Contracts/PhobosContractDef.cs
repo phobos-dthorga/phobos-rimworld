@@ -5,12 +5,18 @@ using Verse;
 
 namespace Phobos.VehicleSystems;
 
-/// <summary>What a contract asks for: a fluid brought in a tank, things brought in a caravan, or hours of a truck's work at the settlement.</summary>
+/// <summary>
+/// What a contract asks for: a fluid brought in a tank, things brought in a caravan, hours of a truck's work at the settlement, or one of
+/// the two that wait at a place on the world map (Framework 0.311.0): the settlement's broken-down vehicle, towed home or mended where it
+/// stands, and one of its people lying hurt, brought home alive.
+/// </summary>
 public enum ContractKind
 {
     DeliverFluid,
     DeliverThings,
     WorkOnSite,
+    TowVehicle,
+    Casualty,
 }
 
 /// <summary>
@@ -44,6 +50,14 @@ public class PhobosContractDef : Def
     public bool worksAtNight;
     /// <summary>How likely this kind is, among the kinds the player can do.</summary>
     public float selectionWeight = 1f;
+    /// <summary>Whether it is offered only to a player who owns a vehicle that fits. False: to anyone (the casualty, brought home by any
+    /// caravan: the owner's card of 26 Nov 2026).</summary>
+    public bool needsVehicle = true;
+    /// <summary>The asking faction must be at least this advanced (a settlement with no trucks has none to break down).</summary>
+    public TechLevel minTechLevel = TechLevel.Undefined;
+
+    /// <summary>Whether it waits at a place on the world map, made by its own quest, rather than at the settlement.</summary>
+    public bool OnSite => kind is ContractKind.TowVehicle or ContractKind.Casualty;
     /// <summary>What is asked, for the quest's text and the settlement's line: {AMOUNT} and {THING}.</summary>
     [MustTranslate] public string request = "";
     /// <summary>How the player does it, for the quest's text.</summary>
@@ -70,6 +84,9 @@ public class PhobosContractDef : Def
                 break;
             case ContractKind.WorkOnSite when working.NullOrEmpty():
                 yield return "work on site needs its working text";
+                break;
+            case ContractKind.TowVehicle or ContractKind.Casualty when valuePerUnit <= 0f:
+                yield return "a contract at a place on the world map needs a valuePerUnit (its worth, in silver)";
                 break;
         }
     }

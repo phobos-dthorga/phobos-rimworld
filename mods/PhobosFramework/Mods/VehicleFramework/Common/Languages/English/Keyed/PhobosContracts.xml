@@ -32,10 +32,25 @@
   <PhobosContract_Left>{CARAVAN} has left {SETTLEMENT}, so the work there has stopped. What is done is kept.</PhobosContract_Left>
   <PhobosContract_HeldUp>The work at {SETTLEMENT} is held up: {REASON}</PhobosContract_HeldUp>
 
+  <!-- At a place on the world map: the stranded vehicle and the casualty (Framework 0.311.0) -->
+  <PhobosContract_StrandedWords>Their {VEHICLE} has broken down: its {PART} is wrecked.</PhobosContract_StrandedWords>
+  <PhobosContract_CasualtyWords>{PERSON} was hurt on the road and cannot walk.</PhobosContract_CasualtyWords>
+  <PhobosContract_HandOver>Hand over {TARGET}</PhobosContract_HandOver>
+  <PhobosContract_HandOverDesc>Hand {TARGET} back to {SETTLEMENT}, as they asked.</PhobosContract_HandOverDesc>
+  <PhobosContract_TargetLost>What they asked you to bring home is gone.</PhobosContract_TargetLost>
+  <PhobosContract_NoVehicleWithIt>{TARGET} is not with this caravan: tow it here.</PhobosContract_NoVehicleWithIt>
+  <PhobosContract_NoCasualtyWithIt>{TARGET} is not with this caravan.</PhobosContract_NoCasualtyWithIt>
+  <PhobosContract_LastVehicle>{TARGET} is this caravan's only vehicle: the caravan needs another to travel on.</PhobosContract_LastVehicle>
+  <PhobosContract_HandedOver>{TARGET} is back with {SETTLEMENT}.</PhobosContract_HandedOver>
+  <PhobosContract_Mended>{TARGET} runs again, and its people drive it home to {SETTLEMENT}.</PhobosContract_Mended>
+  <PhobosContract_WentHome>{TARGET} has gone back to {FACTION}.</PhobosContract_WentHome>
+
   <!-- Settings -->
   <PhobosVehicleSettings_SectionContracts>Contracts</PhobosVehicleSettings_SectionContracts>
   <PhobosVehicleSystems_ContractNever>never</PhobosVehicleSystems_ContractNever>
   <PhobosVehicleSystems_SettingContractFrequency>How often settlements offer contracts: {SHARE}</PhobosVehicleSystems_SettingContractFrequency>
-  <PhobosVehicleSystems_SettingContractFrequencyDesc>Nearby settlements hire your vehicles: a load of chemfuel, water or stone, spare parts, or a truck's work at the settlement (a ground survey, a water bore, power for some days). The figure is how often, beside the game's own trade requests: 100% is as often as those, 0% offers none. A contract is offered only while you own a vehicle that can do it, and pays the game's usual quest rewards.</PhobosVehicleSystems_SettingContractFrequencyDesc>
+  <PhobosVehicleSystems_SettingContractFrequencyDesc>Nearby settlements hire your vehicles: a load of chemfuel, water or stone, spare parts, or a truck's work at the settlement (a ground survey, a water bore, power for some days). The figure is how often, beside the game's own trade requests: 100% is as often as those, 0% offers none. A contract is offered only while you own a vehicle that can do it, and pays the game's usual quest rewards. Some wait at a place on the world map: a settlement's broken-down vehicle to tow home or mend, or one of its people hurt on the road to bring home.</PhobosVehicleSystems_SettingContractFrequencyDesc>
+  <PhobosVehicleSystems_SettingContractSiteDanger>Enemies may wait at contract sites</PhobosVehicleSystems_SettingContractSiteDanger>
+  <PhobosVehicleSystems_SettingContractSiteDangerDesc>On: the place where a broken-down vehicle or a hurt traveller waits may hold enemies, mechanoids, turrets or angry animals, as the game's own rescue quests do (only where your storyteller allows violent quests). Off: those places are always quiet. Your people can die there, so it starts off.</PhobosVehicleSystems_SettingContractSiteDangerDesc>
 
 </LanguageData>

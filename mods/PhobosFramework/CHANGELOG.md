@@ -13,6 +13,28 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.311.0] - 2026-11-26 - Draft
+
+Stranded vehicles and hurt travellers
+
+### Added
+
+- **A settlement may ask you to bring home its broken-down vehicle or one of its hurt people** (the owner's cards of 26 November 2026),
+  a new contract quest shaped like the game's own downed-refugee rescue: what waits stands at a new place on the world map. **Tow the
+  vehicle** to their settlement and press **Hand over**, or **mend its wrecked part where it stands** and their people drive it home;
+  **carry the casualty** in any caravan, or on an aircraft's litters, to their settlement within the usual 7 to 15 days. Only an
+  industrial or better settlement has a vehicle to lose. The game's own rewards come by drop pod, and the faction is pleased.
+- **While a contract runs, the vehicle or person travels as one of your own**, so it can be winched, mended, carried and taken in a
+  caravan; it goes back to its people at the hand-over, or when the quest ends any other way (agent's choice: the game lets only your
+  people and prisoners into a caravan). Not yet tested in game: rows 557 to 559.
+- **A new setting, Enemies may wait at contract sites** (Crews page, Contracts): the places may hold the game's own rescue threats,
+  only where the storyteller allows violent quests. People can die there, so it starts **off**.
+
+### Save compatibility
+
+- Safe to add. **Before removing this mod, finish or let run out every open contract**: a stranded vehicle or casualty still in your
+  care would stay in your colony.
+
 ## [0.310.0] - 2026-11-26 - Draft
 
 An aircraft flies its round with nobody aboard

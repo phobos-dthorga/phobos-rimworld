@@ -124,6 +124,239 @@
     </root>
   </QuestScriptDef>
 
+  <!-- The contracts that wait at a place on the world map (Framework 0.311.0; EM9's tow and casualty flight; the owner's cards of 26 Nov
+       2026: tow it home or mend it on the spot; the casualty home by any caravan in the usual time; threats as the game's rescues, behind
+       a setting that starts off; the game's own rewards). Shaped as the game's own Script_DownedRefugee.xml: a site near the player, a
+       time limit of 7 to 15 days, a threat from its "DownedRefugeeQuestThreat" parts, rewards by drop pod. Fails if the target dies or
+       is destroyed. The same frequency setting scales its weight. -->
+  <QuestScriptDef>
+    <defName>PhobosVehicleSiteContract</defName>
+    <rootSelectionWeight>1</rootSelectionWeight>
+    <rootMinProgressScore>8</rootMinProgressScore>
+    <defaultChallengeRating>1</defaultChallengeRating>
+    <expireDaysRange>4~8</expireDaysRange>
+    <questNameRules>
+      <rulesStrings>
+        <li>questName->[settlement_label] asks for help</li>
+        <li>questName->Stranded near [settlement_label]</li>
+        <li>questName->A rescue for [settlement_label]</li>
+      </rulesStrings>
+    </questNameRules>
+    <questDescriptionRules>
+      <rulesStrings>
+        <li>questDescription->[asker_nameDef], [asker_faction_leaderTitle] of [asker_faction_name] at [settlement_label], asks for your help: [contractRequest].
+\n[contractTargetWords]
+\n[contractHowTo] They will pay when it is done; the reward comes by drop pod.
+\n[asker_nameDef] says that [allSitePartsDescriptionsExceptFirst]</li>
+      </rulesStrings>
+    </questDescriptionRules>
+    <root Class="QuestNode_Sequence">
+      <nodes>
+        <li Class="QuestNode_SubScript">
+          <def>Util_RandomizePointsChallengeRating</def>
+          <parms>
+            <pointsFactorTwoStar>1.5</pointsFactorTwoStar>
+            <pointsFactorThreeStar>2</pointsFactorThreeStar>
+          </parms>
+        </li>
+        <li Class="QuestNode_SubScript">
+          <def>Util_AdjustPointsForDistantFight</def>
+        </li>
+        <li Class="QuestNode_GetMap" />
+        <li Class="QuestNode_GetNearbySettlement">
+          <maxTileDistance>32</maxTileDistance>
+          <storeAs>settlement</storeAs>
+          <storeFactionLeaderAs>asker</storeFactionLeaderAs>
+          <storeCanCaravanAs>canCaravan</storeCanCaravanAs>
+          <canBeSpace>false</canBeSpace>
+        </li>
+        <li Class="QuestNode_GetFactionOf">
+          <thing>$asker</thing>
+          <storeAs>faction</storeAs>
+        </li>
+        <li Class="QuestNode_Letter">
+          <inSignal>faction.BecameHostileToPlayer</inSignal>
+          <label TKey="LetterLabelQuestFailed">Quest failed: [resolvedQuestName]</label>
+          <text TKey="LetterTextQuestFailed">[faction_name] became hostile to you.</text>
+        </li>
+        <li Class="QuestNode_End">
+          <inSignal>faction.BecameHostileToPlayer</inSignal>
+          <outcome>Fail</outcome>
+        </li>
+        <li Class="Phobos.VehicleSystems.QuestNode_PhobosContract_Pick">
+          <settlement>$settlement</settlement>
+          <onSite>true</onSite>
+          <timeoutVar>siteTimeout</timeoutVar>
+          <storeOfferAs>contractOffer</storeOfferAs>
+          <storeValueAs>contractValue</storeValueAs>
+          <storeRequestAs>contractRequest</storeRequestAs>
+          <storeHowToAs>contractHowTo</storeHowToAs>
+        </li>
+        <li Class="QuestNode_Set">
+          <name>siteTimeout</name>
+          <value>$(randInt(7,15)*60000)</value>
+        </li>
+        <li Class="QuestNode_GetSiteTile">
+          <storeAs>siteTile</storeAs>
+          <preferCloserTiles>true</preferCloserTiles>
+        </li>
+        <li Class="QuestNode_ViolentQuestsAllowed">
+          <node Class="Phobos.VehicleSystems.QuestNode_PhobosContract_SiteDanger">
+            <storeAs>siteThreatChance</storeAs>
+          </node>
+          <elseNode Class="QuestNode_Set">
+            <name>siteThreatChance</name>
+            <value>0</value>
+          </elseNode>
+        </li>
+        <li Class="QuestNode_GetSitePartDefsByTagsAndFaction">
+          <storeAs>sitePartDefs</storeAs>
+          <storeFactionAs>siteFaction</storeFactionAs>
+          <sitePartsTags>
+            <li>
+              <tag>PhobosContractTarget</tag>
+            </li>
+            <li>
+              <tag>DownedRefugeeQuestThreat</tag>
+              <chance>$siteThreatChance</chance>
+            </li>
+          </sitePartsTags>
+        </li>
+        <li Class="QuestNode_GetDefaultSitePartsParams">
+          <tile>$siteTile</tile>
+          <faction>$siteFaction</faction>
+          <sitePartDefs>$sitePartDefs</sitePartDefs>
+          <storeSitePartsParamsAs>sitePartsParams</storeSitePartsParamsAs>
+        </li>
+        <li Class="QuestNode_SubScript">
+          <def>Util_GenerateSite</def>
+          <parms>
+            <hiddenSitePartsPossible>true</hiddenSitePartsPossible>
+          </parms>
+        </li>
+        <li Class="QuestNode_SpawnWorldObjects">
+          <worldObjects>$site</worldObjects>
+        </li>
+        <li Class="Phobos.VehicleSystems.QuestNode_PhobosContract_Initiate">
+          <settlement>$settlement</settlement>
+          <offer>$contractOffer</offer>
+          <duration>$siteTimeout</duration>
+          <target>$contractTarget</target>
+        </li>
+        <li Class="QuestNode_WorldObjectTimeout">
+          <worldObject>$site</worldObject>
+          <delayTicks>$siteTimeout</delayTicks>
+          <inSignalDisable>site.MapGenerated</inSignalDisable>
+        </li>
+        <li Class="QuestNode_GetMapWealth">
+          <map>$map</map>
+          <storeAs>mapWealth</storeAs>
+        </li>
+        <li Class="QuestNode_EvaluateSimpleCurve">
+          <value>$mapWealth</value>
+          <storeAs>wealthRewardValueFactor</storeAs>
+          <curve>
+            <points>
+              <li>0, 1.15</li>
+              <li>50000, 1</li>
+              <li>300000, 0.85</li>
+            </points>
+          </curve>
+        </li>
+        <li Class="QuestNode_Set">
+          <name>rewardValue</name>
+          <value>$($contractValue * $wealthRewardValueFactor * randFloat(1.5, 2.1))</value>
+        </li>
+        <li Class="QuestNode_GiveRewards">
+          <inSignal>settlement.PhobosContractDone</inSignal>
+          <parms>
+            <allowGoodwill>true</allowGoodwill>
+            <allowRoyalFavor>true</allowRoyalFavor>
+            <chosenPawnSignal>ChosenPawnForReward</chosenPawnSignal>
+          </parms>
+          <useDifficultyFactor>false</useDifficultyFactor>
+          <nodeIfChosenPawnSignalUsed Class="QuestNode_Letter">
+            <letterDef>ChoosePawn</letterDef>
+            <label TKey="LetterLabelFavorReceiver">[asker_faction_royalFavorLabel]</label>
+            <text TKey="LetterTextFavorReceiver">Who should be credited with [asker_faction_royalFavorLabel] for the help given to [settlement_label]?</text>
+            <chosenPawnSignal>ChosenPawnForReward</chosenPawnSignal>
+          </nodeIfChosenPawnSignalUsed>
+        </li>
+        <li Class="QuestNode_Delay">
+          <delayTicks>$siteTimeout</delayTicks>
+          <isQuestTimeout>true</isQuestTimeout>
+          <outSignalComplete>PhobosContractTimeout</outSignalComplete>
+        </li>
+        <li Class="QuestNode_End">
+          <inSignal>settlement.PhobosContractDone</inSignal>
+          <outcome>Success</outcome>
+          <sendStandardLetter>true</sendStandardLetter>
+        </li>
+        <li Class="QuestNode_End">
+          <inSignal>contractTarget.Killed</inSignal>
+          <outcome>Fail</outcome>
+          <sendStandardLetter>true</sendStandardLetter>
+        </li>
+        <li Class="QuestNode_End">
+          <inSignal>contractTarget.Destroyed</inSignal>
+          <outcome>Fail</outcome>
+          <sendStandardLetter>true</sendStandardLetter>
+        </li>
+        <li Class="QuestNode_End">
+          <inSignal>PhobosContractTimeout</inSignal>
+          <outcome>Fail</outcome>
+        </li>
+      </nodes>
+    </root>
+  </QuestScriptDef>
+
+  <SitePartDef>
+    <defName>PhobosContractTarget</defName>
+    <label>call for help</label>
+    <description>Something a nearby settlement has asked you to bring home.</description>
+    <workerClass>Phobos.VehicleSystems.SitePartWorker_PhobosContractTarget</workerClass>
+    <siteTexture>World/WorldObjects/Sites/GenericSite</siteTexture>
+    <expandingIconTexture>World/WorldObjects/Expanding/Sites/DownedRefugee</expandingIconTexture>
+    <forceExitAndRemoveMapCountdownDurationDays>16</forceExitAndRemoveMapCountdownDurationDays>
+    <handlesWorldObjectTimeoutInspectString>true</handlesWorldObjectTimeoutInspectString>
+    <gravShipsCanLandOn>true</gravShipsCanLandOn>
+    <tags>
+      <li>PhobosContractTarget</li>
+    </tags>
+  </SitePartDef>
+
+  <GenStepDef>
+    <defName>PhobosContractTarget</defName>
+    <linkWithSite>PhobosContractTarget</linkWithSite>
+    <order>1600</order>
+    <genStep Class="Phobos.VehicleSystems.GenStep_PhobosContractTarget">
+      <count>1</count>
+      <nearMapCenter>true</nearMapCenter>
+    </genStep>
+  </GenStepDef>
+
+  <!-- EM9's tow: an industrial or better settlement's land vehicle, broken down at the place. 900 silver of worth [A]. -->
+  <Phobos.VehicleSystems.PhobosContractDef>
+    <defName>PhobosContract_Tow</defName>
+    <label>stranded vehicle</label>
+    <kind>TowVehicle</kind>
+    <minTechLevel>Industrial</minTechLevel>
+    <valuePerUnit>900</valuePerUnit>
+    <request>their vehicle has broken down out in the wilds; tow it home to them, or mend it where it stands</request>
+    <howTo>Winch it and tow it to their settlement, then hand it over; or mend the wrecked part on the spot, and their people drive it home. Until then it is in your care.</howTo>
+  </Phobos.VehicleSystems.PhobosContractDef>
+
+  <!-- EM9's casualty: one of their people, hurt and unable to walk, brought home alive by any caravan. 700 silver of worth [A]. -->
+  <Phobos.VehicleSystems.PhobosContractDef>
+    <defName>PhobosContract_Casualty</defName>
+    <label>casualty</label>
+    <kind>Casualty</kind>
+    <needsVehicle>false</needsVehicle>
+    <valuePerUnit>700</valuePerUnit>
+    <request>one of their people lies hurt out in the wilds; bring them home alive</request>
+    <howTo>Carry them into a caravan, or onto an aircraft's litters, and hand them over at their settlement. Until then they travel as one of your own.</howTo>
+  </Phobos.VehicleSystems.PhobosContractDef>
+
   <!-- EM9's first call for help: a named spare part, for anyone who keeps vehicles of ours. Worth the part's own market value. -->
   <Phobos.VehicleSystems.PhobosContractDef>
     <defName>PhobosContract_SpareParts</defName>

@@ -35,12 +35,19 @@ public class WorldObjectComp_PhobosContract : WorldObjectComp
     public Caravan? workCaravan;
     /// <summary>Why the work is held up, said once when it changes; not saved, the next step finds it again.</summary>
     public string? heldUp;
+    /// <summary>For a contract at a place on the world map: the settlement's stranded vehicle or hurt person (Framework 0.311.0).</summary>
+    public Pawn? target;
+    /// <summary>The faction the target goes back to; while in the player's care it is the player's.</summary>
+    public Faction? home;
+
+    /// <summary>Ticks between the checks on a stranded vehicle in the player's care: a game hour.</summary>
+    const int MendedCheckInterval = 2500;
 
     public bool Active => def != null && expiration > Find.TickManager.TicksGame;
 
     public Settlement? Settlement => parent as Settlement;
 
-    public void Begin(PhobosContractDef contract, ThingDef? asked, float units, int ticks)
+    public void Begin(PhobosContractDef contract, ThingDef? asked, float units, int ticks, Pawn? waiting = null)
     {
         def = contract;
         thing = asked;
@@ -48,6 +55,8 @@ public class WorldObjectComp_PhobosContract : WorldObjectComp
         done = 0f;
         workCaravan = null;
         heldUp = null;
+        target = waiting;
+        home = waiting != null ? parent.Faction : null;
         expiration = Find.TickManager.TicksGame + ticks;
     }
 
@@ -58,10 +67,17 @@ public class WorldObjectComp_PhobosContract : WorldObjectComp
         expiration = -1;
         workCaravan = null;
         heldUp = null;
+        target = null;
+        home = null;
     }
 
     public override void CompTick()
     {
+        if (target != null && def?.kind == ContractKind.TowVehicle && (Find.TickManager.TicksGame + parent.ID) % MendedCheckInterval == 0)
+        {
+            if (Active) Contracts.CheckMended(this);
+            return;
+        }
         // Every 250 ticks, staggered by settlement, and only while a caravan is at work: nothing runs for a settlement with no contract.
         if (workCaravan == null || (Find.TickManager.TicksGame + parent.ID) % Contracts.WorkInterval != 0) return;
         if (!Active)
@@ -97,6 +113,19 @@ public class WorldObjectComp_PhobosContract : WorldObjectComp
     public override IEnumerable<Gizmo> GetCaravanGizmos(Caravan caravan)
     {
         if (!Active || def == null || !Contracts.AtSettlement(caravan, parent)) yield break;
+        if (def.OnSite)
+        {
+            var handOver = new Command_Action
+            {
+                defaultLabel = "PhobosContract_HandOver".Translate((target?.LabelShort ?? "").Named("TARGET")),
+                defaultDesc = "PhobosContract_HandOverDesc".Translate((target?.LabelShort ?? "").Named("TARGET"), parent.LabelCap.Named("SETTLEMENT")),
+                icon = FulfilIcon,
+                action = () => Contracts.HandOver(this, caravan),
+            };
+            if (Contracts.HandOverRefusal(this, caravan) is { } why) handOver.Disable(why);
+            yield return handOver;
+            yield break;
+        }
         if (def.kind != ContractKind.WorkOnSite)
         {
             var fulfil = new Command_Action
@@ -133,5 +162,7 @@ public class WorldObjectComp_PhobosContract : WorldObjectComp
         Scribe_Values.Look(ref done, "PhobosContractDone", 0f);
         Scribe_Values.Look(ref expiration, "PhobosContractExpiration", -1);
         Scribe_References.Look(ref workCaravan, "PhobosContractWorkCaravan");
+        Scribe_References.Look(ref target, "PhobosContractTarget");
+        Scribe_References.Look(ref home, "PhobosContractHome");
     }
 }

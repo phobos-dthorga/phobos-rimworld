@@ -1,8 +1,9 @@
 # Contracts: settlements hire the player's vehicles (26 Nov 2026)
 
 **Status (26 Nov 2026):** built in D'thorga Framework 0.308.0 (the contract system and the spare-parts kind; the reach fixed in 0.308.1) and D'thorga Vehicles 0.122.0
-(the six truck kinds); not yet tested in game (rows 551 to 554 of [the test pass](in-game-test-pass.md)). EM9's tow and casualty flight are
-not built.
+(the six truck kinds), and EM9's tow and casualty in Framework 0.311.0 ([at a place on the world
+map](#at-a-place-on-the-world-map-the-tow-and-the-casualty-framework-03110)); not yet tested in game (rows 551 to 554 and 557 to 559 of
+[the test pass](in-game-test-pass.md)).
 
 Rows EM45 and EM9 of [emergent play](vehicle-emergent-play.md#h-work-on-the-road-26-nov-2026). The owner chose contracts first in group H
 (26 Nov 2026, question 8), then said "Build the contracts, please".
@@ -105,10 +106,67 @@ Every 250 ticks, staggered by settlement, and only while a caravan is at work:
   They learn the skill as they work (0.04 experience a tick [A], about half a mining job's).
 - What holds the work up is said once, when it changes, and the work picks up again by itself when it clears.
 
+## At a place on the world map: the tow and the casualty (Framework 0.311.0)
+
+The owner asked "Build the tow and casualty flight next" (26 Nov 2026) and answered four cards the same day:
+
+| Question | Owner's answer |
+| --- | --- |
+| The tow | **Either way**: tow it to their settlement and hand it over, or mend it where it stands and it drives home |
+| The casualty | **Any caravan, the usual time**: offered to anyone, brought home alive by any means |
+| Danger at the place | **As the game's rescues, with its own setting** (high risk, so off by default) |
+| Rewards | **The game's own**, as the first seven contracts |
+
+**What it does to the player.** It **lets** them help a neighbour with the fleet: a recovery truck and a winch earn goodwill and rewards,
+and an air ambulance has a reason to fly. It **stops** nothing they could do before. It **changes** what a convoy carries (spare parts,
+a winch, medicine) and gives a journey a goal beyond trade. **Who notices:** the settlement's faction (goodwill), the game's quest window
+and rewards, the world map (a new place), and the colony (the target lives among them while in their care).
+
+**Risk (agent's grade):** with the setting off, low: the place is quiet, and a casualty dies only of their own wounds, which carry no
+bleeding (the game's own rule for its refugee). With it on, high: the game's own rescue threats.
+
+### The quest (`PhobosVehicleSiteContract`, Framework)
+
+A second quest, shaped line for line as the game's `OpportunitySite_DownedRefugee` [code: Core's `Script_DownedRefugee.xml`]: the
+storyteller's points and challenge rating; the asking settlement within 32 tiles; our pick node, told `onSite`; a time limit of **7 to 15
+days** (the refugee's own); a site tile near the colony; the threat chance from our node (`QuestNode_PhobosContract_SiteDanger`: the
+game's 70% while the setting is on, inside the game's own `QuestNode_ViolentQuestsAllowed`); the site from our part
+(`PhobosContractTarget`) and the game's `DownedRefugeeQuestThreat` threats; the rewards; and an end for success, for the target killed
+or destroyed, and for the time running out. **The rewards come by drop pod**: the game's caravan reward part pays only into a caravan
+the signal names, and a vehicle mended on the spot has none (`QuestPart_GiveToCaravan.Notify_QuestSignalReceived`, read).
+
+The same frequency setting scales this quest's weight, which starts at the refugee quest's own, 1.
+
+### The place and what waits there
+
+`SitePartWorker_PhobosContractTarget` makes the target when the quest is made, as the game's refugee worker does, and holds it in the
+site part until the map is made:
+
+- **The stranded vehicle**: one land vehicle with our systems, never a trailer, no more advanced than the faction (a design with no tech
+  level counts as industrial), offered only by an industrial or better settlement. The parts that move it are wrecked, the most
+  important first, until it cannot move (usually one: the "named part from our fault table" EM9 asked for), and it keeps **40%** of
+  its fuel [A] so it can drive once mended.
+- **The casualty**: one of the faction's ordinary people, made new, so never a leader or anyone the player knows.
+
+`GenStep_PhobosContractTarget` puts it on the map: the vehicle on open ground it fits (`SlingPlacement.TryFindClear`), the person downed
+with wrecked legs and no bleeding wounds, as `GenStep_DownedRefugee` does.
+
+### In the player's care (agent's choice, for the owner to revise)
+
+**The game lets only the player's own people and prisoners into a caravan** (`CaravanFormingUtility.AllSendablePawns`), and keeps the
+game's own lodgers out of the caravan window (`Dialog_FormCaravan.AllSendablePawns` passes no lodgers). So when the map is made, the target
+**joins the player's faction for the contract**, with its own faction kept on the settlement's contract. It can then be rescued,
+carried, winched, mended and taken in a caravan like the player's own, with no patch on the game. **It goes back to its people**:
+
+- at the settlement's **Hand over** button: out of any vehicle, caravan or tow, back to its faction, into the world;
+- for a vehicle mended anywhere (checked once a game hour): once it can move again, its people drive it home;
+- when the quest ends any other way (time out, the faction turning hostile), from wherever it is, even the colony, with a message.
+
+**What follows** [I]: while in care, a casualty is a colonist: their death brings the game's colonist-death moods, and once healed they
+could be set to work until the time runs out. A stranded vehicle in care counts in the colony's wealth on the map it stands on.
+
 ## Not built, and why
 
-- **EM9's tow and casualty flight**: each needs a place on the world map holding a stranded vehicle or a hurt person, a larger piece of
-  work (the owner's card: "EM9's tow and casualty flight come later").
 - **Water quality**: a water contract takes any water in the tanks, clean or not [A, a simplification].
 - **Wear on the working truck**: only fuel is burned at the settlement; its parts do not wear for the hours [A].
 - **The work's own sounds or a picture at the settlement**: none; the world map shows nothing new.
@@ -128,13 +186,17 @@ once per quest it considers.
 
 New saved state: the contract on each settlement (`PhobosContract*` keys) and the quest's part (`QuestPart_PhobosContract`). **Safe to
 add mid-game.** Removing D'thorga Framework with a contract quest open would leave a quest whose part cannot load: **finish, decline or
-let every contract run out first.** With none open, settlements' saved fields are simply not read.
+let every contract run out first.** With none open, settlements' saved fields are simply not read. A stranded vehicle or casualty
+still in the player's care when the mod is removed would stay in the colony as the player's own.
 
 ## Who chose what
 
 - **Owner (26 Nov 2026):** contracts first; build them; all seven kinds; the game's own rewards; the caravan stays for the work; a slider
   for how often.
-- **Owner (26 Nov 2026, later):** questioned the 24-tile reach; it is back to the trade request's 32.
+- **Owner (26 Nov 2026, later):** questioned the 24-tile reach; it is back to the trade request's 32. Then the tow and casualty, with
+  the four answers above.
+- **Agent (tow and casualty):** the custody design; rewards by drop pod; the stranded vehicle's choice and its 40% fuel; 900 and 700
+  silver of worth; the hourly check; the site's label and icon.
 - **Agent:** every figure marked [A]; the slider's 25% steps and 300% end; the setting's page; the logbook entry;
   learning while working; the low risk grade; using the trade request's icon.
 

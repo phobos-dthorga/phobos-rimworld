@@ -81,21 +81,170 @@ public static class Contracts
     /// A contract the player could do, chosen by its kind's weight, or null when none fits: no vehicle of the player's can do any kind, or a
     /// fluid's largest tank is too small for one step.
     /// </summary>
-    public static ContractOffer? Pick()
+    public static ContractOffer? Pick(bool onSite, Faction? asker)
     {
         List<VehiclePawn> fleet = PlayerVehicles().ToList();
         var choices = new List<(ContractOffer offer, float weight)>();
         foreach (PhobosContractDef def in DefDatabase<PhobosContractDef>.AllDefsListForReading)
         {
-            if (def.selectionWeight <= 0f) continue;
-            List<VehiclePawn> fitting = fleet.Where(v => Fits(def, v)).ToList();
-            if (fitting.Count == 0) continue;
-            float amount = ContractRule.Amount(def.amountRange.RandomInRange, Most(def, fitting), def.step);
+            if (def.selectionWeight <= 0f || def.OnSite != onSite) continue;
+            if (def.minTechLevel != TechLevel.Undefined && (asker == null || asker.def.techLevel < def.minTechLevel)) continue;
+            if (def.kind == ContractKind.TowVehicle && (asker == null || StrandedDesignFor(asker) == null)) continue;
+            List<VehiclePawn> fitting = def.needsVehicle ? fleet.Where(v => Fits(def, v)).ToList() : fleet;
+            if (def.needsVehicle && fitting.Count == 0) continue;
+            float amount = ContractRule.Amount(def.amountRange.RandomInRange, def.needsVehicle ? Most(def, fitting) : float.MaxValue, def.step);
             if (amount <= 0f) continue;
             ThingDef? thing = def.things.Count > 0 ? def.things.RandomElement() : null;
             choices.Add((new ContractOffer { Def = def, Thing = thing, Amount = amount, Value = ContractRule.Value(amount, PerUnit(def, thing)) }, def.selectionWeight));
         }
         return choices.Count == 0 ? null : choices.RandomElementByWeight(c => c.weight).offer;
+    }
+
+    // ---- At a place on the world map: the stranded vehicle and the casualty (Framework 0.311.0) ----
+
+    /// <summary>
+    /// A land vehicle of ours (with the systems) a settlement of this faction could own: no more advanced than the faction (a design with no
+    /// tech level counts as industrial), never a trailer. Null when there is none.
+    /// </summary>
+    public static VehicleDef? StrandedDesignFor(Faction faction) => DefDatabase<VehicleDef>.AllDefsListForReading
+        .Where(d => d.type == VehicleType.Land && !LoadoutSelector.IsTrailer(d) && d.GetCompProperties<CompProperties_PhobosVehicleSystems>() != null
+            && (d.techLevel == TechLevel.Undefined ? TechLevel.Industrial : d.techLevel) <= faction.def.techLevel)
+        .RandomElementWithFallback();
+
+    /// <summary>
+    /// What waits at the place: the faction's broken-down vehicle, a part that moves it wrecked and some fuel left, or one of its people,
+    /// made new so it is never a leader or anyone the player knows. Returns it with the words for the quest (the vehicle and its wrecked part,
+    /// or the person), or null when nothing could be made.
+    /// </summary>
+    public static Pawn? MakeTarget(PhobosContractDef def, Faction faction, out string words)
+    {
+        words = "";
+        if (def.kind == ContractKind.Casualty)
+        {
+            PawnKindDef kind = faction.def.basicMemberKind ?? faction.RandomPawnKind();
+            Pawn person = PawnGenerator.GeneratePawn(kind, faction);
+            words = "PhobosContract_CasualtyWords".Translate(person.LabelShort.Named("PERSON")).Resolve();
+            return person;
+        }
+        if (StrandedDesignFor(faction) is not { } design) return null;
+        VehiclePawn vehicle = VehicleSpawner.GenerateVehicle(design, faction);
+        if (vehicle == null) return null;
+        if (vehicle.CompFueledTravel is { } fuel) fuel.Refuel(fuel.FuelCapacity * StrandedFuelShare);
+        string part = Strand(vehicle);
+        words = "PhobosContract_StrandedWords".Translate(vehicle.LabelShort.Named("VEHICLE"), part.Named("PART")).Resolve();
+        return vehicle;
+    }
+
+    /// <summary>The fuel a stranded vehicle is left with, so once mended it can drive home (agent's figure).</summary>
+    public const float StrandedFuelShare = 0.4f;
+
+    /// <summary>
+    /// Wrecks the parts that move it, most important first, until it cannot move: one is usually enough. Returns the first part's name, the
+    /// named part from the fault table EM9 asks for.
+    /// </summary>
+    static string Strand(VehiclePawn vehicle)
+    {
+        string? first = null;
+        foreach (VehicleComponent part in vehicle.statHandler.components
+                     .Where(c => c.props.categories?.Contains(VehicleStatDefOf.MoveSpeed) == true)
+                     .OrderByDescending(c => c.props.priorityStatEfficiency).ThenByDescending(c => c.MaxHealth).ToList())
+        {
+            part.SetHealth(0f);
+            first ??= part.props.label ?? part.props.key;
+            if (Mobility.Stopped(vehicle)) break;
+        }
+        return first ?? vehicle.LabelShort;
+    }
+
+    /// <summary>
+    /// The player takes it into their care for the contract: the target joins the player's faction while the settlement's own is kept on the
+    /// contract, so it can be rescued, carried, winched, mended and taken in a caravan as the player's own (the game lets only the player's
+    /// people and prisoners into a caravan). It goes back at the hand-over, or when the quest ends any other way.
+    /// </summary>
+    public static void TakeIntoCare(Pawn target)
+    {
+        if (target.Faction != Faction.OfPlayer) target.SetFaction(Faction.OfPlayer);
+    }
+
+    /// <summary>
+    /// Sends the target back to its own: out of any vehicle, caravan, tow or map, back to its faction, into the world. Nothing happens to one
+    /// already gone back, dead or destroyed.
+    /// </summary>
+    public static void SendHome(Pawn? target, Faction? home)
+    {
+        if (target == null || target.Dead || target.Destroyed || target.Faction != Faction.OfPlayer) return;
+        if (target is VehiclePawn vehicle)
+        {
+            foreach (Pawn rider in vehicle.AllPawnsAboard.ToList()) vehicle.DisembarkPawn(rider);
+            foreach (Caravan caravan in Find.WorldObjects.Caravans)
+            {
+                if (caravan.PawnsListForReading.Contains(vehicle))
+                {
+                    caravan.RemovePawn(vehicle);
+                    break;
+                }
+                if (caravan is VehicleCaravan convoy
+                    && convoy.VehiclesListForReading.FirstOrDefault(v => CompPhobosHitch.TowedAlong(v) == vehicle)?.GetComp<CompPhobosHitch>() is { } hitch)
+                {
+                    hitch.LetGoHeld();
+                    break;
+                }
+            }
+        }
+        else
+        {
+            if (target.GetVehicle() is { } carrier) carrier.DisembarkPawn(target);
+            target.GetCaravan()?.RemovePawn(target);
+        }
+        if (target.Spawned) target.DeSpawn();
+        if (home != null && !home.defeated) target.SetFaction(home);
+        if (!target.IsWorldPawn()) Find.WorldPawns.PassToWorld(target, PawnDiscardDecideMode.Decide);
+    }
+
+    /// <summary>Whether the caravan has the target with it: among its people or vehicles, aboard one of its vehicles, or in its tow.</summary>
+    static bool HasWithIt(Caravan caravan, Pawn target) =>
+        caravan.PawnsListForReading.Contains(target) || Hitches.InTow(caravan).Contains(target)
+        || (target.GetVehicle() is { } carrier && TankLarder.Vehicles(caravan).Contains(carrier));
+
+    /// <summary>Why the caravan cannot hand the target over now, in-world, or null.</summary>
+    public static string? HandOverRefusal(WorldObjectComp_PhobosContract contract, Caravan caravan)
+    {
+        Pawn? target = contract.target;
+        if (target == null || target.Dead || target.Destroyed) return "PhobosContract_TargetLost".Translate().Resolve();
+        if (!HasWithIt(caravan, target))
+            return (target is VehiclePawn ? "PhobosContract_NoVehicleWithIt" : "PhobosContract_NoCasualtyWithIt").Translate(target.LabelShort.Named("TARGET")).Resolve();
+        if (target is VehiclePawn vehicle && caravan is VehicleCaravan convoy && convoy.VehiclesListForReading.Count == 1 && convoy.VehiclesListForReading[0] == vehicle)
+            return "PhobosContract_LastVehicle".Translate(vehicle.LabelShort.Named("TARGET")).Resolve();
+        return null;
+    }
+
+    /// <summary>Hands the target over at the settlement and closes the contract.</summary>
+    public static void HandOver(WorldObjectComp_PhobosContract contract, Caravan caravan)
+    {
+        if (contract.def == null || !contract.Active || HandOverRefusal(contract, caravan) != null) return;
+        Pawn target = contract.target!;
+        SendHome(target, contract.home);
+        Messages.Message("PhobosContract_HandedOver".Translate(target.LabelShort.Named("TARGET"), contract.parent.LabelCap.Named("SETTLEMENT")),
+            caravan, MessageTypeDefOf.PositiveEvent, historical: false);
+        Done(contract, caravan, null);
+    }
+
+    /// <summary>
+    /// Every game hour, for a stranded vehicle in the player's care: once it can move again, it is driven home by its own people and the
+    /// contract is met where it stands (the owner's card of 26 Nov 2026: tow it home or mend it on the spot).
+    /// </summary>
+    public static void CheckMended(WorldObjectComp_PhobosContract contract)
+    {
+        if (contract.target is not VehiclePawn vehicle || !vehicle.Spawned || vehicle.Faction != Faction.OfPlayer || vehicle.Destroyed) return;
+        if (Mobility.Stopped(vehicle)) return;
+        Map map = vehicle.Map;
+        IntVec3 at = vehicle.Position;
+        string label = vehicle.LabelShort;
+        SendHome(vehicle, contract.home);
+        Messages.Message("PhobosContract_Mended".Translate(label.Named("TARGET"), contract.parent.LabelCap.Named("SETTLEMENT")), new TargetInfo(at, map),
+            MessageTypeDefOf.PositiveEvent, historical: false);
+        if (Seen.Wants("vehicles.contract-mended")) Seen.Note("vehicles.contract-mended", null, label + " for " + contract.parent.Label);
+        Done(contract, null, null);
     }
 
     /// <summary>Silver a unit is worth: the Def's figure, else the thing's market value, else the fluid's item's market value a unit.</summary>
@@ -309,17 +458,21 @@ public static class Contracts
     /// The contract is met: the settlement's faction is pleased, as for the game's trade request, the quest hears it and pays its reward to
     /// the caravan, and the vehicle's logbook keeps it.
     /// </summary>
-    static void Done(WorldObjectComp_PhobosContract contract, Caravan caravan, VehiclePawn? vehicle)
+    static void Done(WorldObjectComp_PhobosContract contract, Caravan? caravan, VehiclePawn? vehicle)
     {
         PhobosContractDef def = contract.def!;
         string request = Request(def, contract.thing, contract.amount);
         if (contract.parent.Faction != null)
             Faction.OfPlayer.TryAffectGoodwillWith(contract.parent.Faction, DiplomacyTuning.Goodwill_QuestTradeRequestCompleted, canSendMessage: true,
                 canSendHostilityLetter: true, HistoryEventDefOf.QuestGoodwillReward);
-        VehicleStory.Of(vehicle, ContractDefOf.PhobosLog_Contract, subject: contract.parent.Label, detail: request);
+        if (vehicle != null) VehicleStory.Of(vehicle, ContractDefOf.PhobosLog_Contract, subject: contract.parent.Label, detail: request);
+        else VehicleStory.Convoy(caravan, ContractDefOf.PhobosLog_Contract, subject: contract.parent.Label, detail: request);
         if (Seen.Wants("vehicles.contract-done", vehicle, def.kind.ToString()))
             Seen.Note("vehicles.contract-done", vehicle, def.defName + " for " + contract.parent.Label, def.kind.ToString());
-        QuestUtility.SendQuestTargetSignals(contract.parent.questTags, SignalDone, contract.parent.Named("SUBJECT"), caravan.Named("CARAVAN"));
+        // A caravan named in the signal is where a quest that pays into the caravan puts its rewards; the site quest pays by drop pod.
+        if (caravan != null)
+            QuestUtility.SendQuestTargetSignals(contract.parent.questTags, SignalDone, contract.parent.Named("SUBJECT"), caravan.Named("CARAVAN"));
+        else QuestUtility.SendQuestTargetSignals(contract.parent.questTags, SignalDone, contract.parent.Named("SUBJECT"));
         contract.Disable();
     }
 
@@ -328,16 +481,21 @@ public static class Contracts
 
     // ---- How often ----
 
-    /// <summary>The quest's own weight, read once from its Def (the game's trade request's, 1.1), which the setting scales.</summary>
-    static float? baseWeight;
+    /// <summary>The quest that offers the contracts waiting at a place on the world map (Framework 0.311.0).</summary>
+    public const string SiteQuestDefName = "PhobosVehicleSiteContract";
 
-    /// <summary>Sets the quest's weight from the setting: zero takes it out of the storyteller's choices and traders' alike.</summary>
+    /// <summary>Each contract quest's own weight, read once from its Def, which the setting scales.</summary>
+    static readonly Dictionary<string, float> baseWeights = new();
+
+    /// <summary>Sets the contract quests' weights from the setting: zero takes them out of the storyteller's choices and traders' alike.</summary>
     public static void ApplyFrequency()
     {
-        QuestScriptDef? quest = DefDatabase<QuestScriptDef>.GetNamedSilentFail(QuestDefName);
-        if (quest == null) return;
-        baseWeight ??= quest.rootSelectionWeight;
-        quest.rootSelectionWeight = baseWeight.Value * VehicleSystemsMod.Settings.contractFrequency;
+        foreach (string name in new[] { QuestDefName, SiteQuestDefName })
+        {
+            if (DefDatabase<QuestScriptDef>.GetNamedSilentFail(name) is not { } quest) continue;
+            if (!baseWeights.TryGetValue(name, out float weight)) baseWeights[name] = weight = quest.rootSelectionWeight;
+            quest.rootSelectionWeight = weight * VehicleSystemsMod.Settings.contractFrequency;
+        }
     }
 }
 

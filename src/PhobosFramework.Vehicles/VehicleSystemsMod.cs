@@ -300,6 +300,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>How often settlements offer contracts for the player's vehicles, as a share of the game's own trade requests (Framework
     /// 0.308.0; owner's card of 26 Nov 2026: a slider, "how often or least often they desire"); 0 offers none. Live.</summary>
     public float contractFrequency = 1f;
+    /// <summary>A contract's place on the world map (the stranded vehicle, the casualty) may hold enemies or animals, as the game's own rescue
+    /// quests do, where violent quests are allowed (Framework 0.311.0; owner's card of 26 Nov 2026: its own setting; high risk, so off). Live.</summary>
+    public bool contractSiteDanger;
     /// <summary>The slider's far end: three times as often as the game's trade requests (agent's figure).</summary>
     public const float ContractFrequencyMost = 3f;
     /// <summary>How far the vehicle systems' messages nobody asked for are quietened (Framework 0.186.0, VehicleMessageLevel; owner's
@@ -481,6 +484,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref depotFuelAgeing, "PhobosVehicleSystems_DepotFuelAgeing", true);
         Scribe_Values.Look(ref depotHostileNeighbours, "PhobosVehicleSystems_DepotHostileNeighbours", false);
         Scribe_Values.Look(ref contractFrequency, "PhobosVehicleSystems_ContractFrequency", 1f);
+        Scribe_Values.Look(ref contractSiteDanger, "PhobosVehicleSystems_ContractSiteDanger", false);
         Scribe_Values.Look(ref messageLevel, "PhobosVehicleSystems_MessageLevel", MessageLevel.All);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
@@ -578,6 +582,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.caravanCooking) report.Off("caravan cooking", "off (setting)");
         if (Settings.contractFrequency <= 0f) report.Off("settlements' contracts for vehicles", "never offered (setting)");
         else if (Settings.contractFrequency != 1f) report.On("settlements' contracts for vehicles at " + Settings.contractFrequency.ToStringPercent() + " of trade requests (setting)");
+        if (Settings.contractSiteDanger) report.On("enemies may wait at contract sites (setting)");
         if (!Settings.raidersArriveByAir) report.Off("raiders arriving by aircraft", "off (setting)");
         if (Settings.stockHelicoptersFly) report.On("stock helicopters flying over the map (setting)");
         if (!Settings.airdropLandingRisk) report.Off("airdrop landing injuries and damage", "off (setting)");
@@ -858,6 +863,9 @@ public class VehicleSystemsMod : SettingsBookMod
                 VehicleSystemsSettings.ContractFrequencyMost, "PhobosVehicleSystems_SettingContractFrequencyDesc".Translate(),
                 value => Phobos.Framework.Rules.ContractRule.Frequency(value, VehicleSystemsSettings.ContractFrequencyMost)))
             Contracts.ApplyFrequency();
+        // Framework 0.311.0: the owner's card of 26 Nov 2026 asked for its own setting; high risk to people, so off by default.
+        list.Check("PhobosVehicleSystems_SettingContractSiteDanger".Translate(), ref s.contractSiteDanger, d.contractSiteDanger,
+            "PhobosVehicleSystems_SettingContractSiteDangerDesc".Translate());
         // The remote control of vehicles (Framework 0.278.0; docs/development/autonomous-vehicles.md): a vehicle with no crew, driven from afar.
         list.Section("PhobosVehicleSettings_SectionRemote".Translate());
         list.Check("PhobosVehicleSystems_SettingRemoteControl".Translate(), ref s.remoteControl, d.remoteControl, "PhobosVehicleSystems_SettingRemoteControlDesc".Translate());

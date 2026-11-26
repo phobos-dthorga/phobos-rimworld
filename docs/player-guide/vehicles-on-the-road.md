@@ -350,6 +350,19 @@ only while you own a vehicle that can do it.
 **How often** is the setting **How often settlements offer contracts** (Crews page, **Contracts**): from never to three times as often
 as trade requests, in quarters; as often as trade requests by default.
 
+**Some contracts wait at a place on the world map**, as the game's rescue quests do:
+
+| Contract | How to do it |
+| --- | --- |
+| **A broken-down vehicle** (industrial or better settlements) | **Tow it** to their settlement with a winch truck and press **Hand over**, or **mend its wrecked part where it stands**: within an hour their people drive it home |
+| **A hurt traveller** | **Carry them** into any caravan, or onto an aircraft's litters, and press **Hand over** at their settlement |
+
+- **While the contract runs, the vehicle or person is one of yours**, so you can winch, mend, carry and caravan them. They go back to
+  their people at the hand-over, or when the quest ends any other way, even from your colony.
+- **You have 7 to 15 days.** The reward comes **by drop pod** to your home.
+- **Enemies may wait at contract sites** (same page, **off** by default) lets these places hold the game's rescue threats: raiders,
+  mechanoids, turrets or manhunting animals.
+
 ### Garages
 
 **Garages** (needs Vanilla Expanded Framework): a stopped convoy can set one up. Vehicles left there stay with no time limit, and
