@@ -149,6 +149,12 @@ its name.
 | Down or in bed, with a condition something in stock cures outright | The cure, the gentlest first |
 | Toxins building up and still around them (polluted ground, tox gas, outdoors in toxic fallout) | Something that keeps toxins out, such as AntiTox, again as it wears off: a doctor gives it to those in bed, and people on their feet take their own |
 | Someone in the colony has a disease that strikes groups, and this person is unprotected | A preventive from stock: a doctor gives it to those in bed, and people on their feet take their own |
+| **Long-term care, each off until you turn it on** (Settings, Emergency dosing) | |
+| Mood below the point where a major break can happen | Something that steadies them, such as clozapine |
+| Addicted to a drug their drug policy no longer feeds | Something that eases it, such as addictol, never of the same kind. Never luciferium |
+| A scar or chronic condition that hurts or weakens | Something that heals old wounds, such as Hydra (a month; one healed every few weeks, at random) |
+| A natural body part missing, with nothing artificial in its place | Something that regrows it, such as a combat regeneration serum |
+| Bionics from The Dead Man's Switch with room in their biogel for a whole dose | Neuroglue, so the tank never runs low |
 
 - **Never given**: a second painkiller while one still works, anything during an overdose, a dose that would leave consciousness or
   breathing under 15%, recreational drugs (unless the setting allows them, and then last), drugs to someone who refuses them on
@@ -169,6 +175,9 @@ its name.
 - **AntiTox lasts about 2½ hours**, so someone working all day in toxic fallout takes about six a day. **It keeps the preventives'
   reserve** (5 by default). For planned work in a toxic place, paint a **toxic controlled area** instead (below).
 - **To have people carry vacsop**, set it to be taken to inventory in their drug policy: nobody fetches it once caught in vacuum.
+- **To stop someone's habit, untick the drug "for addiction" in their drug policy**: that is how the addiction treatment knows you
+  are making them quit. The addiction remover clears every addiction at once, wanted or not.
+- **Clozapine can also be scheduled** in a drug policy, only when mood is low, as the game allows for any drug.
 - **Blood loss is More Injuries' work**: its doctors give blood bags and hemogen packs on their own. Its epinephrine is left for
   cardiac arrest.
 - **A "Medicine needed" alert** names anyone who needs something your colony knows how to make while none of it is in stock.

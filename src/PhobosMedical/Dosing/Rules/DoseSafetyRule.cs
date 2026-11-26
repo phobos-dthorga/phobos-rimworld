@@ -101,7 +101,7 @@ public static class DoseSafetyRule
         {
             if ((need == DoseNeed.Toxic ? effect.ToxicCut : effect.VacuumGain) <= 0f) return DoseRefusal.NoProtection;
         }
-        else if (need != DoseNeed.Cure && need != DoseNeed.Prevention && !effect.RelievesPain)
+        else if (!DoseNeedRule.MatchedByIndex(need) && !effect.RelievesPain)
         {
             // A cure or a preventive was matched to the patient's condition by the index before it came here.
             return DoseRefusal.NoPainRelief;

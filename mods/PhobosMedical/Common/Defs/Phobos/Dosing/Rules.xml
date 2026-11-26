@@ -72,6 +72,31 @@
     <toxicExposureFrom>0.04</toxicExposureFrom>
     <minToxicCut>0.25</minToxicCut>
     <minVacuumGain>0.25</minVacuumGain>
+    <!-- The long-term needs (D'thorga Medical 0.31.0). An item must lower the mental break threshold by 0.03 or more to count as steadying
+         someone (authored; Medicines+' clozapine lowers it 0.05 at a dose). -->
+    <minBreakThresholdDrop>0.03</minBreakThresholdDrop>
+    <!-- Conditions that ease an addiction, by their class or a comp's class, read from the mods' code on 26 Nov 2026: Medicines+'
+         addictol takes an addiction down 0.005 an hour while it lasts (its Hediff_Addictol); Ushanka's Glittertech Expansion's addiction
+         remover removes every addiction but luciferium when it is taken (its HediffCompProperties_AddictionRemoval). A class no loaded mod
+         has is skipped. -->
+    <addictionTreatments>
+      <li>AT_MedicinesPlus.Hediff_Addictol</li>
+      <li>USH_GE.HediffCompProperties_AddictionRemoval</li>
+    </addictionTreatments>
+    <!-- Comps that regrow missing body parts: The Dead Man's Switch's combat regeneration serum. -->
+    <regrowthClasses>
+      <li>DMS.HediffCompProperties_RegrowMissingParts</li>
+    </regrowthClasses>
+    <!-- The Dead Man's Switch's biogel, which its bionics draw on (its Synthriada part, DMSSR, read 26 Nov 2026): 100 units at most, Neuroglue adds 25. -->
+    <reservoirs>
+      <li>
+        <hediffClass>DMSSR.Hediffs.Hediff_BiogelReservoir</hediffClass>
+        <levelMember>Fuel</levelMember>
+        <capacity>100</capacity>
+        <refillDoerClass>DMSSR.Hediffs.IngestionOutcomeDoer_RefillBiogel</refillDoerClass>
+        <amountField>amount</amountField>
+      </li>
+    </reservoirs>
     <!-- Prevention is for someone whose chance of catching the disease is at least half what an unprotected person's is: the game's
          own chance factor, which falls as immunity left over from an earlier bout rises (authored). -->
     <preventionMinRisk>0.5</preventionMinRisk>

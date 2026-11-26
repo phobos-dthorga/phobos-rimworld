@@ -96,6 +96,9 @@ All XML; the code is in the Framework.
 | Search and Rescue (`ch4acko3.searchandrescue`) | Its field responders use our hand-held kits, as two lanes in its Field rescue work type (0.17.0, SD22) | XML (work givers in its work type) | `Mods/SearchAndRescue` |
 | Atmosphere Overhaul (`acutus.AtmosphereOverhaul.release`), Celsius (`Garwel.Celsius`) | Our fire-heat zones stand down | XML list read by C# | `BurnsAndSmoke/Rules.xml` |
 | More Injuries | Its epinephrine autoinjector is kept out of automatic dosing: its risk is in More Injuries' code, and it is kept for cardiac arrest (0.29.0) | XML | `Mods/MoreInjuries` |
+| Medicines+ (`papito.medicinesplus.at`) | Its addictol is read as an addiction treatment by its condition's class (0.31.0); its clozapine and Hydra by what their Defs say | XML list read by C#, by name | `Dosing/Rules.xml` (`addictionTreatments`) |
+| Ushanka's Glittertech Expansion (`ushanka.glittertechexpansion`) | Its addiction remover is read as an addiction treatment by its comp's class (0.31.0) | XML list read by C#, by name | `Dosing/Rules.xml` (`addictionTreatments`) |
+| The Dead Man's Switch (`aoba.deadmanswitch.core`), with its Synthriada (`cephalopod.deadmanswitch.synthriada`) | The core's regeneration serum is read as regrowing parts by its comp's class; Neuroglue as refilling Synthriada's biogel reservoir, which its bionics draw on, both read by name (0.31.0) | XML list read by C#, by name | `Dosing/Rules.xml` (`regrowthClasses`, `reservoirs`) |
 | Ushanka's Biological Warfare (`ushanka.biologicalwarfare`) | Its antiserums are read as cures, through its outcome class's list of conditions removed, so doctors give them (0.28.0) | XML list read by C#, by name | `Dosing/Rules.xml` (`removalReaders`) |
 
 ## D'thorga Farming

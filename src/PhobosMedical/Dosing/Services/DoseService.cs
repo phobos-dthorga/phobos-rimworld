@@ -505,7 +505,7 @@ public static class DoseService
             if (pawn.IsSlave) Medical.Seen.Note("medical.slave-self-dose", pawn, chosen.Option.Def.label);
             return DrugAIUtility.IngestAndTakeToInventoryJob(chosen.Item, pawn, 1);
         }
-        return PreventionService.SelfJob(pawn) ?? ExposureService.SelfToxicJob(pawn);
+        return PreventionService.SelfJob(pawn) ?? ExposureService.SelfToxicJob(pawn) ?? Needs.LongTermCare.SelfJob(pawn);
     }
 
     /// <summary>
@@ -624,6 +624,11 @@ public static class DoseService
             job.count = 1;
             Medical.Seen.Note("medical.dose-job-made", patient, chosen.Option.Def.label);
             if (decision.Need == DoseNeed.Cure && Medical.Seen.Wants("medical.cure-job-made", patient)) Medical.Seen.Note("medical.cure-job-made", patient, chosen.Option.Def.label);
+            if (DoseNeedRule.MatchedByIndex(decision.Need) && decision.Need is not (DoseNeed.Cure or DoseNeed.Prevention))
+            {
+                string variant = decision.Need.ToString();
+                if (Medical.Seen.Wants("medical.longterm-job-made", patient, variant)) Medical.Seen.Note("medical.longterm-job-made", patient, chosen.Option.Def.label, variant);
+            }
             if (decision.Need == DoseNeed.Toxic && Medical.Seen.Wants("medical.toxic-job-made", patient))
                 Medical.Seen.Note("medical.toxic-job-made", patient, chosen.Option.Def.label);
             if (decision.Need == DoseNeed.Breathing && Medical.Seen.Wants("medical.breathing-job-made", patient))

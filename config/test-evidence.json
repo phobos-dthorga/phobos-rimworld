@@ -322,6 +322,15 @@
     "605": {"parts": {"people on their feet take their own": ["medical.toxic-self"], "a doctor gives one to someone in bed": ["medical.toxic-job-made"]}},
     "606": {"parts": {"AntiTox taken at the toxic line": [{"key": "framework.protection-dose", "detail": "*AntiTox*"}]}},
     "607": ["medical.vacuum-self"],
+    "613": {"parts": {
+      "clozapine for someone close to a major break": [{"key": "medical.longterm-self", "variant": "MentalStrain"}, {"key": "medical.longterm-job-made", "variant": "MentalStrain"}],
+      "addictol for an addiction being quit": [{"key": "medical.longterm-self", "variant": "Addiction"}, {"key": "medical.longterm-job-made", "variant": "Addiction"}]
+    }},
+    "614": [{"key": "medical.longterm-self", "variant": "OldWounds"}, {"key": "medical.longterm-job-made", "variant": "OldWounds"}],
+    "615": {"parts": {
+      "Neuroglue for biogel": [{"key": "medical.longterm-self", "variant": "Reservoir"}, {"key": "medical.longterm-job-made", "variant": "Reservoir"}],
+      "the serum for a missing part": [{"key": "medical.longterm-self", "variant": "MissingPart"}, {"key": "medical.longterm-job-made", "variant": "MissingPart"}]
+    }},
     "454": ["vehicles.paste-bake"],
     "453": {"parts": {
       "a tank fills the tap": ["vehicles.reservoir-filled"],

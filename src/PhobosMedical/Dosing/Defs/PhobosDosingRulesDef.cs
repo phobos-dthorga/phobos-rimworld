@@ -80,6 +80,17 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     public float minToxicCut = 0.25f;
     /// <summary>An item must add at least this to vacuum resistance to count as protection against vacuum. Authored.</summary>
     public float minVacuumGain = 0.25f;
+
+    // The long-term needs (Medical 0.31.0).
+
+    /// <summary>An item must lower the mental break threshold by at least this to count as steadying someone. Authored.</summary>
+    public float minBreakThresholdDrop = 0.03f;
+    /// <summary>Conditions that treat addiction, by their own class or a comp's class, full names: read, never run.</summary>
+    public List<string> addictionTreatments = new();
+    /// <summary>Comps that regrow missing body parts, by their class's full name.</summary>
+    public List<string> regrowthClasses = new();
+    /// <summary>Reservoirs an artificial part draws on, and the outcome that refills them: read by name, never run.</summary>
+    public List<ReservoirReader> reservoirs = new();
     /// <summary>Prevention is for someone whose chance factor of catching the disease (the game's own) is this or more. Authored.</summary>
     public float preventionMinRisk = 0.5f;
     /// <summary>Conditions that count as an outbreak besides the ones found by what they are (a disease an event of the game brings, or
@@ -92,6 +103,20 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     public DoseWeights Weights => new(consciousnessWeight, breathingWeight, bleedWeight, addictionWeight, bleedWeightWhenNotBleeding, vomitWeight);
 
     public static PhobosDosingRulesDef Current => Current<PhobosDosingRulesDef>();
+}
+
+/// <summary>
+/// A reservoir another mod keeps on a person (The Dead Man's Switch's biogel), and the outcome of its that refills it (Medical 0.31.0): the
+/// condition's class and the member holding its level, its capacity, and the refilling outcome's class with the field holding how much
+/// one dose adds. A class no loaded mod has is skipped.
+/// </summary>
+public class ReservoirReader
+{
+    public string hediffClass = "";
+    public string levelMember = "";
+    public float capacity = 100f;
+    public string refillDoerClass = "";
+    public string amountField = "";
 }
 
 /// <summary>One outcome class of another mod's that removes conditions, and where it keeps them: a list of conditions, or a single one.</summary>
@@ -114,4 +139,10 @@ public class PhobosDosingExtension : DefModExtension
     public List<HediffDef> cures = new();
     /// <summary>Conditions one dose makes the taker immune to (Medical 0.28.0), besides any the index reads from the item itself.</summary>
     public List<HediffDef> prevents = new();
+    /// <summary>One dose eases an addiction (Medical 0.31.0).</summary>
+    public bool treatsAddiction;
+    /// <summary>One dose heals old wounds and chronic conditions over time (Medical 0.31.0).</summary>
+    public bool healsOldWounds;
+    /// <summary>One dose regrows missing body parts (Medical 0.31.0).</summary>
+    public bool regrowsParts;
 }

@@ -4,8 +4,9 @@
 is in D'thorga Medical 0.28.0 ([as built](#as-built-medical-0280)), not yet tested in game (rows 590 to 592 of
 [the test pass](in-game-test-pass.md)). Slice C is in 0.29.0 as a breathing rescue ([as built](#as-built-medical-0290)), not yet
 tested in game (row 593): blood loss was left to More Injuries by the owner's choice. Slice D is in 0.30.0 (with Framework
-0.327.0) as protection while exposed ([as built](#as-built-medical-0300)), not yet tested in game (rows 605 to 607). Slice E is
-designed, not built. The owner answered all eight cards on 26 Nov 2026
+0.327.0) as protection while exposed ([as built](#as-built-medical-0300)), not yet tested in game (rows 605 to 607). Slice E, the
+long-term needs, is in 0.31.0 ([as built](#as-built-medical-0310)), each off until turned on, not yet tested in game (rows 613 to
+615). Every slice is built. The owner answered all eight cards on 26 Nov 2026
 ([the answers](#the-owners-answers-26-nov-2026-by-card-with-every-option-offered)) and then said "Go ahead and build the first slice".
 
 The owner, 26 Nov 2026: "I want to expand the range of medically relevant things that are automatically either taken or given by/to
@@ -60,6 +61,25 @@ This section keeps only where the build differs from the design below, and what 
   Rimatomics). The "before exposure" row of the table below was written without that: slice D starts from it.
 - **Rare items** (card 5) are in as chosen, for every row, pain included. Read from the patched Defs, nothing reaches 300 silver
   among the items whose Def states a value; the owner made the mark a setting (0.29.0).
+
+## As built: Medical 0.31.0
+
+The owner, 26 Nov 2026: "Go ahead and build the long-term needs next". The mods' own code was read first (Medicines+ decompiled, its
+public source being a 2021 build with no code; Glittertech's and The Dead Man's Switch's public or decompiled source), and four cards
+settled the slice ([the fourth round](#the-fourth-round-26-nov-2026-by-card-with-every-option-offered)).
+
+- **Five needs, not three**: mental strain, addiction, old wounds, a missing part, and refilling an artificial part's reservoir. The
+  record's "old wounds and artificial parts" became three, because the items do three different things.
+- **The drug policy already schedules by mood**, so a clozapine need repeats what a policy can do; the owner chose to build it anyway.
+  The guide says both ways.
+- **"The player wants them off it" is read from the drug policy**: an addiction no drug of its chemical may feed. No new switch.
+- **Effects in code are read through named classes**, in the rules Def: addictol's condition class, the remover's comp, the
+  serum's comp and the biogel reservoir. The game's own healing of permanent wounds is read by type.
+- **Hydra's condition has no stages**: the index now counts such a condition for the redose check, so a month's dose is not doubled.
+- **Agent choices, for the owner to revise:** all five serious (so addictol's 5% addictiveness is allowed, and nothing rare is held
+  back below the mark); looked at after every other need; no reserve and no alert; a steadying drug lowers the threshold by 0.03 or
+  more; a scar counts when it hurts, or when its part serves a capacity and works less well; the reservoir is refilled once the
+  smallest dose fits.
 
 ## As built: Medical 0.30.0
 
@@ -261,7 +281,7 @@ coffee, alcohol and the like, except where a recreational painkiller is already 
 
 **The owner's order (cards 1 and 8):** A and B together as the first build, then C; D and E after, in an order not yet chosen.
 **Done so far:** A and B (0.28.0); C as a breathing rescue, with blood loss left to More Injuries (0.29.0); D as protection while
-exposed and a toxic controlled area (0.30.0). E waits.
+exposed and a toxic controlled area (0.30.0); E as five long-term needs, each starting off (0.31.0).
 
 | Slice | What | Change in play |
 | --- | --- | --- |
@@ -350,6 +370,34 @@ the owner chose the agent's lean.
 - Breathing, and waking the unconscious: also a stimulant for anyone unconscious (consciousness 30% or less) who is not sedated.
   About one dose every hour and a half for each unconscious patient.
 - Skip collapse for now: nothing built; another slice next.
+
+## The fourth round (26 Nov 2026, by card), with every option offered
+
+Put when building slice E, once the items' code had been read. The chosen option is first and marked.
+
+### 13. Clozapine, which a drug policy can already schedule by mood
+
+- **Chosen: build a "close to a major break" need.** Someone whose mood is below their major break threshold takes or is given
+  clozapine, starting off. (The agent leaned to the other option.)
+- Leave it to the drug policy: nothing built; the guide says how to schedule clozapine by mood.
+
+### 14. Who gets an addiction treatment
+
+- **Chosen: addicted to a drug their policy won't feed.** Only someone the player is making quit; someone allowed their habit is
+  left alone; luciferium never treated.
+- Anyone addicted, except to luciferium, whatever the drug policy allows.
+
+### 15. Who gets Hydra
+
+- **Chosen: someone with an old wound or chronic condition that hurts or weakens.** A harmless scar alone gets nothing.
+- Anyone with a permanent injury or chronic condition, harmless or not.
+
+### 16. Which of The Dead Man's Switch's items to build, each starting off (more than one could be chosen)
+
+- **Chosen: both.** Biogel running low: Neuroglue, given once there is room for a whole dose (every ten points used rolls a rising
+  chance of degeneration, and an empty tank brings xeno-limb syndrome, a mental break or paralysis).
+- **Chosen: both.** A missing body part: the regeneration serum (2 to 3 days; hunger tripled, pain and bionic shock meanwhile), not
+  where a prosthetic already replaces the part.
 
 ## The third round (26 Nov 2026, by card), with every option offered
 

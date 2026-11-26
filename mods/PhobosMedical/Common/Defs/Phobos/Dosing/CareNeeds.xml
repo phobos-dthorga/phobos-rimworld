@@ -95,4 +95,61 @@
     <!-- Nobody is ill yet, and a colony with no vaccine would be nagged through every outbreak (agent default, owner to revise). -->
     <alertWhenUnmet>false</alertWhenUnmet>
   </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
+  <!-- The long-term needs (D'thorga Medical 0.31.0; the owner's cards of 26 Nov 2026), each off until the player turns it on. Looked at
+       after everything else: none of them is urgent. Treatment, not prevention: no reserve, and no alert (agent default, owner to revise). -->
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_Reservoir</defName>
+    <label>refilling an artificial part's reservoir</label>
+    <description>An artificial part draws on a reservoir (The Dead Man's Switch's biogel) with room for a whole dose of what refills it.</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_Reservoir</workerClass>
+    <order>50</order>
+    <seriousness>Serious</seriousness>
+    <defaultMode>Off</defaultMode>
+    <alertWhenUnmet>false</alertWhenUnmet>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_MentalStrain</defName>
+    <label>steadying someone close to a major break</label>
+    <description>Mood below the person's major break threshold: something that lowers the threshold steadies them.</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_MentalStrain</workerClass>
+    <order>52</order>
+    <seriousness>Serious</seriousness>
+    <defaultMode>Off</defaultMode>
+    <alertWhenUnmet>false</alertWhenUnmet>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_Addiction</defName>
+    <label>easing an addiction being quit</label>
+    <description>An addiction the person's drug policy no longer feeds: something that eases it, never of the same chemical. Never luciferium.</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_Addiction</workerClass>
+    <order>54</order>
+    <seriousness>Serious</seriousness>
+    <defaultMode>Off</defaultMode>
+    <alertWhenUnmet>false</alertWhenUnmet>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_OldWounds</defName>
+    <label>healing old wounds</label>
+    <description>A permanent injury or chronic condition that hurts or weakens: something that heals them over time.</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_OldWounds</workerClass>
+    <order>56</order>
+    <seriousness>Serious</seriousness>
+    <defaultMode>Off</defaultMode>
+    <alertWhenUnmet>false</alertWhenUnmet>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_MissingPart</defName>
+    <label>regrowing a missing part</label>
+    <description>A natural body part missing and not replaced by an artificial one: something that regrows it.</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_MissingPart</workerClass>
+    <order>58</order>
+    <seriousness>Serious</seriousness>
+    <defaultMode>Off</defaultMode>
+    <alertWhenUnmet>false</alertWhenUnmet>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
 </Defs>

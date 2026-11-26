@@ -379,3 +379,80 @@ public class ExposureTests
         Assert.Equal(DoseRefusal.None, CareSafetyRule.Check(CareSeriousness.LifeThreatening, 0f, false, true));
     }
 }
+
+/// <summary>
+/// The long-term needs, D'thorga Medical 0.31.0. Figures after the owner's mods as read on 26 Nov 2026: The Dead Man's Switch's biogel
+/// holds 100 and Neuroglue adds 25; the addiction remover costs 0.3 consciousness and a vomit every half day; addictol is 5% addictive.
+/// </summary>
+public class LongTermTests
+{
+    static DoseEffect Remover => DoseEffectRule.Combine(new[] { new StageEffect(1f, 0f, -0.3f, 1f, 0f, 1f, 0f, 0.5f) }, 0f, false, 0.1f);
+    static DoseEffect Addictol => DoseEffectRule.Combine(new[] { new StageEffect(1.1f, 0f, 0f, 1f, 0f, 1f) }, 0.05f, false, 0.1f);
+    static readonly DoseLimits Limits = new(0.25f, 0.3f, 0.4f, false, false, 0.3f);
+
+    [Fact]
+    public void StrainIsMoodBelowTheMajorThresholdOutsideABreak()
+    {
+        Assert.True(LongTermRule.Strained(0.2f, 0.25f, false));
+        Assert.False(LongTermRule.Strained(0.25f, 0.25f, false));
+        Assert.False(LongTermRule.Strained(0.1f, 0.25f, true));
+    }
+
+    [Fact]
+    public void AnAddictionIsTreatedOnlyWhenBeingQuitAndNeverWhenItKills()
+    {
+        Assert.True(LongTermRule.QuitWanted(false, false));
+        Assert.False(LongTermRule.QuitWanted(true, false));
+        Assert.False(LongTermRule.QuitWanted(false, true));
+    }
+
+    [Fact]
+    public void AnOldWoundMattersWhenItHurtsOrWeakens()
+    {
+        Assert.True(LongTermRule.OldWoundMatters(0.05f, false, 1f));
+        Assert.True(LongTermRule.OldWoundMatters(0f, true, 1f));
+        Assert.True(LongTermRule.OldWoundMatters(0f, false, 0.8f));
+        Assert.False(LongTermRule.OldWoundMatters(0f, false, 1f));
+    }
+
+    [Fact]
+    public void AReservoirIsRefilledOnceAWholeDoseFits()
+    {
+        Assert.True(LongTermRule.ReservoirWantsRefill(75f, 100f, 25f));
+        Assert.False(LongTermRule.ReservoirWantsRefill(76f, 100f, 25f));
+        Assert.True(LongTermRule.ReservoirWantsRefill(0f, 100f, 25f));
+        Assert.False(LongTermRule.ReservoirWantsRefill(10f, 100f, 0f));
+    }
+
+    [Fact]
+    public void EveryLongTermNeedIsMatchedByTheIndexAndAsksNoPainRelief()
+    {
+        foreach (DoseNeed need in new[] { DoseNeed.MentalStrain, DoseNeed.Addiction, DoseNeed.OldWounds, DoseNeed.MissingPart, DoseNeed.Reservoir })
+        {
+            Assert.True(DoseNeedRule.MatchedByIndex(need));
+            Assert.Equal(DoseRefusal.None, DoseSafetyRule.Check(CareFixtures.Antiserum, need, 0f, false, new PatientState(1f, 1f, 0f, true), Limits));
+        }
+        Assert.False(DoseNeedRule.MatchedByIndex(DoseNeed.PainRelief));
+        Assert.Equal(DoseRefusal.NoPainRelief, DoseSafetyRule.Check(CareFixtures.Antiserum, DoseNeed.PainRelief, 0f, false, new PatientState(1f, 1f, 0f, true), Limits));
+    }
+
+    [Fact]
+    public void TheGentlerAddictionTreatmentIsChosenFirst()
+    {
+        // The remover: 1 - 0.5 x 0.3 - 2 vomits a day x 0.25 = 0.35. Addictol: 1 - 0.5 x 0.05 = 0.975.
+        Assert.Equal(0.35f, DoseChoiceRule.Score(Remover, DoseNeed.Addiction, false, CareFixtures.Weights), 4);
+        Assert.Equal(0.975f, DoseChoiceRule.Score(Addictol, DoseNeed.Addiction, false, CareFixtures.Weights), 4);
+        var both = new[] { new DoseCandidate(Remover, true), new DoseCandidate(Addictol, true) };
+        Assert.Equal(1, DoseChoiceRule.Choose(both, DoseNeed.Addiction, false, CareFixtures.Weights));
+    }
+
+    [Fact]
+    public void AnAddictiveTreatmentNeedsASeriousNeedAndEveryLongTermNeedIsOne()
+    {
+        // The long-term needs are serious in their Defs: addictol's 5% is allowed there, never for a minor need.
+        Assert.Equal(DoseRefusal.None, CareSafetyRule.Check(CareSeriousness.Serious, 0.05f, false, false));
+        Assert.Equal(DoseRefusal.AddictiveForMinorNeed, CareSafetyRule.Check(CareSeriousness.Minor, 0.05f, false, false));
+        // Luciferium heals old wounds too, and is refused for the dependency it begins.
+        Assert.Equal(DoseRefusal.LethalDependency, CareSafetyRule.Check(CareSeriousness.Serious, 0.05f, true, false));
+    }
+}

@@ -235,7 +235,7 @@ Since Medical 0.28.0 every reason for a dose is a row of one table, a `PhobosCar
 row gives its order, how serious it is, whether it keeps the player's reserve and whether an unmet one raises the alert; its worker
 class (`Dosing/Needs/`) reads the patient. `DoseService` is the engine every worker calls: one safety rule and one choice. A doctor
 looks at the rows in order, and the first with something to give decides the dose. **Not yet tested in game** (rows 590 to 593,
-605 to 607).
+605 to 607, 613 to 615).
 
 | Order | Need | Who qualifies | How serious | Switch |
 | --- | --- | --- | --- | --- |
@@ -247,6 +247,11 @@ looks at the rows in order, and the first with something to give decides the dos
 | 35 | Radiation medicine | By dose and stage; **the radiation part keeps its own choice, work giver and job** | Life-threatening | The radiation model's |
 | 38 | Protection from toxins | Toxic buildup at 0.04 or more and its source still around them | Minor | Nobody, doctors, or doctors and self (default) |
 | 40 | Prevention in an outbreak | An outbreak disease is on the map and this person could still catch it | Minor | Nobody, doctors, or doctors and self (default) |
+| 50 | Refilling a reservoir | An artificial part's reservoir (The Dead Man's Switch's biogel) with room for a whole dose | Serious | Nobody (default), doctors, or doctors and self |
+| 52 | Mental strain | Mood below the major break threshold, not in a break | Serious | The same, off |
+| 54 | Addiction | An addiction no drug of its chemical may feed by the person's drug policy, and not one that kills unmet | Serious | The same, off |
+| 56 | Old wounds | A permanent injury or chronic condition that hurts, or takes from a capacity or from a part that serves one | Serious | The same, off |
+| 58 | Missing part | A natural part missing, with no artificial part on it or above it | Serious | The same, off |
 
 **A breathing rescue** (0.29.0). A help to breathing is a medical drug whose conditions, at its dose, add 0.1 or more to breathing
 after any breathing they cost (Medicines+' smelling salts: +0.2 for two hours). A patient at 0.3 or under, where triage calls a
@@ -276,6 +281,25 @@ what it does (the Framework's `preventiveStats`): AntiTox alone passes, as does 
 paint tools show the game's home-area pictures until their own are made. **Every line's dose now goes through dosing's safety and the
 reserve** (`DoseService.LineDoseAllowed`): someone who will not take it, is overdosed or is still on the last dose is not sent, and the
 shelf keeps the preventives' reserve, potassium iodide at the radiation line included.
+
+**The long-term needs** (0.31.0; the owner's cards of 26 Nov 2026), each **off** until the player turns it on, doctors for those
+down or in bed and, at "doctors and self", people on their feet taking their own after everything else. Treatment, so no reserve and
+no alert. The items, found by what they do:
+
+- **Mental strain**: a medical drug lowering the break threshold by 0.03 or more at its dose (Medicines+' clozapine, 0.05 for two
+  days; its own code also ends an extreme break early).
+- **Addiction**: a condition whose class, or a comp's class, is in the rules' `addictionTreatments` (Medicines+' addictol, which takes
+  an addiction down 0.005 an hour for a day and is 5% addictive; Ushanka's Glittertech Expansion's addiction remover, which removes
+  every addiction but luciferium at once), or `treatsAddiction` on the item. Never a drug of a chemical being quit. The gentler is
+  chosen first. The remover takes every addiction, wanted or not.
+- **Old wounds**: a condition with the game's `HediffCompProperties_HealPermanentWounds` (Medicines+' Hydra, for a month; luciferium
+  too, refused for the dependency it begins), or `healsOldWounds`. It heals one at random every 15 to 30 days, harmless ones included.
+- **Missing part**: a comp in `regrowthClasses` (The Dead Man's Switch's combat regeneration serum), or `regrowsParts`.
+- **Reservoir**: an outcome the rules' `reservoirs` reader names (The Dead Man's Switch's Neuroglue, 25 units of biogel in a reservoir
+  of 100), read through the condition's level member by name. Refilled once the smallest dose fits; every ten units the reservoir
+  loses rolls a rising chance of degeneration in DMS's code, and an empty one brings worse, so it is kept topped up.
+
+A condition with no stages (Hydra's) now counts for the redose check, so a dose still working is not doubled.
 
 **Cures.** The index lists an item as a cure when one of its outcomes removes conditions: an outcome class named in the rules'
 `removalReaders` (the class's full name and the field holding the conditions; Ushanka's Biological Warfare's antiserums), or `cures`
@@ -549,8 +573,13 @@ Every tie-in is in the [tie-in register](../tie-in-register.md). None is require
 - **Stronger pain does not prefer stronger drugs**: the score ignores the pain level.
 - **Antibiotics are not told from antivirals**; every disease drug counts for every disease.
 - **Prevention reaches only what an item already prevents, and only once a disease is in the colony.** Our own vaccines, hygiene and
-  masks are designed, not built ([vaccines and prevention](../vaccines-and-prevention.md)); the other care needs (blood loss,
-  collapse, before exposure, the long-term ones) are designed, not built ([care needs](../medical-care-needs.md)).
+  masks are designed, not built ([vaccines and prevention](../vaccines-and-prevention.md)). Every slice of the [care
+  needs](../medical-care-needs.md) is built; blood loss is left to More Injuries.
+- **Effects in another mod's code are read only through a named reader**: the addiction treatments, the regrowth comp and the biogel
+  reservoir are named in the rules Def by class. A rename in that mod stops them being found; the reservoir and refill readers say so
+  once in the log, the class lists do not.
+- **What the index does not read** of the long-term items: The Dead Man's Switch's bionic shock that the serum and Neuroglue set, and
+  Neuroglue's own condition (about five days), which holds the next refill until it is a quarter gone.
 - **Blood loss is left to More Injuries** (the owner's choice, 26 Nov 2026): its doctors transfuse blood bags on their own, and it
   counts a hemogen pack as one, so a need of ours would send a second doctor. **Its epinephrine is kept out of automatic dosing**
   (`Mods/MoreInjuries`, `neverAutoDose`): the risk it carries is applied in More Injuries' code, and Search and Rescue gives it for
@@ -571,7 +600,7 @@ None of these is a test in game.
   `BurnedOffTests`, `BurnShockRuleTests`, `CarbonMonoxideRuleTests`, `AirwayRuleTests`, `EscharRuleTests`, `ChemicalRuleTests`,
   `CausticRuleTests`, `FireHeatRuleTests`), `Dosing/` (`DoseEffectRuleTests`, `DoseNeedRuleTests`, `DoseSafetyRuleTests`,
   `DoseChoiceRuleTests`, `ImmunityTests`, `BleedingHoldTests`, `SelfDoseRuleTests`, `FussingRuleTests`, `CareSafetyRuleTests`, `StockReserveRuleTests`, `PreventionRuleTests`, `CareScoreTests`,
-  `CareSafetyOrderTests`, `BreathingRescueTests`, `ExposureTests`) and `Triage/`
+  `CareSafetyOrderTests`, `BreathingRescueTests`, `ExposureTests`, `LongTermTests`) and `Triage/`
   (`ConditionClassRuleTests`, `AuthorityRuleTests`, `OperationChoiceRuleTests`, `TriageRuleTests`).
 - **Dev actions** (`*/Debug/`): five "Burns:" (burn load, fire heat at the mouse cell, start an airway burn, heal caustic eyes,
   scorch plants), four "Dosing:" (the index, disease drugs, self-medication, a patient's decision), three "Triage:" (the index,

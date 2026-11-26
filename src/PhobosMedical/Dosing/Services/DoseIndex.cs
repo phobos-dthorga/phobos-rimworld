@@ -44,10 +44,18 @@ public sealed class DoseOption
     public readonly HediffDef? LethalDependency;
     /// <summary>What one is worth, by the game's own market value: at the player's rare mark or over, it is kept for saving a life.</summary>
     public readonly float MarketValue;
+    /// <summary>The drug's chemical, or null: an addiction is never treated with a drug of its own chemical (Medical 0.31.0).</summary>
+    public readonly ChemicalDef? Chemical;
+    /// <summary>The reservoir one dose refills, and by how much (Medical 0.31.0); null and 0 for anything else.</summary>
+    public readonly ReservoirReader? Reservoir;
+    public readonly float RefillAmount;
 
     public DoseOption(ThingDef def, IReadOnlyList<DoseHediff> hediffs, DoseEffect effect, IReadOnlyList<HediffDef>? cures = null, IReadOnlyList<HediffDef>? prevents = null,
-        HediffDef? lethalDependency = null, float marketValue = 0f)
+        HediffDef? lethalDependency = null, float marketValue = 0f, ChemicalDef? chemical = null, ReservoirReader? reservoir = null, float refillAmount = 0f)
     {
+        Chemical = chemical;
+        Reservoir = reservoir;
+        RefillAmount = refillAmount;
         Def = def;
         Hediffs = hediffs;
         Effect = effect;
@@ -81,6 +89,28 @@ public static class DoseIndex
     static List<DoseOption>? breathingOptions;
     static List<DoseOption>? toxicOptions;
     static List<DoseOption>? vacuumOptions;
+    static List<DoseOption>? strainOptions;
+    static List<DoseOption>? addictionOptions;
+    static List<DoseOption>? oldWoundOptions;
+    static List<DoseOption>? regrowthOptions;
+    static List<DoseOption>? reservoirOptions;
+
+    /// <summary>Items that steady someone close to a major break (Medical 0.31.0).</summary>
+    public static IReadOnlyList<DoseOption> StrainOptions => Built(ref strainOptions);
+    /// <summary>Items that ease an addiction (Medical 0.31.0).</summary>
+    public static IReadOnlyList<DoseOption> AddictionOptions => Built(ref addictionOptions);
+    /// <summary>Items that heal old wounds and chronic conditions (Medical 0.31.0).</summary>
+    public static IReadOnlyList<DoseOption> OldWoundOptions => Built(ref oldWoundOptions);
+    /// <summary>Items that regrow missing parts (Medical 0.31.0).</summary>
+    public static IReadOnlyList<DoseOption> RegrowthOptions => Built(ref regrowthOptions);
+    /// <summary>Items that refill a reservoir an artificial part draws on (Medical 0.31.0).</summary>
+    public static IReadOnlyList<DoseOption> ReservoirOptions => Built(ref reservoirOptions);
+
+    static IReadOnlyList<DoseOption> Built(ref List<DoseOption>? list)
+    {
+        if (list == null) Build();
+        return list!;
+    }
     static HashSet<HediffDef>? curable;
     static HashSet<HediffDef>? preventableOutbreaks;
 
@@ -173,7 +203,8 @@ public static class DoseIndex
     }
 
     /// <summary>Whether any list holds anything: the work giver's first test.</summary>
-    public static bool Any => Options.Count > 0 || ImmunityOptions.Count > 0 || CureOptions.Count > 0 || PreventionOptions.Count > 0 || BreathingOptions.Count > 0 || ToxicOptions.Count > 0;
+    public static bool Any => Options.Count > 0 || ImmunityOptions.Count > 0 || CureOptions.Count > 0 || PreventionOptions.Count > 0 || BreathingOptions.Count > 0 || ToxicOptions.Count > 0
+        || StrainOptions.Count > 0 || AddictionOptions.Count > 0 || OldWoundOptions.Count > 0 || RegrowthOptions.Count > 0 || ReservoirOptions.Count > 0;
 
     static DoseIndex() => _ = Options;
 
@@ -186,11 +217,19 @@ public static class DoseIndex
         var builtBreathing = new List<DoseOption>();
         var builtToxic = new List<DoseOption>();
         var builtVacuum = new List<DoseOption>();
+        var builtStrain = new List<DoseOption>();
+        var builtAddiction = new List<DoseOption>();
+        var builtOldWounds = new List<DoseOption>();
+        var builtRegrowth = new List<DoseOption>();
+        var builtReservoir = new List<DoseOption>();
         var builtCurable = new HashSet<HediffDef>();
         var builtPreventable = new HashSet<HediffDef>();
         PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
         HashSet<HediffDef> outbreaks = OutbreakKinds(rules);
         Dictionary<Type, FieldInfo> readers = RemovalReaders(rules);
+        var addictionClasses = new HashSet<string>(rules.addictionTreatments);
+        var regrowthClasses = new HashSet<string>(rules.regrowthClasses);
+        Dictionary<Type, (ReservoirReader reader, FieldInfo amount)> refills = RefillReaders(rules);
         var stages = new List<StageEffect>();
         var hediffs = new List<DoseHediff>();
         var cures = new List<HediffDef>();
@@ -208,27 +247,51 @@ public static class DoseIndex
             cures.Clear();
             prevents.Clear();
             bool givesDisease = false;
+            float breakDrop = 0f;
+            bool treatsAddiction = false, healsOldWounds = false, regrowsParts = false;
+            ReservoirReader? reservoir = null;
+            float refillAmount = 0f;
             for (int j = 0; j < doers.Count; j++)
             {
                 if (doers[j] is not IngestionOutcomeDoer_GiveHediff give)
                 {
-                    if (doers[j] != null && readers.TryGetValue(doers[j].GetType(), out FieldInfo? field)) AddConditions(cures, field.GetValue(doers[j]));
+                    if (doers[j] == null) continue;
+                    if (readers.TryGetValue(doers[j].GetType(), out FieldInfo? field)) AddConditions(cures, field.GetValue(doers[j]));
+                    if (refills.TryGetValue(doers[j].GetType(), out var refill) && ToFloat(refill.amount.GetValue(doers[j])) is float amount && amount > 0f)
+                    {
+                        reservoir = refill.reader;
+                        refillAmount = amount;
+                    }
                     continue;
                 }
-                if (give.hediffDef?.stages == null || give.hediffDef.stages.Count == 0) continue;
+                if (give.hediffDef == null) continue;
                 float severity = give.severity > 0f ? give.severity : give.hediffDef.initialSeverity;
+                // What a condition does in its comps or its class (Medical 0.31.0): read whether it has stages or not.
+                ReadTreatments(give.hediffDef, addictionClasses, regrowthClasses, ref treatsAddiction, ref healsOldWounds, ref regrowsParts);
+                if (give.hediffDef.stages == null || give.hediffDef.stages.Count == 0)
+                {
+                    // A condition with no stages (Hydra's) still counts for the redose check: one working dose is not doubled.
+                    if (treatsAddiction || healsOldWounds || regrowsParts)
+                        hediffs.Add(new DoseHediff(give.hediffDef, severity, ConditionDanger.DangerSeverity(give.hediffDef)));
+                    continue;
+                }
                 if (give.hediffDef.PossibleToDevelopImmunityNaturally()) givesDisease = true;
                 HediffStage stage = give.hediffDef.stages[give.hediffDef.StageAtSeverity(severity)];
                 stages.Add(Read(stage));
                 AddConditions(prevents, stage.makeImmuneTo);
+                if (stage.statOffsets != null) breakDrop -= stage.statOffsets.GetStatOffsetFromList(StatDefOf.MentalBreakThreshold);
                 hediffs.Add(new DoseHediff(give.hediffDef, severity, ConditionDanger.DangerSeverity(give.hediffDef)));
             }
             if (extension != null)
             {
                 AddConditions(cures, extension.cures);
                 AddConditions(prevents, extension.prevents);
+                treatsAddiction |= extension.treatsAddiction;
+                healsOldWounds |= extension.healsOldWounds;
+                regrowsParts |= extension.regrowsParts;
             }
-            if (stages.Count == 0 && cures.Count == 0 && prevents.Count == 0) continue;
+            bool longTerm = treatsAddiction || healsOldWounds || regrowsParts || refillAmount > 0f;
+            if (stages.Count == 0 && cures.Count == 0 && prevents.Count == 0 && !longTerm) continue;
             CompProperties_Drug? drug = def.GetCompProperties<CompProperties_Drug>();
             DoseEffect effect = DoseEffectRule.Combine(stages, drug?.addictiveness ?? 0f, def.IsNonMedicalDrug, rules.sedativeConsciousnessCeiling);
             HediffDef? dependency = LethalDependency(drug);
@@ -244,6 +307,22 @@ public static class DoseIndex
                 builtToxic.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value));
             if (stages.Count > 0 && def.IsDrug && DoseChoiceRule.WorthwhileForExposure(effect, DoseNeed.Vacuum, rules.minVacuumGain, rules.Weights))
                 builtVacuum.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value));
+            // The long-term needs (0.31.0): medical items only, as for every care need of 0.28.0 and later.
+            if (def.IsDrug)
+            {
+                ChemicalDef? chemical = drug?.chemical;
+                if (stages.Count > 0 && breakDrop >= rules.minBreakThresholdDrop && DoseChoiceRule.WorthwhileForCare(effect, DoseNeed.MentalStrain, rules.Weights))
+                    builtStrain.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value, chemical: chemical));
+                if (treatsAddiction && DoseChoiceRule.WorthwhileForCare(effect, DoseNeed.Addiction, rules.Weights))
+                    builtAddiction.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value, chemical: chemical));
+                if (healsOldWounds && DoseChoiceRule.WorthwhileForCare(effect, DoseNeed.OldWounds, rules.Weights))
+                    builtOldWounds.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value, chemical: chemical));
+                if (regrowsParts && DoseChoiceRule.WorthwhileForCare(effect, DoseNeed.MissingPart, rules.Weights))
+                    builtRegrowth.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value, chemical: chemical));
+                if (refillAmount > 0f && DoseChoiceRule.WorthwhileForCare(effect, DoseNeed.Reservoir, rules.Weights))
+                    builtReservoir.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value, chemical: chemical,
+                        reservoir: reservoir, refillAmount: refillAmount));
+            }
             if (cures.Count > 0 && DoseChoiceRule.WorthwhileForCare(effect, DoseNeed.Cure, rules.Weights))
             {
                 builtCures.Add(new DoseOption(def, hediffs.ToArray(), effect, cures: cures.ToArray(), lethalDependency: dependency, marketValue: value));
@@ -264,9 +343,63 @@ public static class DoseIndex
         breathingOptions = builtBreathing;
         toxicOptions = builtToxic;
         vacuumOptions = builtVacuum;
+        strainOptions = builtStrain;
+        addictionOptions = builtAddiction;
+        oldWoundOptions = builtOldWounds;
+        regrowthOptions = builtRegrowth;
+        reservoirOptions = builtReservoir;
         curable = builtCurable;
         preventableOutbreaks = builtPreventable;
     }
+
+    /// <summary>
+    /// What a condition does to old wounds, addiction and missing parts, from its class and its comps (Medical 0.31.0): the game's own
+    /// healing of permanent wounds by type, the others by the full names the rules list. Read, never run.
+    /// </summary>
+    static void ReadTreatments(HediffDef def, HashSet<string> addictionClasses, HashSet<string> regrowthClasses, ref bool treatsAddiction, ref bool healsOldWounds,
+        ref bool regrowsParts)
+    {
+        if (def.hediffClass != null && addictionClasses.Contains(def.hediffClass.FullName ?? "")) treatsAddiction = true;
+        if (def.comps == null) return;
+        for (int i = 0; i < def.comps.Count; i++)
+        {
+            HediffCompProperties comp = def.comps[i];
+            if (comp == null) continue;
+            if (comp is HediffCompProperties_HealPermanentWounds) healsOldWounds = true;
+            string name = comp.GetType().FullName ?? "";
+            if (addictionClasses.Contains(name)) treatsAddiction = true;
+            if (regrowthClasses.Contains(name)) regrowsParts = true;
+        }
+    }
+
+    /// <summary>The refilling outcomes of the rules' reservoirs whose classes a loaded mod has, each with its amount field.</summary>
+    static Dictionary<Type, (ReservoirReader, FieldInfo)> RefillReaders(PhobosDosingRulesDef rules)
+    {
+        var found = new Dictionary<Type, (ReservoirReader, FieldInfo)>();
+        foreach (ReservoirReader reader in rules.reservoirs)
+        {
+            if (reader == null || reader.refillDoerClass.NullOrEmpty()) continue;
+            Type? type = OptionalMods.TypeNamed(reader.refillDoerClass);
+            if (type == null) continue;
+            FieldInfo? field = type.GetField(reader.amountField, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            if (field == null)
+            {
+                Log.Warning(DosingMod.LogPrefix + " a reservoir reader names " + reader.refillDoerClass + "." + reader.amountField + ", which that class does not have: its items are not read.");
+                continue;
+            }
+            found[type] = (reader, field);
+        }
+        return found;
+    }
+
+    static float? ToFloat(object? value) => value switch
+    {
+        int i => i,
+        float f => f,
+        double d => (float)d,
+        long l => l,
+        _ => null,
+    };
 
     /// <summary>Adds the conditions a field or a Def list holds: one condition, or any list of them; anything else adds nothing.</summary>
     static void AddConditions(List<HediffDef> into, object? value)

@@ -93,6 +93,29 @@ public static class ExposureRule
 }
 
 /// <summary>
+/// Who the long-term needs are for (Medical 0.31.0; docs/development/medical-care-needs.md, slice E, the owner's cards of 26 Nov 2026).
+/// Game-free: the service reads the figures, these say what they mean.
+/// </summary>
+public static class LongTermRule
+{
+    /// <summary>Mental strain: mood below the major break threshold, and not in a break already (no one can be dosed mid-break).</summary>
+    public static bool Strained(float mood, float majorBreakThreshold, bool inMentalState) => !inMentalState && mood < majorBreakThreshold;
+
+    /// <summary>
+    /// An addiction to treat: one the player is making the person quit (their drug policy feeds it with no drug of its chemical), and
+    /// never a dependency that kills when it stops (luciferium), which is not withdrawn from by rule.
+    /// </summary>
+    public static bool QuitWanted(bool policyFeedsIt, bool lethalWhenUnmet) => !policyFeedsIt && !lethalWhenUnmet;
+
+    /// <summary>An old wound or chronic condition that matters: it hurts, or it takes from a capacity or from a part that serves one.</summary>
+    public static bool OldWoundMatters(float pain, bool takesFromACapacity, float partEfficiency) =>
+        pain > 0.001f || takesFromACapacity || partEfficiency < 0.999f;
+
+    /// <summary>A reservoir wants a refill once a whole dose fits: what the item adds is not spilled.</summary>
+    public static bool ReservoirWantsRefill(float level, float capacity, float dose) => dose > 0f && capacity > 0f && level <= capacity - dose;
+}
+
+/// <summary>
 /// Who prevention is for: someone the disease could still strike. The game's own figure is the chance factor of catching it: 0 for
 /// someone immune by a condition or a gene, or who has it already; below 1 for someone with immunity left over from an earlier bout;
 /// 1 for everyone else. Game-free.

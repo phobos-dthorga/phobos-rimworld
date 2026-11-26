@@ -21,6 +21,31 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.31.0] - 2026-11-26 - Draft
+
+Long-term care: strain, addiction, old wounds, missing parts and biogel
+
+### Added
+
+- **Five long-term needs, each off until you turn it on** (the owner's choice of 26 November 2026), in Settings, Emergency dosing,
+  Long-term care: nobody, doctors, or doctors and self. Not yet tested in game: rows 613 to 615 of the test pass.
+- **Steadying someone close to a major break**: clozapine, from Medicines+, when mood falls below the major break threshold.
+- **Easing an addiction being quit**: when the person's drug policy no longer lets any drug of that kind feed the addiction, addictol
+  (Medicines+, slightly addictive itself) or Glittertech's addiction remover, the gentler first, never of the same kind. Never
+  luciferium. The remover clears every addiction at once.
+- **Healing old wounds**: Hydra (Medicines+) for a scar or chronic condition that hurts or weakens; it heals one at random every few
+  weeks.
+- **Regrowing a missing part**: The Dead Man's Switch's combat regeneration serum, where no artificial part replaces it.
+- **Refilling biogel**: Neuroglue for The Dead Man's Switch's bionics, once a whole dose fits.
+
+### Save compatibility
+
+- Safe with an existing save. Five new settings, all off.
+
+### Compatibility and limits
+
+- What these items do is read from their mods' code by name: a rename in those mods stops them being found until the rules follow.
+
 ## [0.30.0] - 2026-11-26 - Draft
 
 Protection while exposed: toxins, vacuum, and a toxic controlled area

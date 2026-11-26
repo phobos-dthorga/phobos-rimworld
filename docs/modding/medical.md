@@ -114,6 +114,11 @@ Say what one of your items cures or prevents where its Defs cannot show it:
 - **A help to breathing needs no extension**: a medical drug whose condition, at its dose, adds 0.1 or more to breathing after
   any breathing it costs (`minBreathingGain`) is given to a patient at `breathingRescueLevel` (0.3) or under. Keep an item out
   with `neverAutoDose`, as our More Injuries tie-in does for its epinephrine.
+- **The long-term needs** (0.31.0): `treatsAddiction`, `healsOldWounds` and `regrowsParts` on `PhobosDosingExtension` declare what an
+  item's code does. Without them, the rules Def names the classes: `addictionTreatments` (a condition's class or a comp's class),
+  `regrowthClasses` (a comp's class) and `reservoirs` (a `ReservoirReader`: the condition's `hediffClass` and `levelMember`, its
+  `capacity`, the refilling outcome's `refillDoerClass` and `amountField`). The game's own `HediffCompProperties_HealPermanentWounds`
+  is read by type, and a stat offset lowering `MentalBreakThreshold` by `minBreakThresholdDrop` or more marks a steadying drug.
 - **Protection while exposed needs no extension either** (0.30.0): a medical drug whose condition, at its dose, keeps out a quarter
   or more of toxic buildup (the game multiplies what a pawn takes in by one less each toxic resistance) or adds a quarter or more to
   vacuum resistance is given while exposure is under way (`toxicExposureFrom`, `minToxicCut`, `minVacuumGain`). The vacuum giver is a

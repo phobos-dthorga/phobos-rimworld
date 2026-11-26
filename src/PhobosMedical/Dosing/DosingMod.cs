@@ -47,6 +47,12 @@ public class DosingSettings : ModSettings
     public CareMode toxicMode = CareMode.DoctorsAndSelf;
     /// <summary>Someone caught in vacuum takes a vacuum-resisting dose they carry (Medical 0.30.0).</summary>
     public bool vacuumRescue = true;
+    /// <summary>The long-term needs (Medical 0.31.0), each off until the player turns it on (the owner's card of 26 Nov 2026).</summary>
+    public CareMode strainMode = CareMode.Off;
+    public CareMode addictionMode = CareMode.Off;
+    public CareMode oldWoundsMode = CareMode.Off;
+    public CareMode missingPartMode = CareMode.Off;
+    public CareMode reservoirMode = CareMode.Off;
 
     public override void ExposeData()
     {
@@ -68,6 +74,11 @@ public class DosingSettings : ModSettings
         Scribe_Values.Look(ref rareItemMarketValue, "PhobosDosing_RareItemMarketValue", 300f);
         Scribe_Values.Look(ref toxicMode, "PhobosDosing_ToxicMode", CareMode.DoctorsAndSelf);
         Scribe_Values.Look(ref vacuumRescue, "PhobosDosing_VacuumRescue", true);
+        Scribe_Values.Look(ref strainMode, "PhobosDosing_StrainMode", CareMode.Off);
+        Scribe_Values.Look(ref addictionMode, "PhobosDosing_AddictionMode", CareMode.Off);
+        Scribe_Values.Look(ref oldWoundsMode, "PhobosDosing_OldWoundsMode", CareMode.Off);
+        Scribe_Values.Look(ref missingPartMode, "PhobosDosing_MissingPartMode", CareMode.Off);
+        Scribe_Values.Look(ref reservoirMode, "PhobosDosing_ReservoirMode", CareMode.Off);
     }
 }
 
@@ -119,6 +130,11 @@ public static class DosingMod
                 string vacuum = "caught in vacuum: " + NamesOf(DoseIndex.VacuumOptions);
                 if (Settings.vacuumRescue) report.On(vacuum); else report.Off(vacuum, "setting");
             }
+            LongTermLine(report, "steadying someone close to a major break", DoseIndex.StrainOptions, Settings.strainMode);
+            LongTermLine(report, "easing an addiction being quit", DoseIndex.AddictionOptions, Settings.addictionMode);
+            LongTermLine(report, "healing old wounds", DoseIndex.OldWoundOptions, Settings.oldWoundsMode);
+            LongTermLine(report, "regrowing missing parts", DoseIndex.RegrowthOptions, Settings.missingPartMode);
+            LongTermLine(report, "refilling an artificial part's reservoir", DoseIndex.ReservoirOptions, Settings.reservoirMode);
             string breathing = "helps to breathing: " + NamesOf(DoseIndex.BreathingOptions);
             if (CareModeRule.DoctorsMay(Settings.breathingMode)) report.On(breathing); else report.Off(breathing, "setting");
             report.On(Settings.rareItemMarketValue > 0f ? "rare from " + Settings.rareItemMarketValue.ToString("0") + " silver" : "no rare mark");
@@ -134,6 +150,13 @@ public static class DosingMod
             report.On("self-medication: colonists" + (Settings.slavesSelfMedicate ? ", slaves" : "") + (Settings.guestsSelfMedicate ? ", guests" : ""));
         else report.Off("self-medication", "setting");
         return report;
+    }
+
+    static void LongTermLine(LoadReport report, string what, IReadOnlyList<DoseOption> options, CareMode mode)
+    {
+        string line = what + ": " + NamesOf(options);
+        if (CareModeRule.DoctorsMay(mode)) report.On(line + (CareModeRule.SelfMay(mode) ? ", doctors and self" : ", doctors only"));
+        else report.Off(line, "setting");
     }
 
     static string NamesOf(IReadOnlyList<DoseOption> options)
@@ -188,6 +211,13 @@ public static class DosingMod
         list.Radio("PhobosDosing_SettingToxicMode".Translate(), ref s.toxicMode, d.toxicMode, PreventionModes, ModeLabel, tip: "PhobosDosing_SettingToxicModeDesc".Translate());
         if (ModsConfig.OdysseyActive)
             list.Check("PhobosDosing_SettingVacuumRescue".Translate(), ref s.vacuumRescue, d.vacuumRescue, "PhobosDosing_SettingVacuumRescueDesc".Translate());
+        list.Section("PhobosDosing_SectionLongTerm".Translate());
+        list.Radio("PhobosDosing_SettingStrainMode".Translate(), ref s.strainMode, d.strainMode, PreventionModes, ModeLabel, tip: "PhobosDosing_SettingStrainModeDesc".Translate());
+        list.Radio("PhobosDosing_SettingAddictionMode".Translate(), ref s.addictionMode, d.addictionMode, PreventionModes, ModeLabel, tip: "PhobosDosing_SettingAddictionModeDesc".Translate());
+        list.Radio("PhobosDosing_SettingOldWoundsMode".Translate(), ref s.oldWoundsMode, d.oldWoundsMode, PreventionModes, ModeLabel, tip: "PhobosDosing_SettingOldWoundsModeDesc".Translate());
+        list.Radio("PhobosDosing_SettingMissingPartMode".Translate(), ref s.missingPartMode, d.missingPartMode, PreventionModes, ModeLabel, tip: "PhobosDosing_SettingMissingPartModeDesc".Translate());
+        list.Radio("PhobosDosing_SettingReservoirMode".Translate(), ref s.reservoirMode, d.reservoirMode, PreventionModes, ModeLabel, tip: "PhobosDosing_SettingReservoirModeDesc".Translate());
+        list.Section("PhobosDosing_SectionStock".Translate());
         list.Radio("PhobosDosing_SettingPreventionReserve".Translate(), ref s.preventionReserve, d.preventionReserve, ReserveChoices, count => count.ToString(),
             tip: "PhobosDosing_SettingPreventionReserveDesc".Translate());
         list.Check("PhobosDosing_SettingUnmetAlert".Translate(), ref s.unmetAlert, d.unmetAlert, "PhobosDosing_SettingUnmetAlertDesc".Translate());

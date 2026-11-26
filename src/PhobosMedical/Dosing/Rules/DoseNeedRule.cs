@@ -19,6 +19,16 @@ public enum DoseNeed
     Toxic,
     /// <summary>The person is caught in vacuum and harmed by it: an item that raises vacuum resistance (Medical 0.30.0).</summary>
     Vacuum,
+    /// <summary>Mood below the person's major break threshold: something that steadies them (Medical 0.31.0).</summary>
+    MentalStrain,
+    /// <summary>An addiction the player is making the person quit: something that eases it (Medical 0.31.0).</summary>
+    Addiction,
+    /// <summary>A permanent injury or chronic condition that hurts or weakens: something that heals old wounds (Medical 0.31.0).</summary>
+    OldWounds,
+    /// <summary>A natural body part missing and not replaced: something that regrows it (Medical 0.31.0).</summary>
+    MissingPart,
+    /// <summary>A reservoir an artificial part draws on (The Dead Man's Switch's biogel) with room for a dose: a refill (Medical 0.31.0).</summary>
+    Reservoir,
 }
 
 /// <summary>
@@ -27,6 +37,13 @@ public enum DoseNeed
 /// </summary>
 public static class DoseNeedRule
 {
+    /// <summary>
+    /// Needs whose items the index matched to the reason already (a cure to its condition, a preventive to its disease, a long-term
+    /// treatment to what it treats): the safety rule asks nothing more of what the dose does, only whether it is safe.
+    /// </summary>
+    public static bool MatchedByIndex(DoseNeed need) => need is DoseNeed.Cure or DoseNeed.Prevention or DoseNeed.MentalStrain or DoseNeed.Addiction
+        or DoseNeed.OldWounds or DoseNeed.MissingPart or DoseNeed.Reservoir;
+
     public static DoseNeed Need(float pain, bool resting, float painThreshold, float sedationThreshold)
     {
         if (!resting || pain < painThreshold) return DoseNeed.None;
