@@ -1,0 +1,51 @@
+[
+ {
+  "name": "smoke-discharger-bank",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+    "role": "Image 1 is our approved Talus tipper truck, seen from directly above with its cab at the top: match its outline weight, shading, olive and steel palette and finish only, and use it to judge the scale of a part bolted to the cab; do not redraw it"
+   },
+   {
+    "image": "assets/phobos-vehicles/generated/remote-weapon-station-fal/remote-weapon-station-fal-1.png",
+    "role": "Image 2 is our approved remote weapon station for the same trucks: match its outline weight, olive drab and gunmetal palette, shading and level of detail only, so the parts read as one family; do not redraw it and draw no gun"
+   }
+  ],
+  "art_plan": {
+   "node": "smoke dischargers on all five service trucks (MV8): one bank of launcher tubes, laid twice by the exporter, at the cab's front left and front right corners, each turned outward to fire ahead and to its side",
+   "this_request": "one bank drawn alone on white, two tries; the owner picks one card; shipped as the turret picture of both banks (one picture, turned by the game)",
+   "design": "docs/development/vehicle-militarised-service-vehicles.md, Smoke dischargers; the owner's cards of 26 Nov 2026 (chemfuel each shot; pop smoke when hit)"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for our service trucks' smoke grenade dischargers: ONE bank of four short launcher tubes. Images 1 and 2 are our own approved art: match their outline weight, shading, olive drab and gunmetal palette and finish only. Do NOT redraw them, and draw no gun.\n\nDraw ONLY this one bank, alone on a plain pure white background, centred on the canvas. Four short round gunmetal tubes lying side by side and touching, all pointing straight toward the TOP of the canvas, on one small flat olive drab mounting plate with a few bolt heads. Together the bank is about 45 percent of the canvas wide and 40 percent tall. Each tube's open front end, at the top, shows a dark round grenade cap inside a lighter rim. The bank is symmetrical left to right.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no cab, no roof, no gun, no people, animals, soil, dust, mud, damage, smoke, flame, muzzle flash, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "smoke-discharger-bank-truck-only",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   3
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+    "role": "Image 1 is our approved Talus tipper truck, seen from directly above with its cab at the top: match its outline weight, shading, olive and steel palette and finish only, and use it to judge the scale of a part bolted to the cab; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "smoke dischargers on all five service trucks (MV8): one bank of launcher tubes, laid twice by the exporter, at the cab's front left and front right corners, each turned outward to fire ahead and to its side",
+   "this_request": "try 3: the same bank with the truck as the only reference, after try 1 redrew the remote weapon station (as the gun ring set's tries did, 25 Nov 2026)",
+   "design": "docs/development/vehicle-militarised-service-vehicles.md, Smoke dischargers; the owner's cards of 26 Nov 2026 (chemfuel each shot; pop smoke when hit)"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for our service trucks' smoke grenade dischargers: ONE bank of four short launcher tubes. Image 1 is our own approved art: match their outline weight, shading, olive drab and gunmetal palette and finish only. Do NOT redraw it. Draw no gun, no turret, no ring and no mount: only the four tubes on their plate.\n\nDraw ONLY this one bank, alone on a plain pure white background, centred on the canvas. Four short round gunmetal tubes lying side by side and touching, all pointing straight toward the TOP of the canvas, on one small flat olive drab mounting plate with a few bolt heads. Together the bank is about 45 percent of the canvas wide and 40 percent tall. Each tube's open front end, at the top, shows a dark round grenade cap inside a lighter rim. The bank is symmetrical left to right.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no cab, no roof, no gun, no people, animals, soil, dust, mud, damage, smoke, flame, muzzle flash, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ }
+]

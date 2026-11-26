@@ -1,4 +1,47 @@
 {
  "schemaVersion": 1,
- "decisions": []
+ "decisions": [
+  {
+   "id": "smoke-other-factions",
+   "question": "How often should another faction's truck pop its smoke dischargers?",
+   "context": "Built in Framework 0.319.0 (row 573): raiders' trucks carry no chemfuel to reload, so a truck of theirs comes loaded for one salvo and pops it the first time it is hit while you are a threat.",
+   "options": [
+    {
+     "id": "once",
+     "label": "Once a visit",
+     "detail": "As built: one salvo each time it comes to a map"
+    },
+    {
+     "id": "every-hit",
+     "label": "Every hit, 10 s apart",
+     "detail": "Loaded free each time, as often as yours with the switch on"
+    }
+   ],
+   "lean": "once",
+   "why": "A real truck carries a few reloads at most; smoke every 10 seconds would blind your guns for the whole fight",
+   "from": "docs/development/vehicle-militarised-service-vehicles.md",
+   "asked": "2026-11-26"
+  },
+  {
+   "id": "locker-steel-rounds",
+   "question": "Without Combat Extended our ring guns feed from steel. Should steel count as rounds in the ammunition locker?",
+   "context": "Built in Framework 0.319.0 (row 574): a round is whatever a fitted gun's ammunition allows, as Vehicle Framework itself decides, so a gun truck's steel (and the dischargers' chemfuel) goes in the locker.",
+   "options": [
+    {
+     "id": "yes",
+     "label": "Yes, as built",
+     "detail": "Whatever the truck's guns fire counts as rounds"
+    },
+    {
+     "id": "no",
+     "label": "No, never raw materials",
+     "detail": "Steel and chemfuel stay ordinary cargo; the locker holds only real ammunition items"
+    }
+   ],
+   "lean": "yes",
+   "why": "It is what those guns actually load; without Combat Extended there are no ammunition items, so 'no' would leave the locker empty",
+   "from": "docs/development/vehicle-militarised-service-vehicles.md",
+   "asked": "2026-11-26"
+  }
+ ]
 }

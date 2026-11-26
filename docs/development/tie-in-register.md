@@ -7,8 +7,8 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 ## Read this first
 
-- **88 tie-in folders across eight mods** (recounted 26 Nov 2026: Vehicles 30, Patches 21, Factory Additions 16, Framework 10,
-  Medical 7, Farming 1, Radio Framework 2, Water Tap 1; 104 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
+- **89 tie-in folders across eight mods** (recounted 26 Nov 2026: Vehicles 31, Patches 21, Factory Additions 16, Framework 10,
+  Medical 7, Farming 1, Radio Framework 2, Water Tap 1; 105 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
   `Common` subfolder are listed as separate entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's
   `LoadFolders.xml`, plus a handful of tie-ins in C# that check for a mod by name. D'thorga Radio Framework's first, Vehicle
   Framework, came in its 0.10.0 (Vanilla Expanded Framework's pipe system is a hard dependency there, not a tie-in).
@@ -64,8 +64,8 @@ All XML; the code is in the Framework.
 | EA-6B Prowler (`potemkinvillager.ea6bprowler`) | Aircraft loadout and its ICAP upgrades (0.99.0) | `Mods/EA6BProwler` |
 | Close Air Support (`potemkinvillager.CloseAirSupport`) | Loadouts for the A-10 and Su-25, which start as their early versions, and their service-life fittings | `Mods/CloseAirSupport` |
 | UH-60 Black Hawk (`z3nt3.uh60blackhawk`), C-17 Globemaster III (`z3nt3.c17globemaster`) | Aircraft loadouts | `Mods/UH60Blackhawk`, `Mods/C17Globemaster` |
-| GTek L-ATV (`killerbot.jltv`), MaxxPro (`killerbot.navistarmaxxpro`) | Loadouts | `Mods/GTekLATV`, `Mods/GTekMaxxPro` |
-| Frontline Workshop (`serinairo.frontlineworkshop`), BMP-1 (`turbo.rimworld.bmp1ifv`) | Loadouts | `Mods/FrontlineWorkshop`, `Mods/BMP1` |
+| GTek L-ATV (`killerbot.jltv`), MaxxPro (`killerbot.navistarmaxxpro`) | Loadouts; the MaxxPro's M2HB and Mk 19 as extra gun ring mounts (Vehicles 0.125.0) | `Mods/GTekLATV`, `Mods/GTekMaxxPro` |
+| Frontline Workshop (`serinairo.frontlineworkshop`), BMP-1 (`turbo.rimworld.bmp1ifv`) | Loadouts; with Combat Extended too, Frontline's six standalone guns as extra gun ring mounts (Vehicles 0.125.0) | `Mods/FrontlineWorkshop`, `Mods/FrontlineWorkshopCE`, `Mods/BMP1` |
 | RimArrow: Search and Rescue (`rimarrow.srt`) | Helicopter loadouts for the Ka-27PS and the Mi-38: turboshafts, rotor drive, hydraulics, sling, hook mount, litter cabin (0.65.0) | `Mods/RimArrowSearchRescue` |
 | Trains of the Rim (`princeofpluto.vehicles.trains`) | Boilers for its locomotives; steam engines never stalled by EMP (0.52.0) | `Mods/TrainsOfTheRim` |
 | Dubs Bad Hygiene | Tanker contents: water and fecal sludge; the survey truck's groundwater node; the Pintle water bowser (0.55.0, dropped in its lite mode) | `Mods/DubsBadHygiene` |

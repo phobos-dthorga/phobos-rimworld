@@ -15,6 +15,8 @@ public static class AircraftUpgradeDefOf
     public static VehicleStatDef Phobos_TerrainRadar = null!;
     public static VehicleStatDef Phobos_InletBarrierLoss = null!;
     public static VehicleStatDef Phobos_KitKilograms = null!;
+    /// <summary>An ammunition locker's room, kg, for the vehicle's own rounds only (Framework 0.319.0; <see cref="AmmoLocker"/>).</summary>
+    public static VehicleStatDef Phobos_AmmoLockerKilograms = null!;
     /// <summary>Grip on soft ground a node adds (Framework 0.197.0: a tractor's dual wheels), on top of the tyre fittings' factor.</summary>
     public static VehicleStatDef Phobos_SoftGroundGripBonus = null!;
 

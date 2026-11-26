@@ -604,6 +604,70 @@ Kit weight: 30 kg more, carried as cargo.</upgradeExplanation>
             <ComponentIndustrial>2</ComponentIndustrial>
           </ingredients>
         </li>
+    <li>
+      <!-- Smoke dischargers (D'thorga Vehicles 0.125.0, Framework 0.319.0; MV8; the owner's cards of 26 Nov 2026). Two banks at the cab's front
+           corners, turned 30 degrees out (agent placement [A], read off the armoured cab's outline, to revise once seen in game), one button for both. 50 kg [A] loads the engine
+           as cargo would. They stop with the cab. -->
+      <key>PhobosSmokeDischargers</key>
+      <label>Smoke dischargers</label>
+      <displayLabel>true</displayLabel>
+      <description>Two banks of four smoke grenade tubes at the front corners of the cab. One button fires both, throwing a screen of blinding smoke ahead and to each side; shots through smoke miss more often. Each salvo uses up its rounds.</description>
+      <upgradeExplanation>On the cab: two banks of smoke grenade tubes, fired together by one button.\nPop smoke when hit: fires them by itself when hit while enemies are about (a switch on the truck, on to start).\nEach shot: 5 chemfuel, or with Combat Extended a launcher smoke grenade.\nKit weight: 50 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Upgrades/SmokeDischargers</icon>
+      <work>1500</work>
+      <gridCoordinate>(29, 12)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckArmour</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.TurretUpgrade">
+          <turrets>
+            <li>
+              <key>SmokeDischargerLeft</key>
+              <def>PhobosTurret_SmokeDischarger</def>
+              <groupKey>PhobosSmokeDischargers</groupKey>
+              <gizmoLabel>Smoke dischargers</gizmoLabel>
+              <defaultAngleRotated>-30</defaultAngleRotated>
+              <component>
+                <key>Cab</key>
+                <healthPercent>0</healthPercent>
+              </component>
+              <renderProperties>
+                <north>(-0.75, 3.05)</north>
+              </renderProperties>
+            </li>
+            <li>
+              <key>SmokeDischargerRight</key>
+              <def>PhobosTurret_SmokeDischarger</def>
+              <groupKey>PhobosSmokeDischargers</groupKey>
+              <gizmoLabel>Smoke dischargers</gizmoLabel>
+              <defaultAngleRotated>30</defaultAngleRotated>
+              <component>
+                <key>Cab</key>
+                <healthPercent>0</healthPercent>
+              </component>
+              <renderProperties>
+                <north>(0.75, 3.05)</north>
+              </renderProperties>
+            </li>
+          </turrets>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>50</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>30</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

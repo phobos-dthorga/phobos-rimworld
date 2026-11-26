@@ -1,0 +1,18 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Turrets/SmokeDischarger.png",
+  "source": "assets/phobos-vehicles/generated/smoke-discharger-bank-truck-only/smoke-discharger-bank-truck-only-3.png",
+  "source_sha256": "27ec079eb19cab0f290411b2a3204bfa5a7ac44a45b93d2c0f2ec0697ac88f19",
+  "target_sha256": "5ad7e50989abfe8fc4d775eb28d8949994f57fcff18540f24af622e23a4f14c4",
+  "size": [
+    96,
+    96
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "ai_mask": "27ec079eb19cab0f290411b2a3204bfa5a7ac44a45b93d2c0f2ec0697ac88f19",
+  "white_left": [],
+  "bank_cells": 0.55,
+  "canvas_cells": 0.75,
+  "date": "2026-11-26T19:43:45",
+  "tool": "assets/phobos-vehicles/export_smoke_dischargers.py: export_sprite cut-out, the bank cropped to itself, centred, its centre the pivot, premultiplied Lanczos"
+}

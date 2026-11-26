@@ -708,6 +708,9 @@ Kit weight: 30 kg more, carried as cargo.</upgradeExplanation>
                 <li>RingPintle762</li>
                 <li>RingPintle50</li>
                 <li>RingPintle40</li>
+                <li>MountFwM1919</li>
+                <li>MountFwPKM</li>
+                <li>MountFwMG3</li>
               </turretIds>
               <exposed>true</exposed>
               <hitbox>
@@ -790,6 +793,11 @@ Kit weight: 30 kg more, carried as cargo.</upgradeExplanation>
       <prerequisiteNodes>
         <li>PhobosGunRing</li>
       </prerequisiteNodes>
+      <disableIfUpgradeNodesEnabled>
+        <li>PhobosMountFwM1919</li>
+        <li>PhobosMountFwPKM</li>
+        <li>PhobosMountFwMG3</li>
+      </disableIfUpgradeNodesEnabled>
       <upgrades>
         <li Class="Vehicles.TurretUpgrade">
           <turrets>
@@ -820,6 +828,108 @@ Kit weight: 30 kg more, carried as cargo.</upgradeExplanation>
       <ingredients>
         <Steel>40</Steel>
         <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <!-- Smoke dischargers (D'thorga Vehicles 0.125.0, Framework 0.319.0; MV8; the owner's cards of 26 Nov 2026). Two banks at the cab's front
+           corners, turned 30 degrees out (agent placement [A], read off the armoured cab's outline, to revise once seen in game), one button for both. 50 kg [A] loads the engine
+           as cargo would. They stop with the cab. -->
+      <key>PhobosSmokeDischargers</key>
+      <label>Smoke dischargers</label>
+      <displayLabel>true</displayLabel>
+      <description>Two banks of four smoke grenade tubes at the front corners of the cab. One button fires both, throwing a screen of blinding smoke ahead and to each side; shots through smoke miss more often. Each salvo uses up its rounds.</description>
+      <upgradeExplanation>On the cab: two banks of smoke grenade tubes, fired together by one button.\nPop smoke when hit: fires them by itself when hit while enemies are about (a switch on the truck, on to start).\nEach shot: 5 chemfuel, or with Combat Extended a launcher smoke grenade.\nKit weight: 50 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Upgrades/SmokeDischargers</icon>
+      <work>1500</work>
+      <gridCoordinate>(17, 17)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckArmour</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.TurretUpgrade">
+          <turrets>
+            <li>
+              <key>SmokeDischargerLeft</key>
+              <def>PhobosTurret_SmokeDischarger</def>
+              <groupKey>PhobosSmokeDischargers</groupKey>
+              <gizmoLabel>Smoke dischargers</gizmoLabel>
+              <defaultAngleRotated>-30</defaultAngleRotated>
+              <component>
+                <key>Cab</key>
+                <healthPercent>0</healthPercent>
+              </component>
+              <renderProperties>
+                <north>(-0.74, 4.62)</north>
+              </renderProperties>
+            </li>
+            <li>
+              <key>SmokeDischargerRight</key>
+              <def>PhobosTurret_SmokeDischarger</def>
+              <groupKey>PhobosSmokeDischargers</groupKey>
+              <gizmoLabel>Smoke dischargers</gizmoLabel>
+              <defaultAngleRotated>30</defaultAngleRotated>
+              <component>
+                <key>Cab</key>
+                <healthPercent>0</healthPercent>
+              </component>
+              <renderProperties>
+                <north>(0.74, 4.62)</north>
+              </renderProperties>
+            </li>
+          </turrets>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>50</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>30</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <!-- The ammunition locker (D'thorga Vehicles 0.125.0, Framework 0.319.0; MV8; the owner's answers of 19 Nov 2026, a small locker with the
+           ring on the four trucks with almost no cargo room, and of 26 Nov 2026, rounds only). 150 kg of room for the truck's own rounds, 40 kg
+           of steel that loads the engine as cargo would (the design's figures [A]). -->
+      <key>PhobosAmmoLocker</key>
+      <label>Ammunition locker</label>
+      <displayLabel>true</displayLabel>
+      <description>A steel locker behind the cab for the rounds of the truck's own guns and smoke dischargers, which have no room in its small cargo space. It holds rounds only.</description>
+      <upgradeExplanation>Behind the cab: 150 kg of room for the rounds of its own guns and smoke dischargers only.\nOther cargo that spills past the load bed into it leaves the truck overloaded until it is taken out.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Upgrades/GunRing</icon>
+      <work>1200</work>
+      <gridCoordinate>(22, 17)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckGuns</li>
+      </researchPrerequisites>
+      <prerequisiteNodes>
+        <li>PhobosGunRing</li>
+      </prerequisiteNodes>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>40</value>
+            </li>
+            <li>
+              <def>Phobos_AmmoLockerKilograms</def>
+              <value>150</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>35</Steel>
       </ingredients>
     </li>
     </nodes>

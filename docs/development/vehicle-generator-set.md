@@ -235,6 +235,9 @@ flowchart TB
   subgraph alt1 ["Only one of these"]
     PhobosRemoteWeaponStation["Remote weapon station"]
     PhobosRingGun762["Ring gun, 7.62 mm"]
+    PhobosMountFwM1919["Ring mount: M1919 (tie-in: FrontlineWorkshopCE)"]
+    PhobosMountFwPKM["Ring mount: PKM (tie-in: FrontlineWorkshopCE)"]
+    PhobosMountFwMG3["Ring mount: MG3 (tie-in: FrontlineWorkshopCE)"]
   end
   BiggerAlternator["Uprated alternator"]
   CableReel["Cable reel"]
@@ -253,6 +256,8 @@ flowchart TB
   PhobosSuppressionCrew["Crew fire suppression"]
   PhobosGunRing["Gun ring"]
   PhobosGunShield["Gun shield"]
+  PhobosSmokeDischargers["Smoke dischargers"]
+  PhobosAmmoLocker["Ammunition locker"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates
@@ -261,9 +266,13 @@ flowchart TB
   PhobosGunRing --> PhobosRemoteWeaponStation
   PhobosGunRing --> PhobosGunShield
   PhobosGunRing --> PhobosRingGun762
+  PhobosGunRing --> PhobosAmmoLocker
   PhobosArmouredCab --> PhobosSpallLiner
+  PhobosGunRing --> PhobosMountFwM1919
+  PhobosGunRing --> PhobosMountFwPKM
+  PhobosGunRing --> PhobosMountFwMG3
   classDef tiein stroke-dasharray: 5 5
-  class PhobosSpallLiner,PhobosRemoteControlKit tiein
+  class PhobosSpallLiner,PhobosMountFwM1919,PhobosMountFwPKM,PhobosMountFwMG3,PhobosRemoteControlKit tiein
 ```
 
 Every node moves a figure; none changes the parts list (principle 8). Node keys are stable once a save can hold them.

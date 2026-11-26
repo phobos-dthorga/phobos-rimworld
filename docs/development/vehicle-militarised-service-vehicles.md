@@ -1,6 +1,6 @@
 # Militarised service vehicles: research and design (19 Nov 2026)
 
-**Status (25 Nov 2026):** a design record, partly built: every armour kit is built (Vehicles 0.80.0 and 0.86.0), the remote weapon station is built on the Talus and Busbar ([built](#the-remote-weapon-station-built-vehicles-01190-framework-02850), Vehicles 0.119.0 and Framework 0.285.0), and the gun ring, its three guns and the shield ([built](#the-gun-ring-built-vehicles-01210-framework-02960), Vehicles 0.121.0 and Framework 0.296.0), none yet tested in game; smoke, the ammunition locker and the extra mounts are not. Its prerequisite, the trucks' armour by class (MV2), is in Framework 0.154.0 and Vehicles 0.76.0; the kits with no picture (engine and tank guards, run-flat tyres, EMP hardening) and the truck armour research are in Vehicles 0.80.0 and Framework 0.158.0. The drawn kits, the guns and the under-fire switch are not built, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
+**Status (25 Nov 2026):** a design record, partly built: every armour kit is built (Vehicles 0.80.0 and 0.86.0), the remote weapon station is built on the Talus and Busbar ([built](#the-remote-weapon-station-built-vehicles-01190-framework-02850), Vehicles 0.119.0 and Framework 0.285.0), and the gun ring, its three guns and the shield ([built](#the-gun-ring-built-vehicles-01210-framework-02960), Vehicles 0.121.0 and Framework 0.296.0), and since 26 Nov 2026 the smoke dischargers, the ammunition locker and the MaxxPro's and Frontline Workshop's extra mounts ([built](#smoke-the-locker-and-extra-mounts-built-vehicles-01250-framework-03190), Vehicles 0.125.0 and Framework 0.319.0), none yet tested in game. Its prerequisite, the trucks' armour by class (MV2), is in Framework 0.154.0 and Vehicles 0.76.0; the kits with no picture (engine and tank guards, run-flat tyres, EMP hardening) and the truck armour research are in Vehicles 0.80.0 and Framework 0.158.0. The drawn kits, the guns and the under-fire switch are not built, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
 
 How vehicle damage works now: [systems/vehicle-damage.md](systems/vehicle-damage.md); this record keeps its history.
 
@@ -376,7 +376,75 @@ What differs from the tables above:
   no turret that never fires.
 - **Weights:** the design's; costs and work authored. Cargo room on the Talus only.
 
-### Smoke dischargers
+### Smoke, the locker and extra mounts, built (Vehicles 0.125.0, Framework 0.319.0)
+
+Built 26 Nov 2026 on the owner's "Let's do the smoke dischargers, ammunition locker, and extra gun mounts" and their cards the same day:
+**chemfuel each shot** without Combat Extended [O]; **a "Pop smoke when hit" switch, on, and raiders' trucks too** [O]; **a locker for rounds
+only** [O]; **extra mounts from GTek's MaxxPro and Frontline Workshop** [O] (the HUMVEE's left out). Not yet tested in game.
+
+**Smoke dischargers** [code: `Turrets_SmokeDischargers.xml`; Framework `Service/SmokeDischargers.cs`, `Rules/SmokeRule.cs`, tested]:
+
+- **On all five trucks**, a node at (29, 12) in the armour columns ((17, 17) on the Ullage, whose columns are full), after **truck
+  armour** research [A]: two of one fixed turret, `PhobosTurret_SmokeDischarger`, at the cab's front corners turned 30 degrees out, under one
+  group key, so Vehicle Framework's own button fires both. Each lobs four rounds 9 cells along its angle, spread 2.5 cells, the game's own
+  smoke shell [A]. 50 kg, 30 steel and 2 components [A]. They stop with the cab. Placement read off each truck's armoured cab outline [A].
+- **What it fires:** 5 chemfuel a shot [O], four shots a bank, reloaded from the cargo in 20 seconds [A]. **With Combat Extended** a vehicle's
+  turret fires only Combat Extended's projectiles (its launch casts to them), so the game's smoke shell would fail even with its ammunition
+  switched off: our own ammunition set holds Combat Extended's launcher smoke grenade alone, and a patch makes the turret's projectile its
+  40 mm smoke round, one grenade a shot (`Mods/CombatExtended`).
+- **Pop smoke when hit:** a comp D'thorga Framework gives any vehicle whose turrets or tree carry a turret marked
+  `PhobosSmokeDischargerExtension`, listening to Vehicle Framework's "damage taken" (raised under Combat Extended too). **The event carries no
+  attacker, so "hit" means hit while enemies are an active threat to its faction on the map** [A]. Not again for 10 seconds [A]. The
+  player's truck needs its switch (on by default [O]); **another faction's pops once a visit, loaded for that salvo** [A], since it carries
+  no chemfuel to reload and Vehicle Framework never fires a fixed turret for the AI.
+- **Not a remote gun:** our remote-gun rule (Framework 0.280.0) held any turret no seat works; a fixed turret fires only on a click or our
+  own pop, so the rule now passes it by, and a truck with the station kit still pops smoke with no picture.
+- **The picture:** one bank drawn on fal.ai, the owner's pick of three tries, try 3 (US$0.45; [its record](../../assets/phobos-vehicles/requests/smoke-dischargers-record.md)),
+  exported by `assets/phobos-vehicles/export_smoke_dischargers.py` about half a cell wide; the node's icon fitted from it. The switch's icon
+  is drawn in the night run (night 16), the switch showing ours until then.
+
+**The ammunition locker** [code: `Service/AmmoLocker.cs`, `AmmoLockerRule`, tested]:
+
+- **On the Kelly, Ullage and Busbar**, at (22, 17), needing the ring, after **truck guns** research: 150 kg of room, 40 kg (the design's
+  figures [A]). A new stat, `Phobos_AmmoLockerKilograms`.
+- **Rounds only, with one cargo figure:** Vehicle Framework keeps one cargo figure for everything aboard. The locker's room is added to it
+  while everything else aboard fits the truck's own room; **once other cargo spills past that, the locker counts only the rounds in it**, so
+  the truck reads as overloaded by what spilled, and the figure's explanation says why. A round is what any fitted turret's ammunition
+  allows, as Vehicle Framework itself decides what to bring a turret: steel for our hand-swung guns without Combat Extended (so a gun truck's
+  steel counts as rounds), chemfuel for the dischargers, a gun's ammunition set with Combat Extended. **Its limit:** Vehicle Framework's
+  load window cannot tell rounds from other cargo, so a load planned past the bed is only refused once aboard [A, the honest limit of one
+  cargo figure]. The figure is worked out again when cargo comes or goes on a truck with a locker.
+- **No picture:** the locker sits behind the cab, inside the body; its node borrows the ring's icon until night 16 draws its own.
+
+**Extra mounts** [code: `Mods/GTekMaxxPro/Patches`, `Mods/FrontlineWorkshopCE/Patches`]:
+
+- **GTek's MaxxPro:** its M2HB and Mk 19, each on its own cupola as its author drew it, on the Talus and the Kelly (heavy guns by role).
+- **Frontline Workshop:** the M1919, PKM and MG3 on every truck with a ring; the M2HB, DShK and Mk 19 on the Talus and the Kelly. **Its guns
+  load only from its Combat Extended folder** and fire its rounds, so this folder loads only with both (`IfModActiveAll`).
+- **Either/or with ours:** each mount excludes our guns, the station and every other mount on the truck, and ours list the mounts back
+  (a key not in the tree is ignored by Vehicle Framework, so ours name them whether or not the mod is installed). **The ring's gunner works
+  them**, its role naming their turret keys, else they would fire with nobody at them; the shield turns with them. Weights as our guns of
+  their class (40, 90, 110 kg), costs authored [A]. Each node shows the gun's own button picture from its mod; a row of smaller nodes at
+  row 22, so every tree still fits the tab.
+- **The HUMVEE's** were not chosen (its duplicate graphics entries).
+
+**The four questions:**
+
+| Behaviour | Lets | Stops | Changes | Who else notices |
+| --- | --- | --- | --- | --- |
+| Smoke dischargers | Breaking the enemy's aim long enough to leave or close in | Smoking for ever: each salvo spends chemfuel or grenades, and reloads take time | Smoke is saved for the moment a truck must get away; a truck under fire screens itself without an order | Enemies (their shots through smoke miss more often); raiders' trucks pop it at you |
+| Ammunition locker | A gun truck that carries its own rounds | Using it as cargo room | The small trucks can be gun trucks without stealing their stowage | Haulers, who bring rounds to it |
+| Extra mounts | Another mod's gun on our ring | Nothing: either/or, as ours | The choice of gun follows the mods installed | Whatever that gun hits |
+
+- **Risk: low [A]**, so no setting: smoke costs only what the player loaded, hides friend and foe alike, and pops only under threat; the
+  locker loses nothing (spilled cargo is shown, never deleted); a mount is as dangerous as ours.
+- **Its cost:** nothing ticks. The pop listens to a damage event, reading a few fields, and the map's threat list only when a discharger is
+  ready; the locker reads the inventory only when cargo moves on a truck with one.
+- **Other factions:** a raider's truck that comes with dischargers pops smoke once a visit; one parked at a base we attack does the same
+  when hit under threat; a captured one keeps its kits, its switch on. Nothing yet fits these nodes to other factions' trucks (above).
+- **Saves:** the switch, the last pop and the visit's pop are saved on the truck; the locker saves nothing; turrets as Vehicle Framework's.
+
+### Smoke dischargers (the plan of 19 Nov 2026)
 
 - **The lead route needs no C#** [code]: a Vehicle Framework `Static` turret (one click, fires along its own facing, no targeting)
   firing the game's own `Bullet_SmokeLauncher`, as RimThunder's `RT_GrenadeLauncher` does. Our code already treats such fixed launchers

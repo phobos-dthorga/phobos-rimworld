@@ -221,6 +221,12 @@ flowchart TB
     LightPressureVessel["Light vessel (tie-in: TankerVessels)"]
     HeavyWallVessel["Heavy-wall vessel (tie-in: TankerVessels)"]
   end
+  subgraph alt2 ["Only one of these"]
+    PhobosRingGun762["Ring gun, 7.62 mm"]
+    PhobosMountFwM1919["Ring mount: M1919 (tie-in: FrontlineWorkshopCE)"]
+    PhobosMountFwPKM["Ring mount: PKM (tie-in: FrontlineWorkshopCE)"]
+    PhobosMountFwMG3["Ring mount: MG3 (tie-in: FrontlineWorkshopCE)"]
+  end
   HoseReel["Second hose reel"]
   ElectricPump["Electric pump"]
   TwoCompartments["Two compartments"]
@@ -236,7 +242,8 @@ flowchart TB
   PhobosSuppressionCrew["Crew fire suppression"]
   PhobosGunRing["Gun ring"]
   PhobosGunShield["Gun shield"]
-  PhobosRingGun762["Ring gun, 7.62 mm"]
+  PhobosSmokeDischargers["Smoke dischargers"]
+  PhobosAmmoLocker["Ammunition locker"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   ReverseOsmosisKit["Reverse-osmosis kit (tie-in: DubsBadHygiene)"]
   PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
@@ -246,7 +253,11 @@ flowchart TB
   PhobosArmouredCab --> PhobosSuppressionCrew
   PhobosGunRing --> PhobosGunShield
   PhobosGunRing --> PhobosRingGun762
+  PhobosGunRing --> PhobosAmmoLocker
   PhobosArmouredCab --> PhobosSpallLiner
+  PhobosGunRing --> PhobosMountFwM1919
+  PhobosGunRing --> PhobosMountFwPKM
+  PhobosGunRing --> PhobosMountFwMG3
   any1(("any one"))
   LiquidTank -.- any1
   InsulatedLiquidTank -.- any1
@@ -262,7 +273,7 @@ flowchart TB
   any2 --> ElectricPump
   any2 --> HoseReel
   classDef tiein stroke-dasharray: 5 5
-  class PhobosSpallLiner,ReverseOsmosisKit,PhobosRemoteControlKit,PressureVessel,LightPressureVessel,HeavyWallVessel tiein
+  class PhobosSpallLiner,ReverseOsmosisKit,PhobosMountFwM1919,PhobosMountFwPKM,PhobosMountFwMG3,PhobosRemoteControlKit,PressureVessel,LightPressureVessel,HeavyWallVessel tiein
 ```
 
 ## Bulk trading and quests (owner's decisions, 9 Nov 2026; not built)

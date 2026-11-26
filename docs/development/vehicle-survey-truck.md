@@ -231,6 +231,7 @@ flowchart TB
   PhobosHeavyCabPlates["Heavy cab plates"]
   PhobosSuppressionEngine["Engine fire suppression"]
   PhobosSuppressionCrew["Crew fire suppression"]
+  PhobosSmokeDischargers["Smoke dischargers"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   Hydrogeology["Groundwater sensor (tie-in: DubsBadHygiene)"]
   PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]

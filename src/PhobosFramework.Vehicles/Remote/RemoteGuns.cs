@@ -31,6 +31,8 @@ public static class RemoteGuns
     /// <summary>A turret no seat works, as Vehicle Framework reads it (VehicleTurret.RecacheMannedStatus): no role handles turrets naming it.</summary>
     public static bool IsRemoteGun(VehicleTurret turret)
     {
+        // A fixed turret (a smoke discharger, Framework 0.319.0) fires only on a click or our own pop-when-hit, never by itself: no rule holds it.
+        if (turret.def?.turretType == TurretType.Static) return false;
         var vehicle = turret.vehicle;
         if (vehicle?.handlers == null) return false;
         foreach (var handler in vehicle.handlers)

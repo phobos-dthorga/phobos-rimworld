@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The smoke dischargers' rounds with Combat Extended (D'thorga Vehicles 0.125.0): Combat Extended's own launcher smoke grenade, alone, so
+       nothing else is loaded into them. -->
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_PhobosSmokeDischarger</defName>
+    <label>smoke discharger</label>
+    <ammoTypes>
+      <Ammo_LauncherGrenade_Smoke>Bullet_40x46mmGrenade_Smoke</Ammo_LauncherGrenade_Smoke>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+</Defs>

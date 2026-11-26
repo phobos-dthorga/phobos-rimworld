@@ -269,6 +269,8 @@ public static class VehicleSystems
         // Rounds between places (Framework 0.307.0; autonomous-vehicles.md, step 9): every aircraft on our flight that flies on the map.
         if (def.comps.Any(c => c is CompProperties_PhobosFlight { onlyInDrops: false }) && !def.comps.Any(c => c is CompProperties_PhobosRound))
             def.comps.Add(new CompProperties_PhobosRound());
+        // Smoke dischargers (Framework 0.319.0): a vehicle whose own turrets or upgrade tree can carry ours pops smoke when hit under threat.
+        if (SmokeDischargers.Carries(def) && !def.comps.Any(c => c is CompProperties_PhobosSmoke)) def.comps.Add(new CompProperties_PhobosSmoke());
         // The hitch (Framework 0.101.0): every land vehicle with a loadout can tow a trailer, unless its loadout says not; whether it may tow
         // now (our drivetrain, or the player's setting for others) is asked when the player orders it.
         // A trailer never gets one, whatever its loadout says: nothing tows a trailer behind a trailer.

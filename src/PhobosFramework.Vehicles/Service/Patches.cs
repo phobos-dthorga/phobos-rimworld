@@ -170,6 +170,8 @@ public class VehicleStatPart_PhobosSystems : VehicleStatPart
         {
             float kilograms = comp.Fittings.KilogramsFitted;
             if (kilograms > 0f) result = Math.Max(0f, result - kilograms);
+            // The ammunition locker's room, for rounds only (Framework 0.319.0).
+            result += AmmoLocker.Room(vehicle!, result, out _);
         }
         return result;
     }
@@ -186,6 +188,14 @@ public class VehicleStatPart_PhobosSystems : VehicleStatPart
         if (statDef == VehicleStatDefOf.CargoCapacity && comp.Fittings.KilogramsFitted > 0f)
         {
             fitted = "PhobosVehicleSystems_StatFittedKilograms".Translate(comp.Fittings.KilogramsFitted.ToString("0").Named("KILOGRAMS")).Resolve();
+        }
+        // The ammunition locker (Framework 0.319.0): its room, and why it counts less once other cargo spills into it.
+        if (statDef == VehicleStatDefOf.CargoCapacity && AmmoLocker.Kilograms(vehicle!) is var locker && locker > 0f)
+        {
+            string line = AmmoLocker.SpilledWhenLastWorkedOut(vehicle!)
+                ? "PhobosVehicleSystems_StatAmmoLockerSpilled".Translate(locker.ToString("0").Named("KILOGRAMS")).Resolve()
+                : "PhobosVehicleSystems_StatAmmoLocker".Translate(locker.ToString("0").Named("KILOGRAMS")).Resolve();
+            fitted = fitted.Length == 0 ? line : fitted + "\n" + line;
         }
         if (comp.StatFactor(statDef) == 1f) return fitted;
         string reasons = string.Join("\n", comp.StatFactorReasons(statDef));

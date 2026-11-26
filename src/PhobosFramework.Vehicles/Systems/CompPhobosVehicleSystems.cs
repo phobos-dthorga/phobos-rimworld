@@ -849,6 +849,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Vehicle.AddEvent(VehicleEventDefOf.PawnExited, () => VehicleVisits.Exited(Vehicle));
         // Defenders in their trucks (Framework 0.292.0): a hit on another faction's vehicle at its base brings its sitters out.
         Vehicle.AddEvent(VehicleEventDefOf.DamageTaken, () => MapComponent_PhobosBaseDefenders.Hit(Vehicle));
+        // The ammunition locker (Framework 0.319.0): what it holds decides the cargo figure, so cargo coming or going works it out again.
+        Vehicle.AddEvent(VehicleEventDefOf.CargoAdded, () => AmmoLocker.CargoChanged(Vehicle));
+        Vehicle.AddEvent(VehicleEventDefOf.CargoRemoved, () => AmmoLocker.CargoChanged(Vehicle));
         // An aircraft taking off hears the refusals the player set to warn only (Framework 0.110.0).
         if (Vehicle.CompVehicleLauncher != null) Vehicle.AddEvent(VehicleEventDefOf.AerialVehicleLaunch, WarnAtLaunch);
         // Framework 0.254.0: grit thrown up as it leaves the ground through Vehicle Framework's own launch.

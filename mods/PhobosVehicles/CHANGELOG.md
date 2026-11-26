@@ -13,6 +13,20 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.125.0] - 2026-11-26 - Draft
+
+Smoke dischargers, the ammunition locker and extra gun mounts
+
+### Added
+
+- **Smoke dischargers on all five service trucks** (the owner's cards of 26 November 2026), after truck armour research: two banks of
+  four tubes at the cab's front corners, one button for both, blinding smoke ahead and to each side. 5 chemfuel a shot, or with Combat
+  Extended a launcher smoke grenade. 50 kg. Not yet tested in game: row 573.
+- **An ammunition locker** on the Kelly, Ullage and Busbar, on the gun ring: 150 kg for the truck's own rounds only. 40 kg. Row 574.
+- **Extra gun mounts from other mods** on the gun ring, either/or with ours: **GTek's MaxxPro's M2HB and Mk 19** (Talus and Kelly), and
+  with Combat Extended **Frontline Workshop's M1919, PKM and MG3** (every ring truck) **and its M2HB, DShK and Mk 19** (Talus and Kelly).
+  Row 575.
+
 ## [0.124.0] - 2026-11-26 - Draft
 
 The reverse-osmosis kit

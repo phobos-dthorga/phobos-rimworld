@@ -575,6 +575,11 @@
   <PhobosVehicleSystems_FitRemovedDone>{MECHANIC} took the {FITTING} off the {VEHICLE}'s {PART}.</PhobosVehicleSystems_FitRemovedDone>
   <PhobosVehicleSystems_FitKitReturned>The {KIT} went back into its cargo.</PhobosVehicleSystems_FitKitReturned>
   <PhobosVehicleSystems_StatFittedKilograms>Fitted accessories: -{KILOGRAMS} kg</PhobosVehicleSystems_StatFittedKilograms>
+  <!-- Smoke dischargers (Framework 0.319.0). -->
+  <PhobosSmoke_PopWhenHit>Pop smoke when hit</PhobosSmoke_PopWhenHit>
+  <PhobosSmoke_PopWhenHitDesc>When on, the truck fires its smoke dischargers by itself when it is hit while enemies are about, to break their aim, and not again for {GAP}. Each salvo uses up its rounds; colonists reload it from the cargo. Its own button fires them at any time.</PhobosSmoke_PopWhenHitDesc>
+  <PhobosVehicleSystems_StatAmmoLocker>Ammunition locker: +{KILOGRAMS} kg, for its own rounds only</PhobosVehicleSystems_StatAmmoLocker>
+  <PhobosVehicleSystems_StatAmmoLockerSpilled>Ammunition locker ({KILOGRAMS} kg): other cargo has spilled past the load bed into it, and the locker holds rounds only. Counted: only the rounds in it. Take out what is not rounds.</PhobosVehicleSystems_StatAmmoLockerSpilled>
   <PhobosVehicleSystems_TuneDone>{MECHANIC} finished setting up the {VEHICLE}'s {SETTING}.</PhobosVehicleSystems_TuneDone>
   <PhobosVehicleSystems_FitOrderedMessage>{WORK}: added to the {VEHICLE}'s work.</PhobosVehicleSystems_FitOrderedMessage>
   <PhobosVehicleSystems_FitSetOrdered>{FITTING}: added to the {VEHICLE}'s work on all {COUNT} together, one job each. It works once every one is fitted.</PhobosVehicleSystems_FitSetOrdered>

@@ -155,6 +155,14 @@ flowchart TB
     PhobosRingGun762["Ring gun, 7.62 mm"]
     PhobosRingGun50["Ring gun, .50"]
     PhobosRingGun40["Ring launcher, 40 mm"]
+    PhobosMountMaxxProM2HB["Ring mount: MaxxPro M2HB (tie-in: GTekMaxxPro)"]
+    PhobosMountMaxxProMk19["Ring mount: MaxxPro Mk 19 (tie-in: GTekMaxxPro)"]
+    PhobosMountFwM1919["Ring mount: M1919 (tie-in: FrontlineWorkshopCE)"]
+    PhobosMountFwPKM["Ring mount: PKM (tie-in: FrontlineWorkshopCE)"]
+    PhobosMountFwMG3["Ring mount: MG3 (tie-in: FrontlineWorkshopCE)"]
+    PhobosMountFwM2HB["Ring mount: M2HB (tie-in: FrontlineWorkshopCE)"]
+    PhobosMountFwDShK["Ring mount: DShK (tie-in: FrontlineWorkshopCE)"]
+    PhobosMountFwMk19["Ring mount: Mk 19 (tie-in: FrontlineWorkshopCE)"]
   end
   HighSides["Greedy boards"]
   PhobosLoadingGrab["Loading grab"]
@@ -169,6 +177,7 @@ flowchart TB
   PhobosSuppressionCrew["Crew fire suppression"]
   PhobosGunRing["Gun ring"]
   PhobosGunShield["Gun shield"]
+  PhobosSmokeDischargers["Smoke dischargers"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   PhobosRemoteControlKit["Remote control kit (tie-in: RadioFramework)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates
@@ -180,8 +189,16 @@ flowchart TB
   PhobosGunRing --> PhobosRingGun50
   PhobosGunRing --> PhobosRingGun40
   PhobosArmouredCab --> PhobosSpallLiner
+  PhobosGunRing --> PhobosMountFwM1919
+  PhobosGunRing --> PhobosMountFwPKM
+  PhobosGunRing --> PhobosMountFwMG3
+  PhobosGunRing --> PhobosMountFwM2HB
+  PhobosGunRing --> PhobosMountFwDShK
+  PhobosGunRing --> PhobosMountFwMk19
+  PhobosGunRing --> PhobosMountMaxxProM2HB
+  PhobosGunRing --> PhobosMountMaxxProMk19
   classDef tiein stroke-dasharray: 5 5
-  class PhobosSpallLiner,PhobosRemoteControlKit tiein
+  class PhobosSpallLiner,PhobosMountFwM1919,PhobosMountFwPKM,PhobosMountFwMG3,PhobosMountFwM2HB,PhobosMountFwDShK,PhobosMountFwMk19,PhobosMountMaxxProM2HB,PhobosMountMaxxProMk19,PhobosRemoteControlKit tiein
 ```
 
 | Node key | Figure it moves | Cost | Research | Prerequisite or exclusive with | Look |

@@ -1,0 +1,18 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/SmokeDischargers.png",
+  "source": "assets/phobos-vehicles/generated/smoke-discharger-bank-truck-only/smoke-discharger-bank-truck-only-3.png",
+  "source_sha256": "27ec079eb19cab0f290411b2a3204bfa5a7ac44a45b93d2c0f2ec0697ac88f19",
+  "target_sha256": "c47f117aea25dff631b2782a62a288bb3c69c43bd7eb291867db854057002f1d",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "ai_mask": "27ec079eb19cab0f290411b2a3204bfa5a7ac44a45b93d2c0f2ec0697ac88f19",
+  "white_left": [],
+  "bank_cells": 0.55,
+  "canvas_cells": 0.75,
+  "date": "2026-11-26T19:43:45",
+  "tool": "assets/phobos-vehicles/export_smoke_dischargers.py: export_sprite cut-out, upgrade icon fitted from the shipped picture, premultiplied Lanczos"
+}

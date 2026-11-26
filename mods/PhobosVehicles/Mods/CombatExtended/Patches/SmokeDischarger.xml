@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The smoke dischargers with Combat Extended (D'thorga Vehicles 0.125.0). A vehicle's turret fires through Combat Extended's own launch,
+       which takes only its projectiles: the game's smoke shell would fail there, even with Combat Extended's ammunition switched off. So the
+       turret names Combat Extended's 40 mm smoke round, and each shot takes one grenade rather than 5 chemfuel. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="PhobosTurret_SmokeDischarger"]/projectile</xpath>
+    <value>
+      <projectile>Bullet_40x46mmGrenade_Smoke</projectile>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="PhobosTurret_SmokeDischarger"]/chargePerAmmoCount</xpath>
+    <value>
+      <chargePerAmmoCount>1</chargePerAmmoCount>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="PhobosTurret_SmokeDischarger"]/ammunition</xpath>
+    <value>
+      <ammunition>
+        <thingDefs>
+          <li>Ammo_LauncherGrenade_Smoke</li>
+        </thingDefs>
+      </ammunition>
+    </value>
+  </Operation>
+</Patch>

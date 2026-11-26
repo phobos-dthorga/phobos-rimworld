@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Smoke dischargers on the service trucks (D'thorga Vehicles 0.125.0, Framework 0.319.0; vehicle-militarised-service-vehicles.md, "Smoke
+       dischargers", MV8; the owner's cards of 26 Nov 2026: chemfuel each shot without Combat Extended, and "Pop smoke when hit", on by default,
+       raiders' trucks too). One bank of four tubes, fitted twice by each truck's node (left and right, one group key, so one button fires
+       both): a fixed turret, which lobs its salvo its full range away along its own angle, the game's own smoke shell bursting into blinding
+       smoke. D'thorga Framework's marker gives the truck its "Pop smoke when hit" switch. Without Combat Extended each shot burns 5 chemfuel
+       (the owner's card; other authors charge 5 to 15); with it, Combat Extended's launcher smoke grenade, one a shot
+       (Mods/CombatExtended). Figures [A] authored. -->
+  <Vehicles.VehicleTurretDef ParentName="VehicleTurretBase">
+    <defName>PhobosTurret_SmokeDischarger</defName>
+    <label>smoke discharger</label>
+    <description>A bank of four short tubes on the cab, each firing a smoke grenade a short way out, to hide the truck from enemy aim.</description>
+    <gizmoDescription>Fire both banks of smoke dischargers: a screen of blinding smoke ahead and to each side of the truck.</gizmoDescription>
+    <turretType>Static</turretType>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Turrets/SmokeDischarger</texPath>
+      <graphicClass>Vehicles.Graphic_Turret</graphicClass>
+      <shaderType>Cutout</shaderType>
+      <drawSize>(0.75, 0.75)</drawSize>
+    </graphicData>
+    <matchParentColor>false</matchParentColor>
+    <gizmoIconTexPath>Phobos/Vehicles/Upgrades/SmokeDischargers</gizmoIconTexPath>
+    <magazineCapacity>4</magazineCapacity>
+    <chargePerAmmoCount>5</chargePerAmmoCount>
+    <genericAmmo>true</genericAmmo>
+    <ammunition>
+      <thingDefs>
+        <li>Chemfuel</li>
+      </thingDefs>
+    </ammunition>
+    <reloadTimer>20</reloadTimer>
+    <warmUpTimer>0</warmUpTimer>
+    <minRange>0</minRange>
+    <maxRange>9</maxRange>
+    <projectile>Bullet_SmokeLauncher</projectile>
+    <shotSound>Shot_IncendiaryLauncher</shotSound>
+    <fireModes>
+      <li>
+        <label>Salvo</label>
+        <shotsPerBurst>4</shotsPerBurst>
+        <ticksBetweenShots>5</ticksBetweenShots>
+        <ticksBetweenBursts>60</ticksBetweenBursts>
+        <forcedMissRadius>2.5</forcedMissRadius>
+        <texPath>Phobos/VehicleSystems/FireMode/Burst</texPath>
+      </li>
+    </fireModes>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosSmokeDischargerExtension">
+        <switchIcon>Phobos/VehicleSystems/PopSmoke</switchIcon>
+      </li>
+      <!-- With Combat Extended: its launcher smoke grenade, by our own ammunition set of that one round (Mods/CombatExtended). -->
+      <li Class="Vehicles.CETurretDataDefModExtension">
+        <ammoSet>AmmoSet_PhobosSmokeDischarger</ammoSet>
+        <speed>27</speed>
+        <sway>0.5</sway>
+        <spread>0.25</spread>
+        <shotHeight>2</shotHeight>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleTurretDef>
+</Defs>

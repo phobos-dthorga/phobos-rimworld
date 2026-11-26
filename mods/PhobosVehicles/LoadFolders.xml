@@ -14,6 +14,7 @@
     <li IfModActive="killerbot.jltv">Mods/GTekLATV</li>
     <li IfModActive="killerbot.navistarmaxxpro">Mods/GTekMaxxPro</li>
     <li IfModActive="serinairo.frontlineworkshop">Mods/FrontlineWorkshop</li>
+    <li IfModActiveAll="serinairo.frontlineworkshop,ceteam.combatextended">Mods/FrontlineWorkshopCE</li>
     <li IfModActive="turbo.rimworld.bmp1ifv">Mods/BMP1</li>
     <li IfModActive="potemkinvillager.mi24hindhelicopter">Mods/HindHelicopter</li>
     <li IfModActive="potemkinvillager.mongooseattackhelicopter">Mods/MongooseHelicopter</li>

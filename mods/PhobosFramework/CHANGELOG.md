@@ -13,6 +13,22 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.319.0] - 2026-11-26 - Draft
+
+Smoke dischargers and the ammunition locker
+
+### Added
+
+- **Trucks pop smoke when hit** (the owner's cards of 26 November 2026), with D'thorga Vehicles 0.125.0's smoke dischargers: a **Pop smoke
+  when hit** switch on the truck, on to start, fires them by itself when it is hit while enemies are about, then not again for 10 seconds.
+  Raiders' trucks with dischargers pop smoke too, once each visit. Not yet tested in game: row 573.
+- **An ammunition locker holds rounds only**: its room counts for the rounds of the truck's own guns and smoke dischargers. Other cargo that
+  spills past the truck's own room leaves it overloaded until taken out, and its cargo figure says why. Not yet tested in game: row 574.
+
+### Changed
+
+- **A fixed launcher is never held as a remote gun**: smoke dischargers fire on their button or when hit, with or without a camera link.
+
 ## [0.318.0] - 2026-11-26 - Draft
 
 The reverse-osmosis kit's machinery

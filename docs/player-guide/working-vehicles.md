@@ -115,6 +115,20 @@ Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehi
   operator has the truck's picture (see [driven from a station](vehicles-on-the-road.md#driven-from-a-station)), or by itself when
   **"Remote guns fire on their own"** is on. **Without D'thorga Radio Framework it fires only with that setting.** It feeds from steel
   like other vehicle guns, draws the truck's battery while it tracks a target, and **stops without power** or when the cab is destroyed. 250 kg.
+- **Smoke dischargers** (all five trucks, after **truck armour** research): two banks of four tubes at the front corners of the cab. **One
+  button fires both**, throwing blinding smoke ahead and to each side; shots through smoke miss more often. **Each shot uses 5 chemfuel**,
+  or **with Combat Extended a launcher smoke grenade**; colonists reload them from the cargo. 50 kg.
+  - **Pop smoke when hit** (a switch on the truck, **on** to start): the truck fires them by itself when it is hit while enemies are
+    about, then not again for 10 seconds. A fire or a stray shot with no enemy about does not set them off.
+  - **Raiders' trucks with dischargers pop smoke too**, once each visit.
+- **Ammunition locker** (Kelly, Ullage and Busbar, **on the gun ring**, after **truck guns** research): **150 kg of room for the truck's own
+  rounds only**: what its guns and smoke dischargers fire (steel or chemfuel without Combat Extended, their rounds with it). **Other cargo
+  goes in the truck's own small space**; if it spills over into the locker, the truck reads as **overloaded** until you take it out, and
+  its cargo figure says why. 40 kg.
+- **Extra mounts from other mods**, on the gun ring instead of one of our guns, worked by the gunner like ours:
+  - **With GTek's MaxxPro:** its **M2HB** and **Mk 19**, on its own cupola (Talus and Kelly).
+  - **With Frontline Workshop and Combat Extended:** its **M1919**, **PKM** and **MG3** (Talus, Kelly, Ullage and Busbar), and its
+    **M2HB**, **DShK** and **Mk 19** (Talus and Kelly). They fire that mod's rounds.
 - **With its armoured cab, the Talus may keep gathering while enemies are about**: in **Gather what**, set **When enemies come** to
   **keep working**. It starts on stop. Whoever drives it is still in the fight.
 
@@ -136,7 +150,6 @@ With Combat Extended only. **Any vehicle with rifle-proof plate or heavier**, ou
   through, and who was hurt by spall (once an hour at most for each vehicle).
 - **Settings** (Mod settings, D'thorga Framework, Dangers, all on): *Beaten armour throws spall inside*, *Also on other mods'
   vehicles* and *Heavy hits shake spall loose*. Raiders' crews take spall exactly as yours do.
-- **Still to come:** gun mounts, smoke dischargers and a remote weapon station.
 
 ## Datum survey truck
 

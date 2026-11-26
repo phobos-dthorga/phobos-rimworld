@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Extra mounts from GTek's MaxxPro (D'thorga Vehicles 0.125.0; vehicle-militarised-service-vehicles.md, "Offered as optional extra
+       mounts", SD45; the owner's card of 26 Nov 2026). Its M2HB and Mk 19, each on its own cupola as its author drew them, set on our gun
+       ring on the trucks that carry heavy guns by role (the Talus and the Kelly), either/or with our own guns, worked by the ring's gunner. Its
+       guns and pictures are used by Def name only, with that mod installed; nothing of theirs is copied. Costs, work and weights authored
+       [A], the weights as our guns of the same class. Each node shows the gun's own button picture from its mod. Not yet tested in game. -->
+  <!-- Tipper. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tipper_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosMountMaxxProM2HB</key>
+          <label>Ring mount: MaxxPro M2HB</label>
+          <displayLabel>true</displayLabel>
+          <description>The MaxxPro's M2HB heavy machine gun on its cupola, set on our ring and swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: the MaxxPro's M2HB heavy machine gun on its cupola, set on our ring and swung by hand by the gunner.\nNeeds the gunner at it to fire.\nCargo room: 90 kg less.\nKit weight: 90 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Vehicle/MaxxPro/Turret/HID_M2Browning_UI</icon>
+          <work>2500</work>
+          <gridCoordinate>(2, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+            <li>PhobosRemoteWeaponStation</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountMaxxProM2HB</key>
+                  <def>HID_Navistar_M2HB</def>
+                  <gizmoLabel>MaxxPro M2HB</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.12, 2.45)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>CargoCapacity</def>
+                  <value>-90</value>
+                </li>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>90</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>70</Steel>
+            <ComponentIndustrial>3</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountMaxxProMk19</key>
+          <label>Ring mount: MaxxPro Mk 19</label>
+          <displayLabel>true</displayLabel>
+          <description>The MaxxPro's Mk 19 automatic grenade launcher on its cupola, set on our ring and swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: the MaxxPro's Mk 19 automatic grenade launcher on its cupola, set on our ring and swung by hand by the gunner.\nNeeds the gunner at it to fire.\nCargo room: 110 kg less.\nKit weight: 110 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Vehicle/MaxxPro/Turret/HID_Mk19GL_UI</icon>
+          <work>2500</work>
+          <gridCoordinate>(7, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+            <li>Mortars</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+            <li>PhobosRemoteWeaponStation</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountMaxxProMk19</key>
+                  <def>HID_Navistar_Mk19GL</def>
+                  <gizmoLabel>MaxxPro Mk 19</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.12, 2.45)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>CargoCapacity</def>
+                  <value>-110</value>
+                </li>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>110</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>80</Steel>
+            <ComponentIndustrial>4</ComponentIndustrial>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- DrillRig. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_DrillRig_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosMountMaxxProM2HB</key>
+          <label>Ring mount: MaxxPro M2HB</label>
+          <displayLabel>true</displayLabel>
+          <description>The MaxxPro's M2HB heavy machine gun on its cupola, set on our ring and swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: the MaxxPro's M2HB heavy machine gun on its cupola, set on our ring and swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 90 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Vehicle/MaxxPro/Turret/HID_M2Browning_UI</icon>
+          <work>2500</work>
+          <gridCoordinate>(2, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountMaxxProM2HB</key>
+                  <def>HID_Navistar_M2HB</def>
+                  <gizmoLabel>MaxxPro M2HB</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.16, 3.22)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>90</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>70</Steel>
+            <ComponentIndustrial>3</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountMaxxProMk19</key>
+          <label>Ring mount: MaxxPro Mk 19</label>
+          <displayLabel>true</displayLabel>
+          <description>The MaxxPro's Mk 19 automatic grenade launcher on its cupola, set on our ring and swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: the MaxxPro's Mk 19 automatic grenade launcher on its cupola, set on our ring and swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 110 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Vehicle/MaxxPro/Turret/HID_Mk19GL_UI</icon>
+          <work>2500</work>
+          <gridCoordinate>(7, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+            <li>Mortars</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountMaxxProMk19</key>
+                  <def>HID_Navistar_Mk19GL</def>
+                  <gizmoLabel>MaxxPro Mk 19</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.16, 3.22)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>110</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>80</Steel>
+            <ComponentIndustrial>4</ComponentIndustrial>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+</Patch>

@@ -1,0 +1,1105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Extra mounts from Frontline Workshop (D'thorga Vehicles 0.125.0; vehicle-militarised-service-vehicles.md, "Offered as optional extra
+       mounts", SD47; the owner's card of 26 Nov 2026). Its standalone guns, set on our gun ring by role: the M1919, PKM and MG3 on every
+       truck with a ring, the M2HB, DShK and Mk 19 on the Talus and the Kelly; either/or with our own guns, worked by the ring's gunner.
+       Loaded only with Combat Extended too, as its guns load only from its Combat Extended folder and fire its rounds. Used by Def name only;
+       nothing of theirs is copied. Costs, work and weights authored [A], the weights as our guns of the same class.  Not yet tested in game. -->
+  <!-- Tipper. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tipper_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosMountFwM1919</key>
+          <label>Ring mount: M1919</label>
+          <displayLabel>true</displayLabel>
+          <description>A Browning M1919 machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: a Browning M1919 machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nCargo room: 40 kg less.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/M1919_LMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(12, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+            <li>PhobosRemoteWeaponStation</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwM1919</key>
+                  <def>FW_M1919LMG_Turret</def>
+                  <gizmoLabel>M1919</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.12, 2.45)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>CargoCapacity</def>
+                  <value>-40</value>
+                </li>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>40</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>40</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwPKM</key>
+          <label>Ring mount: PKM</label>
+          <displayLabel>true</displayLabel>
+          <description>A PKM general-purpose machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: a PKM general-purpose machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nCargo room: 40 kg less.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/PKM_LMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(17, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+            <li>PhobosRemoteWeaponStation</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwPKM</key>
+                  <def>FW_PKMLMG_Turret</def>
+                  <gizmoLabel>PKM</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.12, 2.45)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>CargoCapacity</def>
+                  <value>-40</value>
+                </li>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>40</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>40</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwMG3</key>
+          <label>Ring mount: MG3</label>
+          <displayLabel>true</displayLabel>
+          <description>An MG3 general-purpose machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: an MG3 general-purpose machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nCargo room: 40 kg less.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/MG3_LMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(22, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+            <li>PhobosRemoteWeaponStation</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwMG3</key>
+                  <def>FW_MG3LMG_Turret</def>
+                  <gizmoLabel>MG3</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.12, 2.45)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>CargoCapacity</def>
+                  <value>-40</value>
+                </li>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>40</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>40</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwM2HB</key>
+          <label>Ring mount: M2HB</label>
+          <displayLabel>true</displayLabel>
+          <description>An M2HB heavy machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: an M2HB heavy machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nCargo room: 90 kg less.\nKit weight: 90 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/M2HB_HMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(29, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+            <li>PhobosRemoteWeaponStation</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwM2HB</key>
+                  <def>FW_M2HBHMG_Turret</def>
+                  <gizmoLabel>M2HB</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.12, 2.45)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>CargoCapacity</def>
+                  <value>-90</value>
+                </li>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>90</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>70</Steel>
+            <ComponentIndustrial>3</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwDShK</key>
+          <label>Ring mount: DShK</label>
+          <displayLabel>true</displayLabel>
+          <description>A DShK heavy machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: a DShK heavy machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nCargo room: 90 kg less.\nKit weight: 90 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/DShK_HMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(34, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+            <li>PhobosRemoteWeaponStation</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwDShK</key>
+                  <def>FW_DShKHMG_Turret</def>
+                  <gizmoLabel>DShK</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.12, 2.45)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>CargoCapacity</def>
+                  <value>-90</value>
+                </li>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>90</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>70</Steel>
+            <ComponentIndustrial>3</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwMk19</key>
+          <label>Ring mount: Mk 19</label>
+          <displayLabel>true</displayLabel>
+          <description>A Mk 19 automatic grenade launcher on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: a Mk 19 automatic grenade launcher on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nCargo room: 110 kg less.\nKit weight: 110 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/MK19_GL</icon>
+          <work>2500</work>
+          <gridCoordinate>(39, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+            <li>Mortars</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+            <li>PhobosRemoteWeaponStation</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwMk19</key>
+                  <def>FW_MK19GL_Turret</def>
+                  <gizmoLabel>Mk 19</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.12, 2.45)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>CargoCapacity</def>
+                  <value>-110</value>
+                </li>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>110</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>80</Steel>
+            <ComponentIndustrial>4</ComponentIndustrial>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- DrillRig. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_DrillRig_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosMountFwM1919</key>
+          <label>Ring mount: M1919</label>
+          <displayLabel>true</displayLabel>
+          <description>A Browning M1919 machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: a Browning M1919 machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/M1919_LMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(12, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwM1919</key>
+                  <def>FW_M1919LMG_Turret</def>
+                  <gizmoLabel>M1919</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.16, 3.22)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>40</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>40</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwPKM</key>
+          <label>Ring mount: PKM</label>
+          <displayLabel>true</displayLabel>
+          <description>A PKM general-purpose machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: a PKM general-purpose machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/PKM_LMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(17, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwPKM</key>
+                  <def>FW_PKMLMG_Turret</def>
+                  <gizmoLabel>PKM</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.16, 3.22)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>40</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>40</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwMG3</key>
+          <label>Ring mount: MG3</label>
+          <displayLabel>true</displayLabel>
+          <description>An MG3 general-purpose machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: an MG3 general-purpose machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/MG3_LMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(22, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwMG3</key>
+                  <def>FW_MG3LMG_Turret</def>
+                  <gizmoLabel>MG3</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.16, 3.22)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>40</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>40</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwM2HB</key>
+          <label>Ring mount: M2HB</label>
+          <displayLabel>true</displayLabel>
+          <description>An M2HB heavy machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: an M2HB heavy machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 90 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/M2HB_HMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(29, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwM2HB</key>
+                  <def>FW_M2HBHMG_Turret</def>
+                  <gizmoLabel>M2HB</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.16, 3.22)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>90</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>70</Steel>
+            <ComponentIndustrial>3</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwDShK</key>
+          <label>Ring mount: DShK</label>
+          <displayLabel>true</displayLabel>
+          <description>A DShK heavy machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: a DShK heavy machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 90 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/DShK_HMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(34, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwMk19</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwDShK</key>
+                  <def>FW_DShKHMG_Turret</def>
+                  <gizmoLabel>DShK</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.16, 3.22)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>90</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>70</Steel>
+            <ComponentIndustrial>3</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwMk19</key>
+          <label>Ring mount: Mk 19</label>
+          <displayLabel>true</displayLabel>
+          <description>A Mk 19 automatic grenade launcher on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: a Mk 19 automatic grenade launcher on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 110 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/MK19_GL</icon>
+          <work>2500</work>
+          <gridCoordinate>(39, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+            <li>Mortars</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountMaxxProM2HB</li>
+            <li>PhobosMountMaxxProMk19</li>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosMountFwM2HB</li>
+            <li>PhobosMountFwDShK</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRingGun50</li>
+            <li>PhobosRingGun40</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwMk19</key>
+                  <def>FW_MK19GL_Turret</def>
+                  <gizmoLabel>Mk 19</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.16, 3.22)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>110</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>80</Steel>
+            <ComponentIndustrial>4</ComponentIndustrial>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- Tanker. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tanker_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosMountFwM1919</key>
+          <label>Ring mount: M1919</label>
+          <displayLabel>true</displayLabel>
+          <description>A Browning M1919 machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: a Browning M1919 machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/M1919_LMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(12, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosRingGun762</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwM1919</key>
+                  <def>FW_M1919LMG_Turret</def>
+                  <gizmoLabel>M1919</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.01, 2.89)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>40</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>40</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwPKM</key>
+          <label>Ring mount: PKM</label>
+          <displayLabel>true</displayLabel>
+          <description>A PKM general-purpose machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: a PKM general-purpose machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/PKM_LMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(17, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosRingGun762</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwPKM</key>
+                  <def>FW_PKMLMG_Turret</def>
+                  <gizmoLabel>PKM</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.01, 2.89)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>40</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>40</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwMG3</key>
+          <label>Ring mount: MG3</label>
+          <displayLabel>true</displayLabel>
+          <description>An MG3 general-purpose machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: an MG3 general-purpose machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/MG3_LMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(22, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosRingGun762</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwMG3</key>
+                  <def>FW_MG3LMG_Turret</def>
+                  <gizmoLabel>MG3</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.01, 2.89)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>40</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>40</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- GeneratorSet. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_GeneratorSet_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosMountFwM1919</key>
+          <label>Ring mount: M1919</label>
+          <displayLabel>true</displayLabel>
+          <description>A Browning M1919 machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: a Browning M1919 machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/M1919_LMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(12, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRemoteWeaponStation</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwM1919</key>
+                  <def>FW_M1919LMG_Turret</def>
+                  <gizmoLabel>M1919</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.1, 2.53)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>40</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>40</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwPKM</key>
+          <label>Ring mount: PKM</label>
+          <displayLabel>true</displayLabel>
+          <description>A PKM general-purpose machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: a PKM general-purpose machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/PKM_LMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(17, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwMG3</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRemoteWeaponStation</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwPKM</key>
+                  <def>FW_PKMLMG_Turret</def>
+                  <gizmoLabel>PKM</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.1, 2.53)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>40</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>40</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <key>PhobosMountFwMG3</key>
+          <label>Ring mount: MG3</label>
+          <displayLabel>true</displayLabel>
+          <description>An MG3 general-purpose machine gun on our ring, swung by hand by the gunner.</description>
+          <upgradeExplanation>On the gun ring: an MG3 general-purpose machine gun on our ring, swung by hand by the gunner.\nNeeds the gunner at it to fire.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Things/Vehicles/Turrets/MG3_LMG</icon>
+          <work>2500</work>
+          <gridCoordinate>(22, 22)</gridCoordinate>
+          <drawSize>(60, 60)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckGuns</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosGunRing</li>
+          </prerequisiteNodes>
+          <disableIfUpgradeNodesEnabled>
+            <li>PhobosMountFwM1919</li>
+            <li>PhobosMountFwPKM</li>
+            <li>PhobosRingGun762</li>
+            <li>PhobosRemoteWeaponStation</li>
+          </disableIfUpgradeNodesEnabled>
+          <upgrades>
+            <li Class="Vehicles.TurretUpgrade">
+              <turrets>
+                <li>
+                  <key>MountFwMG3</key>
+                  <def>FW_MG3LMG_Turret</def>
+                  <gizmoLabel>MG3</gizmoLabel>
+                  <component>
+                    <key>Cab</key>
+                    <healthPercent>0</healthPercent>
+                  </component>
+                  <renderProperties>
+                    <north>(-0.1, 2.53)</north>
+                  </renderProperties>
+                </li>
+              </turrets>
+            </li>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+                <li>
+                  <def>Phobos_KitKilograms</def>
+                  <value>40</value>
+                </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <Steel>40</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+</Patch>

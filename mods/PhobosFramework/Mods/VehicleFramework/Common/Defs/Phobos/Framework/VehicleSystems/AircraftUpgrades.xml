@@ -96,6 +96,23 @@
     </showOnVehicleTypes>
   </Vehicles.VehicleStatDef>
   <Vehicles.VehicleStatDef>
+    <!-- Framework 0.319.0: an ammunition locker's room, for the vehicle's own rounds only (the owner's card of 26 Nov 2026). The cargo figure
+         adds it while other cargo fits the load bed; once other cargo spills past the bed, it counts only the rounds aboard (AmmoLocker). -->
+    <defName>Phobos_AmmoLockerKilograms</defName>
+    <label>ammunition locker</label>
+    <description>Room in an ammunition locker, for the rounds of the vehicle's own guns and smoke dischargers only.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0} kg</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
     <!-- Framework 0.197.0: grip on soft ground a node adds (a tractor's dual wheels), on top of the tyre fittings' factor: 0.25 is a quarter
          more grip on the softest ground, tapering to none on firm going (TreadRules.SoftGroundFactor). -->
     <defName>Phobos_SoftGroundGripBonus</defName>
