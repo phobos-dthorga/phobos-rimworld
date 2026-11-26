@@ -9,7 +9,7 @@ Framework gives every vehicle.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**: [working
 vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.126.0, built 26 November 2026 for House D'thorga. **Partly tested in game:** the survey truck and its boom (owner,
+Version 0.127.0, built 26 November 2026 for House D'thorga. **Partly tested in game:** the survey truck and its boom (owner,
 9 November 2026), the Busbar's size and look (owner, 13 November 2026), the tanker's electric pump, its upgrade tree and its load
 counting as weight, the Talus gathering by itself, a truck with nobody aboard calling for a driver, the trucks' upgrade trees, and
 the fuel bowser and flatbed sitting on their drawbars. Everything else is not yet tested in game.

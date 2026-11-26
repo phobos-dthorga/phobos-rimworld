@@ -1970,6 +1970,93 @@
       "offset_db": 0,
       "volume": 30,
       "why": "Airdrop sounds, night 15 (docs/development/airdrop.md, round three): the owner's pick on the Companion's Picks page, 26 Nov 2026; reference and offset are agent choices. A little louder: a vehicle on its platform is the heaviest thing that lands."
+    },
+    {
+      "name": "C27JEngineIdle",
+      "use": "S153: C-27J Spartan, engines and propellers idling (blended by load)",
+      "picked": "2026-11-26",
+      "recording": "c27j",
+      "candidate": "c27j-idle/c27j-idle-130803-01200.flac",
+      "filter": "bandreject=f=9500:width_type=h:w=400",
+      "kind": "loop",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/EngineIdle.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": 6,
+      "volume": 21,
+      "why": "The C-27J's own voice (Vehicles 0.127.0): the owner's pick of 26 Nov 2026 on the Picks page from the real recordings' listening page (assets/phobos-sounds/recordings/c27j.json, public-domain DVIDS video; the record credits it). A narrow notch at 9.5 kHz takes out a steady tone the listening page flagged, 16 dB over its surroundings: it is in half this video's cuts and none of the other's, so it is the recording's, not the engine's (agent's judgement). Reference and offset are agent choices, as the Osprey's: two turboprops sit well above a parked generator, as the Osprey's idle does."
+    },
+    {
+      "name": "C27JEngineLoad",
+      "use": "S154: C-27J Spartan, engines under take-off power (blended by load)",
+      "picked": "2026-11-26",
+      "candidate": "n17-c27j-load/n17-c27j-load-171.flac",
+      "kind": "loop",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/EngineLoad.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": 9,
+      "volume": 21,
+      "why": "The C-27J's own voice (Vehicles 0.127.0): the owner's pick of 26 Nov 2026 on the Picks page from night 17's generated candidates, made on the processor (assets/phobos-sounds/requests/night-17-c27j.json); reference and offset are agent choices, as the Osprey's: 3 dB over the idle, as the Osprey's working-hard loop."
+    },
+    {
+      "name": "C27JLanding",
+      "use": "S156: C-27J Spartan, landing: roll-out and reverse pitch",
+      "picked": "2026-11-26",
+      "recording": "c27j",
+      "candidate": "c27j-landing/c27j-landing-130803-02940.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Landing.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": 6,
+      "volume": 21,
+      "why": "The C-27J's own voice (Vehicles 0.127.0): the owner's pick of 26 Nov 2026 on the Picks page from the real recordings' listening page (assets/phobos-sounds/recordings/c27j.json, public-domain DVIDS video; the record credits it); reference and offset are agent choices, as the Osprey's: at the idle's level, over which it plays."
+    },
+    {
+      "name": "C27JEngineStart",
+      "use": "S157: C-27J Spartan, engine start",
+      "picked": "2026-11-26",
+      "candidate": "n17-c27j-start/n17-c27j-start-172.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/EngineStart.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": 6,
+      "volume": 21,
+      "why": "The C-27J's own voice (Vehicles 0.127.0): the owner's pick of 26 Nov 2026 on the Picks page from night 17's generated candidates, made on the processor (assets/phobos-sounds/requests/night-17-c27j.json); reference and offset are agent choices, as the Osprey's: at the idle's level."
+    },
+    {
+      "name": "C27JEngineStop",
+      "use": "S158: C-27J Spartan, engine stop",
+      "picked": "2026-11-26",
+      "candidate": "n17-c27j-stop/n17-c27j-stop-172.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/EngineStop.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": 6,
+      "volume": 21,
+      "why": "The C-27J's own voice (Vehicles 0.127.0): the owner's pick of 26 Nov 2026 on the Picks page from night 17's generated candidates, made on the processor (assets/phobos-sounds/requests/night-17-c27j.json); reference and offset are agent choices, as the Osprey's: at the idle's level."
+    },
+    {
+      "name": "C27JRamp",
+      "use": "S159: C-27J Spartan, the cargo ramp, as cargo goes in or out",
+      "picked": "2026-11-26",
+      "candidate": "n17-c27j-ramp/n17-c27j-ramp-172.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Ramp.ogg",
+      "reference": "Metal_Drop",
+      "offset_db": 0,
+      "volume": 30,
+      "why": "The C-27J's own voice (Vehicles 0.127.0): the owner's pick of 26 Nov 2026 on the Picks page from night 17's generated candidates, made on the processor (assets/phobos-sounds/requests/night-17-c27j.json); reference and offset are agent choices, as the Osprey's: a hydraulic ramp and its steel floor."
+    },
+    {
+      "name": "C27JDoor",
+      "use": "S160: C-27J Spartan, the crew door, as people board or leave",
+      "picked": "2026-11-26",
+      "candidate": "n17-c27j-door/n17-c27j-door-171.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Door.ogg",
+      "reference": "Metal_Drop",
+      "offset_db": 3,
+      "volume": 35,
+      "why": "The C-27J's own voice (Vehicles 0.127.0): the owner's pick of 26 Nov 2026 on the Picks page from night 17's generated candidates, made on the processor (assets/phobos-sounds/requests/night-17-c27j.json); reference and offset are agent choices, as the Osprey's: as our trucks' doors sit."
     }
   ]
 }

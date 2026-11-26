@@ -7332,5 +7332,324 @@
       "cfg": 1.0,
       "prompt": "A vehicle on a heavy aluminium drop platform landing under parachutes: a deep muffled crunch of honeycomb cardboard crushing, a metallic thump and the vehicle's suspension rocking, then large canopies collapsing with a long rustle. Not loud, not alarming. Length: 3 seconds"
     }
+  },
+  "C27JEngineLoad": {
+    "name": "C27JEngineLoad",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/EngineLoad.ogg",
+    "sha256": "6e04d7974f32c4385b1104c272b0ea6253d8a19d163d757c05dfb63c2d3fdd95",
+    "master_sha256": "cd50ba4b939b21d450509568936ea03d596798bf39bc058ff52ca91a522ef022",
+    "fingerprint": "2c1bceb40e1feb1d49073c5a3a60c9ebb813fabef6b716afa546d8b508fbb2f5",
+    "date": "2026-11-26",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        5.0321
+      ],
+      "loop_match": 0.149,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 1.43,
+      "levelled_by": "loudness, to -13.94 LUFS",
+      "gain_db": 2.9
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -15.4,
+      "true_peak": -1.0,
+      "seconds": 3.83,
+      "flags": [],
+      "seam_dip_db": 1.3,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 171,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A twin-engine military turboprop transport aircraft at full take-off power on the ground: a deep, even propeller drone with a steady low beat from two large six-bladed propellers and a strong turbine roar, powerful but steady and unchanging, continuous. Outdoors, some distance away. Not loud, not alarming. Length: 8 seconds"
+    }
+  },
+  "C27JLanding": {
+    "name": "C27JLanding",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Landing.ogg",
+    "sha256": "99ff6eef365473b4df6f119eba4bc34b7b2d6066c8412b884dc77b9b4c46f287",
+    "master_sha256": "3ee68cbda8f6c406246fc9b87d635ee6e0ac2aa62cc3407c4236437e753a61b1",
+    "fingerprint": "0e417efe81988b29fcd826587818a700501754c2c891e507c6538da9ea470890",
+    "date": "2026-11-26",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -16.94 LUFS",
+      "gain_db": 19.5
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.4,
+      "true_peak": -1.1,
+      "seconds": 18.0,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://www.dvidshub.net/video/130803",
+      "source_title": "Maryland National Guard HALO Training",
+      "credit": "Sgt. 1st Class W. Michael Houk, National Guard Bureau",
+      "licence": "Public domain (US federal government work), per each DVIDS page; DVIDS asks for credit and the no-endorsement line",
+      "source_sha256": "6cc1691d508b688f6aa9bc15fb4b540a21f53d91d69e765d9c6b41de9a877db8",
+      "start": 294,
+      "seconds": 18
+    }
+  },
+  "C27JEngineStart": {
+    "name": "C27JEngineStart",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/EngineStart.ogg",
+    "sha256": "5fde67f0a5f47813d75b35927110fdf3861abe3fd4720475b999de83647e6af6",
+    "master_sha256": "25deb2c8871d75975300d60085a49d9268011578e0a73b399567aa33f69fb667",
+    "fingerprint": "671a41d514f994a94fe0dc47a0e03b40c7702e8f5891b0aab55ccb0962932066",
+    "date": "2026-11-26",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -16.94 LUFS",
+      "gain_db": 1.66
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -17.0,
+      "true_peak": -2.0,
+      "seconds": 12.05,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 172,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A twin-engine military turboprop transport aircraft starting its engines on the ground: an electric starter whine winding up, a soft pop as the first turbine lights, the turbine spooling up to a steady whine while a large six-bladed propeller begins to turn slowly and gathers speed, then the second engine joining. Outdoors, some distance away. Not loud, not alarming. Length: 12 seconds"
+    }
+  },
+  "C27JEngineStop": {
+    "name": "C27JEngineStop",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/EngineStop.ogg",
+    "sha256": "6daaee30b0a4ba2927cc82e08d07de91387f97b490e4377de6fbf0526098328e",
+    "master_sha256": "e987db0a8b2cca5b4431b67f32b936c246bed012aa273a8e75a96501d7032682",
+    "fingerprint": "63283c5fb396a7d7881511620e29904904a2b1e20e18aaa9224da2e65837a513",
+    "date": "2026-11-26",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -16.94 LUFS",
+      "gain_db": 6.16
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -17.0,
+      "true_peak": -1.8,
+      "seconds": 11.99,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 172,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A twin-engine military turboprop transport aircraft shutting down on the ground: two turbine whines falling away slowly while large six-bladed propellers swish slower and slower to a stop, a last soft clunk, ending in silence. Outdoors, some distance away. Not loud, not alarming. Length: 12 seconds"
+    }
+  },
+  "C27JRamp": {
+    "name": "C27JRamp",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Ramp.ogg",
+    "sha256": "5d5b19ef44650b2ed77fffd5c1a2aa4cb429be368dfab66a97c10f734d4fbe9c",
+    "master_sha256": "80fa9e020dce29ed994a10029235999fc61f42bb39d45b4cdd7a4ce5a29661d2",
+    "fingerprint": "dfa20386f4e58e11ac5746ba0dd326811de9df771ee3979c8ce6c1e568314d46",
+    "date": "2026-11-26",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -12.24 dBTP",
+      "gain_db": -6.74
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -36.4,
+      "true_peak": -12.5,
+      "seconds": 6.78,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 172,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "The heavy rear cargo ramp of a military transport aircraft lowering on hydraulics: a steady hydraulic pump whine, metal creaks and the hum of a long hinge, ending in a heavy, soft clunk as the ramp rests on the ground. Close, quiet surroundings. Not loud, not alarming. Length: 7 seconds"
+    }
+  },
+  "C27JDoor": {
+    "name": "C27JDoor",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/Door.ogg",
+    "sha256": "fabcf4828c8e8608c13651d351868bb613b694dcaea7ea6e7649b925e4f1e943",
+    "master_sha256": "6ccf61bdcedba61cf51c8e05b08244ca67c7a62ad4b097b2a1bebf650959e60e",
+    "fingerprint": "2a197c38f85a90df3d0cc9fccd6935a26060b6277797d9706e33f6476db2f805",
+    "date": "2026-11-26",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -9.58
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -37.9,
+      "true_peak": -10.7,
+      "seconds": 1.38,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 171,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "The side crew door of a military transport aircraft being opened and then closed: a lever latch clacking, a light aluminium door swinging on its hinge, and a firm click as it locks. Close, quiet surroundings. Not loud, not alarming. Length: 3 seconds"
+    }
+  },
+  "C27JEngineIdle": {
+    "name": "C27JEngineIdle",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/C27J/EngineIdle.ogg",
+    "sha256": "1d458f847c2b77b96fe080ffe0167c2cc1e745a787e971ec98612a3436ecefd7",
+    "master_sha256": "a0699f23958be21454b98c7c9e151fe175872ab353cd6897cc7cdd3280b34a89",
+    "fingerprint": "e171e7d3ba20b49a80de246e6bd180448fae4e61fc638d654a01bbfbca74716d",
+    "date": "2026-11-26",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        7.5734
+      ],
+      "loop_match": 0.137,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal gain",
+      "loop_seam_dip_db": 0.54,
+      "filter": "bandreject=f=9500:width_type=h:w=400",
+      "levelled_by": "loudness, to -16.94 LUFS",
+      "gain_db": 7.56
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -17.1,
+      "true_peak": -1.9,
+      "seconds": 7.12,
+      "flags": [],
+      "seam_dip_db": 0.52,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://www.dvidshub.net/video/130803",
+      "source_title": "Maryland National Guard HALO Training",
+      "credit": "Sgt. 1st Class W. Michael Houk, National Guard Bureau",
+      "licence": "Public domain (US federal government work), per each DVIDS page; DVIDS asks for credit and the no-endorsement line",
+      "source_sha256": "6cc1691d508b688f6aa9bc15fb4b540a21f53d91d69e765d9c6b41de9a877db8",
+      "start": 120,
+      "seconds": 8
+    }
   }
 }

@@ -208,14 +208,14 @@ clean but for one try's strong highs. The export refuses a clip or a whine, so a
 
 | ID | Sound | Hook | Note |
 | --- | --- | --- | --- |
-| S153 | Engines idling (loop) | XML | Real recording candidates (nine cuts, two aircraft); not picked |
-| S154 | Engines under take-off power (loop) | XML | Generated (night 17), judged against the 102 Hz comb; the recordings hold only a Doppler pass |
-| S155 | Cruising overhead, heard from the ground (loop) | Code | Generated (night 17) |
-| S156 | Landing: roll-out and reverse pitch | Code | Real recording candidates (four cuts); not picked |
-| S157 | Engine start | XML | Generated (night 17); no recording found |
-| S158 | Engine stop | XML | Generated (night 17); no recording found |
-| S159 | Cargo ramp | XML | Generated (night 17); as cargo goes in or out |
-| S160 | Crew door | XML | Generated (night 17); as people board or leave |
+| S153 | Engines idling (loop) | XML | **Shipped** (Vehicles 0.127.0): the owner's pick, a real recording (DVIDS 130803), a 9.5 kHz tone notched out |
+| S154 | Engines under take-off power (loop) | XML | **Shipped** (Vehicles 0.127.0): the owner's pick, generated (night 17, try 171); the recordings' take-off cuts were rejected ("too much empty space") |
+| S155 | Cruising overhead, heard from the ground (loop) | Code | Picked (generated try 171, and a real Doppler pass, DVIDS 140398); not shipped: our flight has no hook for it yet. The real taxi and cabin cuts were picked too and wait for theirs |
+| S156 | Landing: roll-out and reverse pitch | Code | **Shipped** (Vehicles 0.127.0): the owner's pick, a real recording (DVIDS 130803) |
+| S157 | Engine start | XML | **Shipped** (Vehicles 0.127.0): generated, try 172 |
+| S158 | Engine stop | XML | **Shipped** (Vehicles 0.127.0): generated, try 172 |
+| S159 | Cargo ramp | XML | **Shipped** (Vehicles 0.127.0): generated, try 172, as cargo goes in or out |
+| S160 | Crew door | XML | **Shipped** (Vehicles 0.127.0): generated, try 171, as people board or leave |
 
 ### Thane tractors (`Phobos_TractorT60Standard` and `T60F`, `T130Standard` and `T130RC`, the T400 to come; D'thorga Farming)
 

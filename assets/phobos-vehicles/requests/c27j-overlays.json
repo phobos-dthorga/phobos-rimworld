@@ -70,5 +70,29 @@
    "record": "assets/phobos-vehicles/requests/c27j-overlays-record.md"
   },
   "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite of ONE small defensive aids pod for a military transport aircraft, bolted onto the top of its landing-gear fairing. Image 1 is our own approved aircraft: match its outline weight, shading, pale grey materials and finish only. Do NOT redraw it, and draw no aircraft.\n\nDraw ONLY this one pod, alone on a plain pure white background, centred on the canvas. A slim rounded-rectangle base plate in the same pale grey as Image 1, its long side running from the TOP to the BOTTOM of the canvas, with a few small bolt heads round its edge. On its TOP half, a small round infrared jammer turret: a dark glossy glass dome inside a mid-grey ring. On its BOTTOM half, a flat rectangular chaff and flare dispenser: a dark grey box whose top face shows a neat grid of small round cartridge caps, three across and five down. The whole pod is about 30 percent of the canvas wide and 60 percent of the canvas tall.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, one small soft highlight on the dome, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo aircraft, no wing, no fairing, no people, smoke, flame, flares, text, letters, numbers, logos, symbols, dust or damage. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "c27j-defence-pod-redo",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   3,
+   4
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/c27j-body/c27j-body-1.png",
+    "role": "Image 1 is our approved C-27J aircraft (the owner's body pick, 26 Nov 2026), seen from directly above: match its outline weight, shading, pale grey materials and finish only; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "defensive aids: the infrared jammer and the chaff and flare dispensers (built, Framework 0.316.0); one pod on each main-gear fairing",
+   "this_request": "the correction (rule 7: one per defect), after the owner rejected both tries: 'This looks more like a Ring doorbell thingy than a defence pod'. A round dome in a ring on a flat plate reads as a doorbell; real directional jammers sit in a streamlined fairing with a turret head, and flare dispensers are flush hatches. Laid on the left main-gear fairing by script and mirrored onto the right; the agent's design, not a drawing of the RAAF's fit",
+   "design": "docs/development/vehicle-c27j.md, The upgrade tree and Art",
+   "record": "assets/phobos-vehicles/requests/c27j-overlays-record.md"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite of ONE defensive aids fairing for a military transport aircraft, faired onto the top of its landing-gear housing. Image 1 is our own approved aircraft: match its outline weight, shading, pale grey materials and finish only. Do NOT redraw it, and draw no aircraft.\n\nDraw ONLY this one fairing, alone on a plain pure white background, centred on the canvas, its length running from the TOP to the BOTTOM of the canvas. It is a long, slim, streamlined teardrop in the same pale grey as Image 1: narrow and pointed at its TOP end, widest two thirds of the way down, ending in a short rounded tail at the BOTTOM. Near its rounded tail sits a small low jammer turret: a short squat cylinder turned sideways, with one small dark rectangular faceted window facing to the LEFT, not a round dome. Along its pointed front half, two small flush dark grey rectangular hatches one behind the other, each with a tiny neat grid of round cartridge ends, sunk level with the skin. A thin panel seam runs round the fairing's base with a few tiny rivets. The whole fairing is about 22 percent of the canvas wide and 70 percent of the canvas tall.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo aircraft, no wing, no plate, no ring, no round dome, no camera lens look, no people, smoke, flame, flares, text, letters, numbers, logos, symbols, dust or damage. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
  }
 ]

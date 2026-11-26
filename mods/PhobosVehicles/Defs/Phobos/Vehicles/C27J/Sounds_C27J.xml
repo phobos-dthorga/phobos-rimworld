@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The C-27J Spartan's own voice (D'thorga Vehicles 0.127.0; docs/development/sound-catalogue.md, S153 to S160). The owner's picks
+       of 26 Nov 2026 on the Picks page: the idle and the landing are real recordings of the C-27J from public-domain DVIDS videos (each
+       sound file's record names its video and credits it); the take-off power, start, stop, ramp and crew door are generated on the
+       processor (night 17). Levelled by scripts/art/export_sound.py against the game sound each export names. The engine loops are played
+       by D'thorga Framework from PhobosEngineSoundExtension on the VehicleDef, which sets PhobosEngineLoad (0 to 1): these fade the idle
+       out and the take-off power loop in, at one pitch, as the Osprey's: a turboprop holds its propellers at a near-constant speed. Not
+       yet tested in game. -->
+  <SoundDef>
+    <!-- Engines and propellers idling: a real recording of a Maryland Air National Guard C-27J taxiing at Aberdeen (DVIDS 130803), a 9.5 kHz tone notched out. -->
+    <defName>PhobosVehicles_C27JEngineIdle</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/C27J/EngineIdle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,1)</li>
+                  <li>(1,0.35)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- Take-off power, a roll or climb: generated (night 17), judged against the real propellers' 102 Hz blade-pass comb. -->
+    <defName>PhobosVehicles_C27JEngineLoad</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/C27J/EngineLoad</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0.25)</li>
+                  <li>(1,1)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- Landing, the roll-out and reverse pitch: a real recording (DVIDS 130803), played as the landing begins. -->
+    <defName>PhobosVehicles_C27JLanding</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/C27J/Landing</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- Engine start: generated (no recording of a C-27J start was found). -->
+    <defName>PhobosVehicles_C27JEngineStart</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/C27J/EngineStart</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- Engine shutdown: generated. -->
+    <defName>PhobosVehicles_C27JEngineStop</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/C27J/EngineStop</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- The cargo ramp, as cargo goes in or out: generated. -->
+    <defName>PhobosVehicles_C27JRamp</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/C27J/Ramp</clipPath>
+          </li>
+        </grains>
+        <volumeRange>30</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- The crew door, as people board or leave: generated. -->
+    <defName>PhobosVehicles_C27JDoor</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/C27J/Door</clipPath>
+          </li>
+        </grains>
+        <volumeRange>35</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+</Defs>

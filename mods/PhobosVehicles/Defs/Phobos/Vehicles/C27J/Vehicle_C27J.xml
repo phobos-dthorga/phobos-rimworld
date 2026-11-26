@@ -15,8 +15,8 @@
     Part keys are saved by position: append only, never reorder.
 
     Not drawn yet (agent's choice, the art not being made): damage looks per part, the cracked glass, and the overlays of the fits. Not
-    given (agent's choice): a walk-in cabin, which waits on the gate the cabins record sets (the Osprey's cabin measured first), and sounds
-    of its own, which wait to be made (every vehicle sounds like itself); it keeps Vehicle Framework's own draft sounds until then.
+    given (agent's choice): a walk-in cabin, which waits on the gate the cabins record sets (the Osprey's cabin measured first). Its own
+    voice since D'thorga Vehicles 0.127.0 (Sounds_C27J.xml).
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_C27J</defName>
@@ -581,7 +581,49 @@
       <li Class="Phobos.VehicleSystems.PhobosVehicleCabinExtension">
         <climateControl>true</climateControl>
       </li>
+      <!-- Its own voice (D'thorga Vehicles 0.127.0; Sounds_C27J.xml). The engine loops follow the load, at one pitch: a turboprop holds
+           its propellers at a near-constant speed and changes their pitch instead. -->
+      <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
+        <idleSound>PhobosVehicles_C27JEngineIdle</idleSound>
+        <loadSound>PhobosVehicles_C27JEngineLoad</loadSound>
+        <idlePitch>1</idlePitch>
+        <ratedPitch>1</ratedPitch>
+      </li>
+      <!-- Played by our own flight: the landing as it begins. -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>Landing</key><sound>PhobosVehicles_C27JLanding</sound></li>
+        </sounds>
+      </li>
     </modExtensions>
+    <!-- Its own voice in place of the inherited draft blips (D'thorga Vehicles 0.127.0): people board and leave by the crew door, cargo
+         goes up the ramp. -->
+    <soundOneShotsOnEvent Inherit="False">
+      <li>
+        <key>IgnitionOn</key>
+        <value>PhobosVehicles_C27JEngineStart</value>
+      </li>
+      <li>
+        <key>IgnitionOff</key>
+        <value>PhobosVehicles_C27JEngineStop</value>
+      </li>
+      <li>
+        <key>PawnEntered</key>
+        <value>PhobosVehicles_C27JDoor</value>
+      </li>
+      <li>
+        <key>PawnExited</key>
+        <value>PhobosVehicles_C27JDoor</value>
+      </li>
+      <li>
+        <key>CargoAdded</key>
+        <value>PhobosVehicles_C27JRamp</value>
+      </li>
+      <li>
+        <key>CargoRemoved</key>
+        <value>PhobosVehicles_C27JRamp</value>
+      </li>
+    </soundOneShotsOnEvent>
     <comps>
       <!-- Its two six-blade propellers, 4.115 m across [P6] (4.8 cells), seen edge-on from above as bars across the nacelles' noses (the owner's
            card of 26 Nov 2026: "Edge-on bar"), still while they stand and a see-through blur while they turn, after our flight's spin-up.

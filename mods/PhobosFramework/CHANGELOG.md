@@ -15,6 +15,15 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.325.1] - 2026-11-26 - Draft
+
+The Low extraction button's own icon
+
+### Fixed
+
+- **The Low extraction (LAPES) button has its own icon**, the owner's pick of 26 November 2026: a platform sliding out under its
+  extraction chute. It had shown the drop pass's icon since 0.323.0.
+
 ## [0.325.0] - 2026-11-26 - Draft
 
 A convoy's radio reach home (with D'thorga Radio Framework)

@@ -12,13 +12,13 @@
     <li>
       <!-- The RAAF's self-protection suite [P4]: the missile warning receiver built into its avionics cues turrets that blind heat-seeking
            missiles, as the Osprey's infrared jammer, and chaff and flare dispensers fed from a magazine haulers top up (the owner's card of
-           26 Nov 2026: per aircraft; Framework 0.316.0's Phobos_Countermeasures). Its draw, 40 A, is authored, in its loadout. Its icon is the
-           Osprey's jammer's until its own is drawn, and it has no overlay until its pods are drawn. -->
+           26 Nov 2026: per aircraft; Framework 0.316.0's Phobos_Countermeasures). Its draw, 40 A, is authored, in its loadout. Its own icon since
+           D'thorga Vehicles 0.127.0 (the owner's pick of 26 Nov 2026); no overlay until its pods are drawn. -->
       <key>DefensiveAids</key>
       <label>Defensive aids</label>
       <displayLabel>true</displayLabel>
       <description>A self-protection set cued by the missile warning receiver: turrets that blind heat-seeking missiles, and dispensers that fire chaff and flares from a magazine haulers keep topped up. Air defences hit far less often and lock on more slowly; the turrets draw power while the engines run.</description>
-      <icon>Phobos/Vehicles/Osprey/Upgrades/InfraredJammer</icon>
+      <icon>Phobos/Vehicles/C27J/Upgrades/DefensiveAids</icon>
       <work>3500</work>
       <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>

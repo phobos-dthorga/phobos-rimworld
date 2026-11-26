@@ -390,8 +390,7 @@ public static class FlightGizmos
             {
                 defaultLabel = "PhobosAirdrop_Lapes".Translate(),
                 defaultDesc = "PhobosAirdrop_LapesDesc".Translate(who, (Airdrop.Ext(vehicle)?.lapesKg ?? 0f).ToString("N0").Named("KILOGRAMS")),
-                // Our drop pass's icon until the owner picks LAPES's own (assets/phobos-vehicles/requests/c27j-icons-paid.json, lapes-button).
-                icon = SystemIcons.For("Phobos/VehicleSystems/Airdrop/AirdropOn"),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Airdrop/Lapes"),    // the owner's pick, Framework 0.325.1
                 action = () => LandingTargeter.Instance.BeginTargeting(vehicle, vehicle.Map, (target, rot) => flight.LapesPass(target.Cell, rot),
                     target => flight.LapesRefusal(target.Cell, vehicle.Rotation) == null, allowRotating: true),
             };

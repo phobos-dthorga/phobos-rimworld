@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/C27J/Upgrades/DefensiveAids.png",
+  "source": "assets/phobos-vehicles/generated/c27j-icon-defensiveaids/c27j-icon-defensiveaids-2.png",
+  "source_sha256": "cf97253e21ceb64ba16798599b75756e63afac45332f2fbaabe9d167e90d9ab0",
+  "target_sha256": "34e8b97c04c9346c3eeb071fd08d4564e677d0a7ca70e0739d4a3272cadeb20f",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "cf97253e21ceb64ba16798599b75756e63afac45332f2fbaabe9d167e90d9ab0",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-26T21:53:30",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

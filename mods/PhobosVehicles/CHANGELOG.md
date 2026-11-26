@@ -13,6 +13,21 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.127.0] - 2026-11-26 - Draft
+
+The C-27J's own voice
+
+### Added
+
+- **The C-27J sounds like itself** (the owner's picks of 26 November 2026), in place of Vehicle Framework's draft sounds: its engines
+  idling and its landing roll-out are real recordings of a C-27J (public-domain DVIDS video, credited in each sound's record); its take-off
+  power, engine start and stop, cargo ramp and crew door are generated. Under D'thorga Framework's D'thorga sounds volume. Not yet tested
+  in game.
+
+### Changed
+
+- **The C-27J's defensive aids upgrade has its own icon**, the owner's pick; it had borrowed the Osprey's infrared jammer icon.
+
 ## [0.126.0] - 2026-11-26 - Draft
 
 The C-27J's low extraction
