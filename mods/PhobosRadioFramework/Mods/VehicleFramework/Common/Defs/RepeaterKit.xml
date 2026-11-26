@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The repeater kit (Radio Framework 0.22.0; the owner's card of 26 Nov 2026, "Two kinds, by physics": a relay between world tiles needs a
+       repeater, a duplexer, and holds two channels). Fitted at the vehicle workshop on any land vehicle with a D'thorga loadout, in the
+       repeater bay every land vehicle has (Loadouts_Default.xml). It grants RadioRepeater: with it, and the remote control kit's radio aboard,
+       the vehicle passes calls on between tiles while it stands still (halted in a convoy, or left at a depot). Real basis: a mobile
+       repeater's duplexer, which lets one radio hear and send at once on a split pair. Cost, research, load, weight, work and skill are the
+       agent's proposals for the owner to revise; the two channels it would hold are not yet counted. It borrows the mast's picture until
+       its own is drawn. Not yet tested in game. -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_RepeaterKit</defName>
+    <iconPath>Phobos/Radio/Things/Mast</iconPath>
+    <label>repeater kit</label>
+    <description>A duplexer and a second receiver for the vehicle's control radio, so it can hear a call and send it on at once. With it, a vehicle standing still on the world map (in a stopped convoy, or left at a depot) passes your convoys' radio calls on toward home. It needs the remote control kit's radio, and draws on the battery.</description>
+    <roles><li>RepeaterMount</li></roles>
+    <materials><Steel>15</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <kilograms>8</kilograms>
+    <work>1500</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>PhobosRadio_RemoteVehicles</researchPrerequisite>
+    <grants><li>RadioRepeater</li></grants>
+    <loads>
+      <li>
+        <!-- The second receiver and the duplexer's switching: about 1 A at 12 V (authored), halved on a 24 V truck. Shed early: a vehicle
+             that loses it only stops relaying. -->
+        <name>repeaterKit</name>
+        <label>repeater kit</label>
+        <description>The repeater kit's second receiver. With power, the vehicle passes radio calls on while it stands still.</description>
+        <amps>1</amps>
+        <shedOrder>4</shedOrder>
+        <iconPath>Phobos/Radio/Things/Mast</iconPath>
+      </li>
+    </loads>
+    <feed>
+      <load>repeaterKit</load>
+    </feed>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

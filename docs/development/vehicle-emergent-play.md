@@ -10,7 +10,7 @@ and EM11 with EM12 in 0.190.0 (hours on type, "their" vehicle), and EM5 in 0.192
 ([the answers](#questions-for-the-owner)). Group H, work on the road (EM30 to EM45), was recorded on 26 Nov 2026
 ([group H](#h-work-on-the-road-26-nov-2026)); of it, **EM45 is built** with EM9's first kind (spare parts) in Framework 0.308.0 and
 Vehicles 0.122.0 ([contracts](vehicle-contracts.md)); EM30 and EM34 in Framework 0.317.0; EM31, EM35, EM37, EM42 and EM44 in
-Framework 0.322.0; EM32, EM36, EM39, EM41 and EM43 in Framework 0.324.0; EM33 in Framework 0.325.0 and Radio 0.21.0 ([work on the road](vehicle-road-work.md)); none yet tested in game. The rest of group H is not built.
+Framework 0.322.0; EM32, EM36, EM39, EM41 and EM43 in Framework 0.324.0; EM33 in Framework 0.325.0 and Radio 0.21.0; EM15 (supply runs) in Framework 0.328.0 ([work on the road](vehicle-road-work.md)); none yet tested in game. The rest of group H is not built.
 
 It began as a research round the owner asked for on 20 Nov 2026: "suggestions/ideas/thoughts/brainstorming/etc on how we could perhaps
 obtain/encourage further, emergent gameplay which I so dearly crave like ambrosia, with a focus surrounding our vehicle mods", and

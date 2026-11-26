@@ -34,6 +34,12 @@ public class CompProperties_Radio : CompProperties
     /// none. A station serves every kind; the kind's mode sets the channels one use takes and the radios that share it.
     /// </summary>
     public ChannelKindDef? channelKind;
+    /// <summary>
+    /// Whether this radio may pass a call on between world tiles by itself (Radio 0.22.0). Read only through <c>RelayNodes.CanRelay</c>.
+    /// False by default (the owner's card of 26 Nov 2026: a relay between tiles needs a repeater, a duplexer): a vehicle relays with the
+    /// repeater kit fitted, which its source declares; a relay mast's radio is one.
+    /// </summary>
+    public bool relays;
 
     public CompProperties_Radio() => compClass = typeof(CompRadio);
 

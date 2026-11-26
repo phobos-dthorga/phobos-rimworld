@@ -328,6 +328,12 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Heavy vehicles bog on soft, wet ground on the world map (Framework 0.324.0, EM43; moderate risk by the agent's grade, so on,
     /// as the record of 26 Nov 2026 has it). Live.</summary>
     public bool bogging = true;
+    /// <summary>Whether a crewless supply run needs radio reach home the whole way or only to set off and at its stops (Framework 0.329.0;
+    /// the owner's card of 26 Nov 2026: "a setting ... to their preferred playing style"; agent default: the whole way). Live.</summary>
+    public SupplyRunRadio supplyRunRadio = SupplyRunRadio.AllTheWay;
+    /// <summary>What a crewless supply run does when it drives out of reach (Framework 0.329.0; the owner's card: a setting; agent default:
+    /// it holds, as remote-controlled vehicles do by default). Live.</summary>
+    public SupplyRunLostLink supplyRunLostLink = SupplyRunLostLink.Hold;
     /// <summary>How far the vehicle systems' messages nobody asked for are quietened (Framework 0.186.0, VehicleMessageLevel; owner's
     /// choice of 20 Nov 2026: a setting; agent default: every message, as before). Live.</summary>
     public MessageLevel messageLevel = MessageLevel.All;
@@ -517,6 +523,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref trailerFaults, "PhobosVehicleSystems_TrailerFaults", true);
         Scribe_Values.Look(ref testHoleInsects, "PhobosVehicleSystems_TestHoleInsects", false);
         Scribe_Values.Look(ref bogging, "PhobosVehicleSystems_Bogging", true);
+        Scribe_Values.Look(ref supplyRunRadio, "PhobosVehicleSystems_SupplyRunRadio", SupplyRunRadio.AllTheWay);
+        Scribe_Values.Look(ref supplyRunLostLink, "PhobosVehicleSystems_SupplyRunLostLink", SupplyRunLostLink.Hold);
         Scribe_Values.Look(ref messageLevel, "PhobosVehicleSystems_MessageLevel", MessageLevel.All);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
@@ -623,6 +631,8 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.trailerFaults) report.Off("trailers on wrecked gear crawl", "towed at full speed (setting)");
         if (Settings.testHoleInsects) report.On("insects in test holes (setting)");
         if (!Settings.bogging) report.Off("heavy vehicles bogging on soft ground", "never stuck (setting)");
+        if (Settings.supplyRunRadio != SupplyRunRadio.AllTheWay) report.On("crewless supply runs need reach only at stops (setting)");
+        if (Settings.supplyRunLostLink != SupplyRunLostLink.Hold) report.On("crewless supply runs out of reach: " + Settings.supplyRunLostLink + " (setting)");
         if (!Settings.raidersArriveByAir) report.Off("raiders arriving by aircraft", "off (setting)");
         if (Settings.stockHelicoptersFly) report.On("stock helicopters flying over the map (setting)");
         if (!Settings.airdropLandingRisk) report.Off("airdrop landing injuries and damage", "off (setting)");
@@ -926,6 +936,13 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingRemoteGunsFireAlone".Translate(), ref s.remoteGunsFireAlone, d.remoteGunsFireAlone, "PhobosVehicleSystems_SettingRemoteGunsFireAloneDesc".Translate());
         // Framework 0.281.0 (step 7a): the route level, moderate risk, so on by default.
         list.Check("PhobosVehicleSystems_SettingRouteControl".Translate(), ref s.routeControl, d.routeControl, "PhobosVehicleSystems_SettingRouteControlDesc".Translate());
+        // Framework 0.329.0: crewless supply runs and radio reach (the owner's card of 26 Nov 2026: settings for each player's style).
+        list.Radio("PhobosVehicleSettings_SupplyRunRadio".Translate(), ref s.supplyRunRadio, d.supplyRunRadio,
+            (SupplyRunRadio[])System.Enum.GetValues(typeof(SupplyRunRadio)), mode => ("PhobosVehicleSettings_SupplyRunRadio" + mode).Translate(),
+            mode => ("PhobosVehicleSettings_SupplyRunRadio" + mode + "Desc").Translate(), "PhobosVehicleSettings_SupplyRunRadioDesc".Translate());
+        list.Radio("PhobosVehicleSettings_SupplyRunLostLink".Translate(), ref s.supplyRunLostLink, d.supplyRunLostLink,
+            (SupplyRunLostLink[])System.Enum.GetValues(typeof(SupplyRunLostLink)), mode => ("PhobosVehicleSettings_SupplyRunLostLink" + mode).Translate(),
+            mode => ("PhobosVehicleSettings_SupplyRunLostLink" + mode + "Desc").Translate(), "PhobosVehicleSettings_SupplyRunLostLinkDesc".Translate());
         // Framework 0.282.0 (step 7b): the mechanitor level; shown only with Biotech, which it needs.
         if (ModsConfig.BiotechActive) list.Check("PhobosVehicleSystems_SettingMechControl".Translate(), ref s.mechControl, d.mechControl, "PhobosVehicleSystems_SettingMechControlDesc".Translate());
     }

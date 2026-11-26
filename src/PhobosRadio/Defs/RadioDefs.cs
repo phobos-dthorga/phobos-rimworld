@@ -148,6 +148,8 @@ public class RadioRulesDef : Def
     /// <summary>What lies past the radio horizon between two tiles, in dB: enough that no VHF or UHF link closes (authored; diffraction
     /// beyond the horizon is not modelled).</summary>
     public float overHorizonLossDb = 200f;
+    /// <summary>The most hops a relayed call may take (Radio 0.22.0): two relays, three hops (radio-autonomy's lean, agent default).</summary>
+    public int maxRelayHops = 3;
 
     // Margin bands, in dB, above which each outcome starts.
     public float marginalDb = 0f;

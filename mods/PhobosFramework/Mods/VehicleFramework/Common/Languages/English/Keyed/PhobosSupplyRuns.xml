@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Supply runs (Framework 0.329.0; docs/development/vehicle-road-work.md): a truck's round of stops on the world map, with a driver or, by
+     its route kit, with nobody. Agent-authored, held for the owner's review. -->
+<LanguageData>
+
+  <!-- The buttons -->
+  <PhobosSupplyRun_Plan>Plan a supply run</PhobosSupplyRun_Plan>
+  <PhobosSupplyRun_PlanDesc>Pick the run's stops on the world map, up to {MOST}: depots, open ground, and your own colonies, where it drives in at the map's edge. Where it stands now is its first stop. Right-click when done.</PhobosSupplyRun_PlanDesc>
+  <PhobosSupplyRun_Stops>Its stops</PhobosSupplyRun_Stops>
+  <PhobosSupplyRun_StopsDesc>Set what it does at each stop (deliver its load, fetch a depot's goods, or only wait) and how long it waits there.</PhobosSupplyRun_StopsDesc>
+  <PhobosSupplyRun_StartGizmo>Start the run</PhobosSupplyRun_StartGizmo>
+  <PhobosSupplyRun_StartGizmoDesc>Set off round its stops, again and again. With nobody aboard, its route kit drives it, as far as radio reach allows.</PhobosSupplyRun_StartGizmoDesc>
+  <PhobosSupplyRun_StopGizmo>Stop the run</PhobosSupplyRun_StopGizmo>
+  <PhobosSupplyRun_StopGizmoDesc>Stop where it is. Its stops are kept for next time.</PhobosSupplyRun_StopGizmoDesc>
+  <PhobosSupplyRun_StopLine>{INDEX}. {PLACE}: {ACTION}, waits {WAIT}</PhobosSupplyRun_StopLine>
+  <PhobosSupplyRun_ActionWait>only wait</PhobosSupplyRun_ActionWait>
+  <PhobosSupplyRun_ActionDeliver>deliver its load</PhobosSupplyRun_ActionDeliver>
+  <PhobosSupplyRun_ActionFetch>fetch the depot's goods</PhobosSupplyRun_ActionFetch>
+  <PhobosSupplyRun_WaitFor>Wait {WAIT}</PhobosSupplyRun_WaitFor>
+  <PhobosSupplyRun_RefuseTown>Not another faction's town.</PhobosSupplyRun_RefuseTown>
+  <PhobosSupplyRun_RefuseFetchOnMap>At a colony, people load it by hand while it waits.</PhobosSupplyRun_RefuseFetchOnMap>
+
+  <!-- What it does -->
+  <PhobosSupplyRun_Started>{VEHICLE} sets off on its supply run of {COUNT} stops.</PhobosSupplyRun_Started>
+  <PhobosSupplyRun_Stopped>{VEHICLE}'s supply run is stopped.</PhobosSupplyRun_Stopped>
+  <PhobosSupplyRun_Waits>{VEHICLE}'s supply run waits: {REASON}</PhobosSupplyRun_Waits>
+  <PhobosSupplyRun_Deliver>{VEHICLE} delivered its load at {PLACE}: {COUNT} things.</PhobosSupplyRun_Deliver>
+  <PhobosSupplyRun_Fetch>{VEHICLE} fetched {COUNT} things from {PLACE}.</PhobosSupplyRun_Fetch>
+  <PhobosSupplyRun_WaitNoDriver>nobody aboard to drive, and no working route kit.</PhobosSupplyRun_WaitNoDriver>
+  <PhobosSupplyRun_WaitNoFuel>it is out of fuel.</PhobosSupplyRun_WaitNoFuel>
+  <PhobosSupplyRun_WaitNoReach>with nobody aboard, it sets off only in radio reach of home.</PhobosSupplyRun_WaitNoReach>
+  <PhobosSupplyRun_WaitCannotLeave>it could not find a way off the map.</PhobosSupplyRun_WaitCannotLeave>
+  <PhobosSupplyRun_WaitOthers>other vehicles have joined its convoy; split them off to run it alone.</PhobosSupplyRun_WaitOthers>
+  <PhobosSupplyRun_LostHold>{VEHICLE} drove out of radio reach of home and holds where it is until reach comes back.</PhobosSupplyRun_LostHold>
+  <PhobosSupplyRun_LostCarryOn>{VEHICLE} drove out of radio reach of home and carries on to its next stop.</PhobosSupplyRun_LostCarryOn>
+  <PhobosSupplyRun_LostTurnBack>{VEHICLE} drove out of radio reach of home and turns back to its last stop.</PhobosSupplyRun_LostTurnBack>
+  <PhobosSupplyRun_LinkBack>{VEHICLE} is back in radio reach and drives on.</PhobosSupplyRun_LinkBack>
+  <PhobosSupplyRun_Doing>on a supply run, to {PLACE}</PhobosSupplyRun_Doing>
+  <PhobosSupplyRun_DoingCrewless>on a supply run with nobody aboard, to {PLACE}</PhobosSupplyRun_DoingCrewless>
+  <PhobosSupplyRun_DoingWaiting>on a supply run, waiting: {REASON}</PhobosSupplyRun_DoingWaiting>
+  <PhobosSupplyRun_InspectPlanned>A supply run of {COUNT} stops is planned.</PhobosSupplyRun_InspectPlanned>
+
+  <!-- The settings -->
+  <PhobosVehicleSettings_SupplyRunRadio>Crewless supply runs need radio reach</PhobosVehicleSettings_SupplyRunRadio>
+  <PhobosVehicleSettings_SupplyRunRadioDesc>With the radio framework, a supply truck with nobody aboard is driven by radio. Choose how strict that is.</PhobosVehicleSettings_SupplyRunRadioDesc>
+  <PhobosVehicleSettings_SupplyRunRadioAllTheWay>All the way</PhobosVehicleSettings_SupplyRunRadioAllTheWay>
+  <PhobosVehicleSettings_SupplyRunRadioAllTheWayDesc>Every mile of the run must stay in radio reach of home, through relays: relays decide how far your supply net stretches.</PhobosVehicleSettings_SupplyRunRadioAllTheWayDesc>
+  <PhobosVehicleSettings_SupplyRunRadioStartAndStops>To set off, and at stops</PhobosVehicleSettings_SupplyRunRadioStartAndStops>
+  <PhobosVehicleSettings_SupplyRunRadioStartAndStopsDesc>It needs reach only to set off from each stop; between stops it drives itself.</PhobosVehicleSettings_SupplyRunRadioStartAndStopsDesc>
+  <PhobosVehicleSettings_SupplyRunLostLink>A crewless supply truck out of reach</PhobosVehicleSettings_SupplyRunLostLink>
+  <PhobosVehicleSettings_SupplyRunLostLinkDesc>What a supply truck with nobody aboard does when it drives out of radio reach of home.</PhobosVehicleSettings_SupplyRunLostLinkDesc>
+  <PhobosVehicleSettings_SupplyRunLostLinkHold>Holds where it is</PhobosVehicleSettings_SupplyRunLostLinkHold>
+  <PhobosVehicleSettings_SupplyRunLostLinkHoldDesc>It stops and waits until reach comes back, open to whatever finds it there.</PhobosVehicleSettings_SupplyRunLostLinkHoldDesc>
+  <PhobosVehicleSettings_SupplyRunLostLinkCarryOn>Carries on</PhobosVehicleSettings_SupplyRunLostLinkCarryOn>
+  <PhobosVehicleSettings_SupplyRunLostLinkCarryOnDesc>It keeps to its leg and picks the link up again later.</PhobosVehicleSettings_SupplyRunLostLinkCarryOnDesc>
+  <PhobosVehicleSettings_SupplyRunLostLinkTurnBack>Turns back</PhobosVehicleSettings_SupplyRunLostLinkTurnBack>
+  <PhobosVehicleSettings_SupplyRunLostLinkTurnBackDesc>It heads back to the stop it last left.</PhobosVehicleSettings_SupplyRunLostLinkTurnBackDesc>
+
+</LanguageData>

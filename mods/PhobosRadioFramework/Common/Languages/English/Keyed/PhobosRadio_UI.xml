@@ -121,6 +121,17 @@
   <PhobosRadioReach_InTouch>In radio reach of {HOME}: {KM} km away, inside the {HORIZON} km horizon, {MARGIN} dB to spare.</PhobosRadioReach_InTouch>
   <PhobosRadioReach_OverHorizon>Out of radio reach of {HOME}: {KM} km away, past the {HORIZON} km horizon. A higher aerial at either end reaches further.</PhobosRadioReach_OverHorizon>
   <PhobosRadioReach_TooWeak>Out of radio reach of {HOME}: {KM} km away, and the signal is too weak ({MARGIN} dB short).</PhobosRadioReach_TooWeak>
+  <PhobosRadioReach_InTouchRelayed>In radio reach of {HOME} through {RELAYS}: {KM} km to home, the weakest hop {MARGIN} dB to spare.</PhobosRadioReach_InTouchRelayed>
+  <PhobosRadio_RelayTakeDown>Take the mast down</PhobosRadio_RelayTakeDown>
+  <PhobosRadio_RelayTakeDownDesc>Take this relay mast down for good. Calls no longer pass through it.</PhobosRadio_RelayTakeDownDesc>
+  <PhobosRadio_RelayTakenDown>{MAST} was taken down.</PhobosRadio_RelayTakenDown>
+  <PhobosRadio_RelayInspect>A relay mast, {METRES} m: passes radio calls on toward home.</PhobosRadio_RelayInspect>
+  <PhobosRadio_RelayBuildGizmo>Put up a relay mast</PhobosRadio_RelayBuildGizmo>
+  <PhobosRadio_RelayBuildGizmoDesc>Put up a small solar relay mast here, {METRES} m tall, from {STEEL} steel and {COMPONENTS} components in the convoy's cargo. It passes radio calls on toward home for any convoy of yours in reach of it, until it is taken down. The convoy must stop.</PhobosRadio_RelayBuildGizmoDesc>
+  <PhobosRadio_RelayBuilt>{CONVOY} put up a relay mast here.</PhobosRadio_RelayBuilt>
+  <PhobosRadio_RelayRefuseMoving>The convoy must stop to put up a mast.</PhobosRadio_RelayRefuseMoving>
+  <PhobosRadio_RelayRefuseHere>A relay mast already stands here.</PhobosRadio_RelayRefuseHere>
+  <PhobosRadio_RelayRefuseShort>It needs {STEEL} steel and {COMPONENTS} components; the convoy carries {HAVESTEEL} and {HAVECOMPONENTS}.</PhobosRadio_RelayRefuseShort>
   <PhobosRadioReach_NoStation>Out of radio reach of home: no powered radio station at home.</PhobosRadioReach_NoStation>
 
 </LanguageData>

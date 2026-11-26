@@ -45,6 +45,8 @@ public static class VehicleRadios
         RemoteControl.Register(new RadioRemoteControl());
         // Radio 0.21.0 (EM33): a convoy's reach home on the world map, asked by D'thorga Framework.
         ConvoyRadio.Register(new ConvoyReachSource());
+        // Radio 0.22.0: halted convoys and vehicles parked at depots relay calls on.
+        RelayNodes.Register(new VehicleRelaySource());
         // Radio 0.18.0: the base turret follows D'thorga Framework's "Remote guns fire on their own", which lives in its Vehicle Framework part.
         RemoteTurrets.FireAloneSwitch = () => RemoteGuns.FireAlone;
         // Radio 0.14.0: the cover map for vehicles driven from afar works a little each tick, through the net's own tick.
@@ -92,6 +94,15 @@ public static class VehicleRadios
     /// As <see cref="Fitted"/>, working or not (Radio 0.16.1): the remote control kit counts while it is on the vehicle, its power shed or
     /// its part shot away, so the vehicle acts on a lost link and the player is told, rather than letting go without a word.
     /// </summary>
+    /// <summary>What the repeater kit grants, and its load (Radio 0.22.0; RepeaterKit.xml).</summary>
+    public const string RepeaterGrant = "RadioRepeater";
+    public const string RepeaterLoad = "repeaterKit";
+
+    /// <summary>Whether this vehicle's radio passes calls on between tiles: the repeater kit fitted and powered (the owner's card of 26 Nov
+    /// 2026: a relay between tiles needs a repeater).</summary>
+    public static bool Repeats(VehiclePawn vehicle) =>
+        vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(RepeaterGrant) && systems.LoadActive(RepeaterLoad);
+
     public static bool Carried(VehiclePawn vehicle) =>
         Fitted(vehicle) || vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Carries(KitGrant);
 

@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.327.0, built 26 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.328.0, built 26 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -218,6 +218,8 @@ offers to restart). RimWorld saves only what you change.
 | Cabs, camps and caravans | Trailers on wrecked gear crawl | A vehicle towing a trailer on a wrecked axle or tyres keeps a quarter of its speed, and the damaged gear wears further | On |
 | Cabs, camps and caravans | Insects in test holes | A drill rig's test hole on the road can break into insect tunnels, as the game's deep drills can; on, a test hole brings up 4 portions, off 3 | Off |
 | Cabs, camps and caravans | Heavy vehicles bog on soft ground | A vehicle over 12 tonnes laden sinks on swampy or very wet flat tiles and sticks in time; a winch, a tow, waiting or 10 stone chunks free it | On |
+| Remote control | Crewless supply runs need radio reach | With the radio framework: a supply truck with nobody aboard must stay in reach of home all the way, or only to set off and at stops | All the way |
+| Remote control | A crewless supply truck out of reach | It holds where it is, carries on, or turns back to its last stop | Holds |
 | Cabs, camps and caravans | Warn before a parked vehicle is lost | Days of warning; 0 turns it off | 3 days |
 | Contracts | How often settlements offer contracts | Settlements hire your vehicles for deliveries and work on site; the figure is beside the game's trade requests, in quarters from never to 300% | 100% |
 | Contracts | Enemies may wait at contract sites | The place where a broken-down vehicle or a hurt traveller waits may hold the game's rescue threats, where violent quests are allowed. People can die there | Off |

@@ -37,6 +37,28 @@ public static class Propagation
         4120.0 * (Math.Sqrt(Math.Max(0.0, heightAMetres)) + Math.Sqrt(Math.Max(0.0, heightBMetres)));
 
     /// <summary>
+    /// Plane-earth path loss in dB: 40 log10 d(m) - 20 log10(h1 h2), heights in metres (Radio 0.22.0; the owner's card of 26 Nov 2026,
+    /// "Plane-earth fading", from radio-autonomy's relay design). The two-ray model over flat ground, which falls off with the fourth power
+    /// of distance past its break point; between tiles the path loss is the greater of this and free space, still cut at the horizon.
+    /// Heights under 0.1 m count as 0.1 m, distances under 1 m as 1 m.
+    /// </summary>
+    public static double PlaneEarthPathLossDb(double metres, double heightAMetres, double heightBMetres) =>
+        40.0 * Math.Log10(Math.Max(metres, MinimumDistanceMetres)) - 20.0 * Math.Log10(Math.Max(heightAMetres, 0.1) * Math.Max(heightBMetres, 0.1));
+
+    /// <summary>
+    /// The height a tile's ground lifts an aerial by, in metres, by the game's hilliness from 1 (flat) to 4 (mountainous) (Radio 0.22.0; the
+    /// owner's card of 26 Nov 2026, "By hilliness"; radio-autonomy's figures, authored): flat 0, small hills 30, large hills 100, mountains
+    /// 300. Anything else adds nothing.
+    /// </summary>
+    public static double SiteHeightMetres(int hilliness) => hilliness switch
+    {
+        2 => 30.0,
+        3 => 100.0,
+        4 => 300.0,
+        _ => 0.0,
+    };
+
+    /// <summary>
     /// What obstructions cost on a band. The band's factor applies to walls and built roofs, which a shorter wavelength gets through by way
     /// of openings wide enough for it; rock and natural roofs have no openings and absorb, so they count in full (owner, 9 Nov 2026). A
     /// labelled simplification: real rock absorbs somewhat more at higher frequencies, and this leaves the two bands equal there.

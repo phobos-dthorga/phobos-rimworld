@@ -3572,6 +3572,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     public override IEnumerable<Gizmo> CompCaravanGizmos()
     {
         foreach (Gizmo gizmo in base.CompCaravanGizmos()) yield return gizmo;
+        // Framework 0.329.0: the radio's buttons for the convoy (a relay mast), once, on its first vehicle.
+        if (Vehicle.Faction == Faction.OfPlayer && Vehicle.GetVehicleCaravan() is { } radioConvoy && radioConvoy.VehiclesListForReading.FirstOrDefault() == Vehicle)
+            foreach (Gizmo gizmo in ConvoyRadio.Gizmos(radioConvoy)) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer || Vehicle.GetVehicleCaravan() is not { } convoy
             || WorldComponent_PhobosRoadWork.Current?.HoldOf(convoy) is not { kind: RoadGround.HoldBogged } hold || hold.stuck != Vehicle) yield break;
         var stone = new Command_Action

@@ -86,6 +86,10 @@ antenna** reaches furthest. **For radio, a world tile counts as 1 km** (a gamepl
 tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
 
 - **Home warns of ambushes** ahead: each way out is a little likelier.
+- **Calls pass through relays**: a convoy of yours **standing still**, or a vehicle **left at a depot**, with a radio and the **repeater
+  kit** fitted (a Datum's mast lifts it), or a **relay mast** (Put up a relay mast, on a stopped convoy: 60 steel and 4 components). Up to
+  two relays; the convoy's line names them. A relay mast stands until you take it down from the world map. **Hills reach further**: small
+  hills lift an aerial 30 m, large hills 100 m, mountains 300 m.
 - **An aircraft can drop to the convoy** (Airdrop to the convoy, when choosing where to fly): the convoy talks it in, and everything
   dropped joins it.
 

@@ -13,6 +13,9 @@ public readonly record struct ConvoyReach(bool InTouch, double DistanceKm, doubl
 public interface IConvoyReachSource
 {
     ConvoyReach? Reach(Caravan convoy, float mastMetres);
+
+    /// <summary>Buttons the radio offers a convoy on the world map (Framework 0.329.0: putting up a relay mast).</summary>
+    IEnumerable<Gizmo> CaravanGizmos(Caravan convoy) => System.Linq.Enumerable.Empty<Gizmo>();
 }
 
 /// <summary>
@@ -54,6 +57,10 @@ public static class ConvoyRadio
     public static void Forget(Caravan convoy) => cache.Remove(convoy);
 
     public static bool InTouch(Caravan convoy) => Of(convoy) is { InTouch: true };
+
+    /// <summary>The radio's buttons for a convoy, or none without the Radio Framework.</summary>
+    public static IEnumerable<Gizmo> Gizmos(Caravan convoy) =>
+        source == null || convoy.Faction != Faction.OfPlayer ? System.Linq.Enumerable.Empty<Gizmo>() : source.CaravanGizmos(convoy);
 }
 
 /// <summary>The Datum's boom raised as a radio mast at a halt (Framework 0.325.0, EM33): no work to finish; it stands until the convoy drives

@@ -423,6 +423,12 @@ public static class FleetService
                 return tiles >= 1f ? "PhobosFleet_DoingFlyingFar".Translate(WorldPlaces.DistanceText(tiles).Named("DISTANCE")) : "PhobosFleet_DoingFlying".Translate();
             case VehicleCaravan convoy:
                 if (systems != null && Stranding.Reason(systems) != null) return "PhobosFleet_DoingStranded".Translate();
+                // Work on the road (Framework 0.326.0): a halt job, stuck in soft ground, an ambush's wait, gritting or surveying as it drives.
+                if (RoadWork.FleetDoing(convoy, vehicle) is { } road)
+                {
+                    if (Seen.Wants("vehicles.fleet-road-work", vehicle)) Seen.Note("vehicles.fleet-road-work", vehicle, road);
+                    return road;
+                }
                 // Life on the road (Framework 0.230.0): a meal halt, a night's camp, a night drive.
                 if (NightDriving.Current is { } nights && nights.Halted(convoy)) return Road(vehicle, "PhobosFleet_DoingMealHalt");
                 if (convoy.vehiclePather is not { MovingNow: true })
@@ -437,6 +443,8 @@ public static class FleetService
         if (OnMapFlight.Airborne(vehicle)) return "PhobosFleet_DoingAir".Translate();
         if (systems?.Overrun != null) return "PhobosFleet_DoingOverrun".Translate();
         if (vehicle.GetComp<CompPhobosHitch>()?.Winching is { } winched) return "PhobosFleet_DoingWinching".Translate(winched.LabelShort.Named("TOWED"));
+        // A supply run (Framework 0.329.0), at a stop on a map.
+        if (vehicle.GetComp<CompPhobosSupplyRun>()?.DoingLine is { } run) return run;
         // The route level (Framework 0.281.0): following in a convoy, or running a loop.
         if (vehicle.GetComp<CompPhobosRoute>() is { Mode: not RouteMode.None } route)
         {
@@ -473,6 +481,9 @@ public static class FleetService
                 return "PhobosFleet_NeedsRecovery".Translate();
         }
         CompPhobosVehicleSystems? systems = entry.Systems;
+        // Work on the road (Framework 0.326.0): stuck in soft ground, or a halt job held up.
+        if (entry.Place is VehicleCaravan { Faction.IsPlayer: true } onRoad && entry.Vehicle != null && RoadWork.FleetNeeds(onRoad, entry.Vehicle) is { } roadNeed)
+            return roadNeed;
         if (systems != null)
         {
             if (Stranding.Reason(systems) is { } stranded) return stranded;
@@ -556,6 +567,12 @@ public static class FleetService
         {
             detail.Journey = "PhobosFleet_DetailJourney".Translate(WorldPlaces.DistanceText(trip.tiles).Named("DISTANCE"),
                 WorldPlaces.Describe(trip.startTile).Named("PLACE")).Resolve();
+        }
+        // Framework 0.326.0: on the road, its radio reach home and the ground under it, beside the journey.
+        if (entry.Place is VehicleCaravan { Faction.IsPlayer: true } convoy)
+        {
+            List<string> road = RoadWork.FleetDetail(convoy).ToList();
+            if (road.Count > 0) detail.Journey = string.Join("\n", (detail.Journey == null ? road : road.Prepend(detail.Journey)));
         }
         foreach (VehicleCondition condition in systems.Conditions.All)
         {

@@ -71,20 +71,27 @@ public static class LinkBudgetService
 
     /// <summary>
     /// A link between two ends on different world tiles (Radio 0.21.0, phase 2's first step; EM33): free space over the distance between the
-    /// tiles, both directions as on a map, and nothing past the radio horizon of the two antennas. No walls, terrain or tile heights are read
-    /// between tiles yet, and no local noise: a quiet rural floor at each end (simplifications, labelled in the radio's records).
+    /// tiles (the greater of free space and plane earth since 0.22.0), both directions as on a map, and nothing past the radio horizon of the
+    /// two antennas, each lifted by its tile's ground (Propagation.SiteHeightMetres). No walls or local noise between tiles: a quiet rural
+    /// floor at each end (simplifications, labelled in the radio's records).
     /// </summary>
-    public static LinkEvaluation? EvaluateWorld(RadioEndpoint a, RadioEndpoint b, double distanceMetres, RadioRulesDef rules)
+    public static LinkEvaluation? EvaluateWorld(RadioEndpoint a, RadioEndpoint b, double distanceMetres, RadioRulesDef rules,
+        double siteAMetres = 0, double siteBMetres = 0)
     {
+        // Radio 0.22.0: each end's height above the plain is its aerial and its tile's ground (hilltops), for the horizon and plane earth.
+        var heightA = a.AntennaHeightMetres + siteAMetres;
+        var heightB = b.AntennaHeightMetres + siteBMetres;
         var mode = a.Mode;
         var floorAtA = NoiseFloor.TotalDbm(mode.bandwidthHz, a.NoiseFigureDb, double.NegativeInfinity);
         var floorAtB = NoiseFloor.TotalDbm(mode.bandwidthHz, b.NoiseFigureDb, double.NegativeInfinity);
-        var overHorizon = distanceMetres > Propagation.RadioHorizonMetres(a.AntennaHeightMetres, b.AntennaHeightMetres);
+        var overHorizon = distanceMetres > Propagation.RadioHorizonMetres(heightA, heightB);
+        var planeEarth = Propagation.PlaneEarthPathLossDb(distanceMetres, heightA, heightB);
         LinkEvaluation? best = null;
         foreach (var band in a.Bands)
         {
             if (!b.Bands.Contains(band)) continue;
-            var pathLoss = PathLossDb(distanceMetres, band);
+            // Radio 0.22.0 (the owner's card: plane-earth fading): the greater of free space and plane earth.
+            var pathLoss = System.Math.Max(PathLossDb(distanceMetres, band), planeEarth);
             var obstruction = overHorizon ? rules.overHorizonLossDb : 0.0;
             var forward = new LinkDirection(Inputs(a.Side(band), b.Side(band), pathLoss, obstruction, floorAtB, mode));
             var reverse = new LinkDirection(Inputs(b.Side(band), a.Side(band), pathLoss, obstruction, floorAtA, mode));

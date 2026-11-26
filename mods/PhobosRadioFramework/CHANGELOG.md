@@ -18,6 +18,32 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
 
+
+## [0.22.0] - 2026-11-26 - Draft
+
+Relays on the world map
+
+### Added
+
+- **Calls home pass through relays**: a convoy of yours standing still, or a vehicle left at a depot, with a radio and the new **repeater
+  kit** fitted (the owner's card: a relay between tiles needs a repeater), and a relay mast. Each hop is decided by the same link budget,
+  and a chain is as good as its worst hop; at most two relays (three hops). The convoy's line names the relays it reaches home through.
+  Not yet tested in game: row 609.
+- **The repeater kit**, a fitting for any land vehicle (15 steel, 2 components, after remote-controlled vehicles; 1 A), in a new repeater
+  bay every land vehicle gains. Its figures are the agent's.
+- **Hilltops reach further** (the owner's card: by hilliness): a tile lifts an aerial by 30 m on small hills, 100 m on large hills and
+  300 m in mountains, for the horizon and the path loss.
+- **Plane-earth fading between tiles** (the owner's card): the path loss is the greater of free space and plane earth, still cut at the
+  horizon, so a weak radio fades a little before the horizon. Vehicle radios barely change; hand-helds fade sooner.
+- **A relay mast**: a stopped convoy with a radio puts one up on its tile from 60 steel and 4 components (Put up a relay mast); a 10 m
+  solar mast that stands until taken down from the world map. It borrows the mast antenna's picture for now. Not yet tested in game: row 610.
+
+### Compatibility and limits
+
+- Relayed calls take no channels at a relay yet (a repeater would hold two), and a mast needs no power and never wears: limits of this
+  first slice. Home stations and outposts as relays are not built. The relay design is radio-autonomy's record,
+  docs/development/radio-advice-and-relays.md.
+
 ## [0.21.0] - 2026-11-26 - Draft
 
 A first step beyond the map: a convoy's reach home

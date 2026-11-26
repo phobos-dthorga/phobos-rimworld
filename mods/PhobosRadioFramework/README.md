@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.21.0, built 26 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.22.0, built 26 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -21,6 +21,8 @@ Version 0.21.0, built 26 November 2026 for House D'thorga. **Not yet tested in g
 - **RimWorld 1.7 only.**
 - **On the world map (from 0.21.0) a tile counts as 1 km for radio**, a gameplay choice: a convoy with a radio fitted reaches a home
   station with a mast antenna from about 20 tiles, 26 with a Datum's mast up. Needs D'thorga Framework's vehicles.
+- **Relays, from 0.22.0**: a halted convoy or a vehicle at a depot with the **repeater kit**, or a relay mast, passes calls on, up to two
+  relays; hilltops reach further.
 - **Decide before you start a colony: Metres per map cell** (default 1, from 0.5 to 30). It changes every distance and coax loss,
   so changing it in a running colony changes which radios reach each other.
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a hand-held together.

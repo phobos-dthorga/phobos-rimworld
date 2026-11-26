@@ -891,6 +891,50 @@ public static class RoadWork
             Seen.Note("vehicles.radio-reach", truck, reach.DistanceKm.ToString("0") + " km of " + reach.HorizonKm.ToString("0") + (reach.InTouch ? ", in reach" : ", out"), "mast");
     }
 
+    // ---- What the Fleet board says (Framework 0.326.0) ----
+
+    /// <summary>
+    /// The Fleet board's "doing" for a vehicle of a convoy, from the road work, or null to let the board say it the usual way: the halt job
+    /// it is busy with, stuck in soft ground, waiting after turning back from an ambush, spreading grit or surveying as it drives.
+    /// </summary>
+    public static string? FleetDoing(Caravan convoy, VehiclePawn vehicle)
+    {
+        // Framework 0.329.0: a supply run says where it is going, or what it waits for.
+        if (vehicle.GetComp<CompPhobosSupplyRun>()?.DoingLine is { } run) return run;
+        if (WorldComponent_PhobosRoadWork.Current is not { } work) return null;
+        if (work.HoldOf(convoy) is { } hold && hold.until > Find.TickManager.TicksGame)
+        {
+            string time = (hold.until - Find.TickManager.TicksGame).ToStringTicksToPeriod();
+            if (hold.kind == RoadGround.HoldBogged)
+                return hold.stuck == vehicle ? "PhobosFleet_DoingBogged".Translate(time.Named("TIME")).Resolve()
+                    : "PhobosFleet_DoingWaitingBogged".Translate((hold.stuck?.LabelShort ?? "?").Named("VEHICLE")).Resolve();
+            return "PhobosFleet_DoingAmbushWait".Translate(time.Named("TIME")).Resolve();
+        }
+        if (work.JobOn(vehicle) is { } job) return job.heldUp != null ? "PhobosRoadWork_InspectJobHeldUp".Translate(job.heldUp.Named("REASON")).Resolve() : job.InspectLine();
+        if (!Moving(convoy)) return null;
+        if (work.Spreaders.Contains(vehicle)) return "PhobosFleet_DoingGritting".Translate().Resolve();
+        if (vehicle.GetComp<CompPhobosSurveyTruck>() is { RoadSurvey: true, LongRangeFitted: true }) return "PhobosFleet_DoingRoadSurvey".Translate().Resolve();
+        return null;
+    }
+
+    /// <summary>The Fleet board's "needs" for a vehicle of a convoy, from the road work, or null: a way out of soft ground, or what holds its
+    /// halt job up.</summary>
+    public static string? FleetNeeds(Caravan convoy, VehiclePawn vehicle)
+    {
+        if (WorldComponent_PhobosRoadWork.Current is not { } work) return null;
+        if (work.HoldOf(convoy) is { kind: RoadGround.HoldBogged } hold && hold.stuck == vehicle && hold.until > Find.TickManager.TicksGame)
+            return "PhobosFleet_NeedsUnbogging".Translate(GroundRule.StoneChunks.Named("CHUNKS")).Resolve();
+        return work.JobOn(vehicle)?.heldUp;
+    }
+
+    /// <summary>The Fleet board's detail lines for a convoy: its radio reach home, and the ground it stands on if read.</summary>
+    public static IEnumerable<string> FleetDetail(Caravan convoy)
+    {
+        if (ConvoyRadio.Of(convoy) is { } reach) yield return reach.Line;
+        if (Reading(convoy) is { } reading) yield return "PhobosRoadWork_InspectReading".Translate(ReadingText(reading).Named("READING")).Resolve();
+        if (WorldComponent_PhobosRoadWork.Current?.Gritted(convoy.Tile) == true) yield return "PhobosGround_InspectGritted".Translate().Resolve();
+    }
+
     // ---- What the caravan's inspect pane says ----
 
     public static IEnumerable<string> InspectLines(VehicleCaravan caravan)

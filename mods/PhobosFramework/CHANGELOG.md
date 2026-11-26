@@ -15,6 +15,29 @@ tested in game unless an entry says the owner tested it.
 
 
 
+
+## [0.328.0] - 2026-11-26 - Draft
+
+The Fleet board on the road, crewless supply runs, and the repeater bay
+
+### Added
+
+- **The Fleet board shows work on the road**: a convoy's row says what each vehicle is doing (a bore, a survey halt, a quarry, stuck in
+  soft ground, waiting after an ambush, spreading grit, surveying as it drives), a stuck truck asks for stone or waiting, and the detail
+  pane shows the convoy's radio reach and the ground it stands on. Not yet tested in game: row 608.
+- **Supply runs**: a truck that can take the route kit plans a round of stops on the world map (depots, open ground, your colonies) and
+  drives it again and again, with a driver aboard or, with its route kit working, with nobody. At each stop it delivers its load, fetches a
+  depot's goods or only waits, as set in Its stops; at a colony it drives in at the map's edge. Not yet tested in game: rows 611 and 612.
+- **Two new settings** (vehicle settings, Remote section): Crewless supply runs need radio reach (all the way, or to set off and at
+  stops; all the way by default) and A crewless supply truck out of reach (holds, carries on or turns back; holds by default). With D'thorga
+  Radio Framework only; without it, a crewless run needs no radio. How it works: docs/development/vehicle-road-work.md.
+- **A repeater bay on every land vehicle**, for D'thorga Radio Framework's repeater kit.
+- Every figure is the agent's, for the owner to revise; leaving a map is at once, from where the truck stands (a simplification).
+
+### Save compatibility
+
+- Safe to add. Removing the Framework mid-game stops any run; a truck on the world map stays as an empty convoy.
+
 ## [0.327.0] - 2026-11-26 - Draft
 
 Protective-gear lines find their preventive by what it does

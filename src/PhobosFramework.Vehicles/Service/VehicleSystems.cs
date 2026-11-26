@@ -268,6 +268,8 @@ public static class VehicleSystems
         {
             if (!def.comps.Any(c => c is CompProperties_PhobosRemoteControl)) def.comps.Add(new CompProperties_PhobosRemoteControl());
             if (!def.comps.Any(c => c is CompProperties_PhobosRoute)) def.comps.Add(new CompProperties_PhobosRoute());
+            // Supply runs on the world map (Framework 0.329.0): land vehicles that can take the route kit.
+            if (def.type == VehicleType.Land && !def.comps.Any(c => c is CompProperties_PhobosSupplyRun)) def.comps.Add(new CompProperties_PhobosSupplyRun());
         }
         // Rounds between places (Framework 0.307.0; autonomous-vehicles.md, step 9): every aircraft on our flight that flies on the map.
         if (def.comps.Any(c => c is CompProperties_PhobosFlight { onlyInDrops: false }) && !def.comps.Any(c => c is CompProperties_PhobosRound))

@@ -8,7 +8,8 @@ trailers (EM42) are built in Framework 0.322.0 ([the third round](#the-third-rou
 not yet tested in game (rows 582 to 586); ground already read (EM32), the quarry halt (EM36), drop and hook (EM41), the
 ambush's hits, bogging (EM43) and grit (EM39) are built in Framework 0.324.0 ([the fourth round](#the-fourth-round-read-ground-quarries-drop-and-hook-gauntlets-bogging-and-grit-framework-03240)),
 not yet tested in game (rows 594 to 599); the radio mast (EM33) is built in Framework 0.325.0 and Radio 0.21.0
-([the radio mast](#the-radio-mast-em33-framework-03250-radio-0210)), not yet tested in game (rows 600 and 601).
+([the radio mast](#the-radio-mast-em33-framework-03250-radio-0210)), not yet tested in game (rows 600 and 601); the Fleet board's road lines, relays and crewless supply runs (EM15) are built in Framework
+0.328.0 and Radio 0.22.0 ([the next round](#the-fleet-board-relays-and-supply-runs-framework-03280-radio-0220)), not yet tested in game (rows 608 to 612).
 
 Rows EM30 and EM34 of [emergent play](vehicle-emergent-play.md#h-work-on-the-road-26-nov-2026), the second round of group H after
 [contracts](vehicle-contracts.md). The owner, 26 Nov 2026: "Build the running survey and water bore next", then, on the cards' options
@@ -428,6 +429,72 @@ So **the radio counts a tile as 1 km** for reach between tiles, a gameplay choic
 ### Other factions
 
 Only the player's convoys and stations take part; raiders bring no convoys onto the world map.
+
+## The Fleet board, relays and supply runs (Framework 0.328.0, Radio 0.22.0)
+
+The owner, 26 Nov 2026: "Do the Fleet board, relays, and crewless supply runs", and by card: **relays from parked radio vehicles and a
+relay mast built on a tile**; for a crewless run, **a setting** between radio reach all the way and only to set off and at stops, and
+**another** for what it does out of reach (hold, carry on, turn back); **what it does at a stop, chosen per stop**. The owner also said
+another session (radio-autonomy) is formalising relays; it asked that relays be hops through the one link budget, the chain in the Radio
+Framework's core, sources behind a registry, relaying gated in one place, and a node's height one figure; its record is
+[radio advice and relays](radio-advice-and-relays.md), with the owner's relay cards (a repeater between tiles, all four kinds of relay
+site, hilltops by hilliness, plane-earth fading). Built to that, but for home stations and outposts as relays. Every figure is the agent's. Not yet tested in game (rows 608 to 612).
+
+| Option offered (26 Nov 2026) | Chosen |
+| --- | --- |
+| Relays: parked radio vehicles (the agent's lean); a relay mast on a tile; home stations only | **The first two** |
+| A crewless run's radio: all the way (lean); only to set off and at stops; none | **A setting for the first two** (default: all the way, agent's) |
+| Out of reach: hold (lean); carry on; turn back | **A setting for all three** (default: hold, agent's) |
+| At a stop: chosen per stop (lean); colonists by hand; always deliver | **Chosen per stop** |
+
+### The Fleet board on the road
+
+- A convoy's row says what each vehicle does from the road work (`RoadWork.FleetDoing`): its halt job (or what holds it up), stuck in soft
+  ground with the time left, waiting after an ambush, spreading grit, surveying as it drives, or its supply run. Its needs: a way out of
+  soft ground, or what holds its job up. The detail pane adds the convoy's radio reach and the ground it stands on. Read only while the
+  board is open, as the rest of it.
+
+### Relays (Radio 0.22.0)
+
+- **The chain** (`RelayRule`, game-free, tested): the start, the relays, and home's station ends as targets; every hop through
+  `EvaluateWorld`; the chain whose worst hop has the most to spare, in at most `maxRelayHops` (3 [A], radio-autonomy's lean) hops. A
+  target is never passed through.
+- **The relays** (`RelayNodes`, a registry): relay masts (Radio core); the vehicles tie-in adds every convoy of the player's standing
+  still with a fitted radio (its aerial on a Datum's mast when one is up) and every radio-fitted vehicle at a depot. A convoy never relays
+  its own call. **One gate** (`RelayNodes.CanRelay`): a node relays if its source declares a repeater (a vehicle with the **repeater kit**
+  fitted and powered; a mast always) or its radio's `relays` is set (false by default: the owner's card, a relay between tiles needs a
+  repeater). The kit (`RepeaterKit.xml`, in the Radio Framework's vehicle folder): 15 steel, 2 components, 8 kg, 1 A, after remote-
+  controlled vehicles [A], in a **repeater bay** appended to every land vehicle (Loadouts_Default.xml).
+- **Hilltops and plane earth** (the owner's cards): each node's tile lifts its aerial by its hilliness (flat 0, small hills 30 m, large
+  100 m, mountains 300 m: radio-autonomy's figures [A]), for the horizon and the path loss; between tiles the path loss is the greater of
+  free space and plane earth (40 log d - 20 log h1 h2), still cut at the horizon, so margin bands can now show between tiles.
+- **The relay mast**: a world site holding one relay radio (VHF, 25 W, on a 10 m mast [A]), put up by a stopped convoy with a radio for 60
+  steel and 4 components [A] from its cargo, at once [A]; one to a tile; taken down from its own button. No power, weather or wear [A].
+- **Limits of this slice**: no channel capacity at relays (a repeater would hold two); home stations and outposts as relays, which the
+  owner chose too, are not built.
+
+### Crewless supply runs (EM15)
+
+| Question | Answer |
+| --- | --- |
+| **What it lets the player do** | Keep depots and outposts stocked without sending a colonist's caravan each time |
+| **What it stops them doing** | A free supply net: fuel, a route kit, radio reach and relays, and a truck exposed on the road |
+| **How it changes the way they play** | Depots become standing stores on a schedule; relays decide how far the net stretches |
+| **What outside the thing notices** | The depots it fills and empties; the colonies it enters; the world map's caravan events, which can find an empty truck |
+
+- **Who has it**: every land vehicle that can take the route kit (`CompPhobosSupplyRun`, added at start-up beside the route comp).
+- **Stops** (up to the rounds' eight, `RoundRule` shared): depots, open tiles and the player's colonies; not other factions' towns. Each
+  waits its time (none to a day) and **delivers** (its whole cargo into the depot on the tile, made if none, or onto the ground beside it
+  on a colony's map), **fetches** (a depot's goods it can carry; not on a map, where colonists load it), or **only waits**.
+- **Driving**: with a driver aboard the driver drives; with nobody, the route kit, if fitted and powered (`RouteControl.KitWorks`), and the
+  crew check answers yes for it (`RemoteControlOperatorsPatch`), as for a crewless aircraft round. **Leaving a colony's map is at once
+  from where it stands**, as a convoy of its own (Vehicle Framework's `ExitMapAndCreateVehicleCaravan`) [A: a simplification]; **at a
+  colony it enters at the map's edge** (`CaravanEnterMapUtility`) and waits there. It runs alone: a convoy it is part of waits.
+- **Radio** (with the Radio Framework, crewless only): it sets off only in reach (both settings); **All the way**, it is looked at a few
+  times a game hour while it drives, and out of reach it **holds** (and drives on when reach is back), **carries on**, or **turns back** to
+  the stop it last left. Without the Radio Framework a crewless run needs no radio, as a crewless aircraft round needs none.
+- **Cost**: nothing while no run runs. A run on a map: a look every 250 ticks; on the world map, one world component walking the player's
+  convoys every 250 ticks, and for a crewless run all the way, one reach ask (itself cached a tenth of an hour).
 
 ## Who chose what
 

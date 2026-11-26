@@ -38,6 +38,11 @@
   <PhobosFleet_DoingNightDrive>driving through the night</PhobosFleet_DoingNightDrive>
   <PhobosFleet_DoingCamped>camped</PhobosFleet_DoingCamped>
   <PhobosFleet_DoingStranded>stranded</PhobosFleet_DoingStranded>
+  <PhobosFleet_DoingBogged>stuck in soft ground: {TIME} until free</PhobosFleet_DoingBogged>
+  <PhobosFleet_DoingWaitingBogged>waiting while {VEHICLE} is stuck</PhobosFleet_DoingWaitingBogged>
+  <PhobosFleet_DoingAmbushWait>waiting for the road to clear: {TIME}</PhobosFleet_DoingAmbushWait>
+  <PhobosFleet_DoingGritting>on the road, spreading grit</PhobosFleet_DoingGritting>
+  <PhobosFleet_DoingRoadSurvey>on the road, surveying</PhobosFleet_DoingRoadSurvey>
   <PhobosFleet_DoingFlying>flying</PhobosFleet_DoingFlying>
   <PhobosFleet_DoingFlyingFar>flying, {DISTANCE} so far</PhobosFleet_DoingFlyingFar>
   <PhobosFleet_DoingGarage>kept here</PhobosFleet_DoingGarage>
@@ -49,6 +54,7 @@
 
   <PhobosFleet_NeedsFuel>fuel</PhobosFleet_NeedsFuel>
   <PhobosFleet_NeedsFood>food: less than a day left</PhobosFleet_NeedsFood>
+  <PhobosFleet_NeedsUnbogging>stuck: lay {CHUNKS} stone chunks under its wheels, or wait</PhobosFleet_NeedsUnbogging>
   <PhobosFleet_NeedsWater>water: the crew tank is low</PhobosFleet_NeedsWater>
   <PhobosFleet_NeedsFaults>faults to look at: {COUNT}</PhobosFleet_NeedsFaults>
   <PhobosFleet_NeedsBrakes>new brake pads: it cannot stop</PhobosFleet_NeedsBrakes>

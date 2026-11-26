@@ -402,6 +402,18 @@ as trade requests, in quarters; as often as trade requests by default.
   radio fitted reaches home from further out. In reach of home, ambushes come with a warning and an aircraft can **airdrop to the
   convoy** ([radio](radio.md#convoys-on-the-world-map)). Driving on lowers it.
 
+### Supply runs
+
+**A truck that can take the route kit can run supplies on its own.** **Plan a supply run** (on the map or on the world map) and pick
+its stops: **depots**, **open ground**, or **your colonies** (it drives in at the map's edge). In **Its stops**, set each to **deliver its
+load**, **fetch the depot's goods** or **only wait**, and how long it waits. **Start the run** and it goes round and round.
+
+- **With a driver aboard**, the driver drives it. **With nobody aboard**, its **route kit** does, if fitted and powered.
+- **With D'thorga Radio Framework**, a crewless run is driven by radio: **Crewless supply runs need radio reach** (Remote section) asks for
+  reach **all the way** (the default; relays stretch it) or only **to set off and at stops**. **A crewless supply truck out of reach**
+  **holds** where it is (the default), **carries on** or **turns back**.
+- **At a colony, people load it by hand** while it waits; fetching is from depots.
+
 ### The ground: bogging and grit
 
 - **Heavy vehicles bog on soft ground**: a vehicle **over 12 tonnes laden** sinks a little on each **swampy or very wet flat** tile it

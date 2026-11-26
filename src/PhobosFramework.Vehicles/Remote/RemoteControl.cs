@@ -439,6 +439,12 @@ public static class RemoteControlOperatorsPatch
             __result = true;
             return;
         }
+        // Framework 0.329.0: a truck on its supply run with nobody aboard, by its route kit, between places and at its stops.
+        if (__instance.GetComp<CompPhobosSupplyRun>() is { DrivesCrewless: true })
+        {
+            __result = true;
+            return;
+        }
         if (!__instance.Spawned) return;
         if (__instance.GetComp<CompPhobosRemoteControl>() is { Drives: true }) __result = true;
     }

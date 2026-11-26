@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Relays on the world map (Radio 0.22.0; the owner's card of 26 Nov 2026: "A relay mast built on a tile"). A relay mast is a world
+       site holding one relay radio, never on a map; its figures are an agent default, all authored, for the owner to revise: the vehicle
+       control radio's power and band on a 10 m mast, as the mast antenna stands. The site borrows the mast antenna's picture until its own
+       is drawn. -->
+
+  <WorldObjectDef>
+    <defName>PhobosRadio_RelayMast</defName>
+    <label>relay mast</label>
+    <description>A small solar mast with a relay radio, put up by a convoy to pass radio calls on toward home. It stands until it is taken down.</description>
+    <worldObjectClass>Phobos.Radio.Services.WorldObject_PhobosRelayMast</worldObjectClass>
+    <texture>World/WorldObjects/Ambush</texture>
+    <expandingIcon>true</expandingIcon>
+    <expandingIconTexture>Phobos/Radio/Things/Mast</expandingIconTexture>
+    <expandingIconPriority>70</expandingIconPriority>
+    <canHaveFaction>false</canHaveFaction>
+  </WorldObjectDef>
+
+  <ThingDef>
+    <defName>PhobosRadio_RelayUnit</defName>
+    <label>relay radio</label>
+    <description>The relay radio inside a relay mast. It never stands on a map.</description>
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Mast</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <tickerType>Never</tickerType>
+    <selectable>false</selectable>
+    <alwaysHaulable>false</alwaysHaulable>
+    <tradeability>None</tradeability>
+    <useHitPoints>false</useHitPoints>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Radio">
+        <bands>
+          <li>PhobosRadio_VHF</li>
+        </bands>
+        <mode>PhobosRadio_ControlData</mode>
+        <channelKind>PhobosRadio_KindVehicleControl</channelKind>
+        <transmitPowerWatts>25</transmitPowerWatts>
+        <noiseFigureDb>8</noiseFigureDb>
+        <antennaGainDbi>0</antennaGainDbi>
+        <antennaHeightMetres>10</antennaHeightMetres>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>
