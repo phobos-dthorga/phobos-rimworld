@@ -205,5 +205,74 @@
    "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/HookFromDepot.png",
    "why": "work on the road (docs/development/vehicle-road-work.md); new with drop and hook (EM41), borrowing the hitch's picture; the owner, 26 Nov 2026: 'Add the local GPU icons to the queue for later tonight'; icons are made locally"
   }
+ },
+ {
+  "name": "n16-supply-plan",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small olive cargo truck seen from the side, loaded with two grey crates, a short dashed green line running from it to a small amber flag. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a small olive cargo truck seen from the side, loaded with two grey crates, a short dashed green line running from it to a small amber flag",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   189,
+   190
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Plan a supply run (pick its stops on the world map)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/SupplyRun/Plan.png",
+   "why": "crewless supply runs (EM15, docs/development/vehicle-road-work.md); borrows the route kit's waypoint button since Framework 0.328.0; the owner, 27 Nov 2026: 'Add the supply run icons to tonight's queue too'; icons are made locally"
+  }
+ },
+ {
+  "name": "n16-supply-stops",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small grey supply crate between a bold green arrow pointing in and a bold amber arrow pointing out, on a short strip of brown ground. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a small grey supply crate between a bold green arrow pointing in and a bold amber arrow pointing out, on a short strip of brown ground",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   191,
+   192
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Its stops (deliver, fetch or wait at each stop)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/SupplyRun/Stops.png",
+   "why": "crewless supply runs (EM15, docs/development/vehicle-road-work.md); borrows the route kit's loop button since Framework 0.328.0; the owner, 27 Nov 2026: 'Add the supply run icons to tonight's queue too'; icons are made locally"
+  }
+ },
+ {
+  "name": "n16-supply-start",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small olive cargo truck loaded with grey crates driving round a bold green circular arrow. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a small olive cargo truck loaded with grey crates driving round a bold green circular arrow",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   193,
+   194
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Start the run (the truck goes round its stops again and again)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/SupplyRun/Start.png",
+   "why": "crewless supply runs (EM15, docs/development/vehicle-road-work.md); borrows the route kit's follow button since Framework 0.328.0; the owner, 27 Nov 2026: 'Add the supply run icons to tonight's queue too'; icons are made locally"
+  }
  }
 ]
