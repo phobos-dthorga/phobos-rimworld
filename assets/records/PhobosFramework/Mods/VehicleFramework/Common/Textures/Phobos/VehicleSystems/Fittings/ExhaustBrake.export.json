@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/ExhaustBrake.png",
-  "source": "assets/vehicle-systems/generated/n12-exhaust-brake/n12-exhaust-brake-11.png",
-  "source_sha256": "6b51bc9ee7eadbb37a99ac9c10c32da45bea1092d6670d225fddf8a494bbd568",
-  "target_sha256": "57893d63501d3fcca057d06b43fcc9bfe3834612b23e18a89dba50939a217b44",
+  "source": "assets/vehicle-systems/generated/n13-exhaust-brake/n13-exhaust-brake-131.png",
+  "source_sha256": "75736e71f9ed94d951189ca40641d188844d093ff5b89631ab9507f63767152a",
+  "target_sha256": "66e1662bdfdf64d4ed662cc75892f1bd046946a1e51e8a0e91c2a82ebb39224c",
   "size": [
     128,
     128
@@ -11,9 +11,9 @@
   "soft_edge": 30,
   "all_white": false,
   "silhouette": false,
-  "ai_mask": "6b51bc9ee7eadbb37a99ac9c10c32da45bea1092d6670d225fddf8a494bbd568",
+  "ai_mask": "75736e71f9ed94d951189ca40641d188844d093ff5b89631ab9507f63767152a",
   "holes": [],
   "white_left": [],
-  "date": "2026-11-23T23:47:00",
+  "date": "2026-11-26T15:02:23",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

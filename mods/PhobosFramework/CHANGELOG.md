@@ -13,6 +13,15 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.311.1] - 2026-11-26 - Draft
+
+The exhaust brake's new picture
+
+### Changed
+
+- **The exhaust brake fitting has a new picture** (the owner's pick of 26 November 2026): a pipe with its valve, in place of night 12's,
+  which looked like the turbocharger it took as a style reference.
+
 ## [0.311.0] - 2026-11-26 - Draft
 
 Stranded vehicles and hurt travellers
