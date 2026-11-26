@@ -7,7 +7,8 @@ salvaged parts, lost convoys), and a small round in 0.188.0 (EM29(b) brakes, EM1
 and EM11 with EM12 in 0.190.0 (hours on type, "their" vehicle), and EM5 in 0.192.0 (raiders' fuel by distance), and EM21(b)'s hull lift in
 0.197.0; not yet tested in game. The four batches the owner asked for are built
 (the owner's word, 20 Nov 2026); every other row is an idea, not built. The owner answered four of the questions the same day
-([the answers](#questions-for-the-owner)).
+([the answers](#questions-for-the-owner)). Group H, work on the road (EM30 to EM45), was recorded on 26 Nov 2026 and is not built
+([group H](#h-work-on-the-road-26-nov-2026)).
 
 It began as a research round the owner asked for on 20 Nov 2026: "suggestions/ideas/thoughts/brainstorming/etc on how we could perhaps
 obtain/encourage further, emergent gameplay which I so dearly crave like ambrosia, with a focus surrounding our vehicle mods", and
@@ -320,6 +321,55 @@ they play. "Size" and every verdict are the agent's, for the owner to overrule *
 | EM28 | **Raids that know the motor pool**: raiders who burn empty vehicles and the fuel store | The storyteller already scales with the fleet's price (audit 2, wealth). Nothing targets an empty vehicle | — | — | — | The whole row | Large: a raid behaviour of our own. **Hold.** The wealth fact is worth the owner knowing now |
 | EM29 | **Unwise orders are allowed, with a warning.** (a) Lift the four whose consequence is built: engines cut in the air, an overloaded or storm lift, a worn-through clutch, an over-ratio tow. (b) Build a consequence before lifting: brakes, flight controls, blind flight | Audit 3. `showOnly` is the blunt version that exists | Take a risk knowingly | Nothing: that is the point | The player, not the game, decides how much risk; a harsher mode is a setting, off by default [A] | None: refusals are the player's only | (a) small. **(a) taken as a direction: warn, then allow** (owner, 20 Nov 2026); not built. (b) each needs a design |
 
+### H. Work on the road (26 Nov 2026)
+
+The owner, 26 Nov 2026: "What are some things we can do with our vehicles/trailers while on the road, as part of a caravan, to make them
+more dynamic and more emergent? Such as with the Datum, Kelly, and Tallus? Since we've focused so little on those in these areas", and,
+on the sixteen ideas the agent gave, "Record all sixteen as EM30 onward". **Record only; nothing is built until the owner says so.** The
+row number is the idea's number in that answer plus 29 (idea 1 is EM30, idea 16 is EM45).
+
+**What the three trucks do in a convoy today [code and records]:**
+
+- **The Datum survey truck does nothing on the road.** Its long-range mode starts the game's own lump quest
+  (`QuestScriptDefOf.LongRangeMineralScannerLump`, `V/Systems/CompPhobosSurveyTruck.cs:192-198`), at the game's own mean time between
+  finds (`longRangeMtbDays` 0.4, `:33`), but only while deployed on a map.
+- **The Kelly drill rig does nothing on the road**, and at 20 t and 36 km/h it sets the convoy's pace ([its record](vehicle-drill-rig.md);
+  [descents](world-elevation-and-descents.md)). It rolls the game's own insect rule itself, since that rule lives on a deep drill
+  building (`V/Systems/CompPhobosDrillRig.cs:68-69`, `:303`).
+- **The Talus tipper only adds cargo room.** "It tips only on a map" ([its record](vehicle-tipper-hauler.md), "In a caravan").
+
+**The shared piece: work at a halt.** Most rows below hang from one generic piece, built with the first of them: a halted convoy runs
+jobs by vehicle, each costing a crew member's hours, fuel or battery, and wear, as the kettle already cooks at a halt. **What exists
+[code]:** meal halts are a per-caravan world component (`PhobosCaravanCooking`, `V/SetOut/CaravanCooking.cs:67`) that reads the game's
+own `caravan.NightResting` (`:115`) and saves a per-caravan switch (`:387`); a stopped convoy is `vehiclePather.MovingNow` false
+(`V/Service/Depots.cs:60`). **The agent's proposal [A]:** halt jobs as Defs in the Framework core, so another mod adds its own in XML; a
+job names the vehicle (by comp or effect, never by name), the crew skill, the hours and what it uses; the convoy's inspect pane and the
+Fleet board say what each halt job is doing and what it waits for. **The agent's caution:** keep halt jobs few and coarse. The map stays
+where real work happens, or the world map turns into menus and timers.
+
+**Three of the agent's first pitches changed size on reading:** EM37 (tip into a depot) is mostly possible already through the depot
+window; EM41 (drop and hook) is mostly built; EM38 (fill a soft crossing) overlaps Rails and Roads of the Rim, which already builds
+roads from a caravan's stone. EM40 (bulk dry goods) is argued against, mostly.
+
+| # | Idea | What the reads found | Lets | Stops | Changes | Who else notices | Size and verdict |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| EM30 | **The running survey (Datum).** A crewed console logs each tile the convoy crosses; a find becomes the game's own lump quest on a nearby tile, at the long-range mode's own mean time between finds | The long-range mode already makes the game's quest, at the game's figures (above). Nothing of the survey ticks off a map [I: the comp is a map comp]. **Real basis, unverified:** carborne gamma-ray surveys were a real prospecting method; a source is owed before the record leans on it | Prospect while travelling | A free survey: the console colonist is not driving, and rests only in a bunk (Y21) | Routes are chosen by the ground they cross; a long trip pays for itself | The world map (the game's quest site); the logbook (a find on the way) | Medium, after the shared piece. **Take in the second round.** The find is the game's own timer, as on a map, not a roll of ours (the owner's rule on rolls) |
+| EM31 | **The survey halt (Datum).** Stop some hours for a firmer read of the tile: the ore and its rough size, and, with Dubs Bad Hygiene, how much groundwater a bore would find | The map's diminishing returns per map (`SurveyRule`) would apply per tile [A]. Dubs Bad Hygiene's groundwater is a map grid, read but never drilled ([survey record](vehicle-survey-truck.md), hydrogeology node); off a map only the tile's rainfall is known [I]. **Not read:** whether the game's lump quest names its ore before the site is visited | Decide whether a tile is worth the Kelly | Surveying a tile twice for more | A survey becomes a stop the convoy plans for | The world map; EM32 and EM34 read what it found | Small, with the shared piece. **Take first** |
+| EM32 | **Ground already read.** When a map opens on a tile the Datum surveyed (a camp, an ambush, a visit), its deep ore shows without a scanner building | The game shows deep ore only while a scanner building is on the map ([survey record](vehicle-survey-truck.md), "The find"). **Not read:** how the game decides to draw the overlay | Use a survey made days earlier | — | A survey keeps its value after the truck drives on | The map, when it opens | Small to medium. **Later** |
+| EM33 | **The Datum's boom as a radio mast at a halt.** A raised boom extends the convoy's radio reach home | **The Radio Framework has nothing on the world map** [code: no caravan or world object in `src/PhobosRadio*`]. The Datum already takes the remote control kit ([autonomous vehicles](autonomous-vehicles.md), step 4). The radio's rules put performance first | Talk home from far out | — | Reach home becomes something a convoy builds | The radio net; the colony | Large: the radio's first world-map layer. **Hold** until the radio has one |
+| EM34 | **The water bore (Kelly; Dubs Bad Hygiene only).** In a dry tile the rig drills a temporary bore and fills the water bowser and the crew tanks | Water bowser (Pintle P2) and crew water tank (120 L) exist, both Dubs only; water in tow is counted (`CaravanWater`). A bore's yield by the tile's rainfall [A]: **state, not a roll**, so a dry tile gives a dry hole the player can foresee from the survey (EM31) | Cross dry country without carrying all the water | Drilling for free: fuel, bit wear and hours | Water planning on the road, as on a real camping trip | The caravan's water; the logbook | Small, with the shared piece. **Take first.** Risk **low** [A]: a slow cost the player sees coming |
+| EM35 | **The test hole (Kelly).** A day's halt on a Datum find proves it and puts a few portions in the Talus; the game's insect rule applies, as it does to the rig on a map | The rig drills at the game's rates and rolls the game's insect rule (above). On the world map an insect outbreak would need a map to open, as an ambush does [I] | Bring home a sample without a full drilling camp | A free yield: insects, fuel, a crew's day | A find is worth a detour; the Kelly earns its place in a convoy | The game's insects; the logbook | Medium. **Take in the second round.** Risk **high** [A]: a fight that can cost a person, so the insects have their own setting, **off**; with it off, the test hole yields a little less [A] |
+| EM36 | **The quarry halt (Kelly, hammer bit).** Stone chunks into the Talus | The hammer bit node exists ([drill rig record](vehicle-drill-rig.md), "The bit nodes"). A granite chunk is about 25 kg, so the Talus takes 96 ([tipper record](vehicle-tipper-hauler.md)) | Make stone where there is none | — | Stone for a road (EM38) or a camp is made on the way | The logbook | Small, after the shared piece. **Later** |
+| EM37 | **Tip into a depot (Talus).** Shed the load on the world map to lighten a climb, or leave a stockpile for the way back | **Mostly possible today:** the depot window leaves any items from a convoy (`Depots.Exchange`, `V/Service/Depots.cs:97`). What is new is one "Tip the load here" button for the tipper. A lighter truck climbs faster, since the drivetrain moves the real mass [I] | Lighten a convoy in one press | — | A load becomes something to leave and come back for | The depot; its pressures (weather, ageing) | Small. **Take in the second round.** It reverses "tips only on a map" in name only |
+| EM38 | **Fill a soft crossing (Talus).** Spend stone to ease a hard tile for later convoys | **Overlaps Rails and Roads of the Rim**, which builds roads on the world map from a caravan's resources ([tipper record](vehicle-tipper-hauler.md), "Decide (3)"). **Not read:** whether it draws on cargo inside a vehicle. There is no mud or thaw on the world map to ease (EM16's reads) | Build a road with the Talus as its stone wagon | — | Roads are built where the convoys go | Every later convoy, through the road | **Read first.** If Rails and Roads draws on vehicle cargo, nothing is needed; if not, a small tie-in. No soft-ground rule of our own |
+| EM39 | **Grit on snow (Talus).** The tailgate spreader, cut from the first tree, returns as grit on winter tiles, easing the way for the convoy behind for some days [A] | The world ground reads the game's winter offset (EM16's reads). A gritted tile would be a saved mark with an end date | Keep a winter route open | — | Winter routes become something to maintain | Later convoys of the player's | Medium. **Later.** Real basis: grit and sand on snow are a real road practice |
+| EM40 | **Bulk dry goods (Talus).** Buy stone, steel and blocks in bulk at a settlement, as the Ullage buys fluids | Bulk buying is for fluids only, at settlements, at the game's price (`V/Tanks/BulkOrders.cs:32-54`), because fluids are not in a trader's stock. **The game's trade already sells steel and blocks to a caravan** | Buy stone chunks by the truckload | — | — | Settlements | **Argued against, mostly:** only chunks by the truckload would be new |
+| EM41 | **Drop and hook.** Leave a trailer at a depot (a bowser as a cache for the way back, Billy as a forward kitchen) and hook it up again on the way back | **Mostly built:** a depot takes vehicles and towed trailers with their cargo and tanks, an articulated pair together (`V/Service/Depots.cs:15-19`, `:70-81`). Taking a vehicle back means visiting the depot on a small map (`:18`) | Hook up again from the world map in one press [A] | — | A return trip planned on the way out | The depot | Small: a "hook up" in the depot window. **Later** |
+| EM42 | **A trailer fault on the road.** Worn tyres or a wrecked axle halt the convoy, or the player leaves the trailer at a depot | Trailers carry tyres only (`Loadouts_Trailer.xml`); a towed trailer counts as moving, so its tyres wear. The stranded state exists (EM1). **Open since 18 Nov 2026:** should a tow refuse a trailer with wrecked axles? | Fix, carry on slowly, or leave it | Towing a wreck for free | Spares for the trailers go in the convoy | The stranded alert; the logbook | Small. **Later.** Risk **low to moderate** [A]: a halt, with warning; its own setting, **on** |
+| EM43 | **Bogging.** The heaviest truck bogs on soft ground in the wet; the winch, a tow or a load of Talus stone frees it | Weather grip is map-only (`V/Systems/Powertrain.cs:677-684`); no mud on the world map (EM16's reads). Needs a soft-ground rule by biome and rainfall, and axle load [A]: **state, not a roll** | Choose the route by the ground | Driving 20 t anywhere in the wet | The Kelly's weight is a route decision; the winch earns its place | The stranded alert; the logbook | Medium to large: a rule of its own. **Later.** Risk **moderate** [A]: time and fuel, seen coming; its own setting, **on** |
+| EM44 | **Ambush choices.** A warned convoy drives through, turns back or fights | The ambush fires for a vehicle convoy, builds its map and puts the vehicles at its edge; "a 'drive through' choice would be a roll" (audit 2). **The owner's rule: rolls only as a last resort**, each named | Run a gauntlet with armour and speed | — | Armour kits and speed matter before a fight | The ambushers' faction | Medium. **Later**, and only if the owner accepts a named roll. The player chooses each time; the game's default (fight) stays |
+| EM45 | **Contracts from settlements.** A settlement asks for a bore, a survey, a load of stone, some days of Busbar power, or water and fuel | **The same family as EM9** (calls for help as quests). The game's nearest shapes: `TradeRequest`, `OpportunitySite_DownedRefugee` (EM9). **The owner, 9 Nov 2026:** "quests later, generic in the Framework for all our vehicles" | Earn goodwill and silver with the trucks' own work | — | The trucks have a reason to leave home | Other factions (goodwill); the game's quests | Medium to large. **Take third, with EM9.** Text is agent-written and held for review |
+
 ## Other factions' vehicles
 
 | | What these rows do |
@@ -331,11 +381,20 @@ they play. "Size" and every verdict are the agent's, for the owner to overrule *
 **Cost with several on a map:** EM5 is one loop over a faction's settlements when a vehicle appears. EM22 adds vehicles' crews to a
 walk the game already makes at long intervals. Nothing here adds a per-tick scan.
 
+**Group H (EM30 to EM45) is the player's convoys by its nature**: other factions cross the world map only as the game's caravans, which
+carry no vehicles (EM7). Where they take part: EM44's ambushers and EM45's settlements. A captured truck does halt work like any of
+ours; a raid's or a base's vehicles do none, since halt work happens only on the world map. **Cost:** halt jobs run at the rare look a
+convoy already gets, as meal halts do; nothing per tick.
+
 ## Saves
 
 New saved state would be: a cause on a condition (EM24); a lasting log per vehicle, capped (EM23); hours per colonist per vehicle
 kind (EM11); a site holding a lost convoy (EM2), which is lost if the mod is removed, so its README must say so. Records, tales
 and thoughts (EM12, EM13) are the game's own. Every key would carry the `Phobos` prefix and stay stable.
+
+Group H would add: each convoy's running halt job (EM30 onward, beside the meal-halt switch); the tiles the Datum has read (EM31,
+EM32); gritted tiles with their end dates (EM39); a bogged convoy's state (EM43). The running survey's finds are the game's own quests,
+saved by the game. All in world components, lost harmlessly if the mod is removed [I].
 
 ## Found on the way (listed, not fixed)
 
@@ -368,6 +427,19 @@ with G). **Nothing is built until the owner says so.**
 model (owner). **Later:** EM4, EM9, EM16, EM18's warning, the rest of EM21. **Held:** EM6, EM7, EM15, EM28. **A direction:** EM8.
 **Ideas only:** EM10, EM14, EM26. **Argued against:** a price model of our own (EM17). **Already recorded:** EM19.
 
+**Group H, work on the road (26 Nov 2026)**, in the order the agent would take it **[A]**:
+
+| Order | Rows | Why |
+| --- | --- | --- |
+| 1 | **The shared piece, with EM31 and EM34** | Work at a halt, proven by two jobs any trip would use: the survey halt and the water bore |
+| 2 | **EM30, EM35, EM37** | The Datum, Kelly and Talus chain on the road: a find on the way, proved by a test hole, its yield left at a depot |
+| 3 | **EM45, with EM9** | Other factions take notice of the trucks: the strongest link outward |
+| Later | EM32, EM36, EM39, EM41, EM42, EM43, EM44 | EM43 and EM39 need world-map ground rules first; EM44 needs the owner's word on a roll |
+| Read first | EM38 | Whether Rails and Roads of the Rim draws on a vehicle's cargo |
+| Held | EM33 | Until the radio has a world-map layer |
+
+**Argued against, mostly:** EM40.
+
 ## Questions for the owner
 
 1. **Random rolls.** The agent's default: state decides what happens, the game's storyteller decides when pressure arrives, and we
@@ -396,6 +468,15 @@ model (owner). **Later:** EM4, EM9, EM16, EM18's warning, the rest of EM21. **He
 
 **Still open:** 4 (exhaust indoors: on or off by default), 5 (a lost convoy as a site, a hull on the map, or both) and 6 (raiders'
 fuel by distance, in a group not picked for now).
+
+**Group H's questions (26 Nov 2026), open:**
+
+- **Question 8. What to take first** in group H: the agent's order above, another pick, or nothing yet?
+- **Question 9. The test hole's insects (EM35):** the agent grades them high risk, so their setting starts off. Agree, or grade them
+  lower?
+- **Question 10. Driving through an ambush (EM44):** accept one named roll for it, or leave ambushes as they are?
+- **Question 11. A trailer with wrecked axles (EM42; open since 18 Nov 2026):** should a tow refuse it, or allow it with a warning
+  (EM29's way)?
 
 ## As built: life on the road in the logbook and the Fleet board (22 Nov 2026, Framework 0.230.0)
 
@@ -616,6 +697,8 @@ Vehicle Framework's of 18 Nov 2026.
 
 - **Owner (20 Nov 2026):** the round, its focus on the vehicle mods, and record only; the plan for this record, with its three
   audits; the four answers above.
+- **Owner (26 Nov 2026):** the question that began group H, and "Record all sixteen as EM30 onward". **Agent's:** the sixteen ideas,
+  the shared piece, every verdict, size, risk grade and figure marked [A] in group H, and its order.
 - **Agent choices, for the owner to revise:** every row, verdict, size and figure marked [A]; the default on random rolls; the six
   conditions and the chemist's reading of Nintendo's rules; the short list; the readings of other authors' code.
 
