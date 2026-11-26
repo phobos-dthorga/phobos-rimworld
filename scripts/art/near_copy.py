@@ -91,6 +91,33 @@ def compare(outputs, *sources, only=(), own=()):
     return flagged, close_to_own, closest
 
 
+def mark_sidecars(checked, flagged):
+    """Writes each checked try's flags against others' art into its own record (the .json beside it), and takes away a mark a
+    recheck no longer finds. near-copy.json holds only the latest batch, so a flag must live with the picture itself for the
+    picture cards to leave it out later (27 Nov 2026: night 16's two flagged supply-run tries would otherwise have been offered).
+    A record with no flag and no old mark is never rewritten, so it stays byte for byte as generated."""
+    by_name = {}
+    for entry in flagged:
+        by_name.setdefault(entry['output'], []).append(
+            {'source': entry['source'], 'hash_distance': entry['hash_distance'], 'ssim': entry['ssim']})
+    marked = 0
+    for picture in checked:
+        sidecar = picture.with_suffix('.json')
+        if not sidecar.is_file():
+            continue
+        record = json.loads(sidecar.read_text(encoding='utf-8'))
+        flags = by_name.get(picture.name)
+        if flags:
+            record[sort_rules.NEAR_COPY_RECORD_KEY] = flags
+            marked += 1
+        elif sort_rules.NEAR_COPY_RECORD_KEY in record:
+            del record[sort_rules.NEAR_COPY_RECORD_KEY]
+        else:
+            continue
+        sidecar.write_text(json.dumps(record, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+    return marked
+
+
 def _ratio(image):
     """Width to height of a subject already cropped by flattened_gray."""
     return image.width / image.height if image.height else 0.0
@@ -115,6 +142,7 @@ if __name__ == '__main__':
               'thresholds': {'hash_distance_at_most': sort_rules.NEAR_COPY_DISTANCE, 'ssim_at_least': sort_rules.NEAR_COPY_SSIM,
                              'hash_needs_proportions_within': sort_rules.SAME_PROPORTIONS}}
     (Path(args.outputs) / 'near-copy.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
+    mark_sidecars(candidates(args.outputs, args.only), flagged_entries)
     print(f'{len(closest_entries)} outputs compared, {len(flagged_entries)} near-copy flags, '
           f'{len(own_entries)} likenesses to our own art')
     sys.exit(1 if flagged_entries else 0)

@@ -86,3 +86,21 @@ def is_own_art_folder(folder, own=()):
 def split_flags(entries):
     """Near-copy flags as (against others' art, against our own), each in its first order. An entry is ours when it says so."""
     return [entry for entry in entries if not entry.get('own')], [entry for entry in entries if entry.get('own')]
+
+
+# The key in a try's own record (the .json beside it) under which near_copy.py writes its flags against others' art, so a flag
+# outlives near-copy.json, which holds only the latest batch.
+NEAR_COPY_RECORD_KEY = 'near_copy_flags'
+
+
+def flagged_in_record(picture):
+    """The flags against others' art a try's record carries, or an empty list when it has none or cannot be read."""
+    import json
+    from pathlib import Path
+    sidecar = Path(picture).with_suffix('.json')
+    if not sidecar.is_file():
+        return []
+    try:
+        return json.loads(sidecar.read_text(encoding='utf-8')).get(NEAR_COPY_RECORD_KEY) or []
+    except (OSError, ValueError, AttributeError):
+        return []

@@ -196,6 +196,30 @@ class SortingTests(unittest.TestCase):
         older = {'output': 'b.png', 'source': 'Bed.png'}  # A report written before the split carries no "own": it stays a flag.
         self.assertEqual(sort_rules.split_flags([house, game, older]), ([game, older], [house]))
 
+    def test_a_flag_is_kept_in_the_tries_own_record(self):
+        # 27 Nov 2026: near-copy.json holds only the latest batch, so night 16's two flagged supply-run tries would have been
+        # offered as picks once a later batch wrote it. The flag now lives in the try's record, and a recheck can clear it.
+        import near_copy
+        with tempfile.TemporaryDirectory() as work:
+            flagged, clean = os.path.join(work, 'a-1.png'), os.path.join(work, 'a-2.png')
+            for picture in (flagged, clean):
+                open(picture, 'wb').close()
+            with open(flagged[:-4] + '.json', 'w', encoding='utf-8') as f:
+                json.dump({'seed': 1}, f)
+            clean_text = '{"seed": 2}'
+            with open(clean[:-4] + '.json', 'w', encoding='utf-8') as f:
+                f.write(clean_text)
+            entry = {'output': 'a-1.png', 'source': 'IconMorbidA.png', 'hash_distance': 9, 'ssim': 0.068, 'own': False}
+            pictures = [near_copy.Path(flagged), near_copy.Path(clean)]
+            self.assertEqual(near_copy.mark_sidecars(pictures, [entry]), 1)
+            self.assertEqual(sort_rules.flagged_in_record(flagged),
+                             [{'source': 'IconMorbidA.png', 'hash_distance': 9, 'ssim': 0.068}])
+            self.assertEqual(sort_rules.flagged_in_record(clean), [])
+            with open(clean[:-4] + '.json', encoding='utf-8') as f:
+                self.assertEqual(f.read(), clean_text)  # A record with nothing to say is never rewritten.
+            near_copy.mark_sidecars(pictures, [])
+            self.assertEqual(sort_rules.flagged_in_record(flagged), [])
+
 
 class LoraExperimentTests(unittest.TestCase):
     def test_a_square_sprite_fits_the_long_side(self):

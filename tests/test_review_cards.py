@@ -1,4 +1,5 @@
 """Review cards drawn from pictures made here: a sprite card's layout and figures, and a vehicle tinted by its paint mask. No game art."""
+import json
 import os
 import sys
 import tempfile
@@ -46,6 +47,20 @@ class ReviewCardTests(unittest.TestCase):
             sprite(generated / f'pane-{seed}.png')
         found = review_cards.attempts(requests / 'retry.json', {'name': 'pane', 'seeds': [3, 4]})
         self.assertEqual([p.name for p in found], ['pane-3.png', 'pane-4.png'])
+
+    def test_a_try_flagged_against_others_art_is_left_out(self):
+        requests, generated = self.folder / 'requests', self.folder / 'generated' / 'pane'
+        requests.mkdir()
+        generated.mkdir(parents=True)
+        for seed in (1, 2):
+            sprite(generated / f'pane-{seed}.png')
+        (generated / 'pane-1.json').write_text(json.dumps(
+            {'seed': 1, 'near_copy_flags': [{'source': 'GameIcon.png', 'hash_distance': 9, 'ssim': 0.1}]}), encoding='utf-8')
+        (generated / 'pane-2.json').write_text(json.dumps({'seed': 2}), encoding='utf-8')
+        entry = {'name': 'pane', 'seeds': [1, 2]}
+        self.assertEqual([p.name for p in review_cards.attempts(requests / 'r.json', entry)], ['pane-2.png'])
+        self.assertEqual(review_cards.left_out(requests / 'r.json', entry),
+                         ['pane-1.png (near-copy flag against GameIcon.png)'])
 
     def test_tinting_paints_the_masked_part_and_leaves_the_rest(self):
         vehicles = self.folder / 'Vehicles'

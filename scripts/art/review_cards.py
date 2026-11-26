@@ -29,6 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import art_paths  # noqa: E402
 import art_picks  # noqa: E402
 import edge_check  # noqa: E402
+import sort_rules  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 SOIL = (92, 76, 58, 255)
@@ -55,9 +56,23 @@ def on(ground, picture: Image.Image) -> Image.Image:
 # ---- Sprites ----
 
 def attempts(request_file: Path, entry: dict) -> list[Path]:
-    """The request's own tries, named by seed value: a correction request's seeds [3, 4] are tries 3 and 4, never 1 and 2."""
+    """The request's own tries, named by seed value: a correction request's seeds [3, 4] are tries 3 and 4, never 1 and 2. A try
+    the near-copy check flagged against others' art is left out (its record says so: sort_rules.flagged_in_record), as one must
+    never be picked or archived; tries close only to our own art stay."""
     folder = request_file.parent.parent / 'generated' / entry['name']
-    return [p for seed in entry.get('seeds', [1]) if (p := folder / f"{entry['name']}-{seed}.png").is_file()]
+    found = [p for seed in entry.get('seeds', [1]) if (p := folder / f"{entry['name']}-{seed}.png").is_file()]
+    return [p for p in found if not sort_rules.flagged_in_record(p)]
+
+
+def left_out(request_file: Path, entry: dict) -> list[str]:
+    """The tries attempts() leaves out for a near-copy flag, each with what it was flagged against, for the run's printout."""
+    folder = request_file.parent.parent / 'generated' / entry['name']
+    out = []
+    for seed in entry.get('seeds', [1]):
+        p = folder / f"{entry['name']}-{seed}.png"
+        if p.is_file() and (flags := sort_rules.flagged_in_record(p)):
+            out.append(f"{p.name} (near-copy flag against {', '.join(f['source'] for f in flags)})")
+    return out
 
 
 def export(original: Path, out: Path, size: int, aspect: str, holes=()) -> Path:
@@ -124,6 +139,8 @@ def sprites(args) -> int:
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL)
     folder = art_paths.work('cards', request_file.stem)
     for n, entry in enumerate(entries, 1):
+        for note in left_out(request_file, entry):
+            print('left out, not to be picked:', note)
         made = attempts(request_file, entry)
         if not made:
             continue

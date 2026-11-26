@@ -59,7 +59,10 @@ The other routes weighed (Gemini, fal.ai, Midjourney and others, the view-angle 
    [hands-off art pipeline](#hands-off-art-pipeline); the paid engine's are in
    [paid generation rules](paid-image-generation-rules.md#running-the-openai-engine).
 3. **Near-copy check.** The runner checks every batch against its references' folders with `scripts/art/near_copy.py` and marks a
-   flagged image "do not pick". A flagged image stays local, off the art branches. The owner's eye stays the last check
+   flagged image "do not pick". A flagged image stays local, off the art branches. **The flag is written into the try's own
+   record** (`near_copy_flags` in the `.json` beside it; 27 Nov 2026), because `near-copy.json` holds only the latest batch, and
+   **`review_cards.py` leaves a flagged try out of the cards and the Picks page**, printing what it left out; a recheck that no longer
+   flags it takes the mark away. The owner's eye stays the last check
    ([what the check catches](#vanilla-sprites)). **A likeness to our own art is reported apart and never blocks** (21 Nov 2026):
    a source folder holding only our picks carries `own-art.json` (`lora_experiment.py picks` writes it into a style model's
    dataset), or is named with `--own`; such an image may still be picked and archived, and a close match may only mean the model
