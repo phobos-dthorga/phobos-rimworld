@@ -309,8 +309,11 @@ public class JobDriver_PhobosCarryToLitter : JobDriver
         this.FailOn(() => Vehicle.GetComp<CompPhobosLitter>() is not { } litter || litter.RefusalFor(Patient) != null);
         yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.OnCell).FailOnDespawnedNullOrForbidden(TargetIndex.A).FailOnSomeonePhysicallyInteracting(TargetIndex.A);
         yield return Toils_Haul.StartCarryThing(TargetIndex.A);
-        yield return Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.Touch);
-        yield return Toils_General.Wait(StrapInTicks).FailOnCannotTouch(TargetIndex.B, PathEndMode.Touch).WithProgressBarToilDelay(TargetIndex.B);
+        // Framework 0.328.1: someone else may take the patient out of the carrier's arms (Search and Rescue did, for people it had
+        // marked): the carry ends there, rather than walking to the vehicle with nobody to strap in.
+        yield return Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.Touch).FailOn(() => pawn.carryTracker.CarriedThing != Patient);
+        yield return Toils_General.Wait(StrapInTicks).FailOnCannotTouch(TargetIndex.B, PathEndMode.Touch)
+            .FailOn(() => pawn.carryTracker.CarriedThing != Patient).WithProgressBarToilDelay(TargetIndex.B);
         yield return new Toil
         {
             initAction = () => Vehicle.GetComp<CompPhobosLitter>()?.Load(pawn, Patient),

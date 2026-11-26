@@ -52,6 +52,13 @@
     <driverClass>Phobos.VehicleSystems.JobDriver_PhobosCarryToLitter</driverClass>
     <reportString>carrying TargetA to a litter.</reportString>
     <casualInterruptible>false</casualInterruptible>
+    <!-- Framework 0.328.1: on Search and Rescue's list as a patient transport, so it leaves the carrier holding someone it has marked
+         (Rescue all) instead of making them drop them. Read only while Search and Rescue is active. -->
+    <modExtensions>
+      <li Class="Phobos.Framework.Health.PhobosSearchAndRescueRole">
+        <role>Transport</role>
+      </li>
+    </modExtensions>
   </JobDef>
 
   <!--

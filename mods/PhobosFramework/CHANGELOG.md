@@ -16,6 +16,25 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.328.1] - 2026-11-26 - Draft
+
+Litter carries no longer loop after Search and Rescue's Rescue all
+
+### Fixed
+
+- **Carrying someone to a vehicle's litters works alongside Search and Rescue**: after Rescue all, Search and Rescue made a colonist drop
+  anyone it had marked as soon as they were lifted, because it did not know our litter carry, and another colonist was sent for them,
+  round and round (seen in play, 26 Nov 2026, with strangers and the Hind). Our carry is now on its list of patient carries, as MedPod's
+  and CASEVAC's are, so it leaves the carrier holding them and schedules round them. Should that ever fail, a warning says so and
+  doctors leave its marked patients to it. A carrier who loses their patient now stops, instead of walking to the vehicle empty-handed.
+  Not yet tested in game: row 171.
+
+### Compatibility and limits
+
+- Search and Rescue has no public way to add a job, so its list is reached by name and checked after each of its updates
+  (check-targets). Carrying a downed person into a walk-in cabin is not on its list yet (that job names the vehicle first, where
+  Search and Rescue looks for the patient), so a marked patient may still be dropped on the way into a cabin.
+
 ## [0.328.0] - 2026-11-26 - Draft
 
 The Fleet board on the road, crewless supply runs, and the repeater bay
