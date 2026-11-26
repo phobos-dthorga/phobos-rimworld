@@ -102,6 +102,8 @@ overturns an earlier one says so.
 | 21 Nov | Fittings limited by loadout and kind | agent choice | Harrier engine on a Harrier | [sv], Fittings for engines and avionics |
 | 21 Nov | Avionics kits as figure floors, offered if they add | agent choice | Three mount parts each | [sv], Fittings for engines and avionics |
 | 23 Nov | Twin engine fittings as matched sets | owner | "Wouldn't fly very stable" | [sv], Fittings for engines and avionics |
+| 26 Nov | Builders bring vehicle-upgrade materials under Construction, beside the haulers | owner | Idle ucas beside waiting upgrades | [The system page](../systems/upgrades-and-fittings.md), Upgrade materials |
+| 26 Nov | No setting for it; priority 65, as building upgrades | agent choice | No risk to things or people | [The system page](../systems/upgrades-and-fittings.md), Upgrade materials |
 
 [tu]: ../archive/vehicle-tuning-and-upgrades.md
 [u2]: ../vehicle-upgrades-round-two.md

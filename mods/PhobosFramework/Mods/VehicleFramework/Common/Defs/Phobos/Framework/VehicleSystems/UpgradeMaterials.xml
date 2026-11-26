@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Builders bring their own materials for vehicle upgrades (Framework 0.302.1; docs/development/systems/upgrades-and-fittings.md,
+    "Upgrade materials"). Vehicle Framework fits an upgrade only once every material is in the vehicle, and offers loading them only
+    as Hauling work, so a pawn with Construction but no Hauling (the Dead Man's Switch uca) waited beside the vehicle for a hauler.
+    This is a second entry for Vehicle Framework's own work giver, under Construction, as the game's builders deliver to their own
+    frames and our building upgrades bring their own materials (65, the same place in Construction). Its search counts what others
+    are already bringing, so haulers and builders never carry the same materials twice. Not yet tested in game.
+  -->
+  <WorkGiverDef>
+    <defName>PhobosFramework_BuildersLoadUpgradeMaterials</defName>
+    <label>bring materials for vehicle upgrades</label>
+    <giverClass>Vehicles.WorkGiver_BringUpgradeMaterial</giverClass>
+    <workType>Construction</workType>
+    <verb>bring materials for</verb>
+    <gerund>bringing materials for</gerund>
+    <priorityInType>65</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+</Defs>

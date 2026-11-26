@@ -143,6 +143,20 @@ flag next spawns. One ships: the Harrier's night sight and radar.
 - **Node stats that switch our systems**: sling kilograms, infrared jammer, terrain radar, inlet barrier loss, kit kilograms and
   soft-ground grip (tractor dual wheels).
 
+### Upgrade materials (builders bring their own)
+
+- **Vehicle Framework fits an upgrade only once every material is in the vehicle** (`StoredCostSatisfied`), and offers loading
+  them only as Hauling (`LoadUpgradeMaterials`, priority 60). A pawn with Construction but no Hauling, such as the Dead Man's Switch
+  uca, waited beside the vehicle for a hauler, which in a large colony rarely came (the owner's report, 26 Nov 2026).
+- **Framework 0.302.1 adds a second entry for the same work giver under Construction**
+  (`PhobosFramework_BuildersLoadUpgradeMaterials`, priority 65, `UpgradeMaterials.xml`), as the game's builders deliver to their
+  own frames and our building upgrades bring their own materials (65). It reuses Vehicle Framework's class, job and reservation;
+  its search counts what others are already bringing, so haulers and builders never carry the same materials twice.
+- **What it lets the player do**: leave vehicle upgrades to builders and construction drones. **What it stops**: nothing; haulers
+  still help. **How play changes**: upgrades start without force-ordering a hauler. **Who notices outside the vehicle**: the
+  builders, whose Construction time now includes the fetching. **Risk**: none to things or people, so no setting (agent choice).
+  Not yet tested in game.
+
 ### Prices ("priced like tunes")
 
 - **All 22 trees carry `PhobosUpgradeCostsLikeTunes`**; every other author's tree keeps its costs.

@@ -229,6 +229,8 @@ still be fitted on its own below.
 - **Our own vehicles' upgrades cost the same way**, under the same three settings: **Time to fit and tune**, **Materials to fit
   and tune** and **Bigger vehicles cost more to fit and tune**. Taking one off refunds a share of what it cost. Other mods'
   upgrades keep their own costs.
+- **An upgrade starts once all its materials are in the vehicle, and builders bring them as well as haulers**, so construction
+  drones such as the uca can fetch and fit upgrades on their own. Not yet tested in game.
 - **An upgrade waiting for research refuses, and names the project.** In **Fittings and tunes**, a fitting, grade or tune your
   research has not reached shows faded with **Needs research** across its foot; rest the mouse on it for the project's name.
 

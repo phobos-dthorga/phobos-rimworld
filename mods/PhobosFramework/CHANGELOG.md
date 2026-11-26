@@ -13,6 +13,17 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.302.1] - 2026-11-26 - Draft
+
+Builders bring materials for vehicle upgrades
+
+### Fixed
+
+- **Builders bring the materials for a vehicle's upgrade themselves**: an upgrade only starts once every material is in the
+  vehicle, and only haulers brought them, so construction drones such as the uca, which cannot haul, stood idle beside waiting
+  upgrades. Anyone on construction work now brings them too, as builders do for frames; haulers still help, and nothing is carried
+  twice. Not yet tested in game.
+
 ## [0.302.0] - 2026-11-26 - Draft
 
 Aeroplanes on our flight
