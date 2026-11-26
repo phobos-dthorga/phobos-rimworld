@@ -1,0 +1,39 @@
+{
+  "file": "smoke-discharger-bank-truck-only-3.png",
+  "sha256": "27ec079eb19cab0f290411b2a3204bfa5a7ac44a45b93d2c0f2ec0697ac88f19",
+  "date": "2026-11-26T19:11:52",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for our service trucks' smoke grenade dischargers: ONE bank of four short launcher tubes. Image 1 is our own approved art: match their outline weight, shading, olive drab and gunmetal palette and finish only. Do NOT redraw it. Draw no gun, no turret, no ring and no mount: only the four tubes on their plate.\n\nDraw ONLY this one bank, alone on a plain pure white background, centred on the canvas. Four short round gunmetal tubes lying side by side and touching, all pointing straight toward the TOP of the canvas, on one small flat olive drab mounting plate with a few bolt heads. Together the bank is about 45 percent of the canvas wide and 40 percent tall. Each tube's open front end, at the top, shows a dark round grenade cap inside a lighter rim. The bank is symmetrical left to right.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no cab, no roof, no gun, no people, animals, soil, dust, mud, damage, smoke, flame, muzzle flash, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 3,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/smoke-dischargers.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a216e8-d776-79a0-83e3-ef7e76e69c94",
+  "usage": null,
+  "cost_usd": 0.15,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "asked_resolution": "1K",
+  "asked_aspect_ratio": "1:1",
+  "sent_seed": 3,
+  "seconds": 27.3,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+      "sha256": "2243b95387beb7ea5f418c2f240554dd65d352e41a9e0765457155d9663ad00e",
+      "role": "Image 1 is our approved Talus tipper truck, seen from directly above with its cab at the top: match its outline weight, shading, olive and steel palette and finish only, and use it to judge the scale of a part bolted to the cab; do not redraw it"
+    }
+  ]
+}
