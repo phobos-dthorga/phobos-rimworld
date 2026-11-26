@@ -1,0 +1,18 @@
+{
+  "file": "c27j-propeller-4-outlined.png",
+  "sha256": "9cfec3845c4c2d73be662e33f3b5910ec42139ed56bd08129c17318a1d904451",
+  "date": "2026-11-26",
+  "made_by": "a script derivation of c27j-propeller-4.png (no generator, no cost): Pillow, in one command recorded here",
+  "source": {
+    "file": "c27j-propeller-4.png",
+    "sha256": "98dc7401ac3e6b9f7e6a12ff15d98d34660918263eabc1b88671898061bf07eb"
+  },
+  "steps": [
+    "object = luminance below 110",
+    "outline shape = that mask blurred (Gaussian 7 px) and cut at 140 of 255, so the blocky soft edge becomes a smooth curve",
+    "near-black (10, 10, 12) laid over the outline shape, softened 1 px",
+    "the original's own pixels laid back inside the shape shrunk by 9 px (MinFilter 9), softened 1 px: a 4 to 5 px outline"
+  ],
+  "why": "try 4's outer blades were soft and blocky, leaving a pale fringe after the cut-out; one paid correction (tries 5 and 6) lost the edge-on shape, so the edge was fixed by script (rule 11 of the paid rules)",
+  "ai_disclosure": "Derived by script from a picture made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), through fal.ai."
+}
