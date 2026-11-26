@@ -42,6 +42,27 @@
    "why": "A haul truck's load is whatever was put in it at the pick-up",
    "from": "docs/development/autonomous-vehicles.md",
    "asked": "2026-11-26"
+  },
+  {
+   "id": "turret-operator-when",
+   "question": "When should a radio station with remote gun turrets call a colonist to its console?",
+   "context": "Built in Radio 0.18.0: only while enemies are about, so nobody sits at the console all day; a turret fires only while watched, so it cannot fire at the first moment of a raid until the operator arrives.",
+   "options": [
+    {
+     "id": "threat",
+     "label": "While enemies are about",
+     "detail": "As built"
+    },
+    {
+     "id": "always",
+     "label": "Always",
+     "detail": "A colonist sits at the console whenever a turret is on its coax, ready at once"
+    }
+   ],
+   "lean": "threat",
+   "why": "A colonist kept at a console all day is a colonist lost to every other job",
+   "from": "docs/development/autonomous-vehicles.md",
+   "asked": "2026-11-26"
   }
  ]
 }

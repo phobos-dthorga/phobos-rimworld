@@ -1,0 +1,23 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/RemoteTurretTop.png",
+  "source": "assets/phobos-vehicles/generated/remote-weapon-station-fal/remote-weapon-station-fal-2.png",
+  "source_sha256": "4d088cece64df47db799cfcb6f161ec564d74f12d02f92534bd60a37c472b647",
+  "target_sha256": "852be4e1b6f05b7a9353caf4de49e9c7fc9dd0446210731a2eec2edf2340c095",
+  "size": [
+    288,
+    288
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "ai_mask": "4d088cece64df47db799cfcb6f161ec564d74f12d02f92534bd60a37c472b647",
+  "white_left": [],
+  "date": "2026-11-26T11:07:23",
+  "tool": "assets/phobos-radio/export_remote_turret.py: export_sprite cut-out, framed on the turret ring centre, premultiplied Lanczos",
+  "ring_centre_px": [
+    511.5,
+    648.5
+  ],
+  "ring_cells": 0.85,
+  "draw_cells": 2.25,
+  "reach_cells": 0.936
+}

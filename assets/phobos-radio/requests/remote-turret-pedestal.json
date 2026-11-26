@@ -1,0 +1,25 @@
+[
+ {
+  "name": "remote-turret-pedestal",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+    "role": "Image 1 is our own approved Talus tipper truck, seen from directly above: match its outline weight, shading, olive and steel palette and finish only; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "the base turret (a ground remote weapon station, Radio Framework): its fixed pedestal, under the turning top (the remote weapon station's try 2, the owner's 'use both')",
+   "this_request": "the pedestal drawn alone on white, two tries; the owner picks one card; shipped as the turret building's base picture, one cell, the top drawn over its centre",
+   "design": "docs/development/autonomous-vehicles.md, the base turret; the owner's cards of 26 Nov 2026"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite: the fixed base of a remote-controlled gun emplacement, before any gun is fitted. Image 1 is our own approved art: match its outline weight, shading, olive drab and gunmetal palette and finish only. Do NOT redraw it.\n\nDraw ONLY this base, alone on a plain pure white background, centred on the canvas. A squat square armoured plinth about 80 percent of the canvas wide, olive drab with gunmetal bevelled edges and four heavy bolts at its corners. At its EXACT CENTRE a round steel turret ring socket, empty, about 55 percent of the canvas wide, with a dark recess inside it. On one side of the plinth a small armoured junction box with a thick black cable gland. Simple, sturdy, military.\n\nDraw NO gun, no barrel, no turret, no camera, no sight box, no ammunition box: only the base and its empty ring.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, animals, soil, dust, damage, smoke, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ }
+]

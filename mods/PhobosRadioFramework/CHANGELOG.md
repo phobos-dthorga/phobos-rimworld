@@ -17,6 +17,26 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.18.0] - 2026-11-26 - Draft
+
+The remote gun turret
+
+### Added
+
+- **A remote gun turret for the colony's defences**, after the new research remote turrets (the owner's word of 25 November 2026,
+  "use both", and the cards of 26 November 2026): the trucks' remote weapon station's second try, a .50 on a powered, camera-sighted
+  mount, on an armoured pedestal (the owner's pick). Connect it to a radio station with coax: it fires only while a colonist at that
+  station's console watches it, and then can be aimed by hand, or by itself when D'thorga Framework's "Remote guns fire on their own"
+  is on. It takes one of the operator's two hands, after the station's vehicles. While enemies are about, a station with turrets calls
+  a colonist on remote operation to its console. Fed a 200-round belt from steel by haulers; holds fire without power. Not yet tested
+  in game: row 540.
+
+### Compatibility and limits
+
+- Linked by coax only for now; its own radio, for a turret no coax reaches, is the next step.
+- Without Vehicle Framework there is no "fire on their own" switch, so it fires only while a station watches it.
+- Under Combat Extended it fires the game's own .50 round from its steel belt; Combat Extended ammunition for it is a later step.
+
 ## [0.17.0] - 2026-11-26 - Draft
 
 Channels, seen in play

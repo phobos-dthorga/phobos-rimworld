@@ -105,4 +105,10 @@
   <PhobosRadio_SheetDirectionLimiting>{DIRECTION} (this direction limits the link)</PhobosRadio_SheetDirectionLimiting>
   <!-- Radio Framework 0.16.1: a level on the link budget's steps. -->
   <PhobosRadio_BudgetLevelDbm>{LEVEL} dBm</PhobosRadio_BudgetLevelDbm>
+  <!-- Radio 0.18.0: the base turret's inspect text. -->
+  <PhobosRadio_TurretWatched>Watched from {STATION}: it fires at enemies, and can be aimed by hand.</PhobosRadio_TurretWatched>
+  <PhobosRadio_TurretNoStation>No working radio station on its coax: it holds fire. Connect it to a station with coax.</PhobosRadio_TurretNoStation>
+  <PhobosRadio_TurretNoOperator>On {STATION}'s coax, with nobody at the console: it holds fire. While enemies are about, a colonist on remote operation takes the console.</PhobosRadio_TurretNoOperator>
+  <PhobosRadio_TurretNoHand>On {STATION}'s coax, but the operator's hands are full with vehicles and other turrets: it holds fire.</PhobosRadio_TurretNoHand>
+  <PhobosRadio_TurretFiresAlone>Fires at enemies by itself, with nobody watching.</PhobosRadio_TurretFiresAlone>
 </LanguageData>

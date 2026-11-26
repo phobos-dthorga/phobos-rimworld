@@ -481,6 +481,47 @@ Two other uses of the same extension point were checked on 25 Nov 2026 and **lef
 preferring firm ground, and errands going round growing crops. Vehicle Framework already prices both; the finding is in
 [hitches and trailers](systems/hitches-and-trailers.md#the-wider-way-round).
 
+## The base turret (designed 26 Nov 2026; slice 1 built in Radio 0.18.0)
+
+The owner's word of 25 Nov 2026 on the remote weapon station's picks ("How about we use both? Since I see this being applied to both
+vehicles and ground-stations"), and the cards of 26 Nov 2026. A ground remote weapon station for the colony's defences: the station's
+second try as its turning top, on a pedestal of its own (paid picture, the owner's pick).
+
+- **Its mod [O]:** the Radio Framework: it is worked from a radio station, and its picture comes over the radio.
+- **Its link [O]: either.** **By coax**: on the radio's feedline network, like an antenna, a station on the same feedline is linked to it.
+  **By its own radio**: with no feedline to a station, a control radio and whip on the turret, its link worked out by the radio's physics
+  as a vehicle's is. Coax first.
+- **The firing rule [O, 25 Nov 2026]:** the remote guns' rule: it fires only while a station's operator has its picture, or when D'thorga
+  Framework's "Remote guns fire on their own" is on. That setting lives in Framework's Vehicle Framework part; without Vehicle Framework
+  there is no such switch and the turret fires only with the picture [A].
+- **The operator [O]:** a turret takes one of the station operator's hands, as a driven vehicle does (two at once today).
+- **Ammunition [O]:** a 200-round .50 belt fed from steel by haulers, as the trucks' station's; Combat Extended's .50 BMG with it.
+- **Power [A]:** grid power for its drive, as the game's turrets; without power it holds fire.
+- **Research [A]:** remote turrets, after remote vehicle control and the game's gun turrets.
+
+**Its cost (before it is built):**
+- **Coax link:** read from the feedline network the station already walks for its antennas, when that network changes (a pipe built
+  or removed), never per tick. A turret's link is one dictionary lookup when the gun asks whether it may fire.
+- **Own radio:** the turret's radio joins the net's links as one more fixed radio, worked out when the net is marked dirty (a wall, a
+  roof, an antenna, a radio put on or taken off), as every link is; a fixed building's link never changes between those. Its picture is
+  the second ledger candidate, as a vehicle's. One more radio per turret in the net's pass: to be measured with `perf.py` on the owner's
+  colony, before and after, with several turrets placed (the radio's rule: measured, never assumed).
+- **The gun:** the game's own turret loop; our check is a field read when it looks for a target. Nothing per frame.
+
+**Slices [A]:** (1) the turret, its art, coax link, firing rule and operator hands; (2) its own radio link, then the measurement.
+
+**Slice 1, built (Radio 0.18.0), not yet tested in game.** What differs from the design above:
+- **[code: `Comps/CompRemoteTurret.cs`, `Services/RadioNet.ServeTurrets`, `Physics/RemoteTurretRule`]** The building is the game's
+  turret (`Building_PhobosRemoteTurret`), finding no target while it may not fire and taking a forced target only while watched; no
+  patch. Turrets register with the net as they spawn; its pass gives each the powered station on its feedline and a hand after the
+  station's vehicles (`RemoteTurretRule.HasHand`, tested).
+- **An operator only while enemies are about [A, a decision in `config/decisions.json`]:** a station with turrets wants an operator
+  while the game's threat check says so, so nobody sits at the console all day; a station serving a vehicle wants one always, as before.
+- **The switch:** the radio's Vehicle Framework tie-in hands D'thorga Framework's "Remote guns fire on their own" to the radio at start-up.
+- **The pictures:** the pedestal (the owner's pick, 1.4 cells about its centre) and the top (the station's try 2, framed on its ring,
+  0.85 cells across, in a 2.25-cell square), by `assets/phobos-radio/export_remote_turret.py`.
+- **Not yet:** its own radio link (slice 2) and Combat Extended ammunition.
+
 ## The four questions
 
 - **What it lets the player do:** send a truck where no colonist should go (a supply run past a raid, a fire, a toxic fallout zone),

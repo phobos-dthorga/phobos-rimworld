@@ -75,6 +75,14 @@ public sealed class RadioNet : MapComponent
     private readonly Dictionary<Thing, int> vehiclesOn = new();
     /// <summary>The stations that serve a vehicle and have nobody working them (Radio 0.12.0): the operator's work.</summary>
     private readonly List<Thing> stationsWantingOperator = new();
+    /// <summary>The base turrets on this map (Radio 0.18.0), registered as they spawn: the net never scans the buildings for them.</summary>
+    private readonly List<CompRemoteTurret> turrets = new();
+    /// <summary>Each turret's station on its feedline, those of them its operator watches, and each station's turrets, at each pass.</summary>
+    private readonly Dictionary<Thing, Thing> turretStation = new();
+    private readonly HashSet<Thing> turretWatched = new();
+    private readonly Dictionary<Thing, int> turretsOn = new();
+    /// <summary>Whether enemies were about at the last pass, when a station calls an operator for its turrets [A]. Only read with turrets.</summary>
+    private bool threat;
     /// <summary>The station each radio in touch is served by, kept between recomputes so a holder keeps its channel. Never saved.</summary>
     private Dictionary<int, int> held = new();
     private readonly Dictionary<Pawn, Thing> servedBy = new();
@@ -209,7 +217,14 @@ public sealed class RadioNet : MapComponent
     }
 
     /// <summary>Whether this station serves a vehicle and so has work for an operator (Radio 0.12.0).</summary>
-    public bool HasVehiclesToDrive(Thing station) => VehiclesOn(station) > 0;
+    public bool HasVehiclesToDrive(Thing station) => VehiclesOn(station) > 0 || TurretsCalling(station);
+
+    /// <summary>Whether this station has base turrets on its feedline while enemies are about (Radio 0.18.0): work for an operator too.</summary>
+    public bool TurretsCalling(Thing station)
+    {
+        EnsureFresh();
+        return threat && turretsOn.ContainsKey(station);
+    }
 
     /// <summary>Whether this station serves a vehicle and nobody works it (Radio 0.12.0).</summary>
     public bool WantsOperator(Thing station) => HasVehiclesToDrive(station) && OperatorAt(station) == null;
@@ -349,6 +364,10 @@ public sealed class RadioNet : MapComponent
         operatorAt.Clear();
         vehiclesOn.Clear();
         stationsWantingOperator.Clear();
+        turretStation.Clear();
+        turretWatched.Clear();
+        turretsOn.Clear();
+        threat = false;
         servedBy.Clear();
         busy.Clear();
         servedOn.Clear();
@@ -392,6 +411,60 @@ public sealed class RadioNet : MapComponent
             antennaLabelByStation[station.parent] = strongest?.B.AntennaLabel ?? stationEnds[stationEnds.Count > 1 ? 1 : 0].AntennaLabel;
         }
         ServeFromChannels(rules);
+        ServeTurrets(rules);
+    }
+
+    /// <summary>A base turret spawned on this map (Radio 0.18.0): the net works it in at its next pass.</summary>
+    public void AddTurret(CompRemoteTurret turret)
+    {
+        if (!turrets.Contains(turret)) turrets.Add(turret);
+        dirty = true;
+    }
+
+    public void RemoveTurret(CompRemoteTurret turret)
+    {
+        turrets.Remove(turret);
+        dirty = true;
+    }
+
+    /// <summary>Whether a station's operator watches this turret now (Radio 0.18.0).</summary>
+    public bool TurretWatched(Thing turret)
+    {
+        EnsureFresh();
+        return turretWatched.Contains(turret);
+    }
+
+    /// <summary>The powered station on this turret's feedline, or null (Radio 0.18.0).</summary>
+    public Thing? TurretStation(Thing turret)
+    {
+        EnsureFresh();
+        return turretStation.TryGetValue(turret, out var station) ? station : null;
+    }
+
+    /// <summary>
+    /// The base turrets linked by coax (Radio 0.18.0; the owner's cards of 26 Nov 2026): each takes the powered station on its feedline, and
+    /// one of that station's operator's hands after its vehicles, in their order. While enemies are about, a station with turrets and nobody
+    /// at its console wants an operator [A], as one serving a vehicle does always.
+    /// <para>Cost: nothing without turrets; with them, one walk of each turret's feedline connectors and the game's threat check, once a
+    /// pass (about once a second), as the record states.</para>
+    /// </summary>
+    private void ServeTurrets(RadioRulesDef rules)
+    {
+        if (turrets.Count == 0) return;
+        threat = GenHostility.AnyHostileActiveThreatToPlayer(map);
+        turrets.Sort((a, b) => a.parent.thingIDNumber.CompareTo(b.parent.thingIDNumber));
+        foreach (var turret in turrets)
+        {
+            if (!turret.parent.Spawned || turret.Port is not { } port) continue;
+            var station = FeedlineService.StationOn(port);
+            if (station == null || !stations.Contains(station)) continue;
+            var at = station.parent;
+            turretStation[turret.parent] = at;
+            var place = (vehiclesOn.TryGetValue(at, out var vehicles) ? vehicles : 0) + (turretsOn.TryGetValue(at, out var before) ? before : 0);
+            turretsOn[at] = before + 1;
+            if (RemoteTurretRule.HasHand(operatorAt.ContainsKey(at), place, rules.vehiclesPerOperator)) turretWatched.Add(turret.parent);
+            if (threat && !operatorAt.ContainsKey(at) && !stationsWantingOperator.Contains(at)) stationsWantingOperator.Add(at);
+        }
     }
 
     /// <summary>

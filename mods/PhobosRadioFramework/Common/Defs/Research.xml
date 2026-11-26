@@ -66,4 +66,19 @@
     <researchViewX>13.00</researchViewX>
     <researchViewY>4.00</researchViewY>
   </ResearchProjectDef>
+  <!-- Radio 0.18.0 (docs/development/autonomous-vehicles.md, the base turret): after remote vehicle control, whose servos and camera it
+       shares, and the game's gun turrets [A]. Authored cost. -->
+  <ResearchProjectDef>
+    <defName>PhobosRadio_RemoteTurrets</defName>
+    <label>remote turrets</label>
+    <description>A heavy machine gun on a powered, camera-sighted mount that a colonist at a radio station watches and aims, linked by coax.</description>
+    <baseCost>1500</baseCost>
+    <techLevel>Industrial</techLevel>
+    <prerequisites>
+      <li>PhobosRadio_RemoteVehicles</li>
+      <li>GunTurrets</li>
+    </prerequisites>
+    <researchViewX>14.00</researchViewX>
+    <researchViewY>3.20</researchViewY>
+  </ResearchProjectDef>
 </Defs>

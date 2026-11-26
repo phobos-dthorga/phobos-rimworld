@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The base turret (Radio 0.18.0; docs/development/autonomous-vehicles.md, "The base turret"; the owner's cards of 26 Nov 2026): a
+       ground remote weapon station, the trucks' station's second try on a pedestal of its own. It fires only while a radio station's
+       operator watches it, or when remote guns may fire on their own. Linked by coax: on the feedline of a powered station, it takes one
+       of that station's operator's hands after its vehicles. Figures [A] authored unless marked; the .50 as the trucks' station's. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosRadio_RemoteTurret</defName>
+    <label>remote gun turret</label>
+    <description>A .50 heavy machine gun on a powered mount with a camera sight, on an armoured pedestal. Nobody sits at it: it fires while a colonist at a radio station watches through its camera, and that colonist can aim it. Connect it to a radio station with coax. It is fed a belt of rounds made from steel, and holds fire without power.</description>
+    <thingClass>Phobos.Radio.Building_PhobosRemoteTurret</thingClass>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <graphicData>
+      <!-- The owner's pick (try 1, 26 Nov 2026), exported by assets/phobos-radio/export_remote_turret.py. -->
+      <texPath>Phobos/Radio/Things/RemoteTurretBase</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1.4, 1.4)</drawSize>
+      <damageData>
+        <rect>(0.2, 0.2, 0.6, 0.6)</rect>
+      </damageData>
+      <shadowData>
+        <volume>(0.27, 0.25, 0.27)</volume>
+      </shadowData>
+    </graphicData>
+    <uiIconPath>Phobos/Radio/Things/RemoteTurretTop</uiIconPath>
+    <altitudeLayer>Building</altitudeLayer>
+    <stealable>false</stealable>
+    <rotatable>false</rotatable>
+    <size>(1, 1)</size>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <fillPercent>0.4</fillPercent>
+    <hasTooltip>true</hasTooltip>
+    <tickerType>Normal</tickerType>
+    <statBases>
+      <MaxHitPoints>250</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+      <WorkToBuild>8000</WorkToBuild>
+      <Mass>60</Mass>
+      <Beauty>-20</Beauty>
+      <ShootingAccuracyTurret>0.97</ShootingAccuracyTurret>
+    </statBases>
+    <costList>
+      <Steel>120</Steel>
+      <ComponentIndustrial>6</ComponentIndustrial>
+      <ComponentSpacer>1</ComponentSpacer>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+    <designationCategory>PhobosRadio_Architect</designationCategory>
+    <uiOrder>2130</uiOrder>
+    <researchPrerequisites>
+      <li>PhobosRadio_RemoteTurrets</li>
+    </researchPrerequisites>
+    <comps>
+      <li Class="CompProperties_Forbiddable" />
+      <!-- Its drive and camera [A]: a modest steady draw from the grid; without power it holds fire, as the game's turrets do. -->
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>150</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Breakdownable" />
+      <!-- The belt (the owner's card of 26 Nov 2026): 200 rounds, four to a steel, as the trucks' station's quarter of a steel a round. -->
+      <li Class="CompProperties_Refuelable">
+        <fuelLabel>Rounds in the belt</fuelLabel>
+        <fuelGizmoLabel>Ammunition belt</fuelGizmoLabel>
+        <outOfFuelMessage>Out of ammunition</outOfFuelMessage>
+        <fuelFilter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </fuelFilter>
+        <fuelCapacity>200</fuelCapacity>
+        <fuelMultiplier>4</fuelMultiplier>
+        <initialFuelPercent>0</initialFuelPercent>
+        <autoRefuelPercent>0.5</autoRefuelPercent>
+        <showFuelGizmo>true</showFuelGizmo>
+        <minimumFueledThreshold>1</minimumFueledThreshold>
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort">
+        <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_RemoteTurret" />
+    </comps>
+    <building>
+      <combatPower>60</combatPower>
+      <ai_combatDangerous>true</ai_combatDangerous>
+      <turretGunDef>PhobosRadio_RemoteTurretGun</turretGunDef>
+      <turretBurstCooldownTime>2.5</turretBurstCooldownTime>
+      <!-- The top's square: its ring sits in the pedestal's socket, the barrel reaching 0.94 cells (the exporter's record). -->
+      <turretTopDrawSize>2.25</turretTopDrawSize>
+    </building>
+    <placeWorkers>
+      <li>PlaceWorker_TurretTop</li>
+      <li>PlaceWorker_ShowTurretRadius</li>
+    </placeWorkers>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseWeaponTurret">
+    <defName>PhobosRadio_RemoteTurretGun</defName>
+    <label>remote .50 gun</label>
+    <description>The remote gun turret's heavy .50 machine gun, on its powered, camera-sighted mount.</description>
+    <graphicData>
+      <!-- The remote weapon station's second try (the owner's "use both"), framed on its ring. -->
+      <texPath>Phobos/Radio/Things/RemoteTurretTop</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <AccuracyTouch>0.70</AccuracyTouch>
+      <AccuracyShort>0.65</AccuracyShort>
+      <AccuracyMedium>0.55</AccuracyMedium>
+      <AccuracyLong>0.45</AccuracyLong>
+      <RangedWeapon_Cooldown>2.5</RangedWeapon_Cooldown>
+      <DeteriorationRate>0</DeteriorationRate>
+      <Mass>40</Mass>
+      <Flammability>0</Flammability>
+    </statBases>
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <defaultProjectile>Bullet_SniperRifle</defaultProjectile>
+        <warmupTime>1.2</warmupTime>
+        <minRange>1.9</minRange>
+        <range>36</range>
+        <ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+        <burstShotCount>6</burstShotCount>
+        <soundCast>Shot_Minigun</soundCast>
+        <soundCastTail>GunTail_Medium</soundCastTail>
+        <muzzleFlashScale>9</muzzleFlashScale>
+        <consumeFuelPerShot>1</consumeFuelPerShot>
+      </li>
+    </verbs>
+  </ThingDef>
+</Defs>

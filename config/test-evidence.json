@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "540": ["radio.remote-turret"],
     "509": {"parts": {"per-wheel brakes keep an old save's wear": [{"key": "vehicles.older-save-brakes", "expect": {"health": "< 1"}}]}},
     "504": {"parts": {"the trailer's waste drains into the colony's septic tank": ["trailers.waste-to-sewer"]}},
     "500": {"parts": {"the newest linked vehicle loses control first": [{"key": "vehicles.mech-link-short", "expect": {"links": ">= 2"}}]}},

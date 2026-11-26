@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/RemoteTurretBase.png",
+  "source": "assets/phobos-radio/generated/remote-turret-pedestal/remote-turret-pedestal-1.png",
+  "source_sha256": "5a78f1de4f6a0d7e2325d24cdf9389cccd5dc8678211aac10966d1887c667a5b",
+  "target_sha256": "bb9848c08cf278a28cbd5e47b81422ae40c6f4deebf5e220458e531834815d6b",
+  "size": [
+    179,
+    179
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "ai_mask": "5a78f1de4f6a0d7e2325d24cdf9389cccd5dc8678211aac10966d1887c667a5b",
+  "white_left": [],
+  "date": "2026-11-26T11:07:20",
+  "tool": "assets/phobos-radio/export_remote_turret.py: export_sprite cut-out, the whole canvas about its centre, premultiplied Lanczos",
+  "draw_cells": 1.4
+}

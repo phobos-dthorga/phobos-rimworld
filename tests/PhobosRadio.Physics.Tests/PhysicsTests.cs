@@ -456,3 +456,24 @@ public class LinkSheetTests
         Assert.Equal(expected, MarginBands.Default.Classify(margin));
     }
 }
+
+public class RemoteTurretRuleTests
+{
+    [Fact]
+    public void ATurretFiresWatchedOrWithTheSetting()
+    {
+        // Radio 0.18.0 (the owner: "Picture link, or the setting").
+        Assert.False(RemoteTurretRule.MayFire(watched: false, fireAlone: false));
+        Assert.True(RemoteTurretRule.MayFire(watched: true, fireAlone: false));
+        Assert.True(RemoteTurretRule.MayFire(watched: false, fireAlone: true));
+    }
+
+    [Fact]
+    public void ATurretTakesOneOfTheOperatorsHandsAfterTheVehicles()
+    {
+        // Two hands: two vehicles leave none for a turret; one vehicle leaves one.
+        Assert.False(RemoteTurretRule.HasHand(operatorAtConsole: true, place: 2, handsPerOperator: 2));
+        Assert.True(RemoteTurretRule.HasHand(operatorAtConsole: true, place: 1, handsPerOperator: 2));
+        Assert.False(RemoteTurretRule.HasHand(operatorAtConsole: false, place: 0, handsPerOperator: 2));
+    }
+}

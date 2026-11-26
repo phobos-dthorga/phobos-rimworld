@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.17.0, built 26 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.18.0, built 26 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -44,6 +44,8 @@ figures are here.
   after the **Local radio** research.
 - **A radio terminal**, **linear amplifiers** of 100 W and 400 W for the coax, and a **full-size ground-plane** (0.5.0), after
   **Software radio**, **Linear amplifiers** and **High-power amplifiers**.
+- **A remote gun turret** (0.18.0), after **Remote turrets**: a .50 on a pedestal, connected to a station by coax, firing while a colonist
+  at the station's console watches it ([the guide](../../docs/player-guide/radio.md#what-to-build)).
 - **A link budget for every contact**, both directions, the worse one deciding: workable, faint or no contact.
 - **What a colonist sees**: a Radio button with signal bars and the reason, the station's **Net** tab, coverage painted on the map
   when the station or an antenna is selected, and a line from a selected colonist to the antenna they use.
