@@ -1,0 +1,56 @@
+{
+  "file": "airdrop-dz-marker-3.png",
+  "sha256": "859d74704e07df4508572872ad3a2c104bc9b2d465f784b412093e1c0e8e8adf",
+  "date": "2026-11-26T12:37:21",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the objects from above. Rectangular edges run horizontally and vertically on the canvas. Round things stay true circles. Show no vertical side faces.\n\nCreate an ORIGINAL game building sprite for a military drop zone marker set out on the ground so aircraft overhead can see where to drop: a pathfinder's bright fluorescent signal panel staked flat, with a small violet smoke canister and a small battery beacon lamp staked beside it. Image 1 is our approved airdrop piece from the same game, seen from directly above: match its outline weight, shading, overhead camera and finish only. Image 2 is our approved airdrop item: match its outline weight and cel shading only. Do NOT copy their shapes or colours.\n\nSquare canvas, on a plain pure white background. The whole group fills about 85 percent of the canvas, centred. Layout: the panel across the UPPER and middle part of the canvas; the smoke canister below the panel's LOWER LEFT corner; the beacon lamp below the panel's LOWER RIGHT corner.\n\nThe panel seen from above: a long flat rectangle exactly THREE times as long as it is wide, its long sides running from LEFT to RIGHT, spanning about 75 percent of the canvas width: a flat sheet of vivid fluorescent orange nylon fabric lying flat, with a narrow stitched hem all round its edge and a few very soft shallow wrinkles; its upper right corner folded back over itself as a small crisp triangle that shows the vivid cerise pink of the panel's reverse side; at each of its four corners a small fabric loop held down by a short bent steel tent peg.\n\nThe smoke canister seen from above: a small upright olive-drab steel cylinder, seen end-on as a circle about one tenth of the canvas wide, its round top painted bright violet, a small grey fuse cap in the centre of the top, standing on the ground beside the panel. From its top rises only a thin small curl of violet smoke drawn as a simple cartoon wisp with a thin dark outline, curling a short way to one side and no bigger than the canister itself. Not a plume, not a column, not a cloud.\n\nThe beacon lamp seen from above: a small stubby round lamp, about one tenth of the canvas wide, a dark grey plastic housing ring around a domed amber lens, the lens unlit and plain, with a short steel stake driven into the ground just under it.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, the orange, cerise and violet bright and saturated as the only strong colours, a few small clean details, no texture noise. Only a soft, faint contact shadow right under each object, no cast shadows from a sun angle. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, stencils, symbols, arrows, logos, people, hands, cords or wires, grass, dirt, ground or anything else. No glow, light rays or lit lamp. No large smoke cloud, plume or column. No perspective, no tilt.",
+  "seed": 3,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/airdrop-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 981,
+    "input_tokens_details": {
+      "image_tokens": 320,
+      "text_tokens": 661
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2737
+  },
+  "cost_usd": 0.0585,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 36.8,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CargoBundle.png",
+      "sha256": "ec5db70ea52f863db677a6228e3bffb0a504fefaad4aea0dffa2a02ca4ebe7a0",
+      "role": "our approved airdrop piece seen from directly above (the cargo bundle, the owner's pick of 25 Nov 2026): match its outline weight, shading, overhead camera and finish only; do not copy its shape or colours"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/SpentParachute.png",
+      "sha256": "8bb5c229281f927cc7da66545ef99b0c888f5e0f4c46ca157cfa777bfb17b470",
+      "role": "our approved airdrop item (the spent parachute, the owner's pick of 25 Nov 2026): match its outline weight, cel shading and finish only; do not copy its shape, colours or item angle"
+    }
+  ]
+}

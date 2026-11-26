@@ -1,0 +1,56 @@
+{
+  "file": "airdrop-dz-marker-1.png",
+  "sha256": "fed8e29683b2035268020c609084e00723fc30e555957052f161dd974bb097d5",
+  "date": "2026-11-26T11:36:36",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical side faces.\n\nCreate an ORIGINAL game building sprite for a military drop zone marker: a pathfinder's bright fluorescent signal panel staked flat on the ground so aircraft overhead can see where to drop. Image 1 is our approved airdrop piece from the same game, seen from directly above: match its outline weight, shading, overhead camera and finish only. Image 2 is our approved airdrop item: match its outline weight and cel shading only. Do NOT copy their shapes or colours.\n\nSquare canvas. The panel is a long flat rectangle, three times as long as it is wide, its long sides running from the LEFT to the RIGHT of the canvas, centred, spanning about 85 percent of the canvas width, on a plain pure white background.\n\nThe panel seen from above: a flat sheet of vivid fluorescent orange nylon fabric lying flat on the ground, with a narrow stitched hem all round its edge and a few very soft shallow wrinkles; its upper right corner folded back over itself as a small triangle that shows the vivid cerise pink of the panel's reverse side; at each of its four corners a small fabric loop held down by a short bent steel tent peg driven into the ground, each peg with a small irregular patch of brown dirt around it, the dirt kept small and close to the peg.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, the orange and cerise bright and saturated as the only strong colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, stencils, symbols, arrows, logos, people, hands, cords running off the panel, grass, or ground beyond the small dirt patches at the pegs. No shadow outside the panel, no perspective, no tilt.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/airdrop-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 749,
+    "input_tokens_details": {
+      "image_tokens": 320,
+      "text_tokens": 429
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2505
+  },
+  "cost_usd": 0.0574,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 27.1,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/CargoBundle.png",
+      "sha256": "ec5db70ea52f863db677a6228e3bffb0a504fefaad4aea0dffa2a02ca4ebe7a0",
+      "role": "our approved airdrop piece seen from directly above (the cargo bundle, the owner's pick of 25 Nov 2026): match its outline weight, shading, overhead camera and finish only; do not copy its shape or colours"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Airdrop/SpentParachute.png",
+      "sha256": "8bb5c229281f927cc7da66545ef99b0c888f5e0f4c46ca157cfa777bfb17b470",
+      "role": "our approved airdrop item (the spent parachute, the owner's pick of 25 Nov 2026): match its outline weight, cel shading and finish only; do not copy its shape, colours or item angle"
+    }
+  ]
+}
