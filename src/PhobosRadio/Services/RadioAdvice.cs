@@ -27,10 +27,13 @@ public enum AdvicePlace
 /// <summary>A home a person off the map reaches by radio: its map, the link's margin, and what the person reaches it through.</summary>
 public readonly record struct RemoteHome(double MarginDb, Map Home);
 
-/// <summary>Something that can say whether a person off the map reaches home by radio: the Vehicle Framework tie-in, for convoys.</summary>
+/// <summary>
+/// Something that can say which colonies a person off the map reaches by radio: the Vehicle Framework tie-in, for convoys. Since Radio
+/// 0.24.1 a lazy list, the colony reached first before the others, so a caller that stops at the first that helps asks no more.
+/// </summary>
 public interface IRemoteReachSource
 {
-    RemoteHome? Home(Pawn pawn);
+    IEnumerable<RemoteHome> Homes(Pawn pawn);
 }
 
 /// <summary>Where a person off the map reaches home by radio, when a tie-in can say (Radio 0.23.0): a convoy's reach home.</summary>
@@ -40,7 +43,8 @@ public static class RemoteReach
 
     public static void Register(IRemoteReachSource reachSource) => source = reachSource;
 
-    public static RemoteHome? Of(Pawn pawn) => source?.Home(pawn);
+    /// <summary>The colonies this person reaches, the first reached first; asked one by one as the caller goes on.</summary>
+    public static IEnumerable<RemoteHome> Of(Pawn pawn) => source?.Homes(pawn) ?? Enumerable.Empty<RemoteHome>();
 }
 
 /// <summary>One adviser found for one carer, and what the call would lift them to.</summary>
@@ -160,21 +164,25 @@ public static class RadioAdvice
     {
         if (!Enabled(def) || carer.skills == null) return null;
         var rules = RadioRulesDef.Current;
-        LinkOutcome carerOutcome;
-        Map home;
         if (carer.Spawned)
         {
             var net = RadioNet.For(carer.Map);
             if (net.ServedBy(carer) == null || !net.TryGetBest(carer, out var link) || link == null) return null;
-            carerOutcome = link.Budget.Outcome;
-            home = carer.Map;
+            return SeekAt(carer, def, carer.Map, link.Budget.Outcome);
         }
-        else
+        // Off the map: the colony the convoy reaches first, then (Radio 0.24.1) each other colony it reaches, through a repeater station
+        // among the relays, until one has someone who can help. The others are asked only when the first could not help.
+        foreach (RemoteHome remote in RemoteReach.Of(carer))
         {
-            if (RemoteReach.Of(carer) is not { } remote) return null;
-            carerOutcome = rules.MarginBands.Classify(remote.MarginDb);
-            home = remote.Home;
+            if (SeekAt(carer, def, remote.Home, rules.MarginBands.Classify(remote.MarginDb)) is { } offer) return offer;
         }
+        return null;
+    }
+
+    /// <summary>The best adviser at one colony for a carer whose own link there has this outcome, or null.</summary>
+    private static AdviceOffer? SeekAt(Pawn carer, RadioAdviceDef def, Map home, LinkOutcome carerOutcome)
+    {
+        var rules = RadioRulesDef.Current;
         if (carerOutcome == LinkOutcome.NoContact) return null;
         int own = SkillLifts.OwnLevel(carer, def.skill);
         bool aid = def.aid != null && HasAid(carer, def.aid);

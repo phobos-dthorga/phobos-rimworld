@@ -20,6 +20,18 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+
+## [0.24.1] - 2026-11-27 - Draft
+
+The base station's repeater carries advice by radio
+
+### Fixed
+
+- **The base station's repeater upgrade did nothing in 0.24.0**: nothing aimed a call at one colony, so another colony's repeater was
+  never used. Now advice by radio from a convoy asks the colony it reaches first, and when nobody there can help, each other colony in
+  turn, through any relay, a repeater station among them (the owner's card: make it work). A convoy holds its places at relays for its
+  call home and for such a call apart, so neither undoes the other; with one colony nothing extra runs. Not yet tested in game: row 630.
+
 ## [0.24.0] - 2026-11-27 - Draft
 
 Channels at relays, colony stations as relays, and the radio relay post

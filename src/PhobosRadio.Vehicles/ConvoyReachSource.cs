@@ -47,11 +47,25 @@ public sealed class ConvoyReachSource : IConvoyReachSource
         return new RelayNode(end, convoy.Tile, convoy.LabelCap, convoy, Repeater: VehicleRadios.Repeats(carrier), SiteMetres: RelayNode.SiteOf(convoy.Tile));
     }
 
-    /// <summary>Each powered station's ends on each home map, as targets.</summary>
-    static List<RelayNode> HomeEnds()
+    /// <summary>
+    /// How much a convoy's call to one colony's stations alone has to spare, through any relay, or null when it does not reach (Radio
+    /// 0.24.1; the owner's card of 27 Nov 2026, "Make it work": another colony's station with the repeater upgrade relays toward this one).
+    /// Its relay places are booked under the convoy and that colony together, apart from the convoy's own reach home. Asked only when the
+    /// colony the convoy reaches first could not help (advice by radio), so with one colony it never runs.
+    /// </summary>
+    public static double? MarginTo(Caravan convoy, Map colony)
+    {
+        if (ConvoyEnd(convoy, ConvoyRadio.Mast(convoy)) is not { } start) return null;
+        List<RelayNode> targets = HomeEnds(colony);
+        if (targets.Count == 0) return null;
+        return RelayNodes.BestChain(start, targets, RelayNodes.All().ToList(), leaseHolder: (convoy, colony)) is { } found ? found.chain.WorstMarginDb : null;
+    }
+
+    /// <summary>Each powered station's ends on each home map, or on one map only, as targets.</summary>
+    static List<RelayNode> HomeEnds(Map? only = null)
     {
         var ends = new List<RelayNode>();
-        foreach (Map map in Find.Maps.Where(m => m.IsPlayerHome))
+        foreach (Map map in Find.Maps.Where(m => m.IsPlayerHome && (only == null || m == only)))
         {
             foreach (CompRadio station in RadioNet.For(map).Stations)
             {

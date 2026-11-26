@@ -110,20 +110,24 @@ public static class RelayNodes
     /// a tile, each evaluated once, the chain at most the rules' hops. Null when nothing reaches. A relay with no room for the caller (the
     /// owner of <paramref name="from"/>) is left out; the chain found holds a place at each of its relays for the rules' lease, and a caller
     /// that finds none lets go of its places. A target is any end the caller names: home's stations for "reach home", or one colony's alone,
-    /// so another colony's station with a repeater relays toward it.
+    /// so another colony's station with a repeater relays toward it. <paramref name="leaseHolder"/> (Radio 0.24.1) is whose places these
+    /// are, the caller's own by default: a second search for the same convoy aimed at one colony books under its own name, so it neither
+    /// takes over nor lets go of the places the convoy's own reach home holds. A convoy calling home and one colony at once holds two calls.
     /// </summary>
-    public static (RelayRule.Chain chain, List<RelayNode> nodes)? BestChain(RelayNode from, IReadOnlyList<RelayNode> targets, IEnumerable<RelayNode> relays)
+    public static (RelayRule.Chain chain, List<RelayNode> nodes)? BestChain(RelayNode from, IReadOnlyList<RelayNode> targets, IEnumerable<RelayNode> relays,
+        object? leaseHolder = null)
     {
         var rules = RadioRulesDef.Current;
         int now = Find.TickManager.TicksGame;
         int kind = KindOf(from);
+        object holder = leaseHolder ?? from.Owner;
         RelayLedger leases = Ledger;
         var full = new List<RelayNode>();
         var nodes = new List<RelayNode> { from };
         foreach (RelayNode relay in relays)
         {
             if (relay.Owner == from.Owner) continue;
-            if (leases.HasRoom(relay.Owner, from.Owner, kind, Shapes, relay.ChannelsOrRules, now)) nodes.Add(relay);
+            if (leases.HasRoom(relay.Owner, holder, kind, Shapes, relay.ChannelsOrRules, now)) nodes.Add(relay);
             else full.Add(relay);
         }
         int firstTarget = nodes.Count;
@@ -135,11 +139,13 @@ public static class RelayNodes
                 ? link.MarginDb : null;
         }
         RelayRule.Chain chain = RelayRule.Best(nodes.Count, 0, i => i >= firstTarget, i => i < firstTarget, Hop, rules.maxRelayHops);
-        busy.Remove(from.Owner);
+        // The busy line is the convoy's own reach home's; a search aimed at one colony leaves it alone.
+        bool own = Equals(holder, from.Owner);
+        if (own) busy.Remove(from.Owner);
         if (!chain.Found)
         {
-            leases.Release(from.Owner);
-            if (full.Count > 0)
+            leases.Release(holder);
+            if (own && full.Count > 0)
             {
                 busy[from.Owner] = full.Select(r => r.Label).Distinct().ToCommaList(useAnd: true);
                 if (Seen.Wants("radio.relay-busy", from.End.Thing)) Seen.Note("radio.relay-busy", from.End.Thing, busy[from.Owner]);
@@ -147,7 +153,7 @@ public static class RelayNodes
             return null;
         }
         var held = chain.Path.Skip(1).Take(chain.Relays).Select(i => nodes[i]).ToList();
-        leases.Hold(from.Owner, kind, held.Select(r => r.Owner), Shapes, owner => held.First(r => r.Owner == owner).ChannelsOrRules, now, now + rules.relayLeaseTicks);
+        leases.Hold(holder, kind, held.Select(r => r.Owner), Shapes, owner => held.First(r => r.Owner == owner).ChannelsOrRules, now, now + rules.relayLeaseTicks);
         foreach (RelayNode relay in held)
         {
             if (relay.Owner is Outpost_PhobosRelayPost && Seen.Wants("radio.relay-post", from.End.Thing)) Seen.Note("radio.relay-post", from.End.Thing, relay.Label);

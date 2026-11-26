@@ -173,11 +173,13 @@ Built on the owner's word of 26 Nov 2026, not yet tested in game (rows 620 to 62
 - **Chest** [A]: within 8 cells or in the carer's room, carried, or anywhere in the convoy's inventory.
 - **Thought** [A]: the carer gains "talked me through it by radio", +6 opinion of the adviser for 10 days. The patient gets nothing.
 - **Not built**: learning faster while talked through; other factions' advice; a downed adviser (a person must be able to take a job
-  or lie awake in bed); advice in person without a radio. **Aiming at one colony through another's repeater** [A, set aside 27 Nov
-  2026]: with two colonies, a convoy reaches whichever answers best, and only that colony's people advise. Asking again aimed at the
-  other colony, so its station's repeater carries the call, would replace the places the convoy's own reach holds at each relay (Radio
-  0.24.0 holds them per caller), and costs one more chain search per colony; worth it only if the owner finds two-colony convoys short of
-  advice in play.
+  or lie awake in bed); advice in person without a radio. **Aiming at one colony through another's repeater** (Radio 0.24.1; the
+  owner's card of 27 Nov 2026, "Make it work", after radio-autonomy set it aside for two reasons): a convoy's call goes first to the colony
+  its reach home finds; only when nobody there can help does it ask each other colony in turn, aimed at that colony's stations alone, so
+  another colony's station with the repeater upgrade carries it (`IRemoteReachSource.Homes`, a lazy list; `ConvoyReachSource.MarginTo`).
+  Both reasons are answered: the aimed search books its relay places under the convoy and that colony together
+  (`RelayNodes.BestChain`'s `leaseHolder`), never touching the convoy's own; and the extra searches run only when the first colony could
+  not help, kept with the offer for 250 ticks, so with one colony they never run. Not yet tested in game: row 630.
 - **Cost, as built**: every 60 ticks, a set lookup on each colonist's job on maps with a station; a search of the home map's colonists
   only for one doing advisable work with no call, at most once every 250 ticks each; an offer for a person off the map kept 250 ticks.
   A read of a lifted stat costs two dictionary lookups when no call is live. **To measure with `scripts/perf.py`** before and after,
@@ -297,7 +299,7 @@ relay post"). Built by road-work-four. Every figure is the agent's. Not yet test
 - **Home stations**: the base station's **repeater** upgrade (`PhobosRadio_UpgradeRepeater`, 25 steel and 3 components, Construction 5,
   after remote-controlled vehicles [A]) sets the figure `repeater` (`RadioUpgrades.Repeater`); each powered station with it on a home map
   is a relay (`HomeStationRelaySource`). It helps only a call aimed at one colony: a call that reaches any colony is home already, and a
-  target is never passed through. Radio advice is such a call; radio-autonomy aims it at each adviser's colony after this version.
+  target is never passed through. Radio advice is such a call, aimed at one colony since Radio 0.24.1 (below, under radio advice's limits).
 - **The radio relay post** (`PhobosRadio_RelayPost`, `Outpost_PhobosRelayPost`): an outpost of Vanilla Expanded Framework's own outposts
   code, which the Radio Framework depends on already, so its "create outpost" window offers it with no code of ours. 120 steel and 8
   components, one colonist to keep it [A]; it produces nothing; a 50 W VHF relay radio on a 20 m mast with four channels [A], made from
