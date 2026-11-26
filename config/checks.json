@@ -1,5 +1,5 @@
 {
-  "description": "Rules that say when a save, or the running game, holds a state our mods should never be in (docs/development/test-automation.md). Save checks: python scripts/query-save.py checks. Live checks, which take a snapshot of the running game (ask the owner first): python scripts/perf.py look-check. How a check is written: external/phobos-modkit/docs/checks.md. A finding is not an in-game test, and a rule can be wrong.",
+  "description": "Rules that say when a save, or the running game, holds a state our mods should never be in (docs/development/test-automation.md). Save checks: python scripts/query-save.py checks. Live checks, which take a snapshot of the running game (ask the owner first): python scripts/perf.py look-check. How a check is written: external/phobos-modkit/docs/checks.md. A rule's note (kit 1.129.0) gives figures for the test list, read by test-pass from the newest saves and judged by config/test-evidence.json. A finding is not an in-game test, and a rule can be wrong.",
   "checks": [
     {
       "id": "vehicle-numbers",
@@ -115,6 +115,83 @@
       "says": "a {jet} saved with another jet mod's guns: {unique(guns)}",
       "row": "555",
       "why": "Since 26 Nov 2026 the Harrier, Close Air Support and the Prowler each carry their own copy of the flight code. A jet saved under another mod's copy runs that code without its own fixed-wing data: no Sortie, a hover for a take-off (Patches 0.45.2 puts it right on load). A check cannot read a thing's own class, so this reads its guns, saved with it."
+    },
+    {
+      "id": "grade-health-cherokee-chemtank",
+      "title": "A graded Cherokee chemtank's health follows its grade, through a save",
+      "source": "save",
+      "select": {
+        "def": "VVE_Cherokee"
+      },
+      "read": {
+        "parts": "PhobosVehicleSystems_Grades/li[*]/part",
+        "grades": "PhobosVehicleSystems_Grades/li[*]/def",
+        "chemtank": "statHandler/components/li[19]/health"
+      },
+      "when": "count(parts) == 1 and contains(parts, \"Chemtank\")",
+      "fault": "chemtank > 120 * 1.3 + 0.01",
+      "says": "chemtank health {chemtank}, above heavy-duty's 156",
+      "note": {
+        "key": "check.vehicle.grade-health",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "factor": "round(chemtank / 120, 3)"
+        },
+        "variant": "{unique(grades)}",
+        "detail": "{unique(grades)} chemtank at {chemtank} of 120"
+      },
+      "row": "9",
+      "why": "Figures for row 9 (test automation round two, 26 Nov 2026). A grade's healthFactor (PartGrades.xml: heavy-duty 1.3, salvaged 0.7) raises or lowers a part's maximum, and a load puts it back before health is restored, so a saved health above 120 can only be the raised maximum kept through a save; nothing can go above 156. 120 is the Chemtank's health in Vanilla Vehicles Expanded's Cherokee, and li[19] its place among the Cherokee's parts, both as of 26 Nov 2026: Vehicle Framework saves its own parts by place, not name, so a VVE update that reorders them makes this read another part. Only a Cherokee with one graded part is read, so the grade read is the chemtank's."
+    },
+    {
+      "id": "extra-fuel-cherokee",
+      "title": "A Cherokee's ferry tank holds three quarters again, and no more",
+      "source": "save",
+      "select": {
+        "def": "VVE_Cherokee"
+      },
+      "read": {
+        "fits": "PhobosVehicleSystems_Fitted/li[*]/def",
+        "fuel": "fuel"
+      },
+      "when": "contains(fits, \"PhobosFitting_FerryTank\")",
+      "fault": "fuel > 420 * 1.75 + 0.01",
+      "says": "fuel {fuel}, above the 735 a stock tank and a ferry tank hold",
+      "note": {
+        "key": "check.vehicle.extra-fuel",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "share": "round(fuel / 420, 3)"
+        },
+        "variant": "ferry"
+      },
+      "row": "67",
+      "why": "Figures for row 67 (test automation round two). The ferry tank's fuelCapacityFactor is 1.75 (Fittings.xml), so fuel above the stock tank's 420 (Vanilla Vehicles Expanded's Cherokee) shows the larger capacity in force, and above 735 is the capacity that keeps growing after a save and load, which the row watches for."
+    },
+    {
+      "id": "extra-fuel-harrier",
+      "title": "A Harrier's ferry tank holds three quarters again, and no more",
+      "source": "save",
+      "select": {
+        "def": "Harrier_Jet"
+      },
+      "read": {
+        "fits": "PhobosVehicleSystems_Fitted/li[*]/def",
+        "fuel": "fuel"
+      },
+      "when": "contains(fits, \"PhobosFitting_FerryTank\")",
+      "fault": "fuel > 250 * 1.75 + 0.01",
+      "says": "fuel {fuel}, above the 437.5 a stock tank and a ferry tank hold",
+      "note": {
+        "key": "check.vehicle.extra-fuel",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "share": "round(fuel / 250, 3)"
+        },
+        "variant": "ferry"
+      },
+      "row": "67",
+      "why": "As for the Cherokee: the Harrier's stock tank is 250. The Harrier saves its own vehicle class, so it is chosen by its def: a class select of Vehicles.VehiclePawn never reaches it."
     }
   ]
 }

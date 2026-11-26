@@ -1,5 +1,10 @@
 # Test automation: checks, saved histories and live looks (25 Nov 2026)
 
+**Round two (26 Nov 2026):** at the owner's word ("Let's do #1 through #3", then "Don't forget to write it up as well, especially in
+the Companion's own guide"): figures from saves as evidence (kit 1.129.0, three rules for rows 9 and 67), and the save checks run by
+themselves in D'thorga Companion (0.101.0). The first live check on the owner's game waits for their save and "go". See
+[Round two](#round-two-26-nov-2026).
+
 **Status (26 Nov 2026):** At the owner's word ("let's do #1 through #3, and I especially want to do #4", then "Document everything
 though"). Built: save checks (phobos-modkit 1.119.0), live checks (1.120.0), saved histories (1.121.0), the version ledger
 (Framework 0.287.0), `config/checks.json` and the saved mapping, evidence for 26 more rows, and Companion 0.91.0's Run the checks.
@@ -188,6 +193,66 @@ page, behind its snapshot card.
   `saved.vehicle-jump-start`, `saved.logbook.<entry kind>`. Rows 69 and 74 take them beside the game's notes, with three order rules.
 - **The version ledger** (Framework 0.287.0): saves made before it hold none, so their notes are version 0 and stale for any row naming
   a version; evidence from them starts counting once the owner plays on with 0.287.0.
+
+## Round two (26 Nov 2026)
+
+The owner asked whether these abilities could be improved. Of seven offered, they chose the first three: run the live checks once on
+their game; figures as evidence; save checks run by themselves. Nothing here passes a row, and **nothing is tested in game or on
+screen**.
+
+| # | What | Where | State |
+| --- | --- | --- | --- |
+| 1 | The first live check on the owner's game (`python scripts/perf.py look-check`) | Nothing to build | **Waiting for the owner**: RimWorld was closed; ask first, and ask them to save |
+| 2 | Figures as evidence: a save check's `note` makes figures from each thing into notes, which test-pass reads from the newest saves and `expect` judges | phobos-modkit 1.129.0; three rules in `config/checks.json`; rows 9 and 67 in `config/test-evidence.json` | Built; untested in game |
+| 3 | Save checks run by themselves: each scan of Companion's page list runs every report the manifest marks with `waits`, and shows its count beside Reports, beside the report and on Home | phobos-modkit 1.129.0 (`waits`); D'thorga Companion 0.101.0 | Built; untested on screen |
+
+### The four questions
+
+| Question | Answer |
+| --- | --- |
+| What does it let the owner do? | Learn of a wrong state in their newest save the next time they look at Companion, with nothing pressed; see a row's figures read from their saves, judged against what the row expects |
+| What does it stop them doing? | Nothing in the game. A figure that misses the row's expectation no longer passes for a sighting: it is listed apart |
+| How does it change the way they test? | Saving while playing is enough for both: the next look at Companion checks the save, and the Tests page gains rows seen working by their figures |
+| What outside the thing notices? | Nothing in the game: by design, as for every testing tool |
+
+**Risk (agent's grade): none.** Both only read copies of saves; the kit indexes a new save once, in its own cache.
+
+### The figure rules (26 Nov 2026)
+
+Found by an agent's reading of the 162 claims "for the owner's eyes only", each probed on the owner's PG23 with a scratch check.
+
+| Rule | Row | Figure and expectation | Seen in PG23 | Also a fault |
+| --- | --- | --- | --- | --- |
+| `grade-health-cherokee-chemtank` | 9 | `factor`: the chemtank's health over its 120; heavy-duty `1.01..1.3001` | VVE_Cherokee10681530, heavy-duty, 156 (1.3) | Above 156 |
+| `extra-fuel-cherokee` | 67 | `share`: fuel over the stock 420; `1.01..1.7501` | Two Cherokees at 735 (1.75) | Above 735: the capacity that keeps growing |
+| `extra-fuel-harrier` | 67 | `share`: fuel over the stock 250; `1.01..1.7501` | Harrier_Jet22544104 at 437.5 (1.75) | Above 437.5 |
+
+**Agent choices, owner to revise:** one rule per graded part and per vehicle kind, since a rule cannot look a saved list up by a
+value read from another path; only a Cherokee with one graded part is read (so the grade read is the chemtank's); a figure below
+the range (a half-empty tank, a damaged part) simply does not count, rather than failing.
+
+**Found on the way:**
+
+- **A class select misses every jet**: the Harrier, A-10, Su-25 and Prowler save their own subclasses. Choose them by `def`.
+- **Vehicle Framework saves its own parts by place**, not name (`statHandler/components/li[N]/health`): a rule on one names the place
+  and the date. Parts our loadouts add are saved by name (`PhobosVehicleSystems_PartHealth[key]`).
+- **The first scan found 6 faults in PG23**: jets saved with another jet mod's guns (row 555's rule). PG23 was saved at 14:28, before
+  Patches 0.45.2 (14:55), which repairs them on load, so **the next save after a load with 0.45.2 should come up clean**: a free test of
+  that fix.
+- **HID_JLTV20213714 has had coolant level 0 for the whole saved day, its coolant temperature holding at 27 to 31 C in -15 C air.**
+  Possibly holed in battle and nothing to cool, or a quantity that stops moving when empty. Not investigated.
+
+### Next, if wanted
+
+- **The saved graph histories are the biggest store of figures.** Every vehicle keeps 24 hours of samples for each quantity it shows
+  (base64, 16-bit, scaled over the quantity's range), derived ones included. A kit function to decode them (`history(path, min,
+  max)`, with `last` or `at`) would let figure rules cover rows 27, 28 (and its missing oil-burn note), 29, 30, 34, 71, 92, 101, 144
+  and 396.
+- **Figures on notes we already write**: a `share` on `vehicles.part-replaced` and `part-replaced-at-rig` (rows 1 and 36: 0.25 and
+  0.6), a `factor` on `vehicles.grade-done` (row 9, any part); row 509's per-wheel brake wear is saved and readable.
+- **Live figure notes**: a snapshot is not kept and needs the running game's own ledger for a version; the kit refuses a `note` on
+  a live check until then. Row 58's `CompPhobosGeneratorSet.leadWatts` (300) would be the first.
+- The agent's full reading, with every claim's verdict: kept in the session's scratch notes only; this section holds what it found.
 
 ### Limits
 

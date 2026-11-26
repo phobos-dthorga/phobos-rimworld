@@ -9,6 +9,9 @@ Since the seen-in-play checks (18 Nov 2026, docs/development/seen-in-play-checks
 evidence and set rules on the order of notes; it is read through phobos-modkit's test-pass, which refuses a badly written map. A key
 with nothing narrowing it that stands for more than one row must be listed under ``shared`` with why (E4): a generic note standing for
 two claims is how rows 121 and 124 were once flagged on nothing.
+
+Since kit 1.129.0 (26 Nov 2026, test automation round two) a save check's ``note`` in ``config/checks.json`` writes notes too, one
+per thing per save, under a ``check.`` key: those keys count as noted, and each must stand for a row.
 """
 import json
 import re
@@ -36,16 +39,28 @@ def noted_keys():
     return keys
 
 
+def check_note_keys():
+    """The keys the save checks' notes write (kit 1.129.0); a key with a {placeholder} counts up to it, as a prefix."""
+    checks = json.loads((ROOT / 'config' / 'checks.json').read_text(encoding='utf-8'))['checks']
+    return {c['note']['key'].split('{')[0] for c in checks if c.get('note')}
+
+
 class TestEvidenceMapTests(unittest.TestCase):
     def setUp(self):
         self.map = json.loads((ROOT / 'config' / 'test-evidence.json').read_text(encoding='utf-8'))
         self.mapped = testpass.mapped_keys(self.map)
         self.prefixes = tuple(self.map.get('prefixes', {}))
         self.noted = noted_keys()
+        self.checked = check_note_keys()
 
     def test_every_mapped_key_is_noted_somewhere(self):
-        missing = sorted(k for k in self.mapped if k not in self.noted and not any(k.startswith(p) for p in self.prefixes))
-        self.assertEqual([], missing, 'keys in config/test-evidence.json that no Seen.Note writes')
+        missing = sorted(k for k in self.mapped if k not in self.noted and not any(k.startswith(p) for p in self.prefixes)
+                         and not any(k.startswith(c) for c in self.checked))
+        self.assertEqual([], missing, 'keys in config/test-evidence.json that no Seen.Note or save check note writes')
+
+    def test_every_save_check_note_has_a_row(self):
+        unmapped = sorted(c for c in self.checked if not any(k.startswith(c) for k in self.mapped))
+        self.assertEqual([], unmapped, 'save check note keys (config/checks.json) that no row of config/test-evidence.json names')
 
     def test_every_noted_key_has_a_row(self):
         unmapped = sorted(k for k in self.noted if k not in self.mapped and k not in self.prefixes)
