@@ -264,15 +264,22 @@ caravan was camped and no aircraft had heavy controls. Every rule was run over i
 **Agent choices, owner to revise:** a caravan is told by its place in the save (a world object) and the night heater switched on, since
 only the player switches loads; the day's best flight control stands for the sound one; the ranges of each expectation.
 
-**Found on the way, not investigated:**
+**Found on the way, and looked into at the owner's word (26 Nov 2026): neither is a fault.**
 
-- **Two other factions' vehicles on the world map, a VVE_Tango (22725564) and a VVE_Highwayman (22726608), hold coolant at 200 C
-  and cab at 80 C, the top of each scale, for the whole of the last ten hours.** Possibly a vehicle off any map whose temperatures
-  run away with no air to cool them. Other factions' vehicles keep no event log, so nothing else shows it.
+- **Two other factions' vehicles on the world map, a VVE_Tango (22725564) and a VVE_Highwayman (22726608), seemed to hold coolant
+  at 200 C and cab at 80 C for ten hours.** Their last update was about tick 49,985,800, 157 days before PG23 (tick 59,446,425):
+  another faction's vehicle off a map is never updated, so **its history is its last day on a map**, frozen. That day was a fight:
+  the Highwayman has a holed radiator, a shorted battery and a warped head (the mark of overheating). In PG23 all 48 other factions'
+  vehicles were stale and all 32 of the player's fresh. **So every figure rule reads only the player's things** (`ofPlayer`, kit
+  1.131.0, which also gives `now`, the save's tick).
+- **The HEMTT (21684925) lost 0.215 of its charge over ten hours**, in two spells of about 3 A (hours 0 to 4 and 20 to 24 of its
+  saved day), engine off, nobody aboard, its coolant following the air. **Its work lamps lit by themselves**: with "lights that
+  switch themselves" on (the default), fitted lamps light in the dark on a vehicle standing still with the player's people within 8
+  cells, an hour past the last of them, and only while the battery is over half full (Loadouts_Default.xml, workLamps). The game noted
+  them lighting automatically three times on 26 Nov (`vehicles.work-lamps-lit`, Framework 0.301.2 to 0.311.1). The night heater,
+  switched on, rightly never ran away from camp.
 - **Some vehicles new to the world hold one or two samples**, a few dropping from full charge to nothing in one step: a rule on a
   history narrows by `count(samples(...))`.
-- **The HEMTT (21684925), on the map with its night heater switched on, lost 0.215 of its charge over ten hours with no charging**,
-  its coolant at the air's temperature (as designed: the heater runs only at camp). Something else drew it down; a lead only.
 
 ### Next, if wanted
 

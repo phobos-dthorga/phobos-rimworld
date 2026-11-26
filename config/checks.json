@@ -128,7 +128,7 @@
         "grades": "PhobosVehicleSystems_Grades/li[*]/def",
         "chemtank": "statHandler/components/li[19]/health"
       },
-      "when": "count(parts) == 1 and contains(parts, \"Chemtank\")",
+      "when": "ofPlayer and count(parts) == 1 and contains(parts, \"Chemtank\")",
       "fault": "chemtank > 120 * 1.3 + 0.01",
       "says": "chemtank health {chemtank}, above heavy-duty's 156",
       "note": {
@@ -154,7 +154,7 @@
         "fits": "PhobosVehicleSystems_Fitted/li[*]/def",
         "fuel": "fuel"
       },
-      "when": "contains(fits, \"PhobosFitting_FerryTank\")",
+      "when": "ofPlayer and contains(fits, \"PhobosFitting_FerryTank\")",
       "fault": "fuel > 420 * 1.75 + 0.01",
       "says": "fuel {fuel}, above the 735 a stock tank and a ferry tank hold",
       "note": {
@@ -179,7 +179,7 @@
         "fits": "PhobosVehicleSystems_Fitted/li[*]/def",
         "fuel": "fuel"
       },
-      "when": "contains(fits, \"PhobosFitting_FerryTank\")",
+      "when": "ofPlayer and contains(fits, \"PhobosFitting_FerryTank\")",
       "fault": "fuel > 250 * 1.75 + 0.01",
       "says": "fuel {fuel}, above the 437.5 a stock tank and a ferry tank hold",
       "note": {
@@ -205,7 +205,7 @@
         "control": "PhobosVehicleSystems_History_PhobosVehicleSystem_FlightControls_flightControl",
         "kind": "def"
       },
-      "when": "count(samples(hydraulics, 0, 1)) >= 10 and last(samples(hydraulics, 0, 1)) < 0.4 and max(samples(hydraulics, 0, 1)) >= 0.7",
+      "when": "ofPlayer and count(samples(hydraulics, 0, 1)) >= 10 and last(samples(hydraulics, 0, 1)) < 0.4 and max(samples(hydraulics, 0, 1)) >= 0.7",
       "note": {
         "key": "check.vehicle.heavy-controls",
         "mod": "D'thorga Framework",
@@ -231,7 +231,7 @@
         "coolant": "PhobosVehicleSystems_History_PhobosVehicleSystem_Cooling_coolantTemperature",
         "pack": "PhobosVehicleSystems_History_PhobosVehicleSystem_TractionBattery_packTemperature"
       },
-      "when": "heater == True and pack == None and count(samples(coolant, -60, 200)) >= 40",
+      "when": "ofPlayer and heater == True and pack == None and count(samples(coolant, -60, 200)) >= 40",
       "note": {
         "key": "check.vehicle.camp-coolant",
         "mod": "D'thorga Framework",
@@ -256,7 +256,7 @@
         "charge": "PhobosVehicleSystems_History_PhobosVehicleSystem_Electrical_charge",
         "pack": "PhobosVehicleSystems_History_PhobosVehicleSystem_TractionBattery_packTemperature"
       },
-      "when": "heater == True and pack != None and count(samples(charge, 0, 1)) >= 100 and max(diffs(tail(samples(charge, 0, 1), 100))) <= 0.0005",
+      "when": "ofPlayer and heater == True and pack != None and count(samples(charge, 0, 1)) >= 100 and max(diffs(tail(samples(charge, 0, 1), 100))) <= 0.0005",
       "note": {
         "key": "check.vehicle.camp-electric",
         "mod": "D'thorga Framework",
