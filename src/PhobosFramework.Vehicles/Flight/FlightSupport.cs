@@ -342,6 +342,19 @@ public static class FlightGizmos
 
         foreach (Gizmo gizmo in LineGizmos(flight)) yield return gizmo;
         foreach (Gizmo gizmo in AirdropGizmos(flight)) yield return gizmo;
+        // Framework 0.329.0: a fire-fighting tank's water drop pass, with the helicopter bucket's picture: the same act, water on a fire.
+        if (flight.CanWaterPass)
+        {
+            var water = new Command_Action
+            {
+                defaultLabel = "PhobosFireTank_Pass".Translate(),
+                defaultDesc = "PhobosFireTank_PassDesc".Translate(who),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Sling/WaterDrop"),
+                action = () => Find.Targeter.BeginTargeting(CellsOnly, target => flight.WaterPass(target.Cell)),
+            };
+            if (flight.WaterPassRefusal(IntVec3.Invalid) is { } waterRefused) water.Disable(waterRefused);
+            yield return water;
+        }
 
         string size = SizeName(flight.OrbitSize);
         string way = WayName(flight.OrbitClockwise);
@@ -504,7 +517,10 @@ public static class FlightGizmos
             options.Add(new FloatMenuOption(label, () => flight.SetOrbitSize(size)));
         }
         string other = WayName(!flight.OrbitClockwise);
-        options.Add(new FloatMenuOption("PhobosFlight_CircleOtherWay".Translate(other.Named("WAY")).Resolve(), flight.ReverseOrbit));
+        // Framework 0.329.0: a fitted side gun sets the way round, so its gun faces the centre; the option says why it is closed.
+        options.Add(flight.SideGunSetsWay
+            ? new FloatMenuOption("PhobosFlight_CircleWaySetByGun".Translate(flight.Vehicle.LabelShort.Named("VEHICLE")).Resolve(), null)
+            : new FloatMenuOption("PhobosFlight_CircleOtherWay".Translate(other.Named("WAY")).Resolve(), flight.ReverseOrbit));
         return options;
     }
 

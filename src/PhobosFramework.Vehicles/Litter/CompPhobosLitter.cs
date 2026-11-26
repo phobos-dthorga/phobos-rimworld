@@ -55,8 +55,15 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder, IKeepsTicking
 
     CompPhobosVehicleSystems? Systems => Vehicle.GetComp<CompPhobosVehicleSystems>();
 
-    public bool KitFitted => Systems?.Fittings.Grants(LitterAbility) == true;
-    public int Slots => KitFitted ? Rules.litterSlots : 0;
+    /// <summary>
+    /// Whether it has litters at all: the litter kit fitted, or an upgrade node that brings its own (Framework 0.329.0: the C-27J's stretcher
+    /// fit, through <see cref="AircraftUpgradeDefOf.Phobos_Litters"/>).
+    /// </summary>
+    public bool KitFitted => NodeSlots > 0 || Systems?.Fittings.Grants(LitterAbility) == true;
+    /// <summary>Its litters: the larger of the kit's (the rules Def's litterSlots) and a node's.</summary>
+    public int Slots => Mathf.Max(NodeSlots, Systems?.Fittings.Grants(LitterAbility) == true ? Rules.litterSlots : 0);
+    /// <summary>The litters an upgrade node brings (Vehicle Framework keeps the stat; 0 with none fitted).</summary>
+    int NodeSlots => Mathf.RoundToInt(Vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_Litters));
     public IReadOnlyList<Pawn> Patients => held.InnerListForReading;
     public int Free => Mathf.Max(0, Slots - held.Count);
 

@@ -2,9 +2,10 @@
 
 **Status (26 Nov 2026):** the aeroplane itself built: our flight's aeroplane switch and take-off rule (Framework 0.302.0), then the
 aircraft with its hold, drops, defensive aids, raids and edge-on propellers (Framework 0.316.0, Vehicles 0.123.0), on the owner's picked
-art; then LAPES (Framework 0.323.0, Vehicles 0.126.0; [airdrops](airdrop.md#lapes-26-nov-2026-framework-03230-vehicles-01260)). Not built: the
-three hold fits (gun kit, fire-fighting tank, stretchers) and their overlays (pictures made, awaiting the owner's picks), its sounds
-(candidates offered). Not yet tested in game.
+art; then LAPES (Framework 0.323.0, Vehicles 0.126.0; [airdrops](airdrop.md#lapes-26-nov-2026-framework-03230-vehicles-01260)); its own
+voice (Vehicles 0.127.0) and defensive aids pods (0.127.1); then the three hold fits with their pictures (Framework 0.329.0, Vehicles 0.128.0).
+Not built: its flyover, taxi and cabin sounds (picked, waiting for a flight hook), filling the tank from a bowser or tanker, and its damage
+looks (the parts are cut, waiting for the owner's look). Not yet tested in game.
 
 The owner asked, 26 Nov 2026, after the parachute airdrops were built ([airdrops](airdrop.md)): "C-27J Spartan", the transport aeroplane
 that record and [modern military vehicles](modern-military-vehicles.md) (MV7, "the rough-strip transport aeroplane") named as the real
@@ -33,6 +34,9 @@ choices, agent defaults and agent choices are labelled as such.
 | Hold | **2 x 5 cells, 8,600 kg**, one vehicle |
 | LAPES | **Yes, on by default** |
 | Fits | **All four**: the MC-27J gun kit, the fire-fighting tank, stretchers, defensive aids |
+| Filling the fire-fighting tank | **Pump from open water**: a colonist runs the pump while it stands within reach of open water; a bowser or a tanker where those exist (not built yet) |
+| The gun kit's fight | **Circle left, gun on the centre**: told to circle, it turns left so the gun faces the centre; on other legs it fires only on its left |
+| The gun kit's barrel | **The slim one** (try 1; the owner, 26 Nov 2026: "Use the slim barrel on the gun kit") |
 | Art | **Nano Banana Pro through fal, as the Osprey**; a cost cap asked once the picture list is planned |
 
 ## The four questions
@@ -102,9 +106,9 @@ explained in a comment beside it there. The main ones:
 | Node | What it does | Real basis |
 | --- | --- | --- |
 | Defensive aids | **Built**: infrared jammer, chaff and flares, cued by the built-in missile warning receiver | The RAAF's suite **[P4]** |
-| Stretchers | 36 stretchers in the hold, from our litter kit; either/or with the gun kit and the tank (they fill the hold) | **[P1]** |
-| MC-27J gun kit | A 30 mm gun on a pallet, firing from the left door while it circles a point; either/or with the stretchers and the tank | Leonardo's MC-27J **[S]** |
-| Fire-fighting tank | A roll-on tank of 7,950 L sprayed along a pass, putting out fires beneath; either/or with the others | Leonardo's fit **[P1]** |
+| Stretchers | **Built** (Vehicles 0.128.0): 36 stretchers in the hold, carried and tended as the litter kit's (Framework's `Phobos_Litters`); 360 kg **[A]**; either/or with the gun kit and the tank (they fill the hold) | **[P1]** |
+| MC-27J gun kit | **Built**: a 30 mm gun on a pallet (`Phobos_C27J_GunKit`, 200 rounds a minute **[S]**, 45 cells, 75 with Combat Extended's 30x173 mm **[A]**), out of the left door, worked by the loadmaster; its side-gun marker makes it circle left; 1,000 kg **[A]**; either/or with the stretchers and the tank | Leonardo's MC-27J **[S]** |
+| Fire-fighting tank | **Built**: a roll-on tank of 7,950 L (Framework's `CompPhobosFireTank`), pumped from open water at 400 L a minute within 6 cells **[A]**, emptied along a water drop pass 3 cells wide at 100 L a cell (the bucket's rule); 2,000 kg empty **[A]**, its water weighed as cargo; either/or with the others | Leonardo's fit **[P1]** |
 
 The three hold fits are either/or (they fill the same hold); defensive aids stand alone. The tree's Mermaid diagram comes from
 `scripts/check-upgrade-trees.py --write` once built.
@@ -112,6 +116,11 @@ The three hold fits are either/or (they fill the same hold); defensive aids stan
 <!-- upgrade-tree: Phobos_C27J_UpgradeTree -->
 ```mermaid
 flowchart TB
+  subgraph alt1 ["Only one of these"]
+    Stretchers["Stretchers"]
+    GunKit["MC-27J gun kit"]
+    FireTank["Fire-fighting tank"]
+  end
   DefensiveAids["Defensive aids"]
 ```
 

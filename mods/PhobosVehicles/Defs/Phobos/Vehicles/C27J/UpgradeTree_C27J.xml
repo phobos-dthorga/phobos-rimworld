@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <!-- The C-27J Spartan's upgrades (docs/development/vehicle-c27j.md, "The upgrade tree"). This slice has the one that stands alone, the
-       defensive aids; the three hold fits (stretchers, the MC-27J gun kit, the fire-fighting tank), either/or with each other, come in the
-       next slice. Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
+  <!-- The C-27J Spartan's upgrades (docs/development/vehicle-c27j.md, "The upgrade tree"): the defensive aids, which stand alone, and the
+       three hold fits (D'thorga Vehicles 0.128.0), either/or with each other because each fills the hold: stretchers, the MC-27J gun kit
+       and the fire-fighting tank. Each fit's weight is carried mass, taking cargo room (owner, 19 Nov 2026: "weight counts like cargo");
+       the weights are authored. Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
   <Vehicles.UpgradeTreeDef>
     <defName>Phobos_C27J_UpgradeTree</defName>
     <modExtensions>
@@ -57,6 +58,176 @@
           </graphicData>
         </li>
       </graphicOverlays>
+    </li>
+    <li>
+      <!-- 36 stretchers in the hold [P1], carried as the litter kit's are (D'thorga Framework 0.329.0's Phobos_Litters): downed people lie
+           on them and anyone in the crew who can doctor tends them. Stanchions and stretchers, 360 kg [A]. Its icon is the litter kit's:
+           the same stretchers. -->
+      <key>Stretchers</key>
+      <label>Stretchers</label>
+      <displayLabel>true</displayLabel>
+      <description>Stanchions and 36 stretchers along the hold: an air ambulance. Downed people are carried lying down, and anyone in the crew who can doctor tends them. Fills the hold: either this, the gun kit or the fire-fighting tank.</description>
+      <icon>Phobos/VehicleSystems/Fittings/LitterKit</icon>
+      <work>2500</work>
+      <gridCoordinate>(7, 2)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_C27J</li>
+      </researchPrerequisites>
+      <disableIfUpgradeNodesEnabled>
+        <li>GunKit</li>
+        <li>FireTank</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_Litters</def>
+              <value>36</value>
+            </li>
+            <li>
+              <def>CargoCapacity</def>
+              <value>-360</value>
+            </li>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>360</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>60</Steel>
+        <Cloth>80</Cloth>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <!-- A roll-on fire-fighting tank of 7,950 L [P1] (D'thorga Framework 0.329.0's CompPhobosFireTank and Phobos_FireTankLitres): a
+           colonist pumps it full from open water beside the parked aircraft (the owner's card of 26 Nov 2026), and a water drop pass empties
+           it along a line, putting out the fires beneath. The tank empty, 2,000 kg [A]; its water is weighed as it is pumped in, a kilogram
+           a litre. Its pipe out of the left jump door is the owner's pick. -->
+      <key>FireTank</key>
+      <label>Fire-fighting tank</label>
+      <displayLabel>true</displayLabel>
+      <description>A roll-on tank of 7,950 litres with its discharge pipe out of the left door. Pumped full from open water on the ground, it empties along a water drop pass, putting out the fires beneath; full, it weighs nearly eight tonnes more. Fills the hold: either this, the stretchers or the gun kit.</description>
+      <icon>Phobos/Vehicles/C27J/Upgrades/FireTank</icon>
+      <work>3000</work>
+      <gridCoordinate>(12, 2)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_C27J</li>
+      </researchPrerequisites>
+      <disableIfUpgradeNodesEnabled>
+        <li>Stretchers</li>
+        <li>GunKit</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_FireTankLitres</def>
+              <value>7950</value>
+            </li>
+            <li>
+              <def>CargoCapacity</def>
+              <value>-2000</value>
+            </li>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>2000</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>150</Steel>
+        <ComponentIndustrial>4</ComponentIndustrial>
+      </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/C27J/C27J_FireTank</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(34, 27)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
+    </li>
+    <li>
+      <!-- Leonardo's MC-27J gun kit [S]: a 30 mm cannon on a roll-on pallet firing out of the left jump door (Turrets_C27J.xml). The
+           loadmaster works it; its side-gun marker turns the aircraft's circles left, so the gun faces the centre (the owner's card of 26 Nov
+           2026). Its arc is the left side, 60 degrees either way of straight out [A]. It stops with the aft hold it is mounted in [A]. The
+           pallet, the gun and its rounds, 1,000 kg [A]. Its barrel is the owner's pick of the slim one. -->
+      <key>GunKit</key>
+      <label>MC-27J gun kit</label>
+      <displayLabel>true</displayLabel>
+      <description>A 30 mm cannon on a roll-on pallet, firing out of the left door, worked by the loadmaster. Told to circle a point, the aircraft turns left so the gun faces the centre and fires on what is inside the circle. Fills the hold: either this, the stretchers or the fire-fighting tank.</description>
+      <icon>Phobos/Vehicles/C27J/Upgrades/GunKit</icon>
+      <work>3000</work>
+      <gridCoordinate>(29, 2)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_OspreyRampGun</li>
+      </researchPrerequisites>
+      <disableIfUpgradeNodesEnabled>
+        <li>Stretchers</li>
+        <li>FireTank</li>
+      </disableIfUpgradeNodesEnabled>
+      <upgrades>
+        <li Class="Vehicles.VehicleUpgrade">
+          <roles>
+            <li>
+              <key>loadmaster</key>
+              <editKey>gunKit</editKey>
+              <handlingTypes>Turret</handlingTypes>
+              <slotsToOperate>1</slotsToOperate>
+              <turretIds>
+                <li>GunKit</li>
+              </turretIds>
+            </li>
+          </roles>
+        </li>
+        <li Class="Vehicles.TurretUpgrade">
+          <turrets>
+            <li>
+              <key>GunKit</key>
+              <def>Phobos_C27J_GunKit</def>
+              <gizmoLabel>Side gun</gizmoLabel>
+              <component>
+                <key>AftHold</key>
+                <healthPercent>0</healthPercent>
+              </component>
+              <angleRestricted>(210, 330)</angleRestricted>
+              <defaultAngleRotated>270</defaultAngleRotated>
+              <renderProperties>
+                <north>(-1.86, -4.21)</north>
+              </renderProperties>
+            </li>
+          </turrets>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>CargoCapacity</def>
+              <value>-1000</value>
+            </li>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>1000</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>120</Steel>
+        <ComponentIndustrial>6</ComponentIndustrial>
+      </ingredients>
     </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>

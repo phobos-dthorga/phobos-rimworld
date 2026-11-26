@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The C-27J's gun kit with Combat Extended (D'thorga Vehicles 0.128.0; docs/development/vehicle-c27j.md): it fires Combat Extended's
+       30x173 mm high-explosive round by default (a gunship's usual fill against people and light vehicles [A]) and reaches 75 cells, as
+       the Osprey's .50 does [A]. Loaded only while Combat Extended is active (LoadFolders.xml). Its cartridges are Combat Extended's own
+       doing: while its ammunition system is on, its vehicle compatibility reads the turret's ammunition set (AmmoSet_30x173mmNATO) and sets
+       them, one a round; with that system off the gun keeps its steel. Not yet tested in game. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="Phobos_C27J_GunKit"]/projectile</xpath>
+    <value>
+      <projectile>Bullet_30x173mmNATO_HE</projectile>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="Phobos_C27J_GunKit"]/maxRange</xpath>
+    <value>
+      <maxRange>75</maxRange>
+    </value>
+  </Operation>
+</Patch>

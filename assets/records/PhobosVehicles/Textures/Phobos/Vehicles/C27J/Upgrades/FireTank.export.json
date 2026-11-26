@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/C27J/Upgrades/FireTank.png",
+  "source": "assets/phobos-vehicles/generated/c27j-icon-firetank/c27j-icon-firetank-1.png",
+  "source_sha256": "4252c29bb65f94ad12236dae4734eb0564b49ce83f6c6b6e5925483fbfe61656",
+  "target_sha256": "1b93c77bc6295dd0ea9f6d0d9220bbd6acb65125b471dbec2770fc7e91dc4efa",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "4252c29bb65f94ad12236dae4734eb0564b49ce83f6c6b6e5925483fbfe61656",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-26T21:53:35",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

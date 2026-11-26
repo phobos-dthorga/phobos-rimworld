@@ -625,6 +625,13 @@
       </li>
     </soundOneShotsOnEvent>
     <comps>
+      <!-- Its fire-fighting tank (D'thorga Framework 0.329.0): empty and silent until the FireTank node gives it its 7,950 L. The pump
+           reaches 6 cells to open water and moves 400 L a minute [A]; a pass wets a strip 3 cells wide. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosFireTank">
+        <pumpReachCells>6</pumpReachCells>
+        <litresPerMinute>400</litresPerMinute>
+        <dropWidthCells>3</dropWidthCells>
+      </li>
       <!-- Its two six-blade propellers, 4.115 m across [P6] (4.8 cells), seen edge-on from above as bars across the nacelles' noses (the owner's
            card of 26 Nov 2026: "Edge-on bar"), still while they stand and a see-through blur while they turn, after our flight's spin-up.
            Measured off the picked art at export (export_c27j.py, C27J.layout.json): each hub is the blade plane at its spinner's base,

@@ -42,6 +42,13 @@ public class AirdropRun : IExposable
     public Rot4 lapesRot = Rot4.North;
     public float aimX = float.NaN, aimZ = float.NaN;
     public int goRounds;
+    /// <summary>
+    /// A water drop pass from a fire-fighting tank (Framework 0.329.0; CompPhobosFlight.Water): the line runs through <see cref="target"/>; half
+    /// the wetted run's length, cells; how far along the line it has wetted so far; and what it did.
+    /// </summary>
+    public bool water;
+    public float waterHalf, wetTo = float.NaN, litresDropped;
+    public int firesOut;
 
     public void ExposeData()
     {
@@ -67,6 +74,11 @@ public class AirdropRun : IExposable
         Scribe_Values.Look(ref aimX, "aimX", float.NaN);
         Scribe_Values.Look(ref aimZ, "aimZ", float.NaN);
         Scribe_Values.Look(ref goRounds, "goRounds");
+        Scribe_Values.Look(ref water, "water");
+        Scribe_Values.Look(ref waterHalf, "waterHalf");
+        Scribe_Values.Look(ref wetTo, "wetTo", float.NaN);
+        Scribe_Values.Look(ref litresDropped, "litresDropped");
+        Scribe_Values.Look(ref firesOut, "firesOut");
     }
 }
 
@@ -293,6 +305,11 @@ public partial class CompPhobosFlight
     {
         AirdropRun run = drop!;
         VehiclePawn v = Vehicle;
+        if (run.water)
+        {
+            WaterStep(run);
+            return;
+        }
         // Framework 0.306.0: a marker near the point puts up its smoke while we, or an ally, drop on it; never for a raid's crew.
         if (!run.raid) DropZoneMarkers.Smoke(v.Map, run.target);
         if (run.lapes)

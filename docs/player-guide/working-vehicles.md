@@ -666,7 +666,13 @@ motor pool, from aircraft parts as the Osprey is.
   and damages its landing gear. Switch it off in D'thorga Framework's settings (Airdrops).
 - **Its propellers** show as bars across the engines' noses from above, blurring as they spin up.
 - **Enemy C-27Js bring paratroopers**: they cross the map and drop them, and your guns and close-in weapons can shoot them down.
-- **Still to come:** its hold fits: a side gun, a fire-fighting tank and stretchers.
+- **Its hold fits**, one at a time, as each fills the hold, and each weighing as cargo:
+  - **Stretchers**: 36 for downed people, tended by anyone in the crew who can doctor.
+  - **MC-27J gun kit**: a 30 mm cannon out of the left door, worked by the loadmaster. **Told to circle, it always turns left**, so the
+    gun faces the centre and fires on what is inside the circle.
+  - **Fire-fighting tank**: 7,950 litres. Land within 6 cells of a river, lake or marsh and press **Pump water aboard**: a colonist
+    fills it in about 20 game minutes. **Full, it weighs nearly 8 tonnes more**, so its take-off roll grows. In the air, **Water drop
+    pass** empties it along a line through the point you pick, about 26 cells long, putting out the fires beneath.
 
 ## Other mods' vehicles
 

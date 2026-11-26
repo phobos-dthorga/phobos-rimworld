@@ -13,6 +13,23 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.128.0] - 2026-11-26 - Draft
+
+The C-27J's hold fits: stretchers, the MC-27J gun kit and the fire-fighting tank
+
+### Added
+
+- **Three hold fits for the C-27J**, either/or with each other since each fills the hold, each weighing as cargo:
+  - **Stretchers**: 36 for downed people, tended by a doctor in the crew. Row 616.
+  - **MC-27J gun kit**: a 30 mm cannon out of the left door, worked by the loadmaster, with the owner's pick of the slim barrel. Told to
+    circle, the aircraft turns left and the gun fires on what is inside the circle (the owner's card of 26 November 2026). With Combat
+    Extended it fires 30x173 mm rounds. Row 617.
+  - **Fire-fighting tank**: 7,950 L, pumped full from open water on the ground and emptied along a water drop pass, with the owner's
+    pick of the pipe out of the left door. Rows 618 and 619.
+- Each fit's icon is the owner's pick, the stretchers using the litter kit's. Every figure not sourced is the agent's, labelled in the
+  Defs. Not yet tested in game.
+
+
 ## [0.127.1] - 2026-11-26 - Draft
 
 The C-27J's defensive aids pods

@@ -757,7 +757,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             // The design's holding: where a hovering aircraft would hold, one that cannot hover circles, starting on its present course.
             ClearTarget();
             float r = OrbitRadiusNow();
-            (double cx, double cz) = OrbitRule.CentreFrom(x, z, heading, r, orbitClockwise);
+            (double cx, double cz) = OrbitRule.CentreFrom(x, z, heading, r, OrbitClockwise);
             BeginOrbit((float)cx, (float)cz);
             Seen.Note("aircraft.flight-orbit", v, variant: "holding");
             Messages.Message("PhobosFlight_MsgCirclingInstead".Translate(v.LabelShort.Named("VEHICLE")).Resolve(), v, MessageTypeDefOf.SilentInput, historical: false);
@@ -849,8 +849,14 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
     /// <summary>The player's circle size, an index into <see cref="OrbitRule.SizeShares"/>.</summary>
     public int OrbitSize => Mathf.Clamp(orbitSize, 0, OrbitRule.SizeShares.Length - 1);
 
-    /// <summary>Whether it circles clockwise, seen from above.</summary>
-    public bool OrbitClockwise => orbitClockwise;
+    /// <summary>
+    /// Whether it circles clockwise, seen from above: toward a fitted side gun's side (Framework 0.329.0, <see cref="SideGuns"/>), else the
+    /// player's choice.
+    /// </summary>
+    public bool OrbitClockwise => SideGuns.CirclesClockwise(Vehicle) ?? orbitClockwise;
+
+    /// <summary>Whether a fitted side gun sets which way it circles, so the player's choice does not.</summary>
+    public bool SideGunSetsWay => SideGuns.CirclesClockwise(Vehicle) != null;
 
     /// <summary>A circle size's radius for this aircraft, cells, before fitting it to the map.</summary>
     public float RadiusOfSize(int size) => Props.orbitRadiusCells * (float)OrbitRule.SizeShares[Mathf.Clamp(size, 0, OrbitRule.SizeShares.Length - 1)];
@@ -903,7 +909,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             return;
         }
         if (climb < 1f) climb = Mathf.Min(1f, climb + dt / Props.climbSeconds);
-        double wanted = OrbitRule.Heading(x, z, orbitX, orbitZ, orbitRadius, orbitClockwise, heading);
+        double wanted = OrbitRule.Heading(x, z, orbitX, orbitZ, orbitRadius, OrbitClockwise, heading);
         heading = (float)FlightPathRule.TurnToward(heading, wanted, Props.turnDegreesPerSecond * dt);
         speed = (float)FlightPathRule.NextSpeed(speed, 1e6, Props.OrbitSpeed * LoadSpeedShare, Props.accelerationCellsPerSecond, dt);
         MoveAlongHeading(speed * dt);
@@ -1096,7 +1102,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             if (state == FlightState.Moving && hold == FlightHold.ForwardOnly)
             {
                 // Framework 0.153.0: nowhere to go and unable to stop: it circles on from its course.
-                (double cx, double cz) = OrbitRule.CentreFrom(x, z, heading, OrbitRadiusNow(), orbitClockwise);
+                (double cx, double cz) = OrbitRule.CentreFrom(x, z, heading, OrbitRadiusNow(), OrbitClockwise);
                 BeginOrbit((float)cx, (float)cz);
                 return;
             }
@@ -1214,7 +1220,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         else
         {
             // Framework 0.153.0: rolled off with no journey, it circles on from its course, climbing, until it is told where to go.
-            (double cx, double cz) = OrbitRule.CentreFrom(x, z, heading, OrbitRadiusNow(), orbitClockwise);
+            (double cx, double cz) = OrbitRule.CentreFrom(x, z, heading, OrbitRadiusNow(), OrbitClockwise);
             BeginOrbit((float)cx, (float)cz);
             Seen.Note("aircraft.flight-orbit", Vehicle, variant: "holding");
         }

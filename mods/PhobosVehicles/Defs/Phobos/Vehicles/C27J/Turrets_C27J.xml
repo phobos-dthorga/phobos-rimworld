@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The C-27J's MC-27J gun kit (D'thorga Vehicles 0.128.0; docs/development/vehicle-c27j.md, "The upgrade tree"): a 30 mm automatic
+       cannon on a roll-on pallet, firing out of the left jump door, Leonardo's MC-27J fit [S] (a GAU-23/A Bushmaster II, 30x173 mm,
+       about 200 rounds a minute [S]). Fitted by the upgrade tree, never standing on the Def. Its side-gun marker (D'thorga Framework
+       0.329.0) makes the aircraft circle left, so the gun faces the circle's centre (the owner's card of 26 Nov 2026: "Circle left, gun on
+       the centre"); its arc is the left side. Without Combat Extended it fires the game's autocannon shell, fed from steel at one and a
+       half steel a round [A: a 30x173 mm cartridge is about 0.8 kg against steel's half kilogram]; with Combat Extended's ammunition system
+       on, its real cartridges from the set named below, and our patch gives the bullet and the reach. Its picture is the owner's pick of
+       the slim barrel, the collar where it turns. Not yet tested in game. -->
+
+  <!-- 18 ticks between shots is 200 a minute. A magazine of 150 [A]. -->
+  <Vehicles.VehicleTurretDef ParentName="VehicleTurretBase">
+    <defName>Phobos_C27J_GunKit</defName>
+    <label>30 mm side gun</label>
+    <turretType>Rotatable</turretType>
+    <graphicData>
+      <texPath>Phobos/Vehicles/C27J/C27J_GunKit</texPath>
+      <graphicClass>Vehicles.Graphic_Turret</graphicClass>
+      <shaderType>Cutout</shaderType>
+      <drawSize>(4, 4)</drawSize>
+    </graphicData>
+    <matchParentColor>false</matchParentColor>
+    <gizmoIconTexPath>Phobos/Vehicles/C27J/Upgrades/GunKit</gizmoIconTexPath>
+    <magazineCapacity>150</magazineCapacity>
+    <chargePerAmmoCount>1.5</chargePerAmmoCount>
+    <genericAmmo>true</genericAmmo>
+    <ammunition>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+    </ammunition>
+    <reloadTimer>12</reloadTimer>
+    <warmUpTimer>1.5</warmUpTimer>
+    <rotationSpeed>1.5</rotationSpeed>
+    <minRange>3</minRange>
+    <maxRange>45</maxRange>
+    <projectile>Bullet_AutocannonTurret</projectile>
+    <shotSound>Shot_Autocannon</shotSound>
+    <fireModes>
+      <li>
+        <label>Burst</label>
+        <shotsPerBurst>5</shotsPerBurst>
+        <ticksBetweenShots>18</ticksBetweenShots>
+        <ticksBetweenBursts>90</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Burst</texPath>
+      </li>
+      <li>
+        <label>Single shot</label>
+        <shotsPerBurst>1</shotsPerBurst>
+        <ticksBetweenShots>18</ticksBetweenShots>
+        <ticksBetweenBursts>45</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Single</texPath>
+      </li>
+    </fireModes>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosSideGunExtension">
+        <left>true</left>
+      </li>
+      <!-- Combat Extended's own 30x173 mm muzzle speed (181); a pallet mount's sway and spread [A]. -->
+      <li Class="Vehicles.CETurretDataDefModExtension">
+        <ammoSet>AmmoSet_30x173mmNATO</ammoSet>
+        <speed>181</speed>
+        <sway>0.9</sway>
+        <spread>0.04</spread>
+        <recoil>1.2</recoil>
+        <shotHeight>1.5</shotHeight>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleTurretDef>
+</Defs>

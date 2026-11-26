@@ -128,4 +128,38 @@
       <li>Land</li>
     </showOnVehicleTypes>
   </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <!-- Framework 0.329.0: litters a node brings for downed people, carried as the litter kit's are (the C-27J's 36 stretchers). The larger of
+         this and the litter kit's count is used. -->
+    <defName>Phobos_Litters</defName>
+    <label>stretchers</label>
+    <description>Stretchers for downed people, carried lying down and tended by anyone in the crew who can doctor.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Air</li>
+      <li>Land</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+  <Vehicles.VehicleStatDef>
+    <!-- Framework 0.329.0: a roll-on fire-fighting tank's litres (the C-27J's 7,950 L [P1]), filled from open water by a colonist and emptied
+         along a water drop pass (CompPhobosFireTank). -->
+    <defName>Phobos_FireTankLitres</defName>
+    <label>fire-fighting tank</label>
+    <description>The water a roll-on fire-fighting tank holds, sprayed along a pass to put out fires beneath.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>Integer</toStringStyle>
+    <formatString>{0} L</formatString>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Air</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
 </Defs>

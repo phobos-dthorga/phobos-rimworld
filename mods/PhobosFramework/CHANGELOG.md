@@ -16,6 +16,31 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.329.0] - 2026-11-26 - Draft
+
+Stretchers by upgrade, side guns and fire-fighting tanks, for the C-27J's hold fits
+
+### Added
+
+- **An upgrade node can bring stretchers** (Phobos_Litters), carried as the litter kit's are: downed people lie on them and a doctor in
+  the crew tends them. The larger of the node's and the kit's count is used. Not yet tested in game: row 616.
+- **A side gun turns an aircraft's circles toward it** (PhobosSideGunExtension on a turret): told to circle, an aircraft with a left
+  side gun circles left so the gun faces the centre (the owner's card of 26 November 2026); the circle's "go round" option says the gun
+  sets the way. Row 617.
+- **A roll-on fire-fighting tank** (CompPhobosFireTank, sized by Phobos_FireTankLitres): Pump water aboard sends the nearest colonist to
+  fill it from open water within reach of the landed aircraft (the owner's card: "Pump from open water"); its water weighs on the
+  take-off roll and the engines as cargo would. Rows 618 and 619.
+- **The water drop pass**: the aircraft flies a straight line through a point and empties its tank onto a strip 3 cells wide centred
+  on it, putting out fires as the helicopter's bucket does; sent elsewhere, it keeps its water. Row 619.
+
+### Compatibility and limits
+
+- **Filling from a water bowser, a tanker or Dubs Bad Hygiene's plumbing is not built yet**; only open water. The pump's 400 L a minute
+  and its 6-cell reach are the agent's figures.
+- **The two new buttons reuse our own pictures** for the same acts: the tanker's load picture for the pump, the helicopter bucket's for
+  the water drop pass.
+
+
 ## [0.328.1] - 2026-11-26 - Draft
 
 Litter carries no longer loop after Search and Rescue's Rescue all

@@ -331,6 +331,10 @@
       "Neuroglue for biogel": [{"key": "medical.longterm-self", "variant": "Reservoir"}, {"key": "medical.longterm-job-made", "variant": "Reservoir"}],
       "the serum for a missing part": [{"key": "medical.longterm-self", "variant": "MissingPart"}, {"key": "medical.longterm-job-made", "variant": "MissingPart"}]
     }},
+    "618": [{"key": "aircraft.fire-tank-filled"}],
+    "619": {"parts": {"a water drop pass is ordered": [{"key": "aircraft.water-pass", "variant": "ordered"}],
+      "it empties the tank along its line": [{"key": "aircraft.water-pass", "variant": "dropped"}],
+      "sent elsewhere, it calls the pass off": [{"key": "aircraft.water-pass", "variant": "called-off"}]}},
     "454": ["vehicles.paste-bake"],
     "453": {"parts": {
       "a tank fills the tap": ["vehicles.reservoir-filled"],

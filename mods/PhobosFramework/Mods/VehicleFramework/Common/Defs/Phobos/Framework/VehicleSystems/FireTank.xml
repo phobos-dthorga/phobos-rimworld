@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- A roll-on fire-fighting tank's pump (D'thorga Framework 0.329.0; CompPhobosFireTank): a colonist runs the portable pump from open water
+       beside the parked aircraft until its tank is full. -->
+  <JobDef>
+    <defName>PhobosVehicleSystems_PumpFireTank</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosPumpFireTank</driverClass>
+    <reportString>pumping water into TargetA.</reportString>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+  </JobDef>
+</Defs>

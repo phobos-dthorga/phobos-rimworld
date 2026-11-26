@@ -19,6 +19,10 @@ public static class AircraftUpgradeDefOf
     public static VehicleStatDef Phobos_AmmoLockerKilograms = null!;
     /// <summary>Grip on soft ground a node adds (Framework 0.197.0: a tractor's dual wheels), on top of the tyre fittings' factor.</summary>
     public static VehicleStatDef Phobos_SoftGroundGripBonus = null!;
+    /// <summary>Litters a node brings for downed people (Framework 0.329.0: the C-27J's 36 stretchers; <see cref="CompPhobosLitter"/>).</summary>
+    public static VehicleStatDef Phobos_Litters = null!;
+    /// <summary>A roll-on fire-fighting tank's litres (Framework 0.329.0; <see cref="CompPhobosFireTank"/>); 0 with none fitted.</summary>
+    public static VehicleStatDef Phobos_FireTankLitres = null!;
 
     static AircraftUpgradeDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(AircraftUpgradeDefOf));
 }

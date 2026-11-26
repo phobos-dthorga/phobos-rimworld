@@ -62,6 +62,22 @@ HEADROOM = 1.03                   # The body is pre-shrunk to this much above it
 POD = G / 'c27j-defence-pod-redo/c27j-defence-pod-redo-4.png'
 POD_AT = (2017, 2045)
 POD_LENGTH_PX = 210
+# The MC-27J gun kit's barrel (Vehicles 0.128.0): the owner's pick, try 1 ("Use the slim barrel on the gun kit"), drawn alone on white,
+# pointing up. Vehicle Framework draws a turret's picture about its centre, so the collar, where the gun turns, is put at the centre of a
+# 4-cell square, the barrel reaching 1.6 m to its muzzle (agent's figure for the part beyond the door). Measured on the pick: the collar's
+# middle at (848, 2230), the muzzle's tip at y 173.
+GUN = G / 'c27j-gun-barrel/c27j-gun-barrel-1.png'
+GUN_PIVOT = (848, 2230)
+GUN_TIP_Y = 173
+GUN_LENGTH_M = 1.6
+TURRET_CELLS = 4
+# The fire-fighting tank's discharge pipe (Vehicles 0.128.0): the owner's pick, try 2, drawn rising from its flange and bending left; turned
+# a quarter anticlockwise and laid with its flange (measured at (1147, 2240)) on the left jump door, so it reaches out and bends aft, about
+# 1.4 m long (agent's figure). The door, measured on the body pick: (2068, 2410).
+PIPE = G / 'c27j-spray-boom/c27j-spray-boom-2.png'
+PIPE_FLANGE = (1147, 2240)
+PIPE_LENGTH_PX = 208
+DOOR_AT = (2068, 2410)
 # The spinners in the pick's pixels, measured 26 Nov 2026: each a cone from its tip (y 819) to its base line (y 968), 142 px across at
 # the base, centred on x 1635 and 2974.5 (the nacelles' own centres).
 SPINNERS = {'Left': (1635.0, 819, 968), 'Right': (2974.5, 819, 968)}
@@ -140,6 +156,46 @@ def pod_overlay(mapping):
     for x, picture in ((POD_AT[0], small), (2 * centre_line - POD_AT[0], small.transpose(Image.FLIP_LEFT_RIGHT))):
         tx, ty = x * mapping.total + mapping.offset[0], POD_AT[1] * mapping.total + mapping.offset[1]
         canvas.alpha_composite(picture, (round(tx - picture.width / 2), round(ty - picture.height / 2)))
+    return canvas
+
+
+def cut_part(path):
+    """A part drawn alone on white, cut out with the background AI's mask, its soft edge taken in a pixel; with its crop's offset."""
+    cut = white_to_alpha(Image.open(path).convert('RGB'), background=ai_background(path))
+    box = cut.getchannel('A').point(lambda alpha: 255 if alpha >= 128 else 0).getbbox()
+    part = cut.crop(box)
+    part.putalpha(part.getchannel('A').filter(ImageFilter.MinFilter(3)))
+    return part, box
+
+
+def premultiplied(picture, factor):
+    size = (max(1, round(picture.width * factor)), max(1, round(picture.height * factor)))
+    return picture.convert('RGBa').resize(size, Image.LANCZOS).convert('RGBA')
+
+
+def gun_turret():
+    """The gun kit's barrel as Vehicle Framework's turret picture: barrel up, the collar at the centre of a TURRET_CELLS square."""
+    part, box = cut_part(GUN)
+    side = TURRET_CELLS * PIXELS_PER_CELL
+    factor = GUN_LENGTH_M * CELLS_A_METRE * PIXELS_PER_CELL / (GUN_PIVOT[1] - GUN_TIP_Y)
+    small = premultiplied(part, factor)
+    canvas = Image.new('RGBA', (side, side), (0, 0, 0, 0))
+    px, py = (GUN_PIVOT[0] - box[0]) * factor, (GUN_PIVOT[1] - box[1]) * factor
+    canvas.alpha_composite(small, (round(side / 2 - px), round(side / 2 - py)))
+    return canvas
+
+
+def pipe_overlay(mapping):
+    """The tank's pipe on the body's canvas: turned a quarter anticlockwise, its flange on the left jump door."""
+    part, box = cut_part(PIPE)
+    turned = part.rotate(90, expand=True)
+    # A quarter turn anticlockwise sends a point (x, y) of the part to (y, width - 1 - x).
+    fx, fy = PIPE_FLANGE[1] - box[1], part.width - 1 - (PIPE_FLANGE[0] - box[0])
+    factor = PIPE_LENGTH_PX / turned.width * mapping.total
+    small = premultiplied(turned, factor)
+    canvas = Image.new('RGBA', tuple(mapping.canvas), (0, 0, 0, 0))
+    tx, ty = DOOR_AT[0] * mapping.total + mapping.offset[0], DOOR_AT[1] * mapping.total + mapping.offset[1]
+    canvas.alpha_composite(small, (round(tx - fx * factor), round(ty - fy * factor)))
     return canvas
 
 
@@ -290,6 +346,10 @@ def main(argv=None):
         files.append(path)
 
     files += ev.write_facings(pod_overlay(mapping), out, f'{NAME}_DefensiveAids')
+    files += ev.write_facings(pipe_overlay(mapping), out, f'{NAME}_FireTank')
+    gun_path = out / f'{NAME}_GunKit.png'
+    gun_turret().save(gun_path, optimize=True)
+    files.append(gun_path)
     hubs = {side: mapping.cells(x, base) for side, (x, _, base) in SPINNERS.items()}
     across = round((abs(hubs['Left'][0]) + abs(hubs['Right'][0])) / 2, 2)
     forward = round((hubs['Left'][1] + hubs['Right'][1]) / 2, 2)

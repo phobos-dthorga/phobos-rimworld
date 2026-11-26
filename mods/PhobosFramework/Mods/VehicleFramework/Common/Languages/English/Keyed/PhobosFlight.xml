@@ -21,6 +21,7 @@
   <PhobosFlight_CircleSizeOption>Circle {SIZE} ({CELLS} cells out)</PhobosFlight_CircleSizeOption>
   <PhobosFlight_CircleCurrent>{OPTION} (now)</PhobosFlight_CircleCurrent>
   <PhobosFlight_CircleOtherWay>Go round {WAY}</PhobosFlight_CircleOtherWay>
+  <PhobosFlight_CircleWaySetByGun>{VEHICLE} circles toward its side gun, so the gun faces the centre</PhobosFlight_CircleWaySetByGun>
   <PhobosFlight_RopeDown>Rope down</PhobosFlight_RopeDown>
   <PhobosFlight_RopeDownDesc>From a steady hover, the {VEHICLE} comes down to about {METRES} m and everyone in a passenger's or crew chief's seat slides down the fast ropes, two at a time, onto the ground behind the ramp. Then it climbs back. It must hold still the whole time: if it has to come down, whoever is on a rope falls.</PhobosFlight_RopeDownDesc>
   <PhobosFlight_Hoist>Hoist</PhobosFlight_Hoist>

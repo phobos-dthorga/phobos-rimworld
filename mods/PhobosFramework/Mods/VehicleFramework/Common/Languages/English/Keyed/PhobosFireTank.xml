@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- A roll-on fire-fighting tank (D'thorga Framework 0.329.0): filling it from open water, and its water drop pass. -->
+  <PhobosFireTank_Fill>Pump water aboard</PhobosFireTank_Fill>
+  <PhobosFireTank_FillDesc>Send the nearest free colonist to run the portable pump and fill {VEHICLE}'s fire-fighting tank from open water within {CELLS} cells: a river, a lake or a marsh. It takes a while; the tank fills as they work.</PhobosFireTank_FillDesc>
+  <PhobosFireTank_SentPump>to fill the {VEHICLE}'s fire-fighting tank</PhobosFireTank_SentPump>
+  <PhobosFireTank_Inspect>Fire-fighting tank: {LITRES} of {CAPACITY} L</PhobosFireTank_Inspect>
+  <PhobosFireTank_RefuseNone>{VEHICLE} carries no fire-fighting tank.</PhobosFireTank_RefuseNone>
+  <PhobosFireTank_RefuseFull>{VEHICLE}'s fire-fighting tank is full.</PhobosFireTank_RefuseFull>
+  <PhobosFireTank_RefuseEmpty>{VEHICLE}'s fire-fighting tank is empty: land beside open water and pump it full.</PhobosFireTank_RefuseEmpty>
+  <PhobosFireTank_RefuseNotLanded>{VEHICLE} must be on the ground to fill its tank.</PhobosFireTank_RefuseNotLanded>
+  <PhobosFireTank_RefuseNoWater>No open water within {CELLS} cells of {VEHICLE} for the pump's hose.</PhobosFireTank_RefuseNoWater>
+  <PhobosFireTank_MsgFull>{VEHICLE}'s fire-fighting tank is full.</PhobosFireTank_MsgFull>
+  <PhobosFireTank_Pass>Water drop pass</PhobosFireTank_Pass>
+  <PhobosFireTank_PassDesc>Choose a point. {VEHICLE} flies a straight line through it from where it is and empties its fire-fighting tank onto a strip along the line, centred on the point, putting out the fires beneath. Then it flies on and holds.</PhobosFireTank_PassDesc>
+  <PhobosFireTank_MsgPassStarted>{VEHICLE} is making a water drop pass with {LITRES} L, wetting about {CELLS} cells along its line.</PhobosFireTank_MsgPassStarted>
+  <PhobosFireTank_MsgPassCalledOff>{VEHICLE} has called off its water drop pass; the water stays aboard.</PhobosFireTank_MsgPassCalledOff>
+  <PhobosFireTank_MsgPassDone>{VEHICLE} has dropped {LITRES} L of water and put out {FIRES} fires.</PhobosFireTank_MsgPassDone>
+</LanguageData>
