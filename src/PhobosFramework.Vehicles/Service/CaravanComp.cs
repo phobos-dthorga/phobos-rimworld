@@ -55,6 +55,8 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
             }
             RimWorld.Planet.PlanetTile goal = caravan.vehiclePather?.Destination ?? RimWorld.Planet.PlanetTile.Invalid;
             if (goal.Valid && goal != caravan.Tile && Phobos.Framework.WorldMap.WorldSeasons.ForecastLine(goal) is { } there) lines.Add(there);
+            // Framework 0.317.0 (EM30, EM34): the running survey and the water bore, each on its own line.
+            lines.AddRange(RoadWork.InspectLines(caravan));
         }
         foreach (CompPhobosVehicleSystems comp in Comps(caravan))
         {

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Rules;
 using RimWorld;
+using RimWorld.Planet;
 using RimWorld.QuestGen;
 using UnityEngine;
 using Vehicles;
@@ -125,9 +126,67 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
         VehicleWorkSounds.Loop(Vehicle, "Dish", on && LongRange);
     }
 
+    // ---- The running survey (Framework 0.317.0; EM30; docs/development/vehicle-road-work.md) ----
+
+    bool roadSurvey;
+    float roadDays;
+    string? roadHeldUp;
+
+    /// <summary>Whether the player has switched the running survey on.</summary>
+    public bool RoadSurvey => roadSurvey;
+
+    /// <summary>The caravan's line while something holds the running survey up, or null.</summary>
+    public string? RoadHeldUpLine => roadHeldUp == null ? null : "PhobosRoadWork_InspectSurveyHeldUp".Translate(roadHeldUp.Named("REASON")).Resolve();
+
+    public void SetRoadSurvey(bool on)
+    {
+        roadSurvey = on;
+        roadHeldUp = null;
+    }
+
+    /// <summary>Something holds the running survey up: said once, when it changes.</summary>
+    public void RoadHeldUp(string why, Caravan convoy)
+    {
+        if (why != roadHeldUp) Messages.Message(why, convoy, MessageTypeDefOf.CautionInput, historical: false);
+        roadHeldUp = why;
+    }
+
+    /// <summary>
+    /// A step of the running survey in a moving convoy: the hand's Intellectual work at the long-range mode's own rates, as the deployed
+    /// truck counts it (no map, so no diminishing returns: each tile crossed is new ground). A find is the game's quest, put near the convoy.
+    /// </summary>
+    public void RoadStep(Pawn hand, Caravan convoy, int ticks)
+    {
+        roadHeldUp = null;
+        float speed = hand.GetStatValue(StatDefOf.ResearchSpeed) * Vehicle.GetStatValue(RigDefOf.Phobos_ScanRate);
+        if (speed <= 0f) return;
+        roadDays += speed * ticks / TicksPerDay;
+        hand.skills?.Learn(SkillDefOf.Intellectual, LearnPerTick * ticks);
+        if (roadDays < Props.longRangeGuaranteedDays && !Rand.MTBEventOccurs(Props.longRangeMtbDays / speed, TicksPerDay, ticks)) return;
+        if (RoadWork.FindOnTheRoad(this, hand, convoy)) roadDays = 0f;
+    }
+
+    /// <summary>On the world map, with the long-range kit: the running survey's switch and the ore it is tuned to.</summary>
+    public override IEnumerable<Gizmo> CompCaravanGizmos()
+    {
+        foreach (Gizmo gizmo in base.CompCaravanGizmos()) yield return gizmo;
+        if (Vehicle.Faction != Faction.OfPlayer || !LongRangeFitted) yield break;
+        yield return new Command_Toggle
+        {
+            defaultLabel = "PhobosRoadWork_SurveyGizmo".Translate().Resolve(),
+            defaultDesc = "PhobosRoadWork_SurveyGizmoDesc".Translate(Target.building.mineableThing.label.Named("ORE")).Resolve(),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Stations/SurveyLongRange"),
+            isActive = () => roadSurvey,
+            toggleAction = () => SetRoadSurvey(!roadSurvey),
+        };
+        yield return RigGizmos.TargetButton(this);
+    }
+
     public override void PostExposeData()
     {
         base.PostExposeData();
+        Scribe_Values.Look(ref roadSurvey, "PhobosSurveyOnTheRoad");
+        Scribe_Values.Look(ref roadDays, "PhobosSurveyRoadDays");
         Scribe_Values.Look(ref daysWorking, "PhobosSurveyDays");
         Scribe_Values.Look(ref longRange, "PhobosSurveyLongRange");
         Scribe_Defs.Look(ref target, "PhobosSurveyTarget");

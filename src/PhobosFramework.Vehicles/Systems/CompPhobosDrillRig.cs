@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Rules;
 using RimWorld;
+using RimWorld.Planet;
 using UnityEngine;
 using Vehicles;
 using Verse;
@@ -63,6 +64,28 @@ public abstract class RigSideJob
 /// </summary>
 public sealed class CompPhobosDrillRig : CompPhobosRigWork
 {
+    /// <summary>
+    /// On the world map, with Dubs Bad Hygiene (Framework 0.317.0; EM34; docs/development/vehicle-road-work.md): drill a water bore at a
+    /// halt, or stop it. The rules are RoadWork's; a refusal (a dry tile, no hand, a wrecked bit) greys the button with its reason.
+    /// </summary>
+    public override IEnumerable<Gizmo> CompCaravanGizmos()
+    {
+        foreach (Gizmo gizmo in base.CompCaravanGizmos()) yield return gizmo;
+        if (Vehicle.Faction != Faction.OfPlayer || !CaravanWater.HasSource || Vehicle.GetVehicleCaravan() is not { } convoy) yield break;
+        bool boring = WorldComponent_PhobosRoadWork.Current?.BoreOf(convoy) != null;
+        var bore = new Command_Action
+        {
+            defaultLabel = (boring ? "PhobosRoadWork_BoreStopGizmo" : "PhobosRoadWork_BoreGizmo").Translate().Resolve(),
+            defaultDesc = boring ? "PhobosRoadWork_BoreStopGizmoDesc".Translate().Resolve()
+                : "PhobosRoadWork_BoreGizmoDesc".Translate(RoadWork.Rainfall(convoy).ToString("0").Named("RAIN"),
+                    BoreRule.LitresPerHour(RoadWork.Rainfall(convoy)).ToString("0").Named("LITRES")).Resolve(),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Sling/WaterDrop"),
+            action = boring ? () => RoadWork.StopBore(convoy) : () => RoadWork.StartBore(convoy, Vehicle),
+        };
+        if (!boring && RoadWork.BoreRefusal(convoy, Vehicle, starting: true) is { } refused) bore.Disable(refused);
+        yield return bore;
+    }
+
     /// <summary>The game's own figures (CompDeepDrill and CompCreatesInfestations).</summary>
     const float WorkPerPortion = 10000f;
     const int InsectRefireTicks = 420000;

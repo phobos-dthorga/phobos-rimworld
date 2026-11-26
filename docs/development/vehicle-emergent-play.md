@@ -369,7 +369,7 @@ roads from a caravan's stone. EM40 (bulk dry goods) is argued against, mostly.
 | EM42 | **A trailer fault on the road.** Worn tyres or a wrecked axle halt the convoy, or the player leaves the trailer at a depot | Trailers carry tyres only (`Loadouts_Trailer.xml`); a towed trailer counts as moving, so its tyres wear. The stranded state exists (EM1). **Open since 18 Nov 2026:** should a tow refuse a trailer with wrecked axles? | Fix, carry on slowly, or leave it | Towing a wreck for free | Spares for the trailers go in the convoy | The stranded alert; the logbook | Small. **Later.** **Warn, then allow** a tow on a wrecked axle (owner, 26 Nov 2026). Risk **low to moderate** [A]: a halt, with warning; its own setting, **on** |
 | EM43 | **Bogging.** The heaviest truck bogs on soft ground in the wet; the winch, a tow or a load of Talus stone frees it | Weather grip is map-only (`V/Systems/Powertrain.cs:677-684`); no mud on the world map (EM16's reads). Needs a soft-ground rule by biome and rainfall, and axle load [A]: **state, not a roll** | Choose the route by the ground | Driving 20 t anywhere in the wet | The Kelly's weight is a route decision; the winch earns its place | The stranded alert; the logbook | Medium to large: a rule of its own. **Later.** Risk **moderate** [A]: time and fuel, seen coming; its own setting, **on** |
 | EM44 | **Ambush choices.** A warned convoy drives through, turns back or fights | The ambush fires for a vehicle convoy, builds its map and puts the vehicles at its edge; "a 'drive through' choice would be a roll" (audit 2). **The owner's rule: rolls only as a last resort**, each named | Run a gauntlet with armour and speed | — | Armour kits and speed matter before a fight | The ambushers' faction | Medium. **Later.** One named roll accepted (owner, 26 Nov 2026), shaped by state, with its own setting. The player chooses each time; the game's default (fight) stays |
-| EM45 | **Contracts from settlements.** A settlement asks for a bore, a survey, a load of stone, some days of Busbar power, or water and fuel | **The same family as EM9** (calls for help as quests). The game's nearest shapes: `TradeRequest`, `OpportunitySite_DownedRefugee` (EM9). **The owner, 9 Nov 2026:** "quests later, generic in the Framework for all our vehicles" | Earn goodwill and silver with the trucks' own work | — | The trucks have a reason to leave home | Other factions (goodwill); the game's quests | Medium to large. **Take first, with EM9** (owner, 26 Nov 2026). Text is agent-written and held for review. **Built: Framework 0.308.0, Vehicles 0.122.0** ([contracts](vehicle-contracts.md)), all seven kinds; EM9's tow and casualty in Framework 0.311.0; not yet tested in game |
+| EM45 | **Contracts from settlements.** A settlement asks for a bore, a survey, a load of stone, some days of Busbar power, or water and fuel | **The same family as EM9** (calls for help as quests). The game's nearest shapes: `TradeRequest`, `OpportunitySite_DownedRefugee` (EM9). **The owner, 9 Nov 2026:** "quests later, generic in the Framework for all our vehicles" | Earn goodwill and silver with the trucks' own work | — | The trucks have a reason to leave home | Other factions (goodwill); the game's quests | Medium to large. **Take first, with EM9** (owner, 26 Nov 2026). Text is agent-written and held for review. **Built: Framework 0.308.0, Vehicles 0.122.0** ([contracts](vehicle-contracts.md)), all seven kinds; EM9's tow and casualty in Framework 0.311.0; not yet tested in game. **EM30 and EM34 built: Framework 0.317.0** ([work on the road](vehicle-road-work.md)) |
 
 ## Other factions' vehicles
 
@@ -490,6 +490,15 @@ fuel by distance, in a group not picked for now).
   default, to fight, stays.
 - **Question 11: warn, then allow** (EM29's way): the tow goes ahead with a plain warning, and a trailer on a wrecked axle crawls and
   wears further. This closes the question open since 18 Nov 2026 in [working trailers](vehicle-trailers.md).
+
+**The options not chosen** (kept on the owner's word of 26 Nov 2026, "Document the other possibilities before they are lost"):
+
+| Question | Not chosen |
+| --- | --- |
+| 8. What first | The agent's order (the halt-work piece with the survey halt and the water bore, then the Datum, Kelly and Talus chain, then contracts). Nothing yet: group H as a record only |
+| 9. The test hole's insects | Moderate risk, starting on, as the rig's insects on a map do. No insects at all, and no setting |
+| 10. Driving through an ambush | Leave ambushes as they are: no drive-through choice and no new roll |
+| 11. A trailer with wrecked axles | Refuse the tow until it is repaired, the refusal saying why. Allow it with no warning, as today |
 
 ## As built: life on the road in the logbook and the Fleet board (22 Nov 2026, Framework 0.230.0)
 

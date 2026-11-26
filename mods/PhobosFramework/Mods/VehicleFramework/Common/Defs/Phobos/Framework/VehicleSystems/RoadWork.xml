@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Work on the road (Framework 0.317.0; docs/development/vehicle-road-work.md; EM30 and EM34): the logbook's entries for the running survey's
+     finds and the water bores. Agent-authored, held for the owner's review. -->
+<Defs>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_RoadFind</defName>
+    <label>found on the road</label>
+    <text>Found {SUBJECT} on the road {PLACE}. At the console: {WHO}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_Bore</defName>
+    <label>water bore</label>
+    <text>Drilled a water bore {PLACE}: {DETAIL} of water.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+</Defs>

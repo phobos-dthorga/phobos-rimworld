@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Work on the road (Framework 0.317.0; docs/development/vehicle-road-work.md): the running survey and the water bore. Agent-authored, held for the owner's review. -->
+<LanguageData>
+
+  <!-- The running survey -->
+  <PhobosRoadWork_SurveyGizmo>Survey on the road</PhobosRoadWork_SurveyGizmo>
+  <PhobosRoadWork_SurveyGizmoDesc>While the convoy drives, someone aboard who is not driving reads the long-range console, and now and then finds a lump of {ORE} near the way the convoy went. Someone with Intellectual skill must ride along; the better their skill, the sooner a find.</PhobosRoadWork_SurveyGizmoDesc>
+  <PhobosRoadWork_SurveyNoKit>{VEHICLE} has no long-range kit to survey from the road.</PhobosRoadWork_SurveyNoKit>
+  <PhobosRoadWork_SurveyNoHand>Nobody but the drivers aboard can read {VEHICLE}'s console: the survey waits.</PhobosRoadWork_SurveyNoHand>
+  <PhobosRoadWork_InspectSurvey>{VEHICLE} surveys the ground on the way, for {ORE}.</PhobosRoadWork_InspectSurvey>
+  <PhobosRoadWork_InspectSurveyHeldUp>The survey waits: {REASON}</PhobosRoadWork_InspectSurveyHeldUp>
+
+  <!-- The water bore -->
+  <PhobosRoadWork_BoreGizmo>Drill a water bore</PhobosRoadWork_BoreGizmo>
+  <PhobosRoadWork_BoreGizmoDesc>Drill a bore here and pump the ground water into the convoy's water tanks. {RAIN} mm of rain falls here a year, so the bore would give about {LITRES} litres an hour once drilled. The water is untreated, as from a river. Drilling takes hours of work by someone with Mining skill, stops at night, burns the rig's fuel and wears its drill bit. The convoy must stay put.</PhobosRoadWork_BoreGizmoDesc>
+  <PhobosRoadWork_BoreStopGizmo>Stop the bore</PhobosRoadWork_BoreStopGizmo>
+  <PhobosRoadWork_BoreStopGizmoDesc>Stop drilling or pumping. The water already pumped stays in the tanks.</PhobosRoadWork_BoreStopGizmoDesc>
+  <PhobosRoadWork_BoreNoWater>Nothing here gives water a use.</PhobosRoadWork_BoreNoWater>
+  <PhobosRoadWork_BoreMoving>The convoy must stop to drill.</PhobosRoadWork_BoreMoving>
+  <PhobosRoadWork_BoreSettlement>Not in someone else's settlement.</PhobosRoadWork_BoreSettlement>
+  <PhobosRoadWork_BoreDry>The ground here is dry: {RAIN} mm of rain a year, under the {LINE} mm a bore needs.</PhobosRoadWork_BoreDry>
+  <PhobosRoadWork_BoreBitWrecked>{VEHICLE}'s drill bit is wrecked.</PhobosRoadWork_BoreBitWrecked>
+  <PhobosRoadWork_BoreNoHand>Nobody in the convoy is fit to drill: it needs someone able in Mining.</PhobosRoadWork_BoreNoHand>
+  <PhobosRoadWork_BoreNoFuel>{VEHICLE} is out of fuel.</PhobosRoadWork_BoreNoFuel>
+  <PhobosRoadWork_BoreTanksFull>The convoy's water tanks are full, or it carries none set to water.</PhobosRoadWork_BoreTanksFull>
+  <PhobosRoadWork_BoreStarted>{VEHICLE} starts drilling a water bore; once drilled it should give about {LITRES} litres an hour.</PhobosRoadWork_BoreStarted>
+  <PhobosRoadWork_BoreDrilled>{CARAVAN}'s bore has reached water and is pumping.</PhobosRoadWork_BoreDrilled>
+  <PhobosRoadWork_BoreFull>{CARAVAN}'s water tanks are full from the bore: {LITRES} litres.</PhobosRoadWork_BoreFull>
+  <PhobosRoadWork_BoreStopped>The bore is stopped after {LITRES} litres.</PhobosRoadWork_BoreStopped>
+  <PhobosRoadWork_BoreLeft>{CARAVAN} drove on and left its bore after {LITRES} litres.</PhobosRoadWork_BoreLeft>
+  <PhobosRoadWork_BoreHeldUp>{CARAVAN}'s bore is held up: {REASON}</PhobosRoadWork_BoreHeldUp>
+  <PhobosRoadWork_InspectDrilling>Drilling a water bore: {SHARE} of the way down.</PhobosRoadWork_InspectDrilling>
+  <PhobosRoadWork_InspectPumping>Pumping from the bore: {LITRES} litres an hour, {PUMPED} litres so far.</PhobosRoadWork_InspectPumping>
+  <PhobosRoadWork_InspectBoreHeldUp>The bore is held up: {REASON}</PhobosRoadWork_InspectBoreHeldUp>
+  <PhobosRoadWork_Litres>{LITRES} litres</PhobosRoadWork_Litres>
+
+</LanguageData>

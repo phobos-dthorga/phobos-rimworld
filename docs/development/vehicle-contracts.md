@@ -165,6 +165,22 @@ carried, winched, mended and taken in a caravan like the player's own, with no p
 **What follows** [I]: while in care, a casualty is a colonist: their death brings the game's colonist-death moods, and once healed they
 could be set to work until the time runs out. A stranded vehicle in care counts in the colony's wealth on the map it stands on.
 
+## Every option offered (26 Nov 2026)
+
+The owner's word, the same day: "Document the other possibilities before they are lost". Each card as it was put; the chosen option
+first and marked.
+
+| Card | Chosen | Not chosen |
+| --- | --- | --- |
+| Which kinds in the first build | **All seven** | Deliveries only (chemfuel, water, stone, parts; work on site later). Work on site only (survey, bore, power; deliveries later) |
+| How a contract pays | **The game's own rewards** | Silver and goodwill only: a fixed payment, simpler and predictable, unlike the game's other quests |
+| How work at a settlement happens | **The caravan stays for the hours** | Done on the press: with the right truck, a hand and the fuel in the caravan, one press does the job and takes the fuel |
+| How often | **A slider the player sets** (the owner's own answer, then "I'm willing to make exceptions") | As often as trade requests, with an on/off setting. Half as often. Twice as often |
+| The tow | **Either way** | Tow it to their town only (claiming it instead keeps it, but the quest fails and the faction is angry). Fix it where it stands only |
+| The casualty | **Any caravan, the usual time** | Fly them home, tight time: offered only with an aircraft with the litter kit, a time limit a walking caravan would miss. Bring them to your colony: heal them, then they go home, or offer to join as the game's refugee does |
+| Danger at the place | **As the game's rescues, with its own setting (off)** | As the game's rescues, always, with no setting. Never: the place is always quiet |
+| How the tow and casualty pay | **The game's rewards, as the other contracts** | Goodwill only: a favour between neighbours. Rewards, and the casualty may sometimes ask to join the colony instead of going home |
+
 ## Not built, and why
 
 - **Water quality**: a water contract takes any water in the tanks, clean or not [A, a simplification].

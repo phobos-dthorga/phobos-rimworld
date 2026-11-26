@@ -71,6 +71,50 @@ public sealed class WaterAboard : CaravanWater.ISource
 
     public float Take(Caravan caravan, float litres, bool kitchenFirst) => Take(caravan, litres, kitchenFirst, out _);
 
+    /// <summary>
+    /// Fills the caravan's water tanks from a bore (Framework 0.317.0, EM34): each compartment set to water, then each crew water tank, with Dubs'
+    /// untreated water, as the tanker's river intake gives. A compartment never set to water is left alone (agent's choice: the player chose
+    /// what it carries).
+    /// </summary>
+    public float PutUntreated(Caravan caravan, float litres)
+    {
+        int untreated = (int)ContaminationLevel.Untreated;
+        float put = 0f;
+        foreach (VehiclePawn carrier in Carriers(caravan).ToList())
+        {
+            if (put >= litres - 0.0001f) break;
+            if (carrier.GetComp<CompPhobosTank>() is { } tank)
+            {
+                foreach (PhobosTankContentsDef water in Waters)
+                {
+                    if (put >= litres - 0.0001f) break;
+                    put += tank.PutIn(water, litres - put, untreated);
+                }
+            }
+            if (put < litres - 0.0001f && carrier.GetComp<CompPhobosCrewWater>() is { } crew) put += crew.Put(litres - put, untreated);
+        }
+        return put;
+    }
+
+    /// <summary>Room left in the caravan's compartments set to water and its crew water tanks.</summary>
+    public float Room(Caravan caravan)
+    {
+        float room = 0f;
+        foreach (VehiclePawn carrier in Carriers(caravan))
+        {
+            if (carrier.GetComp<CompPhobosTank>() is { } tank)
+            {
+                foreach (TankCompartment compartment in tank.Compartments)
+                {
+                    if (compartment.contents != null && Waters.Contains(compartment.contents))
+                        room += System.Math.Max(0f, tank.CompartmentCapacity - compartment.amount);
+                }
+            }
+            if (carrier.GetComp<CompPhobosCrewWater>() is { } crew) room += System.Math.Max(0f, crew.Capacity - crew.Litres);
+        }
+        return room;
+    }
+
     /// <summary>Takes up to this much; second, the worst quality it came from (Dubs' contamination level, as the tanks remember it).</summary>
     public static float Take(Caravan caravan, float litres, bool kitchenFirst, out int quality)
     {

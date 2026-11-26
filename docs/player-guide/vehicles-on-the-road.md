@@ -363,6 +363,21 @@ as trade requests, in quarters; as often as trade requests by default.
 - **Enemies may wait at contract sites** (same page, **off** by default) lets these places hold the game's rescue threats: raiders,
   mechanoids, turrets or manhunting animals.
 
+### Work on the road
+
+**Two working vehicles earn their keep on a journey.** Each has a button on the world map, and the convoy's line says how it goes.
+
+- **Survey on the road** (a [Datum](working-vehicles.md#datum-survey-truck) with its **long-range kit**): switch it on and, while the
+  convoy drives, someone aboard who is **not driving** reads the console. **They need Intellectual skill**; the better it is, the
+  sooner a find. Now and then they find a lump of the ore the truck is tuned to (**the tune button sits beside the switch**), as the
+  game's own long-range scanner quest, **placed a few tiles from where the convoy was**. Nothing is found while the convoy stands.
+- **Drill a water bore** (a [Kelly](working-vehicles.md#kelly-drill-rig), **Dubs Bad Hygiene only**): stop the convoy and press it.
+  **The button says how much rain falls there and how much water a bore would give**; under 250 mm of rain a year the ground is dry
+  and it is greyed out. Someone with **Mining** skill drills for about eight hours (faster with more skill, **not at night**), then it
+  pumps **untreated water** (as from a river) into the convoy's water tanks until they are full. It **burns the Kelly's fuel and wears
+  its drill bit**: about a dozen bores to a new bit. **Driving on ends it.** Only tanks already set to water are filled, crew water
+  tanks too.
+
 ### Garages
 
 **Garages** (needs Vanilla Expanded Framework): a stopped convoy can set one up. Vehicles left there stay with no time limit, and

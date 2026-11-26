@@ -135,6 +135,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Animating our vehicles](vehicle-animation-research.md) (9 Nov 2026): what can move, and where motion helps. Partly built; the boom owner-tested.
 - [Emergent play around the vehicles](vehicle-emergent-play.md) (20 Nov 2026): where unplanned stories could come from; three audits, EM1 to EM45. Partly built.
 - [Contracts](vehicle-contracts.md) (26 Nov 2026): settlements hire the player's trucks through the quest window; EM45 with EM9. Built.
+- [Work on the road](vehicle-road-work.md) (26 Nov 2026): running survey, water bore, reverse-osmosis kit; every option offered. Partly built.
 - [Traps and vehicles](vehicle-traps.md) (21 Nov 2026): your vehicles pass over your traps when you did not send them; a setting. Built 0.213.0, untested.
 
 ## D'thorga Medical

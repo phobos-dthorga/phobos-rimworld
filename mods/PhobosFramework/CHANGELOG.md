@@ -13,6 +13,24 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.317.0] - 2026-11-26 - Draft
+
+Work on the road: a survey while driving and a water bore at a halt
+
+### Added
+
+- **A Datum surveys on the road** (the owner's cards of 26 November 2026): with its long-range kit and **Survey on the road** on, while
+  the convoy drives, someone with Intellectual skill who is not driving reads the console, and now and then finds a lump of the ore it is
+  tuned to: the game's own long-range quest, its site a few tiles from where the convoy was. Not yet tested in game: row 565.
+- **A Kelly drills a water bore at a halt** (Dubs Bad Hygiene only): **Drill a water bore** says the tile's rain and the litres an hour
+  before anything is spent; under 250 mm a year the ground is dry. About eight hours' drilling by someone with Mining skill (by day),
+  then untreated water, as from a river, pumps into the convoy's water tanks until they are full. It burns the Kelly's fuel and wears its
+  drill bit (about a dozen bores to a bit); driving on ends it. Figures are the agent's. Not yet tested in game: rows 566 and 567.
+
+### Save compatibility
+
+- Safe to add. A bore in progress is lost if the mod is removed; nothing else stays behind.
+
 ## [0.316.0] - 2026-11-26 - Draft
 
 Aeroplanes: propellers from above, chaff and flares by upgrade, and raids by parachute

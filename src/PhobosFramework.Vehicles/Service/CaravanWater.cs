@@ -16,6 +16,13 @@ public static class CaravanWater
 
         /// <summary>Takes up to this much, from the kitchen's own tank first or last. Returns what came.</summary>
         float Take(Caravan caravan, float litres, bool kitchenFirst);
+
+        /// <summary>Puts up to this much untreated water from the ground into the caravan's water tanks (Framework 0.317.0: a water bore). Returns
+        /// what went in.</summary>
+        float PutUntreated(Caravan caravan, float litres);
+
+        /// <summary>Room left in the caravan's water tanks, in litres.</summary>
+        float Room(Caravan caravan);
     }
 
     static ISource? source;
@@ -28,6 +35,10 @@ public static class CaravanWater
     public static float Litres(Caravan caravan) => source?.Litres(caravan) ?? 0f;
 
     public static float Take(Caravan caravan, float litres, bool kitchenFirst) => litres > 0f ? source?.Take(caravan, litres, kitchenFirst) ?? 0f : 0f;
+
+    public static float PutUntreated(Caravan caravan, float litres) => litres > 0f ? source?.PutUntreated(caravan, litres) ?? 0f : 0f;
+
+    public static float Room(Caravan caravan) => source?.Room(caravan) ?? 0f;
 }
 
 /// <summary>

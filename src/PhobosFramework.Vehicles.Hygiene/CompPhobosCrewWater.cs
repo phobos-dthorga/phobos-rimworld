@@ -77,6 +77,21 @@ public sealed class CompPhobosCrewWater : ThingComp, IVehicleCarriedLoad, IVehic
         return got;
     }
 
+    /// <summary>
+    /// Puts up to this much in, aboard (Framework 0.317.0: a water bore on the road fills it); a parked tank's tower is filled by Dubs'
+    /// own pipes, so nothing goes in here then. The worse quality of what was there and what came in is kept. Returns what went in.
+    /// </summary>
+    public float Put(float most, int from)
+    {
+        if (most <= 0f || Tower != null) return 0f;
+        float put = Mathf.Min(most, Mathf.Max(0f, Capacity - litres));
+        if (put <= 0f) return 0f;
+        litres += put;
+        quality = Mathf.Max(quality, from);
+        Changed();
+        return put;
+    }
+
     /// <summary>Whether it is to be laid as a tower beneath the vehicle now: fitted, and the vehicle parked with its pipes beneath it.</summary>
     public void Settle(bool parked)
     {
