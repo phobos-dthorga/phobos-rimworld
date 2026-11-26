@@ -172,7 +172,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Map scale research](map-scale-research.md) (19 Oct 2026): what a cell and a world tile measure, and why 1 m per cell. Research.
 - [Autonomous vehicles by radio](autonomous-vehicles.md) (24 Nov 2026): trucks driven and fought from a radio console. Design only.
 - [Radio visuals](radio-visuals.md) (23 Nov 2026): twenty ways to show the link budget as pictures; coverage, ray line and side view built. Partly built.
-- [Radio advice and relays](radio-advice-and-relays.md) (26 Nov 2026): a skilled colonist's advice by radio, and calls relayed hop by hop. Design only.
+- [Radio advice and relays](radio-advice-and-relays.md) (26 Nov 2026): a skilled colonist's advice by radio, and calls relayed hop by hop. Relays partly built.
 - [Radio stations](radio-stations.md) (24 Nov 2026): the radio desk, a radio terminal and amplifier, and upgrades. Partly built.
 
 ## Art and sound

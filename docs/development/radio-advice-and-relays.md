@@ -1,8 +1,9 @@
 # Radio advice and relays (26 Nov 2026)
 
-**Status (26 Nov 2026):** design only. Radio advice is not built and waits for the owner's go (their card: "Record, then wait"). Relays
-between world tiles are being built by another session (road-work-three) for Radio Framework 0.22.0, to the shape in
-[Relays](#relays); the hand-held's cross-band hop, home stations and outposts as relays are not started. Nothing here is tested in game.
+**Status (26 Nov 2026):** partly built. Relays between world tiles are built in Radio Framework 0.22.0 (halted convoys and depot
+vehicles with the repeater kit, the relay mast, site height by hilliness, plane-earth fading); not yet tested in game: rows 609 and 610.
+Radio advice is not built and waits for the owner's go (their card: "Record, then wait"). The hand-held's cross-band hop, home stations
+and outposts as relays, and channels at relays are not started.
 
 The owner, 26 Nov 2026: "An idea I just had is a doctor providing medical support/advice over the radio! We even have this in
 Australia, right now. This could work with other skills just as well too. If we were to implement all this, how would it look, before
@@ -17,7 +18,7 @@ doctor: a remote doctor talks an unskilled pawn through treatment", "an Elmer wh
 
 ## Read this first
 
-- **Nothing here is built except what the status line says.** Every figure marked **[A]** is the agent's proposal; **[O]** is the
+- **Only what the status line names is built.** Every figure marked **[A]** is the agent's proposal; **[O]** is the
   owner's choice, by card on 26 Nov 2026.
 - **Radio advice is a Phase 4 item of the radio's roadmap.** Building it ahead of its gates needs the owner's word, as the remote
   control of vehicles did. The owner has asked for the record first.
@@ -176,7 +177,7 @@ flowchart LR
 | Kind | What it is | What it needs |
 | --- | --- | --- |
 | **Cross-band, the last hop** | A hand-held works through a dual-band station or vehicle radio near it: in on UHF, out on VHF at once | Nothing extra: any dual-band radio does it. The far end hears VHF |
-| **A relay between tiles** | A true repeater: it hears and sends on the same band at once | A repeater kit (a duplexer), and two channels. Its cost, research and name are for the builder to propose [A] |
+| **A relay between tiles** | A true repeater: it hears and sends on the same band at once | A repeater kit (a duplexer), and two channels. As built in Radio 0.22.0 [A]: the repeater kit, a fitting for any land vehicle, 15 steel and 2 components, after remote-controlled vehicles; channels are not counted yet |
 
 The vehicle control fitting is VHF only today, so a vehicle needs a dual-band voice radio before a hand-held can work through it [A].
 
@@ -186,8 +187,8 @@ The owner chose all four offered.
 
 | Site | State |
 | --- | --- |
-| A halted convoy, or a radio-fitted vehicle left parked, with the repeater kit | Being built (road-work-three, Radio 0.22.0) |
-| A relay mast a stopped convoy builds on a tile and leaves | Being built (the same) |
+| A halted convoy, or a radio-fitted vehicle left at a depot, with the repeater kit | Built in Radio 0.22.0; not yet tested in game (row 609) |
+| A relay mast a stopped convoy builds on a tile and leaves: 25 W on 10 m, 60 steel and 4 components [A] | Built in Radio 0.22.0; not yet tested in game (row 610) |
 | A colony's own base station, between two convoys or to a second colony | Not started |
 | A world outpost with a relay mast, a tie-in with Vanilla Outposts Expanded | Not started |
 
@@ -225,15 +226,18 @@ a Def or a description quotes it.
 Asked, never ticking: a chain is searched when a reach is asked (a convoy's line, an advice call, an airdrop's targets), over a handful
 of nodes and at most three hops, each hop one link budget a band. The builder states and measures the figure in its changelog.
 
-### Who builds what
+### What is built, and what is not
 
-| Piece | Who | Where |
+| Piece | State | Where |
 | --- | --- | --- |
-| The chain search (`RelayRule`), the node registry (`RelayNodes`, `IRelaySource`), `maxRelayHops`, the `relays` gate on a radio | road-work-three | Radio Framework 0.22.0 |
-| Vehicles and the mast site as relay nodes, the repeater kit | road-work-three | Radio 0.22.0, Framework 0.329.0 |
-| Plane earth (`Propagation.PlaneEarthPathLossDb`) and site height by hilliness (`Propagation.SiteHeightMetres`) | road-work-three | Radio Framework 0.22.0 |
-| Cross-band last hop, home stations, outposts, channels at relays | Nobody yet | Radio Framework |
-| Radio advice | Nobody: waits for the owner's go | Radio Framework, Medical, Vehicles |
+| The chain search (`RelayRule`, game-free, tested), the node registry (`RelayNodes`, `IRelaySource`), `maxRelayHops` = 3 | Built | Radio Framework 0.22.0 |
+| The gate: a radio's `relays` field, off by default; a node relays when its source declares a repeater or its radio's field is on (`RelayNodes.CanRelay`) | Built | Radio Framework 0.22.0 |
+| Vehicles and the mast site as relay nodes; the repeater kit (`PhobosFitting_RepeaterKit`) in a repeater bay on every land vehicle | Built | Radio 0.22.0, Framework 0.328.0 |
+| Plane earth (`Propagation.PlaneEarthPathLossDb`) and site height by hilliness (`Propagation.SiteHeightMetres`), both in `EvaluateWorld` | Built | Radio Framework 0.22.0 |
+| Cross-band last hop, home stations, outposts, channels at relays | Not started | Radio Framework |
+| Radio advice | Not started: waits for the owner's go | Radio Framework, Medical, Vehicles |
+
+Built by another session (road-work-three) to this record's shape; what the version delivered is in the Radio Framework's changelog.
 
 ## The cards as put
 
