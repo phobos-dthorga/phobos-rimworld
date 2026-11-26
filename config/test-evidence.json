@@ -327,6 +327,11 @@
       "addictol for an addiction being quit": [{"key": "medical.longterm-self", "variant": "Addiction"}, {"key": "medical.longterm-job-made", "variant": "Addiction"}]
     }},
     "614": [{"key": "medical.longterm-self", "variant": "OldWounds"}, {"key": "medical.longterm-job-made", "variant": "OldWounds"}],
+    "654": {"parts": {
+      "a painkiller draught by a doctor": [{"key": "medical.dose-job-made", "detail": "painkiller draught"}],
+      "an antitox draught taken in toxins": [{"key": "medical.toxic-self", "detail": "antitox draught"}, {"key": "medical.toxic-job-made", "detail": "antitox draught"}]
+    }},
+    "655": [{"key": "medical.dose-job-made", "detail": "antibiotics"}],
     "615": {"parts": {
       "Neuroglue for biogel": [{"key": "medical.longterm-self", "variant": "Reservoir"}, {"key": "medical.longterm-job-made", "variant": "Reservoir"}],
       "the serum for a missing part": [{"key": "medical.longterm-self", "variant": "MissingPart"}, {"key": "medical.longterm-job-made", "variant": "MissingPart"}]
