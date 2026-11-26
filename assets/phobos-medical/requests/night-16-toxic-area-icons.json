@@ -1,0 +1,48 @@
+[
+  {
+    "name": "n16-toxic-area-expand",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A white diamond-shaped hazard sign with a thick red border, bearing a bold black skull and crossbones, with a small green circle holding a white plus sign at its lower right. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. Keep the size and the corner badge of the first reference image. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+    "subject": "a white diamond-shaped hazard sign with a thick red border, bearing a bold black skull and crossbones, with a small green circle holding a white plus sign at its lower right",
+    "references": [
+      "mods/PhobosMedical/Mods/Rimatomics/Textures/Phobos/Medical/Protection/RadiationAreaExpand.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      195,
+      196
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Expand toxic controlled area (Zone menu)",
+      "ships_as": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Protection/ToxicAreaExpand.png",
+      "why": "protection while exposed (Medical 0.30.0, docs/development/medical-care-needs.md); the paint tool uses the game's home-area icon until a picture ships at this path, which it picks up with no code change; the owner, 27 Nov 2026: 'Add the icons to be made locally to tonights queue'; icons are made locally. The sign is the chemical-hazard (GHS) toxic pictogram, so it reads apart from the radiation area's trefoil"
+    }
+  },
+  {
+    "name": "n16-toxic-area-clear",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A white diamond-shaped hazard sign with a thick red border, bearing a bold black skull and crossbones, with a small red circle holding a white minus sign at its lower right. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. Keep the size and the corner badge of the first reference image. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+    "subject": "a white diamond-shaped hazard sign with a thick red border, bearing a bold black skull and crossbones, with a small red circle holding a white minus sign at its lower right",
+    "references": [
+      "mods/PhobosMedical/Mods/Rimatomics/Textures/Phobos/Medical/Protection/RadiationAreaClear.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      197,
+      198
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Clear toxic controlled area (Zone menu)",
+      "ships_as": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Protection/ToxicAreaClear.png",
+      "why": "protection while exposed (Medical 0.30.0, docs/development/medical-care-needs.md); the paint tool uses the game's home-area icon until a picture ships at this path, which it picks up with no code change; the owner, 27 Nov 2026: 'Add the icons to be made locally to tonights queue'; icons are made locally. The sign is the chemical-hazard (GHS) toxic pictogram, so it reads apart from the radiation area's trefoil"
+    }
+  }
+]
