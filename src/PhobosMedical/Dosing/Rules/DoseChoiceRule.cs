@@ -11,9 +11,12 @@ public readonly struct DoseWeights
     public readonly float Addiction;
     /// <summary>The share of the bleed weight that counts while the patient is not bleeding.</summary>
     public readonly float BleedWhenNotBleeding;
+    /// <summary>What one vomit a day counts against a cure or a preventive (Medical 0.28.0); pain relief and immunity do not count it.</summary>
+    public readonly float Vomit;
 
-    public DoseWeights(float consciousness, float breathing, float bleed, float addiction, float bleedWhenNotBleeding)
+    public DoseWeights(float consciousness, float breathing, float bleed, float addiction, float bleedWhenNotBleeding, float vomit = 0f)
     {
+        Vomit = vomit;
         BleedWhenNotBleeding = bleedWhenNotBleeding;
         Consciousness = consciousness;
         Breathing = breathing;
@@ -57,13 +60,26 @@ public static class DoseChoiceRule
     public static bool WorthwhileForImmunity(DoseEffect effect, float minImmunityGain, DoseWeights weights) =>
         effect.ImmunityGain >= minImmunityGain && !effect.Sedative && !effect.Recreational && Score(effect, DoseNeed.Immunity, false, weights) > 0f;
 
+    /// <summary>
+    /// Whether an item is worth indexing as a cure or a preventive (Medical 0.28.0): its costs must leave something of the benefit, and
+    /// it is never a sedative or a recreational drug. An item that mostly harms (it makes the patient vomit all day, or takes most of
+    /// their consciousness) scores zero or less and is on no list, without being named.
+    /// </summary>
+    public static bool WorthwhileForCare(DoseEffect effect, DoseNeed need, DoseWeights weights) =>
+        !effect.Sedative && !effect.Recreational && Score(effect, need, false, weights) > 0f;
+
     public static float Score(DoseEffect effect, bool patientBleeding, DoseWeights weights) => Score(effect, DoseNeed.PainRelief, patientBleeding, weights);
 
     /// <summary>What the dose is worth for this need, net of its side effects.</summary>
     public static float Score(DoseEffect effect, DoseNeed need, bool patientBleeding, DoseWeights weights)
     {
         float bleedWeight = patientBleeding ? weights.Bleed : weights.Bleed * weights.BleedWhenNotBleeding;
-        return (need == DoseNeed.Immunity ? effect.ImmunityGain : effect.PainRelief)
+        // A cure removes the condition and a preventive stops it: the whole benefit, the same for every item that does it, so the
+        // choice between two of them is by their costs alone.
+        bool care = need == DoseNeed.Cure || need == DoseNeed.Prevention;
+        float vomit = care ? weights.Vomit * effect.VomitsPerDay : 0f;
+        return (care ? 1f : need == DoseNeed.Immunity ? effect.ImmunityGain : effect.PainRelief)
+            - (vomit > 1f ? 1f : vomit)
             - (effect.Sedative ? 0f : weights.Consciousness * effect.ConsciousnessCost)
             - weights.Breathing * effect.BreathingCost
             - bleedWeight * effect.BleedIncrease

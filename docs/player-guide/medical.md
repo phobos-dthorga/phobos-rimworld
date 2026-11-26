@@ -144,6 +144,8 @@ its name.
 | Down or in bed, pain 40% or more | The best painkiller in reach, net of its side effects |
 | Pain 80% or more, and no painkiller can be given | A sedative |
 | A disease that can kill, and immunity would come too late | A medical drug that speeds immunity. **A patient already winning gets none**, so stock lasts |
+| Down or in bed, with a condition something in stock cures outright | The cure, the gentlest first. Looked for before anything else |
+| Someone in the colony has a disease that strikes groups, and this person is unprotected | A preventive from stock: a doctor gives it to those in bed, and people on their feet take their own |
 
 - **Never given**: a second painkiller while one still works, anything during an overdose, a dose that would leave consciousness or
   breathing under 15%, recreational drugs (unless the setting allows them, and then last), drugs to someone who refuses them on
@@ -151,6 +153,15 @@ its name.
 - **A drug counts as a painkiller only if it takes away 30% of the pain or more**, so epinephrine stays for cardiac arrest, and
   beer and tea stay out.
 - **A patient bleeding hard (30% a day or more) waits for a painkiller** until the bleeding is tended.
+- **A cure is anything that removes a condition outright**, such as a plague antiserum from a mod that has one. The game by itself
+  has none.
+- **Prevention uses what makes a person immune**: penoxycyline against malaria, sleeping sickness and plague, or a mod's vaccine.
+  **It keeps a reserve**: never below 5 of a preventive in stock (0, 5, 10 or 20 in the settings). Treatment may use the last one.
+- **Diseases do not pass from person to person in the game by itself.** A preventive taken when plague strikes protects against the
+  next time it strikes, not this one.
+- **A rare item, worth 300 silver or more, is kept for saving a life**, and nothing that begins a dependency that kills when it
+  stops (luciferium) is ever given by rule.
+- **A "Medicine needed" alert** names anyone who needs something your colony knows how to make while none of it is in stock.
 - **A patient in extreme pain flinches while being tended**, so the tend comes out up to a quarter worse. Pain relief prevents it.
 - **Colonists up and about fetch their own painkiller** at 40% pain, by their drug policy. Teetotalers, children and masochists never
   do; anyone with chemical interest or fascination reaches for it sooner. Nobody takes a dose that would knock them out.

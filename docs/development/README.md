@@ -151,7 +151,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Medical save bridge](archive/medical-save-bridge.md) (3 Nov 2026): why adding More Injuries beside MSE2 wiped wounds, and the bridge. Archived.
 - [Ventilation and hydrogen](ventilation-and-hydrogen.md) (7 Nov 2026): the electrolyser's hydrogen, vents, and workstation gases. Record only.
 - [Vaccines and prevention](vaccines-and-prevention.md) (7 Nov 2026): doctors preventing disease in healthy pawns. Record only.
-- [Care needs](medical-care-needs.md) (26 Nov 2026): every medical item given or taken by rule, by need; the owner's eight answers. Record only.
+- [Care needs](medical-care-needs.md) (26 Nov 2026): every medical item given or taken by rule, by need; the owner's answers. Partly built 0.28.0.
 
 ## D'thorga Patches
 

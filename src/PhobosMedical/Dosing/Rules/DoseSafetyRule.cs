@@ -16,6 +16,14 @@ public enum DoseRefusal
     NoImmunityGain,
     /// <summary>The patient is bleeding hard: a painkiller waits until that is under control.</summary>
     BleedingHold,
+    /// <summary>The item would begin a dependency that kills when it stops (Medical 0.28.0). Never begun by rule.</summary>
+    LethalDependency,
+    /// <summary>An addictive item, and the need is a minor one (Medical 0.28.0; the owner's card of 26 Nov 2026).</summary>
+    AddictiveForMinorNeed,
+    /// <summary>A rare, costly item, kept for saving a life (Medical 0.28.0; the owner's card of 26 Nov 2026).</summary>
+    RareItemKept,
+    /// <summary>Taking it would leave fewer in stock than the player keeps back (Medical 0.28.0; the owner's card of 26 Nov 2026).</summary>
+    ReserveKept,
     /// <summary>Self-medication only: the pawn's drug policy does not allow it. Never reaches a doctor's refusal text.</summary>
     PolicyForbids,
 }
@@ -81,8 +89,9 @@ public static class DoseSafetyRule
         {
             if (effect.ImmunityGain <= 0f) return DoseRefusal.NoImmunityGain;
         }
-        else if (!effect.RelievesPain)
+        else if (need != DoseNeed.Cure && need != DoseNeed.Prevention && !effect.RelievesPain)
         {
+            // A cure or a preventive was matched to the patient's condition by the index before it came here.
             return DoseRefusal.NoPainRelief;
         }
         if (effect.Sedative && need != DoseNeed.Sedation) return DoseRefusal.SedativeNotWanted;
@@ -90,7 +99,8 @@ public static class DoseSafetyRule
         if (!patient.WillTake && (effect.Recreational || !limits.IgnoreAversionForMedical)) return DoseRefusal.PatientWillNotTake;
         // Some painkillers raise bleeding in ways a mod applies from its own code, which the index cannot see. A sedative is exempt, because
         // a patient past the pain-shock band still needs relief, and a drug for immunity is not a painkiller.
-        if (need != DoseNeed.Immunity && !effect.Sedative && patient.BleedRate >= limits.BleedHoldRate) return DoseRefusal.BleedingHold;
+        bool forPain = need == DoseNeed.PainRelief || need == DoseNeed.Sedation;
+        if (forPain && !effect.Sedative && patient.BleedRate >= limits.BleedHoldRate) return DoseRefusal.BleedingHold;
         if (activeFraction >= limits.RedoseBelowFraction) return DoseRefusal.StillActive;
         if (patient.Overdose >= limits.OverdoseLimit) return DoseRefusal.Overdosed;
         if (reachesDanger) return DoseRefusal.DangerousDose;

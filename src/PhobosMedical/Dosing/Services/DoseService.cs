@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Phobos.Dosing.Defs;
+using Phobos.Dosing.Needs;
 using Phobos.Dosing.Rules;
 using Phobos.Framework.Health;
 using Phobos.Framework.Rules;
@@ -52,7 +53,27 @@ public sealed class DoseDecision
 }
 
 /// <summary>
-/// Reads the patient and the doctor, applies the game-free rules, and makes the job. Nothing here mutates game state.
+/// What a care need hands the decision besides the items (Medical 0.28.0): how serious it is, the conditions an item must remove or
+/// stop to answer it (none for pain and immunity, where every indexed item answers), and whether it keeps the player's reserve.
+/// </summary>
+public readonly struct CareContext
+{
+    public readonly CareSeriousness Seriousness;
+    public readonly List<HediffDef>? Targets;
+    public readonly bool UsesReserve;
+
+    public CareContext(CareSeriousness seriousness, List<HediffDef>? targets = null, bool usesReserve = false)
+    {
+        Seriousness = seriousness;
+        Targets = targets;
+        UsesReserve = usesReserve;
+    }
+}
+
+/// <summary>
+/// Reads the patient and the doctor, applies the game-free rules, and makes the job. Nothing here mutates game state. Since Medical
+/// 0.28.0 the reasons for a dose are the rows of the care needs table (<see cref="PhobosCareNeedDef"/>): this class is the engine
+/// each row's worker calls, with the one safety rule and the one choice for all of them.
 /// </summary>
 public static class DoseService
 {
@@ -65,9 +86,21 @@ public static class DoseService
         return NeedsDose(pawn, settings, rules);
     }
 
-    /// <summary>Either reason a doctor would come: pain, or a disease that is winning.</summary>
-    public static bool NeedsDose(Pawn pawn, DosingSettings settings, PhobosDosingRulesDef rules) =>
-        NeedOf(pawn, rules) != DoseNeed.None || (settings.immunityDosing && LosingToDisease(pawn, rules));
+    /// <summary>Any reason a doctor would come with a dose: a care need that is switched on, given through the dosing job, and wanted now.</summary>
+    public static bool NeedsDose(Pawn pawn, DosingSettings settings, PhobosDosingRulesDef rules)
+    {
+        IReadOnlyList<PhobosCareNeedDef> needs = CareNeeds.Ordered;
+        for (int i = 0; i < needs.Count; i++)
+        {
+            CareNeedWorker worker = needs[i].Worker;
+            if (worker.DosedByDoctors && CareModeRule.DoctorsMay(worker.Mode) && worker.Wanted(pawn, settings, rules)) return true;
+        }
+        return false;
+    }
+
+    /// <summary>One of the player's people, under care at the setting's level or better, and not raging: who the dosing part looks after at all.</summary>
+    public static bool IsEligible(Pawn pawn, DosingSettings settings) =>
+        Patients.IsPlayersPerson(pawn) && Patients.CareAllows(pawn, settings.minimumCare, true) && !pawn.InAggroMentalState;
 
     /// <summary>
     /// A patient in bed with a disease that can kill and that is winning the race against their immunity, read from the game's own rates: every
@@ -114,17 +147,40 @@ public static class DoseService
     {
         PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
         DosingSettings settings = DosingMod.Settings;
-        DoseNeed painNeed = NeedOf(patient, rules);
-        DoseDecision? pain = painNeed == DoseNeed.None ? null : DecideFor(doctor, patient, painNeed, DoseIndex.Options, rules, settings, everyItem);
-        if (pain?.Chosen != null) return pain;
-        // Held back from pain relief, or nothing in reach for it: the disease may still have a dose waiting.
-        if (settings.immunityDosing && LosingToDisease(patient, rules))
+        IReadOnlyList<PhobosCareNeedDef> needs = CareNeeds.Ordered;
+        DoseDecision? first = null;
+        // The needs in the table's order; the first with something to give decides. One held back, or with nothing in reach, lets the
+        // next speak (pain held back: the disease may still have a dose waiting), and the first to refuse gives the reason shown.
+        for (int i = 0; i < needs.Count; i++)
         {
-            DoseDecision immunity = DecideFor(doctor, patient, DoseNeed.Immunity, DoseIndex.ImmunityOptions, rules, settings, everyItem);
-            if (immunity.Chosen != null || pain == null) return immunity;
+            CareNeedWorker worker = needs[i].Worker;
+            if (!worker.DosedByDoctors || !CareModeRule.DoctorsMay(worker.Mode) || !worker.Wanted(patient, settings, rules)) continue;
+            DoseDecision? decision = worker.Decide(doctor, patient, everyItem);
+            if (decision == null) continue;
+            if (decision.Chosen != null) return decision;
+            // The reason shown is the first need's that has one to give: a need with nothing of its own on the map (a cure not in
+            // stock) must not hide why the painkiller that is here was held back.
+            if (first == null || (!AnyPresent(first) && AnyPresent(decision))) first = decision;
         }
-        return pain ?? new DoseDecision { Need = DoseNeed.None };
+        return first ?? new DoseDecision { Need = DoseNeed.None };
     }
+
+    static bool AnyPresent(DoseDecision decision)
+    {
+        for (int i = 0; i < decision.Verdicts.Count; i++)
+        {
+            if (decision.Verdicts[i].Present) return true;
+        }
+        return false;
+    }
+
+    /// <summary>The decision for one need over one of the index's lists: what a need's worker calls.</summary>
+    public static DoseDecision DecideCare(Pawn? doctor, Pawn patient, DoseNeed need, IReadOnlyList<DoseOption> options, in CareContext care, bool everyItem) =>
+        DecideFor(doctor, patient, need, options, PhobosDosingRulesDef.Current, DosingMod.Settings, everyItem, care);
+
+    /// <summary>Whether the rules would let anyone give this patient something for one need, wherever the items are.</summary>
+    public static bool AnyCareAllowed(Pawn patient, DoseNeed need, IReadOnlyList<DoseOption> options, in CareContext care) =>
+        AnyAllowed(patient, need, options, PhobosDosingRulesDef.Current, DosingMod.Settings, care);
 
     static DoseLimits DoctorLimits(PhobosDosingRulesDef rules, DosingSettings settings) =>
         new(rules.redoseBelowFraction, rules.overdoseLimit, rules.capacityFloor, settings.recreationalForPain, settings.ignoreAversionForMedical, rules.bleedHoldRate);
@@ -136,41 +192,69 @@ public static class DoseService
     /// </summary>
     public static bool AnyDoseAllowed(Pawn patient, DosingSettings settings, PhobosDosingRulesDef rules)
     {
-        DoseNeed painNeed = NeedOf(patient, rules);
-        if (painNeed != DoseNeed.None && AnyAllowed(patient, painNeed, DoseIndex.Options, rules, settings)) return true;
-        return settings.immunityDosing && LosingToDisease(patient, rules) && AnyAllowed(patient, DoseNeed.Immunity, DoseIndex.ImmunityOptions, rules, settings);
+        IReadOnlyList<PhobosCareNeedDef> needs = CareNeeds.Ordered;
+        for (int i = 0; i < needs.Count; i++)
+        {
+            CareNeedWorker worker = needs[i].Worker;
+            if (worker.DosedByDoctors && CareModeRule.DoctorsMay(worker.Mode) && worker.Wanted(patient, settings, rules) && worker.AnyAllowed(patient, settings, rules)) return true;
+        }
+        return false;
     }
 
-    static bool AnyAllowed(Pawn patient, DoseNeed need, IReadOnlyList<DoseOption> options, PhobosDosingRulesDef rules, DosingSettings settings)
+    /// <summary>Whether an item answers the need for this patient: every indexed item does for pain and immunity; a cure or a preventive
+    /// must name one of the conditions the need is about.</summary>
+    static bool Answers(DoseOption option, DoseNeed need, List<HediffDef>? targets)
+    {
+        if (targets == null) return true;
+        IReadOnlyList<HediffDef> named = need == DoseNeed.Cure ? option.Cures : option.Prevents;
+        for (int i = 0; i < named.Count; i++)
+        {
+            if (targets.Contains(named[i])) return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// A dose still working blocks the next of its kind: among painkillers and among the drugs for immunity, where relief and costs
+    /// stack. A cure and a preventive are each for their own condition, so one never blocks another.
+    /// </summary>
+    static float ActiveOfKind(DoseNeed need, IReadOnlyList<DoseOption> options, HediffSet set) =>
+        need == DoseNeed.Cure || need == DoseNeed.Prevention ? 0f : PainkillerActive(options, set, false);
+
+    static bool AnyAllowed(Pawn patient, DoseNeed need, IReadOnlyList<DoseOption> options, PhobosDosingRulesDef rules, DosingSettings settings, in CareContext care)
     {
         HediffSet set = patient.health.hediffSet;
         DoseLimits limits = DoctorLimits(rules, settings);
-        float painkillerActive = PainkillerActive(options, set, false);
+        float painkillerActive = ActiveOfKind(need, options, set);
         candidates.Clear();
         for (int i = 0; i < options.Count; i++)
         {
-            candidates.Add(new DoseCandidate(options[i].Effect, Evaluate(options[i], patient, need, painkillerActive, limits) == DoseRefusal.None));
+            if (!Answers(options[i], need, care.Targets)) continue;
+            candidates.Add(new DoseCandidate(options[i].Effect, Evaluate(options[i], patient, need, painkillerActive, limits, care) == DoseRefusal.None));
         }
         return DoseChoiceRule.Choose(candidates, need, set.BleedRateTotal > 0f, rules.Weights) >= 0;
     }
 
-    static DoseDecision DecideFor(Pawn? doctor, Pawn patient, DoseNeed need, IReadOnlyList<DoseOption> options, PhobosDosingRulesDef rules, DosingSettings settings, bool everyItem)
+    static DoseDecision DecideFor(Pawn? doctor, Pawn patient, DoseNeed need, IReadOnlyList<DoseOption> options, PhobosDosingRulesDef rules, DosingSettings settings, bool everyItem,
+        in CareContext care)
     {
         var decision = new DoseDecision { Need = need };
         bool bleeding = patient.health.hediffSet.BleedRateTotal > 0f;
         DoseLimits limits = DoctorLimits(rules, settings);
         // A medical painkiller still working blocks every other painkiller: relief and costs stack. A sedative may still
         // follow at extreme pain; it is checked against its own conditions only.
-        float painkillerActive = PainkillerActive(options, patient.health.hediffSet, false);
+        float painkillerActive = ActiveOfKind(need, options, patient.health.hediffSet);
         candidates.Clear();
         for (int i = 0; i < options.Count; i++)
         {
             DoseOption option = options[i];
+            // The candidates and the verdicts stay one for one: an item that does not answer this need is on neither list.
+            if (!Answers(option, need, care.Targets)) continue;
             bool present = IsPresent(doctor, patient, option.Def);
             DoseRefusal refusal = DoseRefusal.None;
             Thing? item = null;
             // The rules first and the search last: reach is the only costly check, and most options never need it.
-            if (present) refusal = Evaluate(option, patient, decision.Need, painkillerActive, limits);
+            if (present) refusal = Evaluate(option, patient, decision.Need, painkillerActive, limits, care);
             bool allowed = present && refusal == DoseRefusal.None;
             if (allowed && everyItem)
             {
@@ -215,7 +299,7 @@ public static class DoseService
     /// The safety rule for one item and one patient, whoever is giving it: an earlier dose still working, a dangerous stage,
     /// the capacity floors, overdose and the patient's willingness. The one place both the doctor and the self path ask.
     /// </summary>
-    static DoseRefusal Evaluate(DoseOption option, Pawn patient, DoseNeed need, float painkillerActive, DoseLimits limits)
+    static DoseRefusal Evaluate(DoseOption option, Pawn patient, DoseNeed need, float painkillerActive, DoseLimits limits, in CareContext care)
     {
         HediffSet set = patient.health.hediffSet;
         float activeFraction = ActiveFraction(option, set);
@@ -230,8 +314,43 @@ public static class DoseService
         var state = new PatientState(patient.health.capacities.GetLevel(PawnCapacityDefOf.Consciousness),
             patient.health.capacities.GetLevel(PawnCapacityDefOf.Breathing),
             set.GetFirstHediffOfDef(HediffDefOf.DrugOverdose)?.Severity ?? 0f, WillTake(patient, option.Def), set.BleedRateTotal);
-        return DoseSafetyRule.Check(option.Effect, need, activeFraction, reachesDanger, state, limits);
+        DoseRefusal refusal = DoseSafetyRule.Check(option.Effect, need, activeFraction, reachesDanger, state, limits);
+        if (refusal != DoseRefusal.None) return refusal;
+        // What the care needs add (Medical 0.28.0), after the dose itself has passed: someone already dependent is not begun on anything.
+        bool beginsLethalDependency = option.LethalDependency != null && !set.HasHediff(option.LethalDependency);
+        refusal = CareSafetyRule.Check(SeriousnessFor(option, need, care), option.Effect.Addictiveness, beginsLethalDependency, option.Rare);
+        if (refusal != DoseRefusal.None) return refusal;
+        if (care.UsesReserve && patient.Map != null && !StockReserveRule.MayTake(InStock(patient.Map, option.Def), DosingMod.Settings.preventionReserve))
+            return DoseRefusal.ReserveKept;
+        return DoseRefusal.None;
     }
+
+    /// <summary>How serious the need is for this item: a cure's is by the conditions this item would remove, life-threatening when one can kill.</summary>
+    static CareSeriousness SeriousnessFor(DoseOption option, DoseNeed need, in CareContext care)
+    {
+        if (need != DoseNeed.Cure || care.Targets == null) return care.Seriousness;
+        for (int i = 0; i < option.Cures.Count; i++)
+        {
+            HediffDef condition = option.Cures[i];
+            if (care.Targets.Contains(condition) && ConditionDanger.DangerSeverity(condition) < ConditionDangerRule.NoDanger) return CareSafetyRule.CureSeriousness(true);
+        }
+        return care.Seriousness;
+    }
+
+    /// <summary>How many of an item lie on the map where the colony may use them: what the reserve is counted against.</summary>
+    public static int InStock(Map map, ThingDef def)
+    {
+        List<Thing> things = map.listerThings.ThingsOfDef(def);
+        int count = 0;
+        for (int i = 0; i < things.Count; i++)
+        {
+            if (things[i].Spawned && !things[i].IsForbidden(Faction.OfPlayer)) count += things[i].stackCount;
+        }
+        return count;
+    }
+
+    /// <summary>Whether any of an item is on the map at all, forbidden or not: what an unmet need looks for.</summary>
+    public static bool OnMap(Map? map, ThingDef def) => map != null && map.listerThings.ThingsOfDef(def).Count > 0;
 
     /// <summary>The largest share of a dose still working among the painkillers; recreational ones count only when asked.</summary>
     static float PainkillerActive(IReadOnlyList<DoseOption> options, HediffSet set, bool includeRecreational)
@@ -268,7 +387,7 @@ public static class DoseService
     /// 2026, off by default: the game counts a secure slave as a free colonist, so before 0.26.0 they did it unasked); guests only by
     /// their own setting. Prisoners never.
     /// </summary>
-    static bool MaySelfMedicate(Pawn pawn, DosingSettings settings)
+    public static bool MaySelfMedicate(Pawn pawn, DosingSettings settings)
     {
         if (pawn.IsFreeNonSlaveColonist) return true;
         if (pawn.IsFreeColonist) return settings.slavesSelfMedicate;
@@ -321,7 +440,7 @@ public static class DoseService
             bool present = IsPresent(pawn, pawn, option.Def);
             DoseRefusal refusal = DoseRefusal.None;
             Thing? item = null;
-            if (present) refusal = PolicyPermits(pawn, policy, option, desire) ? Evaluate(option, pawn, decision.Need, painkillerActive, limits) : DoseRefusal.PolicyForbids;
+            if (present) refusal = PolicyPermits(pawn, policy, option, desire) ? Evaluate(option, pawn, decision.Need, painkillerActive, limits, SelfPainCare) : DoseRefusal.PolicyForbids;
             bool allowed = present && refusal == DoseRefusal.None;
             if (allowed && everyItem)
             {
@@ -335,13 +454,78 @@ public static class DoseService
         return decision;
     }
 
-    /// <summary>The game's own ingest job for what this pawn would take, or null.</summary>
+    static readonly CareContext SelfPainCare = new(CareSeriousness.Serious);
+
+    /// <summary>The game's own ingest job for what this pawn would take, or null: a painkiller first, then a preventive in an outbreak.</summary>
     public static Job? SelfJob(Pawn pawn)
     {
-        if (SelfBlockFor(pawn, DosingMod.Settings, PhobosDosingRulesDef.Current) != SelfBlock.None) return null;
-        if (SelfDecide(pawn).Chosen is not DoseVerdict chosen || chosen.Item == null) return null;
-        if (pawn.IsSlave) Medical.Seen.Note("medical.slave-self-dose", pawn, chosen.Option.Def.label);
-        return DrugAIUtility.IngestAndTakeToInventoryJob(chosen.Item, pawn, 1);
+        if (SelfBlockFor(pawn, DosingMod.Settings, PhobosDosingRulesDef.Current) == SelfBlock.None && SelfDecide(pawn).Chosen is DoseVerdict chosen && chosen.Item != null)
+        {
+            if (pawn.IsSlave) Medical.Seen.Note("medical.slave-self-dose", pawn, chosen.Option.Def.label);
+            return DrugAIUtility.IngestAndTakeToInventoryJob(chosen.Item, pawn, 1);
+        }
+        return PreventionService.SelfJob(pawn);
+    }
+
+    /// <summary>
+    /// Who may take a preventive on their own, whatever the outbreak: the people who may fetch their own painkillers, adult, flesh, up
+    /// and about, and not resting for medical reasons (those are the doctors'). Cheapest tests first.
+    /// </summary>
+    public static bool MayTakeOwnPreventive(Pawn pawn, DosingSettings settings) =>
+        MaySelfMedicate(pawn, settings) && pawn.Spawned && pawn.health?.hediffSet != null && pawn.RaceProps.IsFlesh
+        && pawn.DevelopmentalStage == DevelopmentalStage.Adult && !pawn.Downed && !pawn.Drafted && !pawn.InMentalState && pawn.Awake()
+        && !pawn.InBed() && !HealthAIUtility.ShouldSeekMedicalRest(pawn);
+
+    /// <summary>
+    /// What this pawn would take against the outbreak diseases they are unprotected from (Medical 0.28.0): the doctors' safety and
+    /// choice, the higher floor of someone on their feet, the reserve, and the drug policy where it can speak about the item.
+    /// </summary>
+    public static DoseDecision SelfPreventionDecide(Pawn pawn, List<HediffDef> targets, bool everyItem = false)
+    {
+        PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
+        var decision = new DoseDecision { Need = targets.Count == 0 ? DoseNeed.None : DoseNeed.Prevention };
+        if (decision.Need == DoseNeed.None) return decision;
+        IReadOnlyList<DoseOption> options = DoseIndex.PreventionOptions;
+        var limits = new DoseLimits(rules.redoseBelowFraction, rules.overdoseLimit, rules.selfCapacityFloor, false, false, rules.bleedHoldRate);
+        var care = new CareContext(CareSeriousness.Minor, targets, true);
+        DrugPolicy? policy = pawn.drugs?.CurrentPolicy;
+        int desire = DrugDesire(pawn);
+        candidates.Clear();
+        for (int i = 0; i < options.Count; i++)
+        {
+            DoseOption option = options[i];
+            if (!Answers(option, DoseNeed.Prevention, targets)) continue;
+            bool present = IsPresent(pawn, pawn, option.Def);
+            DoseRefusal refusal = DoseRefusal.None;
+            Thing? item = null;
+            if (present) refusal = PreventionPolicyPermits(pawn, policy, option, desire) ? Evaluate(option, pawn, DoseNeed.Prevention, 0f, limits, care) : DoseRefusal.PolicyForbids;
+            bool allowed = present && refusal == DoseRefusal.None;
+            if (allowed && everyItem)
+            {
+                item = FindOwnItem(pawn, option.Def);
+                allowed = item != null;
+            }
+            candidates.Add(new DoseCandidate(option.Effect, allowed));
+            decision.Verdicts.Add(new DoseVerdict(option, item, present, refusal, DoseChoiceRule.Score(option.Effect, DoseNeed.Prevention, false, rules.Weights)));
+        }
+        ChooseInReach(decision, pawn, pawn, true, false, rules.Weights);
+        return decision;
+    }
+
+    /// <summary>
+    /// The drug policy's word on a preventive. It has a tick only for a drug taken for pleasure or one that addicts; for those it decides
+    /// as it does for a painkiller. A plain medicine it cannot allow or forbid, so the need's own setting is the gate. Something that
+    /// is not a drug at all has no policy line and is simply taken.
+    /// </summary>
+    static bool PreventionPolicyPermits(Pawn pawn, DrugPolicy? policy, DoseOption option, int desire)
+    {
+        ThingDef def = option.Def;
+        if (!def.IsDrug) return true;
+        bool canSpeak = def.IsPleasureDrug || def.IsAddictiveDrug;
+        if (!canSpeak) return true;
+        if (policy == null) return false;
+        DrugPolicyEntry entry = policy[def];
+        return SelfDoseRule.PreventionPolicyAllows(canSpeak, SelfDoseRule.PolicyAllows(entry.allowedForJoy, entry.allowScheduled, desire));
     }
 
     /// <summary>Only a drug has a policy line, and asking the policy about anything else throws. The game gives guests no policy.</summary>
@@ -380,6 +564,9 @@ public static class DoseService
             Job job = JobMaker.MakeJob(DosingDefOf.PhobosDose, chosen.Item, patient);
             job.count = 1;
             Medical.Seen.Note("medical.dose-job-made", patient, chosen.Option.Def.label);
+            if (decision.Need == DoseNeed.Cure && Medical.Seen.Wants("medical.cure-job-made", patient)) Medical.Seen.Note("medical.cure-job-made", patient, chosen.Option.Def.label);
+            if (decision.Need == DoseNeed.Prevention && Medical.Seen.Wants("medical.prevention-job-made", patient))
+                Medical.Seen.Note("medical.prevention-job-made", patient, chosen.Option.Def.label);
             return job;
         }
         if (explain) JobFailReason.Is(ReasonText(decision));

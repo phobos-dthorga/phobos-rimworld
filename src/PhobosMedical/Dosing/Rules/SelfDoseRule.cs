@@ -24,6 +24,14 @@ public static class SelfDoseRule
     /// </summary>
     public static bool NoPolicyAllows(bool isGuest, bool recreational) => isGuest && !recreational;
 
+    /// <summary>
+    /// Whether a person may take a preventive on their own (Medical 0.28.0). A drug policy has a tick only for a drug taken for pleasure
+    /// or one that addicts; a plain medicine has a schedule and nothing else, so the policy cannot say yes or no to it. Where the policy
+    /// can speak, it decides, as for a painkiller; where it cannot, the need's own setting is the gate. Agent's reading of the owner's
+    /// card of 26 Nov 2026 ("by their drug policy"), for the owner to revise.
+    /// </summary>
+    public static bool PreventionPolicyAllows(bool policyCanSpeak, bool policyAllows) => !policyCanSpeak || policyAllows;
+
     /// <summary>Pain relief only: a pawn never sedates themself.</summary>
     public static DoseNeed Need(float pain, float threshold) => pain >= threshold ? DoseNeed.PainRelief : DoseNeed.None;
 }

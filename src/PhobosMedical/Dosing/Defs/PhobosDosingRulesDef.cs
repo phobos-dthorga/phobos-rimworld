@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Phobos.Dosing.Rules;
 using Phobos.Framework.Defs;
 using Verse;
@@ -64,13 +65,45 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     public float bleedWeightWhenNotBleeding = 0.25f;
     public float addictionWeight = 0.5f;
 
-    public DoseWeights Weights => new(consciousnessWeight, breathingWeight, bleedWeight, addictionWeight, bleedWeightWhenNotBleeding);
+    // Care needs (Medical 0.28.0; docs/development/medical-care-needs.md). Every figure authored unless its comment names a source.
+
+    /// <summary>What one vomit a day counts against a cure or a preventive: four a day cancel the whole benefit. Authored.</summary>
+    public float vomitWeight = 0.25f;
+    /// <summary>An item worth this much silver or more is rare, and kept for saving a life: the mark triage uses for a rare tool (the
+    /// owner's card of 26 Nov 2026). Zero or less switches the rule off.</summary>
+    public float rareItemMarketValue = 300f;
+    /// <summary>Prevention is for someone whose chance factor of catching the disease (the game's own) is this or more. Authored.</summary>
+    public float preventionMinRisk = 0.5f;
+    /// <summary>Conditions that count as an outbreak besides the ones found by what they are (a disease an event of the game brings, or
+    /// one that spreads between people): for a mod whose disease arrives another way.</summary>
+    public List<HediffDef> outbreakDiseases = new();
+    /// <summary>How to read "this item removes these conditions" from another mod's own outcome class, as data: the class by its full
+    /// name and the field holding the conditions. Read only; the class's code runs when the game gives the item, as always.</summary>
+    public List<RemovalReader> removalReaders = new();
+
+    public DoseWeights Weights => new(consciousnessWeight, breathingWeight, bleedWeight, addictionWeight, bleedWeightWhenNotBleeding, vomitWeight);
 
     public static PhobosDosingRulesDef Current => Current<PhobosDosingRulesDef>();
 }
 
-/// <summary>Lets any mod keep one of its ingestibles out of automatic dosing, in XML.</summary>
+/// <summary>One outcome class of another mod's that removes conditions, and where it keeps them: a list of conditions, or a single one.</summary>
+public class RemovalReader
+{
+    /// <summary>The outcome class's full name, such as Namespace.ClassName. A class no loaded mod has is skipped.</summary>
+    public string doerClass = "";
+    /// <summary>The field on it that holds a condition or a list of conditions.</summary>
+    public string field = "";
+}
+
+/// <summary>
+/// Lets any mod say, in XML, how one of its ingestibles is treated by automatic dosing: kept out of it altogether, or with an effect
+/// declared by hand where the item's own Defs cannot show it (an effect its mod applies in code).
+/// </summary>
 public class PhobosDosingExtension : DefModExtension
 {
     public bool neverAutoDose;
+    /// <summary>Conditions one dose removes outright (Medical 0.28.0), besides any the index reads from the item itself.</summary>
+    public List<HediffDef> cures = new();
+    /// <summary>Conditions one dose makes the taker immune to (Medical 0.28.0), besides any the index reads from the item itself.</summary>
+    public List<HediffDef> prevents = new();
 }

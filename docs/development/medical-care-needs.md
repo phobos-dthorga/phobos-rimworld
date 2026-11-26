@@ -1,8 +1,9 @@
 # Care needs: giving and taking every medically useful thing by rule (26 Nov 2026)
 
-**Status (26 Nov 2026):** a design record for D'thorga Medical's dosing part. It is a proposal: no code, Def or setting exists for
-it, and none of it is tested in game. The owner answered all eight cards on 26 Nov 2026 ([the answers](#the-owners-answers-26-nov-2026-by-card-with-every-option-offered)):
-the first build is the table with cures and prevention. Building waits for the owner's go.
+**Status (26 Nov 2026):** the first build (slices A and B: the table, cures, prevention in an outbreak, the reserve and the alert)
+is in D'thorga Medical 0.28.0 ([as built](#as-built-medical-0280)), not yet tested in game (rows 590 to 592 of
+[the test pass](in-game-test-pass.md)). Slices C to E are designed, not built. The owner answered all eight cards on 26 Nov 2026
+([the answers](#the-owners-answers-26-nov-2026-by-card-with-every-option-offered)) and then said "Go ahead and build the first slice".
 
 The owner, 26 Nov 2026: "I want to expand the range of medically relevant things that are automatically either taken or given by/to
 patients, to pretty much everything [if] there's a medically valid reason for it, given the rule system we have in-place now", then
@@ -26,6 +27,36 @@ there).
 - **The item survey is nine days old**: it was read from the patched Defs file written on 19 Nov 2026 with 364 active mods; 387 are
   active now. **Read the Defs again before building** (`python scripts/query-defs.py`, and the Framework's "write patched Defs").
 - Every figure here is authored and a proposal. None is medical advice.
+
+## As built: Medical 0.28.0
+
+How it works now is on the living page: [injuries and care](systems/medical-injuries-and-care.md#care-needs-one-table-of-reasons).
+This section keeps only where the build differs from the design below, and what the build found.
+
+- **Prevention is worth less in the game as it stands than the design assumed.** The game's disease events pick their victims when
+  they fire, and nothing in the owner's mods (read 26 Nov 2026) passes a disease between people. So a preventive taken once a
+  disease is in the colony protects against the next strike, not the one under way. It is built as designed and chosen; the
+  trigger is an open decision (`prevention-trigger` in `config/decisions.json`).
+- **A drug policy cannot allow or forbid a plain medicine**: it has a tick for joy and for an addiction, and a schedule, nothing
+  else. As built (agent's reading of card 4): the policy decides for an item that addicts or is taken for pleasure; for a plain
+  medicine the need's own switch is the gate. An open decision (`prevention-self-policy`).
+- **The old switches are kept.** Pain's row follows the dosing switch and self-medication's tick, and the disease drug's row its
+  own tick, so nothing the owner has set changes; only the two new needs have the three-way choice. Agent's choice, to keep saved
+  settings as they are.
+- **Radiation is on the table for its switch and the alert only.** Which medicine, when, and the doctor's job stay the radiation
+  part's own, unchanged: its choice is by dose and stage, not by an item's effect.
+- **The rules stayed in D'thorga Medical**, beside the dosing rules they build on (`Dosing/Rules/CareNeedRule.cs`), not in the
+  Framework's core as the design said: they are medical policy, and nothing outside dosing uses them.
+- **The wider index reads what the first two needs use**: conditions removed (through the rules' readers, or declared),
+  `makeImmuneTo`, and vomiting. Gains to bleeding, breathing and the rest wait for the needs that use them (slice C).
+- **Declared effects cover cures and prevention.** Vanilla Races Expanded - Genie's antibiotics are still not read: their class is
+  not in the code read here, and a declaration made unread would be a guess.
+- **The alert speaks only of what the colony can make** (a recipe that makes the item is available now), and not of prevention.
+  Both are agent defaults: a colony with no drug laboratory would otherwise be told of every ache.
+- **Potassium iodide before entering a radiation area already exists** (D'thorga Medical 0.16.0, the protection part, with Dubs
+  Rimatomics). The "before exposure" row of the table below was written without that: slice D starts from it.
+- **Rare items** (card 5) are in as chosen, for every row, pain included. Read from the patched Defs, nothing reaches 300 silver
+  among the items whose Def states a value; an open decision (`rare-item-mark`).
 
 ## What exists today
 

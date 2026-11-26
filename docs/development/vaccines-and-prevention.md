@@ -5,8 +5,10 @@ A design record for D'thorga Medical. **Nothing is built and nothing is tested i
 
 How injuries and care works now: [systems/medical-injuries-and-care.md](systems/medical-injuries-and-care.md); this record keeps its history.
 
-**Proposal 1 was taken into [care needs](medical-care-needs.md) on 26 Nov 2026**, as its "prevention in an outbreak" need; proposals 2
-to 4 stay here.
+**Proposal 1 was taken into [care needs](medical-care-needs.md) on 26 Nov 2026**, as its "prevention in an outbreak" need, and built
+there in D'thorga Medical 0.28.0 (not yet tested in game); proposals 2 to 4 stay here, designed and not built. One finding from that
+build corrects this record: Biological Warfare's vaccines and antiserums name the game's own plague, flu, malaria and sleeping
+sickness (its Defs as patched, read 26 Nov 2026), not separate diseases as the first bullet below says.
 
 ## Read this first
 

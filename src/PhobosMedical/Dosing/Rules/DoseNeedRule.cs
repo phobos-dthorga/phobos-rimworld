@@ -9,6 +9,10 @@ public enum DoseNeed
     Sedation,
     /// <summary>A disease is winning the race against the patient's immunity: a drug that speeds immunity up.</summary>
     Immunity,
+    /// <summary>The patient has a condition an item removes outright (Medical 0.28.0, care needs).</summary>
+    Cure,
+    /// <summary>A disease is on the map and this person is unprotected: an item that makes them immune to it (Medical 0.28.0).</summary>
+    Prevention,
 }
 
 /// <summary>

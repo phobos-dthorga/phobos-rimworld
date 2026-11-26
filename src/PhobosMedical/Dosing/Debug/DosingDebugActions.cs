@@ -42,6 +42,26 @@ public static class DosingDebugActions
         Log.Message(text.ToString());
     }
 
+    [DebugAction(DebugCategory.Name, "Dosing: log cures and preventives", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
+    public static void LogCareIndex()
+    {
+        var text = new StringBuilder(DosingMod.LogPrefix).Append(" cures (what each removes):");
+        foreach (DoseOption option in DoseIndex.CureOptions) AppendCare(text, option, option.Cures);
+        text.Append('\n').Append(DosingMod.LogPrefix).Append(" preventives (the outbreak diseases each stops):");
+        foreach (DoseOption option in DoseIndex.PreventionOptions) AppendCare(text, option, option.Prevents);
+        Log.Message(text.ToString());
+    }
+
+    static void AppendCare(StringBuilder text, DoseOption option, System.Collections.Generic.IReadOnlyList<HediffDef> conditions)
+    {
+        DoseEffect e = option.Effect;
+        text.Append('\n').Append(option.Def.defName).Append(" (").Append(option.Def.label).Append("):");
+        foreach (HediffDef condition in conditions) text.Append(' ').Append(condition.defName);
+        text.Append("; consciousness -").Append(e.ConsciousnessCost.ToString("0.00")).Append(", breathing -").Append(e.BreathingCost.ToString("0.00"))
+            .Append(", vomits a day ").Append(e.VomitsPerDay.ToString("0.00")).Append(", addictiveness ").Append(e.Addictiveness.ToString("0.00"))
+            .Append(option.Rare ? ", rare" : "").Append(option.LethalDependency != null ? ", begins " + option.LethalDependency.defName : "");
+    }
+
     [DebugAction(DebugCategory.Name, "Dosing: log self-medication for selected pawns", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void LogSelfMedication()
     {

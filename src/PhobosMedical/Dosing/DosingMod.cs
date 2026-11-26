@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
+using Phobos.Dosing.Rules;
 using Phobos.Dosing.Services;
 using Phobos.Framework;
 using Phobos.Medical;
@@ -28,6 +29,14 @@ public class DosingSettings : ModSettings
     public bool slavesSelfMedicate;
     /// <summary>An awake patient in extreme pain is harder to tend well.</summary>
     public bool fussing = true;
+    /// <summary>Who gives an item that removes a condition outright (Medical 0.28.0, care needs): nobody, or doctors.</summary>
+    public CareMode cureMode = CareMode.DoctorsOnly;
+    /// <summary>Who gives a preventive when an outbreak disease is on the map: nobody, doctors, or doctors and each person themself.</summary>
+    public CareMode preventionMode = CareMode.DoctorsAndSelf;
+    /// <summary>Prevention never takes a preventive below this many in stock (the owner's card of 26 Nov 2026).</summary>
+    public int preventionReserve = 5;
+    /// <summary>An alert names anyone with a care need nothing in stock answers (the owner's card of 26 Nov 2026).</summary>
+    public bool unmetAlert = true;
 
     public override void ExposeData()
     {
@@ -41,6 +50,10 @@ public class DosingSettings : ModSettings
         Scribe_Values.Look(ref guestsSelfMedicate, "PhobosDosing_GuestsSelfMedicate", false);
         Scribe_Values.Look(ref slavesSelfMedicate, "PhobosDosing_SlavesSelfMedicate", false);
         Scribe_Values.Look(ref fussing, "PhobosDosing_Fussing", true);
+        Scribe_Values.Look(ref cureMode, "PhobosDosing_CureMode", CareMode.DoctorsOnly);
+        Scribe_Values.Look(ref preventionMode, "PhobosDosing_PreventionMode", CareMode.DoctorsAndSelf);
+        Scribe_Values.Look(ref preventionReserve, "PhobosDosing_PreventionReserve", 5);
+        Scribe_Values.Look(ref unmetAlert, "PhobosDosing_UnmetAlert", true);
     }
 }
 
@@ -54,6 +67,10 @@ public static class DosingMod
     public const string LogPrefix = "[D'thorga Medical: dosing]";
 
     static readonly MedicalCareCategory[] CareChoices = { MedicalCareCategory.HerbalOrWorse, MedicalCareCategory.NormalOrWorse, MedicalCareCategory.Best };
+    static readonly CareMode[] CureModes = { CareMode.Off, CareMode.DoctorsOnly };
+    static readonly CareMode[] PreventionModes = { CareMode.Off, CareMode.DoctorsOnly, CareMode.DoctorsAndSelf };
+    /// <summary>Round figures on buttons (the owner's card of 26 Nov 2026).</summary>
+    static readonly int[] ReserveChoices = { 0, 5, 10, 20 };
 
     public static DosingSettings Settings => MedicalMod.Settings.dosing;
 
@@ -74,6 +91,15 @@ public static class DosingMod
         {
             string fighting = "drugs for fighting disease: " + NamesOf(DoseIndex.ImmunityOptions);
             if (Settings.immunityDosing) report.On(fighting); else report.Off(fighting, "setting");
+        }
+        if (Settings.enabled)
+        {
+            string cures = "cures: " + NamesOf(DoseIndex.CureOptions);
+            if (CareModeRule.DoctorsMay(Settings.cureMode)) report.On(cures); else report.Off(cures, "setting");
+            string prevention = "prevention in an outbreak: " + NamesOf(DoseIndex.PreventionOptions);
+            if (CareModeRule.DoctorsMay(Settings.preventionMode))
+                report.On(prevention + (CareModeRule.SelfMay(Settings.preventionMode) ? ", doctors and self" : ", doctors only") + ", reserve " + Settings.preventionReserve);
+            else report.Off(prevention, "setting");
         }
         if (Settings.fussing) report.On("fussing in extreme pain"); else report.Off("fussing in extreme pain", "setting");
         if (Settings.selfMedication)
@@ -108,6 +134,13 @@ public static class DosingMod
 
     static readonly DosingSettings Defaults = new();
 
+    static string ModeLabel(CareMode mode) => mode switch
+    {
+        CareMode.Off => "PhobosDosing_ModeOff".Translate(),
+        CareMode.DoctorsOnly => "PhobosDosing_ModeDoctorsOnly".Translate(),
+        _ => "PhobosDosing_ModeDoctorsAndSelf".Translate(),
+    };
+
     /// <summary>The "Emergency dosing" page (settings pages, 20 Nov 2026).</summary>
     internal static void DrawSettings(SettingsList list)
     {
@@ -119,6 +152,13 @@ public static class DosingMod
         list.Check("PhobosDosing_SettingIgnoreAversion".Translate(), ref s.ignoreAversionForMedical, d.ignoreAversionForMedical, "PhobosDosing_SettingIgnoreAversionDesc".Translate());
         list.Check("PhobosDosing_SettingImmunity".Translate(), ref s.immunityDosing, d.immunityDosing, "PhobosDosing_SettingImmunityDesc".Translate());
         list.Check("PhobosDosing_SettingFussing".Translate(), ref s.fussing, d.fussing, "PhobosDosing_SettingFussingDesc".Translate());
+        list.Section("PhobosDosing_SectionCareNeeds".Translate());
+        list.Radio("PhobosDosing_SettingCureMode".Translate(), ref s.cureMode, d.cureMode, CureModes, ModeLabel, tip: "PhobosDosing_SettingCureModeDesc".Translate());
+        list.Radio("PhobosDosing_SettingPreventionMode".Translate(), ref s.preventionMode, d.preventionMode, PreventionModes, ModeLabel,
+            tip: "PhobosDosing_SettingPreventionModeDesc".Translate());
+        list.Radio("PhobosDosing_SettingPreventionReserve".Translate(), ref s.preventionReserve, d.preventionReserve, ReserveChoices, count => count.ToString(),
+            tip: "PhobosDosing_SettingPreventionReserveDesc".Translate());
+        list.Check("PhobosDosing_SettingUnmetAlert".Translate(), ref s.unmetAlert, d.unmetAlert, "PhobosDosing_SettingUnmetAlertDesc".Translate());
         list.Section("PhobosDosing_SectionSelf".Translate());
         list.Check("PhobosDosing_SettingSelfMedication".Translate(), ref s.selfMedication, d.selfMedication, "PhobosDosing_SettingSelfMedicationDesc".Translate());
         list.Check("PhobosDosing_SettingSlavesSelfMedicate".Translate(), ref s.slavesSelfMedicate, d.slavesSelfMedicate, "PhobosDosing_SettingSlavesSelfMedicateDesc".Translate());

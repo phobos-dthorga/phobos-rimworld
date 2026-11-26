@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The care needs table (D'thorga Medical 0.28.0; docs/development/medical-care-needs.md): one row per reason a person is
+       given, or takes, something from the colony's stock. A row says how serious the need is, in what order doctors look at it,
+       whether it keeps the player's reserve and whether an unmet one raises the alert; its worker class reads the patient and
+       matches the items by what they do. Another mod adds a need with a Def like these and a worker of its own. The order,
+       lowest first: a cure removes the disease, so it comes before relief of its pain and before a drug that only helps fight it;
+       prevention is last because nobody is ill yet. Seriousness and order are authored. -->
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_Cure</defName>
+    <label>cure</label>
+    <description>A patient has a condition that something in stock removes outright.</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_Cure</workerClass>
+    <order>10</order>
+    <!-- Life-threatening instead, for one patient, when the condition can kill. -->
+    <seriousness>Serious</seriousness>
+    <defaultMode>DoctorsOnly</defaultMode>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_Pain</defName>
+    <label>pain relief</label>
+    <description>A patient is in severe pain; at extreme pain a sedative may follow when nothing lighter can be given.</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_Pain</workerClass>
+    <order>20</order>
+    <seriousness>Serious</seriousness>
+    <defaultMode>DoctorsAndSelf</defaultMode>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_DiseaseDrug</defName>
+    <label>help against a disease</label>
+    <description>A patient in bed is losing the race between a disease that can kill and their immunity.</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_DiseaseDrug</workerClass>
+    <order>30</order>
+    <seriousness>LifeThreatening</seriousness>
+    <defaultMode>DoctorsOnly</defaultMode>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_Radiation</defName>
+    <label>radiation medicine</label>
+    <description>A dosed person needs one of the radiation medicines. Which one, and the doctor's job, are the radiation part's own.</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_Radiation</workerClass>
+    <order>35</order>
+    <seriousness>LifeThreatening</seriousness>
+    <defaultMode>DoctorsOnly</defaultMode>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_Prevention</defName>
+    <label>prevention in an outbreak</label>
+    <description>A disease that strikes groups is in the colony, and this person is unprotected against it.</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_Prevention</workerClass>
+    <order>40</order>
+    <seriousness>Minor</seriousness>
+    <defaultMode>DoctorsAndSelf</defaultMode>
+    <usesReserve>true</usesReserve>
+    <!-- Nobody is ill yet, and a colony with no vaccine would be nagged through every outbreak (agent default, owner to revise). -->
+    <alertWhenUnmet>false</alertWhenUnmet>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+</Defs>

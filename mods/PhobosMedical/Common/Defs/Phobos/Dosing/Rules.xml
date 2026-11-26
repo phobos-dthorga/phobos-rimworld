@@ -57,5 +57,27 @@
     <fussingPainThreshold>0.8</fussingPainThreshold>
     <fussingFactorAtThreshold>0.9</fussingFactorAtThreshold>
     <fussingFactorAtFullPain>0.75</fussingFactorAtFullPain>
+
+    <!-- Care needs (D'thorga Medical 0.28.0). What one vomit a day counts against a cure or a preventive: four a day cancel the
+         whole benefit, which keeps an emetic off both lists (authored). -->
+    <vomitWeight>0.25</vomitWeight>
+    <!-- An item worth this much silver or more is rare and kept for saving a life: the mark triage uses for a rare tool (the owner's
+         choice, 26 Nov 2026). Zero switches the rule off. -->
+    <rareItemMarketValue>300</rareItemMarketValue>
+    <!-- Prevention is for someone whose chance of catching the disease is at least half what an unprotected person's is: the game's
+         own chance factor, which falls as immunity left over from an earlier bout rises (authored). -->
+    <preventionMinRisk>0.5</preventionMinRisk>
+    <!-- Conditions that count as an outbreak besides those found by what they are (a disease one of the game's events brings to a
+         group, or one that spreads between people). Empty: a mod whose disease arrives another way adds its own with a patch. -->
+    <outbreakDiseases />
+    <!-- How to read "this item removes these conditions" from another mod's own outcome class: its full name and the field that
+         holds them. A class no loaded mod has is skipped, so a reader needs no MayRequire. Ushanka's Biological Warfare's antiserums
+         keep theirs in hediffDefsToRemove (its public source, read 26 Nov 2026). -->
+    <removalReaders>
+      <li>
+        <doerClass>USH_BW.IngestionOutcomeDoerRemoveHediffs</doerClass>
+        <field>hediffDefsToRemove</field>
+      </li>
+    </removalReaders>
   </Phobos.Dosing.Defs.PhobosDosingRulesDef>
 </Defs>

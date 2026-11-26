@@ -9,7 +9,8 @@ using Verse.AI;
 namespace Phobos.Dosing.Jobs;
 
 /// <summary>
-/// Doctor work: give a resting patient in severe pain, or losing to a disease, the best dose within reach. Reads the per-map patient cache and
+/// Doctor work: give a resting patient the best dose within reach for whichever care need they have (pain, a disease that is winning, a
+/// condition an item cures, an outbreak they are unprotected against). Reads the per-map patient cache and
 /// delegates the decision to the service; it mutates nothing itself. The cache lists only patients the rules would let someone dose now,
 /// so a ward full of patients whose last dose is still working costs a doctor looking for work nothing; a right-click reads the patient
 /// directly and still says why.
@@ -25,7 +26,7 @@ public class WorkGiver_PhobosDose : WorkGiver_Scanner
     public override bool ShouldSkip(Pawn pawn, bool forced = false) =>
         // A forced check is the doctor's right-click: the game offers nothing at all when this skips, so the cached list (up to
         // 250 ticks old) must not hide a patient or their refusal there.
-        !DosingMod.Settings.enabled || (DoseIndex.Options.Count == 0 && DoseIndex.ImmunityOptions.Count == 0) || pawn.Map == null || (!forced && PatientCache.Patients(pawn.Map).Count == 0);
+        !DosingMod.Settings.enabled || !DoseIndex.Any || pawn.Map == null || (!forced && PatientCache.Patients(pawn.Map).Count == 0);
 
     public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn pawn) => PatientCache.Patients(pawn.Map);
 

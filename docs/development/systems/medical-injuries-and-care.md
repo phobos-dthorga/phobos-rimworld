@@ -229,6 +229,53 @@ after tending, before feeding).
 two days of the lethal mark or later at today's rates, gets a medical drug that speeds immunity by 0.1 or more. Pain comes first;
 if no pain relief can come, the disease drug still does. Nothing that gives a disease is on the list.
 
+### Care needs: one table of reasons
+
+Since Medical 0.28.0 every reason for a dose is a row of one table, a `PhobosCareNeedDef` (`Defs/Phobos/Dosing/CareNeeds.xml`). A
+row gives its order, how serious it is, whether it keeps the player's reserve and whether an unmet one raises the alert; its worker
+class (`Dosing/Needs/`) reads the patient. `DoseService` is the engine every worker calls: one safety rule and one choice. A doctor
+looks at the rows in order, and the first with something to give decides the dose. **Not yet tested in game** (rows 590 to 592).
+
+| Order | Need | Who qualifies | How serious | Switch |
+| --- | --- | --- | --- | --- |
+| 10 | Cure | Down or in bed, with a visible bad condition some indexed item removes | Serious; life-threatening when the condition can kill | Nobody, or doctors (default) |
+| 20 | Pain relief | As *Doctors who dose* says | Serious | The dosing switch, and self-medication's own |
+| 30 | Help against a disease | As above | Life-threatening | Its own tick |
+| 35 | Radiation medicine | By dose and stage; **the radiation part keeps its own choice, work giver and job** | Life-threatening | The radiation model's |
+| 40 | Prevention in an outbreak | An outbreak disease is on the map and this person could still catch it | Minor | Nobody, doctors, or doctors and self (default) |
+
+**Cures.** The index lists an item as a cure when one of its outcomes removes conditions: an outcome class named in the rules'
+`removalReaders` (the class's full name and the field holding the conditions; Ushanka's Biological Warfare's antiserums), or `cures`
+declared on the item's `PhobosDosingExtension`. A cure works at once, so it is given where the patient lies.
+
+**Prevention.** A preventive is an item whose condition, at its dose, carries the game's `makeImmuneTo` for an outbreak disease (or
+that declares `prevents`). An outbreak disease is one a game event brings to a group (`IncidentDef.diseaseIncident`), one that
+spreads between people (Vanilla Expanded Framework's spreadable comp, found by name), or one the rules list. While one of the
+player's people on a map visibly has such a disease (`PreventionService`, a per-map list rebuilt at most every 250 ticks), anyone
+whose chance factor of catching it (the game's `DiseaseContractChanceFactor`) is 0.5 or more counts as unprotected: doctors give a
+preventive to those down or in bed, and people on their feet take their own, at the think-tree hook painkillers use.
+
+- **A drug policy decides only where it has a tick**: for an item that addicts or is taken for pleasure. A plain medicine has only
+  a schedule there, so the need's own switch is the gate (agent's reading of the owner's card, for the owner to revise).
+- **No disease passes between people in the game by itself, nor in the owner's mods as read on 26 Nov 2026** (no condition carried
+  the spreadable comp). There, prevention protects against the next strike, not the one under way.
+
+**What the table adds to safety** (`CareSafetyRule`, after the dose itself has passed, for every row):
+
+- never an item that begins a dependency that kills when it stops (the addiction's own stages threaten life), unless the patient
+  has that addiction already;
+- an addictive item only for a serious or life-threatening need;
+- an item worth 300 silver or more only for a life-threatening need (triage's mark for a rare tool);
+- a need that keeps the reserve (prevention) never takes an item below it, counted per item over the unforbidden stock on the map
+  (5 by default).
+
+A cure or a preventive scores 1 less its costs, with vomiting counted (a quarter per vomit a day), so an emetic is on neither list.
+Pain and immunity scores do not count vomiting, so those choices are as they were.
+
+**The alert.** `Alert_PhobosCareUnmet` ("Medicine needed") names each person with a need whose row raises it (every row but
+prevention) while no item that answers it is on the map and the colony knows how to make one (a recipe that makes it is available
+now). `CareStock` keeps the per-map list, rebuilt at most every 250 ticks, when the alert asks. A setting, on.
+
 **Fussing.** An awake patient in extreme pain (0.8 or more) is tended worse: the tend quality is multiplied by 0.9 at 0.8 pain,
 falling to 0.75 at full pain (authored). A postfix on the game's base tend quality; a setting, on.
 
@@ -336,8 +383,8 @@ All under `src/PhobosMedical/` unless named.
 | `BurnsAndSmoke/Heat/` | The hot-zone map component, the temperature postfix, the move-away job giver |
 | `BurnsAndSmoke/Surgery/` | The remove-and-leave surgery worker, the fluids bill |
 | `Dosing/DosingMod.cs` | Settings, load line, settings page |
-| `Dosing/Services/` | `DoseService` (decides, makes the job), `DoseIndex`, `PatientCache`, `FussingService` |
-| `Dosing/Rules/` | Need, effect, safety, choice, immunity, self-dose and fussing rules |
+| `Dosing/Services/` | `DoseService` (decides, makes the job), `DoseIndex`, `PatientCache`, `PreventionService`, `CareStock`, `FussingService` |
+| `Dosing/Rules/` | Need, effect, safety, choice, immunity, self-dose, care-need and fussing rules |
 | `Dosing/Jobs/`, `Dosing/Patches/` | The work giver, the dose driver, the self-medication giver; the fussing postfix |
 | `Triage/TriageMod.cs`, `TriagePreferences.cs` | Settings, the per-person authority registered with the Framework, the inspect line |
 | `Triage/Services/` | `TriagePlanner`, `OperationIndex`, `ConditionReader`, `TriageBillLedger`, the map component |
@@ -467,7 +514,11 @@ Every tie-in is in the [tie-in register](../tie-in-register.md). None is require
   outcome class, are not indexed; More Injuries' morphine raising bleeding is why the bleeding hold exists.
 - **Stronger pain does not prefer stronger drugs**: the score ignores the pain level.
 - **Antibiotics are not told from antivirals**; every disease drug counts for every disease.
-- **Vaccines and prevention for the healthy** are designed, not built ([vaccines and prevention](../vaccines-and-prevention.md)).
+- **Prevention reaches only what an item already prevents, and only once a disease is in the colony.** Our own vaccines, hygiene and
+  masks are designed, not built ([vaccines and prevention](../vaccines-and-prevention.md)); the other care needs (blood loss,
+  collapse, before exposure, the long-term ones) are designed, not built ([care needs](../medical-care-needs.md)).
+- **A cure hidden in another mod's code is not found** until a reader names its outcome class or the item declares it. Nothing
+  checks a reader's class and field against the other mod's updates but the one warning in the log at start-up.
 - **Mechanoid doctors** never dose or take the ordered operate work (`canBeDoneByMechs` false).
 - **Search and Rescue's evacuation to a vehicle** is not ours to add; a request for its author is drafted in the [soft-dependency
   record](../soft-dependency-crosslinks.md).
@@ -481,7 +532,8 @@ None of these is a test in game.
 - **Rule tests** (`tests/PhobosMedical.Rules.Tests`): `BurnsAndSmoke/` (`BurnLoadRuleTests`, `SkinShareRuleTests`,
   `BurnedOffTests`, `BurnShockRuleTests`, `CarbonMonoxideRuleTests`, `AirwayRuleTests`, `EscharRuleTests`, `ChemicalRuleTests`,
   `CausticRuleTests`, `FireHeatRuleTests`), `Dosing/` (`DoseEffectRuleTests`, `DoseNeedRuleTests`, `DoseSafetyRuleTests`,
-  `DoseChoiceRuleTests`, `ImmunityTests`, `BleedingHoldTests`, `SelfDoseRuleTests`, `FussingRuleTests`) and `Triage/`
+  `DoseChoiceRuleTests`, `ImmunityTests`, `BleedingHoldTests`, `SelfDoseRuleTests`, `FussingRuleTests`, `CareSafetyRuleTests`, `StockReserveRuleTests`, `PreventionRuleTests`, `CareScoreTests`,
+  `CareSafetyOrderTests`) and `Triage/`
   (`ConditionClassRuleTests`, `AuthorityRuleTests`, `OperationChoiceRuleTests`, `TriageRuleTests`).
 - **Dev actions** (`*/Debug/`): five "Burns:" (burn load, fire heat at the mouse cell, start an airway burn, heal caustic eyes,
   scorch plants), four "Dosing:" (the index, disease drugs, self-medication, a patient's decision), three "Triage:" (the index,

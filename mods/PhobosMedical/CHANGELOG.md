@@ -21,6 +21,44 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.28.0] - 2026-11-26 - Draft
+
+Cures and prevention by rule: the first care needs
+
+### Added
+
+- **Doctors give a cure that is in stock.** A patient down or in bed with a condition something removes outright (a plague
+  antiserum, from a mod that has one) is given it, the gentlest first, before anything else. A setting: nobody, or doctors (the
+  default). Not yet tested in game: row 590 of the test pass.
+- **Prevention when a disease strikes.** While someone in the colony has a disease that strikes groups, the unprotected take what
+  in stock makes a person immune to it (penoxycyline, a vaccine): people on their feet their own, those in bed from a doctor.
+  Diseases do not pass between people in the game by itself, so this protects against the next strike, not this one. A setting:
+  nobody, doctors, or doctors and self (the default). Not yet tested in game: row 591.
+- **A reserve for preventives.** Prevention never takes a preventive below the number kept in stock: 5 by default, or 0, 10 or 20.
+  Treatment may always use the last one.
+- **A Medicine needed alert** names anyone in severe pain, losing to a disease, with a curable condition or needing a radiation
+  medicine while none of what would help is in stock, for things the colony knows how to make. A setting, on. Not yet tested in
+  game: row 592.
+- **For modders: care needs are Defs.** Each reason for a dose is a row with a worker class; an item can declare what it cures or
+  prevents; the rules name other mods' outcome classes that remove conditions. The modders' page has the detail.
+
+### Changed
+
+- **The reasons for a dose are one table now**: pain relief, the drug against a disease that is winning and the radiation
+  medicines are rows beside the two new ones, with their old switches kept. Their choices are meant to be as before, held by the
+  rule tests. Two rules now apply to every row (the owner's choices of 26 November 2026): an item worth 300 silver or more is kept
+  for saving a life, and nothing that begins a dependency that kills when it stops is given by rule.
+
+### Save compatibility
+
+- Safe with an existing save. Four new settings start at their defaults; nothing new is saved in a game.
+
+### Compatibility and limits
+
+- A cure is found when a mod's own outcome class is named in the rules (Ushanka's Biological Warfare's antiserums are) or the item
+  declares it. Vanilla Races Expanded - Genie's antibiotics are still not read.
+- Prevention uses only what already prevents a disease, and nothing addictive.
+
 ## [0.27.0] - 2026-11-26 - Draft
 
 The drip stand's fluids, seen in play

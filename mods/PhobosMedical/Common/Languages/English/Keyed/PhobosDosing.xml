@@ -20,6 +20,18 @@
   <PhobosDosing_SettingGuestsSelfMedicate>Guests may take painkillers from your stock</PhobosDosing_SettingGuestsSelfMedicate>
   <PhobosDosing_SettingGuestsSelfMedicateDesc>Off by default. On, guests in serious pain do the same, from whatever is within their reach. Guests have no drug policy, so they take medical painkillers only, never recreational ones. Useful with mods that bring many guests, such as Hospitality.</PhobosDosing_SettingGuestsSelfMedicateDesc>
 
+  <PhobosDosing_SectionCareNeeds>Cures and prevention</PhobosDosing_SectionCareNeeds>
+  <PhobosDosing_ModeOff>Nobody</PhobosDosing_ModeOff>
+  <PhobosDosing_ModeDoctorsOnly>Doctors only</PhobosDosing_ModeDoctorsOnly>
+  <PhobosDosing_ModeDoctorsAndSelf>Doctors, and people take their own</PhobosDosing_ModeDoctorsAndSelf>
+  <PhobosDosing_SettingCureMode>Who gives a cure that is in stock</PhobosDosing_SettingCureMode>
+  <PhobosDosing_SettingCureModeDesc>A cure is anything that removes a condition outright, such as an antiserum for plague. With doctors, a patient who is down or in bed with a condition something in your stock cures is given it, the gentlest one first. A rare item, worth 300 silver or more, is used only against a condition that can kill. With nobody, cures wait for your own order.</PhobosDosing_SettingCureModeDesc>
+  <PhobosDosing_SettingPreventionMode>Who gives a preventive when a disease strikes</PhobosDosing_SettingPreventionMode>
+  <PhobosDosing_SettingPreventionModeDesc>When someone in the colony has a disease that strikes groups, such as plague, malaria or the flu, the others can be protected with whatever in stock makes a person immune to it. Doctors give it to people who are down or in bed. With the last choice, people on their feet also go and take their own; a drug policy decides only for something addictive or taken for pleasure, because it has no tick for a plain medicine. Nothing addictive is ever used for this. In the game by itself diseases do not pass from person to person, so this protects against the next time it strikes, not this one.</PhobosDosing_SettingPreventionModeDesc>
+  <PhobosDosing_SettingPreventionReserve>Preventives always kept in stock</PhobosDosing_SettingPreventionReserve>
+  <PhobosDosing_SettingPreventionReserveDesc>Prevention never takes a preventive below this many, counted for each kind, so an outbreak cannot empty the shelf. Treating someone who is already sick or hurt may always use the last one.</PhobosDosing_SettingPreventionReserveDesc>
+  <PhobosDosing_SettingUnmetAlert>Alert when nothing in stock answers a need</PhobosDosing_SettingUnmetAlert>
+  <PhobosDosing_SettingUnmetAlertDesc>On, an alert at the side of the screen names anyone in severe pain, losing to a disease, with a curable condition or needing a radiation medicine while none of what would help is in stock. It speaks only of things your colony knows how to make, and goes away when the need is met or ends.</PhobosDosing_SettingUnmetAlertDesc>
   <PhobosDosing_RefusalNothingInReach>nothing suitable within reach</PhobosDosing_RefusalNothingInReach>
   <PhobosDosing_RefusalNoPainRelief>{DRUG} does not relieve pain</PhobosDosing_RefusalNoPainRelief>
   <PhobosDosing_RefusalSedativeNotWanted>only a sedative ({DRUG}) is in reach, and the pain is not that bad</PhobosDosing_RefusalSedativeNotWanted>
@@ -34,4 +46,16 @@
   <PhobosDosing_RefusalNoImmunityGain>{DRUG} does not help fight disease</PhobosDosing_RefusalNoImmunityGain>
   <PhobosDosing_RefusalBleedingHold>{DRUG} must wait until the bleeding is under control</PhobosDosing_RefusalBleedingHold>
   <PhobosDosing_RefusalBreathing>{DRUG} would leave the patient unable to breathe</PhobosDosing_RefusalBreathing>
+  <PhobosDosing_RefusalLethalDependency>{DRUG} would begin a dependency that kills when it stops</PhobosDosing_RefusalLethalDependency>
+  <PhobosDosing_RefusalAddictiveForMinorNeed>{DRUG} is addictive, and this is not serious enough for it</PhobosDosing_RefusalAddictiveForMinorNeed>
+  <PhobosDosing_RefusalRareItemKept>{DRUG} is rare, and kept for saving a life</PhobosDosing_RefusalRareItemKept>
+  <PhobosDosing_RefusalReserveKept>the last of the {DRUG} is being kept in reserve</PhobosDosing_RefusalReserveKept>
+
+  <PhobosDosing_UnmetAlert>Medicine needed</PhobosDosing_UnmetAlert>
+  <PhobosDosing_UnmetIntro>These people need something your colony knows how to make, and none of it is in stock:</PhobosDosing_UnmetIntro>
+  <PhobosDosing_UnmetLine>{PAWN}: {WHAT}</PhobosDosing_UnmetLine>
+  <PhobosDosing_UnmetPain>in severe pain, with no painkiller in stock</PhobosDosing_UnmetPain>
+  <PhobosDosing_UnmetDisease>losing to a disease, with nothing in stock that helps the body fight it</PhobosDosing_UnmetDisease>
+  <PhobosDosing_UnmetCure>nothing in stock that cures {CONDITION}</PhobosDosing_UnmetCure>
+  <PhobosDosing_UnmetMedicine>needs {MEDICINE}, and none is in stock</PhobosDosing_UnmetMedicine>
 </LanguageData>
