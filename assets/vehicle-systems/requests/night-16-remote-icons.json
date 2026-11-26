@@ -1,0 +1,209 @@
+[
+  {
+    "name": "n16-route-follow",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, Two small olive trucks seen from the side, one close behind the other, joined by a bold green dashed line from the front truck's tail to the second truck's nose. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+    "subject": "two small olive trucks seen from the side, one close behind the other, joined by a bold green dashed line from the front truck's tail to the second truck's nose",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      161,
+      162
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Follow (choose a vehicle to keep behind)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Route/Follow.png",
+      "why": "the autonomous vehicles' buttons, borrowed since they were built (docs/development/autonomous-vehicles.md); the owner's card of 26 Nov 2026, 'Tonight, all 9'; icons are made locally"
+    }
+  },
+  {
+    "name": "n16-route-loop",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, Two small amber flags on short poles, joined by a bold green arrow that loops from one flag round to the other and back again in an oval. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+    "subject": "two small amber flags on short poles, joined by a bold green arrow that loops from one flag round to the other and back again in an oval",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      161,
+      162
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Run a loop (pick-up, then drop-off)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Route/Loop.png",
+      "why": "the autonomous vehicles' buttons, borrowed since they were built (docs/development/autonomous-vehicles.md); the owner's card of 26 Nov 2026, 'Tonight, all 9'; icons are made locally"
+    }
+  },
+  {
+    "name": "n16-route-waypoint",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A small blue map pin standing on a pale ground line, with a bold green curved arrow bending round it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+    "subject": "a small blue map pin standing on a pale ground line, with a bold green curved arrow bending round it",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      161,
+      162
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Add a waypoint to the loop",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Route/Waypoint.png",
+      "why": "the autonomous vehicles' buttons, borrowed since they were built (docs/development/autonomous-vehicles.md); the owner's card of 26 Nov 2026, 'Tonight, all 9'; icons are made locally"
+    }
+  },
+  {
+    "name": "n16-route-stop",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A small olive truck seen from the side with a plain bold red octagon sign on a post in front of it, the sign blank with no writing. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+    "subject": "a small olive truck seen from the side with a plain bold red octagon sign on a post in front of it, the sign blank with no writing",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      161,
+      162
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Stop following, or stop the loop",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Route/StopRoute.png",
+      "why": "the autonomous vehicles' buttons, borrowed since they were built (docs/development/autonomous-vehicles.md); the owner's card of 26 Nov 2026, 'Tonight, all 9'; icons are made locally"
+    }
+  },
+  {
+    "name": "n16-route-break-up",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, Three small olive trucks seen from above spreading apart from one another, with short bold red arrows pointing outward between them. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+    "subject": "three small olive trucks seen from above spreading apart from one another, with short bold red arrows pointing outward between them",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      161,
+      162
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Break up the convoy",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Route/BreakUp.png",
+      "why": "the autonomous vehicles' buttons, borrowed since they were built (docs/development/autonomous-vehicles.md); the owner's card of 26 Nov 2026, 'Tonight, all 9'; icons are made locally"
+    }
+  },
+  {
+    "name": "n16-remote-station",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A grey radio console with a small whip antenna on top, sending bold curved green radio waves toward a small olive truck beside it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+    "subject": "a grey radio console with a small whip antenna on top, sending bold curved green radio waves toward a small olive truck beside it",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      161,
+      162
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Drive from a station (the radio's control link)",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/DriveFromStation.png",
+      "why": "the autonomous vehicles' buttons, borrowed since they were built (docs/development/autonomous-vehicles.md); the owner's card of 26 Nov 2026, 'Tonight, all 9'; icons are made locally"
+    }
+  },
+  {
+    "name": "n16-remote-lost-link",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A small olive truck with a whip antenna, the curved radio waves above it broken off short, with a bold amber warning triangle beside it, the triangle blank. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+    "subject": "a small olive truck with a whip antenna, the curved radio waves above it broken off short, with a bold amber warning triangle beside it, the triangle blank",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      161,
+      162
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "What it does if its link is lost (hold, come back, carry on)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Remote/LostLink.png",
+      "why": "the autonomous vehicles' buttons, borrowed since they were built (docs/development/autonomous-vehicles.md); the owner's card of 26 Nov 2026, 'Tonight, all 9'; icons are made locally"
+    }
+  },
+  {
+    "name": "n16-mech-link",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A glowing teal ring of light joined by a bold teal line to a small olive truck seen from the side. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+    "subject": "a glowing teal ring of light joined by a bold teal line to a small olive truck seen from the side",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      161,
+      162
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Link to a mechanitor",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Remote/MechLink.png",
+      "why": "the autonomous vehicles' buttons, borrowed since they were built (docs/development/autonomous-vehicles.md); the owner's card of 26 Nov 2026, 'Tonight, all 9'; icons are made locally"
+    }
+  },
+  {
+    "name": "n16-mech-unlink",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A glowing teal ring of light and a small olive truck seen from the side, the teal line between them broken in the middle with its two ends pulled apart. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+    "subject": "a glowing teal ring of light and a small olive truck seen from the side, the teal line between them broken in the middle with its two ends pulled apart",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      161,
+      162
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "button": "Unlink from the mechanitor",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Remote/MechUnlink.png",
+      "why": "the autonomous vehicles' buttons, borrowed since they were built (docs/development/autonomous-vehicles.md); the owner's card of 26 Nov 2026, 'Tonight, all 9'; icons are made locally"
+    }
+  }
+]
