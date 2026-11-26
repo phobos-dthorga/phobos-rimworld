@@ -61,6 +61,17 @@ public class RouteRuleTests
     }
 
     [Fact]
+    public void ALoopTankersPumpStandsIdleOnlyAfterItsTime()
+    {
+        // Framework 0.303.0: no fall in its load for three of the pump's looks, and it turns to its next compartment.
+        Assert.False(RouteRule.PumpIdle(ticksSinceProgress: 500, giveUpTicks: 750));
+        Assert.True(RouteRule.PumpIdle(750, 750));
+        Assert.True(RouteRule.PumpIdle(2000, 750));
+        // A figure of none never gives up.
+        Assert.False(RouteRule.PumpIdle(100000, 0));
+    }
+
+    [Fact]
     public void ALeaderJoiningBringsItsFollowersIntoTheCount()
     {
         // Framework 0.284.0: two following one leader, joining a convoy of two, makes five behind it: refused.

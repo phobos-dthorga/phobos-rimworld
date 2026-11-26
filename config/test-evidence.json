@@ -28,6 +28,8 @@
     "10": {"parts": {"the tune waits for the rig": [{"key": "vehicles.tune-waits-for-rig", "variant": "ordered-away"}]}},
     "4": {"parts": {"a repair works at a halt": ["vehicles.convoy-repair"]}},
     "538": ["vehicles.route-self-work"],
+    "545": {"parts": {"a loop tanker starts pumping out at the drop-off": [{"key": "vehicles.route-pump", "variant": "started"}],
+      "and drives on once empty": [{"key": "vehicles.route-pump", "variant": "emptied"}]}},
     "539": {"parts": {"a turbine's compressor gets dirty": [{"key": "saved.vehicle-stage.compressorFouling", "variant": "0"}], "a mechanic washes it": ["saved.vehicle-service.PhobosVehicleSystem_CompressorWash"]}},
     "98": {"parts": {"the CIWS kills incoming shells": ["patches.ciws-shell"]}},
     "95": {"parts": {"a drip stand gives burn-shock fluids": ["medical.bedside-fluids"]}},
@@ -117,6 +119,10 @@
       "a bored colonist sits in with the radio": [{"key": "vehicles.visit", "variant": "PhobosVisit_Radio"}],
       "they climb out by themselves": [{"key": "vehicles.visit-end", "variant": "done"}],
       "the radio goes off at the start line": [{"key": "vehicles.visit-end", "variant": "PhobosVisit_OutBattery"}]
+    }},
+    "542": {"parts": {
+      "smoke by day while a drop comes in": ["airdrop.marker-smoke"],
+      "lights by night": ["airdrop.marker-lights"]
     }},
     "543": {"parts": {
       "asked over the comms console": ["airdrop.supply-requested"],
@@ -1089,6 +1095,9 @@
     }}
   },
   "order": [
+    {"name": "a loop tanker starts pumping before it is emptied", "row": "545",
+     "first": {"key": "vehicles.route-pump", "variant": "started"},
+     "then": {"key": "vehicles.route-pump", "variant": "emptied"}},
     {"name": "a piston engine warns before its battery cannot start it", "row": "69",
      "first": {"key": "vehicles.stage.startingPower", "detail": "*: barely enough to start"},
      "then": {"key": "vehicles.stage.startingPower", "detail": "*: too weak to start"}},

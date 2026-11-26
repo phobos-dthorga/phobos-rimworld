@@ -31,6 +31,8 @@ public class PhobosRemoteControlRulesDef : PhobosRulesDef
     public float loopArriveCells = 3f;
     /// <summary>How long a vehicle on a loop waits at each stop for its loading or unloading, in ticks (2,500: an hour of the game's).</summary>
     public int loopDwellTicks = 2500;
+    /// <summary>How long a loop tanker's pump may move nothing at the drop-off before it tries its next compartment (Framework 0.303.0).</summary>
+    public int loopPumpIdleTicks = 750;
     /// <summary>
     /// At a stop a loop vehicle's engine is off (Framework 0.284.0), unless its battery is nearly flat (the owner's card of 25 Nov 2026,
     /// Framework 0.286.0): below this share of charge the engine runs to charge it, until it is above <see cref="loopChargeStopAbove"/>.

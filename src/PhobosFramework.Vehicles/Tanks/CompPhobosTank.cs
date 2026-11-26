@@ -108,6 +108,9 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
 
     /// <summary>Why the pump last did nothing, for the inspect line. Derived, never saved.</summary>
     string? pumpStatus;
+
+    /// <summary>Why the pump did nothing at its last look, in-world, or null while it moved a load or has not looked yet (a loop's drop-off reads it).</summary>
+    public string? PumpStatus => pumpStatus;
     /// <summary>When the towing vehicle last ran this trailer's electric pump through its lead (TrailerPumpInTow). Derived, never saved.</summary>
     int poweredInTowTick = -TowWordLastsTicks - 1;
     /// <summary>Word from the towing vehicle holds for two of its looks, as a cold box's does.</summary>
@@ -940,11 +943,11 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
     }
 
     /// <summary>Moves the pump and the contents button on to the next compartment.</summary>
-    public void SelectNextCompartment()
+    public void SelectNextCompartment(bool quietly = false)
     {
         selected = (SelectedIndex + 1) % Compartments.Count;
         pumpStatus = null;
-        Tell("PhobosVehicleSystems_TankCompartmentSelected".Translate(Vehicle.LabelShort.Named("VEHICLE"), (selected + 1).Named("INDEX")), MessageTypeDefOf.SilentInput);
+        if (!quietly) Tell("PhobosVehicleSystems_TankCompartmentSelected".Translate(Vehicle.LabelShort.Named("VEHICLE"), (selected + 1).Named("INDEX")), MessageTypeDefOf.SilentInput);
     }
 
     /// <summary>Whether the selected compartment already holds fluid that more of the same can join.</summary>
@@ -1031,14 +1034,18 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         return null;
     }
 
-    public void SetDeployed(bool on)
+    /// <summary>
+    /// Sets the tanker up or packs it away. <paramref name="quietly"/> (Framework 0.303.0) tells the player nothing, for a loop vehicle doing it
+    /// by itself at every drop-off; its inspect line still says what it is doing.
+    /// </summary>
+    public void SetDeployed(bool on, bool quietly = false)
     {
         if (on)
         {
             string? refused = CannotDeploy();
             if (refused != null)
             {
-                Tell(refused, MessageTypeDefOf.RejectInput);
+                if (!quietly) Tell(refused, MessageTypeDefOf.RejectInput);
                 return;
             }
         }
@@ -1053,7 +1060,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
             }
             return;
         }
-        ApplyDeployed(on);
+        ApplyDeployed(on, quietly);
     }
 
     protected override string? HandSetUpRefusal() => CannotDeploy();
@@ -1065,7 +1072,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         if (on) Seen.Note("vehicles.bowser-transfer", Vehicle, worker.LabelShort, "set-up");
     }
 
-    void ApplyDeployed(bool on)
+    void ApplyDeployed(bool on, bool quietly = false)
     {
         if (deployed != on) VehicleWorkSounds.Play(Vehicle, "Hoses");
         deployed = on;
@@ -1073,15 +1080,17 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         pumpStatus = null;
         ShowHoses(on);
         SyncSounds();
-        Tell(on ? "PhobosVehicleSystems_TankSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE")) : "PhobosVehicleSystems_TankPackedUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
+        if (!quietly) Tell(on ? "PhobosVehicleSystems_TankSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE")) : "PhobosVehicleSystems_TankPackedUp".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
         Vehicle.GetComp<CompPhobosTrailer>()?.LookAtPipes();
     }
 
-    public void SetMode(TankPumpMode wanted)
+    /// <summary>Sets the pump to load, unload or hold; <paramref name="quietly"/> as for <see cref="SetDeployed"/>.</summary>
+    public void SetMode(TankPumpMode wanted, bool quietly = false)
     {
         mode = wanted;
         pumpStatus = null;
         SyncSounds();
+        if (quietly) return;
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
         Tell(wanted switch
         {

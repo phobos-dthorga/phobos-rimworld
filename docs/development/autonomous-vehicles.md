@@ -364,7 +364,19 @@ Built 25 Nov 2026, not yet tested in game, on the owner's go ("You may proceed")
   through `VehicleAutoDrive.TryFindBackUpSpot`; three failed drives to the back-up spot and it tips where it is. Storage full or nothing
   in reach, it waits out the stop's hour, told once why. The engine runs while its own gear works. Its stop work is saved; the workers'
   tests are handed back after a load. Cost: one look a second while at a stop, as before.
-- **Still open:** tankers pumping out at the drop-off (their own step), helicopter rounds (their own step), and the buttons' own
+- **Tankers pumping out at the drop-off (Framework 0.303.0) [code: `Remote/Route.cs`, `RouteRule.PumpIdle`]:** the owner's word of 26 Nov
+  2026 ("Let's do the tankers pumping out at the drop-off"), the later step of the cards above. A vehicle whose own tank holds a load
+  (not a trailer, which colonists set up by hand) **sets up where it stands, quietly, and pumps out** [A], into whatever its pump reaches
+  there by the tank's own rules: a port's plumbing or pipeline under it, or a tank beside it set to take the same. The tank comes first:
+  a truck with both a tank and a tipping body pumps. It works through every loaded compartment, turning to the next when one empties or
+  its pump moves nothing for `loopPumpIdleTicks` (750, three of the pump's looks [A]). **Empty, it leaves at once**, as the tipper does
+  [O, the cards above]. Once every loaded compartment has stood idle it says why once (the pump's own line) and **keeps pumping until the
+  stop's hour is up** [A, a decision in `config/decisions.json`: leave at once instead?]; then it stops the pump and packs up, whoever
+  set it up, since a tanker set up cannot drive. Unable to set up (pump damaged, load frozen), it says why once and waits out the hour.
+  Its set-up, pump and compartment orders are quiet (`quietly`), so a tanker on a loop puts up no messages at each stop; its inspect
+  line says it is pumping. Saved: whether it set its pump going; the rest is worked out again. Cost: one look a second while at the
+  stop, a sum over its compartments; the pumping itself is the tank's own rare tick, as by hand.
+- **Still open:** tankers filling themselves at the pick-up (not asked yet), helicopter rounds (their own step), and the buttons' own
   pictures (borrowed until drawn).
 
 ### Step 7b: the mechanitor level (Framework 0.282.0)

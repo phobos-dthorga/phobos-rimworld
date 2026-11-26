@@ -78,7 +78,7 @@ public static class TankGizmos
         defaultLabel = "PhobosVehicleSystems_TankGizmoCompartment".Translate((tank.SelectedIndex + 1).Named("INDEX"), tank.Compartments.Count.Named("COUNT")).Resolve(),
         defaultDesc = "PhobosVehicleSystems_TankGizmoCompartmentDesc".Translate().Resolve(),
         icon = SystemIcons.For(Icons + "Compartment"),
-        action = tank.SelectNextCompartment,
+        action = () => tank.SelectNextCompartment(),
     };
 
     static Gizmo ContentsButton(CompPhobosTank tank) => new Command_Action

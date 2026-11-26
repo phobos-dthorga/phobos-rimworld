@@ -88,6 +88,10 @@ and life on the road](camping.md). [Back to the guide](README.md).
 - **A tipper unloads itself, and a Talus with the loading grab loads itself.** Put the **drop-off on a bulk bunker or stockpile**: the
   truck backs up to it and tips, or tips behind itself if the stop is on neither. Put the **pick-up beside the pile**: the grab lifts
   what the truck's **Gather what** allows within reach. Done, it drives on at once; storage full or nothing in reach, it waits its hour.
+- **A tanker pumps itself out at the drop-off.** Put the **drop-off where its hose reaches** what should take the load: the pipe or
+  pipeline for it under the stop, or a tank or vehicle beside it set to **Load** the same. It sets up, empties every compartment, packs
+  up and drives on. If nothing takes the load, it says so and keeps pumping until its hour is up. A tanker **trailer** still needs
+  colonists.
 - **If the leader is lost**, the follower does what you chose for a lost link: hold, come back or carry on. A letter tells you.
 - **The fleet board** lists followers under their leader, and its pane can add a follower, leave the convoy or break it up.
 - A setting, "Vehicles follow a leader and run loops by themselves", turns it all off.

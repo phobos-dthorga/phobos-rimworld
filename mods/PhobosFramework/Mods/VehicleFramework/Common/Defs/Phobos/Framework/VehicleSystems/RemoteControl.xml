@@ -23,6 +23,9 @@
     <loopArriveCells>3</loopArriveCells>
     <!-- An hour of the game's at each stop, for colonists to load or unload it. -->
     <loopDwellTicks>2500</loopDwellTicks>
+    <!-- Framework 0.303.0: a tanker's pump moving nothing for three of its looks (a fifth of an hour) at the drop-off tries its next
+         compartment, and once all have stood idle the player is told (authored). -->
+    <loopPumpIdleTicks>750</loopPumpIdleTicks>
     <!-- Framework 0.286.0 (the owner's card of 25 Nov 2026: engine off at stops "unless perhaps the battery is nearly out of energy"): its
          engine runs at a stop to charge a battery below a quarter, until it is above half (both authored). -->
     <loopChargeStartBelow>0.25</loopChargeStartBelow>

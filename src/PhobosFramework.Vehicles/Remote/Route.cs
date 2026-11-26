@@ -81,6 +81,8 @@ public enum LoopStopWork
     Unloading,
     /// <summary>Lifting its load with the grab.</summary>
     Gathering,
+    /// <summary>A tanker pumping its load out (Framework 0.303.0).</summary>
+    Pumping,
     /// <summary>Its own work is over, done or not: it leaves, or waits out the stop's time.</summary>
     Done,
 }
@@ -173,9 +175,19 @@ public sealed class CompPhobosRoute : VehicleComp
     int backUpTries;
     /// <summary>Whether a worker's test has been handed back since a load: it is not saved, and the worker does nothing until it has it.</summary>
     bool workResumed;
+    /// <summary>Whether it set its tank pumping out at this stop (Framework 0.303.0), so it stops the pump and packs up on leaving. Saved.</summary>
+    bool pumped;
+    /// <summary>When its tank's load last fell, and to what; never saved: worked out again from the next look.</summary>
+    int pumpProgressTick = -1;
+    float pumpLastLoad = -1f;
+    /// <summary>Compartments whose pump stood idle since the load last fell, and whether the player has been told; never saved.</summary>
+    int pumpIdleTries;
+    bool pumpIdleTold;
 
     IVehicleUnloadWorker? Unloader => Vehicle.AllComps.OfType<IVehicleUnloadWorker>().FirstOrDefault();
     IVehicleGatherWorker? Grab => Vehicle.AllComps.OfType<IVehicleGatherWorker>().FirstOrDefault();
+    /// <summary>Its own tank, when it pumps its own load: a trailer's, set up by a colonist's hand, is left to colonists.</summary>
+    CompPhobosTank? Tank => Vehicle.GetComp<CompPhobosTank>() is { Fitted: not null, SetUpByHand: false } tank ? tank : null;
     static bool AllAboard(Thing thing) => true;
 
     public RouteMode Mode => mode;
@@ -406,6 +418,9 @@ public sealed class CompPhobosRoute : VehicleComp
                 if (unloader.Unloading) break;
                 AfterUnloading(unloader.LastUnloadEnd, unloader.LastUnloadReason);
                 break;
+            case LoopStopWork.Pumping:
+                PumpingStep();
+                break;
             case LoopStopWork.Gathering:
                 if (Grab is not { } grab || Vehicle.GetComp<CompPhobosGatherRun>() is not { } run)
                 {
@@ -428,6 +443,13 @@ public sealed class CompPhobosRoute : VehicleComp
     {
         if (dropOff)
         {
+            // A tanker pumps its load out where it stands (Framework 0.303.0): into what its pump reaches there, as when set pumping by hand.
+            if (Tank is { HasLoad: true } tank)
+            {
+                if (!Ready()) return;
+                StartPumping(tank);
+                return;
+            }
             if (Unloader is not { CanUnloadAtAll: true } unloader || Vehicle.inventory.innerContainer.Count == 0)
             {
                 stopWork = LoopStopWork.Done;
@@ -519,6 +541,106 @@ public sealed class CompPhobosRoute : VehicleComp
             MessageTypeDefOf.CautionInput, false);
     }
 
+    // ---- A tanker pumping out at the drop-off (Framework 0.303.0; the owner's word of 26 Nov 2026) ----
+
+    /// <summary>
+    /// Sets the tank up where it stands and its pump to pumping out, quietly: its inspect line says what it does. It pumps into whatever its
+    /// pump reaches there, as it would set pumping by hand (plumbing, a tank or a vehicle taking the same beside it). Unable to set up (the
+    /// pump damaged, the load frozen in), it says why once and waits out the stop's time for colonists.
+    /// </summary>
+    void StartPumping(CompPhobosTank tank)
+    {
+        workedItself = true;
+        if (!tank.PumpReady)
+        {
+            if (tank.CannotDeploy() is { } why)
+            {
+                stopWork = LoopStopWork.Done;
+                Messages.Message("PhobosRoute_PumpNotSetUp".Translate(Vehicle.LabelShort.Named("VEHICLE"), why.Named("REASON")), Vehicle,
+                    MessageTypeDefOf.CautionInput, false);
+                return;
+            }
+            tank.SetDeployed(true, quietly: true);
+            if (!tank.PumpReady)
+            {
+                stopWork = LoopStopWork.Done;
+                return;
+            }
+        }
+        if (!SelectedHasLoad(tank)) NextLoadedCompartment(tank);
+        tank.SetMode(TankPumpMode.Unload, quietly: true);
+        pumped = true;
+        stopWork = LoopStopWork.Pumping;
+        pumpProgressTick = Find.TickManager.TicksGame;
+        pumpLastLoad = LoadOf(tank);
+        pumpIdleTries = 0;
+        pumpIdleTold = false;
+        if (Seen.Wants("vehicles.route-pump", Vehicle, "started")) Seen.Note("vehicles.route-pump", Vehicle, Vehicle.LabelShort, "started");
+    }
+
+    /// <summary>
+    /// One look while it pumps: emptied, it leaves; a compartment emptied, or one whose load nothing there takes for a while (RouteRule.PumpIdle),
+    /// and it turns to the next with a load. Once every loaded one has stood idle the player is told why once, and it keeps pumping until the
+    /// stop's time is up, in case room is made [A].
+    /// </summary>
+    void PumpingStep()
+    {
+        if (Tank is not { } tank)
+        {
+            stopWork = LoopStopWork.Done;
+            return;
+        }
+        if (!tank.HasLoad)
+        {
+            emptied = true;
+            stopWork = LoopStopWork.Done;
+            if (Seen.Wants("vehicles.route-pump", Vehicle, "emptied")) Seen.Note("vehicles.route-pump", Vehicle, Vehicle.LabelShort, "emptied");
+            return;
+        }
+        // Set back to hold or packed away by a player's hand: the pumping is theirs now.
+        if (tank.Mode != TankPumpMode.Unload || !tank.PumpReady)
+        {
+            stopWork = LoopStopWork.Done;
+            return;
+        }
+        int now = Find.TickManager.TicksGame;
+        float load = LoadOf(tank);
+        if (load < pumpLastLoad - 0.01f)
+        {
+            pumpLastLoad = load;
+            pumpProgressTick = now;
+            pumpIdleTries = 0;
+            return;
+        }
+        bool selectedEmpty = !SelectedHasLoad(tank);
+        if (!selectedEmpty && !RouteRule.PumpIdle(now - pumpProgressTick, Rules.loopPumpIdleTicks)) return;
+        if (!selectedEmpty) pumpIdleTries++;
+        if (pumpIdleTries >= tank.Compartments.Count(c => c.HasLoad) && !pumpIdleTold)
+        {
+            pumpIdleTold = true;
+            string why = tank.PumpStatus ?? "PhobosRoute_PumpNothingTakes".Translate().Resolve();
+            Messages.Message("PhobosRoute_PumpNotEmptied".Translate(Vehicle.LabelShort.Named("VEHICLE"), why.Named("REASON")), Vehicle,
+                MessageTypeDefOf.CautionInput, false);
+        }
+        NextLoadedCompartment(tank);
+        pumpLastLoad = LoadOf(tank);
+        pumpProgressTick = now;
+    }
+
+    static float LoadOf(CompPhobosTank tank) => tank.Compartments.Sum(c => c.amount);
+
+    static bool SelectedHasLoad(CompPhobosTank tank) => tank.Compartments[tank.SelectedIndex].HasLoad;
+
+    /// <summary>Moves the pump on to the next compartment with a load, if any other has one.</summary>
+    static void NextLoadedCompartment(CompPhobosTank tank)
+    {
+        for (int i = 0; i < tank.Compartments.Count; i++)
+        {
+            tank.SelectNextCompartment(quietly: true);
+            if (SelectedHasLoad(tank)) return;
+        }
+    }
+
     /// <summary>The colony's storage building or stockpile the stop's cell is on, if any.</summary>
     UnloadPlace? PlaceAt(IntVec3 cell)
     {
@@ -536,6 +658,17 @@ public sealed class CompPhobosRoute : VehicleComp
     {
         if (stopWork == LoopStopWork.Unloading && Unloader is { Unloading: true } unloader) unloader.StopUnloading();
         if (stopWork == LoopStopWork.Gathering && Grab is { Gathering: true } grab) grab.StopGathering();
+        // Its pump back to hold and its hoses in, quietly, whoever set it up: set up, it could not drive on (Framework 0.303.0).
+        if (pumped && Tank is { } tank)
+        {
+            if (tank.Mode != TankPumpMode.Hold) tank.SetMode(TankPumpMode.Hold, quietly: true);
+            if (tank.Deployed) tank.SetDeployed(false, quietly: true);
+        }
+        pumped = false;
+        pumpProgressTick = -1;
+        pumpLastLoad = -1f;
+        pumpIdleTries = 0;
+        pumpIdleTold = false;
         stopWork = LoopStopWork.None;
         workedItself = emptied = loadedAny = false;
         backUpCell = IntVec3.Invalid;
@@ -698,6 +831,7 @@ public sealed class CompPhobosRoute : VehicleComp
         if (stopWork == LoopStopWork.BackingUp) return "PhobosRoute_InspectBackingUp".Translate();
         if (stopWork == LoopStopWork.Unloading) return "PhobosRoute_InspectTipping".Translate();
         if (stopWork == LoopStopWork.Gathering) return "PhobosRoute_InspectLifting".Translate();
+        if (stopWork == LoopStopWork.Pumping) return "PhobosRoute_InspectPumping".Translate();
         if (dwellUntil >= 0)
         {
             var left = Mathf.Max(0, dwellUntil - Find.TickManager.TicksGame);
@@ -755,6 +889,7 @@ public sealed class CompPhobosRoute : VehicleComp
         Scribe_Values.Look(ref loadedAny, "PhobosRoute_LoadedAny");
         Scribe_Values.Look(ref backUpCell, "PhobosRoute_BackUpCell", IntVec3.Invalid);
         Scribe_Values.Look(ref backUpFacing, "PhobosRoute_BackUpFacing", -1);
+        Scribe_Values.Look(ref pumped, "PhobosRoute_Pumped");
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             points ??= new List<IntVec3>();

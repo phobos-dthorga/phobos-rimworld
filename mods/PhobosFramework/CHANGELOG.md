@@ -13,6 +13,19 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.303.0] - 2026-11-26 - Draft
+
+A loop tanker pumps out at the drop-off
+
+### Added
+
+- **A tanker pumps its load out at a loop's drop-off by itself** (the owner's word of 26 November 2026). It sets up where it stands and
+  pumps into whatever its hose reaches there, as when you set it pumping by hand: plumbing or a pipeline under it, or a tank or vehicle
+  beside it set to take the same. It works through each loaded compartment, and once empty it packs up and drives on at once.
+- If nothing takes its load, it says so once and keeps pumping until its hour at the stop is up, in case room is made, then packs up
+  and drives on. One choice is open on D'thorga Companion's Decisions page: whether it should leave at once instead. A tanker trailer is
+  still left to colonists. Not yet tested in game: row 545.
+
 ## [0.302.1] - 2026-11-26 - Draft
 
 Builders bring materials for vehicle upgrades

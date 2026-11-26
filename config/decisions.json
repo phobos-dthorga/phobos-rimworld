@@ -63,6 +63,126 @@
    "why": "A colonist kept at a console all day is a colonist lost to every other job",
    "from": "docs/development/autonomous-vehicles.md",
    "asked": "2026-11-26"
+  },
+  {
+   "id": "loop-tanker-nothing-takes",
+   "question": "At a loop's drop-off, when nothing takes a tanker's load, should it keep pumping until its hour is up?",
+   "context": "Built in Framework 0.303.0 (row 545): it says so once, keeps its pump running in case room is made (a tower drawn down, a tank emptied), and drives on at the hour's end; emptied, it leaves at once.",
+   "options": [
+    {
+     "id": "wait-hour",
+     "label": "Keep pumping its hour",
+     "detail": "As built; the stop's time is the same as for colonists"
+    },
+    {
+     "id": "leave-now",
+     "label": "Drive on at once",
+     "detail": "Takes its load back to the pick-up and round again"
+    }
+   ],
+   "lean": "wait-hour",
+   "why": "A tower in use drains while it waits, and an hour lost is cheaper than a load driven round for nothing",
+   "from": "docs/development/autonomous-vehicles.md",
+   "asked": "2026-11-26"
+  },
+  {
+   "id": "airdrop-drift-share",
+   "question": "Parachute drift on the map is the US Army's real formula scaled to a fifth (real drift would cross most of a map). Keep a fifth?",
+   "context": "docs/development/airdrop.md, 'What drops, and how'. 240 m of real drift (1,000 ft in 8 kt) shows as about 32 cells.",
+   "options": [
+    {
+     "id": "fifth",
+     "label": "A fifth (0.2)",
+     "detail": "As built"
+    },
+    {
+     "id": "tenth",
+     "label": "A tenth (0.1)",
+     "detail": "Loads land closer to the point; the wind matters less"
+    },
+    {
+     "id": "third",
+     "label": "A third (0.33)",
+     "detail": "The wind matters more; strong wind can carry loads off the map"
+    }
+   ],
+   "lean": "fifth",
+   "why": "Drift you can see and plan around without losing loads off a normal map",
+   "from": "docs/development/airdrop.md",
+   "asked": "2026-11-26"
+  },
+  {
+   "id": "airdrop-fall-time-share",
+   "question": "A parachute's fall on the map takes half its real time (a 1,000 ft jump: 52 s real, about 26 s). Keep half?",
+   "context": "docs/development/airdrop.md. Longer falls leave loads exposed to fire and CIWS for longer.",
+   "options": [
+    {
+     "id": "half",
+     "label": "Half (0.5)",
+     "detail": "As built"
+    },
+    {
+     "id": "real",
+     "label": "Real time (1.0)",
+     "detail": "Slower, more exposed to fire"
+    },
+    {
+     "id": "quarter",
+     "label": "A quarter (0.25)",
+     "detail": "Quicker drops"
+    }
+   ],
+   "lean": "half",
+   "why": "RimWorld's time runs faster than real; half keeps a drop watchable without dragging",
+   "from": "docs/development/airdrop.md",
+   "asked": "2026-11-26"
+  },
+  {
+   "id": "airdrop-osprey-hold",
+   "question": "The Osprey's hold takes one vehicle up to 2 x 3 cells and 2,500 kg. Keep it?",
+   "context": "The real V-22 carries only the small Internally Transportable Vehicle. In your game this fits the Wiesel, VVE's Prowler, Dirtbike and Charley, and RimThunder's bicycle; most of your fleet is 2 x 4 or bigger.",
+   "options": [
+    {
+     "id": "keep",
+     "label": "2 x 3, 2,500 kg",
+     "detail": "As built, near the real cabin"
+    },
+    {
+     "id": "2x4",
+     "label": "2 x 4, 3,500 kg",
+     "detail": "Also VVE's cars and the L-ATV, past the real cabin's size"
+    }
+   ],
+   "lean": "keep",
+   "why": "Realism: the C-27J is the vehicle carrier",
+   "from": "docs/development/airdrop.md",
+   "asked": "2026-11-26"
+  },
+  {
+   "id": "airdrop-ciws-hit",
+   "question": "InterRim Ballistic Missile's CIWS does 4 points of bullet damage to an enemy aircraft per hit it rolls. Keep 4?",
+   "context": "IRBM rolls a hit most ticks it fires, so this brings an Osprey down in well under a minute of fire.",
+   "options": [
+    {
+     "id": "four",
+     "label": "4",
+     "detail": "As built"
+    },
+    {
+     "id": "two",
+     "label": "2",
+     "detail": "Aircraft survive a pass more often"
+    },
+    {
+     "id": "eight",
+     "label": "8",
+     "detail": "A CIWS is deadly to anything crossing"
+    }
+   ],
+   "lean": "four",
+   "why": "Authored; no figure fits IRBM's per-tick roll",
+   "from": "docs/development/airdrop.md",
+   "asked": "2026-11-26"
   }
  ]
 }

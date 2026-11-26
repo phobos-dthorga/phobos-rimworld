@@ -53,6 +53,13 @@ public static class RouteRule
     public static bool LeavesStop(bool workedItself, bool dropOff, bool emptied, bool loadedAny, bool waitOver) =>
         waitOver || workedItself && (dropOff ? emptied : loadedAny);
 
+    /// <summary>
+    /// Whether a loop tanker's pump has stood idle long enough at the drop-off that nothing there takes this load (Framework 0.303.0): no fall
+    /// in its load for <paramref name="giveUpTicks"/>. It then turns to its next loaded compartment, and once every one has stood idle the
+    /// player is told once; it keeps pumping until it is empty or the stop's time is up [A].
+    /// </summary>
+    public static bool PumpIdle(int ticksSinceProgress, int giveUpTicks) => giveUpTicks > 0 && ticksSinceProgress >= giveUpTicks;
+
     /// <summary>The point after this one on a loop, coming back to the first.</summary>
     public static int Next(int index, int count) => count <= 0 ? 0 : (index + 1) % count;
 
