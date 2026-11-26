@@ -113,6 +113,9 @@
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_Fleck">
                 <fleck>Smoke</fleck>
+                <!-- Framework 0.321.0: steam, from the radiator. -->
+                <tint>Steam</tint>
+                <at>Front</at>
                 <perHour>40</perHour>
                 <scale>0.8</scale>
               </li>
@@ -134,6 +137,8 @@
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Fleck">
                 <fleck>Smoke</fleck>
+                <tint>Steam</tint>
+                <at>Front</at>
                 <perHour>80</perHour>
                 <scale>1.1</scale>
               </li>
@@ -165,6 +170,8 @@
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Fleck">
                 <fleck>Smoke</fleck>
+                <tint>Steam</tint>
+                <at>Front</at>
                 <perHour>140</perHour>
                 <scale>1.4</scale>
               </li>

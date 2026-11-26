@@ -13,6 +13,24 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.321.0] - 2026-11-26 - Draft
+
+Vehicles' visual effects
+
+### Added
+
+- **Faults show as smoke in the colour of what burns** (the owner's cards of 26 November 2026): white steam from an overheating radiator,
+  blue-grey from a worn turbo or engine, black from a clogged air filter, high boost or a cold start, pale smoke from hot brakes, sparks
+  from shorted wiring or a seizing engine, drips from a fuel leak, a white cough from gelled fuel at the key, a flash of flame from a
+  turbine's hot start, and grit when a tyre bursts. Every one was only heard, or plain grey, before. Not yet tested in game: row 578. How
+  it works: docs/development/vehicle-effects.md.
+- **A new setting, Vehicle effects** (Effects section): Full to start, Light keeps every fault's sign but thins the rest, Off draws
+  nothing. Drawn only on the map you are looking at, and never saved.
+
+### Save compatibility
+
+- Looks only: safe to add and to remove.
+
 ## [0.320.0] - 2026-11-26 - Draft
 
 The turbocharger as a part and a system

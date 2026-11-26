@@ -160,6 +160,10 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Headlights light the ground ahead of the vehicle (Framework 0.104.0; owner, 12 Nov 2026: by default). Off, they still draw
     /// on the battery and give no light: for a player who wants every last tick. Live.</summary>
     public bool headlightBeams = true;
+    /// <summary>Vehicles' visual effects (Framework 0.321.0; the owner's cards of 26 Nov 2026): smoke in the colour of what burns, sparks,
+    /// drips and coughs for faults; exhaust, dust, mud, spray, ruts, rotor downwash and touchdowns for moving vehicles. Full to start (the
+    /// owner's pick); Light thins only what moving vehicles throw up; Off draws none. Looks only, never saved. Live.</summary>
+    public FxLevel vehicleEffects = FxLevel.Full;
     /// <summary>The headlights and work lamps of the player's vehicles switch themselves on and off (Framework 0.171.0; owner, 19 Nov 2026:
     /// "a setting that's on by default"): headlights while the vehicle is driven at night, work lamps while it stands at night with people
     /// near. Each vehicle's button then says whether its lights may switch themselves on at all. Off, the buttons switch them by hand. Live.</summary>
@@ -440,6 +444,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref roughGroundWear, "PhobosVehicleSystems_RoughGroundWear", true);
         Scribe_Values.Look(ref errandsPassTraps, "PhobosVehicleSystems_ErrandsPassTraps", true);
         Scribe_Values.Look(ref headlightBeams, "PhobosVehicleSystems_HeadlightBeams", true);
+        Scribe_Values.Look(ref vehicleEffects, "PhobosVehicleSystems_VehicleEffects", FxLevel.Full);
         Scribe_Values.Look(ref autoLights, "PhobosVehicleSystems_AutoLights", true);
         Scribe_Values.Look(ref weatherGrip, "PhobosVehicleSystems_WeatherGrip", true);
         Scribe_Values.Look(ref thinAir, "PhobosVehicleSystems_ThinAir", true);
@@ -536,6 +541,8 @@ public class VehicleSystemsMod : SettingsBookMod
         LongEventHandler.ExecuteWhenFinished(VehicleLoadOut.AddSwitches);
         LongEventHandler.ExecuteWhenFinished(Contracts.ApplyFrequency);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
+        // Framework 0.321.0: the effects emitter reads a vehicle's heading as our flight does.
+        VehicleFx.UseVehicleHeadings();
         Phobos.Framework.Work.PhobosGameEvents.GameLoaded += VehicleSelfTest.AfterLoad;
     }
 
@@ -568,6 +575,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.roughGroundWear) report.Off("rough-ground wear", "off (setting)");
         if (!Settings.errandsPassTraps) report.Off("vehicles off the player's orders passing over traps", "off (setting)");
         if (!Settings.headlightBeams) report.Off("headlight beams", "off (setting)");
+        if (Settings.vehicleEffects != FxLevel.Full) report.Off("vehicles' visual effects at full", Settings.vehicleEffects == FxLevel.Off ? "off (setting)" : "light (setting)");
         if (!Settings.autoLights) report.Off("lights switching themselves", "off (setting)");
         if (!Settings.weatherGrip) report.Off("weather on grip", "off (setting)");
         if (!Settings.ammoCookOff) report.Off("ammunition cook-off", "off (setting)");
@@ -708,6 +716,9 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSettings_ErrandsPassTraps".Translate(), ref s.errandsPassTraps, d.errandsPassTraps, "PhobosVehicleSettings_ErrandsPassTrapsDesc".Translate());
         list.Check("PhobosHitch_SettingOthers".Translate(), ref s.hitchOthersPlainRule, d.hitchOthersPlainRule, "PhobosHitch_SettingOthersDesc".Translate());
         list.Check("PhobosHitch_SettingWiderWay".Translate(), ref s.hitchWiderWay, d.hitchWiderWay, "PhobosHitch_SettingWiderWayDesc".Translate());
+        list.Section("PhobosVehicleSettings_SectionEffects".Translate());
+        list.Radio("PhobosVehicleSystems_SettingVehicleEffects".Translate(), ref s.vehicleEffects, d.vehicleEffects, (FxLevel[])System.Enum.GetValues(typeof(FxLevel)),
+            level => ("PhobosVehicleSystems_VehicleEffects" + level).Translate(), level => ("PhobosVehicleSystems_VehicleEffects" + level + "Desc").Translate());
         list.Section("PhobosVehicleSettings_SectionLights".Translate());
         list.Check("PhobosVehicleSystems_SettingHeadlightBeams".Translate(), ref s.headlightBeams, d.headlightBeams, "PhobosVehicleSystems_SettingHeadlightBeamsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingAutoLights".Translate(), ref s.autoLights, d.autoLights, "PhobosVehicleSystems_SettingAutoLightsDesc".Translate());

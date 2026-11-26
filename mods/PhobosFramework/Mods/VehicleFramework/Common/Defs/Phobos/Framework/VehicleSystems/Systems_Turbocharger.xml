@@ -98,6 +98,17 @@
                   <tune>PhobosTune_BoostHigh</tune>
                 </when>
               </li>
+              <!-- Framework 0.321.0: high boost runs rich on boost, a little black smoke at the exhaust. -->
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <tint>RichSmoke</tint>
+                <at>Exhaust</at>
+                <perHour>40</perHour>
+                <scale>0.6</scale>
+                <when Class="Phobos.VehicleSystems.When_Tune">
+                  <tune>PhobosTune_BoostHigh</tune>
+                </when>
+              </li>
             </effects>
           </li>
         </stages>
@@ -150,6 +161,8 @@
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Fleck">
                 <fleck>Smoke</fleck>
+                <tint>OilSmoke</tint>
+                <at>Exhaust</at>
                 <perHour>40</perHour>
                 <scale>0.9</scale>
                 <when Class="Phobos.VehicleSystems.When_EngineRunning" />
@@ -175,6 +188,8 @@
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Fleck">
                 <fleck>Smoke</fleck>
+                <tint>OilSmoke</tint>
+                <at>Exhaust</at>
                 <perHour>20</perHour>
                 <scale>0.7</scale>
                 <when Class="Phobos.VehicleSystems.When_EngineRunning" />
@@ -202,6 +217,8 @@
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Fleck">
                 <fleck>Smoke</fleck>
+                <tint>OilSmoke</tint>
+                <at>Exhaust</at>
                 <perHour>8</perHour>
                 <scale>0.5</scale>
                 <when Class="Phobos.VehicleSystems.When_EngineRunning" />

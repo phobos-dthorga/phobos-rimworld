@@ -63,6 +63,23 @@
                 <healthFraction>0.5</healthFraction>
                 <message>PhobosVehicleSystems_MsgTyreFailed</message>
                 <sound>PhobosVehicleSystems_TyreBurst</sound>
+                <!-- Framework 0.321.0: and seen: a burst of grit and shredded rubber at the wheels. -->
+                <onBreak>
+                  <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                    <fleck>DustPuffThick</fleck>
+                    <tint>Debris</tint>
+                    <at>Wheels</at>
+                    <burst>6</burst>
+                    <drift>false</drift>
+                  </li>
+                  <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                    <fleck>Smoke</fleck>
+                    <tint>TyreSmoke</tint>
+                    <at>Wheels</at>
+                    <burst>3</burst>
+                    <scale>0.7</scale>
+                  </li>
+                </onBreak>
                 <when Class="Phobos.VehicleSystems.When_Moving" />
               </li>
             </effects>
@@ -317,6 +334,16 @@
             <to>260</to>
             <label>hot</label>
             <notable>true</notable>
+            <effects>
+              <!-- Framework 0.321.0: hot linings smoke at the wheels, more as they fade (authored rates). -->
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <tint>BrakeSmoke</tint>
+                <at>Wheels</at>
+                <perHour>20</perHour>
+                <scale>0.6</scale>
+              </li>
+            </effects>
           </li>
           <li>
             <from>260</from>
@@ -324,6 +351,13 @@
             <label>fading</label>
             <notable>true</notable>
             <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <tint>BrakeSmoke</tint>
+                <at>Wheels</at>
+                <perHour>60</perHour>
+                <scale>0.8</scale>
+              </li>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgBrakesFading</message>
                 <hotAirMessage>PhobosVehicleSystems_MsgBrakesFadingHotAir</hotAirMessage>
@@ -336,6 +370,13 @@
             <label>faded</label>
             <notable>true</notable>
             <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <tint>BrakeSmoke</tint>
+                <at>Wheels</at>
+                <perHour>120</perHour>
+                <scale>1</scale>
+              </li>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgBrakesFaded</message>
                 <hotAirMessage>PhobosVehicleSystems_MsgBrakesFadedHotAir</hotAirMessage>
@@ -754,6 +795,15 @@
                drive, the twin of the brake squeal at a stop. -->
           <li Class="Phobos.VehicleSystems.Effect_Sound">
             <sound>PhobosVehicleSystems_ClutchSlip</sound>
+            <when Class="Phobos.VehicleSystems.When_QuantityAbove"><quantity>clutchWear</quantity><value>0.7</value></when>
+          </li>
+          <!-- Framework 0.321.0: a wisp of burnt lining from under the cab as it slips. -->
+          <li Class="Phobos.VehicleSystems.Effect_Fleck">
+            <fleck>Smoke</fleck>
+            <tint>Acrid</tint>
+            <at>Under</at>
+            <burst>3</burst>
+            <scale>0.6</scale>
             <when Class="Phobos.VehicleSystems.When_QuantityAbove"><quantity>clutchWear</quantity><value>0.7</value></when>
           </li>
         </effects>

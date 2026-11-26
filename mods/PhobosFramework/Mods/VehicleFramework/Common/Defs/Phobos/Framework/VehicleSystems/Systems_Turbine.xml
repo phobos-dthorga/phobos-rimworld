@@ -263,6 +263,29 @@
               <value>0.4</value>
             </when>
           </li>
+          <!-- Framework 0.321.0: and seen: a flash of flame at the jet pipe and a gout of black smoke. -->
+          <li Class="Phobos.VehicleSystems.Effect_Fleck">
+            <fleck>FireGlow</fleck>
+            <at>Exhaust</at>
+            <burst>2</burst>
+            <scale>1.2</scale>
+            <drift>false</drift>
+            <when Class="Phobos.VehicleSystems.When_QuantityBelow">
+              <quantity>turbineStart</quantity>
+              <value>0.4</value>
+            </when>
+          </li>
+          <li Class="Phobos.VehicleSystems.Effect_Fleck">
+            <fleck>Smoke</fleck>
+            <tint>RichSmoke</tint>
+            <at>Exhaust</at>
+            <burst>5</burst>
+            <scale>1.1</scale>
+            <when Class="Phobos.VehicleSystems.When_QuantityBelow">
+              <quantity>turbineStart</quantity>
+              <value>0.4</value>
+            </when>
+          </li>
         </effects>
       </li>
     </onEvents>

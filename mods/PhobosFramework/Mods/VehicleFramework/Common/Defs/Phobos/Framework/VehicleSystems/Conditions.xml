@@ -207,6 +207,14 @@
           <li Class="Phobos.VehicleSystems.Effect_ShortLoads">
             <loads>1</loads>
           </li>
+          <!-- Framework 0.321.0: the short shows as sparks while it lasts. -->
+          <li Class="Phobos.VehicleSystems.Effect_Fleck">
+            <fleck>ElectricalSpark</fleck>
+            <at>Engine</at>
+            <perHour>20</perHour>
+            <scale>0.7</scale>
+            <drift>false</drift>
+          </li>
         </effects>
       </li>
       <li>
@@ -216,6 +224,14 @@
         <effects>
           <li Class="Phobos.VehicleSystems.Effect_ShortLoads">
             <loads>2</loads>
+          </li>
+          <!-- Framework 0.321.0: the short shows as sparks while it lasts. -->
+          <li Class="Phobos.VehicleSystems.Effect_Fleck">
+            <fleck>ElectricalSpark</fleck>
+            <at>Engine</at>
+            <perHour>45</perHour>
+            <scale>0.7</scale>
+            <drift>false</drift>
           </li>
         </effects>
       </li>

@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Phobos.Framework;
+using Phobos.Framework.Effects;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
@@ -83,6 +85,10 @@ public class Effect_RefuseDraft : VehicleSystemEffect
     /// engine plays <c>soundPetrol</c> when given. Played from the dashboard's key, the one place a start is tried.</summary>
     public SoundDef? sound;
     public SoundDef? soundPetrol;
+    /// <summary>The puffs from the exhaust as the key turns the engine over without a start (Framework 0.321.0: white for gelled fuel cranked
+    /// through unburnt); 0 for none (a flat battery only clicks).</summary>
+    public int crankPuffs;
+    public FxTint crankTint = FxTint.Steam;
     public override string? DraftRefusal(SystemContext context) => reason.Translate(context.Vehicle.LabelShort.Named("VEHICLE")).Resolve();
 }
 
@@ -235,26 +241,45 @@ public class Effect_PushGas : VehicleSystemEffect
     }
 }
 
-/// <summary>Throws flecks from the vehicle (steam, smoke), so its state shows on the map.</summary>
+/// <summary>
+/// Puffs from the vehicle while the stage lasts, or once when it starts or the event fires (<c>burst</c>), so its state shows on the map
+/// (Framework 0.321.0, the owner's cards of 26 Nov 2026: vehicles' visual effects). <c>tint</c> colours it by what burns (blue oil, black
+/// fuel, white water); <c>at</c> places it on the vehicle; <c>drift</c> lets the map's wind carry it. The Framework core's emitter draws it
+/// evenly between updates, on screen only, and the player's Vehicle effects setting can switch it off.
+/// </summary>
 public class Effect_Fleck : VehicleSystemEffect
 {
     public FleckDef? fleck;
     public float perHour = 20f;
     public float scale = 1f;
+    public FxTint tint = FxTint.Plain;
+    public FxSpot at = FxSpot.Body;
+    /// <summary>How many at once when the stage starts or the event fires; 0 for none.</summary>
+    public int burst;
+    /// <summary>Carried off by the wind (smoke, steam); false for sparks and drips, thrown from their place.</summary>
+    public bool drift = true;
     public override bool Consequential => false;
+
+    FxEmission EmissionFor(VehiclePawn vehicle, float rate) => VehicleFx.Emission(vehicle, fleck!, tint, at, rate, scale, drift);
+
+    public override void OnEnter(SystemContext context)
+    {
+        if (fleck == null || burst <= 0) return;
+        VehicleFx.BurstSign(context.Vehicle, EmissionFor(context.Vehicle, 0f), burst);
+        Note(context.Vehicle);
+    }
 
     public override void Apply(SystemContext context, float hours)
     {
-        VehiclePawn vehicle = context.Vehicle;
-        if (fleck == null || !vehicle.Spawned || vehicle.Map != Find.CurrentMap) return;
-        float expected = perHour * hours;
-        int count = Mathf.FloorToInt(expected) + (Rand.Chance(expected - Mathf.Floor(expected)) ? 1 : 0);
-        for (int i = 0; i < count; i++)
-        {
-            // The cell's centre, not the vehicle's DrawPos: Vehicle Framework's 1.6 build names Unity's types from another version.
-            Vector3 at = vehicle.Position.ToVector3Shifted() + new Vector3(Rand.Range(-0.4f, 0.4f), 0f, Rand.Range(-0.4f, 0.4f));
-            FleckMaker.Static(at, vehicle.Map, fleck, scale);
-        }
+        if (fleck == null || perHour <= 0f) return;
+        VehicleFx.HoldSign(context.Vehicle, this, EmissionFor(context.Vehicle, perHour));
+        Note(context.Vehicle);
+    }
+
+    void Note(VehiclePawn vehicle)
+    {
+        // Seen in play (Framework 0.321.0, row 578): a fault's sign, by its colour.
+        if (Seen.Wants("vehicles.fx-sign", vehicle, tint.ToString())) Seen.Note("vehicles.fx-sign", vehicle, fleck?.defName + " at " + at, tint.ToString());
     }
 }
 
@@ -452,12 +477,15 @@ public class Effect_Breakdown : VehicleSystemEffect
     /// <summary>Where the vehicle keeps this quantity per part, break its most worn part rather than any of the role (Framework 0.247.0 for
     /// engines; generic since 0.248.0). Null: any part of the role.</summary>
     public string? mostWornOf;
+    /// <summary>What happens when it breaks, run once (Framework 0.321.0: a tyre's burst of dust and rubber).</summary>
+    public List<VehicleSystemEffect> onBreak = new();
 
     public override void Apply(SystemContext context, float hours)
     {
         if (!Rand.Chance((float)FailureRule.ChanceIn(hours, mtbHours))) return;
         VehicleComponent? part = (mostWornOf != null ? context.Comp.PartFigures.BreakMostWorn(mostWornOf, healthFraction) : null) ?? context.Comp.BreakRole(role, healthFraction);
         if (part != null) VehicleSystemSounds.PlayOnce(context.Comp, sound);
+        if (part != null) foreach (VehicleSystemEffect effect in onBreak) if (effect.Active(context)) effect.OnEnter(context);
         if (VehicleSystemsMod.StagesLog.DebugEnabled)
         {
             VehicleSystemsMod.StagesLog.Debug(context.Vehicle.LabelShort + " (" + context.Vehicle.ThingID + ") breakdown rolled on role " + role + " (mean " + mtbHours

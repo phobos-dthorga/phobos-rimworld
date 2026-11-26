@@ -22,6 +22,7 @@
   <PhobosVehicleSettings_ErrandsPassTraps>Vehicles you did not send pass over your traps</PhobosVehicleSettings_ErrandsPassTraps>
   <PhobosVehicleSettings_ErrandsPassTrapsDesc>On by default: a vehicle of yours that is driving without your order never sets off a trap it rolls over. That covers trips to a dyno bay, gathering and delivery runs, a trailer being towed, a vehicle pushed by hand, and vehicles heading off with a caravan. A drive you order with a right-click is as before: a trap goes off under it only now and then, as under a colonist who knows it is there. Enemy vehicles still set your traps off as before. Off: every drive meets traps as before.</PhobosVehicleSettings_ErrandsPassTrapsDesc>
   <PhobosVehicleSettings_SectionLights>Lights</PhobosVehicleSettings_SectionLights>
+  <PhobosVehicleSettings_SectionEffects>Effects</PhobosVehicleSettings_SectionEffects>
   <PhobosVehicleSettings_SectionFlight>Flight</PhobosVehicleSettings_SectionFlight>
   <PhobosVehicleSettings_SectionOthers>Other factions</PhobosVehicleSettings_SectionOthers>
   <PhobosVehicleSettings_SectionService>Servicing</PhobosVehicleSettings_SectionService>

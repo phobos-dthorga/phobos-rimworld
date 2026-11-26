@@ -89,6 +89,22 @@ on.** Rest the mouse on a lamp for the reason.
 
 ![The dashboard's warning lamps: check engine, battery, starter, frozen battery, running hot, coolant, fuel, oil level, oil hot, oil pressure, gearbox, tyres, brakes and cab](images/dashboard-lamps.png)
 
+## Reading the smoke
+
+A vehicle with a fault shows it on the map, not only on its tabs and in its sounds. **The colour of its smoke says what is burning:**
+
+| You see | It means | Look at |
+| --- | --- | --- |
+| **Blue-grey smoke** at the back | Oil burning: a worn turbocharger or a worn engine | Health tab; top up the oil |
+| **Black smoke** at the back | Too much fuel for the air: a clogged air filter, high boost, a cold start, or an engine starved of oil | Systems tab; service it |
+| **White steam** at the front | Coolant boiling: the engine is overheating | Stop and let it cool |
+| **Pale smoke** at the wheels | Hot brakes, fading | Ease off on long descents |
+| **Sparks** from the engine | Shorted wiring, or a seizing engine | Repair it now |
+| **Drips** underneath | A fuel leak | Repair the tank |
+
+Gelled fuel coughs white at the key; a turbine with a weak battery lights with a flash of flame. **The setting Vehicle effects** (vehicle
+settings, Effects section) is **Full** to start; **Light** keeps every fault's sign but thins the rest; **Off** draws nothing.
+
 ## What wears out and what fixes it
 
 The short version: **service when it is due, keep a kit in the cargo, and park somewhere warm in winter.**

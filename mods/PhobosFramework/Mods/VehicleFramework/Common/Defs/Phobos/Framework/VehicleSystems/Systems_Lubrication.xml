@@ -144,6 +144,32 @@
                 <soundPetrol>PhobosVehicleSystems_KnockPetrol</soundPetrol>
                 <whileEngineRunning>true</whileEngineRunning>
               </li>
+              <!-- Framework 0.321.0: the knock seen as well as heard: dark puffs from a labouring engine, and sparks once it is seizing (worn
+                   below a quarter). -->
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <tint>RichSmoke</tint>
+                <at>Exhaust</at>
+                <perHour>60</perHour>
+                <scale>0.7</scale>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>MicroSparks</fleck>
+                <at>Engine</at>
+                <perHour>40</perHour>
+                <scale>0.8</scale>
+                <drift>false</drift>
+                <when Class="Phobos.VehicleSystems.When_All">
+                  <conditions>
+                    <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+                    <li Class="Phobos.VehicleSystems.When_QuantityBelow">
+                      <quantity>engineCondition</quantity>
+                      <value>0.25</value>
+                    </li>
+                  </conditions>
+                </when>
+              </li>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgOilPressureGone</message>
               </li>
@@ -166,6 +192,37 @@
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgOilPressureLow</message>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- Framework 0.321.0: what is left of the engine, read for its signs. Worn to 40% it burns oil (crosslink 3 doubles the burn there),
+             and shows it: blue-grey smoke at the exhaust while it runs. -->
+        <name>engineCondition</name>
+        <label>engine</label>
+        <description>What is left of the engine. Worn, it burns oil and smokes blue.</description>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_PartHealth">
+            <role>Engine</role>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.4</to>
+            <label>burning oil</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Fleck">
+                <fleck>Smoke</fleck>
+                <tint>OilSmoke</tint>
+                <at>Exhaust</at>
+                <perHour>25</perHour>
+                <scale>0.6</scale>
+                <when Class="Phobos.VehicleSystems.When_EngineRunning" />
               </li>
             </effects>
           </li>
@@ -229,6 +286,28 @@
             <when Class="Phobos.VehicleSystems.When_QuantityBelow">
               <quantity>oilTemperature</quantity>
               <value>20</value>
+            </when>
+          </li>
+          <!-- Framework 0.321.0: a cold start shows. Below 5 C it starts rich, a puff of black; below freezing the exhaust's water condenses
+               white as well (authored thresholds). -->
+          <li Class="Phobos.VehicleSystems.Effect_Fleck">
+            <fleck>Smoke</fleck>
+            <tint>RichSmoke</tint>
+            <at>Exhaust</at>
+            <burst>3</burst>
+            <scale>0.7</scale>
+            <when Class="Phobos.VehicleSystems.When_AmbientBelow">
+              <celsius>5</celsius>
+            </when>
+          </li>
+          <li Class="Phobos.VehicleSystems.Effect_Fleck">
+            <fleck>Smoke</fleck>
+            <tint>Steam</tint>
+            <at>Exhaust</at>
+            <burst>4</burst>
+            <scale>0.8</scale>
+            <when Class="Phobos.VehicleSystems.When_AmbientBelow">
+              <celsius>0</celsius>
             </when>
           </li>
         </effects>
@@ -359,6 +438,9 @@
                 <reason>PhobosVehicleSystems_RefuseFuelGelled</reason>
                 <sound>PhobosVehicleSystems_FailedStartDiesel</sound>
                 <soundPetrol>PhobosVehicleSystems_FailedStartPetrol</soundPetrol>
+                <!-- Framework 0.321.0: fuel cranked through without firing comes out as white smoke. -->
+                <crankPuffs>3</crankPuffs>
+                <crankTint>Steam</crankTint>
               </li>
             </effects>
           </li>

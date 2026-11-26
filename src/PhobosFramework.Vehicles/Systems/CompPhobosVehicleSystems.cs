@@ -922,6 +922,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (Tier == DetailTier.Full && was != DetailTier.Full && Current.Game != null) lastUpdateTick = Find.TickManager.TicksGame;
         // Avionics A4 (aircraft service-life upgrades): a landing since the last look, any faction's aircraft.
         RoughLandings.Watch(this);
+        // Framework 0.321.0: drips under a vehicle leaking fuel, any faction's.
+        VehicleFx.FuelDrips(Vehicle);
         // Walk-in cabins (Framework, vehicle cabins): close an empty one on the ground, and walk idle colonists out.
         if (Vehicle.GetComp<CompPhobosVehicleCabin>() is { } cabin) VehicleCabins.RareLook(cabin);
         // Life aboard (Framework 0.233.0): on a map here; on the road, the world component's look.
@@ -2873,7 +2875,10 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             AcceptanceReport report = Vehicle.CanDraft();
             if (!report.Accepted)
             {
-                VehicleSystemSounds.PlayOnce(this, RefusedStartSound());
+                Effect_RefuseDraft? refusing = RefusingStart();
+                VehicleSystemSounds.PlayOnce(this, refusing == null ? null : VehicleSystemSounds.ForEngine(this, refusing.sound, refusing.soundPetrol));
+                // Framework 0.321.0: and seen, where the refusal names a cough (gelled fuel cranked through white).
+                VehicleFx.Crank(Vehicle, refusing);
                 Messages.Message(report.Reason, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
                 return;
             }
@@ -2939,8 +2944,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         return reason == null ? true : new AcceptanceReport(reason);
     }
 
-    /// <summary>What turning the key sounds like now: the first refusing stage's sound, for this engine's fuel; null if none says.</summary>
-    SoundDef? RefusedStartSound()
+    /// <summary>What turning the key meets now: the first refusing stage's refusal that has a sound or a cough; null if none says.</summary>
+    Effect_RefuseDraft? RefusingStart()
     {
         if (states == null || Vehicle.Faction != Faction.OfPlayer) return null;
         foreach ((SystemContext context, StageSpec stage, string _) in StagesInForce())
@@ -2948,8 +2953,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             foreach (VehicleSystemEffect effect in stage.effects)
             {
                 if (effect is not Effect_RefuseDraft refusal || !refusal.Active(context) || refusal.DraftRefusal(context) == null) continue;
-                SoundDef? sound = VehicleSystemSounds.ForEngine(this, refusal.sound, refusal.soundPetrol);
-                if (sound != null) return sound;
+                if (VehicleSystemSounds.ForEngine(this, refusal.sound, refusal.soundPetrol) != null || refusal.crankPuffs > 0) return refusal;
             }
         }
         return null;
