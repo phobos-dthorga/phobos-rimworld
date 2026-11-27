@@ -1,0 +1,176 @@
+[
+ {
+  "name": "remote-icon-mech-link",
+  "title": "Remote control button: Link to a mechanitor",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Remote/LostLink.png",
+    "role": "our approved button icon of the same game (the remote control lost link button): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Route/Follow.png",
+    "role": "our approved button icon of the same game (the route follow button, an olive truck): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Link to a mechanitor",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Remote/MechLink.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were turned down (owner, 27 Nov 2026, on the Picks page: 'We might have to use a paid solution for this one.')"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"link this vehicle to a mechanitor\": a small olive truck seen from the side on the right, and on the left a glowing teal ring of light like a halo; one bold unbroken teal line runs from the ring to the truck's cab, with two small teal sparks along it.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "remote-icon-mech-unlink",
+  "title": "Remote control button: Unlink from the mechanitor",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Remote/LostLink.png",
+    "role": "our approved button icon of the same game (the remote control lost link button): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Route/BreakUp.png",
+    "role": "our approved button icon of the same game (the route break up button): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Unlink from the mechanitor",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Remote/MechUnlink.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were turned down (owner, 27 Nov 2026, on the Picks page: 'Paid solution for this one too.')"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"unlink this vehicle from its mechanitor\": a small olive truck seen from the side on the right, and on the left a dim teal ring of light; the bold teal line between them is snapped in the middle, its two broken ends bent apart with a clear gap and a few small grey fragments falling.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "round-icon-stop",
+  "title": "Round trip button: Stop its round",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/RoundPlan.png",
+    "role": "our approved button icon of the same game (the round trip plan button): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/RoundFly.png",
+    "role": "our approved button icon of the same game (the round trip fly button): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Stop its round",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/RoundStop.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were turned down (owner, 27 Nov 2026, on the Picks page: 'Perhaps a paid solution for this one too?')"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from directly above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"stop this aircraft's round trip\": a small grey helicopter seen from directly above, its rotor blades drawn as a plain cross, and in front of it a bold red octagonal stop sign with a thick white border, its face plain red with no writing.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "fitting-icon-optionally-piloted-kit",
+  "title": "Fitting icon: Optionally piloted kit",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/RescueHoist.png",
+    "role": "our approved button icon of the same game (the rescue hoist fitting icon): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/RoundFly.png",
+    "role": "our approved button icon of the same game (the round trip fly button, a grey helicopter): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Optionally piloted kit (a fitting's icon)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/OptionallyPilotedKit.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were turned down (owner, 27 Nov 2026, on the Picks page: 'Might need a paid solution for this one.')"
+  },
+  "prompt": "GAME BUTTON ICON. One small object seen from the side, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"an optionally piloted kit fitted to a helicopter: it can fly with nobody aboard\": a small grey helicopter seen from the side with an empty pale cockpit window, a small dark round camera ball under its nose, and three short curved green radio waves rising above the cabin.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "switch-icon-pop-smoke",
+  "title": "Vehicle switch: Pop smoke when hit",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/SmokeDischargers.png",
+    "role": "our approved button icon of the same game (the smoke dischargers upgrade icon): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Switch.png",
+    "role": "our approved button icon of the same game (the vehicle switch button): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Pop smoke when hit (a switch)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/PopSmoke.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were turned down (owner, 27 Nov 2026, on the Picks page: 'Paid solution ^ ^')"
+  },
+  "prompt": "GAME BUTTON ICON. One small object seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"fire the smoke screen automatically when the vehicle is hit\": a small olive bank of four short angled launcher tubes on a plate, a thick billowing cloud of pale grey smoke bursting up and out of them, and beside it a small red jagged spark-shaped hit mark.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "upgrade-icon-ammo-locker",
+  "title": "Upgrade icon: Ammunition locker",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/GunRing.png",
+    "role": "our approved button icon of the same game (the gun ring upgrade icon): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/RingGun50.png",
+    "role": "our approved button icon of the same game (the 50 calibre ring gun upgrade icon): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Ammunition locker (an upgrade node's icon)",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/AmmoLocker.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were turned down (owner, 27 Nov 2026, on the Picks page: 'Paid solution ^ ^')"
+  },
+  "prompt": "GAME BUTTON ICON. One small object seen from the front and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"an ammunition locker fitted to a vehicle\": a small olive-green steel ammunition box with a hinged lid propped open, two linked belts of brass cartridges curling up out of it, a sturdy latch and carry handle on its front.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ }
+]
