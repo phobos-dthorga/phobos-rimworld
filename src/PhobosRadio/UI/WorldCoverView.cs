@@ -192,6 +192,9 @@ public static class WorldCoverGizmo
                     foreach ((string label, int _) in WorldCover.FullRelays) names.Add(label);
                     shown += "\n" + "PhobosRadio_CoverNetworkFull".Translate(names.ToCommaList(useAnd: true).Named("RELAYS")).Resolve();
                 }
+                // Radio 0.49.1: relays on the move are not drawn, by name.
+                if (WorldCover.MovingRelays.Count > 0)
+                    shown += "\n" + "PhobosRadio_CoverNetworkMoving".Translate(WorldCover.MovingRelays.ToCommaList(useAnd: true).Named("RELAYS")).Resolve();
                 return shown;
             }
             if (WorldCover.Site is not { } site || site.Place != place) return null;

@@ -363,6 +363,21 @@ already says so.
 | The planner and full relays | `WorldCover.BuildNetworkPlan`, `WorldCover.FullRelays`, `RelayNodes.HasRoomFor`; the mark is the draw layer's |
 | Seen in play | `radio.world-link-sheet` (712), `radio.world-cover-network` by far-end radio (713), `radio.world-cover-full-relay` (714) |
 
+## Relays on the move (Radio Framework 0.49.1)
+
+For the flying relay of [electronic warfare](electronic-warfare.md) EW7, for which the owner chose both a hold-station order and
+relaying in transit (27 Nov 2026). A relay in transit changes tile every leg; the network's picture, which looks at its relays every
+60 frames, would start again at each, for as long as the aircraft flew.
+
+| Option weighed [A] | Chosen |
+| --- | --- |
+| Leave relays on the move out of the picture and name them in its pane (the agent's lean) | **This one** [A] |
+| Look at relays on the move less often, a picture that is always seconds behind and starts again on each look | Not chosen |
+
+A relay says it is on the move with `RelayNode.Moving`, which the flying relay sets; calls pass through it as through any relay, so
+the picture under-promises while one flies. A relay holding station is not on the move and is drawn. Seen in play with the flying
+relay's own row, as nothing sets the flag before it.
+
 ## Sources
 
 - International Telecommunication Union, [Recommendation ITU-R P.526-16, "Propagation by diffraction" (11/2025)](https://www.itu.int/dms_pubrec/itu-r/rec/p/R-REC-P.526-16-202511-I!!PDF-E.pdf),

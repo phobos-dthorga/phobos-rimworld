@@ -145,6 +145,7 @@
   <PhobosRadio_CoverMenuPlanner>Planner: where a new {KIND} would reach home</PhobosRadio_CoverMenuPlanner>
   <PhobosRadio_CoverGizmoPlanner>Radio coverage: planner ({KIND})</PhobosRadio_CoverGizmoPlanner>
   <PhobosRadio_CoverPlannerShown>Radio planner ({KIND}): a new one would reach home from {TILES} tiles, straight or through the {PLACES} stations and relays there are. Brighter is a stronger way home; put it where the vehicle picture has a gap.</PhobosRadio_CoverPlannerShown>
+  <PhobosRadio_CoverNetworkMoving>Not drawn, as they relay on the move: {RELAYS}. Calls still pass through them.</PhobosRadio_CoverNetworkMoving>
   <PhobosRadio_CoverNetworkFull>Left out, with every channel in use (marked in pink): {RELAYS}.</PhobosRadio_CoverNetworkFull>
   <PhobosRadio_CoverGizmoNetwork>Radio coverage: home, through relays ({KIND})</PhobosRadio_CoverGizmoNetwork>
   <PhobosRadio_CoverNetworkWorking>Working out radio coverage home, through relays ({KIND}): {PERCENT} done.</PhobosRadio_CoverNetworkWorking>

@@ -23,6 +23,20 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.49.1] - 2026-11-27 - Draft
+
+The network picture names relays on the move
+
+### Changed
+
+- **A relay that relays on the move is left out of the whole network's picture and named in its pane** (for the flying relay chosen
+  by the owner on 27 November 2026, relaying in transit). Calls still pass through it; the picture would otherwise start again each
+  time it reached a new tile. Nothing relays on the move until the flying relay is built, so nothing changes yet.
+
+### Compatibility and limits
+
+- An agent default, for the owner to revise. Safe with a running save; nothing is saved.
+
 ## [0.49.0] - 2026-11-27 - Draft
 
 Radios in every vehicle, and aircraft on their own bands

@@ -15,9 +15,11 @@ namespace Phobos.Radio.Services;
 /// mast always), the height its tile's ground lifts it by (its source supplies it: Propagation.SiteHeightMetres), and since Radio 0.24.0
 /// how many channels it has to relay on (0: the rules' <see cref="RadioRulesDef.repeaterChannels"/>). <paramref name="Airborne"/> (Radio
 /// 0.48.0): its height is its own, in the air, not its tile's ground; only a picture reads it (the side view draws no hill under it).
+/// <paramref name="Moving"/> (Radio 0.49.1): it relays while on the move, so its tile changes as it goes (an aircraft in transit). Calls
+/// pass through it as through any relay; only the world map's network picture leaves it out, as it would start again at every tile.
 /// </summary>
 public sealed record RelayNode(RadioEndpoint End, PlanetTile Tile, string Label, object Owner, bool Repeater = false, double SiteMetres = 0, int Channels = 0,
-    bool Airborne = false)
+    bool Airborne = false, bool Moving = false)
 {
     /// <summary>The height a tile's ground lifts a node on it by.</summary>
     public static double SiteOf(PlanetTile tile) => Propagation.SiteHeightMetres((int)Find.WorldGrid[tile].hilliness);

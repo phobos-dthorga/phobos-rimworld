@@ -114,6 +114,7 @@ public static class WorldCover
     static readonly List<Combo> combos = new();
     static readonly List<(WorldCoverSite Site, double OnwardDb)> plan = new();
     static readonly List<(string Label, int TileId)> fullRelays = new();
+    static readonly List<string> movingRelays = new();
     static readonly Stopwatch watch = new();
 
     static Game? game;
@@ -229,6 +230,12 @@ public static class WorldCover
     /// </summary>
     public static IReadOnlyList<(string Label, int TileId)> FullRelays => fullRelays;
 
+    /// <summary>
+    /// The relays left out of the network's picture because they relay on the move (Radio 0.49.1), by label. Calls still pass through them;
+    /// the picture would start again at every tile they reach, so it names them instead. An agent default, for the owner to revise.
+    /// </summary>
+    public static IReadOnlyList<string> MovingRelays => movingRelays;
+
     /// <summary>The channel kind a call from this far-end radio asks a relay for.</summary>
     static ChannelKindDef ChannelKindOf(RadioCoverKindDef kind) => kind.Radio?.channelKind ?? ChannelKindDef.LocalVoice;
 
@@ -299,6 +306,7 @@ public static class WorldCover
         combos.Clear();
         plan.Clear();
         fullRelays.Clear();
+        movingRelays.Clear();
         working = false;
         hasPass = false;
         layer = null;
@@ -328,7 +336,13 @@ public static class WorldCover
             // Read the colonies' stations and the relays as they are (cheap); what each relay has to spare onward is worked out only on a change.
             var homes = HomeSites();
             List<RelayNode> relays = kind.needsKey ? new List<RelayNode>() : RelayNodes.All().ToList();
+            // Radio 0.49.1: a relay on the move is left out and named, by its label alone, so its new tiles never start the picture again.
+            movingRelays.Clear();
+            foreach (RelayNode moving in relays)
+                if (moving.Moving && !movingRelays.Contains(moving.Label)) movingRelays.Add(moving.Label);
+            relays.RemoveAll(relay => relay.Moving);
             int now = SignatureOf(null, kind, rules);
+            foreach (string moving in movingRelays) now = Gen.HashCombineInt(now, moving.GetHashCode());
             foreach (WorldCoverSite home in homes) now = HashSite(now, home.Tile, home.Ends);
             // Radio 0.48.0: a relay filling up or freeing a channel changes the picture too.
             ChannelKindDef asks = ChannelKindOf(kind);
@@ -350,6 +364,7 @@ public static class WorldCover
         signature = single;
         plan.Clear();
         fullRelays.Clear();
+        movingRelays.Clear();
         plan.Add((site, double.PositiveInfinity));
         Start(kind, rules);
     }
