@@ -361,6 +361,276 @@ class Site(unittest.TestCase):
         self.assertIsNotNone(site.mod_version(ROOT, settings['stamp']['about']), 'the stamp\'s About.xml gives a version')
 
 
+EXTENSIONS = '''namespace My.Mod;
+
+/// <summary>Something that holds water (Framework 0.1.0; docs/x.md). Register it once.</summary>
+public interface IWaterHold { }
+
+/// <summary>A step a rig does. Subclass it in any mod.</summary>
+public abstract class RigStep<T> where T : class { }
+
+/// <summary>A comp of ours only, for our own use.</summary>
+public interface IOursOnly { }
+
+internal interface IHidden { }
+
+public class Concrete { }
+
+public abstract class NoSummary { }
+
+internal static class Holder
+{
+    public interface INestedInInternal { }
+}
+
+public static class Open
+{
+    public interface INested { }
+}
+'''
+
+PATCHES = '''using HarmonyLib;
+using Verse;
+
+namespace My.Mod;
+
+/// <summary>Wakes a stuck belt. A prefix that never skips the original.</summary>
+[HarmonyPatch(typeof(Pawn), nameof(Pawn.Tick))]
+public static class BeltTickPatch
+{
+    public static void Prefix() { }
+}
+
+// Remembers the order the player gave.
+[HarmonyPatch]
+static class OrderPatch
+{
+    static System.Reflection.MethodBase TargetMethod() => AccessTools.Method("Other.Mod.Orders:Give");
+
+    public static void Postfix() { }
+}
+
+[HarmonyPatch(typeof(Thing), nameof(Thing.SpawnSetup))]
+public static class SpawnPatch
+{
+    /// <summary>Changes a call in the spawn.</summary>
+    public static System.Collections.Generic.IEnumerable<CodeInstruction> Transpiler(
+        System.Collections.Generic.IEnumerable<CodeInstruction> code)
+    {
+        var call = AccessTools.Method("Other.Mod.Helper:NotTheTarget");
+        return code;
+    }
+}
+'''
+
+ACTIONS = '''using LudeonTK;
+
+namespace My.Mod;
+
+public static class DebugCategory
+{
+    public const string Name = "D'thorga";
+}
+
+/// <summary>The radio's dev actions.</summary>
+public static class RadioActions
+{
+    const string Category = "Phobos Radio";
+
+    /// <summary>Logs the noise at a cell. Reads only.</summary>
+    [DebugAction(Category, "Log noise at cell", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void Noise() { }
+}
+
+public static class FrameworkActions
+{
+    // Asks for the patched Defs.
+    [DebugAction(DebugCategory.Name, "Framework: write patched Defs",
+        allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
+    public static void Write() { }
+
+    [DebugAction(DebugCategory.Name, "Framework: log genes of selected pawns", false, false, true)]
+    static void Genes() { }
+
+    [DebugAction(DebugCategory.Name, "Vehicle systems: fit now", actionType = DebugActionType.ToolMapForPawns,
+        allowedGameStates = AllowedGameStates.PlayingOnWorld)]
+    static void Fit() { }
+}
+'''
+
+FRAMEWORK_LOG = '''# D'thorga Framework changelog
+
+Intro paragraph that mentions the notes for modders.
+
+## [Unreleased]
+
+### Changed
+
+- **For modders: a new hook** for blasts.
+
+## [0.3.0] - 2026-11-28 - Draft
+
+### Added
+
+- **A trailer can camp** (the owner's yes). It pitches its own camp. For modders: campDeck on the trailer comp, and
+  campDeck in a loadout's selector. Not yet tested in game: row 326.
+- **The schema check is quieter** (for modders: a system may name optionalRoles). Nothing in play changes.
+- The README is cut to the gotchas and links for modders. No change in play.
+
+### For modders
+
+- PhobosRulesDef gains a figure, see [the guide](../../docs/framework-modding.md#rules).
+
+## [0.2.0] - 2026-11-20 - Draft
+
+### Fixed
+
+- **A saved object can load as its own mod's copy** (class families, for modders). When an author splits a class, it loads.
+'''
+
+MEDICAL_LOG = '''# D'thorga Medical changelog
+
+## [0.5.0] - 2026-11-28 - Draft
+
+### Fixed
+
+- For modders: a condition with <bad> timings reports a load error.
+
+## D'thorga Burns and Smoke history
+
+### [Unreleased at the merge] - Draft
+
+#### Added
+
+- For modders: the burn-care extension.
+
+### [0.1.0] - 2026-11-06 - Draft
+
+#### Added
+
+- Something for players only.
+'''
+
+
+class ModderPages(unittest.TestCase):
+    """The four generated pages for modders, from made-up source and changelogs."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name)
+        project = self.root / 'src' / 'My.Mod'
+        project.mkdir(parents=True)
+        (project / 'My.Mod.csproj').write_text('<Project Sdk="Microsoft.NET.Sdk"></Project>', encoding='utf-8')
+        (project / 'Extensions.cs').write_text(EXTENSIONS, encoding='utf-8')
+        (project / 'Patches.cs').write_text(PATCHES, encoding='utf-8')
+        (project / 'Actions.cs').write_text(ACTIONS, encoding='utf-8')
+        for mod, text in (('PhobosFramework', FRAMEWORK_LOG), ('PhobosMedical', MEDICAL_LOG)):
+            (self.root / 'mods' / mod).mkdir(parents=True)
+            (self.root / 'mods' / mod / 'CHANGELOG.md').write_text(text, encoding='utf-8')
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_lead_sentence_keeps_brackets_whole(self):
+        self.assertEqual(site.lead_sentence('Holds water (Framework 0.1.0; docs/x.md). Register it.'),
+                         'Holds water (Framework 0.1.0; docs/x.md).')
+        self.assertEqual(site.lead_sentence('x' * 30, limit=10), 'x' * 9 + '…')
+
+    def test_extension_points_are_public_interfaces_and_abstract_classes(self):
+        points = {p.full: p for p in site.extension_points(self.root, ['src/My.Mod'])}
+        self.assertEqual(sorted(points), ['My.Mod.IWaterHold', 'My.Mod.NoSummary', 'My.Mod.Open.INested', 'My.Mod.RigStep'])
+        self.assertEqual(points['My.Mod.RigStep'].uid, 'My.Mod.RigStep`1')          # DocFX names a generic by its arity
+        self.assertEqual((points['My.Mod.RigStep'].kind, points['My.Mod.IWaterHold'].kind), ('abstract class', 'interface'))
+        page = site.extension_points_page(list(points.values()), ['src/My.Mod'], 'https://g/r')
+        self.assertIn('## My.Mod (4)', page)
+        self.assertIn('### Interfaces (2)', page)
+        self.assertIn('<xref:My.Mod.RigStep%601?text=RigStep>', page)
+        self.assertIn('| Something that holds water (Framework 0.1.0; docs/x.md). |', page)
+        self.assertIn('*(no summary yet)*', page)
+        self.assertIn('https://g/r/blob/main/src/My.Mod/Extensions.cs#L', page)
+
+    def test_patches_name_their_target_class_and_comment(self):
+        rows = {r.our_class: r for r in site.harmony_patches(self.root, ('src',))}
+        self.assertEqual(sorted(rows), ['BeltTickPatch', 'OrderPatch', 'SpawnPatch'])
+        belt = rows['BeltTickPatch']
+        self.assertEqual((belt.target, belt.kinds, belt.project, belt.path),
+                         ('Pawn.Tick', ('prefix',), 'My.Mod', 'src/My.Mod/Patches.cs'))
+        self.assertEqual(belt.summary, 'Wakes a stuck belt. A prefix that never skips the original.')
+        order = rows['OrderPatch']
+        self.assertEqual((order.target, order.by_name), ('Other.Mod.Orders.Give', True))   # read from its TargetMethod
+        self.assertEqual(order.summary, 'Remembers the order the player gave.')            # a plain // comment
+        spawn = rows['SpawnPatch']
+        self.assertEqual((spawn.target, spawn.kinds, spawn.summary), ('Thing.SpawnSetup', ('transpiler',),
+                                                                     'Changes a call in the spawn.'))
+        page = site.patches_page(list(rows.values()), 'https://g/r')
+        self.assertIn('compatibility', page)
+        self.assertIn('| `Other.Mod.Orders.Give` (by name) | postfix | [OrderPatch](https://g/r/blob/main/src/My.Mod/Patches.cs#L',
+                      page)
+        self.assertIn('| `Pawn.Tick` | prefix | [BeltTickPatch]', page)
+        self.assertNotIn('NotTheTarget', page)                  # a transpiler's lookup is not the method patched
+
+    def test_dev_actions_read_their_attribute(self):
+        actions = {a.label: a for a in site.debug_actions(self.root, ('src',))}
+        noise = actions['Log noise at cell']
+        self.assertEqual((noise.category, noise.works_in, noise.how), ('Phobos Radio', 'a map', 'then click a cell on the map'))
+        self.assertEqual(noise.summary, 'Logs the noise at a cell. Reads only.')
+        write = actions['Framework: write patched Defs']
+        self.assertEqual((write.category, write.works_in, write.how), ("D'thorga", 'the main menu or a game', 'runs when chosen'))
+        self.assertEqual(write.summary, 'Asks for the patched Defs.')
+        genes = actions['Framework: log genes of selected pawns']
+        self.assertEqual((genes.works_in, genes.how), ('a game', 'runs when chosen; acts on what is selected; needs Biotech'))
+        fit = actions['Vehicle systems: fit now']
+        self.assertEqual((fit.works_in, fit.how), ('the world map', 'then click a pawn on the map'))
+        page = site.dev_actions_page(list(actions.values()), '')
+        self.assertLess(page.index("## D'thorga (3)"), page.index('## Phobos Radio (1)'))   # ours first
+        self.assertIn('### Framework', page)
+        self.assertIn('### Vehicle systems', page)
+        self.assertIn('Development mode', page)
+
+    def test_changes_for_modders_newest_first(self):
+        changes = site.modder_changes(self.root)
+        texts = [c.text for c in changes]
+        self.assertEqual(texts[0], '**For modders: a new hook** for blasts.')                 # unreleased first
+        self.assertIsNone(changes[0].date)
+        self.assertIn("**A trailer can camp**: For modders: campDeck on the trailer comp, and campDeck in a loadout's selector.",
+                      texts)
+        self.assertIn('**The schema check is quieter**: For modders: a system may name optionalRoles', texts)
+        self.assertIn('**A saved object can load as its own mod\'s copy** (class families, for modders).', texts)
+        self.assertIn('PhobosRulesDef gains a figure, see [the guide](../../docs/framework-modding.md#rules).', texts)
+        self.assertFalse(any('README' in t for t in texts))                                  # "links for modders" is no mark
+        burns = next(c for c in changes if c.text == 'For modders: the burn-care extension.')
+        self.assertEqual((burns.mod, burns.date, burns.section), ("D'thorga Burns and Smoke (now in D'thorga Medical)",
+                                                                  '2026-11-06', 'Added'))
+        self.assertEqual([(c.mod, c.version) for c in changes if c.date == '2026-11-28'][0], ("D'thorga Framework", '0.3.0'))
+        dates = [c.date for c in changes if c.date]
+        self.assertEqual(dates, sorted(dates, reverse=True))
+        page = site.modder_changes_page(changes, 'https://g/r')
+        self.assertIn('## Not yet released', page)
+        self.assertLess(page.index('## 28 Nov 2026'), page.index('## 20 Nov 2026'))
+        self.assertIn('[the guide](https://g/r/blob/main/docs/framework-modding.md#rules)', page)
+        self.assertIn('&lt;bad>', page)
+        self.assertIn('[D\'thorga Medical 0.5.0](https://g/r/blob/main/mods/PhobosMedical/CHANGELOG.md#L7), fixed:', page)
+
+    def test_the_pages_are_written_with_their_uids(self):
+        settings = {'projects': ['src/My.Mod'], 'repository': ''}
+        work = self.root / 'work'
+        work.mkdir()
+        counts = site.write_modder_pages(self.root, settings, work)
+        self.assertEqual(counts, {'extension-points': 4, 'patches': 3, 'dev-actions': 4, 'modder-changes': 7})
+        for uid in site.MODDER_PAGES:
+            self.assertTrue((work / f'{uid}.md').read_text(encoding='utf-8').startswith(f'---\nuid: {uid}\n---'))
+
+    def test_the_committed_project_shows_every_page(self):
+        project = json.loads((ROOT / site.PROJECT / 'docfx.json').read_text(encoding='utf-8'))
+        content = [name for entry in project['build']['content'] for name in entry['files']]
+        toc = (ROOT / site.PROJECT / 'toc.yml').read_text(encoding='utf-8')
+        index = (ROOT / site.PROJECT / 'index.md').read_text(encoding='utf-8')
+        for uid in site.MODDER_PAGES:
+            self.assertIn(f'{uid}.md', content, f'docfx.json does not build {uid}.md')
+            self.assertIn(f'href: {uid}.md', toc, f'{uid} is not in the site\'s menu')
+            self.assertIn(f'<xref:{uid}?', index, f'the front page does not link {uid}')
+
+
 class Verifying(unittest.TestCase):
     """The gate's step builds into a throwaway folder, fails on a site warning, and always removes the folder."""
 

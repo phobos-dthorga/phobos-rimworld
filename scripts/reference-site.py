@@ -25,6 +25,9 @@ with every public field and that field's default, read from our source.
   others (GitHub's workflow does).
 - **Every page's footer says when the site was built**, from which version of the Framework and which commit (owner, 28 Nov
   2026), added to the run's copy of docfx.json, so the committed project never changes.
+- **Four pages for modders are generated from the code and the changelogs** on every build (28 Nov 2026), so none can fall
+  behind: the extension points (public interfaces and abstract classes), what we patch (the kit's Harmony reader, as doc-tables'
+  patch list), the dev actions (their [DebugAction] attributes) and the changelog lines marked for modders.
 - The work folder is emptied before each build, and only when it holds this tool's marker file, so a mistyped `--work` never
   empties anything else.
 """
@@ -649,6 +652,572 @@ def catalogue_page(types, categories, repository, added=None):
 
 
 # ----------------------------------------------------------------------------------------------------------------------------
+# Pages for modders made from the code and the changelogs: extension points, what we patch, dev actions, changes for modders.
+# Each is generated on every build, so none can fall behind the code it describes.
+
+OURS_ONLY = re.compile(r'\b(?:ours only|only ours|for our own use|our own use only|not for other mods|not meant for other mods|'
+                       r'internal use)\b', re.IGNORECASE)
+CODE_FOLDERS = ('src',)                     # where our C# is, for the patches and dev actions pages (config "codeFolders")
+CHANGELOGS = 'mods/*/CHANGELOG.md'          # config "changelogs"
+
+
+def lead_sentence(text, limit=200):
+    """A summary's first sentence: up to the first full stop outside brackets that ends a sentence, so "(Framework 0.182.0;
+    docs/x.md)" stays whole. Cut with an ellipsis past the limit."""
+    depth = 0
+    for index, char in enumerate(text):
+        if char in '([':
+            depth += 1
+        elif char in ')]':
+            depth = max(0, depth - 1)
+        elif char in '.!?' and depth == 0 and (index + 1 == len(text) or text[index + 1].isspace()):
+            text = text[:index + 1]
+            break
+    return text if len(text) <= limit else text[:limit - 1].rstrip() + '…'
+
+
+def _plain(text):
+    """Text from a summary, safe in a Markdown table cell: angle brackets and ampersands as entities, bars escaped."""
+    return _cell(html.escape(text, quote=False))
+
+
+def _generic_arity(signature, name):
+    """How many type parameters a declaration has ("class Foo<T, U>" gives 2), for its DocFX uid (Foo`2)."""
+    match = re.search(r'\b' + re.escape(name) + r'\s*<([^<>]*)>', ATTRIBUTES.sub('', signature))
+    return len(match.group(1).split(',')) if match else 0
+
+
+def xref(uid, text):
+    """A DocFX cross-reference: the uid as DocFX names it (a generic type's arity after a backtick, encoded), with link text."""
+    from urllib.parse import quote
+    return f'<xref:{quote(uid, safe=".")}?text={quote(text, safe="")}>'
+
+
+def source_link(repository, path, line=None):
+    """A file of ours on GitHub, at a line when one is given; '' without a repository."""
+    if not repository:
+        return ''
+    return f'{repository}/blob/main/{path}' + (f'#L{line}' if line else '')
+
+
+def project_of(path):
+    """The project a source file belongs to: the folder under src/ (or the first folder) it sits in."""
+    parts = Path(path).parts
+    return parts[1] if len(parts) > 2 and parts[0] == 'src' else parts[0]
+
+
+def comment_above(lines, start):
+    """What a declaration's comment says: its /// <summary>, or else the plain // lines directly above it."""
+    summary = summary_text(doc_comment(lines, start))
+    if summary:
+        return summary
+    found, index = [], start - 2
+    while index >= 0:
+        text = lines[index].strip()
+        if text.startswith('//') and not text.startswith('///'):
+            found.append(text[2:].strip())
+            index -= 1
+        elif text.startswith('[') and text.endswith(']'):
+            index -= 1
+        else:
+            break
+    return ' '.join(reversed(found)).strip()
+
+
+@dataclass
+class ExtensionPoint:
+    project: str
+    kind: str                    # 'interface' or 'abstract class'
+    full: str
+    name: str
+    uid: str
+    summary: str
+    path: str
+    line: int
+
+
+def extension_points(root, projects):
+    """Every public interface and public abstract class in the projects that another mod's C# could implement or subclass.
+    Left out: what is not public all the way out (internal, or nested in a type that is not), and what its summary says is ours
+    only."""
+    found = []
+    for path in source_files(root, projects):
+        text = path.read_text(encoding='utf-8-sig')
+        relative = path.relative_to(root).as_posix()
+        lines = text.split('\n')
+        decls = declarations(text)
+        types = {d.full: d for d in decls if d.kind in ('class', 'record', 'interface', 'struct', 'enum')}
+        for decl in decls:
+            if decl.kind not in ('class', 'record', 'interface'):
+                continue
+            header = _csharp_header(decl.signature)
+            if 'public' not in header or (decl.kind != 'interface' and 'abstract' not in header):
+                continue
+            holder, public = decl.owner, True
+            while holder in types and public:
+                public = 'public' in _csharp_header(types[holder].signature)
+                holder = types[holder].owner
+            summary = summary_text(doc_comment(lines, decl.start))
+            if not public or OURS_ONLY.search(summary):
+                continue
+            arity = _generic_arity(decl.signature, decl.name)
+            found.append(ExtensionPoint(project_of(relative), 'interface' if decl.kind == 'interface' else 'abstract class',
+                                        decl.full, decl.name, decl.full + (f'`{arity}' if arity else ''), summary, relative,
+                                        decl.start))
+    return found
+
+
+def extension_points_page(points, projects, repository):
+    """The extension points page: by project in the config's order, then interfaces before abstract classes."""
+    out = ['# Extension points', '',
+           'Every public interface and abstract class in the D\'thorga mods\' code that your own C# mod can implement or '
+           'subclass, by project. Each links to its page in the C# reference, which says how to register it where it needs '
+           'registering; most are also described in the guide of the mod they belong to. Generated from the source by '
+           '`scripts/reference-site.py` on every build, so the list is the code\'s own.', '',
+           '- **An interface**: implement it on your own class (often a comp) and the mod finds it, or register it as its page '
+           'says.',
+           '- **An abstract class**: subclass it. One you name in XML (`Class="..."`) is also in the XML types page.', '']
+    order = {Path(p).name: index for index, p in enumerate(projects)}
+    by_project = {}
+    for point in points:
+        by_project.setdefault(point.project, []).append(point)
+    for project in sorted(by_project, key=lambda p: (order.get(p, len(order)), p)):
+        chosen = by_project[project]
+        out += [f'## {project} ({len(chosen)})', '']
+        for kind, heading in (('interface', 'Interfaces'), ('abstract class', 'Abstract classes')):
+            kinds = sorted((p for p in chosen if p.kind == kind), key=lambda p: p.full)
+            if not kinds:
+                continue
+            out += [f'### {heading} ({len(kinds)})', '', '| Type | What it is |', '| --- | --- |']
+            for point in kinds:
+                summary = _plain(lead_sentence(point.summary)) if point.summary else '*(no summary yet)*'
+                link = xref(point.uid, point.name)
+                source = source_link(repository, point.path, point.line)
+                out.append(f'| {link}' + (f' ([source]({source}))' if source else '') + f' | {summary} |')
+            out.append('')
+    if not by_project:
+        out += ['No project has a public interface or abstract class.', '']
+    out.append(f'{len(points)} extension points.')
+    return '\n'.join(out) + '\n'
+
+
+@dataclass
+class PatchRow:
+    project: str
+    target: str                  # "Type.Method", "Type.Method (getter)", or "by name in TargetMethod"
+    by_name: bool                # the target is found at run time
+    kinds: tuple
+    our_class: str
+    path: str
+    line: int
+    summary: str
+
+
+def _class_at(decls, line):
+    """The type declared at a line (the patch class the kit's Harmony reader names by its first line)."""
+    return next((d for d in decls if d.kind in ('class', 'struct', 'record') and d.start == line), None)
+
+
+BY_NAME_SOURCES = ('AccessTools.Method', 'AccessTools.DeclaredMethod', 'AccessTools.PropertyGetter', 'AccessTools.PropertySetter',
+                   'AccessTools.Constructor', 'AccessTools.DeclaredConstructor', 'GetMethod', 'HarmonyPatch')
+
+
+def _by_name_target(scan, path, decls, owner):
+    """The members a patch class's TargetMethod (or TargetMethods) looks up, as the kit's target scanner (check-targets'
+    reader) read them, else ''. Only lookups inside that method count: one in a transpiler names a call to change, not the
+    method patched. The type is as the code writes it, often in full, since it is another mod's."""
+    spans = [(d.start, d.end) for d in decls if d.owner == owner.full and d.kind == 'method'
+             and d.name in ('TargetMethod', 'TargetMethods')]
+    kinds = {'getter': ' (getter)', 'setter': ' (setter)', 'ctor': ' (constructor)', 'cctor': ' (static constructor)'}
+    labels = sorted({t.type_name + (f'.{t.member}' if t.member else '') + kinds.get(t.member_kind, '')
+                     for t in scan.targets if t.file == path and t.source in BY_NAME_SOURCES
+                     and any(start <= t.line <= end for start, end in spans)})
+    return ', '.join(labels)
+
+
+def harmony_patches(root, folders=CODE_FOLDERS):
+    """Every Harmony patch in our code, read by phobos-modkit's Harmony reader (the one doc-tables' patch list uses), each with
+    its class, file and the first sentence of its comment. A patch that finds its target by name is matched with what the
+    kit's target scanner (check-targets' reader) read in its TargetMethod, where it could."""
+    from phobos_modkit import dotnet_projects
+    from phobos_modkit.code import harmony
+    from phobos_modkit.targets import scan_tree
+    root = Path(root)
+    rows, texts = [], {}
+    found = []
+    for project in dotnet_projects.read_projects(root, list(folders)):
+        found += [(project.name, patch) for patch in harmony.read_folder(root / project.folder, relative_to=root).patches]
+    scan = scan_tree(root, tuple(f'{folder}/**/*.cs' for folder in folders)) if any(
+        p.target.startswith('by name in ') for _, p in found) else None
+    for project, patch in found:
+        if patch.file not in texts:
+            text = (root / patch.file).read_text(encoding='utf-8-sig')
+            texts[patch.file] = (text.split('\n'), declarations(text))
+        lines, decls = texts[patch.file]
+        owner = _class_at(decls, patch.line)
+        by_name = patch.target.startswith('by name in ')
+        target = patch.target
+        if by_name and owner is not None and scan is not None:
+            target = _by_name_target(scan, patch.file, decls, owner) or target
+        summary = comment_above(lines, patch.line)
+        if not summary and owner is not None:          # no comment on the class: the patch method's own
+            method = next((d for d in decls if d.owner == owner.full and d.kind == 'method'
+                           and d.name.lower() in patch.kinds), None)
+            summary = comment_above(lines, method.start) if method else ''
+        rows.append(PatchRow(project, target, by_name, patch.kinds, owner.name if owner else '?', patch.file, patch.line,
+                             summary))
+    return rows
+
+
+def patches_page(rows, repository):
+    """The What we patch page: every patch by project, then by the method it patches."""
+    out = ['# What we patch', '',
+           '**Why read this:** if your mod patches one of these methods too, both patches run on it, so this is where our mods '
+           'and yours may meet (compatibility). Every Harmony patch in the D\'thorga mods\' code: the method it patches, how '
+           '(prefix, postfix, transpiler, finalizer), our patch class with its source, and what the patch does.', '',
+           'Read from the C# source on every build by phobos-modkit\'s Harmony reader, the same as the patch list in '
+           '`docs/development/building.md`. A target shown with "by name" is found at run time; where the code names it, it '
+           'is given. To see who else patches a method in a game, look at Harmony\'s own report in the game\'s log.', '']
+    by_project = {}
+    for row in rows:
+        by_project.setdefault(row.project, []).append(row)
+    for project in sorted(by_project):
+        chosen = sorted(by_project[project], key=lambda r: (r.target.startswith('by name in '), r.target.lower(), r.path,
+                                                           r.line))
+        out += [f'## {project} ({len(chosen)})', '', '| Patched method | How | Our class | What it does |',
+                '| --- | --- | --- | --- |']
+        for row in chosen:
+            target = row.target if row.target.startswith('by name in ') else f'`{row.target}`'
+            if row.by_name and not row.target.startswith('by name in '):
+                target += ' (by name)'
+            source = source_link(repository, row.path, row.line)
+            ours = f'[{row.our_class}]({source})' if source else f'`{row.our_class}`'
+            what = _plain(lead_sentence(row.summary)) if row.summary else '*(no comment)*'
+            out.append(f'| {target} | {", ".join(row.kinds) or "not found"} | {ours} | {what} |')
+        out.append('')
+    if not by_project:
+        out += ['Nothing is patched with Harmony.', '']
+    out.append(f'{len(rows)} patches in {len(by_project)} projects.')
+    return '\n'.join(out) + '\n'
+
+
+DEBUG_ACTION = re.compile(r'\[\s*(?:LudeonTK\.)?DebugAction\s*\(')
+GAME_STATES = {'Entry': 'the main menu', 'Playing': 'a game', 'PlayingOnMap': 'a map', 'IsCurrentlyOnMap': 'a map',
+               'PlayingOnWorld': 'the world map', 'WorldRenderedNow': 'the world map', 'HasGameCondition': 'a game condition'}
+ACTION_TYPES = {'Action': 'runs when chosen', 'ToolMap': 'then click a cell on the map',
+                'ToolMapForPawns': 'then click a pawn on the map', 'ToolWorld': 'then click a tile on the world map'}
+DLC_FLAGS = {'requiresRoyalty': 'Royalty', 'requiresIdeology': 'Ideology', 'requiresBiotech': 'Biotech',
+             'requiresAnomaly': 'Anomaly', 'requiresOdyssey': 'Odyssey'}
+DEBUG_POSITIONAL = ('category', 'name') + tuple(DLC_FLAGS)
+
+
+@dataclass
+class DevAction:
+    category: str
+    label: str
+    method: str
+    owner: str
+    path: str
+    line: int
+    summary: str
+    works_in: str
+    how: str
+
+
+def _constant_text(value, constants, owner):
+    """A string argument's text: a literal, or a constant of ours followed to its literal; None when neither."""
+    value = value.strip()
+    for name in (f'{owner}.{value}', value, '.'.join(value.split('.')[-2:])):
+        if name in constants:
+            value = constants[name].strip()
+            break
+    if len(value) >= 2 and value[0] == '"' and value[-1] == '"':
+        return value[1:-1]
+    return None
+
+
+def debug_action_arguments(arguments, constants, owner=''):
+    """A DebugAction attribute's arguments as {'category', 'name', 'allowedGameStates', 'actionType', ...}: positional ones
+    in the game's constructor order (category, name, then the DLC flags), named ones by name; strings followed to their text."""
+    found = {}
+    for index, argument in enumerate(_csharp.top_level_arguments(arguments)):
+        named = re.match(r'^(\w+)\s*[:=](?!=)\s*(.+)$', argument, re.DOTALL)
+        key, value = (named.group(1), named.group(2).strip()) if named else (
+            DEBUG_POSITIONAL[index] if index < len(DEBUG_POSITIONAL) else f'#{index}', argument.strip())
+        if key in ('category', 'name'):
+            found[key] = _constant_text(value, constants, owner) or value
+        else:
+            found[key] = ' '.join(value.split())
+    return found
+
+
+def _needs(arguments, label):
+    """Where an action can be used and how, from its attribute (the game's defaults: a game, runs when chosen)."""
+    states = re.findall(r'AllowedGameStates\.(\w+)', arguments.get('allowedGameStates', 'AllowedGameStates.Playing'))
+    places = []
+    for state in states:
+        place = GAME_STATES.get(state, state)
+        if place not in places:
+            places.append(place)
+    if 'a map' in places and 'a game' in places:
+        places.remove('a game')
+    action = re.sub(r'^(?:LudeonTK\.)?DebugActionType\.', '', arguments.get('actionType', 'Action'))
+    how = [ACTION_TYPES.get(action, action)]
+    if re.search(r'\bselected\b', label, re.IGNORECASE):
+        how.append('acts on what is selected')
+    dlcs = [name for flag, name in DLC_FLAGS.items() if arguments.get(flag) == 'true']
+    if dlcs:
+        how.append('needs ' + ' and '.join(dlcs))
+    return ' or '.join(places) or 'a game', '; '.join(how)
+
+
+def debug_actions(root, folders=CODE_FOLDERS):
+    """Every [DebugAction(...)] method in our code: its category and label (constants followed), what its summary says, and
+    where and how it works, read from the attribute."""
+    root = Path(root)
+    files = [path for folder in folders for path in sorted((root / folder).rglob('*.cs'))
+             if not SKIPPED_DIRS & set(path.relative_to(root / folder).parts[:-1])]
+    texts = {path.relative_to(root).as_posix(): path.read_text(encoding='utf-8-sig') for path in files}
+    constants = _csharp.read_constants({path: _csharp.strip_comments(text) for path, text in texts.items()})
+    found = []
+    for relative, text in texts.items():
+        clean = _csharp.strip_comments(text)
+        if not DEBUG_ACTION.search(clean):
+            continue
+        lines = text.split('\n')
+        methods = [d for d in declarations(text) if d.kind == 'method']
+        for match in DEBUG_ACTION.finditer(clean):
+            line = clean.count('\n', 0, match.start()) + 1
+            method = next((d for d in methods if d.start <= line <= d.end), None)
+            if method is None:
+                continue
+            owner = method.owner.split('.')[-1]
+            arguments = debug_action_arguments(_csharp.call_arguments(clean, match.end() - 1), constants, owner)
+            label = arguments.get('name', method.name)
+            works_in, how = _needs(arguments, label)
+            found.append(DevAction(arguments.get('category', ' ').strip() or '(no category)', label, method.name, owner,
+                                   relative, line, comment_above(lines, method.start), works_in, how))
+    return found
+
+
+def _label_group(label):
+    """The part of a label before its first colon ("Framework: soak the ground" -> "Framework"), the menu's own grouping."""
+    head, sep, _ = label.partition(': ')
+    return head if sep and len(head) <= 40 else ''
+
+
+def dev_actions_page(actions, repository):
+    """The Dev actions page: by category, then by the label's own prefix where a category has several."""
+    out = ['# Dev actions', '',
+           'Every dev action the D\'thorga mods add, for trying things out and finding faults while you build on them. **Turn on '
+           'Development mode** in the game\'s options; the dev tools then sit at the top of the screen. Open the **debug '
+           'actions** window there and find the category below (most are under **D\'thorga**), or type part of a label into '
+           'its search box. An action that needs a map is shown only while one is open.', '',
+           'Generated from the `[DebugAction]` attributes in the source on every build. "Works in" and "How" come from the '
+           'attribute; "acts on what is selected" from the label.', '']
+    by_category = {}
+    for action in actions:
+        by_category.setdefault(action.category, []).append(action)
+    for category in sorted(by_category, key=lambda c: (c != "D'thorga", c.lower())):
+        chosen = by_category[category]
+        out += [f'## {_plain(category)} ({len(chosen)})', '']
+        groups = {}
+        for action in chosen:
+            groups.setdefault(_label_group(action.label), []).append(action)
+        for group in sorted(groups, key=lambda g: (g == '', g.lower())):
+            if len(groups) > 1:
+                out += [f'### {_plain(group) if group else "Others"}', '']
+            out += ['| Action | What it does | Works in | How |', '| --- | --- | --- | --- |']
+            for action in sorted(groups[group], key=lambda a: a.label.lower()):
+                source = source_link(repository, action.path, action.line)
+                label = f'[{_plain(action.label)}]({source})' if source else _plain(action.label)
+                what = _plain(lead_sentence(action.summary, 240)) if action.summary else '*(no summary: the label says it)*'
+                out.append(f'| {label} | {what} | {action.works_in} | {action.how} |')
+            out.append('')
+    if not by_category:
+        out += ['No dev actions.', '']
+    out.append(f'{len(actions)} dev actions in {len(by_category)} '
+               f'categor{"y" if len(by_category) == 1 else "ies"}.')
+    return '\n'.join(out) + '\n'
+
+
+VERSION_HEADING = re.compile(r'^(?P<level>#{2,4})\s+\[(?P<version>[^\]]+)\](?:\s*-\s*(?P<date>\d{4}-\d{2}-\d{2}))?')
+HISTORY_HEADING = re.compile(r'^##\s+(?P<name>.+?)\s+history\s*$')
+MODDERS_START = re.compile(r'^(?:\*\*)?For modders\b', re.IGNORECASE)
+MODDERS_COLON = re.compile(r'\bfor modders:', re.IGNORECASE)
+MODDERS_PAREN = re.compile(r'\([^()]*\bfor modders\b[^()]*\)', re.IGNORECASE)
+BOLD_OPENING = re.compile(r'^\*\*.+?\*\*')
+
+
+@dataclass
+class ModderChange:
+    mod: str
+    version: str
+    date: str | None             # YYYY-MM-DD; None while unreleased
+    section: str                 # Added, Fixed, ... ('' when the version has none)
+    text: str
+    path: str
+    line: int
+
+
+def _sentence_from(text, start):
+    """The text from start to the end of its sentence (a full stop outside brackets, then a capital or the end)."""
+    depth = 0
+    for index in range(start, len(text)):
+        char = text[index]
+        if char in '([':
+            depth += 1
+        elif char in ')]':
+            if depth == 0:              # the bracket the sentence sits in closes: the sentence ends with it
+                return text[start:index]
+            depth -= 1
+        elif char == '.' and depth == 0 and (index + 1 == len(text) or (text[index + 1] == ' ' and index + 2 < len(text)
+                                                                          and (text[index + 2].isupper() or text[index + 2] in '*('))):
+            return text[start:index + 1]
+    return text[start:]
+
+
+def modders_text(bullet, whole=False):
+    """The part of a changelog bullet that speaks to modders, or None when it does not: a bullet that opens "For modders" (or
+    sits under a heading saying so, ``whole``) whole; a "For modders:" inside one as that sentence, after the bullet's bold
+    opening for context; a "(..., for modders)" as the bullet's first sentence. "The notes for modders" and the like are not
+    marks."""
+    if whole or MODDERS_START.match(bullet):
+        return bullet
+    opening = BOLD_OPENING.match(bullet)
+    colon = MODDERS_COLON.search(bullet)
+    if colon:
+        sentence = _sentence_from(bullet, colon.start()).strip()
+        if sentence and sentence[0].islower():
+            sentence = sentence[0].upper() + sentence[1:]
+        if opening and colon.start() >= opening.end():
+            return f'{opening.group(0)}: {sentence}'
+        return sentence
+    if MODDERS_PAREN.search(bullet):
+        return _sentence_from(bullet, 0).strip()
+    return None
+
+
+def read_changelog(text, path):
+    """Every line of one mod's changelog that speaks to modders, with its mod, version, date and section. A merged mod's
+    history ("## D'thorga X history") is named as that mod; a version not yet released at a merge takes the next date below."""
+    lines = text.split('\n')
+    title = next((line[2:].strip() for line in lines if line.startswith('# ')), Path(path).parent.name)
+    main = re.sub(r'\s+changelog$', '', title, flags=re.IGNORECASE)
+    mod, version, date, version_level, section, modder_section = main, None, None, 0, '', False
+    found, bullet, bullet_line = [], None, 0
+    undated = []
+
+    def close():
+        if bullet is not None and version is not None:
+            text = modders_text(' '.join(bullet.split()), whole=modder_section)
+            if text:
+                found.append(ModderChange(mod, version, date, section, text, path, bullet_line))
+                if date is None and version.lower() != 'unreleased':
+                    undated.append(found[-1])
+
+    for number, line in enumerate(lines, 1):
+        history = HISTORY_HEADING.match(line)
+        heading = VERSION_HEADING.match(line)
+        if history or heading or line.startswith('#'):
+            close()
+            bullet = None
+            if history:
+                mod, version = f'{history.group("name")} (now in {main})', None
+            elif heading:
+                version, date = heading.group('version'), heading.group('date')
+                version_level, section, modder_section = len(heading.group('level')), '', False
+                if date:
+                    for change in undated:
+                        change.date = date
+                    undated.clear()
+            elif version is not None and len(line) - len(line.lstrip('#')) > version_level:
+                section = line.lstrip('#').strip()
+                modder_section = 'modders' in section.lower()
+            continue
+        if line.startswith('- '):
+            close()
+            bullet, bullet_line = line[2:], number
+        elif bullet is not None and line.startswith(' ') and line.strip():
+            bullet += ' ' + line.strip()
+        else:
+            close()
+            bullet = None
+    close()
+    return found
+
+
+def modder_changes(root, pattern=CHANGELOGS):
+    """Every changelog line marked for modders, from every mod's changelog, newest first: unreleased, then by date; within a
+    day, by mod, in the changelog's own order."""
+    root = Path(root)
+    found = []
+    for path in sorted(root.glob(pattern)):
+        found += read_changelog(path.read_text(encoding='utf-8-sig'), path.relative_to(root).as_posix())
+    position = {id(change): index for index, change in enumerate(found)}
+    return sorted(found, key=lambda c: (c.date is not None, '' if c.date is None else _descending(c.date), c.mod,
+                                        position[id(c)]))
+
+
+def _descending(date):
+    """A date as a key that sorts the newest first."""
+    return ''.join(chr(ord('9') - ord(char) + ord('0')) if char.isdigit() else char for char in date)
+
+
+def _day(date):
+    from datetime import date as day
+    when = day.fromisoformat(date)
+    return f'{when.day} {when:%b %Y}'
+
+
+def modder_changes_page(changes, repository):
+    """The Changes for modders page: one heading per day, newest first, each line with its mod, version and section."""
+    out = ['# Changes for modders', '',
+           'Every change the D\'thorga mods\' changelogs mark **for modders**, newest first: what changed that may affect a mod '
+           'building on them, with the mod and the version it came in. Each mod\'s whole changelog is in its folder on GitHub '
+           '(`mods/<Mod>/CHANGELOG.md`). Generated from the changelogs on every build.', '',
+           '"Draft" versions are prepared but not yet published on the Steam Workshop.', '']
+    current = object()
+    for change in changes:
+        day = change.date
+        if day != current:
+            out += ['', f'## {"Not yet released" if day is None else _day(day)}', '']
+            current = day
+        text = rewrite_links(change.text, change.path, [], repository).replace('<', '&lt;')
+        source = source_link(repository, change.path, change.line)
+        where = f'{change.mod} {change.version}' if change.version.lower() != 'unreleased' else f'{change.mod}, unreleased'
+        where = f'[{where}]({source})' if source else where
+        section = f', {change.section.lower()}' if change.section else ''
+        out.append(f'- {where}{section}: {text}')
+    if not changes:
+        out += ['No changelog line is marked for modders yet.']
+    out += ['', f'{len(changes)} changes for modders.']
+    return '\n'.join(out) + '\n'
+
+
+MODDER_PAGES = ('extension-points', 'patches', 'dev-actions', 'modder-changes')
+
+
+def write_modder_pages(root, settings, work):
+    """The four generated pages for modders, each with its uid (docs/reference/index.md links to them). Returns their entry
+    counts by page."""
+    root, work = Path(root), Path(work)
+    repository = settings.get('repository', '')
+    folders = tuple(settings.get('codeFolders') or CODE_FOLDERS)
+    points = extension_points(root, settings['projects'])
+    patches = harmony_patches(root, folders)
+    actions = debug_actions(root, folders)
+    changes = modder_changes(root, settings.get('changelogs') or CHANGELOGS)
+    pages = {'extension-points': (extension_points_page(points, settings['projects'], repository), len(points)),
+             'patches': (patches_page(patches, repository), len(patches)),
+             'dev-actions': (dev_actions_page(actions, repository), len(actions)),
+             'modder-changes': (modder_changes_page(changes, repository), len(changes))}
+    for uid, (text, _) in pages.items():
+        (work / f'{uid}.md').write_text(with_uid(text, uid), encoding='utf-8')
+    return {uid: count for uid, (_, count) in pages.items()}
+
+
+# ----------------------------------------------------------------------------------------------------------------------------
 # Guides as articles
 
 
@@ -800,8 +1369,8 @@ def prepare_folder(folder):
 
 
 def write_pages(root, settings, work, progress=None):
-    """Every generated input in the work folder: the project's own files, the guides, the XML examples and the XML types page.
-    Returns the XML-facing types."""
+    """Every generated input in the work folder: the project's own files, the guides, the XML examples, the XML types page and
+    the four pages for modders. Returns the XML-facing types, and the entries on each page for modders by its uid."""
     root, work = Path(root), Path(work)
     project_dir = root / PROJECT
     for path in project_dir.rglob('*'):
@@ -828,7 +1397,10 @@ def write_pages(root, settings, work, progress=None):
         page = overwrite_page(info, by_name[info.category], source.enums, source.constants, added.get(info.full))
         (examples / f'{info.full}.md').write_text(page, encoding='utf-8')
     (work / 'xml-types.md').write_text(with_uid(catalogue_page(chosen, categories, repository, added), 'xml-types'), encoding='utf-8')
-    return chosen
+    if progress:
+        progress('Writing the pages for modders (extension points, patches, dev actions, changes)', 1, 1)
+    counts = write_modder_pages(root, settings, work)
+    return chosen, counts
 
 
 @dataclass
@@ -876,7 +1448,7 @@ def build(root, settings, work, site, docfx='docfx', run=subprocess.run, log=pri
         raise SiteError('missing reference assemblies: ' + ', '.join(str(f) for f, _ in missing))
     progress('Writing the generated pages', 2, 4)
     prepare_folder(work)
-    chosen = write_pages(root, settings, work)
+    chosen, counts = write_pages(root, settings, work)
     project_config = json.loads((root / PROJECT / 'docfx.json').read_text(encoding='utf-8-sig'))
     config = effective_config(project_config, root, root / PROJECT, found)
     stamp = build_stamp(root, settings)
@@ -898,6 +1470,7 @@ def build(root, settings, work, site, docfx='docfx', run=subprocess.run, log=pri
     progress('Counting the pages', 4, 4)
     pages, api = count_pages(site)
     log(f'Site written to {site}: {pages} pages ({api} API pages), {len(chosen)} XML-facing types with an XML example')
+    log('Pages for modders: ' + ', '.join(f'{uid} {count}' for uid, count in counts.items()))
     log(f'Every page\'s footer says: {stamp}')
     log(f'Reading the C#: {metadata.warnings} compiler warnings (the other mods\' types are left unresolved, and DocFX compiles '
         f'without our nullable setting), {metadata.errors} errors')
@@ -1029,8 +1602,9 @@ def main(argv=None):
         if args.command == 'pages':
             work = args.work or default_folder('work')
             prepare_folder(work)
-            chosen = write_pages(ROOT, settings, work, Progress())
-            print(f'{len(chosen)} XML-facing types; pages written to {work}')
+            chosen, counts = write_pages(ROOT, settings, work, Progress())
+            print(f'{len(chosen)} XML-facing types; pages for modders: '
+                  + ', '.join(f'{uid} {count}' for uid, count in counts.items()) + f'; pages written to {work}')
             return 0
         if args.command == 'verify':
             return verify(ROOT, settings, args.docfx)

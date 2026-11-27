@@ -34,6 +34,42 @@ found 232 public modder-facing types in the Framework and its vehicle systems, a
 - **Publishing is switched on by two settings** (the owner's, 23 Nov 2026): Settings, Pages, Source: **GitHub Actions**; and the
   Actions variable **`PAGES_ENABLED`** = `true`. Delete the variable to stop publishing; the build still runs and uploads.
 
+## The pages for modders (28 Nov 2026)
+
+Four pages generated on every build from the code and the changelogs, so none can fall behind; each is in the site's menu and
+linked from its front page. Agent choices, owner to revise: what counts as each page's entry, below.
+
+- **Extension points** (68 on 28 Nov 2026): every public interface and public abstract class in the site's projects (config
+  `projects`), by project, interfaces before abstract classes, each linked to its API page with its summary's first sentence. Read
+  with the kit's declaration scanner. Left out: anything not public all the way out, and a type whose summary says it is ours only
+  ("ours only", "for our own use", "not for other mods").
+- **What we patch** (260): every Harmony patch in `src/`, read by the kit's Harmony reader (the one behind doc-tables' patch list in
+  `building.md`), by project: the method patched, prefix, postfix, transpiler or finalizer, our class linked to its source on
+  GitHub, and its comment's first sentence (the class's `<summary>`, else its `//` lines, else the patch method's). A patch whose
+  target is found by name shows what its `TargetMethod` looks up, as the kit's target scanner (check-targets' reader) reads it:
+  25 of 27 on 28 Nov 2026; the other two say "by name in TargetMethod".
+- **Dev actions** (91): every `[DebugAction]` in `src/`, by category (constants followed), then by its label's prefix
+  ("Framework:", "Burns:"), with its summary (75 have none on 28 Nov 2026, and say the label speaks for them), where it works
+  (`allowedGameStates`, the game's default a game) and how (`actionType`, the DLC it needs; "acts on what is selected" comes from
+  the label, as the attribute has no such flag).
+- **Changes for modders** (110): every line of `mods/*/CHANGELOG.md` marked for modders, newest first, by day, with its mod,
+  version and section, linked to the line. A mark is a bullet opening "For modders", a bullet under a heading naming modders, a
+  "For modders:" sentence inside a bullet (shown after the bullet's bold opening), or "(..., for modders)"; "the notes for
+  modders" is not one. A merged mod's history is named as that mod, and its "unreleased at the merge" takes the next date below.
+
+The code folders and the changelogs can be set in `config/reference-site.json` (`codeFolders`, default `["src"]`;
+`changelogs`, default `mods/*/CHANGELOG.md`); neither is set today.
+
+## An editor schema, a prototype (28 Nov 2026; not published)
+
+`python scripts/xml-schema.py build --out FILE` writes an XML Schema (XSD 1.0) of our XML from the same scan, so VS Code (Red Hat
+XML) can offer our Defs, their fields, choice values and summaries as a modder types; `validate` checks XML against it with the JDK's
+Xerces (`--full` as Rider checks). On 28 Nov 2026 it gave no false errors on all 376 shipped Defs files and 152 Patches files, and
+flagged wrong values. **Its limit**: XSD 1.0 cannot choose a type from `Class="..."`, so a comp's own fields appear only beside an
+`xsi:type` naming the same class, and whether the game ignores that attribute is untested. Rider needs a full-checking-free setup
+(its Validate action lists XSD 1.0 ambiguity reports), and Garethp's Rider plugin and the rwxml language server, which read C# and
+follow `Class`, serve modders better there. Whether to publish it on the site waits on the owner trying it in VS Code.
+
 ## How it is built (agent choices, owner to revise)
 
 | Part | How |

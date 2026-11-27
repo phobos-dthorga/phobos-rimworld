@@ -2,5 +2,13 @@
   href: guides/
 - name: XML types
   href: xml-types.md
+- name: Extension points
+  href: extension-points.md
+- name: What we patch
+  href: patches.md
+- name: Dev actions
+  href: dev-actions.md
+- name: Changes for modders
+  href: modder-changes.md
 - name: C# reference
   href: api/

@@ -15,6 +15,11 @@ write is XML; the C# reference is there when XML cannot say it.
   examples. Start here.
 - **<xref:xml-types?text=XML+types>**: every class you name in XML (comps, mod extensions, Defs, vehicle-system inputs, conditions and
   effects), each with an example of how it is written and every field's default.
+- **<xref:extension-points?text=Extension+points>**: every interface and abstract class your own C# can implement or subclass.
+- **<xref:patches?text=What+we+patch>**: every method our mods patch with Harmony, and how, to see where your patches may meet
+  ours.
+- **<xref:dev-actions?text=Dev+actions>**: every dev-mode action our mods add, for trying things out and finding faults.
+- **<xref:modder-changes?text=Changes+for+modders>**: every changelog line marked for modders, newest first.
 - **<xref:Phobos.Framework?text=C%23+reference>**: every public type and member, from the source's own comments.
 
 ## Read this first
