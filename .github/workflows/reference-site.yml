@@ -16,6 +16,7 @@ on:
       - "external/phobos-log"
       - "docs/framework-modding.md"
       - "docs/vehicle-systems-modding.md"
+      - "docs/vehicle-features-modding.md"
       - "docs/modding/**"
       - "mods/PhobosFramework/About/About.xml"
       - "docs/reference/**"
