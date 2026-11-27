@@ -22,6 +22,27 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.345.0] - 2026-11-27 - Draft
+
+The flying doctor flies: a medevac by radio
+
+### Added
+
+- **A convoy can call a medevac** (the owner's card of 27 November 2026: a convoy button, Call a medevac). When its radio reaches home and
+  someone in it is downed, an aircraft with stretchers at that colony (the litter kit or the C-27J's), its crew aboard and with the fuel
+  to fly out and back, takes off, touches down beside the convoy, takes the downed aboard, the worst bleeding first, and flies home to the
+  spot it left. There the patients are set down beside it for your doctors, and the litters leave them alone for an hour. A convoy that
+  has moved on is missed, and the aircraft flies home empty. Needs the Radio Framework. Not yet tested in game: rows 679 and 680.
+
+### Changed
+
+- The airdrop's way home after a drop on a tile is now shared with the medevac; nothing changes in play.
+
+### Compatibility and limits
+
+- The button borrows the litter's Take casualties aboard picture until its own is drawn. Safe with a running save: a medevac in flight
+  is saved.
+
 ## [0.344.0] - 2026-11-27 - Draft
 
 House power: a vehicle solar panel, a lead-acid house battery that wears, and the fittings audit's last gaps closed

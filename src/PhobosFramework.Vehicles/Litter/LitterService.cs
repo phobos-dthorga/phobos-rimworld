@@ -120,6 +120,8 @@ public static class LitterService
     public static Job? CollectionJob(Pawn carrier, Pawn patient)
     {
         if (carrier == patient || !IsCasualty(patient) || WaitsForFieldCare(patient)) return null;
+        // Framework 0.345.0: just brought home by a medevac, they are for the beds, not the litters.
+        if (Medevac.JustBrought(patient)) return null;
         // Framework 0.328.1: should our job ever be missing from Search and Rescue's list, it would drop the patient as soon as they were
         // lifted, and another carrier would be sent, round and round. Leave its marked patients to it instead.
         if (SearchAndRescueRoles.WouldDropCarry(patient)) return null;

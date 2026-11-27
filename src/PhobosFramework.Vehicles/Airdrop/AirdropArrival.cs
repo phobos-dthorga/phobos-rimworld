@@ -96,32 +96,11 @@ public class ArrivalAction_PhobosAirdrop : VehicleArrivalAction
         Messages.Message("PhobosAirdrop_MsgLandedInstead".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.CautionInput);
     }
 
-    /// <summary>The journey home and how it lands there, when home is another place it has the fuel for; else nothing (it stays).</summary>
-    (List<FlightNode>?, IArrivalAction?) Home(PlanetTile from)
-    {
-        if (originParent is not { HasMap: true } home || home.Tile == from || !EnoughFuel(from, home.Tile)) return (null, null);
-        return (new List<FlightNode> { new(new GlobalTargetInfo(home.Tile)) }, new ArrivalAction_LandToCell(vehicle, home, originCell, originRot));
-    }
+    /// <summary>The journey home and how it lands there (Framework 0.345.0: <see cref="ReturnFlight"/>, shared with the medevac).</summary>
+    (List<FlightNode>?, IArrivalAction?) Home(PlanetTile from) => ReturnFlight.Home(vehicle, originParent, originCell, originRot, from);
 
-    bool EnoughFuel(PlanetTile from, PlanetTile to)
-    {
-        if (vehicle.CompFueledTravel is not { } fuel || vehicle.CompVehicleLauncher is not { } launcher) return true;
-        return fuel.Fuel >= launcher.FuelNeededToLaunchAtDist(Find.WorldGrid.ApproxDistanceInTiles(from, to)) * 1.15f;
-    }
-
-    /// <summary>After a drop on a tile: on home, or down where it is as a caravan when it lacks the fuel (as the C-17 does).</summary>
-    void FlyHome(AerialVehicleInFlight? flight, PlanetTile tile)
-    {
-        if (flight == null) return;
-        (List<FlightNode>? home, IArrivalAction? action) = Home(tile);
-        if (home != null && action != null)
-        {
-            flight.OrderFlyToTiles(home, action);
-            return;
-        }
-        Messages.Message("PhobosAirdrop_MsgNoFuelHome".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.NegativeEvent);
-        flight.SwitchToCaravan();
-    }
+    /// <summary>After a drop on a tile: on home, or down where it is as a caravan when it lacks the fuel.</summary>
+    void FlyHome(AerialVehicleInFlight? flight, PlanetTile tile) => ReturnFlight.FlyHome(vehicle, flight, tile, originParent, originCell, originRot);
 
     public override void ExposeData()
     {

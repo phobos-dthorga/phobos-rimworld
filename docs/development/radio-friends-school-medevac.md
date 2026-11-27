@@ -1,8 +1,7 @@
 # Radio friends, School of the Air, the medevac and neighbours' calls
 
 **Status (27 Nov 2026):** partly built. Radio friends are built in Radio Framework 0.29.0 (rows 657 and 658) and School of the Air in 0.35.0 (rows 659 and 660), not yet tested
-in game. Neighbours' calls are built in 0.36.0 (row 661). Being built next: the medevac (D'thorga Framework, its number taken when it is
-ready).
+in game. Neighbours' calls are built in 0.36.0 (row 661), and the medevac in D'thorga Framework 0.345.0 (rows 679 and 680).
 
 The owner chose all four on 27 Nov 2026, after advice by radio, the Elmer and other factions' doctors
 ([radio advice and relays](radio-advice-and-relays.md)). Two are from the owner's October radio design
@@ -116,3 +115,6 @@ A convoy calls home by radio, and an aircraft with stretchers flies out, takes t
   arrives is not met, and the aircraft flies home. No setting of its own: nothing happens unless the player presses the button.
 - **Cost** [A]: nothing each tick. The button's checks are kept a tenth of an hour for a convoy; a flight costs what any flight costs.
 - **Not built yet**: medevac from a map (a camp or a site), which the litter's own loading already covers by hand.
+- **As built (Framework 0.345.0)**: as above. Of several aircraft ready, the one with the most free stretchers answers [A]. The button's
+  answer is kept 250 ticks. The airdrop's way home is shared (`ReturnFlight`). Downed people and animals of the player's, and the
+  colony's prisoners, are taken [A]. The button borrows the litter's "take casualties aboard" picture until its own is drawn.

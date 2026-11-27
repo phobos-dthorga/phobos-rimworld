@@ -380,6 +380,17 @@ space.
 - **Switch it off before you leave** if you do not want it working at the next landing site. It cannot be switched on while the
   helicopter moves or flies.
 
+### A medevac from a convoy
+
+**A convoy whose radio reaches home can call an air ambulance: press Call a medevac on the convoy** (needs the Radio Framework).
+
+- **What answers**: at the colony the convoy reaches, an aircraft with stretchers (the litter kit, or the C-27J's), **its crew already
+  aboard**, and the fuel to fly out and back. The button is greyed, with the reason, when none is ready or nobody in the convoy is down.
+- **What happens**: it takes off, touches down beside the convoy, takes the downed aboard (the worst bleeding first, as many as it has
+  stretchers), flies home and lands where it was. The patients are set down beside it for your doctors to take to bed; Take casualties
+  aboard leaves them alone for an hour.
+- **A convoy that moves on** before it arrives is missed: the aircraft flies home empty.
+
 ## Air defence, chaff and flares
 
 With **The Dead Man's Switch - Expedition**:

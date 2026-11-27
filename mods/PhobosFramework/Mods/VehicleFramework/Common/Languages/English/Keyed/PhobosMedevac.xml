@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The medevac (Framework 0.345.0): a convoy calls an aircraft with stretchers from home by radio. -->
+  <PhobosMedevac_Gizmo>Call a medevac</PhobosMedevac_Gizmo>
+  <PhobosMedevac_GizmoDesc>Call home by radio for an aircraft with stretchers. It flies out, touches down beside the convoy, takes the downed aboard (the worst bleeding first) and flies them home, where they are set down for your doctors.\n\nIt needs the convoy's radio in touch with home, and at that colony an aircraft with stretchers, its crew aboard and the fuel to fly there and back.</PhobosMedevac_GizmoDesc>
+  <PhobosMedevac_NoRadio>{CONVOY} has no radio to call home with.</PhobosMedevac_NoRadio>
+  <PhobosMedevac_NobodyDowned>Nobody in {CONVOY} is down.</PhobosMedevac_NobodyDowned>
+  <PhobosMedevac_OutOfTouch>{CONVOY}'s radio does not reach home: {WHY}</PhobosMedevac_OutOfTouch>
+  <PhobosMedevac_NoAircraft>No aircraft with stretchers stands ready at {HOME}.</PhobosMedevac_NoAircraft>
+  <PhobosMedevac_Full>{VEHICLE}'s stretchers are all taken.</PhobosMedevac_Full>
+  <PhobosMedevac_NoCrew>{VEHICLE} has nobody aboard to fly it.</PhobosMedevac_NoCrew>
+  <PhobosMedevac_NoFuel>{VEHICLE} lacks the fuel to fly out and back.</PhobosMedevac_NoFuel>
+  <PhobosMedevac_Called>{VEHICLE} takes off to bring {CONVOY}'s wounded home.</PhobosMedevac_Called>
+  <PhobosMedevac_Taken>{VEHICLE} touches down beside {CONVOY} and takes {COUNT} aboard its stretchers.</PhobosMedevac_Taken>
+  <PhobosMedevac_Missed>{VEHICLE} finds nobody where the convoy was, and turns for home.</PhobosMedevac_Missed>
+  <PhobosMedevac_Home>{VEHICLE} is home: {COUNT} patients set down beside it for your doctors.</PhobosMedevac_Home>
+</LanguageData>

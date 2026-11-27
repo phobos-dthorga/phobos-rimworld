@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Interface;
 using RimWorld;
+using RimWorld.Planet;
 using UnityEngine;
 using Vehicles;
 using Verse;
@@ -42,6 +43,8 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder, IKeepsTicking
     bool holdThroughDespawn;
     /// <summary>"Take casualties aboard" is on (Framework 0.126.0): the player's order, saved. Set only by <see cref="LitterService"/>.</summary>
     internal bool collecting;
+    /// <summary>Patients brought home by a medevac (Framework 0.345.0) are set down at the first tick after it lands. Saved.</summary>
+    bool setDownAtHome;
 
     public bool Collecting => collecting;
     /// <summary>When each doctor aboard last tended, by load ID. Not saved: at worst a doctor tends a little sooner after a load.</summary>
@@ -138,6 +141,28 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder, IKeepsTicking
         return true;
     }
 
+    /// <summary>
+    /// Takes a downed person from a convoy onto a litter (Framework 0.345.0, the medevac): out of the convoy, as the airdrop puts people in one.
+    /// An enemy is captured aboard, as from a map. False when no litter takes them.
+    /// </summary>
+    public bool LoadFromCaravan(Caravan convoy, Pawn patient)
+    {
+        if (!KitFitted || Free <= 0 || !patient.Downed || patient.Dead) return false;
+        if (patient.HostileTo(Faction.OfPlayer) && !Capturable(patient)) return false;
+        if (!convoy.ContainsPawn(patient)) return false;
+        convoy.RemovePawn(patient);
+        if (!held.TryAdd(patient, canMergeWithExistingStacks: false))
+        {
+            convoy.AddPawn(patient, addCarriedPawnToWorldPawnsIfAny: true);
+            return false;
+        }
+        CaptureIfEnemy(patient, null);
+        return true;
+    }
+
+    /// <summary>The patients aboard are to be set down when the aircraft is home (Framework 0.345.0, the medevac).</summary>
+    public void SetDownAtHome() => setDownAtHome = true;
+
     /// <summary>Sets everyone on the litters down beside the vehicle, on its map. Says so unless <paramref name="quiet"/>.</summary>
     public void UnloadAll(bool quiet = false) => SetDown(Vehicle.Map, Vehicle.Position, quiet ? null : "PhobosLitter_Unloaded");
 
@@ -167,7 +192,21 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder, IKeepsTicking
         base.CompTick();
         if (held.Count == 0)
         {
+            setDownAtHome = false;
             Vehicle.RequestTickStop(this);
+            return;
+        }
+        // Framework 0.345.0: home from a medevac, the patients are laid beside the aircraft for the doctors to take to bed, and are left alone
+        // by "take casualties aboard" for a while, so nobody carries them straight back.
+        if (setDownAtHome && Vehicle.Spawned && !Flying)
+        {
+            setDownAtHome = false;
+            foreach (Pawn patient in held.InnerListForReading) Medevac.BroughtHome(patient);
+            int count = held.Count;
+            SetDown(Vehicle.Map, Vehicle.Position, null);
+            Messages.Message("PhobosMedevac_Home".Translate(Vehicle.LabelShort.Named("VEHICLE"), count.Named("COUNT")).Resolve(), Vehicle,
+                MessageTypeDefOf.PositiveEvent, historical: false);
+            if (Seen.Wants("vehicles.medevac-home", Vehicle)) Seen.Note("vehicles.medevac-home", Vehicle, count + " patients");
             return;
         }
         held.DoTick();
@@ -265,6 +304,7 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder, IKeepsTicking
         base.PostExposeData();
         Scribe_Deep.Look(ref held, "PhobosLitter_Held", this);
         Scribe_Values.Look(ref collecting, "PhobosLitter_Collecting");
+        Scribe_Values.Look(ref setDownAtHome, "PhobosLitter_SetDownAtHome");
         if (Scribe.mode == LoadSaveMode.PostLoadInit) held ??= new ThingOwner<Pawn>(this);
     }
 
