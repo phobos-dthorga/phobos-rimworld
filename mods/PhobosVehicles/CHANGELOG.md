@@ -13,6 +13,17 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.130.0] - 2026-11-27 - Draft
+
+The Ullage takes toxic waste from containers and rechargers
+
+### Added
+
+- **A tank of toxic sludge pumps to and from waste containers, mech rechargers and atomizers in reach of its hose**, with D'thorga
+  Framework 0.349.0: Load empties toxic waste containers (AobaKuma's Cargo waste container, or any building that keeps wastepacks
+  the same way) and rechargers' wastepacks; Unload fills containers to their set level, then atomizers, and only then sets packs
+  on the ground. Not yet tested in game: rows 689 and 690.
+
 ## [0.129.3] - 2026-11-27 - Draft
 
 The paste tap's words follow its paste line

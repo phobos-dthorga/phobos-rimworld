@@ -12,7 +12,20 @@
     <spoilsAfterDays>8</spoilsAfterDays>
     <spoilWord>dissolved</spoilWord>
     <pollutionCellsPerUnit>0.2</pollutionCellsPerUnit>
+    <!-- Buildings first, loose stacks last, so pumping out fills containers and atomizers in reach before it sets packs on the ground
+         (Framework 0.349.0). Each building port is generic: any mod's building built on the same store or slot works unnamed. -->
     <ports>
+      <!-- Containers that keep wastepacks in a refuelable store, such as AobaKuma's toxic waste container: emptied and filled by the hose. -->
+      <li Class="Phobos.VehicleSystems.Port_RefuelableBuildings">
+        <thing>Wastepack</thing>
+        <unitsPerItem>30</unitsPerItem>
+        <holdsLoad>true</holdsLoad>
+      </li>
+      <!-- The game's item holds: mech rechargers' wastepacks pumped out; atomizers made for wastepacks filled. -->
+      <li Class="Phobos.VehicleSystems.Port_ItemHolds">
+        <thing>Wastepack</thing>
+        <unitsPerItem>30</unitsPerItem>
+      </li>
       <li Class="Phobos.VehicleSystems.Port_Items">
         <thing>Wastepack</thing>
         <unitsPerItem>30</unitsPerItem>

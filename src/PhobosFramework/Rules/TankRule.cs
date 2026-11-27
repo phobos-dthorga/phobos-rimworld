@@ -65,6 +65,17 @@ public static class TankRule
     }
 
     /// <summary>
+    /// The tank units a building's fuel store stands for (Framework 0.349.0): the game counts a refuelable building's store as items times
+    /// its fuel multiplier, and a tank counts unitsPerItem to the item (thirty units of sludge to a wastepack). Nothing for a broken figure.
+    /// </summary>
+    public static float UnitsInStore(float storeFuel, float fuelMultiplier, float unitsPerItem) =>
+        fuelMultiplier <= 0f || unitsPerItem <= 0f ? 0f : MathF.Max(0f, storeFuel) / fuelMultiplier * unitsPerItem;
+
+    /// <summary>The fuel a building's store gives up for the tank units taken from it: <see cref="UnitsInStore"/> turned round.</summary>
+    public static float StoreFuelForUnits(float units, float fuelMultiplier, float unitsPerItem) =>
+        unitsPerItem <= 0f ? 0f : MathF.Max(0f, units) / unitsPerItem * fuelMultiplier;
+
+    /// <summary>
     /// Whether a tank can push its load out now (Framework 0.283.0; the owner's cards of 25 Nov 2026): one that needs no pump power always
     /// can (a truck's engine or battery drives it); a tank trailer only with its electric pump fitted and powered. Without, it works by gravity.
     /// </summary>

@@ -37,6 +37,26 @@ public class TankRuleTests
         Assert.Equal(0, TankRule.WholeItems(most, unitsPerItem, limit));
 
     [Fact]
+    public void AStoreOfWholePacksIsThirtyUnitsAPack() => Assert.Equal(300f, TankRule.UnitsInStore(10f, 1f, 30f), 3);
+
+    [Fact]
+    public void AStoreOnAGenerousDifficultyHoldsFewerItemsThanItsGauge() => Assert.Equal(5f, TankRule.UnitsInStore(10f, 2f, 1f), 3);
+
+    [Theory]
+    [InlineData(-4f, 1f, 30f)]
+    [InlineData(10f, 0f, 30f)]
+    [InlineData(10f, 1f, 0f)]
+    public void ABrokenStoreFigureHoldsNothing(float fuel, float multiplier, float unitsPerItem) =>
+        Assert.Equal(0f, TankRule.UnitsInStore(fuel, multiplier, unitsPerItem));
+
+    [Theory]
+    [InlineData(45f, 1f, 30f)]
+    [InlineData(7f, 2f, 1f)]
+    [InlineData(12.5f, 0.5f, 30f)]
+    public void TakingUnitsFromAStoreAndCountingThemBackAgree(float units, float multiplier, float unitsPerItem) =>
+        Assert.Equal(units, TankRule.UnitsInStore(TankRule.StoreFuelForUnits(units, multiplier, unitsPerItem), multiplier, unitsPerItem), 3);
+
+    [Fact]
     public void ContentsAreAlmostThereAfterTheStatedTime() =>
         Assert.InRange(TankRule.NextTemperature(20f, 0f, 6f, 6f), 0f, 1.1f);
 

@@ -143,13 +143,43 @@ public class Port_VehicleFuel : TankPort
 }
 
 /// <summary>
-/// The player's buildings within reach of the hose that burn this fuel (Framework 0.109.0; soft-dependency-crosslinks.md, SD5): the game's
-/// chemfuel generator, VFE Power's generators, anything with a refuelable tank. Filled to the level the player set on each, as a colonist
-/// refuelling it would; a building that only takes a full load at once is left to its colonists. Pumps out only.
+/// The player's buildings within reach of the hose that take this item into a refuelable store (Framework 0.109.0; soft-dependency-crosslinks.md,
+/// SD5): the game's chemfuel generator, VFE Power's generators, anything with a refuelable tank. Filled to the level the player set on each, as
+/// a colonist refuelling it would; a building that only takes a full load at once is left to its colonists.
+/// <para>Where the buildings keep the item rather than burn it (<see cref="holdsLoad"/>, Framework 0.349.0: AobaKuma's toxic waste container
+/// keeps wastepacks as its fuel), the hose pumps their store out too, so a tanker can empty them. Off by default, so a chemfuel tanker never
+/// drains the colony's generators. Any building any mod makes with such a store works without being named.</para>
 /// </summary>
 public class Port_RefuelableBuildings : TankPort
 {
     public ThingDef? thing;
+
+    /// <summary>Tank units to one item in the building's store (thirty units of sludge to a wastepack).</summary>
+    public float unitsPerItem = 1f;
+
+    /// <summary>The buildings keep this item rather than burn it: the hose may pump their store out, and its refusals speak of a load, not a fuel.</summary>
+    public bool holdsLoad;
+
+    public override float Draw(CompPhobosTank tank, float most, out string? reason)
+    {
+        reason = null;
+        if (thing == null || !holdsLoad) return 0f;
+        VehiclePawn self = tank.Vehicle;
+        foreach (Thing found in GenRadial.RadialDistinctThingsAround(self.Position, self.Map, tank.Props.hoseReach, useCenter: true))
+        {
+            if (found is not Building building || building.Faction != self.Faction || building.IsForbidden(Faction.OfPlayer)) continue;
+            CompRefuelable? refuelable = building.GetComp<CompRefuelable>();
+            if (refuelable == null || !refuelable.HasFuel || !refuelable.Props.fuelFilter.Allows(thing)) continue;
+            float multiplier = refuelable.Props.FuelMultiplierCurrentDifficulty;
+            float taken = Math.Min(most, Phobos.Framework.Rules.TankRule.UnitsInStore(refuelable.Fuel, multiplier, unitsPerItem));
+            if (taken <= 0f) continue;
+            refuelable.ConsumeFuel(Phobos.Framework.Rules.TankRule.StoreFuelForUnits(taken, multiplier, unitsPerItem));
+            if (Seen.Wants("vehicles.tank-from-store", building, thing.defName)) Seen.Note("vehicles.tank-from-store", building, self.LabelShort, thing.defName);
+            return taken;
+        }
+        reason = "PhobosVehicleSystems_TankNoStoreHolding".Translate(Find.ActiveLanguageWorker.Pluralize(thing.label).Named("ITEM")).Resolve();
+        return 0f;
+    }
 
     public override float Give(CompPhobosTank tank, float most, out string? reason)
     {
@@ -161,14 +191,91 @@ public class Port_RefuelableBuildings : TankPort
             if (found is not Building building || building.Faction != self.Faction) continue;
             CompRefuelable? refuelable = building.GetComp<CompRefuelable>();
             if (refuelable == null || refuelable.Props.atomicFueling || refuelable.IsFull || !refuelable.Props.fuelFilter.Allows(thing)) continue;
-            float given = Math.Min(most, refuelable.GetFuelCountToFullyRefuel());
+            float multiplier = refuelable.Props.FuelMultiplierCurrentDifficulty;
+            // Up to the level the player set, counted in tank units; the game's own Refuel takes items and applies the multiplier itself.
+            float room = Phobos.Framework.Rules.TankRule.UnitsInStore(refuelable.TargetFuelLevel - refuelable.Fuel, multiplier, unitsPerItem);
+            float given = Math.Min(most, room);
             if (given <= 0f) continue;
-            refuelable.Refuel(given);
-            // Seen in play (Framework 0.301.0, row 93): a tank's hose filled a fuelled building beside it, such as a generator.
-            Seen.Note("vehicles.tank-to-generator", building, self.LabelShort, "filled");
+            refuelable.Refuel(given / unitsPerItem);
+            // Seen in play (Framework 0.301.0, row 93): a tank's hose filled a fuelled building beside it, such as a generator; a store kept rather than burnt notes its own key.
+            if (holdsLoad)
+            {
+                if (Seen.Wants("vehicles.tank-to-store", building, thing.defName)) Seen.Note("vehicles.tank-to-store", building, self.LabelShort, thing.defName);
+            }
+            else
+            {
+                Seen.Note("vehicles.tank-to-generator", building, self.LabelShort, "filled");
+            }
             return given;
         }
-        reason = "PhobosVehicleSystems_TankNoBuildingBeside".Translate().Resolve();
+        reason = holdsLoad
+            ? "PhobosVehicleSystems_TankNoStoreRoom".Translate(Find.ActiveLanguageWorker.Pluralize(thing.label).Named("ITEM")).Resolve()
+            : "PhobosVehicleSystems_TankNoBuildingBeside".Translate().Resolve();
+        return 0f;
+    }
+}
+
+/// <summary>
+/// The game's item holds within reach of the hose (Framework 0.349.0): a building that keeps whole items of this kind in the game's own
+/// container slot. Pumps in from any hold that is not an atomizer, such as a mech recharger full of wastepacks, so the tanker can empty it;
+/// pumps out only into an atomizer made for this item, which destroys what it is given. Any mod's recharger or atomizer built on the game's
+/// own slot works without being named. Whole items only.
+/// </summary>
+public class Port_ItemHolds : TankPort
+{
+    public ThingDef? thing;
+
+    /// <summary>Tank units to one item (thirty units of sludge to a wastepack).</summary>
+    public float unitsPerItem = 1f;
+
+    public override float Draw(CompPhobosTank tank, float most, out string? reason)
+    {
+        reason = null;
+        if (thing == null) return 0f;
+        int wanted = Phobos.Framework.Rules.TankRule.WholeItems(most, unitsPerItem, tank.Space);
+        if (wanted <= 0)
+        {
+            reason = "PhobosVehicleSystems_TankFull".Translate().Resolve();
+            return 0f;
+        }
+        VehiclePawn self = tank.Vehicle;
+        foreach (Thing found in GenRadial.RadialDistinctThingsAround(self.Position, self.Map, tank.Props.hoseReach, useCenter: true))
+        {
+            if (found is not Building building || building.Faction != self.Faction || building.IsForbidden(Faction.OfPlayer)) continue;
+            // An atomizer is where the load goes to be destroyed: it is never pumped back out.
+            CompThingContainer? hold = building.GetComp<CompThingContainer>();
+            if (hold == null || hold is CompAtomizer || hold.ContainedThing is not { } held || held.def != thing) continue;
+            int count = Math.Min(wanted, held.stackCount);
+            hold.innerContainer.Take(held, count).Destroy();
+            if (Seen.Wants("vehicles.tank-from-hold", building, thing.defName)) Seen.Note("vehicles.tank-from-hold", building, self.LabelShort, thing.defName);
+            return count * unitsPerItem;
+        }
+        reason = "PhobosVehicleSystems_TankNoHoldHolding".Translate(Find.ActiveLanguageWorker.Pluralize(thing.label).Named("ITEM")).Resolve();
+        return 0f;
+    }
+
+    public override float Give(CompPhobosTank tank, float most, out string? reason)
+    {
+        reason = null;
+        if (thing == null) return 0f;
+        // Dregs too small to make one item are left to the item port after this one, which lets them go.
+        int wanted = Math.Min(Phobos.Framework.Rules.TankRule.WholeItems(most, unitsPerItem, tank.Amount), thing.stackLimit);
+        if (wanted <= 0 || tank.Amount < unitsPerItem) return 0f;
+        VehiclePawn self = tank.Vehicle;
+        foreach (Thing found in GenRadial.RadialDistinctThingsAround(self.Position, self.Map, tank.Props.hoseReach, useCenter: true))
+        {
+            if (found is not Building building || building.Faction != self.Faction) continue;
+            if (building.GetComp<CompAtomizer>() is not { } atomizer || atomizer.Props.thingDef != thing || atomizer.SpaceLeft <= 0) continue;
+            Thing stack = ThingMaker.MakeThing(thing);
+            stack.stackCount = Math.Min(wanted, atomizer.SpaceLeft);
+            if (!atomizer.Accepts(stack)) continue;
+            int count = stack.stackCount;
+            int added = atomizer.innerContainer.TryAdd(stack, count);
+            if (added <= 0) continue;
+            if (Seen.Wants("vehicles.tank-to-atomizer", building, thing.defName)) Seen.Note("vehicles.tank-to-atomizer", building, self.LabelShort, thing.defName);
+            return added * unitsPerItem;
+        }
+        reason = "PhobosVehicleSystems_TankNoAtomizerRoom".Translate(Find.ActiveLanguageWorker.Pluralize(thing.label).Named("ITEM")).Resolve();
         return 0f;
     }
 }

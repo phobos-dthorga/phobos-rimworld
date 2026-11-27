@@ -22,6 +22,19 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.349.0] - 2026-11-27 - Draft
+
+A tank's hose empties and fills containers that keep a load
+
+### Added
+
+- **A tank's hose can empty a building that keeps its load in a refuelable store**, where the load says the buildings keep it
+  rather than burn it, and fills such a building to the level set on it. Each tank unit counts as a set share of an item, so
+  thirty units of sludge make one wastepack. Any mod's building on the same store works without being named; a chemfuel tank
+  still never drains a generator. Not yet tested in game: row 689.
+- **A tank's hose can empty the game's item holds and fill atomizers**: wastepacks are pumped out of a mech recharger, or
+  any building that holds items the same way, and into an atomizer made for them. Not yet tested in game: row 690.
+
 ## [0.348.0] - 2026-11-27 - Draft
 
 The medevac's calls in the radio's logbook

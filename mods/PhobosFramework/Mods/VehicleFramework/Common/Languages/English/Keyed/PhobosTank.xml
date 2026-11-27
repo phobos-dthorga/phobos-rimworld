@@ -29,6 +29,10 @@
   <PhobosVehicleSystems_TankNoStacksBeside>There is no {ITEM} beside the truck.</PhobosVehicleSystems_TankNoStacksBeside>
   <PhobosVehicleSystems_TankNoVehicleBeside>There is no vehicle in reach that needs this fuel.</PhobosVehicleSystems_TankNoVehicleBeside>
   <PhobosVehicleSystems_TankNoBuildingBeside>There is no generator or other building in reach that needs this fuel.</PhobosVehicleSystems_TankNoBuildingBeside>
+  <PhobosVehicleSystems_TankNoStoreHolding>No container within reach of the hose holds any {ITEM}.</PhobosVehicleSystems_TankNoStoreHolding>
+  <PhobosVehicleSystems_TankNoStoreRoom>No container within reach of the hose has room for more {ITEM}.</PhobosVehicleSystems_TankNoStoreRoom>
+  <PhobosVehicleSystems_TankNoHoldHolding>No building within reach of the hose has any {ITEM} to empty out.</PhobosVehicleSystems_TankNoHoldHolding>
+  <PhobosVehicleSystems_TankNoAtomizerRoom>No atomizer within reach of the hose has room for {ITEM}.</PhobosVehicleSystems_TankNoAtomizerRoom>
   <PhobosVehicleSystems_TankNoPipe>There is no matching pipe under or beside the truck.</PhobosVehicleSystems_TankNoPipe>
   <PhobosVehicleSystems_TankPipeEmpty>The pipes hold nothing to draw.</PhobosVehicleSystems_TankPipeEmpty>
   <PhobosVehicleSystems_TankPipeFull>The storage on those pipes is full.</PhobosVehicleSystems_TankPipeFull>

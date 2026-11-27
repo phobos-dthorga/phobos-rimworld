@@ -5,7 +5,8 @@ and grown since: the second wave of fluids (Framework 0.35.0, Vehicles 0.13.0), 
 settlement (0.38.0, 0.16.0), chemfuel into generators and crude through Rimefeller's pipeline (Framework 0.109.0, Vehicles 0.52.0), and
 an electric pump that runs on the battery with the engine off (Framework 0.116.0, Vehicles 0.57.0), and an upgrade tree that branches
 from the tanks (Framework 0.128.0, Vehicles 0.64.2). Not built: quests, RimThunder
-engine-class nodes, the fire monitor port, helixien gas and liquid oxygen. **Not yet tested in game:** no changelog records an owner
+engine-class nodes, the fire monitor port, helixien gas and liquid oxygen. Toxic sludge to and from waste containers, rechargers and
+atomizers (Framework 0.349.0, Vehicles 0.130.0; below). **Not yet tested in game:** no changelog records an owner
 test of the tanker.
 
 Its public name is the **Ullage bulk tanker** (Ullage U1; [principle 10](utility-vehicles-design.md#principles-for-every-utility-vehicle-agent-proposal)
@@ -275,6 +276,34 @@ flowchart TB
   classDef tiein stroke-dasharray: 5 5
   class PhobosSpallLiner,ReverseOsmosisKit,PhobosMountFwM1919,PhobosMountFwPKM,PhobosMountFwMG3,PhobosRemoteControlKit,PressureVessel,LightPressureVessel,HeavyWallVessel tiein
 ```
+
+## As built: toxic sludge to and from the buildings that hold it (27 Nov 2026, D'thorga Framework 0.349.0 and D'thorga Vehicles 0.130.0, Drafts)
+
+**Not yet tested in game:** rows 689 and 690. The owner asked (27 Nov 2026) for the Ullage to fill itself from toxic waste containers,
+made generic so other containers can be added, "and perhaps vice versa". The design is the agent's, owner to confirm.
+
+| Port | What it reaches | Load (in) | Unload (out) |
+| --- | --- | --- | --- |
+| `Port_RefuelableBuildings`, with `holdsLoad` | Any building whose refuelable store takes the item: AobaKuma's Cargo waste container (`WC_CargoContainerWaste`, wastepacks as fuel, 200 capacity) or any other built the same way | Takes from the store, down to empty | Fills to the level the player set on each |
+| `Port_ItemHolds` (new) | The game's own item slot (`CompThingContainer`): mech rechargers' wastepacks, and atomizers (`CompAtomizer`) made for the item | From any hold holding the item, never an atomizer | Only into an atomizer made for the item, whole packs, up to its limit |
+
+- **Generic by the game's own slots, not by a list** (agent choice): a building any mod makes on the refuelable store or the item slot
+  works without being named, so a new container needs no change of ours. A building with its own kind of store needs a port of its
+  own, which any mod can add in XML (`TankPort` subclasses).
+- **Pumping a store out is opt-in per load** (`holdsLoad`, agent choice): a chemfuel tanker on Load beside a generator would otherwise
+  drain it. Only toxic sludge sets it so far.
+- **Units:** the load's `unitsPerItem` (30 units of sludge to a wastepack, the existing agent default) converts both ways through
+  `TankRule.UnitsInStore` and `StoreFuelForUnits`, including the game's difficulty multiplier on a store, so nothing is made or lost.
+  A refuelable store holds fractions of a pack (the container breaks its waste down by the day), so partial packs move; the item
+  slot moves whole packs only.
+- **Order:** the building ports come before loose stacks, so Unload fills containers, then atomizers, and sets packs down only when
+  nothing in reach has room.
+- **Carry, don't keep** (unchanged): sludge in a tank still dissolves after 8 days above 0 °C and pollutes, while the container breaks
+  waste down safely. The tanker moves waste; it is not a store.
+- **Other factions' tankers:** every port reaches only buildings of the tanker's own faction, so a raider's or a captured tanker
+  never pumps from the player's buildings; a captured one, now the player's, works as any other. Nothing ticks: the ports run only
+  on the pump's rare tick.
+- **For a next game:** none; this is RimWorld's own store and slot.
 
 ## Bulk trading and quests (owner's decisions, 9 Nov 2026; not built)
 

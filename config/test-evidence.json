@@ -383,6 +383,7 @@
     "680": ["vehicles.medevac-missed"],
     "681": ["radio.qsl-card"],
     "682": [{"key": "radio.qsl-award", "variant": "ThreeFactions"}],
+    "683": [{"key": "radio.advice-picture", "variant": "Tend"}],
     "661": {"parts": {"a doctor's call done": [{"key": "radio.neighbour-call", "variant": "medicine"}],
       "a mechanic's call done": [{"key": "radio.neighbour-call", "variant": "repairs"}]}},
     "659": [{"key": "radio.school-lesson", "variant": "map"}],
@@ -432,6 +433,14 @@
       "the paste line is laid beneath the set-out tent": [{"key": "trailers.set-out-line", "variant": "VNPE_NutrientPasteNet"}],
       "a standing tap fills from a paste line": [{"key": "vehicles.reservoir-piped", "variant": "standing"}],
       "a packed tap fills from a paste line beneath the trailer": [{"key": "vehicles.reservoir-piped", "variant": "packed"}]
+    }},
+    "689": {"parts": {
+      "the tank takes sludge from a waste container": [{"key": "vehicles.tank-from-store", "variant": "Wastepack"}],
+      "the tank fills a waste container": [{"key": "vehicles.tank-to-store", "variant": "Wastepack"}]
+    }},
+    "690": {"parts": {
+      "the tank empties a recharger's wastepacks": [{"key": "vehicles.tank-from-hold", "variant": "Wastepack"}],
+      "the tank fills an atomizer": [{"key": "vehicles.tank-to-atomizer", "variant": "Wastepack"}]
     }},
     "634": {"parts": {"a hull": [{"key": "vehicles.winch-thing", "variant": "hull"}],
       "a chunk": [{"key": "vehicles.winch-thing", "variant": "chunk"}],

@@ -486,7 +486,7 @@ aboard to set it up.
 | Astrofuel, oxygen | Vanilla Gravship Expanded's pipes | Oxygen vents in a fire or great heat |
 | Beer, insect jelly, wort | Stacks on the ground | Wort spoils after 5 days above 0 °C |
 | FSX, prometheum (Combat Extended) | Stacks on the ground | A hit may set off FSX; prometheum needs the pressure vessel and any spill burns |
-| Toxic sludge (Biotech) | Wastepacks | Dissolves after 8 days above 0 °C and pollutes the ground |
+| Toxic sludge (Biotech) | Toxic waste containers (such as the Cargo waste container mod's) and any building that keeps wastepacks as its fuel, mech rechargers' wastepacks (out only), atomizers (in only), then wastepacks on the ground. **Load** empties containers and rechargers in reach of the hose; **Unload** fills containers to the level set on each, then atomizers, and sets packs down only when nothing in reach has room | Dissolves after 8 days above 0 °C and pollutes the ground, so carry it, don't keep it: a container breaks waste down safely, a tank does not |
 | Fecal sludge (Dubs Bad Hygiene) | Septic tanks and barrels | It is what it is |
 | Napalm (Rimefeller) | Stacks and barrels | |
 
