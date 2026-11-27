@@ -21,6 +21,15 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.37.1] - 2026-11-28 - Draft
+
+The anaesthesia machine's bellows
+
+### Fixed
+
+- **The anaesthesia machine's bellows sound while a doctor operates beside it**: its sound listened on a tick the machine was never
+  given, so it had stayed silent since 0.14.0. Found while writing the modders' page, from the code; not yet tested in game.
+
 ## [0.37.0] - 2026-11-28 - Draft
 
 Rimatomics' fallout stands down where ours lies

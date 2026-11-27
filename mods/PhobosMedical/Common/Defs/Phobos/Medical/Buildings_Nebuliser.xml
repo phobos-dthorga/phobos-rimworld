@@ -104,6 +104,8 @@ It does not repair damaged lungs or clear carbon monoxide.</description>
     <passability>PassThroughOnly</passability>
     <fillPercent>0.25</fillPercent>
     <rotatable>false</rotatable>
+    <!-- Medical 0.37.1: its bellows sound (CompPhobosSurgerySound) listens on the rare tick, which the game gives only a Rare ticker. -->
+    <tickerType>Rare</tickerType>
     <statBases>
       <MaxHitPoints>90</MaxHitPoints>
       <WorkToBuild>5000</WorkToBuild>

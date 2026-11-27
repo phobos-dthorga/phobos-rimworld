@@ -12,6 +12,8 @@ play, a chapter per mod. [Help and troubleshooting](../SUPPORT.md) says where th
 - [D'thorga Framework for modders](framework-modding.md): the shared library's helpers outside vehicles, for your own mods.
 - [Vehicle systems for modders](vehicle-systems-modding.md): give your Vehicle Framework vehicles their own batteries, coolant,
   air brakes or systems of your own, in XML, with D'thorga Framework.
+- [Vehicle features for modders](vehicle-features-modding.md): walk-in cabins, camps, hitches and trailers, sling loads, work rigs,
+  aircraft over the map and remote control on your own vehicles.
 - [For modders, mod by mod](modding/README.md): extending each of the other D'thorga mods, with its checks done.
 - [The reference site](https://phobos-dthorga.github.io/phobos-rimworld/): D'thorga Framework's types, with XML examples.
 
@@ -31,7 +33,7 @@ Every mod is RimWorld 1.7 only. These numbers are kept in step with each mod's A
 | --- | --- | --- |
 | **D'thorga Framework** | 0.368.1 | [README](../mods/PhobosFramework/README.md) |
 | **D'thorga Vehicles** | 0.132.0 | [README](../mods/PhobosVehicles/README.md) |
-| **D'thorga Medical** | 0.37.0 | [README](../mods/PhobosMedical/README.md) |
+| **D'thorga Medical** | 0.37.1 | [README](../mods/PhobosMedical/README.md) |
 | **D'thorga Factory Additions** | 0.15.0 | [README](../mods/PhobosFactoryAdditions/README.md) |
 | **D'thorga Patches** | 0.50.0 | [README](../mods/PhobosPatches/README.md) |
 | **D'thorga Farming** | 0.8.0 | [README](../mods/PhobosFarming/README.md) |
