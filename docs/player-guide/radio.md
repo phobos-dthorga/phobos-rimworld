@@ -90,6 +90,10 @@ tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
   kit** fitted (a Datum's mast lifts it), or a **relay mast** (Put up a relay mast, on a stopped convoy: 60 steel and 4 components). Up to
   two relays; the convoy's line names them. A relay mast stands until you take it down from the world map. **Hills reach further**: small
   hills lift an aerial 30 m, large hills 100 m, mountains 300 m.
+- **High ground on the way blocks the signal** (from 0.41.0): the hills and mountains of the tiles between a convoy and home stand
+  in the line between the two aerials. Grazing it costs a little; in a range's shadow the call is lost, and UHF loses more than VHF.
+  The convoy's line says when ground is the reason. **Raise the mast, halt on a hill, put a relay on the high ground, or go round.**
+  Impassable mountains block the most.
 - **See reach on the world map** (from 0.37.0): select a convoy, a relay mast or a relay post there. A ring shows how far its radio
   reaches a home station's mast on level ground; a convoy also shows its chain home, hop by hop, **the weakest hop in amber**.
 - **Relay masts wear and can be raided** (from 0.37.0; a setting, **off by default**): on, a mast stops passing calls on after about a

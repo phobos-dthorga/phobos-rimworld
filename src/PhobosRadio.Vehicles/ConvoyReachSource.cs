@@ -110,8 +110,7 @@ public sealed class ConvoyReachSource : IConvoyReachSource
             for (int h = 0; h + 1 < found.chain.Path.Count; h++)
             {
                 RelayNode a = found.nodes[found.chain.Path[h]], b = found.nodes[found.chain.Path[h + 1]];
-                double hopMetres = Find.WorldGrid.ApproxDistanceInTiles(a.Tile, b.Tile) * rules.metresPerWorldTile;
-                hops.Add((a.Tile, b.Tile, LinkBudgetService.EvaluateWorld(a.End, b.End, hopMetres, rules, a.SiteMetres, b.SiteMetres)?.MarginDb ?? found.chain.WorstMarginDb));
+                hops.Add((a.Tile, b.Tile, LinkBudgetService.EvaluateWorld(a, b, rules)?.MarginDb ?? found.chain.WorstMarginDb));
             }
             ReachDrawing.Keep(convoy, hops);
             if (found.chain.Relays > 0 && Seen.Wants("radio.relay-chain", start.End.Thing))
@@ -125,9 +124,20 @@ public sealed class ConvoyReachSource : IConvoyReachSource
         RelayNode nearest = homes.OrderBy(h => Find.WorldGrid.ApproxDistanceInTiles(convoy.Tile, h.Tile)).First();
         double far = Find.WorldGrid.ApproxDistanceInTiles(convoy.Tile, nearest.Tile) * rules.metresPerWorldTile;
         double reachable = Propagation.RadioHorizonMetres(start.End.AntennaHeightMetres + start.SiteMetres, nearest.End.AntennaHeightMetres + nearest.SiteMetres);
-        double margin = LinkBudgetService.EvaluateWorld(start.End, nearest.End, far, rules, start.SiteMetres, nearest.SiteMetres)?.MarginDb ?? double.NegativeInfinity;
-        string why = (far > reachable ? "PhobosRadioReach_OverHorizon" : "PhobosRadioReach_TooWeak").Translate(nearest.Label.Named("HOME"),
-            (far / 1000.0).ToString("0").Named("KM"), (reachable / 1000.0).ToString("0").Named("HORIZON"), margin.ToString("0").Named("MARGIN")).Resolve();
+        LinkEvaluation? direct = LinkBudgetService.EvaluateWorld(start.End, start.Tile, start.SiteMetres, nearest.End, nearest.Tile, nearest.SiteMetres, rules,
+            out WorldTerrain.Blocking blocking);
+        double margin = direct?.MarginDb ?? double.NegativeInfinity;
+        // Radio 0.41.0: inside the horizon, with high ground on the way costing more than the call is short by, the ground is the reason.
+        bool blocked = far <= reachable && direct != null && blocking.Any
+            && margin + blocking.LossDb(direct.Band) >= rules.workableDb;
+        string why = blocked
+            ? "PhobosRadioReach_Blocked".Translate(nearest.Label.Named("HOME"), (far / 1000.0).ToString("0").Named("KM"),
+                WorldTerrain.GroundLabel(blocking.Tile).Named("GROUND"), margin.ToString("0").Named("MARGIN")).Resolve()
+            : (far > reachable ? "PhobosRadioReach_OverHorizon" : "PhobosRadioReach_TooWeak").Translate(nearest.Label.Named("HOME"),
+                (far / 1000.0).ToString("0").Named("KM"), (reachable / 1000.0).ToString("0").Named("HORIZON"), margin.ToString("0").Named("MARGIN")).Resolve();
+        if (blocked && Seen.Wants("radio.terrain-blocked", start.End.Thing))
+            Seen.Note("radio.terrain-blocked", start.End.Thing, blocking.LossDb(direct!.Band).ToString("0") + " dB lost to "
+                + WorldTerrain.GroundLabel(blocking.Tile) + ", " + margin.ToString("0") + " dB to spare");
         // Radio 0.24.0: a relay that would have carried it, full of other calls.
         if (RelayNodes.BusyFor(convoy) is { } busy) why += " " + "PhobosRadioReach_RelayBusy".Translate(busy.Named("RELAYS")).Resolve();
         return new ConvoyReach(false, far / 1000.0, reachable / 1000.0, margin, why);
@@ -156,7 +166,7 @@ public sealed class ConvoyReachSource : IConvoyReachSource
                 foreach (RadioEndpoint end in RadioNet.StationEndpoints(station, RadioMod.Settings.metresPerCell))
                 {
                     double site = RelayNode.SiteOf(map.Tile);
-                    if (LinkBudgetService.EvaluateWorld(start.End, end, metres, rules, start.SiteMetres, site, cw) is not { InTouch: true } link) continue;
+                    if (LinkBudgetService.EvaluateWorld(start.End, start.Tile, start.SiteMetres, end, map.Tile, site, rules, out _, cw) is not { InTouch: true } link) continue;
                     if (link.MarginDb <= bestMargin) continue;
                     bestMargin = link.MarginDb;
                     bestMetres = metres;

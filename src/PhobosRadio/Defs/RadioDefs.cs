@@ -148,6 +148,12 @@ public class RadioRulesDef : Def
     /// <summary>What lies past the radio horizon between two tiles, in dB: enough that no VHF or UHF link closes (authored; diffraction
     /// beyond the horizon is not modelled).</summary>
     public float overHorizonLossDb = 200f;
+    /// <summary>
+    /// Whether high ground between two tiles costs a link signal (Radio 0.41.0; the owner's card of 27 Nov 2026, "Add terrain blocking"):
+    /// the hills of the tiles on the way, by the knife-edge rule (Physics.TerrainRule). A rule, never a player's setting; here so a pack
+    /// of Defs can switch it off.
+    /// </summary>
+    public bool terrainBlocksBetweenTiles = true;
     /// <summary>The most hops a relayed call may take (Radio 0.22.0): two relays, three hops (radio-autonomy's lean, agent default).</summary>
     public int maxRelayHops = 3;
     /// <summary>How many 25 kHz channels a repeater has between tiles (Radio 0.24.0): one pair, in and out, as the relay design leans

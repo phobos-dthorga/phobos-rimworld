@@ -178,6 +178,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Radio advice and relays](radio-advice-and-relays.md) (26 Nov 2026): advice by radio, the Elmer, other factions' doctors, relays. Partly built.
 - [Radio friends, School of the Air, medevac](radio-friends-school-medevac.md) (27 Nov 2026): four radio features, owner's cards. Built.
 - [Logbook, QSL cards, SSTV, Morse](radio-logbook-qsl-sstv-morse.md) (27 Nov 2026): four more radio features, owner's cards. Being built.
+- [Radio cover on the world map](radio-world-coverage.md) (27 Nov 2026): high ground between tiles blocks signal; cover pictures, owner's cards. Partly built.
 - [Radio stations](radio-stations.md) (24 Nov 2026): the radio desk, a radio terminal and amplifier, and upgrades. Partly built.
 
 ## Art and sound

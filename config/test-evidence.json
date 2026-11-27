@@ -328,6 +328,12 @@
       "addictol for an addiction being quit": [{"key": "medical.longterm-self", "variant": "Addiction"}, {"key": "medical.longterm-job-made", "variant": "Addiction"}]
     }},
     "614": [{"key": "medical.longterm-self", "variant": "OldWounds"}, {"key": "medical.longterm-job-made", "variant": "OldWounds"}],
+    "696": {"parts": {
+      "taken on their feet": ["medical.vaccination-self"],
+      "given in bed": ["medical.vaccination-job-made"]
+    }},
+    "697": ["medical.vaccine-head-start"],
+    "698": ["medical.clean-against-worms"],
     "694": ["medical.animal-dose"],
     "695": {"parts": {
       "a dose by a mechanoid": [{"key": "medical.mech-doctor", "variant": "dose"}],
@@ -434,6 +440,7 @@
       "raided": [{"key": "radio.relay-mast-lost", "variant": "raided"}],
       "serviced": [{"key": "radio.relay-mast-lost", "variant": "serviced"}]}},
     "677": ["radio.reach-drawn"],
+    "699": ["radio.terrain-blocked"],
     "687": {"parts": {
       "a bought paste tap is made packed": ["trailers.store-made-packed"],
       "a caravan eats from a packed paste tap": ["trailers.caravan-ate-from-store"]

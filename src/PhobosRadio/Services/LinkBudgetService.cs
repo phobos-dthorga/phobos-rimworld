@@ -73,10 +73,13 @@ public static class LinkBudgetService
     /// A link between two ends on different world tiles (Radio 0.21.0, phase 2's first step; EM33): free space over the distance between the
     /// tiles (the greater of free space and plane earth since 0.22.0), both directions as on a map, and nothing past the radio horizon of the
     /// two antennas, each lifted by its tile's ground (Propagation.SiteHeightMetres). No walls or local noise between tiles: a quiet rural
-    /// floor at each end (simplifications, labelled in the radio's records).
+    /// floor at each end (simplifications, labelled in the radio's records). Since Radio 0.41.0 the high ground between the two tiles costs
+    /// signal inside the horizon (<paramref name="terrainFigure"/>, from <see cref="WorldTerrain.Between"/>; nothing by default).
+    /// <b>A contact between two tiles goes through the overload that takes the tiles</b>, which reads the ground between them; this one is
+    /// the arithmetic, for a caller that has read the ground already (the world map's picture).
     /// </summary>
     public static LinkEvaluation? EvaluateWorld(RadioEndpoint a, RadioEndpoint b, double distanceMetres, RadioRulesDef rules,
-        double siteAMetres = 0, double siteBMetres = 0, ModeDef? mode = null)
+        double siteAMetres = 0, double siteBMetres = 0, ModeDef? mode = null, double terrainFigure = double.NegativeInfinity)
     {
         // Radio 0.22.0: each end's height above the plain is its aerial and its tile's ground (hilltops), for the horizon and plane earth.
         var heightA = a.AntennaHeightMetres + siteAMetres;
@@ -93,7 +96,8 @@ public static class LinkBudgetService
             if (!b.Bands.Contains(band)) continue;
             // Radio 0.22.0 (the owner's card: plane-earth fading): the greater of free space and plane earth.
             var pathLoss = System.Math.Max(PathLossDb(distanceMetres, band), planeEarth);
-            var obstruction = overHorizon ? rules.overHorizonLossDb : 0.0;
+            // Radio 0.41.0: inside the horizon, the high ground on the way costs what its edge costs on this band.
+            var obstruction = overHorizon ? rules.overHorizonLossDb : Physics.TerrainRule.LossDb(terrainFigure, band.centreMHz);
             var forward = new LinkDirection(Inputs(a.Side(band), b.Side(band), pathLoss, obstruction, floorAtB, mode));
             var reverse = new LinkDirection(Inputs(b.Side(band), a.Side(band), pathLoss, obstruction, floorAtA, mode));
             var budget = new LinkBudget(forward, reverse, rules.MarginBands);
@@ -102,6 +106,23 @@ public static class LinkBudgetService
         }
         return best;
     }
+
+    /// <summary>
+    /// A link between two ends on two world tiles, the way every contact between tiles is decided (Radio 0.41.0): the distance between the
+    /// tiles at the rules' metres a tile, each aerial lifted by its site, and the high ground on the way between them
+    /// (<see cref="WorldTerrain"/>). <paramref name="blocking"/> says what stood in the way, for the caller's line to the player.
+    /// </summary>
+    public static LinkEvaluation? EvaluateWorld(RadioEndpoint a, RimWorld.Planet.PlanetTile tileA, double siteAMetres, RadioEndpoint b,
+        RimWorld.Planet.PlanetTile tileB, double siteBMetres, RadioRulesDef rules, out WorldTerrain.Blocking blocking, ModeDef? mode = null)
+    {
+        double metres = Find.WorldGrid.ApproxDistanceInTiles(tileA, tileB) * rules.metresPerWorldTile;
+        blocking = WorldTerrain.Between(tileA, tileB, a.AntennaHeightMetres + siteAMetres, b.AntennaHeightMetres + siteBMetres, metres, rules);
+        return EvaluateWorld(a, b, metres, rules, siteAMetres, siteBMetres, mode, blocking.Figure);
+    }
+
+    /// <summary>The same between two relay nodes, each with its tile and its site.</summary>
+    public static LinkEvaluation? EvaluateWorld(RelayNode a, RelayNode b, RadioRulesDef rules, ModeDef? mode = null) =>
+        EvaluateWorld(a.End, a.Tile, a.SiteMetres, b.End, b.Tile, b.SiteMetres, rules, out _, mode);
 
     /// <summary>Distance on a band: free space, the only path model on one map.</summary>
     public static double PathLossDb(double distanceMetres, BandDef band) =>

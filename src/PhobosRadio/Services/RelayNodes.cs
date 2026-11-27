@@ -133,12 +133,8 @@ public static class RelayNodes
         }
         int firstTarget = nodes.Count;
         nodes.AddRange(targets);
-        double? Hop(int a, int b)
-        {
-            double metres = Find.WorldGrid.ApproxDistanceInTiles(nodes[a].Tile, nodes[b].Tile) * rules.metresPerWorldTile;
-            return LinkBudgetService.EvaluateWorld(nodes[a].End, nodes[b].End, metres, rules, nodes[a].SiteMetres, nodes[b].SiteMetres) is { InTouch: true } link
-                ? link.MarginDb : null;
-        }
+        // Radio 0.41.0: each hop through the tiles' own link budget, high ground between them included.
+        double? Hop(int a, int b) => LinkBudgetService.EvaluateWorld(nodes[a], nodes[b], rules) is { InTouch: true } link ? link.MarginDb : null;
         RelayRule.Chain chain = RelayRule.Best(nodes.Count, 0, i => i >= firstTarget, i => i < firstTarget, Hop, rules.maxRelayHops);
         // The busy line is the convoy's own reach home's; a search aimed at one colony leaves it alone.
         bool own = Equals(holder, from.Owner);

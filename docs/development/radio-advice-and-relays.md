@@ -304,6 +304,8 @@ of free space and plane earth:
 - Free space: 20 log₁₀ d(km) + 20 log₁₀ f(MHz) + 32.45 dB.
 - Plane earth: 40 log₁₀ d(m) − 20 log₁₀ (h₁ × h₂) dB, heights in metres, site height included.
 - Still nothing past the horizon.
+- Since Radio 0.41.0 high ground between the two tiles costs signal too ([radio cover on the world map](radio-world-coverage.md)):
+  the option card 8 left for later.
 
 Plane earth is the standard two-ray model of a direct ray and one ground reflection past its break point; it is a simplification, as
 real ground, hills and trees add more. The figure needs a named source in [radio-reference-checks.md](radio-reference-checks.md) before

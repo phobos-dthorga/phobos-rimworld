@@ -121,6 +121,7 @@
   <PhobosRadioReach_InTouch>In radio reach of {HOME}: {KM} km away, inside the {HORIZON} km horizon, {MARGIN} dB to spare.</PhobosRadioReach_InTouch>
   <PhobosRadioReach_OverHorizon>Out of radio reach of {HOME}: {KM} km away, past the {HORIZON} km horizon. A higher aerial at either end reaches further.</PhobosRadioReach_OverHorizon>
   <PhobosRadioReach_TooWeak>Out of radio reach of {HOME}: {KM} km away, and the signal is too weak ({MARGIN} dB short).</PhobosRadioReach_TooWeak>
+  <PhobosRadioReach_Blocked>Out of radio reach of {HOME}: {KM} km away, with high ground on the way ({GROUND}) blocking the signal ({MARGIN} dB short). A higher aerial at either end, a relay on that high ground, or a spot with a clear way home would reach.</PhobosRadioReach_Blocked>
   <PhobosRadioReach_InTouchRelayed>In radio reach of {HOME} through {RELAYS}: {KM} km to home, the weakest hop {MARGIN} dB to spare.</PhobosRadioReach_InTouchRelayed>
   <PhobosRadio_RelayTakeDown>Take the mast down</PhobosRadio_RelayTakeDown>
   <PhobosRadio_RelayTakeDownDesc>Take this relay mast down for good. Calls no longer pass through it.</PhobosRadio_RelayTakeDownDesc>

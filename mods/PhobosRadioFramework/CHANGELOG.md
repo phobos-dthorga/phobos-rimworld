@@ -23,6 +23,27 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.41.0] - 2026-11-27 - Draft
+
+High ground between tiles blocks the signal
+
+### Changed
+
+- **High ground between two tiles now costs the signal between them** (the owner's card of 27 November 2026: add terrain blocking).
+  The hills and mountains of the tiles on the way stand in the line between the two aerials; where they reach it, the call loses
+  signal, a little when they graze it and a lot in their shadow, and more on UHF than on VHF. A higher aerial at either end, a relay
+  on the high ground or a way round it gets through. A convoy's line names the ground in the way. Not yet tested in game: row 699.
+
+### Balance
+
+- Every contact between tiles is affected: a convoy's reach home, each relay hop and Morse. **A link that closed over hills before
+  may no longer close.** Flat ground and links past the horizon are as before.
+
+### Compatibility and limits
+
+- One ridge decides, the highest over the line; several ridges in a row cost no more than the worst of them (a simplification). The
+  ground's heights are the ones that lift an aerial, with impassable mountains at 500 m (an agent default). Safe with a running save.
+
 ## [0.40.0] - 2026-11-27 - Draft
 
 The Morse key: in touch where voice cannot reach
