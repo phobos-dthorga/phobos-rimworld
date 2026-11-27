@@ -311,6 +311,59 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
             new LookTargets(Vehicle, load), MessageTypeDefOf.TaskCompletion, historical: false);
     }
 
+    /// <summary>
+    /// Why a round may not hook this up now, or null (Framework 0.340.0): the sling's own refusals, and also any warning, such as a load over
+    /// what the hook lifts today: with nobody watching, a round waits rather than strain the hook (the owner's card: wait and say why).
+    /// </summary>
+    public string? QuietRefusal(Thing load) => Refusal() ?? RefusalForLoad(load) ?? Warning(load);
+
+    /// <summary>A round's hook-up (Framework 0.340.0): as <see cref="Choose"/>, without its messages; the round says what it does.</summary>
+    public void HookQuietly(Thing load)
+    {
+        hooked = load;
+        approaches = 0;
+        awaitingCrew = Settings.slingGroundCrew && load is VehiclePawn;
+        if (NeedsOwnThinking) Vehicle.RequestTickStart(this);
+        SlingWaits.Note(this, awaitingCrew);
+        if (!awaitingCrew) Latch(load);
+    }
+
+    /// <summary>The nearest filled cargo net within the sling's reach of this helicopter, or null (Framework 0.340.0: a round's lift).</summary>
+    public static Thing? NearestNet(VehiclePawn helicopter)
+    {
+        if (!helicopter.Spawned) return null;
+        float reach = Rules.slingReachCells;
+        return helicopter.Map.listerThings.AllThings.OfType<Building_PhobosCargoNet>()
+            .Where(net => net.Contents.Any() && net.Position.DistanceTo(helicopter.Position) <= reach)
+            .OrderBy(net => net.Position.DistanceToSquared(helicopter.Position)).FirstOrDefault();
+    }
+
+    /// <summary>
+    /// Leaves the load at this tile as a depot a caravan can collect from (Framework 0.340.0: a round's "leave the load here"), as a thing let
+    /// go in flight is: a net's contents go in and the net comes apart; a vehicle or a hull stays on the hook. Says what it did.
+    /// </summary>
+    public void LeaveInDepot(PlanetTile tile)
+    {
+        if (Load is not { } thing || !IsLiftableThing(thing)) return;
+        held.Remove(thing);
+        liftedFrom = null;
+        string what = thing.LabelShort;
+        PhobosSlingWreck depot = Depots.At(tile) ?? PhobosSlingWreck.MakeDepot(tile);
+        if (thing is Building_PhobosCargoNet net)
+        {
+            foreach (Thing inside in net.Netted.ToList())
+            {
+                net.Netted.Remove(inside);
+                depot.Keep(inside);
+            }
+            net.Destroy();
+        }
+        else depot.Keep(thing);
+        Systems?.Powertrain?.MarkMassDirty();
+        if (Seen.Wants("aircraft.round-sling", Vehicle, "depot")) Seen.Note("aircraft.round-sling", Vehicle, what, "depot");
+        Say("PhobosRound_SlingLeft".Translate(Vehicle.LabelShort.Named("HELICOPTER"), what.Named("LOAD")).Resolve(), new LookTargets(depot), MessageTypeDefOf.TaskCompletion);
+    }
+
     public void Cancel()
     {
         if (hooked == null) return;
@@ -538,7 +591,9 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     }
 
     bool ShouldAsk() => Vehicle.Faction == Faction.OfPlayer && Vehicle.Map != null && Vehicle.Map == Find.CurrentMap && !VehicleNotices.Quiet
-                        && Current.ProgramState == ProgramState.Playing;
+                        && Current.ProgramState == ProgramState.Playing
+                        // Framework 0.340.0: an aircraft flying a round sets its load down by itself; nobody is asked, and the game never pauses.
+                        && Vehicle.GetComp<CompPhobosRound>() is not { Running: true };
 
     /// <summary>Vehicle Framework's crash event: the helicopter comes down with its load. With release and drops on, the load falls when the
     /// helicopter next reaches a map; off, it is set down as after any landing.</summary>
@@ -761,8 +816,17 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// <summary>The load is going to be set down from the air at this spot, or nowhere (Invalid).</summary>
     public IntVec3 SetDownSpot => dropCell;
 
-    static float Apart(VehiclePawn helicopter, VehicleDef load) =>
-        Mathf.Max(helicopter.VehicleDef.Size.x, helicopter.VehicleDef.Size.z) / 2f + Mathf.Max(load.Size.x, load.Size.z) / 2f + ApartMargin;
+    static float Apart(VehiclePawn helicopter, IntVec2 load) =>
+        Mathf.Max(helicopter.VehicleDef.Size.x, helicopter.VehicleDef.Size.z) / 2f + Mathf.Max(load.x, load.z) / 2f + ApartMargin;
+
+    /// <summary>A load's size on the ground: a vehicle's or a hull's design, or since Framework 0.340.0 any thing's own (a packed building,
+    /// a stack, a cargo net), so all are lifted and set down from a hover alike.</summary>
+    static IntVec2 SizeOf(Thing load) => DesignOf(load)?.Size ?? load.def.Size;
+
+    /// <summary>Where a load of this size stands centred when set down at this cell, as the game or Vehicle Framework places it.</summary>
+    static Vector3 CentreAt(Thing load, IntVec3 cell, Rot4 rot) => DesignOf(load) is { } design
+        ? Ext_Vehicles.TrueCenter(cell, new Rot8(rot), design.Size, 0f)
+        : GenThing.TrueCenter(cell, rot, load.def.Size, 0f);
 
     /// <summary>
     /// Every half second while it is in the air on our own flight: a load hooked up and ready, it goes to hover beside it and lifts it; a
@@ -774,17 +838,18 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// <see cref="CompTick"/>).</summary>
     public void Think(HoverPilot pilot)
     {
-        if (hooked is { Spawned: true } load && !awaitingCrew && DesignOf(load) is { } design)
+        // Framework 0.340.0: any load, not only a vehicle or a hull (a cargo net is lifted from the air too).
+        if (hooked is { Spawned: true } load && !awaitingCrew)
         {
-            Approach(pilot, design, load is VehiclePawn vehicle ? vehicle.TrueCenter() : load.TrueCenter(), lift: true);
+            Approach(pilot, SizeOf(load), load is VehiclePawn vehicle ? vehicle.TrueCenter() : load.TrueCenter(), lift: true);
         }
-        else if (Load is { } carried && dropCell.IsValid && DesignOf(carried) is { } carriedDesign)
+        else if (Load is { } carried && dropCell.IsValid)
         {
-            Approach(pilot, carriedDesign, Ext_Vehicles.TrueCenter(dropCell, new Rot8(dropRot), carriedDesign.Size, 0f), lift: false);
+            Approach(pilot, SizeOf(carried), CentreAt(carried, dropCell, dropRot), lift: false);
         }
     }
 
-    void Approach(HoverPilot pilot, VehicleDef load, Vector3 target, bool lift)
+    void Approach(HoverPilot pilot, IntVec2 load, Vector3 target, bool lift)
     {
         if (!pilot.Hovering) return;
         float apart = Apart(Vehicle, load);
@@ -816,6 +881,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         TakeLoad();
         if (Load == null) return;
         Systems?.Powertrain?.MarkMassDirty();
+        if (IsLiftableThing(Load) && Seen.Wants("vehicles.sling-hover-thing", Vehicle)) Seen.Note("vehicles.sling-hover-thing", Vehicle, Load!.LabelShort);
         if (pilot is VtolPilot)
         {
             // Its own flight lands it where the player says: the load waits on the hook and is set down once it is down, as after an arrival.

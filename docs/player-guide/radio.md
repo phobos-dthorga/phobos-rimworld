@@ -105,7 +105,8 @@ tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
 
 **Fit the dual-band radio** to a vehicle (a voice radio bay every land vehicle has; 12 steel, 2 components, after local radio; about
 2 A on the battery). **A colonist's hand-held, VHF or UHF, talks home through it** from anywhere on the same map it reaches, through any
-relay, as a real cross-band set does. **Your colonies' maps don't need it**: there, the station serves.
+relay, as a real cross-band set does. **Your colonies' maps don't need it**: there, the station serves. **From 0.34.0** colonists there
+get the **in touch with home** mood through it, and the vehicle's pane says whom it passes calls home for.
 
 ## Advice by radio
 

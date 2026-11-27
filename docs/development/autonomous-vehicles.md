@@ -569,6 +569,28 @@ flying or about to fly brighter and its stop's number shaded. Drawn from the rou
   label a stop, each frame; nothing otherwise. The hostile check is a faction lookup a stop, at each leaving.
 - **Still open:** a round's own icons (night 16).
 
+### Supply runs by air (Framework 0.340.0)
+
+The owner, 27 Nov 2026: "1, 2, 3, and 4", the fourth being road-work-six's idea of a helicopter's round that lifts a cargo net at one stop
+and sets it down at the next; by card, **what it lifts: your pick, else a net** [O], and **too heavy: wait and say why** [O]. Not yet tested
+in game (row 668).
+
+**As built [code: `Flight/Rounds.cs`: `RoundSlingOrder`, `RoundStop.sling`/`liftThis`, `CompPhobosRound.SlingAtStop`; `Sling/CompPhobosSling.cs`:
+`QuietRefusal`, `HookQuietly`, `NearestNet`, `LeaveInDepot`]:** for an aircraft with a working cargo hook, **Its stops** offers the sling's
+order at each stop: nothing of its own (the default), **lift** (a place with a map: the thing the player picked there, else the nearest cargo
+net in the sling's reach that holds anything), or **leave its load** (a tile with no map: it goes into a depot there, as a thing let go in
+flight does). As a stop's wait ends, a lift hooks the load up without the Choose messages; it goes on only once nothing would refuse or
+warn, so an over-weight load (a hot day, a heavy net) makes it wait and say why rather than strain an unwatched hook; with nothing to lift
+it says so once and flies on. **Landing anywhere with a map sets the load down by itself while a round runs** (`ShouldAsk` is false):
+the game never pauses to ask; a helicopter cannot land on top of what hangs below it. **A gift stop keeps the sling set aboard.**
+
+- **The four questions:** it lets the player run supplies by air on a schedule; it stops nothing; it makes a cargo net a standing
+  pick-up point; outside it, depots appear on tiles it leaves loads at.
+- **Risk: low [A].** It lifts only what the sling's own rules allow without a warning.
+- **Its cost:** one look at each stop's end (a nearest-net search over the map's cargo nets).
+- **Limits:** a vehicle as the load waits for a ground crew when the setting asks for one ("its load waits for someone to hook it up");
+  nothing is fetched from a depot by air.
+
 ### Crewless rounds (Framework 0.310.0)
 
 The owner's go of 26 Nov 2026 ("let's do the crewless rounds next") and their cards the same day: **an aircraft kit of its own, which needs

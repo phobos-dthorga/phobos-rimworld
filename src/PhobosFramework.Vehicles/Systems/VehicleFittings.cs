@@ -670,6 +670,10 @@ public sealed class VehicleFittings
         {
             return "PhobosVehicleSystems_FitNoResearch".Translate(def.researchPrerequisite.LabelCap.Named("RESEARCH")).Resolve();
         }
+        // Framework 0.340.0 (the owner's answer of 27 Nov 2026, "Refuse it there"): one turbo part stands for one turbo, so an engine
+        // turbocharged as built takes no turbocharger fitting. One fitted before stays until it is taken off.
+        if (def.grants.Contains(Turbochargers.Grant) && Turbochargers.BuiltIn(comp.Props) && FittedOn(part.props.key) != def)
+            return "PhobosVehicleSystems_FitTurboBuiltIn".Translate().Resolve();
         if (def.matchedSet)
         {
             // A matched set goes on every part of its roles or none: any one that cannot take it refuses the set, naming the part.

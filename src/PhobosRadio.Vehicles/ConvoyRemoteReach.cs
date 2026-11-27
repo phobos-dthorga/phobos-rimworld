@@ -58,7 +58,12 @@ public sealed class ConvoyRemoteReach : IRemoteReachSource
     static readonly Dictionary<VehiclePawn, (int tick, (Map Home, double MarginDb)? first)> firstKept = new();
     const int KeepTicks = 250;
 
-    static (Map Home, double MarginDb)? FirstHome(CrossBand.Gateway gateway)
+    /// <summary>The first colony a gateway vehicle reaches, as last worked out, while fresh; never searches (Radio 0.34.0: the mood reads it).</summary>
+    public static (Map Home, double MarginDb)? KeptFirstHome(CrossBand.Gateway gateway) =>
+        firstKept.TryGetValue(gateway.Vehicle, out var held) && Find.TickManager.TicksGame - held.tick < KeepTicks * 2 ? held.first : null;
+
+    /// <summary>The first colony a gateway vehicle reaches, searched when the kept answer is stale.</summary>
+    internal static (Map Home, double MarginDb)? FirstHome(CrossBand.Gateway gateway)
     {
         int now = Find.TickManager.TicksGame;
         if (firstKept.TryGetValue(gateway.Vehicle, out var held) && now - held.tick >= 0 && now - held.tick < KeepTicks) return held.first;

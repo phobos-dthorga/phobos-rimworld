@@ -262,7 +262,9 @@ an outpost, steel to someone cut off.
 - **For many stacks at once, build a cargo net** (Motor pool tab, after turbines: 60 cloth, 20 steel, 2 by 2 cells). Set what it may
   hold in its storage tab and your haulers fill it like a stockpile. **Lift with the sling** takes the net and **everything in it**;
   where it is set down, the load is let out onto its cells. Its pane shows what it holds and its weight.
-- **The crew hooks them up at once.** The helicopter lifts them as it takes off, not from a hover.
+- **The crew hooks them up at once.** The helicopter lifts them as it takes off, or (from Framework 0.340.0) **from a hover**, as it
+  does a vehicle: choose the load while it hovers, then pick where to set it down from the air.
+- **On a round, the sling works by itself** (see the round in *Vehicles on the road*): it lifts a net at one stop and sets it down at the next.
 - **Let go in flight, they fall to the ground below** and lie there as a depot a caravan can collect from.
 
 **Each of these is a setting** under **Sling loads** in D'thorga Framework's settings: hot days, ground crew, weather, slower

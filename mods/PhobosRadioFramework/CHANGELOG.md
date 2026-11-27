@@ -22,6 +22,16 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+
+## [0.34.0] - 2026-11-27 - Draft
+
+In touch with home through a vehicle's dual-band radio
+
+### Added
+
+- **Colonists on a camp or site map get the in touch with home mood through a vehicle's dual-band radio**, as at home, and the vehicle's
+  pane says whom it passes calls home for. Kept fresh a few times a game hour, only where such a vehicle stands. Row 667.
+
 ## [0.30.0] - 2026-11-27 - Draft
 
 The radio's new sounds: a squelch as a hand-held comes into touch, a channel knob, a repeater's tail and coax screwed home

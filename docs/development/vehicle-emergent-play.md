@@ -598,13 +598,13 @@ time by being lifted off the map and set down again, only onto cells clear of bu
 alive; another faction's building stays put. A rock chunk weighs 25 kg in the game, so it is an easy pull: the game's figure is kept.
 **The other half of that card, tankers filling from a river without Dubs Bad Hygiene, is not built:** the agent's card said the intake
 was the only part in the Dubs tie-in, but the water itself (`PhobosTank_Water`) and the water bowser are Dubs-only too, so it would bring
-a vehicle into every game; the question is in `config/decisions.json` (`river-water-without-dubs`).
+a vehicle into every game; the owner answered on 27 Nov 2026: **keep it with Dubs** (the agent's lean), so nothing more is built.
 
 **Since built (Framework 0.335.0, rows 642 to 644; the owner's cards of 27 Nov 2026):** the rest of EM21. **(b) The sling lifts a packed
 building, a stack of anything, and a cargo net** ("Also a cargo net of many stacks"): `CompPhobosSling.IsLiftableThing`; a stack
 weighs every piece, a packed building as the building; the net (`Building_PhobosCargoNet`, a 2 by 2 stockpile your haulers fill) takes
 up what lies in its cells as it is lifted and lets it out where it is set down; let go in flight, a thing lands as a depot. They are
-lifted at take-off, not from a hover [A]. The net's picture is bought (US$0.11, two tries, the owner's pick waiting). **(d) The litter
+lifted at take-off and, since Framework 0.340.0, from a hover as a vehicle is (row 666). The net's picture is bought (US$0.11, two tries, the owner's pick waiting). **(d) The litter
 captures a downed enemy** ("Order it, and collect them too"): wherever the game would let a colonist capture them, they become the
 player's prisoner as they are put aboard (`Pawn_GuestTracker.CapturedBy`, the faction's goodwill loss included), by order or by
 collection; collecting them has its own setting, **Litters collect downed enemies as prisoners**, on (moderate risk [A]: a goodwill

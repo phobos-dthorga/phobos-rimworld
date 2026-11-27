@@ -99,6 +99,10 @@ and life on the road](camping.md). [Back to the guide](README.md).
   stop; click the next places on the world map (up to eight), picking a **landing spot** on each place with a map; right-click when done.
   Then **Fly its round**. At each stop it waits (an hour unless you set **Waits at stops**) for colonists to unload, load and **refuel**
   it, then flies on if it has the fuel for the next leg. On open ground it lands as a caravan. It never stops at an enemy's town.
+- **Supply runs by air** (from Framework 0.340.0): for a helicopter with the sling and a sling set, **Its stops** also sets the sling at
+  each stop. **Sling: lift the nearest filled cargo net here** (or **pick what to lift here**) hooks it up before it leaves; it is set down
+  where it lands at the next place with a map, **without pausing the game**. At a stop on open ground, **Sling: leave its load here**
+  leaves it as a depot. **A load too heavy for the hook today makes it wait there and say so.** A gift stop never gives away the sling set.
 - **With nobody aboard:** fit the **optionally piloted kit** at the vehicle workshop (after **vehicle autonomy** research; it needs the
   **autopilot** first). With no pilot aboard, it flies its round by itself; with one, the pilot flies.
 - **The fleet board** lists followers under their leader, and its pane can add a follower, leave the convoy or break it up.

@@ -390,6 +390,18 @@ radio fitting** (against making the control radio dual-band, or the repeater kit
 - **Limits**: only advice uses it yet (the in-touch mood thought and the map's own net still need a station); the gateway takes no
   channel of its own.
 
+### As built (Radio 0.34.0, 27 Nov 2026): in touch through a vehicle
+
+The owner, 27 Nov 2026: "1, 2, 3, and 4", the second being to make the dual-band radio matter beyond advice. Not yet tested in game (row 667).
+
+- **The "in touch with home" mood** for a colonist no station serves reads the cross-band answer the vehicle tie-in keeps
+  (`AwayReach.KeptMarginDb`, a delegate the tie-in registers): the worse of the hand-held's hop to the vehicle and the vehicle's chain home,
+  classed as any link is. **It never computes**, as the radio's rules ask: `MapComponent_PhobosCrossBand` keeps the answers fresh every 250
+  ticks, only on a map of the player's that is not a home and has a dual-band vehicle on it.
+- **The vehicle's pane** says whom its dual-band radio passes calls home for, from the same kept answers (`CompPhobosCrossBand`).
+- **Cost**: on such a map, every 250 ticks, one map link budget per colonist with a hand-held for each dual-band vehicle, and each
+  vehicle's world chain kept 250 ticks; nothing elsewhere. Not measured.
+
 ## The cards as put
 
 Each card as the owner saw it on 26 Nov 2026, the chosen option first and marked.

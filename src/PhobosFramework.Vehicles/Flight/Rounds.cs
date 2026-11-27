@@ -24,9 +24,25 @@ public enum RoundStopAction
     Gift,
 }
 
+/// <summary>What the sling does at a round's stop (Framework 0.340.0; supply runs by air, the owner's cards of 27 Nov 2026).</summary>
+public enum RoundSlingOrder
+{
+    /// <summary>Nothing of its own: a load hanging as it lands on a map is set down there, as after any landing.</summary>
+    None,
+    /// <summary>Before it leaves, it hooks up the thing picked for this stop, or else the nearest filled cargo net within reach.</summary>
+    Lift,
+    /// <summary>At a tile with no map, it leaves its load there as a depot a caravan can collect from.</summary>
+    Leave,
+}
+
 /// <summary>One stop of a round: a tile, and on a place with a map the spot it lands on there and the way it faces.</summary>
 public sealed class RoundStop : IExposable
 {
+    /// <summary>What the sling does here (Framework 0.340.0).</summary>
+    public RoundSlingOrder sling;
+    /// <summary>The thing to lift here, picked by the player, or null for the nearest filled cargo net (the owner's card: your pick, else a net).</summary>
+    public Thing? liftThis;
+
     /// <summary>At an ally's town: trade or give (Framework 0.315.0). Unused elsewhere.</summary>
     public RoundStopAction action = RoundStopAction.Trade;
 
@@ -57,6 +73,8 @@ public sealed class RoundStop : IExposable
         Scribe_Values.Look(ref rot, "rot", Rot4.North);
         Scribe_Values.Look(ref waitTicks, "waitTicks", RoundRule.WaitTicks(RoundRule.DefaultWaitHours));
         Scribe_Values.Look(ref action, "action", RoundStopAction.Trade);
+        Scribe_Values.Look(ref sling, "PhobosRound_Sling", RoundSlingOrder.None);
+        Scribe_References.Look(ref liftThis, "PhobosRound_LiftThis");
     }
 }
 
@@ -143,6 +161,14 @@ public sealed class CompPhobosRound : VehicleComp
 
     /// <summary>The stop it is at or flying to, or -1.</summary>
     public int At => at;
+
+    /// <summary>Sets what the sling does at this stop, and the thing to lift there (null for the nearest net).</summary>
+    public void SetSling(int index, RoundSlingOrder order, Thing? lift = null)
+    {
+        if (index < 0 || index >= stops.Count) return;
+        stops[index].sling = order;
+        stops[index].liftThis = order == RoundSlingOrder.Lift ? lift : null;
+    }
 
     public void SetWait(int index, float hours)
     {
@@ -253,6 +279,12 @@ public sealed class CompPhobosRound : VehicleComp
             }
         }
         if (!RoundRule.WaitOver(now, waitUntil)) return;
+        // Framework 0.340.0 (supply runs by air): the sling's order at this stop, before it leaves.
+        if (SlingAtStop(stops[at], caravan) is { } slingWait)
+        {
+            Waits(slingWait);
+            return;
+        }
         int next = RoundRule.NextUsable(at, stops.Select(s => s.Usable).ToList());
         if (next < 0)
         {
@@ -265,6 +297,35 @@ public sealed class CompPhobosRound : VehicleComp
             return;
         }
         Fly(next, caravan);
+    }
+
+    /// <summary>
+    /// The sling's order at a stop, as its wait ends (Framework 0.340.0; the owner's cards of 27 Nov 2026). Leave, at a tile: the load goes
+    /// into a depot there. Lift, on a map, with nothing on the hook: it hooks up the thing picked for the stop, or else the nearest filled
+    /// cargo net in reach, and goes on only once that would not strain the hook ("Wait and say why"); with nothing to lift it says so once
+    /// and flies on. Returns why it waits, or null to go on.
+    /// </summary>
+    string? SlingAtStop(RoundStop stop, VehicleCaravan? caravan)
+    {
+        if (stop.sling == RoundSlingOrder.None || Vehicle.GetComp<CompPhobosSling>() is not { } hook) return null;
+        if (stop.sling == RoundSlingOrder.Leave)
+        {
+            if (caravan != null && hook.Load != null) hook.LeaveInDepot(stop.tile);
+            return null;
+        }
+        if (caravan != null || hook.Load != null) return null;
+        if (hook.HookedLoad != null) return hook.AwaitingCrew ? "PhobosRound_WaitSlingCrew".Translate().Resolve() : null;
+        Thing? target = stop.liftThis is { Spawned: true } picked && picked.Map == Vehicle.Map ? picked : CompPhobosSling.NearestNet(Vehicle);
+        if (target == null)
+        {
+            Messages.Message("PhobosRound_SlingNothing".Translate(Vehicle.LabelShort.Named("VEHICLE"), stop.Label.Named("PLACE")), Vehicle,
+                MessageTypeDefOf.NeutralEvent, false);
+            return null;
+        }
+        if (hook.QuietRefusal(target) is { } why) return why;
+        hook.HookQuietly(target);
+        if (Seen.Wants("aircraft.round-sling", Vehicle, "lift")) Seen.Note("aircraft.round-sling", Vehicle, target.LabelShort, "lift");
+        return null;
     }
 
     /// <summary>Why it cannot take off for this stop now, or null: Vehicle Framework's own launch check, and the fuel for the leg.</summary>
@@ -471,6 +532,27 @@ public static class RoundGizmos
         return options;
     }
 
+    /// <summary>Shows the stop's map and asks which thing the sling lifts there (Framework 0.340.0). Presentation only.</summary>
+    static void PickLift(CompPhobosRound round, int index)
+    {
+        if (round.Stops[index].parent is not { HasMap: true } parent) return;
+        Current.Game.CurrentMap = parent.Map;
+        CameraJumper.TryHideWorld();
+        Find.Targeter.BeginTargeting(new TargetingParameters
+        {
+            canTargetPawns = false,
+            canTargetBuildings = true,
+            canTargetItems = true,
+            mapObjectTargetsMustBeAutoAttackable = false,
+            validator = target => CompPhobosSling.IsLiftableThing(target.Thing),
+        }, target =>
+        {
+            round.SetSling(index, RoundSlingOrder.Lift, target.Thing);
+            Messages.Message("PhobosRound_SlingLiftSet".Translate(round.Vehicle.LabelShort.Named("VEHICLE"), target.Thing.LabelShort.Named("LOAD"),
+                round.Stops[index].Label.Named("PLACE")), target.Thing, MessageTypeDefOf.SilentInput, false);
+        });
+    }
+
     static List<FloatMenuOption> WaitOptions(CompPhobosRound round, int index)
     {
         var options = new List<FloatMenuOption>();
@@ -478,6 +560,18 @@ public static class RoundGizmos
         {
             options.Add(new FloatMenuOption("PhobosRound_SetTrade".Translate(), () => round.SetAction(index, RoundStopAction.Trade)));
             options.Add(new FloatMenuOption("PhobosRound_SetGift".Translate(), () => round.SetAction(index, RoundStopAction.Gift)));
+        }
+        // Framework 0.340.0: the sling's order here, for an aircraft with a cargo hook.
+        if (round.Vehicle.GetComp<CompPhobosSling>() is { HookFitted: true })
+        {
+            RoundStop stop = round.Stops[index];
+            options.Add(new FloatMenuOption("PhobosRound_SlingNone".Translate(), () => round.SetSling(index, RoundSlingOrder.None)));
+            if (stop.OnMap)
+            {
+                options.Add(new FloatMenuOption("PhobosRound_SlingLiftNet".Translate(), () => round.SetSling(index, RoundSlingOrder.Lift)));
+                options.Add(new FloatMenuOption("PhobosRound_SlingLiftPick".Translate(), () => PickLift(round, index)));
+            }
+            else options.Add(new FloatMenuOption("PhobosRound_SlingLeave".Translate(), () => round.SetSling(index, RoundSlingOrder.Leave)));
         }
         options.AddRange(RoundRule.WaitChoices.Select(hours => new FloatMenuOption("PhobosRound_SetWait".Translate(
             (RoundRule.WaitTicks(hours) == 0 ? "PhobosRound_WaitNone".Translate().Resolve() : RoundRule.WaitTicks(hours).ToStringTicksToPeriod()).Named("WAIT")),
@@ -581,7 +675,8 @@ public class ArrivalAction_PhobosRoundGift : VehicleArrivalAction
             Messages.Message("PhobosRound_GiftRefused".Translate(vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.NegativeEvent, false);
             return;
         }
-        List<Thing> items = vehicle.inventory.innerContainer.Where(thing => thing is not Pawn).ToList();
+        // Framework 0.340.0: the sling set stays aboard; the next stop's lift needs it.
+        List<Thing> items = vehicle.inventory.innerContainer.Where(thing => thing is not Pawn && thing.def != VehicleSystemsThingDefOf.PhobosVehicleSystems_SlingSet).ToList();
         if (items.Count == 0)
         {
             Messages.Message("PhobosRound_GiftNothing".Translate(vehicle.LabelShort.Named("VEHICLE"), town.LabelCap.Named("PLACE")), MessageTypeDefOf.NeutralEvent, false);

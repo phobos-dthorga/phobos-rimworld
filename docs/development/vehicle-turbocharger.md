@@ -74,6 +74,13 @@ turbo heat follows the engine's load share, not a temperature. The turbocharger 
 built (as before 0.320.0); if that one turbo part then fails, both the fitting's and the build's power losses apply (about 0.58 of rated),
 a known gap left for the owner's word on whether the fitting should be refused there.
 
+## The owner's answer: no second turbo (Framework 0.340.0)
+
+The owner answered the question left open on 26 Nov 2026 ("Should the turbocharger fitting be refused on an engine that is already
+turbocharged as built?") on 27 Nov 2026: **refuse it there** (the agent's lean: one turbo part stands for one turbo). The Fittings window
+now refuses the fitting on an engine turbocharged as built and says why (`VehicleFittings.Refusal`); one fitted before stays until it is
+taken off.
+
 ## The four questions
 
 - **What it lets the player do**: see the turbo on the Health and Systems tabs, watch its boost and heat, read why an engine is down on

@@ -71,6 +71,32 @@ public static class CrossBand
         return found;
     }
 
+    /// <summary>This colonist's kept gateway, while it is fresh, or null: never searches (the mood and the vehicle's line read it).</summary>
+    public static Gateway? Kept(Pawn pawn) =>
+        keptFor == Current.Game && kept.TryGetValue(pawn, out var held) && Find.TickManager.TicksGame - held.tick < KeepTicks * 2 ? held.gateway : null;
+
+    /// <summary>The colonists whose hand-helds this vehicle's dual-band radio passes on now, from the kept answers.</summary>
+    public static IEnumerable<Pawn> Serving(VehiclePawn vehicle)
+    {
+        if (keptFor != Current.Game) yield break;
+        int now = Find.TickManager.TicksGame;
+        foreach (var entry in kept)
+            if (entry.Value.gateway?.Vehicle == vehicle && now - entry.Value.tick < KeepTicks * 2 && entry.Key.Spawned) yield return entry.Key;
+    }
+
+    /// <summary>
+    /// Keeps the answers fresh on a map no station of the player's serves where a dual-band vehicle stands (Radio 0.34.0): each colonist with
+    /// a worn hand-held is asked once. Called by <see cref="MapComponent_PhobosCrossBand"/> every 250 ticks.
+    /// </summary>
+    public static void Refresh(Map map)
+    {
+        if (map.IsPlayerHome || !AnyOn(map)) return;
+        foreach (Pawn pawn in map.mapPawns.FreeColonistsSpawned)
+        {
+            if (pawn.apparel?.WornApparel.Any(a => a.TryGetComp<CompRadio>() is { Props.isStation: false }) == true) For(pawn);
+        }
+    }
+
     static Gateway? Search(Pawn pawn)
     {
         if (!pawn.Spawned || pawn.apparel == null || Voice is not { } voice) return null;
@@ -95,5 +121,56 @@ public static class CrossBand
             best = new Gateway(vehicle, link.MarginDb, worldEnd);
         }
         return best;
+    }
+}
+
+/// <summary>
+/// Keeps the cross-band answers fresh on a map of the player's that is not a home (Radio 0.34.0): every 250 ticks, only where a dual-band
+/// vehicle stands. Cost: nothing elsewhere; there, one map link budget per colonist with a hand-held for each such vehicle, and the vehicle's
+/// world chain kept as for advice. Saves nothing.
+/// </summary>
+public sealed class MapComponent_PhobosCrossBand : MapComponent
+{
+    public MapComponent_PhobosCrossBand(Map map) : base(map) { }
+
+    public override void MapComponentTick()
+    {
+        if (Find.TickManager.TicksGame % 250 != 137) return;
+        CrossBand.Refresh(map);
+    }
+}
+
+/// <summary>Adds the line that says whom a vehicle's dual-band radio passes calls on for (Radio 0.34.0), to every design of ours.</summary>
+public class CompProperties_PhobosCrossBand : CompProperties
+{
+    public CompProperties_PhobosCrossBand() => compClass = typeof(CompPhobosCrossBand);
+}
+
+/// <summary>The vehicle's inspect line while its dual-band radio carries colonists' calls home. Reads the kept answers only.</summary>
+public class CompPhobosCrossBand : ThingComp
+{
+    public override string? CompInspectStringExtra()
+    {
+        if (parent is not VehiclePawn vehicle || !vehicle.Spawned || !CrossBand.Fitted(vehicle)) return null;
+        var serving = CrossBand.Serving(vehicle).Select(p => p.LabelShort).ToList();
+        if (serving.Count == 0) return null;
+        if (Seen.Wants("radio.cross-band-serving", vehicle)) Seen.Note("radio.cross-band-serving", vehicle, serving.Count + " people");
+        return "PhobosRadio_CrossBandServing".Translate(serving.ToCommaList(useAnd: true).Named("PEOPLE")).Resolve();
+    }
+}
+
+/// <summary>Registers the cross-band answers with the radio core, and the vehicle's line on every design of ours (Radio 0.34.0).</summary>
+[StaticConstructorOnStartup]
+public static class CrossBandStartup
+{
+    static CrossBandStartup()
+    {
+        AwayReach.Register(pawn => CrossBand.Kept(pawn) is { } gateway && ConvoyRemoteReach.KeptFirstHome(gateway) is { } home
+            ? System.Math.Min(gateway.MapMarginDb, home.MarginDb) : null);
+        foreach (var def in DefDatabase<VehicleDef>.AllDefsListForReading)
+        {
+            if (def.comps.Exists(c => c is CompProperties_PhobosVehicleSystems) && !def.comps.Exists(c => c is CompProperties_PhobosCrossBand))
+                def.comps.Add(new CompProperties_PhobosCrossBand());
+        }
     }
 }

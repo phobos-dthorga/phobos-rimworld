@@ -2,87 +2,97 @@
  "schemaVersion": 1,
  "decisions": [
   {
-   "id": "smoke-other-factions",
-   "question": "How often should another faction's truck pop its smoke dischargers?",
-   "context": "Built in Framework 0.319.0 (row 573): raiders' trucks carry no chemfuel to reload, so a truck of theirs comes loaded for one salvo and pops it the first time it is hit while you are a threat.",
+   "id": "house-battery-freeze-default",
+   "question": "A run-down lead-acid house battery freezes in deep cold and is lost. I graded that a moderate risk, so its setting starts on. Do you agree?",
+   "context": "Built in Framework 0.333.0 (row 640). One battery kit is lost, over about half a day, with a warning when it starts; running the engine, shore power or a warmer place saves it. The setting is 'Run-down house batteries freeze' (Vehicle Systems, Camps). The shared rule: a risk starts on unless it is high or higher.",
    "options": [
     {
-     "id": "once",
-     "label": "Once a visit",
-     "detail": "As built: one salvo each time it comes to a map"
+     "id": "on",
+     "label": "Moderate: starts on",
+     "detail": "As built"
     },
     {
-     "id": "every-hit",
-     "label": "Every hit, 10 s apart",
-     "detail": "Loaded free each time, as often as yours with the switch on"
+     "id": "off",
+     "label": "High: starts off",
+     "detail": "A player chooses it; by default a lead-acid house battery never freezes"
     }
    ],
-   "lean": "once",
-   "why": "A real truck carries a few reloads at most; smoke every 10 seconds would blind your guns for the whole fight",
-   "from": "docs/development/vehicle-militarised-service-vehicles.md",
-   "asked": "2026-11-26"
+   "lean": "on",
+   "why": "A slow loss of one kit, warned of, with three ways to stop it, is what the rule calls low or moderate",
+   "from": "docs/development/house-battery.md",
+   "asked": "2026-11-27"
   },
   {
-   "id": "locker-steel-rounds",
-   "question": "Without Combat Extended our ring guns feed from steel. Should steel count as rounds in the ammunition locker?",
-   "context": "Built in Framework 0.319.0 (row 574): a round is whatever a fitted gun's ammunition allows, as Vehicle Framework itself decides, so a gun truck's steel (and the dischargers' chemfuel) goes in the locker.",
+   "id": "lead-acid-cutoff",
+   "question": "Where should a lead-acid house battery cut the camp loads off?",
+   "context": "Built in Framework 0.333.0 (row 640) at half its charge, my default, on the common practice of drawing lead-acid deep-cycle batteries to about half for a long life (unverified). With no wear modelled (your card), the cut-off is the only thing that makes lead-acid cost more than lithium, which cuts off at a tenth.",
    "options": [
     {
-     "id": "yes",
-     "label": "Yes, as built",
-     "detail": "Whatever the truck's guns fire counts as rounds"
+     "id": "half",
+     "label": "Half, as built",
+     "detail": "50 Ah usable of 100; the low warning at 60 %"
     },
     {
-     "id": "no",
-     "label": "No, never raw materials",
-     "detail": "Steel and chemfuel stay ordinary cargo; the locker holds only real ammunition items"
+     "id": "third",
+     "label": "A third",
+     "detail": "About 67 Ah usable: gentler, nearer what a low-voltage cut-off often allows"
+    },
+    {
+     "id": "fifth",
+     "label": "A fifth",
+     "detail": "80 Ah usable: closer to lithium, so lithium's gain is mostly its weight and the cold"
     }
    ],
-   "lean": "yes",
-   "why": "It is what those guns actually load; without Combat Extended there are no ammunition items, so 'no' would leave the locker empty",
-   "from": "docs/development/vehicle-militarised-service-vehicles.md",
-   "asked": "2026-11-26"
+   "lean": "half",
+   "why": "It keeps the two batteries clearly different while wear is not modelled, and matches how such batteries are really used",
+   "from": "docs/development/house-battery.md",
+   "asked": "2026-11-27"
   },
   {
-   "id": "turbo-fitting-on-built-in",
-   "question": "Should the turbocharger fitting be refused on an engine that is already turbocharged as built?",
-   "context": "Built in Framework 0.320.0 (row 576): a built-in turbo is now a part like a fitted one. The fitting is still offered on those engines and adds its x1.2 on top; if the one turbo part fails, both power losses apply (about 0.58 of rated).",
+   "id": "fuel-heater-parked",
+   "question": "Parked off the grid with the engine off, should a fuel heater run from the starting battery?",
+   "context": "Built in Framework 0.334.0 (row 648), my choice: it draws 12 A in deep cold from the alternator, the grid or the battery, and goes out before the battery is too low to start the engine, after which the fuel can gel. It only matters with 'Fuel thickens in deep cold' on.",
    "options": [
     {
-     "id": "refuse",
-     "label": "Refuse it there",
-     "detail": "The Fittings window says the engine already has a turbocharger; any already fitted stays until taken off"
+     "id": "battery",
+     "label": "Yes, down to the start line",
+     "detail": "As built: a few hours of protection parked, then it goes out with a message"
     },
     {
-     "id": "allow",
-     "label": "Allow it, as now",
-     "detail": "Read as a bigger turbo on top of the built-in one, with the double loss when it fails"
+     "id": "engine-or-grid",
+     "label": "No: engine or grid only",
+     "detail": "As real ones are wired to the ignition; parked off the grid the fuel can gel at once, and the battery is never drawn"
     }
    ],
-   "lean": "refuse",
-   "why": "One turbo part stands for one turbo; a second fitting on it has no physical meaning and makes the failure harsher than either alone",
-   "from": "docs/development/vehicle-turbocharger.md",
-   "asked": "2026-11-26"
+   "lean": "battery",
+   "why": "It gives a camped vehicle some hours of grace and makes the battery matter, while still never stranding the engine",
+   "from": "docs/development/fittings-audit.md",
+   "asked": "2026-11-27"
   },
   {
-   "id": "river-water-without-dubs",
-   "question": "Should water tankers and the water bowser exist without Dubs Bad Hygiene, filling from rivers to fight fires?",
-   "context": "Your card of 27 Nov 2026 chose 'Both', including river water without Dubs. The card was wrong: it said only the river intake was Dubs-only, but the water itself and the water bowser are too. Without Dubs, water's only use would be fighting fires: the helicopter's bucket and the C-27J's fire tank.",
+   "id": "fittings-audit-small-gaps",
+   "question": "The fittings audit left four smaller gaps open. Should I close them?",
+   "context": "Listed in the audit's record: a crew water tank taken off leaves its water behind on the vehicle; fitting a deep-cycle starting battery tops the battery up a little; kit electrical loads (remote control kit, radar, rescue hoist, jamming pod) draw the same amps on a 24-volt vehicle, so twice the watts; and the Prowler's improved jamming suites do not yet say they need power.",
    "options": [
     {
-     "id": "bring-it",
-     "label": "Bring water to every game",
-     "detail": "Water and the water bowser without Dubs, filling from rivers, lakes or the sea; plumbing and treatment stay with Dubs"
+     "id": "all",
+     "label": "Close all four",
+     "detail": "One batch: water and charge travel or are lost honestly, kit loads follow the voltage, the text is corrected"
     },
     {
-     "id": "keep-dubs",
-     "label": "Keep it with Dubs",
-     "detail": "As now: without Dubs, the bucket and the C-27J's tank draw straight from open water"
+     "id": "voltage-and-text",
+     "label": "Only the voltage and the text",
+     "detail": "The two a player can notice; the water and the battery top-up give no real gain"
+    },
+    {
+     "id": "leave",
+     "label": "Leave them",
+     "detail": "They stay listed in the record"
     }
    ],
-   "lean": "keep-dubs",
-   "why": "Without Dubs the bucket and the C-27J's tank already draw from open water, so a water bowser would add a vehicle with little to do",
-   "from": "docs/development/vehicle-emergent-play.md",
+   "lean": "voltage-and-text",
+   "why": "The 24-volt draw doubles what a kit costs on every heavy truck and aircraft; the other two change nothing a player could exploit",
+   "from": "docs/development/fittings-audit.md",
    "asked": "2026-11-27"
   }
  ]

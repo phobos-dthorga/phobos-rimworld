@@ -20,6 +20,23 @@ tested in game unless an entry says the owner tested it.
 
 
 
+
+## [0.340.0] - 2026-11-27 - Draft
+
+Supply runs by air, the sling lifts nets and stacks from a hover, and no second turbo on a turbocharged engine
+
+### Added
+
+- **Supply runs by air** (the owner's cards: your pick, else a net; too heavy, wait and say why): in a helicopter's round, Its stops sets
+  the sling at each stop: lift the nearest filled cargo net (or a thing you pick) before leaving, or leave the load at a bare tile as a
+  depot. A load hanging as it lands on a map is set down without pausing the game. A gift stop keeps the sling set aboard. Row 668.
+- **The sling lifts a cargo net, a packed building or a stack from a hover**, as it does a vehicle, and sets them down from the air. Row 666.
+
+### Changed
+
+- **The turbocharger fitting is refused on an engine turbocharged as built** (the owner's answer: refuse it there); one fitted before stays
+  until it is taken off. Row 576 covers the turbocharger.
+
 ## [0.338.0] - 2026-11-27 - Draft
 
 A vehicle driven from afar sounds its link, and fittings and buildings can have a sound of their own

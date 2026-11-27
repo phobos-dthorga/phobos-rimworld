@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The cross-band hop through a vehicle's dual-band radio (Radio 0.34.0). -->
+  <PhobosRadio_CrossBandServing>Dual-band radio: passing calls home for {PEOPLE}.</PhobosRadio_CrossBandServing>
+</LanguageData>

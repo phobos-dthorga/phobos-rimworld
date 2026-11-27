@@ -56,4 +56,13 @@
   <PhobosRound_InspectWaiting>Flying its round, waiting: {REASON}</PhobosRound_InspectWaiting>
   <PhobosRound_InspectFlying>Flying its round.</PhobosRound_InspectFlying>
   <PhobosRound_InspectFlyingCrewless>Flying its round with nobody aboard.</PhobosRound_InspectFlyingCrewless>
+  <!-- Supply runs by air (Framework 0.340.0) -->
+  <PhobosRound_SlingNone>Sling: nothing of its own here</PhobosRound_SlingNone>
+  <PhobosRound_SlingLiftNet>Sling: lift the nearest filled cargo net here</PhobosRound_SlingLiftNet>
+  <PhobosRound_SlingLiftPick>Sling: pick what to lift here...</PhobosRound_SlingLiftPick>
+  <PhobosRound_SlingLeave>Sling: leave its load here</PhobosRound_SlingLeave>
+  <PhobosRound_SlingLiftSet>{VEHICLE} will lift {LOAD} at {PLACE}.</PhobosRound_SlingLiftSet>
+  <PhobosRound_SlingNothing>{VEHICLE} found nothing to lift at {PLACE} and flies on.</PhobosRound_SlingNothing>
+  <PhobosRound_SlingLeft>{HELICOPTER} left {LOAD} here, where a caravan can collect it.</PhobosRound_SlingLeft>
+  <PhobosRound_WaitSlingCrew>its load waits for someone to hook it up.</PhobosRound_WaitSlingCrew>
 </LanguageData>

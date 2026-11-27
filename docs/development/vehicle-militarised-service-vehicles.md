@@ -395,7 +395,7 @@ only** [O]; **extra mounts from GTek's MaxxPro and Frontline Workshop** [O] (the
 - **Pop smoke when hit:** a comp D'thorga Framework gives any vehicle whose turrets or tree carry a turret marked
   `PhobosSmokeDischargerExtension`, listening to Vehicle Framework's "damage taken" (raised under Combat Extended too). **The event carries no
   attacker, so "hit" means hit while enemies are an active threat to its faction on the map** [A]. Not again for 10 seconds [A]. The
-  player's truck needs its switch (on by default [O]); **another faction's pops once a visit, loaded for that salvo** [A], since it carries
+  player's truck needs its switch (on by default [O]); **another faction's pops once a visit, loaded for that salvo** [O: the owner's answer of 27 Nov 2026, "Once a visit"], since it carries
   no chemfuel to reload and Vehicle Framework never fires a fixed turret for the AI.
 - **Not a remote gun:** our remote-gun rule (Framework 0.280.0) held any turret no seat works; a fixed turret fires only on a click or our
   own pop, so the rule now passes it by, and a truck with the station kit still pops smoke with no picture.
@@ -411,7 +411,7 @@ only** [O]; **extra mounts from GTek's MaxxPro and Frontline Workshop** [O] (the
   while everything else aboard fits the truck's own room; **once other cargo spills past that, the locker counts only the rounds in it**, so
   the truck reads as overloaded by what spilled, and the figure's explanation says why. A round is what any fitted turret's ammunition
   allows, as Vehicle Framework itself decides what to bring a turret: steel for our hand-swung guns without Combat Extended (so a gun truck's
-  steel counts as rounds), chemfuel for the dischargers, a gun's ammunition set with Combat Extended. **Its limit:** Vehicle Framework's
+  steel counts as rounds; [O] the owner's answer of 27 Nov 2026, "Yes, as built"), chemfuel for the dischargers, a gun's ammunition set with Combat Extended. **Its limit:** Vehicle Framework's
   load window cannot tell rounds from other cargo, so a load planned past the bed is only refused once aboard [A, the honest limit of one
   cargo figure]. The figure is worked out again when cargo comes or goes on a truck with a locker.
 - **No picture:** the locker sits behind the cab, inside the body; its node borrows the ring's icon until night 16 draws its own.
