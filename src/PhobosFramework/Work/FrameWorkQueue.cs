@@ -149,7 +149,11 @@ public static class PhobosGameEvents
 public sealed class GameComponent_PhobosFrameWork : GameComponent
 {
     /// <summary>Each game, new or loaded, makes one of these: the shared logger's once-only lines open again for it.</summary>
-    public GameComponent_PhobosFrameWork(Game game) => Phobos.Logging.PhobosLog.NewSession();
+    public GameComponent_PhobosFrameWork(Game game)
+    {
+        Phobos.Logging.PhobosLog.NewSession();
+        Debug.GameMeter.NewGame();
+    }
 
     public override void LoadedGame() => PhobosGameEvents.RaiseGameLoaded();
 
@@ -157,5 +161,6 @@ public sealed class GameComponent_PhobosFrameWork : GameComponent
     {
         FrameWorkQueue.Run();
         Logging.GameLogKeeper.Update();
+        Debug.GameMeter.OnFrame();
     }
 }

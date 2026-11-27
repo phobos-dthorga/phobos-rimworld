@@ -210,6 +210,10 @@ a save does not hold, for phobos-modkit's mood report. It runs while the game wr
   test-pass reads the lines from saves, so an event a vehicle saved names the version that recorded it, and evidence older than a
   test row's change is never fresh ([test automation](../test-automation.md)). Nothing runs during play.
 - **`PhobosTiming`**: a dev-mode timing scope, free outside dev mode.
+- **The game's own figures for outside tools** (`GameMeter`, Framework 0.380.0, no setting): a .NET meter, `DThorga.RimWorld`, with
+  ticks and frames (counters, so a tool shows them per second), the worst frame since the last reading, the game speed, spawned
+  pawns and maps. Fed from the framework's per-frame update; Microsoft's dotnet-counters reads it through the runtime's own pipe,
+  and phobos-modkit's `rimworld-perf` asks for it while recording. Nothing is saved; nothing runs for it unless a tool listens.
 - **The patched Defs dump** ("Write every Def with all patches applied at the next start", dev mode): a patch operation of ours
   keeps the game's patched XML document, then writes it to `PhobosPatchedDefs/PatchedDefs.xml` for phobos-modkit's Def tool.
 - **The uninstall sweep** (`CleanupService`): strips every condition a mod's Defs put on pawns, then the player saves and switches
