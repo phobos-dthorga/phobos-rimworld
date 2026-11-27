@@ -48,6 +48,20 @@ Research **local radio** (after Microelectronics basics).
 - **A station built before 0.51.0** may have a wall or a machine where its seat now is: its pane says "Nobody can sit at it". Clear the
   spot or move the station.
 
+### Calling other factions on the radio (from 0.53.0)
+
+- **Select a colonist and right-click a radio station**: you can call every faction whose settlement your radio reaches, each with how
+  good the line is. The colonist sits at the desk; the call takes a channel. The game's comms console still reaches every faction.
+- **On the call**: ask for a **trader caravan** (it comes from that settlement, so a near one arrives sooner than the console's two
+  days), **military aid**, or **check in** for a little goodwill (every 5 days, up to 75).
+- **The line matters**: a **clean** line makes requests cheaper; on a **marginal** line one request in four is misheard, and the goodwill
+  is spent all the same. Raise a mast or use a relay first.
+- **Others listen**: a hostile settlement in reach of your stations may hear you ask for a trader and ambush the caravan. It arrives
+  hurt, or not at all. A setting switches this off.
+- **Allies warn of raids**: with an ally's settlement in reach, raiders heading your way are reported by radio, and the raid comes
+  about three hours later. A setting switches this off.
+- **A first call to a settlement earns its QSL card**, and every call goes in the station's logbook.
+
 ## Talking to aircraft
 
 **Aircraft talk on their own bands**: the civil **air band** (118 to 137 MHz) and **military UHF** (225 to 400 MHz), by AM voice. Your

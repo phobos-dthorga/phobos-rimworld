@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Calling another faction on the radio from a station's desk (Radio 0.53.0; docs/development/radio-comms-console.md, shape S2, the
+       owner's cards of 27 Nov 2026). The game's comms console is untouched. -->
+  <JobDef>
+    <defName>PhobosRadio_CallFaction</defName>
+    <driverClass>Phobos.Radio.Work.JobDriver_PhobosCallFaction</driverClass>
+    <reportString>calling another faction on the radio.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <!-- A check-in's goodwill, named in the faction's goodwill history. -->
+  <HistoryEventDef>
+    <defName>PhobosRadio_CheckedInByRadio</defName>
+    <label>checked in by radio</label>
+  </HistoryEventDef>
+</Defs>

@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.52.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.53.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -82,6 +82,9 @@ figures are here.
 - **The station logbook (0.38.0)**: a Log tab on the station with radio friends, settlements in reach, every call, and QSL cards
   drawn in each faction's colours; awards for sets of cards lift the mood of those who work the radio
   ([the guide](../../docs/player-guide/radio.md#the-logbook-and-qsl-cards)).
+- **Calling other factions on the radio (0.53.0)**: right-click a radio station with a colonist selected to call a faction your radio
+  reaches: a trader caravan (sooner from a near settlement, cheaper on a clean line), military aid, or a check-in. A marginal line can
+  mishear; hostile listeners may ambush the trader. Allies in reach warn of raids. **Two settings, both on.** The console is untouched.
 - **Seats at the radio (0.51.0)**: the base station has a seat in front of it and the terminal two; put a chair there. **A station built
   earlier may have something standing on its new seat**: its pane says so; clear the spot or move the station. A call at the desk now
   takes a channel, as a hand-held does.

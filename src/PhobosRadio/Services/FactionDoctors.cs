@@ -260,7 +260,7 @@ public static class FactionDoctors
     }
 
     /// <summary>A settlement's radio as the end of a search: the rules' settlement radio on its tile, its site lifted by the tile's hills.</summary>
-    private static RelayNode? EndOf(Settlement settlement)
+    internal static RelayNode? EndOf(Settlement settlement)
     {
         radioUnit ??= ThingMaker.MakeThing(RadioAdviceDefOf.PhobosRadio_SettlementRadio);
         if (radioUnit.TryGetComp<CompRadio>() is not { } radio) return null;

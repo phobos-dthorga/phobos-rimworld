@@ -23,6 +23,36 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.53.0] - 2026-11-27 - Draft
+
+Call other factions on the radio
+
+### Added
+
+- **Call another faction from the radio desk** (the owner's cards of 27 November 2026). Select a colonist and right-click a radio
+  station: every faction whose settlement your radio reaches can be called. The colonist takes a seat and a channel. Over the call you
+  can ask for a trader caravan, military aid, or check in. The game's comms console still reaches everyone, as before. Not yet tested in
+  game: row 725.
+- **What the radio gives**: a trader caravan comes from the settlement in reach, so a near one arrives sooner than the console's two days;
+  a clean line costs less goodwill (10 for a caravan, 20 for aid, against the console's 15 and 25); a check-in earns 2 goodwill, every
+  5 days for each faction, up to 75; the first call to a settlement earns its QSL card.
+- **What it costs**: on a marginal line one request in four is misheard, the goodwill spent all the same (row 726). A hostile settlement
+  that hears your stations may ambush a trader caravan you asked for: it arrives hurt, or not at all (row 727).
+- **Allies warn of raids**: when raiders head for a colony and an ally's settlement is in radio reach, the ally calls, and the raid comes
+  three hours later (row 728).
+
+### Settings
+
+- **Allies warn of raids by radio** (Radio Framework, the radio's settings): on by default.
+- **Hostile listeners can ambush a trader you ask for**: on by default.
+
+### Compatibility and limits
+
+- The raid warning is the radio's first Harmony patch, a prefix on the storyteller's firing of an incident, beside Vanilla Expanded
+  Framework's: a raid held back is queued a few hours later and then fires through every other mod's patches as any raid does. A raid a
+  quest or the dev tools start is never held. Any ally in reach warns, wherever the raiders come from. A requested caravan's travel time is
+  an estimate, and never longer than the console's. Every figure is an agent default. Safe with a running save.
+
 ## [0.52.0] - 2026-11-27 - Draft
 
 No Comms system on submarines

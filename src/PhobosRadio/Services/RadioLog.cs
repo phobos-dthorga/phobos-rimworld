@@ -23,6 +23,8 @@ public enum RadioLogKind
     Medevac,
     Qsl,
     Award,
+    /// <summary>A call to another faction, or an ally's warning (Radio 0.53.0).</summary>
+    Diplomacy,
 }
 
 /// <summary>One line of the logbook: when, what kind, and the words as they were said then.</summary>

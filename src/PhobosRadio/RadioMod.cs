@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using HarmonyLib;
+using Phobos.Shared;
 using UnityEngine;
 using Verse;
 
@@ -42,6 +44,18 @@ public class RadioSettings : ModSettings
     public bool relayMastLosses;
 
     /// <summary>
+    /// Whether an ally whose settlement the colony's stations reach warns of a raid by radio, holding it back a few hours (Radio 0.53.0; the
+    /// owner's card of 27 Nov 2026, "Raid warning"). A benefit with no risk: on by default.
+    /// </summary>
+    public bool alliesWarnOfRaids = true;
+
+    /// <summary>
+    /// Whether a hostile settlement that hears a trader caravan asked for by radio may ambush it on its way (Radio 0.53.0; the owner's card of
+    /// 27 Nov 2026, "Ambush the trader"). A moderate risk (goodwill spent, a trade lost, no colonist at stake): on by default.
+    /// </summary>
+    public bool listenersAmbushTraders = true;
+
+    /// <summary>
     /// Whether a jammer's noise reaches radios (Radio 0.45.0; docs/development/electronic-warfare.md, EW1): links fail by physics near a
     /// jammer, ours included. A moderate risk (the agent's grade: a link lost at a bad moment, shown on the link sheet beforehand), so on
     /// by default. Off, jammers still blind radar as before.
@@ -61,6 +75,8 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref factionAdvice, "factionAdvice", true);
         Scribe_Values.Look(ref neighbourCalls, "neighbourCalls", true);
         Scribe_Values.Look(ref relayMastLosses, "relayMastLosses", false);
+        Scribe_Values.Look(ref alliesWarnOfRaids, "alliesWarnOfRaids", true);
+        Scribe_Values.Look(ref listenersAmbushTraders, "listenersAmbushTraders", true);
         Scribe_Values.Look(ref jammingReachesRadios, "jammingReachesRadios", true);
     }
 }
@@ -75,6 +91,8 @@ public class RadioMod : Mod
     public RadioMod(ModContentPack content) : base(content)
     {
         Settings = GetSettings<RadioSettings>();
+        // Radio 0.53.0: the radio's own patches (the raid warning), each switched off by itself if its target is gone.
+        HarmonyPatchApplier.ApplyEach(new Harmony(content.PackageId), typeof(RadioMod).Assembly, "[D'thorga Radio Framework]");
     }
 
     public override string SettingsCategory() => "PhobosRadio_SettingsCategory".Translate();
@@ -127,6 +145,13 @@ public class RadioMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingRelayMastLosses".Translate(), ref Settings.relayMastLosses,
             "PhobosRadio_SettingRelayMastLossesDesc".Translate());
+        // Radio 0.53.0: calling other factions by radio.
+        listing.Gap();
+        listing.CheckboxLabeled("PhobosRadio_SettingAlliesWarnOfRaids".Translate(), ref Settings.alliesWarnOfRaids,
+            "PhobosRadio_SettingAlliesWarnOfRaidsDesc".Translate());
+        listing.Gap();
+        listing.CheckboxLabeled("PhobosRadio_SettingListenersAmbushTraders".Translate(), ref Settings.listenersAmbushTraders,
+            "PhobosRadio_SettingListenersAmbushTradersDesc".Translate());
         // Radio 0.45.0: a jammer's noise drowns radios nearby, on until turned off.
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingJammingReachesRadios".Translate(), ref Settings.jammingReachesRadios,

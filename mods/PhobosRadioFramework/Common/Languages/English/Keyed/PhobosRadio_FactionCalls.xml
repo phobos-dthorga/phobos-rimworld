@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Calling another faction on the radio (Radio 0.53.0). -->
+  <PhobosRadioCall_MenuCall>Call {FACTION} at {SETTLEMENT} on the radio (a {LINE} line)</PhobosRadioCall_MenuCall>
+  <PhobosRadioCall_MenuNone>No faction in radio reach to call</PhobosRadioCall_MenuNone>
+  <PhobosRadioCall_NoSeat>every seat is taken</PhobosRadioCall_NoSeat>
+  <PhobosRadioCall_NoChannel>every channel is in use</PhobosRadioCall_NoChannel>
+  <PhobosRadioCall_CannotTalk>{PAWN} cannot talk</PhobosRadioCall_CannotTalk>
+  <PhobosRadioCall_LostTouch>{PAWN} could not raise {FACTION}: they are out of radio reach now.</PhobosRadioCall_LostTouch>
+
+  <PhobosRadioCall_Greeting>{SETTLEMENT} of {FACTION} answers on the radio. The line is {LINE}.</PhobosRadioCall_Greeting>
+  <PhobosRadioCall_MarginalWarning>It is a poor line: a request may be misheard (about {CHANCE} of the time), the goodwill spent all the same.</PhobosRadioCall_MarginalWarning>
+  <PhobosRadioCall_CleanLine>It is a clean line: requests cost a little less than over the comms console.</PhobosRadioCall_CleanLine>
+  <PhobosRadioCall_Trader>Request a trader caravan from here (cost: {GOODWILL} goodwill; about {TIME} on the way)</PhobosRadioCall_Trader>
+  <PhobosRadioCall_TitleNeeded>needs the title {TITLE}</PhobosRadioCall_TitleNeeded>
+  <PhobosRadioCall_AidTooFar>{FACTION} cannot get anyone to you in time</PhobosRadioCall_AidTooFar>
+  <PhobosRadioCall_CheckIn>Check in and pass the time of day (+{GOODWILL} goodwill)</PhobosRadioCall_CheckIn>
+  <PhobosRadioCall_CheckInFriends>you are already the best of friends with {FACTION}</PhobosRadioCall_CheckInFriends>
+
+  <PhobosRadioCall_TraderSent>{FACTION} will send a caravan from {SETTLEMENT}. It should arrive in about {TIME}.</PhobosRadioCall_TraderSent>
+  <PhobosRadioCall_AidSent>{FACTION} is sending fighters.</PhobosRadioCall_AidSent>
+  <PhobosRadioCall_CheckedIn>A friendly word with {FACTION}: goodwill +{GOODWILL}.</PhobosRadioCall_CheckedIn>
+  <PhobosRadioCall_Misheard>The line breaks up. {FACTION} heard only part of it and nothing will come of it; the goodwill is spent all the same.</PhobosRadioCall_Misheard>
+
+  <PhobosRadioCall_AmbushLostLabel>Caravan ambushed</PhobosRadioCall_AmbushLostLabel>
+  <PhobosRadioCall_AmbushLost>The trader caravan {FACTION} sent was ambushed on its way by {AMBUSHERS}, who had heard it asked for on the radio. It will not come, and the goodwill is spent.</PhobosRadioCall_AmbushLost>
+  <PhobosRadioCall_AmbushHurtLabel>Caravan arrives hurt</PhobosRadioCall_AmbushHurtLabel>
+  <PhobosRadioCall_AmbushHurt>The trader caravan {FACTION} sent was ambushed on its way by {AMBUSHERS}, who had heard it asked for on the radio. They fought their way through and have arrived, hurt.</PhobosRadioCall_AmbushHurt>
+
+  <PhobosRadioNews_RaidWarningLabel>Raid warning by radio</PhobosRadioNews_RaidWarningLabel>
+  <PhobosRadioNews_RaidWarning>{FACTION} calls from {SETTLEMENT}: raiders are heading for {COLONY}. They should arrive in about {TIME}. Get ready.</PhobosRadioNews_RaidWarning>
+
+  <PhobosRadioLog_FactionCall>{COLONIST} called {FACTION} at {SETTLEMENT}.</PhobosRadioLog_FactionCall>
+
+  <PhobosRadio_SettingAlliesWarnOfRaids>Allies warn of raids by radio</PhobosRadio_SettingAlliesWarnOfRaids>
+  <PhobosRadio_SettingAlliesWarnOfRaidsDesc>When raiders head for your colony and an ally's settlement is in reach of your radio stations, the ally calls to warn you, and the raid arrives a few hours later.</PhobosRadio_SettingAlliesWarnOfRaidsDesc>
+  <PhobosRadio_SettingListenersAmbushTraders>Hostile listeners can ambush a trader you ask for</PhobosRadio_SettingListenersAmbushTraders>
+  <PhobosRadio_SettingListenersAmbushTradersDesc>A hostile settlement in reach of your radio stations may hear you ask for a trader caravan by radio and ambush it on its way: it arrives hurt, or not at all, with the goodwill spent.</PhobosRadio_SettingListenersAmbushTradersDesc>
+</LanguageData>

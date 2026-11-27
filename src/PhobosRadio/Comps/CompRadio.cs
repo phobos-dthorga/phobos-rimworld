@@ -178,6 +178,14 @@ public class CompRadio : ThingComp
         if (Props.isStation) RadioUpgrades.Notice(parent, signal);
     }
 
+    /// <summary>A station's right-click options for a colonist (Radio 0.53.0): calling another faction on the radio.</summary>
+    public override IEnumerable<FloatMenuOption> CompFloatMenuOptions(Pawn selPawn)
+    {
+        foreach (FloatMenuOption option in base.CompFloatMenuOptions(selPawn)) yield return option;
+        if (!Props.isStation || !parent.Spawned || parent.Faction != Faction.OfPlayer) yield break;
+        foreach (FloatMenuOption option in Work.CallFactionMenu.For(parent, selPawn)) yield return option;
+    }
+
     /// <summary>While a station is selected, the map shows its coverage (Radio 0.2.0); the picture's own service does the work.</summary>
     public override void PostDrawExtraSelectionOverlays()
     {

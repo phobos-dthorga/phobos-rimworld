@@ -49,6 +49,22 @@
          these bound its cost: real time per frame, the quick first pass's block size. All authored; measure and tune. -->
     <coverageFullScaleDb>130</coverageFullScaleDb>
     <coverageBudgetMsPerFrame>1.5</coverageBudgetMsPerFrame>
+    <!-- Calling other factions by radio (Radio 0.53.0; docs/development/radio-comms-console.md): the owner chose the benefits and downsides
+         by card; every figure is authored, an agent default. A clean line's goodwill against the console's 15 and 25; one request in four
+         misheard on a marginal line (the owner's card); a check-in's goodwill, days apart, and the goodwill it stops at; each hostile
+         listener's chance to ambush a requested trader, and the share of ambushes it is lost in; an ally's raid warning, in hours; the
+         factor on a walking caravan's pace for the ground. -->
+    <radioTraderGoodwillClean>10</radioTraderGoodwillClean>
+    <radioAidGoodwillClean>20</radioAidGoodwillClean>
+    <radioMishearChance>0.25</radioMishearChance>
+    <radioCheckInGoodwill>2</radioCheckInGoodwill>
+    <radioCheckInDays>5</radioCheckInDays>
+    <radioCheckInGoodwillCap>75</radioCheckInGoodwillCap>
+    <radioCheckInSocialXp>200</radioCheckInSocialXp>
+    <radioListenerAmbushChance>0.25</radioListenerAmbushChance>
+    <radioAmbushLostShare>0.5</radioAmbushLostShare>
+    <radioRaidWarningHours>3</radioRaidWarningHours>
+    <radioTraderTravelFactor>1.5</radioTraderTravelFactor>
     <!-- Radio 0.44.1: the last picture shown finishes its pass after it is deselected, at this smaller budget a frame. -->
     <coverageBackgroundBudgetMsPerFrame>0.5</coverageBackgroundBudgetMsPerFrame>
     <coverageCoarseBlockCells>4</coverageCoarseBlockCells>

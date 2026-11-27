@@ -1,7 +1,7 @@
 # The radio as the comms console (27 Nov 2026)
 
-**Status (27 Nov 2026):** a design record; nothing is built. The owner asked for it to be recorded first, and for it to bring benefits
-of its own, and downsides, before anything is built.
+**Status (27 Nov 2026):** shape S2 is built in Radio Framework 0.53.0 (rows 725 to 728), not yet tested in game, with the benefits and
+downsides the owner chose ([as built](#as-built-radio-framework-0530)). S3, the console needing reach, waits for HF, as the owner chose.
 
 ## Read this first
 
@@ -96,6 +96,58 @@ To be put as cards when the owner reads this:
 1. **Which shape**: S2 now and S3 with HF (the agent's lean); S1; S3 only, with HF; nothing until HF.
 2. **Which benefits** (several may be chosen): B1 to B6.
 3. **Which downsides to keep as rules**, where a shape allows a choice (D2 and D3 come with the radio anyway).
+
+## The owner's answers (27 Nov 2026)
+
+Each card as put, the chosen option first and marked.
+
+| # | Card | Chosen | Not chosen |
+| --- | --- | --- | --- |
+| 1 | Which shape | **S2 now, S3 with HF** (the agent's lean) | S1, a second console. S3 only, with HF. Nothing until HF |
+| 2 | Which benefits (several could be chosen) | **B1 sooner help, B2 cheaper on a clean line, B4 news from neighbours, B5 check-ins** (B3 and B6 come with any shape) | None left out |
+| 3 | Which downsides besides the radio's own | **Both: a marginal line can mishear, and others can listen**, and the owner's words: "We could possibly solve the latter with encryption down the line. Here on Earth, that's not allowed on the amateur bands but on Rimworld, it's a lawless place, largely. Actually, that itself could maybe bring its own trouble, if you choose to use encryption." | Only the radio's own (the agent's lean) |
+| 4 | B4, how news comes | **A raid warning**: the raid held back a few hours (the agent's lean) | Who's coming: information only, when the raid arrives. Traders and visitors: allies tell of them |
+| 5 | What a hostile listener does | **Ambushes the requested trader**: it arrives hurt or not at all; moderate risk, on by default (the agent's lean) | Raids you sooner: high risk, off by default. Note it for later, for direction finding |
+| 6 | How often a marginal line mishears | **One in four** (the agent's lean) | One in two. No requests at all on a marginal line |
+| 7 | Encryption | **Record it for later** (the agent's lean) | Design it with this slice. Not at all |
+
+## As built (Radio Framework 0.53.0)
+
+| Piece | Where |
+| --- | --- |
+| The call menu on a station, for a selected colonist, refused with its reason | `CompRadio.CompFloatMenuOptions`, `Work/CallFaction.cs` (`CallFactionMenu`) |
+| The call: a seat and a channel, then the game's negotiation window | `JobDriver_PhobosCallFaction`, `UI/RadioCallDialog.cs` |
+| The requests, their prices, mishearing, check-ins, listeners and ambushes | `Services/RadioDiplomacy.cs`; caravans on their way and check-in times are saved in `GameComponent_PhobosRadioDiplomacy` |
+| The raid warning, and the radio's first Harmony patch | `Services/RadioNews.cs`: a prefix on `Storyteller.TryFire` |
+| The figures | `RadioRulesDef`, the block "Calling other factions by radio" |
+| Seen in play | `radio.faction-call` (725), `radio.call-misheard` (726), `radio.trader-ambushed` (727), `radio.raid-warning` (728), `radio.trader-arrived` (725) |
+
+- **Which factions** [A]: those whose settlement the colony's stations reach, through relays (`FactionDoctors.ReachToTalk`, kept a game
+  hour), and who talk on the radio (industrial or better, not hostile). The console still reaches all.
+- **The game's conditions and cooldowns are shared** with the console: an ally only, the season's temperature, a trader every 4 days,
+  aid every day, no aid while their enemies visit. A request by radio and one by console cannot both be made.
+- **B1** [A]: the caravan's time is the settlement's distance in tiles at a walking caravan's pace (the game's 3,300 ticks a tile), times
+  1.5 for the ground, at least an hour, never more than the console's two days. An estimate: the path is not walked.
+- **B2** [A]: 10 goodwill for a caravan and 20 for aid over a clean line, the console's 15 and 25 otherwise.
+- **B4** [O, A]: the storyteller's raid on a colony with an ally in reach is queued three hours later [A], with a letter. Any ally in reach
+  warns [A]; the raiders' path is not worked out. A raid a quest or the dev tools start, or one already queued, is never held.
+  **Why the patch skips the original** (the code rules ask for the reason): the game has no other point at which a raid can be held
+  without firing it; the held raid fires later through every other mod's patches, as any raid does. Vanilla Expanded Framework's prefix
+  on the same method runs first; when it has skipped the incident, this does nothing.
+- **B5** [A]: +2 goodwill, every 5 days for each faction, none above 75, and 200 Social experience for the caller.
+- **B6**: the first call to a settlement earns its QSL card, as a neighbour's call does.
+- **Mishearing** [O]: one in four on a marginal line; the goodwill is spent and the cooldown is not.
+- **Listeners** [O, A]: each hostile faction with a settlement within the rules' 100 tiles that hears one of the stations directly, at
+  least faintly, adds a one-in-four chance [A] that a requested caravan is ambushed; ambushed, it is lost or arrives hurt, half and half
+  [A]. Hurt: about half its people take a cut or two [A]. Setting "Hostile listeners can ambush a trader you ask for", on by default.
+
+## Encryption, for later [O, recorded]
+
+The owner's idea, recorded for a later slice, not built: an **encryption fitting** for stations and vehicles, so a listener hears a call
+but cannot understand it, and the ambush above cannot follow from it. On Earth it is not allowed on the amateur bands; on the Rim it is
+the colony's choice. **Its own trouble** [A, to be designed with it]: a faction that hears encrypted traffic distrusts it (a little
+goodwill lost with those that hear it), and a hostile that hears it takes the colony for a military station and takes more interest in
+it. It ties to direction finding (EW15, "we can be found too") in [electronic warfare](electronic-warfare.md).
 
 ## Sources
 

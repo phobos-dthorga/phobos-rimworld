@@ -220,6 +220,28 @@ public class RadioRulesDef : Def
     /// </summary>
     public bool terrainBlocksBetweenTiles = true;
 
+    // Calling other factions by radio (Radio 0.53.0; docs/development/radio-comms-console.md). The owner chose the benefits and the
+    // downsides by card on 27 Nov 2026; every figure here is the agent's, for the owner to revise.
+    /// <summary>A trader caravan asked for over a clean line costs this much goodwill (B2), where the console takes 15.</summary>
+    public float radioTraderGoodwillClean = 10f;
+    /// <summary>Military aid asked for over a clean line costs this much goodwill (B2), where the console takes 25.</summary>
+    public float radioAidGoodwillClean = 20f;
+    /// <summary>The chance a request over a marginal line is misheard, the goodwill spent (the owner's card: one in four).</summary>
+    public float radioMishearChance = 0.25f;
+    /// <summary>A check-in's goodwill (B5), how often one faction can be checked in with, in days, and the goodwill above which it adds none.</summary>
+    public int radioCheckInGoodwill = 2;
+    public float radioCheckInDays = 5f;
+    public int radioCheckInGoodwillCap = 75;
+    /// <summary>The Social experience a check-in gives the one who called.</summary>
+    public float radioCheckInSocialXp = 200f;
+    /// <summary>The chance each hostile listener ambushes a trader caravan asked for by radio, and the share of ambushes it is lost in.</summary>
+    public float radioListenerAmbushChance = 0.25f;
+    public float radioAmbushLostShare = 0.5f;
+    /// <summary>How many game hours an ally's warning holds a raid back (B4).</summary>
+    public float radioRaidWarningHours = 3f;
+    /// <summary>A walking caravan's ticks a tile are multiplied by this for the ground (B1): an approximation, the path not walked.</summary>
+    public float radioTraderTravelFactor = 1.5f;
+
     // The cover picture on the world map (Radio 0.42.0). Performance is the mod's first concern: these bound what it costs. All authored.
     /// <summary>The most real time the world picture spends working out tiles in one frame, in milliseconds.</summary>
     public float worldCoverBudgetMsPerFrame = 1.5f;

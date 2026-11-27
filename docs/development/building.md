@@ -57,13 +57,13 @@ Generated from the project files by `python scripts/doc-tables.py --write`: chan
 | `PhobosPatches.RimPacts` | `mods/PhobosPatches/Mods/RimPacts/` | `PhobosFramework` | none | yes | `PhobosPatches.Rules.Tests` |
 | `PhobosPatches.VehicleFramework` | `mods/PhobosPatches/Mods/VehicleFramework/` | `PhobosFramework` | `Vehicles`, `SmashTools` | yes | `PhobosPatches.Rules.Tests` |
 | `PhobosPatches.VisitSettlements` | `mods/PhobosPatches/Mods/VisitSettlements/` | `PhobosFramework` | none | yes | `PhobosPatches.Rules.Tests` |
-| `PhobosRadio` | `mods/PhobosRadioFramework/` | `PhobosFramework` | `PipeSystem`, `Outposts` | no | `PhobosRadio.Physics.Tests` |
+| `PhobosRadio` | `mods/PhobosRadioFramework/` | `PhobosFramework` | `PipeSystem`, `Outposts` | yes | `PhobosRadio.Physics.Tests` |
 | `PhobosRadio.CombatExtended` | `mods/PhobosRadioFramework/Mods/CombatExtended/` | `PhobosRadio`, `PhobosFramework` | `CombatExtended` | no | none |
 | `PhobosRadio.DeadMansSwitch` | `mods/PhobosRadioFramework/Mods/DeadMansSwitch/` | `PhobosRadio`, `PhobosFramework` | `DMS`, `Fortified` | yes | none |
 | `PhobosRadio.Vehicles` | `mods/PhobosRadioFramework/Mods/VehicleFramework/` | `PhobosRadio`, `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `SmashTools` | no | none |
 | `PhobosWaterTap` | `mods/PhobosWaterTap/` | `PhobosFramework.Hygiene` | `BadHygiene` | no | `PhobosWaterTap.Rules.Tests` |
 
-33 projects (25 using Harmony) and 7 test projects. Read from each project file as written: MSBuild is not run, so a value set only in `Directory.Build.props` or `Directory.Build.targets` is not shown. Harmony: its own C# files have `using HarmonyLib` or a `[HarmonyPatch]`. Test projects: those that reference the project or compile its files.
+33 projects (26 using Harmony) and 7 test projects. Read from each project file as written: MSBuild is not run, so a value set only in `Directory.Build.props` or `Directory.Build.targets` is not shown. Harmony: its own C# files have `using HarmonyLib` or a `[HarmonyPatch]`. Test projects: those that reference the project or compile its files.
 <!-- end generated -->
 
 What the table cannot read from the files, kept by hand:
@@ -145,9 +145,10 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.RimPacts` | 0 | 0 | 1 | 0 |
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
+| `PhobosRadio` | 1 | 0 | 0 | 0 |
 | `PhobosRadio.DeadMansSwitch` | 1 | 0 | 0 | 0 |
 
-204 patched methods named in attributes, 27 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+205 patched methods named in attributes, 27 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -507,6 +508,14 @@ Every HarmonyPatch attribute was read.
 | `VehiclePawn.DeSpawn` | prefix | `VehicleFrameworkPatchesMod.cs` |
 | `VehiclePawn.TickRare` | postfix | `VehicleFrameworkPatchesMod.cs` |
 | `VehicleTurret.ResolveGraphics` | prefix | `TurretGraphicWhileLoading.cs` |
+
+</details>
+
+<details><summary><code>PhobosRadio</code>: 1 patched method</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosRadio/`) |
+| --- | --- | --- |
+| `Storyteller.TryFire` | prefix | `Services/RadioNews.cs` |
 
 </details>
 
