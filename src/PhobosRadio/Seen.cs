@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Phobos.Framework.Debug;
 using Verse;
 
@@ -15,11 +16,13 @@ public static class Seen
     /// <summary>Whether this note would be written now: check it before building a note's text at the call.</summary>
     public static bool Wants(string key, Thing? on = null, string? variant = null) => SeenInPlay.Wants(key, variant, on);
 
-    /// <summary>Notes a feature seen working, with what it was seen on and which case it was.</summary>
-    public static void Note(string key, Thing? on = null, string? what = null, string? variant = null)
+    /// <summary>Notes a feature seen working, with what it was seen on, which case it was, and (Radio 0.56.0) any figures a test row
+    /// expects, as the vehicles' helper does.</summary>
+    public static void Note(string key, Thing? on = null, string? what = null, string? variant = null,
+        IReadOnlyList<KeyValuePair<string, double>>? values = null)
     {
         if (!SeenInPlay.Wants(key, variant, on)) return;
         var detail = on == null ? what : what == null ? on.LabelShort : on.LabelShort + ": " + what;
-        SeenInPlay.Note(Mod, typeof(Seen).Assembly.GetName().Version?.ToString(3) ?? "?", key, detail, on, variant);
+        SeenInPlay.Note(Mod, typeof(Seen).Assembly.GetName().Version?.ToString(3) ?? "?", key, detail, on, variant, values);
     }
 }

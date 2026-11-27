@@ -29,6 +29,16 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.56.0] - 2026-11-28 - Draft
+
+A lesson in person at the full rate
+
+### Changed
+
+- **A lesson in person counts at the full lesson rate** (the owner's answer of 28 November 2026): a teacher sitting beside the child at the
+  radio terminal now teaches at the game's own lesson rate, face to face, a third faster than a lesson over the radio. Not yet tested in
+  game: row 722.
+
 ## [0.55.0] - 2026-11-28 - Draft
 
 A setup wizard page

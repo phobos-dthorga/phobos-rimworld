@@ -281,8 +281,9 @@ Card 4 is its own record: [the radio as the comms console](radio-comms-console.m
   serves it as one use of the local voice kind at that station only, after the radios already counted. A call the station has no room
   for is busy, and its colonist hangs up with a message (checked every 250 ticks). Vehicle control still pre-empts talk.
 - **A lesson in person** [O, the owner's words]: a teacher on the map sits beside the child at the child's desk when it has a seat free
-  for each of them (`RadioSchool.FindTeacher`), and neither takes a channel. **The lesson's rate stays the radio's** [A]: an open
-  question in `config/decisions.json`.
+  for each of them (`RadioSchool.FindTeacher`), and neither takes a channel. **The lesson counts at the game's full lesson rate** [O,
+  the Decisions page, 28 Nov 2026, "The full lesson rate", over "The radio's rate"]: built in Radio 0.56.0 as the rules' figure
+  `schoolInPersonFactor`, 1, beside the radio's 0.75; not yet tested in game (row 722).
 - **A seat something stands on** (a station built earlier, with a wall or a machine where a colonist now sits) is named in the
   station's pane; a desk whose seats are all blocked is passed over.
 - **A desk of another mod's with no spots** is worked standing beside it, as before.

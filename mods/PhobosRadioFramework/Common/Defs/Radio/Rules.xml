@@ -108,6 +108,9 @@
     <friendGoodwillPerQuadrum>3</friendGoodwillPerQuadrum>
     <!-- School of the Air (Radio 0.31.0): a lesson by radio at three quarters of the game's lesson rate. An agent default, authored. -->
     <schoolLessonFactor>0.75</schoolLessonFactor>
+    <!-- Radio 0.56.0 (the owner's answer of 28 Nov 2026, "The full lesson rate"): a teacher beside the child at the desk teaches at the game's own
+         lesson rate, face to face. -->
+    <schoolInPersonFactor>1</schoolInPersonFactor>
     <!-- Neighbours ask for yours (Radio 0.32.0). The goodwill is the owner's card of 27 Nov 2026; the rest are agent defaults, authored:
          about once a fortnight, a colonist with Medicine or Construction 6 or more, an hour on the radio, a request that waits 6 hours. -->
     <neighbourMtbDays>15</neighbourMtbDays>

@@ -395,6 +395,9 @@ public class RadioRulesDef : Def
     /// <summary>School of the Air (Radio 0.31.0): a radio lesson teaches at this share of the game's lesson rate, not being face to face
     /// (agent default, authored).</summary>
     public float schoolLessonFactor = 0.75f;
+    /// <summary>A lesson with the teacher beside the child at the desk (Radio 0.56.0; the owner's answer of 28 Nov 2026, "The full lesson rate"):
+    /// the game's own lesson rate, face to face.</summary>
+    public float schoolInPersonFactor = 1f;
 
     // Neighbours ask for yours (Radio 0.32.0; the owner's card of 27 Nov 2026: "Goodwill, now and then"). The goodwill is the card's figure;
     // the rest are agent defaults, authored.

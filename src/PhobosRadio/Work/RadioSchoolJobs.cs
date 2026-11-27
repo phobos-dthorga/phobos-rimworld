@@ -76,7 +76,8 @@ public class JobDriver_PhobosRadioSchool : JobDriver, IRadioDeskCall
         yield return learn;
     }
 
-    /// <summary>A tick of the lesson, when a teacher is on the radio: the game's lesson, at the rules' share by radio.</summary>
+    /// <summary>A tick of the lesson, when a teacher is on the radio: the game's lesson, at the rules' share by radio, or at the in-person
+    /// share when the teacher sits beside the child (Radio 0.56.0; the owner's answer of 28 Nov 2026: the full lesson rate).</summary>
     private void Lesson(int delta)
     {
         if (RadioSchool.TeacherOf(pawn) is not { } teacher) return;
@@ -88,7 +89,10 @@ public class JobDriver_PhobosRadioSchool : JobDriver, IRadioDeskCall
         if (teacher.Spawned && teacher.jobs?.curDriver is JobDriver_PhobosTeachByRadio { Talking: false }) return;
         taughtSkill ??= RadioSchool.ChooseSkill(teacher, pawn);
         if (taughtSkill == null) return;
-        float perTick = (LearningDesireDefOf.Lessontaking?.xpPerTick ?? 0.25f) * RadioRulesDef.Current.schoolLessonFactor * LearningUtility.LearningRateFactor(pawn);
+        bool inPerson = job.targetA.Thing is { } seat && RadioSchool.Together(teacher, pawn, seat);
+        RadioRulesDef rules = RadioRulesDef.Current;
+        float perTick = (LearningDesireDefOf.Lessontaking?.xpPerTick ?? 0.25f) * (inPerson ? rules.schoolInPersonFactor : rules.schoolLessonFactor)
+            * LearningUtility.LearningRateFactor(pawn);
         pawn.skills?.Learn(taughtSkill, perTick * delta);
         teacher.skills?.Learn(SkillDefOf.Social, 0.1f * delta);
         sinceThoughts += delta;
@@ -97,11 +101,15 @@ public class JobDriver_PhobosRadioSchool : JobDriver, IRadioDeskCall
         teacher.needs?.mood?.thoughts?.memories?.TryGainMemory(ThoughtDefOf.GaveLesson, pawn);
         pawn.needs?.mood?.thoughts?.memories?.TryGainMemory(ThoughtDefOf.WasTaught, teacher);
         string variant = teacher.Spawned ? "map" : "convoy";
-        // Radio 0.51.0: side by side at one desk, in person.
-        if (job.targetA.Thing is { } desk && RadioSchool.Together(teacher, pawn, desk))
+        // Radio 0.51.0: side by side at one desk, in person; since 0.56.0 at the in-person rate, noted with it.
+        if (inPerson)
         {
             variant = "in person";
-            if (Seen.Wants("radio.lesson-in-person", pawn)) Seen.Note("radio.lesson-in-person", pawn, teacher.LabelShort + " at " + desk.LabelShort);
+            if (Seen.Wants("radio.lesson-in-person", pawn))
+            {
+                Seen.Note("radio.lesson-in-person", pawn, teacher.LabelShort + " at " + job.targetA.Thing.LabelShort, null,
+                    new[] { new System.Collections.Generic.KeyValuePair<string, double>("rate", (double)rules.schoolInPersonFactor) });
+            }
         }
         if (Seen.Wants("radio.school-lesson", pawn, variant)) Seen.Note("radio.school-lesson", pawn, teacher.LabelShort + ", " + taughtSkill.label, variant);
     }
