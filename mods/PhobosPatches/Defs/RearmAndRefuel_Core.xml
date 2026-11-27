@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Rearm and refuel (Patches 0.46.0; docs/development/rearm-and-refuel-work.md; the owner's choice of 27 Nov 2026). Every rearm, reload
+    and refuel job in the game sits under Hauling, which the game ranks third from last among equal priorities, so in a large colony with
+    full bill queues turrets, vehicles and aircraft waited a long time for ammunition and fuel. This work type offers the same jobs again,
+    ranked just above basic work; each other mod's job joins it from that mod's folder, and only while that mod is active. Hauling keeps
+    every job too. The first time a save runs with it, each colonist starts it at their Hauling priority, and a drone that cannot haul
+    at its Construction priority (D'thorga Framework's PhobosWorkTypeSeedExtension). Not yet tested in game (test row 703).
+  -->
+  <WorkTypeDef>
+    <defName>PhobosRearmRefuel</defName>
+    <labelShort>rearm</labelShort>
+    <pawnLabel>Armourer</pawnLabel>
+    <gerundLabel>rearming and refuelling</gerundLabel>
+    <description>Rearm and reload turrets, vehicles and aircraft, and refuel vehicles and buildings.</description>
+    <verb>Rearm and refuel</verb>
+    <naturalPriority>1160</naturalPriority>
+    <alwaysStartActive>true</alwaysStartActive>
+    <requireCapableColonist>true</requireCapableColonist>
+    <workTags>
+      <li>ManualDumb</li>
+      <li>Hauling</li>
+      <li>Commoner</li>
+      <li>AllWork</li>
+    </workTags>
+    <modExtensions>
+      <li Class="Phobos.Framework.Work.PhobosWorkTypeSeedExtension">
+        <copyPriorityFrom>
+          <li>Hauling</li>
+          <li>Construction</li>
+        </copyPriorityFrom>
+      </li>
+    </modExtensions>
+  </WorkTypeDef>
+
+  <!-- The game's own: turrets rearmed, then buildings refuelled, the same classes as Hauling's RearmTurrets and Refuel. -->
+  <WorkGiverDef>
+    <defName>PhobosRearmRefuel_RearmTurrets</defName>
+    <label>rearm turrets</label>
+    <giverClass>WorkGiver_Refuel_Turret</giverClass>
+    <workType>PhobosRearmRefuel</workType>
+    <verb>rearm</verb>
+    <gerund>rearming</gerund>
+    <priorityInType>98</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+    <canBeDoneWhileDrafted>true</canBeDoneWhileDrafted>
+  </WorkGiverDef>
+
+  <WorkGiverDef>
+    <defName>PhobosRearmRefuel_RefuelBuildings</defName>
+    <label>refuel buildings</label>
+    <giverClass>WorkGiver_Refuel</giverClass>
+    <workType>PhobosRearmRefuel</workType>
+    <verb>refuel</verb>
+    <gerund>refuelling</gerund>
+    <priorityInType>70</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+  </WorkGiverDef>
+
+  <!-- Vanilla Expanded Framework's second fuel (a turret's ammunition store), as its own VEF_RefuelSecondary. -->
+  <WorkGiverDef MayRequire="OskarPotocki.VanillaFactionsExpanded.Core">
+    <defName>PhobosRearmRefuel_RefuelSecondary</defName>
+    <label>refuel ammunition</label>
+    <giverClass>VEF.Buildings.WorkGiver_RefuelSecondary</giverClass>
+    <workType>PhobosRearmRefuel</workType>
+    <verb>refuel</verb>
+    <gerund>refuelling</gerund>
+    <priorityInType>97</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+  </WorkGiverDef>
+</Defs>

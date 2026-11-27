@@ -168,6 +168,13 @@ a save does not hold, for phobos-modkit's mood report. It runs while the game wr
 - **`CombatExtendedAmmo`** and **`SingleUseWeapons`**: Combat Extended's ammunition system and cook-off, and weapons used up when
   fired (by their verbs, never their names), read by name with no Combat Extended assembly.
 
+### Work types new to a save
+
+- **`PhobosWorkTypeSeedExtension`** on a WorkTypeDef (`Work/WorkTypeSeeding.cs`, Framework 0.354.0): the first time a save runs with
+  the work type, each of the player's pawns starts it at its priority for the first listed work type it is able to do (rule
+  `WorkTypeSeedRule`; a source the player switched off keeps it off). Once per save, by `GameComponent_PhobosWorkTypeSeeding`, which
+  keeps only the names done. D'thorga Patches' Rearm and refuel is the first user ([record](../rearm-and-refuel-work.md)).
+
 ### Saves and data
 
 | Helper | What it keeps |

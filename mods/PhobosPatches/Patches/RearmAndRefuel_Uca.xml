@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    The Dead Man's Switch's uca may rearm and refuel (Patches 0.46.0; docs/development/rearm-and-refuel-work.md; the owner's choice of
+    27 Nov 2026): a work drone whose own description is maintaining equipment, which cannot haul, so it never helped keep the guns and
+    tanks full. A mech does only the work types its race lists. Matched by the Def's name, so nothing happens without that mod.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="DMS_Drone_Uca"]/race/mechEnabledWorkTypes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/ThingDef[defName="DMS_Drone_Uca"]/race/mechEnabledWorkTypes</xpath>
+      <value>
+        <li>PhobosRearmRefuel</li>
+      </value>
+    </match>
+  </Operation>
+</Patch>

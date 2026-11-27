@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Vehicle Framework's refuelling and turret loading under Rearm and refuel as well as Hauling (Patches 0.46.0; docs/development/rearm-and-refuel-work.md): the same
+       class as its own RefuelVehicle and PackVehicleTurret, offered again so that armourers and drones keep vehicles fuelled and their guns loaded without waiting on the haulers. -->
+  <WorkGiverDef>
+    <defName>PhobosRearmRefuel_LoadVehicleTurrets</defName>
+    <label>load vehicle turrets</label>
+    <giverClass>Vehicles.WorkGiver_RefuelVehicleTurret</giverClass>
+    <workType>PhobosRearmRefuel</workType>
+    <verb>load ammunition into</verb>
+    <gerund>loading ammunition into</gerund>
+    <priorityInType>90</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+  <WorkGiverDef>
+    <defName>PhobosRearmRefuel_RefuelVehicles</defName>
+    <label>refuel vehicles</label>
+    <giverClass>Vehicles.WorkGiver_RefuelVehicle</giverClass>
+    <workType>PhobosRearmRefuel</workType>
+    <verb>refuel</verb>
+    <gerund>refuelling</gerund>
+    <priorityInType>80</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+</Defs>

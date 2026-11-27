@@ -21,6 +21,24 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.46.0] - 2026-11-27 - Draft
+
+Rearm and refuel, a work type of its own
+
+### Added
+
+- **Rearm and refuel, a work type of its own**: every rearm, reload and refuel job (the game's turrets and fuelled buildings, Combat
+  Extended's turrets and ammo containers, Vehicle Framework's refuelling and turret loading, Vanilla Expanded Framework's second
+  fuel, and the Harrier's, A-10's and Su-25's, Prowler's, Hind's and Mongoose's rearming and bomb parts) is offered under it as well
+  as under Hauling, ranked just above basic work. Hauling comes third from last when priorities are equal, so in a busy colony guns
+  and tanks stayed empty. Each mod's jobs join only while that mod is on. Not yet tested in game (test row 703).
+- **The Dead Man's Switch's ucas may rearm and refuel**, the owner's choice: drones built for maintaining equipment that cannot haul.
+
+### Save compatibility
+
+- **Safe to add to a save**: the first load starts the new work type at each colonist's Hauling priority, and the ucas' Construction
+  priority (D'thorga Framework 0.354.0). Removing the mod drops the column; nothing else is lost.
+
 ## [0.45.3] - 2026-11-26 - Draft
 
 InterRim's CIWS hits enemy aircraft harder

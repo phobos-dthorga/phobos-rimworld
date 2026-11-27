@@ -430,6 +430,18 @@ puts the original behaviour back, with no restart.
 - **With Combat Extended, one bad entry in an ammo set no longer stops the whole ammo setup** at startup (temporary). The Dead Man's
   Switch - Synthriada adds such entries; they are dropped and the log says how many.
 
+## Rearm and refuel
+
+- **A Rearm and refuel column in the work tab**: rearming and reloading turrets, vehicles and aircraft, loading bomb and missile parts,
+  and refuelling vehicles and buildings, ranked just above basic work. Before, all of it was hauling, which colonists reach only when
+  every other job of the same priority is done, so in a busy colony guns and tanks stayed empty.
+- **Haulers still do it too.** Each mod's jobs join only while that mod is on: the game's, Combat Extended's, Vehicle Framework's,
+  Vanilla Expanded Framework's, and the Harrier's, A-10's and Su-25's, Prowler's, Hind's and Mongoose's.
+- **Your colony starts with it switched on** the first time you load: each colonist at their Hauling priority (off where Hauling is
+  off), and **The Dead Man's Switch's ucas** at their Construction priority, as they can now do this work. Change it per colonist in
+  the work tab as any other column.
+- **Someone set to it at a high priority leaves other work to rearm or refuel**, as a firefighter does: pick a few armourers.
+
 ## Soldiers keep their guns
 
 With Combat Extended, a colonist downed in a fight drops their gun. When they get up, a grenade from their pack

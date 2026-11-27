@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The Prowler's rearming and missile-part loading under Rearm and refuel as well as Hauling (Patches 0.46.0; docs/development/rearm-and-refuel-work.md): the same
+       class as its own PRW_RearmVehicle and Prowler_LoadMissileParts, offered again so that armourers and drones keep the jet armed without waiting on the haulers. -->
+  <WorkGiverDef>
+    <defName>PhobosRearmRefuel_RearmProwler</defName>
+    <label>rearm aircraft</label>
+    <giverClass>EA6BProwler.Flight.WorkGiver_RearmVehicle</giverClass>
+    <workType>PhobosRearmRefuel</workType>
+    <verb>rearm</verb>
+    <gerund>rearming</gerund>
+    <priorityInType>85</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+  <WorkGiverDef>
+    <defName>PhobosRearmRefuel_ProwlerMissileParts</defName>
+    <label>load missile parts</label>
+    <giverClass>EA6BProwler.WorkGiver_ProwlerMissileParts</giverClass>
+    <workType>PhobosRearmRefuel</workType>
+    <verb>load missile parts into</verb>
+    <gerund>loading missile parts into</gerund>
+    <priorityInType>84</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+</Defs>

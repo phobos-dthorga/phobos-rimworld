@@ -22,6 +22,17 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.354.0] - 2026-11-27 - Draft
+
+A work type new to a save starts switched on
+
+### Added
+
+- **A work type another of our mods adds to a game under way starts switched on**, for anyone already in the colony, at their
+  priority for a work type the mod names (Hauling, say, or Construction for a drone that cannot haul), once per save; one switched
+  off stays off. Saves 52 colonists' boxes being ticked by hand. D'thorga Patches' Rearm and refuel is the first to use it. Not yet
+  tested in game (test row 703).
+
 ## [0.353.0] - 2026-11-27 - Draft
 
 Caravans on foot in radio reach

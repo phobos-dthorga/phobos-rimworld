@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Combat Extended's turret and autoloader reloading under Rearm and refuel as well as Hauling (Patches 0.46.0; docs/development/rearm-and-refuel-work.md): the same
+       class as its own ReloadTurrets and ReloadAutoLoader, offered again so that armourers and drones keep turrets loaded without waiting on the haulers. -->
+  <WorkGiverDef>
+    <defName>PhobosRearmRefuel_ReloadTurrets</defName>
+    <label>reload turrets</label>
+    <giverClass>CombatExtended.WorkGiver_ReloadTurret</giverClass>
+    <workType>PhobosRearmRefuel</workType>
+    <verb>reload</verb>
+    <gerund>reloading</gerund>
+    <priorityInType>100</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <nonColonistsCanDo>true</nonColonistsCanDo>
+  </WorkGiverDef>
+  <WorkGiverDef>
+    <defName>PhobosRearmRefuel_ReloadAutoLoaders</defName>
+    <label>reload ammo containers</label>
+    <giverClass>CombatExtended.WorkGiver_ReloadAutoLoader</giverClass>
+    <workType>PhobosRearmRefuel</workType>
+    <verb>reload</verb>
+    <gerund>reloading</gerund>
+    <priorityInType>99</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <nonColonistsCanDo>true</nonColonistsCanDo>
+  </WorkGiverDef>
+</Defs>

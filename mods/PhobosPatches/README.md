@@ -11,7 +11,7 @@ munitions, **Biotech**'s mech rechargers and **The Dead Man's Switch**'s drone p
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.45.3, built 26 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.46.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out), one missile strike on an earlier version (owner, 7 November 2026), the Prison Labor
 guard, drone platforms kept topped up and drones called home in time, soldiers going back to their own guns, sidearms that loop
 being stopped, mech rechargers drawing real power, and the Nice Research Tab guard. Everything else is not yet tested in game.
@@ -34,6 +34,9 @@ in the [changelog](CHANGELOG.md).
   table](../../docs/player-guide/patches.md#what-it-changes-mod-by-mod).
 - **It replaces D'thorga Vehicle Patches and D'thorga Missile Patches: switch both off and this one on, in the same change.**
   RimSort warns if one is left on; your save needs nothing, and the missile settings carry over by themselves.
+- **It adds a Rearm and refuel column to the work tab**, switched on for your colony the first time you load (each colonist at their
+  Hauling priority; ucas at their Construction priority). Someone set high on it leaves other work to rearm or refuel: pick a few
+  armourers.
 - **Settings to decide before a colony:**
   - **With InterRim Ballistic Missile, the blast settings**, before your first strike. Choices that cost speed say so in amber.
   - **With Biotech, Mech rechargers draw power by the size of the mech** (off). Before turning it on, check your grid: a tunneler
@@ -72,6 +75,8 @@ in the [changelog](CHANGELOG.md).
 
 One line each; the guide's [Patches chapter](../../docs/player-guide/patches.md) has the figures, tables and how to use each.
 
+- **Rearm and refuel**, a work type of its own: rearming, reloading and refuelling turrets, vehicles, aircraft and buildings, ranked
+  just above basic work instead of near the bottom with hauling; with The Dead Man's Switch, its ucas may do it too.
 - **Harrier VTOL Attack Aircraft**: built from real parts, fourteen parts with flight controls that ground it when damaged, loads
   fully beside RimPacts, its sortie's map stays open, and a temporary disassembly trace.
 - **UH-60M Black Hawk, C-17 Globemaster III, Close Air Support's A-10 and Su-25**: built from real parts by role.

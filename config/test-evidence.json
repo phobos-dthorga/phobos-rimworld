@@ -443,8 +443,11 @@
     "699": ["radio.terrain-blocked"],
     "700": ["radio.world-cover"],
     "701": ["radio.world-cover-network"],
+    "704": {"parts": {"finished while not selected": [{"key": "radio.coverage-finished", "variant": "background"}],
+      "finished while shown": [{"key": "radio.coverage-finished", "variant": "shown"}]}},
     "702": {"parts": {"a worn hand-held": [{"key": "radio.caravan-handheld", "variant": "worn"}],
       "a packed hand-held": [{"key": "radio.caravan-handheld", "variant": "packed"}]}},
+    "703": {"parts": {"the colony starts Rearm and refuel at its Hauling priorities": [{"key": "framework.work-type-seeded", "variant": "PhobosRearmRefuel"}]}},
     "687": {"parts": {
       "a bought paste tap is made packed": ["trailers.store-made-packed"],
       "a caravan eats from a packed paste tap": ["trailers.caravan-ate-from-store"]

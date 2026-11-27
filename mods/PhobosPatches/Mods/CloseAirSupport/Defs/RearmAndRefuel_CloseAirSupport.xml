@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Close Air Support's rearming and bomb-part loading under Rearm and refuel as well as Hauling (Patches 0.46.0; docs/development/rearm-and-refuel-work.md): the same
+       class as its own CAS_RearmVehicle and Warthog_LoadBombParts, offered again so that armourers and drones keep the jets armed without waiting on the haulers. -->
+  <WorkGiverDef>
+    <defName>PhobosRearmRefuel_RearmCloseAirSupport</defName>
+    <label>rearm aircraft</label>
+    <giverClass>CloseAirSupport.Flight.WorkGiver_RearmVehicle</giverClass>
+    <workType>PhobosRearmRefuel</workType>
+    <verb>rearm</verb>
+    <gerund>rearming</gerund>
+    <priorityInType>85</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+  <WorkGiverDef>
+    <defName>PhobosRearmRefuel_WarthogBombParts</defName>
+    <label>load bomb parts</label>
+    <giverClass>A10Warthog.WorkGiver_WarthogBombParts</giverClass>
+    <workType>PhobosRearmRefuel</workType>
+    <verb>load bomb parts into</verb>
+    <gerund>loading bomb parts into</gerund>
+    <priorityInType>84</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+</Defs>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The Mongoose's rearming under Rearm and refuel as well as Hauling (Patches 0.46.0; docs/development/rearm-and-refuel-work.md): the same
+       class as its own Mongoose_RearmVehicle, offered again so that armourers and drones keep the helicopter armed without waiting on the haulers. -->
+  <WorkGiverDef>
+    <defName>PhobosRearmRefuel_RearmMongoose</defName>
+    <label>rearm aircraft</label>
+    <giverClass>MongooseAttackHelicopter.WorkGiver_RearmVehicle</giverClass>
+    <workType>PhobosRearmRefuel</workType>
+    <verb>rearm</verb>
+    <gerund>rearming</gerund>
+    <priorityInType>85</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+</Defs>
