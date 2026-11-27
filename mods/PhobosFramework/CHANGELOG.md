@@ -18,6 +18,17 @@ tested in game unless an entry says the owner tested it.
 
 
 
+
+## [0.336.1] - 2026-11-27 - Draft
+
+The cargo net, the road survey and the supply run buttons get their own pictures
+
+### Fixed
+
+- **The cargo net, the Road survey button and the supply run's Plan, Its stops and Start buttons had borrowed other pictures**: each has
+  its own now, the owner's picks of 27 Nov 2026 (the net bought, the buttons made locally in night 16). Stop the run keeps the route
+  kit's stop picture. The other eight road work buttons go on borrowing until their bought tries are picked.
+
 ## [0.336.0] - 2026-11-27 - Draft
 
 Learning faster while someone helps

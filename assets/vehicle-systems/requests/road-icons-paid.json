@@ -1,0 +1,234 @@
+[
+ {
+  "name": "road-icon-road-bore",
+  "title": "Road work button: Drill a water bore (the Kelly at a halt)",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+    "role": "our approved button icon of the same game: match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/RoadSurvey.png",
+    "role": "our approved road work button icon of the same set (the road survey, an olive truck): match its outline weight, olive vehicle colours and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Drill a water bore (the Kelly at a halt)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/Bore.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were all rejected (owner, 27 Nov 2026, on the Picks page: 'Paid solution ^ ^')"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"drill a water bore here\": a short grey steel well head with a stubby pipe on brown ground, a gush of bright blue water pouring from the pipe's mouth into a small round blue puddle.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "road-icon-survey-halt",
+  "title": "Road work button: Survey halt (the Datum stops to read the tile)",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+    "role": "our approved button icon of the same game: match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/RoadSurvey.png",
+    "role": "our approved road work button icon of the same set (the road survey, an olive truck): match its outline weight, olive vehicle colours and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Survey halt (the Datum stops to read the tile)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/SurveyHalt.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were all rejected (owner, 27 Nov 2026, on the Picks page: 'Paid solution ^ ^')"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"stop to survey the ground here\": a small olive truck seen from the side, parked, with a tall thin mast raised from its back; under it, three bold green rings spread out flat on the brown ground.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "road-icon-tip-load",
+  "title": "Road work button: Tip the load here (the Talus leaves its load as a depot)",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+    "role": "our approved button icon of the same game: match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/RoadSurvey.png",
+    "role": "our approved road work button icon of the same set (the road survey, an olive truck): match its outline weight, olive vehicle colours and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Tip the load here (the Talus leaves its load as a depot)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/TipLoad.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were all rejected (owner, 27 Nov 2026, on the Picks page: 'Paid solution ^ ^')"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"tip the load here\": a small olive tipper truck seen from the side with its rear bed raised steeply, grey stone chunks sliding off the back onto a small heap beside a short amber marker flag.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "road-icon-test-hole",
+  "title": "Road work button: Drill a test hole (the Kelly proves a find)",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+    "role": "our approved button icon of the same game: match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/RoadSurvey.png",
+    "role": "our approved road work button icon of the same set (the road survey, an olive truck): match its outline weight, olive vehicle colours and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Drill a test hole (the Kelly proves a find)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/TestHole.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were all rejected (owner, 27 Nov 2026, on the Picks page: 'Paid solution ^ ^')"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"drill a test hole here\": a short grey drill bit pointing straight down into a small round hole in brown ground, with two small shining ore chunks lying beside the hole.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "road-icon-quarry",
+  "title": "Road work button: Quarry stone (the Kelly's hammer bit at a halt)",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+    "role": "our approved button icon of the same game: match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/RoadSurvey.png",
+    "role": "our approved road work button icon of the same set (the road survey, an olive truck): match its outline weight, olive vehicle colours and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Quarry stone (the Kelly's hammer bit at a halt)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/Quarry.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were all rejected (owner, 27 Nov 2026, on the Picks page: 'Paid solution ^ ^')"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"quarry stone here\": a heavy grey hammer drill bit striking a cracked grey rock face, with three broken grey stone chunks falling away from it.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "road-icon-grit",
+  "title": "Road work button: Spread grit (the Talus on winter tiles)",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+    "role": "our approved button icon of the same game: match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/RoadSurvey.png",
+    "role": "our approved road work button icon of the same set (the road survey, an olive truck): match its outline weight, olive vehicle colours and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Spread grit (the Talus on winter tiles)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/Grit.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were all rejected (owner, 27 Nov 2026, on the Picks page: 'Paid solution ^ ^')"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"spread grit on the snow\": the open tailgate of a small olive tipper truck seen from behind, scattering a wide fan of small grey grit stones onto white snow.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "road-icon-stone-under-wheels",
+  "title": "Road work button: Lay stone under the wheels (a vehicle stuck in soft ground)",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+    "role": "our approved button icon of the same game: match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/RoadSurvey.png",
+    "role": "our approved road work button icon of the same set (the road survey, an olive truck): match its outline weight, olive vehicle colours and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Lay stone under the wheels (a vehicle stuck in soft ground)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/StoneUnderWheels.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were all rejected (owner, 27 Nov 2026, on the Picks page: 'Paid solution ^ ^')"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"lay stone under the wheels\": one large dark truck tyre sunk deep in brown mud, with a short row of flat grey stones laid in front of it.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "road-icon-hook-from-depot",
+  "title": "Road work button: Hook up from the depot (a trailer left at a depot)",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+    "role": "our approved button icon of the same game: match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/RoadSurvey.png",
+    "role": "our approved road work button icon of the same set (the road survey, an olive truck): match its outline weight, olive vehicle colours and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Hook up from the depot (a trailer left at a depot)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/HookFromDepot.png",
+   "size": "exported at 128",
+   "why": "the night-16 local tries were all rejected (owner, 27 Nov 2026, on the Picks page: 'Paid solution ^ ^')"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"hook up a trailer left at a depot\": a small grey wooden supply crate with a short amber flag beside it, and a bold green tow hook and chain pulling away from it to the right.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ }
+]

@@ -212,7 +212,8 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
         {
             defaultLabel = "PhobosRoadWork_SurveyGizmo".Translate().Resolve(),
             defaultDesc = "PhobosRoadWork_SurveyGizmoDesc".Translate(Target.building.mineableThing.label.Named("ORE")).Resolve(),
-            icon = SystemIcons.For("Phobos/VehicleSystems/Stations/SurveyLongRange"),
+            // Framework 0.336.1: its own icon (night 16, the owner's pick of 27 Nov 2026).
+            icon = SystemIcons.For("Phobos/VehicleSystems/RoadWork/RoadSurvey"),
             isActive = () => roadSurvey,
             toggleAction = () => SetRoadSurvey(!roadSurvey),
         };

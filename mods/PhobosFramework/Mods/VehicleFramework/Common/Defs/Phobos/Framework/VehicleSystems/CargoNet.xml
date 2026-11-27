@@ -5,7 +5,7 @@
     many stacks"): a heavy net laid on the ground as a small stockpile of 2 by 2 cells, filled by haulers by its storage settings; a
     helicopter's sling lifts it with all it holds (Phobos.VehicleSystems.Building_PhobosCargoNet). Real basis: a helicopter cargo net, a
     square of webbing gathered to a ring at the hook. Cost, size, work and weight are the agent's proposals; one stack a cell, as a stockpile.
-    It borrows the sling set's picture until its own, a bought one as it lies in the world, is picked. Not yet tested in game.
+    Its picture is bought (OpenAI, the owner's pick of 27 Nov 2026). Not yet tested in game.
   -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosVehicleSystems_CargoNet</defName>
@@ -13,7 +13,7 @@
     <description>A square of heavy webbing laid on the ground, with its corners gathered to a ring a helicopter's cargo hook can take. Your haulers fill it like a stockpile, by what you allow it; a helicopter with the sling then lifts the net with everything in it, and lets it all out where the net is set down.</description>
     <thingClass>Phobos.VehicleSystems.Building_PhobosCargoNet</thingClass>
     <graphicData>
-      <texPath>Phobos/VehicleSystems/Things/SlingSet</texPath>
+      <texPath>Phobos/VehicleSystems/Things/CargoNet</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(2,2)</drawSize>
     </graphicData>

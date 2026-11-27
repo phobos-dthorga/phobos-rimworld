@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/RoadSurvey.png",
+  "source": "assets/vehicle-systems/generated/n16-road-survey/n16-road-survey-172.png",
+  "source_sha256": "75e707d97f34cc93b5d5be693c550c48b6d132025c92b8cc479f68bb5b76ec50",
+  "target_sha256": "9b43b28557d614bca6c2b3dc1f5849f85c391f088399c3ed205cb97c4e5041fb",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "75e707d97f34cc93b5d5be693c550c48b6d132025c92b8cc479f68bb5b76ec50",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T15:43:00",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

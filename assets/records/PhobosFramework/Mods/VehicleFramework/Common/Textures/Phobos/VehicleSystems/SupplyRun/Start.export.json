@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/SupplyRun/Start.png",
+  "source": "assets/vehicle-systems/generated/n16-supply-start/n16-supply-start-199.png",
+  "source_sha256": "52fb34f2527f11b4494c9dbfe4dda27523bc10d6f68cbac4e4af641dd83d44e3",
+  "target_sha256": "220faed24471cc447cb049e97e0b023cec7077cc8a08b3b6019e539663bf3732",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "52fb34f2527f11b4494c9dbfe4dda27523bc10d6f68cbac4e4af641dd83d44e3",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T15:43:07",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

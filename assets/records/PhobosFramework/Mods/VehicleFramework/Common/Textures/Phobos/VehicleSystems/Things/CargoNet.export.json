@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/CargoNet.png",
+  "source": "assets/vehicle-systems/generated/building-cargo-net/building-cargo-net-1.png",
+  "source_sha256": "250a72dce1c4f53f76f1759c5290d9fa380d09125e8179ba5d8ef73b76bedb3b",
+  "target_sha256": "0655d0bd659169a1cd94d2e4c922f84aec8aad1c5982fc36bc76537b8be17c06",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "250a72dce1c4f53f76f1759c5290d9fa380d09125e8179ba5d8ef73b76bedb3b",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T15:42:57",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

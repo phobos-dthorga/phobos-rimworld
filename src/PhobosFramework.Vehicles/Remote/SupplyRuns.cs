@@ -666,7 +666,7 @@ public sealed class CompPhobosSupplyRun : VehicleComp
         {
             defaultLabel = "PhobosSupplyRun_Plan".Translate(),
             defaultDesc = "PhobosSupplyRun_PlanDesc".Translate(RoundRule.MostStops.Named("MOST")),
-            icon = RouteIcons.Waypoint,
+            icon = SupplyRunIcons.Plan,
             action = () => SupplyRunPlanner.Begin(this),
         };
         if (stops.Count == 0) yield break;
@@ -674,14 +674,14 @@ public sealed class CompPhobosSupplyRun : VehicleComp
         {
             defaultLabel = "PhobosSupplyRun_Stops".Translate(),
             defaultDesc = "PhobosSupplyRun_StopsDesc".Translate(),
-            icon = RouteIcons.Loop,
+            icon = SupplyRunIcons.Stops,
             action = () => SupplyRunPlanner.StopsMenu(this),
         };
         var go = new Command_Action
         {
             defaultLabel = (running ? "PhobosSupplyRun_StopGizmo" : "PhobosSupplyRun_StartGizmo").Translate(),
             defaultDesc = (running ? "PhobosSupplyRun_StopGizmoDesc" : "PhobosSupplyRun_StartGizmoDesc").Translate(),
-            icon = running ? RouteIcons.Stop : RouteIcons.Follow,
+            icon = running ? RouteIcons.Stop : SupplyRunIcons.Start,
             action = running ? Stop : Start,
         };
         if (!running && StartRefusal() is { } refused) go.Disable(refused);
@@ -703,6 +703,16 @@ public sealed class CompPhobosSupplyRun : VehicleComp
         Scribe_Values.Look(ref parked, "PhobosRunParked");
         if (Scribe.mode == LoadSaveMode.PostLoadInit) stops ??= new List<SupplyStop>();
     }
+}
+
+/// <summary>The supply run's own button pictures (Framework 0.336.1; night 16, the owner's picks of 27 Nov 2026). Stopping keeps the route
+/// kit's stop picture: a stop button means the same everywhere.</summary>
+[StaticConstructorOnStartup]
+public static class SupplyRunIcons
+{
+    public static readonly Texture2D Plan = SystemIcons.For("Phobos/VehicleSystems/SupplyRun/Plan");
+    public static readonly Texture2D Stops = SystemIcons.For("Phobos/VehicleSystems/SupplyRun/Stops");
+    public static readonly Texture2D Start = SystemIcons.For("Phobos/VehicleSystems/SupplyRun/Start");
 }
 
 /// <summary>Picking a supply run's stops on the world map, and its stops' menu. Presentation only: the run's comp says what may be added.</summary>
