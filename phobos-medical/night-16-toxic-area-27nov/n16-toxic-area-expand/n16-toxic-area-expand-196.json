@@ -1,0 +1,33 @@
+{
+  "file": "n16-toxic-area-expand-196.png",
+  "sha256": "f2d4407ee880f30529c3d06f6ddd2092a7e969c0d2732d32b123a76dcf3ba2a7",
+  "date": "2026-11-27T06:30:12",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A white diamond-shaped hazard sign with a thick red border, bearing a bold black skull and crossbones, with a small green circle holding a white plus sign at its lower right. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. Keep the size and the corner badge of the first reference image. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "negative_prompt": "",
+  "seed": 196,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-medical/requests/night-16-toxic-area-icons.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 148.0,
+  "references": [
+    {
+      "image": "mods/PhobosMedical/Mods/Rimatomics/Textures/Phobos/Medical/Protection/RadiationAreaExpand.png",
+      "sha256": "3ee3ebe860e214d9e74ce245a7be6659d7f625fe31308db09d7e239a734478c8"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+      "sha256": "c221ed3553ef4d3e58d398e8bfb23d7f58c282d29dd8f0fe9f1b460fcfb8e15b"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
