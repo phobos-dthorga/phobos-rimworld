@@ -101,6 +101,39 @@ game's `CompProperties_FoodPoisonable` ignores them.
 </li>
 ```
 
+## Bills made from a bench template
+
+Every bill a `Phobos.Factory.BenchBillTemplateDef` makes carries `Phobos.Factory.GeneratedBillExtension`: the bench recipe it
+automates, and the template that made it. The machine's **Add** menu offers such a bill only while that bench recipe is available
+now, so research, Ideology memes, faction tags and other mods' own unlocks all carry over.
+
+**Gotchas first:**
+
+- **Never write `GeneratedBillExtension` in XML.** It is set in code on the bills a template makes. On a hand-written bill it would
+  do harm: templates would no longer see that the bill already makes its item, and would make a second bill for it.
+- **XML patches cannot reach the made bills.** They are made at load, after every patch has run. To change them, change the template
+  (its fields are under [Bills, storage, benches and water](#bills-storage-benches-and-water)), or leave an item at the bench with the
+  template's `excludedThings`.
+- **A hand-written bill wins.** An item that any bill without this extension already makes (VFE Factory's own machining bills, a
+  `PipeSystem.ProcessDef` of yours) is not made again by a template. Within one load, the first template to reach an item makes
+  its bill, and later ones skip it.
+- **A made bill's defName is the template's defName, an underscore, and the item's defName** (for example
+  `YourMod_SmithyBills_Gun_Revolver`). Saves keep it, so never rename a template.
+- With no bench recipe to follow (no `Make_` recipe for the item), the bill is always offered, as Pipe System decides.
+
+There is no XML to show: the game's log lists what each template made at load, under `[D'thorga Factory Additions]`, with the items
+it left at the bench and why (buildings, and items made of a material plus parts). A C# mod can tell a made bill by
+`process.GetModExtension<Phobos.Factory.GeneratedBillExtension>()`.
+
+`GeneratedBillExtension` (set in code):
+
+| Field | What it does (default) |
+| --- | --- |
+| `sourceRecipe` | The bench recipe the bill automates, `Make_` and the item's defName; the bill is offered only while it is available (none: always offered). |
+| `template` | The `Phobos.Factory.BenchBillTemplateDef` that made the bill (none). |
+
+---
+
 ## Checks done
 
 Each version was read in VFE Factory's, Pipe System's and the game's code, built with no warnings where it has C#, unit-tested

@@ -604,7 +604,7 @@ pours them into another hold in reach or onto the ground, and takes loose heaps 
   shipped workers. With none, the vehicle offers no field order.
 - **The worker decides which areas it works** (a growing zone marked for machines, in D'thorga Farming) and what a row's work is.
 - **A bulk hold pours only while it, and whatever tows it, stands still**, and only within its auger's reach.
-- **Loose goods are what a crop yields as its harvest**, plus anything whose Def carries `Phobos.VehicleSystems.PhobosBulkGoodsExtension`
+- **Loose goods are what a crop yields as its harvest**, plus anything whose Def carries `Phobos.Framework.Bulk.PhobosBulkGoodsExtension`
   (seed grain). Nothing else ever goes into a hold.
 - **Its load weighs on the engine and the tow as cargo would**, and is spilled where it stood if the vehicle is destroyed.
 - The run drives as a gathering run does; see [Gathering runs](vehicle-systems-modding.md#gathering-runs).
