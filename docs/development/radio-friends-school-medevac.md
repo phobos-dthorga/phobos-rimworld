@@ -1,7 +1,8 @@
 # Radio friends, School of the Air, the medevac and neighbours' calls
 
 **Status (27 Nov 2026):** partly built. Radio friends are built in Radio Framework 0.29.0 (rows 657 and 658) and School of the Air in 0.35.0 (rows 659 and 660), not yet tested
-in game. Being built next: neighbours' calls (Radio 0.36.0), then the medevac (D'thorga Framework, its number taken when it is ready).
+in game. Neighbours' calls are built in 0.36.0 (row 661). Being built next: the medevac (D'thorga Framework, its number taken when it is
+ready).
 
 The owner chose all four on 27 Nov 2026, after advice by radio, the Elmer and other factions' doctors
 ([radio advice and relays](radio-advice-and-relays.md)). Two are from the owner's October radio design
@@ -88,6 +89,10 @@ Now and then a friendly settlement in radio reach asks for the colony's best doc
   and the colonist (skill, Social).
 - **Risk: none** [A]: the player chooses each time.
 - **Cost** [A]: one chance roll an hour; a reach search only when the roll asks.
+- **As built (Radio 0.36.0)**: as above. The letter is the game's radio-style choice letter, with **Send ... to the radio**, **Decline**
+  and **Postpone**; yes is refused, with the reason, if the colonist cannot take the call by then. A call accepted and not yet done is
+  saved; cut short (drafted, out of touch), it earns nothing. A dev action, **Phobos Radio → Neighbour asks for help now**, asks at
+  once.
 
 ## The flying doctor flies: a medevac
 

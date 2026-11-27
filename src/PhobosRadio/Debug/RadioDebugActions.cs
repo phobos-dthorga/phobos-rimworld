@@ -78,4 +78,8 @@ public static class RadioDebugActions
         RadioNet.For(map).MarkDirty();
         Log.Message("[PhobosRadio] Net marked for recompute.");
     }
+
+    /// <summary>Radio 0.36.0: a neighbour asks now, for testing, if any can (the letter, as by chance).</summary>
+    [DebugAction(Category, "Neighbour asks for help now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    private static void NeighbourAsksNow() => RadioNeighbours.TryAsk(forced: true);
 }

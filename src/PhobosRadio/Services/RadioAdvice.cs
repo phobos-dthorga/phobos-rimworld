@@ -614,12 +614,14 @@ public class GameComponent_RadioAdvice : GameComponent
         RadioAdvice.Clear();
         RadioFriends.Clear();
         RadioSchool.Clear();
+        RadioNeighbours.Clear();
     }
 
     public override void ExposeData()
     {
         FactionDoctors.ExposeData();
         RadioFriends.ExposeData();
+        RadioNeighbours.ExposeData();
     }
 
     public override void GameComponentTick()
@@ -627,7 +629,12 @@ public class GameComponent_RadioAdvice : GameComponent
         int interval = RadioRulesDef.Current.adviceLookTicks;
         if (interval > 0 && Find.TickManager.TicksGame % interval == 0) RadioAdvice.Look();
         // Radio 0.29.0: friendships that have ended are mourned, looked over once a game hour.
-        if (Find.TickManager.TicksGame % GenDate.TicksPerHour == 0) RadioFriends.LookOver();
+        if (Find.TickManager.TicksGame % GenDate.TicksPerHour == 0)
+        {
+            RadioFriends.LookOver();
+            // Radio 0.36.0: by chance, a neighbour asks for a colonist on the radio.
+            RadioNeighbours.Hourly();
+        }
     }
 
     public override void GameComponentUpdate() => RadioAdvice.WatchTrade();

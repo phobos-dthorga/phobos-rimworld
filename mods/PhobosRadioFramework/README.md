@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.35.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.36.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -69,6 +69,8 @@ figures are here.
   for a mood lift that grows with the friendship and a little goodwill ([the guide](../../docs/player-guide/radio.md#a-radio-friend)).
 - **School of the Air (0.35.0, needs Biotech)**: children learn at radio school, at a station's desk or on a hand-held, and take
   lessons from a teacher in radio touch, even one away with a convoy ([the guide](../../docs/player-guide/radio.md#school-of-the-air)).
+- **Neighbours ask for yours (0.36.0)**: now and then a friendly neighbour in radio reach asks for your best doctor or mechanic on the
+  radio for an hour, for 5 goodwill ([the guide](../../docs/player-guide/radio.md#neighbours-ask-for-yours)).
 - **Upgrades** for the desk and the antennas, fitted by builders.
 
 | Thing | Where | What it is |
@@ -117,6 +119,7 @@ In **Options > Mod settings > D'thorga Radio Framework**.
 | "In touch with home" mood | A small mood bonus for a free colonist wearing a hand-held with a working link to a base station. Off keeps the radios a pure readout | On |
 | Display mode | How much of the working to show: **Plain** (bars and a reason), **Operator** (adds the band and the margin) or **Engineer** (every term). The outcome is the same in each | Plain |
 | Other factions' doctors and mechanics give advice by radio | When none of your colonists can help, a doctor or mechanic at another faction's settlement in radio reach talks your colonist through tending, an operation or a vehicle repair: allies free once a day, a neutral faction for 3 goodwill a call, never below 0 | On |
+| Neighbours ask for help by radio | About once a fortnight, a friendly neighbour in radio reach asks by letter for your best doctor or mechanic on the radio for an hour. Yes earns 5 goodwill once the hour is done; no costs nothing | On |
 | Radio advice during surgery | A more skilled colonist in radio touch can talk a surgeon through an operation, raising its chance of success; a dropped call leaves the surgeon at their own skill | On |
 
 ## More

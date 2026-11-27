@@ -22,6 +22,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.36.0] - 2026-11-27 - Draft
+
+Neighbours ask for your doctor or mechanic by radio
+
+### Added
+
+- **Now and then a neighbour asks for help by radio** (the owner's card of 27 November 2026: goodwill, now and then). About once a
+  fortnight, a faction that is not hostile and has radio, with a settlement your stations reach, asks by letter for your best doctor
+  or mechanic (Medicine or Construction 6 or more, free and in radio touch) for an hour. Yes sends them to the radio: they gain a
+  little of the skill and Social, and the faction's goodwill rises by 5 once the hour is done. No costs nothing; an unanswered letter
+  goes after 6 hours. A dev action asks at once, for testing. Not yet tested in game: row 661.
+- **A setting, Neighbours ask for help by radio**, on by default.
+
+### Compatibility and limits
+
+- How often, the least skill, the hour, the 6 hours and the experience are agent defaults; the 5 goodwill is the owner's card. Safe
+  with a running save: a call accepted and not yet done is saved.
+
 ## [0.35.0] - 2026-11-27 - Draft
 
 School of the Air: children learn by radio

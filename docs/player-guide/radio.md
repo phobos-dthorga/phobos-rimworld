@@ -162,6 +162,17 @@ station's desk, or anywhere with a hand-held in touch with a station.
   **away in a convoy whose radio reaches home**. The child learns one of the teacher's best skills, at three quarters of a lesson at a
   school desk; the teacher gains Social. A parent is asked first.
 
+## Neighbours ask for yours
+
+**Now and then, about once a fortnight, a friendly neighbour asks by radio for your best doctor or mechanic for an hour.** Only a
+faction that is not hostile and has radio, with a settlement your stations reach, asks; and only for a colonist with Medicine or
+Construction **6 or more**, free and in radio touch.
+
+- **Yes**: the colonist goes to the radio for an hour (a hand-held, or a station's desk), gains a little of that skill and Social, and
+  the faction's goodwill rises by **5** once the hour is done.
+- **No** costs nothing. A letter left unanswered goes after 6 hours.
+- Setting: **Neighbours ask for help by radio**, on by default.
+
 ## Try it
 
 1. Research local radio. Build the station indoors under a built roof, craft a VHF hand-held and wear it.

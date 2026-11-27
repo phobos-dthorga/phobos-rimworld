@@ -32,6 +32,8 @@ public class RadioSettings : ModSettings
     /// a neutral faction's goodwill, never below the rules' floor), so on by default (docs/development/radio-advice-and-relays.md).
     /// </summary>
     public bool factionAdvice = true;
+    /// <summary>Whether neighbours ask for a colonist on the radio now and then (Radio 0.36.0; on by default, an agent default).</summary>
+    public bool neighbourCalls = true;
 
     public override void ExposeData()
     {
@@ -44,6 +46,7 @@ public class RadioSettings : ModSettings
         Scribe_Collections.Look(ref adviceOff, "adviceOff", LookMode.Value);
         adviceOff ??= new List<string>();
         Scribe_Values.Look(ref factionAdvice, "factionAdvice", true);
+        Scribe_Values.Look(ref neighbourCalls, "neighbourCalls", true);
     }
 }
 
@@ -98,6 +101,10 @@ public class RadioMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingFactionAdvice".Translate(), ref Settings.factionAdvice,
             "PhobosRadio_SettingFactionAdviceDesc".Translate());
+        // Radio 0.36.0: neighbours asking for help by radio, on until turned off.
+        listing.Gap();
+        listing.CheckboxLabeled("PhobosRadio_SettingNeighbourCalls".Translate(), ref Settings.neighbourCalls,
+            "PhobosRadio_SettingNeighbourCallsDesc".Translate());
         listing.End();
     }
 }

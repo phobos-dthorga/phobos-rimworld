@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Neighbours ask for yours (Radio 0.32.0). -->
+  <PhobosRadio_SettingNeighbourCalls>Neighbours ask for help by radio</PhobosRadio_SettingNeighbourCalls>
+  <PhobosRadio_SettingNeighbourCallsDesc>Now and then, about once a fortnight, a faction that is not hostile with a settlement in radio reach asks for your best doctor or mechanic on the radio for an hour. Saying yes earns goodwill once the hour is done; saying no costs nothing. On by default.</PhobosRadio_SettingNeighbourCallsDesc>
+  <PhobosRadioNeighbour_Label>{FACTION} asks for help</PhobosRadioNeighbour_Label>
+  <PhobosRadioNeighbour_Text>A call comes in by radio from {SETTLEMENT}, a settlement of {FACTION}. They are short of {ROLE} and have heard of {COLONIST}'s {SKILL}.\n\nCould {COLONIST} spend an hour on the radio talking them through it? {FACTION} would be grateful: {GOODWILL} goodwill once the hour is done. Saying no costs nothing.</PhobosRadioNeighbour_Text>
+  <PhobosRadioNeighbour_Yes>Send {COLONIST} to the radio</PhobosRadioNeighbour_Yes>
+  <PhobosRadioNeighbour_No>Decline</PhobosRadioNeighbour_No>
+  <PhobosRadioNeighbour_Busy>{COLONIST} cannot take the call now.</PhobosRadioNeighbour_Busy>
+  <PhobosRadioNeighbour_CannotNow>{COLONIST} cannot take the call now: busy, out of radio touch, or the neighbours no longer talk to us.</PhobosRadioNeighbour_CannotNow>
+  <PhobosRadioNeighbour_NoneToAsk>No neighbour in radio reach has anyone to ask for.</PhobosRadioNeighbour_NoneToAsk>
+</LanguageData>

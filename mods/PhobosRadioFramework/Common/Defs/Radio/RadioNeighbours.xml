@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Neighbours ask for yours (Radio 0.32.0; docs/development/radio-friends-school-medevac.md, the owner's card of 27 Nov 2026: "Goodwill, now
+    and then"). A faction that is not hostile, with a settlement the colony's stations reach, asks for the colony's best doctor or mechanic
+    on the radio for an hour; yes earns goodwill when the hour is done, no costs nothing.
+  -->
+
+  <LetterDef ParentName="CustomChoiceLetterBase">
+    <defName>PhobosRadio_NeighbourCall</defName>
+    <letterClass>Phobos.Radio.Services.ChoiceLetter_PhobosNeighbourCall</letterClass>
+  </LetterDef>
+
+  <JobDef>
+    <defName>PhobosRadio_NeighbourCallJob</defName>
+    <driverClass>Phobos.Radio.Work.JobDriver_PhobosNeighbourCall</driverClass>
+    <reportString>helping a neighbour by radio.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <!-- Why a faction's goodwill rose: a colonist helped them by radio. -->
+  <HistoryEventDef>
+    <defName>PhobosRadio_HelpedByRadio</defName>
+    <label>helped them by radio</label>
+  </HistoryEventDef>
+</Defs>
