@@ -1,8 +1,9 @@
 # A setup wizard on first load (9 Nov 2026, designed 28 Nov 2026)
 
-**Status (28 Nov 2026):** a design record; nothing is built. The owner recorded the idea on 9 Nov 2026 and asked on 28 Nov 2026 for a
-generic wizard that introduces new players to our mods and helps them set up; they chose by card that day to write this design first.
-Building waits for the owner's answers to the [questions below](#questions-for-the-owner).
+**Status (28 Nov 2026):** a design record; nothing is built yet. The owner recorded the idea on 9 Nov 2026 and asked on 28 Nov 2026 for a
+generic wizard that introduces new players to our mods and helps them set up, chose by card to write this design first, then answered
+its six questions ([answers](#the-owners-answers-28-nov-2026)): on the main menu, in the game, presets first, a card per mod, **built
+now**, and other mods named.
 
 How Framework services works now: [systems/framework-services.md](systems/framework-services.md); this record keeps the wizard's history.
 
@@ -113,6 +114,19 @@ To be put as cards; each with the agent's lean.
    public beta gate, as the 9 Nov view had it; or the frame now with Farming's page alone (SL8) first.
 6. **Naming other mods**: allowed in the wizard as in the settings window (the agent's lean), or only "other vehicle mods" in
    general.
+
+## The owner's answers (28 Nov 2026)
+
+Each card as put, the chosen option first and marked; every choice was the agent's lean.
+
+| # | Card | Chosen | Not chosen |
+| --- | --- | --- | --- |
+| 1 | When it opens | **The main menu, once per install**, and again only for what is new; a button in the Framework's settings reopens it | At each colony's first load. Both |
+| 2 | Where it lives | **In the game**, hosted by D'thorga Framework | In D'thorga Companion, out of game. Both, from the same pages |
+| 3 | How a page asks | **Presets first, each setting on request** | Every setting in turn. Presets only |
+| 4 | The introduction | **A card per mod**: its preview picture, a few lines, a link to its player guide chapter | Cards plus our own Learning Helper lessons in play. No introduction |
+| 5 | When to build | **The frame and the pages now** | The frame with Farming's page alone first. At the public beta gate |
+| 6 | Naming other mods | **Yes, as the settings window does** | General words only ("other vehicle mods") |
 
 ## History
 
