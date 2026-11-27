@@ -47,8 +47,9 @@ take the nearest look [A]. With Ideology, the stamp has the faction's primary id
 - **Card stock by the faction's tech level**: hide for neolithic factions, parchment for medieval, printed card for industrial,
   dark glossy for spacer; a gilt border for a faction with royal titles (the Empire); with Ideology, its primary ideology's symbol.
 - **A click turns the card over.**
-- **Cost**: one picture a card, 256 by 128 pixels (128 KB), drawn when the card is first shown; ten cards are about 1.3 MB. Nothing is
-  saved: after a load the same seed draws the same picture. The tab draws each card as one picture.
+- **Cost**: one picture a card, 256 by 176 pixels (about 180 KB), drawn when the card is first shown; ten cards are about 1.8 MB,
+  and the 48 kept at most about 8.7 MB. Nothing is saved: after a load the same seed draws the same picture. The tab draws each card
+  as one picture.
 
 ## The four questions
 
