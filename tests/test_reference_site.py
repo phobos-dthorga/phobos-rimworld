@@ -152,6 +152,20 @@ class Reading(unittest.TestCase):
         self.assertIn('<!-- <curve>…</curve>', text)
         self.assertEqual([r[0] for r in rows], ['value', 'curve', 'factor'])
 
+    def test_a_type_added_in_code_says_so(self):
+        info = self.chosen['My.Mod.Input_Constant']
+        never = site.overwrite_page(info, CATEGORIES[1], self.source.enums, self.source.constants,
+                                    {'type': info.full, 'never': True, 'note': 'added to every vehicle.'})
+        self.assertIn('**Added for you:** added to every vehicle.', never)
+        self.assertIn('**Never write it in XML.**', never)
+        self.assertNotIn('```xml', never)                                   # nothing to copy
+        self.assertIn('| `value` |', never)                                 # its fields still listed
+        sometimes = site.overwrite_page(info, CATEGORIES[1], self.source.enums, self.source.constants,
+                                        {'type': info.full, 'never': False, 'note': 'write it only on a trailer.'})
+        self.assertIn('```xml', sometimes)
+        catalogue = site.catalogue_page([info], CATEGORIES, '', {info.full: {}})
+        self.assertIn('*(added for you)*', catalogue)
+
     def test_a_def_example_is_its_own_element(self):
         snippet, _ = site.xml_example(self.chosen['My.Mod.MyRulesDef'], CATEGORIES[0], self.source.enums, self.source.constants)
         self.assertEqual(snippet[:3], ['<Defs>', '  <My.Mod.MyRulesDef>', '    <defName>MyMod_Example</defName>'])
@@ -341,6 +355,9 @@ class Site(unittest.TestCase):
                       and not p.name.startswith('PhobosPatches') and f'src/{p.name}' not in settings['projects']
                       and site.modder_types(site.read_source(ROOT, [f'src/{p.name}']), settings['categories'])]
         self.assertEqual(with_types, [], 'a project with XML-facing types is missing from the site (config "projects")')
+        facing = {t.full for t in site.modder_types(site.read_source(ROOT, settings['projects']), settings['categories'])}
+        unknown = sorted(set(site.added_in_code(settings)) - facing)
+        self.assertEqual(unknown, [], 'config "addedInCode" names a type that is not XML-facing (renamed or gone?)')
         self.assertIsNotNone(site.mod_version(ROOT, settings['stamp']['about']), 'the stamp\'s About.xml gives a version')
 
 

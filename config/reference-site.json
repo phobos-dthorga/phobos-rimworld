@@ -35,6 +35,116 @@
     "src/PhobosWaterTap"
   ],
   "projectsLeftOut": "Every mod with types a modder names in XML is here (owner, 28 Nov 2026: the Radio was missing). Left out: PhobosPatches.* (our patches of other authors' mods, with nothing to build on), the tie-in projects with no XML-facing types, and src/Shared (read by DocFX for the Framework, below).",
+  "addedInCode": {
+    "why": "Comps the mods add in code (the owner's card, 28 Nov 2026): their pages say so instead of offering XML to copy. never: true means writing it in XML is wrong; false keeps the example, for the cases its note names.",
+    "types": [
+      {
+        "type": "Phobos.Framework.Power.CompProperties_PhobosStandby",
+        "never": true,
+        "note": "D'thorga Framework adds it at start-up to every powered building it can classify. To keep a building out, or take one in as a kind, use PhobosStandbyExtension."
+      },
+      {
+        "type": "Phobos.Framework.Health.CompProperties_PhobosPatient",
+        "never": true,
+        "note": "D'thorga Framework adds it at start-up to every humanlike race, Humanoid Alien Races' included."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosVehicleSystems",
+        "never": true,
+        "note": "built from the vehicle's loadout, on every vehicle a loadout claims. Change what it holds with a loadout."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosWorkStore",
+        "never": true,
+        "note": "added to every vehicle with a loadout."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosDispensers",
+        "never": true,
+        "note": "added to a vehicle whose loadout's avionics has countermeasures true."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosRemoteControl",
+        "never": true,
+        "note": "added to a vehicle with the RemoteKitMount or RouteKitMount part role."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosMechLink",
+        "never": true,
+        "note": "added to a vehicle with the RemoteKitMount part role."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosRoute",
+        "never": true,
+        "note": "added to a vehicle with the RouteKitMount part role."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosSupplyRun",
+        "never": false,
+        "note": "added to a land vehicle with the RouteKitMount part role. Write it yourself only on a vehicle that has no such role."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosRound",
+        "never": true,
+        "note": "added to a vehicle with CompProperties_PhobosFlight whose onlyInDrops is false."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosSmoke",
+        "never": true,
+        "note": "added to a vehicle whose turrets, or whose upgrade tree's turrets, carry PhobosSmokeDischargerExtension."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosBayTrip",
+        "never": true,
+        "note": "added to every land vehicle with a loadout, trailers apart."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosFireFighting",
+        "never": true,
+        "note": "added to every vehicle with a loadout, trailers apart."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosHull",
+        "never": true,
+        "note": "added to every VehicleBuildDef (a vehicle's frame), with a loadout or not."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosVehicleLoadOut",
+        "never": true,
+        "note": "added to every storage building (Building_Storage or a subclass), from every mod."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosHitch",
+        "never": false,
+        "note": "added to every land vehicle with a loadout, except a trailer and a loadout with noHitch. Write it yourself only on a trailer that should tow in turn."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosCamp",
+        "never": true,
+        "note": "added to every land vehicle with a loadout, and to a trailer whose CompProperties_PhobosTrailer has campDeck or campSide on."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosSling",
+        "never": true,
+        "note": "added to a vehicle whose loadout has a sling block."
+      },
+      {
+        "type": "Phobos.VehicleSystems.CompProperties_PhobosLitter",
+        "never": true,
+        "note": "added to a vehicle whose loadout binds the Cabin part role."
+      },
+      {
+        "type": "Phobos.VehicleSystems.Hygiene.CompProperties_PhobosCrewWater",
+        "never": true,
+        "note": "added at start-up, with Dubs Bad Hygiene active and not in its lite mode, to every vehicle with a camp that is not a trailer."
+      },
+      {
+        "type": "Phobos.Radio.Vehicles.CompProperties_PhobosCrossBand",
+        "never": true,
+        "note": "added to every vehicle with our vehicle systems. What lets a vehicle pass calls on is a fitting that grants RadioCrossBand."
+      }
+    ]
+  },
   "restoreProject": "src/PhobosFramework/PhobosFramework.csproj",
   "references": [
     {

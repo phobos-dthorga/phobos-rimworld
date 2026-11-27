@@ -18,6 +18,10 @@ found 232 public modder-facing types in the Framework and its vehicle systems, a
   time in UTC, the Framework's version (`stamp` in `config/reference-site.json`) and the commit, with "with uncommitted changes"
   on a build from a working tree that has them. It goes into the run's copy of `docfx.json`; the committed one never changes. A
   date written by hand inside a guide is that guide's own status line, not the site's.
+- **A comp the mods add in code says so on its page** (the owner's card of 28 Nov 2026,
+  [what writing the guides found](guide-audit-decisions.md)): `addedInCode` in `config/reference-site.json` lists each with who gets
+  it, and its page shows "Added for you" in place of an example to copy (`never: false` keeps the example, for a comp written by hand
+  in the cases its note names). The catalogue marks them, and a test fails if a listed type stops being XML-facing.
 - **The gate builds the whole site too** (`verify`, in its own lane beside the C# builds, about a minute; the owner's card of
   24 Nov 2026): into a throwaway folder per run, failing on any DocFX warning or error, so a broken link or cross-reference is
   caught before a commit rather than on GitHub. A machine without DocFX skips the step and says so.

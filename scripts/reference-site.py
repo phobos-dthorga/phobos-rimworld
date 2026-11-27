@@ -575,11 +575,31 @@ def xml_example(info, category, enums, constants):
     return snippet, rows
 
 
-def overwrite_page(info, category, enums, constants):
-    """A DocFX overwrite file adding the XML example and the defaults table to the type's API page."""
+def added_in_code(settings):
+    """The types the mods add in code, by full name (config "addedInCode"; the owner's card, 28 Nov 2026)."""
+    return {entry['type']: entry for entry in (settings.get('addedInCode') or {}).get('types', [])}
+
+
+def overwrite_page(info, category, enums, constants, added=None):
+    """A DocFX overwrite file adding the XML example and the defaults table to the type's API page. A type the mods add in code
+    (``added``, its config entry) says so first; one never to be written in XML shows no example to copy."""
     snippet, rows = xml_example(info, category, enums, constants)
     out = ['---', f'uid: {info.full}', 'example: [*content]', '---', '']
     where = category.get('where', '')
+    if added:
+        never = added.get('never', True)
+        out.append(f'**Added for you:** {added.get("note", "")}'.strip())
+        out.append('')
+        out.append('**Never write it in XML.**' if never else 'Write it in XML only where the line above says so:')
+        if never:
+            if rows:
+                out += ['', 'Its fields, as the code sets them:', '']
+                out += ['| Field | Type | Default | What it does |', '| --- | --- | --- | --- |']
+                for name, type_name, default, summary, owner in rows:
+                    what = summary + (f' (from {owner})' if owner else '')
+                    out.append(f'| `{name}` | `{type_name}` | {_cell(default)} | {_cell(what)} |')
+            return '\n'.join(out) + '\n'
+        out.append('')
     if info.abstract:
         out.append(f'**Abstract**: name a class derived from it in XML, not this one. {where}'.strip())
     else:
@@ -602,7 +622,7 @@ def _cell(text):
     return text.replace('|', '\\|').replace('\n', ' ') or ' '
 
 
-def catalogue_page(types, categories, repository):
+def catalogue_page(types, categories, repository, added=None):
     """The XML types page: every XML-facing type by kind, linked to its API page."""
     out = ['# XML types', '',
            'Every class a modder names in XML, by the kind of XML it goes in. Each type\'s page shows the element as written, '
@@ -620,7 +640,7 @@ def catalogue_page(types, categories, repository):
         out += ['| Type | What it is |', '| --- | --- |']
         for info in chosen:
             summary = _first_sentence(info.summary, 160) if info.summary else '*(no summary yet)*'
-            marker = ' *(abstract)*' if info.abstract else ''
+            marker = ' *(abstract)*' if info.abstract else ' *(added for you)*' if info.full in (added or {}) else ''
             source = f'{repository}/blob/main/{info.path}#L{info.line}' if repository else ''
             link = f'<xref:{info.full}?text={info.name}>' + (f' ([source]({source}))' if source else '')
             out.append(f'| {link}{marker} | {_cell(summary)} |')
@@ -801,12 +821,13 @@ def write_pages(root, settings, work, progress=None):
     categories = settings['categories']
     chosen = modder_types(source, categories)
     by_name = {c['name']: c for c in categories}
+    added = added_in_code(settings)
     examples = work / 'xml-examples'
     examples.mkdir(exist_ok=True)
     for info in chosen:
-        page = overwrite_page(info, by_name[info.category], source.enums, source.constants)
+        page = overwrite_page(info, by_name[info.category], source.enums, source.constants, added.get(info.full))
         (examples / f'{info.full}.md').write_text(page, encoding='utf-8')
-    (work / 'xml-types.md').write_text(with_uid(catalogue_page(chosen, categories, repository), 'xml-types'), encoding='utf-8')
+    (work / 'xml-types.md').write_text(with_uid(catalogue_page(chosen, categories, repository, added), 'xml-types'), encoding='utf-8')
     return chosen
 
 
