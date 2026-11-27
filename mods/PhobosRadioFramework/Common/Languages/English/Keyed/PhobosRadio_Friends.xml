@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- A radio friend (Radio 0.29.0). -->
+  <PhobosRadioFriend_Made>{COLONIST} has struck up a friendship on the radio with {FRIEND} of {FACTION}, at {SETTLEMENT}.</PhobosRadioFriend_Made>
+  <PhobosRadioFriend_Lost>{COLONIST} has lost their radio friend {FRIEND}.</PhobosRadioFriend_Lost>
+  <PhobosRadioFriend_Report>chatting with {FRIEND} by radio.</PhobosRadioFriend_Report>
+</LanguageData>

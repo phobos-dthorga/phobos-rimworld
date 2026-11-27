@@ -1,7 +1,7 @@
 # Radio friends, School of the Air, the medevac and neighbours' calls
 
-**Status (27 Nov 2026):** designed, the owner's four cards answered; being built in this order: radio friends (Radio Framework 0.29.0),
-School of the Air (0.30.0), neighbours' calls (0.31.0), the medevac (D'thorga Framework 0.338.0). Nothing is tested in game.
+**Status (27 Nov 2026):** partly built. Radio friends are built in Radio Framework 0.29.0, not yet tested in game: rows 657 and 658.
+Being built next, in this order: School of the Air (0.30.0), neighbours' calls (0.31.0), the medevac (D'thorga Framework 0.338.0).
 
 The owner chose all four on 27 Nov 2026, after advice by radio, the Elmer and other factions' doctors
 ([radio advice and relays](radio-advice-and-relays.md)). Two are from the owner's October radio design
@@ -45,6 +45,9 @@ A colonist spends recreation chatting by radio with a named person at a friendly
   of. No setting of its own.
 - **Cost** [A]: nothing each tick. The game asks a recreation giver only when a colonist picks recreation; it reads the radio net's last
   pass and a reach search kept an hour for the map (the doctors' search, shared). A chat's job adds the friendship a tick, a sum.
+- **As built (Radio 0.29.0)**: as above. The chat lasts up to an hour (the game's recreation length for a long activity [A]), its
+  chance as a recreation is 1.5 [A; the game's chess is 2], and it teaches a little Social as chess teaches Intellectual. A chat
+  out of touch part-way ends, counted so far. A colonist with no friend yet makes one at the first chat, and is told so.
 
 ## School of the Air
 

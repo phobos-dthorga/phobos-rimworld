@@ -255,6 +255,16 @@ public class RadioRulesDef : Def
     /// <summary>Settlements further than this in tiles are not looked at (agent default): past three hops of the best masts.</summary>
     public int factionSearchTiles = 100;
 
+    // A radio friend (Radio 0.29.0; the owner's card of 27 Nov 2026: "Mood, and a little goodwill"). Every figure an agent default, authored.
+    /// <summary>Hours of chat before a new friend is a friend, and before a friend is a close friend.</summary>
+    public float friendHours = 10f;
+    public float friendCloseHours = 30f;
+    /// <summary>Goodwill a chat of at least <see cref="friendGoodwillChatTicks"/> gives the friend's faction, at most
+    /// <see cref="friendGoodwillPerQuadrum"/> times a quadrum for each faction.</summary>
+    public int friendGoodwill = 1;
+    public int friendGoodwillChatTicks = 2500;
+    public int friendGoodwillPerQuadrum = 3;
+
     /// <summary>
     /// Heat pushed into the room per watt of waste per second. The vanilla heater turns 175 W into
     /// 21 heat per second, so 0.12 (read from Core's Buildings_Temperature.xml, 19 Oct 2026).

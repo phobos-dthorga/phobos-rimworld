@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.28.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.29.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -65,6 +65,8 @@ figures are here.
   **From 0.26.0** the carer learns the skill half again as fast while talked through, and when none of your colonists can help, an
   allied or neutral faction's doctor in radio reach may (its mechanic too, for vehicle repairs, from 0.27.0): allies free once a day,
   neutral factions for 3 goodwill.
+- **A radio friend (0.29.0)**: a colonist with a radio chats as recreation with a named friend at another faction's settlement in reach,
+  for a mood lift that grows with the friendship and a little goodwill ([the guide](../../docs/player-guide/radio.md#a-radio-friend)).
 - **Upgrades** for the desk and the antennas, fitted by builders.
 
 | Thing | Where | What it is |

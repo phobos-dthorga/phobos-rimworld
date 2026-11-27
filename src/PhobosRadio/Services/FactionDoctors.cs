@@ -32,7 +32,7 @@ public static class FactionDoctors
     private static Dictionary<Faction, Pawn> mechanics = new();
     private static Dictionary<Faction, int> lastOpened = new();
     private static Dictionary<Faction, int> lastUse = new();
-    private static readonly Dictionary<object, (int tick, FactionDoctorLink? link)> reach = new();
+    private static readonly Dictionary<(object origin, Faction? only, bool forHelp), (int tick, FactionDoctorLink? link)> reach = new();
     private static readonly HashSet<(Faction faction, SkillDef skill)> wanted = new();
     private static Thing? radioUnit;
     // Scribe's working lists for the dictionaries above: kept between its passes over a load.
@@ -149,13 +149,16 @@ public static class FactionDoctors
         if (wanted.Count == 0) return;
         foreach ((Faction faction, SkillDef skill) in wanted.ToList())
         {
-            if (!faction.defeated && HelpersFor(skill) is { } helpers && Make(faction, skill) is { } helper) helpers[faction] = helper;
+            if (!faction.defeated && HelpersFor(skill) is { } helpers && MakePerson(faction, skill) is { } helper) helpers[faction] = helper;
         }
         wanted.Clear();
     }
 
-    /// <summary>A person of the faction's own kind with the helper's skill, kept in the world. Up to three tries for one able to do it.</summary>
-    private static Pawn? Make(Faction faction, SkillDef skill)
+    /// <summary>
+    /// A person of the faction's own kind, kept in the world: with the helper's skill at the faction's level when <paramref name="skill"/> is
+    /// given (up to three tries for one able to do it), or as they come (a radio friend, Radio 0.29.0). From the game's tick only.
+    /// </summary>
+    public static Pawn? MakePerson(Faction faction, SkillDef? skill)
     {
         PawnKindDef? kind = faction.def.basicMemberKind;
         int level = LevelOf(faction);
@@ -163,12 +166,15 @@ public static class FactionDoctors
         for (int attempt = 0; attempt < 3; attempt++)
         {
             Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kind, faction, PawnGenerationContext.NonPlayer, forceGenerateNewPawn: true));
-            if (pawn.skills?.GetSkill(skill) is not { TotallyDisabled: false } record)
+            if (skill != null)
             {
-                Find.WorldPawns.PassToWorld(pawn, PawnDiscardDecideMode.Discard);
-                continue;
+                if (pawn.skills?.GetSkill(skill) is not { TotallyDisabled: false } record)
+                {
+                    Find.WorldPawns.PassToWorld(pawn, PawnDiscardDecideMode.Discard);
+                    continue;
+                }
+                record.Level = level;
             }
-            record.Level = level;
             Find.WorldPawns.PassToWorld(pawn, PawnDiscardDecideMode.KeepForever);
             return pawn;
         }
@@ -195,36 +201,49 @@ public static class FactionDoctors
     /// The settlement of a faction that would help now that this place reaches by radio, allies first, or null. <paramref name="origin"/> is
     /// the map or convoy searched for, kept a while; <paramref name="froms"/> its radio's ends, tried in turn until one reaches.
     /// </summary>
-    public static FactionDoctorLink? Reach(object origin, PlanetTile tile, System.Func<IReadOnlyList<RelayNode>> froms)
+    public static FactionDoctorLink? Reach(object origin, PlanetTile tile, System.Func<IReadOnlyList<RelayNode>> froms) =>
+        On ? ReachFor(origin, tile, froms, null, forHelp: true) : null;
+
+    /// <summary>
+    /// The settlement of a faction that is not hostile and has radio, that this place reaches, to talk with (Radio 0.29.0: a radio friend),
+    /// allies first; or of <paramref name="only"/> that faction. Kept a while, as the doctors' search is.
+    /// </summary>
+    public static FactionDoctorLink? ReachToTalk(object origin, PlanetTile tile, System.Func<IReadOnlyList<RelayNode>> froms, Faction? only = null) =>
+        ReachFor(origin, tile, froms, only, forHelp: false);
+
+    /// <summary>Whether a faction would talk now: not hostile, not hidden or defeated, with radio.</summary>
+    public static bool Talks(Faction faction) =>
+        !faction.IsPlayer && !faction.Hidden && !faction.defeated && LevelOf(faction) > 0 && StandingOf(faction) != FactionStanding.Hostile;
+
+    private static FactionDoctorLink? ReachFor(object origin, PlanetTile tile, System.Func<IReadOnlyList<RelayNode>> froms, Faction? only, bool forHelp)
     {
-        if (!On) return null;
         int now = Find.TickManager.TicksGame;
         var rules = RadioRulesDef.Current;
-        if (reach.TryGetValue(origin, out var held) && now - held.tick < rules.factionReachKeepTicks)
-            return held.link != null && TermsOf(held.link.Faction) != FactionTerms.Refused ? held.link : null;
+        var key = (origin, only, forHelp);
+        if (reach.TryGetValue(key, out var held) && now - held.tick < rules.factionReachKeepTicks)
+            return held.link != null && (forHelp ? TermsOf(held.link.Faction) != FactionTerms.Refused : Talks(held.link.Faction)) ? held.link : null;
         if (reach.Count > 64) reach.Clear();
         IReadOnlyList<RelayNode> ends = froms();
-        FactionDoctorLink? found = ends.Count == 0 ? null : Search(origin, tile, ends, rules);
-        reach[origin] = (now, found);
+        FactionDoctorLink? found = ends.Count == 0 ? null : Search(origin, tile, ends, rules, only, forHelp);
+        reach[key] = (now, found);
         return found;
     }
 
-    private static FactionDoctorLink? Search(object origin, PlanetTile tile, IReadOnlyList<RelayNode> froms, RadioRulesDef rules)
+    private static FactionDoctorLink? Search(object origin, PlanetTile tile, IReadOnlyList<RelayNode> froms, RadioRulesDef rules, Faction? only, bool forHelp)
     {
         var allies = new List<RelayNode>();
         var others = new List<RelayNode>();
         foreach (Settlement settlement in Find.WorldObjects.Settlements)
         {
-            if (settlement.Faction is not { } faction || faction.IsPlayer || faction.Hidden || faction.defeated || LevelOf(faction) <= 0) continue;
+            if (settlement.Faction is not { } faction || (only != null && faction != only) || !Talks(faction)) continue;
             if (Find.WorldGrid.ApproxDistanceInTiles(tile, settlement.Tile) > rules.factionSearchTiles) continue;
-            FactionTerms terms = TermsOf(faction);
-            if (terms == FactionTerms.Refused) continue;
+            if (forHelp && TermsOf(faction) == FactionTerms.Refused) continue;
             if (EndOf(settlement) is not { } end) continue;
             (StandingOf(faction) == FactionStanding.Ally ? allies : others).Add(end);
         }
         if (allies.Count == 0 && others.Count == 0) return null;
         List<RelayNode> relays = RelayNodes.All().ToList();
-        object holder = (origin, "PhobosRadioFactionDoctor");
+        object holder = (origin, forHelp ? "PhobosRadioFactionDoctor" : "PhobosRadioTalk");
         foreach (List<RelayNode> targets in new[] { allies, others })
         {
             if (targets.Count == 0) continue;

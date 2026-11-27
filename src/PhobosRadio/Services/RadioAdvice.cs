@@ -322,7 +322,7 @@ public static class RadioAdvice
     }
 
     /// <summary>The nearest powered station's desk the adviser can walk to, or null.</summary>
-    private static Thing? NearestDesk(Pawn adviser, RadioNet net)
+    public static Thing? NearestDesk(Pawn adviser, RadioNet net)
     {
         Thing? nearest = null;
         float best = float.MaxValue;
@@ -486,7 +486,7 @@ public static class RadioAdvice
         return null;
     }
 
-    private static bool InTouch(Pawn pawn)
+    public static bool InTouch(Pawn pawn)
     {
         var net = RadioNet.For(pawn.Map);
         if (net.ServedBy(pawn) != null) return net.TryGetBest(pawn, out var link) && link != null && link.Budget.Outcome != LinkOutcome.NoContact;
@@ -605,21 +605,28 @@ public static class RadioAdvice
 
 /// <summary>
 /// Looks at the colony for calls to open and end, at the rules' interval, and watches the trade talks each frame. Saves only other factions'
-/// doctors and their calls' times (Radio 0.26.0); a save without them loads with none.
+/// doctors and their calls' times (Radio 0.26.0) and radio friendships (Radio 0.29.0); a save without them loads with none.
 /// </summary>
 public class GameComponent_RadioAdvice : GameComponent
 {
     public GameComponent_RadioAdvice(Game game)
     {
         RadioAdvice.Clear();
+        RadioFriends.Clear();
     }
 
-    public override void ExposeData() => FactionDoctors.ExposeData();
+    public override void ExposeData()
+    {
+        FactionDoctors.ExposeData();
+        RadioFriends.ExposeData();
+    }
 
     public override void GameComponentTick()
     {
         int interval = RadioRulesDef.Current.adviceLookTicks;
         if (interval > 0 && Find.TickManager.TicksGame % interval == 0) RadioAdvice.Look();
+        // Radio 0.29.0: friendships that have ended are mourned, looked over once a game hour.
+        if (Find.TickManager.TicksGame % GenDate.TicksPerHour == 0) RadioFriends.LookOver();
     }
 
     public override void GameComponentUpdate() => RadioAdvice.WatchTrade();

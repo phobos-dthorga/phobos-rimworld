@@ -137,6 +137,20 @@ trade talks. Nothing to press: it happens by itself when both are in radio touch
   more settlements into reach. A call stays open for an hour after its last use, so a convoy's tends an hour apart cost once. Setting:
   **Other factions' doctors and mechanics give advice by radio**, on by default.
 
+## A radio friend
+
+**A colonist with a radio can make a friend at another faction's settlement and chat with them as recreation.** Nothing to press: a
+colonist picks it like any other recreation.
+
+- **What it needs**: a hand-held in touch with a station (in bed too, awake), or a powered station's desk to walk to; and a faction
+  that is not hostile and has radio (not tribes or medieval kingdoms), with a settlement your stations reach. Masts, hilltops and
+  relays bring more settlements into reach.
+- **The friend** is a named person of that faction, the same each time.
+- **After each chat** the colonist's mood lifts: **+2** with a new friend, **+4** with a friend (about 10 hours of chats), **+6** with
+  a close friend (about 30 hours).
+- **A chat of an hour or more** raises the friend's faction's goodwill by **1**, at most **3 times a quadrum** for each faction.
+- **If the friend dies or their faction turns hostile**, the colonist mourns them (**-6** for 6 days), and finds a new friend next time.
+
 ## Try it
 
 1. Research local radio. Build the station indoors under a built roof, craft a VHF hand-held and wear it.

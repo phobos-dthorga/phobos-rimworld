@@ -22,6 +22,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.29.0] - 2026-11-27 - Draft
+
+A radio friend
+
+### Added
+
+- **A colonist can pass recreation chatting by radio with a friend at another faction's settlement** (the owner's card of 27 November
+  2026: mood, and a little goodwill). It needs a hand-held in touch with a station, which works in bed too, or a powered station's
+  desk, and a faction that is not hostile and has radio, with a settlement the colony's stations reach. The friend is a named person of
+  that faction, the same each time. After each chat the colonist's mood lifts by +2, +4 as a friend (about 10 hours of chats) or +6 as
+  a close friend (about 30). A chat of an hour or more raises the faction's goodwill by 1, at most 3 times a quadrum. If the friend dies
+  or their faction turns hostile, the colonist mourns them (-6 for 6 days). Not yet tested in game: rows 657 and 658.
+
+### Compatibility and limits
+
+- Every figure is an agent default, for the owner to revise. Safe with a running save: the game now saves each colonist's radio
+  friendship, and loads an older save with none.
+
 ## [0.28.0] - 2026-11-27 - Draft
 
 The Drive from the station button's own picture

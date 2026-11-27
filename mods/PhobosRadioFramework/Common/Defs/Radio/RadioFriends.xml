@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    A radio friend (Radio 0.29.0; docs/development/radio-friends-school-medevac.md, the owner's card of 27 Nov 2026: "Mood, and a little
+    goodwill"). A colonist on recreation chats by radio with a person at a friendly settlement in reach. The chance, the joy, the hour a
+    chat lasts and the thoughts' figures are agent defaults, authored, for the owner to revise.
+  -->
+
+  <JoyGiverDef>
+    <defName>PhobosRadio_RadioChat</defName>
+    <giverClass>Phobos.Radio.Services.JoyGiver_PhobosRadioChat</giverClass>
+    <baseChance>1.5</baseChance>
+    <jobDef>PhobosRadio_RadioChat</jobDef>
+    <joyKind>Social</joyKind>
+    <canDoWhileInBed>true</canDoWhileInBed>
+    <requiredCapacities>
+      <li>Talking</li>
+      <li>Hearing</li>
+    </requiredCapacities>
+  </JoyGiverDef>
+
+  <JobDef>
+    <defName>PhobosRadio_RadioChat</defName>
+    <driverClass>Phobos.Radio.Work.JobDriver_PhobosRadioChat</driverClass>
+    <reportString>chatting by radio.</reportString>
+    <joyDuration>2500</joyDuration>
+    <joyMaxParticipants>1</joyMaxParticipants>
+    <joySkill>Social</joySkill>
+    <joyXpPerTick>0.002</joyXpPerTick>
+    <joyKind>Social</joyKind>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+  </JobDef>
+
+  <ThoughtDef>
+    <defName>PhobosRadio_ChattedWithRadioFriend</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>chatted with a new radio friend</label>
+        <description>A long chat on the radio with someone far away. We are getting to know each other.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+      <li>
+        <label>chatted with my radio friend</label>
+        <description>A long chat on the radio with my friend far away. It is good to hear a familiar voice.</description>
+        <baseMoodEffect>4</baseMoodEffect>
+      </li>
+      <li>
+        <label>chatted with my close radio friend</label>
+        <description>A long chat on the radio with my close friend. We have talked through a great deal together.</description>
+        <baseMoodEffect>6</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>PhobosRadio_LostRadioFriend</defName>
+    <durationDays>6</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>lost my radio friend</label>
+        <description>The voice I used to talk to on the radio is gone. I keep listening for it.</description>
+        <baseMoodEffect>-6</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- Why a faction's goodwill rose: a colonist's long chats with one of its people. -->
+  <HistoryEventDef>
+    <defName>PhobosRadio_RadioFriendship</defName>
+    <label>a radio friendship</label>
+  </HistoryEventDef>
+</Defs>
