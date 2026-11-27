@@ -22,6 +22,16 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.367.0] - 2026-11-28 - Draft
+
+Boats' marine radio
+
+### Changed
+
+- **New boats leave the factory with the marine radio** (the owner's answer of 28 November 2026; with the Radio Framework 0.57.0): on
+  the real marine band, in place of the dual-band set that stood in for it. A boat that already has the dual-band set keeps it.
+  Not yet tested in game: row 746.
+
 ## [0.366.0] - 2026-11-28 - Draft
 
 Lights, searchlights, night landings and galleys

@@ -78,6 +78,17 @@ hand-helds and a station's built-in whip cannot work them. To hear your aircraft
 
 A station with both shows the air band and military UHF on its Waterfall tab. **Jamming reaches these bands too.**
 
+## Talking to boats
+
+**Boats talk on the marine band** (156 to 162 MHz), by FM voice. As with aircraft, your hand-helds and a station's built-in whip
+cannot work it. To hear your boats:
+
+1. Fit the **marine transceiver** upgrade to the radio desk or the radio terminal (its Upgrades button: 15 steel, 3 components).
+2. Fit a **marine antenna** to a **mast** on that station's coax (15 steel, 1 component).
+3. Every new boat comes with its **marine radio**, fitted at the factory (25 W). Its **Comms** system on the Systems tab then reads
+   **in touch** while it is on the map within reach of that mast. **A boat you had before keeps its dual-band radio**: a mechanic can
+   swap it for the marine radio in the same bay (Fittings).
+
 ## How a contact is decided
 
 - **Distance**: doubling it costs 6 dB, a quarter of the power.

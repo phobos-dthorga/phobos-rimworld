@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The marine radio fitting (Radio 0.57.0; the owner's answer of 28 Nov 2026 on the Decisions page, "Add the marine band"). It goes in the
+       voice radio bay every boat has (D'thorga Framework's Loadouts_Default.xml), in place of the dual-band set, which stays fittable there
+       instead; every boat leaves the factory with it (its loadout's factoryFittings). A boat that already has the dual-band set keeps it.
+       The radio itself is PhobosRadio_FittingMarine. Cost, load, weight, work and skill are the agent's proposals, as the aviation radio's;
+       it borrows the repeater kit's picture, as the aviation and dual-band radios do. Not yet tested in game. -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_MarineRadio</defName>
+    <iconPath>Phobos/Radio/Fittings/RepeaterKit</iconPath>
+    <label>marine radio</label>
+    <description>The boat's radio for the marine band, by FM voice. With it, the boat is in touch with any station on the same map that has a marine transceiver and a marine antenna on its mast; its Comms system says whether it is. It draws a little on the battery.</description>
+    <roles><li>VoiceRadioMount</li></roles>
+    <materials><Steel>10</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <kilograms>4</kilograms>
+    <work>1000</work>
+    <fittedSound>PhobosRadio_CoaxConnector</fittedSound>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosRadio_LocalRadio</researchPrerequisite>
+    <grants><li>MarineRadio</li></grants>
+    <loads>
+      <li>
+        <!-- Listening, and keyed now and then: about 2 A at 12 V on average (authored, as the aviation and dual-band radios). Shed early: a boat
+             that loses it only falls out of touch. -->
+        <name>marineRadio</name>
+        <label>marine radio</label>
+        <description>The marine radio. With power, the boat can be in touch with a station that works the marine band.</description>
+        <amps>2</amps>
+        <shedOrder>4</shedOrder>
+        <iconPath>Phobos/Radio/Fittings/RepeaterKit</iconPath>
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TwelveVoltShare" />
+        </ampsInputs>
+      </li>
+    </loads>
+    <feed>
+      <load>marineRadio</load>
+    </feed>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

@@ -141,4 +141,44 @@
       <li><name>aviationBands</name><value>1</value></li>
     </figures>
   </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+  <!-- The marine kit (Radio 0.57.0; the owner's answer of 28 Nov 2026, "Add the marine band"). As the aviation kit: a station hears boats
+       only with both, the transceiver for the desk or terminal and the marine antenna on the mast; a built-in whip never does. Costs and
+       work authored, a little below the aviation kit's: one band, not two. -->
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeMarineTransceiver</defName>
+    <label>marine transceiver</label>
+    <description>A second set in the station for the marine band, by FM voice. With a marine antenna on a mast on its coax, the station can talk to boats. Its own built-in whip cannot work this band.</description>
+    <buildings>
+      <li>PhobosRadio_BaseStation</li>
+      <li>PhobosRadio_RadioTerminal</li>
+    </buildings>
+    <costList>
+      <Steel>15</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <work>1000</work>
+    <constructionSkill>4</constructionSkill>
+    <researchPrerequisite>PhobosRadio_LocalRadio</researchPrerequisite>
+    <figures>
+      <li><name>marineBand</name><value>1</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeMarineAntenna</defName>
+    <label>marine antenna</label>
+    <description>Another antenna bolted to the mast, for the marine band. A station with a marine transceiver on this mast's coax can talk to boats through it.</description>
+    <buildings>
+      <li>PhobosRadio_Mast</li>
+    </buildings>
+    <costList>
+      <Steel>15</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <work>600</work>
+    <constructionSkill>4</constructionSkill>
+    <figures>
+      <li><name>marineBand</name><value>1</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
 </Defs>

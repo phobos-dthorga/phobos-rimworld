@@ -29,6 +29,17 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.57.0] - 2026-11-28 - Draft
+
+The marine band
+
+### Added
+
+- **The marine band for boats** (the owner's answer of 28 November 2026): boats talk on marine VHF (156 to 162 MHz, FM), and every new
+  boat comes with a 25 W **marine radio** in its voice radio bay. A station hears boats with the **marine transceiver** upgrade on its
+  desk or terminal and a **marine antenna** on its mast. A boat that already has the dual-band set keeps it; a mechanic can swap it.
+  Not yet tested in game: row 746.
+
 ## [0.56.0] - 2026-11-28 - Draft
 
 A lesson in person at the full rate

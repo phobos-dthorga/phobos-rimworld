@@ -64,7 +64,7 @@ on an aircraft in flight.
   fitted and working; **link home** whether it is in touch with a radio station on the same map, faint, out of touch or **jammed**
   (away from home's map, the convoy's own radio button says how it reaches home). The radios themselves sit in the **radio bays** on
   the Fittings tab, and those bays are parts on the Health tab. **Aircraft, military vehicles and boats leave the factory with a
-  radio**: aircraft an **aviation radio**, military vehicles and boats a **dual-band radio**. Take one off like any fitting; it stays
+  radio**: aircraft an **aviation radio**, boats a **marine radio**, military vehicles a **dual-band radio**. Take one off like any fitting; it stays
   off.
 
 ### The Logbook tab

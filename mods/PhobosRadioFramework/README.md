@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.56.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.57.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -65,7 +65,8 @@ figures are here.
   ([the guide](../../docs/player-guide/radio.md#jamming)).
 - **Radios in every vehicle (0.49.0, with Vehicle Framework)**: a **Comms** system on every powered vehicle's Systems tab (radio fitted?
   in touch?), radio bays on aircraft and boats, and radios from the factory: an **aviation radio** in every aircraft, a **dual-band radio**
-  in military vehicles and boats. Aircraft talk on the **air band and military UHF**: a station needs the **aviation transceiver** and a
+  in military vehicles, and (0.57.0) a **marine radio** in every new boat, on the **marine band**: a station needs the **marine
+  transceiver** and a mast's **marine antenna** to hear boats ([the guide](../../docs/player-guide/radio.md#talking-to-boats)). Aircraft talk on the **air band and military UHF**: a station needs the **aviation transceiver** and a
   mast's **aviation antennas** to hear them ([the guide](../../docs/player-guide/radio.md#talking-to-aircraft)).
 - **Advice by radio (0.23.0)**: a more skilled colonist in touch talks another through tending, an operation, a vehicle repair or
   trade talks, at home or from a convoy in reach: half the skill gap closed, a quarter on a marginal link, a little slower

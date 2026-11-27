@@ -46,4 +46,18 @@
     <obstructionFactor>0.85</obstructionFactor>
     <upgradeFigure>aviationBands</upgradeFigure>
   </Phobos.Radio.BandDef>
+
+  <!-- The marine band (Radio 0.57.0; the owner's answer of 28 Nov 2026 on the Decisions page, "Add the marine band"; docs/development/vehicle-standard.md).
+       Boats talk on it; a station needs the marine transceiver upgrade, and the mast's marine antenna, before it can hear a boat, as for the
+       aviation bands. Edges: the maritime mobile VHF channels of the ITU Radio Regulations' Appendix 18, 156.000 MHz (channel 0) to 162.025
+       MHz (AIS 2; ITU-R Report M.2231; the US Coast Guard's channel table). The obstruction factor is authored: VHF's, as for the air band. -->
+  <Phobos.Radio.BandDef>
+    <defName>PhobosRadio_Marine</defName>
+    <label>marine VHF</label>
+    <description>156 to 162 MHz. Boats talk to the shore and each other here, by FM voice. A station needs a marine transceiver and a marine antenna to join in.</description>
+    <lowMHz>156</lowMHz>
+    <highMHz>162.025</highMHz>
+    <obstructionFactor>1.0</obstructionFactor>
+    <upgradeFigure>marineBand</upgradeFigure>
+  </Phobos.Radio.BandDef>
 </Defs>

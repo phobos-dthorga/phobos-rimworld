@@ -102,8 +102,9 @@ On the owner's cards of the same day. **Not yet tested in game**: rows 710 and 7
 the aviation bands as any other (the mast's noise covers every band the radio knows). **Cost:** the Comms readings ask a few fitting
 lookups and one dictionary lookup on the systems' own rare step; an aircraft on the net is one more radio in its pass, as a hand-held is.
 
-**Not built in batch 1:** the crew's "in touch with home" mood aboard a vehicle in touch; boats on the marine VHF band (they use the
-dual-band set, a labelled simplification; a decision is open); the flying relay (EW7, slice 3's second part), which needs a way for an
+**Not built in batch 1:** the crew's "in touch with home" mood aboard a vehicle in touch; boats on the marine VHF band (built since, in Radio 0.57.0 and
+Framework 0.367.0, on the owner's answer of 28 Nov 2026, "Add the marine band": the marine radio from the factory, the marine
+transceiver and marine antenna for stations, and boats already built keep the dual-band set); the flying relay (EW7, slice 3's second part), which needs a way for an
 aircraft to hold over a place on the world map, as flights there only go from A to B today.
 
 ## Built: batch 2 (27 Nov 2026)

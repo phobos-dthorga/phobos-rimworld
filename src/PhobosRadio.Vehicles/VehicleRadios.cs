@@ -68,14 +68,17 @@ public static class VehicleRadios
         RadioNet.Ticked += RemoteCoverMap.Tick;
         var kitRadio = DefDatabase<RadioFittingDef>.GetNamedSilentFail(KitRadioName)?.radio;
         var aviationRadio = DefDatabase<RadioFittingDef>.GetNamedSilentFail(AviationRadioName)?.radio;
+        var marineRadio = DefDatabase<RadioFittingDef>.GetNamedSilentFail(MarineRadioName)?.radio;
         foreach (var def in DefDatabase<VehicleDef>.AllDefsListForReading)
         {
             // A design that names a fitting (our trucks), or one with a loadout of ours, which can take the kit fitting (Radio 0.15.0). Since
-            // Radio 0.49.0 an aircraft with a loadout of ours carries the aviation radio instead: it has no remote control kit bay.
+            // Radio 0.49.0 an aircraft with a loadout of ours carries the aviation radio instead: it has no remote control kit bay. Since
+            // Radio 0.57.0 a boat carries the marine radio, for the same reason.
             bool ours = def.comps.Exists(comp => comp is CompProperties_PhobosVehicleSystems);
             bool aircraft = def.GetCompProperties<CompProperties_VehicleLauncher>() != null;
+            bool boat = def.type == VehicleType.Sea;
             var radio = def.GetModExtension<VehicleRadioFitting>()?.fitting?.radio
-                        ?? (ours ? (aircraft ? aviationRadio ?? kitRadio : kitRadio) : null);
+                        ?? (ours ? (aircraft ? aviationRadio ?? kitRadio : boat ? marineRadio ?? kitRadio : kitRadio) : null);
             if (radio == null) continue;
             if (!def.comps.Exists(comp => comp is CompProperties_Radio)) def.comps.Add(radio);
             if (!def.comps.Exists(comp => comp is CompProperties_PhobosRemoteControl)) def.comps.Add(new CompProperties_PhobosRemoteControl());
@@ -106,11 +109,21 @@ public static class VehicleRadios
     public static bool AviationFitted(VehiclePawn vehicle) =>
         vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(AviationGrant) && systems.LoadActive(AviationLoad);
 
+    /// <summary>The marine radio every boat carries (Radio 0.57.0), its fitting's grant and its load (MarineRadio.xml).</summary>
+    public const string MarineRadioName = "PhobosRadio_FittingMarine";
+    public const string MarineGrant = "MarineRadio";
+    public const string MarineLoad = "marineRadio";
+
+    /// <summary>Whether this boat's marine radio is fitted and powered (Radio 0.57.0).</summary>
+    public static bool MarineFitted(VehiclePawn vehicle) =>
+        vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(MarineGrant) && systems.LoadActive(MarineLoad);
+
     /// <summary>
-    /// Whether the vehicle's own radio is on the net (Radio 0.49.0): the remote control kit's radio, or an aircraft's aviation radio. On the
+    /// Whether the vehicle's own radio is on the net (Radio 0.49.0): the remote control kit's radio, an aircraft's aviation radio, or (Radio
+    /// 0.57.0) a boat's marine radio. On the
     /// net it stands by, its links worked out and shown on its Comms system; only the kit's radio can be driven from a station.
     /// </summary>
-    public static bool OnNet(VehiclePawn vehicle) => Fitted(vehicle) || AviationFitted(vehicle);
+    public static bool OnNet(VehiclePawn vehicle) => Fitted(vehicle) || AviationFitted(vehicle) || MarineFitted(vehicle);
     /// <summary>What the remote control kit fitting grants, and the electrical load that powers it (Radio 0.15.0; RemoteControlKit.xml).</summary>
     public const string KitGrant = "RemoteControl";
     public const string KitLoad = "remoteKit";
@@ -206,6 +219,7 @@ public sealed class RadioComms : IVehicleCommsSource
         (VehicleRadios.KitGrant, VehicleRadios.KitLoad),
         (CrossBand.Grant, CrossBand.Load),
         (VehicleRadios.AviationGrant, VehicleRadios.AviationLoad),
+        (VehicleRadios.MarineGrant, VehicleRadios.MarineLoad),
     };
 
     public CommsRadio RadioOf(VehiclePawn vehicle)
@@ -233,6 +247,9 @@ public sealed class RadioComms : IVehicleCommsSource
         // Seen in play (Radio 0.49.0, row 711): an aircraft's aviation radio in touch with a station.
         if (reading == CommsLink.InTouch && VehicleRadios.AviationFitted(vehicle) && Seen.Wants("radio.aviation-link", vehicle))
             Seen.Note("radio.aviation-link", vehicle, link.Band.label);
+        // Seen in play (Radio 0.57.0, row 746): a boat's marine radio in touch with a station.
+        if (reading == CommsLink.InTouch && VehicleRadios.MarineFitted(vehicle) && Seen.Wants("radio.marine-link", vehicle))
+            Seen.Note("radio.marine-link", vehicle, link.Band.label);
         return reading;
     }
 }

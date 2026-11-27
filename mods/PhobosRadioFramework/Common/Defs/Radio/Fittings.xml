@@ -45,4 +45,25 @@
       <engageSound>PhobosRadio_SquelchVehicle</engageSound>
     </radio>
   </Phobos.Radio.RadioFittingDef>
+  <!-- The marine radio (Radio 0.57.0; the owner's answer of 28 Nov 2026, "Add the marine band"). Every boat leaves the factory with one in
+       its voice radio bay. 25 W by FM on the marine band: a ship's VHF set is limited to 25 W (secondary: Wikipedia, "Marine VHF radio").
+       Marine voice uses 25 kHz channels; our FM mode's 12.5 kHz stands in for them (a labelled simplification). Its whip's height above the
+       water is authored. It stands by, as the aviation radio does: its links are worked out and shown on the Comms system, and it asks no
+       channel. -->
+  <Phobos.Radio.RadioFittingDef>
+    <defName>PhobosRadio_FittingMarine</defName>
+    <label>marine radio</label>
+    <description>A boat's radio for the marine band, by FM voice, with a whip on the cabin roof.</description>
+    <radio>
+      <bands>
+        <li>PhobosRadio_Marine</li>
+      </bands>
+      <mode>PhobosRadio_VoiceFM</mode>
+      <transmitPowerWatts>25</transmitPowerWatts>
+      <noiseFigureDb>8</noiseFigureDb>
+      <antennaGainDbi>0</antennaGainDbi>
+      <antennaHeightMetres>3</antennaHeightMetres>
+      <engageSound>PhobosRadio_SquelchVehicle</engageSound>
+    </radio>
+  </Phobos.Radio.RadioFittingDef>
 </Defs>
