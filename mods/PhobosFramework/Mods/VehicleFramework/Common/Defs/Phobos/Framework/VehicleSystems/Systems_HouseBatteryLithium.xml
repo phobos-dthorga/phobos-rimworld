@@ -147,6 +147,38 @@
         <kind>From</kind>
         <factor>0.00004</factor>
       </li>
+      <li>
+        <!-- Framework 0.344.0 (the owner's card of 27 Nov 2026, "Solar panel"): a solar panel charges it in daylight while the engine is off,
+             never below freezing (its management board). -->
+        <name>houseSolar</name>
+        <quantity>houseCharge</quantity>
+        <kind>Into</kind>
+        <divideByParameter>houseAmpHours</divideByParameter>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning">
+          <invert>true</invert>
+        </when>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_SolarAmps" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>houseCharge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.95, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Ambient">
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(2, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
     </flows>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 </Defs>

@@ -28,6 +28,7 @@ the kit back in the cargo.
 | **12-volt fridge** (20 kg) | Keeps up to 30 kg of the cargo's food at 4 °C, choosing what would spoil first. It has its own switch | 0.2 to 1.5 A, more in the heat |
 | **House battery** (25 kg, lead-acid) | A second 100 Ah battery for the fridge, outlet and 12-volt camp lights, so they never flatten the battery that starts the engine. At half its charge it cuts them off, to spare itself | Charges while driving once the starting battery is full, or on shore power |
 | **Lithium house battery** (12 kg, needs **microelectronics**) | The same job, but it gives nearly all its charge (it cuts off at a tenth) and never freezes | As the lead-acid one, but **it will not charge below 0 °C** |
+| **Vehicle solar panel** (12 kg, needs **solar panels**) | 200 W on its own mount. In daylight with the engine off it charges the house battery, or the starting battery without one: about 14 A at noon on 12 V in full sun, less under cloud or with the sun low, nothing at night or under a roof | Nothing: it only gives |
 | **Power outlet** (4 kg) | Switched on while parked, the conduit beneath the vehicle powers lamps, a radio or a bench wired to it, up to 300 W (600 W on a 24 V truck) | What it gives, in amps: a 200 W radio is about 20 A on 12 V |
 
 - **Without a house battery, the fridge and outlet drain the starting battery with the engine off.** A fridge alone flattens a stock
@@ -39,6 +40,11 @@ the kit back in the cargo.
 - **A run-down lead-acid house battery freezes in deep cold**, cracks and is lost: the emptier it is, the less cold it takes (below
   about −10 °C when flat). You are warned when it starts; running the engine or moving somewhere warmer saves it. The setting
   **Run-down house batteries freeze** (Vehicle Systems settings, Camps) switches this off.
+- **A lead-acid house battery wears** as it is used, faster the deeper it is drawn and faster still left run down: a message says when
+  it holds four-fifths of its first charge or less. A battery taken off shows its wear as its condition, and a new one is whole.
+  Lithium does not wear. The setting **House batteries wear** (Vehicle Systems settings, Camps) switches this off.
+- **A solar panel keeps a parked camp going**: with a house battery it carries a fridge through most sunny days, and a flat battery
+  comes back by itself over a few days of sun.
 - **To run a camp longer, leave the engine idling**: the outlet keeps its conduit down and the alternator carries it, burning fuel.
 - **The outlet gives only what its devices ask**, and never fills a colony's batteries. Switched on, the vehicle draws nothing from
   that grid.

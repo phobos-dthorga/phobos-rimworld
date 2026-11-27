@@ -1,0 +1,25 @@
+[
+  {
+    "name": "item-solar-panel-kit",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/HouseBattery.png",
+        "role": "our approved house battery, the same family of camping kits: match its outline weight, shading, palette and finish only; do not copy its shape or colour"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicleSystems_SolarPanelKit, the vehicle solar panel kit (Framework 0.344.0); also the solar panel fitting's icon",
+      "size": "drawn by the game on one cell at drawSize 0.9; requested at 1024",
+      "this_request": "the house power round (owner's card of 27 Nov 2026, 'Solar panel'), two attempts, the owner picking one card"
+    },
+    "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga vehicle solar panel kit: a rigid solar panel for a camping vehicle's roof, with its charge controller. Image 1 is our approved house battery from the same family of camping kits: match its outline weight, shading, palette and finish only. Do NOT copy its shape or colour.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA flat rectangular solar panel lying face up, in a slim silver aluminium frame with four small mounting brackets at its corners; its face a deep blue-black grid of cells, six by ten, with thin pale lines between them and a faint soft sheen; beside its frame, a small grey charge controller box with two short coiled cables, one red and one black.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, plus or minus signs, logos, brand marks, dials, screens, lights, sparks, sun or shadow beyond the object."
+  }
+]

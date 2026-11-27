@@ -13,6 +13,15 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.129.2] - 2026-11-27 - Draft
+
+The Prowler's improved jamming suites say they need power
+
+### Fixed
+
+- **The EA-6B Prowler's improved jamming suites say their wider reach needs power**, as it has since D'thorga Framework 0.334.0. Not
+  yet tested in game: row 671.
+
 ## [0.129.1] - 2026-11-27 - Draft
 
 The ammunition locker's own picture

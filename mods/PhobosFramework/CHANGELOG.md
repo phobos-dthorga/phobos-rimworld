@@ -22,6 +22,35 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.344.0] - 2026-11-27 - Draft
+
+House power: a vehicle solar panel, a lead-acid house battery that wears, and the fittings audit's last gaps closed
+
+### Added
+
+- **A vehicle solar panel**, a 200-watt fitting on a mount of its own (needs solar panels): in daylight with the engine off it charges
+  the house battery, or the starting battery without one, by the map's own daylight and weather, nothing under a roof. Its picture is the
+  owner's pick. Not yet tested in game: row 673.
+- **A setting, House batteries wear** (Vehicle Systems settings, Camps; on by default): off, a lead-acid house battery never wears.
+
+### Changed
+
+- **A lead-acid house battery wears**: it loses capacity as it is used, faster drawn deep and faster still left run down, with a message
+  below four-fifths. A battery taken off shows its wear as its condition and keeps it on the next vehicle; a new one is whole. Lithium does
+  not wear. Not yet tested in game: row 672.
+
+### Fixed
+
+- **A crew water tank taken off is drained**: before, its water stayed with the vehicle and came back with the next tank.
+- **Fitting a deep-cycle battery keeps the charge, not the share**: before, a half-charged battery came up half-full of the bigger one.
+- **The route kit, the mech control link and the recovery beacons draw half the amps on a 24-volt vehicle**, the same watts, as their
+  figures always meant. Not yet tested in game: row 671.
+
+### Save compatibility
+
+- Safe on an existing save. Every land vehicle gains a solar panel mount. A lead-acid house battery already fitted, and any in storage,
+  starts whole.
+
 ## [0.343.0] - 2026-11-27 - Draft
 
 Helicopters collect from depots in a folded cargo net, and a walkthrough of the supply network

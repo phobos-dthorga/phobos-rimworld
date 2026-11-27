@@ -497,6 +497,22 @@
         </add>
       </li>
       <li>
+        <!-- Framework 0.344.0 (the owner's card of 27 Nov 2026, "Solar panel"): a mount of its own for a solar panel, on the canopy or the
+             bonnet, so a panel never takes the roof mount from a tent. Outside the body, as the roof mount is; health and hit weight
+             authored, a panel's frame being lighter than a rack. -->
+        <role>SolarMount</role>
+        <add>
+          <key>PhobosSolarMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>solar panel mount</label>
+          <health>20</health>
+          <depth>External</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <role>OutletPanel</role>
         <add>
           <key>PhobosOutletPanel</key>

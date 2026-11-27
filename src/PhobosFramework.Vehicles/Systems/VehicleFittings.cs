@@ -718,7 +718,9 @@ public sealed class VehicleFittings
     /// back), and returns the sentence saying so, or null when it gives nothing.</summary>
     /// <param name="carried">What the fitting's <c>kitCarries</c> quantity held as it came off (a house battery's charge), written into each
     /// kit that holds charges; null leaves the kits as made (full).</param>
-    string? GiveBack(PhobosVehicleFittingDef? def, float? carried = null)
+    /// <param name="health">What its <c>kitHealthCarries</c> quantity held (a lead-acid house battery's capacity, Framework 0.344.0), written
+    /// as each kit's hit points; null leaves them whole.</param>
+    string? GiveBack(PhobosVehicleFittingDef? def, float? carried = null, float? health = null)
     {
         if (def == null || def.givesBack.Count == 0) return null;
         var names = new List<string>();
@@ -734,6 +736,8 @@ public sealed class VehicleFittings
             {
                 Thing made = Phobos.Framework.Items.PackedThings.Make(back.thingDef, singly ? 1 : total);
                 if (carried.HasValue && made.TryGetComp<Phobos.Framework.Items.CompPhobosCharges>() is { } charges) charges.SetShare(carried.Value);
+                if (health.HasValue && made.def.useHitPoints)
+                    made.HitPoints = Mathf.Clamp(Mathf.RoundToInt(health.Value * made.MaxHitPoints), 1, made.MaxHitPoints);
                 comp.Vehicle.AddOrTransfer(made);
             }
             names.Add(units == 1 ? back.Label : new ThingDefCountClass(back.thingDef, total).Label);
@@ -789,6 +793,17 @@ public sealed class VehicleFittings
     /// The watts the fittings on standing parts draw straight from the grid now (Framework 0.334.0: the block heater and the battery warmer),
     /// each while its own condition holds; the hook-up bills them. Asked only while the vehicle is hooked up with its engine off.
     /// </summary>
+    /// <summary>The watts of solar panel on standing parts (Framework 0.344.0).</summary>
+    public float SolarWatts
+    {
+        get
+        {
+            float watts = 0f;
+            foreach (PhobosVehicleFittingDef def in FittedDefs()) watts += def.solarWatts;
+            return watts;
+        }
+    }
+
     public double GridDrawWatts(SystemContext context)
     {
         double watts = 0;
@@ -1160,6 +1175,10 @@ public sealed class VehicleFittings
     float? CarriedNow(PhobosVehicleFittingDef? def) =>
         def?.kitCarries is { } store && KitStores.TryGet(comp, store, out float value) ? value : null;
 
+    /// <summary>What a fitting's <c>kitHealthCarries</c> quantity holds now (Framework 0.344.0), read while it is still on; null when none.</summary>
+    float? HealthNow(PhobosVehicleFittingDef? def) =>
+        def?.kitHealthCarries is { } quantity && comp.TryGetQuantity(quantity, out float value) ? value : null;
+
     /// <summary>
     /// A fitting just put on takes over what its kits held (Framework 0.333.0; the owner's report of 27 Nov 2026 that the house battery was not
     /// modelled appropriately): the charge of the batteries used to fit it, their average for two in series, or full when no kit was read (a
@@ -1168,8 +1187,19 @@ public sealed class VehicleFittings
     /// </summary>
     void TakeOverKitShare(PhobosVehicleFittingDef def, string partKey)
     {
+        if (def.kitCarries.NullOrEmpty() && def.kitHealthCarries.NullOrEmpty()) return;
+        List<CompPhobosVehicleSystems.TakenKit> kits = comp.TakeTakenKits(def.givesBack.Where(b => b.thingDef != null).Select(b => b.thingDef));
+        // Framework 0.344.0: a worn kit's health, its hit points, becomes the quantity that wears (a lead-acid house battery's capacity).
+        if (!def.kitHealthCarries.NullOrEmpty())
+        {
+            float health = (float)FittingRule.CarriedShare(kits.Select(k => k.Health).ToList(), KitFullShare);
+            comp.SetQuantity(def.kitHealthCarries!, health);
+            if (Seen.Wants("vehicles.kit-health.fitted", comp.Vehicle, def.defName))
+                Seen.Note("vehicles.kit-health.fitted", comp.Vehicle, PartLabel(partKey) + ": " + health.ToStringPercent(), def.defName,
+                    values: new[] { new KeyValuePair<string, double>("health", health), new KeyValuePair<string, double>("kitsRead", kits.Count) });
+        }
         if (def.kitCarries.NullOrEmpty()) return;
-        List<double> shares = comp.TakeTakenShares(def.givesBack.Where(b => b.thingDef != null).Select(b => b.thingDef));
+        List<double> shares = kits.Where(k => k.Charge.HasValue).Select(k => k.Charge!.Value).ToList();
         float share = (float)FittingRule.CarriedShare(shares, KitFullShare);
         KitStores.Set(comp, def.kitCarries!, share);
         if (Seen.Wants("vehicles.kit-carries.fitted", comp.Vehicle, def.defName))
@@ -1230,9 +1260,10 @@ public sealed class VehicleFittings
             PhobosVehicleFittingDef? old = FittedOn(order.partKey);
             string label = old?.label ?? "";
             float? carried = CarriedNow(old);    // read while it is still on, so its system still runs
+            float? health = HealthNow(old);
             fitted.RemoveAll(f => f.partKey == order.partKey);
             text = "PhobosVehicleSystems_FitRemovedDone".Translate(who, label.Named("FITTING"), vehicle, PartLabel(order.partKey).Named("PART")).Resolve();
-            if (GiveBack(old, carried) is { } back)
+            if (GiveBack(old, carried, health) is { } back)
             {
                 text += " " + back;
                 // Seen in play (Framework 0.301.0, row 180): an accessory taken off came back as an item.
@@ -1245,12 +1276,13 @@ public sealed class VehicleFittings
             Renew(order.fitting!, order.partKey);
             PhobosVehicleFittingDef? replaced = FittedOn(order.partKey);
             float? replacedCarried = CarriedNow(replaced);
+            float? replacedHealth = HealthNow(replaced);
             fitted.RemoveAll(f => f.partKey == order.partKey);
             fitted.Add(new FittedPart { partKey = order.partKey, def = order.fitting });
             TakeOverKitShare(order.fitting!, order.partKey);
             text = "PhobosVehicleSystems_FitDone".Translate(who, order.fitting!.label.Named("FITTING"), vehicle, PartLabel(order.partKey).Named("PART")).Resolve();
             // A fitting put on over another takes that one off: its kit comes back too (Framework 0.129.0), holding what it held (0.333.0).
-            if (replaced != null && replaced != order.fitting && GiveBack(replaced, replacedCarried) is { } back)
+            if (replaced != null && replaced != order.fitting && GiveBack(replaced, replacedCarried, replacedHealth) is { } back)
             {
                 text += " " + back;
                 NoteKitShareReturned(replaced, replacedCarried);

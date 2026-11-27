@@ -62,7 +62,7 @@
          own charge (CompPhobosCharges as a percentage), which goes with it onto a vehicle and back off again; a new one is full. -->
     <defName>PhobosVehicleSystems_HouseBatteryUnit</defName>
     <label>house battery</label>
-    <description>A 12-volt lead-acid deep-cycle battery and its isolator. Fitted to a vehicle's house battery tray, it runs the fridge, the power outlet and the camp lights so they never flatten the battery that starts the engine; a 24-volt vehicle takes two. It charges while the engine runs, once the starting battery is full, or from shore power, and keeps its charge when taken off. It stops the camp loads at half its charge to spare itself, and run down in deep cold it freezes.</description>
+    <description>A 12-volt lead-acid deep-cycle battery and its isolator. Fitted to a vehicle's house battery tray, it runs the fridge, the power outlet and the camp lights so they never flatten the battery that starts the engine; a 24-volt vehicle takes two. It charges while the engine runs, once the starting battery is full, or from shore power, and keeps its charge when taken off. It stops the camp loads at half its charge to spare itself, and run down in deep cold it freezes. It wears with use, faster when drawn deep or left run down; its condition shows how much it still holds.</description>
     <graphicData>
       <texPath>Phobos/VehicleSystems/Things/HouseBattery</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -120,6 +120,34 @@
         <inspectKey>PhobosVehicleSystems_HouseBatteryChargeInspect</inspectKey>
       </li>
     </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <!-- Framework 0.344.0 (the owner's card of 27 Nov 2026, "Solar panel"): a 200 W rigid panel with its charge controller, about 12 kg
+         (secondary, common panels of that size; unverified), behind the game's own solar panel research as well as vehicle electrics. Cost
+         and work authored. -->
+    <defName>PhobosVehicleSystems_SolarPanelKit</defName>
+    <label>vehicle solar panel</label>
+    <description>A rigid 200-watt solar panel in a light frame, with its charge controller. Fitted to a vehicle's solar panel mount, it charges the house battery in daylight while the engine is off, or the starting battery if there is no house battery: most in full sun, less under cloud, nothing at night or under a roof.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/SolarPanelKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.9</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>12</Mass>
+      <WorkToMake>2500</WorkToMake>
+      <MarketValue>220</MarketValue>
+    </statBases>
+    <costList>
+      <Steel>15</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisites>
+        <li>SolarPanels</li>
+      </researchPrerequisites>
+    </recipeMaker>
   </ThingDef>
 
   <ThingDef ParentName="PhobosCampKitBase">
@@ -200,6 +228,8 @@
          charge travels with the battery (the owner's cards of 27 Nov 2026). -->
     <unitVolts>12</unitVolts>
     <kitCarries>houseCharge</kitCarries>
+    <!-- Framework 0.344.0: its capacity, worn by deep drains and by sitting run down, travels as the kit's hit points (Systems_HouseBattery.xml). -->
+    <kitHealthCarries>houseCapacity</kitHealthCarries>
     <work>2000</work>
     <minSkill>3</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
@@ -229,6 +259,23 @@
       <li>HouseBattery</li>
       <li>HouseBatteryLithium</li>
     </grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.344.0 (the owner's card of 27 Nov 2026, "Solar panel"): its charging is Input_SolarAmps, in the house batteries' systems
+         and the electrical system's (Systems_HouseBattery*.xml, Systems_Electrical.xml). -->
+    <defName>PhobosFitting_SolarPanel</defName>
+    <iconPath>Phobos/VehicleSystems/Things/SolarPanelKit</iconPath>
+    <label>vehicle solar panel</label>
+    <description>A 200-watt solar panel on its own mount, with a charge controller. In daylight, while the engine is off, it charges the house battery, or the starting battery if there is no house battery: most in full sun, less under cloud or with the sun low, nothing at night or with the vehicle under a roof. A parked camp keeps its fridge and lights going longer, and a flat battery comes back by itself in a few sunny days.</description>
+    <roles><li>SolarMount</li></roles>
+    <materials><PhobosVehicleSystems_SolarPanelKit>1</PhobosVehicleSystems_SolarPanelKit><Steel>5</Steel></materials>
+    <givesBack><PhobosVehicleSystems_SolarPanelKit>1</PhobosVehicleSystems_SolarPanelKit></givesBack>
+    <kilograms>12</kilograms>
+    <solarWatts>200</solarWatts>
+    <work>1500</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>SolarPanels</researchPrerequisite>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>

@@ -16,7 +16,7 @@
     <defName>PhobosFitting_ProwlerIcapII</defName>
     <iconPath>Phobos/Vehicles/Fittings/ProwlerIcapII</iconPath>
     <label>ICAP II suite</label>
-    <description>The Prowler's second improved suite, in service from 1982 and updated through the 1990s: better receivers and software that jam two bands at once, and in its last form satellite navigation. Its jamming field reaches about a tenth further, and it keeps its track between places in any weather.</description>
+    <description>The Prowler's second improved suite, in service from 1982 and updated through the 1990s: better receivers and software that jam two bands at once, and in its last form satellite navigation. While it has power, its jamming field reaches about a tenth further, and it keeps its track between places in any weather.</description>
     <roles><li>EwReceivers</li></roles>
     <loadouts><li>PhobosVehicleLoadout_Prowler</li></loadouts>
     <materials><Steel>10</Steel><ComponentIndustrial>8</ComponentIndustrial><ComponentSpacer>1</ComponentSpacer></materials>
@@ -47,7 +47,7 @@
     <defName>PhobosFitting_ProwlerIcapIII</defName>
     <iconPath>Phobos/Vehicles/Fittings/ProwlerIcapIII</iconPath>
     <label>ICAP III suite</label>
-    <description>The Prowler's last suite, first deployed in 2005: a receiver that hears each enemy emitter and jams only those it hears, with a radio jammer beside it. Its jamming field reaches about a quarter further, it navigates by satellite, and it always knows when a radar has it.</description>
+    <description>The Prowler's last suite, first deployed in 2005: a receiver that hears each enemy emitter and jams only those it hears, with a radio jammer beside it. While it has power, its jamming field reaches about a quarter further, it navigates by satellite, and it always knows when a radar has it.</description>
     <roles><li>EwReceivers</li></roles>
     <loadouts><li>PhobosVehicleLoadout_Prowler</li></loadouts>
     <materials><Steel>10</Steel><ComponentIndustrial>6</ComponentIndustrial><ComponentSpacer>3</ComponentSpacer></materials>

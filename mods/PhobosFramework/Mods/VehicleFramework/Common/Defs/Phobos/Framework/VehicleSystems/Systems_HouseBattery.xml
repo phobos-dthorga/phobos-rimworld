@@ -118,6 +118,34 @@
           </li>
         </stages>
       </li>
+      <li>
+        <!-- Framework 0.344.0 (the owner's card of 27 Nov 2026, "Deep-discharge wear"): what the battery still holds against new, worn by
+             deep drains and by sitting run down, and carried with the battery as its hit points (the fitting's kitHealthCarries). A new
+             battery is whole; nothing but a new battery restores it. -->
+        <name>houseCapacity</name>
+        <label>house battery capacity</label>
+        <description>How much of its first capacity the house battery still holds. Drawing it deep wears it, and leaving it run down wears it faster; a new battery is whole.</description>
+        <unit>Fraction</unit>
+        <min>0.2</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <stages>
+          <li>
+            <to>0.8</to>
+            <label>worn</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgHouseBatteryWorn</message>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.8</from>
+            <label>good</label>
+          </li>
+        </stages>
+      </li>
     </quantities>
     <flows>
       <li>
@@ -154,6 +182,24 @@
               </points>
             </curve>
           </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <!-- Framework 0.344.0: a worn battery holds less, so the same amps move its charge faster (1 / capacity, read in steps). -->
+            <quantity>houseCapacity</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>1</value></fallback>
+            <curve>
+              <points>
+                <li>(0.2, 5)</li>
+                <li>(0.3, 3.33)</li>
+                <li>(0.4, 2.5)</li>
+                <li>(0.5, 2)</li>
+                <li>(0.6, 1.67)</li>
+                <li>(0.7, 1.43)</li>
+                <li>(0.8, 1.25)</li>
+                <li>(0.9, 1.11)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
         </inputs>
       </li>
       <li>
@@ -177,6 +223,24 @@
               </points>
             </curve>
           </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <!-- Framework 0.344.0: a worn battery holds less, so the same amps move its charge faster (1 / capacity, read in steps). -->
+            <quantity>houseCapacity</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>1</value></fallback>
+            <curve>
+              <points>
+                <li>(0.2, 5)</li>
+                <li>(0.3, 3.33)</li>
+                <li>(0.4, 2.5)</li>
+                <li>(0.5, 2)</li>
+                <li>(0.6, 1.67)</li>
+                <li>(0.7, 1.43)</li>
+                <li>(0.8, 1.25)</li>
+                <li>(0.9, 1.11)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
         </inputs>
       </li>
       <li>
@@ -186,6 +250,24 @@
         <divideByParameter>houseAmpHours</divideByParameter>
         <inputs>
           <li Class="Phobos.VehicleSystems.Input_CampLoadAmps" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <!-- Framework 0.344.0: a worn battery holds less, so the same amps move its charge faster (1 / capacity, read in steps). -->
+            <quantity>houseCapacity</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>1</value></fallback>
+            <curve>
+              <points>
+                <li>(0.2, 5)</li>
+                <li>(0.3, 3.33)</li>
+                <li>(0.4, 2.5)</li>
+                <li>(0.5, 2)</li>
+                <li>(0.6, 1.67)</li>
+                <li>(0.7, 1.43)</li>
+                <li>(0.8, 1.25)</li>
+                <li>(0.9, 1.11)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
         </inputs>
       </li>
       <li>
@@ -194,6 +276,95 @@
         <quantity>houseCharge</quantity>
         <kind>From</kind>
         <factor>0.00007</factor>
+      </li>
+      <li>
+        <!-- Framework 0.344.0: wear from use. A deep-cycle lead-acid battery gives roughly 500 cycles drawn to half before it is down to
+             80 % (secondary, common makers' figures; unverified): 0.0008 of its capacity for each whole capacity drawn, at that depth. Deeper
+             wears it faster: x1 down to 60 %, x1.5 at half, x3 at 30 %, x6 flat (authored, after the usual depth-of-discharge curves). Since
+             the camp loads stop at half, the deeper rates come only from self-discharge, freezing aside. -->
+        <name>houseCycleWear</name>
+        <quantity>houseCapacity</quantity>
+        <kind>From</kind>
+        <factor>0.0008</factor>
+        <divideByParameter>houseAmpHours</divideByParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Setting"><setting>houseBatteryWear</setting></li>
+          <li Class="Phobos.VehicleSystems.Input_CampLoadAmps" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>houseCharge</quantity>
+            <curve>
+              <points>
+                <li>(0, 6)</li>
+                <li>(0.3, 3)</li>
+                <li>(0.5, 1.5)</li>
+                <li>(0.6, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <!-- Framework 0.344.0: a lead-acid battery left run down sulfates. About 2 % of its capacity a week at half, 5 % a week flat (authored;
+             the direction is real, the rates unverified), nothing above 55 %. -->
+        <name>houseSulfation</name>
+        <quantity>houseCapacity</quantity>
+        <kind>From</kind>
+        <factor>0.0003</factor>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Setting"><setting>houseBatteryWear</setting></li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>houseCharge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.5, 0.4)</li>
+                <li>(0.55, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <!-- Framework 0.344.0 (the owner's card of 27 Nov 2026, "Solar panel"): a solar panel charges it in daylight while the engine is off. -->
+        <name>houseSolar</name>
+        <quantity>houseCharge</quantity>
+        <kind>Into</kind>
+        <divideByParameter>houseAmpHours</divideByParameter>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning">
+          <invert>true</invert>
+        </when>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_SolarAmps" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>houseCharge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.8, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <!-- Framework 0.344.0: a worn battery holds less, so the same amps move its charge faster (1 / capacity, read in steps). -->
+            <quantity>houseCapacity</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>1</value></fallback>
+            <curve>
+              <points>
+                <li>(0.2, 5)</li>
+                <li>(0.3, 3.33)</li>
+                <li>(0.4, 2.5)</li>
+                <li>(0.5, 2)</li>
+                <li>(0.6, 1.67)</li>
+                <li>(0.7, 1.43)</li>
+                <li>(0.8, 1.25)</li>
+                <li>(0.9, 1.11)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
       </li>
     </flows>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>

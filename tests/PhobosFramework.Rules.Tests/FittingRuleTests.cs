@@ -153,6 +153,21 @@ public class FittingRuleTests
     }
 
     [Fact]
+    public void ABiggerBatteryKeepsTheAmountNotTheShare() =>
+        Assert.Equal(1.0 / 3, FittingRule.ShareAfterCapacityChange(0.5, 45, 67.5), 9);
+
+    [Fact]
+    public void ASmallerBatteryLosesWhatNoLongerFits()
+    {
+        Assert.Equal(1, FittingRule.ShareAfterCapacityChange(0.9, 67.5, 45), 9);
+        Assert.Equal(0.6, FittingRule.ShareAfterCapacityChange(0.4, 67.5, 45), 9);
+    }
+
+    [Fact]
+    public void AnUnknownCapacityLeavesTheShare() =>
+        Assert.Equal(0.4, FittingRule.ShareAfterCapacityChange(0.4, 0, 45), 9);
+
+    [Fact]
     public void AKitShareOutsideNothingToFullIsHeldInside() =>
         Assert.Equal(0.5, FittingRule.CarriedShare(new[] { 1.5, -0.5 }, 1), 9);
 }

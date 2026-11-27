@@ -1091,6 +1091,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Conditions.RestoreStages();
         if (lastUpdateTick < 0 && Current.Game != null) lastUpdateTick = Find.TickManager.TicksGame;
         RecacheStatFactors();
+        RememberCapacities();
     }
 
     // ---- The update ----
@@ -1610,7 +1611,13 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     /// <summary>What the batteries were taking from the alternator at the last update, in amps: the flows into the starting battery and
     /// the house battery, which with the engine running are the alternator's alone (shore charging runs only with it stopped).</summary>
-    double ChargingAmps() => IntoAmps("charge", "batteryAmpHours") + IntoAmps(HouseChargeQuantity, "houseAmpHours");
+    double ChargingAmps() => IntoAmps("charge", "batteryAmpHours") + HouseIntoAmps();
+
+    /// <summary>The amps flowing into the house battery at the last update: its charge's rate times its ampere-hours times what a worn
+    /// battery still holds (Framework 0.344.0: its flows run faster by the lost capacity, so the amps are the rate times what is left).</summary>
+    double HouseIntoAmps() => IntoAmps(HouseChargeQuantity, "houseAmpHours") * (TryGetQuantity(HouseCapacityQuantity, out float capacity) ? capacity : 1f);
+
+    const string HouseCapacityQuantity = "houseCapacity";
 
     double IntoAmps(string quantity, string ampHoursParameter)
     {
@@ -2307,6 +2314,88 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         FireFighting.FittingsChanged(this);
         // A turbocharger fitted is a new one, and one taken off leaves its part at nothing (Framework 0.320.0).
         Turbochargers.FittingsChanged(this);
+        // A store kept as a share of a capacity keeps its amount when a fitting changes the capacity (Framework 0.344.0).
+        KeepAmountsThroughFittings();
+    }
+
+    // ---- Amounts kept through a change of capacity (Framework 0.344.0, the fittings audit) ----
+
+    /// <summary>Each running system's capacities at the last look, by system index and parameter. Derived, never saved: a load reads
+    /// the saved shares against the fittings saved with them, so the memory starts from what the systems hold then.</summary>
+    Dictionary<(int system, string parameter), float>? capacityMemory;
+
+    /// <summary>Per system Def, its stores kept as a share of one capacity: a Fraction quantity whose every flow divides by the same
+    /// parameter (the battery's charge by batteryAmpHours). Read from the Defs once.</summary>
+    static readonly Dictionary<PhobosVehicleSystemDef, List<(int quantity, string parameter)>> sharesOfCapacity = new();
+
+    static List<(int quantity, string parameter)> SharesOfCapacity(PhobosVehicleSystemDef def)
+    {
+        if (sharesOfCapacity.TryGetValue(def, out List<(int, string)>? known)) return known;
+        var found = new List<(int, string)>();
+        for (int q = 0; q < def.quantities.Count; q++)
+        {
+            QuantitySpec spec = def.quantities[q];
+            if (spec.unit != QuantityUnit.Fraction || spec.Derived) continue;
+            string? parameter = null;
+            bool mixed = false;
+            foreach (FlowSpec flow in def.flows)
+            {
+                if (flow.quantity != spec.name || flow.divideByParameter == null) continue;
+                if (parameter == null) parameter = flow.divideByParameter;
+                else if (parameter != flow.divideByParameter) mixed = true;
+            }
+            if (parameter != null && !mixed) found.Add((q, parameter));
+        }
+        sharesOfCapacity[def] = found;
+        return found;
+    }
+
+    void RememberCapacities()
+    {
+        if (states == null) return;
+        capacityMemory = new Dictionary<(int, string), float>();
+        for (int i = 0; i < states.Count; i++)
+        {
+            var context = new SystemContext(this, states[i]);
+            foreach ((int _, string parameter) in SharesOfCapacity(states[i].Def)) capacityMemory[(i, parameter)] = context.Parameter(parameter);
+        }
+    }
+
+    /// <summary>
+    /// After fittings change, each store kept as a share of a capacity keeps the amount it held (Framework 0.344.0; the fittings audit of 27
+    /// Nov 2026): a deep-cycle battery fitted to a half-charged truck held half of the bigger battery, a free top-up, and taking it off a free
+    /// loss. FittingRule.ShareAfterCapacityChange: the share times the old capacity over the new, never above full.
+    /// </summary>
+    void KeepAmountsThroughFittings()
+    {
+        if (states == null) return;
+        if (capacityMemory == null)
+        {
+            RememberCapacities();
+            return;
+        }
+        for (int i = 0; i < states.Count; i++)
+        {
+            SystemState state = states[i];
+            var context = new SystemContext(this, state);
+            foreach ((int quantity, string parameter) in SharesOfCapacity(state.Def))
+            {
+                float now = context.Parameter(parameter);
+                if (capacityMemory.TryGetValue((i, parameter), out float before) && before > 0f && now > 0f && Mathf.Abs(before - now) > 1e-4f)
+                {
+                    double was = state.values[quantity];
+                    state.values[quantity] = SystemIntegrator.Clamp(FittingRule.ShareAfterCapacityChange(was, before, now), state.min[quantity], state.max[quantity]);
+                    // Seen in play (Framework 0.344.0, row 671): a capacity changed by a fitting, its amount kept.
+                    if (Seen.Wants("vehicles.amount-kept", Vehicle, parameter))
+                    {
+                        Seen.Note("vehicles.amount-kept", Vehicle, state.Def.quantities[quantity].name + ": " + was.ToString("0.00") + " to "
+                            + state.values[quantity].ToString("0.00"), parameter,
+                            new[] { Figure("before", before), Figure("after", now), Figure("shareBefore", was), Figure("shareAfter", state.values[quantity]) });
+                    }
+                }
+                capacityMemory[(i, parameter)] = now;
+            }
+        }
     }
 
     /// <summary>The part-health memory beside each part's health now, for the dev action.</summary>
@@ -2451,34 +2540,39 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// What the things just used up held, by Def (Framework 0.333.0: a house battery's charge, read from the battery a fitting was made
     /// from). Kept only for the tick it was taken in, since a fitting reads it in the same breath as its materials are paid. Never saved.
     /// </summary>
-    readonly List<(ThingDef def, double share)> takenShares = new();
+    readonly List<TakenKit> takenKits = new();
     int takenTick = -1;
+
+    /// <summary>One thing used up: its Def, the charge it held (null when it holds none), and its health, nothing to whole (Framework
+    /// 0.344.0: a lead-acid house battery's wear travels as its hit points).</summary>
+    internal readonly record struct TakenKit(ThingDef Def, double? Charge, double Health);
 
     void NoteTaken(Thing thing)
     {
-        if (thing.TryGetComp<Phobos.Framework.Items.CompPhobosCharges>() is not { } charges) return;
         int now = Find.TickManager?.TicksGame ?? 0;
         if (now != takenTick)
         {
-            takenShares.Clear();
+            takenKits.Clear();
             takenTick = now;
         }
-        for (int i = 0; i < thing.stackCount; i++) takenShares.Add((thing.def, charges.Share));
+        double? charge = thing.TryGetComp<Phobos.Framework.Items.CompPhobosCharges>() is { } charges ? charges.Share : null;
+        double health = thing.def.useHitPoints && thing.MaxHitPoints > 0 ? (double)thing.HitPoints / thing.MaxHitPoints : 1.0;
+        for (int i = 0; i < thing.stackCount; i++) takenKits.Add(new TakenKit(thing.def, charge, health));
     }
 
-    /// <summary>The shares of the things of these Defs used up this tick, which are then forgotten; empty when none were.</summary>
-    internal List<double> TakeTakenShares(IEnumerable<ThingDef> defs)
+    /// <summary>The things of these Defs used up this tick, which are then forgotten; empty when none were.</summary>
+    internal List<TakenKit> TakeTakenKits(IEnumerable<ThingDef> defs)
     {
-        var shares = new List<double>();
-        if (takenTick != (Find.TickManager?.TicksGame ?? 0)) return shares;
+        var kits = new List<TakenKit>();
+        if (takenTick != (Find.TickManager?.TicksGame ?? 0)) return kits;
         var wanted = new HashSet<ThingDef>(defs);
-        for (int i = takenShares.Count - 1; i >= 0; i--)
+        for (int i = takenKits.Count - 1; i >= 0; i--)
         {
-            if (!wanted.Contains(takenShares[i].def)) continue;
-            shares.Add(takenShares[i].share);
-            takenShares.RemoveAt(i);
+            if (!wanted.Contains(takenKits[i].Def)) continue;
+            kits.Add(takenKits[i]);
+            takenKits.RemoveAt(i);
         }
-        return shares;
+        return kits;
     }
 
     /// <summary>Where haulers lay out the supplies for this vehicle's own work (Framework 0.272.0): no cargo room, no weight.</summary>
@@ -2872,7 +2966,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 // Framework 0.334.0 (the fittings audit of 27 Nov 2026): the house battery's shore charger is paid for too. Before, only the
                 // starting battery's charger was billed, and the house battery filled from nowhere. What flowed into it at the last update,
                 // which with the engine off is the shore charger's alone, so its taper and a lithium one's refusal in frost are followed.
-                if (HouseBatteryFitted) houseCharging = IntoAmps(HouseChargeQuantity, "houseAmpHours");
+                if (HouseBatteryFitted) houseCharging = HouseIntoAmps();
                 // Framework 0.334.0 (the fittings audit): the block heater and the battery warmer run off the mains, so they are billed at
                 // their own watts, with no 12-volt supply between. A service lead's generator gives them their warmth, as it does the charge.
                 if (states is { Count: > 0 }) heaterWatts = Fittings.GridDrawWatts(new SystemContext(this, states[0]));

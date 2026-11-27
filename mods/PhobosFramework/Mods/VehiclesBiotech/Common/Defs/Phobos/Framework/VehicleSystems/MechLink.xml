@@ -48,6 +48,11 @@
         <amps>2</amps>
         <shedOrder>9</shedOrder>
         <iconPath>Phobos/VehicleSystems/Diagnose</iconPath>
+        <!-- Framework 0.344.0 / Radio 0.37.1 (the fittings audit): authored at 12 V, so it draws half the amps on a 24 V vehicle,
+             the same watts; before, it drew the 12 V amps at any voltage. -->
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TwelveVoltShare" />
+        </ampsInputs>
       </li>
     </loads>
     <feed>

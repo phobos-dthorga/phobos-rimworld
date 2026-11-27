@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using DubsBadHygiene;
 using Phobos.Framework.Hygiene;
@@ -54,11 +55,34 @@ public sealed class CompPhobosCrewWater : ThingComp, IVehicleCarriedLoad, IVehic
     public float Litres => Tower is { } water ? water.WaterStorage : litres;
 
     /// <summary>Water weighs a kilogram a litre, carried as cargo is (the accessory rule: its weight takes cargo room only).</summary>
-    public float CarriedKilograms => Litres;
+    public float CarriedKilograms
+    {
+        get
+        {
+            DrainIfTakenOff();
+            return Litres;
+        }
+    }
+
+    /// <summary>
+    /// A tank taken off is drained (Framework 0.344.0, the fittings audit): its water is let out where it stands. Before, water held aboard
+    /// stayed with the vehicle while no tank was fitted and came back with the next tank, which arrives empty. Asked at every look at the
+    /// tank (its weight, a drink, a fill, the hidden tower), so a tank taken off in a caravan is drained before another is fitted.
+    /// </summary>
+    void DrainIfTakenOff()
+    {
+        if (litres <= 0f || Fitted) return;
+        float lost = litres;
+        litres = 0f;
+        // Seen in play (Framework 0.344.0, row 671): a tank taken off with water in it, drained.
+        if (Seen.Wants("vehicles.crew-water-drained", Vehicle))
+            Seen.Note("vehicles.crew-water-drained", Vehicle, lost.ToString("0") + " L", values: new[] { new KeyValuePair<string, double>("litres", lost) });
+    }
 
     /// <summary>Takes up to this much, from the tower while parked or from aboard; second, the worst quality it came from.</summary>
     public float Take(float most, out int from)
     {
+        DrainIfTakenOff();
         from = quality;
         if (most <= 0f) return 0f;
         float got;
@@ -83,6 +107,7 @@ public sealed class CompPhobosCrewWater : ThingComp, IVehicleCarriedLoad, IVehic
     /// </summary>
     public float Put(float most, int from)
     {
+        DrainIfTakenOff();
         if (most <= 0f || Tower != null) return 0f;
         float put = Mathf.Min(most, Mathf.Max(0f, Capacity - litres));
         if (put <= 0f) return 0f;
@@ -95,6 +120,7 @@ public sealed class CompPhobosCrewWater : ThingComp, IVehicleCarriedLoad, IVehic
     /// <summary>Whether it is to be laid as a tower beneath the vehicle now: fitted, and the vehicle parked with its pipes beneath it.</summary>
     public void Settle(bool parked)
     {
+        DrainIfTakenOff();
         if (PlumbingFeed.LiteMode || !Vehicle.Spawned) return;
         bool lay = parked && Fitted;
         if (lay && tower is not { Spawned: true }) Lay();

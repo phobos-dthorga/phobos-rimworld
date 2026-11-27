@@ -331,6 +331,33 @@
         <kind>From</kind>
         <factor>0.00007</factor>
       </li>
+      <li>
+        <!-- Framework 0.344.0 (the owner's card of 27 Nov 2026, "Solar panel"): with no house battery, a solar panel charges the starting
+             battery in daylight while the engine is off. With one, the house battery takes it all (Systems_HouseBattery*.xml). -->
+        <name>solarCharging</name>
+        <quantity>charge</quantity>
+        <kind>Into</kind>
+        <divideByParameter>batteryAmpHours</divideByParameter>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning"><invert>true</invert></li>
+            <li Class="Phobos.VehicleSystems.When_FittingGrants"><ability>HouseBattery</ability><invert>true</invert></li>
+          </conditions>
+        </when>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_SolarAmps" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.8, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
     </flows>
     <onEvents>
       <li>

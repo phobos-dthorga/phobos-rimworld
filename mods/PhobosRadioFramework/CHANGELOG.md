@@ -23,6 +23,16 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.37.1] - 2026-11-27 - Draft
+
+The remote control kit, repeater kit and dual-band radio draw half the amps on 24 volts
+
+### Fixed
+
+- **The remote control kit, repeater kit and dual-band radio draw half the amps on a 24-volt vehicle**, the same watts, as their figures
+  always meant; before, they drew their 12-volt amps at any voltage. Found by the fittings audit (D'thorga Framework's
+  docs/development/fittings-audit.md). Not yet tested in game: row 671.
+
 ## [0.37.0] - 2026-11-27 - Draft
 
 Radio reach on the world map, and relay masts that wear and can be raided

@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SolarPanelKit.png",
+  "source": "assets/phobos-vehicles/generated/item-solar-panel-kit/item-solar-panel-kit-1.png",
+  "source_sha256": "0dfd1a899c87228ce97cbd04ba852fc6d4f2acbad9b20aa833e96f59f72c6787",
+  "target_sha256": "7b44ecda5c538526590f1fa9f6b4f8c899a8e74af3189424af90a00a7ccb358b",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "0dfd1a899c87228ce97cbd04ba852fc6d4f2acbad9b20aa833e96f59f72c6787",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T17:29:28",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

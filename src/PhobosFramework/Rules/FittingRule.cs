@@ -72,6 +72,18 @@ public static class FittingRule
     /// battery). Several kits in series charge and discharge together, so the bank holds their average; with no kit read (a fitting
     /// given by a dev action or an older save) it holds <paramref name="fallback"/>. Always between nothing and full.
     /// </summary>
+    /// <summary>
+    /// A store kept as a share of its capacity, after a fitting changes the capacity (Framework 0.344.0, the fittings audit: a deep-cycle
+    /// battery fitted to a half-charged truck came up half-full of the bigger battery, a free top-up). The amount held stays: the share
+    /// times the old capacity over the new, never above full, so a smaller capacity loses what no longer fits. Unchanged when either
+    /// capacity is unknown.
+    /// </summary>
+    public static double ShareAfterCapacityChange(double share, double oldCapacity, double newCapacity)
+    {
+        if (oldCapacity <= 0 || newCapacity <= 0) return share;
+        return Math.Clamp(share * oldCapacity / newCapacity, 0, 1);
+    }
+
     public static double CarriedShare(System.Collections.Generic.IReadOnlyList<double> kitShares, double fallback)
     {
         if (kitShares.Count == 0) return Math.Clamp(fallback, 0, 1);

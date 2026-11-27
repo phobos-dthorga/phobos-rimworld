@@ -1,8 +1,8 @@
 # The house battery, made honest
 
-**Status (27 Nov 2026):** built in D'thorga Framework 0.333.0, not yet tested in game (rows 639 and 640): the charge travels with the
-battery, 24-volt vehicles take two, lead-acid stops at half and freezes run down in deep cold, and lithium is a second fitting. The
-lithium battery's picture waits for the owner's pick.
+**Status (27 Nov 2026):** built in D'thorga Framework 0.333.0 (rows 639 and 640), with wear and a solar panel added in 0.344.0 (rows 672
+and 673), none yet tested in game: the charge travels with the battery, 24-volt vehicles take two, lead-acid stops at half, freezes run
+down in deep cold and wears with use, lithium is a second fitting, and a solar panel charges a parked vehicle by day.
 
 The owner asked on 27 Nov 2026 whether the house battery fitting was "appropriately modelled". It was not, in four ways, and the owner
 chose the fixes by card the same day. How the house battery works now is in
@@ -26,7 +26,9 @@ about a tenth more than the alternator gives, and only while the starting batter
 | --- | --- | --- |
 | A 24-volt vehicle | **Two batteries in series**: twice the cost, the weight and what comes back, 100 Ah at 24 V | Owner's card |
 | The chemistry | **Both, as two fittings**: lead-acid early, lithium behind Microelectronics | Owner's card |
-| Wear from deep drains | **None for now**: the cut-off alone protects it | Owner's card |
+| Wear from deep drains | **None for now** at first, then **built** in 0.344.0 (the owner's later card of the same day, "Deep-discharge wear"): lead-acid only, behind the setting **House batteries wear**, on by default | Owner's cards |
+| The cut-off, freezing's grade, the fuel heater parked | **As built**: half; moderate, so on; from the battery down to the start line | Owner's cards of 27 Nov 2026 |
+| A solar panel | **Built** in 0.344.0: 200 W on a mount of its own, charging the house battery, or the starting battery without one, by daylight with the engine off | Owner's card ("Solar panel"); the size, mount and efficiency are the agent's defaults |
 | Lead-acid's cut-off | **Half its charge** (50 Ah usable), its low warning at 60 % | Agent's default, on common practice |
 | Lithium's cut-off | **A tenth** (90 Ah usable), its low warning at 20 % | Agent's default, on manufacturers' figures |
 | Lithium in the cold | **No charge below 0 °C**, full from 2 °C; it never freezes and still gives power | Agent's default, as its management board does |
@@ -75,6 +77,30 @@ touched.
   `PhobosVehicleSystem_HouseBatteryLithium` (`HouseBatteryLithium`) share the quantity `houseCharge` and the tray, so the camp loads, the
   dashboard and the charge carried in the kit work for either. Each names its own cut-off, `houseCutoff`; the rules Def's
   `houseBatteryCutoff` is only the fallback.
+
+## Wear (Framework 0.344.0)
+
+- **What wears:** a lead-acid house battery's **capacity** (`houseCapacity`, nothing to whole, at least a fifth), which every charge and
+  drain flow divides by, so a worn battery fills and empties faster for the same amps; the amps billed and loaded on the alternator are
+  corrected for it.
+- **Use:** about 0.0008 of capacity per whole capacity drawn while above 60 %, rising to x1.5 at half, x3 at 30 % and x6 flat, after the
+  usual depth-of-discharge curves and roughly 500 cycles to 80 % at half depth (secondary, common makers' figures; unverified).
+- **Sitting run down:** about 2 % of capacity a week at half charge, 5 % a week flat, nothing above 55 % (authored; the direction is real).
+- **It travels as the battery's hit points** (the fitting's `kitHealthCarries`): a worn battery moved stays worn, and its trade value falls
+  with it. A new battery is whole; nothing else restores it. Hit points lost to weather in storage count as wear too, a simplification.
+- **Risk graded low** (agent's grade): a slow loss of capacity, shown by a message below four-fifths and on the battery, never a battery
+  lost. Its setting starts on. Lithium does not wear (its cycle life is several times longer; a simplification).
+
+## The solar panel (Framework 0.344.0)
+
+- **A fitting on its own mount** (`SolarMount`, on every land vehicle, outside the body), so it never takes the roof mount from a tent;
+  200 W (`solarWatts`), 12 kg, behind the game's solar panel research.
+- **What it gives** (`Input_SolarAmps`): its watts times the daylight times the charge controller's 0.85 (authored), over the vehicle's
+  volts. On a map the daylight is the map's sky glow, as the game's own solar generator reads it, times the share of the vehicle's cells
+  under open sky; on the world map, the sun's glow at its tile. About 14 A at noon on 12 V, 7 A on 24 V: the same watts.
+- **Where it goes:** with the engine off, into the house battery if one is fitted (lithium only above freezing), else into the starting
+  battery; with the engine running, nowhere (the alternator charges then; a simplification).
+- **Other factions:** works the same on any vehicle that has one; none comes with one.
 
 ## Sources and labels
 

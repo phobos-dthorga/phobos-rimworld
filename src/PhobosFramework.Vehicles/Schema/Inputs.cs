@@ -624,6 +624,60 @@ public class Input_CampLoadAmps : VehicleSystemInput
     protected override float Raw(SystemContext context) => context.Comp.CampLoadAmps;
 }
 
+/// <summary>
+/// What the vehicle's solar panels give now, in amps at its voltage (Framework 0.344.0; the owner's card of 27 Nov 2026, "Solar panel"): their
+/// watts times the daylight on them, through the charge controller, over the vehicle's volts. On a map the daylight is the map's own sky
+/// glow, as the game's solar generator reads it (weather and eclipses included), times the share of the vehicle's cells under open sky; on
+/// the world map, the sun's glow at its tile. A gameplay simplification: no panel angle, temperature or partial shade.
+/// </summary>
+public class Input_SolarAmps : VehicleSystemInput
+{
+    /// <summary>What the charge controller passes on (authored: a PWM controller's 0.75 to an MPPT one's 0.95, secondary, unverified).</summary>
+    public float efficiency = 0.85f;
+
+    protected override float Raw(SystemContext context)
+    {
+        CompPhobosVehicleSystems comp = context.Comp;
+        float watts = comp.Fittings.SolarWatts;
+        if (watts <= 0f) return 0f;
+        float volts = comp.ElectricalVolts();
+        if (volts <= 0f) return 0f;
+        float sun = SunOn(comp.Vehicle);
+        float amps = (float)PowerUnits.Amps(watts * sun * efficiency, volts);
+        // Seen in play (Framework 0.344.0, row 673): the panels charging, which battery and how hard.
+        if (amps >= SeenAmps)
+        {
+            string battery = comp.HouseBatteryFitted ? "house" : "starting";
+            if (Seen.Wants("vehicles.solar-charging", comp.Vehicle, battery))
+                Seen.Note("vehicles.solar-charging", comp.Vehicle, amps.ToString("0.0") + " A, sun " + sun.ToStringPercent(), battery,
+                    new[] { new System.Collections.Generic.KeyValuePair<string, double>("amps", amps), new System.Collections.Generic.KeyValuePair<string, double>("sun", sun) });
+        }
+        return amps;
+    }
+
+    /// <summary>The least the seen-in-play note counts as charging (testing only).</summary>
+    const float SeenAmps = 0.5f;
+
+    /// <summary>The daylight on the vehicle's roof, nothing to full.</summary>
+    static float SunOn(VehiclePawn vehicle)
+    {
+        if (vehicle.Spawned && vehicle.Map is { } map)
+        {
+            int cells = 0, open = 0;
+            foreach (IntVec3 cell in vehicle.OccupiedRect())
+            {
+                cells++;
+                if (!map.roofGrid.Roofed(cell)) open++;
+            }
+            if (cells == 0 || open == 0) return 0f;
+            return map.skyManager.CurSkyGlow * open / cells;
+        }
+        RimWorld.Planet.PlanetTile tile = vehicle.Tile;
+        if (!tile.Valid) return 0f;
+        return GenCelestial.CelestialSunGlow(tile, Find.TickManager.TicksAbs);
+    }
+}
+
 /// <summary>1 when the parked vehicle stands beside a building on a powered grid (a conduit, a battery), else 0.</summary>
 public class Input_ShorePower : VehicleSystemInput
 {

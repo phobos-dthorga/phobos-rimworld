@@ -120,6 +120,17 @@ public class PhobosVehicleFittingDef : Def
     /// grid without the grid paying). Billed through the vehicle's hook-up beside its loads and chargers. 0: it draws nothing from the grid.
     /// </summary>
     public float gridWatts;
+    /// <summary>
+    /// Watts of solar panel the fitting carries (Framework 0.344.0; the owner's card of 27 Nov 2026, "Solar panel"): in daylight it charges
+    /// the house battery, or the starting battery without one, while the engine is off (Input_SolarAmps). 0: no panel.
+    /// </summary>
+    public float solarWatts;
+    /// <summary>
+    /// A system quantity that is the kit's own health (Framework 0.344.0: a lead-acid house battery's capacity, worn by deep drains): fitting
+    /// sets it from the kits' hit points, and taking it off writes it back as their hit points, so a worn battery stays worn wherever it goes
+    /// and a new one is whole. Null: nothing travels.
+    /// </summary>
+    public string? kitHealthCarries;
     /// <summary>When the grid draw runs (a thermostat: the block heater while the coolant is below its mark). Null: whenever hooked up.</summary>
     public VehicleSystemCondition? gridWhen;
     /// <summary>Only vehicles on one of these loadouts (aircraft service-life upgrades: the Harrier's engine fits only a Harrier). Empty: any.</summary>
@@ -169,7 +180,7 @@ public class PhobosVehicleFittingDef : Def
         if (matchedPerAxle && !matchedSet) yield return "matchedPerAxle needs matchedSet";
         if (work <= 0f) yield return "work must be above 0";
         if (statFactors.Count == 0 && parameterFactors.Count == 0 && powerFactor == 1f && fuelFactor == 1f && fuelCapacityFactor == 1f && grants.Count == 0
-            && loads.Count == 0 && kilograms == 0f && parameterFloors.Count == 0 && !MovesTurbine && cartridgeFactor == 1f)
+            && loads.Count == 0 && kilograms == 0f && parameterFloors.Count == 0 && !MovesTurbine && cartridgeFactor == 1f && solarWatts == 0f)
             yield return "moves no figure and grants nothing";
         if (thrustFactor <= 0f || hotDerateFactor < 0f || cartridgeFactor <= 0f) yield return "thrustFactor and cartridgeFactor must be above 0, hotDerateFactor not below 0";
         foreach (ParameterFloorSpec spec in parameterFloors)
@@ -181,6 +192,8 @@ public class PhobosVehicleFittingDef : Def
         if (!kitCarries.NullOrEmpty() && givesBack.Count == 0) yield return "kitCarries needs a kit in givesBack to carry it";
         if (gridWatts < 0f) yield return "gridWatts must not be below 0";
         if (gridWhen != null && gridWatts <= 0f) yield return "gridWhen has no gridWatts to switch";
+        if (solarWatts < 0f) yield return "solarWatts must not be below 0";
+        if (!kitHealthCarries.NullOrEmpty() && givesBack.Count == 0) yield return "kitHealthCarries needs a kit in givesBack to carry it";
         if (fuelCapacityFactor <= 0f) yield return "fuelCapacityFactor must be above 0";
         foreach (StatFactorSpec spec in statFactors)
         {

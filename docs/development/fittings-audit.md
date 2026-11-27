@@ -1,8 +1,8 @@
 # The fittings audit: what each fitting promises, and what is modelled
 
-**Status (27 Nov 2026):** five gaps found; four fixed in D'thorga Framework 0.334.0, not yet tested in game (rows 646 to 649). The check that
-keeps it so is built: phobos-modkit 1.133.0's `effects`, the gate's "declared effects" step, by `config/effects.json` (it also shows on
-D'thorga Companion's Reports page). Smaller gaps listed below are left open.
+**Status (27 Nov 2026):** five gaps found; four fixed in D'thorga Framework 0.334.0 (rows 646 to 649), and the four smaller ones closed in
+0.344.0 (row 671), none yet tested in game. The check that keeps it so is built: phobos-modkit 1.133.0's `effects`, the gate's "declared
+effects" step, by `config/effects.json` (it also shows on D'thorga Companion's Reports page).
 
 After the house battery ([its record](house-battery.md)), the owner asked on 27 Nov 2026 which other fittings and customisations were
 "available but not actually modelled in any circumstance". Every fitting (65), tune (9) and upgrade node (159) of ours was read by a
@@ -37,15 +37,18 @@ lights do; another faction's vehicle, or one ticked at less than full detail, ne
 **Risk:** none of these puts the player's things or people at new risk; a fuel heater that goes out leaves the fuel to gel, as before
 fitting one. No new setting.
 
-## Left open (smaller)
+## The smaller gaps, closed in Framework 0.344.0 (the owner's card of 27 Nov 2026, "close all four")
 
-- **Crew water tank:** taken off, its water stays on the vehicle and returns on a refit. No gain: a tank starts empty.
-- **Deep-cycle battery** (the starting battery's upgrade): the charge is kept as a share, so fitting one tops up the battery a little, and
-  taking it off loses as much.
-- **Kit loads and the voltage:** only 6 of 71 loads follow the vehicle's voltage. Loadouts write their own figures per vehicle, but a kit's
-  load (the remote control kit, the route kit, the radar, the rescue hoist, the jamming pod) is one figure for all, so a 24-volt vehicle pays
-  twice the watts for the same kit.
-- **The Prowler's ICAP descriptions** (D'thorga Vehicles) do not yet say the wider reach needs power.
+| Gap | Now |
+| --- | --- |
+| A crew water tank taken off left its water on the vehicle, back on a refit | **A tank taken off is drained** at the next look at it, in a caravan too |
+| Fitting a deep-cycle battery topped the battery up: its charge was kept as a share | **A store kept as a share of a capacity keeps its amount** when a fitting changes the capacity (`FittingRule.ShareAfterCapacityChange`), found from the flows that divide by it, so any such store gains it |
+| Ground kits authored at 12 V drew their amps at any voltage, so twice the watts on a 24-volt truck, though their own comments said "halved" | **The route kit, the mech control link and the recovery beacons follow the voltage** (`Input_TwelveVoltShare`); the remote control kit, the repeater kit and the dual-band radio, which are the Radio Framework's, went to that mod's own next version |
+| The Prowler's ICAP descriptions did not say the wider reach needs power | **They do** (D'thorga Vehicles 0.129.2) |
+
+**Left as authored:** the aircraft kits (navigation, autopilot, night sight, radar, jamming pod, optionally piloted, rescue hoist, cabin
+oxygen) keep their amps, which follow the avionics rule's 24-volt figures; our aircraft loadouts name no voltage and run at the default
+12, a separate question for when aircraft electrics are next touched.
 
 ## For a next game
 
