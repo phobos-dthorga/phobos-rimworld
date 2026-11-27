@@ -104,6 +104,8 @@ overturns an earlier one says so.
 | 23 Nov | Twin engine fittings as matched sets | owner | "Wouldn't fly very stable" | [sv], Fittings for engines and avionics |
 | 26 Nov | Builders bring vehicle-upgrade materials under Construction, beside the haulers | owner | Idle ucas beside waiting upgrades | [The system page](../systems/upgrades-and-fittings.md), Upgrade materials |
 | 26 Nov | No setting for it; priority 65, as building upgrades | agent choice | No risk to things or people | [The system page](../systems/upgrades-and-fittings.md), Upgrade materials |
+| 27 Nov | Builders bring our fittings' and repairs' supplies too, at 65, with no setting | agent choice | The owner's report: idle ucas beside 53 fitting orders | [The system page](../systems/upgrades-and-fittings.md), Upgrade materials |
+| 27 Nov | Supplies already on their way are not fetched again | agent choice | Many drones on one battery | [The system page](../systems/upgrades-and-fittings.md), Upgrade materials |
 
 [tu]: ../archive/vehicle-tuning-and-upgrades.md
 [u2]: ../vehicle-upgrades-round-two.md

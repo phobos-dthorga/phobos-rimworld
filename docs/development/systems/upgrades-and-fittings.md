@@ -157,6 +157,15 @@ flag next spawns. One ships: the Harrier's night sight and radar.
   builders, whose Construction time now includes the fetching. **Risk**: none to things or people, so no setting (agent choice).
   Not yet tested in game (row 546). Since 0.303.2 the Def names our subclass of Vehicle Framework's work giver, which only adds the
   seen-in-play note `vehicles.builders-bring-materials` (variant non-hauler or builder).
+- **Our own fittings, tunes, repairs and services had the same gap until Framework 0.340.2** (the owner's report, 27 Nov 2026: 53
+  fitting and tune orders on 11 vehicles, beside idle ucas). They are not Vehicle Framework upgrades, so 0.302.1 never reached them:
+  their supplies are laid out by `PhobosVehicleSystems_LoadServiceSupplies`, Hauling only (priority 25), and the fitting itself
+  (`RepairWithSupplies`, Construction) waits until they are. **0.340.2 adds `PhobosVehicleSystems_BuildersLoadServiceSupplies`**
+  under Construction at 65 (`Rules_VehicleSystems.xml`; class `WorkGiver_PhobosBuildersLoadServiceSupplies`, which adds only the
+  seen-in-play note `vehicles.builders-bring-supplies`, variant non-hauler or builder; row 670). Unlike Vehicle Framework's, our
+  supply search did not count what others were already bringing, so **0.340.2 also counts it** (`ServiceTargets.BeingBrought`,
+  for both entries): a need already on its way, or being filled with a substitute, is skipped. Same answers as above: no risk, no
+  setting (agent choice). Not yet tested in game.
 
 ### Prices ("priced like tunes")
 

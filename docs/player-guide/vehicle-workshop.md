@@ -235,6 +235,8 @@ still be fitted on its own below.
 - **Bigger vehicles cost more bulk materials** (steel, plasteel, components), but **a part counted in ones, such as a new engine,
   is one whatever the vehicle**.
 - **Demanding work needs a minimum Construction skill**; a mechanic below it is told why.
+- **Builders bring the supplies for fittings, tunes, repairs and services as well as haulers**, so construction drones such as
+  the uca can fetch and fit them on their own, and two people never fetch the same part. Not yet tested in game.
 - **What haulers bring is laid out beside the vehicle, not loaded into it**: it takes no cargo room and
   adds no weight, so a jet with a small hold can be refitted, and services and repairs work the same way. The vehicle's inspect
   line lists what is laid out. Supplies already in the hold that the work needs are taken out of it and laid out too. Anything

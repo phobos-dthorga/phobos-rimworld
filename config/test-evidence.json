@@ -399,6 +399,7 @@
     "667": ["radio.cross-band-serving"],
     "668": {"parts": {"it lifts at a stop": [{"key": "aircraft.round-sling", "variant": "lift"}],
       "it leaves its load at a tile": [{"key": "aircraft.round-sling", "variant": "depot"}]}},
+    "670": {"parts": {"a uca, which cannot haul, brings a fitting's supplies": [{"key": "vehicles.builders-bring-supplies", "variant": "non-hauler"}]}},
     "634": {"parts": {"a hull": [{"key": "vehicles.winch-thing", "variant": "hull"}],
       "a chunk": [{"key": "vehicles.winch-thing", "variant": "chunk"}],
       "a ship chunk": [{"key": "vehicles.winch-thing", "variant": "building"}],

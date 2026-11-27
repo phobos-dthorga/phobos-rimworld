@@ -46,9 +46,34 @@ static class ServiceTargets
 
     public static bool Workable(Pawn pawn, VehiclePawn vehicle, bool forced) =>
         vehicle.Spawned && !vehicle.Drafted && !vehicle.vehiclePather.Moving && !vehicle.IsForbidden(pawn) && (forced || !Phobos.Framework.Environment.AttachedFires.OnFire(vehicle));
+
+    /// <summary>
+    /// How much of each supply others of the pawn's faction are bringing to this vehicle now, or null for none (Framework 0.340.2). With
+    /// builders as well as haulers bringing supplies, a dozen construction drones must not each fetch the one battery a fitting needs.
+    /// </summary>
+    public static Dictionary<ThingDef, int>? BeingBrought(Pawn pawn, VehiclePawn vehicle)
+    {
+        Dictionary<ThingDef, int>? counts = null;
+        foreach (Pawn other in vehicle.Map.mapPawns.SpawnedPawnsInFaction(pawn.Faction))
+        {
+            if (other == pawn || other.CurJobDef != VehicleSystemsJobDefOf.PhobosVehicleSystems_LoadServiceSupplies || other.CurJob.targetA.Thing != vehicle) continue;
+            // Carried once picked up; before that, the stack the job is going to fetch, and how many of it.
+            Thing? carried = other.carryTracker.CarriedThing;
+            ThingDef? def = carried?.def ?? other.CurJob.targetC.Thing?.def;
+            if (def == null) continue;
+            counts ??= new Dictionary<ThingDef, int>();
+            counts.TryGetValue(def, out int already);
+            counts[def] = already + (carried?.stackCount ?? other.CurJob.count);
+        }
+        return counts;
+    }
 }
 
-/// <summary>Hauls the first supply a due service lacks into the vehicle's cargo (oil, coolant, parts). Hauling work.</summary>
+/// <summary>
+/// Brings the first supply a due service or a waiting repair or fitting lacks to the vehicle (oil, coolant, parts). Hauling work, and
+/// Construction work too since Framework 0.340.2 (<see cref="WorkGiver_PhobosBuildersLoadServiceSupplies"/>). What others are already
+/// bringing is counted first, so nothing is fetched twice.
+/// </summary>
 public class WorkGiver_PhobosLoadServiceSupplies : WorkGiver_Scanner
 {
     public override PathEndMode PathEndMode => PathEndMode.Touch;
@@ -64,13 +89,19 @@ public class WorkGiver_PhobosLoadServiceSupplies : WorkGiver_Scanner
         if (comp == null) return null;
         List<(ThingDef def, int count)> missing = comp.MissingSupplies();
         if (missing.Count == 0) return null;
+        Dictionary<ThingDef, int>? brought = ServiceTargets.BeingBrought(pawn, vehicle);
         Thing? supply = null;
         int count = 0;
+        ThingDef? firstUncovered = null;
         // The first thing that can be found: one part nobody has made must not hold up everything else the vehicle is waiting for.
         foreach ((ThingDef wanted, int wantedCount) in missing)
         {
+            // Framework 0.340.2: what others are already bringing is not fetched again, nor a need someone is filling with a substitute.
+            int left = wantedCount - BroughtOf(brought, wanted);
+            if (left <= 0 || (brought != null && comp.Repairs.AlternativesFor(wanted).Any(alternative => brought.ContainsKey(alternative.def)))) continue;
+            firstUncovered ??= wanted;
             supply = Find(pawn, wanted);
-            count = wantedCount;
+            count = left;
             if (supply != null) break;
             // Our part is not to be had: another mod's, where one would do.
             foreach ((ThingDef other, int otherCount) in comp.Repairs.AlternativesFor(wanted))
@@ -81,9 +112,11 @@ public class WorkGiver_PhobosLoadServiceSupplies : WorkGiver_Scanner
             }
             if (supply != null) break;
         }
+        // Everything missing is already on its way: nothing to do, and nothing to explain.
+        if (firstUncovered == null) return null;
         if (supply == null)
         {
-            JobFailReason.Is("PhobosVehicleSystems_NoSupply".Translate(missing[0].def.label.Named("SUPPLY")));
+            JobFailReason.Is("PhobosVehicleSystems_NoSupply".Translate(firstUncovered.label.Named("SUPPLY")));
             return null;
         }
         IntVec3 cell = vehicle.SurroundingCells.Where(c => c.Standable(pawn.Map) && pawn.CanReach(c, PathEndMode.OnCell, Danger.Some))
@@ -96,6 +129,8 @@ public class WorkGiver_PhobosLoadServiceSupplies : WorkGiver_Scanner
 
     /// <summary>The nearest supply of the Def; a building named as a supply is found packed (PackedThings, Framework 0.265.0).</summary>
     static Thing? Find(Pawn pawn, ThingDef def) => Phobos.Framework.Items.ItemFinder.FindNearest(pawn, def);
+
+    static int BroughtOf(Dictionary<ThingDef, int>? brought, ThingDef def) => brought != null && brought.TryGetValue(def, out int count) ? count : 0;
 }
 
 /// <summary>Carries the supply to the vehicle and lays it out in its work store (Framework 0.272.0), never its cargo: no cargo room is

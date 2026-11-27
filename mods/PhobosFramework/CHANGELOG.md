@@ -21,6 +21,17 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.340.2] - 2026-11-27 - Draft
+
+Builders bring the supplies for vehicle fittings and repairs
+
+### Fixed
+
+- **Builders bring the supplies for a vehicle's fittings, tunes, repairs and services themselves**: these wait until their supplies are
+  laid out beside the vehicle, and only haulers brought them, so construction drones such as the uca, which cannot haul, stood idle
+  beside waiting fitting orders. Anyone on construction work now brings them too, as 0.302.1 did for upgrades; haulers still help, and
+  a supply already on its way is no longer fetched a second time. Not yet tested in game (test row 670).
+
 ## [0.340.1] - 2026-11-27 - Draft
 
 The grid's payments for a house battery and for heaters note themselves, and the README lists the freezing setting

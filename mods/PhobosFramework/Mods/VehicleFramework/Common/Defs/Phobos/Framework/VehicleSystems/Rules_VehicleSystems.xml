@@ -510,6 +510,26 @@
     </requiredCapacities>
   </WorkGiverDef>
 
+  <!--
+    Builders bring the supplies too (Framework 0.340.2; docs/development/systems/upgrades-and-fittings.md, "Upgrade materials"): a fitting,
+    tune, repair or service starts only once its supplies are laid out, and only haulers brought them, so construction drones such as the
+    Dead Man's Switch uca (no Hauling) stood idle beside fitting orders. The same work under Construction, at 65 as the builders' entry for
+    Vehicle Framework's upgrade materials and our building upgrades. Its search counts what others are already bringing, so nothing is
+    fetched twice. Not yet tested in game (test row 670).
+  -->
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_BuildersLoadServiceSupplies</defName>
+    <label>bring supplies for vehicle fittings and repairs</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosBuildersLoadServiceSupplies</giverClass>
+    <workType>Construction</workType>
+    <verb>bring supplies for</verb>
+    <gerund>bringing supplies for</gerund>
+    <priorityInType>65</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
   <!-- A repair that needs supplies: a new part, a serious condition put right, or a leak patched (vehicle health, slice 3). -->
   <JobDef>
     <defName>PhobosVehicleSystems_RepairWithSupplies</defName>
