@@ -403,6 +403,32 @@
           </li>
         </stages>
       </li>
+      <li>
+        <!-- Framework 0.365.0 (docs/development/vehicle-inlet-separator.md, IS4 and IS5; the owner's answer of 28 Nov 2026): a fitted inlet
+             barrier filter clogs with the dust it stops, its power cost rising to twice its fitted share when wholly clogged (IntakeSeparator,
+             through the powertrain's demand). The compressor wash cleans it. Nothing without a barrier, or with "Intake separators" off. -->
+        <name>barrierClog</name>
+        <description>How clogged the inlet barrier filter is with the dust it keeps out. The more clogged, the more power it costs, up to twice its usual share. A compressor wash cleans it.</description>
+        <label>inlet barrier</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <from>0.7</from>
+            <label>clogged</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgBarrierClogged</message>
+                <type>CautionInput</type>
+                <when Class="Phobos.VehicleSystems.When_Setting"><setting>intakeSeparators</setting></when>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
     </quantities>
     <flows>
       <li>
@@ -413,6 +439,17 @@
           <li Class="Phobos.VehicleSystems.Input_CompressorFouling" />
         </inputs>
       </li>
+      <li>
+        <!-- Framework 0.365.0 (IS4): 0.02 an hour run over wholly rough ground (authored: a lamp after about 35 hours on dirt strips, fully
+             clogged after 50), nothing on paving. -->
+        <name>barrierClogging</name>
+        <quantity>barrierClog</quantity>
+        <kind>Into</kind>
+        <factor>0.02</factor>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_BarrierDust" />
+        </inputs>
+      </li>
     </flows>
     <service>
       <label>a compressor wash</label>
@@ -421,6 +458,11 @@
       <restores>
         <li>
           <quantity>compressorFouling</quantity>
+          <value>0</value>
+        </li>
+        <li>
+          <!-- Framework 0.365.0 (IS5): the wash rinses the inlet barrier too. -->
+          <quantity>barrierClog</quantity>
           <value>0</value>
         </li>
       </restores>

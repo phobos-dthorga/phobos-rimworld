@@ -655,6 +655,9 @@ public sealed class Powertrain
         bool hovering = running && PhaseSpec != null && PhaseSpec.hover;
         ReactionBleedShare = running ? ReactionBleed(vehicle, hovering) : 0;
         CabinBleedShare = running && CabinBleedOn() ? Profile.cabinBleed : 0;
+        // Framework 0.365.0 (docs/development/vehicle-inlet-separator.md): the intake separator while on, and a clogged inlet barrier, ask the
+        // engines for more in the same way bleed air does, so they heat, wear and burn by it.
+        IntakeShare = running ? comp.IntakeSeparator.ExtraDemand : 0;
         double air = comp.AirPressure;
         // What flying asks of the engines, then what else they give (Framework 0.132.0, gap T-2 and step S7): bleed air, and the
         // generator at the vehicle's last look. All of it heats and wears the turbine and burns fuel; the ledger lists it.
@@ -719,11 +722,13 @@ public sealed class Powertrain
     const double StandardAmbient = 15;
 
     /// <summary>The share of the engine's work bled off now: reaction control in a hover (more in wind) and cabin heat (derived).</summary>
-    public double BleedShare => ReactionBleedShare + CabinBleedShare;
+    public double BleedShare => ReactionBleedShare + CabinBleedShare + IntakeShare;
 
     /// <summary>The reaction controls' share of it (the puffer jets, in a hover), and the cabin's (heat or air conditioning).</summary>
     public double ReactionBleedShare { get; private set; }
     public double CabinBleedShare { get; private set; }
+    /// <summary>The intake's share (Framework 0.365.0): the separator while on, and a clogged inlet barrier's extra cost.</summary>
+    public double IntakeShare { get; private set; }
 
     /// <summary>What flying asks of an aircraft's engines now, as a share of maximum continuous: its phase's demand, or its hover's; 0
     /// with them stopped. The bleed air and the generator come on top (the ledger). Derived.</summary>
@@ -742,7 +747,7 @@ public sealed class Powertrain
     }
 
     double Bleed(VehiclePawn vehicle, bool hovering) =>
-        Profile == null ? 0 : ReactionBleed(vehicle, hovering) + (CabinBleedOn() ? Profile.cabinBleed : 0);
+        Profile == null ? 0 : ReactionBleed(vehicle, hovering) + (CabinBleedOn() ? Profile.cabinBleed : 0) + comp.IntakeSeparator.ExtraDemand;
 
     /// <summary>Whether this hover's over-limit message has been sent (once per hover; derived, never saved).</summary>
     bool hoverWarned;

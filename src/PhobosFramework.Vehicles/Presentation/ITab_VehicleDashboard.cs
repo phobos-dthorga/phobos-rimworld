@@ -292,6 +292,24 @@ public class ITab_VehicleDashboard : ITab
             Widgets.DrawBox(fittings);
             TooltipHandler.TipRegion(fittings, "PhobosVehicleSystems_ButtonFittings".Translate() + "\n" + "PhobosVehicleSystems_ButtonFittingsDesc".Translate());
         }
+        // The intake separator's switch (Framework 0.365.0; docs/development/vehicle-inlet-separator.md): automatic, held on, held off. Green
+        // while it is on, grey while off; held off by hand is amber, as a reminder the engines take the dust.
+        if (yours && comp.IntakeSeparator.Fitted)
+        {
+            IntakeSeparator separator = comp.IntakeSeparator;
+            Rect rect = NextSwitch();
+            bool heldOff = separator.Mode == Phobos.Framework.Vehicles.Rules.SeparatorMode.Off;
+            Widgets.DrawBoxSolid(rect, separator.On ? PhobosWidgets.Good : heldOff ? PhobosWidgets.Caution : PhobosWidgets.Off);
+            if (Widgets.ButtonImage(rect.ContractedBy(3f), SystemIcons.IntakeSeparator))
+            {
+                (separator.On ? PhobosSoundDefOf.PhobosFramework_SwitchOff : PhobosSoundDefOf.PhobosFramework_SwitchOn).PlayOneShotOnCamera();
+                separator.Press();
+            }
+            Widgets.DrawBox(rect);
+            TooltipHandler.TipRegion(rect, "PhobosVehicleSystems_SeparatorButton".Translate(separator.ModeLabel.Named("MODE"),
+                (separator.On ? "PhobosVehicleSystems_DashSwitchOn" : "PhobosVehicleSystems_DashSwitchOff").Translate().Named("NOW"))
+                + "\n" + "PhobosVehicleSystems_SeparatorButtonDesc".Translate());
+        }
         // The systems schematic (Framework 0.363.0; docs/development/vehicle-schematic.md): for those who read figures, as the Systems tab is,
         // on a player's vehicle of a kind that has a page. Lit while its window is open.
         if (figures && Window_PhobosVehicleSchematic.PageFor(comp) != null)

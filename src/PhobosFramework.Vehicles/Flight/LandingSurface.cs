@@ -78,7 +78,9 @@ public static class LandingSurface
     {
         if (CompPhobosVehicleSystems.Of(vehicle) is not { Usable: true } comp) return;
         bool barrier = vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_InletBarrierLoss) > 0f;
-        double share = LandingSurfaceRule.EngineWearShare(looseShare, rolling, barrier, rules.engineWearPerEvent, rules.rollingFactor, rules.barrierStops);
+        double share = LandingSurfaceRule.EngineWearShare(looseShare, rolling, barrier, rules.engineWearPerEvent, rules.rollingFactor, rules.barrierStops)
+            // Framework 0.365.0: an intake separator on keeps half the dust out (worked out afresh, the ground having just changed).
+            * comp.IntakeSeparator.ReachingNow();
         if (share <= 0) return;
         // Never below the rules' floor, which stands above the share at which the engine model counts an engine out (fault-read L2).
         foreach (string role in Powertrain.EngineRolesOf(comp)) comp.WearRole(role, 0f, (float)share, rules.engineWearFloor, shedsMetal: false);

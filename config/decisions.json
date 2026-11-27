@@ -94,53 +94,6 @@
    "why": "Face to face is a real lesson, and it gives the second seat a purpose of its own; it is no better than the game's own lessons",
    "from": "docs/development/radio-stations.md",
    "asked": "2026-11-27"
-  },
-  {
-   "id": "separator-switch",
-   "question": "An intake separator on turbine aircraft: a switch the player sets, or always on?",
-   "context": "The intake separator record (IS1 to IS3). On, it costs about 3% of power and keeps out half the dust, grit and fouling.",
-   "options": [
-    {
-     "id": "switch-automatic",
-     "label": "A switch, automatic by default",
-     "detail": "On over rough or dusty ground and at take-off and landing there, off elsewhere; the player can hold it either way"
-    },
-    {
-     "id": "always-on",
-     "label": "Always on",
-     "detail": "Every turbine aircraft pays the cost all the time and gets the protection"
-    },
-    {
-     "id": "manual-switch",
-     "label": "A plain switch",
-     "detail": "The player sets it; it never changes by itself"
-    }
-   ],
-   "lean": "switch-automatic",
-   "why": "It adds a real choice for heavy lifts without asking the player to flip it on every landing",
-   "from": "docs/development/vehicle-inlet-separator.md",
-   "asked": "2026-11-28"
-  },
-  {
-   "id": "barrier-filter-clogs",
-   "question": "Should the inlet barrier filter upgrade clog and need cleaning?",
-   "context": "The intake separator record (IS4, IS5). Today the fitted barrier costs a fixed share of power for ever.",
-   "options": [
-    {
-     "id": "clogs-wash-cleans",
-     "label": "Yes, the compressor wash cleans it",
-     "detail": "Its power cost doubles as it clogs, with a lamp, and the existing wash clears it"
-    },
-    {
-     "id": "stays-as-is",
-     "label": "No, leave it as it is",
-     "detail": "A fixed power cost, nothing to clean"
-    }
-   ],
-   "lean": "clogs-wash-cleans",
-   "why": "A real barrier filter needs cleaning, and the wash is already the chore for dust",
-   "from": "docs/development/vehicle-inlet-separator.md",
-   "asked": "2026-11-28"
   }
  ]
 }

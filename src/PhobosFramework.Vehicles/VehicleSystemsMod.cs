@@ -213,6 +213,10 @@ public class VehicleSystemsSettings : ModSettings
     /// 28 Nov 2026: "Weaken it only, by default, with a setting for players to enable it to starve the engine"). Risk high: it strands a
     /// vehicle, and an aircraft's engines stop in the air, so off until the player turns it on. Live.</summary>
     public bool fuelFilterStarves;
+    /// <summary>Turbine aircraft have an intake separator switch, automatic by default, and a fitted inlet barrier clogs on rough ground until the
+    /// compressor wash cleans it (Framework 0.365.0; docs/development/vehicle-inlet-separator.md). Risk low, the agent's grade (a few percent
+    /// of power, chosen by the player or judged by the ground): on. Off, no switch is offered and nothing changes from before. Live.</summary>
+    public bool intakeSeparators = true;
     /// <summary>Each leg between tiles is flown at a height of its own: over the highest ground, under the ceiling the engines reach and the
     /// oxygen line, with fuel and speed following it (Framework 0.141.0; owner, 18 Nov 2026: build it). Off, every leg is flown as its author
     /// made it, with avionics A14's fixed figures for a jet whose oxygen is out. Live.</summary>
@@ -377,6 +381,7 @@ public class VehicleSystemsSettings : ModSettings
         "fuelGelling" => fuelGelling,
         "fuelFilters" => fuelFilters,
         "fuelFilterStarves" => fuelFilters && fuelFilterStarves,
+        "intakeSeparators" => intakeSeparators,
         "tankExplosions" => tankExplosions,
         "tankCompartmentsNeedUpgrades" => tankCompartmentsNeedUpgrades,
         "boilerExplosions" => boilerExplosions,
@@ -513,6 +518,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref compressorFouling, "PhobosVehicleSystems_CompressorFouling", true);
         Scribe_Values.Look(ref fuelFilters, "PhobosVehicleSystems_FuelFilters", true);
         Scribe_Values.Look(ref fuelFilterStarves, "PhobosVehicleSystems_FuelFilterStarves", false);
+        Scribe_Values.Look(ref intakeSeparators, "PhobosVehicleSystems_IntakeSeparators", true);
         Scribe_Values.Look(ref cruiseHeight, "PhobosVehicleSystems_CruiseHeight", true);
         Scribe_Values.Look(ref ammoCookOff, "PhobosVehicleSystems_AmmoCookOff", true);
         Scribe_Values.Look(ref fireWearOthers, "PhobosVehicleSystems_FireWearOthers", true);
@@ -695,6 +701,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.enginesStartInTurn) report.Off("aircraft engines lighting one after another", "off (setting)");
         if (!Settings.compressorFouling) report.Off("turbine compressors fouling", "off (setting)");
         if (!Settings.fuelFilters) report.Off("fuel filters clogging", "off (setting)");
+        if (!Settings.intakeSeparators) report.Off("intake separators and barrier clogging", "off (setting)");
         if (Settings.tyreBursts) report.On("burning tyres bursting (setting)");
         if (!Settings.spallInsideVehicles) report.Off("spall inside vehicles", "off (setting)");
         else if (!OptionalMods.IsActive(OptionalMods.CombatExtended)) report.Off("spall inside vehicles", "needs Combat Extended");
@@ -862,6 +869,8 @@ public class VehicleSystemsMod : SettingsBookMod
             "PhobosVehicleSystems_SettingEnginesStartInTurnDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingCompressorFouling".Translate(), ref s.compressorFouling, d.compressorFouling,
             "PhobosVehicleSystems_SettingCompressorFoulingDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingIntakeSeparators".Translate(), ref s.intakeSeparators, d.intakeSeparators,
+            "PhobosVehicleSystems_SettingIntakeSeparatorsDesc".Translate());
         list.Radio("PhobosVehicleSystems_SettingHoverLimit".Translate(), ref s.hoverLimit, d.hoverLimit,
             (VehicleSystemsSettings.HoverLimit[])System.Enum.GetValues(typeof(VehicleSystemsSettings.HoverLimit)),
             limit => ("PhobosVehicleSystems_Hover" + limit).Translate(), limit => ("PhobosVehicleSystems_Hover" + limit + "Desc").Translate());
@@ -1111,6 +1120,8 @@ public static class SystemIcons
     public static readonly Texture2D Service = Load("Phobos/VehicleSystems/Service");
     public static readonly Texture2D Switch = Load("Phobos/VehicleSystems/Switch");
     public static readonly Texture2D Fittings = Load("Phobos/VehicleSystems/Fittings");
+    /// <summary>The intake separator's switch (Framework 0.365.0), drawn by script (scripts/art/draw_separator_icon.py).</summary>
+    public static readonly Texture2D IntakeSeparator = Load("Phobos/VehicleSystems/IntakeSeparator");
     /// <summary>The systems schematic's button (Framework 0.363.0), drawn by script (scripts/art/draw_schematic_icon.py).</summary>
     public static readonly Texture2D Schematic = Load("Phobos/VehicleSystems/Schematic");
     static readonly Dictionary<string, Texture2D> byPath = new();

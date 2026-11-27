@@ -144,7 +144,8 @@ public static class StripDebris
         DebrisPhase? throwing = rules.debrisPhases.FirstOrDefault(p => p.phase == phase);
         // A phase that throws grit only on the move (taxiing): an aircraft standing with its engines on throws none.
         if (throwing == null || (throwing.movingOnly && !moved)) return;
-        double chance = StripDebrisRule.Chance(rules.debrisPerHour, Exposure(comp), throwing.weight, RoughShare(vehicle), hours) * (1 - Barrier(vehicle));
+        double chance = StripDebrisRule.Chance(rules.debrisPerHour, Exposure(comp), throwing.weight, RoughShare(vehicle), hours) * (1 - Barrier(vehicle))
+            * comp.IntakeSeparator.Reaching;    // Framework 0.365.0: an intake separator on keeps half the grit out
         if (chance > 0 && Rand.Chance((float)chance)) Strike(comp, rules, phase, "phase");
     }
 
@@ -153,7 +154,7 @@ public static class StripDebris
     {
         if (VehicleSystemsMod.Settings.showOnly || CompPhobosVehicleSystems.Of(vehicle) is not { Usable: true } comp || Exposure(comp) <= 0f) return;
         PhobosLandingSurfaceRulesDef rules = Rules;
-        double chance = StripDebrisRule.EventChance(rules.debrisPerEvent, Exposure(comp), roughShare, Barrier(vehicle));
+        double chance = StripDebrisRule.EventChance(rules.debrisPerEvent, Exposure(comp), roughShare, Barrier(vehicle)) * comp.IntakeSeparator.ReachingNow();
         if (chance > 0 && Rand.Chance((float)chance)) Strike(comp, rules, when, how);
     }
 

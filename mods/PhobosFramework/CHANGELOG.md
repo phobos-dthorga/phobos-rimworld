@@ -36,6 +36,10 @@ The fuel filter, the chip detector and the intake separator
   its oil as it wears inside (low oil pressure, overheating, over-torque, running past its service or with a worn hot section). A
   **chip light** names the part before the wear breaks it; it harms nothing, and the engine service's oil change clears it until the
   wear brings it back. Not yet tested in game: row 740.
+- **An intake separator for turboprops and helicopters** (the owner's answers of 28 November 2026): a Dashboard switch, automatic by
+  default (on over rough ground), held on or held off. On, it keeps out half the landing dust, grit and rough-ground compressor dirt
+  for about 3% more asked of the engines. A fitted **inlet barrier filter** now clogs on rough ground instead, its power cost rising to
+  twice until a compressor wash cleans it. New setting: **Intake separators** (on). Not yet tested in game: row 741.
 
 ## [0.364.0] - 2026-11-28 - Draft
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Framework 0.365.0: a turbine aircraft's intake separator, and the inlet barrier filter's clogging (docs/development/vehicle-inlet-separator.md). -->
+  <PhobosVehicleSystems_SettingIntakeSeparators>Intake separators</PhobosVehicleSystems_SettingIntakeSeparators>
+  <PhobosVehicleSystems_SettingIntakeSeparatorsDesc>On by default: turboprop aircraft and helicopters get an intake separator switch on their Dashboard. On, it keeps out half the dust, grit and compressor dirt for about 3% more asked of the engines; by default it switches itself on over rough ground. A fitted inlet barrier filter instead clogs on rough ground, costing more power until a compressor wash cleans it. Off: no switch, and the barrier never clogs.</PhobosVehicleSystems_SettingIntakeSeparatorsDesc>
+  <PhobosVehicleSystems_SeparatorButton>Intake separator: {MODE} ({NOW})</PhobosVehicleSystems_SeparatorButton>
+  <PhobosVehicleSystems_SeparatorButtonDesc>Throws dust and grit out of the engines' intakes, at about 3% more asked of the engines. Press to go from automatic (on over rough ground) to held on, to held off, and back.</PhobosVehicleSystems_SeparatorButtonDesc>
+  <PhobosVehicleSystems_SeparatorModeAutomatic>automatic</PhobosVehicleSystems_SeparatorModeAutomatic>
+  <PhobosVehicleSystems_SeparatorModeOn>held on</PhobosVehicleSystems_SeparatorModeOn>
+  <PhobosVehicleSystems_SeparatorModeOff>held off</PhobosVehicleSystems_SeparatorModeOff>
+  <PhobosVehicleSystems_SeparatorSetToAutomatic>The {VEHICLE}'s intake separator is on automatic: on over rough ground, off elsewhere.</PhobosVehicleSystems_SeparatorSetToAutomatic>
+  <PhobosVehicleSystems_SeparatorSetToOn>The {VEHICLE}'s intake separator is held on: dust is kept out everywhere, for a little power.</PhobosVehicleSystems_SeparatorSetToOn>
+  <PhobosVehicleSystems_SeparatorSetToOff>The {VEHICLE}'s intake separator is held off: full power, and the engines take all the dust.</PhobosVehicleSystems_SeparatorSetToOff>
+  <PhobosVehicleSystems_MsgBarrierClogged>The {VEHICLE}'s inlet barrier filter is clogged with dust and costing power. A compressor wash cleans it.</PhobosVehicleSystems_MsgBarrierClogged>
+</LanguageData>

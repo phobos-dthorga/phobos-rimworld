@@ -1,7 +1,8 @@
 # An intake separator for turbine aircraft (28 Nov 2026)
 
-**Status (28 Nov 2026):** a design record; nothing is built. The owner chose by card to build all three of the schematic's missing parts,
-"each with its own record first" ([the schematic record](vehicle-schematic.md), M2). Building waits for the owner's answers below.
+**Status (28 Nov 2026):** built in Framework 0.365.0, not yet tested in game (row 741); see [As built](#as-built-framework-03650). The
+owner chose by card to build all three of the schematic's missing parts, "each with its own record first" ([the schematic record](vehicle-schematic.md),
+M2), and answered this record's questions on the Decisions page the same day. Not built: IS6.
 
 ## Read this first
 
@@ -83,6 +84,34 @@ On the Decisions page (`config/decisions.json`), each with the agent's lean.
 
 1. **A switch, or always on?** Lean: a switch, automatic by default.
 2. **Should the inlet barrier filter clog?** Lean: yes, cleaned by the compressor wash.
+
+## The owner's answers (28 Nov 2026)
+
+On the Decisions page; every option offered, the chosen one first.
+
+| Question | Chosen | Also offered |
+| --- | --- | --- |
+| A switch, or always on? | **A switch, automatic by default** | Always on; a plain switch |
+| Should the inlet barrier filter clog? | **Yes, the compressor wash cleans it** | No, leave it as it is |
+
+## As built (Framework 0.365.0)
+
+Not yet tested in game: row 741. What differs from the model above, and the choices the build made:
+
+- **Which aircraft** (IS1; agent's choice): those whose engines are turboshafts, which in our model are the turboprops (the C-27J) and
+  the helicopters, with no inlet barrier fitted. Jets have none: separators belong to turboprops and turboshafts (the record's real-world
+  section, **unverified**).
+- **Its cost** (IS1, `SeparatorRule`): 3 % more asked of the engines, added to the powertrain's demand as bleed air is, so the turbine
+  heats, wears and burns by it, and the hover check counts it.
+- **What it keeps out** (IS2): half of each: the landing dust's wear, the grit strikes' chances, and compressor fouling's rough-ground share.
+- **The switch** (IS3, `IntakeSeparator`): automatic, held on, held off, saved per aircraft, on the Dashboard with its own icon drawn by
+  script. Automatic is on over any rough ground on a map and off on paving and in the air. Green while on, amber while held off, grey
+  otherwise. Whether it is on is worked out at each update, and again at each touch-down and lift-off.
+- **The barrier's clogging** (IS4): `barrierClog` in the compressor wash system, 0.02 an hour run over wholly rough ground (a lamp at
+  0.7, about 35 hours on dirt; authored), a stand-in for the dust it stops. Its extra cost is its fitted share times how clogged it is,
+  added to the demand. **The compressor wash cleans it** (IS5).
+- **Not built**: the schematic's separator (IS6), as there is no turbine page yet.
+- **Setting**: **Intake separators** (on), Vehicle Systems' settings, beside "Turbine compressors get dirty".
 
 ## Sources
 

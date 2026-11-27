@@ -117,6 +117,12 @@ take-off power longer than allowed; a message says when one has run too long.
   mechanic does it wherever the vehicle is parked, with **about 20 litres of water for each engine**. With Dubs Bad Hygiene the water
   comes from plumbing under or beside the vehicle, and a parked turbine vehicle has plumbing beneath it while its engine is off, so a
   pipe run joins it; without Dubs the water is free.
+- **Turboprops and helicopters have an intake separator** (the setting **Intake separators**, on by default): a switch on the Dashboard.
+  On, it keeps out **half the landing dust, grit and rough-ground compressor dirt**, for about 3% more asked of the engines (they run a
+  little hotter and burn a little more). **Automatic** (the default) turns it on over rough ground and off on paving and in the air;
+  press the switch to hold it on, then off, then back to automatic. Hold it off for a heavy hover on a hot day. An aircraft with an
+  **inlet barrier filter** has no switch: the barrier clogs on rough ground instead, a lamp lights at 70%, and its power cost rises to
+  twice its usual share until a **compressor wash** cleans it.
 
 ## Fuel
 

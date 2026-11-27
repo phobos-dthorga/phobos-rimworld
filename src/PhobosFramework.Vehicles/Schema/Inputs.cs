@@ -287,8 +287,24 @@ public class Input_CompressorFouling : VehicleSystemInput
         CompPhobosVehicleSystems comp = context.Comp;
         if (!VehicleSystemsMod.Settings.compressorFouling || !comp.EngineRunning) return 0f;
         PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+        // Framework 0.365.0: an intake separator on keeps half the rough ground's share out.
         return (float)CompressorFoulingRule.PerHour(rules.compressorFoulingPerHour, rules.compressorFoulingRoughFactor,
-            StripDebris.RoughShare(comp.Vehicle), comp.Props.loadout?.intakeDebris ?? 0f);
+            StripDebris.RoughShare(comp.Vehicle) * comp.IntakeSeparator.Reaching, comp.Props.loadout?.intakeDebris ?? 0f);
+    }
+}
+
+/// <summary>
+/// The dust an inlet barrier filter stops, as the share of rough ground under its running aircraft (Framework 0.365.0;
+/// docs/development/vehicle-inlet-separator.md, IS4): 0 with no barrier fitted, the engines stopped, or the "Intake separators" setting off.
+/// </summary>
+public class Input_BarrierDust : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context)
+    {
+        CompPhobosVehicleSystems comp = context.Comp;
+        if (!VehicleSystemsMod.Settings.intakeSeparators || !comp.EngineRunning) return 0f;
+        if (comp.Vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_InletBarrierLoss) <= 0f) return 0f;
+        return (float)StripDebris.RoughShare(comp.Vehicle);
     }
 }
 

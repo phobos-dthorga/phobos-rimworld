@@ -682,6 +682,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     OilMetal? oilMetal;
     /// <summary>The chip detectors: metal shed into the engines' and gearboxes' oil by wear (Framework 0.365.0).</summary>
     public OilMetal OilMetal => oilMetal ??= new OilMetal(this);
+    IntakeSeparator? intakeSeparator;
+    /// <summary>A turbine aircraft's intake separator and its inlet barrier's clogging (Framework 0.365.0).</summary>
+    public IntakeSeparator IntakeSeparator => intakeSeparator ??= new IntakeSeparator(this);
 
     /// <summary>Quantities kept per part: each engine's hot-section life, each wheel's brake wear (Framework 0.248.0, PartFigures).</summary>
     public PartFigures PartFigures => perPart ??= new PartFigures(this);
@@ -730,6 +733,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Scribe_Collections.Look(ref EngineFeeds.oil, "PhobosVehicleSystems_EngineOil", LookMode.Value);
         // Framework 0.365.0: each engine's and gearbox's metal in its oil, by part key (the chip detectors).
         Scribe_Collections.Look(ref OilMetal.metal, "PhobosVehicleSystems_OilMetal", LookMode.Value, LookMode.Value);
+        // Framework 0.365.0: the intake separator's switch.
+        Scribe_Values.Look(ref IntakeSeparator.mode, "PhobosVehicleSystems_SeparatorMode", Phobos.Framework.Vehicles.Rules.SeparatorMode.Automatic);
         Scribe_Collections.Look(ref loadSwitches, "PhobosVehicleSystems_Loads", LookMode.Value, LookMode.Value);
         // The graphs' history: the owner's exception to "derived state is never saved" (8 Nov 2026), a few kilobytes per vehicle.
         History.ExposeData(Props.systems);
@@ -1153,6 +1158,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             FuelDirt.Update();
             // Framework 0.365.0: the chip detectors, after the services' restores and the stages' wear of the last look.
             OilMetal.Update((float)hours);
+            // Framework 0.365.0: whether the intake separator is on, for the powertrain, the dust and the Dashboard until the next look.
+            IntakeSeparator.Update();
             if (!stagesSettled)
             {
                 // The first update: take the stages the true readings give, quietly, as where each starts (no effects on entry or exit).
