@@ -1,0 +1,56 @@
+{
+  "file": "toxic-area-expand-paid-2.png",
+  "sha256": "14e3abccf795193c2b03350e3b0d18d1a729311b624d3bc92fd5d7dafd739f8c",
+  "date": "2026-11-27T15:45:02",
+  "prompt": "GAME ZONE TOOL ICON. One flat round badge seen straight on, centred, as an icon on a command button in a top-down strategy game.\n\nImage 1 is our approved icon from the same set: keep its layout exactly, a round badge with a thick dark rim, a symbol in the middle, and a small green circle holding a white plus sign overlapping the rim at the lower right. Match its outline weight, shading and finish. Do not copy its radiation symbol or its yellow and magenta colours. Image 2 is the same set's other icon: it shows that only the small corner badge differs between the two.\n\nCreate an ORIGINAL icon meaning \"mark this ground as a toxic hazard area\": the same round badge, its face a muted sickly yellow-green, bearing in the middle the chemical hazard symbol for a toxic substance: a bold near-black skull, front on, above two crossed bones. At the lower right, overlapping the rim, the same small bright green circle holding a bold white plus sign.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones, a muted palette with the green plus badge as the brightest colour, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, the badge filling about four fifths of the canvas. Square canvas. No text, letters, numbers, people or hands. The skull is a plain hazard symbol, not gory or menacing.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-medical/requests/toxic-area-icons-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 462,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 334
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2218
+  },
+  "cost_usd": 0.0554,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 27.9,
+  "references": [
+    {
+      "image": "mods/PhobosMedical/Mods/Rimatomics/Textures/Phobos/Medical/Protection/RadiationAreaExpand.png",
+      "sha256": "3ee3ebe860e214d9e74ce245a7be6659d7f625fe31308db09d7e239a734478c8",
+      "role": "our approved zone icon of the same set (expand the radiation area): keep its layout exactly, the round badge with a thick dark rim, the symbol in the middle and the small green plus badge at the lower right; match its outline weight, shading and finish; do not copy its radiation symbol or its colours"
+    },
+    {
+      "image": "mods/PhobosMedical/Mods/Rimatomics/Textures/Phobos/Medical/Protection/RadiationAreaClear.png",
+      "sha256": "0aae76ddb629fd46f1db264039f8b821630aae6d295831c3883ae298e94214c9",
+      "role": "the same set's clear icon: shows that only the small corner badge changes between the pair"
+    }
+  ]
+}
