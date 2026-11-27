@@ -1,7 +1,8 @@
 # HF: the radio's Phase 2 (27 Nov 2026)
 
-**Status (28 Nov 2026):** the tables are made and their reader is built (`scripts/hf-tables.py`, `HfTable`; [the full
-run](#the-full-run-28-nov-2026)); nothing in play uses them yet. The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2") and
+**Status (28 Nov 2026):** the tables are made, with the open share read from VOACAP's MUF and its deciles, and their reader is built
+(`scripts/hf-tables.py`, `HfTable`; [the full run](#the-full-run-28-nov-2026)); nothing in play uses them yet. Slice 1 (the kit, the
+ground wave, the band panel and rose in dev mode) is being built with the [third round's](#the-owners-third-round-28-nov-2026) answers. The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2") and
 answered its questions on 28 Nov ([first round](#the-owners-answers-28-nov-2026)): HF at the world's scale, VOACAP's predictions
 shipped as tables, 40 m and 20 m first, the radio's own flare, no licence tiers. In a [second round](#the-owners-second-round-28-nov-2026)
 the same day the owner opened **building for everything but HF's reach in play**: the tables (voacapl under WSL, installed on 28
@@ -285,9 +286,30 @@ What the tables say (each figure **from VOACAP**, as averaged here):
 | 40 m, 1,000 km at 40°N, June | Open at night (loss 121 dB), absorbed at noon (161 dB) |
 | 20 m at 40°N, June noon, by length | No path to 300 km, barely at 750 km, open from 1,500 km: the skip zone |
 
-**Not yet understood**: for 20 m over 3,000 km at June noon, the share of days open falls from 0.67 to 0.46 as the sunspots rise from
-0 to 100, though the MUF rises. Likely the averaging (one direction or longitude whose mode changes) or VOACAP's own treatment of that
-path; to be looked into before slice 1 relies on it, not assumed.
+**The open share, explained and replaced (28 Nov 2026)**: in the first full run, 20 m over 3,000 km at June noon read open on 0.67 of
+days at sunspots 0 and 0.46 at 100, though the MUF rose. The eight paths behind that cell, run one by one, showed why: VOACAP's method 30
+gives each frequency's MUFday against **the one mode it judges most reliable** at that frequency, and on some paths it picks two F2 hops
+for 14.2 MHz, whose 1,500 km hops have a lower MUF than the single 3,000 km hop. On the 90°E path at sunspots 0 the circuit's MUF was the
+highest of the eight (21.5 MHz) and its 20 m MUFday the lowest (0.30), while 18.1 MHz on one hop read 0.87. A band is open when **any**
+mode carries it, so MUFday undercounts. The deck now runs **method 3** after method 30: the circuit's median MUF with its lower and upper
+deciles, the FOT (the MUF is above it on 90% of days) and the HPF (above it on 10%), **from VOACAP**. A band's open share is the chance the
+day's MUF is above its frequency, a normal spread about the median taken from the FOT below and the HPF above (the shape between
+VOACAP's three figures is the agent's choice). Rerun the same day: 155,040 runs, none failed, the same 3,304,881 bytes packed. 20 m over
+3,000 km at June noon now reads open every day at every sunspot level (the FOT is 17 MHz or more), the sun showing instead as 15 dB more
+absorption from sunspots 0 to 200; 40 m over 1,000 km at midnight opens from 0.40 to 1.00 of days; 20 m at 300 km stays shut (the skip
+zone). Over 3,264 cells checked (every latitude, four lengths, every hour, both bands), none falls by more than 0.15 as the sunspots rise.
+
+## The owner's third round (28 Nov 2026)
+
+The owner chose by card to build HF's slice 1 together with the QSL cards' band and mode, in one release ("Both in one release", of
+"cards first", "HF first" and that), then answered four cards on it; the chosen option first and marked.
+
+| # | Card | Chosen | Not chosen |
+| --- | --- | --- | --- |
+| 16 | Where the ground wave's figures come from (ITU-R P.368) | **GRWAVE in WSL** (the agent's lean): the ITU's own program behind P.368, its terms checked, built beside voacapl, making a small table | Norton's flat-earth formula in our rules, no install. P.368's printed curves read by eye |
+| 17 | How the dipole sits on the map (a half wave is about 20 m on 40 m and 10 m on 20 m) | **All three, as separate builds with their own trade-offs**: the owner's words, "Can all three be offered, maybe, with varying factors, upsides, and downsides?" | One only: an inverted V on one mast (the agent's lean); a full flat dipole on two masts; a shortened dipole with loading coils |
+| 18 | Where the band panel and band rose show in this release | **Dev mode only for now** (the agent's lean): drawn from the real tables, shown to players when skywave goes in | Shown to everyone now. Tests only, as chosen in the second round |
+| 19 | The HF kit's art | **Paid, now**: the owner's words, "we've had awful luck with this kind of thing and our local, LLM." | Tonight's night run (the agent's lean). The night run, testing before it with the game's missing-texture shapes |
 
 **The reader** [A]: `HfTable` (`src/PhobosRadio/Physics/HfTable.cs`, game-free, tests in `HfTableTests`) reads format 1 and looks up a
 path's MUF, share of days open, loss, fade and the noise at the far end, between the grid's points in every axis: the year and the hour

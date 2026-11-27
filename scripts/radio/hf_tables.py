@@ -13,6 +13,7 @@ own and the game's link budget adds each antenna's gain, as it does for every ot
 import json
 import math
 import os
+import re
 import statistics
 import struct
 
@@ -74,6 +75,9 @@ def deck(month, ssn, lat, lon, bearing, km, bands=BANDS):
         f"FREQUENCY {freqs}",
         "METHOD       30    0",
         "EXECUTE",
+        # Method 3: the circuit's MUF with its lower and upper deciles (FOT, HPF), for the share of days a band is open (spread()).
+        "METHOD        3    0",
+        "EXECUTE",
         "QUIT",
         ""])
 
@@ -111,6 +115,63 @@ def parse(text, bands=BANDS):
     return hours
 
 
+_SPREAD_ROW = re.compile(r"^\s*(\d+\.\d)\s*(\d+\.\d)\s*(\d+\.\d\d)\s*(\d+\.\d\d)\s*(\d+\.\d\d)\s*(\d+\.\d\d)\s*$")
+# A normal distribution's lower decile lies this many standard deviations below its median.
+DECILE_Z = 1.2815515655446004
+
+
+def spread(text):
+    """
+    VOACAP's method 3 table: for each universal hour, the circuit's median MUF and its deciles, the FOT (the MUF is above it on 90% of
+    days) and the HPF (above it on 10%). Fixed columns that can run together ("23.351000.00"), so read by each figure's two decimals.
+    """
+    hours, reading = {}, False
+    for line in text.splitlines():
+        tokens = line.split()
+        if {"GMT", "FOT", "HPF", "MUF"} <= set(tokens):
+            reading = True
+            continue
+        if not reading:
+            continue
+        m = _SPREAD_ROW.match(line)
+        if not m:
+            if hours:
+                break
+            continue
+        gmt, _, fot, hpf, _, muf = (float(x) for x in m.groups())
+        hours[int(round(gmt)) % 24] = {"muf": muf, "fot": fot, "hpf": hpf}
+    return hours
+
+
+def open_share(mhz, muf, fot, hpf):
+    """
+    The share of days the circuit's MUF is above this frequency, so some mode carries it: a normal distribution about the median MUF,
+    its spread below taken from the FOT and above from the HPF, each a decile (agent's choice of shape between VOACAP's three figures).
+    Method 30's own MUFday is measured against the one mode it judges most reliable, so a band carried by two hops reads as mostly shut
+    while one hop is open nearly every day (found 28 Nov 2026: 20 m over 3,000 km at noon, 0.30 against 0.87 for 18 MHz).
+    """
+    if muf <= 0:
+        return 0.0
+    width = (muf - fot) if mhz <= muf else (hpf - muf)
+    if width <= 0:
+        return 1.0 if mhz <= muf else 0.0
+    z = (mhz - muf) / (width / DECILE_Z)
+    return 0.5 * math.erfc(z / math.sqrt(2))
+
+
+def with_spread(hours, deciles, bands=BANDS):
+    """Method 30's hours with method 3's MUF and deciles, and each band's open share from them; an hour method 3 left out keeps its
+    own MUF and no share."""
+    for hour, cell in hours.items():
+        d = deciles.get(hour)
+        if not d:
+            continue
+        cell["muf"], cell["fot"], cell["hpf"] = d["muf"], d["fot"], d["hpf"]
+        for name, mhz in bands.items():
+            cell["bands"].setdefault(name, {})["open"] = round(open_share(mhz, d["muf"], d["fot"], d["hpf"]), 4)
+    return hours
+
+
 def frequencies_read(text, bands=BANDS):
     """Whether VOACAP read the frequencies asked for: its first hour's FREQ row, to a tenth of a MHz (a card out by a column reads
     another frequency silently)."""
@@ -142,12 +203,17 @@ def combine(samples, bands=BANDS):
         if not present:
             continue
         cell = {"muf": round(statistics.fmean(p["muf"] for p in present), 2), "bands": {}}
+        for decile in ("fot", "hpf"):
+            values = [p[decile] for p in present if decile in p]
+            if values:
+                cell[decile] = round(statistics.fmean(values), 2)
         for name in bands:
             rows = [p["bands"].get(name, {}) for p in present]
             def pick(key, how):
                 values = [r[key] for r in rows if key in r]
                 return round(how(values), 2) if values else None
-            cell["bands"][name] = {"mufday": pick("mufday", statistics.fmean), "loss": pick("loss", statistics.median),
+            cell["bands"][name] = {"open": pick("open", statistics.fmean), "mufday": pick("mufday", statistics.fmean),
+                                   "loss": pick("loss", statistics.median),
                                    "noise": pick("noise", statistics.fmean), "sigLow": pick("sigLow", statistics.median),
                                    "sigHigh": pick("sigHigh", statistics.median)}
         out[hour] = cell
@@ -197,10 +263,13 @@ def pack(cells, bands):
                         out.append(_byte(cell["muf"] / MUF_STEP) if cell else 0)
                         for b in bands:
                             band = (cell or {}).get("bands", {}).get(b, {})
-                            opened, loss, spread = band.get("mufday"), band.get("loss"), band.get("sigLow")
+                            # The share of days open below the circuit's MUF (method 3); method 30's MUFday only where no share
+                            # was worked out (results from before 28 Nov 2026's second run).
+                            opened = band.get("open", band.get("mufday"))
+                            loss, fade = band.get("loss"), band.get("sigLow")
                             out.append(_byte(opened * 250) if opened is not None else 0)
                             out.append(_byte(loss - LOSS_FLOOR, 0, 254) if loss is not None and loss < LOSS_FLOOR + 255 else 255)
-                            out.append(_byte(spread / SPREAD_STEP) if spread is not None else 0)
+                            out.append(_byte(fade / SPREAD_STEP) if fade is not None else 0)
     shortest = DISTANCES[0]
     for m in MONTHS:
         for s in SUNSPOTS:
@@ -255,7 +324,12 @@ def worker(out_folder, itshfbc, parallel, months=None):
                 return args, None
             with open(path) as f:
                 text = f.read()
-            return args, to_local(parse(text), lon) if frequencies_read(text) else None
+            if not frequencies_read(text):
+                return args, None
+            deciles = spread(text)
+            if len(deciles) != 24:
+                return args, None
+            return args, to_local(with_spread(parse(text), deciles), lon)
 
     os.makedirs(out_folder, exist_ok=True)
     failures = []

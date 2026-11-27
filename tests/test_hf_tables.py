@@ -88,6 +88,39 @@ class ReadingTests(unittest.TestCase):
         self.assertEqual(sorted(t.to_local({0: "a", 23: "b"}, 90)), [5, 6])
 
 
+#  Method 3's table, figures made up; the HPF and ESMUF columns run together as VOACAP prints them.
+SPREAD = """
+      GMT   LMT    FOT    HPF  ESMUF    MUF
+      1.0   7.0  17.26  23.351000.00  20.31
+     24.0   6.0  16.00  22.001000.00  19.00
+
+  some other line
+"""
+
+
+class SpreadTests(unittest.TestCase):
+    def test_method_3_reads_the_median_and_its_deciles(self):
+        hours = t.spread(SPREAD)
+        self.assertEqual(hours[1], {"muf": 20.31, "fot": 17.26, "hpf": 23.35})
+        self.assertEqual(hours[0]["muf"], 19.0)
+        self.assertEqual(len(hours), 2)
+
+    def test_the_share_open_is_half_at_the_median_and_a_tenth_at_each_decile(self):
+        self.assertAlmostEqual(t.open_share(20.0, 20.0, 17.0, 24.0), 0.5)
+        self.assertAlmostEqual(t.open_share(17.0, 20.0, 17.0, 24.0), 0.9, places=6)
+        self.assertAlmostEqual(t.open_share(24.0, 20.0, 17.0, 24.0), 0.1, places=6)
+
+    def test_the_share_open_falls_as_the_frequency_rises(self):
+        shares = [t.open_share(f, 20.0, 17.0, 24.0) for f in (3.6, 7.1, 14.2, 18.1, 21.2, 28.5)]
+        self.assertEqual(shares, sorted(shares, reverse=True))
+
+    def test_each_band_gets_its_share_from_the_hours_deciles(self):
+        hours = t.with_spread(t.parse(OUTPUT, TWO), {1: {"muf": 20.0, "fot": 17.0, "hpf": 24.0}}, TWO)
+        self.assertEqual(hours[1]["muf"], 20.0)
+        self.assertGreater(hours[1]["bands"]["20m"]["open"], 0.99)
+        self.assertNotIn("open", hours[2]["bands"].get("40m", {}))
+
+
 class CombineTests(unittest.TestCase):
     def sample(self, opened, loss):
         return {h: {"muf": 10.0, "bands": {"40m": {"mufday": opened, "loss": loss, "noise": -160.0, "sigLow": 9.0, "sigHigh": 5.0}}}
@@ -116,6 +149,11 @@ class PackTests(unittest.TestCase):
         at = t.unpack_header(data)["paths"]
         self.assertEqual(list(data[at:at + 4]), [48, 225, 45, 90])  # 12 MHz / 0.25; 0.9 x 250; 125 - 80; 9 dB / 0.1
         self.assertEqual(data[t.unpack_header(data)["noise"]], 60)  # -160 dBW/Hz
+
+    def test_the_share_open_packs_in_place_of_mufday(self):
+        cells = {(1, 0, -80, 50): {0: {"muf": 12.0, "bands": {"40m": {"open": 1.0, "mufday": 0.3, "loss": 125, "sigLow": 9}}}}}
+        data = t.pack(cells, ["40m"])
+        self.assertEqual(data[t.unpack_header(data)["paths"] + 1], 250)
 
     def test_no_path_and_no_figure_pack_as_255(self):
         cells = {(1, 0, -80, 50): {0: {"muf": 12.0, "bands": {"40m": {"mufday": 0.0, "loss": 400}}}}}
