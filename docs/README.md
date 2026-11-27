@@ -38,4 +38,4 @@ Every mod is RimWorld 1.7 only. These numbers are kept in step with each mod's A
 | **D'thorga Patches** | 0.50.0 | [README](../mods/PhobosPatches/README.md) |
 | **D'thorga Farming** | 0.8.0 | [README](../mods/PhobosFarming/README.md) |
 | **D'thorga Water Tap** | 0.3.0 | [README](../mods/PhobosWaterTap/README.md) |
-| **D'thorga Radio Framework** | 0.57.1 | [README](../mods/PhobosRadioFramework/README.md) |
+| **D'thorga Radio Framework** | 0.58.0 | [README](../mods/PhobosRadioFramework/README.md) |

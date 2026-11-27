@@ -14,8 +14,9 @@ namespace Phobos.Radio.UI;
 /// </summary>
 public class ITab_RadioLog : ITab
 {
-    private const float CardWidth = 228f;
-    private const float CardHeight = 132f;
+    // Radio 0.58.0: room for the callsign, the locator, the time and the note.
+    private const float CardWidth = 268f;
+    private const float CardHeight = 184f;
     private const float Gap = 8f;
 
     private Vector2 scroll;
@@ -130,17 +131,36 @@ public class ITab_RadioLog : ITab
         Widgets.Label(new Rect(rect.x, rect.y + 4f, rect.width - 8f, 30f), "QSL");
         GUI.color = Color.white;
         Text.Anchor = TextAnchor.UpperLeft;
-        Widgets.Label(new Rect(icon.xMax + 6f, rect.y + 8f, rect.width - icon.width - 22f, 30f), card.Place.Truncate(rect.width - icon.width - 22f));
+        // Radio 0.58.0: the callsign heads the card, as on a real one, and the place sits under it.
+        card.FillIn();
+        float textX = icon.xMax + 6f, textWidth = rect.width - icon.width - 22f;
+        Widgets.Label(new Rect(textX, rect.y + 4f, textWidth, 30f), (card.Call.Length > 0 ? card.Call : card.Place).Truncate(textWidth));
         Text.Font = GameFont.Tiny;
+        if (card.Call.Length > 0) Widgets.Label(new Rect(textX, rect.y + 32f, textWidth, 18f), card.Place.Truncate(textWidth));
         // Radio 0.57.1: dated where the card was sent from, as the log dates its lines where the station is (the owner's game, 28 Nov
         // 2026: a card dated at longitude 0 read a day before the contact); the colony's home if the settlement is gone.
         RimWorld.Planet.PlanetTile? at = card.Settlement?.Tile ?? Find.AnyPlayerHomeMap?.Tile;
         string date = GenDate.DateFullStringAt(card.Tick, at is { Valid: true } tile ? Find.WorldGrid.LongLatOf(tile) : Vector2.zero);
+        // Radio 0.58.0: the time in UTC as the operators log it (longitude 0, the game's own day), the locator and a note for what the
+        // contact was.
+        float utc = GenDate.HourFloat(card.Tick, 0f);
+        string time = ((int)utc).ToString("00") + ":" + ((int)(utc % 1f * 60f)).ToString("00");
+        string note = QslNote(card);
         string lines = "PhobosRadioQsl_CardText".Translate(card.Operator.Named("OPERATOR"), card.Report.Named("REPORT"), card.Tiles.Named("TILES"),
-            date.Named("DATE"), (card.Faction?.Name ?? "?").Named("FACTION")).Resolve();
+            date.Named("DATE"), (card.Faction?.Name ?? "?").Named("FACTION"), (card.OurCall.Length > 0 ? card.OurCall : "?").Named("OURCALL"),
+            time.Named("UTC"), (card.Grid.Length > 0 ? card.Grid : "?").Named("GRID"), note.Named("NOTE")).Resolve();
         Widgets.Label(new Rect(rect.x + 8f, rect.y + 52f, rect.width - 16f, rect.height - 56f), lines);
         Text.Font = GameFont.Small;
+        if (card.Call.Length > 0 && Seen.Wants("radio.qsl-card-drawn", variant: card.Kind.ToString()))
+            Seen.Note("radio.qsl-card-drawn", null, card.Call + " " + card.Grid, card.Kind.ToString());
     }
+
+    /// <summary>Notes a card may carry for its kind of contact (Radio 0.58.0): authored lines in the language files, three of each.</summary>
+    private const int NotesPerKind = 3;
+
+    /// <summary>The card's note: one of its kind's lines, the same each time for the same card.</summary>
+    private static string QslNote(QslCard card) =>
+        ("PhobosRadioQsl_Note" + card.Kind + Phobos.Radio.Physics.QslRule.Pick((card.Settlement?.ID ?? 0) * 31 + card.Tick, NotesPerKind)).Translate().Resolve();
 
     /// <summary>The settlements of factions that talk that this map reaches, one for each faction, worked out once a game hour.</summary>
     private static void Reachable(Map map)

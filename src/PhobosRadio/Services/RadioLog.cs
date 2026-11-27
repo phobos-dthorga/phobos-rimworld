@@ -3,6 +3,7 @@ using System.Linq;
 using Phobos.Radio.Physics;
 using RimWorld;
 using RimWorld.Planet;
+using UnityEngine;
 using Verse;
 
 namespace Phobos.Radio.Services;
@@ -81,6 +82,13 @@ public sealed class QslCard : IExposable
     public int Tick;
     public string Report = "";
     public int Tiles;
+    /// <summary>What earned it (Radio 0.58.0): the card's note answers it. Cards from before say only "first contact".</summary>
+    public QslContact Kind;
+    /// <summary>The sender's callsign, its grid locator and our station's callsign (Radio 0.58.0), worked out when the card is earned and
+    /// kept, so a card stays whole when its settlement is gone; a card from before 0.58.0 fills them in the first time it is drawn.</summary>
+    public string Call = "";
+    public string Grid = "";
+    public string OurCall = "";
 
     public void ExposeData()
     {
@@ -91,6 +99,76 @@ public sealed class QslCard : IExposable
         Scribe_Values.Look(ref Tick, "PhobosQslTick");
         Scribe_Values.Look(ref Report, "PhobosQslReport", "");
         Scribe_Values.Look(ref Tiles, "PhobosQslTiles");
+        Scribe_Values.Look(ref Kind, "PhobosQslKind", QslContact.FirstContact);
+        Scribe_Values.Look(ref Call, "PhobosQslCall", "");
+        Scribe_Values.Look(ref Grid, "PhobosQslGrid", "");
+        Scribe_Values.Look(ref OurCall, "PhobosQslOurCall", "");
+    }
+
+    /// <summary>Fills in the callsigns and locator a card from before 0.58.0 lacks, where its settlement still stands.</summary>
+    public void FillIn()
+    {
+        if (Call.Length > 0 || Settlement == null) return;
+        Call = QslCalls.Of(Settlement);
+        Grid = QslCalls.Locator(Settlement.Tile);
+        OurCall = QslCalls.Home(Find.AnyPlayerHomeMap?.Tile);
+    }
+}
+
+/// <summary>What a contact was (Radio 0.58.0), for the note the card carries.</summary>
+public enum QslContact
+{
+    FirstContact,
+    /// <summary>Their doctor or mechanic advised ours.</summary>
+    Advice,
+    /// <summary>We called them: a trader, help, a check-in.</summary>
+    FactionCall,
+    /// <summary>A radio friend's chat.</summary>
+    Friend,
+    /// <summary>We helped them, at their asking.</summary>
+    Neighbour,
+}
+
+/// <summary>
+/// Callsigns and grid locators (Radio 0.58.0; docs/development/radio-qsl-cards.md): every faction a two-letter prefix, every station a
+/// callsign from it, the call-area digit from its latitude; the rules are game-free in <see cref="QslRule"/>.
+/// <para>Cost: the prefixes are worked out once a session over the factions, the first time a card wants one; nothing per tick.</para>
+/// </summary>
+public static class QslCalls
+{
+    private static readonly Dictionary<Faction, string> prefixes = new();
+
+    public static void Clear() => prefixes.Clear();
+
+    /// <summary>A faction's prefix: every faction in load order, each stepping past a prefix taken before it, so a world's prefixes come out
+    /// the same each time it loads.</summary>
+    public static string PrefixOf(Faction faction)
+    {
+        if (prefixes.TryGetValue(faction, out string? known)) return known;
+        prefixes.Clear();
+        var taken = new HashSet<string>();
+        foreach (Faction each in Find.FactionManager.AllFactionsListForReading.OrderBy(f => f.loadID))
+        {
+            int step = 0;
+            string prefix;
+            do prefix = QslRule.Prefix(each.Name ?? "", each.loadID, step++);
+            while (!taken.Add(prefix) && step < 26);
+            prefixes[each] = prefix;
+        }
+        return prefixes.TryGetValue(faction, out known) ? known : QslRule.Prefix(faction.Name ?? "", faction.loadID);
+    }
+
+    public static string Of(Settlement settlement) =>
+        settlement.Faction is { } faction ? QslRule.Callsign(PrefixOf(faction), Find.WorldGrid.LongLatOf(settlement.Tile).y, settlement.ID) : "";
+
+    /// <summary>Our station's callsign, from the colony's tile; empty without one.</summary>
+    public static string Home(PlanetTile? tile) =>
+        tile is { Valid: true } t ? QslRule.Callsign(PrefixOf(Faction.OfPlayer), Find.WorldGrid.LongLatOf(t).y, t.tileId) : "";
+
+    public static string Locator(PlanetTile tile)
+    {
+        Vector2 longLat = Find.WorldGrid.LongLatOf(tile);
+        return QslRule.Locator(longLat.y, longLat.x);
     }
 }
 
@@ -122,6 +200,7 @@ public static class RadioQsl
 
     public static void Clear()
     {
+        QslCalls.Clear();
         cards = new List<QslCard>();
         awards = new List<QslAward>();
     }
@@ -149,7 +228,7 @@ public static class RadioQsl
     }
 
     /// <summary>A call with a settlement happened: the first earns its card, said in a message and in the log, and the awards are counted.</summary>
-    public static void Worked(Settlement settlement, Pawn colonist, double marginDb, PlanetTile from)
+    public static void Worked(Settlement settlement, Pawn colonist, double marginDb, PlanetTile from, QslContact kind = QslContact.FirstContact)
     {
         if (settlement.Faction is not { } faction || cards.Any(card => card.Settlement == settlement)) return;
         int tiles = from.Valid ? (int)Find.WorldGrid.ApproxDistanceInTiles(from, settlement.Tile) : 0;
@@ -162,6 +241,10 @@ public static class RadioQsl
             Tick = Find.TickManager.TicksAbs,
             Report = Report(marginDb),
             Tiles = tiles,
+            Kind = kind,
+            Call = QslCalls.Of(settlement),
+            Grid = QslCalls.Locator(settlement.Tile),
+            OurCall = QslCalls.Home(from.Valid ? from : Find.AnyPlayerHomeMap?.Tile),
         };
         cards.Add(card);
         string text = "PhobosRadioQsl_Earned".Translate(settlement.LabelCap.Named("PLACE"), faction.Name.Named("FACTION"), colonist.LabelShort.Named("OPERATOR"),

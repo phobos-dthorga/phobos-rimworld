@@ -310,7 +310,10 @@ now the one jammer that does is the Busbar generator set's **jammer mast**, swit
 log, newest first: advice calls, other factions' help, friends made and lost, radio lessons, neighbours' calls and medevacs.
 
 - **QSL cards**: the first contact with each settlement (a faction's doctor or mechanic, a radio friend's chat, a neighbour's call)
-  earns its card, shown on the tab in that faction's colours.
+  earns its card, shown on the tab in that faction's colours. A card carries the station's **callsign** (every faction has its own
+  two-letter prefix, and the digit says how far north the station is), yours, the time in UTC as operators log it, the station's
+  **grid square** (the real Maidenhead locator of its place on the planet), your signal report, the distance and a few words for
+  what the contact was.
 - **Awards**: cards from three factions, from every faction on the air, from 50 km away or more, or from ten settlements each earn an
   award. Colonists who work the radio (wearing a hand-held, or with a radio friend) are proud of it: **+2** an award, up to **+6**.
 

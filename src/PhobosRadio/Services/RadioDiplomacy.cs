@@ -162,7 +162,7 @@ public static class RadioDiplomacy
     {
         RadioLog.Add(RadioLogKind.Diplomacy, "PhobosRadioLog_FactionCall".Translate(negotiator.LabelShort.Named("COLONIST"), faction.Name.Named("FACTION"),
             link.Settlement.LabelCap.Named("SETTLEMENT")).Resolve());
-        RadioQsl.Worked(link.Settlement, negotiator, link.MarginDb, negotiator.MapHeld?.Tile ?? PlanetTile.Invalid);
+        RadioQsl.Worked(link.Settlement, negotiator, link.MarginDb, negotiator.MapHeld?.Tile ?? PlanetTile.Invalid, QslContact.FactionCall);
         if (Seen.Wants("radio.faction-call", negotiator, what)) Seen.Note("radio.faction-call", negotiator, faction.Name, what);
     }
 

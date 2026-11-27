@@ -117,7 +117,7 @@ public static class RadioNeighbours
         colonist.jobs.StartJob(job, JobCondition.InterruptForced, null, resumeCurJobAfterwards: true);
         RadioLog.Add(RadioLogKind.Neighbour, "PhobosRadioLog_NeighbourAccepted".Translate(colonist.LabelShort.Named("COLONIST"), faction.Name.Named("FACTION")).Resolve());
         // Radio 0.38.0: a call with a settlement earns its QSL card, the first time.
-        if (settlement != null) RadioQsl.Worked(settlement, colonist, RadioRulesDef.Current.workableDb, colonist.Map.Tile);
+        if (settlement != null) RadioQsl.Worked(settlement, colonist, RadioRulesDef.Current.workableDb, colonist.Map.Tile, QslContact.Neighbour);
     }
 
     /// <summary>A tick of the call: the colonist gains a little of the skill and of Social (the rules' rates).</summary>

@@ -29,6 +29,23 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.58.0] - 2026-11-28 - Draft
+
+QSL cards that read like real ones
+
+### Added
+
+- **A QSL card carries a callsign, a grid square and a note** (the owner's pick of 28 November 2026, docs/development/radio-qsl-cards.md):
+  every faction has a two-letter prefix and every station a callsign from it, the digit saying how far north it is; the card is headed
+  by the sender's callsign and says whom it is to, the time in UTC, the station's real Maidenhead grid square, the report, the distance
+  and a few words for what the contact was, then 73. All worked out from the place and the contact; the same settlement always gives
+  the same card, and older cards fill theirs in. The notes are agent-authored, for the owner's review. Not yet tested in game: row 749.
+
+### Save compatibility
+
+- Cards earned before keep working and gain their callsign and grid square the first time they are drawn, where their settlement still
+  stands.
+
 ## [0.57.1] - 2026-11-28 - Draft
 
 A QSL card's date

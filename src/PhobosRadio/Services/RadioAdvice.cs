@@ -606,7 +606,7 @@ public static class RadioAdvice
     {
         if (offer.Settlement == null) return;
         PlanetTile from = offer.Carer.Spawned ? offer.Carer.Map.Tile : offer.Carer.GetCaravan()?.Tile ?? PlanetTile.Invalid;
-        RadioQsl.Worked(offer.Settlement, offer.Carer, offer.MarginDb, from);
+        RadioQsl.Worked(offer.Settlement, offer.Carer, offer.MarginDb, from, QslContact.Advice);
     }
 
     private static string Say(AdviceOffer offer, string key, MessageTypeDef type)

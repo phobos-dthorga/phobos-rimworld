@@ -23,7 +23,23 @@
   <PhobosRadioLog_NeighbourAccepted>{COLONIST} is on the radio for {FACTION}, who asked for help.</PhobosRadioLog_NeighbourAccepted>
   <PhobosRadioLog_NeighbourDone>{COLONIST} finished an hour on the radio for {FACTION}: {GOODWILL} goodwill.</PhobosRadioLog_NeighbourDone>
   <PhobosRadioQsl_Earned>A QSL card from {PLACE} ({FACTION}): {OPERATOR}'s first contact there, report {REPORT}.</PhobosRadioQsl_Earned>
-  <PhobosRadioQsl_CardText>Confirming our contact with {OPERATOR}.\nYour signal: {REPORT}. Distance: {TILES} km.\n{DATE}\nThanks for the contact, {FACTION}.</PhobosRadioQsl_CardText>
+  <PhobosRadioQsl_CardText>To {OURCALL}, operator {OPERATOR}.\n{DATE}, {UTC} UTC. Grid square {GRID}.\nYour signal {REPORT}, {TILES} km.\n{NOTE}\n73, {FACTION}.</PhobosRadioQsl_CardText>
+  <!-- Radio 0.58.0: the note a card carries, three for each kind of contact (agent-authored, for the owner's review). -->
+  <PhobosRadioQsl_NoteFirstContact0>Pse QSL, tnx. Good to hear a new voice on the air.</PhobosRadioQsl_NoteFirstContact0>
+  <PhobosRadioQsl_NoteFirstContact1>The first of many contacts, we hope.</PhobosRadioQsl_NoteFirstContact1>
+  <PhobosRadioQsl_NoteFirstContact2>Your signal came out of the noise like a lamp in the dark.</PhobosRadioQsl_NoteFirstContact2>
+  <PhobosRadioQsl_NoteAdvice0>Glad our help got through. Call again if you need us.</PhobosRadioQsl_NoteAdvice0>
+  <PhobosRadioQsl_NoteAdvice1>Hope it all held together. Good luck out there.</PhobosRadioQsl_NoteAdvice1>
+  <PhobosRadioQsl_NoteAdvice2>A steady hand is only a radio call away.</PhobosRadioQsl_NoteAdvice2>
+  <PhobosRadioQsl_NoteFactionCall0>Tnx for the call. We listen on this frequency.</PhobosRadioQsl_NoteFactionCall0>
+  <PhobosRadioQsl_NoteFactionCall1>Keep in touch. The world is quieter than it should be.</PhobosRadioQsl_NoteFactionCall1>
+  <PhobosRadioQsl_NoteFactionCall2>Our door is open, and so is our channel.</PhobosRadioQsl_NoteFactionCall2>
+  <PhobosRadioQsl_NoteFriend0>Good chatting, as always. Talk soon.</PhobosRadioQsl_NoteFriend0>
+  <PhobosRadioQsl_NoteFriend1>Our operator says hello to yours.</PhobosRadioQsl_NoteFriend1>
+  <PhobosRadioQsl_NoteFriend2>Tnx for the company on a long night.</PhobosRadioQsl_NoteFriend2>
+  <PhobosRadioQsl_NoteNeighbour0>Tnx for the help. We owe you one.</PhobosRadioQsl_NoteNeighbour0>
+  <PhobosRadioQsl_NoteNeighbour1>Your operator talked us through it. Much obliged.</PhobosRadioQsl_NoteNeighbour1>
+  <PhobosRadioQsl_NoteNeighbour2>Without you we would still be stuck. Many thanks.</PhobosRadioQsl_NoteNeighbour2>
   <PhobosRadioQsl_AwardLabel>Radio award</PhobosRadioQsl_AwardLabel>
   <PhobosRadioQsl_Award>Our station has earned an award: {AWARD}. Those who work the radio are proud of it.</PhobosRadioQsl_Award>
   <PhobosRadioQsl_AwardThreeFactions>Worked {COUNT} factions</PhobosRadioQsl_AwardThreeFactions>
