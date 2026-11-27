@@ -29,6 +29,17 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.57.1] - 2026-11-28 - Draft
+
+A QSL card's date
+
+### Fixed
+
+- **A QSL card was dated a day early** (the owner's game, 28 November 2026: Toxo's card said the 3rd for a contact the log put on the
+  4th). The card read its date at longitude 0 rather than where it came from; it now gives the date at the settlement that sent it, as
+  the log gives its lines at the station, or at the colony's home if that settlement is gone. Cards already earned show the right date
+  at once. Seen in the owner's game on 0.55.0; the fix is not yet tested in game.
+
 ## [0.57.0] - 2026-11-28 - Draft
 
 The marine band

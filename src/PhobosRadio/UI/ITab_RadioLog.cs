@@ -132,7 +132,10 @@ public class ITab_RadioLog : ITab
         Text.Anchor = TextAnchor.UpperLeft;
         Widgets.Label(new Rect(icon.xMax + 6f, rect.y + 8f, rect.width - icon.width - 22f, 30f), card.Place.Truncate(rect.width - icon.width - 22f));
         Text.Font = GameFont.Tiny;
-        string date = GenDate.DateFullStringAt(card.Tick, Vector2.zero);
+        // Radio 0.57.1: dated where the card was sent from, as the log dates its lines where the station is (the owner's game, 28 Nov
+        // 2026: a card dated at longitude 0 read a day before the contact); the colony's home if the settlement is gone.
+        RimWorld.Planet.PlanetTile? at = card.Settlement?.Tile ?? Find.AnyPlayerHomeMap?.Tile;
+        string date = GenDate.DateFullStringAt(card.Tick, at is { Valid: true } tile ? Find.WorldGrid.LongLatOf(tile) : Vector2.zero);
         string lines = "PhobosRadioQsl_CardText".Translate(card.Operator.Named("OPERATOR"), card.Report.Named("REPORT"), card.Tiles.Named("TILES"),
             date.Named("DATE"), (card.Faction?.Name ?? "?").Named("FACTION")).Resolve();
         Widgets.Label(new Rect(rect.x + 8f, rect.y + 52f, rect.width - 16f, rect.height - 56f), lines);
