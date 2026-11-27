@@ -21,6 +21,16 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.340.5] - 2026-11-27 - Draft
+
+The Unlink from the mechanitor button's own picture
+
+### Fixed
+
+- **The remote control's Unlink from the mechanitor button borrowed the trailer hitch's picture**: it has its own now, drawn to
+  match Link's (the same truck under the same beacon, gone grey, its signal broken), the owner's pick of 27 Nov 2026 from bought
+  tries.
+
 ## [0.340.4] - 2026-11-27 - Draft
 
 The Link to a mechanitor button's own picture

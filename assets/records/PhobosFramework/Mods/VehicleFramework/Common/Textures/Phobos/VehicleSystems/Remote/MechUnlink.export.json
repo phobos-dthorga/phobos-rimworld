@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Remote/MechUnlink.png",
+  "source": "assets/vehicle-systems/generated/remote-icon-mech-unlink-fal-2/remote-icon-mech-unlink-fal-2-3.png",
+  "source_sha256": "8f3ab0cbacc02dca4ead59e61af2ebba7dc67c352a4f93b1d4a602a215bc3b19",
+  "target_sha256": "2fc014ac1800d3f9f856654c29d036cae897e44bbc9f839d44719c2c9bf40d46",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "8f3ab0cbacc02dca4ead59e61af2ebba7dc67c352a4f93b1d4a602a215bc3b19",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T17:20:58",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

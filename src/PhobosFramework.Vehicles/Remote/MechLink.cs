@@ -316,13 +316,13 @@ public sealed class CompPhobosMechLink : VehicleComp
     }
 }
 
-/// <summary>The mech link's button pictures, ours (Link's bought, Framework 0.340.4); each falls back to a visible icon of ours.</summary>
+/// <summary>The mech link's button pictures, ours and bought (Framework 0.340.4 and 0.340.5); each falls back to a visible icon of ours.</summary>
 [StaticConstructorOnStartup]
 public static class MechLinkIcons
 {
-    // Its own picture (Framework 0.340.4, the owner's pick of 27 Nov 2026, bought). Unlink borrows the hitch's until its remake is picked.
+    // Their own pictures, bought, the owner's picks of 27 Nov 2026: Link (Framework 0.340.4) and Unlink drawn to match it (0.340.5).
     public static readonly Texture2D Link = SystemIcons.For("Phobos/VehicleSystems/Remote/MechLink");
-    public static readonly Texture2D Unlink = SystemIcons.For("Phobos/VehicleSystems/Hitch/Unhitch");
+    public static readonly Texture2D Unlink = SystemIcons.For("Phobos/VehicleSystems/Remote/MechUnlink");
 }
 
 /// <summary>Registers the mechanitor level as a source of the remote control comp at start-up (Framework 0.282.0).</summary>
