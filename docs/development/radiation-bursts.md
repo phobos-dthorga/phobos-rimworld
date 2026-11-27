@@ -55,7 +55,7 @@ says how it would irradiate).
 
 ## Risk and settings
 
-- **Graded moderate** [A, for the owner to confirm]: new deaths are possible beyond a mini-nuke's or the boiler's blast, but the player
+- **Graded moderate** [A; confirmed by the owner on the Decisions page, 28 Nov 2026: "Moderate: on by default"]: new deaths are possible beyond a mini-nuke's or the boiler's blast, but the player
   fires most of these weapons, an incoming missile is announced, the doses are told in a letter, and shelter and care save people.
   So **on by default**. Legion's replacement lowers the risk (graded low), so it is on.
 - D'thorga Framework, General page, section "Radiation":
@@ -75,7 +75,8 @@ The dose in the open at distance *r* from the centre, for a burst whose dose at 
   [Davy Crockett article on Wikipedia](https://en.wikipedia.com/wiki/Davy_Crockett_(nuclear_device)) and
   [yarchive.net](https://yarchive.net/mil/davy_crockett.html); 600 rem at 400 m in other accounts]. Fitting those two points gives
   λ ≈ 230 m [I], a plausible length for gamma rays and neutrons in air.
-- **The scale is squeezed** [A]: the real W54 would give a lethal dose across a whole map. Each weapon's *D₀* and *λ* below are chosen
+- **The scale is squeezed** [A; kept by the owner on the Decisions page, 28 Nov 2026: "Squeezed onto the map", over the real scale as a
+  setting and a gentler half]: the real W54 would give a lethal dose across a whole map. Each weapon's *D₀* and *λ* below are chosen
   so the dose matters for tens of cells past the blast, not hundreds.
 - **Doses under 0.01 Gy are not given** [A], which also bounds the work: a burst touches only the people within its reach.
 - **Shelter cuts it** by the strike's own shares (Glasstone and Dolan, Table 8.72, gamma rays: a frame house 0.9, 9-inch concrete
@@ -167,5 +168,7 @@ two minutes before the strike [log] [save]:
 
 - **The owner** (cards, 27 Nov 2026): all four IRBM warheads; Legion replaced with a setting; antimatter a prompt dose, no fallout; the
   boiler a dose and fallout. (Cards, 28 Nov 2026): people and fires first; held people brought out, generically; our own fallout, squeezed.
+  (Decisions page, 28 Nov 2026): the scale stays squeezed onto the map (also offered: the real scale as a setting; gentler, half the
+  figures), and the risk is moderate, on by default (also offered: high, off by default).
 - **The agent**: the shape of the rule, every figure, the risk grade, the settings' places and names, leaving the CM-4 and the
   non-nuclear warheads alone.
