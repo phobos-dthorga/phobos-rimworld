@@ -69,6 +69,12 @@ public class RadioSettings : ModSettings
     public string ownCallsign = "";
 
     /// <summary>
+    /// S3 (Radio 0.64.0; the owner's choice of 28 Nov 2026: with HF, off by default, as RT6 graded it a high risk): the game's comms console
+    /// calls only the factions the colony's radio reaches.
+    /// </summary>
+    public bool consoleNeedsReach;
+
+    /// <summary>
     /// Whether colonists talk on the radio by themselves (Radio 0.63.0; docs/development/radio-life-on-the-air.md, slice 1): chats across the
     /// map, calls in the evening to someone away, company through the night; and a colonist's hand-held lights the lamp only while they talk.
     /// No risk (the agent's grade: mood and the social log only), so on by default. Off, the radio is quiet as before.
@@ -92,6 +98,7 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref listenersAmbushTraders, "listenersAmbushTraders", true);
         Scribe_Values.Look(ref jammingReachesRadios, "jammingReachesRadios", true);
         Scribe_Values.Look(ref ownCallsign, "ownCallsign", "");
+        Scribe_Values.Look(ref consoleNeedsReach, "consoleNeedsReach", false);
         ownCallsign ??= "";
         Scribe_Values.Look(ref talkOnAir, "talkOnAir", true);
     }
@@ -137,6 +144,8 @@ public class RadioMod : Mod
             x => Settings.listenersAmbushTraders = x, defaults.listenersAmbushTraders);
         Tick("radio.jammingReachesRadios", "PhobosRadio_SettingJammingReachesRadios", () => Settings.jammingReachesRadios,
             x => Settings.jammingReachesRadios = x, defaults.jammingReachesRadios);
+        Tick("radio.consoleNeedsReach", "PhobosRadio_SettingConsoleNeedsReach", () => Settings.consoleNeedsReach, x => Settings.consoleNeedsReach = x,
+            defaults.consoleNeedsReach);
         Tick("radio.relayMastLosses", "PhobosRadio_SettingRelayMastLosses", () => Settings.relayMastLosses, x => Settings.relayMastLosses = x,
             defaults.relayMastLosses);
         Tick("radio.talkOnAir", "PhobosRadio_SettingTalkOnAir", () => Settings.talkOnAir, x => Settings.talkOnAir = x, defaults.talkOnAir);
@@ -209,6 +218,10 @@ public class RadioMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingJammingReachesRadios".Translate(), ref Settings.jammingReachesRadios,
             "PhobosRadio_SettingJammingReachesRadiosDesc".Translate());
+        // Radio 0.64.0: the comms console needs the radio's reach (S3), off until turned on.
+        listing.Gap();
+        listing.CheckboxLabeled("PhobosRadio_SettingConsoleNeedsReach".Translate(), ref Settings.consoleNeedsReach,
+            "PhobosRadio_SettingConsoleNeedsReachDesc".Translate());
         // Radio 0.62.0: the colony's own callsign on its QSL cards; empty works one out.
         listing.Gap();
         Settings.ownCallsign = Phobos.Radio.Physics.QslRule.CleanCallsign(listing.TextEntryLabeled("PhobosRadio_SettingOwnCallsign".Translate(),

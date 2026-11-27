@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <!-- HF's band panel (Radio 0.62.0), shown in dev mode only until HF's sky paths are built. -->
+  <!-- HF's band panel (Radio 0.62.0; shown to every player since 0.64.0, with skywave). -->
   <PhobosRadioHf_Tab>HF bands</PhobosRadioHf_Tab>
-  <PhobosRadioHf_DevOnly>Dev mode only: the forecast HF's sky paths will follow. Contacts use the ground wave for now.</PhobosRadioHf_DevOnly>
+  <PhobosRadioHf_DevOnly>The forecast for the sky from here, this hour. A band open on most days reaches that far; along the ground it reaches a tile or two besides.</PhobosRadioHf_DevOnly>
   <PhobosRadioHf_Sun>Sunspots now: {SUNSPOTS}. The sun's cycle runs over {YEARS} game years.</PhobosRadioHf_Sun>
   <PhobosRadioHf_NoTables>The HF tables could not be read.</PhobosRadioHf_NoTables>
   <PhobosRadioHf_BandNoise>{BAND}: the sky's noise here {NOISE} dBm in {KHZ} kHz.</PhobosRadioHf_BandNoise>
   <PhobosRadioHf_Reach>  {KM} km: open on {PERCENT}% of days (highest frequency {MUF} MHz).</PhobosRadioHf_Reach>
   <PhobosRadioHf_NoPath>  {KM} km: no path.</PhobosRadioHf_NoPath>
+  <!-- Radio 0.64.0: S3, the comms console needs the radio's reach. -->
+  <PhobosRadio_SettingConsoleNeedsReach>The comms console needs radio reach</PhobosRadio_SettingConsoleNeedsReach>
+  <PhobosRadio_SettingConsoleNeedsReachDesc>Off by default. On, the comms console lists only the factions your stations can reach by radio, through relays and, with HF, by the sky: a far faction can be called only when a band is open to it. Passing ships are not affected. Off, the console calls every faction as usual.</PhobosRadio_SettingConsoleNeedsReachDesc>
 </LanguageData>

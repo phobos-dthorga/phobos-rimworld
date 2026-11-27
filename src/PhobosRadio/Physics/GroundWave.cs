@@ -166,6 +166,42 @@ public sealed class GroundWave
 }
 
 /// <summary>
+/// HF's skywave geometry and antennas (Radio 0.64.0; docs/development/radio-hf.md, slice 2). Game-free. The agent's simplified model,
+/// labelled in the record: one F2 hop reflects at 300 km, a hop is at most 3,500 km, and an antenna's gain toward the sky follows its
+/// height over a perfectly reflecting ground (a flat dipole) or falls off with the angle (an upright whip).
+/// </summary>
+public static class Skywave
+{
+    public const double EarthKm = 6371;
+    public const double LayerKm = 300;
+    public const double LongestHopKm = 3500;
+    /// <summary>The weakest an antenna's sky pattern counts, in dB below its own gain (agent's floor: a deep null is never quite zero).</summary>
+    public const double FloorDb = -20;
+
+    /// <summary>The takeoff angle in degrees for a path of this length: one hop up to the longest, more after it.</summary>
+    public static double TakeoffDegrees(double km)
+    {
+        int hops = Math.Max(1, (int)Math.Ceiling(km / LongestHopKm));
+        double half = km / hops / 2 / EarthKm;
+        double angle = Math.Atan((Math.Cos(half) - EarthKm / (EarthKm + LayerKm)) / Math.Sin(Math.Max(half, 1e-6)));
+        return Math.Max(1.0, angle * 180 / Math.PI);
+    }
+
+    /// <summary>
+    /// What the ground under an antenna adds toward this elevation, in dB: a flat dipole's two rays (its own and its reflection) add or
+    /// cancel by its height in wavelengths, up to +6 dB; an upright whip loses as the angle rises. At least <see cref="FloorDb"/>.
+    /// </summary>
+    public static double ElevationDb(bool horizontal, double heightMetres, double mhz, double elevationDegrees)
+    {
+        double e = elevationDegrees * Math.PI / 180;
+        double factor = horizontal
+            ? Math.Abs(2 * Math.Sin(2 * Math.PI * heightMetres * mhz / 299.792458 * Math.Sin(e)))
+            : Math.Cos(e);
+        return Math.Max(FloorDb, 20 * Math.Log10(Math.Max(factor, 1e-6)));
+    }
+}
+
+/// <summary>
 /// The sun's cycle for HF (Radio 0.62.0; the owner's card of 28 Nov 2026: a cycle a few game years long, starting at a random point on a
 /// new world): the smoothed sunspot number from the game's time, its phase from the world's seed, so nothing is saved. The shape, a
 /// raised cosine between a quiet and a busy sun, and its two figures are authored (real cycles run from near 0 to between about 100 and

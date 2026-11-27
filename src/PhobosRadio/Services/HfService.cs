@@ -88,6 +88,29 @@ public static class HfService
     public static double FloorWithAtmosphereDbm(double floorDbm, BandDef band, PlanetTile tile, double bandwidthHz) =>
         NoiseDbm(band, tile, bandwidthHz) is { } noise ? 10 * Math.Log10(Math.Pow(10, floorDbm / 10) + Math.Pow(10, noise / 10)) : floorDbm;
 
+    /// <summary>
+    /// The skywave between two tiles now, in dB, or null when the band is shut on that path (Radio 0.64.0; slice 2): VOACAP's loss at the
+    /// path's midpoint, its local hour, the season and the sun, for isotropic antennas, less what each antenna's height and lie add toward
+    /// the path's takeoff angle. Whether it is open today is a roll held for the game day and the path against VOACAP's share of days
+    /// open, so a path opens and shuts through the day as the share rises and falls.
+    /// </summary>
+    public static double? SkywaveDb(BandDef band, PlanetTile tileA, PlanetTile tileB, double km, double heightA, double heightB, bool flatA,
+        bool flatB)
+    {
+        if (Sky is not { } table || table.BandIndex(KHz(band)) is var index && index < 0) return null;
+        Vector3 a = Find.WorldGrid.GetTileCenter(tileA), b = Find.WorldGrid.GetTileCenter(tileB);
+        Vector3 mid = (a.normalized + b.normalized).normalized;
+        float lon = Mathf.Atan2(mid.x, -mid.z) * Mathf.Rad2Deg, lat = Mathf.Asin(Mathf.Clamp(mid.y, -1f, 1f)) * Mathf.Rad2Deg;
+        long now = Find.TickManager.TicksAbs;
+        HfConditions c = table.Look(index, YearFraction(now, lon), SunspotsNow(), lat, km, GenDate.HourFloat(now, lon));
+        if (c.LossDb is not { } loss) return null;
+        int day = (int)(now / GenDate.TicksPerDay);
+        int pair = Gen.HashCombineInt(Math.Min(tileA.tileId, tileB.tileId), Math.Max(tileA.tileId, tileB.tileId));
+        if (Rand.ValueSeeded(Gen.HashCombineInt(Gen.HashCombineInt(day, band.shortHash), pair)) >= c.OpenShare) return null;
+        double angle = Skywave.TakeoffDegrees(km);
+        return loss - Skywave.ElevationDb(flatA, heightA, band.centreMHz, angle) - Skywave.ElevationDb(flatB, heightB, band.centreMHz, angle);
+    }
+
     /// <summary>A tile's ground for HF, by its biome; medium dry ground where the tile cannot be read.</summary>
     public static HfGround GroundAt(PlanetTile tile) =>
         BiomeGround.TryRead(tile, out TileGround read) && read.Biome != null ? GroundWave.GroundOf(read.Biome.defName) : HfGround.Medium;

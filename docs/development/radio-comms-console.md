@@ -1,7 +1,7 @@
 # The radio as the comms console (27 Nov 2026)
 
 **Status (27 Nov 2026):** shape S2 is built in Radio Framework 0.53.0 (rows 725 to 728), not yet tested in game, with the benefits and
-downsides the owner chose ([as built](#as-built-radio-framework-0530)). S3, the console needing reach, waits for HF, as the owner chose.
+downsides the owner chose ([as built](#as-built-radio-framework-0530)). S3, the console needing reach, is built in Radio 0.64.0 with HF's skywave, a setting off by default, as the owner chose (row 782).
 
 ## Read this first
 

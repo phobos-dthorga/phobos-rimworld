@@ -23,6 +23,30 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.64.0] - 2026-11-28 - Draft
+
+HF reaches round the world by the sky
+
+### Added
+
+- **HF reaches far places by the sky** (the owner's card of 28 November 2026, "Build skywave now"): between tiles an HF band now also
+  goes by the sky when it is open on that path, by VOACAP's predictions for its hour, season and the sun's cycle; the stronger of
+  the sky and the ground carries the call. 40 m works regionally by day and far by night, 20 m far by day; close in, 20 m skips over.
+  Whether a band is open on a path is held for the day, so a path opens and shuts as the hours turn. A dipole's height decides where
+  it reaches: low, it throws its signal upward, for the region round it; high, it throws it low, for far places. Not yet tested in
+  game: row 781.
+- **Settlements answer on HF**, so faction calls, advice, radio friends and neighbours reach far settlements when a band is open.
+- **A setting, The comms console needs radio reach** (S3, off by default): on, the comms console lists only the factions your
+  stations reach by radio. Row 782.
+
+### Changed
+
+- **The HF bands tab and the band rose are shown to every player**, no longer in dev mode only, now that the sky's paths are real.
+
+### Fixed
+
+- **The HF station shows its HF bands tab**, which 0.62.0 left off its tab list.
+
 ## [0.63.0] - 2026-11-28 - Draft
 
 The air is alive: colonists talk on the radio by themselves

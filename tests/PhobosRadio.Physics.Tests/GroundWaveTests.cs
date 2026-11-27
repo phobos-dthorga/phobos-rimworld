@@ -118,6 +118,38 @@ public class GroundWaveTests
     }
 
     [Fact]
+    public void AShortPathGoesUpSteeplyAndALongOneLow()
+    {
+        Assert.InRange(Skywave.TakeoffDegrees(100), 75, 90);
+        Assert.InRange(Skywave.TakeoffDegrees(3000), 1, 10);
+        Assert.True(Skywave.TakeoffDegrees(500) > Skywave.TakeoffDegrees(1500));
+    }
+
+    [Fact]
+    public void ALongPathTakesMoreHopsAndRisesAgain() =>
+        Assert.True(Skywave.TakeoffDegrees(6000) > Skywave.TakeoffDegrees(3400));
+
+    [Fact]
+    public void AQuarterWaveDipoleFavoursTheSkyAndAHalfWaveTheHorizon()
+    {
+        // 40 m (7.1 MHz): a quarter wave is about 10.6 m, a half wave about 21 m.
+        double lowUp = Skywave.ElevationDb(true, 10.6, 7.1, 90), lowFar = Skywave.ElevationDb(true, 10.6, 7.1, 10);
+        double highUp = Skywave.ElevationDb(true, 21.1, 7.1, 90), highFar = Skywave.ElevationDb(true, 21.1, 7.1, 10);
+        Assert.Equal(20 * Math.Log10(2), lowUp, 1);
+        Assert.True(lowUp > lowFar);
+        Assert.True(highFar > lowFar);
+        Assert.Equal(Skywave.FloorDb, highUp, 1);
+    }
+
+    [Fact]
+    public void AnUprightWhipLosesAsTheAngleRises()
+    {
+        Assert.Equal(0, Skywave.ElevationDb(false, 3, 7.1, 0), 3);
+        Assert.True(Skywave.ElevationDb(false, 3, 7.1, 60) < Skywave.ElevationDb(false, 3, 7.1, 20));
+        Assert.Equal(Skywave.FloorDb, Skywave.ElevationDb(false, 3, 7.1, 90), 3);
+    }
+
+    [Fact]
     public void NoiseInABandwidthAddsItsDecibels() => Assert.Equal(-170 + 30 + 10 * Math.Log10(2400), SolarCycle.NoiseDbm(-170, 2400), 6);
 
     /// <summary>The shipped table keeps LFMF's physics: over sea a vertical antenna loses little more than free space; land loses far more,

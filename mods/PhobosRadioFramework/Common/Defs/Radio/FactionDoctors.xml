@@ -27,6 +27,9 @@
         <bands>
           <li>PhobosRadio_VHF</li>
           <li>PhobosRadio_UHF</li>
+          <!-- Radio 0.64.0: HF too, so a settlement far off answers by the sky (docs/development/radio-hf.md, slice 2). -->
+          <li>PhobosRadio_HF40</li>
+          <li>PhobosRadio_HF20</li>
         </bands>
         <mode>PhobosRadio_VoiceFM</mode>
         <transmitPowerWatts>50</transmitPowerWatts>

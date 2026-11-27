@@ -137,9 +137,15 @@ public static class LinkBudgetService
             {
                 if (tileA is not { } ta || tileB is not { } tb) continue;
                 metres = distanceMetres / rules.metresPerWorldTile * rules.hfMetresPerWorldTile;
-                if (HfService.GroundWaveDb(band, ta, tb, metres / 1000.0, a.AntennaHeightMetres, b.AntennaHeightMetres, a.Horizontal, b.Horizontal)
-                    is not { } groundWave) continue;
-                pathLoss = groundWave;
+                double km = metres / 1000.0;
+                double? groundWave = HfService.GroundWaveDb(band, ta, tb, km, a.AntennaHeightMetres, b.AntennaHeightMetres, a.Horizontal, b.Horizontal);
+                // Radio 0.64.0: the skywave too, when the band is open on this path today; the stronger of the two carries the call.
+                double? sky = HfService.SkywaveDb(band, ta, tb, km, a.AntennaHeightMetres, b.AntennaHeightMetres, a.Horizontal, b.Horizontal);
+                if (groundWave is null && sky is null) continue;
+                pathLoss = System.Math.Min(groundWave ?? double.PositiveInfinity, sky ?? double.PositiveInfinity);
+                if (sky is { } skyLoss && skyLoss < (groundWave ?? double.PositiveInfinity) && Seen.Wants("radio.hf-skywave", a.Thing, band.defName))
+                    Seen.Note("radio.hf-skywave", a.Thing, band.label + ", " + km.ToString("0") + " km by the sky, loss " + skyLoss.ToString("0") + " dB",
+                        band.defName);
                 obstruction = 0;
                 floorA = HfService.FloorWithAtmosphereDbm(floorAtA, band, ta, mode.bandwidthHz);
                 floorB = HfService.FloorWithAtmosphereDbm(floorAtB, band, tb, mode.bandwidthHz);

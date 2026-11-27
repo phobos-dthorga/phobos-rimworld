@@ -8,8 +8,8 @@ namespace Phobos.Radio.UI;
 
 /// <summary>
 /// The station's HF band panel (Radio 0.62.0; the owner's cards 13 and 18 of 28 Nov 2026): VOACAP's forecast for each HF band the colony's
-/// stations work, from <see cref="HfForecast"/>. <b>Dev mode only</b> until HF's skywave is built, so players never read a forecast for
-/// reach that does not work yet. Presentation only.
+/// stations work, from <see cref="HfForecast"/>: dev mode only in Radio 0.62.0, shown to every player since 0.64.0, when skywave came
+/// into play. Presentation only.
 /// </summary>
 public class ITab_RadioHfBands : ITab
 {
@@ -20,7 +20,7 @@ public class ITab_RadioHfBands : ITab
     }
 
     public override bool IsVisible =>
-        Prefs.DevMode && SelThing?.TryGetComp<CompRadio>() is { Props.isStation: true } radio && System.Linq.Enumerable.Any(radio.Bands, b => b.path == BandPath.Hf);
+        SelThing?.TryGetComp<CompRadio>() is { Props.isStation: true } radio && System.Linq.Enumerable.Any(radio.Bands, b => b.path == BandPath.Hf);
 
     protected override void FillTab()
     {
@@ -54,7 +54,7 @@ public class ITab_RadioHfBands : ITab
 
 /// <summary>
 /// The world map's HF band rose (Radio 0.62.0): around the colony, a petal along each of 16 bearings as far as each HF band is open on most
-/// days at this hour, 40 m and 20 m in their own colours. Dev mode only, as the panel. Presentation only; the figures are
+/// days at this hour, 40 m and 20 m in their own colours (shown to every player since Radio 0.64.0). Presentation only; the figures are
 /// <see cref="HfForecast"/>'s.
 /// <para>Cost: while dev mode is on and the colony is selected on the world map, 32 short arcs a frame; the forecast once a game hour.</para>
 /// </summary>
@@ -72,7 +72,6 @@ public static class HfRose
 
     public static void Draw(Map map)
     {
-        if (!Prefs.DevMode) return;
         IReadOnlyList<HfForecast.Rose> roses = HfForecast.Roses(map);
         if (roses.Count == 0) return;
         Vector3 home = Find.WorldGrid.GetTileCenter(map.Tile);

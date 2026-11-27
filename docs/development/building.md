@@ -145,10 +145,10 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.RimPacts` | 0 | 0 | 1 | 0 |
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
-| `PhobosRadio` | 3 | 0 | 0 | 0 |
+| `PhobosRadio` | 4 | 0 | 0 | 0 |
 | `PhobosRadio.DeadMansSwitch` | 1 | 0 | 0 | 0 |
 
-210 patched methods named in attributes, 27 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+211 patched methods named in attributes, 27 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -514,10 +514,11 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosRadio</code>: 3 patched methods</summary>
+<details><summary><code>PhobosRadio</code>: 4 patched methods</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosRadio/`) |
 | --- | --- | --- |
+| `Building_CommsConsole.GetCommTargets` | postfix | `Services/ConsoleReach.cs` |
 | `LearningGiver_Radiotalking.CanDo` | postfix | `Services/RadioSchool.cs` |
 | `LearningGiver_Radiotalking.TryGiveJob` | postfix | `Services/RadioSchool.cs` |
 | `Storyteller.TryFire` | prefix | `Services/RadioNews.cs` |

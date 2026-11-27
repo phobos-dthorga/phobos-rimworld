@@ -467,6 +467,8 @@
     "749": [{"key": "radio.qsl-card-drawn"}],
     "750": [{"key": "radio.qsl-card-front"}],
     "764": [{"key": "radio.qsl-card-band"}],
+    "781": ["radio.hf-skywave"],
+    "782": ["radio.console-needs-reach"],
     "769": {"parts": {
       "a manpack in touch with home by the ground wave": ["radio.hf-ground-wave"],
       "the HF bands tab in dev mode": ["radio.hf-band-panel"],

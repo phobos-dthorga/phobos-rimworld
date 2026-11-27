@@ -296,7 +296,7 @@ Construction **6 or more**, free and in radio touch.
 ## HF radio
 
 **Research HF radio, build an HF station, and run coax to a dipole outside.** HF (40 m and 20 m, single-sideband voice) is the
-long-distance radio, and for now it travels along the ground only:
+long-distance radio: along the ground a tile or two, and **round the world by the sky when a band is open**:
 
 - **A dipole for each band, in three kinds**: a **flat dipole** between two masts (the best signal, the longest strip: 21 cells for
   40 m, 11 for 20 m), an **inverted V** on one mast (14 and 7 cells, about a decibel less), and a **shortened dipole** with loading
@@ -305,7 +305,12 @@ long-distance radio, and for now it travels along the ground only:
 - **Along the ground HF reaches a tile or two from an upright whip** (a tile is about 30 km for HF), much further over the sea, and
   little from a flat dipole, whose strength is the sky. A caravan with a manpack near home stays in touch with an HF station that
   has an upright antenna, or with another manpack.
-- **Reaching round the world by the sky** comes in the next part of HF.
+- **By the sky**: 40 m reaches the region round you by day and far by night; 20 m reaches far by day and skips over places close
+  in. A path opens and shuts as the hours turn. **The HF bands tab** on the HF station shows how often each band is open to each
+  distance now, and the world map shows a rose round the colony: how far each band reaches in each direction this hour.
+- **Height matters**: a low dipole throws its signal upward, for the region round you; a high one throws it low, for far places.
+- **Settlements answer on HF**, so calls, advice and radio friends reach far settlements while a band is open. A setting makes the
+  comms console call only the factions your radio reaches (off by default).
 
 ## Morse
 

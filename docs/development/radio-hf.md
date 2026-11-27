@@ -2,7 +2,7 @@
 
 **Status (28 Nov 2026):** slice 1 is built in Radio 0.62.0 ([as designed](#slice-1-as-designed-28-nov-2026-a)): the kit (an HF station,
 three kinds of dipole for 40 m and 20 m, a manpack), the ground wave between tiles from NTIA's LFMF, the sky's noise and the sun's cycle
-from VOACAP's tables, and the band panel and rose in dev mode. Not tested in game (row 769). HF's skywave in play is the next slice. The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2") and
+from VOACAP's tables, and the band panel and rose in dev mode. Not tested in game (row 769). Slice 2, the skywave, settlements on HF and S3, is built in 0.64.0 ([as built](#slice-2-as-built-radio-0640-a)); not tested (rows 781, 782). The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2") and
 answered its questions on 28 Nov ([first round](#the-owners-answers-28-nov-2026)): HF at the world's scale, VOACAP's predictions
 shipped as tables, 40 m and 20 m first, the radio's own flare, no licence tiers. In a [second round](#the-owners-second-round-28-nov-2026)
 the same day the owner opened **building for everything but HF's reach in play**: the tables (voacapl under WSL, installed on 28
@@ -348,6 +348,38 @@ unconditional right to print, publish, prepare derivative works and distribute",
 `LICENSE.md`, read 28 Nov 2026). Installed the same day at the owner's word: `build-essential` and `cmake` in `Ubuntu-24.04`, LFMF
 (commit 5fd4962 of 23 Nov 2026, version 1.1) built in `/opt/lfmf`. Its first run: 40 m over 30 km of medium dry ground, both antennas
 vertical at 2 m, a basic transmission loss of **128.6 dB** (free space alone would be about 79 dB).
+
+## The owner's fourth round (28 Nov 2026)
+
+Put as cards when the owner asked to "continue the leftovers"; the chosen option first and marked.
+
+| # | Card | Chosen | Not chosen |
+| --- | --- | --- | --- |
+| 21 | Skywave before the owner's first look at rows 699 to 731 (card 8 said it waits) | **Build skywave now** (the agent's lean): HF by the sky, settlements on HF, the forecast shown to players, S3 as a setting off by default | Wait for the owner's look. Skywave behind a setting, off by default |
+| 22 | Which leftover next | **QSL cards in play** (the agent's lean) | The QSL album and certificates. HF's pictures (grey line, skip rings, the flare's wash) |
+| 23 | The dipoles' wire mast | **All of them**, the owner's words: "I think we can make use of all of these! Each having varying properties to the other with different advantages to disadvantages, etc. and depending on the type, it could perhaps match its variant in the real-world to some extent" | Keep try 2. Try 1. Taller still. A lattice tower (each offered alone) |
+
+### Slice 2, as built (Radio 0.64.0) [A]
+
+- **The skywave**: for an HF band between two tiles, VOACAP's loss for isotropic antennas at the path's midpoint (its latitude and its
+  local hour), the season and the sun's cycle, at HF's 30 km a tile. **Open or shut** is a roll held for the game day and the path
+  against VOACAP's share of days open, so a path opens and shuts as the share rises and falls through the day.
+- **Antennas toward the sky** (the agent's simplified model): the takeoff angle from one F2 hop reflecting at 300 km, hops of at most
+  3,500 km; a flat dipole gains or loses by its height in wavelengths (its direct and reflected rays over a perfectly reflecting
+  ground, up to +6 dB), an upright whip loses as the angle rises (the cosine), neither below -20 dB. A 40 m dipole at 10 m (a quarter
+  wave) favours the sky overhead (NVIS); at 21 m (a half wave) it is in a null overhead and favours far places.
+- **The stronger of the sky and the ground carries the call**; the floor has the sky's noise at each receiver (slice 1).
+- **Settlements have HF** (their radio's bands), so every faction feature that searches for a settlement in reach finds far ones while a
+  band is open; the search keeps its 100 tiles (3,000 km at HF's scale), an existing bound.
+- **S3**: a postfix on the game's console list (`Building_CommsConsole.GetCommTargets`), leaving out factions the colony's radio does not
+  reach, while the setting is on; off by default.
+- **Cost**: two table look-ups more per HF link weighed, as links are weighed today; nothing per tick.
+
+**The masts, as the owner chose (card 23)** [A: the mapping of picture to kind]: each dipole keeps the guyed steel pole with a pulley
+(try 2, 10 m; 8 m for the V and the shortened dipole) and takes either of two upgrades: a **telescopic mast** (try 1's slender pole,
+15 m, cheap and quick to raise) or a **lattice tower** (a paid picture, 25 m, dear and slow). Height is the real trade: low for the region
+round the colony, high for far places. The dipoles are to be drawn from these parts into the map's mesh rather than as whole pictures,
+since a picture for every dipole, mast and facing would hold about 160 MB of graphics memory.
 
 **The reader** [A]: `HfTable` (`src/PhobosRadio/Physics/HfTable.cs`, game-free, tests in `HfTableTests`) reads format 1 and looks up a
 path's MUF, share of days open, loss, fade and the noise at the far end, between the grid's points in every axis: the year and the hour

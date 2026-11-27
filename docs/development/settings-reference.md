@@ -334,9 +334,10 @@ Generated from the mod's source code and language files by `python scripts/doc-t
 | Allies warn of raids by radio | When raiders head for your colony and an ally's settlement is in reach of your radio stations, the ally calls to warn you, and the raid arrives a few hours later. | On |
 | Hostile listeners can ambush a trader you ask for | A hostile settlement in reach of your radio stations may hear you ask for a trader caravan by radio and ambush it on its way: it arrives hurt, or not at all, with the goodwill spent. | On |
 | Jamming reaches radios | On by default. A jammer switched to radios floods the radio bands with noise for a long way around, and every radio there hears it, the colony's own included: talk, remote-driven vehicles, radio-linked turrets and calls home fail as the noise drowns them. A radio close to its station, or a strong one, still gets through, and Morse lasts longest. Turrets linked by cable are untouched. Off: jammers blind radar only, as before. | On |
+| The comms console needs radio reach | Off by default. On, the comms console lists only the factions your stations can reach by radio, through relays and, with HF, by the sky: a far faction can be called only when a band is open to it. Passing ships are not affected. Off, the console calls every faction as usual. | Off |
 | Our station's callsign | Printed on every QSL card the colony receives, in place of the one worked out from its place on the planet. Letters, digits and a stroke (VK3ABC/P), up to ten. Leave it empty to have one worked out. | empty |
 
-12 settings, in the order the settings window draws them. **Default** is what the game uses until the setting is changed. A setting the window shows only in some games (another mod active, another setting on) is listed all the same.
+13 settings, in the order the settings window draws them. **Default** is what the game uses until the setting is changed. A setting the window shows only in some games (another mod active, another setting on) is listed all the same.
 
 Saved, but not found drawn in the window by the reader (kept by the window itself, or drawn by code it cannot follow): `displayMode`, `adviceOff`.
 <!-- end generated -->

@@ -89,6 +89,8 @@
     <inspectorTabs>
       <li>Phobos.Radio.UI.ITab_RadioNet</li>
       <li>Phobos.Radio.UI.ITab_RadioLog</li>
+      <!-- Radio 0.64.0: the HF bands tab, VOACAP's forecast (left out of 0.62.0's station by mistake). -->
+      <li>Phobos.Radio.UI.ITab_RadioHfBands</li>
     </inspectorTabs>
     <placeWorkers>
       <li>Phobos.Radio.UI.PlaceWorker_AntennaSiting</li>

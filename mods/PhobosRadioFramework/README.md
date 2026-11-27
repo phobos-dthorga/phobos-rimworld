@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.63.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.64.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -26,8 +26,9 @@ Version 0.63.0, built 28 November 2026 for House D'thorga. **Not yet tested in g
   station relays with the **repeater** upgrade, and a **radio relay post** can be founded from Create outpost (needs an outposts mod).
 - **Decide before you start a colony: Metres per map cell** (default 1, from 0.5 to 30). It changes every distance and coax loss,
   so changing it in a running colony changes which radios reach each other.
-- **HF (0.62.0) reaches along the ground only, for now**: an HF station and a manpack reach a tile or two (tens of kilometres) from an
-  upright whip, and little from a flat dipole; round the world by the sky comes next. The HF tables add about 3.3 MB to the mod.
+- **HF (0.62.0, by the sky from 0.64.0)**: an HF station reaches far settlements when a band is open, by the hour, the season and the
+  sun's cycle; along the ground a tile or two. Settlements answer on HF, so faction features reach much further. The HF tables add
+  about 3.3 MB to the mod.
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a hand-held together.
 - **Channels, from 0.7.0**: each station serves as many radios as its channels hold (the desk 5, the terminal 20, five to a
   25 kHz channel for voice). Past that, a colonist in touch reads **net busy** and gets no "in touch" mood: add a station or a
@@ -162,6 +163,7 @@ In **Options > Mod settings > D'thorga Radio Framework**.
 | Neighbours ask for help by radio | About once a fortnight, a friendly neighbour in radio reach asks by letter for your best doctor or mechanic on the radio for an hour. Yes earns 5 goodwill once the hour is done; no costs nothing | On |
 | Radio advice during surgery | A more skilled colonist in radio touch can talk a surgeon through an operation, raising its chance of success; a dropped call leaves the surgeon at their own skill | On |
 | Jamming reaches radios | A jammer switched to radios (the Busbar's jammer mast, with D'thorga Vehicles) drowns every radio for a long way around, **your own included**: talk, remote-driven vehicles and radio-linked turrets fail, while a radio close to its station, a strong one or Morse gets through. Off, jammers blind radar only | On |
+| The comms console needs radio reach | On, the comms console lists only the factions your stations reach by radio (through relays and, with HF, by the sky) | Off |
 | Our station's callsign | The callsign on every QSL card the colony receives: letters, digits and a stroke (VK3ABC/P), up to ten. Empty works one out from the colony's place on the planet | Empty |
 
 ## More
