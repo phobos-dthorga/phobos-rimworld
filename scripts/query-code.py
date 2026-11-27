@@ -3,7 +3,8 @@ code (.local/decompiled) and our own source (src/, as the corpus "ours").
 
 A thin caller for phobos-modkit's code tool (the pinned submodule at external/phobos-modkit; its guide is docs/code.md
 there). Every folder and .cs file in .local/decompiled is a corpus named after it; indexes live in the kit's cache,
-never in this repository, and rebuild when the files change. Decompiled output stays in .local/ (AGENTS.md); this
+never in this repository, and rebuild when the files change. These trees are defaults (kit 1.141.1): a --corpus or --each-in
+given on the command line replaces them, and --in builds only the indexes it queries. Decompiled output stays in .local/ (AGENTS.md); this
 prints lines to the terminal only.
 
     python scripts/query-code.py show VehicleStatHandler.ApplyDamage --in "VehicleFramework*"
@@ -12,6 +13,7 @@ prints lines to the terminal only.
     python scripts/query-code.py find "*ApplyDamage*" --kind method  declarations by name
     python scripts/query-code.py summary                             the corpora and their sizes
     python scripts/query-code.py compare OLD.dll NEW.dll             what changed between two builds, member by member
+    python scripts/query-code.py --corpus IRBM=.local/decompiled/IRBM-1.6 refs Name   one tree only, in place of the defaults
 """
 from pathlib import Path
 import sys
@@ -25,17 +27,18 @@ ILSPYCMD = '.store/ilspycmd/*/ilspycmd.win-x64/*/tools/any/win-x64/ilspycmd.exe'
 
 
 def corpus_arguments(root=ROOT, clones=None):
-    """--each-in for the decompiled folder and the source clones' folder when they exist, and our own source as "ours".
-    clones defaults to sourceClonesPath from the local settings."""
+    """--default-each-in for the decompiled folder and the source clones' folder when they exist, and our own source as "ours"
+    (--default-corpus): defaults the kit reads only when the command line names no tree of its own (kit 1.141.1). clones defaults
+    to sourceClonesPath from the local settings."""
     arguments = []
     decompiled = Path(root) / '.local' / 'decompiled'
     if decompiled.is_dir():
-        arguments += ['--each-in', str(decompiled)]
+        arguments += ['--default-each-in', str(decompiled)]
     # Public source clones (scripts/source-repos.py --clone), where the owner keeps them if not in .local/decompiled.
     clones = deploy.local_path('sourceClonesPath', 'PHOBOS_SOURCE_CLONES', decompiled) if clones is None else Path(clones)
     if clones.is_dir() and clones.resolve() != decompiled.resolve():
-        arguments += ['--each-in', str(clones)]
-    arguments += ['--corpus', f'ours={Path(root) / "src"}']
+        arguments += ['--default-each-in', str(clones)]
+    arguments += ['--default-corpus', f'ours={Path(root) / "src"}']
     return arguments
 
 

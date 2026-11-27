@@ -22,9 +22,9 @@ class Script(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             elsewhere = root / 'clones'
-            self.assertEqual(module.corpus_arguments(root, elsewhere), ['--corpus', f'ours={root / "src"}'])
+            self.assertEqual(module.corpus_arguments(root, elsewhere), ['--default-corpus', f'ours={root / "src"}'])
             (root / '.local' / 'decompiled').mkdir(parents=True)
-            self.assertEqual(module.corpus_arguments(root, elsewhere)[:2], ['--each-in', str(root / '.local' / 'decompiled')])
+            self.assertEqual(module.corpus_arguments(root, elsewhere)[:2], ['--default-each-in', str(root / '.local' / 'decompiled')])
 
     def test_source_clones_kept_elsewhere_are_indexed_too(self):
         module = load()
@@ -33,8 +33,8 @@ class Script(unittest.TestCase):
             (root / '.local' / 'decompiled').mkdir(parents=True)
             (root / 'clones').mkdir()
             arguments = module.corpus_arguments(root, root / 'clones')
-            self.assertEqual(arguments[2:4], ['--each-in', str(root / 'clones')])
-            self.assertEqual(module.corpus_arguments(root, root / '.local' / 'decompiled').count('--each-in'), 1)
+            self.assertEqual(arguments[2:4], ['--default-each-in', str(root / 'clones')])
+            self.assertEqual(module.corpus_arguments(root, root / '.local' / 'decompiled').count('--default-each-in'), 1)
 
     def test_a_query_finds_our_own_code(self):
         module = load()
@@ -47,6 +47,24 @@ class Script(unittest.TestCase):
                 del os.environ['PHOBOS_MODKIT_CACHE']
         self.assertEqual(code, 0)
         self.assertIn('Phobos.VehicleSystems.CompPhobosVehicleSystems', out.getvalue())
+
+    def test_a_tree_given_replaces_the_defaults(self):
+        # Kit 1.141.1: a --corpus on the command line is read in place of the decompiled folder, the clones and our source,
+        # so a question about one tree builds one index, not every one.
+        module = load()
+        with tempfile.TemporaryDirectory() as tmp:
+            tree = Path(tmp) / 'made'
+            tree.mkdir()
+            (tree / 'Thing.cs').write_text('namespace N { public class MadeUpThing { } }\n', encoding='utf-8')
+            out = io.StringIO()
+            os.environ['PHOBOS_MODKIT_CACHE'] = str(Path(tmp) / 'cache')
+            try:
+                code = module.main(['find', 'MadeUpThing', '--corpus', f'made={tree}'], out=out)
+            finally:
+                del os.environ['PHOBOS_MODKIT_CACHE']
+        self.assertEqual(code, 0)
+        self.assertIn('N.MadeUpThing', out.getvalue())
+        self.assertNotIn('ours', out.getvalue())
 
     def test_compare_finds_the_local_decompiler_and_the_game_unless_named(self):
         module = load()

@@ -98,7 +98,8 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
   is written before inheritance); or the mod was not active when it was written.
 - **Answer questions about the game's or another mod's code with `python scripts/query-code.py`** (owner, 8 Nov 2026), before
   grepping a decompile or sending an agent to read one, and cite what it shows as `file:line`. It reads every tree in
-  `.local/decompiled`; `--in ours` narrows to our `src/`. A tree not yet decompiled needs decompiling first (into
+  `.local/decompiled`; `--in ours` narrows to our `src/`, and builds only the indexes it queries. **A `--corpus NAME=PATH` given
+  replaces those trees** (kit 1.141.1), so a question about one tree builds one index. A tree not yet decompiled needs decompiling first (into
   `.local/decompiled/<name>`). **`compare OLD.dll NEW.dll` says what changed between two builds** (owner, 9 Nov 2026); its
   decompiles stay in the kit's cache, outside every repository. A single assembly's metadata, call graph or constants are REA's
   job only where it can read them (evaluated 9 Nov 2026: not the game's assembly, and whole-file only for small mods; an unread
