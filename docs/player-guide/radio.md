@@ -29,7 +29,7 @@ Research **local radio** (after Microelectronics basics).
 
 | Thing | Where | What it is |
 | --- | --- | --- |
-| Hand-held radio, VHF or UHF | Machining table: 20 steel, 1 component | 5 W, worn on the belt. **VHF reaches further outdoors; UHF copes better with walls** |
+| Hand-held radio, VHF or UHF | Machining table: 20 steel, 1 component | 5 W, worn on the belt, ten to a stack (a colonist takes one). **VHF reaches further outdoors; UHF copes better with walls** |
 | Radio base station | Architect, D'thorga, Radio: 100 steel, 3 components | 2 x 2, needs power, both bands, a built-in whip |
 | Coax feedline | Architect, D'thorga, Radio: 2 steel a cell | Laid like conduit, from the station to an antenna. Loses signal along its length; runs under walls |
 | Whip antenna | Architect, D'thorga, Radio: 15 steel | 3 m high. The cheap way to get the antenna outside |

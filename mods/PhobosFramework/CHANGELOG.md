@@ -22,6 +22,19 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.370.0] - 2026-11-28 - Draft
+
+Apparel that stacks
+
+### Added
+
+- **Putting on apparel from a stack takes one** (the owner's report of 28 November 2026: hand-held radios one to a stack backed the factory up). The game hands a colonist the whole stack, so ten stacked radios would be worn as one; now the colonist takes one and the rest stays where it was, on the shelf, in the hopper or in the container. It works for any mod's apparel that stacks.
+
+### Save compatibility
+
+- Safe: nothing is saved.
+- Not yet tested in game: row 751.
+
 ## [0.369.0] - 2026-11-28 - Draft
 
 Vehicle classes

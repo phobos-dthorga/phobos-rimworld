@@ -29,6 +29,23 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.60.0] - 2026-11-28 - Draft
+
+Hand-held radios stack
+
+### Changed
+
+- **Hand-held radios stack ten to a stack** (the owner's report of 28 November 2026: one to a stack, they filled the factory's hoppers and shelves). A colonist putting one on takes one from the stack (D'thorga Framework 0.370.0). Radios of different quality stack apart, as the game's items do.
+
+### Dependencies
+
+- D'thorga Framework 0.370.0 or later, for taking one from a stack.
+
+### Save compatibility
+
+- Safe: radios already made join stacks as they are hauled.
+- Not yet tested in game: row 751.
+
 ## [0.59.0] - 2026-11-28 - Draft
 
 QSL cards with a picture of home

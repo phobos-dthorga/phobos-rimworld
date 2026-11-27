@@ -10,6 +10,10 @@
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <techLevel>Industrial</techLevel>
+    <!-- Ten to a stack (Radio 0.60.0; the owner's report of 28 Nov 2026, one to a stack backed the factory up; ten is the agent's
+         choice, owner to revise): a box of sets on a shelf. D'thorga Framework's StackedApparel takes one off the stack when a colonist
+         puts one on, which the game never does by itself. -->
+    <stackLimit>10</stackLimit>
     <statBases>
       <Mass>0.5</Mass>
       <WorkToMake>5000</WorkToMake>
