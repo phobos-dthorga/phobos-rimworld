@@ -21,6 +21,24 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.35.0] - 2026-11-27 - Draft
+
+Vaccines of our own, and cleanliness against worms
+
+### Added
+
+- **Four vaccines, one per kind of disease** (bacterial, viral, protozoan, worms), made at the drug lab after the new "vaccines"
+  research. A vaccine lasts a year and does not make anyone immune: if a disease of its kind takes hold, the body starts fighting it a
+  third of the way there, so most people win. Anyone without a vaccine's protection is given it when one is in stock, about once a
+  year: doctors for people in bed, and people on their feet take their own ("Who gives a vaccine", Settings, Emergency dosing; doctors
+  and self by default). The preventives' reserve is kept. Not yet tested in game: rows 696 and 697.
+- **With Dubs Bad Hygiene, clean people catch worms less**: up to half the chance at full hygiene. Food poisoning stays Dubs Bad
+  Hygiene's own, through the cook. Not yet tested in game: row 698.
+
+### Save compatibility
+
+- Safe with an existing save. One new setting.
+
 ## [0.34.0] - 2026-11-27 - Draft
 
 Care for bonded animals, and mechanoid doctors

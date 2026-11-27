@@ -126,7 +126,7 @@ public static class DoseChoiceRule
     static float Benefit(DoseEffect effect, DoseNeed need) => need switch
     {
         DoseNeed.Cure or DoseNeed.Prevention => 1f,
-        DoseNeed.MentalStrain or DoseNeed.Addiction or DoseNeed.OldWounds or DoseNeed.MissingPart or DoseNeed.Reservoir => 1f,
+        DoseNeed.MentalStrain or DoseNeed.Addiction or DoseNeed.OldWounds or DoseNeed.MissingPart or DoseNeed.Reservoir or DoseNeed.Vaccination => 1f,
         DoseNeed.Immunity => effect.ImmunityGain,
         DoseNeed.Breathing => effect.BreathingGain,
         DoseNeed.Toxic => effect.ToxicCut,
@@ -137,7 +137,7 @@ public static class DoseChoiceRule
     /// <summary>Vomiting counts against the care needs of 0.28.0 and later; the pain and immunity scores are as they were before.</summary>
     static bool CountsVomit(DoseNeed need) =>
         need is DoseNeed.Cure or DoseNeed.Prevention or DoseNeed.Breathing or DoseNeed.Toxic or DoseNeed.Vacuum or DoseNeed.MentalStrain
-            or DoseNeed.Addiction or DoseNeed.OldWounds or DoseNeed.MissingPart or DoseNeed.Reservoir;
+            or DoseNeed.Addiction or DoseNeed.OldWounds or DoseNeed.MissingPart or DoseNeed.Reservoir or DoseNeed.Vaccination;
 
     /// <summary>The index of the chosen candidate, or -1 when none may be given.</summary>
     public static int Choose(IReadOnlyList<DoseCandidate> candidates, DoseNeed need, bool patientBleeding, DoseWeights weights) =>

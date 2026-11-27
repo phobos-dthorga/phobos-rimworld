@@ -82,6 +82,8 @@
   <PhobosDosing_UnmetBreathing>can barely breathe, with nothing in stock that helps</PhobosDosing_UnmetBreathing>
   <PhobosDosing_UnmetCure>nothing in stock that cures {CONDITION}</PhobosDosing_UnmetCure>
   <PhobosDosing_UnmetMedicine>needs {MEDICINE}, and none is in stock</PhobosDosing_UnmetMedicine>
+  <PhobosDosing_SettingVaccinationMode>Who gives a vaccine</PhobosDosing_SettingVaccinationMode>
+  <PhobosDosing_SettingVaccinationModeDesc>Anyone without a vaccine's protection is vaccinated when that vaccine is in stock, about once a year. Doctors give it to people who are down or in bed; with the last choice, people on their feet take their own. The preventives' reserve is kept.</PhobosDosing_SettingVaccinationModeDesc>
   <PhobosDosing_SettingAnimalCare>Doctors care for bonded animals</PhobosDosing_SettingAnimalCare>
   <PhobosDosing_SettingAnimalCareDesc>Animals bonded to someone, or with a master, are given cures, drugs against a disease that is winning, protection from toxins, and relief from extreme pain. Never anything addictive, and nothing their kind cannot swallow.</PhobosDosing_SettingAnimalCareDesc>
   <PhobosDosing_RefusalAnimalCannotTake>An animal cannot take {DRUG}.</PhobosDosing_RefusalAnimalCannotTake>

@@ -129,7 +129,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFramework.Vehicles.Hygiene` | 2 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Rimefeller` | 1 | 0 | 0 | 0 |
 | `PhobosMedical` | 11 | 0 | 4 | 0 |
-| `PhobosMedical.Hygiene` | 1 | 0 | 0 | 0 |
+| `PhobosMedical.Hygiene` | 2 | 0 | 0 | 0 |
 | `PhobosPatches.AircraftRearm` | 0 | 0 | 10 | 0 |
 | `PhobosPatches.Biotech` | 2 | 0 | 0 | 0 |
 | `PhobosPatches.Classical` | 1 | 0 | 0 | 0 |
@@ -143,7 +143,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VehicleFramework` | 5 | 0 | 0 | 0 |
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 
-199 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+200 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -387,11 +387,12 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosMedical.Hygiene</code>: 1 patched method</summary>
+<details><summary><code>PhobosMedical.Hygiene</code>: 2 patched methods</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosMedical.Hygiene/`) |
 | --- | --- | --- |
 | `Building_WashingMachine.UnloadWashing` | prefix | `DbhWashing.cs` |
+| `ImmunityHandler.DiseaseContractChanceFactor` | postfix | `CleanAgainstWorms.cs` |
 
 </details>
 

@@ -224,6 +224,15 @@ public static class DoseService
     static bool Answers(DoseOption option, DoseNeed need, List<HediffDef>? targets)
     {
         if (targets == null) return true;
+        if (need == DoseNeed.Vaccination)
+        {
+            // A vaccine answers when it gives one of the protections this person lacks (Medical 0.35.0).
+            for (int i = 0; i < option.Hediffs.Count; i++)
+            {
+                if (targets.Contains(option.Hediffs[i].Def)) return true;
+            }
+            return false;
+        }
         if (need == DoseNeed.Immunity)
         {
             // A drug for fighting disease answers when it acts on the class of one of the diseases winning (Medical 0.33.0).
@@ -538,7 +547,7 @@ public static class DoseService
             if (pawn.IsSlave) Medical.Seen.Note("medical.slave-self-dose", pawn, chosen.Option.Def.label);
             return DrugAIUtility.IngestAndTakeToInventoryJob(chosen.Item, pawn, 1);
         }
-        return PreventionService.SelfJob(pawn) ?? ExposureService.SelfToxicJob(pawn) ?? Needs.LongTermCare.SelfJob(pawn);
+        return PreventionService.SelfJob(pawn) ?? ExposureService.SelfToxicJob(pawn) ?? VaccinationService.SelfJob(pawn) ?? Needs.LongTermCare.SelfJob(pawn);
     }
 
     /// <summary>
@@ -671,6 +680,8 @@ public static class DoseService
             // Medical 0.33.0: the pain ladder (the pain it was chosen for), and a drug matched to a disease by its class.
             if ((decision.Need == DoseNeed.PainRelief || decision.Need == DoseNeed.Sedation) && Medical.Seen.Wants("medical.pain-ladder", patient))
                 Medical.Seen.Note("medical.pain-ladder", patient, chosen.Option.Def.label + " at " + patient.health.hediffSet.PainTotal.ToStringPercent() + " pain");
+            if (decision.Need == DoseNeed.Vaccination && Medical.Seen.Wants("medical.vaccination-job-made", patient))
+                Medical.Seen.Note("medical.vaccination-job-made", patient, chosen.Option.Def.label);
             // Medical 0.34.0: an animal dosed, and a mechanoid doctor's dose.
             if (patient.RaceProps.Animal && Medical.Seen.Wants("medical.animal-dose", patient))
                 Medical.Seen.Note("medical.animal-dose", patient, chosen.Option.Def.label + " for " + decision.Need);

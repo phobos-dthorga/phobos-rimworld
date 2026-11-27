@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/VaccineViral.png",
+  "source": "assets/phobos-medical/generated/vaccine-tray/vaccine-viral-derived.png",
+  "source_sha256": "aca8d9fdddbc1ca6f4565d0b21dc37dda247987a693946e1ba5e53d6ab57ee03",
+  "target_sha256": "58bd389a3459917d6a9d597336d110ec293c358cd5e3b2dd2178f181fafc549c",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": null,
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T20:24:15",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

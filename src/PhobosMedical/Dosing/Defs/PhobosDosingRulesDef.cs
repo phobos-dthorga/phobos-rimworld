@@ -91,6 +91,9 @@ public class PhobosDosingRulesDef : PhobosRulesDef
     public List<string> regrowthClasses = new();
     /// <summary>Reservoirs an artificial part draws on, and the outcome that refills them: read by name, never run.</summary>
     public List<ReservoirReader> reservoirs = new();
+    /// <summary>How much of the chance of catching worms a spotless person is spared, with Dubs Bad Hygiene (Medical 0.35.0): in step with
+    /// their hygiene, half at full hygiene. Authored.</summary>
+    public float hygieneWormCut = 0.5f;
     /// <summary>Prevention is for someone whose chance factor of catching the disease (the game's own) is this or more. Authored.</summary>
     public float preventionMinRisk = 0.5f;
     /// <summary>Conditions that count as an outbreak besides the ones found by what they are (a disease an event of the game brings, or

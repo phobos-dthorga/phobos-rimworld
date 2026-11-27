@@ -99,6 +99,32 @@ public class RoundTwoRuleTests
     }
 
     [Fact]
+    public void AVaccineGivesAThirdHeadStartAndNeverLowersImmunity()
+    {
+        // Medical 0.35.0, the owner's card: immunity starts a third of the way up.
+        Assert.Equal(0.33f, PrimedImmunityRule.Raised(0f, 0.33f));
+        Assert.Equal(0.5f, PrimedImmunityRule.Raised(0.5f, 0.33f));
+    }
+
+    [Fact]
+    public void ACleanPersonIsSparedUpToHalfTheChanceOfWorms()
+    {
+        Assert.Equal(1f, PrimedImmunityRule.CleanChanceFactor(0f, 0.5f));
+        Assert.Equal(0.75f, PrimedImmunityRule.CleanChanceFactor(0.5f, 0.5f), 4);
+        Assert.Equal(0.5f, PrimedImmunityRule.CleanChanceFactor(1f, 0.5f), 4);
+        // Figures out of range are held to it.
+        Assert.Equal(0.5f, PrimedImmunityRule.CleanChanceFactor(2f, 0.5f), 4);
+    }
+
+    [Fact]
+    public void AVaccineIsMatchedByTheIndexAndScoresAsACare()
+    {
+        Assert.True(DoseNeedRule.MatchedByIndex(DoseNeed.Vaccination));
+        DoseEffect plain = DoseEffectRule.Combine(new[] { new StageEffect(1f, 0f, 0f, 1f, 0f, 1f) }, 0f, false, 0.1f);
+        Assert.True(DoseChoiceRule.WorthwhileForCare(plain, DoseNeed.Vaccination, Weights));
+    }
+
+    [Fact]
     public void ADiseaseNobodyHasClassedTakesAnyDrug()
     {
         // The owner's card of 27 Nov 2026: a new mod's disease is never left untreated because we had not read it.

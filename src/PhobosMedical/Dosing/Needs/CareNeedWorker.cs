@@ -271,6 +271,28 @@ public class CareNeedWorker_Prevention : CareNeedWorker
 }
 
 /// <summary>
+/// Vaccination (Medical 0.35.0): someone lying down without a vaccine's protection, with that vaccine on the map, is given it by a
+/// doctor; people on their feet take their own (<see cref="VaccinationService"/>). Keeps the preventives' reserve.
+/// </summary>
+public class CareNeedWorker_Vaccination : CareNeedWorker
+{
+    static readonly List<HediffDef> targets = new();
+
+    public override CareMode Mode => DosingMod.Settings.vaccinationMode;
+
+    public override bool Wanted(Pawn patient, DosingSettings settings, PhobosDosingRulesDef rules) =>
+        DoseIndex.VaccineOptions.Count > 0 && Patients.IsLyingDown(patient) && VaccinationService.Collect(patient, targets) > 0;
+
+    CareContext Care => new(def.seriousness, targets, def.usesReserve);
+
+    public override DoseDecision? Decide(Pawn? doctor, Pawn patient, bool everyItem) =>
+        VaccinationService.Collect(patient, targets) == 0 ? null : DoseService.DecideCare(doctor, patient, DoseNeed.Vaccination, DoseIndex.VaccineOptions, Care, everyItem);
+
+    public override bool AnyAllowed(Pawn patient, DosingSettings settings, PhobosDosingRulesDef rules) =>
+        VaccinationService.Collect(patient, targets) > 0 && DoseService.AnyCareAllowed(patient, DoseNeed.Vaccination, DoseIndex.VaccineOptions, Care);
+}
+
+/// <summary>
 /// The radiation medicines, on the table for its switch and its alert (Medical 0.28.0). Which medicine, when, and the doctor's job stay
 /// with <see cref="RadiationMedicine"/> and its own work giver, unchanged: its choice is by dose and stage, not by an item's effect.
 /// </summary>

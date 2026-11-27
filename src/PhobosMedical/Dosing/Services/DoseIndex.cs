@@ -101,6 +101,10 @@ public static class DoseIndex
     static List<DoseOption>? oldWoundOptions;
     static List<DoseOption>? regrowthOptions;
     static List<DoseOption>? reservoirOptions;
+    static List<DoseOption>? vaccineOptions;
+
+    /// <summary>Items whose condition primes the body against a class of disease: our vaccines (Medical 0.35.0).</summary>
+    public static IReadOnlyList<DoseOption> VaccineOptions => Built(ref vaccineOptions);
 
     /// <summary>Items that steady someone close to a major break (Medical 0.31.0).</summary>
     public static IReadOnlyList<DoseOption> StrainOptions => Built(ref strainOptions);
@@ -211,7 +215,8 @@ public static class DoseIndex
 
     /// <summary>Whether any list holds anything: the work giver's first test.</summary>
     public static bool Any => Options.Count > 0 || ImmunityOptions.Count > 0 || CureOptions.Count > 0 || PreventionOptions.Count > 0 || BreathingOptions.Count > 0 || ToxicOptions.Count > 0
-        || StrainOptions.Count > 0 || AddictionOptions.Count > 0 || OldWoundOptions.Count > 0 || RegrowthOptions.Count > 0 || ReservoirOptions.Count > 0;
+        || StrainOptions.Count > 0 || AddictionOptions.Count > 0 || OldWoundOptions.Count > 0 || RegrowthOptions.Count > 0 || ReservoirOptions.Count > 0
+        || VaccineOptions.Count > 0;
 
     static DoseIndex() => _ = Options;
 
@@ -229,6 +234,7 @@ public static class DoseIndex
         var builtOldWounds = new List<DoseOption>();
         var builtRegrowth = new List<DoseOption>();
         var builtReservoir = new List<DoseOption>();
+        var builtVaccine = new List<DoseOption>();
         var builtCurable = new HashSet<HediffDef>();
         var builtPreventable = new HashSet<HediffDef>();
         PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
@@ -256,7 +262,7 @@ public static class DoseIndex
             prevents.Clear();
             bool givesDisease = false;
             float breakDrop = 0f;
-            bool treatsAddiction = false, healsOldWounds = false, regrowsParts = false;
+            bool treatsAddiction = false, healsOldWounds = false, regrowsParts = false, primes = false;
             ReservoirReader? reservoir = null;
             float refillAmount = 0f;
 
@@ -275,6 +281,7 @@ public static class DoseIndex
                     return;
                 }
                 if (condition.PossibleToDevelopImmunityNaturally()) givesDisease = true;
+                if (condition.CompProps<Comps.HediffCompProperties_PhobosPrimedImmunity>() != null) primes = true;
                 HediffStage stage = condition.stages[condition.StageAtSeverity(severity)];
                 stages.Add(Read(stage));
                 AddConditions(prevents, stage.makeImmuneTo);
@@ -361,6 +368,8 @@ public static class DoseIndex
                     builtOldWounds.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value, chemical: chemical));
                 if (regrowsParts && DoseChoiceRule.WorthwhileForCare(effect, DoseNeed.MissingPart, rules.Weights))
                     builtRegrowth.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value, chemical: chemical));
+                if (primes && DoseChoiceRule.WorthwhileForCare(effect, DoseNeed.Vaccination, rules.Weights))
+                    builtVaccine.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value, chemical: chemical));
                 if (refillAmount > 0f && DoseChoiceRule.WorthwhileForCare(effect, DoseNeed.Reservoir, rules.Weights))
                     builtReservoir.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value, chemical: chemical,
                         reservoir: reservoir, refillAmount: refillAmount));
@@ -390,6 +399,7 @@ public static class DoseIndex
         oldWoundOptions = builtOldWounds;
         regrowthOptions = builtRegrowth;
         reservoirOptions = builtReservoir;
+        vaccineOptions = builtVaccine;
         curable = builtCurable;
         preventableOutbreaks = builtPreventable;
     }

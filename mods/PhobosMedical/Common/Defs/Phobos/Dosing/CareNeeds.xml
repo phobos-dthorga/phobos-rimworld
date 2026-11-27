@@ -91,6 +91,21 @@
     <alertWhenUnmet>false</alertWhenUnmet>
   </Phobos.Dosing.Defs.PhobosCareNeedDef>
 
+  <!-- Vaccination (D'thorga Medical 0.35.0; docs/development/medical-care-round-two.md, slice 3): someone without a vaccine's protection,
+       with that vaccine on the map. Minor, with the preventives' reserve; protection, so no alert. Order authored: after prevention in an
+       outbreak, which acts on a disease already in the colony. -->
+  <Phobos.Dosing.Defs.PhobosCareNeedDef>
+    <defName>PhobosCare_Vaccination</defName>
+    <label>vaccination</label>
+    <description>This person has no vaccine's protection against a kind of disease, and a vaccine against it is in stock.</description>
+    <workerClass>Phobos.Dosing.Needs.CareNeedWorker_Vaccination</workerClass>
+    <order>42</order>
+    <seriousness>Minor</seriousness>
+    <defaultMode>DoctorsAndSelf</defaultMode>
+    <usesReserve>true</usesReserve>
+    <alertWhenUnmet>false</alertWhenUnmet>
+  </Phobos.Dosing.Defs.PhobosCareNeedDef>
+
   <Phobos.Dosing.Defs.PhobosCareNeedDef>
     <defName>PhobosCare_Prevention</defName>
     <label>prevention in an outbreak</label>

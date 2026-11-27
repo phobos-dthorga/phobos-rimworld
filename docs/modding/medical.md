@@ -134,6 +134,9 @@ Say what one of your items cures or prevents where its Defs cannot show it:
   or more of toxic buildup (the game multiplies what a pawn takes in by one less each toxic resistance) or adds a quarter or more to
   vacuum resistance is given while exposure is under way (`toxicExposureFrom`, `minToxicCut`, `minVacuumGain`). The vacuum giver is a
   node in the game's constant think tree, ahead of `JobGiver_FindOxygen` (`Patches/Phobos/Dosing/VacuumDose_ThinkTree.xml`).
+- **A vaccine of your own** (0.35.0) needs no extension: give a condition carrying `Phobos.Dosing.Comps.HediffCompProperties_PhobosPrimedImmunity`
+  (`diseaseClass`, `headStart`, `checkIntervalTicks`) and a stage, and the index lists the item for vaccination; doctors and people
+  give and take it as for ours.
 - A cure or a preventive scores 1 minus the costs above and a quarter for each vomit a day; a sedative, a recreational drug or an
   item that gives a disease is never either.
 

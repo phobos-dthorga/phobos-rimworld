@@ -49,6 +49,8 @@ public class DosingSettings : ModSettings
     public bool vacuumRescue = true;
     /// <summary>Doctors dose the colony's bonded animals and those with a master (Medical 0.34.0): moderate risk, so on.</summary>
     public bool animalCare = true;
+    /// <summary>Who gives a vaccine to someone without its protection (Medical 0.35.0): low risk, it only helps, so on for doctors and self.</summary>
+    public CareMode vaccinationMode = CareMode.DoctorsAndSelf;
     /// <summary>The long-term needs (Medical 0.31.0), each off until the player turns it on (the owner's card of 26 Nov 2026).</summary>
     public CareMode strainMode = CareMode.Off;
     public CareMode addictionMode = CareMode.Off;
@@ -77,6 +79,7 @@ public class DosingSettings : ModSettings
         Scribe_Values.Look(ref toxicMode, "PhobosDosing_ToxicMode", CareMode.DoctorsAndSelf);
         Scribe_Values.Look(ref vacuumRescue, "PhobosDosing_VacuumRescue", true);
         Scribe_Values.Look(ref animalCare, "PhobosDosing_AnimalCare", true);
+        Scribe_Values.Look(ref vaccinationMode, "PhobosDosing_VaccinationMode", CareMode.DoctorsAndSelf);
         Scribe_Values.Look(ref strainMode, "PhobosDosing_StrainMode", CareMode.Off);
         Scribe_Values.Look(ref addictionMode, "PhobosDosing_AddictionMode", CareMode.Off);
         Scribe_Values.Look(ref oldWoundsMode, "PhobosDosing_OldWoundsMode", CareMode.Off);
@@ -212,6 +215,8 @@ public static class DosingMod
         list.Radio("PhobosDosing_SettingCureMode".Translate(), ref s.cureMode, d.cureMode, CureModes, ModeLabel, tip: "PhobosDosing_SettingCureModeDesc".Translate());
         list.Radio("PhobosDosing_SettingPreventionMode".Translate(), ref s.preventionMode, d.preventionMode, PreventionModes, ModeLabel,
             tip: "PhobosDosing_SettingPreventionModeDesc".Translate());
+        list.Radio("PhobosDosing_SettingVaccinationMode".Translate(), ref s.vaccinationMode, d.vaccinationMode, PreventionModes, ModeLabel,
+            tip: "PhobosDosing_SettingVaccinationModeDesc".Translate());
         list.Radio("PhobosDosing_SettingToxicMode".Translate(), ref s.toxicMode, d.toxicMode, PreventionModes, ModeLabel, tip: "PhobosDosing_SettingToxicModeDesc".Translate());
         if (ModsConfig.OdysseyActive)
             list.Check("PhobosDosing_SettingVacuumRescue".Translate(), ref s.vacuumRescue, d.vacuumRescue, "PhobosDosing_SettingVacuumRescueDesc".Translate());

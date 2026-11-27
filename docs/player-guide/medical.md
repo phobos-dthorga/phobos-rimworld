@@ -149,6 +149,7 @@ its name.
 | Down or in bed, with a condition something in stock cures outright | The cure, the gentlest first |
 | Toxins building up and still around them (polluted ground, tox gas, outdoors in toxic fallout) | Something that keeps toxins out, such as AntiTox, again as it wears off: a doctor gives it to those in bed, and people on their feet take their own |
 | Someone in the colony has a disease that strikes groups, and this person is unprotected | A preventive from stock: a doctor gives it to those in bed, and people on their feet take their own |
+| Without a vaccine's protection, with that vaccine in stock | The vaccine, about once a year: a doctor gives it to those in bed, and people on their feet take their own |
 | **Long-term care, each off until you turn it on** (Settings, Emergency dosing) | |
 | Mood below the point where a major break can happen | Something that steadies them, such as clozapine |
 | Addicted to a drug their drug policy no longer feeds | Something that eases it, such as addictol, never of the same kind. Never luciferium |
@@ -171,6 +172,11 @@ its name.
   has none.
 - **Prevention uses what makes a person immune**: penoxycyline against malaria, sleeping sickness and plague, or a mod's vaccine.
   **It keeps a reserve**: never below 5 of a preventive in stock (0, 5, 10 or 20 in the settings). Treatment may use the last one.
+- **Our vaccines** (research "vaccines", made at the drug lab) come in four kinds, one per kind of disease: bacterial (green cap),
+  viral (blue), protozoan (amber) and worms (violet). A vaccine lasts a year and does not make anyone immune: when a disease of its kind
+  takes hold, the body starts fighting it a third of the way there, so most people win. Nothing against mechanites: they are machines.
+- **With Dubs Bad Hygiene, clean people catch worms less**: up to half the chance at full hygiene. Food poisoning comes from the cook's
+  hygiene, as Dubs Bad Hygiene already has it.
 - **Diseases do not pass from person to person in the game by itself.** A preventive taken when plague strikes protects against the
   next time it strikes, not this one.
 - **A rare medicine is kept for saving a life**: one worth 300 silver or more, unless you move the mark in the settings (a slider;

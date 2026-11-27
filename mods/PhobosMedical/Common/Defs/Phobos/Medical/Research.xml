@@ -113,6 +113,26 @@
     </modExtensions>
   </ResearchProjectDef>
 
+  <!-- Vaccines (D'thorga Medical 0.35.0; docs/development/medical-care-round-two.md, slice 3). Cost and position authored: a free spot in the
+       medical lane. -->
+  <ResearchProjectDef ParentName="PhobosResearchMedicalBase">
+    <defName>PhobosResearch_Vaccines</defName>
+    <label>vaccines</label>
+    <description>Vaccines against four kinds of disease: bacteria, viruses, protozoa and parasitic worms. A vaccine does not make someone immune: when the disease strikes within the year, the body starts fighting it a third of the way there, so most people win.</description>
+    <baseCost>1500</baseCost>
+    <researchViewX>5</researchViewX>
+    <researchViewY>1.8</researchViewY>
+    <prerequisites>
+      <li>MedicineProduction</li>
+      <li>DrugProduction</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
   <ResearchProjectDef ParentName="PhobosResearchMedicalBase">
     <defName>PhobosResearch_MarrowStimulants</defName>
     <label>marrow stimulants</label>

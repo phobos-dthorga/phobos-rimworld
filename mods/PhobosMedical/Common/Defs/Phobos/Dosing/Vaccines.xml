@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Our own vaccines (D'thorga Medical 0.35.0; docs/development/medical-care-round-two.md, slice 3; the owner's cards of 27 Nov 2026: one
+    per class of disease, a third head start). A vaccine gives a condition lasting a year; while it lasts, a disease of its class that
+    takes hold has its immunity start a third of the way up (HediffComp_PhobosPrimedImmunity), so the patient usually wins the race and
+    can still lose. It never makes anyone immune, unlike penoxycyline. Made at the drug lab. Costs, work and the year are authored.
+    Pictures: one paid master, recoloured by class by script. Not yet tested in game.
+  -->
+  <ThingDef ParentName="MakeableDrugBase">
+    <defName>PhobosMedical_VaccineBacterial</defName>
+    <label>bacterial vaccine</label>
+    <description>A vaccine against diseases caused by bacteria: plague, wound infection, cholera and pneumonia. It does not make anyone immune. For a year, if such a disease takes hold, the body starts fighting it a third of the way there, so most people win the race; the old and the weak can still lose it. The green cap marks the kind.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/VaccineBacterial</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <socialPropernessMatters>false</socialPropernessMatters>
+    <rotatable>false</rotatable>
+    <stackLimit>25</stackLimit>
+    <statBases>
+      <WorkToMake>900</WorkToMake>
+      <Mass>0.02</Mass>
+    </statBases>
+    <costList>
+      <Neutroamine>2</Neutroamine>
+      <MedicineHerbal>1</MedicineHerbal>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_Vaccines</researchPrerequisite>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+      <productCount>2</productCount>
+      <skillRequirements>
+        <Intellectual>5</Intellectual>
+      </skillRequirements>
+    </recipeMaker>
+    <ingestible>
+      <drugCategory>Medical</drugCategory>
+      <foodType>Processed, Fluid</foodType>
+      <baseIngestTicks>80</baseIngestTicks>
+      <ingestSound>Ingest_Inject</ingestSound>
+      <ingestCommandString>Inject {0}</ingestCommandString>
+      <ingestReportString>Injecting {0}.</ingestReportString>
+      <useEatingSpeedStat>false</useEatingSpeedStat>
+      <chairSearchRadius>0</chairSearchRadius>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PhobosMedical_VaccinatedBacterial</hediffDef>
+          <severity>1</severity>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <listOrder>1020</listOrder>
+        <teetotalerCanConsume>true</teetotalerCanConsume>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <HediffDef>
+    <defName>PhobosMedical_VaccinatedBacterial</defName>
+    <label>vaccinated against bacteria</label>
+    <description>Vaccinated against diseases caused by bacteria. If one takes hold before this wears off, the body starts fighting it a third of the way there.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.6, 0.85, 0.6)</defaultLabelColor>
+    <isBad>false</isBad>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <!-- A year: 60 days of 60,000 ticks. Authored. -->
+        <disappearsAfterTicks>3600000</disappearsAfterTicks>
+        <showRemainingTime>true</showRemainingTime>
+      </li>
+      <li Class="Phobos.Dosing.Comps.HediffCompProperties_PhobosPrimedImmunity">
+        <diseaseClass>PhobosDisease_Bacterial</diseaseClass>
+        <headStart>0.33</headStart>
+      </li>
+    </comps>
+    <stages>
+      <li />
+    </stages>
+  </HediffDef>
+
+  <ThingDef ParentName="MakeableDrugBase">
+    <defName>PhobosMedical_VaccineViral</defName>
+    <label>viral vaccine</label>
+    <description>A vaccine against diseases caused by viruses: flu and the scaria and necroa viruses. It does not make anyone immune. For a year, if such a disease takes hold, the body starts fighting it a third of the way there, so most people win the race; the old and the weak can still lose it. The blue cap marks the kind.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/VaccineViral</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <socialPropernessMatters>false</socialPropernessMatters>
+    <rotatable>false</rotatable>
+    <stackLimit>25</stackLimit>
+    <statBases>
+      <WorkToMake>900</WorkToMake>
+      <Mass>0.02</Mass>
+    </statBases>
+    <costList>
+      <Neutroamine>2</Neutroamine>
+      <MedicineHerbal>1</MedicineHerbal>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_Vaccines</researchPrerequisite>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+      <productCount>2</productCount>
+      <skillRequirements>
+        <Intellectual>5</Intellectual>
+      </skillRequirements>
+    </recipeMaker>
+    <ingestible>
+      <drugCategory>Medical</drugCategory>
+      <foodType>Processed, Fluid</foodType>
+      <baseIngestTicks>80</baseIngestTicks>
+      <ingestSound>Ingest_Inject</ingestSound>
+      <ingestCommandString>Inject {0}</ingestCommandString>
+      <ingestReportString>Injecting {0}.</ingestReportString>
+      <useEatingSpeedStat>false</useEatingSpeedStat>
+      <chairSearchRadius>0</chairSearchRadius>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PhobosMedical_VaccinatedViral</hediffDef>
+          <severity>1</severity>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <listOrder>1020</listOrder>
+        <teetotalerCanConsume>true</teetotalerCanConsume>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <HediffDef>
+    <defName>PhobosMedical_VaccinatedViral</defName>
+    <label>vaccinated against viruses</label>
+    <description>Vaccinated against diseases caused by viruses. If one takes hold before this wears off, the body starts fighting it a third of the way there.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.6, 0.85, 0.6)</defaultLabelColor>
+    <isBad>false</isBad>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <!-- A year: 60 days of 60,000 ticks. Authored. -->
+        <disappearsAfterTicks>3600000</disappearsAfterTicks>
+        <showRemainingTime>true</showRemainingTime>
+      </li>
+      <li Class="Phobos.Dosing.Comps.HediffCompProperties_PhobosPrimedImmunity">
+        <diseaseClass>PhobosDisease_Viral</diseaseClass>
+        <headStart>0.33</headStart>
+      </li>
+    </comps>
+    <stages>
+      <li />
+    </stages>
+  </HediffDef>
+
+  <ThingDef ParentName="MakeableDrugBase">
+    <defName>PhobosMedical_VaccineProtozoan</defName>
+    <label>protozoan vaccine</label>
+    <description>A vaccine against diseases caused by protozoa: malaria and sleeping sickness. It does not make anyone immune. For a year, if such a disease takes hold, the body starts fighting it a third of the way there, so most people win the race; the old and the weak can still lose it. The amber cap marks the kind.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/VaccineProtozoan</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <socialPropernessMatters>false</socialPropernessMatters>
+    <rotatable>false</rotatable>
+    <stackLimit>25</stackLimit>
+    <statBases>
+      <WorkToMake>900</WorkToMake>
+      <Mass>0.02</Mass>
+    </statBases>
+    <costList>
+      <Neutroamine>2</Neutroamine>
+      <MedicineHerbal>1</MedicineHerbal>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_Vaccines</researchPrerequisite>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+      <productCount>2</productCount>
+      <skillRequirements>
+        <Intellectual>5</Intellectual>
+      </skillRequirements>
+    </recipeMaker>
+    <ingestible>
+      <drugCategory>Medical</drugCategory>
+      <foodType>Processed, Fluid</foodType>
+      <baseIngestTicks>80</baseIngestTicks>
+      <ingestSound>Ingest_Inject</ingestSound>
+      <ingestCommandString>Inject {0}</ingestCommandString>
+      <ingestReportString>Injecting {0}.</ingestReportString>
+      <useEatingSpeedStat>false</useEatingSpeedStat>
+      <chairSearchRadius>0</chairSearchRadius>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PhobosMedical_VaccinatedProtozoan</hediffDef>
+          <severity>1</severity>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <listOrder>1020</listOrder>
+        <teetotalerCanConsume>true</teetotalerCanConsume>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <HediffDef>
+    <defName>PhobosMedical_VaccinatedProtozoan</defName>
+    <label>vaccinated against protozoa</label>
+    <description>Vaccinated against diseases caused by protozoa. If one takes hold before this wears off, the body starts fighting it a third of the way there.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.6, 0.85, 0.6)</defaultLabelColor>
+    <isBad>false</isBad>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <!-- A year: 60 days of 60,000 ticks. Authored. -->
+        <disappearsAfterTicks>3600000</disappearsAfterTicks>
+        <showRemainingTime>true</showRemainingTime>
+      </li>
+      <li Class="Phobos.Dosing.Comps.HediffCompProperties_PhobosPrimedImmunity">
+        <diseaseClass>PhobosDisease_Protozoan</diseaseClass>
+        <headStart>0.33</headStart>
+      </li>
+    </comps>
+    <stages>
+      <li />
+    </stages>
+  </HediffDef>
+
+  <ThingDef ParentName="MakeableDrugBase">
+    <defName>PhobosMedical_VaccineWorms</defName>
+    <label>worm vaccine</label>
+    <description>A vaccine against diseases caused by worms: gut worms and muscle parasites. It does not make anyone immune. For a year, if such a disease takes hold, the body starts fighting it a third of the way there, so most people win the race; the old and the weak can still lose it. The violet cap marks the kind.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/VaccineWorms</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <socialPropernessMatters>false</socialPropernessMatters>
+    <rotatable>false</rotatable>
+    <stackLimit>25</stackLimit>
+    <statBases>
+      <WorkToMake>900</WorkToMake>
+      <Mass>0.02</Mass>
+    </statBases>
+    <costList>
+      <Neutroamine>2</Neutroamine>
+      <MedicineHerbal>1</MedicineHerbal>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_Vaccines</researchPrerequisite>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+      <productCount>2</productCount>
+      <skillRequirements>
+        <Intellectual>5</Intellectual>
+      </skillRequirements>
+    </recipeMaker>
+    <ingestible>
+      <drugCategory>Medical</drugCategory>
+      <foodType>Processed, Fluid</foodType>
+      <baseIngestTicks>80</baseIngestTicks>
+      <ingestSound>Ingest_Inject</ingestSound>
+      <ingestCommandString>Inject {0}</ingestCommandString>
+      <ingestReportString>Injecting {0}.</ingestReportString>
+      <useEatingSpeedStat>false</useEatingSpeedStat>
+      <chairSearchRadius>0</chairSearchRadius>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PhobosMedical_VaccinatedWorms</hediffDef>
+          <severity>1</severity>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <listOrder>1020</listOrder>
+        <teetotalerCanConsume>true</teetotalerCanConsume>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <HediffDef>
+    <defName>PhobosMedical_VaccinatedWorms</defName>
+    <label>vaccinated against worms</label>
+    <description>Vaccinated against diseases caused by worms. If one takes hold before this wears off, the body starts fighting it a third of the way there.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.6, 0.85, 0.6)</defaultLabelColor>
+    <isBad>false</isBad>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <!-- A year: 60 days of 60,000 ticks. Authored. -->
+        <disappearsAfterTicks>3600000</disappearsAfterTicks>
+        <showRemainingTime>true</showRemainingTime>
+      </li>
+      <li Class="Phobos.Dosing.Comps.HediffCompProperties_PhobosPrimedImmunity">
+        <diseaseClass>PhobosDisease_Worms</diseaseClass>
+        <headStart>0.33</headStart>
+      </li>
+    </comps>
+    <stages>
+      <li />
+    </stages>
+  </HediffDef>
+
+</Defs>

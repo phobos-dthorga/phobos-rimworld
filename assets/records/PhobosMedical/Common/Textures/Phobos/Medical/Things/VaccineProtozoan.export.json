@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/VaccineProtozoan.png",
+  "source": "assets/phobos-medical/generated/vaccine-tray/vaccine-protozoan-derived.png",
+  "source_sha256": "f5a74de90f93dbac769f319a2d185f5ec5415e4c6efd5c9448d82654d418ddab",
+  "target_sha256": "c2bf4a3a2a8a55f301a583857e1bf38754c966f8385c896b944e8fc20c8b83eb",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": null,
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T20:24:16",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

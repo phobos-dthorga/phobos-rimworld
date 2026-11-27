@@ -1,0 +1,31 @@
+[
+ {
+  "name": "vaccine-tray",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/MarrowStimulant.png",
+    "role": "our approved medicine item icon: match its outline weight, shading, palette and finish only; do not copy its shape or its syringe"
+   },
+   {
+    "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/BronchodilatorVial.png",
+    "role": "our approved item icon of vials: match its finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "thing": "PhobosMedical_Vaccine (four, one per class of disease)",
+   "ships_as": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Vaccine{Bacterial,Viral,Protozoan,Worms}.png",
+   "derives": "the four from one pick by script: the green caps recoloured blue (viral), amber (protozoan) and violet (worms); green stays for bacterial (paid rule 11)",
+   "why": "our own vaccines, one per class of disease (docs/development/medical-care-round-two.md, slice 3; the owner's cards of 27 Nov 2026); an item in the world, so made the paid way (owner, 22 Nov 2026)",
+   "this_request": "one pilot picture, two attempts, dry run and a cap first"
+  },
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a small open white cardboard tray holding three small upright glass vaccine vials in a row. Each vial is clear glass with pale liquid, a white label band with no writing, a silver aluminium crimp and a bright saturated GREEN rubber cap on top. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes, and draw no syringe.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. The green caps are the only strong colour. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+ }
+]

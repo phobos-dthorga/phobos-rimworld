@@ -7,7 +7,7 @@ neither is required.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide's [medical
 chapter](../../docs/player-guide/medical.md)**; this README holds the gotchas, the settings and the links.
 
-Version 0.34.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
+Version 0.35.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
 D'thorga Medical (11 November 2026), burns, dosing, the oxygen concentrator, the burn unit bed and the save bridge on the five
 mods it replaced (3 to 6 November 2026), and, on D'thorga Medical itself, doctors' work with many wounded, field care giving way to
 the carry, and, with Rimatomics, radiation sickness running its real course and converting once. Everything else is not yet tested
@@ -133,6 +133,7 @@ this page to defaults** at the bottom of a page.
 | Who gives a stimulant to someone who can barely breathe | Nobody, or doctors: breathing at 30% or less, as a bridge to oxygen or an operation | Doctors only |
 | Who gives a cure that is in stock | Nobody, or doctors: a patient in bed with a condition something removes outright is given it | Doctors only |
 | Who gives a preventive when a disease strikes | Nobody, doctors, or doctors and people taking their own | Doctors, and people take their own |
+| Who gives a vaccine | Nobody, doctors, or doctors and people taking their own: anyone without a vaccine's protection, when that vaccine is in stock, about once a year | Doctors, and people take their own |
 | Preventives always kept in stock | Prevention never takes one below this many of a kind: 0, 5, 10 or 20 | 5 |
 | Alert when nothing in stock answers a need | Names anyone who needs something your colony can make and has none of | On |
 | A medicine is rare, and kept for saving a life, from | A slider, 0 to 2,000 silver; at zero no medicine is kept back | 300 silver |

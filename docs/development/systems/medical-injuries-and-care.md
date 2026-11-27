@@ -332,6 +332,22 @@ A condition with no stages (Hydra's) now counts for the redose check, so a dose 
   (`mechFixedSkillLevel`, 10 unless its race says otherwise). `Doctors.CanDoctorNow` and `BestSurgeonSuccess` count the colony's
   mechanoids with Doctor work on, so triage finds a mechanoid surgeon.
 
+**Vaccines and hygiene** (0.35.0; [round two](../medical-care-round-two.md), the owner's cards of 27 Nov 2026).
+
+- **Vaccines** (`Defs/Phobos/Dosing/Vaccines.xml`): four drug-lab items behind `PhobosResearch_Vaccines`, each giving a condition that
+  lasts a year (60 days) and carries `HediffCompProperties_PhobosPrimedImmunity` with its class. While it lasts, every 250 ticks, a
+  disease of that class the person has is looked for, and its immunity record is raised to the head start (0.33) once
+  (`PrimedImmunityRule.Raised`, never lowering it); the game's race goes on from there. No Harmony. The index lists an item whose
+  condition carries the comp as a vaccine.
+- **Vaccination** (`PhobosCare_Vaccination`, order 42, minor, the reserve, no alert): someone without a vaccine's condition, with that
+  vaccine on their map (`VaccinationService.Collect`). Doctors give it to someone lying down; people on their feet take their own at the
+  think-tree hook, after toxins and before the long-term needs, with a per-map list of who would, like prevention's. A vaccine answers
+  when it gives one of the protections the person lacks.
+- **Hygiene against worms** (`Mods/DubsBadHygiene`, `CleanAgainstWormsPatch`): a postfix on the game's chance of a disease taking hold
+  (`ImmunityHandler.DiseaseContractChanceFactor`, which its disease events and quests roll against) multiplies it, for a disease of the
+  worms class only, by one less the rules' `hygieneWormCut` (0.5) times Dubs Bad Hygiene's hygiene level
+  (`PrimedImmunityRule.CleanChanceFactor`). Food poisoning is left to Dubs Bad Hygiene, whose bad hygiene already raises a cook's chance.
+
 **What the index reads besides the game's own outcome** (0.32.0). A condition given through another mod's own class is read through
 the rules' `givenConditionReaders`: the class's full name, its condition and severity fields, whether a negative severity takes away
 rather than gives, and a field that makes the effect depend on the taker (such an effect is not read). Vanilla Races Expanded - Genie's
@@ -621,8 +637,8 @@ Every tie-in is in the [tie-in register](../tie-in-register.md). None is require
   so "brings it under the threshold" is an approximation.
 - **Only Genie's antibiotics name a class** (Medical 0.33.0); every other drug for fighting disease still counts for every disease
   until someone reads what it claims to be.
-- **Prevention reaches only what an item already prevents, and only once a disease is in the colony.** Our own vaccines, hygiene and
-  masks are designed, not built ([vaccines and prevention](../vaccines-and-prevention.md)). Every slice of the [care
+- **Prevention reaches only what an item already prevents, and only once a disease is in the colony.** Our own vaccines and hygiene
+  against worms are built (0.35.0); masks wait for diseases that spread ([round two](../medical-care-round-two.md)). Every slice of the [care
   needs](../medical-care-needs.md) is built; blood loss is left to More Injuries.
 - **Effects in another mod's code are read only through a named reader**: the addiction treatments, the regrowth comp and the biogel
   reservoir are named in the rules Def by class. A rename in that mod stops them being found; the reservoir and refill readers say so

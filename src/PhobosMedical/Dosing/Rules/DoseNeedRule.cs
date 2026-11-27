@@ -29,6 +29,8 @@ public enum DoseNeed
     MissingPart,
     /// <summary>A reservoir an artificial part draws on (The Dead Man's Switch's biogel) with room for a dose: a refill (Medical 0.31.0).</summary>
     Reservoir,
+    /// <summary>Someone without a vaccine's protection, with that vaccine on the map: the vaccine (Medical 0.35.0).</summary>
+    Vaccination,
 }
 
 /// <summary>
@@ -42,7 +44,7 @@ public static class DoseNeedRule
     /// treatment to what it treats): the safety rule asks nothing more of what the dose does, only whether it is safe.
     /// </summary>
     public static bool MatchedByIndex(DoseNeed need) => need is DoseNeed.Cure or DoseNeed.Prevention or DoseNeed.MentalStrain or DoseNeed.Addiction
-        or DoseNeed.OldWounds or DoseNeed.MissingPart or DoseNeed.Reservoir;
+        or DoseNeed.OldWounds or DoseNeed.MissingPart or DoseNeed.Reservoir or DoseNeed.Vaccination;
 
     public static DoseNeed Need(float pain, bool resting, float painThreshold, float sedationThreshold)
     {

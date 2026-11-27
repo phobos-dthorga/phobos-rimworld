@@ -3,7 +3,8 @@
 **Status (27 Nov 2026):** slice 1, sharper dosing, is built in D'thorga Medical 0.33.0 ([as built](#as-built-medical-0330)), and
 slice 2, who is covered, in 0.34.0 with Framework 0.351.0 ([as built](#as-built-medical-0340)), not yet tested in game (rows 691 to
 695). Slice 5 is done: the request to Search and Rescue's author was checked against its newest source and handed to the owner
-([as done](#done-the-request-to-search-and-rescues-author)). Slice 3 is next, on the owner's "1, 2, 3, and 5, step-wise if necessary"; slice 4, diseases
+([as done](#done-the-request-to-search-and-rescues-author)). Slice 3, prevention of our own, is built in 0.35.0 ([as built](#as-built-medical-0350)), not yet tested in game (rows 696 to 698).
+Slice 4 waits, on the owner's "1, 2, 3, and 5, step-wise if necessary"; slice 4, diseases
 that spread, waits. The owner answered all eleven question cards on 27 Nov 2026
 ([the answers](#the-owners-answers-27-nov-2026-by-card-with-every-option-offered)).
 
@@ -23,6 +24,22 @@ revise.
 - **The owner's Defs file is a week old** (written 19 Nov 2026 with 364 active mods; 387 are active now). **Read the Defs again
   before building each slice.**
 - None of this is medical advice. Real medicine is the model for what is plausible, never the source of a figure.
+
+## As built: Medical 0.35.0
+
+Slice 3, as designed below, with these differences and findings.
+
+- **The head start needs no Harmony**: the vaccine's own condition looks, every 250 ticks, for a disease of its class and raises the
+  game's immunity record to a third, once per disease. A few seconds' delay against a disease's days.
+- **A vaccination need of its own** (agent choice): doctors give it only to someone lying down, so healthy people take their own, as
+  for preventives; on, for doctors and self (low risk: it only helps). The preventives' reserve is kept.
+- **Hygiene does less than the card said, because Dubs Bad Hygiene already does the rest**: its bad hygiene raises a cook's chance of
+  food poisoning. So ours is worms only: up to half the chance at full hygiene, read from its hygiene need, behind no setting (it only
+  helps; agent choice).
+- **One paid picture for four vaccines**: a tray of three vials with green caps, picked by the owner; the other three by turning only
+  the caps' hue, by script (`assets/phobos-medical/ship_vaccines.py`).
+- **Agent defaults**: a vaccine costs 2 neutroamine and a herbal medicine for two, Intellectual 5, research 1,500 at a free spot in the
+  medical lane; it lasts a year.
 
 ## Done: the request to Search and Rescue's author
 

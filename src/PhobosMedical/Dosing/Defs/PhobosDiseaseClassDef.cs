@@ -1,3 +1,4 @@
+using RimWorld;
 using Verse;
 
 namespace Phobos.Dosing.Defs;
@@ -15,6 +16,15 @@ public class PhobosDiseaseClassDef : Def
 public class PhobosDiseaseClassExtension : DefModExtension
 {
     public PhobosDiseaseClassDef? diseaseClass;
+}
+
+/// <summary>The classes our own code names (Medical 0.35.0): the worms class, which Dubs Bad Hygiene's hygiene guards against.</summary>
+[DefOf]
+public static class PhobosDiseaseClassDefOf
+{
+    public static PhobosDiseaseClassDef PhobosDisease_Worms = null!;
+
+    static PhobosDiseaseClassDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(PhobosDiseaseClassDefOf));
 }
 
 public static class DiseaseClasses
