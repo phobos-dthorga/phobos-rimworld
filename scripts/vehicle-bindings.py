@@ -44,15 +44,17 @@ def _cover_expected(rules: dict, role: str, key: str) -> bool:
     return any(rule.get('role') == role and rule.get('partContains', '').lower() in key.lower() for rule in rules.get('coverLike', []))
 
 
-def _partly_expected(rules: dict, system: str, role: str, kind: str) -> bool:
-    """Whether a role a system names may go unbound on this vehicle by design: a rule naming the role (or every role, "*"), and the system
-    and the kinds it gives where it gives them."""
+def _partly_expected(rules: dict, system: str, role: str, kind: str, vehicle: str = '') -> bool:
+    """Whether a role a system names may go unbound on this vehicle by design: a rule naming the role (or every role, "*"), and the system,
+    the kinds and the vehicles it gives where it gives them."""
     for rule in rules.get('partlyBound', []):
         if rule.get('role', '*') not in ('*', role):
             continue
         if 'system' in rule and rule['system'] != system:
             continue
         if 'kinds' in rule and kind not in rule['kinds']:
+            continue
+        if 'vehicles' in rule and vehicle not in rule['vehicles']:
             continue
         return True
     return False
@@ -163,7 +165,8 @@ def audit(data: dict, rules: dict | None = None, std: dict | None = None) -> dic
                 continue
             # A system bound in part (the owner's report of 28 Nov 2026: the Busbar's cooling had its engine and radiator but no water pump,
             # which "none bound" never caught): each role it names with no part, unless the rules expect it on this kind.
-            missing = [role for role in system['roles'] if not roles.get(role) and not _partly_expected(rules, system['def'], role, kind)]
+            missing = [role for role in system['roles']
+                       if not roles.get(role) and not _partly_expected(rules, system['def'], role, kind, vehicle['def'])]
             if missing:
                 partly.append({**where, 'kind': kind, 'system': system['def'], 'roles': missing})
         for role, keys in roles.items():

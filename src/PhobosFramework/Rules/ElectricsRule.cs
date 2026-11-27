@@ -53,10 +53,13 @@ public static class ElectricsRule
     /// </summary>
     /// <param name="generator">The generator's working share: its part's efficiency times its drive belt's, 1 when sound.</param>
     /// <param name="poweredBefore">The answer at the last look, for the recovery margin.</param>
+    /// <param name="generatorOnly">Electrics with a generator and no battery (Framework 0.376.0: a steam locomotive's turbo-generator): with no
+    /// battery its loads have power only while the engine turns a working generator, not always.</param>
     public static bool LoadsPowered(bool engineRunning, double generator, bool gridCarries, bool hasBattery, double charge, double flatBelow,
-        bool poweredBefore, double generatorLost = GeneratorLost, double recoveryFactor = FlatRecoveryFactor)
+        bool poweredBefore, double generatorLost = GeneratorLost, double recoveryFactor = FlatRecoveryFactor, bool generatorOnly = false)
     {
-        if (!hasBattery || gridCarries) return true;
+        if (gridCarries) return true;
+        if (!hasBattery) return !generatorOnly || (engineRunning && generator >= generatorLost);
         if (engineRunning && generator >= generatorLost) return true;
         return charge >= (poweredBefore ? flatBelow : flatBelow * recoveryFactor);
     }

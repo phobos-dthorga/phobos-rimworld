@@ -340,9 +340,9 @@ workshop](vehicle-workshop.md#families).
 | Vehicle | What is different |
 | --- | --- |
 | **Electric vehicles** | A traction battery that gives less in the cold and heat and wears with age; charges parked over a powered conduit |
-| **Steam locomotives** (Trains of the Rim) | Hours to raise steam from cold; a water glass; refill at a **water stop**; run it dry and the fusible plug melts |
+| **Steam locomotives** (Trains of the Rim) | Hours to raise steam from cold; a water glass; refill at a **water stop**; run it dry and the fusible plug melts. A **turbo-generator** lights the lamps and runs a fridge or outlet, **only while in steam**: no battery, so dark with the fire out |
 | **Diesel-electric locomotives** | Traction motors heat when pulling hard from a standstill: ease the load and let them cool |
-| **Boats** | Cool with sea water: no radiator |
+| **Boats** | Cool with sea water through a **raw-water pump**, with no radiator: a broken pump overheats the engine. The Trawler's gearbox has a clutch |
 | **Aircraft** | A battery, a generator, a service and a gas turbine; their engines cool unlike a car's, so they have no coolant |
 | **Helicopters** named by D'thorga Vehicles | A rotor drive that is **over-torqued** if asked for more than its gearbox takes |
 | **The Harrier** (with D'thorga Vehicles) | Water injection for a heavy hover: refill 227 litres, from plumbing with Dubs Bad Hygiene, otherwise free |

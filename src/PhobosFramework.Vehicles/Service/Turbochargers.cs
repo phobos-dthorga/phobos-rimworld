@@ -31,9 +31,15 @@ public static class Turbochargers
     /// first look after a load).</summary>
     static readonly ConditionalWeakTable<CompPhobosVehicleSystems, StrongBox<bool>> wasFitted = new();
 
-    /// <summary>Appends the part to a design with a piston engine, at start-up, after every other part we add.</summary>
+    /// <summary>The system the lubrication system brings with it (comesWith), which reads the part.</summary>
+    const string SystemDefName = "PhobosVehicleSystem_Turbocharger";
+
+    /// <summary>Appends the part to a design with a piston engine, at start-up, after every other part we add. A design that can never have
+    /// one (no piston engine: a gas turbine, an electric drive) loses the system the lubrication system brought, so it shows no turbocharger
+    /// with nothing to read (Framework 0.376.0; the owner's answer of 28 Nov 2026 on the M1A2s, found by the partly bound audit).</summary>
     internal static void Apply(VehicleDef def, CompProperties_PhobosVehicleSystems props)
     {
+        if (!props.trailer && !Piston(props)) props.systems.RemoveAll(system => system.def.defName == SystemDefName);
         if (props.trailer || def.components == null || !Piston(props) || def.components.Any(p => p.key == Key)) return;
         var add = new PartToAdd
         {

@@ -51,6 +51,8 @@
       <li><def>PhobosVehicleSystem_Brakes</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_Driver</def></li>
+      <!-- Vehicles 0.134.0 (the owner's answer of 28 Nov 2026, "A steam turbo-generator"): the lamps and cab loads, in steam only. -->
+      <li><def>PhobosVehicleSystem_TurboGenerator</def></li>
     </systems>
     <partRoles>
       <li>
@@ -70,9 +72,9 @@
         </find>
       </li>
       <li>
-        <!-- Vehicles 0.133.0 (the owner's card of 28 Nov 2026, "Railway-sensible set"): a bay for the crew water tank, the one bay of that set a
-             steam locomotive can use with no electrics; lamps, a cab light, a fridge and an outlet wait for an electrical system of its own.
-             Added last, so a saved locomotive keeps every existing part's wear. -->
+        <!-- Vehicles 0.133.0 (the owner's card of 28 Nov 2026, "Railway-sensible set"): a bay for the crew water tank, which needs no
+             electrics. The lamps, cab light, fridge and outlet came with the turbo-generator in 0.134.0, below. Added last, so a saved
+             locomotive keeps every existing part's wear. -->
         <role>WaterTankBay</role>
         <add>
           <key>PhobosWaterTankBay</key>
@@ -82,6 +84,75 @@
           <depth>Internal</depth>
           <hitWeight>0.1</hitWeight>
           <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Boiler</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <!-- Vehicles 0.134.0: the turbo-generator (the loadout's alternator role, which the turbo-generator system reads), and the bays its power
+           serves: lamps, a cab light, a fridge and an outlet. After the water tank bay, so a saved locomotive keeps every part where it was.
+           Health and hit weights the land base's; the generator's a land alternator's. -->
+      <li>
+        <role>Alternator</role>
+        <add>
+          <key>PhobosTurboGenerator</key>
+          <label>turbo-generator</label>
+          <health>25</health>
+          <cellsOf>Boiler</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>LampMount</role>
+        <add>
+          <key>PhobosLampMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>lamp bracket</label>
+          <health>15</health>
+          <depth>External</depth>
+          <hitWeight>0.15</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Boiler</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>CabLightMount</role>
+        <add>
+          <key>PhobosCabLightMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>cab light mount</label>
+          <health>10</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Boiler</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>FridgeBay</role>
+        <add>
+          <key>PhobosFridgeBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>fridge bay</label>
+          <health>20</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Boiler</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>OutletPanel</role>
+        <add>
+          <key>PhobosOutletPanel</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>outlet panel</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>3</hitWeightCE>
           <cellsOf>Boiler</cellsOf>
           <last>true</last>
         </add>
@@ -103,6 +174,29 @@
               <celsius>5</celsius>
             </li>
             <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <!-- Vehicles 0.134.0: the work lamps' draw on the turbo-generator, two 60 W floodlights on 32 V, about 4 A (authored). They light the
+             ground round a standing locomotive at night while it is in steam: with no battery they are dark with the fire out. -->
+        <name>workLamps</name>
+        <label>work lamps</label>
+        <description>Floodlights that light the ground round the locomotive while it stands at night, so work nearby goes on at the pace of daylight. They run off the turbo-generator, so only while the locomotive is in steam.</description>
+        <amps>4</amps>
+        <shedOrder>5</shedOrder>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+        <defaultOn>false</defaultOn>
+        <available Class="Phobos.VehicleSystems.When_Granted">
+          <ability>WorkLights</ability>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Dark" />
+            <li Class="Phobos.VehicleSystems.When_Moving">
+              <invert>true</invert>
+            </li>
           </conditions>
         </when>
       </li>
@@ -138,6 +232,8 @@
       <li><def>PhobosVehicleSystem_Brakes</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_Driver</def></li>
+      <!-- Vehicles 0.134.0 (the owner's answer of 28 Nov 2026, "A steam turbo-generator"): the lamps and cab loads, in steam only. -->
+      <li><def>PhobosVehicleSystem_TurboGenerator</def></li>
     </systems>
     <partRoles>
       <li>
@@ -171,6 +267,75 @@
           <last>true</last>
         </add>
       </li>
+      <!-- Vehicles 0.134.0: the turbo-generator (the loadout's alternator role, which the turbo-generator system reads), and the bays its power
+           serves: lamps, a cab light, a fridge and an outlet. After the water tank bay, so a saved locomotive keeps every part where it was.
+           Health and hit weights the land base's; the generator's a land alternator's. -->
+      <li>
+        <role>Alternator</role>
+        <add>
+          <key>PhobosTurboGenerator</key>
+          <label>turbo-generator</label>
+          <health>25</health>
+          <cellsOf>Boiler</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>LampMount</role>
+        <add>
+          <key>PhobosLampMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>lamp bracket</label>
+          <health>15</health>
+          <depth>External</depth>
+          <hitWeight>0.15</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Boiler</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>CabLightMount</role>
+        <add>
+          <key>PhobosCabLightMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>cab light mount</label>
+          <health>10</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Boiler</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>FridgeBay</role>
+        <add>
+          <key>PhobosFridgeBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>fridge bay</label>
+          <health>20</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Boiler</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>OutletPanel</role>
+        <add>
+          <key>PhobosOutletPanel</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>outlet panel</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>3</hitWeightCE>
+          <cellsOf>Boiler</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
     </partRoles>
     <loads>
       <li>
@@ -188,6 +353,29 @@
               <celsius>5</celsius>
             </li>
             <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <!-- Vehicles 0.134.0: the work lamps' draw on the turbo-generator, two 60 W floodlights on 32 V, about 4 A (authored). They light the
+             ground round a standing locomotive at night while it is in steam: with no battery they are dark with the fire out. -->
+        <name>workLamps</name>
+        <label>work lamps</label>
+        <description>Floodlights that light the ground round the locomotive while it stands at night, so work nearby goes on at the pace of daylight. They run off the turbo-generator, so only while the locomotive is in steam.</description>
+        <amps>4</amps>
+        <shedOrder>5</shedOrder>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+        <defaultOn>false</defaultOn>
+        <available Class="Phobos.VehicleSystems.When_Granted">
+          <ability>WorkLights</ability>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Dark" />
+            <li Class="Phobos.VehicleSystems.When_Moving">
+              <invert>true</invert>
+            </li>
           </conditions>
         </when>
       </li>

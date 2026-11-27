@@ -76,9 +76,63 @@
           <last>true</last>
         </add>
       </li>
+      <!-- D'thorga Vehicles 0.134.0 (the owner's answer of 28 Nov 2026, "Pump on both, clutch on the Trawler"; found by the partly bound audit): the
+           raw-water pump that draws the sea through the engine's cooler, the part the cooling system names as its water pump, and the clutch
+           in the trawler's marine gearbox, the transmission system's clutch (general knowledge of marine diesels, unverified). Here and not
+           on the boat base, and after the galley, so a saved trawler keeps every part where it was. Health and hit weights the land base's. -->
+      <li>
+        <role>WaterPump</role>
+        <add>
+          <key>PhobosWaterPump</key>
+          <label>raw-water pump</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>Clutch</role>
+        <add>
+          <key>PhobosClutch</key>
+          <label>clutch</label>
+          <health>25</health>
+          <hitWeight>0.2</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <cellsOf>Transmission</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
     </partRoles>
     <factoryFittings>
       <li>PhobosFitting_Galley</li>
     </factoryFittings>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <!--
+    The Dinghy (D'thorga Vehicles 0.134.0; the owner's answer of 28 Nov 2026, "Pump on both, clutch on the Trawler"): the plain boat loadout with
+    the raw-water pump its cooling system names, an outboard's water pump (general knowledge, unverified). A loadout of its own, so the pump
+    is added last on the Dinghy alone and no saved trawler's parts move. No clutch: an outboard is excused in the bindings audit.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutBoat">
+    <defName>PhobosVehicleLoadout_Boat_VVEDinghy</defName>
+    <label>dinghy</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>VVE_Dinghy</li>
+      </vehicleDefs>
+    </selector>
+    <partRoles>
+      <li>
+        <role>WaterPump</role>
+        <add>
+          <key>PhobosWaterPump</key>
+          <label>raw-water pump</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+    </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

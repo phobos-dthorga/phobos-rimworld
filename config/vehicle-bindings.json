@@ -19,6 +19,16 @@
       "why": "As the radiator: no accessory drive belt on a turbine."
     },
     {
+      "role": "Radiator",
+      "kinds": ["boat"],
+      "why": "A boat's engine is cooled by the sea through its raw-water pump, not a radiator (the owner's answer of 28 Nov 2026, 'Pump on both, clutch on the Trawler')."
+    },
+    {
+      "role": "Clutch",
+      "vehicles": ["VVE_Dinghy"],
+      "why": "The Dinghy's outboard has no clutch part of ours (the same answer: a clutch on the Trawler only)."
+    },
+    {
       "role": "FuelTank",
       "why": "The fuel tank is found by name and never added: a vehicle whose author drew no tank part has none to hole (Loadouts_Default.xml)."
     },

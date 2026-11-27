@@ -4,7 +4,8 @@
     The turbocharger (Framework 0.320.0; docs/development/vehicle-turbocharger.md; the owner's cards of 26 Nov 2026: "modelled like the rest
     of the components, and with the rest of the components"). A part of its own (Turbochargers.cs appends it to every design with a piston
     engine) and this system, which runs only while the vehicle has a turbocharger: built in (the engine's Def says turbocharged) or fitted
-    (the turbocharger fitting grants Turbocharger). The lubrication system brings it with it (comesWith), so every piston loadout has it.
+    (the turbocharger fitting grants Turbocharger). The lubrication system brings it with it (comesWith), so every piston loadout has it; a design with no piston engine (a gas turbine
+    tank, an electric drive) has it taken off again where the part would be added (Framework 0.376.0).
     Not yet tested in game.
 
     Sources and labels:

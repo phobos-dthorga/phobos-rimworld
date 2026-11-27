@@ -84,6 +84,17 @@ public class ElectricsRuleTests
     }
 
     [Fact]
+    public void AGeneratorWithNoBatteryPowersItsLoadsOnlyWhileItTurns()
+    {
+        // A steam locomotive's turbo-generator (Framework 0.376.0): nothing with the fire out, nothing from a ruined generator, power in steam.
+        Assert.False(ElectricsRule.LoadsPowered(false, 1, false, false, 0, 0.05, true, generatorOnly: true));
+        Assert.False(ElectricsRule.LoadsPowered(true, 0.1, false, false, 0, 0.05, true, generatorOnly: true));
+        Assert.True(ElectricsRule.LoadsPowered(true, 1, false, false, 0, 0.05, false, generatorOnly: true));
+        // A grid still carries them, as for any vehicle.
+        Assert.True(ElectricsRule.LoadsPowered(false, 0, true, false, 0, 0.05, false, generatorOnly: true));
+    }
+
+    [Fact]
     public void AFlatBatteryComesBackOnlyAboveTheRecoveryMargin()
     {
         // Gone flat: 0.07 is above the line but under twice it, so still dead; once powered, 0.07 holds.

@@ -82,6 +82,11 @@ class VehicleBindingsAuditTests(unittest.TestCase):
         self.assertEqual([], vehicle_bindings.audit(report, rules={'partlyBound': [{'role': 'WaterPump', 'system': 'Cooling'}, {'role': 'FuelTank'}]},
                                                     std=std)['partlyBoundSystems'])
         self.assertEqual([], vehicle_bindings.audit(report, rules={'partlyBound': [{'role': '*', 'kinds': ['land']}]}, std=std)['partlyBoundSystems'])
+        # One vehicle by name, not another.
+        named = {'partlyBound': [{'role': '*', 'vehicles': ['Test_Genset']}]}
+        self.assertEqual([], vehicle_bindings.audit(report, rules=named, std=std)['partlyBoundSystems'])
+        other = {'partlyBound': [{'role': '*', 'vehicles': ['Test_Other']}]}
+        self.assertEqual(2, len(vehicle_bindings.audit(report, rules=other, std=std)['partlyBoundSystems']))
 
     def test_the_shipped_expectations_read(self):
         rules = vehicle_bindings.expected()

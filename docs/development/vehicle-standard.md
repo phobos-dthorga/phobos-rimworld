@@ -9,7 +9,7 @@ searchlights, night landings and galleys): D'thorga Framework 0.366.0 and D'thor
 built](#built-batch-4-28-nov-2026)); not yet tested in game (rows 743 to 745). **Batch 5 is built** (what does not belong): D'thorga
 Framework 0.368.0 ([as built](#built-batch-5-28-nov-2026)); not yet tested in game (row 747). **Batch 6 is built** (the land bays, VS13 to
 VS15, and a partly bound audit): D'thorga Framework 0.375.0 and D'thorga Vehicles 0.133.0 ([as built](#built-batch-6-28-nov-2026)); not yet
-tested in game (row 770). Every batch is built; VS8 and VS12 wait for a behaviour. The owner answered twenty-one cards ([below](#questions-for-the-owner)).
+tested in game (row 770). Every batch is built; VS8 and VS12 wait for a behaviour. The owner answered twenty-four cards ([below](#questions-for-the-owner)).
 
 **Why.** The owner, 27 Nov 2026, looking at their aircraft: "Wouldn't radios of some sort be included with the majority of the ones in
 my game, if not all, by default? And if that's the case, howcome there's no mention of them on the Systems, Fittings, nor Health pages?
@@ -234,13 +234,16 @@ had nothing to check them against, and a loadout that writes its own parts (`Inh
 | The Busbar (D'thorga Vehicles) | Every land bay: lamps, winch, remote control and route kits, fridge, crew water tank, stereo, cab light, house battery tray (and the two house battery systems), solar, outlet, roof mount, side rail, sleeper berth and auxiliary tank cradle; and the **water pump**, **drive belt** and **fuel pump** its own cooling, service and fuel systems named. No clutch or gearbox: a diesel-electric drives through traction motors |
 | The electric loadout (the Lightning; D'thorga Framework) | The same bays but the auxiliary tank (no fuel) and the house battery tray (its traction battery is one), with the work lamps' and the winch's draws, which this loadout had never carried |
 | The Goat DE2 shunter (D'thorga Vehicles) | Water pump, drive belt, lamps, cab light, crew water tank, fridge, outlet, house battery tray (and systems) and the remote control kit's bay (real shunters are driven from a belt pack). No winch, tents, awning, stereo, solar or auxiliary tank |
-| The steam locomotives (D'thorga Vehicles) | The crew water tank's bay only: they have no electrical system, so lamps, a cab light, a fridge and an outlet would have nothing to draw on. A steam turbo-generator (the big American engines carried one for their headlamps; general knowledge, **unverified**) is a question for the owner, not built |
+| The steam locomotives (D'thorga Vehicles) | The crew water tank's bay (0.133.0); then, on the owner's answer, a **turbo-generator** (D'thorga Framework 0.376.0, Vehicles 0.134.0): a new system, `PhobosVehicleSystem_TurboGenerator`, 32 V and about 1.2 kW (general knowledge, **unverified**; authored), with no battery and no starter, so nothing electric can ever stop the engine. Its loads have power only in steam with the generator working (`generatorOnly`, a new case of `ElectricsRule.LoadsPowered`, tested); a load drawing nothing (the firebox warmth) needs no power. Its part is the alternator role, and lamps, a cab light, a fridge and an outlet came with it |
 | Saves | Every new part is added last (`last`), so a saved vehicle keeps every existing part's wear where it was |
 | The standard | VS13 (lamps, cab light, fridge, water tank, outlet, remote control kit), VS14 (winch, route kit, solar; the shunter excused) and VS15 (house battery tray; the Lightning excused), each for powered land vehicles, in `config/vehicle-standard.json`. Against the owner's report of 27 Nov 2026 they named exactly the three vehicles above |
 | The audit | A new **Partly bound systems** section in `scripts/vehicle-bindings.py`: a system with some of its roles bound and others not, which "Unbound systems" (none bound) never caught. What is expected by design is in `config/vehicle-bindings.json`'s `partlyBound`, each with its reason: turbine aircraft's radiator and belt, a fuel tank the author never drew, the submarines, and an electric vehicle's starter, belt and radiator |
 
-**Left for the owner** (the new section's other findings, 28 Nov 2026): the two boats' cooling, service and transmission (no water pump and no
-clutch on the Dinghy and the Trawler), and both M1A2s' turbocharger system with no turbocharger part.
+**The new section's other findings** (28 Nov 2026), put to the owner as cards 22 to 24 and built in D'thorga Framework 0.376.0 and Vehicles
+0.134.0: the boats get a **raw-water pump** (the Dinghy a loadout of its own for it, so no saved Trawler's parts move) and the Trawler a
+**clutch**, with the radiator excused on boats and the clutch on the Dinghy; and the **M1A2s' turbocharger system** came from the lubrication
+system bringing it to every oiled engine, while its part goes only on piston engines, so a design with no piston engine now loses the system
+too. Still showing: the boats' drive belt, which the owner was not asked about.
 
 **What outside the vehicle notices:** nothing new; each bay only lets a fitting go on. **Other factions' vehicles:** a raider's Busbar or shunter
 has the same bays, empty. **Cost:** a few more parts per vehicle of these designs, at start-up; nothing while playing.
@@ -292,6 +295,9 @@ Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, th
 | 19 | The VVE Lightning has none of the land bays. Which should it get? | **All but fuel and house battery** (recommended) · All of them · Leave it | **All but fuel and house battery** |
 | 20 | The Trains of the Rim locomotives have none either, and the shunter lacks a water pump and drive belt. What should they get? | **Railway-sensible set** (recommended): lamps, cab light, water tank, fridge, outlet on all five; the shunter also water pump, belt, house battery, remote kit · Diesel shunter only · Full land set · Leave them | **Railway-sensible set**; built on the steam engines as the water tank alone, as they have no electrics |
 | 21 | Should the audit catch this from now on? | **Yes, both checks** (recommended): a standard line for the land bays, and a section for systems bound in part · Just the land bays · No | **Yes, both checks** |
+| 22 | Should the steam locomotives get electrics, for lamps, a cab light, a fridge and an outlet? (Decisions page) | **A steam turbo-generator** (recommended): fed by the boiler, dead with the fire out · Leave them | **A steam turbo-generator** (28 Nov 2026) |
+| 23 | The Dinghy and the Trawler have no water pump and no clutch. What should boats get? (Decisions page) | **Pump on both, clutch on the Trawler** (recommended), the radiator excused on boats · Excuse them in the audit · Later | **Pump on both, clutch on the Trawler** |
+| 24 | Both M1A2s carry a turbocharger system with no turbocharger part. Look into it and take it off? (Decisions page) | **Look into it and fix** (recommended) · Excuse it | **Look into it and fix** |
 
 ## Who chose what
 

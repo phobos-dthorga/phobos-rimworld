@@ -536,4 +536,51 @@
       </li>
     </flows>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <!--
+    A steam locomotive's turbo-generator (Framework 0.376.0; the owner's answer of 28 Nov 2026, "A steam turbo-generator"): a small steam turbine
+    on the boiler turning a generator for the headlamp and the cab's lights. Big American steam engines carried one, commonly a 32-volt set of
+    about a kilowatt (general knowledge, unverified). No battery and no starter: its loads have power only while the locomotive is in steam
+    and the generator works (generatorOnly, ElectricsRule.LoadsPowered), and nothing here can ever stop the engine. Its part is the
+    loadout's alternator role, so a hit on it puts the lights out. Figures authored.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_TurboGenerator</defName>
+    <label>turbo-generator</label>
+    <description>A small steam turbine on the boiler turning a generator for the lamps and the cab's loads. There is no battery: they have power only while the locomotive is in steam, and go dark with the fire out.</description>
+    <roles>
+      <li>Alternator</li>
+    </roles>
+    <parameters>
+      <!-- Read by the systems comp: loads run only while the engine turns a working generator. -->
+      <generatorOnly>1</generatorOnly>
+      <!-- 32 V, the common turbo-generator voltage, and about 1.2 kW, so 38 A (authored). -->
+      <systemVolts>32</systemVolts>
+      <alternatorAmps>38</alternatorAmps>
+    </parameters>
+    <quantities>
+      <li>
+        <name>turboGenerator</name>
+        <description>How well the turbo-generator turns: its part's state. Ruined, the lamps and the cab's loads are dark even in steam.</description>
+        <label>turbo-generator</label>
+        <unit>Fraction</unit>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Alternator</role>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.2</to>
+            <label>not turning</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>0.2</from>
+            <label>turning</label>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 </Defs>

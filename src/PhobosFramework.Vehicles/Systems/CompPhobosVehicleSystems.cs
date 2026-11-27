@@ -559,7 +559,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             else if (KeptForStart(load)) return false;
             else if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return false;
             // Check C1 (Framework 0.129.1): a flat battery with nothing else to carry the loads powers none of them.
-            else if (!LoadsPowered) return false;
+            else if (!Powered(load)) return false;
             var context = new SystemContext(this, states[0]);
             if (load.available != null && !load.available.Holds(context)) return false;
             return load.when == null || load.when.Holds(context);
@@ -588,7 +588,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return LoadState.Shed;
         // Check C1 (Framework 0.129.1): the same rule as LoadActive, so the tab and the load agree; before, the tab called a load dead on a
         // flat battery even while the alternator carried it, and the load ran on regardless.
-        if (!LoadsPowered) return LoadState.NoPower;
+        if (!Powered(load)) return LoadState.NoPower;
         return load.when != null && !load.when.Holds(context) ? LoadState.Idle : LoadState.Running;
     }
 
@@ -608,8 +608,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (OnHouseBattery(load)) return HouseBatteryRuns;
         if (KeptForStart(load)) return false;
         if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return false;
-        return LoadsPowered;
+        return Powered(load);
     }
+
+    /// <summary>Whether this load has the power it needs: <see cref="LoadsPowered"/>, or none needed for a load that draws nothing (Framework
+    /// 0.376.0: a steam locomotive's firebox warmth, which a ruined turbo-generator must not put out).</summary>
+    bool Powered(ElectricalLoadSpec load) => load.amps <= 0f || LoadsPowered;
 
     /// <summary>Whether this vehicle has the load fitted (its <c>available</c> condition), so its switch shows.</summary>
     public bool LoadAvailable(ElectricalLoadSpec load) =>
@@ -1972,11 +1976,21 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     bool powerWasOn = true;
     bool powerLookedOnce;
 
+    /// <summary>A system parameter saying the vehicle's electrics are a generator with no battery (Framework 0.376.0: a steam locomotive's
+    /// turbo-generator), so its loads have power only in steam.</summary>
+    const string GeneratorOnlyParameter = "generatorOnly";
+
+    bool? generatorOnly;
+
+    /// <summary>Whether any of the design's systems says its electrics are generator-only; read once, from the resolved systems.</summary>
+    bool GeneratorOnly => generatorOnly ??= Props.systems.Any(s => s.parameters.TryGetValue(GeneratorOnlyParameter, out double v) && v > 0);
+
     void UpdatePower()
     {
         bool hasBattery = TryGetQuantity("charge", out float charge);
         LoadsPowered = ElectricsRule.LoadsPowered(EngineRunning, GeneratorShare(), GridCarriesLoads, hasBattery, charge,
-            PhobosRulesDef.Current<PhobosKnockOutRulesDef>().batteryFlatBelow, LoadsPowered, Rules.shedGeneratorLost, Rules.flatRecoveryFactor);
+            PhobosRulesDef.Current<PhobosKnockOutRulesDef>().batteryFlatBelow, LoadsPowered, Rules.shedGeneratorLost, Rules.flatRecoveryFactor,
+            GeneratorOnly);
     }
 
     /// <summary>One message when a flat battery puts the switched-on loads out, for the player's vehicles; none at the first look after a load.</summary>

@@ -22,6 +22,28 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.376.0] - 2026-11-28 - Draft
+
+The turbo-generator, and the audit's first findings
+
+### Added
+
+- **A steam locomotive can carry a turbo-generator**: a small steam turbine on the boiler lights the lamps and runs a fridge or an outlet,
+  only while the locomotive is in steam. There is no battery, so everything electric is dark with the fire out, and nothing electric can
+  ever stop the engine (the owner's answer of 28 November 2026). Not yet tested in game: row 772.
+- For modders: a system parameter generatorOnly makes a vehicle's loads run only while the engine turns a working generator, for electrics
+  with no battery.
+
+### Fixed
+
+- **A tank with a gas turbine no longer shows a turbocharger**: the M1A2s carried a turbocharger system with no turbocharger, as every
+  oiled engine brought one; a design with no piston engine now has none. Not yet tested in game: row 773.
+- **A load that draws no current needs no power**: a steam locomotive's firebox keeps the cab warm even with its turbo-generator ruined.
+
+### Save compatibility
+
+- Safe for saves: a saved tank's leftover turbocharger reading is simply not read.
+
 ## [0.375.0] - 2026-11-28 - Draft
 
 The Busbar's missing fittings, and a clearer fittings window

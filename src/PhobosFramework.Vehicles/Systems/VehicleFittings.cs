@@ -557,7 +557,9 @@ public sealed class VehicleFittings
         && train.Spec.Transmission is TransmissionKind.Automatic or TransmissionKind.Direct or TransmissionKind.DieselElectric;
 
     /// <summary>The systems an electrical load draws on and a solar panel charges: the main electrics and the auxiliary ones.</summary>
-    static readonly string[] ElectricalSystems = { "PhobosVehicleSystem_Electrical", "PhobosVehicleSystem_AuxiliaryElectrical" };
+    static readonly string[] ElectricalSystems = { "PhobosVehicleSystem_Electrical", "PhobosVehicleSystem_AuxiliaryElectrical",
+        // Framework 0.376.0: a steam locomotive's turbo-generator (the owner's answer of 28 Nov 2026), whose loads run only in steam.
+        "PhobosVehicleSystem_TurboGenerator" };
 
     /// <summary>Whether this fitting would change anything on this vehicle: a loadout can drop a system (a turbine tank has no coolant) and keep its part.</summary>
     bool MovesSomethingHere(PhobosVehicleFittingDef def)
