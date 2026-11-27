@@ -130,6 +130,9 @@ trade talks. Nothing to press: it happens by itself when both are in radio touch
   stat card shows the help.
 - **A numbered medical chest** (drug lab, after local radio and medicine production: 20 steel, 15 cloth, 1 medicine), carried, in the
   convoy or kept nearby, closes **a sixth more** for medical advice. It is never used up.
+- **A slow-scan camera kit** (machining table, after local radio: 15 steel, 3 components), at hand the same way, sends the adviser a
+  picture of the wound or the engine: **a sixth more** for tending, surgery and vehicle repairs, **on a clean link only**. With the
+  chest too, both add.
 - **Repairs**: a repair that needs more Construction than your mechanic has can be done while someone better talks them through it,
   at home or with the convoy's repair button.
 - **On the road and in trade talks**, which have no job of their own, the adviser stays on the radio for a while afterwards: about

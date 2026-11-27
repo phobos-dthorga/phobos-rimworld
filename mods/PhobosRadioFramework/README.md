@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.38.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.39.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -87,6 +87,7 @@ figures are here.
 | Radio terminal (0.5.0) | Architect → D'thorga → Radio, 120 steel + 6 components + 1 advanced component | 3 × 2, 150 W, 10 W out, a 2 dB receiver, a weak stub antenna (about −5 dBi at 1 m); its computer makes noise out to 8 cells |
 | Linear amplifier (0.5.0) | Architect → D'thorga → Radio, 40 steel + 2 components | 1 × 1, in the coax: ten times what the station sends, up to 100 W; 20 W on standby, more while sending; 0.5 dB lost on receive |
 | Numbered medical chest (0.23.0) | Drug lab, 20 steel + 15 cloth + 1 medicine | An item: carried, in a convoy or kept nearby, it lets advice by radio close a sixth more of the skill gap for medicine. Never used up |
+| Slow-scan camera kit (0.39.0) | Machining table, 15 steel + 3 components | An item: at hand, it lets advice by radio close a sixth more of the gap on a clean link, for tending, surgery and vehicle repairs. Never used up |
 | Heavy linear amplifier (0.5.0) | Architect → D'thorga → Radio, 80 steel + 4 components + 1 advanced component | The same, up to 400 W; 40 W on standby, four times the draw and heat while sending |
 
 **What decides a link**, with its figures:

@@ -1,8 +1,9 @@
 # The station logbook, QSL cards, a picture for the doctor and the Morse key
 
 **Status (27 Nov 2026):** partly built. The logbook, QSL cards and awards are built in Radio Framework 0.38.0 (with D'thorga Framework
-0.348.0 for the medevac's lines), not yet tested in game: rows 681 and 682. Being built next: the picture for the doctor (0.39.0, its
-kit's picture bought on the owner's go, US$0.11), then the Morse key (0.40.0, with a later D'thorga Framework for the vehicle's key).
+0.348.0 for the medevac's lines), not yet tested in game: rows 681 and 682. The picture for the doctor is built in 0.39.0 (row 683; its kit's
+picture the owner's pick of two paid tries, US$0.11). Being built next: the Morse key (0.40.0, with a later D'thorga Framework for the
+vehicle's key).
 
 The owner chose all four on 27 Nov 2026, after the radio friends, School of the Air, neighbours' calls and the medevac
 ([radio friends, school, medevac](radio-friends-school-medevac.md)). Seven radio features were then built and untested; the logbook makes

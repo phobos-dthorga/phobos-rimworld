@@ -26,6 +26,9 @@
     <fromFactions>true</fromFactions>
     <aid>PhobosRadio_MedicalChest</aid>
     <aidShare>0.1667</aidShare>
+    <!-- Radio 0.39.0: the slow-scan camera kit, a sixth more on a clean link (the owner's card of 27 Nov 2026). -->
+    <pictureAid>PhobosRadio_SSTVKit</pictureAid>
+    <pictureShare>0.1667</pictureShare>
   </Phobos.Radio.RadioAdviceDef>
 
   <Phobos.Radio.RadioAdviceDef>
@@ -48,6 +51,9 @@
     <fromFactions>true</fromFactions>
     <aid>PhobosRadio_MedicalChest</aid>
     <aidShare>0.1667</aidShare>
+    <!-- Radio 0.39.0: the slow-scan camera kit, a sixth more on a clean link (the owner's card of 27 Nov 2026). -->
+    <pictureAid>PhobosRadio_SSTVKit</pictureAid>
+    <pictureShare>0.1667</pictureShare>
     <!-- A moderate risk (the agent's grade, for the owner to confirm): a call that drops part-way leaves the surgeon at their own skill. -->
     <ownSetting>true</ownSetting>
     <settingLabel>Radio advice during surgery</settingLabel>

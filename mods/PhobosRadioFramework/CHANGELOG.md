@@ -23,6 +23,22 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.39.0] - 2026-11-27 - Draft
+
+A picture for the doctor: the slow-scan camera kit
+
+### Added
+
+- **A slow-scan camera kit**, made at the machining table after local radio (the owner's card of 27 November 2026: a sixth, on a clean
+  link). At hand as the numbered medical chest is, carried, in the convoy or nearby, it lets the adviser see the wound or the engine:
+  on a **clean** link advice closes a sixth more of the skill gap, on top of the chest, for tending, surgery and vehicle repairs. A
+  fainter link carries no usable picture. Its picture is the owner's pick of two paid tries (about US$0.11). Not yet tested in game:
+  row 683.
+
+### Compatibility and limits
+
+- Cost, work, skill and research are agent defaults. Safe with a running save.
+
 ## [0.38.0] - 2026-11-27 - Draft
 
 The station logbook, QSL cards and awards

@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/SSTVKit.png",
+  "source": "assets/phobos-radio/generated/item-sstv-kit/item-sstv-kit-2.png",
+  "source_sha256": "e1da708bac6966b6203e5bd6ab8a9ec70953291eef448c8098560f43d003d0ab",
+  "target_sha256": "6cf28dd0a2a067e8d10831c4ddec4579d0a530cc38a0ee987f676124fc4751ea",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "e1da708bac6966b6203e5bd6ab8a9ec70953291eef448c8098560f43d003d0ab",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T18:30:55",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

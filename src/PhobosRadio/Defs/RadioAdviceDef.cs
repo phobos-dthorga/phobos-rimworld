@@ -36,6 +36,9 @@ public class RadioAdviceDef : Def
     /// <summary>Something whose presence near the carer adds <see cref="aidShare"/> of the gap (the numbered medical chest).</summary>
     public ThingDef? aid;
     public float aidShare;
+    /// <summary>A picture's aid (Radio 0.39.0: the slow-scan camera kit), adding <see cref="pictureShare"/> only on a clean link.</summary>
+    public ThingDef? pictureAid;
+    public float pictureShare;
     /// <summary>Another faction's helper may give it, by radio from one of its settlements in reach (Radio 0.26.0): its doctor for medicine,
     /// its mechanic for vehicle repairs (Radio 0.27.0, the owner's answer of 27 Nov 2026).</summary>
     public bool fromFactions;
@@ -54,6 +57,7 @@ public class RadioAdviceDef : Def
         if (actLabel.NullOrEmpty()) yield return "RadioAdviceDef needs an actLabel";
         if (ownSetting && settingLabel.NullOrEmpty()) yield return "RadioAdviceDef with its own setting needs a settingLabel";
         if (aid != null && aidShare <= 0f) yield return "RadioAdviceDef names an aid with no aidShare";
+        if (pictureAid != null && pictureShare <= 0f) yield return "RadioAdviceDef names a pictureAid with no pictureShare";
     }
 }
 

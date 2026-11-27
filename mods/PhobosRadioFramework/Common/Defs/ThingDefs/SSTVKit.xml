@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The slow-scan camera kit (Radio 0.39.0; docs/development/radio-logbook-qsl-sstv-morse.md, the owner's card of 27 Nov 2026: "A sixth, on
+       a clean link"). A still picture sent by radio in about a minute, as slow-scan television (SSTV) does through a voice channel: the
+       adviser sees the wound, or the engine. At hand as the medical chest is (carried, in the convoy, or nearby), it adds a sixth of the
+       skill gap to advice on a clean link only. Never used up. Cost, work, skill and research are agent defaults, authored. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosRadio_SSTVKit</defName>
+    <label>slow-scan camera kit</label>
+    <description>A rugged case holding a small camera, a scan converter and a little monitor. It sends a still picture down a radio voice channel in about a minute, so a doctor or mechanic giving advice by radio can see what they are talking about. It needs a clean signal: noise ruins a picture long before it ruins speech. Carried, in the convoy, or nearby. It is never used up.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/SSTVKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>1</stackLimit>
+    <healthAffectsPrice>true</healthAffectsPrice>
+    <useHitPoints>true</useHitPoints>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Mass>4</Mass>
+      <Flammability>0.5</Flammability>
+      <DeteriorationRate>1</DeteriorationRate>
+      <WorkToMake>2400</WorkToMake>
+    </statBases>
+    <costList>
+      <Steel>15</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <researchPrerequisites>
+        <li>PhobosRadio_LocalRadio</li>
+      </researchPrerequisites>
+      <skillRequirements>
+        <Crafting>5</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+    <tradeTags>
+      <li>ExoticMisc</li>
+    </tradeTags>
+  </ThingDef>
+</Defs>

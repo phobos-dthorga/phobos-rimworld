@@ -20,6 +20,9 @@
     <!-- Radio 0.27.0: another faction's mechanic may talk the repair through (the owner's answer of 27 Nov 2026, "Medicine and vehicle
          repairs"). -->
     <fromFactions>true</fromFactions>
+    <!-- Radio 0.39.0: a picture of the engine helps a mechanic too, a sixth more on a clean link. -->
+    <pictureAid>PhobosRadio_SSTVKit</pictureAid>
+    <pictureShare>0.1667</pictureShare>
     <bookedTicks>2500</bookedTicks>
   </Phobos.Radio.RadioAdviceDef>
 </Defs>

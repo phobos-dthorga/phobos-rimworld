@@ -1,0 +1,31 @@
+[
+  {
+    "name": "item-sstv-kit",
+    "title": "Slow-scan camera kit (SSTVKit)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Handheld.png",
+        "role": "our approved radio item from the same mod (the hand-held radio): match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/MedicalChest.png",
+        "role": "our approved item from the same advice-by-radio set (the numbered medical chest): match its outline weight, shading and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosRadio_SSTVKit, the slow-scan camera kit (Radio 0.39.0; docs/development/radio-logbook-qsl-sstv-morse.md)",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/SSTVKit.png",
+      "size": "drawn by the game on one cell; requested at 1024",
+      "why": "an item in the game world, so the paid service (assets/AGENTS.md)"
+    },
+    "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for a field slow-scan television kit, used to send a still picture by radio. Images 1 and 2 are our approved items from the same game: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nAn open rugged dark grey hard case with foam inserts holding: a small boxy camera with a short lens, a compact scan converter box with a few small knobs and one small green indicator light, a small square monochrome monitor showing a faint grey picture, and a coiled black cable with a plug.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted dark grey, black and steel colours with the small green light, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals or ground. No shadow outside the object."
+  }
+]

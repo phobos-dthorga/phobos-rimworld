@@ -69,9 +69,10 @@ public static class RemoteReach
 /// <summary>One adviser found for one carer, and what the call would lift them to.</summary>
 public sealed class AdviceOffer
 {
-    public AdviceOffer(Pawn carer, Pawn adviser, RadioAdviceDef def, int level, LinkOutcome outcome, AdvicePlace place, Thing? station, bool aid,
-        Faction? faction = null, Settlement? settlement = null, double marginDb = 0.0)
+    public AdviceOffer(Pawn carer, Pawn adviser, RadioAdviceDef def, int level, LinkOutcome outcome, AdvicePlace place, Thing? station, string? aid,
+        Faction? faction = null, Settlement? settlement = null, double marginDb = 0.0, bool picture = false)
     {
+        Picture = picture;
         Faction = faction;
         Settlement = settlement;
         MarginDb = marginDb;
@@ -82,16 +83,18 @@ public sealed class AdviceOffer
         Outcome = outcome;
         Place = place;
         Station = station;
-        Aid = aid;
+        Aid = aid != null;
         Reason = faction != null
-            ? (aid ? "PhobosRadioAdvice_ReasonFactionAid" : "PhobosRadioAdvice_ReasonFaction").Translate(adviser.LabelShort.Named("ADVISER"),
+            ? (aid != null ? "PhobosRadioAdvice_ReasonFactionAid" : "PhobosRadioAdvice_ReasonFaction").Translate(adviser.LabelShort.Named("ADVISER"),
                 faction.Name.Named("FACTION"), def.skill.label.Named("SKILL"), SkillLifts.OwnLevel(adviser, def.skill).Named("LEVEL"),
-                def.aid?.label.Named("AID") ?? "".Named("AID")).Resolve()
-            : (aid ? "PhobosRadioAdvice_ReasonAid" : "PhobosRadioAdvice_Reason").Translate(adviser.LabelShort.Named("ADVISER"),
-                def.skill.label.Named("SKILL"), SkillLifts.OwnLevel(adviser, def.skill).Named("LEVEL"), def.aid?.label.Named("AID") ?? "".Named("AID"))
+                (aid ?? "").Named("AID")).Resolve()
+            : (aid != null ? "PhobosRadioAdvice_ReasonAid" : "PhobosRadioAdvice_Reason").Translate(adviser.LabelShort.Named("ADVISER"),
+                def.skill.label.Named("SKILL"), SkillLifts.OwnLevel(adviser, def.skill).Named("LEVEL"), (aid ?? "").Named("AID"))
                 .Resolve();
     }
 
+    /// <summary>Whether the slow-scan camera kit's picture helps this call (Radio 0.39.0).</summary>
+    public bool Picture { get; }
     /// <summary>Another faction whose doctor this is (Radio 0.26.0), or null for a colonist.</summary>
     public Faction? Faction { get; }
     /// <summary>The settlement that faction's doctor answers from, and the link's margin (Radio 0.38.0: its QSL card).</summary>
@@ -237,11 +240,12 @@ public static class RadioAdvice
         if (byAdviser.ContainsKey(doctor)) return null;
         var rules = RadioRulesDef.Current;
         int own = SkillLifts.OwnLevel(carer, def.skill);
-        bool aid = def.aid != null && HasAid(carer, def.aid);
         var outcome = AdviceRule.Worse(carerOutcome, rules.MarginBands.Classify(link.MarginDb));
+        double aidShare = AidShare(carer, def, outcome, out string? aid, out bool picture);
         int level = AdviceRule.EffectiveLevel(own, SkillLifts.OwnLevel(doctor, def.skill),
-            AdviceRule.Share(outcome, rules.adviceShareSolid, rules.adviceShareMarginal, aid ? def.aidShare : 0.0));
-        return level <= own ? null : new AdviceOffer(carer, doctor, def, level, outcome, AdvicePlace.Afar, null, aid, link.Faction, link.Settlement, link.MarginDb);
+            AdviceRule.Share(outcome, rules.adviceShareSolid, rules.adviceShareMarginal, aidShare));
+        return level <= own ? null : new AdviceOffer(carer, doctor, def, level, outcome, AdvicePlace.Afar, null, aid, link.Faction, link.Settlement, link.MarginDb,
+            picture);
     }
 
     /// <summary>The best adviser at one colony for a carer whose own link there has this outcome, or null.</summary>
@@ -250,8 +254,8 @@ public static class RadioAdvice
         var rules = RadioRulesDef.Current;
         if (carerOutcome == LinkOutcome.NoContact) return null;
         int own = SkillLifts.OwnLevel(carer, def.skill);
-        bool aid = def.aid != null && HasAid(carer, def.aid);
-        double aidShare = aid ? def.aidShare : 0.0;
+        // At most what every aid at hand could add on a clean link, for the first look over the colony (Radio 0.39.0: the picture too).
+        double mostShare = AidShare(carer, def, LinkOutcome.Clean, out _, out _);
         var homeNet = RadioNet.For(home);
         AdviceOffer? best = null;
         float bestDistance = float.MaxValue;
@@ -259,7 +263,7 @@ public static class RadioAdvice
         {
             if (adviser == carer || !Eligible(adviser, def)) continue;
             int theirs = SkillLifts.OwnLevel(adviser, def.skill);
-            if (AdviceRule.EffectiveLevel(own, theirs, AdviceRule.Share(LinkOutcome.Clean, rules.adviceShareSolid, rules.adviceShareMarginal, aidShare)) <= own) continue;
+            if (AdviceRule.EffectiveLevel(own, theirs, AdviceRule.Share(LinkOutcome.Clean, rules.adviceShareSolid, rules.adviceShareMarginal, mostShare)) <= own) continue;
             AdvicePlace place;
             Thing? station = null;
             LinkOutcome theirOutcome;
@@ -279,10 +283,11 @@ public static class RadioAdvice
             }
             else continue;
             var outcome = AdviceRule.Worse(carerOutcome, theirOutcome);
+            double aidShare = AidShare(carer, def, outcome, out string? aid, out bool picture);
             int level = AdviceRule.EffectiveLevel(own, theirs, AdviceRule.Share(outcome, rules.adviceShareSolid, rules.adviceShareMarginal, aidShare));
             if (level <= own) continue;
             if (best != null && (level < best.Level || level == best.Level && distance >= bestDistance)) continue;
-            best = new AdviceOffer(carer, adviser, def, level, outcome, place, station, aid);
+            best = new AdviceOffer(carer, adviser, def, level, outcome, place, station, aid, picture: picture);
             bestDistance = distance;
         }
         return best;
@@ -343,7 +348,32 @@ public static class RadioAdvice
         return nearest;
     }
 
-    /// <summary>Whether the aid (the numbered medical chest) is at hand: carried, in the convoy, or near the carer or in their room.</summary>
+    /// <summary>
+    /// What the aids at hand add to the share on this link, and what they are called: the numbered medical chest whatever the link, and
+    /// (Radio 0.39.0; the owner's card of 27 Nov 2026, "A sixth, on a clean link") the slow-scan camera kit only on a clean link, as noise
+    /// ruins a picture long before it ruins speech.
+    /// </summary>
+    public static double AidShare(Pawn carer, RadioAdviceDef def, LinkOutcome outcome, out string? label, out bool picture)
+    {
+        double share = 0.0;
+        var labels = new List<string>();
+        picture = false;
+        if (def.aid != null && HasAid(carer, def.aid))
+        {
+            share += def.aidShare;
+            labels.Add(def.aid.label);
+        }
+        if (def.pictureAid != null && outcome == LinkOutcome.Clean && HasAid(carer, def.pictureAid))
+        {
+            share += def.pictureShare;
+            labels.Add(def.pictureAid.label);
+            picture = true;
+        }
+        label = labels.Count > 0 ? labels.ToCommaList(useAnd: true) : null;
+        return share;
+    }
+
+    /// <summary>Whether an aid (the numbered medical chest, the camera kit) is at hand: carried, in the convoy, or near the carer or in their room.</summary>
     public static bool HasAid(Pawn carer, ThingDef aid)
     {
         if (carer.inventory?.innerContainer is { } carried)
@@ -469,6 +499,7 @@ public static class RadioAdvice
         SkillLifts.Teach(offer.Carer, offer.Def.skill, RadioRulesDef.Current.adviceLearnFactor);
         if (Seen.Wants("radio.elmer", offer.Carer, offer.Def.act)) Seen.Note("radio.elmer", offer.Carer, offer.Def.skill.label, offer.Def.act);
         string variant = offer.Def.act + (offer.Faction != null ? "-faction" : "");
+        if (offer.Picture && Seen.Wants("radio.advice-picture", offer.Carer, offer.Def.act)) Seen.Note("radio.advice-picture", offer.Carer, offer.Def.skill.label, offer.Def.act);
         if (Seen.Wants("radio.advice", offer.Adviser, variant))
             Seen.Note("radio.advice", offer.Adviser, offer.Carer.LabelShort + " at " + offer.Def.skill.label + " " + offer.Level + ", " + offer.Place, variant);
     }
