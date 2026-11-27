@@ -1,0 +1,56 @@
+{
+  "file": "road-icon-tip-load-2.png",
+  "sha256": "84c226bf7f6c56d1c1260e6cf0d44577b34ab09313f239c5086181c3ff6c3905",
+  "date": "2026-11-27T15:46:58",
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"tip the load here\": a small olive tipper truck seen from the side with its rear bed raised steeply, grey stone chunks sliding off the back onto a small heap beside a short amber marker flag.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/road-icons-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 354,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 226
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2110
+  },
+  "cost_usd": 0.0548,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 24.8,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+      "sha256": "14fac957571227f63501ada80d0397adf34f49832bb3fb31dcadfe413efb6f13",
+      "role": "our approved button icon of the same game: match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/RoadSurvey.png",
+      "sha256": "9b43b28557d614bca6c2b3dc1f5849f85c391f088399c3ed205cb97c4e5041fb",
+      "role": "our approved road work button icon of the same set (the road survey, an olive truck): match its outline weight, olive vehicle colours and finish only; do not copy its shape"
+    }
+  ]
+}
