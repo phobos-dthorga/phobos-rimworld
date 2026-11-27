@@ -31,6 +31,9 @@ The schematic's three parts, finished
 - **A mechanic rinses a nearly blocked fuel filter in the field**: once a filter is nine tenths clogged, a mechanic drains and rinses
   it, with no supplies, which brings it back to half. The engine service still changes it outright, as before. Land vehicles and
   aircraft alike, with the "Fuel filters clog" setting on. Not yet tested in game: row 766.
+- **A diagnosis names each engine or gearbox with its chip light lit, and the likely cause**: a hot section past its life, low oil
+  pressure, a service long overdue, a gearbox worked hard, or wear with nothing else standing out. It is the mechanic's best guess
+  from the part as it stands. Not yet tested in game: row 767.
 - For modders: a service's restore may be marked onlyLowers, so a partial fix never makes a figure worse.
 
 ### Save compatibility

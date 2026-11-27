@@ -105,6 +105,38 @@ public sealed class OilMetal
         Tell(parts);
     }
 
+    /// <summary>
+    /// Every engine and gearbox whose lamp is lit, with its metal and its likely cause as the part stands now (Framework 0.374.0; the record's
+    /// CD5): for the diagnosis report, which names them. Reads only.
+    /// </summary>
+    public IEnumerable<(VehicleComponent part, float metal, ChipCause cause)> Lit()
+    {
+        if (metal == null) yield break;
+        bool overdue = comp.TryGetQuantity(ServiceQuantity, out float served) && served >= OverdueHours;
+        if (Keeps(EngineQuantity))
+        {
+            List<VehicleComponent> engines = Engines();
+            for (int i = 0; i < engines.Count; i++)
+            {
+                if (!metal.TryGetValue(engines[i].props.key, out float m) || !ChipDetectorRule.Lit(m)) continue;
+                yield return (engines[i], m, ChipDetectorRule.Cause(false, HotSectionWorn(engines[i]), overdue, LowOil(i)));
+            }
+        }
+        if (Keeps(GearboxQuantity))
+        {
+            foreach (VehicleComponent gearbox in Gearboxes())
+            {
+                if (metal.TryGetValue(gearbox.props.key, out float m) && ChipDetectorRule.Lit(m)) yield return (gearbox, m, ChipCause.Gearbox);
+            }
+        }
+    }
+
+    /// <summary>Whether engine <paramref name="engine"/> is short of oil pressure now: its own figure where each engine keeps one, else the
+    /// vehicle's.</summary>
+    bool LowOil(int engine) =>
+        (EngineFigures.TryRead(comp, EngineFeeds.OilPressure, engine, out float pressure) || comp.TryGetQuantity(EngineFeeds.OilPressure, out pressure))
+        && pressure < EngineFeedRule.PressureLow;
+
     bool HotSectionWorn(VehicleComponent engine)
     {
         if (comp.partFigures != null && comp.partFigures.TryGetValue(HotSectionQuantity + "|" + engine.props.key, out float life)) return life >= 1f;

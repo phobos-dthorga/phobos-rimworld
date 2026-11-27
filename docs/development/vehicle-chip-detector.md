@@ -2,7 +2,8 @@
 
 **Status (28 Nov 2026):** built in Framework 0.365.0, not yet tested in game (row 740); see [As built](#as-built-framework-03650). The
 owner chose by card to build all three of the schematic's missing parts, "each with its own record first" ([the schematic record](vehicle-schematic.md),
-M3), and answered this record's questions on the Decisions page the same day. Not built: CD5 and CD7.
+M3), and answered this record's questions on the Decisions page the same day. CD5 built in Framework 0.374.0 (row 767); CD7's
+picture is queued for the night run of 28 Nov 2026.
 
 ## Read this first
 
@@ -108,7 +109,11 @@ Not yet tested in game: row 740. What differs from the model above, and the choi
   that stops or harms, and this one does neither. A message names the part once as it lights, never again on loading a save.
 - **The engine service clears it** (CD4), engines' and gearboxes' alike, as its oil change.
 - **The schematic's land page draws it** beside the sump (CD6).
-- **Not built**: the diagnosis report naming the cause (CD5), and a dashboard picture (CD7): until one is made in the night run, the lamp
+- **The diagnosis report names it** (CD5, Framework 0.374.0, row 767): each lit part as a finding, "Metal in the oil", with the likely
+  cause read from the part as it stands (`ChipDetectorRule.Cause`, most telling first: a gearbox; a hot section past its life; low oil
+  pressure now; a service overdue; else wear). A guess, never a record of what shed the metal (agent's choice: nothing new is saved).
+- **Not built**: a dashboard picture (CD7), queued as `assets/vehicle-systems/requests/night-18-chip-telltale.json` for the night run of
+  28 Nov 2026 (the dashboard's pictures are made by the local image model); until it ships, the lamp
   shows in words.
 
 ## Sources

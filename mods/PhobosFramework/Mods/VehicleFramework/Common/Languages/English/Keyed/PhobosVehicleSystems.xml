@@ -510,6 +510,15 @@
   <!-- The systems schematic (Framework 0.363.0). -->
   <PhobosVehicleSystems_ButtonSchematic>Systems schematic</PhobosVehicleSystems_ButtonSchematic>
   <PhobosVehicleSystems_ButtonSchematicDesc>A picture of how fuel, oil, coolant, air and power move through this vehicle, and where a fault sits. Point at a part to read it and see it on the vehicle; click it to open the Systems tab there. Press again to close.</PhobosVehicleSystems_ButtonSchematicDesc>
+  <!-- Framework 0.374.0 (docs/development/vehicle-chip-detector.md, CD5): the diagnosis report's chip lamp findings. -->
+  <PhobosVehicleSystems_ReportChipMetal>Metal in the oil</PhobosVehicleSystems_ReportChipMetal>
+  <PhobosVehicleSystems_ReportChipLit>chip light</PhobosVehicleSystems_ReportChipLit>
+  <PhobosVehicleSystems_ReportChipMuch>much metal</PhobosVehicleSystems_ReportChipMuch>
+  <PhobosVehicleSystems_ChipCauseGearbox>Likely the gearbox worked hard, or past what it takes.</PhobosVehicleSystems_ChipCauseGearbox>
+  <PhobosVehicleSystems_ChipCauseHotSection>Likely its hot section, worn past its life: an overhaul is due.</PhobosVehicleSystems_ChipCauseHotSection>
+  <PhobosVehicleSystems_ChipCauseLowOil>Likely its bearings, short of oil pressure: look to the oil and its pump.</PhobosVehicleSystems_ChipCauseLowOil>
+  <PhobosVehicleSystems_ChipCauseOverdue>Likely run long past its service.</PhobosVehicleSystems_ChipCauseOverdue>
+  <PhobosVehicleSystems_ChipCauseWear>Wear inside it; nothing else stands out.</PhobosVehicleSystems_ChipCauseWear>
   <PhobosVehicleSystems_SchematicTitle>{VEHICLE}: systems</PhobosVehicleSystems_SchematicTitle>
   <PhobosVehicleSystems_SchematicEngineTab>Engine {NUMBER}</PhobosVehicleSystems_SchematicEngineTab>
   <PhobosVehicleSystems_SchematicRunning>Engine running</PhobosVehicleSystems_SchematicRunning>

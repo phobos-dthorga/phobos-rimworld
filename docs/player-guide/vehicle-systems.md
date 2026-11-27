@@ -330,7 +330,8 @@ workshop](vehicle-workshop.md#families).
   from before this was added has no line.
 - **Diagnose** at a **dyno bay** (research **vehicle tuning**): park the vehicle within 5 cells of a powered dyno bay and press
   **Diagnose**. A mechanic looks it over and a report arrives listing every part, tune, reading and fault, each fault with its
-  cause, with the vehicle's tinted picture and, in Operator and Engineer modes, a graph of its last day.
+  cause, with the vehicle's tinted picture and, in Operator and Engineer modes, a graph of its last day. **A lit chip light is named
+  too**: which engine or gearbox, and the mechanic's best guess at why.
 - Where to build a dyno bay, and what else it does, is in [the vehicle workshop](vehicle-workshop.md#the-workshop-buildings).
 
 ## Special engines

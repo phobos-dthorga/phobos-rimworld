@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework;
 using Phobos.Framework.Rules;
+using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using RimWorld.Planet;
 using Vehicles;
@@ -132,8 +133,33 @@ public sealed class VehicleDiagnostics
                 cause = condition.cause == null ? null : VehicleStory.CauseLine(condition.cause),
             });
         }
+        // Framework 0.374.0 (docs/development/vehicle-chip-detector.md, CD5): the mechanic names each part whose chip lamp is lit, and what
+        // likely shed the metal, read from the part as it stands.
+        foreach ((VehicleComponent part, float metal, ChipCause cause) in comp.OilMetal.Lit())
+        {
+            report.faults.Add(new DiagnosisFault
+            {
+                label = "PhobosVehicleSystems_ReportChipMetal".Translate().Resolve(),
+                part = part.props.label ?? part.props.key,
+                stage = (ChipDetectorRule.Much(metal) ? "PhobosVehicleSystems_ReportChipMuch" : "PhobosVehicleSystems_ReportChipLit").Translate().Resolve(),
+                tone = ReportTone.Caution,
+                severity = metal,
+                cause = ChipCauseLine(cause),
+            });
+            if (Seen.Wants("vehicles.chip-diagnosed", vehicle, cause.ToString())) Seen.Note("vehicles.chip-diagnosed", vehicle, part.props.label ?? part.props.key, cause.ToString());
+        }
         return report;
     }
+
+    /// <summary>The report's line for a chip lamp's likely cause (Framework 0.374.0, CD5), by literal key so the text check can read each.</summary>
+    static string ChipCauseLine(ChipCause cause) => (cause switch
+    {
+        ChipCause.Gearbox => "PhobosVehicleSystems_ChipCauseGearbox".Translate(),
+        ChipCause.HotSection => "PhobosVehicleSystems_ChipCauseHotSection".Translate(),
+        ChipCause.LowOil => "PhobosVehicleSystems_ChipCauseLowOil".Translate(),
+        ChipCause.Overdue => "PhobosVehicleSystems_ChipCauseOverdue".Translate(),
+        _ => "PhobosVehicleSystems_ChipCauseWear".Translate(),
+    }).Resolve();
 
     /// <summary>The events of the last day on each graph that shows a line they concern (Framework 0.84.0), as text of the day.</summary>
     static void AddMarks(DiagnosisReport report, CompPhobosVehicleSystems comp, List<(string system, string quantity, bool temperature)> graphed)

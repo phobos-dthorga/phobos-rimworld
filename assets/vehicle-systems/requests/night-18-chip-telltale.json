@@ -1,0 +1,22 @@
+[
+ {
+  "name": "dash-chipdetector",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "A single bold dashboard warning pictogram: a single oil drop with a short bar magnet poking up into it from below, and three tiny angular metal flakes clinging to the magnet's tip. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a car instrument cluster symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+  "subject": "a single oil drop with a short bar magnet poking up into it from below, and three tiny angular metal flakes clinging to the magnet's tip",
+  "width": 512,
+  "height": 512,
+  "seeds": [
+   201,
+   202,
+   203,
+   204
+  ],
+  "art_plan": {
+   "telltale": "the chip detector's lamp (the oilMetal and gearboxMetal quantities)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/ChipDetector.png",
+   "why": "docs/development/vehicle-chip-detector.md, CD7: a dashboard picture for the lamp, made locally with the night run's icons as the other telltales were (assets/phobos-vehicles/requests/dash-telltales.json's style); the owner's card of 28 Nov 2026 chose the three parts' loose ends. Until it ships the lamp shows in words."
+  }
+ }
+]
