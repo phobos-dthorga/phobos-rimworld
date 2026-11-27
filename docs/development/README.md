@@ -161,6 +161,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Patches](systems/patches.md) (24 Nov 2026): how each tie-in patch works now, temporary and permanent, by kind. Living.
 - [Nuclear strikes, vehicles and people](nuclear-strike-effects.md) (22 Nov 2026): vehicles in a strike; the real effects; NK1 to NK27. Partly built, untested.
 - [Soldiers keep their guns](soldiers-keep-their-guns.md) (19 Nov 2026): why soldiers fought with grenades under CE, and the fix. Built, untested.
+- [Rearm and refuel](rearm-and-refuel-work.md) (27 Nov 2026): a work type of its own for rearming and refuelling, ucas included. Built, untested.
 
 ## Factory Additions and Water Tap
 
@@ -180,6 +181,8 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Logbook, QSL cards, SSTV, Morse](radio-logbook-qsl-sstv-morse.md) (27 Nov 2026): four more radio features, owner's cards. Being built.
 - [Radio cover on the world map](radio-world-coverage.md) (27 Nov 2026): high ground between tiles blocks signal; cover pictures, owner's cards. Partly built.
 - [Radio stations](radio-stations.md) (24 Nov 2026): the radio desk, a radio terminal and amplifier, and upgrades. Partly built.
+- [Radio ties with other mods' things](radio-ties-with-other-mods.md) (27 Nov 2026): radio-like things in the game and mod list, RT1 to RT18. Research.
+- [Electronic warfare](electronic-warfare.md) (27 Nov 2026): jamming as radio noise, for every aircraft and vehicle, EW1 to EW25; a radar sketch. Research.
 
 ## Art and sound
 
