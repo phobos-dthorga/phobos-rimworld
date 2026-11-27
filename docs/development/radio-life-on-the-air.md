@@ -1,7 +1,8 @@
 # Life on the air: colonists who use the radio by themselves (28 Nov 2026)
 
 **Status (28 Nov 2026):** a research record. Rows RN1 to RN43 are proposals, each with the agent's lean; nothing here is built, and
-nothing is tested in game. The owner chose by card which groups go deepest and first (below).
+nothing is tested in game. The owner chose by card which groups go deepest and first (below), and answered the record's four questions
+the same day: slice 1, "the air is alive", is first when building starts.
 
 **A research record.** The owner, 28 November 2026: "Our handling of radios, their nets, and so much more are in desperate need of a
 liven up. We REALLY need more gameplay that is emergent in nature, how the pawns act autonomously on their own, etc. This is strictly a
@@ -75,6 +76,27 @@ How to read it:
 | [Autonomous vehicles](autonomous-vehicles.md) | Lost-link choice per vehicle (hold by default), loops and routes |
 | [People use parked vehicles](vehicle-parked-use.md) | PV1 the cab stereo (music only, not the radio net), PV8 a chat aboard |
 
+### Repeaters and relays: where each row leans on them
+
+The owner, 28 Nov 2026: "We should be adding the appropriate 'cross-links' between repeaters and relays as we go." Several rows here
+are answered by kit that already exists, and the owner's answer to question 3 makes repeaters and relays **the** remedy for a call
+nobody hears. What is built, for every row below: relays between tiles (convoys, a relay mast, a vehicle with the repeater kit, an
+aircraft holding station), a home station's **repeater** upgrade, the **radio relay post**, two channels a repeater held on leases, and
+the **cross-band last hop** that carries a hand-held home through a vehicle (Radio 0.22.0 to 0.37.0; none yet tested in game).
+
+| Row | What it needs from repeaters and relays | Where that is recorded |
+| --- | --- | --- |
+| RN2 nets | A net away from home (a work party, a convoy) stays one net through a repeater; each net held across a relay takes its channels | [Relays: the rules](radio-advice-and-relays.md#the-rules); [channels](radio-stations.md#channels-radio-070) |
+| RN3 roll call | An away member answers through the relay chain; a worn-out or raided relay mast is how someone becomes "not heard from" | [What can be a relay between tiles](radio-advice-and-relays.md#what-can-be-a-relay-between-tiles-o); [masts that are lost](radio-advice-and-relays.md#as-built-radio-0370-27-nov-2026-reach-on-the-world-map-and-masts-that-are-lost) |
+| RN4, RN4b radio watch | **The owner's remedy for a missed call** [O]: a repeater carries the home net to every hand-held, so anyone in touch counts as listening; the cross-band last hop does the same through a vehicle | [Two kinds, by physics](radio-advice-and-relays.md#two-kinds-by-physics-o); [the cross-band last hop](radio-advice-and-relays.md#as-built-radio-0250-27-nov-2026-the-cross-band-last-hop); [in touch through a vehicle](radio-advice-and-relays.md#as-built-radio-0340-27-nov-2026-in-touch-through-a-vehicle) |
+| RN8 the evening call | A call home from a caravan holds a lease on each relay it crosses; two channels a repeater makes "couldn't get through" real on a busy evening | [Relays as built, 0.24.0](radio-advice-and-relays.md#as-built-radio-0240-27-nov-2026) |
+| RN16 a call for help | A downed colonist's hand-held reaches home through a repeater or a vehicle's cross-band; an urgent over pre-empts chatter on the relay's channels too (RN6) | [the cross-band last hop](radio-advice-and-relays.md#as-built-radio-0250-27-nov-2026-the-cross-band-last-hop) |
+| RN19 a person as a relay | The human relay is the fallback **only when no hardware chain answers**; a repeater makes it unneeded | [Relays: the rules](radio-advice-and-relays.md#the-rules) |
+| RN25 the regional net | Today a home station relays only for a call aimed at one colony; relaying for two other factions widens that rule | [Relays as built, 0.24.0](radio-advice-and-relays.md#as-built-radio-0240-27-nov-2026) |
+| RN27 the road channel | Other travellers are a second source beside the convoy's own chain home | [What can be a relay between tiles](radio-advice-and-relays.md#what-can-be-a-relay-between-tiles-o) |
+| RN30, RN35 being heard | A repeater on a hill is loud: hostile listeners hear what it repeats (with EW15) | [Electronic warfare](electronic-warfare.md) |
+| RN33 orders by radio | Orders reach an away party only through the chain; a relay lost is orders lost | [What can be a relay between tiles](radio-advice-and-relays.md#what-can-be-a-relay-between-tiles-o) |
+
 ## The idea in one picture
 
 Today a radio is a state (in touch or not). This record makes it a **place where things are said**: a colonist keys up, the people
@@ -102,7 +124,7 @@ Four pieces the other rows hang from. None is play on its own; each makes the ro
 | RN1 | **Real traffic: an "over" is an event.** A transmission has a speaker, a net, a kind (chatter, call, report, broadcast, distress), a length and a clarity (from the link margin the link budget already gives). Listeners are the radios the same station serves at that moment | The channel ledger hands out channels and `RadioKeyed` invents turns from a duty cycle [C]. Change: the lamp, needle and waterfall show a real over when there is one and fall back to the duty cycle when there is none. Overs live in a short ring per map (the last 64 [authored]), never saved | **Lets** the player see who is talking and hear it in the Log. **Stops** the lamp lying. **Changes** nothing by itself. **Who notices:** everything below | C#. An over is made only by the talk pass (RN7 onwards) or a feature's own call; listeners are read from `RadioNet`'s existing `servedOn` cache, no new link sums. Nothing per tick | None. **Take, first**: every other row needs it |
 | RN2 | **Nets are groups of people.** Each station's radios fall into named nets by what their people are doing: the home net, a work party far out on the map, a convoy, the guard (drafted colonists), a caravan. The player may rename a net and move a radio between nets | Kinds already split the ledger (`ChannelKindDef`: LocalVoice, VehicleControl with `preempts`, VehiclePicture) [D]. Change: the guard net is a kind that pre-empts chatter; the others are LocalVoice with a label. Membership is derived each recompute from drafted state, caravan and job; only the player's renames and moves are saved | **Lets** talk reach the right people (the guard hears the sighting first). **Stops** one undifferentiated channel pool. **Changes** what a second transceiver or a repeater buys: more nets at once. **Who notices:** the Net tab, RN3, RN6 | XML (kinds) + C# (membership). Rides the existing 60-tick recompute; a radio's net is one more field beside its channel | None. **Take, with RN1.** "Channels are capacity, never physics" holds: a net is a kind in the ledger, never a second system of frequencies |
 | RN3 | **Net control and the roll call.** At set hours [authored: 08:00 and 20:00] the duty operator calls each member who is away (caravans, convoys, outposts, a work party out of sight). Each answers with a position report ("12 km north-east of home, all well"); one who does not answer is **not heard from** | Check-ins with allies exist and only earn (+2 goodwill every 5 days) [C]. The game's own alert covers a downed colonist on the home map; nothing covers one away [inferred]. Change: a roll call writes position reports to the Log (`WorldPlaces` already words a place), gives a small "checked in" mood to those reached, and raises an alert naming whoever was not heard from, with their last report. Ally check-ins join the same schedule, and a missed one costs a little goodwill, as the owner's design asked | **Lets** the player know where everyone is without opening each caravan. **Stops** a lost caravan going unnoticed. **Changes** the operator's day into a routine with a shape. **Who notices:** allies (goodwill both ways), the members (mood), the Log | C#. Twice a day per map: one look over the away members (a short list) using the reach answers the caravan code already caches. The alert reads a saved "last heard" per pawn | Low (a little goodwill at a missed ally check-in, seen coming). **Take, slice 5.** In the default game the gain is mostly knowledge and mood; with the harsh side (RN33) it becomes how orders reach people |
-| RN4 | **Radio watch.** A station hears unscheduled calls (neighbours, strangers, friends, warnings) only while someone listens: an operator at the desk, anyone with a hand-held on the home net, or the on-call colonist woken by a **selective-call** tone (a cheap desk upgrade). A call that nobody hears goes in the Log as **missed**, and the caller may try again later | Neighbours' calls arrive as a letter whether or not anyone listens; the raid warning holds a raid if any ally is in reach [C]. Change: new calls in this record need a listener; built calls keep working as now unless the player turns on "Calls need someone listening" (RN4b) | **Lets** a night watch at the radio matter. **Stops** a silent, empty radio room hearing everything. **Changes** schedules: someone is on watch, or the selective call is bought. **Who notices:** the callers (a missed neighbour remembers, RN24), the Log | C# + XML (a work type "Radio watch", like Remote operation; the upgrade). A listener check is one look at the station's served radios when a call comes, never a scan | Low for new calls; **moderate for RN4b** (a missed raid warning). **Take, slice 2.** RN4b starts off [A] |
+| RN4 | **Radio watch.** A station hears unscheduled calls (neighbours, strangers, friends, warnings) only while someone listens: an operator at the desk, anyone with a hand-held on the home net, or the on-call colonist woken by a **selective-call** tone (a cheap desk upgrade). A call that nobody hears goes in the Log as **missed**, and the caller may try again later | Neighbours' calls arrive as a letter whether or not anyone listens; the raid warning holds a raid if any ally is in reach [C]. Change: every call needs a listener, built ones too (RN4b), with no setting: the owner's remedy is kit, a repeater or the cross-band last hop carrying the home net to every hand-held ([relays](radio-advice-and-relays.md#two-kinds-by-physics-o)) [O] | **Lets** a night watch at the radio matter. **Stops** a silent, empty radio room hearing everything. **Changes** schedules: someone is on watch, or the selective call is bought. **Who notices:** the callers (a missed neighbour remembers, RN24), the Log | C# + XML (a work type "Radio watch", like Remote operation; the upgrade). A listener check is one look at the station's served radios when a call comes, never a scan | **Moderate** (a missed raid warning), seen coming in the station's inspect text. **Take, slice 2.** No setting [O]: the remedy is repeaters, relays and the selective call |
 | RN5 | **Standing orders.** A small window on the station: what the duty operator may do unasked. Each is a tick box: answer neighbours' requests (no letter, the best colonist goes, as the letter's "yes" does today); pass a sighting to everyone (RN17); send help to a call for help (RN16); send the medevac to a convoy that reports a casualty; ask an allied trader in when silver is over a sum the player sets; keep the roll call (RN3) | The neighbour's letter, the medevac button and the trader call exist as player actions [C]. Change: the same service calls, made by the operator's job when the box is ticked, each logged with who did it | **Lets** the colony run itself while the player is elsewhere, which is the autonomy the owner asked for. **Stops** letters the player would always answer the same way. **Changes** the operator from a seat-filler into a person with judgement (their Social skill speeds each act). **Who notices:** the factions answered, the Log, the people sent | C# (UI presents, the service decides). No cost of its own: each box rides the event it answers | Each box carries the risk of what it does (RN16 moderate). **Take, slice 2, with RN4.** Boxes start ticked only where the act is low risk [A] |
 | RN6 | **Priority: "break, break".** Urgent traffic (a call for help, a sighting, a distress call) takes a channel from chatter at once; chatter cut off waits. A full net with nothing to bump delays even urgent traffic, and the Log says so | `preempts` already lets vehicle control take channels from talk [D]. Change: urgent kinds pre-empt LocalVoice chatter the same way | **Lets** an emergency through a busy net. **Stops** chatter blocking a mayday. **Changes** the value of channels: a crowded net is now a danger, not just a lamp. **Who notices:** the cut-off chatterers (no mood cost [A]), the Log | XML (flags on kinds). The ledger's existing pre-emption path | None. **Take, with RN1** |
 
@@ -194,13 +216,13 @@ Grades are the agent's proposals until the owner confirms them; defaults follow 
 | Behaviour | What the player can lose | Grade | Its setting and default |
 | --- | --- | --- | --- |
 | RN3 missed ally check-in | A little goodwill, seen coming | Low | With the roll call; on |
-| RN4b built calls need a listener | A raid warning or a neighbour's call | Moderate | "Calls need someone listening", off [A] (it changes built behaviour) |
+| RN4b built calls need a listener | A raid warning or a neighbour's call | Moderate | **No setting** [O]: the remedy is kit (repeaters, relays, the selective call) |
 | RN7, RN13 slights and rants | Mood | Low | None needed |
 | RN16 colonists go to a call for help | A rescuer hurt by the same danger | Moderate | "Colonists go to a call for help", on |
 | RN17 non-fighters take cover | Work time | Low | "Colonists take cover on a sighting", on |
 | RN21 lightning on masts | A station damaged or burnt, in visible weather | Moderate | "Lightning finds tall masts", on, with a cheap arrestor |
 | RN21 water in the coax | A little reach, slowly | Low | On |
-| RN22 failing machines warn | Nothing lost; it changes a vanilla rule | (vanilla change) | Off |
+| RN22 failing machines warn | Nothing lost; it changes a vanilla rule | (vanilla change) | Not built: record only [O] |
 | RN31 prisoners call home | A raid | High | Off |
 | RN33 orders by radio | A caravan out of reach of orders | High | Off |
 | RN34 news by radio | Nothing; grief comes later | Low (vanilla change) | Off |
@@ -234,18 +256,39 @@ Grades are the agent's proposals until the owner confirms them; defaults follow 
 
 ## Questions for the owner
 
-To be asked by card; every option is kept here with the answer.
+Asked by card on 28 Nov 2026. Each card as put: the owner's answer first and marked, then the other options.
 
-1. **Which slice first?** Lean: slice 1, "the air is alive".
-2. **How often do colonists chat on the air?** Lean: about once every few game hours for a lone worker, less for others [authored].
-3. **Do the built calls (neighbours, raid warning) need someone listening?** Lean: no by default; a setting that starts off (RN4b).
-4. **Machines that warn before breaking (RN22)**, which replaces the game's breakdown roll: lean: record only for now.
-5. **Lightning finding masts (RN21)**: lean: yes, with a cheap arrestor, on.
+1. **Which slice is built first, when the owner gives the word?**
+   - **The air is alive** (RN1, RN2, RN6, the talk pass, RN7, RN8, RN9), measured with `perf.py` first. **[O] Chosen** (the
+     agent's lean).
+   - The operator decides (RN4, RN5).
+   - Acting on what is heard (RN16, RN17, RN10, RN20).
+   - The world answers (RN32, RN24, RN11, RN12, RN13, RN14).
+2. **How often does a colonist chat with another over the radio, by themselves (RN7)?**
+   - **Lone workers often**: someone working alone far from others calls about every few game hours [authored]; colonists near
+     others rarely bother; chat follows need, not a flat chance. **[O] Chosen** (the agent's lean).
+   - Everyone sometimes: any two in touch and apart, about as often as the game's own chit-chat.
+   - Rarely: once or twice a day across the colony.
+3. **Do the built calls (neighbours' calls, allies' raid warnings) need someone listening, as the new calls would (RN4b)?**
+   - **The owner's own answer [O]:** "This is easily solved via relays and repeaters :) No extra settings needed! Just the right
+     technology and upgrades." **The agent's reading, for the owner to correct:** yes, every call needs a listener, built ones too, with
+     **no setting**; a colony that wants never to miss a call reaches its people with kit: a repeater or relay that carries the home net
+     to every hand-held on the map and beyond, and the selective-call upgrade that wakes the on-call colonist. This is the owner's
+     choice against the shared rule's default (a moderate risk would otherwise have its own setting).
+   - Offered, not chosen: "Setting, starts off" (the agent's lean: built calls as now, a setting for the harsher game); "Yes, always";
+     "No, never" (only new calls need a listener).
+4. **Machines that warn before breaking (RN22) and lightning that finds masts (RN21)**, both game rules other mods also change:
+   - **Masts yes, breakdowns record only**: lightning finds tall masts (moderate, on, a cheap lightning arrestor), working after Realistic
+     Rain picks the strike spot; breakdown warnings stay a record, since they replace a game rule Vanilla Expanded Framework and Vanilla
+     Gravship Expanded touch. **[O] Chosen** (the agent's lean).
+   - Both, as settings (masts on, breakdown warnings off).
+   - Neither for now.
 
 ## Who chose what
 
 - **Owner [O]:** the scope ("strictly a research and record purview"); groups B, C and D deepest and first; real-life practice written
-  without names.
+  without names; slice 1 "the air is alive" first; lone workers chat often; every call needs a listener, with kit as the remedy and no
+  setting; lightning finds masts, breakdown warnings record only.
 - **Agent [A]:** every row, its lean and its grade; the talk pass and its figures; the order of slices; the settings' defaults.
 
 ## Commands to run again

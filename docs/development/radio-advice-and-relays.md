@@ -259,6 +259,12 @@ flowchart LR
 
 *A call from a bed to a convoy over three hops. The weakest hop decides how good the call is.*
 
+**Other records that lean on repeaters and relays** (cross-linked both ways, the radio's rule of 28 Nov 2026):
+
+- [Life on the air](radio-life-on-the-air.md#repeaters-and-relays-where-each-row-leans-on-them): nets that stay one net through a
+  repeater, the roll call, the evening call home, a call for help, a person as a relay, the regional net, and the owner's answer that a
+  call nobody hears is solved by repeaters and relays, not a setting (RN2 to RN33).
+
 ### The rules
 
 1. **A relay is a hop, never a second system.** Every hop goes through the one link budget: on a map with its walls, between tiles

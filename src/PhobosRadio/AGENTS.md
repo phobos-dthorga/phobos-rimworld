@@ -58,6 +58,12 @@ open again** (owner, 23 Nov 2026), after its time on the back burner from 9 Nov 
   behaviour, and make every rule visible to a player who wants to see it.
 - **Physics sets the kit, the kit sets the play**: wavelength drives antenna size, which drives
   portability, power draw and siting. Don't hand out kit that physics says is impossible.
+- **Cross-link repeaters and relays as we go** (owner, 28 Nov 2026: "We should be adding the appropriate 'cross-links' between
+  repeaters and relays as we go", and "Maybe make it an AGENTS rule too for this mod"). A design record, row or feature that leans on
+  repeaters or relays (reach, channels on a relay, a call reaching a listener) links to the section of
+  `docs/development/radio-advice-and-relays.md` that records them and says what it needs from them; in the same change, that record's
+  "Relays" section gains a line linking back. Where a problem is one of reach, **the right repeater, relay or upgrade is the first
+  answer, before a setting** (the owner's answer of the same day, on calls nobody hears).
 
 ## Moved here from the root AGENTS.md (21 Nov 2026)
 
