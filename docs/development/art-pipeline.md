@@ -21,7 +21,9 @@ safeguards, the models, the owner's first picks, style training, the vanilla spr
   draws cards only), and `sound_review.py --offer NAME ...` offers the sounds named (folder names, patterns such as `n11-*`, or a request file), each not yet picked, its levelled review copies as the tries; never a whole folder, where settled rounds have no pick of their own. A sound's pick id
   is its folder name with `sound-` in front, so a picture and a sound of one name are both offered (23 Nov 2026, night 12). They go
   into `config/picks.json` (ignored: it names files in the art work folder) through `scripts/art/art_picks.py` and phobos-modkit's
-  `picks`. **Apply an answer, then settle it**: export the chosen try, record it as usual, and run
+  `picks`. **Apply an answer, then settle it**: export the chosen try and write its record with `python scripts/art/ship_picks.py REQUEST.json
+  NAME=TRY ...` (27 Nov 2026: one tool in place of a ship script per batch; it reads the target from `art_plan.ships_as` and how
+  the try was made from its own record, and refuses a near-copy), and run
   `python -m phobos_modkit picks settle --root . --id ID` (from `external/phobos-modkit/python`, with `--root ../../..`); the
   answers are read with `picks list`. Cards in a conversation stay for when the Companion is not at hand. **Cards that ship as
   one file are one pick** (kit 1.125.0; the owner's choice "One pick per file", 25 Nov 2026): `review_cards.py` gives each card
