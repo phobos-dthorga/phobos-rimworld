@@ -136,6 +136,8 @@ public sealed class VehicleFittings
     /// <summary>Whether this vehicle has had its loadout's fittedOnOlderSaves, or never needed them: true for a vehicle made in this version,
     /// false for one loaded from a save that has no entry for it.</summary>
     bool olderSaveFitsSettled = true;
+    /// <summary>The factory fittings this vehicle has been given, or found no room for, by Def name (Framework 0.356.0): each is given once.</summary>
+    List<string> factoryGiven = new();
 
     Dictionary<VehicleStatDef, float>? statFactors;
     Dictionary<(string system, string name), float>? parameterFactors;
@@ -222,6 +224,8 @@ public sealed class VehicleFittings
         Scribe_Collections.Look(ref graded, "PhobosVehicleSystems_Grades", LookMode.Deep);
         Scribe_Values.Look(ref setRolled, "PhobosVehicleSystems_FitSetRolled", false);
         Scribe_Values.Look(ref olderSaveFitsSettled, "PhobosVehicleSystems_OlderSaveFitsSettled", false);
+        Scribe_Collections.Look(ref factoryGiven, "PhobosVehicleSystems_FactoryGiven", LookMode.Value);
+        factoryGiven ??= new List<string>();
         // A save from before fittings existed has no entry for them, and the loader then leaves the lists null, not empty. The
         // stats are read before loading ends (Vehicle Framework spawns the vehicle first), so they are made whole in every mode,
         // never only at the end (0.40.0 left every vehicle unspawnable on an older save; 0.40.2).
@@ -1521,6 +1525,49 @@ public sealed class VehicleFittings
         fitted.RemoveAll(f => f.partKey == part.props.key);
         if (comp.Vehicle.Faction == Faction.OfPlayer) TellLost(lost, part);
         Changed(FuelExcess.Lose);
+    }
+
+    /// <summary>
+    /// What the vehicle left the factory with (Framework 0.356.0; docs/development/vehicle-standard.md, VS3): each of its loadout's factory
+    /// fittings, and its military ones when it counts as military, given once, free, on the first free part it suits, whether the vehicle is
+    /// new or from a save made before. Each is remembered by name whether it fitted or found no room, so one the player removes stays removed
+    /// and a later version adding to the list gives only what is new. Says so to the player for their own vehicles. Changes only this
+    /// vehicle's list of fittings: nothing is spawned.
+    /// </summary>
+    public void GiveFactoryFittings()
+    {
+        PhobosVehicleLoadoutDef? loadout = comp.Props.loadout;
+        if (loadout == null || loadout.factoryFittings.Count + loadout.factoryFittingsMilitary.Count == 0) return;
+        List<string>? given = null;
+        GiveFactory(loadout.factoryFittings, ref given);
+        if (loadout.factoryFittingsMilitary.Count > 0 && CountsAsMilitary(loadout)) GiveFactory(loadout.factoryFittingsMilitary, ref given);
+        if (given == null) return;
+        Changed();
+        if (Seen.Wants("vehicles.factory-fitted", comp.Vehicle)) Seen.Note("vehicles.factory-fitted", comp.Vehicle, string.Join(", ", given));
+        if (comp.Vehicle.Faction == Faction.OfPlayer && comp.Vehicle.Spawned)
+            Messages.Message("PhobosVehicleSystems_FactoryFitted".Translate(comp.Vehicle.LabelShort.Named("VEHICLE"), given.ToCommaList(useAnd: true).Named("FITTINGS")),
+                comp.Vehicle, MessageTypeDefOf.NeutralEvent, historical: false);
+    }
+
+    void GiveFactory(List<PhobosVehicleFittingDef> list, ref List<string>? given)
+    {
+        foreach (PhobosVehicleFittingDef def in list)
+        {
+            if (def == null || factoryGiven.Contains(def.defName)) continue;
+            factoryGiven.Add(def.defName);
+            if (Has(def) || !Suits(def)) continue;
+            string? key = def.roles.Where(comp.Props.roleKeys.ContainsKey).SelectMany(role => comp.Props.roleKeys[role]).FirstOrDefault(k => FittedOn(k) == null);
+            if (key == null) continue;
+            fitted.Add(new FittedPart { partKey = key, def = def });
+            (given ??= new List<string>()).Add(def.label);
+        }
+    }
+
+    /// <summary>Military as EMP hardening judges it: armed (a turret on its design), or a loadout rated military.</summary>
+    bool CountsAsMilitary(PhobosVehicleLoadoutDef loadout)
+    {
+        bool armed = comp.Vehicle.VehicleDef.comps?.Any(c => c is Vehicles.CompProperties_VehicleTurrets turrets && turrets.turrets.Count > 0) == true;
+        return Phobos.Framework.Vehicles.Rules.EmpRule.ClassFor(loadout.empHardening, armed) == EmpHardening.Military;
     }
 
     /// <summary>

@@ -3,7 +3,10 @@
 **Status (27 Nov 2026):** the owner opened the radio's Phase 3 the same day. **Slice 1 is built**: EW2 (noise by bandwidth), EW1
 (jamming as noise) and EW11 (the Busbar mast's switch), in Radio Framework 0.45.0, D'thorga Framework 0.355.0 and D'thorga Vehicles
 0.130.1 ([as built](#built-slice-1-27-nov-2026)); not yet tested in game (rows 706 to 708). **Slice 2 is built**: EW18 (jam the
-call), in Radio Framework 0.46.0 ([as built](#built-slice-2-27-nov-2026)); not yet tested in game (row 709). Every other row is a
+call), in Radio Framework 0.46.0 ([as built](#built-slice-2-27-nov-2026)); not yet tested in game (row 709). **Slice 3 is begun**: EW6
+(radio bays on aircraft) is built as batch 1 of [the vehicle standard](vehicle-standard.md#built-batch-1-27-nov-2026), with the real
+aviation bands the owner chose, in Radio Framework 0.49.0 and D'thorga Framework 0.356.0 (rows 710 and 711); EW7 waits for a way for an
+aircraft to hold over a place. Every other row is a
 proposal; the radar simulation is a sketch only. The owner answered seven questions by card ([below](#questions-for-the-owner)).
 
 **A research record.** The owner, 27 November 2026: "I would especially like to make the Prowler aircraft and any knock on effects
@@ -303,7 +306,7 @@ Each setting, when built, is reported to the owner in the reply that delivers it
 | --- | --- | --- |
 | 1 | EW2, EW1, EW11 | The term itself, with the jammer the player already owns. **Built 27 Nov 2026** |
 | 2 | EW18 | The first thing outside our mods to notice. **Built 27 Nov 2026** |
-| 3 | EW6, EW7 | Radios on aircraft, and the flying relay |
+| 3 | EW6, EW7 | Radios on aircraft, and the flying relay. **EW6 built 27 Nov 2026** (with the aviation bands: the vehicle standard's batch 1) |
 | 4 | EW10, EW4, EW3 | Pods for other aircraft; the Prowler's bands; world links |
 | 5 | EW12 | Direction finding, once there are emitters worth finding |
 | 6 | EW21, EW22 | Other mods' jammers and drones, one mod at a time |

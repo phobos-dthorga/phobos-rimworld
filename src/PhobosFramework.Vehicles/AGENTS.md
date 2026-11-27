@@ -4,6 +4,11 @@ Moved from the repository's `AGENTS.md`, "RimWorld engineering", on 18 Nov 2026 
 file points here. They govern every vehicle, upgrade tree, accessory, part and submarine mechanic of ours, in XML and C#;
 the general engineering rules there (parts bills, pipes beneath, optional tie-ins, Harmony) still apply.
 
+- **Every kind of vehicle meets the vehicle standard** (owner, 27 Nov 2026: "We need to bring everything in-line to some sort of
+  standard so players aren't left bewildered and confused"): `docs/development/vehicle-standard.md` says what every land vehicle,
+  aircraft, helicopter, boat and trailer shows on its Systems, Fittings and Health tabs, and what does not belong. A new loadout, system,
+  bay or fitting is checked against it, and a line it adds or changes goes into the standard in the same change. The audit that keeps
+  it ("below the standard", the owner's card of 27 Nov 2026) is its batch 2.
 - **Every vehicle of ours is upgradeable and extendable from its first Def** (owner, 8 Nov 2026): a Vehicle Framework upgrade
   tree shaped by the vehicle, every node moving a figure that changes an outcome, node keys stable once a save can hold them; the
   base body is drawn bare and every visible node is its own overlay set, planned before the first picture

@@ -23,6 +23,26 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.49.0] - 2026-11-27 - Draft
+
+Radios in every vehicle, and aircraft on their own bands
+
+### Added
+
+- **Every powered vehicle has a Comms system on its Systems tab** (the owner's cards of 27 November 2026, with Vehicle Framework):
+  whether a radio is fitted and working, and whether it is in touch with a station on the map, faint, out of touch or jammed.
+- **Aircraft, military vehicles and boats leave the factory with a radio**, removable like any fitting: every aircraft an aviation
+  radio in a new aviation radio bay, military vehicles and boats the dual-band radio. Aircraft and boats gain radio bays, on their
+  Fittings and Health tabs. Vehicles already in a save get theirs once, with a message.
+- **Aircraft talk on the real aviation bands**: the civil air band and military UHF, by AM voice. To hear them, fit the aviation
+  transceiver to the radio desk or terminal and aviation antennas to a mast on its coax; a built-in whip cannot. Not yet tested in
+  game: rows 710 and 711.
+
+### Compatibility and limits
+
+- Boats use the dual-band radio for now, in place of a marine set (a question for the owner). The aircraft as a flying relay follows
+  later. Safe with a running save: each vehicle's factory radio is given once and remembered.
+
 ## [0.48.0] - 2026-11-27 - Draft
 
 The path home seen from the side, a relay planner, and full relays marked

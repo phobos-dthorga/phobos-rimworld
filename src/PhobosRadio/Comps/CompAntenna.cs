@@ -25,6 +25,20 @@ public class CompAntenna : ThingComp
 {
     public CompProperties_Antenna Props => (CompProperties_Antenna)props;
 
+    private readonly List<BandDef> bands = new();
+
+    /// <summary>The bands this antenna works: its own, and any its fitted upgrades add (Radio 0.49.0: the aviation antennas on a mast).</summary>
+    public List<BandDef> Bands
+    {
+        get
+        {
+            RadioUpgrades.BandsOf(parent, Props.bands, bands);
+            if (bands.Count > Props.bands.Count && Seen.Wants("radio.aviation-bands", parent, "antenna"))
+                Seen.Note("radio.aviation-bands", parent, bands.Count + " bands", "antenna");
+            return bands;
+        }
+    }
+
     /// <summary>While selected, the map shows this antenna's coverage (Radio 0.2.0); the picture's own service does the work.</summary>
     public override void PostDrawExtraSelectionOverlays()
     {

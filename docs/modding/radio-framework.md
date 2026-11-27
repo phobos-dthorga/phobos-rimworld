@@ -9,7 +9,10 @@ resumed on 23 Nov 2026, after its pause from 9 Nov. **Not yet tested in game.**
 
 Everything is a Def:
 
-- `Phobos.Radio.BandDef` and `Phobos.Radio.ModeDef`: bands and modes.
+- `Phobos.Radio.BandDef` and `Phobos.Radio.ModeDef`: bands and modes. Since 0.49.0 a band may name an `upgradeFigure`: a station
+  or antenna then has it only while one of its fitted upgrades sets that figure to 1 (the aviation bands, given by the aviation
+  transceiver and aviation antennas upgrades); a radio's built-in antenna works only its own Def's bands. Aircraft carry the
+  `PhobosRadio_FittingAviation` radio, and every powered vehicle shows a `PhobosVehicleSystem_Comms` system (with Vehicle Framework).
 - One `Phobos.Radio.RadioRulesDef`: the tuning values, including coverage's limits.
 - `Phobos.Radio.ChannelKindDef` (0.8.0): a kind of channel use, with a `label`, a `mode` and an `order` (lower is served first
   when channels are short), and `preempts` (0.9.0: when every station it reaches is full, it takes channels from the kinds

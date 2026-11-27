@@ -101,4 +101,44 @@
       <li><name>gainDbi</name><value>6</value></li>
     </figures>
   </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+  <!-- The aviation kit (Radio 0.49.0; the owner's card of 27 Nov 2026, "Add the aviation bands"; docs/development/vehicle-standard.md,
+       batch 1). A station hears aircraft only with both: the transceiver gives the desk or terminal the air band and military UHF, and
+       the mast's aviation antennas work them; a built-in whip never does. Costs and work authored. -->
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeAviationTransceiver</defName>
+    <label>aviation transceiver</label>
+    <description>A second set in the station for the aircraft bands: the civil air band and military UHF, by AM voice. With aviation antennas on a mast on its coax, the station can talk to aircraft. Its own built-in whip cannot work these bands.</description>
+    <buildings>
+      <li>PhobosRadio_BaseStation</li>
+      <li>PhobosRadio_RadioTerminal</li>
+    </buildings>
+    <costList>
+      <Steel>20</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <work>1200</work>
+    <constructionSkill>5</constructionSkill>
+    <researchPrerequisite>PhobosRadio_LocalRadio</researchPrerequisite>
+    <figures>
+      <li><name>aviationBands</name><value>1</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeAviationAntennas</defName>
+    <label>aviation antennas</label>
+    <description>Two more antennas bolted to the mast, one for the civil air band and one for military UHF. A station with an aviation transceiver on this mast's coax can talk to aircraft through them.</description>
+    <buildings>
+      <li>PhobosRadio_Mast</li>
+    </buildings>
+    <costList>
+      <Steel>25</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <work>800</work>
+    <constructionSkill>5</constructionSkill>
+    <figures>
+      <li><name>aviationBands</name><value>1</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
 </Defs>

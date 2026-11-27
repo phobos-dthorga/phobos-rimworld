@@ -21,4 +21,29 @@
     <highMHz>450</highMHz>
     <obstructionFactor>0.75</obstructionFactor>
   </Phobos.Radio.BandDef>
+
+  <!-- The aviation bands (Radio 0.49.0; the owner's card of 27 Nov 2026, "Add the aviation bands"; docs/development/vehicle-standard.md,
+       batch 1). Aircraft talk on them; a station needs the aviation transceiver upgrade, and an antenna that works them (the mast's
+       aviation antennas), before it can hear an aircraft. Edges: the civil air band 117.975 to 137 MHz, ICAO Annex 10 Volume V (as its
+       frequency handbook, Doc 9718, quotes it); military UHF 225 to 399.975 MHz, the range of the AN/ARC-164 airborne set (Wikipedia and
+       BAE Systems' data sheet). The obstruction factors are authored: VHF's for the air band, between VHF's and 70 cm's for military UHF. -->
+  <Phobos.Radio.BandDef>
+    <defName>PhobosRadio_Airband</defName>
+    <label>air band (VHF)</label>
+    <description>117.975 to 137 MHz. Aircraft talk to the ground and each other here, by AM voice. A station needs an aviation transceiver and aviation antennas to join in.</description>
+    <lowMHz>117.975</lowMHz>
+    <highMHz>137</highMHz>
+    <obstructionFactor>1.0</obstructionFactor>
+    <upgradeFigure>aviationBands</upgradeFigure>
+  </Phobos.Radio.BandDef>
+
+  <Phobos.Radio.BandDef>
+    <defName>PhobosRadio_MilitaryUHF</defName>
+    <label>military UHF</label>
+    <description>225 to 400 MHz. Military aircraft talk here, by AM voice. A station needs an aviation transceiver and aviation antennas to join in.</description>
+    <lowMHz>225</lowMHz>
+    <highMHz>399.975</highMHz>
+    <obstructionFactor>0.85</obstructionFactor>
+    <upgradeFigure>aviationBands</upgradeFigure>
+  </Phobos.Radio.BandDef>
 </Defs>

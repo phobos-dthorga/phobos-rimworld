@@ -571,6 +571,12 @@
         </add>
       </li>
     </partRoles>
+    <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS3; the owner's card of 27 Nov 2026: military vehicles come with a
+         radio): an armed land vehicle, or one whose loadout is rated military, leaves the factory with the dual-band voice radio in its
+         voice radio bay, when the Radio Framework is installed. Civilian vehicles keep it as a fitting. -->
+    <factoryFittingsMilitary>
+      <li MayRequire="PhobosDthorga.RadioFramework">PhobosFitting_DualBandRadio</li>
+    </factoryFittingsMilitary>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutLandLight" ParentName="PhobosVehicleLoadoutLandBase">
@@ -1449,6 +1455,56 @@
         </when>
       </li>
     </loads>
+    <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS2 and VS3; the owner's card of 27 Nov 2026): a boat's radio bays, as
+         every land vehicle's, and a voice radio from the factory (the dual-band set, standing in for a marine VHF set: our bands, not the
+         marine band, a labelled simplification). Added to the combustion base's part roles. -->
+    <partRoles>
+      <li>
+        <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS2): as on every land vehicle. -->
+        <role>VoiceRadioMount</role>
+        <add>
+          <key>PhobosVoiceRadioMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>voice radio bay</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS2): as on every land vehicle. -->
+        <role>RepeaterMount</role>
+        <add>
+          <key>PhobosRepeaterMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>repeater bay</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS2, VS4): ships kept their keys longest. -->
+        <role>MorseKeyMount</role>
+        <add>
+          <key>PhobosMorseKeyMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>Morse key bay</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+    </partRoles>
+    <factoryFittings>
+      <li MayRequire="PhobosDthorga.RadioFramework">PhobosFitting_DualBandRadio</li>
+    </factoryFittings>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
   <!--
@@ -1714,6 +1770,48 @@
           </li>
         </find>
       </li>
+      <li>
+        <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS2; the owner's card of 27 Nov 2026: aircraft come with a radio): the bay for the Radio Framework's aviation radio, appended to every aircraft so the radio has a part to go on and is lost with it. Health and hit weight authored, as the land base's radio bays. -->
+        <role>AviationRadioMount</role>
+        <add>
+          <key>PhobosAviationRadioMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>aviation radio bay</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS2): a second bay for a ground-band set (the dual-band radio), so an aircraft can carry one for the people it flies to; as on every land vehicle. -->
+        <role>VoiceRadioMount</role>
+        <add>
+          <key>PhobosVoiceRadioMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>voice radio bay</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS2): the repeater kit's bay, as on every land vehicle, for an aircraft that passes calls on. -->
+        <role>RepeaterMount</role>
+        <add>
+          <key>PhobosRepeaterMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>repeater bay</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
     </partRoles>
     <loads>
       <li>
@@ -1847,6 +1945,11 @@
            drive on aircraft. Rocket pods and bombs hang fixed on pylons, and a nose or chin gun runs off the aircraft's own generators,
            which turn whenever its engines do; nobody cranks a helicopter's gun by hand. The 0.115.0 load is gone from here. -->
     </loads>
+    <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS3; the owner's card of 27 Nov 2026): every aircraft leaves the factory
+         with the aviation radio in its aviation radio bay, when the Radio Framework is installed. -->
+    <factoryFittings>
+      <li MayRequire="PhobosDthorga.RadioFramework">PhobosFitting_AviationRadio</li>
+    </factoryFittings>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
   <!--

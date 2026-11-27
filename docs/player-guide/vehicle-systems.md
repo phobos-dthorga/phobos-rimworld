@@ -55,6 +55,12 @@ on an aircraft in flight.
   burning or dead vehicle. Tick **Only what needs attention** to hide the rest. **The Systems tab is hidden in Plain display
   mode.**
 - **Rest the mouse on any reading or part** to learn what it means, what moves it, and what losing it costs.
+- **Comms** (with D'thorga Radio Framework): every vehicle with a battery has it on the Systems tab. **Radio** says whether a radio is
+  fitted and working; **link home** whether it is in touch with a radio station on the same map, faint, out of touch or **jammed**
+  (away from home's map, the convoy's own radio button says how it reaches home). The radios themselves sit in the **radio bays** on
+  the Fittings tab, and those bays are parts on the Health tab. **Aircraft, military vehicles and boats leave the factory with a
+  radio**: aircraft an **aviation radio**, military vehicles and boats a **dual-band radio**. Take one off like any fitting; it stays
+  off.
 
 ### The Logbook tab
 

@@ -772,6 +772,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         VehicleMotionFx.Register(this);
         // Aircraft service-life upgrades: a vehicle from an older save keeps what its loadout no longer starts with.
         if (Usable) Fittings.GiveOlderSaveFittings();
+        // Framework 0.356.0: what it left the factory with (a radio on aircraft, military vehicles and boats), once per fitting.
+        if (Usable) Fittings.GiveFactoryFittings();
         // Raiders arrive with the journey behind them (Framework 0.192.0, EM5): set once, on another faction's first spawn.
         if (!respawningAfterLoad) RaidFuel.SetOnArrival(this);
         powertrain?.ForgetGround();

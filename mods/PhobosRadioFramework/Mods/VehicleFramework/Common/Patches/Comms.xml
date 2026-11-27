@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The Comms system comes with the Electrical system (Radio 0.49.0; docs/development/vehicle-standard.md, VS1): every vehicle with a
+       battery shows it, whatever its loadout writes, through D'thorga Framework's comesWith (Framework 0.300.0). The Electrical system
+       writes no comesWith of its own, so the whole node is added (tests/test_patches_name_own_nodes.py holds patches to that). Loaded only
+       with Vehicle Framework and the radio. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleSystemDef[defName="PhobosVehicleSystem_Electrical"]</xpath>
+    <value>
+      <comesWith>
+        <li>PhobosVehicleSystem_Comms</li>
+      </comesWith>
+    </value>
+  </Operation>
+</Patch>

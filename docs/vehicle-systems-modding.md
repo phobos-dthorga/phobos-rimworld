@@ -93,6 +93,8 @@ Without `Inherit="False"` a list adds to the parent's; with it, it replaces it. 
 | `systems` | Each `def` (a system) with an optional `set` of parameter overrides, written as elements: `<set><batteryAmpHours>90</batteryAmpHours></set>`. |
 | `partRoles` | Each `role` with `find` rules and an optional `add`. `all` binds every match (wheels). |
 | `loads` | Electrical consumers: `name`, `label`, `description`, `amps`, `when` (a condition), `toggle` (the player gets a switch), `defaultOn`, `iconPath`. |
+| `factoryFittings` | (Framework 0.356.0) Fittings every vehicle of the loadout leaves the factory with: each given once, free, on the first free part it suits, to new vehicles and ones already in a save, and remembered by name so one the player takes off stays off. A child adds to its parent's list. Use `MayRequire` for another mod's fitting, as the aircraft loadout does for the Radio Framework's aviation radio. |
+| `factoryFittingsMilitary` | (Framework 0.356.0) The same, only for a vehicle that counts as military: armed, or a loadout whose `empHardening` is military. |
 
 ### Part roles
 
@@ -189,6 +191,7 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 | Input | Reads |
 | --- | --- |
 | `Input_Constant` | `value` |
+| `Input_Comms` | (Framework 0.356.0) the vehicle's radios through `VehicleComms`, which a radio mod answers: `reading` `Radio` (0 none, 1 fitted but dead, 2 working) or `Link` (0 no radio, 1 jammed, 2 out of touch, 3 faint, 4 in touch, 5 away from the map). With no radio mod, 0. The Radio Framework's Comms system uses it |
 | `Input_Parameter` | a `parameter` of the system |
 | `Input_Ambient` | the temperature around the vehicle, °C (its room on a map, the weather on the world map) |
 | `Input_EngineRunning` | `running` (1) or `off` (0): drafted, or moving in a caravan, or flying, with fuel |

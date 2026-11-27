@@ -960,6 +960,15 @@ public class PhobosVehicleLoadoutDef : Def
     /// upgrades: a Harrier built with a night sight and radar keeps them when the Harrier starts as its day-attack version). A vehicle made
     /// afterwards, the player's or another faction's, is given none.</summary>
     public List<PhobosVehicleFittingDef> fittedOnOlderSaves = new();
+    /// <summary>
+    /// Fittings every vehicle of this loadout leaves the factory with (Framework 0.356.0; docs/development/vehicle-standard.md, VS3; the
+    /// owner's card of 27 Nov 2026: aircraft, military vehicles and boats come with a radio). Each is given once, free, on the first free
+    /// part it suits, to a new vehicle and to one already in a save alike, and remembered by name, so one the player takes off stays off.
+    /// A child loadout adds to its parent's list. Any faction's vehicles.
+    /// </summary>
+    public List<PhobosVehicleFittingDef> factoryFittings = new();
+    /// <summary>The same, for a vehicle that counts as military: armed, or a loadout rated military against EMP (as EMP hardening decides).</summary>
+    public List<PhobosVehicleFittingDef> factoryFittingsMilitary = new();
     /// <summary>This aircraft's own cruising figures (Framework 0.141.0), in place of its flight profile's; null to use the profile's.</summary>
     public CruiseSpec? cruise;
 

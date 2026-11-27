@@ -43,6 +43,8 @@ public static class VehicleRadios
     {
         CarriedRadios.Register(new VehicleRadioRule());
         RemoteControl.Register(new RadioRemoteControl());
+        // Radio 0.49.0 (docs/development/vehicle-standard.md, VS1): the Comms system's readings on every powered vehicle.
+        VehicleComms.Register(new RadioComms());
         // Radio 0.21.0 (EM33): a convoy's reach home on the world map, asked by D'thorga Framework.
         ConvoyRadio.Register(new ConvoyReachSource());
         // Radio 0.22.0: halted convoys and vehicles parked at depots relay calls on.
@@ -61,11 +63,15 @@ public static class VehicleRadios
         // Radio 0.14.0: the cover map for vehicles driven from afar works a little each tick, through the net's own tick.
         RadioNet.Ticked += RemoteCoverMap.Tick;
         var kitRadio = DefDatabase<RadioFittingDef>.GetNamedSilentFail(KitRadioName)?.radio;
+        var aviationRadio = DefDatabase<RadioFittingDef>.GetNamedSilentFail(AviationRadioName)?.radio;
         foreach (var def in DefDatabase<VehicleDef>.AllDefsListForReading)
         {
-            // A design that names a fitting (our trucks), or one with a loadout of ours, which can take the kit fitting (Radio 0.15.0).
+            // A design that names a fitting (our trucks), or one with a loadout of ours, which can take the kit fitting (Radio 0.15.0). Since
+            // Radio 0.49.0 an aircraft with a loadout of ours carries the aviation radio instead: it has no remote control kit bay.
+            bool ours = def.comps.Exists(comp => comp is CompProperties_PhobosVehicleSystems);
+            bool aircraft = def.GetCompProperties<CompProperties_VehicleLauncher>() != null;
             var radio = def.GetModExtension<VehicleRadioFitting>()?.fitting?.radio
-                        ?? (def.comps.Exists(comp => comp is CompProperties_PhobosVehicleSystems) ? kitRadio : null);
+                        ?? (ours ? (aircraft ? aviationRadio ?? kitRadio : kitRadio) : null);
             if (radio == null) continue;
             if (!def.comps.Exists(comp => comp is CompProperties_Radio)) def.comps.Add(radio);
             if (!def.comps.Exists(comp => comp is CompProperties_PhobosRemoteControl)) def.comps.Add(new CompProperties_PhobosRemoteControl());
@@ -87,6 +93,20 @@ public static class VehicleRadios
 
     /// <summary>The vehicle control radio, which the kit puts in place.</summary>
     public const string KitRadioName = "PhobosRadio_FittingVehicleControl";
+    /// <summary>The aviation radio every aircraft carries (Radio 0.49.0), its fitting's grant and its load (AviationRadio.xml).</summary>
+    public const string AviationRadioName = "PhobosRadio_FittingAviation";
+    public const string AviationGrant = "AviationRadio";
+    public const string AviationLoad = "aviationRadio";
+
+    /// <summary>Whether this aircraft's aviation radio is fitted and powered (Radio 0.49.0).</summary>
+    public static bool AviationFitted(VehiclePawn vehicle) =>
+        vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(AviationGrant) && systems.LoadActive(AviationLoad);
+
+    /// <summary>
+    /// Whether the vehicle's own radio is on the net (Radio 0.49.0): the remote control kit's radio, or an aircraft's aviation radio. On the
+    /// net it stands by, its links worked out and shown on its Comms system; only the kit's radio can be driven from a station.
+    /// </summary>
+    public static bool OnNet(VehiclePawn vehicle) => Fitted(vehicle) || AviationFitted(vehicle);
     /// <summary>What the remote control kit fitting grants, and the electrical load that powers it (Radio 0.15.0; RemoteControlKit.xml).</summary>
     public const string KitGrant = "RemoteControl";
     public const string KitLoad = "remoteKit";
@@ -170,6 +190,50 @@ public static class VehicleRadios
 }
 
 /// <summary>
+/// The Comms system's answers (Radio 0.49.0; docs/development/vehicle-standard.md, VS1): whether a vehicle carries a working radio (the
+/// remote control kit's, the dual-band radio, an aircraft's aviation radio) and how its own radio's best link to a station on its map stands,
+/// from the net's last pass. Away from a map it says so: a convoy's own radio button tells how it reaches home. Cost: a few fitting lookups and
+/// one dictionary lookup each time the systems step, on their own rare schedule.
+/// </summary>
+public sealed class RadioComms : IVehicleCommsSource
+{
+    private static readonly (string grant, string load)[] Radios =
+    {
+        (VehicleRadios.KitGrant, VehicleRadios.KitLoad),
+        (CrossBand.Grant, CrossBand.Load),
+        (VehicleRadios.AviationGrant, VehicleRadios.AviationLoad),
+    };
+
+    public CommsRadio RadioOf(VehiclePawn vehicle)
+    {
+        if (vehicle.GetComp<CompPhobosVehicleSystems>() is not { } systems) return CommsRadio.None;
+        var carried = false;
+        foreach (var (grant, load) in Radios)
+        {
+            if (systems.Fittings.Grants(grant) && systems.LoadActive(load)) return CommsRadio.Working;
+            carried |= systems.Fittings.Carries(grant);
+        }
+        return carried || VehicleRadios.Fitted(vehicle) ? CommsRadio.Dead : CommsRadio.None;
+    }
+
+    public CommsLink LinkOf(VehiclePawn vehicle)
+    {
+        if (RadioOf(vehicle) != CommsRadio.Working) return CommsLink.NoRadio;
+        if (!vehicle.Spawned) return CommsLink.Away;
+        if (vehicle.Faction != RimWorld.Faction.OfPlayer) return CommsLink.OutOfTouch;
+        var net = RadioNet.For(vehicle.Map);
+        if (!net.TryGetBest(vehicle, out var link) || link == null) return CommsLink.OutOfTouch;
+        var reading = !link.InTouch && link.JammingLimits ? CommsLink.Jammed
+            : link.Outcome == Phobos.Radio.Physics.LinkOutcome.Marginal ? CommsLink.Faint
+            : link.InTouch ? CommsLink.InTouch : CommsLink.OutOfTouch;
+        // Seen in play (Radio 0.49.0, row 711): an aircraft's aviation radio in touch with a station.
+        if (reading == CommsLink.InTouch && VehicleRadios.AviationFitted(vehicle) && Seen.Wants("radio.aviation-link", vehicle))
+            Seen.Note("radio.aviation-link", vehicle, link.Band.label);
+        return reading;
+    }
+}
+
+/// <summary>
 /// What a vehicle's radio does on the net. A fitted radio stands by (its links worked out and shown, no channel asked) until the player
 /// asks for the vehicle to be driven from a station; then it is in use, and asks a channel of its kind (Radio 0.11.0). A vehicle whose
 /// upgrade is not done is off the net.
@@ -179,7 +243,9 @@ public sealed class VehicleRadioRule : ICarriedRadioRule
     public CarriedRadioUse? UseOf(Pawn carrier, CompRadio radio)
     {
         if (carrier is not VehiclePawn vehicle) return null;
-        if (!VehicleRadios.Fitted(vehicle)) return CarriedRadioUse.Off;
+        // Radio 0.49.0: an aircraft's aviation radio is on the net too, standing by (it cannot be driven from a station).
+        if (!VehicleRadios.OnNet(vehicle)) return CarriedRadioUse.Off;
+        if (!VehicleRadios.Fitted(vehicle)) return CarriedRadioUse.StandingBy;
         if (!RemoteControl.Wanted(vehicle)) return CarriedRadioUse.StandingBy;
         // Driven drafted, it asks a picture too (Radio 0.15.0, step 6).
         return vehicle.GetComp<CompPhobosRemoteControl>() is { WantsPicture: true } ? CarriedRadioUse.InUseWithPicture : CarriedRadioUse.InUse;

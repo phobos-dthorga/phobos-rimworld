@@ -70,7 +70,7 @@ public class ITab_RadioWaterfall : ITab
         Text.Font = GameFont.Small;
         // Every band the station has (fault-read 25 Nov 2026, F7: it named the first only).
         Widgets.Label(new Rect(rect.x, rect.y, rect.width, 24f), "PhobosRadio_WaterfallTitle".Translate(
-            string.Join(", ", station.Props.bands.Select(band => band.LabelCap.ToString())).Named("BAND")));
+            string.Join(", ", station.Bands.Select(band => band.LabelCap.ToString())).Named("BAND")));
         var spectrum = new Rect(rect.x, rect.y + 26f, rect.width, SpectrumHeight);
         DrawSpectrum(spectrum);
         var fall = new Rect(rect.x, spectrum.yMax + 2f, rect.width, rect.height - SpectrumHeight - 26f - 64f);

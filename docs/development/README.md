@@ -49,6 +49,7 @@ research or design with nothing built; **living** means kept current by every ch
 
 ## Vehicles
 
+- [The vehicle standard](vehicle-standard.md) (27 Nov 2026): what each kind shows on Systems, Fittings and Health; VS1 to VS12. Partly built.
 ### Systems and health
 
 - [Vehicle systems](vehicle-systems-design.md) (8 Nov 2026): the schema-driven service for electrical, coolant, oil and more. Built.

@@ -74,6 +74,23 @@ public class CompRadio : ThingComp
     public CompProperties_Radio Props => (CompProperties_Radio)props;
     public ModeDef Mode => Props.mode!;
 
+    private readonly List<BandDef> bands = new();
+
+    /// <summary>
+    /// The bands this set works through an antenna on its coax: its own, and any its fitted upgrades add (Radio 0.49.0: the aviation
+    /// transceiver). Its built-in antenna works its own Def's bands only. Read when the net works its links out.
+    /// </summary>
+    public List<BandDef> Bands
+    {
+        get
+        {
+            RadioUpgrades.BandsOf(parent, Props.bands, bands);
+            if (bands.Count > Props.bands.Count && Seen.Wants("radio.aviation-bands", parent, "station"))
+                Seen.Note("radio.aviation-bands", parent, bands.Count + " bands", "station");
+            return bands;
+        }
+    }
+
     /// <summary>The kind this radio's use counts as in the channel ledger (Radio 0.8.0).</summary>
     public ChannelKindDef Kind => Props.channelKind ?? ChannelKindDef.LocalVoice;
 

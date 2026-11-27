@@ -12,6 +12,12 @@ public class BandDef : Def
     public float centreMHz;
     /// <summary>Scales the loss through walls and built roofs: below 1 copes better indoors (UHF), above 1 worse. Rock and natural roofs are not scaled.</summary>
     public float obstructionFactor = 1f;
+    /// <summary>
+    /// A band only an upgrade gives a station or an antenna (Radio 0.49.0; docs/development/vehicle-standard.md, batch 1): it has the band
+    /// while one of its fitted upgrades sets this figure to 1 or more. Empty for a band a radio or antenna names in its own Def. A radio's
+    /// built-in antenna works only its own Def's bands.
+    /// </summary>
+    public string? upgradeFigure;
 
     public override void PostLoad()
     {

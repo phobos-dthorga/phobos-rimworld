@@ -93,7 +93,9 @@ public sealed class RadioEndpoint
     {
         var feedline = path.Segments;
         var bands = new List<BandDef>();
-        foreach (var band in station.Props.bands) if (antenna.Props.bands.Contains(band)) bands.Add(band);
+        // Since Radio 0.49.0 each with the bands its upgrades add (the aviation transceiver and antennas).
+        var antennaBands = antenna.Bands;
+        foreach (var band in station.Bands) if (antennaBands.Contains(band)) bands.Add(band);
         // The antenna's own figures, or what its fitted upgrades set (Radio 0.4.0).
         return new RadioEndpoint(station.parent, antenna.parent.Position, station, bands,
             RadioUpgrades.Figure(antenna.parent, RadioUpgrades.HeightMetres, antenna.Props.heightMetres),

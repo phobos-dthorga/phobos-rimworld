@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.48.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.49.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -63,6 +63,10 @@ figures are here.
   way around, **your own included**; Morse and a radio close to its station hold out longest. **From 0.46.0, with The Dead Man's
   Switch**, it also stops an enemy base's reinforcement uplink and fire support uplink calling for help when the alarm trips
   ([the guide](../../docs/player-guide/radio.md#jamming)).
+- **Radios in every vehicle (0.49.0, with Vehicle Framework)**: a **Comms** system on every powered vehicle's Systems tab (radio fitted?
+  in touch?), radio bays on aircraft and boats, and radios from the factory: an **aviation radio** in every aircraft, a **dual-band radio**
+  in military vehicles and boats. Aircraft talk on the **air band and military UHF**: a station needs the **aviation transceiver** and a
+  mast's **aviation antennas** to hear them ([the guide](../../docs/player-guide/radio.md#talking-to-aircraft)).
 - **Advice by radio (0.23.0)**: a more skilled colonist in touch talks another through tending, an operation, a vehicle repair or
   trade talks, at home or from a convoy in reach: half the skill gap closed, a quarter on a marginal link, a little slower
   ([the guide](../../docs/player-guide/radio.md#advice-by-radio)). A **numbered medical chest** closes a sixth more for medicine.

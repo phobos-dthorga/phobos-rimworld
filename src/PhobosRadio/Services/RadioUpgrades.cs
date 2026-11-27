@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Phobos.Framework.Upgrades;
 using Verse;
 
@@ -24,6 +26,28 @@ public static class RadioUpgrades
     public const string Repeater = "repeater";
     /// <summary>The station has a Morse key (Radio 0.40.0): 1 with the upgrade.</summary>
     public const string MorseKey = "morseKey";
+
+    /// <summary>Every band an upgrade can give (Radio 0.49.0): those whose Def names an upgrade figure. Read once.</summary>
+    private static List<BandDef>? upgradeBands;
+
+    private static List<BandDef> UpgradeBands => upgradeBands ??=
+        DefDatabase<BandDef>.AllDefsListForReading.Where(band => !string.IsNullOrEmpty(band.upgradeFigure)).ToList();
+
+    /// <summary>
+    /// A building's own bands with those its fitted upgrades add (Radio 0.49.0), into <paramref name="into"/>: the aviation transceiver on a
+    /// station, the aviation antennas on a mast. Called when the net works its links out, about once a second; a building with no
+    /// upgrade comp adds nothing.
+    /// </summary>
+    public static void BandsOf(Thing building, List<BandDef> own, List<BandDef> into)
+    {
+        into.Clear();
+        into.AddRange(own);
+        if (UpgradeBands.Count == 0 || building.TryGetComp<CompPhobosBuildingUpgrades>() is not { } upgrades) return;
+        foreach (var band in UpgradeBands)
+        {
+            if (!into.Contains(band) && upgrades.Figure(band.upgradeFigure!, 0f) >= 1f) into.Add(band);
+        }
+    }
 
     /// <summary>A figure on a building: what its fitted upgrades set, else its own.</summary>
     public static float Figure(Thing thing, string name, float own) =>

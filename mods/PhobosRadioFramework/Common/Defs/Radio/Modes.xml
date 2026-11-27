@@ -45,6 +45,20 @@
     <transmitEfficiency>0.6</transmitEfficiency>
   </Phobos.Radio.ModeDef>
 
+  <!-- AM voice (Radio 0.49.0), the aviation bands' mode: double-sideband speech fits an 8.33 kHz channel (ICAO's narrowest), so 6 kHz of
+       receiver bandwidth (authored from it); airband receivers are rated at a 6 dB signal-plus-noise to noise ratio (manufacturers' data,
+       such as Sandel's VHF COM), and clear speech needs a little more, so 10 dB (authored). AM's amplifier must stay linear, so it wastes
+       more as heat (authored 0.4). -->
+  <Phobos.Radio.ModeDef>
+    <defName>PhobosRadio_VoiceAM</defName>
+    <label>AM voice</label>
+    <description>Speech by amplitude modulation, as aircraft use. Narrow, and readable about 10 dB above the noise (authored).</description>
+    <bandwidthHz>6000</bandwidthHz>
+    <requiredSnrDb>10</requiredSnrDb>
+    <dutyCycle>0.2</dutyCycle>
+    <transmitEfficiency>0.4</transmitEfficiency>
+  </Phobos.Radio.ModeDef>
+
   <Phobos.Radio.ModeDef>
     <defName>PhobosRadio_PictureVideo</defName>
     <label>picture</label>

@@ -23,4 +23,26 @@
       <engageSound>PhobosRadio_SquelchVehicle</engageSound>
     </radio>
   </Phobos.Radio.RadioFittingDef>
+  <!-- The aviation radio (Radio 0.49.0; docs/development/vehicle-standard.md, VS2 and VS3; the owner's cards of 27 Nov 2026: aircraft
+       come with a radio, on the real aviation bands). Every aircraft leaves the factory with one in its aviation radio bay. 10 W by AM on
+       the civil air band and military UHF: the AN/ARC-164's 10 W (Wikipedia, BAE Systems' data sheet); civil VHF sets give 10 to 16 W
+       (the KY 197A and KY 196A). Its blade antenna's height on the ground is authored. It stands by: its links are worked out and shown on
+       the Comms system, and it asks no channel. -->
+  <Phobos.Radio.RadioFittingDef>
+    <defName>PhobosRadio_FittingAviation</defName>
+    <label>aviation radio</label>
+    <description>An aircraft's radio for the air band and military UHF, by AM voice, with a blade antenna on the fuselage.</description>
+    <radio>
+      <bands>
+        <li>PhobosRadio_Airband</li>
+        <li>PhobosRadio_MilitaryUHF</li>
+      </bands>
+      <mode>PhobosRadio_VoiceAM</mode>
+      <transmitPowerWatts>10</transmitPowerWatts>
+      <noiseFigureDb>8</noiseFigureDb>
+      <antennaGainDbi>0</antennaGainDbi>
+      <antennaHeightMetres>2</antennaHeightMetres>
+      <engageSound>PhobosRadio_SquelchVehicle</engageSound>
+    </radio>
+  </Phobos.Radio.RadioFittingDef>
 </Defs>

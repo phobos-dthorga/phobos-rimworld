@@ -1,4 +1,31 @@
 {
  "schemaVersion": 1,
- "decisions": []
+ "decisions": [
+  {
+   "id": "boat-marine-band",
+   "question": "Boats now leave the factory with the dual-band radio (our 2 m and 70 cm bands), standing in for a marine VHF set. Should boats get the real marine VHF band instead, as aircraft got the aviation bands?",
+   "context": "Radio Framework 0.49.0, the vehicle standard's batch 1 (rows 710, 711). Real boats talk on marine VHF, 156 to 162 MHz. A new band would need a station upgrade and an antenna for it, as the aviation bands do; the dual-band set lets a boat talk to your stations as they are.",
+   "options": [
+    {
+     "id": "keep-dual-band",
+     "label": "Keep the dual-band set",
+     "detail": "As built: boats talk on our bands, labelled as a simplification; no new station kit."
+    },
+    {
+     "id": "marine-band",
+     "label": "Add the marine band",
+     "detail": "A marine VHF band and set for boats, and a station upgrade and mast antennas for it, as for aircraft."
+    },
+    {
+     "id": "both",
+     "label": "Both sets",
+     "detail": "A marine set from the factory, and the dual-band set still fittable for talking to hand-helds and convoys."
+    }
+   ],
+   "lean": "keep-dual-band",
+   "why": "Boats are few in the owner's game (a dinghy and a trawler) and the dual-band set already lets them talk home; the marine band is a fair later step if boats grow",
+   "from": "docs/development/vehicle-standard.md",
+   "asked": "2026-11-27"
+  }
+ ]
 }

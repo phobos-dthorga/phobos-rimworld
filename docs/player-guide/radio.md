@@ -36,6 +36,18 @@ Research **local radio** (after Microelectronics basics).
 | Mast antenna | Architect, D'thorga, Radio: 60 steel, 1 component | 10 m high, with a little gain. **Sees over walls** |
 | Remote gun turret | Architect, D'thorga, Radio: 120 steel, 6 components, 1 advanced component; after **remote turrets** | A .50 that **fires only while a colonist at a station watches it**: connect it to the station **with coax**, or put it **within radio reach** of one (it then needs its picture through the air, so walls and distance count). That colonist can aim it. **While enemies are about, a colonist with Remote operation takes the console.** It takes one of their two hands, after any vehicles they drive. Haulers feed its belt with steel (**with Combat Extended, colonists reload it with .50 BMG**); it needs power |
 
+## Talking to aircraft
+
+**Aircraft talk on their own bands**: the civil **air band** (118 to 137 MHz) and **military UHF** (225 to 400 MHz), by AM voice. Your
+hand-helds and a station's built-in whip cannot work them. To hear your aircraft:
+
+1. Fit the **aviation transceiver** upgrade to the radio desk or the radio terminal (its Upgrades button: 20 steel, 4 components).
+2. Fit **aviation antennas** to a **mast** on that station's coax (25 steel, 1 component).
+3. Every aircraft already has its **aviation radio**, fitted at the factory (10 W). Its **Comms** system on the Systems tab then reads
+   **in touch** while it is on the map within reach of that mast.
+
+A station with both shows the air band and military UHF on its Waterfall tab. **Jamming reaches these bands too.**
+
 ## How a contact is decided
 
 - **Distance**: doubling it costs 6 dB, a quarter of the power.

@@ -22,6 +22,22 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.356.0] - 2026-11-27 - Draft
+
+Fittings from the factory, and a seam for a Comms system
+
+### Added
+
+- **A vehicle can leave the factory with fittings** (the vehicle standard, 27 November 2026): its loadout lists them, and each is given
+  once, free, to new vehicles and to those already in a save, with a message; one the player takes off stays off. Aircraft and boats
+  gain radio bays. D'thorga Radio Framework 0.49.0 uses both, and adds a Comms system that reads a vehicle's radios through a new seam
+  here. Not yet tested in game: row 711.
+
+### Compatibility and limits
+
+- For modders: two new loadout lists, factoryFittings and factoryFittingsMilitary, and a new system input, Input_Comms. Safe with a
+  running save.
+
 ## [0.355.0] - 2026-11-27 - Draft
 
 The Busbar's jammer mast has a switch

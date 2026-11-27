@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The aviation radio fitting (Radio 0.49.0; docs/development/vehicle-standard.md, VS2 and VS3; the owner's cards of 27 Nov 2026: aircraft
+       come with a radio by default, on the real aviation bands). It goes in the aviation radio bay every aircraft has (D'thorga Framework's
+       Loadouts_Default.xml), and every aircraft leaves the factory with one fitted (its loadout's factoryFittings); a player may take it off
+       like any fitting. The radio itself is PhobosRadio_FittingAviation. Cost, load, weight, work and skill are the agent's proposals; it
+       borrows the repeater kit's picture until its own icon is drawn. Not yet tested in game. -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_AviationRadio</defName>
+    <iconPath>Phobos/Radio/Fittings/RepeaterKit</iconPath>
+    <label>aviation radio</label>
+    <description>The aircraft's radio for the air band and military UHF, by AM voice. With it, the aircraft is in touch with any station on the same map that has an aviation transceiver and aviation antennas on its mast; its Comms system says whether it is. It draws a little on the battery.</description>
+    <roles><li>AviationRadioMount</li></roles>
+    <materials><Steel>10</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
+    <kilograms>4</kilograms>
+    <work>1200</work>
+    <fittedSound>PhobosRadio_CoaxConnector</fittedSound>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>PhobosRadio_LocalRadio</researchPrerequisite>
+    <grants><li>AviationRadio</li></grants>
+    <loads>
+      <li>
+        <!-- Listening, and keyed now and then: about 2 A at 12 V on average (authored, as the dual-band radio), halved on a 28 V aircraft's
+             bus by the same rule. Shed early: an aircraft that loses it only falls out of touch. -->
+        <name>aviationRadio</name>
+        <label>aviation radio</label>
+        <description>The aviation radio. With power, the aircraft can be in touch with a station that works the aviation bands.</description>
+        <amps>2</amps>
+        <shedOrder>4</shedOrder>
+        <iconPath>Phobos/Radio/Fittings/RepeaterKit</iconPath>
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TwelveVoltShare" />
+        </ampsInputs>
+      </li>
+    </loads>
+    <feed>
+      <load>aviationRadio</load>
+    </feed>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>
