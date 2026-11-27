@@ -5,16 +5,19 @@ your own, with D'thorga Framework's vehicle systems (RimWorld 1.7). Everything i
 input, condition or effect. **Not yet tested in game**: the schema may change before the first public release, and this page will
 say so when it does.
 
-**What this page covers (17 Nov 2026):** it was first written for Framework 0.10.0 and describes D'thorga Framework as of 0.117
-(much built since is missing below; a reference generated from the code is planned); its
-inputs table was checked against that version's code and lists every input class. **Not yet covered here:** the avionics block on a loadout (since 0.119.0 it also takes `cruisesHigh` and an `airTrack` block with
+**What this page covers (28 Nov 2026):** it was first written for Framework 0.10.0, its sections describe the schema as of 0.117,
+and a check against 0.365.0 found every class it names still in the code. It is a tutorial, not the whole list: **144 of the
+vehicle systems' 247 XML-facing types have no section here** (23 inputs among them, so the inputs table below is no longer every
+input). **Every one is on the reference site's [XML types](https://phobos-dthorga.github.io/phobos-rimworld/xml-types.html)
+page**, with an example and every field's default, rebuilt from the code on every change. **Not yet covered here:** cabins,
+camps, field work, the remote control, the glass and spall rules, the avionics block on a loadout (since 0.119.0 it also takes `cruisesHigh` and an `airTrack` block with
 `speed`, `cruiseMetres`, `lowCruiseMetres` and `size`, how the aircraft looks to The Dead Man's Switch - Expedition's air defence; the
 figures are in `PhobosAirCombatRules`), weapon mounts and the knock-out rules
 (`PhobosKnockOutRules`), load-shedding order (`shedOrder`), fittings and their families, what a fitting needs to work (`FeedSpec`),
 the hitch, the sling, and some conditions and effects (`When_RanDry`, `When_PoorVisibility`, `When_InstrumentWorking`,
-`When_StatAbove`, `When_Winching`, `When_TankPumping`, `Effect_RefuseLaunch`, `Effect_FlightFuel`, `Effect_Sound` and others). Until
-then, the shipped Defs under `mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/` are the
-reference, and [the authors' override contract](development/vehicle-author-overrides.md) describes one of them. **Parts bills**
+`When_StatAbove`, `When_Winching`, `When_TankPumping`, `Effect_RefuseLaunch`, `Effect_FlightFuel`, `Effect_Sound` and others). Beside
+the site, the shipped Defs under `mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/` show them
+in use, and [the authors' override contract](development/vehicle-author-overrides.md) describes one of them. **Parts bills**
 (what a vehicle is built from, by role) are core Framework services, on [D'thorga Framework for modders](framework-modding.md#parts-bills).
 
 ## Read this first (gotchas)

@@ -6,8 +6,12 @@ every D'thorga mod shares (settings, logging, long jobs, rules Defs). **Vehicles
 design are in [the framework's design record](development/archive/phobos-framework.md). **Each other D'thorga mod has its own
 page** for modders: [mod by mod](modding/README.md).
 
-**Status (23 Nov 2026):** written for D'thorga Framework 0.117. Services added since are not on this page yet; a reference
-generated from the code is planned. **Partly tested in game:** the owner saw the gas layer and supplied
+**Status (28 Nov 2026):** checked against D'thorga Framework 0.365.0: every comp, Def and extension this page names is still in
+the code. This page explains the main services with worked examples; it is not the whole list. **Every class you can name in XML
+is on the reference site's [XML types](https://phobos-dthorga.github.io/phobos-rimworld/xml-types.html) page**, with an example
+and every field's default, rebuilt from the code on every change. 19 of the core's 37 XML-facing types have no section here yet,
+among them standby power, bulk goods, night lights, radiation bursts, held pawns, top-up machines and the setup wizard's pages.
+**Partly tested in game:** the owner saw the gas layer and supplied
 oxygen working through D'thorga Medical (5 November 2026). The health layer, protective-gear lines and parts bills are **not yet
 tested in game**. Names may still change before the first public release; this page will say so when they do.
 
