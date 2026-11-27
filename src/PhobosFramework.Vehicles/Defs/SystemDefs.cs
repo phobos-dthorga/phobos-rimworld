@@ -984,8 +984,25 @@ public class PhobosVehicleLoadoutDef : Def
     /// 2026: the C-17's hold, whose vehicles our engine model could not see). Read by name, never by reference (HeldMass).</summary>
     public List<string> heldMassComps = new();
     /// <summary>Each engine's place across the craft, Engine1 first, where the design's parts do not say (Framework 0.255.0: thrusters that
-    /// each cover the whole body). Empty: from where each engine's part sits, or one each side for a twin. Authored per craft.</summary>
+    /// each cover the whole body). Empty: from where each engine's part sits, or one each side for a twin. Authored per craft. One to each
+    /// engine role the loadout binds (Engine1 and on, or the one Engine): any other count is a config error, as the code would ignore the
+    /// list (the owner's card of 28 Nov 2026).</summary>
     public List<float> engineArms = new();
+
+    /// <summary>How many engine roles this loadout binds: its numbered ones (Engine1 and on), else the one Engine, as the drivetrain reads
+    /// them (Powertrain.EngineRolesOf, which reads what a design actually bound).</summary>
+    public int EngineRoleCount()
+    {
+        int numbered = 0;
+        foreach (PartRoleSpec role in partRoles)
+        {
+            for (int i = 1; i <= Powertrain.MaxEngines; i++)
+            {
+                if (role.role == "Engine" + i) numbered++;
+            }
+        }
+        return numbered > 0 ? numbered : 1;
+    }
     /// <summary>Breaks ties within a priority, higher winning: the tracked loadout beats the plain land ones.</summary>
     public int rank;
     /// <summary>The engine and drivetrain (drivetrain design), or an aircraft's engine (turbine design).</summary>
@@ -1078,6 +1095,9 @@ public class PhobosVehicleLoadoutDef : Def
             }
         }
         if (cruise != null) foreach (string error in cruise.ConfigErrors("the loadout")) yield return error;
+        // The owner's card of 28 Nov 2026: a list of the wrong length had been ignored without a word.
+        if (engineArms.Count > 0 && engineArms.Count != EngineRoleCount())
+            yield return "engineArms lists " + engineArms.Count + " places, but the loadout binds " + EngineRoleCount() + " engine roles; the list would be ignored";
         var loadNames = new HashSet<string>();
         foreach (ElectricalLoadSpec load in loads)
         {

@@ -230,6 +230,15 @@ worked example). An amplifier gains a wartime use.
 
 **Not a design.** It has no rows, no figures and no steps, by the owner's word.
 
+**The owner's wish, 28 Nov 2026: realistic aerial warfare of our own.** "Introducing a more realistic type of aerial warfare into the
+game with SAM sites, a properly simulated RADAR, etc. is something I kind of want to undertake myself anyway." So the scope grows from
+a radar model beside other mods' defences to **our own air defence**: SAM sites, the radar that finds and guides for them, and the
+aircraft they shoot at, on the radio's one physics. It is still a sketch: it gets its own record, with rows, figures and slices,
+when the owner asks for one. What it changes in the table below: "who would use it" gains our own SAM sites; the open question of how
+it sits beside DMS Expedition becomes how our model and Fortified Features Framework's air-defence network (where DMS Expedition's
+system has lived since that day) see each other's tracks. The air-defence record keeps the [watch on that
+network](air-defence-tie-ins.md#watch-when-the-tie-in-should-wait-for-fortified-features-framework-instead-28-nov-2026).
+
 | The sketch says | In short |
 | --- | --- |
 | What it would share with the radio | The same decibel sums, radio horizon, ground between tiles and noise floor; and jamming as noise, so burn-through close to a radar falls out of the sums |

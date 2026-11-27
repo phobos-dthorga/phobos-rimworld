@@ -21,6 +21,21 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.39.0] - 2026-11-28 - Draft
+
+The owner's second round of cards (28 November 2026)
+
+### Changed
+
+- **A mild case of radiation sickness eases off over its days as before**: only a case that was once worse ends early, once it has
+  eased back to mild.
+- **For modders: an acid burn that deepens by itself on another mod's condition can destroy its body part** if left untreated long
+  enough, as any wound that reaches a part's health does.
+
+### Save compatibility
+
+- Safe for saves: nothing saved changed. Not yet tested in game: row 759.
+
 ## [0.38.0] - 2026-11-28 - Draft
 
 What writing the modders' page found, decided by the owner's cards of 28 November 2026

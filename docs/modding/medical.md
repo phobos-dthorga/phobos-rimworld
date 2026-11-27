@@ -213,9 +213,13 @@ safety shower ([Safety showers](#safety-showers)). We patch it onto the game's `
   marked burns, ignoring armour. You don't need to add it for marked burns to deepen.
 - **On any other condition the comp deepens only that condition**, and only while it is an open, untended injury on a body part:
   `chemicalDeepenPerHourAtFull` times its severity (capped at 1, so in practice the full 2) is added to its severity once an in-game
-  hour, never past leaving its part 1 hit point, so it never takes a part off by itself. It stops once the burn is tended or scarred,
-  or with the player's acid setting off. On a condition that is not such an injury it does nothing. (Until the owner's card of 28 Nov
-  2026, it deepened every marked burn on the pawn from any condition.)
+  hour, but never more than its part has left. It stops once the burn is tended or scarred, or with the player's acid setting off. On
+  a condition that is not such an injury it does nothing. (Until the owner's card of 28 Nov 2026, it deepened every marked burn on the
+  pawn from any condition.)
+- **Left untreated, it can take the part**, as the game does when a wound reaches a part's health: once the part has no health left as
+  the game counts it, the part is lost (a fresh missing part, its wounds removed with it), by the same step the game takes when a wound
+  is added. The game's own limits hold: a part damage cannot destroy, or a wound that does not destroy parts, keeps 1 health, and on the
+  body's core it is the game's own checks that decide death.
 - Every open marked burn on an eye means an eyewash's water is enough; any elsewhere takes a shower's.
 
 
@@ -904,7 +908,7 @@ Its fields, in groups (defaults in brackets; every figure authored unless it nam
 
 | Group | Fields | What they do |
 | --- | --- | --- |
-| The course | `intervalTicks` (300), `recoveryPerDay` (0.05), `courseEndsBelow` (0.2), `smallestShown` (0.05) | A dosed person's course is worked out every `intervalTicks`; after its height the illness recedes by `recoveryPerDay` of its severity a day, and ends, with the course, once it falls below `courseEndsBelow` (an illness whose height is under it ends at its height; the dose condition stays, still repairing). The "radiation exposure" condition is hidden until the effective dose reaches `smallestShown` grays, then stays shown, as the game keeps any condition it has shown; every dose is recorded either way |
+| The course | `intervalTicks` (300), `recoveryPerDay` (0.05), `courseEndsBelow` (0.2), `smallestShown` (0.05) | A dosed person's course is worked out every `intervalTicks`; after its height the illness recedes by `recoveryPerDay` of its severity a day, and an illness that rose above `courseEndsBelow` ends, with the course, once it falls back below it; one whose height never rose above it eases off to nothing, as before (the dose condition stays, still repairing). The "radiation exposure" condition is hidden until the effective dose reaches `smallestShown` grays, then stays shown, as the game keeps any condition it has shown; every dose is recorded either way |
 | Care | `careTended` (0.35), `careInBed` (0.2), `careClean` (0.15), `careFluids` (0.15), `careImmunity` (0.15), `cleanRoomFrom` (0.6) | Care, 0 to 1, is the sum, capped at 1: the illness tended (times tend quality), in bed, in bed in a room at cleanliness `cleanRoomFrom` or better, on our fluids drip (`PhobosMedical_OnDrip`), and immunity gain speed above 1.05. Full care moves the dose that kills half by the harshness preset's figure |
 | Late effects | `solidCancerParts` (the shipped list: Lung, Stomach, Liver, Torso, Neck, Kidney), `cancerStartSeverity` (0.05) | Where a solid cancer from radiation forms: the first part on the list the person still has, starting from a place fixed by who they are; an empty list leaves no place, so none forms. A leukaemia or carcinoma starts at `cancerStartSeverity` |
 | Fallout dust | `dustPerGray` (1), `dustDosePerDay` (0.02), `dustToWash` (0.1), `breathedPerGray` (0.03), `swallowedPerDustDay` (0.01), `thyroidPerGray` (2), `insideHalfLifeDays` (80) | Dust per gray of fallout's dose outdoors, spread over clothes and bare skin; the dose a day from each unit carried; the level that wants washing; the dose from inside per gray breathed unmasked; the dose from inside per unit of skin dust a day (a mask doesn't stop it); the thyroid's dose per gray breathed without potassium iodide; and how long what is inside stays, an effective half-life in days (the Radiogardase label's untreated adults at Goiânia; see below) |

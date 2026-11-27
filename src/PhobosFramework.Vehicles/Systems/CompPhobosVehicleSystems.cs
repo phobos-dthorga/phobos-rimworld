@@ -788,6 +788,14 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     // ---- Lifecycle ----
 
+    /// <summary>A vehicle made now (never loaded): its loadout's fittings for older saves are recorded as given, as it was built with them
+    /// (the owner's card of 28 Nov 2026, "per-fitting record").</summary>
+    public override void PostPostMake()
+    {
+        base.PostPostMake();
+        if (Usable) Fittings.RecordOlderSaveFittingsGiven();
+    }
+
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         base.PostSpawnSetup(respawningAfterLoad);

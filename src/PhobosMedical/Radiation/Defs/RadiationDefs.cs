@@ -39,9 +39,9 @@ public class PhobosRadiationRulesDef : PhobosRulesDef
     public int intervalTicks = 300;
     /// <summary>How fast the illness recedes after its height, a share of its severity a day.</summary>
     public float recoveryPerDay = 0.05f;
-    /// <summary>Past its height, the illness ends, and with it the course, once its severity falls below this (the owner's card of 28 Nov
-    /// 2026, "wire them in": until then it was read by nothing and the illness ran down to nothing). The dose condition stays, still
-    /// repairing.</summary>
+    /// <summary>An illness that rose above this ends, and with it the course, once it falls back below it (the owner's cards of 28 Nov
+    /// 2026, "wire them in" and "ease off, then end": until then it was read by nothing). An illness that never rose above it eases off
+    /// to nothing, as before. The dose condition stays, still repairing.</summary>
     public float courseEndsBelow = 0.2f;
     /// <summary>Care, 0 to 1, as the sum of: tended (times tend quality), in bed, in a clean room, on fluids, on a medicine that speeds
     /// immunity.</summary>

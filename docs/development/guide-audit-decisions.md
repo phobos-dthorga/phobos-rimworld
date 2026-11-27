@@ -48,6 +48,26 @@ sounded (Medical 0.37.1).
 | **Medical faults** | Read from code, unconfirmed: the Dubs water feed draws water whenever its building is on and powered, even idle; the rise-then-fall comp on another mod's condition might set severity to 0 at its first check | **Chosen: check both, fix if real**, with a changelog entry, or report if not. Not chosen: leave them in this record only |
 | **Rare fields** | The vehicle systems guide names seven loadout fields with no rows (`cruise`, `engineOutYaw`, `engineArms`, `sideTanks`, `heldMassComps`, `cellsOfRemap`, `fittedOnOlderSaves`) and thin rows for `empHardening` and `intakeDebris` | **Chosen: write them now**. Not chosen: later |
 
+## The second round: what building the first round decided (28 Nov 2026)
+
+Choices the agents made while building the cards above, put to the owner once it was pushed.
+
+| Card | Found | Options (the owner's choice first) |
+| --- | --- | --- |
+| **Small doses** | With `courseEndsBelow` wired in, an illness whose height never rises above it (roughly under 0.7 to 1 Gy) rose to its height and vanished at once, instead of easing off over about four days | **Chosen: ease off, then end**: the line ends only an illness that was once worse than it; a small one eases off as before. Not chosen: vanish at its height (as first built); lower the line (say 0.1) |
+| **Reservoir draw** | "Drawing from it on any building" was built as topping up a building's own CompRefuelable that burns the reservoir's item; eating still needed the paste tap's class or C# | **Chosen: also let people eat from it**: any reservoir holding a meal-like item serves meals to colonists, on any building. Not chosen: keep as built (refuelling only) |
+| **Older saves** | `fittedOnOlderSaves` settles each vehicle once by one saved mark, which every vehicle saved since Framework 0.208.0 has, so an entry added now reaches almost none | **Chosen: a per-fitting record**, as `factoryFittings` keeps, so a new entry reaches every existing vehicle once. Not chosen: document it only; retire the field (kept readable) |
+| **engineArms** | A list whose length does not match the bound engine roles is ignored without a word | **Chosen: a config error naming the Def**, shipped loadouts checked first. Not chosen: leave it to the guide's warning |
+| **Own deepening** | Building "only its own burn", the agent chose: the burn's own severity rises (a fresh wound would carry the effect and double every hour), the body part is never taken (it stops at the last hit point), and it stops when tended or scarred | **Chosen: let it take the part**: a burn left untreated long enough may destroy the body part, as a real untreated chemical burn can; the rest as built. Not chosen: keep as built (stop at the last hit point) |
+
+Building "also let people eat from it" found that the game's food search counts a building as a food source only when its class is
+exactly the game's nutrient paste dispenser, so (read from code, not seen in play) colonists probably never ate from the Billy's
+paste tap, a subclass (test row 453 watches for it). The owner answered a further card:
+
+| Card | Found | Options (the owner's choice first) |
+| --- | --- | --- |
+| **Paste taps** | Eating from a reservoir needs a Harmony patch either way, and the shipped paste tap needs one too | **Chosen: one small patch**: a postfix on the game's food-source group test also counts subclasses of the dispenser, so the Billy's tap and any modder's building of our paste-tap class serve meals, in XML alone; it runs when a thing is registered, not on every food search. Not chosen: a meal set out on the doorstep with no patch (haulers carry it off, it rots, animals eat it); a full set of about eight patches so any class serves (fragile, one in a hot path); check in play first and build nothing yet |
+
 ## Smaller findings dealt with without a card (agent's choices, owner to revise)
 
 - The Radio's Architect Def comment said the Radio "does not need D'thorga Framework"; it has declared it since Radio 0.4.0. The comment

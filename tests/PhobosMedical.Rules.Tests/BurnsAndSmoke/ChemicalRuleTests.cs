@@ -29,11 +29,12 @@ public class ChemicalRuleTests
     }
 
     [Fact]
-    public void ABurnDeepeningItselfNeverTakesThePartOff()
+    public void ABurnDeepeningItselfMayTakeAllThePartHasLeftButNoMore()
     {
         Assert.Equal(2f, ChemicalRule.OwnDeepening(2f, 10f), 4);
-        Assert.Equal(1.5f, ChemicalRule.OwnDeepening(2f, 2.5f), 4);
-        Assert.Equal(0f, ChemicalRule.OwnDeepening(2f, 1f));
+        Assert.Equal(1f, ChemicalRule.OwnDeepening(2f, 1f), 4);
+        Assert.Equal(2f, ChemicalRule.OwnDeepening(2f, 2f), 4);
+        Assert.Equal(0f, ChemicalRule.OwnDeepening(2f, 0f));
         Assert.Equal(0f, ChemicalRule.OwnDeepening(0f, 10f));
     }
 

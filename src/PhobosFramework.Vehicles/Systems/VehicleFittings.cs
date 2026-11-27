@@ -134,8 +134,16 @@ public sealed class VehicleFittings
     List<GradedPart> graded = new();
     bool setRolled;
     /// <summary>Whether this vehicle has had its loadout's fittedOnOlderSaves, or never needed them: true for a vehicle made in this version,
-    /// false for one loaded from a save that has no entry for it.</summary>
+    /// false for one loaded from a save that has no entry for it. Since the per-fitting record below, read only to start that record for a
+    /// vehicle saved before it.</summary>
     bool olderSaveFitsSettled = true;
+    /// <summary>
+    /// The fittedOnOlderSaves this vehicle has been given, or needed none of, by Def name (the owner's card of 28 Nov 2026, "per-fitting
+    /// record"), as <see cref="factoryGiven"/> is: an entry a later version adds reaches every vehicle already made, once. Null until it is
+    /// started: a new vehicle starts it with the whole list as given (it was built with them), and one saved before the record starts it from
+    /// its settled mark (<see cref="GiveOlderSaveFittings"/>).
+    /// </summary>
+    List<string>? olderSaveGiven;
     /// <summary>The factory fittings this vehicle has been given, or found no room for, by Def name (Framework 0.356.0): each is given once.</summary>
     List<string> factoryGiven = new();
 
@@ -224,6 +232,8 @@ public sealed class VehicleFittings
         Scribe_Collections.Look(ref graded, "PhobosVehicleSystems_Grades", LookMode.Deep);
         Scribe_Values.Look(ref setRolled, "PhobosVehicleSystems_FitSetRolled", false);
         Scribe_Values.Look(ref olderSaveFitsSettled, "PhobosVehicleSystems_OlderSaveFitsSettled", false);
+        // Left null when the save has none: GiveOlderSaveFittings starts it from the settled mark.
+        Scribe_Collections.Look(ref olderSaveGiven, "PhobosVehicleSystems_OlderSaveGiven", LookMode.Value);
         Scribe_Collections.Look(ref factoryGiven, "PhobosVehicleSystems_FactoryGiven", LookMode.Value);
         factoryGiven ??= new List<string>();
         // A save from before fittings existed has no entry for them, and the loader then leaves the lists null, not empty. The
@@ -1618,20 +1628,45 @@ public sealed class VehicleFittings
     }
 
 
+    /// <summary>A vehicle made now was built with every fitting its loadout lists for older saves, so none is given to it: the whole list is
+    /// recorded as given. Called when the vehicle is made, and at its first spawn for one that missed that.</summary>
+    public void RecordOlderSaveFittingsGiven()
+    {
+        olderSaveGiven = new List<string>();
+        if (comp.Props.loadout?.fittedOnOlderSaves is { } list)
+        {
+            foreach (PhobosVehicleFittingDef def in list) if (def != null) olderSaveGiven.Add(def.defName);
+        }
+    }
+
     /// <summary>
     /// A vehicle from a save made before its loadout began without some fittings is given them once, free, on the first part each suits, so
     /// it keeps what it had (aircraft service-life upgrades). Says so to the player for their own vehicles. Runs at spawn and changes only
     /// this vehicle's list of fittings: nothing is spawned.
+    /// <para>Remembered per fitting by name (the owner's card of 28 Nov 2026), as the factory fittings are, whether it fitted or found no
+    /// room, so an entry a later version adds reaches every vehicle already made, once; a vehicle with no bay for an entry is not marked, so it
+    /// comes once a bay is added. A vehicle saved before the record whose settled mark is set counts the entries listed now as given: it had
+    /// what it was owed then. One never settled (saved before the list existed) gets every entry, as before.</para>
     /// </summary>
     public void GiveOlderSaveFittings()
     {
-        if (olderSaveFitsSettled) return;
+        if (olderSaveGiven == null)
+        {
+            if (olderSaveFitsSettled)
+            {
+                RecordOlderSaveFittingsGiven();
+                return;
+            }
+            olderSaveGiven = new List<string>();
+        }
         olderSaveFitsSettled = true;
         if (comp.Props.loadout?.fittedOnOlderSaves is not { Count: > 0 } list) return;
         var given = new List<string>();
         foreach (PhobosVehicleFittingDef def in list)
         {
-            if (def == null || Has(def)) continue;
+            if (def == null || olderSaveGiven.Contains(def.defName) || !def.roles.Any(comp.Props.roleKeys.ContainsKey)) continue;
+            olderSaveGiven.Add(def.defName);
+            if (Has(def)) continue;
             string? key = def.roles.Where(comp.Props.roleKeys.ContainsKey).SelectMany(role => comp.Props.roleKeys[role]).FirstOrDefault(k => FittedOn(k) == null);
             if (key == null) continue;
             fitted.Add(new FittedPart { partKey = key, def = def });

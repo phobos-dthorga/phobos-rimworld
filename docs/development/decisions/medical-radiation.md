@@ -68,6 +68,7 @@ log](health-layer.md); the radiation control line's own rows are in the [gases a
 | 22 Nov | Strike letter lists each person's dose in words and grays | agent choice | Triage starts with a list | [nk], As built (22 Nov 2026) |
 | 24 Nov | After a course, only fresh doses reaching 0.7 Gy start another | owner's card | Slow repair restarted it forever | [Medical 0.26.1 changelog][m261] |
 | 28 Nov | The illness ends below `courseEndsBelow`; the dose shows from `smallestShown` (both read at last) | owner's card | Fields nobody read | [the guide audit's cards][ga] |
+| 28 Nov | `courseEndsBelow` ends only an illness that rose above it; a milder one eases off to nothing | owner's card ("ease off, then end") | A mild illness vanished at its height | the owner's card, round two |
 | 28 Nov | Caesium 80 days in the body, 26 on Prussian blue, from one Goiânia table; overturns the 110 days of 22 Nov | owner's card | Two baselines mixed | [the guide audit's cards][ga], [the Radiogardase label][rg] |
 
 [rm]: ../archive/radiation-model.md

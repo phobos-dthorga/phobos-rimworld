@@ -22,6 +22,30 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.372.0] - 2026-11-28 - Draft
+
+The paste tap feeds colonists, and the owner's second round of cards (28 November 2026)
+
+### Fixed
+
+- **Colonists, prisoners and patients take paste meals from the Billy's paste tap**: the game's own food search had never offered
+  it, as it counts only the game's own dispenser. Needs Vanilla Nutrient Paste Expanded for the Billy's paste kitchen, as before.
+
+### Changed
+
+- **A vehicle remembers one by one which of its loadout's fittings for older saves it has had**, as it does its factory fittings, so a
+  fitting added to that list later reaches every vehicle already made, once. Vehicles in existing saves are not given again what they
+  had.
+- For modders: any building of the paste tap's class, with a power comp and an interaction cell, is offered to the game's food search
+  and serves meals from its reservoir. An engineArms list whose length does not match the loadout's engine roles is a config error
+  naming the loadout, and a design on which an engine role finds no part is named in the log.
+
+### Save compatibility
+
+- Safe for saves: each vehicle now saves which fittings for older saves it has had; a vehicle in an existing save counts the ones listed
+  today as had.
+- Not yet tested in game: rows 760 and 761.
+
 ## [0.371.1] - 2026-11-28 - Draft
 
 ### Fixed

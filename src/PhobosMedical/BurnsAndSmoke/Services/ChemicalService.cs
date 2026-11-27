@@ -79,16 +79,37 @@ public static class ChemicalService
     }
 
     /// <summary>
-    /// A chemical-deepening comp on a condition other than our acid on the skin (the owner's card of 28 Nov 2026): deepens that burn
-    /// alone, by raising its own severity rather than through a fresh hit, so nothing else on the person is touched and no new wound
-    /// carrying the comp is made. Stops short of taking the part off, and does nothing with the player's acid setting off.
+    /// A chemical-deepening comp on a condition other than our acid on the skin (the owner's cards of 28 Nov 2026, "only its own burn"
+    /// and "let it take the part"): deepens that burn alone, by raising its own severity rather than through a fresh hit, so nothing else
+    /// on the person is touched and no new wound carrying the comp is made. It may grow by all its part has left, and no more, so the
+    /// damage is counted once. Does nothing with the player's acid setting off.
     /// </summary>
     public static void DeepenOwn(Hediff burn, float damage)
     {
         Pawn pawn = burn.pawn;
-        if (!BurnsAndSmokeMod.Settings.chemicalBurns || pawn == null || pawn.Dead || burn.Part == null) return;
-        float grow = ChemicalRule.OwnDeepening(damage, pawn.health.hediffSet.GetPartHealth(burn.Part));
-        if (grow > 0f) burn.Severity += grow;
+        BodyPartRecord? part = burn.Part;
+        if (!BurnsAndSmokeMod.Settings.chemicalBurns || pawn == null || pawn.Dead || part == null) return;
+        HediffSet set = pawn.health.hediffSet;
+        if (set.PartIsMissing(part)) return;
+        float grow = ChemicalRule.OwnDeepening(damage, set.GetPartHealth(part));
+        if (grow <= 0f) return;
+        burn.Severity += grow;
+        // The game takes a part only when a wound is added (HediffSet.AddDirect), never when one grows, so the same step follows here,
+        // as AddDirect does it: a part other than the body's core with no health left as the game counts it (GetPartHealth keeps its own
+        // exceptions: a part damage cannot destroy, a wound that does not destroy parts) is lost, and the wounds on it go with it.
+        if (part != pawn.RaceProps.body.corePart && set.GetPartHealth(part) == 0f)
+        {
+            bool replaced = set.HasDirectlyAddedPartFor(part);
+            var missing = (Hediff_MissingPart)HediffMaker.MakeHediff(HediffDefOf.MissingBodyPart, pawn);
+            missing.IsFresh = !replaced;
+            missing.lastInjury = replaced ? null : burn.def;
+            pawn.health.AddHediff(missing, part);
+        }
+        else
+        {
+            // Whatever the wound's growth changes (the body's core, bleeding, a lethal total) is checked as for any changed condition.
+            pawn.health.Notify_HediffChanged(burn);
+        }
     }
 
     /// <summary>The acid is washed off: it stops burning, and the cool water eases the pain for a few hours.</summary>

@@ -1205,10 +1205,14 @@ it while it stands within the tank's hose reach, carrying what the load was made
 - **It fills only from a load whose contents Def lists the reservoir port**: `<li Class="Phobos.VehicleSystems.Port_Reservoirs" />` in
   the `PhobosTankContentsDef`'s `ports` (see [Bulk tanks](vehicle-systems-modding.md#bulk-tanks)). A tank pumps into the nearest
   reservoir with room that belongs to the tank's own faction.
-- **What draws on it**: the Framework's `Phobos.VehicleSystems.Building_PhobosPasteTap` serves paste meals from it; any building whose
-  own `CompRefuelable` burns the load's item (its contents' `Port_Items` thing) is topped up from it at each rare tick, in whole items,
-  while the player has its refuelling on; a caravan eats from a packed paste tap. Anything else calls `Take`, `TakeMeal` or `MealOf`
-  from C#.
+- **What draws on it**: a building whose `thingClass` is `Phobos.VehicleSystems.Building_PhobosPasteTap` serves meals from it as the
+  game's paste dispenser does, to hungry colonists, prisoners and patients alike: one unit a meal, of the dispenser's meal (the game's
+  paste meal), carrying what the load was made from, so give it a paste load. It needs no hoppers and no power, but **it must carry a
+  `CompProperties_Power` with `compClass` `CompPowerTrader` (0 W; the tap keeps it on) and an interaction cell**: the game's food search
+  reads both, and the Framework offers a dispenser of another class than the game's own to that search only when it has them. Any
+  building whose own `CompRefuelable` burns the load's item (its contents' `Port_Items` thing) is topped up from it at each rare tick, in
+  whole items, while the player has its refuelling on; a caravan eats from a packed paste tap. Anything else calls `Take`, `TakeMeal` or
+  `MealOf` from C#.
 - **`node`, `capacityWithNode` and `PhobosNodeGraphicExtension` work only on a set-out piece**: the node is an upgrade of the trailer
   that set the piece out, or holds it packed.
 - **It fills from a pipe line** through a `Port_PipeNet` on the same contents Def (needs Vanilla Expanded Framework): a set-out piece
@@ -1224,7 +1228,20 @@ From the Billy's paste tap (`mods/PhobosVehicles/Mods/VanillaNutrientPasteExpand
   <defName>Phobos_BillyPasteTap</defName>
   <thingClass>Phobos.VehicleSystems.Building_PhobosPasteTap</thingClass>
   <tickerType>Rare</tickerType>
+  <hasInteractionCell>true</hasInteractionCell>
+  <interactionCellOffset>(0, 0, -1)</interactionCellOffset>
+  <building>
+    <isMealSource>true</isMealSource>
+    <nutritionCostPerDispense>0.3</nutritionCostPerDispense>
+    <soundDispense>DispensePaste</soundDispense>
+  </building>
   <comps>
+    <!-- Hand-pumped: a power comp of no draw, which the tap keeps on, because the game's food search reads one. -->
+    <li Class="CompProperties_Power">
+      <compClass>CompPowerTrader</compClass>
+      <basePowerConsumption>0</basePowerConsumption>
+      <transmitsPower>false</transmitsPower>
+    </li>
     <li Class="Phobos.VehicleSystems.CompProperties_PhobosReservoir">
       <contents>PhobosTank_NutrientPaste</contents>
       <capacity>150</capacity>

@@ -3,7 +3,8 @@
 **Status (17 Nov 2026):** built in D'thorga Patches 0.19.1: AD14 (InterRim Ballistic Missile's close-in weapon systems shoot down
 Combat Extended's shells, a temporary patch); built in D'thorga Framework 0.119.0 with Vehicles 0.58.0 and Patches 0.21.0: AD3 and AD2 (the
 aircraft batch, with avionics A12, A14 and A16), AD7 and the launch warning; not built: AD1, AD4 to AD6 and AD8 to AD13. Not yet tested in
-game. Also read on 17 Nov 2026, with no change to the mods: how VTOL Raids brings its aircraft, and the heat seeker's rule for AD5.
+game. **28 Nov 2026:** the tie-in follows DMS Expedition's air-defence code into Fortified Features Framework (Framework 0.371.1), with
+[a watch](#watch-when-the-tie-in-should-wait-for-fortified-features-framework-instead-28-nov-2026) on when its load folder should follow. Also read on 17 Nov 2026, with no change to the mods: how VTOL Raids brings its aircraft, and the heat seeker's rule for AD5.
 
 How flight works now: [systems/flight.md](systems/flight.md); this record keeps its history.
 
@@ -269,8 +270,33 @@ word, 17 Nov 2026: "let's do the aircraft batch", and the card answers below.
   are automatic on the world map, plus a Harrier button on a map; hypoxia is a short-lived condition of our own; A12, the launch warning and
   AD7 join the batch.
 
+## Watch: when the tie-in should wait for Fortified Features Framework instead (28 Nov 2026)
+
+**Nothing to do yet; a thing to look out for.** Since DMS Expedition's update of 28 Nov 2026 the air-defence system (tracks, radars,
+interceptors, the world air-defence network) lives in Fortified Features Framework, not in DMS Expedition (the "Moved, 28 Nov 2026" note under
+[What each mod has](#what-each-mod-has)). The tie-in's load folder still waits for Vehicle Framework and DMS Expedition. That is right today: on the
+owner's install of 28 Nov 2026, the only mod whose XML fields air defences on FFF (its fire-control radar, missile launcher,
+interceptor and shoulder-launched SAM comps) is DMS Expedition itself; FFF holds only templates.
+
+**What would change it**, any one of:
+
+- a mod the owner adds that puts radars or SAM sites on FFF without DMS Expedition (watch "Expedition: Early Warfare", DMS's spin-off
+  of 27 Nov 2026 with the early-era radars, Flak 43 and the V1; not installed, and probably needing DMS Expedition anyway);
+- DMS Legion or another Aoba mod moving its defences onto FFF's network;
+- FFF shipping air defences of its own;
+- our own SAM sites and radar (the owner's wish of 28 Nov 2026, in [electronic-warfare.md](electronic-warfare.md#a-detailed-radar-simulation-a-sketch-several-slices-away)),
+  if they are to show up on FFF's network as well as in our own model.
+
+**The change then:** the two `Mods/VehiclesDmse` lines in D'thorga Framework's `LoadFolders.xml` wait for Vehicle Framework and
+`AOBA.Framework` instead of DMS Expedition; the launch prompt (`InterceptRiskUtility`) and the closed-sky rule
+(`MapComponent_AlertCounter`) are both in FFF now, but check each still means something without DMS Expedition's sites; and the
+tie-in register's row moves with it. How to check: `python scripts/assembly-archive.py compare Fortified.dll` after an FFF update,
+and search the Workshop folder's XML for `Fortified.CompProperties_FireControlRadar` and its sister comps.
+
 ## Who chose what
 
+- **Owner (28 Nov 2026)**: the watch above, rather than widening the load folder now (asked whether to expand on it yet, and agreed to
+  a note).
 - **Owner (13 Nov 2026)**: IRBM and DMS in scope "for their anti-air, RADAR, FCS"; record only; scaling other authors' figures through
   small hooks allowed (from the avionics record).
 - **Agent choices**: the AD rows and their verdicts; reading DMS Expedition's plug-in interface as the way in rather than Harmony where

@@ -11,8 +11,9 @@
     <intervalTicks>300</intervalTicks>
     <!-- After its height, the illness recedes by 5 % of its severity a day. -->
     <recoveryPerDay>0.05</recoveryPerDay>
-    <!-- Past its height, the illness (and the course) ends once its severity falls below 0.2, about four days sooner than running down
-         to nothing; a milder illness ends at its height. The dose condition stays, still repairing. Authored. -->
+    <!-- An illness that rose above 0.2 ends (and the course with it) once it falls back below 0.2, about four days sooner than running
+         down to nothing; a milder illness, never above 0.2, eases off to nothing as before. The dose condition stays, still repairing.
+         Authored. -->
     <courseEndsBelow>0.2</courseEndsBelow>
     <!-- Care, 0 to 1: tended (times tend quality) 0.35, in bed 0.2, in a clean room 0.15, on fluids 0.15, on a medicine that speeds
          immunity 0.15. Full care moves the dose that kills half by the preset's figure (Moderate: 2.5 Gy). -->

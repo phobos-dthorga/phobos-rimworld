@@ -36,15 +36,15 @@ public static class ChemicalRule
         return isInjuryOnPart && !permanent && !tended ? DeepeningTarget.Self : DeepeningTarget.None;
     }
 
-    /// <summary>The part health a burn deepening itself always leaves: it never takes the part off by itself.</summary>
-    public const float OwnBurnLeavesPartHealth = 1f;
-
-    /// <summary>How much a burn deepening itself grows, kept under what its part has left (less <see cref="OwnBurnLeavesPartHealth"/>).</summary>
+    /// <summary>
+    /// How much a burn deepening itself grows (the owner's card of 28 Nov 2026, "let it take the part"): the damage, but no more than its
+    /// part has left as the game counts it, so the part's health can reach 0, and the game then takes the part, without damage past that
+    /// being counted on the wound.
+    /// </summary>
     public static float OwnDeepening(float damage, float partHealthLeft)
     {
-        float room = partHealthLeft - OwnBurnLeavesPartHealth;
-        if (damage <= 0f || room <= 0f) return 0f;
-        return damage < room ? damage : room;
+        if (damage <= 0f || partHealthLeft <= 0f) return 0f;
+        return damage < partHealthLeft ? damage : partHealthLeft;
     }
 
     /// <summary>The water one rinse uses: an eyewash's when every acid burn is on the eyes, else a shower's.</summary>

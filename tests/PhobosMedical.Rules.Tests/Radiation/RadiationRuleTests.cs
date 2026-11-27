@@ -194,21 +194,29 @@ public class RadiationRuleTests
     // ---- The rules Def's thresholds (the owner's card of 28 Nov 2026) ----
 
     [Fact]
-    public void TheIllnessEndsOncePastItsHeightAndBelowTheThreshold()
+    public void AnIllnessOnceWorseThanTheLineEndsWhenItFallsBelowIt()
     {
-        Assert.True(RadiationRule.IllnessOver(rising: false, severity: 0.19, endsBelow: 0.2));
-        Assert.False(RadiationRule.IllnessOver(rising: false, severity: 0.2, endsBelow: 0.2));
-        Assert.False(RadiationRule.IllnessOver(rising: false, severity: 0.5, endsBelow: 0.2));
+        Assert.True(RadiationRule.IllnessOver(rising: false, severity: 0.19, height: 0.6, endsBelow: 0.2));
+        Assert.False(RadiationRule.IllnessOver(rising: false, severity: 0.2, height: 0.6, endsBelow: 0.2));
+        Assert.False(RadiationRule.IllnessOver(rising: false, severity: 0.5, height: 0.6, endsBelow: 0.2));
     }
 
     [Fact]
-    public void AMildIllnessStillRisesToItsHeight() => Assert.False(RadiationRule.IllnessOver(rising: true, severity: 0.1, endsBelow: 0.2));
+    public void AnIllnessThatNeverRoseAboveTheLineEasesOffToTheEnd()
+    {
+        Assert.False(RadiationRule.IllnessOver(rising: false, severity: 0.1, height: 0.15, endsBelow: 0.2));
+        Assert.False(RadiationRule.IllnessOver(rising: false, severity: 0.19, height: 0.2, endsBelow: 0.2));
+        Assert.True(RadiationRule.IllnessOver(rising: false, severity: 0.001, height: 0.15, endsBelow: 0.2));
+    }
+
+    [Fact]
+    public void AnIllnessStillRisingNeverEnds() => Assert.False(RadiationRule.IllnessOver(rising: true, severity: 0, height: 0.6, endsBelow: 0.2));
 
     [Fact]
     public void WithNoThresholdTheIllnessRunsDownToNothing()
     {
-        Assert.False(RadiationRule.IllnessOver(rising: false, severity: 0.01, endsBelow: 0));
-        Assert.True(RadiationRule.IllnessOver(rising: false, severity: 0, endsBelow: 0));
+        Assert.False(RadiationRule.IllnessOver(rising: false, severity: 0.01, height: 0.6, endsBelow: 0));
+        Assert.True(RadiationRule.IllnessOver(rising: false, severity: 0, height: 0.6, endsBelow: 0));
     }
 
     [Fact]

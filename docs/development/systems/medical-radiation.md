@@ -95,8 +95,9 @@ height. Its phases (`RadiationRule.Phase`):
 - **The illness's height** is the dose over the person's own lethal dose: 1 kills; below it the illness recedes by 5 % of severity
   a day (`recoveryPerDay`, authored), never rising again once past its height. The stages are authored: severe (0.55) and critical
   (0.8) are life-threatening and cut immunity, moving, manipulation, blood pumping and, when critical, breathing.
-- **A recovered course ends** once the illness, past its height, falls below the rules Def's `courseEndsBelow` (0.2, authored;
-  `RadiationRule.IllnessOver`, the owner's card of 28 Nov 2026): an illness whose height is under it ends at its height. The illness
+- **A recovered course ends** once the illness, past its height, eases off to nothing; or, for an illness that rose above the rules
+  Def's `courseEndsBelow` (0.2, authored), once it falls back below that (`RadiationRule.IllnessOver`; the owner's cards of 28 Nov
+  2026, "wire them in" and "ease off, then end"). A milder illness, never above the line, eases off over its days as before. The illness
   is removed, and the dose condition stays, still repairing. That condition is hidden until the effective dose reaches `smallestShown`
   (0.05 Gy, authored; `RadiationRule.DoseShown`), then stays shown, as the game keeps any condition it has shown. The day it ended is saved, with
   the grays already recorded that day, so a dose later that same day counts as fresh. Doses folded beyond repair after 150 days no

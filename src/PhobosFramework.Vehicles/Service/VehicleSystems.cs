@@ -67,6 +67,17 @@ public static class VehicleSystems
             if (settings.disabledPackages.Contains(record.packageId.ToLowerInvariant())) { record.skippedBecause = "setting: this mod's vehicles off"; return; }
             if (settings.disabledKinds.Contains(loadout.kind)) { record.skippedBecause = "setting: " + loadout.kind + " off"; return; }
             record.partsAdded = Apply(def, loadout);
+            // The owner's card of 28 Nov 2026: a design on which an engine role found no part has fewer engines than engineArms lists,
+            // and the drivetrain then ignores the list (the loadout's own count is its config error).
+            if (loadout.engineArms.Count > 0 && def.GetCompProperties<CompProperties_PhobosVehicleSystems>() is { } props)
+            {
+                int bound = 0;
+                for (int i = 1; i <= Powertrain.MaxEngines; i++) if (props.roleKeys.ContainsKey("Engine" + i)) bound++;
+                if (bound == 0) bound = 1;
+                if (bound != loadout.engineArms.Count)
+                    Problems.Add(def.defName + ": " + loadout.defName + "'s engineArms lists " + loadout.engineArms.Count + " places, but this design binds "
+                        + bound + " engine roles; the places are worked out from its parts instead");
+            }
         }
         catch (System.Exception error)
         {

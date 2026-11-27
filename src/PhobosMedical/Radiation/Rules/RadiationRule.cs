@@ -206,12 +206,17 @@ public static class RadiationRule
     public const double IllnessGoneAt = 0.001;
 
     /// <summary>
-    /// Whether the illness, and with it the course, is over (the owner's card of 28 Nov 2026, "wire them in"): past its height, once its
-    /// severity falls below <paramref name="endsBelow"/> (the rules Def's <c>courseEndsBelow</c>), or reaches <see cref="IllnessGoneAt"/>.
-    /// Never while it is still rising, so a mild illness whose height is under the threshold still runs up to its height and ends there.
+    /// Whether the illness, and with it the course, is over (the owner's cards of 28 Nov 2026, "wire them in" and "ease off, then end"):
+    /// past its height, once it reaches <see cref="IllnessGoneAt"/>; and, for an illness whose <paramref name="height"/> rose above
+    /// <paramref name="endsBelow"/> (the rules Def's <c>courseEndsBelow</c>), once it falls back below that. An illness that never rose
+    /// above the line eases off over its days to <see cref="IllnessGoneAt"/>, as before. Never while it is still rising.
     /// </summary>
-    public static bool IllnessOver(bool rising, double severity, double endsBelow) =>
-        !rising && (severity <= IllnessGoneAt || severity < endsBelow);
+    public static bool IllnessOver(bool rising, double severity, double height, double endsBelow)
+    {
+        if (rising) return false;
+        if (severity <= IllnessGoneAt) return true;
+        return height > endsBelow && severity < endsBelow;
+    }
 
     /// <summary>Whether the dose condition is shown: once the effective dose reaches <paramref name="smallestShown"/> (the rules Def's
     /// <c>smallestShown</c>). Every dose is recorded either way.</summary>
