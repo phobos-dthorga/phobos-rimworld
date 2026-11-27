@@ -23,6 +23,44 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.63.0] - 2026-11-28 - Draft
+
+The air is alive: colonists talk on the radio by themselves
+
+### Added
+
+- **Colonists chat on the radio by themselves** (the owner's cards of 28 November 2026, "the air is alive" first and "lone workers chat
+  often"): someone with a hand-held in touch now and then calls another colonist out of earshot, about every three hours when working
+  alone and every twelve with others near, choosing someone they like. Both get the game's own chit-chat memory and a line in the social
+  log; on a faint link the chat may be misheard and taken as a slight. Not yet tested in game: row 778.
+- **An evening call to someone away**: between 19:00 and 21:00, someone at home calls their partner, family or a friend who is away in a
+  caravan, from a hand-held or a station's desk, once a day. A call that goes through cheers both; one that finds no way through (the
+  caravan out of reach, or no channel at the desk) leaves the caller unable to get through. Written in the station's Log. Not yet tested
+  in game: row 779.
+- **Company through the night**: a colonist in bed who should rest, or one working alone at night, is kept company on the radio by the
+  colonist who likes them best and is awake, or by their radio friend. Written in the Log. Not yet tested in game: row 780.
+- **The guard net**: a drafted colonist's hand-held takes a channel from colonists talking at home when a station is full, so a fight is
+  never cut off by chatter. The station's tooltip counts it as its own kind. Row 780.
+- **A setting, Colonists talk on the radio by themselves**, on by default.
+- Two dev actions: Chat on the air now (selected), and Evening calls now.
+
+### Changed
+
+- **A colonist's hand-held lights the station's lamp, needle and waterfall only while they are really talking** (a chat, a call, advice,
+  a lesson, a friend's chat), no longer by a made-up rhythm; a station's inspect text names who is on the air. Vehicles' orders and
+  pictures, and the guard net, keep their rhythm. With the setting off, everything is as before.
+- The thoughts' words and figures are agent-authored, for the owner to revise.
+
+### Save compatibility
+
+- Safe to update and to add mid-game. A call in progress is saved with the caller's job; the rest is worked out again after a load, so a
+  colonist may have company twice on the night of a load.
+
+### Compatibility and limits
+
+- Calls home reach caravans on the world map only; colonists on another map (a camp, another colony) are not called yet. The record's
+  other ideas (the roll call, standing orders, calls for help and more) are not built.
+
 ## [0.62.0] - 2026-11-28 - Draft
 
 QSL cards say how they were worked, and HF's first slice

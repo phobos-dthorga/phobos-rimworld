@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.62.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.63.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -156,6 +156,7 @@ In **Options > Mod settings > D'thorga Radio Framework**.
 | --- | --- | --- |
 | Metres per map cell | What one map cell measures. **Decide before you start a colony**: changing it later changes every distance and coax loss, so links that worked may stop. 1 m matches the furniture, about 26 m matches walking speed | 1 (0.5 to 30) |
 | "In touch with home" mood | A small mood bonus for a free colonist wearing a hand-held with a working link to a base station. Off keeps the radios a pure readout | On |
+| Colonists talk on the radio by themselves | Colonists with a hand-held in touch chat across the map now and then (most often when working alone), call someone close who is away in a caravan in the evening, and keep a colonist in bed company through the night. A colonist's hand-held lights the station's lamp only while they really talk. Off, the radio is quiet as before | On |
 | Display mode | How much of the working to show: **Plain** (bars and a reason), **Operator** (adds the band and the margin) or **Engineer** (every term). The outcome is the same in each | Plain |
 | Other factions' doctors and mechanics give advice by radio | When none of your colonists can help, a doctor or mechanic at another faction's settlement in radio reach talks your colonist through tending, an operation or a vehicle repair: allies free once a day, a neutral faction for 3 goodwill a call, never below 0 | On |
 | Neighbours ask for help by radio | About once a fortnight, a friendly neighbour in radio reach asks by letter for your best doctor or mechanic on the radio for an hour. Yes earns 5 goodwill once the hour is done; no costs nothing | On |

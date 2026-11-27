@@ -109,6 +109,28 @@ public class ChannelKindDef : Def
     /// <summary>The local voice net's kind, or the first kind there is.</summary>
     public static ChannelKindDef LocalVoice => localVoice ??= DefDatabase<ChannelKindDef>.GetNamedSilentFail(LocalVoiceName) ?? InOrder[0];
 
+    /// <summary>The defName of the guard net's kind (Radio 0.63.0; docs/development/radio-life-on-the-air.md, RN2 and RN6).</summary>
+    public const string GuardVoiceName = "PhobosRadio_KindGuardVoice";
+    private static ChannelKindDef? guardVoice;
+    private static bool guardLooked;
+
+    /// <summary>
+    /// The guard net's kind (Radio 0.63.0): a drafted colonist's hand-held, which takes a channel from colonists talking at home when a station
+    /// is full. Null if another mod has removed it, when drafted colonists stay on the local voice net as before.
+    /// </summary>
+    public static ChannelKindDef? GuardVoice
+    {
+        get
+        {
+            if (!guardLooked)
+            {
+                guardVoice = DefDatabase<ChannelKindDef>.GetNamedSilentFail(GuardVoiceName);
+                guardLooked = true;
+            }
+            return guardVoice;
+        }
+    }
+
     [Unsaved] private int ledgerIndex = -1;
 
     /// <summary>This kind's place in <see cref="InOrder"/>.</summary>
@@ -434,6 +456,35 @@ public class RadioRulesDef : Def
     public int neighbourExpiryTicks = 15000;
     /// <summary>Experience a tick in the skill asked for: half an adviser's Social rate.</summary>
     public float neighbourSkillXpPerTick = 0.025f;
+
+    // Life on the air (Radio 0.63.0; docs/development/radio-life-on-the-air.md, slice 1). "Lone workers chat often" is the owner's card of
+    // 28 Nov 2026; every figure is an agent default, authored, for the owner to revise.
+    /// <summary>How often the talk pass looks, in ticks, and how many colonists of a map it looks at each time (the record's budget).</summary>
+    public int talkLookTicks = 250;
+    public int talkPeoplePerLook = 8;
+    /// <summary>Hours between chats on average: for someone working alone, and for someone with others near.</summary>
+    public float talkChatGapLoneHours = 3f;
+    public float talkChatGapHours = 12f;
+    /// <summary>Nobody else within this many cells: a lone worker. Two people closer than the second figure talk face to face, not by radio.</summary>
+    public int talkLoneCells = 12;
+    public int talkMinCells = 15;
+    /// <summary>The least opinion either may have of the other for a chat; the opinion a friend has, for an evening call.</summary>
+    public int talkFloorOpinion = -20;
+    public int talkFriendOpinion = 20;
+    /// <summary>Recreation a chat gives each who is short of it (a tenth of a full bar is 0.1).</summary>
+    public float talkChatJoy = 0.02f;
+    /// <summary>How long each kind of over lasts, in ticks, and each speaker's turn within it.</summary>
+    public int talkChatTicks = 300;
+    public int talkEveningCallTicks = 1250;
+    public int talkCompanyTicks = 2500;
+    public int talkTurnTicks = 60;
+    /// <summary>The evening hours for calls to colonists away, and the night hours for company on the radio (the map's own hours).</summary>
+    public int talkEveningFrom = 19;
+    public int talkEveningTo = 21;
+    public int talkNightFrom = 22;
+    public int talkNightTo = 6;
+    /// <summary>Ticks between two nights' company for one colonist (half a day).</summary>
+    public int talkCompanyGapTicks = 30000;
 
     /// <summary>
     /// Heat pushed into the room per watt of waste per second. The vanilla heater turns 175 W into

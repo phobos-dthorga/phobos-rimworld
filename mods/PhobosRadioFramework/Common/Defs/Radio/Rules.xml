@@ -119,6 +119,28 @@
     <neighbourCallTicks>2500</neighbourCallTicks>
     <neighbourExpiryTicks>15000</neighbourExpiryTicks>
     <neighbourSkillXpPerTick>0.025</neighbourSkillXpPerTick>
+    <!-- Life on the air (Radio 0.63.0; docs/development/radio-life-on-the-air.md, slice 1). "Lone workers chat often" is the owner's card
+         of 28 Nov 2026; every figure is an agent default, authored: a look every tenth of an hour at eight colonists of a map; a lone worker
+         chats about every three hours, one with others near every twelve; calls home in the evening, 19:00 to 21:00; company on the radio
+         at night, 22:00 to 06:00, once a night each. -->
+    <talkLookTicks>250</talkLookTicks>
+    <talkPeoplePerLook>8</talkPeoplePerLook>
+    <talkChatGapLoneHours>3</talkChatGapLoneHours>
+    <talkChatGapHours>12</talkChatGapHours>
+    <talkLoneCells>12</talkLoneCells>
+    <talkMinCells>15</talkMinCells>
+    <talkFloorOpinion>-20</talkFloorOpinion>
+    <talkFriendOpinion>20</talkFriendOpinion>
+    <talkChatJoy>0.02</talkChatJoy>
+    <talkChatTicks>300</talkChatTicks>
+    <talkEveningCallTicks>1250</talkEveningCallTicks>
+    <talkCompanyTicks>2500</talkCompanyTicks>
+    <talkTurnTicks>60</talkTurnTicks>
+    <talkEveningFrom>19</talkEveningFrom>
+    <talkEveningTo>21</talkEveningTo>
+    <talkNightFrom>22</talkNightFrom>
+    <talkNightTo>6</talkNightTo>
+    <talkCompanyGapTicks>30000</talkCompanyGapTicks>
 
     <!-- The vanilla heater turns 175 W into 21 heat per second (Core, Buildings_Temperature.xml). -->
     <heatPerWattSecond>0.12</heatPerWattSecond>

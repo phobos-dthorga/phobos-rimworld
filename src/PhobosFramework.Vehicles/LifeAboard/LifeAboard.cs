@@ -146,10 +146,8 @@ public static class LifeAboard
         if (Rules.chatGapHours <= 0f || !Rand.Chance(LookTicks / (Rules.chatGapHours * GenDate.TicksPerHour))) return;
         Pawn first = talking.RandomElement();
         Pawn second = talking.Where(p => p != first).RandomElement();
-        InteractionDef chat = InteractionDefOf.Chitchat;
-        if (chat.initiatorThought != null) first.needs.mood?.thoughts?.memories?.TryGainMemory(chat.initiatorThought, second);
-        if (chat.recipientThought != null) second.needs.mood?.thoughts?.memories?.TryGainMemory(chat.recipientThought, first);
-        Find.PlayLog.Add(new PlayLogEntry_Interaction(chat, first, second, null));
+        // Framework 0.379.0: the talk itself is the core's, shared with the radio's talk on the air.
+        Phobos.Framework.Mood.TalkApart.Interact(first, second, InteractionDefOf.Chitchat);
         if (Seen.Wants("vehicles.visit-chat", vehicle)) Seen.Note("vehicles.visit-chat", vehicle, first.LabelShort + " and " + second.LabelShort);
     }
 

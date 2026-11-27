@@ -22,6 +22,17 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.379.0] - 2026-11-28 - Draft
+
+Talk between people apart, shared with the radio
+
+### Changed
+
+- **The chat aboard a vehicle now goes through a shared helper**, which D'thorga Radio Framework 0.63.0 also uses for colonists talking on
+  the radio by themselves. Riders still get the game's own chit-chat memories and the social log line, exactly as before.
+- For modders: Phobos.Framework.Mood.TalkApart.Interact gives two people an interaction's memories and its social log line when the game's
+  own chat cannot reach them (apart on a map, aboard a vehicle, by radio).
+
 ## [0.378.0] - 2026-11-28 - Draft
 
 The systems schematic, easier to find, with orders and a turbine cutaway

@@ -87,4 +87,24 @@ public static class RadioDebugActions
     /// <summary>Radio 0.36.0: a neighbour asks now, for testing, if any can (the letter, as by chance).</summary>
     [DebugAction(Category, "Neighbour asks for help now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     private static void NeighbourAsksNow() => RadioNeighbours.TryAsk(forced: true);
+
+    /// <summary>Radio 0.63.0: each selected colonist calls someone for a chat on the air now, the chance skipped, for testing.</summary>
+    [DebugAction(Category, "Chat on the air now (selected)", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    private static void ChatNow()
+    {
+        var sb = new StringBuilder();
+        foreach (var selected in Find.Selector.SelectedObjects)
+        {
+            if (selected is not Pawn pawn) continue;
+            sb.AppendLine($"  {pawn.LabelShortCap}: {(RadioTalk.ChatNow(pawn) ? "chatting" : "no chat (not in touch, busy, or nobody out of earshot to call)")}");
+        }
+        Log.Message(sb.Length == 0 ? "[PhobosRadio] Select a colonist first." : "[PhobosRadio] Chat on the air:\n" + sb);
+    }
+
+    /// <summary>Radio 0.63.0: the evening calls to colonists away in caravans, now, whatever the hour, for testing.</summary>
+    [DebugAction(Category, "Evening calls now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    private static void EveningCallsNow()
+    {
+        if (Find.CurrentMap is { } map) RadioTalk.EveningNow(map);
+    }
 }

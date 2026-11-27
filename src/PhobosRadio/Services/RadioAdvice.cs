@@ -665,6 +665,9 @@ public static class RadioAdvice
 /// </summary>
 public class GameComponent_RadioAdvice : GameComponent
 {
+    /// <summary>Where in its interval the talk pass falls, apart from the advice look and the hour (authored).</summary>
+    private const int TalkOffset = 37;
+
     public GameComponent_RadioAdvice(Game game)
     {
         RadioAdvice.Clear();
@@ -673,6 +676,8 @@ public class GameComponent_RadioAdvice : GameComponent
         RadioNeighbours.Clear();
         RadioLog.Clear();
         RadioQsl.Clear();
+        RadioTalk.Clear();
+        RadioAir.Clear();
     }
 
     public override void ExposeData()
@@ -688,6 +693,9 @@ public class GameComponent_RadioAdvice : GameComponent
     {
         int interval = RadioRulesDef.Current.adviceLookTicks;
         if (interval > 0 && Find.TickManager.TicksGame % interval == 0) RadioAdvice.Look();
+        // Radio 0.63.0: colonists talk on the air by themselves, a look at the rules' interval, offset from the others.
+        int talk = RadioRulesDef.Current.talkLookTicks;
+        if (talk > 0 && Find.TickManager.TicksGame % talk == TalkOffset % talk) RadioTalk.Look();
         // Radio 0.29.0: friendships that have ended are mourned, looked over once a game hour.
         if (Find.TickManager.TicksGame % GenDate.TicksPerHour == 0)
         {

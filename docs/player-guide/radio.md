@@ -251,6 +251,25 @@ colonist picks it like any other recreation.
 - **A chat of an hour or more** raises the friend's faction's goodwill by **1**, at most **3 times a quadrum** for each faction.
 - **If the friend dies or their faction turns hostile**, the colonist mourns them (**-6** for 6 days), and finds a new friend next time.
 
+## Colonists talk on the radio by themselves (from 0.63.0)
+
+**Give colonists hand-helds and they talk to each other on the radio without being told.** Nothing to press. The setting **Colonists
+talk on the radio by themselves** (on by default) switches it all off.
+
+- **Chats across the map**: a colonist in touch now and then calls another who is out of earshot, someone they like. **Working alone**
+  (mining at the edge, hunting, a long haul) they call about **every three hours**; with others near, about every twelve. Both get the
+  game's usual chit-chat mood, and the chat shows in the social log. **On a faint link a chat can be misheard** and taken as a slight.
+- **The evening call**: between **19:00 and 21:00**, someone at home calls their **partner, family or a friend who is away in a caravan**,
+  once a day, from a hand-held or a station's desk. Through, both are cheered (**+4** for a partner, **+3** family, **+2** a friend).
+  If the caravan has a radio but is out of reach, or the desk has no free channel, the caller **couldn't get through** (**-2**). Masts,
+  relays and repeaters keep a caravan in reach.
+- **Company through the night**: a colonist in bed who should rest, or one working alone at night, is kept company on the radio by
+  whoever likes them best and is awake, or by their radio friend (**+3**; the one keeping company likes them a little more).
+- **The station's Log** lists the evening calls and the nights' company. **Its inspect text names who is on the air.**
+- **The station's lamp and waterfall now show real talk**: a colonist's hand-held lights them only while they are really talking.
+- **The guard net**: when you draft colonists, their hand-helds go on a channel of their own that takes priority over chatter, so a
+  full station never cuts off a fight.
+
 ## School of the Air
 
 - **A child who wants to radio-talk** (the game's own learning) and has no comms console to use goes to radio school at one of our stations instead (from 0.54.0).

@@ -28,6 +28,18 @@
     <order>60</order>
   </Phobos.Radio.ChannelKindDef>
 
+  <!-- The guard net (Radio 0.63.0; docs/development/radio-life-on-the-air.md, RN2 and RN6): a drafted colonist's hand-held. Served before
+       the colonists talking at home, and takes a channel from them when a station is full, so a fight is never cut off by chatter (agent
+       defaults). -->
+  <Phobos.Radio.ChannelKindDef>
+    <defName>PhobosRadio_KindGuardVoice</defName>
+    <label>guard</label>
+    <description>Drafted colonists talking to each other and home in a fight. Takes a channel from colonists talking at home when every channel is in use.</description>
+    <mode>PhobosRadio_VoiceFM</mode>
+    <order>90</order>
+    <preempts>true</preempts>
+  </Phobos.Radio.ChannelKindDef>
+
   <Phobos.Radio.ChannelKindDef>
     <defName>PhobosRadio_KindLocalVoice</defName>
     <label>local voice</label>

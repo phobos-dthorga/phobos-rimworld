@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Life on the air, slice 1 (Radio 0.63.0; docs/development/radio-life-on-the-air.md, the owner's cards of 28 Nov 2026). Colonists talk on
+    the radio by themselves: a chat across the map gives the game's own chit-chat memories (no Def here); an evening call to someone close who
+    is away, and company through the night, give these. Every figure and every line of text is an agent default, authored, for the owner to
+    revise.
+  -->
+
+  <JobDef>
+    <defName>PhobosRadio_EveningCall</defName>
+    <driverClass>Phobos.Radio.Work.JobDriver_PhobosEveningCall</driverClass>
+    <reportString>calling someone away by radio.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <!-- An evening call that went through: both are glad of it, by how close they are. -->
+  <ThoughtDef>
+    <defName>PhobosRadio_TalkedApart</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>1</durationDays>
+    <stackLimit>10</stackLimit>
+    <stackLimitForSameOtherPawn>1</stackLimitForSameOtherPawn>
+    <stages>
+      <li>
+        <label>talked with my love on the radio</label>
+        <description>We are apart, but I heard their voice tonight. It made the distance smaller.</description>
+        <baseMoodEffect>4</baseMoodEffect>
+        <baseOpinionOffset>6</baseOpinionOffset>
+      </li>
+      <li>
+        <label>talked with family on the radio</label>
+        <description>A call on the radio this evening. It is good to know they are well.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+        <baseOpinionOffset>4</baseOpinionOffset>
+      </li>
+      <li>
+        <label>talked with a friend on the radio</label>
+        <description>A friend far away called this evening. We talked about nothing much, and it was good.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+        <baseOpinionOffset>3</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- An evening call that found no way through. -->
+  <ThoughtDef>
+    <defName>PhobosRadio_CouldNotGetThrough</defName>
+    <durationDays>0.5</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>couldn't get through on the radio</label>
+        <description>I tried to call someone away tonight, and got nothing but noise.</description>
+        <baseMoodEffect>-2</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- Company through the night: for the one in bed or working alone. -->
+  <ThoughtDef>
+    <defName>PhobosRadio_CompanyOnAir</defName>
+    <durationDays>0.5</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>company on the radio</label>
+        <description>Someone kept the radio on with me through the night. I wasn't alone.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+      <li>
+        <label>my radio friend kept me company</label>
+        <description>My friend far away stayed on the radio with me through the night. A familiar voice in the dark.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- Company through the night: for the one who kept it. -->
+  <ThoughtDef>
+    <defName>PhobosRadio_KeptCompany</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>3</durationDays>
+    <stackLimit>10</stackLimit>
+    <stackLimitForSameOtherPawn>1</stackLimitForSameOtherPawn>
+    <stages>
+      <li>
+        <label>kept them company on the radio</label>
+        <description>I kept the radio on with them through the night, so they wouldn't be alone.</description>
+        <baseMoodEffect>1</baseMoodEffect>
+        <baseOpinionOffset>4</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>

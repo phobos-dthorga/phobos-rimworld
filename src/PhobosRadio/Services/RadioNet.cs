@@ -321,19 +321,33 @@ public sealed class RadioNet : MapComponent
         return servedOn.TryGetValue(station, out var radios) ? radios : (IReadOnlyList<Thing>)System.Array.Empty<Thing>();
     }
 
-    /// <summary>Whether a served radio is taking its turn on its channel now.</summary>
+    /// <summary>
+    /// Whether a served radio is taking its turn on its channel now. Since Radio 0.63.0 (docs/development/radio-life-on-the-air.md, RN1), with
+    /// colonists talking by themselves, a colonist's hand-held on the local voice net is keyed only while they really talk (<see
+    /// cref="RadioAir"/>), so the lamp, the needle and the waterfall show real speech; other kinds (orders, pictures, the guard) keep their
+    /// mode's duty cycle, as before.
+    /// </summary>
     public bool RadioKeyed(Thing station, Thing radio)
     {
         var place = PlaceOf(station, radio);
         if (place < 0 || LedgerOf(station, radio) is not { } ledger) return false;
+        if (RadioAir.Live && ledger.Kind == ChannelKindDef.LocalVoice && CompRadio.HolderOf(radio) is { } holder && holder.RaceProps.Humanlike)
+            return RadioAir.Speaking(holder);
         return Channels.KeyedNow(place, ledger.Shape.RadiosPerUse, Find.TickManager.TicksGame + Seed(station), KeyCycleTicks,
             ledger.Kind.Mode.dutyCycle);
     }
 
-    /// <summary>Whether a station is answering anyone now: one of its served radios is taking its turn (the lamp, the needle).</summary>
+    /// <summary>
+    /// Whether a station is answering anyone now: one of its served radios is taking its turn (the lamp, the needle), or since Radio 0.63.0
+    /// a colonist talking at its desk is speaking.
+    /// </summary>
     public bool StationKeyed(Thing station)
     {
         foreach (var radio in ServedOn(station)) if (RadioKeyed(station, radio)) return true;
+        if (RadioAir.Live)
+        {
+            foreach (var (caller, desk) in deskCalls) if (desk == station && !deskBusy.Contains(caller) && RadioAir.Speaking(caller)) return true;
+        }
         return false;
     }
 
@@ -617,6 +631,8 @@ public sealed class RadioNet : MapComponent
         {
             entry.Value.Sort((a, b) => b.MarginDb.CompareTo(a.MarginDb));
             var kind = entry.Key.TryGetComp<CompRadio>()?.Kind ?? ChannelKindDef.LocalVoice;
+            // Radio 0.63.0 (RN2, RN6): a drafted colonist's hand-held is on the guard net, served first and never cut off by chatter.
+            if (kind == ChannelKindDef.LocalVoice && CompRadio.HolderOf(entry.Key) is { Drafted: true } && ChannelKindDef.GuardVoice is { } guard) kind = guard;
             ordered.Add((entry.Key, kind.LedgerIndex, entry.Value));
         }
         ordered.Sort((a, b) =>
@@ -698,6 +714,9 @@ public sealed class RadioNet : MapComponent
                 continue;
             }
             if (wearer != null) servedBy[wearer] = station.parent;
+            // Seen in play (Radio 0.63.0, row 780): a drafted colonist's hand-held served on the guard net.
+            if (wearer != null && kinds[kind] == ChannelKindDef.GuardVoice && Seen.Wants("radio.guard-net", wearer))
+                Seen.Note("radio.guard-net", wearer, station.parent.LabelShort);
             // Seen in play (Radio 0.17.0, row 475): a station other than the radio's best took it, the best one's channels being full.
             if (wearer != null && links[0].B.Thing != station.parent) Seen.Note("radio.channel-station", station.parent, wearer.LabelShort, "overflow");
             // A radio built into a vehicle is the vehicle itself (Radio 0.12.0): count it for the operator's work.

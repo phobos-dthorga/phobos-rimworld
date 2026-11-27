@@ -68,6 +68,13 @@ public class RadioSettings : ModSettings
     /// </summary>
     public string ownCallsign = "";
 
+    /// <summary>
+    /// Whether colonists talk on the radio by themselves (Radio 0.63.0; docs/development/radio-life-on-the-air.md, slice 1): chats across the
+    /// map, calls in the evening to someone away, company through the night; and a colonist's hand-held lights the lamp only while they talk.
+    /// No risk (the agent's grade: mood and the social log only), so on by default. Off, the radio is quiet as before.
+    /// </summary>
+    public bool talkOnAir = true;
+
     public override void ExposeData()
     {
         base.ExposeData();
@@ -86,6 +93,7 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref jammingReachesRadios, "jammingReachesRadios", true);
         Scribe_Values.Look(ref ownCallsign, "ownCallsign", "");
         ownCallsign ??= "";
+        Scribe_Values.Look(ref talkOnAir, "talkOnAir", true);
     }
 }
 
@@ -131,6 +139,7 @@ public class RadioMod : Mod
             x => Settings.jammingReachesRadios = x, defaults.jammingReachesRadios);
         Tick("radio.relayMastLosses", "PhobosRadio_SettingRelayMastLosses", () => Settings.relayMastLosses, x => Settings.relayMastLosses = x,
             defaults.relayMastLosses);
+        Tick("radio.talkOnAir", "PhobosRadio_SettingTalkOnAir", () => Settings.talkOnAir, x => Settings.talkOnAir = x, defaults.talkOnAir);
     }
 
     void Tick(string id, string key, System.Func<bool> get, System.Action<bool> set, bool byDefault) =>
@@ -158,6 +167,9 @@ public class RadioMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingInTouchThought".Translate(), ref Settings.inTouchThought,
             "PhobosRadio_SettingInTouchThoughtDesc".Translate());
+        // Radio 0.63.0: colonists talk on the air by themselves, on until turned off.
+        listing.Gap();
+        listing.CheckboxLabeled("PhobosRadio_SettingTalkOnAir".Translate(), ref Settings.talkOnAir, "PhobosRadio_SettingTalkOnAirDesc".Translate());
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingTerminalNoise".Translate(), ref Settings.terminalNoise,
             "PhobosRadio_SettingTerminalNoiseDesc".Translate());

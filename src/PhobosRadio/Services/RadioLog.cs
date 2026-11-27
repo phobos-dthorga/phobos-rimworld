@@ -26,6 +26,8 @@ public enum RadioLogKind
     Award,
     /// <summary>A call to another faction, or an ally's warning (Radio 0.53.0).</summary>
     Diplomacy,
+    /// <summary>Colonists talking by themselves: an evening call, company through the night (Radio 0.63.0).</summary>
+    Talk,
 }
 
 /// <summary>One line of the logbook: when, what kind, and the words as they were said then.</summary>

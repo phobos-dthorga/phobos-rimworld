@@ -1,8 +1,9 @@
 # Life on the air: colonists who use the radio by themselves (28 Nov 2026)
 
-**Status (28 Nov 2026):** a research record. Rows RN1 to RN43 are proposals, each with the agent's lean; nothing here is built, and
-nothing is tested in game. The owner chose by card which groups go deepest and first (below), and answered the record's four questions
-the same day: slice 1, "the air is alive", is first when building starts.
+**Status (28 Nov 2026):** slice 1, "the air is alive", is built in Radio Framework 0.63.0 with D'thorga Framework 0.379.0 (RN1, RN2 and
+RN6 in part, RN7, RN8, RN9; [as built](#as-built-radio-framework-0630-28-nov-2026)), not yet tested in game (rows 778 to 780). Every other
+row is a proposal with the agent's lean. The owner chose by card which groups go deepest and first, and answered the record's four
+questions the same day (below).
 
 **A research record.** The owner, 28 November 2026: "Our handling of radios, their nets, and so much more are in desperate need of a
 liven up. We REALLY need more gameplay that is emergent in nature, how the pawns act autonomously on their own, etc. This is strictly a
@@ -253,6 +254,35 @@ Grades are the agent's proposals until the owner confirms them; defaults follow 
 4. **The world answers**: RN32 first, then RN24, RN11, RN12, RN13, RN14.
 5. **The network**: RN3, RN18, RN27, RN28, RN29; RN30 with EW17.
 6. **The rest**, as the owner picks; group E and the vanilla changes only on the owner's word.
+
+## As built (Radio Framework 0.63.0, 28 Nov 2026)
+
+Slice 1, on the owner's word ("Shall we get started with Slice #1?"). Not yet tested in game: rows 778 to 780. Only what differs from the
+rows above is written here; what the version delivered is in the radio's changelog.
+
+- **One setting**, *Colonists talk on the radio by themselves*, on (no risk: mood and the social log only, the agent's grade). Off, the
+  radio is as before, the lamp's rhythm included.
+- **RN1, overs**: a short list of overs live now (`RadioAir`), pruned as each ends, rather than a ring of the last 64. **The lamp no longer
+  falls back to the old rhythm for a colonist's hand-held** [A]: on the local voice net it is keyed only while its colonist really talks,
+  in an over or in any radio job that was already a call (a radio friend's chat, a neighbour's call, a faction call, a lesson, advice), the
+  two taking turns of 60 ticks. Orders, pictures and the guard net keep their mode's rhythm. A station's inspect text says who is on the
+  air through it. This is a change from the row, which kept the rhythm as a fallback: the row's own "stops the lamp lying" asked for it.
+- **RN2 and RN6, nets and urgency**: two nets only for now, home (local voice) and **guard**, a new channel kind for a drafted colonist's
+  hand-held, served before home and pre-empting it. Named work-party and convoy nets, renaming and moving radios between nets are not
+  built; nor are the urgent kinds, which come with slice 3's calls for help and sightings.
+- **RN7, chatter**: as designed. The misheard chat gives the game's own slight memories ("Slight", the insult's if another mod removed it),
+  through the Framework's new shared helper `Phobos.Framework.Mood.TalkApart`, which the vehicles' chat aboard now uses too. A chat gives
+  each 0.02 Social recreation [A].
+- **RN8, the evening call**: to colonists **in a caravan on the world map** only (on foot or in vehicles), through the existing reach home
+  (`RemoteReach`), never by Morse; colonists on another map are not called yet. The caller is not in bed. **No queue at the desk**: a
+  desk with no channel hangs up at once, which counts as "couldn't get through", as does a caravan with a hand-held but no reach.
+- **RN9, company**: "in bed" means the game says they should rest (`HealthAIUtility.ShouldSeekMedicalRest`); "working alone at night"
+  means a job from work, with nobody within 12 cells. The companion is the awake colonist, not in bed, whom they like best (both opinions at
+  least 0); with none, the radio friend, whose hours grow by the night's company. **Dozing off at the desk is not built.**
+- **Cost, as designed**: a look every 250 ticks at up to 8 colonists a map, reading the net's last pass; the evening calls search each
+  caravan's reach home once a day. **Not yet measured with `perf.py`**; the owner's colony is to be measured, asking first.
+- **Not saved** [A]: when each colonist last had company and when each one away was last called, so after a load someone may have company
+  twice that night. A call in progress is saved with the caller's job.
 
 ## Questions for the owner
 

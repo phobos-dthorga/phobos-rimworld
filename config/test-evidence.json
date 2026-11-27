@@ -472,6 +472,18 @@
       "the HF bands tab in dev mode": ["radio.hf-band-panel"],
       "the band rose on the world map in dev mode": ["radio.hf-band-rose"]
     }},
+    "778": {"parts": {
+      "a lone worker chats on the air": [{"key": "radio.air-chat", "variant": "lone"}],
+      "a colonist with others near chats on the air": [{"key": "radio.air-chat", "variant": "company"}]
+    }},
+    "779": {"parts": {
+      "an evening call goes through": ["radio.air-evening-call"],
+      "an evening call cannot get through": ["radio.air-no-answer"]
+    }},
+    "780": {"parts": {
+      "company for a colonist in bed": [{"key": "radio.air-company", "variant": "bed-colonist"}],
+      "drafted colonists on the guard net": ["radio.guard-net"]
+    }},
     "751": [{"key": "framework.stacked-apparel-worn"}],
     "752": [{"key": "factory.machining-fills-stack"}],
     "732": [{"key": "framework.setup-wizard", "variant": "opened"}],

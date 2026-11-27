@@ -215,6 +215,18 @@ public class CompRadio : ThingComp
         sb.Append("PhobosRadio_StationAntenna".Translate(net.AntennaLabelFor(parent).ToString().Named("ANTENNA")));
         sb.AppendLine();
         sb.Append(LinkText.ChannelsLine(net.ChannelsOf(parent)));
+        // Radio 0.63.0 (RN1): who is talking on the air through this station now, as the talk pass started it.
+        if (RadioAir.Live)
+        {
+            var talking = new List<string>();
+            foreach (var over in RadioAir.On(parent)) talking.Add("PhobosRadioTalk_OnAirPair".Translate(over.Starter.LabelShort.Named("FIRST"),
+                over.OtherLabel.Named("SECOND")).Resolve());
+            if (talking.Count > 0)
+            {
+                sb.AppendLine();
+                sb.Append("PhobosRadioTalk_OnAir".Translate(string.Join(", ", talking).Named("TALKING")));
+            }
+        }
         // Radio 0.51.0: a seat something stands on (a station built before it had seats), which nobody can use.
         int blocked = RadioSeats.BlockedSeats(parent);
         if (blocked > 0)
