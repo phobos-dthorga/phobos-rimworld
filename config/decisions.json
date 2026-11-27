@@ -94,32 +94,6 @@
    "why": "Face to face is a real lesson, and it gives the second seat a purpose of its own; it is no better than the game's own lessons",
    "from": "docs/development/radio-stations.md",
    "asked": "2026-11-27"
-  },
-  {
-   "id": "radio-hf-scale",
-   "question": "What scale should HF use between world tiles?",
-   "context": "docs/development/radio-hf.md. For radio a tile counts as 1 km (your choice of 26 Nov 2026, for VHF), so the planet is about 1,271 km round for radio: less than one real skywave hop (500 to 3,000 km), so skip zones could not exist. The world is about 30 km a tile for everything else (18 Nov 2026).",
-   "options": [
-    {
-     "id": "world-scale",
-     "label": "HF at the world's scale",
-     "detail": "About 30 km a tile for HF, so skywave behaves as on Earth; VHF keeps its 1 km gameplay scale"
-    },
-    {
-     "id": "one-middle",
-     "label": "One middle scale",
-     "detail": "One figure for both, somewhere between: VHF reaches further than now, HF less realistic"
-    },
-    {
-     "id": "hf-1km",
-     "label": "HF at 1 km too",
-     "detail": "Skywave hops shrunk to fit the small planet; no real skip zones"
-    }
-   ],
-   "lean": "world-scale",
-   "why": "It keeps your VHF choice as it is and lets HF behave as you know it does: skip zones, grey line, the far side of the planet",
-   "from": "docs/development/radio-hf.md",
-   "asked": "2026-11-28"
   }
  ]
 }

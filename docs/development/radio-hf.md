@@ -1,7 +1,9 @@
 # HF: the radio's Phase 2 (27 Nov 2026)
 
-**Status (27 Nov 2026):** a design record; nothing is built. The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2"), which
-opens Phase 2 **for design only**: building waits for the owner's go-ahead on the questions below.
+**Status (28 Nov 2026):** a design record; nothing is built. The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2"), which
+opens Phase 2 **for design only**, and answered its questions on 28 Nov ([answers](#the-owners-answers-28-nov-2026)): HF at the world's
+scale, VOACAP's predictions shipped as tables, 40 m and 20 m first, the radio's own flare, no licence tiers. Building waits for the
+owner's go-ahead, and for VOACAP to be installed on the owner's machine for the tables (a tool the owner installs).
 
 ## Read this first
 
@@ -143,14 +145,53 @@ To be put as cards; each with the agent's lean.
 6. **Licence tiers**: research steps that raise the power cap (Foundation, Standard, Advanced), off by default (the agent's lean); on;
    or none.
 
+## The owner's answers (28 Nov 2026)
+
+Each card as put, the chosen option first and marked.
+
+| # | Card | Chosen | Not chosen |
+| --- | --- | --- | --- |
+| 1 | HF's scale | **The world's scale for HF**: about 30 km a tile, so skywave, skip zones and the grey line behave as on Earth; VHF keeps its 1 km gameplay scale (the agent's lean) | One middle scale for both. HF at 1 km too, hops shrunk to fit |
+| 2 | How deep the model goes | **A published method**, and the owner's words: "maybe we can make performance gains by having some data calculated at the time when you generate the planet, i.e. when you are starting a new game? For players who are mid-game, they are simply met with an introductory screen and told plainly before continuing, their game might pause for sometime as calculations are need to be made as a one-off. I'm just hypothesizing here." | A table by band, hour and season (the agent's lean). A MUF worked out per path |
+| 3 | The first slice | **40 m and 20 m first**: SSB voice and CW, a dipole, a manpack, the band-conditions readout (the agent's lean) | Every band at once. NVIS first |
+| 4 | Flares | **The radio's own flare**: HF out on the sunlit side, stations otherwise working (the agent's lean) | Both: the game's power cut for stations, and the HF blackout on top |
+| 5 | When the heavy calculation happens | **Offline, shipped as tables**, "and also at world generation if the need comes to fruition" | Offline only (the agent's lean). At world generation only. Both, by a setting |
+| 6 | Which published method | **VOACAP** (the agent's lean) | ITU-R P.533 with the ITU's ITURHFProp. Both, one checked against the other |
+| 7 | Licence tiers | **None**: power is set by the kit alone | Research steps, off by default (the agent's lean). Research steps, on |
+
+### What follows from them [A]
+
+- **Two scales for radio between tiles**: VHF and UHF keep `metresPerWorldTile` (1 km); HF reads its own, the world's 30 km, as a rule
+  figure of its own. A path's length in km is then real for HF: a planet about 40,000 km round.
+- **Why tables, and why no pause** (the agent's reasoning, with which the owner agreed by card): VOACAP's prediction depends on the path's
+  latitudes, local time, month, the solar cycle and its length, not on a particular planet's terrain or the colony. Run once before
+  release, its results fit in small tables (in the order of a megabyte: latitude bands × 24 hours × 12 months × a few solar levels ×
+  distance bands × bands), which the game only looks values up in. World generation is the fallback should anything come to depend on
+  the planet itself (the owner's words).
+- **VOACAP's terms**: "developed by an agency of the U.S. Government. NTIA/ITS has no objection to the use of this software for any
+  purpose since it is not subject to copyright protection in the U.S."
+  ([NTIA/ITS](https://its.ntia.gov/software/high-frequency/voacap-propagation-model/)); the Linux port voacapl's own changes are CC0
+  ([its licence](https://github.com/jawatson/voacapl/blob/master/LICENSE)). Checked 28 Nov 2026. The tables we ship are our derived
+  data; VOACAP itself is not shipped, and runs only on the machine that makes the tables.
+- **The ITU's method is free too, kept for reference**: the reference software for P.533, ITURHFProp
+  ([ITU-R Study Group 3](https://github.com/ITU-R-Study-Group-3/ITU-R-HF)), "may be used by implementers in their implementation of the
+  Recommendation ... free from any copyright assertions" (its readme, 28 Nov 2026).
+- **The pace** [A]: the tables are hourly, so conditions change each game hour.
+- **No licence tiers** [O]: the design's open question is answered; the kit sets the power.
+- **The tool step**: making the tables needs voacapl installed on the owner's machine, under the shared rule that the owner installs
+  tools; the scripts that drive it and the tables' record of how they were made live in this repository.
+
 ## Sources
 
 - The radio design, `radio-framework-design.md` (18 Oct 2026): the Phase 2 roadmap, the HF and NVIS rows, the sun.
 - Franke, Somerville and Taylor, "The FT4 and FT8 Communication Protocols", QEX July/August 2020: FT8's threshold, **checked**
   (`radio-reference-checks.md`).
 - The Radiocommunications (Amateur Stations) Class Licence 2023 (Australia): bands and power, **checked**.
-- ITU-R P.533 (HF propagation prediction) and ITU-R P.372 (radio noise), and VOACAP: references to check the conditions table and the
-  noise against, **not yet read**.
+- VOACAP: [NTIA/ITS](https://its.ntia.gov/software/high-frequency/voacap-propagation-model/) and the voacapl port
+  ([licence](https://github.com/jawatson/voacapl/blob/master/LICENSE)), the method the owner chose; its terms checked 28 Nov 2026, its
+  predictions not yet run.
+- ITU-R [P.533](https://www.itu.int/rec/R-REC-P.533/en) (HF propagation prediction) with its reference software
+  ([ITURHFProp](https://github.com/ITU-R-Study-Group-3/ITU-R-HF)), and ITU-R P.372 (radio noise): references, **not yet read**.
 - Our records: [radio ties](radio-ties-with-other-mods.md) (RT6, RT18), [the comms console](radio-comms-console.md) (S3),
   [radio visuals](radio-visuals.md) (RV9 to RV13), [world elevation](world-elevation-and-descents.md) ("HF does not care" about
   elevation), [project direction](project-direction.md) (the tile scales).
