@@ -17,8 +17,8 @@ own, not built: [the fuel filter](vehicle-fuel-filter.md), [the intake separator
   listed under [The mock-up page](#the-mock-up-page).
 - **An earlier record argued against movement**: [how our vehicle features look](vehicle-presentation-design.md) set aside
   "animated needles and flashing lamps", because a flashing lamp nags. The owner chose to see both forms before deciding (below).
-- **Two things the mock-up noticed are for the owner to check, not faults proved** (F6 and F7): the C-27J's take-off temperature
-  with any wear, and aircraft electrics on 12 V.
+- **Two things the mock-up noticed were checked and fixed** (F6 and F7, Framework 0.372.1): turbines ran past every limit on an
+  ordinary take-off, and aircraft electrics ran on a car's 12 V ([What it found](#what-it-found)).
 - Marks: **[O]** the owner's, **[A]** the agent's, **[code]** read from our source or Defs, **[game]** found in the game's
   decompiled code and not tried. Figures and references not checked against a source say **unverified**.
 
@@ -277,9 +277,9 @@ value. That checks the port, never the game.
 | F3 | **Medium and state fight for colour.** Fuel tan, oil brown and caution amber sit close | Pipes carry the medium's colour only; state lives on the parts (pumps, boxes, tanks) |
 | F4 | **The dashed parts make the gaps plain**: three of the turboprop page's fourteen parts, one of the truck's sixteen | M1 to M3 are where a build would add depth |
 | F5 | **The steady page is calmer than the tablet.** Our figures move over hours, so drama comes from faults and from changing the running state | A page for diagnosis, more than one to watch in flight |
-| F6 | **To check: the C-27J at take-off.** With hot sections 20 % used and a little fouling, demand 1.0 against 0.98 available settles at 810 °C, over its 800 °C limit; its one rating makes "over the continuous limit" and "over every limit" the same line. At 40 °C it reads 897 °C | The mock-up's reading of steady state. **Not checked**: whether the game caps demand, or the roll is too short to matter |
+| F6 | **The C-27J at take-off.** With hot sections 20 % used and a little fouling, demand 1.0 against 0.98 available settles at 810 °C, over its 800 °C limit; its one rating makes "over the continuous limit" and "over every limit" the same line. At 40 °C it reads 897 °C | **Checked in the code, a real fault, fixed** (Framework 0.372.1): nothing capped a flight phase's demand, so every take-off of a worn C-27J, and of any turbine aircraft on a hot enough day, went over every limit, damaging its engines (4 health an hour while there) with a warning. The engine's control now holds it just inside its top rating outside a hover (`TurbineModel.HeldDemand`); not yet tested in game (row 762) |
 | F7 | **To check: aircraft electrics.** The aircraft loadout sets no electrical figures, so the C-27J reads 45 Ah, 65 A and 12 V (14.0 V charging), a light vehicle's. [The flight record](systems/flight.md) says its avionics amps were authored for 24 V. With the air conditioner and defensive aids on, the mock-up shows 101 A against 65 A | Either the loadout wants its own figures, or the record's "24 V" is out of date. **Not checked in game** |
-| F8 | One engine starved at cruise reads 892 °C and spends hot-section life at 13 % an hour | The mock-up keeps demand at 0.6. **Not checked**: what the game asks of the engine left |
+| F8 | One engine starved at cruise reads 892 °C and spends hot-section life at 13 % an hour | **Answered by F6's fix**: the game asked the same 0.6 of the engine left, so it ran past every limit; held, it now gives what its top rating allows |
 
 ## Questions for the owner
 

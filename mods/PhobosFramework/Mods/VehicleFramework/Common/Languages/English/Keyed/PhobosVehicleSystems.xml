@@ -277,6 +277,7 @@
   <PhobosVehicleSystems_InspectGear>Gear {GEAR}, {RPM} rpm.</PhobosVehicleSystems_InspectGear>
   <PhobosVehicleSystems_InspectRpm>Engine {RPM} rpm.</PhobosVehicleSystems_InspectRpm>
   <PhobosVehicleSystems_InspectTurbine>Turbine speed {SPOOL}%, turbine {TEMPERATURE}.</PhobosVehicleSystems_InspectTurbine>
+  <PhobosVehicleSystems_InspectTurbineHeld>Turbine speed {SPOOL}%, turbine {TEMPERATURE}: held at its limit, giving less than asked.</PhobosVehicleSystems_InspectTurbineHeld>
   <PhobosVehicleSystems_InspectPhase>({PHASE})</PhobosVehicleSystems_InspectPhase>
   <PhobosVehicleSystems_InspectTurbineLoad>Load {LOAD} of maximum continuous, at its {RATING} rating.</PhobosVehicleSystems_InspectTurbineLoad>
   <PhobosVehicleSystems_RatingMaxContinuous>maximum continuous</PhobosVehicleSystems_RatingMaxContinuous>

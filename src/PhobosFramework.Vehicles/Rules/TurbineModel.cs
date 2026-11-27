@@ -149,7 +149,7 @@ public static class TurbineModel
             state.OverTop = ambient - spec.Top.TemperatureLimit;
             return state;
         }
-        state.Available = Derate(spec, ambient, pressureRatio) * Math.Max(0.05, condition) * share * Math.Max(0.01, spec.OutputFactor);
+        state.Available = Available(spec, ambient, condition, share, pressureRatio);
         double ratio = demand / Math.Max(0.01, state.Available);
         state.SpeedPercent = spec.IdleSpeedPercent + (100 - spec.IdleSpeedPercent) * Math.Sqrt(Math.Min(1.2, Math.Max(0, ratio)));
         double idleTemperature = ambient + spec.IdleTemperatureAboveAmbient;
@@ -179,6 +179,29 @@ public static class TurbineModel
         state.OverContinuous = state.Temperature - spec.Continuous.TemperatureLimit;
         state.OverTop = state.Temperature - spec.Top.TemperatureLimit;
         return state;
+    }
+
+    /// <summary>What the engines give now, as a share of their combined maximum continuous: the derate for heat and thin air, the hot
+    /// section's condition, the share of the engines working and any re-engining's factor.</summary>
+    public static double Available(TurbineSpec spec, double ambient, double condition, double share, double pressureRatio = 1) =>
+        Derate(spec, ambient, pressureRatio) * Math.Max(0.05, condition) * share * Math.Max(0.01, spec.OutputFactor);
+
+    /// <summary>
+    /// How far inside the top rating the engine's control holds it, as a share of that rating (Framework 0.372.1; the schematic record's F6).
+    /// AUTHORED: half a percent, a couple of degrees under the limit, so the reading never sits on the line where "over every limit" begins.
+    /// </summary>
+    public const double ControlHoldShare = 0.995;
+
+    /// <summary>
+    /// The demand the engine's control lets through (Framework 0.372.1; the schematic record's F6): what was asked, or, where that is past
+    /// what the engines give at their top rating now, just inside it. A turbine's control holds its temperature at the limit and gives less
+    /// power on a hot day or with a worn hot section, rather than running past it (general practice; no source is cited for a particular
+    /// engine). A hover asked beyond it is the player's hover-limit setting's, not this.
+    /// </summary>
+    public static double HeldDemand(TurbineSpec spec, double demand, double ambient, double condition, double share, double pressureRatio = 1)
+    {
+        double most = Available(spec, ambient, condition, share, pressureRatio) * spec.Top.Share * ControlHoldShare;
+        return demand > most ? most : demand;
     }
 
     /// <summary>Demand against the rotor drive's limit: demand ÷ limit − 1 (−1 with no limit, so it never reads as over).</summary>

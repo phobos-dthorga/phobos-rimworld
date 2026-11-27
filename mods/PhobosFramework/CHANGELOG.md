@@ -22,6 +22,20 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.372.1] - 2026-11-28 - Draft
+
+Turbines held at their limit, and aircraft electrics on 24 volts
+
+### Fixed
+
+- **An aircraft's engines no longer run past every limit on an ordinary take-off**: outside a hover, the engine's control now holds
+  a turbine just inside its top rating, and the aircraft gets a little less power than it asked for. Before, a C-27J with any wear,
+  or on a day warmer than 15 °C, went over every limit at each take-off, with a warning and damage to its engines; any turbine
+  aircraft did on a hot enough day, and so did the engine left running with the other out. The Dashboard's turbine gauge reads
+  amber while an engine is held, and says it gives less than asked. A hover beyond the engines is still the hover limit setting's,
+  and its "warn only" hold now sits just inside the limit too. Found by the systems schematic's mock-up (F6). Not yet tested in
+  game: row 762.
+
 ## [0.372.0] - 2026-11-28 - Draft
 
 The paste tap feeds colonists, and the owner's second round of cards (28 November 2026)

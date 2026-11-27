@@ -194,11 +194,16 @@ public class ITab_VehicleDashboard : ITab
             DriveResult r = train.Result;
             if (train.Turbine != null)
             {
+                // Framework 0.372.1 (F6): an engine its control holds at its limit reads amber, and says it gives less than asked.
+                NamedArgument spool = train.TurbineNow.SpeedPercent.ToString("0").Named("SPOOL");
+                NamedArgument hot = train.ShownTurbineTemperature.ToStringTemperature("F0").Named("TEMPERATURE");
                 PhobosWidgets.Gauge(new Rect(outer.x, y, outer.width, GaugeHeight), (float)(train.TurbineNow.SpeedPercent / 110.0),
-                    train.TurbineNow.OverTop > 0 ? PhobosWidgets.Bad : train.TurbineNow.OverContinuous > 0 ? PhobosWidgets.Caution : PhobosWidgets.Good,
+                    train.TurbineNow.OverTop > 0 ? PhobosWidgets.Bad
+                        : train.TurbineNow.OverContinuous > 0 || train.ControlHeld ? PhobosWidgets.Caution : PhobosWidgets.Good,
                     "PhobosVehicleSystems_SysTurbine".Translate(),
-                    "PhobosVehicleSystems_InspectTurbine".Translate(train.TurbineNow.SpeedPercent.ToString("0").Named("SPOOL"),
-                        train.ShownTurbineTemperature.ToStringTemperature("F0").Named("TEMPERATURE")).Resolve());
+                    train.ControlHeld
+                        ? "PhobosVehicleSystems_InspectTurbineHeld".Translate(spool, hot).Resolve()
+                        : "PhobosVehicleSystems_InspectTurbine".Translate(spool, hot).Resolve());
             }
             else
             {

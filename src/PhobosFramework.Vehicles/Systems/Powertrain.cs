@@ -681,14 +681,34 @@ public sealed class Powertrain
         }
         double shaft = running ? ShaftShare(comp.GeneratorKw) : 0;
         double demand = BleedRule.Demand(flying, BleedShare) + shaft;
-        TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), share, running, air);
+        double condition = Condition();
+        // Framework 0.372.1 (docs/development/vehicle-schematic.md, F6): outside a hover the engine's control holds it just inside its top
+        // rating, so a take-off on a hot day, a worn hot section or an engine out gives less power than asked, not an engine run past every
+        // limit. A hover beyond the engines stays the player's hover-limit setting's below.
+        ControlHeld = false;
+        if (running && !hovering)
+        {
+            double held = TurbineModel.HeldDemand(usable, demand, comp.Ambient, condition, share, air);
+            if (held < demand)
+            {
+                ControlHeld = true;
+                demand = held;
+                flying = Math.Max(0, demand - shaft) / (1 + BleedShare);
+                if (Seen.Wants("aircraft.control-held", vehicle, Phase))
+                {
+                    Seen.Note("aircraft.control-held", vehicle, Phase, Phase, new[] { new KeyValuePair<string, double>("demand", demand) });
+                }
+            }
+        }
+        TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, condition, share, running, air);
         bool beyond = hovering && Full && TurbineNow.OverTop > 0;
         if (beyond && VehicleSystemsMod.Settings.hoverLimit == VehicleSystemsSettings.HoverLimit.WarnOnly)
         {
-            // Warn only (owner's setting, 8 Nov 2026): the engine is held at its top rating, so nothing wears past it.
-            demand = TurbineNow.Available * usable.Top.Share;
+            // Warn only (owner's setting, 8 Nov 2026): the engine is held at its top rating, so nothing wears past it. Since Framework 0.372.1
+            // just inside it (TurbineModel.HeldDemand), so the reading never lands on the line where "over every limit" begins.
+            demand = TurbineModel.HeldDemand(usable, demand, comp.Ambient, condition, share, air);
             flying = Math.Max(0, demand - shaft) / (1 + BleedShare);
-            TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), share, running, air);
+            TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, condition, share, running, air);
         }
         FlightDemand = running ? flying : 0;
         // Framework 0.250.0: the engine left running uses a rating kept for an engine out.
@@ -733,6 +753,10 @@ public sealed class Powertrain
     /// <summary>What flying asks of an aircraft's engines now, as a share of maximum continuous: its phase's demand, or its hover's; 0
     /// with them stopped. The bleed air and the generator come on top (the ledger). Derived.</summary>
     public double FlightDemand { get; private set; }
+
+    /// <summary>The engine's control is holding an aircraft's engines just inside their top rating, outside a hover, so they give less than
+    /// flying asked (Framework 0.372.1; the schematic record's F6). Derived, at the last look.</summary>
+    public bool ControlHeld { get; private set; }
 
     /// <summary>A shaft load as a share of the engines' rated output.</summary>
     double ShaftShare(double kilowatts) => Spec.RatedPowerKw > 0 ? Math.Max(0, kilowatts) / Spec.RatedPowerKw : 0;
