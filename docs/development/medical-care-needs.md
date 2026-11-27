@@ -136,8 +136,8 @@ two cards settled it ([the third round](#the-third-round-26-nov-2026-by-card-wit
 - **Vacuum is life-threatening and takes no reserve**: only what the person carries, which never came off the shelf. Agent choice.
 - **Agent choices, for the owner to revise:** buildup 0.04 marks exposure as under way (the game's first stage); a quarter kept out,
   or a quarter of vacuum resistance added, makes an item protection; the toxic line asks 0.6; no alert for either (protection, not
-  treatment); adults only for vacuum, as for every dose taken oneself; the toxic area's paint tools use the game's home-area pictures
-  until their own are made.
+  treatment); adults only for vacuum, as for every dose taken oneself; the toxic area's paint tools used the game's home-area pictures
+  until their own shipped in 0.32.1.
 - **Not read:** our own caustic gas and the Framework's gases, which the game's toxic resistances do not govern.
 
 ## As built: Medical 0.29.0

@@ -278,7 +278,7 @@ no reserve, since nothing comes off the shelf. Drafted, downed, raging or ordere
 **The toxic controlled area** (0.30.0): a second protective-gear line beside the radiation one, painted from the zone menu, always
 loaded. Toxic environment resistance 0.6 to cross, and any medical drug raising either toxic resistance as its preventive, found by
 what it does (the Framework's `preventiveStats`): AntiTox alone passes, as does a gas mask (0.8); a face mask (0.5) needs more. Its
-paint tools show the game's home-area pictures until their own are made. **Every line's dose now goes through dosing's safety and the
+paint tools have their own pictures since 0.32.1 (a skull and crossbones in the radiation pair's layout). **Every line's dose now goes through dosing's safety and the
 reserve** (`DoseService.LineDoseAllowed`): someone who will not take it, is overdosed or is still on the last dose is not sent, and the
 shelf keeps the preventives' reserve, potassium iodide at the radiation line included.
 

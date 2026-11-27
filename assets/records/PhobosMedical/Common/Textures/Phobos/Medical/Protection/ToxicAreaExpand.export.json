@@ -1,0 +1,28 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Protection/ToxicAreaExpand.png",
+  "source": "assets/phobos-medical/generated/toxic-area-expand-paid/toxic-area-expand-paid-1.png",
+  "source_sha256": "7c8b0e12995b10b186da1cf021198b0728d2f92075a74c5742e6948f03ef0d10",
+  "target_sha256": "5d78654836ed99077727035b7e3417738648b6e2603479239e6dbdb2538d82cc",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "7c8b0e12995b10b186da1cf021198b0728d2f92075a74c5742e6948f03ef0d10",
+  "holes": [],
+  "white_left": [
+    {
+      "share": 0.0097,
+      "flat": 0.95,
+      "at": [
+        801,
+        652
+      ]
+    }
+  ],
+  "date": "2026-11-27T16:02:53",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

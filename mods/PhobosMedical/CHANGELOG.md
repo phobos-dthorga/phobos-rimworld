@@ -21,6 +21,16 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.32.1] - 2026-11-27 - Draft
+
+The toxic controlled area's own icons
+
+### Fixed
+
+- **The toxic controlled area's paint tools have their own pictures**: a skull and crossbones on a round badge, with a plus to paint
+  and a minus to clear, matching the radiation area's pair. They showed the game's home-area pictures since 0.30.0. Not yet seen in
+  game.
+
 ## [0.32.0] - 2026-11-27 - Draft
 
 Care needs: antibiotics, draughts, and what rare medicines are worth

@@ -324,7 +324,10 @@ On by default (**Radiation sickness runs its real course**, on the **Radiation**
 
 Masks on, or AntiTox taken, before stepping onto polluted ground, a waste dump or a toxic vent's patch. **Always available.**
 
-1. Paint a **toxic controlled area** from the zone tab over the ground. Its paint tools show the game's home-area pictures for now.
+1. Paint a **toxic controlled area** from the zone tab over the ground, with the skull-and-crossbones tools.
+
+   ![The tools to paint and clear a toxic controlled area](images/toxic-control.png)
+
 2. **Keep AntiTox and masks just outside the line**, not forbidden. Anything inside the area is never fetched.
 3. A colonist going in who is not on AntiTox takes one first, unless only the reserve is left. **60% toxic environment
    resistance** gets them across: AntiTox alone, or a gas mask; a face mask needs something more. Gear put on at the line comes off

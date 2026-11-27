@@ -340,6 +340,17 @@
       ]
     },
     {
+      "name": "toxic-control",
+      "kind": "icons",
+      "iconSize": 56,
+      "cardWidth": 136,
+      "columns": 2,
+      "items": [
+        {"label": "Paint toxic area", "icon": "med:Medical/Protection/ToxicAreaExpand.png"},
+        {"label": "Clear toxic area", "icon": "med:Medical/Protection/ToxicAreaClear.png"}
+      ]
+    },
+    {
       "name": "radiation-control",
       "kind": "icons",
       "iconSize": 56,

@@ -1,0 +1,6 @@
+# ToxicAreaClear
+
+**AI-generated, picked by the owner on 27 November 2026.** Made on 27 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: the Zone menu tool that clears the toxic controlled area, replacing the game's home-area icon it borrowed since Medical 0.30.0. Derived by script from the owner's pick for the expand icon (attempt 1): its corner badge recoloured to the radiation clear icon's red, and the plus sign's upright filled in, leaving a minus. No picture was paid for it. Exported by `scripts/art/export_sprite.py` (white background to transparency, 128 x 128 px) by `assets/phobos-medical/ship_toxic_area_icons.py`. The prompt and its references are in `assets/phobos-medical/requests/toxic-area-icons-paid.json`; the master and its record go to the `art-masters` branch, the other attempt to `art-references`. The only references uploaded were our own approved radiation area icons (the layout and finish of the set). The symbol is the chemical hazard pictogram for a toxic substance (a skull and crossbones, GHS06), drawn fresh. No game or other author's art is in this file.
+
+- Master: `toxic-area-clear-derived.png`, SHA-256 `a4a944c6388052bc51a4786dd09ca13b84303103e753e403148ae6878be1b083`
+- `ToxicAreaClear.png`: SHA-256 `d0b800d81463713875cea6a1cf6398772a1a57f8351fc1c847669c8340e1c739`
