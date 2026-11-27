@@ -268,4 +268,239 @@
       </li>
     </pipes>
   </Phobos.VehicleSystems.PhobosVehicleSchematicDef>
+
+  <!--
+    Framework 0.373.0 (docs/development/vehicle-schematic.md; the owner's card of 28 Nov 2026, "The aircraft page"): one page for every
+    aircraft with gas turbines, turboshaft or turbofan, from a single engine to four. A tab per engine where there is more than one: the
+    parts marked perEngine show that engine's own (its fuel pump, oil pump, sump, chip detector, hot section), the rest the aircraft's. The
+    engine is drawn as a plain row of compressor, hot section and turbine, not a drawing of any real engine. Turbine temperature and
+    compressor fouling are one figure for the whole aircraft in our model (the record's F1), so every engine's tab shows the same. The
+    inlet barrier shows only where it is fitted, the intake separator only where the aircraft has one, the gearbox only on aircraft with a
+    rotor drive (helicopters, and the tiltrotor and turboprops our loadouts give one). Layout authored, on a 720 by 340 page.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSchematicDef>
+    <defName>PhobosVehicleSchematic_TurbineAircraft</defName>
+    <label>gas turbine, aircraft</label>
+    <loadoutKinds>
+      <li>Aircraft</li>
+    </loadoutKinds>
+    <engineKinds>
+      <li>Turboshaft</li>
+      <li>Turbofan</li>
+    </engineKinds>
+    <size>(720, 340)</size>
+    <nodes>
+      <li>
+        <key>intake</key>
+        <label>air intake</label>
+        <rect>(40, 125, 70, 50)</rect>
+        <system>PhobosVehicleSystem_CompressorWash</system>
+      </li>
+      <li>
+        <key>barrier</key>
+        <label>inlet barrier</label>
+        <shape>Filter</shape>
+        <rect>(180, 135, 34, 30)</rect>
+        <system>PhobosVehicleSystem_CompressorWash</system>
+        <quantity>barrierClog</quantity>
+        <shownWhen Class="Phobos.VehicleSystems.When_StatAbove">
+          <stat>Phobos_InletBarrierLoss</stat>
+          <value>0</value>
+        </shownWhen>
+      </li>
+      <li>
+        <key>separator</key>
+        <label>separator</label>
+        <rect>(180, 135, 34, 30)</rect>
+        <system>PhobosVehicleSystem_CompressorWash</system>
+        <shownWhen Class="Phobos.VehicleSystems.When_IntakeSeparator" />
+      </li>
+      <li>
+        <key>compressor</key>
+        <label>compressor</label>
+        <rect>(300, 110, 80, 80)</rect>
+        <role>Engine</role>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_CompressorWash</system>
+        <quantity>compressorFouling</quantity>
+      </li>
+      <li>
+        <key>hotSection</key>
+        <label>hot section</label>
+        <rect>(380, 110, 100, 80)</rect>
+        <role>Engine</role>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_Turbine</system>
+        <quantity>hotSectionLife</quantity>
+      </li>
+      <li>
+        <key>turbine</key>
+        <label>turbine</label>
+        <rect>(480, 110, 80, 80)</rect>
+        <role>Engine</role>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_Turbine</system>
+        <quantity>turbineTemperature</quantity>
+      </li>
+      <li>
+        <key>gearbox</key>
+        <label>gearbox</label>
+        <rect>(580, 130, 80, 40)</rect>
+        <role>RotorDrive</role>
+        <system>PhobosVehicleSystem_RotorDrive</system>
+      </li>
+      <li>
+        <key>gearboxChip</key>
+        <label>chip</label>
+        <rect>(668, 139, 24, 22)</rect>
+        <role>RotorDrive</role>
+        <system>PhobosVehicleSystem_RotorDrive</system>
+        <quantity>gearboxMetal</quantity>
+      </li>
+      <li>
+        <key>fuelTank</key>
+        <label>fuel tanks</label>
+        <shape>Tank</shape>
+        <rect>(30, 250, 90, 50)</rect>
+        <system>PhobosVehicleSystem_EngineFuel</system>
+        <fuelLevel>true</fuelLevel>
+        <holds>Fuel</holds>
+      </li>
+      <li>
+        <key>fuelFilter</key>
+        <label>fuel filter</label>
+        <shape>Filter</shape>
+        <rect>(150, 262, 30, 26)</rect>
+        <system>PhobosVehicleSystem_EngineFuel</system>
+        <quantity>fuelFilter</quantity>
+      </li>
+      <li>
+        <key>fuelPump</key>
+        <label>fuel pump</label>
+        <shape>Pump</shape>
+        <rect>(210, 261, 28, 28)</rect>
+        <role>FuelPump</role>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_EngineFuel</system>
+        <quantity>fuelFeed</quantity>
+      </li>
+      <li>
+        <key>oilPump</key>
+        <label>oil pump</label>
+        <shape>Pump</shape>
+        <rect>(470, 264, 28, 28)</rect>
+        <role>OilPump</role>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_EngineOil</system>
+        <quantity>oilPressure</quantity>
+      </li>
+      <li>
+        <key>sump</key>
+        <label>sump</label>
+        <shape>Tank</shape>
+        <rect>(510, 262, 110, 34)</rect>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_EngineOil</system>
+        <quantity>oilLevel</quantity>
+        <holds>Oil</holds>
+      </li>
+      <li>
+        <key>chipDetector</key>
+        <label>chip detector</label>
+        <rect>(630, 268, 26, 22)</rect>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_EngineOil</system>
+        <quantity>oilMetal</quantity>
+      </li>
+      <li>
+        <key>starter</key>
+        <label>starter</label>
+        <rect>(40, 30, 60, 36)</rect>
+        <role>Starter</role>
+        <system>PhobosVehicleSystem_Electrical</system>
+        <quantity>starter</quantity>
+      </li>
+      <li>
+        <key>battery</key>
+        <label>battery</label>
+        <shape>Tank</shape>
+        <rect>(160, 24, 80, 46)</rect>
+        <role>Battery</role>
+        <system>PhobosVehicleSystem_Electrical</system>
+        <quantity>charge</quantity>
+        <holds>Electric</holds>
+      </li>
+      <li>
+        <key>generator</key>
+        <label>generator</label>
+        <rect>(300, 30, 70, 36)</rect>
+        <role>Alternator</role>
+        <system>PhobosVehicleSystem_Electrical</system>
+      </li>
+    </nodes>
+    <pipes>
+      <!-- Air: in at the intake, past the barrier or the separator where there is one, into the compressor. -->
+      <li>
+        <medium>Air</medium>
+        <points><li>(110, 150)</li><li>(300, 150)</li></points>
+        <from>intake</from>
+        <to>compressor</to>
+      </li>
+      <!-- Exhaust: out of the turbine and away. -->
+      <li>
+        <medium>Exhaust</medium>
+        <points><li>(520, 110)</li><li>(520, 40)</li></points>
+        <from>turbine</from>
+      </li>
+      <!-- Fuel: from the tanks through the filter and this engine's pump to its burners. -->
+      <li>
+        <medium>Fuel</medium>
+        <points><li>(120, 275)</li><li>(150, 275)</li></points>
+        <from>fuelTank</from>
+        <to>fuelFilter</to>
+        <drivenBy>fuelPump</drivenBy>
+      </li>
+      <li>
+        <medium>Fuel</medium>
+        <points><li>(180, 275)</li><li>(210, 275)</li></points>
+        <from>fuelFilter</from>
+        <to>fuelPump</to>
+        <drivenBy>fuelPump</drivenBy>
+      </li>
+      <li>
+        <medium>Fuel</medium>
+        <points><li>(224, 261)</li><li>(224, 215)</li><li>(430, 215)</li><li>(430, 190)</li></points>
+        <from>fuelPump</from>
+        <to>hotSection</to>
+      </li>
+      <!-- Oil: from this engine's sump through its pump to the bearings. -->
+      <li>
+        <medium>Oil</medium>
+        <points><li>(510, 278)</li><li>(498, 278)</li></points>
+        <from>sump</from>
+        <to>oilPump</to>
+        <drivenBy>oilPump</drivenBy>
+      </li>
+      <li>
+        <medium>Oil</medium>
+        <points><li>(484, 264)</li><li>(484, 220)</li><li>(520, 220)</li><li>(520, 190)</li></points>
+        <from>oilPump</from>
+        <to>turbine</to>
+      </li>
+      <!-- Power: the generator charges the battery; the battery's lead to the starter carries only a start. -->
+      <li>
+        <medium>Electric</medium>
+        <points><li>(300, 48)</li><li>(240, 48)</li></points>
+        <from>generator</from>
+        <to>battery</to>
+      </li>
+      <li>
+        <medium>Electric</medium>
+        <points><li>(160, 48)</li><li>(100, 48)</li></points>
+        <from>battery</from>
+        <to>starter</to>
+        <flow>Never</flow>
+      </li>
+    </pipes>
+  </Phobos.VehicleSystems.PhobosVehicleSchematicDef>
 </Defs>

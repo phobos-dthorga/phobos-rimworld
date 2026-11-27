@@ -2,7 +2,8 @@
 
 **Status (28 Nov 2026):** partly built. The first slice is built in Framework 0.363.0, not yet tested in game (row 735): the flow
 sheet for land vehicles with a piston engine, in its own window, flow marks a setting that starts off ([As built](#as-built-framework-03630)).
-Not built: pages for other kinds, cutaways, orders from the page, the standard's line. The missing parts M1 to M3 have records of their
+The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765). Not built: pages for boats, electric and steam,
+cutaways, orders from the page, the standard's line. The missing parts M1 to M3 have records of their
 own, not built: [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
 [the chip detector](vehicle-chip-detector.md).
 
@@ -337,6 +338,23 @@ Not yet tested in game: row 735. What differs from the design above, and the cho
   engine joined by a pipe through a pump.
 - **The vehicle standard has no line for the page yet** (agent's choice): one kind has it; the line comes when every kind does.
 - **Not built**: pages for aircraft, boats, electric and steam; cutaways (SC2, SC7, SC8); tabs (SC10); orders from the page (SC4).
+
+## As built: the aircraft page (Framework 0.373.0)
+
+The owner's card of 28 Nov 2026, "The aircraft page" (offered with checking F6 and F7, the three parts' loose ends and the first
+cutaway; all four chosen, in that order). Not yet tested in game: row 765.
+
+- **One page for every turbine aircraft** (`PhobosVehicleSchematic_TurbineAircraft`): the aircraft loadouts with turboshaft or
+  turbofan engines, from the Harrier's one to the C-17's four. The engine is a row of compressor, hot section and turbine: a plain
+  flow sheet that already reads a little like a section, the step before a cutaway (SC2).
+- **A tab per engine** (SC10, by the game's own `TabDrawer`; agent's choice over two engines side by side, F1's first suggestion,
+  because one layout then serves one to four engines). A node marked `perEngine` stands for the chosen engine's part (Engine2,
+  FuelPump2) and reads its own figure where the vehicle keeps one for each engine (`EngineFigures`: fuel feed, oil level and pressure,
+  metal in the oil, hot-section life). Turbine temperature and compressor fouling stay one figure (F1), so every tab shows them alike.
+- **Fittings that may be missing** show only where they are: the inlet barrier by its stat, the intake separator by a new condition
+  (`When_IntakeSeparator`), through a node's `shownWhen`. The gearbox and its chip detector show only with a rotor drive.
+- **Not drawn** (agent's choices): a shaft from the turbine to the gearbox (no medium carries it); the side tanks and the cross-feed;
+  bleed air; water injection.
 
 ## Who chose what
 

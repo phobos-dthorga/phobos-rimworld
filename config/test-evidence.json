@@ -475,7 +475,7 @@
       "finished, its choices kept": [{"key": "framework.setup-wizard", "variant": "finished"}]
     }},
     "734": [{"key": "framework.setup-wizard", "variant": "skipped"}],
-    "735": {"parts": {"the page opens from the Dashboard": ["vehicles.schematic.opened"], "flow marks drift with the setting on": ["vehicles.schematic.flow-marks"]}},
+    "735": {"parts": {"the page opens from the Dashboard": [{"key": "vehicles.schematic.opened", "detail": "PhobosVehicleSchematic_PistonLand"}], "flow marks drift with the setting on": ["vehicles.schematic.flow-marks"]}},
     "737": {"parts": {"fallout doses people on the map": ["health.fallout-dose"]}},
     "738": {"parts": {"a reserve is brought out": ["environment.held-pawns-out"]}},
     "739": {"parts": {"a lamp when dirty": [{"key": "vehicles.stage.fuelFilter", "variant": "dirty"}], "clogged, it loses power": [{"key": "vehicles.stage.fuelFilter", "variant": "clogged"}], "stale depot fuel is dirty": ["vehicles.fuel-dirt"]}},
@@ -491,6 +491,7 @@
       "lit on the ground": [{"key": "vehicles.searchlight-lit", "variant": "on the ground"}]}},
     "745": [{"key": "vehicles.galley-caravan", "expect": {"meals": ">= 1"}}],
     "762": [{"key": "aircraft.control-held", "variant": "TakeoffRoll"}],
+    "765": {"parts": {"the aircraft page opens": [{"key": "vehicles.schematic.opened", "detail": "PhobosVehicleSchematic_TurbineAircraft"}], "an engine's tab is pressed": ["vehicles.schematic.engine-tab"]}},
     "713": [{"key": "radio.world-cover-network", "variant": "PhobosRadioCover_RelayMast"}],
     "714": ["radio.world-cover-full-relay"],
     "704": {"parts": {"finished while not selected": [{"key": "radio.coverage-finished", "variant": "background"}],

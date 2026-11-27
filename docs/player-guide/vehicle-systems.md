@@ -45,8 +45,9 @@ on an aircraft in flight.
 | **Systems** | What exactly is going on? | Every reading, one row each, with a graph; cards for weapons, running gear, loads and crew |
 
 - **Dashboard**: click a gauge to open the Systems tab at that system.
-- **Systems schematic** (the Dashboard's button, in Operator and Engineer display modes, for land vehicles with a piston engine): a
-  window that draws the engine's systems as a flow sheet. Pipes take the colour of what they carry (fuel, oil, coolant, air, exhaust,
+- **Systems schematic** (the Dashboard's button, in Operator and Engineer display modes, for land vehicles with a piston engine and
+  for turbine aircraft): a window that draws the engine's systems as a flow sheet. **An aircraft with more than one engine has a tab
+  for each**, showing that engine's own fuel pump, oil and chip detector. Pipes take the colour of what they carry (fuel, oil, coolant, air, exhaust,
   power) and turn grey when nothing flows; each part is green, amber or red by its reading and its health. **Rest the mouse on a part**
   to read it and see it lit on the vehicle; **click it** to open the Systems tab there. Press the button again to close it. **Flow
   marks on the systems schematic**, on the Display page of the settings, adds small marks that drift along the flowing pipes.

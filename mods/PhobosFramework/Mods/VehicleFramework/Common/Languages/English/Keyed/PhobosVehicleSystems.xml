@@ -511,6 +511,7 @@
   <PhobosVehicleSystems_ButtonSchematic>Systems schematic</PhobosVehicleSystems_ButtonSchematic>
   <PhobosVehicleSystems_ButtonSchematicDesc>A picture of how fuel, oil, coolant, air and power move through this vehicle, and where a fault sits. Point at a part to read it and see it on the vehicle; click it to open the Systems tab there. Press again to close.</PhobosVehicleSystems_ButtonSchematicDesc>
   <PhobosVehicleSystems_SchematicTitle>{VEHICLE}: systems</PhobosVehicleSystems_SchematicTitle>
+  <PhobosVehicleSystems_SchematicEngineTab>Engine {NUMBER}</PhobosVehicleSystems_SchematicEngineTab>
   <PhobosVehicleSystems_SchematicRunning>Engine running</PhobosVehicleSystems_SchematicRunning>
   <PhobosVehicleSystems_SchematicEngineOff>Engine off: nothing flows</PhobosVehicleSystems_SchematicEngineOff>
   <PhobosVehicleSystems_SchematicFuel>Fuel in the tank: {SHARE}</PhobosVehicleSystems_SchematicFuel>

@@ -19,6 +19,8 @@ namespace Phobos.VehicleSystems;
 public class Window_PhobosVehicleSchematic : Window
 {
     const float TitleHeight = 30f;
+    /// <summary>Room for the engine tabs (Framework 0.373.0), which the game's tab drawer hangs above the sheet.</summary>
+    const float TabHeight = 32f;
     const float LegendHeight = 26f;
     const float Gap = 8f;
     const float PipeWidth = 3f;
@@ -38,6 +40,8 @@ public class Window_PhobosVehicleSchematic : Window
     readonly List<(double x, double y)>[] pipePoints;
     readonly double[] pipeLengths;
     SchematicView? view;
+    /// <summary>The engine the per-engine parts show, from 0 (Framework 0.373.0).</summary>
+    int engine;
     float phase;
     string? lit;
     bool marksNoted;
@@ -110,7 +114,9 @@ public class Window_PhobosVehicleSchematic : Window
             return;
         }
         int now = Find.TickManager?.TicksGame ?? 0;
-        if (view == null || view.Stale(comp, now)) view = SchematicView.Build(comp, page);
+        List<string> engines = page.HasEngineTabs ? EngineFigures.Roles(comp).ToList() : new List<string>();
+        if (engine >= engines.Count) engine = 0;
+        if (view == null || view.Stale(comp, now) || view.Engine != engine) view = SchematicView.Build(comp, page, engine);
 
         using (new TextBlock(GameFont.Medium, TextAnchor.MiddleLeft))
         {
@@ -125,7 +131,20 @@ public class Window_PhobosVehicleSchematic : Window
             GUI.color = Color.white;
         }
 
-        var sheet = new Rect(inRect.x, inRect.y + TitleHeight + Gap, inRect.width, inRect.height - TitleHeight - LegendHeight - Gap * 2f);
+        // Framework 0.373.0: a tab for each engine where the page has parts of each engine's own and the vehicle more than one engine.
+        float top = inRect.y + TitleHeight + Gap;
+        if (engines.Count > 1)
+        {
+            top += TabHeight;
+            var tabs = new List<TabRecord>();
+            for (int e = 0; e < engines.Count; e++)
+            {
+                int chosen = e;
+                tabs.Add(new TabRecord(EngineLabel(engines[e], e), () => ChooseEngine(chosen), engine == e));
+            }
+            TabDrawer.DrawTabs(new Rect(inRect.x, top, inRect.width, 1f), tabs);
+        }
+        var sheet = new Rect(inRect.x, top, inRect.width, inRect.yMax - LegendHeight - Gap - top);
         Widgets.DrawBoxSolid(sheet, Ground);
         Widgets.DrawBox(sheet);
         (double scale, double offX, double offY) = SchematicRule.Fit(page.size.x, page.size.y, sheet.width - 12f, sheet.height - 12f);
@@ -182,6 +201,19 @@ public class Window_PhobosVehicleSchematic : Window
         }
         Highlight(hovered);
         DrawLegend(new Rect(inRect.x, inRect.yMax - LegendHeight, inRect.width, LegendHeight));
+    }
+
+    /// <summary>An engine's tab: its part's name on the vehicle, or "engine N" where it has none.</summary>
+    string EngineLabel(string role, int index) =>
+        comp.PartsOf(role).FirstOrDefault()?.props.label?.CapitalizeFirst() ?? "PhobosVehicleSystems_SchematicEngineTab".Translate((index + 1).Named("NUMBER")).Resolve();
+
+    /// <summary>An engine's tab pressed: its parts are shown from the next frame.</summary>
+    void ChooseEngine(int index)
+    {
+        if (index == engine) return;
+        engine = index;
+        view = null;
+        if (Seen.Wants("vehicles.schematic.engine-tab", comp.Vehicle)) Seen.Note("vehicles.schematic.engine-tab", comp.Vehicle, page.defName);
     }
 
     /// <summary>A part clicked: the Systems tab opens at its system, as a Dashboard gauge does, with the vehicle selected first on a map so

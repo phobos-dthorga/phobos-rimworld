@@ -22,6 +22,24 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.373.0] - 2026-11-28 - Draft
+
+The systems schematic for aircraft
+
+### Added
+
+- **The systems schematic draws turbine aircraft** (the owner's card of 28 November 2026): helicopters, jets and turboprops, from one
+  engine to four. The engine is a row of compressor, hot section and turbine, fed by the fuel tanks, filter and pump, the oil sump and
+  pump, and the air intake, with the starter, battery and generator, and the gearbox where the aircraft has a rotor drive. **A tab
+  for each engine** shows that engine's own fuel pump, oil, chip detector and hot section. The inlet barrier shows where it is fitted,
+  the intake separator where the aircraft has one. Not yet tested in game: row 765.
+- For modders: a schematic page's node can follow the chosen engine (perEngine) and be shown only while a condition holds (shownWhen,
+  judged in its system), and a new condition, When_IntakeSeparator, holds while the aircraft has a separator.
+
+### Save compatibility
+
+- Safe for saves: nothing new is saved.
+
 ## [0.372.1] - 2026-11-28 - Draft
 
 Turbines held at their limit, and aircraft electrics on 24 volts

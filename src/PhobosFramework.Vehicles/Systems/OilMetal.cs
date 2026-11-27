@@ -48,6 +48,13 @@ public sealed class OilMetal
 
     List<VehicleComponent> Gearboxes() => comp.PartsOf(GearboxRole).ToList();
 
+    /// <summary>The metal in one part's oil (Framework 0.373.0, the schematic's engine tabs); false while it has gained none.</summary>
+    public bool TryOf(VehicleComponent part, out float figure)
+    {
+        figure = 0f;
+        return metal != null && metal.TryGetValue(part.props.key, out figure);
+    }
+
     /// <summary>Called by the comp when wear (not a hit, a fire or grit) takes <paramref name="shareLost"/> of a part's health.</summary>
     public void NoteWear(VehicleComponent part, string role, float shareLost)
     {

@@ -289,10 +289,13 @@ public readonly struct GaugeReading
         Figure = figure;
     }
 
-    public static GaugeReading For(SystemState state, int q)
+    public static GaugeReading For(SystemState state, int q) => For(state, q, state.values[q]);
+
+    /// <summary>The same for a figure other than the system's own, read on its scale: one engine's, where each keeps its own (Framework 0.373.0).</summary>
+    public static GaugeReading For(SystemState state, int q, double value)
     {
         QuantitySpec quantity = state.Def.quantities[q];
-        double min = state.min[q], max = state.max[q], value = state.values[q];
+        double min = state.min[q], max = state.max[q];
         double share = (value - min) / System.Math.Max(1e-6, max - min);
         if (!quantity.remainingLabel.NullOrEmpty())
         {

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Interface;
 using Phobos.Framework.Rules;
+using Phobos.Framework.Vehicles.Rules;
 using Vehicles;
 using Verse;
 
@@ -46,10 +47,13 @@ public sealed class SchematicView
     public readonly bool Running;
     public readonly int BuiltAt;
     public readonly int HealthVersion;
+    /// <summary>The engine its per-engine nodes show, from 0 (Framework 0.373.0, the engine tabs).</summary>
+    public readonly int Engine;
 
-    SchematicView(PhobosVehicleSchematicDef page, int builtAt, int healthVersion, bool running)
+    SchematicView(PhobosVehicleSchematicDef page, int builtAt, int healthVersion, bool running, int engine)
     {
         Page = page;
+        Engine = engine;
         Nodes = page.nodes.Select(_ => new NodeView()).ToArray();
         Pipes = new (bool, bool)[page.pipes.Count];
         BuiltAt = builtAt;
@@ -60,10 +64,11 @@ public sealed class SchematicView
     /// <summary>Whether this view no longer says what the vehicle does: time has run on, or a part's health changed.</summary>
     public bool Stale(CompPhobosVehicleSystems comp, int now) => now >= BuiltAt + RebuildTicks || now < BuiltAt || comp.HealthViewVersion != HealthVersion;
 
-    public static SchematicView Build(CompPhobosVehicleSystems comp, PhobosVehicleSchematicDef page)
+    /// <summary>The view of a page, with its per-engine nodes showing engine <paramref name="engine"/> (from 0).</summary>
+    public static SchematicView Build(CompPhobosVehicleSystems comp, PhobosVehicleSchematicDef page, int engine = 0)
     {
-        var view = new SchematicView(page, Find.TickManager?.TicksGame ?? 0, comp.HealthViewVersion, comp.EngineRunning);
-        for (int i = 0; i < page.nodes.Count; i++) Fill(comp, page.nodes[i], view.Nodes[i]);
+        var view = new SchematicView(page, Find.TickManager?.TicksGame ?? 0, comp.HealthViewVersion, comp.EngineRunning, engine);
+        for (int i = 0; i < page.nodes.Count; i++) Fill(comp, page.nodes[i], view.Nodes[i], engine);
         for (int i = 0; i < page.pipes.Count; i++)
         {
             SchematicPipe pipe = page.pipes[i];
@@ -88,21 +93,32 @@ public sealed class SchematicView
         return null;
     }
 
-    static void Fill(CompPhobosVehicleSystems comp, SchematicNode node, NodeView view)
+    /// <summary>The role a node stands for on this vehicle: for a per-engine node, the chosen engine's own (Engine2, FuelPump2), or null
+    /// where the vehicle has no such engine.</summary>
+    static string? RoleOf(CompPhobosVehicleSystems comp, SchematicNode node, int engine)
+    {
+        if (node.role.NullOrEmpty() || !node.perEngine) return node.role;
+        IReadOnlyList<string> engines = EngineFigures.Roles(comp);
+        return engine >= 0 && engine < engines.Count ? EnginePumps.RoleFor(node.role!, engines[engine]) : null;
+    }
+
+    static void Fill(CompPhobosVehicleSystems comp, SchematicNode node, NodeView view, int engine)
     {
         if (node.system != null)
         {
             view.State = comp.States.FirstOrDefault(s => s.Def == node.system);
             if (view.State == null || !comp.IsEnabled(view.State)) return;
+            if (node.shownWhen != null && !node.shownWhen.Holds(new SystemContext(comp, view.State))) return;
         }
-        List<VehicleComponent>? parts = null;
+        string? role = RoleOf(comp, node, engine);
         if (!node.role.NullOrEmpty())
         {
-            parts = comp.PartsOf(node.role!).ToList();
+            if (role == null) return;
+            List<VehicleComponent> parts = comp.PartsOf(role).ToList();
             if (parts.Count == 0) return;
             view.Part = parts.OrderBy(p => p.HealthPercent).First();
             view.Health = view.Part.HealthPercent;
-            view.Work = comp.PartEfficiency(node.role!, 1f);
+            view.Work = comp.PartEfficiency(role, 1f);
         }
         view.Shown = true;
         SchematicTone tone = SchematicTone.Good;
@@ -111,10 +127,13 @@ public sealed class SchematicView
         int q = view.State != null && !node.quantity.NullOrEmpty() ? System.Array.FindIndex(view.State.Def.quantities.ToArray(), x => x.name == node.quantity) : -1;
         if (view.State != null && q >= 0)
         {
-            GaugeReading reading = GaugeReading.For(view.State, q);
+            // Framework 0.373.0: a per-engine node reads the chosen engine's own figure where each keeps one, and its stage from that figure.
+            float figure = 0f;
+            bool own = node.perEngine && EngineFigures.TryRead(comp, node.quantity!, engine, out figure);
+            GaugeReading reading = own ? GaugeReading.For(view.State, q, figure) : GaugeReading.For(view.State, q);
             view.Figure = reading.Figure;
             view.Reading = reading.Label.CapitalizeFirst() + ": " + reading.Figure;
-            StageSpec? stage = view.State.CurrentStage(q);
+            StageSpec? stage = own ? StageAt(view.State.Def.quantities[q], figure) : view.State.CurrentStage(q);
             if (stage != null)
             {
                 view.Stage = stage.label;
@@ -135,6 +154,15 @@ public sealed class SchematicView
             if (tank.EmptyTank) tone = SchematicRule.Worst(tone, SchematicTone.Bad);
         }
         view.Tone = tone;
+    }
+
+    /// <summary>The stage a figure falls in on a quantity's scale, or null for none.</summary>
+    static StageSpec? StageAt(QuantitySpec quantity, float figure)
+    {
+        if (quantity.stages.Count == 0) return null;
+        StageBounds bounds = StageBounds.Of(quantity);
+        int index = StageRule.StageIndex(figure, bounds.from, bounds.to);
+        return index >= 0 && index < quantity.stages.Count ? quantity.stages[index] : null;
     }
 
     /// <summary>A tone's colour, in the colours every Phobos tab uses.</summary>

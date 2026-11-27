@@ -62,6 +62,15 @@ public class SchematicNode
     public bool fuelLevel;
     /// <summary>What a tank holds, for the colour it fills with.</summary>
     public SchematicMedium holds = SchematicMedium.Fuel;
+    /// <summary>
+    /// The node is the chosen engine's own (Framework 0.373.0; the engine tabs): its role is that engine's (Engine becomes Engine2, FuelPump
+    /// becomes FuelPump2, as the loadout binds them), and its quantity is that engine's figure where the vehicle keeps one for each engine
+    /// (<see cref="EngineFigures"/>), else the vehicle's.
+    /// </summary>
+    public bool perEngine;
+    /// <summary>Shown only while this holds, judged in its system (Framework 0.373.0): a fitting that may or may not be there, such as an
+    /// inlet barrier. Null: always, where its system and role are.</summary>
+    public VehicleSystemCondition? shownWhen;
 }
 
 /// <summary>One pipe on a schematic page, between two nodes or from one node to open air.</summary>
@@ -115,6 +124,9 @@ public class PhobosVehicleSchematicDef : Def
 
     public SchematicNode? Node(string? key) => key.NullOrEmpty() ? null : nodes.FirstOrDefault(n => n.key == key);
 
+    /// <summary>Whether any node follows the chosen engine, so the window offers a tab per engine.</summary>
+    public bool HasEngineTabs => nodes.Any(n => n.perEngine);
+
     public override IEnumerable<string> ConfigErrors()
     {
         foreach (string error in base.ConfigErrors()) yield return error;
@@ -130,6 +142,7 @@ public class PhobosVehicleSchematicDef : Def
                 yield return "node " + node.key + " reads " + node.quantity + ", which " + node.system.defName + " does not have";
             }
             if (!node.quantity.NullOrEmpty() && node.system == null) yield return "node " + node.key + " reads a quantity but names no system";
+            if (node.shownWhen != null && node.system == null) yield return "node " + node.key + " has shownWhen but names no system to judge it in";
         }
         foreach (SchematicPipe pipe in pipes)
         {

@@ -135,6 +135,15 @@ public sealed class EngineFeeds
     /// <summary>Whether XML may name this reading (Input_EngineFeed): any other reads the oil level.</summary>
     public static bool IsReading(string? reading) => reading is FuelFeed or OilPressure or OilLevel;
 
+    /// <summary>Engine <paramref name="engine"/>'s own reading of <see cref="FuelFeed"/>, <see cref="OilPressure"/> or <see cref="OilLevel"/>
+    /// (Framework 0.373.0, the schematic's engine tabs); false where the vehicle keeps no such figure for each engine.</summary>
+    public bool TryReading(string reading, int engine, out float figure)
+    {
+        bool ours = reading == FuelFeed ? HasFuel : (reading == OilLevel || reading == OilPressure) && HasOil;
+        figure = ours && IsEngine(engine) ? Reading(reading, engine) : 0f;
+        return ours && IsEngine(engine);
+    }
+
     float Reading(string reading, int engine) => reading switch
     {
         FuelFeed => Feed(engine),
