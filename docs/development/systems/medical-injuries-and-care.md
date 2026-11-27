@@ -584,8 +584,8 @@ Every tie-in is in the [tie-in register](../tie-in-register.md). None is require
   area.
 - **Carbon monoxide is inferred** from smoke and enclosure when the Framework's gas is not running.
 - **Fire heat** can linger up to 150 ticks after its fire dies, and every map rebuilds on the same tick.
-- **Effects applied from code are invisible to the dose index**: Vanilla Races Expanded's antibiotics, given through its own
-  outcome class, are not indexed; More Injuries' morphine raising bleeding is why the bleeding hold exists.
+- **Effects applied from code are invisible to the dose index** unless a reader names their class (Vanilla Races Expanded - Genie's
+  antibiotics are read that way since 0.32.0); More Injuries' morphine raising bleeding is why the bleeding hold exists.
 - **Stronger pain does not prefer stronger drugs**: the score ignores the pain level.
 - **Antibiotics are not told from antivirals**; every disease drug counts for every disease.
 - **Prevention reaches only what an item already prevents, and only once a disease is in the colony.** Our own vaccines, hygiene and
