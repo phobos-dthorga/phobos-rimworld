@@ -124,7 +124,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory` | 14 | 0 | 0 | 0 |
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
-| `PhobosFramework` | 6 | 0 | 1 | 0 |
+| `PhobosFramework` | 8 | 0 | 1 | 0 |
 | `PhobosFramework.Vehicles` | 122 | 16 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 2 | 0 | 0 | 0 |
@@ -134,9 +134,9 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.AircraftRearm` | 0 | 0 | 10 | 0 |
 | `PhobosPatches.Biotech` | 2 | 0 | 0 | 0 |
 | `PhobosPatches.Classical` | 1 | 0 | 0 | 0 |
-| `PhobosPatches.CombatExtended` | 1 | 2 | 1 | 0 |
+| `PhobosPatches.CombatExtended` | 1 | 3 | 1 | 0 |
 | `PhobosPatches.Harrier` | 13 | 5 | 5 | 0 |
-| `PhobosPatches.Irbm` | 6 | 0 | 1 | 0 |
+| `PhobosPatches.Irbm` | 7 | 0 | 1 | 0 |
 | `PhobosPatches.NiceResearchTab` | 1 | 0 | 0 | 0 |
 | `PhobosPatches.Outposts` | 1 | 0 | 0 | 0 |
 | `PhobosPatches.Prowler` | 0 | 2 | 0 | 0 |
@@ -145,7 +145,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 | `PhobosRadio.DeadMansSwitch` | 1 | 0 | 0 | 0 |
 
-201 patched methods named in attributes, 25 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+204 patched methods named in attributes, 26 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -193,14 +193,16 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework</code>: 6 patched methods</summary>
+<details><summary><code>PhobosFramework</code>: 8 patched methods</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework/`) |
 | --- | --- | --- |
 | `BackCompatibility.GetBackCompatibleType` | postfix | `Persistence/ClassFamilies.cs` |
+| `CompExplosive.Detonate` | prefix | `Health/RadiationBurstPatches.cs` |
 | `DesignationCategoryDef.ResolvedAllowedDesignators (getter)` | postfix | `UI/ArchitectSubTabs.cs` |
 | `MainTabWindow_Architect.CacheDesPanels` | postfix | `UI/ArchitectSubTabs.cs` |
 | `Pawn_JobTracker.StartJob` | postfix | `Work/LoopWatch.cs` |
+| `Projectile_Explosive.Explode` | prefix | `Health/RadiationBurstPatches.cs` |
 | `SkillRecord.Learn` | prefix | `Skills/LearnWhileHelped.cs` |
 | `TendUtility.DoTend` | prefix, finalizer | `Skills/TendActScope.cs` |
 
@@ -415,13 +417,14 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosPatches.CombatExtended</code>: 1 patched method, 2 by name</summary>
+<details><summary><code>PhobosPatches.CombatExtended</code>: 1 patched method, 3 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosPatches.CombatExtended/`) |
 | --- | --- | --- |
 | `Pawn_EquipmentTracker.DropAllEquipment` | postfix | `KeepGuns/DroppedWhenDownedPatch.cs` |
 | by name in TargetMethod | prefix | `Airdrop/ShotDownParachutes.cs` |
 | by name in TargetMethod | postfix | `KeepGuns/SidearmLoopGuard.cs` |
+| by name in TargetMethod | prefix | `RadiationBurstPatch.cs` |
 
 </details>
 
@@ -447,7 +450,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosPatches.Irbm</code>: 6 patched methods</summary>
+<details><summary><code>PhobosPatches.Irbm</code>: 7 patched methods</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosPatches.Irbm/`) |
 | --- | --- | --- |
@@ -457,6 +460,7 @@ Every HarmonyPatch attribute was read.
 | `FogGrid.FloodUnfogAdjacent` | prefix | `Patches/QuietRevealPatches.cs` |
 | `StrategicImpactCountdown.ApplyStrategicDamage` | prefix, finalizer | `Patches/QuietRevealPatches.cs`, `Patches/StrategicDamagePatches.cs` |
 | `StrategicImpactCountdown.OnWhiteScreenReached` | prefix | `Patches/WhiteScreenPatch.cs` |
+| `WorldObjectComp_TacticalPayload.ExecuteWithProps` | prefix | `Patches/RadiationBurstPatches.cs` |
 
 </details>
 

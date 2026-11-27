@@ -21,6 +21,26 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.47.0] - 2026-11-27 - Draft
+
+Radiation for the other nuclear weapons
+
+### Added
+
+- **Radiation for the other nuclear weapons**: InterRim Ballistic Missile's Mini-Nuke and antimatter warheads now give a radiation dose
+  at each hit, the Mini-Nuke with a day or three of fallout; its Surgical and Clean warheads go through our strike (the Clean one a
+  neutron bomb: a small blast, four times the dose, no fallout); and its Gamma-Ray Burst gives one dose over the struck maps in place
+  of its decay damage to people, through built roofs but not rock. Until now only its Extinction-Class warhead had our radiation.
+- **Antigrain blasts give a dose too** (a guess at a weapon no one has built): the game's antigrain shell and trap, Combat Extended's
+  antigrain mortar shell, VFE Deserters' remote charge, Vanilla Gravship Expanded 2's warpod and InterRim Ballistic Missile's trap.
+- **The nuclear boiler of 长征工业合作社's power system** gives a dose and several days of fallout when it blows up with a payload in it.
+- Every figure is authored; all of it needs D'thorga Medical's radiation model and D'thorga Framework 0.358.0's two radiation settings.
+  Not yet tested in game: rows 716 to 718.
+
+### Compatibility and limits
+
+- Combat Extended's ammunition cooking off gives no dose. Fallout needs Dubs Rimatomics. Safe to add to and remove from a save.
+
 ## [0.46.0] - 2026-11-27 - Draft
 
 Rearm and refuel, a work type of its own

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Antigrain warheads give a prompt dose of radiation at the blast, as annihilation gives off gamma rays, and leave no fallout (Patches
+       0.47.0; docs/development/radiation-bursts.md; the owner's choice of 27 Nov 2026). A sci-fi extrapolation; every figure is authored:
+       10 Gy in the open out to 15 cells, about 1.7 Gy at 30 cells, 0.4 at 50. D'thorga Framework's setting "Radiation from antimatter
+       blasts" turns it off. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="VGE_Warpod_Antigrain"]</xpath>
+    <value>
+      <li Class="Phobos.Framework.Health.PhobosRadiationBurst">
+        <kind>Antimatter</kind>
+        <edgeRadius>15</edgeRadius>
+        <graysAtEdge>10</graysAtEdge>
+        <airLength>40</airLength>
+      </li>
+    </value>
+  </Operation>
+</Patch>

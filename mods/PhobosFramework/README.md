@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.357.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.358.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -118,6 +118,8 @@ offers to restart). RimWorld saves only what you change.
 | General | Workbenches, research benches and televisions; Turrets, hydroponics and monitors; Powered doors (under the one above) | One switch for each kind. A turret on standby still fires and a door still opens at once | On |
 | General | Power on standby (under the one above) | How much of its full power an idle building draws: 0%, 5%, 10%, 20% or 30% | 10% |
 | General | Rain soaks open fields | Rain wets the soil crops grow in outdoors within the hour, as it wets the ground under vehicles, and wet soil only ever helps crops. With Dubs Bad Hygiene it fills Dubs' own irrigation (needs its Rain irrigation option on), which Dubs dries; without it, soaked open ground is up to 1.8 times as fertile, falling back as the ground dries. Changes at once | Off |
+| General | Radiation from nuclear blasts | Small nuclear weapons from other mods (InterRim Ballistic Missile's mini-nuke, the nuclear boiler) give a radiation dose at the flash, falling with distance and cut by roofs, stone and rock, with a letter naming who took one; some leave a few days of Dubs Rimatomics' fallout. Needs D'thorga Medical's radiation model | On |
+| General | Radiation from antimatter blasts | Antigrain shells, traps, charges and warheads give a radiation dose at the flash, with no fallout. Needs D'thorga Medical's radiation model | On |
 | General | Notice when a colonist keeps fetching and putting away the same thing | Tells you once, by name, when a colonist fetches the same thing and hauls it away again several times within a couple of hours: usually two orders disagree, such as their sidearms and their loadout. It never stops a job | On |
 | General | D'thorga sounds volume | Every D'thorga mod's sounds, from 0% (silent) to 200%; at 100% each matches a comparable game sound. Changes at once | 100% |
 | Log and reports | Keep the game's log going after its message limit | Turns the game's log back on when it stops at 10,000 messages, at most 25 times a session, with a line naming the message that filled it | On |

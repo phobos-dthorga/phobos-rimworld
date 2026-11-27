@@ -22,6 +22,24 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.358.0] - 2026-11-27 - Draft
+
+Radiation from other nuclear and antimatter blasts
+
+### Added
+
+- **Radiation from other nuclear and antimatter blasts**: a weapon whose Def carries a radiation burst gives everyone nearby a dose at
+  the flash, falling with distance the real way (the inverse square and the air) and cut by roofs, stone walls, rock and vehicle hulls,
+  with a letter naming the player's people dosed and, for some nuclear ones, a few days of Dubs Rimatomics' fallout. Any explosive
+  shell or thing with the game's explosive comp can carry one by XML; D'thorga Patches 0.47.0 gives it to the other mods' nuclear and
+  antimatter weapons. Needs D'thorga Medical's radiation model. Two settings, both on: Radiation from nuclear blasts, and Radiation
+  from antimatter blasts (General, Radiation from blasts). A dev action gives any burst at a cell. Not yet tested in game: rows 716 to 718.
+
+### Changed
+
+- **Shelter from a blast's dose and the dose letter moved here from D'thorga Patches' strike**, so the strike and every burst judge
+  cover and tell doses the same way; nothing in play changes.
+
 ## [0.357.0] - 2026-11-27 - Draft
 
 Hold station

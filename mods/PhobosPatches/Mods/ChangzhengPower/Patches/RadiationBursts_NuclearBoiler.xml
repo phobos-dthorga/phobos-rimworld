@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The nuclear boiler blows up as a nuclear blast once badly damaged; while it holds a payload, that blast gives a prompt dose of
+       radiation and several days of Dubs Rimatomics' fallout (Patches 0.47.0; docs/development/radiation-bursts.md; the owner's choice of
+       27 Nov 2026). Empty, it stays the ordinary blast its author made. Every figure is authored: 40 Gy in the open out to its blast's
+       edge, 28 cells, about 7.9 Gy at 56, 1.7 at 100. D'thorga Framework's setting "Radiation from nuclear blasts" turns it off. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="RefuseNuclearBoiler"]</xpath>
+    <value>
+      <li Class="Phobos.Framework.Health.PhobosRadiationBurst">
+        <kind>Nuclear</kind>
+        <edgeRadius>28</edgeRadius>
+        <graysAtEdge>40</graysAtEdge>
+        <airLength>120</airLength>
+        <falloutDays>3~10</falloutDays>
+        <onlyWithFuel>true</onlyWithFuel>
+      </li>
+    </value>
+  </Operation>
+</Patch>

@@ -39,6 +39,20 @@
   <PhobosFramework_SettingNoticePickUpLoops>Notice when a colonist keeps fetching and putting away the same thing</PhobosFramework_SettingNoticePickUpLoops>
   <PhobosFramework_SettingNoticePickUpLoopsDesc>On (the default): when a colonist fetches the same thing and hauls it away again {TURNS} times within a couple of hours, you are told once, by name, then not again for a day. It is usually two orders that disagree, such as a colonist's sidearms and what their loadout lets them carry. It only tells: it never stops a job.</PhobosFramework_SettingNoticePickUpLoopsDesc>
   <PhobosFramework_SectionFields>Fields</PhobosFramework_SectionFields>
+  <PhobosFramework_SectionRadiation>Radiation from blasts</PhobosFramework_SectionRadiation>
+  <PhobosFramework_RadiationNeedsModel>These need D'thorga Medical's radiation model, which is not on: until it is, these weapons give no dose.</PhobosFramework_RadiationNeedsModel>
+  <PhobosFramework_SettingRadiationFromNuclear>Radiation from nuclear blasts</PhobosFramework_SettingRadiationFromNuclear>
+  <PhobosFramework_SettingRadiationFromNuclearDesc>On (the default): small nuclear weapons from other mods, such as InterRim Ballistic Missile's mini-nuke and the nuclear boiler, give everyone nearby a dose of radiation at the flash, falling away with distance and cut by roofs, stone walls and rock; some leave a few days of Dubs Rimatomics' fallout. Their radiation reaches further than their blast. The player's people who took a dose are told in a letter. Off: those weapons only blast, as their authors made them. The big strikes have their own settings in D'thorga Patches.</PhobosFramework_SettingRadiationFromNuclearDesc>
+  <PhobosFramework_SettingRadiationFromAntimatter>Radiation from antimatter blasts</PhobosFramework_SettingRadiationFromAntimatter>
+  <PhobosFramework_SettingRadiationFromAntimatterDesc>On (the default): antigrain shells, traps, charges and warheads give a dose of radiation at the flash, as annihilation gives off a burst of gamma rays, and leave no fallout. A guess at a weapon no one has built. Off: they only blast, as in the base game.</PhobosFramework_SettingRadiationFromAntimatterDesc>
+  <PhobosFramework_BurstDoseLetterLabel>Radiation from the blast</PhobosFramework_BurstDoseLetterLabel>
+  <PhobosFramework_DoseLetterText>Where they stood when the flash came tells a doctor roughly what each took:{LIST}\n\nGet the worst into hospital beds before the sickness comes; walls, earth and distance would have helped, a mask would not.</PhobosFramework_DoseLetterText>
+  <PhobosFramework_DoseLine>{PAWN_labelShort}: {BAND}, about {GRAYS} Gy</PhobosFramework_DoseLine>
+  <PhobosFramework_DoseLight>a light dose</PhobosFramework_DoseLight>
+  <PhobosFramework_DoseModerate>a moderate dose</PhobosFramework_DoseModerate>
+  <PhobosFramework_DoseHeavy>a heavy dose</PhobosFramework_DoseHeavy>
+  <PhobosFramework_DoseSevere>a severe dose</PhobosFramework_DoseSevere>
+  <PhobosFramework_DoseLethal>a dose most do not survive</PhobosFramework_DoseLethal>
   <PhobosFramework_SettingRainSoaksFields>Rain soaks open fields</PhobosFramework_SettingRainSoaksFields>
   <PhobosFramework_SettingRainSoaksFieldsDesc>Off (the default). On: the rain that wets the ground under vehicles within the hour wets the soil crops grow in too, outdoors only; it only ever helps crops grow, never slows them. With Dubs Bad Hygiene, its own irrigation fills as the rain falls (it needs its Rain irrigation option on) and dries as Dubs dries it; without it, soaked open ground is up to {FACTOR} times as fertile, falling back as the ground dries over the following hours. It changes at once, with no restart. Off by default because it touches how every field's fertility is worked out: turn it on and see how your colony runs.</PhobosFramework_SettingRainSoaksFieldsDesc>
   <PhobosFramework_LoopNoticed>{PAWN} has fetched {THING} and hauled it away again {COUNT} times in a short while. Two orders seem to disagree about whether {PAWN} should carry it: look at what {PAWN} is told to carry and to keep.</PhobosFramework_LoopNoticed>

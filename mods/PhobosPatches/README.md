@@ -11,7 +11,7 @@ munitions, **Biotech**'s mech rechargers and **The Dead Man's Switch**'s drone p
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.46.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.47.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out), one missile strike on an earlier version (owner, 7 November 2026), the Prison Labor
 guard, drone platforms kept topped up and drones called home in time, soldiers going back to their own guns, sidearms that loop
 being stopped, mech rechargers drawing real power, and the Nice Research Tab guard. Everything else is not yet tested in game.
@@ -88,8 +88,11 @@ One line each; the guide's [Patches chapter](../../docs/player-guide/patches.md)
   there, and their wrecks carried back for their steel.
 - **Spaceship Turret Hull, with Combat Extended**: the armed hulls load and fire Combat Extended ammunition.
 - **InterRim Ballistic Missile**: a strategic blast spread over moments instead of freezing the game, shelter under overhead
-  mountain, and the extinction-class warhead's fireball, blast and heat zones; with Combat Extended, its close-in weapon systems
-  shoot down Combat Extended's shells.
+  mountain, and the extinction-class warhead's fireball, blast and heat zones; a radiation dose from its other nuclear and
+  antimatter warheads (with D'thorga Medical's radiation model); with Combat Extended, its close-in weapon systems shoot down
+  Combat Extended's shells.
+- **Antigrain blasts and the nuclear boiler** (the game, Combat Extended, VFE Deserters, Vanilla Gravship Expanded 2, 长征工业合作社's
+  power system): a radiation dose at the flash, with D'thorga Medical's radiation model.
 - **RimPacts**: allies' assaults leave empty vehicles alone (temporary), and face a struck town's garrison from before the strike.
 - **Visit Settlements**: a visited settlement's map stays open while your people can still act there, and its food drops work.
 - **Biotech**, a setting: mech rechargers draw power by the size of the mech.

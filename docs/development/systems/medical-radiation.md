@@ -283,12 +283,28 @@ damage](vehicle-damage.md) and in the [strike record](../nuclear-strike-effects.
   active.
 - **Shelter** (with "Shadow and shelter from the strike" on): the dose is cut by what stood overhead before the roofs were
   stripped, from Glasstone and Dolan's Table 8.72 for gamma rays: a light building passes 0.9, a stone-walled room 0.15, three
-  feet of earth (thick rock) 0.003; a thin rock roof 0.05 is the agent's figure (`StrikeShelterRule.DosePass`). People under rock
+  feet of earth (thick rock) 0.003; a thin rock roof 0.05 is the agent's figure (D'thorga Framework's `RadiationShelterRule.DosePass`,
+  shared with the bursts below since Framework 0.358.0). People under rock
   now take that share rather than none.
 - **People aboard a vehicle** take the dose people in the open take there, times the hull's share (1 open, 0.9 closed under 15
   tonnes, 0.7 to 40, 0.35 above; authored after Davidson's tank figures), in grays.
 - **The letter** lists the player's people dosed, in words and grays, as they stood outside, before worn shielding: light below 1
   Gy, moderate below 2, heavy below 4, severe below 6, lethal above.
+
+### Doses from other nuclear and antimatter blasts
+
+D'thorga Framework 0.358.0's radiation bursts (`src/PhobosFramework/Health/RadiationBursts.cs`; [the record](../radiation-bursts.md)):
+a weapon whose Def carries a `PhobosRadiationBurst` gives a prompt dose at the flash through the same door, with the source named
+by its defName. D'thorga Patches 0.47.0 gives one to InterRim Ballistic Missile's Mini-Nuke, antimatter and Gamma-Ray Burst warheads,
+the antigrain things of the game and four mods, and the nuclear boiler.
+
+- **The dose** falls by the inverse square and the air beyond the weapon's edge (`RadiationBurstRule`), every figure authored per
+  weapon; doses under 0.01 Gy are not given. A whole-map burst gives one dose everywhere.
+- **Shelter** is the strike's, judged where each person stands (`ShelterCovers.Of`); a weapon may say built buildings do not shield.
+  **People aboard a vehicle** take the hull's share.
+- **The letter** is the strike's, one per frame however many bursts landed; **fallout** is Dubs Rimatomics', by name, when active.
+- Two settings in D'thorga Framework, both on: Radiation from nuclear blasts, and from antimatter blasts. With the model off,
+  nothing is given (no Rimatomics fallback, unlike the strike).
 
 ### The radiation control line (Rimatomics)
 

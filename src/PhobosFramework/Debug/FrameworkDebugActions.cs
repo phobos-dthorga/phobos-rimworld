@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using LudeonTK;
 using Phobos.Framework.Gases;
 using Phobos.Framework.Health;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -61,6 +63,24 @@ public static class FrameworkDebugActions
         }
         Log.Message(text.ToString());
     }
+
+    /// <summary>A radiation burst at the clicked cell, as any weapon carrying one would give it (Framework 0.358.0), so each can be tried
+    /// without building the weapon. Gives nothing while its setting is off or D'thorga Medical's radiation model is not on, and says so.</summary>
+    [DebugAction(DebugCategory.Name, "Framework: radiation burst at cell (choose a weapon)", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    public static void RadiationBurstAtCell() =>
+        DebugChoices.Open(RadiationBursts.Carriers().Select(def => DebugChoices.Choice(def.defName + " (" + def.GetType().Name + ")", () =>
+            DebugTools.curTool = new DebugTool("Radiation burst: " + def.defName, () =>
+            {
+                PhobosRadiationBurst burst = RadiationBursts.Of(def)!;
+                if (!RadiationBursts.On(burst.kind))
+                {
+                    Messages.Message("Radiation bursts of this kind are off, or D'thorga Medical's radiation model is not on.", MessageTypeDefOf.RejectInput, false);
+                    return;
+                }
+                int dosed = RadiationBursts.Burst(Find.CurrentMap, UI.MouseCell(), burst, RadiationBursts.ExplosionRadius(def), def.defName);
+                Messages.Message(def.defName + ": " + dosed + " dosed; the log has the line.", MessageTypeDefOf.NeutralEvent, false);
+            }))),
+            "No Def carries a radiation burst.");
 
     [DebugAction(DebugCategory.Name, "Framework: add smoke at cell", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void AddSmokeAtCell() => PhobosGases.Add(UI.MouseCell(), Find.CurrentMap, GasKind.Smoke, 1f);

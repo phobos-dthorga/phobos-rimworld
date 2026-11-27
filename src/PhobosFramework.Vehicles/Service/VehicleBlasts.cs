@@ -110,6 +110,21 @@ public sealed class VehicleBlasts : ILargeBlastTaker
         return outcome;
     }
 
+    /// <summary>The people aboard with the hull's share of a radiation dose (NK9), for a burst of radiation alone (Framework 0.358.0).</summary>
+    public IReadOnlyList<(Pawn pawn, float doseShare)> Aboard(Thing thing)
+    {
+        var vehicle = (VehiclePawn)thing;
+        var inside = new List<(Pawn, float)>();
+        if (vehicle.Destroyed) return inside;
+        CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
+        float share = (float)VehicleBlastRule.HullShare(comp?.ClosedCab ?? true, Tonnes(vehicle, comp), Rules.Figures);
+        foreach (Pawn pawn in vehicle.AllPawnsAboard)
+        {
+            if (!pawn.Dead) inside.Add((pawn, share));
+        }
+        return inside;
+    }
+
     /// <summary>Inside the fireball: everyone aboard dies, and the vehicle is gone with them (NK1).</summary>
     static void Vanish(VehiclePawn vehicle, List<Pawn> aboard, LargeBlastHit hit, LargeBlastOutcome outcome)
     {

@@ -63,6 +63,11 @@ public class FrameworkSettings : ModSettings
     /// <summary>Rain soaks open fields (Environment/RainSoakedFields; the owner's cards of 23 Nov 2026, farming record SL10: off by default, as
     /// such things have cost noticeable performance before). Changes at once: its patches go in and come out with it.</summary>
     public bool rainSoaksFields;
+    /// <summary>A prompt radiation dose from nuclear blasts that carry a PhobosRadiationBurst (Health/RadiationBursts; owner, 27 Nov 2026,
+    /// docs/development/radiation-bursts.md). On by default: graded moderate, agent default for the owner to confirm.</summary>
+    public bool radiationFromNuclear = true;
+    /// <summary>The same for antimatter blasts (owner, 27 Nov 2026: a prompt dose, no fallout). On by default, as above.</summary>
+    public bool radiationFromAntimatter = true;
     /// <summary>"Seen in play" notes for testing (Framework 0.118.0; owner, 17 Nov 2026: off by default): Debug/SeenInPlay.cs.</summary>
     public bool noteSeenInPlay;
     /// <summary>With dev mode on, a message when a note stands for a test row still waiting (Framework 0.138.0; owner, 18 Nov 2026; off by
@@ -123,6 +128,8 @@ public class FrameworkSettings : ModSettings
         Scribe_Values.Look(ref standbyPercent, "PhobosFramework_StandbyPercent", Rules.StandbyPowerRule.DefaultStandbyPercent);
         Scribe_Values.Look(ref standbyAnimalsLight, "PhobosFramework_StandbyAnimalsLight", false);
         Scribe_Values.Look(ref rainSoaksFields, "PhobosFramework_RainSoaksFields", false);
+        Scribe_Values.Look(ref radiationFromNuclear, "PhobosFramework_RadiationFromNuclear", true);
+        Scribe_Values.Look(ref radiationFromAntimatter, "PhobosFramework_RadiationFromAntimatter", true);
         if (Scribe.mode == LoadSaveMode.PostLoadInit) standbyPercent = Rules.StandbyPowerRule.ClampPercent(standbyPercent);
     }
 }
@@ -137,7 +144,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : SettingsBookMod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.357.0";
+    public const string ModVersion = "0.358.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -291,6 +298,13 @@ public class FrameworkMod : SettingsBookMod
         {
             Environment.RainSoakedFields.Apply();
         }
+
+        list.Section("PhobosFramework_SectionRadiation".Translate());
+        if (!RadiationDoses.Active) list.Note("PhobosFramework_RadiationNeedsModel".Translate());
+        list.Check("PhobosFramework_SettingRadiationFromNuclear".Translate(), ref s.radiationFromNuclear, Defaults.radiationFromNuclear,
+            "PhobosFramework_SettingRadiationFromNuclearDesc".Translate());
+        list.Check("PhobosFramework_SettingRadiationFromAntimatter".Translate(), ref s.radiationFromAntimatter, Defaults.radiationFromAntimatter,
+            "PhobosFramework_SettingRadiationFromAntimatterDesc".Translate());
 
         list.Section("PhobosFramework_SectionColonists".Translate());
         list.Check("PhobosFramework_SettingNoticePickUpLoops".Translate(), ref s.noticePickUpLoops, Defaults.noticePickUpLoops,

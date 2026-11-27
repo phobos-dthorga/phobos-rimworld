@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Two more of the missile mod's strategic warheads through D'thorga's strike model (Patches 0.47.0; docs/development/radiation-bursts.md;
+       owner, 27 Nov 2026). Both are nuclear by their own descriptions and had no radiation. Every figure is authored. -->
+
+  <!-- Silent Surgical: "vaporizes targets with localized fallout using minimal nuclear material". A small strike, with fallout. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/IRBM.MissileWarheadDef[defName="IRBM_Warhead_Strategic_Surgical"]</xpath>
+    <value>
+      <li Class="Phobos.MissilePatches.Strike.PhobosStrikeExtension">
+        <fireballRadius>15</fireballRadius>
+        <blastRadius>60</blastRadius>
+        <reach>150</reach>
+        <fallout>true</fallout>
+        <emp>true</emp>
+        <pollution>true</pollution>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Scavenger Clean: "radiation-enhancement technology ... without leaving long-term physical pollutants". A neutron bomb: a small
+       blast, four times the strike's dose, no fallout and no pollution. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/IRBM.MissileWarheadDef[defName="IRBM_Warhead_Strategic_Clean"]</xpath>
+    <value>
+      <li Class="Phobos.MissilePatches.Strike.PhobosStrikeExtension">
+        <fireballRadius>8</fireballRadius>
+        <blastRadius>30</blastRadius>
+        <reach>250</reach>
+        <fallout>false</fallout>
+        <emp>true</emp>
+        <pollution>false</pollution>
+        <doseFactor>4</doseFactor>
+      </li>
+    </value>
+  </Operation>
+</Patch>

@@ -172,7 +172,9 @@ For the standard strategic warhead (`PhobosStrikeExtension`: fireball 25 cells, 
 `OnWhiteScreenReached` launches **our own strike** instead: fireball, blast and heat by distance; fires beyond the blast; fallout
 and radiation (with Dubs Rimatomics or D'thorga Medical's radiation model); flash blindness; ground pollution near the centre
 (with Biotech); an electromagnetic pulse; vehicles in the strike; shadow and shelter. Its figures come from the rules Def
-(`PhobosStrikeRulesDef`) and the settings. The radiation people take is on [radiation](medical-radiation.md); what a blast does to
+(`PhobosStrikeRulesDef`) and the settings. Since 0.47.0 the Surgical and Clean warheads take the strike too (the Clean one with
+`doseFactor` 4), and the Mini-Nuke, antimatter and Gamma-Ray warheads give D'thorga Framework's radiation bursts
+(`Patches/RadiationBurstPatches.cs`; [the record](../radiation-bursts.md)). The radiation people take is on [radiation](medical-radiation.md); what a blast does to
 vehicles is on [vehicle damage](vehicle-damage.md).
 
 ## How it works

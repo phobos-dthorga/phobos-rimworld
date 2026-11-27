@@ -4,6 +4,8 @@ using System.Linq;
 using IRBM;
 using Phobos.Framework;
 using Phobos.Framework.Environment;
+using Phobos.Framework.Health;
+using Phobos.Framework.Rules;
 using Phobos.Framework.Work;
 using Phobos.MissilePatches.Rules;
 using RimWorld;
@@ -85,7 +87,7 @@ public sealed class StrikeWork : FrameWork
     public int Shadowed { get; private set; }
 
     /// <summary>What stood over each person when the light, heat and dose arrived, judged before any roof is stripped (NK12, NK17).</summary>
-    readonly Dictionary<Pawn, StrikeCover> covers = new();
+    readonly Dictionary<Pawn, ShelterCover> covers = new();
     bool shadowAndShelter;
     float sunGlow = 1f;
     /// <summary>The player's people dosed, with the dose where they stood, for the letter (NK13).</summary>
@@ -185,31 +187,11 @@ public sealed class StrikeWork : FrameWork
         {
             Pawn pawn = pawns[i];
             if (vehicleRoute && LargeBlasts.TakerFor(pawn) != null) continue;
-            RoofDef? roof = Map.roofGrid.RoofAt(pawn.Position);
-            bool natural = roof?.isNatural ?? false;
-            covers[pawn] = StrikeShelterRule.Cover(roof != null, natural, roof?.isThickRoof ?? false, roof != null && !natural && StoneWalled(pawn));
+            covers[pawn] = ShelterCovers.Of(pawn);
         }
     }
 
-    /// <summary>Whether a person's room is walled mostly with stone: stony stuff, or natural or smoothed rock. Rooms open to the sky or
-    /// too large to be one building count as not.</summary>
-    bool StoneWalled(Pawn pawn)
-    {
-        Room? room = pawn.GetRoom();
-        if (room == null || room.PsychologicallyOutdoors || room.CellCount > MaxRoomCells) return false;
-        int walls = 0, stone = 0;
-        foreach (IntVec3 cell in room.BorderCells)
-        {
-            if (!cell.InBounds(Map) || cell.GetEdifice(Map) is not { } edifice) continue;
-            walls++;
-            if (edifice.def.building?.isNaturalRock == true || edifice.Stuff?.stuffProps?.categories?.Contains(StuffCategoryDefOf.Stony) == true) stone++;
-        }
-        return walls > 0 && stone * 2 >= walls;
-    }
-
-    const int MaxRoomCells = 400;
-
-    StrikeCover CoverOf(Pawn pawn) => shadowAndShelter && covers.TryGetValue(pawn, out StrikeCover cover) ? cover : StrikeCover.Open;
+    ShelterCover CoverOf(Pawn pawn) => shadowAndShelter && covers.TryGetValue(pawn, out ShelterCover cover) ? cover : ShelterCover.Open;
 
     /// <summary>Built roofs everywhere, and every roof within the fireball, mountain or not: one pass before anything falls.</summary>
     void StripRoofs()
@@ -244,7 +226,7 @@ public sealed class StrikeWork : FrameWork
                 if (shadowAndShelter && radiation && thing is Pawn sheltered && covers.ContainsKey(sheltered) && !sheltered.Dead)
                 {
                     float strength = StrikeRule.Strength(distance, zones.fireballRadius, zones.reach);
-                    if (Irradiate(sheltered, strength * StrikeShelterRule.DosePass(CoverOf(sheltered)))) Irradiated++;
+                    if (Irradiate(sheltered, strength * RadiationShelterRule.DosePass(CoverOf(sheltered)))) Irradiated++;
                 }
                 continue;
             }
@@ -445,8 +427,8 @@ public sealed class StrikeWork : FrameWork
             return;
         }
         float falloff = StrikeRule.Falloff(distance, zones.reach);
-        StrikeCover cover = CoverOf(pawn);
-        bool shadowed = StrikeShelterRule.Shadowed(cover);
+        ShelterCover cover = CoverOf(pawn);
+        bool shadowed = RadiationShelterRule.Shadowed(cover);
         if (shadowed) Shadowed++;
         float blast = falloff * (zone == StrikeZone.Blast ? rules.pawnBlastFactor : rules.pawnThermalBlastFactor);
         if (blast > 0f) pawn.TakeDamage(new DamageInfo(DamageDefOf.Bomb, blast, 0f, -1f, Launcher, null, IRBM_DefOf.IRBM_MissileWeapon));
@@ -461,7 +443,7 @@ public sealed class StrikeWork : FrameWork
         if (!shadowed) Blind(pawn, strength);
         // Counted only when Rimatomics took the dose (Patches 0.32.0, NK6): the count once meant calls made, a vehicle's included.
         // The dose is cut by the mass over and around them (NK12).
-        if (radiation && Irradiate(pawn, strength * StrikeShelterRule.DosePass(cover))) Irradiated++;
+        if (radiation && Irradiate(pawn, strength * RadiationShelterRule.DosePass(cover))) Irradiated++;
         Pulse(pawn);
     }
 
@@ -491,10 +473,11 @@ public sealed class StrikeWork : FrameWork
     /// otherwise to Rimatomics' radiation. True when a dose was given.</summary>
     bool Irradiate(Pawn pawn, float strength)
     {
-        float grays = rules.radiationGraysAtFireballEdge * strength;
+        // A warhead may carry more dose for its size than the strike's own figure (an enhanced-radiation weapon, Patches 0.47.0).
+        float grays = rules.radiationGraysAtFireballEdge * zones.doseFactor * strength;
         bool given = Phobos.Framework.Health.RadiationDoses.Give(pawn, grays, "strike")
-            || (rimatomics && RimatomicsTieIn.Irradiate(pawn, rules.radiationStrength * strength));
-        if (given && shadowAndShelter && pawn.Faction == Faction.OfPlayer && pawn.RaceProps.Humanlike) dosedPeople.Add((pawn, grays));
+            || (rimatomics && RimatomicsTieIn.Irradiate(pawn, rules.radiationStrength * zones.doseFactor * strength));
+        if (given && shadowAndShelter && RadiationDoseLetter.Tells(pawn)) dosedPeople.Add((pawn, grays));
         return given;
     }
 
@@ -552,28 +535,13 @@ public sealed class StrikeWork : FrameWork
         if (chance > 0f && Rand.Chance(chance) && FireUtility.TryStartFireIn(cell, Map, rules.fireSize, Launcher)) Fires++;
     }
 
-    /// <summary>The doses the player's people took, on one letter (NK13): each in words and grays, as where they stood would tell a
-    /// doctor. Grouped by person, the largest first.</summary>
+    /// <summary>The doses the player's people took, on one letter (NK13), told by the Framework's shared letter (Patches 0.47.0).</summary>
     void TellDoses()
     {
         if (dosedPeople.Count == 0) return;
-        var byPerson = new Dictionary<Pawn, float>();
-        foreach ((Pawn pawn, float grays) in dosedPeople) byPerson[pawn] = (byPerson.TryGetValue(pawn, out float before) ? before : 0f) + grays;
-        var text = new System.Text.StringBuilder();
-        foreach (KeyValuePair<Pawn, float> entry in byPerson.OrderByDescending(e => e.Value))
-        {
-            if (entry.Value < 0.05f) continue;
-            text.Append('\n').Append("PhobosMissilePatches_DoseLine".Translate(entry.Key.Named("PAWN"), DoseWords(entry.Value).Named("BAND"),
-                entry.Value.ToString("0.0").Named("GRAYS")).Resolve());
-        }
-        if (text.Length == 0) return;
-        Find.LetterStack.ReceiveLetter("PhobosMissilePatches_DoseLetterLabel".Translate(), "PhobosMissilePatches_DoseLetterText".Translate(text.ToString().Named("LIST")),
-            LetterDefOf.NegativeEvent, new LookTargets(byPerson.Keys.Where(p => p.Spawned)));
+        RadiationDoseLetter.Send(dosedPeople, "PhobosMissilePatches_DoseLetterLabel".Translate());
         dosedPeople.Clear();
     }
-
-    static string DoseWords(float grays) => (grays < 1f ? "PhobosMissilePatches_DoseLight" : grays < 2f ? "PhobosMissilePatches_DoseModerate"
-        : grays < 4f ? "PhobosMissilePatches_DoseHeavy" : grays < 6f ? "PhobosMissilePatches_DoseSevere" : "PhobosMissilePatches_DoseLethal").Translate();
 
     void Pollute(IntVec3 cell)
     {

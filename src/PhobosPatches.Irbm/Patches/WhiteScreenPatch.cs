@@ -29,13 +29,16 @@ public static class Patch_OnWhiteScreenReached_Strike
     public static bool Prefix()
     {
         MissilePatchesSettings settings = MissilePatchesMod.Settings;
-        if (!settings.spreadBlast || !settings.blastModel || TimeLeft == null || TargetMaps == null || Missile == null) return true;
+        if (TimeLeft == null || TargetMaps == null || Missile == null) return true;
         var missile = Missile.GetValue(null) as WorldObject_Missile;
         MissileWarheadDef? warhead = missile?.MissileComp?.warheadDef;
         WorldObjectCompProperties_StrategicPayload? props = warhead?.payloadComps?.OfType<WorldObjectCompProperties_StrategicPayload>().FirstOrDefault();
+        var maps = TargetMaps.GetValue(null) as HashSet<Map>;
+        // A warhead whose effect on people is radiation alone (the Gamma-Ray Burst; Patches 0.47.0): our dose first, whatever runs after.
+        StrategicRadiationBursts.Strike(warhead, props, maps);
+        if (!settings.spreadBlast || !settings.blastModel) return true;
         PhobosStrikeExtension? zones = warhead?.GetModExtension<PhobosStrikeExtension>();
         if (props == null || zones == null) return true;
-        var maps = TargetMaps.GetValue(null) as HashSet<Map>;
         try
         {
             StrikeLauncher.Launch(missile, props, zones, maps?.ToList() ?? new List<Map>(), Sound?.GetValue(null) as SoundDef);

@@ -55,6 +55,10 @@ public interface ILargeBlastTaker
 
     /// <summary>Applies the blast to the thing and says what it did.</summary>
     LargeBlastOutcome Take(Thing thing, LargeBlastHit hit);
+
+    /// <summary>The people inside the thing, each with the share of an outside radiation dose that reaches them, for a burst of radiation
+    /// with no blast in it (Framework 0.358.0, docs/development/radiation-bursts.md). Changes nothing.</summary>
+    IReadOnlyList<(Pawn pawn, float doseShare)> Aboard(Thing thing);
 }
 
 /// <summary>

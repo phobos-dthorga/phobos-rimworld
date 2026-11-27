@@ -34,6 +34,10 @@
     <li IfModActive="AOBA.Framework">Mods/Fortified</li>
     <li IfModActive="kazepsi.irbm">Mods/IRBM</li>
     <li IfModActive="kazepsi.irbm">Mods/IRBM/1.7</li>
+    <!-- Radiation from other mods' antimatter and nuclear blasts (docs/development/radiation-bursts.md). -->
+    <li IfModActive="OskarPotocki.VFE.Deserters">Mods/Deserters</li>
+    <li IfModActive="vanillaexpanded.gravship2">Mods/GravshipExpanded2</li>
+    <li IfModActive="ChangzhengCoop.Power">Mods/ChangzhengPower</li>
     <li IfModActive="wowgag.RimPacts">Mods/RimPacts/1.7</li>
     <li IfModActive="ninagoblin.visitsettlements">Mods/VisitSettlements/1.7</li>
     <!-- Temporary: a save made during a scorpion raid loads with the raid's orders (docs/development/temporary-patches.md). -->

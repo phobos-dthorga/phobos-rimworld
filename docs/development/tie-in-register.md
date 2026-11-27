@@ -7,8 +7,8 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 ## Read this first
 
-- **90 tie-in folders across eight mods** (recounted 27 Nov 2026: Vehicles 31, Patches 21, Factory Additions 16, Framework 10,
-  Medical 7, Farming 1, Radio Framework 3, Water Tap 1; 107 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
+- **93 tie-in folders across eight mods** (recounted 27 Nov 2026: Vehicles 31, Patches 24, Factory Additions 16, Framework 10,
+  Medical 7, Farming 1, Radio Framework 3, Water Tap 1; 110 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
   `Common` subfolder are listed as separate entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's
   `LoadFolders.xml`, plus a handful of tie-ins in C# that check for a mod by name. D'thorga Radio Framework's first, Vehicle
   Framework, came in its 0.10.0 (Vanilla Expanded Framework's pipe system is a hard dependency there, not a tie-in).
@@ -165,9 +165,12 @@ C# lives in `src/PhobosPatches.*`. Rows marked **fault** are in [patches for oth
 | RimThunder (`RimThunder.Core`) | Heavy castings in batches at DMS Expedition's lathe | XML | `Mods/RimThunder` |
 | Vehicle Framework | Fires a vehicle can never lose (**fault**, temporary); the game's progress bar on its work (**fault**) | C# | `Mods/VehicleFramework` |
 | Spaceship Turret Hull + Combat Extended (`MK.SpaceshipTurretHull`) | Combat Extended support for its turret hulls | XML | `Mods/SpaceshipTurretHull` |
-| Combat Extended | Guard against empty ammunition-set entries, Synthriada's fault (**fault**, temporary) | C# | `Mods/CombatExtended` |
+| Combat Extended | Guard against empty ammunition-set entries, Synthriada's fault (**fault**, temporary); its antigrain mortar shell gives a radiation dose (0.47.0) | C# + XML | `Mods/CombatExtended` |
 | InterRim Ballistic Missile (`kazepsi.irbm`) + Combat Extended | Its close-in weapon systems shoot down CE's shells (0.19.1, AD14; **fault**, temporary; a setting) | C# | `Mods/IRBM` |
-| InterRim Ballistic Missile (`kazepsi.irbm`) | Paced strategic sweep (**fault**); our blast model for the extinction warhead; quiet "area revealed" letters; Rimatomics fallout and flash-blindness; Combat Extended wall fragments setting; RimPacts assault size after a strike | C# + XML | `Mods/IRBM` |
+| InterRim Ballistic Missile (`kazepsi.irbm`) | Paced strategic sweep (**fault**); our blast model for the extinction, Surgical and Clean warheads; a radiation dose from the Mini-Nuke, antimatter and Gamma-Ray warheads and its antigrain trap (0.47.0); quiet "area revealed" letters; Rimatomics fallout and flash-blindness; Combat Extended wall fragments setting; RimPacts assault size after a strike | C# + XML | `Mods/IRBM` |
+| Vanilla Factions Expanded - Deserters (`OskarPotocki.VFE.Deserters`) | Its remote antigrain charge gives a radiation dose (0.47.0) | XML | `Mods/Deserters` |
+| Vanilla Gravship Expanded - Chapter 2 (`vanillaexpanded.gravship2`) | Its antigrain warpod gives a radiation dose (0.47.0) | XML | `Mods/GravshipExpanded2` |
+| 长征工业合作社——电力系统 (`ChangzhengCoop.Power`) | Its nuclear boiler, blowing up with a payload aboard, gives a radiation dose and fallout (0.47.0) | XML | `Mods/ChangzhengPower` |
 | RimPacts (`wowgag.RimPacts`) | War quest countdown; arrival-filter fix (**fault**); the sortie gate says why | C# | `Mods/RimPacts/1.7` |
 | Visit Settlements (`ninagoblin.visitsettlements`) | Visited map stays open during a battle (**fault**); food-drop guard (**fault**) | C# | `Mods/VisitSettlements/1.7` |
 | Vanilla Factions Expanded - Classical (`OskarPotocki.VFE.Classical`) | A scorpion raid saved mid-raid loads with its orders (**fault**) | C# | `Mods/Classical/1.7` |

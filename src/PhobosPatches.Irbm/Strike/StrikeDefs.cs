@@ -17,6 +17,9 @@ public class PhobosStrikeExtension : DefModExtension
     public bool fallout = true;
     public bool emp = true;
     public bool pollution = true;
+    /// <summary>The strike's dose times this (Patches 0.47.0): more than 1 for an enhanced-radiation warhead, whose small blast carries a
+    /// large dose (IRBM's Clean warhead). Authored.</summary>
+    public float doseFactor = 1f;
 }
 
 /// <summary>
