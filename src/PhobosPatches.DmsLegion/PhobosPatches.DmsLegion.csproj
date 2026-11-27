@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Patches' The Dead Man's Switch - Legion assembly (0.48.0): its nuclear strike's radiation by distance and shelter
+       (docs/development/radiation-bursts.md). It lives in Mods/DmsLegion/<version>, loaded only while Legion is active, and reaches
+       Legion by name, referencing no assembly of it. RimWorld 1.7 only. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.DmsLegionPatches</RootNamespace>
+    <AssemblyName>PhobosPatches.DmsLegion</AssemblyName>
+    <ModFolder>PhobosPatches</ModFolder>
+    <TieInFolder>Mods/DmsLegion/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.48.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+</Project>

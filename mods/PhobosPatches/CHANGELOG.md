@@ -21,6 +21,21 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.48.0] - 2026-11-27 - Draft
+
+Legion's nuclear strike by distance and shelter
+
+### Added
+
+- **Legion's nuclear strike by distance and shelter**: The Dead Man's Switch - Legion's nuclear strike gave everyone on the map a
+  radiation that killed within seconds, bunkers included. Now each person takes a dose by their distance and cover, through D'thorga
+  Medical's radiation model; its blast, heat and toxic fallout stay Legion's own. A setting, on: Legion's nuclear strike: dose by distance
+  and shelter (the DMS Legion page). Not yet tested in game: row 719.
+
+### Save compatibility
+
+- Safe to add to and remove from a save; nothing is saved.
+
 ## [0.47.0] - 2026-11-27 - Draft
 
 Radiation for the other nuclear weapons

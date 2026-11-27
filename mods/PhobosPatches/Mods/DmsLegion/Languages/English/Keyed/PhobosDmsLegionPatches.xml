@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PhobosDmsLegionPatches_Page>DMS Legion</PhobosDmsLegionPatches_Page>
+  <PhobosDmsLegionPatches_SectionRadiation>The nuclear strike's radiation</PhobosDmsLegionPatches_SectionRadiation>
+  <PhobosDmsLegionPatches_SettingRadiationByDistance>Legion's nuclear strike: dose by distance and shelter</PhobosDmsLegionPatches_SettingRadiationByDistance>
+  <PhobosDmsLegionPatches_SettingRadiationByDistanceDesc>On (the default): after The Dead Man's Switch - Legion's nuclear strike, each person takes a radiation dose by how far they were from it and what covered them: roofs, stone walls, rock and vehicle hulls cut it, and people deep in a mountain can live. A letter names your people who took one. Its blast, heat and toxic fallout stay Legion's own. Off: Legion's own radiation, which kills everyone on the map within seconds, bunkers included.</PhobosDmsLegionPatches_SettingRadiationByDistanceDesc>
+  <PhobosDmsLegionPatches_NeedsModel>This needs D'thorga Medical's radiation model, which is not on: until it is, Legion's own radiation runs.</PhobosDmsLegionPatches_NeedsModel>
+</LanguageData>

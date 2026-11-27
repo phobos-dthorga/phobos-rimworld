@@ -1,7 +1,7 @@
 # Radiation from other nuclear and antimatter weapons (27 Nov 2026)
 
-**Status (27 Nov 2026):** built for IRBM's warheads, the antigrain weapons and the nuclear boiler in D'thorga Framework 0.358.0 and
-D'thorga Patches 0.47.0, at the owner's word; DMS Legion's strike is not built yet. Not yet tested in game (rows 716 to 718).
+**Status (27 Nov 2026):** built, at the owner's word: IRBM's warheads, the antigrain weapons and the nuclear boiler in D'thorga Framework
+0.358.0 and D'thorga Patches 0.47.0; DMS Legion's strike in Patches 0.48.0. Not yet tested in game (rows 716 to 719).
 
 The owner, 27 Nov 2026: "It seems that the tactical nukes from the IRBM mod don't have our realistic radiation modelling applied to
 them? If that's the case, there are probably many other missile types from that mod and others missing said modelling as well that

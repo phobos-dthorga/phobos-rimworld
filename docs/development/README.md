@@ -161,7 +161,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 
 - [Patches](systems/patches.md) (24 Nov 2026): how each tie-in patch works now, temporary and permanent, by kind. Living.
 - [Nuclear strikes, vehicles and people](nuclear-strike-effects.md) (22 Nov 2026): vehicles in a strike; the real effects; NK1 to NK27. Partly built, untested.
-- [Radiation from other nuclear and antimatter weapons](radiation-bursts.md) (27 Nov 2026): IRBM, DMS Legion, antigrain, the boiler. Partly built, untested.
+- [Radiation from other nuclear and antimatter weapons](radiation-bursts.md) (27 Nov 2026): IRBM, DMS Legion, antigrain, the boiler. Built, untested.
 - [Soldiers keep their guns](soldiers-keep-their-guns.md) (19 Nov 2026): why soldiers fought with grenades under CE, and the fix. Built, untested.
 - [Rearm and refuel](rearm-and-refuel-work.md) (27 Nov 2026): a work type of its own for rearming and refuelling, ucas included. Built, untested.
 

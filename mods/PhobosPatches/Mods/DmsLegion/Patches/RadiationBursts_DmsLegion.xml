@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Legion's nuclear strike: D'thorga's radiation by distance and shelter in place of its corrosion on everyone on the map (Patches
+       0.48.0; docs/development/radiation-bursts.md; the owner's choice of 27 Nov 2026, "replace, with a setting"). Every figure is authored:
+       80 Gy in the open out to its destroyed core (10 cells), about 19 Gy at 20 cells, 2.7 at 50, 0.6 at 100; under thick rock almost
+       nothing. Its toxic fallout stays its own, so no Rimatomics fallout here. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/DMS_Legion.GroundSupport.AerialSupportTypeDef[defName="DMSL_AerialSupport_NuclearStrike"]</xpath>
+    <value>
+      <li Class="Phobos.Framework.Health.PhobosRadiationBurst">
+        <kind>Nuclear</kind>
+        <edgeRadius>10</edgeRadius>
+        <graysAtEdge>80</graysAtEdge>
+        <airLength>250</airLength>
+      </li>
+    </value>
+  </Operation>
+</Patch>

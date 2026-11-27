@@ -7,8 +7,8 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 ## Read this first
 
-- **93 tie-in folders across eight mods** (recounted 27 Nov 2026: Vehicles 31, Patches 24, Factory Additions 16, Framework 10,
-  Medical 7, Farming 1, Radio Framework 3, Water Tap 1; 110 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
+- **94 tie-in folders across eight mods** (recounted 27 Nov 2026: Vehicles 31, Patches 25, Factory Additions 16, Framework 10,
+  Medical 7, Farming 1, Radio Framework 3, Water Tap 1; 112 entries in the `LoadFolders.xml` lists, because a folder and its `1.7` or
   `Common` subfolder are listed as separate entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's
   `LoadFolders.xml`, plus a handful of tie-ins in C# that check for a mod by name. D'thorga Radio Framework's first, Vehicle
   Framework, came in its 0.10.0 (Vanilla Expanded Framework's pipe system is a hard dependency there, not a tie-in).
@@ -171,6 +171,7 @@ C# lives in `src/PhobosPatches.*`. Rows marked **fault** are in [patches for oth
 | Vanilla Factions Expanded - Deserters (`OskarPotocki.VFE.Deserters`) | Its remote antigrain charge gives a radiation dose (0.47.0) | XML | `Mods/Deserters` |
 | Vanilla Gravship Expanded - Chapter 2 (`vanillaexpanded.gravship2`) | Its antigrain warpod gives a radiation dose (0.47.0) | XML | `Mods/GravshipExpanded2` |
 | 长征工业合作社——电力系统 (`ChangzhengCoop.Power`) | Its nuclear boiler, blowing up with a payload aboard, gives a radiation dose and fallout (0.47.0) | XML | `Mods/ChangzhengPower` |
+| The Dead Man's Switch - Legion (`Srxf.DeadManSwitch.Legion`) | Its nuclear strike gives our radiation by distance and shelter in place of its corrosion on everyone on the map (0.48.0; a setting) | C# + XML | `Mods/DmsLegion` |
 | RimPacts (`wowgag.RimPacts`) | War quest countdown; arrival-filter fix (**fault**); the sortie gate says why | C# | `Mods/RimPacts/1.7` |
 | Visit Settlements (`ninagoblin.visitsettlements`) | Visited map stays open during a battle (**fault**); food-drop guard (**fault**) | C# | `Mods/VisitSettlements/1.7` |
 | Vanilla Factions Expanded - Classical (`OskarPotocki.VFE.Classical`) | A scorpion raid saved mid-raid loads with its orders (**fault**) | C# | `Mods/Classical/1.7` |

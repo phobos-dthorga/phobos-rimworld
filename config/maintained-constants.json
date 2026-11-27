@@ -154,7 +154,7 @@
     "PhobosPatches.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.47.0",
+      "value": "0.48.0",
       "description": "D'thorga Patches's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {
@@ -250,6 +250,14 @@
           "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
         },
         {
+          "path": "src/PhobosPatches.DmsLegion/PhobosPatches.DmsLegion.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosPatches.DmsLegion/DmsLegionPatchesMod.cs",
+          "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
+        },
+        {
           "path": "src/PhobosPatches.Classical/PhobosPatches.Classical.csproj",
           "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
         },
@@ -286,7 +294,7 @@
     "PhobosRadioFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.50.0",
+      "value": "0.51.0",
       "description": "D'thorga Radio Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {

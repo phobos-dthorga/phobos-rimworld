@@ -30,8 +30,10 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 | Harrier, being taken apart | A temporary trace writes each step of a vehicle's disassembly to the game's log, to find why the Harrier can't be taken apart | **Try one disassembly, on a copy of your save, and don't retry.** First tick **D'thorga Patches: Harrier disassembly** on D'thorga Framework's **Detailed logs** settings page: the trace is off until you do |
 | **RimThunder** with The Dead Man's Switch - Expedition | The rotary forger makes heavy castings 12 at a time from 1,200 steel | Keep the floor around the forger clear: 24 items drop beside it |
 | **Spaceship Turret Hull** (MK), with **Combat Extended** | All seven hulls load ammo like CE's own turrets, and no longer explode when destroyed | **Rebuild hulls built before**, while the ship is landed |
-| **InterRim Ballistic Missile** (Psionic Zephyr) | A strategic warhead's blast is spread over moments instead of freezing the game; overhead mountain shelters what is under it; the extinction-class warhead strikes with a fireball, blast and heat zone; no flood of "Area revealed" letters | **Wait for the message that a blast has spent itself before saving.** Settings under D'thorga Patches |
+| **InterRim Ballistic Missile** (Psionic Zephyr) | A strategic warhead's blast is spread over moments instead of freezing the game; overhead mountain shelters what is under it; the extinction-class, Surgical and Clean warheads strike with a fireball, blast and heat zone; the Mini-Nuke, antimatter and Gamma-Ray warheads give a [radiation dose](#radiation-from-other-nuclear-and-antimatter-weapons); no flood of "Area revealed" letters | **Wait for the message that a blast has spent itself before saving.** Settings under D'thorga Patches |
 | IRBM with **Combat Extended** | Its close-in weapon systems shoot down CE's mortar and artillery shells headed for your things, as they always did vanilla shells | **Unroofed and powered**, as before. The setting **Close-in weapon systems shoot down Combat Extended shells** turns it off |
+| **The Dead Man's Switch - Legion** | Its nuclear strike gives each person a radiation dose by distance and cover, instead of killing everyone on the map within seconds | **Shelter deep in rock**: people there live. A setting on its DMS Legion page turns it back |
+| Antigrain things (the game, Combat Extended, VFE Deserters, Vanilla Gravship Expanded 2), and the **nuclear boiler** (长征工业合作社's power system) | Their blasts give a radiation dose; a boiler wrecked with a payload in it leaves fallout too | Keep people away from antigrain traps and loaded boilers |
 | **RimPacts** (temporary) | An ally's assault leaves vehicles with nobody aboard alone and goes for the defenders, instead of beating on an empty vehicle for hours | Claim the empty vehicles after the battle. |
 | IRBM with **RimPacts** | An ally's assault after your strike faces the garrison the town had before it. A world war attack shows its deadline | **Strike and attack early**: RimPacts gives a war attack 3 days |
 | **Visit Settlements** (Nina.Goblin) | A visited settlement's map stays open while any colonist of yours there is conscious, on foot or in a vehicle. Its food drops no longer fail every tick | Pawns already lost this way stay lost: load an earlier save |
@@ -325,6 +327,24 @@ struck map**:
   with the fast blast.
 
 The zone sizes and damage are gameplay choices; every option is in [the settings](../../mods/PhobosPatches/README.md#settings).
+
+### Radiation from other nuclear and antimatter weapons
+
+With D'thorga Medical's radiation model on, the missile mod's other nuclear warheads, Legion's nuclear strike, antigrain blasts and a
+loaded nuclear boiler give everyone nearby a dose of radiation at the flash. **Their radiation reaches further than their blast.**
+
+- **Distance and cover decide the dose**, as for the strike: walls, roofs, stone and above all rock cut it; a vehicle's hull cuts a little.
+  A gas mask does nothing. **A letter names your people dosed**, one letter however many warheads landed at once.
+- **The Mini-Nuke**: deadly near its blast, about 7 Gy (a grave dose) at 50 cells in the open, about 1 Gy at 100; with Dubs Rimatomics,
+  a day or three of fallout. A real Mini-Nuke lands four hits.
+- **The antimatter warhead and antigrain things**: a dose with no fallout (a guess at what annihilation would do).
+- **The Surgical and Clean warheads** strike as the extinction-class does, smaller; the Clean one is a neutron bomb, a small blast with
+  four times the dose and no fallout.
+- **The Gamma-Ray Burst** gives everyone on the struck maps one heavy dose instead of its decay damage. **Buildings do not stop it; only
+  rock does.**
+- **Legion's nuclear strike** gives a dose by distance and cover instead of killing everyone: **people deep in a mountain live**.
+- Two settings in D'thorga Framework (Radiation from nuclear blasts, and from antimatter blasts) and one on D'thorga Patches' DMS Legion
+  page, all on. Every figure is a gameplay choice.
 
 ### Messages, limits and dev actions
 

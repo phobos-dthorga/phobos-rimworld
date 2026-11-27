@@ -11,7 +11,7 @@ munitions, **Biotech**'s mech rechargers and **The Dead Man's Switch**'s drone p
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.47.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.48.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out), one missile strike on an earlier version (owner, 7 November 2026), the Prison Labor
 guard, drone platforms kept topped up and drones called home in time, soldiers going back to their own guns, sidearms that loop
 being stopped, mech rechargers drawing real power, and the Nice Research Tab guard. Everything else is not yet tested in game.
@@ -91,6 +91,8 @@ One line each; the guide's [Patches chapter](../../docs/player-guide/patches.md)
   mountain, and the extinction-class warhead's fireball, blast and heat zones; a radiation dose from its other nuclear and
   antimatter warheads (with D'thorga Medical's radiation model); with Combat Extended, its close-in weapon systems shoot down
   Combat Extended's shells.
+- **The Dead Man's Switch - Legion**: its nuclear strike's radiation by distance and shelter, a setting (with D'thorga Medical's radiation
+  model).
 - **Antigrain blasts and the nuclear boiler** (the game, Combat Extended, VFE Deserters, Vanilla Gravship Expanded 2, 长征工业合作社's
   power system): a radiation dose at the flash, with D'thorga Medical's radiation model.
 - **RimPacts**: allies' assaults leave empty vehicles alone (temporary), and face a struck town's garrison from before the strike.
@@ -179,6 +181,12 @@ logs** page, off until ticked.
 | When their own gun is gone, take another of the same kind | Their dropped gun destroyed or left behind, or a grenade in hand and no gun at all: the nearest unforbidden gun of the kind they last held, with rounds in it. Never a different kind | On |
 | Simple Sidearms keeps a colonist's gun, not a grenade, as the weapon it hands back (recommended) | With Simple sidearms: the gun in hand replaces a grenade, or nothing, as the ranged weapon Simple Sidearms keeps putting back. A different gun you chose, or a weapon you forced, is left alone | On |
 | A colonist never fetches a sidearm their loadout would only put down again (recommended) | With Simple sidearms: a colonist no longer fetches an extra copy of a weapon their loadout would drop and haul away again, over and over. You are told once which colonist and weapon. Off: Simple Sidearms' and Combat Extended's own behaviour | On |
+
+### DMS Legion (with The Dead Man's Switch - Legion)
+
+| Setting | What it does | Default |
+| --- | --- | --- |
+| Legion's nuclear strike: dose by distance and shelter | Each person takes a radiation dose by how far they were and what covered them, so people deep in rock can live; a letter names your people dosed. Needs D'thorga Medical's radiation model. Off: Legion's own radiation, which kills everyone on the map within seconds | On |
 
 ## More
 

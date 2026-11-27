@@ -297,6 +297,8 @@ to a parked helicopter instead of a far bed, switch on its **Take casualties abo
 
 On by default (**Radiation sickness runs its real course**, on the **Radiation** settings page).
 
+Doses come from Dubs Rimatomics, InterRim Ballistic Missile's strikes and other mods' nuclear and antimatter weapons ([which ones](patches.md#radiation-from-other-nuclear-and-antimatter-weapons)).
+
 - **A dose is something the body repairs.** Each person keeps their radiation dose; most of it heals over weeks, a tenth never. A dose
   spread over days does far less than the same dose at once, so **getting people out quickly matters more than anything**.
 - **A large dose brings radiation sickness in three stages:** nausea and vomiting, sooner the larger the dose; then a spell when they
