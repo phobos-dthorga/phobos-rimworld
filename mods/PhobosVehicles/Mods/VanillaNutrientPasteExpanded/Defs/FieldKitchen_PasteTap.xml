@@ -7,12 +7,14 @@
     paste (the Billy's own paste tank; authored), which an Ullage or paste bowser of ours set up on Unload within its hose's reach fills, ingredients
     and all. It packs up with the Billy, paste and all, and spoils by the paste's own days at the tent's warmth. Hand-pumped: it needs no power.
     The bigger paste tank upgrade makes it hold 400 (authored) and gives it its larger picture, so no paste is stranded in a swapped piece (the
-    owner's pick, 23 Nov 2026: "Both", spread across the variants and their upgrades: try 1 the standard tap, try 2 the bigger). Not yet tested in game.
+    owner's pick, 23 Nov 2026: "Both", spread across the variants and their upgrades: try 1 the standard tap, try 2 the bigger). Since Vehicles 0.129.3
+    (Framework 0.347.0) the tap is made as soon as the upgrade is bought, its paste shows on the Billy's panel, a paste line beneath the tent or the
+    packed trailer fills it, and a caravan eats from it on the road. Not yet tested in game.
   -->
   <ThingDef ParentName="PhobosBillyPieceBase">
     <defName>Phobos_BillyPasteTap</defName>
     <label>paste tap</label>
-    <description>A hand-pumped tap on a small insulated tank of nutrient paste. Colonists help themselves to a paste meal from it, as from a dispenser, while it holds paste. A tanker or bowser of paste set to pump out nearby fills it, and the paste keeps what it was made from. It packs up with the kitchen, paste and all.</description>
+    <description>A hand-pumped tap on a small insulated tank of nutrient paste. Colonists help themselves to a paste meal from it, as from a dispenser, while it holds paste. A tanker or bowser of paste set to pump out nearby fills it, and so does a paste line reaching the tent, or the trailer while it is packed; the paste keeps what it was made from. It packs up with the kitchen, paste and all.</description>
     <thingClass>Phobos.VehicleSystems.Building_PhobosPasteTap</thingClass>
     <graphicData>
       <texPath>Phobos/Vehicles/FieldKitchen/BillyPasteTap</texPath>

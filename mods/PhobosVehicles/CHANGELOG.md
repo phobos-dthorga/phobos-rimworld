@@ -13,6 +13,15 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.129.3] - 2026-11-27 - Draft
+
+The paste tap's words follow its paste line
+
+### Fixed
+
+- **The paste tap and the Paste kitchen upgrade say a paste line fills the tap**, and that its paste rides with the trailer and feeds a
+  caravan, as D'thorga Framework 0.347.0 makes them. Not yet tested in game: rows 687 and 688.
+
 ## [0.129.2] - 2026-11-27 - Draft
 
 The Prowler's improved jamming suites say they need power

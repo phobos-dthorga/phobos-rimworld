@@ -84,6 +84,25 @@ and the fine bake. On a caravan's night camp, the fine bake needs the Billy to c
 
 NP1 first (the Ullage, the owner's first wish), then NP2 (it makes NP1 matter on the road), NP3, NP4 and NP5 with their art.
 
+## The Billy's paste, after the owner's report (27 Nov 2026)
+
+The owner found the Billy's paste counted nowhere though the paste kitchen was fitted, and no paste pipe beneath the trailer ("this
+problem goes deeper"). What was wrong, and what Framework 0.347.0 and Vehicles 0.129.3 did (not yet tested in game: rows 687 and 688):
+
+| Fault | Cause | Now |
+| --- | --- | --- |
+| No paste on the Billy's panel | The paste lived only in the set-out tap; the trailer's panel showed its water tank and nothing of its pieces' stores | The panel lists every piece's store, standing or packed |
+| Nothing at all until a set-up | The tap was made at the next set-up after the upgrade | Made packed as soon as the upgrade is bought |
+| A packed tap forgot the bigger tank | It looked up its trailer only among standing pieces | It finds the trailer holding it too |
+| Packed paste never spoiled | Packed pieces were aged only when they held items (the cold box); the tap holds none | A packed piece's store is aged too |
+| No paste pipe beneath it | The pipe link laid a net beneath set-out pieces only for Vanilla Expanded Framework's own resource comps; ours is a store of ours, and a packed trailer laid only its tank's nets | The store's load's nets are laid beneath the tent and tap, or the packed trailer |
+| The pipe would carry nothing | The tap filled only from a tank's hose | A run with vats fills the store at each pipe look, with the vats' ingredients (**agent's choice**: the pipe shows, so it should carry) |
+| A caravan could not eat it | Caravan food read tanks only | It eats from a packed store after its packs and trailers, and its days of food count it |
+
+Only the Billy's paste tap keeps a store of this kind, so no other vehicle or upgrade had these faults; its other upgrade pieces burn
+chemfuel (the line was already laid) or use Dubs water (its own plumbing link). **Still a limit:** the caravan-forming window does not
+count paste in tanks or a packed tap.
+
 ## The paste bowser's upgrades
 
 The fuel bowser's, copied (NP3): the lagged tank, which halves the paste's spoiling, and the second hose.

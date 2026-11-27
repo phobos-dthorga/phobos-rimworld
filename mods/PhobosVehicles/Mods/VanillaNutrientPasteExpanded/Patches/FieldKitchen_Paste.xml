@@ -13,7 +13,7 @@
         <key>PhobosBillyPasteKitchen</key>
         <label>Paste kitchen</label>
         <displayLabel>true</displayLabel>
-        <description>A hand-pumped paste tap on a small insulated tank of nutrient paste (150 meals), set out in the kitchen tent at the next set-up, and the know-how for fine paste bakes on the range. A tanker or bowser of paste fills the tap.</description>
+        <description>A hand-pumped paste tap on a small insulated tank of nutrient paste (150 meals), set out in the kitchen tent at the next set-up, and the know-how for fine paste bakes on the range. A tanker or bowser of paste fills the tap, as does a paste line beneath the kitchen; the paste rides with the trailer and feeds a caravan on the road.</description>
         <icon>Phobos/Vehicles/FieldKitchen/BillyPasteTap</icon>
         <work>1500</work>
         <gridCoordinate>(2, 12)</gridCoordinate>

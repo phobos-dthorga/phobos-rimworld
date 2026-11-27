@@ -72,6 +72,25 @@ public class PhobosTankContentsDef : Def
 
     public bool Vents => !float.IsNaN(ventsAbove);
 
+    /// <summary>The item this load is eaten as, and how many units make one: its item port's thing, when that is food a person may eat for
+    /// nutrition (nutrient paste's paste meal; not beer or wort). Null for any other load. A tank's compartments and a building's store
+    /// (the Billy's paste tap) both read it (Framework 0.347.0).</summary>
+    public (ThingDef item, float units)? EdibleItem
+    {
+        get
+        {
+            foreach (TankPort port in ports)
+            {
+                if (port is Port_Items { thing: { } item } items && item.IsNutritionGivingIngestible
+                    && item.ingestible.preferability != FoodPreferability.NeverForNutrition)
+                {
+                    return (item, items.unitsPerItem);
+                }
+            }
+            return null;
+        }
+    }
+
     public bool IsFood => foodStatus switch
     {
         TankFoodStatus.Food => true,

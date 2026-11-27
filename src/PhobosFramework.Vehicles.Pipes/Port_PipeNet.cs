@@ -73,7 +73,7 @@ public class Port_PipeNet : TankPort
     }
 
     /// <summary>Every ingredient the net's stores keep, through the game's own ingredient comp on each store.</summary>
-    static IEnumerable<ThingDef> IngredientsOf(PipeNet net)
+    internal static IEnumerable<ThingDef> IngredientsOf(PipeNet net)
     {
         foreach (CompResourceStorage storage in net.storages)
         {

@@ -45,11 +45,12 @@ public static class TowedLarderFood
         }
         if (best == null || from == null)
         {
-            // Nothing in any cargo: a meal from a food tank in the caravan or in tow (Framework 0.271.0; vehicle-nutrient-paste.md, NP2).
+            // Nothing in any cargo: a meal from a food tank in the caravan or in tow (Framework 0.271.0; vehicle-nutrient-paste.md, NP2), or from a
+            // packed paste tap (0.347.0).
             // It is drawn from the tank, put in that vehicle's cargo and handed to the game's own eating, which takes it out again.
             foreach (VehiclePawn vehicle in TankLarder.Vehicles(caravan))
             {
-                if (vehicle.GetComp<CompPhobosTank>() is not { } tank || tank.TakeMeal(forPawn) is not { } meal) continue;
+                if (TankLarder.TakeMeal(vehicle, forPawn, out bool fromStore) is not { } meal) continue;
                 if (vehicle.inventory?.innerContainer is not { } cargo || !cargo.TryAdd(meal))
                 {
                     meal.Destroy();
@@ -58,7 +59,11 @@ public static class TowedLarderFood
                 food = meal;
                 owner = vehicle;
                 __result = true;
-                if (Seen.Wants("trailers.caravan-ate-from-tank", vehicle)) Seen.Note("trailers.caravan-ate-from-tank", vehicle, forPawn.LabelShort + ": " + meal.LabelShort);
+                if (fromStore)
+                {
+                    if (Seen.Wants("trailers.caravan-ate-from-store", vehicle)) Seen.Note("trailers.caravan-ate-from-store", vehicle, forPawn.LabelShort + ": " + meal.LabelShort);
+                }
+                else if (Seen.Wants("trailers.caravan-ate-from-tank", vehicle)) Seen.Note("trailers.caravan-ate-from-tank", vehicle, forPawn.LabelShort + ": " + meal.LabelShort);
                 return;
             }
             return;
@@ -81,20 +86,47 @@ public static class TankLarder
         foreach (VehiclePawn towed in Hitches.InTow(caravan)) yield return towed;
     }
 
-    /// <summary>The meals the caravan's tanks could make, added to <paramref name="into"/>; false with none.</summary>
+    /// <summary>The meals the caravan's tanks and packed stores could make, added to <paramref name="into"/>; false with none.</summary>
     public static bool Meals(Caravan caravan, List<ThingDefCount> into)
     {
         bool any = false;
         foreach (VehiclePawn vehicle in Vehicles(caravan))
         {
-            if (vehicle.GetComp<CompPhobosTank>() is not { } tank) continue;
-            foreach (ThingDefCount meals in tank.EdibleMeals())
+            if (vehicle.GetComp<CompPhobosTank>() is { } tank)
             {
+                foreach (ThingDefCount meals in tank.EdibleMeals())
+                {
+                    into.Add(meals);
+                    any = true;
+                }
+            }
+            if (vehicle.GetComp<CompPhobosSetOut>() is not { } setOut) continue;
+            foreach (CompPhobosReservoir store in setOut.Reservoirs())
+            {
+                if (store.EdibleMeals() is not { } meals) continue;
                 into.Add(meals);
                 any = true;
             }
         }
         return any;
+    }
+
+    /// <summary>
+    /// One meal from this vehicle for <paramref name="forPawn"/>, unplaced: from its food tank first, then from a store its packed pieces
+    /// keep (Framework 0.347.0: the Billy's paste tap, packed for the road, feeds the caravan as a paste tanker does). Null with none.
+    /// </summary>
+    public static Thing? TakeMeal(VehiclePawn vehicle, Pawn forPawn, out bool fromStore)
+    {
+        fromStore = false;
+        if (vehicle.GetComp<CompPhobosTank>()?.TakeMeal(forPawn) is { } fromTank) return fromTank;
+        if (vehicle.GetComp<CompPhobosSetOut>() is not { } setOut) return null;
+        foreach (CompPhobosReservoir store in setOut.Reservoirs())
+        {
+            if (store.TakeMeal(forPawn) is not { } meal) continue;
+            fromStore = true;
+            return meal;
+        }
+        return null;
     }
 }
 

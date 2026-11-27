@@ -46,6 +46,25 @@ public sealed class PipeNetLink : VehiclePipes.ILink
                 if (outlet.net != null) yield return outlet.net;
             }
         }
+        // A packed piece's store rides on the trailer (Framework 0.347.0: the Billy's paste tank), so its net lies beneath the trailer.
+        if (comp.Vehicle.GetComp<CompPhobosSetOut>() is { } setOut)
+        {
+            foreach (CompPhobosReservoir store in setOut.Reservoirs())
+            {
+                if (store.parent.Spawned) continue;
+                foreach (PipeNetDef net in NetsOf(store)) yield return net;
+            }
+        }
+    }
+
+    /// <summary>The nets a store's load is pumped through (nutrient paste's paste net).</summary>
+    static IEnumerable<PipeNetDef> NetsOf(CompPhobosReservoir store)
+    {
+        if (store.Props.contents is not { } contents) yield break;
+        foreach (Port_PipeNet port in contents.ports.OfType<Port_PipeNet>())
+        {
+            if (port.net != null) yield return port.net;
+        }
     }
 
     /// <summary>
@@ -77,6 +96,8 @@ public sealed class PipeNetLink : VehiclePipes.ILink
             foreach (ThingComp comp in withComps.AllComps)
             {
                 if (comp is CompResource { Props.pipeNet: { } net }) nets.Add(net);
+                // A store of ours (the Billy's paste tap, Framework 0.347.0) holds no Vanilla Expanded Framework resource: its load's nets.
+                else if (comp is CompPhobosReservoir store) nets.UnionWith(NetsOf(store));
             }
         }
         if (nets.Count == 0) return result;
@@ -175,6 +196,7 @@ public sealed class PipeNetLink : VehiclePipes.ILink
                 }
             }
         }
+        if (comp.ParkedForPipes) FillStores(comp);
         if (!onFuelLine) ForgetFuelLine(comp);
         foreach (KeyValuePair<string, Phobos.Framework.Persistence.PipeUnderlay> pair in comp.UnderlaysStartingWith(Prefix))
         {
@@ -236,6 +258,45 @@ public sealed class PipeNetLink : VehiclePipes.ILink
         }
         comp.PipeFuelLine = "PhobosVehicleSystems_PipeFuelFilling".Translate(line.Named("LINE"), fuel.Fuel.ToString("0").Named("FUEL"),
             fuel.FuelCapacity.ToString("0").Named("CAPACITY")).Resolve();
+    }
+
+    /// <summary>
+    /// Fills a set-out piece's store from a run of its load's net (Framework 0.347.0; the owner, 27 Nov 2026: the paste pipes showed nowhere
+    /// beneath the Billy). A standing piece draws through the cells it stands on, a packed one through the trailer's own, once the net's
+    /// pipe laid there joins a run with storage (Vanilla Nutrient Paste Expanded's vats), carrying what the stores' paste was made from. It
+    /// takes what fits at each look, as the game's own paste taps draw from their vats as they serve; a run of only our own pipe holds
+    /// nothing, so nothing moves.
+    /// </summary>
+    static void FillStores(VehiclePipes.IHost comp)
+    {
+        if (comp.Vehicle.GetComp<CompPhobosSetOut>() is not { } setOut || comp.Vehicle.Map is not { } map
+            || map.GetComponent<PipeNetManager>() is not { } manager) return;
+        foreach (CompPhobosReservoir store in setOut.Reservoirs())
+        {
+            if (store.Space < 1f) continue;
+            CellRect cells = store.parent.Spawned ? store.parent.OccupiedRect() : comp.Vehicle.OccupiedRect();
+            foreach (PipeNetDef net in NetsOf(store))
+            {
+                PipeNet? found = null;
+                foreach (IntVec3 cell in cells)
+                {
+                    if (cell.InBounds(map) && manager.GetPipeNetAt(cell, net) is { } at)
+                    {
+                        found = at;
+                        break;
+                    }
+                }
+                float wanted = found == null ? 0f : System.Math.Min(store.Space, found.Stored);
+                if (found == null || wanted < 1f) continue;
+                // The net's stored figure is refreshed only now and then, so the store takes what really came out.
+                found.DrawAmongStorage(wanted, out float drawn, null);
+                if (drawn <= 0f) continue;
+                store.Add(drawn, Port_PipeNet.IngredientsOf(found).ToList());
+                if (Seen.Wants("vehicles.reservoir-piped", store.parent, store.parent.Spawned ? "standing" : "packed"))
+                    Seen.Note("vehicles.reservoir-piped", store.parent, drawn.ToString("0") + " " + net.defName, store.parent.Spawned ? "standing" : "packed");
+                break;
+            }
+        }
     }
 
     static void ForgetFuelLine(VehiclePipes.IHost comp)

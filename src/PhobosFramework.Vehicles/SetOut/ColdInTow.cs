@@ -27,6 +27,8 @@ public static class HeldGoods
         foreach (Thing piece in setOut.PackedPieces)
         {
             if (piece is IThingHolder holder) Age(holder.GetDirectlyHeldThings(), vehicle);
+            // A store's load has its own clock (Framework 0.347.0: a packed paste tap holds no items, so its paste never aged on the road).
+            if (piece.TryGetComp<CompPhobosReservoir>() is { } store) store.CompTickRare();
         }
     }
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Phobos.Framework.Rules;
 using RimWorld;
 using UnityEngine;
+using Vehicles;
 using Verse;
 using Verse.Sound;
 
@@ -26,6 +27,10 @@ public class CompProperties_PhobosReservoir : CompProperties
     public float spoilRate = 1f;
 
     public CompProperties_PhobosReservoir() => compClass = typeof(CompPhobosReservoir);
+
+    /// <summary>What it holds on this trailer: more while the trailer has the upgrade named (null: no trailer, the plain size).</summary>
+    public float CapacityOn(VehiclePawn? trailer) =>
+        node.NullOrEmpty() || capacityWithNode <= 0f || trailer == null || !VehicleUpgrades.Unlocked(trailer, node!) ? capacity : capacityWithNode;
 }
 
 public class CompPhobosReservoir : ThingComp
@@ -38,9 +43,8 @@ public class CompPhobosReservoir : ThingComp
 
     public CompProperties_PhobosReservoir Props => (CompProperties_PhobosReservoir)props;
     public float Amount => amount;
-    /// <summary>What it holds now: more while the trailer that set it out has the upgrade its Props name.</summary>
-    public float Capacity => Props.node.NullOrEmpty() || Props.capacityWithNode <= 0f || SetOuts.Owner(parent) is not { } owner
-        || !VehicleUpgrades.Unlocked(owner.Vehicle, Props.node!) ? Props.capacity : Props.capacityWithNode;
+    /// <summary>What it holds now: more while the trailer that set it out, or holds it packed, has the upgrade its Props name.</summary>
+    public float Capacity => Props.CapacityOn(SetOuts.Owner(parent)?.Vehicle);
     public float Space => Mathf.Max(0f, Capacity - amount);
     public IReadOnlyList<ThingDef> Ingredients => ingredients;
 
@@ -73,6 +77,40 @@ public class CompPhobosReservoir : ThingComp
         // Less than a serving left can never be taken: the dregs go (fault-read 25 Nov 2026, B7).
         if (amount < 1f) Empty();
         return true;
+    }
+
+    /// <summary>A meal of <paramref name="item"/>, unplaced, carrying what the load was made from. Takes nothing out.</summary>
+    public Thing MealOf(ThingDef item)
+    {
+        Thing meal = ThingMaker.MakeThing(item);
+        if (meal.TryGetComp<CompIngredients>() is { } made)
+        {
+            foreach (ThingDef ingredient in ingredients) made.RegisterIngredient(ingredient);
+        }
+        return meal;
+    }
+
+    /// <summary>The meals it could still make, for a caravan's days of food (Framework 0.347.0: a packed paste tap feeds a caravan); none
+    /// when its load is no food.</summary>
+    public ThingDefCount? EdibleMeals()
+    {
+        if (Props.contents?.EdibleItem is not { } edible) return null;
+        int meals = Mathf.FloorToInt(amount / edible.units);
+        return meals > 0 ? new ThingDefCount(edible.item, meals) : null;
+    }
+
+    /// <summary>Draws one meal a person may eat now, carrying what the load was made from, and returns it unplaced (null with none). The
+    /// caller hands it to the game's own eating.</summary>
+    public Thing? TakeMeal(Pawn forPawn)
+    {
+        if (Props.contents?.EdibleItem is not { } edible || amount < edible.units) return null;
+        Thing meal = MealOf(edible.item);
+        if (!RimWorld.Planet.CaravanPawnsNeedsUtility.CanEatForNutritionNow(meal, forPawn) || !Take(edible.units))
+        {
+            meal.Destroy();
+            return null;
+        }
+        return meal;
     }
 
     void Empty()
@@ -159,11 +197,7 @@ public class Building_PhobosPasteTap : Building_NutrientPasteDispenser
     {
         if (!CanDispenseNow || Store is not { } store || !store.Take(1f)) return null;
         def.building.soundDispense?.PlayOneShot(new TargetInfo(Position, Map));
-        Thing meal = ThingMaker.MakeThing(DispensableDef);
-        if (meal.TryGetComp<CompIngredients>() is { } made)
-        {
-            foreach (ThingDef ingredient in store.Ingredients) made.RegisterIngredient(ingredient);
-        }
+        Thing meal = store.MealOf(DispensableDef);
         if (Seen.Wants("vehicles.paste-tap-served", this)) Seen.Note("vehicles.paste-tap-served", this, meal.LabelShort);
         return meal;
     }

@@ -829,19 +829,8 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
 
     /// <summary>The item a compartment's load is eaten as: the item its item port sets down, when that is food a person may eat for nutrition
     /// (nutrient paste's paste meal; not beer or wort). Null for any other load.</summary>
-    static (ThingDef item, float units)? EdibleItemOf(TankCompartment compartment)
-    {
-        if (compartment.contents is not { } contents || !compartment.HasLoad) return null;
-        foreach (TankPort port in contents.ports)
-        {
-            if (port is Port_Items { thing: { } item } items && item.IsNutritionGivingIngestible
-                && item.ingestible.preferability != FoodPreferability.NeverForNutrition && compartment.amount >= items.unitsPerItem)
-            {
-                return (item, items.unitsPerItem);
-            }
-        }
-        return null;
-    }
+    static (ThingDef item, float units)? EdibleItemOf(TankCompartment compartment) =>
+        compartment is { contents.EdibleItem: { } edible, HasLoad: true } && compartment.amount >= edible.units ? edible : null;
 
     /// <summary>The meals each compartment could still make, for a caravan's days of food.</summary>
     public IEnumerable<ThingDefCount> EdibleMeals()

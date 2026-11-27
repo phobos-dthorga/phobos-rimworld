@@ -422,6 +422,15 @@
       "raided": [{"key": "radio.relay-mast-lost", "variant": "raided"}],
       "serviced": [{"key": "radio.relay-mast-lost", "variant": "serviced"}]}},
     "677": ["radio.reach-drawn"],
+    "687": {"parts": {
+      "a bought paste tap is made packed": ["trailers.store-made-packed"],
+      "a caravan eats from a packed paste tap": ["trailers.caravan-ate-from-store"]
+    }},
+    "688": {"parts": {
+      "the paste line is laid beneath the set-out tent": [{"key": "trailers.set-out-line", "variant": "VNPE_NutrientPasteNet"}],
+      "a standing tap fills from a paste line": [{"key": "vehicles.reservoir-piped", "variant": "standing"}],
+      "a packed tap fills from a paste line beneath the trailer": [{"key": "vehicles.reservoir-piped", "variant": "packed"}]
+    }},
     "634": {"parts": {"a hull": [{"key": "vehicles.winch-thing", "variant": "hull"}],
       "a chunk": [{"key": "vehicles.winch-thing", "variant": "chunk"}],
       "a ship chunk": [{"key": "vehicles.winch-thing", "variant": "building"}],

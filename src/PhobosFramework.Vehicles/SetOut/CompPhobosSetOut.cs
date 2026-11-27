@@ -44,6 +44,15 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
     /// <summary>The pieces it holds while packed, for the caravan's cooks.</summary>
     public IEnumerable<Thing> PackedPieces => Packed;
 
+    /// <summary>The stores its pieces keep (the Billy's paste tap's paste), standing beside it or packed (Framework 0.347.0).</summary>
+    public IEnumerable<CompPhobosReservoir> Reservoirs()
+    {
+        foreach (Thing piece in placed.Concat(Packed))
+        {
+            if (!piece.Destroyed && piece.TryGetComp<CompPhobosReservoir>() is { } store) yield return store;
+        }
+    }
+
     // ---- IThingHolder: the pieces held while packed ----
 
     public ThingOwner GetDirectlyHeldThings() => Packed;
@@ -327,11 +336,33 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
         Seen.Note("trailers.pack-up", Vehicle);
     }
 
+    // ---- Stores ----
+
+    /// <summary>
+    /// A piece that keeps a store (the Billy's paste tap) is made, packed, as soon as its upgrade is bought, not at the next set-up (Framework
+    /// 0.347.0; the owner, 27 Nov 2026: the paste kitchen bought, and no paste anywhere on the Billy): the store is the trailer's own tank, so
+    /// it shows on the trailer's panel, takes paste from a line beneath it, and feeds a caravan from the day it is fitted. Setting out takes
+    /// the packed piece as it takes any other. Made in a holder, never spawned, so it is safe from a tick.
+    /// </summary>
+    void MakeBoughtStores()
+    {
+        foreach (SetOutPiece piece in Props.pieces)
+        {
+            if (piece.def?.GetCompProperties<CompProperties_PhobosReservoir>() == null || !Wanted(piece.node)
+                || placed.Any(t => t.def == piece.def) || Packed.Any(t => t.def == piece.def)) continue;
+            Thing made = MakePiece(piece);
+            if (Vehicle.Faction != null) made.SetFaction(Vehicle.Faction);
+            Packed.TryAdd(made);
+            if (Seen.Wants("trailers.store-made-packed", Vehicle)) Seen.Note("trailers.store-made-packed", Vehicle, piece.def.defName);
+        }
+    }
+
     // ---- Power ----
 
     public override void CompTickRare()
     {
         base.CompTickRare();
+        MakeBoughtStores();
         // What its packed pieces hold has no other clock (Framework 0.216.0): a packed cold box's food ages here, on a map or in a caravan.
         if (packed is { Count: > 0 }) HeldGoods.AgePacked(Vehicle);
         if (powerPoint is not { Spawned: true } || powerPoint.GetComp<CompPowerTrader>() is not { } trader) return;
@@ -380,13 +411,24 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
         if (UiGuard.Resting(GuardKey)) return UiGuard.FallbackText;
         try
         {
-            if (!IsSetOut) return null;
-            if (Props.powerPointDef == null || powerPoint == null) return "PhobosSetOut_InspectSetOut".Translate(Props.setOutLabel.Named("WHAT")).Resolve();
-            return Powered
-                ? "PhobosSetOut_InspectPowered".Translate(Props.setOutLabel.Named("WHAT"), (-(powerPoint.GetComp<CompPowerTrader>()?.PowerOutput ?? 0f)).ToString("0").Named("WATTS")).Resolve()
-                : "PhobosSetOut_InspectUnpowered".Translate(Props.setOutLabel.Named("WHAT")).Resolve();
+            string? setOut = !IsSetOut ? null
+                : Props.powerPointDef == null || powerPoint == null ? "PhobosSetOut_InspectSetOut".Translate(Props.setOutLabel.Named("WHAT")).Resolve()
+                : Powered
+                    ? "PhobosSetOut_InspectPowered".Translate(Props.setOutLabel.Named("WHAT"), (-(powerPoint.GetComp<CompPowerTrader>()?.PowerOutput ?? 0f)).ToString("0").Named("WATTS")).Resolve()
+                    : "PhobosSetOut_InspectUnpowered".Translate(Props.setOutLabel.Named("WHAT")).Resolve();
+            string? stores = StoresLine();
+            return setOut == null ? stores : stores == null ? setOut : setOut + "\n" + stores;
         }
         catch (System.Exception e) { UiGuard.Report(GuardKey, e); return null; }
+    }
+
+    /// <summary>What its pieces' stores hold, standing or packed, as the trailer's own water tank shows (Framework 0.347.0; the owner,
+    /// 27 Nov 2026: the Billy's paste was nowhere on its panel while packed). Null with none.</summary>
+    string? StoresLine()
+    {
+        List<string>? lines = null;
+        foreach (CompPhobosReservoir store in Reservoirs()) (lines ??= new()).Add(store.CompInspectStringExtra());
+        return lines == null ? null : string.Join("\n", lines);
     }
 
     const string GuardKey = "A trailer's set-out line";
@@ -436,11 +478,12 @@ public static class SetOuts
         foreach (Thing piece in owners.Where(p => p.Value == setOut).Select(p => p.Key).ToList()) owners.Remove(piece);
     }
 
-    /// <summary>The trailer that set this piece out, or null.</summary>
+    /// <summary>The trailer that set this piece out, or that holds it packed (Framework 0.347.0: a packed paste tap kept forgetting the bigger
+    /// tank), or null.</summary>
     public static CompPhobosSetOut? Owner(Thing piece)
     {
         Check();
-        return owners.TryGetValue(piece, out CompPhobosSetOut? setOut) ? setOut : null;
+        return owners.TryGetValue(piece, out CompPhobosSetOut? setOut) ? setOut : piece.ParentHolder as CompPhobosSetOut;
     }
 
     /// <summary>Whether the trailer that set this piece out is plugged in.</summary>

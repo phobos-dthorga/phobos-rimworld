@@ -22,6 +22,30 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.347.0] - 2026-11-27 - Draft
+
+The Billy's paste shows, pipes in and travels
+
+### Fixed
+
+- **A trailer's paste store shows on its panel, packed or set up**: the Billy's paste tap kept its paste out of sight while packed, as
+  the owner found on 27 Nov 2026, and forgot the bigger paste tank until the next set-up. It now shows beside the water tank, at its
+  right size. Not yet tested in game: row 687.
+- **The paste tap is made as soon as its upgrade is bought**, packed in the trailer, rather than at the next set-up, so the paste kitchen
+  is never bought for nothing. Not yet tested in game: row 687.
+- **Packed paste ages**: a packed tap's paste never spoiled on the road, because only packed pieces holding items were aged. It now
+  keeps its 8 days, slower in the cold. Not yet tested in game: row 687.
+- **The paste line is laid beneath the Billy**: beneath the tent and the tap while set up, and beneath the trailer while packed, as its
+  chemfuel and water lines already were. Before, no paste pipe showed there at all. Not yet tested in game: row 688.
+
+### Added
+
+- **A paste line fills the paste tap**: a run of Vanilla Nutrient Paste Expanded's pipe from its vats, reaching the tent or the packed
+  trailer, tops up the tap's store, ingredients and all (an agent's choice, for the owner to revise: the pipe shows, so it should carry).
+  Not yet tested in game: row 688.
+- **A caravan eats from a packed paste tap**, as it does from a paste tanker, once its packs and trailers hold no food; its days of food
+  count the tap's meals. Not yet tested in game: row 687.
+
 ## [0.346.0] - 2026-11-27 - Draft
 
 Three hidden readings keep their day, so the test list can check rows 28, 29 and 396
