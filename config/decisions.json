@@ -1,4 +1,52 @@
 {
  "schemaVersion": 1,
- "decisions": []
+ "decisions": [
+  {
+   "id": "world-cover-hand-held",
+   "question": "Your card offered a hand-held as a far-end radio for the world map's radio coverage picture. I left it out and offered a relay mast and a relay post in its place. Keep it out?",
+   "context": "Built in Radio Framework 0.42.0 (row 700). No call between tiles uses a hand-held today: a hand-held reaches a vehicle on its own map, and the vehicle reaches home. The radio's rule is that a figure the interface shows must change an outcome somewhere, so a hand-held picture would show reach nothing uses.",
+   "options": [
+    {
+     "id": "keep-out",
+     "label": "Keep it out",
+     "detail": "As built: vehicle radio, vehicle radio with its mast up, relay mast, relay post, vehicle by Morse"
+    },
+    {
+     "id": "make-real",
+     "label": "Make it real",
+     "detail": "Let a caravan on foot with hand-helds call home between tiles (a new behaviour, about 12 tiles of reach on flat ground), then add the hand-held picture"
+    },
+    {
+     "id": "add-anyway",
+     "label": "Add the picture anyway",
+     "detail": "A hand-held button whose picture is labelled as showing reach no call uses yet"
+    }
+   ],
+   "lean": "keep-out",
+   "why": "It keeps every picture honest; making it real is a fair second choice if caravans on foot should have radio too",
+   "from": "docs/development/radio-world-coverage.md",
+   "asked": "2026-11-27"
+  },
+  {
+   "id": "world-cover-measure",
+   "question": "The world map's radio coverage pictures are built but their cost is not measured. Record it on your colony when you first try them?",
+   "context": "Radio Framework 0.42.0 and 0.43.0 (rows 700 and 701). The radio's rules say anything that draws or recomputes is recorded with scripts/perf.py before and after, on your colony, asking first. By design it costs nothing while off and at most 1.5 ms a frame while a picture is being worked out. A recording can hitch the game, so save first.",
+   "options": [
+    {
+     "id": "record",
+     "label": "Yes, record it",
+     "detail": "Say go with the world map up: one recording with the picture off, one while it is being worked out, one once shown"
+    },
+    {
+     "id": "skip",
+     "label": "Not now",
+     "detail": "The design record keeps saying 'not measured'; try the pictures by feel first"
+    }
+   ],
+   "lean": "record",
+   "why": "Your screenshot showed 11 FPS on the colony map, and the radio's first concern is performance: measured, never assumed",
+   "from": "docs/development/radio-world-coverage.md",
+   "asked": "2026-11-27"
+  }
+ ]
 }
