@@ -21,6 +21,15 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.340.4] - 2026-11-27 - Draft
+
+The Link to a mechanitor button's own picture
+
+### Fixed
+
+- **The remote control's Link to a mechanitor button showed the game's select-all-mechanoids icon**: it has its own now, the
+  owner's pick of 27 Nov 2026 from bought tries. Unlink goes on borrowing until its remade tries are picked.
+
 ## [0.340.3] - 2026-11-27 - Draft
 
 The round's Halt button, the optionally piloted kit and Pop smoke get their own pictures

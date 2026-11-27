@@ -316,11 +316,12 @@ public sealed class CompPhobosMechLink : VehicleComp
     }
 }
 
-/// <summary>The mech link's button pictures: the game's own select-all-mechanoids icon (Pawn_MechanitorTracker uses it), and ours.</summary>
+/// <summary>The mech link's button pictures, ours (Link's bought, Framework 0.340.4); each falls back to a visible icon of ours.</summary>
 [StaticConstructorOnStartup]
 public static class MechLinkIcons
 {
-    public static readonly Texture2D Link = SystemIcons.For("UI/Icons/SelectAllMechs");
+    // Its own picture (Framework 0.340.4, the owner's pick of 27 Nov 2026, bought). Unlink borrows the hitch's until its remake is picked.
+    public static readonly Texture2D Link = SystemIcons.For("Phobos/VehicleSystems/Remote/MechLink");
     public static readonly Texture2D Unlink = SystemIcons.For("Phobos/VehicleSystems/Hitch/Unhitch");
 }
 
