@@ -245,6 +245,7 @@ flowchart TB
   GroundJammer["Jammer mast"]
   HeatRecovery["Exhaust heat exchanger"]
   HeavyFan["Heavy-duty fan"]
+  PhobosExhaustTurboGenerator["Exhaust turbo-generator"]
   PhobosServiceLead["Service lead"]
   PhobosEngineGuards["Engine and tank guards"]
   PhobosRunFlatTyres["Run-flat tyres"]
@@ -309,6 +310,19 @@ proposal, for the owner to revise.**
 | Figures | 0.3 airflow (authored, chosen to reach the moving rate exactly); 30 steel, 1 component, 1,200 work, Electricity (authored) |
 | Other factions' vehicles | Works on any faction's set with the node; a captured one keeps it. It costs nothing more per tick: the radiator already reads its inputs |
 | Not tested | Whether the difference shows in play depends on how hot a parked set runs at full load; the owner's first hot-weather camp will tell |
+
+`PhobosExhaustTurboGenerator` (built in Vehicles 0.135.0 with Framework 0.377.0; the owner, 28 Nov 2026: "Perhaps we add a turbo generator
+to our Busbar? As an upgrade, of course"). **Not yet tested in game: row 774.**
+
+| Question | Answer |
+| --- | --- |
+| What it is | Electric turbo-compounding: a power turbine in the exhaust turns a high-speed generator, winning back heat that would leave by the stack. Sold for diesel generator sets (Bowman Power's electric turbo compounding units, from memory, **unverified**), claimed at some 5 to 10 % more output |
+| What it lets the player do | Get 150 W more from the set at full output, for no more fuel |
+| How it works | The node adds 150 W to `Phobos_GeneratorOutput` and the same to a new stat, `Phobos_RecoveredWatts` (D'thorga Framework). The set's fuel at full output follows its output less the recovered watts, so those burn nothing; at part load they scale with the rest, as the exhaust's heat falls with the load (an approximation) |
+| Figures | 150 W, 7.5 % of the 2,000 W set (authored, inside the claimed range); 40 steel, 4 components, 2,500 work, Turbines research (authored) |
+| With the heat exchanger | Both may be fitted. Both take from the same exhaust, so in reality the exchanger would get cooler gas; here its heat is unchanged (a simplification, the agent's) |
+| Other factions' vehicles | Works on any faction's set with the node; a captured one keeps it. One stat read per rare tick |
+| Pictures | None on the truck: the turbine sits inside the exhaust. Its icon is the turbocharger fitting's until the local night run draws its own |
 
 `StatUpgrade` sets a stat's base, offset or factor (`VF.cs:33992-34218`); a node carries ingredients, research, prerequisites and overlays
 (`UpgradeNode`, `VF.cs:34815-34866`). The owner's rule of play for the Harrier applies: no node without a figure the player can feel.

@@ -236,6 +236,46 @@
       </ingredients>
     </li>
     <li>
+      <!-- D'thorga Vehicles 0.135.0 (the owner's word of 28 Nov 2026: "Perhaps we add a turbo generator to our Busbar? As an upgrade, of course").
+           Electric turbo-compounding: a power turbine in the exhaust turns a high-speed generator, winning electricity back from heat that
+           would leave by the stack, with no more fuel. Sold for diesel generator sets (Bowman Power's electric turbo compounding units, from
+           memory, unverified), which claim some 5 to 10 % more output; 150 W on the 2,000 W set is 7.5 % (authored). Its watts are counted as
+           recovered (Phobos_RecoveredWatts), so they burn no chemfuel (D'thorga Framework 0.377.0). It sits inside the exhaust, so nothing is
+           drawn on the truck; its icon is the turbocharger fitting's until the night run draws its own. It goes beside the heat exchanger:
+           both take from the same exhaust, which here is a simplification (the exchanger's heat is not lowered by the turbine). -->
+      <key>PhobosExhaustTurboGenerator</key>
+      <label>Exhaust turbo-generator</label>
+      <displayLabel>true</displayLabel>
+      <description>A small turbine in the exhaust that turns a fast generator, winning electricity back from heat that would go out the stack. The set makes 150 W more at full output, for no more fuel.</description>
+      <upgradeExplanation>Output: 150 W more at full output, burning no fuel of its own.\nAt part load it gives its share, as the exhaust's heat falls with the load.</upgradeExplanation>
+      <icon>Phobos/VehicleSystems/Fittings/Turbocharger</icon>
+      <work>2500</work>
+      <gridCoordinate>(17, 7)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_Turbines</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_GeneratorOutput</def>
+              <value>150</value>
+            </li>
+            <li>
+              <def>Phobos_RecoveredWatts</def>
+              <value>150</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <!-- The turbine, the high-speed generator and its power electronics (authored). -->
+        <Steel>40</Steel>
+        <ComponentIndustrial>4</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
       <!-- Owner, 12 Nov 2026: the service lead, batch 3 signature (docs/development/vehicle-upgrades-round-two.md). Reach and cost authored;
            the lead's 300 W is in the rules Def. No picture on the body: the lead is drawn as a line while the set is selected. -->
       <key>PhobosServiceLead</key>

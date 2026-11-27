@@ -22,6 +22,8 @@ public static class GeneratorDefOf
     public static VehicleStatDef Phobos_RigControl = null!;
     public static VehicleStatDef Phobos_HeatRecovery = null!;
     public static VehicleStatDef Phobos_ServiceLeadReach = null!;
+    /// <summary>Watts of the output won back from the exhaust, which burn no fuel (Framework 0.377.0; the exhaust turbo-generator).</summary>
+    public static VehicleStatDef Phobos_RecoveredWatts = null!;
 
     static GeneratorDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(GeneratorDefOf));
 }
@@ -388,8 +390,11 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
             if (stub == null) return;
             float offered = Offered(out fault);
             ReadNet(stub.PowerNet, stub, out float need, out bool batteriesHaveRoom);
-            // Full-output fuel follows the watts on offer, so a bigger or a damaged generator keeps the same watts per chemfuel.
-            float full = Props.fullFuelPerDay * offered / Props.baseWatts;
+            // Full-output fuel follows the watts on offer, so a bigger or a damaged generator keeps the same watts per chemfuel. Framework
+            // 0.377.0: less the watts won back from the exhaust (the turbo-generator upgrade), which burn none; at part load they scale with
+            // the rest, as the exhaust's heat does (an approximation).
+            float recovered = UnityEngine.Mathf.Clamp(Vehicle.GetStatValue(GeneratorDefOf.Phobos_RecoveredWatts), 0f, offered);
+            float full = Props.fullFuelPerDay * (offered - recovered) / Props.baseWatts;
             // A service lead takes its watts off the top; the camp's grid gets the rest (Framework 0.101.0). The ground jammer's go first
             // (Framework 0.227.0): both draw on the same output and fuel.
             float wantJammer = JammerFitted && jamMode != GroundJamMode.Off ? Rules.groundJammerWatts : 0f;

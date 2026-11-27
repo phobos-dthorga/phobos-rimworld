@@ -22,6 +22,20 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.377.0] - 2026-11-28 - Draft
+
+Power from a generator set's exhaust
+
+### Added
+
+- **A generator set can make power from its exhaust that burns no fuel**: an upgrade that adds to the new Phobos_RecoveredWatts stat
+  (power from the exhaust) gives the set that much more output, and its fuel follows its output less those watts. D'thorga Vehicles'
+  Busbar has the first such upgrade, an exhaust turbo-generator. Not yet tested in game: row 774.
+
+### Save compatibility
+
+- Safe for saves: nothing new is saved.
+
 ## [0.376.0] - 2026-11-28 - Draft
 
 The turbo-generator, and the audit's first findings

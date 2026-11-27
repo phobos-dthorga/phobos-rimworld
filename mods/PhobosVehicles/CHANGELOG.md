@@ -13,6 +13,21 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.135.0] - 2026-11-28 - Draft
+
+The Busbar's exhaust turbo-generator
+
+### Added
+
+- **The Busbar can be fitted with an exhaust turbo-generator**: a small turbine in its exhaust turns a fast generator, giving 150 W more at
+  full output for no more fuel, as electric turbo-compounding does on real generator sets (the owner's word of 28 November 2026). It
+  needs Turbines research and sits beside the heavy-duty fan in the Upgrades tab. Its icon is the turbocharger's until its own is
+  drawn. Not yet tested in game: row 774.
+
+### Save compatibility
+
+- Safe for saves: an upgrade tree gains a node; nothing else changes.
+
 ## [0.134.0] - 2026-11-28 - Draft
 
 The steam engines' lights, and the boats' pumps

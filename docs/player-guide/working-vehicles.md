@@ -530,8 +530,9 @@ A medium diesel-electric truck, 3 by 8 cells like the Talus tipper: its engine t
 
 **Upgrades:** an **uprated alternator** (2,650 W); a **cable reel** (put the cable end up to 12 cells away); a **battery buffer**
 that keeps the grid alive for a time when the engine cannot; a **heavy-duty fan** that cools a parked engine as well as driving does,
-for hard work in hot weather; and an **exhaust heat exchanger** that warms the room its cable end stands in, up to 21 °C, for 25 W
-of output. **Put the cable end inside the room you want warm**; outdoors the heat is wasted.
+for hard work in hot weather; an **exhaust heat exchanger** that warms the room its cable end stands in, up to 21 °C, for 25 W
+of output; and an **exhaust turbo-generator** (after Turbines research) that wins 150 W back from the exhaust at full output, for no more
+fuel. **Put the cable end inside the room you want warm**; outdoors the heat is wasted.
 
 **A vehicle of ours parked beside the cable end, or beside a conduit on its grid, counts as plugged in**, as with any grid. Vehicle
 Framework's own electric vehicles need a battery on the grid to charge.
