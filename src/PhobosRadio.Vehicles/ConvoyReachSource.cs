@@ -120,6 +120,10 @@ public sealed class ConvoyReachSource : IConvoyReachSource
                 hops.Add((a.Tile, b.Tile, LinkBudgetService.EvaluateWorld(a, b, rules)?.MarginDb ?? found.chain.WorstMarginDb));
             }
             ReachDrawing.Keep(convoy, hops);
+            // Radio 0.48.0: the chain's nodes, for the link sheet between tiles.
+            var links = new List<(RelayNode A, RelayNode B, ModeDef? Mode)>();
+            for (int h = 0; h + 1 < found.chain.Path.Count; h++) links.Add((found.nodes[found.chain.Path[h]], found.nodes[found.chain.Path[h + 1]], null));
+            ConvoyLinks.Keep(convoy, links);
             // Radio 0.44.0: home by hand-held, worn or packed.
             if (start.End.Thing?.TryGetComp<CompRadio>() is { } handheld && start.End.Thing is not VehiclePawn)
             {
@@ -136,6 +140,8 @@ public sealed class ConvoyReachSource : IConvoyReachSource
         if (ByMorse(convoy, start, rules) is { } morse) return morse;
         // Out of reach: said against the nearest home, directly.
         RelayNode nearest = homes.OrderBy(h => Find.WorldGrid.ApproxDistanceInTiles(convoy.Tile, h.Tile)).First();
+        // Radio 0.48.0: the hop straight to it, for the link sheet to say why.
+        ConvoyLinks.Keep(convoy, new List<(RelayNode A, RelayNode B, ModeDef? Mode)> { (start, nearest, null) });
         double far = Find.WorldGrid.ApproxDistanceInTiles(convoy.Tile, nearest.Tile) * rules.metresPerWorldTile;
         double reachable = Propagation.RadioHorizonMetres(start.End.AntennaHeightMetres + start.SiteMetres, nearest.End.AntennaHeightMetres + nearest.SiteMetres);
         LinkEvaluation? direct = LinkBudgetService.EvaluateWorld(start.End, start.Tile, start.SiteMetres, nearest.End, nearest.Tile, nearest.SiteMetres, rules,
@@ -144,11 +150,17 @@ public sealed class ConvoyReachSource : IConvoyReachSource
         // Radio 0.41.0: inside the horizon, with high ground on the way costing more than the call is short by, the ground is the reason.
         bool blocked = far <= reachable && direct != null && blocking.Any
             && margin + blocking.LossDb(direct.Band) >= rules.workableDb;
+        // Radio 0.48.0: the ground in the way is named with how far off it is, and a call past the horizon says when ground stands in the line too.
+        NamedArgument ground = WorldTerrain.GroundLabel(blocking.Tile).Named("GROUND");
+        NamedArgument away = blocking.Any
+            ? (Find.WorldGrid.ApproxDistanceInTiles(convoy.Tile, blocking.Tile) * rules.metresPerWorldTile / 1000.0).ToString("0").Named("AWAY")
+            : "0".Named("AWAY");
         string why = blocked
-            ? "PhobosRadioReach_Blocked".Translate(nearest.Label.Named("HOME"), (far / 1000.0).ToString("0").Named("KM"),
-                WorldTerrain.GroundLabel(blocking.Tile).Named("GROUND"), margin.ToString("0").Named("MARGIN")).Resolve()
+            ? "PhobosRadioReach_Blocked".Translate(nearest.Label.Named("HOME"), (far / 1000.0).ToString("0").Named("KM"), ground, away,
+                margin.ToString("0").Named("MARGIN")).Resolve()
             : (far > reachable ? "PhobosRadioReach_OverHorizon" : "PhobosRadioReach_TooWeak").Translate(nearest.Label.Named("HOME"),
                 (far / 1000.0).ToString("0").Named("KM"), (reachable / 1000.0).ToString("0").Named("HORIZON"), margin.ToString("0").Named("MARGIN")).Resolve();
+        if (far > reachable && blocking.Any && blocking.OverLineMetres > 0) why += " " + "PhobosRadioReach_AlsoGround".Translate(ground, away).Resolve();
         if (blocked && Seen.Wants("radio.terrain-blocked", start.End.Thing))
             Seen.Note("radio.terrain-blocked", start.End.Thing, blocking.LossDb(direct!.Band).ToString("0") + " dB lost to "
                 + WorldTerrain.GroundLabel(blocking.Tile) + ", " + margin.ToString("0") + " dB to spare");
@@ -189,6 +201,8 @@ public sealed class ConvoyReachSource : IConvoyReachSource
             }
         }
         if (best == null) return null;
+        // Radio 0.48.0: the one hop by Morse, for the link sheet between tiles.
+        ConvoyLinks.Keep(convoy, new List<(RelayNode A, RelayNode B, ModeDef? Mode)> { (start, best, cw) });
         double horizon = Propagation.RadioHorizonMetres(start.End.AntennaHeightMetres + start.SiteMetres, best.End.AntennaHeightMetres + best.SiteMetres);
         string line = "PhobosRadioReach_InTouchMorse".Translate(best.Label.Named("HOME"), (bestMetres / 1000.0).ToString("0").Named("KM"),
             bestMargin.ToString("0").Named("MARGIN")).Resolve();
@@ -210,6 +224,9 @@ public sealed class ConvoyReachSource : IConvoyReachSource
         };
         if (MastRefusal(convoy) is { } refused) build.Disable(refused);
         yield return build;
+        // Radio 0.48.0: the Radio button, as a hand-held has on a map: its bars by the reach home, opening the path home seen from the side.
+        string? reachLine = ConvoyRadio.Of(convoy)?.Line;
+        yield return Phobos.Radio.UI.WorldLinkGizmo.Make(convoy.LabelCap, CaravanTouch.KeptOutcome(convoy), reachLine, () => ConvoyLinks.Paths(convoy));
         // Radio 0.42.0: the cover picture's button, as on a colony, a mast or a post.
         foreach (Gizmo cover in Phobos.Radio.UI.WorldCoverGizmo.For(convoy)) yield return cover;
     }

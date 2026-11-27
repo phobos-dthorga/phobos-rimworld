@@ -13,9 +13,11 @@ namespace Phobos.Radio.Services;
 /// One place a call can be passed on from, on the world map: its radio end, its tile, a label for the player, what owns it (a convoy, a
 /// vehicle, a mast), so a convoy never relays its own call, whether its source declares a repeater on it (a vehicle's repeater kit; a
 /// mast always), the height its tile's ground lifts it by (its source supplies it: Propagation.SiteHeightMetres), and since Radio 0.24.0
-/// how many channels it has to relay on (0: the rules' <see cref="RadioRulesDef.repeaterChannels"/>).
+/// how many channels it has to relay on (0: the rules' <see cref="RadioRulesDef.repeaterChannels"/>). <paramref name="Airborne"/> (Radio
+/// 0.48.0): its height is its own, in the air, not its tile's ground; only a picture reads it (the side view draws no hill under it).
 /// </summary>
-public sealed record RelayNode(RadioEndpoint End, PlanetTile Tile, string Label, object Owner, bool Repeater = false, double SiteMetres = 0, int Channels = 0)
+public sealed record RelayNode(RadioEndpoint End, PlanetTile Tile, string Label, object Owner, bool Repeater = false, double SiteMetres = 0, int Channels = 0,
+    bool Airborne = false)
 {
     /// <summary>The height a tile's ground lifts a node on it by.</summary>
     public static double SiteOf(PlanetTile tile) => Propagation.SiteHeightMetres((int)Find.WorldGrid[tile].hilliness);
@@ -105,6 +107,16 @@ public static class RelayNodes
     /// physics": between tiles it needs a repeater). Its source declares one, or its radio relays by itself.
     /// </summary>
     public static bool CanRelay(RelayNode node) => node.Repeater || node.End.Thing?.TryGetComp<CompRadio>()?.Props.relays == true;
+
+    /// <summary>Nobody's call: asking the ledger with it finds room only where a new caller would.</summary>
+    static readonly object NewCaller = new();
+
+    /// <summary>
+    /// Whether a new call of this channel kind would find room at this relay now (Radio 0.48.0, for the world map's pictures): the
+    /// ledger's own answer for a caller that holds no place there. It only looks: nothing is booked.
+    /// </summary>
+    public static bool HasRoomFor(RelayNode relay, ChannelKindDef kind) =>
+        Ledger.HasRoom(relay.Owner, NewCaller, kind.LedgerIndex, Shapes, relay.ChannelsOrRules, Find.TickManager.TicksGame);
 
     /// <summary>
     /// What one hop between two nodes has to spare, or null when they are not in touch (Radio 0.41.0: through the tiles' own link budget,

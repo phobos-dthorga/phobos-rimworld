@@ -2,7 +2,10 @@
 
 **Status (27 Nov 2026):** all three pieces are built and none is tested in game: high ground between tiles (Radio Framework 0.41.0,
 row 699), the cover picture for one site (0.42.0, row 700) and the picture of the whole network (0.43.0, row 701). So are caravans on
-foot calling home by hand-held, from the owner's second round of cards (0.44.0 with Framework 0.353.0, row 702).
+foot calling home by hand-held, from the owner's second round of cards (0.44.0 with Framework 0.353.0, row 702), and the third
+round's four pieces (0.48.0, rows 712 to 714): the path home seen from the side, the ground in the way named, a relay planner and
+full relays marked. The airborne relay the owner also picked is not here: it is row EW7 of
+[electronic warfare](electronic-warfare.md), already chosen and being built by that record's session.
 
 The owner asked on 27 Nov 2026 whether radio cover can be seen on the world map as it can inside a colony, what it would take and
 what could go wrong, then answered three cards. This record holds the answers, the design of each piece and what is built.
@@ -300,6 +303,65 @@ the keeping fresh.
 
 **Limits [A]:** needs Vehicle Framework, as all reach between tiles does today. The hand-held picture is the VHF hand-held's; a UHF
 hand-held reaches a little less over hills. Another faction's caravans are not modelled.
+
+## The third round: four finishing pieces [O]
+
+The owner, 27 Nov 2026, asked where to go next and picked by card.
+
+| # | Card | Chosen | Not chosen |
+| --- | --- | --- | --- |
+| 9 | Which small finishing pieces to build (several could be chosen) | **All four: path profile (the agent's lean), relay planner (lean), full relays marked, name the blocking tile** | None left out |
+| 10 | Which bigger step to write a design record for | **Airborne relay** (the agent's lean) | Manpack radio: a backpack set for caravans on foot, more power and a taller whip at real weight. HF, Phase 2: skywave, skip zones, day and night bands. None for now |
+
+**Card 10 needed no new record.** An aircraft as a flying relay is row EW7 of [electronic warfare](electronic-warfare.md), which the
+owner had opened for building the same day. This session handed that record's session what it knew of the radio side (heights over
+the plain in `SiteMetres`, a surface tile under the aircraft, a stable owner for the ledger, and that a moving relay would restart
+the network picture) and added the `Airborne` field to `RelayNode` for it, which only the side view reads.
+
+### The path home, from the side (rows 712)
+
+- **A Radio button on a caravan with a radio**, the hand-held's own: its bars by the caravan's kept reach home.
+- **The sheet lists each hop** of the chain the reach check last found; out of reach, the one hop straight to the nearest colony, so
+  it can say why; by Morse, the one hop in that mode.
+- **The side view** draws each tile on the way as a column: the planet's bulge there, then its hills, so the line between the two
+  aerials is straight (the usual way a path profile is drawn). Each end stands on its own tile's high ground. The column that
+  decides is orange where it costs signal; Engineer adds its cost.
+- **The words** give, in Plain, why a hop fails or what the ground costs it: past the horizon, high ground (named by the game's word
+  for it and its distance from the hop's first end), or too weak. Operator adds band, mode, margin, distance and horizon, and the
+  ground's height over or under the line; Engineer adds both directions' sheets.
+- **Show that ground** selects the tile on the globe: tiles have no names, so this is how it is named.
+- **Cost:** nothing while the sheet is shut. Open, one look a frame at a kept list; the hops are laid out again only when the reach
+  check has run again (at most once a tenth of a game hour): a link and two walks a hop, three hops at most.
+- **The four questions:** it lets the player see why a call fails and what would fix it; stops nothing; siting a halt or a relay is
+  read off a picture; nothing outside notices, by choice.
+
+### The relay planner (row 713)
+
+The network's picture for a far end that is itself a relay: every tile a new relay mast or post would reach home from, straight
+or through the relays there are. A call has taken one hop to reach the new relay, so what lies onward from an existing relay has one
+hop fewer again (`maxRelayHops` less two: with three hops, relays that reach a colony directly).
+
+**Not built [A]: how much new ground a relay would add.** That is a whole network picture for every candidate tile. The planner
+says where a relay would work; the vehicle picture beside it shows where one is needed.
+
+### Full relays marked (row 714)
+
+The real search leaves out a relay with no room for the caller's kind of call. The network's picture now does the same, asking the
+ledger as a caller who holds no place there (`RelayNodes.HasRoomFor`, which books nothing): such a relay is left out of the plan
+and of the other relays' ways onward, its tile is painted pink over the picture and it is named in the pane. A relay filling or
+freeing a channel starts the picture again, checked every 60 frames. One place's picture is not changed: a full relay's own pane
+already says so.
+
+### As built (Radio Framework 0.48.0)
+
+| Piece | Where |
+| --- | --- |
+| A hop laid out for the sheet | `Services/WorldLinkPath.cs`; the ground as a list is `WorldTerrain.Profile` |
+| The side view, the words, the window and the Radio button | `UI/WorldLinkSheet.cs` |
+| A caravan's hops kept as nodes | `ConvoyLinks` (vehicles tie-in), kept by `ConvoyReachSource.Reach` |
+| The planet's bulge, game-free, tested | `TerrainRule.BulgeMetres` |
+| The planner and full relays | `WorldCover.BuildNetworkPlan`, `WorldCover.FullRelays`, `RelayNodes.HasRoomFor`; the mark is the draw layer's |
+| Seen in play | `radio.world-link-sheet` (712), `radio.world-cover-network` by far-end radio (713), `radio.world-cover-full-relay` (714) |
 
 ## Sources
 

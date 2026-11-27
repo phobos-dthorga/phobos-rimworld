@@ -122,7 +122,8 @@
   <PhobosRadioReach_InTouch>In radio reach of {HOME}: {KM} km away, inside the {HORIZON} km horizon, {MARGIN} dB to spare.</PhobosRadioReach_InTouch>
   <PhobosRadioReach_OverHorizon>Out of radio reach of {HOME}: {KM} km away, past the {HORIZON} km horizon. A higher aerial at either end reaches further.</PhobosRadioReach_OverHorizon>
   <PhobosRadioReach_TooWeak>Out of radio reach of {HOME}: {KM} km away, and the signal is too weak ({MARGIN} dB short).</PhobosRadioReach_TooWeak>
-  <PhobosRadioReach_Blocked>Out of radio reach of {HOME}: {KM} km away, with high ground on the way ({GROUND}) blocking the signal ({MARGIN} dB short). A higher aerial at either end, a relay on that high ground, or a spot with a clear way home would reach.</PhobosRadioReach_Blocked>
+  <PhobosRadioReach_AlsoGround>High ground stands in the line as well ({GROUND}, {AWAY} km from here).</PhobosRadioReach_AlsoGround>
+  <PhobosRadioReach_Blocked>Out of radio reach of {HOME}: {KM} km away, with high ground on the way ({GROUND}, {AWAY} km from here) blocking the signal ({MARGIN} dB short). A higher aerial at either end, a relay on that high ground, or a spot with a clear way home would reach.</PhobosRadioReach_Blocked>
   <PhobosRadioReach_InTouchRelayed>In radio reach of {HOME} through {RELAYS}: {KM} km to home, the weakest hop {MARGIN} dB to spare.</PhobosRadioReach_InTouchRelayed>
   <PhobosRadio_RelayTakeDown>Take the mast down</PhobosRadio_RelayTakeDown>
   <PhobosRadio_RelayTakeDownDesc>Take this relay mast down for good. Calls no longer pass through it.</PhobosRadio_RelayTakeDownDesc>
@@ -141,6 +142,10 @@
   <PhobosRadio_CoverMenuOff>Off</PhobosRadio_CoverMenuOff>
   <PhobosRadio_CoverMenuPlace>This place: {KIND}</PhobosRadio_CoverMenuPlace>
   <PhobosRadio_CoverMenuNetwork>Home, through relays: {KIND}</PhobosRadio_CoverMenuNetwork>
+  <PhobosRadio_CoverMenuPlanner>Planner: where a new {KIND} would reach home</PhobosRadio_CoverMenuPlanner>
+  <PhobosRadio_CoverGizmoPlanner>Radio coverage: planner ({KIND})</PhobosRadio_CoverGizmoPlanner>
+  <PhobosRadio_CoverPlannerShown>Radio planner ({KIND}): a new one would reach home from {TILES} tiles, straight or through the {PLACES} stations and relays there are. Brighter is a stronger way home; put it where the vehicle picture has a gap.</PhobosRadio_CoverPlannerShown>
+  <PhobosRadio_CoverNetworkFull>Left out, with every channel in use (marked in pink): {RELAYS}.</PhobosRadio_CoverNetworkFull>
   <PhobosRadio_CoverGizmoNetwork>Radio coverage: home, through relays ({KIND})</PhobosRadio_CoverGizmoNetwork>
   <PhobosRadio_CoverNetworkWorking>Working out radio coverage home, through relays ({KIND}): {PERCENT} done.</PhobosRadio_CoverNetworkWorking>
   <PhobosRadio_CoverNetworkShown>Radio coverage home, through relays ({KIND}): {TILES} tiles in reach, from {PLACES} stations and relays. Brighter is stronger; dark red is too weak. A relay with every channel in use still refuses a call.</PhobosRadio_CoverNetworkShown>

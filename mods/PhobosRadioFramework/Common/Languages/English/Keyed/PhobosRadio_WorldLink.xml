@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The link sheet between world tiles, and its side view (Radio 0.48.0). -->
+  <PhobosRadioWorld_SheetTitle>{PLACE}: the radio path home</PhobosRadioWorld_SheetTitle>
+  <PhobosRadioWorld_GizmoDesc>{LINE}\n\nPress to see the path home from the side, hop by hop: the ground on the way, the line between the two aerials, and what decides.</PhobosRadioWorld_GizmoDesc>
+  <PhobosRadioWorld_NoPath>No radio path to show: there is no radio here, or no powered radio station at home.</PhobosRadioWorld_NoPath>
+  <PhobosRadioWorld_HopTitle>{FROM} to {TO}</PhobosRadioWorld_HopTitle>
+  <PhobosRadioWorld_ProfileEnd>{NAME}, aerial {HEIGHT} m up</PhobosRadioWorld_ProfileEnd>
+  <PhobosRadioWorld_ProfileDistance>{KM} km</PhobosRadioWorld_ProfileDistance>
+  <PhobosRadioWorld_ProfileEdge>−{LOSS} dB</PhobosRadioWorld_ProfileEdge>
+
+  <PhobosRadioWorld_ReasonBands>The two radios share no band.</PhobosRadioWorld_ReasonBands>
+  <PhobosRadioWorld_ReasonHorizon>Past the horizon: {KM} km apart, and the two aerials see each other only out to {HORIZON} km. A higher aerial at either end reaches further.</PhobosRadioWorld_ReasonHorizon>
+  <PhobosRadioWorld_ReasonHorizonGround>High ground stands in the line as well: {GROUND}, {AWAY} km from {FROM}.</PhobosRadioWorld_ReasonHorizonGround>
+  <PhobosRadioWorld_ReasonGround>High ground on the way is blocking it: {GROUND}, {AWAY} km from {FROM}. A higher aerial at either end, a relay on that ground, or a way round it would get through.</PhobosRadioWorld_ReasonGround>
+  <PhobosRadioWorld_ReasonWeak>Too weak at {KM} km for this radio.</PhobosRadioWorld_ReasonWeak>
+  <PhobosRadioWorld_GroundCosts>High ground on the way costs some of the signal: {GROUND}, {AWAY} km from {FROM}.</PhobosRadioWorld_GroundCosts>
+
+  <PhobosRadioWorld_Operator>{BAND}, {MODE}: {MARGIN} dB to spare. {KM} km apart; the two aerials see each other out to {HORIZON} km.</PhobosRadioWorld_Operator>
+  <PhobosRadioWorld_OperatorGroundOver>High ground: {GROUND}, {AWAY} km from {FROM}, standing {OVER} m over the line between the aerials. It costs {LOSS} dB.</PhobosRadioWorld_OperatorGroundOver>
+  <PhobosRadioWorld_OperatorGroundNear>High ground: {GROUND}, {AWAY} km from {FROM}, passing {UNDER} m under the line between the aerials, close enough to cost {LOSS} dB.</PhobosRadioWorld_OperatorGroundNear>
+  <PhobosRadioWorld_Direction>{FROM} to {TO}</PhobosRadioWorld_Direction>
+  <PhobosRadioWorld_TermGround>High ground on the way, or the horizon</PhobosRadioWorld_TermGround>
+  <PhobosRadioWorld_TermPath>Distance (the greater of free space and flat ground)</PhobosRadioWorld_TermPath>
+
+  <PhobosRadioWorld_ShowGround>Show that ground</PhobosRadioWorld_ShowGround>
+  <PhobosRadioWorld_ShowGroundTip>Looks at the tile whose high ground stands in the way, on the world map.</PhobosRadioWorld_ShowGroundTip>
+</LanguageData>

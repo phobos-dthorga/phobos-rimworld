@@ -38,8 +38,16 @@ public static class TerrainRule
     {
         double total = fromAMetres + fromBMetres;
         if (total <= 0) return Math.Min(heightAMetres, heightBMetres);
-        return heightAMetres + (heightBMetres - heightAMetres) * fromAMetres / total - fromAMetres * fromBMetres / (2.0 * EffectiveEarthRadiusMetres);
+        return heightAMetres + (heightBMetres - heightAMetres) * fromAMetres / total - BulgeMetres(fromAMetres, fromBMetres);
     }
+
+    /// <summary>
+    /// How far the planet bulges up into a straight line between two points on it, in metres, at a point this far from each (Radio
+    /// 0.48.0, for the side view of a path between tiles): d1 d2 / (2 R), with the radius a radio wave sees. A side view draws the ground
+    /// raised by it, so the line between the aerials can be drawn straight.
+    /// </summary>
+    public static double BulgeMetres(double fromAMetres, double fromBMetres) =>
+        fromAMetres <= 0 || fromBMetres <= 0 ? 0.0 : fromAMetres * fromBMetres / (2.0 * EffectiveEarthRadiusMetres);
 
     /// <summary>
     /// How far an edge stands into the line, as a figure that holds for every band: its height over the line times the square root of

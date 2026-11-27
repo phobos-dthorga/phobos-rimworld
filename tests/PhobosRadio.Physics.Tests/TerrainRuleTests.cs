@@ -58,6 +58,18 @@ public class TerrainRuleTests
     }
 
     [Fact]
+    public void ThePlanetBulgesMostHalfWayAndNotAtAnEnd()
+    {
+        // Half way along 20 km: 10,000 x 10,000 / (2 x 8,495,000) = 5.89 m.
+        Assert.Equal(5.89, TerrainRule.BulgeMetres(10000, 10000), 2);
+        Assert.True(TerrainRule.BulgeMetres(10000, 10000) > TerrainRule.BulgeMetres(2000, 18000));
+        Assert.Equal(0.0, TerrainRule.BulgeMetres(0, 20000), 6);
+        Assert.Equal(0.0, TerrainRule.BulgeMetres(20000, 0), 6);
+        // A straight line over raised ground is the same as the line less the bulge over flat ground.
+        Assert.Equal(TerrainRule.LineHeightMetres(10, 30, 6000, 14000), 10 + 20 * 0.3 - TerrainRule.BulgeMetres(6000, 14000), 6);
+    }
+
+    [Fact]
     public void TheBulgeAgreesWithTheRadioHorizon()
     {
         // Two 10 m aerials at their horizon: the line touches smooth ground half way, within a few centimetres.

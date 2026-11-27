@@ -66,8 +66,30 @@ public class WorldDrawLayer_PhobosRadioCover : WorldDrawLayer
                 subMesh.tris.Add(first);
             }
         }
+        // Radio 0.48.0: a relay left out because every channel there is in use is marked on its own tile, over the picture.
+        if (WorldCover.Network)
+        {
+            foreach ((string _, int tileId) in WorldCover.FullRelays)
+            {
+                LayerSubMesh subMesh = GetSubMesh(material);
+                grid.GetTileVertices(new PlanetTile(tileId, planetLayer), verts);
+                int first = subMesh.verts.Count;
+                for (int v = 0, count = verts.Count; v < count; v++)
+                {
+                    subMesh.verts.Add(verts[v] + verts[v].normalized * (Lift * 1.5f));
+                    subMesh.colors.Add(FullRelayMark);
+                    if (v >= count - 2) continue;
+                    subMesh.tris.Add(first + v + 2);
+                    subMesh.tris.Add(first + v + 1);
+                    subMesh.tris.Add(first);
+                }
+            }
+        }
         FinalizeMesh(MeshParts.All);
     }
+
+    /// <summary>A full relay's mark: a strong magenta nothing on the signal ramp uses (authored).</summary>
+    static readonly Color32 FullRelayMark = new(255, 60, 200, 235);
 
     static Color32 Tint(Color colour, byte alpha)
     {
@@ -95,7 +117,9 @@ public static class WorldCoverGizmo
             defaultLabel = kind == null
                 ? "PhobosRadio_CoverGizmoOff".Translate()
                 : WorldCover.Network
-                    ? "PhobosRadio_CoverGizmoNetwork".Translate(kind.label.Named("KIND"))
+                    ? kind.caller
+                        ? "PhobosRadio_CoverGizmoNetwork".Translate(kind.label.Named("KIND"))
+                        : "PhobosRadio_CoverGizmoPlanner".Translate(kind.label.Named("KIND"))
                     : "PhobosRadio_CoverGizmo".Translate(kind.label.Named("KIND")),
             defaultDesc = "PhobosRadio_CoverGizmoDesc".Translate(),
             // The signal picture stands in until the button's own icon is drawn.
@@ -137,7 +161,10 @@ public static class WorldCoverGizmo
         {
             if (!WorldCover.NetworkOffered(kind)) continue;
             RadioCoverKindDef picked = kind;
-            options.Add(new FloatMenuOption("PhobosRadio_CoverMenuNetwork".Translate(kind.label.Named("KIND")), () => WorldCover.Pick(picked, wholeNetwork: true)));
+            // Radio 0.48.0: for a relay as the far end it is the planner: where a new relay of that kind would reach home, and so join in.
+            options.Add(new FloatMenuOption(kind.caller
+                ? "PhobosRadio_CoverMenuNetwork".Translate(kind.label.Named("KIND"))
+                : "PhobosRadio_CoverMenuPlanner".Translate(kind.label.Named("KIND")), () => WorldCover.Pick(picked, wholeNetwork: true)));
         }
         return options;
     }
@@ -154,9 +181,18 @@ public static class WorldCoverGizmo
             if (WorldCover.Network)
             {
                 if (WorldCover.Working) return "PhobosRadio_CoverNetworkWorking".Translate(name, WorldCover.Progress.ToStringPercent().Named("PERCENT")).Resolve();
-                return WorldCover.Painted.Count == 0
-                    ? "PhobosRadio_CoverNetworkNone".Translate(name).Resolve()
-                    : "PhobosRadio_CoverNetworkShown".Translate(name, WorldCover.Reached.Named("TILES"), WorldCover.Places.Named("PLACES")).Resolve();
+                if (WorldCover.Painted.Count == 0) return "PhobosRadio_CoverNetworkNone".Translate(name).Resolve();
+                string shown = kind.caller
+                    ? "PhobosRadio_CoverNetworkShown".Translate(name, WorldCover.Reached.Named("TILES"), WorldCover.Places.Named("PLACES")).Resolve()
+                    : "PhobosRadio_CoverPlannerShown".Translate(name, WorldCover.Reached.Named("TILES"), WorldCover.Places.Named("PLACES")).Resolve();
+                // Radio 0.48.0: relays left out with every channel in use, by name; each is marked on the globe.
+                if (WorldCover.FullRelays.Count > 0)
+                {
+                    var names = new List<string>();
+                    foreach ((string label, int _) in WorldCover.FullRelays) names.Add(label);
+                    shown += "\n" + "PhobosRadio_CoverNetworkFull".Translate(names.ToCommaList(useAnd: true).Named("RELAYS")).Resolve();
+                }
+                return shown;
             }
             if (WorldCover.Site is not { } site || site.Place != place) return null;
             switch (WorldCover.Refusal(site, kind))

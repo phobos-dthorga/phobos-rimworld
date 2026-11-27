@@ -42,10 +42,23 @@ public static class WorldTerrain
     /// </summary>
     public static Blocking Between(PlanetTile a, PlanetTile b, double heightAMetres, double heightBMetres, double metres, RadioRulesDef rules)
     {
-        if (!rules.terrainBlocksBetweenTiles || a == b || !TileAir.WalkLeg(a, b, walked) || walked.Count < 3) return Blocking.None;
-        ground.Clear();
-        for (int i = 1; i < walked.Count - 1; i++) ground.Add(GroundOf(walked[i]));
+        if (!rules.terrainBlocksBetweenTiles || !Profile(a, b, ground, walked)) return Blocking.None;
         TerrainRule.Edge edge = TerrainRule.Worst(ground, metres, heightAMetres, heightBMetres);
         return edge.Any ? new Blocking(edge.Figure, walked[edge.Index + 1], edge.OverLineMetres) : Blocking.None;
+    }
+
+    /// <summary>
+    /// The ground of the tiles on the way from one tile to another, in order, both ends' own tiles left out: what <see cref="Between"/>
+    /// reads, as a list (Radio 0.48.0, for the side view of a path). <paramref name="tiles"/>, when given, is filled with the tiles walked,
+    /// both ends included, so entry i of the ground is tile i + 1. False, and the ground empty, for the same tile, neighbouring tiles,
+    /// tiles on different layers of the planet, or a walk that does not arrive.
+    /// </summary>
+    public static bool Profile(PlanetTile a, PlanetTile b, List<double> groundMetres, List<PlanetTile>? tiles = null)
+    {
+        groundMetres.Clear();
+        List<PlanetTile> steps = tiles ?? walked;
+        if (a == b || !TileAir.WalkLeg(a, b, steps) || steps.Count < 3) return false;
+        for (int i = 1; i < steps.Count - 1; i++) groundMetres.Add(GroundOf(steps[i]));
+        return true;
     }
 }

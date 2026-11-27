@@ -23,6 +23,32 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.48.0] - 2026-11-27 - Draft
+
+The path home seen from the side, a relay planner, and full relays marked
+
+### Added
+
+- **A caravan's Radio button on the world map, and the path home seen from the side** (the owner's picks of 27 November 2026). A
+  convoy or a caravan on foot with a radio has the signal bars a hand-held has on a map. Pressing it shows each hop of the way home
+  from the side: the hills of each tile on the way, the line between the two aerials, and the ground that decides in orange, with
+  what it costs. Show that ground looks at the tile on the globe. Not yet tested in game: row 712.
+- **A relay planner** in the Radio coverage menu: for a relay mast or a relay post, everywhere a new one would itself reach home,
+  straight or through the relays there are, so it can be placed where the vehicle picture has a gap. Not yet tested in game: row 713.
+- **Full relays are marked.** The whole network's picture leaves out a relay with every channel in use, as a real call would be
+  refused there, marks its tile in pink and names it in the pane. Not yet tested in game: row 714.
+
+### Changed
+
+- **A convoy's out-of-reach line says how far off the ground in the way is**, and a call lost past the horizon says when high
+  ground stands in the line as well.
+
+### Compatibility and limits
+
+- The planner shows where a new relay would join the network, not how much new ground it would add: that would take a whole picture
+  for every tile. The path's side view takes the tiles on the way as evenly spaced, as a call does. The Radio button and the link
+  sheet need Vehicle Framework. Safe with a running save; nothing is saved.
+
 ## [0.46.0] - 2026-11-27 - Draft
 
 Jam the call

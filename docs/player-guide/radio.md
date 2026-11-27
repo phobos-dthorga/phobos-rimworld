@@ -116,6 +116,14 @@ tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
   with its mast up, and Morse. It paints everywhere a call could get home from, straight to a station or passed on by your relay
   masts, relay posts and halted repeater vehicles, **the weakest hop deciding**. Park a repeater vehicle or put up a mast and the
   picture grows to match. Morse goes straight home only.
+- **The path home, seen from the side** (from 0.48.0): a convoy or a caravan on foot with a radio has a **Radio** button on the world
+  map, with the same signal bars a hand-held has. Press it for each hop of the way home drawn from the side: the hills of each tile on
+  the way, the line between the two aerials, and **the ground that decides in orange**. **Show that ground** looks at its tile.
+  **Show more** gives the figures, as on a map.
+- **Planning a relay** (from 0.48.0): in the Radio coverage menu, **Planner: where a new relay mast would reach home** (or relay
+  post) paints every tile a new one would itself reach home from. Put it where the vehicle picture has a gap and the planner is bright.
+- **A full relay is marked** (from 0.48.0): the whole network's picture leaves out a relay with every channel in use, marks its tile
+  **pink** and names it in the pane, as a new call would be refused there.
 - **Relay masts wear and can be raided** (from 0.37.0; a setting, **off by default**): on, a mast stops passing calls on after about a
   year until a convoy on its tile presses **Service the relay mast** (one component), and raiders near their own lands may knock it
   down. **A worked example of the whole network:** [Setting up a supply network](supply-network.md).

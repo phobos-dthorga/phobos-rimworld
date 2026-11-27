@@ -113,6 +113,7 @@ public static class WorldCover
     static readonly List<int> painted = new();
     static readonly List<Combo> combos = new();
     static readonly List<(WorldCoverSite Site, double OnwardDb)> plan = new();
+    static readonly List<(string Label, int TileId)> fullRelays = new();
     static readonly Stopwatch watch = new();
 
     static Game? game;
@@ -215,8 +216,21 @@ public static class WorldCover
         return WorldCoverRefusal.NoMorseKey;
     }
 
-    /// <summary>Whether the whole network's picture can be drawn for this far-end radio: only one that calls (a vehicle's) reaches home through relays.</summary>
-    public static bool NetworkOffered(RadioCoverKindDef kind) => kind.caller;
+    /// <summary>
+    /// Whether the whole network's picture can be drawn for this far-end radio. For one that calls (a vehicle's, a hand-held) it is where
+    /// a call gets home from; for a relay (Radio 0.48.0, the planner) it is where a new relay of that kind would itself reach home, and
+    /// so join the network.
+    /// </summary>
+    public static bool NetworkOffered(RadioCoverKindDef kind) => kind.Radio != null;
+
+    /// <summary>
+    /// The relays left out of the network's picture because a new call of the far-end radio's kind would find every channel there in use
+    /// (Radio 0.48.0), by label and tile: the real search leaves them out too, and the picture marks them.
+    /// </summary>
+    public static IReadOnlyList<(string Label, int TileId)> FullRelays => fullRelays;
+
+    /// <summary>The channel kind a call from this far-end radio asks a relay for.</summary>
+    static ChannelKindDef ChannelKindOf(RadioCoverKindDef kind) => kind.Radio?.channelKind ?? ChannelKindDef.LocalVoice;
 
     /// <summary>The place selected now, for the ring and for one place's picture, or null.</summary>
     public static WorldCoverSite? Site => site;
@@ -284,6 +298,7 @@ public static class WorldCover
         painted.Clear();
         combos.Clear();
         plan.Clear();
+        fullRelays.Clear();
         working = false;
         hasPass = false;
         layer = null;
@@ -315,12 +330,15 @@ public static class WorldCover
             List<RelayNode> relays = kind.needsKey ? new List<RelayNode>() : RelayNodes.All().ToList();
             int now = SignatureOf(null, kind, rules);
             foreach (WorldCoverSite home in homes) now = HashSite(now, home.Tile, home.Ends);
-            foreach (RelayNode relay in relays) now = HashEnd(Gen.HashCombineInt(now, relay.Tile.tileId), relay);
+            // Radio 0.48.0: a relay filling up or freeing a channel changes the picture too.
+            ChannelKindDef asks = ChannelKindOf(kind);
+            foreach (RelayNode relay in relays)
+                now = Gen.HashCombineInt(HashEnd(Gen.HashCombineInt(now, relay.Tile.tileId), relay), RelayNodes.HasRoomFor(relay, asks) ? 1 : 0);
             now = Gen.HashCombineInt(now, rules.maxRelayHops);
             if (now == 0) now = 1;
             if (now == signature && hasPass) return;
             signature = now;
-            BuildNetworkPlan(homes, relays, rules);
+            BuildNetworkPlan(homes, relays, kind, rules);
             Start(kind, rules);
             return;
         }
@@ -331,6 +349,7 @@ public static class WorldCover
         if (single == signature && hasPass) return;
         signature = single;
         plan.Clear();
+        fullRelays.Clear();
         plan.Add((site, double.PositiveInfinity));
         Start(kind, rules);
     }
@@ -352,10 +371,23 @@ public static class WorldCover
     /// <summary>
     /// The whole network's places: each colony, a call reaching it being home; and each relay that reaches a colony, with what it has to
     /// spare onward in one hop fewer than a call may take. A relay on a colony's own tile adds nothing a colony's stations do not.
+    /// <para>Radio 0.48.0: a relay with no room for a new call of the far-end radio's kind is left out, as the real search leaves it out,
+    /// and kept in <see cref="FullRelays"/> for the picture to mark. For the planner (the far end a relay itself) the call has taken a hop
+    /// to reach the new relay already, so what lies onward has one hop fewer again.</para>
     /// </summary>
-    static void BuildNetworkPlan(List<WorldCoverSite> homes, List<RelayNode> relays, RadioRulesDef rules)
+    static void BuildNetworkPlan(List<WorldCoverSite> homes, List<RelayNode> relays, RadioCoverKindDef kind, RadioRulesDef rules)
     {
         plan.Clear();
+        fullRelays.Clear();
+        ChannelKindDef asks = ChannelKindOf(kind);
+        var open = new List<RelayNode>();
+        foreach (RelayNode relay in relays)
+        {
+            if (RelayNodes.HasRoomFor(relay, asks)) open.Add(relay);
+            else if (OnSurface(relay.Tile) && !fullRelays.Exists(full => full.TileId == relay.Tile.tileId)) fullRelays.Add((relay.Label, relay.Tile.tileId));
+        }
+        relays = open;
+        int onwardHops = rules.maxRelayHops - 1 - (kind.caller ? 0 : 1);
         var targets = new List<RelayNode>();
         foreach (WorldCoverSite home in homes)
         {
@@ -368,7 +400,7 @@ public static class WorldCover
         {
             if (plan.Count >= most) break;
             if (!OnSurface(relay.Tile) || homes.Exists(home => home.Tile == relay.Tile)) continue;
-            if (RelayNodes.OnwardMargin(relay, targets, relays, rules.maxRelayHops - 1, rules) is not { } onward) continue;
+            if (RelayNodes.OnwardMargin(relay, targets, relays, onwardHops, rules) is not { } onward) continue;
             plan.Add((new WorldCoverSite(relay.Tile, new List<RelayNode> { relay }, relay: true), onward));
         }
     }
@@ -542,6 +574,8 @@ public static class WorldCover
                 if (Seen.Wants("radio.world-cover-network", null, kind.defName))
                     Seen.Note("radio.world-cover-network", null, reached + " tiles in reach of " + painted.Count + " inside a horizon, " + done
                         + " looked at, from " + plan.Count + " places", kind.defName);
+                if (fullRelays.Count > 0 && Seen.Wants("radio.world-cover-full-relay", null))
+                    Seen.Note("radio.world-cover-full-relay", null, fullRelays.Count + " full, the first " + fullRelays[0].Label);
             }
             else if (Seen.Wants("radio.world-cover", null, kind.defName))
             {
