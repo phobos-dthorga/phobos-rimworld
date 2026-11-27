@@ -60,6 +60,13 @@ linked from its front page. Agent choices, owner to revise: what counts as each 
 The code folders and the changelogs can be set in `config/reference-site.json` (`codeFolders`, default `["src"]`;
 `changelogs`, default `mods/*/CHANGELOG.md`); neither is set today.
 
+## The checker for modders, as a download (28 Nov 2026)
+
+`downloads` in `config/reference-site.json` lists scripts a modder downloads; every build bundles each to one file at the site's root
+with phobos-modkit's `bundle` command (kit 1.148.0, the owner's card "Kit, bundled to one file"), so
+<https://phobos-dthorga.github.io/phobos-rimworld/check-vehicle-schemas.py> always matches the code. The repository's own copy imports
+the kit and does not run alone. The gate's site build bundles it too, so a checker that stops bundling fails the gate.
+
 ## An editor schema, a prototype (28 Nov 2026; not published)
 
 `python scripts/xml-schema.py build --out FILE` writes an XML Schema (XSD 1.0) of our XML from the same scan, so VS Code (Red Hat

@@ -37,6 +37,7 @@ import argparse
 from dataclasses import dataclass, field
 import fnmatch
 import html
+import io
 import json
 import os
 from pathlib import Path
@@ -1433,6 +1434,24 @@ def count_pages(site):
     return len(pages), len(api)
 
 
+def write_downloads(root, settings, site, log=print):
+    """The scripts a modder downloads, each bundled to one file at the site's root (config "downloads"; the owner's card of
+    28 Nov 2026, "Kit, bundled to one file"): phobos-modkit's bundle command inlines the kit modules a script imports, so the
+    published copy always matches the code. Returns the published names. Raises SiteError when one cannot be bundled."""
+    from phobos_modkit import bundle_cli
+    names = []
+    for item in settings.get('downloads', []):
+        script = Path(root) / item['script']
+        target = Path(site) / script.name
+        code = bundle_cli.main([str(script), '--python', str(item.get('python', '3.9')), '--out', str(target)], out=io.StringIO())
+        if code != 0 or not target.is_file():
+            raise SiteError(f'could not bundle {item["script"]} for download (phobos-modkit bundle exit {code})')
+        names.append(script.name)
+    if names:
+        log('Downloads bundled: ' + ', '.join(names))
+    return names
+
+
 def build(root, settings, work, site, docfx='docfx', run=subprocess.run, log=print, progress=None, restore=True):
     root, work, site = Path(root), Path(work), Path(site)
     progress = progress or Progress()
@@ -1467,6 +1486,7 @@ def build(root, settings, work, site, docfx='docfx', run=subprocess.run, log=pri
     if site_run.code != 0:
         raise SiteError(f'DocFX could not build the site ({site_run.errors} errors); its output is in {work / "docfx-build.log"}')
     (site / MARKER).write_text('Written by phobos-rimworld scripts/reference-site.py; emptied on every build.\n', encoding='utf-8')
+    write_downloads(root, settings, site, log)
     progress('Counting the pages', 4, 4)
     pages, api = count_pages(site)
     log(f'Site written to {site}: {pages} pages ({api} API pages), {len(chosen)} XML-facing types with an XML example')

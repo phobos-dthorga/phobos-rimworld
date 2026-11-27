@@ -631,6 +631,23 @@ class ModderPages(unittest.TestCase):
             self.assertIn(f'<xref:{uid}?', index, f'the front page does not link {uid}')
 
 
+class Downloads(unittest.TestCase):
+    """The scripts a modder downloads are bundled to one file at the site's root (config "downloads")."""
+
+    def test_nothing_listed_writes_nothing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertEqual(site.write_downloads(ROOT, {}, tmp, log=lambda _line: None), [])
+            self.assertEqual(list(Path(tmp).iterdir()), [])
+
+    def test_the_checker_bundles_to_one_file(self):
+        settings = site.load_settings(ROOT)
+        with tempfile.TemporaryDirectory() as tmp:
+            names = site.write_downloads(ROOT, settings, tmp, log=lambda _line: None)
+            self.assertIn('check-vehicle-schemas.py', names)
+            text = (Path(tmp) / 'check-vehicle-schemas.py').read_text(encoding='utf-8')
+            self.assertIn('phobos_modkit', text)                    # the kit's modules are inlined
+
+
 class Verifying(unittest.TestCase):
     """The gate's step builds into a throwaway folder, fails on a site warning, and always removes the folder."""
 

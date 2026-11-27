@@ -22,6 +22,13 @@
     "docs/modding/patches.md",
     "docs/modding/stability.md"
   ],
+  "downloads": [
+    {
+      "script": "scripts/check-vehicle-schemas.py",
+      "python": "3.9",
+      "why": "the XML checker for other modders, bundled to one file with phobos-modkit's bundle command and published at the site's root (owner's card, 28 Nov 2026)"
+    }
+  ],
   "projects": [
     "src/PhobosFramework",
     "src/PhobosFramework.Hygiene",

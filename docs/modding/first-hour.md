@@ -153,8 +153,7 @@ Before you start the game:
   ```
 
 - **Check your mod's XML against ours, without the game.** Download
-  [`check-vehicle-schemas.py`](https://github.com/phobos-dthorga/phobos-rimworld/blob/main/scripts/check-vehicle-schemas.py) from the
-  repository's `scripts/` folder. You need **Python 3.9 or newer** ([python.org](https://www.python.org/)) and nothing else, plus
+  [`check-vehicle-schemas.py`](https://phobos-dthorga.github.io/phobos-rimworld/check-vehicle-schemas.py) from the reference site: one self-contained file, rebuilt from our code on every change. You need **Python 3.9 or newer** ([python.org](https://www.python.org/)) and nothing else, plus
   D'thorga Framework installed in your game.
 
   ```text

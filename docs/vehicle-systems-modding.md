@@ -24,7 +24,7 @@ Defs under `mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framew
   parts after the vehicle's own and drops saved extras on load, so a design may lose or gain appended parts between versions, but
   **never insert or reorder parts in your own vehicle's list** for this.
 - **Load after D'thorga Framework**, and put your loadouts in an `IfModActive` folder if they name another mod's vehicles.
-- **Check your files offline**: download `scripts/check-vehicle-schemas.py` and run `python check-vehicle-schemas.py --mod
+- **Check your files offline**: download [`check-vehicle-schemas.py`](https://phobos-dthorga.github.io/phobos-rimworld/check-vehicle-schemas.py) and run `python check-vehicle-schemas.py --mod
   "<your mod's folder>"` (Python 3.9 or newer; it finds the installed D'thorga Framework itself). It resolves inheritance like the
   game, applies your patches, and names every mistake it can find without the game, with what to do. See
   [your first hour](modding/first-hour.md#5-checking-your-xml-offline).
