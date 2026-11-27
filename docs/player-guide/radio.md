@@ -309,6 +309,8 @@ long-distance radio: along the ground a tile or two, and **round the world by th
   in. A path opens and shuts as the hours turn. **The HF bands tab** on the HF station shows how often each band is open to each
   distance now, and the world map shows a rose round the colony: how far each band reaches in each direction this hour.
 - **Height matters**: a low dipole throws its signal upward, for the region round you; a high one throws it low, for far places.
+  **Select a dipole and press Upgrades** to raise it: a **telescopic mast** (15 m, cheap and quick) or a **lattice tower** (25 m,
+  dear and slow). It comes on a 10 m guyed pole (8 m for the V and the shortened one).
 - **Settlements answer on HF**, so calls, advice and radio friends reach far settlements while a band is open. A setting makes the
   comms console call only the factions your radio reaches (off by default).
 

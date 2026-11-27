@@ -51,7 +51,12 @@ public class CompAntenna : ThingComp
     }
 
     /// <summary>An upgrade fitted or taken off: the net and the picture work it in at once (Radio 0.4.0).</summary>
-    public override void ReceiveCompSignal(string signal) => RadioUpgrades.Notice(parent, signal);
+    public override void ReceiveCompSignal(string signal)
+    {
+        RadioUpgrades.Notice(parent, signal);
+        // Radio 0.64.0: a dipole draws the mast its upgrade names, so its picture is printed again.
+        if (parent is Building_PhobosDipole && parent.Spawned) parent.DirtyMapMesh(parent.Map);
+    }
 
     public override string CompInspectStringExtra() =>
         parent.Spawned ? RadioCoverage.For(parent.Map).InspectLine(parent) ?? string.Empty : string.Empty;

@@ -469,6 +469,7 @@
     "764": [{"key": "radio.qsl-card-band"}],
     "781": ["radio.hf-skywave"],
     "782": ["radio.console-needs-reach"],
+    "783": ["radio.hf-mast"],
     "769": {"parts": {
       "a manpack in touch with home by the ground wave": ["radio.hf-ground-wave"],
       "the HF bands tab in dev mode": ["radio.hf-band-panel"],

@@ -1,0 +1,24 @@
+[
+  {
+    "name": "hf-lattice-tower",
+    "title": "HF lattice tower, the dipoles' tallest mast",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1536,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "assets/phobos-radio/generated/hf-wire-mast/hf-wire-mast-2.png",
+        "role": "our approved HF wire mast from the same set (the guyed steel pole): match its camera, outline weight, shading, palette and finish; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "the lattice tower upgrade of the six dipoles (Radio 0.64.0; the owner's card of 28 Nov 2026: all the masts, each a real kind)",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/HfMastLattice.png, a part the dipoles are drawn from",
+      "size": "about two cells wide and eight tall where it is drawn; requested at 1024 by 1536",
+      "why": "part of a building in the game world, so the paid service (assets/AGENTS.md)"
+    },
+    "prompt": "STEEP HIGH-ANGLE VIEW FROM ABOVE AND SLIGHTLY IN FRONT, exactly as Image 1 is drawn and as the game RimWorld draws its trees and standing lamps: we look mostly DOWN onto the object's top; its height is strongly foreshortened; its foot at the BOTTOM of the canvas and its top towards the TOP. No side-on view, no isometric angle, no tilt.\n\nCreate an ORIGINAL game building sprite for a tall triangular steel lattice radio tower that holds up a long wire antenna. Image 1 is our approved slim mast from the same game: match its camera, outline weight, shading, palette and finish. Do NOT copy its shape.\n\nPortrait canvas. The tower fills about 85 percent of the canvas height, centred, on a plain pure white background.\n\nA small square concrete base at the bottom; a narrow triangular galvanised steel lattice tower rising from it, strongly foreshortened, with zig-zag cross bracing all the way up, tapering slightly; a small ladder up one face; at the very top a short platform rail and a small white ceramic insulator with a pulley. No guy wires. NO antenna wire leaving the top: the long wire is added separately.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted steel and concrete colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, lights or ground texture. No shadow outside the object."
+  }
+]

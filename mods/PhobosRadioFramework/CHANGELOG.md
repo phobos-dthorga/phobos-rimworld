@@ -36,12 +36,17 @@ HF reaches round the world by the sky
   it reaches: low, it throws its signal upward, for the region round it; high, it throws it low, for far places. Not yet tested in
   game: row 781.
 - **Settlements answer on HF**, so faction calls, advice, radio friends and neighbours reach far settlements when a band is open.
+- **Masts for the dipoles** (the owner's card of 28 November 2026, "make use of all of these"): each dipole comes on a guyed steel
+  pole and takes an upgrade, a **telescopic mast** (15 m, cheap and quick) or a **lattice tower** (25 m, dear and slow). A taller
+  mast throws the signal low and far; a lower one throws it up, for the region round the colony. Not yet tested in game: row 783.
 - **A setting, The comms console needs radio reach** (S3, off by default): on, the comms console lists only the factions your
   stations reach by radio. Row 782.
 
 ### Changed
 
 - **The HF bands tab and the band rose are shown to every player**, no longer in dev mode only, now that the sky's paths are real.
+- **The dipoles are drawn from their parts**, with the mast their upgrade names, rather than as one long picture each: about 160 MB
+  of graphics memory saved against a picture for every mast and facing. Their placement ghost is a small picture of the pole.
 
 ### Fixed
 

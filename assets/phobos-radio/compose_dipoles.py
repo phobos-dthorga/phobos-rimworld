@@ -21,7 +21,7 @@ from PIL import Image, ImageDraw
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 OUT = ROOT / "mods" / "PhobosRadioFramework" / "Common" / "Textures" / "Phobos" / "Radio" / "Things"
-CELL = 128
+CELL = 48          # the whole-dipole pictures are only the placement ghost and menu icon since Radio 0.64.0: kept small
 SCALE = 2           # drawn at twice the size, then scaled down
 C = CELL * SCALE
 MAST_CELLS = 4.5    # a 10 m mast's picture, cells tall: the VHF mast's own scale (its 10 m drawn 4.5 cells tall)
@@ -193,12 +193,68 @@ def record(texture, mast_try, parts_try, mast_src, parts_src):
         f"- `{Path(texture).name}`: SHA-256 `{sha(texture)}`\n", encoding="utf-8", newline="\n")
 
 
+PARTS_OUT = OUT / "HfParts"
+SPRITE_CELL = 128
+# Each part as the game draws it (Radio 0.64.0, the dipoles drawn from parts into the map's mesh): its name, and its height (masts) or
+# width (the small parts) in cells. The masts' heights are the game's drawing of 10, 15 and 25 m, foreshortened (agent's figures).
+MASTS = {"HfMastPole": 4.5, "HfMastTelescopic": 6.0, "HfMastLattice": 8.0}
+SMALL = {"HfFeed": 0.32, "HfCoil": 0.42, "HfInsulator": 0.26, "HfPeg": 0.32}
+
+
+def part_record(texture, source_name, source, request):
+    sys.path.insert(0, str(ROOT / "scripts" / "art"))
+    import art_paths
+    target = art_paths.record_path(Path(texture).with_suffix(".record.md"))
+    target.write_text(
+        f"# {Path(texture).stem}\n\n"
+        "Made with OpenAI gpt-image-2 through the OpenAI image API (paid per image): **AI-generated**, a part the six HF dipoles are drawn "
+        "from in the map's mesh (Radio 0.64.0). The owner's picks of 28 Nov 2026 (all the masts, each a real kind). The request is "
+        f"`assets/phobos-radio/requests/{request}`; its references were our own approved art, for style only; no game or other author's "
+        "art was uploaded or used. Cut out by `scripts/art/export_sprite.py` in `assets/phobos-radio/compose_dipoles.py`.\n\n"
+        f"- Source: `{source_name}`, SHA-256 `{sha(source)}`\n"
+        f"- `{Path(texture).name}`: SHA-256 `{sha(texture)}`\n", encoding="utf-8", newline="\n")
+
+
+def export_parts(pole_try, telescopic_try, lattice_try, parts_try):
+    """The parts the game draws the dipoles from, at 128 px a cell, each with its record; and the wire, a white strip the game tints."""
+    generated = HERE / "generated"
+    PARTS_OUT.mkdir(parents=True, exist_ok=True)
+    sources = {"HfMastPole": ("hf-wire-mast", pole_try, "hf-kit-paid.json"),
+               "HfMastTelescopic": ("hf-wire-mast", telescopic_try, "hf-kit-paid.json"),
+               "HfMastLattice": ("hf-lattice-tower", lattice_try, "hf-lattice-paid.json")}
+    for name, cells in MASTS.items():
+        folder, n, request = sources[name]
+        src = generated / folder / f"{folder}-{n}.png"
+        im = cut_out(src, 1024, "2:3")
+        im = im.resize((max(1, round(im.width * cells * SPRITE_CELL / im.height)), round(cells * SPRITE_CELL)), Image.LANCZOS)
+        im.save(PARTS_OUT / f"{name}.png")
+        part_record(PARTS_OUT / f"{name}.png", f"{folder}-{n}", src, request)
+    src = generated / "hf-dipole-parts" / f"hf-dipole-parts-{parts_try}.png"
+    for (name, cells), im in zip(SMALL.items(), split_parts(cut_out(src, 1024, "3:2"))):
+        k = cells * SPRITE_CELL / (im.width if name != "HfPeg" else im.height)
+        im = im.resize((max(1, round(im.width * k)), max(1, round(im.height * k))), Image.LANCZOS)
+        im.save(PARTS_OUT / f"{name}.png")
+        part_record(PARTS_OUT / f"{name}.png", f"hf-dipole-parts-{parts_try}", src, "hf-kit-paid.json")
+    wire = Image.new("RGBA", (8, 8), (255, 255, 255, 255))
+    wire.save(PARTS_OUT / "HfWire.png")
+    sys.path.insert(0, str(ROOT / "scripts" / "art"))
+    import art_paths
+    art_paths.record_path(PARTS_OUT / "HfWire.record.md").write_text(
+        "# HfWire\n\nDrawn by script: an 8 by 8 white square, which the game tints and stretches into the dipoles' wires (Radio 0.64.0). Made "
+        "by `assets/phobos-radio/compose_dipoles.py`; no AI and no other author's art.\n", encoding="utf-8", newline="\n")
+    print("exported the parts: " + ", ".join(list(MASTS) + list(SMALL) + ["HfWire"]))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--mast", type=int, required=True, help="the picked wire-mast try")
+    parser.add_argument("--mast", type=int, required=True, help="the picked wire-mast try for the pole")
     parser.add_argument("--parts", type=int, required=True, help="the picked parts-sheet try")
+    parser.add_argument("--telescopic", type=int, help="the wire-mast try for the telescopic mast (Radio 0.64.0)")
+    parser.add_argument("--lattice", type=int, help="the picked lattice-tower try (Radio 0.64.0)")
     parser.add_argument("--out", default=str(OUT))
     args = parser.parse_args()
+    if args.telescopic and args.lattice:
+        export_parts(args.mast, args.telescopic, args.lattice, args.parts)
     generated = HERE / "generated"
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)

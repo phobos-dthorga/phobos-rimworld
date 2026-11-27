@@ -109,7 +109,8 @@ figures are here.
   voice, with advice at a quarter of the gap ([the guide](../../docs/player-guide/radio.md#morse)).
 - **HF radio (0.62.0)**, after **HF radio**: an HF station (100 W, SSB voice on 40 m and 20 m), three kinds of dipole for each band
   and a manpack. Between tiles HF goes by the ground wave over each end's ground (ITU-R P.368, by NTIA's LF/MF model), with the
-  sky's noise by the sun's cycle, season and hour (VOACAP's predictions).
+  sky's noise by the sun's cycle, season and hour (VOACAP's predictions). **Masts (0.64.0)**: a dipole's Upgrades button raises
+  it on a telescopic mast (15 m) or a lattice tower (25 m): higher for far places by the sky, lower for the region round you.
 - **Upgrades** for the desk and the antennas, fitted by builders.
 
 | Thing | Where | What it is |

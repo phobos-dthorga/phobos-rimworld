@@ -181,4 +181,57 @@
       <li><name>marineBand</name><value>1</value></li>
     </figures>
   </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <!-- The dipoles' masts (Radio 0.64.0; the owner's card of 28 Nov 2026: "make use of all of these", each a real kind with its own
+       advantages). A dipole comes on a guyed steel pole with a pulley (10 m; 8 m for the V and the shortened) and takes either of these;
+       the taller wins if both are fitted. Height is the real trade on HF: low throws the signal upward, for the region round the colony;
+       high throws it low, for far places (docs/development/radio-hf.md, slice 2). Costs and work authored. -->
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeMastTelescopic</defName>
+    <label>telescopic mast</label>
+    <description>A light telescopic mast pushed up in sections, fifteen metres tall: cheap and quick to raise. Higher than the pole, so the dipole reaches further by the sky and less of the region close round it.</description>
+    <buildings>
+      <li>PhobosRadio_Dipole40Flat</li>
+      <li>PhobosRadio_Dipole20Flat</li>
+      <li>PhobosRadio_Dipole40Vee</li>
+      <li>PhobosRadio_Dipole20Vee</li>
+      <li>PhobosRadio_Dipole40Short</li>
+      <li>PhobosRadio_Dipole20Short</li>
+    </buildings>
+    <costList>
+      <Steel>30</Steel>
+    </costList>
+    <work>600</work>
+    <constructionSkill>3</constructionSkill>
+    <researchPrerequisite>PhobosRadio_HfRadio</researchPrerequisite>
+    <figures>
+      <li><name>heightMetres</name><value>15</value></li>
+      <li><name>mastKind</name><value>1</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeMastLattice</defName>
+    <label>lattice tower</label>
+    <description>A steel lattice tower twenty-five metres tall, climbed by its ladder: dear and slow to raise, but it lifts the dipole high, so it throws its signal low and far by the sky. Close round the colony, a lower mast does better.</description>
+    <buildings>
+      <li>PhobosRadio_Dipole40Flat</li>
+      <li>PhobosRadio_Dipole20Flat</li>
+      <li>PhobosRadio_Dipole40Vee</li>
+      <li>PhobosRadio_Dipole20Vee</li>
+      <li>PhobosRadio_Dipole40Short</li>
+      <li>PhobosRadio_Dipole20Short</li>
+    </buildings>
+    <costList>
+      <Steel>200</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <work>4000</work>
+    <constructionSkill>6</constructionSkill>
+    <researchPrerequisite>PhobosRadio_HfRadio</researchPrerequisite>
+    <figures>
+      <li><name>heightMetres</name><value>25</value></li>
+      <li><name>mastKind</name><value>2</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
 </Defs>

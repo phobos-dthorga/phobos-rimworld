@@ -107,7 +107,12 @@
        28 Nov 2026), laid out by assets/phobos-radio/compose_dipoles.py from the picked paid mast and parts. A half-wave dipole's gain is 2.15 dBi in free space (the textbook figure); the inverted V's droop costs about 1 dB and
        the loading coils of a shortened dipole several (approximate, authored). Walked under: only the masts stand on the ground. -->
   <ThingDef ParentName="BuildingBase" Name="PhobosRadio_DipoleBase" Abstract="True">
-    <thingClass>Building</thingClass>
+    <!-- Radio 0.64.0: drawn from its parts into the map's mesh, with the mast its upgrade names (Building_PhobosDipole); the Def's picture
+         is only the placement ghost and the menu icon. -->
+    <thingClass>Phobos.Radio.Building_PhobosDipole</thingClass>
+    <comps>
+      <li Class="Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades" />
+    </comps>
     <altitudeLayer>BuildingOnTop</altitudeLayer>
     <passability>Standable</passability>
     <pathCost>4</pathCost>
@@ -146,6 +151,11 @@
       <ComponentIndustrial>1</ComponentIndustrial>
     </costList>
     <uiOrder>2114</uiOrder>
+    <modExtensions>
+      <li Class="Phobos.Radio.DipoleExtension">
+        <shape>Flat</shape>
+      </li>
+    </modExtensions>
     <comps>
       <li Class="Phobos.Radio.CompProperties_Antenna">
         <bands><li>PhobosRadio_HF40</li></bands>
@@ -174,6 +184,11 @@
       <ComponentIndustrial>1</ComponentIndustrial>
     </costList>
     <uiOrder>2115</uiOrder>
+    <modExtensions>
+      <li Class="Phobos.Radio.DipoleExtension">
+        <shape>Flat</shape>
+      </li>
+    </modExtensions>
     <comps>
       <li Class="Phobos.Radio.CompProperties_Antenna">
         <bands><li>PhobosRadio_HF20</li></bands>
@@ -202,6 +217,12 @@
       <ComponentIndustrial>1</ComponentIndustrial>
     </costList>
     <uiOrder>2116</uiOrder>
+    <modExtensions>
+      <li Class="Phobos.Radio.DipoleExtension">
+        <shape>Vee</shape>
+        <mastScale>0.8</mastScale>
+      </li>
+    </modExtensions>
     <comps>
       <li Class="Phobos.Radio.CompProperties_Antenna">
         <bands><li>PhobosRadio_HF40</li></bands>
@@ -230,6 +251,12 @@
       <ComponentIndustrial>1</ComponentIndustrial>
     </costList>
     <uiOrder>2117</uiOrder>
+    <modExtensions>
+      <li Class="Phobos.Radio.DipoleExtension">
+        <shape>Vee</shape>
+        <mastScale>0.8</mastScale>
+      </li>
+    </modExtensions>
     <comps>
       <li Class="Phobos.Radio.CompProperties_Antenna">
         <bands><li>PhobosRadio_HF20</li></bands>
@@ -258,6 +285,12 @@
       <ComponentIndustrial>2</ComponentIndustrial>
     </costList>
     <uiOrder>2118</uiOrder>
+    <modExtensions>
+      <li Class="Phobos.Radio.DipoleExtension">
+        <shape>Short</shape>
+        <mastScale>0.8</mastScale>
+      </li>
+    </modExtensions>
     <comps>
       <li Class="Phobos.Radio.CompProperties_Antenna">
         <bands><li>PhobosRadio_HF40</li></bands>
@@ -286,6 +319,12 @@
       <ComponentIndustrial>2</ComponentIndustrial>
     </costList>
     <uiOrder>2119</uiOrder>
+    <modExtensions>
+      <li Class="Phobos.Radio.DipoleExtension">
+        <shape>Short</shape>
+        <mastScale>0.8</mastScale>
+      </li>
+    </modExtensions>
     <comps>
       <li Class="Phobos.Radio.CompProperties_Antenna">
         <bands><li>PhobosRadio_HF20</li></bands>

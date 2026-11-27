@@ -4,4 +4,4 @@ Made with OpenAI gpt-image-2 through the OpenAI image API (paid per image): **AI
 
 - Mast: `hf-wire-mast-2`, SHA-256 `7256396c16da6a2f45142e5bd9d481ee782f676924c8ae3755894564db27b5a7`
 - Parts: `hf-dipole-parts-2`, SHA-256 `dec522ccaabca3ec025f2b1d67e02a66a7a18b5dccc36f756e8ca86db973fa0c`
-- `Dipole40Vee_east.png`: SHA-256 `75f6d1edee228ba0280d219555dd43c9f0e31fac7ea23e1060c2734e1d453708`
+- `Dipole40Vee_east.png`: SHA-256 `1e7ef2ecf1caac3a83785839b0b508c10e085017f424f01316dd492f0b7c654a`

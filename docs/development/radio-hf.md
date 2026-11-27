@@ -378,8 +378,12 @@ Put as cards when the owner asked to "continue the leftovers"; the chosen option
 **The masts, as the owner chose (card 23)** [A: the mapping of picture to kind]: each dipole keeps the guyed steel pole with a pulley
 (try 2, 10 m; 8 m for the V and the shortened dipole) and takes either of two upgrades: a **telescopic mast** (try 1's slender pole,
 15 m, cheap and quick to raise) or a **lattice tower** (a paid picture, 25 m, dear and slow). Height is the real trade: low for the region
-round the colony, high for far places. The dipoles are to be drawn from these parts into the map's mesh rather than as whole pictures,
-since a picture for every dipole, mast and facing would hold about 160 MB of graphics memory.
+round the colony, high for far places. **As built (Radio 0.64.0)**: two upgrades on every dipole (`PhobosRadio_UpgradeMastTelescopic`,
+`PhobosRadio_UpgradeMastLattice`, the figures `heightMetres` and `mastKind`; the taller wins when both are fitted), and the dipoles drawn
+from their parts into the map's mesh (`Building_PhobosDipole`, laid out by the game-free `DipoleLayout`, tested), since a picture for
+every dipole, mast and facing would hold about 160 MB of graphics memory; the parts hold under 1 MB, and the placement ghost's pictures
+(48 px a cell, the pole) about 1 MB. The lattice tower is paid (US$0.110 for two tries, try 2 shipped until the owner picks on the
+Picks page); the telescopic mast is the wire mast's try 1, the pole its try 2. Not tested in game (row 783).
 
 **The reader** [A]: `HfTable` (`src/PhobosRadio/Physics/HfTable.cs`, game-free, tests in `HfTableTests`) reads format 1 and looks up a
 path's MUF, share of days open, loss, fade and the noise at the far end, between the grid's points in every axis: the year and the hour
