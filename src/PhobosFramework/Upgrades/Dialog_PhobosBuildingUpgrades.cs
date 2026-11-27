@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Phobos.Framework.Interface;
+using RimWorld;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.Framework.Upgrades;
 
@@ -10,6 +12,8 @@ namespace Phobos.Framework.Upgrades;
 /// A building's upgrades, in the game's own style (D'thorga Framework 0.210.0): each one it can take, what it does and costs, whether it is
 /// fitted, under way or why it cannot be ordered, with the button that goes with it. Presentation only: every button is one call to
 /// <see cref="BuildingUpgrades"/>, and a button that cannot be pressed says why.
+/// <para>Since 0.353.1 (the owner's report of 27 Nov 2026: pressing Fit "feels like nothing has happened") an order shows at once: the game's
+/// confirm tick, and the ordered upgrade's card highlighted, named as ordered, with what it waits for and its own Cancel button.</para>
 /// </summary>
 public class Dialog_PhobosBuildingUpgrades : Window
 {
@@ -79,34 +83,54 @@ public class Dialog_PhobosBuildingUpgrades : Window
     {
         float textWidth = at.width - ButtonWidth - 24f;
         bool fitted = comp.Has(def);
-        float height = Mathf.Max(Words(at, def, textWidth, fitted, draw: false) + 12f, ButtonHeight + 16f);
+        // 0.353.1: the upgrade under way, being fitted or taken off, and what it waits for.
+        string? order = comp.Ordered == def ? BuildingUpgrades.OrderLine(comp) : null;
+        float height = Mathf.Max(Words(at, def, textWidth, fitted, order, comp.Removing, draw: false) + 12f, ButtonHeight + 16f);
         var card = new Rect(at.x, at.y, at.width, height);
         Widgets.DrawMenuSection(card);
-        Words(at, def, textWidth, fitted, draw: true);
+        if (order != null) Widgets.DrawHighlightSelected(card);
+        Words(at, def, textWidth, fitted, order, comp.Removing, draw: true);
 
         var button = new Rect(card.xMax - ButtonWidth - 8f, card.y + 8f, ButtonWidth, ButtonHeight);
-        if (fitted)
+        if (order != null)
+        {
+            if (Widgets.ButtonText(button, "PhobosUpgrade_CancelButton".Translate())) BuildingUpgrades.Cancel(comp);
+            TooltipHandler.TipRegion(button, "PhobosUpgrade_CancelTip".Translate());
+        }
+        else if (fitted)
         {
             string? refused = BuildingUpgrades.RemoveRefusal(comp, def);
-            if (Widgets.ButtonText(button, "PhobosUpgrade_RemoveButton".Translate(), active: refused == null) && refused == null) BuildingUpgrades.OrderRemoval(comp, def);
+            if (Widgets.ButtonText(button, "PhobosUpgrade_RemoveButton".Translate(), active: refused == null) && refused == null)
+            {
+                BuildingUpgrades.OrderRemoval(comp, def);
+                if (comp.Ordered == def) SoundDefOf.Tick_High.PlayOneShotOnCamera();
+            }
             TooltipHandler.TipRegion(button, refused ?? "PhobosUpgrade_RemoveTip".Translate(Mathf.RoundToInt(def.refundShare * 100f).Named("PERCENT")).Resolve());
         }
         else
         {
             string? refused = BuildingUpgrades.Refusal(comp, def);
-            if (Widgets.ButtonText(button, "PhobosUpgrade_FitButton".Translate(), active: refused == null) && refused == null) BuildingUpgrades.Order(comp, def);
+            if (Widgets.ButtonText(button, "PhobosUpgrade_FitButton".Translate(), active: refused == null) && refused == null)
+            {
+                BuildingUpgrades.Order(comp, def);
+                if (comp.Ordered == def) SoundDefOf.Tick_High.PlayOneShotOnCamera();
+            }
             TooltipHandler.TipRegion(button, refused ?? "PhobosUpgrade_FitTip".Translate(def.CostText.Named("COST")).Resolve());
         }
         return height;
     }
 
     /// <summary>The card's words: measured only, or drawn. Returns their height.</summary>
-    static float Words(Rect at, PhobosBuildingUpgradeDef def, float width, bool fitted, bool draw)
+    static float Words(Rect at, PhobosBuildingUpgradeDef def, float width, bool fitted, string? order, bool removing, bool draw)
     {
         float x = at.x + 8f;
         float y = at.y + 6f;
-        string name = fitted ? "PhobosUpgrade_NameFitted".Translate(def.label.CapitalizeFirst().Named("UPGRADE")).Resolve() : def.label.CapitalizeFirst();
-        y += Line(x, y, width, name, fitted ? PhobosWidgets.Good : Color.white, draw);
+        NamedArgument label = def.label.CapitalizeFirst().Named("UPGRADE");
+        string name = order != null
+            ? (removing ? "PhobosUpgrade_NameRemoving" : "PhobosUpgrade_NameOrdered").Translate(label).Resolve()
+            : fitted ? "PhobosUpgrade_NameFitted".Translate(label).Resolve() : def.label.CapitalizeFirst();
+        y += Line(x, y, width, name, order != null ? PhobosWidgets.Caution : fitted ? PhobosWidgets.Good : Color.white, draw);
+        if (order != null) y += Line(x, y, width, order, PhobosWidgets.Caution, draw);
         y += Line(x, y, width, def.description, new Color(1f, 1f, 1f, 0.85f), draw);
         y += Line(x, y, width, "PhobosUpgrade_Cost".Translate(def.CostText.Named("COST")), ColoredText.SubtleGrayColor, draw);
         if (def.prerequisite != null) y += Line(x, y, width, "PhobosUpgrade_BuildsOn".Translate(def.prerequisite.label.Named("FIRST")), ColoredText.SubtleGrayColor, draw);

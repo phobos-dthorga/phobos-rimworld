@@ -22,6 +22,21 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.354.1] - 2026-11-27 - Draft
+
+Pressing Fit shows what it did
+
+### Fixed
+
+- **Pressing Fit in a building's upgrades window now shows that the order went in** (the owner's report of 27 November 2026: "it
+  feels like nothing has happened"). The game's confirm tick sounds, and the ordered upgrade's card lights up, is named as ordered (or
+  as being taken off), says what it waits for or how far along it is, and offers Cancel the work in place of Fit. Not yet tested in
+  game: row 705.
+
+### Save compatibility
+
+- Safe with an existing save. Nothing is saved.
+
 ## [0.354.0] - 2026-11-27 - Draft
 
 A work type new to a save starts switched on

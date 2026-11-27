@@ -5,6 +5,8 @@
   <PhobosUpgrade_ButtonDesc>See the upgrades this building can take, order one fitted, or have one taken off.</PhobosUpgrade_ButtonDesc>
   <PhobosUpgrade_WindowTitle>{BUILDING}: upgrades</PhobosUpgrade_WindowTitle>
   <PhobosUpgrade_NameFitted>{UPGRADE} (fitted)</PhobosUpgrade_NameFitted>
+  <PhobosUpgrade_NameOrdered>{UPGRADE} (ordered)</PhobosUpgrade_NameOrdered>
+  <PhobosUpgrade_NameRemoving>{UPGRADE} (being taken off)</PhobosUpgrade_NameRemoving>
   <PhobosUpgrade_Cost>Costs {COST}.</PhobosUpgrade_Cost>
   <PhobosUpgrade_CostNothing>nothing</PhobosUpgrade_CostNothing>
   <PhobosUpgrade_BuildsOn>Builds on: {FIRST}.</PhobosUpgrade_BuildsOn>
