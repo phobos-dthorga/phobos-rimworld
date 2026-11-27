@@ -1,0 +1,28 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/RoundStop.png",
+  "source": "assets/vehicle-systems/generated/round-icon-stop/round-icon-stop-1.png",
+  "source_sha256": "84accd4647ba74b374b8065ec87002097b548feb861ec80285621270dc5d3826",
+  "target_sha256": "73f2a5f3480447faf74d7a4ea7d79a284aed142040a3b71c40db8ee60a18b9a9",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "84accd4647ba74b374b8065ec87002097b548feb861ec80285621270dc5d3826",
+  "holes": [],
+  "white_left": [
+    {
+      "share": 0.027,
+      "flat": 0.86,
+      "at": [
+        615,
+        472
+      ]
+    }
+  ],
+  "date": "2026-11-27T16:46:41",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

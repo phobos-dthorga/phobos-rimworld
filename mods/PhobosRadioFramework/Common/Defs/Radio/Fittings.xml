@@ -19,6 +19,8 @@
       <noiseFigureDb>8</noiseFigureDb>
       <antennaGainDbi>0</antennaGainDbi>
       <antennaHeightMetres>3</antennaHeightMetres>
+      <!-- Its gentle squelch as the vehicle comes into touch with a station (Radio 0.34.1, S164, the owner's pick of 27 Nov 2026). -->
+      <engageSound>PhobosRadio_SquelchVehicle</engageSound>
     </radio>
   </Phobos.Radio.RadioFittingDef>
 </Defs>

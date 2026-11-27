@@ -205,4 +205,46 @@
       <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
     </modExtensions>
   </SoundDef>
+
+  <!-- S164 (Radio 0.34.1, the owner's pick of 27 Nov 2026): a vehicle radio's gentle squelch from its small speaker as the vehicle comes into touch with a station; the vehicle control radio's engageSound. -->
+  <SoundDef>
+    <defName>PhobosRadio_SquelchVehicle</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Radio/SquelchVehicle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>14~14</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S165 (Radio 0.34.1, the owner's pick of 27 Nov 2026): a base station's gentle squelch from its desk speaker as it comes into use; its engageSound. S102 then carries on as the loop while it is in use. -->
+  <SoundDef>
+    <defName>PhobosRadio_SquelchStation</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Radio/SquelchStation</clipPath>
+          </li>
+        </grains>
+        <volumeRange>14~14</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
 </Defs>

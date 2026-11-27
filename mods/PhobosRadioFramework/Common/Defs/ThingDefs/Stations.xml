@@ -65,6 +65,9 @@
         <noiseFigureDb>6</noiseFigureDb>
         <antennaGainDbi>0</antennaGainDbi>
         <antennaHeightMetres>2</antennaHeightMetres>
+        <!-- Its gentle squelch once as it comes into use (Radio 0.34.1, S165, the owner's pick of 27 Nov 2026: try 203 an octave down). The
+             radio terminal has none: a computer, not a desk set (agent's choice). -->
+        <engageSound>PhobosRadio_SquelchStation</engageSound>
       </li>
       <!-- RV6 (Radio 0.6.0): the transmit lamp at the meter face's top corner, the needle from its foot; measured from the picture. -->
       <li Class="Phobos.Radio.CompProperties_RadioMarks">

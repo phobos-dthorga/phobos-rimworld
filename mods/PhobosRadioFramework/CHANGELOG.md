@@ -23,6 +23,17 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.34.1] - 2026-11-27 - Draft
+
+The vehicles' and base stations' own gentle squelch
+
+### Fixed
+
+- **A vehicle's radio and a base station had no squelch of their own, where a hand-held had one since 0.30.0**: a vehicle now
+  gives a gentle squelch from its small speaker as it comes into touch with a station, and a base station once from its desk
+  speaker as it comes into use, the owner's picks of 27 Nov 2026 (the station's an octave lower, as they asked). The radio
+  terminal has none: a computer, not a desk set. Not yet tested in game: row 665.
+
 ## [0.34.0] - 2026-11-27 - Draft
 
 In touch with home through a vehicle's dual-band radio

@@ -2182,6 +2182,30 @@
       "volume": 14,
       "why": "Data tones stuttering into static, a little under the switch click; never an alarm (agent's choice). Try 202 carries the measured whine flag, which the owner heard and picked. The owner's pick on the Companion's Picks page, 27 Nov 2026. A narrow notch at 7 kHz takes out a steady tone the exporter flagged, 18 dB over its surroundings (agent's judgement, as the C-27J's); the stutter and the static stay.",
       "filter": "bandreject=f=7000:width_type=h:w=400"
+    },
+    {
+      "name": "SquelchVehicle",
+      "use": "S164: a vehicle radio's gentle squelch from its small speaker as the vehicle comes into touch with a station",
+      "picked": "2026-11-27",
+      "candidate": "n16-squelch-mobile/n16-squelch-mobile-204.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/SquelchVehicle.ogg",
+      "reference": "Checkbox_TurnedOn",
+      "offset_db": -4,
+      "volume": 14,
+      "why": "A gentle squelch at the hand-held's level (agent's choice). The owner's pick on the Companion's Picks page, 27 Nov 2026, from the reworded tries after the first set sounded like going over a speedbump."
+    },
+    {
+      "name": "SquelchStation",
+      "use": "S165: a base station's gentle squelch from its desk speaker as it comes into use",
+      "picked": "2026-11-27",
+      "candidate": "n16-squelch-station-low/n16-squelch-station-low-203d12.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/SquelchStation.ogg",
+      "reference": "Checkbox_TurnedOn",
+      "offset_db": -4,
+      "volume": 14,
+      "why": "A gentle squelch at the hand-held's level (agent's choice). The owner's pick on the Companion's Picks page, 27 Nov 2026: try 203 lowered an octave by assets/phobos-sounds/lower_squelch.py, as they asked (\"shift everything down\")."
     }
   ]
 }

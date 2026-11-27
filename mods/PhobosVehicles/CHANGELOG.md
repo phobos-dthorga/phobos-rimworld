@@ -13,6 +13,15 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.129.1] - 2026-11-27 - Draft
+
+The ammunition locker's own picture
+
+### Fixed
+
+- **The ammunition locker upgrade borrowed the gun ring's picture** on the bulk tanker, the drill rig and the generator set: it
+  has its own now, the owner's pick of 27 Nov 2026 from bought tries.
+
 ## [0.129.0] - 2026-11-27 - Draft
 
 The C-27J's damage looks, its sounds in the air, taxiing and in the cabin, and its tank filled from a tanker or plumbing

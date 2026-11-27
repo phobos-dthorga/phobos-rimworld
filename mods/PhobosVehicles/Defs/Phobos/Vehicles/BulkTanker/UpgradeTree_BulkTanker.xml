@@ -903,7 +903,7 @@ Kit weight: 30 kg more, carried as cargo.</upgradeExplanation>
       <displayLabel>true</displayLabel>
       <description>A steel locker behind the cab for the rounds of the truck's own guns and smoke dischargers, which have no room in its small cargo space. It holds rounds only.</description>
       <upgradeExplanation>Behind the cab: 150 kg of room for the rounds of its own guns and smoke dischargers only.\nOther cargo that spills past the load bed into it leaves the truck overloaded until it is taken out.\nKit weight: 40 kg more, carried as cargo.</upgradeExplanation>
-      <icon>Phobos/Vehicles/Upgrades/GunRing</icon>
+      <icon>Phobos/Vehicles/Upgrades/AmmoLocker</icon>
       <work>1200</work>
       <gridCoordinate>(22, 17)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>

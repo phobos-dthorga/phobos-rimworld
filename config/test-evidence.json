@@ -390,6 +390,8 @@
     "656": {"parts": {"a repair at home": [{"key": "radio.advice", "variant": "PhobosVehicleRepair-faction"}],
       "a repair from a convoy": [{"key": "radio.advice", "variant": "PhobosVehicleRepair-faction-road"}]}},
     "665": {"parts": {"a hand-held squelches as it comes into touch": [{"key": "radio.engage-squelch", "variant": "handheld"}],
+      "a vehicle squelches as it comes into touch": [{"key": "radio.engage-squelch", "variant": "vehicle"}],
+      "a base station squelches as it comes into use": [{"key": "radio.engage-squelch", "variant": "station"}],
       "a station's knob turns as it moves a radio": ["radio.channel-knob"],
       "a repeater station's courtesy tail": ["radio.repeater-courtesy"],
       "a coax run screws home": ["framework.sound-on-built"],

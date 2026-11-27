@@ -6,10 +6,10 @@
        autopilot's servos. It grants CrewlessFlight: the aircraft flies its round with nobody aboard, landing at each stop as with a pilot.
        Real basis: Sikorsky's MATRIX system, which flew a Black Hawk with nobody aboard in February 2022, and the unmanned K-MAX that carried
        cargo to US Marines in Afghanistan from 2011 to 2014. Cost: two advanced components for its flight computer and links; load, weight,
-       work and skill authored. It borrows a picture until its own is drawn. Not yet tested in game. -->
+       work and skill authored. Its own picture, bought, the owner's pick of 27 Nov 2026 (Framework 0.340.3). Not yet tested in game. -->
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_OptionallyPilotedKit</defName>
-    <iconPath>Phobos/VehicleSystems/Flight/FlyTo</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/OptionallyPilotedKit</iconPath>
     <label>optionally piloted kit</label>
     <description>A flight computer, cameras, a laser range-finder and data links, working the controls through the autopilot's servos. With it the aircraft can fly its round between places with nobody aboard, taking off, flying each leg and landing at each stop by itself. It cannot fight, pick a new place or load itself. It needs the autopilot, and draws on the battery. The pilot's seat stays: with a pilot aboard, the pilot flies.</description>
     <roles><li>UncrewedKitMount</li></roles>

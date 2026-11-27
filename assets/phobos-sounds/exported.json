@@ -8094,5 +8094,88 @@
       "cfg": 1.0,
       "prompt": "A radio control link dropping out: a short broken stutter of data tones fading into soft static, then quiet. Low and gentle, no voice, no alarm, no beeping. Not loud, not alarming. Length: 2 seconds"
     }
+  },
+  "SquelchVehicle": {
+    "name": "SquelchVehicle",
+    "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/SquelchVehicle.ogg",
+    "sha256": "4ed856d13228aab2d6e749a74ac0384ec60a9d8a86f18be0144752a9a874408d",
+    "master_sha256": "dd005a5acc3c8704d73190b428bc981319104f9a31e20dff3f7b2fc3de1b3c72",
+    "fingerprint": "2e951b67546352e6e27767b3d065628702101a60381041510e5936466ada74fb",
+    "date": "2026-11-27",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -5.72 dBTP",
+      "gain_db": 8.18
+    },
+    "reference": {
+      "defName": "Checkbox_TurnedOn",
+      "effective": "peak -18.8 dB",
+      "volume": [
+        14.0,
+        14.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -31.0,
+      "true_peak": -6.4,
+      "seconds": 1.05,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 204,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small mobile two-way radio's compact loudspeaker opening its squelch: a short, smooth burst of soft radio hiss that rises gently and closes again cleanly, slightly narrow and boxy in tone, as from a small metal speaker grille. Steady and even, no thumps, no knocks, no bumps, no engine, no road noise, no voice, no beep. Not loud, not alarming. Length: 2 seconds"
+    }
+  },
+  "SquelchStation": {
+    "name": "SquelchStation",
+    "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/SquelchStation.ogg",
+    "sha256": "1df346be22c8b8dcb8c03dc147612d72b5b472c6f00fd342c70fad2a4e34e5a9",
+    "master_sha256": "7c97e0147266272e0edc2f07028de77d1237debcc03cd724b2b58026054be92d",
+    "fingerprint": "dbc058c7426e7fa302263bfd7ec9c4d9fb9083c14febf3de2e6b3e0eb48bc957",
+    "date": "2026-11-27",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -5.72 dBTP",
+      "gain_db": 18.48
+    },
+    "reference": {
+      "defName": "Checkbox_TurnedOn",
+      "effective": "peak -18.8 dB",
+      "volume": [
+        14.0,
+        14.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -24.3,
+      "true_peak": -6.4,
+      "seconds": 0.72,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 203,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A two-way radio base station on a desk opening its squelch as the operator starts a call: a soft, warm burst of radio hiss from a larger desk speaker with a little room around it, closing again cleanly. Mellow and low, no voice, no beep. Not loud, not alarming. Length: 2 seconds"
+    }
   }
 }

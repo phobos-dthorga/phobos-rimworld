@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/AmmoLocker.png",
+  "source": "assets/vehicle-systems/generated/upgrade-icon-ammo-locker/upgrade-icon-ammo-locker-2.png",
+  "source_sha256": "271af3976b9a010619fbb83a82920402edca919ca47f7add4cfa04d448ce1491",
+  "target_sha256": "b8336b8b50b086f68521e8a35452423d1cb0f16e6346d1971b99b1e59e920fed",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "271af3976b9a010619fbb83a82920402edca919ca47f7add4cfa04d448ce1491",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T16:46:48",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -21,6 +21,16 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.340.3] - 2026-11-27 - Draft
+
+The round's Halt button, the optionally piloted kit and Pop smoke get their own pictures
+
+### Fixed
+
+- **The round trip's Halt button, the optionally piloted kit and the Pop smoke when hit switch had borrowed pictures**: each has
+  its own now, the owner's picks of 27 Nov 2026 from bought tries. Pop smoke had shown a stand-in, its picture never having been
+  drawn. Link to and unlink from a mechanitor go on borrowing while their next tries are picked.
+
 ## [0.340.2] - 2026-11-27 - Draft
 
 Builders bring the supplies for vehicle fittings and repairs
