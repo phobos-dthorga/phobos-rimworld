@@ -155,6 +155,9 @@ altitude, and since 12 Nov a combat domain, a terminal intercept factor and a de
 | AD13 | **Each mod sees the other's missiles** | IRBM's `WorldObject_Missile` as a DMS track; DMS radars count for IRBM (AD9's postfix reading DMS nodes) | **Lets** one air-defence picture. **Stops** world missiles slipping between two systems. **Changes** little unless both are used against each other | Assembly | None of ours | Low: a bridge between two other mods, with nothing of ours in it |
 | AD14 | **IRBM's CIWS sees Combat Extended's shells** | IRBM's target test (`Building_CIWS.cs:518`) → also CE's `ProjectileCE`, hostile and heading for the player's things | **Lets** the player's CIWS stop mortars under CE. **Stops** a costly turret sitting idle. **Changes** base defence against artillery | Assembly in Patches, loaded with both IRBM and CE | IRBM in the owner's CE game | **Ask**: it patches another author's gap; IRBM looks quiet, which by our rule would allow it |
 
+**Rows AD8, AD9 and AD12 are taken further in [radar and air defence](radar-and-air-defence.md)** (28 Nov 2026): our own radar
+station (RD6), our own battery and radar guns (RD10, RD13) and how they join Fortified Features Framework's network (RD15).
+
 ## Avionics rows revisited
 
 - **A16 countermeasures** was "later", partly because "the anti-air in this game is guns and rockets". DMS Expedition has chaff values,
@@ -285,7 +288,8 @@ interceptor and shoulder-launched SAM comps) is DMS Expedition itself; FFF holds
 - DMS Legion or another Aoba mod moving its defences onto FFF's network;
 - FFF shipping air defences of its own;
 - our own SAM sites and radar (the owner's wish of 28 Nov 2026, in [electronic-warfare.md](electronic-warfare.md#a-detailed-radar-simulation-a-sketch-several-slices-away)),
-  if they are to show up on FFF's network as well as in our own model.
+  if they are to show up on FFF's network as well as in our own model. They now have their own record, [radar and air
+  defence](radar-and-air-defence.md); its row RD15 is this question.
 
 **The change then:** the two `Mods/VehiclesDmse` lines in D'thorga Framework's `LoadFolders.xml` wait for Vehicle Framework and
 `AOBA.Framework` instead of DMS Expedition; the launch prompt (`InterceptRiskUtility`) and the closed-sky rule

@@ -230,6 +230,9 @@ worked example). An amplifier gains a wartime use.
 
 **Not a design.** It has no rows, no figures and no steps, by the owner's word.
 
+**It has its own record now** (owner, 28 Nov 2026): [radar and air defence](radar-and-air-defence.md), rows RD1 to RD32. This sketch
+stays as it was written; that record is where radar is designed.
+
 **The owner's wish, 28 Nov 2026: realistic aerial warfare of our own.** "Introducing a more realistic type of aerial warfare into the
 game with SAM sites, a properly simulated RADAR, etc. is something I kind of want to undertake myself anyway." So the scope grows from
 a radar model beside other mods' defences to **our own air defence**: SAM sites, the radar that finds and guides for them, and the
@@ -321,7 +324,7 @@ Each setting, when built, is reported to the owner in the reply that delivers it
 | 5 | EW12 | Direction finding, once there are emitters worth finding |
 | 6 | EW21, EW22 | Other mods' jammers and drones, one mod at a time |
 | 7 | EW16 | Raiders' Prowlers, behind its setting |
-| Later | The radar sketch, EW15, EW23, EW24 | Each wants its own record first |
+| Later | The radar sketch, EW15, EW23, EW24 | Each wants its own record first. The radar sketch has one since 28 Nov 2026: [radar and air defence](radar-and-air-defence.md), which also takes up EW15 as RD17 |
 
 ## Built: slice 1 (27 Nov 2026)
 
