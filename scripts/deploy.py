@@ -13,10 +13,11 @@ game path comes from --game, the RIMWORLD_PATH environment variable, .local/inst
     python scripts/deploy.py --build --apply --all           build everything, then copy every mod
     python scripts/deploy.py --build-only                    build everything and copy nothing (fine while the game runs)
 
-After copying, it encodes each installed mod's textures to DDS with RimSort's todds, using RimSort's own "optimized" preset, so
+After copying, it encodes each installed mod's textures to DDS with todds, using RimSort's own "optimized" preset, so
 RimSort's texture step is not needed for our mods (owner, 13 Nov 2026: a fresh install had wiped the DDS files RimSort made, and
 every update meant running todds over every mod again). todds comes from --todds, RIMSORT_TODDS, install-settings.json
-("toddsPath") or RimSort's default install; without it the mods still work from their PNG files. --no-dds skips the step.
+("toddsPath"), else the kit's order (kit 1.145.0, so RimSort can go): the PATH, todds on its own in
+%LOCALAPPDATA%/Programs/todds, then RimSort's install. Without it the mods still work from their PNG files. --no-dds skips the step.
 
 Every install writes InstallRecord.json into the installed copy (the commit, the time and any uncommitted files it came from), for
 D'thorga Companion's Mods page and phobos-modkit's installs tool: what updating or going back would gain or lose
@@ -54,7 +55,7 @@ _modkit.ensure()
 # texture check also runs: BC1, BC7 where there is alpha, re-encode only what is newer than its DDS, flipped as the game reads DDS.
 # Then the kit shortens the mip chains Waylith would unpack to plain pixels at four times the memory (kit 1.54.0, owner's choice of
 # 20 Nov 2026, after D'thorga Vehicles showed 2.0 GiB of textures in Graphics Settings' profiler).
-from phobos_modkit.games.rimworld.textures import DEFAULT_TODDS, RIMSORT_OPTIMIZED, trim_folder  # noqa: E402
+from phobos_modkit.games.rimworld.textures import RIMSORT_OPTIMIZED, default_todds, trim_folder  # noqa: E402
 from phobos_modkit import build_lock  # noqa: E402
 from phobos_modkit.progress import Progress  # noqa: E402
 BACKUPS = ROOT / '.local' / 'deploy-backups'
@@ -83,8 +84,9 @@ def game_path(explicit=None, environ=None, settings_file=SETTINGS_FILE):
 
 
 def todds_path(explicit=None, environ=None, settings_file=SETTINGS_FILE):
-    """RimSort's todds, by precedence: argument, RIMSORT_TODDS, install-settings.json ("toddsPath"), RimSort's default install; None if absent."""
-    path = local_path('toddsPath', 'RIMSORT_TODDS', DEFAULT_TODDS, explicit, environ, settings_file)
+    """todds, by precedence: argument, RIMSORT_TODDS, install-settings.json ("toddsPath"), else the kit's default_todds (the PATH,
+    todds on its own, RimSort's install; kit 1.145.0); None if absent."""
+    path = local_path('toddsPath', 'RIMSORT_TODDS', default_todds(environ), explicit, environ, settings_file)
     return path if path.is_file() else None
 
 
