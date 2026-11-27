@@ -84,7 +84,7 @@ public static class RadioNeighbours
             }
             if (best == null || bestSkill == null) continue;
             var letter = (ChoiceLetter_PhobosNeighbourCall)LetterMaker.MakeLetter(RadioNeighbourDefOf.PhobosRadio_NeighbourCall);
-            letter.Set(link.Faction, link.Settlement.LabelCap, best, bestSkill, Find.TickManager.TicksGame + rules.neighbourExpiryTicks);
+            letter.Set(link.Faction, link.Settlement, best, bestSkill, Find.TickManager.TicksGame + rules.neighbourExpiryTicks);
             Find.LetterStack.ReceiveLetter(letter);
             return true;
         }
@@ -102,7 +102,7 @@ public static class RadioNeighbours
     }
 
     /// <summary>The player said yes: the colonist goes to the radio for the rules' hour. From the letter.</summary>
-    public static void Accept(Faction faction, Pawn colonist, SkillDef skill)
+    public static void Accept(Faction faction, Settlement? settlement, Pawn colonist, SkillDef skill)
     {
         if (!colonist.Spawned || !Free(colonist) || !FactionDoctors.Talks(faction))
         {
@@ -115,6 +115,9 @@ public static class RadioNeighbours
         Job job = JobMaker.MakeJob(RadioNeighbourDefOf.PhobosRadio_NeighbourCallJob, desk == null ? LocalTargetInfo.Invalid : desk);
         job.count = RadioRulesDef.Current.neighbourCallTicks;
         colonist.jobs.StartJob(job, JobCondition.InterruptForced, null, resumeCurJobAfterwards: true);
+        RadioLog.Add(RadioLogKind.Neighbour, "PhobosRadioLog_NeighbourAccepted".Translate(colonist.LabelShort.Named("COLONIST"), faction.Name.Named("FACTION")).Resolve());
+        // Radio 0.38.0: a call with a settlement earns its QSL card, the first time.
+        if (settlement != null) RadioQsl.Worked(settlement, colonist, RadioRulesDef.Current.workableDb, colonist.Map.Tile);
     }
 
     /// <summary>A tick of the call: the colonist gains a little of the skill and of Social (the rules' rates).</summary>
@@ -136,6 +139,8 @@ public static class RadioNeighbours
         int goodwill = RadioRulesDef.Current.neighbourGoodwill;
         call.faction.TryAffectGoodwillWith(Faction.OfPlayer, goodwill, canSendMessage: true, canSendHostilityLetter: false,
             reason: RadioNeighbourDefOf.PhobosRadio_HelpedByRadio);
+        RadioLog.Add(RadioLogKind.Neighbour, "PhobosRadioLog_NeighbourDone".Translate(colonist.LabelShort.Named("COLONIST"), call.faction.Name.Named("FACTION"),
+            goodwill.Named("GOODWILL")).Resolve());
         string variant = call.skill == SkillDefOf.Medicine ? "medicine" : "repairs";
         if (Seen.Wants("radio.neighbour-call", colonist, variant)) Seen.Note("radio.neighbour-call", colonist, call.faction.Name, variant);
     }
@@ -145,13 +150,15 @@ public static class RadioNeighbours
 public class ChoiceLetter_PhobosNeighbourCall : ChoiceLetter
 {
     private Faction? faction;
+    private Settlement? settlement;
     private Pawn? colonist;
     private SkillDef? skill;
     private int expiresAt;
 
-    public void Set(Faction asking, string settlement, Pawn asked, SkillDef forSkill, int expires)
+    public void Set(Faction asking, Settlement from, Pawn asked, SkillDef forSkill, int expires)
     {
         faction = asking;
+        settlement = from;
         colonist = asked;
         skill = forSkill;
         expiresAt = expires;
@@ -160,7 +167,7 @@ public class ChoiceLetter_PhobosNeighbourCall : ChoiceLetter
         radioMode = true;
         string role = (forSkill == SkillDefOf.Medicine ? "PhobosRadioAdvice_RoleDoctor" : "PhobosRadioAdvice_RoleMechanic").Translate().Resolve();
         Label = "PhobosRadioNeighbour_Label".Translate(asking.Name.Named("FACTION"));
-        Text = "PhobosRadioNeighbour_Text".Translate(asking.Name.Named("FACTION"), settlement.Named("SETTLEMENT"), asked.LabelShort.Named("COLONIST"),
+        Text = "PhobosRadioNeighbour_Text".Translate(asking.Name.Named("FACTION"), from.LabelCap.Named("SETTLEMENT"), asked.LabelShort.Named("COLONIST"),
             role.Named("ROLE"), forSkill.label.Named("SKILL"), RadioRulesDef.Current.neighbourGoodwill.Named("GOODWILL")).Resolve();
     }
 
@@ -181,7 +188,7 @@ public class ChoiceLetter_PhobosNeighbourCall : ChoiceLetter
             {
                 action = () =>
                 {
-                    RadioNeighbours.Accept(faction, colonist, skill);
+                    RadioNeighbours.Accept(faction, settlement, colonist, skill);
                     Find.LetterStack.RemoveLetter(this);
                 },
                 resolveTree = true,
@@ -201,6 +208,7 @@ public class ChoiceLetter_PhobosNeighbourCall : ChoiceLetter
     {
         base.ExposeData();
         Scribe_References.Look(ref faction, "PhobosRadioNeighbourFaction");
+        Scribe_References.Look(ref settlement, "PhobosRadioNeighbourSettlement");
         Scribe_References.Look(ref colonist, "PhobosRadioNeighbourColonist");
         Scribe_Defs.Look(ref skill, "PhobosRadioNeighbourSkill");
         Scribe_Values.Look(ref expiresAt, "PhobosRadioNeighbourExpires");

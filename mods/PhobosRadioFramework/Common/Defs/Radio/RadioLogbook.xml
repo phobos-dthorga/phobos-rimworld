@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The station logbook's awards (Radio 0.38.0; the owner's card of 27 Nov 2026: "A lasting colony mood"): +2 an award, up to +6, for
+       colonists who work the radio (wearing a hand-held, or with a radio friend). The figures are the card's +2 and an agent default cap. -->
+  <ThoughtDef>
+    <defName>PhobosRadio_StationKnown</defName>
+    <workerClass>Phobos.Radio.Services.ThoughtWorker_PhobosRadioAwards</workerClass>
+    <stages>
+      <li>
+        <label>our station is known far and wide</label>
+        <description>People far beyond our walls know our call. That means something.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+      <li>
+        <label>our station is known far and wide</label>
+        <description>People far beyond our walls know our call, and have the cards to prove it.</description>
+        <baseMoodEffect>4</baseMoodEffect>
+      </li>
+      <li>
+        <label>our station is famous</label>
+        <description>Operators everywhere know our station. We put this place on the map.</description>
+        <baseMoodEffect>6</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>

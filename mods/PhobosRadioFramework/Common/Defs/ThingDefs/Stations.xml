@@ -83,6 +83,8 @@
     </comps>
     <inspectorTabs>
       <li>Phobos.Radio.UI.ITab_RadioNet</li>
+      <!-- Radio 0.38.0: the logbook, the QSL cards and awards. -->
+      <li>Phobos.Radio.UI.ITab_RadioLog</li>
       <!-- Shown only while the setting "Show the waterfall on the radio desk" is on (Radio 0.6.0, off by default). -->
       <li>Phobos.Radio.UI.ITab_RadioWaterfall</li>
     </inspectorTabs>
@@ -181,6 +183,8 @@
     </modExtensions>
     <inspectorTabs>
       <li>Phobos.Radio.UI.ITab_RadioNet</li>
+      <!-- Radio 0.38.0: the logbook, the QSL cards and awards. -->
+      <li>Phobos.Radio.UI.ITab_RadioLog</li>
       <!-- The waterfall (Radio 0.6.0): the band as a software radio shows it. -->
       <li>Phobos.Radio.UI.ITab_RadioWaterfall</li>
     </inspectorTabs>

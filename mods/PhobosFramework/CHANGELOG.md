@@ -22,6 +22,15 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.348.0] - 2026-11-27 - Draft
+
+The medevac's calls in the radio's logbook
+
+### Added
+
+- **A medevac's call, pick-up and arrival home are written in the radio station's logbook** (with the Radio Framework 0.38.0's Log
+  tab). Without the Radio Framework nothing changes. Not yet tested in game: row 681.
+
 ## [0.347.0] - 2026-11-27 - Draft
 
 The Billy's paste shows, pipes in and travels

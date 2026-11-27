@@ -118,8 +118,9 @@ public static class Medevac
         data.targets.Add(new GlobalTargetInfo(convoy.Tile));
         aircraft.CompVehicleLauncher.Launch(data, new ArrivalAction_PhobosMedevac(aircraft, convoy));
         answers.Remove(convoy);
-        Messages.Message("PhobosMedevac_Called".Translate(aircraft.LabelShort.Named("VEHICLE"), convoy.LabelCap.Named("CONVOY")).Resolve(), convoy,
-            MessageTypeDefOf.PositiveEvent, historical: false);
+        string called = "PhobosMedevac_Called".Translate(aircraft.LabelShort.Named("VEHICLE"), convoy.LabelCap.Named("CONVOY")).Resolve();
+        Messages.Message(called, convoy, MessageTypeDefOf.PositiveEvent, historical: false);
+        ConvoyRadio.Log(called);
         if (Seen.Wants("vehicles.medevac-called", aircraft)) Seen.Note("vehicles.medevac-called", aircraft, convoy.LabelCap);
     }
 
@@ -180,8 +181,9 @@ public class ArrivalAction_PhobosMedevac : VehicleArrivalAction
             }
             if (taken > 0) litter.SetDownAtHome();
             if (here is VehicleCaravan vehicles) vehicles.RecacheVehicles();
-            Messages.Message("PhobosMedevac_Taken".Translate(vehicle.LabelShort.Named("VEHICLE"), taken.Named("COUNT"), here.LabelCap.Named("CONVOY")).Resolve(),
-                here, MessageTypeDefOf.PositiveEvent, historical: false);
+            string text = "PhobosMedevac_Taken".Translate(vehicle.LabelShort.Named("VEHICLE"), taken.Named("COUNT"), here.LabelCap.Named("CONVOY")).Resolve();
+            Messages.Message(text, here, MessageTypeDefOf.PositiveEvent, historical: false);
+            ConvoyRadio.Log(text);
             if (Seen.Wants("vehicles.medevac-taken", vehicle)) Seen.Note("vehicles.medevac-taken", vehicle, taken + " patients");
         }
         else

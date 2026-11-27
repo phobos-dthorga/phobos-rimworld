@@ -204,8 +204,9 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder, IKeepsTicking
             foreach (Pawn patient in held.InnerListForReading) Medevac.BroughtHome(patient);
             int count = held.Count;
             SetDown(Vehicle.Map, Vehicle.Position, null);
-            Messages.Message("PhobosMedevac_Home".Translate(Vehicle.LabelShort.Named("VEHICLE"), count.Named("COUNT")).Resolve(), Vehicle,
-                MessageTypeDefOf.PositiveEvent, historical: false);
+            string home = "PhobosMedevac_Home".Translate(Vehicle.LabelShort.Named("VEHICLE"), count.Named("COUNT")).Resolve();
+            Messages.Message(home, Vehicle, MessageTypeDefOf.PositiveEvent, historical: false);
+            ConvoyRadio.Log(home);
             if (Seen.Wants("vehicles.medevac-home", Vehicle)) Seen.Note("vehicles.medevac-home", Vehicle, count + " patients");
             return;
         }

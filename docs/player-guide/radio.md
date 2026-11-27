@@ -178,6 +178,16 @@ Construction **6 or more**, free and in radio touch.
 - **No** costs nothing. A letter left unanswered goes after 6 hours.
 - Setting: **Neighbours ask for help by radio**, on by default.
 
+## The logbook and QSL cards
+
+**Select a radio station or terminal and open its Log tab.** It lists your colonists' radio friends, the settlements in reach, and the
+log, newest first: advice calls, other factions' help, friends made and lost, radio lessons, neighbours' calls and medevacs.
+
+- **QSL cards**: the first contact with each settlement (a faction's doctor or mechanic, a radio friend's chat, a neighbour's call)
+  earns its card, shown on the tab in that faction's colours.
+- **Awards**: cards from three factions, from every faction on the air, from 50 km away or more, or from ten settlements each earn an
+  award. Colonists who work the radio (wearing a hand-held, or with a radio friend) are proud of it: **+2** an award, up to **+6**.
+
 ## Try it
 
 1. Research local radio. Build the station indoors under a built roof, craft a VHF hand-held and wear it.

@@ -83,14 +83,20 @@ public static class RadioFriends
     {
         if (Of(colonist) is { } held && held.Friend is { Dead: false, Destroyed: false } friend && friend.Faction is { } faction)
         {
-            return FactionDoctors.Talks(faction) && FactionDoctors.ReachToTalk(map, map.Tile, () => FactionDoctors.StationEnds(map), faction) != null
-                ? friend : null;
+            if (!FactionDoctors.Talks(faction) || FactionDoctors.ReachToTalk(map, map.Tile, () => FactionDoctors.StationEnds(map), faction) is not { } reached)
+                return null;
+            // Radio 0.38.0: a chat with a settlement earns its QSL card, the first time.
+            RadioQsl.Worked(reached.Settlement, colonist, reached.MarginDb, map.Tile);
+            return friend;
         }
         if (FactionDoctors.ReachToTalk(map, map.Tile, () => FactionDoctors.StationEnds(map)) is not { } link) return null;
         if (FactionDoctors.MakePerson(link.Faction, null) is not { } made) return null;
         friendships[colonist] = new RadioFriendship { Friend = made };
-        Messages.Message("PhobosRadioFriend_Made".Translate(colonist.LabelShort.Named("COLONIST"), made.LabelShort.Named("FRIEND"),
-            link.Faction.Name.Named("FACTION"), link.Settlement.LabelCap.Named("SETTLEMENT")).Resolve(), colonist, MessageTypeDefOf.PositiveEvent, historical: false);
+        string madeText = "PhobosRadioFriend_Made".Translate(colonist.LabelShort.Named("COLONIST"), made.LabelShort.Named("FRIEND"),
+            link.Faction.Name.Named("FACTION"), link.Settlement.LabelCap.Named("SETTLEMENT")).Resolve();
+        Messages.Message(madeText, colonist, MessageTypeDefOf.PositiveEvent, historical: false);
+        RadioLog.Add(RadioLogKind.Friend, madeText);
+        RadioQsl.Worked(link.Settlement, colonist, link.MarginDb, map.Tile);
         if (Seen.Wants("radio.friend-made", colonist)) Seen.Note("radio.friend-made", colonist, made.LabelShort + ", " + link.Faction.Name);
         return made;
     }
@@ -145,8 +151,9 @@ public static class RadioFriends
             friendships.Remove(colonist);
             colonist.needs?.mood?.thoughts?.memories?.TryGainMemory(RadioFriendDefOf.PhobosRadio_LostRadioFriend);
             string name = friend?.LabelShort ?? "?";
-            Messages.Message("PhobosRadioFriend_Lost".Translate(colonist.LabelShort.Named("COLONIST"), name.Named("FRIEND")).Resolve(),
-                colonist.Spawned ? new LookTargets(colonist) : LookTargets.Invalid, MessageTypeDefOf.NegativeEvent, historical: false);
+            string lostText = "PhobosRadioFriend_Lost".Translate(colonist.LabelShort.Named("COLONIST"), name.Named("FRIEND")).Resolve();
+            Messages.Message(lostText, colonist.Spawned ? new LookTargets(colonist) : LookTargets.Invalid, MessageTypeDefOf.NegativeEvent, historical: false);
+            RadioLog.Add(RadioLogKind.Friend, lostText);
             if (Seen.Wants("radio.friend-lost", colonist)) Seen.Note("radio.friend-lost", colonist, name);
         }
     }

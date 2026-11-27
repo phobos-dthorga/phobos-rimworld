@@ -17,6 +17,9 @@ public interface IConvoyReachSource
 
     /// <summary>Buttons the radio offers a convoy on the world map (Framework 0.329.0: putting up a relay mast).</summary>
     IEnumerable<Gizmo> CaravanGizmos(Caravan convoy) => System.Linq.Enumerable.Empty<Gizmo>();
+
+    /// <summary>A line for the radio's logbook (Framework 0.348.0: the medevac's calls); nothing without the Radio Framework.</summary>
+    void Log(string text) { }
 }
 
 /// <summary>
@@ -58,6 +61,9 @@ public static class ConvoyRadio
     public static void Forget(Caravan convoy) => cache.Remove(convoy);
 
     public static bool InTouch(Caravan convoy) => Of(convoy) is { InTouch: true };
+
+    /// <summary>Writes a line in the radio's logbook, when the Radio Framework keeps one (Framework 0.348.0).</summary>
+    public static void Log(string text) => source?.Log(text);
 
     /// <summary>The radio's buttons for a convoy, or none without the Radio Framework.</summary>
     public static IEnumerable<Gizmo> Gizmos(Caravan convoy) =>

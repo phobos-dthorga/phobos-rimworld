@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The station logbook and QSL cards (Radio 0.38.0). -->
+  <PhobosRadioLog_Tab>Log</PhobosRadioLog_Tab>
+  <PhobosRadioLog_Awards>Awards</PhobosRadioLog_Awards>
+  <PhobosRadioLog_NoAwards>No awards yet. Collect QSL cards to earn them.</PhobosRadioLog_NoAwards>
+  <PhobosRadioLog_Cards>QSL cards ({COUNT})</PhobosRadioLog_Cards>
+  <PhobosRadioLog_NoCards>No cards yet. The first contact with each settlement earns its card.</PhobosRadioLog_NoCards>
+  <PhobosRadioLog_Friends>Radio friends</PhobosRadioLog_Friends>
+  <PhobosRadioLog_NoFriends>Nobody here has a radio friend yet.</PhobosRadioLog_NoFriends>
+  <PhobosRadioLog_FriendLine>{COLONIST} and {FRIEND} of {FACTION}: {STAGE}, {HOURS} hours on the radio.</PhobosRadioLog_FriendLine>
+  <PhobosRadioLog_FriendStage0>a new friend</PhobosRadioLog_FriendStage0>
+  <PhobosRadioLog_FriendStage1>a friend</PhobosRadioLog_FriendStage1>
+  <PhobosRadioLog_FriendStage2>a close friend</PhobosRadioLog_FriendStage2>
+  <PhobosRadioLog_InReach>Settlements in reach</PhobosRadioLog_InReach>
+  <PhobosRadioLog_NoneInReach>No settlement of a faction that talks is in reach of this colony's stations.</PhobosRadioLog_NoneInReach>
+  <PhobosRadioLog_InReachLine>{FACTION} ({STANDING}), at {PLACE}.</PhobosRadioLog_InReachLine>
+  <PhobosRadioLog_StandingAlly>an ally</PhobosRadioLog_StandingAlly>
+  <PhobosRadioLog_StandingNeutral>neutral</PhobosRadioLog_StandingNeutral>
+  <PhobosRadioLog_Entries>The log</PhobosRadioLog_Entries>
+  <PhobosRadioLog_NoEntries>Nothing logged yet.</PhobosRadioLog_NoEntries>
+  <PhobosRadioLog_Lesson>{TEACHER} teaches {CHILD} by radio.</PhobosRadioLog_Lesson>
+  <PhobosRadioLog_NeighbourAccepted>{COLONIST} is on the radio for {FACTION}, who asked for help.</PhobosRadioLog_NeighbourAccepted>
+  <PhobosRadioLog_NeighbourDone>{COLONIST} finished an hour on the radio for {FACTION}: {GOODWILL} goodwill.</PhobosRadioLog_NeighbourDone>
+  <PhobosRadioQsl_Earned>A QSL card from {PLACE} ({FACTION}): {OPERATOR}'s first contact there, report {REPORT}.</PhobosRadioQsl_Earned>
+  <PhobosRadioQsl_CardText>Confirming our contact with {OPERATOR}.\nYour signal: {REPORT}. Distance: {TILES} km.\n{DATE}\nThanks for the contact, {FACTION}.</PhobosRadioQsl_CardText>
+  <PhobosRadioQsl_AwardLabel>Radio award</PhobosRadioQsl_AwardLabel>
+  <PhobosRadioQsl_Award>Our station has earned an award: {AWARD}. Those who work the radio are proud of it.</PhobosRadioQsl_Award>
+  <PhobosRadioQsl_AwardThreeFactions>Worked {COUNT} factions</PhobosRadioQsl_AwardThreeFactions>
+  <PhobosRadioQsl_AwardAllFactions>Worked every faction on the air</PhobosRadioQsl_AwardAllFactions>
+  <PhobosRadioQsl_AwardLongWay>A contact {TILES} km away or more</PhobosRadioQsl_AwardLongWay>
+  <PhobosRadioQsl_AwardTenSettlements>Worked {COUNT} settlements</PhobosRadioQsl_AwardTenSettlements>
+</LanguageData>

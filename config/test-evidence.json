@@ -381,6 +381,8 @@
       "the downed are taken aboard": ["vehicles.medevac-taken"],
       "they are set down at home": ["vehicles.medevac-home"]}},
     "680": ["vehicles.medevac-missed"],
+    "681": ["radio.qsl-card"],
+    "682": [{"key": "radio.qsl-award", "variant": "ThreeFactions"}],
     "661": {"parts": {"a doctor's call done": [{"key": "radio.neighbour-call", "variant": "medicine"}],
       "a mechanic's call done": [{"key": "radio.neighbour-call", "variant": "repairs"}]}},
     "659": [{"key": "radio.school-lesson", "variant": "map"}],

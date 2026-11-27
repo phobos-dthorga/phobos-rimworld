@@ -23,6 +23,27 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.38.0] - 2026-11-27 - Draft
+
+The station logbook, QSL cards and awards
+
+### Added
+
+- **A Log tab on the radio station and terminal** (the owner's cards of 27 November 2026): the colony's radio friends and how close
+  they are, the settlements in reach now, and the log, newest first, of advice calls, other factions' help, friends made and lost,
+  radio lessons, neighbours' calls and medevacs. It keeps the last 200 lines.
+- **QSL cards**: the first contact with each settlement (a faction's helper, a radio friend's chat, a neighbour's call) earns its card,
+  drawn on the tab in the faction's colours with its icon, the place, the operator, the date, the signal report and the distance (the
+  owner's "made procedurally": no art).
+- **Awards**: three factions worked, every faction on the air, a contact 50 km away or more, and ten settlements. Each is a certificate
+  on the tab and gives colonists who work the radio (wearing a hand-held, or with a radio friend) a lasting +2, up to +6. Not yet
+  tested in game: rows 681 and 682.
+
+### Compatibility and limits
+
+- The 200 lines, the awards' thresholds, the cap and the signal report's reckoning are agent defaults. Safe with a running save: the
+  log, the cards and the awards are saved, and an older save loads with none.
+
 ## [0.37.1] - 2026-11-27 - Draft
 
 The remote control kit, repeater kit and dual-band radio draw half the amps on 24 volts

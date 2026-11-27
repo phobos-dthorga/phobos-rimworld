@@ -70,9 +70,11 @@ public static class RemoteReach
 public sealed class AdviceOffer
 {
     public AdviceOffer(Pawn carer, Pawn adviser, RadioAdviceDef def, int level, LinkOutcome outcome, AdvicePlace place, Thing? station, bool aid,
-        Faction? faction = null)
+        Faction? faction = null, Settlement? settlement = null, double marginDb = 0.0)
     {
         Faction = faction;
+        Settlement = settlement;
+        MarginDb = marginDb;
         Carer = carer;
         Adviser = adviser;
         Def = def;
@@ -92,6 +94,9 @@ public sealed class AdviceOffer
 
     /// <summary>Another faction whose doctor this is (Radio 0.26.0), or null for a colonist.</summary>
     public Faction? Faction { get; }
+    /// <summary>The settlement that faction's doctor answers from, and the link's margin (Radio 0.38.0: its QSL card).</summary>
+    public Settlement? Settlement { get; }
+    public double MarginDb { get; }
 
     public Pawn Carer { get; }
     public Pawn Adviser { get; }
@@ -236,7 +241,7 @@ public static class RadioAdvice
         var outcome = AdviceRule.Worse(carerOutcome, rules.MarginBands.Classify(link.MarginDb));
         int level = AdviceRule.EffectiveLevel(own, SkillLifts.OwnLevel(doctor, def.skill),
             AdviceRule.Share(outcome, rules.adviceShareSolid, rules.adviceShareMarginal, aid ? def.aidShare : 0.0));
-        return level <= own ? null : new AdviceOffer(carer, doctor, def, level, outcome, AdvicePlace.Afar, null, aid, link.Faction);
+        return level <= own ? null : new AdviceOffer(carer, doctor, def, level, outcome, AdvicePlace.Afar, null, aid, link.Faction, link.Settlement, link.MarginDb);
     }
 
     /// <summary>The best adviser at one colony for a carer whose own link there has this outcome, or null.</summary>
@@ -457,7 +462,8 @@ public static class RadioAdvice
             return;
         }
         call.Live = true;
-        Say(offer, "PhobosRadioAdvice_CallOpened", MessageTypeDefOf.SilentInput);
+        RadioLog.Add(RadioLogKind.Advice, Say(offer, "PhobosRadioAdvice_CallOpened", MessageTypeDefOf.SilentInput));
+        Worked(offer);
         Thank(offer);
         // Radio 0.26.0, the Elmer: the carer learns the skill half again as fast while talked through (the owner's card).
         SkillLifts.Teach(offer.Carer, offer.Def.skill, RadioRulesDef.Current.adviceLearnFactor);
@@ -537,8 +543,9 @@ public static class RadioAdvice
         if (!lastSaid.TryGetValue((offer.Carer, offer.Def), out var said) || now - said >= SayAgainTicks)
         {
             lastSaid[(offer.Carer, offer.Def)] = now;
-            Say(offer, "PhobosRadioAdvice_Helped", MessageTypeDefOf.PositiveEvent);
+            RadioLog.Add(RadioLogKind.Advice, Say(offer, "PhobosRadioAdvice_Helped", MessageTypeDefOf.PositiveEvent));
             Thank(offer);
+            Worked(offer);
         }
         if (lastSaid.Count > 256) lastSaid.Clear();
         string variant = offer.Def.act + (offer.Faction != null ? "-faction" : "") + (offer.Carer.Spawned ? "" : "-road");
@@ -556,11 +563,20 @@ public static class RadioAdvice
         Book(offer);
     }
 
-    private static void Say(AdviceOffer offer, string key, MessageTypeDef type)
+    /// <summary>Radio 0.38.0: a call with another faction's settlement earns its QSL card, the first time.</summary>
+    private static void Worked(AdviceOffer offer)
+    {
+        if (offer.Settlement == null) return;
+        PlanetTile from = offer.Carer.Spawned ? offer.Carer.Map.Tile : offer.Carer.GetCaravan()?.Tile ?? PlanetTile.Invalid;
+        RadioQsl.Worked(offer.Settlement, offer.Carer, offer.MarginDb, from);
+    }
+
+    private static string Say(AdviceOffer offer, string key, MessageTypeDef type)
     {
         string text = key.Translate(offer.Adviser.LabelShort.Named("ADVISER"), offer.Carer.LabelShort.Named("CARER"), offer.Def.actLabel.Named("ACT"),
             offer.Def.skill.label.Named("SKILL"), offer.Level.Named("LEVEL"), SkillLifts.OwnLevel(offer.Carer, offer.Def.skill).Named("OWN")).Resolve();
         Messages.Message(text, new LookTargets(offer.Adviser.Spawned ? offer.Adviser : offer.Carer), type, historical: false);
+        return text;
     }
 
     /// <summary>The carer thinks the better of the adviser for it.</summary>
@@ -615,6 +631,8 @@ public class GameComponent_RadioAdvice : GameComponent
         RadioFriends.Clear();
         RadioSchool.Clear();
         RadioNeighbours.Clear();
+        RadioLog.Clear();
+        RadioQsl.Clear();
     }
 
     public override void ExposeData()
@@ -622,6 +640,8 @@ public class GameComponent_RadioAdvice : GameComponent
         FactionDoctors.ExposeData();
         RadioFriends.ExposeData();
         RadioNeighbours.ExposeData();
+        RadioLog.ExposeData();
+        RadioQsl.ExposeData();
     }
 
     public override void GameComponentTick()

@@ -23,6 +23,9 @@ namespace Phobos.Radio.Vehicles;
 /// </summary>
 public sealed class ConvoyReachSource : IConvoyReachSource
 {
+    /// <summary>Radio 0.38.0: the Framework's radio lines (the medevac's) go in the station logbook.</summary>
+    public void Log(string text) => RadioLog.Add(RadioLogKind.Medevac, text);
+
     /// <summary>What a relay mast costs to put up, from the convoy's cargo (agent's figures).</summary>
     public const int MastSteel = 60;
     public const int MastComponents = 4;

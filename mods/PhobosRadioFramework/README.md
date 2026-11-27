@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.37.1, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.38.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -71,6 +71,9 @@ figures are here.
   lessons from a teacher in radio touch, even one away with a convoy ([the guide](../../docs/player-guide/radio.md#school-of-the-air)).
 - **Neighbours ask for yours (0.36.0)**: now and then a friendly neighbour in radio reach asks for your best doctor or mechanic on the
   radio for an hour, for 5 goodwill ([the guide](../../docs/player-guide/radio.md#neighbours-ask-for-yours)).
+- **The station logbook (0.38.0)**: a Log tab on the station with radio friends, settlements in reach, every call, and QSL cards
+  drawn in each faction's colours; awards for sets of cards lift the mood of those who work the radio
+  ([the guide](../../docs/player-guide/radio.md#the-logbook-and-qsl-cards)).
 - **Upgrades** for the desk and the antennas, fitted by builders.
 
 | Thing | Where | What it is |

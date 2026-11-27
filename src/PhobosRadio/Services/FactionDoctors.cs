@@ -117,6 +117,7 @@ public static class FactionDoctors
             helper.LabelShort.Named("HELPER"), role.Named("ROLE"), faction.Name.Named("FACTION"), carer.LabelShort.Named("CARER"),
             cost.Named("GOODWILL")).Resolve();
         Messages.Message(text, new LookTargets(carer), MessageTypeDefOf.NeutralEvent, historical: false);
+        RadioLog.Add(RadioLogKind.FactionHelp, text);
         string variant = terms == FactionTerms.Free ? "ally" : "neutral";
         if (Seen.Wants("radio.faction-doctor", carer, variant)) Seen.Note("radio.faction-doctor", carer, faction.Name + ", " + helper.LabelShort + ", " + skill.label, variant);
         return true;

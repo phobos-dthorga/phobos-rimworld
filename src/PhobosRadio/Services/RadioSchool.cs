@@ -141,6 +141,8 @@ public class LearningGiver_PhobosRadioSchool : LearningGiver
         if (!handHeld && desk == null) return null;
         Pawn? teacher = RadioSchool.FindTeacher(pawn, pawn.Map, out Thing? teacherDesk);
         RadioSchool.SetTeacher(pawn, teacher);
+        if (teacher != null)
+            RadioLog.Add(RadioLogKind.Lesson, "PhobosRadioLog_Lesson".Translate(teacher.LabelShort.Named("TEACHER"), pawn.LabelShort.Named("CHILD")).Resolve());
         if (teacher is { Spawned: true })
         {
             Job teach = JobMaker.MakeJob(RadioSchoolDefOf.PhobosRadio_TeachByRadio, pawn, teacherDesk == null ? LocalTargetInfo.Invalid : teacherDesk);
