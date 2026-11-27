@@ -45,6 +45,7 @@ public class Window_PhobosVehicleSchematic : Window
     float phase;
     string? lit;
     bool marksNoted;
+    bool cutawayNoted;
 
     public override Vector2 InitialSize => new(820f, 520f);
 
@@ -190,6 +191,7 @@ public class Window_PhobosVehicleSchematic : Window
             SchematicView.NodeView nodeView = view.Nodes[i];
             if (!nodeView.Shown) continue;
             Rect rect = RectOf(node.rect);
+            if (node.layers.Count > 0) DrawCutaway(node, rect);
             DrawNode(node, nodeView, rect, figures);
             if (Mouse.IsOver(rect))
             {
@@ -239,10 +241,55 @@ public class Window_PhobosVehicleSchematic : Window
         else VehicleHighlight.Clear();
     }
 
+    /// <summary>
+    /// A node's cutaway (Framework 0.375.0; docs/development/vehicle-schematic.md, SC2): each white region layer tinted by its reading, fitted
+    /// to the node without stretching, then the outline as drawn. Textures are found once and kept; one that is missing draws nothing.
+    /// </summary>
+    void DrawCutaway(SchematicNode node, Rect rect)
+    {
+        if (Event.current.type != EventType.Repaint || view == null) return;
+        foreach (SchematicLayer layer in node.layers)
+        {
+            if (Texture(layer.texPath) is not { } tex) continue;
+            GUI.color = LayerColour(node, layer);
+            GUI.DrawTexture(rect, tex, ScaleMode.ScaleToFit);
+        }
+        GUI.color = Color.white;
+        if (!node.outline.NullOrEmpty() && Texture(node.outline!) is { } edge) GUI.DrawTexture(rect, edge, ScaleMode.ScaleToFit);
+        if (!cutawayNoted)
+        {
+            cutawayNoted = true;
+            if (Seen.Wants("vehicles.schematic.cutaway", comp.Vehicle)) Seen.Note("vehicles.schematic.cutaway", comp.Vehicle, page.defName);
+        }
+    }
+
+    /// <summary>A layer's tint, as its <see cref="SchematicTint"/> says.</summary>
+    Color LayerColour(SchematicNode owner, SchematicLayer layer)
+    {
+        if (layer.tint == SchematicTint.Fixed) return layer.colour;
+        SchematicView.NodeView? from = view!.NodeOf(layer.node.NullOrEmpty() ? owner.key : layer.node);
+        if (from is not { Shown: true }) return PhobosWidgets.Off;
+        if (layer.tint == SchematicTint.Flow)
+        {
+            return SchematicRule.Flows(view.Running, from.Work, from.Stopped) ? MediumColour(layer.medium) : PhobosWidgets.Off;
+        }
+        return SchematicView.Colour(from.Tone);
+    }
+
+    static readonly Dictionary<string, Texture2D?> Textures = new();
+
+    static Texture2D? Texture(string path)
+    {
+        if (!Textures.TryGetValue(path, out Texture2D? tex)) Textures[path] = tex = ContentFinder<Texture2D>.Get(path, false);
+        return tex;
+    }
+
     static void DrawNode(SchematicNode node, SchematicView.NodeView view, Rect rect, bool figures)
     {
         Color tone = SchematicView.Colour(view.Tone);
-        switch (node.shape)
+        // Framework 0.375.0: a node with a cutaway is drawn by it; only its name and figure go beneath.
+        bool cutaway = node.layers.Count > 0;
+        switch (cutaway ? (SchematicShape?)null : node.shape)
         {
             case SchematicShape.Tank:
                 Widgets.DrawBoxSolid(rect, TankInside);
@@ -280,6 +327,8 @@ public class Window_PhobosVehicleSchematic : Window
                 }
                 Border(rect, tone);
                 break;
+            case null:
+                break;
             default:
                 Widgets.DrawBoxSolid(rect, new Color(tone.r * 0.55f, tone.g * 0.55f, tone.b * 0.55f));
                 Border(rect, tone);
@@ -287,7 +336,22 @@ public class Window_PhobosVehicleSchematic : Window
         }
 
         // Its name inside a block big enough, else beneath; and its figure beneath for those who read figures.
-        bool inside = node.shape == SchematicShape.Box && rect.height >= 44f;
+        bool inside = !cutaway && node.shape == SchematicShape.Box && rect.height >= 44f;
+        if (cutaway)
+        {
+            // A cutaway's name and figure sit in its top left corner, clear of the parts beneath it.
+            using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft))
+            {
+                Widgets.Label(new Rect(rect.x + 4f, rect.y + 2f, rect.width / 3f, 18f), node.label.CapitalizeFirst());
+                if (figures && !view.Figure.NullOrEmpty())
+                {
+                    GUI.color = new Color(0.75f, 0.78f, 0.8f);
+                    Widgets.Label(new Rect(rect.x + 4f, rect.y + 16f, rect.width / 3f, 18f), view.Figure);
+                    GUI.color = Color.white;
+                }
+            }
+            return;
+        }
         using (new TextBlock(GameFont.Tiny, inside ? TextAnchor.MiddleCenter : TextAnchor.UpperCenter))
         {
             float wide = Mathf.Max(rect.width + 40f, 90f);

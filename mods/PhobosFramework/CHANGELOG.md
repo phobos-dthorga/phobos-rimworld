@@ -34,6 +34,11 @@ The schematic's three parts, finished
 - **A diagnosis names each engine or gearbox with its chip light lit, and the likely cause**: a hot section past its life, low oil
   pressure, a service long overdue, a gearbox worked hard, or wear with nothing else standing out. It is the mechanic's best guess
   from the part as it stands. Not yet tested in game: row 767.
+- **The systems schematic draws a land vehicle's engine as a cutaway** (the owner's card of 28 November 2026): one cylinder in
+  section, its block in the engine's colour, and its water jacket, oil, intake air, exhaust and fuel coloured while they flow, grey
+  when not. Its pipes now meet the picture where its ports are. Not yet tested in game: row 768.
+- For modders: a schematic node can carry layers, white pictures each tinted by a node's tone, by a flow, or in a fixed colour,
+  with an outline drawn over them; scripts/art/draw_diesel_cutaway.py draws the diesel's from one list of shapes.
 - For modders: a service's restore may be marked onlyLowers, so a partial fix never makes a figure worse.
 
 ### Save compatibility

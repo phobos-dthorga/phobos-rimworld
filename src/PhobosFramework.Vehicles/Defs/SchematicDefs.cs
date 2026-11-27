@@ -71,6 +71,38 @@ public class SchematicNode
     /// <summary>Shown only while this holds, judged in its system (Framework 0.373.0): a fitting that may or may not be there, such as an
     /// inlet barrier. Null: always, where its system and role are.</summary>
     public VehicleSystemCondition? shownWhen;
+    /// <summary>
+    /// A cutaway drawn in place of the node's block (Framework 0.375.0; docs/development/vehicle-schematic.md, SC2 and SC7): white region
+    /// layers, each tinted by a live reading, drawn in order and fitted to the node without stretching, then <see cref="outline"/> over them.
+    /// Empty: a block, as before.
+    /// </summary>
+    public List<SchematicLayer> layers = new();
+    /// <summary>The cutaway's outline, drawn as it is over its layers.</summary>
+    public string? outline;
+}
+
+/// <summary>How a cutaway's layer takes its colour (Framework 0.375.0).</summary>
+public enum SchematicTint
+{
+    /// <summary>Its node's tone: green, amber or red by its reading and health.</summary>
+    Tone,
+    /// <summary>Its medium's colour while what its node drives flows, grey when not, as a pipe is.</summary>
+    Flow,
+    /// <summary>Its own colour, always: steel that moves whatever the readings.</summary>
+    Fixed,
+}
+
+/// <summary>One region of a cutaway (Framework 0.375.0): a white picture tinted as <see cref="tint"/> says.</summary>
+public class SchematicLayer
+{
+    public string texPath = "";
+    /// <summary>The node whose reading tints it; empty: the node it belongs to.</summary>
+    public string? node;
+    public SchematicTint tint = SchematicTint.Tone;
+    /// <summary>What it carries, for <see cref="SchematicTint.Flow"/>.</summary>
+    public SchematicMedium medium;
+    /// <summary>Its colour, for <see cref="SchematicTint.Fixed"/>.</summary>
+    public Color colour = Color.white;
 }
 
 /// <summary>One pipe on a schematic page, between two nodes or from one node to open air.</summary>
@@ -143,6 +175,11 @@ public class PhobosVehicleSchematicDef : Def
             }
             if (!node.quantity.NullOrEmpty() && node.system == null) yield return "node " + node.key + " reads a quantity but names no system";
             if (node.shownWhen != null && node.system == null) yield return "node " + node.key + " has shownWhen but names no system to judge it in";
+            foreach (SchematicLayer layer in node.layers)
+            {
+                if (layer.texPath.NullOrEmpty()) yield return "a layer of node " + node.key + " has no texPath";
+                if (!layer.node.NullOrEmpty() && Node(layer.node) == null) yield return "a layer of node " + node.key + " is tinted by " + layer.node + ", which is not a node";
+            }
         }
         foreach (SchematicPipe pipe in pipes)
         {

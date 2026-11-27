@@ -54,12 +54,27 @@
         <system>PhobosVehicleSystem_Service</system>
       </li>
       <li>
+        <!-- Framework 0.375.0 (docs/development/vehicle-schematic.md, SC2; the owner's card of 28 Nov 2026, "The first cutaway"): drawn as
+             one cylinder in section (scripts/art/draw_diesel_cutaway.py), each region tinted by a live reading. The block takes the engine's
+             tone; the water jacket, oil, air, exhaust and fuel their medium's colour while what feeds them works; the moving steel stays
+             steel. The intake meets the picture on the left, the exhaust on the right, both at y 86; the fuel at the right, y 196. -->
         <key>engine</key>
         <label>engine</label>
         <rect>(220, 60, 260, 150)</rect>
         <role>Engine</role>
         <system>PhobosVehicleSystem_Cooling</system>
         <quantity>coolantTemperature</quantity>
+        <layers>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Diesel/Casing</texPath></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Diesel/Jacket</texPath><node>waterPump</node><tint>Flow</tint><medium>Coolant</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Diesel/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Diesel/Chamber</texPath><tint>Flow</tint><medium>Exhaust</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Diesel/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Diesel/Intake</texPath><node>airFilter</node><tint>Flow</tint><medium>Air</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Diesel/Exhaust</texPath><tint>Flow</tint><medium>Exhaust</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Diesel/Fuel</texPath><node>fuelPump</node><tint>Flow</tint><medium>Fuel</medium></li>
+        </layers>
+        <outline>Phobos/VehicleSystems/Schematic/Diesel/Outline</outline>
       </li>
       <li>
         <key>sump</key>
@@ -154,7 +169,7 @@
       <!-- Coolant: out of the engine's head to the radiator, back through the water pump, into the block. -->
       <li>
         <medium>Coolant</medium>
-        <points><li>(220, 80)</li><li>(90, 80)</li></points>
+        <points><li>(220, 160)</li><li>(90, 160)</li></points>
         <from>engine</from>
         <to>radiator</to>
         <drivenBy>waterPump</drivenBy>
@@ -192,7 +207,7 @@
         <from>oilPump</from>
         <to>turbo</to>
       </li>
-      <!-- Air: through the filter, the turbocharger's compressor where it has one, into the engine. -->
+      <!-- Air: through the filter, the turbocharger's compressor where it has one, over the top into the intake on the left (since 0.375.0). -->
       <li>
         <medium>Air</medium>
         <points><li>(660, 130)</li><li>(660, 100)</li><li>(590, 100)</li></points>
@@ -201,32 +216,32 @@
       </li>
       <li>
         <medium>Air</medium>
-        <points><li>(520, 100)</li><li>(480, 100)</li></points>
+        <points><li>(555, 70)</li><li>(555, 40)</li><li>(200, 40)</li><li>(200, 86)</li><li>(220, 86)</li></points>
         <from>turbo</from>
         <to>engine</to>
       </li>
       <li>
         <medium>Air</medium>
-        <points><li>(630, 152)</li><li>(480, 152)</li></points>
+        <points><li>(660, 130)</li><li>(660, 40)</li><li>(200, 40)</li><li>(200, 86)</li><li>(220, 86)</li></points>
         <from>airFilter</from>
         <to>engine</to>
         <onlyWithout>turbo</onlyWithout>
       </li>
-      <!-- Exhaust: through the turbocharger's turbine where it has one, then out. -->
+      <!-- Exhaust: out on the right, through the turbocharger's turbine where it has one, then out. -->
       <li>
         <medium>Exhaust</medium>
-        <points><li>(480, 76)</li><li>(520, 76)</li></points>
+        <points><li>(480, 86)</li><li>(520, 86)</li></points>
         <from>engine</from>
         <to>turbo</to>
       </li>
       <li>
         <medium>Exhaust</medium>
-        <points><li>(555, 70)</li><li>(555, 24)</li></points>
+        <points><li>(590, 80)</li><li>(610, 80)</li><li>(610, 24)</li></points>
         <from>turbo</from>
       </li>
       <li>
         <medium>Exhaust</medium>
-        <points><li>(350, 60)</li><li>(350, 24)</li></points>
+        <points><li>(480, 86)</li><li>(512, 86)</li></points>
         <from>engine</from>
         <onlyWithout>turbo</onlyWithout>
       </li>

@@ -2,8 +2,9 @@
 
 **Status (28 Nov 2026):** partly built. The first slice is built in Framework 0.363.0, not yet tested in game (row 735): the flow
 sheet for land vehicles with a piston engine, in its own window, flow marks a setting that starts off ([As built](#as-built-framework-03630)).
-The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765). Not built: pages for boats, electric and steam,
-cutaways, orders from the page, the standard's line. The missing parts M1 to M3 have records of their
+The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765); the first cutaway, the land page's diesel, in
+Framework 0.374.0 (row 768). Not built: pages for boats, electric and steam, a turbine cutaway, the heat gradient (SC8), orders from
+the page, the standard's line. The missing parts M1 to M3 have records of their
 own, not built: [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
 [the chip detector](vehicle-chip-detector.md).
 
@@ -355,6 +356,23 @@ cutaway; all four chosen, in that order). Not yet tested in game: row 765.
   (`When_IntakeSeparator`), through a node's `shownWhen`. The gearbox and its chip detector show only with a rotor drive.
 - **Not drawn** (agent's choices): a shaft from the turbine to the gearbox (no medium carries it); the side tanks and the cross-feed;
   bleed air; water injection.
+
+## As built: the first cutaway (Framework 0.374.0)
+
+The owner's card of 28 Nov 2026, "The first cutaway". Not yet tested in game: row 768.
+
+- **The land page's engine is one cylinder of an inline diesel in section** (SC2), drawn by `scripts/art/draw_diesel_cutaway.py` (SC7):
+  eight regions (block and head, water jacket, oil, chamber, moving steel, intake, exhaust, fuel) from one list of shapes, each shipped
+  as a white layer with light shading on a clear ground, and an outline worked out from the regions themselves, so they fit exactly.
+  448 by 256 pixels; a plain section, not a drawing of any real engine.
+- **The "white layers" route** (the record's lean): a node's `layers` are drawn in order, fitted without stretching, each tinted as its
+  `tint` says: `Tone` (a node's green, amber or red), `Flow` (its medium's colour while what a node drives works, grey when not, as a
+  pipe is) or `Fixed`. The block takes the engine's tone; the jacket the water pump's flow; the oil the oil pump's; the intake the
+  air filter's; the chamber and the exhaust the engine's own; the fuel the fuel pump's; the piston, rod, crank and valves stay steel.
+- **The pipes were moved to meet the picture's ports** (agent's choice): the air now comes over the top into the intake on the left,
+  the exhaust leaves on the right into the turbocharger (or into the open air without one), the turbocharger's exhaust leaves by its
+  right side, and the coolant leaves the block lower down, between the alternator and the belt, so no two pipes cross.
+- **Not built**: a turbine cutaway for the aircraft page; the heat gradient along a gas path (SC8); a cutaway for every engine kind.
 
 ## Who chose what
 
