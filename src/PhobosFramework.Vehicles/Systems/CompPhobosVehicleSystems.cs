@@ -3860,6 +3860,19 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (!Usable || Vehicle.Faction != Faction.OfPlayer) yield break;
         if (homeBay is { parent.Destroyed: false }) yield return BayGizmos.GoButton(this, homeBay);
+        // The systems schematic on the command bar (Framework 0.378.0; the owner's card of 28 Nov 2026: it "should be much more prominent"),
+        // as well as the Dashboard's button and its own tab: opens or closes this vehicle's page.
+        if (Window_PhobosVehicleSchematic.PageFor(this) != null)
+        {
+            yield return new Command_Toggle
+            {
+                defaultLabel = "PhobosVehicleSystems_ButtonSchematic".Translate(),
+                defaultDesc = "PhobosVehicleSystems_ButtonSchematicDesc".Translate(),
+                icon = SystemIcons.Schematic,
+                isActive = () => Window_PhobosVehicleSchematic.IsOpenFor(this),
+                toggleAction = () => Window_PhobosVehicleSchematic.Toggle(this),
+            };
+        }
         // Framework 0.252.0: a twin's fuel cross-feed.
         if (SideTanks.Applies) yield return SideTanks.Button();
         // A vehicle that won't start: the button sends the nearest colonist with a way to jump-start it (Framework 0.242.0).

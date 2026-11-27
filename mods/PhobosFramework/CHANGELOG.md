@@ -22,6 +22,22 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.378.0] - 2026-11-28 - Draft
+
+The systems schematic, easier to find, with orders and a turbine cutaway
+
+### Added
+
+- **The systems schematic is easier to find** (the owner's card of 28 November 2026: it "should be much more prominent"): a
+  **Systems schematic** button on the command bar whenever one of your vehicles with a page is selected, and a **Schematic** tab beside
+  the Dashboard with a live copy of the page and an **Open large** button. **A lit warning lamp on the Dashboard now opens the
+  schematic** with that part outlined, where the page shows it; any other lamp opens the Systems tab as before. Not yet tested in
+  game: row 775.
+
+### Save compatibility
+
+- Safe for saves: nothing new is saved.
+
 ## [0.377.0] - 2026-11-28 - Draft
 
 Power from a generator set's exhaust

@@ -496,6 +496,7 @@
       "lit on the ground": [{"key": "vehicles.searchlight-lit", "variant": "on the ground"}]}},
     "745": [{"key": "vehicles.galley-caravan", "expect": {"meals": ">= 1"}}],
     "762": [{"key": "aircraft.control-held", "variant": "TakeoffRoll"}],
+    "775": {"parts": {"the Schematic tab": ["vehicles.schematic.tab"], "a lamp opens it at its part": ["vehicles.schematic.from-lamp"]}},
     "768": ["vehicles.schematic.cutaway"],
     "767": ["vehicles.chip-diagnosed"],
     "766": [{"key": "vehicles.partial-restore", "variant": "fuelFilter", "expect": {"before": "> 0"}}],

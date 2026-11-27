@@ -3,9 +3,10 @@
 **Status (28 Nov 2026):** partly built. The first slice is built in Framework 0.363.0, not yet tested in game (row 735): the flow
 sheet for land vehicles with a piston engine, in its own window, flow marks a setting that starts off ([As built](#as-built-framework-03630)).
 The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765); the first cutaway, the land page's diesel, in
-Framework 0.374.0 (row 768). Not built: pages for boats, electric and steam, a turbine cutaway, the heat gradient (SC8), orders from
-the page, the standard's line. The missing parts M1 to M3 have records of their
-own, not built: [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
+Framework 0.374.0 (row 768). Made prominent (a command button, its own tab, warning lamps that open it) in Framework 0.378.0 (row
+775). Not built: pages for boats, electric and steam, a turbine cutaway, the heat gradient (SC8), orders from the page, the
+standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
+[the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
 [the chip detector](vehicle-chip-detector.md).
 
 ## Read this first
@@ -373,6 +374,21 @@ The owner's card of 28 Nov 2026, "The first cutaway". Not yet tested in game: ro
   the exhaust leaves on the right into the turbocharger (or into the open air without one), the turbocharger's exhaust leaves by its
   right side, and the coolant leaves the block lower down, between the alternator and the belt, so no two pipes cross.
 - **Not built**: a turbine cutaway for the aircraft page; the heat gradient along a gas path (SC8); a cutaway for every engine kind.
+
+## As built: made prominent (Framework 0.378.0)
+
+The owner, 28 Nov 2026: the feature "should be much more prominent, than just a small icon in the Dashboard that barely gets any
+notice". By card, of four places offered (a command button, warning lamps that open it, its own tab, a bigger labelled button), the
+first three. Not yet tested in game: row 775.
+
+- **A command button**, "Systems schematic", among the vehicle's own (the schematic's icon), lit while the window is open.
+- **Its own tab**, "Schematic", after the Dashboard: a live copy of the page, without the legend, and **Open large**. The window and the
+  tab draw through one `SchematicPanel`, so they never differ.
+- **A warning lamp opens it** where the page shows the lamp's reading (a node of that system and quantity), outlining the part in
+  steady amber for eight seconds (authored) and lighting it on the vehicle; a lamp the page does not show opens the Systems tab as
+  before, and a part on the page still opens the Systems tab in one click.
+- **The same rule as before for who sees it** (agent's choice): a page for the vehicle's kind, a player's vehicle followed in full,
+  and the Operator or Engineer display mode; the button, the tab and the lamps all follow it.
 
 ## Who chose what
 

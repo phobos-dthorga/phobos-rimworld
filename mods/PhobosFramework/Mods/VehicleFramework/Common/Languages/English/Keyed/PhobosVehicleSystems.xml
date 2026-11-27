@@ -520,6 +520,10 @@
   <PhobosVehicleSystems_ChipCauseOverdue>Likely run long past its service.</PhobosVehicleSystems_ChipCauseOverdue>
   <PhobosVehicleSystems_ChipCauseWear>Wear inside it; nothing else stands out.</PhobosVehicleSystems_ChipCauseWear>
   <PhobosVehicleSystems_SchematicTitle>{VEHICLE}: systems</PhobosVehicleSystems_SchematicTitle>
+  <!-- Framework 0.378.0: the schematic's own tab. -->
+  <PhobosVehicleSystems_TabSchematic>Schematic</PhobosVehicleSystems_TabSchematic>
+  <PhobosVehicleSystems_SchematicTabOpen>Open large</PhobosVehicleSystems_SchematicTabOpen>
+  <PhobosVehicleSystems_SchematicTabClose>Close the large one</PhobosVehicleSystems_SchematicTabClose>
   <PhobosVehicleSystems_SchematicEngineTab>Engine {NUMBER}</PhobosVehicleSystems_SchematicEngineTab>
   <PhobosVehicleSystems_SchematicRunning>Engine running</PhobosVehicleSystems_SchematicRunning>
   <PhobosVehicleSystems_SchematicEngineOff>Engine off: nothing flows</PhobosVehicleSystems_SchematicEngineOff>

@@ -181,8 +181,11 @@ public class ITab_VehicleDashboard : ITab
                 if (stage == null || !stage.notable) continue;
                 string label = state.Def.quantities[q].label.CapitalizeFirst() + ": " + stage.label;
                 SystemState lit = state;
-                Light(StageColour(stage), label, SystemIcons.IfExists(state.Def.quantities[q].telltale), () => OpenSystem(comp, lit, mode, onWorld),
-                    state.Def.quantities[q].description);
+                // Framework 0.378.0 (the owner's card of 28 Nov 2026): a lamp whose reading the schematic shows opens it there, the part outlined;
+                // any other opens the Systems tab, as before. The schematic's part still opens the Systems tab in one click.
+                string? node = Window_PhobosVehicleSchematic.NodeShowing(comp, state.Def, state.Def.quantities[q].name);
+                System.Action clicked = node != null ? () => Window_PhobosVehicleSchematic.OpenAt(comp, node) : () => OpenSystem(comp, lit, mode, onWorld);
+                Light(StageColour(stage), label, SystemIcons.IfExists(state.Def.quantities[q].telltale), clicked, state.Def.quantities[q].description);
             }
         }
         if (anyLight) y += rowHeight + 6f;
