@@ -12,13 +12,27 @@ the loadouts that name them are checked too (Framework 0.11.0), and part conditi
 severity of 0 to 1, their effects as a system's, and every rule, cause and service that names one. Another mod's
 own classes (outside Phobos.VehicleSystems) are taken on trust. Exit code 1 when anything is wrong; warnings alone exit 0.
 The schema itself is documented in docs/vehicle-systems-modding.md.
+
+Another author's mod, from a copy of this one file (Python 3.9 or newer, nothing else to install):
+
+    python check-vehicle-schemas.py --mod FOLDER [--mod FOLDER ...] [--ours FOLDER ...] [--json]
+
+checks that mod's Defs and patches (every game version and load folder it has) against our Defs, as read from --ours: a mod
+folder of ours, or a folder holding them (the game's Mods folder, or Steam's workshop/content/294100); by default this
+repository's mods/, else Steam's usual places. Its loadouts may inherit ours, and its patches are applied to ours first. On top
+of the checks above, every element inside one of our classes, anywhere in its Defs, is checked against the class's fields as our
+assemblies declare them (names, numbers, true or false, enum values). Each finding names the file, the line, the Def and what to
+do. The run over mods/ is skipped then, and its findings about our own files are left out unless the mod changes them.
 """
 import argparse
 import copy
+import difflib
 import json
 import re
 import sys
+from collections import Counter
 import xml.etree.ElementTree as ET
+import xml.parsers.expat as expat
 from pathlib import Path
 
 SYSTEM_TAG = 'Phobos.VehicleSystems.PhobosVehicleSystemDef'
@@ -123,24 +137,43 @@ def number(element, tag, default):
         return None
 
 
+def figure(element, tag, default, where, errors):
+    """A number from the Def, or the default and an error when its text is no number (rather than stopping the whole check)."""
+    value = number(element, tag, default)
+    if value is None:
+        errors.append(f'{where}: <{tag}> is not a number ({text(element, tag)})')
+        return default
+    return value
+
+
 def check_drivetrain(node, where, errors):
     # What the Def's own ConfigErrors says, before the game does, plus the turbine's ladder and water.
     engine = node.find('engine') if node.find('engine') is not None else ET.Element('engine')
     transmission = node.find('transmission') if node.find('transmission') is not None else ET.Element('transmission')
     kind = text(engine, 'kind', 'Piston')
     if text(transmission, 'kind', 'Automatic') == 'Automatic':
-        gears = [float(li.text) for li in items(transmission, 'gears')]
+        gears = []
+        for li in items(transmission, 'gears'):
+            try:
+                gears.append(float(li.text))
+            except (TypeError, ValueError):
+                errors.append(f'{where}: a gear ratio is not a number ({li.text})')
         if not gears:
             errors.append(f'{where}: an automatic transmission has no gears')
         if any(b >= a for a, b in zip(gears, gears[1:])):
             errors.append(f'{where}: gears must fall from first to top')
-        if number(transmission, 'upshiftRpm', 2400) <= number(transmission, 'downshiftRpm', 1300):
+        if figure(transmission, 'upshiftRpm', 2400, where, errors) <= figure(transmission, 'downshiftRpm', 1300, where, errors):
             errors.append(f'{where}: the upshift rpm must be above the downshift rpm')
-    if kind == 'Piston' and not (number(engine, 'idleRpm', 700) <= number(engine, 'launchRpm', 1100) <= number(engine, 'ratedRpm', 3000)):
+    if kind == 'Piston' and not (figure(engine, 'idleRpm', 700, where, errors) <= figure(engine, 'launchRpm', 1100, where, errors)
+                                 <= figure(engine, 'ratedRpm', 3000, where, errors)):
         errors.append(f'{where}: the launch rpm must lie between idle and rated')
     curve = items(engine.find('torqueCurve'), 'points') if engine.find('torqueCurve') is not None else []
-    if curve and float(curve[-1].text.strip().strip('()').split(',')[1]) != 0:
-        errors.append(f'{where}: the torque curve must end at zero')
+    if curve:
+        try:
+            if float(curve[-1].text.strip().strip('()').split(',')[1]) != 0:
+                errors.append(f'{where}: the torque curve must end at zero')
+        except (AttributeError, IndexError, ValueError):
+            errors.append(f'{where}: a torque curve point is not written (rpm, torque) ({curve[-1].text})')
     if text(transmission, 'kind', 'Automatic') == 'DieselElectric':
         most = number(transmission, 'maxTractiveEffortKilonewtons', 0)
         held = number(transmission, 'continuousTractiveEffortKilonewtons', 0)
@@ -159,16 +192,16 @@ def check_drivetrain(node, where, errors):
         errors.append(f'{where}: a turbine has no ratings')
         return
     for below, above in zip(ratings, ratings[1:]):
-        if number(above, 'share', 1) <= number(below, 'share', 1) or number(above, 'temperatureLimit', 775) < number(below, 'temperatureLimit', 775):
+        if figure(above, 'share', 1, where, errors) <= figure(below, 'share', 1, where, errors)                 or figure(above, 'temperatureLimit', 775, where, errors) < figure(below, 'temperatureLimit', 775, where, errors):
             errors.append(f'{where}: turbine ratings must rise in share and temperature ({text(below, "name")} to {text(above, "name")})')
-        if number(above, 'minutes', 0) <= 0:
+        if figure(above, 'minutes', 0, where, errors) <= 0:
             errors.append(f'{where}: the rating {text(above, "name")} above maximum continuous needs a time limit in minutes')
     wet = [r for r in ratings if text(r, 'wet') == 'true']
     if len(wet) > 1:
         errors.append(f'{where}: more than one wet rating')
     if bool(wet) != (turbine.find('waterInjection') is not None):
         errors.append(f'{where}: a wet rating and a water injection block go together')
-    thrust = [number(r, 'thrustKilonewtons', 0) > 0 for r in ratings]
+    thrust = [figure(r, 'thrustKilonewtons', 0, where, errors) > 0 for r in ratings]
     if any(thrust) and not all(thrust):
         errors.append(f'{where}: give every rating a thrust, or none')
 
@@ -183,7 +216,7 @@ def check_effects(element, where, classes, keys, all_quantities, roles, errors, 
     """The classes, quantities, roles and translation keys named inside a system's or a condition's stages."""
     for node in walk_classes(element):
         cls = node.attrib['Class']
-        if cls.startswith(OUR_NAMESPACE) and cls[len(OUR_NAMESPACE):] not in classes:
+        if classes is not None and cls.startswith(OUR_NAMESPACE) and cls[len(OUR_NAMESPACE):] not in classes:
             errors.append(f'{where}: no class {cls}')
         quantity = text(node, 'quantity')
         if quantity is not None and quantity not in all_quantities:
@@ -205,7 +238,12 @@ def check_condition_name(name, conditions, where, what, errors):
 
 def check(root):
     resolved, keys = gather(root)
-    classes = our_classes(root)
+    return check_defs(resolved, keys, our_classes(root))
+
+
+def check_defs(resolved, keys, classes):
+    """The checks themselves, over Defs already gathered and resolved: classes is the set of our class names (after
+    Phobos.VehicleSystems.), or None when they are unknown and every class is taken on trust."""
     errors, warnings = [], []
     systems = {}
     conditions = {}
@@ -223,8 +261,8 @@ def check(root):
             errors.append(f'{where}: a condition needs at least one stage')
         previous_top = float('-inf')
         for stage in stages:
-            bottom = float(text(stage, 'from', '0'))
-            top = float(text(stage, 'to', '1'))
+            bottom = figure(stage, 'from', 0.0, where, errors)
+            top = figure(stage, 'to', 1.0, where, errors)
             if top <= bottom or bottom < previous_top:
                 errors.append(f'{where}: stages overlap or are out of order')
             if not (0 <= bottom <= 1 and 0 <= top <= 1):
@@ -254,8 +292,8 @@ def check(root):
             quantities[qname] = quantity.find('derivedFrom') is not None
             previous_top = float('-inf')
             for stage in items(quantity, 'stages'):
-                bottom = float(text(stage, 'from', '-inf'))
-                top = float(text(stage, 'to', 'inf'))
+                bottom = figure(stage, 'from', float('-inf'), where, errors)
+                top = figure(stage, 'to', float('inf'), where, errors)
                 if top <= bottom or bottom < previous_top:
                     errors.append(f'{where}: {qname}\'s stages overlap or are out of order')
                 previous_top = top
@@ -365,7 +403,7 @@ def check(root):
             errors.append(f'{where}: phases but no reader to tell them apart')
         if reader is not None:
             cls = reader.attrib.get('Class', '')
-            if cls.startswith(OUR_NAMESPACE) and cls[len(OUR_NAMESPACE):] not in classes:
+            if classes is not None and cls.startswith(OUR_NAMESPACE) and cls[len(OUR_NAMESPACE):] not in classes:
                 errors.append(f'{where}: no class {cls}')
             for rule in items(reader, 'rules'):
                 if text(rule, 'phase') not in phases:
@@ -407,7 +445,7 @@ def check(root):
                 cells_of = text(add, 'cellsOf')
                 if cells_of is not None and cells_of not in {text(r, 'role') for r in items(node, 'partRoles')}:
                     errors.append(f'{where}: the part added for {role_name} takes cells from the unbound role {cells_of}')
-                if int(text(add, 'health', '20')) <= 0:
+                if figure(add, 'health', 20, where, errors) <= 0:
                     errors.append(f'{where}: the part added for {role_name} has no health')
                 ce_weight = number(add, 'hitWeightCE', 1)
                 if ce_weight is None or ce_weight <= 0:
@@ -452,17 +490,835 @@ def check(root):
                 errors.append(f'{where}: When_LoadActive names a load this loadout does not have ({text(element, "load")})')
         for element in walk_classes(node):
             cls = element.attrib['Class']
-            if cls.startswith(OUR_NAMESPACE) and cls[len(OUR_NAMESPACE):] not in classes:
+            if classes is not None and cls.startswith(OUR_NAMESPACE) and cls[len(OUR_NAMESPACE):] not in classes:
                 errors.append(f'{where}: no class {cls}')
     return {'systems': sorted(systems), 'loadouts': sorted(loadouts), 'drivetrains': sorted(drivetrains), 'profiles': sorted(profiles),
             'conditions': sorted(conditions), 'errors': errors, 'warnings': warnings}
+
+
+# --- Another author's mod (--mod), checked against D'thorga's own Defs and assemblies (--ours), without the game -------------
+#
+# A modder runs this one file with Python 3.9 or newer and nothing else installed. D'thorga's Defs come from our mods' folders
+# (this repository's mods/, or an installed copy: the game's Mods folder or Steam's Workshop folder), each read through its
+# LoadFolders.xml as the game does. Our classes and their fields come from the assemblies those folders ship, read straight from
+# their .NET metadata, so no source and no .NET are needed. The modder's mod is read once per game version it has a folder for.
+
+LINE = '{urn:dthorga-check}line'  # the line an element starts on, kept through inheritance and patches
+FROM = '{urn:dthorga-check}from'  # the patch file an element was copied in from
+OUR_PACKAGE_PREFIX = 'phobosdthorga.'
+SCHEMA_TAGS = (SYSTEM_TAG, LOADOUT_TAG, DRIVETRAIN_TAG, PROFILE_TAG, CONDITION_TAG)
+KINDS = {SYSTEM_TAG: 'system', LOADOUT_TAG: 'loadout', DRIVETRAIN_TAG: 'drivetrain', PROFILE_TAG: 'flight profile',
+         CONDITION_TAG: 'condition'}
+# Where Steam puts the game and its Workshop items by default (a mod in the game's own Mods folder first, as one copied there
+# by hand is usually the newer); --ours names any other place.
+DEFAULT_OUR_PLACES = ('C:/Program Files (x86)/Steam/steamapps/common/RimWorld/Mods',
+                      'C:/Program Files (x86)/Steam/steamapps/workshop/content/294100')
+# Verse.Def's fields (RimWorld 1.7), the base of every Def; its own assembly is the game's, which this check never reads.
+STRING, BOOL = ('prim', 'string'), ('prim', 'bool')
+DEF_FIELDS = {'defName': STRING, 'label': STRING, 'description': STRING, 'descriptionHyperlinks': ('other', None),
+              'ignoreConfigErrors': BOOL, 'ignoreIllegalLabelCharacterConfigError': BOOL,
+              'modExtensions': ('list', ('type', 'Verse.DefModExtension')), 'shortHash': ('prim', 'int'), 'index': ('prim', 'int'),
+              'modContentPack': ('other', None), 'fileName': STRING, 'defNameHash': ('prim', 'int'),
+              'cachedLabelCap': ('other', None), 'generated': BOOL, 'debugRandomId': ('prim', 'int')}
+KNOWN_BASES = {'System.Object': {}, 'System.ValueType': {}, 'Verse.Def': DEF_FIELDS, 'Verse.Editable': {}}
+
+# What to do about each finding, matched by the words it contains; the first match wins.
+FIXES = (
+    ('not well-formed XML', 'Fix the XML at that line: a tag left open or misspelt at one end, or a bare < or & (write &lt; or &amp;).'),
+    ('is not a field of', 'Check the spelling against the reference site\'s XML types page; a field the class does not have is ignored with an error at load.'),
+    ('needs a Class', 'Name the class to make, in full: Class="Phobos.VehicleSystems.<the class>" (the guide\'s tables list them).'),
+    ('no class ', 'Check the class name against the guide\'s tables. A class of your own goes in your own namespace, never Phobos.VehicleSystems.'),
+    ('no Def type', 'Check the Def type against the guide: it is named in full, e.g. Phobos.VehicleSystems.PhobosVehicleLoadoutDef.'),
+    ('is not a number', 'Write a plain number with a dot for decimals (1500 or 0.25), with no units or commas.'),
+    ('is not a whole number', 'Write a whole number with no decimals, units or commas.'),
+    ('is not true or false', 'Write true or false.'),
+    ('is not one of', 'Use one of the values listed, spelt exactly.'),
+    ('ParentName', 'Check the spelling of ParentName against the Name="..." of the Def you mean to inherit; D\'thorga\'s abstract Defs are listed in the guide.'),
+    ('replaces D\'thorga', 'If you meant to change our Def, a patch changes only what you name and keeps up with our updates; if not, give yours a defName with your own prefix.'),
+    ('changes nothing', 'Check the xpath\'s Def type and defName against the Def you mean; a patch that finds nothing is an error at load. Add <success>Always</success> only if it is meant to be optional.'),
+    ('not followed', 'Nothing to fix: this check cannot follow that patch, so it did not check what the patch adds. The game\'s log will show any error.'),
+    ('defined twice', 'Give each Def its own defName: within one mod the game keeps the first and skips the rest.'),
+    ('no defName', 'Give the Def a <defName>, beginning with your mod\'s own prefix.'),
+    ('bound twice', 'Bind each role once in <partRoles>. If you inherit a loadout that binds it already, write <partRoles Inherit="False"> and list them all, or leave yours out.'),
+    ('binds to nothing', 'Bind the role in <partRoles> to one of the vehicle\'s parts, or add a part for it; if the vehicle really has no such part, leave it: the system treats it as sound.'),
+    ('which <roles> does not list', 'Add the role to the system\'s <roles>, or check its spelling.'),
+    ('injectionWater', 'Add a system holding an injectionWater quantity (D\'thorga\'s turbine water system does), or drop the water injection.'),
+    ('quantity', 'Use the name of a quantity a system declares in its <quantities>; check the spelling.'),
+    ('no system ', 'Use the defName of a system Def, yours or D\'thorga\'s; check the spelling.'),
+    ('has no parameter', 'A loadout\'s <set> can change only the parameters the system declares in its <parameters>; check the spelling.'),
+    ('undeclared parameter', 'Declare the parameter in the system\'s <parameters> with a default, or check its spelling.'),
+    ('no drivetrain', 'Use the defName of a drivetrain Def, yours or D\'thorga\'s.'),
+    ('no flight profile', 'Use the defName of a flight profile Def, yours or D\'thorga\'s.'),
+    ('translation key', 'Add the key to your mod\'s Languages/English/Keyed files, or use one D\'thorga ships.'),
+    ('condition', 'Use the defName of a condition Def, and give the rule a severity above 0.'),
+    ('out of order', 'List stages from lowest to highest, each <from> no lower than the <to> before it.'),
+    ('has no label', 'Give every stage a <label>.'),
+    ('key or a repeated one', 'Give each appended part its own <key>.'),
+    ('cells from the unbound role', 'Name a role this loadout binds in <cellsOf>.'),
+    ('without the turbine system', 'Add PhobosVehicleSystem_Turbine to the loadout\'s <systems>.'),
+    ('', 'Change the Def as the message says.'),
+)
+
+
+def fix_for(problem):
+    return next(advice for words, advice in FIXES if words in problem)
+
+
+def parse_lines(path):
+    """An XML file as ElementTree reads it, each element also holding the line it starts on (under LINE)."""
+    builder = ET.TreeBuilder()
+    parser = expat.ParserCreate()
+
+    def start(tag, attributes):
+        attributes = dict(attributes)
+        attributes[LINE] = str(parser.CurrentLineNumber)
+        builder.start(tag, attributes)
+
+    parser.StartElementHandler = start
+    parser.EndElementHandler = builder.end
+    parser.CharacterDataHandler = builder.data
+    with open(path, 'rb') as stream:
+        parser.ParseFile(stream)
+    return builder.close()
+
+
+def line_of(element):
+    value = element.attrib.get(LINE)
+    return int(value) if value else None
+
+
+# --- .NET metadata: our assemblies' types, fields and enums (ECMA-335 partition II, sections 22 to 24) ---------------------
+
+PRIMITIVES = {0x02: 'bool', 0x03: 'char', 0x04: 'int', 0x05: 'int', 0x06: 'int', 0x07: 'int', 0x08: 'int', 0x09: 'int', 0x0A: 'int',
+              0x0B: 'int', 0x0C: 'float', 0x0D: 'float', 0x0E: 'string', 0x18: 'int', 0x19: 'int', 0x1C: 'object'}
+
+
+def _compressed(data, at):
+    first = data[at]
+    if first & 0x80 == 0:
+        return first, at + 1
+    if first & 0xC0 == 0x80:
+        return ((first & 0x3F) << 8) | data[at + 1], at + 2
+    return ((first & 0x1F) << 24) | (data[at + 1] << 16) | (data[at + 2] << 8) | data[at + 3], at + 4
+
+
+def read_assembly_types(path):
+    """The types an assembly defines, from its metadata tables: full name, base type, instance fields with their types, enum
+    members, and whether the type reads its own XML (LoadDataFromXmlCustom). An empty dict for a file that is no .NET assembly."""
+    data = Path(path).read_bytes()
+
+    def u16(at):
+        return int.from_bytes(data[at:at + 2], 'little')
+
+    def u32(at):
+        return int.from_bytes(data[at:at + 4], 'little')
+
+    try:
+        pe = u32(0x3C)
+        if data[:2] != b'MZ' or data[pe:pe + 4] != b'PE\0\0':
+            return {}
+        optional, optional_size = pe + 24, u16(pe + 20)
+        directories = optional + (96 if u16(optional) == 0x10B else 112)
+        cli = u32(directories + 14 * 8)
+        if not cli:
+            return {}
+        table = optional + optional_size
+        sections = [(u32(at + 12), max(u32(at + 8), u32(at + 16)), u32(at + 20)) for at in range(table, table + 40 * u16(pe + 6), 40)]
+
+        def offset(rva):
+            return next(rva - start + raw for start, size, raw in sections if start <= rva < start + size)
+
+        meta = offset(u32(offset(cli) + 8))
+        if data[meta:meta + 4] != b'BSJB':
+            return {}
+        length = u32(meta + 12)
+        streams, at = {}, meta + 20 + length
+        for _ in range(u16(meta + 18 + length)):
+            end = data.index(b'\0', at + 8)
+            streams[data[at + 8:end].decode('ascii')] = meta + u32(at)
+            at += 8 + ((end - at - 8) // 4 + 1) * 4
+        tables = streams.get('#~', streams.get('#-'))
+        heaps, valid = data[tables + 6], int.from_bytes(data[tables + 8:tables + 16], 'little')
+        rows, at = [0] * 64, tables + 24
+        for number_ in range(64):
+            if valid >> number_ & 1:
+                rows[number_], at = u32(at), at + 4
+        string_size, guid_size, blob_size = (4 if heaps & bit else 2 for bit in (1, 2, 4))
+
+        def index_size(of):
+            return 4 if rows[of] > 0xFFFF else 2
+
+        def coded_size(of, bits):
+            return 4 if max(rows[t] for t in of) >= 1 << (16 - bits) else 2
+
+        type_ref = coded_size((2, 1, 0x1B), 2)
+        widths = [[2, string_size, guid_size, guid_size, guid_size],                     # Module
+                  [coded_size((0, 0x1A, 0x23, 1), 2), string_size, string_size],          # TypeRef
+                  [4, string_size, string_size, type_ref, index_size(4), index_size(6)],  # TypeDef
+                  [index_size(4)],                                                        # FieldPtr
+                  [2, string_size, blob_size],                                            # Field
+                  [index_size(6)],                                                        # MethodPtr
+                  [4, 2, 2, string_size, blob_size, index_size(8)]]                       # MethodDef
+        starts = []
+        for number_, width in enumerate(widths):
+            starts.append(at)
+            at += rows[number_] * sum(width)
+
+        def row(of, index):
+            at_ = starts[of] + (index - 1) * sum(widths[of])
+            values = []
+            for width in widths[of]:
+                values.append(u16(at_) if width == 2 else u32(at_))
+                at_ += width
+            return values
+
+        def string(index):
+            start = streams['#Strings'] + index
+            return data[start:data.index(b'\0', start)].decode('utf-8', 'replace')
+
+        def blob(index):
+            size, start = _compressed(data, streams['#Blob'] + index)
+            return data[start:start + size]
+
+        definitions = [row(2, i) for i in range(1, rows[2] + 1)]
+
+        def full_name(name, namespace):
+            return f'{string(namespace)}.{string(name)}' if string(namespace) else string(name)
+
+        def definition_name(index):
+            # A nested type has no namespace of its own and may share its name with another: it gets a key of its own,
+            # after '#', which no Class attribute can name.
+            flags, name, namespace = definitions[index - 1][:3]
+            return f'{string(name)}#{Path(path).stem}:{index}' if flags & 7 >= 2 else full_name(name, namespace)
+
+        def coded(value):
+            tag, index = value & 3, value >> 2
+            if index == 0:
+                return None
+            if tag == 0:
+                return definition_name(index)
+            if tag == 1:
+                return full_name(*row(1, index)[1:3])
+            return '<generic>'
+
+        def signature_type(signature, at_):
+            kind = signature[at_]
+            at_ += 1
+            while kind in (0x1F, 0x20):  # custom modifiers
+                at_ = _compressed(signature, at_)[1]
+                kind, at_ = signature[at_], at_ + 1
+            if kind in PRIMITIVES:
+                return ('prim', PRIMITIVES[kind]), at_
+            if kind in (0x11, 0x12):
+                value, at_ = _compressed(signature, at_)
+                return ('type', coded(value)), at_
+            if kind == 0x15:
+                value, at_ = _compressed(signature, at_ + 1)
+                generic = coded(value)
+                count, at_ = _compressed(signature, at_)
+                arguments = []
+                for _ in range(count):
+                    argument, at_ = signature_type(signature, at_)
+                    arguments.append(argument)
+                if generic == 'System.Collections.Generic.List`1':
+                    return ('list', arguments[0]), at_
+                return ('other', generic), at_
+            if kind == 0x1D:
+                inner, at_ = signature_type(signature, at_)
+                return ('list', inner), at_
+            return ('other', None), len(signature)
+
+        def field_row(index):
+            return row(4, row(3, index)[0] if rows[3] else index)
+
+        def method_row(index):
+            return row(6, row(5, index)[0] if rows[5] else index)
+
+        types = {}
+        field_count, method_count = rows[3] or rows[4], rows[5] or rows[6]
+        for number_, (flags, name, namespace, extends, first_field, first_method) in enumerate(definitions):
+            following = definitions[number_ + 1] if number_ + 1 < len(definitions) else None
+            last_field = following[4] if following else field_count + 1
+            last_method = following[5] if following else method_count + 1
+            fields, members = {}, []
+            for index in range(first_field, last_field):
+                field_flags, field_name, field_signature = field_row(index)
+                label = string(field_name)
+                if field_flags & 0x10:  # static: an enum's members are its static literal fields
+                    if field_flags & 0x40:
+                        members.append(label)
+                    continue
+                if '<' not in label:
+                    fields[label] = signature_type(blob(field_signature), 1)[0]
+            methods = {string(method_row(index)[3]) for index in range(first_method, last_method)}
+            base = coded(extends)
+            types[definition_name(number_ + 1)] = {
+                'base': base, 'fields': fields, 'members': members, 'custom': 'LoadDataFromXmlCustom' in methods,
+                'enum': base == 'System.Enum', 'abstract': bool(flags & 0xA0)}  # abstract or an interface
+        return types
+    except (IndexError, KeyError, StopIteration, TypeError, ValueError):
+        return {}
+
+
+class TypeIndex:
+    """Our classes, from our assemblies: which exist, what fields the game would fill from XML, and what each field holds."""
+
+    def __init__(self, types, assemblies=()):
+        self.types = types
+        self.assemblies = list(assemblies)
+        self.namespaces = {name.rsplit('.', 1)[0] for name in types if '.' in name and name.startswith('Phobos')}
+
+    @classmethod
+    def from_assemblies(cls, paths):
+        types, read = {}, []
+        for path in paths:
+            found = read_assembly_types(path)
+            if found:
+                read.append(path)
+                types.update(found)
+        return cls(types, read) if types else None
+
+    def ours(self, class_name):
+        return '+' not in class_name and class_name.rsplit('.', 1)[0] in self.namespaces
+
+    def fields(self, name):
+        """Every field of the type and the types it is built on, and whether that list is known to be complete."""
+        fields, seen = {}, set()
+        while name is not None and name not in seen:
+            seen.add(name)
+            if name in KNOWN_BASES:
+                for field, kind in KNOWN_BASES[name].items():
+                    fields.setdefault(field, kind)
+                return fields, True
+            info = self.types.get(name)
+            if info is None or info['custom']:
+                return fields, False
+            for field, kind in info['fields'].items():
+                fields.setdefault(field, kind)
+            name = info['base']
+        return fields, name is None
+
+    def schema_classes(self):
+        return {name[len(OUR_NAMESPACE):] for name in self.types if name.startswith(OUR_NAMESPACE)}
+
+
+def short(type_name):
+    return (type_name or '').split('#')[0].rsplit('.', 1)[-1]
+
+
+def check_value(element, kind, index, report):
+    """One element's value against the field it fills: a number, a true or false, an enum's value, or an object of ours whose
+    own fields are then checked in turn."""
+    if element.attrib.get('IsNull') == 'True':
+        return
+    class_name = element.attrib.get('Class')
+    if class_name is not None:
+        if class_name in index.types:
+            check_object(element, class_name, index, report)
+        elif index.ours(class_name):
+            report(element, f'no class {class_name}')
+        return
+    what, of = kind
+    value = (element.text or '').strip()
+    if what == 'prim':
+        if len(element) or not value:
+            return
+        if of == 'float':
+            try:
+                float(value)
+            except ValueError:
+                report(element, f'<{element.tag}> is not a number ({value})')
+        elif of == 'int' and not re.fullmatch(r'[+-]?\d+', value):
+            report(element, f'<{element.tag}> is not a whole number ({value})')
+        elif of == 'bool' and value.lower() not in ('true', 'false'):
+            report(element, f'<{element.tag}> is not true or false ({value})')
+    elif what == 'list':
+        for li in element:
+            if li.tag == 'li':
+                check_value(li, of, index, report)
+    elif what == 'type' and of in index.types:
+        info = index.types[of]
+        if info['enum']:
+            members = info['members']
+            wrong = [part.strip() for part in value.split(',') if part.strip() and part.strip() not in members
+                     and not re.fullmatch(r'-?\d+', part.strip())]
+            if value and not len(element) and wrong:
+                report(element, f'<{element.tag}> {", ".join(wrong)} is not one of: {", ".join(members)}')
+        elif info['abstract']:
+            report(element, f'<{element.tag}> needs a Class: {short(of)} is only a base for other classes')
+        else:
+            check_object(element, of, index, report)
+
+
+def check_object(element, type_name, index, report):
+    """Every child element names a field of the class, and holds what that field can take."""
+    info = index.types.get(type_name)
+    if info is None or info['custom']:
+        return
+    fields, complete = index.fields(type_name)
+    for child in element:
+        if not isinstance(child.tag, str) or child.tag == 'li':
+            continue
+        kind = fields.get(child.tag)
+        if kind is None:
+            if complete:
+                near = difflib.get_close_matches(child.tag, list(fields), n=1) or \
+                    [name for name in fields if name.lower() == child.tag.lower()]
+                hint = f' (did you mean <{near[0]}>?)' if near else ''
+                report(child, f'<{child.tag}> is not a field of {short(type_name)}{hint}')
+            continue
+        check_value(child, kind, index, report)
+
+
+def check_fields(node, index, report):
+    """A whole Def: its own fields when it is one of our Def types, else every object of ours placed inside it."""
+    if node.tag in index.types:
+        check_object(node, node.tag, index, report)
+        return
+    if index.ours(node.tag):
+        report(node, f'no Def type {node.tag}')
+        return
+    for element in node.iter():
+        class_name = element.attrib.get('Class')
+        if class_name and (class_name in index.types or index.ours(class_name)):
+            check_value(element, ('other', None), index, report)
+
+
+# --- Reading mods ----------------------------------------------------------------------------------------------------------
+
+def package_id(folder):
+    try:
+        return (ET.parse(Path(folder, 'About', 'About.xml')).getroot().findtext('packageId') or '').strip()
+    except (OSError, ET.ParseError):
+        return ''
+
+
+def version_key(version):
+    return tuple(int(part) for part in re.findall(r'\d+', version))
+
+
+def load_sets(folder):
+    """Each game version's load folders, as the game picks them: LoadFolders.xml when the mod has one (every folder it lists,
+    whatever mods it waits for), else the mod's root, Common and that version's folder."""
+    folder, sets = Path(folder), {}
+    listing = folder / 'LoadFolders.xml'
+    if listing.exists():
+        try:
+            for version in ET.parse(listing).getroot():
+                paths = [(li.text or '').strip().strip('/\\') for li in version.findall('li')]
+                sets[version.tag.lstrip('vV')] = [folder / path if path else folder for path in paths]
+        except ET.ParseError:
+            sets = {}
+    if not sets:
+        base = [folder] + ([folder / 'Common'] if (folder / 'Common').is_dir() else [])
+        versions = sorted((d.name for d in folder.iterdir() if d.is_dir() and re.fullmatch(r'\d+\.\d+', d.name)), key=version_key)
+        sets = {version: base + [folder / version] for version in versions} or {'': base}
+    return sets
+
+
+def folder_files(folders):
+    found = []
+    for folder in folders:
+        for sub in ('Defs', 'Patches'):
+            found += sorted(Path(folder, sub).rglob('*.xml'))
+        found += sorted(Path(folder, 'Languages').glob('*/Keyed/**/*.xml'))
+    return list(dict.fromkeys(found))
+
+
+class ModFiles:
+    """One mod's Def nodes, patches and translation keys for one game version, each Def with the file it came from."""
+
+    def __init__(self, folder, label, folders):
+        self.folder, self.label = Path(folder), label
+        self.defs, self.patches, self.keys, self.problems = [], [], set(), []
+        for path in folder_files(folders):
+            source = f'{label}/{path.relative_to(self.folder).as_posix()}'
+            try:
+                tree = parse_lines(path)
+            except expat.ExpatError as error:
+                self.problems.append(finding('error', source, error.lineno, None, None,
+                                             f'the file is not well-formed XML ({expat.ErrorString(error.code)})'))
+                continue
+            if 'Keyed' in path.relative_to(self.folder).parts:
+                self.keys.update(child.tag for child in tree)
+            elif tree.tag == 'Defs':
+                self.defs += [(node, source) for node in tree if isinstance(node.tag, str)]
+            elif tree.tag == 'Patch':
+                self.patches.append((tree, source))
+
+
+def finding(severity, file, line, def_name, kind, problem):
+    return {'severity': severity, 'file': file, 'line': line, 'def': def_name, 'kind': kind, 'problem': problem,
+            'fix': fix_for(problem)}
+
+
+def find_our_mods(places, exclude=()):
+    """Our mods among these folders: a mod folder of ours, or every mod of ours in a folder of mods (the game's Mods folder,
+    Steam's Workshop folder or this repository's mods/)."""
+    exclude = {Path(p).resolve() for p in exclude}
+    found, packages = [], set()
+    for place in map(Path, places):
+        candidates = [place] if (place / 'About' / 'About.xml').exists() else \
+            sorted(child for child in place.iterdir() if child.is_dir()) if place.is_dir() else []
+        for folder in candidates:
+            package = package_id(folder).lower()
+            if package.startswith(OUR_PACKAGE_PREFIX) and package not in packages and folder.resolve() not in exclude:
+                found.append(folder)
+                packages.add(package)  # one copy of each mod, the first found, as the game loads one
+    return found
+
+
+class Ours:
+    """D'thorga's Defs, keys and assemblies, from our mods' newest version folders."""
+
+    def __init__(self, folders, root=None):
+        self.folders = list(folders)
+        self.mods, dlls = [], []
+        for folder in self.folders:
+            sets = load_sets(folder)
+            newest = max(sets, key=version_key)
+            label = folder.name if not folder.name.isdigit() else (package_id(folder) or folder.name)
+            self.mods.append(ModFiles(folder, label, sets[newest]))
+            for load_folder in sets[newest]:
+                dlls += sorted(Path(load_folder, 'Assemblies').glob('*.dll'))
+        self.index = TypeIndex.from_assemblies(list(dict.fromkeys(dlls)))
+        self.keys = set().union(*(mod.keys for mod in self.mods)) if self.mods else set()
+        if self.index is not None:
+            self.classes, self.classes_from = self.index.schema_classes(), f'{len(self.index.assemblies)} assemblies'
+        elif root is not None and Path(root, SCHEMA_SOURCE).is_dir():
+            self.classes, self.classes_from = our_classes(root), 'the source'
+        else:
+            self.classes, self.classes_from = None, None
+
+
+def xpath_targets(document, xpath):
+    """What an xpath selects in the combined Defs, or None when it uses XPath this check cannot follow."""
+    path = (xpath or '').strip()
+    if not path or '|' in path or re.search(r'\w\(', path):
+        return None
+    if path.startswith('//'):
+        path = './/' + path[2:]
+    else:
+        path = path.lstrip('/')
+        if path == 'Defs':
+            return [document]
+        if not path.startswith('Defs/'):
+            return None
+        path = './' + path[5:]
+    try:
+        return document.findall(path)
+    except (SyntaxError, KeyError, TypeError):
+        return None
+
+
+class Patcher:
+    """The mod's patch operations applied to the combined Defs as the game applies them, so far as ElementTree's XPath can
+    follow them; anything that names our Defs and cannot be followed becomes a note."""
+
+    SIMPLE = {'PatchOperationAdd', 'PatchOperationInsert', 'PatchOperationRemove', 'PatchOperationReplace',
+              'PatchOperationAttributeSet', 'PatchOperationAttributeAdd', 'PatchOperationAttributeRemove'}
+
+    def __init__(self, document, names):
+        self.document, self.names = document, names
+        self.touched, self.findings = {}, []
+
+    def mentions_ours(self, xpath):
+        return bool(xpath) and ('Phobos.VehicleSystems' in xpath or any(f'"{name}"' in xpath or f"'{name}'" in xpath for name in self.names))
+
+    def apply(self, patch, source):
+        for operation in patch:
+            if isinstance(operation.tag, str) and operation.tag == 'Operation':
+                self.run(operation, source)
+
+    def run(self, operation, source):
+        kind = operation.attrib.get('Class', '').rsplit('.', 1)[-1]
+        xpath = text(operation, 'xpath')
+        if kind == 'PatchOperationSequence':
+            results = [self.run(li, source) for li in items(operation, 'operations')]
+            return all(results)
+        if kind == 'PatchOperationFindMod':  # taken as if the mods it looks for are active
+            match = operation.find('match')
+            return True if match is None else self.run(match, source)
+        if kind == 'PatchOperationConditional':
+            targets = xpath_targets(self.document, xpath)
+            branch = operation.find('match' if targets or targets is None else 'nomatch')
+            return True if branch is None else self.run(branch, source)
+        if kind not in self.SIMPLE:
+            if self.mentions_ours(xpath):
+                self.note(operation, source, f'a {kind or "patch"} on {xpath} was not followed')
+            return True
+        targets = xpath_targets(self.document, xpath)
+        if targets is None:
+            if self.mentions_ours(xpath):
+                self.note(operation, source, f'the patch on {xpath} was not followed: its XPath is beyond this check')
+            return True
+        if not targets:
+            if self.mentions_ours(xpath) and text(operation, 'success', 'Normal') not in ('Always', 'Invert'):
+                self.findings.append(finding('error', source, line_of(operation), None, 'patch',
+                                             f'the patch on {xpath} changes nothing: no Def matches it'))
+            return False
+        parents = {child: parent for parent in self.document.iter() for child in parent}
+        for target in targets:
+            self.change(kind, operation, target, parents.get(target), source)
+            top = target
+            while parents.get(top) is not None and parents[top] is not self.document:
+                top = parents[top]
+            if top is not self.document:
+                self.touched.setdefault(id(top), (source, line_of(operation)))
+        return True
+
+    def values(self, operation, source):
+        copies = [copy.deepcopy(node) for node in (operation.find('value') if operation.find('value') is not None else [])]
+        for node in copies:
+            for element in node.iter():
+                element.attrib[FROM] = source
+        return copies
+
+    def change(self, kind, operation, target, parent, source):
+        order = text(operation, 'order')
+        if kind == 'PatchOperationAdd':
+            values = self.values(operation, source)
+            for value in (reversed(values) if order == 'Prepend' else values):
+                target.insert(0, value) if order == 'Prepend' else target.append(value)
+        elif kind in ('PatchOperationInsert', 'PatchOperationReplace') and parent is not None:
+            at = list(parent).index(target) + (1 if kind == 'PatchOperationInsert' and order == 'Append' else 0)
+            for offset_, value in enumerate(self.values(operation, source)):
+                parent.insert(at + offset_, value)
+            if kind == 'PatchOperationReplace':
+                parent.remove(target)
+        elif kind == 'PatchOperationRemove' and parent is not None:
+            parent.remove(target)
+        elif kind in ('PatchOperationAttributeSet', 'PatchOperationAttributeAdd'):
+            if kind == 'PatchOperationAttributeSet' or text(operation, 'attribute') not in target.attrib:
+                target.attrib[text(operation, 'attribute')] = text(operation, 'value', '')
+        elif kind == 'PatchOperationAttributeRemove':
+            target.attrib.pop(text(operation, 'attribute'), None)
+
+    def note(self, operation, source, problem):
+        self.findings.append(finding('note', source, line_of(operation), None, 'patch', problem))
+
+
+def resolve_defs(nodes, owner_of):
+    """XML inheritance over our Defs and the mod's together: a parent is looked for in the child's own mod first, as the game
+    does. Returns the resolved Defs by tag, the Defs whose parent was found nowhere, and each resolved Def's own node."""
+    by_owner = {}
+    for node, source in nodes:
+        if 'Name' in node.attrib:
+            by_owner.setdefault((node.tag, owner_of[id(node)]), {})[node.attrib['Name']] = node
+    missing = []
+
+    def parent_of(node):
+        name, owner = node.attrib.get('ParentName'), owner_of[id(node)]
+        own = by_owner.get((node.tag, owner), {})
+        if name in own:
+            return own[name]
+        for (tag, other), named in by_owner.items():
+            if tag == node.tag and name in named:
+                return named[name]
+        return None
+
+    def resolve(node, seen=()):
+        name = node.attrib.get('ParentName')
+        if not name or name in seen:
+            return node
+        parent = parent_of(node)
+        if parent is None:
+            missing.append(node)
+            return node
+        return merge(resolve(parent, seen + (name,)), node)
+
+    resolved, original_of = {tag: [] for tag in SCHEMA_TAGS}, {}
+    for node, source in nodes:
+        if node.attrib.get('Abstract') != 'True':
+            result = resolve(node)
+            owner_of[id(result)], original_of[id(result)] = owner_of[id(node)], node
+            resolved[node.tag].append((result, source))
+        elif node.attrib.get('ParentName'):
+            resolve(node)  # an abstract Def's parent is looked for too
+    return resolved, missing, original_of
+
+
+def check_mod_version(ours, ours_baseline, mod, index):
+    """One mod's files for one game version, against ours: every finding about the mod's own Defs and patches, and about our
+    Defs where the mod changed what we would find."""
+    findings = list(mod.problems)
+    document = ET.Element('Defs')
+    owner_of, source_of = {}, {}
+    for files, owner in [(our_mod, 'ours') for our_mod in ours.mods] + [(mod, 'theirs')]:
+        for node, source in files.defs:
+            if node.tag in SCHEMA_TAGS:
+                node = copy.deepcopy(node)
+                document.append(node)
+                owner_of[id(node)], source_of[id(node)] = owner, source
+    names = {text(node, 'defName') for node in document if text(node, 'defName')}
+    patcher = Patcher(document, names)
+    for patch, source in mod.patches:
+        patcher.apply(patch, source)
+    findings += patcher.findings
+    nodes = []
+    for node in document:
+        if not isinstance(node.tag, str) or node.tag not in SCHEMA_TAGS:
+            continue
+        if id(node) not in owner_of:  # a whole Def a patch added
+            owner_of[id(node)], source_of[id(node)] = 'theirs', node.attrib.get(FROM, mod.label)
+        nodes.append((node, source_of[id(node)]))
+    resolved, missing, original_of = resolve_defs(nodes, owner_of)
+    for node in missing:
+        if owner_of[id(node)] == 'theirs':
+            findings.append(finding('error', source_of[id(node)], line_of(node), text(node, 'defName') or node.attrib.get('Name'),
+                                    KINDS[node.tag], f'ParentName {node.attrib["ParentName"]} names no {KINDS[node.tag]} Def '
+                                                     f'with that Name, in your mod or D\'thorga\'s; its other checks wait '
+                                                     f'until its parent is found'))
+    # A Def of the mod's with the defName of one of ours replaces ours, as the game does between mods.
+    for tag in SCHEMA_TAGS:
+        theirs = {text(node, 'defName'): (node, source) for node, source in resolved[tag] if owner_of[id(node)] == 'theirs'}
+        kept = []
+        for node, source in resolved[tag]:
+            name = text(node, 'defName')
+            if owner_of[id(node)] == 'ours' and name in theirs:
+                their_node, their_source = theirs[name]
+                findings.append(finding('warning', their_source, line_of(their_node), name, KINDS[tag],
+                                        f'replaces D\'thorga\'s {KINDS[tag]} of the same defName ({source})'))
+                continue
+            kept.append((node, source))
+        resolved[tag] = kept
+    result = check_defs(resolved, ours.keys | mod.keys, ours.classes)
+    places, orphans = {}, {id(node) for node in missing}
+    for tag in SCHEMA_TAGS:
+        for node, source in resolved[tag]:
+            name = text(node, 'defName')
+            place = (source, line_of(node), name, KINDS[tag], owner_of[id(node)],
+                     patcher.touched.get(id(original_of[id(node)])))
+            if id(original_of[id(node)]) in orphans and owner_of[id(node)] == 'theirs':
+                place = None  # without its parent the Def is not what the game would see; the ParentName error says so
+            places.setdefault(f'{source}: {name}' if name else source, place)
+    keys = sorted(places, key=len, reverse=True)
+    for severity, messages in (('error', result['errors']), ('warning', result['warnings'])):
+        for message in messages:
+            key = next((k for k in keys if message.startswith(k + ': ')), None)
+            if key is None or places[key] is None:
+                continue
+            source, line, name, kind, owner, touched = places[key]
+            problem = message[len(key) + 2:]
+            if index is not None and problem.startswith('no class '):
+                continue  # the field check names the same class, at its own line
+            if owner == 'theirs':
+                findings.append(finding(severity, source, line, name, kind, problem))
+            elif message not in ours_baseline:
+                if touched:
+                    findings.append(finding(severity, touched[0], touched[1], name, kind,
+                                            f'D\'thorga\'s {kind} {name}, as your patch changes it: {problem}'))
+                else:
+                    findings.append(finding(severity, source, line, name, kind,
+                                            f'D\'thorga\'s {kind} {name}, with your mod loaded: {problem}'))
+    if index is not None:
+        for node, source in mod.defs:
+            name = text(node, 'defName') or node.attrib.get('Name')
+
+            def report(element, problem, node=node, source=source, name=name):
+                findings.append(finding('error', source, line_of(element), name, KINDS.get(node.tag, short(node.tag)), problem))
+            check_fields(node, index, report)
+        for node in document:  # what the mod's patches put into Defs: ours, or a whole new one
+            if node.tag in index.types and (id(node) in patcher.touched or node.attrib.get(FROM)):
+                whose = 'D\'thorga\'s ' if owner_of.get(id(node)) == 'ours' else 'your '
+
+                def report(element, problem, node=node, whose=whose):
+                    if element.attrib.get(FROM):
+                        findings.append(finding('error', element.attrib[FROM], line_of(element), text(node, 'defName'),
+                                                KINDS.get(node.tag), f'what your patch adds to {whose}{KINDS.get(node.tag)} '
+                                                                     f'{text(node, "defName")}: {problem}'))
+                check_object(node, node.tag, index, report)
+    return findings
+
+
+def check_mods(mod_folders, our_places, root=None):
+    """Every given mod, each of its game versions, against our mods found in our_places."""
+    our_folders = find_our_mods(our_places, exclude=mod_folders)
+    ours = Ours(our_folders, root)
+    baseline = check_defs(resolve_defs(
+        [(node, source) for our_mod in ours.mods for node, source in our_mod.defs if node.tag in SCHEMA_TAGS],
+        {id(node): 'ours' for our_mod in ours.mods for node, _ in our_mod.defs})[0], ours.keys, ours.classes)
+    report = {'ours': [str(folder) for folder in our_folders], 'classesFrom': ours.classes_from,
+              'fieldsChecked': ours.index is not None,
+              'ourCounts': {k: len(baseline[k]) for k in ('systems', 'loadouts', 'drivetrains', 'profiles', 'conditions')},
+              'mods': []}
+    for folder in map(Path, mod_folders):
+        sets = load_sets(folder)
+        merged, read = {}, {}
+        for version, folders in sets.items():
+            files = ModFiles(folder, folder.name, folders)
+            for node, source in files.defs:
+                read[(source, line_of(node))] = KINDS.get(node.tag, short(node.tag))
+            for _, source in files.patches:
+                read[(source, None)] = 'patch file'
+            for item in check_mod_version(ours, set(baseline['errors'] + baseline['warnings']), files, ours.index):
+                key = tuple(item[k] for k in ('severity', 'file', 'line', 'def', 'problem'))
+                merged.setdefault(key, dict(item, versions=[]))['versions'].append(version)
+        order = {'error': 0, 'warning': 1, 'note': 2}
+        findings = sorted(merged.values(), key=lambda f: (order[f['severity']], f['file'], f['line'] or 0, f['problem']))
+        for item in findings:
+            if len(item['versions']) == len(sets):
+                item['versions'] = []
+        report['mods'].append({'mod': str(folder), 'name': folder.name, 'packageId': package_id(folder),
+                               'versions': [v for v in sets if v], 'read': dict(Counter(read.values())), 'findings': findings})
+    return report
+
+
+def print_mod_report(report):
+    if not report['ours']:
+        print('D\'thorga Framework was not found. Point --ours at its folder, or at the folder that holds it: your game\'s Mods '
+              'folder, or Steam\'s steamapps/workshop/content/294100.')
+        return
+    counts = report['ourCounts']
+    places = sorted({str(Path(folder).parent) for folder in report['ours']})
+    print(f'D\'thorga\'s Defs read from {len(report["ours"])} mod folders in {", ".join(places)} ({counts["systems"]} systems, {counts["loadouts"]} '
+          f'loadouts, {counts["drivetrains"]} drivetrains, {counts["profiles"]} flight profiles, {counts["conditions"]} conditions).')
+    if not report['fieldsChecked']:
+        print('Field names and values were not checked: no D\'thorga assemblies were found in those folders (an installed copy has '
+              'them in its Assemblies folders).' + ('' if report['classesFrom'] else ' Class names were taken on trust too.'))
+    for mod in report['mods']:
+        findings = mod['findings']
+        errors = sum(1 for f in findings if f['severity'] == 'error')
+        warnings = sum(1 for f in findings if f['severity'] == 'warning')
+        versions = f' (game versions {", ".join(mod["versions"])})' if mod['versions'] else ''
+        read = ', '.join(f'{count} {kind}' for kind, count in sorted(mod['read'].items())) or 'no Defs or patches'
+        print(f'\n{mod["name"]}{versions}: read {read}.\n{errors} errors, {warnings} warnings.')
+        for f in findings:
+            place = f['file'] + (f', line {f["line"]}' if f['line'] else '')
+            what = f' - {f["kind"]} {f["def"]}' if f['def'] else ''
+            only = f' [only in {", ".join(f["versions"])}]' if f['versions'] else ''
+            print(f'\n{f["severity"].upper():8}{place}{what}{only}\n        {f["problem"]}\n        To fix: {f["fix"]}')
+    print('\nAn error is something the game will refuse or get wrong; a warning is worth a look; a note says what was not checked.')
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split('\n\n')[0])
     parser.add_argument('--root', default=str(Path(__file__).resolve().parents[1]))
     parser.add_argument('--json', action='store_true')
+    parser.add_argument('--mod', action='append', default=[], metavar='FOLDER',
+                        help='check another mod\'s folder against our Defs (repeatable); the run over mods/ is then skipped')
+    parser.add_argument('--ours', action='append', default=[], metavar='FOLDER',
+                        help='where our mods are: a mod folder of ours, or a folder holding them (the game\'s Mods folder, '
+                             'Steam\'s workshop/content/294100); by default this repository\'s mods/, else Steam\'s usual places')
     args = parser.parse_args()
+    if args.mod:
+        missing = [folder for folder in args.mod if not Path(folder).is_dir()]
+        if missing:
+            print('No such folder: ' + ', '.join(missing))
+            return 2
+        places = args.ours
+        if not places:
+            repository = Path(args.root, 'mods')
+            places = [str(repository)] if Path(repository, 'PhobosFramework', 'About', 'About.xml').exists() else \
+                [place for place in DEFAULT_OUR_PLACES if Path(place).is_dir()]
+        report = check_mods(args.mod, places, args.root)
+        if args.json:
+            print(json.dumps(report, indent=2))
+        else:
+            print_mod_report(report)
+        if not report['ours']:
+            return 2
+        return 1 if any(f['severity'] == 'error' for mod in report['mods'] for f in mod['findings']) else 0
     result = check(args.root)
     if args.json:
         print(json.dumps(result, indent=2))

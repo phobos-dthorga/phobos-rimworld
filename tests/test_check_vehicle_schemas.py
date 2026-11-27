@@ -2,11 +2,15 @@
 
 Every mod below is synthetic; nothing reads or writes the RimWorld installation.
 """
+import contextlib
 import importlib.util
+import io
 import os
 import shutil
+import sys
 import tempfile
 import unittest
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -289,6 +293,242 @@ CONDITIONS = SYSTEM.replace('<flows>', """<onPartHit>
     </stages>
   </Phobos.VehicleSystems.PhobosVehicleConditionDef>
 </Defs>""")
+
+OUR_DEFS = """<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>Test_System</defName>
+    <roles><li>Engine</li><li>Radiator</li></roles>
+    <parameters><rate>2</rate></parameters>
+    <quantities><li><name>heat</name></li></quantities>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="Test_Base" Abstract="True">
+    <systems><li><def>Test_System</def></li></systems>
+    <partRoles><li><role>Engine</role><add><key>TestEngine</key><health>10</health></add></li></partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+    <defName>Test_OurLoadout</defName>
+    <systems><li><def>Test_System</def></li></systems>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>
+"""
+
+THEIR_LOADOUT = """<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="Test_Base">
+    <defName>Their_Loadout</defName>
+    <systems Inherit="False"><li><def>Test_System</def><set><rate>3</rate></set></li></systems>
+    <partRoles><li><role>Radiator</role><add><key>TheirRadiator</key></add></li></partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>
+"""
+
+PATCH = """<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="Test_OurLoadout"]</xpath>
+    <value>
+      <partRoles><li><role>Engine</role></li><li><role>Engine</role></li></partRoles>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="Test_NoSuchLoadout"]/partRoles</xpath>
+    <value><li><role>Engine</role></li></value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[contains(defName, "Test")]/partRoles</xpath>
+    <value><li><role>Engine</role></li></value>
+  </Operation>
+</Patch>
+"""
+
+
+def write(path, content):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding='utf-8')
+
+
+def about(package):
+    return f'<?xml version="1.0" encoding="utf-8"?>\n<ModMetaData><packageId>{package}</packageId></ModMetaData>\n'
+
+
+class AnotherModTests(unittest.TestCase):
+    """--mod: another author's folder, checked against ours, each finding with its file, line, Def and what to do."""
+
+    def setUp(self):
+        self.temp = Path(tempfile.mkdtemp())
+        self.ours = self.temp / 'Mods' / 'OurFramework'
+        write(self.ours / 'About/About.xml', about('PhobosDthorga.Framework'))
+        write(self.ours / 'Common/Defs/Systems.xml', OUR_DEFS)
+        write(self.temp / 'Mods' / 'SomeoneElse/About/About.xml', about('Someone.Else'))
+        self.mod = self.temp / 'MyMod'
+        write(self.mod / 'About/About.xml', about('Someone.MyMod'))
+
+    def tearDown(self):
+        shutil.rmtree(self.temp, ignore_errors=True)
+
+    def run_mod(self, *mods):
+        report = schemas.check_mods([str(m) for m in (mods or [self.mod])], [str(self.temp / 'Mods')])
+        return report, report['mods'][0]['findings']
+
+    def test_a_good_loadout_inheriting_ours_passes(self):
+        write(self.mod / '1.7/Defs/Loadouts.xml', THEIR_LOADOUT)
+        report, findings = self.run_mod()
+        self.assertEqual(report['ours'], [str(self.ours)])  # only our mods, by package ID
+        self.assertEqual([f for f in findings if f['severity'] == 'error'], [])
+        self.assertEqual(report['mods'][0]['read'], {'loadout': 1})
+
+    def test_a_mistake_names_file_line_def_and_a_fix(self):
+        write(self.mod / '1.7/Defs/Loadouts.xml', THEIR_LOADOUT.replace('<set><rate>', '<set><rates>').replace('</rate></set>', '</rates></set>'))
+        _, findings = self.run_mod()
+        found = next(f for f in findings if 'no parameter rates' in f['problem'])
+        self.assertEqual((found['severity'], found['file'], found['line'], found['def'], found['kind']),
+                         ('error', 'MyMod/1.7/Defs/Loadouts.xml', 3, 'Their_Loadout', 'loadout'))
+        self.assertIn('<parameters>', found['fix'])
+
+    def test_a_missing_parent_is_one_error_and_holds_back_the_rest(self):
+        write(self.mod / '1.7/Defs/Loadouts.xml', THEIR_LOADOUT.replace('ParentName="Test_Base"', 'ParentName="Test_Bas"'))
+        _, findings = self.run_mod()
+        self.assertEqual([f['problem'].split(' names')[0] for f in findings], ['ParentName Test_Bas'])
+
+    def test_each_version_folder_is_read_and_a_finding_says_where_it_holds(self):
+        write(self.mod / '1.6/Defs/Loadouts.xml', THEIR_LOADOUT.replace('<def>Test_System</def><set>', '<def>Test_Sistem</def><set>'))
+        write(self.mod / '1.7/Defs/Loadouts.xml', THEIR_LOADOUT)
+        report, findings = self.run_mod()
+        self.assertEqual(report['mods'][0]['versions'], ['1.6', '1.7'])
+        found = next(f for f in findings if 'no system Test_Sistem' in f['problem'])
+        self.assertEqual((found['file'], found['versions']), ('MyMod/1.6/Defs/Loadouts.xml', ['1.6']))
+
+    def test_load_folders_are_followed(self):
+        write(self.mod / 'LoadFolders.xml', '<loadFolders><v1.7><li>/</li><li IfModActive="Other.Mod">Mods/Other</li></v1.7></loadFolders>')
+        write(self.mod / 'Mods/Other/Defs/Loadouts.xml', THEIR_LOADOUT.replace('<role>Radiator</role>', '<role>Engine</role>'))
+        write(self.mod / 'Unlisted/Defs/Loadouts.xml', THEIR_LOADOUT.replace('<def>Test_System</def><set>', '<def>Test_Sistem</def><set>'))
+        _, findings = self.run_mod()
+        self.assertTrue(any('bound twice' in f['problem'] and f['file'] == 'MyMod/Mods/Other/Defs/Loadouts.xml' for f in findings))
+        self.assertFalse(any('Test_Sistem' in f['problem'] for f in findings))
+
+    def test_broken_xml_is_an_error_at_its_line(self):
+        write(self.mod / 'Defs/Broken.xml', '<?xml version="1.0"?>\n<Defs>\n  <ThingDef>\n</Defs>\n')
+        _, findings = self.run_mod()
+        self.assertEqual([(f['file'], f['line'], f['problem'][:31]) for f in findings],
+                         [('MyMod/Defs/Broken.xml', 4, 'the file is not well-formed XML')])
+
+    def test_patches_change_ours_and_are_blamed_for_what_they_break(self):
+        write(self.mod / 'Patches/Loadouts.xml', PATCH)
+        _, findings = self.run_mod()
+        twice = next(f for f in findings if 'bound twice' in f['problem'])
+        self.assertEqual((twice['file'], twice['line'], twice['def']), ('MyMod/Patches/Loadouts.xml', 3, 'Test_OurLoadout'))
+        self.assertTrue(twice['problem'].startswith("D'thorga's loadout Test_OurLoadout, as your patch changes it"))
+        nothing = next(f for f in findings if 'changes nothing' in f['problem'])
+        self.assertEqual((nothing['severity'], nothing['line']), ('error', 9))
+        note = next(f for f in findings if f['severity'] == 'note')
+        self.assertEqual(note['line'], 13)
+        # Our own Defs' findings with no patch of theirs involved are never shown (our loadout's Radiator is unbound either way).
+        self.assertFalse(any('Radiator' in f['problem'] for f in findings))
+
+    def test_a_def_with_our_defname_replaces_ours_with_a_warning(self):
+        write(self.mod / 'Defs/Systems.xml', OUR_DEFS.split('<Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name')[0] + '</Defs>\n')
+        _, findings = self.run_mod()
+        self.assertEqual([(f['severity'], f['def']) for f in findings], [('warning', 'Test_System')])
+        self.assertIn('replaces', findings[0]['problem'])
+
+    def test_the_command_line_exits_1_on_an_error_and_2_without_ours(self):
+        write(self.mod / '1.7/Defs/Loadouts.xml', THEIR_LOADOUT.replace('<def>Test_System</def><set>', '<def>Test_Sistem</def><set>'))
+        argv = sys.argv
+        try:
+            with contextlib.redirect_stdout(io.StringIO()) as out:
+                sys.argv = ['check', '--mod', str(self.mod), '--ours', str(self.temp / 'Mods')]
+                self.assertEqual(schemas.main(), 1)
+                sys.argv = ['check', '--mod', str(self.mod), '--ours', str(self.mod)]
+                self.assertEqual(schemas.main(), 2)
+        finally:
+            sys.argv = argv
+        self.assertIn('MyMod/1.7/Defs/Loadouts.xml, line 3', out.getvalue())
+        self.assertIn('To fix:', out.getvalue())
+
+
+def fake_index():
+    """A type index as our assemblies would give it, written by hand."""
+    def kind(t):
+        return {'base': 'System.Object', 'fields': {}, 'members': [], 'custom': False, 'enum': False, 'abstract': False, **t}
+    return schemas.TypeIndex({
+        'Phobos.VehicleSystems.PhobosVehicleLoadoutDef': kind({'base': 'Verse.Def', 'fields': {
+            'rank': ('prim', 'int'), 'cabinOpen': ('prim', 'bool'), 'priority': ('type', 'Phobos.VehicleSystems.LoadoutPriority'),
+            'partRoles': ('list', ('type', 'Phobos.VehicleSystems.PartRoleSpec')), 'set': ('type', 'Phobos.VehicleSystems.ParameterSet'),
+            'effect': ('type', 'Phobos.VehicleSystems.EffectBase'), 'external': ('type', 'Verse.IntRange')}}),
+        'Phobos.VehicleSystems.PartRoleSpec': kind({'fields': {'role': ('prim', 'string'), 'health': ('prim', 'float')}}),
+        'Phobos.VehicleSystems.LoadoutPriority': kind({'base': 'System.Enum', 'enum': True, 'members': ['Default', 'Vehicle']}),
+        'Phobos.VehicleSystems.ParameterSet': kind({'custom': True}),
+        'Phobos.VehicleSystems.EffectBase': kind({'abstract': True}),
+        'Phobos.VehicleSystems.Effect_Message': kind({'base': 'Phobos.VehicleSystems.EffectBase', 'fields': {'message': ('prim', 'string')}}),
+        'Phobos.VehicleSystems.OnOtherBase': kind({'base': 'Verse.DefModExtension', 'fields': {'a': ('prim', 'int')}}),
+    })
+
+
+class FieldCheckTests(unittest.TestCase):
+    """Every element inside one of our classes names a field of it and holds what the field takes."""
+
+    def findings(self, xml):
+        found = []
+        schemas.check_fields(ET.fromstring(xml), fake_index(), lambda element, problem: found.append(problem))
+        return found
+
+    def test_good_fields_pass(self):
+        self.assertEqual(self.findings(
+            '<Phobos.VehicleSystems.PhobosVehicleLoadoutDef><defName>A</defName><rank>2</rank><cabinOpen>True</cabinOpen>'
+            '<priority>Vehicle</priority><partRoles><li><role>Engine</role><health>2.5</health></li></partRoles>'
+            '<set><anything>1</anything></set><external>1~2</external>'
+            '<effect Class="Phobos.VehicleSystems.Effect_Message"><message>Key</message></effect>'
+            '</Phobos.VehicleSystems.PhobosVehicleLoadoutDef>'), [])
+
+    def test_an_unknown_field_is_caught_with_a_suggestion(self):
+        self.assertEqual(self.findings('<Phobos.VehicleSystems.PhobosVehicleLoadoutDef><rnak>2</rnak>'
+                                       '<partRoles><li><rol>Engine</rol></li></partRoles></Phobos.VehicleSystems.PhobosVehicleLoadoutDef>'),
+                         ['<rnak> is not a field of PhobosVehicleLoadoutDef (did you mean <rank>?)',
+                          '<rol> is not a field of PartRoleSpec (did you mean <role>?)'])
+
+    def test_bad_values_are_caught(self):
+        self.assertEqual(self.findings(
+            '<Phobos.VehicleSystems.PhobosVehicleLoadoutDef><rank>2.5</rank><cabinOpen>yes</cabinOpen><priority>Vehicles</priority>'
+            '<partRoles><li><health>ten</health></li></partRoles></Phobos.VehicleSystems.PhobosVehicleLoadoutDef>'),
+            ['<rank> is not a whole number (2.5)', '<cabinOpen> is not true or false (yes)',
+             '<priority> Vehicles is not one of: Default, Vehicle', '<health> is not a number (ten)'])
+
+    def test_classes_ours_abstract_and_another_mods(self):
+        self.assertEqual(self.findings(
+            '<Phobos.VehicleSystems.PhobosVehicleLoadoutDef><effect><message>K</message></effect></Phobos.VehicleSystems.PhobosVehicleLoadoutDef>'),
+            ['<effect> needs a Class: EffectBase is only a base for other classes'])
+        self.assertEqual(self.findings('<ThingDef><comps><li Class="Phobos.VehicleSystems.Effect_Massage"/>'
+                                       '<li Class="OtherMod.Comp"><whatever/></li></comps></ThingDef>'),
+                         ['no class Phobos.VehicleSystems.Effect_Massage'])
+        self.assertEqual(self.findings('<Phobos.VehicleSystems.PhobosVehicleLodoutDef/>'),
+                         ['no Def type Phobos.VehicleSystems.PhobosVehicleLodoutDef'])
+
+    def test_a_class_built_on_one_we_cannot_read_is_trusted(self):
+        self.assertEqual(self.findings('<ThingDef><modExtensions><li Class="Phobos.VehicleSystems.OnOtherBase"><b>1</b><a>x</a>'
+                                       '</li></modExtensions></ThingDef>'), ['<a> is not a whole number (x)'])
+
+
+BUILT = Path(ROOT, 'mods/PhobosFramework/Mods/VehicleFramework/1.7/Assemblies/PhobosFramework.Vehicles.dll')
+
+
+@unittest.skipUnless(BUILT.exists(), 'D\'thorga Framework is not built here')
+class BuiltAssemblyTests(unittest.TestCase):
+    """The metadata reader against our real assembly: it finds every schema class the source has, and our own shipped Defs
+    raise no field finding at all (so a finding on another author's Def is not the reader's mistake)."""
+
+    def test_the_reader_finds_every_schema_class_and_our_defs_pass(self):
+        ours = schemas.Ours(schemas.find_our_mods([str(Path(ROOT, 'mods'))]))
+        self.assertEqual(schemas.our_classes(ROOT) - ours.index.schema_classes(), set())
+        loadout = ours.index.types['Phobos.VehicleSystems.PhobosVehicleLoadoutDef']
+        self.assertEqual(loadout['base'], 'Verse.Def')
+        self.assertEqual(loadout['fields']['systems'], ('list', ('type', 'Phobos.VehicleSystems.LoadoutSystem')))
+        found = []
+        for our_mod in ours.mods:
+            for node, source in our_mod.defs:
+                schemas.check_fields(node, ours.index, lambda element, problem, s=source: found.append((s, problem)))
+        self.assertEqual(found, [])
+
 
 if __name__ == '__main__':
     unittest.main()
