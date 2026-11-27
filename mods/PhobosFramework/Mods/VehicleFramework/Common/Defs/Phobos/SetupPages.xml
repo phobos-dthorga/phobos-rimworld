@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The setup wizard's page for this mod (D'thorga Framework 0.362.0; docs/development/first-load-setup-wizard.md, the owner's cards of 28 Nov 2026). Raise version when its choices change, so players see it again. -->
+  <Phobos.Framework.Setup.PhobosSetupPageDef>
+    <defName>PhobosSetup_VehicleSystems</defName>
+    <label>D'thorga Vehicle Systems</label>
+    <description>With Vehicle Framework, every vehicle gets real systems: a battery, an engine that runs hot, oil, tyres and brakes that wear, and parts a mechanic services. A laden truck slows in sand, mud and snow, and a destroyed part has to be made and fitted again.</description>
+    <order>10</order>
+    <otherMods>Systems go on every Vehicle Framework vehicle, from any mod, unless you narrow it with Which vehicles: how they drive, use fuel, wear and are repaired all change. Which vehicles needs a restart; switching vehicles off later is safe.</otherMods>
+    <settings>
+      <li>vehicles.scope</li>
+      <li>vehicles.drivetrain</li>
+      <li>vehicles.destroyedParts</li>
+      <li>vehicles.hoverLimit</li>
+      <li>vehicles.jumpStartNeedsKit</li>
+      <li>vehicles.assumeBoosterPack</li>
+      <li>vehicles.realisticFeedWater</li>
+      <li>vehicles.boilerExplosions</li>
+      <li>vehicles.displayMode</li>
+    </settings>
+    <presets>
+      <li>
+        <label>Lighter</label>
+        <description>Vehicles show their systems but drive at their authors' speeds; a destroyed part is repaired like any other damage; every vehicle carries a booster pack for a flat battery; a jet too heavy to hover gets a warning only.</description>
+        <values>
+          <li><setting>vehicles.drivetrain</setting><value>DisplayOnly</value></li>
+          <li><setting>vehicles.destroyedParts</setting><value>false</value></li>
+          <li><setting>vehicles.jumpStartNeedsKit</setting><value>false</value></li>
+          <li><setting>vehicles.assumeBoosterPack</setting><value>true</value></li>
+          <li><setting>vehicles.hoverLimit</setting><value>WarnOnly</value></li>
+          <li><setting>vehicles.realisticFeedWater</setting><value>false</value></li>
+          <li><setting>vehicles.boilerExplosions</setting><value>false</value></li>
+        </values>
+      </li>
+      <li>
+        <label>Full</label>
+        <description>Engines, loads and ground decide how fast a vehicle goes; a destroyed part needs a new one; a flat battery needs a jump-start kit or a booster pack you make; a jet too heavy to hover uses the runway.</description>
+        <recommended>true</recommended>
+        <values>
+          <li><setting>vehicles.drivetrain</setting><value>Full</value></li>
+          <li><setting>vehicles.destroyedParts</setting><value>true</value></li>
+          <li><setting>vehicles.jumpStartNeedsKit</setting><value>true</value></li>
+          <li><setting>vehicles.assumeBoosterPack</setting><value>false</value></li>
+          <li><setting>vehicles.hoverLimit</setting><value>RefusePadUseRunway</value></li>
+          <li><setting>vehicles.realisticFeedWater</setting><value>false</value></li>
+          <li><setting>vehicles.boilerExplosions</setting><value>false</value></li>
+        </values>
+      </li>
+      <li>
+        <label>Harsher</label>
+        <description>As Full, and steam locomotives (Trains of the Rim) take on their real water at water stops, and a boiler run dry can explode.</description>
+        <values>
+          <li><setting>vehicles.drivetrain</setting><value>Full</value></li>
+          <li><setting>vehicles.destroyedParts</setting><value>true</value></li>
+          <li><setting>vehicles.jumpStartNeedsKit</setting><value>true</value></li>
+          <li><setting>vehicles.assumeBoosterPack</setting><value>false</value></li>
+          <li><setting>vehicles.hoverLimit</setting><value>RefusePadUseRunway</value></li>
+          <li><setting>vehicles.realisticFeedWater</setting><value>true</value></li>
+          <li><setting>vehicles.boilerExplosions</setting><value>true</value></li>
+        </values>
+      </li>
+    </presets>
+    <moreSettings>Many more, by subject, in Options &gt; Mod settings &gt; D'thorga Vehicle Systems.</moreSettings>
+    <guideUrl>https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/player-guide/vehicle-systems.md</guideUrl>
+  </Phobos.Framework.Setup.PhobosSetupPageDef>
+</Defs>

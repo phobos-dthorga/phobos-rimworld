@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The setup wizard's page for this mod (D'thorga Framework 0.362.0; docs/development/first-load-setup-wizard.md, the owner's cards of 28 Nov 2026). Raise version when its choices change, so players see it again. -->
+  <Phobos.Framework.Setup.PhobosSetupPageDef>
+    <defName>PhobosSetup_Farming</defName>
+    <label>D'thorga Farming</label>
+    <description>Machines that work your fields: mark a growing zone as a paddock, and tractors plough, cultivate and sow it, and a combine harvester cuts it, row by row, by themselves.</description>
+    <order>40</order>
+    <otherMods>With The Dead Man's Switch - Legion, its Agricultural Frame drops hay only for crops that leave straw (a setting in Options &gt; Mod settings &gt; D'thorga Farming).</otherMods>
+    <settings>
+      <li>farming.handsMayHelp</li>
+      <li>farming.driverCanFail</li>
+      <li>farming.handsUseSeed</li>
+    </settings>
+    <presets>
+      <li>
+        <label>Easier</label>
+        <description>Colonists may sow and harvest a new paddock by hand too, and a machine's driver never fails a harvest.</description>
+        <values>
+          <li><setting>farming.handsMayHelp</setting><value>true</value></li>
+          <li><setting>farming.driverCanFail</setting><value>false</value></li>
+          <li><setting>farming.handsUseSeed</setting><value>false</value></li>
+        </values>
+      </li>
+      <li>
+        <label>Standard</label>
+        <description>A new paddock is for machines only, and a machine's driver can fail a harvest as a colonist by hand can.</description>
+        <recommended>true</recommended>
+        <values>
+          <li><setting>farming.handsMayHelp</setting><value>false</value></li>
+          <li><setting>farming.driverCanFail</setting><value>true</value></li>
+          <li><setting>farming.handsUseSeed</setting><value>false</value></li>
+        </values>
+      </li>
+      <li>
+        <label>Harsher</label>
+        <description>As Standard, and colonists sowing by hand take seed from a stockpile, as machines do.</description>
+        <values>
+          <li><setting>farming.handsMayHelp</setting><value>false</value></li>
+          <li><setting>farming.driverCanFail</setting><value>true</value></li>
+          <li><setting>farming.handsUseSeed</setting><value>true</value></li>
+        </values>
+      </li>
+    </presets>
+    <guideUrl>https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/player-guide/farming.md</guideUrl>
+  </Phobos.Framework.Setup.PhobosSetupPageDef>
+</Defs>

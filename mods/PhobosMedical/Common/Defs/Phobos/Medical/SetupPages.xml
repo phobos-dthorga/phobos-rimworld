@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The setup wizard's page for this mod (D'thorga Framework 0.362.0; docs/development/first-load-setup-wizard.md, the owner's cards of 28 Nov 2026). Raise version when its choices change, so players see it again. -->
+  <Phobos.Framework.Setup.PhobosSetupPageDef>
+    <defName>PhobosSetup_Medical</defName>
+    <label>D'thorga Medical</label>
+    <description>Burns and smoke that matter, doctors who dose and operate on their own, and hospital and field equipment to treat it all. Built to sit beside More Injuries and Combat Extended; neither is required.</description>
+    <order>30</order>
+    <otherMods>Some of its equipment needs Vanilla Gravship Expanded; without it, those pieces stay off, and its settings say which.</otherMods>
+    <settings>
+      <li>medical.causticFast</li>
+      <li>medical.selfMedication</li>
+      <li>medical.fireHeatOutdoors</li>
+      <li>medical.triageColonists</li>
+      <li>medical.displayMode</li>
+    </settings>
+    <moreSettings>More in Options &gt; Mod settings &gt; D'thorga Medical. Check your drug policies before your colonists fetch their own painkillers.</moreSettings>
+    <guideUrl>https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/player-guide/medical.md</guideUrl>
+  </Phobos.Framework.Setup.PhobosSetupPageDef>
+</Defs>

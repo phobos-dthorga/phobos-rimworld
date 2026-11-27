@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The setup wizard's page for this mod (D'thorga Framework 0.362.0; docs/development/first-load-setup-wizard.md, the owner's cards of 28 Nov 2026). Raise version when its choices change, so players see it again. -->
+  <Phobos.Framework.Setup.PhobosSetupPageDef>
+    <defName>PhobosSetup_WaterTap</defName>
+    <label>D'thorga Water Tap</label>
+    <description>A water bottle tap for Dubs Bad Hygiene: a small plumbing fixture that keeps a stack of bottled water ready, and refills it by itself from your water towers.</description>
+    <order>70</order>
+    <otherMods>It adds a fixture to Dubs Bad Hygiene's plumbing.</otherMods>
+    <guideUrl>https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/player-guide/water-tap.md</guideUrl>
+  </Phobos.Framework.Setup.PhobosSetupPageDef>
+</Defs>

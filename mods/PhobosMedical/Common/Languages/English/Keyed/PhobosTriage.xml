@@ -5,6 +5,8 @@
   <PhobosTriage_SettingEnabledDesc>Off, the doctors queue nothing and only the triage tags and the order of work remain.</PhobosTriage_SettingEnabledDesc>
   <PhobosTriage_SettingDefaults>How far the doctors may go without orders, by default</PhobosTriage_SettingDefaults>
   <PhobosTriage_SettingDefaultsDesc>Each person can be set on their own with the button on them; these are the defaults for anyone you have not set. Guests are people of other factions staying with you.</PhobosTriage_SettingDefaultsDesc>
+  <!-- Medical 0.36.0: D'thorga Framework's setup wizard. -->
+  <PhobosMedical_SetupTriageColonists>How far the doctors may go without orders, for your colonists</PhobosMedical_SetupTriageColonists>
   <PhobosTriage_GroupColonists>Your colonists</PhobosTriage_GroupColonists>
   <PhobosTriage_GroupSlaves>Your slaves</PhobosTriage_GroupSlaves>
   <PhobosTriage_GroupPrisoners>Your prisoners</PhobosTriage_GroupPrisoners>

@@ -42,7 +42,7 @@ public class FarmingMod : SettingsBookMod
     const string DmsLegionPackageId = "srxf.deadmanswitch.legion";
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = PackageId;
-    public const string ModVersion = "0.7.9";
+    public const string ModVersion = "0.8.0";
     public const string LogPrefix = "[D'thorga Farming]";
 
     public static readonly Phobos.Logging.PhobosLog Logger = Framework.Logging.Logs.For("D'thorga Farming");
@@ -60,7 +60,23 @@ public class FarmingMod : SettingsBookMod
         LongEventHandler.ExecuteWhenFinished(() => new LoadReport(LogPrefix, ModVersion)
             .On("paddocks").On("combine harvester").On("bulk bins").Log());
         LongEventHandler.ExecuteWhenFinished(AgriculturalFrameHay.Apply);
+        RegisterSetup();
     }
+
+    /// <summary>The settings D'thorga Framework's setup wizard offers (Farming 0.8.0), with the labels this mod's settings window shows.</summary>
+    void RegisterSetup()
+    {
+        var d = new FarmingSettings();
+        Tick("farming.handsMayHelp", "PhobosFarming_SettingHandsMayHelp", () => Settings.handsMayHelpOnNew, x => Settings.handsMayHelpOnNew = x,
+            d.handsMayHelpOnNew);
+        Tick("farming.driverCanFail", "PhobosFarming_SettingDriverCanFail", () => Settings.driverCanFail, x => Settings.driverCanFail = x,
+            d.driverCanFail);
+        Tick("farming.handsUseSeed", "PhobosFarming_SettingHandsUseSeed", () => Settings.handsUseSeed, x => Settings.handsUseSeed = x,
+            d.handsUseSeed);
+    }
+
+    void Tick(string id, string key, System.Func<bool> get, System.Action<bool> set, bool byDefault) =>
+        Framework.Setup.SetupSettings.Tick(id, this, () => key.Translate(), () => (key + "Desc").Translate(), get, set, byDefault);
 
     /// <summary>Saves the settings, then applies the one that changes other mods' Defs, so it takes effect without a restart.</summary>
     public override void WriteSettings()

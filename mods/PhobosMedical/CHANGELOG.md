@@ -21,6 +21,14 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.36.0] - 2026-11-28 - Draft
+
+A setup wizard page
+
+### Added
+
+- **A page in D'thorga Framework's setup wizard** (the owner's cards of 28 November 2026): tox gas acting fast, people fetching their own painkillers, fires heating the air in the open, how far the doctors may go without orders for colonists, and the display mode. Nothing in play changes. Not yet tested in game: row 732.
+
 ## [0.35.0] - 2026-11-27 - Draft
 
 Vaccines of our own, and cleanliness against worms

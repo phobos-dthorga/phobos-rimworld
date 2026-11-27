@@ -17,6 +17,14 @@ tested in game unless an entry says the owner tested it.
   another mod's crop in a class moved to the repository's modders' page for farming, which the Workshop draft now links.
   Nothing in play changes.
 
+## [0.8.0] - 2026-11-28 - Draft
+
+A setup wizard page
+
+### Added
+
+- **A page in D'thorga Framework's setup wizard** (the owner's cards of 28 November 2026): Easier, Standard and Harsher presets for hands on new paddocks, a driver failing a harvest and hands using seed. Nothing in play changes. Not yet tested in game: row 732.
+
 ## [0.7.9] - 2026-11-23 - Draft
 
 The chaser bin hitches up close

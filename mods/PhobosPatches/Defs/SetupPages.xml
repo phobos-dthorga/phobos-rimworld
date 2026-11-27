@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The setup wizard's page for this mod (D'thorga Framework 0.362.0; docs/development/first-load-setup-wizard.md, the owner's cards of 28 Nov 2026). Raise version when its choices change, so players see it again. -->
+  <Phobos.Framework.Setup.PhobosSetupPageDef>
+    <defName>PhobosSetup_Patches</defName>
+    <label>D'thorga Patches</label>
+    <description>Fixes and patches for other authors' mods, each switched on only while that mod is active: aircraft, missiles, outposts, Combat Extended and more. It copies nothing from them.</description>
+    <order>50</order>
+    <otherMods>Everything in it changes another mod: its README lists each patch, and each patched mod has a page in Options &gt; Mod settings &gt; D'thorga Patches while that mod is active.</otherMods>
+    <guideUrl>https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/player-guide/patches.md</guideUrl>
+  </Phobos.Framework.Setup.PhobosSetupPageDef>
+</Defs>

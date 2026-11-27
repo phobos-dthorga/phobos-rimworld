@@ -78,6 +78,10 @@ Generated from each mod's own files by `python scripts/doc-tables.py --write`: c
 
 ## Settings to decide before a colony
 
+**The setup wizard asks these for you**: the first time the game starts with D'thorga mods, a window on the main menu gives each
+active mod a page, with what it does, what it changes in other mods, and its choices before a colony, presets first. **Skip setup**
+keeps your settings as they are; open it again from Options > Mod settings > D'thorga Framework, General: **Setup and introduction**.
+
 Most settings can change at any time. These are the ones that are awkward to change in the middle of a colony, or that you should
 know about before your colonists meet them. Find them under **Options > Mod settings**: one entry per mod, each with its pages down
 the left. **Type in the search box to find a setting on any page**, tick **Changed only** to see what you have changed (marked with a

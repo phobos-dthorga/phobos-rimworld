@@ -11,6 +11,9 @@
   <PhobosRadio_DisplayModeEngineerDesc>The whole link-budget sheet, every gain and loss, in both directions.</PhobosRadio_DisplayModeEngineerDesc>
   <PhobosRadio_SettingMetresPerCell>Metres per map cell: {METRES}</PhobosRadio_SettingMetresPerCell>
   <PhobosRadio_SettingMetresPerCellDesc>What one map cell measures. Decide before you start a colony: changing it later changes every distance and cable loss, so links that worked may stop. The game never defines it; 1 m matches the furniture, about 26 m matches walking speed.</PhobosRadio_SettingMetresPerCellDesc>
+  <!-- Radio 0.55.0: D'thorga Framework's setup wizard. -->
+  <PhobosRadio_SetupMetresLabel>Metres per map cell</PhobosRadio_SetupMetresLabel>
+  <PhobosRadio_SetupMetres>{METRES} m</PhobosRadio_SetupMetres>
   <PhobosRadio_SettingInTouchThought>"In touch with home" mood for colonists whose radio reaches a base station</PhobosRadio_SettingInTouchThought>
   <PhobosRadio_SettingTerminalNoise>Radio terminals make radio noise</PhobosRadio_SettingTerminalNoise>
   <PhobosRadio_SettingTerminalNoiseDesc>A radio terminal's computer makes electrical noise, as real computers do, so an antenna close to it, its own stub antenna included, hears colonists less well. Turn it off to treat the terminal as quiet.</PhobosRadio_SettingTerminalNoiseDesc>

@@ -44,7 +44,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Framework services](systems/framework-services.md) (23 Nov 2026): how settings, logging, the loop watch, sub-tabs, recall and the rest work now. Living.
 - [The health layer and care](systems/health-layer.md) (23 Nov 2026): how patients, condition danger, care choices and field care work now. Living.
 - [Research gates audit](research-gates-audit-2026-11-17.md) (17 Nov 2026): what is gated and what is not; proposals R1 to R9. Built, bar R5 and R7.
-- [A setup wizard on first load](first-load-setup-wizard.md) (9 Nov 2026): introduces our mods and sets them up, pages as data. Designed 28 Nov; not built.
+- [A setup wizard on first load](first-load-setup-wizard.md) (9 Nov 2026): introduces our mods and sets them up. Built 28 Nov (Framework 0.362.0); untested.
 - [Alternate looks](alternate-looks.md) (19 Nov 2026): good unused pictures as choosable looks; skins and customisation. Record only.
 
 ## Vehicles

@@ -5,7 +5,7 @@ itself from your water towers. Nobody has to stand at a basin filling bottles.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.2.4, built 9 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.3.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 

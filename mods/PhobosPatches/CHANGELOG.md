@@ -21,6 +21,14 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.49.0] - 2026-11-28 - Draft
+
+A setup wizard page
+
+### Added
+
+- **A page in D'thorga Framework's setup wizard** (the owner's cards of 28 November 2026): an introduction to the patches, and where each patched mod's settings are. Nothing in play changes. Not yet tested in game: row 732.
+
 ## [0.48.0] - 2026-11-27 - Draft
 
 Legion's nuclear strike by distance and shelter

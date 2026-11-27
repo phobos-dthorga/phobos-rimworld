@@ -586,6 +586,7 @@ public class VehicleSystemsMod : SettingsBookMod
     {
         Settings = GetSettings<VehicleSystemsSettings>();
         AddSettingsPages();
+        RegisterSetup();
         // XML patches (PatchOperationPhobosFlag) run after every mod's constructor, so the flags are ready for them.
         PatchFlags.Register("PhobosVehicleSystems.electricLightning", () => Settings.electricLightning);
         HarmonyPatchApplier.ApplyEach(new Harmony(HarmonyId), typeof(VehicleSystemsMod).Assembly, LogPrefix);
@@ -597,6 +598,38 @@ public class VehicleSystemsMod : SettingsBookMod
         VehicleFx.UseVehicleHeadings();
         Phobos.Framework.Work.PhobosGameEvents.GameLoaded += VehicleSelfTest.AfterLoad;
     }
+
+    /// <summary>The settings the setup wizard offers (Framework 0.362.0), with the labels this mod's settings window shows.</summary>
+    void RegisterSetup()
+    {
+        Phobos.Framework.Setup.SetupSettings.Choice("vehicles.scope", this, () => "PhobosVehicleSettings_Scope".Translate(), null,
+            () => Settings.scope, x => Settings.scope = x, Defaults.scope,
+            (VehicleSystemsSettings.Scope[])System.Enum.GetValues(typeof(VehicleSystemsSettings.Scope)),
+            x => ("PhobosVehicleSystems_Scope" + x).Translate(), restart: true);
+        Phobos.Framework.Setup.SetupSettings.Choice("vehicles.drivetrain", this, () => "PhobosVehicleSettings_Drivetrain".Translate(), null,
+            () => Settings.drivetrainMode, x => Settings.drivetrainMode = x, Defaults.drivetrainMode,
+            (DrivetrainMode[])System.Enum.GetValues(typeof(DrivetrainMode)), x => ("PhobosVehicleSystems_Drivetrain" + x).Translate());
+        Tick("vehicles.destroyedParts", "PhobosVehicleSystems_SettingDestroyedParts", () => Settings.destroyedPartsNeedSupplies,
+            x => Settings.destroyedPartsNeedSupplies = x, Defaults.destroyedPartsNeedSupplies);
+        Phobos.Framework.Setup.SetupSettings.Choice("vehicles.hoverLimit", this, () => "PhobosVehicleSystems_SettingHoverLimit".Translate(), null,
+            () => Settings.hoverLimit, x => Settings.hoverLimit = x, Defaults.hoverLimit,
+            (VehicleSystemsSettings.HoverLimit[])System.Enum.GetValues(typeof(VehicleSystemsSettings.HoverLimit)),
+            x => ("PhobosVehicleSystems_Hover" + x).Translate());
+        Tick("vehicles.jumpStartNeedsKit", "PhobosVehicleSystems_SettingJumpStartNeedsKit", () => Settings.jumpStartNeedsKit,
+            x => Settings.jumpStartNeedsKit = x, Defaults.jumpStartNeedsKit);
+        Tick("vehicles.assumeBoosterPack", "PhobosVehicleSystems_SettingAssumeBoosterPack", () => Settings.assumeBoosterPack,
+            x => Settings.assumeBoosterPack = x, Defaults.assumeBoosterPack);
+        Tick("vehicles.realisticFeedWater", "PhobosVehicleSystems_SettingRealisticFeedWater", () => Settings.realisticFeedWater,
+            x => Settings.realisticFeedWater = x, Defaults.realisticFeedWater);
+        Tick("vehicles.boilerExplosions", "PhobosVehicleSystems_SettingBoilerExplosions", () => Settings.boilerExplosions,
+            x => Settings.boilerExplosions = x, Defaults.boilerExplosions);
+        Phobos.Framework.Setup.SetupSettings.Choice("vehicles.displayMode", this, () => "PhobosFramework_SettingDisplayMode".Translate(), null,
+            () => Settings.displayMode, x => Settings.displayMode = x, Defaults.displayMode,
+            (DisplayMode[])System.Enum.GetValues(typeof(DisplayMode)), x => ("PhobosFramework_DisplayMode" + x).Translate());
+    }
+
+    void Tick(string id, string key, System.Func<bool> get, System.Action<bool> set, bool byDefault) =>
+        Phobos.Framework.Setup.SetupSettings.Tick(id, this, () => key.Translate(), () => (key + "Desc").Translate(), get, set, byDefault);
 
     /// <summary>The settings window closing writes the book: a reset to defaults there changes the contract frequency without its slider,
     /// so the quest's weight is set again here.</summary>

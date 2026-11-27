@@ -23,6 +23,14 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.55.0] - 2026-11-28 - Draft
+
+A setup wizard page
+
+### Added
+
+- **A page in D'thorga Framework's setup wizard** (the owner's cards of 28 November 2026): metres per map cell (as round values), the display mode, allies' raid warnings and terminal noise, with Gentler, Standard and Harsher presets for ambushed traders, jamming and relay mast losses. Nothing in play changes. Not yet tested in game: row 732.
+
 ## [0.54.0] - 2026-11-27 - Draft
 
 Contact arcs, children's radio talk, and supply drops by radio

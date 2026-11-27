@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The setup wizard's page for this mod (D'thorga Framework 0.362.0; docs/development/first-load-setup-wizard.md, the owner's cards of 28 Nov 2026). Raise version when its choices change, so players see it again. -->
+  <Phobos.Framework.Setup.PhobosSetupPageDef>
+    <defName>PhobosSetup_FactoryAdditions</defName>
+    <label>D'thorga Factory Additions</label>
+    <description>Additions to Vanilla Furniture Expanded - Factory: a switch on every storage building for whether belts may take from it, an automated fabrication bay, a deep factory hopper, and new bills.</description>
+    <order>60</order>
+    <otherMods>It fixes Factory's machines so a finished batch is never destroyed, and adds bills for other mods' items only while those mods are active.</otherMods>
+    <guideUrl>https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/player-guide/factory.md</guideUrl>
+  </Phobos.Framework.Setup.PhobosSetupPageDef>
+</Defs>

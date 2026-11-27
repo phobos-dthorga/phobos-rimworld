@@ -30,5 +30,41 @@
   <PhobosFramework_SectionTopUp>Topping up</PhobosFramework_SectionTopUp>
   <PhobosFramework_SectionSound>Sound</PhobosFramework_SectionSound>
   <PhobosFramework_SectionDeveloper>Developer (shown in dev mode only)</PhobosFramework_SectionDeveloper>
+  <PhobosFramework_SectionSetup>Setup</PhobosFramework_SectionSetup>
+  <PhobosFramework_SetupButton>Setup and introduction</PhobosFramework_SetupButton>
+  <PhobosFramework_SetupButtonDesc>Opens the setup pages again: a page for each active D'thorga mod, what it does, and the few choices worth making before a colony.</PhobosFramework_SetupButtonDesc>
+
+  <!-- The setup wizard (Framework 0.362.0; docs/development/first-load-setup-wizard.md, the owner's cards of 28 Nov 2026). -->
+  <PhobosFramework_SetupStepWelcome>Welcome</PhobosFramework_SetupStepWelcome>
+  <PhobosFramework_SetupStepFinish>Finish</PhobosFramework_SetupStepFinish>
+  <PhobosFramework_SetupStepOf>Step {STEP} of {COUNT}</PhobosFramework_SetupStepOf>
+  <PhobosFramework_SetupWelcomeTitle>Welcome to D'thorga</PhobosFramework_SetupWelcomeTitle>
+  <PhobosFramework_SetupWelcome>These pages set up the D'thorga mods you have active, one page each: what the mod does, what it changes in other mods, and the few choices worth making before you start a colony.\n\nOn each page, pick a preset, or tick "Show each setting" to choose one by one. Choices that need a restart are gathered at the end.\n\nEvery choice here is also in Options > Mod settings, where you can change it later. "Skip setup" keeps your settings as they are.</PhobosFramework_SetupWelcome>
+  <PhobosFramework_SetupWelcomeAgain>Since you last saw these pages, the ones below are new or have changed. Everything else stays as you set it.\n\nEvery choice here is also in Options > Mod settings. "Skip setup" keeps your settings as they are.</PhobosFramework_SetupWelcomeAgain>
+  <PhobosFramework_SetupPagesHere>Pages:</PhobosFramework_SetupPagesHere>
+  <PhobosFramework_SetupFrom>From {MOD}</PhobosFramework_SetupFrom>
+  <PhobosFramework_SetupOtherMods>What it changes in other mods:</PhobosFramework_SetupOtherMods>
+  <PhobosFramework_SetupPresets>How do you want to play?</PhobosFramework_SetupPresets>
+  <PhobosFramework_SetupRecommended>(recommended)</PhobosFramework_SetupRecommended>
+  <PhobosFramework_SetupNow>Now: {PRESET}</PhobosFramework_SetupNow>
+  <PhobosFramework_SetupOwnMix>your own mix</PhobosFramework_SetupOwnMix>
+  <PhobosFramework_SetupShowEach>Show each setting</PhobosFramework_SetupShowEach>
+  <PhobosFramework_SetupShowEachDesc>Shows every setting the presets set, so you can choose each one yourself.</PhobosFramework_SetupShowEachDesc>
+  <PhobosFramework_SetupNoSettings>Nothing to choose here: this page only introduces the mod.</PhobosFramework_SetupNoSettings>
+  <PhobosFramework_SetupOn>On</PhobosFramework_SetupOn>
+  <PhobosFramework_SetupOff>Off</PhobosFramework_SetupOff>
+  <PhobosFramework_SetupGuide>Read its player guide</PhobosFramework_SetupGuide>
+  <PhobosFramework_SetupGuideDesc>Opens this mod's chapter of the player guide in your web browser.</PhobosFramework_SetupGuideDesc>
+  <PhobosFramework_SetupFinishTitle>Ready</PhobosFramework_SetupFinishTitle>
+  <PhobosFramework_SetupChanged>What you changed:</PhobosFramework_SetupChanged>
+  <PhobosFramework_SetupChange>{SETTING}: {WAS} to {NOW}</PhobosFramework_SetupChange>
+  <PhobosFramework_SetupNoChanges>Nothing changed: your settings stay as they were.</PhobosFramework_SetupNoChanges>
+  <PhobosFramework_SetupRestartNote>Some of these take effect after a restart: the game asks when you press Finish.</PhobosFramework_SetupRestartNote>
+  <PhobosFramework_SetupFinishText>Open these pages again at any time from Options > Mod settings > D'thorga Framework, General page: "Setup and introduction". Every setting is there too, with a search box.</PhobosFramework_SetupFinishText>
+  <PhobosFramework_SetupBack>Back</PhobosFramework_SetupBack>
+  <PhobosFramework_SetupNext>Next</PhobosFramework_SetupNext>
+  <PhobosFramework_SetupFinish>Finish</PhobosFramework_SetupFinish>
+  <PhobosFramework_SetupSkip>Skip setup</PhobosFramework_SetupSkip>
+  <PhobosFramework_SetupSkipDesc>Close without changing anything: any setting changed on these pages goes back to what it was. These pages open again only when one is new or has changed.</PhobosFramework_SetupSkipDesc>
   <PhobosFramework_SoundVehiclesElsewhere>Whether vehicle sounds also play on other mods' vehicles is set in D'thorga Vehicle Systems, on its "Display, sound and stories" page.</PhobosFramework_SoundVehiclesElsewhere>
 </LanguageData>

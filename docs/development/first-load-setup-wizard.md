@@ -1,9 +1,9 @@
 # A setup wizard on first load (9 Nov 2026, designed 28 Nov 2026)
 
-**Status (28 Nov 2026):** a design record; nothing is built yet. The owner recorded the idea on 9 Nov 2026 and asked on 28 Nov 2026 for a
-generic wizard that introduces new players to our mods and helps them set up, chose by card to write this design first, then answered
-its six questions ([answers](#the-owners-answers-28-nov-2026)): on the main menu, in the game, presets first, a card per mod, **built
-now**, and other mods named.
+**Status (28 Nov 2026):** built in D'thorga Framework 0.362.0, with a page in each of the eight mods; **not yet tested in game** (test
+rows 732 to 734). The owner recorded the idea on 9 Nov 2026 and asked on 28 Nov 2026 for a generic wizard that introduces new players
+to our mods and helps them set up, then answered its six questions ([answers](#the-owners-answers-28-nov-2026)): on the main menu, in
+the game, presets first, a card per mod, built now, and other mods named. [As built](#as-built-framework-03620) says what differs.
 
 How Framework services works now: [systems/framework-services.md](systems/framework-services.md); this record keeps the wizard's history.
 
@@ -127,6 +127,23 @@ Each card as put, the chosen option first and marked; every choice was the agent
 | 4 | The introduction | **A card per mod**: its preview picture, a few lines, a link to its player guide chapter | Cards plus our own Learning Helper lessons in play. No introduction |
 | 5 | When to build | **The frame and the pages now** | The frame with Farming's page alone first. At the public beta gate |
 | 6 | Naming other mods | **Yes, as the settings window does** | General words only ("other vehicle mods") |
+
+## As built (Framework 0.362.0)
+
+- **Where it is**: `src/PhobosFramework/Setup/` (the page Def, the settings registry, the service and the window) and the game-free
+  `Rules/SetupRule.cs` with its tests. Each mod registers its settings in its Mod constructor and adds a `SetupPages.xml`.
+- **Pages without presets** [A]: D'thorga Framework's and Medical's choices do not fall into easier and harsher sets, so their pages
+  show their settings as rows; Vehicle Systems (Lighter, Full, Harsher), Radio and Farming (Gentler or Easier, Standard, Harsher) have
+  presets. **A setting no preset sets is always shown** (Which vehicles, the display modes, metres per cell), so a restart-only choice
+  is never hidden behind "Show each setting".
+- **Skip puts back** [A]: anything changed on the pages goes back to what it was when the wizard opened, so "skip keeps today's
+  settings" holds even after a preset was pressed.
+- **Round values for metres per cell** [A]: 0.5, 1, 2, 3, 5, 10, 20 and 30 m, as the owner prefers buttons and round values; the
+  settings window's slider still takes any half metre.
+- **Farming's soil preset** (SL8's Field care, paddocks by default) joins Farming's page when soil is built; the page has the
+  settings that exist now.
+- **Keyboard**: Enter goes on, Escape goes back.
+- **A next game**: the page format and the rule are game-free; the window and the settings registry are RimWorld's.
 
 ## History
 

@@ -464,6 +464,12 @@
     "729": ["radio.contact-arcs"],
     "730": ["radio.radiotalk-at-station"],
     "731": [{"key": "radio.faction-call", "variant": "supply"}],
+    "732": [{"key": "framework.setup-wizard", "variant": "opened"}],
+    "733": {"parts": {
+      "a preset pressed": [{"key": "framework.setup-wizard", "variant": "preset"}],
+      "finished, its choices kept": [{"key": "framework.setup-wizard", "variant": "finished"}]
+    }},
+    "734": [{"key": "framework.setup-wizard", "variant": "skipped"}],
     "713": [{"key": "radio.world-cover-network", "variant": "PhobosRadioCover_RelayMast"}],
     "714": ["radio.world-cover-full-relay"],
     "704": {"parts": {"finished while not selected": [{"key": "radio.coverage-finished", "variant": "background"}],

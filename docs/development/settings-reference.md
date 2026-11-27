@@ -187,7 +187,7 @@ Generated from the mod's source code and language files by `python scripts/doc-t
 
 141 settings, in the order the settings window draws them. **Default** is what the game uses until the setting is changed. A setting the window shows only in some games (another mod active, another setting on) is listed all the same.
 
-Saved, but not found drawn in the window by the reader (kept by the window itself, or drawn by code it cannot follow): `PhobosFramework_VerboseTopics`, `PhobosVehicleSystems_DisabledPackages`, `PhobosVehicleSystems_DisabledKinds`, `PhobosVehicleSystems_DisabledSystems`, `PhobosVehicleSystems_DisplayMode`.
+Saved, but not found drawn in the window by the reader (kept by the window itself, or drawn by code it cannot follow): `PhobosFramework_VerboseTopics`, `PhobosFramework_SetupSeen`, `PhobosVehicleSystems_DisabledPackages`, `PhobosVehicleSystems_DisabledKinds`, `PhobosVehicleSystems_DisabledSystems`, `PhobosVehicleSystems_DisplayMode`.
 <!-- end generated -->
 
 ## D'thorga Medical

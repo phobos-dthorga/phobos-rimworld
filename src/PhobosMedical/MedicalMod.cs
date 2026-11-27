@@ -49,7 +49,7 @@ public class MedicalMod : SettingsBookMod
     public const string PackageId = "PhobosDthorga.Medical";
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = PackageId;
-    public const string ModVersion = "0.35.0";
+    public const string ModVersion = "0.36.0";
     public const string LogPrefix = "[D'thorga Medical]";
 
     /// <summary>The five mods this one replaced: package ID, name, settings folder and Mod class (for the one-time import).</summary>
@@ -87,7 +87,30 @@ public class MedicalMod : SettingsBookMod
         Phobos.Radiation.RadiationPart.Start(harmony);
         Protection.ProtectionPart.Start();
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
+        RegisterSetup();
     }
+
+    /// <summary>The settings D'thorga Framework's setup wizard offers (Medical 0.36.0), with the labels this mod's settings window shows.</summary>
+    void RegisterSetup()
+    {
+        var d = new MedicalSettings();
+        Tick("medical.causticFast", "PhobosBurns_SettingCausticFast", () => Settings.burns.causticFastActing, x => Settings.burns.causticFastActing = x,
+            d.burns.causticFastActing);
+        Tick("medical.selfMedication", "PhobosDosing_SettingSelfMedication", () => Settings.dosing.selfMedication, x => Settings.dosing.selfMedication = x,
+            d.dosing.selfMedication);
+        Tick("medical.fireHeatOutdoors", "PhobosBurns_SettingFireHeat", () => Settings.burns.fireHeatOutdoors, x => Settings.burns.fireHeatOutdoors = x,
+            d.burns.fireHeatOutdoors);
+        Phobos.Framework.Setup.SetupSettings.Choice("medical.triageColonists", this, () => "PhobosMedical_SetupTriageColonists".Translate(),
+            () => "PhobosTriage_SettingDefaultsDesc".Translate(), () => Settings.triage.defaultColonist, x => Settings.triage.defaultColonist = x,
+            d.triage.defaultColonist, (Phobos.Triage.Rules.TriageAuthority[])System.Enum.GetValues(typeof(Phobos.Triage.Rules.TriageAuthority)),
+            x => ("PhobosTriage_Authority" + x).Translate().Resolve());
+        Phobos.Framework.Setup.SetupSettings.Choice("medical.displayMode", this, () => "PhobosFramework_SettingDisplayMode".Translate(), null,
+            () => Settings.equipment.displayMode, x => Settings.equipment.displayMode = x, d.equipment.displayMode,
+            (DisplayMode[])System.Enum.GetValues(typeof(DisplayMode)), x => ("PhobosFramework_DisplayMode" + x).Translate());
+    }
+
+    void Tick(string id, string key, System.Func<bool> get, System.Action<bool> set, bool byDefault) =>
+        Phobos.Framework.Setup.SetupSettings.Tick(id, this, () => key.Translate(), () => (key + "Desc").Translate(), get, set, byDefault);
 
     /// <summary>Writes the one settings file. Parts call this rather than writing their own settings object, which has no Mod.</summary>
     public static void WriteAll() => LoadedModManager.GetMod<MedicalMod>()?.WriteSettings();

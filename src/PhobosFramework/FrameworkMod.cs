@@ -76,6 +76,9 @@ public class FrameworkSettings : ModSettings
     /// <summary>Verbose logging (owner, 16 Nov 2026: a master switch and a tick per part; both off by default): every log of ours writes
     /// its detail lines.</summary>
     public bool verboseAll;
+    /// <summary>The setup wizard's pages seen, by Def name, at the version seen (Setup/SetupWizard; Framework 0.362.0, the owner's cards of 28
+    /// Nov 2026). Not a setting the window shows: the wizard opens again only for a page that is new or changed.</summary>
+    public Dictionary<string, int> setupSeen = new();
     /// <summary>The logs whose detail is asked for one by one, by their keys (Logging/LogTopic.Key).</summary>
     public List<string> verboseTopics = new();
     /// <summary>The same keys for a quick look-up; replaced whole when a tick changes, so a log read on another thread never sees it half made.</summary>
@@ -130,6 +133,8 @@ public class FrameworkSettings : ModSettings
         Scribe_Values.Look(ref rainSoaksFields, "PhobosFramework_RainSoaksFields", false);
         Scribe_Values.Look(ref radiationFromNuclear, "PhobosFramework_RadiationFromNuclear", true);
         Scribe_Values.Look(ref radiationFromAntimatter, "PhobosFramework_RadiationFromAntimatter", true);
+        Scribe_Collections.Look(ref setupSeen, "PhobosFramework_SetupSeen", LookMode.Value, LookMode.Value);
+        if (Scribe.mode == LoadSaveMode.LoadingVars || Scribe.mode == LoadSaveMode.PostLoadInit) setupSeen ??= new Dictionary<string, int>();
         if (Scribe.mode == LoadSaveMode.PostLoadInit) standbyPercent = Rules.StandbyPowerRule.ClampPercent(standbyPercent);
     }
 }
@@ -144,7 +149,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : SettingsBookMod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.361.0";
+    public const string ModVersion = "0.362.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -163,6 +168,36 @@ public class FrameworkMod : SettingsBookMod
         HarmonyPatchApplier.ApplyEach(new Harmony(PackageId), typeof(FrameworkMod).Assembly, LogPrefix);
         Logging.GameLogKeeper.Listen();
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
+        RegisterSetup();
+        // Framework 0.362.0: the setup wizard, on the main menu, once per install and again for pages new or changed. Every mod's
+        // constructor has run by now, so every setting a page names is registered.
+        LongEventHandler.ExecuteWhenFinished(Setup.SetupWizard.OpenIfDue);
+    }
+
+    /// <summary>The Framework's settings the setup wizard offers (Framework 0.362.0), with the labels its settings window shows.</summary>
+    void RegisterSetup()
+    {
+        Setup.SetupSettings.Choice("framework.billParts", this, () => "PhobosFramework_SettingBillParts".Translate(),
+            () => "PhobosFramework_SettingBillPartsDesc".Translate(), () => Settings.billPartsSource, v => Settings.billPartsSource = v,
+            Defaults.billPartsSource, new[] { Bills.BillPartsSource.OthersWhereInstalled, Bills.BillPartsSource.AlwaysOurs },
+            v => v == Bills.BillPartsSource.AlwaysOurs ? "PhobosFramework_BillPartsOurs".Translate() : "PhobosFramework_BillPartsOthers".Translate(),
+            restart: true);
+        Setup.SetupSettings.Choice("framework.gasSourceMode", this, () => "PhobosFramework_SettingGasSourceMode".Translate(),
+            () => "PhobosFramework_SettingGasSourceModeDesc".Translate(), () => Settings.gasSourceMode, v => Settings.gasSourceMode = v,
+            Defaults.gasSourceMode, (GasSourceMode[])System.Enum.GetValues(typeof(GasSourceMode)), v => ("PhobosFramework_GasSourceMode" + v).Translate());
+        Setup.SetupSettings.Tick("framework.standbyPower", this, () => "PhobosFramework_SettingStandbyPower".Translate(),
+            () => "PhobosFramework_SettingStandbyPowerDesc".Translate(Rules.StandbyPowerRule.DefaultStandbyPercent.Named("PERCENT")),
+            () => Settings.standbyPower, v => Settings.standbyPower = v, Defaults.standbyPower);
+        Setup.SetupSettings.Tick("framework.rainSoaksFields", this, () => "PhobosFramework_SettingRainSoaksFields".Translate(),
+            () => "PhobosFramework_SettingRainSoaksFieldsDesc".Translate(Environment.RainSoakedFields.SoakedFactor.ToString("0.#").Named("FACTOR")),
+            () => Settings.rainSoaksFields, v =>
+            {
+                Settings.rainSoaksFields = v;
+                Environment.RainSoakedFields.Apply();
+            }, Defaults.rainSoaksFields);
+        Setup.SetupSettings.Tick("framework.keepGameLogAlive", this, () => "PhobosFramework_SettingKeepGameLogAlive".Translate(),
+            () => "PhobosFramework_SettingKeepGameLogAliveDesc".Translate(Rules.GameLogRule.MaxRevivals.Named("COUNT")),
+            () => Settings.keepGameLogAlive, v => Settings.keepGameLogAlive = v, Defaults.keepGameLogAlive);
     }
 
     static void LogLoaded()
@@ -244,6 +279,9 @@ public class FrameworkMod : SettingsBookMod
     static void DrawGeneral(SettingsList list)
     {
         FrameworkSettings s = Settings;
+        // Framework 0.362.0: the setup wizard, every page, at any time.
+        list.Section("PhobosFramework_SectionSetup".Translate());
+        if (list.Button("PhobosFramework_SetupButton".Translate(), "PhobosFramework_SetupButtonDesc".Translate())) Setup.SetupWizard.OpenAll();
         list.Section("PhobosFramework_SectionGases".Translate());
         list.Radio("PhobosFramework_SettingGasSourceMode".Translate(), ref s.gasSourceMode, Defaults.gasSourceMode,
             (GasSourceMode[])System.Enum.GetValues(typeof(GasSourceMode)), mode => ("PhobosFramework_GasSourceMode" + mode).Translate(),

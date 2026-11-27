@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The setup wizard's page for this mod (D'thorga Framework 0.362.0; docs/development/first-load-setup-wizard.md, the owner's cards of 28 Nov 2026). Raise version when its choices change, so players see it again. -->
+  <Phobos.Framework.Setup.PhobosSetupPageDef>
+    <defName>PhobosSetup_Radio</defName>
+    <label>D'thorga Radio Framework</label>
+    <description>Radio that works like radio: base stations, hand-helds and relay masts, where distance, height, walls and hills decide who can hear whom. Colonists chat, give advice, call other factions and keep in touch with convoys away from home.</description>
+    <order>20</order>
+    <settings>
+      <li>radio.metresPerCell</li>
+      <li>radio.displayMode</li>
+      <li>radio.alliesWarnOfRaids</li>
+      <li>radio.listenersAmbushTraders</li>
+      <li>radio.jammingReachesRadios</li>
+      <li>radio.relayMastLosses</li>
+      <li>radio.terminalNoise</li>
+    </settings>
+    <presets>
+      <li>
+        <label>Gentler</label>
+        <description>Nobody ambushes a trader you call for, jammers leave radios alone, and relay masts never wear out or get knocked down.</description>
+        <values>
+          <li><setting>radio.listenersAmbushTraders</setting><value>false</value></li>
+          <li><setting>radio.jammingReachesRadios</setting><value>false</value></li>
+          <li><setting>radio.relayMastLosses</setting><value>false</value></li>
+        </values>
+      </li>
+      <li>
+        <label>Standard</label>
+        <description>A hostile settlement that hears you call a trader may ambush it, and a jammer's noise drowns radios near it, yours too. Relay masts left on the world map stay standing.</description>
+        <recommended>true</recommended>
+        <values>
+          <li><setting>radio.listenersAmbushTraders</setting><value>true</value></li>
+          <li><setting>radio.jammingReachesRadios</setting><value>true</value></li>
+          <li><setting>radio.relayMastLosses</setting><value>false</value></li>
+        </values>
+      </li>
+      <li>
+        <label>Harsher</label>
+        <description>As Standard, and relay masts left on the world map wear out and can be knocked down by raiders.</description>
+        <values>
+          <li><setting>radio.listenersAmbushTraders</setting><value>true</value></li>
+          <li><setting>radio.jammingReachesRadios</setting><value>true</value></li>
+          <li><setting>radio.relayMastLosses</setting><value>true</value></li>
+        </values>
+      </li>
+    </presets>
+    <moreSettings>More in Options &gt; Mod settings &gt; D'thorga Radio Framework.</moreSettings>
+    <guideUrl>https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/player-guide/radio.md</guideUrl>
+  </Phobos.Framework.Setup.PhobosSetupPageDef>
+</Defs>

@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.361.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.362.0, built 28 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -27,6 +27,9 @@ oxygen working (5 November 2026) and a handful of vehicle features (listed at th
   Expanded Framework** as well.
 - **The vehicle systems change every Vehicle Framework vehicle you have, from any mod.** To narrow that, set **Which vehicles** in
   **D'thorga Vehicle Systems**' settings **before you load a colony**: it needs a restart. Switching vehicles off later is safe.
+- **A setup wizard opens on the main menu the first time** (0.362.0): a page for each active D'thorga mod, what it does, what it
+  changes in other mods, and its settings to decide before a colony, presets first. **Skip setup** keeps your settings; **Setup and
+  introduction**, on the General page of this mod's settings, opens it again.
 - **Settings to decide before a colony**: **Which vehicles** and **Parts for building** (both need a restart); **How engines and
   drivetrains work** (**Drivetrain shown, speeds unchanged** keeps every vehicle at its author's speed); the rule for an aircraft
   too heavy or too hot to lift off; and, for steam locomotives, **Boiler explosions** and **Realistic feed water**. The reasons

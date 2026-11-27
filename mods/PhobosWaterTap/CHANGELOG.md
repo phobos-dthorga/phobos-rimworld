@@ -20,6 +20,14 @@ yet. Not yet tested in game unless an entry says the owner tested it.
 - **The README is slimmer**: what the mod needs, its real gotchas, what it adds, its figures and links. The notes for modders and
   the checks done moved to the repository's modders' page for the tap. Nothing in play changes.
 
+## [0.3.0] - 2026-11-28 - Draft
+
+A setup wizard page
+
+### Added
+
+- **A page in D'thorga Framework's setup wizard** (the owner's cards of 28 November 2026): an introduction to the tap. Nothing in play changes. Not yet tested in game: row 732.
+
 ## [0.2.4] - 2026-11-09 - Draft
 
 ### Fixed

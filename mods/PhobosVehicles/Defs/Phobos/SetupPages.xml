@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The setup wizard's page for this mod (D'thorga Framework 0.362.0; docs/development/first-load-setup-wizard.md, the owner's cards of 28 Nov 2026). Raise version when its choices change, so players see it again. -->
+  <Phobos.Framework.Setup.PhobosSetupPageDef>
+    <defName>PhobosSetup_Vehicles</defName>
+    <label>D'thorga Vehicles</label>
+    <description>Working vehicles of its own: the Talus tipper truck, the Ullage tanker, the Kelly drill rig, the Datum survey truck, the Busbar generator set, the Pintle trailers and the Billy field kitchen, the V-22 Osprey and the C-27J Spartan.</description>
+    <order>15</order>
+    <otherMods>It gives the vehicles of other mods you already drive the systems that match what they really are (a diesel truck, a jet), on top of D'thorga Vehicle Systems. Their settings are on the Vehicle Systems page.</otherMods>
+    <guideUrl>https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/player-guide/working-vehicles.md</guideUrl>
+  </Phobos.Framework.Setup.PhobosSetupPageDef>
+</Defs>

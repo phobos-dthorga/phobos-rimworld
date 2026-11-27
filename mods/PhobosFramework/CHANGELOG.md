@@ -22,6 +22,22 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.362.0] - 2026-11-28 - Draft
+
+The setup wizard
+
+### Added
+
+- **The setup wizard** (the owner's cards of 28 November 2026): on the main menu, the first time the game starts with D'thorga mods,
+  a window introduces each active mod on a page of its own, with its picture, what it does and what it changes in other mods, and
+  offers the choices worth making before a colony: presets first, each setting on request, and the restart-only ones gathered at the
+  end. It opens again by itself only for a page that is new or changed; **Setup and introduction**, on the General page of this mod's
+  settings, opens every page at any time, and **Skip setup** puts back anything changed. Any mod adds its pages in XML, so the wizard
+  never needs rewriting for a new setting. Not yet tested in game: rows 732 to 734.
+- **This mod's page and Vehicle Systems' page**: Parts for building, the gas source, standby power, rain-soaked fields and the log
+  keeper; then Which vehicles and the display mode, with Lighter, Full and Harsher presets for driving, repairs, jump-starts, hovering
+  and steam. Each choice is the same setting the settings window shows.
+
 ## [0.361.0] - 2026-11-27 - Draft
 
 A supply drop can take another price

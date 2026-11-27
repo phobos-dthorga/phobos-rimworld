@@ -17,6 +17,14 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   hopper's four stacks too. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.15.0] - 2026-11-28 - Draft
+
+A setup wizard page
+
+### Added
+
+- **A page in D'thorga Framework's setup wizard** (the owner's cards of 28 November 2026): an introduction to the mod and what it changes in Vanilla Furniture Expanded - Factory. Nothing in play changes. Not yet tested in game: row 732.
+
 ## [0.14.2] - 2026-11-18 - Draft
 
 The deep hopper's testing note costs nothing with testing notes off

@@ -93,7 +93,36 @@ public class RadioMod : Mod
         Settings = GetSettings<RadioSettings>();
         // Radio 0.53.0: the radio's own patches (the raid warning), each switched off by itself if its target is gone.
         HarmonyPatchApplier.ApplyEach(new Harmony(content.PackageId), typeof(RadioMod).Assembly, "[D'thorga Radio Framework]");
+        RegisterSetup();
     }
+
+    /// <summary>Round values for the setup wizard's metres per cell (Radio 0.55.0); the settings window's slider still takes any half metre.</summary>
+    static readonly float[] SetupMetres = { 0.5f, 1f, 2f, 3f, 5f, 10f, 20f, 30f };
+
+    /// <summary>The settings D'thorga Framework's setup wizard offers (Radio 0.55.0), with the labels this mod's settings window shows.</summary>
+    void RegisterSetup()
+    {
+        var defaults = new RadioSettings();
+        Phobos.Framework.Setup.SetupSettings.Choice("radio.metresPerCell", this,
+            () => "PhobosRadio_SetupMetresLabel".Translate(),
+            () => "PhobosRadio_SettingMetresPerCellDesc".Translate(), () => Settings.metresPerCell, x => Settings.metresPerCell = x,
+            defaults.metresPerCell, SetupMetres, x => "PhobosRadio_SetupMetres".Translate(x.ToString("0.#").Named("METRES")));
+        Phobos.Framework.Setup.SetupSettings.Choice("radio.displayMode", this, () => "PhobosRadio_SettingDisplayMode".Translate(), null,
+            () => Settings.displayMode, x => Settings.displayMode = x, defaults.displayMode,
+            (DisplayMode[])System.Enum.GetValues(typeof(DisplayMode)), x => ("PhobosRadio_DisplayMode" + x).Translate());
+        Tick("radio.terminalNoise", "PhobosRadio_SettingTerminalNoise", () => Settings.terminalNoise, x => Settings.terminalNoise = x, defaults.terminalNoise);
+        Tick("radio.alliesWarnOfRaids", "PhobosRadio_SettingAlliesWarnOfRaids", () => Settings.alliesWarnOfRaids, x => Settings.alliesWarnOfRaids = x,
+            defaults.alliesWarnOfRaids);
+        Tick("radio.listenersAmbushTraders", "PhobosRadio_SettingListenersAmbushTraders", () => Settings.listenersAmbushTraders,
+            x => Settings.listenersAmbushTraders = x, defaults.listenersAmbushTraders);
+        Tick("radio.jammingReachesRadios", "PhobosRadio_SettingJammingReachesRadios", () => Settings.jammingReachesRadios,
+            x => Settings.jammingReachesRadios = x, defaults.jammingReachesRadios);
+        Tick("radio.relayMastLosses", "PhobosRadio_SettingRelayMastLosses", () => Settings.relayMastLosses, x => Settings.relayMastLosses = x,
+            defaults.relayMastLosses);
+    }
+
+    void Tick(string id, string key, System.Func<bool> get, System.Action<bool> set, bool byDefault) =>
+        Phobos.Framework.Setup.SetupSettings.Tick(id, this, () => key.Translate(), () => (key + "Desc").Translate(), get, set, byDefault);
 
     public override string SettingsCategory() => "PhobosRadio_SettingsCategory".Translate();
 
