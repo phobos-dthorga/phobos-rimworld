@@ -1215,6 +1215,7 @@ loadouts bind them. Naming one of these puts your fitting on every vehicle that 
 | `minKilograms`, `maxKilograms` | The vehicle's empty mass window (none). The maximum is exclusive. |
 | `loadouts` | Only vehicles on one of these loadouts (any). |
 | `kinds` | Only vehicles whose loadout is of one of these kinds, such as `Aircraft` (any). |
+| `alsoLoadouts` | With `kinds`: loadouts, by defName, that may take it whatever their kind (none). Names, not Def references, so a loadout of a mod that is not loaded is never matched and never an error. The litter kits name five land vehicles built as ambulances. |
 | `flatDeckOnly` | Only vehicles whose VehicleDef carries `PhobosFlatDeckExtension` (false). |
 
 **Grants** are words that our code, or your own, reads. Ours include `CargoHook` (a helicopter lifts a vehicle on a sling), `Litter`,

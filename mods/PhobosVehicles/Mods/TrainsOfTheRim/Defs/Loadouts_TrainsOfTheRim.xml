@@ -69,6 +69,23 @@
           </li>
         </find>
       </li>
+      <li>
+        <!-- Vehicles 0.133.0 (the owner's card of 28 Nov 2026, "Railway-sensible set"): a bay for the crew water tank, the one bay of that set a
+             steam locomotive can use with no electrics; lamps, a cab light, a fridge and an outlet wait for an electrical system of its own.
+             Added last, so a saved locomotive keeps every existing part's wear. -->
+        <role>WaterTankBay</role>
+        <add>
+          <key>PhobosWaterTankBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>water tank bay</label>
+          <health>25</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Boiler</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
     </partRoles>
     <loads>
       <li>
@@ -138,6 +155,21 @@
             <key>BrakePipe</key>
           </li>
         </find>
+      </li>
+      <li>
+        <!-- Vehicles 0.133.0: the crew water tank's bay, as on the 4-8-4 (its comment says why it is the only one). -->
+        <role>WaterTankBay</role>
+        <add>
+          <key>PhobosWaterTankBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>water tank bay</label>
+          <health>25</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Boiler</cellsOf>
+          <last>true</last>
+        </add>
       </li>
     </partRoles>
     <loads>
@@ -234,6 +266,9 @@
       <li><def>PhobosVehicleSystem_TractionMotors</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_Driver</def></li>
+      <!-- Vehicles 0.133.0: the house battery, running only once one is fitted in the tray below. -->
+      <li><def>PhobosVehicleSystem_HouseBattery</def></li>
+      <li><def>PhobosVehicleSystem_HouseBatteryLithium</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_GoatDE2</def>
@@ -425,6 +460,131 @@
           <hitWeight>0.05</hitWeight>
           <hitWeightCE>2</hitWeightCE>
           <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <!-- Vehicles 0.133.0 (the owner's card of 28 Nov 2026, "Railway-sensible set", after the Busbar was found without its bays): the water pump
+           and drive belt its own cooling and service systems name, and the bays a shunter has a use for: lamps, a cab light, a crew water
+           tank, a fridge, an outlet, a house battery, and the remote control kit (real shunters are driven from a belt pack beside the track).
+           No winch, tents, awning, stereo, solar panel or auxiliary tank. The same keys, health and hit weights as the land base's, added last
+           so a saved shunter keeps every existing part's wear. -->
+      <li>
+        <role>WaterPump</role>
+        <add>
+          <key>PhobosWaterPump</key>
+          <label>water pump</label>
+          <health>20</health>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>Belt</role>
+        <add>
+          <key>PhobosDriveBelt</key>
+          <label>drive belt</label>
+          <health>10</health>
+          <hitWeight>0.3</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>LampMount</role>
+        <add>
+          <key>PhobosLampMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>lamp bracket</label>
+          <health>15</health>
+          <depth>External</depth>
+          <hitWeight>0.15</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>CabLightMount</role>
+        <add>
+          <key>PhobosCabLightMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>cab light mount</label>
+          <health>10</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>WaterTankBay</role>
+        <add>
+          <key>PhobosWaterTankBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>water tank bay</label>
+          <health>25</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>FridgeBay</role>
+        <add>
+          <key>PhobosFridgeBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>fridge bay</label>
+          <health>20</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>OutletPanel</role>
+        <add>
+          <key>PhobosOutletPanel</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>outlet panel</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>3</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>HouseBatteryTray</role>
+        <add>
+          <key>PhobosHouseBatteryTray</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>house battery tray</label>
+          <health>25</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>RemoteKitMount</role>
+        <add>
+          <key>PhobosRemoteKitMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>control radio bay</label>
+          <health>20</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
         </add>
       </li>
     </partRoles>

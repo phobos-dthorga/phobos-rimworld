@@ -135,6 +135,12 @@ public class PhobosVehicleFittingDef : Def
     public VehicleSystemCondition? gridWhen;
     /// <summary>Only vehicles on one of these loadouts (aircraft service-life upgrades: the Harrier's engine fits only a Harrier). Empty: any.</summary>
     public List<PhobosVehicleLoadoutDef> loadouts = new();
+    /// <summary>
+    /// Also on vehicles of these loadouts, by defName, whatever <see cref="kinds"/> says (Framework 0.375.0; the owner's card of 28 Nov 2026:
+    /// litter kits on aircraft and on chosen trucks, after they were offered in every truck's cab). Names, not Def references, so a loadout
+    /// of a tie-in that is not loaded is simply never matched. Empty: the kinds list alone decides.
+    /// </summary>
+    public List<string> alsoLoadouts = new();
     /// <summary>Only vehicles whose Def says they have a flat deck (PhobosFlatDeckExtension; Framework 0.217.0, the deck tent).</summary>
     public bool flatDeckOnly;
     /// <summary>Only vehicles whose loadout is of one of these kinds ("Aircraft"). Empty: any.</summary>
@@ -157,10 +163,11 @@ public class PhobosVehicleFittingDef : Def
     /// <summary>A factor on the countermeasure dispensers' magazine: more dispensers.</summary>
     public float cartridgeFactor = 1f;
 
-    /// <summary>Whether the fitting may go on a vehicle with this loadout, by its loadouts and kinds lists.</summary>
+    /// <summary>Whether the fitting may go on a vehicle with this loadout, by its loadouts list, and its kinds list or the loadouts named
+    /// beside it.</summary>
     public bool SuitsLoadout(PhobosVehicleLoadoutDef? loadout) =>
         (loadouts.Count == 0 || (loadout != null && loadouts.Contains(loadout)))
-        && (kinds.Count == 0 || (loadout != null && kinds.Contains(loadout.kind)));
+        && (kinds.Count == 0 || (loadout != null && (kinds.Contains(loadout.kind) || alsoLoadouts.Contains(loadout.defName))));
 
     /// <summary>Whether it moves a turbine's figures.</summary>
     public bool MovesTurbine => thrustFactor != 1f || hotDerateFactor != 1f;

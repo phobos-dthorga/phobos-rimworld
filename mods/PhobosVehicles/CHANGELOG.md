@@ -13,6 +13,25 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.133.0] - 2026-11-28 - Draft
+
+The Busbar's missing bays
+
+### Fixed
+
+- **The Busbar takes the fittings every truck takes**: work lamps, a winch, the remote control and route kits, a fridge, a crew water
+  tank, a stereo, a cab light, both house batteries, a solar panel, a power outlet, the tents and awnings, a cab bunk and an auxiliary
+  tank. It writes its own list of parts, so it had been left without their bays (the owner's report of 28 November 2026). It also gets
+  the water pump, drive belt and fuel pump its own systems already named, so the fuel heater can go on too. Not yet tested in game: row 770.
+- **The Trains of the Rim locomotives take the fittings a railway uses**: the diesel shunter gets lamps, a cab light, a crew water tank, a
+  fridge, an outlet, a house battery and the remote control kit, with the water pump and drive belt its systems named; the steam engines
+  get the crew water tank, as they have no electrics. Not yet tested in game: row 770.
+
+### Save compatibility
+
+- Safe for saves: the new parts are added after each vehicle's existing ones, so a saved Busbar or locomotive keeps every part's wear where
+  it was.
+
 ## [0.132.1] - 2026-11-28 - Draft
 
 The thrust pods on aircraft electrics

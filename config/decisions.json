@@ -1,4 +1,73 @@
 {
  "schemaVersion": 1,
- "decisions": []
+ "decisions": [
+  {
+   "id": "steam-loco-electrics",
+   "question": "Should the steam locomotives get electrics, so they can take lamps, a cab light, a fridge and an outlet?",
+   "context": "Batch 6 gave the Trains of the Rim steam engines only the crew water tank's bay: they have no electrical system, so electric fittings would have nothing to draw on. Big American steam engines like the Frisco 4-8-4 carried a steam turbo-generator for their headlamps (general knowledge, unverified).",
+   "options": [
+    {
+     "id": "turbo-generator",
+     "label": "A steam turbo-generator",
+     "detail": "A small electrical system fed by the boiler's steam: dead when the fire is out, so the lamps and fridge run only in steam"
+    },
+    {
+     "id": "leave",
+     "label": "Leave them",
+     "detail": "Steam engines keep the water tank alone"
+    }
+   ],
+   "lean": "turbo-generator",
+   "why": "It is how the real engines lit their lamps, and it ties the electrics to keeping steam up",
+   "from": "docs/development/vehicle-standard.md",
+   "asked": "2026-11-28"
+  },
+  {
+   "id": "boat-cooling-clutch",
+   "question": "The audit's new section finds the Dinghy and the Trawler with no water pump and no clutch. What should boats get?",
+   "context": "Their cooling system names a radiator and a water pump, and their transmission a clutch, but the boat loadout binds none of them (the partly bound section, 28 Nov 2026). Marine engines are commonly cooled by sea water through a pump, and an inboard's gearbox has a clutch (general knowledge, unverified).",
+   "options": [
+    {
+     "id": "pump-and-clutch",
+     "label": "Pump on both, clutch on the Trawler",
+     "detail": "A raw-water pump part on both boats and a clutch on the Trawler's gearbox; the radiator excused on boats in the audit"
+    },
+    {
+     "id": "excuse",
+     "label": "Excuse them in the audit",
+     "detail": "Record boats as cooled by the sea with no parts for it"
+    },
+    {
+     "id": "later",
+     "label": "Later",
+     "detail": "Leave the findings showing for now"
+    }
+   ],
+   "lean": "pump-and-clutch",
+   "why": "A blocked or broken raw-water pump is the commonest real boat engine failure, so the part would change an outcome",
+   "from": "docs/development/vehicle-standard.md",
+   "asked": "2026-11-28"
+  },
+  {
+   "id": "m1a2-turbocharger",
+   "question": "Both M1A2 Abrams carry a turbocharger system with no turbocharger part. Look into it and take it off?",
+   "context": "The partly bound section (28 Nov 2026) lists the turbocharger system on both M1A2s with nothing bound. The real tank runs on a gas turbine, which has no turbocharger; why the system is there was not read.",
+   "options": [
+    {
+     "id": "investigate",
+     "label": "Look into it and fix",
+     "detail": "Find why the system is added and take it off a turbine tank"
+    },
+    {
+     "id": "excuse",
+     "label": "Excuse it",
+     "detail": "Record it as expected in the audit"
+    }
+   ],
+   "lean": "investigate",
+   "why": "A system with nothing to read shows readings for a part the tank does not have",
+   "from": "docs/development/vehicle-standard.md",
+   "asked": "2026-11-28"
+  }
+ ]
 }

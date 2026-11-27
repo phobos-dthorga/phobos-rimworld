@@ -694,7 +694,7 @@ public sealed class VehicleFittings
         }
         // Framework 0.340.0 (the owner's answer of 27 Nov 2026, "Refuse it there"): one turbo part stands for one turbo, so an engine
         // turbocharged as built takes no turbocharger fitting. One fitted before stays until it is taken off.
-        if (def.grants.Contains(Turbochargers.Grant) && Turbochargers.BuiltIn(comp.Props) && FittedOn(part.props.key) != def)
+        if (BuiltIn(def) && FittedOn(part.props.key) != def)
             return "PhobosVehicleSystems_FitTurboBuiltIn".Translate().Resolve();
         if (def.matchedSet)
         {
@@ -710,6 +710,10 @@ public sealed class VehicleFittings
         }
         return PartRefusal(part);
     }
+
+    /// <summary>Whether what this fitting brings is on the vehicle as built (Framework 0.375.0): a turbocharger on an engine turbocharged as
+    /// built. The window shows it lit and marked "Built in"; ordering it is refused (<see cref="Refusal"/>).</summary>
+    public bool BuiltIn(PhobosVehicleFittingDef def) => def.grants.Contains(Turbochargers.Grant) && Turbochargers.BuiltIn(comp.Props);
 
     /// <summary>Why this part cannot take a fitting now, research aside; null when it can.</summary>
     string? PartRefusal(VehicleComponent part)

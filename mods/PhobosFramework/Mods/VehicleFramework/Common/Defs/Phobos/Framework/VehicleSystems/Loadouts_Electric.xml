@@ -201,6 +201,181 @@
           <cellsOf>Engine</cellsOf>
         </add>
       </li>
+      <!-- Framework 0.375.0 (the owner's card of 28 Nov 2026, "All but fuel/house batt", after the Busbar was found without them): the bays and
+           mounts the land base gives every land vehicle, which this loadout, written apart from it, lacked. The same keys, health and hit
+           weights, added last so a saved vehicle keeps every existing part's wear. No auxiliary fuel tank (there is no fuel) and no house battery
+           tray (the traction battery already is one). -->
+      <li>
+        <role>LampMount</role>
+        <add>
+          <key>PhobosLampMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>lamp bracket</label>
+          <health>15</health>
+          <depth>External</depth>
+          <hitWeight>0.15</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>RecoveryMount</role>
+        <add>
+          <key>PhobosRecoveryMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>winch mount</label>
+          <health>35</health>
+          <depth>External</depth>
+          <hitWeight>0.15</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>RemoteKitMount</role>
+        <add>
+          <key>PhobosRemoteKitMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>control radio bay</label>
+          <health>20</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>RouteKitMount</role>
+        <add>
+          <key>PhobosRouteKitMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>sensor bar</label>
+          <health>15</health>
+          <depth>External</depth>
+          <hitWeight>0.15</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>FridgeBay</role>
+        <add>
+          <key>PhobosFridgeBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>fridge bay</label>
+          <health>20</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>WaterTankBay</role>
+        <add>
+          <key>PhobosWaterTankBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>water tank bay</label>
+          <health>25</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>StereoSlot</role>
+        <notOnMilitary>true</notOnMilitary>
+        <add>
+          <key>PhobosStereoSlot</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>stereo slot</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>CabLightMount</role>
+        <add>
+          <key>PhobosCabLightMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>cab light mount</label>
+          <health>10</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>SolarMount</role>
+        <add>
+          <key>PhobosSolarMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>solar panel mount</label>
+          <health>20</health>
+          <depth>External</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>OutletPanel</role>
+        <add>
+          <key>PhobosOutletPanel</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>outlet panel</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>3</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>RoofMount</role>
+        <notOnMilitary>true</notOnMilitary>
+        <add>
+          <key>PhobosRoofMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>roof mount</label>
+          <health>30</health>
+          <depth>External</depth>
+          <hitWeight>0.12</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <role>SideRail</role>
+        <notOnMilitary>true</notOnMilitary>
+        <add>
+          <key>PhobosSideRail</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>side rail</label>
+          <health>25</health>
+          <depth>External</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
     </partRoles>
     <loads>
       <li>
@@ -336,6 +511,75 @@
             </li>
           </conditions>
         </when>
+      </li>
+      <li>
+        <!-- Framework 0.375.0: the work lamps' draw, as on the light land loadout (two 60 W LED floodlights on 12 V, 10 A, authored), now that this
+             loadout has a lamp bracket: the lamps cost charge here as everywhere. -->
+        <name>workLamps</name>
+        <label>work lamps</label>
+        <description>Floodlights that light the ground round the vehicle while it stands still at night, so work nearby goes on at the pace of daylight. They run off the battery when the vehicle is switched off.</description>
+        <amps>10</amps>
+        <shedOrder>5</shedOrder>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+        <defaultOn>false</defaultOn>
+        <available Class="Phobos.VehicleSystems.When_Any">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Granted">
+              <ability>WorkLights</ability>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_StatAbove">
+              <stat>Phobos_WorkLights</stat>
+              <value>0</value>
+            </li>
+          </conditions>
+        </available>
+        <autoOn Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Dark" />
+            <li Class="Phobos.VehicleSystems.When_Moving">
+              <invert>true</invert>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_Any">
+              <conditions>
+                <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+                <li Class="Phobos.VehicleSystems.When_OnGrid" />
+                <li Class="Phobos.VehicleSystems.When_QuantityAbove">
+                  <quantity>charge</quantity>
+                  <value>0.5</value>
+                </li>
+              </conditions>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_PeopleNear">
+              <radius>8</radius>
+              <holdHours>1</holdHours>
+            </li>
+          </conditions>
+        </autoOn>
+        <autoDescription>they light by themselves in the dark while the vehicle stands still with your people near it, and go out an hour after the last one leaves. Switched off and with no power cable, they light only while the battery is more than half full</autoDescription>
+        <standbyLabel>waiting for dark and a stop</standbyLabel>
+        <autoStandbyLabel>waiting for dark, a stop and people near</autoStandbyLabel>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Dark" />
+            <li Class="Phobos.VehicleSystems.When_Moving">
+              <invert>true</invert>
+            </li>
+          </conditions>
+        </when>
+      </li>
+      <li>
+        <!-- Framework 0.375.0: the recovery winch's draw, as on the light land loadout (150 A averaged over a pull, authored), now that this loadout
+             has a winch mount. Never shed; it stops only on a flat battery. -->
+        <name>winch</name>
+        <label>recovery winch</label>
+        <description>The recovery winch's motor, drawing while it pulls. A long pull on a flat battery stops it.</description>
+        <amps>150</amps>
+        <shedOrder>0</shedOrder>
+        <available Class="Phobos.VehicleSystems.When_FittingGrants">
+          <ability>RecoveryWinch</ability>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_Winching" />
       </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>

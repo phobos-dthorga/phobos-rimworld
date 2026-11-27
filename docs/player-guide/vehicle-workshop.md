@@ -145,7 +145,7 @@ heavy-duty air filter, a deep-cycle battery or a battery warmer. **A fitting is 
 | **Cargo hook** | A helicopter's hook mount | Lifts a vehicle on a sling |
 | **Fast-rope bar**, **rescue hoist** | The Osprey | See [working vehicles](working-vehicles.md#v-22-osprey) |
 | **Cabin oxygen** | An aircraft's oxygen panel | Oxygen for everyone aboard while the engine runs |
-| **Litter kit** | A helicopter's cabin | Up to 4 casualties lying down: see [aircraft](aircraft-and-sling-loads.md#an-air-ambulance) |
+| **Litter kit** | An aircraft's cabin, or the Humvee, MaxxPro, M113, Land Cruiser J70 or Wiesel, which had ambulance versions | Up to 4 casualties lying down: see [aircraft](aircraft-and-sling-loads.md#an-air-ambulance) |
 | **Navigation set**, **autopilot**, **night sight**, **radar** | An aircraft | Avionics it lacks: see [aircraft](aircraft-and-sling-loads.md#avionics) |
 | **Optionally piloted kit** | An aircraft with the autopilot | Flies its round with nobody aboard: see [on the road](vehicles-on-the-road.md#convoys-and-loops) |
 | **Vehicle extinguisher** | Any vehicle | Three charges against a fire on it; taken off, the kit keeps the charges it has left |

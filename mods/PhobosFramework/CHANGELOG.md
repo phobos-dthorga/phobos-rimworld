@@ -22,6 +22,33 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.375.0] - 2026-11-28 - Draft
+
+The Busbar's missing fittings, and a clearer fittings window
+
+### Added
+
+- **Electric land vehicles take a truck's fittings**: work lamps, a winch, the remote control and route kits, a fridge, a crew water tank,
+  a stereo, a cab light, a solar panel, an outlet, a roof tent and an awning, with the lamps' and winch's power draws. No auxiliary tank or
+  house battery: there is no fuel, and the traction battery already is one (the owner's card of 28 November 2026). Not yet tested in game:
+  row 770.
+- For modders: a fitting's alsoLoadouts names loadouts, by defName, that may take it whatever its kinds list says; a loadout of a mod that
+  is not loaded is simply never matched.
+
+### Changed
+
+- **Litter kits go on aircraft and on vehicles built as ambulances**: the Humvee, the MaxxPro, the M113, the Land Cruiser J70 and the
+  Wiesel, not every truck's cab (the owner's report of 28 November 2026, on the Busbar). A kit already fitted stays on. Not yet tested in
+  game: row 771.
+- **The fittings window shows a tune waiting for its work**: its button carries the amber bar a waiting fitting has, where before only a
+  small line under the row said so (the owner's report that a power tune "queued nothing"). Not yet tested in game: row 771.
+- **A turbocharger the engine has as built is shown lit and marked Built in**, not greyed out with the reason hidden in its details. Not
+  yet tested in game: row 771.
+
+### Save compatibility
+
+- Safe for saves: new parts are added after each vehicle's existing ones, so a saved vehicle keeps every part's wear where it was.
+
 ## [0.374.0] - 2026-11-28 - Draft
 
 The schematic's three parts, finished

@@ -223,6 +223,49 @@
         "RoofMount",
         "SideRail"
       ]
+    },
+    {
+      "line": "VS13",
+      "label": "the land vehicles' bays",
+      "status": "built",
+      "kinds": [
+        "land"
+      ],
+      "poweredOnly": true,
+      "roles": [
+        "LampMount",
+        "CabLightMount",
+        "FridgeBay",
+        "WaterTankBay",
+        "OutletPanel",
+        "RemoteKitMount"
+      ]
+    },
+    {
+      "line": "VS14",
+      "label": "a winch, route kit and solar mount on road vehicles",
+      "status": "built",
+      "kinds": [
+        "land"
+      ],
+      "poweredOnly": true,
+      "roles": [
+        "RecoveryMount",
+        "RouteKitMount",
+        "SolarMount"
+      ]
+    },
+    {
+      "line": "VS15",
+      "label": "a house battery tray",
+      "status": "built",
+      "kinds": [
+        "land"
+      ],
+      "poweredOnly": true,
+      "roles": [
+        "HouseBatteryTray"
+      ]
     }
   ],
   "except": [
@@ -255,6 +298,16 @@
       "vehicle": "VVE_Goliath",
       "line": "VS7",
       "why": "A thrust-lifted pod on fictional chemfuel thrusters (Vanilla Vehicles Expanded), not jet engines: a thruster, like a rocket, has no oil sump, and chemfuel is not jet fuel (the owner's card of 28 Nov 2026, 'Excuse them, recorded')."
+    },
+    {
+      "vehicle": "TOTR_Diesel_Shunter_Locomotive",
+      "line": "VS14",
+      "why": "A locomotive runs on rails: no winch to recover it, no road route kit, no solar panel (the owner's card of 28 Nov 2026, 'Railway-sensible set')."
+    },
+    {
+      "vehicle": "VVE_Lightning",
+      "line": "VS15",
+      "why": "An electric car's traction battery already is its house battery (the owner's card of 28 Nov 2026, 'All but fuel/house batt')."
     }
   ]
 }

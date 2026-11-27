@@ -11,6 +11,7 @@ tabs disagreed on many aircraft). Reads the file only. Its path comes from --fil
 
 The audit's kinds:
   - unbound system: a system that names roles, none bound on the vehicle (the Systems tab shows readings with no part).
+  - partly bound system: a system with some of its roles bound and others not, where config/vehicle-bindings.json does not expect it.
   - cover-like part: a role bound to a part whose key or label reads like a cover, door, hatch, panel or window.
   - unwatched part: an internal part that moves a stat but no role binds, so no system speaks for it.
   - below the standard: a vehicle missing a system or part role the vehicle standard asks of its kind (config/vehicle-standard.json;
@@ -41,6 +42,20 @@ def expected(path: Path = EXPECTED) -> dict:
 
 def _cover_expected(rules: dict, role: str, key: str) -> bool:
     return any(rule.get('role') == role and rule.get('partContains', '').lower() in key.lower() for rule in rules.get('coverLike', []))
+
+
+def _partly_expected(rules: dict, system: str, role: str, kind: str) -> bool:
+    """Whether a role a system names may go unbound on this vehicle by design: a rule naming the role (or every role, "*"), and the system
+    and the kinds it gives where it gives them."""
+    for rule in rules.get('partlyBound', []):
+        if rule.get('role', '*') not in ('*', role):
+            continue
+        if 'system' in rule and rule['system'] != system:
+            continue
+        if 'kinds' in rule and kind not in rule['kinds']:
+            continue
+        return True
+    return False
 
 
 def _unwatched_expected(rules: dict, key: str, categories: list) -> bool:
@@ -128,20 +143,29 @@ def load(path: Path) -> dict:
     return json.loads(path.read_text(encoding='utf-8'))
 
 
-def audit(data: dict, rules: dict | None = None) -> dict:
+def audit(data: dict, rules: dict | None = None, std: dict | None = None) -> dict:
     """The findings by kind, each a list of {vehicle, mod, ...}. Parts we add ourselves (mounting points) are never cover-like
-    findings, and what `rules` (config/vehicle-bindings.json) says is expected by design is left out."""
+    findings, and what `rules` (config/vehicle-bindings.json) says is expected by design is left out. `std` (the vehicle standard) gives
+    each vehicle its kind, which the partly bound rules may name."""
     rules = expected() if rules is None else rules
-    unbound, cover, unwatched = [], [], []
+    std = standard() if std is None else std
+    unbound, partly, cover, unwatched = [], [], [], []
     for vehicle in data.get('vehicles', []):
         roles = vehicle.get('roles', {})
         parts = {part['key']: part for part in vehicle.get('parts', [])}
         bound = {key for keys in roles.values() for key in keys}
         ours = set(vehicle.get('added', []))
         where = {'vehicle': vehicle['def'], 'label': vehicle.get('label', ''), 'mod': vehicle.get('mod', '')}
+        kind = kind_of(vehicle, std)
         for system in vehicle.get('systems', []):
             if system['roles'] and not any(roles.get(role) for role in system['roles']):
                 unbound.append({**where, 'system': system['def'], 'roles': system['roles']})
+                continue
+            # A system bound in part (the owner's report of 28 Nov 2026: the Busbar's cooling had its engine and radiator but no water pump,
+            # which "none bound" never caught): each role it names with no part, unless the rules expect it on this kind.
+            missing = [role for role in system['roles'] if not roles.get(role) and not _partly_expected(rules, system['def'], role, kind)]
+            if missing:
+                partly.append({**where, 'kind': kind, 'system': system['def'], 'roles': missing})
         for role, keys in roles.items():
             for key in keys:
                 part = parts.get(key, {})
@@ -153,12 +177,12 @@ def audit(data: dict, rules: dict | None = None) -> dict:
             if key not in bound and part.get('depth') == 'Internal' and part.get('categories')                     and not _unwatched_expected(rules, key, part['categories']):
                 unwatched.append({**where, 'part': key, 'partLabel': part.get('label', ''), 'categories': part['categories']})
     return {'written': data.get('written', ''), 'vehicles': len(data.get('vehicles', [])),
-            'unboundSystems': unbound, 'coverLikeParts': cover, 'unwatchedParts': unwatched}
+            'unboundSystems': unbound, 'partlyBoundSystems': partly, 'coverLikeParts': cover, 'unwatchedParts': unwatched}
 
 
 def full_audit(data: dict, rules: dict | None = None, std: dict | None = None) -> dict:
     """The bindings audit and the standard's together, as the command prints them."""
-    return {**audit(data, rules), **below_standard(data, std)}
+    return {**audit(data, rules, std), **below_standard(data, std)}
 
 
 def print_audit(found: dict, out) -> None:
@@ -166,6 +190,9 @@ def print_audit(found: dict, out) -> None:
     sections = (
         ('Unbound systems', 'unboundSystems', 'A system that names roles, none bound: its readings show with no part.',
          lambda f: f"{f['system']} (roles {', '.join(f['roles'])})"),
+        ('Partly bound systems', 'partlyBoundSystems', 'A system bound in part: a role it names has no part on this vehicle, and '
+         'config/vehicle-bindings.json does not expect that on its kind.',
+         lambda f: f"{f['system']} ({f['kind']}): no {', '.join(f['roles'])}"),
         ('Cover-like parts', 'coverLikeParts', 'A role bound to a part that reads like a cover, door, hatch, panel or window.',
          lambda f: f"{f['role']} -> {f['part']} ({f['partLabel']})"),
         ('Unwatched parts', 'unwatchedParts', 'An internal part that moves a stat, which no role binds: no system speaks for it.',

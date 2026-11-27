@@ -64,6 +64,30 @@ class VehicleBindingsAuditTests(unittest.TestCase):
             self.assertIn('whole vehicle', out.getvalue())
             self.assertIn('Parts no role binds: 1', out.getvalue())
 
+    def test_a_system_bound_in_part_is_found_unless_expected_on_its_kind(self):
+        # The Busbar (28 Nov 2026): its cooling had an engine and a radiator but no water pump, which "none bound" never caught.
+        report = {'vehicles': [{
+            'def': 'Test_Genset', 'label': 'test genset', 'mod': 'someone.test', 'loadout': 'PhobosVehicleLoadout_Genset',
+            'systems': [{'def': 'Cooling', 'roles': ['Engine', 'Radiator', 'WaterPump']}, {'def': 'Fuel', 'roles': ['FuelPump', 'FuelTank']}],
+            'roles': {'Engine': ['Engine'], 'Radiator': ['Radiator'], 'FuelPump': ['Pump']}, 'added': [], 'parts': [],
+        }]}
+        std = {'kinds': [{'kind': 'land', 'match': {}}]}
+        found = vehicle_bindings.audit(report, rules={}, std=std)['partlyBoundSystems']
+        self.assertEqual([('Cooling', ['WaterPump']), ('Fuel', ['FuelTank'])], [(f['system'], f['roles']) for f in found])
+        # Expected: a fuel tank anywhere; a water pump only on another kind, so the cooling finding stays.
+        rules = {'partlyBound': [{'role': 'FuelTank'}, {'role': 'WaterPump', 'kinds': ['rotor']}]}
+        found = vehicle_bindings.audit(report, rules=rules, std=std)['partlyBoundSystems']
+        self.assertEqual([('Cooling', ['WaterPump'])], [(f['system'], f['roles']) for f in found])
+        # A rule naming the system, and one for every role on a kind.
+        self.assertEqual([], vehicle_bindings.audit(report, rules={'partlyBound': [{'role': 'WaterPump', 'system': 'Cooling'}, {'role': 'FuelTank'}]},
+                                                    std=std)['partlyBoundSystems'])
+        self.assertEqual([], vehicle_bindings.audit(report, rules={'partlyBound': [{'role': '*', 'kinds': ['land']}]}, std=std)['partlyBoundSystems'])
+
+    def test_the_shipped_expectations_read(self):
+        rules = vehicle_bindings.expected()
+        for rule in rules.get('partlyBound', []):
+            self.assertTrue(rule.get('why'), f'a partlyBound rule gives no reason: {rule}')
+
 
 def _vehicle(def_name, loadout, systems, roles):
     return {'def': def_name, 'label': def_name, 'mod': 'someone.test', 'loadout': loadout,

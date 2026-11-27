@@ -127,6 +127,15 @@
     <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <description>Stanchions and straps for stretchers along the cabin, a first-aid locker, and a vitals monitor wired to the litters. Downed people can be carried aboard and lie on the litters, and anyone in the crew who can doctor tends them while the vehicle stands, a little better while the monitor has power. It draws about 8 amps on a 12-volt vehicle while someone lies on a litter. The frames take up cargo space. Taking it off gives the monitor back.</description>
     <roles><li>Cabin</li></roles>
+    <!-- Framework 0.375.0: where the plain litter kit goes (its comment in Fittings.xml says why). -->
+    <kinds><li>Aircraft</li></kinds>
+    <alsoLoadouts>
+      <li>PhobosVehicleLoadout_HUMVEE</li>
+      <li>PhobosVehicleLoadout_GTek_MaxxPro</li>
+      <li>PhobosVehicleLoadout_RT_M113</li>
+      <li>PhobosVehicleLoadout_FW_LandCruiserJ70</li>
+      <li>PhobosVehicleLoadout_FW_Wiesel</li>
+    </alsoLoadouts>
     <materials><Steel>60</Steel><Cloth>40</Cloth><ComponentIndustrial>2</ComponentIndustrial><VitalsMonitor>1</VitalsMonitor></materials>
     <givesBack><VitalsMonitor>1</VitalsMonitor></givesBack>
     <work>9000</work>

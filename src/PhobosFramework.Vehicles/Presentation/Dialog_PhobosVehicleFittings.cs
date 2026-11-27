@@ -233,6 +233,9 @@ public class Dialog_PhobosVehicleFittings : Window
             Color before = GUI.color;
             if (refusal != null) GUI.color = new Color(1f, 1f, 1f, 0.35f);
             if (isCurrent) Widgets.DrawBoxSolid(new Rect(button.x + 2f, button.yMax - 4f, button.width - 4f, 3f), PhobosWidgets.Good);
+            // Framework 0.375.0 (the owner's report of 28 Nov 2026: a power tune ordered on the Busbar looked as if nothing had happened): the
+            // tune waiting for its work carries the amber bar a waiting fitting's button has, besides the line under the row.
+            else if (order?.tune == tune) Widgets.DrawBoxSolid(new Rect(button.x + 2f, button.yMax - 4f, button.width - 4f, 3f), PhobosWidgets.Caution);
             float textX = button.x + 4f;
             if (tune.Icon is { } icon)
             {
@@ -359,7 +362,11 @@ public class Dialog_PhobosVehicleFittings : Window
                 var button = new Rect(x, y, PhobosWidgets.ChoiceWidth(def.Icon, def.LabelCap, PictureButton), PictureButton);
                 string? refusal = parts.Select(part => Fittings.Refusal(def, part)).FirstOrDefault(r => r != null);
                 bool all = fitted.All(f => f == def);
-                bool clicked = Choice(button, def.Icon, def.LabelCap, all, refusal, orders.Any(o => o.fitting == def), def.researchPrerequisite, out bool over);
+                // Framework 0.375.0 (the owner's word of 28 Nov 2026, "needs to be made clear"): a turbocharger the engine has as built is lit,
+                // marked "Built in", where before it was only dimmed with the reason in its details.
+                bool builtIn = !all && Fittings.BuiltIn(def);
+                bool clicked = Choice(button, def.Icon, def.LabelCap, all || builtIn, builtIn ? null : refusal, orders.Any(o => o.fitting == def), def.researchPrerequisite, out bool over);
+                if (builtIn) PhobosWidgets.RefusalMark(button, "PhobosVehicleSystems_MarkBuiltIn".Translate());
                 if (over) hoverDetails = FittingTip(def, refusal);
                 if (clicked)
                 {
@@ -368,7 +375,7 @@ public class Dialog_PhobosVehicleFittings : Window
                         if (fitted[i] != def) Fittings.OrderFitting(parts[i], def);
                     }
                 }
-                if (!all && Mouse.IsOver(button))
+                if (!all && !builtIn && Mouse.IsOver(button))
                 {
                     hoverFitting = true;
                     hovered = def;

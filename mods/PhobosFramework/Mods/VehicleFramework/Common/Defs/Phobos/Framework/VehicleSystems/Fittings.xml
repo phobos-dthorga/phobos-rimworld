@@ -224,6 +224,17 @@
     <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <description>Stanchions and straps for stretchers along the cabin, with a first-aid locker. Downed people can be carried aboard and lie on the litters, and anyone in the crew who can doctor tends them while the vehicle stands. The frames take up cargo space.</description>
     <roles><li>Cabin</li></roles>
+    <!-- Framework 0.375.0 (the owner's card of 28 Nov 2026, "Aircraft + chosen trucks", after the kit was offered in every truck's cab, the
+         Busbar's among them): aircraft, and the land vehicles that had ambulance versions with room for stretchers (agent's choice, the owner to
+         revise): the Humvee (M997), the MaxxPro, the M113, the Land Cruiser J70 and the Wiesel 2. A kit already fitted elsewhere stays fitted. -->
+    <kinds><li>Aircraft</li></kinds>
+    <alsoLoadouts>
+      <li>PhobosVehicleLoadout_HUMVEE</li>
+      <li>PhobosVehicleLoadout_GTek_MaxxPro</li>
+      <li>PhobosVehicleLoadout_RT_M113</li>
+      <li>PhobosVehicleLoadout_FW_LandCruiserJ70</li>
+      <li>PhobosVehicleLoadout_FW_Wiesel</li>
+    </alsoLoadouts>
     <materials><Steel>60</Steel><Cloth>40</Cloth><ComponentIndustrial>2</ComponentIndustrial></materials>
     <work>8000</work>
     <minSkill>4</minSkill>

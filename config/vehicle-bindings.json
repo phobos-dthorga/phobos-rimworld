@@ -1,10 +1,51 @@
 {
-  "doc": "What scripts/vehicle-bindings.py treats as expected by design, so its audit lists only what needs a look (Framework 0.258.0).",
+  "doc": "What scripts/vehicle-bindings.py treats as expected by design, so its audit lists only what needs a look (Framework 0.258.0). partlyBound (28 Nov 2026): a role a system names that may go unbound, on the kinds or system given.",
   "coverLike": [
     {
       "role": "Cabin",
       "partContains": "roof",
       "why": "The cab role falls back to the roof on armoured vehicles with no cab part: the crew sit under it (Loadouts_Default.xml)."
+    }
+  ],
+  "partlyBound": [
+    {
+      "role": "Radiator",
+      "kinds": ["fixed-wing", "rotor"],
+      "why": "The shared service system names a radiator and a drive belt for piston engines; a turbine aircraft has neither."
+    },
+    {
+      "role": "Belt",
+      "kinds": ["fixed-wing", "rotor"],
+      "why": "As the radiator: no accessory drive belt on a turbine."
+    },
+    {
+      "role": "FuelTank",
+      "why": "The fuel tank is found by name and never added: a vehicle whose author drew no tank part has none to hole (Loadouts_Default.xml)."
+    },
+    {
+      "role": "*",
+      "kinds": ["submarine"],
+      "why": "Submarine work is on the owner's back burner (20 Nov 2026): no reviews until it is picked up again."
+    },
+    {
+      "role": "Starter",
+      "system": "PhobosVehicleSystem_AuxiliaryElectrical",
+      "why": "An electric vehicle's auxiliary electrics name a starter from the combustion system they share; there is no engine to crank."
+    },
+    {
+      "role": "Starter",
+      "system": "PhobosVehicleSystem_ElectricService",
+      "why": "As above: nothing to crank on an electric vehicle."
+    },
+    {
+      "role": "Belt",
+      "system": "PhobosVehicleSystem_ElectricService",
+      "why": "An electric drive has no accessory drive belt."
+    },
+    {
+      "role": "Radiator",
+      "system": "PhobosVehicleSystem_ElectricService",
+      "why": "The electric loadout writes no radiator part: an electric drive's cooling is not modelled by a part of its own (agent's reading, the owner to revise)."
     }
   ],
   "unwatched": [

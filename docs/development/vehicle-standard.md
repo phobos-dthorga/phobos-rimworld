@@ -7,8 +7,9 @@ built](#built-batch-2-27-nov-2026)); not yet tested in game (row 723). **Batch 3
 D'thorga Framework 0.360.0 ([as built](#built-batch-3-27-nov-2026)); not yet tested in game (row 724). **Batch 4 is built** (lights,
 searchlights, night landings and galleys): D'thorga Framework 0.366.0 and D'thorga Vehicles 0.132.0 ([as
 built](#built-batch-4-28-nov-2026)); not yet tested in game (rows 743 to 745). **Batch 5 is built** (what does not belong): D'thorga
-Framework 0.368.0 ([as built](#built-batch-5-28-nov-2026)); not yet tested in game (row 747). Every batch is built; VS8 and VS12 wait for a
-behaviour. The owner answered seventeen cards ([below](#questions-for-the-owner)).
+Framework 0.368.0 ([as built](#built-batch-5-28-nov-2026)); not yet tested in game (row 747). **Batch 6 is built** (the land bays, VS13 to
+VS15, and a partly bound audit): D'thorga Framework 0.375.0 and D'thorga Vehicles 0.133.0 ([as built](#built-batch-6-28-nov-2026)); not yet
+tested in game (row 770). Every batch is built; VS8 and VS12 wait for a behaviour. The owner answered twenty-one cards ([below](#questions-for-the-owner)).
 
 **Why.** The owner, 27 Nov 2026, looking at their aircraft: "Wouldn't radios of some sort be included with the majority of the ones in
 my game, if not all, by default? And if that's the case, howcome there's no mention of them on the Systems, Fittings, nor Health pages?
@@ -66,6 +67,9 @@ where it changes an outcome** (the vehicles' rule: every node moves a figure tha
 | VS10 | A galley, water and outlets on transports | Has (all) | Missing on the C-17 | Missing on the Osprey and C-27J | Missing on the trawler | Kitchen trailer has | Transport aircraft and working boats have galleys | The accessories' own behaviour |
 | VS11 | **What does not belong**: a stereo, fridge, solar panel and sleeper berth on a main battle tank; a radiator and belt in a turbine's service list | Too much | Service roles too wide | Same | Too wide | — | A tank has an intercom, not a stereo | Narrow the land base by vehicle class |
 | VS12 | A crew intercom | Missing | Missing | Missing | Missing | No | Every armoured vehicle and aircraft | Only if it changes something (crew working a remote gun, say): set aside until it does |
+| VS13 | **The land vehicles' bays**: lamps, cab light, fridge, crew water tank, outlet, remote control kit | Has (missing on three that write their own parts) | — | — | — | No | A working vehicle carries lights and the crew's water and food | The accessories' own behaviour |
+| VS14 | A winch, route kit and solar mount on road vehicles | Has (missing on two) | — | — | — | No | Road vehicles recover each other and follow routes; a locomotive does neither | The accessories' own behaviour |
+| VS15 | A house battery tray | Has (missing on two) | — | — | — | No | Trucks and shunters carry a second battery for the cab's loads; an electric car's traction battery is one | The house battery's own behaviour |
 
 ## How the standard is kept
 
@@ -85,6 +89,7 @@ where it changes an outcome** (the vehicles' rule: every node moves a figure tha
 | 3 | VS6, VS7 (fuel and oil for aircraft). **Built 27 Nov 2026** | Real systems every aircraft has, with clear failures |
 | 4 | VS9, VS10 (lights and transports' galleys). **Built 28 Nov 2026** | Accessories that already exist; mostly XML (the searchlight, night landings and the galley's cooking became code) |
 | 5 | VS11 (what does not belong). **Built 28 Nov 2026** | Takes things away from players' vehicles, so it waits for the owner's word on each (four cards) |
+| 6 | VS13 to VS15 (the land bays) and the partly bound audit. **Built 28 Nov 2026** | The owner's report that the Busbar lacked "quite a few fittings": the land lines had been assumed, never checked |
 | Later | VS8, VS12 | Each needs a behaviour designed first |
 
 ## Built: batch 1 (27 Nov 2026)
@@ -218,6 +223,28 @@ already only on heavy vehicles; a locomotive keeps its stereo); the remaining 13
 the electric vehicle's starter). **What a next game would need:** the part layout rule is game-free; any game that saves parts by position
 needs its own place to drop the entries.
 
+## Built: batch 6 (28 Nov 2026)
+
+The owner's report that the Busbar offered "QUITE A FEW" fewer fittings than it should, and four cards (18 to 21, [below](#questions-for-the-owner)).
+**Not yet tested in game.** The land lines had never been written down: every land vehicle took the bays from the land base, so the audit
+had nothing to check them against, and a loadout that writes its own parts (`Inherit="False"`, or no parent) lost them unseen.
+
+| Piece | As built |
+| --- | --- |
+| The Busbar (D'thorga Vehicles) | Every land bay: lamps, winch, remote control and route kits, fridge, crew water tank, stereo, cab light, house battery tray (and the two house battery systems), solar, outlet, roof mount, side rail, sleeper berth and auxiliary tank cradle; and the **water pump**, **drive belt** and **fuel pump** its own cooling, service and fuel systems named. No clutch or gearbox: a diesel-electric drives through traction motors |
+| The electric loadout (the Lightning; D'thorga Framework) | The same bays but the auxiliary tank (no fuel) and the house battery tray (its traction battery is one), with the work lamps' and the winch's draws, which this loadout had never carried |
+| The Goat DE2 shunter (D'thorga Vehicles) | Water pump, drive belt, lamps, cab light, crew water tank, fridge, outlet, house battery tray (and systems) and the remote control kit's bay (real shunters are driven from a belt pack). No winch, tents, awning, stereo, solar or auxiliary tank |
+| The steam locomotives (D'thorga Vehicles) | The crew water tank's bay only: they have no electrical system, so lamps, a cab light, a fridge and an outlet would have nothing to draw on. A steam turbo-generator (the big American engines carried one for their headlamps; general knowledge, **unverified**) is a question for the owner, not built |
+| Saves | Every new part is added last (`last`), so a saved vehicle keeps every existing part's wear where it was |
+| The standard | VS13 (lamps, cab light, fridge, water tank, outlet, remote control kit), VS14 (winch, route kit, solar; the shunter excused) and VS15 (house battery tray; the Lightning excused), each for powered land vehicles, in `config/vehicle-standard.json`. Against the owner's report of 27 Nov 2026 they named exactly the three vehicles above |
+| The audit | A new **Partly bound systems** section in `scripts/vehicle-bindings.py`: a system with some of its roles bound and others not, which "Unbound systems" (none bound) never caught. What is expected by design is in `config/vehicle-bindings.json`'s `partlyBound`, each with its reason: turbine aircraft's radiator and belt, a fuel tank the author never drew, the submarines, and an electric vehicle's starter, belt and radiator |
+
+**Left for the owner** (the new section's other findings, 28 Nov 2026): the two boats' cooling, service and transmission (no water pump and no
+clutch on the Dinghy and the Trawler), and both M1A2s' turbocharger system with no turbocharger part.
+
+**What outside the vehicle notices:** nothing new; each bay only lets a fitting go on. **Other factions' vehicles:** a raider's Busbar or shunter
+has the same bays, empty. **Cost:** a few more parts per vehicle of these designs, at start-up; nothing while playing.
+
 ## Vehicle classes (28 Nov 2026)
 
 The owner asked how the HEMTT and the L-ATVs were classed (28 Nov 2026). The test reads guns on a design as built; the L-ATV, the MaxxPro and
@@ -261,6 +288,10 @@ Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, th
 | 15 | Taking a bay away shifts every later part in a saved vehicle. How should saves be handled? | **Move saves over** (recommended): each vehicle remembers its part layout, and the removed entries are dropped at the first load · New vehicles only | **Move saves over** |
 | 16 | With a new class, "civilian by design, military through upgrades", where do the L-ATV, MaxxPro and Humvee belong? | **Military by design** (recommended): built military, gun or not · The new class | **The new class** (28 Nov 2026); the owner's own idea of the class, from the card before: "These and designs like them should maybe come under another designation for possible future use? Civilian by design, but military through upgrades?" |
 | 17 | What should the new class do for now? | **Recorded, for future use** (recommended) · Also shown on the vehicle | **Also shown on the vehicle** |
+| 18 | The Busbar's missing fittings: should it get the full set of bays every other land vehicle has, except the clutch and gearbox? | **Yes, the full set** (recommended) · Full set, no camp gear · Let me list them | **Yes, the full set** (28 Nov 2026) |
+| 19 | The VVE Lightning has none of the land bays. Which should it get? | **All but fuel and house battery** (recommended) · All of them · Leave it | **All but fuel and house battery** |
+| 20 | The Trains of the Rim locomotives have none either, and the shunter lacks a water pump and drive belt. What should they get? | **Railway-sensible set** (recommended): lamps, cab light, water tank, fridge, outlet on all five; the shunter also water pump, belt, house battery, remote kit · Diesel shunter only · Full land set · Leave them | **Railway-sensible set**; built on the steam engines as the water tank alone, as they have no electrics |
+| 21 | Should the audit catch this from now on? | **Yes, both checks** (recommended): a standard line for the land bays, and a section for systems bound in part · Just the land bays · No | **Yes, both checks** |
 
 ## Who chose what
 
@@ -271,6 +302,8 @@ Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, th
   2026), by card: the lamp bracket, landing lights and a helicopter searchlight; dark, unlit landings as risky as blind ones; the thrust pods
   excused; galleys where the real vehicle has one, from the factory, with their own art. Batch 5 ("Do Batch #5", 28 Nov 2026), by card:
   military vehicles lose the stereo slot, sleeper berth, roof mount and side rail; their fittings come back into the cargo; saves are moved over.
+  Batch 6 (the owner's Busbar report, 28 Nov 2026), by card: the Busbar's full set; the Lightning's set without fuel or house battery; the
+  railway set on the locomotives; both audit checks.
 - **Agent:** the standard's lines, the batches, the audit, and every lean here, for the owner to revise. In batch 3: the code route
   (per-engine parts and a service, not the land systems), the air at cruising height and the ram rise, Jet A-1's figure (not Jet A's
   -40 °C, which the card named), solid at 10 °C below, the gliding landing or crash on the world map, and the setting's risk grade. In
@@ -279,7 +312,8 @@ Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, th
   of the four carry a real galley (the C-27J's from Leonardo's brochure, not the card's examples); the galley cooking for caravans on the
   vehicle's own fuel, its figures, and its place after a field kitchen; and appending every new part last. In batch 5: the part layout
   number on each vehicle and dropping saved entries at the first load; the fittings coming off at spawn; optional roles for the turbines'
-  service list; the audit's military lines.
+  service list; the audit's military lines. In batch 6: the split of the land bays into three lines; the steam engines' water tank alone; the
+  partly bound rules and their reasons; the Lightning's work lamp and winch draws copied from the light land loadout.
 
 ## Sources
 
