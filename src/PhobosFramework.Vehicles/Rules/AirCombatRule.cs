@@ -244,14 +244,17 @@ public static class AvionicsAimRule
 public static class RoughLandingRule
 {
     /// <summary>The chance a landing goes hard: none while the crew can see to land with its controls answering; otherwise the rules'
-    /// chance, less with a working autopilot.</summary>
+    /// chance, less with a working autopilot. Since Framework 0.366.0 (the vehicle standard's batch 4, the owner's card of 28 Nov 2026,
+    /// "Dark and unlit = risky"): touching down in the dark on ground with no light, no landing lights burning, is the same chance as landing
+    /// blind, and an autopilot does not lessen it (it cannot see the ground either).</summary>
     public static double Chance(bool poorVisibility, bool instruments, double flightControl, bool autopilot, double chance, double controlBelow,
-        double autopilotFactor)
+        double autopilotFactor, bool darkUnlit = false)
     {
         bool blind = poorVisibility && !instruments;
         bool loose = flightControl < controlBelow;
-        if (!blind && !loose) return 0;
+        if (!blind && !loose && !darkUnlit) return 0;
         double c = Math.Min(1, Math.Max(0, chance));
+        if (darkUnlit) return c;
         return autopilot ? c * Math.Min(1, Math.Max(0, autopilotFactor)) : c;
     }
 }

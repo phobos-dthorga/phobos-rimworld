@@ -168,9 +168,17 @@ public static class VehicleSystems
         var waiting = new List<(string role, PartToAdd add, List<string> targets)>();
         // Framework 0.258.0: parts added to designs that saves already hold, appended after every other part we add.
         var late = new List<PartRoleSpec>();
+        // Framework 0.366.0: parts appended at the very end, after the code's own (the turbocharger, each engine's pumps).
+        var last = new List<PartRoleSpec>();
         foreach (PartRoleSpec role in pending)
         {
             PartToAdd add = role.add!;
+            if (add.last)
+            {
+                last.Add(role);
+                continue;
+            }
+            if (role.onlyWithRole != null) Problems.Add(loadout.defName + ": " + role.role + " names onlyWithRole but is not added last, so it is added everywhere");
             if (add.late)
             {
                 late.Add(role);
@@ -210,26 +218,16 @@ public static class VehicleSystems
         if (props.addedKeys.Contains(FireFighting.CrewSystemKey)) added++;
         // The rest of the parts made one for each part of a role (Framework 0.250.0), after every other part we add, so saved indexes hold.
         added += EachPart.AppendWaiting(def, props, waiting);
-        foreach (PartRoleSpec role in late)
-        {
-            PartToAdd add = role.add!;
-            if (def.components.Any(p => p.key == add.key))
-            {
-                Problems.Add(def.defName + ": already has a part called " + add.key);
-                continue;
-            }
-            def.components.Add(MakePart(def, add, props));
-            props.roleKeys[role.role] = new List<string> { add.key };
-            props.addedKeys.Add(add.key);
-            if (!add.countsTowardDestruction) props.uncountedKeys.Add(add.key);
-            added++;
-        }
+        added += AppendWhole(def, props, late);
         // Framework 0.320.0: the turbocharger, on every design with a piston engine, after every other part we add so saved indexes hold.
         Turbochargers.Apply(def, props);
         if (props.addedKeys.Contains(Turbochargers.Key)) added++;
         // Framework 0.360.0 (the vehicle standard, batch 3): a part for each engine where a system asks for one (an aircraft's fuel and oil
         // pumps), after every other part we add so saved indexes hold, and before the numbered roles roll up.
         added += EnginePumps.Apply(def, props);
+        // Framework 0.366.0 (the vehicle standard, batch 4): parts marked last, at the very end, so a saved vehicle keeps every earlier part
+        // where it was. Every role is bound by now, so a part that asks for another role (onlyWithRole) can be judged.
+        added += AppendWhole(def, props, last.Where(r => r.onlyWithRole == null || props.roleKeys.ContainsKey(r.onlyWithRole)));
         // Framework 0.256.0: numbered roles roll up into their base role (Engine1 to EngineN are "the engines"), before the reactors are set.
         SystemParts.RollUpFamilies(props);
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).
@@ -317,6 +315,27 @@ public static class VehicleSystems
         if (!def.inspectorTabs.Contains(typeof(ITab_VehicleSystems))) def.inspectorTabs.Add(typeof(ITab_VehicleSystems));
         // The logbook (Framework 0.181.0, EM23): the core's tab, shown for the player's vehicles.
         if (!def.inspectorTabs.Contains(typeof(Phobos.Framework.Interface.ITab_PhobosLogbook))) def.inspectorTabs.Add(typeof(Phobos.Framework.Interface.ITab_PhobosLogbook));
+        return added;
+    }
+
+    /// <summary>Appends one whole part for each of these roles, in their order (the late and the last stages). Returns how many were added.</summary>
+    static int AppendWhole(VehicleDef def, CompProperties_PhobosVehicleSystems props, IEnumerable<PartRoleSpec> roles)
+    {
+        int added = 0;
+        foreach (PartRoleSpec role in roles)
+        {
+            PartToAdd add = role.add!;
+            if (def.components.Any(p => p.key == add.key))
+            {
+                Problems.Add(def.defName + ": already has a part called " + add.key);
+                continue;
+            }
+            def.components.Add(MakePart(def, add, props));
+            props.roleKeys[role.role] = new List<string> { add.key };
+            props.addedKeys.Add(add.key);
+            if (!add.countsTowardDestruction) props.uncountedKeys.Add(add.key);
+            added++;
+        }
         return added;
     }
 

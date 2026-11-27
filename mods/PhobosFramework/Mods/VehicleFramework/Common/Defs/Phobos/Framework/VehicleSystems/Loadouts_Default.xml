@@ -1234,7 +1234,8 @@
     Boats: raw-water cooling, so the cooling system runs without a radiator part (the role stays unbound and reads as sound) and
     with a stronger cooling rate (authored: the sea is a large, cold radiator). No tyres or brakes.
   -->
-  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutCombustionBase">
+  <!-- Framework 0.366.0: named, so a boat's own loadout can build on it (D'thorga Vehicles' trawler). -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutBoat" ParentName="PhobosVehicleLoadoutCombustionBase">
     <defName>PhobosVehicleLoadout_Boat</defName>
     <label>boat</label>
     <kind>Boat</kind>
@@ -1284,6 +1285,30 @@
           <li><forward>-0.97</forward><right>0</right><colour>(1, 1, 0.95, 0.8)</colour><size>0.4</size></li>
           <li><forward>0.6</forward><right>0</right><colour>(1, 1, 0.95, 0.8)</colour><size>0.45</size></li>
         </lamps>
+      </li>
+      <li>
+        <!-- Framework 0.366.0 (VS9): the work lamps, once fitted to the lamp bracket, as on a light land vehicle (10 A on 12 V, authored): deck
+             floodlights that light the boat and the ground or water round it while it stands at night (WorkLamps). -->
+        <name>workLamps</name>
+        <label>work lamps</label>
+        <description>Deck floodlights that light the boat and the ground round it while it stands still at night, so work nearby goes on at the pace of daylight. They run off the battery when the engine is off.</description>
+        <amps>10</amps>
+        <shedOrder>5</shedOrder>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+        <defaultOn>false</defaultOn>
+        <available Class="Phobos.VehicleSystems.When_Granted">
+          <ability>WorkLights</ability>
+        </available>
+        <standbyLabel>waiting for dark and a stop</standbyLabel>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Dark" />
+            <li Class="Phobos.VehicleSystems.When_Moving">
+              <invert>true</invert>
+            </li>
+          </conditions>
+        </when>
       </li>
       <li>
         <!-- Framework 0.243.0 (the owner's report of 23 Nov 2026; docs/development/vehicle-engine-loads.md, "The alternator, right-sized"): a
@@ -1503,6 +1528,24 @@
           <hitWeight>0.05</hitWeight>
           <hitWeightCE>2</hitWeightCE>
           <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <!-- Framework 0.366.0 (docs/development/vehicle-standard.md, VS9; the owner's card of 28 Nov 2026): the land vehicles' lamp bracket, so
+             work lamps can light a boat's deck and the shore beside it at night. Not on a submarine (the owner's back burner). Appended last, so a
+             saved boat keeps its parts where they were. Health and hit weights the land bracket's. -->
+        <role>LampMount</role>
+        <notOnSubmersibles>true</notOnSubmersibles>
+        <add>
+          <key>PhobosLampMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>lamp bracket</label>
+          <health>15</health>
+          <depth>External</depth>
+          <hitWeight>0.15</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
         </add>
       </li>
     </partRoles>
@@ -1820,6 +1863,57 @@
           <cellsOf>Engine</cellsOf>
         </add>
       </li>
+      <li>
+        <!-- Framework 0.366.0 (docs/development/vehicle-standard.md, VS9; the owner's card of 28 Nov 2026): the land vehicles' lamp bracket, so work
+             lamps can light the ground round a parked aircraft at night. Appended last, after every other part, so a saved aircraft keeps its
+             parts where they were. Health and hit weights the land bracket's. -->
+        <role>LampMount</role>
+        <add>
+          <key>PhobosLampMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>lamp bracket</label>
+          <health>15</health>
+          <depth>External</depth>
+          <hitWeight>0.15</hitWeight>
+          <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <!-- Framework 0.366.0 (VS9): where the landing lights sit, under the nose or in the wing roots; the lights come from the factory
+             (factoryFittings, below). Outside, a lamp's; health and hit weights authored, the lamp bracket's. Appended last. -->
+        <role>LandingLightMount</role>
+        <add>
+          <key>PhobosLandingLightMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>landing lights</label>
+          <health>10</health>
+          <depth>External</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <!-- Framework 0.366.0 (VS9; the owner's card of 28 Nov 2026, "Also a helicopter searchlight"): a turret under the nose for the
+             searchlight fitting, only on an aircraft with a rotor drive (helicopters, and the tiltrotor and turboprop transports our loadouts give
+             one). Outside; health and hit weights authored, a little tougher than a lamp. Appended last. -->
+        <role>SearchlightMount</role>
+        <onlyWithRole>RotorDrive</onlyWithRole>
+        <add>
+          <key>PhobosSearchlightMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>searchlight turret</label>
+          <health>20</health>
+          <depth>External</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
     </partRoles>
     <loads>
       <li>
@@ -1863,6 +1957,66 @@
           <li><forward>0</forward><right>-0.95</right><colour>(1, 1, 1, 1)</colour><size>0.9</size><pattern>Flash</pattern><periodSeconds>1.3</periodSeconds><phase>0.5</phase><litShare>0.08</litShare><drawn>true</drawn></li>
           <li><forward>0</forward><right>0.95</right><colour>(1, 1, 1, 1)</colour><size>0.9</size><pattern>Flash</pattern><periodSeconds>1.3</periodSeconds><phase>0.5</phase><litShare>0.08</litShare><drawn>true</drawn></li>
         </lamps>
+      </li>
+      <li>
+        <!-- Framework 0.366.0 (docs/development/vehicle-standard.md, VS9; the owner's card of 28 Nov 2026): the landing lights, available while
+             the landing lights fitting is on (When_Granted; fitted from the factory, lost with a ruined mount). They burn at night while the
+             engines run, switched on by default; their beam is the aircraft's headlight beam (Headlights.cs takes the loadout's first load with a
+             beam), lighting the ground ahead as a truck's do, and with them burning a night landing is not made blind (RoughLandings). Real basis: a
+             600 W PAR-64 landing lamp at 28 V draws about 21 A (I = P / V, our sum; the lamp's 600 W and 28 V as Boeing Distribution and Aircraft
+             Spruce list it, secondary). Our aircraft run on the land vehicles' 12-volt electrics (a simplification), so the draw is authored as about
+             the share of the generator a real pair takes: 12 A of the 65. Pool and colour authored: a whiter, longer beam than a car's. -->
+        <name>landingLights</name>
+        <label>landing lights</label>
+        <description>The landing lights light the ground ahead at night while the engines run, so the crew can see where they set down.</description>
+        <amps>12</amps>
+        <shedOrder>6</shedOrder>
+        <toggle>true</toggle>
+        <defaultOn>true</defaultOn>
+        <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
+        <standbyLabel>waiting for dark and the engines</standbyLabel>
+        <available Class="Phobos.VehicleSystems.When_Granted">
+          <ability>LandingLights</ability>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Dark" />
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+          </conditions>
+        </when>
+        <beam>
+          <radius>6</radius>
+          <ahead>6</ahead>
+          <colour>(250,245,235,0)</colour>
+        </beam>
+        <lamps>
+          <li><forward>0.9</forward><right>0.25</right><colour>(1, 0.97, 0.9, 0.9)</colour><size>0.5</size><drawn>true</drawn></li>
+          <li><forward>0.9</forward><right>-0.25</right><colour>(1, 0.97, 0.9, 0.9)</colour><size>0.5</size><drawn>true</drawn></li>
+        </lamps>
+      </li>
+      <li>
+        <!-- Framework 0.366.0 (VS9): the work lamps, once fitted to the lamp bracket, as on a light land vehicle: two LED floodlights of about
+             60 W, 10 A on the 12-volt electrics (authored). They light the ground round the aircraft while it stands at night (WorkLamps). -->
+        <name>workLamps</name>
+        <label>work lamps</label>
+        <description>Floodlights that light the ground round the aircraft while it stands at night, so work nearby goes on at the pace of daylight. They run off the battery when the engines are off.</description>
+        <amps>10</amps>
+        <shedOrder>5</shedOrder>
+        <toggle>true</toggle>
+        <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+        <defaultOn>false</defaultOn>
+        <available Class="Phobos.VehicleSystems.When_Granted">
+          <ability>WorkLights</ability>
+        </available>
+        <standbyLabel>waiting for dark and a stop</standbyLabel>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Dark" />
+            <li Class="Phobos.VehicleSystems.When_Moving">
+              <invert>true</invert>
+            </li>
+          </conditions>
+        </when>
       </li>
       <li>
         <!-- Added in Framework 0.21.2: aircraft had no cab heater, so a closed cockpit could only cool. Real aircraft heat it with bleed air from the engines (general); the amps, for the valves and fan, are authored. -->
@@ -1957,6 +2111,8 @@
          with the aviation radio in its aviation radio bay, when the Radio Framework is installed. -->
     <factoryFittings>
       <li MayRequire="PhobosDthorga.RadioFramework">PhobosFitting_AviationRadio</li>
+      <!-- Framework 0.366.0 (VS9): every aircraft leaves the factory with landing lights. -->
+      <li>PhobosFitting_LandingLights</li>
     </factoryFittings>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 

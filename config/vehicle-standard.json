@@ -145,23 +145,45 @@
     },
     {
       "line": "VS9",
-      "label": "a lamp mount",
-      "status": "planned",
-      "batch": 4,
+      "label": "a lamp bracket",
+      "status": "built",
       "kinds": [
         "fixed-wing",
         "rotor",
         "boat"
       ],
+      "poweredOnly": true,
       "roles": [
         "LampMount"
       ]
     },
     {
+      "line": "VS9",
+      "label": "landing lights",
+      "status": "built",
+      "kinds": [
+        "fixed-wing",
+        "rotor"
+      ],
+      "roles": [
+        "LandingLightMount"
+      ]
+    },
+    {
+      "line": "VS9",
+      "label": "a searchlight turret",
+      "status": "built",
+      "kinds": [
+        "rotor"
+      ],
+      "roles": [
+        "SearchlightMount"
+      ]
+    },
+    {
       "line": "VS10",
       "label": "a galley, water and outlets",
-      "status": "planned",
-      "batch": 4,
+      "status": "built",
       "vehicles": [
         "C17_Globemaster",
         "Phobos_Osprey",
@@ -173,7 +195,51 @@
         "WaterTankBay",
         "OutletPanel"
       ]
+    },
+    {
+      "line": "VS10",
+      "label": "a galley",
+      "status": "built",
+      "vehicles": [
+        "C17_Globemaster",
+        "Phobos_C27J",
+        "VVE_Trawler"
+      ],
+      "roles": [
+        "GalleyBay"
+      ]
     }
   ],
-  "except": []
+  "except": [
+    {
+      "vehicle": "VVE_Frog",
+      "line": "VS6",
+      "why": "A thrust-lifted pod on fictional chemfuel thrusters (Vanilla Vehicles Expanded), not jet engines: a thruster, like a rocket, has no oil sump, and chemfuel is not jet fuel (the owner's card of 28 Nov 2026, 'Excuse them, recorded')."
+    },
+    {
+      "vehicle": "VVE_Frog",
+      "line": "VS7",
+      "why": "A thrust-lifted pod on fictional chemfuel thrusters (Vanilla Vehicles Expanded), not jet engines: a thruster, like a rocket, has no oil sump, and chemfuel is not jet fuel (the owner's card of 28 Nov 2026, 'Excuse them, recorded')."
+    },
+    {
+      "vehicle": "VVE_Toad",
+      "line": "VS6",
+      "why": "A thrust-lifted pod on fictional chemfuel thrusters (Vanilla Vehicles Expanded), not jet engines: a thruster, like a rocket, has no oil sump, and chemfuel is not jet fuel (the owner's card of 28 Nov 2026, 'Excuse them, recorded')."
+    },
+    {
+      "vehicle": "VVE_Toad",
+      "line": "VS7",
+      "why": "A thrust-lifted pod on fictional chemfuel thrusters (Vanilla Vehicles Expanded), not jet engines: a thruster, like a rocket, has no oil sump, and chemfuel is not jet fuel (the owner's card of 28 Nov 2026, 'Excuse them, recorded')."
+    },
+    {
+      "vehicle": "VVE_Goliath",
+      "line": "VS6",
+      "why": "A thrust-lifted pod on fictional chemfuel thrusters (Vanilla Vehicles Expanded), not jet engines: a thruster, like a rocket, has no oil sump, and chemfuel is not jet fuel (the owner's card of 28 Nov 2026, 'Excuse them, recorded')."
+    },
+    {
+      "vehicle": "VVE_Goliath",
+      "line": "VS7",
+      "why": "A thrust-lifted pod on fictional chemfuel thrusters (Vanilla Vehicles Expanded), not jet engines: a thruster, like a rocket, has no oil sump, and chemfuel is not jet fuel (the owner's card of 28 Nov 2026, 'Excuse them, recorded')."
+    }
+  ]
 }

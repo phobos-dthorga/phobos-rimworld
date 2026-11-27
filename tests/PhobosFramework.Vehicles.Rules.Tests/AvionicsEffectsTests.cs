@@ -62,4 +62,12 @@ public class AvionicsEffectsTests
         Assert.Equal(0.4, RoughLandingRule.Chance(false, true, 0.3, false, 0.4, 0.5, 0.5), 9);
         Assert.Equal(0.2, RoughLandingRule.Chance(false, true, 0.3, true, 0.4, 0.5, 0.5), 9);
     }
+
+    [Fact]
+    public void ADarkUnlitLandingIsAsRiskyAsABlindOneAndNoAutopilotHelps()
+    {
+        // Instruments, controls and an autopilot all working: the ground still cannot be seen.
+        Assert.Equal(0.4, RoughLandingRule.Chance(false, true, 1, true, 0.4, 0.5, 0.5, darkUnlit: true), 9);
+        Assert.Equal(0, RoughLandingRule.Chance(false, true, 1, true, 0.4, 0.5, 0.5, darkUnlit: false));
+    }
 }

@@ -49,6 +49,9 @@ public sealed class Headlights
     /// <summary>Whether this vehicle has a load that casts a beam at all.</summary>
     public bool Fitted => load != null;
 
+    /// <summary>Whether this is the load whose beam these headlights cast (Framework 0.366.0: a searchlight's beam is its own).</summary>
+    public bool Casts(ElectricalLoadSpec spec) => spec == load;
+
     /// <summary>Whether the beam is on the map now.</summary>
     public bool Lit => light.Lit;
 

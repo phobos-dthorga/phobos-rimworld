@@ -22,6 +22,40 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.366.0] - 2026-11-28 - Draft
+
+Lights, searchlights, night landings and galleys
+
+### Added
+
+- **Every aircraft leaves the factory with landing lights** (the vehicle standard's batch 4; the owner's cards of 28 November 2026): at
+  night, while the engines run, they light the ground ahead of the nose, switched on by default. They sit on a part of their own, so a hit
+  can put them out until they are fitted again.
+- **Every aircraft and boat has a lamp bracket**, so the work lamps a truck can carry light a parked aircraft or a boat's deck at night.
+  Never on a submarine.
+- **A searchlight for helicopters** (and the Osprey and the C-27J, on a new searchlight turret): switched on at night, a pool of light just
+  ahead of the nose follows the aircraft as it flies over the map, hovers or taxis. People work in it as by day, and under Combat Extended
+  your shooters can see who stands in it. It draws 18 amperes.
+- **A galley**, a fitting that cooks for a caravan as the Billy field kitchen does, on the vehicle's own fuel, and at sea on a boat. D'thorga
+  Vehicles fits it from the factory to the C-17, the C-27J and the Trawler. A field kitchen in the caravan still cooks first.
+- **A part to add may be added last** (for modders: last on a loadout's part, and onlyWithRole to add it only where another role is bound),
+  after every part code appends, so a saved vehicle keeps its parts where they were.
+
+### Changed
+
+- **Landing in the dark with no landing lights and nothing lighting the ground may come down hard**, under the Rough landings setting (on):
+  the same chance as landing blind, and an autopilot does not lessen it. The setting's description says so.
+- **The Vanilla Vehicles Expanded Frog, Toad and Goliath are excused from each engine's own fuel and oil** (the owner's card): fictional
+  chemfuel thrusters have no oil sump, and chemfuel is not jet fuel. The vehicle standard's audit no longer lists them.
+
+### Save compatibility
+
+- Safe to add to a running colony: every new part is added after all the others, and the landing lights are fitted once at the first load.
+- Found while building it: the radio bays of 0.356.0 and 0.359.0 were added ahead of some parts code adds after them, so the first load
+  after those versions moved some parts' saved wear onto the bays, once. It has happened already in any save loaded since, so it is left as
+  it is; nothing was lost.
+- Not yet tested in game: rows 743 to 745.
+
 ## [0.365.1] - 2026-11-28 - Draft
 
 Music that never stops the log

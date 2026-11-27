@@ -217,6 +217,10 @@ warmer inside and comfier beds).
 - **Cooking on the road:** the **Billy** field kitchen or a packed **kitchen box** cooks at night from the raw food the caravan carries,
   trailers included. Driving through the night, the kettle simmers on the move; switch on **Meal halts** on the caravan for an hour's
   stop instead. Details are in [the Billy's section](working-vehicles.md#billy-field-kitchen).
+- **A galley cooks too**: the **C-17**, the **C-27J** and the **Trawler** leave the factory with one (Fittings: **galley**). While the
+  caravan rests, its cooks make simple meals from the raw food it carries, the stove running on the vehicle's own fuel, and the
+  Trawler's cooks keep cooking at sea. A Billy or a kitchen box in the same caravan cooks instead. The C-17, C-27J, Osprey and Trawler
+  also have the trucks' **fridge bay**, **water tank bay** and **outlet panel**.
 
 ## Walk-in cabins
 

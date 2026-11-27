@@ -326,6 +326,103 @@
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.366.0, the vehicle standard's batch 4 (VS9; the owner's card of 28 Nov 2026, "Bracket + landing lights"): on the landing
+         light mount every aircraft has, and fitted from the factory (the aircraft loadout's factoryFittings), so a hit that ruins the mount puts
+         them out until they are fitted again. It grants LandingLights, which makes the aircraft loadout's "landingLights" load available: its
+         beam lights the ground ahead at night while the engines run, and with it burning a night landing is no longer made blind
+         (RoughLandings). The icon borrows the headlights' until its own is drawn (the local night run). Materials, work and skill authored. -->
+    <defName>PhobosFitting_LandingLights</defName>
+    <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
+    <label>landing lights</label>
+    <description>A pair of sealed-beam lamps under the nose or in the wing roots. At night, while the engines run, they light the ground ahead, so the crew can see where they set down.</description>
+    <roles><li>LandingLightMount</li></roles>
+    <materials><Steel>10</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <work>2500</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <grants><li>LandingLights</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.366.0, the vehicle standard's batch 4 (VS9; the owner's card of 28 Nov 2026, "Also a helicopter searchlight"): on the
+         searchlight mount of an aircraft with a rotor drive (helicopters, and the tiltrotor and turboprop transports our loadouts give one). Its
+         own load casts a pool of light ahead of the nose that follows the aircraft over the map at night (Searchlight.cs). Real basis: Spectrolab's
+         SX-16 Nightsun, a 1,600 W xenon searchlight drawing 55 to 67 A at 28 V, about 1 km of reach (Spectrolab's catalogue; secondary, as listed by
+         AeroExpo). Our aircraft run on the land vehicles' 12-volt electrics (a simplification), so the draw is authored as about the share of the
+         generator a real searchlight takes: 18 A of the 65. Pool, colour and brightness authored: a white beam brighter than a lamp. Materials,
+         work and skill authored. The icon borrows the work lamps' until its own is drawn. -->
+    <defName>PhobosFitting_Searchlight</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+    <label>searchlight</label>
+    <description>A powerful searchlight on a turret under the nose. Switched on at night, it lights the ground ahead of the aircraft and follows it as it flies over the map or hovers: people work there as by daylight, and shooters can see who stands in it. It draws heavily on the generator.</description>
+    <roles><li>SearchlightMount</li></roles>
+    <materials><Steel>25</Steel><ComponentIndustrial>4</ComponentIndustrial></materials>
+    <kilograms>30</kilograms>
+    <work>5000</work>
+    <minSkill>5</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <loads>
+      <li>
+        <name>searchlight</name>
+        <label>searchlight</label>
+        <description>The searchlight under the nose. Switched on at night, it lights the ground ahead of the aircraft wherever it flies over the map.</description>
+        <amps>18</amps>
+        <shedOrder>5</shedOrder>
+        <toggle>true</toggle>
+        <defaultOn>false</defaultOn>
+        <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+        <standbyLabel>waiting for dark</standbyLabel>
+        <when Class="Phobos.VehicleSystems.When_Dark" />
+        <beam>
+          <radius>7</radius>
+          <ahead>3</ahead>
+          <colour>(240,245,255,0)</colour>
+          <brightness>1.8</brightness>
+        </beam>
+        <lamps>
+          <li><forward>0.8</forward><right>0</right><colour>(1, 1, 1, 0.95)</colour><size>0.6</size><drawn>true</drawn></li>
+        </lamps>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.366.0, the vehicle standard's batch 4 (VS10; the owner's card of 28 Nov 2026: "Bays only, unless some have a kitchenette in
+         real life ... they get that by default or as an upgrade, art included"). On the galley bay of the vehicles that really carry one: the
+         C-17 (a USAF photo caption lists its small galley's refrigerator, freezer, coffee maker, sink and oven), the C-27J Spartan Next Generation
+         (Leonardo's brochure lists a rest area with seats and a galley; secondary, a copy on Scribd) and the trawler (fishing trawlers carry a
+         galley for a crew living aboard; general). Fitted from the factory on those, and as a fitting where it is missing. While the caravan rests,
+         or on the move for a boat at sea, its cooks turn raw food into simple meals as the field kitchen's do, the stove running on the vehicle's
+         own fuel (an aircraft's ovens on its generators, a trawler's diesel range). Figures authored: 10 meals a cook (half a field kitchen's,
+         a galley being a small kitchen), 0.2 of the vehicle's fuel a meal (about half a kilowatt-hour of cooking a meal, from fuel at about a
+         third of its energy as electricity or heat), and all of it on the move, the galley being indoors and fixed. The icon borrows the meal
+         halt's until its own is drawn (the local night run). Materials, work and skill authored. -->
+    <defName>PhobosFitting_Galley</defName>
+    <iconPath>Phobos/VehicleSystems/MealHalt</iconPath>
+    <label>galley</label>
+    <description>A small kitchen aboard: an oven, a hot plate, a sink and lockers. On a journey its cooks make simple meals from raw food in the packs while the caravan rests, and a boat's cooks at sea, the stove running on the vehicle's own fuel.</description>
+    <roles><li>GalleyBay</li></roles>
+    <materials><Steel>40</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
+    <kilograms>60</kilograms>
+    <work>5000</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <grants><li>Galley</li></grants>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosCaravanCookingExtension">
+        <mealsPerCook>10</mealsPerCook>
+        <fuelPerMeal>0.2</fuelPerMeal>
+        <onTheMoveShare>1</onTheMoveShare>
+        <!-- Indoors: none of the chance a meal cooked under the sky is spoilt. -->
+        <outdoorPoisonChance>0</outdoorPoisonChance>
+        <fromVehicleTank>true</fromVehicleTank>
+        <meal>MealSimple</meal>
+        <recipe>CookMealSimple</recipe>
+      </li>
+    </modExtensions>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- Framework 0.103.0, the recovery family (owner, 12 Nov 2026: built as one piece with the hitch's recovery tow). On the winch mount every
          land vehicle has (Loadouts_Default.xml). It grants RecoveryWinch, which offers the winch order and lets the hitch take an ordinary
          vehicle as a recovery tow. Its pull is the rules Def's (RecoveryRule). Materials, work and skill authored. -->

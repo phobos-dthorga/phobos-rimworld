@@ -1074,6 +1074,70 @@
           <li><key>ForwardHold</key></li>
         </find>
       </li>
+      <li>
+        <!-- D'thorga Framework 0.366.0 (docs/development/vehicle-standard.md, VS10; the owner's card of 28 Nov 2026, "Bays only, unless some have a kitchenette"): the land vehicles' fridge bay, water tank bay and outlet panel, so a fridge, a water tank or an outlet can be fitted as on a truck. Appended last, so a saved vehicle keeps its parts where they were; health and hit weights the land base's. -->
+        <role>FridgeBay</role>
+        <add>
+          <key>PhobosFridgeBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>fridge bay</label>
+          <health>20</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <!-- VS10: as on every land vehicle. -->
+        <role>WaterTankBay</role>
+        <add>
+          <key>PhobosWaterTankBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>water tank bay</label>
+          <health>25</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <!-- VS10: as on every land vehicle. -->
+        <role>OutletPanel</role>
+        <add>
+          <key>PhobosOutletPanel</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>outlet panel</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>3</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
+      <li>
+        <!-- VS10: the galley's place, for the galley fitting this design leaves the factory with (factoryFittings, below). Health and hit weights authored, a little more than a fridge bay's. -->
+        <role>GalleyBay</role>
+        <add>
+          <key>PhobosGalleyBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>galley</label>
+          <health>30</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+          <last>true</last>
+        </add>
+      </li>
     </partRoles>
+    <!-- D'thorga Framework 0.366.0 (VS10): this design carries a galley in reality, so it leaves the factory with one. -->
+    <factoryFittings>
+      <li>PhobosFitting_Galley</li>
+    </factoryFittings>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

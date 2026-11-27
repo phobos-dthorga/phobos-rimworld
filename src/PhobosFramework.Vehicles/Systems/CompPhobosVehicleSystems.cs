@@ -815,6 +815,10 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// <summary>The headlights' beam on the map (Framework 0.104.0): derived and never saved.</summary>
     public Headlights Beams => beams ??= new Headlights(this);
 
+    /// <summary>A fitted searchlight's pool on the map (Framework 0.366.0, the vehicle standard's batch 4): derived and never saved.</summary>
+    public Searchlight Spot => spot ??= new Searchlight(this);
+    Searchlight? spot;
+
     bool ranWithFuel;
 
     /// <summary>The tank is empty and the engine was running when it last had fuel (T6): the pump ran dry.</summary>
@@ -825,6 +829,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     {
         lamps?.PutOut();
         beams?.PutOut();
+        spot?.PutOut();
         // A gravship lifts its pipes along with it.
         if (mode != DestroyMode.WillReplace) VehiclePipes.Leave(this);
         VehicleSystemSounds.EndAll(this);
@@ -925,6 +930,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         base.CompTick();
         engineSound?.Tick(this);
         beams?.Tick();
+        spot?.Tick();
         Overrun?.Tick();
     }
 
@@ -980,6 +986,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 OwnVehicles.LookHome(this);
                 Lamps.Update();
                 Beams.Update();
+                Spot.Update();
                 CookOff.RareTick(this);
                 // The work store (Framework 0.272.0): what the work needs comes out of the cargo room; leftovers are set down once no work is pending.
                 WorkStore?.TakeOutOfCargo(this);
@@ -1017,6 +1024,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 break;
             default:
                 beams?.PutOut();
+                spot?.PutOut();
                 break;
         }
     }
@@ -2247,6 +2255,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         }
         UpdateNow();
         Beams.Update();
+        spot?.Update();
         // The work lamps go out as the vehicle sets off and light as it stops, not at the next rare tick (Framework 0.171.0).
         if (eventDef == VehicleEventDefOf.MoveStart || eventDef == VehicleEventDefOf.MoveStop) Lamps.Update();
         if (states == null) return;
@@ -2650,6 +2659,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         RefreshShortedLoads();
         loadAmps = SumLoads(new SystemContext(this, states[0]));
         Beams.Update();
+        spot?.Update();
     }
 
     /// <summary>Every stage in force, with the context its effects run in: the systems' quantities, then the parts' conditions. The
@@ -3418,6 +3428,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         // The light follows the switch at once, not at the next rare tick (Framework 0.171.0).
         if (load.beam != null) Beams.Update();
         if (load.name == WorkLamps.LoadName) Lamps.Update();
+        if (load.name == Searchlight.LoadName) Spot.Update();
     }
 
     // ---- Service ----

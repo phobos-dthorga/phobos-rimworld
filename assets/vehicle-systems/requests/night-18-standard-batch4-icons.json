@@ -1,0 +1,71 @@
+[
+ {
+  "name": "n18-landing-lights",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The nose of a small grey aircraft seen from the front and a little below, with two round bright lamps under it throwing two short white beams forward and down. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "the nose of a small grey aircraft seen from the front and a little below, with two round bright lamps under it throwing two short white beams forward and down",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/WorkLamps.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   199,
+   200
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "fitting": "Landing lights (PhobosFitting_LandingLights, the vehicle standard's batch 4)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/LandingLights.png",
+   "why": "a fitting icon, made locally (assets/AGENTS.md); it borrows the headlights' picture since Framework 0.366.0; the owner's card of 28 Nov 2026: 'art included'"
+  }
+ },
+ {
+  "name": "n18-searchlight",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A heavy round searchlight on a small swivel mount, its big glass lens glowing white and a wide white cone of light coming out of it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a heavy round searchlight on a small swivel mount, its big glass lens glowing white and a wide white cone of light coming out of it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/WorkLamps.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   201,
+   202
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "fitting": "Searchlight (PhobosFitting_Searchlight and its button, the vehicle standard's batch 4)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Searchlight.png",
+   "why": "a fitting and button icon, made locally (assets/AGENTS.md); it borrows the work lamps' picture since Framework 0.366.0; the owner's card of 28 Nov 2026: 'art included'"
+  }
+ },
+ {
+  "name": "n18-galley",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A compact steel galley unit from a ship or an aircraft: a small oven with a glass door below, two hot plates on top with a steaming pot, and a little sink beside them, all built into one grey cabinet. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a compact steel galley unit: a small oven with a glass door below, two hot plates on top with a steaming pot, and a little sink beside them, all built into one grey cabinet",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/MealHalt.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   203,
+   204
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "fitting": "Galley (PhobosFitting_Galley, the vehicle standard's batch 4)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Galley.png",
+   "why": "a fitting icon, made locally (assets/AGENTS.md); it borrows the meal halt's picture since Framework 0.366.0; the owner's card of 28 Nov 2026: 'Bays only, unless some have a kitchenette in real life? ... art included'"
+  }
+ }
+]

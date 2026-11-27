@@ -31,6 +31,12 @@ public class PhobosCaravanCookingExtension : DefModExtension
     /// something gives water a meaning (CaravanWater has a source: Dubs Bad Hygiene).
     /// </summary>
     public float waterPerMeal = 1f;
+    /// <summary>
+    /// The stove runs on the vehicle's own fuel (Framework 0.366.0, a galley fitting): a trawler's diesel range, or an aircraft's galley ovens on
+    /// the generators its engines or auxiliary power unit turn. Its fuel per meal comes from the tank of the vehicle it is fitted to, never
+    /// from burners or the packs.
+    /// </summary>
+    public bool fromVehicleTank;
 }
 
 /// <summary>
@@ -44,13 +50,16 @@ public sealed class CaravanKitchen
     public readonly List<CompRefuelable> Burners;
     /// <summary>A kitchen box rather than a field kitchen: the field kitchen's own seen-in-play notes are not written for it.</summary>
     public readonly bool IsBox;
+    /// <summary>A galley fitted to this vehicle (Framework 0.366.0), whose stove burns the vehicle's own fuel; null for any other kitchen.</summary>
+    public readonly VehiclePawn? Galley;
 
-    public CaravanKitchen(Thing source, PhobosCaravanCookingExtension rules, List<CompRefuelable> burners, bool isBox)
+    public CaravanKitchen(Thing source, PhobosCaravanCookingExtension rules, List<CompRefuelable> burners, bool isBox, VehiclePawn? galley = null)
     {
         Source = source;
         Rules = rules;
         Burners = burners;
         IsBox = isBox;
+        Galley = galley;
     }
 }
 
@@ -138,6 +147,11 @@ public class PhobosCaravanCooking : WorldComponent
         {
             if (towed.def.GetModExtension<PhobosCaravanCookingExtension>() is { } rules) return OnWheels(towed, rules);
         }
+        // Framework 0.366.0 (the vehicle standard's batch 4): a galley fitted to a vehicle of the caravan, after a field kitchen and before a box.
+        foreach (Pawn pawn in caravan.PawnsListForReading)
+        {
+            if (pawn is VehiclePawn vehicle && GalleyOf(vehicle) is { } rules) return new CaravanKitchen(vehicle, rules, new List<CompRefuelable>(), isBox: false, galley: vehicle);
+        }
         foreach (Thing thing in Larder(caravan).things)
         {
             if (thing is MinifiedThing { InnerThing: { } inner } && inner.def.GetModExtension<PhobosCaravanCookingExtension>() is { } rules)
@@ -146,6 +160,24 @@ public class PhobosCaravanCooking : WorldComponent
                 if (inner.TryGetComp<CompRefuelable>() is { } burner) burners.Add(burner);
                 return new CaravanKitchen(inner, rules, burners, isBox: true);
             }
+        }
+        return null;
+    }
+
+    /// <summary>The fittings that are galleys (a fitting Def carrying cooking rules), read once: Defs do not change while the game runs.</summary>
+    static List<PhobosVehicleFittingDef>? galleys;
+
+    /// <summary>What a galley fitting grants (Fittings.xml, PhobosFitting_Galley): it counts only while its bay is not ruined.</summary>
+    public const string GalleyGrant = "Galley";
+
+    /// <summary>The cooking rules of a galley fitted to this vehicle and counting (its bay not ruined), or null.</summary>
+    static PhobosCaravanCookingExtension? GalleyOf(VehiclePawn vehicle)
+    {
+        galleys ??= DefDatabase<PhobosVehicleFittingDef>.AllDefsListForReading.Where(d => d.HasModExtension<PhobosCaravanCookingExtension>()).ToList();
+        if (galleys.Count == 0 || CompPhobosVehicleSystems.Of(vehicle) is not { } comp || !comp.Fittings.Grants(GalleyGrant)) return null;
+        foreach (PhobosVehicleFittingDef def in galleys)
+        {
+            if (comp.Fittings.Has(def)) return def.GetModExtension<PhobosCaravanCookingExtension>();
         }
         return null;
     }
@@ -239,9 +271,11 @@ public class PhobosCaravanCooking : WorldComponent
         List<Thing> raw = larder.Where(t => Allowed(recipe, t)).ToList();
         float nutrition = raw.Sum(t => t.GetStatValue(StatDefOf.Nutrition) * t.stackCount);
         List<CompRefuelable> burners = at.Burners;
-        List<Thing> carriedFuel = larder
+        // Framework 0.366.0: a galley's stove burns its vehicle's own fuel, never the packs'.
+        CompFueledTravel? tank = rules.fromVehicleTank ? at.Galley?.CompFueledTravel : null;
+        List<Thing> carriedFuel = rules.fromVehicleTank ? new List<Thing>() : larder
             .Where(t => burners.Count > 0 ? burners[0].Props.fuelFilter.Allows(t) : t.def == ThingDefOf.Chemfuel || t.def == ThingDefOf.WoodLog).ToList();
-        float fuel = burners.Sum(b => b.Fuel) + carriedFuel.Sum(t => t.stackCount);
+        float fuel = rules.fromVehicleTank ? tank?.Fuel ?? 0f : burners.Sum(b => b.Fuel) + carriedFuel.Sum(t => t.stackCount);
 
         // On the move the kettle alone works, for a share of each cook's meals; at camp or a halt, the whole kitchen.
         int perCook = CaravanCookRule.PerCook(rules.mealsPerCook, simmer ? rules.onTheMoveShare : 1.0);
@@ -264,7 +298,8 @@ public class PhobosCaravanCooking : WorldComponent
         }
 
         List<ThingDef> madeFrom = TakeNutrition(raw, meals * perMeal);
-        BurnFuel(burners, carriedFuel, meals * rules.fuelPerMeal);
+        if (tank != null) tank.ConsumeFuel(meals * rules.fuelPerMeal);
+        else BurnFuel(burners, carriedFuel, meals * rules.fuelPerMeal);
 
         // At camp in a closed tent (a walled awning, a rear tent, a camper), not under the sky: no outdoor chance (Framework 0.292.0).
         float place = (float)CaravanCookRule.PlaceChance(way, ClosedTent(caravan), rules.outdoorPoisonChance);
@@ -302,6 +337,14 @@ public class PhobosCaravanCooking : WorldComponent
         if (at.IsBox)
         {
             if (Seen.Wants("camp.kitchen-box-caravan", kitchen, way.ToString())) Seen.Note("camp.kitchen-box-caravan", kitchen, meals + " meals, " + poisoned + " spoilt", way.ToString());
+            return meals;
+        }
+        if (at.Galley != null)
+        {
+            // Framework 0.366.0 (test row 745): a galley fitted to a transport aircraft or a trawler cooked for its caravan.
+            if (Seen.Wants("vehicles.galley-caravan", kitchen, way.ToString()))
+                Seen.Note("vehicles.galley-caravan", kitchen, meals + " meals, " + poisoned + " spoilt", way.ToString(),
+                    new[] { new KeyValuePair<string, double>("meals", meals), new KeyValuePair<string, double>("fuel", meals * rules.fuelPerMeal) });
             return meals;
         }
         if (inTow > 0 && Seen.Wants("trailers.caravan-larder", kitchen)) Seen.Note("trailers.caravan-larder", kitchen, inTow + " stacks in tow within the cooks' reach");

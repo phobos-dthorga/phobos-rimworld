@@ -13,6 +13,25 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.132.0] - 2026-11-28 - Draft
+
+Galleys and bays on the transports
+
+### Added
+
+- **The C-17, the C-27J and the Trawler leave the factory with a galley** (the vehicle standard's batch 4; the owner's card of 28
+  November 2026: galleys where the real vehicle has one): while their caravan rests, the cooks make simple meals from raw food on the
+  vehicle's own fuel, and the Trawler's cooks keep cooking at sea. The galley is D'thorga Framework 0.366.0's.
+- **The C-17, the C-27J, the Osprey and the Trawler have a fridge bay, a water tank bay and an outlet panel**, as every land vehicle
+  has, for the fittings that already exist. The Trawler has a loadout of its own for this, built on the boat's; the Dinghy keeps the
+  plain one.
+
+### Save compatibility
+
+- Safe to add to a running colony: the new parts are added after every other part, so a saved aircraft or trawler keeps its parts
+  where they were, and the galley is fitted once at the first load.
+- Not yet tested in game: row 745.
+
 ## [0.131.0] - 2026-11-28 - Draft
 
 A setup wizard page

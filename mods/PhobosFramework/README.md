@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.365.1, built 28 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.366.0, built 28 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -170,7 +170,7 @@ offers to restart). RimWorld saves only what you change.
 | Aircraft and sling loads | When an aircraft is too heavy or too hot to lift off, hover onto its pad or land at a journey's end | Refuse it (use the runway, or lighten it) / allow it, at a cost to the engine / allow it, with a warning only | Refuse it: use the runway, or lighten it |
 | Aircraft and sling loads | Blind take-offs: warn only | An aircraft with broken or unpowered instruments may take off at night or in fog, with a warning | Off |
 | Aircraft and sling loads | Crews feel thin air when oxygen fails at height | Everyone aboard a high-flying aircraft whose oxygen is shot out is short of breath for a few hours | Off |
-| Aircraft and sling loads | Rough landings | An aircraft landing blind, or with its flight controls shot about, may come down hard and damage its landing gear; a working autopilot halves the risk. Never harms the crew | On |
+| Aircraft and sling loads | Rough landings | An aircraft landing blind, or with its flight controls shot about, may come down hard and damage its landing gear; a working autopilot halves the risk. Landing in the dark with no landing lights and nothing lighting the ground carries the same risk, autopilot or not. Never harms the crew | On |
 | Aircraft and sling loads | Sights and weather affect an aircraft's aim | A damaged or basic sight misses more; so does every aircraft at night without a night sight, and in rain, fog or snow, with a working radar giving back half | On |
 | Aircraft and sling loads | Stock helicopters fly over the map | The Cherokee, the Louie and the Mosquito take off, fly about, hover, circle and land on the map as the Osprey does, and leave and arrive flying; their pictures were drawn for flying straight off the map, so a hover may look a little odd. Off: they fly as their authors made them | Off |
 | Aircraft and sling loads | Airdrop landings can hurt and damage | People landing by parachute are hurt at the real rate (about 5 in 1,000 jumps, more at night, in wind, with heavy kit, on first jumps and when dropped low); cargo and vehicles now and then land hard. Off: everything lands unharmed, still carried by the wind | On |

@@ -135,7 +135,7 @@
   <PhobosCabin_Evacuated>The {VEHICLE} is lost. Everyone in its cabin is out, with what was left there.</PhobosCabin_Evacuated>
   <PhobosCabin_LostVehicle>vehicle</PhobosCabin_LostVehicle>
   <PhobosVehicleSystems_SettingRoughLandings>Rough landings</PhobosVehicleSystems_SettingRoughLandings>
-  <PhobosVehicleSystems_SettingRoughLandingsDesc>On by default. An aircraft that lands where its crew cannot see to land, in poor visibility with its instruments out, or with its flight controls shot about, may come down hard and damage its landing gear. A working autopilot halves the risk. Never harms the crew.</PhobosVehicleSystems_SettingRoughLandingsDesc>
+  <PhobosVehicleSystems_SettingRoughLandingsDesc>On by default. An aircraft that lands where its crew cannot see to land, in poor visibility with its instruments out, or with its flight controls shot about, may come down hard and damage its landing gear. A working autopilot halves the risk. Landing in the dark with no landing lights and nothing lighting the ground carries the same risk, autopilot or not. Never harms the crew.</PhobosVehicleSystems_SettingRoughLandingsDesc>
   <PhobosVehicleSystems_SettingAvionicsAim>Sights and weather affect an aircraft's aim</PhobosVehicleSystems_SettingAvionicsAim>
   <PhobosVehicleSystems_SettingAvionicsAimDesc>On by default. In the air, an aircraft with a damaged or basic sight misses more; at night without a night sight, and in rain, fog or snow, every aircraft misses more, and a working radar gives back half of what the weather takes. Bombs and rockets scatter more for the same reasons.</PhobosVehicleSystems_SettingAvionicsAimDesc>
   <!-- {VEHICLE}: the vehicle; {FITTINGS}: the fittings it keeps. -->

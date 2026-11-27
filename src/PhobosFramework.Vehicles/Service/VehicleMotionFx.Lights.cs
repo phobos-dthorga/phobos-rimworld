@@ -62,7 +62,8 @@ public sealed partial class VehicleMotionFx : IFxDrawn
             if (load.lamps is not { Count: > 0 } lamps) continue;
             foreach (LampSpec lamp in lamps) hasBrakeLamps |= lamp.brake;
             // The headlights by their own rule, which reaches other factions' vehicles too; any other load by whether it runs.
-            bool lit = load.beam != null ? comp.Beams.On : comp.LoadActive(load.name);
+            // Framework 0.366.0: only the load the headlights' beam belongs to; a searchlight's lamp follows its own load.
+            bool lit = load.beam != null && comp.Beams.Casts(load) ? comp.Beams.On : comp.LoadActive(load.name);
             lampLoads.Add(load);
             lampLit.Add(lit);
             if (!lit) continue;

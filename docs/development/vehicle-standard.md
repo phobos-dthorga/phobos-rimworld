@@ -4,8 +4,10 @@
 0.49.0 and D'thorga Framework 0.356.0 ([as built](#built-batch-1-27-nov-2026)); not yet tested in game (rows 710 and 711). **Batch 2 is
 built** (the audit, and the gaps it found): D'thorga Framework 0.359.0, D'thorga Vehicles 0.130.2 and Radio Framework 0.52.0 ([as
 built](#built-batch-2-27-nov-2026)); not yet tested in game (row 723). **Batch 3 is built** (each aircraft engine's own fuel and oil):
-D'thorga Framework 0.360.0 ([as built](#built-batch-3-27-nov-2026)); not yet tested in game (row 724). Batches 4 and 5 are proposals.
-The owner answered seven cards ([below](#questions-for-the-owner)).
+D'thorga Framework 0.360.0 ([as built](#built-batch-3-27-nov-2026)); not yet tested in game (row 724). **Batch 4 is built** (lights,
+searchlights, night landings and galleys): D'thorga Framework 0.366.0 and D'thorga Vehicles 0.132.0 ([as
+built](#built-batch-4-28-nov-2026)); not yet tested in game (rows 743 to 745). Batch 5 is a proposal. The owner answered eleven cards
+([below](#questions-for-the-owner)).
 
 **Why.** The owner, 27 Nov 2026, looking at their aircraft: "Wouldn't radios of some sort be included with the majority of the ones in
 my game, if not all, by default? And if that's the case, howcome there's no mention of them on the Systems, Fittings, nor Health pages?
@@ -80,7 +82,7 @@ where it changes an outcome** (the vehicles' rule: every node moves a figure tha
 | 1 | VS1, VS2, VS3 (radios everywhere) | The owner's question; it is also slice 3 of electronic warfare (radio bays on aircraft, the flying relay) |
 | 2 | The audit kind and `config/vehicle-standard.json`. **Built 27 Nov 2026** | So every later batch is checked, and nothing slips back |
 | 3 | VS6, VS7 (fuel and oil for aircraft). **Built 27 Nov 2026** | Real systems every aircraft has, with clear failures |
-| 4 | VS9, VS10 (lights and transports' galleys) | Accessories that already exist; mostly XML |
+| 4 | VS9, VS10 (lights and transports' galleys). **Built 28 Nov 2026** | Accessories that already exist; mostly XML (the searchlight, night landings and the galley's cooking became code) |
 | 5 | VS11 (what does not belong) | Takes things away from players' vehicles, so it waits for the owner's word on each |
 | Later | VS8, VS12 | Each needs a behaviour designed first |
 
@@ -150,6 +152,46 @@ brought down by us when every engine stops; our own flights already fall. A fuel
 warm; fuel cross-feed between engines' pumps; the oil's own temperature on aircraft. **What a next game would need:** the rule
 (`EngineFeedRule`) is game-free; a game with engines and a part model would need its own pumps and its own place to stop an engine.
 
+## Built: batch 4 (28 Nov 2026)
+
+The owner's word ("Start batch 4 of the standard", 28 Nov 2026) and four cards (8 to 11, [below](#questions-for-the-owner)). **Not yet
+tested in game**: rows 743 to 745 of the [test pass](in-game-test-pass.md).
+
+| Piece | As built |
+| --- | --- |
+| VS9, the lamp bracket | The land vehicles' **lamp bracket** on every aircraft and boat (never a submarine), with the work lamps' load, so the existing work lamps fitting lights the ground round a parked aircraft or a boat's deck at night (10 A on the 12-volt electrics, as a light land vehicle's) |
+| VS9, landing lights | A **landing lights** mount on every aircraft, and a **landing lights** fitting on it from the factory (`factoryFittings`; a ruined mount puts them out until refitted). Their load burns at night while the engines run, switched on by default, and casts the aircraft's beam: the headlights' rule (`Headlights.cs` takes a loadout's first load with a beam), lighting the ground 6 cells ahead. 12 A, authored as the share of the generator a real pair of 600 W, 28 V lamps takes |
+| VS9, the searchlight | A **searchlight turret** on every aircraft with a rotor drive (helicopters, and the tiltrotor and turboprop transports our loadouts give one), by a new `onlyWithRole`; the **searchlight** fitting goes on it. Its own load, switched by hand and off by default, casts a pool of light 3 cells ahead of the nose that follows the aircraft as it flies over the map, hovers or taxis (`Searchlight.cs`, at the headlights' cadence). What the light does is the game's: work in it goes at daylight's pace, and under Combat Extended a shot at someone in it is aimed by its light (CE reads the light at the target, `CE_Utility.GetLightingShift` from `LightingTracker.CombatGlowAtFor`, found with `scripts/query-code.py`). 18 A, authored as the share of the generator Spectrolab's 1,600 W SX-16 takes |
+| Night landings | Under the existing **Rough landings** setting: a touch-down in the dark, with no landing lights burning and nothing lighting the ground under the aircraft (the game's own light grid below 0.3), has the same chance of a rough landing as landing blind (0.4), and an autopilot does not lessen it (`RoughLandingRule.Chance`, tested). Another faction's crew is taken to land with its lights on where it has them |
+| VS10, the bays | The land vehicles' **fridge bay**, **water tank bay** and **outlet panel** on the C-17, the C-27J, the Osprey and the Trawler, for the fittings that already exist |
+| VS10, the galley | A **galley bay** and a **galley** from the factory on the three that carry one in reality: the C-17, the C-27J and the Trawler (the Osprey has none; the Dinghy, an open boat, keeps the plain boat loadout). The galley is a fitting carrying the field kitchen's cooking rules (`PhobosCaravanCookingExtension`): while the caravan rests its cooks turn raw food into simple meals, 10 a cook, indoors with no outdoor spoiling, the stove running on the vehicle's own fuel (0.2 a meal, `fromVehicleTank`), and a boat at sea cooks on the move. A field kitchen in the caravan still cooks first, then a galley, then a kitchen box. The Trawler has a loadout of its own for this (D'thorga Vehicles), built on the boat's |
+| The thrust pods | The Vanilla Vehicles Expanded **Frog**, **Toad** and **Goliath**, which batch 3 missed (their loadouts write their own systems), are **excused** from VS6 and VS7 (the owner's card): fictional chemfuel thrusters have no oil sump, and chemfuel is not jet fuel. `config/vehicle-standard.json` records why, and the audit no longer lists them |
+| Saved vehicles | Every part this batch adds is appended **last** (a new `last` on a part to add), after the late parts, the turbocharger and each engine's pumps, which code appends after the late list: a part marked late today would still have moved those in a saved vehicle |
+| The standard | VS9 (a lamp bracket on aircraft and boats, landing lights on aircraft, a searchlight turret on rotor aircraft) and VS10 (the bays on the four, a galley on three) are built in `config/vehicle-standard.json` |
+
+**What outside the vehicle notices:** the ground round and ahead of it at night (the game's own light: work speed, and Combat Extended's
+aim); a caravan's packs (raw food out, meals in) and the vehicle's fuel. **Other factions' vehicles:** in a raid on us, their aircraft burn
+their landing lights while they move at night (the light tier's rule for headlights) and are taken to land lit; a searchlight is ours only
+(another faction's vehicle keeps no switch). Parked at a base we attack or captured, they carry the same parts, and a captured one keeps its
+fittings. **Cost:** the searchlight costs one check a tick while out and a look every 20 ticks while lit, as the headlights; a night landing
+reads one cell of the light grid once a landing; the galley is looked for once an hour per caravan with the cooking setting on. Not measured
+in play.
+
+**Found on the way: batch 1's bays were not appended last.** The aviation radio, voice radio and repeater bays on aircraft, the boats' three
+radio bays (Framework 0.356.0) and the bays batch 2 gave the Busbar, the Goat DE2 and the electric loadout (0.359.0) were appended in the
+loadout's order, ahead of the parts code appends after them (the weapon mount, the glass, the fire-fighting parts, the spall liner, the
+brakes at each wheel, the late parts, the turbocharger). In a save made before those versions, the first load after them read those parts'
+saved health into the new bays and moved the rest along, once. It has happened already in any save loaded since, so the order is left as it
+is: moving it back would do it again. Its effect was a one-time mix-up of part health (a dented canopy's wear shown on a radio bay, say),
+never lost parts. `last` exists so it does not happen again.
+
+**Not built:** the aircraft's electrics stay the land vehicles' 12-volt, 65 A system (a simplification; real aircraft run 28 V with larger
+generators), so the lights' draws are authored as shares; a 28-volt aircraft electrical model would let them be real. A searchlight aimed
+anywhere but ahead of the nose; a searchlight on boats; the galley on a map (it cooks for caravans only); meals in flight on the world map
+(an aircraft's caravan cooks only on the ground). **Art:** the three fittings borrow existing icons (the headlights', the work lamps', the
+meal halt's) until their own are drawn in the local run (the owner's card: "art included"). **What a next game would need:** the night-landing
+rule is game-free; lights and galleys are this game's Defs.
+
 ## Questions for the owner
 
 Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, the agent's recommendation marked, then the answer.
@@ -163,16 +205,26 @@ Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, th
 | 5 | On a multi-engine aircraft, should each engine have its own pumps and oil, or one set for the whole aircraft? | **Each engine its own** (recommended): a fault takes one engine, so a twin limps home on the other · One set per aircraft: quicker, but one fault reaches every engine | **Each engine its own** |
 | 6 | What may a fuel or oil fault do to an aircraft in the air? | **Real, with a setting** (recommended): oil gone seizes that engine in a few hours and a dead pump starves it; a twin flies on one engine, a single-engine aircraft must land; its own setting, on · Real, setting off · Wear and warn only | **Real, with a setting** |
 | 7 | Jet fuel freezes far colder than diesel. What should aircraft fuel do in the cold? | **Freezes at its real point** (recommended), sourced · Never thickens | **Freezes at its real point** |
+| 8 | Batch 4, lights (VS9): what should aircraft and boats get? | **Bracket + landing lights** (recommended): the lamp bracket on every aircraft and boat, and landing lights from the factory on every aircraft, on a part a hit can put out · **Also a helicopter searchlight**: a searchlight fitting that lights the ground under a helicopter flying over the map at night (the agent leaned to a later slice) · Lamp bracket only | **Also a helicopter searchlight** (28 Nov 2026) |
+| 9 | Night landings: should landing in the dark without landing lights matter? | **Dark and unlit = risky** (recommended): under the existing Rough landings setting, the same chance as landing blind; lights or a lit spot take it away · Lights only · Always rough | **Dark and unlit = risky** |
+| 10 | Batch 3 missed the thrust pods (Frog, Toad, Goliath). What should they get? | **Excuse them, recorded** (recommended) · Fuel pumps only (a pump per thruster, no oil, no freezing) · Same as every aircraft | **Excuse them, recorded** |
+| 11 | Galleys (VS10): should anything come fitted from the factory? | **Bays only** (recommended) · C-17 and Trawler fitted · C-17 and Trawler only | The owner's own answer: "Bays only, unless some have a kitchenette in real life? Which if so, they get that by default or as an upgrade, art included." Built as: the bays on all four, and a galley from the factory on the C-17, the C-27J and the Trawler, which carry one |
 
 ## Who chose what
 
 - **Owner (27 Nov 2026):** radios on aircraft by default, shown on all three pages; a standard so players are not bewildered; slice 3
   to start. By card: factory radios on aircraft, military vehicles and boats; the real aviation bands; Comms on every powered vehicle; an
   audit kind to keep the standard. Batch 3 ("Absolutely start batch 3"), by card: each engine its own pumps and oil; real consequences
-  in the air behind a setting that starts on; jet fuel freezing at its real point.
+  in the air behind a setting that starts on; jet fuel freezing at its real point. Batch 4 ("Start batch 4 of the standard", 28 Nov
+  2026), by card: the lamp bracket, landing lights and a helicopter searchlight; dark, unlit landings as risky as blind ones; the thrust pods
+  excused; galleys where the real vehicle has one, from the factory, with their own art.
 - **Agent:** the standard's lines, the batches, the audit, and every lean here, for the owner to revise. In batch 3: the code route
   (per-engine parts and a service, not the land systems), the air at cruising height and the ram rise, Jet A-1's figure (not Jet A's
-  -40 °C, which the card named), solid at 10 °C below, the gliding landing or crash on the world map, and the setting's risk grade.
+  -40 °C, which the card named), solid at 10 °C below, the gliding landing or crash on the world map, and the setting's risk grade. In
+  batch 4: landing lights on by default and from the factory; the searchlight on every aircraft with a rotor drive (the tiltrotor and turboprop
+  transports included), switched by hand; an autopilot not helping a dark landing; the lights' draws as shares of the 12-volt generator; which
+  of the four carry a real galley (the C-27J's from Leonardo's brochure, not the card's examples); the galley cooking for caravans on the
+  vehicle's own fuel, its figures, and its place after a field kitchen; and appending every new part last.
 
 ## Sources
 
@@ -183,3 +235,16 @@ Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, th
 - Batch 3: Jet A-1's freezing point of -47 °C at most (DEF STAN 91-091 and ASTM D1655, as given by Wikipedia, "Jet fuel"; secondary);
   the International Standard Atmosphere's lapse of 6.5 °C a kilometre to 11 km; total air temperature, T(1 + 0.2 M²) for air
   (standard aerodynamics). The rest is authored and labelled in `Systems_EngineFeed.xml`.
+- Batch 4 (all secondary, as listed; the draws in our 12-volt model are authored):
+  - [Spectrolab's SX-16 Nightsun](https://www.aeroexpo.online/prod/spectrolab-inc/product-175615-82966.html): a 1,600 W short-arc xenon
+    searchlight, 30 to 40 million candlepower, about 1 km of reach, 55 to 67 A drawn (Spectrolab's catalogue, as AeroExpo lists it).
+  - A 600 W, 28 V PAR-64 landing lamp ([Boeing Distribution's listing](https://shop.boeing.com/cpd/bdi_q4559x%3D18)); about 21 A is our
+    sum (I = P / V).
+  - The C-17's galley: a refrigerator, freezer, coffee maker, sink, waste container and an oven (a [USAF photo
+    caption](https://www.mcchord.af.mil/News/Photos/igphoto/2000842834), as the search engine summarised it; the page itself not read).
+  - The C-27J Next Generation's "rest area with seats and galley" ([Leonardo's brochure, a copy on
+    Scribd](https://www.scribd.com/document/533263566/C-27J-Next-Gen-brochure-ENG); seen only as a search excerpt, **unverified**).
+  - A trawler's galley: general knowledge of fishing vessels; a Danish-built trawler's deckhouse "galley with provision room"
+    ([Fiskerforum](https://fiskerforum.dk/?p=332561), seen only as a search excerpt).
+  - Combat Extended aiming by the light at the target: its own code, `CE_Utility.GetLightingShift` and
+    `Verb_LaunchProjectileCE.ShiftVecReportFor` (read with `scripts/query-code.py`).

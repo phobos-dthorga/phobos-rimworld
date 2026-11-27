@@ -46,7 +46,8 @@ vehicles](working-vehicles.md). [Back to the guide](README.md).
 - **Without navigation, or with only basic navigation in the dark**, a flight across the world map is slower and burns more fuel.
   Military aircraft carry full navigation and fly straight in anything.
 - **Rough landings** (on by default, in D'thorga Framework's settings): landing in poor visibility with the instruments out, or
-  with the flight controls shot about, may come down hard and damage the landing gear. Never the crew.
+  with the flight controls shot about, may come down hard and damage the landing gear. Never the crew. **Landing in the dark with no
+  landing lights and nothing lighting the ground** may too, autopilot or not: keep the landing lights on, or light the landing spot.
 - **Aim in the air** (on by default): a damaged or basic sight misses more, and every aircraft misses more at night without a
   night sight and in bad weather without a radar. Bombs and rockets scatter wider.
 
@@ -59,6 +60,16 @@ its part, a kit stops working until repaired.
 | **Autopilot** | Halves the wandering and the risk of a rough landing |
 | **Night sight** | Aims at night as by day |
 | **Radar** | Gives back half of what rain, fog and snow take from the aim |
+
+## Lights and searchlights
+
+- **Every aircraft has landing lights from the factory.** At night, while the engines run, they light the ground ahead of the nose;
+  their button switches them off. A hit can put them out (Health: **landing lights**): fit them again from the fittings window.
+- **Every aircraft and boat has a lamp bracket**, for the **work lamps** a truck can carry: a parked aircraft or a boat's deck lit for
+  night work.
+- **Helicopters can carry a searchlight** (and the Osprey and the C-27J, on their **searchlight turret**). Switch it on at night: a pool
+  of light stands just ahead of the nose and follows the aircraft as it flies over the map, hovers or taxis. People work in it as by
+  day, and under Combat Extended your shooters can see who stands in it. It draws heavily on the generator.
 
 ## Engines, controls and fuel tanks
 

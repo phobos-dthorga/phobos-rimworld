@@ -525,6 +525,12 @@ public class PartToAdd
     /// list, so a later one is added at the end of that list.
     /// </summary>
     public bool late;
+    /// <summary>
+    /// Appended at the very end (Framework 0.366.0, the vehicle standard's batch 4): after the late parts, the turbocharger and each engine's
+    /// pumps, which code appends after the late list, so a late part added today would still move those in a saved vehicle. <b>A part added
+    /// to a design that saves already hold takes this</b>, never <see cref="late"/>. Last parts go in the order of the loadout's list.
+    /// </summary>
+    public bool last;
 }
 
 /// <summary>One entry of a loadout's cellsOfRemap: parts placed by the cells of <c>from</c> take the cells of <c>to</c> instead.</summary>
@@ -544,6 +550,9 @@ public class PartRoleSpec
     /// <summary>Left off a design that dives (one with CompProperties_PhobosSubmersible), Framework 0.359.0: submarine work is on the
     /// owner's back burner (20 Nov 2026), so what is added for boats in general is not added to them.</summary>
     public bool notOnSubmersibles;
+    /// <summary>Added only to a design on which this other role is bound (Framework 0.366.0: a searchlight mount only where there is a rotor
+    /// drive). Read for a part added <see cref="PartToAdd.last"/>, when every other role is bound; elsewhere it is reported as a problem.</summary>
+    public string? onlyWithRole;
 }
 
 /// <summary>An electrical consumer: amperes drawn while its condition holds (and, for a switch, while it is switched on).</summary>
