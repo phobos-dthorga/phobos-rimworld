@@ -5,8 +5,10 @@ Every mod below is synthetic; nothing reads or writes the RimWorld installation.
 import contextlib
 import importlib.util
 import io
+import json
 import os
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -528,6 +530,31 @@ class BuiltAssemblyTests(unittest.TestCase):
             for node, source in our_mod.defs:
                 schemas.check_fields(node, ours.index, lambda element, problem, s=source: found.append((s, problem)))
         self.assertEqual(found, [])
+
+
+class OneFileTests(unittest.TestCase):
+    """The one file for modders: the checker bundled with the kit modules it imports (the kit's bundle) runs alone, isolated from
+    this repository and the kit, and finds what the checker beside the kit finds."""
+
+    def test_the_bundled_checker_runs_alone_and_agrees(self):
+        from phobos_modkit.bundle_cli import main as bundle
+        temp = Path(tempfile.mkdtemp())
+        argv = sys.argv
+        try:
+            one = temp / 'check-vehicle-schemas.py'
+            self.assertEqual(bundle([os.path.join(ROOT, 'scripts/check-vehicle-schemas.py'), '--python', '3.9', '--out', str(one)],
+                                    out=io.StringIO()), 0)
+            args = ['--root', ROOT, '--mod', str(Path(ROOT, 'examples/DthorgaExampleMod')), '--ours', str(Path(ROOT, 'mods')), '--json']
+            alone = subprocess.run([sys.executable, '-I', str(one)] + args, cwd=str(temp), capture_output=True, text=True)
+            self.assertEqual(alone.stderr, '')
+            with contextlib.redirect_stdout(io.StringIO()) as here:
+                sys.argv = ['check'] + args
+                code = schemas.main()
+            self.assertEqual(alone.returncode, code)
+            self.assertEqual(json.loads(alone.stdout), json.loads(here.getvalue()))
+        finally:
+            sys.argv = argv
+            shutil.rmtree(temp, ignore_errors=True)
 
 
 if __name__ == '__main__':

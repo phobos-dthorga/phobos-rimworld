@@ -46,6 +46,7 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
 | Harmony targets and by-name lookups | `check-targets.py` | `rimworld-targets.md` |
 | The generated tables in our docs: projects, Harmony patches, what each mod needs, each mod's settings | `doc-tables.py` | `doc-tables.md` |
 | What the tools, builds and tests left behind | `cleanup.py` | `cleanup.md` |
+| The vehicle schema checker as one file for modders, the kit's readers inside (from `external/phobos-modkit/python`: `python -m phobos_modkit bundle ../../../scripts/check-vehicle-schemas.py --python 3.9 --out FILE`); its readers (.NET metadata, load folders, inheritance, XML patches) are the kit's, so a fix to them goes there | the kit's `bundle` | `bundle.md` |
 
 ## Working with the owner
 
