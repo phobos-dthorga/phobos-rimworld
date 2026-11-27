@@ -264,7 +264,7 @@ this, there was no seat at the base-station"), and answered four cards.
 | 3 | Whether a call at the desk takes a channel | **Yes, like a hand-held** (the agent's lean) | No, calls are free |
 | 4 | Whether the station also works as the game's comms console, for factions and traders in radio reach | **Record it first**, and: "if we are to do this, it must come with its own benefits to make it worthwhile (and possibly downsides as well to weigh things out?)" | Yes, build it. No |
 
-Card 4 gets a design record of its own, written next, with what it would add and what it would cost the player.
+Card 4 is its own record: [the radio as the comms console](radio-comms-console.md).
 
 ### As built
 

@@ -94,6 +94,37 @@
    "why": "Face to face is a real lesson, and it gives the second seat a purpose of its own; it is no better than the game's own lessons",
    "from": "docs/development/radio-stations.md",
    "asked": "2026-11-27"
+  },
+  {
+   "id": "radio-comms-console-shape",
+   "question": "Which shape should the radio take as the comms console, if any?",
+   "context": "docs/development/radio-comms-console.md, written as you asked on 27 Nov 2026 (record first, with its own benefits and downsides). You chose 'Later, with HF' for the console needing reach earlier the same day (RT6). Benefits B1 to B6 and downsides D1 to D5 are in the record; a second question will ask which benefits.",
+   "options": [
+    {
+     "id": "s2-then-s3",
+     "label": "S2 now, S3 with HF",
+     "detail": "The radio desk adds calls of its own to factions in reach, taking nothing from the console; the console needs reach once HF exists"
+    },
+    {
+     "id": "s1",
+     "label": "S1",
+     "detail": "The radio desk becomes a second console, limited to factions in reach; counts for ransom demands, RimPacts and Biotech's radio talk, but changes the stations' class (saves, nine mods)"
+    },
+    {
+     "id": "s3-hf",
+     "label": "S3 only, with HF",
+     "detail": "As RT6 was answered: nothing until HF, then the console needs reach (off by default)"
+    },
+    {
+     "id": "none",
+     "label": "Nothing until HF",
+     "detail": "Leave it as RT6's answer stands"
+    }
+   ],
+   "lean": "s2-then-s3",
+   "why": "It brings the radio's own benefits now without breaking the console or the nine mods that patch it, and keeps your HF answer for the bigger change",
+   "from": "docs/development/radio-comms-console.md",
+   "asked": "2026-11-27"
   }
  ]
 }
