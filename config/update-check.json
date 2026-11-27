@@ -6,5 +6,6 @@
     "assemblies": ["mods/*/1.7/Assemblies/*.dll", "mods/*/Mods/*/1.7/Assemblies/*.dll"],
     "typeLookups": ["OptionalMods.TypeNamed"]
   },
-  "temporaryPatches": "config/temporary-patches.json"
+  "temporaryPatches": "config/temporary-patches.json",
+  "patchedDefsHow": "In RimWorld, with Development mode on (Options): Options, Mod Settings, D'thorga Framework, Developer, tick Write every Def with all patches applied at the next start, then close the game and start it again. It writes the file once the game has loaded and turns the setting off by itself."
 }
