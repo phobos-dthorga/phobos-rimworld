@@ -173,6 +173,18 @@ Before you start the game:
   It exits with 1 if there are errors, so it can run in a build script. **It is no substitute for loading the game**: the game's log
   is the final word. The example mod checks clean (`--mod examples/DthorgaExampleMod`), and our own checks run it on every commit.
 
+### Editor help
+
+Two tools by other authors read RimWorld's C# and so understand `Class="..."`: they offer the right fields for the class you name,
+ours included. Neither is ours, and naming them is no endorsement; check each one's page for its current state.
+
+- **[RimworldDev for Rider](https://github.com/Garethp/Rider-RimworldDevelopment)** by Garethp (MIT licence), a plugin for
+  JetBrains Rider: completion, navigation to the C# behind a field, and checks. Updated in October 2026.
+- **[RWXML language server](https://github.com/zzzz465/rwxml-language-server)** by zzzz465 (Apache-2.0 licence), a VS Code extension
+  for RimWorld XML. Last updated in December 2025.
+
+An XML schema of our own types, for VS Code's XML extension, is being tried; this page will say when it is ready.
+
 ## 6. Dev mode and the dev actions worth knowing first
 
 **Turn on Development mode** in the game's Options. The debug actions menu (the toolbar at the top of the screen) then has a

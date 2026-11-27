@@ -68,6 +68,24 @@ paste tap, a subclass (test row 453 watches for it). The owner answered a furthe
 | --- | --- | --- |
 | **Paste taps** | Eating from a reservoir needs a Harmony patch either way, and the shipped paste tap needs one too | **Chosen: one small patch**: a postfix on the game's food-source group test also counts subclasses of the dispenser, so the Billy's tap and any modder's building of our paste-tap class serve meals, in XML alone; it runs when a thing is registered, not on every food search. Not chosen: a meal set out on the doorstep with no patch (haulers carry it off, it rots, animals eat it); a full set of about eight patches so any class serves (fragile, one in a hot path); check in play first and build nothing yet |
 
+## The modders' documentation round (28 Nov 2026)
+
+The owner asked for every improvement offered to the docs for other programmers ("Are there any other ways we can enhance the modding
+documentation"), all eight chosen: an example mod, a first-hour walkthrough, an extension points index, a stability page, the 33 missing
+summaries, the patches and dev actions pages, the XML checker for modders and an editor schema prototype. Building them raised these
+cards:
+
+| Card | Found | Options (the owner's choice first) |
+| --- | --- | --- |
+| **Setting names** | Other modders' XML names our settings (When_Setting) | **Chosen: stable, like saved keys**: never renamed; a retired one keeps answering "off" rather than a config error. Not chosen: stable only from release; no promise |
+| **Pre-release renames** | Nothing settled whether names may change before release | **Chosen: yes, with a save conversion** and a "For modders" changelog line, frozen from release. Not chosen: frozen now |
+| **Obsolete** | How long an obsolete member stays | **Chosen: until the next version raising the first number**, which removes them all at once with a list. Not chosen: forever; six months |
+| **Checker home** | The checker's generic parts (a .NET assembly reader, RimWorld's XML readers) sat inside the one script | **Chosen: move them to phobos-modkit, with a step writing one file** for modders. Not chosen: keep them in the script |
+| **Publish the schema** | The editor schema has no false errors on our files but cannot follow `Class` | **Chosen: after the owner tries it** in VS Code. Not chosen: publish now, labelled untested; shelve it |
+| **Editor tools** | Garethp's Rider plugin (MIT) and the RWXML language server (Apache-2.0) follow `Class` | **Chosen: mention both** in "Your first hour", with no endorsement implied. Not chosen: the Rider plugin only; neither |
+| **Dev summaries** | The dev actions page showed only a summary's first sentence | **Chosen: show whole summaries**. Not chosen: first sentence only |
+| **Housekeeping** (several could be picked) | An empty `K:\tmp-xsd-research` made by mistake; the schema's XSD 1.1 test skipped without the `xmlschema` package | **Chosen, both**: the folder to be deleted (the safety check refused an agent's removal, so it is the owner's), and the owner installed `xmlschema`, whose test then showed strict validators refuse the schema |
+
 ## Smaller findings dealt with without a card (agent's choices, owner to revise)
 
 - The Radio's Architect Def comment said the Radio "does not need D'thorga Framework"; it has declared it since Radio 0.4.0. The comment

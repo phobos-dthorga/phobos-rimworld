@@ -2,7 +2,8 @@
 
 Which names in D'thorga Framework (also spelt dthorga) and the other D'thorga mods your mod can build on without fear of them
 changing, which may still change before the first public release, and how you are told when something does. This page states only
-what the project's rules and code show; anything else is marked as **an open question for the owner**.
+what the project's rules and code show, and the owner's answers of 28 Nov 2026 on setting names, renames before release and how
+long obsolete names stay.
 
 ## Read this first (gotchas)
 
@@ -39,8 +40,8 @@ saved object loads as the copy of its class its own mod holds, even in a save wr
 **Settings keys.** The rules say settings keys are never translated, and when mods merge, the player's settings are carried over once
 (`SettingsImport`). XML that names a setting, such as `When_Setting`'s `setting`, is checked at load: an unknown name is a config
 error naming your Def ([the list of names](../vehicle-systems-modding.md#conditions)). The owner is told whenever a setting is added,
-removed or given a new default (root `AGENTS.md`). **No rule yet promises that a setting's name, as XML reads it, never changes: an
-open question for the owner.**
+removed or given a new default (root `AGENTS.md`). **A setting's name, as XML reads it, is stable like a saved key** (the owner,
+28 Nov 2026): never renamed, and a setting we retire keeps answering "off" rather than becoming a config error in your mod.
 
 ## What may still change before the first public release
 
@@ -61,8 +62,8 @@ In practice that means:
 - **Appended vehicle parts may come and go between versions.** The vehicle systems drop saved parts no loadout appends any more, so
   "a design may lose or gain appended parts between versions" ([Read this first](../vehicle-systems-modding.md#read-this-first-gotchas)).
   Your own parts stay safe if you append them last and never reorder them.
-- **Whether a `defName` or class may be renamed before release, with a conversion for older saves, is not settled by any rule: an
-  open question for the owner.** The rules keep names "once saves can hold them", and the mods are not yet published.
+- **Before the first public release, a `defName`, class or saved key may still be renamed, but only with a conversion that keeps
+  older saves loading and a "For modders" changelog line** (the owner, 28 Nov 2026). From release on, they are frozen.
 
 ## How you are told
 
@@ -87,8 +88,8 @@ Each is a promise the code and its changelog entry show, not a general policy:
 | **The tipper's `engineDemand`** | No longer read; kept so old patches load | [Tipper](../vehicle-features-modding.md#tipper) |
 | **Saved objects of a moved class** | Load as their own mod's copy once a class family is registered | Framework 0.309.0 |
 
-**Whether every future removal will follow this pattern (kept and marked obsolete for a time, then removed, and for how long) is not
-written in any rule: an open question for the owner.**
+**How long an obsolete name stays** (the owner, 28 Nov 2026): **until the next version that raises the first number** (an
+incompatible release). That version removes them all at once, and its changelog lists every one, so you can update in one go.
 
 ## Where next
 

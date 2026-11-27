@@ -45,6 +45,12 @@ for word; the root's rules apply here too.
 
 - Prefix new defNames, C# namespaces, translation keys and saved (Scribe) keys with `Phobos`, and keep
   them stable once saves can hold them. Renaming is presentation only: labels change, identities don't.
+- **Promises to other modders** (owner, 28 Nov 2026, the Stability page `docs/modding/stability.md`): **a setting's name as XML reads it
+  is stable like a saved key**, and a retired one keeps answering "off" rather than becoming a config error (the change that
+  retires the first one adds a list of retired names beside `VehicleSystemsMod.IsFlag`, read by it); **before the first public
+  release a defName, class or saved key may still be renamed, only with a save conversion and a "For modders" changelog line**, frozen
+  from release on; **anything marked obsolete stays until the next version that raises the first number**, which removes them all at once
+  and lists them in its changelog.
 
 ## RimWorld engineering
 

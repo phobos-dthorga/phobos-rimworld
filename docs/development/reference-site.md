@@ -68,7 +68,10 @@ Xerces (`--full` as Rider checks). On 28 Nov 2026 it gave no false errors on all
 flagged wrong values. **Its limit**: XSD 1.0 cannot choose a type from `Class="..."`, so a comp's own fields appear only beside an
 `xsi:type` naming the same class, and whether the game ignores that attribute is untested. Rider needs a full-checking-free setup
 (its Validate action lists XSD 1.0 ambiguity reports), and Garethp's Rider plugin and the rwxml language server, which read C# and
-follow `Class`, serve modders better there. Whether to publish it on the site waits on the owner trying it in VS Code.
+follow `Class`, serve modders better there. **Strict validators refuse it** (found 28 Nov 2026): libxml2 as ambiguous, and
+xmlschema (XSD 1.1) because each type is derived from its base by a restriction it calls illegal; Xerces without full checking, as VS
+Code runs it, accepts it. It is to be made strictly valid before it is published, and the owner tries it in VS Code first (the
+owner's card of 28 Nov 2026, "After I try it").
 
 ## How it is built (agent choices, owner to revise)
 

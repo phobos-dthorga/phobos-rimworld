@@ -1031,7 +1031,7 @@ def dev_actions_page(actions, repository):
             for action in sorted(groups[group], key=lambda a: a.label.lower()):
                 source = source_link(repository, action.path, action.line)
                 label = f'[{_plain(action.label)}]({source})' if source else _plain(action.label)
-                what = _plain(lead_sentence(action.summary, 240)) if action.summary else '*(no summary: the label says it)*'
+                what = _plain(' '.join(action.summary.split())) if action.summary else '*(no summary: the label says it)*'  # whole: the owner's card of 28 Nov 2026
                 out.append(f'| {label} | {what} | {action.works_in} | {action.how} |')
             out.append('')
     if not by_category:

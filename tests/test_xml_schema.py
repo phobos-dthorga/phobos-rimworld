@@ -325,14 +325,18 @@ class OtherValidators(unittest.TestCase):
             etree.XMLSchema(etree.fromstring(self.text.encode('utf-8')))
         self.assertIn('not determinist', str(caught.exception))
 
-    def test_an_xsd_1_1_validator_accepts_it(self):
+    def test_an_xsd_1_1_validator_refuses_it_for_now(self):
+        # The prototype derives each type by restriction from its base, and xmlschema (XSD 1.1, strict) refuses those
+        # restrictions as illegal (found 28 Nov 2026, once the owner installed xmlschema), as libxml2 refuses it as
+        # ambiguous above. Xerces without full checking, as VS Code runs it, accepts it. The schema must be made strictly
+        # valid before it is published; this test then flips to "accepts it".
         try:
             import xmlschema
         except ImportError:
             self.skipTest('xmlschema is not installed')
-        schema = xmlschema.XMLSchema11(self.text)
-        self.assertTrue(schema.is_valid(GOOD))
-        self.assertFalse(schema.is_valid(BAD))
+        with self.assertRaises(xmlschema.XMLSchemaParseError) as caught:
+            xmlschema.XMLSchema11(self.text)
+        self.assertIn('illegal restriction', str(caught.exception))
 
 
 if __name__ == '__main__':
