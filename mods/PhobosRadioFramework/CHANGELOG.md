@@ -5,12 +5,6 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
-### Added
-
-- **The HF tables' reader, not used in play yet** (the owner's cards of 28 November 2026: tables now, the game later): the radio can
-  read VOACAP's HF predictions as the repository's table maker packs them, and look up a path's chance of being open, its loss and
-  the noise at any hour, season and point of the sun's cycle. Nothing in play reads it until HF's first slice is built.
-
 ### Changed
 
 - **The art and sound records no longer ship in the mod's folder** (the owner's choice of 23 Nov 2026, in the docs rewrite).
@@ -31,16 +25,25 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [0.62.0] - 2026-11-28 - Draft
 
-QSL cards say how they were worked
+QSL cards say how they were worked, and HF's first slice
 
 ### Added
 
+- **HF radio** (the owner's cards of 28 November 2026, HF's first slice): research HF radio for an HF station (100 W of SSB voice on
+  40 m and 20 m), dipoles for each band in three kinds (a flat dipole between two masts, an inverted V on one mast, a short one with
+  loading coils: smaller strips for less signal), and a manpack radio worn like a hand-held. Between tiles HF goes along the ground,
+  at the world's own scale of about 30 km a tile: tens of kilometres from an upright whip over land, far further over sea, and
+  little from a flat dipole, as on Earth; the sky's noise at each end comes from the sun's cycle, the season and the hour. Reaching
+  round the world by the sky is the next slice. Not yet tested in game: row 769.
+- **The HF bands tab and band rose, in dev mode only** (the owner's card): the station's forecast for each HF band and a rose round the
+  colony on the world map, from VOACAP's predictions, shown to players once the sky paths are built.
 - **A QSL card says the band and mode it was worked on** (the owner's choice of 28 November 2026, with HF's first slice): "VHF (2 m),
   FM voice.", "Via one relay station." when a relay carried the call, and a Morse contact's report has its third figure, the tone
   (599). Cards from before carry none of it and are otherwise unchanged. Not yet tested in game: row 764.
 - **A setting for the colony's own callsign**, Our station's callsign: printed on every QSL card in place of the one worked out from the
   colony's place. Empty by default, which keeps the worked-out one.
-- For modders: a mode Def's keyed marks a keyed tone, as Morse, for the three-figure report.
+- For modders: a mode Def's keyed marks a keyed tone, as Morse, for the three-figure report; a band Def's path (Hf) sends it by HF's
+  ground wave between tiles; an antenna's horizontal marks one lying flat, as a dipole.
 
 ### Save compatibility
 

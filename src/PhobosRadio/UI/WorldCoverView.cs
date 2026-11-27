@@ -265,6 +265,11 @@ public sealed class WorldComponent_PhobosWorldCover : WorldComponent
         // A convoy's ring is drawn with its chain home, by the vehicles tie-in.
         if (WorldCover.Site is { Caller: false } site && WorldCover.RingTiles > 0) GenDraw.DrawWorldRadiusRing(site.Tile, WorldCover.RingTiles);
         // Radio 0.54.0: a colony's contact arcs, to each faction settlement its stations reach.
-        if (WorldCover.Site is { Place: MapParent { HasMap: true } home } && home.Map.IsPlayerHome) WorldArcs.DrawContacts(home.Map);
+        if (WorldCover.Site is { Place: MapParent { HasMap: true } home } && home.Map.IsPlayerHome)
+        {
+            WorldArcs.DrawContacts(home.Map);
+            // Radio 0.62.0: HF's band rose, in dev mode only until skywave is built.
+            HfRose.Draw(home.Map);
+        }
     }
 }

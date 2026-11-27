@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Manpack.png",
+  "source": "assets/phobos-radio/generated/hf-manpack/hf-manpack-1.png",
+  "source_sha256": "2bc2d071016d13a4d6695c0cc34669f8681f855e8712edcd50bfd2277ac9b7e0",
+  "target_sha256": "f533c814d5067863be8a086bd45fb168dfc3bf801dfe66f62bf33cb5cd984c32",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "2bc2d071016d13a4d6695c0cc34669f8681f855e8712edcd50bfd2277ac9b7e0",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-28T06:22:52",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

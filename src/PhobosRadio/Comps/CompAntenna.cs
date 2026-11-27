@@ -10,6 +10,9 @@ public class CompProperties_Antenna : CompProperties
     public List<BandDef> bands = new();
     public float gainDbi;
     public float heightMetres = 3f;
+    /// <summary>The antenna lies flat, as a dipole (Radio 0.62.0): HF's ground wave from it is horizontally polarised and dies within a few
+    /// kilometres; its strength is the sky. Whips and masts stand upright (the default).</summary>
+    public bool horizontal;
 
     public CompProperties_Antenna() => compClass = typeof(CompAntenna);
 

@@ -274,6 +274,20 @@ Construction **6 or more**, free and in radio touch.
 - **No** costs nothing. A letter left unanswered goes after 6 hours.
 - Setting: **Neighbours ask for help by radio**, on by default.
 
+## HF radio
+
+**Research HF radio, build an HF station, and run coax to a dipole outside.** HF (40 m and 20 m, single-sideband voice) is the
+long-distance radio, and for now it travels along the ground only:
+
+- **A dipole for each band, in three kinds**: a **flat dipole** between two masts (the best signal, the longest strip: 21 cells for
+  40 m, 11 for 20 m), an **inverted V** on one mast (14 and 7 cells, about a decibel less), and a **shortened dipole** with loading
+  coils (6 and 4 cells, several decibels less). Turn it as you place it.
+- **The manpack radio** is worn like a hand-held: twenty watts and a tall whip.
+- **Along the ground HF reaches a tile or two from an upright whip** (a tile is about 30 km for HF), much further over the sea, and
+  little from a flat dipole, whose strength is the sky. A caravan with a manpack near home stays in touch with an HF station that
+  has an upright antenna, or with another manpack.
+- **Reaching round the world by the sky** comes in the next part of HF.
+
 ## Morse
 
 **A Morse key keeps a convoy in touch with home far beyond the reach of voice.** Fit the **Morse key** upgrade to a base station's desk,

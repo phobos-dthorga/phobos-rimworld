@@ -14,6 +14,22 @@ value confers no ownership of the game's files. Mods follow [Ludeon's EULA](http
 free, clearly community-created, and not official or endorsed by Ludeon. Builds compile against the reference assemblies
 `Krafs.Rimworld.Ref` publishes on NuGet, not against the game's own files.
 
+## VOACAP and NTIA's LF/MF model (HF tables in D'thorga Radio Framework)
+
+D'thorga Radio Framework ships two tables made offline from US Government propagation software (Radio 0.62.0;
+`docs/development/radio-hf.md`): `Common/Data/HF/hf-propagation.bin`, a packed summary of VOACAP's HF predictions (run through the
+Linux port voacapl), and `Common/Data/HF/ground-wave.bin`, a packed summary of the ground-wave loss from NTIA/ITS's LF/MF model
+(LFMF), the software of Recommendation ITU-R P.368-10. Neither program is shipped or run by the mod.
+
+- VOACAP: "developed by an agency of the U.S. Government. NTIA/ITS has no objection to the use of this software for any purpose since
+  it is not subject to copyright protection in the U.S." ([NTIA/ITS](https://its.ntia.gov/software/high-frequency/voacap-propagation-model/));
+  voacapl's own changes are CC0 ([its licence](https://github.com/jawatson/voacapl/blob/master/LICENSE)).
+- LFMF: developed by employees of the National Telecommunications and Information Administration (NTIA); works of NTIA employees "are not
+  subject to copyright protection within the United States", and elsewhere NTIA grants "the non-exclusive irrevocable and unconditional
+  right to print, publish, prepare derivative works and distribute" ([its LICENSE.md](https://github.com/NTIA/LFMF/blob/main/LICENSE.md)).
+  With thanks to NTIA's Institute for Telecommunication Sciences, as its licence asks. Our tables are derived from its output; NTIA does
+  not endorse this mod.
+
 ## Harmony
 
 Six of our assemblies patch the game or another mod through **Harmony** by **Andreas Pardeike (brrainz)**:

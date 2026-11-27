@@ -60,4 +60,30 @@
     <obstructionFactor>1.0</obstructionFactor>
     <upgradeFigure>marineBand</upgradeFigure>
   </Phobos.Radio.BandDef>
+
+  <!-- HF's first two bands (Radio 0.62.0; docs/development/radio-hf.md, the owner's card of 28 Nov 2026: 40 m and 20 m first). Between
+       tiles they go by HF's own path (the ground wave now; skywave next), at the frequencies the HF tables were made at, 7.1 and 14.2 MHz.
+       Edges as commonly allocated, 7.000 to 7.200 and 14.000 to 14.350 MHz; not checked here against the ITU Radio Regulations
+       (unverified). HF passes walls more easily than VHF: an obstruction factor of 0.5, authored. -->
+  <Phobos.Radio.BandDef>
+    <defName>PhobosRadio_HF40</defName>
+    <label>HF (40 m)</label>
+    <description>7.0 to 7.2 MHz. Along the ground tens of kilometres from an upright antenna; by the sky, regional by day and far by night.</description>
+    <lowMHz>7.0</lowMHz>
+    <highMHz>7.2</highMHz>
+    <centreMHz>7.1</centreMHz>
+    <obstructionFactor>0.5</obstructionFactor>
+    <path>Hf</path>
+  </Phobos.Radio.BandDef>
+
+  <Phobos.Radio.BandDef>
+    <defName>PhobosRadio_HF20</defName>
+    <label>HF (20 m)</label>
+    <description>14.0 to 14.35 MHz. Along the ground a little less than 40 m; by the sky, the day band, far across the world.</description>
+    <lowMHz>14.0</lowMHz>
+    <highMHz>14.35</highMHz>
+    <centreMHz>14.2</centreMHz>
+    <obstructionFactor>0.5</obstructionFactor>
+    <path>Hf</path>
+  </Phobos.Radio.BandDef>
 </Defs>

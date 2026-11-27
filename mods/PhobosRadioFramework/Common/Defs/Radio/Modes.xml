@@ -60,6 +60,18 @@
     <transmitEfficiency>0.4</transmitEfficiency>
   </Phobos.Radio.ModeDef>
 
+  <!-- SSB voice (Radio 0.62.0), HF's speech: one sideband in about 2.4 kHz, readable about 10 dB above the noise (the radio design's figure,
+       unverified against a source: approximate). Its amplifier must stay linear, so it wastes more as heat (authored 0.4, as AM). -->
+  <Phobos.Radio.ModeDef>
+    <defName>PhobosRadio_VoiceSSB</defName>
+    <label>SSB voice</label>
+    <description>Speech on one sideband, as HF operators talk: narrow, and readable about 10 dB above the noise (approximate).</description>
+    <bandwidthHz>2400</bandwidthHz>
+    <requiredSnrDb>10</requiredSnrDb>
+    <dutyCycle>0.2</dutyCycle>
+    <transmitEfficiency>0.4</transmitEfficiency>
+  </Phobos.Radio.ModeDef>
+
   <Phobos.Radio.ModeDef>
     <defName>PhobosRadio_PictureVideo</defName>
     <label>picture</label>

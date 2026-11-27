@@ -1,0 +1,41 @@
+{
+ "made": "2026-11-28",
+ "from": "NTIA/ITS LFMF (commit 5fd4962)",
+ "bands": [
+  "40m",
+  "20m"
+ ],
+ "bytes": 13924,
+ "grounds": [
+  "sea",
+  "wet",
+  "fresh",
+  "medium",
+  "dry",
+  "ice"
+ ],
+ "heights": [
+  2,
+  10,
+  30
+ ],
+ "distances": [
+  1,
+  2,
+  3,
+  5,
+  7,
+  10,
+  15,
+  20,
+  30,
+  50,
+  70,
+  100,
+  150,
+  200,
+  300,
+  500
+ ],
+ "how": "basic transmission loss, both polarisations; grounds from ITU-R P.527-6 Figure 24 read by eye; N_s 301"
+}

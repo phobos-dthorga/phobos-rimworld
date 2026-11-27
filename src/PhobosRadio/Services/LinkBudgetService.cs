@@ -111,6 +111,15 @@ public static class LinkBudgetService
     /// </summary>
     public static LinkEvaluation? EvaluateWorld(RadioEndpoint a, RadioEndpoint b, double distanceMetres, RadioRulesDef rules,
         double siteAMetres = 0, double siteBMetres = 0, ModeDef? mode = null, double terrainFigure = double.NegativeInfinity)
+        => EvaluateWorld(a, b, distanceMetres, rules, siteAMetres, siteBMetres, mode, terrainFigure, null, null);
+
+    /// <summary>
+    /// The arithmetic, with the two tiles when known (Radio 0.62.0): an HF band between tiles is weighed only with them, as its loss is the
+    /// ground wave over their grounds at HF's own scale and its floor takes the atmosphere's noise at each receiver
+    /// (<see cref="HfService"/>; no horizon and no hills, a smooth Earth). Without the tiles an HF band is left out.
+    /// </summary>
+    static LinkEvaluation? EvaluateWorld(RadioEndpoint a, RadioEndpoint b, double distanceMetres, RadioRulesDef rules, double siteAMetres,
+        double siteBMetres, ModeDef? mode, double terrainFigure, RimWorld.Planet.PlanetTile? tileA, RimWorld.Planet.PlanetTile? tileB)
     {
         // Radio 0.22.0: each end's height above the plain is its aerial and its tile's ground (hilltops), for the horizon and plane earth.
         var heightA = a.AntennaHeightMetres + siteAMetres;
@@ -123,13 +132,28 @@ public static class LinkBudgetService
         foreach (var band in a.Bands)
         {
             if (!b.Bands.Contains(band)) continue;
-            WorldLosses(distanceMetres, band, heightA, heightB, terrainFigure, rules, out var pathLoss, out var obstruction);
-            var forward = new LinkDirection(Inputs(a.Side(band), b.Side(band), pathLoss, obstruction, floorAtB, mode));
-            var reverse = new LinkDirection(Inputs(b.Side(band), a.Side(band), pathLoss, obstruction, floorAtA, mode));
+            double pathLoss, obstruction, floorA = floorAtA, floorB = floorAtB, metres = distanceMetres;
+            if (band.path == BandPath.Hf)
+            {
+                if (tileA is not { } ta || tileB is not { } tb) continue;
+                metres = distanceMetres / rules.metresPerWorldTile * rules.hfMetresPerWorldTile;
+                if (HfService.GroundWaveDb(band, ta, tb, metres / 1000.0, a.AntennaHeightMetres, b.AntennaHeightMetres, a.Horizontal, b.Horizontal)
+                    is not { } groundWave) continue;
+                pathLoss = groundWave;
+                obstruction = 0;
+                floorA = HfService.FloorWithAtmosphereDbm(floorAtA, band, ta, mode.bandwidthHz);
+                floorB = HfService.FloorWithAtmosphereDbm(floorAtB, band, tb, mode.bandwidthHz);
+            }
+            else WorldLosses(distanceMetres, band, heightA, heightB, terrainFigure, rules, out pathLoss, out obstruction);
+            var forward = new LinkDirection(Inputs(a.Side(band), b.Side(band), pathLoss, obstruction, floorB, mode));
+            var reverse = new LinkDirection(Inputs(b.Side(band), a.Side(band), pathLoss, obstruction, floorA, mode));
             var budget = new LinkBudget(forward, reverse, rules.MarginBands);
             if (best == null || budget.MarginDb > best.MarginDb)
-                best = new LinkEvaluation(a, b, band, mode, budget, distanceMetres, double.NegativeInfinity, double.NegativeInfinity);
+                best = new LinkEvaluation(a, b, band, mode, budget, metres, double.NegativeInfinity, double.NegativeInfinity);
         }
+        if (best != null && best.Band.path == BandPath.Hf && best.InTouch && Seen.Wants("radio.hf-ground-wave", a.Thing, best.Band.defName))
+            Seen.Note("radio.hf-ground-wave", a.Thing, best.Band.label + ", " + (best.DistanceMetres / 1000.0).ToString("0") + " km, margin "
+                + best.MarginDb.ToString("0.0") + " dB", best.Band.defName);
         return best;
     }
 
@@ -158,7 +182,7 @@ public static class LinkBudgetService
     {
         double metres = Find.WorldGrid.ApproxDistanceInTiles(tileA, tileB) * rules.metresPerWorldTile;
         blocking = WorldTerrain.Between(tileA, tileB, a.AntennaHeightMetres + siteAMetres, b.AntennaHeightMetres + siteBMetres, metres, rules);
-        return EvaluateWorld(a, b, metres, rules, siteAMetres, siteBMetres, mode, blocking.Figure);
+        return EvaluateWorld(a, b, metres, rules, siteAMetres, siteBMetres, mode, blocking.Figure, tileA, tileB);
     }
 
     /// <summary>The same between two relay nodes, each with its tile and its site.</summary>

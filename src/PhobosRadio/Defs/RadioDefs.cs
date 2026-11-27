@@ -18,6 +18,9 @@ public class BandDef : Def
     /// built-in antenna works only its own Def's bands.
     /// </summary>
     public string? upgradeFigure;
+    /// <summary>How a signal travels between tiles on this band (Radio 0.62.0): line of sight (VHF and up, the default), or HF's ground
+    /// wave over the tiles' grounds at HF's own scale, with the atmosphere's noise at the receiver.</summary>
+    public BandPath path = BandPath.LineOfSight;
 
     public override void PostLoad()
     {
@@ -31,6 +34,15 @@ public class BandDef : Def
         if (lowMHz <= 0 || highMHz <= lowMHz) yield return $"{defName}: lowMHz and highMHz must be positive and in order";
         if (obstructionFactor <= 0) yield return $"{defName}: obstructionFactor must be positive";
     }
+}
+
+/// <summary>How a band's signal travels between tiles (Radio 0.62.0; docs/development/radio-hf.md).</summary>
+public enum BandPath
+{
+    /// <summary>Free space or plane earth to the horizon, and the high ground between: VHF and up.</summary>
+    LineOfSight,
+    /// <summary>HF: the ground wave over a smooth Earth (ITU-R P.368, by NTIA's LFMF), at HF's own scale; skywave waits for slice 2.</summary>
+    Hf,
 }
 
 /// <summary>A mode: what a signal carries, how much bandwidth it needs and how weak it may be.</summary>
@@ -212,6 +224,14 @@ public class RadioRulesDef : Def
     /// with a 10 m mast.
     /// </summary>
     public float metresPerWorldTile = 1000f;
+    /// <summary>What a world tile measures for HF (Radio 0.62.0; the owner's card of 28 Nov 2026: HF at the world's own scale, about 30 km a
+    /// tile, so a planet is about 40,000 km round), while VHF keeps <see cref="metresPerWorldTile"/>.</summary>
+    public float hfMetresPerWorldTile = 30000f;
+    /// <summary>The sun's cycle for HF, in game years (the owner's card of 28 Nov 2026: about one cycle in 3 game years; authored).</summary>
+    public float hfSolarCycleYears = 3f;
+    /// <summary>Where the game's year begins on Earth's, as a fraction from 1 January, for the HF tables' months (agent's choice: Aprimay
+    /// opens the northern spring, so day 0 is about 20 March, 0.214).</summary>
+    public float hfYearStartFraction = 0.214f;
     /// <summary>What lies past the radio horizon between two tiles, in dB: enough that no VHF or UHF link closes (authored; diffraction
     /// beyond the horizon is not modelled).</summary>
     public float overHorizonLossDb = 200f;

@@ -26,6 +26,8 @@ Version 0.62.0, built 28 November 2026 for House D'thorga. **Not yet tested in g
   station relays with the **repeater** upgrade, and a **radio relay post** can be founded from Create outpost (needs an outposts mod).
 - **Decide before you start a colony: Metres per map cell** (default 1, from 0.5 to 30). It changes every distance and coax loss,
   so changing it in a running colony changes which radios reach each other.
+- **HF (0.62.0) reaches along the ground only, for now**: an HF station and a manpack reach a tile or two (tens of kilometres) from an
+  upright whip, and little from a flat dipole; round the world by the sky comes next. The HF tables add about 3.3 MB to the mod.
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a hand-held together.
 - **Channels, from 0.7.0**: each station serves as many radios as its channels hold (the desk 5, the terminal 20, five to a
   25 kHz channel for voice). Past that, a colonist in touch reads **net busy** and gets no "in touch" mood: add a station or a
@@ -104,6 +106,9 @@ figures are here.
   ([the guide](../../docs/player-guide/radio.md#convoys-on-the-world-map)).
 - **The Morse key (0.40.0)**: a station upgrade and a vehicle fitting that keep a convoy in touch by Morse three to four times as far as
   voice, with advice at a quarter of the gap ([the guide](../../docs/player-guide/radio.md#morse)).
+- **HF radio (0.62.0)**, after **HF radio**: an HF station (100 W, SSB voice on 40 m and 20 m), three kinds of dipole for each band
+  and a manpack. Between tiles HF goes by the ground wave over each end's ground (ITU-R P.368, by NTIA's LF/MF model), with the
+  sky's noise by the sun's cycle, season and hour (VOACAP's predictions).
 - **Upgrades** for the desk and the antennas, fitted by builders.
 
 | Thing | Where | What it is |

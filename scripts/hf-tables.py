@@ -3,11 +3,14 @@
     python scripts/hf-tables.py run          every path of the grid through voacapl in WSL, then packed
     python scripts/hf-tables.py pack         pack the results again (another set of bands, a new format)
     python scripts/hf-tables.py show         the packed file's axes and size
+    python scripts/hf-tables.py ground       the ground wave through NTIA's LFMF in WSL, then packed (radio slice 1)
+    python scripts/hf-tables.py ship         copy both packed tables into the radio mod's Common/Data/HF
 
 voacapl runs only on the machine that makes the tables, inside WSL (the owner's choice: voacapl under WSL; installed 28 Nov 2026 in
 the distribution Ubuntu-24.04, run as root, its data in /root/itshfbc). Its results and the packed file go to the work folder, the
 setting hfTablesPath (config/settings.json; the owner's machine keeps it on K:). Nothing here is committed: the same voacapl and grid
-give the same tables, and the packed file goes into the mod only when HF's first slice in play is built. It uses the processor only,
+give the same tables; `ship` copies the packed files into the mod (HF's slice 1, 28 Nov 2026). LFMF (NTIA's LF/MF model, the program
+behind ITU-R P.368-10) was built in /opt/lfmf of the same distribution on 28 Nov 2026. It uses the processor only,
 at low priority, so it may run while the owner plays.
 """
 import argparse
@@ -23,7 +26,7 @@ import _modkit  # noqa: E402
 
 _modkit.ensure()
 from phobos_modkit.progress import Progress  # noqa: E402
-from radio import hf_tables  # noqa: E402
+from radio import ground_wave, hf_tables  # noqa: E402
 
 ROOT = HERE.parent
 DISTRO = "Ubuntu-24.04"
@@ -104,6 +107,47 @@ def show(args):
     return 0
 
 
+SHIP = ROOT / "mods" / "PhobosRadioFramework" / "Common" / "Data" / "HF"
+
+
+def ground(args):
+    folder = work_folder(args.folder)
+    folder.mkdir(parents=True, exist_ok=True)
+    raw = folder / "ground-wave-raw.json"
+    print(f"running {len(ground_wave.jobs())} ground-wave points through LFMF in {args.distro}, {args.parallel} at a time, low priority")
+    done = subprocess.run(["wsl", "-d", args.distro, "-u", "root", "--", "python3", wsl_path(HERE / "radio" / "ground_wave.py"), wsl_path(raw),
+                           "--parallel", str(args.parallel)], capture_output=True, text=True)
+    print(done.stdout.strip() or done.stderr.strip())
+    if done.returncode != 0 or '"failures": 0' not in done.stdout:
+        print("the worker failed or some points did not run; nothing packed")
+        return 1
+    bands = args.bands.split(",") if args.bands else FIRST_BANDS
+    data = ground_wave.pack(ground_wave.load(str(raw)), bands)
+    out = folder / "ground-wave.bin"
+    out.write_bytes(data)
+    lfmf = subprocess.run(["wsl", "-d", args.distro, "-u", "root", "--", "bash", "-lc", "cd /opt/lfmf && git log -1 --format=%h"],
+                          capture_output=True, text=True).stdout.strip() or "unknown"
+    manifest = {"made": date.today().isoformat(), "from": f"NTIA/ITS LFMF (commit {lfmf})", "bands": bands, "bytes": len(data),
+                "grounds": [g[0] for g in ground_wave.GROUNDS], "heights": ground_wave.HEIGHTS, "distances": ground_wave.DISTANCES,
+                "how": "basic transmission loss, both polarisations; grounds from ITU-R P.527-6 Figure 24 read by eye; N_s 301"}
+    (folder / "ground-wave.json").write_text(json.dumps(manifest, indent=1) + "\n", encoding="utf-8")
+    print(f"packed bands {', '.join(bands)}: {len(data):,} bytes in {out}")
+    return 0
+
+
+def ship(args):
+    import shutil
+    folder = work_folder(args.folder)
+    SHIP.mkdir(parents=True, exist_ok=True)
+    for name in ("hf-propagation.bin", "hf-propagation.json", "ground-wave.bin", "ground-wave.json"):
+        if not (folder / name).is_file():
+            print(f"no {name} in {folder}: run and ground first")
+            return 1
+        shutil.copyfile(folder / name, SHIP / name)
+    print(f"copied the tables into {SHIP.relative_to(ROOT)}")
+    return 0
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--folder", help="the work folder (default: the hfTablesPath setting)")
@@ -116,8 +160,12 @@ def main(argv=None):
     p = sub.add_parser("pack", help="pack the results again")
     p.add_argument("--bands", help="bands to pack, comma-separated (default 40m,20m)")
     sub.add_parser("show", help="the packed file's axes and size")
+    g = sub.add_parser("ground", help="the ground wave through LFMF, then pack")
+    g.add_argument("--parallel", type=int, default=8, help="LFMF runs at once (default 8)")
+    g.add_argument("--bands", help="bands to pack, comma-separated (default 40m,20m)")
+    sub.add_parser("ship", help="copy both packed tables into the radio mod")
     args = parser.parse_args(argv)
-    return {"run": run, "pack": pack, "show": show}[args.command](args)
+    return {"run": run, "pack": pack, "show": show, "ground": ground, "ship": ship}[args.command](args)
 
 
 if __name__ == "__main__":

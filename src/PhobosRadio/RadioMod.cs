@@ -96,8 +96,12 @@ public class RadioMod : Mod
     /// <summary>The radio's log, through D'thorga Framework's shared logger (adopted in Radio 0.45.0).</summary>
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Radio Framework");
 
+    /// <summary>The mod's folder (Radio 0.62.0: HF's tables ship in it).</summary>
+    public static ModContentPack? ContentPack { get; private set; }
+
     public RadioMod(ModContentPack content) : base(content)
     {
+        ContentPack = content;
         Settings = GetSettings<RadioSettings>();
         // Radio 0.53.0: the radio's own patches (the raid warning), each switched off by itself if its target is gone.
         HarmonyPatchApplier.ApplyEach(new Harmony(content.PackageId), typeof(RadioMod).Assembly, "[D'thorga Radio Framework]");

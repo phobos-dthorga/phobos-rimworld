@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/HfStation.png",
+  "source": "assets/phobos-radio/generated/hf-station/hf-station-1.png",
+  "source_sha256": "d07202b45476b1732cebd1b62bdd262e5ff79959002d79439252574f5d761260",
+  "target_sha256": "4c126a4ecf7b13011fcee089360578c4308d890866a9721448420bbf1fe9621a",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "d07202b45476b1732cebd1b62bdd262e5ff79959002d79439252574f5d761260",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-28T06:22:50",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

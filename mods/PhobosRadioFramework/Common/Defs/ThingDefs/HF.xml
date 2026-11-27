@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- HF's first slice (Radio 0.62.0; docs/development/radio-hf.md, the owner's cards of 28 Nov 2026): an HF station of its own, three
+       kinds of dipole for each of 40 m and 20 m, and a manpack. Between tiles HF goes by the ground wave (ITU-R P.368, by NTIA's LFMF) at
+       HF's own 30 km a tile; skywave, which carries HF round the planet, is the next slice. Every cost, work and power figure here is
+       authored unless its comment names a source. -->
+
+  <ResearchProjectDef>
+    <defName>PhobosRadio_HfRadio</defName>
+    <label>HF radio</label>
+    <description>Build an HF station, wire dipole antennas for the 40 m and 20 m bands, and a manpack radio. HF reaches past the horizon along the ground, and, once its sky paths are understood, round the world.</description>
+    <baseCost>1500</baseCost>
+    <techLevel>Industrial</techLevel>
+    <prerequisites>
+      <li>PhobosRadio_LocalRadio</li>
+    </prerequisites>
+    <researchViewX>12.00</researchViewX>
+    <researchViewY>4.80</researchViewY>
+  </ResearchProjectDef>
+
+  <!-- The HF station: 100 W of SSB voice (a typical HF transceiver's rating; the radio's licence records give 100 W as the Australian
+       Standard licence's SSB limit), a 10 dB receiver noise figure (authored: on HF the atmosphere's noise is far above it), and no useful
+       antenna of its own (a stub, -20 dBi, authored): it needs a dipole or a whip on its coax. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosRadio_HfStation</defName>
+    <label>HF station</label>
+    <description>A high-frequency transceiver of a hundred watts, its power supply and an antenna tuner, for single-sideband voice on the 40 m and 20 m bands. Its own stub antenna is almost useless: run coax to a dipole outside. Along the ground HF reaches tens of kilometres from an upright antenna; from a flat dipole it reaches little that way, as the dipole's strength is the sky.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/HfStation</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,2)</drawSize>
+      <shadowData>
+        <volume>(1.8,0.5,1.4)</volume>
+      </shadowData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <blockWind>true</blockWind>
+    <fillPercent>0.5</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <rotatable>true</rotatable>
+    <size>(2,2)</size>
+    <hasInteractionCell>true</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <WorkToBuild>2500</WorkToBuild>
+      <Flammability>0.6</Flammability>
+    </statBases>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Big</destroySound>
+    </building>
+    <costList>
+      <Steel>120</Steel>
+      <ComponentIndustrial>5</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <designationCategory>PhobosRadio_Architect</designationCategory>
+    <uiOrder>2112</uiOrder>
+    <tickerType>Rare</tickerType>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>80</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Breakdownable" />
+      <li Class="Phobos.Radio.CompProperties_Radio">
+        <isStation>true</isStation>
+        <bands>
+          <li>PhobosRadio_HF40</li>
+          <li>PhobosRadio_HF20</li>
+        </bands>
+        <mode>PhobosRadio_VoiceSSB</mode>
+        <transmitPowerWatts>100</transmitPowerWatts>
+        <channels>1</channels>
+        <noiseFigureDb>10</noiseFigureDb>
+        <antennaGainDbi>-20</antennaGainDbi>
+        <antennaHeightMetres>2</antennaHeightMetres>
+        <engageSound>PhobosRadio_SquelchStation</engageSound>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort">
+        <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
+      </li>
+    </comps>
+    <inspectorTabs>
+      <li>Phobos.Radio.UI.ITab_RadioNet</li>
+      <li>Phobos.Radio.UI.ITab_RadioLog</li>
+    </inspectorTabs>
+    <placeWorkers>
+      <li>Phobos.Radio.UI.PlaceWorker_AntennaSiting</li>
+    </placeWorkers>
+    <researchPrerequisites>
+      <li>PhobosRadio_HfRadio</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+
+  <!-- Dipoles: one band each, as long as the band's half wave at the default 1 m a cell, lying flat (horizontal), on coax to the HF station.
+       Three kinds for each band (the owner's card of 28 Nov 2026, "Can all three be offered ... with varying factors, upsides, and
+       downsides?"). Drawn turning (Graphic_Multi), the masts upright at the VHF mast's scale, several cells tall (the owner's word of
+       28 Nov 2026), laid out by assets/phobos-radio/compose_dipoles.py from the picked paid mast and parts. A half-wave dipole's gain is 2.15 dBi in free space (the textbook figure); the inverted V's droop costs about 1 dB and
+       the loading coils of a shortened dipole several (approximate, authored). Walked under: only the masts stand on the ground. -->
+  <ThingDef ParentName="BuildingBase" Name="PhobosRadio_DipoleBase" Abstract="True">
+    <thingClass>Building</thingClass>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <passability>Standable</passability>
+    <pathCost>4</pathCost>
+    <fillPercent>0.05</fillPercent>
+    <rotatable>true</rotatable>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>PhobosRadio_Architect</designationCategory>
+    <tickerType>Never</tickerType>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Flammability>0.2</Flammability>
+    </statBases>
+    <placeWorkers>
+      <li>Phobos.Radio.UI.PlaceWorker_AntennaSiting</li>
+    </placeWorkers>
+    <researchPrerequisites>
+      <li>PhobosRadio_HfRadio</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_DipoleBase">
+    <defName>PhobosRadio_Dipole40Flat</defName>
+    <label>40 m dipole</label>
+    <description>A half-wave wire for the 40 m band strung flat between two ten-metre masts, fed in the middle: the best signal of the three kinds, but a strip twenty-one cells long to keep clear. Its strength is the sky; along the ground it reaches little.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Dipole40Flat</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(27,6)</drawSize>
+      <drawOffset>(0,0,2)</drawOffset>
+    </graphicData>
+    <size>(21,1)</size>
+    <statBases><WorkToBuild>1800</WorkToBuild></statBases>
+    <costList>
+      <Steel>60</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <uiOrder>2114</uiOrder>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Antenna">
+        <bands><li>PhobosRadio_HF40</li></bands>
+        <gainDbi>2.15</gainDbi>
+        <heightMetres>10</heightMetres>
+        <horizontal>true</horizontal>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort"><pipeNet>PhobosRadio_FeedlineNet</pipeNet></li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_DipoleBase">
+    <defName>PhobosRadio_Dipole20Flat</defName>
+    <label>20 m dipole</label>
+    <description>A half-wave wire for the 20 m band strung flat between two ten-metre masts, fed in the middle: the best signal of the three kinds, in a strip eleven cells long. Its strength is the sky; along the ground it reaches little.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Dipole20Flat</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(17,6)</drawSize>
+      <drawOffset>(0,0,2)</drawOffset>
+    </graphicData>
+    <size>(11,1)</size>
+    <statBases><WorkToBuild>1500</WorkToBuild></statBases>
+    <costList>
+      <Steel>50</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <uiOrder>2115</uiOrder>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Antenna">
+        <bands><li>PhobosRadio_HF20</li></bands>
+        <gainDbi>2.15</gainDbi>
+        <heightMetres>10</heightMetres>
+        <horizontal>true</horizontal>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort"><pipeNet>PhobosRadio_FeedlineNet</pipeNet></li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_DipoleBase">
+    <defName>PhobosRadio_Dipole40Vee</defName>
+    <label>40 m inverted V</label>
+    <description>A 40 m dipole hung from one ten-metre mast, its two wires sloping down to pegs in the ground, as field operators rig it: fourteen cells long and one mast to raise, for about a decibel less than a flat dipole. Its strength is the sky; along the ground it reaches little.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Dipole40Vee</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(20,6)</drawSize>
+      <drawOffset>(0,0,2)</drawOffset>
+    </graphicData>
+    <size>(14,1)</size>
+    <statBases><WorkToBuild>1200</WorkToBuild></statBases>
+    <costList>
+      <Steel>35</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <uiOrder>2116</uiOrder>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Antenna">
+        <bands><li>PhobosRadio_HF40</li></bands>
+        <gainDbi>1.15</gainDbi>
+        <heightMetres>8</heightMetres>
+        <horizontal>true</horizontal>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort"><pipeNet>PhobosRadio_FeedlineNet</pipeNet></li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_DipoleBase">
+    <defName>PhobosRadio_Dipole20Vee</defName>
+    <label>20 m inverted V</label>
+    <description>A 20 m dipole hung from one ten-metre mast, its two wires sloping down to pegs in the ground: seven cells long and one mast to raise, for about a decibel less than a flat dipole. Its strength is the sky; along the ground it reaches little.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Dipole20Vee</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(13,6)</drawSize>
+      <drawOffset>(0,0,2)</drawOffset>
+    </graphicData>
+    <size>(7,1)</size>
+    <statBases><WorkToBuild>1000</WorkToBuild></statBases>
+    <costList>
+      <Steel>30</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <uiOrder>2117</uiOrder>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Antenna">
+        <bands><li>PhobosRadio_HF20</li></bands>
+        <gainDbi>1.15</gainDbi>
+        <heightMetres>8</heightMetres>
+        <horizontal>true</horizontal>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort"><pipeNet>PhobosRadio_FeedlineNet</pipeNet></li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_DipoleBase">
+    <defName>PhobosRadio_Dipole40Short</defName>
+    <label>40 m shortened dipole</label>
+    <description>A 40 m dipole only six cells long, made up to the band with a loading coil in each leg, on two short masts: fits where nothing else will, but the coils turn several decibels of the signal into heat. Its strength is the sky; along the ground it reaches little.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Dipole40Short</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(12,6)</drawSize>
+      <drawOffset>(0,0,2)</drawOffset>
+    </graphicData>
+    <size>(6,1)</size>
+    <statBases><WorkToBuild>1400</WorkToBuild></statBases>
+    <costList>
+      <Steel>40</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <uiOrder>2118</uiOrder>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Antenna">
+        <bands><li>PhobosRadio_HF40</li></bands>
+        <gainDbi>-4</gainDbi>
+        <heightMetres>8</heightMetres>
+        <horizontal>true</horizontal>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort"><pipeNet>PhobosRadio_FeedlineNet</pipeNet></li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_DipoleBase">
+    <defName>PhobosRadio_Dipole20Short</defName>
+    <label>20 m shortened dipole</label>
+    <description>A 20 m dipole only four cells long, made up to the band with a loading coil in each leg, on two short masts: fits where nothing else will, but the coils turn a little of the signal into heat. Its strength is the sky; along the ground it reaches little.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Dipole20Short</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(10,6)</drawSize>
+      <drawOffset>(0,0,2)</drawOffset>
+    </graphicData>
+    <size>(4,1)</size>
+    <statBases><WorkToBuild>1200</WorkToBuild></statBases>
+    <costList>
+      <Steel>35</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <uiOrder>2119</uiOrder>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Antenna">
+        <bands><li>PhobosRadio_HF20</li></bands>
+        <gainDbi>-1</gainDbi>
+        <heightMetres>8</heightMetres>
+        <horizontal>true</horizontal>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort"><pipeNet>PhobosRadio_FeedlineNet</pipeNet></li>
+    </comps>
+  </ThingDef>
+
+  <!-- The manpack: an HF set on the back with a whip, worn in the belt slot as the hand-helds are, so a colonist carries one radio. Twenty
+       watts (a typical military manpack's rating, approximate), SSB, and a short upright whip, which on HF is a poor antenna: -8 dBi
+       across both bands (authored; a short whip does worse on 40 m than on 20 m). Upright, so its ground wave carries. -->
+  <ThingDef ParentName="PhobosRadio_HandheldBase">
+    <defName>PhobosRadio_Manpack</defName>
+    <label>HF manpack radio</label>
+    <description>A twenty-watt HF radio carried on the back with a tall whip, for single-sideband voice on the 40 m and 20 m bands. Heavy, but along the ground its upright whip carries tens of kilometres: a camp or a convoy a tile or two from home can still be heard.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Manpack</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>1</stackLimit>
+    <statBases>
+      <Mass>6</Mass>
+      <WorkToMake>12000</WorkToMake>
+    </statBases>
+    <costList>
+      <Steel>40</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosRadio_HfRadio</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>6</Crafting>
+      </skillRequirements>
+      <displayPriority>312</displayPriority>
+    </recipeMaker>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Radio">
+        <bands>
+          <li>PhobosRadio_HF40</li>
+          <li>PhobosRadio_HF20</li>
+        </bands>
+        <mode>PhobosRadio_VoiceSSB</mode>
+        <transmitPowerWatts>20</transmitPowerWatts>
+        <noiseFigureDb>10</noiseFigureDb>
+        <antennaGainDbi>-8</antennaGainDbi>
+        <antennaHeightMetres>3</antennaHeightMetres>
+        <engageSound>PhobosRadio_SquelchHandheld</engageSound>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

@@ -26,6 +26,9 @@ public sealed class RadioEndpoint
     public ModeDef Mode { get; }
     /// <summary>What the sheet calls the antenna: the built-in whip, or a named antenna building.</summary>
     public string AntennaLabel { get; }
+    /// <summary>Whether its antenna lies flat, as a dipole does (Radio 0.62.0): HF's ground wave on such a link is horizontally polarised,
+    /// and dies within a few kilometres. Whips and masts stand upright.</summary>
+    public bool Horizontal { get; init; }
 
     public RadioEndpoint(Thing thing, IntVec3 cell, CompRadio radio, IReadOnlyList<BandDef> bands, float antennaHeightMetres,
         float antennaGainDbi, IReadOnlyList<FeedSegment> feedline, string antennaLabel, IReadOnlyList<CompAmplifier>? amplifiers = null)
@@ -100,6 +103,6 @@ public sealed class RadioEndpoint
         return new RadioEndpoint(station.parent, antenna.parent.Position, station, bands,
             RadioUpgrades.Figure(antenna.parent, RadioUpgrades.HeightMetres, antenna.Props.heightMetres),
             RadioUpgrades.Figure(antenna.parent, RadioUpgrades.GainDbi, antenna.Props.gainDbi), feedline, antenna.parent.LabelCap,
-            path.Amplifiers);
+            path.Amplifiers) { Horizontal = antenna.Props.horizontal };
     }
 }

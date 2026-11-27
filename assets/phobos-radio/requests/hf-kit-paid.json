@@ -1,0 +1,94 @@
+[
+  {
+    "name": "hf-station",
+    "title": "HF station (PhobosRadio_HfStation)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/BaseStation.png",
+        "role": "our approved VHF radio base station from the same mod: match its camera, outline weight, shading, palette and finish; do not copy its layout"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosRadio_HfStation, the HF station (Radio 0.62.0; docs/development/radio-hf.md, slice 1)",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/HfStation.png",
+      "size": "a 2 by 2 building drawn at (2,2); requested at 1024",
+      "why": "a building in the game world, so the paid service (assets/AGENTS.md); the owner's card of 28 Nov 2026: paid, now"
+    },
+    "prompt": "STRAIGHT TOP-DOWN VIEW, looking directly down onto a desk, exactly as Image 1 is drawn. No side-on view, no isometric angle, no tilt.\n\nCreate an ORIGINAL game building sprite for a high-frequency (shortwave) radio station on a desk: the bigger, older sibling of the VHF base station in Image 1, from the same game. Image 1 is our approved VHF base station: match its camera, outline weight, shading, palette and finish. Do NOT copy its layout.\n\nSquare canvas. The desk fills about 85 percent of the canvas, centred, on a plain pure white background.\n\nSeen from directly above: a steel desk top; on it a wide, deep HF transceiver with a large tuning knob and a row of small knobs and one round analogue meter face; a separate square antenna tuner box with two big knobs; a heavy power supply box; a desk microphone on a short stand towards the bottom edge, where the operator sits; a Morse key beside it; a thick black coax cable leaving the back edge at the top. Muted dark grey and black boxes, steel desk, one small amber lamp.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, screens with writing, people or chair. No shadow outside the desk."
+  },
+  {
+    "name": "hf-manpack",
+    "title": "HF manpack radio (PhobosRadio_Manpack)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Handheld.png",
+        "role": "our approved hand-held radio item from the same mod: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/SSTVKit.png",
+        "role": "our approved radio kit item from the same mod: match its outline weight, shading and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosRadio_Manpack, the HF manpack radio (Radio 0.62.0)",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Manpack.png",
+      "size": "an item drawn on one cell; requested at 1024",
+      "why": "an item lying in the game world, so the paid service (assets/AGENTS.md)"
+    },
+    "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for a military-style HF manpack radio, carried on the back. Images 1 and 2 are our approved radio items from the same game: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA rugged olive-drab radio set in a canvas carrying frame with two padded shoulder straps, a front panel with a few round knobs and one small connector, a battery box clipped beneath it, a coiled black handset cord with a telephone-style handset, and a long folded whip antenna lying along one side.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive, black and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals or ground. No shadow outside the object."
+  },
+  {
+    "name": "hf-wire-mast",
+    "title": "HF wire mast, the part every dipole is laid out from",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1536,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Mast.png",
+        "role": "our approved VHF mast antenna from the same mod: match its camera, outline weight, shading, palette and finish; do not copy its antenna or shape"
+      }
+    ],
+    "art_plan": {
+      "item": "the mast of the six dipole Defs (PhobosRadio_Dipole40Flat and the rest, Radio 0.62.0): cut out and laid at the strip's ends or middle by script, with the wires drawn by script",
+      "ships_as": "a part of mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Dipole*.png",
+      "size": "about one cell wide and two tall where it is laid; requested at 1024 by 1536",
+      "why": "part of a building in the game world, so the paid service; a dipole strip (up to 21 by 1 cells) is far too long to generate whole"
+    },
+    "prompt": "STEEP HIGH-ANGLE VIEW FROM ABOVE AND SLIGHTLY IN FRONT, exactly as Image 1 is drawn and as the game RimWorld draws its trees and standing lamps: we look mostly DOWN onto the object's top; its height is strongly foreshortened; its foot at the BOTTOM of the canvas and its top towards the TOP. No side-on view, no isometric angle, no tilt.\n\nCreate an ORIGINAL game building sprite for a slim steel wire-antenna mast: a thin galvanised pole that holds up a long wire antenna. Image 1 is our approved VHF mast from the same game: match its camera, outline weight, shading, palette and finish. Do NOT copy its antenna or shape.\n\nPortrait canvas. The mast fills about 85 percent of the canvas height, centred, on a plain pure white background.\n\nA small square concrete footing at the bottom; a thin grey steel pole rising from it, strongly foreshortened; three thin guy wires from just below the top down to three small ground anchors spread around the footing; at the very top a small white ceramic insulator with a small pulley. NO antenna wire leaving the top: the long wire is added separately.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted steel and concrete colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals or ground texture. No shadow outside the object."
+  },
+  {
+    "name": "hf-dipole-parts",
+    "title": "Dipole parts sheet: centre feed, loading coil, end insulator, ground peg",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1536,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Mast.png",
+        "role": "our approved VHF mast antenna from the same mod: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "the small parts of the six dipole Defs (Radio 0.62.0): cut apart and laid along the wires by script",
+      "ships_as": "parts of mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Dipole*.png",
+      "size": "each part a fraction of a cell where it is laid; requested at 1536 by 1024",
+      "why": "parts of a building in the game world, so the paid service; one sheet for four small parts"
+    },
+    "prompt": "GAME SPRITE PARTS SHEET. Four separate small objects in one row, each seen from above at a slight angle, well apart from each other with plenty of white space between them, all the same size, on a plain pure white background.\n\nCreate ORIGINAL game sprite parts for a wire radio antenna. Image 1 is our approved antenna from the same game: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nLandscape canvas. From left to right:\n1. A small grey weatherproof box (the antenna's centre feed) with a short black coax cable hanging down from its underside and two small terminal posts on its sides.\n2. A loading coil: a short fat cylinder of copper wire wound on a white former, with a small eye at each end.\n3. A white ceramic egg insulator with a short loop of steel wire through each end.\n4. A steel ground peg with a ring at its top, driven into a tiny patch of earth.\n\nStyle: sprites for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted grey, copper, white and steel colours, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people or ground beyond the peg's tiny patch. No shadow outside the objects. No wires joining the four objects."
+  }
+]

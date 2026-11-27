@@ -467,6 +467,11 @@
     "749": [{"key": "radio.qsl-card-drawn"}],
     "750": [{"key": "radio.qsl-card-front"}],
     "764": [{"key": "radio.qsl-card-band"}],
+    "769": {"parts": {
+      "a manpack in touch with home by the ground wave": ["radio.hf-ground-wave"],
+      "the HF bands tab in dev mode": ["radio.hf-band-panel"],
+      "the band rose on the world map in dev mode": ["radio.hf-band-rose"]
+    }},
     "751": [{"key": "framework.stacked-apparel-worn"}],
     "752": [{"key": "factory.machining-fills-stack"}],
     "732": [{"key": "framework.setup-wizard", "variant": "opened"}],

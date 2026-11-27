@@ -1,8 +1,8 @@
 # HF: the radio's Phase 2 (27 Nov 2026)
 
-**Status (28 Nov 2026):** the tables are made, with the open share read from VOACAP's MUF and its deciles, and their reader is built
-(`scripts/hf-tables.py`, `HfTable`; [the full run](#the-full-run-28-nov-2026)); nothing in play uses them yet. Slice 1 (the kit, the
-ground wave, the band panel and rose in dev mode) is being built with the [third round's](#the-owners-third-round-28-nov-2026) answers. The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2") and
+**Status (28 Nov 2026):** slice 1 is built in Radio 0.62.0 ([as designed](#slice-1-as-designed-28-nov-2026-a)): the kit (an HF station,
+three kinds of dipole for 40 m and 20 m, a manpack), the ground wave between tiles from NTIA's LFMF, the sky's noise and the sun's cycle
+from VOACAP's tables, and the band panel and rose in dev mode. Not tested in game (row 769). HF's skywave in play is the next slice. The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2") and
 answered its questions on 28 Nov ([first round](#the-owners-answers-28-nov-2026)): HF at the world's scale, VOACAP's predictions
 shipped as tables, 40 m and 20 m first, the radio's own flare, no licence tiers. In a [second round](#the-owners-second-round-28-nov-2026)
 the same day the owner opened **building for everything but HF's reach in play**: the tables (voacapl under WSL, installed on 28
@@ -310,6 +310,44 @@ The owner chose by card to build HF's slice 1 together with the QSL cards' band 
 | 17 | How the dipole sits on the map (a half wave is about 20 m on 40 m and 10 m on 20 m) | **All three, as separate builds with their own trade-offs**: the owner's words, "Can all three be offered, maybe, with varying factors, upsides, and downsides?" | One only: an inverted V on one mast (the agent's lean); a full flat dipole on two masts; a shortened dipole with loading coils |
 | 18 | Where the band panel and band rose show in this release | **Dev mode only for now** (the agent's lean): drawn from the real tables, shown to players when skywave goes in | Shown to everyone now. Tests only, as chosen in the second round |
 | 19 | The HF kit's art | **Paid, now**: the owner's words, "we've had awful luck with this kind of thing and our local, LLM." | Tonight's night run (the agent's lean). The night run, testing before it with the game's missing-texture shapes |
+
+A fifth card the same day, once GRWAVE turned out retired (the ITU's Study Group 3 software page files it under "Deprecated Data
+Products"; P.368-10's own figures are titled "LFMF Ground-wave propagation curves" and say its software "is an integral part of this
+Recommendation"):
+
+| # | Card | Chosen | Not chosen |
+| --- | --- | --- | --- |
+| 20 | Which ground-wave program to build in WSL | **LFMF, the current one** (the agent's lean): NTIA's C++ model, 0.01 to 30 MHz over a smooth Earth, antennas under 50 m | GRWAVE anyway (P.368-9's Fortran, no new packages). Both, one checked against the other |
+
+### Slice 1, as designed (28 Nov 2026) [A]
+
+What goes in, and what each costs (the radio's rule: the cost is written before it is built).
+
+| Piece | What it is | Cost |
+| --- | --- | --- |
+| **Ground-wave table** | LFMF run offline for six grounds, eight bands, both polarisations, three heights at each end and 16 distances (1 to 500 km); about 14 KB shipped | Read once, the first time an HF link is weighed |
+| **The HF tables** | VOACAP's, as packed above (3.3 MB), shipped for the atmospheric noise in play and the dev-mode panel | Read once, at first use |
+| **HF in a link between tiles** | An HF band's path loss is the ground wave over the two ends' grounds (P.368's Millington method, two sections, half the path each), at HF's own 30 km a tile; no horizon, no hills (smooth Earth); the receiver's floor adds VOACAP's atmospheric noise at its latitude, season, hour and the sun's cycle | A few table look-ups a link, when a link is weighed, as today |
+| **The sun's cycle** | Sunspots from a cycle about three game years long (the owner's card 9), its phase from the world's seed, so nothing is saved | One sum when asked |
+| **The kit** | 40 m and 20 m bands, SSB voice, an **HF station** of its own (100 W, SSB) on coax, **three kinds of dipole** for each band (full flat, inverted V, shortened with coils: card 17), a **manpack** worn like a hand-held (20 W, a whip) | As every station, antenna and hand-held now |
+| **The band panel and band rose** | In dev mode only (card 18): the station's forecast by band, and a ring of directions around the colony on the world map | Only while dev mode is on and the station is selected, recomputed each game hour |
+
+**What this slice gives in play, honestly**: HF's ground wave reaches tens of kilometres, a tile or two at HF's scale, and only with
+vertical antennas (the manpack's whip): **a horizontal dipole's ground wave dies within a few kilometres**, as every operator knows.
+The dipoles earn their place with skywave and NVIS, the next slice. Settlements stay out of HF reach until then (they are many tiles
+away). On one map, HF links keep free space and the thermal floor, a simplification: over a few hundred metres the margin is huge
+either way.
+
+**The grounds** (ITU-R P.527-6, the Attachment to Annex 1, Figure 24, kept there "as a convenience to users of Recommendations ITU-R
+P.368 and ITU-R P.832"; **read by eye** from the graph at 7 to 14 MHz, where every curve is flat): sea water (average salinity) εr 70,
+σ 5 S/m (P.368-10's Figure 2 gives the same); wet ground 30 and 0.01; fresh water 80 and 0.003; medium dry ground 15 and 0.001; very
+dry ground 3 and 0.0001; fresh-water ice at −1 °C 3 and about 0.00006. Which biome is which ground is the agent's mapping, by the biome's
+name. LFMF's surface refractivity is 301 N-units, as its own example uses (the agent's choice). LFMF's terms: works of NTIA employees
+"are not subject to copyright protection within the United States"; elsewhere NTIA grants "the non-exclusive irrevocable and
+unconditional right to print, publish, prepare derivative works and distribute", asking for "appropriate acknowledgments" (its
+`LICENSE.md`, read 28 Nov 2026). Installed the same day at the owner's word: `build-essential` and `cmake` in `Ubuntu-24.04`, LFMF
+(commit 5fd4962 of 23 Nov 2026, version 1.1) built in `/opt/lfmf`. Its first run: 40 m over 30 km of medium dry ground, both antennas
+vertical at 2 m, a basic transmission loss of **128.6 dB** (free space alone would be about 79 dB).
 
 **The reader** [A]: `HfTable` (`src/PhobosRadio/Physics/HfTable.cs`, game-free, tests in `HfTableTests`) reads format 1 and looks up a
 path's MUF, share of days open, loss, fade and the noise at the far end, between the grid's points in every axis: the year and the hour
