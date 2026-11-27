@@ -19,6 +19,8 @@ mod. Most of what you write is XML; the C# reference is there when XML cannot sa
 ## Read this first
 
 - **RimWorld 1.7 only.** Nothing here is written for 1.6.
+- **Every page's footer says when the site was built**, and from which version of D'thorga Framework. The site is rebuilt on every
+  change to the code or the guides.
 - **Classes are named in full in XML**: `Class="Phobos.VehicleSystems.Effect_Message"`, and a Def of ours by its full name as the
   element (`<Phobos.VehicleSystems.PhobosVehicleSystemDef>`).
 - **The vehicle systems need Vehicle Framework.** Its own types (`VehicleCompProperties`, `VehiclePawn` and the rest) are named

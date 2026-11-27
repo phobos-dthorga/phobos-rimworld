@@ -281,6 +281,25 @@ class Site(unittest.TestCase):
                              [{'src': (Path(tmp) / 'refs').as_posix(), 'files': ['*.dll'], 'exclude': ['Microsoft.*.dll']}])
             self.assertEqual(project['metadata'][0]['references'], [])      # the committed project is left as it was
 
+    def test_the_footer_says_when_and_from_what_it_was_built(self):
+        from datetime import datetime, timezone
+        when = datetime(2026, 11, 28, 4, 5, tzinfo=timezone.utc)
+        answers = {'rev-parse': 'abc1234', 'status': ''}
+        git = lambda _root, command, *_args: answers[command]                        # noqa: E731
+        with tempfile.TemporaryDirectory() as tmp:
+            about = Path(tmp) / 'About.xml'
+            about.write_text('<ModMetaData>\n  <modVersion>0.365.0</modVersion>\n</ModMetaData>', encoding='utf-8')
+            settings = {'stamp': {'name': "D'thorga Framework", 'about': 'About.xml'}}
+            self.assertEqual(site.build_stamp(tmp, settings, when, git),
+                             "Built 28 Nov 2026, 04:05 UTC, from D'thorga Framework 0.365.0 (commit abc1234).")
+            answers['status'] = ' M src/A.cs'
+            self.assertIn('(commit abc1234, with uncommitted changes)', site.build_stamp(tmp, settings, when, git))
+            self.assertEqual(site.build_stamp(tmp, {}, when, lambda *_: None), 'Built 28 Nov 2026, 04:05 UTC.')
+        project = {'build': {'globalMetadata': {'_appFooter': 'Our footer.'}}}
+        config = site.stamp_footer(json.loads(json.dumps(project)), 'Built today <now>.')
+        self.assertEqual(config['build']['globalMetadata']['_appFooter'], 'Our footer. Built today &lt;now&gt;.')
+        self.assertEqual(project['build']['globalMetadata']['_appFooter'], 'Our footer.')
+
     def test_reference_folders_come_from_the_targets_and_the_nuget_cache(self):
         with tempfile.TemporaryDirectory() as tmp:
             (Path(tmp) / 'Directory.Build.targets').write_text(
@@ -316,6 +335,7 @@ class Site(unittest.TestCase):
             self.assertIn(Path(folder).name, sources, f'{folder} has XML examples but DocFX does not read it')
         for guide in settings['guides']:
             self.assertTrue((ROOT / guide).is_file(), guide)
+        self.assertIsNotNone(site.mod_version(ROOT, settings['stamp']['about']), 'the stamp\'s About.xml gives a version')
 
 
 class Verifying(unittest.TestCase):

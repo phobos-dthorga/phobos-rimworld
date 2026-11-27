@@ -1,8 +1,8 @@
 # The modders' reference site (23 Nov 2026)
 
-**Status (24 Nov 2026):** built, and **published at [phobos-dthorga.github.io/phobos-rimworld](https://phobos-dthorga.github.io/phobos-rimworld/)** since 23 Nov 2026 (the
+**Status (28 Nov 2026):** built, and **published at [phobos-dthorga.github.io/phobos-rimworld](https://phobos-dthorga.github.io/phobos-rimworld/)** since 23 Nov 2026 (the
 owner switched GitHub Pages on); the workflow rebuilds and republishes it on every push that touches its files. Since 24 Nov 2026
-the gate builds it too.
+the gate builds it too; since 28 Nov 2026 every page's footer says when it was built and from which Framework version.
 
 The owner's choice D3 in the docs rewrite (23 Nov 2026): the Framework's modder reference is generated from the code with
 **DocFX** (Microsoft's documentation generator, MIT licence), published on GitHub Pages, instead of written by hand. The audit had
@@ -13,6 +13,10 @@ found 232 public modder-facing types in the Framework and its vehicle systems, a
 - **Build it with `python scripts/reference-site.py build`** (about 45 s). The site goes to the kit's cache
   (`rimworld-reference-site/site`, on K: on the owner's PC); `--site` and `--work` choose other folders. Nothing is written into
   the repository.
+- **Every page's footer says when the site was built** (owner, 28 Nov 2026, after the site looked days old when it was not): the
+  time in UTC, the Framework's version (`stamp` in `config/reference-site.json`) and the commit, with "with uncommitted changes"
+  on a build from a working tree that has them. It goes into the run's copy of `docfx.json`; the committed one never changes. A
+  date written by hand inside a guide is that guide's own status line, not the site's.
 - **The gate builds the whole site too** (`verify`, in its own lane beside the C# builds, about a minute; the owner's card of
   24 Nov 2026): into a throwaway folder per run, failing on any DocFX warning or error, so a broken link or cross-reference is
   caught before a commit rather than on GitHub. A machine without DocFX skips the step and says so.

@@ -23,6 +23,8 @@ with every public field and that field's default, read from our source.
   made absolute here, its `references` are filled in here from the NuGet cache. Everything generated goes to the work folder and the
   site folder, by default in the kit's cache (`rimworld-reference-site`, on K: on the owner's PC); `--work` and `--site` choose
   others (GitHub's workflow does).
+- **Every page's footer says when the site was built**, from which version of the Framework and which commit (owner, 28 Nov
+  2026), added to the run's copy of docfx.json, so the committed project never changes.
 - The work folder is emptied before each build, and only when it holds this tool's marker file, so a mistyped `--work` never
   empties anything else.
 """
@@ -714,6 +716,53 @@ def effective_config(project_config, root, project_dir, references):
     return config
 
 
+def _git(root, *args):
+    """One git command's output in the repository, or None where git or the repository is missing (a test's folder)."""
+    try:
+        result = subprocess.run(['git', '-C', str(root), *args], capture_output=True, text=True, encoding='utf-8',
+                                errors='replace', timeout=60)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return result.stdout.strip() if result.returncode == 0 else None
+
+
+def mod_version(root, about):
+    """The <modVersion> in an About.xml, or None."""
+    path = Path(root) / about
+    if not path.is_file():
+        return None
+    match = re.search(r'<modVersion>\s*([^<\s]+)\s*</modVersion>', path.read_text(encoding='utf-8-sig'))
+    return match.group(1) if match else None
+
+
+def build_stamp(root, settings, now=None, git=_git):
+    """The line every page's footer ends with (owner, 28 Nov 2026: the site looked days old when it was not): when it was built,
+    from which version of the mod it documents (`stamp` in the config) and which commit, so a reader can tell how fresh it is.
+    A build from a working tree with uncommitted changes says so."""
+    from datetime import datetime, timezone
+    now = now or datetime.now(timezone.utc)
+    parts = [f'Built {now.day} {now:%b %Y, %H:%M} UTC']
+    if (settings.get('stamp') or {}).get('about'):
+        parts[0] += ','
+    stamp = settings.get('stamp') or {}
+    version = mod_version(root, stamp['about']) if stamp.get('about') else None
+    if version:
+        parts.append(f'from {stamp.get("name", "the mod")} {version}')
+    commit = git(root, 'rev-parse', '--short', 'HEAD')
+    if commit:
+        changed = git(root, 'status', '--porcelain', '--untracked-files=no')
+        parts.append(f'(commit {commit}{", with uncommitted changes" if changed else ""})')
+    return ' '.join(parts) + '.'
+
+
+def stamp_footer(config, stamp):
+    """The run's docfx.json with the build stamp after the committed footer; the committed project is left as it was."""
+    metadata = config.setdefault('build', {}).setdefault('globalMetadata', {})
+    footer = metadata.get('_appFooter', '')
+    metadata['_appFooter'] = f'{footer} {html.escape(stamp, quote=False)}'.strip()
+    return config
+
+
 def _remove_readonly(function, path, _info):
     os.chmod(path, stat.S_IWRITE)
     function(path)
@@ -809,6 +858,8 @@ def build(root, settings, work, site, docfx='docfx', run=subprocess.run, log=pri
     chosen = write_pages(root, settings, work)
     project_config = json.loads((root / PROJECT / 'docfx.json').read_text(encoding='utf-8-sig'))
     config = effective_config(project_config, root, root / PROJECT, found)
+    stamp = build_stamp(root, settings)
+    stamp_footer(config, stamp)
     prepare_folder(site)
     config['build']['output'] = site.resolve().as_posix()
     config_path = work / 'docfx.json'
@@ -826,6 +877,7 @@ def build(root, settings, work, site, docfx='docfx', run=subprocess.run, log=pri
     progress('Counting the pages', 4, 4)
     pages, api = count_pages(site)
     log(f'Site written to {site}: {pages} pages ({api} API pages), {len(chosen)} XML-facing types with an XML example')
+    log(f'Every page\'s footer says: {stamp}')
     log(f'Reading the C#: {metadata.warnings} compiler warnings (the other mods\' types are left unresolved, and DocFX compiles '
         f'without our nullable setting), {metadata.errors} errors')
     log(f'Building the site: {site_run.warnings} warnings, {site_run.errors} errors' +

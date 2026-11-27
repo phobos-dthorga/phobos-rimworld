@@ -2,6 +2,11 @@
   "schemaVersion": 1,
   "description": "The modders' reference website (owner's decision D3, 23 Nov 2026; scripts/reference-site.py). projects: the source folders whose XML-facing types get an XML example and must carry a <summary>. categories: the kinds of XML-facing type, matched against each type's nearest base class by name, first match wins, so a narrower kind comes before a wider one. references: the NuGet packages DocFX compiles our source against (versions from Directory.Build.targets). knownGaps: XML-facing types without a <summary> when the check began, so the check blocks only new ones; take a name out when it gets its summary (check --write-baseline).",
   "repository": "https://github.com/phobos-dthorga/phobos-rimworld",
+  "stamp": {
+    "name": "D'thorga Framework",
+    "about": "mods/PhobosFramework/About/About.xml",
+    "why": "every page's footer says when the site was built, from which version of this mod and which commit (owner, 28 Nov 2026)"
+  },
   "guides": [
     "docs/framework-modding.md",
     "docs/vehicle-systems-modding.md"
