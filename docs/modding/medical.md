@@ -1,7 +1,8 @@
 # D'thorga Medical for modders
 
 How your own mod can work with D'thorga Medical: mark your burns, keep a drug out of automatic dosing, name what an operation
-treats, add oxygen machines and patient devices, and add a kind of control line. Players start at [the mod's
+treats, add oxygen machines and patient devices, add a kind of control line, **build your own bedside machines, alarms
+and showers, and tune the radiation model**. Players start at [the mod's
 README](../../mods/PhobosMedical/README.md) and [the player guide](../player-guide/medical.md). Each part's reasons are in its
 design record, linked in its section. Every figure below is an authored starting value unless it says otherwise.
 
@@ -59,6 +60,168 @@ untreated; the same pawn with an airway burn scores 82 and heads for the severe 
 with industrial medicine, the second settles at compensated (30% of the untreated target); with no medicine, at the shock stage.
 With full care, fluids without medicine leave 55% of the untreated target, herbal 44%, industrial 30%, glitterworld 20%, for a
 doctor whose tend quality stat is 1.
+
+### Conditions that clear, swell, cough or explain themselves
+
+Four comps from the burns part work on any HediffDef of yours. A fifth, the ischaemia comp, is in this list too, but it is tied to
+our eschar.
+
+- **Each comp works every 250 ticks or every in-game hour, from the condition itself**: nothing is saved but the airway comp's peak.
+- **`HediffCompProperties_PhobosHalfLife` and `HediffCompProperties_PhobosRiseThenFall` set the severity themselves.** Another
+  severity comp on the same Def (the game's `HediffCompProperties_SeverityPerDay`) adds to theirs, so use one or the other.
+- **Coughs need a sound** and stand down by themselves: see the cough comp's gotchas.
+
+**Clearing by half-life.** `Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosHalfLife` makes a condition halve every so many
+hours: one half-life under a roof, a shorter one in the open, and shorter still while the pawn is on supplied oxygen. It is how our
+carbon monoxide clears. From `Common/Defs/Phobos/BurnsAndSmoke/Hediffs_Smoke.xml`:
+
+```xml
+<comps>
+  <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosHalfLife">
+    <halfLifeHoursRoofed>5.3</halfLifeHoursRoofed>
+    <halfLifeHoursOutdoors>3</halfLifeHoursOutdoors>
+    <removeBelow>0.01</removeBelow>
+  </li>
+</comps>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `halfLifeHoursRoofed` | Hours for the severity to halve while the pawn stands under a roof (5.3) |
+| `halfLifeHoursOutdoors` | Hours to halve with no roof over the pawn's cell (3) |
+| `removeBelow` | The condition is removed once its severity falls below this (0.01) |
+
+- On supplied oxygen the shorter of the two applies: this comp's, or the treatment's `carbonMonoxideHalfLifeHours` (D'thorga
+  Framework's `PhobosSuppliedOxygenExtension`; see [Supplied oxygen](../framework-modding.md#supplied-oxygen)). Despite its name, that
+  figure speeds any condition carrying this comp.
+- The roofed figure is carbon monoxide's half-life on room air, about 320 minutes (Weaver and colleagues, 2000, as cited in emergency
+  medicine references; see [the burns record](../development/archive/burns-and-smoke.md)). The open-air figure is authored. Treating
+  the condition's severity as a blood fraction that clears at one first-order rate is a simplification.
+
+**Rising, holding, then resolving.** `Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosRiseThenFall` sets the severity from the
+condition's age: a straight rise to its peak, flat to the end of the plateau, a straight fall to zero, and then the condition is removed.
+It is our airway burn's delayed swelling. From `Common/Defs/Phobos/BurnsAndSmoke/Hediffs_Airway.xml`:
+
+```xml
+<li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosRiseThenFall">
+  <peakHours>8</peakHours>
+  <plateauEndHours>24</plateauEndHours>
+  <resolveHours>48</resolveHours>
+</li>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `peakHours` | In-game hours from onset to the peak (8) |
+| `plateauEndHours` | The hour the peak ends and the fall begins (24) |
+| `resolveHours` | The hour severity reaches zero and the condition is removed (48) |
+
+- **The peak's height is 1 unless our code sets it.** The burns part sets it for its own airway burn from how bad the exposure was
+  (`airwayLightestPeak` in the burns rules Def, 0.5, is the least). A condition of yours added by the game or by your own code reaches
+  its full stage table.
+- The timings are approximate, after Walker and colleagues (Critical Care, 2015) on inhalation injury; the straight-line shape is ours.
+
+**Coughing.** `Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosCough` plays a cough now and then from a pawn with the condition;
+the worse it is, the more often. Presentation only. From `Hediffs_Smoke.xml`:
+
+```xml
+<li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosCough">
+  <sound>PhobosMedical_CoughSmoke</sound>
+  <mtbHoursAtFull>1</mtbHoursAtFull>
+</li>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `sound` | The SoundDef played once per cough; none means silence (none) |
+| `mtbHoursAtFull` | Mean in-game hours between coughs at severity 1; the time is divided by the severity, never by less than 0.1 (2) |
+| `minSeverity` | No coughing below this severity (0.1) |
+
+- **Coughs play only while the player's Coughing setting is on, and only while no other mod already makes pawns cough.** The burns
+  rules Def names what to look for: `coughSoundWords` (words in another mod's SoundDef names, "Cough" and "Wheez") and
+  `coughSoundMods`. Add your mod's package id there if it coughs by other means.
+- Only an awake, spawned, humanlike pawn coughs, and one pawn coughs at most once every 600 ticks (authored) however many such
+  conditions it has.
+- We add it to Combat Extended's own smoke inhalation with a patch (`Mods/CombatExtended/Patches/SmokeAftermath_CombatExtended.xml`);
+  you can do the same to another mod's condition.
+
+**What the tooltip explains.** `Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosBurnTooltip` adds lines to the condition's
+health-tab tooltip, by the player's display mode. Its one field, `kind`, says which text:
+
+| `kind` | What it shows, and where it reads from |
+| --- | --- |
+| `BurnLoad` (the default) | The pawn's burned body fraction and where shock starts, from the burns part's own figures |
+| `BurnShock` | The revised Baux score and target; in Engineer mode, every term and figure behind them |
+| `CarbonMonoxide` | The level and the half-lives, read from the same Def's `HediffCompProperties_PhobosHalfLife` (0 if it has none) |
+| `LungInjury` | The level and the daily recovery untended and tended well, read from the same Def's `HediffCompProperties_SeverityPerDay` and `HediffCompProperties_TendDuration` |
+| `SmokeAftermath` | What follows from breathing smoke, promising only what the player's smoke and carbon monoxide settings leave on |
+
+```xml
+<li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosBurnTooltip">
+  <kind>SmokeAftermath</kind>
+</li>
+```
+
+- **`BurnLoad` and `BurnShock` describe our own burn conditions** and the pawn's burns, whatever Def they sit on. On a condition of yours,
+  use `CarbonMonoxide`, `LungInjury` or `SmokeAftermath`.
+- In Plain mode the first four show one plain line; `SmokeAftermath` reads the same in every mode. We put it on Combat Extended's smoke
+  inhalation so its wording stays Combat Extended's own.
+
+**Starving a limb.** `Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosIschaemia` (no fields) does ischaemic damage, once an
+in-game hour, to the part its condition sits on, through the game's own damage. It is our constricting eschar's
+(`Hediffs_Eschar.xml`).
+
+```xml
+<li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosIschaemia" />
+```
+
+- **Its figures are the burns rules Def's, not yours**: damage starts at `escharIschaemiaFromSeverity` (0.7) and rises to
+  `ischaemicDamagePerHourAtFull` (0.4, authored) at severity 1. A second Def using it shares them.
+- **It stands down while More Injuries is active**: our patch lets More Injuries' gangrene take the limb instead, so the two never
+  stack. A condition with no body part does nothing.
+
+
+### Acid that stays on the skin
+
+**Mark an injury Def whose chemical keeps burning until it is washed off** with
+`Phobos.BurnsAndSmoke.Defs.PhobosRinsedByWaterExtension` (no fields). When such an injury lands, the pawn gets "chemical on the skin"
+(`PhobosBurns_ChemicalOnSkin`), which deepens every open marked burn until it is spent (about three hours, authored) or rinsed off at a
+safety shower ([Safety showers](#safety-showers)). We patch it onto the game's `AcidBurn` and `ChemicalBurn`
+(`Common/Patches/Phobos/BurnsAndSmoke/Chemical.xml`):
+
+```xml
+<Operation Class="PatchOperationAddModExtension">
+  <xpath>Defs/HediffDef[defName="MyMod_AcidBurn"]</xpath>
+  <value>
+    <li Class="Phobos.BurnsAndSmoke.Defs.PhobosRinsedByWaterExtension" />
+  </value>
+</Operation>
+```
+
+- **A burn deepens only if a DamageDef names it in its `hediff`**: the deepening comes through that damage kind, found by effect, never
+  by name. A marked injury no damage kind makes still puts acid on the skin, but is not deepened.
+- Only while the player's **Acid keeps burning until it is washed off** setting is on (on by default).
+- The deepening is `HediffCompProperties_PhobosChemicalDeepening` on our "chemical on the skin" condition (no fields): once an in-game
+  hour it spreads `chemicalDeepenPerHourAtFull` (2, authored, in the burns rules Def) times the condition's severity over the open
+  marked burns, ignoring armour. You don't add it yourself; on another condition it would deepen every marked burn on the pawn too.
+- Every open marked burn on an eye means an eyewash's water is enough; any elsewhere takes a shower's.
+
+
+### Clothes that carry residue or fallout dust
+
+`Phobos.BurnsAndSmoke.Comps.CompProperties_PhobosContamination` (no fields) holds two things in a garment: caustic residue from tox
+gas, and radioactive fallout dust. **You never add it: it is put on every apparel Def at start-up**, and a Def that already has it is
+left alone. A contaminated or dusty garment is labelled, says so in its inspect text, and is matched by the "allow contaminated"
+filter (`PhobosBurns_AllowContaminatedApparel`), which new apparel policies and stockpiles leave out.
+
+| What it holds | Gets it | Fades | Cleared by | Only while |
+| --- | --- | --- | --- | --- |
+| Caustic residue | Worn in tox gas | `causticClothesFadePerDay` (0.25 a day, burns rules Def) | A wash in Dubs Bad Hygiene's washing machine | **Tox gas: strip and rinse** is on (off by default); counts from `causticClothesThreshold` (0.05) |
+| Fallout dust | Worn outdoors in fallout | The 7:10 rule (Glasstone and Dolan, 9.16) | The same washing machine | **Radiation sickness runs its real course** and **Fallout dust on skin and clothes** are on (both on by default); counts from `dustToWash` (0.1, radiation rules Def) |
+
+- **Saved with the garment** under `PhobosBurns_ContaminationLevel`, `PhobosBurns_ContaminationTick`, `PhobosRadiation_Dust` and
+  `PhobosRadiation_DustTick`. It fades by the time since it was last set, so it does no ticking of its own.
+- A mod that adds its own washing can't clear it from XML; the washing machine's clean-up is in the Dubs Bad Hygiene tie-in's code.
 
 ## Emergency dosing
 
@@ -208,6 +371,459 @@ linked beds who need oxygen, worst breathing first, up to two; the treatment lap
 chamber is a game tier, not medical advice: the review cited in [the burns record](../development/archive/burns-and-smoke.md)
 found the clinical evidence for it of low quality.
 
+### The medical rules Def
+
+**`Phobos.Medical.Defs.PhobosMedicalRulesDef` is a rules Def: the first loaded wins, so patch its figures rather than adding a
+second.** It holds the thresholds every machine and device shares; each machine's own figures sit on its comp. From
+`Common/Defs/Phobos/Medical/Rules.xml`:
+
+```xml
+<Phobos.Medical.Defs.PhobosMedicalRulesDef>
+  <defName>PhobosMedical_Rules</defName>
+  <breathingNeedThreshold>0.8</breathingNeedThreshold>
+  <breathingAssistThreshold>0.5</breathingAssistThreshold>
+  <ventilatorBreathingFloor>0.6</ventilatorBreathingFloor>
+  <ventilatorStep>0.1</ventilatorStep>
+  <alarmCarbonMonoxideLevel>0.05</alarmCarbonMonoxideLevel>
+  <alarmSmokeLevel>0.1</alarmSmokeLevel>
+  <alarmQuietShare>0.5</alarmQuietShare>
+</Phobos.Medical.Defs.PhobosMedicalRulesDef>
+```
+
+To change a figure, in your `Patches` folder:
+
+```xml
+<Operation Class="PatchOperationReplace">
+  <xpath>Defs/Phobos.Medical.Defs.PhobosMedicalRulesDef[defName="PhobosMedical_Rules"]/alarmSmokeLevel</xpath>
+  <value><alarmSmokeLevel>0.2</alarmSmokeLevel></value>
+</Operation>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `breathingNeedThreshold` | Breathing (measured without any breathing treatment) below this needs oxygen, whatever the cause (0.8) |
+| `breathingAssistThreshold` | Breathing below this is weak enough for a doctor to push air in by hand; with a condition a tube bypasses, it also means the airway is closing (0.5) |
+| `ventilatorBreathingFloor` | A ventilator holds failing breathing up to this; below it, a patient needs one (0.6) |
+| `ventilatorStep` | The breathing each stage of the ventilator's treatment adds over the one before (0.1) |
+| `alarmCarbonMonoxideLevel` | Carbon monoxide at an alarm's spot, as the burns part measures it, at which it sounds (0.05) |
+| `alarmSmokeLevel` | Smoke density in an alarm's cell at which it sounds (0.1) |
+| `alarmQuietShare` | A sounding alarm stops only once the gas falls below this share of its level (0.5) |
+
+- Every figure is authored. The alarm levels are the game's gas fractions, not parts per million.
+- **Breathing at zero needs neither oxygen nor a ventilator**: no air reaches the lungs, so only a tube (or an operation) helps.
+- **Changing `ventilatorStep` or the floor means changing the ventilator treatment's stages to match** ([Ventilators and breathing
+  tubes](#ventilators-and-breathing-tubes)).
+
+
+### Treatment conditions
+
+Every machine and device here keeps a **treatment condition** on its patient, refreshed on each pass. **The condition needs D'thorga
+Framework's `Phobos.Framework.Health.HediffCompProperties_PhobosTreatment`** (or a comp built on it), with `lingerTicks` (600): it lapses
+that long after its last refresh, so it can't outlive the machine. **Without it the condition never goes.** The nebuliser's mist
+(`Hediffs_Nebuliser.xml`) and the burn bed's air cells (`Hediffs_BurnBed.xml`) are plain `HediffWithComps` with that comp.
+
+A breathing treatment (oxygen, hand ventilation) takes `Phobos.Medical.Comps.HediffCompProperties_PhobosOnOxygen` instead, which is the
+same clock with a carbon monoxide line in its tooltip. From `Common/Defs/Phobos/Medical/Hediffs_Oxygen.xml`, trimmed:
+
+```xml
+<HediffDef>
+  <defName>PhobosMedical_OnOxygen</defName>
+  <hediffClass>Phobos.Medical.Comps.Hediff_PhobosOnOxygen</hediffClass>
+  <isBad>false</isBad>
+  <comps>
+    <li Class="Phobos.Medical.Comps.HediffCompProperties_PhobosOnOxygen">
+      <lingerTicks>600</lingerTicks>
+    </li>
+  </comps>
+  <stages>
+    <li/>
+    <li>
+      <minSeverity>0.5</minSeverity>
+      <capMods>
+        <li><capacity>Breathing</capacity><offset>0.2</offset><setMax>1</setMax></li>
+      </capMods>
+    </li>
+  </stages>
+  <modExtensions>
+    <li Class="Phobos.Framework.Breathing.PhobosSuppliedOxygenExtension">
+      <carbonMonoxideHalfLifeHours>1.25</carbonMonoxideHalfLifeHours>
+    </li>
+  </modExtensions>
+</HediffDef>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `lingerTicks` | Ticks the condition lasts after its last refresh; a machine passes every 250 (600) |
+| `roomAirHalfLifeHours` | Carbon monoxide's half-life on room air, **for the tooltip's comparison only** (5.33, about 320 minutes: Weaver and colleagues, 2000, as cited) |
+
+- **Use the hediff class `Phobos.Medical.Comps.Hediff_PhobosOnOxygen` with two stages**: the code picks the stage, the first leaving
+  breathing alone and the second raising it (`minSeverity` only keeps the stages in order). It raises breathing only for a patient below
+  normal without it, so healthy or bionic lungs keep what they have.
+- The tooltip reads `carbonMonoxideHalfLifeHours` from the same Def's `PhobosSuppliedOxygenExtension`. Without one (hand ventilation:
+  room air pushed in) it says the treatment helps breathing only. In Plain mode it says "N times faster" than room air.
+- Use the condition as an oxygen machine's `treatment` or a patient device's `treatment` (the two lists at the top of [Medical
+  equipment](#medical-equipment)). The 75-minute half-life on oxygen is sourced (about 70 to 80 minutes, the same citation); the +0.2
+  breathing is authored.
+
+
+### Bedside machines that treat a tagged condition
+
+**A bedside machine gives its treatment to patients in the beds it links to who have a condition carrying its tag.** It is how the
+nebuliser eases airway spasm after smoke. Two parts:
+
+- the machine: `Phobos.Medical.Comps.CompProperties_PhobosBedsideTreatment`, with the game's `CompProperties_Facility`;
+- the condition: `Phobos.Medical.Defs.PhobosBedsideTreatableExtension`, naming the tag and the severity it is treated from.
+
+From `Common/Defs/Phobos/Medical/Buildings_Nebuliser.xml`, trimmed:
+
+```xml
+<ThingDef ParentName="BuildingBase">
+  <defName>PhobosMedical_Nebuliser</defName>
+  <tickerType>Rare</tickerType>
+  <comps>
+    <li Class="CompProperties_Power">
+      <compClass>CompPowerTrader</compClass>
+      <basePowerConsumption>60</basePowerConsumption>
+    </li>
+    <li Class="CompProperties_Flickable"/>
+    <li Class="CompProperties_Refuelable">
+      <fuelCapacity>10</fuelCapacity>
+      <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+      <fuelFilter><thingDefs><li>PhobosMedical_BronchodilatorVial</li></thingDefs></fuelFilter>
+    </li>
+    <li Class="CompProperties_Facility">
+      <maxSimultaneous>1</maxSimultaneous>
+      <mustBePlacedAdjacent>true</mustBePlacedAdjacent>
+    </li>
+    <li Class="Phobos.Medical.Comps.CompProperties_PhobosBedsideTreatment">
+      <tag>Bronchospasm</tag>
+      <treatment>PhobosMedical_Nebulised</treatment>
+      <maxPatients>1</maxPatients>
+      <fuelPerPatientHour>0.25</fuelPerPatientHour>
+      <statusKeyPrefix>PhobosMedical_Nebuliser</statusKeyPrefix>
+      <workingSound>PhobosMedical_Nebuliser</workingSound>
+    </li>
+  </comps>
+</ThingDef>
+```
+
+And on the condition (our smoke inhalation, `Hediffs_Smoke.xml`; patched onto Combat Extended's in
+`Mods/CombatExtended/Patches/Phobos/Medical/Bronchospasm_CombatExtended.xml`):
+
+```xml
+<li Class="Phobos.Medical.Defs.PhobosBedsideTreatableExtension">
+  <tags>
+    <li>Bronchospasm</li>
+  </tags>
+  <minSeverity>0.1</minSeverity>
+</li>
+```
+
+| Field (`CompProperties_PhobosBedsideTreatment`) | What it does (default) |
+| --- | --- |
+| `tag` | The tag a patient's condition must carry; **required** ("") |
+| `treatment` | The HediffDef given and kept up while it treats; **required** (none) |
+| `maxPatients` | How many patients it treats at once, in the order they lie in its beds (1) |
+| `fuelPerPatientHour` | Fuel used per patient per in-game hour, if the building has a `CompProperties_Refuelable` (0) |
+| `statusKeyPrefix` | The start of its inspect-text keys ("") |
+| `workingSound` | A SoundDef that loops while it treats anyone; none for silence (none) |
+
+| Field (`PhobosBedsideTreatableExtension`) | What it does (default) |
+| --- | --- |
+| `tags` | The tags of the machines that treat this condition (empty) |
+| `minSeverity` | Treated from this severity (0) |
+
+- **Give the building `<tickerType>Rare</tickerType>`**: the machine works on the game's rare tick, every 250 ticks.
+- **Add your machine to the beds' `linkableFacilities`.** Ours are added to every bed that takes a vitals monitor
+  (`Common/Patches/Phobos/Medical/Beds.xml`); copy that patch with your own defName.
+- **Write five text keys**: your `statusKeyPrefix` followed by `SwitchedOff`, `NoFuel`, `Waiting`, `Treating` and `NotNeeded`, the last
+  two with `{PATIENTS}`. No power and no bed use our shared lines.
+- **The treatment needs the treatment comp**, or it never lapses ([Treatment conditions](#treatment-conditions)).
+- Power, a switch and fuel are each optional: without a power comp it counts as powered, without a fuel comp it needs none. The config
+  check complains of a missing `tag` or `treatment`.
+
+
+### Ventilators and breathing tubes
+
+**A ventilator breathes for a patient through a breathing tube.** It holds a patient whose own breathing (measured without any
+breathing treatment) is above zero and below `ventilatorBreathingFloor` (0.6) up to that floor. A patient without a tube is reported as
+needing one, and doctors then fit an intubation kit. Three parts work together:
+
+| Type | On | Does |
+| --- | --- | --- |
+| `Phobos.Medical.Comps.CompProperties_PhobosVentilator` | A bedside building | Breathes for patients in its linked beds who have a tube |
+| `Phobos.Medical.Defs.PhobosOpenAirwayExtension` (no fields) | A condition that is a tube past the upper airway | A ventilator can breathe through it, and an intubation kit is not used again |
+| `Phobos.Medical.Defs.PhobosBypassedByTubeExtension` (no fields) | A condition of the upper airway | Fitting an intubation kit removes it; with breathing under `breathingAssistThreshold` (0.5) it means the airway is closing, and a doctor fits a kit |
+
+From `Common/Defs/Phobos/Medical/Buildings_Ventilator.xml`, the comps:
+
+```xml
+<li Class="CompProperties_Power">
+  <compClass>CompPowerTrader</compClass>
+  <basePowerConsumption>200</basePowerConsumption>
+</li>
+<li Class="CompProperties_Flickable"/>
+<li Class="CompProperties_Facility">
+  <maxSimultaneous>1</maxSimultaneous>
+  <mustBePlacedAdjacent>true</mustBePlacedAdjacent>
+</li>
+<li Class="Phobos.Medical.Comps.CompProperties_PhobosVentilator">
+  <maxPatients>1</maxPatients>
+  <workingSound>PhobosMedical_Ventilator</workingSound>
+</li>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `maxPatients` | How many tubed patients it breathes for at once (1) |
+| `treatment` | The condition it gives; none for our `PhobosMedical_Ventilated` (none) |
+| `workingSound` | A SoundDef that loops while it breathes for anyone (none) |
+
+On the conditions, from `Common/Defs/Phobos/BurnsAndSmoke/Hediffs_Airway.xml` (our tracheostomy is a tube; our airway burn is bypassed
+by one):
+
+```xml
+<modExtensions>
+  <li Class="Phobos.Medical.Defs.PhobosOpenAirwayExtension" />
+</modExtensions>
+```
+
+```xml
+<modExtensions>
+  <li Class="Phobos.Medical.Defs.PhobosBypassedByTubeExtension" />
+</modExtensions>
+```
+
+- **Give the building `<tickerType>Rare</tickerType>` and add it to the beds' `linkableFacilities`**, as for [bedside
+  machines](#bedside-machines-that-treat-a-tagged-condition).
+- **A treatment of your own must use the hediff class `Phobos.Medical.Comps.Hediff_PhobosVentilated`, the treatment comp, and stages to
+  match the rules Def**: stage *n* adds *n* × `ventilatorStep` breathing with a ceiling at normal, and the code picks the fewest steps
+  that reach the floor. Ours (`Hediffs_Ventilator.xml`) has an empty first stage and six more, `minSeverity` 0.01 to 0.06 only to keep
+  them in order. Another class would be counted as the patient's own breathing.
+- **Breathing at zero is not ventilated**: the machine waits for the tube to open the airway first.
+- Our intubation (`PhobosMedical_Intubated`, `Hediffs_Ventilator.xml`) carries `PhobosOpenAirwayExtension` too. Any mod's tube joins by
+  the extension, never by name.
+- The 0.6 floor is authored: enough to keep a patient out of danger, short of normal.
+
+
+### Needle decompression
+
+**Mark a condition of pressure building in the chest** with `Phobos.Medical.Defs.PhobosPressureReliefExtension`, and doctors relieve it
+with a needle decompression kit: it takes `severityRelieved` off, never below a trace (0.01), so the condition and its operation stay. It
+buys time; the operation still has to follow. From `Mods/MoreInjuries/Patches/Phobos/Medical/Decompression_MoreInjuries.xml`:
+
+```xml
+<Operation Class="PatchOperationAddModExtension">
+  <xpath>Defs/HediffDef[defName="LungCollapse"]</xpath>
+  <value>
+    <li Class="Phobos.Medical.Defs.PhobosPressureReliefExtension">
+      <minSeverity>0.2</minSeverity>
+      <severityRelieved>0.5</severityRelieved>
+    </li>
+  </value>
+</Operation>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `minSeverity` | Doctors use a kit from this severity (0.2) |
+| `severityRelieved` | Severity one kit takes off (0.5) |
+
+- **Our kit, `PhobosMedical_DecompressionKit`, exists only with More Injuries.** Without it, mark your condition and add a patient device
+  of your own whose `need` is `Decompression` (the list at the top of [Medical equipment](#medical-equipment)).
+- Our kit needs Medicine 5. Both figures are authored; 0.2 is More Injuries' first obstructive shock stage.
+
+
+### Pressure chambers
+
+**Mark a bed as a pressure chamber** with `Phobos.Medical.Defs.PhobosPressureChamberExtension` (no fields). Doctors then carry a downed
+patient who needs oxygen, lying on the ground, to the nearest free chamber that is ready, and no operation is done on anyone lying in
+one: the reason shows on the chamber and, through D'thorga Framework's surgery bars, in Triage. From
+`Mods/VanillaGravshipExpanded/Defs/Phobos/Medical/Buildings_Hyperbaric.xml`, trimmed:
+
+```xml
+<comps>
+  <li Class="Phobos.Medical.Comps.CompProperties_PhobosOxygenSupply">
+    <treatment>PhobosMedical_Hyperbaric</treatment>
+    <startSound>PhobosMedical_HyperbaricSeal</startSound>
+  </li>
+</comps>
+<modExtensions>
+  <li Class="Phobos.Medical.Defs.PhobosPressureChamberExtension"/>
+</modExtensions>
+```
+
+- **It must be a bed with an oxygen machine's comp** (`CompProperties_PhobosOxygenSupply`): a chamber without one, or switched off,
+  unpowered or out of fuel, is never chosen. The surgery hold applies to any marked bed.
+- Patients already in a bed stay where they are. Prisoners and guests are carried too, so the chamber must be a bed allowed for them.
+- Ours exists only with Vanilla Gravship Expanded. It is a game tier, not medical advice ([the burns
+  record](../development/archive/burns-and-smoke.md) found the clinical evidence for hyperbaric oxygen of low quality).
+
+
+### Burn unit beds
+
+**A bed with `Phobos.Medical.Comps.CompProperties_PhobosBurnCare` gives its treatment to an occupant with an open burn** while its power
+is on. An open burn is an injury marked `PhobosBurnCareExtension` (see the list at the top of [Medical equipment](#medical-equipment))
+that is not yet a scar. From `Common/Defs/Phobos/Medical/Buildings_BurnBed.xml`:
+
+```xml
+<ThingDef ParentName="BedWithQualityBase">
+  <defName>PhobosMedical_BurnUnitBed</defName>
+  <tickerType>Rare</tickerType>
+  <comps>
+    <li Class="CompProperties_Power">
+      <compClass>CompPowerTrader</compClass>
+      <basePowerConsumption>200</basePowerConsumption>
+    </li>
+    <li Class="CompProperties_Flickable"/>
+    <li Class="Phobos.Medical.Comps.CompProperties_PhobosBurnCare">
+      <treatment>PhobosMedical_OnAirCells</treatment>
+    </li>
+  </comps>
+</ThingDef>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `treatment` | The condition an occupant with an open burn gets; its effects are on its own Def (none) |
+
+- **It must be on a bed, with `<tickerType>Rare</tickerType>`.** On anything else it does nothing.
+- **The treatment needs the treatment comp** ([Treatment conditions](#treatment-conditions)). Ours, `PhobosMedical_OnAirCells`
+  (`Hediffs_BurnBed.xml`), gives pain ×0.85 and injury healing ×1.25, both authored with no clinical source; the healing speeds every
+  injury, not only burns (a simplification).
+- Unpowered or switched off, it is still a bed. Without a power comp it counts as powered.
+
+
+### Carbon monoxide and smoke alarms
+
+**A building with `Phobos.Medical.Comps.CompProperties_PhobosGasAlarm` sounds for carbon monoxide or smoke**: it plays its sound once,
+posts a warning naming the room, and wakes everyone asleep in that room (not the downed or unconscious). From
+`Common/Defs/Phobos/Medical/Buildings_GasAlarm.xml`:
+
+```xml
+<comps>
+  <li Class="CompProperties_Power">
+    <compClass>CompPowerTrader</compClass>
+    <basePowerConsumption>5</basePowerConsumption>
+  </li>
+  <li Class="CompProperties_Flickable"/>
+  <li Class="Phobos.Medical.Comps.CompProperties_PhobosGasAlarm">
+    <sound>PhobosMedical_GasAlarm</sound>
+  </li>
+</comps>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `sound` | A SoundDef played once when it starts warning, or when a second gas joins; none for silence (none) |
+
+- **Give the building `<tickerType>Rare</tickerType>`.** It senses every 250 ticks.
+- **The levels are the rules Def's**, shared by every alarm: `alarmCarbonMonoxideLevel` (0.05), `alarmSmokeLevel` (0.1) and
+  `alarmQuietShare` (0.5), all authored ([The medical rules Def](#the-medical-rules-def)). It stays on until the gas falls below that share
+  of its level, so it doesn't flicker at the edge.
+- Smoke is D'thorga Framework's reading of the alarm's cell; carbon monoxide is the burns part's reading at that spot. What it sounds for
+  isn't saved: after a load it warns again if the air is still bad.
+
+
+### Safety showers
+
+**Any building with `Phobos.Medical.Comps.CompProperties_PhobosRinseStation` is a safety shower.** Someone with acid on the skin (or,
+with **Tox gas: strip and rinse** on, contaminated clothes, or with fallout dust to wash off) walks onto it and rinses; a doctor draws water
+there for a patient lying down and rinses them. From `Common/Defs/Phobos/Medical/Buildings_SafetyShower.xml`:
+
+```xml
+<ThingDef ParentName="BuildingBase">
+  <defName>PhobosMedical_SafetyShower</defName>
+  <passability>Standable</passability>
+  <comps>
+    <li Class="Phobos.Medical.Comps.CompProperties_PhobosRinseStation">
+      <showerSound>PhobosMedical_SafetyShower</showerSound>
+      <pourSound>PhobosMedical_RinsePour</pourSound>
+    </li>
+  </comps>
+</ThingDef>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `showerLitres` | Water one full rinse draws (1136) |
+| `eyewashLitres` | Water a rinse draws when every chemical burn is on the eyes (22.7) |
+| `rinseTicks` | How long a rinse lasts; 625 is 15 in-game minutes (625) |
+| `fillTicks` | How long a doctor takes to draw water for a patient (120) |
+| `showerSound` | A SoundDef that plays while someone rinses under it (none) |
+| `pourSound` | A SoundDef that plays while a doctor rinses a patient with water from it (none) |
+
+- **The person stands on its cell**, so make it standable. A pawn runs to one for itself only within 60 cells (an agent choice); a doctor
+  fetching water goes any distance.
+- **Water is assumed** unless another comp on the same building supplies it (with Dubs Bad Hygiene, [Water from Dubs Bad
+  Hygiene](#water-from-dubs-bad-hygiene)). A failed draw ends the rinse with a message, and the station is skipped while it looks dry.
+- The litres are the ANSI/ISEA Z358.1 figures as reported by ISHN (a drench shower 75.7 litres a minute, an eyewash about 1.5, each for
+  15 minutes), approximate. `fillTicks` is authored.
+- With Dubs Bad Hygiene, we add this comp to Dubs' shower and bath bases, so every shower and bath is a safety shower too
+  (`Mods/DubsBadHygiene/Patches/Phobos/Medical/Showers_DubsBadHygiene.xml`).
+
+
+### Water from Dubs Bad Hygiene
+
+Two comps in **`PhobosMedical.Hygiene`, a separate assembly that loads only with Dubs Bad Hygiene**, draw water from Dubs' plumbing.
+**Add them only by a patch in a folder your `LoadFolders.xml` loads with Dubs Bad Hygiene**, never in a Def that loads without it. Both
+read plumbing under the building or against its side, through D'thorga Framework's `PlumbingFeed` (see [Water and pipes beneath
+things](../framework-modding.md#water-and-pipes-beneath-things-with-dubs-bad-hygiene)), and both assume water in Dubs' lite mode.
+
+| Type | For | Fields |
+| --- | --- | --- |
+| `Phobos.Medical.Hygiene.CompProperties_PhobosRinseWater` | A [safety shower](#safety-showers): draws each rinse's litres when the rinse starts; a failed draw marks it dry for an in-game hour, so nobody keeps running to it | None |
+| `Phobos.Medical.Hygiene.CompProperties_PhobosWaterFeed` | A producer that splits water (the oxygen electrolyser): draws its water every 250 ticks while switched on and powered, and without water shuts the production gate, so it idles | `litresPerHour`: litres an in-game hour while running (0.5) |
+
+From `Mods/DubsBadHygiene/Patches/Phobos/Medical/SafetyShower_DubsBadHygiene.xml` and `Electrolyser_DubsBadHygiene.xml`:
+
+```xml
+<Operation Class="PatchOperationAdd">
+  <xpath>Defs/ThingDef[defName="PhobosMedical_SafetyShower"]/comps</xpath>
+  <value>
+    <li Class="Phobos.Medical.Hygiene.CompProperties_PhobosRinseWater" />
+    <li Class="Phobos.Framework.Hygiene.CompProperties_PhobosPipeUnderlay" />
+  </value>
+</Operation>
+```
+
+```xml
+<li Class="Phobos.Medical.Hygiene.CompProperties_PhobosWaterFeed">
+  <litresPerHour>0.5</litresPerHour>
+</li>
+```
+
+- **The water feed stops production only through our gated trader**: the building's Vanilla Expanded Framework resource trader must use
+  `<compClass>Phobos.Medical.Comps.CompPhobosGatedResourceTrader</compClass>` (as our electrolyser in
+  `Mods/VanillaGravshipExpanded/Defs/Phobos/Medical/Buildings_OxygenChain.xml` does). On any other building it draws water and reports it,
+  but stops nothing. Give the building `<tickerType>Rare</tickerType>`.
+- The framework's pipe underlay comp lays hidden pipe under the building so a pipe touching any side connects.
+- 0.5 litres an hour is our arithmetic: about 0.43 kg of oxygen an hour needs about 0.48 kg of water split (2 H₂O → 2 H₂ + O₂). Water
+  quality is ignored, though a real electrolyser needs pure water (a simplification).
+
+
+### A sound while an operation is under way
+
+`Phobos.Medical.Comps.CompProperties_PhobosSurgerySound` loops a sound from a bed's facility while a doctor works a bill on a patient in a
+bed it links to, standing beside them. Presentation only: the anaesthesia machine's bellows. From
+`Common/Defs/Phobos/Medical/Buildings_Nebuliser.xml`:
+
+```xml
+<li Class="Phobos.Medical.Comps.CompProperties_PhobosSurgerySound">
+  <sound>PhobosMedical_Anaesthesia</sound>
+</li>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `sound` | A SoundDef that loops while an operation is under way; none for silence (none) |
+
+- **It needs `CompProperties_Facility` linked to the bed**, and plays only while powered (a building without a power comp counts as
+  powered).
+- **It checks on the rare tick, so give the building `<tickerType>Rare</tickerType>`**, or it never plays (our own anaesthesia
+  machine lacked one until Medical's fix of 28 Nov 2026).
+
 ## The save bridge
 
 The record: [The save bridge](../development/archive/medical-save-bridge.md).
@@ -244,6 +860,50 @@ controlled area (with Rimatomics) and, since 0.30.0, the toxic controlled area (
 preventive is found by `preventiveStats`. Medical sets `ProtectionLine.DoseAllowed` (`DoseService.LineDoseAllowed`): a dose at any
 line is refused to someone who will not take it, during an overdose, while an earlier one still works, or below the preventives'
 reserve.
+
+## Radiation sickness
+
+The record: [the radiation model](../development/archive/radiation-model.md).
+
+Behind the player's **Radiation sickness runs its real course** setting (on by default), D'thorga Medical keeps a dose in grays per
+person, repaired over days, with the real course of radiation sickness, care that changes who lives, late effects, fallout dust and three
+medicines. It takes every Dubs Rimatomics dose for people, and the doses of D'thorga Framework's blasts ([Radiation bursts from
+blasts](../framework-modding.md#radiation-bursts-from-blasts-framework-03580)).
+
+- **`Phobos.Radiation.Defs.PhobosRadiationRulesDef` is a rules Def: the first loaded wins, so patch its figures rather than adding a
+  second.** Its Def is `PhobosRadiationRules`, in `Common/Defs/Phobos/Radiation/Rules_Radiation.xml`.
+- **The dose bands, repair, timings and the harshness presets are not in it**: they are in the game-free rule (`RadiationRule`), from the
+  record's sources, and can't be changed in XML.
+- **Not yet tested in game.** Other work on this part is under way, so check the shipped file before patching a figure.
+
+To change a figure, in your `Patches` folder:
+
+```xml
+<Operation Class="PatchOperationReplace">
+  <xpath>Defs/Phobos.Radiation.Defs.PhobosRadiationRulesDef[defName="PhobosRadiationRules"]/careInBed</xpath>
+  <value><careInBed>0.25</careInBed></value>
+</Operation>
+```
+
+Its fields, in groups (defaults in brackets; every figure authored unless it names a source):
+
+| Group | Fields | What they do |
+| --- | --- | --- |
+| The course | `intervalTicks` (300), `recoveryPerDay` (0.05), `courseEndsBelow` (0.2), `smallestShown` (0.05) | A dosed person's course is worked out every `intervalTicks`; after its height the illness recedes by `recoveryPerDay` of its severity a day. The last two are in the Def but not read by the code as it stands |
+| Care | `careTended` (0.35), `careInBed` (0.2), `careClean` (0.15), `careFluids` (0.15), `careImmunity` (0.15), `cleanRoomFrom` (0.6) | Care, 0 to 1, is the sum, capped at 1: the illness tended (times tend quality), in bed, in bed in a room at cleanliness `cleanRoomFrom` or better, on our fluids drip (`PhobosMedical_OnDrip`), and immunity gain speed above 1.05. Full care moves the dose that kills half by the harshness preset's figure |
+| Late effects | `solidCancerParts` (the shipped list: Lung, Stomach, Liver, Torso, Neck, Kidney), `cancerStartSeverity` (0.05) | Where a solid cancer from radiation forms: the first part on the list the person still has, starting from a place fixed by who they are; an empty list leaves no place, so none forms. A leukaemia or carcinoma starts at `cancerStartSeverity` |
+| Fallout dust | `dustPerGray` (1), `dustDosePerDay` (0.02), `dustToWash` (0.1), `breathedPerGray` (0.03), `swallowedPerDustDay` (0.01), `thyroidPerGray` (2), `insideHalfLifeDays` (110) | Dust per gray of fallout's dose outdoors, spread over clothes and bare skin; the dose a day from each unit carried; the level that wants washing; the dose from inside per gray breathed unmasked; the dose from inside per unit of skin dust a day (a mask doesn't stop it); the thyroid's dose per gray breathed without potassium iodide; and how long what is inside stays, a half-life in days (Radiogardase label) |
+| Medicines | `marrowStimulantMoves` (0.5), `marrowStimulantWithinDays` (1), `marrowStimulantFromGrays` (2), `prussianBlueHalfLifeFactor` (0.33), `prussianBlueFromInside` (0.05) | A marrow stimulant started within `marrowStimulantWithinDays` of the course moves the dose a person survives by `marrowStimulantMoves` grays; doctors give it for a dose known or estimated at `marrowStimulantFromGrays` or more (after the Neupogen label's "greater than 2 gray"). Prussian blue multiplies the half-life inside by its factor (after the Radiogardase label: about 80 days to 26 at Goiânia); doctors give it once `prussianBlueFromInside` grays from inside are still to come |
+
+- **`solidCancerParts` holds BodyPartDefs.** Add your race's parts if it has none of these, or its people never get a solid cancer
+  from radiation (a leukaemia, and a thyroid cancer in the neck, are placed separately).
+- The fallout dust figures work only while **Fallout dust on skin and clothes** is on (on by default); the dust in clothes is
+  [the contamination comp's](#clothes-that-carry-residue-or-fallout-dust).
+- Care is a gameplay sum after the sources' supportive care (fluids, antibiotics, rest, a clean room); the split of its weights is
+  authored. The thyroid figure is authored after fallout's iodine (a thyroid's dose runs well above the body's, as on Rongelap); the
+  marrow stimulant's 0.5 Gy is the record's, authored after ICRP 103. None of it is clinical guidance.
+
+---
 
 ## Checks done
 

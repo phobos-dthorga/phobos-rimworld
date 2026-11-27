@@ -56,6 +56,7 @@ already has one keeps its own and gets no second.
 | `CompProperties_PhobosVehicleLoadOut` | Every storage building (`Building_Storage` or a subclass), from every mod | No. |
 | `CompProperties_PhobosHitch` | Every land vehicle with a loadout, except a trailer and a loadout with `<noHitch>true</noHitch>` | **On a trailer** that should tow in turn (see [Hitches](#hitches-couplings-and-trailers)). |
 | `CompProperties_PhobosCamp` | Every land vehicle with a loadout, and a trailer whose `CompProperties_PhobosTrailer` has `campDeck` or `campSide` on | No. |
+| `CompProperties_PhobosCrewWater` (Dubs Bad Hygiene) | Every vehicle that has `CompProperties_PhobosCamp` and is not a trailer, while Dubs Bad Hygiene is active and not in its lite mode | No. |
 | `CompProperties_PhobosSling` | A vehicle whose loadout has a `<sling>` block | No. |
 | `CompProperties_PhobosLitter` | A vehicle whose loadout binds the `Cabin` part role | No. |
 | `CompProperties_PhobosVehicleCabin` (a deck tent) | A Def with `PhobosFlatDeckExtension` and no cabin of its own | **Yes, for a walk-in cabin** (see [Walk-in cabins](#walk-in-cabins-and-deck-tents)). |
@@ -807,8 +808,10 @@ Billy's range (`mods/PhobosVehicles/Defs/Phobos/Vehicles/FieldKitchen/Buildings_
 
 - **`speedWhenPowered` works on any work table** set out by a trailer: the Framework adds it to the game's work-table speed stat, so the
   bill's speed and its explanation agree.
-- **`wattsWorking` counts only for a piece whose class reports its draw**: the Framework's `Building_PhobosFieldStove` (only while it
-  cooks) and `Building_PhobosColdBox` (always). Another building class needs C# (`ISetOutLoad`).
+- **`wattsWorking` counts only for a piece that reports its draw**: the Framework's `Building_PhobosFieldStove` (only while it cooks) and
+  `Building_PhobosColdBox` (always), or a piece carrying `Phobos.VehicleSystems.Hygiene.CompProperties_PhobosHeaterPowerSaving` (always,
+  while set out; see [Water and waste with Dubs Bad Hygiene](#water-and-waste-with-dubs-bad-hygiene)). Anything else needs C#
+  (`ISetOutLoad`, on the building class or on one of its comps).
 
 ### A lamp lit by the trailer's power
 
@@ -965,6 +968,228 @@ minifiable building carried packed in the cargo (the kitchen box). A field kitch
 
 **The cooks reach** the caravan's packs, the cargo of every vehicle it tows, and what a packed cold box holds. Nothing patches the game's
 caravan food: meals join the packs.
+
+---
+
+## Water and waste with Dubs Bad Hygiene
+
+With Dubs Bad Hygiene, water on a vehicle is real: a trailer's showers and toilets run on its own tank and fill its own waste tank, a
+field kettle takes water for each batch, and a vehicle's crew water tank is drunk from on the road. All four types live in a tie-in
+assembly that loads only while both Vehicle Framework and Dubs Bad Hygiene are active (`Mods/VehiclesHygiene/`). Types:
+`CompProperties_PhobosTrailerPlumbing` (a trailer's water and waste tanks), `CompProperties_PhobosHeaterPowerSaving` (a chemfuel water
+heater that burns less on power), `CompProperties_PhobosKettleWater` (water for each batch at a field stove) and
+`CompProperties_PhobosCrewWater` (the crew water tank, added for you).
+
+**Gotchas first:**
+
+- **Put these in a folder that loads only with Dubs Bad Hygiene** (`IfModActive="Dubwise.DubsBadHygiene"` in your `LoadFolders.xml`, or a
+  `MayRequire` patch). The classes do not exist without it, and the game reports a config error for an unknown class.
+- **Dubs' lite mode has no plumbing, so all four stand down there**: nothing is laid, no water is asked for, no line is shown. Mark Defs
+  that make sense only with plumbing `DBHLite="true"`, as the shower trailer is, so Dubs drops them in lite mode.
+- **Water is never made.** Every litre a shower, a flush, a kettle or a drink uses comes off a tank, and only the player's people fill
+  the tanks (plumbing or a water bowser beside the vehicle). The one exception is Dubs' own "unlimited pumping" option: its hidden towers
+  are then filled from nothing, and that water is never given back to the trailer's tank.
+- **The stand-in towers and waste tanks are your own Defs.** Dubs' fixtures draw only from water towers on their pipes, so the trailer
+  lays hidden buildings of Dubs' own kinds beneath itself. The Framework ships only the crew tank's stand-in (`Phobos_CrewWaterStandIn`);
+  the shower trailer's and the Billy's stand-ins, their abstract base `PhobosTrailerStandInBase` and the water load `PhobosTank_Water` are
+  **D'thorga Vehicles'**. Copy them into your own mod unless you depend on it.
+- **A waste tank's `DubsBadHygiene.CompProperties_SepticTank` must rank below all of Dubs' own** (`<priority>-1</priority>`, as shipped).
+  Dubs sends a pipe net's sewage to its highest priority, so a waste tank level with Dubs' septic tank takes the whole colony's waste once
+  the trailer stands on the colony's pipes. Give it `<TreatedPerDay>0</TreatedPerDay>` for a holding tank.
+- **A field stove with `CompProperties_PhobosKettleWater` also needs Dubs' pipe comp** (`DubsBadHygiene.CompProperties_Pipe`, mode
+  `Sewage`) and the class `Phobos.VehicleSystems.Building_PhobosFieldStove`. Without the pipe it finds no plumbing, and its bills wait for
+  ever.
+- **A patch that adds `<comps>` to a Def whose comps come only from its parent must add the whole `<comps>` node**, not a `li` into a node
+  that is not there: patches run before inheritance. The Billy's kettle patch (`FieldKitchen_Water.xml`) shows how.
+
+### A trailer's water and waste tanks
+
+`CompProperties_PhobosTrailerPlumbing` goes on a trailer's `VehicleDef`. While the trailer is set up, it lays a hidden water tower and a
+hidden waste tank beneath it, and hidden plumbing under everything it set out, so Dubs' showers, basins, toilets and water heaters
+among its pieces join its pipes. It works in one of two ways:
+
+- **Fed from the trailer's tank** (the shower trailer): the trailer has a `CompProperties_PhobosTank` holding the `water` load, and the
+  hidden tower is kept topped up to `workingLitres` from it on every rare tick. Packing up puts the tower's water back into the tank.
+- **Its own water** (`ownWater` true, the Billy field kitchen): the trailer has no tank comp. Its water lives in the hidden tower whenever
+  it stands parked (unhitched, the player's), set up or not, and aboard the trailer while it is towed. A water bowser or plumbing beside it
+  fills the tower as it fills any tower. On the road it counts as the caravan's water.
+
+The waste tank (when `septicDef` is given) stays beneath the trailer whenever it is parked, set up or not, so it can be emptied without
+setting up. It is emptied four ways: Dubs' own colonists empty it into sludge drums at the player's level (buttons for 10, 25, 50 and 75 %,
+or never; Dubs' 50 % until the player chooses); a sludge tanker pumps it out from beside it; while its pipes join a colony septic tank,
+treatment plant or outlet, it drains into them by gravity at `drainPerHour`; and the player may open its dump valve, which runs the waste
+onto the ground beside it as Dubs' sewage, within `dumpRadius`. **The dump valve is behind the player's setting "Trailers can dump waste
+on the ground"** (on by default). Hitched, the valve closes and the waste rides along; destroyed while laid, the waste spills as Dubs
+spills any broken septic tank.
+
+**Gotchas:**
+
+- **It needs a set-up.** The tower and the pipes are laid when a colonist finishes setting the trailer up by hand: through its tank
+  (`CompProperties_PhobosTank`) or, for a trailer with none, `CompProperties_PhobosTrailerSetUp` (see [Setting out a trailer](#setting-out-a-trailer)).
+  A trailer with its own water also lays its tower whenever it is parked.
+- **Cells are in the trailer's own frame, facing north**, as a part's hitbox is: `towerCell` and `septicCell` default to the rear row
+  of a 3-wide trailer, `(-1, -3)` and `(1, -3)`.
+- **Keep `workingLitres` within the tower Def's `WaterStorageCap`**: the tower is a working amount, never the whole tank (the shower
+  trailer keeps 150 L in a 200 L tower and carries 2,000 L in its tank).
+- **The bigger tower takes effect the next time it is laid.** With `towerNode` and `towerDefWithNode`, the bigger tower is used while
+  that upgrade node is unlocked; what a smaller tower cannot hold stays aboard.
+- **A caravan with a shower trailer along washes under its showers** while it stands still; without one, from a basin's worth of water.
+
+From the shower trailer (`mods/PhobosVehicles/Mods/DubsBadHygiene/Defs/ShowerTrailer/Vehicle_ShowerTrailer.xml` and
+`Buildings_ShowerTrailer.xml`), trimmed. Figures authored:
+
+```xml
+<!-- On the trailer's VehicleDef, beside its CompProperties_PhobosTrailer, CompProperties_PhobosTank and CompProperties_PhobosSetOut. -->
+<li Class="Phobos.VehicleSystems.Hygiene.CompProperties_PhobosTrailerPlumbing">
+  <towerDef>Phobos_TrailerWaterStandIn</towerDef>
+  <septicDef>Phobos_TrailerSepticStandIn</septicDef>
+  <water>PhobosTank_Water</water>
+  <workingLitres>150</workingLitres>
+  <towerCell>(-1, -3)</towerCell>
+  <septicCell>(1, -3)</septicCell>
+</li>
+
+<!-- The hidden waste tank (its parent is not drawn, not selectable, not built or taken down by hand). -->
+<ThingDef ParentName="PhobosTrailerStandInBase" DBHLite="true">
+  <defName>Phobos_TrailerSepticStandIn</defName>
+  <label>trailer waste tank</label>
+  <description>The trailer's waste tank, where its toilets drain.</description>
+  <comps>
+    <li Class="DubsBadHygiene.CompProperties_Pipe">
+      <mode>Sewage</mode>
+    </li>
+    <li Class="DubsBadHygiene.CompProperties_SepticTank">
+      <capacity>1000</capacity>
+      <priority>-1</priority>   <!-- below every sewage handler of Dubs' -->
+      <TreatedPerDay>0</TreatedPerDay>
+    </li>
+  </comps>
+</ThingDef>
+```
+
+The water tower stand-in is the same, with `DubsBadHygiene.CompProperties_WaterStorage` (`<WaterStorageCap>200</WaterStorageCap>`) in
+place of the septic tank. A trailer with its own water, from the Billy (`mods/PhobosVehicles/Mods/DubsBadHygiene/Patches/FieldKitchen_Water.xml`):
+
+```xml
+<li Class="Phobos.VehicleSystems.Hygiene.CompProperties_PhobosTrailerPlumbing">
+  <ownWater>true</ownWater>
+  <towerDef>Phobos_BillyWaterTank</towerDef>               <!-- 200 L -->
+  <towerDefWithNode>Phobos_BillyWaterTankLarge</towerDefWithNode>   <!-- 600 L -->
+  <towerNode>PhobosBillyBiggerTank</towerNode>
+  <towerCell>(0, -3)</towerCell>
+</li>
+```
+
+`CompProperties_PhobosTrailerPlumbing`:
+
+| Field | What it does (default) |
+| --- | --- |
+| `towerDef` | The hidden water tower laid beneath the trailer: a building with Dubs' `CompProperties_WaterStorage` and `CompProperties_Pipe` (none: no water side). |
+| `septicDef` | The hidden waste tank: a building with Dubs' `CompProperties_SepticTank` and `CompProperties_Pipe`. Its `capacity` is the waste tank's size (none: no waste side, and no waste buttons). |
+| `water` | The tank load the tower is topped up from, a `PhobosTankContentsDef` in the trailer's `CompProperties_PhobosTank` (none). Not used with `ownWater`. |
+| `workingLitres` | What the tower is kept topped up to from the tank, in litres (150, authored). Not used with `ownWater`. |
+| `towerCell` | Where the tower lies, in the trailer's frame facing north (`(-1, -3)`). |
+| `ownWater` | The trailer has no tank: its water lives in the tower while parked and aboard while towed (false). |
+| `towerDefWithNode`, `towerNode` | A bigger tower used while that upgrade node of the trailer is unlocked (none). |
+| `septicCell` | Where the waste tank lies, in the same frame (`(1, -3)`). |
+| `drainPerHour` | How fast the waste tank empties by gravity, into a colony sewer or through the dump valve, in Dubs' sewage units an hour (300, authored: a full 1,000 in a little over three hours). |
+| `dumpRadius` | How far from the waste tank the dump valve's waste may run, in cells (3.9, authored). |
+
+### A water heater that burns less on power
+
+`CompProperties_PhobosHeaterPowerSaving` goes on a set-out water heater built from Dubs' own boiler. While the trailer that set it out is
+plugged in, it puts back `savedShare` of the fuel the heater burned since the last rare tick: the electric element doing part of the work,
+in the one form Dubs' boiler allows (it cannot heat faster than its store fills). It also plays `workingSound` while the boiler is heating.
+
+**Gotchas:**
+
+- **It needs a `CompProperties_Refuelable`** (the fuel it refunds) **and Dubs' `DubsBadHygiene.CompProperties_CompBoiler`** (when it is
+  heard). Without the refuelable it does nothing; without the boiler it is silent.
+- **It saves fuel only on a piece a trailer set out**, and only while that trailer's power point is powered. Standing alone, it burns
+  the full rate.
+- **It draws its `PhobosSetOutPowerExtension` `wattsWorking` from the power point the whole time it stands set out**, burning or not
+  (the shipped heater: 300 W, authored).
+
+From the shower trailer's heater (`Buildings_ShowerTrailer.xml`), trimmed:
+
+```xml
+<comps>
+  <li Class="DubsBadHygiene.CompProperties_Pipe">
+    <mode>Sewage</mode>
+  </li>
+  <li Class="DubsBadHygiene.CompProperties_CompBoiler">
+    <BaseCapacity>100</BaseCapacity>
+    <ThermostatControl>true</ThermostatControl>
+    <ShouldUsePowerModes>false</ShouldUsePowerModes>
+  </li>
+  <li Class="CompProperties_Refuelable">
+    <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+    <fuelConsumptionRate>4.0</fuelConsumptionRate>
+    <fuelCapacity>25.0</fuelCapacity>
+    <fuelFilter><thingDefs><li>Chemfuel</li></thingDefs></fuelFilter>
+  </li>
+  <li Class="Phobos.VehicleSystems.Hygiene.CompProperties_PhobosHeaterPowerSaving">
+    <savedShare>0.5</savedShare>
+    <workingSound>PhobosVehicles_ShowerWaterHeater</workingSound>
+  </li>
+</comps>
+<modExtensions>
+  <li Class="Phobos.VehicleSystems.PhobosSetOutPowerExtension">
+    <wattsWorking>300</wattsWorking>
+  </li>
+</modExtensions>
+```
+
+The shipped heater also carries Dubs' `DubCore.CompProperties_HeatStore` (its hot-water store); see the file.
+**`PhobosVehicles_ShowerWaterHeater` is D'thorga Vehicles' sound**: name your own unless you depend on it.
+
+| Field | What it does (default) |
+| --- | --- |
+| `savedShare` | The share of the fuel burned that is put back while the trailer is plugged in (0.5: half, the owner's "power a bonus"). |
+| `workingSound` | The burner's loop, while Dubs' boiler is heating (none). |
+
+### Water for a field stove's batch
+
+`CompProperties_PhobosKettleWater` makes a field stove take water for each batch from the plumbing it stands on: a trailer's own tank
+through the pipes it lays under its pieces, a water bowser or shower trailer beside it, or a colony's plumbing. Without enough water on
+its pipes, its bills wait, and its inspect pane says why. It is not tied to a trailer: any `Building_PhobosFieldStove` with Dubs' pipe comp
+can carry it.
+
+From the Billy's kettle (`FieldKitchen_Water.xml`), added whole because the kettle's comps come from its parent:
+
+```xml
+<Operation Class="PatchOperationAdd">
+  <xpath>Defs/ThingDef[defName="Phobos_BillyKettle"]</xpath>
+  <value>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="Phobos.VehicleSystems.Hygiene.CompProperties_PhobosKettleWater">
+        <litresPerBatch>10</litresPerBatch>
+      </li>
+    </comps>
+  </value>
+</Operation>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `litresPerBatch` | Litres each batch takes when it starts (10, the owner's authored figure). A bill waits while the stove's pipes have no water tower, or hold less than this. |
+
+### The crew water tank
+
+`CompProperties_PhobosCrewWater` is **added for you** to every vehicle with a camp that is not a trailer (see the table above), and does
+nothing until the player fits the crew water tank (`PhobosFitting_CrewWaterTank`, made from a kit, granting `CrewWater`). The tank goes
+on the `WaterTankBay` part role, which every land loadout inheriting `PhobosVehicleLoadoutLandBase` appends. Fitted, it holds water as
+cargo weight (a kilogram a litre); riders drink from it aboard a vehicle on a map, and the caravan drinks and washes from it on the road.
+Parked with its engine off, it stands in a hidden tower (`Phobos_CrewWaterStandIn`) beneath the vehicle, so plumbing or a water bowser
+beside it fills it, and with its camp pitched the vehicle lays pipes under the camp too, so a basin and a shower set out with the camp
+draw from it. A message says when it is down to a quarter. Taking the tank off lets its water out.
+
+**You write nothing for it.** To change its figures, patch the vehicle rules Def (`PhobosVehicleRulesDef`): `crewTankLitres` (120, authored:
+one of Dubs' showers takes 65 L), `crewTankLowShare` (0.25) and `caravanDrinkLitres` (1.5, a drink's worth). The stand-in tower's own
+`WaterStorageCap` (120) also caps it: raise both together. Its one field, `towerDef`, is filled in by the code.
 
 ---
 

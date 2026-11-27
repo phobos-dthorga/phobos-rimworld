@@ -5,14 +5,12 @@ your own, with D'thorga Framework's vehicle systems (RimWorld 1.7). Everything i
 input, condition or effect. **Not yet tested in game**: the schema may change before the first public release, and this page will
 say so when it does.
 
-**What this page covers (28 Nov 2026):** the systems schema, checked against Framework 0.365.0: every input, condition and effect
+**What this page covers (28 Nov 2026):** the systems schema, checked against Framework 0.368.1: every input, condition and effect
 class has a row in its table, and the vehicle systems' own Defs (fittings, tunes, grades, families, fit sets, the rules Defs, bills,
 schematics, shaft loads, contracts and visits) have sections, all written from the code and the shipped XML. **The vehicle features**
 (cabins, camps, hitches and trailers, the sling, litters, work rigs, aircraft, remote control and the rest) **are on their own page**:
-[vehicle features for modders](vehicle-features-modding.md). **Not yet covered on either page:** the avionics block on a loadout
-(`cruisesHigh`, and the `airTrack` block of `speed`, `cruiseMetres`, `lowCruiseMetres` and `size`: how the aircraft looks to The Dead
-Man's Switch - Expedition's air defence), weapon mounts, a load's `shedOrder` and `startReserve`, and what a fitting needs to work
-(`FeedSpec`). For every field of every class, see the reference site's
+[vehicle features for modders](vehicle-features-modding.md). **Not yet covered on either page:** the rarer loadout fields `cruise`, `engineOutYaw`, `engineArms`, `sideTanks`, `heldMassComps`,
+`cellsOfRemap` and `fittedOnOlderSaves`, and `empHardening` and `intakeDebris` beyond their mentions in other rows. For every field of every class, see the reference site's
 [XML types](https://phobos-dthorga.github.io/phobos-rimworld/xml-types.html) page, rebuilt from the code on every change; the shipped
 Defs under `mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/` show them in use, and
 [the authors' override contract](development/vehicle-author-overrides.md) describes one of them. **Parts bills**
@@ -91,9 +89,10 @@ Without `Inherit="False"` a list adds to the parent's; with it, it replaces it. 
 | `glass` | The glass's kind: `Ordinary` (default), `Armoured`, `VisionBlocks`, or `Windscreen` (since 0.268.0): a windscreen alone on an open vehicle, which still gets the glass part, reaches its open front seats with splinters and takes one laminated pane to re-glaze. A VehicleDef's `PhobosFittedEquipmentExtension` sets it for one design. |
 | `drivetrain` | The engine and drivetrain: a `def` (a `PhobosVehicleDrivetrainDef`) and an optional `set` of overrides (`kilowattsPerTonne`, `drivenShare`, `wheelRadius`, `dragArea`, `kilogramsPerVehicleMass`, `emptyKilograms`, `fuelKilogramsFull`, `idleFuelShare`, `efficiency`). See [Engines and drivetrains](#engines-and-drivetrains). |
 | `flightProfile` | An aircraft's `PhobosVehicleFlightProfileDef`: its phases and what each asks of the engines. |
+| `avionics` | An aircraft's instruments, sensors and defences, and how it looks to an air defence. See [Avionics](#avionics). |
 | `systems` | Each `def` (a system) with an optional `set` of parameter overrides, written as elements: `<set><batteryAmpHours>90</batteryAmpHours></set>`. |
 | `partRoles` | Each `role` with `find` rules and an optional `add`. `all` binds every match (wheels). |
-| `loads` | Electrical consumers: `name`, `label`, `description`, `amps`, `when` (a condition), `toggle` (the player gets a switch), `defaultOn`, `iconPath`. |
+| `loads` | Electrical consumers, each with a `name` (unique in the loadout), `amps` and a `when`. See [Electrical loads](#electrical-loads) for every field, the shedding order and keeping the start. |
 | `factoryFittings` | (Framework 0.356.0) Fittings every vehicle of the loadout leaves the factory with: each given once, free, on the first free part it suits, to new vehicles and ones already in a save, and remembered by name so one the player takes off stays off. A child adds to its parent's list. Use `MayRequire` for another mod's fitting, as the aircraft loadout does for the Radio Framework's aviation radio. |
 | `factoryFittingsMilitary` | (Framework 0.356.0) The same, only for a vehicle that counts as military: armed, or a loadout whose `empHardening` is military. |
 
@@ -123,6 +122,249 @@ saved vehicle drops its entry at the first load and the other parts keep their w
 
 A role nothing binds reads as a sound part (efficiency 1) and its effects do nothing. Every bound part reports its hits to the
 systems, so `onPartHit` rules work on the vehicle's own parts too.
+
+### Weapon mounts
+
+**You write nothing for this.** While Defs load, every weapon on a design a loadout claims is tied to one part, its mount: the weapon stops
+while that part is at or under a tenth of its health, and works again once it is repaired. It uses Vehicle Framework's own part
+requirement (`VehicleTurret.component`), set on each weapon's template, so it acts on every faction's vehicles, costs nothing between hits
+and is never saved: without D'thorga Framework the weapons work as their authors made them. The knock-out rules Def
+(`PhobosKnockOutRulesDef`, see [Rules Defs for vehicles](#rules-defs-for-vehicles)) holds every figure.
+
+**Gotchas first:**
+
+- **Your own requirement always wins.** A weapon whose author gave it a `component` is left alone, as is a weapon mounted on another
+  (it stops with its parent) and a fixed weapon (`turretType` `Static`, such as smoke dischargers). Weapons added by upgrade nodes
+  (`Vehicles.TurretUpgrade`) are tied too.
+- **To use your own turret part as the mount, add its key to `authorMountKeys`** with a patch (the example under
+  [Rules Defs for vehicles](#rules-defs-for-vehicles) does exactly this). Keys match whole, case aside, and the first key in the list that
+  the design has wins. Shipped: `MainTurret` (RimThunder's and others' turret part) and `PhobosPylons` (D'thorga Patches' Harrier pylons).
+- **Otherwise a mount part is appended**, key `PhobosWeaponMount`: a "turret ring" of 60 health on a ground vehicle, or "weapon pylons" of
+  40 on an aircraft (a design with Vehicle Framework's `CompProperties_VehicleLauncher`). It is internal, and sits on the cells of the seat
+  that works the first weapon (the vehicle's centre cell if no seat names one), so hits there reach it. Healths and labels are authored, and
+  patchable: `turretRingHealth`, `pylonHealth`, `turretRingLabel`, `pylonLabel`.
+- **One mount per design.** Every tied weapon on a vehicle shares the same part.
+- **Off for everyone with `<weaponMounts>false</weaponMounts>`**; `stopsAtOrBelow` (0.1, the owner's figure) moves the line.
+
+**A weapon's drive.** The same Def decides how each weapon is turned, by its key or its turret Def's name (parts of names, case aside):
+
+| Kind | How it is told | Without power |
+| --- | --- | --- |
+| Fixed | `turretType` `Static` | Nothing to turn. |
+| Swung by hand | Standing alone, with a word of `handSwungTurretKeys` (`M2HB`, `M240`, `pintle`, ...); or riding on a turret with a word of `ownMountTurretKeys` (`cupola`, `topMG`, ...), or worked by a different crew member from its turret's | Loses nothing. |
+| With its turret | Riding on a turret with a word of `coaxialTurretKeys` (`coax`), or worked by the turret's own crew | Goes where the turret goes. |
+| Powered | Any other weapon standing alone | Cranked by hand: `handCrankTraversePace` (0.2) of its traverse and `handCrankAimPace` (0.5) of its aiming pace. An autonomous weapon (no seat works it) stops instead while nobody is aboard (`autonomousStopsWithoutPower`). |
+
+**A powered weapon needs a load named `turretDrive` in the loadout's `loads`** (the rules Def's `turretDriveLoad`). The shipped land and boat
+loadouts carry it (40 A, `shedOrder` 7, authored); the aircraft loadout does not, so an aircraft's weapons are never cranked by hand. With no
+such load the weapon never loses power. Power, hand cranking and a cranked turret's worse aim apply to the player's vehicles only.
+
+### Electrical loads
+
+A load is something the vehicle's electrics feed: lights, a heater, a winch, the avionics. A loadout lists them in `loads`; a fitting
+brings its own the same way while it is fitted ([Fitting fields](#fitting-fields-phobosvehiclesystemsphobosvehiclefittingdef)). Each load
+draws `amps` while its conditions hold, and the electrical system adds them up against the alternator and the battery.
+
+**Gotchas first:**
+
+- **Names must be unique.** The game reports a config error for a load with no name or a repeated one. A child loadout's `loads` adds to
+  its parent's, so **to change one of the parent's loads, write the list again with `Inherit="False"`**. A fitting's load whose name the
+  loadout already has is ignored.
+- **`shedOrder` 0 is essential and never shed.** Give every comfort, light and work load a rank of 1 or more, or it runs the battery
+  flat with the generator lost.
+- **Nothing is shed with the engine stopped.** A parked vehicle's loads run the battery down by the player's choice; `startReserve` is the
+  guard for that.
+- **The other factions' vehicles run no loads**: their electrics are on the light tier. Headlights alone still burn on them at night
+  while they move.
+
+From the shipped land loadouts (`Loadouts_Default.xml`) and the fuel heater fitting (`Fittings.xml`), both in
+`mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/`, trimmed. Figures authored:
+
+```xml
+<loads>
+  <li>
+    <name>headlights</name>
+    <label>headlights</label>
+    <description>Switched on, the headlights light the ground ahead of the vehicle at night. With the engine off they run the battery down.</description>
+    <amps>9</amps>
+    <shedOrder>6</shedOrder>
+    <toggle>true</toggle>
+    <defaultOn>false</defaultOn>
+    <iconPath>Phobos/VehicleSystems/Headlights</iconPath>
+    <when Class="Phobos.VehicleSystems.When_Dark" />
+    <autoOn Class="Phobos.VehicleSystems.When_Any">
+      <conditions>
+        <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+        <li Class="Phobos.VehicleSystems.When_Moving" />
+      </conditions>
+    </autoOn>
+    <autoDescription>they light by themselves in the dark while the vehicle is driven or its engine runs, and go out once it is parked with the engine off</autoDescription>
+    <standbyLabel>waiting for dark</standbyLabel>
+    <autoStandbyLabel>waiting for dark and a driver</autoStandbyLabel>
+    <beam><radius>6</radius><ahead>5</ahead><colour>(255,228,190,0)</colour></beam>
+    <lamps>
+      <li><forward>0.95</forward><right>0.6</right><colour>(1, 0.92, 0.78, 0.85)</colour><size>0.55</size></li>
+      <li><forward>-0.97</forward><right>0.65</right><colour>(1, 0.1, 0.05, 0.45)</colour><size>0.4</size><brake>true</brake></li>
+    </lamps>
+  </li>
+  <li>
+    <!-- The fuel heater fitting's load: shed early, and out before the battery is too low to start the engine. -->
+    <name>fuelHeater</name>
+    <label>fuel heater</label>
+    <amps>12</amps>
+    <shedOrder>2</shedOrder>
+    <startReserve>startingPower</startReserve>
+    <when Class="Phobos.VehicleSystems.When_AmbientBelow"><celsius>-8</celsius></when>
+    <ampsInputs>
+      <li Class="Phobos.VehicleSystems.Input_TwelveVoltShare" />
+    </ampsInputs>
+  </li>
+</loads>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `name` | The load's identity: conditions (`When_LoadActive`), fittings' `feed` and the code find it by this. **Required, unique.** |
+| `label`, `description` | Its name and explanation in the player's words, on its switch and the Systems tab (empty). |
+| `amps` | What it draws while it runs, in amperes (0). With `ampsInputs`, the figure they multiply. |
+| `ampsInputs` | [Inputs](#inputs) multiplied with `amps` to give what it draws now (none): a fridge by the air's warmth, the engine electronics by rated power, half the amps on a 24-volt vehicle (`Input_TwelveVoltShare`). |
+| `when` | The condition under which it draws (none: always). |
+| `available` | Whether this vehicle has the load at all (none: always). While it does not hold, the load never runs, its switch is hidden and the Systems tab calls it not fitted. The work lamps use it: fitted lamps, or a design's own work-light upgrade. |
+| `toggle` | The player gets a switch for it (false). |
+| `defaultOn` | Whether that switch starts on (true). |
+| `iconPath` | The switch's picture (none). |
+| `autoOn` | When it switches itself on (none: by hand only). With the player's **Lights switch themselves** setting on (the default), it runs only while this holds as well as `when`, and its button says instead whether it may switch itself on at all on this vehicle. |
+| `autoDescription` | What `autoOn` waits for, in the player's words, for the button's description (empty). |
+| `standbyLabel` | What the Systems tab says while it is switched on but waiting for `when`, such as "waiting for dark" (empty: "standing by"). |
+| `autoStandbyLabel` | The same while it switches itself (empty: `standbyLabel`). |
+| `shedOrder` | When the charging fails, the order it is switched off to save the battery: 1 goes first, higher ranks later (0: essential, never shed). See below. |
+| `startReserve` | A quantity the starter depends on (the electrical system's `startingPower`): the load goes out before that reading is too low to start the engine, and comes back once charging lifts it again (none). See below. |
+| `campLoad` | A camp load (false): with a house battery fitted it draws on that battery only, and stops at the house battery's low-voltage cut-off instead of being shed or kept for the start. |
+| `baseline` | A standing load of a running engine, its control unit, injectors and ignition (false). The vehicle author's rated power and fuel rate already allow for it, so it takes nothing off driving. |
+| `yieldsTo` | Another load, by name, that does this one's job while it runs (none). Words only: while that load runs and this one stands by, the Systems tab says who has the job. Its own `when` still decides whether it draws. |
+| `ampsFromAvionics` | `Essential` or `Other`: its `amps` are worked out from the loadout's [avionics](#avionics) (`None`: the `amps` written). Read only on a loadout's own loads. |
+| `beam` | A pool of the game's light ahead of the vehicle while the load runs (none): `radius` (6 cells), `ahead` (5 cells past the nose), `colour` (`(255,228,190,0)`), `brightness` (1.45). **Only the loadout's first load with a beam is the headlights**; another beam does nothing unless code reads it (the searchlight fitting's load, `searchlight`, has its own). |
+| `lamps` | Glows drawn on the vehicle while the load runs, under the player's **Vehicle effects** setting (none). See below. |
+
+**The shedding order.** Shedding starts only while the engine runs, when the generator is lost (its working share below 0.2), or the battery
+is running down below 0.3 charge, and it ends once the charge is back above 0.35 (all on `PhobosVehicleRulesDef`: `shedGeneratorLost`,
+`shedLowCharge`, `shedRecoveredCharge`, authored). How many ranks go depends on the charge: ranks 1 and 2 at 0.6 or more, up to 4 at 0.45
+or more, up to 5 at 0.3 or more, every rank below that (fixed in the code). The player's switch is left as it was, so a shed load comes back
+by itself. Shipped ranks, for matching yours (examples, not every load):
+
+| Rank | Shipped loads |
+| --- | --- |
+| 0 (never) | Engine electronics, the avionics' essentials, the recovery winch, the rescue hoist |
+| 1 | Air conditioner, camp lights, power outlet, field laboratory, a towed trailer's pump and water treatment |
+| 2 | Climate control, fuel heater, camp fridge, sonar, a towed cold box |
+| 3 | Cab heater, cabin oxygen, avionics kits, the jamming pod, litter monitors |
+| 4 | Night heater, mission avionics, listening array |
+| 5 | Work lamps, searchlight |
+| 6 | Headlights, navigation and landing lights, recovery beacons |
+| 7 | Turret drive |
+| 9 | Route kit, uncrewed kit |
+
+**Keeping the start.** `startReserve` names a quantity (the shipped loads use `startingPower`). The line is read from that quantity's own
+stages, never a figure on the load: the top of the stage just above the highest stage whose effects refuse a start (`Effect_RefuseDraft`),
+which is the electrical system's "barely enough to start" band. The load goes out as the reading falls below that line, and comes back
+only once the battery is charging and the reading is past the line again, so a warming day alone does not bring it back. A message names
+the loads kept out. With a house battery fitted, a `campLoad` is never held. A quantity with no stage refusing a start gives no line, and
+the load is never held.
+
+**Lamps.** Each `li` of `lamps` is one glow, the game's fire glow tinted, turning with the vehicle. Every figure is authored.
+
+| Field | What it does (default) |
+| --- | --- |
+| `forward`, `right` | Where it sits: shares of half the vehicle's length ahead of the middle and half its width to its right (0, 0). |
+| `drawn` | Place it on the drawn picture instead of the footprint, for an aircraft's wingtips (false). |
+| `colour` | Red, green, blue and alpha, 0 to 1 (white). |
+| `size` | Its size across, in cells (0.6). |
+| `pattern` | `Steady` or `Flash` (Steady). |
+| `periodSeconds`, `phase`, `litShare` | For a flash: its period (1), how late in the period it comes, 0 to 1 (0: two lamps half a period apart take turns), and the share of the period it lasts (0.2). |
+| `brake` | A brake lamp: also lit, brighter and larger, while the vehicle slows, whether or not its load runs (false). |
+
+### Avionics
+
+An aircraft's `avionics` block says what it carries: flight instruments, navigation, sights, radar, a warning receiver, chaff and flares,
+crew oxygen, and how it looks to another mod's air defence. Each capability it carries then works while its part is sound and the battery
+has charge, and draws its share of the avionics loads. Every aircraft has attitude instruments and basic navigation unless its loadout says
+otherwise.
+
+**Gotchas first:**
+
+- **Write it once on the aircraft's loadout; a child loadout names only what differs.** The shipped aircraft loadout
+  (`PhobosVehicleLoadoutAircraft`) has an empty `<avionics />`, so a child inherits the defaults.
+- **The capabilities reach the systems only through `PhobosVehicleSystem_Avionics`**, the system that takes the fit. The aircraft loadout
+  lists it; **a loadout that writes `<systems Inherit="False">` must list it again**, or nothing it carries works.
+- **The avionics draw comes from two loads with `ampsFromAvionics`** (`avionics`, `Essential`, never shed; `missionAvionics`, `Other`,
+  `shedOrder` 4), in the aircraft loadout's `loads`. A loadout that replaces its loads must keep them, or the avionics draw nothing.
+- **Carrying chaff and flares adds the dispensers' magazine for you** (see the features page, [Chaff and flare magazine](vehicle-features-modding.md#chaff-and-flare-magazine)).
+- **`airTrack` matters only with The Dead Man's Switch - Expedition**, whose air defence D'thorga Framework feeds through a tie-in loaded
+  with it. Its scales are that mod's own.
+- **Never set `mapEvasion` on an aircraft whose own mod gives it a dodge** (the Harrier, the Hind, the Mongoose): shots would be dodged twice.
+
+From the Close Air Support tie-in's A-10 (`mods/PhobosVehicles/Mods/CloseAirSupport/Defs/Loadouts_CloseAirSupport.xml`), trimmed. Its
+fit is sourced in the file; the air track and dodge are authored:
+
+```xml
+<avionics>
+  <navigation>Basic</navigation>
+  <autopilot>false</autopilot>
+  <radar>false</radar>
+  <sight>Full</sight>
+  <nightSight>false</nightSight>
+  <warning>true</warning>
+  <countermeasures>true</countermeasures>
+  <countermeasureCartridges>240</countermeasureCartridges>
+  <oxygen>true</oxygen>
+  <cruisesHigh>true</cruisesHigh>
+  <airTrack>
+    <speed>12</speed>
+    <cruiseMetres>5000</cruiseMetres>
+    <lowCruiseMetres>1500</lowCruiseMetres>
+    <size>1.8</size>
+  </airTrack>
+  <mapEvasion>0.26</mapEvasion>
+</avionics>
+```
+
+A transport helicopter, for contrast (the UH-60's, `Mods/UH60Blackhawk/Defs/Loadouts_UH60.xml`): `speed` 8, `cruiseMetres` and
+`lowCruiseMetres` 1000, `size` 2.0.
+
+| Field | What it does (default) |
+| --- | --- |
+| `attitude` | Attitude, heading and airspeed instruments (true). Without working ones it may not take off at night or in fog. |
+| `navigation` | `None`, `Basic` (compass and radio aids) or `Full` (an inertial or Doppler set and moving map, holding a course at night and in fog) (`Basic`). Without working navigation a flight wanders off track, slower and thirstier. The full set's extra is not kept on the battery. |
+| `autopilot` | Holds height and heading (false): it halves the risk of a rough landing, and the wandering with basic navigation only. |
+| `sight` | The weapon sight, `None`, `Basic` or `Full` (`None`). A basic sight aims a little worse than a full one, none much worse. |
+| `nightSight` | An infrared camera: aim at night as well as by day (false). |
+| `radar` | Finds targets through rain, fog and snow, giving back half of what the weather takes from the aim (false). |
+| `warning` | A radar warning receiver (false). Chaff and flares fired on its cue break more shots than those fired late, by eye. |
+| `countermeasures` | Chaff and flare dispensers (false). The Framework adds their magazine to the aircraft. |
+| `countermeasureCartridges` | Cartridges the magazine holds (30). Read only with `countermeasures`. |
+| `countermeasuresByUpgrade` | The dispensers come only with an upgrade node that raises `Phobos_Countermeasures` (false). Read only with `countermeasures`. |
+| `oxygen` | Crew oxygen from engine bleed air (false). It needs its part, power and an engine giving bleed air. |
+| `cruisesHigh` | The aircraft cruises where its crew needs oxygen (false). With its oxygen out it flies its world legs low: slower and thirstier (authored factors), unless the player's **Cruising height between places** setting governs it; and an air defence sees it at `lowCruiseMetres`. A crew whose oxygen fails while high may suffer hypoxia, by the player's setting (off by default). |
+| `airTrack` | How the aircraft looks in flight to The Dead Man's Switch - Expedition's air defence (none: the defaults below). |
+| `mapEvasion` | The chance, 0 to 1, that a shot at it misses while it is in the air on a map, for an aircraft whose own mod gives it no dodge (0: shots left alone). Scaled by its flight controls and warning receiver, with a salvo's bonus. It also gives the aircraft the salvo button. Any faction's aircraft. |
+
+`airTrack`, on The Dead Man's Switch - Expedition's own scales (read from its code and its missiles' Defs; every figure authored for play):
+
+| Field | What it does (default) |
+| --- | --- |
+| `speed` | Its speed on that mod's scale (12). That mod's default is 15 and its cruise missiles 18 to 32; above 15 a radar locks on more slowly and hits less. |
+| `cruiseMetres` | The height it cruises at, in metres (3000). It climbs to it over the first 1.5 tiles after take-off and comes down over the last 1.5 (`climbTiles` on `PhobosAirCombatRulesDef`), never below a tenth of it in flight. Where the player's cruising height setting governs the aircraft, the leg's own height is used instead. |
+| `lowCruiseMetres` | The height it cruises at with its oxygen out, for an aircraft that `cruisesHigh` (1500). Never above `cruiseMetres`. |
+| `size` | Multiplies the range at which a radar sees it (1.5). That mod's missiles are 1 to 2.2. |
+
+The Radio Framework reads the same cruise height for an aircraft that relays radio, so a high cruise reaches further there too.
+
+**What a capability needs to work.** Each reads as working at 0.6 or more of its quantity in the avionics system: the capability carried
+(by the fit, or raised for one aircraft by an avionics kit's `parameterFloors`), its part sound (the `Avionics` role for most, the
+`AutopilotMount`, `SensorMount` and `RadarMount` roles for the autopilot, night sight and radar), and charge in the battery. A hostile
+jamming field blinds a radar and a warning receiver. The draw is authored at 24 V: the essentials (attitude 2 A, basic navigation 2,
+basic sight 1, warning receiver 2, dispensers 1, oxygen 2) stay on the battery with the generator lost; the rest (full navigation 4 more,
+full sight 4 more, autopilot 4, radar 20, night sight 4) are shed with the comforts.
 
 ## A system of your own
 
@@ -192,11 +434,9 @@ The service runs every 250 ticks (the rare tick Vehicle Framework calls on every
 catches up on up to 24 hours after a vehicle has been away. Quantities are saved by system and name, so you may add quantities to a
 system freely; renaming one loses its saved value.
 
-### Inputs", "### Conditions" and "### Effects", in alphabetical
-order. Every row was checked against the class's code in `src/PhobosFramework.Vehicles/`. Settings are named as `When_Setting`
-takes them (the code's names), not by their labels in the settings window. Defaults are in brackets.
+### Inputs
 
-### Inputs (`Class="Phobos.VehicleSystems.<name>"`)
+Every input, condition and effect is named in full: `Class="Phobos.VehicleSystems.<name>"`.
 
 Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) and `factor`.
 
@@ -889,8 +1129,8 @@ loadouts bind them. Naming one of these puts your fitting on every vehicle that 
 | `jamRadiusFactor` | A factor on the vehicle's electronic jamming reach (1). Several multiply. |
 | `cartridgeFactor` | A factor on the countermeasure dispensers' magazine (1). |
 | `grants` | Abilities the vehicle gains, by name (none): see below. A fitting that grants something need move no figure. |
-| `feed` | What a granted ability needs to work (none): `load` (an electrical load that must be fitted, not shed, with the battery above flat), `quantity` with `atLeast` (a system quantity it draws on, such as `hydraulicSupply`), `engineRunning` (true: only with the engine running). Read by the code behind the granted ability. |
-| `loads` | Electrical loads it brings while fitted, written as a loadout's `loads` are ([Loadout fields](#loadout-fields)). **Names must not repeat a loadout's load.** An ability that asks for power through `comp.Fittings.GrantsPowered(ability)` (the jamming pod does) works only while all the fitting's loads run. |
+| `feed` | What a granted ability needs to work (none): an electrical `load`, a `quantity` with `atLeast`, and `engineRunning`. **Read only by the code behind the ability**, today the rescue hoist, the recovery winch and cabin oxygen. See [What a fitting needs to work](#what-a-fitting-needs-to-work). |
+| `loads` | Electrical loads it brings while fitted, written as a loadout's `loads` are ([Electrical loads](#electrical-loads)). **Names must not repeat a loadout's load.** An ability that asks for power through `comp.Fittings.GrantsPowered(ability)` (the jamming pod does) works only while all the fitting's loads run. |
 | `kilograms` | Cargo capacity it takes while fitted, a flat weight (0). No drag or speed change. |
 | `givesBack` | What taking it off puts into the vehicle's cargo (nothing): the kit, not its brackets. |
 | `unitVolts` | The voltage of one unit (0: one unit on any vehicle). A vehicle whose electrics run at a multiple takes that many in series, and pays for, carries and gets back that many: a 12-volt house battery is two on a 24-volt truck. |
@@ -923,6 +1163,49 @@ Gotchas for fittings:
 - **A vehicle turbocharged as built is refused the turbocharger fitting**, as one turbo part stands for one turbo.
 - Factory fittings (fitted free to every vehicle of a loadout) are listed on the loadout: see `factoryFittings` in
   [Loadout fields](#loadout-fields).
+
+### What a fitting needs to work
+
+A powered fitting says what it uses up with a `feed`: an electrical load, a system quantity it draws on, or the engine running. When the
+player asks it to work and it cannot, the order is refused with the reason in the player's words, the engine first, then power, then
+supply ("{VEHICLE}'s engine must be running for {WHAT} to work", "{VEHICLE} has no power for {WHAT}: the battery is flat, or the load
+has been shed", "{VEHICLE} has too little {SUPPLY} for {WHAT}", where the supply is the quantity's label). From the recovery winch and the cabin oxygen kit
+(`Fittings.xml`), trimmed:
+
+```xml
+<!-- The winch's own load is on the land loadouts (winch, 150 A, never shed). -->
+<grants><li>RecoveryWinch</li></grants>
+<feed>
+  <load>winch</load>
+</feed>
+
+<!-- Cabin oxygen brings its load with it, and works only with the engine running. -->
+<grants><li>CabinOxygen</li></grants>
+<feed>
+  <load>cabinOxygen</load>
+  <engineRunning>true</engineRunning>
+</feed>
+<loads>
+  <li><name>cabinOxygen</name> ... </li>
+</loads>
+```
+
+| Field | What it does (default) |
+| --- | --- |
+| `load` | An electrical load, by name, that must be able to run: available, switched on, not shed, not kept for the start, and with power (none). Its `when` is not asked, so a winch's load that draws only while it pulls still passes. |
+| `quantity` | A system quantity it draws on, such as `hydraulicSupply` or `airPressure` (none). |
+| `atLeast` | The least that quantity must be (0). |
+| `engineRunning` | It works only with the engine running: an engine-driven pump, a power take-off (false). |
+
+**Gotchas:**
+
+- **A feed does nothing by itself.** The code behind an ability asks for the feed of the fitting granting it: the rescue hoist
+  (`RescueHoist`), the recovery winch (`RecoveryWinch`) and cabin oxygen (`CabinOxygen`). For an ability of your own, ask from C# with
+  `Feeds.Refusal(comp, Feeds.ForAbility(comp, "MyAbility"), "my winch")`, which returns the refusal or null.
+- **What the vehicle lacks is not asked.** A load the vehicle does not have, or a quantity none of its systems holds, passes.
+- **The player's vehicles only.** Another faction's vehicle, on the light tier, is never refused.
+- **A fitting's own power is another rule.** An ability read through `comp.Fittings.GrantsPowered(ability)` (the jamming pod) works only
+  while every load in the fitting's `loads` runs, `feed` or not.
 
 ### Tunes
 
@@ -1094,7 +1377,7 @@ figure in them is authored, a gameplay choice to tune in play, unless its file's
 | `PhobosFireFightingRulesDef` | `PhobosFireFightingRules` (`FireFighting.xml`) | Where a fire on a vehicle starts and spreads (by the role of the part hit before it), the hand extinguisher, the engine and crew suppression systems, a leaking tank feeding the fire, burning tyres, and which other authors' vehicles count as armoured. | `roleZones` (each `role` and `zone`: `EngineBay`, `CrewCompartment` or `RunningGear`), `extinguisherCharges` 3, `knockDown` 0.75, `gearToEngineHours` 0.4, `engineToCrewHours` 0.25, `armouredFrom` 0.8 (8 mm under Combat Extended). |
 | `PhobosFireWearRulesDef` | `PhobosFireWearRules` (`FireWear.xml`) | Which part roles a fire wears, how fast at full fire, and the wiring it shorts. | `roles` (each `role`, `sharePerHour`, `soft`): the radiator and belt 0.5, glass 0.6; `leastShareOfRate` 0.1; `wiringRole` `Battery` at 0.3 an hour. |
 | `PhobosGlassRulesDef` | `PhobosGlassRules` (`Glass.xml`) | The glass part: its health and name, the panes that re-glaze it, the re-glazing work, and the upgrade node that makes a cab's glass armoured. | `partHealth` 40, `reglazeBaseWork` 400 plus `reglazeWorkForAll` 1200, `armouredCabNode` `PhobosArmouredCab`. |
-| `PhobosKnockOutRulesDef` | `PhobosKnockOutRules` (`KnockOut.xml`) | What a vehicle loses before it is a wreck: weapons tied to their mount, thrown tracks, a weapon's pace on a damaged mount or with a hurt gunner, turret power and hand cranking, a cranked turret's aim, field re-fitting a track, an ammunition rack blowing the turret off, and crews bailing out. Each feature has an on/off switch here. | `stopsAtOrBelow` 0.1, `authorMountKeys` (`MainTurret`, `PhobosPylons`), `trackKeySuffixes` (`Track`), `handCrankTraversePace` 0.2, `handSwungTurretKeys`, `coaxialTurretKeys`, `ownMountTurretKeys`, `ammoRackKeys` (`AmmoRack`), `popChanceOnHit` 0.25. |
+| `PhobosKnockOutRulesDef` | `PhobosKnockOutRules` (`KnockOut.xml`) | What a vehicle loses before it is a wreck: weapons tied to their mount (see [Weapon mounts](#weapon-mounts)), thrown tracks, a weapon's pace on a damaged mount or with a hurt gunner, turret power and hand cranking, a cranked turret's aim, field re-fitting a track, an ammunition rack blowing the turret off, and crews bailing out. Each feature has an on/off switch here. | `stopsAtOrBelow` 0.1, `authorMountKeys` (`MainTurret`, `PhobosPylons`), `trackKeySuffixes` (`Track`), `handCrankTraversePace` 0.2, `handSwungTurretKeys`, `coaxialTurretKeys`, `ownMountTurretKeys`, `ammoRackKeys` (`AmmoRack`), `popChanceOnHit` 0.25. |
 | `PhobosLandingSurfaceRulesDef` | `PhobosLandingSurfaceRules` (`LandingSurface.xml`) | What loose, dry or rough ground does to an aircraft on our own flight as it lifts off or touches down: dust wearing the engines, dry growth catching fire, and debris striking the intakes. | `engineWearPerEvent` 0.005, `engineWearFloor` 0.3, `barrierStops` 0.8, `fireChancePerEvent` 0.04 (×3 in a heat wave), `debrisDamage` 0.15, `debrisPhases` (each `phase`, `weight`, `movingOnly`). |
 | `PhobosRemoteControlRulesDef` | `PhobosRemoteControlRules` (`RemoteControl.xml`) | Vehicles driven by remote control: a lost link, keeping to radio cover, leader and followers, loops, and the mechanitor's bandwidth by size. | `lostLinkDelayTicks` 600, `uncoveredCellCost` 8, `maxFollowers` 4, `loopDwellTicks` 2500, `loopChargeStartBelow` 0.25 and `loopChargeStopAbove` 0.5, `mechLightMaxKg` 4000. |
 | `PhobosSpallRulesDef` | `PhobosSpallRules` (`Spall.xml`) | Spall inside a vehicle: what a beaten plate throws into the compartment behind it, and what a spall liner catches. Combat Extended only. | `minimumClass` `PhobosArmour_Rifle`, `fragmentsUnlined` 3 and `fragmentsLined` 1, `missChance` 0.3, `linerStopsAtFull` 0.7, `linerHealth` 60, `panelsPerLiner` 4, `linerPanel` `PhobosVehicles_SpallLinerPanel`. |
