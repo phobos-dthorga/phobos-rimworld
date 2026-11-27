@@ -41,7 +41,7 @@ public sealed class QuantityHistory
     public HistoryRing? For(SystemState state, int quantity) =>
         rings.TryGetValue(Key(state.Def, state.Def.quantities[quantity]), out HistoryRing? ring) ? ring : null;
 
-    /// <summary>One sample of every shown quantity, no more often than the stride.</summary>
+    /// <summary>One sample of every shown quantity (and hidden one that keeps its history), no more often than the stride.</summary>
     public void Sample(IReadOnlyList<SystemState> states, int now)
     {
         SampleWear(states, now);
@@ -52,7 +52,7 @@ public sealed class QuantityHistory
             for (int q = 0; q < state.values.Length; q++)
             {
                 QuantitySpec quantity = state.Def.quantities[q];
-                if (quantity.hidden) continue;
+                if (quantity.hidden && !quantity.keepHistory) continue;
                 Ring(state.Def, quantity).Push((float)state.values[q]);
             }
         }
@@ -104,7 +104,7 @@ public sealed class QuantityHistory
         {
             foreach (QuantitySpec quantity in system.def.quantities)
             {
-                if (quantity.hidden) continue;
+                if (quantity.hidden && !quantity.keepHistory) continue;
                 string key = Key(system.def, quantity);
                 rings.TryGetValue(key, out HistoryRing? ring);
                 ScribeHistory.Look(ref ring, "PhobosVehicleSystems_History_" + key, Capacity, quantity.min, quantity.max);

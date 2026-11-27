@@ -205,6 +205,8 @@
         <description>What is left of the engine. Worn, it burns oil and smokes blue.</description>
         <unit>Fraction</unit>
         <hidden>true</hidden>
+        <!-- Framework 0.346.0: its day is saved, so a save check can read how worn the engine was while it burned oil (row 28). -->
+        <keepHistory>true</keepHistory>
         <derivedFrom>
           <li Class="Phobos.VehicleSystems.Input_PartHealth">
             <role>Engine</role>

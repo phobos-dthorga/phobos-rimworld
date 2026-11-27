@@ -284,6 +284,188 @@
       },
       "row": "71",
       "why": "Figures for row 71, from the saved graph histories (kit 1.130.0). nightHeaterShare is 0.02 of the charge an hour, about a fifth over ten hours, and nightHeaterPackTarget 15 C (Systems_Electric.xml). Read only when the charge never rose over the last ten hours (no charging in between) and the vehicle is a world object with its night heater on: the player's caravan. Ranges: charge 0..1 (Systems_Electrical.xml), pack -60..200 (Systems_Electric.xml)."
+    },
+    {
+      "id": "worn-engine-oil",
+      "title": "A worn engine burns oil faster, twice as fast at 40% health",
+      "source": "save",
+      "select": {
+        "class": "*VehiclePawn"
+      },
+      "read": {
+        "oil": "PhobosVehicleSystems_History_PhobosVehicleSystem_Lubrication_oilLevel",
+        "load": "PhobosVehicleSystems_History_PhobosVehicleSystem_Cooling_engineLoad",
+        "engine": "PhobosVehicleSystems_History_PhobosVehicleSystem_Lubrication_engineCondition"
+      },
+      "when": "ofPlayer and count(samples(oil, 0, 1)) >= 11 and count(samples(load, 0, 1)) >= 10 and count(samples(engine, 0, 1)) >= 1 and sum(tail(samples(load, 0, 1), 10)) >= 3 and max(diffs(tail(samples(oil, 0, 1), 11))) <= 0.0001 and first(tail(samples(oil, 0, 1), 11)) - last(samples(oil, 0, 1)) <= 0.0035",
+      "note": {
+        "key": "check.vehicle.worn-engine-oil",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "factor": "round((first(tail(samples(oil, 0, 1), 11)) - last(samples(oil, 0, 1))) / (0.00015 * sum(tail(samples(load, 0, 1), 10))), 2)",
+          "engine": "round(last(samples(engine, 0, 1)), 3)"
+        },
+        "variant": "{'worn' if last(samples(engine, 0, 1)) <= 0.42 else 'sound' if last(samples(engine, 0, 1)) >= 0.98 else 'part worn'}"
+      },
+      "row": "28",
+      "why": "Figures for row 28, from the saved graph histories (engineLoad's and engineCondition's kept since Framework 0.346.0, the owner's yes of 27 Nov 2026). The oil burns oilBurnPerHour 0.0015 times the engine's load times the engine's wear curve, 2 at 40% health to 1 when sound (Systems_Lubrication.xml, burn), so the last hour's oil lost over 0.00015 times the sum of its ten load samples is that curve: about 2 worn, 1 sound. Read only over an hour with no oil added (no sample rises), a real load (mean 0.3 or more), and no more lost than a worn engine at full load can burn (0.0035, which leaves out a cracked sump's leak). Ranges 0..1 (Systems_Lubrication.xml, Systems_Cooling.xml)."
+    },
+    {
+      "id": "fire-coolant-and-cab",
+      "title": "A fire put out within the hour leaves the coolant hot but under 120 C; one left to burn boils it over",
+      "source": "save",
+      "select": {
+        "class": "*VehiclePawn"
+      },
+      "read": {
+        "fire": "PhobosVehicleSystems_History_PhobosVehicleSystem_Cooling_bodyFire",
+        "radiator": "PhobosVehicleSystems_PartHealth[PhobosRadiator]",
+        "coolant": "PhobosVehicleSystems_History_PhobosVehicleSystem_Cooling_coolantTemperature",
+        "cab": "PhobosVehicleSystems_History_PhobosVehicleSystem_Cabin_cabTemperature"
+      },
+      "when": "ofPlayer and count(samples(fire, 0, 1)) >= 20 and max(samples(fire, 0, 1)) > 0 and last(samples(fire, 0, 1)) == 0 and count(samples(coolant, -60, 200)) >= 20",
+      "note": {
+        "key": "check.vehicle.fire-coolant",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "coolantPeak": "round(max(samples(coolant, -60, 200)), 1)",
+          "cabPeak": "round(max(samples(cab, -60, 80)), 1)",
+          "fireHours": "round(sum(samples(fire, 0, 1)) * 0.1, 2)"
+        },
+        "variant": "{'put out' if sum(samples(fire, 0, 1)) * 0.1 <= 1 else 'left to burn' if sum(samples(fire, 0, 1)) * 0.1 >= 2 else 'between'}"
+      },
+      "row": "29",
+      "why": "Figures for row 29, from the saved graph histories (bodyFire's kept since Framework 0.346.0, the owner's yes of 27 Nov 2026). Fire heats the coolant 180 C an hour and the cab 80 at full size (Systems_Cooling.xml and Systems_Cabin.xml, fireHeat). Put out within the hour the coolant peaks near 102 C, under overheating's 120; two hours boils it over, 130 (FireFigureTests). fireHours is the saved day's fire weighted by its size, one sample a tenth of an hour: a full fire for an hour reads 1. Read once the fire is out (its last sample 0). Ranges: fire 0..1, coolant -60..200, cab -60..80."
+    },
+    {
+      "id": "block-heater-coolant",
+      "title": "A parked truck's block heater holds its coolant far above the cold air",
+      "source": "save",
+      "select": {
+        "class": "*VehiclePawn",
+        "place": "map"
+      },
+      "read": {
+        "fits": "PhobosVehicleSystems_Fitted/li[*]/def",
+        "drafted": "ignition/drafted",
+        "coolant": "PhobosVehicleSystems_History_PhobosVehicleSystem_Cooling_coolantTemperature",
+        "cab": "PhobosVehicleSystems_History_PhobosVehicleSystem_Cabin_cabTemperature"
+      },
+      "when": "ofPlayer and contains(fits, 'PhobosFitting_BlockHeater') and drafted != True and count(samples(coolant, -60, 200)) >= 40 and count(samples(cab, -60, 80)) >= 40 and max(tail(samples(cab, -60, 80), 40)) <= -5 and max(diffs(tail(samples(coolant, -60, 200), 40))) <= 1 and max(tail(samples(coolant, -60, 200), 40)) <= 45 and mean(tail(samples(coolant, -60, 200), 40)) - mean(tail(samples(cab, -60, 80), 40)) >= 10",
+      "note": {
+        "key": "check.vehicle.block-heater",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "coolant": "round(mean(tail(samples(coolant, -60, 200), 40)), 1)",
+          "air": "round(mean(tail(samples(cab, -60, 80), 40)), 1)"
+        }
+      },
+      "row": "30",
+      "why": "Figures for row 30. The block heater pulls the coolant toward engineHeaterTarget 40 C at engineHeaterRate 2 an hour, full below 35, against the soak's 0.6 toward the air (Systems_Cooling.xml), so it settles at (80 + 0.6 x air) / 2.6: about 28.5 C at -10 and 26 at -20. Read over the last four hours, parked on a map (a camp is a world object), engine off (not drafted, the coolant never rising a degree a sample), in a cab below -5 C, the cab standing for the air. Shore power is not saved, so a truck whose coolant is not 10 C above the cab is taken as unpowered and left out. Ranges: coolant -60..200, cab -60..80."
+    },
+    {
+      "id": "belt-gone-coolant-and-charge",
+      "title": "With the drive belt gone and the engine running, the coolant climbs and the battery never charges",
+      "source": "save",
+      "select": {
+        "class": "*VehiclePawn"
+      },
+      "read": {
+        "belt": "PhobosVehicleSystems_PartHealth[PhobosDriveBelt]",
+        "drafted": "ignition/drafted",
+        "coolant": "PhobosVehicleSystems_History_PhobosVehicleSystem_Cooling_coolantTemperature",
+        "charge": "PhobosVehicleSystems_History_PhobosVehicleSystem_Electrical_charge"
+      },
+      "when": "ofPlayer and belt == 0 and drafted == True and count(samples(coolant, -60, 200)) >= 20 and count(samples(charge, 0, 1)) >= 20 and max(tail(samples(coolant, -60, 200), 20)) >= 60",
+      "note": {
+        "key": "check.vehicle.belt-gone",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "coolantClimb": "round(max(tail(samples(coolant, -60, 200), 20)) - first(tail(samples(coolant, -60, 200), 20)), 1)",
+          "chargeRise": "round(max(diffs(tail(samples(charge, 0, 1), 20))), 4)"
+        }
+      },
+      "row": "34",
+      "why": "Figures for row 34. The belt turns the water pump and fan (the radiator flow reads the Belt role, Systems_Cooling.xml) and the alternator (charging's drivenByRole Belt, Systems_Electrical.xml), so with it destroyed the radiator does nothing and the battery takes no charge while the engine runs. Read over the last two hours of a vehicle whose engine is on at the save (Vehicle Framework's ignition/drafted) and warm. PhobosDriveBelt's 10 health is the default loadout's. Ranges: coolant -60..200, charge 0..1."
+    },
+    {
+      "id": "emp-battery-step",
+      "title": "An EMP that reaches the battery takes about 40% of its charge in one step, or 16% on a military vehicle",
+      "source": "save",
+      "select": {
+        "class": "*VehiclePawn"
+      },
+      "read": {
+        "charge": "PhobosVehicleSystems_History_PhobosVehicleSystem_Electrical_charge",
+        "battery": "PhobosVehicleSystems_PartHealth[PhobosBattery]",
+        "guns": "turrets/li[*]/def"
+      },
+      "when": "ofPlayer and count(samples(charge, 0, 1)) >= 2 and min(diffs(samples(charge, 0, 1))) <= -0.08 and battery != None and battery >= 17",
+      "note": {
+        "key": "check.vehicle.emp-battery",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "drop": "round(-min(diffs(samples(charge, 0, 1))), 3)",
+          "battery": "round(battery / 20, 3)"
+        },
+        "variant": "{'military' if count(guns) > 0 else 'civilian'}"
+      },
+      "row": "92",
+      "why": "Figures for row 92. An EMP that stuns the battery part costs it 2.5% of its health (Moderate, civilian) or 1% (Minor, military: armed), Vehicle Framework's EMPStunDamage with Rules_VehicleSystems.xml's empSeverityCivilian and empSeverityMilitary, and the battery loses 16 times that share of its charge (Systems_Electrical.xml, perShareLost -16): 0.40 or 0.16 in one step. A shot costs 0.01 a health point, so a drop of 0.08 with at most 3 of the battery's 20 health gone can only be an EMP. Armed is read from the saved turrets, as VehicleEmp.Rate decides it; a vehicle hardened by its upgrade tree reads civilian here. Range: charge 0..1."
+    },
+    {
+      "id": "harrier-oxygen-out",
+      "title": "A Harrier with its avionics below 60% has its crew oxygen out, at the avionics part's efficiency",
+      "source": "save",
+      "select": {
+        "def": "Harrier_Jet"
+      },
+      "read": {
+        "oxygen": "PhobosVehicleSystems_History_PhobosVehicleSystem_Avionics_crewOxygen",
+        "avionics": "statHandler/components/li[5]/health",
+        "charge": "PhobosVehicleSystems_History_PhobosVehicleSystem_Electrical_charge"
+      },
+      "when": "ofPlayer and count(samples(oxygen, 0, 1)) >= 1 and avionics < 24 and last(samples(charge, 0, 1)) >= 0.05",
+      "note": {
+        "key": "check.vehicle.oxygen-out",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "oxygen": "round(last(samples(oxygen, 0, 1)), 3)",
+          "avionics": "round(avionics / 40, 3)",
+          "gap": "round(last(samples(oxygen, 0, 1)) - (0 if avionics / 40 <= 0.25 else 0.4 * (avionics / 40 - 0.25) / 0.15 if avionics / 40 <= 0.4 else avionics / 40 if avionics / 40 <= 0.7 else 0.7 + 0.3 * (avionics / 40 - 0.7) / 0.15 if avionics / 40 <= 0.85 else 1), 3)"
+        }
+      },
+      "row": "144",
+      "why": "Figures for row 144. crewOxygen is the oxygen parameter (1 on the Harrier) times the Avionics part's efficiency times the battery's curve (full from 5%) times the bleed (1 parked, or with every engine turning), Systems_Avionics.xml; below 0.6 it is out. The efficiency is Vehicle Framework's default curve (0 to 0.25 health nothing, 0.4 at 0.4, equal from 0.4 to 0.7, full from 0.85), so gap should be about 0. The avionics is D'thorga Patches' PhobosAvionics, the Harrier's part li[5] with 40 health (Parts_HarrierVtol.xml: the jet's four, the canopy, then the avionics), as of 27 Nov 2026. Range 0..1."
+    },
+    {
+      "id": "fire-through-glass",
+      "title": "A cab with its glass gone heats far faster in a fire than a sealed one",
+      "source": "save",
+      "select": {
+        "class": "*VehiclePawn"
+      },
+      "read": {
+        "fire": "PhobosVehicleSystems_History_PhobosVehicleSystem_Cooling_bodyFire",
+        "glass": "PhobosVehicleSystems_PartHealth[PhobosGlass]",
+        "drafted": "ignition/drafted",
+        "cab": "PhobosVehicleSystems_History_PhobosVehicleSystem_Cabin_cabTemperature",
+        "coolant": "PhobosVehicleSystems_History_PhobosVehicleSystem_Cooling_coolantTemperature"
+      },
+      "when": "ofPlayer and max(samples(fire, 0, 1)) > 0 and glass != None and drafted != True and count(samples(cab, -60, 80)) >= 20 and count(samples(coolant, -60, 200)) >= 20 and max(samples(cab, -60, 80)) >= 38 and max(diffs(samples(coolant, -60, 200))) >= 2",
+      "note": {
+        "key": "check.vehicle.fire-glass",
+        "mod": "D'thorga Framework",
+        "figures": {
+          "ratio": "round(max(diffs(samples(cab, -60, 80))) / max(diffs(samples(coolant, -60, 200))), 2)",
+          "steepest": "round(max(diffs(samples(cab, -60, 80))), 1)",
+          "cabPeak": "round(max(samples(cab, -60, 80)), 1)",
+          "fire": "round(max(samples(fire, 0, 1)), 2)"
+        },
+        "variant": "{'gone' if glass <= 0 else 'sealed'}"
+      },
+      "row": "396",
+      "why": "Figures for row 396. A sealed cab takes 80 C an hour from a full fire against the insulation's pull of 2 toward the air; with the glass gone, fireThroughGlass adds eight times that and brokenGlass eight times the pull (Systems_Cabin.xml), the same heat about 40 C above the air nine times as fast. The cab's steepest six-minute rise is set against the coolant's, which the same fire heats at 180 an hour (Systems_Cooling.xml): about 0.4 at most sealed, about 1.8 with the glass gone. Engine off, so the engine's heat does not swell the coolant's steps. The glass is read at the save: a fire wears it 0.6 of its health an hour (FireWear.xml), so a sealed cab left burning near two hours reads gone. Ranges: cab -60..80, coolant -60..200. The fire is read from its own saved history (Framework 0.346.0)."
     }
   ]
 }

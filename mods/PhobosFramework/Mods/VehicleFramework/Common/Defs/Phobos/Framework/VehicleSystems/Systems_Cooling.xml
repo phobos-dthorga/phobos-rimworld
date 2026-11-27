@@ -230,6 +230,8 @@
         <label>engine load</label>
         <unit>Fraction</unit>
         <hidden>true</hidden>
+        <!-- Framework 0.346.0: its day is saved, so a save check can read a worn engine's oil burn against its load (row 28). -->
+        <keepHistory>true</keepHistory>
         <derivedFrom>
           <li Class="Phobos.VehicleSystems.Input_EngineLoad" />
         </derivedFrom>
@@ -268,6 +270,8 @@
         <min>0</min>
         <max>1</max>
         <hidden>true</hidden>
+        <!-- Framework 0.346.0: its day is saved, so a save check can read how long and how hard a fire burned (rows 29 and 396). -->
+        <keepHistory>true</keepHistory>
         <derivedFrom>
           <li Class="Phobos.VehicleSystems.Input_Fire" />
         </derivedFrom>

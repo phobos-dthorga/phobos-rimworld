@@ -300,8 +300,14 @@ which never freezes, so on this machine it meets the same error 1450; it would n
 
 ### Next, if wanted
 
-- **More history rules**: rows 28 (oil burn, with engine hours from `Service_engineHours`), 29, 30, 34, 92 (an EMP's single drop:
-  `min(diffs(charge))`), 144 and 396. Each needs a condition a save can show; the agent's reading has the figures.
+- ~~More history rules~~ **Built 27 Nov 2026 (Framework 0.346.0)**: rules for rows 28, 29, 30, 34, 92, 144 and 396 in
+  `config/checks.json`, each with its figures and evidence. Framework 0.346.0 keeps a day's history of three hidden readings
+  (`keepHistory`: engineLoad, bodyFire, engineCondition; the owner's yes), so row 28 reads the oil burn against the engine's load
+  and rows 29 and 396 read the fire itself. In the saves of 27 Nov only row 30 finds a vehicle (the JLTV's block heater, 28.4 to
+  28.9 C at -7.5 to -9.9 air); the rest wait for the new histories or for the situation in play. **Row 30's text said 35 to 40 C**,
+  warmer than the model (28.5 at -10, the Def's own comment) and than real block heaters (about 20 to 35 C above the air): the owner
+  chose to fix the text and keep the model. Not readable from a save: the moment's stall of an EMP (row 92), a Harrier's range and
+  low cruise (row 144), a cold start's battery draw (row 30: the alternator refills it within one sample).
 - ~~Figures on notes we already write~~ **Built 27 Nov 2026 (Framework 0.337.0)**: `vehicles.part-replaced-in-field` (new, row 1)
   and `vehicles.part-replaced-at-rig` (row 36) carry the part's `share` of its maximum (0.25 and 0.6), and `vehicles.grade-done` a
   `factor` against the ungraded part (row 9, any part). Row 509's note already carried its brake wear (`health`).

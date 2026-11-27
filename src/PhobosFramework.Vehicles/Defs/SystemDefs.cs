@@ -115,6 +115,10 @@ public class QuantitySpec
     public List<VehicleSystemInput>? derivedFrom;
     /// <summary>Hidden quantities work as usual but never appear on the inspect line.</summary>
     public bool hidden;
+    /// <summary>A hidden quantity whose day is kept and saved all the same (Framework 0.346.0; the owner's yes of 27 Nov 2026), so a
+    /// save check can read what a test row depends on: engine load, a body fire, the engine's condition. Engineer mode graphs it.
+    /// Shown quantities always keep theirs.</summary>
+    public bool keepHistory;
     /// <summary>A reading that means nothing on an aircraft (fording a river): its tabs and the diagnosis leave it out there (Framework
     /// 0.136.1; the owner's screenshot of 18 Nov 2026 showed "Fording: off" on a Harrier). It still works as usual.</summary>
     public bool groundOnly;

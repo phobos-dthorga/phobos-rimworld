@@ -22,6 +22,17 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.346.0] - 2026-11-27 - Draft
+
+Three hidden readings keep their day, so the test list can check rows 28, 29 and 396
+
+### Added
+
+- **Engine load, a body fire and the engine's condition keep a day's history in the save**, as the readings on the Systems tab
+  already do (the owner's yes of 27 Nov 2026): about 2 KB more a vehicle. The test list's checks read them: a worn engine's oil burn
+  against its load (row 28), how long and how hard a fire burned (rows 29 and 396). Engineer mode graphs them too. Nothing in play
+  changes. Not yet tested in game.
+
 ## [0.345.0] - 2026-11-27 - Draft
 
 The flying doctor flies: a medevac by radio
