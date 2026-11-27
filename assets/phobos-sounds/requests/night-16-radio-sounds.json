@@ -3,7 +3,11 @@
     "name": "n16-squelch-handheld",
     "engine": "sa3-sfx",
     "seconds": 2,
-    "seeds": [201, 202, 203],
+    "seeds": [
+      201,
+      202,
+      203
+    ],
     "loop": false,
     "prompt": "A small hand-held walkie-talkie held at chest height opening its squelch: a brief, gentle burst of soft radio hiss from a tiny speaker that closes again cleanly. Mellow and low, close to the listener, short and clean, no voice, no beep. Not loud, not alarming. Length: 2 seconds",
     "art_plan": {
@@ -15,7 +19,11 @@
     "name": "n16-squelch-vehicle",
     "engine": "sa3-sfx",
     "seconds": 2,
-    "seeds": [201, 202, 203],
+    "seeds": [
+      201,
+      202,
+      203
+    ],
     "loop": false,
     "prompt": "A mobile two-way radio mounted in a truck cab opening its squelch: a short, soft burst of radio hiss from a dashboard speaker inside a small metal cabin, a little boxy and muffled, closing again cleanly. Mellow and low, no voice, no beep, no engine. Not loud, not alarming. Length: 2 seconds",
     "art_plan": {
@@ -24,10 +32,30 @@
     }
   },
   {
+    "name": "n16-squelch-mobile",
+    "engine": "sa3-sfx",
+    "seconds": 2,
+    "seeds": [
+      204,
+      205,
+      206
+    ],
+    "loop": false,
+    "prompt": "A small mobile two-way radio's compact loudspeaker opening its squelch: a short, smooth burst of soft radio hiss that rises gently and closes again cleanly, slightly narrow and boxy in tone, as from a small metal speaker grille. Steady and even, no thumps, no knocks, no bumps, no engine, no road noise, no voice, no beep. Not loud, not alarming. Length: 2 seconds",
+    "art_plan": {
+      "why": "S164 again: the owner turned down n16-squelch-vehicle's three tries (27 Nov 2026, on the Picks page: \"I think the vehicle tag has tainted the output too much; it sounds like whatever it is, is going over a speedbump\"), so the wording names only the radio and its speaker and rules out knocks. Made on the processor beside the game. Candidates only",
+      "sound": "S164"
+    }
+  },
+  {
     "name": "n16-squelch-station",
     "engine": "sa3-sfx",
     "seconds": 2,
-    "seeds": [201, 202, 203],
+    "seeds": [
+      201,
+      202,
+      203
+    ],
     "loop": false,
     "prompt": "A two-way radio base station on a desk opening its squelch as the operator starts a call: a soft, warm burst of radio hiss from a larger desk speaker with a little room around it, closing again cleanly. Mellow and low, no voice, no beep. Not loud, not alarming. Length: 2 seconds",
     "art_plan": {
@@ -39,7 +67,10 @@
     "name": "n16-repeater-courtesy",
     "engine": "sa3-sfx",
     "seconds": 2,
-    "seeds": [201, 202],
+    "seeds": [
+      201,
+      202
+    ],
     "loop": false,
     "prompt": "An amateur radio repeater's tail after a transmission ends, heard on a small radio speaker: a moment of soft open hiss, one short low gentle courtesy tone, then the squelch tail closing cleanly. Mellow and low pitched, no voice, no shrill beep. Not loud, not alarming. Length: 2 seconds",
     "art_plan": {
@@ -51,7 +82,10 @@
     "name": "n16-link-lock",
     "engine": "sa3-sfx",
     "seconds": 2,
-    "seeds": [201, 202],
+    "seeds": [
+      201,
+      202
+    ],
     "loop": false,
     "prompt": "A radio control link locking on: a short, soft burble of digital data tones from a small speaker, settling into silence. Low and gentle, like a quiet modem handshake shortened to a moment, no voice, no shrill beep. Not loud, not alarming. Length: 2 seconds",
     "art_plan": {
@@ -63,7 +97,10 @@
     "name": "n16-link-lost",
     "engine": "sa3-sfx",
     "seconds": 2,
-    "seeds": [201, 202],
+    "seeds": [
+      201,
+      202
+    ],
     "loop": false,
     "prompt": "A radio control link dropping out: a short broken stutter of data tones fading into soft static, then quiet. Low and gentle, no voice, no alarm, no beeping. Not loud, not alarming. Length: 2 seconds",
     "art_plan": {
@@ -75,7 +112,10 @@
     "name": "n16-channel-knob",
     "engine": "sa3-sfx",
     "seconds": 2,
-    "seeds": [201, 202],
+    "seeds": [
+      201,
+      202
+    ],
     "loop": false,
     "prompt": "The channel knob on a two-way radio turned a few steps: three or four small firm detented clicks of a rotary switch, close to the listener, dry and clean, nothing else. Not loud, not alarming. Length: 2 seconds",
     "art_plan": {
@@ -87,7 +127,10 @@
     "name": "n16-coax-connector",
     "engine": "sa3-sfx",
     "seconds": 3,
-    "seeds": [201, 202],
+    "seeds": [
+      201,
+      202
+    ],
     "loop": false,
     "prompt": "A coaxial cable connector being screwed onto a radio's antenna socket by hand: a few short metallic threading turns and a final soft snug click, close to the listener, dry and clean, nothing else. Not loud, not alarming. Length: 3 seconds",
     "art_plan": {
@@ -99,7 +142,10 @@
     "name": "n16-turret-servo",
     "engine": "sa3-sfx",
     "seconds": 6,
-    "seeds": [201, 202],
+    "seeds": [
+      201,
+      202
+    ],
     "loop": true,
     "prompt": "A small remote weapon mount traversing on its electric motor: a low, steady geared servo hum with a soft mechanical whirr, even and unbroken, heard from a few metres away. Low pitched, no high whine, no gunfire. Not loud, not alarming. Length: 6 seconds",
     "art_plan": {
