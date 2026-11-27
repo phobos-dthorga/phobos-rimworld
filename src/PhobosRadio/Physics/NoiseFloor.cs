@@ -19,14 +19,39 @@ public static class NoiseFloor
     }
 
     /// <summary>
-    /// The floor the receiver actually hears: thermal noise power-summed with local noise. Local noise
+    /// The bandwidth local noise levels are quoted in: a source's <c>noiseDbmAt1m</c> is its noise in 12.5 kHz, one voice channel
+    /// (Radio 0.45.0; docs/development/electronic-warfare.md, EW2).
+    /// </summary>
+    public const double ReferenceBandwidthHz = 12500.0;
+
+    /// <summary>
+    /// What a receiver of this bandwidth hears of noise quoted in the reference bandwidth, in dB to add: 10 log10(B / 12.5 kHz). Morse's
+    /// 500 Hz hears 14 dB less of it than voice, a 50 kHz picture 6 dB more. <b>An approximation</b>: it takes local noise as spread evenly
+    /// across the band, as electrical noise and barrage jamming are; a narrow whistle would not scale so.
+    /// </summary>
+    public static double BandwidthScaleDb(double bandwidthHz)
+    {
+        if (bandwidthHz <= 0) throw new ArgumentOutOfRangeException(nameof(bandwidthHz), "Bandwidth must be positive.");
+        return 10.0 * Math.Log10(bandwidthHz / ReferenceBandwidthHz);
+    }
+
+    /// <summary>
+    /// The floor the receiver actually hears: thermal noise power-summed with local noise. Local noise is quoted in the reference
+    /// bandwidth and scaled to the receiver's own (since Radio 0.45.0, EW2; before, it was taken as it was, whatever the mode). Local noise
     /// of −∞ (nothing nearby) leaves the thermal floor unchanged.
     /// </summary>
     public static double TotalDbm(double bandwidthHz, double noiseFigureDb, double localNoiseDbm)
     {
         var thermal = ThermalDbm(bandwidthHz, noiseFigureDb);
-        return double.IsNegativeInfinity(localNoiseDbm) ? thermal : Decibels.PowerSumDbm(thermal, localNoiseDbm);
+        return double.IsNegativeInfinity(localNoiseDbm) ? thermal : Decibels.PowerSumDbm(thermal, localNoiseDbm + BandwidthScaleDb(bandwidthHz));
     }
+
+    /// <summary>
+    /// A floor with jamming added: the jamming reaching the receiver's input (after its antenna's gain and its cable's loss),
+    /// power-summed with the floor it hears anyway. Jamming of −∞ (none) leaves the floor as it was.
+    /// </summary>
+    public static double WithJammingDbm(double floorDbm, double jammingAtInputDbm) =>
+        double.IsNegativeInfinity(jammingAtInputDbm) ? floorDbm : Decibels.PowerSumDbm(floorDbm, jammingAtInputDbm);
 
     /// <summary>
     /// A noise source's level at a distance, by the inverse-square law from its level at one metre.

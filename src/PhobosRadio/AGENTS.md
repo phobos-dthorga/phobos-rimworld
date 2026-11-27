@@ -26,6 +26,9 @@ open again** (owner, 23 Nov 2026), after its time on the back burner from 9 Nov 
   design's roadmap lists it. Each later phase waits for its gate and an explicit owner go-ahead; the
   design's "refined during play" still applies to everything beyond the open phase. Research,
   verification and design records are welcome at any time.
+- **Phase 3 is open** (owner, 27 Nov 2026: "Open Phase 3 and start the jamming-as-noise slice"): links, security, microwave and
+  electronic warfare. Its work follows `docs/development/electronic-warfare.md`, a slice at a time in that record's order, each slice
+  on the owner's word; the record's radar simulation stays a sketch until the owner asks for its own record.
 - The living design doc on claude.ai is the master copy; `docs/development/radio-framework-design.md` is
   a dated snapshot of it. Refresh the snapshot when the owner asks, keeping its text as written and its
   diagrams as Mermaid. Notes from play go in the living doc's "Notes from play" table. Decisions that

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Jamming as noise (Radio 0.45.0; docs/development/electronic-warfare.md, EW1), behind a setting that starts on. -->
+  <PhobosRadio_SettingJammingReachesRadios>Jamming reaches radios</PhobosRadio_SettingJammingReachesRadios>
+  <PhobosRadio_SettingJammingReachesRadiosDesc>On by default. A jammer switched to radios floods the radio bands with noise for a long way around, and every radio there hears it, the colony's own included: talk, remote-driven vehicles, radio-linked turrets and calls home fail as the noise drowns them. A radio close to its station, or a strong one, still gets through, and Morse lasts longest. Turrets linked by cable are untouched. Off: jammers blind radar only, as before.</PhobosRadio_SettingJammingReachesRadiosDesc>
+  <PhobosRadio_ReasonJamming>jamming drowns the signal</PhobosRadio_ReasonJamming>
+  <PhobosRadio_SheetJamming>Jamming at the receivers: {ATSECOND} at the station, {ATFIRST} at the far end (in the floors above).</PhobosRadio_SheetJamming>
+  <PhobosRadio_VehicleWhyJammed>Its radio link is jammed: the noise drowns the station's orders before they reach it.</PhobosRadio_VehicleWhyJammed>
+</LanguageData>

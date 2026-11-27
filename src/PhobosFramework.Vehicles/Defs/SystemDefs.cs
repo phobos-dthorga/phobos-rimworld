@@ -1279,6 +1279,11 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// its field reaches, in cells (about two fifths of the EA-6B Prowler's 44: a mast on the ground against pods in the air).</summary>
     public float groundJammerWatts = 800f;
     public float groundJammerRadius = 18f;
+    /// <summary>The mast's switch (Framework 0.355.0; docs/development/electronic-warfare.md, EW11, authored): the share of the watts it draws
+    /// that it sends out as radio noise (the rest is heat, as the radio's own transmitters lose it), and the share of its power that jams
+    /// radar when it jams both (the rest jams radios). Radar reach falls with the square root of that share, as a one-way field does.</summary>
+    public float groundJammerRadioEfficiency = 0.5f;
+    public float groundJammerBothRadarShare = 0.5f;
     /// <summary>The generator set's battery drive (Framework 0.104.0, the hybrid; all authored, BatteryDriveRule): the share of its speed it
     /// keeps on the battery, the buffer's watt-days one cell costs (a full 150 carries 300 cells), and the watts the running engine puts back
     /// into the buffer while the set is not set up.</summary>

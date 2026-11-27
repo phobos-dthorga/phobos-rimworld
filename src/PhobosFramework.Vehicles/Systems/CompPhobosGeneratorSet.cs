@@ -89,6 +89,8 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
     float leadWatts;
     /// <summary>The ground jammer's watts this rare tick (Framework 0.227.0): it jams only while it gets all it asks.</summary>
     float jammerWatts;
+    /// <summary>What the jammer mast jams, the player's switch (Framework 0.355.0, EW11). Radar for a set from before it, as it was.</summary>
+    GroundJamMode jamMode = GroundJamMode.Radar;
 
     enum HeatState { None, Warming, WarmEnough, Outdoors }
     readonly SustainedSound runningLoop = new();
@@ -114,6 +116,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
         Scribe_Values.Look(ref buffer, "PhobosGeneratorBuffer");
         Scribe_References.Look(ref leadTo, "PhobosServiceLeadTo");
         Scribe_Values.Look(ref batteryDriveOn, "PhobosGeneratorBatteryDrive");
+        Scribe_Values.Look(ref jamMode, "PhobosGeneratorJamMode", GroundJamMode.Radar);
     }
 
     public override void PostSpawnSetup(bool respawningAfterLoad)
@@ -383,7 +386,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
             float full = Props.fullFuelPerDay * offered / Props.baseWatts;
             // A service lead takes its watts off the top; the camp's grid gets the rest (Framework 0.101.0). The ground jammer's go first
             // (Framework 0.227.0): both draw on the same output and fuel.
-            float wantJammer = JammerFitted ? Rules.groundJammerWatts : 0f;
+            float wantJammer = JammerFitted && jamMode != GroundJamMode.Off ? Rules.groundJammerWatts : 0f;
             float wantLead = leadTo != null ? Rules.serviceLeadWatts : 0f;
             LeadStep withLead = GeneratorRule.StepWithLead(offered, wantJammer + wantLead, need, batteriesHaveRoom, buffer, BufferCapacity,
                 DaysPerRareTick, Props.idleFuelPerDay, full);
@@ -471,11 +474,42 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
 
     public bool JammerFitted => VehicleUpgrades.Unlocked(Vehicle, JammerNode);
 
-    /// <summary>Jamming now: fitted, set up and running, and given all the watts it asks.</summary>
-    public bool JammerLive => JammerFitted && deployed && running && jammerWatts >= Rules.groundJammerWatts - 0.5f;
+    /// <summary>Jamming now: fitted, switched on, set up and running, and given all the watts it asks.</summary>
+    public bool JammerLive => JammerFitted && jamMode != GroundJamMode.Off && deployed && running && jammerWatts >= Rules.groundJammerWatts - 0.5f;
 
-    /// <summary>How far its field reaches now, in cells: the rules' figure, widened by any jamming fittings.</summary>
-    public float JammerRadius => Rules.groundJammerRadius * (Vehicle.GetComp<CompPhobosVehicleSystems>() is { Usable: true } systems ? systems.Fittings.JamRadiusFactor : 1f);
+    /// <summary>What the mast jams (Framework 0.355.0, EW11).</summary>
+    public GroundJamMode JamMode => jamMode;
+
+    /// <summary>The share of its power that jams radar, by the switch: all of it, none, or the rules' share when it jams both.</summary>
+    float RadarShare => jamMode switch
+    {
+        GroundJamMode.Radar => 1f,
+        GroundJamMode.Both => Rules.groundJammerBothRadarShare,
+        _ => 0f,
+    };
+
+    /// <summary>How far its radar field reaches now, in cells: the rules' figure, widened by any jamming fittings, and narrowed with the square
+    /// root of the share of its power that jams radar (Framework 0.355.0). 0 when it jams radios only.</summary>
+    public float JammerRadius => Rules.groundJammerRadius * UnityEngine.Mathf.Sqrt(RadarShare)
+        * (Vehicle.GetComp<CompPhobosVehicleSystems>() is { Usable: true } systems ? systems.Fittings.JamRadiusFactor : 1f);
+
+    /// <summary>The watts it sends out across the radio bands now (Framework 0.355.0, EW1 and EW11): its draw, less what is lost as heat, times
+    /// the share that jams radios. 0 when it is not jamming or jams radar only.</summary>
+    public float JammerRadioWatts => JammerLive ? Rules.groundJammerWatts * Rules.groundJammerRadioEfficiency * (1f - RadarShare) : 0f;
+
+    /// <summary>The player's switch (Framework 0.355.0): says what it did, and starts or stops the draw at once.</summary>
+    public void SetJamMode(GroundJamMode mode)
+    {
+        jamMode = mode;
+        string label = ("PhobosJam_Mode" + mode).Translate().Resolve();
+        Tell(mode == GroundJamMode.Off
+            ? "PhobosJam_ModeSetOff".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve()
+            : "PhobosJam_ModeSet".Translate(Vehicle.LabelShort.Named("VEHICLE"), label.Named("MODE")).Resolve(), MessageTypeDefOf.SilentInput);
+        // Seen in play (Framework 0.355.0, row 706): the switch set to each of its four.
+        string variant = mode.ToString();
+        if (Seen.Wants("vehicles.jammer-mode", Vehicle, variant)) Seen.Note("vehicles.jammer-mode", Vehicle, variant, variant);
+        if (deployed) UpdatePower();
+    }
 
     /// <summary>Why the set cannot run its lead now, or null.</summary>
     public string? LeadRefusal()
@@ -568,14 +602,25 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
                 ? "PhobosVehicleSystems_LeadLine".Translate(leadTo.LabelShort.Named("VEHICLE"), leadWatts.ToString("N0").Named("WATTS")).Resolve()
                 : "PhobosVehicleSystems_LeadLineIdle".Translate(leadTo.LabelShort.Named("VEHICLE")).Resolve());
         }
-        if (JammerFitted)
-        {
-            lines.Add(JammerLive
-                ? "PhobosJam_GroundJammerLine".Translate(JammerRadius.ToString("0").Named("CELLS"), jammerWatts.ToString("N0").Named("WATTS")).Resolve()
-                : "PhobosJam_GroundJammerShort".Translate(Rules.groundJammerWatts.ToString("N0").Named("WATTS")).Resolve());
-        }
+        if (JammerFitted) lines.Add(JammerLine());
         if (BufferCapacity > 0f) lines.Add("PhobosVehicleSystems_GenBufferLine".Translate(buffer.ToString("N0").Named("CHARGE"), BufferCapacity.ToString("N0").Named("CAPACITY")).Resolve());
         return string.Join("\n", lines);
+    }
+
+    /// <summary>The jammer mast's inspect line: what it jams now, or that it is off, or what it waits for (Framework 0.355.0, by the switch).</summary>
+    string JammerLine()
+    {
+        if (jamMode == GroundJamMode.Off) return "PhobosJam_GroundJammerOff".Translate().Resolve();
+        if (!JammerLive) return "PhobosJam_GroundJammerShort".Translate(Rules.groundJammerWatts.ToString("N0").Named("WATTS")).Resolve();
+        NamedArgument cells = JammerRadius.ToString("0").Named("CELLS");
+        NamedArgument watts = jammerWatts.ToString("N0").Named("WATTS");
+        NamedArgument sent = JammerRadioWatts.ToString("N0").Named("SENT");
+        return jamMode switch
+        {
+            GroundJamMode.Radios => "PhobosJam_GroundJammerLineRadios".Translate(sent, watts).Resolve(),
+            GroundJamMode.Both => "PhobosJam_GroundJammerLineBoth".Translate(cells, sent, watts).Resolve(),
+            _ => "PhobosJam_GroundJammerLine".Translate(cells, watts).Resolve(),
+        };
     }
 
     /// <summary>What the battery buffer can do for the set while it is packed up, or null without one.</summary>
@@ -599,5 +644,15 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
         yield return GeneratorGizmos.SetUpButton(this);
         if (BufferFitted) yield return GeneratorGizmos.BatteryDriveButton(this);
         if (LeadReach > 0 || leadTo != null) yield return GeneratorGizmos.LeadButton(this);
+        if (JammerFitted) yield return GeneratorGizmos.JammerButton(this);
     }
+}
+
+/// <summary>What the Busbar's jammer mast jams (Framework 0.355.0; docs/development/electronic-warfare.md, EW11). Saved by name.</summary>
+public enum GroundJamMode
+{
+    Off,
+    Radar,
+    Radios,
+    Both,
 }

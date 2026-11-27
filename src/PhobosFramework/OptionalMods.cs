@@ -20,6 +20,8 @@ public static class OptionalMods
     static readonly Dictionary<string, Type?> types = new();
 
     public const string CombatExtended = "CETeam.CombatExtended";
+    /// <summary>D'thorga Radio Framework: hears a jam field's radio watts as noise (Framework 0.355.0, EW1).</summary>
+    public const string RadioFramework = "PhobosDthorga.RadioFramework";
     public const string MoreInjuries = "Th3Fr3d.ExtendedInjuries";
     public const string MoreInjuriesOrganFailure = "wenders.moreinjuries.organbridge";
     /// <summary>Search and Rescue: its field medics treat a casualty where they lie.</summary>

@@ -552,6 +552,17 @@ The **service lead** charges another vehicle's battery in the field:
 - It takes 300 W before your grid does, so the camp gets less while the lead is in.
 - It comes out by itself if the set packs up or either vehicle moves away. Select the set to see the lead drawn to its vehicle.
 
+The **jammer mast** (after **microelectronics basics**) floods the air with noise while the set is set up and running:
+
+- **Press the Jammer button to choose what it jams**: **radar**, **radios** (only with D'thorga Radio Framework), **radar and radios**,
+  or **off**. A set that had the mast before this button keeps jamming radar.
+- **Radar**: for 18 cells around, other factions' aircraft and vehicles lose their radar and their warning of attack.
+- **Radios**: 400 W of noise across the radio bands drowns every radio for a long way around, **the colony's own as well**. Remote-driven
+  trucks and radio-linked turrets lose their link, the video link first; a radio close to its station still gets through, and Morse
+  lasts longest. Turrets linked by cable are untouched. How it works: the [Radio chapter](radio.md#jamming).
+- **Radar and radios**: each at half strength (radar for about 13 cells).
+- It takes **800 W** of the set's output while it jams, so less reaches the grid; **off**, it takes nothing.
+
 **Pack it up before removing the mod**, or a cable end is left behind that does nothing.
 
 ## V-22 Osprey

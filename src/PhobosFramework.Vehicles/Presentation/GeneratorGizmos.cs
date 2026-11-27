@@ -75,6 +75,40 @@ public static class GeneratorGizmos
         return command;
     }
 
+    /// <summary>The jammer mast's picture, the upgrade's own icon in D'thorga Vehicles; the switch falls back to ours if it is missing.</summary>
+    const string JammerIcon = "Phobos/Vehicles/GeneratorSet/Upgrades/JammerMast";
+
+    /// <summary>
+    /// The jammer mast's switch (Framework 0.355.0; docs/development/electronic-warfare.md, EW11): radar, radios, both or off, from a menu.
+    /// Presentation only: each choice calls the set's one service method.
+    /// </summary>
+    public static Gizmo JammerButton(CompPhobosGeneratorSet set)
+    {
+        Texture2D icon = SystemIcons.For(JammerIcon);
+        string current = ("PhobosJam_Mode" + set.JamMode).Translate().Resolve();
+        // Radios are jammed only where something hears them: without the radio, the switch is radar or off.
+        bool radios = Phobos.Framework.OptionalMods.IsActive(Phobos.Framework.OptionalMods.RadioFramework);
+        return new Command_Action
+        {
+            defaultLabel = "PhobosJam_ModeGizmo".Translate(current.Named("MODE")).Resolve(),
+            defaultDesc = radios ? "PhobosJam_ModeGizmoDesc".Translate().Resolve() : "PhobosJam_ModeGizmoDescRadarOnly".Translate().Resolve(),
+            icon = icon,
+            action = () =>
+            {
+                var options = new List<FloatMenuOption>();
+                foreach (GroundJamMode mode in System.Enum.GetValues(typeof(GroundJamMode)))
+                {
+                    if (!radios && mode is GroundJamMode.Radios or GroundJamMode.Both) continue;
+                    GroundJamMode chosen = mode;
+                    string label = ("PhobosJam_Mode" + mode).Translate().Resolve();
+                    if (mode == set.JamMode) label = "PhobosJam_ModeCurrent".Translate(label.Named("MODE")).Resolve();
+                    options.Add(new FloatMenuOption(label, () => set.SetJamMode(chosen), icon, Color.white));
+                }
+                Find.WindowStack.Add(new FloatMenu(options));
+            },
+        };
+    }
+
     /// <summary>
     /// How to join the grid (Framework 0.107.0; owner, 14 Nov 2026): run the cable end out to a cell, or join through the game's power conduits laid beneath the set.
     /// A choice that cannot be made now stays in the menu, greyed, with its reason.

@@ -15,10 +15,16 @@ public sealed class LinkEvaluation
     public double DistanceMetres { get; }
     public double LocalNoiseAtADbm { get; }
     public double LocalNoiseAtBDbm { get; }
+    /// <summary>Jamming at each end's receiver input on this link's band and mode, in dBm, or −∞ (Radio 0.45.0, EW1).</summary>
+    public double JammingAtADbm { get; }
+    public double JammingAtBDbm { get; }
 
     public LinkEvaluation(RadioEndpoint a, RadioEndpoint b, BandDef band, ModeDef mode, LinkBudget budget,
-        double distanceMetres, double localNoiseAtADbm, double localNoiseAtBDbm)
+        double distanceMetres, double localNoiseAtADbm, double localNoiseAtBDbm,
+        double jammingAtADbm = double.NegativeInfinity, double jammingAtBDbm = double.NegativeInfinity)
     {
+        JammingAtADbm = jammingAtADbm;
+        JammingAtBDbm = jammingAtBDbm;
         A = a;
         B = b;
         Band = band;
@@ -32,6 +38,26 @@ public sealed class LinkEvaluation
     public LinkOutcome Outcome => Budget.Outcome;
     public double MarginDb => Budget.MarginDb;
     public bool InTouch => Outcome >= LinkOutcome.Workable;
+
+    /// <summary>Jamming at the receiver of the direction that limits this link, in dBm, or −∞.</summary>
+    public double JammingAtLimitingReceiverDbm => Budget.ReverseLimits ? JammingAtADbm : JammingAtBDbm;
+
+    /// <summary>
+    /// Whether jamming is what holds this link back (Radio 0.45.0, EW1): at the limiting direction's receiver it raises the floor by more
+    /// than the rules' figure over what that receiver hears anyway. The plain reason, the lost-link letter and the notes ask this one place.
+    /// </summary>
+    public bool JammingLimits
+    {
+        get
+        {
+            var jamming = JammingAtLimitingReceiverDbm;
+            if (double.IsNegativeInfinity(jamming)) return false;
+            var receiver = Budget.ReverseLimits ? A : B;
+            var local = Budget.ReverseLimits ? LocalNoiseAtADbm : LocalNoiseAtBDbm;
+            var without = NoiseFloor.TotalDbm(Mode.bandwidthHz, receiver.NoiseFigureDb, local);
+            return Budget.Limiting.Inputs.NoiseFloorDbm - without > RadioRulesDef.Current.jammingRaisesFloorDb;
+        }
+    }
 }
 
 /// <summary>
@@ -58,12 +84,17 @@ public static class LinkBudgetService
             if (!b.Bands.Contains(band)) continue;
             var pathLoss = PathLossDb(distanceMetres, band);
             var obstruction = crossings.LossDb(band);
-            var forward = new LinkDirection(Inputs(a.Side(band), b.Side(band), pathLoss, obstruction, floorAtB, mode));
-            var reverse = new LinkDirection(Inputs(b.Side(band), a.Side(band), pathLoss, obstruction, floorAtA, mode));
+            var sideA = a.Side(band);
+            var sideB = b.Side(band);
+            // Radio 0.45.0 (EW1): jamming on this band, through each receiver's own antenna and cable.
+            var jamAtA = JammingAtInputDbm(noise.JammingDbm(a.Cell, metresPerCell, mode.bandwidthHz, band), sideA);
+            var jamAtB = JammingAtInputDbm(noise.JammingDbm(b.Cell, metresPerCell, mode.bandwidthHz, band), sideB);
+            var forward = new LinkDirection(Inputs(sideA, sideB, pathLoss, obstruction, NoiseFloor.WithJammingDbm(floorAtB, jamAtB), mode));
+            var reverse = new LinkDirection(Inputs(sideB, sideA, pathLoss, obstruction, NoiseFloor.WithJammingDbm(floorAtA, jamAtA), mode));
             var budget = new LinkBudget(forward, reverse, bands);
             if (best == null || budget.MarginDb > best.MarginDb)
             {
-                best = new LinkEvaluation(a, b, band, mode, budget, distanceMetres, noiseAtA, noiseAtB);
+                best = new LinkEvaluation(a, b, band, mode, budget, distanceMetres, noiseAtA, noiseAtB, jamAtA, jamAtB);
             }
         }
         return best;
@@ -133,6 +164,13 @@ public static class LinkBudgetService
     /// <summary>The same between two relay nodes, each with its tile and its site.</summary>
     public static LinkEvaluation? EvaluateWorld(RelayNode a, RelayNode b, RadioRulesDef rules, ModeDef? mode = null) =>
         EvaluateWorld(a.End, a.Tile, a.SiteMetres, b.End, b.Tile, b.SiteMetres, rules, out _, mode);
+
+    /// <summary>
+    /// Jamming at a receiver's input from what reaches its antenna (Radio 0.45.0, EW1): through its antenna's gain, less its cable and
+    /// anything only in its receive path (amplifiers switched out of the line). The coverage picture uses the same, so it cannot disagree.
+    /// </summary>
+    public static double JammingAtInputDbm(double atAntennaDbm, in EndSide receiver) =>
+        Jamming.AtInputDbm(atAntennaDbm, receiver.AntennaGainDbi, receiver.FeedLossDb + receiver.ReceiveOnlyLossDb);
 
     /// <summary>Distance on a band: free space, the only path model on one map.</summary>
     public static double PathLossDb(double distanceMetres, BandDef band) =>

@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.44.1, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.45.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -137,6 +137,7 @@ In **Options > Mod settings > D'thorga Radio Framework**.
 | Other factions' doctors and mechanics give advice by radio | When none of your colonists can help, a doctor or mechanic at another faction's settlement in radio reach talks your colonist through tending, an operation or a vehicle repair: allies free once a day, a neutral faction for 3 goodwill a call, never below 0 | On |
 | Neighbours ask for help by radio | About once a fortnight, a friendly neighbour in radio reach asks by letter for your best doctor or mechanic on the radio for an hour. Yes earns 5 goodwill once the hour is done; no costs nothing | On |
 | Radio advice during surgery | A more skilled colonist in radio touch can talk a surgeon through an operation, raising its chance of success; a dropped call leaves the surgeon at their own skill | On |
+| Jamming reaches radios | A jammer switched to radios (the Busbar's jammer mast, with D'thorga Vehicles) drowns every radio for a long way around, **your own included**: talk, remote-driven vehicles and radio-linked turrets fail, while a radio close to its station, a strong one or Morse gets through. Off, jammers blind radar only | On |
 
 ## More
 

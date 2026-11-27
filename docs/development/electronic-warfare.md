@@ -1,8 +1,9 @@
 # Electronic warfare for every aircraft and vehicle: the Prowler's jamming meets the radio (27 Nov 2026)
 
-**Status (27 Nov 2026):** a research record. Rows EW1 to EW25 are proposals, each with the agent's lean; the owner answered seven
-questions by card the same day ([below](#questions-for-the-owner)). The radar simulation is a sketch only. No row is built, and nothing here is tested in game. Building any of it needs the owner's go-ahead for
-the radio's Phase 3, which is closed.
+**Status (27 Nov 2026):** the owner opened the radio's Phase 3 the same day. **Slice 1 is built**: EW2 (noise by bandwidth), EW1
+(jamming as noise) and EW11 (the Busbar mast's switch), in Radio Framework 0.45.0, D'thorga Framework 0.355.0 and D'thorga Vehicles
+0.130.1 ([as built](#built-slice-1-27-nov-2026)); not yet tested in game (rows 706 to 708). Every other row is a proposal; the radar
+simulation is a sketch only. The owner answered seven questions by card ([below](#questions-for-the-owner)).
 
 **A research record.** The owner, 27 November 2026: "I would especially like to make the Prowler aircraft and any knock on effects
 that come from it a part of all other aircraft and perhaps vehicles too", as "strictly a research and record purview"; and, on
@@ -299,7 +300,7 @@ Each setting, when built, is reported to the owner in the reply that delivers it
 
 | Slice | Rows | Why here |
 | --- | --- | --- |
-| 1 | EW2, EW1, EW11 | The term itself, with the jammer the player already owns |
+| 1 | EW2, EW1, EW11 | The term itself, with the jammer the player already owns. **Built 27 Nov 2026** |
 | 2 | EW18 | The first thing outside our mods to notice |
 | 3 | EW6, EW7 | Radios on aircraft, and the flying relay |
 | 4 | EW10, EW4, EW3 | Pods for other aircraft; the Prowler's bands; world links |
@@ -307,6 +308,40 @@ Each setting, when built, is reported to the owner in the reply that delivers it
 | 6 | EW21, EW22 | Other mods' jammers and drones, one mod at a time |
 | 7 | EW16 | Raiders' Prowlers, behind its setting |
 | Later | The radar sketch, EW15, EW23, EW24 | Each wants its own record first |
+
+## Built: slice 1 (27 Nov 2026)
+
+The owner opened Phase 3 and asked for this slice the same day ("Open Phase 3 and start the jamming-as-noise slice"). Built in Radio
+Framework 0.45.0, D'thorga Framework 0.355.0 and D'thorga Vehicles 0.130.1. **Not yet tested in game**: rows 706 to 708 of the
+[test pass](in-game-test-pass.md). What differs from, or adds to, the rows above:
+
+| Row | As built |
+| --- | --- |
+| EW2 | `NoiseFloor.TotalDbm` scales local noise, quoted in 12.5 kHz, to the mode's bandwidth (`BandwidthScaleDb`). One line, so every caller follows: links, the coverage picture, the cover map for driven vehicles, the waterfall |
+| EW1, the join | **The noise seam, as leaned**: `RadioJamming.Register` in the radio's core (`Services/RadioJamming.cs`), fed by the Vehicle Framework tie-in from D'thorga Framework's jam fields (`VehicleRadios.JammersFromFields`). A `JamField` gained `radioWatts`; the Prowler's stays 0 until EW4 |
+| EW1, the sum | `Physics/Jamming.cs`: a jammer's power spread evenly over the bands it covers (all of the radio's bands for the mast: 24 MHz), the receiver's share by its bandwidth, free space at the band's centre, then **through the receiver's own antenna gain and cable** (`LinkBudgetService.JammingAtInputDbm`), so jamming meets a signal on the same terms. **No radius and no walls** (labelled simplifications; EW8 is the walls) |
+| EW1, what the player sees | Plain reason **"jamming drowns the signal"** when jamming raises the limiting receiver's floor by more than 6 dB (`jammingRaisesFloorDb`, authored, the plain reason's figure for noise); a line on the Engineer sheet; the lost-link letter of a vehicle driven by radio says it is jammed. Setting **Jamming reaches radios**, on |
+| EW5 | As the owner chose: noise is noise. Every radio of the colony in a jammed band hears it, from the colony's own jammer too |
+| EW11 | A **Jammer** button on the Busbar with the mast fitted: radar, radios, radar and radios, off. **Radios are offered only with the Radio Framework installed**. Radios: 400 W sent out (`groundJammerRadioEfficiency` 0.5 of the 800 W drawn, authored). Both: half each, radar to 18 × √0.5 ≈ 13 cells (`groundJammerBothRadarShare`, authored). Off draws nothing. **A set built before keeps jamming radar** (agent default) |
+
+**What the mast does to a 5 W hand-held**, the jammer 100 m from the station, figures from the radio's own sums (VHF, 0 dBi, 8 dB
+noise figure):
+
+| Mode | Jamming at the station | Farthest the hand-held is still heard |
+| --- | --- | --- |
+| Picture (a remote truck's video) | −26.5 dBm | about 44 m |
+| Voice | −32.5 dBm | about 120 m |
+| Vehicle control | −32.5 dBm | about 250 m |
+| Morse | −46.5 dBm | about 1.7 km |
+
+**Not built in this slice:** the waterfall's bright band (EW1 named it); the waterfall's floor when a station serves nobody yet reads
+local noise only; jamming between world tiles (EW3); walls and rock (EW8); the Prowler's bands (EW4).
+
+**Cost.** The snapshot asks each registered source once a pass (about once a second); the mast's comes from `JamFields.On`, which reads
+the map at most once a second already. Each jammer is one more term per receiving end per band of each link, and per painted cell of
+the coverage picture: no walk, nothing per tick of its own. The coverage picture redraws when a jammer starts, stops or moves (the noise
+signature), and a set-up Busbar does not move. **Not yet measured**: a `scripts/perf.py` recording on the owner's colony, asked for
+first, with a station selected and the mast on radios.
 
 ## Questions for the owner
 

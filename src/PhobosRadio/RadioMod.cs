@@ -41,6 +41,13 @@ public class RadioSettings : ModSettings
     /// </summary>
     public bool relayMastLosses;
 
+    /// <summary>
+    /// Whether a jammer's noise reaches radios (Radio 0.45.0; docs/development/electronic-warfare.md, EW1): links fail by physics near a
+    /// jammer, ours included. A moderate risk (the agent's grade: a link lost at a bad moment, shown on the link sheet beforehand), so on
+    /// by default. Off, jammers still blind radar as before.
+    /// </summary>
+    public bool jammingReachesRadios = true;
+
     public override void ExposeData()
     {
         base.ExposeData();
@@ -54,12 +61,16 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref factionAdvice, "factionAdvice", true);
         Scribe_Values.Look(ref neighbourCalls, "neighbourCalls", true);
         Scribe_Values.Look(ref relayMastLosses, "relayMastLosses", false);
+        Scribe_Values.Look(ref jammingReachesRadios, "jammingReachesRadios", true);
     }
 }
 
 public class RadioMod : Mod
 {
     public static RadioSettings Settings { get; private set; } = new();
+
+    /// <summary>The radio's log, through D'thorga Framework's shared logger (adopted in Radio 0.45.0).</summary>
+    public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Radio Framework");
 
     public RadioMod(ModContentPack content) : base(content)
     {
@@ -116,6 +127,10 @@ public class RadioMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingRelayMastLosses".Translate(), ref Settings.relayMastLosses,
             "PhobosRadio_SettingRelayMastLossesDesc".Translate());
+        // Radio 0.45.0: a jammer's noise drowns radios nearby, on until turned off.
+        listing.Gap();
+        listing.CheckboxLabeled("PhobosRadio_SettingJammingReachesRadios".Translate(), ref Settings.jammingReachesRadios,
+            "PhobosRadio_SettingJammingReachesRadiosDesc".Translate());
         listing.End();
     }
 }

@@ -33,10 +33,19 @@ Everything is a Def:
 - Three `DefModExtension`s:
   - `RadioObstructionExtension` (`lossDb` per crossing), on a stuff or building Def;
   - `RadioNoiseExtension` (`noiseDbmAt1m`, `radiusCells`, `noiseWhen` = PowerOn, Connected or Always, and `computerNoise`, true
-    for a computer the setting *Radio terminals make radio noise* may silence), on a building Def;
+    for a computer the setting *Radio terminals make radio noise* may silence), on a building Def. `noiseDbmAt1m` is the noise in
+    **12.5 kHz**, one voice channel; since 0.45.0 each mode hears it scaled to its own bandwidth (Morse 14 dB less, a picture 6 dB more);
   - `RadioCoaxExtension` (`lossDbPer100m` at `referenceMHz`), on a coax Def listed in the `PhobosRadio_FeedlineNet` pipe net.
 
 `Common/Patches` shows how the vanilla materials and generators get theirs.
+
+**Jammers** (0.45.0) join in C#, not XML: register a source once at start-up with
+`Phobos.Radio.Services.RadioJamming.Register(Func<Map, IEnumerable<RadioJammer>>)`. Each `RadioJammer` gives a cell, the watts it sends
+out from an omnidirectional antenna, the `BandDef`s it covers (null for every band) and the thing it is. The radio asks it about once a
+second, when it takes its noise snapshot, and spreads each jammer's power evenly over the bands it covers; its noise then falls off by
+free space with no radius, and enters each receiver through its antenna and cable. A source that throws is left out until the next
+start. D'thorga Framework's jam fields come in this way: a `JamField` with `radioWatts` above 0 is heard as a jammer (the radio's
+Vehicle Framework tie-in). The player can switch it all off with *Jamming reaches radios*.
 
 **Upgrades** are D'thorga Framework's `Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef` ([building
 upgrades](../framework-modding.md#building-upgrades)): give the building `CompProperties_PhobosBuildingUpgrades` and set the

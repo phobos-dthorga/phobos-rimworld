@@ -35,8 +35,33 @@
 
   <!-- A closed sky over a base whose alarm has gone off. -->
   <!-- The Busbar's ground jammer (Framework 0.227.0). {CELLS}: its reach; {WATTS}: what it draws. -->
-  <PhobosJam_GroundJammerLine>Jamming within {CELLS} cells, drawing {WATTS} W.</PhobosJam_GroundJammerLine>
+  <PhobosJam_GroundJammerLine>Jamming radar within {CELLS} cells, drawing {WATTS} W.</PhobosJam_GroundJammerLine>
+  <PhobosJam_GroundJammerLineRadios>Jamming radios: {SENT} W of noise sent out, drawing {WATTS} W. Our own radios nearby are drowned too.</PhobosJam_GroundJammerLineRadios>
+  <PhobosJam_GroundJammerLineBoth>Jamming radar within {CELLS} cells and radios with {SENT} W of noise, drawing {WATTS} W. Our own radios nearby are drowned too.</PhobosJam_GroundJammerLineBoth>
+  <PhobosJam_GroundJammerOff>Jammer mast switched off.</PhobosJam_GroundJammerOff>
   <PhobosJam_GroundJammerShort>Jammer mast silent: it needs {WATTS} W from a running generator.</PhobosJam_GroundJammerShort>
+  <PhobosJam_ModeGizmo>Jammer: {MODE}</PhobosJam_ModeGizmo>
+  <PhobosJam_ModeGizmoDesc>Choose what the jammer mast jams.
+
+Radar: enemy aircraft and vehicles nearby lose their radar and their warning of attack.
+
+Radios: every radio for a long way around is drowned in noise, ours as well. Remote-driven vehicles and radio-linked turrets lose their link, the video link first; a radio close to its station still gets through, and Morse lasts longest. Turrets linked by cable are untouched.
+
+Radar and radios: each at half strength.
+
+Off: the mast draws nothing.</PhobosJam_ModeGizmoDesc>
+  <PhobosJam_ModeGizmoDescRadarOnly>Choose whether the jammer mast jams.
+
+Radar: enemy aircraft and vehicles nearby lose their radar and their warning of attack.
+
+Off: the mast draws nothing.</PhobosJam_ModeGizmoDescRadarOnly>
+  <PhobosJam_ModeOff>off</PhobosJam_ModeOff>
+  <PhobosJam_ModeRadar>radar</PhobosJam_ModeRadar>
+  <PhobosJam_ModeRadios>radios</PhobosJam_ModeRadios>
+  <PhobosJam_ModeBoth>radar and radios</PhobosJam_ModeBoth>
+  <PhobosJam_ModeCurrent>{MODE} (now)</PhobosJam_ModeCurrent>
+  <PhobosJam_ModeSet>The {VEHICLE}'s jammer mast now jams {MODE}.</PhobosJam_ModeSet>
+  <PhobosJam_ModeSetOff>The {VEHICLE}'s jammer mast is switched off.</PhobosJam_ModeSetOff>
   <!-- Inside a hostile jamming field (Framework 0.225.0). -->
   <PhobosJam_Jammed>The {VEHICLE} is being jammed: its radar shows only noise and its warning receiver is swamped. Both come back once it is out of the jamming.</PhobosJam_Jammed>
   <PhobosAirCombat_SkyClosed>The sky here is closed: the defenders' air defence is on alert, and the {VEHICLE} would be shot down on take-off. It opens again once their alert ends.</PhobosAirCombat_SkyClosed>

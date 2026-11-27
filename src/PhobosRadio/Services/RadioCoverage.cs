@@ -367,7 +367,9 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
             foreach (var combo in end.Combos)
             {
                 combo.PathLossDb = LinkBudgetService.PathLossDb(distanceMetres, combo.Band);
-                combo.FloorAtCellDbm = NoiseFloor.TotalDbm(combo.Kind.Mode.bandwidthHz, combo.Kind.NoiseFigureDb, noiseAtCell);
+                // Radio 0.45.0 (EW1): jamming at the cell on this combo's band, through the hand-held's antenna, as a link works it out.
+                combo.FloorAtCellDbm = NoiseFloor.WithJammingDbm(NoiseFloor.TotalDbm(combo.Kind.Mode.bandwidthHz, combo.Kind.NoiseFigureDb, noiseAtCell),
+                    LinkBudgetService.JammingAtInputDbm(noise.JammingDbm(cell, metresPerCell, combo.Kind.Mode.bandwidthHz, combo.Band), combo.HandSide));
                 var open = Margin(combo, 0);
                 if (open > bestOpen) bestOpen = open;
             }
@@ -426,7 +428,9 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
                     end.Combos.Add(new Combo(kind, band,
                         handSide: new EndSide(kind.TransmitPowerDbm, kind.AntennaGainDbi, 0),
                         stationSide: endpoint.Side(band),
-                        floorAtStationDbm: NoiseFloor.TotalDbm(kind.Mode.bandwidthHz, endpoint.NoiseFigureDb, noiseAtEnd)));
+                        // Radio 0.45.0 (EW1): jamming at the station's antenna on this band, through its gain and cable.
+                        floorAtStationDbm: NoiseFloor.WithJammingDbm(NoiseFloor.TotalDbm(kind.Mode.bandwidthHz, endpoint.NoiseFigureDb, noiseAtEnd),
+                            LinkBudgetService.JammingAtInputDbm(noise.JammingDbm(endpoint.Cell, metresPerCell, kind.Mode.bandwidthHz, band), endpoint.Side(band)))));
                     picture.LeastBandFactor = first ? band.obstructionFactor : Mathf.Min(picture.LeastBandFactor, band.obstructionFactor);
                     first = false;
                 }

@@ -439,10 +439,26 @@ public sealed class RadioNet : MapComponent
             // With nobody to reach yet, a mast on the coax is what the station would use, before its built-in whip.
             antennaLabelByStation[station.parent] = strongest?.B.AntennaLabel ?? stationEnds[stationEnds.Count > 1 ? 1 : 0].AntennaLabel;
         }
+        if (noise.JammerCount > 0) NoteJammedLinks();
         ServeFromChannels(rules);
         ServeTurrets(rules);
         // Radio 0.30.0: the squelch of each radio newly in touch, and a station's knob as it moves a radio, from this recompute's changes.
         sounds.Heard(this, map, servedOn);
+    }
+
+    /// <summary>
+    /// Seen in play (Radio 0.45.0, row 707; EW1): a radio whose best link jamming holds back, still in touch (it burns through) or lost.
+    /// Runs only while the map has a jammer, and reads each radio's best link once.
+    /// </summary>
+    private void NoteJammedLinks()
+    {
+        foreach (var (pawn, link) in bestByPawn)
+        {
+            if (double.IsNegativeInfinity(link.JammingAtLimitingReceiverDbm)) continue;
+            var variant = link.InTouch ? "burns through" : "lost";
+            if (!Seen.Wants("radio.jammed-link", pawn, variant) || !link.JammingLimits) continue;
+            Seen.Note("radio.jammed-link", pawn, link.Mode.label + ", " + link.MarginDb.ToString("0.0") + " dB to spare", variant);
+        }
     }
 
     /// <summary>A base turret spawned on this map (Radio 0.18.0): the net works it in at its next pass.</summary>

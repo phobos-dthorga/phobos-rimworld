@@ -269,6 +269,11 @@ public class RadioRulesDef : Def
     /// taper, 23 Nov 2026). 1 keeps the old hard edge. Authored.
     /// </summary>
     public float noiseFadeStartFraction = 0.67f;
+    /// <summary>
+    /// How far jamming must raise a receiver's floor, in dB over what it hears anyway, to be called the reason a link is held back (Radio
+    /// 0.45.0, EW1): the plain reason, the lost-link letter. The same 6 dB the plain reason already uses for local noise. Authored.
+    /// </summary>
+    public float jammingRaisesFloorDb = 6f;
 
     // The coverage overlay (Radio 0.2.0). Performance is the mod's first concern: these bound what it costs.
     /// <summary>Signal to spare, in dB, at which the overlay reaches its brightest colour. Authored from the mock-up's open ground.</summary>

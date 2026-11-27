@@ -8,20 +8,28 @@ using Verse;
 
 namespace Phobos.VehicleSystems;
 
-/// <summary>One electronic jamming field on a map: where, how wide, and whose (a field never jams its own faction).</summary>
+/// <summary>
+/// One electronic jamming field on a map: where, how wide, and whose (a field never jams its own faction's radar). Since Framework 0.355.0 a
+/// field may jam radios too: <see cref="radioWatts"/> is the power it sends out across the radio bands, which D'thorga Radio Framework, when
+/// installed, hears as noise by every radio nearby, ours included (docs/development/electronic-warfare.md, EW1). A field that jams radios only
+/// has a radius of 0: it blinds no radar.
+/// </summary>
 public readonly struct JamField
 {
     public readonly Vector3 centre;
     public readonly float radius;
     public readonly Faction? faction;
     public readonly Thing? source;
+    /// <summary>Watts sent out across the radio bands; 0 for a field that jams radar only (the EA-6B Prowler's, for now).</summary>
+    public readonly float radioWatts;
 
-    public JamField(Vector3 centre, float radius, Faction? faction, Thing? source)
+    public JamField(Vector3 centre, float radius, Faction? faction, Thing? source, float radioWatts = 0f)
     {
         this.centre = centre;
         this.radius = radius;
         this.faction = faction;
         this.source = source;
+        this.radioWatts = radioWatts;
     }
 }
 
@@ -52,8 +60,9 @@ public static class JamFields
         for (int i = 0; i < pawns.Count; i++)
         {
             if (pawns[i] is not VehiclePawn vehicle || vehicle.GetComp<CompPhobosGeneratorSet>() is not { JammerLive: true } set) continue;
-            if (Seen.Wants("vehicles.ground-jammer", vehicle)) Seen.Note("vehicles.ground-jammer", vehicle, set.JammerRadius.ToString("0") + " cells");
-            yield return new JamField(vehicle.DrawPos, set.JammerRadius, vehicle.Faction, vehicle);
+            if (set.JammerRadius > 0f && Seen.Wants("vehicles.ground-jammer", vehicle)) Seen.Note("vehicles.ground-jammer", vehicle, set.JammerRadius.ToString("0") + " cells");
+            // Since 0.355.0 (EW11): the mast's switch shares its watts between radar (the radius) and radios (the watts sent out).
+            yield return new JamField(vehicle.DrawPos, set.JammerRadius, vehicle.Faction, vehicle, set.JammerRadioWatts);
         }
     }
 

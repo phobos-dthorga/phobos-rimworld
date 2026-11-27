@@ -16,6 +16,8 @@ This is the first step, local radio on one map. [Back to the guide](README.md).
   twenty. Past that, a colonist in reach reads **Radio: net busy** and misses the "in touch" mood.
 - **The upgrades are experimental**: the desk, whip and mast each have an **Upgrades** button.
 - **Decide Metres per map cell before a colony** (default 1). It changes every contact's range.
+- **A jammer switched to radios drowns your own radios too**, remote-driven vehicles included: switch the Busbar's jammer mast to radar
+  or off while your own trucks are out ([Jamming](#jamming)).
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a radio together.
 - **Before removing it**, deconstruct every radio building and drop every hand-held.
 
@@ -41,7 +43,9 @@ Research **local radio** (after Microelectronics basics).
   sees over walls**, and the last few cells near the hand-held bite.
 - **Natural rock** blocks almost everything. **A mountain base needs coax out to an antenna on the surface.**
 - **The roof over each end**: a built roof costs a little, thin mountain roof a lot, overhead mountain nearly everything.
-- **Your own generators and batteries** raise the noise near them, fading out towards the edge of their reach.
+- **Your own generators and batteries** raise the noise near them, fading out towards the edge of their reach. **Narrow modes hear
+  less of it**: Morse much less than speech, a remote vehicle's video link more.
+- **A jammer switched to radios** drowns every radio for a long way around, yours included ([Jamming](#jamming), below).
 - **Both directions count, and the worse one decides**: usually the 5 W hand-held, not the 25 W station.
 
 A colonist wearing a hand-held has a **Radio** button with signal bars; click it for the full working. The station's **Net** tab
@@ -210,6 +214,22 @@ and the **Morse key** fitting to a convoy vehicle that has the remote control ki
   relays carry voice, not Morse.
 - A convoy in touch only by Morse keeps the in-touch mood, and advice by radio still helps, but only **a quarter** of the gap. No radio
   lessons or chats go over it.
+
+## Jamming
+
+**A jammer switched to radios floods the radio bands with noise, and every radio for a long way around hears it, yours as well.** For
+now the one jammer that does is the Busbar generator set's **jammer mast**, switched to **radios** or **radar and radios** with its
+**Jammer** button ([working vehicles](working-vehicles.md#busbar-generator-set)).
+
+- **What fails, in order**: a remote vehicle's video link first (its remote guns fall silent), then speech, then a vehicle's control
+  link; **Morse lasts longest**. A radio-linked turret stops firing; **a turret linked by coax is untouched**.
+- **What still gets through**: a radio **close to its station, or nearer the station than the jammer is**, and a strong one: an
+  amplifier helps.
+- **How to tell**: at Plain, a jammed radio's reason reads **jamming drowns the signal**; a vehicle driven from a station that loses
+  its link says it is jammed; the Engineer sheet adds a line with the jamming at each end.
+- **Jamming has no edge on the map**: its noise falls off with distance, as a signal does, so it is felt everywhere and strongest near
+  the jammer. Walls and rock do not yet shield from it.
+- Setting: **Jamming reaches radios**, on by default. Off, jammers blind radar only.
 
 ## The logbook and QSL cards
 

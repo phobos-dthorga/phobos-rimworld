@@ -129,11 +129,13 @@
            that jams within 18 cells while the set is set up and running, taking 800 W off the top of its output (the rules Def's figures,
            authored; D'thorga Framework's CompPhobosGeneratorSet and JamFields). Inside the field, other factions' vehicles lose their radar and
            warning receiver. Its icon and overlay are the owner's pick of 25 Nov 2026 (paid, try 2), the mast folded across the rear deck and
-           the icon cut from the same picture (assets/phobos-vehicles/export_paid25_parts.py; Vehicles 0.117.3). -->
+           the icon cut from the same picture (assets/phobos-vehicles/export_paid25_parts.py; Vehicles 0.117.3). Since Vehicles 0.130.1
+           (Framework 0.355.0; docs/development/electronic-warfare.md, EW11) it has a switch: radar, radios (with the Radio Framework), both,
+           or off. -->
       <key>GroundJammer</key>
       <label>Jammer mast</label>
       <displayLabel>true</displayLabel>
-      <description>A folding mast of jamming antennas, powered from the generator. While the set is set up and running, it floods the air with noise for 18 cells around: enemy aircraft and vehicles inside lose their radar and their warning of attack. It takes 800 W of the set's output, so less reaches the grid.</description>
+      <description>A folding mast of jamming antennas, powered from the generator, with a switch for what it jams. While the set is set up and running, it floods the air with noise: switched to radar, for 18 cells around, enemy aircraft and vehicles inside lose their radar and their warning of attack; switched to radios, every radio for a long way around is drowned, the colony's own as well. It takes 800 W of the set's output while it jams, so less reaches the grid.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/JammerMast</icon>
       <work>4000</work>
       <gridCoordinate>(17, 2)</gridCoordinate>

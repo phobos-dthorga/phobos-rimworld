@@ -44,9 +44,10 @@ public static class LinkText
             kind.Served.Named("SERVED"), kind.Room.Named("ROOM")));
     }
 
-    /// <summary>The one-line reason for the Plain mode: the biggest loss, or noise when the floor is raised.</summary>
+    /// <summary>The one-line reason for the Plain mode: jamming when it holds the link back (Radio 0.45.0), the biggest loss, or noise when the floor is raised.</summary>
     public static string PlainReason(LinkEvaluation link)
     {
+        if (link.JammingLimits) return "PhobosRadio_ReasonJamming".Translate();
         var limiting = link.Budget.Limiting;
         var noiseAtReceiver = link.Budget.ReverseLimits ? link.LocalNoiseAtADbm : link.LocalNoiseAtBDbm;
         var thermal = NoiseFloor.ThermalDbm(link.Mode.bandwidthHz, (link.Budget.ReverseLimits ? link.A : link.B).NoiseFigureDb);
@@ -80,8 +81,16 @@ public static class LinkText
         sb.AppendLine("PhobosRadio_SheetAntennas".Translate(link.A.AntennaLabel.ToString().Named("FIRST"), link.B.AntennaLabel.ToString().Named("SECOND")));
         AppendDirection(sb, "PhobosRadio_DirectionHandheldToStation".Translate(), link.Budget.Forward, !link.Budget.ReverseLimits);
         AppendDirection(sb, "PhobosRadio_DirectionStationToHandheld".Translate(), link.Budget.Reverse, link.Budget.ReverseLimits);
+        // Radio 0.45.0 (EW1): jamming is already in each direction's floor above; this line says how much of it is jamming.
+        if (!double.IsNegativeInfinity(link.JammingAtADbm) || !double.IsNegativeInfinity(link.JammingAtBDbm))
+        {
+            sb.AppendLine();
+            sb.AppendLine("PhobosRadio_SheetJamming".Translate(JammingText(link.JammingAtBDbm).Named("ATSECOND"), JammingText(link.JammingAtADbm).Named("ATFIRST")));
+        }
         return sb.ToString().TrimEnd();
     }
+
+    private static string JammingText(double dbm) => double.IsNegativeInfinity(dbm) ? "-" : $"{dbm:0.0} dBm";
 
     private static void AppendDirection(StringBuilder sb, string title, LinkDirection direction, bool limits)
     {

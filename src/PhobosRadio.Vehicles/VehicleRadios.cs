@@ -47,6 +47,8 @@ public static class VehicleRadios
         ConvoyRadio.Register(new ConvoyReachSource());
         // Radio 0.22.0: halted convoys and vehicles parked at depots relay calls on.
         RelayNodes.Register(new VehicleRelaySource());
+        // Radio 0.45.0 (EW1): D'thorga Framework's jam fields that send out radio watts (the Busbar's mast, switched to radios) are noise.
+        RadioJamming.Register(JammersFromFields);
         // Radio 0.42.0: a convoy is a place the world map's cover picture can be drawn for, and the picture's raised mast is the Datum's.
         WorldCover.Register(new ConvoyCoverSites());
         // Radio 0.44.0: the in-touch mood on the road reads a caravan's kept reach home, never working it out.
@@ -67,6 +69,19 @@ public static class VehicleRadios
             if (radio == null) continue;
             if (!def.comps.Exists(comp => comp is CompProperties_Radio)) def.comps.Add(radio);
             if (!def.comps.Exists(comp => comp is CompProperties_PhobosRemoteControl)) def.comps.Add(new CompProperties_PhobosRemoteControl());
+        }
+    }
+
+    /// <summary>
+    /// The jam fields on a map that send out radio watts, as the radio's jammers (Radio 0.45.0; docs/development/electronic-warfare.md, EW1,
+    /// "the join"). Fields are D'thorga Framework's, read at most once a second; across every band the radio knows (barrage jamming). Any
+    /// faction's, ours included: noise is noise (the owner's card of 27 Nov 2026).
+    /// </summary>
+    private static IEnumerable<RadioJammer> JammersFromFields(Map map)
+    {
+        foreach (var field in JamFields.On(map))
+        {
+            if (field.radioWatts > 0f) yield return new RadioJammer(field.centre.ToIntVec3(), field.radioWatts, null, field.source);
         }
     }
 
@@ -199,9 +214,15 @@ public sealed class RadioRemoteControl : IRemoteControlSource, IRemoteCoverSourc
         // serves it has nobody at the console, or its operator's hands are full.
         if (station == null)
         {
+            // Seen in play (Radio 0.45.0, row 708): a vehicle driven by radio that jamming has cut off.
+            if (Seen.Wants("radio.vehicle-jammed", vehicle) && net.TryGetBest(vehicle, out var jammed) && jammed is { InTouch: false, JammingLimits: true })
+                Seen.Note("radio.vehicle-jammed", vehicle, jammed.Mode.label);
             return new RemoteLink(false, IntVec3.Invalid)
             {
-                Why = net.IsBusy(vehicle) ? "PhobosRadio_VehicleWhyChannelsFull".Translate().Resolve() : "PhobosRadio_VehicleWhyOutOfReach".Translate().Resolve(),
+                Why = net.IsBusy(vehicle) ? "PhobosRadio_VehicleWhyChannelsFull".Translate().Resolve()
+                    // Radio 0.45.0 (EW1): a link jamming drowned says so, rather than "out of reach".
+                    : net.TryGetBest(vehicle, out var best) && best is { InTouch: false, JammingLimits: true } ? "PhobosRadio_VehicleWhyJammed".Translate().Resolve()
+                    : "PhobosRadio_VehicleWhyOutOfReach".Translate().Resolve(),
             };
         }
         if (!net.Drives(station, vehicle))

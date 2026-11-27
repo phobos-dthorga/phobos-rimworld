@@ -23,6 +23,31 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.45.0] - 2026-11-27 - Draft
+
+Jamming is radio noise
+
+### Added
+
+- **A jammer switched to radios drowns radios nearby** (the owner opened the radio's third phase on 27 November 2026). Its noise falls
+  off with distance as a signal does and enters each radio through its antenna and cable, so a remote truck's video goes first, then
+  speech, then its control, and Morse lasts longest; a radio close to its station still gets through, and a turret linked by cable is
+  untouched. The colony's own radios hear it too. The plain reason says "jamming drowns the signal", the Engineer sheet adds a line,
+  the coverage picture dims, and a truck driven by radio says its link is jammed. The first jammer is the Busbar's mast (D'thorga
+  Framework 0.355.0). Not yet tested in game: rows 707 and 708.
+- **A new setting, Jamming reaches radios**, on by default. Off, jammers blind radar only.
+
+### Changed
+
+- **Each mode hears nearby electrical noise by its own bandwidth**: Morse about 14 dB less of a generator's noise than speech, a
+  remote truck's video 6 dB more (the owner's card of 27 November 2026). Links near machines change a little: Morse reaches further
+  beside them, video less far.
+
+### Compatibility and limits
+
+- Walls and rock do not yet shield from jamming, and jamming does not yet reach calls between world tiles. Any mod can add a jammer
+  through one registration (the modders' page). Safe with a running save; nothing new is saved.
+
 ## [0.44.1] - 2026-11-27 - Draft
 
 The map's radio coverage no longer starts again

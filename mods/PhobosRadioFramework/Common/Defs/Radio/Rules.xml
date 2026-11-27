@@ -33,6 +33,10 @@
     <!-- A source's noise fades smoothly to nothing over the last third of its radius, so its edge is a glow, not a ring (the
          owner's choice, 23 Nov 2026). An authored simplification: real noise has no radius. 1 keeps the old hard edge. -->
     <noiseFadeStartFraction>0.67</noiseFadeStartFraction>
+    <!-- Radio 0.45.0 (docs/development/electronic-warfare.md, EW1): a link is said to be jammed when jamming raises its receiver's floor by
+         more than this over what it hears anyway; the same 6 dB the plain reason uses for local noise. Authored. Jamming itself has no
+         radius here: a jammer's noise falls off by free space across the whole map. -->
+    <jammingRaisesFloorDb>6</jammingRaisesFloorDb>
 
     <!-- The coverage overlay shown while a base station or an antenna is selected. Performance is this mod's first concern, so
          these bound its cost: real time per frame, the quick first pass's block size. All authored; measure and tune. -->

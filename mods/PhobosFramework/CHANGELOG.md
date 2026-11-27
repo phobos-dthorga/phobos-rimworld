@@ -22,6 +22,22 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.355.0] - 2026-11-27 - Draft
+
+The Busbar's jammer mast has a switch
+
+### Added
+
+- **The Busbar's jammer mast has a Jammer button**: radar, radios, radar and radios, or off (the owner opened the radio's third phase
+  on 27 November 2026). Radios sends 400 W of noise across the radio bands, heard by D'thorga Radio Framework's radios, the colony's
+  own included; radar and radios is half of each, radar to about 13 cells; off draws nothing. Radios are offered only with the Radio
+  Framework. A set built before keeps jamming radar. Not yet tested in game: row 706.
+
+### Compatibility and limits
+
+- For modders, a jam field can now carry radio watts as well as a radar reach. Safe with a running save: the switch is saved with the
+  set.
+
 ## [0.354.1] - 2026-11-27 - Draft
 
 Pressing Fit shows what it did
