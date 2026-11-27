@@ -17,13 +17,13 @@ maybe the game itself too".
 
 ## Queued for tonight (`.local/art/night-18.json`)
 
-Estimated from earlier runs: about 2.5 min an icon, 7 s a schnell scene, 20 s a Z-Image scene; about 1.5 hours in all.
+Estimated from earlier runs: about 2.5 min an icon, 7 s a schnell scene, 20 s a Z-Image scene; about 1.5 hours in all (120 pictures).
 
 | Step | Request | Pictures | What for |
 | --- | --- | --- | --- |
 | 1 to 3 | `night-17-dual-band-icon.json`, `night-17-road-icons.json`, `night-17-cover-icon.json` | 6 | Night 17's three icons, carried over |
 | 4 | `night-18-standard-batch4-icons.json` | 6 | Landing lights, searchlight, galley (another session's) |
-| 5 | `assets/phobos-previews/requests/night-18-docs.json` | 72 | Ten guide scenes, D'thorga Farming's missing preview, a house crest |
+| 5 | `assets/phobos-previews/requests/night-18-docs.json` | 84 | Ten guide scenes, D'thorga Farming's missing preview, the house crest in three wordings |
 | 6 | `assets/vehicle-systems/requests/night-18-borrowed-icons.json` | 12 | Six icons the game borrows today (G1) |
 
 ### The scenes (step 5)
@@ -43,7 +43,7 @@ Six tries each (four schnell, two Z-Image). Each request entry's `art_plan.for` 
 | guide-submarines | Submarines | Only the refits figure today |
 | guide-modding | `docs/modding/README.md` and the reference site's front page | The modders' pages have no picture |
 | hero-farming | D'thorga Farming's `About/Preview.png`, its guide chapter and README | **The only mod with no Workshop preview** |
-| house-crest | The guide's front door, README tops, the reference site's logo and favicon | **Agent's idea, the owner's to take or leave**: the brand has no mark of its own. A red dragon with golden-orange wings, cream horns and amber eyes on a dark shield. Any motto is added by script, never generated |
+| house-crest, house-crest-dragonself, house-crest-mark | The guide's front door, README tops, the reference site's logo and favicon | **The owner's yes, 28 Nov 2026** ("YES TO THE HOUSE D'THORGA CREST"), to the agent's idea: the brand had no mark of its own. Three wordings, agent's choice: a red dragon with golden-orange wings, cream horns and amber eyes on a dark shield; the owner's Dragonself in full colour (purple mane streaked yellow and green, tail fading green to teal to a blue fin); and a dragon's head in a ring, simple enough for a favicon. Any motto is added by script, never generated |
 
 Five chapters already open with their mod's preview (Factory, Medical, Patches, Radio, Water Tap). **Working vehicles and Vehicle
 systems need no new art** (D1).

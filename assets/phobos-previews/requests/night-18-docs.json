@@ -386,7 +386,7 @@
   ],
   "prompt": "A heraldic crest: a red dragon rampant with golden-orange wings spread, swept-back cream horns and amber eyes, on a dark charcoal shield with a thin gold border, bold flat shapes and clean outlines, readable when small, centred on a plain dark background. No text, no letters, no banner, no logos, no watermark.",
   "art_plan": {
-   "for": "an agent's idea, for the owner to take or leave: House D'thorga's mark for the guide's front door, each README's top, and the reference site's logo and favicon",
+   "for": "House D'thorga's mark (the owner's yes, 28 Nov 2026): the guide's front door, README tops, the reference site's logo and favicon",
    "how_it_ships": "only if the owner picks one; any motto (for example Audeamus) is added by script, never generated",
    "why": "docs audit of 28 Nov 2026: the brand has no picture of its own"
   }
@@ -402,7 +402,75 @@
   ],
   "prompt": "A heraldic crest: a red dragon rampant with golden-orange wings spread, swept-back cream horns and amber eyes, on a dark charcoal shield with a thin gold border, bold flat shapes and clean outlines, readable when small, centred on a plain dark background. No text, no letters, no banner, no logos, no watermark.",
   "art_plan": {
-   "for": "an agent's idea, for the owner to take or leave: House D'thorga's mark for the guide's front door, each README's top, and the reference site's logo and favicon",
+   "for": "House D'thorga's mark (the owner's yes, 28 Nov 2026): the guide's front door, README tops, the reference site's logo and favicon",
+   "how_it_ships": "only if the owner picks one; any motto (for example Audeamus) is added by script, never generated",
+   "why": "docs audit of 28 Nov 2026: the brand has no picture of its own"
+  }
+ },
+ {
+  "name": "house-crest-dragonself",
+  "engine": "schnell",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "A heraldic crest: a red fluffy four-legged dragon standing proud with golden-orange wings half spread, a purple mane streaked with yellow and green, swept-back cream horns, amber eyes, and a tail fading from green to teal to a blue fin at its tip, on a dark charcoal shield with a thin gold border, bold flat shapes and clean outlines, centred on a plain dark background. No text, no letters, no banner, no logos, no watermark.",
+  "art_plan": {
+   "for": "House D'thorga's mark (the owner's yes, 28 Nov 2026): the guide's front door, README tops, the reference site's logo and favicon",
+   "how_it_ships": "only if the owner picks one; any motto (for example Audeamus) is added by script, never generated",
+   "why": "docs audit of 28 Nov 2026: the brand has no picture of its own"
+  }
+ },
+ {
+  "name": "house-crest-dragonself-zimage",
+  "engine": "zimage",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "A heraldic crest: a red fluffy four-legged dragon standing proud with golden-orange wings half spread, a purple mane streaked with yellow and green, swept-back cream horns, amber eyes, and a tail fading from green to teal to a blue fin at its tip, on a dark charcoal shield with a thin gold border, bold flat shapes and clean outlines, centred on a plain dark background. No text, no letters, no banner, no logos, no watermark.",
+  "art_plan": {
+   "for": "House D'thorga's mark (the owner's yes, 28 Nov 2026): the guide's front door, README tops, the reference site's logo and favicon",
+   "how_it_ships": "only if the owner picks one; any motto (for example Audeamus) is added by script, never generated",
+   "why": "docs audit of 28 Nov 2026: the brand has no picture of its own"
+  }
+ },
+ {
+  "name": "house-crest-mark",
+  "engine": "schnell",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "A simple emblem: the head of a red dragon in side view with swept-back cream horns, a purple mane and one amber eye, inside a dark charcoal circle with a thin gold ring, very bold flat shapes and thick clean outlines, readable even when tiny, centred on a plain dark background. No text, no letters, no banner, no logos, no watermark.",
+  "art_plan": {
+   "for": "House D'thorga's mark (the owner's yes, 28 Nov 2026): the guide's front door, README tops, the reference site's logo and favicon",
+   "how_it_ships": "only if the owner picks one; any motto (for example Audeamus) is added by script, never generated",
+   "why": "docs audit of 28 Nov 2026: the brand has no picture of its own"
+  }
+ },
+ {
+  "name": "house-crest-mark-zimage",
+  "engine": "zimage",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "A simple emblem: the head of a red dragon in side view with swept-back cream horns, a purple mane and one amber eye, inside a dark charcoal circle with a thin gold ring, very bold flat shapes and thick clean outlines, readable even when tiny, centred on a plain dark background. No text, no letters, no banner, no logos, no watermark.",
+  "art_plan": {
+   "for": "House D'thorga's mark (the owner's yes, 28 Nov 2026): the guide's front door, README tops, the reference site's logo and favicon",
    "how_it_ships": "only if the owner picks one; any motto (for example Audeamus) is added by script, never generated",
    "why": "docs audit of 28 Nov 2026: the brand has no picture of its own"
   }
