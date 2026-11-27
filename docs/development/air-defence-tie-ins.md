@@ -41,6 +41,10 @@ How to read it:
   and a facility alert network; MobileDragoon has no code.
 - **DMS Expedition has a public plug-in interface** for other mods, in namespace `Fortified` inside `DMSE.dll` (still there in the 12 Nov
   build): `AirDefenseExtensionDef` (an XML Def) holding modifiers, listeners and track providers. Much of what follows needs no Harmony.
+  **Moved, 28 Nov 2026:** DMS Expedition's update of that day removed its copy of the `Fortified` namespace (and its `DMSE` BVR code)
+  from `DMSE.dll`, which went from 6,263 declarations to 375. The interface now lives only in Fortified Features Framework's
+  `Fortified.dll`, and `DMSE.WorldComponent_BVRNetwork` became `Fortified.WorldComponent_AirDefenseNetwork`. The tie-in references
+  `Fortified.dll` from Framework 0.371.1. Its load folder still waits for DMS Expedition.
 - **In the owner's Combat Extended game, IRBM's CIWS cannot shoot down mortar or artillery shells**: it knows only the game's
   `Projectile` type, and CE's shells are `ProjectileCE`. It still takes skyfallers, world missiles and DMS's missiles. IRBM has had no
   update since 30 Jun 2026, declares 1.6 only, and no uploader reply was seen (AD14).

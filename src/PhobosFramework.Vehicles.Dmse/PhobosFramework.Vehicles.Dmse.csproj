@@ -11,7 +11,7 @@
     <ModFolder>PhobosFramework</ModFolder>
     <TieInFolder>Mods/VehiclesDmse/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.371.0</Version>
+    <Version>0.371.1</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>
@@ -19,8 +19,11 @@
     <ProjectReference Include="../PhobosFramework.Vehicles/PhobosFramework.Vehicles.csproj" Private="false" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DMSE">
-      <HintPath>$(DmseAssemblies)\DMSE.dll</HintPath>
+    <!-- The air-defence plug-in interface (IAirTrack, AirTrackProvider, AirCombatListener, InterceptRiskUtility, the world air-defence
+         network) lives in Fortified Features Framework's Fortified.dll, which DMS Expedition requires. Until DMS Expedition's update of
+         28 Nov 2026 a copy also sat inside DMSE.dll; that update removed it, so nothing here references DMSE.dll any more. -->
+    <Reference Include="Fortified">
+      <HintPath>$(FortifiedAssemblies)\Fortified.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Vehicles">

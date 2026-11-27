@@ -35,7 +35,7 @@ Generated from the project files by `python scripts/doc-tables.py --write`: chan
 | `PhobosFramework` | `mods/PhobosFramework/` | none | none | yes | `PhobosFramework.Rules.Tests`, `PhobosFramework.Vehicles.Rules.Tests` |
 | `PhobosFramework.Hygiene` | `mods/PhobosFramework/Mods/DubsBadHygiene/` | `PhobosFramework` | `BadHygiene` | yes | none |
 | `PhobosFramework.Vehicles` | `mods/PhobosFramework/Mods/VehicleFramework/` | `PhobosFramework` | `Vehicles`, `SmashTools`, `SmashTools.PathFinder`, `CoreLib` | yes | `PhobosFramework.Vehicles.Rules.Tests` |
-| `PhobosFramework.Vehicles.Dmse` | `mods/PhobosFramework/Mods/VehiclesDmse/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `DMSE`, `Vehicles`, `SmashTools` | yes | none |
+| `PhobosFramework.Vehicles.Dmse` | `mods/PhobosFramework/Mods/VehiclesDmse/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `Fortified`, `Vehicles`, `SmashTools` | yes | none |
 | `PhobosFramework.Vehicles.Hygiene` | `mods/PhobosFramework/Mods/VehiclesHygiene/` | `PhobosFramework`, `PhobosFramework.Hygiene`, `PhobosFramework.Vehicles` | `Vehicles`, `BadHygiene` | yes | none |
 | `PhobosFramework.Vehicles.Outposts` | `mods/PhobosFramework/Mods/VehiclesOutposts/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `Outposts`, `Vehicles`, `SmashTools` | no | none |
 | `PhobosFramework.Vehicles.Pipes` | `mods/PhobosFramework/Mods/VehiclesPipes/` | `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `PipeSystem` | no | none |

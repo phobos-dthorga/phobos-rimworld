@@ -22,6 +22,15 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.371.1] - 2026-11-28 - Draft
+
+### Fixed
+
+- **The air-defence tie-in builds against DMS Expedition's update of 28 November 2026**: that update took the air-defence code out of
+  DMS Expedition and left it only in Fortified Features Framework, which DMS Expedition requires, so the tie-in now uses it from
+  there. Aircraft in flight are still tracks DMS's air defence can see and shoot at, with the same warnings and launch prompt.
+  Not yet tested in game.
+
 ## [0.371.0] - 2026-11-28 - Draft
 
 What writing the modders' guides found, decided by the owner's cards of 28 November 2026

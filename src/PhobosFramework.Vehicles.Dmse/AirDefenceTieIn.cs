@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using DMSE;
+using Fortified;
 using HarmonyLib;
 using Phobos.Shared;
 using RimWorld;

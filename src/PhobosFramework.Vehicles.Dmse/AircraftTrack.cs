@@ -180,7 +180,7 @@ public class PhobosAircraftTrackProvider : AirTrackProvider
                 cache.Add(tracks.GetValue(flight, f => new AircraftTrack(f)));
                 if (known.Add(flight.ID)) fresh = true;
             }
-            if (fresh) DMSE.WorldComponent_BVRNetwork.Current?.NotifyTrackChanged();
+            if (fresh) WorldComponent_AirDefenseNetwork.Current?.NotifyTrackChanged();
         }
         into.AddRange(cache);
     }
