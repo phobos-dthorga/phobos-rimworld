@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-26T00:17:35Z",
+ "checked": "2026-11-27T00:33:52Z",
  "clonesRead": 24,
  "days": 30,
  "findings": [
@@ -32,6 +32,26 @@
    "ours": "src/PhobosPatches.CombatExtended/KeepGuns/SidearmLoopGuard.cs:110",
    "repository": "https://github.com/CombatExtended-Continued/CombatExtended",
    "subject": "Use ammo gen per mag override for ad hoc mag size"
+  },
+  {
+   "commit": "f44e40b",
+   "date": "2026-11-17",
+   "link": "https://github.com/CH4ACKO3/SearchAndRescue/commit/f44e40b",
+   "member": "CompatibilityRegistry.Initialize",
+   "mod": "Search and Rescue",
+   "ours": "src/PhobosFramework/Health/SearchAndRescueRoles.cs:86",
+   "repository": "https://github.com/CH4ACKO3/SearchAndRescue",
+   "subject": "Support cross-floor rescue with Strata and As Above, So Below II"
+  },
+  {
+   "commit": "ef65f4b",
+   "date": "2026-11-03",
+   "link": "https://github.com/CH4ACKO3/SearchAndRescue/commit/ef65f4b",
+   "member": "CompatibilityRegistry.Initialize",
+   "mod": "Search and Rescue",
+   "ours": "src/PhobosFramework/Health/SearchAndRescueRoles.cs:86",
+   "repository": "https://github.com/CH4ACKO3/SearchAndRescue",
+   "subject": "Fix Dead Man's Switch II repair coordination"
   },
   {
    "commit": "6fc0644",
@@ -139,7 +159,7 @@
    "link": "https://github.com/SmashPhil/Vehicle-Framework/commit/a09bcb11",
    "member": "VehicleTurret.OnDestroy",
    "mod": "Vehicle Framework",
-   "ours": "src/PhobosPatches.Harrier/DisassemblyTrace.cs:277",
+   "ours": "src/PhobosPatches.Harrier/DisassemblyTrace.cs:278",
    "repository": "https://github.com/SmashPhil/Vehicle-Framework",
    "subject": "Fix ComponentRequirement subscribing to vehicle but never unsubscribing."
   },
@@ -189,7 +209,7 @@
    "link": "https://github.com/SmashPhil/Vehicle-Framework/commit/ecf7820d",
    "member": "RGBMaterialPool.Release",
    "mod": "Vehicle Framework",
-   "ours": "src/PhobosPatches.Harrier/DisassemblyTrace.cs:271",
+   "ours": "src/PhobosPatches.Harrier/DisassemblyTrace.cs:272",
    "repository": "https://github.com/SmashPhil/Vehicle-Framework",
    "subject": "VF-409: Fix shader swapping mid-draw for gui draws through TextureDrawer. Waylith IMGUI do"
   },
@@ -199,7 +219,7 @@
    "link": "https://github.com/SmashPhil/Vehicle-Framework/commit/ecf7820d",
    "member": "VehiclePawn.GenerateGraphic",
    "mod": "Vehicle Framework",
-   "ours": "src/PhobosPatches.Harrier/DisassemblyTrace.cs:296",
+   "ours": "src/PhobosPatches.Harrier/DisassemblyTrace.cs:297",
    "repository": "https://github.com/SmashPhil/Vehicle-Framework",
    "subject": "VF-409: Fix shader swapping mid-draw for gui draws through TextureDrawer. Waylith IMGUI do"
   }
