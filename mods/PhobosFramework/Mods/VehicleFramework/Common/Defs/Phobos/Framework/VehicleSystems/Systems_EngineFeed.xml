@@ -49,6 +49,8 @@
       <fuelFollowRate>0.5</fuelFollowRate>
       <cruiseMach>0.7</cruiseMach>
       <rotorMach>0.2</rotorMach>
+      <!-- Framework 0.365.0: what the fuel filter gains in an hour at full load on clean fuel (authored). -->
+      <fuelFilterPerHour>0.01</fuelFilterPerHour>
     </parameters>
     <quantities>
       <li>
@@ -135,8 +137,93 @@
           </li>
         </stages>
       </li>
+      <li>
+        <!-- Framework 0.365.0 (docs/development/vehicle-fuel-filter.md): one fuel filter for the aircraft, as on land, its harm worked out
+             per engine in code (EngineFeeds, FuelFilterRule): clogged, every engine gives three quarters; blocked, with "Blocked fuel
+             filters stop engines" and "Fuel and oil faults stop aircraft engines" on, every engine stops. These stages light the lamps. -->
+        <name>fuelFilter</name>
+        <description>How clogged the fuel filter is. Fuel burned clogs it slowly and stale fuel quickly; clogged, it feeds the engines poorly until the engine service changes it.</description>
+        <telltale>Phobos/VehicleSystems/Dash/Fuel</telltale>
+        <label>fuel filter</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <to>0.7</to>
+            <label>dirty</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgFuelFilterDirty</message>
+                <type>CautionInput</type>
+                <when Class="Phobos.VehicleSystems.When_Setting"><setting>fuelFilters</setting></when>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.7</from>
+            <to>0.95</to>
+            <label>clogged</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgFuelFilterClogged</message>
+                <type>CautionInput</type>
+                <when Class="Phobos.VehicleSystems.When_Setting"><setting>fuelFilters</setting></when>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.95</from>
+            <label>blocked</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseLaunch">
+                <reason>PhobosVehicleSystems_RefuseFuelFilter</reason>
+                <when Class="Phobos.VehicleSystems.When_Setting"><setting>fuelFilterStarves</setting></when>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- Framework 0.365.0 (FF5): how dirty the fuel aboard is, 0 clean to 1, kept by FuelDirt: fuel from a stale depot brings dirt, any
+             other fuel thins it. -->
+        <name>fuelDirt</name>
+        <description>How dirty the fuel aboard is. Fuel from a stale depot is dirty; fresh fuel thins it.</description>
+        <label>fuel dirt</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <hidden>true</hidden>
+      </li>
     </quantities>
     <flows>
+      <li>
+        <!-- Framework 0.365.0 (FF2): the filter clogs with the engine's load, a stand-in for the fuel through it, at 0.01 a full-load hour
+             (authored: about 250 running hours at a usual 40 % load, every second engine service), five times as fast on wholly dirty fuel. -->
+        <name>filterClogging</name>
+        <quantity>fuelFilter</quantity>
+        <kind>Into</kind>
+        <factorParameter>fuelFilterPerHour</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Setting"><setting>fuelFilters</setting></li>
+          <li Class="Phobos.VehicleSystems.Input_EngineLoad" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>fuelDirt</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(1, 5)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
       <li>
         <name>followAir</name>
         <quantity>fuelTemperature</quantity>

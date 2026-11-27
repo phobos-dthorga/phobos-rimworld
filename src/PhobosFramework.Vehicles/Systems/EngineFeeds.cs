@@ -47,6 +47,7 @@ public sealed class EngineFeeds
     readonly bool[] starvedTold = new bool[Powertrain.MaxEngines];
     readonly bool[] oilGoneTold = new bool[Powertrain.MaxEngines];
     bool frozenTold;
+    bool blockedTold;
 
     public EngineFeeds(CompPhobosVehicleSystems comp) => this.comp = comp;
 
@@ -97,6 +98,17 @@ public sealed class EngineFeeds
     /// <summary>Whether the fuel in the tanks is frozen too far to flow.</summary>
     public bool Frozen => HasFuel && comp.TryGetQuantity(FuelFrozen, out float frozen) && frozen >= EngineFeedRule.FrozenStops;
 
+    /// <summary>The fuel system's filter (Framework 0.365.0; docs/development/vehicle-fuel-filter.md), shared by every engine.</summary>
+    public const string FuelFilter = "fuelFilter";
+
+    /// <summary>What the fuel filter leaves of every engine's working order (FuelFilterRule): whole while the "Fuel filters clog" setting is off.</summary>
+    double FilterOrder => HasFuel && VehicleSystemsMod.Settings.fuelFilters && comp.TryGetQuantity(FuelFilter, out float clogged)
+        ? FuelFilterRule.Order(clogged, VehicleSystemsMod.Settings.fuelFilterStarves)
+        : 1.0;
+
+    /// <summary>Whether the filter is blocked and the player's setting lets it starve the engines.</summary>
+    public bool FilterBlocked => Consequences && FilterOrder <= 0;
+
     /// <summary>Engine <paramref name="engine"/>'s sump, 0 to 1.</summary>
     public float Oil(int engine) => oil != null && engine >= 0 && engine < oil.Count ? oil[engine] : 1f;
 
@@ -106,10 +118,10 @@ public sealed class EngineFeeds
         : 1f;
 
     /// <summary>Whether engine <paramref name="engine"/> is starved of fuel, by its pump or by frozen fuel, and so stopped.</summary>
-    public bool Starved(int engine) => Consequences && HasFuel && IsEngine(engine) && (Frozen || Feed(engine) < EngineFeedRule.FeedNone);
+    public bool Starved(int engine) => Consequences && HasFuel && IsEngine(engine) && (Frozen || FilterBlocked || Feed(engine) < EngineFeedRule.FeedNone);
 
     /// <summary>What engine <paramref name="engine"/>'s fuel pump leaves of its working order: 0 starved, 0.75 fed poorly, else 1.</summary>
-    public double OrderFactor(int engine) => Consequences && HasFuel && IsEngine(engine) ? EngineFeedRule.FeedOrder(Feed(engine)) : 1.0;
+    public double OrderFactor(int engine) => Consequences && HasFuel && IsEngine(engine) ? EngineFeedRule.FeedOrder(Feed(engine)) * FilterOrder : 1.0;
 
     /// <summary>The worst engine's reading (<see cref="FuelFeed"/>, <see cref="OilPressure"/> or <see cref="OilLevel"/>), for the systems'
     /// figure; 1 with no engines.</summary>
@@ -212,6 +224,14 @@ public sealed class EngineFeeds
     void TellFuel()
     {
         bool frozen = Consequences && Frozen;
+        // A blocked filter starves every engine at once: one message for it, not one per engine's pump (Framework 0.365.0).
+        bool blocked = !frozen && FilterBlocked;
+        if (blocked && !blockedTold && comp.Vehicle.Faction == Faction.OfPlayer)
+        {
+            Messages.Message("PhobosVehicleSystems_MsgFuelFilterBlocked".Translate(comp.Vehicle.LabelShort.Named("VEHICLE")).Resolve(), comp.Vehicle,
+                MessageTypeDefOf.NegativeEvent);
+        }
+        blockedTold = blocked;
         if (frozen && !frozenTold)
         {
             if (Seen.Wants("vehicles.fuel-frozen", comp.Vehicle))
@@ -227,7 +247,7 @@ public sealed class EngineFeeds
         frozenTold = frozen;
         for (int i = 0; i < Engines.Count; i++)
         {
-            bool starved = !frozen && Starved(i);
+            bool starved = !frozen && !blocked && Starved(i);
             if (starved && !starvedTold[i])
             {
                 if (Seen.Wants("vehicles.engine-pump-starved", comp.Vehicle)) Seen.Note("vehicles.engine-pump-starved", comp.Vehicle, EngineLabel(i));

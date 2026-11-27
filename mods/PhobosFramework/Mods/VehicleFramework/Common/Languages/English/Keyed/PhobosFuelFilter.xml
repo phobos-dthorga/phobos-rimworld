@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Framework 0.365.0: a fuel filter that clogs with the fuel burned, faster with stale depot fuel (docs/development/vehicle-fuel-filter.md). -->
+  <PhobosVehicleSystems_SettingFuelFilters>Fuel filters clog</PhobosVehicleSystems_SettingFuelFilters>
+  <PhobosVehicleSystems_SettingFuelFiltersDesc>On by default: a vehicle's fuel filter slowly clogs as it burns fuel, faster with stale fuel from a depot. A lamp lights first; clogged, the engine gives three quarters of its power until the engine service changes the filter. Off: nothing clogs, and a clogged filter costs nothing.</PhobosVehicleSystems_SettingFuelFiltersDesc>
+  <PhobosVehicleSystems_SettingFuelFilterStarves>Blocked fuel filters stop engines</PhobosVehicleSystems_SettingFuelFilterStarves>
+  <PhobosVehicleSystems_SettingFuelFilterStarvesDesc>Off by default, because it can strand a vehicle: a fuel filter left until it is blocked starves the engine, which stops and will not start until the filter is changed. An aircraft's engines stop in the air too (with "Fuel and oil faults stop aircraft engines" on). Off: a blocked filter only weakens the engine.</PhobosVehicleSystems_SettingFuelFilterStarvesDesc>
+  <PhobosVehicleSystems_MsgFuelFilterDirty>The {VEHICLE}'s fuel filter is getting dirty. The next engine service changes it.</PhobosVehicleSystems_MsgFuelFilterDirty>
+  <PhobosVehicleSystems_MsgFuelFilterClogged>The {VEHICLE}'s fuel filter is clogged: the engine is losing power. A mechanic should service the engine.</PhobosVehicleSystems_MsgFuelFilterClogged>
+  <PhobosVehicleSystems_MsgFuelFilterBlocked>The {VEHICLE}'s fuel filter is blocked: no fuel gets through and every engine has stopped.</PhobosVehicleSystems_MsgFuelFilterBlocked>
+  <PhobosVehicleSystems_RefuseFuelFilter>The {VEHICLE}'s fuel filter is blocked. Service the engine to change it before starting.</PhobosVehicleSystems_RefuseFuelFilter>
+</LanguageData>

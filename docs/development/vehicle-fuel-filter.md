@@ -1,7 +1,8 @@
 # A fuel filter that clogs (28 Nov 2026)
 
-**Status (28 Nov 2026):** a design record; nothing is built. The owner chose by card to build all three of the schematic's missing parts,
-"each with its own record first" ([the schematic record](vehicle-schematic.md), M1). Building waits for the owner's answers below.
+**Status (28 Nov 2026):** built in Framework 0.365.0, not yet tested in game (row 739); see [As built](#as-built-framework-03650). The
+owner chose by card to build all three of the schematic's missing parts, "each with its own record first" ([the schematic record](vehicle-schematic.md),
+M1), and answered this record's questions on the Decisions page the same day.
 
 ## Read this first
 
@@ -85,6 +86,39 @@ On the Decisions page (`config/decisions.json`), each with the agent's lean.
 
 1. **Can a fully clogged filter stop an engine?** Lean: no, three quarters of its power at worst.
 2. **Should stale depot fuel be dirty fuel?** Lean: yes, stale fuel still goes, and what is left of a stale store is dirty.
+
+## The owner's answers (28 Nov 2026)
+
+On the Decisions page; every option offered, the chosen one first.
+
+| Question | Chosen | Also offered |
+| --- | --- | --- |
+| Can a fully clogged filter stop an engine? | **In the owner's words: "Weaken it only, by default, with a setting for players to enable it to starve the engine."** | Weaken it only (the lean); it can starve the engine |
+| Should stale depot fuel be dirty fuel? | **Yes: stale fuel is dirty** | No: all fuel is clean |
+
+So the risk is low with the default, and the new setting that lets a filter starve an engine is graded **high** (it strands a vehicle,
+and an aircraft's engines stop in the air): **off by default** (the shared rule for a high risk).
+
+## As built (Framework 0.365.0)
+
+Not yet tested in game: row 739. What differs from the model above, and the choices the build made:
+
+- **Clogging follows the engine's load, not litres** (FF2; agent's choice): the systems have no reading of fuel through, and load stands in
+  for it. 0.01 a full-load hour, about 250 running hours at a usual 40 % load; five times as fast on wholly dirty fuel.
+- **Three stages** (FF3, FF4): **dirty** from 0.5 (a lamp and a message), **clogged** from 0.7 (three quarters of the power, a message,
+  and the engine service called for), **blocked** from 0.95. A step, not FF3's line: the stages are what the systems' rules speak in.
+- **Blocked, with "Blocked fuel filters stop engines" on**: a land vehicle stops and refuses to start; an aircraft's engines all stop
+  (with "Fuel and oil faults stop aircraft engines" on too) and it is refused a launch. Off, a blocked filter weakens only. Its lamp is red
+  either way, as the stage can stop an engine.
+- **An aircraft's harm is worked out per engine in code** (`EngineFeeds`, `FuelFilterRule`), as its pumps' is; the land system's stages
+  carry the harm in XML.
+- **The tank's dirt** (FF5, `FuelDirt`): fuel from a depot over 90 days old brings dirt, rising to wholly dirty at 180 days
+  (`FuelFilterRule.DepotDirt`, authored); every other fuel that arrives is clean and thins it. Both depot refuels count: a convoy's and an
+  aircraft's stop. With the depots' fuel ageing setting off, depot fuel is clean.
+- **The engine service changes it** (FF6); the field fix to half is **not built**.
+- **The schematic's land page draws it** between the tank and the pump (FF7).
+- **Settings**: **Fuel filters clog** (on) and **Blocked fuel filters stop engines** (off, shown only while the first is on), on Vehicle
+  Systems' **Engines** page under Fuel.
 
 ## Sources
 

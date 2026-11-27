@@ -205,6 +205,14 @@ public class VehicleSystemsSettings : ModSettings
     /// it (Framework 0.300.0; the owner's cards of 26 Nov 2026). Risk low, the agent's grade (at most 5% less output, a wash asked for at
     /// half): on. Off, nothing fouls and fouling already gained costs nothing. Live.</summary>
     public bool compressorFouling = true;
+    /// <summary>Fuel filters clog with the fuel burned, faster with dirty fuel, and a clogged one gives the engine three quarters of its power
+    /// until the engine service changes it (Framework 0.365.0; docs/development/vehicle-fuel-filter.md). Risk low, the agent's grade (a slow loss
+    /// with a lamp first): on. Off, nothing clogs and a clogged filter costs nothing. Live.</summary>
+    public bool fuelFilters = true;
+    /// <summary>A blocked fuel filter starves the engine, which stops and will not start until the filter is changed (the owner's answer of
+    /// 28 Nov 2026: "Weaken it only, by default, with a setting for players to enable it to starve the engine"). Risk high: it strands a
+    /// vehicle, and an aircraft's engines stop in the air, so off until the player turns it on. Live.</summary>
+    public bool fuelFilterStarves;
     /// <summary>Each leg between tiles is flown at a height of its own: over the highest ground, under the ceiling the engines reach and the
     /// oxygen line, with fuel and speed following it (Framework 0.141.0; owner, 18 Nov 2026: build it). Off, every leg is flown as its author
     /// made it, with avionics A14's fixed figures for a jet whose oxygen is out. Live.</summary>
@@ -367,6 +375,8 @@ public class VehicleSystemsSettings : ModSettings
     public bool FlagOn(string name) => name switch
     {
         "fuelGelling" => fuelGelling,
+        "fuelFilters" => fuelFilters,
+        "fuelFilterStarves" => fuelFilters && fuelFilterStarves,
         "tankExplosions" => tankExplosions,
         "tankCompartmentsNeedUpgrades" => tankCompartmentsNeedUpgrades,
         "boilerExplosions" => boilerExplosions,
@@ -501,6 +511,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref aircraftEngineFaults, "PhobosVehicleSystems_AircraftEngineFaults", true);
         Scribe_Values.Look(ref enginesStartInTurn, "PhobosVehicleSystems_EnginesStartInTurn", true);
         Scribe_Values.Look(ref compressorFouling, "PhobosVehicleSystems_CompressorFouling", true);
+        Scribe_Values.Look(ref fuelFilters, "PhobosVehicleSystems_FuelFilters", true);
+        Scribe_Values.Look(ref fuelFilterStarves, "PhobosVehicleSystems_FuelFilterStarves", false);
         Scribe_Values.Look(ref cruiseHeight, "PhobosVehicleSystems_CruiseHeight", true);
         Scribe_Values.Look(ref ammoCookOff, "PhobosVehicleSystems_AmmoCookOff", true);
         Scribe_Values.Look(ref fireWearOthers, "PhobosVehicleSystems_FireWearOthers", true);
@@ -682,6 +694,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.aircraftEngineFaults) report.Off("fuel and oil faults stopping aircraft engines", "off (setting)");
         if (!Settings.enginesStartInTurn) report.Off("aircraft engines lighting one after another", "off (setting)");
         if (!Settings.compressorFouling) report.Off("turbine compressors fouling", "off (setting)");
+        if (!Settings.fuelFilters) report.Off("fuel filters clogging", "off (setting)");
         if (Settings.tyreBursts) report.On("burning tyres bursting (setting)");
         if (!Settings.spallInsideVehicles) report.Off("spall inside vehicles", "off (setting)");
         else if (!OptionalMods.IsActive(OptionalMods.CombatExtended)) report.Off("spall inside vehicles", "needs Combat Extended");
@@ -809,6 +822,12 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingAccessoryLoad".Translate(), ref s.accessoriesLoadEngine, d.accessoriesLoadEngine, "PhobosVehicleSystems_SettingAccessoryLoadDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingBrakeFade".Translate(), ref s.brakeFade, d.brakeFade, "PhobosVehicleSystems_SettingBrakeFadeDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingFuelGelling".Translate(), ref s.fuelGelling, d.fuelGelling, "PhobosVehicleSystems_SettingFuelGellingDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingFuelFilters".Translate(), ref s.fuelFilters, d.fuelFilters, "PhobosVehicleSystems_SettingFuelFiltersDesc".Translate());
+        if (s.fuelFilters)
+        {
+            list.Check("PhobosVehicleSystems_SettingFuelFilterStarves".Translate(), ref s.fuelFilterStarves, d.fuelFilterStarves,
+                "PhobosVehicleSystems_SettingFuelFilterStarvesDesc".Translate());
+        }
         list.Check("PhobosVehicleSystems_SettingThinAir".Translate(), ref s.thinAir, d.thinAir, "PhobosVehicleSystems_SettingThinAirDesc".Translate());
         list.Section("PhobosVehicleSettings_SectionGround".Translate());
         list.Check("PhobosVehicleSystems_SettingWeatherGrip".Translate(), ref s.weatherGrip, d.weatherGrip, "PhobosVehicleSystems_SettingWeatherGripDesc".Translate());

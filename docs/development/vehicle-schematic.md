@@ -320,7 +320,7 @@ Not yet tested in game: row 735. What differs from the design above, and the cho
 
 - **One page, for land vehicles with a piston engine** (agent's choice of the one kind: the light, medium, heavy and tracked loadouts,
   58 of the 95 designs with our systems). `PhobosVehicleSchematicDef` in `Schematics.xml` lays out 13 parts and 16 pipes on a 720 by
-  360 page; a vehicle without a part leaves it out with its pipes, and a truck with no turbocharger draws its air straight from the
+  360 page (14 and 17 since Framework 0.365.0 put the fuel filter between the tank and the pump); a vehicle without a part leaves it out with its pipes, and a truck with no turbocharger draws its air straight from the
   filter. This is SC5 as well as SC1: the page is data, so the next kind is XML.
 - **The window** (`Window_PhobosVehicleSchematic`): opened and closed by a new Dashboard button, shown in Operator and Engineer modes on
   a player's vehicle followed in full. Resting on a part reads it and lights it on the vehicle; a click selects the vehicle and opens

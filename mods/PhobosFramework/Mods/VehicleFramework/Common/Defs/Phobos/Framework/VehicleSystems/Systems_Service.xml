@@ -273,6 +273,12 @@
           <quantity>airFilter</quantity>
           <above>0.7</above>
         </li>
+        <li>
+          <!-- Framework 0.365.0 (docs/development/vehicle-fuel-filter.md): a clogged fuel filter calls a mechanic too, where the vehicle has one. -->
+          <quantity>fuelFilter</quantity>
+          <above>0.7</above>
+          <setting>fuelFilters</setting>
+        </li>
       </alsoDue>
       <restores>
         <li>
@@ -281,6 +287,11 @@
         </li>
         <li>
           <quantity>airFilter</quantity>
+          <value>0</value>
+        </li>
+        <li>
+          <!-- Framework 0.365.0 (FF6): the engine service changes the fuel filter; a vehicle without one skips it. -->
+          <quantity>fuelFilter</quantity>
           <value>0</value>
         </li>
         <li>

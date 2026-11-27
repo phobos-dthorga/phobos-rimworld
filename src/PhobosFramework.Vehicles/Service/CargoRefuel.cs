@@ -306,9 +306,11 @@ public static class CargoRefuel
     {
         CompFueledTravel fuel = vehicle.CompFueledTravel;
         if (LandingCheck.StopRefusal(vehicle, depot.Tile, out LandingCheck.Outcome landing) != null) return false;
+        double age = Depots.FuelAgeDays(depot);
         int got = Depots.Draw(depot, fuel.Props.fuelType, (int)(fuel.FuelCapacity - fuel.Fuel));
         if (got <= 0) return false;
         fuel.Refuel(got);
+        comp.FuelDirt.FilledFromDepot(got, age);
         double stopTicks = CargoFuelRule.StopTicks(got, fuel.FuelCapacity, rules.refuelStopHoursPerTank, GenDate.TicksPerHour)
             + System.Math.Max(0f, rules.refuelLandingHours) * GenDate.TicksPerHour;
         comp.LandedRefuelUntil = Find.TickManager.TicksGame + System.Math.Max(1, (int)System.Math.Ceiling(stopTicks));

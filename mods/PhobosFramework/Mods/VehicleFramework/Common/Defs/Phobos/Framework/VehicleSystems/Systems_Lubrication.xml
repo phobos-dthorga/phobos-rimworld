@@ -363,6 +363,8 @@
       <!-- Framework 0.123.0 (cross-links round two F7, the fuel heater): how exposed the fuel is to gelling in the cold. 1 for every vehicle; the
            fuel heater fitting makes it 0, the block heater's pattern. -->
       <fuelGelExposure>1</fuelGelExposure>
+      <!-- Framework 0.365.0: what the fuel filter gains in an hour at full load on clean fuel (authored). -->
+      <fuelFilterPerHour>0.01</fuelFilterPerHour>
     </parameters>
     <quantities>
       <li>
@@ -456,7 +458,112 @@
           </li>
         </stages>
       </li>
+      <li>
+        <!-- Framework 0.365.0 (docs/development/vehicle-fuel-filter.md, FF1 to FF4; the owner's answers of 28 Nov 2026): the fuel filter
+             clogs with the fuel burned, faster with dirty fuel. A lamp at half; clogged, three quarters of the engine's power (FuelFilterRule,
+             the weak pump's figure); blocked, the engine stops and will not start only with "Blocked fuel filters stop engines" on. The
+             engine service changes it. -->
+        <name>fuelFilter</name>
+        <description>How clogged the fuel filter is. Fuel burned clogs it slowly and stale fuel quickly; clogged, it feeds the engine poorly until the engine service changes it.</description>
+        <telltale>Phobos/VehicleSystems/Dash/Fuel</telltale>
+        <label>fuel filter</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <to>0.7</to>
+            <label>dirty</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgFuelFilterDirty</message>
+                <type>CautionInput</type>
+                <when Class="Phobos.VehicleSystems.When_Setting"><setting>fuelFilters</setting></when>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.7</from>
+            <to>0.95</to>
+            <label>clogged</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_EnginePower">
+                <factor>0.75</factor>
+                <when Class="Phobos.VehicleSystems.When_Setting"><setting>fuelFilters</setting></when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgFuelFilterClogged</message>
+                <type>CautionInput</type>
+                <when Class="Phobos.VehicleSystems.When_Setting"><setting>fuelFilters</setting></when>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.95</from>
+            <label>blocked</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_EnginePower">
+                <factor>0.75</factor>
+                <when Class="Phobos.VehicleSystems.When_Setting"><setting>fuelFilters</setting></when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_ForceUndraft">
+                <when Class="Phobos.VehicleSystems.When_Setting"><setting>fuelFilterStarves</setting></when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseDraft">
+                <reason>PhobosVehicleSystems_RefuseFuelFilter</reason>
+                <sound>PhobosVehicleSystems_FailedStartDiesel</sound>
+                <soundPetrol>PhobosVehicleSystems_FailedStartPetrol</soundPetrol>
+                <when Class="Phobos.VehicleSystems.When_Setting"><setting>fuelFilterStarves</setting></when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgFuelFilterBlocked</message>
+                <when Class="Phobos.VehicleSystems.When_Setting"><setting>fuelFilterStarves</setting></when>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- Framework 0.365.0 (FF5): how dirty the fuel aboard is, 0 clean to 1, kept by FuelDirt: fuel from a stale depot brings dirt, any
+             other fuel thins it. -->
+        <name>fuelDirt</name>
+        <description>How dirty the fuel aboard is. Fuel from a stale depot is dirty; fresh fuel thins it.</description>
+        <label>fuel dirt</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <hidden>true</hidden>
+      </li>
     </quantities>
+    <flows>
+      <li>
+        <!-- Framework 0.365.0 (FF2): the filter clogs with the engine's load, a stand-in for the fuel through it, at 0.01 a full-load hour
+             (authored: about 250 running hours at a usual 40 % load, every second engine service), five times as fast on wholly dirty fuel. -->
+        <name>filterClogging</name>
+        <quantity>fuelFilter</quantity>
+        <kind>Into</kind>
+        <factorParameter>fuelFilterPerHour</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Setting"><setting>fuelFilters</setting></li>
+          <li Class="Phobos.VehicleSystems.Input_EngineLoad" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>fuelDirt</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(1, 5)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+    </flows>
     <onEvents>
       <li>
         <!-- T6 (cross-links round two; Framework 0.106.0): a tank run dry under a running engine. An electric fuel pump is cooled and

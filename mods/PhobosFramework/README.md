@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.363.0, built 28 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.365.0, built 28 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -146,6 +146,8 @@ offers to restart). RimWorld saves only what you change.
 | Engines and driving | Accessories load the engine | What the engine drives besides the wheels takes its power: the alternator, the radiator fan when hot, the air conditioner, the air brakes' compressor, a tanker's pump. Less power for driving, a little more heat, and more fuel with load-following fuel | On |
 | Engines and driving | Brakes heat and fade on descents | On the world map hills go up and then down; going down, the engine holds a vehicle back (more with an exhaust brake, or the compression brake every diesel of 250 kW or more has) and the brakes take the rest, which heats them; hot brakes fade, so a laden vehicle slows. Off: descents still wear the pads but never heat them | On |
 | Engines and driving | Fuel thickens in deep cold | Below about -8 °C chemfuel gels and the engine will not start | Off |
+| Engines and driving | Fuel filters clog | A vehicle's fuel filter clogs as it burns fuel, faster on stale depot fuel; clogged, the engine gives three quarters of its power until the engine service changes it | On |
+| Engines and driving | Blocked fuel filters stop engines | A blocked fuel filter starves the engine, which stops and will not start; an aircraft's engines stop in the air too | Off |
 | Engines and driving | Thin air at height | The higher the country, the less power an engine without a turbocharger and a gas turbine have, the more a helicopter needs to hover, and the less a radiator cools. Your own vehicles with the full drivetrain model only. Off: everywhere is sea level | On |
 | Engines and driving | Rain, snow and ice take grip | Wet and frozen ground takes grip on hills, in mud and when towing | On |
 | Engines and driving | Rough ground wears tyres and suspension | Up to three times the tyre wear off the roads | On |

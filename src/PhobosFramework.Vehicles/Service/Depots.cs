@@ -233,6 +233,11 @@ public static class Depots
     }
 
     /// <summary>How much of this fuel a depot holds, in fuel units: items and tanks together.</summary>
+    /// <summary>How old a depot's fuel is, in days, for the dirt it brings to a tank (Framework 0.365.0, the fuel filter); 0 while the
+    /// fuel ageing setting is off or the depot keeps no clock.</summary>
+    public static double FuelAgeDays(PhobosSlingWreck depot) =>
+        !VehicleSystemsMod.Settings.depotFuelAgeing || depot.fuelClock < 0 ? 0 : (Find.TickManager.TicksGame - depot.fuelClock) / GenDate.TicksPerDay;
+
     public static int FuelUnits(PhobosSlingWreck depot, ThingDef fuel) =>
         FuelItems(depot, fuel).Sum(t => t.stackCount) + (int)TanksOf(depot, fuel).Sum(c => c.amount);
 
@@ -294,9 +299,11 @@ public static class Depots
             int want = WantedFrom(depot!, vehicle);
             if (want <= 0) continue;
             CompFueledTravel fuel = vehicle.CompFueledTravel;
+            double age = FuelAgeDays(depot!);
             int got = Draw(depot!, fuel.Props.fuelType, want);
             if (got <= 0) continue;
             fuel.Refuel(got);
+            vehicle.GetComp<CompPhobosVehicleSystems>()?.FuelDirt.FilledFromDepot(got, age);
             total += got;
             stopTicks += CargoFuelRule.StopTicks(got, fuel.FuelCapacity, rules.refuelStopHoursPerTank, GenDate.TicksPerHour);
         }

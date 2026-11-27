@@ -22,6 +22,32 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.365.0] - 2026-11-28 - Draft
+
+The fuel filter, the chip detector and the intake separator
+
+### Added
+
+- **A fuel filter that clogs** (the owner's answers of 28 November 2026): every fuelled vehicle's filter fills as it burns fuel, five times
+  faster on stale fuel from an old depot, which is now dirty fuel. A lamp lights at half; clogged, the engine gives three quarters of its
+  power and calls for an engine service, which changes the filter. New settings: **Fuel filters clog** (on) and **Blocked fuel filters
+  stop engines** (off), which lets a blocked filter stop the engine. Not yet tested in game: row 739.
+
+## [0.364.0] - 2026-11-28 - Draft
+
+Fallout that doses, and people held off a map
+
+### Added
+
+- **Fallout that doses by its age and your cover**: a blast can lay fallout on a map that gives everyone there a dose every quarter
+  hour, falling by the 7:10 rule, cut to half in a frame house, a tenth behind stone and almost nothing deep in rock; people who arrive
+  later take it too. Dubs Rimatomics' fallout gave about 3 Gy a day in the open and nothing under any roof; its sky and plants stay.
+  The Mini-Nuke and the nuclear boiler now lay it. Needs D'thorga Medical's radiation model. Not yet tested in game: row 737.
+- **People held off a map come out before a blast**: Custom Base Framework keeps much of a base's garrison off the map in its
+  reserve, and 40 of them sat out a nuclear strike unhurt. Before a strike, or a radiation burst reaching across half the map, every
+  mod listed as such a holder is asked to put its people back, and any other mod found holding people is named in the log so it can be
+  listed. Not yet tested in game: row 738.
+
 ## [0.363.0] - 2026-11-28 - Draft
 
 The systems schematic

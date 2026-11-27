@@ -96,48 +96,6 @@
    "asked": "2026-11-27"
   },
   {
-   "id": "fuel-filter-stops",
-   "question": "A fuel filter that clogs: when fully clogged, can it stop an engine, or only weaken it?",
-   "context": "The fuel filter record (FF3), from your choice to build all three of the schematic's missing parts. Capped, the risk is low and its setting starts on; able to stop an engine, it is moderate and still on.",
-   "options": [
-    {
-     "id": "weak-only",
-     "label": "Weaken it only",
-     "detail": "Fully clogged, the engine gives three quarters of its power, as a weak fuel pump does; it never stops"
-    },
-    {
-     "id": "can-starve",
-     "label": "It can starve the engine",
-     "detail": "Left long enough, a clogged filter stops the engine, as a ruined fuel pump does"
-    }
-   ],
-   "lean": "weak-only",
-   "why": "A lamp warns first either way, and a stranded truck from a filter is a punishment for a chore, not a story",
-   "from": "docs/development/vehicle-fuel-filter.md",
-   "asked": "2026-11-28"
-  },
-  {
-   "id": "fuel-filter-stale-fuel",
-   "question": "Should stale fuel from a depot be dirty fuel that clogs filters faster?",
-   "context": "The fuel filter record (FF5). Today a depot's fuel older than 90 days loses 1% a day and nothing else.",
-   "options": [
-    {
-     "id": "stale-is-dirty",
-     "label": "Yes: stale fuel is dirty",
-     "detail": "Stale fuel still goes, and a tank filled from what is left carries dirt that clogs the filter faster"
-    },
-    {
-     "id": "clean-fuel",
-     "label": "No: all fuel is clean",
-     "detail": "Filters clog only with the fuel burned"
-    }
-   ],
-   "lean": "stale-is-dirty",
-   "why": "It gives a depot's age a cost a convoy feels, which is the story the filter adds",
-   "from": "docs/development/vehicle-fuel-filter.md",
-   "asked": "2026-11-28"
-  },
-  {
    "id": "chip-light-breakdowns",
    "question": "Should a lit chip lamp make a breakdown likelier, or only report wear?",
    "context": "The chip detector record (CD3). The lamp lights when metal from wear reaches the oil; that wear already raises breakdowns today.",

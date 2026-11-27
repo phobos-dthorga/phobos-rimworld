@@ -676,6 +676,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     /// <summary>Each aircraft engine's own fuel feed and oil (Framework 0.360.0, the vehicle standard's batch 3). Its sumps are saved here.</summary>
     public EngineFeeds EngineFeeds => engineFeeds ??= new EngineFeeds(this);
+    FuelDirt? fuelDirt;
+    /// <summary>How dirty the tank's fuel is (Framework 0.365.0, the fuel filter).</summary>
+    public FuelDirt FuelDirt => fuelDirt ??= new FuelDirt(this);
 
     /// <summary>Quantities kept per part: each engine's hot-section life, each wheel's brake wear (Framework 0.248.0, PartFigures).</summary>
     public PartFigures PartFigures => perPart ??= new PartFigures(this);
@@ -1141,6 +1144,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             SideTanks.Update();
             // Framework 0.360.0 (the vehicle standard, batch 3): each aircraft engine's own fuel feed and oil.
             EngineFeeds.Update((float)hours);
+            // Framework 0.365.0: fuel poured in since the last look, other than a depot's, is clean and thins the tank's dirt.
+            FuelDirt.Update();
             if (!stagesSettled)
             {
                 // The first update: take the stages the true readings give, quietly, as where each starts (no effects on entry or exit).

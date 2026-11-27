@@ -145,6 +145,7 @@ The short version: **service when it is due, keep a kit in the cargo, and park s
 | A heavy truck **crawls** | **Power steering** failed: its pump is hit or its fluid low | Repair the pump; a **top-up** (2 chemfuel) |
 | **Low air**, then **won't drive** | Air brakes: a leak, a damaged compressor, or hours standing | Keep the engine running; let it idle |
 | A weak fuel pump | Running the tank dry with the engine on: 5% of the pump each time | Keep some fuel in; repair the pump |
+| **Fuel filter dirty**, then **clogged**: three quarters of its power | The **fuel filter** fills as fuel is burned, five times faster on stale fuel from an old depot; fresh fuel thins the dirt | An engine **service** changes it (a clogged one calls for one). With **Blocked fuel filters stop engines** on, a blocked one stops the engine |
 | **Won't start** below about -8 °C | Cold fuel gels (only with the **cold fuel** setting on) | Warm it in a heated room |
 | Parts failing now and then | A service is due (120 running hours) or overdue (180) | A **service** |
 

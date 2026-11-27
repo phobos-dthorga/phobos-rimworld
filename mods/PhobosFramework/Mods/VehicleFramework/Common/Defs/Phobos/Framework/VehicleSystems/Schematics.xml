@@ -106,6 +106,15 @@
         <holds>Fuel</holds>
       </li>
       <li>
+        <!-- Framework 0.365.0 (docs/development/vehicle-fuel-filter.md, FF7). -->
+        <key>fuelFilter</key>
+        <label>fuel filter</label>
+        <shape>Filter</shape>
+        <rect>(560, 294, 28, 24)</rect>
+        <system>PhobosVehicleSystem_Fuel</system>
+        <quantity>fuelFilter</quantity>
+      </li>
+      <li>
         <key>fuelPump</key>
         <label>fuel pump</label>
         <shape>Pump</shape>
@@ -216,8 +225,15 @@
       <!-- Fuel: from the tank through its pump to the injectors. -->
       <li>
         <medium>Fuel</medium>
-        <points><li>(600, 306)</li><li>(548, 306)</li></points>
+        <points><li>(600, 306)</li><li>(588, 306)</li></points>
         <from>fuelTank</from>
+        <to>fuelFilter</to>
+        <drivenBy>fuelPump</drivenBy>
+      </li>
+      <li>
+        <medium>Fuel</medium>
+        <points><li>(560, 306)</li><li>(548, 306)</li></points>
+        <from>fuelFilter</from>
         <to>fuelPump</to>
         <drivenBy>fuelPump</drivenBy>
       </li>
