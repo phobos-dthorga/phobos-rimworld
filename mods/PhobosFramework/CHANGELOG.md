@@ -22,6 +22,19 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.352.0] - 2026-11-27 - Draft
+
+One step of a leg's walk, for the radio's world map picture
+
+### Added
+
+- **A leg's walk between two tiles can be taken a step at a time**, for D'thorga Radio Framework's coverage picture on the world
+  map, which follows many legs to one place and must take the very steps a flight's leg does. Nothing in play changes.
+
+### Save compatibility
+
+- Safe with an existing save. Nothing is saved.
+
 ## [0.351.0] - 2026-11-27 - Draft
 
 The health layer knows animals and mechanoid doctors

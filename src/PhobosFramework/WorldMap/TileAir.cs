@@ -59,23 +59,34 @@ public static class TileAir
         {
             tiles.Add(here);
             if (here == to) return true;
-            grid.GetTileNeighbors(here, neighbours);
-            PlanetTile next = here;
-            float best = (grid.GetTileCenter(here) - target).sqrMagnitude;
-            foreach (PlanetTile neighbour in neighbours)
-            {
-                float distance = (grid.GetTileCenter(neighbour) - target).sqrMagnitude;
-                if (distance < best)
-                {
-                    best = distance;
-                    next = neighbour;
-                }
-            }
+            PlanetTile next = StepToward(grid, here, target, neighbours);
             if (next == here) break;
             here = next;
         }
         tiles.Clear();
         return false;
+    }
+
+    /// <summary>
+    /// One step of a leg's walk (Framework 0.352.0, so a picture that follows many legs to one place takes the very steps
+    /// <see cref="WalkLeg"/> does): the neighbour of <paramref name="here"/> whose centre is nearest <paramref name="target"/>, a tile's
+    /// centre, or <paramref name="here"/> itself when none is nearer. <paramref name="scratch"/> is filled with the tile's neighbours.
+    /// </summary>
+    public static PlanetTile StepToward(WorldGrid grid, PlanetTile here, Vector3 target, List<PlanetTile> scratch)
+    {
+        grid.GetTileNeighbors(here, scratch);
+        PlanetTile next = here;
+        float best = (grid.GetTileCenter(here) - target).sqrMagnitude;
+        foreach (PlanetTile neighbour in scratch)
+        {
+            float distance = (grid.GetTileCenter(neighbour) - target).sqrMagnitude;
+            if (distance < best)
+            {
+                best = distance;
+                next = neighbour;
+            }
+        }
+        return next;
     }
 
     /// <summary>The highest ground among tiles <paramref name="first"/> to <paramref name="last"/> of a walk, both included: of any kind, and

@@ -12,9 +12,10 @@ using Verse;
 namespace Phobos.Radio.Vehicles;
 
 /// <summary>
-/// Radio reach drawn on the world map (Radio 0.37.0; the owner's word of 27 Nov 2026, "1, 2, 3, and 4"): with a convoy of the player's, a
-/// relay mast or a relay post selected, a ring for how far its radio reaches a home station's mast on level ground, and for a convoy its
-/// chain home, hop by hop, the weakest hop in amber. Presentation only.
+/// Radio reach drawn on the world map (Radio 0.37.0; the owner's word of 27 Nov 2026, "1, 2, 3, and 4"): with a convoy of the player's
+/// selected, a ring for how far its radio reaches a home station's mast on level ground, and its chain home, hop by hop, the weakest hop
+/// in amber. Since Radio 0.42.0 the ring of a colony, a relay mast or a relay post is the radio's core's (WorldComponent_PhobosWorldCover).
+/// Presentation only.
 /// <para>Cost: nothing unless the world map shows such a thing selected; then, each frame, a ring and up to three arcs. The chain is the one
 /// the convoy's own reach check last found (kept a tenth of a game hour, as that check is): drawing never searches and never takes a channel.</para>
 /// </summary>
@@ -57,10 +58,6 @@ public static class ReachDrawing
                             Arc(Find.WorldGrid.GetTileCenter(hop.From), Find.WorldGrid.GetTileCenter(hop.To), hop.MarginDb <= weakest ? WeakMaterial : HopMaterial,
                                 hop.MarginDb <= weakest ? 1.2f : 0.8f);
                     }
-                    break;
-                case WorldObject_PhobosRelayMast or MapParent:
-                    // A relay mast or a relay post: its own relay entry, as the chain search sees it (only while it is selected).
-                    if (RelayNodes.All().FirstOrDefault(n => n.Owner == selected) is { } node) Ring(selected.Tile, node);
                     break;
             }
         }

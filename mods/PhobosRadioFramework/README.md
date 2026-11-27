@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.41.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.42.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -74,6 +74,9 @@ figures are here.
 - **The station logbook (0.38.0)**: a Log tab on the station with radio friends, settlements in reach, every call, and QSL cards
   drawn in each faction's colours; awards for sets of cards lift the mood of those who work the radio
   ([the guide](../../docs/player-guide/radio.md#the-logbook-and-qsl-cards)).
+- **Radio coverage on the world map (0.42.0)**: select a colony with a station, a relay mast, a relay post or a convoy with a radio,
+  press **Radio coverage** and pick the far-end radio; the globe is coloured by signal to spare. **Off until you pick one**
+  ([the guide](../../docs/player-guide/radio.md#convoys-on-the-world-map)).
 - **High ground blocks radio between tiles (0.41.0)**: hills and mountains on the way between a convoy and home cost signal. **A
   convoy that reached home over hills before may not now**; a higher aerial, a relay on the high ground or a way round gets through
   ([the guide](../../docs/player-guide/radio.md#convoys-on-the-world-map)).

@@ -96,6 +96,13 @@ tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
   Impassable mountains block the most.
 - **See reach on the world map** (from 0.37.0): select a convoy, a relay mast or a relay post there. A ring shows how far its radio
   reaches a home station's mast on level ground; a convoy also shows its chain home, hop by hop, **the weakest hop in amber**.
+- **Radio coverage on the world map** (from 0.42.0): select a colony of yours with a powered station, a relay mast, a relay post or
+  a convoy with a radio, press **Radio coverage** and pick the radio at the far end: a **vehicle radio**, the same with its **mast
+  up**, a **relay mast**, a **relay post**, or a **vehicle by Morse** (only where a station there has a Morse key). Every tile is
+  then coloured by how well that radio would reach the place from there: **brighter is stronger, dark red is too weak, and unpainted
+  ground is past the horizon**. Hills light up from further off; a range casts a shadow behind it. The picture follows whichever of
+  your radio places you select, and stays until you pick **Off**. It shows signal only: a relay with every channel in use still
+  refuses a call. A colony with a station also shows a reach ring now, as a mast and a post do.
 - **Relay masts wear and can be raided** (from 0.37.0; a setting, **off by default**): on, a mast stops passing calls on after about a
   year until a convoy on its tile presses **Service the relay mast** (one component), and raiders near their own lands may knock it
   down. **A worked example of the whole network:** [Setting up a supply network](supply-network.md).

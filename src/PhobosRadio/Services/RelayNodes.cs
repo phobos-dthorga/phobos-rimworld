@@ -200,9 +200,7 @@ public sealed class RelayMastSource : IRelaySource
         if (Find.WorldObjects == null) yield break;
         foreach (WorldObject thing in Find.WorldObjects.AllWorldObjects)
         {
-            if (thing is WorldObject_PhobosRelayMast { Destroyed: false, Works: true } mast && mast.Radio is { } radio)
-                yield return new RelayNode(RadioEndpoint.BuiltIn(radio.parent, IntVec3.Zero, radio), mast.Tile, mast.LabelCap, mast, Repeater: true,
-                    SiteMetres: RelayNode.SiteOf(mast.Tile));
+            if (thing is WorldObject_PhobosRelayMast mast && mast.Node() is { } node) yield return node;
         }
     }
 }
@@ -305,6 +303,11 @@ public class WorldObject_PhobosRelayMast : WorldObject, IThingHolder
 
     /// <summary>The mast's relay radio, or null.</summary>
     public CompRadio? Radio => Held.FirstOrDefault()?.TryGetComp<CompRadio>();
+
+    /// <summary>The mast as a relay, while it stands and works, or null: what the relay search and the world map's pictures both read.</summary>
+    public RelayNode? Node() => !Destroyed && Works && Radio is { } radio
+        ? new RelayNode(RadioEndpoint.BuiltIn(radio.parent, IntVec3.Zero, radio), Tile, LabelCap, this, Repeater: true, SiteMetres: RelayNode.SiteOf(Tile))
+        : null;
 
     public static WorldObject_PhobosRelayMast Make(PlanetTile tile)
     {

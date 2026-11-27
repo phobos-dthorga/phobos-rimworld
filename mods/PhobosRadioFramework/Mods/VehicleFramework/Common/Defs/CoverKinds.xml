@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The cover picture's far-end radios that need vehicles (Radio 0.42.0; docs/development/radio-world-coverage.md). A hand-held is
+       left out on purpose: no contact between tiles uses one. The raised mast's height is the Datum's, set from D'thorga Framework's
+       own figure at start-up; the 10 here is that figure, so the Def reads right by itself. -->
+  <Phobos.Radio.RadioCoverKindDef>
+    <defName>PhobosRadioCover_Vehicle</defName>
+    <label>vehicle radio</label>
+    <description>A convoy's fitted radio on its own whip.</description>
+    <fitting>PhobosRadio_FittingVehicleControl</fitting>
+    <order>10</order>
+  </Phobos.Radio.RadioCoverKindDef>
+
+  <Phobos.Radio.RadioCoverKindDef>
+    <defName>PhobosRadioCover_VehicleMast</defName>
+    <label>vehicle radio, mast up</label>
+    <description>A convoy's fitted radio on a raised mast.</description>
+    <fitting>PhobosRadio_FittingVehicleControl</fitting>
+    <antennaHeightMetres>10</antennaHeightMetres>
+    <order>20</order>
+  </Phobos.Radio.RadioCoverKindDef>
+
+  <Phobos.Radio.RadioCoverKindDef>
+    <defName>PhobosRadioCover_RelayMast</defName>
+    <label>relay mast</label>
+    <description>A relay mast put up on the tile.</description>
+    <radioThing>PhobosRadio_RelayUnit</radioThing>
+    <caller>false</caller>
+    <order>30</order>
+  </Phobos.Radio.RadioCoverKindDef>
+
+  <Phobos.Radio.RadioCoverKindDef>
+    <defName>PhobosRadioCover_Morse</defName>
+    <label>vehicle radio, by Morse</label>
+    <description>A convoy's fitted radio worked with a Morse key, to a station that has one.</description>
+    <fitting>PhobosRadio_FittingVehicleControl</fitting>
+    <mode>PhobosRadio_CW</mode>
+    <needsKey>true</needsKey>
+    <order>50</order>
+  </Phobos.Radio.RadioCoverKindDef>
+</Defs>

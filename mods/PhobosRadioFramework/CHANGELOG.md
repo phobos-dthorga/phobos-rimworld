@@ -23,6 +23,28 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.42.0] - 2026-11-27 - Draft
+
+Radio coverage on the world map
+
+### Added
+
+- **Radio coverage painted on the world map** (the owner's cards of 27 November 2026: painted tiles for one site, with buttons to
+  switch the far-end radio). Select a colony with a powered station, a relay mast, a relay post or a convoy with a radio, press
+  Radio coverage and pick the radio at the far end: every tile is coloured by how well that radio would reach the place from there,
+  brighter for stronger, dark red where it is too weak, unpainted past the horizon. Hills light up from further off and high ground
+  casts a shadow. Off until picked, in every game. Not yet tested in game: row 700.
+- **A colony's own reach ring**: selecting a colony of yours with a station now draws the ring a relay mast and a relay post have,
+  to a vehicle's whip on level ground. The rings no longer need Vehicle Framework.
+
+### Compatibility and limits
+
+- The far-end radios offered are a vehicle radio, the same with its mast up, a relay mast, a relay post and a vehicle by Morse; a
+  hand-held is left out, as no call between tiles uses one. The picture shows signal, never whether a relay has a free channel. The
+  walk over the ground is taken from each tile toward the place, as a call from there is, so a call made the other way may differ on
+  an edge tile. The button borrows the signal picture until its own icon is drawn. Needs D'thorga Framework 0.352.0. Safe with a
+  running save; nothing is saved.
+
 ## [0.41.0] - 2026-11-27 - Draft
 
 High ground between tiles blocks the signal

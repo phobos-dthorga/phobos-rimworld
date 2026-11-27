@@ -121,3 +121,54 @@ public class TerrainRuleTests
         Assert.Equal(0.0, high, 6);
     }
 }
+
+public class CoverRuleTests
+{
+    [Fact]
+    public void TheFaintestContactSitsJustAboveTheRampsDarkEnd()
+    {
+        Assert.Equal(0.08, CoverRule.Shade(0, 60), 6);
+        Assert.Equal(0.08, CoverRule.Shade(-20, 60), 6);
+    }
+
+    [Fact]
+    public void FullScaleAndBeyondIsTheBrightest()
+    {
+        Assert.Equal(1.0, CoverRule.Shade(60, 60), 6);
+        Assert.Equal(1.0, CoverRule.Shade(200, 60), 6);
+        Assert.Equal(1.0, CoverRule.Shade(5, 0), 6);
+    }
+
+    [Fact]
+    public void TheShadeRisesWithTheSignalToSpare()
+    {
+        double last = 0;
+        for (double margin = 0; margin <= 60; margin += 1)
+        {
+            double shade = CoverRule.Shade(margin, 60);
+            Assert.True(shade > last, "did not rise at " + margin);
+            last = shade;
+        }
+        // Half of full scale: 0.08 + 0.92 x 0.5^1.2 = 0.480.
+        Assert.Equal(0.480, CoverRule.Shade(30, 60), 3);
+    }
+
+    [Theory]
+    // A 10 m mast and a 3 m whip on flat ground: 4.12 (3.162 + 1.732) = 20.2 km, 21 tiles of 1 km.
+    [InlineData(10.0, 3.0, 0.0, 1000.0, 200, 21)]
+    // The whip on a 300 m mountain: 4.12 (3.162 + 17.41) = 84.7 km, 85 tiles.
+    [InlineData(10.0, 3.0, 300.0, 1000.0, 200, 85)]
+    // Capped.
+    [InlineData(310.0, 10.0, 300.0, 1000.0, 100, 100)]
+    // Never under one tile, and a tile of no size takes the cap.
+    [InlineData(0.0, 0.0, 0.0, 30000.0, 200, 1)]
+    [InlineData(10.0, 3.0, 0.0, 0.0, 200, 200)]
+    public void APictureLooksAsFarAsTheHorizonFromTheHighestGround(double site, double far, double lift, double tile, int cap, int expected) =>
+        Assert.Equal(expected, CoverRule.RadiusTiles(site, far, lift, tile, cap));
+
+    [Theory]
+    [InlineData(0, 1)]
+    [InlineData(1, 7)]
+    [InlineData(18, 1027)]
+    public void TilesWithinARadiusCountAsAHexagon(int radius, int tiles) => Assert.Equal(tiles, CoverRule.TilesWithin(radius));
+}

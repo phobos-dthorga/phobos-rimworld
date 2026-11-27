@@ -88,16 +88,11 @@ public static class LinkBudgetService
         mode ??= a.Mode;
         var floorAtA = NoiseFloor.TotalDbm(mode.bandwidthHz, a.NoiseFigureDb, double.NegativeInfinity);
         var floorAtB = NoiseFloor.TotalDbm(mode.bandwidthHz, b.NoiseFigureDb, double.NegativeInfinity);
-        var overHorizon = distanceMetres > Propagation.RadioHorizonMetres(heightA, heightB);
-        var planeEarth = Propagation.PlaneEarthPathLossDb(distanceMetres, heightA, heightB);
         LinkEvaluation? best = null;
         foreach (var band in a.Bands)
         {
             if (!b.Bands.Contains(band)) continue;
-            // Radio 0.22.0 (the owner's card: plane-earth fading): the greater of free space and plane earth.
-            var pathLoss = System.Math.Max(PathLossDb(distanceMetres, band), planeEarth);
-            // Radio 0.41.0: inside the horizon, the high ground on the way costs what its edge costs on this band.
-            var obstruction = overHorizon ? rules.overHorizonLossDb : Physics.TerrainRule.LossDb(terrainFigure, band.centreMHz);
+            WorldLosses(distanceMetres, band, heightA, heightB, terrainFigure, rules, out var pathLoss, out var obstruction);
             var forward = new LinkDirection(Inputs(a.Side(band), b.Side(band), pathLoss, obstruction, floorAtB, mode));
             var reverse = new LinkDirection(Inputs(b.Side(band), a.Side(band), pathLoss, obstruction, floorAtA, mode));
             var budget = new LinkBudget(forward, reverse, rules.MarginBands);
@@ -105,6 +100,21 @@ public static class LinkBudgetService
                 best = new LinkEvaluation(a, b, band, mode, budget, distanceMetres, double.NegativeInfinity, double.NegativeInfinity);
         }
         return best;
+    }
+
+    /// <summary>
+    /// What distance and the ground cost a link between two tiles on one band, in dB: the sums every contact between tiles and the
+    /// world map's picture share, so the picture cannot disagree with a contact (Radio 0.42.0). The path loss is the greater of free space
+    /// and plane earth (Radio 0.22.0, the owner's card: plane-earth fading). What stands in the way is everything past the horizon of the
+    /// two aerials, and inside it what the high ground's edge costs on this band (Radio 0.41.0). Heights are aerial and site together.
+    /// </summary>
+    public static void WorldLosses(double distanceMetres, BandDef band, double heightAMetres, double heightBMetres, double terrainFigure,
+        RadioRulesDef rules, out double pathLossDb, out double obstructionDb)
+    {
+        pathLossDb = System.Math.Max(PathLossDb(distanceMetres, band), Propagation.PlaneEarthPathLossDb(distanceMetres, heightAMetres, heightBMetres));
+        obstructionDb = distanceMetres > Propagation.RadioHorizonMetres(heightAMetres, heightBMetres)
+            ? rules.overHorizonLossDb
+            : TerrainRule.LossDb(terrainFigure, band.centreMHz);
     }
 
     /// <summary>

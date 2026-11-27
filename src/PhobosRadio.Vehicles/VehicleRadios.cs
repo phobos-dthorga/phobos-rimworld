@@ -47,6 +47,9 @@ public static class VehicleRadios
         ConvoyRadio.Register(new ConvoyReachSource());
         // Radio 0.22.0: halted convoys and vehicles parked at depots relay calls on.
         RelayNodes.Register(new VehicleRelaySource());
+        // Radio 0.42.0: a convoy is a place the world map's cover picture can be drawn for, and the picture's raised mast is the Datum's.
+        WorldCover.Register(new ConvoyCoverSites());
+        if (DefDatabase<RadioCoverKindDef>.GetNamedSilentFail("PhobosRadioCover_VehicleMast") is { } mastKind) mastKind.antennaHeightMetres = ConvoyRadio.MastMetres;
         // Radio 0.23.0: a convoy's reach home carries advice by radio to the people in it.
         RemoteReach.Register(new ConvoyRemoteReach());
         // Radio 0.18.0: the base turret follows D'thorga Framework's "Remote guns fire on their own", which lives in its Vehicle Framework part.

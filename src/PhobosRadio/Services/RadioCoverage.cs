@@ -417,7 +417,7 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
     }
 
     private Color ColorFor(float margin) =>
-        margin < 0f ? UI.RadioPalette.NoContact : UI.RadioPalette.At(0.08f + 0.92f * Mathf.Pow(Mathf.Clamp01(margin / fullScaleDb), 1.2f));
+        margin < 0f ? UI.RadioPalette.NoContact : UI.RadioPalette.At((float)CoverRule.Shade(margin, fullScaleDb));
 
     /// <summary>A kind of hand-held, read from its Def.</summary>
     private sealed class Kind

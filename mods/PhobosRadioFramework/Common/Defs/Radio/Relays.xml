@@ -15,6 +15,10 @@
     <expandingIconTexture>Phobos/Radio/World/RelayMast</expandingIconTexture>
     <expandingIconPriority>70</expandingIconPriority>
     <canHaveFaction>false</canHaveFaction>
+    <comps>
+      <!-- Radio 0.42.0: the cover picture's button and line. -->
+      <li Class="Phobos.Radio.UI.WorldObjectCompProperties_PhobosRadioCover" />
+    </comps>
   </WorldObjectDef>
 
   <ThingDef>

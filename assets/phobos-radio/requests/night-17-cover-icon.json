@@ -1,0 +1,25 @@
+[
+ {
+  "name": "n17-radio-coverage",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small round globe seen from the side with a short radio mast standing on top of it, and three curved bands of colour spreading across the globe from the mast, bright gold near it fading to violet further away. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a small round globe with a short radio mast on top and three curved bands of colour spreading across it from the mast, gold near it fading to violet",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   199,
+   200
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Radio coverage, the world map's cover picture (Radio Framework 0.42.0; docs/development/radio-world-coverage.md)",
+   "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/WorldCover.png",
+   "why": "a gizmo button's icon, made locally (assets/AGENTS.md); it borrows the Signal icon since Radio 0.42.0 (WorldCoverGizmo in src/PhobosRadio/UI/WorldCoverView.cs)"
+  }
+ }
+]

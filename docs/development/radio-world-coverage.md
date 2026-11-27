@@ -1,15 +1,17 @@
 # Radio cover on the world map, and high ground between tiles (27 Nov 2026)
 
-**Status (27 Nov 2026):** high ground between tiles is built (Radio Framework 0.41.0), not yet tested in game (row 699). The cover
-picture for one site and the picture of the whole network are designed here and not built.
+**Status (27 Nov 2026):** high ground between tiles is built (Radio Framework 0.41.0, row 699) and so is the cover picture for one
+site (Radio Framework 0.42.0, row 700); neither is tested in game. The picture of the whole network is designed here and not built.
 
 The owner asked on 27 Nov 2026 whether radio cover can be seen on the world map as it can inside a colony, what it would take and
 what could go wrong, then answered three cards. This record holds the answers, the design of each piece and what is built.
 
 ## Read this first
 
-- **Three pieces, in this order**: high ground between tiles blocks signal (built); a painted picture of one site's cover (next);
-  one picture of the whole network through every relay (after that).
+- **Three pieces, in this order**: high ground between tiles blocks signal (built); a painted picture of one site's cover (built);
+  one picture of the whole network through every relay (next).
+- **The picture starts off in every game.** Its button is on a colony with a station, a relay mast, a relay post and a convoy with a
+  radio, on the world map.
 - **High ground between tiles now costs every contact between tiles**, convoys, relays and Morse alike. A link that closed before
   0.41.0 over hills may no longer close. This is the owner's choice.
 - **For radio a world tile counts as 1 km** (the owner's gameplay choice of 26 Nov 2026, `metresPerWorldTile`). Every figure here uses it.
@@ -96,7 +98,7 @@ handful of nodes. **Not measured.**
 **Limits:** the link sheet shows the cost as its "in the way" term but does not name the tile; a call lost past the horizon still
 says so, even with a range in between.
 
-## The cover picture for one site [O], designed
+## The cover picture for one site [O]
 
 Select a place of the player's on the world map that has a radio (a colony with a powered station, a relay mast, a relay post, a
 convoy with a radio), switch the picture on, and every tile in reach is coloured by signal to spare, in the colony overlay's
@@ -109,12 +111,17 @@ The owner chose buttons to switch. The card offered a hand-held, a vehicle radio
 the vehicle reaches home), and the radio's rule is that a figure the interface shows must change an outcome somewhere. **A relay
 mast is offered in its place** [A], as "where would a mast reach this site from" is a real contact and a real decision.
 
-| Button [A] | The far end it stands for |
-| --- | --- |
-| Vehicle radio | A convoy's fitted radio on its own whip |
-| Vehicle radio, mast up | The same radio on a raised mast |
-| Relay mast | A relay mast put up on the tile |
-| Morse key | A vehicle's radio worked by Morse; only where the site has a key, as relays pass on speech alone |
+| Button [A] | The far end it stands for | Needs |
+| --- | --- | --- |
+| Vehicle radio | A convoy's fitted radio on its own whip (the vehicle control radio) | Vehicle Framework |
+| Vehicle radio, mast up | The same radio on a raised mast, at the Datum's own height | Vehicle Framework |
+| Relay mast | A relay mast put up on the tile | Vehicle Framework |
+| Relay post [A] | A radio relay post founded on the tile | Nothing more |
+| Vehicle radio, by Morse | A vehicle's radio worked by Morse; only where a station at the place has a key, as relays pass on speech alone | Vehicle Framework |
+
+Each is a `RadioCoverKindDef` naming the fitting or thing whose radio it stands for, so its figures are the ones a contact uses
+and another modder adds a button in XML. **The mode is the caller's**: the far radio's own, or a selected convoy's when the far end
+is a relay it calls through.
 
 ### The four questions
 
@@ -123,22 +130,49 @@ mast is offered in its place** [A], as "where would a mast reach this site from"
 - **How it changes play:** routes and relay sites are planned from a picture instead of found by trying.
 - **What outside notices:** nothing, by choice: it is a picture of rules that already decide contacts.
 
-### Cost, as designed
+### Cost
 
-- **Nothing while the picture is off, or while nothing with a radio is selected on the world map.**
-- **While on:** the tiles within the furthest horizon are worked out once, a few milliseconds of real time a frame until done:
-  about 1,000 tiles flat to flat, about 22,000 where mountain tiles could be reached. Each tile costs one walk back to the site
-  (as a contact's does) and a few sums a band.
-- **Worked out again only when** the selection, the button, a station, mast, post or convoy changes.
-- **The picture is rebuilt once**, at the end of the working out.
-- To be measured on the owner's colony before and after, with the owner's go-ahead.
+- **With the picture off:** one check a frame while the world map is hidden. On the world map with a radio place selected, its
+  radios are read once every 60 frames, for the ring. One comp on every place that can hold a map, which does nothing each tick.
+- **While on:** tiles are worked out outward from the place for at most 1.5 ms of real time a frame (`worldCoverBudgetMsPerFrame`)
+  until done: about 1,400 tiles for a 10 m mast and a whip on flat ground, about 22,000 where a whip on a mountain could still be in
+  reach, never further than 200 tiles (`worldCoverMaxTiles`).
+- **A tile costs one look at its neighbours and a few sums a tile of distance.** Each tile's step toward the place is found once and
+  kept, so its way back is read, never searched: the steps are the very ones a contact's walk takes.
+- **Worked out again only when** the place selected, its radios or the far-end radio change.
+- **The picture's mesh is rebuilt** once a second while it is being worked out, so it is seen to grow, and once at its end.
+- **Memory:** four arrays the size of the planet's surface while the picture is on (about 9 MB on the owner's 590,492-tile
+  world), let go when it is switched off.
+- **Not measured.** To be recorded on the owner's colony before and after with `python scripts/perf.py`, on the owner's go-ahead.
 
-### Not yet checked
+### As built (Radio Framework 0.42.0, Framework 0.352.0)
 
-How a mod adds a world draw layer in RimWorld 1.7, and how it behaves on Odyssey's orbit layer. The picture is for the planet's
-surface only.
+| Piece | Where |
+| --- | --- |
+| The working out: places with a radio, the spread from the place, each tile's signal to spare | `Services/WorldCover.cs` |
+| The losses a contact and the picture share | `LinkBudgetService.WorldLosses` |
+| One step of a leg's walk, shared with flights | D'thorga Framework's `TileAir.StepToward` |
+| The colour ramp's rule and how far a picture looks, game-free, 11 tests | `Physics/CoverRule.cs` |
+| The picture: a draw layer of the planet's surface, added to its Def by patch as four other mods in the owner's list add theirs | `UI/WorldCoverView.cs`, `Common/Patches/WorldCover.xml` |
+| The button, its menu and its line in the pane | `WorldCoverGizmo`; a comp on every place that can hold a map, on the relay mast by its Def, on a convoy through its own buttons |
+| The ring for a colony, a mast and a post, moved from the vehicles tie-in | `WorldComponent_PhobosWorldCover` |
+| The far-end radios | `RadioCoverKindDef`; `Common/Defs/Radio/CoverKinds.xml` and the Vehicle Framework folder's |
+| Seen in play | `radio.world-cover`, by far-end radio, row 700 |
 
-## The whole network [O], designed
+**Limits and agent choices [A]:**
+
+- The walk over the ground runs from each tile toward the place, as a call from that tile does. A call made the other way (from a
+  selected convoy out to a relay) may cross a neighbouring tile, so an edge tile can differ.
+- Impassable tiles are not painted: nothing stands there. Water is painted, for boats.
+- The picture is of the planet's surface; a place in orbit shows none.
+- With nothing with a radio selected the last picture stays up, so a look elsewhere does not lose it.
+- The brightest colour is 60 dB to spare (`worldCoverFullScaleDb`), not the colony overlay's 130 dB: tiles are far apart. A shade
+  means the same share of each picture's own scale.
+- The button borrows the signal picture; its own icon is requested for a night run
+  (`assets/phobos-radio/requests/night-17-cover-icon.json`).
+- A colony's ring measures to a vehicle's whip on level ground; a mast's and a post's to a home station's 10 m mast, as before.
+
+## The whole network [O], designed, not built
 
 One picture of everywhere a convoy could reach home from, directly or through relays. It needs a look-only form of the chain
 search first: today's search (`RelayNodes.BestChain`) books channels at each relay, plays the repeater's tone and writes seen-in-play

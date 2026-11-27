@@ -132,6 +132,65 @@ public class RadioFittingDef : Def
 }
 
 /// <summary>
+/// A radio the world map's cover picture can be drawn for, as the far end of a link to the place selected (Radio 0.42.0; the owner's card
+/// of 27 Nov 2026, "Buttons to switch"; docs/development/radio-world-coverage.md). Each is one choice in the picture's menu. Its radio is
+/// a fitting's or a thing's, so its figures are the ones a real contact uses; the Def only says which radio, and what differs from it.
+/// </summary>
+public class RadioCoverKindDef : Def
+{
+    /// <summary>The fitted radio it stands for (a vehicle's), or</summary>
+    public RadioFittingDef? fitting;
+    /// <summary>the thing whose radio comp it stands for (a relay's radio unit).</summary>
+    public ThingDef? radioThing;
+    /// <summary>Its aerial's height in metres where that is not the radio's own (a raised mast); 0 keeps the radio's.</summary>
+    public float antennaHeightMetres;
+    /// <summary>The mode it is worked in where that is not the radio's own (Morse).</summary>
+    public ModeDef? mode;
+    /// <summary>Whether the place selected needs a Morse key at a station for it, as a real contact by Morse does. A relay never has one.</summary>
+    public bool needsKey;
+    /// <summary>
+    /// Whether it is the one that calls (a vehicle), so the link is worked in its mode; a relay is called through, and takes the mode of
+    /// a convoy selected.
+    /// </summary>
+    public bool caller = true;
+    /// <summary>Its place in the menu, lowest first.</summary>
+    public int order;
+
+    /// <summary>The radio's figures, or null when the Def names none.</summary>
+    public CompProperties_Radio? Radio => fitting?.radio ?? radioThing?.GetCompProperties<CompProperties_Radio>();
+
+    /// <summary>Its aerial's height: the Def's own where given, else the radio's.</summary>
+    public float AerialMetres => antennaHeightMetres > 0f ? antennaHeightMetres : Radio?.antennaHeightMetres ?? 0f;
+
+    private static List<RadioCoverKindDef>? inOrder;
+
+    /// <summary>Every kind, in the menu's order.</summary>
+    public static IReadOnlyList<RadioCoverKindDef> InOrder
+    {
+        get
+        {
+            if (inOrder != null) return inOrder;
+            inOrder = new List<RadioCoverKindDef>(DefDatabase<RadioCoverKindDef>.AllDefsListForReading);
+            inOrder.Sort((a, b) => a.order != b.order ? a.order.CompareTo(b.order) : string.CompareOrdinal(a.defName, b.defName));
+            return inOrder;
+        }
+    }
+
+    public override IEnumerable<string> ConfigErrors()
+    {
+        foreach (var error in base.ConfigErrors()) yield return error;
+        var radio = Radio;
+        if (radio == null)
+        {
+            yield return $"{defName}: a cover kind needs a fitting or a thing with a radio";
+            yield break;
+        }
+        if (radio.bands.Count == 0) yield return $"{defName}: its radio needs at least one band";
+        if (mode == null && radio.mode == null) yield return $"{defName}: its radio needs a mode";
+    }
+}
+
+/// <summary>
 /// The starting values the design says to tune in play. One Def; the first one loaded wins.
 /// Player preferences (display mode, metres per cell, the thought) are mod settings, not rules.
 /// </summary>
@@ -154,6 +213,16 @@ public class RadioRulesDef : Def
     /// of Defs can switch it off.
     /// </summary>
     public bool terrainBlocksBetweenTiles = true;
+
+    // The cover picture on the world map (Radio 0.42.0). Performance is the mod's first concern: these bound what it costs. All authored.
+    /// <summary>The most real time the world picture spends working out tiles in one frame, in milliseconds.</summary>
+    public float worldCoverBudgetMsPerFrame = 1.5f;
+    /// <summary>The furthest the world picture looks from its site, in tiles, however high the aerials.</summary>
+    public int worldCoverMaxTiles = 200;
+    /// <summary>Signal to spare, in dB, at which the world picture reaches its brightest colour: less than on a map, as tiles are far apart.</summary>
+    public float worldCoverFullScaleDb = 60f;
+    /// <summary>How opaque the world picture is over the globe, from 0 to 1.</summary>
+    public float worldCoverOpacity = 0.55f;
     /// <summary>The most hops a relayed call may take (Radio 0.22.0): two relays, three hops (radio-autonomy's lean, agent default).</summary>
     public int maxRelayHops = 3;
     /// <summary>How many 25 kHz channels a repeater has between tiles (Radio 0.24.0): one pair, in and out, as the relay design leans

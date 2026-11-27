@@ -174,6 +174,7 @@ All **[A]**. The phases are the design's own; an idea needs its phase to exist f
 | RV6 | Transmit lamp and meter needle | 1 | Marks laid over the base station's art while it transmits |
 | RV7 | Warning light on the mast | 1 | A red light that blinks at night |
 | RV8 | Coax tinted by loss | 1 | A selected run, bright at the station and dimmer along its length; water damage in green later |
+| RV1b | World-map cover | 2 | Tiles coloured by signal to spare with a selected site; built in Radio 0.42.0 ([radio cover on the world map](radio-world-coverage.md)) |
 | RV9 | Skip-zone rings | 2 | On the world map, a dead ring between ground wave and the first hop, moving with the time of day |
 | RV10 | The grey line | 2 | The dawn and dusk band glowing on the globe, with the paths that ride it lit |
 | RV11 | Contact arcs | 2 | Arcs to each faction worked, coloured by signal, in the manner of [PSKReporter (Philip Gladstone)](https://pskreporter.info/) |

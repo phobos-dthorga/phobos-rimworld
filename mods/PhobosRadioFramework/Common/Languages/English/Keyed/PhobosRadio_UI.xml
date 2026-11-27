@@ -133,6 +133,16 @@
   <PhobosRadio_RelayRefuseMoving>The convoy must stop to put up a mast.</PhobosRadio_RelayRefuseMoving>
   <PhobosRadio_RelayRefuseHere>A relay mast already stands here.</PhobosRadio_RelayRefuseHere>
   <PhobosRadio_RelayRefuseShort>It needs {STEEL} steel and {COMPONENTS} components; the convoy carries {HAVESTEEL} and {HAVECOMPONENTS}.</PhobosRadio_RelayRefuseShort>
+  <!-- The cover picture on the world map (Radio 0.42.0) -->
+  <PhobosRadio_CoverGizmoOff>Radio coverage: off</PhobosRadio_CoverGizmoOff>
+  <PhobosRadio_CoverGizmo>Radio coverage: {KIND}</PhobosRadio_CoverGizmo>
+  <PhobosRadio_CoverGizmoDesc>Colour the world map by how well a radio standing on each tile would reach the place selected. Brighter is stronger, dark red is too weak to use, and ground left unpainted is past the horizon. High ground on the way casts a shadow, and a hill lights up from further off.\n\nPick the radio at the far end. The picture then follows whichever of your places with a radio you select, until you switch it off.</PhobosRadio_CoverGizmoDesc>
+  <PhobosRadio_CoverMenuOff>Off</PhobosRadio_CoverMenuOff>
+  <PhobosRadio_CoverRefuseNoRadio>{KIND}: no working radio here</PhobosRadio_CoverRefuseNoRadio>
+  <PhobosRadio_CoverRefuseNoKey>{KIND}: no station here has a Morse key</PhobosRadio_CoverRefuseNoKey>
+  <PhobosRadio_CoverRefuseRelayMorse>{KIND}: a relay passes on speech only</PhobosRadio_CoverRefuseRelayMorse>
+  <PhobosRadio_CoverWorking>Working out radio coverage ({KIND}): {PERCENT} done.</PhobosRadio_CoverWorking>
+  <PhobosRadio_CoverShown>Radio coverage ({KIND}): {TILES} tiles in reach. Brighter is stronger; dark red is too weak.</PhobosRadio_CoverShown>
   <PhobosRadioReach_NoStation>Out of radio reach of home: no powered radio station at home.</PhobosRadioReach_NoStation>
   <PhobosRadioReach_RelayBusy>{RELAYS} would pass the call on, but every channel there is in use.</PhobosRadioReach_RelayBusy>
   <PhobosRadio_RelayUse>Passing on {CALLS} calls: {HELD} of {CHANNELS} channels in use.</PhobosRadio_RelayUse>

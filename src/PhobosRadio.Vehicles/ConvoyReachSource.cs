@@ -196,6 +196,8 @@ public sealed class ConvoyReachSource : IConvoyReachSource
         };
         if (MastRefusal(convoy) is { } refused) build.Disable(refused);
         yield return build;
+        // Radio 0.42.0: the cover picture's button, as on a colony, a mast or a post.
+        foreach (Gizmo cover in Phobos.Radio.UI.WorldCoverGizmo.For(convoy)) yield return cover;
     }
 
     static List<Thing> Carried(Caravan convoy, ThingDef def) => Contracts.Carried(convoy).Where(t => t.def == def).ToList();
@@ -237,6 +239,20 @@ public sealed class ConvoyReachSource : IConvoyReachSource
         Seen.Note("radio.relay-mast", (convoy as VehicleCaravan)?.VehiclesListForReading.FirstOrDefault(), convoy.LabelCap);
         Messages.Message("PhobosRadio_RelayBuilt".Translate(convoy.LabelCap.Named("CONVOY")), mast, MessageTypeDefOf.TaskCompletion, historical: false);
     }
+}
+
+/// <summary>
+/// A convoy of the player's as a place the world map's cover picture can be drawn for (Radio 0.42.0): its best fitted radio, its aerial on
+/// a Datum's mast when one is up, as its reach home reads it. It is the one that calls, so a link to a relay is worked in its mode.
+/// </summary>
+public sealed class ConvoyCoverSites : IWorldCoverSiteSource
+{
+    public bool MayHaveRadio(WorldObject place) => place is VehicleCaravan convoy && convoy.Faction == Faction.OfPlayer;
+
+    public WorldCoverSite? SiteOf(WorldObject place) =>
+        place is VehicleCaravan convoy && ConvoyReachSource.ConvoyEnd(convoy, ConvoyRadio.Mast(convoy)) is { } end
+            ? new WorldCoverSite(place, new List<RelayNode> { end }, caller: true)
+            : null;
 }
 
 /// <summary>

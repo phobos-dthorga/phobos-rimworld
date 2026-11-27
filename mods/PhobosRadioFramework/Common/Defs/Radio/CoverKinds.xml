@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The far-end radios the world map's cover picture can be drawn for (Radio 0.42.0; the owner's card of 27 Nov 2026: buttons to
+       switch; docs/development/radio-world-coverage.md). Each is one choice in the picture's menu, and stands for a radio a real
+       contact between tiles uses, so its figures are that radio's own. The vehicle kinds are in the Vehicle Framework folder. -->
+  <Phobos.Radio.RadioCoverKindDef>
+    <defName>PhobosRadioCover_RelayPost</defName>
+    <label>relay post</label>
+    <description>A radio relay post founded on the tile, on its own mast.</description>
+    <radioThing>PhobosRadio_RelayPostUnit</radioThing>
+    <caller>false</caller>
+    <order>40</order>
+  </Phobos.Radio.RadioCoverKindDef>
+</Defs>

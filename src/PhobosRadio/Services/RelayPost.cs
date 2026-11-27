@@ -41,6 +41,12 @@ public class Outpost_PhobosRelayPost : Outpost
     /// <summary>It relays only while someone keeps it.</summary>
     public bool Manned => PawnCount > 0;
 
+    /// <summary>The post as a relay, while it is the player's and manned, or null: what the relay search and the world map's pictures both read.</summary>
+    public RelayNode? Node() => !Destroyed && Manned && Faction is { IsPlayer: true } && Radio is { } radio
+        ? new RelayNode(RadioEndpoint.BuiltIn(radio.parent, IntVec3.Zero, radio), Tile, LabelCap, this, Repeater: true,
+            SiteMetres: RelayNode.SiteOf(Tile), Channels: Figures.channels)
+        : null;
+
     public override void Produce() { }
 
     public override string ProductionString()
@@ -60,10 +66,7 @@ public sealed class RelayPostSource : IRelaySource
         if (Find.WorldObjects == null) yield break;
         foreach (WorldObject place in Find.WorldObjects.AllWorldObjects)
         {
-            if (place is not Outpost_PhobosRelayPost { Destroyed: false, Manned: true } post || post.Faction is not { IsPlayer: true }) continue;
-            if (post.Radio is not { } radio) continue;
-            yield return new RelayNode(RadioEndpoint.BuiltIn(radio.parent, IntVec3.Zero, radio), post.Tile, post.LabelCap, post, Repeater: true,
-                SiteMetres: RelayNode.SiteOf(post.Tile), Channels: post.Figures.channels);
+            if (place is Outpost_PhobosRelayPost post && post.Node() is { } node) yield return node;
         }
     }
 }
