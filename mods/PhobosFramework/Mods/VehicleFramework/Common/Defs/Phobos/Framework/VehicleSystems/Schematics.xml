@@ -71,6 +71,14 @@
         <holds>Oil</holds>
       </li>
       <li>
+        <!-- Framework 0.365.0 (docs/development/vehicle-chip-detector.md, CD6). -->
+        <key>chipDetector</key>
+        <label>chip detector</label>
+        <rect>(466, 232, 26, 22)</rect>
+        <system>PhobosVehicleSystem_Lubrication</system>
+        <quantity>oilMetal</quantity>
+      </li>
+      <li>
         <key>oilPump</key>
         <label>oil pump</label>
         <shape>Pump</shape>

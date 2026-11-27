@@ -57,7 +57,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [How our vehicle features look](vehicle-presentation-design.md) (11 Nov 2026): the diagnosis report, fleet board, icons and graphs. Partly built.
 - [A live systems schematic](vehicle-schematic.md) (28 Nov 2026): a page of pipes and cutaways, SC1 to SC12, with a mock-up. Partly built.
 - [A fuel filter that clogs](vehicle-fuel-filter.md) (28 Nov 2026): clogging by fuel burned and dirty fuel, FF1 to FF7. Built.
-- [A chip detector](vehicle-chip-detector.md) (28 Nov 2026): a lamp for metal in the oil, before a breakdown, CD1 to CD7. Design only.
+- [A chip detector](vehicle-chip-detector.md) (28 Nov 2026): a lamp for metal in the oil, before a breakdown, CD1 to CD7. Built.
 - [An intake separator](vehicle-inlet-separator.md) (28 Nov 2026): a turbine aircraft's dust switch; the barrier clogs, IS1 to IS6. Design only.
 - [Other factions' vehicles: an audit](vehicle-other-factions-audit.md) (11 Nov 2026): every player-faction check against the owner's rule. Built.
 - [Headlights that light the ground](vehicle-headlights.md) (12 Nov 2026): a beam of the game's own light ahead of every vehicle. Built.

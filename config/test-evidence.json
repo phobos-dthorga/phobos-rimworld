@@ -474,6 +474,7 @@
     "737": {"parts": {"fallout doses people on the map": ["health.fallout-dose"]}},
     "738": {"parts": {"a reserve is brought out": ["environment.held-pawns-out"]}},
     "739": {"parts": {"a lamp when dirty": [{"key": "vehicles.stage.fuelFilter", "variant": "dirty"}], "clogged, it loses power": [{"key": "vehicles.stage.fuelFilter", "variant": "clogged"}], "stale depot fuel is dirty": ["vehicles.fuel-dirt"]}},
+    "740": {"parts": {"the lamp names the worn part": ["vehicles.chip-light"], "its stage is entered": [{"key": "vehicles.stage.oilMetal", "variant": "chip light"}]}},
     "713": [{"key": "radio.world-cover-network", "variant": "PhobosRadioCover_RelayMast"}],
     "714": ["radio.world-cover-full-relay"],
     "704": {"parts": {"finished while not selected": [{"key": "radio.coverage-finished", "variant": "background"}],

@@ -44,7 +44,7 @@ public static class FireWear
         {
             double felt = FireWearRule.FireFelt(onVehicle, under, role.soft, canCatch, settings.fireWearUnderFireproof);
             double share = FireWearRule.SharePerHour(role.sharePerHour, felt, rules.leastShareOfRate) * RareTickHours;
-            if (share > 0) comp.WearRole(role.role, 0f, (float)share);
+            if (share > 0) comp.WearRole(role.role, 0f, (float)share, shedsMetal: false);
         }
         if (!lite && onVehicle > 0f && rules.wiringCondition != null && rules.wiringPerHour > 0f)
         {

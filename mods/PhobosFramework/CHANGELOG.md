@@ -32,6 +32,10 @@ The fuel filter, the chip detector and the intake separator
   faster on stale fuel from an old depot, which is now dirty fuel. A lamp lights at half; clogged, the engine gives three quarters of its
   power and calls for an engine service, which changes the filter. New settings: **Fuel filters clog** (on) and **Blocked fuel filters
   stop engines** (off), which lets a blocked filter stop the engine. Not yet tested in game: row 739.
+- **Chip detectors** (the owner's answers of 28 November 2026): every engine, and each helicopter's rotor gearbox, sheds metal into
+  its oil as it wears inside (low oil pressure, overheating, over-torque, running past its service or with a worn hot section). A
+  **chip light** names the part before the wear breaks it; it harms nothing, and the engine service's oil change clears it until the
+  wear brings it back. Not yet tested in game: row 740.
 
 ## [0.364.0] - 2026-11-28 - Draft
 

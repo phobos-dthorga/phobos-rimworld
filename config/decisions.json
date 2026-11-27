@@ -96,48 +96,6 @@
    "asked": "2026-11-27"
   },
   {
-   "id": "chip-light-breakdowns",
-   "question": "Should a lit chip lamp make a breakdown likelier, or only report wear?",
-   "context": "The chip detector record (CD3). The lamp lights when metal from wear reaches the oil; that wear already raises breakdowns today.",
-   "options": [
-    {
-     "id": "report-only",
-     "label": "Report only",
-     "detail": "A warning with no harm of its own; no setting needed"
-    },
-    {
-     "id": "raises-breakdowns",
-     "label": "It raises breakdowns",
-     "detail": "A lit lamp adds a breakdown chance of its own, with a setting that starts on"
-    }
-   ],
-   "lean": "report-only",
-   "why": "The wear behind it already causes breakdowns; counting it twice would punish the player for reading the lamp",
-   "from": "docs/development/vehicle-chip-detector.md",
-   "asked": "2026-11-28"
-  },
-  {
-   "id": "chip-light-gearboxes",
-   "question": "Should helicopter rotor gearboxes have chip lamps too, or engines only?",
-   "context": "The chip detector record (CD1).",
-   "options": [
-    {
-     "id": "gearboxes-too",
-     "label": "Gearboxes too",
-     "detail": "Each rotor gearbox has its own lamp, the classic helicopter chip light"
-    },
-    {
-     "id": "engines-only",
-     "label": "Engines only",
-     "detail": "One lamp per engine, nothing on the gearboxes"
-    }
-   ],
-   "lean": "gearboxes-too",
-   "why": "A gearbox chip light is the best-known one, and our rotor drives already wear with over-torque",
-   "from": "docs/development/vehicle-chip-detector.md",
-   "asked": "2026-11-28"
-  },
-  {
    "id": "separator-switch",
    "question": "An intake separator on turbine aircraft: a switch the player sets, or always on?",
    "context": "The intake separator record (IS1 to IS3). On, it costs about 3% of power and keeps out half the dust, grit and fouling.",

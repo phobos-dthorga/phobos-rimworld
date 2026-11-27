@@ -679,6 +679,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     FuelDirt? fuelDirt;
     /// <summary>How dirty the tank's fuel is (Framework 0.365.0, the fuel filter).</summary>
     public FuelDirt FuelDirt => fuelDirt ??= new FuelDirt(this);
+    OilMetal? oilMetal;
+    /// <summary>The chip detectors: metal shed into the engines' and gearboxes' oil by wear (Framework 0.365.0).</summary>
+    public OilMetal OilMetal => oilMetal ??= new OilMetal(this);
 
     /// <summary>Quantities kept per part: each engine's hot-section life, each wheel's brake wear (Framework 0.248.0, PartFigures).</summary>
     public PartFigures PartFigures => perPart ??= new PartFigures(this);
@@ -725,6 +728,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Scribe_Values.Look(ref SideTanks.crewOpened, "PhobosVehicleSystems_CrossFeedCrewOpened", false);
         // Framework 0.360.0: each aircraft engine's own sump (the vehicle standard, batch 3).
         Scribe_Collections.Look(ref EngineFeeds.oil, "PhobosVehicleSystems_EngineOil", LookMode.Value);
+        // Framework 0.365.0: each engine's and gearbox's metal in its oil, by part key (the chip detectors).
+        Scribe_Collections.Look(ref OilMetal.metal, "PhobosVehicleSystems_OilMetal", LookMode.Value, LookMode.Value);
         Scribe_Collections.Look(ref loadSwitches, "PhobosVehicleSystems_Loads", LookMode.Value, LookMode.Value);
         // The graphs' history: the owner's exception to "derived state is never saved" (8 Nov 2026), a few kilobytes per vehicle.
         History.ExposeData(Props.systems);
@@ -1146,6 +1151,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             EngineFeeds.Update((float)hours);
             // Framework 0.365.0: fuel poured in since the last look, other than a depot's, is clean and thins the tank's dirt.
             FuelDirt.Update();
+            // Framework 0.365.0: the chip detectors, after the services' restores and the stages' wear of the last look.
+            OilMetal.Update((float)hours);
             if (!stagesSettled)
             {
                 // The first update: take the stages the true readings give, quietly, as where each starts (no effects on entry or exit).
@@ -2818,13 +2825,17 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// <summary>Slow damage to one living part of the role, without armour or reactions (wear, heat). With <paramref name="neverBelowShare"/>
     /// above 0 it never takes a part below that share of its full health, and leaves alone a part already at or under it: wear that
     /// stops short of putting the part out (the landing-surface rule's dust).</summary>
-    public void WearRole(string role, float amount, float shareOfHealth = 0f, float neverBelowShare = 0f)
+    /// <param name="shedsMetal">Whether the wear happens inside, shedding metal into an engine's or gearbox's oil for its chip detector
+    /// (Framework 0.365.0): true for running wear, false for a fire, dust or grit eating at it from outside.</param>
+    public void WearRole(string role, float amount, float shareOfHealth = 0f, float neverBelowShare = 0f, bool shedsMetal = true)
     {
         if (amount <= 0f && shareOfHealth <= 0f) return;
         VehicleComponent? part = PartsOf(role).Where(p => p.Health > Mathf.Max(0f, neverBelowShare) * p.MaxHealth).RandomElementWithFallback();
         if (part == null) return;
+        float before = part.Health;
         float health = part.Health - amount - shareOfHealth * part.MaxHealth;
         part.SetHealth(neverBelowShare > 0f ? Mathf.Max(neverBelowShare * part.MaxHealth, health) : health);
+        if (shedsMetal && part.MaxHealth > 0f) OilMetal.NoteWear(part, role, (before - part.Health) / part.MaxHealth);
         RememberPartHealth(part);
         Vehicle.statHandler.MarkAllDirty();
         Repairs.NotifyRepairable();    // Vehicle Framework's list of vehicles to repair is fed only by real hits

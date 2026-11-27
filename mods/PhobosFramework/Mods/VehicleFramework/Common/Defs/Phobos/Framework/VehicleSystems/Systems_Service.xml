@@ -298,6 +298,15 @@
           <quantity>oilLevel</quantity>
           <value>1</value>
         </li>
+        <li>
+          <!-- Framework 0.365.0: the oil change takes the metal out with it, the engines' and the rotor gearboxes'. -->
+          <quantity>oilMetal</quantity>
+          <value>0</value>
+        </li>
+        <li>
+          <quantity>gearboxMetal</quantity>
+          <value>0</value>
+        </li>
       </restores>
       <!-- Framework 0.74.0 (S4): an engine service kit; raw, what it is made of. -->
       <supplies>

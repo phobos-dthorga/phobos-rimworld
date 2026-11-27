@@ -81,7 +81,7 @@ public static class LandingSurface
         double share = LandingSurfaceRule.EngineWearShare(looseShare, rolling, barrier, rules.engineWearPerEvent, rules.rollingFactor, rules.barrierStops);
         if (share <= 0) return;
         // Never below the rules' floor, which stands above the share at which the engine model counts an engine out (fault-read L2).
-        foreach (string role in Powertrain.EngineRolesOf(comp)) comp.WearRole(role, 0f, (float)share, rules.engineWearFloor);
+        foreach (string role in Powertrain.EngineRolesOf(comp)) comp.WearRole(role, 0f, (float)share, rules.engineWearFloor, shedsMetal: false);
         string variant = barrier ? "barrier" : "bare";
         if (VehicleSystemsMod.Logger.DebugEnabled)
             VehicleSystemsMod.Logger.Debug(vehicle.LabelShort + " " + when + " over " + looseShare.ToString("P0") + " loose ground" + (rolling ? ", rolling" : "")

@@ -164,7 +164,7 @@ public static class StripDebris
         if (roles.Count == 0) return;
         string role = roles.RandomElement();
         VehicleComponent? part = comp.PartsOf(role).FirstOrDefault();
-        comp.WearRole(role, 0f, rules.debrisDamage, rules.engineWearFloor);
+        comp.WearRole(role, 0f, rules.debrisDamage, rules.engineWearFloor, shedsMetal: false);
         // The case says which flight it was (Framework 0.301.0): our own ("own-flight"), Vehicle Framework's ("stock"), or a phase's grit.
         if (Seen.Wants("aircraft.strip-debris", vehicle, how)) Seen.Note("aircraft.strip-debris", vehicle, when, how);
         if (vehicle.Faction != Faction.OfPlayer) return;

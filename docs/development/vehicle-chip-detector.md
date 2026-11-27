@@ -1,7 +1,8 @@
 # A chip detector: wear seen before it breaks (28 Nov 2026)
 
-**Status (28 Nov 2026):** a design record; nothing is built. The owner chose by card to build all three of the schematic's missing parts,
-"each with its own record first" ([the schematic record](vehicle-schematic.md), M3). Building waits for the owner's answers below.
+**Status (28 Nov 2026):** built in Framework 0.365.0, not yet tested in game (row 740); see [As built](#as-built-framework-03650). The
+owner chose by card to build all three of the schematic's missing parts, "each with its own record first" ([the schematic record](vehicle-schematic.md),
+M3), and answered this record's questions on the Decisions page the same day. Not built: CD5 and CD7.
 
 ## Read this first
 
@@ -82,6 +83,33 @@ On the Decisions page (`config/decisions.json`), each with the agent's lean.
 
 1. **Should a lit chip lamp make a breakdown likelier?** Lean: no, it reports wear that already causes breakdowns.
 2. **Helicopter gearboxes too?** Lean: yes, a rotor gearbox's chip light is the classic one.
+
+## The owner's answers (28 Nov 2026)
+
+On the Decisions page; every option offered, the chosen one first.
+
+| Question | Chosen | Also offered |
+| --- | --- | --- |
+| Should a lit chip lamp make a breakdown likelier? | **Report only** | It raises breakdowns |
+| Helicopter gearboxes too? | **Gearboxes too** | Engines only |
+
+So the risk is none and it has no setting of its own: switching off the lubrication, engine oil or rotor drive system switches it off.
+
+## As built (Framework 0.365.0)
+
+Not yet tested in game: row 740. What differs from the model above, and the choices the build made:
+
+- **Where it is kept** (CD1, `OilMetal`): each engine's and rotor gearbox's metal by part key, saved with the vehicle; the worst engine's
+  is `oilMetal` (the land lubrication system and the aircraft engine oil system) and the worst gearbox's `gearboxMetal` (the rotor drive).
+- **What sheds metal** (CD2, `ChipDetectorRule`): wear through `WearRole`, 5 for each whole share of health lost, so a tenth lost lights the
+  lamp; and 0.01 an hour for each way an engine runs worn (past its overdue service, 180 hours; its own hot section past its life). **Not**
+  a hit, a fire, landing dust or grit: those callers now tell `WearRole` they wear from outside (agent's choice).
+- **The lamp** (CD3): amber at 0.5, "chip light", and "chip light, much metal" from 0.8. Both amber: a red lamp in this mod means a stage
+  that stops or harms, and this one does neither. A message names the part once as it lights, never again on loading a save.
+- **The engine service clears it** (CD4), engines' and gearboxes' alike, as its oil change.
+- **The schematic's land page draws it** beside the sump (CD6).
+- **Not built**: the diagnosis report naming the cause (CD5), and a dashboard picture (CD7): until one is made in the night run, the lamp
+  shows in words.
 
 ## Sources
 

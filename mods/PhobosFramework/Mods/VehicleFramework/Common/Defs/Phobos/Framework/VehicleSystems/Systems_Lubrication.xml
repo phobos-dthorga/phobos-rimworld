@@ -230,6 +230,31 @@
           </li>
         </stages>
       </li>
+      <li>
+        <!-- Framework 0.365.0 (docs/development/vehicle-chip-detector.md; the owner's answers of 28 Nov 2026: report only): metal shed
+             into the engine's oil by wear, kept per part by OilMetal and the worst written here. It harms nothing; its stages only
+             light the lamp. The engine service's oil change clears it. -->
+        <name>oilMetal</name>
+        <description>Metal in the engine's oil, shed by wear inside it. The chip light warns before the wear breaks something; an oil change clears it, but anything still wearing brings it back.</description>
+        <label>chip detector</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <to>0.8</to>
+            <label>chip light</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>0.8</from>
+            <label>chip light, much metal</label>
+            <notable>true</notable>
+          </li>
+        </stages>
+      </li>
     </quantities>
     <flows>
       <li>

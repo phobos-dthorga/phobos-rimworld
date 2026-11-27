@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Framework 0.365.0: chip detectors, metal shed into an engine's or gearbox's oil by wear (docs/development/vehicle-chip-detector.md). -->
+  <PhobosVehicleSystems_MsgChipLight>The {VEHICLE}'s {PART}: chip light. Metal from wear has reached its oil, so something inside is wearing. A service changes the oil, but the wear goes on until its cause is put right.</PhobosVehicleSystems_MsgChipLight>
+</LanguageData>

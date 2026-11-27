@@ -135,6 +135,7 @@ The short version: **service when it is due, keep a kit in the cargo, and park s
 | **Won't start**: a flat or very cold battery | Lights and heaters ran it down; a damaged alternator; deep frost | **Jump-start it**, charge it, warm it |
 | **Running hot**, overheating, boiling over | A holed radiator, low coolant, hard work in heat, a snapped belt | Let it cool; repair; **coolant top-up** |
 | Oil low, hot or losing pressure | Oil burns as the engine runs, faster when worn; a damaged oil pump | A **service** tops it up |
+| **Chip light** on an engine or a rotor gearbox | Metal from wear inside it has reached its oil: low oil pressure, overheating, over-torque, or running past its service or with a worn hot section. **It harms nothing itself**; it warns before a breakdown | A **service** changes the oil and clears it, but it comes back until the cause is put right |
 | Slower, then failing tyres | Tread wears, up to three times as fast off the roads | A service with a **tyre set** |
 | **Brakes worn**: a tenth slower | The pads wear as it moves; faster laden, towing or fast | A service with a **brake pad set** |
 | **No brakes**: it runs on past where it stops | Pads worn through, or the brakes wrecked | New pads, or repair the brakes |
