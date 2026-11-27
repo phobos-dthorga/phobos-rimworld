@@ -49,6 +49,8 @@ public static class VehicleRadios
         ConvoyRadio.Register(new ConvoyReachSource());
         // Radio 0.22.0: halted convoys and vehicles parked at depots relay calls on.
         RelayNodes.Register(new VehicleRelaySource());
+        // Radio 0.50.0 (EW7): aircraft in flight with the repeater kit relay from their height, holding station or in transit.
+        RelayNodes.Register(new AircraftRelaySource());
         // Radio 0.45.0 (EW1): D'thorga Framework's jam fields that send out radio watts (the Busbar's mast, switched to radios) are noise.
         RadioJamming.Register(JammersFromFields);
         // Radio 0.42.0: a convoy is a place the world map's cover picture can be drawn for, and the picture's raised mast is the Datum's.

@@ -189,6 +189,18 @@ its tile.
   circle at that distance (it is far out: a helicopter's is a good way round the planet). An aircraft that can reach anywhere says
   so and has no circle.
 
+### Holding station
+
+**Press Hold station over... on an aircraft in flight and choose a place on the world map.** It flies there and circles over it for as
+long as its fuel allows, then turns for home with the fuel for the way back and a little more, and says so. **End hold** sends it home at
+once. It comes down where it is, as a caravan, if the fuel will not reach home.
+
+- **Why**: with the **repeater kit** and a radio it is a **flying relay** for your convoys' calls, from far higher than any mast
+  ([radio](radio.md#convoys-on-the-world-map)).
+- **It burns fuel all the while**, as fast as in cruise (a simplification). It needs the fuel to get there, hold a little and get home,
+  or the order is refused with the reason.
+- **Home** is the colony of yours nearest the place; it lands beside it as a caravan, to enter as any caravan does.
+
 ### Refuelling on the way
 
 **Aircraft refuel by setting down on the way**.

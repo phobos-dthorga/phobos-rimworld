@@ -34,7 +34,7 @@ public static class CrossBand
     static Game? keptFor;
 
     /// <summary>The dual-band radio itself: one stateless set, its figures from its Def, never on a map.</summary>
-    static CompRadio? Voice
+    internal static CompRadio? Voice
     {
         get
         {

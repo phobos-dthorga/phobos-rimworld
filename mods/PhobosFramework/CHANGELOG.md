@@ -22,6 +22,22 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.357.0] - 2026-11-27 - Draft
+
+Hold station
+
+### Added
+
+- **Hold station over a place on the world map**: a new order on an aircraft in flight. It flies there and circles until the fuel left
+  is what the way home needs, with a margin, then turns for home and says so; End hold sends it home at once. Refused, with the reason,
+  when the fuel cannot get there and back. With D'thorga Radio Framework 0.50.0 a holding aircraft with a repeater kit is a flying
+  relay. Not yet tested in game: row 715.
+
+### Compatibility and limits
+
+- Holding burns fuel as fast as cruising (a simplification). Home is the colony nearest the place, where it lands as a caravan. Safe
+  with a running save: the hold is saved with the flight.
+
 ## [0.356.0] - 2026-11-27 - Draft
 
 Fittings from the factory, and a seam for a Comms system

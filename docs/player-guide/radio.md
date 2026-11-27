@@ -149,6 +149,12 @@ tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
   says so; the relay's own pane says how busy it is.
 - **An aircraft can drop to the convoy** (Airdrop to the convoy, when choosing where to fly): the convoy talks it in, and everything
   dropped joins it.
+- **An aircraft is a flying relay** (from 0.50.0): fit it with the **repeater kit** and the **dual-band radio** (for convoys and
+  hand-helds; with only its aviation radio it passes on aircraft calls). In flight it passes calls on **from its height**: from 3,000 m its
+  horizon is over 200 tiles, where a mast's is about 20. Press **Hold station over...** on it in flight to keep it circling over one place
+  ([aircraft](aircraft-and-sling-loads.md#holding-station)); it relays **on the way** too. The whole network's picture draws a holding
+  aircraft as a relay, and **names one relaying on the way** in its pane without drawing it, as its place keeps changing; calls pass
+  through it all the same.
 
 ### Talking home from a camp or a site (from 0.25.0)
 

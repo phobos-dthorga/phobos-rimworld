@@ -23,6 +23,21 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.50.0] - 2026-11-27 - Draft
+
+An aircraft is a flying relay
+
+### Added
+
+- **An aircraft with the repeater kit passes calls on from its height** (the owner's card of 27 November 2026, with Vehicle Framework):
+  holding station over a place, or on its way anywhere. Through its dual-band radio it carries convoys' calls; with only its aviation
+  radio, aircraft calls. From 3,000 m its horizon is over 200 tiles, where a mast's is about 20. The network picture draws a holding
+  aircraft as a relay, and names one relaying on the way without drawing it. Not yet tested in game: row 715.
+
+### Compatibility and limits
+
+- Only your own aircraft relay. Safe with a running save; nothing new is saved.
+
 ## [0.49.1] - 2026-11-27 - Draft
 
 The network picture names relays on the move

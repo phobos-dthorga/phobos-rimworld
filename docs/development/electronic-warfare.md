@@ -5,8 +5,9 @@
 0.130.1 ([as built](#built-slice-1-27-nov-2026)); not yet tested in game (rows 706 to 708). **Slice 2 is built**: EW18 (jam the
 call), in Radio Framework 0.46.0 ([as built](#built-slice-2-27-nov-2026)); not yet tested in game (row 709). **Slice 3 is begun**: EW6
 (radio bays on aircraft) is built as batch 1 of [the vehicle standard](vehicle-standard.md#built-batch-1-27-nov-2026), with the real
-aviation bands the owner chose, in Radio Framework 0.49.0 and D'thorga Framework 0.356.0 (rows 710 and 711); EW7 waits for a way for an
-aircraft to hold over a place. Every other row is a
+aviation bands the owner chose, in Radio Framework 0.49.0 and D'thorga Framework 0.356.0 (rows 710 and 711). **EW7 is built** (the flying
+relay, holding station and in transit, the owner's card), in Radio Framework 0.50.0 and D'thorga Framework 0.357.0 ([as
+built](#built-slice-3-the-flying-relay-27-nov-2026); row 715). Every other row is a
 proposal; the radar simulation is a sketch only. The owner answered seven questions by card ([below](#questions-for-the-owner)).
 
 **A research record.** The owner, 27 November 2026: "I would especially like to make the Prowler aircraft and any knock on effects
@@ -306,7 +307,7 @@ Each setting, when built, is reported to the owner in the reply that delivers it
 | --- | --- | --- |
 | 1 | EW2, EW1, EW11 | The term itself, with the jammer the player already owns. **Built 27 Nov 2026** |
 | 2 | EW18 | The first thing outside our mods to notice. **Built 27 Nov 2026** |
-| 3 | EW6, EW7 | Radios on aircraft, and the flying relay. **EW6 built 27 Nov 2026** (with the aviation bands: the vehicle standard's batch 1) |
+| 3 | EW6, EW7 | Radios on aircraft, and the flying relay. **Built 27 Nov 2026**: EW6 with the aviation bands (the vehicle standard's batch 1), then EW7 |
 | 4 | EW10, EW4, EW3 | Pods for other aircraft; the Prowler's bands; world links |
 | 5 | EW12 | Direction finding, once there are emitters worth finding |
 | 6 | EW21, EW22 | Other mods' jammers and drones, one mod at a time |
@@ -367,6 +368,26 @@ vehicles:** none; it is about buildings. **Cost:** one lookup in the noise snaps
 per tick; on a map with no jammer it returns at once.
 
 **Not built:** the other alarm responses (gas vents, the infrasonic emitter, drones) stay as they were: they are wired, not radio.
+
+## Built: slice 3, the flying relay (27 Nov 2026)
+
+The owner's card of the same day: "Both a 'hold station' order and in transit". Built in D'thorga Framework 0.357.0 and Radio Framework
+0.50.0. **Not yet tested in game**: row 715 of the [test pass](in-game-test-pass.md).
+
+| Piece | As built |
+| --- | --- |
+| Hold station | A new world-map order on an aircraft in flight, **Hold station over...** (`Flight/HoldStation.cs`, an arrival action). It flies to the tile, then circles its neighbours: a lap of plain path nodes kept topped up by the flight's rare look, so the path never empties and nothing depends on Vehicle Framework's own circling, which stops after one node unless in recon and is lost on a load. It turns for home when the fuel left is the way home's need with the return margin (1.15) and two tiles in hand (authored), or ends at **End hold**. Home is the player's colony nearest the tile; it lands there as a caravan (the cell it took off from is not known in flight). Refused with the reason when the fuel cannot get there, hold a little and get home |
+| Its fuel | Holding burns as cruising does, per tick (Vehicle Framework's rule): a simplification, as a real aircraft loiters on less |
+| The relay | `AircraftRelaySource` in the radio's Vehicle Framework tie-in: every player aircraft in flight with the **repeater kit** working relays, through its **dual-band radio** when fitted (convoys' VHF and UHF) or else its **aviation radio** (aviation-band calls). Owner: the vehicle, which outlives each flight's world object |
+| Its height | The height it cruises at (`AirCombat.TrackCruiseMetres`: the leg's, or the track's 3,000 m), less the ground under it (`TileAir.ElevationMetres`), as the radio's heights are over the tile's plain; marked `Airborne` |
+| Its place | Holding: the held tile, fixed, so the network picture draws it as a relay. In transit: the tile under it, marked `Moving`, so the network picture and planner leave it out and name it (the world-coverage session's Radio 0.49.1) while calls pass through it |
+
+**What outside notices:** convoys whose calls now reach home through it; the network picture. **Other factions:** none: only the player's
+aircraft count, as another faction's flight is never updated. **Cost:** the relay source is one pass over the world's objects when a chain
+is searched, as the convoy source makes; the hold, one path count and one fuel sum per holding aircraft each rare tick.
+
+**Not built:** a hold ordered from the ground before take-off (launch toward the place, then order it in flight); a lower loiter burn; a
+crewless aircraft asking a real control link (EW9).
 
 ## Questions for the owner
 

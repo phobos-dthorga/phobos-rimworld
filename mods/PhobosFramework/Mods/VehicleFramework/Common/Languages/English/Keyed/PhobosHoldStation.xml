@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Hold station over a place on the world map (Framework 0.357.0; docs/development/electronic-warfare.md, EW7). -->
+  <PhobosHold_Gizmo>Hold station over...</PhobosHold_Gizmo>
+  <PhobosHold_GizmoDesc>Choose a place on the world map. The aircraft flies there and circles over it for as long as its fuel allows, then turns for home with enough to get back. With a repeater kit and a radio it passes calls on from its height while it circles, and on the way.</PhobosHold_GizmoDesc>
+  <PhobosHold_GizmoEnd>End hold</PhobosHold_GizmoEnd>
+  <PhobosHold_GizmoEndDesc>Stop circling and fly home now, or come down where it is if the fuel will not reach.</PhobosHold_GizmoEndDesc>
+  <PhobosHold_NoTile>Choose a place on the world map.</PhobosHold_NoTile>
+  <PhobosHold_NoFuel>The {VEHICLE} has not the fuel to fly there, hold a while and come home.</PhobosHold_NoFuel>
+  <PhobosHold_MsgOrdered>The {VEHICLE} is on its way to hold station.</PhobosHold_MsgOrdered>
+  <PhobosHold_MsgHolding>The {VEHICLE} is holding station, circling over the place you chose.</PhobosHold_MsgHolding>
+  <PhobosHold_MsgFuel>The {VEHICLE} is turning for home: it has the fuel for the way back and little more.</PhobosHold_MsgFuel>
+  <PhobosHold_MsgEnded>The {VEHICLE} ends its hold and turns for home.</PhobosHold_MsgEnded>
+</LanguageData>

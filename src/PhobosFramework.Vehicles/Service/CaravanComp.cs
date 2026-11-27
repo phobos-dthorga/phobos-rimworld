@@ -178,6 +178,8 @@ public class WorldObjectComp_PhobosFlightSystems : WorldObjectComp
         if (flight.Flying)
         {
             using (PhobosTiming.Measure("aircraft cruising height")) CruiseHeight.FlightLook(flight, comp.Vehicle);
+            // Framework 0.357.0 (EW7): an aircraft holding station keeps its ring and turns for home on fuel.
+            HoldStation.Look(flight, comp.Vehicle);
         }
     }
 
@@ -187,5 +189,10 @@ public class WorldObjectComp_PhobosFlightSystems : WorldObjectComp
         if (Systems() is not { } comp) yield break;
         Gizmo? refuel = CargoRefuel.AircraftToggle(comp.Vehicle, comp);
         if (refuel != null) yield return refuel;
+        // Framework 0.357.0 (EW7): hold station over a tile, and end the hold.
+        if (parent is AerialVehicleInFlight flight)
+        {
+            foreach (Gizmo gizmo in HoldStation.Gizmos(flight, comp.Vehicle)) yield return gizmo;
+        }
     }
 }
