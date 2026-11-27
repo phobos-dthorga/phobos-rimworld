@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.359.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.360.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -158,6 +158,7 @@ offers to restart). RimWorld saves only what you change.
 | Aircraft and sling loads | Cruising height between places | Each stretch of a flight between places is flown at a height of its own: over the highest ground on the way, lower where the engines cannot climb at the aircraft's weight or someone aboard has no oxygen. A jet flown low is slower and thirstier; a stretch over ground too high to climb is refused before launch. Your own aircraft with cruising figures only. Off: every flight is flown as its author made it | On |
 | Aircraft and sling loads | Damaged turbine engines give less power | A damaged turbine gives from half its power, badly damaged, to all of it, sound, so a shot-up aircraft flies, climbs and hovers weaker before an engine stops | On |
 | Aircraft and sling loads | Lopsided thrust unsettles twin jets | A twin-engined jet with one engine out or weaker dodges less fire and burns a little more fuel. Helicopters and the Osprey are not affected | On |
+| Aircraft and sling loads | Fuel and oil faults stop aircraft engines | Each aircraft engine has its own fuel pump, oil pump and sump: a ruined pump, fuel frozen after hours high in deep cold, or an engine run without oil pressure stops it. With every engine stopped on the world map an aircraft glides down to land, or crashes where it cannot. Off: shown, but nothing stops | On |
 | Aircraft and sling loads | Aircraft engines start one after another | Turbines light one after another, a few seconds each, and the aircraft may not take off until all are running | On |
 | Aircraft and sling loads | Turbine compressors get dirty | A turbine's compressor slowly gets dirty as it runs, faster on rough ground, costing up to 5% of its power and about 2% more fuel until a mechanic washes it with water. Jets, helicopters and turbine tanks | On |
 | Aircraft and sling loads | When an aircraft is too heavy or too hot to lift off, hover onto its pad or land at a journey's end | Refuse it (use the runway, or lighten it) / allow it, at a cost to the engine / allow it, with a warning only | Refuse it: use the runway, or lighten it |

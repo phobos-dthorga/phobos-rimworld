@@ -396,7 +396,8 @@ public sealed class Powertrain
         for (int i = 0; i < engineRoles.Length; i++)
         {
             // An engine its side tank starves is out too, as the engine orders count it (fault-read 25 Nov 2026, E5).
-            if (comp.PartEfficiency(engineRoles[i], 1f) > TurbineModel.EngineOutBelow && !comp.SideTanks.Starved(i)) working++;
+            // Framework 0.360.0: an engine its own fuel pump or frozen fuel starves is out too (the vehicle standard, batch 3).
+            if (comp.PartEfficiency(engineRoles[i], 1f) > TurbineModel.EngineOutBelow && !comp.SideTanks.Starved(i) && !comp.EngineFeeds.Starved(i)) working++;
         }
         return (working, engineRoles.Length);
     }
@@ -409,6 +410,8 @@ public sealed class Powertrain
         for (int i = 0; i < engineRoles.Length; i++) orders[i] = comp.PartEfficiency(engineRoles[i], 1f);
         // Framework 0.252.0, any number of engines since 0.254.0: an engine whose side tank is dry behind a shut cross-feed has stopped.
         for (int i = 0; i < orders.Length; i++) if (comp.SideTanks.Starved(i)) orders[i] = 0;
+        // Framework 0.360.0: each engine's own fuel pump: nothing starved (or the fuel frozen), three quarters fed poorly.
+        for (int i = 0; i < orders.Length; i++) orders[i] = comp.EngineFeeds.Starved(i) ? 0 : orders[i] * comp.EngineFeeds.OrderFactor(i);
         return orders;
     }
 

@@ -3,8 +3,9 @@
 **Status (27 Nov 2026):** the standard, and its first batch. **Batch 1 is built** (VS1 to VS3, radios everywhere): Radio Framework
 0.49.0 and D'thorga Framework 0.356.0 ([as built](#built-batch-1-27-nov-2026)); not yet tested in game (rows 710 and 711). **Batch 2 is
 built** (the audit, and the gaps it found): D'thorga Framework 0.359.0, D'thorga Vehicles 0.130.2 and Radio Framework 0.52.0 ([as
-built](#built-batch-2-27-nov-2026)); not yet tested in game (row 723). Batches 3 to 5 are proposals. The owner answered four cards
-([below](#questions-for-the-owner)).
+built](#built-batch-2-27-nov-2026)); not yet tested in game (row 723). **Batch 3 is built** (each aircraft engine's own fuel and oil):
+D'thorga Framework 0.360.0 ([as built](#built-batch-3-27-nov-2026)); not yet tested in game (row 724). Batches 4 and 5 are proposals.
+The owner answered seven cards ([below](#questions-for-the-owner)).
 
 **Why.** The owner, 27 Nov 2026, looking at their aircraft: "Wouldn't radios of some sort be included with the majority of the ones in
 my game, if not all, by default? And if that's the case, howcome there's no mention of them on the Systems, Fittings, nor Health pages?
@@ -78,7 +79,7 @@ where it changes an outcome** (the vehicles' rule: every node moves a figure tha
 | --- | --- | --- |
 | 1 | VS1, VS2, VS3 (radios everywhere) | The owner's question; it is also slice 3 of electronic warfare (radio bays on aircraft, the flying relay) |
 | 2 | The audit kind and `config/vehicle-standard.json`. **Built 27 Nov 2026** | So every later batch is checked, and nothing slips back |
-| 3 | VS6, VS7 (fuel and oil for aircraft) | Real systems every aircraft has, with clear failures |
+| 3 | VS6, VS7 (fuel and oil for aircraft). **Built 27 Nov 2026** | Real systems every aircraft has, with clear failures |
 | 4 | VS9, VS10 (lights and transports' galleys) | Accessories that already exist; mostly XML |
 | 5 | VS11 (what does not belong) | Takes things away from players' vehicles, so it waits for the owner's word on each |
 | Later | VS8, VS12 | Each needs a behaviour designed first |
@@ -120,6 +121,35 @@ vehicles: land 58, fixed-wing 10, rotor 10, trailer 13, boat 2, submarine 2):
 **What a next game would need:** a report of its own vehicles' systems and parts, and a standard file like this one; the audit's code
 reads only the two files' shapes.
 
+## Built: batch 3 (27 Nov 2026)
+
+The owner's word the same day ("Absolutely start batch 3 of the standard"), and three cards (5 to 7, [below](#questions-for-the-owner)).
+**Not yet tested in game**: row 724 of the [test pass](in-game-test-pass.md). The land fuel and lubrication systems could not simply be
+given to aircraft: a system's figure is one for the whole vehicle, and its stages act on the whole vehicle or a random part of a role,
+so one dead pump would have reached every engine. So the per-engine part is code, built like the side tanks (which already stop one
+engine at a time), and the systems show the worst engine.
+
+| Piece | As built |
+| --- | --- |
+| Parts | A system may now ask for a part beside each engine (`partPerEngine`; `EnginePumps.cs`): Engine2's fuel pump plays `FuelPump2`, and the numbered roles roll up into `FuelPump`. Appended after every other part we add, so a saved aircraft gains them whole. Health 15, inside, rarely hit, outside the destruction sum (the radio bays' figures) |
+| VS6, `PhobosVehicleSystem_EngineFuel` | **Engine fuel feed**, the worst engine's pump. A pump under a tenth of its work starves its engine, which stops; under half gives three quarters (the land thresholds). **Fuel** temperature follows the air it meets at 0.5 an hour; **fuel frozen** from Jet A-1's -47 °C to solid at -57 °C (authored), stopping every engine half way |
+| VS7, `PhobosVehicleSystem_EngineOil` | Each engine's own sump (saved): it burns with that engine's output, twice as fast worn, and loses oil when that engine or its oil pump is hit (the land shares). **Oil pressure**, the worst engine's: its pump's work times what its level allows. No pressure seizes a running engine in about five hours, low pressure wears it (the land figures). **Oil level** is the emptiest sump, so the dashboard, the low-oil service call and the service's top-up work as on land |
+| Stopping an engine | `EngineFeeds.Starved(i)` beside the side tanks' in the powertrain's engine count and orders, so everything that follows a lost engine follows it: engine-out ratings, lopsided thrust, the hover check and a fall, the cruising height's turn back, being shot down |
+| The air at height | On a leg flown at a cruising height, the fuel meets the standard atmosphere's air at that height (6.5 °C a kilometre from the ground's own air, to 11 km, never below -80 °C, authored) plus the ram rise of the air meeting the aircraft (T × 0.2 M²; Mach 0.7 fixed wing, 0.2 rotor, authored). **An agent addition to the card**, which spoke of maps: without it jet fuel would matter only on a map below -52 °C, and the real hazard is long, high, cold flights |
+| Every engine out | `DeadStick.cs`: on the world map, an aircraft of ours with every engine stopped glides down onto the tile below and lands as a caravan; over water, impassable mountains or in space it crashes through Vehicle Framework's own crash. Before, it struggled on across the leg. A twin with one engine left keeps the cruising height's judgement |
+| Take-off | Refused with a ruined pump, frozen fuel or an engine without oil pressure |
+| The setting | **Fuel and oil faults stop aircraft engines** (Flight, on; the owner's card). Risk high, the agent's grade. Off, the readings are kept and shown but nothing stops or is harmed |
+| The standard | VS6 and VS7 in `config/vehicle-standard.json` now ask for these systems and the `FuelPump` and `OilPump` roles on fixed-wing and rotor aircraft, built |
+
+**What outside the vehicle notices:** the world map (an aircraft coming down where it is); the crew of a crashed aircraft. **Cost:** a
+few part lookups per engine on the systems' own update (every 250 ticks on a map, each rare tick in flight), and one more check of the
+engine count, which already looks at each engine's part. Not measured in play.
+
+**Not built:** another author's flight on a map (the Harrier, the close air support jets, the Prowler, the Hind, the Mongoose) is not
+brought down by us when every engine stops; our own flights already fall. A fuel heater or fuel-oil heat exchanger to keep the fuel
+warm; fuel cross-feed between engines' pumps; the oil's own temperature on aircraft. **What a next game would need:** the rule
+(`EngineFeedRule`) is game-free; a game with engines and a part model would need its own pumps and its own place to stop an engine.
+
 ## Questions for the owner
 
 Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, the agent's recommendation marked, then the answer.
@@ -130,13 +160,19 @@ Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, th
 | 2 | How should an aircraft's stock radio work? | **Multiband set** (recommended): covers our 2 m and 70 cm bands as real wideband sets do · **Add the aviation bands**: new air band and military UHF; stations need new kit · Our bands, labelled | **Add the aviation bands** |
 | 3 | Should a Comms system appear on the Systems page? | **Every powered vehicle** (recommended), saying "no radio fitted" where there is none · Only with a radio | **Every powered vehicle** |
 | 4 | How should the standard be kept? | **An audit kind** (recommended) in the vehicle bindings audit, from a data file and the game's own report · Audit and a gate check · Record only | **An audit kind** |
+| 5 | On a multi-engine aircraft, should each engine have its own pumps and oil, or one set for the whole aircraft? | **Each engine its own** (recommended): a fault takes one engine, so a twin limps home on the other · One set per aircraft: quicker, but one fault reaches every engine | **Each engine its own** |
+| 6 | What may a fuel or oil fault do to an aircraft in the air? | **Real, with a setting** (recommended): oil gone seizes that engine in a few hours and a dead pump starves it; a twin flies on one engine, a single-engine aircraft must land; its own setting, on · Real, setting off · Wear and warn only | **Real, with a setting** |
+| 7 | Jet fuel freezes far colder than diesel. What should aircraft fuel do in the cold? | **Freezes at its real point** (recommended), sourced · Never thickens | **Freezes at its real point** |
 
 ## Who chose what
 
 - **Owner (27 Nov 2026):** radios on aircraft by default, shown on all three pages; a standard so players are not bewildered; slice 3
   to start. By card: factory radios on aircraft, military vehicles and boats; the real aviation bands; Comms on every powered vehicle; an
-  audit kind to keep the standard.
-- **Agent:** the standard's lines, the batches, the audit, and every lean here, for the owner to revise.
+  audit kind to keep the standard. Batch 3 ("Absolutely start batch 3"), by card: each engine its own pumps and oil; real consequences
+  in the air behind a setting that starts on; jet fuel freezing at its real point.
+- **Agent:** the standard's lines, the batches, the audit, and every lean here, for the owner to revise. In batch 3: the code route
+  (per-engine parts and a service, not the land systems), the air at cruising height and the ram rise, Jet A-1's figure (not Jet A's
+  -40 °C, which the card named), solid at 10 °C below, the gliding landing or crash on the world map, and the setting's risk grade.
 
 ## Sources
 
@@ -144,3 +180,6 @@ Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, th
   kind written for this record.
 - Real-world basis: general knowledge of aircraft, armoured vehicle and boat equipment, **unverified** for this record; each batch
   that builds a line names its sources before it uses a figure.
+- Batch 3: Jet A-1's freezing point of -47 °C at most (DEF STAN 91-091 and ASTM D1655, as given by Wikipedia, "Jet fuel"; secondary);
+  the International Standard Atmosphere's lapse of 6.5 °C a kilometre to 11 km; total air temperature, T(1 + 0.2 M²) for air
+  (standard aerodynamics). The rest is authored and labelled in `Systems_EngineFeed.xml`.

@@ -72,6 +72,14 @@ its part, a kit stops working until repaired.
 - **A twin jet with an engine out, or one weaker than the other, dodges a little less fire and burns a little more fuel** holding
   a straight line (the setting **Lopsided thrust unsettles twin jets**, on by default). Helicopters and the Osprey do not, as one
   drive shares their engines' work.
+- **Each engine has its own fuel pump, oil pump and sump** (the setting **Fuel and oil faults stop aircraft engines**, on by default):
+  a ruined fuel pump stops its engine; an engine run with no oil pressure seizes within a few hours; a hit on an engine or its oil pump
+  drains its oil. A twin flies on with the other engine. Systems shows each engine's fuel feed and oil. **Have it serviced when the oil
+  is low**: the service tops every engine up.
+- **Jet fuel freezes** below about -52 °C: on a long flight high over a very cold place, or parked in deep cold. Every engine stops,
+  and it cannot take off until the fuel is warmer. Watch the **fuel** reading on Systems on long cold flights.
+- **With every engine stopped on the world map**, an aircraft glides down onto the ground below it and lands there; over water or
+  impassable mountains it crashes.
 
 | Twin jet (the A-10, Su-25 and Prowler) | At most |
 | --- | --- |

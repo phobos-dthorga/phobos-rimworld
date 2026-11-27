@@ -364,6 +364,10 @@ public class PhobosVehicleSystemDef : Def
     /// <summary>Left off a design that dives (one with CompProperties_PhobosSubmersible), Framework 0.359.0: submarine work is on the
     /// owner's back burner (20 Nov 2026), so what is added for boats in general is not added to them.</summary>
     public bool notOnSubmersibles;
+    /// <summary>A part this system gives each engine of a design that carries it (Framework 0.360.0; docs/development/vehicle-standard.md,
+    /// batch 3: each aircraft engine its own fuel and oil pump, the owner's card of 27 Nov 2026). Bound to the role numbered as each engine
+    /// is (Engine2's to FuelPump2), or to the plain role on a design with one engine; appended after every other part we add.</summary>
+    public PartPerEngine? partPerEngine;
 
     [Unsaved] VehicleSystemWorker? worker;
 
@@ -471,6 +475,15 @@ public class PartFinder
         }
         return true;
     }
+}
+
+/// <summary>A part made once for each engine (Framework 0.360.0): the role it is bound to, numbered as each engine is, and the part.
+/// A design with one engine takes the add as it is; with numbered engines each part's key and role take its engine's number, and its
+/// label is the add's eachLabel with {PART} as that engine's label.</summary>
+public class PartPerEngine
+{
+    public string role = "";
+    public PartToAdd? add;
 }
 
 /// <summary>A part the loadout appends when nothing on the vehicle plays the role.</summary>

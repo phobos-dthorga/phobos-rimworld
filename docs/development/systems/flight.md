@@ -405,6 +405,7 @@ generated [settings reference](../settings-reference.md#dthorga-framework-and-dt
 | Crews feel thin air when oxygen fails at height | Off | Flight |
 | Sights and weather affect an aircraft's aim | On | Flight |
 | Lopsided thrust unsettles twin jets | On | Flight |
+| Fuel and oil faults stop aircraft engines | On | Flight |
 | The Dead Man's Switch - Expedition's air defence sees aircraft | On (shown only with it) | Flight |
 | Hot days lift less; A ground crew hooks the load up; Weather can ground a lift | On | Sling loads |
 | Slung loads fly slower and burn more; Emergency release and drops | On | Sling loads |

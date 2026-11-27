@@ -319,17 +319,18 @@ public partial class ITab_VehicleSystems : ITab
     /// figure in the units its gauge shows, as a small table, and which is seen to first.</summary>
     static void DrawPartFigures(CompPhobosVehicleSystems comp, QuantitySpec quantity, ref float y, float width)
     {
-        if (quantity.perPart == null) return;
         List<(string part, float figure)> figures = comp.PartFigures.Shown(quantity).ToList();
         if (figures.Count < 2) return;
+        // Framework 0.360.0: a reading kept for each engine by its own pumps (EngineFeeds) has no part seen to first, and reads as it is.
+        bool eachEngine = quantity.perPart == null;
         Seen.Note("vehicles.systems-tab.part-table", comp.Vehicle);
         bool remaining = !quantity.remainingLabel.NullOrEmpty();
         float span = Mathf.Max(0.0001f, quantity.max - quantity.min);
         // Framework 0.262.0 (the owner's word of 23 Nov 2026: all the applicable cards): a small heading, then the parts two to a row,
         // each with its figure against its cell's edge, where the whole was one sentence. Which is seen to first stays beside the heading.
         float left = ArrowSize + 8f, inner = width - left - 4f;
-        string heading = (remaining ? "PhobosVehicleSystems_SysPartsLeft" : "PhobosVehicleSystems_SysPartsUsed").Translate();
-        string first = (quantity.perPart.restoreByAxle ? "PhobosVehicleSystems_SysPartFirstAxle" : "PhobosVehicleSystems_SysPartFirst").Translate();
+        string heading = (eachEngine ? "PhobosVehicleSystems_SysEachEngine" : remaining ? "PhobosVehicleSystems_SysPartsLeft" : "PhobosVehicleSystems_SysPartsUsed").Translate();
+        string first = eachEngine ? "" : (quantity.perPart!.restoreByAxle ? "PhobosVehicleSystems_SysPartFirstAxle" : "PhobosVehicleSystems_SysPartFirst").Translate();
         float headingWidth = inner * PartHeadingShare, rowHeight = PhobosWidgets.FigureRowHeight;
         var headingRow = new Rect(left, y, inner, rowHeight);
         using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
@@ -341,13 +342,13 @@ public partial class ITab_VehicleSystems : ITab
             float firstWidth = inner - headingWidth - 6f;
             Widgets.Label(new Rect(left + headingWidth, y, firstWidth, rowHeight), first.Truncate(firstWidth).Colorize(DetailColour));
         }
-        TooltipHandler.TipRegion(headingRow, first);
+        if (!eachEngine) TooltipHandler.TipRegion(headingRow, first);
         y += rowHeight;
         float cell = inner / PartColumns;
         for (int i = 0; i < figures.Count; i++)
         {
             (string part, float figure) = figures[i];
-            float share = remaining ? 1f - (figure - quantity.min) / span : (figure - quantity.min) / span;
+            float share = eachEngine ? figure : remaining ? 1f - (figure - quantity.min) / span : (figure - quantity.min) / span;
             float cellY = y;
             PhobosWidgets.FigureRow(ref cellY, left + cell * (i % PartColumns), cell - 6f, part.CapitalizeFirst(), share.ToStringPercent("0"),
                 colour: DetailColour, font: GameFont.Tiny);

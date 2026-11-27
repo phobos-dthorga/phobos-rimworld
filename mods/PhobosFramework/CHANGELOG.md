@@ -22,6 +22,34 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.360.0] - 2026-11-27 - Draft
+
+Each aircraft engine's own fuel and oil
+
+### Added
+
+- **Every aircraft engine has its own fuel pump, oil pump and sump** (the vehicle standard's batch 3; the owner's cards of 27 November
+  2026). They show on Health as parts beside each engine, and on Systems as **engine fuel feed** and **engine oil**, with each engine's
+  own reading under the row on a multi-engine aircraft. A ruined fuel pump starves its engine, which stops, and a damaged one feeds it
+  poorly; an engine run without oil pressure seizes in a few hours, and a hit on an engine or its oil pump drains its sump. A twin flies
+  on with the other engine. An aircraft will not take off with a ruined pump, frozen fuel or an engine without oil pressure, and an
+  engine service tops every sump up. Not yet tested in game: row 724.
+- **Jet fuel freezes at its real point**: the fuel in the tanks cools toward the air it meets, which on a long leg at cruising height
+  is the cold air high up, a little warmed by the aircraft's speed. Below about -52 °C (Jet A-1 freezes from -47 °C) it no longer flows
+  and every engine stops.
+- **An aircraft with every engine stopped on the world map glides down** onto the ground below it and lands there, or crashes where it
+  cannot land (water, impassable mountains). Before, it struggled on.
+- **New setting, Fuel and oil faults stop aircraft engines** (Flight section, on): off, the readings are kept and shown but no engine
+  stops or is harmed by them.
+
+### Compatibility and limits
+
+- Safe with a running save: aircraft already in it gain the new pumps whole and full sumps at their first load.
+- On a map, an aircraft on another author's flight (the Harrier, the close air support jets, the Prowler, the Hind, the Mongoose) is not
+  brought down by us when every engine stops; its own mod decides. Our own flights (the C-27J, the Osprey, the Vanilla Vehicles
+  Expanded aircraft) already fall when every engine is out.
+- With the cruising-height setting off, or circling, the fuel meets the ground's air, not the air at height.
+
 ## [0.359.0] - 2026-11-27 - Draft
 
 The vehicle standard's audit, and submarines left as they were

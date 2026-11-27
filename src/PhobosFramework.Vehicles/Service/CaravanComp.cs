@@ -177,6 +177,8 @@ public class WorldObjectComp_PhobosFlightSystems : WorldObjectComp
         // Framework 0.142.0: an engine lost on the way is noticed, and the leg judged again where the aircraft is.
         if (flight.Flying)
         {
+            // Framework 0.360.0 (the vehicle standard, batch 3): with every engine out it glides down where it is, and nothing else re-routes it.
+            if (DeadStick.Look(flight, comp.Vehicle, comp)) return;
             using (PhobosTiming.Measure("aircraft cruising height")) CruiseHeight.FlightLook(flight, comp.Vehicle);
             // Framework 0.357.0 (EW7): an aircraft holding station keeps its ring and turns for home on fuel.
             HoldStation.Look(flight, comp.Vehicle);

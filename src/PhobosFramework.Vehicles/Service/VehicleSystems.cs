@@ -227,6 +227,9 @@ public static class VehicleSystems
         // Framework 0.320.0: the turbocharger, on every design with a piston engine, after every other part we add so saved indexes hold.
         Turbochargers.Apply(def, props);
         if (props.addedKeys.Contains(Turbochargers.Key)) added++;
+        // Framework 0.360.0 (the vehicle standard, batch 3): a part for each engine where a system asks for one (an aircraft's fuel and oil
+        // pumps), after every other part we add so saved indexes hold, and before the numbered roles roll up.
+        added += EnginePumps.Apply(def, props);
         // Framework 0.256.0: numbered roles roll up into their base role (Engine1 to EngineN are "the engines"), before the reactors are set.
         SystemParts.RollUpFamilies(props);
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).

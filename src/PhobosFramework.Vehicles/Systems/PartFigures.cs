@@ -164,7 +164,13 @@ public sealed class PartFigures
     /// <summary>Each part's figure of a quantity, by the part's label, for what the player reads; empty when the vehicle keeps one figure.</summary>
     public IEnumerable<(string part, float figure)> Shown(QuantitySpec quantity)
     {
-        if (quantity.perPart == null || comp.partFigures is not { } figures) yield break;
+        // Framework 0.360.0: an aircraft's readings kept for each engine by its own fuel and oil (EngineFeeds), shown the same way.
+        if (quantity.perPart == null)
+        {
+            foreach ((string part, float figure) each in comp.EngineFeeds.Shown(quantity.name)) yield return each;
+            yield break;
+        }
+        if (comp.partFigures is not { } figures) yield break;
         List<VehicleComponent> parts = Parts(quantity.perPart);
         if (parts.Count < 2) yield break;
         foreach (VehicleComponent part in parts)

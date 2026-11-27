@@ -78,6 +78,8 @@
   <PhobosVehicleSystems_SettingDamagedEnginesWeakerDesc>On by default: a damaged turbine engine gives part of its power, from half of it when badly damaged to all of it when sound, so a shot-up aircraft flies, climbs and hovers weaker before an engine stops. Off: each engine gives all its power until it stops, as before. Takes effect at once.</PhobosVehicleSystems_SettingDamagedEnginesWeakerDesc>
   <PhobosVehicleSystems_SettingLopsidedThrust>Lopsided thrust unsettles twin jets</PhobosVehicleSystems_SettingLopsidedThrust>
   <PhobosVehicleSystems_SettingLopsidedThrustDesc>On by default: a twin-engined jet with one engine out, or one weaker than the other, is pulled sideways by its thrust: it dodges less fire, and burns a little more fuel, while its pilot holds it straight. Jets whose engines sit close in, as these do, lose only a little. Helicopters and the Osprey are not affected: their engines share one drive. Takes effect at once.</PhobosVehicleSystems_SettingLopsidedThrustDesc>
+  <PhobosVehicleSystems_SettingAircraftEngineFaults>Fuel and oil faults stop aircraft engines</PhobosVehicleSystems_SettingAircraftEngineFaults>
+  <PhobosVehicleSystems_SettingAircraftEngineFaultsDesc>On by default: each aircraft engine has its own fuel pump, oil pump and sump. A ruined fuel pump starves its engine, which stops; jet fuel cooled below about -52 °C, after hours high in deep cold, no longer flows and stops every engine; an engine run with no oil pressure seizes in a few hours. A twin flies on with one engine; an aircraft with every engine stopped glides down onto the ground below it on the world map, and crashes where it cannot land. It will not take off with a ruined pump, frozen fuel or no oil pressure. Off, the readings are still kept and shown, but no engine stops or is harmed by them. Takes effect at once.</PhobosVehicleSystems_SettingAircraftEngineFaultsDesc>
   <PhobosVehicleSystems_SettingTyresRelight>Burnt tyres can light again</PhobosVehicleSystems_SettingTyresRelight>
   <PhobosVehicleSystems_SettingTyresRelightDesc>On by default: once a fire has reached a wheeled vehicle's tyres and been put out, the rubber smoulders for about two game hours and may catch again, unless rain falls on it. Keep the extinguisher handy. Tracked vehicles have no tyres. Off: a fire put out stays out.</PhobosVehicleSystems_SettingTyresRelightDesc>
   <PhobosVehicleSystems_SettingTyreBursts>Burning tyres can burst</PhobosVehicleSystems_SettingTyreBursts>
@@ -340,6 +342,15 @@
   <PhobosVehicleSystems_MsgOverheating>The {VEHICLE}'s engine is overheating and taking damage. Stop it and let it cool.</PhobosVehicleSystems_MsgOverheating>
   <PhobosVehicleSystems_MsgOverheatingHotAir>The heat around the {VEHICLE} is overheating its engine, which is taking damage. Put out the fire, or get the vehicle clear of the heat.</PhobosVehicleSystems_MsgOverheatingHotAir>
   <PhobosVehicleSystems_MsgCoolantLow>The {VEHICLE} is low on coolant. A service will top it up.</PhobosVehicleSystems_MsgCoolantLow>
+  <PhobosVehicleSystems_MsgEnginePumpStarved>The {VEHICLE}'s {ENGINE} has stopped: its fuel pump is ruined.</PhobosVehicleSystems_MsgEnginePumpStarved>
+  <PhobosVehicleSystems_MsgFuelFrozen>The {VEHICLE}'s fuel has frozen in the cold and no longer flows: every engine has stopped.</PhobosVehicleSystems_MsgFuelFrozen>
+  <PhobosVehicleSystems_MsgEngineOilGone>The {VEHICLE}'s {ENGINE} has no oil pressure. It will seize within hours unless it is stopped.</PhobosVehicleSystems_MsgEngineOilGone>
+  <PhobosVehicleSystems_MsgDeadStickLanding>Every engine of the {VEHICLE} has stopped. It is gliding down to land where it is.</PhobosVehicleSystems_MsgDeadStickLanding>
+  <PhobosVehicleSystems_DeadStickCrash>came down with every engine stopped where it could not land: {WHY}</PhobosVehicleSystems_DeadStickCrash>
+  <PhobosVehicleSystems_RefuseLaunchEnginePump>The {VEHICLE} has an engine whose fuel pump is ruined. Repair it before taking off.</PhobosVehicleSystems_RefuseLaunchEnginePump>
+  <PhobosVehicleSystems_RefuseLaunchFuelFrozen>The {VEHICLE}'s fuel is frozen. It cannot take off until the fuel is warmer.</PhobosVehicleSystems_RefuseLaunchFuelFrozen>
+  <PhobosVehicleSystems_RefuseLaunchOilGone>The {VEHICLE} has an engine with no oil pressure. Repair its oil pump or have it serviced before taking off.</PhobosVehicleSystems_RefuseLaunchOilGone>
+  <PhobosVehicleSystems_SysEachEngine>Each engine</PhobosVehicleSystems_SysEachEngine>
   <PhobosVehicleSystems_MsgOilLow>The {VEHICLE} is low on oil. A service will top it up.</PhobosVehicleSystems_MsgOilLow>
   <PhobosVehicleSystems_MsgOilPressureGone>The {VEHICLE} has no oil pressure. Stop the engine now: it will seize.</PhobosVehicleSystems_MsgOilPressureGone>
   <PhobosVehicleSystems_MsgOilPressureLow>The {VEHICLE}'s oil pressure is low; the engine wears while it runs.</PhobosVehicleSystems_MsgOilPressureLow>

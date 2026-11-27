@@ -298,6 +298,7 @@ reference](../settings-reference.md#dthorga-framework-and-dthorga-vehicle-system
 | Aircraft fuel follows the engines | On | Aircraft and sling loads, Flight |
 | Damaged turbine engines give less power | On | Aircraft and sling loads, Flight |
 | Lopsided thrust unsettles twin jets | On | Aircraft and sling loads, Flight |
+| Fuel and oil faults stop aircraft engines | On | Aircraft and sling loads, Flight |
 | Aircraft engines start one after another | On | Aircraft and sling loads, Flight |
 | When an aircraft is too heavy or too hot to lift off, hover onto its pad or land at a journey's end | Refuse it | Flight |
 | Realistic feed water | Off | Steam and electric |

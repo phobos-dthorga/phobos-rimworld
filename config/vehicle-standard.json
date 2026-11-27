@@ -115,28 +115,32 @@
     },
     {
       "line": "VS6",
-      "label": "a fuel system",
-      "status": "planned",
-      "batch": 3,
+      "label": "each engine's own fuel feed and fuel pump",
+      "status": "built",
       "kinds": [
         "fixed-wing",
         "rotor"
       ],
       "systems": [
-        "PhobosVehicleSystem_Fuel"
+        "PhobosVehicleSystem_EngineFuel"
+      ],
+      "roles": [
+        "FuelPump"
       ]
     },
     {
       "line": "VS7",
-      "label": "an oil system",
-      "status": "planned",
-      "batch": 3,
+      "label": "each engine's own oil and oil pump",
+      "status": "built",
       "kinds": [
         "fixed-wing",
         "rotor"
       ],
       "systems": [
-        "PhobosVehicleSystem_Lubrication"
+        "PhobosVehicleSystem_EngineOil"
+      ],
+      "roles": [
+        "OilPump"
       ]
     },
     {

@@ -766,3 +766,35 @@ public class Input_Bleed : VehicleSystemInput
         return engines <= 0 ? 1f : (float)working / engines;
     }
 }
+
+/// <summary>
+/// The worst engine's reading from its own fuel and oil (Framework 0.360.0; the vehicle standard, batch 3; EngineFeeds): "fuelFeed" (its
+/// fuel pump's work), "oilPressure" or "oilLevel". 1 on a vehicle with no engines.
+/// </summary>
+public class Input_EngineFeed : VehicleSystemInput
+{
+    public string reading = EngineFeeds.FuelFeed;
+    protected override float Raw(SystemContext context) => context.Comp.EngineFeeds.Worst(reading);
+}
+
+/// <summary>
+/// The air an aircraft's fuel tanks meet, °C (Framework 0.360.0; the vehicle standard, batch 3): the air around it, except on a leg flown
+/// at a cruising height between tiles, where it is the air at that height (the standard atmosphere's lapse from the ground's own air, to
+/// the top of the troposphere) warmed by the aircraft's speed through it (the total air temperature's ram rise, at the system's
+/// <c>cruiseMach</c>, or <c>rotorMach</c> for a design with a rotor drive). Off a governed leg (the cruising-height setting off, circling,
+/// on reconnaissance) the fuel meets the ground's air: a labelled simplification.
+/// </summary>
+public class Input_FuelAir : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context)
+    {
+        CompPhobosVehicleSystems comp = context.Comp;
+        if (comp.Vehicle?.ParentHolder is not Vehicles.World.AerialVehicleInFlight aerial || CruiseHeight.Current(comp.Vehicle) is not { } leg)
+        {
+            return comp.Ambient;
+        }
+        double air = EngineFeedRule.AirAtHeight(comp.Ambient, Phobos.Framework.WorldMap.TileAir.ElevationMetres(aerial.Tile), leg.HeightMetres);
+        double mach = context.Parameter(comp.Props.roleKeys.ContainsKey("RotorDrive") ? "rotorMach" : "cruiseMach");
+        return (float)(air + EngineFeedRule.RamRise(air, mach));
+    }
+}

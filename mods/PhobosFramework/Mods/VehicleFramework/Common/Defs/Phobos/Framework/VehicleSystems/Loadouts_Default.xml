@@ -1513,9 +1513,10 @@
 
   <!--
     Aircraft: the electrical system, the engine's hours and service, and a gas turbine (docs/development/vehicle-turbine-design.md)
-    with the stock flight profile, which reads Vehicle Framework's launch state. A jet's or a rotor's engine cools and lubricates
-    unlike a car's, so there is no coolant or radiator; no oil pump, gearbox, tyres or brakes are appended. Named loadouts give a
-    jump jet or a helicopter its own engine and flight profile.
+    with the stock flight profile, which reads Vehicle Framework's launch state. A jet's or a rotor's engine cools unlike a car's, so
+    there is no coolant or radiator; no gearbox, tyres or brakes are appended. Since Framework 0.360.0 (the vehicle standard, batch 3)
+    each engine has its own fuel pump, oil pump and sump (Systems_EngineFeed.xml). Named loadouts give a jump jet or a helicopter its own
+    engine and flight profile.
   -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_Aircraft</defName>
@@ -1537,6 +1538,9 @@
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_FlightControls</def></li>
       <li><def>PhobosVehicleSystem_Avionics</def></li>
+      <!-- Framework 0.360.0 (docs/development/vehicle-standard.md, VS6 and VS7): each engine's own fuel pump, oil pump and sump. -->
+      <li><def>PhobosVehicleSystem_EngineFuel</def></li>
+      <li><def>PhobosVehicleSystem_EngineOil</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_AeroTurbofan</def>

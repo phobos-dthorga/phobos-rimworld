@@ -189,6 +189,12 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A twin jet with one engine out or weaker than the other dodges less, its thrust pulling it sideways (Framework 0.247.0, per-engine
     /// realism step 2). Risk moderate, the agent's grade (more hits on a damaged jet, in sight): on. Live.</summary>
     public bool lopsidedThrust = true;
+    /// <summary>Each aircraft engine's own fuel and oil can stop it: a dead fuel pump or fuel frozen past its freezing point starves an
+    /// engine, and one run without oil pressure seizes in a few hours; with every engine out on the world map the aircraft glides down to
+    /// land, or crashes where it cannot (Framework 0.360.0; the vehicle standard, batch 3; the owner's card of 27 Nov 2026: "real, with a
+    /// setting", on). Risk high, the agent's grade (an engine, and a single-engine aircraft, can be lost in the air). Off, the readings are
+    /// kept and shown but no engine stops or is harmed by them. Live.</summary>
+    public bool aircraftEngineFaults = true;
     /// <summary>An aircraft's turbine engines light one after another before it may take off, about 6 game minutes each (Framework 0.252.0,
     /// per-engine realism round two, step 9). Risk low, the agent's grade (a few seconds' wait): on. Live.</summary>
     public bool enginesStartInTurn = true;
@@ -385,6 +391,7 @@ public class VehicleSystemsSettings : ModSettings
         "aircraftFuel" => aircraftFuel,
         "damagedEnginesWeaker" => damagedEnginesWeaker,
         "lopsidedThrust" => lopsidedThrust,
+        "aircraftEngineFaults" => aircraftEngineFaults,
         "enginesStartInTurn" => enginesStartInTurn,
         "cruiseHeight" => cruiseHeight,
         "ammoCookOff" => ammoCookOff,
@@ -487,6 +494,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref aircraftFuel, "PhobosVehicleSystems_AircraftFuel", true);
         Scribe_Values.Look(ref damagedEnginesWeaker, "PhobosVehicleSystems_DamagedEnginesWeaker", true);
         Scribe_Values.Look(ref lopsidedThrust, "PhobosVehicleSystems_LopsidedThrust", true);
+        Scribe_Values.Look(ref aircraftEngineFaults, "PhobosVehicleSystems_AircraftEngineFaults", true);
         Scribe_Values.Look(ref enginesStartInTurn, "PhobosVehicleSystems_EnginesStartInTurn", true);
         Scribe_Values.Look(ref compressorFouling, "PhobosVehicleSystems_CompressorFouling", true);
         Scribe_Values.Look(ref cruiseHeight, "PhobosVehicleSystems_CruiseHeight", true);
@@ -634,6 +642,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.tyresRelight) report.Off("burning tyres relighting", "off (setting)");
         if (!Settings.damagedEnginesWeaker) report.Off("damaged turbine engines giving less power", "off (setting)");
         if (!Settings.lopsidedThrust) report.Off("lopsided thrust costing twin jets their dodge", "off (setting)");
+        if (!Settings.aircraftEngineFaults) report.Off("fuel and oil faults stopping aircraft engines", "off (setting)");
         if (!Settings.enginesStartInTurn) report.Off("aircraft engines lighting one after another", "off (setting)");
         if (!Settings.compressorFouling) report.Off("turbine compressors fouling", "off (setting)");
         if (Settings.tyreBursts) report.On("burning tyres bursting (setting)");
@@ -791,6 +800,8 @@ public class VehicleSystemsMod : SettingsBookMod
             "PhobosVehicleSystems_SettingDamagedEnginesWeakerDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingLopsidedThrust".Translate(), ref s.lopsidedThrust, d.lopsidedThrust,
             "PhobosVehicleSystems_SettingLopsidedThrustDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingAircraftEngineFaults".Translate(), ref s.aircraftEngineFaults, d.aircraftEngineFaults,
+            "PhobosVehicleSystems_SettingAircraftEngineFaultsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingEnginesStartInTurn".Translate(), ref s.enginesStartInTurn, d.enginesStartInTurn,
             "PhobosVehicleSystems_SettingEnginesStartInTurnDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingCompressorFouling".Translate(), ref s.compressorFouling, d.compressorFouling,

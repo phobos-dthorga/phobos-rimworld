@@ -666,12 +666,16 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     internal bool debrisWasFlying;
     internal IntVec3 debrisLastCell = IntVec3.Invalid;
     SideTanks? sideTanks;
+    EngineFeeds? engineFeeds;
 
     /// <summary>An aircraft's engines lit one after another before take-off (Framework 0.252.0). Derived, never saved.</summary>
     public StartSequence StartSequence => startSequence ??= new StartSequence(this);
 
     /// <summary>A twin's tank on each side and its cross-feed (Framework 0.252.0). Its split and mode are saved here.</summary>
     public SideTanks SideTanks => sideTanks ??= new SideTanks(this);
+
+    /// <summary>Each aircraft engine's own fuel feed and oil (Framework 0.360.0, the vehicle standard's batch 3). Its sumps are saved here.</summary>
+    public EngineFeeds EngineFeeds => engineFeeds ??= new EngineFeeds(this);
 
     /// <summary>Quantities kept per part: each engine's hot-section life, each wheel's brake wear (Framework 0.248.0, PartFigures).</summary>
     public PartFigures PartFigures => perPart ??= new PartFigures(this);
@@ -716,6 +720,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Scribe_Values.Look(ref SideTanks.leakSide, "PhobosVehicleSystems_SideTankLeak", -1);
         Scribe_Values.Look(ref SideTanks.mode, "PhobosVehicleSystems_CrossFeed", CrossFeedMode.Automatic);
         Scribe_Values.Look(ref SideTanks.crewOpened, "PhobosVehicleSystems_CrossFeedCrewOpened", false);
+        // Framework 0.360.0: each aircraft engine's own sump (the vehicle standard, batch 3).
+        Scribe_Collections.Look(ref EngineFeeds.oil, "PhobosVehicleSystems_EngineOil", LookMode.Value);
         Scribe_Collections.Look(ref loadSwitches, "PhobosVehicleSystems_Loads", LookMode.Value, LookMode.Value);
         // The graphs' history: the owner's exception to "derived state is never saved" (8 Nov 2026), a few kilobytes per vehicle.
         History.ExposeData(Props.systems);
@@ -1133,6 +1139,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             // Framework 0.252.0: grit thrown into the intakes on rough ground, and how a twin's fuel is split between its sides.
             StripDebris.Update(this, (float)hours);
             SideTanks.Update();
+            // Framework 0.360.0 (the vehicle standard, batch 3): each aircraft engine's own fuel feed and oil.
+            EngineFeeds.Update((float)hours);
             if (!stagesSettled)
             {
                 // The first update: take the stages the true readings give, quietly, as where each starts (no effects on entry or exit).
@@ -2448,6 +2456,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             }
         }
         if (conditionGiven) AfterConditionsChanged();
+        // Framework 0.360.0: a hit on an aircraft engine or its oil pump drains that engine's own sump.
+        EngineFeeds.NoteHit(part, healthLost);
         VehicleStory.Hit(this);
     }
 

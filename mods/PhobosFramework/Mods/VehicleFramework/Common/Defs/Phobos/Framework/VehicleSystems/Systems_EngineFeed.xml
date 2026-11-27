@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Each aircraft engine's own fuel and oil (Framework 0.360.0; docs/development/vehicle-standard.md, batch 3, VS6 and VS7). Not yet tested
+    in game. The owner's cards of 27 Nov 2026: each engine its own pumps and oil; real consequences in the air, behind a setting that starts
+    on ("Fuel and oil faults stop aircraft engines"); jet fuel freezing at its real point.
+
+    Every aircraft (the aircraft loadout) gets both. Each engine gets its own fuel pump and oil pump, parts appended beside it
+    (partPerEngine; EnginePumps.cs). What each engine's pumps and sump do is worked out in code (EngineFeeds.cs), because a system's
+    figure is one for the whole vehicle: the readings here are the worst engine's, so the dashboard, the stages, the launch check and the
+    service read the engine that needs it, and the Systems tab shows each engine's own under the row.
+
+    Sources and labels:
+    - Thresholds (a pump under a tenth starves its engine, under half gives three quarters; oil pressure gone under 0.15, low under 0.45;
+      the oil level's pressure curve; a seizure in about five hours without pressure; 0.15 % of a sump burned an hour at full output) are
+      the land fuel and lubrication systems' (Systems_Lubrication.xml), all authored, so a truck and an aircraft read alike.
+    - Jet A-1's freezing point is -47 °C at most (its specifications, DEF STAN 91-091 and ASTM D1655; secondary: Wikipedia, "Jet fuel").
+      Every aircraft in our loadouts burns jet fuel through a gas turbine. The fuel is taken as frozen solid 10 °C below that (authored:
+      real fuel stays pumpable a little below its freezing point, wax crystals forming), and the engines stop half way, at -52 °C.
+    - The fuel in the tanks follows the air it meets at 0.5 an hour (authored: a few hours aloft for a full wing to cool through).
+    - The air at a cruising height: the standard atmosphere's fall of 6.5 °C a kilometre from the ground's own air, to 11 km (AirRule),
+      never below -80 °C (authored), warmed by the ram rise of the air meeting the aircraft (total air temperature, T × 0.2 M², the
+      standard formula for air): at Mach 0.7 for a fixed wing and 0.2 for a helicopter (authored typical cruising speeds; about +20 °C and
+      +2 °C at -55 °C).
+    - Hits: a hit engine loses 0.6 of its sump for each share of its health lost, a hit oil pump 0.25 (the land system's shares).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_EngineFuel</defName>
+    <label>engine fuel feed</label>
+    <description>Each engine's own fuel pump, and the fuel in the tanks. A ruined pump starves its engine, which stops; a damaged one feeds it poorly. Flying high and long in deep cold, the fuel cools toward the air it meets: below about -52 °C it no longer flows, and every engine stops.</description>
+    <roles>
+      <li>FuelPump</li>
+      <li>Engine</li>
+    </roles>
+    <partPerEngine>
+      <role>FuelPump</role>
+      <add>
+        <key>PhobosEngineFuelPump</key>
+        <label>fuel pump</label>
+        <eachLabel>{PART} fuel pump</eachLabel>
+        <health>15</health>
+        <depth>Internal</depth>
+        <hitWeight>0.05</hitWeight>
+        <hitWeightCE>2</hitWeightCE>
+        <countsTowardDestruction>false</countsTowardDestruction>
+      </add>
+    </partPerEngine>
+    <parameters>
+      <fuelFollowRate>0.5</fuelFollowRate>
+      <cruiseMach>0.7</cruiseMach>
+      <rotorMach>0.2</rotorMach>
+    </parameters>
+    <quantities>
+      <li>
+        <name>fuelFeed</name>
+        <description>Fuel reaching the engines, the worst engine's pump. Ruined, that engine is starved and stops; weak, it gives three quarters.</description>
+        <telltale>Phobos/VehicleSystems/Dash/Fuel</telltale>
+        <label>fuel feed</label>
+        <unit>Fraction</unit>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_EngineFeed">
+            <reading>fuelFeed</reading>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.1</to>
+            <label>an engine starved</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseLaunch">
+                <reason>PhobosVehicleSystems_RefuseLaunchEnginePump</reason>
+                <when Class="Phobos.VehicleSystems.When_Setting">
+                  <setting>aircraftEngineFaults</setting>
+                </when>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.1</from>
+            <to>0.5</to>
+            <label>weak</label>
+            <notable>true</notable>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>fuelTemperature</name>
+        <description>The fuel in the tanks, which cools or warms toward the air it meets: high and fast, the cold air at height warmed a little by the speed.</description>
+        <telltale>Phobos/VehicleSystems/Dash/Fuel</telltale>
+        <label>fuel</label>
+        <unit>Celsius</unit>
+        <min>-80</min>
+        <max>80</max>
+        <startsAt>Ambient</startsAt>
+        <stages>
+          <li>
+            <to>-40</to>
+            <label>near freezing</label>
+            <notable>true</notable>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>fuelFrozen</name>
+        <description>How far the jet fuel has frozen: from nothing at its freezing point, -47 °C, to solid at -57 °C. Half way, it no longer flows and every engine stops.</description>
+        <telltale>Phobos/VehicleSystems/Dash/Fuel</telltale>
+        <label>fuel frozen</label>
+        <unit>Fraction</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>fuelTemperature</quantity>
+            <curve>
+              <points>
+                <li>(-57, 1)</li>
+                <li>(-47, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>frozen</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseLaunch">
+                <reason>PhobosVehicleSystems_RefuseLaunchFuelFrozen</reason>
+                <when Class="Phobos.VehicleSystems.When_Setting">
+                  <setting>aircraftEngineFaults</setting>
+                </when>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>followAir</name>
+        <quantity>fuelTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_FuelAir" />
+        <factorParameter>fuelFollowRate</factorParameter>
+      </li>
+    </flows>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_EngineOil</defName>
+    <label>engine oil</label>
+    <description>Each engine's own sump and oil pump. A running engine burns a little oil, more when worn; a hit on an engine or its oil pump loses some. With no oil pressure a running engine seizes in a few hours; low, it wears. A service tops every sump up.</description>
+    <roles>
+      <li>OilPump</li>
+      <li>Engine</li>
+    </roles>
+    <partPerEngine>
+      <role>OilPump</role>
+      <add>
+        <key>PhobosEngineOilPump</key>
+        <label>oil pump</label>
+        <eachLabel>{PART} oil pump</eachLabel>
+        <health>15</health>
+        <depth>Internal</depth>
+        <hitWeight>0.05</hitWeight>
+        <hitWeightCE>2</hitWeightCE>
+        <countsTowardDestruction>false</countsTowardDestruction>
+      </add>
+    </partPerEngine>
+    <parameters>
+      <oilBurnPerHour>0.0015</oilBurnPerHour>
+      <seizeSharePerHour>0.2</seizeSharePerHour>
+      <lowPressureWearPerHour>2</lowPressureWearPerHour>
+      <engineHitOilPerShare>0.6</engineHitOilPerShare>
+      <pumpHitOilPerShare>0.25</pumpHitOilPerShare>
+    </parameters>
+    <quantities>
+      <li>
+        <!-- The lowest sump, written by EngineFeeds each update; the service's top-up and its low-oil call read it as on land. -->
+        <name>oilLevel</name>
+        <description>How full the engines' sumps are, the emptiest one. A working engine burns a little, a worn one more.</description>
+        <telltale>Phobos/VehicleSystems/Dash/OilLevel</telltale>
+        <showOnDashboard>true</showOnDashboard>
+        <label>oil level</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <stages>
+          <li>
+            <to>0.5</to>
+            <label>low</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgOilLow</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>oilPressure</name>
+        <description>Oil reaching the bearings, the worst engine's. It needs oil in that engine's sump and its own pump working.</description>
+        <telltale>Phobos/VehicleSystems/Dash/OilPressure</telltale>
+        <label>oil pressure</label>
+        <unit>Fraction</unit>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_EngineFeed">
+            <reading>oilPressure</reading>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.15</to>
+            <label>gone</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseLaunch">
+                <reason>PhobosVehicleSystems_RefuseLaunchOilGone</reason>
+                <when Class="Phobos.VehicleSystems.When_Setting">
+                  <setting>aircraftEngineFaults</setting>
+                </when>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.15</from>
+            <to>0.45</to>
+            <label>low</label>
+            <notable>true</notable>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>
