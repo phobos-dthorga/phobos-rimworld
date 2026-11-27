@@ -463,6 +463,7 @@
     "728": ["radio.raid-warning"],
     "729": ["radio.contact-arcs"],
     "730": ["radio.radiotalk-at-station"],
+    "731": [{"key": "radio.faction-call", "variant": "supply"}],
     "713": [{"key": "radio.world-cover-network", "variant": "PhobosRadioCover_RelayMast"}],
     "714": ["radio.world-cover-full-relay"],
     "704": {"parts": {"finished while not selected": [{"key": "radio.coverage-finished", "variant": "background"}],

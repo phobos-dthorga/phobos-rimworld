@@ -36,6 +36,9 @@ Contact arcs, children's radio talk, and supply drops by radio
   console. With none to use, a child who wants to radio-talk now goes to radio school at one of our stations, or on a hand-held in touch:
   the same learning, a lesson when a teacher is on the radio. With a console, nothing changes. Needs Biotech. Not yet tested in game:
   row 730.
+- **An allied supply drop on the radio call** (the owner's pick): the supply drop the comms console offers allies can be asked for on a
+  radio call too, at 10 goodwill over a clean line where the console takes 15, and misheard now and then on a marginal line. Needs
+  Vehicle Framework and D'thorga Framework 0.361.0. Not yet tested in game: row 731.
 
 ## [0.53.0] - 2026-11-27 - Draft
 

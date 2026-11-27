@@ -57,6 +57,8 @@ public static class VehicleRadios
         WorldCover.Register(new ConvoyCoverSites());
         // Radio 0.44.0: the in-touch mood on the road reads a caravan's kept reach home, never working it out.
         AwayReach.RegisterCaravans(CaravanTouch.KeptOutcome);
+        // Radio 0.54.0: the allied supply drop on the radio call too.
+        Phobos.Radio.UI.RadioCallDialog.Register(RadioSupplyCalls.Option);
         if (DefDatabase<RadioCoverKindDef>.GetNamedSilentFail("PhobosRadioCover_VehicleMast") is { } mastKind) mastKind.antennaHeightMetres = ConvoyRadio.MastMetres;
         // Radio 0.23.0: a convoy's reach home carries advice by radio to the people in it.
         RemoteReach.Register(new ConvoyRemoteReach());

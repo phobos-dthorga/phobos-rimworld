@@ -61,6 +61,8 @@ Research **local radio** (after Microelectronics basics).
 - **Allies warn of raids**: with an ally's settlement in reach, raiders heading your way are reported by radio, and the raid comes
   about three hours later. A setting switches this off.
 - **A first call to a settlement earns its QSL card**, and every call goes in the station's logbook.
+- **A supply drop by radio** (from 0.54.0): an ally on a radio call can drop supplies by parachute, as the console offers, at 10
+  goodwill over a clean line instead of 15.
 - **See who you can call** (from 0.54.0): select your colony on the world map, and a line runs to each faction settlement your radio
   reaches, in the colour of how good the line is.
 

@@ -22,6 +22,19 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.361.0] - 2026-11-27 - Draft
+
+A supply drop can take another price
+
+### Changed
+
+- **An allied supply drop can be asked for at another price**, for D'thorga Radio Framework's call to a faction (0.54.0), which asks
+  less over a clean line. The comms console's offer and price are unchanged.
+
+### Save compatibility
+
+- Safe with an existing save. Nothing new is saved.
+
 ## [0.360.0] - 2026-11-27 - Draft
 
 Each aircraft engine's own fuel and oil

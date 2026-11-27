@@ -73,15 +73,19 @@ public sealed class GameComponent_PhobosSupplyDrops : GameComponent
         return null;
     }
 
-    /// <summary>Asks for a drop of this kind: the goodwill is spent now, and the drop comes in a few hours.</summary>
-    public void Request(Faction faction, Map map, SupplyKind kind)
+    /// <summary>
+    /// Asks for a drop of this kind: the goodwill is spent now, and the drop comes in a few hours. <paramref name="goodwill"/> (Framework
+    /// 0.361.0) is the price, the console's <see cref="GoodwillCost"/> unless a caller sets its own (the Radio Framework's call, cheaper on
+    /// a clean line).
+    /// </summary>
+    public void Request(Faction faction, Map map, SupplyKind kind, int goodwill = GoodwillCost)
     {
         if (Refusal(faction, map) is { } refused)
         {
             Messages.Message(refused, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
-        Faction.OfPlayer.TryAffectGoodwillWith(faction, -GoodwillCost, canSendMessage: false, canSendHostilityLetter: true);
+        Faction.OfPlayer.TryAffectGoodwillWith(faction, -goodwill, canSendMessage: false, canSendHostilityLetter: true);
         lastAsked[faction] = Find.TickManager.TicksGame;
         pending.Add(new Pending { faction = faction, mapId = map.uniqueID, kind = kind, due = Find.TickManager.TicksGame + DelayTicks.RandomInRange });
         if (Seen.On)

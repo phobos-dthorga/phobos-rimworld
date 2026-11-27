@@ -226,6 +226,8 @@ public class RadioRulesDef : Def
     public float radioTraderGoodwillClean = 10f;
     /// <summary>Military aid asked for over a clean line costs this much goodwill (B2), where the console takes 25.</summary>
     public float radioAidGoodwillClean = 20f;
+    /// <summary>An allied supply drop asked for over a clean line costs this much goodwill (Radio 0.54.0), where the console takes 15.</summary>
+    public float radioSupplyGoodwillClean = 10f;
     /// <summary>The chance a request over a marginal line is misheard, the goodwill spent (the owner's card: one in four).</summary>
     public float radioMishearChance = 0.25f;
     /// <summary>A check-in's goodwill (B5), how often one faction can be checked in with, in days, and the goodwill above which it adds none.</summary>

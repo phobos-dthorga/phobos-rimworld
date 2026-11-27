@@ -14,6 +14,22 @@ namespace Phobos.Radio.UI;
 /// </summary>
 public static class RadioCallDialog
 {
+    /// <summary>
+    /// What a tie-in adds to the call (Radio 0.54.0): an option for this colonist, faction and line, or null; given the call's own root
+    /// to return to. The vehicles tie-in adds the allied supply drop.
+    /// </summary>
+    public delegate DiaOption? CallOption(Pawn negotiator, Faction faction, FactionDoctorLink link, System.Func<DiaNode> back);
+
+    static readonly List<CallOption> extra = new();
+
+    public static void Register(CallOption option)
+    {
+        if (!extra.Contains(option)) extra.Add(option);
+    }
+
+    /// <summary>What the faction said back, and the end of the call: for a tie-in's options too.</summary>
+    public static DiaNode ReplyNode(string text) => Reply(text);
+
     public static void Open(Pawn negotiator, Faction faction, FactionDoctorLink link)
     {
         Find.WindowStack.Add(new Dialog_Negotiation(negotiator, faction, Root(negotiator, faction, link), radioMode: true));
@@ -31,6 +47,8 @@ public static class RadioCallDialog
         root.options.Add(TraderOption(negotiator, map, faction, link, line));
         root.options.Add(AidOption(negotiator, map, faction, link, line));
         root.options.Add(CheckInOption(negotiator, faction, link));
+        foreach (CallOption add in extra)
+            if (add(negotiator, faction, link, () => Root(negotiator, faction, link)) is { } option) root.options.Add(option);
         root.options.Add(new DiaOption("(" + "Disconnect".Translate() + ")") { resolveTree = true });
         return root;
     }

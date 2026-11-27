@@ -56,6 +56,8 @@
          factor on a walking caravan's pace for the ground. -->
     <radioTraderGoodwillClean>10</radioTraderGoodwillClean>
     <radioAidGoodwillClean>20</radioAidGoodwillClean>
+    <!-- Radio 0.54.0: an allied supply drop over a clean line, against the console's 15 (authored). -->
+    <radioSupplyGoodwillClean>10</radioSupplyGoodwillClean>
     <radioMishearChance>0.25</radioMishearChance>
     <radioCheckInGoodwill>2</radioCheckInGoodwill>
     <radioCheckInDays>5</radioCheckInDays>

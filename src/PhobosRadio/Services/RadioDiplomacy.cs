@@ -143,18 +143,22 @@ public static class RadioDiplomacy
 
     // ---- The pieces ----
 
+    /// <summary>A supply drop over this line (Radio 0.54.0, B2): cheaper on a clean one, the console's price otherwise.</summary>
+    public static int SupplyGoodwill(LinkOutcome line, int consolePrice) =>
+        line == LinkOutcome.Clean ? Mathf.Min(consolePrice, Mathf.RoundToInt(RadioRulesDef.Current.radioSupplyGoodwillClean)) : consolePrice;
+
     /// <summary>Whether a request over this line is misheard: only on a marginal line, at the rules' chance (one in four).</summary>
-    static bool Misheard(LinkOutcome line)
+    public static bool Misheard(LinkOutcome line)
     {
         if (line != LinkOutcome.Marginal || !Rand.Chance(RadioRulesDef.Current.radioMishearChance)) return false;
         if (Seen.Wants("radio.call-misheard", null)) Seen.Note("radio.call-misheard");
         return true;
     }
 
-    static string MisheardReply(Faction faction) => "PhobosRadioCall_Misheard".Translate(faction.Name.Named("FACTION")).Resolve();
+    public static string MisheardReply(Faction faction) => "PhobosRadioCall_Misheard".Translate(faction.Name.Named("FACTION")).Resolve();
 
     /// <summary>What every call does besides its request: the logbook, a QSL card for a first call, and the note that it was seen.</summary>
-    static void Called(Pawn negotiator, Faction faction, FactionDoctorLink link, string what)
+    public static void Called(Pawn negotiator, Faction faction, FactionDoctorLink link, string what)
     {
         RadioLog.Add(RadioLogKind.Diplomacy, "PhobosRadioLog_FactionCall".Translate(negotiator.LabelShort.Named("COLONIST"), faction.Name.Named("FACTION"),
             link.Settlement.LabelCap.Named("SETTLEMENT")).Resolve());
