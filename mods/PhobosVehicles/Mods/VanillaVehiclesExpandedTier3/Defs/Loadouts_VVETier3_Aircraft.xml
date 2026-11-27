@@ -40,7 +40,17 @@
       </vehicleDefs>
     </selector>
     <systems Inherit="False">
-      <li><def>PhobosVehicleSystem_Electrical</def></li>
+      <li>
+        <!-- D'thorga Vehicles 0.132.1 (Framework 0.372.1, F7): the aircraft loadout's electrics, which this list replaces: 24 V, a 40 Ah
+             battery, 300 A of generators and 1.5 Ah a start (Loadouts_Default.xml says where each comes from). -->
+        <def>PhobosVehicleSystem_Electrical</def>
+        <set>
+          <batteryAmpHours>40</batteryAmpHours>
+          <systemVolts>24</systemVolts>
+          <alternatorAmps>300</alternatorAmps>
+          <starterAmpHours>1.5</starterAmpHours>
+        </set>
+      </li>
       <li><def>PhobosVehicleSystem_Service</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_FlightControls</def></li>

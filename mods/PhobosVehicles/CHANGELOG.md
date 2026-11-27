@@ -13,6 +13,19 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.132.1] - 2026-11-28 - Draft
+
+The thrust pods on aircraft electrics
+
+### Fixed
+
+- **The Frog, the Toad and the Goliath run on aircraft electrics**, 24 volts with a 40 Ah battery and 300 A of generators, as every
+  other aircraft does since D'thorga Framework 0.372.1: their own system lists had kept a car's 12 V. Not yet tested in game: row 763.
+
+### Save compatibility
+
+- Safe for saves: nothing new is saved.
+
 ## [0.132.0] - 2026-11-28 - Draft
 
 Galleys and bays on the transports

@@ -338,7 +338,7 @@
     "PhobosVehicles.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.132.0",
+      "value": "0.132.1",
       "description": "D'thorga Vehicles's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {

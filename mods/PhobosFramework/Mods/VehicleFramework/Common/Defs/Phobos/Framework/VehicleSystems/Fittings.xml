@@ -166,9 +166,9 @@
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- Framework 0.155.0, ropes and a hoist (as above). On the hoist mount at the ramp, where the V-22 guide puts its 600 lb hoist with 250 ft
          of cable [P]. An electric hoist, drawing 200 A while its motor runs: lifting 272 kg at 0.7 m/s takes 1.9 kW at the drum, about 3.7 kW
-         at an authored half efficiency, 310 A at the 12 V the model's aircraft use; the empty hook takes far less, so 200 A is authored as
-         its running draw. Never shed: it stops only on a flat battery, with its brake holding the cable. Materials, weight, work and skill
-         authored. -->
+         at an authored half efficiency, 310 A at the 12 V the model's aircraft used; the empty hook takes far less, so 200 A was authored as
+         its running draw. Since Framework 0.372.1 aircraft run at 28 V (F7): 130 A at full load, so 100 A, the same share. Never shed: it stops
+         only on a flat battery, with its brake holding the cable. Materials, weight, work and skill authored. -->
     <defName>PhobosFitting_RescueHoist</defName>
     <iconPath>Phobos/VehicleSystems/Fittings/RescueHoist</iconPath>
     <label>rescue hoist</label>
@@ -190,7 +190,7 @@
         <name>rescueHoist</name>
         <label>rescue hoist</label>
         <description>The rescue hoist's motor, drawing while the cable moves. A flat battery stops it with someone on the cable: keep the engines running.</description>
-        <amps>200</amps>
+        <amps>100</amps>
         <shedOrder>0</shedOrder>
         <when Class="Phobos.VehicleSystems.When_Hoisting" />
       </li>
@@ -348,8 +348,8 @@
          searchlight mount of an aircraft with a rotor drive (helicopters, and the tiltrotor and turboprop transports our loadouts give one). Its
          own load casts a pool of light ahead of the nose that follows the aircraft over the map at night (Searchlight.cs). Real basis: Spectrolab's
          SX-16 Nightsun, a 1,600 W xenon searchlight drawing 55 to 67 A at 28 V, about 1 km of reach (Spectrolab's catalogue; secondary, as listed by
-         AeroExpo). Our aircraft run on the land vehicles' 12-volt electrics (a simplification), so the draw is authored as about the share of the
-         generator a real searchlight takes: 18 A of the 65. Pool, colour and brightness authored: a white beam brighter than a lamp. Materials,
+         AeroExpo). Since Framework 0.372.1 our aircraft run at 28 V (F7), so it draws 60 A, inside that range; before, on a car's 12 V, it was
+         authored as the same share of the generator, 18 A of the 65. Pool, colour and brightness authored: a white beam brighter than a lamp. Materials,
          work and skill authored. The icon borrows the work lamps' until its own is drawn. -->
     <defName>PhobosFitting_Searchlight</defName>
     <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
@@ -366,7 +366,7 @@
         <name>searchlight</name>
         <label>searchlight</label>
         <description>The searchlight under the nose. Switched on at night, it lights the ground ahead of the aircraft wherever it flies over the map.</description>
-        <amps>18</amps>
+        <amps>60</amps>
         <shedOrder>5</shedOrder>
         <toggle>true</toggle>
         <defaultOn>false</defaultOn>

@@ -35,6 +35,16 @@ Turbines held at their limit, and aircraft electrics on 24 volts
   amber while an engine is held, and says it gives less than asked. A hover beyond the engines is still the hover limit setting's,
   and its "warn only" hold now sits just inside the limit too. Found by the systems schematic's mock-up (F6). Not yet tested in
   game: row 762.
+- **Aircraft run on an aircraft's electrics, 24 volts (28 while charging)**: a 40 Ah battery and 300 A from their generators, where
+  every aircraft had a car's 12 V, 45 Ah battery and 65 A alternator, so the avionics drew twice the power they were written for and
+  a well-equipped transport could ask more than its generator gave. The landing lights now draw their real 43 A and the searchlight
+  60 A; the rescue hoist, the work lamps and the cabin's heater, climate control, air conditioner and night heater are halved for
+  the higher voltage, as fittings written for 12 V already were. A turbine start takes more from the battery: 1.5 Ah, from 0.25.
+  Found by the systems schematic's mock-up (F7). Not yet tested in game: row 763.
+
+### Save compatibility
+
+- Safe for saves: an aircraft's battery keeps its share of charge in the larger battery. Nothing new is saved.
 
 ## [0.372.0] - 2026-11-28 - Draft
 

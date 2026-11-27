@@ -399,7 +399,7 @@ space.
   flight nobody gets worse.
 - **Press Unload casualties at the other end**, then take them to bed. **Leaving by caravan sets the patients down first.**
 - **The litter kit with vitals monitor** adds a **packed vitals monitor**, which haulers bring from
-  storage: tending on the litters is **7% better** while it has power, about 8 A on a 12-volt aircraft while someone lies there.
+  storage: tending on the litters is **7% better** while it has power, about 4 A on an aircraft's 24-volt electrics while someone lies there.
   Taking it off gives the monitor back.
 
 **Take casualties aboard** makes the parked helicopter the place casualties go.

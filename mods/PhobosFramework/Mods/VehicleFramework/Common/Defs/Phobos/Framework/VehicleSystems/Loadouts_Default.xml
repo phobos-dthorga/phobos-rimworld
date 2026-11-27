@@ -1584,7 +1584,27 @@
       <flies>Yes</flies>
     </selector>
     <systems>
-      <li><def>PhobosVehicleSystem_Electrical</def></li>
+      <li>
+        <!-- Framework 0.372.1 (docs/development/vehicle-schematic.md, F7): an aircraft's electrics, not a car's. Before, every aircraft ran
+             on the electrical system's defaults: 12 V, a 45 Ah battery and a 65 A alternator.
+             - 24 V, so 28 V while charging (systemVolts times the rules' charging factor): the 28-volt DC bus most aircraft use, as
+               MIL-STD-704 allows (secondary: Wikipedia, "MIL-STD-704"; All About Circuits, "Power for airborne systems"). The avionics
+               amps (AvionicsRule) were authored at 24 V already.
+             - A 40 Ah battery, authored near a King Air B200's 42 Ah (secondary: King Air Magazine, "King Air electrical systems
+               evolution"; unverified for any aircraft of ours).
+             - 300 A between all the engines' generators, authored near one King Air starter-generator's rating (200 to 300 A at 28 V,
+               the same article; the 300 A figure is from a study card, unverified). Large aircraft make far more as AC; our loads never
+               need it. An engine out takes its share (Input_AlternatorOutput).
+             - 1.5 Ah a start: a turbine's starter draws several hundred amps for some tens of seconds (general, unverified), more than
+               this; authored lower, as ground power often helps. -->
+        <def>PhobosVehicleSystem_Electrical</def>
+        <set>
+          <batteryAmpHours>40</batteryAmpHours>
+          <systemVolts>24</systemVolts>
+          <alternatorAmps>300</alternatorAmps>
+          <starterAmpHours>1.5</starterAmpHours>
+        </set>
+      </li>
       <li><def>PhobosVehicleSystem_Service</def></li>
       <li><def>PhobosVehicleSystem_Turbine</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
@@ -1973,12 +1993,12 @@
              engines run, switched on by default; their beam is the aircraft's headlight beam (Headlights.cs takes the loadout's first load with a
              beam), lighting the ground ahead as a truck's do, and with them burning a night landing is not made blind (RoughLandings). Real basis: a
              600 W PAR-64 landing lamp at 28 V draws about 21 A (I = P / V, our sum; the lamp's 600 W and 28 V as Boeing Distribution and Aircraft
-             Spruce list it, secondary). Our aircraft run on the land vehicles' 12-volt electrics (a simplification), so the draw is authored as about
-             the share of the generator a real pair takes: 12 A of the 65. Pool and colour authored: a whiter, longer beam than a car's. -->
+             Spruce list it, secondary). Since Framework 0.372.1 our aircraft run at 28 V (F7), so the pair draws its real 43 A; before, on a car's
+             12 V, it was authored as the same share of the generator, 12 A of the 65. Pool and colour authored: a whiter, longer beam than a car's. -->
         <name>landingLights</name>
         <label>landing lights</label>
         <description>The landing lights light the ground ahead at night while the engines run, so the crew can see where they set down.</description>
-        <amps>12</amps>
+        <amps>43</amps>
         <shedOrder>6</shedOrder>
         <toggle>true</toggle>
         <defaultOn>true</defaultOn>
@@ -2005,11 +2025,12 @@
       </li>
       <li>
         <!-- Framework 0.366.0 (VS9): the work lamps, once fitted to the lamp bracket, as on a light land vehicle: two LED floodlights of about
-             60 W, 10 A on the 12-volt electrics (authored). They light the ground round the aircraft while it stands at night (WorkLamps). -->
+             60 W, 10 A on the 12-volt electrics (authored). They light the ground round the aircraft while it stands at night (WorkLamps).
+             5 A since Framework 0.372.1: the same watts on the aircraft's 24 V (F7). -->
         <name>workLamps</name>
         <label>work lamps</label>
         <description>Floodlights that light the ground round the aircraft while it stands at night, so work nearby goes on at the pace of daylight. They run off the battery when the engines are off.</description>
-        <amps>10</amps>
+        <amps>5</amps>
         <shedOrder>5</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
@@ -2033,7 +2054,8 @@
         <yieldsTo>climateControl</yieldsTo>
         <label>cab heater</label>
         <description>The cockpit and cabin are heated below 5 °C while the engines run, with hot air bled from them.</description>
-        <amps>4</amps>
+        <!-- 2 A since Framework 0.372.1: the authored 4 A were a 12 V figure; the aircraft runs at 24 V (F7). -->
+        <amps>2</amps>
         <shedOrder>3</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/CabHeater</iconPath>
@@ -2057,7 +2079,8 @@
         <name>climateControl</name>
         <label>climate control</label>
         <description>Holds the cab near 21 °C by itself while the engine runs, heating or cooling as needed. Switch it off to use the heater and air conditioner by hand.</description>
-        <amps>4</amps>
+        <!-- Halved since Framework 0.372.1, as every 12 V figure in this list was for the aircraft's 24 V (F7). -->
+        <amps>2</amps>
         <shedOrder>2</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/ClimateControl</iconPath>
@@ -2069,7 +2092,8 @@
         <yieldsTo>climateControl</yieldsTo>
         <label>air conditioner</label>
         <description>The air conditioner cools the cab above 26 °C while the engine runs.</description>
-        <amps>20</amps>
+        <!-- Halved since Framework 0.372.1 for the aircraft's 24 V (F7). -->
+        <amps>10</amps>
         <shedOrder>1</shedOrder>
         <toggle>true</toggle>
         <iconPath>Phobos/VehicleSystems/AirConditioner</iconPath>
@@ -2090,7 +2114,8 @@
         <name>nightHeater</name>
         <label>night heater</label>
         <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle or warms up in its cab. Switch it on before you leave; it needs the night heater setting.</description>
-        <amps>2</amps>
+        <!-- Halved since Framework 0.372.1 for the aircraft's 24 V (F7). -->
+        <amps>1</amps>
         <shedOrder>4</shedOrder>
         <toggle>true</toggle>
         <defaultOn>false</defaultOn>
