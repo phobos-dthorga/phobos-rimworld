@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Each disease's class (D'thorga Medical 0.33.0; docs/development/medical-care-round-two.md). Every patch acts only when its
+       disease exists, so another mod's disease costs nothing when that mod is absent. Another mod classes its own diseases the same
+       way. A disease left unclassed takes any drug for fighting disease. -->
+  <!-- bacterial -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="Plague"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="Plague"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Bacterial</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="WoundInfection"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="WoundInfection"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Bacterial</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="Animal_Plague"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="Animal_Plague"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Bacterial</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="Cholera"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="Cholera"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Bacterial</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="Dysentery"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="Dysentery"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Bacterial</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="AG_PlaguedClaws"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="AG_PlaguedClaws"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Bacterial</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <!-- viral -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="Flu"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="Flu"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Viral</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="Animal_Flu"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="Animal_Flu"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Viral</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="ScariaInfection"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="ScariaInfection"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Viral</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="USH_DevelopingScaria"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="USH_DevelopingScaria"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Viral</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="USH_Necroa"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="USH_Necroa"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Viral</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <!-- protozoan -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="Malaria"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="Malaria"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Protozoan</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="SleepingSickness"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="SleepingSickness"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Protozoan</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <!-- worms -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="GutWorms"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="GutWorms"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Worms</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="MuscleParasites"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="MuscleParasites"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Worms</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="VGE_ExowormInfestation"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="VGE_ExowormInfestation"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Worms</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <!-- mechanites -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="FibrousMechanites"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="FibrousMechanites"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Mechanites</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/HediffDef[defName="SensoryMechanites"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/HediffDef[defName="SensoryMechanites"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+          <diseaseClass>PhobosDisease_Mechanites</diseaseClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+</Patch>

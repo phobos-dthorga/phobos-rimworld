@@ -141,9 +141,9 @@ its name.
 
 | When | Given |
 | --- | --- |
-| Down or in bed, pain 40% or more | The best painkiller in reach, net of its side effects |
+| Down or in bed, pain 40% or more | The mildest painkiller that brings the pain under 40%; the strongest only when nothing milder can |
 | Pain 80% or more, and no painkiller can be given | A sedative |
-| A disease that can kill, and immunity would come too late | A medical drug that speeds immunity. **A patient already winning gets none**, so stock lasts |
+| A disease that can kill, and immunity would come too late | A medical drug that speeds immunity and acts on that kind of disease: antibiotics for bacteria, never for flu. **A patient already winning gets none**, so stock lasts |
 | On their feet in vacuum and being harmed (a hull breach) | A vacuum medicine they carry, such as vacsop, taken at once before going to find air. Nobody fetches one from the shelf |
 | Down or in bed, breathing at 30% or less | Something that adds to breathing, such as smelling salts: time bought until oxygen or an operation. Looked for before anything else |
 | Down or in bed, with a condition something in stock cures outright | The cure, the gentlest first |
@@ -218,6 +218,9 @@ its name.
 - **More Injuries' therapy for brain damage uses glitterworld medicine**, so someone set to any repair may have it queued. Set them
   lower if you would rather order it yourself.
 - **When nobody can do an operation a patient needs, a message says what is missing**: skill, a tool, research or risk.
+- **A healer mech serum for the dying**, if you switch it on (Settings, Triage; off by default): for an expectant patient, the doctors
+  give one from stock, but only when the serum would mend the very condition killing them (it mends whatever the game judges worst).
+  A letter tells you, so a 1,300-silver item is never spent without your knowing.
 - **Oxygen, rest and time are not operations**: carbon monoxide or burn shock is tagged, but nothing is queued.
 - **No surgery in a hyperbaric chamber**: move the patient to a hospital bed.
 - Drug addictions are left alone: their treatment is the drug, your policy and time.

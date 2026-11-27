@@ -217,6 +217,12 @@
     <makesSickThought>true</makesSickThought>
     <lethalSeverity>1</lethalSeverity>
     <tendable>true</tendable>
+    <!-- Pneumonia after a smoke injury is usually bacterial (D'thorga Medical 0.33.0): an antibiotic acts on it. -->
+    <modExtensions>
+      <li Class="Phobos.Dosing.Defs.PhobosDiseaseClassExtension">
+        <diseaseClass>PhobosDisease_Bacterial</diseaseClass>
+      </li>
+    </modExtensions>
     <comps>
       <li Class="HediffCompProperties_TendDuration">
         <baseTendDurationHours>12</baseTendDurationHours>

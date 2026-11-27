@@ -107,9 +107,16 @@ public static class DoseService
     /// comp that moves the disease's severity, tending included, and the immunity record the game itself ticks. A dose against a disease works
     /// over days, so it waits for the bed (Medical 0.18.0, FieldCareRule): no doctor walks out to someone on the ground the carrier is about to lift.
     /// </summary>
-    public static bool LosingToDisease(Pawn pawn, PhobosDosingRulesDef rules)
+    public static bool LosingToDisease(Pawn pawn, PhobosDosingRulesDef rules) => LosingDiseases(pawn, rules, null);
+
+    /// <summary>
+    /// The diseases this patient is losing to, added to <paramref name="into"/> (Medical 0.33.0: a drug for fighting disease must act on one
+    /// of them by its class). With no list, whether there is any; it stops at the first.
+    /// </summary>
+    public static bool LosingDiseases(Pawn pawn, PhobosDosingRulesDef rules, List<HediffDef>? into)
     {
         if (!FieldCareRule.MayActNow(CareUrgency.WaitsForBed, pawn.InBed())) return false;
+        bool any = false;
         List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
         for (int i = 0; i < hediffs.Count; i++)
         {
@@ -118,9 +125,12 @@ public static class DoseService
             if (immunizable == null || immunizable.FullyImmune) continue;
             float severityPerDay = ConditionDanger.SeverityPerDay(disease);
             float immunityPerDay = (pawn.health.immunity.GetImmunityRecord(disease.def)?.ImmunityChangePerTick(pawn, true, disease) ?? 0f) * GenDate.TicksPerDay;
-            if (ImmunityRule.Losing(disease.Severity, disease.def.lethalSeverity, severityPerDay, immunizable.Immunity, immunityPerDay, rules.immunityRaceMarginDays)) return true;
+            if (!ImmunityRule.Losing(disease.Severity, disease.def.lethalSeverity, severityPerDay, immunizable.Immunity, immunityPerDay, rules.immunityRaceMarginDays)) continue;
+            if (into == null) return true;
+            any = true;
+            if (!into.Contains(disease.def)) into.Add(disease.def);
         }
-        return false;
+        return any;
     }
 
     /// <summary>
@@ -206,6 +216,15 @@ public static class DoseService
     static bool Answers(DoseOption option, DoseNeed need, List<HediffDef>? targets)
     {
         if (targets == null) return true;
+        if (need == DoseNeed.Immunity)
+        {
+            // A drug for fighting disease answers when it acts on the class of one of the diseases winning (Medical 0.33.0).
+            for (int i = 0; i < targets.Count; i++)
+            {
+                if (DiseaseClassRule.Acts(option.ActsOn, DiseaseClasses.Of(targets[i])?.defName)) return true;
+            }
+            return false;
+        }
         IReadOnlyList<HediffDef> named = need == DoseNeed.Cure ? option.Cures : option.Prevents;
         for (int i = 0; i < named.Count; i++)
         {
@@ -264,7 +283,7 @@ public static class DoseService
             candidates.Add(new DoseCandidate(option.Effect, allowed));
             decision.Verdicts.Add(new DoseVerdict(option, item, present, refusal, DoseChoiceRule.Score(option.Effect, need, bleeding, rules.Weights)));
         }
-        ChooseInReach(decision, doctor, patient, false, bleeding, rules.Weights);
+        ChooseInReach(decision, doctor, patient, false, bleeding, rules.Weights, false, new PainLadder(patient.health.hediffSet.PainTotal, rules.painThreshold));
         return decision;
     }
 
@@ -273,11 +292,12 @@ public static class DoseService
     /// of reach is struck out and the rule asked again, so the answer is the one it would give with every item looked for first:
     /// the best allowed option that someone can actually fetch. Reads and rewrites the shared candidate list.
     /// </summary>
-    static void ChooseInReach(DoseDecision decision, Pawn? doctor, Pawn patient, bool own, bool bleeding, DoseWeights weights, bool ownOnly = false)
+    static void ChooseInReach(DoseDecision decision, Pawn? doctor, Pawn patient, bool own, bool bleeding, DoseWeights weights, bool ownOnly = false,
+        PainLadder? ladder = null)
     {
         while (true)
         {
-            int chosen = DoseChoiceRule.Choose(candidates, decision.Need, bleeding, weights);
+            int chosen = DoseChoiceRule.Choose(candidates, decision.Need, bleeding, weights, ladder);
             if (chosen < 0) return;
             DoseVerdict verdict = decision.Verdicts[chosen];
             if (verdict.Item == null)
@@ -464,7 +484,8 @@ public static class DoseService
     {
         PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
         int desire = DrugDesire(pawn);
-        var decision = new DoseDecision { Need = SelfDoseRule.Need(pawn.health.hediffSet.PainTotal, SelfDoseRule.Threshold(rules.selfPainThreshold, desire, rules.selfInterestOffset, rules.selfFascinationOffset)) };
+        float selfThreshold = SelfDoseRule.Threshold(rules.selfPainThreshold, desire, rules.selfInterestOffset, rules.selfFascinationOffset);
+        var decision = new DoseDecision { Need = SelfDoseRule.Need(pawn.health.hediffSet.PainTotal, selfThreshold) };
         if (decision.Need == DoseNeed.None) return decision;
         IReadOnlyList<DoseOption> options = DoseIndex.Options;
         HediffSet set = pawn.health.hediffSet;
@@ -491,7 +512,7 @@ public static class DoseService
             candidates.Add(new DoseCandidate(option.Effect, allowed));
             decision.Verdicts.Add(new DoseVerdict(option, item, present, refusal, DoseChoiceRule.Score(option.Effect, bleeding, rules.Weights)));
         }
-        ChooseInReach(decision, pawn, pawn, true, bleeding, rules.Weights);
+        ChooseInReach(decision, pawn, pawn, true, bleeding, rules.Weights, false, new PainLadder(set.PainTotal, selfThreshold));
         return decision;
     }
 
@@ -635,6 +656,11 @@ public static class DoseService
                 Medical.Seen.Note("medical.breathing-job-made", patient, chosen.Option.Def.label);
             if (decision.Need == DoseNeed.Prevention && Medical.Seen.Wants("medical.prevention-job-made", patient))
                 Medical.Seen.Note("medical.prevention-job-made", patient, chosen.Option.Def.label);
+            // Medical 0.33.0: the pain ladder (the pain it was chosen for), and a drug matched to a disease by its class.
+            if ((decision.Need == DoseNeed.PainRelief || decision.Need == DoseNeed.Sedation) && Medical.Seen.Wants("medical.pain-ladder", patient))
+                Medical.Seen.Note("medical.pain-ladder", patient, chosen.Option.Def.label + " at " + patient.health.hediffSet.PainTotal.ToStringPercent() + " pain");
+            if (decision.Need == DoseNeed.Immunity && chosen.Option.ActsOn.Count > 0 && Medical.Seen.Wants("medical.disease-class", patient))
+                Medical.Seen.Note("medical.disease-class", patient, chosen.Option.Def.label + " for " + string.Join(", ", chosen.Option.ActsOn));
             return job;
         }
         if (explain) JobFailReason.Is(ReasonText(decision));

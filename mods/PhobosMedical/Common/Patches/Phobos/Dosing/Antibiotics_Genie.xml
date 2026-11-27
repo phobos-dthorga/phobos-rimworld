@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Vanilla Races Expanded - Genie's antibiotics act on bacteria only (D'thorga Medical 0.33.0): an antibiotic does nothing for a
+       virus, a protozoan or worms, so it is no longer spent on flu. Applied only when the item exists. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="VRE_Antibiotics"]</xpath>
+    <match Class="PatchOperationAddModExtension">
+      <xpath>Defs/ThingDef[defName="VRE_Antibiotics"]</xpath>
+      <value>
+        <li Class="Phobos.Dosing.Defs.PhobosDosingExtension">
+          <actsOn>
+            <li>PhobosDisease_Bacterial</li>
+          </actsOn>
+        </li>
+      </value>
+    </match>
+  </Operation>
+</Patch>

@@ -52,10 +52,14 @@ public sealed class DoseOption
     /// <summary>The reservoir one dose refills, and by how much (Medical 0.31.0); null and 0 for anything else.</summary>
     public readonly ReservoirReader? Reservoir;
     public readonly float RefillAmount;
+    /// <summary>The names of the classes of disease a drug for fighting disease acts on (Medical 0.33.0); empty for every disease.</summary>
+    public readonly IReadOnlyList<string> ActsOn;
 
     public DoseOption(ThingDef def, IReadOnlyList<DoseHediff> hediffs, DoseEffect effect, IReadOnlyList<HediffDef>? cures = null, IReadOnlyList<HediffDef>? prevents = null,
-        HediffDef? lethalDependency = null, float marketValue = 0f, ChemicalDef? chemical = null, ReservoirReader? reservoir = null, float refillAmount = 0f)
+        HediffDef? lethalDependency = null, float marketValue = 0f, ChemicalDef? chemical = null, ReservoirReader? reservoir = null, float refillAmount = 0f,
+        IReadOnlyList<string>? actsOn = null)
     {
+        ActsOn = actsOn ?? Array.Empty<string>();
         Chemical = chemical;
         Reservoir = reservoir;
         RefillAmount = refillAmount;
@@ -337,7 +341,7 @@ public static class DoseIndex
             if (stages.Count > 0 && DoseChoiceRule.Worthwhile(effect, rules.minPainRelief, rules.Weights))
                 built.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value));
             if (stages.Count > 0 && def.IsDrug && !givesDisease && DoseChoiceRule.WorthwhileForImmunity(effect, rules.minImmunityGain, rules.Weights))
-                builtImmunity.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value));
+                builtImmunity.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value, actsOn: ClassNames(extension)));
             if (givesDisease) continue;
             if (stages.Count > 0 && def.IsDrug && DoseChoiceRule.WorthwhileForBreathing(effect, rules.minBreathingGain, rules.Weights))
                 builtBreathing.Add(new DoseOption(def, hediffs.ToArray(), effect, lethalDependency: dependency, marketValue: value));
@@ -509,6 +513,18 @@ public static class DoseIndex
             readers[type] = field;
         }
         return readers;
+    }
+
+    /// <summary>The names of the classes of disease an item says it acts on (Medical 0.33.0), or null for every disease.</summary>
+    static string[]? ClassNames(PhobosDosingExtension? extension)
+    {
+        if (extension == null || extension.actsOn.Count == 0) return null;
+        var names = new List<string>();
+        foreach (PhobosDiseaseClassDef diseaseClass in extension.actsOn)
+        {
+            if (diseaseClass != null) names.Add(diseaseClass.defName);
+        }
+        return names.ToArray();
     }
 
     /// <summary>A given-condition reader whose class a loaded mod has, with the fields it names (Medical 0.32.0).</summary>

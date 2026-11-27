@@ -11,6 +11,10 @@
   <PhobosTriage_GroupGuests>Guests</PhobosTriage_GroupGuests>
   <PhobosTriage_SettingMaxDeath>Highest chance of death on the table the doctors may accept alone: {PERCENT}%</PhobosTriage_SettingMaxDeath>
   <PhobosTriage_SettingMaxDeathDesc>The chance the patient dies if the operation fails, times the chance it fails with your best doctor. Riskier operations wait for your own order.</PhobosTriage_SettingMaxDeathDesc>
+  <PhobosTriage_SettingHealerSerum>May give a healer serum to the dying</PhobosTriage_SettingHealerSerum>
+  <PhobosTriage_SettingHealerSerumDesc>For someone dying of a condition no operation here can treat, the doctors give a healer mech serum, if one is in stock and it would mend that very condition. A letter says when. Off by default: the serum is rare and costly.</PhobosTriage_SettingHealerSerumDesc>
+  <PhobosTriage_LetterSerumLabel>{ITEM} to be given</PhobosTriage_LetterSerumLabel>
+  <PhobosTriage_LetterSerum>Nothing else here can save {PATIENT} from {CONDITION}. The doctors will give the {ITEM} from stock.</PhobosTriage_LetterSerum>
   <PhobosTriage_SettingRareTools>May use rare tools</PhobosTriage_SettingRareTools>
   <PhobosTriage_SettingRareToolsDesc>Some operations consume or risk a costly instrument. Off, those wait for your own order.</PhobosTriage_SettingRareToolsDesc>
   <PhobosTriage_SettingViolations>May operate where it would wrong another faction</PhobosTriage_SettingViolations>

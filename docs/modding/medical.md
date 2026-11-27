@@ -116,6 +116,10 @@ Say what one of your items cures or prevents where its Defs cannot show it:
   an item swallowed through the game's `IngestionOutcomeDoer_UseThing`; the game's own `CompProperties_UseEffectAddHediff` needs no
   reader. A condition the game marks harmful (`isBad`), given beside one it does not, is a side harm: it counts for the danger check,
   never for the redose check.
+- **Disease classes** (0.33.0): give a disease its class with a `Phobos.Dosing.Defs.PhobosDiseaseClassExtension` (`diseaseClass`:
+  `PhobosDisease_Bacterial`, `_Viral`, `_Protozoan`, `_Worms` or `_Mechanites`, or a `PhobosDiseaseClassDef` of your own), and say which
+  classes a drug for fighting disease acts on with `actsOn` on `PhobosDosingExtension`. A drug naming none acts on every disease, and a
+  disease with no class takes any drug.
 - **Prevention acts only for an outbreak disease**: one that an `IncidentDef` brings (`diseaseIncident`), one with Vanilla Expanded
   Framework's spreadable comp, or one you patch into the rules Def's `outbreakDiseases`.
 - **A help to breathing needs no extension**: a medical drug whose condition, at its dose, adds 0.1 or more to breathing after

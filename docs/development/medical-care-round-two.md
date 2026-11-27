@@ -1,7 +1,9 @@
 # Medical care, round two: the gaps left after the care needs (27 Nov 2026)
 
-**Status (27 Nov 2026):** record only; nothing here is built. The owner answered all eleven question cards on 27 Nov 2026
-([the answers](#the-owners-answers-27-nov-2026-by-card-with-every-option-offered)); no slice is started until the owner says go.
+**Status (27 Nov 2026):** slice 1, sharper dosing, is built in D'thorga Medical 0.33.0 ([as built](#as-built-medical-0330)), not yet
+tested in game (rows 691 to 693). Slices 2, 3 and 5 are next, on the owner's "1, 2, 3, and 5, step-wise if necessary"; slice 4, diseases
+that spread, waits. The owner answered all eleven question cards on 27 Nov 2026
+([the answers](#the-owners-answers-27-nov-2026-by-card-with-every-option-offered)).
 
 The owner, 27 Nov 2026, of the gaps and suggestions listed once the [care needs](medical-care-needs.md) were finished: "I wish for all
 of these gaps and suggestions to be fulfilled", then "Go ahead and write the record with the question cards". How care works today:
@@ -19,6 +21,24 @@ revise.
 - **The owner's Defs file is a week old** (written 19 Nov 2026 with 364 active mods; 387 are active now). **Read the Defs again
   before building each slice.**
 - None of this is medical advice. Real medicine is the model for what is plausible, never the source of a figure.
+
+## As built: Medical 0.33.0
+
+Slice 1, as designed below, with these differences and findings.
+
+- **The serum's target was read before building**, as the limits said it must be: `HealthUtility.TryGetWorstHealthCondition` takes a
+  life-threatening condition first (visible, curable by an item, not yet immune, at its life-threatening stage or 80% of the way to
+  lethal; of several, the one on the largest part), then blood loss about to kill, then others. Triage asks it, without changing
+  anything, and queues the serum only when its answer is the condition killing the patient. So the risk named in the limits is closed.
+- **The serum's operation is found by what its item does**: an "administer" operation whose one ingredient carries the game's
+  `CompUseEffect_FixWorstHealthCondition`. It has no failure outcome, so a doctor being free is all it needs.
+- **The letter is sent when the serum is queued**, not when it is given (agent choice: the game's own operation ends with its own
+  message, and a letter before lets the player stop it). Once per patient and condition.
+- **The pain ladder's threshold** is the point where the patient would be dosed at all: 40% for doctors, the person's own threshold for
+  self-medication. Agent choice.
+- **Classes are a Def of their own**, with a mod extension on each disease, patched only where the disease exists. Genie's antibiotics
+  are the only drug classed; the "Medicine needed" alert does not yet name a class (agent choice: the alert reads by need, and a class
+  would need its own line).
 
 ## What the reading found
 

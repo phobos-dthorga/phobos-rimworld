@@ -51,6 +51,8 @@ public static class TriagePlanner
     static readonly HashSet<(int, HediffDef)> told = new();
     /// <summary>Patients and conditions already told their operation must wait. Derived, like the set above.</summary>
     static readonly HashSet<(int, HediffDef)> toldHeld = new();
+    /// <summary>Patients and conditions already sent the healer serum's letter (Medical 0.33.0). Derived, like the sets above.</summary>
+    static readonly HashSet<(int, HediffDef)> toldSerum = new();
 
     public static void Run(Map map, List<TriageEntry> entries, List<Thing> patientsWithBills)
     {
@@ -137,11 +139,63 @@ public static class TriagePlanner
                 entry.Held = held;
             }
         }
-        if (ledger != null) WithdrawStale(pawn, ledger, careOk, authority);
+        // The healer serum (Medical 0.33.0): only while the switch is on, the patient's care and authority allow a life-saving act, and the
+        // game's own choice of what the item mends is the condition killing them, so the item is never spent on something else.
+        bool serumWanted = settings.enabled && settings.healerSerum && HealerSerum.Recipes.Count > 0 && careOk && !barred
+            && AuthorityRule.Allows(authority, ConditionClass.Lethal) && entry.Worst != null && entry.WorstClass == ConditionClass.Lethal
+            && HealerSerum.WouldMend(pawn, entry.Worst);
+        if (ledger != null) WithdrawStale(pawn, ledger, careOk, authority, serumWanted);
         var reading2 = new PatientReading(entry.HoursToDeath, entry.WorstClass, ConditionReader.LowestVital(pawn), entry.NeedsOperation, entry.Feasible);
         entry.Category = TriageRule.Categorise(reading2, bands);
+        if (entry.Category == TriageCategory.Expectant && HealerSerum.Recipes.Count > 0)
+        {
+            Bill_Medical? serum = HealerSerum.OnBills(pawn);
+            if (serum == null && serumWanted && pawn.BillStack.Count < rules.maxBillsPerPatient) serum = TryQueueSerum(pawn, map, entry.Worst!, doctorExists, rules, ledger);
+            if (serum != null)
+            {
+                // Something can be done now: the patient is tagged by their clock, as for any operation on its way.
+                entry.Queued = serum.recipe;
+                entry.Feasible = true;
+                reading2 = new PatientReading(entry.HoursToDeath, entry.WorstClass, ConditionReader.LowestVital(pawn), entry.NeedsOperation, true);
+                entry.Category = TriageRule.Categorise(reading2, bands);
+            }
+        }
         entry.Score = TriageRule.Score(entry.Category, entry.HoursToDeath, bands.UrgentHours);
         return entry;
+    }
+
+    /// <summary>
+    /// Queues the game's own operation that gives a healer serum, through the game's own bill, and says so in a letter once per patient and
+    /// condition (the owner's card of 27 Nov 2026: a letter when one is spent). Null when none is in stock, its research is not done, or no
+    /// doctor is free.
+    /// </summary>
+    static Bill_Medical? TryQueueSerum(Pawn pawn, Map map, Hediff condition, bool doctorExists, PhobosTriageRulesDef rules, TriageBillLedger? ledger)
+    {
+        if (!doctorExists) return null;
+        IReadOnlyList<RecipeDef> recipes = HealerSerum.Recipes;
+        for (int i = 0; i < recipes.Count; i++)
+        {
+            RecipeDef recipe = recipes[i];
+            if (!recipe.AvailableNow || !recipe.AvailableOnNow(pawn) || !IngredientsPresent(recipe, map)) continue;
+            Bill_Medical? bill = HealthCardUtility.CreateSurgeryBill(pawn, recipe, null, null, false);
+            if (bill == null) continue;
+            ledger?.Add(bill);
+            if (rules.lethalBillsToTop)
+            {
+                int index = pawn.BillStack.IndexOf(bill);
+                if (index > 0) pawn.BillStack.Reorder(bill, -index);
+            }
+            if (toldSerum.Add((pawn.thingIDNumber, condition.def)))
+            {
+                ThingDef item = recipe.ingredients[0].FixedIngredient;
+                Find.LetterStack.ReceiveLetter("PhobosTriage_LetterSerumLabel".Translate(item.LabelCap.Named("ITEM")),
+                    "PhobosTriage_LetterSerum".Translate(pawn.LabelShort.Named("PATIENT"), condition.LabelBase.Named("CONDITION"), item.label.Named("ITEM")),
+                    LetterDefOf.NeutralEvent, pawn);
+            }
+            if (Medical.Seen.Wants("medical.triage-healer-serum", pawn)) Medical.Seen.Note("medical.triage-healer-serum", pawn, condition.def.defName);
+            return bill;
+        }
+        return null;
     }
 
     /// <summary>Queues the best feasible operation for a condition through the game's own bill, or says why none can be.</summary>
@@ -252,13 +306,21 @@ public static class TriagePlanner
         return null;
     }
 
-    /// <summary>Withdraws our bills whose condition is gone, or that the player's care level or the pawn's authority no longer allows.</summary>
-    static void WithdrawStale(Pawn pawn, TriageBillLedger ledger, bool careOk, TriageAuthority authority)
+    /// <summary>
+    /// Withdraws our bills whose condition is gone, or that the player's care level or the pawn's authority no longer allows. A healer serum
+    /// of ours names no condition, so it stays only while it is still wanted: the condition it would mend is still the one killing them.
+    /// </summary>
+    static void WithdrawStale(Pawn pawn, TriageBillLedger ledger, bool careOk, TriageAuthority authority, bool serumWanted)
     {
         ledger.OnStack(pawn.BillStack, ownBills);
         for (int i = 0; i < ownBills.Count; i++)
         {
             if (ownBills[i] is not Bill_Medical bill) continue;
+            if (HealerSerum.IsSerum(bill.recipe))
+            {
+                if (!serumWanted) ledger.Withdraw(bill);
+                continue;
+            }
             Hediff? target = null;
             foreach (KeyValuePair<Hediff, ConditionClass> pair in classes)
             {

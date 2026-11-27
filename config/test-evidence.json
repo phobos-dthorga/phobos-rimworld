@@ -328,6 +328,9 @@
       "addictol for an addiction being quit": [{"key": "medical.longterm-self", "variant": "Addiction"}, {"key": "medical.longterm-job-made", "variant": "Addiction"}]
     }},
     "614": [{"key": "medical.longterm-self", "variant": "OldWounds"}, {"key": "medical.longterm-job-made", "variant": "OldWounds"}],
+    "691": ["medical.pain-ladder"],
+    "692": ["medical.disease-class"],
+    "693": ["medical.triage-healer-serum"],
     "654": {"parts": {
       "a painkiller draught by a doctor": [{"key": "medical.dose-job-made", "detail": "painkiller draught"}],
       "an antitox draught taken in toxins": [{"key": "medical.toxic-self", "detail": "antitox draught"}, {"key": "medical.toxic-job-made", "detail": "antitox draught"}]

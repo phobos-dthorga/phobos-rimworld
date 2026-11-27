@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Classes of disease by their cause (D'thorga Medical 0.33.0; docs/development/medical-care-round-two.md). A disease names its class
+       through Phobos.Dosing.Defs.PhobosDiseaseClassExtension; a drug for fighting disease names the classes it acts on in
+       PhobosDosingExtension's actsOn. A disease nobody has classed takes any drug, and a drug naming no class acts on every disease.
+       Which disease is in which class is authored: Ushanka's Biological Warfare classes its own pathogens the same way. -->
+  <Phobos.Dosing.Defs.PhobosDiseaseClassDef>
+    <defName>PhobosDisease_Bacterial</defName>
+    <label>bacterial</label>
+    <description>Caused by bacteria: plague, wound infection, cholera, dysentery, pneumonia. Antibiotics act on it.</description>
+  </Phobos.Dosing.Defs.PhobosDiseaseClassDef>
+  <Phobos.Dosing.Defs.PhobosDiseaseClassDef>
+    <defName>PhobosDisease_Viral</defName>
+    <label>viral</label>
+    <description>Caused by a virus: flu, and the scaria and necroa viruses. Antibiotics do nothing for it.</description>
+  </Phobos.Dosing.Defs.PhobosDiseaseClassDef>
+  <Phobos.Dosing.Defs.PhobosDiseaseClassDef>
+    <defName>PhobosDisease_Protozoan</defName>
+    <label>protozoan</label>
+    <description>Caused by single-celled parasites carried by insects: malaria and sleeping sickness.</description>
+  </Phobos.Dosing.Defs.PhobosDiseaseClassDef>
+  <Phobos.Dosing.Defs.PhobosDiseaseClassDef>
+    <defName>PhobosDisease_Worms</defName>
+    <label>worms</label>
+    <description>Caused by parasitic worms, or their like from another world: gut worms, muscle parasites, exoworms.</description>
+  </Phobos.Dosing.Defs.PhobosDiseaseClassDef>
+  <Phobos.Dosing.Defs.PhobosDiseaseClassDef>
+    <defName>PhobosDisease_Mechanites</defName>
+    <label>mechanites</label>
+    <description>Caused by microscopic machines, not germs: no drug made for a living thing acts on them.</description>
+  </Phobos.Dosing.Defs.PhobosDiseaseClassDef>
+</Defs>

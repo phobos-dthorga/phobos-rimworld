@@ -21,6 +21,32 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.33.0] - 2026-11-27 - Draft
+
+Sharper dosing: the mildest painkiller that works, drugs matched to the disease, and the healer serum for the dying
+
+### Added
+
+- **Diseases have classes** (bacterial, viral, protozoan, worms, mechanites), and a drug for fighting disease may say which it acts on:
+  Vanilla Races Expanded - Genie's antibiotics are now given for bacteria only, never for flu. A drug that names no class, and a disease
+  nobody has classed, are as before. Not yet tested in game: row 692.
+- **Triage may give a healer mech serum to someone dying whom nothing else can save**, through the game's own operation, and only
+  while the serum would mend that very condition. A letter says when. Off until you turn it on (Settings, Triage, "May give a healer
+  serum to the dying"). Not yet tested in game: row 693.
+
+### Changed
+
+- **Doctors give the mildest painkiller that does the job**: the one with the least cost that brings pain under the point where they
+  step in, and the strongest only when nothing milder can. People who take their own do the same. Not yet tested in game: row 691.
+
+### Save compatibility
+
+- Safe with an existing save. One new setting, off.
+
+### Compatibility and limits
+
+- A painkiller's relief is read as one share of the pain, an approximation of how the game adds pain up.
+
 ## [0.32.1] - 2026-11-27 - Draft
 
 The toxic controlled area's own icons

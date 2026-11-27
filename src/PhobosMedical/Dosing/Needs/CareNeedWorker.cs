@@ -183,10 +183,18 @@ public class CareNeedWorker_DiseaseDrug : CareNeedWorker
     public override bool Wanted(Pawn patient, DosingSettings settings, PhobosDosingRulesDef rules) => DoseService.LosingToDisease(patient, rules);
 
     public override DoseDecision? Decide(Pawn? doctor, Pawn patient, bool everyItem) =>
-        DoseService.DecideCare(doctor, patient, DoseNeed.Immunity, DoseIndex.ImmunityOptions, Care, everyItem);
+        DoseService.DecideCare(doctor, patient, DoseNeed.Immunity, DoseIndex.ImmunityOptions, CareFor(patient), everyItem);
 
     public override bool AnyAllowed(Pawn patient, DosingSettings settings, PhobosDosingRulesDef rules) =>
-        DoseService.AnyCareAllowed(patient, DoseNeed.Immunity, DoseIndex.ImmunityOptions, Care);
+        DoseService.AnyCareAllowed(patient, DoseNeed.Immunity, DoseIndex.ImmunityOptions, CareFor(patient));
+
+    /// <summary>The diseases winning, so a drug is matched to their class (Medical 0.33.0). Asked only for a patient already wanted.</summary>
+    static CareContext CareFor(Pawn patient)
+    {
+        var losing = new List<HediffDef>();
+        DoseService.LosingDiseases(patient, PhobosDosingRulesDef.Current, losing);
+        return new CareContext(Care.Seriousness, losing);
+    }
 
     public override string? Unmet(Pawn patient, DosingSettings settings, PhobosDosingRulesDef rules) =>
         DoseIndex.ImmunityOptions.Count > 0 && Wanted(patient, settings, rules) && NoneInStockButKnown(patient.Map, DoseIndex.ImmunityOptions, null, DoseNeed.Immunity)

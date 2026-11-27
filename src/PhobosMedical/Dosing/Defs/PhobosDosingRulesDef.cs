@@ -170,4 +170,7 @@ public class PhobosDosingExtension : DefModExtension
     public bool healsOldWounds;
     /// <summary>One dose regrows missing body parts (Medical 0.31.0).</summary>
     public bool regrowsParts;
+    /// <summary>The classes of disease a drug for fighting disease acts on (Medical 0.33.0): an antibiotic names bacterial. A drug that names
+    /// none acts on every disease, as every drug did before classes.</summary>
+    public List<PhobosDiseaseClassDef> actsOn = new();
 }

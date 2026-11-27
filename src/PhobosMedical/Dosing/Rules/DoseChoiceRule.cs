@@ -25,6 +25,26 @@ public readonly struct DoseWeights
     }
 }
 
+/// <summary>
+/// How much pain there is and where it should be brought under (Medical 0.33.0): with these, a painkiller is chosen as the mildest that
+/// does the job rather than the best score.
+/// </summary>
+public readonly struct PainLadder
+{
+    public readonly float Pain;
+    public readonly float Target;
+
+    public PainLadder(float pain, float target)
+    {
+        Pain = pain;
+        Target = target;
+    }
+
+    /// <summary>Whether a dose taking away this share of the pain brings it under the target. An approximation: the game multiplies pain by
+    /// a factor and adds an offset, and relief is read as one share of the whole.</summary>
+    public bool Enough(float relief) => Pain * (1f - relief) < Target;
+}
+
 /// <summary>One item the doctor could give: its effect and whether the safety rule allows it.</summary>
 public readonly struct DoseCandidate
 {
@@ -120,17 +140,56 @@ public static class DoseChoiceRule
             or DoseNeed.Addiction or DoseNeed.OldWounds or DoseNeed.MissingPart or DoseNeed.Reservoir;
 
     /// <summary>The index of the chosen candidate, or -1 when none may be given.</summary>
-    public static int Choose(IReadOnlyList<DoseCandidate> candidates, DoseNeed need, bool patientBleeding, DoseWeights weights)
+    public static int Choose(IReadOnlyList<DoseCandidate> candidates, DoseNeed need, bool patientBleeding, DoseWeights weights) =>
+        Choose(candidates, need, patientBleeding, weights, null);
+
+    /// <summary>
+    /// The index of the chosen candidate, or -1 when none may be given. With a <paramref name="ladder"/>, a painkiller is the mildest that
+    /// does the job (Medical 0.33.0; the owner's card of 27 Nov 2026): within each tier, of the items that bring the pain under its
+    /// target, the one with the least cost, and the gentler of two that cost the same; when none can, the strongest. The shape of the
+    /// World Health Organization's analgesic ladder, mild medicines first and strong ones as pain demands, named as the model only.
+    /// </summary>
+    public static int Choose(IReadOnlyList<DoseCandidate> candidates, DoseNeed need, bool patientBleeding, DoseWeights weights, PainLadder? ladder)
     {
-        int best = Best(candidates, need, false, false, patientBleeding, weights);
-        if (best < 0 && need == DoseNeed.Sedation) best = Best(candidates, need, true, null, patientBleeding, weights);
-        if (best < 0) best = Best(candidates, need, false, true, patientBleeding, weights);
+        PainLadder? forPain = need == DoseNeed.PainRelief || need == DoseNeed.Sedation ? ladder : null;
+        int best = Best(candidates, need, false, false, patientBleeding, weights, forPain);
+        if (best < 0 && need == DoseNeed.Sedation) best = Best(candidates, need, true, null, patientBleeding, weights, null);
+        if (best < 0) best = Best(candidates, need, false, true, patientBleeding, weights, forPain);
         return best;
     }
 
-    /// <summary>The best allowed candidate of one kind; a null <paramref name="recreational"/> takes either.</summary>
-    static int Best(IReadOnlyList<DoseCandidate> candidates, DoseNeed need, bool sedatives, bool? recreational, bool patientBleeding, DoseWeights weights)
+    /// <summary>What a dose costs, net of nothing: its benefit for the need less its score.</summary>
+    static float Cost(DoseEffect effect, DoseNeed need, bool patientBleeding, DoseWeights weights) =>
+        Benefit(effect, need) - Score(effect, need, patientBleeding, weights);
+
+    /// <summary>The mildest of one tier that does the job, or the strongest when none can; only items scoring above zero.</summary>
+    static int Ladder(IReadOnlyList<DoseCandidate> candidates, DoseNeed need, bool sedatives, bool? recreational, bool patientBleeding, DoseWeights weights, PainLadder ladder)
     {
+        int mildest = -1, strongest = -1;
+        float mildestCost = float.MaxValue;
+        for (int i = 0; i < candidates.Count; i++)
+        {
+            DoseCandidate candidate = candidates[i];
+            if (!candidate.Allowed || candidate.Effect.Sedative != sedatives) continue;
+            if (recreational.HasValue && candidate.Effect.Recreational != recreational.Value) continue;
+            if (Score(candidate.Effect, need, patientBleeding, weights) <= 0f) continue;
+            float relief = candidate.Effect.PainRelief;
+            if (strongest < 0 || relief > candidates[strongest].Effect.PainRelief) strongest = i;
+            if (!ladder.Enough(relief)) continue;
+            float cost = Cost(candidate.Effect, need, patientBleeding, weights);
+            if (mildest < 0 || cost < mildestCost - 1e-5f || (cost <= mildestCost + 1e-5f && relief < candidates[mildest].Effect.PainRelief))
+            {
+                mildest = i;
+                mildestCost = cost;
+            }
+        }
+        return mildest >= 0 ? mildest : strongest;
+    }
+
+    /// <summary>The best allowed candidate of one kind; a null <paramref name="recreational"/> takes either.</summary>
+    static int Best(IReadOnlyList<DoseCandidate> candidates, DoseNeed need, bool sedatives, bool? recreational, bool patientBleeding, DoseWeights weights, PainLadder? ladder)
+    {
+        if (ladder.HasValue && !sedatives) return Ladder(candidates, need, sedatives, recreational, patientBleeding, weights, ladder.Value);
         int best = -1;
         float bestScore = 0f;
         for (int i = 0; i < candidates.Count; i++)

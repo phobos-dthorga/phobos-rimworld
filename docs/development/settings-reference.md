@@ -242,6 +242,7 @@ Generated from the mod's source code and language files by `python scripts/doc-t
 | Highest chance of death on the table the doctors may accept alone: ...% | The chance the patient dies if the operation fails, times the chance it fails with your best doctor. Riskier operations wait for your own order. | 0.05 | Triage | Limits and order |
 | May use rare tools | Some operations consume or risk a costly instrument. Off, those wait for your own order. | On | Triage | Limits and order |
 | May operate where it would wrong another faction | Off, an operation that counts as a violation on a guest or prisoner of another faction waits for your own order. | Off | Triage | Limits and order |
+| May give a healer serum to the dying | For someone dying of a condition no operation here can treat, the doctors give a healer mech serum, if one is in stock and it would mend that very condition. A letter says when. Off by default: the serum is rare and costly. | Off | Triage | Limits and order |
 | Doctors take the worst case first | With several patients waiting for operations, a doctor goes to the one in the gravest danger rather than the nearest. Off, the game's own order: the nearest. | On | Triage | Limits and order |
 | Tell me when an operation is queued, or when no one can do one | A message when the doctors queue an operation, and one when a condition needs an operation nobody here can do, saying what is missing. | On | Triage | Limits and order |
 | Radiation sickness runs its real course | On by default: radiation is a dose the body slowly repairs, and a large dose brings early sickness, a spell of feeling well, then the illness, which care can see someone through. It takes Dubs Rimatomics' radiation for people in place of its own sickness. Off: Rimatomics' own radiation sickness, as before. | On | Radiation |  |
@@ -257,7 +258,7 @@ Generated from the mod's source code and language files by `python scripts/doc-t
 | Harm to a child before birth | On by default: a dose in pregnancy may leave the child with weaker movement and hands (weeks 3 to 7) or slower learning and thinking (weeks 8 to 25, most of all 8 to 15). | On | Radiation | Late effects, months or years after a dose (strength set by the harshness above) |
 | A child's own cancer risk | On by default: a child is born carrying the dose it took before birth, which adds to its own chance of cancer later. | On | Radiation | Late effects, months or years after a dose (strength set by the harshness above) |
 
-62 settings, in the order the settings window draws them. **Default** is what the game uses until the setting is changed. A setting the window shows only in some games (another mod active, another setting on) is listed all the same.
+63 settings, in the order the settings window draws them. **Default** is what the game uses until the setting is changed. A setting the window shows only in some games (another mod active, another setting on) is listed all the same.
 
 Saved, but not found drawn in the window by the reader (kept by the window itself, or drawn by code it cannot follow): `PhobosDosing_RareItemMarketValue`, `PhobosMedical_DisplayMode`, `PhobosMedical_GravshipLetterShown`, `PhobosSaveBridge_NeverConvert`, `PhobosTriage_DefaultColonist`, `PhobosTriage_DefaultSlave`, `PhobosTriage_DefaultPrisoner`, `PhobosTriage_DefaultGuest`.
 <!-- end generated -->

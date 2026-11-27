@@ -301,6 +301,24 @@ no alert. The items, found by what they do:
 
 A condition with no stages (Hydra's) now counts for the redose check, so a dose still working is not doubled.
 
+**Sharper dosing** (0.33.0; [round two](../medical-care-round-two.md), the owner's cards of 27 Nov 2026).
+
+- **The pain ladder** (`PainLadder`, `DoseChoiceRule`): with the patient's pain and the point where they step in (`painThreshold`, 0.4,
+  for doctors; the person's own threshold when they take their own), a painkiller is the mildest that does the job: of the items that
+  bring the pain under the threshold, the least cost (benefit less score), the gentler of two that cost the same; when none can, the
+  strongest. Tiers stay as they were: medical first, a sedative only past the sedation band, recreational last. The shape of the World
+  Health Organization's analgesic ladder, as a model only.
+- **Disease classes** (`PhobosDiseaseClassDef`, `PhobosDiseaseClassExtension` on a disease, `actsOn` on `PhobosDosingExtension`):
+  bacterial, viral, protozoan, worms and mechanites, patched onto the game's diseases and those of Dubs Bad Hygiene, Biological Warfare,
+  Alpha Genes and Vanilla Gravship Expanded where present (`Patches/Phobos/Dosing/DiseaseClasses.xml`). The disease drug need hands the
+  diseases being lost to as its targets, and a drug answers when `DiseaseClassRule.Acts` for one of them: a drug naming no class acts
+  on every disease, and a disease nobody has classed takes any drug. Genie's antibiotics name bacterial.
+- **The healer mech serum** (`Triage/Services/HealerSerum.cs`): the operations that give an item whose use effect is the game's
+  `CompUseEffect_FixWorstHealthCondition`, found by that. For a patient tagged expectant, with the switch on and care and authority
+  allowing a life-saving act, triage queues one through the game's own bill when `HealthUtility.TryGetWorstHealthCondition` names the
+  very condition killing them (life-threatening conditions come first in it, the largest part covered first). The patient is then tagged
+  by their clock. The bill is ours to withdraw once that stops being true; a letter is sent once per patient and condition.
+
 **What the index reads besides the game's own outcome** (0.32.0). A condition given through another mod's own class is read through
 the rules' `givenConditionReaders`: the class's full name, its condition and severity fields, whether a negative severity takes away
 rather than gives, and a field that makes the effect depend on the taker (such an effect is not read). Vanilla Races Expanded - Genie's
@@ -586,8 +604,10 @@ Every tie-in is in the [tie-in register](../tie-in-register.md). None is require
 - **Fire heat** can linger up to 150 ticks after its fire dies, and every map rebuilds on the same tick.
 - **Effects applied from code are invisible to the dose index** unless a reader names their class (Vanilla Races Expanded - Genie's
   antibiotics are read that way since 0.32.0); More Injuries' morphine raising bleeding is why the bleeding hold exists.
-- **Stronger pain does not prefer stronger drugs**: the score ignores the pain level.
-- **Antibiotics are not told from antivirals**; every disease drug counts for every disease.
+- **The pain ladder reads relief as one share of the pain** (Medical 0.33.0): the game multiplies pain by a factor and adds an offset,
+  so "brings it under the threshold" is an approximation.
+- **Only Genie's antibiotics name a class** (Medical 0.33.0); every other drug for fighting disease still counts for every disease
+  until someone reads what it claims to be.
 - **Prevention reaches only what an item already prevents, and only once a disease is in the colony.** Our own vaccines, hygiene and
   masks are designed, not built ([vaccines and prevention](../vaccines-and-prevention.md)). Every slice of the [care
   needs](../medical-care-needs.md) is built; blood loss is left to More Injuries.

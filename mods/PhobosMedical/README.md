@@ -7,7 +7,7 @@ neither is required.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide's [medical
 chapter](../../docs/player-guide/medical.md)**; this README holds the gotchas, the settings and the links.
 
-Version 0.32.1, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
+Version 0.33.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
 D'thorga Medical (11 November 2026), burns, dosing, the oxygen concentrator, the burn unit bed and the save bridge on the five
 mods it replaced (3 to 6 November 2026), and, on D'thorga Medical itself, doctors' work with many wounded, field care giving way to
 the carry, and, with Rimatomics, radiation sickness running its real course and converting once. Everything else is not yet tested
@@ -144,6 +144,7 @@ this page to defaults** at the bottom of a page.
 | ... Guests | The same, for people of other factions staying with you | Never without orders |
 | Highest chance of death on the table the doctors may accept alone | Riskier operations wait for your order | 5% |
 | May use rare tools | Operations that use a costly instrument | On |
+| May give a healer serum to the dying | For someone dying whom no operation here can save, a healer mech serum from stock, only if it would mend that very condition; a letter says when | Off |
 | May operate where it would wrong another faction | Off: such operations wait for your order | Off |
 | Doctors take the worst case first | Off: the nearest patient, the game's order | On |
 | Tell me when an operation is queued, or when no one can do one | Messages, naming what is missing | On |

@@ -22,6 +22,9 @@ public class TriageSettings : ModSettings
     public bool allowViolations;
     public bool messages = true;
     public bool triageOrdering = true;
+    /// <summary>Give an item that mends the worst condition (the healer mech serum) to someone dying whom nothing else can save (Medical
+    /// 0.33.0). Off: a costly item at once is a high risk (the owner's card of 27 Nov 2026).</summary>
+    public bool healerSerum;
 
     public TriageAuthority DefaultFor(PatientGroup group) => group switch
     {
@@ -44,6 +47,7 @@ public class TriageSettings : ModSettings
         Scribe_Values.Look(ref allowViolations, "PhobosTriage_AllowViolations", false);
         Scribe_Values.Look(ref messages, "PhobosTriage_Messages", true);
         Scribe_Values.Look(ref triageOrdering, "PhobosTriage_TriageOrdering", true);
+        Scribe_Values.Look(ref healerSerum, "PhobosTriage_HealerSerum", false);
     }
 }
 
@@ -69,6 +73,8 @@ public static class TriageMod
         int operations = OperationIndex.All.Count;
         report.On(operations + " operation" + (operations == 1 ? "" : "s") + " indexed by the condition they remove");
         if (Settings.triageOrdering) report.On("doctors take the worst case first"); else report.Off("doctors take the worst case first", "setting");
+        if (HealerSerum.Recipes.Count == 0) report.Off("a healer serum for the dying", "no such item");
+        else if (Settings.healerSerum) report.On("a healer serum for the dying"); else report.Off("a healer serum for the dying", "setting");
         if (Settings.messages) report.On("messages"); else report.Off("messages", "setting");
         return report;
     }
@@ -99,6 +105,7 @@ public static class TriageMod
             ref s.maxDeathOnFailureChance, d.maxDeathOnFailureChance, 0f, 0.5f, "PhobosTriage_SettingMaxDeathDesc".Translate());
         list.Check("PhobosTriage_SettingRareTools".Translate(), ref s.allowRareTools, d.allowRareTools, "PhobosTriage_SettingRareToolsDesc".Translate());
         list.Check("PhobosTriage_SettingViolations".Translate(), ref s.allowViolations, d.allowViolations, "PhobosTriage_SettingViolationsDesc".Translate());
+        list.Check("PhobosTriage_SettingHealerSerum".Translate(), ref s.healerSerum, d.healerSerum, "PhobosTriage_SettingHealerSerumDesc".Translate());
         list.Check("PhobosTriage_SettingOrdering".Translate(), ref s.triageOrdering, d.triageOrdering, "PhobosTriage_SettingOrderingDesc".Translate());
         list.Check("PhobosTriage_SettingMessages".Translate(), ref s.messages, d.messages, "PhobosTriage_SettingMessagesDesc".Translate());
     }
