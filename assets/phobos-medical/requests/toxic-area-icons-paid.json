@@ -1,0 +1,32 @@
+[
+ {
+  "name": "toxic-area-expand-paid",
+  "title": "Zone tool: expand the toxic controlled area",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosMedical/Mods/Rimatomics/Textures/Phobos/Medical/Protection/RadiationAreaExpand.png",
+    "role": "our approved zone icon of the same set (expand the radiation area): keep its layout exactly, the round badge with a thick dark rim, the symbol in the middle and the small green plus badge at the lower right; match its outline weight, shading and finish; do not copy its radiation symbol or its colours"
+   },
+   {
+    "image": "mods/PhobosMedical/Mods/Rimatomics/Textures/Phobos/Medical/Protection/RadiationAreaClear.png",
+    "role": "the same set's clear icon: shows that only the small corner badge changes between the pair"
+   }
+  ],
+  "art_plan": {
+   "button": "Expand toxic controlled area (Zone menu)",
+   "ships_as": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Protection/ToxicAreaExpand.png",
+   "derives": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Protection/ToxicAreaClear.png: the picked try with its green plus badge replaced by a red minus badge, by script (paid rule 11: a free derivation over a paid one; the pair then matches exactly)",
+   "size": "exported at 128, as the radiation pair",
+   "why": "the owner's picks of 27 Nov 2026 on night 16's local tries: 'Paid solution ^ ^' for both toxic area icons; the paint tools show the game's home-area icons until a picture ships at this path"
+  },
+  "prompt": "GAME ZONE TOOL ICON. One flat round badge seen straight on, centred, as an icon on a command button in a top-down strategy game.\n\nImage 1 is our approved icon from the same set: keep its layout exactly, a round badge with a thick dark rim, a symbol in the middle, and a small green circle holding a white plus sign overlapping the rim at the lower right. Match its outline weight, shading and finish. Do not copy its radiation symbol or its yellow and magenta colours. Image 2 is the same set's other icon: it shows that only the small corner badge differs between the two.\n\nCreate an ORIGINAL icon meaning \"mark this ground as a toxic hazard area\": the same round badge, its face a muted sickly yellow-green, bearing in the middle the chemical hazard symbol for a toxic substance: a bold near-black skull, front on, above two crossed bones. At the lower right, overlapping the rim, the same small bright green circle holding a bold white plus sign.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones, a muted palette with the green plus badge as the brightest colour, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, the badge filling about four fifths of the canvas. Square canvas. No text, letters, numbers, people or hands. The skull is a plain hazard symbol, not gory or menacing."
+ }
+]
