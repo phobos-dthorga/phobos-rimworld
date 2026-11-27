@@ -96,9 +96,13 @@ public sealed class QslCard : IExposable
     public BandDef? Band;
     public ModeDef? Mode;
     public int Relays;
+    /// <summary>The named place the sender's prefix comes from (Radio 0.65.0), "Kasiko Mountains"; empty on a card from before, which takes
+    /// it, and a callsign from it, the first time it is drawn while its settlement stands.</summary>
+    public string Area = "";
 
     public void ExposeData()
     {
+        Scribe_Values.Look(ref Area, "PhobosQslArea", "");
         Scribe_Defs.Look(ref Band, "PhobosQslBand");
         Scribe_Defs.Look(ref Mode, "PhobosQslMode");
         Scribe_Values.Look(ref Relays, "PhobosQslRelays");
@@ -115,13 +119,15 @@ public sealed class QslCard : IExposable
         Scribe_Values.Look(ref OurCall, "PhobosQslOurCall", "");
     }
 
-    /// <summary>Fills in the callsigns and locator a card from before 0.58.0 lacks, where its settlement still stands.</summary>
+    /// <summary>Fills in what a card from before lacks, where its settlement still stands: callsigns and locator (0.58.0), and since 0.65.0
+    /// the area and callsigns from the world's own places, replacing the faction-based ones.</summary>
     public void FillIn()
     {
-        if (Call.Length > 0 || Settlement == null) return;
+        if (Area.Length > 0 || Settlement == null) return;
         Call = QslCalls.Of(Settlement);
         Grid = QslCalls.Locator(Settlement.Tile);
         OurCall = QslCalls.Home(Find.AnyPlayerHomeMap?.Tile);
+        Area = QslCalls.AreaOf(Settlement.Tile);
     }
 }
 
@@ -140,42 +146,89 @@ public enum QslContact
 }
 
 /// <summary>
-/// Callsigns and grid locators (Radio 0.58.0; docs/development/radio-qsl-cards.md): every faction a two-letter prefix, every station a
-/// callsign from it, the call-area digit from its latitude; the rules are game-free in <see cref="QslRule"/>.
-/// <para>Cost: the prefixes are worked out once a session over the factions, the first time a card wants one; nothing per tick.</para>
+/// Callsigns and grid locators (Radio 0.58.0; docs/development/radio-qsl-cards.md). Since 0.65.0 (the owner's cards of 28 Nov 2026) a
+/// station's prefix comes from the world's own named place it lies in or nearest to (a mountain range, a sea, a lake, a bay: the names
+/// the game gives each rolled world), three letters, unique on the world; the call-area digit from its latitude. The rules are game-free
+/// in <see cref="QslRule"/>.
+/// <para>Cost: the places' prefixes once a session; a tile's nearest place found once (a short search over its neighbours, at most
+/// <see cref="SearchTiles"/>) and kept; nothing per tick.</para>
 /// </summary>
 public static class QslCalls
 {
-    private static readonly Dictionary<Faction, string> prefixes = new();
+    private static readonly Dictionary<WorldFeature, string> placePrefixes = new();
+    private static readonly Dictionary<int, WorldFeature?> nearest = new();
+    /// <summary>How many tiles the search for a tile's nearest named place looks at, at most (agent's figure).</summary>
+    public const int SearchTiles = 4000;
 
-    public static void Clear() => prefixes.Clear();
-
-    /// <summary>A faction's prefix: every faction in load order, each stepping past a prefix taken before it, so a world's prefixes come out
-    /// the same each time it loads.</summary>
-    public static string PrefixOf(Faction faction)
+    public static void Clear()
     {
-        if (prefixes.TryGetValue(faction, out string? known)) return known;
-        prefixes.Clear();
+        placePrefixes.Clear();
+        nearest.Clear();
+    }
+
+    /// <summary>The named place a tile lies in, or the nearest by tiles; null on a world with none near.</summary>
+    public static WorldFeature? PlaceOf(PlanetTile tile)
+    {
+        if (!tile.Valid) return null;
+        if (nearest.TryGetValue(tile.tileId, out WorldFeature? known)) return known;
+        WorldFeature? found = Find.WorldGrid[tile]?.feature;
+        if (found == null)
+        {
+            var seen = new HashSet<PlanetTile> { tile };
+            var frontier = new Queue<PlanetTile>();
+            frontier.Enqueue(tile);
+            var around = new List<PlanetTile>();
+            while (frontier.Count > 0 && seen.Count < SearchTiles && found == null)
+            {
+                PlanetTile at = frontier.Dequeue();
+                Find.WorldGrid.GetTileNeighbors(at, around);
+                foreach (PlanetTile next in around)
+                {
+                    if (!seen.Add(next)) continue;
+                    if (Find.WorldGrid[next]?.feature is { } feature)
+                    {
+                        found = feature;
+                        break;
+                    }
+                    frontier.Enqueue(next);
+                }
+            }
+        }
+        if (nearest.Count > 2048) nearest.Clear();
+        nearest[tile.tileId] = found;
+        return found;
+    }
+
+    /// <summary>The name of a tile's place, or empty.</summary>
+    public static string AreaOf(PlanetTile tile) => PlaceOf(tile)?.name ?? "";
+
+    /// <summary>A tile's three-letter prefix: its place's, every place on the world stepping past one taken before it in the order the
+    /// world made them, so a world's prefixes come out the same each time it loads; from the tile itself where no place is near.</summary>
+    public static string PlacePrefixOf(PlanetTile tile)
+    {
+        if (PlaceOf(tile) is not { } place) return QslRule.PlacePrefix("", tile.tileId / 97);
+        if (placePrefixes.TryGetValue(place, out string? known)) return known;
+        placePrefixes.Clear();
         var taken = new HashSet<string>();
-        foreach (Faction each in Find.FactionManager.AllFactionsListForReading.OrderBy(f => f.loadID))
+        foreach (WorldFeature each in Find.World.features.features.OrderBy(f => f.uniqueID))
         {
             int step = 0;
             string prefix;
-            do prefix = QslRule.Prefix(each.Name ?? "", each.loadID, step++);
+            do prefix = QslRule.PlacePrefix(each.name ?? "", each.uniqueID, step++);
             while (!taken.Add(prefix) && step < 26);
-            prefixes[each] = prefix;
+            placePrefixes[each] = prefix;
         }
-        return prefixes.TryGetValue(faction, out known) ? known : QslRule.Prefix(faction.Name ?? "", faction.loadID);
+        return placePrefixes.TryGetValue(place, out known) ? known : QslRule.PlacePrefix(place.name ?? "", place.uniqueID);
     }
 
     public static string Of(Settlement settlement) =>
-        settlement.Faction is { } faction ? QslRule.Callsign(PrefixOf(faction), Find.WorldGrid.LongLatOf(settlement.Tile).y, settlement.ID) : "";
+        settlement.Faction != null ? QslRule.Callsign(PlacePrefixOf(settlement.Tile), Find.WorldGrid.LongLatOf(settlement.Tile).y, settlement.ID) : "";
 
     /// <summary>Our station's callsign: the player's own from the settings (Radio 0.62.0), else worked out from the colony's tile; empty
     /// without either.</summary>
     public static string Home(PlanetTile? tile) =>
         QslRule.CleanCallsign(RadioMod.Settings.ownCallsign) is { Length: > 0 } own ? own
-        : tile is { Valid: true } t ? QslRule.Callsign(PrefixOf(Faction.OfPlayer), Find.WorldGrid.LongLatOf(t).y, t.tileId) : "";
+        : tile is { Valid: true } t ? QslRule.Callsign(PlacePrefixOf(t), Find.WorldGrid.LongLatOf(t).y, t.tileId) : "";
 
     public static string Locator(PlanetTile tile)
     {
@@ -262,6 +315,7 @@ public static class RadioQsl
             Mode = link.Mode,
             Relays = link.Relays,
             Call = QslCalls.Of(settlement),
+            Area = QslCalls.AreaOf(settlement.Tile),
             Grid = QslCalls.Locator(settlement.Tile),
             OurCall = QslCalls.Home(from.Valid ? from : Find.AnyPlayerHomeMap?.Tile),
         };

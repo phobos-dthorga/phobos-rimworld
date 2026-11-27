@@ -67,6 +67,27 @@ take the nearest look [A]. With Ideology, the stamp has the faction's primary id
 - **D's rest**: an album view (sort by faction, distance, date; linked to the contact arcs), award certificates drawn in the same
   way as the cards.
 
+## Callsigns from the world's own places (Radio 0.65.0)
+
+The owner's words of 28 Nov 2026: "we need to implement callsigns into Rimworld where the prefixes are unique to the game and generated
+at the start of the game with each roll of the world, themselves. I think having the prefix based on an areas unique name/geography
+would be a great way to help the player associate themselves with a local area and make themselves feel more at home." Then three
+cards, the chosen option first and marked:
+
+| # | Card | Chosen | Not chosen |
+| --- | --- | --- | --- |
+| 1 | Where a prefix comes from | **The nearest named place** (the agent's lean): the game names each world's geography when it is rolled (mountain ranges, seas, lakes, bays); a station takes the prefix of the place its tile lies in, or the nearest | Our own named regions (by landmass and biome, named from the world's seed). Both: the place, then a letter for the faction |
+| 2 | The callsigns' shape | **Three letters, the digit, letters** (the agent's lean): KSM4QX; Earth's amateur calls essentially never put three letters before the digit | Two letters, a mark, the digit, letters (KS·4QX). Two letters no Earth country holds |
+| 3 | Where the place shows | **On the card and in the logbook** (the agent's lean) | Also as faint labels on the world map (a picture, off until picked). The callsign only |
+
+**As built** [A]: `QslRule.PlacePrefix` takes the first letter of the name's distinctive words (the generic ones, "Ocean", "Mountains",
+"Bay of", left out) and its next two consonants (vowels if it runs short, then letters from the seed); the world's places in the order the
+game made them each step past a prefix already taken (the last letter moves on), so a world's prefixes are unique and the same each time it
+loads. A tile's place is its own (`Tile.feature`) or the nearest by a search over its neighbours (at most 4,000 tiles, kept); a tile with
+none near takes three letters from its own number. The card keeps its area (`PhobosQslArea`); a card from before fills its area and new
+callsigns in the first time it is shown while its settlement stands (the faction-based prefix of 0.58.0 is retired). The owner's own
+callsign setting still wins. Not tested in game (row 784).
+
 ## The band, mode and own callsign (Radio 0.62.0)
 
 Built on the owner's choice of 28 Nov 2026, together with HF's first slice. A link to a settlement now carries the first hop's band and

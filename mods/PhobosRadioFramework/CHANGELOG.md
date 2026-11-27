@@ -23,6 +23,19 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.65.0] - 2026-11-28 - Draft
+
+Callsigns from the world's own places
+
+### Changed
+
+- **Callsigns come from the world's own named places** (the owner's cards of 28 November 2026): a station's prefix is three letters
+  from the mountain range, sea, lake or bay it lies in or nearest to, names the game gives each rolled world, so every world has
+  its own prefixes, unlike any on Earth: KSM4QX near the Kasiko Mountains. Your colony takes its area's prefix too, and neighbours
+  nearby share it. The card and the logbook's settlements in reach name the area. Cards from before take their area and new
+  callsigns the first time they are shown while their settlement stands. Your own callsign setting still wins. Not yet tested in
+  game: row 784.
+
 ## [0.64.0] - 2026-11-28 - Draft
 
 HF reaches round the world by the sky

@@ -23,7 +23,7 @@ public class ITab_RadioLog : ITab
     private float viewHeight = 600f;
     private static int reachTick = -1;
     private static Map? reachMap;
-    private static List<(Faction faction, string place)> reachable = new();
+    private static List<(Faction faction, string place, string area)> reachable = new();
 
     public ITab_RadioLog()
     {
@@ -70,8 +70,8 @@ public class ITab_RadioLog : ITab
         y = Section(view, y, "PhobosRadioLog_InReach".Translate());
         Reachable(station.Map);
         if (reachable.Count == 0) y = Line(view, y, "PhobosRadioLog_NoneInReach".Translate(), dim: true);
-        foreach ((Faction faction, string place) in reachable)
-            y = Line(view, y, "PhobosRadioLog_InReachLine".Translate(faction.Name.Named("FACTION"), place.Named("PLACE"),
+        foreach ((Faction faction, string place, string area) in reachable)
+            y = Line(view, y, "PhobosRadioLog_InReachLine".Translate(faction.Name.Named("FACTION"), place.Named("PLACE"), AreaText(area).Named("AREA"),
                 ("PhobosRadioLog_Standing" + FactionDoctors.StandingOf(faction)).Translate().Named("STANDING")));
 
         y = Section(view, y, "PhobosRadioLog_Entries".Translate());
@@ -214,6 +214,13 @@ public class ITab_RadioLog : ITab
         GUI.color = ink;
         Text.Font = GameFont.Small;
         Widgets.Label(new Rect(rect.x + 14f, rect.y + 6f, rect.width - 22f, 24f), (card.Call.Length > 0 ? card.Call + "  " + card.Place : card.Place).Truncate(rect.width - 22f));
+        // Radio 0.65.0: the named place the callsign's prefix comes from, under it.
+        if (card.Area.Length > 0)
+        {
+            Text.Font = GameFont.Tiny;
+            Widgets.Label(new Rect(rect.x + 14f, rect.y + 24f, rect.width - 22f, 16f), AreaText(card.Area).Truncate(rect.width - 22f));
+            if (Seen.Wants("radio.qsl-card-area")) Seen.Note("radio.qsl-card-area", null, card.Call + ", " + card.Area);
+        }
         Text.Font = GameFont.Tiny;
         // Radio 0.57.1: dated where the card was sent from, as the log dates its lines where the station is (the owner's game, 28 Nov
         // 2026: a card dated at longitude 0 read a day before the contact); the colony's home if the settlement is gone.
@@ -266,8 +273,13 @@ public class ITab_RadioLog : ITab
         if (reachMap == map && reachTick >= 0 && now - reachTick < GenDate.TicksPerHour) return;
         reachMap = map;
         reachTick = now;
-        reachable = new List<(Faction, string)>();
-        // Radio 0.54.0: the same list the world map's contact arcs draw.
-        foreach (FactionDoctorLink link in RadioDiplomacy.InReach(map)) reachable.Add((link.Faction, link.Settlement.LabelCap));
+        reachable = new List<(Faction, string, string)>();
+        // Radio 0.54.0: the same list the world map's contact arcs draw; since 0.65.0 with the named place its prefix comes from.
+        foreach (FactionDoctorLink link in RadioDiplomacy.InReach(map))
+            reachable.Add((link.Faction, link.Settlement.LabelCap, QslCalls.AreaOf(link.Settlement.Tile)));
     }
+
+    /// <summary>A place's area as the logbook and the card name it (Radio 0.65.0), or nothing where none is near.</summary>
+    private static string AreaText(string area) =>
+        area.Length > 0 ? "PhobosRadioQsl_Area".Translate(area.Named("AREA")).Resolve() : "";
 }

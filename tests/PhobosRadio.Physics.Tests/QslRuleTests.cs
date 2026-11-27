@@ -34,16 +34,31 @@ public class QslRuleTests
         Assert.Equal(QslRule.Callsign("RY", 30, 1234), QslRule.Callsign("RY", 30, 1234));
 
     [Fact]
-    public void APrefixTakesTheNamesFirstLetterWithoutItsMarks() =>
-        Assert.StartsWith("R", QslRule.Prefix("Ryūmon Protectorate", 42));
+    public void APlacePrefixTakesThreeLettersFromItsDistinctiveWords()
+    {
+        Assert.Equal("KSK", QslRule.PlacePrefix("Kasiko Mountains", 1));
+        Assert.Equal("ULV", QslRule.PlacePrefix("Ocean of Ulvar", 1));
+    }
 
     [Fact]
-    public void AnUnlettedNameStillGetsALetter() =>
-        Assert.Matches(new Regex("^[A-Z]{2}$"), QslRule.Prefix("§§§", 42));
+    public void APlacePrefixSkipsGenericWordsAndMarks() =>
+        Assert.StartsWith("R", QslRule.PlacePrefix("The Ryūmon Sea", 42));
 
     [Fact]
-    public void SteppingPastATakenPrefixChangesItsSecondLetter() =>
-        Assert.NotEqual(QslRule.Prefix("Toxo", 5), QslRule.Prefix("Toxo", 5, taken: 1));
+    public void AnUnlettedPlaceStillGetsThreeLetters() =>
+        Assert.Matches(new Regex("^[A-Z]{3}$"), QslRule.PlacePrefix("§§§", 42));
+
+    [Fact]
+    public void SteppingPastATakenPlacePrefixChangesItsLastLetter()
+    {
+        string first = QslRule.PlacePrefix("Toxo Bay", 5), next = QslRule.PlacePrefix("Toxo Bay", 5, taken: 1);
+        Assert.NotEqual(first, next);
+        Assert.Equal(first.Substring(0, 2), next.Substring(0, 2));
+    }
+
+    [Fact]
+    public void ACallsignFromAPlaceHasThreeLettersBeforeItsDigit() =>
+        Assert.Matches(new Regex("^[A-Z]{3}[0-9][A-Z]{2,3}$"), QslRule.Callsign(QslRule.PlacePrefix("Kasiko Mountains", 1), 30, 77));
 
     [Theory]
     [InlineData(5, 3, false, "53")]

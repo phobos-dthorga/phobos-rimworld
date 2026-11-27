@@ -47,15 +47,39 @@ public static class QslRule
         return text.ToString();
     }
 
+    /// <summary>The words a place's name shares with every other place, left out of its prefix (the game's English feature names).</summary>
+    static readonly string[] Generic = { "THE", "OF", "OCEAN", "SEA", "BAY", "LAKE", "GULF", "MOUNTAINS", "MOUNTAIN", "RANGE", "HILLS",
+        "ISLAND", "ISLANDS", "ISLE", "STRAIT", "PENINSULA", "CAPE", "COAST", "SOUND", "BIGHT", "AND" };
+
     /// <summary>
-    /// A faction's two-letter prefix: its name's first letter (A to Z, accents and marks stripped; otherwise one from the seed), then a
-    /// letter from its seed, moved on by <paramref name="taken"/> so the game can step past a prefix another faction already has.
+    /// A place's three-letter prefix (Radio 0.65.0; the owner's cards of 28 Nov 2026: prefixes unique to each rolled world, from its own
+    /// named geography, three letters before the digit, which Earth's amateur calls essentially never use): the first letter of the
+    /// name's distinctive words, then its next two consonants (its vowels if it runs short, then letters from the seed), the last moved
+    /// on by <paramref name="taken"/> so the game can step past a prefix another place already has.
     /// </summary>
-    public static string Prefix(string name, int factionSeed, int taken = 0)
+    public static string PlacePrefix(string name, int seed, int taken = 0)
     {
-        char first = FirstLetter(name) ?? (char)('A' + (int)(Mix((uint)factionSeed) % 26));
-        char second = (char)('A' + (int)((Mix((uint)factionSeed ^ 0x9E3779B9u) + (uint)taken) % 26));
-        return new string(new[] { first, second });
+        var letters = new StringBuilder();
+        foreach (string word in name.Normalize(NormalizationForm.FormD).ToUpperInvariant().Split(' ', '-', '\''))
+        {
+            string clean = new string(Array.FindAll(word.ToCharArray(), c => c >= 'A' && c <= 'Z'));
+            if (clean.Length > 0 && Array.IndexOf(Generic, clean) < 0) letters.Append(clean);
+        }
+        string all = letters.ToString();
+        var prefix = new StringBuilder(3);
+        if (all.Length > 0) prefix.Append(all[0]);
+        foreach (char c in all.Substring(Math.Min(1, all.Length)))
+            if (prefix.Length < 3 && "AEIOUY".IndexOf(c) < 0 && prefix[prefix.Length - 1] != c) prefix.Append(c);
+        foreach (char c in all.Substring(Math.Min(1, all.Length)))
+            if (prefix.Length < 3 && "AEIOUY".IndexOf(c) >= 0) prefix.Append(c);
+        uint mix = Mix((uint)seed);
+        while (prefix.Length < 3)
+        {
+            mix = Mix(mix + 1u);
+            prefix.Append((char)('A' + (int)(mix % 26)));
+        }
+        if (taken > 0) prefix[2] = (char)('A' + (prefix[2] - 'A' + taken) % 26);
+        return prefix.ToString();
     }
 
     /// <summary>The report: readability and strength (RS) for voice, with a tone figure for Morse (RST: a clean note is 9).</summary>

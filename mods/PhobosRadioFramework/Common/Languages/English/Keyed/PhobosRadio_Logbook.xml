@@ -14,7 +14,7 @@
   <PhobosRadioLog_FriendStage2>a close friend</PhobosRadioLog_FriendStage2>
   <PhobosRadioLog_InReach>Settlements in reach</PhobosRadioLog_InReach>
   <PhobosRadioLog_NoneInReach>No settlement of a faction that talks is in reach of this colony's stations.</PhobosRadioLog_NoneInReach>
-  <PhobosRadioLog_InReachLine>{FACTION} ({STANDING}), at {PLACE}.</PhobosRadioLog_InReachLine>
+  <PhobosRadioLog_InReachLine>{FACTION} ({STANDING}), at {PLACE}{AREA}.</PhobosRadioLog_InReachLine>
   <PhobosRadioLog_StandingAlly>an ally</PhobosRadioLog_StandingAlly>
   <PhobosRadioLog_StandingNeutral>neutral</PhobosRadioLog_StandingNeutral>
   <PhobosRadioLog_Entries>The log</PhobosRadioLog_Entries>
@@ -31,6 +31,8 @@
   <PhobosRadio_SettingOwnCallsign>Our station's callsign</PhobosRadio_SettingOwnCallsign>
   <PhobosRadio_SettingOwnCallsignDesc>Printed on every QSL card the colony receives, in place of the one worked out from its place on the planet. Letters, digits and a stroke (VK3ABC/P), up to ten. Leave it empty to have one worked out.</PhobosRadio_SettingOwnCallsignDesc>
   <!-- Radio 0.59.0: a card shows its front, the station's home painted, until clicked. -->
+  <!-- Radio 0.65.0: the named place a callsign's prefix comes from. -->
+  <PhobosRadioQsl_Area>, {AREA} area</PhobosRadioQsl_Area>
   <PhobosRadioQsl_TurnOver>Click to turn the card over.</PhobosRadioQsl_TurnOver>
   <!-- Radio 0.58.0: the note a card carries, three for each kind of contact (agent-authored, for the owner's review). -->
   <PhobosRadioQsl_NoteFirstContact0>Pse QSL, tnx. Good to hear a new voice on the air.</PhobosRadioQsl_NoteFirstContact0>
