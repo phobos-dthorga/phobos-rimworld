@@ -6,18 +6,24 @@ into the kit's build folder (needs the .NET SDK). Nothing in the game is changed
 owner before recording their running game**, and ask them to save first. Paths come from the options, the environment, then
 .local/install-settings.json.
 
-    python scripts/perf.py record --label "many wounded"   30 seconds of the running game, then its report
+    python scripts/perf.py record --label "many wounded"   30 seconds of the running game, then its report (lock waits included)
+    python scripts/perf.py record --alloc --label "x"      the same, sampling allocations too: who allocates what
     python scripts/perf.py report                          the newest recording again
     python scripts/perf.py mod "D'thorga Medical"          one mod: its busiest methods and where its time went
-    python scripts/perf.py compare                         the last two recordings, as shares
+    python scripts/perf.py callers GenTypes.IsSealedWithCache   which code and mods lead to one method, and when
+    python scripts/perf.py compare                         the last two recordings: what each was of, shares, ms a tick
+    python scripts/perf.py trend                           our own mods' share of ticking in every recording kept
+    python scripts/perf.py reindex --all                   recordings from before kit 1.151.0, rebuilt with their timelines
     python scripts/perf.py list                            every recording and snapshot kept
     python scripts/perf.py stack --label "frozen"          a frozen or stuck game: every thread's stack, 3 times, 2 s apart
-    python scripts/perf.py heap --label "day 40"           what holds the game's memory, by type and by mod (pauses the game)
+    python scripts/perf.py heap --label "day 40"           what holds the game's memory, by type and by mod (a snapshot)
     python scripts/perf.py heap-compare                    the last two heaps: who grew
     python scripts/perf.py watch --minutes 120             the game's memory over time, without pausing it; Ctrl+C ends it
     python scripts/perf.py watch-report                    the newest watch again
 
-Ask the owner before stack and heap too: heap forces a full garbage collection, so the game pauses until it is done.
+Ask the owner before stack and heap too: heap takes a Windows snapshot (a pause of about half a second), and heap --gcdump forces a
+full garbage collection, so the game pauses until it is done. With D'thorga Framework 0.380.0 on, a recording also has the game's own
+ticks and frames a second. reindex, callers, trend, report and compare only read files.
 """
 from pathlib import Path
 import sys

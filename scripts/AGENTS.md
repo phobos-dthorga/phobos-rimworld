@@ -162,10 +162,18 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
   2026: "build the tool"), never by reading code alone: `record --label` while the slow moment is on screen, then `report`,
   `mod <name>` and `compare`. **Ask the owner before recording their running game, and to save first**: attaching can hitch it.
   A performance fix is checked with a recording before and after; a recording measures, never tests.
+- **What else a recording answers** (kit 1.151.0; the owner's "implement all of these", 28 Nov 2026), before reading code:
+  **`callers METHOD`** for which code and mods lead to a slow game or .NET method (the report's **hot spots** list them; the
+  first found 35% of the main thread in vanilla `GetComp`'s lock); the report's **lock waits** for who waits and which thread
+  holds the lock; **`record --alloc`** for who allocates what; its **stalls** and **over time** for hitches and work done now and
+  then; **`trend`** for whether our mods grew costlier between recordings. With D'thorga Framework 0.380.0 on, a recording has
+  the game's own **ticks and frames a second** and **milliseconds a tick**; compare by those, and heed its **"not like for like"**.
+  **`reindex --all`** gives recordings made before 1.151.0 their tables over time (it reads files only, no asking needed).
 - **A frozen or stuck game: `python scripts/perf.py stack`** (owner's go-ahead, 18 Nov 2026), before guessing from code.
 - **Memory: start with `watch`** (owner, 19 Nov 2026), which follows the game without pausing it (`--no-counters` attaches
   nothing). Then `heap`, and **`heap-compare`** for what grew: **take three over minutes before calling it a leak**. **Ask the
-  owner before each heap**, as for a recording: it pauses the game until it is done.
+  owner before each heap**, as for a recording: from kit 1.151.0 it is a Windows snapshot (a pause of about half a second, or
+  `--freeze` when Windows has no room), and `heap --gcdump` the old forced collection, which pauses the game until it is done.
 - **What is in memory and why it is still there: `look`, `look-kind TYPE --open` and `look-why TYPE`** (owner, 20 Nov 2026, for
   D'thorga Companion's Explorer; phobos-modkit's heap reader). Each takes a Windows snapshot that pauses the game briefly (how
   long: `external/phobos-modkit/docs/heap-reader.md`). **Ask the owner before each snapshot.** Counts include garbage not yet

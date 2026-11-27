@@ -102,6 +102,7 @@ Use the tool before reading raw files; how to use each is in [`scripts/AGENTS.md
 | What each vehicle's systems and parts are bound to, what looks wrong, and what falls below the vehicle standard | `python scripts/vehicle-bindings.py` |
 | Whether a fitting, tune or upgrade node promises something nothing reads | `python -m phobos_modkit effects list --root ../../..` (from `external/phobos-modkit/python`; the gate's "declared effects") |
 | Time, a frozen game, memory, what is inside the running game | `python scripts/perf.py` (ask first) |
+| Which code and mods lead to a slow method; who waits on a lock; our mods' cost across recordings | `python scripts/perf.py callers`, its report's lock waits, `trend` |
 | How long the game takes to start | `python scripts/startup-impact.py` |
 | Which mods are ready for a game version | `python scripts/version-readiness.py` |
 | The settings the owner plays with | `python scripts/mod-settings.py` |

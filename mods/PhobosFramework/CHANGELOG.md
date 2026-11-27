@@ -31,7 +31,7 @@ The game's own figures, for performance tools
 - **The game publishes its ticks, frames, worst frame, speed and colony size for performance tools** (the owner's "implement all of
   these", 28 November 2026): ticks per second and frames per second can now be measured from outside the game, beside its memory
   and garbage collection figures. phobos-modkit's rimworld-perf reads them while it records. It costs a timestamp and a few numbers
-  each frame, and nothing else unless a tool is listening. No setting: there is nothing to see in play. Not yet tested in game.
+  each frame, and nothing else unless a tool is listening. No setting: there is nothing to see in play. Not yet tested in game: row 785.
 - For modders: the figures are a .NET meter named DThorga.RimWorld (rimworld.ticks, rimworld.frames, rimworld.frame.worst,
   rimworld.speed, rimworld.pawns and rimworld.maps), which Microsoft's dotnet-counters reads with its counters option.
 
