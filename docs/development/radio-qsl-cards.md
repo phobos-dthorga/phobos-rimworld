@@ -1,6 +1,6 @@
 # QSL cards, worked out (28 Nov 2026)
 
-**Status (28 Nov 2026):** part A (what the card carries) is built in Radio 0.58.0; part B (how it looks) follows in 0.59.0. Neither is
+**Status (28 Nov 2026):** part A (what the card carries) is built in Radio 0.58.0 and part B (how it looks) in 0.59.0. Neither is
 tested in game (test rows 749 and 750). The owner asked on 28 Nov 2026 where procedural design could go with QSL cards, and chose
 "A and then B" of the agent's four groups; C (cards as things in play) and D's remaining parts are [leftover work](#leftover-work).
 
@@ -35,6 +35,11 @@ Callsign, locator and our call are worked out when the card is earned and kept o
 gone; a card from before 0.58.0 fills them in the first time it is drawn.
 
 ## B: how it looks (Radio 0.59.0)
+
+As built: the rules in `QslArtRule` (game-free, tested), the painting in `QslCardArt`, the card in the station's Log tab. The front is
+256 by 176 pixels (about 180 KB), painted the first time a card is shown; at most 48 are kept, the oldest let go and painted again when
+next shown [A]. The ground's kind comes from the biome's name (desert, ice, swamp, forest; grass otherwise), so other mods' biomes
+take the nearest look [A]. With Ideology, the stamp has the faction's primary ideology's symbol beside it.
 
 - **A front**: the station's home as a layered picture: the sky by the hour of the contact, ridgelines by the tile's hills, the ground by
   its biome (trees, dunes, ice, grass), the sea if it is coastal; the callsign large across it and the faction's icon as a stamp.

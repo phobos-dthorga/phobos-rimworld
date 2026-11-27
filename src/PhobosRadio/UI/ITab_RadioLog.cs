@@ -116,27 +116,105 @@ public class ITab_RadioLog : ITab
         return y + 34f;
     }
 
-    /// <summary>A QSL card, drawn in code: the faction's colour and icon, the place, the operator, the date, the report and the distance.</summary>
+    /// <summary>Cards turned over to their back this session (Radio 0.59.0); a card shows its front until clicked.</summary>
+    private static readonly HashSet<string> turned = new();
+
+    /// <summary>A QSL card (Radio 0.59.0, part B): its front, the station's home painted with the callsign across it, or its back, what the
+    /// contact was, on the stock of the sender's tech level; a click turns it over.</summary>
     private static void DrawCard(Rect rect, QslCard card)
     {
-        Color colour = card.Faction?.Color ?? Color.gray;
-        Widgets.DrawBoxSolid(rect, new Color(colour.r * 0.25f, colour.g * 0.25f, colour.b * 0.25f, 0.95f));
-        GUI.color = colour;
-        Widgets.DrawBox(rect, 2);
-        var icon = new Rect(rect.x + 8f, rect.y + 8f, 40f, 40f);
-        if (card.Faction?.def.FactionIcon is { } texture) GUI.DrawTexture(icon, texture);
-        GUI.color = new Color(colour.r, colour.g, colour.b, 0.25f);
-        Text.Font = GameFont.Medium;
-        Text.Anchor = TextAnchor.UpperRight;
-        Widgets.Label(new Rect(rect.x, rect.y + 4f, rect.width - 8f, 30f), "QSL");
-        GUI.color = Color.white;
-        Text.Anchor = TextAnchor.UpperLeft;
-        // Radio 0.58.0: the callsign heads the card, as on a real one, and the place sits under it.
         card.FillIn();
-        float textX = icon.xMax + 6f, textWidth = rect.width - icon.width - 22f;
-        Widgets.Label(new Rect(textX, rect.y + 4f, textWidth, 30f), (card.Call.Length > 0 ? card.Call : card.Place).Truncate(textWidth));
+        string key = (card.Settlement?.ID ?? -1) + ":" + card.Tick;
+        bool back = turned.Contains(key);
+        Stock(card, out Color paper, out Color ink, out Color edge, out int edgeWidth);
+        if (back) DrawBack(rect, card, paper, ink);
+        else DrawFront(rect, card);
+        GUI.color = edge;
+        Widgets.DrawBox(rect, edgeWidth);
+        GUI.color = Color.white;
+        TooltipHandler.TipRegion(rect, "PhobosRadioQsl_TurnOver".Translate());
+        if (Widgets.ButtonInvisible(rect))
+        {
+            if (!turned.Add(key)) turned.Remove(key);
+            Verse.Sound.SoundStarter.PlayOneShotOnCamera(SoundDefOf.Click);
+        }
+    }
+
+    /// <summary>The stock by the sender's tech level (Phobos.Radio.Physics.QslArtRule.Stock); a gilt edge for a faction with royal titles.</summary>
+    private static void Stock(QslCard card, out Color paper, out Color ink, out Color edge, out int edgeWidth)
+    {
+        Color colour = card.Faction?.Color ?? Color.gray;
+        edgeWidth = 2;
+        switch (Phobos.Radio.Physics.QslArtRule.Stock((int)(card.Faction?.def.techLevel ?? TechLevel.Industrial)))
+        {
+            case Phobos.Radio.Physics.QslStock.Hide:
+                paper = new Color(0.36f, 0.25f, 0.16f); ink = new Color(0.95f, 0.90f, 0.80f); edge = new Color(0.22f, 0.14f, 0.08f); edgeWidth = 3;
+                break;
+            case Phobos.Radio.Physics.QslStock.Parchment:
+                paper = new Color(0.86f, 0.79f, 0.62f); ink = new Color(0.20f, 0.15f, 0.10f); edge = new Color(0.55f, 0.42f, 0.25f);
+                break;
+            case Phobos.Radio.Physics.QslStock.Glossy:
+                paper = new Color(0.08f, 0.12f, 0.16f); ink = new Color(0.85f, 0.95f, 1f); edge = new Color(0.20f, 0.80f, 0.90f);
+                break;
+            default:
+                paper = new Color(0.93f, 0.93f, 0.90f); ink = new Color(0.12f, 0.12f, 0.14f); edge = colour;
+                break;
+        }
+        if (card.Faction?.def.HasRoyalTitles == true)
+        {
+            edge = new Color(0.86f, 0.68f, 0.20f);
+            edgeWidth = 3;
+        }
+    }
+
+    private static void DrawFront(Rect rect, QslCard card)
+    {
+        GUI.DrawTexture(rect, QslCardArt.Front(card), ScaleMode.ScaleAndCrop);
+        Text.Font = GameFont.Medium;
+        string call = card.Call.Length > 0 ? card.Call : card.Place;
+        Shadowed(new Rect(rect.x + 10f, rect.y + 8f, rect.width - 60f, 30f), call, Color.white);
         Text.Font = GameFont.Tiny;
-        if (card.Call.Length > 0) Widgets.Label(new Rect(textX, rect.y + 32f, textWidth, 18f), card.Place.Truncate(textWidth));
+        Shadowed(new Rect(rect.x + 10f, rect.y + 36f, rect.width - 60f, 18f), card.Place, Color.white);
+        if (card.Grid.Length > 0) Shadowed(new Rect(rect.x + 10f, rect.yMax - 22f, 120f, 18f), card.Grid, Color.white);
+        // The faction's icon as a stamp, and with Ideology its primary ideology's symbol beside it.
+        var stamp = new Rect(rect.xMax - 46f, rect.y + 8f, 36f, 36f);
+        Widgets.DrawBoxSolid(stamp, new Color(0.95f, 0.93f, 0.86f, 0.9f));
+        if (card.Faction?.def.FactionIcon is { } icon)
+        {
+            GUI.color = card.Faction.Color;
+            GUI.DrawTexture(stamp.ContractedBy(4f), icon);
+        }
+        if (ModsConfig.IdeologyActive && card.Faction?.ideos?.PrimaryIdeo is { } ideo && ideo.Icon != null)
+        {
+            GUI.color = ideo.Color;
+            GUI.DrawTexture(new Rect(stamp.x - 30f, stamp.y + 8f, 24f, 24f), ideo.Icon);
+        }
+        GUI.color = Color.white;
+        Text.Font = GameFont.Small;
+        if (card.Call.Length > 0 && Seen.Wants("radio.qsl-card-front", variant: Phobos.Radio.Physics.QslArtRule.Stock((int)(card.Faction?.def.techLevel ?? TechLevel.Industrial)).ToString()))
+            Seen.Note("radio.qsl-card-front", null, card.Call + ", " + card.Place,
+                Phobos.Radio.Physics.QslArtRule.Stock((int)(card.Faction?.def.techLevel ?? TechLevel.Industrial)).ToString());
+    }
+
+    private static void Shadowed(Rect rect, string text, Color colour)
+    {
+        GUI.color = new Color(0f, 0f, 0f, 0.75f);
+        Widgets.Label(new Rect(rect.x + 1f, rect.y + 1f, rect.width, rect.height), text.Truncate(rect.width));
+        GUI.color = colour;
+        Widgets.Label(rect, text.Truncate(rect.width));
+        GUI.color = Color.white;
+    }
+
+    /// <summary>The back: the callsign, then what the contact was, in the stock's ink, and the operator's signature.</summary>
+    private static void DrawBack(Rect rect, QslCard card, Color paper, Color ink)
+    {
+        Widgets.DrawBoxSolid(rect, paper);
+        Color colour = card.Faction?.Color ?? Color.gray;
+        Widgets.DrawBoxSolid(new Rect(rect.x, rect.y, 6f, rect.height), colour);
+        GUI.color = ink;
+        Text.Font = GameFont.Small;
+        Widgets.Label(new Rect(rect.x + 14f, rect.y + 6f, rect.width - 22f, 24f), (card.Call.Length > 0 ? card.Call + "  " + card.Place : card.Place).Truncate(rect.width - 22f));
+        Text.Font = GameFont.Tiny;
         // Radio 0.57.1: dated where the card was sent from, as the log dates its lines where the station is (the owner's game, 28 Nov
         // 2026: a card dated at longitude 0 read a day before the contact); the colony's home if the settlement is gone.
         RimWorld.Planet.PlanetTile? at = card.Settlement?.Tile ?? Find.AnyPlayerHomeMap?.Tile;
@@ -149,8 +227,17 @@ public class ITab_RadioLog : ITab
         string lines = "PhobosRadioQsl_CardText".Translate(card.Operator.Named("OPERATOR"), card.Report.Named("REPORT"), card.Tiles.Named("TILES"),
             date.Named("DATE"), (card.Faction?.Name ?? "?").Named("FACTION"), (card.OurCall.Length > 0 ? card.OurCall : "?").Named("OURCALL"),
             time.Named("UTC"), (card.Grid.Length > 0 ? card.Grid : "?").Named("GRID"), note.Named("NOTE")).Resolve();
-        Widgets.Label(new Rect(rect.x + 8f, rect.y + 52f, rect.width - 16f, rect.height - 56f), lines);
+        GUI.color = ink;
+        Widgets.Label(new Rect(rect.x + 14f, rect.y + 30f, rect.width - 22f, rect.height - 34f), lines);
         Text.Font = GameFont.Small;
+        // The operator's signature, a pen squiggle seeded by the name (QslArtRule.Signature).
+        var box = new Rect(rect.xMax - 96f, rect.yMax - 30f, 86f, 22f);
+        List<(float X, float Y)> pen = Phobos.Radio.Physics.QslArtRule.Signature(card.Operator);
+        var inkLine = new Color(ink.r, ink.g, ink.b, 0.85f);
+        for (int i = 1; i < pen.Count; i++)
+            Widgets.DrawLine(new Vector2(box.x + pen[i - 1].X * box.width, box.yMax - pen[i - 1].Y * box.height),
+                new Vector2(box.x + pen[i].X * box.width, box.yMax - pen[i].Y * box.height), inkLine, 1.5f);
+        GUI.color = Color.white;
         if (card.Call.Length > 0 && Seen.Wants("radio.qsl-card-drawn", variant: card.Kind.ToString()))
             Seen.Note("radio.qsl-card-drawn", null, card.Call + " " + card.Grid, card.Kind.ToString());
     }

@@ -29,6 +29,18 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.59.0] - 2026-11-28 - Draft
+
+QSL cards with a picture of home
+
+### Added
+
+- **A QSL card's front is a picture of the sender's home** (the owner's pick of 28 November 2026, part B): painted from its place on
+  the planet, the sky at the hour of the contact, ridges as high as its hills, trees, dunes, ice or marsh by its biome, the sea along
+  a coast, with its callsign across it and the faction's icon as a stamp (and its ideology's symbol with Ideology). Click a card to turn
+  it over: the back is printed on the stock of the sender's tech level, hide to dark gloss, gilt-edged for the Empire, and signed by
+  its operator. Each picture is painted once, when first shown. Not yet tested in game: row 750.
+
 ## [0.58.0] - 2026-11-28 - Draft
 
 QSL cards that read like real ones

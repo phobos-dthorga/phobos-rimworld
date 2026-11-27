@@ -24,6 +24,8 @@
   <PhobosRadioLog_NeighbourDone>{COLONIST} finished an hour on the radio for {FACTION}: {GOODWILL} goodwill.</PhobosRadioLog_NeighbourDone>
   <PhobosRadioQsl_Earned>A QSL card from {PLACE} ({FACTION}): {OPERATOR}'s first contact there, report {REPORT}.</PhobosRadioQsl_Earned>
   <PhobosRadioQsl_CardText>To {OURCALL}, operator {OPERATOR}.\n{DATE}, {UTC} UTC. Grid square {GRID}.\nYour signal {REPORT}, {TILES} km.\n{NOTE}\n73, {FACTION}.</PhobosRadioQsl_CardText>
+  <!-- Radio 0.59.0: a card shows its front, the station's home painted, until clicked. -->
+  <PhobosRadioQsl_TurnOver>Click to turn the card over.</PhobosRadioQsl_TurnOver>
   <!-- Radio 0.58.0: the note a card carries, three for each kind of contact (agent-authored, for the owner's review). -->
   <PhobosRadioQsl_NoteFirstContact0>Pse QSL, tnx. Good to hear a new voice on the air.</PhobosRadioQsl_NoteFirstContact0>
   <PhobosRadioQsl_NoteFirstContact1>The first of many contacts, we hope.</PhobosRadioQsl_NoteFirstContact1>
