@@ -31,8 +31,10 @@ public class PhobosRadiationBurst : DefModExtension
     public bool wholeMap;
     /// <summary>Whether built roofs and walls shield (false for rays that pass through them); rock always does.</summary>
     public bool buildingsShield = true;
-    /// <summary>Days of Dubs Rimatomics' fallout on the map, when it is active; zero for none.</summary>
+    /// <summary>Days of fallout on the map; zero for none (Dubs Rimatomics' condition comes with it, for its sky and plants, when active).</summary>
     public FloatRange falloutDays = FloatRange.Zero;
+    /// <summary>The fallout's dose rate in the open at the first hour, in grays an hour, falling by the 7:10 rule (Framework 0.364.0).</summary>
+    public float falloutGraysPerHour;
     /// <summary>Only while the thing's refuelable store holds at least one unit: a boiler that holds its nuclear charges as fuel gives no
     /// dose when it blows up empty.</summary>
     public bool onlyWithFuel;

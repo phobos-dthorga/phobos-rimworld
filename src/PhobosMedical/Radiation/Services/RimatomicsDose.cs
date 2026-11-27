@@ -31,6 +31,8 @@ public static class RimatomicsDose
     /// <summary>The fallout's age in days while a fallout condition is dosing a cell, else below 0.</summary>
     [ThreadStatic] static double falloutDays;
     [ThreadStatic] static bool inFallout;
+    /// <summary>A strike's fallout of ours lies on this map, so Rimatomics' own nuclear fallout gives no dose there (Medical 0.37.0).</summary>
+    [ThreadStatic] static bool oursLiesHere;
 
     static Func<Pawn, bool>? isRobot;
     static Func<float>? strengthSetting;
@@ -50,7 +52,8 @@ public static class RimatomicsDose
                 MethodInfo? fallout = AccessTools.Method(name, new[] { typeof(IntVec3), typeof(Map) });
                 if (fallout != null)
                 {
-                    harmony.Patch(fallout, prefix: new HarmonyMethod(typeof(RimatomicsDose), nameof(FalloutPrefix)),
+                    string prefix = name == NuclearFallout ? nameof(NuclearFalloutPrefix) : nameof(FalloutPrefix);
+                    harmony.Patch(fallout, prefix: new HarmonyMethod(typeof(RimatomicsDose), prefix),
                         finalizer: new HarmonyMethod(typeof(RimatomicsDose), nameof(FalloutFinalizer)));
                 }
             }
@@ -96,6 +99,8 @@ public static class RimatomicsDose
         if (!RadiationPart.On || pawn == null || pawn.Dead) return true;
         Look();
         if (isRobot?.Invoke(pawn) ?? !pawn.RaceProps.IsFlesh) return true;
+        // D'thorga Framework's fallout doses this map by age and cover (Medical 0.37.0; owner, 28 Nov 2026): Rimatomics' own stands down.
+        if (inFallout && oursLiesHere) return false;
         float scaled = strength * (strengthSetting?.Invoke() ?? 1f);
         // Every Rimatomics dose is from outside (a leak, waste carried, fallout lying around), so what is worn shields it a little.
         double unshielded = RadiationRule.GraysFromRimatomics(scaled) * (inFallout ? RadiationRule.FalloutDecay(falloutDays) : 1);
@@ -111,9 +116,17 @@ public static class RimatomicsDose
         return false;
     }
 
+    /// <summary>Rimatomics' nuclear fallout: as any fallout, and its dose stands down where D'thorga Framework's fallout lies.</summary>
+    static void NuclearFalloutPrefix(Map map)
+    {
+        FalloutPrefix(map);
+        oursLiesHere = Phobos.Framework.Health.FalloutFields.Active(map);
+    }
+
     static void FalloutPrefix(Map map)
     {
         inFallout = true;
+        oursLiesHere = false;
         falloutDays = 0;
         if (map?.GameConditionManager == null) return;
         foreach (GameCondition condition in map.GameConditionManager.ActiveConditions)
@@ -130,6 +143,7 @@ public static class RimatomicsDose
     static Exception? FalloutFinalizer(Exception? __exception)
     {
         inFallout = false;
+        oursLiesHere = false;
         return __exception;
     }
 }

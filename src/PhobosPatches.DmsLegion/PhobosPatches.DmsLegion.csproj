@@ -9,7 +9,7 @@
     <ModFolder>PhobosPatches</ModFolder>
     <TieInFolder>Mods/DmsLegion/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.49.0</Version>
+    <Version>0.50.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />

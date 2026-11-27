@@ -82,7 +82,12 @@ public static class RadiationPart
     internal static void Start(HarmonyLib.Harmony harmony)
     {
         // Every dose through the Framework (the strike) comes from outside, so what is worn shields it.
-        Phobos.Framework.Health.RadiationDoses.Register((pawn, grays, source) => RadiationService.Receive(pawn, grays * WornShielding.Pass(pawn), source), () => On);
+        // D'thorga Framework's fallout (Medical 0.37.0) leaves its dust on skin and clothes, as Rimatomics' fallout does.
+        Phobos.Framework.Health.RadiationDoses.Register((pawn, grays, source) =>
+        {
+            RadiationService.Receive(pawn, grays * WornShielding.Pass(pawn), source);
+            if (source == "fallout") Contamination.FromFallout(pawn, grays);
+        }, () => On);
         RimatomicsDose.Apply(harmony);
         Contamination.Start();
         RadiationMedicine.Start();

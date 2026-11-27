@@ -41,6 +41,13 @@ public static class StrikeLauncher
             FrameWorkQueue.Enqueue(new StrikeWork(map, props, zones, isTarget || settings.fullStrikeEverywhere, isTarget, launcher, label));
             // No air to carry fallout in space (Rimatomics++ makes the same call): the missile mod's own conditions apply there instead.
             ApplyConditions(map, props, settings.fallout, rimatomicsFallout && !InSpace(map.Tile), rules);
+            // Our own fallout, dosing by its age and each person's cover (Patches 0.50.0; the owner's choice of 28 Nov 2026): Rimatomics' gave
+            // about 3 Gy a day in the open and nothing under a roof. Its sky and plants stay; its dose stands down where ours lies.
+            if (settings.fallout != FalloutMode.None && settings.radiation && zones.fallout && !InSpace(map.Tile))
+            {
+                float rate = rules.falloutGraysPerHour * (isTarget ? 1f : rules.neighbourFalloutShare);
+                Phobos.Framework.Health.FalloutFields.Lay(map, rate, rules.falloutDays.RandomInRange, label ?? "a nuclear strike");
+            }
             if (props.damageTimes > 1) QueueRepeats(map, props, launcher, label);
         }
         if (rimatomicsFallout && target != null && !InSpace(target.Tile) && settings.falloutClouds > 0)

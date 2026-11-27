@@ -76,6 +76,9 @@ public static class RadiationBursts
     {
         float edge = burst.edgeRadius > 0f ? burst.edgeRadius : Math.Max(1f, explosionRadius);
         float reach = burst.wholeMap ? float.MaxValue : RadiationBurstRule.Reach(edge, burst.graysAtEdge, burst.airLength);
+        // A burst reaching across half the map or more brings out people a mod keeps off it first (Framework 0.364.0; a smaller one does
+        // not, as bringing a base's reserve out for a shell would change the base for little).
+        if (burst.wholeMap || reach * 2f >= Math.Min(map.Size.x, map.Size.z)) HeldPawns.BringOut(map, "a radiation burst (" + source + ")");
         int dosed = 0, sheltered = 0, aboard = 0;
         float most = 0f;
         foreach (Pawn pawn in map.mapPawns.AllPawnsSpawned.ToList())
@@ -97,7 +100,7 @@ public static class RadiationBursts
             }
             if (Dose(pawn, outside * pass, source, ref most)) dosed++;
         }
-        int falloutDays = Fallout(map, burst);
+        int falloutDays = Fallout(map, burst, source);
         FrameworkMod.Logger.Info("Radiation burst (" + source + ", " + burst.kind + ") on " + (map.Parent?.Label ?? "a map")
             + (burst.wholeMap ? ", the whole map" : " at " + centre + ", edge " + edge.ToString("0.#") + " cells, reach " + reach.ToString("0"))
             + ": " + dosed + " dosed (" + aboard + " aboard vehicles, " + sheltered + " under cover), the most " + most.ToString("0.00") + " Gy"
@@ -120,14 +123,19 @@ public static class RadiationBursts
     }
 
     /// <summary>Dubs Rimatomics' fallout, by name, unless the map has it already: the days registered, or 0.</summary>
-    static int Fallout(Map map, PhobosRadiationBurst burst)
+    /// <summary>The burst's fallout: ours, dosing by age and cover, at its rate for its days (Framework 0.364.0); and Dubs Rimatomics' own
+    /// condition, by name, for its sky and plants, unless the map has it already (its dose stands down where ours lies). The days laid, or 0.</summary>
+    static int Fallout(Map map, PhobosRadiationBurst burst, string source)
     {
-        if (burst.falloutDays.max <= 0f || !OptionalMods.IsActive(RimatomicsId)) return 0;
-        GameConditionDef? def = DefDatabase<GameConditionDef>.GetNamedSilentFail(RimatomicsFallout);
-        if (def == null || map.GameConditionManager.ConditionIsActive(def)) return 0;
+        if (burst.falloutDays.max <= 0f) return 0;
         float days = burst.falloutDays.RandomInRange;
         if (days <= 0f) return 0;
-        map.GameConditionManager.RegisterCondition(GameConditionMaker.MakeCondition(def, (int)(days * GenDate.TicksPerDay)));
+        FalloutFields.Lay(map, burst.falloutGraysPerHour, days, source);
+        if (OptionalMods.IsActive(RimatomicsId) && DefDatabase<GameConditionDef>.GetNamedSilentFail(RimatomicsFallout) is { } def
+            && !map.GameConditionManager.ConditionIsActive(def))
+        {
+            map.GameConditionManager.RegisterCondition(GameConditionMaker.MakeCondition(def, (int)(days * GenDate.TicksPerDay)));
+        }
         return (int)Math.Ceiling(days);
     }
 

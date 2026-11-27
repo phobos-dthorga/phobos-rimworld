@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Mods that keep people off a map, and their own way of putting them back, so a blast reaches them too (Framework 0.364.0;
+       docs/development/radiation-bursts.md). A row whose mod is not active does nothing. Another modder adds a row the same way; the
+       log names any other map component found holding people, so a row can be added for it. -->
+
+  <!-- Custom Base Framework keeps much of a base's garrison in its reserve and brings them out as the player's people come near;
+       its own AllesAbsetzen ("set everyone down") puts every one of them at their home spot and ends the reserve on that map. -->
+  <Phobos.Framework.Environment.PhobosHeldPawnsDef>
+    <defName>PhobosHeldPawns_CustomBaseFrameworkReserve</defName>
+    <label>Custom Base Framework's reserve</label>
+    <componentClass>CustomBaseFramework.Reserve</componentClass>
+    <bringOutMethod>AllesAbsetzen</bringOutMethod>
+  </Phobos.Framework.Environment.PhobosHeldPawnsDef>
+</Defs>

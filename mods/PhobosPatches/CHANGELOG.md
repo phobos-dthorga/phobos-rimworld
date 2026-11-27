@@ -21,6 +21,26 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.50.0] - 2026-11-28 - Draft
+
+The strike reaches everyone, at once
+
+### Fixed
+
+- **The strike's blast and burns go through armour**: they hit with no armour penetration, so under Combat Extended anyone in body
+  armour took nothing, and armoured defenders walked out of a megaton blast unhurt. The blast now has the warhead's own penetration;
+  burns go through every garment's heat rating.
+- **People and fires first**: on a large map the strike took hours of game time to reach everything (Boomursh: 382 seconds of real
+  time, about 3.7 game hours), so people far out were struck long after the flash, where they had stood when it began. Now everyone is
+  struck in the first moments, then every cell's fires and scouring, then buildings, items and plants.
+- **A base's reserve is struck too**: people Custom Base Framework kept off the map come out before the flash (D'thorga Framework 0.364.0).
+
+### Added
+
+- **Our own fallout after a strike**: about 1.5 Gy an hour in the open at the first hour, falling by the 7:10 rule (about 5 Gy over
+  the first day, 7 over two weeks), cut by cover; neighbouring maps take less. Rimatomics' own fallout dose stands down there. Every
+  figure is authored. Not yet tested in game: rows 736 to 738.
+
 ## [0.49.0] - 2026-11-28 - Draft
 
 A setup wizard page

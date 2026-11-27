@@ -1,7 +1,9 @@
 # Radiation from other nuclear and antimatter weapons (27 Nov 2026)
 
-**Status (27 Nov 2026):** built, at the owner's word: IRBM's warheads, the antigrain weapons and the nuclear boiler in D'thorga Framework
-0.358.0 and D'thorga Patches 0.47.0; DMS Legion's strike in Patches 0.48.0. Not yet tested in game (rows 716 to 719).
+**Status (28 Nov 2026):** built, at the owner's word: IRBM's warheads, the antigrain weapons and the nuclear boiler in D'thorga Framework
+0.358.0 and D'thorga Patches 0.47.0; DMS Legion's strike in Patches 0.48.0; the [Boomursh repair](#the-boomursh-repair-28-nov-2026)
+(our own fallout, held people brought out, the strike's armour and timing) in Framework 0.364.0, Patches 0.50.0 and Medical 0.37.0. Not
+yet tested in game (rows 716 to 719, 736 to 738).
 
 The owner, 27 Nov 2026: "It seems that the tactical nukes from the IRBM mod don't have our realistic radiation modelling applied to
 them? If that's the case, there are probably many other missile types from that mod and others missing said modelling as well that
@@ -132,9 +134,38 @@ flowchart LR
 - Nothing here gives a dose to a map with no people on it, and nothing reaches people in caravans or on other maps, except the
   gamma-ray warhead's own neighbouring maps.
 
+## The Boomursh repair (28 Nov 2026)
+
+The owner struck Boomursh, a Custom Base Framework town, with the Extinction-Class warhead and found, hours later, "quite a few pawns
+still standing, barely any injuries", with radiation exposure at 0.01% "across the board". Read from the `Player.log` and the save from
+two minutes before the strike [log] [save]:
+
+- **Armour stopped the blast.** The strike hit people with blast and burn damage at armour penetration 0; under Combat Extended any
+  armour stops a hit with none, whatever its size. 102 died, mostly the unarmoured. Fixed: the blast takes the warhead's own penetration
+  (overpressure goes through armour [I]); burns take 1, above every Combat Extended heat rating (power armour 0.54) [A].
+- **The strike took hours of game time.** 77,467 things over 3,594 frames and 382 seconds, about 3.7 game hours at 24 ticks a second,
+  while the game ran: people far out were struck at the distance they stood when it began, hours after the flash, and RimPacts' allied
+  assault arrived mid-strike. Fixed (the owner's choice): people and vehicles are struck first, then every cell's fires and scouring,
+  then buildings, items and plants.
+- **40 of the garrison were off the map.** Custom Base Framework keeps a base's garrison in its reserve (`CustomBaseFramework.Reserve`,
+  a map component holding them despawned) [save] [code]; the strike never saw them, and they walked out unhurt with no dose (the
+  exposure condition's floor, 0.0001 Gy, shows as 0.01%). Fixed (the owner's choice, "and can that be genericized to work with other
+  mods which might do the same? As a defensive measure"): D'thorga Framework's `HeldPawns` calls each listed holder's own method to
+  put its people back (`PhobosHeldPawnsDef`, a row per mod: Custom Base Framework's `AllesAbsetzen`) before a strike, or before a burst
+  reaching across half the map; any other map component found holding living people is named in the log once, for a row to be added.
+- **Rimatomics' fallout is mild** [code]: each pass of the game's steady-effects sweep over an outdoor person's cell gives "strength 3",
+  about 0.08 Gy through our conversion: roughly 3 Gy a day in the open on day one, nothing under any roof. Fixed (the owner's choice,
+  "our own fallout, squeezed"): D'thorga Framework's fallout field doses every 600 ticks, falling by the 7:10 rule, 1.5 Gy an hour in
+  the open at the first hour after a strike (about 5 Gy over the first day, 7 over two weeks) [A], cut by cover (a frame house 0.5, stone
+  0.1, thin rock 0.05, deep rock 0.003) [A], neighbouring maps 0.3 of it [A]; the Mini-Nuke lays 0.3 Gy an hour and the boiler 1 [A].
+  Rimatomics' own nuclear fallout gives no dose where ours lies (D'thorga Medical); its sky, plants and clouds stay. Without D'thorga
+  Medical's model, nothing doses.
+- Not ours, seen in the same log: about 4,500 errors from the game's music player failing to pick a song every frame, with IRBM's
+  `Root_Play.Update` postfix on the stack, which filled the log to its 10,000-message cap. Left for now.
+
 ## Who chose what
 
 - **The owner** (cards, 27 Nov 2026): all four IRBM warheads; Legion replaced with a setting; antimatter a prompt dose, no fallout; the
-  boiler a dose and fallout.
+  boiler a dose and fallout. (Cards, 28 Nov 2026): people and fires first; held people brought out, generically; our own fallout, squeezed.
 - **The agent**: the shape of the rule, every figure, the risk grade, the settings' places and names, leaving the CM-4 and the
   non-nuclear warheads alone.

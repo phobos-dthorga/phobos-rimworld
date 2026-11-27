@@ -31,6 +31,9 @@ public sealed class StrikeWork : FrameWork
     List<Thing>? things;
     float[] thingDistances = Array.Empty<float>();
     int nextThing;
+    /// <summary>People and vehicles lead the list (Patches 0.50.0): they are struck first, then every cell's fire and scouring, then
+    /// buildings, items and plants, so the flash reaches everyone at once rather than over hours of play.</summary>
+    int peopleCount;
     IntVec3[] cells = Array.Empty<IntVec3>();
     float[] cellDistances = Array.Empty<float>();
     int nextCell;
@@ -148,6 +151,8 @@ public sealed class StrikeWork : FrameWork
         pollution = settings.pollution && zones.pollution && ModsConfig.BiotechActive;
         vehicleRoute = settings.vehiclesInStrike && LargeBlasts.Any;
         ash = OptionalMods.ThingDefNamed("Filth_Ash");
+        // People a mod keeps off the map (a base's reserve) come out first, so the flash reaches them too (Patches 0.50.0; owner, 28 Nov 2026).
+        HeldPawns.BringOut(Map, "a nuclear strike");
         // Before anything is harmed: the town's garrison, for an ally's assault that follows (RimPacts sizes it to who is standing).
         if (Full) StrikeMemory.RecordBeforeStrike(Map);
         shadowAndShelter = settings.shadowAndShelter;
@@ -233,11 +238,18 @@ public sealed class StrikeWork : FrameWork
             chosen.Add(thing);
             distances.Add(distance);
         }
-        Thing[] ordered = chosen.ToArray();
-        float[] keys = distances.ToArray();
-        Array.Sort(keys, ordered);
-        things = new List<Thing>(ordered);
-        thingDistances = keys;
+        // People and vehicles first, each part by distance (Patches 0.50.0).
+        var people = new List<(Thing thing, float distance)>();
+        var rest = new List<(Thing thing, float distance)>();
+        for (int i = 0; i < chosen.Count; i++) (chosen[i] is Pawn ? people : rest).Add((chosen[i], distances[i]));
+        people.Sort((x, y) => x.distance.CompareTo(y.distance));
+        rest.Sort((x, y) => x.distance.CompareTo(y.distance));
+        peopleCount = people.Count;
+        things = new List<Thing>(chosen.Count);
+        thingDistances = new float[chosen.Count];
+        int n = 0;
+        foreach ((Thing thing, float distance) in people) { things.Add(thing); thingDistances[n++] = distance; }
+        foreach ((Thing thing, float distance) in rest) { things.Add(thing); thingDistances[n++] = distance; }
     }
 
     void SnapshotCells()
@@ -271,6 +283,19 @@ public sealed class StrikeWork : FrameWork
     {
         try
         {
+            // People and vehicles, then every cell (fires, scouring), then buildings, items and plants (Patches 0.50.0).
+            if (things != null && nextThing < peopleCount)
+            {
+                int index = nextThing++;
+                HitThing(things[index], thingDistances[index]);
+                return;
+            }
+            if (nextCell < cells.Length)
+            {
+                int index = nextCell++;
+                HitCell(cells[index], cellDistances[index]);
+                return;
+            }
             if (things != null && nextThing < things.Count)
             {
                 int index = nextThing++;
@@ -280,11 +305,6 @@ public sealed class StrikeWork : FrameWork
                 return;
             }
             if (IsTarget && !fadeStarted) StartFade();
-            if (nextCell < cells.Length)
-            {
-                int index = nextCell++;
-                HitCell(cells[index], cellDistances[index]);
-            }
         }
         catch (Exception error)
         {
@@ -431,7 +451,9 @@ public sealed class StrikeWork : FrameWork
         bool shadowed = RadiationShelterRule.Shadowed(cover);
         if (shadowed) Shadowed++;
         float blast = falloff * (zone == StrikeZone.Blast ? rules.pawnBlastFactor : rules.pawnThermalBlastFactor);
-        if (blast > 0f) pawn.TakeDamage(new DamageInfo(DamageDefOf.Bomb, blast, 0f, -1f, Launcher, null, IRBM_DefOf.IRBM_MissileWeapon));
+        // Overpressure goes through body armour (Patches 0.50.0): at penetration 0, Combat Extended's armour stopped the whole blast, so
+        // soldiers in armour walked out of the blast zone unhurt at Boomursh (28 Nov 2026). The warhead's own penetration, as its core hit has.
+        if (blast > 0f) pawn.TakeDamage(new DamageInfo(DamageDefOf.Bomb, blast, BlastPenetration, -1f, Launcher, null, IRBM_DefOf.IRBM_MissileWeapon));
         // The heat came before the blast and a roof shadowed it, even one the blast then took away (NK17).
         if (!pawn.Dead && !shadowed) Burn(pawn, falloff * rules.burnFactor);
         if (pawn.Dead)
@@ -446,6 +468,9 @@ public sealed class StrikeWork : FrameWork
         if (radiation && Irradiate(pawn, strength * RadiationShelterRule.DosePass(cover))) Irradiated++;
         Pulse(pawn);
     }
+
+    /// <summary>The warhead's penetration, or the missile mod's own default (200) where it names none.</summary>
+    float BlastPenetration => props.armorPenetration > 0f ? props.armorPenetration : 200f;
 
     void AfterDeath(Pawn pawn, bool vaporise)
     {
@@ -462,7 +487,7 @@ public sealed class StrikeWork : FrameWork
         float each = total / hits;
         for (int i = 0; i < hits && !pawn.Dead; i++)
         {
-            var burn = new DamageInfo(DamageDefOf.Burn, each, 0f, -1f, Launcher, null, IRBM_DefOf.IRBM_MissileWeapon);
+            var burn = new DamageInfo(DamageDefOf.Burn, each, rules.burnArmourPenetration, -1f, Launcher, null, IRBM_DefOf.IRBM_MissileWeapon);
             burn.SetBodyRegion(BodyPartHeight.Undefined, BodyPartDepth.Outside);
             pawn.TakeDamage(burn);
         }

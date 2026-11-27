@@ -173,7 +173,9 @@ For the standard strategic warhead (`PhobosStrikeExtension`: fireball 25 cells, 
 and radiation (with Dubs Rimatomics or D'thorga Medical's radiation model); flash blindness; ground pollution near the centre
 (with Biotech); an electromagnetic pulse; vehicles in the strike; shadow and shelter. Its figures come from the rules Def
 (`PhobosStrikeRulesDef`) and the settings. Since 0.47.0 the Surgical and Clean warheads take the strike too (the Clean one with
-`doseFactor` 4), and the Mini-Nuke, antimatter and Gamma-Ray warheads give D'thorga Framework's radiation bursts
+`doseFactor` 4), and the Mini-Nuke, antimatter and Gamma-Ray warheads give D'thorga Framework's radiation bursts. Since 0.50.0 the
+strike strikes people and vehicles first, then cells, then the rest; its blast and burns penetrate armour; it brings out people held
+off the map first and lays D'thorga Framework's fallout
 (`Patches/RadiationBurstPatches.cs`; [the record](../radiation-bursts.md)). The radiation people take is on [radiation](medical-radiation.md); what a blast does to
 vehicles is on [vehicle damage](vehicle-damage.md).
 

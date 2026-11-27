@@ -13,6 +13,7 @@
         <graysAtEdge>40</graysAtEdge>
         <airLength>120</airLength>
         <falloutDays>3~10</falloutDays>
+        <falloutGraysPerHour>1</falloutGraysPerHour>
         <onlyWithFuel>true</onlyWithFuel>
       </li>
     </value>

@@ -320,8 +320,14 @@ struck map**:
   parked one shrugs it off. **The people aboard** are bruised as their vehicle is thrown about, and with Rimatomics take the radiation
   that gets through the hull: nearly all of it in a car, about a third in a tank. **A vehicle is no shelter from a strike**: move
   vehicles under overhead mountain, all of them, or out of range. A setting, **Vehicles in the strike**, on by default.
-- **Fallout:** with Dubs Rimatomics, its radioactive fallout settles on every struck map for 10 to 30 days, and up to six clouds of
-  it drift across the world. Without Rimatomics, the missile mod's nuclear winter. No fallout in space.
+- **Everyone is struck at once.** People and vehicles first, in the first moments after the flash, then fires and scouring, then
+  buildings, items and plants. **Armour does not stop the blast**, and burns go through clothing. People a mod keeps off the map (a
+  Custom Base Framework base's reserve) are brought out first, so a struck base has no unhurt garrison waiting.
+- **Fallout:** with D'thorga Medical's radiation model, fallout on every struck map doses everyone there, about **5 Gy over the first
+  day in the open**, falling fast after (7 over two weeks), and less on neighbouring maps. **Shelter decides who lives:** a wooden
+  building halves it, stone walls cut it to a tenth, deep rock to almost nothing. People who arrive later take it too. With Dubs
+  Rimatomics its sky and dying plants come with it, and up to six of its clouds drift across the world. Without Rimatomics, the
+  missile mod's nuclear winter for the look. No fallout in space.
 - **The screen stays white** until the fireball and blast are done (at most 8 seconds).
 - The missile mod's letter, flash, sound, cloud and world effects are its own, unchanged. Other strategic warheads keep its effects,
   with the fast blast.

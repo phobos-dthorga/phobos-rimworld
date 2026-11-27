@@ -33,6 +33,9 @@ public class PhobosStrikeRulesDef : PhobosRulesDef
     public float burnFactor = 0.25f;
     public float maxBurnPerHit = 12f;
     public int maxBurnHits = 10;
+    /// <summary>The armour penetration of the strike's burns (Patches 0.50.0). Authored: above every heat rating Combat Extended gives armour
+    /// (a flak vest 0.27, power armour 0.54), as a flash hot enough to burn skin sets clothing alight; at 0 any armour stopped them all.</summary>
+    public float burnArmourPenetration = 1f;
     public float buildingThermalFactor = 1f;
     public float neighbourDistance = 200f;
     public float sparseFireChance = 0.02f;
@@ -49,6 +52,11 @@ public class PhobosStrikeRulesDef : PhobosRulesDef
     public float radiationGraysAtFireballEdge = 10f;
     public float flashBlindChance = 0.6f;
     public FloatRange falloutDays = new(10f, 30f);
+    /// <summary>Our fallout's dose rate in the open an hour after the strike, in grays an hour, falling by the 7:10 rule (Patches 0.50.0; the
+    /// owner's choice of 28 Nov 2026, "our own fallout, squeezed"). Authored: about 5 Gy over the first day and 7 over two weeks in the open.</summary>
+    public float falloutGraysPerHour = 1.5f;
+    /// <summary>A neighbouring map's share of the target's fallout (authored).</summary>
+    public float neighbourFalloutShare = 0.3f;
     public IntRange cloudLifespanDays = new(2, 40);
     public float holdWhiteMaxSeconds = 8f;
     public float whiteScreenBudgetMs = 40f;

@@ -102,3 +102,48 @@ public class RadiationBurstRuleTests
     [Fact]
     public void ATinyEdgeCountsAsOneCell() => Assert.Equal(RadiationBurstRule.Grays(10f, 1f, 5f, 40f), RadiationBurstRule.Grays(10f, 0f, 5f, 40f));
 }
+
+public class FalloutRuleTests
+{
+    [Fact]
+    public void TheRateHoldsForTheFirstHourThenFallsByTheSevenTenRule()
+    {
+        Assert.Equal(1.5, FalloutRule.RateAt(0.5, 1.5), 6);
+        Assert.Equal(1.5, FalloutRule.RateAt(1, 1.5), 6);
+        // Seven times the age, a tenth of the rate (Glasstone and Dolan, 9.16).
+        Assert.InRange(FalloutRule.RateAt(49, 1.5) / FalloutRule.RateAt(7, 1.5), 0.09, 0.105);
+    }
+
+    [Fact]
+    public void TheStrikesFalloutGivesAboutFiveGraysOnDayOneAndSevenInTwoWeeks()
+    {
+        // The figures the owner chose on 28 Nov 2026, at 1.5 Gy an hour at the first hour.
+        Assert.InRange(FalloutRule.DoseBetween(0, 24, 1.5), 4.8, 5.2);
+        Assert.InRange(FalloutRule.DoseBetween(0, 24 * 14, 1.5), 6.4, 7.0);
+    }
+
+    [Fact]
+    public void SlicesAddUpToTheWhole()
+    {
+        double whole = FalloutRule.DoseBetween(0, 30, 1.5);
+        double parts = 0;
+        for (double h = 0; h < 30; h += 0.24) parts += FalloutRule.DoseBetween(h, System.Math.Min(h + 0.24, 30), 1.5);
+        Assert.Equal(whole, parts, 6);
+    }
+
+    [Fact]
+    public void ShelterCutsFalloutMoreTheMoreMassThereIs()
+    {
+        Assert.Equal(1, FalloutRule.Pass(ShelterCover.Open));
+        Assert.True(FalloutRule.Pass(ShelterCover.LightBuilding) > FalloutRule.Pass(ShelterCover.StoneBuilding));
+        Assert.True(FalloutRule.Pass(ShelterCover.StoneBuilding) > FalloutRule.Pass(ShelterCover.ThinRock));
+        Assert.True(FalloutRule.Pass(ShelterCover.ThinRock) > FalloutRule.Pass(ShelterCover.ThickRock));
+    }
+
+    [Fact]
+    public void NoRateNoDose()
+    {
+        Assert.Equal(0, FalloutRule.DoseBetween(0, 10, 0));
+        Assert.Equal(0, FalloutRule.DoseBetween(5, 5, 1.5));
+    }
+}

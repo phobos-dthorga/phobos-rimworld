@@ -36,6 +36,7 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 | Other mod (packageId) | What the tie-in does | Kind | Where |
 | --- | --- | --- | --- |
+| Custom Base Framework (`evileyeguy.custombaseframework`) | Its reserve's people are put back on the map before a blast (0.364.0; a `PhobosHeldPawnsDef` row naming its own method, read by name) | XML, by name | `Common/Defs/Phobos/HeldPawns.xml` |
 | Vehicle Framework (`SmashPhil.VehicleFramework`) | Every vehicle system: loadouts on any of its vehicles, parts, health, fittings, tunes, the sling, the fleet board, research gates; its caravan world objects | C# + XML | `Mods/VehicleFramework` |
 | Dubs Bad Hygiene (`Dubwise.DubsBadHygiene`) | The shared plumbing reader and the plumbing laid beneath our things | C# | `Mods/DubsBadHygiene/1.7` |
 | Vehicle Framework + Dubs Bad Hygiene | Vehicles take water from plumbing; tanker ports for plumbing and septic tanks; the survey truck's groundwater sensor; hidden plumbing beneath a parked trailer that takes water (0.111.0) | C# | `Mods/VehiclesHygiene/1.7` |

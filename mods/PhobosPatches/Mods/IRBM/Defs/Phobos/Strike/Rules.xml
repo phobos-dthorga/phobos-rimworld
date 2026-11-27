@@ -16,6 +16,9 @@
          D'thorga Medical's burn load sees a burned body rather than one charred part. -->
     <burnFactor>0.25</burnFactor>
     <maxBurnPerHit>12</maxBurnPerHit>
+    <!-- The burns' armour penetration: above every Combat Extended heat rating (power armour 0.54), as a flash hot enough to burn skin
+         sets clothing alight. Authored. -->
+    <burnArmourPenetration>1</burnArmourPenetration>
     <maxBurnHits>10</maxBurnHits>
     <!-- Buildings and items beyond the blast zone take the falloff as Bomb damage times this. -->
     <buildingThermalFactor>1</buildingThermalFactor>
@@ -49,6 +52,11 @@
     <!-- Rimatomics' fallout on a struck map lasts this many days, and its drifting clouds live this many: the ranges its own strike
          uses (NuclearStrike, WorldObject_ICBMfission.MakeFallout, read 7 Nov 2026). -->
     <falloutDays>10~30</falloutDays>
+    <!-- Our fallout (Patches 0.50.0; the owner's choice of 28 Nov 2026): the dose rate in the open at the first hour, in grays an hour,
+         falling by the 7:10 rule (Glasstone and Dolan, 9.16): about 5 Gy over the first day, 7 over two weeks. A real megaton ground burst
+         gives tens of Gy an hour near ground zero; this is squeezed onto a map. Authored. -->
+    <falloutGraysPerHour>1.5</falloutGraysPerHour>
+    <neighbourFalloutShare>0.3</neighbourFalloutShare>
     <cloudLifespanDays>2~40</cloudLifespanDays>
 
     <!-- The struck map's screen stays white until the fireball and blast zones are done, but never longer than this. While it is white

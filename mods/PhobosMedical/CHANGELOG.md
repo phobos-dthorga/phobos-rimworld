@@ -21,6 +21,16 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.37.0] - 2026-11-28 - Draft
+
+Rimatomics' fallout stands down where ours lies
+
+### Changed
+
+- **Rimatomics' fallout stands down where ours lies**: on a map with D'thorga Framework's fallout (after a strike, a Mini-Nuke or a
+  nuclear boiler), Dubs Rimatomics' own fallout gives no dose, so nobody is dosed twice; its sky, plants and rot stay. Our fallout leaves
+  its dust on skin and clothes, as Rimatomics' does. Not yet tested in game: row 737.
+
 ## [0.36.0] - 2026-11-28 - Draft
 
 A setup wizard page

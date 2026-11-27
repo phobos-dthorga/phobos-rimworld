@@ -306,6 +306,13 @@ the antigrain things of the game and four mods, and the nuclear boiler.
 - Two settings in D'thorga Framework, both on: Radiation from nuclear blasts, and from antimatter blasts. With the model off,
   nothing is given (no Rimatomics fallback, unlike the strike).
 
+### Fallout of ours
+
+D'thorga Framework 0.364.0's fallout field (`src/PhobosFramework/Health/FalloutFields.cs`; [the record](../radiation-bursts.md#the-boomursh-repair-28-nov-2026)):
+a strike, a Mini-Nuke or a loaded boiler lays it; every 600 ticks each flesh person on the map takes the interval's dose by the 7:10
+rule (`FalloutRule`), cut by cover or a vehicle's hull, through the door as "fallout". Medical's receiver adds dust for it as for
+Rimatomics' fallout, and a prefix keeps Rimatomics' own nuclear fallout from dosing a map where ours lies (Medical 0.37.0).
+
 ### The radiation control line (Rimatomics)
 
 With Dubs Rimatomics, D'thorga Medical defines the one protective-gear line there is (`Mods/Rimatomics/Defs/Phobos/Protection/`):
