@@ -328,6 +328,11 @@
       "addictol for an addiction being quit": [{"key": "medical.longterm-self", "variant": "Addiction"}, {"key": "medical.longterm-job-made", "variant": "Addiction"}]
     }},
     "614": [{"key": "medical.longterm-self", "variant": "OldWounds"}, {"key": "medical.longterm-job-made", "variant": "OldWounds"}],
+    "694": ["medical.animal-dose"],
+    "695": {"parts": {
+      "a dose by a mechanoid": [{"key": "medical.mech-doctor", "variant": "dose"}],
+      "a kit by a mechanoid": [{"key": "medical.mech-doctor", "variant": "device"}]
+    }},
     "691": ["medical.pain-ladder"],
     "692": ["medical.disease-class"],
     "693": ["medical.triage-healer-serum"],

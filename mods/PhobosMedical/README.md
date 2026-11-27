@@ -7,7 +7,7 @@ neither is required.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide's [medical
 chapter](../../docs/player-guide/medical.md)**; this README holds the gotchas, the settings and the links.
 
-Version 0.33.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
+Version 0.34.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
 D'thorga Medical (11 November 2026), burns, dosing, the oxygen concentrator, the burn unit bed and the save bridge on the five
 mods it replaced (3 to 6 November 2026), and, on D'thorga Medical itself, doctors' work with many wounded, field care giving way to
 the carry, and, with Rimatomics, radiation sickness running its real course and converting once. Everything else is not yet tested
@@ -122,6 +122,7 @@ this page to defaults** at the bottom of a page.
 | Give medical drugs to patients who refuse drugs | Teetotalers and believers get medical drugs anyway | Off |
 | Doctors give drugs that help fight disease | Only to a patient losing the race against a deadly disease | On |
 | Patients in extreme pain are harder to tend | Tends come out up to a quarter worse | On |
+| Doctors care for bonded animals | Bonded animals and those with a master get cures, disease drugs, toxin protection and relief from extreme pain; never anything addictive | On |
 | Who gives something that keeps toxins out, while toxins are building up | Nobody, doctors, or doctors and people taking their own: AntiTox while in polluted ground, tox gas or fallout | Doctors, and people take their own |
 | Someone caught in vacuum takes a vacuum medicine they carry | With Odyssey: a vacsop they carry, taken at once in a hull breach | On |
 | Who gives something that steadies someone close to a major break | Long-term care: clozapine when mood falls below the major break threshold | Nobody |

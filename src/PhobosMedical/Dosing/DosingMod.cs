@@ -47,6 +47,8 @@ public class DosingSettings : ModSettings
     public CareMode toxicMode = CareMode.DoctorsAndSelf;
     /// <summary>Someone caught in vacuum takes a vacuum-resisting dose they carry (Medical 0.30.0).</summary>
     public bool vacuumRescue = true;
+    /// <summary>Doctors dose the colony's bonded animals and those with a master (Medical 0.34.0): moderate risk, so on.</summary>
+    public bool animalCare = true;
     /// <summary>The long-term needs (Medical 0.31.0), each off until the player turns it on (the owner's card of 26 Nov 2026).</summary>
     public CareMode strainMode = CareMode.Off;
     public CareMode addictionMode = CareMode.Off;
@@ -74,6 +76,7 @@ public class DosingSettings : ModSettings
         Scribe_Values.Look(ref rareItemMarketValue, "PhobosDosing_RareItemMarketValue", 300f);
         Scribe_Values.Look(ref toxicMode, "PhobosDosing_ToxicMode", CareMode.DoctorsAndSelf);
         Scribe_Values.Look(ref vacuumRescue, "PhobosDosing_VacuumRescue", true);
+        Scribe_Values.Look(ref animalCare, "PhobosDosing_AnimalCare", true);
         Scribe_Values.Look(ref strainMode, "PhobosDosing_StrainMode", CareMode.Off);
         Scribe_Values.Look(ref addictionMode, "PhobosDosing_AddictionMode", CareMode.Off);
         Scribe_Values.Look(ref oldWoundsMode, "PhobosDosing_OldWoundsMode", CareMode.Off);
@@ -203,6 +206,7 @@ public static class DosingMod
         list.Check("PhobosDosing_SettingIgnoreAversion".Translate(), ref s.ignoreAversionForMedical, d.ignoreAversionForMedical, "PhobosDosing_SettingIgnoreAversionDesc".Translate());
         list.Check("PhobosDosing_SettingImmunity".Translate(), ref s.immunityDosing, d.immunityDosing, "PhobosDosing_SettingImmunityDesc".Translate());
         list.Check("PhobosDosing_SettingFussing".Translate(), ref s.fussing, d.fussing, "PhobosDosing_SettingFussingDesc".Translate());
+        list.Check("PhobosDosing_SettingAnimalCare".Translate(), ref s.animalCare, d.animalCare, "PhobosDosing_SettingAnimalCareDesc".Translate());
         list.Section("PhobosDosing_SectionCareNeeds".Translate());
         list.Radio("PhobosDosing_SettingBreathingMode".Translate(), ref s.breathingMode, d.breathingMode, CureModes, ModeLabel, tip: "PhobosDosing_SettingBreathingModeDesc".Translate());
         list.Radio("PhobosDosing_SettingCureMode".Translate(), ref s.cureMode, d.cureMode, CureModes, ModeLabel, tip: "PhobosDosing_SettingCureModeDesc".Translate());

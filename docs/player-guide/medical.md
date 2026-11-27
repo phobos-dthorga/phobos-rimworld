@@ -156,6 +156,11 @@ its name.
 | A natural body part missing, with nothing artificial in its place | Something that regrows it, such as a combat regeneration serum |
 | Bionics from The Dead Man's Switch with room in their biogel for a whole dose | Neuroglue, so the tank never runs low |
 
+- **Bonded animals, and those with a master, are cared for too** ("Doctors care for bonded animals", on): cures, drugs against a
+  disease that is winning, protection from toxins, and something for pain only when it is extreme. Never anything addictive, and
+  nothing their kind cannot swallow. Other animals are left to you, as before.
+- **Mechanoids with Doctor work do all of this**, as they do the game's own doctoring: doses, kits, rinsing, the pressure chamber and
+  triage's operations. Where a kit asks for a Medicine level, a mechanoid counts its fixed skill (10 for most).
 - **Never given**: a second painkiller while one still works, anything during an overdose, a dose that would leave consciousness or
   breathing under 15%, recreational drugs (unless the setting allows them, and then last), drugs to someone who refuses them on
   principle.

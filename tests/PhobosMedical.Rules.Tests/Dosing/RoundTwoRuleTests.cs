@@ -79,6 +79,26 @@ public class RoundTwoRuleTests
     }
 
     [Fact]
+    public void AnAnimalIsNeverGivenAnythingAddictiveOrWhatItCannotSwallow()
+    {
+        // Medical 0.34.0, the owner's card: bonded animals get care, never anything addictive.
+        Assert.Equal(DoseRefusal.None, AnimalDoseRule.Check(true, 0f, true));
+        Assert.Equal(DoseRefusal.AddictiveForAnimal, AnimalDoseRule.Check(true, 0.05f, true));
+        Assert.Equal(DoseRefusal.AnimalCannotTake, AnimalDoseRule.Check(true, 0f, false));
+        // A person is never refused by this rule.
+        Assert.Equal(DoseRefusal.None, AnimalDoseRule.Check(false, 0.5f, false));
+    }
+
+    [Fact]
+    public void AnAnimalIsDosedForPainOnlyWhenItIsExtreme()
+    {
+        Assert.Equal(0.8f, AnimalDoseRule.PainThreshold(true, 0.4f, 0.8f));
+        Assert.Equal(0.4f, AnimalDoseRule.PainThreshold(false, 0.4f, 0.8f));
+        Assert.Equal(DoseNeed.None, DoseNeedRule.Need(0.6f, true, AnimalDoseRule.PainThreshold(true, 0.4f, 0.8f), 0.8f));
+        Assert.Equal(DoseNeed.Sedation, DoseNeedRule.Need(0.85f, true, AnimalDoseRule.PainThreshold(true, 0.4f, 0.8f), 0.8f));
+    }
+
+    [Fact]
     public void ADiseaseNobodyHasClassedTakesAnyDrug()
     {
         // The owner's card of 27 Nov 2026: a new mod's disease is never left untreated because we had not read it.

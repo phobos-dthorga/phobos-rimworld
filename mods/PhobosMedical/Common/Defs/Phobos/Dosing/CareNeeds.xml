@@ -25,6 +25,8 @@
     <order>10</order>
     <!-- Life-threatening instead, for one patient, when the condition can kill. -->
     <seriousness>Serious</seriousness>
+    <!-- An animal the doctors look after may have this need (D'thorga Medical 0.34.0; the owner's card of 27 Nov 2026). -->
+    <forAnimals>true</forAnimals>
     <defaultMode>DoctorsOnly</defaultMode>
   </Phobos.Dosing.Defs.PhobosCareNeedDef>
 
@@ -35,6 +37,8 @@
     <workerClass>Phobos.Dosing.Needs.CareNeedWorker_Pain</workerClass>
     <order>20</order>
     <seriousness>Serious</seriousness>
+    <!-- An animal the doctors look after may have this need (D'thorga Medical 0.34.0; the owner's card of 27 Nov 2026). -->
+    <forAnimals>true</forAnimals>
     <defaultMode>DoctorsAndSelf</defaultMode>
   </Phobos.Dosing.Defs.PhobosCareNeedDef>
 
@@ -45,6 +49,8 @@
     <workerClass>Phobos.Dosing.Needs.CareNeedWorker_DiseaseDrug</workerClass>
     <order>30</order>
     <seriousness>LifeThreatening</seriousness>
+    <!-- An animal the doctors look after may have this need (D'thorga Medical 0.34.0; the owner's card of 27 Nov 2026). -->
+    <forAnimals>true</forAnimals>
     <defaultMode>DoctorsOnly</defaultMode>
   </Phobos.Dosing.Defs.PhobosCareNeedDef>
 
@@ -77,6 +83,8 @@
     <workerClass>Phobos.Dosing.Needs.CareNeedWorker_Toxic</workerClass>
     <order>38</order>
     <seriousness>Minor</seriousness>
+    <!-- An animal the doctors look after may have this need (D'thorga Medical 0.34.0; the owner's card of 27 Nov 2026). -->
+    <forAnimals>true</forAnimals>
     <defaultMode>DoctorsAndSelf</defaultMode>
     <usesReserve>true</usesReserve>
     <!-- Protection, not treatment: a colony with no AntiTox is not nagged through every fallout (agent default, owner to revise). -->

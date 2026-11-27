@@ -19,7 +19,8 @@
     <priorityInType>65</priorityInType>
     <verb>take to a pressure chamber</verb>
     <gerund>taking to a pressure chamber</gerund>
-    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <!-- Mechanoids may do it, as the game's own doctor work (D'thorga Medical 0.34.0; the owner's card of 27 Nov 2026). -->
+    <canBeDoneByMechs>true</canBeDoneByMechs>
     <requiredCapacities>
       <li>Manipulation</li>
     </requiredCapacities>
@@ -49,7 +50,8 @@
     <priorityInType>92</priorityInType>
     <verb>rinse acid off</verb>
     <gerund>rinsing acid off</gerund>
-    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <!-- Mechanoids may do it, as the game's own doctor work (D'thorga Medical 0.34.0; the owner's card of 27 Nov 2026). -->
+    <canBeDoneByMechs>true</canBeDoneByMechs>
     <requiredCapacities>
       <li>Manipulation</li>
     </requiredCapacities>
@@ -63,7 +65,8 @@
     <priorityInType>95</priorityInType>
     <verb>use a breathing device on</verb>
     <gerund>using a breathing device on</gerund>
-    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <!-- Mechanoids may do it, as the game's own doctor work (D'thorga Medical 0.34.0; the owner's card of 27 Nov 2026). -->
+    <canBeDoneByMechs>true</canBeDoneByMechs>
     <requiredCapacities>
       <li>Manipulation</li>
     </requiredCapacities>

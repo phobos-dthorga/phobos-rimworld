@@ -30,6 +30,10 @@ public enum DoseRefusal
     NoProtection,
     /// <summary>Self-medication only: the pawn's drug policy does not allow it. Never reaches a doctor's refusal text.</summary>
     PolicyForbids,
+    /// <summary>An animal's race cannot swallow it, or it is for people only (Medical 0.34.0).</summary>
+    AnimalCannotTake,
+    /// <summary>Nothing addictive is ever given to an animal (Medical 0.34.0; the owner's card of 27 Nov 2026).</summary>
+    AddictiveForAnimal,
 }
 
 /// <summary>The patient's figures the safety rule needs, read by the service.</summary>

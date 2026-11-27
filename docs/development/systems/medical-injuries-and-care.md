@@ -319,6 +319,19 @@ A condition with no stages (Hydra's) now counts for the redose check, so a dose 
   very condition killing them (life-threatening conditions come first in it, the largest part covered first). The patient is then tagged
   by their clock. The bill is ours to withdraw once that stops being true; a letter is sent once per patient and condition.
 
+**Animals and mechanoid doctors** (0.34.0; [round two](../medical-care-round-two.md), the owner's cards of 27 Nov 2026).
+
+- **Animals** (`AnimalCare`, `AnimalDoseRule`): the Framework's `Patients.IsPlayersAnimal` (the player's own, flesh, alive), and of those
+  only an animal with a master or a bond, behind `animalCare` (on). A care need takes animals when its Def says `forAnimals`: pain,
+  the disease drug, cures and protection from toxins. Pain counts only past the sedation band (0.8), and the ladder brings it under that
+  band. The safety rule adds two refusals after the rest: an item the race cannot swallow (`RaceProperties.CanEverEat`, which refuses an
+  item for people only), and anything addictive. Prevention, the long-term needs, self-medication, burns, smoke and triage stay people
+  only.
+- **Mechanoid doctors**: every work giver of ours says `canBeDoneByMechs`, as the game's own doctor work does (only its animal tending
+  says no). Where a kit asks a Medicine level, the Framework's `Doctors.MedicineLevel` counts a mechanoid's fixed skill
+  (`mechFixedSkillLevel`, 10 unless its race says otherwise). `Doctors.CanDoctorNow` and `BestSurgeonSuccess` count the colony's
+  mechanoids with Doctor work on, so triage finds a mechanoid surgeon.
+
 **What the index reads besides the game's own outcome** (0.32.0). A condition given through another mod's own class is read through
 the rules' `givenConditionReaders`: the class's full name, its condition and severity fields, whether a negative severity takes away
 rather than gives, and a field that makes the effect depend on the taker (such an effect is not read). Vanilla Races Expanded - Genie's
@@ -622,7 +635,7 @@ Every tie-in is in the [tie-in register](../tie-in-register.md). None is require
   cardiac arrest.
 - **A cure hidden in another mod's code is not found** until a reader names its outcome class or the item declares it. Nothing
   checks a reader's class and field against the other mod's updates but the one warning in the log at start-up.
-- **Mechanoid doctors** never dose or take the ordered operate work (`canBeDoneByMechs` false).
+- **Mechanoid doctors** do all of it since Medical 0.34.0; a mechanoid's skill is its race's fixed level, never learnt.
 - **Search and Rescue's evacuation to a vehicle** is not ours to add; a request for its author is drafted in the [soft-dependency
   record](../soft-dependency-crosslinks.md).
 - **Inferred from the code, not tested in game**: `TriageMod.cs:53` says triage has no Harmony, but the tag overlay

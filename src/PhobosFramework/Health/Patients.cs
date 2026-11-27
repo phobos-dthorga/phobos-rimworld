@@ -30,6 +30,14 @@ public static class Patients
     /// </summary>
     public static bool IsFleshPerson(Pawn pawn) => IsPlayersPerson(pawn) && pawn.RaceProps.IsFlesh;
 
+    /// <summary>
+    /// One of the player's own animals with a flesh body (Framework 0.351.0, for D'thorga Medical's care of animals): spawned, alive, an
+    /// animal by its race, and the player's. Which of them a mod looks after (bonded, with a master) is that mod's own choice.
+    /// </summary>
+    public static bool IsPlayersAnimal(Pawn pawn) =>
+        pawn.Spawned && !pawn.Dead && pawn.RaceProps.Animal && pawn.RaceProps.IsFlesh && pawn.health?.hediffSet != null
+        && pawn.Faction == Faction.OfPlayer;
+
     /// <summary>Lying down where a doctor can treat them: downed, or in a bed.</summary>
     public static bool IsLyingDown(Pawn pawn) => pawn.Downed || pawn.InBed();
 

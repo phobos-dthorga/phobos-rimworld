@@ -22,6 +22,20 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.351.0] - 2026-11-27 - Draft
+
+The health layer knows animals and mechanoid doctors
+
+### Added
+
+- **The shared patient and doctor tests know the colony's animals and mechanoids**, for D'thorga Medical's care of animals and its
+  mechanoid doctors: a test for the player's own animals, a doctor's Medicine level that counts a mechanoid's fixed skill, and colony
+  mechanoids with Doctor work counted when an operation looks for a surgeon. Not yet tested in game: rows 694 and 695.
+
+### Save compatibility
+
+- Safe with an existing save. Nothing is saved.
+
 ## [0.350.0] - 2026-11-27 - Draft
 
 A bay for the Morse key, and a convoy in touch by Morse

@@ -82,4 +82,8 @@
   <PhobosDosing_UnmetBreathing>can barely breathe, with nothing in stock that helps</PhobosDosing_UnmetBreathing>
   <PhobosDosing_UnmetCure>nothing in stock that cures {CONDITION}</PhobosDosing_UnmetCure>
   <PhobosDosing_UnmetMedicine>needs {MEDICINE}, and none is in stock</PhobosDosing_UnmetMedicine>
+  <PhobosDosing_SettingAnimalCare>Doctors care for bonded animals</PhobosDosing_SettingAnimalCare>
+  <PhobosDosing_SettingAnimalCareDesc>Animals bonded to someone, or with a master, are given cures, drugs against a disease that is winning, protection from toxins, and relief from extreme pain. Never anything addictive, and nothing their kind cannot swallow.</PhobosDosing_SettingAnimalCareDesc>
+  <PhobosDosing_RefusalAnimalCannotTake>An animal cannot take {DRUG}.</PhobosDosing_RefusalAnimalCannotTake>
+  <PhobosDosing_RefusalAddictiveForAnimal>{DRUG} is addictive; it is never given to an animal.</PhobosDosing_RefusalAddictiveForAnimal>
 </LanguageData>

@@ -27,6 +27,8 @@ public class PhobosCareNeedDef : Def
     public bool usesReserve;
     /// <summary>An alert names a person with this need while nothing in stock answers it.</summary>
     public bool alertWhenUnmet = true;
+    /// <summary>Whether an animal the doctors look after can have this need (Medical 0.34.0); people only when false.</summary>
+    public bool forAnimals;
 
     [Unsaved] CareNeedWorker? worker;
 

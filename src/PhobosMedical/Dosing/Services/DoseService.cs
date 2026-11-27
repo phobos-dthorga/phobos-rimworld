@@ -82,7 +82,7 @@ public static class DoseService
     /// <summary>Resting (downed or in bed) and in enough pain or losing to a disease, under the player's care at the setting's level or better.</summary>
     public static bool IsPatient(Pawn pawn, DosingSettings settings, PhobosDosingRulesDef rules)
     {
-        if (!Patients.IsPlayersPerson(pawn) || !Patients.CareAllows(pawn, settings.minimumCare, true) || pawn.InAggroMentalState) return false;
+        if (!AnimalCare.IsPersonOrCoveredAnimal(pawn) || !Patients.CareAllows(pawn, settings.minimumCare, true) || pawn.InAggroMentalState) return false;
         return NeedsDose(pawn, settings, rules);
     }
 
@@ -93,14 +93,17 @@ public static class DoseService
         for (int i = 0; i < needs.Count; i++)
         {
             CareNeedWorker worker = needs[i].Worker;
-            if (worker.DosedByDoctors && CareModeRule.DoctorsMay(worker.Mode) && worker.Wanted(pawn, settings, rules)) return true;
+            if (Covers(needs[i], pawn) && worker.DosedByDoctors && CareModeRule.DoctorsMay(worker.Mode) && worker.Wanted(pawn, settings, rules)) return true;
         }
         return false;
     }
 
+    /// <summary>Whether a need applies to this patient at all: every need to a person, only the needs marked for animals to an animal.</summary>
+    static bool Covers(PhobosCareNeedDef need, Pawn pawn) => need.forAnimals || !pawn.RaceProps.Animal;
+
     /// <summary>One of the player's people, under care at the setting's level or better, and not raging: who the dosing part looks after at all.</summary>
     public static bool IsEligible(Pawn pawn, DosingSettings settings) =>
-        Patients.IsPlayersPerson(pawn) && Patients.CareAllows(pawn, settings.minimumCare, true) && !pawn.InAggroMentalState;
+        AnimalCare.IsPersonOrCoveredAnimal(pawn) && Patients.CareAllows(pawn, settings.minimumCare, true) && !pawn.InAggroMentalState;
 
     /// <summary>
     /// A patient in bed with a disease that can kill and that is winning the race against their immunity, read from the game's own rates: every
@@ -139,13 +142,17 @@ public static class DoseService
     /// </summary>
     public static void ExplainNotPatient(Pawn pawn, DosingSettings settings, PhobosDosingRulesDef rules)
     {
-        if (!Patients.IsPlayersPerson(pawn) || !NeedsDose(pawn, settings, rules)) return;
+        if (!AnimalCare.IsPersonOrCoveredAnimal(pawn) || !NeedsDose(pawn, settings, rules)) return;
         if (!Patients.CareAllows(pawn, settings.minimumCare, true)) JobFailReason.Is("PhobosDosing_RefusalCare".Translate());
         else if (pawn.InAggroMentalState) JobFailReason.Is("PhobosDosing_RefusalMentalState".Translate());
     }
 
     public static DoseNeed NeedOf(Pawn pawn, PhobosDosingRulesDef rules) =>
-        DoseNeedRule.Need(pawn.health.hediffSet.PainTotal, pawn.Downed || pawn.InBed(), rules.painThreshold, rules.sedationPainThreshold);
+        DoseNeedRule.Need(pawn.health.hediffSet.PainTotal, pawn.Downed || pawn.InBed(), PainThresholdFor(pawn, rules), rules.sedationPainThreshold);
+
+    /// <summary>The pain from which a doctor doses this patient: an animal only at extreme pain (Medical 0.34.0).</summary>
+    static float PainThresholdFor(Pawn pawn, PhobosDosingRulesDef rules) =>
+        AnimalDoseRule.PainThreshold(pawn.RaceProps.Animal, rules.painThreshold, rules.sedationPainThreshold);
 
     /// <summary>
     /// The decision for a patient. With a doctor, items come from the doctor's inventory first, then the nearest reachable
@@ -164,7 +171,7 @@ public static class DoseService
         for (int i = 0; i < needs.Count; i++)
         {
             CareNeedWorker worker = needs[i].Worker;
-            if (!worker.DosedByDoctors || !CareModeRule.DoctorsMay(worker.Mode) || !worker.Wanted(patient, settings, rules)) continue;
+            if (!Covers(needs[i], patient) || !worker.DosedByDoctors || !CareModeRule.DoctorsMay(worker.Mode) || !worker.Wanted(patient, settings, rules)) continue;
             DoseDecision? decision = worker.Decide(doctor, patient, everyItem);
             if (decision == null) continue;
             if (decision.Chosen != null) return decision;
@@ -206,7 +213,8 @@ public static class DoseService
         for (int i = 0; i < needs.Count; i++)
         {
             CareNeedWorker worker = needs[i].Worker;
-            if (worker.DosedByDoctors && CareModeRule.DoctorsMay(worker.Mode) && worker.Wanted(patient, settings, rules) && worker.AnyAllowed(patient, settings, rules)) return true;
+            if (Covers(needs[i], patient) && worker.DosedByDoctors && CareModeRule.DoctorsMay(worker.Mode) && worker.Wanted(patient, settings, rules)
+                && worker.AnyAllowed(patient, settings, rules)) return true;
         }
         return false;
     }
@@ -283,7 +291,7 @@ public static class DoseService
             candidates.Add(new DoseCandidate(option.Effect, allowed));
             decision.Verdicts.Add(new DoseVerdict(option, item, present, refusal, DoseChoiceRule.Score(option.Effect, need, bleeding, rules.Weights)));
         }
-        ChooseInReach(decision, doctor, patient, false, bleeding, rules.Weights, false, new PainLadder(patient.health.hediffSet.PainTotal, rules.painThreshold));
+        ChooseInReach(decision, doctor, patient, false, bleeding, rules.Weights, false, new PainLadder(patient.health.hediffSet.PainTotal, PainThresholdFor(patient, rules)));
         return decision;
     }
 
@@ -341,6 +349,10 @@ public static class DoseService
         // The rare mark is the player's (a setting since Medical 0.29.0), so it is asked here and not fixed when the index is built.
         bool rare = CareSafetyRule.Rare(option.MarketValue, DosingMod.Settings.rareItemMarketValue);
         refusal = CareSafetyRule.Check(SeriousnessFor(option, need, care), option.Effect.Addictiveness, beginsLethalDependency, rare);
+        if (refusal != DoseRefusal.None) return refusal;
+        // An animal (Medical 0.34.0): nothing its race cannot swallow, and nothing addictive.
+        bool animal = patient.RaceProps.Animal;
+        refusal = AnimalDoseRule.Check(animal, option.Effect.Addictiveness, !animal || patient.RaceProps.CanEverEat(option.Def));
         if (refusal != DoseRefusal.None) return refusal;
         // What a person carries is not the shelf's: the reserve is counted against the stock on the map, and taking one's own leaves it.
         if (care.UsesReserve && patient.Map != null && !Carries(patient, option.Def)
@@ -659,6 +671,11 @@ public static class DoseService
             // Medical 0.33.0: the pain ladder (the pain it was chosen for), and a drug matched to a disease by its class.
             if ((decision.Need == DoseNeed.PainRelief || decision.Need == DoseNeed.Sedation) && Medical.Seen.Wants("medical.pain-ladder", patient))
                 Medical.Seen.Note("medical.pain-ladder", patient, chosen.Option.Def.label + " at " + patient.health.hediffSet.PainTotal.ToStringPercent() + " pain");
+            // Medical 0.34.0: an animal dosed, and a mechanoid doctor's dose.
+            if (patient.RaceProps.Animal && Medical.Seen.Wants("medical.animal-dose", patient))
+                Medical.Seen.Note("medical.animal-dose", patient, chosen.Option.Def.label + " for " + decision.Need);
+            if (doctor.RaceProps.IsMechanoid && Medical.Seen.Wants("medical.mech-doctor", doctor, "dose"))
+                Medical.Seen.Note("medical.mech-doctor", doctor, chosen.Option.Def.label, "dose");
             if (decision.Need == DoseNeed.Immunity && chosen.Option.ActsOn.Count > 0 && Medical.Seen.Wants("medical.disease-class", patient))
                 Medical.Seen.Note("medical.disease-class", patient, chosen.Option.Def.label + " for " + string.Join(", ", chosen.Option.ActsOn));
             return job;

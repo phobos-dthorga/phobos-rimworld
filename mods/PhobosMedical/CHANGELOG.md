@@ -21,6 +21,23 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.34.0] - 2026-11-27 - Draft
+
+Care for bonded animals, and mechanoid doctors
+
+### Added
+
+- **Doctors care for the colony's bonded animals and those with a master**: cures, drugs against a disease that is winning,
+  protection from toxins, and relief from extreme pain. Never anything addictive, and nothing their kind cannot swallow. On; switch it
+  off with "Doctors care for bonded animals" (Settings, Emergency dosing). Not yet tested in game: row 694.
+- **Mechanoids with Doctor work do all of this mod's medical work**, as they do the game's own: doses, bedside devices and kits,
+  rinsing, the pressure chamber, radiation medicine and triage's operations. A mechanoid counts its fixed skill where a kit asks for a
+  Medicine level. Not yet tested in game: row 695.
+
+### Save compatibility
+
+- Safe with an existing save. One new setting, on.
+
 ## [0.33.0] - 2026-11-27 - Draft
 
 Sharper dosing: the mildest painkiller that works, drugs matched to the disease, and the healer serum for the dying

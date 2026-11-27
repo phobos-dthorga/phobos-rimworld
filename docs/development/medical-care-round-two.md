@@ -1,7 +1,8 @@
 # Medical care, round two: the gaps left after the care needs (27 Nov 2026)
 
-**Status (27 Nov 2026):** slice 1, sharper dosing, is built in D'thorga Medical 0.33.0 ([as built](#as-built-medical-0330)), not yet
-tested in game (rows 691 to 693). Slices 2, 3 and 5 are next, on the owner's "1, 2, 3, and 5, step-wise if necessary"; slice 4, diseases
+**Status (27 Nov 2026):** slice 1, sharper dosing, is built in D'thorga Medical 0.33.0 ([as built](#as-built-medical-0330)), and
+slice 2, who is covered, in 0.34.0 with Framework 0.351.0 ([as built](#as-built-medical-0340)), not yet tested in game (rows 691 to
+695). Slices 3 and 5 are next, on the owner's "1, 2, 3, and 5, step-wise if necessary"; slice 4, diseases
 that spread, waits. The owner answered all eleven question cards on 27 Nov 2026
 ([the answers](#the-owners-answers-27-nov-2026-by-card-with-every-option-offered)).
 
@@ -21,6 +22,20 @@ revise.
 - **The owner's Defs file is a week old** (written 19 Nov 2026 with 364 active mods; 387 are active now). **Read the Defs again
   before building each slice.**
 - None of this is medical advice. Real medicine is the model for what is plausible, never the source of a figure.
+
+## As built: Medical 0.34.0
+
+Slice 2, as designed below, with these differences and findings.
+
+- **The game lets mechanoids do all doctor work but tend animals**: its own operate and tend givers say nothing, which means yes. So
+  "everything their body can do" opened every work giver of ours, triage's operations included, and nothing needed a body check of
+  its own. A mechanoid has no skills: where a kit asks a Medicine level, its race's fixed level counts (10 for most).
+- **Triage now counts mechanoid surgeons** when it asks whether anyone can do an operation, through the Framework's shared doctor test.
+- **Animals have their own switch**, on (agent default, after the risk grade: moderate). The card chose which animals; the switch lets a
+  player with a large herd say no.
+- **An animal is dosed for pain only when it is extreme**, as the card's design said, and the pain ladder aims under the same band.
+- **Agent choice: no prevention, long-term care or self-medication for animals**, and burns, smoke and triage stay people only, as the
+  design said.
 
 ## As built: Medical 0.33.0
 

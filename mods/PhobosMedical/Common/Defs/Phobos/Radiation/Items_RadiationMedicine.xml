@@ -202,7 +202,8 @@
     <priorityInType>84</priorityInType>
     <verb>give radiation medicine to</verb>
     <gerund>giving radiation medicine to</gerund>
-    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <!-- Mechanoids may do it, as the game's own doctor work (D'thorga Medical 0.34.0; the owner's card of 27 Nov 2026). -->
+    <canBeDoneByMechs>true</canBeDoneByMechs>
     <requiredCapacities>
       <li>Manipulation</li>
     </requiredCapacities>

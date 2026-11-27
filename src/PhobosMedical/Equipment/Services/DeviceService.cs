@@ -91,7 +91,8 @@ public static class DeviceService
                 reason = DeviceRule.MostUrgent(reason, refusal);
                 continue;
             }
-            if (device.minMedicineSkill > 0 && (doctor.skills?.GetSkill(SkillDefOf.Medicine)?.Level ?? 0) < device.minMedicineSkill)
+            // A mechanoid has no skills: its fixed level for all its work counts (Medical 0.34.0, Framework's Doctors.MedicineLevel).
+            if (device.minMedicineSkill > 0 && Doctors.MedicineLevel(doctor) < device.minMedicineSkill)
             {
                 reason = DeviceRule.MostUrgent(reason, DeviceRefusal.NeedsSkill);
                 skillNeeded = device.minMedicineSkill;
@@ -106,6 +107,7 @@ public static class DeviceService
             Job job = JobMaker.MakeJob(MedicalDefOf.PhobosMedical_UseDevice, item, patient);
             job.count = 1;
             Seen.Note("medical.device-job-made", patient, def.label);
+            if (doctor.RaceProps.IsMechanoid && Seen.Wants("medical.mech-doctor", doctor, "device")) Seen.Note("medical.mech-doctor", doctor, def.label, "device");
             return job;
         }
         if (explain && anyPatient && DeviceRule.WorthTelling(reason))
