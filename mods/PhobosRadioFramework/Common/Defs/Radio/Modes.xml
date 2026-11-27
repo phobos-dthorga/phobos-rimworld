@@ -32,6 +32,19 @@
     <transmitEfficiency>0.6</transmitEfficiency>
   </Phobos.Radio.ModeDef>
 
+  <!-- Morse (Radio 0.40.0; docs/development/radio-logbook-qsl-sstv-morse.md): on-off keyed CW in a 500 Hz filter, about 14 dB less noise
+       than a 12.5 kHz voice channel, copied by ear a few decibels above the noise (approximate; agent default: 3 dB). Keyed about half the
+       time while sending. Slow, and it carries no speech. -->
+  <Phobos.Radio.ModeDef>
+    <defName>PhobosRadio_CW</defName>
+    <label>Morse</label>
+    <description>Morse code keyed by hand in a narrow filter. Gets through on a signal far too weak for speech, about 3 dB above the noise (approximate), but is slow and carries no speech.</description>
+    <bandwidthHz>500</bandwidthHz>
+    <requiredSnrDb>3</requiredSnrDb>
+    <dutyCycle>0.4</dutyCycle>
+    <transmitEfficiency>0.6</transmitEfficiency>
+  </Phobos.Radio.ModeDef>
+
   <Phobos.Radio.ModeDef>
     <defName>PhobosRadio_PictureVideo</defName>
     <label>picture</label>

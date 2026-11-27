@@ -76,12 +76,13 @@ public static class LinkBudgetService
     /// floor at each end (simplifications, labelled in the radio's records).
     /// </summary>
     public static LinkEvaluation? EvaluateWorld(RadioEndpoint a, RadioEndpoint b, double distanceMetres, RadioRulesDef rules,
-        double siteAMetres = 0, double siteBMetres = 0)
+        double siteAMetres = 0, double siteBMetres = 0, ModeDef? mode = null)
     {
         // Radio 0.22.0: each end's height above the plain is its aerial and its tile's ground (hilltops), for the horizon and plane earth.
         var heightA = a.AntennaHeightMetres + siteAMetres;
         var heightB = b.AntennaHeightMetres + siteBMetres;
-        var mode = a.Mode;
+        // Radio 0.40.0: a link may be worked in another mode than the radio's own (Morse, when both ends have a key).
+        mode ??= a.Mode;
         var floorAtA = NoiseFloor.TotalDbm(mode.bandwidthHz, a.NoiseFigureDb, double.NegativeInfinity);
         var floorAtB = NoiseFloor.TotalDbm(mode.bandwidthHz, b.NoiseFigureDb, double.NegativeInfinity);
         var overHorizon = distanceMetres > Propagation.RadioHorizonMetres(heightA, heightB);

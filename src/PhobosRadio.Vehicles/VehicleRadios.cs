@@ -105,6 +105,13 @@ public static class VehicleRadios
     public static bool Repeats(VehiclePawn vehicle) =>
         vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(RepeaterGrant) && systems.LoadActive(RepeaterLoad);
 
+    /// <summary>What the Morse key grants (Radio 0.40.0; MorseKey.xml).</summary>
+    public const string MorseGrant = "RadioMorse";
+
+    /// <summary>Whether this vehicle can work Morse: its radio fitted and the Morse key on it.</summary>
+    public static bool Keys(VehiclePawn vehicle) =>
+        Fitted(vehicle) && vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(MorseGrant);
+
     public static bool Carried(VehiclePawn vehicle) =>
         Fitted(vehicle) || vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Carries(KitGrant);
 

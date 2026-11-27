@@ -22,6 +22,16 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.350.0] - 2026-11-27 - Draft
+
+A bay for the Morse key, and a convoy in touch by Morse
+
+### Added
+
+- **Every land vehicle has a small Morse key bay** for the Radio Framework's Morse key fitting, and a convoy's reach home says when it is
+  by Morse only, so the radio's advice and lessons know it carries no speech. Without the Radio Framework nothing changes. Not yet tested
+  in game: row 684.
+
 ## [0.349.0] - 2026-11-27 - Draft
 
 A tank's hose empties and fills containers that keep a load

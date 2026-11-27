@@ -29,7 +29,7 @@ public enum AdvicePlace
 }
 
 /// <summary>A home a person off the map reaches by radio: its map, the link's margin, and what the person reaches it through.</summary>
-public readonly record struct RemoteHome(double MarginDb, Map Home);
+public readonly record struct RemoteHome(double MarginDb, Map Home, bool Morse = false);
 
 /// <summary>
 /// Something that can say which colonies a person off the map reaches by radio: the Vehicle Framework tie-in, for convoys. Since Radio
@@ -217,7 +217,10 @@ public static class RadioAdvice
         // among the relays, until one has someone who can help. The others are asked only when the first could not help.
         foreach (RemoteHome remote in RemoteReach.Of(carer))
         {
-            if (SeekAt(carer, def, remote.Home, rules.MarginBands.Classify(remote.MarginDb)) is { } offer) return offer;
+            // Radio 0.40.0: by Morse, advice is held to a marginal link's share (the owner's card: a quarter).
+            LinkOutcome outcome = rules.MarginBands.Classify(remote.MarginDb);
+            if (remote.Morse) outcome = AdviceRule.Worse(outcome, LinkOutcome.Marginal);
+            if (SeekAt(carer, def, remote.Home, outcome) is { } offer) return offer;
         }
         // Radio 0.26.0: nobody at any colony in reach can help: another faction's doctor, from the convoy's radio or the cross-band vehicle.
         if (def.fromFactions && FactionDoctors.On && RemoteReach.WorldEndOf(carer) is { } end)

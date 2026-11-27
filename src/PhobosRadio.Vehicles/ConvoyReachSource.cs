@@ -119,6 +119,8 @@ public sealed class ConvoyReachSource : IConvoyReachSource
             return new ConvoyReach(true, metres / 1000.0, horizon / 1000.0, found.chain.WorstMarginDb, line, home.Tile);
         }
         ReachDrawing.Keep(convoy, null);
+        // Radio 0.40.0: out of voice reach, but a Morse key at each end may still get through, directly.
+        if (ByMorse(convoy, start, rules) is { } morse) return morse;
         // Out of reach: said against the nearest home, directly.
         RelayNode nearest = homes.OrderBy(h => Find.WorldGrid.ApproxDistanceInTiles(convoy.Tile, h.Tile)).First();
         double far = Find.WorldGrid.ApproxDistanceInTiles(convoy.Tile, nearest.Tile) * rules.metresPerWorldTile;
@@ -129,6 +131,45 @@ public sealed class ConvoyReachSource : IConvoyReachSource
         // Radio 0.24.0: a relay that would have carried it, full of other calls.
         if (RelayNodes.BusyFor(convoy) is { } busy) why += " " + "PhobosRadioReach_RelayBusy".Translate(busy.Named("RELAYS")).Resolve();
         return new ConvoyReach(false, far / 1000.0, reachable / 1000.0, margin, why);
+    }
+
+    // ---- Morse (Radio 0.40.0) ----
+
+    /// <summary>
+    /// The convoy's reach home by Morse, when voice has none (docs/development/radio-logbook-qsl-sstv-morse.md, the owner's card: in touch,
+    /// and advice at a quarter): a vehicle in it with the Morse key, and a powered base station at home with one, worked directly in the CW
+    /// mode, the best margin. No relays carry it: they are voice repeaters. Null when no key pair reaches.
+    /// </summary>
+    static ConvoyReach? ByMorse(Caravan convoy, RelayNode start, RadioRulesDef rules)
+    {
+        if (DefDatabase<ModeDef>.GetNamedSilentFail("PhobosRadio_CW") is not { } cw) return null;
+        if (convoy is not VehicleCaravan vehicles || !vehicles.VehiclesListForReading.Any(VehicleRadios.Keys)) return null;
+        RelayNode? best = null;
+        double bestMargin = double.NegativeInfinity, bestMetres = 0;
+        foreach (Map map in Find.Maps.Where(m => m.IsPlayerHome))
+        {
+            foreach (CompRadio station in RadioNet.For(map).Stations)
+            {
+                if (station.parent.TryGetComp<CompPowerTrader>() is { PowerOn: false }) continue;
+                if (RadioUpgrades.Figure(station.parent, RadioUpgrades.MorseKey, 0f) < 1f) continue;
+                double metres = Find.WorldGrid.ApproxDistanceInTiles(convoy.Tile, map.Tile) * rules.metresPerWorldTile;
+                foreach (RadioEndpoint end in RadioNet.StationEndpoints(station, RadioMod.Settings.metresPerCell))
+                {
+                    double site = RelayNode.SiteOf(map.Tile);
+                    if (LinkBudgetService.EvaluateWorld(start.End, end, metres, rules, start.SiteMetres, site, cw) is not { InTouch: true } link) continue;
+                    if (link.MarginDb <= bestMargin) continue;
+                    bestMargin = link.MarginDb;
+                    bestMetres = metres;
+                    best = new RelayNode(end, map.Tile, map.Parent.LabelCap, map, SiteMetres: site);
+                }
+            }
+        }
+        if (best == null) return null;
+        double horizon = Propagation.RadioHorizonMetres(start.End.AntennaHeightMetres + start.SiteMetres, best.End.AntennaHeightMetres + best.SiteMetres);
+        string line = "PhobosRadioReach_InTouchMorse".Translate(best.Label.Named("HOME"), (bestMetres / 1000.0).ToString("0").Named("KM"),
+            bestMargin.ToString("0").Named("MARGIN")).Resolve();
+        if (Seen.Wants("radio.morse-reach", start.End.Thing)) Seen.Note("radio.morse-reach", start.End.Thing, bestMargin.ToString("0") + " dB by Morse");
+        return new ConvoyReach(true, bestMetres / 1000.0, horizon / 1000.0, bestMargin, line, best.Tile, Morse: true);
     }
 
     // ---- Putting up a relay mast (Radio 0.22.0) ----

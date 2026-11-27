@@ -23,6 +23,23 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.40.0] - 2026-11-27 - Draft
+
+The Morse key: in touch where voice cannot reach
+
+### Added
+
+- **A Morse key for the base station and for vehicles** (the owner's card of 27 November 2026: in touch, and advice at a quarter). With a
+  key on the station's desk (an upgrade) and on a convoy vehicle with the remote control kit's radio (a fitting), a convoy out of voice
+  reach keeps in touch with home by Morse: about 23 dB better than FM voice (a 500 Hz filter, copied by ear a few decibels above the
+  noise; approximate), three to four times as far between tiles. Direct only: relays are voice repeaters. Its colonists keep the
+  in-touch mood, and advice by radio closes a quarter of the gap; no radio lessons or chats go over it. Not yet tested in game: row 684.
+
+### Compatibility and limits
+
+- The Morse mode's figures, the keys' costs and research are agent defaults; the vehicle fitting borrows the repeater kit's picture until
+  its own icon is drawn. Safe with a running save.
+
 ## [0.39.0] - 2026-11-27 - Draft
 
 A picture for the doctor: the slow-scan camera kit

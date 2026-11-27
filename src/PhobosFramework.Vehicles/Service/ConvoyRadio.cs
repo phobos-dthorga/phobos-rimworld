@@ -8,7 +8,9 @@ namespace Phobos.VehicleSystems;
 
 /// <summary>Whether a convoy can talk to home now, and why: what the radio's own link budget found (EM33). <paramref name="HomeTile"/> is the
 /// home it reaches (Framework 0.330.0, for advice by radio), or -1.</summary>
-public readonly record struct ConvoyReach(bool InTouch, double DistanceKm, double HorizonKm, double MarginDb, string Line, int HomeTile = -1);
+/// <remarks><paramref name="Morse"/> (Framework, with Radio 0.40.0): in touch only by Morse, which carries no speech: the radio's advice is held
+/// to a marginal link's share, and nothing that needs talk (a lesson, a chat) goes over it.</remarks>
+public readonly record struct ConvoyReach(bool InTouch, double DistanceKm, double HorizonKm, double MarginDb, string Line, int HomeTile = -1, bool Morse = false);
 
 /// <summary>Something that can answer whether a convoy is in radio reach of home: the Radio Framework's tie-in, when it is installed.</summary>
 public interface IConvoyReachSource

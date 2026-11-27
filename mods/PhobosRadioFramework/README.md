@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.39.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.40.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -74,6 +74,8 @@ figures are here.
 - **The station logbook (0.38.0)**: a Log tab on the station with radio friends, settlements in reach, every call, and QSL cards
   drawn in each faction's colours; awards for sets of cards lift the mood of those who work the radio
   ([the guide](../../docs/player-guide/radio.md#the-logbook-and-qsl-cards)).
+- **The Morse key (0.40.0)**: a station upgrade and a vehicle fitting that keep a convoy in touch by Morse three to four times as far as
+  voice, with advice at a quarter of the gap ([the guide](../../docs/player-guide/radio.md#morse)).
 - **Upgrades** for the desk and the antennas, fitted by builders.
 
 | Thing | Where | What it is |

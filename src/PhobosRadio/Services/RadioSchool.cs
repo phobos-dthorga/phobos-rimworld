@@ -79,7 +79,8 @@ public static class RadioSchool
             foreach (Pawn candidate in convoy.PawnsListForReading)
             {
                 if (!candidate.IsColonist || !CanTeach(candidate)) continue;
-                if (!RemoteReach.Of(candidate).Any(home => home.Home == map)) break;
+                // Radio 0.40.0: no lessons by Morse: it carries no speech.
+                if (!RemoteReach.Of(candidate).Any(home => home.Home == map && !home.Morse)) break;
                 Consider(candidate, null);
             }
         }
@@ -115,7 +116,7 @@ public static class RadioSchool
     {
         if (teacher.Dead || teacher.Destroyed || teacher.Downed || !teacher.Awake()) return false;
         if (teacher.Spawned) return teacher.CurJob is { } job && job.def == RadioSchoolDefOf.PhobosRadio_TeachByRadio && job.targetA.Thing == child;
-        return teacher.GetCaravan() != null && RemoteReach.Of(teacher).Any(home => home.Home == map);
+        return teacher.GetCaravan() != null && RemoteReach.Of(teacher).Any(home => home.Home == map && !home.Morse);
     }
 }
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The station's Morse key (Radio 0.40.0; docs/development/radio-logbook-qsl-sstv-morse.md, the owner's card of 27 Nov 2026: "In touch, and
+    advice at a quarter"). With it, the base station works a convoy whose vehicle has a Morse key too, in Morse, where voice cannot reach:
+    about 23 dB better, three to four times as far between tiles. Real basis: a CW filter and a key on an all-mode set. Cost, work, skill and
+    research are agent defaults, authored. Not yet tested in game.
+  -->
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeMorseKey</defName>
+    <label>Morse key</label>
+    <description>A Morse key and a narrow filter on the desk. With it, the station keeps in touch by Morse with a convoy that also has a key, far beyond the reach of voice: slow, and no speech, but enough to stay in touch and talk a carer through by code.</description>
+    <buildings>
+      <li>PhobosRadio_BaseStation</li>
+    </buildings>
+    <costList>
+      <Steel>8</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <work>600</work>
+    <constructionSkill>3</constructionSkill>
+    <researchPrerequisite>PhobosRadio_LocalRadio</researchPrerequisite>
+    <figures>
+      <!-- 1: the station has a key (Phobos.Radio.Services.RadioUpgrades.MorseKey). -->
+      <li><name>morseKey</name><value>1</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+</Defs>

@@ -384,6 +384,7 @@
     "681": ["radio.qsl-card"],
     "682": [{"key": "radio.qsl-award", "variant": "ThreeFactions"}],
     "683": [{"key": "radio.advice-picture", "variant": "Tend"}],
+    "684": ["radio.morse-reach"],
     "661": {"parts": {"a doctor's call done": [{"key": "radio.neighbour-call", "variant": "medicine"}],
       "a mechanic's call done": [{"key": "radio.neighbour-call", "variant": "repairs"}]}},
     "659": [{"key": "radio.school-lesson", "variant": "map"}],

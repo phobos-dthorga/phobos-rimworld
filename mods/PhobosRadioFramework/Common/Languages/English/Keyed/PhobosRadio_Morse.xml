@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The Morse key (Radio 0.40.0). -->
+  <PhobosRadioReach_InTouchMorse>In touch with {HOME} by Morse only: {KM} km away, {MARGIN} dB to spare. Too far for speech; advice by Morse is slow.</PhobosRadioReach_InTouchMorse>
+</LanguageData>

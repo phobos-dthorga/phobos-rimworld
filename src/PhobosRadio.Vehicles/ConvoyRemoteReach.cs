@@ -29,7 +29,9 @@ public sealed class ConvoyRemoteReach : IRemoteReachSource
         // Out of reach of every colony, no search aimed at one could reach it either: the same relays, fewer targets.
         if (ConvoyRadio.Of(convoy) is not { InTouch: true } reach || reach.HomeTile < 0) yield break;
         Map? first = Find.Maps.FirstOrDefault(map => map.Tile == reach.HomeTile);
-        if (first != null) yield return new RemoteHome(reach.MarginDb, first);
+        if (first != null) yield return new RemoteHome(reach.MarginDb, first, reach.Morse);
+        // Radio 0.40.0: by Morse there are no relays, so no other colony is reached through one.
+        if (reach.Morse) yield break;
         foreach (Map colony in Find.Maps.Where(map => map.IsPlayerHome && map != first).ToList())
         {
             if (ConvoyReachSource.MarginTo(convoy, colony) is { } margin) yield return new RemoteHome(margin, colony);

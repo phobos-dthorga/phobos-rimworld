@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The vehicle's Morse key (Radio 0.40.0; docs/development/radio-logbook-qsl-sstv-morse.md, the owner's card of 27 Nov 2026: "In touch,
+       and advice at a quarter"): a key and a CW unit for the vehicle's control radio, in the Morse key bay every land vehicle has
+       (Loadouts_Default.xml). With a station's key at home, the convoy keeps in touch by Morse where voice cannot reach. It draws nothing worth
+       counting. Cost, research, weight, work and skill are agent defaults. It borrows the repeater kit's picture until its own icon is drawn.
+       Not yet tested in game. -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_MorseKey</defName>
+    <iconPath>Phobos/Radio/Fittings/RepeaterKit</iconPath>
+    <label>Morse key</label>
+    <description>A Morse key and a narrow CW unit for the vehicle's control radio. With a base station at home that has a Morse key too, a convoy keeps in touch with home by Morse far beyond the reach of voice: slow, and no speech, but enough to stay in touch and to be talked through by code. It needs the remote control kit's radio.</description>
+    <roles><li>MorseKeyMount</li></roles>
+    <materials><Steel>6</Steel><ComponentIndustrial>1</ComponentIndustrial></materials>
+    <kilograms>2</kilograms>
+    <work>600</work>
+    <minSkill>2</minSkill>
+    <researchPrerequisite>PhobosRadio_LocalRadio</researchPrerequisite>
+    <grants><li>RadioMorse</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

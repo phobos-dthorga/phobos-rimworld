@@ -425,6 +425,22 @@
         </add>
       </li>
       <li>
+        <!-- The Morse key (with Radio 0.40.0; docs/development/radio-logbook-qsl-sstv-morse.md, the owner's card of 27 Nov 2026: in touch, and
+             advice at a quarter): a key and a CW unit beside the control radio, appended to every land vehicle so the Radio Framework's Morse
+             key fitting has a part to go on. Inside the body; health and hit weight authored, a small box's. -->
+        <role>MorseKeyMount</role>
+        <add>
+          <key>PhobosMorseKeyMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>Morse key</label>
+          <health>10</health>
+          <depth>Internal</depth>
+          <hitWeight>0.03</hitWeight>
+          <hitWeightCE>1</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <!-- Framework 0.129.0, vehicle accessories (docs/development/vehicle-accessories.md, the power budget): a bay in the cargo space for a
              12 V fridge, a tray for a house battery and a panel for a power outlet, appended to every land vehicle so each accessory has a
              part to go on and is lost with it (one fitting to a part). Inside the body; health and hit weight authored, small boxes'. -->

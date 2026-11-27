@@ -181,6 +181,16 @@ Construction **6 or more**, free and in radio touch.
 - **No** costs nothing. A letter left unanswered goes after 6 hours.
 - Setting: **Neighbours ask for help by radio**, on by default.
 
+## Morse
+
+**A Morse key keeps a convoy in touch with home far beyond the reach of voice.** Fit the **Morse key** upgrade to a base station's desk,
+and the **Morse key** fitting to a convoy vehicle that has the remote control kit's radio.
+
+- Morse is narrow and copied by ear on a weak signal, so it reaches **three to four times as far** as speech between tiles. Direct only:
+  relays carry voice, not Morse.
+- A convoy in touch only by Morse keeps the in-touch mood, and advice by radio still helps, but only **a quarter** of the gap. No radio
+  lessons or chats go over it.
+
 ## The logbook and QSL cards
 
 **Select a radio station or terminal and open its Log tab.** It lists your colonists' radio friends, the settlements in reach, and the

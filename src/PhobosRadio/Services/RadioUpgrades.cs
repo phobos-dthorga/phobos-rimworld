@@ -22,6 +22,8 @@ public static class RadioUpgrades
     public const string NoiseFigureReductionDb = "noiseFigureReductionDb";
     /// <summary>Whether a station passes calls on between world tiles, 1 for yes (Radio 0.24.0): the repeater.</summary>
     public const string Repeater = "repeater";
+    /// <summary>The station has a Morse key (Radio 0.40.0): 1 with the upgrade.</summary>
+    public const string MorseKey = "morseKey";
 
     /// <summary>A figure on a building: what its fitted upgrades set, else its own.</summary>
     public static float Figure(Thing thing, string name, float own) =>
