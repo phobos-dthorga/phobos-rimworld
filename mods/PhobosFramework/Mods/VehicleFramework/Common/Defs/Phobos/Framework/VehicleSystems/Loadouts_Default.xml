@@ -1457,11 +1457,13 @@
     </loads>
     <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS2 and VS3; the owner's card of 27 Nov 2026): a boat's radio bays, as
          every land vehicle's, and a voice radio from the factory (the dual-band set, standing in for a marine VHF set: our bands, not the
-         marine band, a labelled simplification). Added to the combustion base's part roles. -->
+         marine band, a labelled simplification). Added to the combustion base's part roles. Framework 0.359.0: not on a submarine
+         (submarine work is on the owner's back burner). -->
     <partRoles>
       <li>
         <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS2): as on every land vehicle. -->
         <role>VoiceRadioMount</role>
+        <notOnSubmersibles>true</notOnSubmersibles>
         <add>
           <key>PhobosVoiceRadioMount</key>
           <countsTowardDestruction>false</countsTowardDestruction>
@@ -1476,6 +1478,7 @@
       <li>
         <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS2): as on every land vehicle. -->
         <role>RepeaterMount</role>
+        <notOnSubmersibles>true</notOnSubmersibles>
         <add>
           <key>PhobosRepeaterMount</key>
           <countsTowardDestruction>false</countsTowardDestruction>
@@ -1490,6 +1493,7 @@
       <li>
         <!-- Framework 0.356.0 (docs/development/vehicle-standard.md, VS2, VS4): ships kept their keys longest. -->
         <role>MorseKeyMount</role>
+        <notOnSubmersibles>true</notOnSubmersibles>
         <add>
           <key>PhobosMorseKeyMount</key>
           <countsTowardDestruction>false</countsTowardDestruction>

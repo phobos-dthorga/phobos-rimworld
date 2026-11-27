@@ -1,8 +1,10 @@
 # The vehicle standard: what every kind of vehicle shows on Systems, Fittings and Health (27 Nov 2026)
 
 **Status (27 Nov 2026):** the standard, and its first batch. **Batch 1 is built** (VS1 to VS3, radios everywhere): Radio Framework
-0.49.0 and D'thorga Framework 0.356.0 ([as built](#built-batch-1-27-nov-2026)); not yet tested in game (rows 710 and 711). Batches 2 to 5
-are proposals. The owner answered four cards ([below](#questions-for-the-owner)).
+0.49.0 and D'thorga Framework 0.356.0 ([as built](#built-batch-1-27-nov-2026)); not yet tested in game (rows 710 and 711). **Batch 2 is
+built** (the audit, and the gaps it found): D'thorga Framework 0.359.0, D'thorga Vehicles 0.130.2 and Radio Framework 0.52.0 ([as
+built](#built-batch-2-27-nov-2026)); not yet tested in game (row 723). Batches 3 to 5 are proposals. The owner answered four cards
+([below](#questions-for-the-owner)).
 
 **Why.** The owner, 27 Nov 2026, looking at their aircraft: "Wouldn't radios of some sort be included with the majority of the ones in
 my game, if not all, by default? And if that's the case, howcome there's no mention of them on the Systems, Fittings, nor Health pages?
@@ -63,9 +65,11 @@ where it changes an outcome** (the vehicles' rule: every node moves a figure tha
 
 ## How the standard is kept
 
-- **A new audit kind, "below the standard"**, in `scripts/vehicle-bindings.py`'s audit: `config/vehicle-standard.json` lists, for each
-  kind, the systems and roles the standard asks for and the ones it rules out, and the audit names every vehicle that misses one or
-  has one it should not. It reads the same report the game writes, so it checks what the game really did. (Agent's lean, for the owner.)
+- **Run `python scripts/vehicle-bindings.py`** after a game start (built in batch 2, the owner's card): its **Below the standard** section
+  names every vehicle that lacks a system or part role a built line asks of its kind, and **Still to come** counts what each planned line
+  will reach. `config/vehicle-standard.json` is the standard as data: the kinds (first match wins), the lines (built or planned, by kind
+  or by named vehicle, some only for powered vehicles), and exceptions with their reasons. It reads the report the game writes at each
+  start, so it checks what the game really did: **a fix shows there only after the game has started with it**.
 - **The standard is data**, so the next game's vehicles (Kenshi has none; a future one may) are a new file, not new code.
 
 ## Batches
@@ -73,7 +77,7 @@ where it changes an outcome** (the vehicles' rule: every node moves a figure tha
 | Batch | Lines | Why in this order |
 | --- | --- | --- |
 | 1 | VS1, VS2, VS3 (radios everywhere) | The owner's question; it is also slice 3 of electronic warfare (radio bays on aircraft, the flying relay) |
-| 2 | The audit kind and `config/vehicle-standard.json` | So every later batch is checked, and nothing slips back |
+| 2 | The audit kind and `config/vehicle-standard.json`. **Built 27 Nov 2026** | So every later batch is checked, and nothing slips back |
 | 3 | VS6, VS7 (fuel and oil for aircraft) | Real systems every aircraft has, with clear failures |
 | 4 | VS9, VS10 (lights and transports' galleys) | Accessories that already exist; mostly XML |
 | 5 | VS11 (what does not belong) | Takes things away from players' vehicles, so it waits for the owner's word on each |
@@ -98,6 +102,23 @@ lookups and one dictionary lookup on the systems' own rare step; an aircraft on 
 **Not built in batch 1:** the crew's "in touch with home" mood aboard a vehicle in touch; boats on the marine VHF band (they use the
 dual-band set, a labelled simplification; a decision is open); the flying relay (EW7, slice 3's second part), which needs a way for an
 aircraft to hold over a place on the world map, as flights there only go from A to B today.
+
+## Built: batch 2 (27 Nov 2026)
+
+The owner's word the same day ("Start batch 2 of the standard"). **Not yet tested in game**: row 723 of the [test
+pass](in-game-test-pass.md). What it added, and what its first run found against the owner's report of 27 Nov 2026 (11:39 UTC; 95
+vehicles: land 58, fixed-wing 10, rotor 10, trailer 13, boat 2, submarine 2):
+
+| Piece | As built |
+| --- | --- |
+| The audit kind | **Below the standard** and **Still to come** in `scripts/vehicle-bindings.py`, from `config/vehicle-standard.json`; tests in `tests/test_vehicle_bindings.py` |
+| Kinds | trailer (its loadout's name), submarine (named: the Seabed Crawler and the X-1), rotor (a rotor drive role), fixed-wing (flight controls), boat (the boat loadout), land (the rest) |
+| Found: three land vehicles below VS2 and VS4 | The **Busbar generator set** and the **Goat DE2** (both write their own part roles) and the **VVE Lightning** (the electric loadout, written apart from the land base) had no voice radio, repeater or Morse key bay. **Fixed**: the bays added to their three loadouts |
+| Found: a fault of batch 1 | The **submarines** use the boat loadout, so batch 1 gave them the boats' radio bays, a factory radio and the Comms system: new submarine work, which the owner's back burner (20 Nov 2026) forbids. **Undone**: a part role or a system may now say `notOnSubmersibles`, and the boat's three radio bays and the Comms system do, so a design with the submersible comp takes none of them. A factory fitting is no longer marked as given to a vehicle with no bay for it, so a submarine gets its radio once submarine work returns. In a save where a submarine already took the radio, the fitting stays recorded with no bay to sit in |
+| Still to come | VS6 and VS7 (fuel and oil) on 20 aircraft, VS9 (lamps) on 24 aircraft and boats, VS10 (galleys) on 4 transports: batches 3 and 4 |
+
+**What a next game would need:** a report of its own vehicles' systems and parts, and a standard file like this one; the audit's code
+reads only the two files' shapes.
 
 ## Questions for the owner
 

@@ -9,7 +9,7 @@
     <AssemblyName>PhobosRadio.Vehicles</AssemblyName>
     <ModFolder>PhobosRadioFramework</ModFolder>
     <TieInFolder>Mods/VehicleFramework/</TieInFolder>
-    <Version>0.51.0</Version>
+    <Version>0.52.0</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>

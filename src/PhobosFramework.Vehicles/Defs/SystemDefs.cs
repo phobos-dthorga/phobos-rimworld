@@ -361,6 +361,9 @@ public class PhobosVehicleSystemDef : Def
     public List<string> roles = new();
     /// <summary>The system's parameters come from the loadout's avionics fit (Framework 0.110.0; the avionics system).</summary>
     public bool takesAvionicsFit;
+    /// <summary>Left off a design that dives (one with CompProperties_PhobosSubmersible), Framework 0.359.0: submarine work is on the
+    /// owner's back burner (20 Nov 2026), so what is added for boats in general is not added to them.</summary>
+    public bool notOnSubmersibles;
 
     [Unsaved] VehicleSystemWorker? worker;
 
@@ -525,6 +528,9 @@ public class PartRoleSpec
     public bool all;
     public List<PartFinder> find = new();
     public PartToAdd? add;
+    /// <summary>Left off a design that dives (one with CompProperties_PhobosSubmersible), Framework 0.359.0: submarine work is on the
+    /// owner's back burner (20 Nov 2026), so what is added for boats in general is not added to them.</summary>
+    public bool notOnSubmersibles;
 }
 
 /// <summary>An electrical consumer: amperes drawn while its condition holds (and, for a switch, while it is switched on).</summary>

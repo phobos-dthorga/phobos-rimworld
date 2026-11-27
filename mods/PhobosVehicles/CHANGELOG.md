@@ -13,6 +13,15 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.130.2] - 2026-11-27 - Draft
+
+Radio bays on the Busbar and the Goat DE2
+
+### Fixed
+
+- **The Busbar generator set and the Goat DE2 locomotive have the radio bays every land vehicle has**: voice radio, repeater and Morse
+  key. Both write their own part list, so they had missed them; the vehicle standard's audit found it.
+
 ## [0.130.1] - 2026-11-27 - Draft
 
 The jammer mast's description

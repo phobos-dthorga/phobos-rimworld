@@ -23,6 +23,15 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.52.0] - 2026-11-27 - Draft
+
+No Comms system on submarines
+
+### Fixed
+
+- **Submarines no longer show a Comms system**, which 0.49.0 gave them by mistake while submarine work is set aside (with D'thorga
+  Framework 0.359.0).
+
 ## [0.51.0] - 2026-11-27 - Draft
 
 A seat at the radio, and calls at the desk take a channel

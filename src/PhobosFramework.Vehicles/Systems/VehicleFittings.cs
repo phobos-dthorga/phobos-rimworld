@@ -1554,6 +1554,8 @@ public sealed class VehicleFittings
         foreach (PhobosVehicleFittingDef def in list)
         {
             if (def == null || factoryGiven.Contains(def.defName)) continue;
+            // Framework 0.359.0: a vehicle with no bay for it at all is not marked as given, so it comes with it once a bay is added.
+            if (!def.roles.Any(comp.Props.roleKeys.ContainsKey)) continue;
             factoryGiven.Add(def.defName);
             if (Has(def) || !Suits(def)) continue;
             string? key = def.roles.Where(comp.Props.roleKeys.ContainsKey).SelectMany(role => comp.Props.roleKeys[role]).FirstOrDefault(k => FittedOn(k) == null);

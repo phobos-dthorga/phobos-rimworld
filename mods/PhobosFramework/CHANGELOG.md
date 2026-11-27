@@ -22,6 +22,25 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.359.0] - 2026-11-27 - Draft
+
+The vehicle standard's audit, and submarines left as they were
+
+### Added
+
+- **Every vehicle is checked against the vehicle standard** (the owner's word of 27 November 2026): the repository's vehicle bindings
+  audit now names any vehicle lacking what the standard asks of its kind. Its first run found electric vehicles without radio bays: the
+  electric loadout now has the voice radio, repeater and Morse key bays. Not yet tested in game: row 723.
+
+### Fixed
+
+- **Submarines no longer take the boats' radio bays, factory radio or Comms system**, which 0.356.0 gave them by mistake while
+  submarine work is set aside. A part role or a system can now be marked not for a design that dives.
+
+### Compatibility and limits
+
+- A submarine that already took the factory radio keeps it on record with no bay to sit in. Safe with a running save.
+
 ## [0.358.0] - 2026-11-27 - Draft
 
 Radiation from other nuclear and antimatter blasts

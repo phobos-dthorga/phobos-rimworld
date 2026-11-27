@@ -1,0 +1,175 @@
+{
+  "doc": "The vehicle standard as data (docs/development/vehicle-standard.md; the owner's card of 27 Nov 2026: 'An audit kind'). scripts/vehicle-bindings.py's audit reads it against D'thorga Framework's bindings report, so it checks what the game really bound. 'kinds' sorts each vehicle into one kind, the first match winning; 'lines' says what every vehicle of a kind must show; a line marked 'planned' is listed as still to come, not as a fault; 'except' excuses one vehicle from one line, with why. A next game's vehicles would be a file like this one beside its own report.",
+  "kinds": [
+    {
+      "kind": "trailer",
+      "match": {
+        "loadoutContains": "Trailer"
+      },
+      "why": "Our trailer loadouts; a towed thing with no engine of its own."
+    },
+    {
+      "kind": "trailer",
+      "match": {
+        "loadoutContains": "Bowser"
+      },
+      "why": "The water and fuel bowsers are trailers too."
+    },
+    {
+      "kind": "rotor",
+      "match": {
+        "hasRole": "RotorDrive"
+      },
+      "why": "A rotor drive: helicopters, and the tiltrotor and turboprop transports our loadouts give one."
+    },
+    {
+      "kind": "fixed-wing",
+      "match": {
+        "hasSystem": "PhobosVehicleSystem_FlightControls"
+      },
+      "why": "Flight controls and no rotor drive."
+    },
+    {
+      "kind": "submarine",
+      "match": {
+        "vehicles": [
+          "Phobos_SeabedCrawler",
+          "Phobos_SubmarineTestHull"
+        ]
+      },
+      "why": "Our submarines: no line applies while submarine work is on the owner's back burner (20 Nov 2026); D'thorga Framework leaves the boats' radio bays and the Comms system off them."
+    },
+    {
+      "kind": "boat",
+      "match": {
+        "loadoutContains": "Boat"
+      },
+      "why": "The boat loadout."
+    },
+    {
+      "kind": "land",
+      "match": {},
+      "why": "Everything else with our systems."
+    }
+  ],
+  "powered": [
+    "PhobosVehicleSystem_Electrical",
+    "PhobosVehicleSystem_AuxiliaryElectrical"
+  ],
+  "lines": [
+    {
+      "line": "VS1",
+      "label": "a Comms system",
+      "status": "built",
+      "kinds": [
+        "land",
+        "fixed-wing",
+        "rotor",
+        "boat"
+      ],
+      "poweredOnly": true,
+      "systems": [
+        "PhobosVehicleSystem_Comms"
+      ]
+    },
+    {
+      "line": "VS2",
+      "label": "voice radio and repeater bays",
+      "status": "built",
+      "kinds": [
+        "land",
+        "fixed-wing",
+        "rotor",
+        "boat"
+      ],
+      "poweredOnly": true,
+      "roles": [
+        "VoiceRadioMount",
+        "RepeaterMount"
+      ]
+    },
+    {
+      "line": "VS2",
+      "label": "an aviation radio bay",
+      "status": "built",
+      "kinds": [
+        "fixed-wing",
+        "rotor"
+      ],
+      "roles": [
+        "AviationRadioMount"
+      ]
+    },
+    {
+      "line": "VS4",
+      "label": "a Morse key bay",
+      "status": "built",
+      "kinds": [
+        "land",
+        "boat"
+      ],
+      "poweredOnly": true,
+      "roles": [
+        "MorseKeyMount"
+      ]
+    },
+    {
+      "line": "VS6",
+      "label": "a fuel system",
+      "status": "planned",
+      "batch": 3,
+      "kinds": [
+        "fixed-wing",
+        "rotor"
+      ],
+      "systems": [
+        "PhobosVehicleSystem_Fuel"
+      ]
+    },
+    {
+      "line": "VS7",
+      "label": "an oil system",
+      "status": "planned",
+      "batch": 3,
+      "kinds": [
+        "fixed-wing",
+        "rotor"
+      ],
+      "systems": [
+        "PhobosVehicleSystem_Lubrication"
+      ]
+    },
+    {
+      "line": "VS9",
+      "label": "a lamp mount",
+      "status": "planned",
+      "batch": 4,
+      "kinds": [
+        "fixed-wing",
+        "rotor",
+        "boat"
+      ],
+      "roles": [
+        "LampMount"
+      ]
+    },
+    {
+      "line": "VS10",
+      "label": "a galley, water and outlets",
+      "status": "planned",
+      "batch": 4,
+      "vehicles": [
+        "C17_Globemaster",
+        "Phobos_Osprey",
+        "Phobos_C27J",
+        "VVE_Trawler"
+      ],
+      "roles": [
+        "FridgeBay",
+        "WaterTankBay",
+        "OutletPanel"
+      ]
+    }
+  ],
+  "except": []
+}

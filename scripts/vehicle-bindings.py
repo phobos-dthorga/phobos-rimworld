@@ -13,6 +13,8 @@ The audit's kinds:
   - unbound system: a system that names roles, none bound on the vehicle (the Systems tab shows readings with no part).
   - cover-like part: a role bound to a part whose key or label reads like a cover, door, hatch, panel or window.
   - unwatched part: an internal part that moves a stat but no role binds, so no system speaks for it.
+  - below the standard: a vehicle missing a system or part role the vehicle standard asks of its kind (config/vehicle-standard.json;
+    docs/development/vehicle-standard.md). A line the standard marks as planned is listed apart, as still to come.
 """
 from __future__ import annotations
 
@@ -29,6 +31,7 @@ import deploy  # noqa: E402  (shared path settings)
 REPORT = ('PhobosPatchedDefs', 'VehicleBindings.json')   # where D'thorga Framework writes it (Systems/SystemParts.cs)
 COVER_WORDS = re.compile(r'(?<!re)cover|door|hatch|panel|window|armou?r(?!ed)', re.IGNORECASE)
 EXPECTED = Path(__file__).resolve().parents[1] / 'config' / 'vehicle-bindings.json'
+STANDARD = Path(__file__).resolve().parents[1] / 'config' / 'vehicle-standard.json'
 
 
 def expected(path: Path = EXPECTED) -> dict:
@@ -47,6 +50,66 @@ def _unwatched_expected(rules: dict, key: str, categories: list) -> bool:
         if 'categoryPrefix' in rule and categories and all(c.startswith(rule['categoryPrefix']) for c in categories):
             return True
     return False
+
+
+def standard(path: Path = STANDARD) -> dict:
+    """The vehicle standard as data (config/vehicle-standard.json): an empty standard when the file is missing."""
+    return json.loads(path.read_text(encoding='utf-8')) if path.is_file() else {}
+
+
+def kind_of(vehicle: dict, std: dict) -> str:
+    """The vehicle's kind by the standard's rules, the first match winning: a loadout name containing a word, a part role it has, or a
+    system it runs, or the vehicle named in a list. 'other' when no rule matches."""
+    systems = {system['def'] for system in vehicle.get('systems', [])}
+    for rule in std.get('kinds', []):
+        match = rule.get('match', {})
+        if 'vehicles' in match and vehicle['def'] not in match['vehicles']:
+            continue
+        if 'loadoutContains' in match and match['loadoutContains'] not in (vehicle.get('loadout') or ''):
+            continue
+        if 'hasRole' in match and not vehicle.get('roles', {}).get(match['hasRole']):
+            continue
+        if 'hasSystem' in match and match['hasSystem'] not in systems:
+            continue
+        return rule['kind']
+    return 'other'
+
+
+def below_standard(data: dict, std: dict | None = None) -> dict:
+    """
+    Each vehicle against the vehicle standard (the owner's card of 27 Nov 2026, "An audit kind"): for every line that applies to its kind (or
+    names it), the systems and part roles it lacks. A line applies to a vehicle with power only when it says so. Built lines that miss are
+    findings; planned lines are listed apart, as what a later batch brings; an exception in the standard excuses one vehicle from one line.
+    """
+    std = standard() if std is None else std
+    powered_systems = set(std.get('powered', []))
+    excused = {(e.get('vehicle'), e.get('line')) for e in std.get('except', [])}
+    kinds: dict[str, int] = {}
+    missing, planned = [], []
+    for vehicle in data.get('vehicles', []):
+        kind = kind_of(vehicle, std)
+        kinds[kind] = kinds.get(kind, 0) + 1
+        systems = {system['def'] for system in vehicle.get('systems', [])}
+        roles = {role for role, keys in vehicle.get('roles', {}).items() if keys}
+        powered = bool(systems & powered_systems)
+        where = {'vehicle': vehicle['def'], 'label': vehicle.get('label', ''), 'mod': vehicle.get('mod', ''), 'kind': kind}
+        for line in std.get('lines', []):
+            named = vehicle['def'] in line.get('vehicles', [])
+            if not named and kind not in line.get('kinds', []):
+                continue
+            if line.get('poweredOnly') and not powered:
+                continue
+            if (vehicle['def'], line['line']) in excused:
+                continue
+            lacks = [s for s in line.get('systems', []) if s not in systems] + [r for r in line.get('roles', []) if r not in roles]
+            if not lacks:
+                continue
+            finding = {**where, 'line': line['line'], 'what': line.get('label', ''), 'lacks': lacks}
+            if line.get('status') == 'planned':
+                planned.append({**finding, 'batch': line.get('batch')})
+            else:
+                missing.append(finding)
+    return {'kinds': dict(sorted(kinds.items())), 'belowStandard': missing, 'stillToCome': planned}
 
 
 def report_path(settings_file=None, environ=None) -> Path:
@@ -87,6 +150,11 @@ def audit(data: dict, rules: dict | None = None) -> dict:
             'unboundSystems': unbound, 'coverLikeParts': cover, 'unwatchedParts': unwatched}
 
 
+def full_audit(data: dict, rules: dict | None = None, std: dict | None = None) -> dict:
+    """The bindings audit and the standard's together, as the command prints them."""
+    return {**audit(data, rules), **below_standard(data, std)}
+
+
 def print_audit(found: dict, out) -> None:
     print(f"# Vehicle bindings\n\nThe game's report of {found['written'] or 'an unknown time'}: {found['vehicles']} vehicles with our systems.\n", file=out)
     sections = (
@@ -107,6 +175,34 @@ def print_audit(found: dict, out) -> None:
         for item in sorted(items, key=lambda f: (f['mod'], f['vehicle'])):
             print(f"| {item['vehicle']} | {item['mod']} | {line(item)} |", file=out)
         print('', file=out)
+    if 'belowStandard' in found:
+        print_standard(found, out)
+
+
+def print_standard(found: dict, out) -> None:
+    """The standard's part of the audit: the vehicles by kind, what falls below a built line, and what later batches bring."""
+    kinds = ', '.join(f"{kind} {count}" for kind, count in found['kinds'].items())
+    print(f"## Below the standard: {len(found['belowStandard'])}\n\nAgainst docs/development/vehicle-standard.md, by kind ({kinds}): "
+          'a system or part role a built line asks of the vehicle\'s kind, which it lacks.\n', file=out)
+    if found['belowStandard']:
+        print('| Vehicle | Kind | Line | Lacks |\n| --- | --- | --- | --- |', file=out)
+        for item in sorted(found['belowStandard'], key=lambda f: (f['line'], f['kind'], f['vehicle'])):
+            print(f"| {item['vehicle']} ({item['mod']}) | {item['kind']} | {item['line']}: {item['what']} | {', '.join(item['lacks'])} |", file=out)
+    else:
+        print('None.', file=out)
+    print('', file=out)
+    still = found['stillToCome']
+    print(f"## Still to come: {len(still)}\n\nLines the standard plans for a later batch, by line: how many vehicles each will reach.\n", file=out)
+    if not still:
+        print('None.\n', file=out)
+        return
+    by_line: dict[tuple, list] = {}
+    for item in still:
+        by_line.setdefault((item['line'], item['what'], item.get('batch')), []).append(item['vehicle'])
+    print('| Line | Batch | Vehicles |\n| --- | --- | --- |', file=out)
+    for (line, what, batch), vehicles in sorted(by_line.items(), key=lambda kv: kv[0][0]):
+        print(f"| {line}: {what} | {batch or ''} | {len(vehicles)} |", file=out)
+    print('', file=out)
 
 
 def print_vehicle(data: dict, name: str, out) -> int:
@@ -163,7 +259,7 @@ def main(argv=None, out=None) -> int:
             print('show needs a vehicle.', file=sys.stderr)
             return 2
         return print_vehicle(data, args.vehicle, out)
-    found = audit(data)
+    found = full_audit(data)
     if args.json:
         print(json.dumps(found, indent=2), file=out)
     else:

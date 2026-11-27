@@ -9,6 +9,8 @@
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Comms</defName>
     <label>comms</label>
+    <!-- Radio 0.52.0 (with D'thorga Framework 0.359.0): not on a submarine, while submarine work is on the owner's back burner. -->
+    <notOnSubmersibles>true</notOnSubmersibles>
     <description>The vehicle's radios: whether one is fitted and working, and whether it is in touch with a radio station. Radios go in the radio bays on the Fittings tab; aircraft, military vehicles and boats leave the factory with one.</description>
     <quantities>
       <li>

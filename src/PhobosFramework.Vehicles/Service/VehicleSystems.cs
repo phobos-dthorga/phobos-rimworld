@@ -112,9 +112,11 @@ public static class VehicleSystems
             flightProfile = loadout.flightProfile,
             trailer = LoadoutSelector.IsTrailer(def),
         };
+        // Framework 0.359.0: a design that dives takes nothing marked for other boats only (submarines are on the back burner).
+        bool submersible = def.GetCompProperties<CompProperties_PhobosSubmersible>() != null;
         foreach (LoadoutSystem entry in loadout.systems)
         {
-            if (entry.def == null) continue;
+            if (entry.def == null || (submersible && entry.def.notOnSubmersibles)) continue;
             var unknown = new List<string>();
             Dictionary<string, double> parameters = ParameterRule.Resolve(entry.def.parameters.AsDoubles(),
                 entry.set?.AsDoubles() ?? Enumerable.Empty<KeyValuePair<string, double>>(), unknown);
@@ -132,7 +134,7 @@ public static class VehicleSystems
         {
             foreach (PhobosVehicleSystemDef with in props.systems[i].def.comesWith)
             {
-                if (with == null || props.systems.Any(s => s.def == with)) continue;
+                if (with == null || props.systems.Any(s => s.def == with) || (submersible && with.notOnSubmersibles)) continue;
                 props.systems.Add(new ResolvedSystem(with, ParameterRule.Resolve(with.parameters.AsDoubles(),
                     Enumerable.Empty<KeyValuePair<string, double>>(), new List<string>())));
             }
@@ -146,6 +148,7 @@ public static class VehicleSystems
         {
             // Sling loads stand down for a mod with its own airlift on this aircraft: no hook mount to fit a hook to.
             if (slingStandsDown && role.role == SlingRoles.HookMount) continue;
+            if (submersible && role.notOnSubmersibles) continue;
             // The first finder that matches anything decides: its first match, or every match for a role marked "all".
             var keys = new List<string>();
             foreach (PartFinder finder in role.find)

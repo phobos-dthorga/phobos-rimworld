@@ -914,6 +914,46 @@
           <cellsOf>Engine</cellsOf>
         </add>
       </li>
+      <!-- Vehicles 0.130.2 (docs/development/vehicle-standard.md, VS2 and VS4; found by the standard's audit, batch 2): the radio bays every land vehicle has; this loadout writes its own part roles, so it lacked them. -->
+      <li>
+        <role>VoiceRadioMount</role>
+        <add>
+          <key>PhobosVoiceRadioMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>voice radio bay</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>RepeaterMount</role>
+        <add>
+          <key>PhobosRepeaterMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>repeater bay</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>MorseKeyMount</role>
+        <add>
+          <key>PhobosMorseKeyMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>Morse key bay</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
     </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>
