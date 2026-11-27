@@ -1,0 +1,56 @@
+{
+  "file": "item-sstv-kit-2.png",
+  "sha256": "e1da708bac6966b6203e5bd6ab8a9ec70953291eef448c8098560f43d003d0ab",
+  "date": "2026-11-27T18:19:11",
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for a field slow-scan television kit, used to send a still picture by radio. Images 1 and 2 are our approved items from the same game: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nAn open rugged dark grey hard case with foam inserts holding: a small boxy camera with a short lens, a compact scan converter box with a few small knobs and one small green indicator light, a small square monochrome monitor showing a faint grey picture, and a coiled black cable with a plug.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted dark grey, black and steel colours with the small green light, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals or ground. No shadow outside the object.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-radio/requests/sstv-kit-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 402,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 274
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2158
+  },
+  "cost_usd": 0.0551,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 30.7,
+  "references": [
+    {
+      "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Handheld.png",
+      "sha256": "e1fea8cc2c0b19b6b051b41db196155dcd15795d1fe0ee969025cb32062f994d",
+      "role": "our approved radio item from the same mod (the hand-held radio): match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/MedicalChest.png",
+      "sha256": "0e862569cf66fe14aec822ac9799091746101eba4b17874311d889cb5b256f61",
+      "role": "our approved item from the same advice-by-radio set (the numbered medical chest): match its outline weight, shading and finish only; do not copy its shape"
+    }
+  ]
+}
