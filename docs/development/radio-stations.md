@@ -1,6 +1,6 @@
 # Radio stations: the radio desk and the radio terminal (24 Nov 2026)
 
-**Status (24 Nov 2026):** partly built. The channel ledger is built in Radio Framework 0.7.0
+**Status (27 Nov 2026):** partly built. Seats at the desks and calls at a desk taking a channel are built in Radio Framework 0.51.0 ([seats](#seats-at-the-desk-radio-0510)), not yet tested in game (rows 720 to 722). The channel ledger is built in Radio Framework 0.7.0
 ([below](#channels-radio-070)) and counts by kind since 0.8.0 ([kinds](#kinds-radio-080)), not yet tested in game. The radio terminal, both linear amplifiers and the full-size ground-plane are built in Radio
 Framework 0.5.0 ([as built](#as-built-radio-050-24-nov-2026)), not yet tested in game. The building upgrades for the radio desk and
 both antennas are built in Radio Framework 0.4.0
@@ -249,6 +249,57 @@ change the framework now **sends the building's comps a signal** (`CompPhobosBui
 
 **What is not upgraded yet [A].** Hand-helds (apparel, not buildings); the desk's built-in whip; the radio terminal and the linear
 amplifier, which are not built (an amplifier upgrade to 400 W, the Australian Advanced licence's limit, would suit it).
+
+## Seats at the desk (Radio 0.51.0)
+
+The owner, 27 Nov 2026, asked how colonists work the base stations, saw there was no seat ("that's what made me originally question
+this, there was no seat at the base-station"), and answered four cards.
+
+### The cards as put
+
+| # | Card | Chosen | Not chosen |
+| --- | --- | --- | --- |
+| 1 | How someone works the radio | **A spot in front of the desk, sitting on a chair the player places, standing with none** (the agent's lean) | A seat built into the desk's picture: always sits, no chair to place, no chair comfort, new art. Keep standing beside it |
+| 2 | How many people a station takes | **The terminal takes two, the base station one**, and the owner's words: "we could use one of the seats in the event an elmer is present to teach a student" | One at a time on both (the agent's lean). As now: any number, standing round it |
+| 3 | Whether a call at the desk takes a channel | **Yes, like a hand-held** (the agent's lean) | No, calls are free |
+| 4 | Whether the station also works as the game's comms console, for factions and traders in radio reach | **Record it first**, and: "if we are to do this, it must come with its own benefits to make it worthwhile (and possibly downsides as well to weigh things out?)" | Yes, build it. No |
+
+Card 4 gets a design record of its own, written next, with what it would add and what it would cost the player.
+
+### As built
+
+- **The seats are the game's own interaction spots** [O]: the base station's `interactionCellOffset` (0,0,-1), and the terminal's two
+  `multipleInteractionCellOffsets` (-1,0,-1) and (1,0,-1), at the edge of each picture nearest the operator (the microphone, the
+  keyboard). The game places, draws and keeps them clear as it does a bench's.
+- **A colonist reserves a seat, not the desk** (`RadioSeats`): the remote operator still reserves the desk as well, so one colonist
+  drives from a station at a time, and a terminal's other seat stays free for a call. A chair there gives its comfort, as at a research
+  bench; with none they stand.
+- **Picking a desk** (`RadioAdvice.NearestDesk`, used by advice, chats, school, teachers and neighbours' calls) now needs a seat free for
+  the colonist and a channel free for one more call. Without one, a colonist in touch uses their hand-held, as before, or does not take
+  the job.
+- **A call at the desk takes a channel** [O]: each job that talks through the desk says so while seated (`IRadioDeskCall`), and the net
+  serves it as one use of the local voice kind at that station only, after the radios already counted. A call the station has no room
+  for is busy, and its colonist hangs up with a message (checked every 250 ticks). Vehicle control still pre-empts talk.
+- **A lesson in person** [O, the owner's words]: a teacher on the map sits beside the child at the child's desk when it has a seat free
+  for each of them (`RadioSchool.FindTeacher`), and neither takes a channel. **The lesson's rate stays the radio's** [A]: an open
+  question in `config/decisions.json`.
+- **A seat something stands on** (a station built earlier, with a wall or a machine where a colonist now sits) is named in the
+  station's pane; a desk whose seats are all blocked is passed over.
+- **A desk of another mod's with no spots** is worked standing beside it, as before.
+
+### The four questions
+
+- **What it lets the player do:** furnish a radio room; two people at the terminal at once; a teacher and child side by side.
+- **What it stops:** a crowd at one desk; calls that cost the colony nothing on a busy net.
+- **How it changes play:** a busy radio room needs a terminal, more channels (the upgrade) or hand-helds; a chair at the desk is worth
+  its comfort.
+- **What outside notices:** the colonists (comfort, the busy message), the net (channels in use by talk now show on the station).
+
+### Risk and cost
+
+**Low** [A]: nothing is lost; a station built before may lose its desk use until a spot is cleared, which its pane says. **Cost:** the
+net already looks at every free colonist each pass; a desk call adds one candidate to the ledger. Picking a desk adds a few cell
+checks. Seated, a facing and a comfort check a tick, as the game's benches. Not measured.
 
 ## The art
 

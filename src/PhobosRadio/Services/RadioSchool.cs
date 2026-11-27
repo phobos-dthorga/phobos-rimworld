@@ -53,9 +53,11 @@ public static class RadioSchool
 
     /// <summary>
     /// A teacher for a child on <paramref name="map"/>, or null: a parent first, then the most skilled. On the map with a hand-held in touch
-    /// or a station's desk to walk to; or in a convoy whose radio reaches this colony.
+    /// or a station's desk to walk to; or in a convoy whose radio reaches this colony. Since Radio 0.51.0 (the owner's card of 27 Nov 2026, a
+    /// second seat at the terminal for teaching), a teacher on the map sits beside the child at the child's desk when it has a seat free for
+    /// each of them, and teaches in person there.
     /// </summary>
-    public static Pawn? FindTeacher(Pawn child, Map map, out Thing? desk)
+    public static Pawn? FindTeacher(Pawn child, Map map, out Thing? desk, Thing? childDesk = null)
     {
         desk = null;
         Pawn? best = null;
@@ -66,7 +68,8 @@ public static class RadioSchool
         {
             if (candidate == child || !CanTeach(candidate)) continue;
             Thing? at = null;
-            if (!RadioAdvice.InTouch(candidate))
+            if (childDesk != null && !candidate.InBed() && RadioSeats.FreeSeats(candidate, childDesk) >= 2) at = childDesk;
+            else if (!RadioAdvice.InTouch(candidate))
             {
                 if (candidate.InBed() || RadioAdvice.NearestDesk(candidate, net) is not { } found) continue;
                 at = found;
@@ -111,6 +114,11 @@ public static class RadioSchool
     public static SkillDef? ChooseSkill(Pawn teacher, Pawn child) =>
         Teachable(teacher, child).OrderByDescending(skill => teacher.skills.GetSkill(skill).Level).Take(4).ToList() is { Count: > 0 } top ? top.RandomElement() : null;
 
+    /// <summary>Whether a teacher and a child sit at the same desk (Radio 0.51.0): a lesson in person, which takes no channel.</summary>
+    public static bool Together(Pawn teacher, Pawn child, Thing desk) =>
+        teacher.Spawned && child.Spawned && teacher.CurJob is { } teach && teach.def == RadioSchoolDefOf.PhobosRadio_TeachByRadio && teach.targetB.Thing == desk
+        && child.CurJob is { } learn && learn.targetA.Thing == desk;
+
     /// <summary>Whether a teacher is still teaching this child: on the map, on our teaching job for them; in a convoy, still in touch.</summary>
     public static bool StillTeaching(Pawn teacher, Pawn child, Map map)
     {
@@ -140,7 +148,7 @@ public class LearningGiver_PhobosRadioSchool : LearningGiver
         bool handHeld = RadioAdvice.InTouch(pawn);
         Thing? desk = handHeld ? null : RadioAdvice.NearestDesk(pawn, RadioNet.For(pawn.Map));
         if (!handHeld && desk == null) return null;
-        Pawn? teacher = RadioSchool.FindTeacher(pawn, pawn.Map, out Thing? teacherDesk);
+        Pawn? teacher = RadioSchool.FindTeacher(pawn, pawn.Map, out Thing? teacherDesk, desk);
         RadioSchool.SetTeacher(pawn, teacher);
         if (teacher != null)
             RadioLog.Add(RadioLogKind.Lesson, "PhobosRadioLog_Lesson".Translate(teacher.LabelShort.Named("TEACHER"), pawn.LabelShort.Named("CHILD")).Resolve());

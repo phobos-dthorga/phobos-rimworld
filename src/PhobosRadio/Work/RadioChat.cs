@@ -12,11 +12,17 @@ namespace Phobos.Radio.Work;
 /// The friendship grows each tick; the mood lift and the goodwill come when the chat ends. It ends when recreation is full, after the
 /// job's time, or when the radio loses touch.
 /// </summary>
-public class JobDriver_PhobosRadioChat : JobDriver
+public class JobDriver_PhobosRadioChat : JobDriver, IRadioDeskCall
 {
     private int chatted;
+    private bool chatting;
+    private IntVec3 seat = IntVec3.Invalid;
 
-    public override bool TryMakePreToilReservations(bool errorOnFailed) => true;
+    /// <summary>Radio 0.51.0: chatting at a desk takes a channel there.</summary>
+    public Thing? CallingFrom => chatting && job.targetA.HasThing ? job.targetA.Thing : null;
+
+    public override bool TryMakePreToilReservations(bool errorOnFailed) =>
+        job.targetC.Thing is Building_Bed || !job.targetA.HasThing || RadioSeats.Claim(pawn, job, job.targetA.Thing, ref seat, errorOnFailed);
 
     public override string GetReport()
     {
@@ -40,13 +46,22 @@ public class JobDriver_PhobosRadioChat : JobDriver
             if (job.targetA.HasThing)
             {
                 this.FailOnDespawnedOrNull(TargetIndex.A);
-                yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
+                yield return RadioSeats.GoTo(job.targetA.Thing, () => seat);
             }
             chat = ToilMaker.MakeToil("PhobosRadio_RadioChat");
             if (job.targetA.HasThing)
             {
                 chat.handlingFacing = true;
-                chat.AddPreTickIntervalAction(_ => pawn.rotationTracker.FaceTarget(job.targetA));
+                chat.AddPreInitAction(() =>
+                {
+                    chatting = true;
+                    RadioSeats.NoteSeated(pawn, job.targetA.Thing);
+                });
+                chat.AddPreTickIntervalAction(delta =>
+                {
+                    if (RadioSeats.HungUpBusy(this, pawn, job.targetA.Thing, delta)) return;
+                    RadioSeats.AtDesk(pawn, job.targetA.Thing, delta);
+                });
             }
         }
         chat.AddPreTickIntervalAction(delta =>
@@ -63,6 +78,7 @@ public class JobDriver_PhobosRadioChat : JobDriver
         });
         chat.AddFinishAction(() =>
         {
+            chatting = false;
             RadioFriends.Chatted(pawn, chatted);
             chatted = 0;
         });
@@ -79,5 +95,7 @@ public class JobDriver_PhobosRadioChat : JobDriver
     {
         base.ExposeData();
         Scribe_Values.Look(ref chatted, "PhobosRadio_Chatted");
+        Scribe_Values.Look(ref chatting, "PhobosRadio_Chatting");
+        Scribe_Values.Look(ref seat, "PhobosRadio_Seat", IntVec3.Invalid);
     }
 }

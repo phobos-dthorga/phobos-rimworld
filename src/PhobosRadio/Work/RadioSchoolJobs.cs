@@ -12,12 +12,22 @@ namespace Phobos.Radio.Work;
 /// gaining one of the teacher's best skills at the game's lesson rate times the rules' radio factor, the teacher Social at the game's rate,
 /// and both the game's thoughts for a lesson.
 /// </summary>
-public class JobDriver_PhobosRadioSchool : JobDriver
+public class JobDriver_PhobosRadioSchool : JobDriver, IRadioDeskCall
 {
     private SkillDef? taughtSkill;
     private int sinceThoughts;
+    private bool learning;
+    private IntVec3 seat = IntVec3.Invalid;
 
-    public override bool TryMakePreToilReservations(bool errorOnFailed) => true;
+    /// <summary>
+    /// Radio 0.51.0: learning at a desk takes a channel there, unless the teacher sits beside them at it: a lesson in person (the owner's
+    /// card of 27 Nov 2026, the terminal's second seat).
+    /// </summary>
+    public Thing? CallingFrom => learning && job.targetA.Thing is { } desk
+        && !(RadioSchool.TeacherOf(pawn) is { } teacher && RadioSchool.Together(teacher, pawn, desk)) ? desk : null;
+
+    public override bool TryMakePreToilReservations(bool errorOnFailed) =>
+        !job.targetA.HasThing || RadioSeats.Claim(pawn, job, job.targetA.Thing, ref seat, errorOnFailed);
 
     public override string GetReport()
     {
@@ -42,13 +52,20 @@ public class JobDriver_PhobosRadioSchool : JobDriver
         {
             this.FailOnDespawnedOrNull(TargetIndex.A);
             this.FailOn(() => job.targetA.Thing.TryGetComp<CompPowerTrader>() is { PowerOn: false });
-            yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
+            yield return RadioSeats.GoTo(job.targetA.Thing, () => seat);
         }
         else this.FailOn(() => pawn.IsHashIntervalTick(250) && !RadioAdvice.InTouch(pawn));
         Toil learn = ToilMaker.MakeToil("PhobosRadio_RadioSchool");
+        learn.initAction = () =>
+        {
+            learning = true;
+            if (atDesk) RadioSeats.NoteSeated(pawn, job.targetA.Thing);
+        };
+        learn.AddFinishAction(() => learning = false);
         learn.tickIntervalAction = delta =>
         {
-            if (atDesk) pawn.rotationTracker.FaceTarget(job.targetA);
+            if (atDesk && RadioSeats.HungUpBusy(this, pawn, job.targetA.Thing, delta)) return;
+            if (atDesk) RadioSeats.AtDesk(pawn, job.targetA.Thing, delta);
             Lesson(delta);
             LearningUtility.LearningTickCheckEnd(pawn, delta);
         };
@@ -80,6 +97,12 @@ public class JobDriver_PhobosRadioSchool : JobDriver
         teacher.needs?.mood?.thoughts?.memories?.TryGainMemory(ThoughtDefOf.GaveLesson, pawn);
         pawn.needs?.mood?.thoughts?.memories?.TryGainMemory(ThoughtDefOf.WasTaught, teacher);
         string variant = teacher.Spawned ? "map" : "convoy";
+        // Radio 0.51.0: side by side at one desk, in person.
+        if (job.targetA.Thing is { } desk && RadioSchool.Together(teacher, pawn, desk))
+        {
+            variant = "in person";
+            if (Seen.Wants("radio.lesson-in-person", pawn)) Seen.Note("radio.lesson-in-person", pawn, teacher.LabelShort + " at " + desk.LabelShort);
+        }
         if (Seen.Wants("radio.school-lesson", pawn, variant)) Seen.Note("radio.school-lesson", pawn, teacher.LabelShort + ", " + taughtSkill.label, variant);
     }
 
@@ -88,6 +111,8 @@ public class JobDriver_PhobosRadioSchool : JobDriver
         base.ExposeData();
         Scribe_Defs.Look(ref taughtSkill, "PhobosRadio_TaughtSkill");
         Scribe_Values.Look(ref sinceThoughts, "PhobosRadio_SinceThoughts");
+        Scribe_Values.Look(ref learning, "PhobosRadio_Learning");
+        Scribe_Values.Look(ref seat, "PhobosRadio_Seat", IntVec3.Invalid);
     }
 }
 
@@ -95,14 +120,19 @@ public class JobDriver_PhobosRadioSchool : JobDriver
 /// A teacher giving a radio lesson on the map (Radio 0.31.0): at a station's desk (target B) or where they stand with a hand-held. Target A is
 /// the child. It lasts while the child is at radio school with them as teacher.
 /// </summary>
-public class JobDriver_PhobosTeachByRadio : JobDriver
+public class JobDriver_PhobosTeachByRadio : JobDriver, IRadioDeskCall
 {
     private bool talking;
+    private IntVec3 seat = IntVec3.Invalid;
+
+    /// <summary>Radio 0.51.0: teaching at a desk takes a channel there, unless the child sits beside them at it, in person.</summary>
+    public Thing? CallingFrom => talking && job.targetB.Thing is { } desk && !(job.targetA.Thing is Pawn child && RadioSchool.Together(pawn, child, desk)) ? desk : null;
 
     /// <summary>Whether they are at the radio, not still walking to the desk.</summary>
     public bool Talking => talking;
 
-    public override bool TryMakePreToilReservations(bool errorOnFailed) => true;
+    public override bool TryMakePreToilReservations(bool errorOnFailed) =>
+        !job.targetB.HasThing || RadioSeats.Claim(pawn, job, job.targetB.Thing, ref seat, errorOnFailed);
 
     protected override IEnumerable<Toil> MakeNewToils()
     {
@@ -112,14 +142,22 @@ public class JobDriver_PhobosTeachByRadio : JobDriver
         if (atDesk)
         {
             this.FailOnDespawnedOrNull(TargetIndex.B);
-            yield return Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.Touch);
+            yield return RadioSeats.GoTo(job.targetB.Thing, () => seat);
         }
         Toil teach = ToilMaker.MakeToil("PhobosRadio_TeachByRadio");
-        teach.initAction = () => talking = true;
+        teach.initAction = () =>
+        {
+            talking = true;
+            if (atDesk) RadioSeats.NoteSeated(pawn, job.targetB.Thing);
+        };
         if (atDesk)
         {
             teach.handlingFacing = true;
-            teach.tickIntervalAction = _ => pawn.rotationTracker.FaceTarget(job.targetB);
+            teach.tickIntervalAction = delta =>
+            {
+                if (RadioSeats.HungUpBusy(this, pawn, job.targetB.Thing, delta)) return;
+                RadioSeats.AtDesk(pawn, job.targetB.Thing, delta);
+            };
         }
         teach.defaultCompleteMode = ToilCompleteMode.Never;
         teach.socialMode = RandomSocialMode.Off;
@@ -132,5 +170,6 @@ public class JobDriver_PhobosTeachByRadio : JobDriver
     {
         base.ExposeData();
         Scribe_Values.Look(ref talking, "PhobosRadio_Talking");
+        Scribe_Values.Look(ref seat, "PhobosRadio_Seat", IntVec3.Invalid);
     }
 }

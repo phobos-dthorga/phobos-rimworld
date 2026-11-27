@@ -23,6 +23,32 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.51.0] - 2026-11-27 - Draft
+
+A seat at the radio, and calls at the desk take a channel
+
+### Added
+
+- **The radio desks have seats** (the owner's cards of 27 November 2026). The base station has one spot in front of its microphone and
+  the radio terminal two, side by side, shown as the game shows a bench's spot. Put a chair there and whoever works the radio sits and
+  is comfortable; with no chair they stand. One person to a seat: someone else wanting the radio uses a hand-held, or waits. Not yet
+  tested in game: row 720.
+- **A call made at the desk takes a channel**, as a hand-held does: a radio chat, advice, a lesson or a neighbour's call. With every
+  channel in use the desk is not chosen, and a call cut off by a vehicle's orders hangs up with a message. Not yet tested in game:
+  row 721.
+- **A lesson in person at the terminal**: a teacher sits beside the child at the child's desk when both seats are free, and the
+  lesson takes no channel. Not yet tested in game: row 722.
+
+### Fixed
+
+- The radio planner's and the network's lines no longer say "1 stations".
+
+### Save compatibility
+
+- **A station built before this version may have something standing where its seat now is** (a wall, a machine): its pane says so,
+  and nobody can work it from the desk until that spot is cleared or the station is moved. Hand-helds are not affected. Otherwise safe
+  with a running save; nothing new is saved but each job's seat.
+
 ## [0.50.0] - 2026-11-27 - Draft
 
 An aircraft is a flying relay

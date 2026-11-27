@@ -61,6 +61,10 @@
 
   <!-- The coverage shown on the map while a base station or an antenna is selected. -->
   <PhobosRadio_CoverageShown>Map shows how well a hand-held would reach this station from each spot: brighter is better, dark red is no contact. Doors count as closed.</PhobosRadio_CoverageShown>
+  <!-- Calls at a station's desk take a channel (Radio 0.51.0). -->
+  <PhobosRadio_SeatsAllBlocked>Nobody can sit at it: something stands where a colonist would sit. Clear that spot, or move the station.</PhobosRadio_SeatsAllBlocked>
+  <PhobosRadio_SeatBlocked>One of its seats is blocked: something stands where a colonist would sit.</PhobosRadio_SeatBlocked>
+  <PhobosRadio_DeskCallBusy>{PAWN} hung up at the {DESK}: every channel there is in use.</PhobosRadio_DeskCallBusy>
   <PhobosRadio_CoverageWorking>Working out radio coverage on the map: {PERCENT} done.</PhobosRadio_CoverageWorking>
   <PhobosRadio_CoverageUpdating>Something here changed: updating the radio coverage on the map, {PERCENT} done. The picture shown is the last one until then.</PhobosRadio_CoverageUpdating>
   <PhobosRadio_CoverageNoStation>No coverage to show: connect this antenna to a base station with coax.</PhobosRadio_CoverageNoStation>
@@ -144,12 +148,12 @@
   <PhobosRadio_CoverMenuNetwork>Home, through relays: {KIND}</PhobosRadio_CoverMenuNetwork>
   <PhobosRadio_CoverMenuPlanner>Planner: where a new {KIND} would reach home</PhobosRadio_CoverMenuPlanner>
   <PhobosRadio_CoverGizmoPlanner>Radio coverage: planner ({KIND})</PhobosRadio_CoverGizmoPlanner>
-  <PhobosRadio_CoverPlannerShown>Radio planner ({KIND}): a new one would reach home from {TILES} tiles, straight or through the {PLACES} stations and relays there are. Brighter is a stronger way home; put it where the vehicle picture has a gap.</PhobosRadio_CoverPlannerShown>
+  <PhobosRadio_CoverPlannerShown>Radio planner ({KIND}): a new one would reach home from {TILES} tiles, straight or through the stations and relays there are ({PLACES} in all). Brighter is a stronger way home; put it where the vehicle picture has a gap.</PhobosRadio_CoverPlannerShown>
   <PhobosRadio_CoverNetworkMoving>Not drawn, as they relay on the move: {RELAYS}. Calls still pass through them.</PhobosRadio_CoverNetworkMoving>
   <PhobosRadio_CoverNetworkFull>Left out, with every channel in use (marked in pink): {RELAYS}.</PhobosRadio_CoverNetworkFull>
   <PhobosRadio_CoverGizmoNetwork>Radio coverage: home, through relays ({KIND})</PhobosRadio_CoverGizmoNetwork>
   <PhobosRadio_CoverNetworkWorking>Working out radio coverage home, through relays ({KIND}): {PERCENT} done.</PhobosRadio_CoverNetworkWorking>
-  <PhobosRadio_CoverNetworkShown>Radio coverage home, through relays ({KIND}): {TILES} tiles in reach, from {PLACES} stations and relays. Brighter is stronger; dark red is too weak. A relay with every channel in use still refuses a call.</PhobosRadio_CoverNetworkShown>
+  <PhobosRadio_CoverNetworkShown>Radio coverage home, through relays ({KIND}): {TILES} tiles in reach, through the stations and relays there are ({PLACES} in all). Brighter is stronger; dark red is too weak. A relay with every channel in use still refuses a call.</PhobosRadio_CoverNetworkShown>
   <PhobosRadio_CoverNetworkNone>Radio coverage home, through relays ({KIND}): nothing to show. It needs a powered radio station at home, with a Morse key for Morse.</PhobosRadio_CoverNetworkNone>
   <PhobosRadio_CoverRefuseNoRadio>{KIND}: no working radio here</PhobosRadio_CoverRefuseNoRadio>
   <PhobosRadio_CoverRefuseNoKey>{KIND}: no station here has a Morse key</PhobosRadio_CoverRefuseNoKey>

@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.50.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.51.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -82,6 +82,9 @@ figures are here.
 - **The station logbook (0.38.0)**: a Log tab on the station with radio friends, settlements in reach, every call, and QSL cards
   drawn in each faction's colours; awards for sets of cards lift the mood of those who work the radio
   ([the guide](../../docs/player-guide/radio.md#the-logbook-and-qsl-cards)).
+- **Seats at the radio (0.51.0)**: the base station has a seat in front of it and the terminal two; put a chair there. **A station built
+  earlier may have something standing on its new seat**: its pane says so; clear the spot or move the station. A call at the desk now
+  takes a channel, as a hand-held does.
 - **The path home from the side, a relay planner, full relays marked (0.48.0)**: a caravan's **Radio** button on the world map shows
   each hop home in side view with the ground that decides; the Radio coverage menu gains a **planner** for a new relay mast or post;
   a relay with every channel in use is marked in pink.

@@ -28,6 +28,10 @@
          and its lamp and needle turn with it; an operator reaches it from any side. -->
     <rotatable>true</rotatable>
     <size>(2,2)</size>
+    <!-- Its seat (Radio 0.51.0; the owner's card of 27 Nov 2026: a spot and the player's own chair): in front of the microphone, the edge
+         nearest the operator in its picture. A colonist sits on a chair placed there, and stands if there is none. -->
+    <hasInteractionCell>true</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
     <statBases>
       <MaxHitPoints>200</MaxHitPoints>
       <WorkToBuild>2000</WorkToBuild>
@@ -122,6 +126,12 @@
     <!-- Turned as it is placed (Radio 0.20.2), as the base station. -->
     <rotatable>true</rotatable>
     <size>(3,2)</size>
+    <!-- Its two seats side by side (Radio 0.51.0; the owner's card of 27 Nov 2026: "Terminal takes two", and a seat for a teacher beside a
+         student), at the keyboard's edge of its picture. -->
+    <multipleInteractionCellOffsets>
+      <li>(-1,0,-1)</li>
+      <li>(1,0,-1)</li>
+    </multipleInteractionCellOffsets>
     <statBases>
       <MaxHitPoints>180</MaxHitPoints>
       <WorkToBuild>2600</WorkToBuild>

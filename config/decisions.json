@@ -73,6 +73,27 @@
    "why": "You asked for these weapons' radiation as \"in dire need\", and the strategic strike's own radiation is on by default",
    "from": "docs/development/radiation-bursts.md",
    "asked": "2026-11-27"
+  },
+  {
+   "id": "radio-lesson-in-person-rate",
+   "question": "A teacher and a child sitting side by side at the radio terminal: should the lesson count at the radio's rate or the game's full lesson rate?",
+   "context": "Built in Radio Framework 0.51.0 (row 722), from your Elmer idea. They now share the terminal's two seats and take no channel, but the lesson still counts at the radio's share (the rules' schoolLessonFactor), as if over the radio.",
+   "options": [
+    {
+     "id": "radio",
+     "label": "The radio's rate",
+     "detail": "As built: sitting together only saves the channel"
+    },
+    {
+     "id": "full",
+     "label": "The full lesson rate",
+     "detail": "As the game's own lesson, face to face: a reason to send the teacher to the desk"
+    }
+   ],
+   "lean": "full",
+   "why": "Face to face is a real lesson, and it gives the second seat a purpose of its own; it is no better than the game's own lessons",
+   "from": "docs/development/radio-stations.md",
+   "asked": "2026-11-27"
   }
  ]
 }

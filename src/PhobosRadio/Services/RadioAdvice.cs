@@ -334,7 +334,10 @@ public static class RadioAdvice
         return job.def.casualInterruptible;
     }
 
-    /// <summary>The nearest powered station's desk the adviser can walk to, or null.</summary>
+    /// <summary>
+    /// The nearest powered station's desk the adviser can walk to, or null. Since Radio 0.51.0 only one with a seat free for them and a
+    /// channel free for one more call.
+    /// </summary>
     public static Thing? NearestDesk(Pawn adviser, RadioNet net)
     {
         Thing? nearest = null;
@@ -345,6 +348,7 @@ public static class RadioAdvice
             if (!desk.Spawned || desk.Map != adviser.Map || desk.TryGetComp<CompPowerTrader>() is { PowerOn: false }) continue;
             float distance = adviser.Position.DistanceToSquared(desk.Position);
             if (distance >= best || desk.IsForbidden(adviser) || !adviser.CanReach(desk, PathEndMode.Touch, Danger.Some)) continue;
+            if (!RadioSeats.CanSit(adviser, desk) || !net.DeskHasRoom(desk)) continue;
             best = distance;
             nearest = desk;
         }

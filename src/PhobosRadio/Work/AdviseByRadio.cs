@@ -11,9 +11,13 @@ namespace Phobos.Radio.Work;
 /// B the desk, when there is one. A call for a job on a map lasts until <see cref="RadioAdvice"/> ends it; a booked call (help given on the
 /// road or in trade talks, which have no job of their own) lasts the Def's booked time, carried on the job's count.
 /// </summary>
-public class JobDriver_AdviseByRadio : JobDriver
+public class JobDriver_AdviseByRadio : JobDriver, IRadioDeskCall
 {
     private bool talking;
+    private IntVec3 seat = IntVec3.Invalid;
+
+    /// <summary>Radio 0.51.0: talking at a desk takes a channel there.</summary>
+    public Thing? CallingFrom => talking && job.targetB.HasThing ? job.targetB.Thing : null;
 
     /// <summary>Whether they are at the radio and talking, not still walking to the desk.</summary>
     public bool Talking => talking;
@@ -22,7 +26,8 @@ public class JobDriver_AdviseByRadio : JobDriver
 
     public Pawn? Carer => job.targetA.Thing as Pawn;
 
-    public override bool TryMakePreToilReservations(bool errorOnFailed) => true;
+    public override bool TryMakePreToilReservations(bool errorOnFailed) =>
+        !job.targetB.HasThing || RadioSeats.Claim(pawn, job, job.targetB.Thing, ref seat, errorOnFailed);
 
     protected override IEnumerable<Toil> MakeNewToils()
     {
@@ -30,18 +35,23 @@ public class JobDriver_AdviseByRadio : JobDriver
         if (atDesk)
         {
             this.FailOnDespawnedOrNull(TargetIndex.B);
-            yield return Toils_Goto.GotoThing(TargetIndex.B, PathEndMode.Touch);
+            yield return RadioSeats.GoTo(job.targetB.Thing, () => seat);
         }
         var talk = ToilMaker.MakeToil("PhobosRadio_AdviseByRadio");
         talk.initAction = () =>
         {
             talking = true;
+            if (atDesk) RadioSeats.NoteSeated(pawn, job.targetB.Thing);
             if (!Booked && Carer != null) RadioAdvice.Arrived(pawn, Carer);
         };
         if (atDesk)
         {
             talk.handlingFacing = true;
-            talk.tickIntervalAction = _ => pawn.rotationTracker.FaceTarget(job.targetB);
+            talk.tickIntervalAction = delta =>
+            {
+                if (RadioSeats.HungUpBusy(this, pawn, job.targetB.Thing, delta)) return;
+                RadioSeats.AtDesk(pawn, job.targetB.Thing, delta);
+            };
         }
         if (Booked)
         {
@@ -61,5 +71,6 @@ public class JobDriver_AdviseByRadio : JobDriver
     {
         base.ExposeData();
         Scribe_Values.Look(ref talking, "PhobosRadio_Talking");
+        Scribe_Values.Look(ref seat, "PhobosRadio_Seat", IntVec3.Invalid);
     }
 }

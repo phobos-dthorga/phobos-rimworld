@@ -93,6 +93,9 @@ public sealed class RadioNet : MapComponent
     private Dictionary<int, int> held = new();
     private readonly Dictionary<Pawn, Thing> servedBy = new();
     private readonly HashSet<Pawn> busy = new();
+    /// <summary>Calls made at a desk this pass (Radio 0.51.0), and those the desk's station had no channel for.</summary>
+    private readonly List<(Pawn Caller, Thing Desk)> deskCalls = new();
+    private readonly HashSet<Pawn> deskBusy = new();
     private readonly Dictionary<Thing, List<Thing>> servedOn = new();
     /// <summary>The net's change sounds (Radio 0.30.0): nothing saved, worked out after each recompute.</summary>
     private readonly RadioNetSounds sounds = new();
@@ -270,6 +273,15 @@ public sealed class RadioNet : MapComponent
     }
 
     /// <summary>A station's channels: how many, and each kind's share of them.</summary>
+    /// <summary>Whether this colonist's call at a desk found no channel at the last pass (Radio 0.51.0).</summary>
+    public bool DeskCallBusy(Pawn pawn) => deskBusy.Contains(pawn);
+
+    /// <summary>
+    /// Whether one more call at this desk would find a channel of the local voice kind, by the last pass's ledger (Radio 0.51.0); true before
+    /// the first pass has counted the station.
+    /// </summary>
+    public bool DeskHasRoom(Thing desk) => !channelsOf.ContainsKey(desk) || ChannelsOf(desk).Of(ChannelKindDef.LocalVoice).Room > 0;
+
     public StationChannels ChannelsOf(Thing station)
     {
         EnsureFresh();
@@ -380,6 +392,8 @@ public sealed class RadioNet : MapComponent
         fixedRadios.Clear();
         servedBy.Clear();
         busy.Clear();
+        deskCalls.Clear();
+        deskBusy.Clear();
         servedOn.Clear();
         placeOf.Clear();
         channelsOf.Clear();
@@ -639,7 +653,24 @@ public sealed class RadioNet : MapComponent
             candidates = candidates.OrderBy(c => c.Kind).ToList();
         }
 
+        // A call made at a desk (Radio 0.51.0; the owner's card of 27 Nov 2026: "like a hand-held"): one use of the local voice kind, offered
+        // to that desk's station only. Its id is the caller's, which no radio's ever is. Served after the radios of its kind already counted.
+        var voice = ChannelKindDef.LocalVoice;
+        if (deskCalls.Count > 0)
+        {
+            foreach (var (caller, desk) in deskCalls)
+                if (stationById.ContainsKey(desk.thingIDNumber)) candidates.Add(new ChannelCandidate(caller.thingIDNumber, voice.LedgerIndex, new List<int> { desk.thingIDNumber }));
+            candidates = candidates.OrderBy(c => c.Kind).ToList();
+        }
+
         var served = Channels.Allocate(channelsByStation, shapes, candidates, held);
+        // Desk calls served, by station; one the station had no room for is busy, and its colonist hangs up.
+        var deskCallsOn = new Dictionary<int, int>();
+        foreach (var (caller, desk) in deskCalls)
+        {
+            if (served.TryGetValue(caller.thingIDNumber, out var at) && at == desk.thingIDNumber) deskCallsOn[at] = (deskCallsOn.TryGetValue(at, out var c) ? c : 0) + 1;
+            else deskBusy.Add(caller);
+        }
         held = served;
         // Pictures served, by station; one counts only where the same station serves the vehicle's orders.
         var picturesOn = new Dictionary<int, int>();
@@ -687,6 +718,8 @@ public sealed class RadioNet : MapComponent
                 list.Sort((a, b) => kindOf[a] != kindOf[b] ? kindOf[a].CompareTo(kindOf[b]) : a.thingIDNumber.CompareTo(b.thingIDNumber));
                 foreach (var radio in list) placeOf[radio] = (station.parent, kindOf[radio], counts[kindOf[radio]]++);
             }
+            // Its desk calls hold channels of the local voice kind (Radio 0.51.0).
+            if (deskCallsOn.TryGetValue(station.parent.thingIDNumber, out var calls)) counts[voice.LedgerIndex] += calls;
             // Its pictures hold channels of their own kind too (Radio 0.15.0).
             if (pictureKind != null && picturesOn.TryGetValue(station.parent.thingIDNumber, out var pictures)) counts[pictureKind.LedgerIndex] += pictures;
             var total = channelsByStation[station.parent.thingIDNumber];
@@ -730,6 +763,8 @@ public sealed class RadioNet : MapComponent
         {
             // A colonist working a station's console is its operator (Radio 0.12.0).
             if (pawn.jobs?.curDriver is Work.JobDriver_RemoteOperation { AtConsole: true, Station: { } station }) operatorAt[station] = pawn;
+            // A call made at a desk (Radio 0.51.0) asks that station for a channel, as a hand-held does.
+            if (pawn.jobs?.curDriver is IRadioDeskCall { CallingFrom: { } desk }) deskCalls.Add((pawn, desk));
             if (!Counts(pawn) || pawn.apparel == null) continue;
             foreach (var apparel in pawn.apparel.WornApparel)
             {

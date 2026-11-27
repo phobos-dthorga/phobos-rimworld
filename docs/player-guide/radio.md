@@ -36,6 +36,18 @@ Research **local radio** (after Microelectronics basics).
 | Mast antenna | Architect, D'thorga, Radio: 60 steel, 1 component | 10 m high, with a little gain. **Sees over walls** |
 | Remote gun turret | Architect, D'thorga, Radio: 120 steel, 6 components, 1 advanced component; after **remote turrets** | A .50 that **fires only while a colonist at a station watches it**: connect it to the station **with coax**, or put it **within radio reach** of one (it then needs its picture through the air, so walls and distance count). That colonist can aim it. **While enemies are about, a colonist with Remote operation takes the console.** It takes one of their two hands, after any vehicles they drive. Haulers feed its belt with steel (**with Combat Extended, colonists reload it with .50 BMG**); it needs power |
 
+### Working the radio at the desk (from 0.51.0)
+
+- **The base station has one seat and the radio terminal two**, in front of the edge with the microphone or keyboard. The spot shows as
+  you place it, as a workbench's does. **Put a chair there**: whoever works the radio sits and is comfortable; with no chair they stand.
+- **One person to a seat.** A colonist who wants the radio while the seats are taken uses their hand-held if they are in touch, or does
+  something else.
+- **A call made at the desk takes a channel**, as a hand-held does: a radio chat, talking someone through a job, a lesson, a neighbour's
+  call. When every channel is in use the desk is passed over, and a call cut off by a vehicle's orders ends with a message.
+- **Teaching in person**: at the terminal, a teacher sits beside the child when both seats are free, and the lesson takes no channel.
+- **A station built before 0.51.0** may have a wall or a machine where its seat now is: its pane says "Nobody can sit at it". Clear the
+  spot or move the station.
+
 ## Talking to aircraft
 
 **Aircraft talk on their own bands**: the civil **air band** (118 to 137 MHz) and **military UHF** (225 to 400 MHz), by AM voice. Your
