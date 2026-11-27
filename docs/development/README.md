@@ -154,6 +154,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Ventilation and hydrogen](ventilation-and-hydrogen.md) (7 Nov 2026): the electrolyser's hydrogen, vents, and workstation gases. Record only.
 - [Vaccines and prevention](vaccines-and-prevention.md) (7 Nov 2026): doctors preventing disease in healthy pawns. Record only.
 - [Care needs](medical-care-needs.md) (26 Nov 2026): every medical item given or taken by rule, by need; the owner's answers. Built 0.28.0 to 0.32.0.
+- [Medical care, round two](medical-care-round-two.md) (27 Nov 2026): pain strength, disease classes, animals, a vaccine, spreading disease; cards. Record only.
 
 ## D'thorga Patches
 
