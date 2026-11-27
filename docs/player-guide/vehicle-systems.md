@@ -51,7 +51,8 @@ on an aircraft in flight.
   cylinder, whose water, oil, air, exhaust and fuel show their colours while they flow. **An aircraft with more than one engine has a tab
   for each**, showing that engine's own fuel pump, oil and chip detector. Pipes take the colour of what they carry (fuel, oil, coolant, air, exhaust,
   power) and turn grey when nothing flows; each part is green, amber or red by its reading and its health. **Rest the mouse on a part**
-  to read it and see it lit on the vehicle; **click it** to open the Systems tab there. Press the button again to close it. **Flow
+  to read it and see it lit on the vehicle; **click it** to open the Systems tab there; **right-click it** for orders (a service,
+  field repairs, a jump-start, fittings, a diagnosis). Press the button again to close it. **Flow
   marks on the systems schematic**, on the Display page of the settings, adds small marks that drift along the flowing pipes.
 - **Health**: the vehicle's speed and strength, and what each hurt part does to them. Each part's line shows its armour class (see
   [damage and repairs](vehicle-damage-and-repairs.md#armour)). **Like parts share a row** (landing wheels, panels): the row's bar

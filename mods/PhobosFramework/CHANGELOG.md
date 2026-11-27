@@ -33,6 +33,9 @@ The systems schematic, easier to find, with orders and a turbine cutaway
   the Dashboard with a live copy of the page and an **Open large** button. **A lit warning lamp on the Dashboard now opens the
   schematic** with that part outlined, where the page shows it; any other lamp opens the Systems tab as before. Not yet tested in
   game: row 775.
+- **Right-click a part on the schematic for orders**: open the Systems tab at it, ask for a service (naming the one that is due),
+  field repairs, a jump-start from the battery or starter, fittings, and a diagnosis, each the work its command button already
+  orders. One that cannot be given now is greyed out with the reason. Not yet tested in game: row 776.
 
 ### Save compatibility
 

@@ -520,6 +520,15 @@
   <PhobosVehicleSystems_ChipCauseOverdue>Likely run long past its service.</PhobosVehicleSystems_ChipCauseOverdue>
   <PhobosVehicleSystems_ChipCauseWear>Wear inside it; nothing else stands out.</PhobosVehicleSystems_ChipCauseWear>
   <PhobosVehicleSystems_SchematicTitle>{VEHICLE}: systems</PhobosVehicleSystems_SchematicTitle>
+  <!-- Framework 0.378.0: orders from the schematic, on a right-click. -->
+  <PhobosVehicleSystems_SchematicRightClick>Right-click for orders.</PhobosVehicleSystems_SchematicRightClick>
+  <PhobosVehicleSystems_OrderOpenSystem>Open the Systems tab at the {SYSTEM}</PhobosVehicleSystems_OrderOpenSystem>
+  <PhobosVehicleSystems_OrderServiceDue>Service when possible: {SERVICE} is due</PhobosVehicleSystems_OrderServiceDue>
+  <PhobosVehicleSystems_OrderCancelService>Cancel the service request</PhobosVehicleSystems_OrderCancelService>
+  <PhobosVehicleSystems_OrderCancelFieldFix>Cancel the field repairs</PhobosVehicleSystems_OrderCancelFieldFix>
+  <PhobosVehicleSystems_OrderNoJumpStart>its battery can start it</PhobosVehicleSystems_OrderNoJumpStart>
+  <PhobosVehicleSystems_OrderNeedsRig>needs a dyno bay in reach</PhobosVehicleSystems_OrderNeedsRig>
+  <PhobosVehicleSystems_OrderCancelDiagnose>Cancel the diagnosis</PhobosVehicleSystems_OrderCancelDiagnose>
   <!-- Framework 0.378.0: the schematic's own tab. -->
   <PhobosVehicleSystems_TabSchematic>Schematic</PhobosVehicleSystems_TabSchematic>
   <PhobosVehicleSystems_SchematicTabOpen>Open large</PhobosVehicleSystems_SchematicTabOpen>

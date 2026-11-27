@@ -4,8 +4,8 @@
 sheet for land vehicles with a piston engine, in its own window, flow marks a setting that starts off ([As built](#as-built-framework-03630)).
 The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765); the first cutaway, the land page's diesel, in
 Framework 0.374.0 (row 768). Made prominent (a command button, its own tab, warning lamps that open it) in Framework 0.378.0 (row
-775). Not built: pages for boats, electric and steam, a turbine cutaway, the heat gradient (SC8), orders from the page, the
-standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
+775), with orders on a right-click (row 776). Not built: pages for boats, electric and steam, a turbine cutaway, the heat gradient
+(SC8), the standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
 [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
 [the chip detector](vehicle-chip-detector.md).
 
@@ -389,6 +389,19 @@ first three. Not yet tested in game: row 775.
   before, and a part on the page still opens the Systems tab in one click.
 - **The same rule as before for who sees it** (agent's choice): a page for the vehicle's kind, a player's vehicle followed in full,
   and the Operator or Engineer display mode; the button, the tab and the lamps all follow it.
+
+## As built: orders from the page (Framework 0.378.0)
+
+SC4, the owner's card of 28 Nov 2026, "Right-click a part" (over a row of whole-vehicle buttons, or both). Not yet tested in game: row 776.
+
+- **A right-click on any part** opens a menu built by `SchematicOrders`: open the Systems tab at its system; ask for a service, or
+  cancel the request (naming the part's system's service where it is due); field repairs, while anything can be patched in the field;
+  a jump-start, on the battery or the starter; fittings, on any part, where there is anything to fit; a diagnosis, once the colony
+  can build a dyno bay. Each is a one-line call to the service its command button already uses.
+- **An order that cannot be given now is greyed out with its reason** (a jump-start where the battery can start it; fittings away
+  from a dyno bay), as the game's own menus show.
+- **Not offered** (agent's choice): the intake separator's switch and the load switches, which stay on the Dashboard and the command
+  bar; a part's own repair, which mechanics take up by themselves.
 
 ## Who chose what
 

@@ -159,7 +159,15 @@ public sealed class SchematicPanel
                 hovered = node.key;
                 Widgets.DrawBox(at.ExpandedBy(2f), 1);
                 TooltipHandler.TipRegion(at, () => Tip(node, nodeView), node.key.GetHashCode());
-                if (Widgets.ButtonInvisible(at) && nodeView.State != null) OpenSystem(nodeView.State);
+                // Framework 0.378.0 (SC4; the owner's card of 28 Nov 2026): a right-click offers the orders that apply to the part.
+                if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
+                {
+                    SchematicView.NodeView chosen = nodeView;
+                    List<FloatMenuOption> orders = SchematicOrders.For(Comp, node, chosen, () => { if (chosen.State != null) OpenSystem(chosen.State); });
+                    if (orders.Count > 0) Find.WindowStack.Add(new FloatMenu(orders));
+                    Event.current.Use();
+                }
+                else if (Widgets.ButtonInvisible(at) && nodeView.State != null) OpenSystem(nodeView.State);
             }
         }
         if (hovered != null) focus = null;
@@ -346,6 +354,7 @@ public sealed class SchematicPanel
             lines.Add("PhobosVehicleSystems_SchematicPartHealth".Translate((figures ? PhobosWidgets.HealthPercent(view.Health) : HealthWords.Of(view.Health)).Named("HEALTH")));
         }
         if (view.State != null) lines.Add("\n" + "PhobosVehicleSystems_SchematicClick".Translate(view.State.Def.label.Named("SYSTEM")));
+        lines.Add("PhobosVehicleSystems_SchematicRightClick".Translate());
         return string.Join("\n", lines);
     }
 
