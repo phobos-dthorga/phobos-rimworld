@@ -475,6 +475,8 @@
         <!-- Framework 0.233.0, life aboard: a slot in the dash for a stereo and a mount in the cab roof for a reading light (Y13 and Y14),
              appended to every land vehicle. Inside the cab; health and hit weight authored, small fittings'. -->
         <role>StereoSlot</role>
+        <!-- Framework 0.368.0 (docs/development/vehicle-standard.md, VS11; the owner's cards of 28 Nov 2026): not on a military vehicle, armed by design or rated military; taken out with its place recorded, so saves keep every other part's wear. -->
+        <notOnMilitary>true</notOnMilitary>
         <add>
           <key>PhobosStereoSlot</key>
           <countsTowardDestruction>false</countsTowardDestruction>
@@ -546,6 +548,8 @@
              the side for the awning, appended to every land vehicle so each has a part to go on and is lost with it. Outside the body; health
              and hit weight authored, a rack's and a rail's. -->
         <role>RoofMount</role>
+        <!-- Framework 0.368.0 (docs/development/vehicle-standard.md, VS11; the owner's cards of 28 Nov 2026): not on a military vehicle, armed by design or rated military; taken out with its place recorded, so saves keep every other part's wear. -->
+        <notOnMilitary>true</notOnMilitary>
         <add>
           <key>PhobosRoofMount</key>
           <countsTowardDestruction>false</countsTowardDestruction>
@@ -559,6 +563,8 @@
       </li>
       <li>
         <role>SideRail</role>
+        <!-- Framework 0.368.0 (docs/development/vehicle-standard.md, VS11; the owner's cards of 28 Nov 2026): not on a military vehicle, armed by design or rated military; taken out with its place recorded, so saves keep every other part's wear. -->
+        <notOnMilitary>true</notOnMilitary>
         <add>
           <key>PhobosSideRail</key>
           <countsTowardDestruction>false</countsTowardDestruction>
@@ -953,6 +959,8 @@
              berth goes, appended to every heavy land vehicle so a bunk has a part to go on and is lost with it. Inside the cab; health and hit
              weight authored, a bunk frame's. The bunk itself asks 3,500 kg and a wheeled vehicle (the owner's choice of 13 Nov 2026). -->
         <role>SleeperBerth</role>
+        <!-- Framework 0.368.0 (docs/development/vehicle-standard.md, VS11; the owner's cards of 28 Nov 2026): not on a military vehicle, armed by design or rated military; taken out with its place recorded, so saves keep every other part's wear. -->
+        <notOnMilitary>true</notOnMilitary>
         <add>
           <key>PhobosSleeperBerth</key>
           <countsTowardDestruction>false</countsTowardDestruction>

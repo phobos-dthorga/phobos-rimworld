@@ -22,6 +22,26 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.368.0] - 2026-11-28 - Draft
+
+Military vehicles without civilian bays
+
+### Changed
+
+- **Military vehicles have no stereo slot, sleeper berth, roof mount or side rail** (the vehicle standard's batch 5; the owner's cards of
+  28 November 2026): a tank, an APC or an armed Humvee is no camper. Military means what the factory radios already use: armed by design,
+  or rated military. A truck armed only by an upgrade kit keeps them, and every vehicle keeps its solar mount and fridge bay.
+- **Fittings on those bays come off into the cargo**: a stereo, cab bunk, roof tent or awning fitted there in an older save comes off the
+  first time the game loads, its kit in the vehicle's cargo, with a message.
+- **The schema check no longer warns of a turbine's radiator and drive belt** (for modders: a system may name optionalRoles, roles a
+  vehicle may rightly lack, and notOnMilitary takes a part out of a military design). Nothing in play changes there.
+
+### Save compatibility
+
+- Safe for saves: each vehicle now remembers the part layout it was saved with, and one saved before this version drops the taken-out
+  bays at its first load, so every other part keeps the wear it had. The log says so for each vehicle.
+- Not yet tested in game: row 747.
+
 ## [0.367.0] - 2026-11-28 - Draft
 
 Boats' marine radio

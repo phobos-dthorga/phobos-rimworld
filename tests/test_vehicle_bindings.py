@@ -125,6 +125,18 @@ class VehicleStandardTests(unittest.TestCase):
         self.assertIn('Below the standard: 2', out.getvalue())
         self.assertIn('Still to come: 2', out.getvalue())
 
+    def test_a_military_vehicle_showing_a_civilian_bay_is_a_finding(self):
+        # Framework 0.368.0 (VS11): a line for military vehicles only, naming roles that should not be there.
+        std = {**STANDARD, 'lines': [{'line': 'VS11', 'label': 'no civilian bays', 'status': 'built', 'kinds': ['land'], 'militaryOnly': True,
+                                      'absentRoles': ['StereoSlot']}]}
+        tank = _vehicle('Test_Tank', 'PhobosVehicleLoadout_Tracked', ['Electrical'], ['StereoSlot'])
+        tank['military'] = True
+        truck = _vehicle('Test_Truck', 'PhobosVehicleLoadout_Truck', ['Electrical'], ['StereoSlot'])
+        clean = _vehicle('Test_Tank2', 'PhobosVehicleLoadout_Tracked', ['Electrical'], [])
+        clean['military'] = True
+        found = vehicle_bindings.below_standard({'vehicles': [tank, truck, clean]}, std)
+        self.assertEqual([('Test_Tank', ['StereoSlot (should not be there)'])], [(f['vehicle'], f['lacks']) for f in found['belowStandard']])
+
     def test_the_shipped_standard_reads(self):
         std = vehicle_bindings.standard()
         self.assertTrue(std['lines'])

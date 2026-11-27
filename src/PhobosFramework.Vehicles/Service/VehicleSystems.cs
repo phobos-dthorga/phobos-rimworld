@@ -228,6 +228,10 @@ public static class VehicleSystems
         // Framework 0.366.0 (the vehicle standard, batch 4): parts marked last, at the very end, so a saved vehicle keeps every earlier part
         // where it was. Every role is bound by now, so a part that asks for another role (onlyWithRole) can be judged.
         added += AppendWhole(def, props, last.Where(r => r.onlyWithRole == null || props.roleKeys.ContainsKey(r.onlyWithRole)));
+        // Framework 0.368.0 (the vehicle standard's batch 5, VS11; the owner's cards of 28 Nov 2026): a military vehicle goes without the
+        // civilian bays. They were made in their places above, so every stage ran as before, and are taken out now with their places recorded
+        // for saves (PartsOnLoad).
+        if (VehicleFittings.CountsAsMilitary(def, loadout)) added -= TakeOut(def, props, loadout.partRoles.Where(r => r.notOnMilitary));
         // Framework 0.256.0: numbered roles roll up into their base role (Engine1 to EngineN are "the engines"), before the reactors are set.
         SystemParts.RollUpFamilies(props);
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).
@@ -316,6 +320,30 @@ public static class VehicleSystems
         // The logbook (Framework 0.181.0, EM23): the core's tab, shown for the player's vehicles.
         if (!def.inspectorTabs.Contains(typeof(Phobos.Framework.Interface.ITab_PhobosLogbook))) def.inspectorTabs.Add(typeof(Phobos.Framework.Interface.ITab_PhobosLogbook));
         return added;
+    }
+
+    /// <summary>
+    /// Takes out the parts we added for these roles (never a design's own part), recording where each stood in the full list and the layout that
+    /// took it out (<see cref="PartLayouts.Current"/>), and unbinds the roles. Returns how many went.
+    /// </summary>
+    static int TakeOut(VehicleDef def, CompProperties_PhobosVehicleSystems props, IEnumerable<PartRoleSpec> roles)
+    {
+        var keys = new HashSet<string>();
+        var unbind = new List<string>();
+        foreach (PartRoleSpec role in roles)
+        {
+            if (role.add == null || !props.addedKeys.Contains(role.add.key)) continue;
+            keys.Add(role.add.key);
+            unbind.Add(role.role);
+        }
+        if (keys.Count == 0) return 0;
+        List<int> places = Phobos.Framework.Vehicles.Rules.PartLayoutRule.PlacesOf(def.components.Select(p => p.key).ToList(), keys);
+        foreach (int place in places) props.removedParts.Add(new RemovedPart { index = place, key = def.components[place].key, layout = PartLayouts.Current });
+        for (int i = places.Count - 1; i >= 0; i--) def.components.RemoveAt(places[i]);
+        foreach (string role in unbind) props.roleKeys.Remove(role);
+        props.addedKeys.RemoveAll(keys.Contains);
+        props.uncountedKeys.ExceptWith(keys);
+        return places.Count;
     }
 
     /// <summary>Appends one whole part for each of these roles, in their order (the late and the last stages). Returns how many were added.</summary>

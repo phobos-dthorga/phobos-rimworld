@@ -99,12 +99,18 @@ def below_standard(data: dict, std: dict | None = None) -> dict:
                 continue
             if line.get('poweredOnly') and not powered:
                 continue
+            # Framework 0.368.0 (VS11): a line for military vehicles only, judged by the report's own "military" (a report from before has
+            # none, and such a line then waits for a game start).
+            if line.get('militaryOnly') and not vehicle.get('military'):
+                continue
             if (vehicle['def'], line['line']) in excused:
                 continue
             lacks = [s for s in line.get('systems', []) if s not in systems] + [r for r in line.get('roles', []) if r not in roles]
-            if not lacks:
+            # What does not belong: a role the line says this vehicle should not show, bound on it all the same.
+            shows = [r for r in line.get('absentRoles', []) if r in roles]
+            if not lacks and not shows:
                 continue
-            finding = {**where, 'line': line['line'], 'what': line.get('label', ''), 'lacks': lacks}
+            finding = {**where, 'line': line['line'], 'what': line.get('label', ''), 'lacks': lacks + [f'{r} (should not be there)' for r in shows]}
             if line.get('status') == 'planned':
                 planned.append({**finding, 'batch': line.get('batch')})
             else:

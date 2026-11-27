@@ -24,6 +24,13 @@
       <li>Radiator</li>
       <li>Belt</li>
     </roles>
+    <!-- Framework 0.368.0 (docs/development/vehicle-standard.md, VS11): a turbine aircraft, a boat cooled by the sea and a generator set have no
+         radiator or drive belt of theirs; unbound, they read as sound and no breakdown falls on them. Nothing in play reads this list: it tells
+         the schema check (scripts/check-vehicle-schemas.py) not to warn of them. -->
+    <optionalRoles>
+      <li>Radiator</li>
+      <li>Belt</li>
+    </optionalRoles>
     <parameters>
       <!-- River fording (cross-links round three G7, Framework 0.113.0): how open the engine's air intake is to river water. 1 for every
            engine; the snorkel fitting makes it 0; an electric vehicle has no air intake (0 below). -->

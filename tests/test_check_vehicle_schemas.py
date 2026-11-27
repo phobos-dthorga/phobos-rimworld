@@ -117,6 +117,17 @@ class VehicleSchemaCheckTests(unittest.TestCase):
         self.assertEqual(result['errors'], [])
         self.assertTrue(any('binds to nothing' in w for w in result['warnings']))
 
+    def test_an_optional_or_per_engine_role_left_unbound_is_no_warning(self):
+        # Framework 0.368.0 (VS11): a role a vehicle may rightly lack, and a role a system adds a part for beside each engine.
+        unbound = SYSTEM.replace('<partRoles><li><role>Engine</role><add><key>TestEngine</key><health>10</health></add></li></partRoles>', '')
+        result = self.run_with(unbound.replace('<roles><li>Engine</li></roles>', '<roles><li>Engine</li></roles><optionalRoles><li>Engine</li></optionalRoles>'))
+        self.assertEqual(result['errors'], [])
+        self.assertFalse(any('binds to nothing' in w for w in result['warnings']))
+        result = self.run_with(unbound.replace('<roles><li>Engine</li></roles>', '<roles><li>Engine</li></roles><partPerEngine><role>Engine</role></partPerEngine>'))
+        self.assertFalse(any('binds to nothing' in w for w in result['warnings']))
+        result = self.run_with(SYSTEM.replace('<roles><li>Engine</li></roles>', '<roles><li>Engine</li></roles><optionalRoles><li>Radiator</li></optionalRoles>'))
+        self.assertTrue(any('optionalRoles names Radiator' in e for e in result['errors']))
+
     def test_a_good_drivetrain_and_flight_profile_pass(self):
         result = self.run_with(POWER)
         self.assertEqual(result['errors'], [])

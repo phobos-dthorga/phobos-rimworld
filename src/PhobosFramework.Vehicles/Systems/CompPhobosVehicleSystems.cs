@@ -95,6 +95,9 @@ public class CompProperties_PhobosVehicleSystems : VehicleCompProperties
     public List<string> addedKeys = new();
     /// <summary>Appended parts that do not count toward the vehicle's destruction: empty mounting points for fittings (Framework 0.114.5).</summary>
     public HashSet<string> uncountedKeys = new();
+    /// <summary>Parts taken out of this design and where they stood (Framework 0.368.0, the vehicle standard's batch 5): a saved vehicle drops
+    /// their entries at its first load (PartsOnLoad), and fittings on them come off with their kits (VehicleFittings.SettleRemovedParts).</summary>
+    public List<RemovedPart> removedParts = new();
     /// <summary>How many of the design's weapons this service tied to a mount at start-up (Framework 0.115.0, T1).</summary>
     public int weaponsTied;
     /// <summary>The design's tracks, by key: a thrown one stops the vehicle (Framework 0.115.0, M2).</summary>
@@ -689,6 +692,10 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// <summary>Quantities kept per part: each engine's hot-section life, each wheel's brake wear (Framework 0.248.0, PartFigures).</summary>
     public PartFigures PartFigures => perPart ??= new PartFigures(this);
 
+    /// <summary>The part layout this vehicle's saved parts follow (Framework 0.368.0, <see cref="PartLayouts"/>): a new vehicle is made with the
+    /// current one; a vehicle loaded from an older save is moved over to it by PartsOnLoad. Saved.</summary>
+    public int PartLayout = PartLayouts.Current;
+
     public override void PostExposeData()
     {
         base.PostExposeData();
@@ -743,6 +750,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Scribe_Collections.Look(ref pipeUnderlays, "PhobosVehicleSystems_PipeUnderlays", LookMode.Value, LookMode.Deep);
         pipeUnderlays ??= new Dictionary<string, Phobos.Framework.Persistence.PipeUnderlay>();
         Scribe_Values.Look(ref lastUpdateTick, "PhobosVehicleSystems_LastUpdate", -1);
+        // Framework 0.368.0: the part layout this vehicle was saved with; a save from before has none, and reads 0 (PartsOnLoad moves it over).
+        Scribe_Values.Look(ref PartLayout, "PhobosVehicleSystems_PartLayout", 0, forceSave: true);
         Scribe_Values.Look(ref WindowsDown, "PhobosVehicleSystems_WindowsDown", false);
         Scribe_Values.Look(ref OpenToColony, "PhobosVisit_OpenToColony", true);
         Scribe_Values.Look(ref RaiderHotboxRolled, "PhobosLifeAboard_RaiderRolled", false);
@@ -789,6 +798,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (Usable && !respawningAfterLoad) Fittings.RollEnemySet();
         // Framework 0.321.0: what it throws up as it moves, drawn by its map's effects emitter (registered only; nothing is made here).
         VehicleMotionFx.Register(this);
+        // Framework 0.368.0: a fitting on a bay its design has taken out comes off into the cargo, before the factory gives anything.
+        if (Usable) Fittings.SettleRemovedParts();
         // Aircraft service-life upgrades: a vehicle from an older save keeps what its loadout no longer starts with.
         if (Usable) Fittings.GiveOlderSaveFittings();
         // Framework 0.356.0: what it left the factory with (a radio on aircraft, military vehicles and boats), once per fitting.

@@ -61,6 +61,13 @@
       <li>Radiator</li>
       <li>WaterPump</li>
     </roles>
+    <!-- Framework 0.368.0 (docs/development/vehicle-standard.md, VS11): a boat is cooled by the sea through its own pump-less raw-water circuit
+         as modelled (the boat loadout), and a generator set and a locomotive may carry neither part of theirs; unbound, they read as sound.
+         Nothing in play reads this list: it tells the schema check not to warn of them. -->
+    <optionalRoles>
+      <li>Radiator</li>
+      <li>WaterPump</li>
+    </optionalRoles>
     <parameters>
       <heatAtFullLoad>420</heatAtFullLoad>
       <radiatorRate>6</radiatorRate>

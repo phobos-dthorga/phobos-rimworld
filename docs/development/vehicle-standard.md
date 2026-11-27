@@ -6,8 +6,9 @@ built** (the audit, and the gaps it found): D'thorga Framework 0.359.0, D'thorga
 built](#built-batch-2-27-nov-2026)); not yet tested in game (row 723). **Batch 3 is built** (each aircraft engine's own fuel and oil):
 D'thorga Framework 0.360.0 ([as built](#built-batch-3-27-nov-2026)); not yet tested in game (row 724). **Batch 4 is built** (lights,
 searchlights, night landings and galleys): D'thorga Framework 0.366.0 and D'thorga Vehicles 0.132.0 ([as
-built](#built-batch-4-28-nov-2026)); not yet tested in game (rows 743 to 745). Batch 5 is a proposal. The owner answered eleven cards
-([below](#questions-for-the-owner)).
+built](#built-batch-4-28-nov-2026)); not yet tested in game (rows 743 to 745). **Batch 5 is built** (what does not belong): D'thorga
+Framework 0.368.0 ([as built](#built-batch-5-28-nov-2026)); not yet tested in game (row 747). Every batch is built; VS8 and VS12 wait for a
+behaviour. The owner answered fifteen cards ([below](#questions-for-the-owner)).
 
 **Why.** The owner, 27 Nov 2026, looking at their aircraft: "Wouldn't radios of some sort be included with the majority of the ones in
 my game, if not all, by default? And if that's the case, howcome there's no mention of them on the Systems, Fittings, nor Health pages?
@@ -83,7 +84,7 @@ where it changes an outcome** (the vehicles' rule: every node moves a figure tha
 | 2 | The audit kind and `config/vehicle-standard.json`. **Built 27 Nov 2026** | So every later batch is checked, and nothing slips back |
 | 3 | VS6, VS7 (fuel and oil for aircraft). **Built 27 Nov 2026** | Real systems every aircraft has, with clear failures |
 | 4 | VS9, VS10 (lights and transports' galleys). **Built 28 Nov 2026** | Accessories that already exist; mostly XML (the searchlight, night landings and the galley's cooking became code) |
-| 5 | VS11 (what does not belong) | Takes things away from players' vehicles, so it waits for the owner's word on each |
+| 5 | VS11 (what does not belong). **Built 28 Nov 2026** | Takes things away from players' vehicles, so it waits for the owner's word on each (four cards) |
 | Later | VS8, VS12 | Each needs a behaviour designed first |
 
 ## Built: batch 1 (27 Nov 2026)
@@ -193,6 +194,30 @@ anywhere but ahead of the nose; a searchlight on boats; the galley on a map (it 
 meal halt's) until their own are drawn in the local run (the owner's card: "art included"). **What a next game would need:** the night-landing
 rule is game-free; lights and galleys are this game's Defs.
 
+## Built: batch 5 (28 Nov 2026)
+
+The owner's word ("Do Batch #5", 28 Nov 2026) and four cards (12 to 15, [below](#questions-for-the-owner)). **Not yet tested in game**: row
+747 of the [test pass](in-game-test-pass.md).
+
+| Piece | As built |
+| --- | --- |
+| Which vehicles | **Military vehicles**, as the factory radios judge them (`VehicleFittings.CountsAsMilitary`, now one static test for both): armed by design, or a loadout rated military. In the owner's game this should take in the tanks, APCs and IFVs (the M1A2s, the Bradley, the M113s, the T-54/55, the Wiesel, Vanilla Vehicles Expanded's armed tracked vehicles) and the armed Humvee, JLTV and MaxxPro: **the agent's expectation, not checked vehicle by vehicle**; the bindings report's new "military" field says which, from the next game start. A truck armed only by an upgrade kit stays civilian |
+| What goes | The **stereo slot**, the **sleeper berth** (heavy vehicles), the **roof mount** (roof tent) and the **side rail** (awning): `notOnMilitary` on their part roles. The solar mount and fridge bay stay (the agent's lean, the owner's pick: armies carry solar blankets and ration coolers) |
+| How | Each part is still made in its place, so every stage appends as before, then taken out of the design with its place recorded (`removedParts`, `PartLayoutRule.PlacesOf`). Only a part we added; a design's own part never |
+| Saves | Each vehicle now saves the **part layout** it follows (`PhobosVehicleSystems_PartLayout`; `PartLayouts.Current` is 1). A vehicle loaded from an older one drops the saved entries at the removed places, last first, before Vehicle Framework binds the rest in order (`PartsOnLoad`, `PartLayoutRule.DropAt`, tested), so every other part keeps its own wear. A place past the end of an older save is left alone. Says so in the log |
+| What was fitted there | A stereo, cab bunk, roof tent or awning on a bay that went comes off at spawn, its kit into the vehicle's cargo as if a mechanic had taken it off, with a message (`SettleRemovedParts`; the owner's card, "Back into the cargo") |
+| The turbines' service list | The radiator and drive belt the service system reads on a turbine, a boat cooled by the sea or a generator set were never shown or broken: an unbound role reads as sound. A system may now name them `optionalRoles`, and the schema check no longer warns of them, nor of the pumps a system adds beside each engine (`partPerEngine`): 113 warnings became 13 |
+| The audit | The bindings report now says whether each vehicle counts as military and which parts its design had taken out, and a standard line may name `absentRoles` for `militaryOnly` vehicles: VS11 lists any military vehicle still showing a civilian bay, from the next game start |
+
+**What outside the vehicle notices:** the vehicle's cargo (the kits), once. **Other factions' vehicles:** a raider's or a base's military
+vehicle has no civilian bays either; one captured keeps that. **Cost:** at start-up, a handful of list operations per military design; at a
+load, one list look per vehicle; nothing while playing. Not measured in play.
+
+**Not built:** VS12's crew intercom (still set aside until it changes something); other classes' misfits (a dirtbike's sleeper bays are
+already only on heavy vehicles; a locomotive keeps its stereo); the remaining 13 schema warnings, which are other questions (a boat's clutch,
+the electric vehicle's starter). **What a next game would need:** the part layout rule is game-free; any game that saves parts by position
+needs its own place to drop the entries.
+
 ## Questions for the owner
 
 Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, the agent's recommendation marked, then the answer.
@@ -210,6 +235,10 @@ Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, th
 | 9 | Night landings: should landing in the dark without landing lights matter? | **Dark and unlit = risky** (recommended): under the existing Rough landings setting, the same chance as landing blind; lights or a lit spot take it away · Lights only · Always rough | **Dark and unlit = risky** |
 | 10 | Batch 3 missed the thrust pods (Frog, Toad, Goliath). What should they get? | **Excuse them, recorded** (recommended) · Fuel pumps only (a pump per thruster, no oil, no freezing) · Same as every aircraft | **Excuse them, recorded** |
 | 11 | Galleys (VS10): should anything come fitted from the factory? | **Bays only** (recommended) · C-17 and Trawler fitted · C-17 and Trawler only | The owner's own answer: "Bays only, unless some have a kitchenette in real life? Which if so, they get that by default or as an upgrade, art included." Built as: the bays on all four, and a galley from the factory on the C-17, the C-27J and the Trawler, which carry one |
+| 12 | Batch 5 (VS11): which vehicles lose the civilian bays? | **Military vehicles** (recommended): armed by design or rated military, as the factory radios · Tracked fighting vehicles only · Name them one by one | **Military vehicles** (28 Nov 2026) |
+| 13 | Which bays should those vehicles lose? (several) | **Stereo slot** (recommended) · **Sleeper berth** (recommended) · **Roof tent + awning rail** (recommended) · Solar mount and fridge bay (the agent leaned to keep them) | **Stereo slot, sleeper berth, roof tent and awning rail** |
+| 14 | What happens to a fitting already on a bay that goes? | **Back into the cargo** (recommended), as its kit, with a message · Simply gone | **Back into the cargo** |
+| 15 | Taking a bay away shifts every later part in a saved vehicle. How should saves be handled? | **Move saves over** (recommended): each vehicle remembers its part layout, and the removed entries are dropped at the first load · New vehicles only | **Move saves over** |
 
 ## Who chose what
 
@@ -218,14 +247,17 @@ Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, th
   audit kind to keep the standard. Batch 3 ("Absolutely start batch 3"), by card: each engine its own pumps and oil; real consequences
   in the air behind a setting that starts on; jet fuel freezing at its real point. Batch 4 ("Start batch 4 of the standard", 28 Nov
   2026), by card: the lamp bracket, landing lights and a helicopter searchlight; dark, unlit landings as risky as blind ones; the thrust pods
-  excused; galleys where the real vehicle has one, from the factory, with their own art.
+  excused; galleys where the real vehicle has one, from the factory, with their own art. Batch 5 ("Do Batch #5", 28 Nov 2026), by card:
+  military vehicles lose the stereo slot, sleeper berth, roof mount and side rail; their fittings come back into the cargo; saves are moved over.
 - **Agent:** the standard's lines, the batches, the audit, and every lean here, for the owner to revise. In batch 3: the code route
   (per-engine parts and a service, not the land systems), the air at cruising height and the ram rise, Jet A-1's figure (not Jet A's
   -40 °C, which the card named), solid at 10 °C below, the gliding landing or crash on the world map, and the setting's risk grade. In
   batch 4: landing lights on by default and from the factory; the searchlight on every aircraft with a rotor drive (the tiltrotor and turboprop
   transports included), switched by hand; an autopilot not helping a dark landing; the lights' draws as shares of the 12-volt generator; which
   of the four carry a real galley (the C-27J's from Leonardo's brochure, not the card's examples); the galley cooking for caravans on the
-  vehicle's own fuel, its figures, and its place after a field kitchen; and appending every new part last.
+  vehicle's own fuel, its figures, and its place after a field kitchen; and appending every new part last. In batch 5: the part layout
+  number on each vehicle and dropping saved entries at the first load; the fittings coming off at spawn; optional roles for the turbines'
+  service list; the audit's military lines.
 
 ## Sources
 

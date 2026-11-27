@@ -61,6 +61,7 @@ public static class PartsOnLoad
     {
         if (Scribe.mode != LoadSaveMode.PostLoadInit || __instance.components == null) return;
         if (VehicleField?.GetValue(__instance) is not VehiclePawn vehicle) return;
+        MoveToCurrentLayout(vehicle, __instance.components);
         int defined = vehicle.VehicleDef?.components?.Count ?? 0;
         int extra = __instance.components.Count - defined;
         if (extra <= 0) return;
@@ -113,6 +114,27 @@ public static class PartsOnLoad
         }
         if (added == 0) return;
         MarkDirty?.Invoke(__instance, null);
+    }
+
+    /// <summary>
+    /// Framework 0.368.0 (the vehicle standard's batch 5): a vehicle saved with an older part layout drops the saved entries of the parts its
+    /// design has had taken out since, last first, before Vehicle Framework binds the rest to the design in order, so every other part keeps its
+    /// own wear (PartLayoutRule). Its systems' saved layout was read earlier in the load, so it is known here; it is then the current one.
+    /// </summary>
+    static void MoveToCurrentLayout(VehiclePawn vehicle, List<VehicleComponent> saved)
+    {
+        if (vehicle.GetComp<CompPhobosVehicleSystems>() is not { } comp) return;
+        int was = comp.PartLayout;
+        comp.PartLayout = PartLayouts.Current;
+        List<RemovedPart> removed = comp.Props.removedParts;
+        if (was >= PartLayouts.Current || removed.Count == 0) return;
+        List<int> drop = Phobos.Framework.Vehicles.Rules.PartLayoutRule.DropAt(saved.Count, was, removed.Select(r => (r.index, r.layout)));
+        foreach (int i in drop) saved.RemoveAt(i);
+        if (drop.Count == 0) return;
+        Log.Message(VehicleSystemsMod.LogPrefix + " " + vehicle.LabelShort + " was saved with " + drop.Count + " part" + (drop.Count == 1 ? "" : "s")
+                    + " its design has since taken out (" + string.Join(", ", removed.Where(r => r.index < saved.Count + drop.Count).Select(r => r.key)) + "); dropped in place, so the other parts keep their wear.");
+        if (Seen.Wants("vehicles.layout-moved", vehicle))
+            Seen.Note("vehicles.layout-moved", vehicle, string.Join(", ", removed.Select(r => r.key)), null, new[] { new KeyValuePair<string, double>("dropped", drop.Count) });
     }
 
     /// <summary>Cuts a running vehicle's parts back to <paramref name="count"/> and rebuilds the lookups. Returns how many went.</summary>

@@ -269,7 +269,16 @@ def check(root):
                 errors.append(f'{where}: {qname} has an empty remainingLabel')
         parameters = {child.tag for child in (node.find('parameters') if node.find('parameters') is not None else [])}
         roles = {(li.text or '').strip() for li in items(node, 'roles')}
-        systems[name] = {'quantities': quantities, 'parameters': parameters, 'roles': roles, 'node': node, 'where': where}
+        # Framework 0.368.0 (the vehicle standard's VS11): roles a vehicle may rightly lack (a turbine's radiator and belt), and the role a
+        # system adds a part for beside each engine (partPerEngine, Framework 0.360.0), are never "bound to nothing" on a loadout.
+        optional = {(li.text or '').strip() for li in items(node, 'optionalRoles')}
+        per_engine = node.find('partPerEngine')
+        if per_engine is not None and text(per_engine, 'role'):
+            optional.add(text(per_engine, 'role'))
+        unknown_optional = optional - roles
+        if unknown_optional:
+            errors.append(f'{where}: optionalRoles names {", ".join(sorted(unknown_optional))}, which <roles> does not list')
+        systems[name] = {'quantities': quantities, 'parameters': parameters, 'roles': roles, 'optional': optional, 'node': node, 'where': where}
     all_quantities = {q for system in systems.values() for q in system['quantities']}
 
     for name, system in systems.items():
@@ -404,7 +413,7 @@ def check(root):
                 if ce_weight is None or ce_weight <= 0:
                     errors.append(f'{where}: the part added for {role_name} needs a positive hitWeightCE')
         for system_name in used:
-            for role in sorted(systems[system_name]['roles'] - bound):
+            for role in sorted(systems[system_name]['roles'] - bound - systems[system_name]['optional']):
                 warnings.append(f'{where}: {system_name} reads the role {role}, which this loadout binds to nothing (it reads as sound)')
         drivetrain = node.find('drivetrain')
         train = None

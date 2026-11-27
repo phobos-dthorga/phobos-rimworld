@@ -114,6 +114,10 @@ public static class SystemParts
                 text.Append("    {\"def\": ").Append(Json(def.defName)).Append(", \"label\": ").Append(Json(def.label ?? ""))
                     .Append(", \"mod\": ").Append(Json(def.modContentPack?.PackageId ?? ""))
                     .Append(", \"loadout\": ").Append(Json(props.loadout?.defName ?? ""))
+                    // Framework 0.368.0 (the vehicle standard's VS11): military as the factory radios and the civilian bays judge it, and the
+                    // parts its design has had taken out, so the audit can say what a military vehicle should not show.
+                    .Append(", \"military\": ").Append(props.loadout != null && VehicleFittings.CountsAsMilitary(def, props.loadout) ? "true" : "false")
+                    .Append(", \"removed\": [").Append(string.Join(", ", props.removedParts.Select(r => Json(r.key)))).Append("]")
                     .Append(",\n     \"systems\": [");
                 text.Append(string.Join(", ", props.systems.Select(s => "{\"def\": " + Json(s.def.defName) + ", \"roles\": [" + string.Join(", ", s.def.roles.Select(Json)) + "]}")));
                 text.Append("],\n     \"roles\": {");

@@ -113,6 +113,13 @@ made of several kinds of part), `categories` (stats the part feeds), a `depth`, 
 | `hitWeightCE` | The weight under Combat Extended, which sorts the other way (a smaller weight is hit more); left out, `hitWeight` is inverted there. |
 | `cells` or `cellsOf` | Explicit hitbox cells, or the cells (and armour) of the part bound to another role, usually `Engine`, so Combat Extended's shots can reach it. |
 | `categories`, `armor`, `tags` | As Vehicle Framework's own parts. |
+| `last` | (Framework 0.366.0) Appended at the very end, after every part the code adds. **Vehicle Framework saves parts by position, so any part added to a design that saves already hold takes `last`**; added in the middle, it would hand its place's saved health to the next part. |
+
+On the role itself (beside `role` and `find`): `notOnSubmersibles` (Framework 0.359.0) leaves it off a design that dives;
+`onlyWithRole` (Framework 0.366.0, with `last`) adds it only where another role is bound, as the searchlight turret needs a rotor
+drive; `notOnMilitary` (Framework 0.368.0) takes the part out of a military design (armed, or rated military), recording its place so a
+saved vehicle drops its entry at the first load and the other parts keep their wear. A system may list `optionalRoles` (Framework
+0.368.0): roles of its `roles` a vehicle may rightly lack, which the schema check then does not warn of.
 
 A role nothing binds reads as a sound part (efficiency 1) and its effects do nothing. Every bound part reports its hits to the
 systems, so `onPartHit` rules work on the vehicle's own parts too.

@@ -208,6 +208,21 @@
       "roles": [
         "GalleyBay"
       ]
+    },
+    {
+      "line": "VS11",
+      "label": "no civilian bays on a military vehicle",
+      "status": "built",
+      "kinds": [
+        "land"
+      ],
+      "militaryOnly": true,
+      "absentRoles": [
+        "StereoSlot",
+        "SleeperBerth",
+        "RoofMount",
+        "SideRail"
+      ]
     }
   ],
   "except": [

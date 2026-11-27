@@ -640,6 +640,8 @@
   <PhobosVehicleSystems_SetWaiting>{LINE}, once the other {MISSING} carry it too: until then nothing changes</PhobosVehicleSystems_SetWaiting>
   <PhobosVehicleSystems_FitCancelledMessage>{WORK}: cancelled on the {VEHICLE}.</PhobosVehicleSystems_FitCancelledMessage>
   <PhobosVehicleSystems_FitLost>The {VEHICLE} lost its {FITTING} with its {PART}.</PhobosVehicleSystems_FitLost>
+  <!-- Framework 0.368.0 (the vehicle standard's batch 5): a fitting on a civilian bay a military vehicle no longer has, taken off at the first load. -->
+  <PhobosVehicleSystems_FitBayTakenOut>The {VEHICLE}'s {FITTINGS} came off: a military vehicle has no place for them. Their kits are in its cargo.</PhobosVehicleSystems_FitBayTakenOut>
   <PhobosVehicleSystems_FitOrderLost>{WORK} on the {VEHICLE} was abandoned: the part is gone.</PhobosVehicleSystems_FitOrderLost>
   <PhobosVehicleSystems_FitFittedLine>Fitted: {FITTING}</PhobosVehicleSystems_FitFittedLine>
   <PhobosVehicleSystems_FitWaitingLine>Waiting to fit: {FITTING}</PhobosVehicleSystems_FitWaitingLine>

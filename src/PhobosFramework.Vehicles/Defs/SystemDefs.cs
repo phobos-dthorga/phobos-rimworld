@@ -359,6 +359,9 @@ public class PhobosVehicleSystemDef : Def
     public JumpStartSpec? jumpStart;
     /// <summary>The part roles the system reads; the schema check warns when a loadout binds none of them.</summary>
     public List<string> roles = new();
+    /// <summary>Roles of <see cref="roles"/> that a vehicle may rightly have none of (Framework 0.368.0, the vehicle standard's VS11: a turbine
+    /// has no radiator or drive belt), read as sound where unbound. Nothing in play reads this list; it tells the schema check not to warn.</summary>
+    public List<string> optionalRoles = new();
     /// <summary>The system's parameters come from the loadout's avionics fit (Framework 0.110.0; the avionics system).</summary>
     public bool takesAvionicsFit;
     /// <summary>Left off a design that dives (one with CompProperties_PhobosSubmersible), Framework 0.359.0: submarine work is on the
@@ -553,6 +556,36 @@ public class PartRoleSpec
     /// <summary>Added only to a design on which this other role is bound (Framework 0.366.0: a searchlight mount only where there is a rotor
     /// drive). Read for a part added <see cref="PartToAdd.last"/>, when every other role is bound; elsewhere it is reported as a problem.</summary>
     public string? onlyWithRole;
+    /// <summary>
+    /// Not on a military vehicle (Framework 0.368.0, the vehicle standard's batch 5, VS11; the owner's cards of 28 Nov 2026): armed by design,
+    /// or rated military, as the factory radios judge it (<see cref="VehicleFittings.CountsAsMilitary(Vehicles.VehicleDef, PhobosVehicleLoadoutDef)"/>).
+    /// The part is still made, in its place, and then taken out of the design with its place recorded (<see cref="RemovedPart"/>), so a vehicle
+    /// saved with it has the saved entry dropped at its first load and every other part keeps its own wear. Only an added part is taken out;
+    /// a design's own part never is.
+    /// </summary>
+    public bool notOnMilitary;
+}
+
+/// <summary>
+/// A part taken out of a design that saves may still hold (Framework 0.368.0): where it stood in the design's parts before it was taken out,
+/// and the part layout that took it out, so a vehicle saved with an older layout drops its saved entry there (PartsOnLoad).
+/// </summary>
+public class RemovedPart
+{
+    public int index;
+    public string key = "";
+    public int layout;
+}
+
+/// <summary>
+/// The part layouts a vehicle can be saved with (Framework 0.368.0). Vehicle Framework saves a vehicle's parts as healths by position, so a
+/// part taken out of the middle of a design would shift every later part's wear in a save; each vehicle remembers the layout it was saved with,
+/// and a load from an older one drops the entries of the parts taken out since. Raise <see cref="Current"/> whenever a release takes a part out.
+/// </summary>
+public static class PartLayouts
+{
+    /// <summary>0: every save before Framework 0.368.0. 1: the vehicle standard's batch 5 took the civilian bays off military vehicles.</summary>
+    public const int Current = 1;
 }
 
 /// <summary>An electrical consumer: amperes drawn while its condition holds (and, for a switch, while it is switched on).</summary>

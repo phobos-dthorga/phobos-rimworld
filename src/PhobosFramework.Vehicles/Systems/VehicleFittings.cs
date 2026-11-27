@@ -1565,10 +1565,42 @@ public sealed class VehicleFittings
         }
     }
 
-    /// <summary>Military as EMP hardening judges it: armed (a turret on its design), or a loadout rated military.</summary>
-    bool CountsAsMilitary(PhobosVehicleLoadoutDef loadout)
+    bool CountsAsMilitary(PhobosVehicleLoadoutDef loadout) => CountsAsMilitary(comp.Vehicle.VehicleDef, loadout);
+
+    /// <summary>
+    /// A fitting on a part its design has since taken out (Framework 0.368.0, the vehicle standard's batch 5; the owner's card of 28 Nov 2026:
+    /// "Back into the cargo") comes off, and its kit goes into the vehicle's cargo as if a mechanic had taken it off; work ordered there goes too.
+    /// Runs at spawn, before anything sweeps lost fittings away; only adds kits to the vehicle's own cargo, never to the map.
+    /// </summary>
+    public void SettleRemovedParts()
     {
-        bool armed = comp.Vehicle.VehicleDef.comps?.Any(c => c is Vehicles.CompProperties_VehicleTurrets turrets && turrets.turrets.Count > 0) == true;
+        List<RemovedPart> removed = comp.Props.removedParts;
+        if (removed.Count == 0 || fitted.Count + orders.Count == 0) return;
+        var keys = new HashSet<string>(removed.Select(r => r.key));
+        var labels = new List<string>();
+        for (int i = fitted.Count - 1; i >= 0; i--)
+        {
+            if (!keys.Contains(fitted[i].partKey)) continue;
+            PhobosVehicleFittingDef? def = fitted[i].def;
+            fitted.RemoveAt(i);
+            if (def == null) continue;
+            GiveBack(def);
+            labels.Add(def.label);
+        }
+        orders.RemoveAll(o => !o.partKey.NullOrEmpty() && keys.Contains(o.partKey));
+        if (labels.Count == 0) return;
+        Changed();
+        if (Seen.Wants("vehicles.bay-taken-out", comp.Vehicle)) Seen.Note("vehicles.bay-taken-out", comp.Vehicle, string.Join(", ", labels));
+        if (comp.Vehicle.Faction == Faction.OfPlayer)
+            VehicleNotices.Send("PhobosVehicleSystems_FitBayTakenOut".Translate(comp.Vehicle.LabelShort.Named("VEHICLE"), labels.ToCommaList(useAnd: true).Named("FITTINGS")).Resolve(),
+                Where, MessageTypeDefOf.NeutralEvent);
+    }
+
+    /// <summary>Military as EMP hardening judges it: armed (a turret on its design), or a loadout rated military. One test for the factory
+    /// radios (Framework 0.356.0) and the civilian bays a military vehicle goes without (Framework 0.368.0), read from the Def alone.</summary>
+    public static bool CountsAsMilitary(Vehicles.VehicleDef def, PhobosVehicleLoadoutDef loadout)
+    {
+        bool armed = def.comps?.Any(c => c is Vehicles.CompProperties_VehicleTurrets turrets && turrets.turrets.Count > 0) == true;
         return Phobos.Framework.Vehicles.Rules.EmpRule.ClassFor(loadout.empHardening, armed) == EmpHardening.Military;
     }
 

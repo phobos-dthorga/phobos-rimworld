@@ -477,6 +477,8 @@
     "740": {"parts": {"the lamp names the worn part": ["vehicles.chip-light"], "its stage is entered": [{"key": "vehicles.stage.oilMetal", "variant": "chip light"}]}},
     "741": {"parts": {"automatic, it comes on over rough ground": [{"key": "vehicles.intake-separator", "variant": "Automatic"}], "held on by the switch": [{"key": "vehicles.intake-separator", "variant": "On"}], "a barrier clogs": [{"key": "vehicles.stage.barrierClog", "variant": "clogged"}]}},
     "746": ["radio.marine-link"],
+    "747": {"parts": {"a saved military vehicle moved over to the new layout": [{"key": "vehicles.layout-moved", "expect": {"dropped": ">= 1"}}],
+      "a fitting on a bay that went came back as its kit": ["vehicles.bay-taken-out"]}},
     "742": ["framework.song-choice"],
     "743": {"parts": {"landing lights burn on an aircraft": [{"key": "vehicles.fx-lamps", "variant": "landingLights"}],
       "a dark, unlit landing comes down hard": [{"key": "aircraft.rough-landing", "variant": "dark"}]}},
