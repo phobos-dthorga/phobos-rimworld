@@ -190,6 +190,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [The radio as the comms console](radio-comms-console.md) (27 Nov 2026): four shapes, six benefits, five downsides. Design only.
 - [Radio: what to look at first](radio-first-look.md) (27 Nov 2026): five checks first, then rows 699 to 731 as met in play. Guide.
 - [QSL cards, worked out](radio-qsl-cards.md) (28 Nov 2026): callsigns, grid locators, notes; a drawn front and back. Built (0.58.0, 0.59.0).
+- [QSL cards in play](radio-qsl-in-play.md) (28 Nov 2026): cards as books, the bureau, the wall, awards, rare stations. Designed.
 - [HF: the radio's Phase 2](radio-hf.md) (27 Nov 2026): skywave, NVIS, band conditions and kit. Slice 1 built (0.62.0); skywave next.
 - [Radio stations](radio-stations.md) (24 Nov 2026): the radio desk, a radio terminal and amplifier, and upgrades. Partly built.
 - [Radio ties with other mods' things](radio-ties-with-other-mods.md) (27 Nov 2026): radio-like things in the game and mod list, RT1 to RT18. Research.
