@@ -3614,6 +3614,15 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (service.rawSupplies.Count > 0) Seen.Note("vehicles.service-kit-used", Vehicle, service.label, GameComponent_PhobosServiceKits.RawAccepted ? "raw" : "kit");
         foreach (QuantityRestore restore in service.restores)
         {
+            // Framework 0.374.0 (docs/development/vehicle-fuel-filter.md, FF6): a partial fix leaves a figure already better than it alone.
+            if (restore.onlyLowers)
+            {
+                if (!TryGetQuantity(restore.quantity, out float before) || before <= restore.value) continue;
+                if (Seen.Wants("vehicles.partial-restore", Vehicle, restore.quantity))
+                {
+                    Seen.Note("vehicles.partial-restore", Vehicle, service.label, restore.quantity, new[] { new KeyValuePair<string, double>("before", before) });
+                }
+            }
             // Framework 0.247.0, generic since 0.248.0: a quantity kept per part is restored on the most worn part (or its axle) alone.
             if (PartFigures.RestoreMostWorn(restore.quantity, restore.value) is { } parts)
             {

@@ -238,6 +238,9 @@ public class QuantityRestore
 {
     public string quantity = "";
     public float value;
+    /// <summary>Sets the quantity to <see cref="value"/> only where it stands above it (Framework 0.374.0): a partial fix, such as rinsing a fuel
+    /// filter back to half, never makes a cleaner one dirtier.</summary>
+    public bool onlyLowers;
 }
 
 /// <summary>

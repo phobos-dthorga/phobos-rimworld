@@ -636,5 +636,22 @@
         </exceptDamageDefs>
       </li>
     </onPartHit>
+    <!-- Framework 0.374.0 (docs/development/vehicle-fuel-filter.md, FF6): the field fix. A mechanic drains the filter's bowl and rinses the
+         element in fuel, which takes off the loose dirt but not what is packed into it, so it comes back to half clogged and no cleaner
+         (onlyLowers); no supplies, a short job (authored). Due once the filter is near blocked (0.9, above the clogged stage the engine service
+         answers at 0.7), so a colony without a service kit is not left with a starving engine. The engine service still changes it outright. -->
+    <service>
+      <label>a fuel filter rinse</label>
+      <dueQuantity>fuelFilter</dueQuantity>
+      <dueAbove>0.9</dueAbove>
+      <restores>
+        <li>
+          <quantity>fuelFilter</quantity>
+          <value>0.5</value>
+          <onlyLowers>true</onlyLowers>
+        </li>
+      </restores>
+      <work>600</work>
+    </service>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 </Defs>

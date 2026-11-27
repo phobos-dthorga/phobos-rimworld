@@ -22,6 +22,21 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.374.0] - 2026-11-28 - Draft
+
+The schematic's three parts, finished
+
+### Added
+
+- **A mechanic rinses a nearly blocked fuel filter in the field**: once a filter is nine tenths clogged, a mechanic drains and rinses
+  it, with no supplies, which brings it back to half. The engine service still changes it outright, as before. Land vehicles and
+  aircraft alike, with the "Fuel filters clog" setting on. Not yet tested in game: row 766.
+- For modders: a service's restore may be marked onlyLowers, so a partial fix never makes a figure worse.
+
+### Save compatibility
+
+- Safe for saves: nothing new is saved.
+
 ## [0.373.0] - 2026-11-28 - Draft
 
 The systems schematic for aircraft

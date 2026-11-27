@@ -1,6 +1,7 @@
 # A fuel filter that clogs (28 Nov 2026)
 
 **Status (28 Nov 2026):** built in Framework 0.365.0, not yet tested in game (row 739); see [As built](#as-built-framework-03650). The
+field fix (FF6) in Framework 0.374.0 (row 766). The
 owner chose by card to build all three of the schematic's missing parts, "each with its own record first" ([the schematic record](vehicle-schematic.md),
 M1), and answered this record's questions on the Decisions page the same day.
 
@@ -115,7 +116,9 @@ Not yet tested in game: row 739. What differs from the model above, and the choi
 - **The tank's dirt** (FF5, `FuelDirt`): fuel from a depot over 90 days old brings dirt, rising to wholly dirty at 180 days
   (`FuelFilterRule.DepotDirt`, authored); every other fuel that arrives is clean and thins it. Both depot refuels count: a convoy's and an
   aircraft's stop. With the depots' fuel ageing setting off, depot fuel is clean.
-- **The engine service changes it** (FF6); the field fix to half is **not built**.
+- **The engine service changes it** (FF6). **The field fix** (Framework 0.374.0, row 766): the fuel system's own service, "a fuel
+  filter rinse", due at 0.9 clogged (agent's choice: above the engine service's 0.7, so it is the fallback for a colony without a
+  kit), no supplies, 600 work; it brings the filter to half and never raises a cleaner one (a restore marked `onlyLowers`).
 - **The schematic's land page draws it** between the tank and the pump (FF7).
 - **Settings**: **Fuel filters clog** (on) and **Blocked fuel filters stop engines** (off, shown only while the first is on), on Vehicle
   Systems' **Engines** page under Fuel.
