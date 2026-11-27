@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- QSL cards in play, part 1 (Radio 0.66.0; docs/development/radio-qsl-in-play.md, the owner's cards of 28 Nov 2026): a card you can
+       hold, the game's own book, so colonists read it with the game's reading job and keep it on a shelf. Made only by the bureau, never
+       sold or given as a reward (it carries its logbook card). Figures authored. -->
+  <ThingDef>
+    <defName>PhobosRadio_QslCard</defName>
+    <label>QSL card</label>
+    <description>A card from another station, confirming a contact by radio. Radio operators like to read them.</description>
+    <thingClass>Phobos.Radio.QslCardBook</thingClass>
+    <category>Item</category>
+    <selectable>true</selectable>
+    <rotatable>True</rotatable>
+    <altitudeLayer>Item</altitudeLayer>
+    <tickerType>Rare</tickerType>
+    <alwaysHaulable>true</alwaysHaulable>
+    <useHitPoints>true</useHitPoints>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <tradeability>None</tradeability>
+    <neverMultiSelect>true</neverMultiSelect>
+    <stackLimit>1</stackLimit>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/QslCard</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.6</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>30</MaxHitPoints>
+      <DeteriorationRate>2</DeteriorationRate>
+      <Mass>0.01</Mass>
+      <Flammability>1</Flammability>
+      <Beauty>1</Beauty>
+      <MarketValue>1</MarketValue>
+    </statBases>
+    <thingCategories>
+      <li>Books</li>
+    </thingCategories>
+    <inspectorTabs>
+      <li>ITab_Book</li>
+    </inspectorTabs>
+    <comps>
+      <li Class="CompProperties_Forbiddable" />
+      <li>
+        <compClass>CompQuality</compClass>
+      </li>
+      <li Class="CompProperties_Book">
+        <openGraphic>
+          <texPath>Phobos/Radio/Things/QslCard_Open</texPath>
+          <graphicClass>Graphic_Multi</graphicClass>
+          <drawSize>0.5</drawSize>
+        </openGraphic>
+        <verticalGraphic>
+          <texPath>Phobos/Radio/Things/QslCard_Vertical</texPath>
+          <graphicClass>Graphic_Multi</graphicClass>
+          <drawSize>0.5</drawSize>
+          <addTopAltitudeBias>true</addTopAltitudeBias>
+        </verticalGraphic>
+        <doers>
+          <li Class="BookOutcomeProperties_JoyFactorModifier" />
+          <li Class="Phobos.Radio.BookOutcomeProperties_QslMemory">
+            <thought>PhobosRadio_ReadQslCard</thought>
+            <farTiles>50</farTiles>
+          </li>
+        </doers>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThoughtDef>
+    <defName>PhobosRadio_ReadQslCard</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>read a QSL card</label>
+        <description>I read a card from a station we reached by radio. Someone out there heard us.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+      <li>
+        <label>read a QSL card from far away</label>
+        <description>A card from a station far across the world. Our voice carried all that way.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>

@@ -23,6 +23,22 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.66.0] - 2026-11-28 - Draft
+
+QSL cards you can hold, by the bureau
+
+### Added
+
+- **QSL cards you can hold** (the owner's cards of 28 November 2026, QSL cards in play, part 1): every card the logbook shows now
+  comes as a real card, a book in the game's own way, so colonists read it for recreation with the game's reading job and keep it
+  on a shelf; reading one lifts the mood a little (+2, +3 for a card from 50 km or more). The logbook still shows a card at once.
+- **The QSL bureau**: the cards come later, all together, with the next friendly trader caravan or visiting group on a home map,
+  dropped beside them with a message. Cards from before this version come by the bureau too. Not yet tested in game: row 787.
+
+### Save compatibility
+
+- Safe to update: each logbook card remembers whether its card has come; older cards are awaited, and come with the next visitors.
+
 ## [0.65.0] - 2026-11-28 - Draft
 
 Callsigns from the world's own places

@@ -702,6 +702,8 @@ public class GameComponent_RadioAdvice : GameComponent
             RadioFriends.LookOver();
             // Radio 0.36.0: by chance, a neighbour asks for a colonist on the radio.
             RadioNeighbours.Hourly();
+            // Radio 0.66.0: a friendly group on a home map brings the QSL cards awaited by the bureau.
+            RadioQsl.Bureau();
         }
     }
 

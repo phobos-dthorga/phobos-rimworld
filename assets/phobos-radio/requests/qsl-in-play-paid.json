@@ -1,0 +1,79 @@
+[
+  {
+    "name": "qsl-card-item",
+    "title": "QSL card, the item (PhobosRadio_QslCard)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/SSTVKit.png",
+        "role": "our approved radio item from the same mod: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosRadio_QslCard, a QSL card you can hold (Radio 0.66.0; docs/development/radio-qsl-in-play.md, part 1)",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/QslCard.png",
+      "size": "an item drawn at 0.6 of a cell; requested at 1024",
+      "why": "an item lying in the game world, so the paid service (assets/AGENTS.md)",
+      "note": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/QslCard.png, and its open and on-the-wall facings turned by script"
+    },
+    "prompt": "GAME ITEM SPRITE. One single object seen from directly above, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for a radio amateur's QSL card: a single stiff postcard that confirms a radio contact. Image 1 is our approved radio item from the same game: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the card, alone on a plain pure white background, lying flat and straight, filling about 70 percent of the canvas width. Square canvas.\n\nA landscape-shaped card with a slightly worn cream border; its face shows a small painted landscape (a ridge of hills under a pale sky and a tiny radio mast on the ridge); a bold dark band across the top where a station's callsign would go, left plain; a small square stamp-like box in one corner, left plain.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around the card, soft flat cel shading with two or three tones per area, muted warm colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people or animals. No shadow outside the card."
+  },
+  {
+    "name": "qsl-wall",
+    "title": "QSL wall, the card frame (Radio 0.66.0, part 2)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1536,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/BaseStation.png",
+        "role": "our approved radio base station from the same mod: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "the QSL wall, a frame that holds received cards as a bookcase holds books (docs/development/radio-qsl-in-play.md, part 2)",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/QslWall.png",
+      "size": "a 2 by 1 building against a wall; requested at 1536 by 1024",
+      "why": "a building in the game world, so the paid service",
+      "note": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/QslWall.png; the cards' own fronts are drawn over its empty slots by the game"
+    },
+    "prompt": "STRAIGHT FRONT VIEW, looking directly at a board hung on a wall, flat on, as a game draws a picture on a wall. No angle, no tilt, no perspective.\n\nCreate an ORIGINAL game building sprite for a wooden display board that holds postcards, as a radio amateur pins up the cards from stations they have contacted. Image 1 is our approved radio desk from the same game: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nLandscape canvas. The board fills about 85 percent of the canvas width, centred, on a plain pure white background.\n\nA dark varnished wooden frame around a cork board; on the cork, six EMPTY postcard-sized slots in two rows of three, each marked only by four small brass corner clips, the cork showing through: the cards are added separately. A small brass plate centred on the frame's bottom edge, left plain.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted warm wood, cork and brass colours, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, cards or pictures in the slots. No shadow outside the board."
+  },
+  {
+    "name": "qsl-certificate",
+    "title": "Radio award certificate, framed (Radio 0.66.0, part 2)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/BaseStation.png",
+        "role": "our approved radio base station from the same mod: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "an award's framed certificate, art colonists admire from a distance (docs/development/radio-qsl-in-play.md, part 2)",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/QslCertificate.png",
+      "size": "a 1 by 1 building against a wall; requested at 1024",
+      "why": "a building in the game world, so the paid service"
+    },
+    "prompt": "STRAIGHT FRONT VIEW, looking directly at a framed certificate hung on a wall, flat on. No angle, no tilt, no perspective.\n\nCreate an ORIGINAL game building sprite for a framed radio award certificate, of the kind radio amateurs hang above their station. Image 1 is our approved radio desk from the same game: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nSquare canvas. The frame fills about 80 percent of the canvas, centred, on a plain pure white background.\n\nA polished dark wooden frame with a thin gold inner edge around a cream certificate; on the certificate a decorative border, a small drawing of a globe with curved radio waves around it at the top, an empty band across the middle where words would go, and a red wax seal with a ribbon at the bottom corner.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted warm colours with the gold and red seal, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos or people. No shadow outside the frame."
+  }
+]

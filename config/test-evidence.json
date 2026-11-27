@@ -471,6 +471,10 @@
     "782": ["radio.console-needs-reach"],
     "783": ["radio.hf-mast"],
     "784": ["radio.qsl-card-area"],
+    "787": {"parts": {
+      "the bureau brings the cards": ["radio.qsl-bureau"],
+      "a colonist reads a card": ["radio.qsl-card-read"]
+    }},
     "769": {"parts": {
       "a manpack in touch with home by the ground wave": ["radio.hf-ground-wave"],
       "the HF bands tab in dev mode": ["radio.hf-band-panel"],

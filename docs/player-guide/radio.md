@@ -358,6 +358,9 @@ log, newest first: advice calls, other factions' help, friends made and lost, ra
   made contact, its hills, its trees, desert or ice, the sea if it is on the coast. **Click a card to turn it over**: the back says the
   band and mode the contact was worked on, and the relay stations that carried it. **Your own callsign**: type it in the radio's mod
   settings (*Our station's callsign*) and every card is addressed to it.
+- **Cards you can hold**: each card also comes as a real card, **by the QSL bureau**: the next friendly trader or visiting group
+  brings every card awaited, all together. Colonists read them for recreation like books, and keep them on a shelf; a card lifts
+  the reader's mood a little, more from far away.
 - **Awards**: cards from three factions, from every faction on the air, from 50 km away or more, or from ten settlements each earn an
   award. Colonists who work the radio (wearing a hand-held, or with a radio friend) are proud of it: **+2** an award, up to **+6**.
 

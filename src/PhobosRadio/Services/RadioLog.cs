@@ -99,9 +99,13 @@ public sealed class QslCard : IExposable
     /// <summary>The named place the sender's prefix comes from (Radio 0.65.0), "Kasiko Mountains"; empty on a card from before, which takes
     /// it, and a callsign from it, the first time it is drawn while its settlement stands.</summary>
     public string Area = "";
+    /// <summary>Whether its card has come by the bureau (Radio 0.66.0): the logbook shows a card at once; the card itself comes later with a
+    /// friendly trader or visitor (<see cref="RadioQsl.Bureau"/>). Cards from before come by the bureau too.</summary>
+    public bool Delivered;
 
     public void ExposeData()
     {
+        Scribe_Values.Look(ref Delivered, "PhobosQslDelivered");
         Scribe_Values.Look(ref Area, "PhobosQslArea", "");
         Scribe_Defs.Look(ref Band, "PhobosQslBand");
         Scribe_Defs.Look(ref Mode, "PhobosQslMode");
@@ -259,12 +263,15 @@ public static class RadioQsl
 
     private static List<QslCard> cards = new();
     private static List<QslAward> awards = new();
+    /// <summary>The visiting groups the bureau has already posted by this session; never saved, since a card once posted stays posted.</summary>
+    private static readonly HashSet<int> postedBy = new();
 
     public static IReadOnlyList<QslCard> Cards => cards;
     public static IReadOnlyList<QslAward> Awards => awards;
 
     public static void Clear()
     {
+        postedBy.Clear();
         QslCalls.Clear();
         cards = new List<QslCard>();
         awards = new List<QslAward>();
@@ -326,6 +333,45 @@ public static class RadioQsl
         RadioLog.Add(RadioLogKind.Qsl, text);
         if (Seen.Wants("radio.qsl-card", colonist)) Seen.Note("radio.qsl-card", colonist, settlement.LabelCap + ", " + card.Report);
         CountAwards();
+    }
+
+    /// <summary>
+    /// The QSL bureau (Radio 0.66.0; docs/development/radio-qsl-in-play.md, part 1): when a friendly trader caravan or visiting group is on a
+    /// home map, it brings every card still awaited, dropped beside one of them, as the old bureaux posted everyone's cards together.
+    /// <para>Cost: once a game hour, a look over the home maps' groups while any card is awaited; nothing otherwise.</para>
+    /// </summary>
+    public static void Bureau()
+    {
+        if (!cards.Any(card => !card.Delivered) || Find.Maps == null) return;
+        foreach (Map map in Find.Maps)
+        {
+            if (!map.IsPlayerHome) continue;
+            foreach (Verse.AI.Group.Lord lord in map.lordManager.lords)
+            {
+                if (lord.faction is not { } faction || faction.IsPlayer || faction.HostileTo(Faction.OfPlayer) || postedBy.Contains(lord.loadID)) continue;
+                if (lord.ownedPawns.FirstOrDefault(p => p.Spawned && p.RaceProps.Humanlike) is not { } carrier) continue;
+                postedBy.Add(lord.loadID);
+                Post(carrier, faction);
+                return;
+            }
+        }
+    }
+
+    private static void Post(Pawn carrier, Faction faction)
+    {
+        var posted = new List<Thing>();
+        foreach (QslCard card in cards)
+        {
+            if (card.Delivered) continue;
+            QslCardBook book = QslCardBook.Make(card);
+            if (GenPlace.TryPlaceThing(book, carrier.Position, carrier.Map, ThingPlaceMode.Near)) posted.Add(book);
+            card.Delivered = true;
+        }
+        if (posted.Count == 0) return;
+        string text = "PhobosRadioQsl_BureauPost".Translate(posted.Count.Named("COUNT"), faction.Name.Named("FACTION")).Resolve();
+        Messages.Message(text, new LookTargets(posted), MessageTypeDefOf.PositiveEvent, historical: false);
+        RadioLog.Add(RadioLogKind.Qsl, text);
+        if (Seen.Wants("radio.qsl-bureau", carrier)) Seen.Note("radio.qsl-bureau", carrier, posted.Count + " cards by " + faction.Name);
     }
 
     private static void CountAwards()

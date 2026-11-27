@@ -56,4 +56,9 @@
   <PhobosRadioQsl_AwardAllFactions>Worked every faction on the air</PhobosRadioQsl_AwardAllFactions>
   <PhobosRadioQsl_AwardLongWay>A contact {TILES} km away or more</PhobosRadioQsl_AwardLongWay>
   <PhobosRadioQsl_AwardTenSettlements>Worked {COUNT} settlements</PhobosRadioQsl_AwardTenSettlements>
+  <!-- Radio 0.66.0: QSL cards you can hold, and the bureau that brings them. -->
+  <PhobosRadioQsl_ItemTitle>QSL card from {CALL}, {PLACE}</PhobosRadioQsl_ItemTitle>
+  <PhobosRadioQsl_ItemDescription>A card from {CALL} at {PLACE} ({FACTION}), confirming {OPERATOR}'s contact by radio: signal {REPORT}, {TILES} km.</PhobosRadioQsl_ItemDescription>
+  <PhobosRadioQsl_ReadBenefit>A small lift in mood for the reader, more for a card from far away.</PhobosRadioQsl_ReadBenefit>
+  <PhobosRadioQsl_BureauPost>Post from the QSL bureau: {COUNT} QSL cards, brought by {FACTION}.</PhobosRadioQsl_BureauPost>
 </LanguageData>

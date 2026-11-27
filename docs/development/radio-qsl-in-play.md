@@ -1,6 +1,8 @@
 # QSL cards in play (28 Nov 2026)
 
-**Status (28 Nov 2026):** designed on the owner's cards; nothing built yet. Builds on [QSL cards, worked out](radio-qsl-cards.md) (parts A
+**Status (28 Nov 2026):** part 1 (card items and the bureau) is built in Radio 0.66.0, not tested in game (row 787); parts 2 to 4 are
+designed. The paid art for parts 1 and 2 is made (US$0.310, six tries; card try 2 shipped until the owner picks; both certificate tries
+show Earth's continents on their globe, to be corrected once before part 2 ships). Builds on [QSL cards, worked out](radio-qsl-cards.md) (parts A
 and B, Radio 0.58.0 and 0.59.0; band and mode in 0.62.0), its leftover group C.
 
 ## Read this first
