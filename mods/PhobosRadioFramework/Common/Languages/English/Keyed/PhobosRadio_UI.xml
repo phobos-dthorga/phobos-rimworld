@@ -136,8 +136,14 @@
   <!-- The cover picture on the world map (Radio 0.42.0) -->
   <PhobosRadio_CoverGizmoOff>Radio coverage: off</PhobosRadio_CoverGizmoOff>
   <PhobosRadio_CoverGizmo>Radio coverage: {KIND}</PhobosRadio_CoverGizmo>
-  <PhobosRadio_CoverGizmoDesc>Colour the world map by how well a radio standing on each tile would reach the place selected. Brighter is stronger, dark red is too weak to use, and ground left unpainted is past the horizon. High ground on the way casts a shadow, and a hill lights up from further off.\n\nPick the radio at the far end. The picture then follows whichever of your places with a radio you select, until you switch it off.</PhobosRadio_CoverGizmoDesc>
+  <PhobosRadio_CoverGizmoDesc>Colour the world map by how well a radio standing on each tile would reach the place selected. Brighter is stronger, dark red is too weak to use, and ground left unpainted is past the horizon. High ground on the way casts a shadow, and a hill lights up from further off.\n\nPick the radio at the far end, for this place alone or for everywhere a call could get home from, straight to a station or passed on by relays. One place's picture follows whichever of your places with a radio you select. Either stays until you switch it off.</PhobosRadio_CoverGizmoDesc>
   <PhobosRadio_CoverMenuOff>Off</PhobosRadio_CoverMenuOff>
+  <PhobosRadio_CoverMenuPlace>This place: {KIND}</PhobosRadio_CoverMenuPlace>
+  <PhobosRadio_CoverMenuNetwork>Home, through relays: {KIND}</PhobosRadio_CoverMenuNetwork>
+  <PhobosRadio_CoverGizmoNetwork>Radio coverage: home, through relays ({KIND})</PhobosRadio_CoverGizmoNetwork>
+  <PhobosRadio_CoverNetworkWorking>Working out radio coverage home, through relays ({KIND}): {PERCENT} done.</PhobosRadio_CoverNetworkWorking>
+  <PhobosRadio_CoverNetworkShown>Radio coverage home, through relays ({KIND}): {TILES} tiles in reach, from {PLACES} stations and relays. Brighter is stronger; dark red is too weak. A relay with every channel in use still refuses a call.</PhobosRadio_CoverNetworkShown>
+  <PhobosRadio_CoverNetworkNone>Radio coverage home, through relays ({KIND}): nothing to show. It needs a powered radio station at home, with a Morse key for Morse.</PhobosRadio_CoverNetworkNone>
   <PhobosRadio_CoverRefuseNoRadio>{KIND}: no working radio here</PhobosRadio_CoverRefuseNoRadio>
   <PhobosRadio_CoverRefuseNoKey>{KIND}: no station here has a Morse key</PhobosRadio_CoverRefuseNoKey>
   <PhobosRadio_CoverRefuseRelayMorse>{KIND}: a relay passes on speech only</PhobosRadio_CoverRefuseRelayMorse>

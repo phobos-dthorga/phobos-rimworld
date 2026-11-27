@@ -103,6 +103,10 @@ tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
   ground is past the horizon**. Hills light up from further off; a range casts a shadow behind it. The picture follows whichever of
   your radio places you select, and stays until you pick **Off**. It shows signal only: a relay with every channel in use still
   refuses a call. A colony with a station also shows a reach ring now, as a mast and a post do.
+- **The whole network at once** (from 0.43.0): the same button's menu has **Home, through relays** for a vehicle radio, the same
+  with its mast up, and Morse. It paints everywhere a call could get home from, straight to a station or passed on by your relay
+  masts, relay posts and halted repeater vehicles, **the weakest hop deciding**. Park a repeater vehicle or put up a mast and the
+  picture grows to match. Morse goes straight home only.
 - **Relay masts wear and can be raided** (from 0.37.0; a setting, **off by default**): on, a mast stops passing calls on after about a
   year until a convoy on its tile presses **Service the relay mast** (one component), and raiders near their own lands may knock it
   down. **A worked example of the whole network:** [Setting up a supply network](supply-network.md).

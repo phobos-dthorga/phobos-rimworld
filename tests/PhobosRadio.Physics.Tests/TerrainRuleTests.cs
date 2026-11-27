@@ -171,4 +171,14 @@ public class CoverRuleTests
     [InlineData(1, 7)]
     [InlineData(18, 1027)]
     public void TilesWithinARadiusCountAsAHexagon(int radius, int tiles) => Assert.Equal(tiles, CoverRule.TilesWithin(radius));
+
+    [Fact]
+    public void ThroughARelayACallIsNoBetterThanTheRelaysWayOnward()
+    {
+        Assert.Equal(8.0, CoverRule.Through(20, 8), 6);
+        Assert.Equal(5.0, CoverRule.Through(5, 30), 6);
+        // Straight home: nothing onward to limit it.
+        Assert.Equal(20.0, CoverRule.Through(20, double.PositiveInfinity), 6);
+        Assert.Equal(-3.0, CoverRule.Through(-3, double.PositiveInfinity), 6);
+    }
 }

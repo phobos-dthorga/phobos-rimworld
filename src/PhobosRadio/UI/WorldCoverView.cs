@@ -94,7 +94,9 @@ public static class WorldCoverGizmo
         {
             defaultLabel = kind == null
                 ? "PhobosRadio_CoverGizmoOff".Translate()
-                : "PhobosRadio_CoverGizmo".Translate(kind.label.Named("KIND")),
+                : WorldCover.Network
+                    ? "PhobosRadio_CoverGizmoNetwork".Translate(kind.label.Named("KIND"))
+                    : "PhobosRadio_CoverGizmo".Translate(kind.label.Named("KIND")),
             defaultDesc = "PhobosRadio_CoverGizmoDesc".Translate(),
             // The signal picture stands in until the button's own icon is drawn.
             icon = RadioTextures.Signal,
@@ -126,9 +128,16 @@ public static class WorldCoverGizmo
                     break;
                 default:
                     RadioCoverKindDef picked = kind;
-                    options.Add(new FloatMenuOption(kind.LabelCap, () => WorldCover.Pick(picked)));
+                    options.Add(new FloatMenuOption("PhobosRadio_CoverMenuPlace".Translate(kind.label.Named("KIND")), () => WorldCover.Pick(picked)));
                     break;
             }
+        }
+        // Radio 0.43.0: the whole network, home through relays, for a radio that calls. It does not depend on the place selected.
+        foreach (RadioCoverKindDef kind in RadioCoverKindDef.InOrder)
+        {
+            if (!WorldCover.NetworkOffered(kind)) continue;
+            RadioCoverKindDef picked = kind;
+            options.Add(new FloatMenuOption("PhobosRadio_CoverMenuNetwork".Translate(kind.label.Named("KIND")), () => WorldCover.Pick(picked, wholeNetwork: true)));
         }
         return options;
     }
@@ -140,8 +149,16 @@ public static class WorldCoverGizmo
         if (UiGuard.Resting(GuardKey)) return UiGuard.FallbackText;
         try
         {
-            if (WorldCover.Kind is not { } kind || WorldCover.Site is not { } site || site.Place != place) return null;
+            if (WorldCover.Kind is not { } kind) return null;
             NamedArgument name = kind.label.Named("KIND");
+            if (WorldCover.Network)
+            {
+                if (WorldCover.Working) return "PhobosRadio_CoverNetworkWorking".Translate(name, WorldCover.Progress.ToStringPercent().Named("PERCENT")).Resolve();
+                return WorldCover.Painted.Count == 0
+                    ? "PhobosRadio_CoverNetworkNone".Translate(name).Resolve()
+                    : "PhobosRadio_CoverNetworkShown".Translate(name, WorldCover.Reached.Named("TILES"), WorldCover.Places.Named("PLACES")).Resolve();
+            }
+            if (WorldCover.Site is not { } site || site.Place != place) return null;
             switch (WorldCover.Refusal(site, kind))
             {
                 case WorldCoverRefusal.NoMorseKey: return "PhobosRadio_CoverRefuseNoKey".Translate(kind.LabelCap.Named("KIND")).Resolve();

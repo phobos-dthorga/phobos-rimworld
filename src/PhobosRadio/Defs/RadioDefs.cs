@@ -223,6 +223,8 @@ public class RadioRulesDef : Def
     public float worldCoverFullScaleDb = 60f;
     /// <summary>How opaque the world picture is over the globe, from 0 to 1.</summary>
     public float worldCoverOpacity = 0.55f;
+    /// <summary>The most places the whole network's picture is worked out from, colonies first, then relays (Radio 0.43.0).</summary>
+    public int worldCoverMaxPlaces = 24;
     /// <summary>The most hops a relayed call may take (Radio 0.22.0): two relays, three hops (radio-autonomy's lean, agent default).</summary>
     public int maxRelayHops = 3;
     /// <summary>How many 25 kHz channels a repeater has between tiles (Radio 0.24.0): one pair, in and out, as the relay design leans

@@ -23,6 +23,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.43.0] - 2026-11-27 - Draft
+
+The whole radio network on the world map
+
+### Added
+
+- **Radio coverage of the whole network** (the owner's card of 27 November 2026: one picture of the whole network through every
+  relay). The Radio coverage button's menu gains Home, through relays, for a vehicle radio, the same with its mast up, and Morse:
+  every tile is coloured by what a call from there would have to spare on its way home, straight to a station or passed on by
+  relay masts, relay posts and halted repeater vehicles, the weakest hop deciding. It does not depend on what is selected. Not yet
+  tested in game: row 701.
+
+### Compatibility and limits
+
+- The picture shows signal, never whether a relay has a channel free: a tile shown in reach can still be refused by a full relay.
+  Morse is straight home only, as relays pass on speech. At most 24 stations and relays are worked out, colonies first. Safe with a
+  running save; nothing is saved.
+
 ## [0.42.0] - 2026-11-27 - Draft
 
 Radio coverage on the world map

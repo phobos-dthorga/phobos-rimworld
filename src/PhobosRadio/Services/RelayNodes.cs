@@ -107,6 +107,31 @@ public static class RelayNodes
     public static bool CanRelay(RelayNode node) => node.Repeater || node.End.Thing?.TryGetComp<CompRadio>()?.Props.relays == true;
 
     /// <summary>
+    /// What one hop between two nodes has to spare, or null when they are not in touch (Radio 0.41.0: through the tiles' own link budget,
+    /// high ground between them included). The one hop both searches below ask.
+    /// </summary>
+    static double? HopMargin(RelayNode a, RelayNode b, RadioRulesDef rules) =>
+        LinkBudgetService.EvaluateWorld(a, b, rules) is { InTouch: true } link ? link.MarginDb : null;
+
+    /// <summary>
+    /// What a call that has reached this relay has to spare from here to any of the targets, through the other relays, in at most
+    /// <paramref name="hops"/> hops; null when it reaches none (Radio 0.43.0, for the whole network's picture on the world map). The same
+    /// search as <see cref="BestChain"/> and the same hops, but it only looks: it books no channel, plays no tone and notes nothing, and it
+    /// takes no account of a relay being full.
+    /// </summary>
+    public static double? OnwardMargin(RelayNode relay, IReadOnlyList<RelayNode> targets, IEnumerable<RelayNode> relays, int hops, RadioRulesDef rules)
+    {
+        if (hops <= 0 || targets.Count == 0) return null;
+        var nodes = new List<RelayNode> { relay };
+        foreach (RelayNode other in relays)
+            if (other.Owner != relay.Owner) nodes.Add(other);
+        int firstTarget = nodes.Count;
+        nodes.AddRange(targets);
+        RelayRule.Chain chain = RelayRule.Best(nodes.Count, 0, i => i >= firstTarget, i => i < firstTarget, (a, b) => HopMargin(nodes[a], nodes[b], rules), hops);
+        return chain.Found ? chain.WorstMarginDb : null;
+    }
+
+    /// <summary>
     /// The best chain from one end to any of the targets, through the relays, on the world map: the hops' distances at the rules' metres
     /// a tile, each evaluated once, the chain at most the rules' hops. Null when nothing reaches. A relay with no room for the caller (the
     /// owner of <paramref name="from"/>) is left out; the chain found holds a place at each of its relays for the rules' lease, and a caller
@@ -133,8 +158,7 @@ public static class RelayNodes
         }
         int firstTarget = nodes.Count;
         nodes.AddRange(targets);
-        // Radio 0.41.0: each hop through the tiles' own link budget, high ground between them included.
-        double? Hop(int a, int b) => LinkBudgetService.EvaluateWorld(nodes[a], nodes[b], rules) is { InTouch: true } link ? link.MarginDb : null;
+        double? Hop(int a, int b) => HopMargin(nodes[a], nodes[b], rules);
         RelayRule.Chain chain = RelayRule.Best(nodes.Count, 0, i => i >= firstTarget, i => i < firstTarget, Hop, rules.maxRelayHops);
         // The busy line is the convoy's own reach home's; a search aimed at one colony leaves it alone.
         bool own = Equals(holder, from.Owner);

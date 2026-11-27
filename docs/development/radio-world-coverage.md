@@ -1,15 +1,15 @@
 # Radio cover on the world map, and high ground between tiles (27 Nov 2026)
 
-**Status (27 Nov 2026):** high ground between tiles is built (Radio Framework 0.41.0, row 699) and so is the cover picture for one
-site (Radio Framework 0.42.0, row 700); neither is tested in game. The picture of the whole network is designed here and not built.
+**Status (27 Nov 2026):** all three pieces are built and none is tested in game: high ground between tiles (Radio Framework 0.41.0,
+row 699), the cover picture for one site (0.42.0, row 700) and the picture of the whole network (0.43.0, row 701).
 
 The owner asked on 27 Nov 2026 whether radio cover can be seen on the world map as it can inside a colony, what it would take and
 what could go wrong, then answered three cards. This record holds the answers, the design of each piece and what is built.
 
 ## Read this first
 
-- **Three pieces, in this order**: high ground between tiles blocks signal (built); a painted picture of one site's cover (built);
-  one picture of the whole network through every relay (next).
+- **Three pieces, all built**: high ground between tiles blocks signal; a painted picture of one site's cover; one picture of the
+  whole network through every relay.
 - **The picture starts off in every game.** Its button is on a colony with a station, a relay mast, a relay post and a convoy with a
   radio, on the world map.
 - **High ground between tiles now costs every contact between tiles**, convoys, relays and Morse alike. A link that closed before
@@ -172,12 +172,57 @@ is a relay it calls through.
   (`assets/phobos-radio/requests/night-17-cover-icon.json`).
 - A colony's ring measures to a vehicle's whip on level ground; a mast's and a post's to a home station's 10 m mast, as before.
 
-## The whole network [O], designed, not built
+## The whole network [O]
 
-One picture of everywhere a convoy could reach home from, directly or through relays. It needs a look-only form of the chain
-search first: today's search (`RelayNodes.BestChain`) books channels at each relay, plays the repeater's tone and writes seen-in-play
-notes, none of which a picture may do. **Signal is not capacity**: a tile shown as covered can still be refused by a full relay,
-and the picture's line will say so.
+One picture of everywhere a call could get home from, straight to a colony's station or passed on by relays. The button's menu
+offers it as **Home, through relays** for each far-end radio that calls (a vehicle radio, the same with its mast up, and Morse); it
+does not depend on what is selected.
+
+### The rule
+
+1. **Each colony with a powered station is a place**: a call that reaches it is home.
+2. **Each relay that reaches home is a place too**, with what it has to spare onward: the best chain from it to any colony's
+   station through the other relays, in one hop fewer than a call may take (`maxRelayHops` less one), every hop in touch.
+3. **A tile's call through a relay is as good as the worse** of its hop to the relay and what the relay has onward. A chain is as
+   good as its worst hop, as in the relay rules.
+4. **A tile keeps the best of its ways home.**
+5. **Morse goes straight home only**: relays pass on speech.
+
+The onward figure comes from the relay search itself (`RelayRule.Best`, through `RelayNodes.OnwardMargin`) over the same hop the
+booking search asks, so it only looks: no channel is booked, no repeater tone plays and nothing is noted. **Signal is not
+capacity**: a tile shown as in reach can still be refused by a relay with every channel in use, and the picture's line says so.
+
+### The four questions
+
+- **What it lets the player do:** see the network as a whole, and where its gaps are, before a convoy finds them.
+- **What it stops:** nothing.
+- **How it changes play:** a repeater vehicle parked, a mast put up or a post founded can be judged by what it adds to the picture.
+- **What outside notices:** nothing, by choice: it is a picture of rules that already decide contacts.
+
+### Cost
+
+- **Nothing while it is off.** While on, the colonies' stations and the relays are read once every 60 frames on the world map.
+- **On a change only:** the relays' onward figures (one small chain search a relay, each hop one link with its walk over the
+  ground), then one spread a place, as one place's picture costs, within the same 1.5 ms a frame.
+- **At most 24 places** (`worldCoverMaxPlaces`), colonies first, then relays in the order the game lists them.
+- **Not measured.**
+
+### As built (Radio Framework 0.43.0)
+
+| Piece | Where |
+| --- | --- |
+| The plan of places, the spread over each in turn, a tile keeping its best | `Services/WorldCover.cs` |
+| The relay search that only looks | `RelayNodes.OnwardMargin`; the hop shared with the booking search is `RelayNodes.HopMargin` |
+| The worse of a hop and the way onward, game-free, tested | `CoverRule.Through` |
+| Seen in play | `radio.world-cover-network`, by far-end radio, row 701 |
+
+**Limits and agent choices [A]:**
+
+- Offered only for a far-end radio that calls. A relay mast or post as the far end ("where would a new relay join the network")
+  is one place's picture for now.
+- A relay on a colony's own tile is left out: a call that reaches that tile is home through the colony's own stations.
+- All places must be on the planet's surface.
+- Past 24 places the later relays are left out, without a line saying so.
 
 ## Sources
 

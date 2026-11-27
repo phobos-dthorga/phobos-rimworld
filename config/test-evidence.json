@@ -442,6 +442,7 @@
     "677": ["radio.reach-drawn"],
     "699": ["radio.terrain-blocked"],
     "700": ["radio.world-cover"],
+    "701": ["radio.world-cover-network"],
     "687": {"parts": {
       "a bought paste tap is made packed": ["trailers.store-made-packed"],
       "a caravan eats from a packed paste tap": ["trailers.caravan-ate-from-store"]

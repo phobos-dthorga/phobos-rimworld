@@ -16,7 +16,8 @@ namespace Phobos.Radio.Services;
 /// </summary>
 public sealed class WorldCoverSite
 {
-    public readonly WorldObject Place;
+    /// <summary>The thing on the world map, or null for a relay read from the relay search rather than from a selection.</summary>
+    public readonly WorldObject? Place;
     public readonly PlanetTile Tile;
     public readonly List<RelayNode> Ends;
     /// <summary>A convoy: it calls and the far end answers, so a link to a relay is worked in its mode.</summary>
@@ -25,9 +26,11 @@ public sealed class WorldCoverSite
     public readonly bool Relay;
 
     public WorldCoverSite(WorldObject place, List<RelayNode> ends, bool caller = false, bool relay = false)
+        : this(place.Tile, ends, caller, relay) => Place = place;
+
+    public WorldCoverSite(PlanetTile tile, List<RelayNode> ends, bool caller = false, bool relay = false)
     {
-        Place = place;
-        Tile = place.Tile;
+        Tile = tile;
         Ends = ends;
         Caller = caller;
         Relay = relay;
@@ -66,23 +69,33 @@ public interface IWorldCoverSiteSource
 }
 
 /// <summary>
-/// The cover picture on the world map (Radio 0.42.0; the owner's cards of 27 Nov 2026: painted tiles for one site, and buttons to switch
-/// the far-end radio; docs/development/radio-world-coverage.md). With a place of the player's that has a radio selected on the world map
-/// and a far-end radio picked, every tile within the horizon is given the signal a radio of that kind standing there would have to spare
-/// with the place: the same losses a contact between tiles uses (<see cref="LinkBudgetService.WorldLosses"/>), the same ground on the way
-/// (<see cref="TerrainRule.Worst"/> over the very tiles <see cref="TileAir.WalkLeg"/> would walk from that tile to the place), so the
-/// picture cannot disagree with a call made from there.
+/// The cover pictures on the world map (docs/development/radio-world-coverage.md; the owner's cards of 27 Nov 2026).
 /// <para>
-/// <b>Performance is the mod's first concern.</b> Nothing runs with the picture off, the world map not shown, or no such place selected.
-/// While on, tiles are worked out outward from the place for at most <see cref="RadioRulesDef.worldCoverBudgetMsPerFrame"/> of real time
-/// a frame. Each tile's step toward the place is found once and kept, so a tile's way back is a few reads a tile of distance, never a
-/// search. It works again only when the place, its radios or the far-end radio change (looked at every <see cref="LookFrames"/> frames).
-/// Four arrays the size of the planet's layer are held while the picture is on, and let go when it is switched off. Nothing is saved.
+/// <b>One place</b> (Radio 0.42.0): with a place of the player's that has a radio selected on the world map and a far-end radio picked,
+/// every tile within the horizon is given the signal a radio of that kind standing there would have to spare with the place.
+/// </para>
+/// <para>
+/// <b>The whole network</b> (Radio 0.43.0): every tile is given what a call from there would have to spare on its way home, straight to a
+/// colony's station or through relays. Each colony and each relay that reaches home is worked out as a place in turn, and a tile keeps the
+/// best: its hop to a relay, no better than what that relay has to spare onward (<see cref="RelayNodes.OnwardMargin"/>, the relay search
+/// with nothing booked). It shows signal, never whether a relay has a channel free.
+/// </para>
+/// <para>
+/// Both use the losses a contact between tiles uses (<see cref="LinkBudgetService.WorldLosses"/>) and the ground on the way
+/// (<see cref="TerrainRule.Worst"/> over the very tiles <see cref="TileAir.WalkLeg"/> would walk from that tile to the place), so a
+/// picture cannot disagree with a call made from a tile.
+/// </para>
+/// <para>
+/// <b>Performance is the mod's first concern.</b> Nothing runs with the picture off or the world map not shown. While on, tiles are
+/// worked out outward from each place for at most <see cref="RadioRulesDef.worldCoverBudgetMsPerFrame"/> of real time a frame. Each
+/// tile's step toward the place is found once and kept, so a tile's way back is a few reads a tile of distance, never a search. It works
+/// again only when the places, their radios or the far-end radio change (looked at every <see cref="LookFrames"/> frames). Four arrays the
+/// size of the planet's layer are held while a picture is on, and let go when it is switched off. Nothing is saved.
 /// </para>
 /// </summary>
 public static class WorldCover
 {
-    /// <summary>How often, in frames, the selected place's radios are read again for a change.</summary>
+    /// <summary>How often, in frames, the radios a picture is drawn from are read again for a change.</summary>
     public const int LookFrames = 60;
     /// <summary>How often, in tiles, the frame's time budget is checked.</summary>
     const int TilesPerClockCheck = 16;
@@ -99,10 +112,12 @@ public static class WorldCover
     static readonly Queue<int> queue = new();
     static readonly List<int> painted = new();
     static readonly List<Combo> combos = new();
+    static readonly List<(WorldCoverSite Site, double OnwardDb)> plan = new();
     static readonly Stopwatch watch = new();
 
     static Game? game;
     static RadioCoverKindDef? kind;
+    static bool network;
 
     // The place selected, read now and then.
     static WorldObject? place;
@@ -113,6 +128,8 @@ public static class WorldCover
     // The pass: what it is for, and how far it has got.
     static int signature;
     static PlanetLayer? layer;
+    static int planIndex;
+    static double onwardDb;
     static int siteId = -1;
     static Vector3 siteCentre;
     static int radiusTiles;
@@ -124,6 +141,7 @@ public static class WorldCover
     static bool working;
     static bool hasPass;
     static int done;
+    static int expected;
     static int reached;
     static float lastRedraw;
 
@@ -142,6 +160,9 @@ public static class WorldCover
         }
     }
 
+    /// <summary>Whether the picture is the whole network's, home through relays, rather than one place's.</summary>
+    public static bool Network => network;
+
     /// <summary>Raised each time the picture has changed: the draw layer redraws when it differs from what it drew.</summary>
     public static int Version { get; private set; }
 
@@ -153,12 +174,16 @@ public static class WorldCover
     /// <summary>Whether there is a picture to draw on this layer of the planet now.</summary>
     public static bool Showing(PlanetLayer planetLayer) => kind != null && hasPass && layer == planetLayer && game == Current.Game;
 
-    /// <summary>Picks the far-end radio, or switches the picture off with null. Presentation only: it changes nothing in the game.</summary>
-    public static void Pick(RadioCoverKindDef? picked)
+    /// <summary>
+    /// Picks the far-end radio, for one place or for the whole network, or switches the picture off with null. Presentation only: it
+    /// changes nothing in the game.
+    /// </summary>
+    public static void Pick(RadioCoverKindDef? picked, bool wholeNetwork = false)
     {
         Fresh();
-        if (kind == picked) return;
+        if (kind == picked && network == wholeNetwork) return;
         kind = picked;
+        network = picked != null && wholeNetwork;
         signature = 0;
         lookedFrame = -LookFrames;
         if (picked == null) LetGo();
@@ -190,7 +215,10 @@ public static class WorldCover
         return WorldCoverRefusal.NoMorseKey;
     }
 
-    /// <summary>The place the picture and the ring are for now, or null.</summary>
+    /// <summary>Whether the whole network's picture can be drawn for this far-end radio: only one that calls (a vehicle's) reaches home through relays.</summary>
+    public static bool NetworkOffered(RadioCoverKindDef kind) => kind.caller;
+
+    /// <summary>The place selected now, for the ring and for one place's picture, or null.</summary>
     public static WorldCoverSite? Site => site;
 
     /// <summary>How far the selected place's ring reaches, in tiles; 0 with none.</summary>
@@ -198,14 +226,17 @@ public static class WorldCover
 
     /// <summary>Whether the picture is still being worked out, and how far along it is, from 0 to 1.</summary>
     public static bool Working => working;
-    public static float Progress => !working ? 1f : Mathf.Clamp01(done / (float)System.Math.Max(1, System.Math.Min(layer?.TilesCount ?? 1, CoverRule.TilesWithin(radiusTiles))));
+    public static float Progress => !working ? 1f : Mathf.Clamp01(done / (float)System.Math.Max(1, expected));
 
-    /// <summary>How many tiles the finished picture found a contact on (workable or better).</summary>
+    /// <summary>How many tiles the picture found a contact on (workable or better).</summary>
     public static int Reached => reached;
 
+    /// <summary>How many places the picture was worked out from: one, or a colony and each relay that reaches home.</summary>
+    public static int Places => plan.Count;
+
     /// <summary>
-    /// Called each frame the world map is shown, with the first thing selected there (or null). Reads the place's radios now and then,
-    /// starts the picture again when what it is drawn from has changed, and works a little.
+    /// Called each frame the world map is shown, with the first thing selected there (or null). Reads the radios now and then, starts the
+    /// picture again when what it is drawn from has changed, and works a little.
     /// </summary>
     public static void Update(WorldObject? selected)
     {
@@ -237,6 +268,7 @@ public static class WorldCover
         if (game == Current.Game) return;
         game = Current.Game;
         kind = null;
+        network = false;
         place = null;
         site = null;
         LetGo();
@@ -251,6 +283,7 @@ public static class WorldCover
         queue.Clear();
         painted.Clear();
         combos.Clear();
+        plan.Clear();
         working = false;
         hasPass = false;
         layer = null;
@@ -268,45 +301,122 @@ public static class WorldCover
         return Mathf.Clamp(Mathf.RoundToInt((float)(metres / RadioRulesDef.Current.metresPerWorldTile)), 1, 200);
     }
 
-    /// <summary>Starts the picture again when the place, its radios, the far-end radio or the rules it is drawn from have changed.</summary>
+    static bool OnSurface(PlanetTile tile) => tile.Valid && tile.LayerDef != null && !tile.LayerDef.isSpace;
+
+    /// <summary>Starts the picture again when the places, their radios, the far-end radio or the rules it is drawn from have changed.</summary>
     static void Refresh()
     {
         if (kind == null) return;
-        if (site == null || !site.Tile.Valid || site.Tile.LayerDef == null || site.Tile.LayerDef.isSpace)
+        var rules = RadioRulesDef.Current;
+        if (network)
         {
-            // Nothing with a radio is selected: the last picture stays up until another place is, so a look elsewhere does not lose it.
+            // Read the colonies' stations and the relays as they are (cheap); what each relay has to spare onward is worked out only on a change.
+            var homes = HomeSites();
+            List<RelayNode> relays = kind.needsKey ? new List<RelayNode>() : RelayNodes.All().ToList();
+            int now = SignatureOf(null, kind, rules);
+            foreach (WorldCoverSite home in homes) now = HashSite(now, home.Tile, home.Ends);
+            foreach (RelayNode relay in relays) now = HashEnd(Gen.HashCombineInt(now, relay.Tile.tileId), relay);
+            now = Gen.HashCombineInt(now, rules.maxRelayHops);
+            if (now == 0) now = 1;
+            if (now == signature && hasPass) return;
+            signature = now;
+            BuildNetworkPlan(homes, relays, rules);
+            Start(kind, rules);
             return;
         }
-        var rules = RadioRulesDef.Current;
-        int now = SignatureOf(site, kind, rules);
-        if (now == signature && hasPass) return;
-        signature = now;
-        Start(site, kind, rules);
+        // One place. With nothing with a radio selected the last picture stays up, so a look elsewhere does not lose it.
+        if (site == null || !OnSurface(site.Tile)) return;
+        int single = HashSite(SignatureOf(site.Place, kind, rules), site.Tile, site.Ends);
+        if (single == 0) single = 1;
+        if (single == signature && hasPass) return;
+        signature = single;
+        plan.Clear();
+        plan.Add((site, double.PositiveInfinity));
+        Start(kind, rules);
     }
 
-    static int SignatureOf(WorldCoverSite site, RadioCoverKindDef kind, RadioRulesDef rules)
+    /// <summary>Each colony of the player's with a powered station, as a place.</summary>
+    static List<WorldCoverSite> HomeSites()
     {
-        int hash = Gen.HashCombineInt(kind.shortHash, site.Tile.tileId);
-        hash = Gen.HashCombineInt(hash, site.Place.ID);
+        var homes = new List<WorldCoverSite>();
+        if (Find.Maps == null) return homes;
+        foreach (Map map in Find.Maps)
+        {
+            if (!map.IsPlayerHome || map.Parent == null || !OnSurface(map.Tile)) continue;
+            List<RelayNode> ends = FactionDoctors.StationEnds(map);
+            if (ends.Count > 0) homes.Add(new WorldCoverSite(map.Parent, ends));
+        }
+        return homes;
+    }
+
+    /// <summary>
+    /// The whole network's places: each colony, a call reaching it being home; and each relay that reaches a colony, with what it has to
+    /// spare onward in one hop fewer than a call may take. A relay on a colony's own tile adds nothing a colony's stations do not.
+    /// </summary>
+    static void BuildNetworkPlan(List<WorldCoverSite> homes, List<RelayNode> relays, RadioRulesDef rules)
+    {
+        plan.Clear();
+        var targets = new List<RelayNode>();
+        foreach (WorldCoverSite home in homes)
+        {
+            plan.Add((home, double.PositiveInfinity));
+            targets.AddRange(home.Ends);
+        }
+        if (targets.Count == 0) return;
+        int most = System.Math.Max(1, rules.worldCoverMaxPlaces);
+        foreach (RelayNode relay in relays)
+        {
+            if (plan.Count >= most) break;
+            if (!OnSurface(relay.Tile) || homes.Exists(home => home.Tile == relay.Tile)) continue;
+            if (RelayNodes.OnwardMargin(relay, targets, relays, rules.maxRelayHops - 1, rules) is not { } onward) continue;
+            plan.Add((new WorldCoverSite(relay.Tile, new List<RelayNode> { relay }, relay: true), onward));
+        }
+    }
+
+    static int SignatureOf(WorldObject? place, RadioCoverKindDef kind, RadioRulesDef rules)
+    {
+        int hash = Gen.HashCombineInt(kind.shortHash, place?.ID ?? -1);
+        hash = Gen.HashCombineInt(hash, network ? 1 : 0);
         hash = Gen.HashCombineInt(hash, Mathf.RoundToInt(rules.metresPerWorldTile));
         hash = Gen.HashCombineInt(hash, rules.terrainBlocksBetweenTiles ? 1 : 0);
-        hash = Gen.HashCombineInt(hash, Mathf.RoundToInt(kind.AerialMetres * 10f));
-        foreach (RelayNode end in site.Ends)
-        {
-            hash = Gen.HashCombineInt(hash, Mathf.RoundToInt((end.End.AntennaHeightMetres + (float)end.SiteMetres) * 10f));
-            hash = Gen.HashCombineInt(hash, Mathf.RoundToInt(end.End.TransmitPowerWatts * 10f));
-            hash = Gen.HashCombineInt(hash, Mathf.RoundToInt(end.End.AntennaGainDbi * 10f));
-            hash = Gen.HashCombineInt(hash, Mathf.RoundToInt(end.End.NoiseFigureDb * 10f));
-            hash = Gen.HashCombineInt(hash, WorldCoverSite.HasKey(end) ? 1 : 0);
-            foreach (BandDef band in end.End.Bands)
-                hash = Gen.HashCombineInt(hash, Gen.HashCombineInt(band.shortHash, Mathf.RoundToInt(end.End.FeedLossDb(band) * 10f)));
-        }
-        return hash == 0 ? 1 : hash;
+        return Gen.HashCombineInt(hash, Mathf.RoundToInt(kind.AerialMetres * 10f));
     }
 
-    static void Start(WorldCoverSite site, RadioCoverKindDef kind, RadioRulesDef rules)
+    static int HashSite(int hash, PlanetTile tile, List<RelayNode> ends)
     {
-        layer = site.Tile.Layer;
+        hash = Gen.HashCombineInt(hash, tile.tileId);
+        foreach (RelayNode end in ends) hash = HashEnd(hash, end);
+        return hash;
+    }
+
+    static int HashEnd(int hash, RelayNode end)
+    {
+        hash = Gen.HashCombineInt(hash, Mathf.RoundToInt((end.End.AntennaHeightMetres + (float)end.SiteMetres) * 10f));
+        hash = Gen.HashCombineInt(hash, Mathf.RoundToInt(end.End.TransmitPowerWatts * 10f));
+        hash = Gen.HashCombineInt(hash, Mathf.RoundToInt(end.End.AntennaGainDbi * 10f));
+        hash = Gen.HashCombineInt(hash, Mathf.RoundToInt(end.End.NoiseFigureDb * 10f));
+        hash = Gen.HashCombineInt(hash, WorldCoverSite.HasKey(end) ? 1 : 0);
+        foreach (BandDef band in end.End.Bands)
+            hash = Gen.HashCombineInt(hash, Gen.HashCombineInt(band.shortHash, Mathf.RoundToInt(end.End.FeedLossDb(band) * 10f)));
+        return hash;
+    }
+
+    /// <summary>Starts a pass over the plan's places, on the layer of the first of them.</summary>
+    static void Start(RadioCoverKindDef kind, RadioRulesDef rules)
+    {
+        queue.Clear();
+        painted.Clear();
+        combos.Clear();
+        done = 0;
+        reached = 0;
+        expected = 0;
+        planIndex = -1;
+        hasPass = true;
+        working = false;
+        lastRedraw = RealTime.LastRealTime;
+        Version++;
+        if (plan.Count == 0) return;
+        layer = plan[0].Site.Tile.Layer;
         int tiles = layer.TilesCount;
         if (seen.Length != tiles)
         {
@@ -316,25 +426,36 @@ public static class WorldCover
             margins = new float[tiles];
             generation = 0;
         }
-        generation++;
-        siteId = site.Tile.tileId;
-        siteCentre = Find.WorldGrid.GetTileCenter(site.Tile);
-        BuildCombos(site, kind);
-        radiusTiles = CoverRule.RadiusTiles(site.HighestMetres(), kind.AerialMetres, Propagation.SiteHeightMetres((int)Hilliness.Mountainous),
+        System.Array.Fill(margins, float.NaN);
+        foreach ((WorldCoverSite planned, _) in plan)
+            expected += System.Math.Min(tiles, CoverRule.TilesWithin(RadiusFor(planned, kind, rules)));
+        working = NextPlace(kind, rules);
+    }
+
+    static int RadiusFor(WorldCoverSite site, RadioCoverKindDef kind, RadioRulesDef rules) =>
+        CoverRule.RadiusTiles(site.HighestMetres(), kind.AerialMetres, Propagation.SiteHeightMetres((int)Hilliness.Mountainous),
             rules.metresPerWorldTile, rules.worldCoverMaxTiles);
-        queue.Clear();
-        painted.Clear();
-        done = 0;
-        reached = 0;
-        hasPass = true;
-        working = combos.Count > 0;
-        if (working)
+
+    /// <summary>Moves to the plan's next place the far-end radio can work, and starts its spread; false when there is none left.</summary>
+    static bool NextPlace(RadioCoverKindDef kind, RadioRulesDef rules)
+    {
+        while (++planIndex < plan.Count)
         {
+            (WorldCoverSite planned, double onward) = plan[planIndex];
+            if (planned.Tile.Layer != layer) continue;
+            BuildCombos(planned, kind);
+            if (combos.Count == 0) continue;
+            generation++;
+            onwardDb = onward;
+            siteId = planned.Tile.tileId;
+            siteCentre = Find.WorldGrid.GetTileCenter(planned.Tile);
+            radiusTiles = RadiusFor(planned, kind, rules);
+            queue.Clear();
             seen[siteId] = generation;
             queue.Enqueue(siteId);
+            return true;
         }
-        lastRedraw = RealTime.LastRealTime;
-        Version++;
+        return false;
     }
 
     /// <summary>
@@ -365,14 +486,21 @@ public static class WorldCover
 
     static void Work(float budgetMs)
     {
-        if (layer == null) { working = false; return; }
+        if (layer == null || kind == null) { working = false; return; }
         var rules = RadioRulesDef.Current;
         WorldGrid grid = Find.WorldGrid;
         var siteTile = new PlanetTile(siteId, layer);
         watch.Restart();
         int sinceCheck = 0;
-        while (queue.Count > 0)
+        while (working)
         {
+            if (queue.Count == 0)
+            {
+                // This place is done: on to the plan's next, or the picture is finished.
+                working = NextPlace(kind, rules);
+                if (working) siteTile = new PlanetTile(siteId, layer);
+                continue;
+            }
             int id = queue.Dequeue();
             var tile = new PlanetTile(id, layer);
             // Its neighbours once: the step toward the place (kept), and the tiles to look at next.
@@ -386,23 +514,40 @@ public static class WorldCover
                 if (grid.ApproxDistanceInTiles(siteTile, neighbour) <= radiusTiles) queue.Enqueue(other);
             }
             float margin = Compute(id, tile, siteTile, grid, rules);
-            margins[id] = margin;
             if (!float.IsNaN(margin))
             {
-                painted.Add(id);
-                if (margin >= rules.workableDb) reached++;
+                // Through a relay the call is no better than what the relay has to spare onward; a tile keeps the best of its ways home.
+                float value = (float)CoverRule.Through(margin, onwardDb);
+                float held = margins[id];
+                if (float.IsNaN(held))
+                {
+                    margins[id] = value;
+                    painted.Add(id);
+                }
+                else if (value > held) margins[id] = value;
             }
             done++;
             if (++sinceCheck < TilesPerClockCheck) continue;
             sinceCheck = 0;
             if (watch.Elapsed.TotalMilliseconds >= budgetMs) break;
         }
-        if (queue.Count == 0)
+        if (!working)
         {
-            working = false;
+            reached = 0;
+            foreach (int id in painted)
+                if (margins[id] >= rules.workableDb) reached++;
             Version++;
-            if (Seen.Wants("radio.world-cover", null, kind?.defName))
-                Seen.Note("radio.world-cover", null, reached + " tiles in reach of " + painted.Count + " inside the horizon, " + done + " looked at", kind?.defName);
+            if (network)
+            {
+                if (Seen.Wants("radio.world-cover-network", null, kind.defName))
+                    Seen.Note("radio.world-cover-network", null, reached + " tiles in reach of " + painted.Count + " inside a horizon, " + done
+                        + " looked at, from " + plan.Count + " places", kind.defName);
+            }
+            else if (Seen.Wants("radio.world-cover", null, kind.defName))
+            {
+                Seen.Note("radio.world-cover", null, reached + " tiles in reach of " + painted.Count + " inside the horizon, " + done + " looked at",
+                    kind.defName);
+            }
         }
         else if (RealTime.LastRealTime - lastRedraw >= RedrawSeconds)
         {
@@ -411,7 +556,7 @@ public static class WorldCover
         }
     }
 
-    /// <summary>The step from a tile toward the place, found once a pass and kept.</summary>
+    /// <summary>The step from a tile toward the place, found once a place and kept.</summary>
     static int NextOf(int id, WorldGrid grid)
     {
         if (nextGeneration[id] == generation) return next[id];

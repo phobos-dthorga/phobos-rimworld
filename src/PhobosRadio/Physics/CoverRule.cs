@@ -36,6 +36,13 @@ public static class CoverRule
         return (int)Math.Min(Math.Max(1.0, Math.Ceiling(tiles)), Math.Max(1, capTiles));
     }
 
+    /// <summary>
+    /// What a call has to spare when its first hop goes to a relay (Radio 0.43.0): the worse of that hop and what the relay has to spare
+    /// onward, as a chain is as good as its worst hop. Straight home there is nothing onward to limit it: positive infinity leaves the
+    /// hop as it is.
+    /// </summary>
+    public static double Through(double hopMarginDb, double onwardMarginDb) => Math.Min(hopMarginDb, onwardMarginDb);
+
     /// <summary>About how many tiles lie within a number of tiles of one: a hexagon's count, 3r² + 3r + 1, for a progress figure.</summary>
     public static int TilesWithin(int radiusTiles) => radiusTiles <= 0 ? 1 : 3 * radiusTiles * radiusTiles + 3 * radiusTiles + 1;
 }

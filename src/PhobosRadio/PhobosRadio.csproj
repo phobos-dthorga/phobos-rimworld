@@ -7,7 +7,7 @@
     <RootNamespace>Phobos.Radio</RootNamespace>
     <AssemblyName>PhobosRadio</AssemblyName>
     <ModFolder>PhobosRadioFramework</ModFolder>
-    <Version>0.42.0</Version>
+    <Version>0.43.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- D'thorga Framework, for its building upgrades (Radio 0.4.0); Private=false: its DLL ships only in its own mod. -->
