@@ -786,8 +786,10 @@ Gotchas first:
   another fitting on a part takes the old one off.
 - **A fitting must move something the vehicle has, or it is not offered.** The offer check counts a stat factor, a power or fuel factor,
   a grant, a turbine or cartridge factor (only where the vehicle has a turbine or dispensers), a parameter floor above what the vehicle
-  has, or a parameter factor on a parameter one of the vehicle's systems has. So a radiator fitting is not offered on a vehicle whose
-  loadout dropped the cooling system.
+  has, a parameter factor on a parameter one of the vehicle's systems has, electrical `loads` or `solarWatts` (where the vehicle has
+  the main or auxiliary electrical system; since Framework 0.368.1), or a `fuelCapacityFactor` (where it carries fuel; since
+  0.368.1). So a radiator fitting is not offered on a vehicle whose loadout dropped the cooling system. A fitting whose only effect is
+  `kilograms` is never offered.
 - **Factors are shared across a role's parts.** A fitting on one of four wheels gives the fourth root of its factor, so fitting all four
   gives exactly the factor written (`FittingRule.PartShare`). Fitting one engine of two gives half the effect, by the same rule.
 - **Tunes only appear where engine power reaches the road**: a piston engine under the player's full drivetrain model, with an automatic,

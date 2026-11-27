@@ -546,10 +546,18 @@ public sealed class VehicleFittings
     bool PowerCounts => Settings.drivetrainMode == DrivetrainMode.Full && comp.Powertrain is { } train && train.Spec.Engine == EngineKind.Piston
         && train.Spec.Transmission is TransmissionKind.Automatic or TransmissionKind.Direct or TransmissionKind.DieselElectric;
 
+    /// <summary>The systems an electrical load draws on and a solar panel charges: the main electrics and the auxiliary ones.</summary>
+    static readonly string[] ElectricalSystems = { "PhobosVehicleSystem_Electrical", "PhobosVehicleSystem_AuxiliaryElectrical" };
+
     /// <summary>Whether this fitting would change anything on this vehicle: a loadout can drop a system (a turbine tank has no coolant) and keep its part.</summary>
     bool MovesSomethingHere(PhobosVehicleFittingDef def)
     {
         if (def.statFactors.Count > 0 || def.powerFactor != 1f || def.fuelFactor != 1f || def.grants.Count > 0) return true;
+        // An electrical fitting (a load such as the fuel heater, or a solar panel) moves something wherever the vehicle has the electrical
+        // system it draws on or charges, and a bigger tank wherever the vehicle carries fuel. Before, neither counted, so the fuel heater
+        // (Framework 0.334.0) and the vehicle solar panel (0.344.0) were never offered (the owner, 28 Nov 2026: neither in the window).
+        if ((def.loads.Count > 0 || def.solarWatts > 0f) && comp.Props.systems.Any(system => ElectricalSystems.Contains(system.def.defName))) return true;
+        if (def.fuelCapacityFactor != 1f && comp.Vehicle.CompFueledTravel != null) return true;
         // Aircraft service-life upgrades: an engine upgrade needs a turbine, more dispensers need dispensers, and a kit must raise a figure
         // the vehicle lacks (an aircraft built with a night sight is offered no night-sight kit, nor a second one).
         if (def.MovesTurbine && comp.Powertrain?.Turbine != null) return true;

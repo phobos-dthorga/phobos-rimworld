@@ -22,6 +22,18 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.368.1] - 2026-11-28 - Draft
+
+The fuel heater and the solar panel in the fittings window
+
+### Fixed
+
+- **The fuel heater and the vehicle solar panel are offered in the fittings window** (the owner, 28 November 2026: neither was there). A
+  fitting was offered only if it changed a figure the window counted, and an electrical load or solar watts did not count, so neither
+  had ever been offered since it was added (0.334.0 and 0.344.0). They now count on any vehicle with electrics, and a bigger fuel tank on
+  any vehicle that carries fuel.
+- Not yet tested in game: rows 648 and 673 can now be tried.
+
 ## [0.368.0] - 2026-11-28 - Draft
 
 Military vehicles without civilian bays
