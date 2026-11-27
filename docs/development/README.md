@@ -185,7 +185,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Radio cover on the world map](radio-world-coverage.md) (27 Nov 2026): high ground between tiles blocks signal; cover pictures, owner's cards. Partly built.
 - [The radio as the comms console](radio-comms-console.md) (27 Nov 2026): four shapes, six benefits, five downsides. Design only.
 - [Radio: what to look at first](radio-first-look.md) (27 Nov 2026): five checks first, then rows 699 to 731 as met in play. Guide.
-- [HF: the radio's Phase 2](radio-hf.md) (27 Nov 2026): skywave, NVIS, band conditions, kit and six questions. Design only.
+- [HF: the radio's Phase 2](radio-hf.md) (27 Nov 2026): skywave, NVIS, band conditions and kit. Answered 28 Nov; tables and kit open to build.
 - [Radio stations](radio-stations.md) (24 Nov 2026): the radio desk, a radio terminal and amplifier, and upgrades. Partly built.
 - [Radio ties with other mods' things](radio-ties-with-other-mods.md) (27 Nov 2026): radio-like things in the game and mod list, RT1 to RT18. Research.
 - [Electronic warfare](electronic-warfare.md) (27 Nov 2026): jamming as radio noise, for every aircraft and vehicle, EW1 to EW25; a radar sketch. Research.

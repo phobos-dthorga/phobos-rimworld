@@ -1,12 +1,16 @@
 # HF: the radio's Phase 2 (27 Nov 2026)
 
-**Status (28 Nov 2026):** a design record; nothing is built. The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2"), which
-opens Phase 2 **for design only**, and answered its questions on 28 Nov ([answers](#the-owners-answers-28-nov-2026)): HF at the world's
-scale, VOACAP's predictions shipped as tables, 40 m and 20 m first, the radio's own flare, no licence tiers. Building waits for the
-owner's go-ahead, and for VOACAP to be installed on the owner's machine for the tables (a tool the owner installs).
+**Status (28 Nov 2026):** a design record; nothing is built. The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2") and
+answered its questions on 28 Nov ([first round](#the-owners-answers-28-nov-2026)): HF at the world's scale, VOACAP's predictions
+shipped as tables, 40 m and 20 m first, the radio's own flare, no licence tiers. In a [second round](#the-owners-second-round-28-nov-2026)
+the same day the owner opened **building for everything but HF's reach in play**: the tables (voacapl, under WSL, which the owner
+installs), the kit and its Defs, the band panel and band rose against test fixtures, the ground wave from ITU-R P.368, and the kit's
+art. HF's skywave in play waits for the owner's first look at the radio's rows (699 to 731).
 
 ## Read this first
 
+- **HF stands on our own stations and kit** (the owner, 28 Nov 2026: "it doesn't have to RELY on the comms console"): the console
+  needing reach is one optional tie (S3, a setting off by default), never what HF is for.
 - **Three things wait on HF**: the comms console needing reach (RT6, the owner's "later, with HF"), factions beyond about 100 tiles,
   and the skip zones and grey line on the world map (RV9, RV10, RV13).
 - **The scale must be settled first.** For radio, a world tile counts as 1 km (the owner's gameplay choice of 26 Nov 2026, for VHF), so
@@ -181,6 +185,37 @@ Each card as put, the chosen option first and marked.
 - **The tool step**: making the tables needs voacapl installed on the owner's machine, under the shared rule that the owner installs
   tools; the scripts that drive it and the tables' record of how they were made live in this repository.
 
+## The owner's second round (28 Nov 2026)
+
+Put as cards after the first round, for what was still open before building; the chosen option first and marked.
+
+| # | Card | Chosen | Not chosen |
+| --- | --- | --- | --- |
+| 8 | When building starts (the radio's Phase 1 gate, "the 6 dB rule feels right in play", is not ticked, and rows 699 to 731 are untested) | **Tables now, game later**: the scripts that run VOACAP and the tables, and the game-free rule with its tests; HF's reach in play waits for the owner's first look at the radio rows (the agent's lean) | Build slice 1 now, waiving the gate. Wait for the Phase 1 gate |
+| 9 | The sun's cycle | **A cycle a few game years long**, speeded up so a colony sees highs and lows (about one cycle in 3 game years), starting at a random point on a new world, shown on the band readout (the agent's lean) | A fixed middle level. The real 11-year length. A setting, the cycle by default |
+| 10 | How VOACAP reaches the owner's machine | **voacapl under WSL** (the Linux port, its changes CC0), the owner installing WSL, a Linux distribution and voacapl (the agent's lean) | NTIA's Windows VOACAP. Neither yet, a small hand-picked test table meanwhile |
+| 11 | The comms console needing reach (S3; RT6 graded it high) | **With slice 1, a setting off by default** (the agent's lean) | After slice 1. With slice 1, on by default |
+| 12 | How often conditions change | **Each game hour**, as the tables are hourly (the agent's lean) | A few phases a day |
+| 13 | Where slice 1 shows band conditions | **The station and the world map**: the station's band panel and the world map's band rose | The station first, the world map later (the agent's lean). The world map first |
+| 14 | The grey line and skip-zone pictures (RV9, RV10, RV13) | **A later slice, off until picked**, each measured before and after (the agent's lean) | In slice 1, off until picked. Not at all |
+| 15 | What goes ahead beside the tables (several could be picked) | **All four**: the kit and its Defs; the band panel and band rose against test fixtures; the ground wave from a published curve (ITU-R P.368); the kit's art | (The agent leaned to the first two) |
+
+The owner's words with the cards: "We can still implement HF in other ways", and "it doesn't have to RELY on the comms console".
+
+### What follows from them [A]
+
+- **What is built now, and what waits**: the tables, the kit (40 m and 20 m as bands, SSB voice as a mode, the dipole and the manpack,
+  sized by wavelength), the band panel on the station and the band rose on the world map, the ground wave, and the art. **HF's
+  skywave reach in play** waits for the owner's first look at the radio's rows; until then the panel and the rose run on test fixtures
+  in the tests only, never in a Def, as the radio's rules forbid a figure with no source.
+- **The ground wave** follows ITU-R P.368 (ground-wave propagation curves), tabulated as VOACAP's predictions are; **not yet read**:
+  its figures are checked against the recommendation before they go into a Def.
+- **The solar cycle's tables**: VOACAP is run at a few sunspot levels (about four, from a quiet sun to a busy one) and the game
+  looks between them; the cycle's length in game years is a rule figure, authored.
+- **The pictures that wait**: the grey line, skip-zone rings and the flare's wash (RV9, RV10, RV13), each in a later slice, off until
+  picked and measured, as the radio's performance rules ask. The band rose (RV12) comes with slice 1.
+- **The art**: by the usual route, the owner choosing paid or a night run each time.
+
 ## Sources
 
 - The radio design, `radio-framework-design.md` (18 Oct 2026): the Phase 2 roadmap, the HF and NVIS rows, the sun.
@@ -190,6 +225,8 @@ Each card as put, the chosen option first and marked.
 - VOACAP: [NTIA/ITS](https://its.ntia.gov/software/high-frequency/voacap-propagation-model/) and the voacapl port
   ([licence](https://github.com/jawatson/voacapl/blob/master/LICENSE)), the method the owner chose; its terms checked 28 Nov 2026, its
   predictions not yet run.
+- ITU-R [P.368](https://www.itu.int/rec/R-REC-P.368/en) (ground-wave propagation curves, 10 kHz to 30 MHz): the ground wave's
+  source, the owner's pick of 28 Nov 2026, **not yet read**.
 - ITU-R [P.533](https://www.itu.int/rec/R-REC-P.533/en) (HF propagation prediction) with its reference software
   ([ITURHFProp](https://github.com/ITU-R-Study-Group-3/ITU-R-HF)), and ITU-R P.372 (radio noise): references, **not yet read**.
 - Our records: [radio ties](radio-ties-with-other-mods.md) (RT6, RT18), [the comms console](radio-comms-console.md) (S3),
