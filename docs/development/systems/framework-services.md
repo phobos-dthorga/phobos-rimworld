@@ -365,7 +365,7 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
 - **Rules Defs: the first loaded wins.** A second mod's instance is ignored, not merged.
 - **The base class for interval map components** was considered and is not built; it waits in [outstanding
   work](../outstanding-work.md).
-- **A first-load setup wizard and alternate looks** are recorded and not built.
+- **A first-load setup wizard** is designed (28 Nov 2026) and not built; **alternate looks** are recorded and not built.
 
 ## Tests
 
