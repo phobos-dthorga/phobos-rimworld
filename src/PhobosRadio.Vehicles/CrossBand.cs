@@ -94,18 +94,18 @@ public static class CrossBand
         if (map.IsPlayerHome || !AnyOn(map)) return;
         foreach (Pawn pawn in map.mapPawns.FreeColonistsSpawned)
         {
-            if (pawn.apparel?.WornApparel.Any(a => a.TryGetComp<CompRadio>() is { Props.isStation: false }) == true) For(pawn);
+            if (PawnHandhelds.First(pawn) != null) For(pawn);
         }
     }
 
     static Gateway? Search(Pawn pawn)
     {
-        if (!pawn.Spawned || pawn.apparel == null || Voice is not { } voice) return null;
+        if (!pawn.Spawned || Voice is not { } voice) return null;
         Map map = pawn.Map;
         RadioNet net = RadioNet.For(map);
         if (net.ServedBy(pawn) != null) return null;
-        CompRadio? handheld = pawn.apparel.WornApparel.Select(a => a.TryGetComp<CompRadio>()).FirstOrDefault(r => r != null && !r.Props.isStation);
-        if (handheld == null) return null;
+        // Worn, or carried in the inventory (Radio 0.67.0).
+        if (PawnHandhelds.First(pawn) is not { } handheld) return null;
         var rules = RadioRulesDef.Current;
         RadioEndpoint handEnd = RadioEndpoint.BuiltIn(handheld.parent, pawn.Position, handheld);
         Gateway? best = null;

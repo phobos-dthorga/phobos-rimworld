@@ -46,7 +46,7 @@
     "PhobosFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.380.0",
+      "value": "0.381.0",
       "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {
@@ -294,7 +294,7 @@
     "PhobosRadioFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.66.0",
+      "value": "0.67.0",
       "description": "D'thorga Radio Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {

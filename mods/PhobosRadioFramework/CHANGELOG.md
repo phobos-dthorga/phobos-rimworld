@@ -23,6 +23,27 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.67.0] - 2026-11-28 - Draft
+
+A hand-held carried in the pack works as a worn one
+
+### Changed
+
+- **A hand-held carried in a colonist's inventory works as if worn** (the owner's question and choice of 28 November 2026: dozens of
+  colonists carried their radios in Combat Extended loadouts, which fill the inventory and never wear anything, so the radio did
+  nothing for them). With no hand-held worn, the best one carried (most power, then the tallest aerial) counts for everything a worn
+  one does: the signal button, the line to the antenna, the in-touch mood, advice, the awards' mood and the dual-band vehicle hop.
+  Spares in the pack are not extra radios on the air, so they take no channels. Not yet tested in game: row 788.
+
+### Compatibility and limits
+
+- A carried hand-held does not take the belt slot, so a colonist can carry one and wear a shield belt. Nothing of the game's or
+  Combat Extended's is changed: the button comes through D'thorga Framework 0.381.0.
+
+### Save compatibility
+
+- Safe to update: nothing new is saved.
+
 ## [0.66.0] - 2026-11-28 - Draft
 
 QSL cards you can hold, by the bureau

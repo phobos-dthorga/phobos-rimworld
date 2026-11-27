@@ -470,6 +470,7 @@
     "781": ["radio.hf-skywave"],
     "782": ["radio.console-needs-reach"],
     "783": ["radio.hf-mast"],
+    "788": ["radio.carried-handheld"],
     "784": ["radio.qsl-card-area"],
     "787": {"parts": {
       "the bureau brings the cards": ["radio.qsl-bureau"],

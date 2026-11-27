@@ -18,7 +18,8 @@ This is the first step, local radio on one map. [Back to the guide](README.md).
 - **Decide Metres per map cell before a colony** (default 1). It changes every contact's range.
 - **A jammer switched to radios drowns your own radios too**, remote-driven vehicles included: switch the Busbar's jammer mast to radar
   or off while your own trucks are out ([Jamming](#jamming)).
-- **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a radio together.
+- **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a radio together. **One carried in the
+  inventory works just as well** (a Combat Extended loadout puts it there), and leaves the belt slot free.
 - **Before removing it**, deconstruct every radio building and drop every hand-held.
 
 ## What to build
@@ -101,7 +102,7 @@ cannot work it. To hear your boats:
 - **A jammer switched to radios** drowns every radio for a long way around, yours included ([Jamming](#jamming), below).
 - **Both directions count, and the worse one decides**: usually the 5 W hand-held, not the 25 W station.
 
-A colonist wearing a hand-held has a **Radio** button with signal bars; click it for the full working. The station's **Net** tab
+A colonist wearing or carrying a hand-held has a **Radio** button with signal bars; click it for the full working. The station's **Net** tab
 says who is in touch and which antenna it uses: whichever antenna on its coax gives the best link, or its built-in whip if that is
 better or nothing is connected. **Select the station or an antenna and the map shows its coverage**: brighter where a hand-held
 would reach it well, dark red where it would not, with every door counted as closed. It fills in roughly at once and finely over a

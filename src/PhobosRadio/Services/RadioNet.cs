@@ -59,6 +59,8 @@ public sealed class RadioNet : MapComponent
     private readonly List<CompRadio> stations = new();
     /// <summary>Every radio that goes with a pawn: worn hand-helds, and radios built into vehicles (Radio 0.10.0), with that pawn.</summary>
     private readonly List<(CompRadio radio, Pawn holder)> mobileRadios = new();
+    /// <summary>One colonist's hand-helds while the net gathers them (Radio 0.67.0): kept, so a recompute allocates nothing for it.</summary>
+    private readonly List<CompRadio> handhelds = new();
     /// <summary>The pawns a radio is built into that the net counts now (Radio 0.10.0).</summary>
     private readonly HashSet<Pawn> carriers = new();
     /// <summary>Built-in radios whose links are worked out but which ask no channel (<see cref="CarriedRadioUse.StandingBy"/>).</summary>
@@ -784,13 +786,18 @@ public sealed class RadioNet : MapComponent
             if (pawn.jobs?.curDriver is Work.JobDriver_RemoteOperation { AtConsole: true, Station: { } station }) operatorAt[station] = pawn;
             // A call made at a desk (Radio 0.51.0) asks that station for a channel, as a hand-held does.
             if (pawn.jobs?.curDriver is IRadioDeskCall { CallingFrom: { } desk }) deskCalls.Add((pawn, desk));
-            if (!Counts(pawn) || pawn.apparel == null) continue;
-            foreach (var apparel in pawn.apparel.WornApparel)
+            if (!Counts(pawn)) continue;
+            // Worn, or with none worn the best one carried in the inventory, as a Combat Extended loadout leaves it (Radio 0.67.0).
+            handhelds.Clear();
+            PawnHandhelds.InUse(pawn, handhelds);
+            for (int i = 0; i < handhelds.Count; i++)
             {
-                var radio = apparel.TryGetComp<CompRadio>();
-                if (radio != null && !radio.Props.isStation) mobileRadios.Add((radio, pawn));
+                CompRadio radio = handhelds[i];
+                mobileRadios.Add((radio, pawn));
+                if (radio.Wearer == null && Seen.Wants("radio.carried-handheld", pawn)) Seen.Note("radio.carried-handheld", pawn, radio.parent.LabelNoCount);
             }
         }
+        handhelds.Clear();
         foreach (var pawn in map.mapPawns.SpawnedPawnsInFaction(Faction.OfPlayer))
         {
             if (pawn.RaceProps.Humanlike) continue;

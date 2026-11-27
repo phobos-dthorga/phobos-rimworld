@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
+using Phobos.Framework.Items;
 using Phobos.Radio.Physics;
 using Phobos.Radio.Services;
 using Phobos.Radio.UI;
@@ -98,13 +99,16 @@ public class CompRadio : ThingComp
     public Pawn? Wearer => (parent as Apparel)?.Wearer;
 
     /// <summary>
-    /// Who the radio goes with: the wearer of a hand-held, or the pawn a radio is built into (a vehicle; Radio 0.10.0); null for a
-    /// station or a radio lying about.
+    /// Who the radio goes with: the wearer of a hand-held, the pawn a radio is built into (a vehicle; Radio 0.10.0), or the pawn
+    /// carrying a hand-held in their inventory (Radio 0.67.0); null for a station or a radio lying about.
     /// </summary>
-    public Pawn? Holder => Props.isStation ? null : Wearer ?? parent as Pawn;
+    public Pawn? Holder => Props.isStation ? null : HolderOf(parent);
 
-    /// <summary>The pawn a radio thing goes with, as the net's links name it: a hand-held's wearer, or the vehicle a radio is built into.</summary>
-    public static Pawn? HolderOf(Thing radio) => (radio as Apparel)?.Wearer ?? radio as Pawn;
+    /// <summary>
+    /// The pawn a radio thing goes with, as the net's links name it: a hand-held's wearer, the vehicle a radio is built into, or the
+    /// pawn carrying a hand-held in their inventory (Radio 0.67.0; the net counts only the one carried radio a colonist uses).
+    /// </summary>
+    public static Pawn? HolderOf(Thing radio) => (radio as Apparel)?.Wearer ?? radio as Pawn ?? PawnGear.CarrierOf(radio);
 
     /// <summary>The extra draw while the station is in use: transmitter input power times the duty cycle.</summary>
     public float TransmitDrawWatts => Props.transmitPowerWatts / Mode.transmitEfficiency * Mode.dutyCycle;

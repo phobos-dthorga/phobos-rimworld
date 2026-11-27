@@ -193,7 +193,10 @@ a save does not hold, for phobos-modkit's mood report. It runs while the game wr
   30 km, the owner's figure); **`WorldSeasons`** says when snow comes or lifts at a tile; **`BiomeGround`** reads a tile's typical
   terrain from the game's Defs; **`TileAir`** gives a tile's height above the sea.
 - **`ItemFinder`** finds a tool a job needs, on the map or aboard a caravan; **`PackedThings`** lets a list of supplies name a
-  building that packs up, found packed in storage or cargo.
+  building that packs up, found packed in storage or cargo. **`PawnGear`** (0.381.0) lists a comp's kind on what a pawn wears, then
+  carries in their inventory (where a Combat Extended loadout puts kit), and names who carries a thing; **`PawnCommands`** adds a
+  mod's buttons to a selected humanlike pawn through the framework's comp on every humanlike race, since the game shows buttons for
+  worn clothes but never for the inventory (first used by the radio's carried hand-helds).
 - **Environment helpers**: `HeldTemperature` (a fixed temperature for things held in a cab, a pod, a fridge), `AttachedFires`
   (whether a thing larger than a cell burns, and putting it out), `LargeBlasts` (a blast's wind and heat at a thing),
   `GroundWetness` and `RainSoakedFields` ("Rain soaks open fields", off), `CompPhobosBurnWhenCold` and `CompPhobosNightLight`,

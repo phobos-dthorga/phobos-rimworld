@@ -402,9 +402,8 @@ public static class RadioQsl
         _ => "PhobosRadioQsl_AwardTenSettlements".Translate(ManySettlements.Named("COUNT")).Resolve(),
     };
 
-    /// <summary>Whether a colonist works the radio, for the awards' mood: wearing a hand-held, or with a radio friend.</summary>
-    public static bool WorksTheRadio(Pawn pawn) =>
-        RadioFriends.Of(pawn) != null || pawn.apparel?.WornApparel.Any(worn => worn.TryGetComp<CompRadio>() != null) == true;
+    /// <summary>Whether a colonist works the radio, for the awards' mood: a hand-held worn or carried (Radio 0.67.0), or a radio friend.</summary>
+    public static bool WorksTheRadio(Pawn pawn) => RadioFriends.Of(pawn) != null || PawnHandhelds.First(pawn) != null;
 }
 
 /// <summary>"Our station is known far and wide": +2 an award, up to +6, for colonists who work the radio (Radio 0.38.0).</summary>

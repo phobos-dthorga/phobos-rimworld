@@ -17,7 +17,8 @@ public class CompProperties_PhobosPatient : CompProperties
 /// <summary>
 /// The one comp every humanlike pawn carries for the Phobos mods' per-pawn care choices (<see cref="PatientPreferences"/>). It
 /// saves only what the player set, as plain fields on the pawn, so a save loads without the framework and without a line.
-/// It draws a gizmo per registered preference for the pawns the doctors look after, and the registered inspect lines. No tick.
+/// It draws a gizmo per registered preference for the pawns the doctors look after, other mods' buttons for any humanlike pawn
+/// (<see cref="Interface.PawnCommands"/>, Framework 0.381.0), and the registered inspect lines. No tick.
 /// </summary>
 public class CompPhobosPatient : ThingComp
 {
@@ -79,7 +80,14 @@ public class CompPhobosPatient : ThingComp
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
     {
-        if (Pawn is not Pawn pawn || Patients.GroupOf(pawn) == null) yield break;
+        if (Pawn is not Pawn pawn) yield break;
+        // Other mods' buttons for any humanlike pawn (Framework 0.381.0), before the care choices, which only the doctors' charges get.
+        IReadOnlyList<System.Func<Pawn, IEnumerable<Gizmo>>> providers = Interface.PawnCommands.Providers;
+        for (int i = 0; i < providers.Count; i++)
+        {
+            foreach (Gizmo gizmo in providers[i](pawn)) yield return gizmo;
+        }
+        if (Patients.GroupOf(pawn) == null) yield break;
         IReadOnlyList<PatientPreference> preferences = PatientPreferences.All;
         for (int i = 0; i < preferences.Count; i++)
         {

@@ -42,7 +42,7 @@ public static class CaravanRadios
         && pawn.health.capacities.CapableOf(PawnCapacityDefOf.Talking);
 
     /// <summary>Keeps the better of the two: a hand-held (worn radio, never a station, never a pawn's built-in), the most power, then the highest.</summary>
-    static void Consider(CompRadio? radio, ref CompRadio? best)
+    internal static void Consider(CompRadio? radio, ref CompRadio? best)
     {
         if (radio == null || radio.parent.def.race != null) return;
         CompProperties_Radio props = radio.Props;

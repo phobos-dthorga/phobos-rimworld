@@ -22,6 +22,23 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.381.0] - 2026-11-28 - Draft
+
+Buttons for what a person carries
+
+### Added
+
+- **Other D'thorga mods can give a person's command bar a button, and see what they wear or carry** (for D'thorga Radio Framework
+  0.67.0, whose hand-helds now work from a Combat Extended loadout). The game shows buttons only for worn clothes, never for the
+  inventory; the comp the framework already puts on every humanlike race now draws such buttons too, so no mod needs a comp of its
+  own on every person or a patch on the game's buttons. Not yet tested in game: row 788.
+- For modders: PawnCommands.Register adds a provider of buttons for a selected pawn; PawnGear.CompsOn lists a comp's kind on what a
+  pawn wears, then carries, and PawnGear.CarrierOf names who carries a thing in their inventory.
+
+### Save compatibility
+
+- Safe for saves: nothing new is saved.
+
 ## [0.380.0] - 2026-11-28 - Draft
 
 The game's own figures, for performance tools

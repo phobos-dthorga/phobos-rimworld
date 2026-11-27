@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.66.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.67.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -29,7 +29,8 @@ Version 0.66.0, built 28 November 2026 for House D'thorga. **Not yet tested in g
 - **HF (0.62.0, by the sky from 0.64.0)**: an HF station reaches far settlements when a band is open, by the hour, the season and the
   sun's cycle; along the ground a tile or two. Settlements answer on HF, so faction features reach much further. The HF tables add
   about 3.3 MB to the mod.
-- **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a hand-held together.
+- **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a hand-held together. **From 0.67.0 one
+  carried in the inventory works as a worn one** (a Combat Extended loadout puts it there): wear it or carry it, not both needed.
 - **Channels, from 0.7.0**: each station serves as many radios as its channels hold (the desk 5, the terminal 20, five to a
   25 kHz channel for voice). Past that, a colonist in touch reads **net busy** and gets no "in touch" mood: add a station or a
   second transceiver. **From 0.8.0** the station lists each kind of use apart (local voice for now), with the room left for it. **From 0.9.0**
