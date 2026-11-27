@@ -274,6 +274,16 @@ public class RadioRulesDef : Def
     /// 0.45.0, EW1): the plain reason, the lost-link letter. The same 6 dB the plain reason already uses for local noise. Authored.
     /// </summary>
     public float jammingRaisesFloorDb = 6f;
+    /// <summary>
+    /// A call sent off the map by another mod's building (Radio 0.46.0; docs/development/electronic-warfare.md, EW18: The Dead Man's
+    /// Switch's reinforcement and fire support uplinks). Its band and mode, and how strong the far end's reply arrives: jamming at the
+    /// building that drowns the reply stops the call. All authored: a data link on VHF, its reply arriving at -90 dBm (a long link,
+    /// well above a quiet floor of about -125 dBm), heard through a 0 dBi antenna and an 8 dB noise figure.
+    /// </summary>
+    public BandDef? callOutBand;
+    public ModeDef? callOutMode;
+    public float callOutReplyDbm = -90f;
+    public float callOutNoiseFigureDb = 8f;
 
     // The coverage overlay (Radio 0.2.0). Performance is the mod's first concern: these bound what it costs.
     /// <summary>Signal to spare, in dB, at which the overlay reaches its brightest colour. Authored from the mock-up's open ground.</summary>

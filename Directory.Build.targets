@@ -26,6 +26,10 @@
     <IrbmAssemblies Condition="'$(IrbmAssemblies)' == ''">$(WorkshopRoot)\3682304832\1.6\Assemblies</IrbmAssemblies>
     <!-- The Dead Man's Switch - Expedition ships a 1.7 build (12 November 2026); D'thorga Framework's air-defence tie-in compiles against it. -->
     <DmseAssemblies Condition="'$(DmseAssemblies)' == ''">$(WorkshopRoot)\3689879335\$(GameVersion)\Assemblies</DmseAssemblies>
+    <!-- The Dead Man's Switch II (core) and the Fortified Features Framework it runs on ship 1.7 builds (checked 27 November 2026); the
+         radio's Dead Man's Switch tie-in compiles against both. -->
+    <DmsAssemblies Condition="'$(DmsAssemblies)' == ''">$(WorkshopRoot)\3819799478\$(GameVersion)\Assemblies</DmsAssemblies>
+    <FortifiedAssemblies Condition="'$(FortifiedAssemblies)' == ''">$(WorkshopRoot)\3498575851\$(GameVersion)\Assemblies</FortifiedAssemblies>
     <!-- Combat Extended ships one Assemblies folder for every game version (checked 26 November 2026); the radio's Combat Extended
          tie-in compiles against it. -->
     <CombatExtendedAssemblies Condition="'$(CombatExtendedAssemblies)' == ''">$(WorkshopRoot)\2890901044\Assemblies</CombatExtendedAssemblies>

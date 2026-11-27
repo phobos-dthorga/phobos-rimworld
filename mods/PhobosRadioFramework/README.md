@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.45.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.46.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -59,6 +59,10 @@ figures are here.
   needle while sending; the mast flashes a red light at night; the coax glows with its signal while its station is selected; the
   radio terminal has a **Waterfall** tab (the desk too, with the setting *Show the waterfall on the radio desk*, off by default).
 - **An "In touch with home" mood** for a colonist whose radio reaches a base station.
+- **Jamming (0.45.0)**: a jammer switched to radios (the Busbar's jammer mast, with D'thorga Vehicles) drowns every radio for a long
+  way around, **your own included**; Morse and a radio close to its station hold out longest. **From 0.46.0, with The Dead Man's
+  Switch**, it also stops an enemy base's reinforcement uplink and fire support uplink calling for help when the alarm trips
+  ([the guide](../../docs/player-guide/radio.md#jamming)).
 - **Advice by radio (0.23.0)**: a more skilled colonist in touch talks another through tending, an operation, a vehicle repair or
   trade talks, at home or from a convoy in reach: half the skill gap closed, a quarter on a marginal link, a little slower
   ([the guide](../../docs/player-guide/radio.md#advice-by-radio)). A **numbered medical chest** closes a sixth more for medicine.

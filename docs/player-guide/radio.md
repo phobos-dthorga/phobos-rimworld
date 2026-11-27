@@ -229,6 +229,10 @@ now the one jammer that does is the Busbar generator set's **jammer mast**, swit
   its link says it is jammed; the Engineer sheet adds a line with the jamming at each end.
 - **Jamming has no edge on the map**: its noise falls off with distance, as a signal does, so it is felt everywhere and strongest near
   the jammer. Walls and rock do not yet shield from it.
+- **With The Dead Man's Switch: jam the call.** At one of its bases, a **reinforcement uplink** or **fire support uplink** cannot call
+  for help while jamming drowns it: bring a Busbar, set it up, switch its mast to radios, and the alarm brings no drop pods and no
+  mortar fire. A message says when a call was drowned. **The call goes out at the next alarm once the jamming stops**, so destroy the
+  uplink or keep jamming. Your own radios on that map are drowned too.
 - Setting: **Jamming reaches radios**, on by default. Off, jammers blind radar only.
 
 ## The logbook and QSL cards

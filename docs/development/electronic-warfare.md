@@ -2,8 +2,9 @@
 
 **Status (27 Nov 2026):** the owner opened the radio's Phase 3 the same day. **Slice 1 is built**: EW2 (noise by bandwidth), EW1
 (jamming as noise) and EW11 (the Busbar mast's switch), in Radio Framework 0.45.0, D'thorga Framework 0.355.0 and D'thorga Vehicles
-0.130.1 ([as built](#built-slice-1-27-nov-2026)); not yet tested in game (rows 706 to 708). Every other row is a proposal; the radar
-simulation is a sketch only. The owner answered seven questions by card ([below](#questions-for-the-owner)).
+0.130.1 ([as built](#built-slice-1-27-nov-2026)); not yet tested in game (rows 706 to 708). **Slice 2 is built**: EW18 (jam the
+call), in Radio Framework 0.46.0 ([as built](#built-slice-2-27-nov-2026)); not yet tested in game (row 709). Every other row is a
+proposal; the radar simulation is a sketch only. The owner answered seven questions by card ([below](#questions-for-the-owner)).
 
 **A research record.** The owner, 27 November 2026: "I would especially like to make the Prowler aircraft and any knock on effects
 that come from it a part of all other aircraft and perhaps vehicles too", as "strictly a research and record purview"; and, on
@@ -301,7 +302,7 @@ Each setting, when built, is reported to the owner in the reply that delivers it
 | Slice | Rows | Why here |
 | --- | --- | --- |
 | 1 | EW2, EW1, EW11 | The term itself, with the jammer the player already owns. **Built 27 Nov 2026** |
-| 2 | EW18 | The first thing outside our mods to notice |
+| 2 | EW18 | The first thing outside our mods to notice. **Built 27 Nov 2026** |
 | 3 | EW6, EW7 | Radios on aircraft, and the flying relay |
 | 4 | EW10, EW4, EW3 | Pods for other aircraft; the Prowler's bands; world links |
 | 5 | EW12 | Direction finding, once there are emitters worth finding |
@@ -342,6 +343,27 @@ the map at most once a second already. Each jammer is one more term per receivin
 the coverage picture: no walk, nothing per tick of its own. The coverage picture redraws when a jammer starts, stops or moves (the noise
 signature), and a set-up Busbar does not move. **Not yet measured**: a `scripts/perf.py` recording on the owner's colony, asked for
 first, with a station selected and the mast on radios.
+
+## Built: slice 2 (27 Nov 2026)
+
+The owner's word the same day ("Start slice 2"). Built in Radio Framework 0.46.0. **Not yet tested in game**: row 709 of the
+[test pass](in-game-test-pass.md). What differs from, or adds to, EW18 above:
+
+| Piece | As built |
+| --- | --- |
+| The rule | `Jamming.Drowns` (physics, tested): a call is jammed when jamming at the caller, added to the floor it hears anyway, leaves the far end's reply less than the mode's margin above it. A call off the map is two-way, and only its near end can be jammed |
+| Its figures | `callOutBand` VHF, `callOutMode` control data (12.5 kHz, needs 6 dB), `callOutReplyDbm` -90, `callOutNoiseFigureDb` 8: all **authored**. With the Busbar's mast on radios anywhere on the same map the call is drowned (at 1 km the jamming is about 37 dB above the reply): the figures decide only for weaker or more distant jammers, when there are some |
+| The service | `JammedCalls.Jammed(map, cell, out jamming)` in the radio's core, reading the net's last noise snapshot; any mod's call-out building may ask it |
+| The hook | A postfix on Fortified Features Framework's `CompAlertEffector.CanFire`, narrowed to The Dead Man's Switch's `CompAlertEffector_CallBattleGroup` (the reinforcement uplink, `DMS_Building_AlertCaller_BattleGroup`) and `CompAlertEffector_MortarStrike` (the fire support uplink, `DMS_Building_AlertCaller_Mortar`). Neither overrides the check; nobody else patches it. Its own assembly, `src/PhobosRadio.DeadMansSwitch`, loaded only with `Aoba.DeadManSwitch.Core` |
+| What the player sees | A message, at most once an hour per uplink and only where the map is not fogged: an enemy uplink "tried to call for help, but the radio noise drowned its call" (good news), or ours could not get its call out (bad) |
+| Not spent | The building's one-shot is not used up: its call goes out at the next alarm once the jamming stops, as its author's text says of cutting its power |
+| Its setting | **Jamming reaches radios** (on): off, nothing is jammed. No setting of its own: it puts nothing of the player's at risk unless the player owns such an uplink and jams it themselves (agent's grade: none to low) |
+
+**Who notices:** that base's faction, whose drop pods and mortar fire never come; the player, by the message. **Other factions'
+vehicles:** none; it is about buildings. **Cost:** one lookup in the noise snapshot each time one of the two answers an alarm, nothing
+per tick; on a map with no jammer it returns at once.
+
+**Not built:** the other alarm responses (gas vents, the infrasonic emitter, drones) stay as they were: they are wired, not radio.
 
 ## Questions for the owner
 

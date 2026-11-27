@@ -47,6 +47,10 @@ free space with no radius, and enters each receiver through its antenna and cabl
 start. D'thorga Framework's jam fields come in this way: a `JamField` with `radioWatts` above 0 is heard as a jammer (the radio's
 Vehicle Framework tie-in). The player can switch it all off with *Jamming reaches radios*.
 
+**A call sent off the map** (0.46.0) can ask whether it is jammed: `Phobos.Radio.Services.JammedCalls.Jammed(map, cell, out jammingDbm)`
+says whether jamming at that cell drowns the far end's reply, by the rules Def's `callOutBand`, `callOutMode`, `callOutReplyDbm` and
+`callOutNoiseFigureDb`. One lookup in the net's last noise snapshot. The Dead Man's Switch's uplinks use it (`Mods/DeadMansSwitch`).
+
 **Upgrades** are D'thorga Framework's `Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef` ([building
 upgrades](../framework-modding.md#building-upgrades)): give the building `CompProperties_PhobosBuildingUpgrades` and set the
 figures the radio reads, `heightMetres` and `gainDbi` on an antenna and `noiseFigureReductionDb` and `channels` on a station.

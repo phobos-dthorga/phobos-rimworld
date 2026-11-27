@@ -286,7 +286,7 @@
     "PhobosRadioFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.45.0",
+      "value": "0.46.0",
       "description": "D'thorga Radio Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs and its Workshop page",
       "targets": [
         {
@@ -303,6 +303,10 @@
         },
         {
           "path": "src/PhobosRadio.CombatExtended/PhobosRadio.CombatExtended.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosRadio.DeadMansSwitch/PhobosRadio.DeadMansSwitch.csproj",
           "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
         },
         {

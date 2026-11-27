@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Radio Framework's tie-in with The Dead Man's Switch (Radio 0.46.0; docs/development/electronic-warfare.md, EW18): a
+       reinforcement or fire support uplink cannot get its call out while radio jamming drowns it. Its own assembly in
+       Mods/DeadMansSwitch/1.7, which LoadFolders.xml loads only while The Dead Man's Switch is active. RimWorld 1.7 only. Its assemblies,
+       and those of the Fortified Features Framework it runs on, are referenced from the installed mods, never copied. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.Radio.DeadMansSwitch</RootNamespace>
+    <AssemblyName>PhobosRadio.DeadMansSwitch</AssemblyName>
+    <ModFolder>PhobosRadioFramework</ModFolder>
+    <TieInFolder>Mods/DeadMansSwitch/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.46.0</Version>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosRadio/PhobosRadio.csproj" Private="false" />
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DMS">
+      <HintPath>$(DmsAssemblies)\DMS.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Fortified">
+      <HintPath>$(FortifiedAssemblies)\Fortified.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

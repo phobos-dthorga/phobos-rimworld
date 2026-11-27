@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace Phobos.Radio.Services;
@@ -65,5 +66,30 @@ public static class RadioJamming
                 i--;
             }
         }
+    }
+}
+
+/// <summary>
+/// Calls sent off the map by another mod's building (Radio 0.46.0; docs/development/electronic-warfare.md, EW18): whether jamming at the
+/// building drowns the far end's reply, so the call cannot go out. Reads the net's last noise snapshot: one lookup, no walk. Any faction's
+/// building, ours included (noise is noise). With the setting "Jamming reaches radios" off, nothing is jammed.
+/// </summary>
+public static class JammedCalls
+{
+    /// <summary>Whether a call from this cell is jammed now, and the jamming at its receiver, in dBm (−∞ when none).</summary>
+    public static bool Jammed(Map map, IntVec3 cell, out double jammingDbm)
+    {
+        jammingDbm = double.NegativeInfinity;
+        if (!RadioMod.Settings.jammingReachesRadios || !RadioJamming.Any) return false;
+        var rules = RadioRulesDef.Current;
+        var band = rules.callOutBand ?? DefDatabase<BandDef>.AllDefsListForReading.FirstOrDefault();
+        var mode = rules.callOutMode ?? DefDatabase<ModeDef>.AllDefsListForReading.FirstOrDefault();
+        if (band == null || mode == null) return false;
+        var noise = RadioNet.For(map).Noise;
+        if (noise.JammerCount == 0) return false;
+        var metresPerCell = RadioMod.Settings.metresPerCell;
+        jammingDbm = noise.JammingDbm(cell, metresPerCell, mode.bandwidthHz, band);
+        var floor = Physics.NoiseFloor.TotalDbm(mode.bandwidthHz, rules.callOutNoiseFigureDb, noise.LocalNoiseDbm(cell, metresPerCell));
+        return Physics.Jamming.Drowns(rules.callOutReplyDbm, floor, jammingDbm, mode.requiredSnrDb);
     }
 }

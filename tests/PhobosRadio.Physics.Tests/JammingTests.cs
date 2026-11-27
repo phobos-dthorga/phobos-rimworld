@@ -67,6 +67,18 @@ public class JammingTests
     }
 
     [Fact]
+    public void ACallOutIsDrownedOnlyWhenJammingEatsItsMargin()
+    {
+        // The call-out figures: a reply at -90 dBm, a data link needing 6 dB, a quiet floor of about -125 dBm.
+        var floor = NoiseFloor.TotalDbm(12500, 8, double.NegativeInfinity);
+        Assert.False(Jamming.Drowns(-90, floor, double.NegativeInfinity, 6));
+        Assert.False(Jamming.Drowns(-90, floor, -110, 6));
+        Assert.True(Jamming.Drowns(-90, floor, -95, 6));
+        // The Busbar's 400 W over 24 MHz, 1 km away: far above what the reply can stand.
+        Assert.True(Jamming.Drowns(-90, floor, Jamming.AtAntennaDbm(56.02, 24e6, 12500, 1000, 146), 6));
+    }
+
+    [Fact]
     public void NoJammingLeavesTheFloorAndStrongJammingRaisesIt()
     {
         Assert.Equal(-125.0, NoiseFloor.WithJammingDbm(-125, double.NegativeInfinity), 6);

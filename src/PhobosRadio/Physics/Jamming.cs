@@ -30,4 +30,12 @@ public static class Jamming
     /// </summary>
     public static double AtInputDbm(double atAntennaDbm, double antennaGainDbi, double receiveLossDb) =>
         double.IsNegativeInfinity(atAntennaDbm) ? double.NegativeInfinity : atAntennaDbm + antennaGainDbi - receiveLossDb;
+
+    /// <summary>
+    /// Whether jamming drowns a signal (Radio 0.46.0, EW18): with the jamming added to the floor the receiver hears anyway, the signal no
+    /// longer stands the mode's required margin above it. A link is two-way, so jamming at either end that drowns its receiver breaks the
+    /// call; for a call off the map, only the near end can be jammed.
+    /// </summary>
+    public static bool Drowns(double signalDbm, double floorDbm, double jammingAtInputDbm, double requiredSnrDb) =>
+        !double.IsNegativeInfinity(jammingAtInputDbm) && signalDbm - NoiseFloor.WithJammingDbm(floorDbm, jammingAtInputDbm) < requiredSnrDb;
 }

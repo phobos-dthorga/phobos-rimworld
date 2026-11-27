@@ -37,6 +37,13 @@
          more than this over what it hears anyway; the same 6 dB the plain reason uses for local noise. Authored. Jamming itself has no
          radius here: a jammer's noise falls off by free space across the whole map. -->
     <jammingRaisesFloorDb>6</jammingRaisesFloorDb>
+    <!-- Radio 0.46.0 (EW18): a call sent off the map by another mod's building (The Dead Man's Switch's uplinks) is a data link on VHF
+         whose reply arrives at -90 dBm, heard through a 0 dBi antenna and an 8 dB noise figure. Jamming at the building that drowns the
+         reply stops the call. All authored. -->
+    <callOutBand>PhobosRadio_VHF</callOutBand>
+    <callOutMode>PhobosRadio_ControlData</callOutMode>
+    <callOutReplyDbm>-90</callOutReplyDbm>
+    <callOutNoiseFigureDb>8</callOutNoiseFigureDb>
 
     <!-- The coverage overlay shown while a base station or an antenna is selected. Performance is this mod's first concern, so
          these bound its cost: real time per frame, the quick first pass's block size. All authored; measure and tune. -->

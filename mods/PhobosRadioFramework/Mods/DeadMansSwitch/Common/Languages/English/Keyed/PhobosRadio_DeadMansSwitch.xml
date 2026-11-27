@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Jam the call (Radio 0.46.0; docs/development/electronic-warfare.md, EW18): an uplink's call drowned by radio jamming. -->
+  <PhobosRadio_UplinkJammed>The {UPLINK} tried to call for help, but the radio noise drowned its call. It will try again at the next alarm once the jamming stops.</PhobosRadio_UplinkJammed>
+  <PhobosRadio_UplinkJammedOurs>Our {UPLINK} could not get its call out: radio jamming drowns it.</PhobosRadio_UplinkJammedOurs>
+</LanguageData>

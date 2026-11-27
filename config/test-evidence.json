@@ -445,6 +445,8 @@
     "701": ["radio.world-cover-network"],
     "704": {"parts": {"finished while not selected": [{"key": "radio.coverage-finished", "variant": "background"}],
       "finished while shown": [{"key": "radio.coverage-finished", "variant": "shown"}]}},
+    "709": {"parts": {"the reinforcement uplink's call is drowned": [{"key": "radio.uplink-jammed", "variant": "reinforcements"}],
+      "the fire support uplink's call is drowned": [{"key": "radio.uplink-jammed", "variant": "fire support"}]}},
     "706": {"parts": {"radar": [{"key": "vehicles.jammer-mode", "variant": "Radar"}],
       "radios": [{"key": "vehicles.jammer-mode", "variant": "Radios"}],
       "radar and radios": [{"key": "vehicles.jammer-mode", "variant": "Both"}],

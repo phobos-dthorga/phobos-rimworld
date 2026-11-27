@@ -23,6 +23,22 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.46.0] - 2026-11-27 - Draft
+
+Jam the call
+
+### Added
+
+- **With The Dead Man's Switch, jamming stops an enemy base calling for help** (the owner's word of 27 November 2026). While a jammer
+  switched to radios drowns it, a reinforcement uplink or fire support uplink cannot get its call out when the base's alarm trips: no
+  drop pods, no mortar fire, and a message says so. Its call goes out at the next alarm once the jamming stops, so destroy it or keep
+  jamming. Not yet tested in game: row 709.
+
+### Compatibility and limits
+
+- Its own part, loaded only with The Dead Man's Switch; it changes one check of the Fortified Features Framework that mod runs on, for
+  those two buildings only. Under the setting Jamming reaches radios: off, nothing is jammed. Safe with a running save; nothing is saved.
+
 ## [0.45.0] - 2026-11-27 - Draft
 
 Jamming is radio noise
