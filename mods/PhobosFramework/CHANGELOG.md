@@ -36,6 +36,12 @@ The systems schematic, easier to find, with orders and a turbine cutaway
 - **Right-click a part on the schematic for orders**: open the Systems tab at it, ask for a service (naming the one that is due),
   field repairs, a jump-start from the battery or starter, fittings, and a diagnosis, each the work its command button already
   orders. One that cannot be given now is greyed out with the reason. Not yet tested in game: row 776.
+- **The aircraft schematic draws its engine as a turbine in section, with its heat along the gas path**: the compressor, the hot
+  section and the turbine are each a slice of one section, and the gas runs from cold blue at the intake through amber to orange
+  at the burners, cooling toward the exhaust, red at the engine's top limit; it fades as the engine cools after a stop. The fuel
+  nozzle and the bearings show their flow. Not yet tested in game: row 777.
+- For modders: a cutaway layer can be tinted by the gas's heat at its place along the path (tint Heat, with its position), and
+  scripts/art/cutaway_shapes.py holds the drawing both cutaways share.
 
 ### Save compatibility
 

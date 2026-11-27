@@ -90,6 +90,9 @@ public enum SchematicTint
     Flow,
     /// <summary>Its own colour, always: steel that moves whatever the readings.</summary>
     Fixed,
+    /// <summary>The gas's heat at its <see cref="SchematicLayer.position"/> along a turbine's path (Framework 0.378.0, SC8): cold blue to red
+    /// at the top limit (<c>GasPathRule</c>), from the turbine's temperature as the vehicle reads it, which cools after a stop.</summary>
+    Heat,
 }
 
 /// <summary>One region of a cutaway (Framework 0.375.0): a white picture tinted as <see cref="tint"/> says.</summary>
@@ -103,6 +106,8 @@ public class SchematicLayer
     public SchematicMedium medium;
     /// <summary>Its colour, for <see cref="SchematicTint.Fixed"/>.</summary>
     public Color colour = Color.white;
+    /// <summary>Where it sits along the gas path, 0 the intake to 1 the exhaust, for <see cref="SchematicTint.Heat"/>.</summary>
+    public float position;
 }
 
 /// <summary>One pipe on a schematic page, between two nodes or from one node to open air.</summary>

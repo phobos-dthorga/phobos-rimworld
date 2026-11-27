@@ -49,6 +49,10 @@ public sealed class SchematicView
     public readonly int HealthVersion;
     /// <summary>The engine its per-engine nodes show, from 0 (Framework 0.373.0, the engine tabs).</summary>
     public readonly int Engine;
+    /// <summary>For the heat gradient (Framework 0.378.0, SC8): the outside air, the turbine's temperature as shown (NaN without one), and the
+    /// engine's top limit (NaN without one).</summary>
+    public float Ambient, TurbineTemperature = float.NaN, TurbineLimit = float.NaN;
+    const string TurbineTemperatureQuantity = "turbineTemperature";
 
     SchematicView(PhobosVehicleSchematicDef page, int builtAt, int healthVersion, bool running, int engine)
     {
@@ -69,6 +73,9 @@ public sealed class SchematicView
     {
         var view = new SchematicView(page, Find.TickManager?.TicksGame ?? 0, comp.HealthViewVersion, comp.EngineRunning, engine);
         for (int i = 0; i < page.nodes.Count; i++) Fill(comp, page.nodes[i], view.Nodes[i], engine);
+        view.Ambient = comp.Ambient;
+        if (comp.TryGetQuantity(TurbineTemperatureQuantity, out float turbine)) view.TurbineTemperature = turbine;
+        if (comp.Powertrain?.Turbine is { } spec) view.TurbineLimit = (float)spec.Top.TemperatureLimit;
         for (int i = 0; i < page.pipes.Count; i++)
         {
             SchematicPipe pipe = page.pipes[i];

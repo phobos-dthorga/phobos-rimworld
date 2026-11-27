@@ -3,6 +3,7 @@ using System.Linq;
 using Phobos.Framework;
 using Phobos.Framework.Interface;
 using Phobos.Framework.Rules;
+using Phobos.Framework.Vehicles.Rules;
 using UnityEngine;
 using Verse;
 
@@ -47,6 +48,7 @@ public sealed class SchematicPanel
     float focusUntil;
     bool marksNoted;
     bool cutawayNoted;
+    bool heatNoted;
 
     public SchematicPanel(CompPhobosVehicleSystems comp, PhobosVehicleSchematicDef page)
     {
@@ -237,6 +239,19 @@ public sealed class SchematicPanel
     Color LayerColour(SchematicNode owner, SchematicLayer layer)
     {
         if (layer.tint == SchematicTint.Fixed) return layer.colour;
+        if (layer.tint == SchematicTint.Heat)
+        {
+            // Framework 0.378.0 (SC8): the gas's heat at the layer's place along the path; grey without a turbine figure.
+            if (float.IsNaN(view!.TurbineTemperature)) return PhobosWidgets.Off;
+            if (!heatNoted)
+            {
+                heatNoted = true;
+                if (Seen.Wants("vehicles.schematic.heat", Comp.Vehicle)) Seen.Note("vehicles.schematic.heat", Comp.Vehicle, Page.defName);
+            }
+            double celsius = GasPathRule.Temperature(view.Ambient, view.TurbineTemperature, layer.position);
+            (double r, double g, double b) = GasPathRule.Colour(celsius, view.TurbineLimit);
+            return new Color((float)r, (float)g, (float)b);
+        }
         SchematicView.NodeView? from = view!.NodeOf(layer.node.NullOrEmpty() ? owner.key : layer.node);
         if (from is not { Shown: true }) return PhobosWidgets.Off;
         if (layer.tint == SchematicTint.Flow)
@@ -312,11 +327,13 @@ public sealed class SchematicPanel
             // A cutaway's name and figure sit in its top left corner, clear of the parts beneath it.
             using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft))
             {
-                Widgets.Label(new Rect(rect.x + 4f, rect.y + 2f, rect.width / 3f, 18f), node.label.CapitalizeFirst());
+                // Framework 0.378.0: a narrow tile of a cutaway (the turboshaft's) needs most of its width for its name.
+                float wide = Mathf.Max(rect.width / 3f, Mathf.Min(rect.width - 8f, 120f));
+                Widgets.Label(new Rect(rect.x + 4f, rect.y + 2f, wide, 18f), node.label.CapitalizeFirst());
                 if (figures && !view.Figure.NullOrEmpty())
                 {
                     GUI.color = new Color(0.75f, 0.78f, 0.8f);
-                    Widgets.Label(new Rect(rect.x + 4f, rect.y + 16f, rect.width / 3f, 18f), view.Figure);
+                    Widgets.Label(new Rect(rect.x + 4f, rect.y + 16f, wide, 18f), view.Figure);
                     GUI.color = Color.white;
                 }
             }

@@ -4,8 +4,8 @@
 sheet for land vehicles with a piston engine, in its own window, flow marks a setting that starts off ([As built](#as-built-framework-03630)).
 The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765); the first cutaway, the land page's diesel, in
 Framework 0.374.0 (row 768). Made prominent (a command button, its own tab, warning lamps that open it) in Framework 0.378.0 (row
-775), with orders on a right-click (row 776). Not built: pages for boats, electric and steam, a turbine cutaway, the heat gradient
-(SC8), the standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
+775), with orders on a right-click (row 776), and the turbine cutaway with the heat gradient (SC8, row 777). Not built: pages for
+boats, electric and steam, the standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
 [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
 [the chip detector](vehicle-chip-detector.md).
 
@@ -402,6 +402,25 @@ SC4, the owner's card of 28 Nov 2026, "Right-click a part" (over a row of whole-
   from a dyno bay), as the game's own menus show.
 - **Not offered** (agent's choice): the intake separator's switch and the load switches, which stay on the Dashboard and the command
   bar; a part's own repair, which mechanics take up by themselves.
+
+## As built: the turbine cutaway and the heat gradient (Framework 0.378.0)
+
+SC2 and SC8, on the owner's word of 28 Nov 2026 ("Let's proceed with the still not built"). Not yet tested in game: row 777.
+
+- **One turboshaft section, cut into three tiles** (`scripts/art/draw_turboshaft_cutaway.py`): an axial compressor, an annular
+  combustor and the turbine stages, drawn whole and cut to the proportions of the aircraft page's three engine parts (compressor,
+  hot section, turbine), so each keeps its own reading and tooltip and the tiles meet with no seam (agent's choice, over one engine
+  part, which would have lost those readings). The shared drawing moved into `scripts/art/cutaway_shapes.py`; the diesel's layers
+  came out byte for byte the same.
+- **The heat gradient by bands, not a painted texture** (agent's choice over the record's "one painted texture"): the gas path is ten
+  layers, each tinted `Heat` at its place along the path. `GasPathRule` shapes the gas temperature from the one turbine figure our
+  model keeps (the compressor warms the air by up to 35 % of the way to it, the burners run at it, the exhaust is 60 % of the way;
+  authored, real only in direction) and colours it cold blue to red at the engine's top limit. It reads the turbine temperature as the
+  vehicle shows it, so it fades as the engine cools after a stop. No texture is painted at run time, so nothing costs more than the
+  diesel's layers.
+- **The pipes meet the picture**: the fuel at the burners' nozzle, the oil at the rear bearing.
+- **Not built**: a turbofan's own section (a jet shows the turboshaft's); per-engine turbine temperature, so every engine's tab shows
+  the same heat (F1).
 
 ## Who chose what
 

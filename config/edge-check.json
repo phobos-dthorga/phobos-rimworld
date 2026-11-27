@@ -14,7 +14,8 @@
   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/OilHot.png": "a dashboard icon: white heat lines drawn on purpose (looked at 23 Nov 2026)",
   "mods/PhobosMedical/Common/Textures/Phobos/Triage/UI/TriageTagOutline.png": "a white outline drawn on purpose, for the triage tag's colour to show through",
   "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/Signal.png": "an interface icon drawn in white on purpose",
-  "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/Grit.png": "the Spread grit button: a fan of grit stones scattered behind the truck, drawn as many small pieces on purpose (the owner's pick of 27 Nov 2026)"
+  "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/Grit.png": "the Spread grit button: a fan of grit stones scattered behind the truck, drawn as many small pieces on purpose (the owner's pick of 27 Nov 2026)",
+  "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Schematic/*/*.png": "the systems schematic's cutaway layers: white regions drawn by script for the window to tint, their pale edge is the region itself (Framework 0.374.0 and 0.378.0)"
  },
  "known": {
   "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/SeabedCrawler_Research_*.png": "a pale edge on the research gear (found 23 Nov 2026); left while submarine work is on the back burner"

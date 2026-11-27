@@ -48,7 +48,8 @@ on an aircraft in flight.
 - **Systems schematic** (in Operator and Engineer display modes, for land vehicles with a piston engine and for turbine aircraft):
   the **Systems schematic** button on the command bar or the Dashboard, the vehicle's **Schematic** tab (a live copy, with **Open
   large**), or **a lit warning lamp**, which opens it with that part outlined. It is a window that draws the engine's systems as a flow sheet; **a land vehicle's engine is a cutaway** of one
-  cylinder, whose water, oil, air, exhaust and fuel show their colours while they flow. **An aircraft with more than one engine has a tab
+  cylinder, whose water, oil, air, exhaust and fuel show their colours while they flow, and **an aircraft's a turbine in section**,
+  its gas cold blue at the intake and hottest orange at the burners (red at its limit). **An aircraft with more than one engine has a tab
   for each**, showing that engine's own fuel pump, oil and chip detector. Pipes take the colour of what they carry (fuel, oil, coolant, air, exhaust,
   power) and turn grey when nothing flows; each part is green, amber or red by its reading and its health. **Rest the mouse on a part**
   to read it and see it lit on the vehicle; **click it** to open the Systems tab there; **right-click it** for orders (a service,

@@ -9,25 +9,22 @@ shapes, so the layers fit each other exactly, and the window tints each by a liv
 plain section of an inline diesel's cylinder, not a drawing of any real engine.
 
 Each layer is white with light grey shading (the window multiplies it by its tint, so the shading stays) on a clear ground; the outline
-is near-black, drawn round every region from the regions themselves. Drawn at four times and shrunk with Lanczos. The canvas is 448 x 256:
-its height a power of two, as the art rules ask.
+is near-black, drawn round every region from the regions themselves (cutaway_shapes.py, shared with the turboshaft's). Drawn at four
+times and shrunk with Lanczos. The canvas is 448 x 256: its height a power of two, as the art rules ask.
 """
 from __future__ import annotations
 
 import argparse
-import hashlib
 import sys
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageDraw, ImageFilter
+from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import art_paths  # noqa: E402
+import cutaway_shapes as shapes  # noqa: E402
 
 W, H = 448, 256
-SCALE = 4
-OUTLINE = (24, 24, 26)
-OUTLINE_PX = 2.5
 
 # Each region: its shapes in shipped pixels, drawn in this order; a later region covers an earlier one where they meet. A shape is
 # ('rect', box), ('poly', points), ('ellipse', box) or ('line', points, width).
@@ -99,84 +96,8 @@ engine; no game or other author's art was used. Running the script again draws t
 """
 
 
-def _draw_shape(d: ImageDraw.ImageDraw, shape) -> None:
-    s = SCALE
-    kind = shape[0]
-    if kind == 'rect':
-        d.rectangle(tuple(v * s for v in shape[1]), fill=255)
-    elif kind == 'ellipse':
-        d.ellipse(tuple(v * s for v in shape[1]), fill=255)
-    elif kind == 'poly':
-        d.polygon([(x * s, y * s) for x, y in shape[1]], fill=255)
-    elif kind == 'line':
-        points = [(x * s, y * s) for x, y in shape[1]]
-        width = int(shape[2] * s)
-        d.line(points, fill=255, width=width, joint='curve')
-        for x, y in points:
-            r = width // 2
-            d.ellipse((x - r, y - r, x + r, y + r), fill=255)
-    else:
-        raise ValueError(kind)
-
-
-def masks() -> dict[str, Image.Image]:
-    """Each region's mask at four times, with every later region taken out of it, so no two layers overlap."""
-    drawn = {}
-    for name, shapes in REGIONS.items():
-        mask = Image.new('L', (W * SCALE, H * SCALE), 0)
-        d = ImageDraw.Draw(mask)
-        for shape in shapes:
-            _draw_shape(d, shape)
-        drawn[name] = mask
-    names = list(REGIONS)
-    for i, name in enumerate(names):
-        for later in names[i + 1:]:
-            drawn[name] = ImageChops.subtract(drawn[name], drawn[later])
-    return drawn
-
-
-def layer(mask: Image.Image) -> Image.Image:
-    """A white layer over its mask, shaded light grey toward the bottom so a flat tint still reads as a solid."""
-    w, h = mask.size
-    shading = Image.linear_gradient('L').resize((w, h)).point(lambda v: 255 - int(v * 0.22))
-    img = Image.merge('RGBA', (shading, shading, shading, mask))
-    return img
-
-
-def outline(drawn: dict[str, Image.Image]) -> Image.Image:
-    """A near-black ring round every region, from the regions themselves."""
-    size = int(OUTLINE_PX * SCALE) * 2 + 1
-    ring = Image.new('L', (W * SCALE, H * SCALE), 0)
-    for mask in drawn.values():
-        grown = mask.filter(ImageFilter.MaxFilter(size))
-        ring = ImageChops.lighter(ring, ImageChops.subtract(grown, mask.filter(ImageFilter.MinFilter(3))))
-    edge = Image.new('RGBA', ring.size, OUTLINE + (0,))
-    edge.putalpha(ring)
-    return edge
-
-
-def shrink(img: Image.Image) -> Image.Image:
-    return img.resize((W, H), Image.LANCZOS)
-
-
-def draw() -> dict[str, Image.Image]:
-    drawn = masks()
-    out = {name: shrink(layer(mask)) for name, mask in drawn.items()}
-    out['Outline'] = shrink(outline(drawn))
-    return out
-
-
-def preview(layers: dict[str, Image.Image]) -> Image.Image:
-    ground = Image.new('RGBA', (W, H), (20, 23, 26, 255))
-    for name, img in layers.items():
-        if name == 'Outline':
-            continue
-        tint = Image.new('RGBA', (W, H), PREVIEW[name] + (255,))
-        tinted = ImageChops.multiply(img, tint)
-        tinted.putalpha(img.getchannel('A'))
-        ground.alpha_composite(tinted)
-    ground.alpha_composite(layers['Outline'])
-    return ground
+def draw() -> dict:
+    return shapes.draw(REGIONS, W, H)
 
 
 def main(argv=None) -> int:
@@ -188,17 +109,10 @@ def main(argv=None) -> int:
     folder.mkdir(parents=True, exist_ok=True)
     for name, img in layers.items():
         img.save(folder / f'{name}.png')
-    preview(layers).resize((W * 2, H * 2), Image.NEAREST).save(folder / 'preview.png')
+    shapes.preview(layers, PREVIEW, W, H).resize((W * 2, H * 2), Image.NEAREST).save(folder / 'preview.png')
     print(folder / 'preview.png')
     if args.ship:
-        target_folder = Path(args.ship)
-        target_folder.mkdir(parents=True, exist_ok=True)
-        for name, img in layers.items():
-            target = target_folder / f'{name}.png'
-            img.save(target)
-            sha = hashlib.sha256(target.read_bytes()).hexdigest()
-            record = art_paths.record_path(target.with_name(f'{name}.record.md'))
-            record.write_text(RECORD.format(name=name, sha=sha), encoding='utf-8', newline='\n')
+        for target in shapes.ship(layers, Path(args.ship), art_paths.record_path, RECORD):
             print(target)
     return 0
 
