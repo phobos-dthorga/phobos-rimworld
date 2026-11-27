@@ -11,6 +11,19 @@ public class HediffCompProperties_PhobosRiseThenFall : HediffCompProperties
     public float resolveHours = 48f;
 
     public HediffCompProperties_PhobosRiseThenFall() => compClass = typeof(HediffComp_PhobosRiseThenFall);
+
+    /// <summary>
+    /// Timings that would empty the condition at once or skip its shape (checked on the owner's card of 28 Nov 2026, "check both, fix
+    /// if real": on any Def the first check comes after the game has aged the condition, so the severity is above 0 from the start; only
+    /// a peak at hour 0 or less sets it to 0 and the condition is removed at once).
+    /// </summary>
+    public override System.Collections.Generic.IEnumerable<string> ConfigErrors(HediffDef parentDef)
+    {
+        foreach (string error in base.ConfigErrors(parentDef)) yield return error;
+        if (peakHours <= 0f) yield return "HediffCompProperties_PhobosRiseThenFall needs peakHours above 0: at " + peakHours + " the severity is 0 from the start and the condition is removed at once.";
+        if (plateauEndHours < peakHours) yield return "HediffCompProperties_PhobosRiseThenFall needs plateauEndHours (" + plateauEndHours + ") no earlier than peakHours (" + peakHours + ").";
+        if (resolveHours <= plateauEndHours) yield return "HediffCompProperties_PhobosRiseThenFall needs resolveHours (" + resolveHours + ") after plateauEndHours (" + plateauEndHours + "): the condition would vanish at the end of the plateau instead of falling.";
+    }
 }
 
 public class HediffComp_PhobosRiseThenFall : HediffComp

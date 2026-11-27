@@ -190,4 +190,31 @@ public class RadiationRuleTests
 
     [Fact]
     public void FalloutIsFullOnItsFirstDay() => Assert.Equal(1, RadiationRule.FalloutDecay(0.5), 6);
+
+    // ---- The rules Def's thresholds (the owner's card of 28 Nov 2026) ----
+
+    [Fact]
+    public void TheIllnessEndsOncePastItsHeightAndBelowTheThreshold()
+    {
+        Assert.True(RadiationRule.IllnessOver(rising: false, severity: 0.19, endsBelow: 0.2));
+        Assert.False(RadiationRule.IllnessOver(rising: false, severity: 0.2, endsBelow: 0.2));
+        Assert.False(RadiationRule.IllnessOver(rising: false, severity: 0.5, endsBelow: 0.2));
+    }
+
+    [Fact]
+    public void AMildIllnessStillRisesToItsHeight() => Assert.False(RadiationRule.IllnessOver(rising: true, severity: 0.1, endsBelow: 0.2));
+
+    [Fact]
+    public void WithNoThresholdTheIllnessRunsDownToNothing()
+    {
+        Assert.False(RadiationRule.IllnessOver(rising: false, severity: 0.01, endsBelow: 0));
+        Assert.True(RadiationRule.IllnessOver(rising: false, severity: 0, endsBelow: 0));
+    }
+
+    [Fact]
+    public void TheDoseShowsFromTheSmallestShown()
+    {
+        Assert.False(RadiationRule.DoseShown(0.049, 0.05));
+        Assert.True(RadiationRule.DoseShown(0.05, 0.05));
+    }
 }

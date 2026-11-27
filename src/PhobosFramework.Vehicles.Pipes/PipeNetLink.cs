@@ -18,13 +18,19 @@ namespace Phobos.VehicleSystems.Pipes;
 /// Framework itself (AutoLinkRefuelables), so nothing of ours is needed for them.
 /// </summary>
 [StaticConstructorOnStartup]
-public sealed class PipeNetLink : VehiclePipes.ILink
+public sealed class PipeNetLink : VehiclePipes.ILink, IReservoirPipes
 {
     const string Prefix = "PipeNet:";
     /// <summary>The keys of what is laid beneath set-out pieces, after <see cref="Prefix"/>: a net's own key is the vehicle's own footprint.</summary>
     const string OutPrefix = "out:";
 
-    static PipeNetLink() => VehiclePipes.Register(new PipeNetLink());
+    static PipeNetLink()
+    {
+        var link = new PipeNetLink();
+        VehiclePipes.Register(link);
+        // Any building with a store (the owner's card of 28 Nov 2026, "Reservoirs"): one standing on its own lays and fills by itself.
+        CompPhobosReservoir.UsePipes(link);
+    }
 
     static IEnumerable<PipeNetDef> Nets(VehiclePipes.IHost comp)
     {
@@ -273,30 +279,59 @@ public sealed class PipeNetLink : VehiclePipes.ILink
             || map.GetComponent<PipeNetManager>() is not { } manager) return;
         foreach (CompPhobosReservoir store in setOut.Reservoirs())
         {
-            if (store.Space < 1f) continue;
             CellRect cells = store.parent.Spawned ? store.parent.OccupiedRect() : comp.Vehicle.OccupiedRect();
-            foreach (PipeNetDef net in NetsOf(store))
-            {
-                PipeNet? found = null;
-                foreach (IntVec3 cell in cells)
-                {
-                    if (cell.InBounds(map) && manager.GetPipeNetAt(cell, net) is { } at)
-                    {
-                        found = at;
-                        break;
-                    }
-                }
-                float wanted = found == null ? 0f : System.Math.Min(store.Space, found.Stored);
-                if (found == null || wanted < 1f) continue;
-                // The net's stored figure is refreshed only now and then, so the store takes what really came out.
-                found.DrawAmongStorage(wanted, out float drawn, null);
-                if (drawn <= 0f) continue;
-                store.Add(drawn, Port_PipeNet.IngredientsOf(found).ToList());
-                if (Seen.Wants("vehicles.reservoir-piped", store.parent, store.parent.Spawned ? "standing" : "packed"))
-                    Seen.Note("vehicles.reservoir-piped", store.parent, drawn.ToString("0") + " " + net.defName, store.parent.Spawned ? "standing" : "packed");
-                break;
-            }
+            FillFrom(store, manager, map, cells, store.parent.Spawned ? "standing" : "packed");
         }
+    }
+
+    /// <summary>
+    /// Fills a store from the first run of its load's nets found on these cells that holds anything, taking what fits, as the game's own paste
+    /// taps draw from their vats as they serve. <paramref name="variant"/> is the seen-in-play case: a standing or packed set-out piece, or a
+    /// building on its own.
+    /// </summary>
+    static void FillFrom(CompPhobosReservoir store, PipeNetManager manager, Map map, CellRect cells, string variant)
+    {
+        if (store.Space < 1f) return;
+        foreach (PipeNetDef net in NetsOf(store))
+        {
+            PipeNet? found = null;
+            foreach (IntVec3 cell in cells)
+            {
+                if (cell.InBounds(map) && manager.GetPipeNetAt(cell, net) is { } at)
+                {
+                    found = at;
+                    break;
+                }
+            }
+            float wanted = found == null ? 0f : System.Math.Min(store.Space, found.Stored);
+            if (found == null || wanted < 1f) continue;
+            // The net's stored figure is refreshed only now and then, so the store takes what really came out.
+            found.DrawAmongStorage(wanted, out float drawn, null);
+            if (drawn <= 0f) continue;
+            store.Add(drawn, Port_PipeNet.IngredientsOf(found).ToList());
+            if (Seen.Wants("vehicles.reservoir-piped", store.parent, variant))
+                Seen.Note("vehicles.reservoir-piped", store.parent, drawn.ToString("0") + " " + net.defName, variant);
+            return;
+        }
+    }
+
+    /// <summary>
+    /// A store standing on its own, not a trailer's piece (the owner's card of 28 Nov 2026, "Reservoirs"): its load's net's hidden pipe is laid
+    /// beneath it once a spawn (the first net, where a load lists several), so a run touching any side joins it, and it fills from a run with
+    /// storage at each rare look. Cost: a few cell lookups a look; nothing while it is full.
+    /// </summary>
+    public void Look(CompPhobosReservoir store, bool lay)
+    {
+        if (store.parent.Map is not { } map || map.GetComponent<PipeNetManager>() is not { } manager) return;
+        CellRect cells = store.parent.OccupiedRect();
+        if (lay && NetsOf(store).FirstOrDefault() is { } net)
+        {
+            Phobos.Framework.Persistence.PipeUnderlay underlay = store.Underlay;
+            bool Piped(IntVec3 cell) => manager.GetPipeNetAt(cell, net) != null;
+            underlay.Renew(PipeOf(net), () => Make(net));
+            underlay.Fill(cells, map, Piped, () => Make(net), cell => !cell.GetTerrain(map).IsWater);
+        }
+        FillFrom(store, manager, map, cells, "alone");
     }
 
     static void ForgetFuelLine(VehiclePipes.IHost comp)

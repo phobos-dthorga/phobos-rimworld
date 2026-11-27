@@ -146,7 +146,7 @@ public static class RadiationService
         double lethal = RadiationRule.LethalDose(RadiationPart.Preset, care, Sensitivity(pawn, 2)) + RadiationMedicine.MarrowMoves(dose);
         float severity = (float)RadiationRule.Severity(dose.peak, lethal, intoIllness, rules.recoveryPerDay);
         bool rising = intoIllness <= RadiationRule.DaysToHeight(dose.peak);
-        if (!rising && severity <= 0.001f)
+        if (RadiationRule.IllnessOver(rising, severity, rules.courseEndsBelow))
         {
             SetPresent(pawn, RadiationDefOf.PhobosRadiation_Illness, false, 0f);
             dose.EndCourse(Today);

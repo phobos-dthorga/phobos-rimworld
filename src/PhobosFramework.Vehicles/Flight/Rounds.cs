@@ -111,8 +111,10 @@ public sealed class CompPhobosRound : VehicleComp
     /// </summary>
     bool crewless;
 
-    /// <summary>What the optionally piloted kit grants, and the electrical load that powers it (Fittings_Uncrewed.xml).</summary>
+    /// <summary>What the optionally piloted kit grants (Fittings_Uncrewed.xml); its fitting's feed says what powers it.</summary>
     public const string KitGrant = "CrewlessFlight";
+    /// <summary>The load's name, kept so other authors' C# still compiles (the owner's card of 28 Nov 2026, "Unread feed"): the fitting's feed now says what powers it.</summary>
+    [System.Obsolete("Use Feeds.Works(vehicle, \"CrewlessFlight\")")]
     public const string KitLoad = "kitUncrewed";
 
     /// <summary>Whether it flies with nobody aboard now: Vehicle Framework's crew check answers yes for it (one field read).</summary>
@@ -235,7 +237,7 @@ public sealed class CompPhobosRound : VehicleComp
     string? KitRefusal()
     {
         if (Vehicle.GetComp<CompPhobosVehicleSystems>() is not { } systems || !systems.Fittings.Carries(KitGrant)) return "PhobosRound_WaitNoPilot".Translate().Resolve();
-        if (!systems.Fittings.Grants(KitGrant) || !systems.LoadActive(KitLoad)) return "PhobosRound_WaitKitDown".Translate().Resolve();
+        if (!Feeds.Works(systems, KitGrant)) return "PhobosRound_WaitKitDown".Translate().Resolve();
         if (!AirCombat.Works(Vehicle, AirCombat.AutopilotQuantity)) return "PhobosRound_WaitAutopilotDown".Translate().Resolve();
         return null;
     }

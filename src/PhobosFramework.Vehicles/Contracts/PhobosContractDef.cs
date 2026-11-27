@@ -79,6 +79,10 @@ public class PhobosContractDef : Def
             case ContractKind.DeliverThings when thingCategory == null && things.Count == 0:
                 yield return "a delivery of things names neither a category nor things";
                 break;
+            // The owner's card of 28 Nov 2026, "Load checks": with no thing named, the reward is valued from valuePerUnit alone, and had been 0.
+            case ContractKind.DeliverThings when things.Count == 0 && valuePerUnit <= 0f:
+                yield return "a delivery by thingCategory alone needs a valuePerUnit (silver a thing), or its reward is 0";
+                break;
             case ContractKind.WorkOnSite when valuePerUnit <= 0f:
                 yield return "work on site needs a valuePerUnit (silver an hour)";
                 break;

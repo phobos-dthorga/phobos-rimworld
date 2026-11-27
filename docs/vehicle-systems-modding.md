@@ -5,12 +5,11 @@ your own, with D'thorga Framework's vehicle systems (RimWorld 1.7). Everything i
 input, condition or effect. **Not yet tested in game**: the schema may change before the first public release, and this page will
 say so when it does.
 
-**What this page covers (28 Nov 2026):** the systems schema, checked against Framework 0.368.1: every input, condition and effect
+**What this page covers (28 Nov 2026):** the systems schema, checked against Framework 0.369.0: every input, condition and effect
 class has a row in its table, and the vehicle systems' own Defs (fittings, tunes, grades, families, fit sets, the rules Defs, bills,
 schematics, shaft loads, contracts and visits) have sections, all written from the code and the shipped XML. **The vehicle features**
 (cabins, camps, hitches and trailers, the sling, litters, work rigs, aircraft, remote control and the rest) **are on their own page**:
-[vehicle features for modders](vehicle-features-modding.md). **Not yet covered on either page:** the rarer loadout fields `cruise`, `engineOutYaw`, `engineArms`, `sideTanks`, `heldMassComps`,
-`cellsOfRemap` and `fittedOnOlderSaves`, and `empHardening` and `intakeDebris` beyond their mentions in other rows. For every field of every class, see the reference site's
+[vehicle features for modders](vehicle-features-modding.md). **Every loadout field** has a row under [Loadout fields](#loadout-fields), and its nested blocks are covered where they are explained. For every field of every class, see the reference site's
 [XML types](https://phobos-dthorga.github.io/phobos-rimworld/xml-types.html) page, rebuilt from the code on every change; the shipped
 Defs under `mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/` show them in use, and
 [the authors' override contract](development/vehicle-author-overrides.md) describes one of them. **Parts bills**
@@ -84,17 +83,28 @@ Without `Inherit="False"` a list adds to the parent's; with it, it replaces it. 
 | `priority` | `Vehicle`, `Mod`, `Effect` (the defaults) or `Default`. Among equals the higher `rank` wins, then the last loaded, with a warning in the log. |
 | `rank` | A whole number (default 0) that breaks ties within a priority: the shipped tracked loadout has 1, so it beats the light, medium and heavy ones. |
 | `kind` | The settings window's group: `CombustionLand`, `CombustionHeavy`, `CombustionTracked`, `Boat`, `Aircraft`, or your own word. |
-| `selector` | Which vehicles. Every condition given must hold: `vehicleDefs`, `packageIds`, `vehicleTypes` (Land, Sea, Air, Universal), `fuelled`, `electricPowered`, `flies` (each `Yes`, `No` or `Any`), `trailer` (a design with `CompProperties_PhobosTrailer`; **`No` unless given**, so a loadout claims a trailer only with `<trailer>Yes</trailer>` or `Any`), `fuelTypes`, `excludeFuelTypes`, `massMin`, `massMax`, `partTags`, `partKeySuffixes` (a part key ends in one of them, as tracks end in `Track`). |
-| `cabin` | `closed` (default true): whether the vehicles have a closed cab that shelters everyone aboard (the Cabin system gives it a temperature). A vehicle overrides it with a `Phobos.VehicleSystems.PhobosVehicleCabinExtension` on its VehicleDef (`closed` false for motorcycles and open boats). Since Framework 0.268.0, a ground vehicle whose author marked every seat exposed counts as open unless an extension says otherwise; aircraft are left out, as their exposed seats sit under a canopy. A closed cab gets the glass part. |
+| `selector` | Which vehicles. Every condition given must hold: `vehicleDefs`, `packageIds`, `vehicleTypes` (Land, Sea, Air, Universal), `thingClasses` (the design's code class, or a class it is built on, by full name: how the shipped aircraft loadouts find every aircraft of a flight framework without naming each one), `fuelled`, `electricPowered`, `flies` (each `Yes`, `No` or `Any`), `trailer` (a design with `CompProperties_PhobosTrailer`; **`No` unless given**, so a loadout claims a trailer only with `<trailer>Yes</trailer>` or `Any`), `campDeck` and `campSide` (a trailer whose trailer comp has that camp setting on; `Any` unless given), `fuelTypes`, `excludeFuelTypes`, `massMin`, `massMax`, `partTags`, `partKeySuffixes` (a part key ends in one of them, as tracks end in `Track`). |
+| `cabin` | `closed` (default true): whether the vehicles have a closed cab that shelters everyone aboard (the Cabin system gives it a temperature). `climateControl` (false): the cab has automatic climate control fitted, which holds it near a set temperature (see [Climate control](#climate-control)). A vehicle overrides either with a `Phobos.VehicleSystems.PhobosVehicleCabinExtension` on its VehicleDef (`closed` false for motorcycles and open boats). Since Framework 0.268.0, a ground vehicle whose author marked every seat exposed counts as open unless an extension says otherwise; aircraft are left out, as their exposed seats sit under a canopy. A closed cab gets the glass part. |
 | `glass` | The glass's kind: `Ordinary` (default), `Armoured`, `VisionBlocks`, or `Windscreen` (since 0.268.0): a windscreen alone on an open vehicle, which still gets the glass part, reaches its open front seats with splinters and takes one laminated pane to re-glaze. A VehicleDef's `PhobosFittedEquipmentExtension` sets it for one design. |
+| `empHardening` | What kind of vehicle this is, for EMP and for everything that asks whether it is military: `ByClass` (default: military if a gun is on the design as built, civilian otherwise), `Civilian`, `Military` or `Mechanical`. See [Vehicle class and EMP hardening](#vehicle-class-and-emp-hardening). |
+| `noHitch` | (Framework 0.101.0) The loadout's land vehicles get no hitch, for a design that should never tow (false). A trailer gets none anyway. The shipped trailer loadout sets it. See the features page, [Hitches, couplings and trailers](vehicle-features-modding.md#hitches-couplings-and-trailers). |
 | `drivetrain` | The engine and drivetrain: a `def` (a `PhobosVehicleDrivetrainDef`) and an optional `set` of overrides (`kilowattsPerTonne`, `drivenShare`, `wheelRadius`, `dragArea`, `kilogramsPerVehicleMass`, `emptyKilograms`, `fuelKilogramsFull`, `idleFuelShare`, `efficiency`). See [Engines and drivetrains](#engines-and-drivetrains). |
 | `flightProfile` | An aircraft's `PhobosVehicleFlightProfileDef`: its phases and what each asks of the engines. |
 | `avionics` | An aircraft's instruments, sensors and defences, and how it looks to an air defence. See [Avionics](#avionics). |
+| `cruise` | (Framework 0.141.0) How the aircraft flies between tiles, in place of its flight profile's own `cruise` block (none: the profile's, and with neither, every leg is flown as its author made it). `designMetres` and `ceilingMetres` are **required, both above 0, the design height no higher than the ceiling** (a config error otherwise): the height its author's speed and fuel rate hold at, and its published service ceiling at its heaviest weight with every engine (above 11,000 m reads as 11,000). `lift` is `Rotor` (default), `Jet` or `Propeller`; `oxygenLineMetres` (3,810 m, 12,500 ft) is the height above which anyone aboard without oxygen keeps it down; `pressurised` (false) means nobody aboard needs oxygen while the canopy holds. Each leg is flown at the design height, brought down by the weight, lost engines or someone without oxygen, and refused where the ground and its clearance stand above what it can climb to. A jet or propeller aircraft flown lower is slower and thirstier; a rotor craft flown higher burns more. It governs only the player's aircraft with the player's **Cruising height between places** setting on (the default) and the full engine model. Shipped: the C-17's (`Mods/C17Globemaster/Defs/Loadouts_C17.xml`, sourced in its comment) and the profiles in `FlightProfiles.xml` (authored). |
+| `engineOutYaw` | (Framework 0.247.0) How hard lopsided thrust pulls the aircraft round with one side's engines out, 0 to 1 (0: none, the default, right where one gearbox or a cross-shaft shares the engines' work, as on helicopters and the Osprey). With the player's **Lopsided thrust unsettles twin jets** setting on (the default), its dodge in the air is multiplied by 1 − `engineOutYaw` × how lopsided the thrust is now, and a player's turbine aircraft whose fuel follows its engines burns 1 + `engineOutYaw` × 0.5 × the same (the 0.5 is authored). Read only with two or more engine roles bound (`Engine1`, `Engine2` and on); where they sit comes from `engineArms` or the engine parts. Shipped figures, all authored: 0.15 on the A-10, Su-25 and Prowler, 0.2 on the C-17 and C-27J, 0.25 on Vanilla Vehicles Expanded's three-thruster pod. |
+| `engineArms` | (Framework 0.255.0) Where each engine sits across the craft, `Engine1` first, for a design whose engine parts do not say, such as thrusters that each cover the whole body (empty: a twin's one each side by its order; with more engines, from where each engine part's hit area sits). Positive one side, negative the other, 0 on the centreline; only the signs and the sizes against each other matter, not the unit. **Give exactly one entry for each bound engine role**: a list of any other length is ignored, without a warning. `engineOutYaw` and `sideTanks` read it. Shipped: `<li>-1</li><li>1</li><li>0</li>` for Vanilla Vehicles Expanded's three-thruster pod (`Mods/VanillaVehiclesExpanded/Defs/Loadouts_VVE_Aircraft.xml`), its two outer thrusters either side and the third on the centreline. |
+| `sideTanks` | (Framework 0.250.0) A fuel tank each side, each feeding the engines on its side, with a cross-feed between them (false). The vehicle keeps its one fuel figure; this tracks how it is split. A holed tank leaks from one side, picked at random; with the cross-feed shut, that side's engines starve once it runs dry, and the leak stops. The player's vehicle gets a cross-feed button: automatic (the default: the crew opens it when a side runs dry while the other holds fuel, and shuts it once the leak is gone and the tanks are level), open or shut. Refuelling fills the emptier side first; an engine on the centreline draws on both. **Needs a fuelled vehicle and engines on both sides** (`Engine1` and `Engine2` bound, or `engineArms`): with one `Engine` role it does nothing. Any faction's aircraft. Shipped on most of our twin and multi-engined aircraft. |
+| `intakeDebris` | (Framework 0.250.0) How exposed the engines' intakes are to stones and grit off rough ground, 0 (none) to 1 (a low intake close behind the wheels). The shipped aircraft loadout gives 0.5, so **every aircraft loadout inherits 0.5 unless it says otherwise**. It drives grit strikes on take-off and landing and how fast a turbine's compressor fouls. See [Grit in the intakes](#grit-in-the-intakes). |
+| `heldMassComps` | (Framework 0.254.0) Another mod's comps whose held things count as carried weight, by their **full type names, exactly** (namespace included; a subclass does not match). Each must be a comp that holds things (an `IThingHolder`). Everything it holds adds to the weight our engine model works with, as cargo does: a vehicle by its weight in kilograms, a person by their mass, anything else by its mass times its count. Read by name, so your mod needs no reference to the other mod, and a comp a later version drops simply weighs nothing. Shipped: `C17Globemaster.CompC17Airlifter`, the C-17's hold of vehicles (`Mods/C17Globemaster/Defs/Loadouts_C17.xml`). |
+| `sling` | (Framework 0.92.0) A helicopter's cargo hook: `ratedKilograms` and `standDownIfActive` (none: no hook). See the features page, [Sling loads](vehicle-features-modding.md#sling-loads). |
 | `systems` | Each `def` (a system) with an optional `set` of parameter overrides, written as elements: `<set><batteryAmpHours>90</batteryAmpHours></set>`. |
 | `partRoles` | Each `role` with `find` rules and an optional `add`. `all` binds every match (wheels). |
+| `cellsOfRemap` | (Framework 0.166.0) Moves parts the loadout adds: each `li` gives a `from` role and a `to` role, and every added part whose `cellsOf` names `from` takes the cells (and armour) of the part bound to `to` instead (empty). A role cannot be bound twice, so this is how a child loadout moves an inherited part. A child adds entries to its parent's; the first entry with a matching `from` wins. `to` must name a role bound on that design, or the moved parts get no cells. A part with its own `cells` is not moved. Shipped: the Osprey and the C-27J send `Engine` to `Cabin`, because the aircraft loadout puts the generator, battery, starter and cabin fittings on the engine's cells, and their `Engine` is the left nacelle out on the wing. |
 | `loads` | Electrical consumers, each with a `name` (unique in the loadout), `amps` and a `when`. See [Electrical loads](#electrical-loads) for every field, the shedding order and keeping the start. |
 | `factoryFittings` | (Framework 0.356.0) Fittings every vehicle of the loadout leaves the factory with: each given once, free, on the first free part it suits, to new vehicles and ones already in a save, and remembered by name so one the player takes off stays off. A child adds to its parent's list. Use `MayRequire` for another mod's fitting, as the aircraft loadout does for the Radio Framework's aviation radio. |
 | `factoryFittingsMilitary` | (Framework 0.356.0) The same, only for a vehicle that counts as military: armed, or a loadout whose `empHardening` is military. |
+| `fittedOnOlderSaves` | Fittings given once, free, on the first free part each suits, to a vehicle from an older save, so it keeps what its loadout no longer starts with (empty). For an aircraft that now starts as a plainer version: the Harrier lists its night sight and radar (`Mods/HarrierVtol/Defs/Loadouts_Harrier.xml`). A vehicle made since is given none. **Each vehicle is settled once, by one saved mark, and every vehicle saved with Framework 0.208.0 or later already has that mark**, so an entry added today reaches only vehicles from saves older than that. For a fitting every vehicle should have, new or saved, use `factoryFittings`. |
 
 ### Part roles
 
@@ -113,6 +123,10 @@ made of several kinds of part), `categories` (stats the part feeds), a `depth`, 
 | `cells` or `cellsOf` | Explicit hitbox cells, or the cells (and armour) of the part bound to another role, usually `Engine`, so Combat Extended's shots can reach it. |
 | `categories`, `armor`, `tags` | As Vehicle Framework's own parts. |
 | `last` | (Framework 0.366.0) Appended at the very end, after every part the code adds. **Vehicle Framework saves parts by position, so any part added to a design that saves already hold takes `last`**; added in the middle, it would hand its place's saved health to the next part. |
+| `countsTowardDestruction` | Whether the part counts toward the vehicle's destruction (true). Vehicle Framework destroys a vehicle when its parts' health together falls under 1%. Give `false` to an empty mounting point for a fitting (a bay, a bracket, tie-downs): it can still be hit and broken, but it neither keeps a wreck alive nor brings the vehicle closer to destruction. |
+| `eachOf` | (Framework 0.250.0) A role name: one part for each part bound to that role, rather than one in all, as one brake per wheel. The first keeps `key` and takes the first such part's cells; the others are keyed `key_` plus that part's key, each at its own part, appended after the other added parts. With fewer than two such parts, one part as usual. |
+| `eachLabel` | The label of each part `eachOf` makes, with `{PART}` for the part it sits at ("{PART} brake") (empty: `label`). |
+| `late` | (Framework 0.258.0) Appended after the other added parts, in the order of the loadout's list. **Superseded by `last` for anything new**: code appends further parts after the late ones, so a late part added today would still shift those in a saved vehicle. |
 
 On the role itself (beside `role` and `find`): `notOnSubmersibles` (Framework 0.359.0) leaves it off a design that dives;
 `onlyWithRole` (Framework 0.366.0, with `last`) adds it only where another role is bound, as the searchlight turret needs a rotor
@@ -171,7 +185,7 @@ draws `amps` while its conditions hold, and the electrical system adds them up a
   its parent's, so **to change one of the parent's loads, write the list again with `Inherit="False"`**. A fitting's load whose name the
   loadout already has is ignored.
 - **`shedOrder` 0 is essential and never shed.** Give every comfort, light and work load a rank of 1 or more, or it runs the battery
-  flat with the generator lost.
+  flat with the generator lost. The shipped comforts (the air conditioner, the cab stereo, the reading light) take 1, shed first.
 - **Nothing is shed with the engine stopped.** A parked vehicle's loads run the battery down by the player's choice; `startReserve` is the
   guard for that.
 - **The other factions' vehicles run no loads**: their electrics are on the light tier. Headlights alone still burn on them at night
@@ -283,6 +297,33 @@ the load is never held.
 | `periodSeconds`, `phase`, `litShare` | For a flash: its period (1), how late in the period it comes, 0 to 1 (0: two lamps half a period apart take turns), and the share of the period it lasts (0.2). |
 | `brake` | A brake lamp: also lit, brighter and larger, while the vehicle slows, whether or not its load runs (false). |
 
+### Vehicle class and EMP hardening
+
+Every design has a class, worked out once at start-up from its loadout's `empHardening` and its guns. The Systems tab shows it
+("Class: military"), and EMP, the factory radios and the civilian fittings all read the same answer, so they never disagree.
+
+**Gotchas first:**
+
+- **Leave it at `ByClass` unless you know better than the guns.** A gun on the design as built makes it military; otherwise it is civilian.
+- **A gun added only by an upgrade does not make it military.** Such a design is shown as "armed by upgrade" and treated as civilian
+  everywhere (EMP, factory fittings, civilian bays).
+- **`Military` or `Mechanical` written on the loadout wins over the guns, and so does `Civilian`**: an armed design rated `Civilian`
+  is civilian throughout.
+
+| `empHardening` | Class | What it changes |
+| --- | --- | --- |
+| `ByClass` (default) | Military if armed as built, else civilian (or armed by upgrade) | As the row it lands on. |
+| `Civilian` | Civilian | Its electrical parts get the civilian EMP rating; a stalled engine is possible. |
+| `Military` | Military | The military EMP rating (less harm); it gets `factoryFittingsMilitary`; part roles marked `notOnMilitary` (a stereo, a sleeper berth, camping mounts) are taken out of the design. |
+| `Mechanical` | Mechanical | Nothing electronic keeps the engine running: an EMP never stalls it, though its electrics still take the civilian rating's harm. Not military. The steam locomotives use it (`Mods/TrainsOfTheRim/Defs/Loadouts_TrainsOfTheRim.xml`). |
+
+**How the EMP part works.** Vehicle Framework already stalls a vehicle and harms its parts on an EMP hit, but only on a part its author
+gave an EMP rating, and few authors do. So D'thorga Framework rates the parts bound to the rules Def's `empRoles` (`Battery`, `Alternator`,
+`Starter`, `TractionBattery`, `TractionMotor`): `empSeverityCivilian` (`Moderate`) or `empSeverityMilitary` (`Minor`), both on
+`PhobosVehicleRulesDef` and authored. **A rating the vehicle's author gave a part is kept.** Mods listed in `empNoStunPackages` (the
+RimThunder ones, as shipped) are harmed but never stalled. The EMP hardening kit upgrade lowers a fitted vehicle's ratings to the military
+one. Under Combat Extended, whose armour setting skips Vehicle Framework's EMP step, the Framework runs that step itself.
+
 ### Avionics
 
 An aircraft's `avionics` block says what it carries: flight instruments, navigation, sights, radar, a warning receiver, chaff and flares,
@@ -365,6 +406,33 @@ The Radio Framework reads the same cruise height for an aircraft that relays rad
 jamming field blinds a radar and a warning receiver. The draw is authored at 24 V: the essentials (attitude 2 A, basic navigation 2,
 basic sight 1, warning receiver 2, dispensers 1, oxygen 2) stay on the battery with the generator lost; the rest (full navigation 4 more,
 full sight 4 more, autopilot 4, radar 20, night sight 4) are shed with the comforts.
+
+### Grit in the intakes
+
+A loadout's `intakeDebris`, 0 to 1, says how exposed the engines' intakes are to stones and grit thrown up on rough ground (any ground
+that is neither a floor nor water). It does two things, on any faction's aircraft:
+
+- **Strikes.** In a flight phase that throws grit (`debrisPhases` on `PhobosLandingSurfaceRulesDef`: take-off and landing rolls, taking off
+  and landing, a vertical landing, and taxiing while it moves), an aircraft may take a strike that costs a random engine 15% of its
+  health, never below 30%. The chance is 0.5 strikes an hour × `intakeDebris` × the phase's weight × the rough share of the ground under it.
+  An aircraft on our own flight, or one that takes off and lands through Vehicle Framework's own launch, is judged once at each lift-off
+  and touch-down instead: 4% × `intakeDebris` × the rough share. The player is told which engine was hit.
+- **Compressor fouling.** A running turbine's compressor fouls faster on rough ground in step with `intakeDebris` (see
+  `Input_CompressorFouling` under [Inputs](#inputs)), under the player's **Turbine compressors get dirty** setting.
+
+An inlet barrier upgrade keeps four fifths of the grit out at a lift-off or touch-down and stops strikes in a phase in the same
+measure; an intake separator, while on, keeps half out. Every figure is authored for play (`LandingSurface.xml`): foreign-object damage is
+the real reason rough-strip aircraft carry high or guarded intakes, but no measured rate stands behind these.
+
+| Shipped `intakeDebris` (all authored) | Aircraft |
+| --- | --- |
+| 1.0 | EA-6B Prowler (low intakes) |
+| 0.8 | Harrier |
+| 0.6 | Osprey, Mongoose |
+| 0.5 | Any aircraft our loadouts do not name (`PhobosVehicleLoadout_Aircraft`), the Cherokee |
+| 0.4 | C-27J, the RimArrow search-and-rescue aircraft (first loadout) |
+| 0.3 | C-17, Su-25, Hind, UH-60, the RimArrow's second loadout |
+| 0.25 | A-10 (engines set high on the rear fuselage) |
 
 ## A system of your own
 
@@ -462,7 +530,7 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 | `Input_Dust` | how dusty the air the engine breathes is, as a multiple of the ordinary: by the place's yearly rainfall (about 3 in a desert, 1 in wet country) and, on a map, the weather's sand while the vehicle stands in the open. On the world map, the caravan's tile; 1 with no caravan. The air filter (service system) and the turbocharger use it |
 | `Input_ElectricalBalance` | `side` `Surplus` (the default) or `Deficit`, in amps: the supply (while the engine runs, the `supplyParameter` (`alternatorAmps`) times `supplyRole`'s (`Alternator`) efficiency, times the optional `drivenByRole`'s drive share (the drive belt) and the optional `supplyFactor` input) against what the loads draw. `fromSystem` reads the supply's figures from another system on the vehicle (0 if it has none). On the `Deficit` side a grid carrying the parked vehicle's loads adds the rules Def's `hookUpRatingAmps` (60) to the supply |
 | `Input_EngineElectronics` | how much electricity the engine needs against a modern electronically controlled one: its drivetrain Def's `electronicsShare` (a quarter or so for an old mechanical diesel); 1 without a drivetrain model. The default loadouts' "engine electronics and instruments" load multiplies by it |
-| `Input_EngineFeed` | the worst engine's reading, 0 to 1, by `reading`: `fuelFeed` (the default; its fuel pump's work), `oilPressure` or `oilLevel`. 1 on a vehicle with no engines. The engine feed system's quantities are derived from it |
+| `Input_EngineFeed` | the worst engine's reading, 0 to 1, by `reading`: `fuelFeed` (the default; its fuel pump's work), `oilPressure` or `oilLevel`. 1 on a vehicle with no engines. The engine feed system's quantities are derived from it. Any other reading is a config error at load (it would read the oil level) |
 | `Input_EngineHeat` | heat into the coolant as a share of the heat at full load: with the full ground drivetrain model, the model's share plus the electrical loads' share while running (0 off); otherwise, and while set-up work turns the engine, the engine load |
 | `Input_EngineLoad` | how hard the engine works, 0 to 1: 0 off, 0.5 idling, 1 moving or flying; with the player's drivetrain mode on full, the model's load. Set-up work that turns the engine raises it to that work's demand; a hybrid running on its battery reads 0 |
 | `Input_EngineRpm` | engine speed in rpm, times `multiplier` (1; an alternator's pulley). With a drivetrain or turbine model (drivetrain mode not off) and the engine running, the model's speed, or from idle to rated by the load while set-up work turns it; without one, `idle` (800) standing or `cruise` (2000) moving. 0 with the engine off. `alternatorSpeed` gives the alternator's speed instead: times the drivetrain's own alternator ratio where there is one, else times `multiplier` |
@@ -484,7 +552,7 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 | `Input_PartHealth` | the average share of full health of the parts bound to `role` (how worn they are), or `missing` (1) |
 | `Input_Quantity` | another `quantity` of the vehicle, in any running system, or the `fallback` input (the `curve` maps the fallback too), or 0 with neither. A system switched off in the settings, or the cab system on an open vehicle, reads as absent; `When_QuantityAbove` and `When_QuantityBelow` are then false |
 | `Input_RatedPower` | the engine's rated power, kW, from the drivetrain model; 100 without one, so a figure written for an ordinary car is used as written. The default loadouts' engine electronics load scales by it through a curve |
-| `Input_Setting` | 1 when the player's setting of that name is on, else 0 (the names `When_Setting` takes; an unknown name reads 0) |
+| `Input_Setting` | 1 when the player's setting of that name is on, else 0 (the names `When_Setting` takes; an unknown name is a config error naming the Def, and reads 0) |
 | `Input_ShorePower` | 1 when the parked vehicle has shore power: a generator set's service lead feeds it, or its grid hook-up delivers (a powered grid under its meter, and the power outlet not giving); 0 while it moves |
 | `Input_SolarAmps` | what the fitted solar panels give now, in amps at the vehicle's voltage: their watts times the daylight on them times `efficiency` (0.85, the charge controller). On a map the daylight is the sky's glow times the share of the vehicle's cells under open sky; on the world map, the sun at its tile. 0 with no panels. No panel angle, heat or partial shade (a simplification) |
 | `Input_SteeringWork` | how hard the power steering works now: 0 going straight or stopped; turning, from 1 at a crawl down to 0.2 at 12 m/s and above |
@@ -528,7 +596,7 @@ Every condition takes `invert`, which turns it round.
 | `When_FittingGrants` | a fitting on a part that is not destroyed grants `ability` (shipped: `ExhaustBrake`, `HouseBattery`, `RecoveryWinch`, `Turbocharger`). The same test as `When_Granted` | `ability` |
 | `When_FlightPhase` | the aircraft is in one of `phases`, by the names its flight framework reports; `WorldFlight` while in flight on the world map | `phases` |
 | `When_GlassGone` | the cab's glass is gone (no health left) and the player's `vehicleGlass` setting is on | |
-| `When_Granted` | a fitting on a part that is not destroyed grants `ability` (shipped: `WorkLights`). The same test as `When_FittingGrants` | `ability` |
+| `When_Granted` | a fitting on a part that is not destroyed grants `ability` (shipped: `WorkLights`). The same test as `When_FittingGrants`, kept so older XML loads; use `When_FittingGrants` in new XML | `ability` |
 | `When_HasPoweredWeapon` | the vehicle carries a weapon with a powered drive; never while the knock-out rules Def's `turretPower` is off | |
 | `When_HasQuantity` | some running system on the vehicle has `quantity` (an engine with coolant: `coolantTemperature`; inverted, one without) | `quantity` |
 | `When_Hoisting` | the aircraft's rescue hoist is running | |
@@ -548,7 +616,7 @@ Every condition takes `invert`, which turns it round.
 | `When_Recovering` | the vehicle is at recovery work: its winch is pulling, or an ordinary vehicle, not a trailer, is on its tow bar (the beacon flashes by it) | |
 | `When_RidersAboard` | someone is aboard; with `passengers`, someone who is not driving | `passengers` (false) |
 | `When_SetUp` | one of the vehicle's set-up comps is deployed (the drill rig, the survey truck) | |
-| `When_Setting` | the player's setting named `setting` is on; an unknown name is false. The names are listed below the table | `setting` |
+| `When_Setting` | the player's setting named `setting` is on; an unknown name is a config error at load, and reads false. The names are listed below the table | `setting` |
 | `When_StatAbove` | the vehicle's Vehicle Framework `stat` is above `value` (what an upgrade has fitted); false with no `stat` | `stat`, `value` (0) |
 | `When_SurveyDrawing` | the survey truck draws on its own electrics for `what` | `what`: `Console` or `Array` |
 | `When_TankPumping` | the tanker's pump is set up and working | |
@@ -562,15 +630,15 @@ Every condition takes `invert`, which turns it round.
 | `When_Winching` | the vehicle's recovery winch is pulling | |
 | `When_WindowsDown` | the cab's windows are down (the player's switch) | |
 
-**The setting names** `When_Setting`, `Input_Setting` and every other `setting` field take (`VehicleSystemsMod.cs`, `FlagOn`):
+**The setting names** `When_Setting`, `Input_Setting` and every other setting field (`setting`, `warnOnlySetting`, `realisticWaterSetting`, `thickensOnlyWithSetting`) take (`VehicleSystemsMod.cs`, `FlagOn`); any other name is a config error naming the Def:
 `accessoriesLoadEngine`, `aircraftEngineFaults`, `aircraftFuel`, `airDefenceSeesAircraft`, `airdropCrewInside`, `airdropLandingRisk`,
 `airdropLapes`, `airdropPackerSkill`, `altitudeHypoxia`, `ammoCookOff`, `assumeBoosterPack`, `avionicsAim`, `batteryFires`,
-`blindFlightWarnOnly`, `boilerExplosions`, `brakeFade`, `cabMoods`, `caravanCooking`, `climateControlAll`, `cruiseHeight`,
+`blindFlightWarnOnly`, `boilerExplosions`, `brakeFade`, `cabMoods`, `caravanCooking`, `climateControlAll`, `compressorFouling`, `cruiseHeight`,
 `damagedEnginesWeaker`, `driveThroughNight`, `electricLightning`, `enginesStartInTurn`, `exhaustIndoors`, `fireWearOthers`,
 `fireWearUnderFireproof`, `fuelFeedsFire`, `fuelFilters`, `fuelFilterStarves` (on only with `fuelFilters` on too), `fuelGelling`,
 `glassSplinters`, `hotboxing`, `houseBatteryFreezes`, `houseBatteryWear`, `hullsStay`, `intakeSeparators`,
 `jumpStartNeedsKit`, `keepVehicleFrameworkHealthTab`, `lopsidedThrust`, `lostConvoysStay`, `lowOilCallsService`, `nightHeater`,
-`parkedVehicleUse`, `playerCrewsBailOut`, `raidersArriveByAir`, `realisticFeedWater`, `roughGroundWear`, `roughLandings`, `shockSpall`,
+`parkedVehicleUse`, `playerCrewsBailOut`, `raidersArriveByAir`, `realisticFeedWater`, `roughGroundWear`, `roughLandings`, `shockSpall`, `showOnly`,
 `spallInsideVehicles`, `spallOnOtherVehicles`, `stockAircraftAirdrop`, `stockHelicoptersFly`, `tankCompartmentsNeedUpgrades`,
 `tankExplosions`, `thinAir`, `trailerWasteDump`, `turboFailureDamagesEngine`, `tyreBursts`, `tyresRelight`, `vehicleCabins`,
 `vehicleGlass`, `visitorsFlattenBattery`, `weatherGrip`.
@@ -599,7 +667,7 @@ effect is a consequence unless its class overrides `Consequential` to false.
 | `Effect_LimitCharge` | holds the tank or battery to a share of its capacity while the stage lasts: `quantity`'s value, or with `remaining` (true) 1 minus it (a wear figure), never below `floor` (0.05). Charge above it is lost | yes |
 | `Effect_Message` | a message on entry (`message` key with `{VEHICLE}`, `type`, a negative event by default), on the player's vehicles, at most once in the rules Def's `messageCooldownHours` (6); `hotAirMessage`, optional, is said instead while the air around the vehicle is fire-hot, for a part that heats toward the air and would otherwise blame its work | no |
 | `Effect_NoBrakes` | the vehicle still drives but overruns where it meant to stop. The player's vehicles on the full detail tier only | yes |
-| `Effect_PushGas` | puts `gas` (a `PhobosGasDef`) into the room the vehicle stands in, `gramsPerHour` times `scaleBy`, by its real weight; only in a closed room, only where the framework carries that gas itself, and only with `setting` on when one is named. The cooling system's carbon monoxide in a closed garage | yes |
+| `Effect_PushGas` | puts `gas` (a `PhobosGasDef`) into the room the vehicle stands in, `gramsPerHour` times `scaleBy`, by its real weight; only in a closed room, only where the framework carries that gas itself, and only with `setting` on when one is named. The cooling system's carbon monoxide in a closed garage. A consequence by the owner's choice: figures only stops it too | yes |
 | `Effect_PushHeat` | `heatPerSecond` into the room the vehicle stands in, times `scaleBy`, through the game's temperature system; only on a map | no |
 | `Effect_RateQuantity` | `perHour` added to `quantity` while the stage lasts | no |
 | `Effect_RefuseDraft` | the vehicle will not start; `reason` is a key with `{VEHICLE}`. Turning the key plays `sound` (or `soundPetrol` for a petrol engine) and puffs `crankPuffs` (0) of `crankTint` (`Steam`) from the exhaust | yes |
@@ -608,7 +676,7 @@ effect is a consequence unless its class overrides `Consequential` to false.
 | `Effect_SetQuantity` | once: `quantity` set to `value` | no |
 | `Effect_ShortLoads` | shorts `loads` (1) of the vehicle's switched loads while the stage lasts; which ones is worked out from the vehicle and the part, the same at every look. Read only from a part condition's stages (a `PhobosVehicleConditionDef`, as the shipped wiring damage does), not from a system's | yes |
 | `Effect_Sound` | plays `sound` once on entry or when the event fires (`soundPetrol` for a petrol engine, when given) | no |
-| `Effect_SoundLoop` | keeps `sound` looping while the stage lasts (`soundPetrol` for a petrol engine, when given); with `whileEngineRunning`, only while the engine runs. Use `whileEngineRunning` rather than `when` | no |
+| `Effect_SoundLoop` | keeps `sound` looping while the stage lasts (`soundPetrol` for a petrol engine, when given); with `whileEngineRunning`, only while the engine runs. With a `when`, it stops at the next update after `when` turns false and starts again when it turns true; the stage ending always stops it | no |
 | `Effect_StatFactor` | multiplies a Vehicle Framework `stat` by `factor` (1) | yes |
 
 ## Engines and drivetrains
@@ -1038,7 +1106,7 @@ Gotchas first:
 - **Tunes and changes of grade wait for a dyno bay** while the player's setting **Tunes, changes of grade and heavy overhauls need a dyno
   bay** is on (the default). Fittings are worked anywhere.
 - **Exactly one grade is the default, and one tune on each axis.** The code takes the first loaded `isDefault` grade as a part as built,
-  and the first `isDefault` tune of an axis (in `order`) as the setting as built. Never mark a second one default.
+  and the first `isDefault` tune of an axis (in `order`) as the setting as built. A second one is a config error naming the Def and the default used.
 - **Costs grow with the vehicle.** The listed `materials` and `work` are for a 5-tonne vehicle at the Standard presets; the player's
   settings **Time to fit and tune**, **Materials to fit and tune** and **Bigger vehicles cost more to fit and tune** move them. Only bulk
   materials grow with weight: a packed machine or a part counted in ones (a turbine assembly) stays one. The same rule prices trees that
@@ -1129,7 +1197,7 @@ loadouts bind them. Naming one of these puts your fitting on every vehicle that 
 | `jamRadiusFactor` | A factor on the vehicle's electronic jamming reach (1). Several multiply. |
 | `cartridgeFactor` | A factor on the countermeasure dispensers' magazine (1). |
 | `grants` | Abilities the vehicle gains, by name (none): see below. A fitting that grants something need move no figure. |
-| `feed` | What a granted ability needs to work (none): an electrical `load`, a `quantity` with `atLeast`, and `engineRunning`. **Read only by the code behind the ability**, today the rescue hoist, the recovery winch and cabin oxygen. See [What a fitting needs to work](#what-a-fitting-needs-to-work). |
+| `feed` | What a granted ability needs to work (none): an electrical `load`, a `quantity` with `atLeast`, and `engineRunning`. **Read only by the code behind the ability**, today the rescue hoist, the recovery winch, cabin oxygen, the route kit, the optionally piloted kit, the mech control link, and the Radio's aviation, marine and dual-band radios, remote control kit and repeater kit. See [What a fitting needs to work](#what-a-fitting-needs-to-work). |
 | `loads` | Electrical loads it brings while fitted, written as a loadout's `loads` are ([Electrical loads](#electrical-loads)). **Names must not repeat a loadout's load.** An ability that asks for power through `comp.Fittings.GrantsPowered(ability)` (the jamming pod does) works only while all the fitting's loads run. |
 | `kilograms` | Cargo capacity it takes while fitted, a flat weight (0). No drag or speed change. |
 | `givesBack` | What taking it off puts into the vehicle's cargo (nothing): the kit, not its brackets. |
@@ -1200,8 +1268,11 @@ has been shed", "{VEHICLE} has too little {SUPPLY} for {WHAT}", where the supply
 **Gotchas:**
 
 - **A feed does nothing by itself.** The code behind an ability asks for the feed of the fitting granting it: the rescue hoist
-  (`RescueHoist`), the recovery winch (`RecoveryWinch`) and cabin oxygen (`CabinOxygen`). For an ability of your own, ask from C# with
-  `Feeds.Refusal(comp, Feeds.ForAbility(comp, "MyAbility"), "my winch")`, which returns the refusal or null.
+  (`RescueHoist`), the recovery winch (`RecoveryWinch`), cabin oxygen (`CabinOxygen`), the route kit (`RouteControl`), the optionally
+  piloted kit (`CrewlessFlight`), the mech control link (`MechControl`) and the Radio's sets (`AviationRadio`, `MarineRadio`,
+  `RadioCrossBand`, `RemoteControl`, `RadioRepeater`). For an ability of your own, ask from C# with
+  `Feeds.Refusal(comp, Feeds.ForAbility(comp, "MyAbility"), "my winch")`, which returns the refusal or null. For a yes or no, ask
+  `Feeds.Works(vehicle, "MyAbility")`.
 - **What the vehicle lacks is not asked.** A load the vehicle does not have, or a quantity none of its systems holds, passes.
 - **The player's vehicles only.** Another faction's vehicle, on the light tier, is never refused.
 - **A fitting's own power is another rule.** An ability read through `comp.Fittings.GrantsPowered(ability)` (the jamming pod) works only
@@ -1239,7 +1310,7 @@ figures authored:
 | Field (`Phobos.VehicleSystems.PhobosVehicleTuneDef`) | What it does (default) |
 | --- | --- |
 | `axis` | `Engine`, `Gearing` or `Boost` (`Engine`). |
-| `isDefault` | The setting as built (false). One to an axis. |
+| `isDefault` | The setting as built (false). One to an axis. A second is a config error. |
 | `order` | Left to right in the window (0). |
 | `materials`, `work`, `minSkill` | As a fitting's (none, 1000, 0). |
 | `researchPrerequisites` | Research it needs, all of it (none). The default never needs any. |
@@ -1276,7 +1347,7 @@ which costs what replacing the part at that grade costs and uses the old part up
 
 | Field (`Phobos.VehicleSystems.PhobosVehiclePartGradeDef`) | What it does (default) |
 | --- | --- |
-| `isDefault` | A part as built (false). **Exactly one grade**; ours is `PhobosPartGrade_Standard`. |
+| `isDefault` | A part as built (false). **Exactly one grade**; ours is `PhobosPartGrade_Standard`. A second is a config error. |
 | `order` | Top to bottom in the menu (0). |
 | `costFactor` | A factor on what our own replacement materials cost (1). Must be above 0. |
 | `healthFactor` | A factor on the part's maximum health, added as a health modifier and put back after every load (1). Must be above 0. |
@@ -1593,7 +1664,7 @@ Vehicles (`mods/PhobosVehicles/Defs/Phobos/Vehicles/Contracts.xml`); amounts and
 | `request`, `howTo`, `working` | Player text: what is asked (with `{AMOUNT}` and `{THING}`; **required**), how to do it, and the settlement's line while work goes on (**required for `WorkOnSite`**). |
 
 Gotchas: **`WorkOnSite`, `TowVehicle` and `Casualty` need a `valuePerUnit`**, and the load-time check says so. **So does a delivery by
-`thingCategory`**: with no thing chosen and no fluid, a worth of 0 is read as 0 silver a unit, and nothing at load time catches it. A `TowVehicle` contract is offered only where the asking faction could own one of our land vehicles. How often the
+`thingCategory` alone** (no `things`): the load-time check says so; without one its reward would be 0. A `TowVehicle` contract is offered only where the asking faction could own one of our land vehicles. How often the
 quest comes is a player setting. The design is in [the contracts record](development/vehicle-contracts.md).
 
 ### Visits to parked vehicles

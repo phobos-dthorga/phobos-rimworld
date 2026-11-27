@@ -376,8 +376,23 @@ public class VehicleSystemsSettings : ModSettings
         WarnOnly,
     }
 
-    public bool FlagOn(string name) => name switch
+    /// <summary>Whether the player's setting of this name is on; an unknown name reads off (and is a config error at load:
+    /// <see cref="UnknownFlag"/>). The names XML may give When_Setting, Input_Setting and every other setting field.</summary>
+    public bool FlagOn(string name) => Flag(name) == true;
+
+    /// <summary>Whether a setting of this name exists for XML to name (the owner's card of 28 Nov 2026, "Load checks").</summary>
+    public static bool IsFlag(string? name) => name != null && VehicleSystemsMod.Settings.Flag(name) != null;
+
+    /// <summary>A config error for a setting field naming no setting, or null (read by NestedConfigChecks through each holder).</summary>
+    public static string? UnknownFlag(string? name, string holder) => name == null || IsFlag(name) ? null
+        : holder + " names the setting \"" + name + "\", which is no setting of the vehicle systems, so it always reads off";
+
+    /// <summary>The one list of settings XML may name: the setting's value, or null for an unknown name.</summary>
+    bool? Flag(string name) => name switch
     {
+        // The owner's card of 28 Nov 2026: two settings the guide named that XML could not, the figures-only switch and compressor fouling.
+        "showOnly" => showOnly,
+        "compressorFouling" => compressorFouling,
         "fuelGelling" => fuelGelling,
         "fuelFilters" => fuelFilters,
         "fuelFilterStarves" => fuelFilters && fuelFilterStarves,
@@ -443,7 +458,7 @@ public class VehicleSystemsSettings : ModSettings
         "hullsStay" => hullsStay,
         "lostConvoysStay" => lostConvoysStay,
         "electricLightning" => electricLightning,
-        _ => false,
+        _ => null,
     };
 
     public override void ExposeData()

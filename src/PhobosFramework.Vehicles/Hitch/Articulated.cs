@@ -61,7 +61,15 @@ public sealed class CompPhobosArticulated : VehicleComp
     /// <summary>Makes the rear half, sets it down behind and couples it. False, with the player told why, when there is no room.</summary>
     bool Assemble()
     {
-        if (Props.rearHalf == null || Vehicle.GetComp<CompPhobosHitch>() is not { } hitch) return assembled = true;
+        if (Props.rearHalf == null) return assembled = true;
+        if (Vehicle.GetComp<CompPhobosHitch>() is not { } hitch)
+        {
+            // No hitch to couple it to (the owner's card of 28 Nov 2026: this had been silent). Said once in the log and the ticking stops;
+            // not saved as put together, so a later load with the hitch back (the setting turned on again) still makes the rear half.
+            VehicleSystemsMod.HitchLog.Warn(Vehicle.LabelShort + " (" + Vehicle.ThingID + ", " + Vehicle.def.defName + ") is the front half of an "
+                + "articulated vehicle but has no hitch, so its rear half (" + Props.rearHalf.defName + ") is not made: " + NoHitchReason() + ".");
+            return true;
+        }
         if (hitch.Trailer is { } held)
         {
             // Its own half already on the pivot (a pair from before this comp, or put back together by hand): nothing to make.
@@ -97,6 +105,16 @@ public sealed class CompPhobosArticulated : VehicleComp
         VehicleSystemsMod.HitchLog.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") put together with its rear half " + rear.ThingID);
         if (Seen.Wants("vehicles.articulated.assembled", Vehicle)) Seen.Note("vehicles.articulated.assembled", Vehicle, Vehicle.def.defName);
         return true;
+    }
+
+    /// <summary>Why the front half was given no hitch, read from what the vehicle systems recorded for its design at load.</summary>
+    string NoHitchReason()
+    {
+        DesignRecord? record = VehicleSystems.Designs.Find(d => d.def == Vehicle.def);
+        if (record?.skippedBecause is { } skipped) return "its design was given no vehicle systems (" + skipped + ")";
+        if (record?.loadout is { noHitch: true } loadout) return "its loadout " + loadout.defName + " says noHitch";
+        if (Vehicle.VehicleDef.type != VehicleType.Land) return "only land vehicles take a hitch";
+        return "it is a trailer, or its design took no hitch";
     }
 
     void NoRoom() => Say("PhobosArticulated_NoRoom".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve());

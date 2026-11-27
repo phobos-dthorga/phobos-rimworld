@@ -104,6 +104,7 @@ public class PhobosTankContentsDef : Def
         if (kilogramsPerUnit < 0f) yield return "kilogramsPerUnit is negative";
         if (ports.Count == 0) yield return "no ports: it could never be loaded or unloaded";
         if (float.IsNaN(thickensBelow) != float.IsNaN(thickestAt)) yield return "thickensBelow and thickestAt must be given together";
+        if (VehicleSystemsSettings.UnknownFlag(thickensOnlyWithSetting, "thickensOnlyWithSetting") is { } unknown) yield return unknown;
     }
 }
 

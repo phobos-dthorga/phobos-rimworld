@@ -11,6 +11,8 @@
     <intervalTicks>300</intervalTicks>
     <!-- After its height, the illness recedes by 5 % of its severity a day. -->
     <recoveryPerDay>0.05</recoveryPerDay>
+    <!-- Past its height, the illness (and the course) ends once its severity falls below 0.2, about four days sooner than running down
+         to nothing; a milder illness ends at its height. The dose condition stays, still repairing. Authored. -->
     <courseEndsBelow>0.2</courseEndsBelow>
     <!-- Care, 0 to 1: tended (times tend quality) 0.35, in bed 0.2, in a clean room 0.15, on fluids 0.15, on a medicine that speeds
          immunity 0.15. Full care moves the dose that kills half by the preset's figure (Moderate: 2.5 Gy). -->
@@ -21,6 +23,7 @@
     <careImmunity>0.15</careImmunity>
     <!-- A room is clean at cleanliness 0.6 or better: a hospital with sterile floors. -->
     <cleanRoomFrom>0.6</cleanRoomFrom>
+    <!-- The radiation exposure condition is hidden until the effective dose reaches 0.05 Gy; every dose is still recorded. Authored. -->
     <smallestShown>0.05</smallestShown>
     <!-- Late effects (Medical 0.23.0). Where a solid cancer forms: the first of these the person has, from a place fixed by who they
          are. Lung, stomach, liver and the bowel (the torso) and the thyroid (the neck): among the commoner cancers after radiation
@@ -39,22 +42,27 @@
          carried gives 0.02 Gy a day, fading as fallout does, until washed off; 0.1 or more wants washing. Breathing unmasked takes in
          0.03 Gy from inside per gray outside, and 2 Gy to the thyroid unless potassium iodide is in it first (fallout's iodine: a
          thyroid's dose runs well above the body's, as on Rongelap). Dust on the skin is swallowed from the hands, 0.01 Gy inside a unit
-         a day. Caesium leaves the body with a half-life of about 110 days (Radiogardase label). All authored except that half-life. -->
+         a day. Caesium leaves the body with an effective half-life of 80 days: the untreated adults at Goiania, 1987, in the Radiogardase
+         prescribing information, section 14.1, Table 2 (Heyl's US label, revised 8/2014, on DailyMed:
+         https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=baa68c79-5f3d-468a-a510-58b9e978cd50). Its 26 days on Prussian blue
+         below is the same table's row, so both come from one source. (Section 12.2's 110 days is the slow part of the biological
+         half-life, a different measure with no treated figure beside it.) All authored except that half-life. -->
     <dustPerGray>1</dustPerGray>
     <dustDosePerDay>0.02</dustDosePerDay>
     <dustToWash>0.1</dustToWash>
     <breathedPerGray>0.03</breathedPerGray>
     <swallowedPerDustDay>0.01</swallowedPerDustDay>
     <thyroidPerGray>2</thyroidPerGray>
-    <insideHalfLifeDays>110</insideHalfLifeDays>
+    <insideHalfLifeDays>80</insideHalfLifeDays>
     <!-- The medicines (Medical 0.24.0). A marrow stimulant started within a day of the course moves the dose a person survives by 0.5 Gy
          (the record's figure, authored after ICRP 103's "6 with growth factors" against about 5 with care); doctors give it for a dose
-         known or estimated at 2 Gy or more (Neupogen label). Prussian blue cuts the half-life inside to a third (Radiogardase label: about
-         80 days to 26 at Goiania); doctors give it once 0.05 Gy from inside is still to come. -->
+         known or estimated at 2 Gy or more (Neupogen label). Prussian blue cuts the half-life inside from 80 days to 26, a factor of 0.325
+         (the same Radiogardase table: adults at Goiania, 80 +/- 15 days off it, 26 +/- 6 days on 10 g a day; the text gives the mean cut
+         as 69 %); doctors give it once 0.05 Gy from inside is still to come. -->
     <marrowStimulantMoves>0.5</marrowStimulantMoves>
     <marrowStimulantWithinDays>1</marrowStimulantWithinDays>
     <marrowStimulantFromGrays>2</marrowStimulantFromGrays>
-    <prussianBlueHalfLifeFactor>0.33</prussianBlueHalfLifeFactor>
+    <prussianBlueHalfLifeFactor>0.325</prussianBlueHalfLifeFactor>
     <prussianBlueFromInside>0.05</prussianBlueFromInside>
   </Phobos.Radiation.Defs.PhobosRadiationRulesDef>
 </Defs>

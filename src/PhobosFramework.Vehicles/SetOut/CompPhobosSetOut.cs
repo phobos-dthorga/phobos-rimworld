@@ -281,6 +281,8 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
             powerPoint = (Building)GenSpawn.Spawn(point, layout.powerPoint, map, WipeMode.Vanish);
         }
         SetOuts.Register(this);
+        // Its pieces' upgrade pictures at once, now they know their trailer (the owner's card of 28 Nov 2026: any building with a store).
+        foreach (CompPhobosReservoir store in Reservoirs()) store.UpdateLook();
         Props.pitchSound?.PlayOneShot(new TargetInfo(Vehicle.Position, map));
         Messages.Message("PhobosSetOut_Done".Translate(Props.setOutLabel.Named("WHAT"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
         if (Seen.Wants("trailers.set-out", Vehicle)) Seen.Note("trailers.set-out", Vehicle, placed.Count + " pieces, " + roofed.Count + " roofed cells");

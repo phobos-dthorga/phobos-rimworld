@@ -72,8 +72,8 @@ our eschar.
 - **Coughs need a sound** and stand down by themselves: see the cough comp's gotchas.
 
 **Clearing by half-life.** `Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosHalfLife` makes a condition halve every so many
-hours: one half-life under a roof, a shorter one in the open, and shorter still while the pawn is on supplied oxygen. It is how our
-carbon monoxide clears. From `Common/Defs/Phobos/BurnsAndSmoke/Hediffs_Smoke.xml`:
+hours: one half-life under a roof, a shorter one in the open, and, where the Def asks (`oxygenSpeeds`), shorter still while the pawn is
+on supplied oxygen. It is how our carbon monoxide clears. From `Common/Defs/Phobos/BurnsAndSmoke/Hediffs_Smoke.xml`:
 
 ```xml
 <comps>
@@ -81,6 +81,7 @@ carbon monoxide clears. From `Common/Defs/Phobos/BurnsAndSmoke/Hediffs_Smoke.xml
     <halfLifeHoursRoofed>5.3</halfLifeHoursRoofed>
     <halfLifeHoursOutdoors>3</halfLifeHoursOutdoors>
     <removeBelow>0.01</removeBelow>
+    <oxygenSpeeds>true</oxygenSpeeds>
   </li>
 </comps>
 ```
@@ -90,10 +91,12 @@ carbon monoxide clears. From `Common/Defs/Phobos/BurnsAndSmoke/Hediffs_Smoke.xml
 | `halfLifeHoursRoofed` | Hours for the severity to halve while the pawn stands under a roof (5.3) |
 | `halfLifeHoursOutdoors` | Hours to halve with no roof over the pawn's cell (3) |
 | `removeBelow` | The condition is removed once its severity falls below this (0.01) |
+| `oxygenSpeeds` | Whether supplied oxygen speeds the clearing too (false; our carbon monoxide sets it true) |
 
-- On supplied oxygen the shorter of the two applies: this comp's, or the treatment's `carbonMonoxideHalfLifeHours` (D'thorga
-  Framework's `PhobosSuppliedOxygenExtension`; see [Supplied oxygen](../framework-modding.md#supplied-oxygen)). Despite its name, that
-  figure speeds any condition carrying this comp.
+- **Supplied oxygen speeds only a condition that sets `oxygenSpeeds`** (off by default). With it on, while the pawn is on supplied
+  oxygen the shorter of the two applies: this comp's, or the treatment's `carbonMonoxideHalfLifeHours` (D'thorga Framework's
+  `PhobosSuppliedOxygenExtension`; see [Supplied oxygen](../framework-modding.md#supplied-oxygen)). That figure is carbon monoxide's,
+  so set the switch only on a condition oxygen really clears at that rate.
 - The roofed figure is carbon monoxide's half-life on room air, about 320 minutes (Weaver and colleagues, 2000, as cited in emergency
   medicine references; see [the burns record](../development/archive/burns-and-smoke.md)). The open-air figure is authored. Treating
   the condition's severity as a blood fraction that clears at one first-order rate is a simplification.
@@ -116,6 +119,10 @@ It is our airway burn's delayed swelling. From `Common/Defs/Phobos/BurnsAndSmoke
 | `plateauEndHours` | The hour the peak ends and the fall begins (24) |
 | `resolveHours` | The hour severity reaches zero and the condition is removed (48) |
 
+- **The rise starts from the condition's age, not from its starting severity**: the first check (within 250 ticks) sets the severity to
+  the rising line, a little above 0, whatever `initialSeverity` says. It is not removed at that check: the game ages a condition before
+  its comps run. A `peakHours` of 0 or less would set it to 0 and remove it at once, so that, a `plateauEndHours` before `peakHours`, or
+  a `resolveHours` not after `plateauEndHours`, is a config error naming the Def.
 - **The peak's height is 1 unless our code sets it.** The burns part sets it for its own airway burn from how bad the exposure was
   (`airwayLightestPeak` in the burns rules Def, 0.5, is the least). A condition of yours added by the game or by your own code reaches
   its full stage table.
@@ -203,7 +210,12 @@ safety shower ([Safety showers](#safety-showers)). We patch it onto the game's `
 - Only while the player's **Acid keeps burning until it is washed off** setting is on (on by default).
 - The deepening is `HediffCompProperties_PhobosChemicalDeepening` on our "chemical on the skin" condition (no fields): once an in-game
   hour it spreads `chemicalDeepenPerHourAtFull` (2, authored, in the burns rules Def) times the condition's severity over the open
-  marked burns, ignoring armour. You don't add it yourself; on another condition it would deepen every marked burn on the pawn too.
+  marked burns, ignoring armour. You don't need to add it for marked burns to deepen.
+- **On any other condition the comp deepens only that condition**, and only while it is an open, untended injury on a body part:
+  `chemicalDeepenPerHourAtFull` times its severity (capped at 1, so in practice the full 2) is added to its severity once an in-game
+  hour, never past leaving its part 1 hit point, so it never takes a part off by itself. It stops once the burn is tended or scarred,
+  or with the player's acid setting off. On a condition that is not such an injury it does nothing. (Until the owner's card of 28 Nov
+  2026, it deepened every marked burn on the pawn from any condition.)
 - Every open marked burn on an eye means an eyewash's water is enough; any elsewhere takes a shower's.
 
 
@@ -774,7 +786,7 @@ things](../framework-modding.md#water-and-pipes-beneath-things-with-dubs-bad-hyg
 | Type | For | Fields |
 | --- | --- | --- |
 | `Phobos.Medical.Hygiene.CompProperties_PhobosRinseWater` | A [safety shower](#safety-showers): draws each rinse's litres when the rinse starts; a failed draw marks it dry for an in-game hour, so nobody keeps running to it | None |
-| `Phobos.Medical.Hygiene.CompProperties_PhobosWaterFeed` | A producer that splits water (the oxygen electrolyser): draws its water every 250 ticks while switched on and powered, and without water shuts the production gate, so it idles | `litresPerHour`: litres an in-game hour while running (0.5) |
+| `Phobos.Medical.Hygiene.CompProperties_PhobosWaterFeed` | A producer that splits water (the oxygen electrolyser): draws its water every 250 ticks while it is producing, and without water shuts the production gate, so it idles. Idle with its storage full it draws nothing; stopped for water, it looks for water every 250 ticks without drawing any | `litresPerHour`: litres an in-game hour while producing (0.5) |
 
 From `Mods/DubsBadHygiene/Patches/Phobos/Medical/SafetyShower_DubsBadHygiene.xml` and `Electrolyser_DubsBadHygiene.xml`:
 
@@ -796,8 +808,11 @@ From `Mods/DubsBadHygiene/Patches/Phobos/Medical/SafetyShower_DubsBadHygiene.xml
 
 - **The water feed stops production only through our gated trader**: the building's Vanilla Expanded Framework resource trader must use
   `<compClass>Phobos.Medical.Comps.CompPhobosGatedResourceTrader</compClass>` (as our electrolyser in
-  `Mods/VanillaGravshipExpanded/Defs/Phobos/Medical/Buildings_OxygenChain.xml` does). On any other building it draws water and reports it,
+  `Mods/VanillaGravshipExpanded/Defs/Phobos/Medical/Buildings_OxygenChain.xml` does). "Producing" is that trader's: on, and not idling
+  (storage full, or a gate shut). On any other building it draws water whenever the building is switched on and powered, and reports it,
   but stops nothing. Give the building `<tickerType>Rare</tickerType>`.
+- When water comes back, production starts at once and the first draw comes at the next check, so up to 250 ticks of a restart go
+  undrawn (a simplification).
 - The framework's pipe underlay comp lays hidden pipe under the building so a pipe touching any side connects.
 - 0.5 litres an hour is our arithmetic: about 0.43 kg of oxygen an hour needs about 0.48 kg of water split (2 H₂O → 2 H₂ + O₂). Water
   quality is ignored, though a real electrolyser needs pure water (a simplification).
@@ -889,11 +904,22 @@ Its fields, in groups (defaults in brackets; every figure authored unless it nam
 
 | Group | Fields | What they do |
 | --- | --- | --- |
-| The course | `intervalTicks` (300), `recoveryPerDay` (0.05), `courseEndsBelow` (0.2), `smallestShown` (0.05) | A dosed person's course is worked out every `intervalTicks`; after its height the illness recedes by `recoveryPerDay` of its severity a day. The last two are in the Def but not read by the code as it stands |
+| The course | `intervalTicks` (300), `recoveryPerDay` (0.05), `courseEndsBelow` (0.2), `smallestShown` (0.05) | A dosed person's course is worked out every `intervalTicks`; after its height the illness recedes by `recoveryPerDay` of its severity a day, and ends, with the course, once it falls below `courseEndsBelow` (an illness whose height is under it ends at its height; the dose condition stays, still repairing). The "radiation exposure" condition is hidden until the effective dose reaches `smallestShown` grays, then stays shown, as the game keeps any condition it has shown; every dose is recorded either way |
 | Care | `careTended` (0.35), `careInBed` (0.2), `careClean` (0.15), `careFluids` (0.15), `careImmunity` (0.15), `cleanRoomFrom` (0.6) | Care, 0 to 1, is the sum, capped at 1: the illness tended (times tend quality), in bed, in bed in a room at cleanliness `cleanRoomFrom` or better, on our fluids drip (`PhobosMedical_OnDrip`), and immunity gain speed above 1.05. Full care moves the dose that kills half by the harshness preset's figure |
 | Late effects | `solidCancerParts` (the shipped list: Lung, Stomach, Liver, Torso, Neck, Kidney), `cancerStartSeverity` (0.05) | Where a solid cancer from radiation forms: the first part on the list the person still has, starting from a place fixed by who they are; an empty list leaves no place, so none forms. A leukaemia or carcinoma starts at `cancerStartSeverity` |
-| Fallout dust | `dustPerGray` (1), `dustDosePerDay` (0.02), `dustToWash` (0.1), `breathedPerGray` (0.03), `swallowedPerDustDay` (0.01), `thyroidPerGray` (2), `insideHalfLifeDays` (110) | Dust per gray of fallout's dose outdoors, spread over clothes and bare skin; the dose a day from each unit carried; the level that wants washing; the dose from inside per gray breathed unmasked; the dose from inside per unit of skin dust a day (a mask doesn't stop it); the thyroid's dose per gray breathed without potassium iodide; and how long what is inside stays, a half-life in days (Radiogardase label) |
-| Medicines | `marrowStimulantMoves` (0.5), `marrowStimulantWithinDays` (1), `marrowStimulantFromGrays` (2), `prussianBlueHalfLifeFactor` (0.33), `prussianBlueFromInside` (0.05) | A marrow stimulant started within `marrowStimulantWithinDays` of the course moves the dose a person survives by `marrowStimulantMoves` grays; doctors give it for a dose known or estimated at `marrowStimulantFromGrays` or more (after the Neupogen label's "greater than 2 gray"). Prussian blue multiplies the half-life inside by its factor (after the Radiogardase label: about 80 days to 26 at Goiânia); doctors give it once `prussianBlueFromInside` grays from inside are still to come |
+| Fallout dust | `dustPerGray` (1), `dustDosePerDay` (0.02), `dustToWash` (0.1), `breathedPerGray` (0.03), `swallowedPerDustDay` (0.01), `thyroidPerGray` (2), `insideHalfLifeDays` (80) | Dust per gray of fallout's dose outdoors, spread over clothes and bare skin; the dose a day from each unit carried; the level that wants washing; the dose from inside per gray breathed unmasked; the dose from inside per unit of skin dust a day (a mask doesn't stop it); the thyroid's dose per gray breathed without potassium iodide; and how long what is inside stays, an effective half-life in days (the Radiogardase label's untreated adults at Goiânia; see below) |
+| Medicines | `marrowStimulantMoves` (0.5), `marrowStimulantWithinDays` (1), `marrowStimulantFromGrays` (2), `prussianBlueHalfLifeFactor` (0.325), `prussianBlueFromInside` (0.05) | A marrow stimulant started within `marrowStimulantWithinDays` of the course moves the dose a person survives by `marrowStimulantMoves` grays; doctors give it for a dose known or estimated at `marrowStimulantFromGrays` or more (after the Neupogen label's "greater than 2 gray"). Prussian blue multiplies the half-life inside by its factor (26 days over 80, the same Radiogardase table; see below); doctors give it once `prussianBlueFromInside` grays from inside are still to come |
+
+- **Both caesium figures come from one statement**: the [Radiogardase prescribing
+  information](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=baa68c79-5f3d-468a-a510-58b9e978cd50) (Heyl's US FDA-approved
+  label, revised 8/2014; hosted on the US National Library of Medicine's DailyMed), section 14.1, Table 2: adults contaminated with
+  caesium-137 at Goiânia in 1987 had a whole-body effective half-life of **80 ± 15 days off Prussian blue and 26 ± 6 days on it** (10 g
+  a day; 25 days at 6 and at 3 g a day). The label's text gives the mean cut in adults as 69 %. The effective half-life is the one that
+  delivers the dose; caesium-137's 30-year physical half-life barely shortens it. Section 12.2's **110 days** is a different measure,
+  the slow part (90 %) of caesium's biological half-life, with no treated figure beside it, so it is no longer used (until the owner's
+  card of 28 Nov 2026 it was paired with the Goiânia factor). Applying caesium's figure to everything breathed or swallowed from fallout
+  is our simplification; adolescents (62 to 30 days) and children (42 to 24) clear it faster in the label, which the model does not
+  follow.
 
 - **`solidCancerParts` holds BodyPartDefs.** Add your race's parts if it has none of these, or its people never get a solid cancer
   from radiation (a leukaemia, and a thyroid cancer in the neck, are placed separately).

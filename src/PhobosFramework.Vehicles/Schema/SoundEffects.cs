@@ -121,13 +121,16 @@ public class Effect_Sound : VehicleSystemEffect
 }
 
 /// <summary>Keeps a sound looping while the stage lasts (coolant boiling, an engine knocking), and with <c>whileEngineRunning</c> only while
-/// the engine runs. It picks up again after a load at the next update.</summary>
+/// the engine runs. With a <c>when</c> it stops at the next update after <c>when</c> turns false and starts again once it turns true, and
+/// the stage ending stops it whatever <c>when</c> says (Framework, the owner's card of 28 Nov 2026: before, a loop left playing as <c>when</c>
+/// turned false could outlive its stage). It picks up again after a load at the next update.</summary>
 public class Effect_SoundLoop : VehicleSystemEffect
 {
     public SoundDef? sound;
     public SoundDef? soundPetrol;
     public bool whileEngineRunning;
     public override bool Consequential => false;
+    protected override bool ReadsOwnWhen => true;
 
     public override void OnEnter(SystemContext context) => Update(context);
     public override void Apply(SystemContext context, float hours) => Update(context);
@@ -135,5 +138,5 @@ public class Effect_SoundLoop : VehicleSystemEffect
 
     void Update(SystemContext context) =>
         VehicleSystemSounds.Loop(context.Comp, this, VehicleSystemSounds.ForEngine(context.Comp, sound, soundPetrol),
-            !whileEngineRunning || context.Comp.EngineRunning);
+            (!whileEngineRunning || context.Comp.EngineRunning) && (when == null || when.Holds(context)));
 }

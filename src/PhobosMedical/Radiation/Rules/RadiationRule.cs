@@ -201,6 +201,22 @@ public static class RadiationRule
         return Math.Max(0, height - recoveryPerDay * (daysIntoIllness - rise));
     }
 
+    /// <summary>Severity at or below which the illness is gone, whatever the rules Def says (it was the only end before Medical's rules
+    /// Def's <c>courseEndsBelow</c> was read).</summary>
+    public const double IllnessGoneAt = 0.001;
+
+    /// <summary>
+    /// Whether the illness, and with it the course, is over (the owner's card of 28 Nov 2026, "wire them in"): past its height, once its
+    /// severity falls below <paramref name="endsBelow"/> (the rules Def's <c>courseEndsBelow</c>), or reaches <see cref="IllnessGoneAt"/>.
+    /// Never while it is still rising, so a mild illness whose height is under the threshold still runs up to its height and ends there.
+    /// </summary>
+    public static bool IllnessOver(bool rising, double severity, double endsBelow) =>
+        !rising && (severity <= IllnessGoneAt || severity < endsBelow);
+
+    /// <summary>Whether the dose condition is shown: once the effective dose reaches <paramref name="smallestShown"/> (the rules Def's
+    /// <c>smallestShown</c>). Every dose is recorded either way.</summary>
+    public static bool DoseShown(double effective, double smallestShown) => effective >= smallestShown;
+
     // ---- What a doctor can tell (RM7) ----
 
     /// <summary>A doctor's estimate from the hours to the first vomiting (Goans and Flynn; Blakely), as a band in grays.</summary>

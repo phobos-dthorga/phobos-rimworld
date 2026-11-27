@@ -149,7 +149,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : SettingsBookMod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.370.0";
+    public const string ModVersion = "0.371.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -168,6 +168,8 @@ public class FrameworkMod : SettingsBookMod
         HarmonyPatchApplier.ApplyEach(new Harmony(PackageId), typeof(FrameworkMod).Assembly, LogPrefix);
         Logging.GameLogKeeper.Listen();
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
+        // The owner's card of 28 Nov 2026, "Load checks": mistakes inside our Defs' nested objects, as config errors.
+        LongEventHandler.ExecuteWhenFinished(Defs.NestedConfigChecks.Run);
         RegisterSetup();
         // Framework 0.362.0: the setup wizard, on the main menu, once per install and again for pages new or changed. Every mod's
         // constructor has run by now, so every setting a page names is registered.

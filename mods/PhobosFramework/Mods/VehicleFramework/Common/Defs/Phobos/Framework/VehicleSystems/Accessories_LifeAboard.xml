@@ -68,14 +68,15 @@
     <grants><li>CabStereo</li></grants>
     <loads>
       <li>
-        <!-- 1 A at 12 V (the record's Y13 figure, authored: a car stereo at moderate volume), halved on a 24 V truck. Shed first. -->
+        <!-- 1 A at 12 V (the record's Y13 figure, authored: a car stereo at moderate volume), halved on a 24 V truck. Shed first, with
+             the air conditioner (rank 1: the owner's card of 28 Nov 2026; before, 0 never shed it). -->
         <name>cabStereo</name>
         <label>stereo</label>
         <description>The cab stereo. Switched on and with power, it plays while someone is aboard.</description>
         <amps>1</amps>
         <toggle>true</toggle>
         <defaultOn>true</defaultOn>
-        <shedOrder>0</shedOrder>
+        <shedOrder>1</shedOrder>
         <iconPath>Phobos/VehicleSystems/Camp/CabStereoKit</iconPath>
         <when Class="Phobos.VehicleSystems.When_RidersAboard" />
         <ampsInputs>
@@ -100,14 +101,15 @@
     <grants><li>ReadingLight</li></grants>
     <loads>
       <li>
-        <!-- 0.3 A at 12 V (the record's Y14 figure, authored: a small LED lamp). Shed first. -->
+        <!-- 0.3 A at 12 V (the record's Y14 figure, authored: a small LED lamp). Shed first, with the air conditioner
+             (rank 1: the owner's card of 28 Nov 2026; before, 0 never shed it). -->
         <name>readingLight</name>
         <label>reading light</label>
         <description>The cab's reading light. Switched on and with power, riders can read by it after dark.</description>
         <amps>0.3</amps>
         <toggle>true</toggle>
         <defaultOn>true</defaultOn>
-        <shedOrder>0</shedOrder>
+        <shedOrder>1</shedOrder>
         <iconPath>Phobos/VehicleSystems/Camp/ReadingLightKit</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
           <conditions>

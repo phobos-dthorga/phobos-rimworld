@@ -100,23 +100,26 @@ public static class VehicleRadios
 
     /// <summary>The vehicle control radio, which the kit puts in place.</summary>
     public const string KitRadioName = "PhobosRadio_FittingVehicleControl";
-    /// <summary>The aviation radio every aircraft carries (Radio 0.49.0), its fitting's grant and its load (AviationRadio.xml).</summary>
+    /// <summary>The aviation radio every aircraft carries (Radio 0.49.0) and its fitting's grant (AviationRadio.xml). Whether it has power is
+    /// its fitting's feed, read through the Framework's Feeds (the owner's card of 28 Nov 2026, "Unread feed"), as for every set below.</summary>
     public const string AviationRadioName = "PhobosRadio_FittingAviation";
     public const string AviationGrant = "AviationRadio";
+    /// <summary>The load's name, kept so other authors' C# still compiles (the owner's card of 28 Nov 2026, "Unread feed"): the fitting's feed now says what powers it.</summary>
+    [System.Obsolete("Use Feeds.Works(vehicle, \"AviationRadio\")")]
     public const string AviationLoad = "aviationRadio";
 
     /// <summary>Whether this aircraft's aviation radio is fitted and powered (Radio 0.49.0).</summary>
-    public static bool AviationFitted(VehiclePawn vehicle) =>
-        vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(AviationGrant) && systems.LoadActive(AviationLoad);
+    public static bool AviationFitted(VehiclePawn vehicle) => Feeds.Works(vehicle, AviationGrant);
 
-    /// <summary>The marine radio every boat carries (Radio 0.57.0), its fitting's grant and its load (MarineRadio.xml).</summary>
+    /// <summary>The marine radio every boat carries (Radio 0.57.0) and its fitting's grant (MarineRadio.xml).</summary>
     public const string MarineRadioName = "PhobosRadio_FittingMarine";
     public const string MarineGrant = "MarineRadio";
+    /// <summary>The load's name, kept so other authors' C# still compiles (the owner's card of 28 Nov 2026, "Unread feed"): the fitting's feed now says what powers it.</summary>
+    [System.Obsolete("Use Feeds.Works(vehicle, \"MarineRadio\")")]
     public const string MarineLoad = "marineRadio";
 
     /// <summary>Whether this boat's marine radio is fitted and powered (Radio 0.57.0).</summary>
-    public static bool MarineFitted(VehiclePawn vehicle) =>
-        vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(MarineGrant) && systems.LoadActive(MarineLoad);
+    public static bool MarineFitted(VehiclePawn vehicle) => Feeds.Works(vehicle, MarineGrant);
 
     /// <summary>
     /// Whether the vehicle's own radio is on the net (Radio 0.49.0): the remote control kit's radio, an aircraft's aviation radio, or (Radio
@@ -124,8 +127,10 @@ public static class VehicleRadios
     /// net it stands by, its links worked out and shown on its Comms system; only the kit's radio can be driven from a station.
     /// </summary>
     public static bool OnNet(VehiclePawn vehicle) => Fitted(vehicle) || AviationFitted(vehicle) || MarineFitted(vehicle);
-    /// <summary>What the remote control kit fitting grants, and the electrical load that powers it (Radio 0.15.0; RemoteControlKit.xml).</summary>
+    /// <summary>What the remote control kit fitting grants (Radio 0.15.0; RemoteControlKit.xml).</summary>
     public const string KitGrant = "RemoteControl";
+    /// <summary>The load's name, kept so other authors' C# still compiles (the owner's card of 28 Nov 2026, "Unread feed"): the fitting's feed now says what powers it.</summary>
+    [System.Obsolete("Use Feeds.Works(vehicle, \"RemoteControl\")")]
     public const string KitLoad = "remoteKit";
 
     /// <summary>Vehicles given a radio by the dev action for this session (never saved).</summary>
@@ -146,21 +151,22 @@ public static class VehicleRadios
             if (tree?.Props?.def?.GetNode(key) is { } node && tree.NodeUnlocked(node)) return true;
         }
         if (fittedForSession.Contains(vehicle.thingIDNumber)) return true;
-        return vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(KitGrant) && systems.LoadActive(KitLoad);
+        return Feeds.Works(vehicle, KitGrant);
     }
 
     /// <summary>
     /// As <see cref="Fitted"/>, working or not (Radio 0.16.1): the remote control kit counts while it is on the vehicle, its power shed or
     /// its part shot away, so the vehicle acts on a lost link and the player is told, rather than letting go without a word.
     /// </summary>
-    /// <summary>What the repeater kit grants, and its load (Radio 0.22.0; RepeaterKit.xml).</summary>
+    /// <summary>What the repeater kit grants (Radio 0.22.0; RepeaterKit.xml).</summary>
     public const string RepeaterGrant = "RadioRepeater";
+    /// <summary>The load's name, kept so other authors' C# still compiles (the owner's card of 28 Nov 2026, "Unread feed"): the fitting's feed now says what powers it.</summary>
+    [System.Obsolete("Use Feeds.Works(vehicle, \"RadioRepeater\")")]
     public const string RepeaterLoad = "repeaterKit";
 
     /// <summary>Whether this vehicle's radio passes calls on between tiles: the repeater kit fitted and powered (the owner's card of 26 Nov
     /// 2026: a relay between tiles needs a repeater).</summary>
-    public static bool Repeats(VehiclePawn vehicle) =>
-        vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(RepeaterGrant) && systems.LoadActive(RepeaterLoad);
+    public static bool Repeats(VehiclePawn vehicle) => Feeds.Works(vehicle, RepeaterGrant);
 
     /// <summary>What the Morse key grants (Radio 0.40.0; MorseKey.xml).</summary>
     public const string MorseGrant = "RadioMorse";
@@ -214,21 +220,15 @@ public static class VehicleRadios
 /// </summary>
 public sealed class RadioComms : IVehicleCommsSource
 {
-    private static readonly (string grant, string load)[] Radios =
-    {
-        (VehicleRadios.KitGrant, VehicleRadios.KitLoad),
-        (CrossBand.Grant, CrossBand.Load),
-        (VehicleRadios.AviationGrant, VehicleRadios.AviationLoad),
-        (VehicleRadios.MarineGrant, VehicleRadios.MarineLoad),
-    };
+    private static readonly string[] Radios = { VehicleRadios.KitGrant, CrossBand.Grant, VehicleRadios.AviationGrant, VehicleRadios.MarineGrant };
 
     public CommsRadio RadioOf(VehiclePawn vehicle)
     {
         if (vehicle.GetComp<CompPhobosVehicleSystems>() is not { } systems) return CommsRadio.None;
         var carried = false;
-        foreach (var (grant, load) in Radios)
+        foreach (var grant in Radios)
         {
-            if (systems.Fittings.Grants(grant) && systems.LoadActive(load)) return CommsRadio.Working;
+            if (Feeds.Works(systems, grant)) return CommsRadio.Working;
             carried |= systems.Fittings.Carries(grant);
         }
         return carried || VehicleRadios.Fitted(vehicle) ? CommsRadio.Dead : CommsRadio.None;

@@ -248,10 +248,11 @@ public class When_ParameterBelow : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Parameter(parameter) < value;
 }
 
-public class When_Setting : VehicleSystemCondition
+public class When_Setting : VehicleSystemCondition, Phobos.Framework.Defs.IConfigChecked
 {
     public string setting = "";
     protected override bool HoldsRaw(SystemContext context) => VehicleSystemsMod.Settings.FlagOn(setting);
+    public string? ConfigError() => VehicleSystemsSettings.UnknownFlag(setting, "When_Setting");
 }
 
 /// <summary>The cruising height between tiles governs this aircraft (Framework 0.141.0): its setting is on and the aircraft has cruising
@@ -312,9 +313,9 @@ public class When_LitterInUse : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetComp<CompPhobosLitter>() is { WantsTicks: true };
 }
 
-/// <summary>One of the loadout's electrical loads is on: switched on by the player (if it has a switch) and its own condition holds.</summary>
 /// <summary>While a fitting on the vehicle grants this ability, its part standing (Framework 0.103.0): the work lamps' switch shows once the
-/// lamps are fitted.</summary>
+/// lamps are fitted. The same test as <see cref="When_FittingGrants"/>, which new XML should use; kept so existing XML still loads
+/// (the owner's card of 28 Nov 2026).</summary>
 public class When_Granted : VehicleSystemCondition
 {
     public string ability = "";
@@ -383,6 +384,7 @@ public class When_OnGrid : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Comp.GridCarriesLoads;
 }
 
+/// <summary>One of the loadout's electrical loads is on: switched on by the player (if it has a switch) and its own condition holds.</summary>
 public class When_LoadActive : VehicleSystemCondition
 {
     public string load = "";

@@ -20,8 +20,10 @@ namespace Phobos.VehicleSystems;
 public sealed class MechControl : IRemoteControlSource
 {
     public const string SourceKey = "mechanitor";
-    /// <summary>What the mech control link fitting grants, and the electrical load that powers it (Fittings_MechLink.xml).</summary>
+    /// <summary>What the mech control link fitting grants (MechLink.xml); its fitting's feed says what powers it.</summary>
     public const string KitGrant = "MechControl";
+    /// <summary>The load's name, kept so other authors' C# still compiles (the owner's card of 28 Nov 2026, "Unread feed"): the fitting's feed now says what powers it.</summary>
+    [System.Obsolete("Use Feeds.Works(vehicle, \"MechControl\")")]
     public const string KitLoad = "mechLink";
 
     /// <summary>The setting "Mechanitors can drive vehicles", on by default, and Biotech active. Live.</summary>
@@ -35,8 +37,7 @@ public sealed class MechControl : IRemoteControlSource
 
     public bool Fitted(VehiclePawn vehicle) => KitWorks(vehicle);
 
-    public static bool KitWorks(VehiclePawn vehicle) =>
-        vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(KitGrant) && systems.LoadActive(KitLoad);
+    public static bool KitWorks(VehiclePawn vehicle) => Feeds.Works(vehicle, KitGrant);
 
     /// <summary>The link is on the vehicle, working or not (Framework 0.284.0): a failed link is a lost link, told, not a let-go.</summary>
     public bool Carried(VehiclePawn vehicle) =>

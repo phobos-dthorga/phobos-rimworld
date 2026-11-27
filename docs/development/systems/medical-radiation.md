@@ -1,7 +1,8 @@
 # Radiation
 
-**Status (24 Nov 2026):** living; written from the code at D'thorga Medical 0.25.0 and D'thorga Patches 0.40.0, the course's restart
-rule at Medical 0.26.1. Built: the dose in
+**Status (28 Nov 2026):** living; written from the code at D'thorga Medical 0.25.0 and D'thorga Patches 0.40.0, the course's restart
+rule at Medical 0.26.1, and the course's end, the smallest dose shown and the caesium figures at Medical 0.38.0 (the owner's
+cards of 28 Nov 2026, [what writing the guides found](../guide-audit-decisions.md)). Built: the dose in
 grays and its repair, the course of radiation sickness, care that moves who lives, the harshness presets, a doctor's estimate or
 the exact dose, Dubs Rimatomics' doses taken and its old conditions converted, the strike's dose, worn shielding, fallout dust and
 the thyroid, the three medicines, late effects, harm in pregnancy, the radiation control point and area, and the dev actions.
@@ -94,7 +95,10 @@ height. Its phases (`RadiationRule.Phase`):
 - **The illness's height** is the dose over the person's own lethal dose: 1 kills; below it the illness recedes by 5 % of severity
   a day (`recoveryPerDay`, authored), never rising again once past its height. The stages are authored: severe (0.55) and critical
   (0.8) are life-threatening and cut immunity, moving, manipulation, blood pumping and, when critical, breathing.
-- **A recovered course ends**: the illness is removed, and the dose condition stays, still repairing. The day it ended is saved, with
+- **A recovered course ends** once the illness, past its height, falls below the rules Def's `courseEndsBelow` (0.2, authored;
+  `RadiationRule.IllnessOver`, the owner's card of 28 Nov 2026): an illness whose height is under it ends at its height. The illness
+  is removed, and the dose condition stays, still repairing. That condition is hidden until the effective dose reaches `smallestShown`
+  (0.05 Gy, authored; `RadiationRule.DoseShown`), then stays shown, as the game keeps any condition it has shown. The day it ended is saved, with
   the grays already recorded that day, so a dose later that same day counts as fresh. Doses folded beyond repair after 150 days no
   longer count as fresh.
 
@@ -158,7 +162,7 @@ medical care setting, and they can be given by hand or by drug policy too.
   2 gray" ([Neupogen label](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=97cc73cc-b5b7-458a-a933-77b00523e193)); the
   0.5 Gy it adds is authored. Prussian blue's factor follows the [Radiogardase
   label](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=baa68c79-5f3d-468a-a510-58b9e978cd50) (caesium's half-life in
-  the body about 80 days down to 26, at Goiânia). Durations, costs and work are authored.
+  the body 80 days down to 26, at Goiânia, section 14.1, Table 2). Durations, costs and work are authored.
 - **"Known" for the marrow stimulant** means measured, or estimated from the first vomit: within five hours means 2 Gy or more.
 - The giving job is the game's feed-a-patient toils, so the pill's own outcome applies; it gives up once the patient no longer
   needs that medicine. Doctors hold patients through the Framework's field-care layer ([the health layer, Field
@@ -193,8 +197,11 @@ Behind "Fallout dust on skin and clothes" (on), from **Rimatomics' fallout only*
   then as the age to the power −1.2. A unit of 0.1 or more wants washing.
 - **Breathed** through the Framework's mask rule (`MaskFactor.Filtered`): 0.03 Gy from inside per gray outside, unmasked; skin
   dust swallowed from the hands, 0.01 Gy inside a unit a day, which a mask does not stop.
-- **The dose from inside** arrives over weeks, at caesium's half-life in the body of about **110 days** (the Radiogardase label),
-  a third of that on Prussian blue.
+- **The dose from inside** arrives over weeks, at caesium's effective half-life in the body of **80 days**, and **26** on Prussian
+  blue (factor 0.325): both from one row of the [Radiogardase
+  label](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=baa68c79-5f3d-468a-a510-58b9e978cd50)'s section 14.1, Table 2
+  (adults at Goiânia, 80 ± 15 days off it, 26 ± 6 on 10 g a day; the owner's card of 28 Nov 2026). Until then the model paired the
+  label's 110-day biological half-life (section 12.2, the slow 90 %) with the Goiânia factor, two baselines.
 - **The thyroid** takes 2 Gy per gray of fallout breathed unmasked (authored, after the high thyroid doses on Rongelap), none
   while Dubs Rimatomics' potassium iodide is in the body: iodide guards the thyroid and nothing else, as the US FDA says it
   "provides protection only for the thyroid from radioiodines" ([*Potassium Iodide as a Thyroid Blocking Agent*,
@@ -501,8 +508,8 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
 - **The fetus takes the mother's whole dose**, and growth restriction is left out.
 - **The strike's letter gives grays even when Rimatomics took the dose** in Rimatomics' units, and always before worn shielding.
 - **No words-or-figures display mode**: the tooltip always gives grays.
-- The rules Def's `courseEndsBelow` (0.2), meant to end a course below a threshold, is read nowhere; nor is `smallestShown`, whose
-  job the dose condition's 0.05 stage does. (A course no longer restarts from old damage alone: Medical 0.26.1, above.)
+- The rules Def's `courseEndsBelow` and `smallestShown` were read nowhere until the owner's card of 28 Nov 2026; both are now read
+  (above). (A course no longer restarts from old damage alone: Medical 0.26.1, above.)
 - **Inferred from the code, not tested in game**: the illness itself lowers immunity gain speed (by 0.1 to 0.7), so the care term
   for a medicine that speeds immunity needs a boost larger than the illness's cut before it counts, and is lost as the illness
   worsens.

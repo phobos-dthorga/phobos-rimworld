@@ -29,6 +29,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.61.0] - 2026-11-28 - Draft
+
+Vehicle radios on the Framework's power rule
+
+### Changed
+
+- **The aviation, marine and dual-band radios, the remote control kit and the repeater kit check their power by D'thorga Framework's
+  rule for powered fittings**, as its other fittings do (the owner's card of 28 November 2026). They work as before.
+- For modders: the radio load-name constants are kept but marked obsolete; use the Framework's Feeds.Works with the grant.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.371.0 or later for vehicles.
+
+### Save compatibility
+
+- Safe for saves. Not yet tested in game: row 757.
+
 ## [0.60.0] - 2026-11-28 - Draft
 
 Hand-held radios stack

@@ -22,6 +22,8 @@
         <halfLifeHoursRoofed>5.3</halfLifeHoursRoofed>
         <halfLifeHoursOutdoors>3</halfLifeHoursOutdoors>
         <removeBelow>0.01</removeBelow>
+        <!-- Supplied oxygen clears it faster, at the treatment's carbonMonoxideHalfLifeHours. -->
+        <oxygenSpeeds>true</oxygenSpeeds>
       </li>
       <li Class="Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosBurnTooltip">
         <kind>CarbonMonoxide</kind>

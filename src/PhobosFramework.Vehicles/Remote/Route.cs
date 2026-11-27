@@ -28,8 +28,10 @@ public enum RouteMode
 public sealed class RouteControl : IRemoteControlSource
 {
     public const string SourceKey = "route";
-    /// <summary>What the route kit fitting grants, and the electrical load that powers it (Fittings_Route.xml).</summary>
+    /// <summary>What the route kit fitting grants (Fittings_Route.xml); its fitting's feed says what powers it.</summary>
     public const string KitGrant = "RouteControl";
+    /// <summary>The load's name, kept so other authors' C# still compiles (the owner's card of 28 Nov 2026, "Unread feed"): the fitting's feed now says what powers it.</summary>
+    [System.Obsolete("Use Feeds.Works(vehicle, \"RouteControl\")")]
     public const string KitLoad = "routeKit";
 
     /// <summary>The setting "Vehicles follow a leader and run loops by themselves" (on by default; the risk is moderate). Live.</summary>
@@ -44,8 +46,7 @@ public sealed class RouteControl : IRemoteControlSource
     /// <summary>The route kit is on the vehicle, its part standing and its power on.</summary>
     public bool Fitted(VehiclePawn vehicle) => KitWorks(vehicle);
 
-    public static bool KitWorks(VehiclePawn vehicle) =>
-        vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(KitGrant) && systems.LoadActive(KitLoad);
+    public static bool KitWorks(VehiclePawn vehicle) => Feeds.Works(vehicle, KitGrant);
 
     /// <summary>The route kit is on the vehicle, working or not (Framework 0.284.0): a failed kit holds the route rather than ending it.</summary>
     public bool Carried(VehiclePawn vehicle) => KitCarried(vehicle);

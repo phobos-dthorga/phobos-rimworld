@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Phobos.BurnsAndSmoke.Defs;
+using Phobos.BurnsAndSmoke.Rules;
 using RimWorld;
 using Verse;
 
@@ -75,6 +76,19 @@ public static class ChemicalService
             deepening = false;
             burns.Clear();
         }
+    }
+
+    /// <summary>
+    /// A chemical-deepening comp on a condition other than our acid on the skin (the owner's card of 28 Nov 2026): deepens that burn
+    /// alone, by raising its own severity rather than through a fresh hit, so nothing else on the person is touched and no new wound
+    /// carrying the comp is made. Stops short of taking the part off, and does nothing with the player's acid setting off.
+    /// </summary>
+    public static void DeepenOwn(Hediff burn, float damage)
+    {
+        Pawn pawn = burn.pawn;
+        if (!BurnsAndSmokeMod.Settings.chemicalBurns || pawn == null || pawn.Dead || burn.Part == null) return;
+        float grow = ChemicalRule.OwnDeepening(damage, pawn.health.hediffSet.GetPartHealth(burn.Part));
+        if (grow > 0f) burn.Severity += grow;
     }
 
     /// <summary>The acid is washed off: it stops burning, and the cool water eases the pain for a few hours.</summary>

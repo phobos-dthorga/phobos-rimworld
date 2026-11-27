@@ -36,4 +36,19 @@ public class CompPhobosGatedResourceTrader : CompResourceTrader
     public override bool CanBeOn() => base.CanBeOn() && GatesOpen;
 
     public override bool ShouldBeLowPowerMode => base.ShouldBeLowPowerMode || !GatesOpen;
+
+    /// <summary>Actually making its resource now: on, and not idling (storage full, or a gate shut). A gate that spends something, such as
+    /// water, spends it only while this holds.</summary>
+    public bool Producing => ResourceOn && !LowPowerModeOn;
+}
+
+/// <summary>
+/// Whether a building is producing, for a gate in an assembly that does not reference Vanilla Expanded Framework (the Dubs Bad Hygiene
+/// water feed): its <see cref="CompPhobosGatedResourceTrader"/>'s <see cref="CompPhobosGatedResourceTrader.Producing"/>, or true for a
+/// building without one, which is then taken to produce whenever it runs.
+/// </summary>
+public static class GatedProduction
+{
+    public static bool Producing(ThingWithComps building) =>
+        building.GetComp<CompPhobosGatedResourceTrader>() is not CompPhobosGatedResourceTrader trader || trader.Producing;
 }

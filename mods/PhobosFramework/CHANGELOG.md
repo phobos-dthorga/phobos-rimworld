@@ -22,6 +22,38 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.371.0] - 2026-11-28 - Draft
+
+What writing the modders' guides found, decided by the owner's cards of 28 November 2026
+
+### Fixed
+
+- **A looping vehicle sound tied to a condition stops when the condition ends**, and starts again when it returns; before, it could
+  play on until its stage ended. No shipped sound used this.
+- **The shower trailer's water heater draws power only while it heats**, not the whole time it is set out.
+- **The cab stereo and reading light are among the first loads switched off** when the charging fails, with the air conditioner;
+  before, they kept draining a failing battery while the heater was cut.
+- **An articulated vehicle whose front half has no hitch says in the log why its rear half was not made**, and makes it on a later
+  load once the hitch is back.
+
+### Changed
+
+- **The route kit, the uncrewed-flight kit and the mech link check their power by the same rule** as the rescue hoist, the recovery
+  winch and cabin oxygen. They work as before.
+- **For modders: silent XML mistakes are now config errors naming the Def**: a setting name that is no setting, an unknown engine feed
+  reading, a delivery contract by category alone with no worth per unit, and a second default part grade or tune on one axis.
+- **For modders: a reservoir works on any building**: standing on its own it lays its load's pipe beneath it and fills from a line
+  with storage, it tops up its building's own fuel when that burns the load's item, and the upgrade picture works on any set-out
+  piece. Its building must tick rarely, now a config error otherwise.
+- For modders: Feeds.Works says whether a powered fitting works now; the kits' load-name constants are kept but marked obsolete.
+  When_Granted is the same test as When_FittingGrants, kept so older XML loads. Setting conditions also take showOnly and
+  compressorFouling. The figures-only setting stopping garage carbon monoxide is recorded as deliberate.
+
+### Save compatibility
+
+- Safe for saves. A reservoir standing on its own now saves the pipe laid beneath it; older saves load as before.
+- Not yet tested in game: rows 756 to 758.
+
 ## [0.370.0] - 2026-11-28 - Draft
 
 Apparel that stacks

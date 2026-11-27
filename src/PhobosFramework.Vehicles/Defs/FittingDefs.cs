@@ -247,6 +247,9 @@ public class PhobosVehicleTuneDef : Def
         foreach (string error in base.ConfigErrors()) yield return error;
         if (work <= 0f) yield return "work must be above 0";
         if (!isDefault && powerFactor == 1f && fuelFactor == 1f && finalDriveFactor == 1f && parameterFactors.Count == 0) yield return "moves no figure";
+        // The owner's card of 28 Nov 2026, "Load checks": a second default on one axis had loaded without a word, the one picked first winning.
+        if (isDefault && VehicleFittings.TunesOf(axis).FirstOrDefault(t => t.isDefault) is { } used && used != this)
+            yield return "is a second default tune on the " + axis + " axis: " + used.defName + " is already the default, and is the one used";
     }
 }
 
@@ -279,6 +282,9 @@ public class PhobosVehiclePartGradeDef : Def
         if (costFactor <= 0f) yield return "costFactor must be above 0";
         if (healthFactor <= 0f) yield return "healthFactor must be above 0";
         if (faultFactor < 0f) yield return "faultFactor is below 0";
+        // The owner's card of 28 Nov 2026, "Load checks": a second default grade had loaded without a word, the first loaded winning.
+        if (isDefault && DefDatabase<PhobosVehiclePartGradeDef>.AllDefsListForReading.FirstOrDefault(g => g.isDefault) is { } used && used != this)
+            yield return "is a second default part grade: " + used.defName + " is already the default, and is the one used";
     }
 }
 

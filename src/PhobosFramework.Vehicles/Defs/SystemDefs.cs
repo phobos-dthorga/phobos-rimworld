@@ -244,13 +244,14 @@ public class QuantityRestore
 /// A further reason a service falls due: a quantity of any system on the vehicle past a threshold (the engine service when the oil is
 /// low), optionally only while a player's setting is on. A quantity the vehicle does not have never makes it due.
 /// </summary>
-public class ServiceDueRule
+public class ServiceDueRule : Phobos.Framework.Defs.IConfigChecked
 {
     public string quantity = "";
     public float above = float.NaN;
     public float below = float.NaN;
     /// <summary>A player's setting (VehicleSystemsSettings.FlagOn) that must be on for this rule to count; none means always.</summary>
     public string? setting;
+    public string? ConfigError() => VehicleSystemsSettings.UnknownFlag(setting, "a service's alsoDue rule");
 }
 
 /// <summary>
@@ -258,7 +259,7 @@ public class ServiceDueRule
 /// the Construction skill, then the restores. Due when the named quantity passes its threshold, when one of <c>alsoDue</c> holds, or
 /// whenever the player asks.
 /// </summary>
-public class ServiceSpec
+public class ServiceSpec : Phobos.Framework.Defs.IConfigChecked
 {
     [MustTranslate] public string label = "";
     public string dueQuantity = "";
@@ -310,6 +311,7 @@ public class ServiceSpec
     /// <see cref="realisticWaterSetting"/>): a steam tender's real 68,000 L would empty most colonies' towers.</summary>
     public string? scaledWaterLitresParameter;
     public string realisticWaterSetting = "realisticFeedWater";
+    public string? ConfigError() => scaledWaterLitresParameter == null ? null : VehicleSystemsSettings.UnknownFlag(realisticWaterSetting, "a service's realisticWaterSetting");
     /// <summary>Work in ticks for a mechanic of construction speed 1.</summary>
     public float work = 1200f;
 }

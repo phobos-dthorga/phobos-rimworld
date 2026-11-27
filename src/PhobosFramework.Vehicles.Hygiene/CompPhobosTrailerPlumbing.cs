@@ -485,13 +485,19 @@ public class CompPhobosHeaterPowerSaving : ThingComp, ISetOutLoad
 
     public CompProperties_PhobosHeaterPowerSaving Props => (CompProperties_PhobosHeaterPowerSaving)props;
 
-    public float WattsNow => parent.def.GetModExtension<PhobosSetOutPowerExtension>()?.wattsWorking ?? 0f;
+    /// <summary>Whether Dubs' boiler is heating now: switched on, fuelled, sound and not idling on its thermostat (its Capacity, which is 0
+    /// otherwise).</summary>
+    bool Heating => parent.TryGetComp<CompBoiler>() is { } boiler && boiler.Capacity > 0f;
+
+    /// <summary>The element's draw, only while the boiler heats (the owner's card of 28 Nov 2026, as a thermostat heater would: before, it drew
+    /// its watts the whole time the trailer was set out, even switched off). Read on the trailer's rare tick.</summary>
+    public float WattsNow => Heating ? parent.def.GetModExtension<PhobosSetOutPowerExtension>()?.wattsWorking ?? 0f : 0f;
 
     public override void CompTickRare()
     {
         base.CompTickRare();
         // Heard while Dubs' boiler is burning: working, and not idling on its thermostat.
-        burner.Set(Props.workingSound, parent.TryGetComp<CompBoiler>() is { } boiler && boiler.Capacity > 0f, parent);
+        burner.Set(Props.workingSound, Heating, parent);
         if (parent.TryGetComp<CompRefuelable>() is not { } fuel) return;
         float now = fuel.Fuel;
         if (lastFuel >= 0f && now < lastFuel && SetOuts.Powered(parent))

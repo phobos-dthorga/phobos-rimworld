@@ -767,6 +767,19 @@ public sealed class VehicleFittings
     public bool Grants(string ability) => fitted.Any(f => f.def != null && f.def.grants.Contains(ability) && Counts(f)
         && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f });
 
+    /// <summary>The feed of the first fitting on a standing part that grants this ability and declares one, or null (read through
+    /// <see cref="Feeds"/>). A plain loop, as the radios and kits ask it often.</summary>
+    public FeedSpec? FeedFor(string ability)
+    {
+        for (int i = 0; i < fitted.Count; i++)
+        {
+            FittedPart part = fitted[i];
+            if (part.def?.feed == null || !part.def.grants.Contains(ability) || !Counts(part)) continue;
+            if (comp.Vehicle.statHandler?.GetComponent(part.partKey) is { Health: > 0f }) return part.def.feed;
+        }
+        return null;
+    }
+
     /// <summary>The factor on the vehicle's jamming reach from every fitting whose part still stands (Framework 0.224.0): 1 with none.</summary>
     public float JamRadiusFactor
     {

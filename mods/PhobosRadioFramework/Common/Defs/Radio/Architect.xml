@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!-- Radio's own Architect tab, inside the D'thorga tab (the owner's choice of 21 Nov 2026, though radio is on the back burner: a tab
-       only, nothing else changed; docs/development/architect-tabs.md). This mod does not need D'thorga Framework, so both markers say
-       MayRequire: without the Framework it is a tab of its own on the bar. -->
+       only, nothing else changed; docs/development/architect-tabs.md). This mod has declared D'thorga Framework since its 0.4.0; both
+       markers still say MayRequire, which costs nothing and would leave a tab of its own on the bar without the Framework. -->
   <DesignationCategoryDef>
     <defName>PhobosRadio_Architect</defName>
     <label>radio</label>

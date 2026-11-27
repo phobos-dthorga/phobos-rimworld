@@ -132,6 +132,9 @@ public sealed class EngineFeeds
         return worst;
     }
 
+    /// <summary>Whether XML may name this reading (Input_EngineFeed): any other reads the oil level.</summary>
+    public static bool IsReading(string? reading) => reading is FuelFeed or OilPressure or OilLevel;
+
     float Reading(string reading, int engine) => reading switch
     {
         FuelFeed => Feed(engine),

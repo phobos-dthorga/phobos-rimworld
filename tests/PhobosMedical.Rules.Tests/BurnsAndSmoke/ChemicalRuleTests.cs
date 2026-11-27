@@ -16,6 +16,28 @@ public class ChemicalRuleTests
     }
 
     [Fact]
+    public void TheAcidOnTheSkinDeepensEveryMarkedBurn() =>
+        Assert.Equal(DeepeningTarget.MarkedBurns, ChemicalRule.Target(isAcidOnSkin: true, isInjuryOnPart: false, permanent: false, tended: false));
+
+    [Fact]
+    public void AnyOtherConditionDeepensOnlyItselfWhileAnOpenBurn()
+    {
+        Assert.Equal(DeepeningTarget.Self, ChemicalRule.Target(false, isInjuryOnPart: true, permanent: false, tended: false));
+        Assert.Equal(DeepeningTarget.None, ChemicalRule.Target(false, isInjuryOnPart: true, permanent: false, tended: true));
+        Assert.Equal(DeepeningTarget.None, ChemicalRule.Target(false, isInjuryOnPart: true, permanent: true, tended: false));
+        Assert.Equal(DeepeningTarget.None, ChemicalRule.Target(false, isInjuryOnPart: false, permanent: false, tended: false));
+    }
+
+    [Fact]
+    public void ABurnDeepeningItselfNeverTakesThePartOff()
+    {
+        Assert.Equal(2f, ChemicalRule.OwnDeepening(2f, 10f), 4);
+        Assert.Equal(1.5f, ChemicalRule.OwnDeepening(2f, 2.5f), 4);
+        Assert.Equal(0f, ChemicalRule.OwnDeepening(2f, 1f));
+        Assert.Equal(0f, ChemicalRule.OwnDeepening(0f, 10f));
+    }
+
+    [Fact]
     public void EyesAloneTakeAnEyewashNotAShower()
     {
         Assert.Equal(22.7f, ChemicalRule.RinseLitres(true, 1136f, 22.7f));

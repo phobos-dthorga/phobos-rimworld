@@ -23,8 +23,13 @@ public abstract class VehicleSystemEffect
     /// <summary>Whether the effect changes what the vehicle can do. Figures, messages and flecks are not consequences.</summary>
     public virtual bool Consequential => true;
 
+    /// <summary>An effect that reads its own <c>when</c> in its updates (a sound loop, which must stop as soon as <c>when</c> turns false
+    /// mid-stage and start again when it turns true: Framework, the owner's card of 28 Nov 2026). Its OnEnter, Apply and OnExit then run
+    /// whatever <c>when</c> says; the figures-only setting still skips a consequence.</summary>
+    protected virtual bool ReadsOwnWhen => false;
+
     public bool Active(SystemContext context) =>
-        (!Consequential || !VehicleSystemsMod.Settings.showOnly) && (when == null || when.Holds(context));
+        (!Consequential || !VehicleSystemsMod.Settings.showOnly) && (when == null || ReadsOwnWhen || when.Holds(context));
 
     public virtual void OnEnter(SystemContext context) { }
     public virtual void OnExit(SystemContext context) { }
@@ -103,7 +108,7 @@ public class Effect_RefuseMove : VehicleSystemEffect
 /// The aircraft may not take off; the reason is a translation key with {VEHICLE} (Framework 0.106.0, avionics A8: flight controls too
 /// damaged to fly). Read by the launch check, which every launch path and the launch button ask.
 /// </summary>
-public class Effect_RefuseLaunch : VehicleSystemEffect
+public class Effect_RefuseLaunch : VehicleSystemEffect, Phobos.Framework.Defs.IConfigChecked
 {
     public string reason = "";
     /// <summary>A player's setting that turns the refusal into a warning at take-off (Framework 0.110.0: blindFlightWarnOnly).</summary>
@@ -112,6 +117,7 @@ public class Effect_RefuseLaunch : VehicleSystemEffect
     public string? warning;
 
     bool WarnOnly => warnOnlySetting != null && VehicleSystemsMod.Settings.FlagOn(warnOnlySetting);
+    public string? ConfigError() => VehicleSystemsSettings.UnknownFlag(warnOnlySetting, "Effect_RefuseLaunch's warnOnlySetting");
 
     public override string? LaunchRefusal(SystemContext context)
     {
@@ -217,13 +223,17 @@ public class Effect_PushHeat : VehicleSystemEffect
 /// it at once, so only a closed room fills. Behind its setting, when one is named; only where the framework carries the gas itself.
 /// D'thorga Medical is what turns breathing it into harm.
 /// </summary>
-public class Effect_PushGas : VehicleSystemEffect
+public class Effect_PushGas : VehicleSystemEffect, Phobos.Framework.Defs.IConfigChecked
 {
     public Phobos.Framework.Gases.PhobosGasDef? gas;
     public float gramsPerHour;
     public VehicleSystemInput? scaleBy;
     /// <summary>The settings flag that switches it on (VehicleSystemsSettings.FlagOn); none means always.</summary>
     public string? setting;
+
+    public string? ConfigError() => VehicleSystemsSettings.UnknownFlag(setting, "Effect_PushGas");
+
+    // A consequence by the owner's choice (28 Nov 2026: poisoned colonists are one), so "figures only" stops the garage filling too.
 
     public override void Apply(SystemContext context, float hours)
     {

@@ -527,9 +527,10 @@ public class Input_PartEfficiency : VehicleSystemInput
 
 /// <summary>The path cost of the ground under the vehicle: 0 on a road or floor, 2 on soil, 14 in mud or soft sand, more with snow
 /// (crosslink 6). With <c>setting</c> named and switched off by the player, it reads as a road.</summary>
-public class Input_GroundPathCost : VehicleSystemInput
+public class Input_GroundPathCost : VehicleSystemInput, Phobos.Framework.Defs.IConfigChecked
 {
     public string? setting;
+    public string? ConfigError() => VehicleSystemsSettings.UnknownFlag(setting, "Input_GroundPathCost");
 
     protected override float Raw(SystemContext context) =>
         setting != null && !VehicleSystemsMod.Settings.FlagOn(setting) ? 0f : context.Comp.GroundPathCost;
@@ -708,10 +709,11 @@ public class Input_Condition : VehicleSystemInput
 }
 
 /// <summary>1 when the player's setting of this name is on, else 0 (settings: fuelGelling).</summary>
-public class Input_Setting : VehicleSystemInput
+public class Input_Setting : VehicleSystemInput, Phobos.Framework.Defs.IConfigChecked
 {
     public string setting = "";
     protected override float Raw(SystemContext context) => VehicleSystemsMod.Settings.FlagOn(setting) ? 1f : 0f;
+    public string? ConfigError() => VehicleSystemsSettings.UnknownFlag(setting, "Input_Setting");
 }
 
 /// <summary>How heavily the tank's load sits on the vehicle: how full it is, times what that kind of tank weighs.</summary>
@@ -787,10 +789,15 @@ public class Input_Bleed : VehicleSystemInput
 /// The worst engine's reading from its own fuel and oil (Framework 0.360.0; the vehicle standard, batch 3; EngineFeeds): "fuelFeed" (its
 /// fuel pump's work), "oilPressure" or "oilLevel". 1 on a vehicle with no engines.
 /// </summary>
-public class Input_EngineFeed : VehicleSystemInput
+public class Input_EngineFeed : VehicleSystemInput, Phobos.Framework.Defs.IConfigChecked
 {
     public string reading = EngineFeeds.FuelFeed;
     protected override float Raw(SystemContext context) => context.Comp.EngineFeeds.Worst(reading);
+
+    /// <summary>The owner's card of 28 Nov 2026, "Load checks": an unknown reading had read the oil level without a word.</summary>
+    public string? ConfigError() => EngineFeeds.IsReading(reading) ? null
+        : "Input_EngineFeed names the reading \"" + reading + "\", which is none of " + EngineFeeds.FuelFeed + ", " + EngineFeeds.OilPressure
+          + " or " + EngineFeeds.OilLevel + ", so it reads the oil level";
 }
 
 /// <summary>

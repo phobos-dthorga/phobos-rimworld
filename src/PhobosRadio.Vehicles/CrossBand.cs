@@ -19,8 +19,10 @@ namespace Phobos.Radio.Vehicles;
 /// </summary>
 public static class CrossBand
 {
-    /// <summary>What the dual-band radio fitting grants, and its load (CrossBand.xml).</summary>
+    /// <summary>What the dual-band radio fitting grants (CrossBand.xml); its fitting's feed says what powers it.</summary>
     public const string Grant = "RadioCrossBand";
+    /// <summary>The load's name, kept so other authors' C# still compiles (the owner's card of 28 Nov 2026, "Unread feed"): the fitting's feed now says what powers it.</summary>
+    [System.Obsolete("Use Feeds.Works(vehicle, \"RadioCrossBand\")")]
     public const string Load = "dualBandRadio";
 
     /// <summary>How long one answer for a pawn is kept, in ticks: a tenth of a game hour, as a convoy's reach is.</summary>
@@ -44,8 +46,7 @@ public static class CrossBand
     }
 
     /// <summary>Whether this vehicle carries the dual-band radio, fitted and powered.</summary>
-    public static bool Fitted(VehiclePawn vehicle) =>
-        vehicle.GetComp<CompPhobosVehicleSystems>() is { } systems && systems.Fittings.Grants(Grant) && systems.LoadActive(Load);
+    public static bool Fitted(VehiclePawn vehicle) => Feeds.Works(vehicle, Grant);
 
     /// <summary>Whether any vehicle of the player's on this map carries a working dual-band radio: so a map with no station is still looked at.</summary>
     public static bool AnyOn(Map map) =>

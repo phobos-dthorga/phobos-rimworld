@@ -76,6 +76,10 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
 
     public float Effective => Severity;
 
+    /// <summary>Shown from the rules Def's <c>smallestShown</c> up (the owner's card of 28 Nov 2026); the Def's one stage is hidden, so
+    /// below it only the game's own memory of having shown it keeps it in view, as for any condition.</summary>
+    public override bool Visible => base.Visible || RadiationRule.DoseShown(Severity, Defs.PhobosRadiationRulesDef.Current.smallestShown);
+
     public bool InCourse => courseStart >= 0;
 
     /// <summary>Whether a course has run and ended, so only fresh doses start another.</summary>

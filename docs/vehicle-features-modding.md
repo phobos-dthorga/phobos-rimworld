@@ -429,8 +429,9 @@ again every 250 ticks. From the Thane T400 (`Vehicle_TractorT400.xml`), trimmed:
 
 **Needs:** the front half's own hitch (from its loadout) naming the permanent coupling; the rear half's `CompProperties_PhobosTrailer`
 (with `drivenAxle` on, so its weight counts as grip, not towed weight) and `towedBy` naming the same coupling. **If the front half has
-no hitch, no rear half is made, and nothing says so**: the player switching the front half's vehicles off in the
-settings, or a loadout with `noHitch`, does it. Check the pair in dev mode after any change to the loadout.
+no hitch, no rear half is made**, and a log warning says so once, naming the vehicle and why: the player switching the front half's
+vehicles off in the settings, or a loadout with `noHitch`, does it. A later load with a hitch makes it. Check the pair in dev mode after
+any change to the loadout.
 
 ### Things the recovery winch can drag
 
@@ -809,8 +810,8 @@ Billy's range (`mods/PhobosVehicles/Defs/Phobos/Vehicles/FieldKitchen/Buildings_
 - **`speedWhenPowered` works on any work table** set out by a trailer: the Framework adds it to the game's work-table speed stat, so the
   bill's speed and its explanation agree.
 - **`wattsWorking` counts only for a piece that reports its draw**: the Framework's `Building_PhobosFieldStove` (only while it cooks) and
-  `Building_PhobosColdBox` (always), or a piece carrying `Phobos.VehicleSystems.Hygiene.CompProperties_PhobosHeaterPowerSaving` (always,
-  while set out; see [Water and waste with Dubs Bad Hygiene](#water-and-waste-with-dubs-bad-hygiene)). Anything else needs C#
+  `Building_PhobosColdBox` (always), or a piece carrying `Phobos.VehicleSystems.Hygiene.CompProperties_PhobosHeaterPowerSaving` (only
+  while Dubs' boiler is heating, while set out; see [Water and waste with Dubs Bad Hygiene](#water-and-waste-with-dubs-bad-hygiene)). Anything else needs C#
   (`ISetOutLoad`, on the building class or on one of its comps).
 
 ### A lamp lit by the trailer's power
@@ -1107,8 +1108,8 @@ in the one form Dubs' boiler allows (it cannot heat faster than its store fills)
   heard). Without the refuelable it does nothing; without the boiler it is silent.
 - **It saves fuel only on a piece a trailer set out**, and only while that trailer's power point is powered. Standing alone, it burns
   the full rate.
-- **It draws its `PhobosSetOutPowerExtension` `wattsWorking` from the power point the whole time it stands set out**, burning or not
-  (the shipped heater: 300 W, authored).
+- **It draws its `PhobosSetOutPowerExtension` `wattsWorking` from the power point only while Dubs' boiler is heating**: switched on,
+  fuelled and not idling on its thermostat, while it stands set out (the shipped heater: 300 W, authored).
 
 From the shower trailer's heater (`Buildings_ShowerTrailer.xml`), trimmed:
 
@@ -1204,13 +1205,17 @@ it while it stands within the tank's hose reach, carrying what the load was made
 - **It fills only from a load whose contents Def lists the reservoir port**: `<li Class="Phobos.VehicleSystems.Port_Reservoirs" />` in
   the `PhobosTankContentsDef`'s `ports` (see [Bulk tanks](vehicle-systems-modding.md#bulk-tanks)). A tank pumps into the nearest
   reservoir with room that belongs to the tank's own faction.
-- **Something has to draw on it.** The Framework's `Phobos.VehicleSystems.Building_PhobosPasteTap` (a paste dispenser served from its
-  reservoir, with no hoppers) is the only shipped building that does, besides a caravan eating from a packed paste tap. Another use needs
-  C#.
+- **What draws on it**: the Framework's `Phobos.VehicleSystems.Building_PhobosPasteTap` serves paste meals from it; any building whose
+  own `CompRefuelable` burns the load's item (its contents' `Port_Items` thing) is topped up from it at each rare tick, in whole items,
+  while the player has its refuelling on; a caravan eats from a packed paste tap. Anything else calls `Take`, `TakeMeal` or `MealOf`
+  from C#.
 - **`node`, `capacityWithNode` and `PhobosNodeGraphicExtension` work only on a set-out piece**: the node is an upgrade of the trailer
   that set the piece out, or holds it packed.
-- **On a set-out piece it also fills from a pipe line beneath the tent or the packed trailer**, through a `Port_PipeNet` on the same
-  contents Def (needs Vanilla Expanded Framework).
+- **It fills from a pipe line** through a `Port_PipeNet` on the same contents Def (needs Vanilla Expanded Framework): a set-out piece
+  through the tent or the packed trailer; a building standing on its own lays its load's hidden pipe beneath it when placed, so a run
+  touching any side joins it, and fills from a run with storage at each rare tick.
+- **Its building must tick rarely** (`<tickerType>Rare</tickerType>`): spoiling, filling, refuelling and the picture run on the rare
+  tick; anything else is a config error.
 
 From the Billy's paste tap (`mods/PhobosVehicles/Mods/VanillaNutrientPasteExpanded/Defs/FieldKitchen_PasteTap.xml`), trimmed:
 
@@ -1259,7 +1264,9 @@ From the Billy's paste tap (`mods/PhobosVehicles/Mods/VanillaNutrientPasteExpand
 | `node` | The trailer upgrade that swaps the picture (empty). |
 | `graphicData` | The picture shown while it is unlocked (none). |
 
-**`PhobosNodeGraphicExtension` is read only by `Building_PhobosPasteTap`** in this version; on another building class it does nothing.
+**`PhobosNodeGraphicExtension` works on any set-out piece carrying a `CompProperties_PhobosReservoir`**: the comp shows the picture as
+the trailer sets out, and within a rare tick of the upgrade changing. A building standing on its own has no trailer, so it keeps its
+plain picture.
 
 ---
 

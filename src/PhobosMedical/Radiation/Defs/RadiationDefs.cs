@@ -39,7 +39,9 @@ public class PhobosRadiationRulesDef : PhobosRulesDef
     public int intervalTicks = 300;
     /// <summary>How fast the illness recedes after its height, a share of its severity a day.</summary>
     public float recoveryPerDay = 0.05f;
-    /// <summary>A course ends, and the dose condition fades, once the effective dose is below this and no illness is left.</summary>
+    /// <summary>Past its height, the illness ends, and with it the course, once its severity falls below this (the owner's card of 28 Nov
+    /// 2026, "wire them in": until then it was read by nothing and the illness ran down to nothing). The dose condition stays, still
+    /// repairing.</summary>
     public float courseEndsBelow = 0.2f;
     /// <summary>Care, 0 to 1, as the sum of: tended (times tend quality), in bed, in a clean room, on fluids, on a medicine that speeds
     /// immunity.</summary>
@@ -50,7 +52,9 @@ public class PhobosRadiationRulesDef : PhobosRulesDef
     public float careImmunity = 0.15f;
     /// <summary>A room counts as clean at this cleanliness or better (a hospital's sterile floor reaches it).</summary>
     public float cleanRoomFrom = 0.6f;
-    /// <summary>Doses below this are added to the record but start nothing, and are not shown.</summary>
+    /// <summary>The dose condition is not shown in the health tab until the effective dose, in grays, reaches this; every dose is still
+    /// recorded (the owner's card of 28 Nov 2026: until then the condition's own 0.05 stage did this job). Once shown it stays shown, as
+    /// the game keeps any condition it has shown.</summary>
     public float smallestShown = 0.05f;
     /// <summary>Where a solid cancer from radiation forms: the first of these the person has, from a place fixed by who they are.</summary>
     public System.Collections.Generic.List<BodyPartDef> solidCancerParts = new();
@@ -71,8 +75,9 @@ public class PhobosRadiationRulesDef : PhobosRulesDef
     public float swallowedPerDustDay = 0.01f;
     /// <summary>The dose to the thyroid per gray of fallout's dose while breathing unmasked, without potassium iodide.</summary>
     public float thyroidPerGray = 2f;
-    /// <summary>How long caesium stays in the body, a half-life in days (Radiogardase label: about 110).</summary>
-    public float insideHalfLifeDays = 110f;
+    /// <summary>How long caesium stays in the body, an effective half-life in days: 80, the untreated adults at Goiania in the Radiogardase
+    /// label's section 14.1, Table 2, the same row <see cref="prussianBlueHalfLifeFactor"/> comes from.</summary>
+    public float insideHalfLifeDays = 80f;
 
     // ---- The medicines (Medical 0.24.0, RM5) ----
 
@@ -82,8 +87,9 @@ public class PhobosRadiationRulesDef : PhobosRulesDef
     public float marrowStimulantWithinDays = 1f;
     /// <summary>Doctors give it for a dose they know or estimate at this or more (the Neupogen label: "greater than 2 gray").</summary>
     public float marrowStimulantFromGrays = 2f;
-    /// <summary>Prussian blue multiplies the body's half-life for what is inside by this (Radiogardase label: about 80 days to 26).</summary>
-    public float prussianBlueHalfLifeFactor = 0.33f;
+    /// <summary>Prussian blue multiplies the body's half-life for what is inside by this: 26 days over 80, the Radiogardase label's
+    /// Goiania adults on and off it (section 14.1, Table 2).</summary>
+    public float prussianBlueHalfLifeFactor = 0.325f;
     /// <summary>Doctors give Prussian blue once this much dose from inside is still to come, in grays.</summary>
     public float prussianBlueFromInside = 0.05f;
 

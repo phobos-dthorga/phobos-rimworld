@@ -21,6 +21,35 @@ entry says the owner tested it.
   changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.38.0] - 2026-11-28 - Draft
+
+What writing the modders' page found, decided by the owner's cards of 28 November 2026
+
+### Fixed
+
+- **With Dubs Bad Hygiene, the oxygen electrolyser uses water only while it makes oxygen**: it had drawn water while idle with its
+  store full.
+- **Radiation sickness ends once it has eased to a mild level**, as its rules always said, rather than lingering down to nothing; and
+  the radiation exposure condition shows from its rules' smallest dose. An illness whose height stays under that level now ends at its
+  height.
+- **For modders: the acid deepening effect, used on another condition, deepens only that burn**, not every acid burn on the person. Our
+  acid on the skin works as before.
+- **For modders: supplied oxygen speeds the clearing only of conditions that ask for it** (carbon monoxide does), not of any condition
+  that clears over time.
+- **For modders: a rise-and-fall condition with timings that would remove it at once reports a load error** naming it.
+
+### Balance
+
+- **Caesium from fallout stays in the body 80 days, and about 26 on Prussian blue** (it was 110, and about 36): both figures now come
+  from the same table of the drug's label, the Goiania patients (Radiogardase prescribing information, section 14.1). Children clear it
+  faster; the model does not.
+
+### Save compatibility
+
+- Safe for saves: no saved field changed. Caesium already inside someone clears on the new schedule, and an illness already below the
+  new end ends at its next check.
+- Not yet tested in game: rows 754 and 755.
+
 ## [0.37.1] - 2026-11-28 - Draft
 
 The anaesthesia machine's bellows
@@ -28,7 +57,7 @@ The anaesthesia machine's bellows
 ### Fixed
 
 - **The anaesthesia machine's bellows sound while a doctor operates beside it**: its sound listened on a tick the machine was never
-  given, so it had stayed silent since 0.14.0. Found while writing the modders' page, from the code; not yet tested in game.
+  given, so it had stayed silent since 0.14.0. Found while writing the modders' page, from the code; not yet tested in game: row 753.
 
 ## [0.37.0] - 2026-11-28 - Draft
 

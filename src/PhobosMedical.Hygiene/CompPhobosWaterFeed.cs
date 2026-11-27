@@ -1,13 +1,16 @@
 using Phobos.Framework.Hygiene;
 using Phobos.Medical.Comps;
+using Phobos.Medical.Rules;
 using RimWorld;
 using Verse;
 
 namespace Phobos.Medical.Hygiene;
 
 /// <summary>
-/// Water from Dubs Bad Hygiene's plumbing for a producer that splits it (the oxygen electrolyser; the owner, 7 Nov 2026). While it runs
-/// it draws its water on each rare tick, and without water it shuts the production gate, so the electrolyser stops and idles. Water
+/// Water from Dubs Bad Hygiene's plumbing for a producer that splits it (the oxygen electrolyser; the owner, 7 Nov 2026). While it is
+/// producing it draws its water on each rare tick, and without water it shuts the production gate, so the electrolyser stops and idles;
+/// while idle (its oxygen storage full) it draws nothing, and while stopped for water it only looks for water, drawing none (the owner's
+/// card of 28 Nov 2026: it used to draw whenever it was switched on and powered). Water
 /// quality doesn't matter here (a real electrolyser needs pure water; a simplification). In Dubs' lite mode, with no plumbing at all,
 /// water stays assumed. Added to the electrolyser by a patch only while Dubs Bad Hygiene is active.
 /// </summary>
@@ -38,8 +41,22 @@ public class CompPhobosWaterFeed : ThingComp, IPhobosProductionGate
     public override void CompTickRare()
     {
         base.CompTickRare();
-        if (PlumbingFeed.LiteMode || !parent.Spawned || !Running) return;
-        WaterDraw found = feed.TryPull(parent, Props.litresPerHour * RareTickInterval / TicksPerHour, out _);
+        if (PlumbingFeed.LiteMode || !parent.Spawned) return;
+        float litres = Props.litresPerHour * RareTickInterval / TicksPerHour;
+        WaterDraw found;
+        switch (WaterFeedRule.Step(Running, Running && GatedProduction.Producing(parent), supply != WaterDraw.Flowing))
+        {
+            case WaterFeedStep.Draw:
+                found = feed.TryPull(parent, litres, out _);
+                break;
+            case WaterFeedStep.Look:
+                // Water back opens the gate; the first draw comes at the next check, so a restart's first few seconds go undrawn
+                // (at most one check's worth, a simplification).
+                found = feed.Check(parent, litres);
+                break;
+            default:
+                return;
+        }
         if (found == supply) return;
         supply = found;
         // Any signal the trader doesn't know makes it look again at whether it can run and whether to idle.
