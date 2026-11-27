@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <!-- Another faction's doctor by radio, and learning while talked through (Radio 0.26.0). -->
-  <PhobosRadio_SettingFactionAdvice>Other factions' doctors give advice by radio</PhobosRadio_SettingFactionAdvice>
-  <PhobosRadio_SettingFactionAdviceDesc>When none of your colonists can help, a doctor at another faction's settlement in radio reach can talk your colonist through tending or an operation. Allies help free, once a day; a neutral faction asks a little goodwill for each call, and never more than leaves its goodwill at zero. Hostile factions never help. On by default.</PhobosRadio_SettingFactionAdviceDesc>
+  <PhobosRadio_SettingFactionAdvice>Other factions' doctors and mechanics give advice by radio</PhobosRadio_SettingFactionAdvice>
+  <PhobosRadio_SettingFactionAdviceDesc>When none of your colonists can help, a doctor or mechanic at another faction's settlement in radio reach can talk your colonist through tending, an operation or a vehicle repair. Allies help free, once a day; a neutral faction asks a little goodwill for each call, and never more than leaves its goodwill at zero. Hostile factions never help. On by default.</PhobosRadio_SettingFactionAdviceDesc>
   <PhobosRadioAdvice_ReasonFaction>Talked through by radio by {ADVISER} of {FACTION} ({SKILL} {LEVEL})</PhobosRadioAdvice_ReasonFaction>
   <PhobosRadioAdvice_ReasonFactionAid>Talked through by radio by {ADVISER} of {FACTION} ({SKILL} {LEVEL}), with a {AID} at hand</PhobosRadioAdvice_ReasonFactionAid>
-  <PhobosRadioAdvice_FactionCallAlly>{DOCTOR}, a doctor of {FACTION}, is on the radio for {CARER}, as a favour between allies.</PhobosRadioAdvice_FactionCallAlly>
-  <PhobosRadioAdvice_FactionCallNeutral>{DOCTOR}, a doctor of {FACTION}, is on the radio for {CARER}. {FACTION} asks {GOODWILL} goodwill for the call.</PhobosRadioAdvice_FactionCallNeutral>
+  <PhobosRadioAdvice_FactionCallAlly>{HELPER}, {ROLE} of {FACTION}, is on the radio for {CARER}, as a favour between allies.</PhobosRadioAdvice_FactionCallAlly>
+  <PhobosRadioAdvice_FactionCallNeutral>{HELPER}, {ROLE} of {FACTION}, is on the radio for {CARER}. {FACTION} asks {GOODWILL} goodwill for the call.</PhobosRadioAdvice_FactionCallNeutral>
+  <PhobosRadioAdvice_RoleDoctor>a doctor</PhobosRadioAdvice_RoleDoctor>
+  <PhobosRadioAdvice_RoleMechanic>a mechanic</PhobosRadioAdvice_RoleMechanic>
 </LanguageData>

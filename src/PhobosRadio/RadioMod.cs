@@ -28,7 +28,7 @@ public class RadioSettings : ModSettings
     /// </summary>
     public List<string> adviceOff = new();
     /// <summary>
-    /// Whether another faction's doctor gives advice by radio (Radio 0.26.0; the owner's cards of 27 Nov 2026). A low risk (the agent's grade:
+    /// Whether another faction's doctor or mechanic gives advice by radio (Radio 0.26.0, mechanics 0.27.0; the owner's cards of 27 Nov 2026). A low risk (the agent's grade:
     /// a neutral faction's goodwill, never below the rules' floor), so on by default (docs/development/radio-advice-and-relays.md).
     /// </summary>
     public bool factionAdvice = true;

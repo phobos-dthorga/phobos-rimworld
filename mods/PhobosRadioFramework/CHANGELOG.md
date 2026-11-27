@@ -22,6 +22,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.27.0] - 2026-11-27 - Draft
+
+Other factions' mechanics talk your mechanics through vehicle repairs
+
+### Added
+
+- **Another faction's mechanic can talk your mechanic through a vehicle repair by radio** (the owner's answer of 27 November 2026,
+  "Medicine and vehicle repairs"), on the same terms as its doctor: when none of your colonists can help, allies free once a day, a
+  neutral faction for 3 goodwill. At home it lets a mechanic take a repair above their skill; from a convoy, the repair button names
+  the faction's mechanic. A faction's doctor and mechanic share one call a day. Not yet tested in game: row 656.
+
+### Changed
+
+- **The setting is now called Other factions' doctors and mechanics give advice by radio**; what it switches is the same, and it is
+  still on by default.
+- The owner kept the other three choices as built: the doctors' Medicine (10, 14, 16, now the mechanics' Construction too), 3
+  goodwill a call, and no experience for a convoy's tends.
+
 ## [0.26.0] - 2026-11-27 - Draft
 
 The Elmer, and other factions' doctors by radio

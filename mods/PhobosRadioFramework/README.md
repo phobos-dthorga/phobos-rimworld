@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.26.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.27.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -63,7 +63,8 @@ figures are here.
   trade talks, at home or from a convoy in reach: half the skill gap closed, a quarter on a marginal link, a little slower
   ([the guide](../../docs/player-guide/radio.md#advice-by-radio)). A **numbered medical chest** closes a sixth more for medicine.
   **From 0.26.0** the carer learns the skill half again as fast while talked through, and when none of your colonists can help, an
-  allied or neutral faction's doctor in radio reach may: allies free once a day, neutral factions for 3 goodwill.
+  allied or neutral faction's doctor in radio reach may (its mechanic too, for vehicle repairs, from 0.27.0): allies free once a day,
+  neutral factions for 3 goodwill.
 - **Upgrades** for the desk and the antennas, fitted by builders.
 
 | Thing | Where | What it is |
@@ -111,7 +112,7 @@ In **Options > Mod settings > D'thorga Radio Framework**.
 | Metres per map cell | What one map cell measures. **Decide before you start a colony**: changing it later changes every distance and coax loss, so links that worked may stop. 1 m matches the furniture, about 26 m matches walking speed | 1 (0.5 to 30) |
 | "In touch with home" mood | A small mood bonus for a free colonist wearing a hand-held with a working link to a base station. Off keeps the radios a pure readout | On |
 | Display mode | How much of the working to show: **Plain** (bars and a reason), **Operator** (adds the band and the margin) or **Engineer** (every term). The outcome is the same in each | Plain |
-| Other factions' doctors give advice by radio | When none of your colonists can help, a doctor at another faction's settlement in radio reach talks your colonist through tending or an operation: allies free once a day, a neutral faction for 3 goodwill a call, never below 0 | On |
+| Other factions' doctors and mechanics give advice by radio | When none of your colonists can help, a doctor or mechanic at another faction's settlement in radio reach talks your colonist through tending, an operation or a vehicle repair: allies free once a day, a neutral faction for 3 goodwill a call, never below 0 | On |
 | Radio advice during surgery | A more skilled colonist in radio touch can talk a surgeon through an operation, raising its chance of success; a dropped call leaves the surgeon at their own skill | On |
 
 ## More

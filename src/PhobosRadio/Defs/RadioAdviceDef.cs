@@ -36,8 +36,8 @@ public class RadioAdviceDef : Def
     /// <summary>Something whose presence near the carer adds <see cref="aidShare"/> of the gap (the numbered medical chest).</summary>
     public ThingDef? aid;
     public float aidShare;
-    /// <summary>Another faction's doctor may give it, by radio from one of its settlements in reach (Radio 0.26.0; medicine only, an agent
-    /// default: the owner's card was for a doctor).</summary>
+    /// <summary>Another faction's helper may give it, by radio from one of its settlements in reach (Radio 0.26.0): its doctor for medicine,
+    /// its mechanic for vehicle repairs (Radio 0.27.0, the owner's answer of 27 Nov 2026).</summary>
     public bool fromFactions;
     /// <summary>A riskier act has its own switch in the mod settings, on until the player switches it off (designs.md).</summary>
     public bool ownSetting;

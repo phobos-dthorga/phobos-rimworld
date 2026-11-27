@@ -17,6 +17,9 @@
       <li>PhobosVehicleSystems_RepairWithSupplies</li>
     </jobs>
     <gate>true</gate>
+    <!-- Radio 0.27.0: another faction's mechanic may talk the repair through (the owner's answer of 27 Nov 2026, "Medicine and vehicle
+         repairs"). -->
+    <fromFactions>true</fromFactions>
     <bookedTicks>2500</bookedTicks>
   </Phobos.Radio.RadioAdviceDef>
 </Defs>

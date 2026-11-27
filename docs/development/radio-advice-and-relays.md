@@ -6,8 +6,8 @@ Radio advice is built in Radio Framework 0.23.0 with D'thorga Framework 0.330.0 
 tested in game: rows 620 to 624. Home stations and outposts as relays, and channels at relays, are built in Radio Framework 0.24.0
 ([as built](#as-built-radio-0240-27-nov-2026)); not yet tested in game: rows 629 to 631. The hand-held's cross-band hop through a vehicle
 is built in Radio Framework 0.25.0 ([as built](#as-built-radio-0250-27-nov-2026-the-cross-band-last-hop)); not yet tested in game: row 645.
-The Elmer and other factions' doctors are built in Radio Framework 0.26.0 with D'thorga Framework 0.336.0
-([as built](#the-elmer-and-other-factions-doctors)); not yet tested in game: rows 650 to 653.
+The Elmer and other factions' doctors are built in Radio Framework 0.26.0 with D'thorga Framework 0.336.0, their mechanics in 0.27.0
+([as built](#the-elmer-and-other-factions-doctors)); not yet tested in game: rows 650 to 653 and 656.
 
 The owner, 26 Nov 2026: "An idea I just had is a doctor providing medical support/advice over the radio! We even have this in
 Australia, right now. This could work with other skills just as well too. If we were to implement all this, how would it look, before
@@ -202,7 +202,8 @@ The owner's cards are 11 to 14 in [the cards as put](#the-cards-as-put).
   before the game's own learn rate, passions and daily saturation apply (D'thorga Framework's `SkillLifts.Teach`, a prefix on the game's
   learning that never skips it). It holds only while the carer's own skill is below the adviser's, since a call opens only then.
 - **Where the game gives experience**: a tend's end, an operation's work, a repair's work, the trade talks. A convoy's tend gives no
-  experience in the game, so on the road the Elmer adds none [A]: it multiplies what the game gives, and never invents it.
+  experience in the game, so on the road the Elmer adds none [O, kept as built on the Decisions page, 27 Nov 2026]: it multiplies what the game gives, and
+  never invents it.
 - **The adviser gains a little Social** [O]: 0.05 experience a tick on a live call, half what a crafter gains at a bench (0.1 a tick
   in the game) [A], and the same for the time booked after an act on the road or the trade talks. An hour on the radio is about 125.
 - **The four questions.** It lets a skilled colonist bring on a beginner without standing beside them; it stops nothing new (the
@@ -212,22 +213,26 @@ The owner's cards are 11 to 14 in [the cards as put](#the-cards-as-put).
 
 ### Other factions' doctors, as built
 
-- **When**: a colonist tends or operates, and no colonist of the player's can help (none more skilled, free and in touch). Medicine only
-  [A]: the owner's card was for a doctor; other kinds wait for the owner (the Decisions page).
+- **When**: a colonist tends or operates, or repairs one of our vehicles, and no colonist of the player's can help (none more skilled,
+  free and in touch). Medicine and vehicle repairs [O] (the owner's answer on the Decisions page, 27 Nov 2026, "Medicine and vehicle
+  repairs", against the agent's lean of medicine only; Radio 0.27.0, row 656): a faction has a mechanic as well as a doctor, made and kept
+  the same way, and the two share the faction's terms (one call a day from an ally, whoever answers) [A]. Trade talks stay the
+  player's own.
 - **Who**: one doctor for each faction that is not hostile, not hidden and at least industrial (a faction before industry has no
   radio) [A]. The doctor is a person of that faction, made once and kept in the world, so the same name answers each time. Their
-  Medicine is authored by how advanced the faction is [A]: 10 for an industrial faction, 14 for a spacer one, 16 beyond.
+  Medicine is authored by how advanced the faction is [O, kept as built on the Decisions page, 27 Nov 2026]: 10 for an industrial
+  faction, 14 for a spacer one, 16 beyond; a mechanic's Construction the same [A].
 - **Reach** [O, "By real radio reach"]: each settlement is heard as a 50 W base station on a 20 m mast with a 3 dBi collinear on both
   bands [A], on its tile, lifted by the tile's hills like any relay site. A colonist at home reaches it through the colony's powered
   stations; a convoy through its own radio. Both go through the relays, holding places at them under a call of their own, so a faction
   call never takes over the convoy's own call home. The worse of the carer's own link and the chain decides the share, as at home.
 - **Terms** [O, "Allies free, others goodwill"]: an ally opens a new call at most once a day, free; a neutral faction opens one for 3
-  goodwill [A], and refuses when that would take its goodwill below 0 [A], so the help can never turn it hostile; a hostile faction
+  goodwill [O, kept as built, 27 Nov 2026], and refuses when that would take its goodwill below 0 [A], so the help can never turn it hostile; a hostile faction
   never helps. A call stays open while it is used and for an hour after [A], so a convoy's tends an hour apart are one call.
 - **What the player sees**: a message when a call opens (who, which faction, and its price); the usual message that the doctor is
   talking the colonist through; the lift in the stat's explanation, naming the doctor and their faction; the game's own goodwill
   message for a neutral faction; and the carer's better opinion of the doctor.
-- **A setting**: "Other factions' doctors give advice by radio", **on by default**. **Risk: low** [A]: what the player can lose is a
+- **A setting**: "Other factions' doctors and mechanics give advice by radio" (renamed in Radio 0.27.0), **on by default**. **Risk: low** [A]: what the player can lose is a
   neutral faction's goodwill, 3 at a time, never below 0, each time told; nothing is lost at once.
 - **The four questions.** It lets a colony with no doctor of its own get a doctor's help, by building toward a friendly settlement; it
   stops nothing, but a neutral faction's goodwill pays for it; it changes play by giving relays, hilltops and good relations a medical
@@ -237,7 +242,7 @@ The owner's cards are 11 to 14 in [the cards as put](#the-cards-as-put).
   or a convoy (kept 2500 ticks), over the settlements within 100 tiles [A] of factions that would help now, allies first: one relay
   chain search a station end until one reaches. A doctor is made at the next look of the colony (60 ticks), never during a stat read.
   **To measure with `scripts/perf.py`** when the owner says go.
-- **Not built**: a doctor's call for other kinds of advice; the colony advising other factions in return; calling out an aircraft
+- **Not built**: another faction's help with the trade talks; the colony advising other factions in return; calling out an aircraft
   when advice is not enough.
 
 ## Relays

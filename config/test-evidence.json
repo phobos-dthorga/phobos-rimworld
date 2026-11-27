@@ -383,6 +383,8 @@
     "652": {"parts": {"a neutral faction's call for goodwill": [{"key": "radio.faction-doctor", "variant": "neutral"}],
       "an operation talked through": [{"key": "radio.advice", "variant": "Surgery-faction"}]}},
     "653": [{"key": "radio.advice", "variant": "Tend-faction-road"}],
+    "656": {"parts": {"a repair at home": [{"key": "radio.advice", "variant": "PhobosVehicleRepair-faction"}],
+      "a repair from a convoy": [{"key": "radio.advice", "variant": "PhobosVehicleRepair-faction-road"}]}},
     "634": {"parts": {"a hull": [{"key": "vehicles.winch-thing", "variant": "hull"}],
       "a chunk": [{"key": "vehicles.winch-thing", "variant": "chunk"}],
       "a ship chunk": [{"key": "vehicles.winch-thing", "variant": "building"}],

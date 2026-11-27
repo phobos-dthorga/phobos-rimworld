@@ -228,7 +228,7 @@ public static class RadioAdvice
         LinkOutcome carerOutcome)
     {
         if (!def.fromFactions || !FactionDoctors.On || carerOutcome == LinkOutcome.NoContact) return null;
-        if (FactionDoctors.Reach(origin, tile, froms) is not { } link || FactionDoctors.DoctorOf(link.Faction) is not { } doctor) return null;
+        if (FactionDoctors.Reach(origin, tile, froms) is not { } link || FactionDoctors.HelperOf(link.Faction, def.skill) is not { } doctor) return null;
         if (byAdviser.ContainsKey(doctor)) return null;
         var rules = RadioRulesDef.Current;
         int own = SkillLifts.OwnLevel(carer, def.skill);
@@ -451,7 +451,7 @@ public static class RadioAdvice
         if (call.Live) return;
         AdviceOffer offer = call.Offer;
         // Radio 0.26.0: another faction's doctor comes on their terms (an ally's day, a neutral faction's goodwill), or not at all.
-        if (offer.Faction is { } faction && !FactionDoctors.Charge(faction, offer.Adviser, offer.Carer))
+        if (offer.Faction is { } faction && !FactionDoctors.Charge(faction, offer.Adviser, offer.Carer, offer.Def.skill))
         {
             End(call, dropped: false);
             return;
@@ -519,7 +519,7 @@ public static class RadioAdvice
     {
         Pawn adviser = offer.Adviser;
         // Radio 0.26.0: another faction's doctor is paid for on their terms; a colonist adviser gains a little Social for the time booked.
-        if (offer.Faction is { } faction) FactionDoctors.Charge(faction, adviser, offer.Carer);
+        if (offer.Faction is { } faction) FactionDoctors.Charge(faction, adviser, offer.Carer, offer.Def.skill);
         else if (adviser.Spawned && adviser.skills != null)
         {
             var rules = RadioRulesDef.Current;

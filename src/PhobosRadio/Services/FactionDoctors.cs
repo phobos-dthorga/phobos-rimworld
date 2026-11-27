@@ -12,6 +12,8 @@ namespace Phobos.Radio.Services;
 // radio reach talks the carer through it: allies free, a new call at most once a day; a neutral faction for a little goodwill, never taking
 // it below the rules' floor; a hostile one never. Each faction has one doctor, a person of theirs kept in the world, so the same voice
 // answers each time. What the call lifts is advice by radio's own (RadioAdvice); this file finds the doctor and keeps the faction's terms.
+// Since Radio 0.27.0 (the owner's answer on the Decisions page, 27 Nov 2026: "Medicine and vehicle repairs") a faction also has a mechanic,
+// made and kept the same way, who talks a mechanic through a vehicle repair. A faction's calls share one set of terms, whoever answers.
 
 /// <summary>A settlement of another faction a carer reaches by radio, and the link's margin.</summary>
 public sealed record FactionDoctorLink(Faction Faction, Settlement Settlement, double MarginDb);
@@ -26,14 +28,16 @@ public sealed record FactionDoctorLink(Faction Faction, Settlement Settlement, d
 public static class FactionDoctors
 {
     private static Dictionary<Faction, Pawn> doctors = new();
+    /// <summary>Each faction's mechanic (Radio 0.27.0), for vehicle repairs.</summary>
+    private static Dictionary<Faction, Pawn> mechanics = new();
     private static Dictionary<Faction, int> lastOpened = new();
     private static Dictionary<Faction, int> lastUse = new();
     private static readonly Dictionary<object, (int tick, FactionDoctorLink? link)> reach = new();
-    private static readonly HashSet<Faction> wanted = new();
+    private static readonly HashSet<(Faction faction, SkillDef skill)> wanted = new();
     private static Thing? radioUnit;
     // Scribe's working lists for the dictionaries above: kept between its passes over a load.
-    private static List<Faction>? doctorKeys, openedKeys, useKeys;
-    private static List<Pawn>? doctorValues;
+    private static List<Faction>? doctorKeys, mechanicKeys, openedKeys, useKeys;
+    private static List<Pawn>? doctorValues, mechanicValues;
     private static List<int>? openedValues, useValues;
 
     /// <summary>Whether the player allows other factions' doctors (a setting, on by default).</summary>
@@ -42,24 +46,28 @@ public static class FactionDoctors
     public static void Clear()
     {
         doctors = new Dictionary<Faction, Pawn>();
+        mechanics = new Dictionary<Faction, Pawn>();
         lastOpened = new Dictionary<Faction, int>();
         lastUse = new Dictionary<Faction, int>();
         reach.Clear();
         wanted.Clear();
     }
 
-    /// <summary>Saved with the game: each faction's doctor and when its last call was opened and last used.</summary>
+    /// <summary>Saved with the game: each faction's doctor and mechanic, and when its last call was opened and last used.</summary>
     public static void ExposeData()
     {
         Scribe_Collections.Look(ref doctors, "PhobosRadioFactionDoctors", LookMode.Reference, LookMode.Reference, ref doctorKeys, ref doctorValues);
+        Scribe_Collections.Look(ref mechanics, "PhobosRadioFactionMechanics", LookMode.Reference, LookMode.Reference, ref mechanicKeys, ref mechanicValues);
         Scribe_Collections.Look(ref lastOpened, "PhobosRadioFactionCallOpened", LookMode.Reference, LookMode.Value, ref openedKeys, ref openedValues);
         Scribe_Collections.Look(ref lastUse, "PhobosRadioFactionCallUsed", LookMode.Reference, LookMode.Value, ref useKeys, ref useValues);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             doctors ??= new Dictionary<Faction, Pawn>();
+            mechanics ??= new Dictionary<Faction, Pawn>();
             lastOpened ??= new Dictionary<Faction, int>();
             lastUse ??= new Dictionary<Faction, int>();
             doctors.RemoveAll(pair => pair.Key == null || pair.Value == null);
+            mechanics.RemoveAll(pair => pair.Key == null || pair.Value == null);
             lastOpened.RemoveAll(pair => pair.Key == null);
             lastUse.RemoveAll(pair => pair.Key == null);
         }
@@ -81,7 +89,8 @@ public static class FactionDoctors
             Find.TickManager.TicksGame, rules.factionAllyEveryTicks, rules.factionCallWindowTicks);
     }
 
-    /// <summary>The Medicine of the faction's doctor: 0 for a faction with no radio (before industry).</summary>
+    /// <summary>The skill of the faction's doctor or mechanic: 0 for a faction with no radio (before industry). One table for both (agent
+    /// default).</summary>
     public static int LevelOf(Faction faction)
     {
         var rules = RadioRulesDef.Current;
@@ -92,7 +101,7 @@ public static class FactionDoctors
     /// The call has been used: an open one goes on; a new one is opened on the faction's terms (an ally's day starts, a neutral faction's
     /// goodwill falls) and the player is told. False when the faction no longer helps.
     /// </summary>
-    public static bool Charge(Faction faction, Pawn doctor, Pawn carer)
+    public static bool Charge(Faction faction, Pawn helper, Pawn carer, SkillDef skill)
     {
         int now = Find.TickManager.TicksGame;
         FactionTerms terms = TermsOf(faction);
@@ -103,40 +112,50 @@ public static class FactionDoctors
         int cost = RadioRulesDef.Current.factionNeutralGoodwillCost;
         if (terms == FactionTerms.Goodwill)
             faction.TryAffectGoodwillWith(Faction.OfPlayer, -cost, canSendMessage: true, canSendHostilityLetter: false, reason: RadioAdviceDefOf.PhobosRadio_DoctorByRadio);
+        string role = (skill == SkillDefOf.Medicine ? "PhobosRadioAdvice_RoleDoctor" : "PhobosRadioAdvice_RoleMechanic").Translate().Resolve();
         string text = (terms == FactionTerms.Free ? "PhobosRadioAdvice_FactionCallAlly" : "PhobosRadioAdvice_FactionCallNeutral").Translate(
-            doctor.LabelShort.Named("DOCTOR"), faction.Name.Named("FACTION"), carer.LabelShort.Named("CARER"), cost.Named("GOODWILL")).Resolve();
+            helper.LabelShort.Named("HELPER"), role.Named("ROLE"), faction.Name.Named("FACTION"), carer.LabelShort.Named("CARER"),
+            cost.Named("GOODWILL")).Resolve();
         Messages.Message(text, new LookTargets(carer), MessageTypeDefOf.NeutralEvent, historical: false);
         string variant = terms == FactionTerms.Free ? "ally" : "neutral";
-        if (Seen.Wants("radio.faction-doctor", carer, variant)) Seen.Note("radio.faction-doctor", carer, faction.Name + ", " + doctor.LabelShort, variant);
+        if (Seen.Wants("radio.faction-doctor", carer, variant)) Seen.Note("radio.faction-doctor", carer, faction.Name + ", " + helper.LabelShort + ", " + skill.label, variant);
         return true;
     }
 
     /// <summary>A live call is still in use: it stays open (Radio 0.26.0, the call window).</summary>
     public static void Using(Faction faction) => lastUse[faction] = Find.TickManager.TicksGame;
 
-    // ---- Doctors ----
+    // ---- Doctors and mechanics ----
 
-    /// <summary>The faction's doctor, or null when none is made yet: one is made at the next look (never during a stat read).</summary>
-    public static Pawn? DoctorOf(Faction faction)
+    /// <summary>Who helps with a skill for a faction: its doctor for Medicine, its mechanic for Construction (Radio 0.27.0), else nobody.</summary>
+    private static Dictionary<Faction, Pawn>? HelpersFor(SkillDef skill) =>
+        skill == SkillDefOf.Medicine ? doctors : skill == SkillDefOf.Construction ? mechanics : null;
+
+    /// <summary>
+    /// The faction's helper for this skill, or null when none is made yet (one is made at the next look, never during a stat read) or the
+    /// skill has no helper.
+    /// </summary>
+    public static Pawn? HelperOf(Faction faction, SkillDef skill)
     {
-        if (doctors.TryGetValue(faction, out var doctor) && !doctor.Dead && !doctor.Destroyed && doctor.Faction == faction) return doctor;
-        wanted.Add(faction);
+        if (HelpersFor(skill) is not { } helpers) return null;
+        if (helpers.TryGetValue(faction, out var helper) && !helper.Dead && !helper.Destroyed && helper.Faction == faction) return helper;
+        wanted.Add((faction, skill));
         return null;
     }
 
-    /// <summary>Makes the doctors asked for since the last look. From the game's tick only.</summary>
+    /// <summary>Makes the helpers asked for since the last look. From the game's tick only.</summary>
     public static void MakeWanted()
     {
         if (wanted.Count == 0) return;
-        foreach (Faction faction in wanted.ToList())
+        foreach ((Faction faction, SkillDef skill) in wanted.ToList())
         {
-            if (!faction.defeated && Make(faction) is { } doctor) doctors[faction] = doctor;
+            if (!faction.defeated && HelpersFor(skill) is { } helpers && Make(faction, skill) is { } helper) helpers[faction] = helper;
         }
         wanted.Clear();
     }
 
-    /// <summary>A person of the faction's own kind with the doctor's Medicine, kept in the world. Up to three tries for one able to tend.</summary>
-    private static Pawn? Make(Faction faction)
+    /// <summary>A person of the faction's own kind with the helper's skill, kept in the world. Up to three tries for one able to do it.</summary>
+    private static Pawn? Make(Faction faction, SkillDef skill)
     {
         PawnKindDef? kind = faction.def.basicMemberKind;
         int level = LevelOf(faction);
@@ -144,12 +163,12 @@ public static class FactionDoctors
         for (int attempt = 0; attempt < 3; attempt++)
         {
             Pawn pawn = PawnGenerator.GeneratePawn(new PawnGenerationRequest(kind, faction, PawnGenerationContext.NonPlayer, forceGenerateNewPawn: true));
-            if (pawn.skills?.GetSkill(SkillDefOf.Medicine) is not { TotallyDisabled: false } medicine)
+            if (pawn.skills?.GetSkill(skill) is not { TotallyDisabled: false } record)
             {
                 Find.WorldPawns.PassToWorld(pawn, PawnDiscardDecideMode.Discard);
                 continue;
             }
-            medicine.Level = level;
+            record.Level = level;
             Find.WorldPawns.PassToWorld(pawn, PawnDiscardDecideMode.KeepForever);
             return pawn;
         }

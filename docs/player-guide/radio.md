@@ -131,11 +131,11 @@ trade talks. Nothing to press: it happens by itself when both are in radio touch
 - **If the call drops** (out of touch, or the adviser called away), the carer carries on alone, at their own skill.
 - **Surgery talked through** has its own setting, **Radio advice during surgery**, on by default.
 - **The carer learns while talked through**: the skill rises half again as fast during the call, and the adviser gains a little Social.
-- **Other factions' doctors**: when none of your colonists can help with tending or an operation, a doctor at another faction's
-  settlement in radio reach may. **Allies help free, once a day**; a **neutral** faction asks **3 goodwill** a call and never takes its
+- **Other factions' doctors and mechanics**: when none of your colonists can help with tending, an operation or a repair of one of our
+  vehicles, a doctor or mechanic at another faction's settlement in radio reach may. **Allies help free, once a day**; a **neutral** faction asks **3 goodwill** a call and never takes its
   goodwill below 0; hostile factions and those without radio (tribes, medieval kingdoms) never help. Masts, hilltops and relays bring
   more settlements into reach. A call stays open for an hour after its last use, so a convoy's tends an hour apart cost once. Setting:
-  **Other factions' doctors give advice by radio**, on by default.
+  **Other factions' doctors and mechanics give advice by radio**, on by default.
 
 ## Try it
 
