@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.34.1, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.35.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -67,6 +67,8 @@ figures are here.
   neutral factions for 3 goodwill.
 - **A radio friend (0.29.0)**: a colonist with a radio chats as recreation with a named friend at another faction's settlement in reach,
   for a mood lift that grows with the friendship and a little goodwill ([the guide](../../docs/player-guide/radio.md#a-radio-friend)).
+- **School of the Air (0.35.0, needs Biotech)**: children learn at radio school, at a station's desk or on a hand-held, and take
+  lessons from a teacher in radio touch, even one away with a convoy ([the guide](../../docs/player-guide/radio.md#school-of-the-air)).
 - **Upgrades** for the desk and the antennas, fitted by builders.
 
 | Thing | Where | What it is |

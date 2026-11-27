@@ -376,6 +376,8 @@
       "a stack": [{"key": "vehicles.sling-thing", "variant": "stack"}]}},
     "644": [{"key": "vehicles.sling-thing", "variant": "net"}],
     "645": ["radio.cross-band"],
+    "659": [{"key": "radio.school-lesson", "variant": "map"}],
+    "660": [{"key": "radio.school-lesson", "variant": "convoy"}],
     "650": {"parts": {"the carer learns faster on a call": [{"key": "radio.elmer", "variant": "Tend"}],
       "the adviser gains Social": ["radio.elmer-teacher"]}},
     "651": {"parts": {"an ally's call opens": [{"key": "radio.faction-doctor", "variant": "ally"}],

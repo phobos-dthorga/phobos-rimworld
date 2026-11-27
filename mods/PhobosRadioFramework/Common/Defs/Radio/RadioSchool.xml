@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    School of the Air (Radio 0.31.0; docs/development/radio-friends-school-medevac.md, the owner's card of 27 Nov 2026: "Our radios count,
+    plus radio lessons"). A child learns by radio at our station's desk or on a hand-held in touch: radio talking with nobody to teach, a
+    lesson when a teacher with childcare switched on is in radio touch, on the map or away in a convoy. Needs Biotech, as children do; it
+    borrows the game's own radio talking icon. The selection weight is an agent default.
+  -->
+
+  <LearningDesireDef MayRequire="Ludeon.RimWorld.Biotech">
+    <defName>PhobosRadio_RadioSchool</defName>
+    <label>radio school</label>
+    <description>Learn by radio at a radio station's desk, or anywhere with a hand-held radio in touch with a station. When an adult assigned to childcare is in radio touch, even away with a convoy, they teach a lesson, which gives experience in skills.</description>
+    <workerClass>Phobos.Radio.Services.LearningGiver_PhobosRadioSchool</workerClass>
+    <iconPath>UI/Icons/Learning/Radiotalking</iconPath>
+    <selectionWeight>1.5</selectionWeight>
+    <jobDef>PhobosRadio_RadioSchool</jobDef>
+  </LearningDesireDef>
+
+  <JobDef>
+    <defName>PhobosRadio_RadioSchool</defName>
+    <driverClass>Phobos.Radio.Work.JobDriver_PhobosRadioSchool</driverClass>
+    <reportString>at radio school.</reportString>
+  </JobDef>
+
+  <JobDef>
+    <defName>PhobosRadio_TeachByRadio</defName>
+    <driverClass>Phobos.Radio.Work.JobDriver_PhobosTeachByRadio</driverClass>
+    <reportString>teaching TargetA by radio.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+</Defs>

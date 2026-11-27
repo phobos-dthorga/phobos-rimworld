@@ -1,7 +1,7 @@
 # Radio friends, School of the Air, the medevac and neighbours' calls
 
-**Status (27 Nov 2026):** partly built. Radio friends are built in Radio Framework 0.29.0, not yet tested in game: rows 657 and 658.
-Being built next, in this order: School of the Air (0.30.0), neighbours' calls (0.31.0), the medevac (D'thorga Framework 0.338.0).
+**Status (27 Nov 2026):** partly built. Radio friends are built in Radio Framework 0.29.0 (rows 657 and 658) and School of the Air in 0.35.0 (rows 659 and 660), not yet tested
+in game. Being built next: neighbours' calls (Radio 0.36.0), then the medevac (D'thorga Framework, its number taken when it is ready).
 
 The owner chose all four on 27 Nov 2026, after advice by radio, the Elmer and other factions' doctors
 ([radio advice and relays](radio-advice-and-relays.md)). Two are from the owner's October radio design
@@ -68,6 +68,9 @@ Children learn by radio (needs Biotech, as children do).
 - **Risk: none** [A]. No setting of its own.
 - **Cost** [A]: the game asks a learning giver only when a child picks what to learn; it reads the radio net's last pass. A teacher is
   looked for once at the start of each lesson, over the colony's free colonists and the convoys in touch with it.
+- **As built (Radio 0.35.0)**: one learning desire, "radio school", chosen at 1.5 against the game's lessons' 2.5 [A]. **A teacher must
+  have childcare switched on** [A], as the game's lessons need; a parent is asked first, then the most skilled. Who teaches whom is not
+  saved: after a load a lesson carries on as radio talking until the child's next. It borrows the game's radio talking icon.
 
 ## Neighbours ask for yours
 

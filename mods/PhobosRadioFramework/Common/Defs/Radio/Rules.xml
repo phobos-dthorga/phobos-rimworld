@@ -75,6 +75,16 @@
     <friendGoodwill>1</friendGoodwill>
     <friendGoodwillChatTicks>2500</friendGoodwillChatTicks>
     <friendGoodwillPerQuadrum>3</friendGoodwillPerQuadrum>
+    <!-- School of the Air (Radio 0.31.0): a lesson by radio at three quarters of the game's lesson rate. An agent default, authored. -->
+    <schoolLessonFactor>0.75</schoolLessonFactor>
+    <!-- Neighbours ask for yours (Radio 0.32.0). The goodwill is the owner's card of 27 Nov 2026; the rest are agent defaults, authored:
+         about once a fortnight, a colonist with Medicine or Construction 6 or more, an hour on the radio, a request that waits 6 hours. -->
+    <neighbourMtbDays>15</neighbourMtbDays>
+    <neighbourMinSkill>6</neighbourMinSkill>
+    <neighbourGoodwill>5</neighbourGoodwill>
+    <neighbourCallTicks>2500</neighbourCallTicks>
+    <neighbourExpiryTicks>15000</neighbourExpiryTicks>
+    <neighbourSkillXpPerTick>0.025</neighbourSkillXpPerTick>
 
     <!-- The vanilla heater turns 175 W into 21 heat per second (Core, Buildings_Temperature.xml). -->
     <heatPerWattSecond>0.12</heatPerWattSecond>

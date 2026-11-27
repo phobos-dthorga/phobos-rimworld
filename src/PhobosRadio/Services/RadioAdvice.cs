@@ -311,7 +311,7 @@ public static class RadioAdvice
 
     /// <summary>Whether a colonist's job may give way to a call: nothing ordered by the player, no emergency, no advice or advisable work of
     /// their own, and a job the game lets be interrupted.</summary>
-    private static bool Interruptible(Pawn pawn)
+    public static bool Interruptible(Pawn pawn)
     {
         Job? job = pawn.CurJob;
         if (job == null) return true;
@@ -613,6 +613,7 @@ public class GameComponent_RadioAdvice : GameComponent
     {
         RadioAdvice.Clear();
         RadioFriends.Clear();
+        RadioSchool.Clear();
     }
 
     public override void ExposeData()

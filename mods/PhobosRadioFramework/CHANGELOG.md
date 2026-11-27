@@ -22,6 +22,23 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.35.0] - 2026-11-27 - Draft
+
+School of the Air: children learn by radio
+
+### Added
+
+- **Radio school, a new way for children to learn** (needs Biotech; the owner's card of 27 November 2026: our radios count, plus radio
+  lessons). After the microelectronics research a child learns at a radio station's desk or anywhere with a hand-held in touch. With
+  nobody to teach, it fills their learning as the game's radio talking at a comms console does. With an adult assigned to childcare in
+  radio touch, on the map with a hand-held or at a desk, or **away in a convoy whose radio reaches home**, it is a lesson: one of the
+  teacher's best skills, at three quarters of the game's lesson rate, Social for the teacher, and the game's lesson thoughts for both.
+  A parent is asked first. Not yet tested in game: rows 659 and 660.
+
+### Compatibility and limits
+
+- The radio share of the lesson rate and how often a child picks radio school are agent defaults. Safe with a running save; after a
+  load a lesson in progress carries on as radio talking until the child's next.
 
 ## [0.34.1] - 2026-11-27 - Draft
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- School of the Air (Radio 0.31.0). -->
+  <PhobosRadioSchool_ReportLesson>taking a lesson by radio from {TEACHER} ({SKILL}).</PhobosRadioSchool_ReportLesson>
+  <PhobosRadioSchool_ReportTalking>radio talking.</PhobosRadioSchool_ReportTalking>
+</LanguageData>

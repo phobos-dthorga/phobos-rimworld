@@ -152,6 +152,16 @@ colonist picks it like any other recreation.
 - **A chat of an hour or more** raises the friend's faction's goodwill by **1**, at most **3 times a quadrum** for each faction.
 - **If the friend dies or their faction turns hostile**, the colonist mourns them (**-6** for 6 days), and finds a new friend next time.
 
+## School of the Air
+
+**Children can learn by radio** (needs Biotech). After the microelectronics research, a child may choose **radio school**: at a radio
+station's desk, or anywhere with a hand-held in touch with a station.
+
+- **With nobody to teach**, it fills their learning, as the game's radio talking at a comms console does.
+- **With a teacher in radio touch** it is a lesson: an adult **assigned to childcare**, on the map with a hand-held or at a desk, or
+  **away in a convoy whose radio reaches home**. The child learns one of the teacher's best skills, at three quarters of a lesson at a
+  school desk; the teacher gains Social. A parent is asked first.
+
 ## Try it
 
 1. Research local radio. Build the station indoors under a built roof, craft a VHF hand-held and wear it.

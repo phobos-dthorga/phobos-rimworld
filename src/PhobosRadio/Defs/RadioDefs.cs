@@ -265,6 +265,24 @@ public class RadioRulesDef : Def
     public int friendGoodwillChatTicks = 2500;
     public int friendGoodwillPerQuadrum = 3;
 
+    /// <summary>School of the Air (Radio 0.31.0): a radio lesson teaches at this share of the game's lesson rate, not being face to face
+    /// (agent default, authored).</summary>
+    public float schoolLessonFactor = 0.75f;
+
+    // Neighbours ask for yours (Radio 0.32.0; the owner's card of 27 Nov 2026: "Goodwill, now and then"). The goodwill is the card's figure;
+    // the rest are agent defaults, authored.
+    /// <summary>Days between neighbours' calls on average, across every faction.</summary>
+    public float neighbourMtbDays = 15f;
+    /// <summary>The least Medicine or Construction a colonist they ask for has.</summary>
+    public int neighbourMinSkill = 6;
+    /// <summary>Goodwill a call done in full earns (the owner's card).</summary>
+    public int neighbourGoodwill = 5;
+    /// <summary>How long the call lasts, and how long an unanswered request waits, in ticks.</summary>
+    public int neighbourCallTicks = 2500;
+    public int neighbourExpiryTicks = 15000;
+    /// <summary>Experience a tick in the skill asked for: half an adviser's Social rate.</summary>
+    public float neighbourSkillXpPerTick = 0.025f;
+
     /// <summary>
     /// Heat pushed into the room per watt of waste per second. The vanilla heater turns 175 W into
     /// 21 heat per second, so 0.12 (read from Core's Buildings_Temperature.xml, 19 Oct 2026).
