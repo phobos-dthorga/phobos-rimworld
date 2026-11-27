@@ -1,0 +1,51 @@
+{
+  "file": "item-solar-panel-kit-2.png",
+  "sha256": "a9ecc2998ca2793a76a8f53453906d085e59d1758872e6b6ce152f88dec9391f",
+  "date": "2026-11-27T17:26:59",
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga vehicle solar panel kit: a rigid solar panel for a camping vehicle's roof, with its charge controller. Image 1 is our approved house battery from the same family of camping kits: match its outline weight, shading, palette and finish only. Do NOT copy its shape or colour.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA flat rectangular solar panel lying face up, in a slim silver aluminium frame with four small mounting brackets at its corners; its face a deep blue-black grid of cells, six by ten, with thin pale lines between them and a faint soft sheen; beside its frame, a small grey charge controller box with two short coiled cables, one red and one black.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, plus or minus signs, logos, brand marks, dials, screens, lights, sparks, sun or shadow beyond the object.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/solar-panel-kit.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 366,
+    "input_tokens_details": {
+      "image_tokens": 64,
+      "text_tokens": 302
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2122
+  },
+  "cost_usd": 0.0547,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 29.3,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/HouseBattery.png",
+      "sha256": "6abecd0073053f5aee0dc816c9aa099b19da5ac7399f51b8681884e2c9bbeaf0",
+      "role": "our approved house battery, the same family of camping kits: match its outline weight, shading, palette and finish only; do not copy its shape or colour"
+    }
+  ]
+}
