@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/TipLoad.png",
+  "source": "assets/vehicle-systems/generated/road-icon-tip-load/road-icon-tip-load-2.png",
+  "source_sha256": "84c226bf7f6c56d1c1260e6cf0d44577b34ab09313f239c5086181c3ff6c3905",
+  "target_sha256": "5f0312948d416b2cdf74a4c702ab0e96258e751d30c4b5665cc18739367ba8d1",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "84c226bf7f6c56d1c1260e6cf0d44577b34ab09313f239c5086181c3ff6c3905",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T16:01:21",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

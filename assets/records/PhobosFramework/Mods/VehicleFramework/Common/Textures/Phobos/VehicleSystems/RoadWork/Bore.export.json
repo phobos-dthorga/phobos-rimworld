@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/Bore.png",
+  "source": "assets/vehicle-systems/generated/road-icon-road-bore/road-icon-road-bore-1.png",
+  "source_sha256": "bc4525929c324fc7ac8944019a925489eb0b980bf996aae3c163604c69e79475",
+  "target_sha256": "cc3e6e903e72a4e2228e89e4d055b9dd86ba6a1dbc4c48eb0b05686871539a22",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "bc4525929c324fc7ac8944019a925489eb0b980bf996aae3c163604c69e79475",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T16:01:15",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

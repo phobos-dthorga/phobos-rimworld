@@ -180,7 +180,7 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
                 defaultLabel = (reading ? "PhobosRoadWork_SurveyHaltStopGizmo" : "PhobosRoadWork_SurveyHaltGizmo").Translate().Resolve(),
                 defaultDesc = reading ? "PhobosRoadWork_SurveyHaltStopGizmoDesc".Translate().Resolve()
                     : "PhobosRoadWork_SurveyHaltGizmoDesc".Translate(RoadHaltRule.SurveyHaltHours.ToString("0").Named("HOURS")).Resolve(),
-                icon = SystemIcons.For("Phobos/VehicleSystems/Stations/SurveyArray"),
+                icon = SystemIcons.For("Phobos/VehicleSystems/RoadWork/SurveyHalt"),
                 action = reading
                     ? () => RoadWork.Stop(WorldComponent_PhobosRoadWork.Current!.JobOn(Vehicle)!, "PhobosRoadWork_SurveyHaltStopped".Translate().Resolve())
                     : () => RoadWork.StartSurveyHalt(convoy, Vehicle),

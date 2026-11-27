@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/SurveyHalt.png",
+  "source": "assets/vehicle-systems/generated/road-icon-survey-halt/road-icon-survey-halt-1.png",
+  "source_sha256": "ea10290364e5d57391d3772ab613e138bd31346acf4a677bcf0e38592fabb559",
+  "target_sha256": "6cd89a05f3b8ed003c25daf232687c51d52d5de45166ba2f2e597662d5751190",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "ea10290364e5d57391d3772ab613e138bd31346acf4a677bcf0e38592fabb559",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T16:01:18",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -49,7 +49,7 @@ public sealed partial class CompPhobosHitch
         {
             defaultLabel = "PhobosDepot_HookGizmo".Translate().Resolve(),
             defaultDesc = "PhobosDepot_HookGizmoDesc".Translate(Vehicle.LabelShort.Named("TRACTOR")).Resolve(),
-            icon = SystemIcons.For("Phobos/VehicleSystems/Hitch/Hitch"),
+            icon = SystemIcons.For("Phobos/VehicleSystems/RoadWork/HookFromDepot"),
             action = () => Find.WindowStack.Add(new FloatMenu(trailers.Select(t =>
             {
                 string? why = Depots.HookUpRefusal(convoy, Vehicle, t);

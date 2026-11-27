@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/Quarry.png",
+  "source": "assets/vehicle-systems/generated/road-icon-quarry/road-icon-quarry-1.png",
+  "source_sha256": "e3e7e3ace65e85a84b8a744cf4b0ae44e8992a6f93d402373b40827dba91ff9a",
+  "target_sha256": "f26b942e713b6181c81ce97430de1982ee2efafb6a7c30e3e0b1887f66e73c87",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "e3e7e3ace65e85a84b8a744cf4b0ae44e8992a6f93d402373b40827dba91ff9a",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T16:01:28",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

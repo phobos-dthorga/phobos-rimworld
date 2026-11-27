@@ -19,6 +19,17 @@ tested in game unless an entry says the owner tested it.
 
 
 
+
+## [0.337.1] - 2026-11-27 - Draft
+
+The eight road work buttons get their own pictures
+
+### Fixed
+
+- **The road work buttons had borrowed other pictures**: Drill a water bore, Survey halt, Tip the load here, Drill a test hole, Quarry
+  stone, Spread grit, Lay stone under the wheels and Hook up from the depot each have their own now, bought and picked by the owner on
+  27 Nov 2026 after the night-16 local tries were answered "Paid solution".
+
 ## [0.337.0] - 2026-11-27 - Draft
 
 Seen-in-play notes carry the figures their test rows ask for

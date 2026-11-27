@@ -83,7 +83,7 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
                 defaultDesc = boring ? "PhobosRoadWork_BoreStopGizmoDesc".Translate().Resolve()
                     : "PhobosRoadWork_BoreGizmoDesc".Translate(RoadWork.Rainfall(convoy).ToString("0").Named("RAIN"),
                         BoreRule.LitresPerHour(RoadWork.Rainfall(convoy)).ToString("0").Named("LITRES")).Resolve(),
-                icon = SystemIcons.For("Phobos/VehicleSystems/Sling/WaterDrop"),
+                icon = SystemIcons.For("Phobos/VehicleSystems/RoadWork/Bore"),
                 action = boring ? () => RoadWork.StopBore(convoy) : () => RoadWork.StartBore(convoy, Vehicle),
             };
             if (!boring && (busy != null ? busyText : RoadWork.BoreRefusal(convoy, Vehicle, starting: true)) is { } refused) bore.Disable(refused);
@@ -97,19 +97,18 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         {
             defaultLabel = (proving ? "PhobosRoadWork_TestHoleStopGizmo" : "PhobosRoadWork_TestHoleGizmo").Translate().Resolve(),
             defaultDesc = proving ? "PhobosRoadWork_TestHoleStopGizmoDesc".Translate().Resolve() : desc,
-            icon = ThingDefOf.DeepDrill.uiIcon,
+            icon = SystemIcons.For("Phobos/VehicleSystems/RoadWork/TestHole"),
             action = proving ? () => RoadWork.Stop(busy!, "PhobosRoadWork_TestHoleStopped".Translate().Resolve()) : () => RoadWork.StartTestHole(convoy, Vehicle),
         };
         if (!proving && (busy != null ? busyText : RoadWork.TestHoleRefusal(convoy, Vehicle, starting: true)) is { } holeRefused) hole.Disable(holeRefused);
         yield return hole;
-        // Framework 0.324.0 (EM36): break stone out with the hammer bit. Borrows the tile's own chunk picture until its own is drawn.
+        // Framework 0.324.0 (EM36): break stone out with the hammer bit. Its own icon since Framework 0.337.1 (the owner's pick of 27 Nov 2026).
         bool quarrying = busy is RoadQuarry;
-        ThingDef? chunk = RoadWork.QuarryChunk(convoy);
         var quarry = new Command_Action
         {
             defaultLabel = (quarrying ? "PhobosRoadWork_QuarryStopGizmo" : "PhobosRoadWork_QuarryGizmo").Translate().Resolve(),
             defaultDesc = quarrying ? "PhobosRoadWork_QuarryStopGizmoDesc".Translate().Resolve() : "PhobosRoadWork_QuarryGizmoDesc".Translate().Resolve(),
-            icon = chunk?.uiIcon ?? SystemIcons.For("Phobos/VehicleSystems/Stations/Tip"),
+            icon = SystemIcons.For("Phobos/VehicleSystems/RoadWork/Quarry"),
             action = quarrying ? () => RoadWork.Stop(busy!, "PhobosRoadWork_QuarryStopped".Translate(((RoadQuarry)busy!).made.Named("COUNT")).Resolve())
                 : () => RoadWork.StartQuarry(convoy, Vehicle),
         };

@@ -3643,7 +3643,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         {
             defaultLabel = "PhobosGround_StoneGizmo".Translate().Resolve(),
             defaultDesc = "PhobosGround_StoneGizmoDesc".Translate(Phobos.Framework.Rules.GroundRule.StoneChunks.Named("CHUNKS")).Resolve(),
-            icon = SystemIcons.For("Phobos/VehicleSystems/Stations/Tip"),
+            icon = SystemIcons.For("Phobos/VehicleSystems/RoadWork/StoneUnderWheels"),
             action = () => RoadGround.LayStone(convoy),
         };
         if (RoadGround.StoneRefusal(convoy) is { } refused) stone.Disable(refused);

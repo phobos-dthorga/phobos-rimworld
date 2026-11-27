@@ -764,7 +764,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
         {
             defaultLabel = "PhobosRoadWork_TipGizmo".Translate().Resolve(),
             defaultDesc = "PhobosRoadWork_TipGizmoDesc".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
-            icon = SystemIcons.For("Phobos/VehicleSystems/Stations/Tip"),
+            icon = SystemIcons.For("Phobos/VehicleSystems/RoadWork/TipLoad"),
             action = () => RoadWork.TipLoad(convoy, Vehicle),
         };
         if (RoadWork.TipRefusal(convoy, Vehicle) is { } refused) tip.Disable(refused);
@@ -775,7 +775,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
             defaultLabel = "PhobosGround_GritGizmo".Translate().Resolve(),
             defaultDesc = "PhobosGround_GritGizmoDesc".Translate(Phobos.Framework.Rules.GroundRule.GritChunks.Named("CHUNKS"),
                 Phobos.Framework.Rules.GroundRule.GritDays.ToString("0").Named("DAYS")).Resolve(),
-            icon = SystemIcons.For("Phobos/VehicleSystems/Stations/Tip"),
+            icon = SystemIcons.For("Phobos/VehicleSystems/RoadWork/Grit"),
             isActive = () => RoadGround.Spreading(Vehicle),
             toggleAction = () => RoadGround.SetSpreading(Vehicle, !RoadGround.Spreading(Vehicle)),
         };

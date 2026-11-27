@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/RoadWork/Grit.png",
+  "source": "assets/vehicle-systems/generated/road-icon-grit/road-icon-grit-1.png",
+  "source_sha256": "1a4c0a4578225ea5adc9266208d8479d22cfce46ea0ccc5e9fdee6def7753797",
+  "target_sha256": "bd1f919a95c4785f151e07e93f2f9648671b20fc0c850a8b18e06079e5789ebd",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "1a4c0a4578225ea5adc9266208d8479d22cfce46ea0ccc5e9fdee6def7753797",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T16:01:32",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
