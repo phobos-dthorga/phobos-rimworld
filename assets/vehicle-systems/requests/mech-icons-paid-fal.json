@@ -1,0 +1,60 @@
+[
+ {
+  "name": "remote-icon-mech-link-fal",
+  "title": "Remote control button: Link to a mechanitor (Nano Banana Pro)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Remote/LostLink.png",
+    "role": "our approved remote control button icon (lost link): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Route/Follow.png",
+    "role": "our approved route button icon (an olive truck): match its olive vehicle colours, outline weight and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Link to a mechanitor",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Remote/MechLink.png",
+   "size": "exported at 128",
+   "why": "the owner turned down both night-16 local tries and both OpenAI tries (27 Nov 2026, on the Picks page: \"We'll have to use a paid service\"), and chose by card to try fal's Nano Banana Pro; the wording changed from a halo ring and line, which did not read, to a command beacon"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side, centred, as an icon on a command button in a top-down strategy game.\n\nImage 1 and Image 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"link this vehicle to a mechanitor's command\": a small olive truck seen from the side at the bottom, and above it a small hovering teal diamond-shaped command beacon glowing softly, with three bold unbroken teal signal arcs reaching down from the beacon to the truck's roof.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ },
+ {
+  "name": "remote-icon-mech-unlink-fal",
+  "title": "Remote control button: Unlink from the mechanitor (Nano Banana Pro)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Remote/LostLink.png",
+    "role": "our approved remote control button icon (lost link): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Route/Follow.png",
+    "role": "our approved route button icon (an olive truck): match its olive vehicle colours, outline weight and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "button": "Unlink from the mechanitor",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Remote/MechUnlink.png",
+   "size": "exported at 128",
+   "why": "the owner turned down both night-16 local tries and both OpenAI tries (27 Nov 2026, on the Picks page: \"We'll have to use a paid service\"), and chose by card to try fal's Nano Banana Pro; the wording changed from a halo ring and line, which did not read, to a command beacon"
+  },
+  "prompt": "GAME BUTTON ICON. One small scene seen from the side, centred, as an icon on a command button in a top-down strategy game.\n\nImage 1 and Image 2 are our approved button icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"unlink this vehicle from its mechanitor's command\": a small olive truck seen from the side at the bottom, and above it a small hovering diamond-shaped command beacon gone dim grey, its three signal arcs toward the truck broken into short scattered grey fragments with a clear empty gap between beacon and truck.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+ }
+]
