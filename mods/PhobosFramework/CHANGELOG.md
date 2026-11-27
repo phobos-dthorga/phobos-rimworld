@@ -22,6 +22,24 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.353.0] - 2026-11-27 - Draft
+
+Caravans on foot in radio reach
+
+### Added
+
+- **A caravan on foot with a radio shows its reach home**, and offers the radio's buttons and a medevac call, as a convoy does on its
+  first vehicle (for D'thorga Radio Framework's caravans by hand-held). Nothing shows on a caravan with no radio. Not yet tested in
+  game: row 702.
+
+### Fixed
+
+- **A caravan on foot counts as moving while it walks**, so a halt-only job such as putting up a relay mast waits for it to stop.
+
+### Save compatibility
+
+- Safe with an existing save. Nothing is saved.
+
 ## [0.352.0] - 2026-11-27 - Draft
 
 One step of a leg's walk, for the radio's world map picture

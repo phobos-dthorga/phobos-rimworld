@@ -46,7 +46,8 @@ public static class ReachDrawing
         {
             switch (selected)
             {
-                case VehicleCaravan convoy when convoy.Faction == Faction.OfPlayer:
+                // Radio 0.44.0: a caravan on foot too, by its hand-held.
+                case Caravan convoy when convoy.Faction == Faction.OfPlayer:
                     if (ConvoyReachSource.ConvoyEnd(convoy, ConvoyRadio.Mast(convoy)) is not { } end) break;
                     Ring(convoy.Tile, end);
                     // Asks the convoy's reach as its line does (kept, so no new search most frames), then draws the chain it found.

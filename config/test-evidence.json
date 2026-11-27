@@ -443,6 +443,8 @@
     "699": ["radio.terrain-blocked"],
     "700": ["radio.world-cover"],
     "701": ["radio.world-cover-network"],
+    "702": {"parts": {"a worn hand-held": [{"key": "radio.caravan-handheld", "variant": "worn"}],
+      "a packed hand-held": [{"key": "radio.caravan-handheld", "variant": "packed"}]}},
     "687": {"parts": {
       "a bought paste tap is made packed": ["trailers.store-made-packed"],
       "a caravan eats from a packed paste tap": ["trailers.caravan-ate-from-store"]

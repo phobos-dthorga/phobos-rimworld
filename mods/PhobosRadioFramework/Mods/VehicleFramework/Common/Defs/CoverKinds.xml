@@ -3,6 +3,16 @@
   <!-- The cover picture's far-end radios that need vehicles (Radio 0.42.0; docs/development/radio-world-coverage.md). A hand-held is
        left out on purpose: no contact between tiles uses one. The raised mast's height is the Datum's, set from D'thorga Framework's
        own figure at start-up; the 10 here is that figure, so the Def reads right by itself. -->
+  <!-- Radio 0.44.0 (the owner's card of 27 Nov 2026, "Make it real"): a caravan on foot calls home by hand-held. The VHF hand-held, the
+       further-reaching of the two. -->
+  <Phobos.Radio.RadioCoverKindDef>
+    <defName>PhobosRadioCover_Handheld</defName>
+    <label>hand-held</label>
+    <description>A VHF hand-held carried by a caravan on foot.</description>
+    <radioThing>PhobosRadio_HandheldVHF</radioThing>
+    <order>5</order>
+  </Phobos.Radio.RadioCoverKindDef>
+
   <Phobos.Radio.RadioCoverKindDef>
     <defName>PhobosRadioCover_Vehicle</defName>
     <label>vehicle radio</label>

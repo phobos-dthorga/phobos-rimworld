@@ -425,7 +425,9 @@ public static class RoadWork
     }
 
     /// <summary>Whether a convoy is driving now (Vehicle Framework's own pather; the game's reads still).</summary>
-    public static bool Moving(Caravan caravan) => caravan is VehicleCaravan { vehiclePather.MovingNow: true };
+    // Framework 0.353.0: a caravan on foot moves by the game's own pather (a caravan with a radio can now put up a relay mast, at a halt).
+    public static bool Moving(Caravan caravan) =>
+        caravan is VehicleCaravan vehicles ? vehicles.vehiclePather?.MovingNow == true : caravan.pather?.MovingNow == true;
 
     /// <summary>The convoy's people in a driving seat now.</summary>
     static HashSet<Pawn> Drivers(Caravan caravan) => TankLarder.Vehicles(caravan).SelectMany(VehicleStory.Drivers).ToHashSet();

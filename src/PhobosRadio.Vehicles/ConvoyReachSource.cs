@@ -44,7 +44,14 @@ public sealed class ConvoyReachSource : IConvoyReachSource
                 radio = fitted;
             }
         }
-        if (carrier == null || radio == null) return null;
+        if (carrier == null || radio == null)
+        {
+            // Radio 0.44.0 (the owner's cards of 27 Nov 2026): no vehicle radio, so a hand-held worn or packed in the caravan, held in the
+            // hand: no mast lifts it.
+            if (CaravanRadios.BestHandheld(convoy) is not { } handheld) return null;
+            return new RelayNode(RadioEndpoint.BuiltIn(handheld.parent, IntVec3.Zero, handheld), convoy.Tile, convoy.LabelCap, convoy,
+                SiteMetres: RelayNode.SiteOf(convoy.Tile));
+        }
         float height = mastMetres > radio.Props.antennaHeightMetres ? mastMetres : radio.Props.antennaHeightMetres;
         var end = new RadioEndpoint(carrier, IntVec3.Zero, radio, radio.Props.bands, height, radio.Props.antennaGainDbi, new List<FeedSegment>(), carrier.LabelShort);
         return new RelayNode(end, convoy.Tile, convoy.LabelCap, convoy, Repeater: VehicleRadios.Repeats(carrier), SiteMetres: RelayNode.SiteOf(convoy.Tile));
@@ -113,6 +120,13 @@ public sealed class ConvoyReachSource : IConvoyReachSource
                 hops.Add((a.Tile, b.Tile, LinkBudgetService.EvaluateWorld(a, b, rules)?.MarginDb ?? found.chain.WorstMarginDb));
             }
             ReachDrawing.Keep(convoy, hops);
+            // Radio 0.44.0: home by hand-held, worn or packed.
+            if (start.End.Thing?.TryGetComp<CompRadio>() is { } handheld && start.End.Thing is not VehiclePawn)
+            {
+                string how = CaravanRadios.Worn(handheld) ? "worn" : "packed";
+                if (Seen.Wants("radio.caravan-handheld", null, how))
+                    Seen.Note("radio.caravan-handheld", null, convoy.LabelCap + ", " + found.chain.Relays + " relays, " + found.chain.WorstMarginDb.ToString("0") + " dB", how);
+            }
             if (found.chain.Relays > 0 && Seen.Wants("radio.relay-chain", start.End.Thing))
                 Seen.Note("radio.relay-chain", start.End.Thing, found.chain.Relays + " relays, " + found.chain.WorstMarginDb.ToString("0") + " dB");
             return new ConvoyReach(true, metres / 1000.0, horizon / 1000.0, found.chain.WorstMarginDb, line, home.Tile);
@@ -243,14 +257,15 @@ public sealed class ConvoyReachSource : IConvoyReachSource
 
 /// <summary>
 /// A convoy of the player's as a place the world map's cover picture can be drawn for (Radio 0.42.0): its best fitted radio, its aerial on
-/// a Datum's mast when one is up, as its reach home reads it. It is the one that calls, so a link to a relay is worked in its mode.
+/// a Datum's mast when one is up, as its reach home reads it. It is the one that calls, so a link to a relay is worked in its mode. Since
+/// Radio 0.44.0 a caravan on foot too, by its best hand-held.
 /// </summary>
 public sealed class ConvoyCoverSites : IWorldCoverSiteSource
 {
-    public bool MayHaveRadio(WorldObject place) => place is VehicleCaravan convoy && convoy.Faction == Faction.OfPlayer;
+    public bool MayHaveRadio(WorldObject place) => place is Caravan convoy && convoy.Faction == Faction.OfPlayer;
 
     public WorldCoverSite? SiteOf(WorldObject place) =>
-        place is VehicleCaravan convoy && ConvoyReachSource.ConvoyEnd(convoy, ConvoyRadio.Mast(convoy)) is { } end
+        place is Caravan convoy && ConvoyReachSource.ConvoyEnd(convoy, ConvoyRadio.Mast(convoy)) is { } end
             ? new WorldCoverSite(place, new List<RelayNode> { end }, caller: true)
             : null;
 }

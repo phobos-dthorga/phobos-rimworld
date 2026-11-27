@@ -23,6 +23,26 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.44.0] - 2026-11-27 - Draft
+
+Caravans on foot call home by hand-held
+
+### Added
+
+- **A caravan on foot reaches home by hand-held** (the owner's cards of 27 November 2026: make it real, worn or packed, through
+  relays). A hand-held worn by anyone in the caravan, or packed in its goods, counts while someone there can use it. About 12 tiles
+  from a station's mast on flat ground, further from a hill and through relays. The caravan's pane says whether it is in reach, an
+  aircraft can drop supplies to it and fly a medevac to it, and it can put up a relay mast at a halt. A vehicle convoy with no vehicle
+  radio uses a hand-held the same way. Not yet tested in game: row 702.
+- **The in-touch mood on the road**: colonists in any caravan of yours, on foot or in vehicles, now feel in touch with home while
+  their caravan is in reach, as they do at home.
+- **A hand-held picture** in the Radio coverage menu, for one place and for home through relays.
+
+### Compatibility and limits
+
+- Needs Vehicle Framework and D'thorga Framework 0.353.0, as the convoy's reach does. With the in-touch mood on, each caravan in reach
+  keeps its places at the relays it calls through. Safe with a running save; nothing is saved.
+
 ## [0.43.0] - 2026-11-27 - Draft
 
 The whole radio network on the world map

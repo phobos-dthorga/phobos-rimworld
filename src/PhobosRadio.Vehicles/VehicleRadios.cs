@@ -49,6 +49,8 @@ public static class VehicleRadios
         RelayNodes.Register(new VehicleRelaySource());
         // Radio 0.42.0: a convoy is a place the world map's cover picture can be drawn for, and the picture's raised mast is the Datum's.
         WorldCover.Register(new ConvoyCoverSites());
+        // Radio 0.44.0: the in-touch mood on the road reads a caravan's kept reach home, never working it out.
+        AwayReach.RegisterCaravans(CaravanTouch.KeptOutcome);
         if (DefDatabase<RadioCoverKindDef>.GetNamedSilentFail("PhobosRadioCover_VehicleMast") is { } mastKind) mastKind.antennaHeightMetres = ConvoyRadio.MastMetres;
         // Radio 0.23.0: a convoy's reach home carries advice by radio to the people in it.
         RemoteReach.Register(new ConvoyRemoteReach());

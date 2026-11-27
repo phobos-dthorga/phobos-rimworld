@@ -1,11 +1,15 @@
 using Phobos.Radio.Physics;
 using Phobos.Radio.Services;
 using RimWorld;
+using RimWorld.Planet;
 using Verse;
 
 namespace Phobos.Radio;
 
-/// <summary>"In touch with home": reads the net's cache, or since Radio 0.34.0 a cross-band vehicle's kept answer; never computes a link itself.</summary>
+/// <summary>
+/// "In touch with home": reads the net's cache, or since Radio 0.34.0 a cross-band vehicle's kept answer, or since Radio 0.44.0 a caravan's
+/// kept reach home on the world map; never computes a link itself.
+/// </summary>
 public class ThoughtWorker_RadioInTouch : ThoughtWorker
 {
     private const int StageInTouch = 0;
@@ -13,18 +17,20 @@ public class ThoughtWorker_RadioInTouch : ThoughtWorker
 
     protected override ThoughtState CurrentStateInternal(Pawn p)
     {
-        if (!RadioMod.Settings.inTouchThought || !p.Spawned || p.Map == null) return ThoughtState.Inactive;
+        if (!RadioMod.Settings.inTouchThought) return ThoughtState.Inactive;
+        if (!p.Spawned)
+        {
+            // Radio 0.44.0 (the owner's card of 27 Nov 2026): in a caravan of the player's on the world map, its kept reach home.
+            if (p.GetCaravan() is not { } caravan || caravan.Faction != Faction.OfPlayer) return ThoughtState.Inactive;
+            return StateFor(AwayReach.KeptCaravanOutcome(caravan));
+        }
+        if (p.Map == null) return ThoughtState.Inactive;
         var net = RadioNet.For(p.Map);
         if (!net.TryGetBest(p, out var link) || link == null)
         {
             // Radio 0.34.0: no station of theirs serves them here (a camp, a site), but a vehicle's dual-band radio may: its kept answer.
             if (net.ServedBy(p) != null || AwayReach.KeptMarginDb(p) is not { } margin) return ThoughtState.Inactive;
-            return RadioRulesDef.Current.MarginBands.Classify(margin) switch
-            {
-                LinkOutcome.Clean or LinkOutcome.Workable => ThoughtState.ActiveAtStage(StageInTouch),
-                LinkOutcome.Marginal => ThoughtState.ActiveAtStage(StageFaint),
-                _ => ThoughtState.Inactive,
-            };
+            return StateFor(RadioRulesDef.Current.MarginBands.Classify(margin));
         }
         return link.Outcome switch
         {
@@ -34,4 +40,11 @@ public class ThoughtWorker_RadioInTouch : ThoughtWorker
             _ => ThoughtState.Inactive,
         };
     }
+
+    static ThoughtState StateFor(LinkOutcome? outcome) => outcome switch
+    {
+        LinkOutcome.Clean or LinkOutcome.Workable => ThoughtState.ActiveAtStage(StageInTouch),
+        LinkOutcome.Marginal => ThoughtState.ActiveAtStage(StageFaint),
+        _ => ThoughtState.Inactive,
+    };
 }

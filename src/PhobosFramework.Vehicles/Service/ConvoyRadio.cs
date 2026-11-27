@@ -59,6 +59,13 @@ public static class ConvoyRadio
         return reach;
     }
 
+    /// <summary>
+    /// The convoy's reach home as last worked out, while it is fresh (two tenths of a game hour), or null; never works it out (Framework
+    /// 0.353.0: the in-touch mood reads it, which must never compute).
+    /// </summary>
+    public static ConvoyReach? Kept(Caravan convoy) =>
+        cache.TryGetValue(convoy, out var held) && Find.TickManager.TicksGame - held.tick < RoadWork.Interval * 2 ? held.reach : null;
+
     /// <summary>Asks again at once: a mast went up or down.</summary>
     public static void Forget(Caravan convoy) => cache.Remove(convoy);
 

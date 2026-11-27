@@ -86,6 +86,11 @@ antenna** reaches furthest. **For radio, a world tile counts as 1 km** (a gamepl
 tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
 
 - **Home warns of ambushes** ahead: each way out is a little likelier.
+- **A caravan on foot can call home too** (from 0.44.0): by a **hand-held**, worn by anyone in it or **packed in its goods**, while
+  someone there is awake enough to talk. A hand-held reaches a station's mast about **12 tiles** off on flat ground, further from a
+  hill or through relays. In reach, the caravan's pane says so, an aircraft can drop supplies to it, it can call a **medevac**, and it
+  can put up a relay mast at a halt. A convoy with no vehicle radio uses a hand-held the same way.
+- **In touch on the road** (from 0.44.0): colonists in any caravan of yours in reach, on foot or in vehicles, get the in-touch mood.
 - **Calls pass through relays**: a convoy of yours **standing still**, or a vehicle **left at a depot**, with a radio and the **repeater
   kit** fitted (a Datum's mast lifts it), or a **relay mast** (Put up a relay mast, on a stopped convoy: 60 steel and 4 components). Up to
   two relays; the convoy's line names them. A relay mast stands until you take it down from the world map. **Hills reach further**: small
@@ -99,7 +104,7 @@ tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
 - **Radio coverage on the world map** (from 0.42.0): select a colony of yours with a powered station, a relay mast, a relay post or
   a convoy with a radio, press **Radio coverage** and pick the radio at the far end: a **vehicle radio**, the same with its **mast
   up**, a **relay mast**, a **relay post**, or a **vehicle by Morse** (only where a station there has a Morse key). Every tile is
-  then coloured by how well that radio would reach the place from there: **brighter is stronger, dark red is too weak, and unpainted
+  then coloured by how well that radio would reach the place from there (from 0.44.0 also a **hand-held**, for a caravan on foot): **brighter is stronger, dark red is too weak, and unpainted
   ground is past the horizon**. Hills light up from further off; a range casts a shadow behind it. The picture follows whichever of
   your radio places you select, and stays until you pick **Off**. It shows signal only: a relay with every channel in use still
   refuses a call. A colony with a station also shows a reach ring now, as a mast and a post do.

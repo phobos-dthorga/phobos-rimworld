@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.43.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.44.0, built 27 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -74,6 +74,9 @@ figures are here.
 - **The station logbook (0.38.0)**: a Log tab on the station with radio friends, settlements in reach, every call, and QSL cards
   drawn in each faction's colours; awards for sets of cards lift the mood of those who work the radio
   ([the guide](../../docs/player-guide/radio.md#the-logbook-and-qsl-cards)).
+- **Caravans on foot call home by hand-held (0.44.0)**: a hand-held worn or packed in the caravan reaches a station about 12 tiles
+  off on flat ground, more from hills and through relays; in reach, its colonists feel in touch and it can take airdrops and a
+  medevac. Needs Vehicle Framework.
 - **Radio coverage on the world map (0.42.0)**: select a colony with a station, a relay mast, a relay post or a convoy with a radio,
   press **Radio coverage** and pick the far-end radio; the globe is coloured by signal to spare. From 0.43.0 **Home, through
   relays** paints everywhere a call could get home from. **Off until you pick one**

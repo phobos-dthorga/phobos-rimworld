@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- A caravan on foot's radio reach home, the radio's buttons and a medevac call (Framework 0.353.0, with the Radio Framework's caravans
+       by hand-held). The game's Caravan Def has no comps list of its own, so one is added first unless another mod already has. A vehicle
+       convoy is Vehicle Framework's own Def and is not touched here. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/WorldObjectDef[defName="Caravan"]/comps</xpath>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/WorldObjectDef[defName="Caravan"]</xpath>
+      <value>
+        <comps />
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorldObjectDef[defName="Caravan"]/comps</xpath>
+    <value>
+      <li>
+        <compClass>Phobos.VehicleSystems.WorldObjectComp_PhobosCaravanRadio</compClass>
+      </li>
+    </value>
+  </Operation>
+</Patch>

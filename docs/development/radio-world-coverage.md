@@ -1,7 +1,8 @@
 # Radio cover on the world map, and high ground between tiles (27 Nov 2026)
 
 **Status (27 Nov 2026):** all three pieces are built and none is tested in game: high ground between tiles (Radio Framework 0.41.0,
-row 699), the cover picture for one site (0.42.0, row 700) and the picture of the whole network (0.43.0, row 701).
+row 699), the cover picture for one site (0.42.0, row 700) and the picture of the whole network (0.43.0, row 701). So are caravans on
+foot calling home by hand-held, from the owner's second round of cards (0.44.0 with Framework 0.353.0, row 702).
 
 The owner asked on 27 Nov 2026 whether radio cover can be seen on the world map as it can inside a colony, what it would take and
 what could go wrong, then answered three cards. This record holds the answers, the design of each piece and what is built.
@@ -9,7 +10,7 @@ what could go wrong, then answered three cards. This record holds the answers, t
 ## Read this first
 
 - **Three pieces, all built**: high ground between tiles blocks signal; a painted picture of one site's cover; one picture of the
-  whole network through every relay.
+  whole network through every relay. A fourth followed: caravans on foot call home by hand-held, so the hand-held picture is real.
 - **The picture starts off in every game.** Its button is on a colony with a station, a relay mast, a relay post and a convoy with a
   radio, on the world map.
 - **High ground between tiles now costs every contact between tiles**, convoys, relays and Morse alike. A link that closed before
@@ -159,6 +160,10 @@ is a relay it calls through.
 | The far-end radios | `RadioCoverKindDef`; `Common/Defs/Radio/CoverKinds.xml` and the Vehicle Framework folder's |
 | Seen in play | `radio.world-cover`, by far-end radio, row 700 |
 
+**Measuring** [O]: the owner's answer of 27 Nov 2026 was **not now**: the pictures are tried by feel first, and stay "not measured"
+until a recording is asked for. The other option offered: record it when first tried, with the picture off, being worked out, and shown
+(the agent's lean).
+
 **Limits and agent choices [A]:**
 
 - The walk over the ground runs from each tile toward the place, as a call from that tile does. A call made the other way (from a
@@ -168,6 +173,7 @@ is a relay it calls through.
 - With nothing with a radio selected the last picture stays up, so a look elsewhere does not lose it.
 - The brightest colour is 60 dB to spare (`worldCoverFullScaleDb`), not the colony overlay's 130 dB: tiles are far apart. A shade
   means the same share of each picture's own scale.
+- **The hand-held, first left out, is now a far-end radio** (Radio 0.44.0): see [Caravans on foot](#caravans-on-foot-by-hand-held-o).
 - The button borrows the signal picture; its own icon is requested for a night run
   (`assets/phobos-radio/requests/night-17-cover-icon.json`).
 - A colony's ring measures to a vehicle's whip on level ground; a mast's and a post's to a home station's 10 m mast, as before.
@@ -223,6 +229,77 @@ capacity**: a tile shown as in reach can still be refused by a relay with every 
 - A relay on a colony's own tile is left out: a call that reaches that tile is home through the colony's own stations.
 - All places must be on the planet's surface.
 - Past 24 places the later relays are left out, without a line saying so.
+
+## Caravans on foot by hand-held [O]
+
+The cover picture left out the hand-held the first card offered, as no call between tiles used one. The owner's answer, 27 Nov 2026:
+**make it real**. A caravan on foot now calls home by hand-held, and the picture offers one.
+
+### The cards as put (second round)
+
+| # | Card | Chosen | Not chosen |
+| --- | --- | --- | --- |
+| 4 | The hand-held left out of the far-end radios | **Make it real**: let a caravan on foot with hand-helds call home between tiles, then add the hand-held picture | Keep it out (the agent's lean): every picture shows reach a real call uses. Add the picture anyway, labelled as showing reach no call uses yet |
+| 5 | Record the pictures' cost on the owner's colony | **Not now**: try them by feel first | Yes, record it (the agent's lean): off, being worked out, shown |
+| 6 | What reach gives a caravan on foot (several could be chosen) | **All three: airdrops to it, medevac, the in-touch mood** (each the agent's lean) | None left out |
+| 7 | Whether relays pass a hand-held call on | **Yes, like a convoy** (the agent's lean) | Straight home only |
+| 8 | Which hand-helds count | **Worn or packed**: also a hand-held packed in the caravan's goods | Worn, best one (the agent's lean): only worn, as on a map. Foot caravans only: a vehicle convoy without a vehicle radio stays out of touch |
+
+### The rule
+
+1. **A caravan's radio is its best vehicle radio**, as before. **With none**, its best hand-held: worn by anyone in it or packed in its
+   goods [O], the most powerful, then the one held highest [A].
+2. **Someone must be able to use it** [A]: a person of the player's in the caravan, not downed, able to talk. A caravan of only the
+   downed, or of animals, has no reach.
+3. **A hand-held is held in the hand** [A]: its own 1.5 m whip, lifted by its tile's hills; a Datum's mast does not lift it.
+4. **Relays pass it on as a convoy's call** [O], taking a channel at each.
+5. **What reach gives** [O]: the caravan's line, airdrops to it (which already asked only for reach), a medevac call, and the in-touch
+   mood. A caravan on foot with a radio can also put up a relay mast at a halt, as a convoy can: it follows from the convoy's buttons [A].
+6. **The in-touch mood on the road** [O] is for any caravan of the player's, on foot or in vehicles. It reads the kept reach and never
+   works it out; with the mood setting on, each caravan's reach is kept fresh once a tenth of a game hour.
+
+| Example, our arithmetic (5 W VHF hand-held at 1.5 m, a home mast at 10 m) | Signal to spare |
+| --- | --- |
+| 10 km over flat ground | about 11 dB: workable |
+| 15 km over flat ground | about 4 dB: faint |
+| Past about 18 km on flat ground | none: past the horizon |
+
+### The four questions
+
+- **What it lets the player do:** send colonists out on foot and stay in touch; call a medevac or a drop to a walking caravan.
+- **What it stops:** nothing that was possible before.
+- **How it changes play:** a hand-held packed for a trip becomes worth its weight; a walking caravan picks its route and halts by the
+  ground and the relays, as a convoy does.
+- **What outside notices:** the caravan's colonists (their mood), home's aircraft (drops, medevac), the relays (channels taken), the
+  station logbook (the medevac's calls).
+
+### Risk and settings
+
+**Low** [A]: nothing is lost. A caravan in reach holds places at relays while the mood keeps its reach fresh, which may leave a convoy
+calling through a full relay; the convoy's line names the full relay, as before. No new setting; the in-touch mood's own setting stops
+the keeping fresh.
+
+### Cost
+
+- **Off the road:** nothing.
+- **With the mood setting on:** once a tenth of a game hour, one reach check a caravan of the player's with people in it: a look over
+  its people's clothes and its goods for a radio, then, with one, the relay search over a handful of nodes (each hop one link and its
+  walk over the ground). **Not measured.**
+
+### As built (Radio Framework 0.44.0, Framework 0.353.0)
+
+| Piece | Where |
+| --- | --- |
+| The best hand-held a caravan can use | `Services/CaravanRadios.cs` |
+| A caravan's end falls back to it | `ConvoyReachSource.ConvoyEnd` (vehicles tie-in) |
+| The pane line, the radio's buttons and the medevac on a caravan on foot | Framework's `WorldObjectComp_PhobosCaravanRadio`, on the game's Caravan Def by patch |
+| A caravan on foot counts as moving while it walks | Framework's `RoadWork.Moving` |
+| The mood on the road | `ThoughtWorker_RadioInTouch`, `AwayReach.KeptCaravanOutcome`, `CaravanTouch`, `WorldComponent_PhobosCaravanTouch`; Framework's `ConvoyRadio.Kept` |
+| The hand-held picture | `PhobosRadioCover_Handheld` (the VHF hand-held) |
+| Seen in play | `radio.caravan-handheld`, by worn or packed, row 702 |
+
+**Limits [A]:** needs Vehicle Framework, as all reach between tiles does today. The hand-held picture is the VHF hand-held's; a UHF
+hand-held reaches a little less over hills. Another faction's caravans are not modelled.
 
 ## Sources
 
