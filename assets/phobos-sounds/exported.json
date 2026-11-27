@@ -7842,5 +7842,257 @@
       "start": 733,
       "seconds": 12
     }
+  },
+  "SquelchHandheld": {
+    "name": "SquelchHandheld",
+    "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/SquelchHandheld.ogg",
+    "sha256": "230f4daaf6a66f97ba5190b18c05d608d4d440732164510d2236b766f59c1e36",
+    "master_sha256": "23f56463c3e2409a3c7b2188a6a26733b0a8d86f27f9763c156341dd8f9713ac",
+    "fingerprint": "db3f404aec1deeb00df618f7488d13b079097127e0dc4f306feb4220c2292e4c",
+    "date": "2026-11-27",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -5.72 dBTP",
+      "gain_db": 6.28
+    },
+    "reference": {
+      "defName": "Checkbox_TurnedOn",
+      "effective": "peak -18.8 dB",
+      "volume": [
+        14.0,
+        14.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -26.2,
+      "true_peak": -5.6,
+      "seconds": 0.87,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 201,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small hand-held walkie-talkie held at chest height opening its squelch: a brief, gentle burst of soft radio hiss from a tiny speaker that closes again cleanly. Mellow and low, close to the listener, short and clean, no voice, no beep. Not loud, not alarming. Length: 2 seconds"
+    }
+  },
+  "RepeaterCourtesy": {
+    "name": "RepeaterCourtesy",
+    "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/RepeaterCourtesy.ogg",
+    "sha256": "c965a042b9f5493dc2d71f5c579a69e706fdfdb96c861f5eb24ac1decd5104f1",
+    "master_sha256": "d426b34223955cfd349881d5a0ca689c018e5de94d8e0460ad6e38119d840792",
+    "fingerprint": "3d3b004cbc557f26dee2bd8bc82ddfebadfb05ee5fa5bf35f763deb41d447288",
+    "date": "2026-11-27",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -4.72 dBTP",
+      "gain_db": 30.28
+    },
+    "reference": {
+      "defName": "Checkbox_TurnedOn",
+      "effective": "peak -18.8 dB",
+      "volume": [
+        14.0,
+        14.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -16.7,
+      "true_peak": -5.5,
+      "seconds": 1.03,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 202,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "An amateur radio repeater's tail after a transmission ends, heard on a small radio speaker: a moment of soft open hiss, one short low gentle courtesy tone, then the squelch tail closing cleanly. Mellow and low pitched, no voice, no shrill beep. Not loud, not alarming. Length: 2 seconds"
+    }
+  },
+  "ChannelKnob": {
+    "name": "ChannelKnob",
+    "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/ChannelKnob.ogg",
+    "sha256": "2bccf2aa0f41e2d516e5d51f496570e2f00eeaa3dff2dfda5b86452a14a79e92",
+    "master_sha256": "00ed37544b45d86fd09228c25ae4cf0d07be619db4844805323d4ff57171fd60",
+    "fingerprint": "b4815ab721522483d74ebbb381da1297256f93e11ead953f86ac5a36195f865a",
+    "date": "2026-11-27",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -3.72 dBTP",
+      "gain_db": 6.28
+    },
+    "reference": {
+      "defName": "Checkbox_TurnedOn",
+      "effective": "peak -18.8 dB",
+      "volume": [
+        14.0,
+        14.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -29.5,
+      "true_peak": -3.9,
+      "seconds": 1.39,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 202,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "The channel knob on a two-way radio turned a few steps: three or four small firm detented clicks of a rotary switch, close to the listener, dry and clean, nothing else. Not loud, not alarming. Length: 2 seconds"
+    }
+  },
+  "RemoteLinkLock": {
+    "name": "RemoteLinkLock",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/Remote/LinkLock.ogg",
+    "sha256": "1cba079411be19df9e43e6f408dfb793370b53c83b1c2987f8e670959095c5b7",
+    "master_sha256": "c0f0b9ef80e1109b2d62555a444b40812e30c50bc2057a457d2a9cb5f0e19b99",
+    "fingerprint": "8da55cbef5f64cf19f1e0a39b86fd49fd897e6038c8e4b99db8df0547fb46959",
+    "date": "2026-11-27",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -4.72 dBTP",
+      "gain_db": 20.38
+    },
+    "reference": {
+      "defName": "Checkbox_TurnedOn",
+      "effective": "peak -18.8 dB",
+      "volume": [
+        14.0,
+        14.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -20.8,
+      "true_peak": -4.8,
+      "seconds": 1.11,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 201,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A radio control link locking on: a short, soft burble of digital data tones from a small speaker, settling into silence. Low and gentle, like a quiet modem handshake shortened to a moment, no voice, no shrill beep. Not loud, not alarming. Length: 2 seconds"
+    }
+  },
+  "CoaxConnector": {
+    "name": "CoaxConnector",
+    "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/CoaxConnector.ogg",
+    "sha256": "5acb80f4a39393085be1d5abb54cf97b7ef4a1db1a406c2027c1d49c761f9ee9",
+    "master_sha256": "da15440a4a0308f2340a4902499930f2c216691de872737338917f9afe87ed6b",
+    "fingerprint": "ce65e5a1d22eabd795144fc3b26d4235a2b372ebd53c1361878b9e21e8ad6a33",
+    "date": "2026-11-27",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "filter": "bandreject=f=12000:width_type=h:w=600",
+      "levelled_by": "true peak, to -3.72 dBTP",
+      "gain_db": 3.38
+    },
+    "reference": {
+      "defName": "Checkbox_TurnedOn",
+      "effective": "peak -18.8 dB",
+      "volume": [
+        14.0,
+        14.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -32.3,
+      "true_peak": -4.2,
+      "seconds": 1.03,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 201,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A coaxial cable connector being screwed onto a radio's antenna socket by hand: a few short metallic threading turns and a final soft snug click, close to the listener, dry and clean, nothing else. Not loud, not alarming. Length: 3 seconds"
+    }
+  },
+  "RemoteLinkLost": {
+    "name": "RemoteLinkLost",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/Remote/LinkLost.ogg",
+    "sha256": "7da343a0865e0a6a745fd2b65804b8181cefbc93260d8263633925c442161feb",
+    "master_sha256": "13d7eb88eed0646a720301566587932e36aa853bd385c1ed6d701595e0c745d9",
+    "fingerprint": "9bba8d9e31b98f3342d6f6ab01df09a72eab006f29931d10a0ae4f85f28e51a4",
+    "date": "2026-11-27",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "filter": "bandreject=f=7000:width_type=h:w=400",
+      "levelled_by": "true peak, to -4.72 dBTP",
+      "gain_db": 18.28
+    },
+    "reference": {
+      "defName": "Checkbox_TurnedOn",
+      "effective": "peak -18.8 dB",
+      "volume": [
+        14.0,
+        14.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -21.1,
+      "true_peak": -4.3,
+      "seconds": 1.45,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 202,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A radio control link dropping out: a short broken stutter of data tones fading into soft static, then quiet. Low and gentle, no voice, no alarm, no beeping. Not loud, not alarming. Length: 2 seconds"
+    }
   }
 }

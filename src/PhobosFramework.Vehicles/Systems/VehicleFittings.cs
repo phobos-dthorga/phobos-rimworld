@@ -6,6 +6,7 @@ using RimWorld;
 using UnityEngine;
 using Vehicles;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.VehicleSystems;
 
@@ -1251,6 +1252,12 @@ public sealed class VehicleFittings
                 NoteKitShareReturned(replaced, replacedCarried);
             }
             if (Seen.On) Seen.Note("vehicles.fitting-done." + order.fitting.defName, comp.Vehicle, PartLabel(order.partKey));
+            // The fitting's own sound as it goes on (Framework 0.338.0): a radio kit's coax connector screwed home, at the vehicle.
+            if (order.fitting.fittedSound != null && comp.Vehicle.Spawned)
+            {
+                order.fitting.fittedSound.PlayOneShot(new TargetInfo(comp.Vehicle.Position, comp.Vehicle.Map));
+                Seen.Note("vehicles.fitted-sound", comp.Vehicle, order.fitting.defName);
+            }
             // A matched set made whole by this part (Framework 0.246.0): the effect starts now.
             if (Seen.On && order.fitting.matchedSet && GroupWhole(order.fitting, order.partKey))
             {

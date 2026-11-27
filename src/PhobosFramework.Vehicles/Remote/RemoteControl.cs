@@ -6,6 +6,7 @@ using RimWorld;
 using UnityEngine;
 using Vehicles;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.VehicleSystems;
 
@@ -294,8 +295,20 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         }
         if (after == RemoteState.ComingBack && !DriveBack(vehicle)) state = after = RemoteState.Holding;
         if (after == RemoteState.Linked && Seen.Wants("vehicles.remote-control", vehicle)) Seen.Note("vehicles.remote-control", vehicle, vehicle.LabelShort);
+        // The kit's data radio taking its link, and losing it as the player is told (Framework 0.338.0, S167 and S168, the owner's
+        // picks of 27 Nov 2026): at the vehicle, while it stands on a map. Every source drives through the kit's radio, so all share them.
+        if (after == RemoteState.Linked && vehicle.Spawned)
+        {
+            VehicleSystemSoundDefOf.PhobosVehicleSystems_RemoteLinkLock.PlayOneShot(new TargetInfo(vehicle.Position, vehicle.Map));
+            Seen.Note("vehicles.remote-link-sound", vehicle, null, "lock");
+        }
         if (RemoteControlRule.TellsLost(before, after))
         {
+            if (vehicle.Spawned)
+            {
+                VehicleSystemSoundDefOf.PhobosVehicleSystems_RemoteLinkLost.PlayOneShot(new TargetInfo(vehicle.Position, vehicle.Map));
+                Seen.Note("vehicles.remote-link-sound", vehicle, null, "lost");
+            }
             // Each source says it in its own words: a station, a route's leader, a mechanitor (Framework 0.282.0).
             var prefix = Current?.TextPrefix ?? "PhobosRemote_";
             // A failed kit says so, whoever's kit it is (Framework 0.284.0).

@@ -73,6 +73,10 @@
       <li Class="Phobos.Radio.CompProperties_FeedlinePort">
         <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
       </li>
+      <!-- Its connector screwed home as each run is finished (Radio 0.30.0, S170, the owner's card of 27 Nov 2026). -->
+      <li Class="Phobos.Framework.Sounds.CompProperties_PhobosSoundOnBuilt">
+        <sound>PhobosRadio_CoaxConnector</sound>
+      </li>
     </comps>
     <placeWorkers>
       <li>PipeSystem.PlaceWorker_Pipe</li>

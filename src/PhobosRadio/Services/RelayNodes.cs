@@ -5,6 +5,7 @@ using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.Radio.Services;
 
@@ -153,7 +154,15 @@ public static class RelayNodes
             return null;
         }
         var held = chain.Path.Skip(1).Take(chain.Relays).Select(i => nodes[i]).ToList();
+        // A repeater station on a map that this call starts to pass through now, not one it held already (Radio 0.30.0, S166).
+        var starting = held.Where(r => r.Owner is Thing { Spawned: true } && !leases.Holds(r.Owner, holder, now)).Select(r => (Thing)r.Owner).ToList();
         leases.Hold(holder, kind, held.Select(r => r.Owner), Shapes, owner => held.First(r => r.Owner == owner).ChannelsOrRules, now, now + rules.relayLeaseTicks);
+        // Its courtesy tone and squelch tail there, heard by whoever stands near it (the owner's card of 27 Nov 2026, "At the repeater on its map").
+        foreach (Thing station in starting)
+        {
+            RadioSoundDefOf.PhobosRadio_RepeaterCourtesy.PlayOneShot(new TargetInfo(station.Position, station.Map));
+            Seen.Note("radio.repeater-courtesy", station);
+        }
         foreach (RelayNode relay in held)
         {
             if (relay.Owner is Outpost_PhobosRelayPost && Seen.Wants("radio.relay-post", from.End.Thing)) Seen.Note("radio.relay-post", from.End.Thing, relay.Label);

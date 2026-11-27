@@ -121,4 +121,88 @@
       <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
     </modExtensions>
   </SoundDef>
+
+  <!-- S163 (Radio 0.30.0, the owner's pick of 27 Nov 2026): a hand-held's gentle squelch as its pawn comes into touch with a station; a radio's engageSound (CompProperties_Radio), played by the net when it changes (RadioNetSounds). -->
+  <SoundDef>
+    <defName>PhobosRadio_SquelchHandheld</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>3</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Radio/SquelchHandheld</clipPath>
+          </li>
+        </grains>
+        <volumeRange>14~14</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S166 (Radio 0.30.0): a repeater station's courtesy tone and squelch tail as a call starts passing through it (RelayNodes.BestChain). -->
+  <SoundDef>
+    <defName>PhobosRadio_RepeaterCourtesy</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Radio/RepeaterCourtesy</clipPath>
+          </li>
+        </grains>
+        <volumeRange>14~14</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S169 (Radio 0.30.0): a station's channel knob turned as it moves one of its radios to another channel (RadioNetSounds). -->
+  <SoundDef>
+    <defName>PhobosRadio_ChannelKnob</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Radio/ChannelKnob</clipPath>
+          </li>
+        </grains>
+        <volumeRange>14~14</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S170 (Radio 0.30.0): a coax connector screwed home, as a coax run is built or a radio kit is fitted to a vehicle. -->
+  <SoundDef>
+    <defName>PhobosRadio_CoaxConnector</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Radio/CoaxConnector</clipPath>
+          </li>
+        </grains>
+        <volumeRange>14~14</volumeRange>
+        <distRange>5~20</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
 </Defs>

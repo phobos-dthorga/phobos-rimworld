@@ -94,6 +94,8 @@ public sealed class RadioNet : MapComponent
     private readonly Dictionary<Pawn, Thing> servedBy = new();
     private readonly HashSet<Pawn> busy = new();
     private readonly Dictionary<Thing, List<Thing>> servedOn = new();
+    /// <summary>The net's change sounds (Radio 0.30.0): nothing saved, worked out after each recompute.</summary>
+    private readonly RadioNetSounds sounds = new();
     /// <summary>Each served radio's station, its kind (its index in the ledger) and its place among that station's radios of the kind.</summary>
     private readonly Dictionary<Thing, (Thing station, int kind, int place)> placeOf = new();
     private readonly Dictionary<Thing, StationChannels> channelsOf = new();
@@ -138,6 +140,7 @@ public sealed class RadioNet : MapComponent
     public override void MapRemoved()
     {
         Clear();
+        sounds.Reset();
         byMap.Remove(map);
     }
 
@@ -394,7 +397,11 @@ public sealed class RadioNet : MapComponent
         // Before the check below, so a vehicle's radio still shows "no station" (Radio 0.10.0).
         CollectMobileRadios();
         CollectTurretRadios();
-        if (stations.Count == 0) return;
+        if (stations.Count == 0)
+        {
+            sounds.Heard(this, map, servedOn);
+            return;
+        }
 
         var metresPerCell = RadioMod.Settings.metresPerCell;
         foreach (var station in stations)
@@ -434,6 +441,8 @@ public sealed class RadioNet : MapComponent
         }
         ServeFromChannels(rules);
         ServeTurrets(rules);
+        // Radio 0.30.0: the squelch of each radio newly in touch, and a station's knob as it moves a radio, from this recompute's changes.
+        sounds.Heard(this, map, servedOn);
     }
 
     /// <summary>A base turret spawned on this map (Radio 0.18.0): the net works it in at its next pass.</summary>

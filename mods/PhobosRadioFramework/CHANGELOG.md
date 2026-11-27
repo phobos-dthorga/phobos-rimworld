@@ -22,6 +22,21 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.30.0] - 2026-11-27 - Draft
+
+The radio's new sounds: a squelch as a hand-held comes into touch, a channel knob, a repeater's tail and coax screwed home
+
+### Added
+
+- **A hand-held gives a gentle squelch as its colonist comes into touch with a station**: the owner's pick of 27 Nov 2026, as
+  they asked ("a gentle squelch sound for each the vehicles, pawns, and base-stations whenever they engage the radios"). Each radio
+  then waits about two in-game hours before squelching again, so walking along the edge of range does not chatter. The vehicles'
+  and stations' own squelches are still being picked.
+- **A station's channel knob clicks as it moves one of its radios to another channel.**
+- **A repeater station gives a courtesy tone and squelch tail** as a call starts passing through it, heard near it on its map.
+- **A coax connector is screwed home as each run of coax is finished, and as a radio kit is fitted to a vehicle.**
+- All are quiet and scaled by the one sound volume setting; loading a save plays none. Not yet tested in game: row 665.
+
 ## [0.29.0] - 2026-11-27 - Draft
 
 A radio friend

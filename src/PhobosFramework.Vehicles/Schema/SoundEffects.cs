@@ -101,6 +101,9 @@ public static class VehicleSystemSoundDefOf
     // Framework 0.270.0: the owner's picks of night 12 played from code (S111, S115); S113 and S123 play from their systems' Defs.
     public static SoundDef PhobosVehicleSystems_BeltSnap = null!;
     public static SoundDef PhobosVehicleSystems_VehicleHoist = null!;
+    // Framework 0.338.0: the owner's picks of night 16 (S167, S168), a remote control link taken and lost.
+    public static SoundDef PhobosVehicleSystems_RemoteLinkLock = null!;
+    public static SoundDef PhobosVehicleSystems_RemoteLinkLost = null!;
 
     static VehicleSystemSoundDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(VehicleSystemSoundDefOf));
 }

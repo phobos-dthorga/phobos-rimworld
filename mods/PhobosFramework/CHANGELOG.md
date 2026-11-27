@@ -20,6 +20,18 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.338.0] - 2026-11-27 - Draft
+
+A vehicle driven from afar sounds its link, and fittings and buildings can have a sound of their own
+
+### Added
+
+- **A vehicle driven from afar gives a short data burble as it takes its control link, and a stutter into static as it loses
+  it**: the owner's picks of 27 Nov 2026, never an alarm.
+- **A fitting can have its own sound as it goes on** (fittedSound on a fitting's Def): the radio kits screw their coax home.
+- **A building can have its own sound as it is finished** (Phobos.Framework.Sounds.CompProperties_PhobosSoundOnBuilt): only the
+  player's own, never on a load. Not yet tested in game: row 665.
+
 ## [0.337.1] - 2026-11-27 - Draft
 
 The eight road work buttons get their own pictures

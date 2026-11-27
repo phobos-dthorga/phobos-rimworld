@@ -58,6 +58,9 @@ public class PhobosVehicleFittingDef : Def
     public List<ThingDefCountClass> materials = new();
     /// <summary>Work in ticks for a mechanic of construction speed 1.</summary>
     public float work = 1200f;
+    /// <summary>The fitting's own sound as a mechanic finishes putting it on (Framework 0.338.0; first the radio kits' coax connector,
+    /// the owner's card of 27 Nov 2026). None plays nothing, as before.</summary>
+    public SoundDef? fittedSound;
     /// <summary>The Construction skill the job needs; a mechanic below it is refused and told why.</summary>
     public int minSkill;
     public ResearchProjectDef? researchPrerequisite;

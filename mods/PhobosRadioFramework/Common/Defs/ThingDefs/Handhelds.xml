@@ -70,6 +70,8 @@
         <noiseFigureDb>8</noiseFigureDb>
         <antennaGainDbi>0</antennaGainDbi>
         <antennaHeightMetres>1.5</antennaHeightMetres>
+        <!-- Its gentle squelch as its wearer comes into touch with a station (Radio 0.30.0, S163, the owner's pick of 27 Nov 2026). -->
+        <engageSound>PhobosRadio_SquelchHandheld</engageSound>
       </li>
     </comps>
   </ThingDef>
@@ -88,6 +90,8 @@
         <noiseFigureDb>8</noiseFigureDb>
         <antennaGainDbi>0</antennaGainDbi>
         <antennaHeightMetres>1.5</antennaHeightMetres>
+        <!-- Its gentle squelch as its wearer comes into touch with a station (Radio 0.30.0, S163, the owner's pick of 27 Nov 2026). -->
+        <engageSound>PhobosRadio_SquelchHandheld</engageSound>
       </li>
     </comps>
   </ThingDef>

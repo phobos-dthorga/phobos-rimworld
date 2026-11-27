@@ -16,6 +16,8 @@
     <materials><Steel>15</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
     <kilograms>8</kilograms>
     <work>1500</work>
+    <!-- Its coax connector screwed home as it goes on (Radio 0.30.0, S170, the owner's card of 27 Nov 2026). -->
+    <fittedSound>PhobosRadio_CoaxConnector</fittedSound>
     <minSkill>4</minSkill>
     <researchPrerequisite>PhobosRadio_RemoteVehicles</researchPrerequisite>
     <grants><li>RadioRepeater</li></grants>

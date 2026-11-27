@@ -2108,6 +2108,80 @@
       "offset_db": 0,
       "volume": 18,
       "why": "The C-27J's own voice (Vehicles 0.129.0): the owner's pick of 26 Nov 2026 on the Picks page from the real recordings' listening page (assets/phobos-sounds/recordings/c27j.json, public-domain DVIDS video; the record credits it): the cabin in flight, played on the camera while the player follows the aircraft on the world map. Reference and offset are agent choices: a step under the idle, as it plays alone with nothing else of the map's to mix with."
+    },
+    {
+      "name": "SquelchHandheld",
+      "use": "S163: a hand-held's gentle squelch as its pawn comes into touch with a station",
+      "picked": "2026-11-27",
+      "candidate": "n16-squelch-handheld/n16-squelch-handheld-201.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/SquelchHandheld.ogg",
+      "reference": "Checkbox_TurnedOn",
+      "offset_db": -4,
+      "volume": 14,
+      "why": "A gentle squelch, 2 dB under the switch click's level beside the game's checkbox (agent's choice: the owner asked for it gentle). The owner's pick on the Companion's Picks page, 27 Nov 2026; when it plays is the owner's card of the same day, coming into touch."
+    },
+    {
+      "name": "RepeaterCourtesy",
+      "use": "S166: a repeater station's courtesy tone and squelch tail as a call starts passing through it",
+      "picked": "2026-11-27",
+      "candidate": "n16-repeater-courtesy/n16-repeater-courtesy-202.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/RepeaterCourtesy.ogg",
+      "reference": "Checkbox_TurnedOn",
+      "offset_db": -3,
+      "volume": 14,
+      "why": "A short low tone and tail, a little under the switch click (agent's choice). The owner's pick on the Companion's Picks page, 27 Nov 2026; heard at the repeater on its map, the owner's card."
+    },
+    {
+      "name": "ChannelKnob",
+      "use": "S169: a station's channel knob turned as it moves a radio to another channel",
+      "picked": "2026-11-27",
+      "candidate": "n16-channel-knob/n16-channel-knob-202.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/ChannelKnob.ogg",
+      "reference": "Checkbox_TurnedOn",
+      "offset_db": -2,
+      "volume": 14,
+      "why": "Detent clicks at the switch click's level, as the amplifier relay sits. The owner's pick on the Companion's Picks page, 27 Nov 2026; played when a station moves a radio to another channel, the owner's card."
+    },
+    {
+      "name": "CoaxConnector",
+      "use": "S170: a coax connector screwed home, as a coax run is built or a radio kit fitted to a vehicle",
+      "picked": "2026-11-27",
+      "candidate": "n16-coax-connector/n16-coax-connector-201.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosRadioFramework/Common/Sounds/Phobos/Radio/CoaxConnector.ogg",
+      "reference": "Checkbox_TurnedOn",
+      "offset_db": -2,
+      "volume": 14,
+      "why": "Threading turns and a snug click at the switch click's level. The owner's pick on the Companion's Picks page, 27 Nov 2026; one connector, so one sound for coax runs and vehicle radio kits, the owner's card. A narrow notch at 12 kHz takes out a steady tone the exporter flagged, 12 dB over its surroundings (agent's judgement, as the C-27J's: a tone that high is above much of what the owner hears, and would only annoy others).",
+      "filter": "bandreject=f=12000:width_type=h:w=600"
+    },
+    {
+      "name": "RemoteLinkLock",
+      "use": "S167: a remote control link locking on, as a vehicle driven from afar takes its link",
+      "picked": "2026-11-27",
+      "candidate": "n16-link-lock/n16-link-lock-201.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/Remote/LinkLock.ogg",
+      "reference": "Checkbox_TurnedOn",
+      "offset_db": -3,
+      "volume": 14,
+      "why": "A short data burble a little under the switch click (agent's choice). The owner's pick on the Companion's Picks page, 27 Nov 2026."
+    },
+    {
+      "name": "RemoteLinkLost",
+      "use": "S168: a remote control link dropping out, as a vehicle driven from afar loses its link",
+      "picked": "2026-11-27",
+      "candidate": "n16-link-lost/n16-link-lost-202.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/Remote/LinkLost.ogg",
+      "reference": "Checkbox_TurnedOn",
+      "offset_db": -3,
+      "volume": 14,
+      "why": "Data tones stuttering into static, a little under the switch click; never an alarm (agent's choice). Try 202 carries the measured whine flag, which the owner heard and picked. The owner's pick on the Companion's Picks page, 27 Nov 2026. A narrow notch at 7 kHz takes out a steady tone the exporter flagged, 18 dB over its surroundings (agent's judgement, as the C-27J's); the stutter and the static stay.",
+      "filter": "bandreject=f=7000:width_type=h:w=400"
     }
   ]
 }

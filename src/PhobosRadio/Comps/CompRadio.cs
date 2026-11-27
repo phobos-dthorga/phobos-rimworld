@@ -5,6 +5,7 @@ using Phobos.Radio.Services;
 using Phobos.Radio.UI;
 using RimWorld;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.Radio;
 
@@ -40,6 +41,13 @@ public class CompProperties_Radio : CompProperties
     /// repeater kit fitted, which its source declares; a relay mast's radio is one.
     /// </summary>
     public bool relays;
+    /// <summary>
+    /// The radio's own gentle squelch as it engages (Radio 0.30.0; the owner, 27 Nov 2026: "a gentle squelch sound for each the vehicles,
+    /// pawns, and base-stations whenever they engage the radios"): a hand-held or a vehicle's radio as it comes into touch with a station
+    /// (RadioNetSounds), a station as it comes into use (its rare tick). Each kind of radio names its own, as each is its own speaker;
+    /// none plays nothing.
+    /// </summary>
+    public SoundDef? engageSound;
 
     public CompProperties_Radio() => compClass = typeof(CompRadio);
 
@@ -95,6 +103,12 @@ public class CompRadio : ThingComp
         if (inUse != transmitting)
         {
             transmitting = inUse;
+            // Its squelch once as it comes into use (Radio 0.30.0), never on going quiet; S102's loop then carries on while it is in use.
+            if (inUse && Props.engageSound != null)
+            {
+                Props.engageSound.PlayOneShot(new TargetInfo(parent.Position, parent.Map));
+                Seen.Note("radio.engage-squelch", parent, null, "station");
+            }
             if (powerComp != null)
             {
                 var basePower = ((CompProperties_Power)powerComp.props).PowerConsumption;
