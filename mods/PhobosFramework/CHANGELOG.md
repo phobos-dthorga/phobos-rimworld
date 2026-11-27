@@ -22,6 +22,20 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.363.0] - 2026-11-28 - Draft
+
+The systems schematic
+
+### Added
+
+- **The systems schematic** (the owner's answers of 28 November 2026): a new Dashboard button opens a window that draws a land vehicle's
+  engine systems as a flow sheet: radiator, pumps, engine, sump, turbocharger, filters, fuel tank, battery and starter, joined by pipes
+  in the colour of what they carry, grey when nothing flows. Each part is green, amber or red by its reading and health; resting on one
+  reads it and lights it on the vehicle, and a click opens the Systems tab there. For land vehicles with a piston engine, in Operator
+  and Engineer display modes; other kinds follow. Other modders add pages in XML. Not yet tested in game: row 735.
+- **Flow marks on the systems schematic** (Vehicle Systems' settings, Display page; off): small marks drift along the pipes that carry
+  something. Looks only.
+
 ## [0.362.0] - 2026-11-28 - Draft
 
 The setup wizard

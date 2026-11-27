@@ -470,6 +470,7 @@
       "finished, its choices kept": [{"key": "framework.setup-wizard", "variant": "finished"}]
     }},
     "734": [{"key": "framework.setup-wizard", "variant": "skipped"}],
+    "735": {"parts": {"the page opens from the Dashboard": ["vehicles.schematic.opened"], "flow marks drift with the setting on": ["vehicles.schematic.flow-marks"]}},
     "713": [{"key": "radio.world-cover-network", "variant": "PhobosRadioCover_RelayMast"}],
     "714": ["radio.world-cover-full-relay"],
     "704": {"parts": {"finished while not selected": [{"key": "radio.coverage-finished", "variant": "background"}],

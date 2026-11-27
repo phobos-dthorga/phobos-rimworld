@@ -55,7 +55,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Vehicle systems](vehicle-systems-design.md) (8 Nov 2026): the schema-driven service for electrical, coolant, oil and more. Built.
 - [The vehicle tabs](vehicle-tabs-design.md) (8 Nov 2026): the Dashboard, Systems and Health tabs and their history graphs. Built.
 - [How our vehicle features look](vehicle-presentation-design.md) (11 Nov 2026): the diagnosis report, fleet board, icons and graphs. Partly built.
-- [A live systems schematic](vehicle-schematic.md) (28 Nov 2026): a page of pipes and cutaways, SC1 to SC12, with a mock-up. Record only.
+- [A live systems schematic](vehicle-schematic.md) (28 Nov 2026): a page of pipes and cutaways, SC1 to SC12, with a mock-up. Partly built.
 - [Other factions' vehicles: an audit](vehicle-other-factions-audit.md) (11 Nov 2026): every player-faction check against the owner's rule. Built.
 - [Headlights that light the ground](vehicle-headlights.md) (12 Nov 2026): a beam of the game's own light ahead of every vehicle. Built.
 - [Vehicle damage](systems/vehicle-damage.md) (23 Nov 2026): how vehicles are hurt, knocked out, burned and mended now. Living.

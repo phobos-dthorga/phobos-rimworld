@@ -506,6 +506,24 @@
   <PhobosVehicleSystems_SettingEnemyFitSetsDesc>Some vehicles of other factions are found with fittings and a tune suited to their faction, and keep them if captured.</PhobosVehicleSystems_SettingEnemyFitSetsDesc>
   <PhobosVehicleSystems_ButtonFittings>Fittings and tunes</PhobosVehicleSystems_ButtonFittings>
   <PhobosVehicleSystems_ButtonFittingsDesc>Choose what is bolted onto this vehicle's parts and how its engine is set up. A mechanic does the work.</PhobosVehicleSystems_ButtonFittingsDesc>
+  <!-- The systems schematic (Framework 0.363.0). -->
+  <PhobosVehicleSystems_ButtonSchematic>Systems schematic</PhobosVehicleSystems_ButtonSchematic>
+  <PhobosVehicleSystems_ButtonSchematicDesc>A picture of how fuel, oil, coolant, air and power move through this vehicle, and where a fault sits. Point at a part to read it and see it on the vehicle; click it to open the Systems tab there. Press again to close.</PhobosVehicleSystems_ButtonSchematicDesc>
+  <PhobosVehicleSystems_SchematicTitle>{VEHICLE}: systems</PhobosVehicleSystems_SchematicTitle>
+  <PhobosVehicleSystems_SchematicRunning>Engine running</PhobosVehicleSystems_SchematicRunning>
+  <PhobosVehicleSystems_SchematicEngineOff>Engine off: nothing flows</PhobosVehicleSystems_SchematicEngineOff>
+  <PhobosVehicleSystems_SchematicFuel>Fuel in the tank: {SHARE}</PhobosVehicleSystems_SchematicFuel>
+  <PhobosVehicleSystems_SchematicPartHealth>Part: {HEALTH}</PhobosVehicleSystems_SchematicPartHealth>
+  <PhobosVehicleSystems_SchematicClick>Click to open the Systems tab at the {SYSTEM}.</PhobosVehicleSystems_SchematicClick>
+  <PhobosVehicleSystems_SchematicMediumFuel>fuel</PhobosVehicleSystems_SchematicMediumFuel>
+  <PhobosVehicleSystems_SchematicMediumOil>oil</PhobosVehicleSystems_SchematicMediumOil>
+  <PhobosVehicleSystems_SchematicMediumCoolant>coolant</PhobosVehicleSystems_SchematicMediumCoolant>
+  <PhobosVehicleSystems_SchematicMediumAir>air</PhobosVehicleSystems_SchematicMediumAir>
+  <PhobosVehicleSystems_SchematicMediumExhaust>exhaust</PhobosVehicleSystems_SchematicMediumExhaust>
+  <PhobosVehicleSystems_SchematicMediumElectric>power</PhobosVehicleSystems_SchematicMediumElectric>
+  <PhobosVehicleSystems_SchematicMediumNone>nothing flowing</PhobosVehicleSystems_SchematicMediumNone>
+  <PhobosVehicleSystems_SettingSchematicFlowMarks>Flow marks on the systems schematic</PhobosVehicleSystems_SettingSchematicFlowMarks>
+  <PhobosVehicleSystems_SettingSchematicFlowMarksDesc>Small marks drift along the systems schematic's pipes while something flows through them. They stop when the flow stops or the game is paused. Off: colour alone shows what flows. Looks only.</PhobosVehicleSystems_SettingSchematicFlowMarksDesc>
   <PhobosVehicleSystems_FitWindowTitle>Fittings and tunes: {VEHICLE}</PhobosVehicleSystems_FitWindowTitle>
   <PhobosVehicleSystems_FitWindowIntro>A fitting goes on one part, one to a part, and is lost if that part is destroyed. A tune sets up the whole engine. A part's grade sets how tough and how reliable it is, and changing it on a working part uses up the old one. Materials are brought to the vehicle, then a mechanic does the work.</PhobosVehicleSystems_FitWindowIntro>
   <PhobosVehicleSystems_FitSectionTunes>Tunes</PhobosVehicleSystems_FitSectionTunes>

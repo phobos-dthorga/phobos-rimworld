@@ -292,10 +292,21 @@ public class ITab_VehicleDashboard : ITab
             Widgets.DrawBox(fittings);
             TooltipHandler.TipRegion(fittings, "PhobosVehicleSystems_ButtonFittings".Translate() + "\n" + "PhobosVehicleSystems_ButtonFittingsDesc".Translate());
         }
+        // The systems schematic (Framework 0.363.0; docs/development/vehicle-schematic.md): for those who read figures, as the Systems tab is,
+        // on a player's vehicle of a kind that has a page. Lit while its window is open.
+        if (figures && Window_PhobosVehicleSchematic.PageFor(comp) != null)
+        {
+            Rect schematic = NextSwitch();
+            bool open = Window_PhobosVehicleSchematic.IsOpenFor(comp);
+            Widgets.DrawBoxSolid(schematic, open ? PhobosWidgets.Good : PhobosWidgets.Off);
+            if (Widgets.ButtonImage(schematic.ContractedBy(3f), SystemIcons.Schematic)) Window_PhobosVehicleSchematic.Toggle(comp);
+            Widgets.DrawBox(schematic);
+            TooltipHandler.TipRegion(schematic, "PhobosVehicleSystems_ButtonSchematic".Translate() + "\n" + "PhobosVehicleSystems_ButtonSchematicDesc".Translate());
+        }
     }
 
     /// <summary>A gauge or a warning clicked: the Systems tab opens at that system (in Plain mode there is no Systems tab to open).</summary>
-    static void OpenSystem(CompPhobosVehicleSystems comp, SystemState state, DisplayMode mode, bool onWorld)
+    internal static void OpenSystem(CompPhobosVehicleSystems comp, SystemState state, DisplayMode mode, bool onWorld)
     {
         ITab_VehicleSystems.ScrollTo(comp.Vehicle.thingIDNumber, state.Def.defName);
         if (mode == DisplayMode.Plain) return;

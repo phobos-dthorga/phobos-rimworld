@@ -87,6 +87,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Another faction's vehicle may be found with fittings and a tune.</summary>
     public bool enemyFitSets = true;
     public DisplayMode displayMode = DisplayMode.Plain;
+    /// <summary>Small marks drift along the systems schematic's pipes while something flows (Framework 0.363.0; the owner's answer of 28 Nov
+    /// 2026: a preference that starts off). Off, colour alone shows what flows. Looks only. Live.</summary>
+    public bool schematicFlowMarks;
     /// <summary>The drivetrain and turbines: off, figures only, or feeding load, heat and the speed cap. Live.</summary>
     public DrivetrainMode drivetrainMode = DrivetrainMode.Full;
     /// <summary>Fuel follows the engine model's load instead of the vehicle author's flat rates. On by default since Framework 0.131.0
@@ -462,6 +465,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref powerPointLargeSocket, "PhobosVehicleSystems_PowerPointLargeSocket", false);
         Scribe_Values.Look(ref enemyFitSets, "PhobosVehicleSystems_EnemyFitSets", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
+        Scribe_Values.Look(ref schematicFlowMarks, "PhobosVehicleSystems_SchematicFlowMarks", false);
         Scribe_Values.Look(ref drivetrainMode, "PhobosVehicleSystems_DrivetrainMode", DrivetrainMode.Full);
         Scribe_Values.Look(ref loadDependentFuel, "PhobosVehicleSystems_LoadDependentFuel", true);
         Scribe_Values.Look(ref hoverLimit, "PhobosVehicleSystems_HoverLimit", HoverLimit.RefusePadUseRunway);
@@ -1021,6 +1025,8 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingKeepVfHealthTab".Translate(), ref s.keepVehicleFrameworkHealthTab, d.keepVehicleFrameworkHealthTab,
             "PhobosVehicleSystems_SettingKeepVfHealthTabDesc".Translate(), restart: true);
         list.Check("PhobosVehicleSystems_SettingFleetButton".Translate(), ref s.fleetBoardButton, d.fleetBoardButton, "PhobosVehicleSystems_SettingFleetButtonDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingSchematicFlowMarks".Translate(), ref s.schematicFlowMarks, d.schematicFlowMarks,
+            "PhobosVehicleSystems_SettingSchematicFlowMarksDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingPowerPointLarge".Translate(), ref s.powerPointLargeSocket, d.powerPointLargeSocket, "PhobosVehicleSystems_SettingPowerPointLargeDesc".Translate());
         list.Section("PhobosFramework_SectionSound".Translate());
         list.Check("PhobosFramework_SettingSystemSoundsOnOtherVehicles".Translate(), ref FrameworkMod.Settings.systemSoundsOnOtherVehicles,
@@ -1086,6 +1092,8 @@ public static class SystemIcons
     public static readonly Texture2D Service = Load("Phobos/VehicleSystems/Service");
     public static readonly Texture2D Switch = Load("Phobos/VehicleSystems/Switch");
     public static readonly Texture2D Fittings = Load("Phobos/VehicleSystems/Fittings");
+    /// <summary>The systems schematic's button (Framework 0.363.0), drawn by script (scripts/art/draw_schematic_icon.py).</summary>
+    public static readonly Texture2D Schematic = Load("Phobos/VehicleSystems/Schematic");
     static readonly Dictionary<string, Texture2D> byPath = new();
 
     static Texture2D Load(string path) => ContentFinder<Texture2D>.Get(path, reportFailure: false) ?? BaseContent.WhiteTex;

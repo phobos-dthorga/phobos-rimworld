@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.362.0, built 28 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.363.0, built 28 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -239,6 +239,7 @@ offers to restart). RimWorld saves only what you change.
 | Display, sound and stories | How much to show | Plain, Operator or Engineer | Plain |
 | Display, sound and stories | Keep Vehicle Framework's own Health tab | Keeps their list instead of ours | Off |
 | Display, sound and stories | Show the fleet button on the bottom bar | The fleet board | On |
+| Display, sound and stories | Flow marks on the systems schematic | Looks only: small marks drift along the schematic's pipes while something flows. Off: colour alone shows it | Off |
 | Display, sound and stories | Power points have the larger socket | Looks only: which picture a working truck's power point uses | Off |
 | Display, sound and stories | Vehicle system sounds on other mods' vehicles too | The vehicle systems' sounds (a tyre bursting, an engine knocking, the warning chime) play on any vehicle running them. Off: only D'thorga's own vehicles | On |
 | Display, sound and stories | Vehicle messages nobody asked for | Every message; Only troubles (breakdowns, fires, damage, losses and threats); None: letters only. Answers to your own orders and letters always show | Every message |

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The live systems schematic (Framework 0.363.0; docs/development/vehicle-schematic.md, SC1 and SC5; the owner's answers of 28 Nov 2026:
+    a first slice, the flow sheet first, for one kind of vehicle). Not yet tested in game.
+
+    One page for every land vehicle with a piston engine: the light, medium, heavy and tracked loadouts and the vehicles built on them. A
+    part a vehicle lacks is left out with its pipes, so a truck with no turbocharger draws its air straight from the filter to the engine.
+    The layout is authored, in drawing units on a 720 by 360 page (x to the right, y down); rect is (x, y, width, height). It is a plain
+    flow sheet, not a drawing of any real engine. Other modders add a page for their own kind in XML.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSchematicDef>
+    <defName>PhobosVehicleSchematic_PistonLand</defName>
+    <label>piston engine, land</label>
+    <loadoutKinds>
+      <li>CombustionLand</li>
+      <li>CombustionHeavy</li>
+      <li>CombustionTracked</li>
+    </loadoutKinds>
+    <engineKinds>
+      <li>Piston</li>
+    </engineKinds>
+    <size>(720, 360)</size>
+    <nodes>
+      <li>
+        <key>radiator</key>
+        <label>radiator</label>
+        <shape>Radiator</shape>
+        <rect>(40, 60, 50, 170)</rect>
+        <role>Radiator</role>
+        <system>PhobosVehicleSystem_Cooling</system>
+        <quantity>coolantLevel</quantity>
+      </li>
+      <li>
+        <key>waterPump</key>
+        <label>water pump</label>
+        <shape>Pump</shape>
+        <rect>(130, 225, 28, 28)</rect>
+        <role>WaterPump</role>
+        <system>PhobosVehicleSystem_Cooling</system>
+      </li>
+      <li>
+        <key>alternator</key>
+        <label>alternator</label>
+        <rect>(128, 112, 40, 36)</rect>
+        <role>Alternator</role>
+        <system>PhobosVehicleSystem_Electrical</system>
+      </li>
+      <li>
+        <key>belt</key>
+        <label>belt</label>
+        <rect>(128, 172, 40, 18)</rect>
+        <role>Belt</role>
+        <system>PhobosVehicleSystem_Service</system>
+      </li>
+      <li>
+        <key>engine</key>
+        <label>engine</label>
+        <rect>(220, 60, 260, 150)</rect>
+        <role>Engine</role>
+        <system>PhobosVehicleSystem_Cooling</system>
+        <quantity>coolantTemperature</quantity>
+      </li>
+      <li>
+        <key>sump</key>
+        <label>sump</label>
+        <shape>Tank</shape>
+        <rect>(240, 225, 220, 36)</rect>
+        <system>PhobosVehicleSystem_Lubrication</system>
+        <quantity>oilLevel</quantity>
+        <holds>Oil</holds>
+      </li>
+      <li>
+        <key>oilPump</key>
+        <label>oil pump</label>
+        <shape>Pump</shape>
+        <rect>(290, 290, 28, 28)</rect>
+        <role>OilPump</role>
+        <system>PhobosVehicleSystem_Lubrication</system>
+        <quantity>oilPressure</quantity>
+      </li>
+      <li>
+        <key>turbo</key>
+        <label>turbocharger</label>
+        <rect>(520, 70, 70, 40)</rect>
+        <role>Turbocharger</role>
+        <system>PhobosVehicleSystem_Turbocharger</system>
+        <quantity>turboBoost</quantity>
+      </li>
+      <li>
+        <key>airFilter</key>
+        <label>air filter</label>
+        <shape>Filter</shape>
+        <rect>(630, 130, 60, 44)</rect>
+        <system>PhobosVehicleSystem_Service</system>
+        <quantity>airFilter</quantity>
+      </li>
+      <li>
+        <key>fuelTank</key>
+        <label>fuel tank</label>
+        <shape>Tank</shape>
+        <rect>(600, 280, 90, 46)</rect>
+        <role>FuelTank</role>
+        <system>PhobosVehicleSystem_Fuel</system>
+        <fuelLevel>true</fuelLevel>
+        <holds>Fuel</holds>
+      </li>
+      <li>
+        <key>fuelPump</key>
+        <label>fuel pump</label>
+        <shape>Pump</shape>
+        <rect>(520, 292, 28, 28)</rect>
+        <role>FuelPump</role>
+        <system>PhobosVehicleSystem_Fuel</system>
+        <quantity>fuelFeed</quantity>
+      </li>
+      <li>
+        <key>battery</key>
+        <label>battery</label>
+        <shape>Tank</shape>
+        <rect>(40, 280, 80, 46)</rect>
+        <role>Battery</role>
+        <system>PhobosVehicleSystem_Electrical</system>
+        <quantity>charge</quantity>
+        <holds>Electric</holds>
+      </li>
+      <li>
+        <key>starter</key>
+        <label>starter</label>
+        <rect>(170, 292, 40, 28)</rect>
+        <role>Starter</role>
+        <system>PhobosVehicleSystem_Electrical</system>
+        <quantity>starter</quantity>
+      </li>
+    </nodes>
+    <pipes>
+      <!-- Coolant: out of the engine's head to the radiator, back through the water pump, into the block. -->
+      <li>
+        <medium>Coolant</medium>
+        <points><li>(220, 80)</li><li>(90, 80)</li></points>
+        <from>engine</from>
+        <to>radiator</to>
+        <drivenBy>waterPump</drivenBy>
+      </li>
+      <li>
+        <medium>Coolant</medium>
+        <points><li>(65, 230)</li><li>(65, 239)</li><li>(130, 239)</li></points>
+        <from>radiator</from>
+        <to>waterPump</to>
+        <drivenBy>waterPump</drivenBy>
+      </li>
+      <li>
+        <medium>Coolant</medium>
+        <points><li>(158, 239)</li><li>(200, 239)</li><li>(200, 190)</li><li>(220, 190)</li></points>
+        <from>waterPump</from>
+        <to>engine</to>
+      </li>
+      <!-- Oil: from the sump through its pump to the bearings, and to the turbocharger's where it has one. -->
+      <li>
+        <medium>Oil</medium>
+        <points><li>(304, 261)</li><li>(304, 290)</li></points>
+        <from>sump</from>
+        <to>oilPump</to>
+        <drivenBy>oilPump</drivenBy>
+      </li>
+      <li>
+        <medium>Oil</medium>
+        <points><li>(290, 304)</li><li>(228, 304)</li><li>(228, 210)</li></points>
+        <from>oilPump</from>
+        <to>engine</to>
+      </li>
+      <li>
+        <medium>Oil</medium>
+        <points><li>(318, 304)</li><li>(498, 304)</li><li>(498, 90)</li><li>(520, 90)</li></points>
+        <from>oilPump</from>
+        <to>turbo</to>
+      </li>
+      <!-- Air: through the filter, the turbocharger's compressor where it has one, into the engine. -->
+      <li>
+        <medium>Air</medium>
+        <points><li>(660, 130)</li><li>(660, 100)</li><li>(590, 100)</li></points>
+        <from>airFilter</from>
+        <to>turbo</to>
+      </li>
+      <li>
+        <medium>Air</medium>
+        <points><li>(520, 100)</li><li>(480, 100)</li></points>
+        <from>turbo</from>
+        <to>engine</to>
+      </li>
+      <li>
+        <medium>Air</medium>
+        <points><li>(630, 152)</li><li>(480, 152)</li></points>
+        <from>airFilter</from>
+        <to>engine</to>
+        <onlyWithout>turbo</onlyWithout>
+      </li>
+      <!-- Exhaust: through the turbocharger's turbine where it has one, then out. -->
+      <li>
+        <medium>Exhaust</medium>
+        <points><li>(480, 76)</li><li>(520, 76)</li></points>
+        <from>engine</from>
+        <to>turbo</to>
+      </li>
+      <li>
+        <medium>Exhaust</medium>
+        <points><li>(555, 70)</li><li>(555, 24)</li></points>
+        <from>turbo</from>
+      </li>
+      <li>
+        <medium>Exhaust</medium>
+        <points><li>(350, 60)</li><li>(350, 24)</li></points>
+        <from>engine</from>
+        <onlyWithout>turbo</onlyWithout>
+      </li>
+      <!-- Fuel: from the tank through its pump to the injectors. -->
+      <li>
+        <medium>Fuel</medium>
+        <points><li>(600, 306)</li><li>(548, 306)</li></points>
+        <from>fuelTank</from>
+        <to>fuelPump</to>
+        <drivenBy>fuelPump</drivenBy>
+      </li>
+      <li>
+        <medium>Fuel</medium>
+        <points><li>(520, 306)</li><li>(510, 306)</li><li>(510, 196)</li><li>(480, 196)</li></points>
+        <from>fuelPump</from>
+        <to>engine</to>
+      </li>
+      <!-- Power: the belt turns the alternator, which charges the battery; the battery's lead to the starter carries only a start. -->
+      <li>
+        <medium>Electric</medium>
+        <points><li>(128, 130)</li><li>(110, 130)</li><li>(110, 280)</li></points>
+        <from>alternator</from>
+        <to>battery</to>
+        <drivenBy>belt</drivenBy>
+      </li>
+      <li>
+        <medium>Electric</medium>
+        <points><li>(120, 306)</li><li>(170, 306)</li></points>
+        <from>battery</from>
+        <to>starter</to>
+        <flow>Never</flow>
+      </li>
+    </pipes>
+  </Phobos.VehicleSystems.PhobosVehicleSchematicDef>
+</Defs>

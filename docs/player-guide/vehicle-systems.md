@@ -45,6 +45,11 @@ on an aircraft in flight.
 | **Systems** | What exactly is going on? | Every reading, one row each, with a graph; cards for weapons, running gear, loads and crew |
 
 - **Dashboard**: click a gauge to open the Systems tab at that system.
+- **Systems schematic** (the Dashboard's button, in Operator and Engineer display modes, for land vehicles with a piston engine): a
+  window that draws the engine's systems as a flow sheet. Pipes take the colour of what they carry (fuel, oil, coolant, air, exhaust,
+  power) and turn grey when nothing flows; each part is green, amber or red by its reading and its health. **Rest the mouse on a part**
+  to read it and see it lit on the vehicle; **click it** to open the Systems tab there. Press the button again to close it. **Flow
+  marks on the systems schematic**, on the Display page of the settings, adds small marks that drift along the flowing pipes.
 - **Health**: the vehicle's speed and strength, and what each hurt part does to them. Each part's line shows its armour class (see
   [damage and repairs](vehicle-damage-and-repairs.md#armour)). **Like parts share a row** (landing wheels, panels): the row's bar
   is split into a segment for each part; click the row to open it, or rest the mouse on a segment to see that part. A **Wear**

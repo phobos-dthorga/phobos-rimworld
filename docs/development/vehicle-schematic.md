@@ -1,7 +1,9 @@
 # A live systems schematic for vehicles (28 Nov 2026)
 
-**Status (28 Nov 2026):** a research record and a browser mock-up; no part of the page exists in the mods. The owner asked for
-"strictly a research and record purview"; any build waits for the owner's word on the questions below.
+**Status (28 Nov 2026):** partly built. The first slice is built in Framework 0.363.0, not yet tested in game (row 735): the flow
+sheet for land vehicles with a piston engine, in its own window, flow marks a setting that starts off ([As built](#as-built-framework-03630)).
+Not built: pages for other kinds, cutaways, orders from the page, the standard's line. The missing parts M1 to M3 wait for records of
+their own.
 
 ## Read this first
 
@@ -280,7 +282,7 @@ value. That checks the port, never the game.
 
 ## Questions for the owner
 
-Each is on the Decisions page (`config/decisions.json`), with the agent's lean.
+Asked on the Decisions page on 28 Nov 2026, each with the agent's lean; all five are answered (below).
 
 1. **Go on to a build?** Lean: a first slice, the flow sheet (SC1, SC3, SC6) for one loadout class.
 2. **Where does the page live?** Lean: its own window.
@@ -301,9 +303,43 @@ By card; every option offered, the chosen one first.
 
 The owner on seeing the page: "This is AWESOME". That is appreciation, not a go-ahead to build.
 
+Second round, on the Decisions page (28 Nov 2026):
+
+| Question | Chosen | Also offered |
+| --- | --- | --- |
+| Go on to a build? | **Build a first slice**: the flow sheet for one kind of vehicle (SC1, SC3, SC6) | Keep it a record; build the whole page |
+| Where the page lives | **Its own window** | Inside the Systems tab; in the diagnosis report |
+| Flow sheet or cutaways first | **Flow sheet first** | Cutaways first; flow sheet only |
+| Movement | **Marks as a preference, off at first** | Still only; marks always |
+| Which missing parts | **All three, each with its own record first** | Chip detector and fuel filter (the lean); none; chip detector only |
+
+## As built (Framework 0.363.0)
+
+Not yet tested in game: row 735. What differs from the design above, and the choices the build made:
+
+- **One page, for land vehicles with a piston engine** (agent's choice of the one kind: the light, medium, heavy and tracked loadouts,
+  58 of the 95 designs with our systems). `PhobosVehicleSchematicDef` in `Schematics.xml` lays out 13 parts and 16 pipes on a 720 by
+  360 page; a vehicle without a part leaves it out with its pipes, and a truck with no turbocharger draws its air straight from the
+  filter. This is SC5 as well as SC1: the page is data, so the next kind is XML.
+- **The window** (`Window_PhobosVehicleSchematic`): opened and closed by a new Dashboard button, shown in Operator and Engineer modes on
+  a player's vehicle followed in full. Resting on a part reads it and lights it on the vehicle; a click selects the vehicle and opens
+  the Systems tab at the part's system (SC3).
+- **The snapshot** (`SchematicView`, SC6): rebuilt every 60 ticks while the game runs, or when a part's health changes; nothing per
+  tick, and nothing at all while the window is closed.
+- **Tones**: a part is the worse of its health (red below 40 %, amber below 70 %, the game's bands) and its reading's warning stage
+  (amber, or red where the stage stops or harms). A pipe takes its medium's colour while the engine runs and the part driving it does a
+  tenth of its work and is not in a red warning; grey otherwise. A quiet stage never counts, so a cold engine still shows its exhaust.
+- **Colours** follow F3: pipes carry only their medium's colour, kept off green, amber and red; state lives on the parts.
+- **Flow marks** (SC9): the setting **Flow marks on the systems schematic**, Display page, off by default. They drift 22 drawing units a
+  second, one every 18, and stand still while the game is paused.
+- **The button's icon is drawn by script** (`scripts/art/draw_schematic_icon.py`; agent's choice, for the owner to revise): a tank and an
+  engine joined by a pipe through a pump.
+- **The vehicle standard has no line for the page yet** (agent's choice): one kind has it; the line comes when every kind does.
+- **Not built**: pages for aircraft, boats, electric and steam; cutaways (SC2, SC7, SC8); tabs (SC10); orders from the page (SC4).
+
 ## Who chose what
 
-- **Owner (28 Nov 2026)**: research and a record only; the four answers above.
+- **Owner (28 Nov 2026)**: research and a record only; the four answers above; then the five on the Decisions page.
 - **Agent**: the C-27J and the survey truck as the examples; every row SC1 to SC12, M1 to M7 and F1 to F8; every lean; the
   mock-up's layout, colours and simplifications; the reading that drifting marks are not the flashing lamps the earlier record
   set aside.
