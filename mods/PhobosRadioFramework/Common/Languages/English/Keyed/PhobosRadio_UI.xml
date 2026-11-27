@@ -62,6 +62,7 @@
   <!-- The coverage shown on the map while a base station or an antenna is selected. -->
   <PhobosRadio_CoverageShown>Map shows how well a hand-held would reach this station from each spot: brighter is better, dark red is no contact. Doors count as closed.</PhobosRadio_CoverageShown>
   <PhobosRadio_CoverageWorking>Working out radio coverage on the map: {PERCENT} done.</PhobosRadio_CoverageWorking>
+  <PhobosRadio_CoverageUpdating>Something here changed: updating the radio coverage on the map, {PERCENT} done. The picture shown is the last one until then.</PhobosRadio_CoverageUpdating>
   <PhobosRadio_CoverageNoStation>No coverage to show: connect this antenna to a base station with coax.</PhobosRadio_CoverageNoStation>
 
   <!-- The line from a selected colonist's radio to its antenna, and the side view in the link-budget window. -->

@@ -14,10 +14,18 @@ namespace Phobos.Radio.Services;
 /// colonist could stand on is painted by the signal a hand-held there would have to spare with that station, through the selected
 /// antenna or the best of the station's antennas.
 /// <para>
-/// <b>Performance is the mod's first concern</b> (owner, 23 Nov 2026), so this costs nothing unless a station or an antenna is
-/// selected. While one is, it works cells out for at most <see cref="RadioRulesDef.coverageBudgetMsPerFrame"/> of real time a frame:
-/// first a quick pass of one cell per block, then every cell. It works again only when a building or roof changes, the noise sources
-/// change, or the cell scale does, and the picture is rebuilt only at the end of each pass. Nothing is saved.
+/// <b>Performance is the mod's first concern</b> (owner, 23 Nov 2026). While a station or an antenna is selected, cells are worked out for
+/// at most <see cref="RadioRulesDef.coverageBudgetMsPerFrame"/> of real time a frame: first a quick pass of one cell per block, then
+/// every cell. It works again only when a building or roof changes, the noise sources change, or the cell scale does, and the picture is
+/// rebuilt only at the end of each pass. Nothing is saved.
+/// </para>
+/// <para>
+/// <b>Resumable</b> (Radio 0.44.1; the owner's report of 27 Nov 2026: it "restarts everytime you click away"). Each station or antenna
+/// keeps its own picture, the last <see cref="KeptPictures"/> of them, so selecting it again goes on where it was. The last one shown
+/// finishes the pass under way after it is deselected, at the smaller <see cref="RadioRulesDef.coverageBackgroundBudgetMsPerFrame"/>,
+/// and never starts another in the background. A change while a picture is shown works the picture out again over the old one, which
+/// stays painted until the new pass ends and is said as "updating", never as starting over. Memory: one float a map cell for each picture
+/// kept.
 /// </para>
 /// <para>
 /// Each cell goes through the same walk, inputs and arithmetic as a real contact (<see cref="ObstructionService.Walk"/>,
@@ -34,33 +42,28 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
     /// <summary>How often, in cells, the frame's time budget is checked: often enough to stop close to it.</summary>
     private const int CellsPerClockCheck = 16;
 
+    /// <summary>How many stations' and antennas' pictures are kept, the most recently shown first (an agent default).</summary>
+    public const int KeptPictures = 3;
+
     private const int PassCoarse = 0;
     private const int PassFine = 1;
     private const int PassDone = 2;
-
 
     // What is asked for: the selected station or antenna, renewed every frame it stays selected.
     private Thing? asked;
     private int askedFrame = -10;
 
-    // What the picture shows, and what it was worked out from.
-    private Thing? subject;
-    private int subjectChanges;
-    private int subjectNoise;
-    private float subjectMetresPerCell;
+    // What changes the picture: counted from the map's events.
     private int changes;
+    private int fogChanges;
     private bool listening;
 
-    private float[] margins = System.Array.Empty<float>();
-    private int pass = PassDone;
-    private int cursor;
-    private bool again;
+    /// <summary>The pictures kept, the most recently shown first. The first is the one drawn while shown, and finished in the background.</summary>
+    private readonly List<Picture> pictures = new();
+    private Picture? drawn;
     private bool showing;
     private CellBoolDrawer? drawer;
     private readonly Stopwatch watch = new();
-
-    private readonly List<End> ends = new();
-    private float leastBandFactor = 1f;
     private float fullScaleDb = 130f;
 
     public RadioCoverage(Map map) : base(map) { }
@@ -84,28 +87,41 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
     /// <summary>The selected thing's inspect line about the picture, or null when it is not the one shown.</summary>
     public string? InspectLine(Thing thing)
     {
-        if (thing != subject || !showing) return null;
-        if (ends.Count == 0) return "PhobosRadio_CoverageNoStation".Translate();
-        if (pass == PassDone) return "PhobosRadio_CoverageShown".Translate();
-        return "PhobosRadio_CoverageWorking".Translate(Progress().ToStringPercent().Named("PERCENT"));
+        if (!showing || drawn == null || drawn.Subject != thing) return null;
+        if (drawn.Ends.Count == 0) return "PhobosRadio_CoverageNoStation".Translate();
+        if (drawn.Pass == PassDone) return "PhobosRadio_CoverageShown".Translate();
+        // Radio 0.44.1: over a picture already finished once, a new pass updates it; it does not start again.
+        return (drawn.Finished ? "PhobosRadio_CoverageUpdating" : "PhobosRadio_CoverageWorking").Translate(drawn.Progress.ToStringPercent().Named("PERCENT"));
     }
 
     public override void MapComponentUpdate()
     {
         showing = false;
-        if (asked == null) return;
-        if (RealTime.frameCount - askedFrame > 1 || !asked.Spawned || asked.Map != map || Find.CurrentMap != map)
+        var rules = RadioRulesDef.Current;
+        if (asked != null && (RealTime.frameCount - askedFrame > 1 || !asked.Spawned || asked.Map != map || Find.CurrentMap != map)) asked = null;
+        if (asked != null)
         {
-            asked = null;
+            showing = true;
+            Listen();
+            var picture = Take(asked);
+            if (drawn != picture)
+            {
+                drawn = picture;
+                Drawer.SetDirty();
+            }
+            Refresh(picture);
+            if (picture.Ends.Count == 0) return;
+            Work(picture, rules.coverageBudgetMsPerFrame, background: false);
+            Drawer.MarkForDraw();
+            Drawer.CellBoolDrawerUpdate();
             return;
         }
-        showing = true;
-        Listen();
-        Refresh(asked);
-        if (ends.Count == 0) return;
-        Work(RadioRulesDef.Current.coverageBudgetMsPerFrame);
-        Drawer.MarkForDraw();
-        Drawer.CellBoolDrawerUpdate();
+        // Radio 0.44.1: nothing selected that shows a picture: the last one shown finishes the pass under way, a little each frame, while
+        // its map is the one looked at. Nothing new starts here.
+        if (pictures.Count == 0 || Find.CurrentMap != map) return;
+        var last = pictures[0];
+        if (last.Pass == PassDone || last.Ends.Count == 0 || !last.Subject.Spawned || last.Subject.Map != map) return;
+        Work(last, rules.coverageBackgroundBudgetMsPerFrame, background: true);
     }
 
     public override void MapRemoved()
@@ -118,39 +134,38 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
             map.events.CellFogChanged -= OnFog;
             listening = false;
         }
+        pictures.Clear();
+        drawn = null;
         byMap.Remove(map);
     }
 
-    // ICellBoolGiver: what the game's cell drawer paints.
+    // ICellBoolGiver: what the game's cell drawer paints, from the picture shown.
     public Color Color => Color.white;
-    public bool GetCellBool(int index) => index < margins.Length && !float.IsNaN(margins[index]);
-    public Color GetCellExtraColor(int index) => ColorFor(margins[index]);
+    public bool GetCellBool(int index) => drawn != null && index < drawn.Margins.Length && !float.IsNaN(drawn.Margins[index]);
+    public Color GetCellExtraColor(int index) => ColorFor(drawn!.Margins[index]);
 
     /// <summary>
     /// Works out a whole fine pass for a station or an antenna at once and says how long it took: the dev menu's measure of the
-    /// overlay's cost on a real colony. It leaves the picture as it was.
+    /// overlay's cost on a real colony. It leaves the pictures as they were.
     /// </summary>
     public (double milliseconds, int cells, int ends) TimeFullPass(Thing thing)
     {
-        var saved = (float[])margins.Clone();
-        subject = null;
-        Refresh(thing);
+        var picture = new Picture(thing, map.cellIndices.NumGridCells);
+        CollectEnds(picture, RadioMod.Settings.metresPerCell);
         var clock = Stopwatch.StartNew();
         var cells = 0;
         var rules = RadioRulesDef.Current;
         var metresPerCell = RadioMod.Settings.metresPerCell;
         var noise = RadioNet.For(map).Noise;
-        for (var index = 0; index < margins.Length; index++)
+        for (var index = 0; index < picture.Margins.Length; index++)
         {
             var cell = map.cellIndices.IndexToCell(index);
             if (!Paintable(cell)) continue;
-            Compute(cell, noise, rules, metresPerCell);
+            Compute(picture, cell, noise, rules, metresPerCell);
             cells++;
         }
         clock.Stop();
-        margins = saved;
-        subject = null;
-        return (clock.Elapsed.TotalMilliseconds, cells, ends.Count);
+        return (clock.Elapsed.TotalMilliseconds, cells, picture.Ends.Count);
     }
 
     private CellBoolDrawer Drawer => drawer ??= new CellBoolDrawer(this, map.Size.x, map.Size.z, RadioRulesDef.Current.coverageOpacity);
@@ -178,9 +193,6 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
     /// care what the player can see.</summary>
     private void OnFog(IntVec3 cell, bool fogged) => fogChanges++;
 
-    private int fogChanges;
-    private int subjectFogChanges;
-
     /// <summary>Something the picture is drawn from changed with no map event: an upgrade fitted or taken off (Radio 0.4.0).</summary>
     public void NotifyChanged() => changes++;
 
@@ -198,44 +210,63 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
         }
     }
 
-    /// <summary>Starts again for a new subject; works again over the old picture when what it was drawn from has changed.</summary>
-    private void Refresh(Thing thing)
+    /// <summary>This station's or antenna's picture, kept or new, moved to the front; the oldest beyond <see cref="KeptPictures"/> let go.</summary>
+    private Picture Take(Thing thing)
+    {
+        pictures.RemoveAll(kept => !kept.Subject.Spawned || kept.Subject.Map != map);
+        var index = pictures.FindIndex(kept => kept.Subject == thing);
+        Picture picture;
+        if (index >= 0)
+        {
+            picture = pictures[index];
+            pictures.RemoveAt(index);
+        }
+        else
+        {
+            picture = new Picture(thing, map.cellIndices.NumGridCells);
+        }
+        pictures.Insert(0, picture);
+        if (pictures.Count > KeptPictures) pictures.RemoveRange(KeptPictures, pictures.Count - KeptPictures);
+        return picture;
+    }
+
+    /// <summary>Starts a new picture's first pass; works again over a kept one when what it was drawn from has changed.</summary>
+    private void Refresh(Picture picture)
     {
         var metresPerCell = RadioMod.Settings.metresPerCell;
         var noiseSignature = RadioNet.For(map).Noise.Signature;
-        if (thing == subject)
+        fullScaleDb = Mathf.Max(1f, RadioRulesDef.Current.coverageFullScaleDb);
+        if (picture.Margins.Length != map.cellIndices.NumGridCells) picture.Reset(map.cellIndices.NumGridCells);
+        if (!picture.Started)
         {
-            var changed = changes != subjectChanges || fogChanges != subjectFogChanges || noiseSignature != subjectNoise
-                || metresPerCell != subjectMetresPerCell;
-            if (!changed) return;
-            subjectChanges = changes;
-            subjectFogChanges = fogChanges;
-            subjectNoise = noiseSignature;
-            subjectMetresPerCell = metresPerCell;
-            CollectEnds(thing, metresPerCell);
-            if (pass == PassDone) { pass = PassFine; cursor = 0; }
-            else again = true;
+            picture.Started = true;
+            picture.Note(changes, fogChanges, noiseSignature, metresPerCell);
+            CollectEnds(picture, metresPerCell);
+            picture.Pass = PassCoarse;
+            picture.Cursor = 0;
+            Drawer.SetDirty();
             return;
         }
-        subject = thing;
-        subjectChanges = changes;
-        subjectFogChanges = fogChanges;
-        subjectNoise = noiseSignature;
-        subjectMetresPerCell = metresPerCell;
-        fullScaleDb = Mathf.Max(1f, RadioRulesDef.Current.coverageFullScaleDb);
-        CollectEnds(thing, metresPerCell);
-        var size = map.cellIndices.NumGridCells;
-        if (margins.Length != size) margins = new float[size];
-        for (var i = 0; i < size; i++) margins[i] = float.NaN;
-        pass = PassCoarse;
-        cursor = 0;
-        again = false;
-        Drawer.SetDirty();
+        var changed = picture.Changed(changes, fogChanges, noiseSignature, metresPerCell);
+        if (!changed && !picture.Stale) return;
+        picture.Note(changes, fogChanges, noiseSignature, metresPerCell);
+        picture.Stale = false;
+        CollectEnds(picture, metresPerCell);
+        // Over the old picture, which stays painted: a fresh fine pass when it was done, else one more after the pass under way.
+        if (picture.Pass == PassDone)
+        {
+            picture.Pass = PassFine;
+            picture.Cursor = 0;
+        }
+        else
+        {
+            picture.Again = true;
+        }
     }
 
-    private void Work(float budgetMs)
+    private void Work(Picture picture, float budgetMs, bool background)
     {
-        if (pass == PassDone) return;
+        if (picture.Pass == PassDone) return;
         var rules = RadioRulesDef.Current;
         var metresPerCell = RadioMod.Settings.metresPerCell;
         var noise = RadioNet.For(map).Noise;
@@ -246,20 +277,20 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
         var blocksZ = (sizeZ + block - 1) / block;
         watch.Restart();
         var sinceCheck = 0;
-        while (pass != PassDone)
+        while (picture.Pass != PassDone)
         {
-            if (pass == PassCoarse)
+            if (picture.Pass == PassCoarse)
             {
-                if (cursor >= blocksX * blocksZ) { EndPass(); continue; }
-                CoarseBlock(cursor % blocksX * block, cursor / blocksX * block, block, noise, rules, metresPerCell);
-                cursor++;
+                if (picture.Cursor >= blocksX * blocksZ) { EndPass(picture, background); continue; }
+                CoarseBlock(picture, picture.Cursor % blocksX * block, picture.Cursor / blocksX * block, block, noise, rules, metresPerCell);
+                picture.Cursor++;
             }
             else
             {
-                if (cursor >= margins.Length) { EndPass(); continue; }
-                var cell = map.cellIndices.IndexToCell(cursor);
-                margins[cursor] = Paintable(cell) ? (float)Compute(cell, noise, rules, metresPerCell) : float.NaN;
-                cursor++;
+                if (picture.Cursor >= picture.Margins.Length) { EndPass(picture, background); continue; }
+                var cell = map.cellIndices.IndexToCell(picture.Cursor);
+                picture.Margins[picture.Cursor] = Paintable(cell) ? (float)Compute(picture, cell, noise, rules, metresPerCell) : float.NaN;
+                picture.Cursor++;
             }
             if (++sinceCheck < CellsPerClockCheck) continue;
             sinceCheck = 0;
@@ -267,23 +298,36 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
         }
     }
 
-    private void EndPass()
+    /// <summary>
+    /// A pass has ended: the quick pass goes on to the fine one; a fine pass with a change behind it goes round again while shown, and in
+    /// the background is left for when the picture is next shown (it is marked stale), so nothing new starts unseen.
+    /// </summary>
+    private void EndPass(Picture picture, bool background)
     {
-        Drawer.SetDirty();
-        cursor = 0;
-        if (pass == PassCoarse || again)
+        if (picture == drawn) Drawer.SetDirty();
+        picture.Cursor = 0;
+        if (picture.Pass == PassCoarse)
         {
-            pass = PassFine;
-            again = false;
+            picture.Pass = PassFine;
+            return;
         }
-        else
+        picture.Finished = true;
+        if (picture.Again && !background)
         {
-            pass = PassDone;
+            picture.Again = false;
+            picture.Pass = PassFine;
+            return;
         }
+        picture.Stale = picture.Again;
+        picture.Again = false;
+        picture.Pass = PassDone;
+        if (Seen.Wants("radio.coverage-finished", picture.Subject, background ? "background" : "shown"))
+            Seen.Note("radio.coverage-finished", picture.Subject, background ? "finished while not selected" : "finished while shown",
+                background ? "background" : "shown");
     }
 
     /// <summary>The quick pass: one cell worked out per block, painted over the block's other standing cells.</summary>
-    private void CoarseBlock(int x0, int z0, int block, NoiseService noise, RadioRulesDef rules, float metresPerCell)
+    private void CoarseBlock(Picture picture, int x0, int z0, int block, NoiseService noise, RadioRulesDef rules, float metresPerCell)
     {
         float value = float.NaN;
         var found = false;
@@ -295,33 +339,27 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
                 if (!Paintable(cell)) continue;
                 if (!found)
                 {
-                    value = (float)Compute(cell, noise, rules, metresPerCell);
+                    value = (float)Compute(picture, cell, noise, rules, metresPerCell);
                     found = true;
                 }
-                margins[map.cellIndices.CellToIndex(cell)] = value;
+                picture.Margins[map.cellIndices.CellToIndex(cell)] = value;
             }
         }
     }
 
     private bool Paintable(IntVec3 cell) => !cell.Fogged(map) && cell.Standable(map);
 
-    private float Progress()
-    {
-        if (pass == PassDone) return 1f;
-        if (pass == PassCoarse) return 0f;
-        return margins.Length == 0 ? 1f : (float)cursor / margins.Length;
-    }
-
     /// <summary>
     /// The best signal to spare a hand-held standing here would have, in dB, over the ends and hand-held kinds: exactly what
     /// <see cref="LinkBudgetService.Evaluate"/> would give, doors closed. Once the best it could do with nothing in the way is beaten, or
     /// is lost anyway, the walk along the line stops early.
     /// </summary>
-    private double Compute(IntVec3 cell, NoiseService noise, RadioRulesDef rules, float metresPerCell)
+    private static double Compute(Picture picture, IntVec3 cell, NoiseService noise, RadioRulesDef rules, float metresPerCell)
     {
         var noiseAtCell = noise.LocalNoiseDbm(cell, metresPerCell);
         var best = double.NegativeInfinity;
-        foreach (var end in ends)
+        var map = picture.Subject.Map;
+        foreach (var end in picture.Ends)
         {
             var distanceMetres = cell.DistanceTo(end.Cell) * metresPerCell;
             // With nothing in the way: the most this end could give, which no wall can raise.
@@ -342,7 +380,7 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
                 {
                     walkedHeight = combo.Kind.HeightMetres;
                     crossings = ObstructionService.Walk(map, cell, walkedHeight, end.Cell, end.HeightMetres, rules, doorsClosed: true,
-                        stopAboveDb: (float)bestOpen, leastBandFactor: leastBandFactor);
+                        stopAboveDb: (float)bestOpen, leastBandFactor: picture.LeastBandFactor);
                 }
                 var margin = Margin(combo, crossings.LossDb(combo.Band));
                 if (margin > best) best = margin;
@@ -361,10 +399,12 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
     }
 
     /// <summary>The station's ends this picture is for: all of a selected station's, or the one through a selected antenna.</summary>
-    private void CollectEnds(Thing thing, float metresPerCell)
+    private void CollectEnds(Picture picture, float metresPerCell)
     {
+        var thing = picture.Subject;
+        var ends = picture.Ends;
         ends.Clear();
-        leastBandFactor = 1f;
+        picture.LeastBandFactor = 1f;
         var station = thing.TryGetComp<CompRadio>() is { Props.isStation: true } radio
             ? radio
             : thing.TryGetComp<CompFeedlinePort>() is { } port ? FeedlineService.StationOn(port) : null;
@@ -387,7 +427,7 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
                         handSide: new EndSide(kind.TransmitPowerDbm, kind.AntennaGainDbi, 0),
                         stationSide: endpoint.Side(band),
                         floorAtStationDbm: NoiseFloor.TotalDbm(kind.Mode.bandwidthHz, endpoint.NoiseFigureDb, noiseAtEnd)));
-                    leastBandFactor = first ? band.obstructionFactor : Mathf.Min(leastBandFactor, band.obstructionFactor);
+                    picture.LeastBandFactor = first ? band.obstructionFactor : Mathf.Min(picture.LeastBandFactor, band.obstructionFactor);
                     first = false;
                 }
             }
@@ -418,6 +458,59 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
 
     private Color ColorFor(float margin) =>
         margin < 0f ? UI.RadioPalette.NoContact : UI.RadioPalette.At((float)CoverRule.Shade(margin, fullScaleDb));
+
+    /// <summary>
+    /// One station's or antenna's picture (Radio 0.44.1): its cells, how far its pass has got, and what it was worked out from, so it can be
+    /// kept, gone back to and finished while another is shown or none is.
+    /// </summary>
+    private sealed class Picture
+    {
+        public readonly Thing Subject;
+        public float[] Margins = System.Array.Empty<float>();
+        public readonly List<End> Ends = new();
+        public float LeastBandFactor = 1f;
+        public int Pass = PassDone;
+        public int Cursor;
+        /// <summary>Its first pass has been started.</summary>
+        public bool Started;
+        /// <summary>A fine pass has ended at least once: a new pass updates it.</summary>
+        public bool Finished;
+        /// <summary>A change came during the pass under way: one more pass follows, while shown.</summary>
+        public bool Again;
+        /// <summary>A change was left for when it is next shown: the background never starts a pass.</summary>
+        public bool Stale;
+        private int changes, fogChanges, noise;
+        private float metresPerCell;
+
+        public Picture(Thing subject, int cells)
+        {
+            Subject = subject;
+            Reset(cells);
+        }
+
+        /// <summary>Every cell blank, and nothing worked out yet (a new map size).</summary>
+        public void Reset(int cells)
+        {
+            Margins = new float[cells];
+            for (var i = 0; i < cells; i++) Margins[i] = float.NaN;
+            Started = Finished = Again = Stale = false;
+            Pass = PassDone;
+            Cursor = 0;
+        }
+
+        public float Progress => Pass == PassDone ? 1f : Pass == PassCoarse ? 0f : Margins.Length == 0 ? 1f : (float)Cursor / Margins.Length;
+
+        public bool Changed(int nowChanges, int nowFog, int nowNoise, float nowMetres) =>
+            nowChanges != changes || nowFog != fogChanges || nowNoise != noise || nowMetres != metresPerCell;
+
+        public void Note(int nowChanges, int nowFog, int nowNoise, float nowMetres)
+        {
+            changes = nowChanges;
+            fogChanges = nowFog;
+            noise = nowNoise;
+            metresPerCell = nowMetres;
+        }
+    }
 
     /// <summary>A kind of hand-held, read from its Def.</summary>
     private sealed class Kind

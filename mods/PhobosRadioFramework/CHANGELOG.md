@@ -23,6 +23,22 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.44.1] - 2026-11-27 - Draft
+
+The map's radio coverage no longer starts again
+
+### Fixed
+
+- **The map's radio coverage no longer starts again from nothing** when you select the station again (the owner's report of 27
+  November 2026). Each station and antenna keeps its picture, the last three of them, and the last one shown goes on working in the
+  background, more slowly, until it is done. A change at home (a wall built, a machine switched on) now updates the picture over the
+  old one, which says "updating" and stays painted, where before a finished picture was thrown away. Not yet tested in game: row 704.
+
+### Compatibility and limits
+
+- The background work takes at most half a millisecond a frame, a new figure in the radio's rules. Each picture kept holds one number
+  for each cell of the map. Safe with a running save; nothing is saved.
+
 ## [0.44.0] - 2026-11-27 - Draft
 
 Caravans on foot call home by hand-held

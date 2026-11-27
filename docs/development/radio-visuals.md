@@ -118,6 +118,14 @@ hand-held there would have to spare. Brighter is better; hatched black is no con
 - **Choices it forces [A]:** one band at a time (a VHF view and a UHF view); doors counted as closed, since they open and close
   too often to redraw for; with several antennas, each cell shows the best one, as the station already picks.
 
+**As built, resumable (Radio 0.44.1; the owner's report of 27 Nov 2026: it "restarts everytime you click away").** The cause: the
+picture was worked out only while its station was selected, and any change on the map meanwhile (an edifice built or gone, a roof, fog,
+a noise source switching) made a finished picture start again from 0%; selecting an antenna threw the station's picture away. Now
+**each station and antenna keeps its own picture, the last three [A]**, and **the last one shown finishes its pass in the background**
+at `coverageBackgroundBudgetMsPerFrame` (0.5 ms a frame [A], against 1.5 while shown), never starting a new one unseen. **A change
+updates a finished picture over the old one**, said as "updating" and painted until the new pass ends. Cost: one float a map cell for
+each picture kept (about 0.25 MB each on a 250 by 250 map); nothing runs once the last picture is done. Not measured; row 704.
+
 ### RV2: Ray line with the walls marked
 
 Select a colonist who wears a radio and a line runs to the antenna in use, coloured by the result. Each thing in the way gets a

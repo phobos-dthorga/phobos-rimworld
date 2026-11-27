@@ -275,6 +275,11 @@ public class RadioRulesDef : Def
     public float coverageFullScaleDb = 130f;
     /// <summary>The most real time the overlay spends working out cells in one frame, in milliseconds. Authored; measure and tune.</summary>
     public float coverageBudgetMsPerFrame = 1.5f;
+    /// <summary>
+    /// The most real time the overlay spends a frame finishing the last picture shown after its station or antenna is deselected, in
+    /// milliseconds (Radio 0.44.1). Smaller than while shown, as the player is looking at something else. Authored; measure and tune.
+    /// </summary>
+    public float coverageBackgroundBudgetMsPerFrame = 0.5f;
     /// <summary>The first, quick pass works out one cell per square block this many cells wide and paints the block. Authored.</summary>
     public int coverageCoarseBlockCells = 4;
     /// <summary>How opaque the overlay is over the map, from 0 to 1. Authored.</summary>

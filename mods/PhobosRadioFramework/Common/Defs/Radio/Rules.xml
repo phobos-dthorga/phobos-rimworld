@@ -38,6 +38,8 @@
          these bound its cost: real time per frame, the quick first pass's block size. All authored; measure and tune. -->
     <coverageFullScaleDb>130</coverageFullScaleDb>
     <coverageBudgetMsPerFrame>1.5</coverageBudgetMsPerFrame>
+    <!-- Radio 0.44.1: the last picture shown finishes its pass after it is deselected, at this smaller budget a frame. -->
+    <coverageBackgroundBudgetMsPerFrame>0.5</coverageBackgroundBudgetMsPerFrame>
     <coverageCoarseBlockCells>4</coverageCoarseBlockCells>
     <coverageOpacity>0.45</coverageOpacity>
     <!-- Keeping to radio cover (Radio 0.14.0; autonomous-vehicles.md, step 8): where a vehicle's control radio keeps its link, one sample per
