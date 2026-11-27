@@ -2,7 +2,8 @@
 
 **Status (27 Nov 2026):** slice 1, sharper dosing, is built in D'thorga Medical 0.33.0 ([as built](#as-built-medical-0330)), and
 slice 2, who is covered, in 0.34.0 with Framework 0.351.0 ([as built](#as-built-medical-0340)), not yet tested in game (rows 691 to
-695). Slices 3 and 5 are next, on the owner's "1, 2, 3, and 5, step-wise if necessary"; slice 4, diseases
+695). Slice 5 is done: the request to Search and Rescue's author was checked against its newest source and handed to the owner
+([as done](#done-the-request-to-search-and-rescues-author)). Slice 3 is next, on the owner's "1, 2, 3, and 5, step-wise if necessary"; slice 4, diseases
 that spread, waits. The owner answered all eleven question cards on 27 Nov 2026
 ([the answers](#the-owners-answers-27-nov-2026-by-card-with-every-option-offered)).
 
@@ -22,6 +23,19 @@ revise.
 - **The owner's Defs file is a week old** (written 19 Nov 2026 with 364 active mods; 387 are active now). **Read the Defs again
   before building each slice.**
 - None of this is medical advice. Real medicine is the model for what is plausible, never the source of a figure.
+
+## Done: the request to Search and Rescue's author
+
+Slice 5, on the owner's card 11 ("Check it and hand it over"), 27 Nov 2026.
+
+- **Still needed**: in its newest source (`main`, f44e40b, 17 Nov 2026) the compatibility registry and the rescue destination planner
+  are both `internal`, and a destination must be a bed type named in its own code (`FacilityBeds`). The registry is now data-driven by
+  profiles, so the request names what it would need: a `DefModExtension` on a job (its roles) and one on a thing (a destination, with a
+  capacity).
+- **No earlier request**: its repository's whole list of issues and pull requests was read (one closed issue, a French translation).
+- **Where it is**: the owner's private report tracker, status "drafted", label "enhancement", ready to paste, with how to check it is
+  still needed before posting. The first draft in the [soft-dependency record](soft-dependency-crosslinks.md) points there now.
+- **Nothing is patched**: its author is active, and our own "Take casualties aboard" already carries the downed to a parked aircraft.
 
 ## As built: Medical 0.34.0
 

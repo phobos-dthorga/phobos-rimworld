@@ -285,8 +285,10 @@ puts a carry to the litters in its field rescue work at 161.
 **Set aside: the rescue ending at a vehicle with a litter kit.** Where it evacuates to comes from its own list of beds and
 facilities (`CompatibilityRegistry.FacilityBeds`, `Building_Bed` types), also hard-coded, and our litter holder is no bed. Doing it
 from our side would mean patching its planner, which our rules keep for faults that are "rather extreme" (AGENTS.md); its author is
-active (Workshop update 6 Nov 2026, replies 10 Nov), so the clean route is a request. **Draft for the owner to post if wanted**
-(agents never post):
+active (Workshop update 6 Nov 2026, replies 10 Nov), so the clean route is a request. **Checked again on 27 Nov 2026 and handed over**
+(medical care, round two, slice 5): still internal in its newest source (`main`, f44e40b, 17 Nov 2026), with no issue or pull request on
+it; the ready-to-paste request is in the owner's private report tracker, which replaces the first draft below (kept as it was written).
+Agents never post. The first draft:
 
 > Hi! Would you consider a small public way for other mods to tell Search and Rescue about their medical jobs and evacuation
 > destinations? Right now the compatibility registry is internal, so a mod that adds hand-held medical kits (we make intubation,
