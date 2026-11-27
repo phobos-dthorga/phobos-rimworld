@@ -21,6 +21,17 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.340.1] - 2026-11-27 - Draft
+
+The grid's payments for a house battery and for heaters note themselves, and the README lists the freezing setting
+
+### Fixed
+
+- **The test list no longer shows a hooked-up vehicle with no house battery or heater as seen with the wrong figures**: the grid
+  paying for a house battery's charge, and for a block heater or battery warmer, each write their own seen-in-play note, only when
+  it happens (rows 647 and 648). Nothing in play changes.
+- **The README's settings table lists Run-down house batteries freeze**, left out when the setting was added in 0.333.0.
+
 ## [0.340.0] - 2026-11-27 - Draft
 
 Supply runs by air, the sling lifts nets and stacks from a hover, and no second turbo on a turbocharged engine

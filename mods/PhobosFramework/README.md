@@ -7,7 +7,7 @@ vehicle real systems**: a battery, an engine that runs hot, oil, tyres and brake
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.340.0, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.340.1, built 27 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features (listed at the end of each [vehicle chapter](../../docs/player-guide/vehicle-systems.md)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -213,6 +213,7 @@ offers to restart). RimWorld saves only what you change.
 | Cabs, camps and caravans | Field kitchens cook in a caravan | Once a night, while a caravan rests, its cooks make simple meals from raw food at a field kitchen it carries, up to twenty a cook | On |
 | Cabs, camps and caravans | Trailers can dump waste on the ground | A shower trailer's waste tank has a dump valve that runs its waste onto the ground as Dubs Bad Hygiene's sewage; off, the button is hidden (Dubs Bad Hygiene) | On |
 | Cabs, camps and caravans | Night heater at camp | A vehicle whose night heater switch is on keeps its cab and engine warm at a caravan's camp, and for someone asleep in its cab bunk on a map, for fuel | Off |
+| Cabs, camps and caravans | Run-down house batteries freeze | A lead-acid house battery left run down in deep cold freezes, with a warning first, and is lost after about half a day; off, it never freezes | On |
 | Cabs, camps and caravans | Drive through the night | Vehicle caravans keep going at night while every vehicle has a rested driver, swapping tired drivers for rested passengers; journeys take about half the time. Each caravan also has its own switch | Off |
 | Cabs, camps and caravans | Choose how to meet an ambush | A driving convoy that is ambushed may stop and fight, drive through or turn back; each way out is a chance that rises with speed and armour, and a failed one is the ambush. Off: always fight | On |
 | Cabs, camps and caravans | Trailers on wrecked gear crawl | A vehicle towing a trailer on a wrecked axle or tyres keeps a quarter of its speed, and the damaged gear wears further | On |

@@ -2891,7 +2891,24 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 new[] { Figure("W", GridWatts), Figure("loadsA", carried), Figure("chargingA", charging), Figure("houseA", houseCharging),
                     Figure("heaterW", heaterWatts) });
         }
+        // Framework 0.340.1: the house battery's charge and the heaters each note themselves, only when the grid pays for them. Before,
+        // rows 647 and 648 judged the general note above by a figure, so every hooked-up vehicle with no house battery or heater showed
+        // on the test list as seen with the wrong figures (the owner's Cherokee, 27 Nov 2026).
+        if (houseCharging >= SeenHouseAmps && Seen.Wants("vehicles.grid-pays-house-charge", Vehicle))
+        {
+            Seen.Note("vehicles.grid-pays-house-charge", Vehicle, houseCharging.ToString("0.0") + " A of " + GridWatts.ToString("0") + " W",
+                values: new[] { Figure("houseA", houseCharging), Figure("W", GridWatts) });
+        }
+        if (heaterWatts > 0 && Seen.Wants("vehicles.grid-pays-heaters", Vehicle))
+        {
+            Seen.Note("vehicles.grid-pays-heaters", Vehicle, heaterWatts.ToString("0") + " W of " + GridWatts.ToString("0") + " W",
+                values: new[] { Figure("heaterW", heaterWatts), Figure("W", GridWatts) });
+        }
     }
+
+    /// <summary>The least house battery charge, in amps, the seen-in-play note counts as the grid paying for it (testing only): past the
+    /// float trickle of a full battery.</summary>
+    const double SeenHouseAmps = 0.5;
 
     /// <summary>The least grid draw the seen-in-play note counts as the hook-up at work, in the game's watts (testing only, never play).</summary>
     const float SeenGridWatts = 1f;
