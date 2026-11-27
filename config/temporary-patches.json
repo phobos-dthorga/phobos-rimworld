@@ -24,6 +24,7 @@
     {"row": 18, "patch": "EmpUnderCombatExtendedPatch", "mod": "Combat Extended", "file": "VehiclesCompat.dll", "members": ["VehicleArmorPatch.ApplyDamageCE"]},
     {"row": 19, "patch": "TurretGraphicWhileLoadingPatch", "mod": "Vehicle Framework", "file": "Vehicles.dll", "members": ["VehicleTurret.PostPostLoadInit"]},
     {"row": 20, "patch": "RaidOrdersOnLoadPatch", "mod": "Vanilla Factions Expanded - Classical", "file": "VFEC.dll", "members": ["LordJob_ScorpionRaid.*"]},
+    {"row": 28, "patch": "Patch_MusicManagerPlay_ChooseNextSong_NoWeight", "mod": "RimWorld", "file": "Assembly-CSharp.dll", "members": ["MusicManagerPlay.ChooseNextSong", "MusicManagerPlay.AppropriateNow"]},
     {"row": 21, "patch": "GravshipLandingAlignment", "mod": "Vehicle Framework", "file": "Vehicles.dll", "members": ["Ext_Vehicles.AdjustForVehicleOccupiedRect"]},
     {"row": 22, "patch": "TurretQueueSavePatch", "mod": "Vehicle Framework", "file": "Vehicles.dll", "members": ["CompVehicleTurrets.PostExposeData"]},
     {"row": "23 (Nice Research Tab)", "patch": "ResearchUnlocksGuard", "mod": "Nice Research Tab", "file": "NiceResearchTab.dll", "members": ["ExtraCategoryDef.CacheAll", "NodeServer.*"]},

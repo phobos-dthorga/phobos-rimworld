@@ -125,7 +125,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory` | 14 | 0 | 0 | 0 |
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
-| `PhobosFramework` | 8 | 0 | 1 | 0 |
+| `PhobosFramework` | 9 | 0 | 1 | 0 |
 | `PhobosFramework.Vehicles` | 122 | 16 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 2 | 0 | 0 | 0 |
@@ -148,7 +148,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosRadio` | 3 | 0 | 0 | 0 |
 | `PhobosRadio.DeadMansSwitch` | 1 | 0 | 0 | 0 |
 
-207 patched methods named in attributes, 27 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+208 patched methods named in attributes, 27 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -196,7 +196,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework</code>: 8 patched methods</summary>
+<details><summary><code>PhobosFramework</code>: 9 patched methods</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework/`) |
 | --- | --- | --- |
@@ -204,6 +204,7 @@ Every HarmonyPatch attribute was read.
 | `CompExplosive.Detonate` | prefix | `Health/RadiationBurstPatches.cs` |
 | `DesignationCategoryDef.ResolvedAllowedDesignators (getter)` | postfix | `UI/ArchitectSubTabs.cs` |
 | `MainTabWindow_Architect.CacheDesPanels` | postfix | `UI/ArchitectSubTabs.cs` |
+| `MusicManagerPlay.ChooseNextSong` | prefix | `Sounds/SongChoiceGuard.cs` |
 | `Pawn_JobTracker.StartJob` | postfix | `Work/LoopWatch.cs` |
 | `Projectile_Explosive.Explode` | prefix | `Health/RadiationBurstPatches.cs` |
 | `SkillRecord.Learn` | prefix | `Skills/LearnWhileHelped.cs` |

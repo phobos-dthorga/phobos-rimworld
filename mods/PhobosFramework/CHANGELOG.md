@@ -22,6 +22,17 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.365.1] - 2026-11-28 - Draft
+
+Music that never stops the log
+
+### Fixed
+
+- **Music that never stops the log**: in a long fight the game had played all six of its battle songs recently, and the only battle
+  song left, The Dead Man's Switch - AncientCorps' boss theme, weighs nothing because it plays on cue. The game drew nothing and threw
+  an error every frame until the danger passed, about 4,500 in six minutes, which filled the log to its cap. Now it forgets its recent
+  songs first, as it does when it finds none, and plays a song rather than nothing. Not yet tested in game: row 742.
+
 ## [0.365.0] - 2026-11-28 - Draft
 
 The fuel filter, the chip detector and the intake separator
