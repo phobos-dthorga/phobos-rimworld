@@ -2,8 +2,9 @@
 
 **Status (28 Nov 2026):** partly built. The first slice is built in Framework 0.363.0, not yet tested in game (row 735): the flow
 sheet for land vehicles with a piston engine, in its own window, flow marks a setting that starts off ([As built](#as-built-framework-03630)).
-Not built: pages for other kinds, cutaways, orders from the page, the standard's line. The missing parts M1 to M3 wait for records of
-their own.
+Not built: pages for other kinds, cutaways, orders from the page, the standard's line. The missing parts M1 to M3 have records of their
+own, not built: [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
+[the chip detector](vehicle-chip-detector.md).
 
 ## Read this first
 
