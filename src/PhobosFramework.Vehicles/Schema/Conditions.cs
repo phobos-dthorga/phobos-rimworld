@@ -17,6 +17,7 @@ public abstract class VehicleSystemCondition
     protected abstract bool HoldsRaw(SystemContext context);
 }
 
+/// <summary>Always holds: a condition for a slot that must hold at all times. With <c>invert</c>, never.</summary>
 public class When_Always : VehicleSystemCondition
 {
     protected override bool HoldsRaw(SystemContext context) => true;
@@ -52,6 +53,8 @@ public class When_Any : VehicleSystemCondition
     }
 }
 
+/// <summary>The engine runs: drafted, moving in a caravan or flying with fuel aboard, an aircraft by its flight phase, or turned by
+/// set-up work. Never while a hybrid runs on its battery. Read once per update of the vehicle's systems.</summary>
 public class When_EngineRunning : VehicleSystemCondition
 {
     protected override bool HoldsRaw(SystemContext context) => context.Comp.EngineRunning;
@@ -64,6 +67,8 @@ public class When_RanDry : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Comp.RanDry;
 }
 
+/// <summary>The vehicle moves: on its map, in a caravan, in flight, or a trailer behind a moving vehicle. Read once per update of the
+/// vehicle's systems.</summary>
 public class When_Moving : VehicleSystemCondition
 {
     protected override bool HoldsRaw(SystemContext context) => context.Comp.Moving;
@@ -204,18 +209,23 @@ public class When_SurveyDrawing : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetComp<CompPhobosSurveyTruck>()?.Drawing(what) == true;
 }
 
+/// <summary>The air around the vehicle is below <c>celsius</c> (the game's temperature where the vehicle is; 0 when not set). A
+/// fuel-gelling fault's cold, for example.</summary>
 public class When_AmbientBelow : VehicleSystemCondition
 {
     public float celsius;
     protected override bool HoldsRaw(SystemContext context) => context.Comp.Ambient < celsius;
 }
 
+/// <summary>The air around the vehicle is above <c>celsius</c> (the game's temperature where the vehicle is; 0 when not set).</summary>
 public class When_AmbientAbove : VehicleSystemCondition
 {
     public float celsius;
     protected override bool HoldsRaw(SystemContext context) => context.Comp.Ambient > celsius;
 }
 
+/// <summary>The vehicle's <c>quantity</c>, in any running system, is below <c>value</c> (a cold engine: <c>coolantTemperature</c> below
+/// 40). False when no running system has that quantity, so a vehicle without it never matches.</summary>
 public class When_QuantityBelow : VehicleSystemCondition
 {
     public string quantity = "";
@@ -223,6 +233,8 @@ public class When_QuantityBelow : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Comp.TryGetQuantity(quantity, out float current) && current < value;
 }
 
+/// <summary>The vehicle's <c>quantity</c>, in any running system, is above <c>value</c>. False when no running system has that
+/// quantity, so a vehicle without it never matches.</summary>
 public class When_QuantityAbove : VehicleSystemCondition
 {
     public string quantity = "";
@@ -238,7 +250,6 @@ public class When_HasQuantity : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Comp.TryGetQuantity(quantity, out _);
 }
 
-/// <summary>A player's setting of this name (settings: fuelGelling).</summary>
 /// <summary>Whether one of this system's parameters, after the loadout's overrides, is below a value (a boiler without a fusible
 /// plug: fusiblePlugFitted 0).</summary>
 public class When_ParameterBelow : VehicleSystemCondition
@@ -248,6 +259,8 @@ public class When_ParameterBelow : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Parameter(parameter) < value;
 }
 
+/// <summary>The player's vehicle-systems setting named <c>setting</c> is on (<c>fuelGelling</c>, <c>nightHeater</c>). The names XML may
+/// use are listed in the vehicle systems guide; an unknown name is a config error at load and always reads off.</summary>
 public class When_Setting : VehicleSystemCondition, Phobos.Framework.Defs.IConfigChecked
 {
     public string setting = "";

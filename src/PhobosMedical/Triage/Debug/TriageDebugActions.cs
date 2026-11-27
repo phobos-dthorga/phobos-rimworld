@@ -9,6 +9,8 @@ namespace Phobos.Triage.Debug;
 /// <summary>Dev-mode reads and one forced planning pass. Nothing here changes game state beyond what the planner does on its own.</summary>
 public static class TriageDebugActions
 {
+    /// <summary>Logs every operation triage knows: what it removes, its skill, success and death chances, its cost, and whether it
+    /// needs medicine or a rare tool. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Triage: log the operations indexed", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
     public static void LogIndex()
     {
@@ -26,6 +28,8 @@ public static class TriageDebugActions
         Log.Message(text.ToString());
     }
 
+    /// <summary>Select people: logs each one's triage category and score, worst condition, hours to death, queued operation and
+    /// refusal, and the bills on them. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Triage: log triage of selected pawns", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void LogSelected()
     {
@@ -45,6 +49,8 @@ public static class TriageDebugActions
         Log.Message(text.ToString());
     }
 
+    /// <summary>Runs the triage planner on the current map at once, as it runs by itself, and logs what it read; it may queue or remove
+    /// operation bills as it would in play.</summary>
     [DebugAction(DebugCategory.Name, "Triage: run the planner now on this map", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void RunNow()
     {

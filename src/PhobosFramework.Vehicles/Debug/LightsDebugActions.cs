@@ -46,6 +46,8 @@ public static class LightsDebugActions
         return null;
     }
 
+    /// <summary>Click a cell on the map: logs every light reaching it (things with a glower, our vehicle lights with their vehicle,
+    /// lights with no thing behind them) and the sky's share, and flags lights left behind by a thing that moved. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Lights: what lights this place?", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void WhatLightsThis()
     {
@@ -115,6 +117,8 @@ public static class LightsDebugActions
             strays > 0 ? MessageTypeDefOf.CautionInput : MessageTypeDefOf.NeutralEvent, historical: false);
     }
 
+    /// <summary>Puts out every vehicle light of ours whose vehicle no longer stands on its map, and logs which, so the way it was left
+    /// behind can be found. Needs a map; the lights are not saved, so this only clears the running game.</summary>
     [DebugAction(DebugCategory.Name, "Lights: put out vehicle lights left behind", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void PutOutOrphans()
     {

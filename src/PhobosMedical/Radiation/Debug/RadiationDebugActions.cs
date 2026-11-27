@@ -22,6 +22,8 @@ public static class RadiationDebugActions
     /// <summary>The preset doses, in grays: from below the course to well past the lethal range, so each phase and syndrome can be reached.</summary>
     static readonly float[] Doses = { 0.25f, 0.5f, 1f, 2f, 3f, 4f, 5f, 6f, 8f, 10f, 15f, 20f, 50f };
 
+    /// <summary>Select people: gives each living one a dose from 0.25 to 50 Gy, as play would, starting the course where it crosses the
+    /// threshold, and logs the result. With the radiation model off no course runs.</summary>
     [DebugAction(DebugCategory.Name, "Radiation: give a dose to selected pawns", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static List<DebugActionNode> GiveDose()
     {
@@ -42,6 +44,8 @@ public static class RadiationDebugActions
         return nodes;
     }
 
+    /// <summary>Removes every radiation condition of ours from the selected people (the dose, the course, the late effects and our
+    /// medicines) and any of Rimatomics'. The game's own cancer, cataract and sterility stay.</summary>
     [DebugAction(DebugCategory.Name, "Radiation: remove all radiation from selected pawns", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void RemoveAll()
     {
@@ -52,6 +56,8 @@ public static class RadiationDebugActions
         }
     }
 
+    /// <summary>Gives the selected people now every late effect their doses have coming (leukaemia, cancer, cataract, thyroid cancer),
+    /// for good: the removal action takes back our leukaemia, but not the game's own cancer or cataract.</summary>
     [DebugAction(DebugCategory.Name, "Radiation: bring late effects due now for selected pawns", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void LateEffectsNow()
     {
@@ -68,6 +74,8 @@ public static class RadiationDebugActions
         }
     }
 
+    /// <summary>Gives each selected living person 1 Gy and the dust that much fresh fallout would leave on them, and logs the result.
+    /// With fallout dust off in the settings no dust is left.</summary>
     [DebugAction(DebugCategory.Name, "Radiation: dust selected pawns as 1 Gy of fresh fallout would", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void Dust()
     {
@@ -80,6 +88,8 @@ public static class RadiationDebugActions
         }
     }
 
+    /// <summary>Select people: logs each one's dose, course, late effects to come, dust and what decides their course. Reads
+    /// only.</summary>
     [DebugAction(DebugCategory.Name, "Radiation: log the dose of selected pawns", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void LogDose()
     {

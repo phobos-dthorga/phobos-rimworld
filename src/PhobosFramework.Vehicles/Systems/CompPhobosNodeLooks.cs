@@ -51,6 +51,10 @@ public class NodeLookSlot
     public List<string> followsTurrets = new();
 }
 
+/// <summary>Pictures that change with what is fitted, on any VehicleDef: each slot shows the first of its looks whose upgrade node or
+/// fitting is fitted (or whose state a comp reports), else its stock look, so a stock part's picture gives way to its upgrade's.
+/// Vehicle Framework's own node overlays can only add a picture, never take the stock one away. Each slot needs its own <c>key</c>,
+/// and each look names at most one of <c>node</c>, <c>fitting</c> and <c>when</c>.</summary>
 public class CompProperties_PhobosNodeLooks : VehicleCompProperties
 {
     public List<NodeLookSlot> slots = new();

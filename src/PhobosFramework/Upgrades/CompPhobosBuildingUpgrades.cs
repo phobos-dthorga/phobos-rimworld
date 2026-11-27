@@ -9,6 +9,10 @@ using Verse;
 
 namespace Phobos.Framework.Upgrades;
 
+/// <summary>Lets a placed building take upgrades (<see cref="PhobosBuildingUpgradeDef"/>s that list it in their <c>buildings</c>): the
+/// player orders one, and a colonist brings its materials and fits it, or takes it off again. Goes on the building's ThingDef with no
+/// fields; the building's own comps then read the abilities and figures the fitted upgrades give (the depot bay's faster pump, the fuel
+/// pump's charging cable).</summary>
 public class CompProperties_PhobosBuildingUpgrades : CompProperties
 {
     public CompProperties_PhobosBuildingUpgrades() => compClass = typeof(CompPhobosBuildingUpgrades);

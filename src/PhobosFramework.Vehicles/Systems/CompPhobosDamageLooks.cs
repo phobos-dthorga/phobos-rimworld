@@ -14,6 +14,9 @@ public class DamageLook
     public GraphicDataOverlay? overlay;
 }
 
+/// <summary>Damage pictures by part health, on any VehicleDef: each look is shown over the vehicle while its part is below
+/// <c>belowHealth</c> of its health (cracked glass over <c>PhobosGlass</c>, for example), and hidden again once it is repaired. Written
+/// by hand in the vehicle's <c>comps</c>; works on any faction's vehicle.</summary>
 public class CompProperties_PhobosDamageLooks : VehicleCompProperties
 {
     public List<DamageLook> looks = new();

@@ -32,6 +32,10 @@ public static class RigDefOf
     static RigDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(RigDefOf));
 }
 
+/// <summary>The fields the survey truck and the drill rig share: a vehicle that sets up and is worked by a colonist standing beside it.
+/// Never put it on a vehicle by itself: it names no comp class. Write <see cref="CompProperties_PhobosSurveyTruck"/> or
+/// <see cref="CompProperties_PhobosDrillRig"/>, which take every field here, and give the vehicle <c>Phobos_RigStability</c> and
+/// <c>Phobos_RigControl</c> in its <c>vehicleStats</c>.</summary>
 public class CompProperties_PhobosRigWork : VehicleCompProperties
 {
     /// <summary>The small building that plugs a set-up vehicle into a grid.</summary>

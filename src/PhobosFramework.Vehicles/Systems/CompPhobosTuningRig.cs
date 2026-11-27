@@ -8,6 +8,10 @@ using Vehicles;
 
 namespace Phobos.VehicleSystems;
 
+/// <summary>Makes a building a dyno bay: engines are tuned, and parts changed for another grade, only on a vehicle standing within
+/// <c>reach</c> of it while it is powered. It is also where bay trips take vehicles, and what makes a service yard work. Goes on a
+/// building's ThingDef, with a <c>CompPowerTrader</c> (without one it always counts as running) and, to count as a service yard's
+/// dyno, <c>PhobosYardEquipmentExtension</c>.</summary>
 public sealed class CompProperties_PhobosTuningRig : CompProperties
 {
     /// <summary>How many cells from the rig's own edge a vehicle may stand. Authored.</summary>

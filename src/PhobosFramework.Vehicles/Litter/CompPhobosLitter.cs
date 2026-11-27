@@ -16,6 +16,9 @@ public static class LitterRoles
     public const string Cabin = "Cabin";
 }
 
+/// <summary>Gives a vehicle its litters: once the litter kit is fitted to its cabin, it carries downed people lying down, and a crew
+/// member who can doctor tends them on the way. D'thorga Framework adds it in code to a vehicle whose loadout binds the <c>Cabin</c>
+/// part role; it has no fields, and a modder never writes it in XML.</summary>
 public sealed class CompProperties_PhobosLitter : CompProperties
 {
     public CompProperties_PhobosLitter() => compClass = typeof(CompPhobosLitter);

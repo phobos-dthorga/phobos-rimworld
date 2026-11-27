@@ -12,6 +12,8 @@ public static class BridgeDebugActions
 {
     const string Category = "D'thorga";
 
+    /// <summary>Logs, for each bridged body and the human body, every part by index, with its index in the save and the parts newer
+    /// than the save. Reads only.</summary>
     [DebugAction(Category, "Medical Save Bridge: log body part indices", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
     public static void LogBodyPartIndices()
     {
@@ -43,6 +45,8 @@ public static class BridgeDebugActions
         Log.Message(text.ToString());
     }
 
+    /// <summary>Runs the after-load checks on every pawn, alive or dead, and writes them to the log: whether the re-numbering held, and
+    /// what More Injuries' own fix-up would have moved or removed. Reads only.</summary>
     [DebugAction(Category, "Medical Save Bridge: check every pawn's parts", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Playing)]
     public static void CheckEveryPawn() => LoadReport.Run();
 }

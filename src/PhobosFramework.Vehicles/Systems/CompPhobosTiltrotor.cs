@@ -31,6 +31,10 @@ public class TiltrotorVariant
     public string suffix = "";
 }
 
+/// <summary>Draws a tiltrotor's nacelles and rotors on its VehicleDef: the nacelles tip from upright to forward as it flies, and each
+/// rotor is still blades with the engines off and a spinning disc with them on. Presentation only. Its pictures are found by name
+/// (<c>nacellePath</c>, then the angle, then a suffix, each with its paint mask beside it), and a missing path, angle or side is
+/// reported at load.</summary>
 public class CompProperties_PhobosTiltrotor : VehicleCompProperties
 {
     /// <summary>The nacelle pictures' path before the angle, as Phobos/Vehicles/Osprey/Osprey_Nacelle (then 0, 30...; a mask beside each).</summary>

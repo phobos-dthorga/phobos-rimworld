@@ -8,6 +8,9 @@ using Verse;
 
 namespace Phobos.VehicleSystems;
 
+/// <summary>Sends a player's vehicle that needs repair to a dyno bay and home again without being told: it calls a colonist with Drive
+/// work to take the wheel, while the setting "Vehicles are taken to a dyno bay for repair by themselves" is on. D'thorga Framework adds
+/// it in code to every land vehicle with a loadout, trailers apart; it has no fields, and a modder never writes it in XML.</summary>
 public sealed class CompProperties_PhobosBayTrip : CompProperties
 {
     public CompProperties_PhobosBayTrip() => compClass = typeof(CompPhobosBayTrip);

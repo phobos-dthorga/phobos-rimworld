@@ -407,6 +407,10 @@ public static class FireFighting
     }
 }
 
+/// <summary>Gives a vehicle its fire zones (engine bay, crew compartment, running gear), its hand extinguisher's charges and its
+/// automatic suppression systems. D'thorga Framework adds it in code to every vehicle with a loadout, trailers apart, with the
+/// extinguisher's bracket part; it has no fields, and a modder never writes it in XML. The numbers are in
+/// <c>PhobosFireFightingRulesDef</c>.</summary>
 public sealed class CompProperties_PhobosFireFighting : CompProperties
 {
     public CompProperties_PhobosFireFighting() => compClass = typeof(CompPhobosFireFighting);

@@ -6,6 +6,9 @@ using Verse;
 
 namespace Phobos.Framework.Health;
 
+/// <summary>Holds a person's care choices that the D'thorga mods offer (shown as buttons on the people the doctors look after) and the
+/// inspect lines they register. D'thorga Framework adds it in code at start-up to every humanlike race, Humanoid Alien Races' included;
+/// it has no fields, and a modder never writes it in XML: register a preference with <c>PatientPreferences</c> instead.</summary>
 public class CompProperties_PhobosPatient : CompProperties
 {
     public CompProperties_PhobosPatient() => compClass = typeof(CompPhobosPatient);

@@ -966,6 +966,12 @@ public class SlingSpec
     public bool StandsDown => standDownIfActive.Any(ModsConfig.IsActive);
 }
 
+/// <summary>
+/// The systems, parts and figures a group of vehicles runs with: its <c>selector</c> says which vehicles it claims, and the highest
+/// <c>priority</c> (Vehicle, then Mod, then Effect, then Default) and then <c>rank</c> wins among those that match. Every vehicle already
+/// gets a shipped default, so a loadout of yours usually inherits one (<c>ParentName</c>) and changes figures; a <c>Vehicle</c>-priority
+/// loadout with no systems takes a vehicle out of the service.
+/// </summary>
 public class PhobosVehicleLoadoutDef : Def
 {
     public LoadoutPriority priority = LoadoutPriority.Effect;

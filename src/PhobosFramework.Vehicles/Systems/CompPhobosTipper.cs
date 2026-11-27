@@ -16,6 +16,10 @@ public static class TipperDefOf
     static TipperDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(TipperDefOf));
 }
 
+/// <summary>Makes a truck a tipper: it tips its whole load in a fan behind it, or into storage it backs up to, and with its loading grab
+/// fitted lifts loose things or goods from storage into its cargo (the grab also works gathering runs). Goes on the VehicleDef, which
+/// needs <c>Phobos_TipRate</c> (things a second) and <c>Phobos_RigControl</c> in its <c>vehicleStats</c>; the grab needs
+/// <c>Phobos_GrabLift</c> from an upgrade.</summary>
 public class CompProperties_PhobosTipper : VehicleCompProperties
 {
     /// <summary>The half-disc the load lands on, in cells. Authored: about 100 cells, a base load of chunks.</summary>

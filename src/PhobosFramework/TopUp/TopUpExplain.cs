@@ -15,6 +15,8 @@ namespace Phobos.Framework.TopUp;
 /// </summary>
 public static class TopUpExplain
 {
+    /// <summary>Select one building, mechanoid or vehicle: logs, in order, every step the game and our work giver take before a hauler
+    /// (or a mechanitor) brings it material, ending at the first that says no. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Framework: why isn't this topped up?", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void ExplainSelected()
     {

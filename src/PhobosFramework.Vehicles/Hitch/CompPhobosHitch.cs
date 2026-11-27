@@ -11,6 +11,10 @@ using Verse;
 
 namespace Phobos.VehicleSystems;
 
+/// <summary>Gives a land vehicle its hitch, so a colonist can couple a trailer behind it (and its recovery winch, once fitted). D'thorga
+/// Framework adds it in code to every land vehicle with a loadout, except a trailer and a loadout with <c>noHitch</c>; write it
+/// yourself only on a trailer that should tow in turn (D'thorga Farming's implements do). It has no fields; towing needs the vehicle
+/// to have our drivetrain, unless the player allows towing without it.</summary>
 public sealed class CompProperties_PhobosHitch : CompProperties
 {
     public CompProperties_PhobosHitch() => compClass = typeof(CompPhobosHitch);

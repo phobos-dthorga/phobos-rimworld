@@ -19,6 +19,9 @@ public static class SlingRoles
     public const string HookMount = "HookMount";
 }
 
+/// <summary>Gives a helicopter its sling: once a cargo hook is fitted, it can lift a vehicle parked nearby and carry it away. D'thorga
+/// Framework adds it in code to a vehicle whose loadout has a <c>sling</c> block (its rated load), unless a mod in that block's
+/// <c>standDownIfActive</c> brings its own airlift; it has no fields, and a modder never writes it in XML.</summary>
 public sealed class CompProperties_PhobosSling : CompProperties
 {
     public CompProperties_PhobosSling() => compClass = typeof(CompPhobosSling);

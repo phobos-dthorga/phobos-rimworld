@@ -5,6 +5,10 @@ using Verse;
 
 namespace Phobos.BurnsAndSmoke.Comps;
 
+/// <summary>Makes a tight condition on a body part starve it of blood: once an in-game hour, above the burn rules Def's
+/// <c>escharIschaemiaFromSeverity</c>, the part takes ischaemic damage, rising with severity, until it is lost as any part is. Goes in
+/// the <c>comps</c> of a HediffDef that sits on a part (D'thorga Medical's constricting eschar), with no fields. It stands down while
+/// More Injuries is active, whose gangrene takes the limb instead.</summary>
 public class HediffCompProperties_PhobosIschaemia : HediffCompProperties
 {
     public HediffCompProperties_PhobosIschaemia() => compClass = typeof(HediffComp_PhobosIschaemia);

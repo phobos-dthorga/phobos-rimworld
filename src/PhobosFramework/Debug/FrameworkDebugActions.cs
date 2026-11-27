@@ -12,6 +12,9 @@ namespace Phobos.Framework.Debug;
 /// <summary>Dev-mode reads and the gas overlay. Nothing here changes game state except the explicit "add" actions.</summary>
 public static class FrameworkDebugActions
 {
+    /// <summary>Asks for every Def, with all patches applied, to be written to a file once the game next starts (the log names the
+    /// path); restart the game to get it. The request is kept in D'thorga Framework's settings and turns itself off once
+    /// done.</summary>
     [DebugAction(DebugCategory.Name, "Framework: write patched Defs at the next start", allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
     public static void AskForPatchedDefs()
     {
@@ -21,9 +24,13 @@ public static class FrameworkDebugActions
             + PatchedDefsDump.OutputPath + " (the request then turns itself off).");
     }
 
+    /// <summary>Writes every parts bill to the log: each thing's whole cost, and each role with what filled it and whose part that is.
+    /// Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Framework: list every parts bill", allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
     public static void ListPartsBills() => Log.Message(FrameworkMod.LogPrefix + " " + Bills.PartsBills.Report());
 
+    /// <summary>Click a cell on the map: logs every gas there (the game's and other mods' kinds by density, the framework's own by
+    /// room) and how enclosed the cell is. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Framework: log gases at cell", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void LogGasesAtCell()
     {
@@ -32,6 +39,8 @@ public static class FrameworkDebugActions
         Log.Message(FrameworkMod.LogPrefix + " " + cell + ": " + Describe(cell, map));
     }
 
+    /// <summary>Click a cell on the map: adds one cell's worth of each of the framework's own gases to the room there: real gas, saved
+    /// with the room, that clears as any gas does.</summary>
     [DebugAction(DebugCategory.Name, "Framework: add 1 cell of each own gas to room at cell", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void AddOwnGasesAtCell()
     {
@@ -43,6 +52,8 @@ public static class FrameworkDebugActions
         }
     }
 
+    /// <summary>Select people: logs each one's patient group, care level and every registered care choice, saying whether it is saved
+    /// or the default. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Framework: log care choices of selected pawns", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void LogPatientPreferences()
     {
@@ -82,9 +93,13 @@ public static class FrameworkDebugActions
             }))),
             "No Def carries a radiation burst.");
 
+    /// <summary>Click a cell on the map: adds smoke there through every carrier that takes it (the game's gas grid, or Combat
+    /// Extended's smoke), which spreads and clears as it would in play.</summary>
     [DebugAction(DebugCategory.Name, "Framework: add smoke at cell", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void AddSmokeAtCell() => PhobosGases.Add(UI.MouseCell(), Find.CurrentMap, GasKind.Smoke, 1f);
 
+    /// <summary>Logs how wet open ground is on the current map, with the rain, temperature, daylight and wind that move it. Reads
+    /// only.</summary>
     [DebugAction(DebugCategory.Name, "Framework: say how wet the ground is", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void SayGroundWetness()
     {
@@ -94,9 +109,13 @@ public static class FrameworkDebugActions
             + map.skyManager.CurSkyGlow.ToString("0.##") + ", wind " + map.windManager.WindSpeed.ToString("0.##") + "). Under a roof it is always dry.");
     }
 
+    /// <summary>Makes open ground on the current map fully wet at once, saved with the map; rain and sun move it on from
+    /// there.</summary>
     [DebugAction(DebugCategory.Name, "Framework: soak the ground now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void SoakGround() => SetGround(1f);
 
+    /// <summary>Makes open ground on the current map fully dry at once, saved with the map; rain and sun move it on from
+    /// there.</summary>
     [DebugAction(DebugCategory.Name, "Framework: dry the ground now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void DryGround() => SetGround(0f);
 

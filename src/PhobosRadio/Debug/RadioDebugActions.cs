@@ -12,6 +12,8 @@ public static class RadioDebugActions
 {
     private const string Category = "Phobos Radio";
 
+    /// <summary>Select people: logs each one's best radio link, in engineer's figures, or that they reach no station. Reads
+    /// only.</summary>
     [DebugAction(Category, "Log link budgets of selected pawns", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     private static void LogSelectedLinks()
     {
@@ -35,6 +37,7 @@ public static class RadioDebugActions
         Log.Message(sb.Length == 0 ? "[PhobosRadio] No pawn selected." : "[PhobosRadio]\n" + sb);
     }
 
+    /// <summary>Click a cell on the map: logs the local radio noise there and the loss its roof gives. Reads only.</summary>
     [DebugAction(Category, "Log noise at cell", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     private static void LogNoiseAtCell()
     {
@@ -70,6 +73,8 @@ public static class RadioDebugActions
             : $"[PhobosRadio] Coverage, one whole pass ({map.Size.x} x {map.Size.z} map):\n{sb}");
     }
 
+    /// <summary>Marks the current map's radio net to be worked out again from its stations and antennas at its next use. Nothing saved
+    /// changes.</summary>
     [DebugAction(Category, "Recompute radio net now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     private static void RecomputeNow()
     {

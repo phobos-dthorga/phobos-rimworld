@@ -25,6 +25,9 @@ public static class VehicleSelfTest
     /// <summary>How many designs to try before giving up on finding one to exercise.</summary>
     const int MaxDesignsTried = 12;
 
+    /// <summary>Runs the vehicle self-test and shows the result in a window: reads every vehicle the player has, then works on test
+    /// vehicles made for it and thrown away (two are spawned on clear open ground for the sling lift, then destroyed). Nothing of the
+    /// colony's is changed; a failure is also logged.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: run the self-test", allowedGameStates = AllowedGameStates.Playing)]
     static void RunFromMenu()
     {
@@ -645,9 +648,13 @@ public static class VehicleCostMeasure
         if (Now >= endTick) Finish();
     }
 
+    /// <summary>Times the vehicle model for one in-game hour, then opens a window saying whether it stayed within the rules Def's time
+    /// budget; leave the game running unpaused, in dev mode, until it opens.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: measure the cost for an in-game hour", allowedGameStates = AllowedGameStates.Playing)]
     static void MeasureHour() => Start(ElapsedRule.TicksPerHour);
 
+    /// <summary>Times the vehicle model for one in-game day, then opens a window saying whether it stayed within the rules Def's time
+    /// budget; leave the game running unpaused, in dev mode, until it opens.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: measure the cost for an in-game day", allowedGameStates = AllowedGameStates.Playing)]
     static void MeasureDay() => Start(ElapsedRule.TicksPerHour * 24);
 

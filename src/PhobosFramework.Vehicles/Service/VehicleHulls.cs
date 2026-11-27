@@ -82,6 +82,9 @@ public static class VehicleHullOnKill
     public static void Postfix() => VehicleHulls.dyingBurning = null;
 }
 
+/// <summary>Makes a vehicle's frame into the hull a destroyed vehicle leaves (with the setting "Destroyed vehicles leave a hull" on): it
+/// says what it is, and taking it apart gives salvaged parts, not its materials. D'thorga Framework adds it in code to every
+/// <c>VehicleBuildDef</c>, with a loadout or not; it has no fields, and a modder never writes it in XML.</summary>
 public class CompProperties_PhobosHull : CompProperties
 {
     public CompProperties_PhobosHull() => compClass = typeof(CompPhobosHull);

@@ -59,6 +59,8 @@ public static class MedicalEquipmentMod
     internal static void DrawSettings(SettingsList list) =>
         list.Note(RecommendationService.GravshipActive ? "PhobosMedical_SettingGravshipOn".Translate() : "PhobosMedical_SettingGravshipOff".Translate());
 
+    /// <summary>Click a person on the map: logs their breathing, whether they need oxygen, whether they are in bed, and their carbon
+    /// monoxide half-life on oxygen. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Log a pawn's oxygen need", actionType = DebugActionType.ToolMapForPawns)]
     static void LogOxygenNeed(Pawn pawn)
     {

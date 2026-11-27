@@ -166,6 +166,10 @@ public enum TrailerPumpPower
     TowingVehicle,
 }
 
+/// <summary>Gives a vehicle a bulk tank for fluids (<c>PhobosTankContentsDef</c>s): a tanker, a bowser or a tank trailer that sets up to
+/// pump, with compartments, temperature, leaks, venting and a blast when it bursts. Goes on the VehicleDef: <c>fittings</c> names the
+/// upgrade nodes that fit a tank (or none, for a tank built in), and the vehicle needs <c>Phobos_TankCapacity</c>,
+/// <c>Phobos_PumpRate</c>, <c>Phobos_TankIntegrity</c> and <c>Phobos_RigControl</c> in its <c>vehicleStats</c>, fed by its parts.</summary>
 public class CompProperties_PhobosTank : VehicleCompProperties
 {
     public List<TankFitting> fittings = new();

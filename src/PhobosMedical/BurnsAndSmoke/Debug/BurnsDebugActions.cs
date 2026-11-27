@@ -12,6 +12,8 @@ namespace Phobos.BurnsAndSmoke.Debug;
 /// <summary>Dev-mode reads, one forced airway burn for testing, and the uninstall sweep.</summary>
 public static class BurnsDebugActions
 {
+    /// <summary>Select people: logs each one's burned share of the body and how much is tended, their Baux score and burn shock target,
+    /// and the smoke and carbon monoxide they have breathed. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Burns: log burn load of selected pawns", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void LogBurnLoad()
     {
@@ -33,6 +35,8 @@ public static class BurnsDebugActions
         Log.Message(text.ToString());
     }
 
+    /// <summary>Logs fire heat on the current map (whether it is on, the fires and hot cells) and how much hotter than the air the cell
+    /// under the mouse is, beside the game's own temperature there. It works the heat out again first; otherwise reads only.</summary>
     [DebugAction(DebugCategory.Name, "Burns: log fire heat at the mouse cell", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void LogFireHeat()
     {
@@ -53,6 +57,8 @@ public static class BurnsDebugActions
         Log.Message(text.ToString());
     }
 
+    /// <summary>Gives each selected living person an airway burn at full exposure, which rises and falls as one from smoke
+    /// would.</summary>
     [DebugAction(DebugCategory.Name, "Burns: start an airway burn on selected pawns", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void StartAirwayBurn()
     {
@@ -62,6 +68,8 @@ public static class BurnsDebugActions
         }
     }
 
+    /// <summary>Removes every caustic eye injury from the selected people at once, as if healed; one that was burned (0.6 or worse at
+    /// its worst) leaves a scarred cornea, as healing does.</summary>
     [DebugAction(DebugCategory.Name, "Burns: heal caustic eye injuries of selected pawns now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void HealCausticEyes()
     {
@@ -77,6 +85,8 @@ public static class BurnsDebugActions
         }
     }
 
+    /// <summary>Scorches every plant on the current map standing in dense enough tox gas, as an hour in it would, even with the setting
+    /// or caustic gas off, and logs how many were hurt.</summary>
     [DebugAction(DebugCategory.Name, "Burns: scorch plants in tox gas now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void ScorchPlants()
     {
@@ -86,6 +96,8 @@ public static class BurnsDebugActions
         Log.Message(BurnsAndSmokeMod.LogPrefix + " Scorched " + hurt + " plants for an hour of tox gas" + (MapComponent_PhobosCausticPlants.Enabled ? "." : " (the plants setting or caustic gas is off; ran anyway)."));
     }
 
+    /// <summary>The uninstall sweep, which cannot be undone: removes every condition D'thorga Medical adds from every pawn in the game.
+    /// Save straight after, and the mod can then be switched off.</summary>
     [DebugAction(DebugCategory.Name, "Medical: remove every condition D'thorga Medical adds, from every pawn", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Playing)]
     public static void RemoveAll()
     {

@@ -12,6 +12,8 @@ namespace Phobos.MissilePatches.Debug;
 /// <summary>Dev-mode actions, under the shared D'thorga category. The strike action destroys the current map's contents.</summary>
 public static class MissilePatchesDebugActions
 {
+    /// <summary>Strikes the current map as an extinction-class warhead would, through the missile mod's own code: every pawn, building,
+    /// item and plant not under a thick roof is destroyed, for good (save first).</summary>
     [DebugAction(DebugCategory.Name, "Missile Patches: strike current map (as an extinction-class warhead; destroys everything)",
         actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void StrikeCurrentMap()
@@ -23,6 +25,8 @@ public static class MissilePatchesDebugActions
             penetrateThickRoof: false, lockCorePart: true, completeDismantle: false);
     }
 
+    /// <summary>Strikes the current map with the extinction-class warhead's payload through D'thorga's blast model, as a real missile
+    /// would: the centre is destroyed, with heat and fallout further out, for good (save first).</summary>
     [DebugAction(DebugCategory.Name, "Missile Patches: strike current map with D'thorga's blast model (destroys the centre)",
         actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void StrikeWithBlastModel()
@@ -39,6 +43,8 @@ public static class MissilePatchesDebugActions
         StrikeLauncher.Launch(null, props, zones, new List<Map> { Find.CurrentMap }, null);
     }
 
+    /// <summary>Logs the blast work queued to run over several frames (each strike and sweep and how far it has got), and whether room
+    /// rebuilds can be held and Combat Extended's fragments are on. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Missile Patches: log blast queue", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Playing)]
     public static void LogQueue()
     {
@@ -55,6 +61,7 @@ public static class MissilePatchesDebugActions
         Log.Message(text.ToString());
     }
 
+    /// <summary>Drops every queued blast job, for a game held up by one; a strike under way stays as far as it got.</summary>
     [DebugAction(DebugCategory.Name, "Missile Patches: drop queued blasts", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Playing)]
     public static void DropQueue()
     {
@@ -63,6 +70,8 @@ public static class MissilePatchesDebugActions
         Log.Message(MissilePatchesMod.LogPrefix + " Dropped " + pending + " queued job" + (pending == 1 ? "" : "s") + ".");
     }
 
+    /// <summary>Removes every "Area revealed" letter from the letter stack, such as the many a strike sent before Missile Patches
+    /// 0.10.0.</summary>
     [DebugAction(DebugCategory.Name, "Missile Patches: dismiss every \"Area revealed\" letter", actionType = DebugActionType.Action,
         allowedGameStates = AllowedGameStates.Playing)]
     public static void DismissAreaRevealedLetters()
@@ -83,6 +92,7 @@ public static class MissilePatchesDebugActions
         Log.Message(text);
     }
 
+    /// <summary>Logs how many Combat Extended fragments lie on the current map, among all its things. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Missile Patches: count Combat Extended fragments on map", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void CountFragments()
     {

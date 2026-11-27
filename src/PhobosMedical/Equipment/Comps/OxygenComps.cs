@@ -159,6 +159,10 @@ public class Hediff_PhobosOnOxygen : HediffWithComps
     }
 }
 
+/// <summary>The clock and tooltip of a breathing treatment (oxygen from a machine or kit, air pushed in by hand): the condition lapses
+/// <c>lingerTicks</c> after its source last refreshed it, and its tooltip says how fast it clears carbon monoxide against room air. Goes in
+/// the <c>comps</c> of a HediffDef whose <c>hediffClass</c> is <c>Phobos.Medical.Comps.Hediff_PhobosOnOxygen</c>, with that class's two
+/// stages; the clearance comes from the Def's <c>PhobosSuppliedOxygenExtension</c>, and without one it only helps breathing.</summary>
 public class HediffCompProperties_PhobosOnOxygen : HediffCompProperties_PhobosTreatment
 {
     /// <summary>Carbon monoxide's half-life on room air, for comparison in the tooltip only: about 320 minutes (Weaver and colleagues,

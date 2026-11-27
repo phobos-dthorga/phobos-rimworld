@@ -11,6 +11,8 @@ namespace Phobos.Dosing.Debug;
 /// <summary>Dev-mode reads: the index, and the full decision table for a selected pawn as the patient.</summary>
 public static class DosingDebugActions
 {
+    /// <summary>Logs every drug indexed for pain relief, with its relief, its costs to consciousness and breathing, the bleeding it
+    /// adds, its addictiveness and the conditions it gives. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Dosing: log the pain-relief index", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
     public static void LogIndex()
     {
@@ -31,6 +33,7 @@ public static class DosingDebugActions
         Log.Message(text.ToString());
     }
 
+    /// <summary>Logs every drug indexed for fighting disease, with the immunity it adds. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Dosing: log drugs for fighting disease", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
     public static void LogImmunityIndex()
     {
@@ -42,6 +45,8 @@ public static class DosingDebugActions
         Log.Message(text.ToString());
     }
 
+    /// <summary>Logs the indexed cures (what each removes), preventives (the outbreak diseases each stops) and helps to breathing, with
+    /// each one's costs and worth. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Dosing: log cures and preventives", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
     public static void LogCareIndex()
     {
@@ -107,6 +112,8 @@ public static class DosingDebugActions
             .Append(", worth ").Append(option.MarketValue.ToString("0")).Append(option.LethalDependency != null ? ", begins " + option.LethalDependency.defName : "");
     }
 
+    /// <summary>Select people: logs what each would take for their own pain, what blocks it, and the score and verdict for every
+    /// option. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Dosing: log self-medication for selected pawns", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void LogSelfMedication()
     {
@@ -127,6 +134,8 @@ public static class DosingDebugActions
         Log.Message(text.ToString());
     }
 
+    /// <summary>Select people: logs what a doctor would give each as a patient (their pain, bleeding, rest, disease and need), and the
+    /// score and verdict for every option. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Dosing: log the decision for selected pawns as patients", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void LogDecision()
     {

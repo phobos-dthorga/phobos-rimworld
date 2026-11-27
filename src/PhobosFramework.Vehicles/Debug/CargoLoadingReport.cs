@@ -95,6 +95,8 @@ public static class CargoLoadingReport
         return text.ToString();
     }
 
+    /// <summary>Select vehicles on the map: logs, for each, the questions Vehicle Framework's loading work asks (the order, the
+    /// vehicle's listing and weight limit, then each colonist) and where the chain breaks. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: why is nobody loading this vehicle?", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void WhyNotLoading()
     {

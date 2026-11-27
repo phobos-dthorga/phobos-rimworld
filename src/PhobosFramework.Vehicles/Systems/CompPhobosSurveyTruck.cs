@@ -26,6 +26,9 @@ public abstract class SurveyExtra
     public virtual string? InspectLine(CompPhobosSurveyTruck truck) => null;
 }
 
+/// <summary>Makes a truck a survey truck: set up and worked by a colonist (Intellectual), it finds deep resources as the game's
+/// ground-penetrating and long-range scanners do, and each find on a map slows the next. Goes on the VehicleDef, which needs
+/// <c>Phobos_ScanRate</c> in its <c>vehicleStats</c> besides the set-up stats every rig needs (<see cref="CompProperties_PhobosRigWork"/>).</summary>
 public class CompProperties_PhobosSurveyTruck : CompProperties_PhobosRigWork
 {
     /// <summary>A tenth of the game's ground-penetrating and long-range scanners' own figures (3 and 6 days, 4 and 8, from their Defs): the owner's order of magnitude, 9 Nov 2026.</summary>

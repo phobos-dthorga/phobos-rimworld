@@ -9,6 +9,10 @@ using Verse;
 
 namespace Phobos.VehicleSystems;
 
+/// <summary>Makes a truck a drill rig: set up over the ground and worked by a colonist (Mining), it drills deep resources as the game's
+/// deep drill does, and piped resources go into a buffer for a tanker or a pipe net. Goes on the VehicleDef, which needs
+/// <c>Phobos_DrillRate</c> and <c>Phobos_DrillReach</c> in its <c>vehicleStats</c> besides the set-up stats every rig needs
+/// (<see cref="CompProperties_PhobosRigWork"/>).</summary>
 public class CompProperties_PhobosDrillRig : CompProperties_PhobosRigWork
 {
     /// <summary>Authored. On the engine: 40 chemfuel a day. On a grid: 300 game watts, the deep drill's 200 and the rig's hydraulics.</summary>

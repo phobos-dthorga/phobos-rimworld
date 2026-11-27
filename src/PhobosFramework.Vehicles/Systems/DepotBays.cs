@@ -8,6 +8,10 @@ using Verse.AI;
 
 namespace Phobos.VehicleSystems;
 
+/// <summary>Makes a building a depot bay, one vehicle's home: the player assigns a vehicle, it parks on the pad in front, its pump
+/// fuels it from the bay's own tank and jobs on it go faster. Goes on a building's ThingDef beside a <c>CompProperties_Refuelable</c>
+/// (the tank; its fuel must be the vehicle's) and, optionally, power and <c>CompProperties_PhobosBuildingUpgrades</c> for a faster
+/// pump; D'thorga Framework's own depot bay is a storage building as well, its shelf for the vehicle's parts.</summary>
 public sealed class CompProperties_PhobosDepotBay : CompProperties
 {
     /// <summary>

@@ -6,6 +6,10 @@ using Verse;
 
 namespace Phobos.BurnsAndSmoke.Comps;
 
+/// <summary>Makes a chemical deepen burns once an in-game hour, less as the condition's severity falls (the hourly damage is in the burn
+/// rules Def, <c>chemicalDeepenPerHourAtFull</c>). On D'thorga Medical's "chemical on the skin" it spreads over every open chemical burn;
+/// on any other HediffDef it deepens only that condition, while it is an open, untended injury on a body part. Goes in a HediffDef's
+/// <c>comps</c>, with no fields.</summary>
 public class HediffCompProperties_PhobosChemicalDeepening : HediffCompProperties
 {
     public HediffCompProperties_PhobosChemicalDeepening() => compClass = typeof(HediffComp_PhobosChemicalDeepening);

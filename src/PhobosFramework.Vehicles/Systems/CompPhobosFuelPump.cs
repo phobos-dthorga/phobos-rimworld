@@ -8,6 +8,11 @@ using Verse;
 
 namespace Phobos.VehicleSystems;
 
+/// <summary>Makes a building a service yard's fuel pump: from its own tank it fills the vehicles standing in its yard, emptiest first,
+/// and with its charging cable fitted (a building upgrade) charges electric ones from the grid. It works only as yard equipment: the
+/// building needs <c>PhobosYardEquipmentExtension</c> and must stand in or touch a service yard with a dyno bay, and needs a
+/// <c>CompProperties_Refuelable</c> (its tank) and <c>tickerType</c> Rare; power is optional, and the cable needs
+/// <c>CompProperties_PhobosBuildingUpgrades</c>.</summary>
 public sealed class CompProperties_PhobosFuelPump : CompProperties
 {
     /// <summary>How much fuel the pump moves in an hour (authored [A]: the depot bay pump's 30).</summary>

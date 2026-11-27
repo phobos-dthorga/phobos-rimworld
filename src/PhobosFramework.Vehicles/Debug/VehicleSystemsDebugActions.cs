@@ -20,6 +20,7 @@ public static class VehicleSystemsDebugActions
     static IEnumerable<CompPhobosVehicleSystems> Selected() =>
         Find.Selector.SelectedObjects.OfType<VehiclePawn>().Select(v => v.GetComp<CompPhobosVehicleSystems>()).Where(c => c != null && c.Usable);
 
+    /// <summary>Select vehicles with systems: updates them once and logs each one's systems, quantities and stages.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: log selected", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void LogSelected()
     {
@@ -55,6 +56,8 @@ public static class VehicleSystemsDebugActions
         foreach (VehiclePawn vehicle in Find.Selector.SelectedObjects.OfType<VehiclePawn>()) Submersibles.CompOf(vehicle)?.Spot();
     }
 
+    /// <summary>Select vehicles with systems: pick one of the first vehicle's quantities and a value (its minimum, a quarter, half,
+    /// three quarters or its maximum), and every selected vehicle is set to it, saved as play would leave it.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: set a quantity", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void SetQuantity()
     {
@@ -111,12 +114,16 @@ public static class VehicleSystemsDebugActions
         DebugChoices.Open(choices, SelectAVehicle);
     }
 
+    /// <summary>Asks for a service on the selected vehicles with systems, as the player's own request does, so every system with a
+    /// service comes due.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: request a service", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void RequestService()
     {
         foreach (CompPhobosVehicleSystems comp in Selected()) comp.SetServiceRequested(true);
     }
 
+    /// <summary>The uninstall sweep, which cannot be undone: cuts every vehicle's parts back to its design's own, forgets the systems'
+    /// state and stops the service for the session. Save straight after, before removing the mod.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: remove from this colony", allowedGameStates = AllowedGameStates.Playing)]
     static void Sweep()
     {
@@ -184,6 +191,7 @@ public static class VehicleSystemsDebugActions
         return result;
     }
 
+    /// <summary>Select vehicles with systems: logs the part-health memory beside each part's health now. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: log part health memory", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void LogPartMemory()
     {
@@ -224,6 +232,8 @@ public static class VehicleSystemsDebugActions
         }
     }
 
+    /// <summary>Select vehicles with systems: pick one of the first vehicle's switchable electrical loads, and it is switched on or off
+    /// on every selected vehicle, saved as the player's switch is; the log says whether it is now active.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: toggle a load", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void ToggleLoad()
     {
@@ -246,6 +256,7 @@ public static class VehicleSystemsDebugActions
         DebugChoices.Open(choices, first == null ? SelectAVehicle : "The selected vehicle has no switchable loads.");
     }
 
+    /// <summary>Spawns a jump-start kit at each selected thing's cell on the map.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: give a jump-start kit", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void GiveKit()
     {
@@ -257,6 +268,8 @@ public static class VehicleSystemsDebugActions
         }
     }
 
+    /// <summary>Select vehicles: cracks their glass (half its health) or breaks it out, through the same damage play uses, and logs
+    /// what happened. With the glass setting off nothing breaks; a vehicle without glass says so.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: crack or break the glass of selected vehicles", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static List<DebugActionNode> DamageGlass()
     {
@@ -283,6 +296,7 @@ public static class VehicleSystemsDebugActions
         return nodes;
     }
 
+    /// <summary>Spawns a booster pack at each selected thing's cell on the map: full, with one start left, or flat.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: give a booster pack", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static List<DebugActionNode> GivePack()
     {
@@ -305,6 +319,8 @@ public static class VehicleSystemsDebugActions
         return nodes;
     }
 
+    /// <summary>Select vehicles with systems: logs the cab's and the outside's temperature and, for each person aboard, their
+    /// comfortable range and the mood stage the cab gives. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: log cab comfort", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void LogCabComfort()
     {
@@ -328,6 +344,8 @@ public static class VehicleSystemsDebugActions
         return text.ToString();
     }
 
+    /// <summary>Select vehicles with systems: logs each one's charge, whether it is charging, its charge factor and its battery pack's
+    /// temperature and wear. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: log charging", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void LogCharging()
     {
@@ -344,6 +362,8 @@ public static class VehicleSystemsDebugActions
         }
     }
 
+    /// <summary>Empties the battery of the selected vehicles with systems (its charge and its starting power), saved as play would
+    /// leave it, for trying a jump start or a flat battery.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: flatten the battery", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void FlattenBattery()
     {
@@ -355,6 +375,8 @@ public static class VehicleSystemsDebugActions
         }
     }
 
+    /// <summary>On the world map, select vehicle caravans: logs whether each moves or rests and, for each vehicle, its engine, speed
+    /// cap, cab, the ground as the drivetrain last read it, cab comfort and its systems. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: log caravan state", allowedGameStates = AllowedGameStates.PlayingOnWorld)]
     static void LogCaravanState()
     {
@@ -389,6 +411,8 @@ public static class VehicleSystemsDebugActions
             + ", grip " + DrivetrainModel.GripForPathCost(train.WorldPathCost).ToString("0.##");
     }
 
+    /// <summary>On the world map, select vehicle caravans: forces their vehicles' speed cap to half or a crawl, or clears it, to check
+    /// the caravan slowing (not saved: a load clears it).</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: set caravan cap", allowedGameStates = AllowedGameStates.PlayingOnWorld)]
     static List<DebugActionNode> SetCaravanCap()
     {
@@ -412,6 +436,8 @@ public static class VehicleSystemsDebugActions
         return nodes;
     }
 
+    /// <summary>Logs how long the vehicle model's work has taken (counted only while dev mode is on) and how many vehicles run in full,
+    /// light or no detail. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: timing report", allowedGameStates = AllowedGameStates.Playing)]
     static void TimingReport()
     {
@@ -431,9 +457,12 @@ public static class VehicleSystemsDebugActions
             + "\nVehicles with systems: " + full + " full, " + lite + " lite, " + off + " off.");
     }
 
+    /// <summary>Clears the vehicle model's timing counts, so the next timing report starts from now.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: reset timing", allowedGameStates = AllowedGameStates.Playing)]
     static void ResetTiming() => PhobosTiming.Reset();
 
+    /// <summary>Select vehicles with systems: logs each one's detail tier (full, light or off) with its faction and whether it is
+    /// spawned. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: log tier of selected", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void LogTier()
     {
@@ -444,15 +473,19 @@ public static class VehicleSystemsDebugActions
         }
     }
 
+    /// <summary>Replaces the selected vehicles' saved graph history with a day of a test curve between each quantity's limits, for
+    /// checking the graphs without waiting a day.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: fill history with a test curve", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void FillHistory()
     {
         foreach (CompPhobosVehicleSystems comp in Selected()) comp.History.DebugFill(comp.States);
     }
 
+    /// <summary>Opens the Dashboard tab of the selected vehicle.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: open the Dashboard tab", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void OpenDashboard() => InspectPaneUtility.OpenTab(typeof(ITab_VehicleDashboard));
 
+    /// <summary>Opens the Systems tab of the selected vehicle.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: open the Systems tab", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void OpenSystems() => InspectPaneUtility.OpenTab(typeof(ITab_VehicleSystems));
 
@@ -467,13 +500,16 @@ public static class VehicleSystemsDebugActions
                     + Phobos.Framework.Interface.UiGuard.RestSeconds + " seconds, then draws again.");
     }
 
+    /// <summary>Logs how many vehicles the Systems tab and the Health tab hold state for. Reads only.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: log tab state", allowedGameStates = AllowedGameStates.Playing)]
     static void LogTabState() => Log.Message(VehicleSystemsMod.LogPrefix + " Systems tab holds state for " + ITab_VehicleSystems.StateCount
         + " vehicles; Health tab holds views for " + ITab_PhobosVehicleHealth.ViewCount + ".");
 
+    /// <summary>Opens D'thorga Framework's Health tab of the selected vehicle.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: open the Health tab", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void OpenHealth() => InspectPaneUtility.OpenTab(typeof(ITab_PhobosVehicleHealth));
 
+    /// <summary>Throws away the Health tab's built views, so each is built again from the vehicle the next time it is drawn.</summary>
     [DebugAction(DebugCategory.Name, "Vehicle systems: rebuild the health view", allowedGameStates = AllowedGameStates.Playing)]
     static void RebuildHealthView() => ITab_PhobosVehicleHealth.Invalidate();
 }

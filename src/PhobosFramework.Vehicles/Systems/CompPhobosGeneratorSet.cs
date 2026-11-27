@@ -26,8 +26,14 @@ public static class GeneratorDefOf
     static GeneratorDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(GeneratorDefOf));
 }
 
+/// <summary>Makes a truck a generator set: set up beside a grid (or over power conduits), it feeds the grid from its engine through a cable
+/// end, with a battery buffer, recovered heat and a service lead to another vehicle. Goes on the VehicleDef, which needs
+/// <c>Phobos_GeneratorOutput</c> (the power it makes; <c>baseWatts</c> only scales the fuel), <c>Phobos_RigStability</c> and
+/// <c>Phobos_RigControl</c> in its <c>vehicleStats</c>. It burns fuel on its own curve, never the engine model's.</summary>
 public class CompProperties_PhobosGeneratorSet : VehicleCompProperties
 {
+    /// <summary>The small building set down on the grid when the truck sets up, which carries its power: use the Framework's
+    /// <c>Phobos_GeneratorStub</c>. Required.</summary>
     public ThingDef? cableEndDef;
     /// <summary>Authored; see docs/development/vehicle-generator-set.md for how these sit against the game's own generator.</summary>
     public float baseWatts = 1200f;
