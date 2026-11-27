@@ -43,4 +43,22 @@ public class OutputRuleTests
 
     [Fact]
     public void AWaitLimitIsNeverZero() => Assert.Equal(1f, OutputRule.WaitLimit(0f, stackLimit: 75));
+
+    [Theory]
+    [InlineData(1f, 10, 1, 9f)] // A hand-held radio: the hopper fills to a stack of ten.
+    [InlineData(1f, 1, 1, 1f)] // A gun never stacks: VFE's own limit stands.
+    [InlineData(1f, 2, 1, 1f)] // Two to a stack: VFE's limit already fills it.
+    [InlineData(30f, 25, 1, 30f)] // A limit already higher is never lowered.
+    [InlineData(1f, 5, 5, 1f)] // A batch as big as a stack: nothing to raise.
+    public void AMachiningBillFillsAStackOfWhatStacks(float vfeLimit, int stackLimit, int batch, float limit) =>
+        Assert.Equal(limit, OutputRule.MachiningLimit(vfeLimit, stackLimit, batch));
+
+    [Fact]
+    public void ARaisedMachiningLimitNeverOverfillsTheStack()
+    {
+        // Pipe System merges while the stack holds no more than the limit, so the fullest stack is the limit plus one batch.
+        float limit = OutputRule.MachiningLimit(1f, stackLimit: 10, batch: 1);
+        Assert.True(OutputRule.BatchFits((int)limit, batch: 1, stackLimit: 10));
+        Assert.False(OutputRule.BatchFits((int)limit + 1, batch: 1, stackLimit: 10));
+    }
 }

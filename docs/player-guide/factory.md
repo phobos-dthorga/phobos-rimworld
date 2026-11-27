@@ -113,6 +113,8 @@ given. Hoppers and chemfuel taps hand belts whatever is on them, whatever their 
   when it finishes its batch), what it had counted is set down beside the machine, and a message says so.
 - **A bill whose recipe no longer exists** (another mod stopped defining it) is set aside with its settings, and comes back with a
   message at the next load where the recipe exists again.
+- **The machining bay fills a whole stack of anything that stacks**, such as hand-held radios (ten to a stack), before it waits.
+  Vanilla Expanded stops it at two for every item; guns and other things that never stack still leave one at a time.
 - The "max N units" in the too-full message is the bill's limit in Vanilla Expanded's wording, not what the hopper holds.
 
 ## The automated fabrication bay

@@ -32,6 +32,7 @@ public static class TrySpawnAtCellPatch
             // Pipe System clears this only when it merges into a stack, so a machine went on saying "too full" after
             // placing into an emptied hopper. It sets the flag again itself if the stack is above the limit.
             __instance.outputFactoryHopperTooFull = false;
+            if (Seen.On && output != null) NoteRaisedLimit(__instance, output, cell, map);
             return true;
         }
         outThing = null;
@@ -46,5 +47,21 @@ public static class TrySpawnAtCellPatch
             __instance.tickLeft = 1;
         }
         return false;
+    }
+
+    /// <summary>
+    /// Notes a machining bay adding to a stack that VFE Factory's own limit would have left waiting (Factory Additions 0.16.0, test row 752):
+    /// the stack already holds more than VFE's limit and Pipe System is about to merge into it, which it does only while the stack is within ours.
+    /// </summary>
+    private static void NoteRaisedLimit(Process process, ThingDef output, IntVec3 cell, Map map)
+    {
+        var mark = process.Def.GetModExtension<RaisedOutputLimitExtension>();
+        if (mark == null) return;
+        foreach (var thing in cell.GetThingList(map))
+        {
+            if (thing.def != output || thing.stackCount <= mark.vfeLimit || thing.stackCount > process.Def.maxOutputCount) continue;
+            if (Seen.On) Seen.Note("factory.machining-fills-stack", cell.GetEdifice(map), thing.stackCount + " " + output.label + " in the hopper, adding to it");
+            return;
+        }
     }
 }

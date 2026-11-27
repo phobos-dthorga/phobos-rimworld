@@ -35,4 +35,13 @@ public static class OutputRule
     /// Pipe System to drop a blocked batch around the machine instead of waiting.
     /// </summary>
     public static float WaitLimit(float wanted, int stackLimit) => Math.Max(1f, Math.Min(wanted, stackLimit));
+
+    /// <summary>
+    /// The output limit for one of VFE Factory's machining bay bills (Factory Additions 0.16.0; the owner's report of 28 Nov 2026, hand-held
+    /// radios backing the factory up). VFE gives every one the limit 1, for guns that never stack, so an item that does stack waited with two in
+    /// the hopper. Pipe System joins a batch to a stack holding no more than the limit, so the stack limit less one batch fills the stack
+    /// exactly. An item that doesn't stack keeps VFE's own limit, and a limit already higher is never lowered.
+    /// </summary>
+    public static float MachiningLimit(float vfeLimit, int stackLimit, int batch) =>
+        stackLimit > batch ? Math.Max(vfeLimit, stackLimit - batch) : vfeLimit;
 }

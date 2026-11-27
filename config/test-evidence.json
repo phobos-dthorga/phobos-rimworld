@@ -466,6 +466,7 @@
     "731": [{"key": "radio.faction-call", "variant": "supply"}],
     "749": [{"key": "radio.qsl-card-drawn"}],
     "750": [{"key": "radio.qsl-card-front"}],
+    "752": [{"key": "factory.machining-fills-stack"}],
     "732": [{"key": "framework.setup-wizard", "variant": "opened"}],
     "733": {"parts": {
       "a preset pressed": [{"key": "framework.setup-wizard", "variant": "preset"}],

@@ -7,7 +7,7 @@ and new bills, from neutroamine out of human meat to other mods' drug lab recipe
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.15.0, built 28 November 2026 for House D'thorga. **Partly tested in game:** the human-meat bill (owner, 28 October 2026),
+Version 0.16.0, built 28 November 2026 for House D'thorga. **Partly tested in game:** the human-meat bill (owner, 28 October 2026),
 the drug lab bills appearing on their machines (29 October 2026), belts taking from switched-on storage only when they point away
 from it (29 and 30 October 2026), a bill with no recipe taken off a machine (10 November 2026), and a deep hopper taking four
 stacks of output. Two of these passed only in part. Everything else is not yet tested in game.
@@ -53,6 +53,7 @@ How to use each part, with its tables, is in the player guide's [Factory chapter
   start again by themselves.
 - **The output guard**: every factory machine waits at a full output hopper instead of losing its batch, and a batch bigger than
   one stack comes out in parts.
+- **The machining bay fills a whole stack** of anything that stacks (hand-held radios, for one), where VFE Factory stopped it at two.
 - **The automated fabrication bay**: what the fabrication bench, bioferrite shaper, Rimatomics machining table and vehicle parts
   bench make, built as bills when the game loads. The vehicle parts bills need Vehicle Framework.
 - **The deep factory hopper**: four stacks on one cell.

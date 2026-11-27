@@ -17,6 +17,19 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   hopper's four stacks too. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.16.0] - 2026-11-28 - Draft
+
+The machining bay fills a whole stack
+
+### Changed
+
+- **The machining bay fills its output hopper with a whole stack of anything that stacks** (the owner's report of 28 November 2026: hand-held radios backing the factory up). VFE Factory gives every machining bill an output limit of 1, meant for guns, so the bay stopped with two in the hopper whatever the item; for an item that stacks the limit is now its stack less one batch. Guns and everything else that never stacks keep VFE's limit.
+
+### Save compatibility
+
+- Safe: the limits are set when the game loads and never saved.
+- Not yet tested in game: row 752.
+
 ## [0.15.0] - 2026-11-28 - Draft
 
 A setup wizard page

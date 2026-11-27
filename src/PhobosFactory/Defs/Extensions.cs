@@ -14,6 +14,16 @@ public class GeneratedBillExtension : DefModExtension
 }
 
 /// <summary>
+/// On one of VFE Factory's machining bay bills whose output limit <see cref="MachiningLimits"/> raised (Factory Additions 0.16.0), so the
+/// seen-in-play note can tell its stacks from those VFE's own limit allowed. Set in code, never in XML.
+/// </summary>
+public class RaisedOutputLimitExtension : DefModExtension
+{
+    /// <summary>VFE Factory's own limit, before it was raised.</summary>
+    public float vfeLimit;
+}
+
+/// <summary>
 /// On a storage building's Def that VFE Factory's belts take from (Pipe System's <c>FactoryHopperExtension</c>
 /// with <c>isfactoryHopper</c>): belts take only items its storage filter allows, and leave the rest for haulers.
 /// VFE Factory's belts otherwise take the first item they find, so one stray item jams a line: in the owner's

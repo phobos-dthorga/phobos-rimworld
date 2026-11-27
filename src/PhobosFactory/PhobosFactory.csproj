@@ -8,7 +8,7 @@
     <AssemblyName>PhobosFactory</AssemblyName>
     <ModFolder>PhobosFactoryAdditions</ModFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.15.0</Version>
+    <Version>0.16.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- D'thorga Framework, already a dependency in About.xml: its seen-in-play notes (Seen.cs). Never copied. -->
