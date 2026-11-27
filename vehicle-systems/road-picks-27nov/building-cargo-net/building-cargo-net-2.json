@@ -1,0 +1,56 @@
+{
+  "file": "building-cargo-net-2.png",
+  "sha256": "018fe1de31761b2af12ec0fb50a6e509a36ccbc3db15864cb4621ac0e5f4aefd",
+  "date": "2026-11-27T04:07:10",
+  "prompt": "GAME FLOOR OBJECT SPRITE. Seen straight from above, like a mat lying flat on the ground in a top-down strategy game, filling a square.\n\nCreate an ORIGINAL game sprite for a helicopter cargo net spread flat and empty on the ground, ready to be filled and lifted. Images 1 and 2 are our approved items from the same game: match their outline weight, shading, palette and finish only; image 1 also shows the look of our lifting webbing and steel rings. Do NOT copy their shapes.\n\nDraw ONLY the net, alone on a plain pure white background, filling about 90 percent of the square canvas.\n\nA square net of thick olive-drab woven webbing straps crossing in a coarse diamond grid, with gaps of plain white background between the straps. A heavier border strap runs round all four edges, and at each corner a short strap leads to a small dull steel ring; the four rings lie just inside the corners.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every strap, soft flat cel shading with two or three tones, muted olive and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, cargo, boxes, people, ground, grass or shadow outside the net.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/cargo-net-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 408,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 280
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2164
+  },
+  "cost_usd": 0.0551,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 41.4,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SlingSet.png",
+      "sha256": "1466196f6e73bb63c1c0f094c4f4ddb44460353ad6a03c12fa0edc49720478d0",
+      "role": "our approved item from the same mod (the sling set, lifting strops on a ring): match its outline weight, shading, palette and finish, and the look of its webbing and steel ring; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/FireBucket.png",
+      "sha256": "55660741b2da87ba884e9b62d3f24f5da129892e179e02e58d7286dfd0462e1f",
+      "role": "our approved item from the same mod: match its outline weight, shading and finish only; do not copy its shape"
+    }
+  ]
+}
