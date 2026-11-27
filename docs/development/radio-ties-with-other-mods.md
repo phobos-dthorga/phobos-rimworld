@@ -1,7 +1,7 @@
 # Radio ties with the game's and other mods' things (27 Nov 2026)
 
 **Status (27 Nov 2026):** a research record. Rows RT1 to RT18 are proposals, each with the agent's lean; the owner answered three of
-its questions by card the same day (RT1, RT6, RT18). No row is built, and nothing here is tested in game.
+its questions by card the same day (RT1, RT6, RT18). RT9 is built (Radio 0.54.0); no other row is, and nothing here is tested in game.
 
 **A research record.** The owner, 27 November 2026: "I wish to start integrating more third-party items with our radio mod, vanilla
 or otherwise, and the deep simulation areas of it", as "strictly a research and record purview". The owner's picture with it showed

@@ -50,8 +50,9 @@ the installed Vehicle Framework 1.7 build's decompile (`.local/decompiled/Vehicl
   Vehicle Framework have no opening for either).
 - **A vehicle counts toward colony wealth as a pawn, at full value**, where a building counts half **[code]**. A large fleet
   already raises raid strength.
-- **Submarines and radio are on the back burner** (owner, 20 Nov and 9 Nov 2026). The audits list the submarine's refusals for
-  completeness; no row proposes work on either.
+- **Submarines and radio were on the back burner when this was written** (owner, 20 Nov and 9 Nov 2026). The audits list the
+  submarine's refusals for completeness; no row proposes work on either. **The radio was reopened on 23 Nov 2026**; its emergent-play
+  ideas are in [Life on the air](radio-life-on-the-air.md) (RN1 to RN43). Submarines stay on the back burner.
 - **The owner's answers (20 Nov 2026):** random rolls only as a last resort; shelter aboard a vehicle waits for the cab-air model;
   the four unwise orders whose consequence is built are to warn and then be allowed; the groups of most interest are reading the
   story (F), a failure opening play (A), and home and incidents (E, G).
