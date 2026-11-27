@@ -221,6 +221,36 @@ The owner's words with the cards: "We can still implement HF in other ways", and
   are in `/root/itshfbc`, and its own example ran (a MUF of about 16 MHz). The scripts run it as root with `wsl -d Ubuntu-24.04 -u
   root`; a user of the owner's own can be added at the first plain `wsl -d Ubuntu-24.04`.
 
+### The trial run (28 Nov 2026)
+
+On the owner's go-ahead, a trial to measure the time and size before the full run: June, midpoint latitudes 60°S to 60°N in steps of
+30°, paths of 100 to 5,000 km running north and south through longitude 0 (so universal time is the midpoint's local time), four
+sunspot levels (10, 50, 100, 150), every hour, 40 m (7.1 MHz) and 20 m (14.2 MHz) in each run, isotropic antennas at both ends and
+1 kW, so the loss is the path's own and our link budget adds each antenna's gain. Man-made noise was set to VOACAP's "remote" (164),
+leaving mostly natural noise for the colony's own sources to add to [A].
+
+| Measured | Figure |
+| --- | --- |
+| Runs | 140, none failed |
+| Time | 0.01 s a run; 0.3 s for all 140, eight at a time at low priority (`nice 19`) |
+| Size | 580 KB as plain JSON, for 2 bands and 5 figures a band an hour |
+
+What VOACAP says (each figure **from VOACAP**, read from the trial's output):
+
+| Path | 40 m | 20 m |
+| --- | --- | --- |
+| 1,000 km at 30°N, sunspots 100 | Open at night (loss 121 dB); absorbed at noon (172 dB) | Mostly closed; best in the afternoon (open 59% of days at 16:00) |
+| 3,000 km at 30°N, sunspots 100 | Open at night (132 dB); gone by day (290 dB at noon) | Open day and night; least loss at night (135 dB) |
+| 100 km at 30°N | Open 30% to 96% of days through the day | Closed at every hour: the skip zone |
+| 2,000 km at 60°S (southern winter), sunspots 50 | Open; best by day | Closed at night, open by day |
+
+**What follows** [A]: the time is no concern (a full year, more latitudes, longer paths and every band would be some ten thousand
+runs, about a minute). The size is: packed as bytes (a figure in one byte each), a full set is a few megabytes for two bands, so the
+tables ship as a compact binary file, not JSON. **Still to settle before the full run**: VOACAP's ionosphere is Earth's, tied to
+Earth's magnetic field, which a RimWorld planet does not have; the trial used one meridian. The full run would take paths at several
+longitudes and in several directions and average them, so a planet gets Earth's typical ionosphere rather than one meridian's. An
+approximation, labelled as such.
+
 ## Sources
 
 - The radio design, `radio-framework-design.md` (18 Oct 2026): the Phase 2 roadmap, the HF and NVIS rows, the sun.
