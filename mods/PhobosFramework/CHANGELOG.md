@@ -19,6 +19,19 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.336.2] - 2026-11-27 - Draft
+
+The route, round trip and lost link buttons get their own pictures
+
+### Fixed
+
+- **The route's Follow, Loop, Add a waypoint, Stop and Break up buttons had borrowed other pictures**: each has its own now, the
+  owner's picks of 27 Nov 2026 from night 16, made locally. A running supply run's Stop button and its planner's cursor use them
+  too.
+- **The round trip's Plan, Fly and Waits buttons, and the remote control's If the link is lost button, had borrowed pictures too**:
+  each has its own now. In Waits, the owner chose a pale clock face with dark hands, so the pin and the clock read apart at actual
+  size. Halt keeps its borrowed picture until its bought tries are picked.
+
 ## [0.336.1] - 2026-11-27 - Draft
 
 The cargo net, the road survey and the supply run buttons get their own pictures

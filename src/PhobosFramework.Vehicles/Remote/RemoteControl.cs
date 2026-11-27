@@ -373,7 +373,7 @@ public sealed class CompPhobosRemoteControl : VehicleComp
         {
             defaultLabel = ChoiceLabel(choice),
             defaultDesc = "PhobosRemote_GizmoLostDesc".Translate(),
-            icon = SystemIcons.For("Phobos/VehicleSystems/BayTrips/VehiclePark"),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Remote/LostLink"),
             action = () => Find.WindowStack.Add(new FloatMenu(new List<FloatMenuOption>
             {
                 new("PhobosRemote_ChoiceHold".Translate(), () => SetChoice(LostLinkChoice.Hold)),

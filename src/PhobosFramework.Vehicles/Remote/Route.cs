@@ -943,15 +943,16 @@ public sealed class CompPhobosRoute : VehicleComp
     }
 }
 
-/// <summary>The route buttons' pictures: borrowed until their own are drawn, with a visible fallback of ours (SystemIcons).</summary>
+/// <summary>The route buttons' own pictures (Framework 0.336.2, the owner's night-16 picks), with a visible fallback of ours
+/// (SystemIcons). A running supply run's Stop button and its planner's cursor use them too.</summary>
 [StaticConstructorOnStartup]
 public static class RouteIcons
 {
-    public static readonly Texture2D Follow = SystemIcons.For("Phobos/VehicleSystems/Hitch/Hitch");
-    public static readonly Texture2D Loop = SystemIcons.For("Phobos/VehicleSystems/BayTrips/ServiceYard");
-    public static readonly Texture2D Waypoint = SystemIcons.For("Phobos/VehicleSystems/BayTrips/VehiclePark");
-    public static readonly Texture2D Stop = SystemIcons.For("Phobos/VehicleSystems/Dash/Brake");
-    public static readonly Texture2D BreakUp = SystemIcons.For("Phobos/VehicleSystems/Hitch/Unhitch");
+    public static readonly Texture2D Follow = SystemIcons.For("Phobos/VehicleSystems/Route/Follow");
+    public static readonly Texture2D Loop = SystemIcons.For("Phobos/VehicleSystems/Route/Loop");
+    public static readonly Texture2D Waypoint = SystemIcons.For("Phobos/VehicleSystems/Route/Waypoint");
+    public static readonly Texture2D Stop = SystemIcons.For("Phobos/VehicleSystems/Route/StopRoute");
+    public static readonly Texture2D BreakUp = SystemIcons.For("Phobos/VehicleSystems/Route/BreakUp");
 }
 
 /// <summary>Registers the route level as a source of the remote control comp at start-up (Framework 0.281.0).</summary>

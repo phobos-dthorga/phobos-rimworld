@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/RoundFly.png",
+  "source": "assets/vehicle-systems/generated/n16-round-fly/n16-round-fly-162.png",
+  "source_sha256": "e7196b8beea7428294406bebcbbf9c9838a1639e062ff7b75d51252175319502",
+  "target_sha256": "984aad59b59db34dfbc1d4358390d5f1826d67e4e24ba61faaa87518a04ca8e4",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "e7196b8beea7428294406bebcbbf9c9838a1639e062ff7b75d51252175319502",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T15:51:20",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

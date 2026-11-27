@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Route/StopRoute.png",
+  "source": "assets/vehicle-systems/generated/n16-route-stop/n16-route-stop-162.png",
+  "source_sha256": "9b01d7cab7034ec9846785d2e1f2778fd68cfd36dce17f5b6c5aba78b4655123",
+  "target_sha256": "37da9c7151805e9f9abf13cdb5d9ac1e13234313f4b6c3bff5b54913d47fbc85",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "9b01d7cab7034ec9846785d2e1f2778fd68cfd36dce17f5b6c5aba78b4655123",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T15:51:08",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

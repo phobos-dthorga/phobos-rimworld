@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Route/BreakUp.png",
+  "source": "assets/vehicle-systems/generated/n16-route-break-up/n16-route-break-up-161.png",
+  "source_sha256": "322f2fdc7766ddbb0ba3493c7a2066e0e6bed17cb5f1adf37cc106eb12400874",
+  "target_sha256": "306526756d17b51ccf4fafa2321020ad0dbce7e13dc7194f49b491e0f60f5bae",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "322f2fdc7766ddbb0ba3493c7a2066e0e6bed17cb5f1adf37cc106eb12400874",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T15:51:10",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

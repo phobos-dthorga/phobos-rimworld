@@ -10,6 +10,9 @@ public static class RadioTextures
 {
     public static readonly Texture2D Signal = ContentFinder<Texture2D>.Get("Phobos/Radio/UI/Signal");
 
+    // The remote-control Drive from the station button's own picture (Radio 0.28.0, the owner's night-16 pick).
+    public static readonly Texture2D DriveFromStation = ContentFinder<Texture2D>.Get("Phobos/Radio/UI/DriveFromStation");
+
     // One icon per outcome for the Radio button (Radio 0.13.0; drawn by scripts/art/draw_signal_bars.py, the owner's pick of 25 Nov 2026).
     private static readonly Texture2D SignalNone = ContentFinder<Texture2D>.Get("Phobos/Radio/UI/SignalNone");
     private static readonly Texture2D SignalMarginal = ContentFinder<Texture2D>.Get("Phobos/Radio/UI/SignalMarginal");

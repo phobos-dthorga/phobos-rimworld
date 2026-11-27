@@ -214,5 +214,5 @@ public sealed class RadioRemoteControl : IRemoteControlSource, IRemoteCoverSourc
         if (RemoteControl.Wanted(vehicle)) RemoteCoverMap.Want(vehicle);
     }
 
-    public Texture2D? Icon => RadioTextures.Signal;
+    public Texture2D? Icon => RadioTextures.DriveFromStation;
 }

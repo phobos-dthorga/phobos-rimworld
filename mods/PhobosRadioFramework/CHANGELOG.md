@@ -22,6 +22,15 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.28.0] - 2026-11-27 - Draft
+
+The Drive from the station button's own picture
+
+### Fixed
+
+- **The remote control's Drive from the station button showed the signal bars**: it has its own picture now, the owner's pick of
+  27 Nov 2026 from night 16, made locally.
+
 ## [0.27.0] - 2026-11-27 - Draft
 
 Other factions' mechanics talk your mechanics through vehicle repairs

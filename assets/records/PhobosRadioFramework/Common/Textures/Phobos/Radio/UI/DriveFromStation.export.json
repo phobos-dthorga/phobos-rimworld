@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/DriveFromStation.png",
+  "source": "assets/vehicle-systems/generated/n16-remote-station/n16-remote-station-161.png",
+  "source_sha256": "a72a95f83bfc26862a09fe2b9aebcbefbcb640a95b1e3630e275d117a43b0740",
+  "target_sha256": "fa2dd44b84917e28a16695e84edfbba1266734868575f7d0d1d39e76d78dec79",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "a72a95f83bfc26862a09fe2b9aebcbefbcb640a95b1e3630e275d117a43b0740",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T15:51:12",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

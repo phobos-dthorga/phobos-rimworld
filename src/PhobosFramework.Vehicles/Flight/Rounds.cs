@@ -401,11 +401,12 @@ public class WorldComponent_PhobosRounds : WorldComponent
 /// <summary>The round's buttons (Framework 0.307.0). Presentation only: each hands the order to the round comp or its picker.</summary>
 public static class RoundGizmos
 {
-    // Borrowed from the flight's own buttons until the round's are drawn (queued for night 16).
-    static Texture2D Plan => SystemIcons.For("Phobos/VehicleSystems/Flight/FlyTo");
-    static Texture2D Fly => SystemIcons.For("Phobos/VehicleSystems/Flight/Circle");
+    // The round's own pictures (Framework 0.336.2, the owner's night-16 picks). Halt still borrows the flight's Hold until its paid
+    // redraw (requests/remote-icons-paid.json) is picked.
+    static Texture2D Plan => SystemIcons.For("Phobos/VehicleSystems/Flight/RoundPlan");
+    static Texture2D Fly => SystemIcons.For("Phobos/VehicleSystems/Flight/RoundFly");
     static Texture2D Halt => SystemIcons.For("Phobos/VehicleSystems/Flight/Hold");
-    static Texture2D Waits => SystemIcons.For("Phobos/VehicleSystems/Flight/CircleSize");
+    static Texture2D Waits => SystemIcons.For("Phobos/VehicleSystems/Flight/RoundWaits");
 
     public static IEnumerable<Gizmo> For(CompPhobosRound round, bool inCaravan)
     {

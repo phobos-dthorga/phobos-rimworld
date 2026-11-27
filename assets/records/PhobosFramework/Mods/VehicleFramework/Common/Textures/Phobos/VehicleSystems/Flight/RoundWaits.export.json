@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/RoundWaits.png",
+  "source": "assets/vehicle-systems/generated/n16-round-waits/n16-round-waits-162-paleclock.png",
+  "source_sha256": "a608900cd1f1a371d7668ff86d1313ad3bf9e793ec98c39308345e7aaf108039",
+  "target_sha256": "a58b8189b3b5e975cfc18557ab751e5518dafa72dbd400b2012f3fcc59f13e82",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "a608900cd1f1a371d7668ff86d1313ad3bf9e793ec98c39308345e7aaf108039",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-27T15:51:22",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
