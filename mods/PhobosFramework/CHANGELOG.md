@@ -19,6 +19,17 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.337.0] - 2026-11-27 - Draft
+
+Seen-in-play notes carry the figures their test rows ask for
+
+### Added
+
+- **A replaced part's note says what share of its health it came back at**: about a quarter when fitted in the field, about three
+  fifths at a tuning rig, each under its own note, so the Tests page can check rows 1 and 36 by their figures. A part's grade note
+  says its health against the ungraded part's (about 1.3 heavy-duty, 0.7 salvaged, row 9), on any part. Only with the seen-in-play
+  setting on; nothing in play changes. Not yet tested in game.
+
 ## [0.336.2] - 2026-11-27 - Draft
 
 The route, round trip and lost link buttons get their own pictures

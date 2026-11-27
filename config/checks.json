@@ -106,6 +106,23 @@
       "why": "A snapshot includes garbage the collector has not reclaimed yet: a finding here is a leak only if python scripts/perf.py look-why Phobos.VehicleSystems.CompPhobosVehicleSystems finds something still holding it."
     },
     {
+      "id": "service-lead-watts",
+      "title": "A generator set's service lead takes its 300 W",
+      "source": "live",
+      "level": "look",
+      "select": {"type": "Phobos.VehicleSystems.CompPhobosGeneratorSet"},
+      "read": {"lead": "leadWatts", "to": "leadTo", "vehicle": "parent.def.defName", "number": "parent.thingIDNumber"},
+      "when": "to != None and lead > 0",
+      "note": {
+        "key": "check.vehicle.service-lead",
+        "mod": "D'thorga Framework",
+        "figures": {"watts": "round(lead, 1)"},
+        "detail": "{vehicle}{number}: the lead takes {round(lead, 1)} W"
+      },
+      "row": "58",
+      "why": "Figures for row 58, read live (kit 1.134.0: a snapshot is not kept, so the kit keeps the note). leadWatts is derived on the generator set's rare tick and never saved, so only the running game holds it: serviceLeadWatts 300 (Rules_VehicleSystems.xml), less only when the set offers less (GeneratorRule.StepWithLead). Read while a lead is run to a truck (leadTo set). Only the player runs a service lead, so no ofPlayer: a live check cannot tell yet."
+    },
+    {
       "id": "jet-own-copy",
       "title": "Each jet's guns are its own mod's copy of the fixed-wing code",
       "source": "save",

@@ -504,6 +504,10 @@ public sealed class VehicleRepairs
         return repair != null && Do(repair, mechanic);
     }
 
+    /// <summary>A seen-in-play figure (Framework 0.337.0): the share of its maximum a part has now.</summary>
+    static KeyValuePair<string, double>[] HealthShare(VehicleComponent part) =>
+        new[] { new KeyValuePair<string, double>("share", part.MaxHealth > 0f ? part.Health / part.MaxHealth : 0d) };
+
     bool Do(RepairWork repair, Pawn mechanic)
     {
         List<(ThingDef def, int count)>? payment = AffordableOption(repair);
@@ -527,8 +531,16 @@ public sealed class VehicleRepairs
                 comp.RestorePart(repair.Part!, comp.Fittings.NearRig() ? Rules.replacedPartHealthAtRig : Rules.replacedPartHealth);
                 // Framework 0.178.0 (row 252): which part a destroyed one was replaced with, by the first thing paid (a reduction gearbox, a flight computer).
                 if (payment.Count > 0) Seen.Note("vehicles.part-replaced", comp.Vehicle, repair.Part!.props.label, payment[0].def.defName);
-                // Seen in play (Framework 0.293.0, row 36): a part fitted properly at a tuning rig.
-                if (comp.Fittings.NearRig()) Seen.Note("vehicles.part-replaced-at-rig", comp.Vehicle, repair.Part!.props.label);
+                // Seen in play (Framework 0.293.0, row 36): a part fitted properly at a tuning rig; with the share of its maximum it
+                // comes back at (Framework 0.337.0, rows 1 and 36: a quarter in the field, about three fifths at the rig).
+                VehicleComponent fitted = repair.Part!;
+                if (comp.Fittings.NearRig())
+                {
+                    if (Seen.Wants("vehicles.part-replaced-at-rig", comp.Vehicle))
+                        Seen.Note("vehicles.part-replaced-at-rig", comp.Vehicle, fitted.props.label, values: HealthShare(fitted));
+                }
+                else if (Seen.Wants("vehicles.part-replaced-in-field", comp.Vehicle))
+                    Seen.Note("vehicles.part-replaced-in-field", comp.Vehicle, fitted.props.label, values: HealthShare(fitted));
                 NotifyRepairable();
                 text = "PhobosVehicleSystems_RepairReplaced".Translate(who, vehicle, repair.Part!.props.label.Named("PART")).Resolve();
                 break;

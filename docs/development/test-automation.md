@@ -302,10 +302,12 @@ which never freezes, so on this machine it meets the same error 1450; it would n
 
 - **More history rules**: rows 28 (oil burn, with engine hours from `Service_engineHours`), 29, 30, 34, 92 (an EMP's single drop:
   `min(diffs(charge))`), 144 and 396. Each needs a condition a save can show; the agent's reading has the figures.
-- **Figures on notes we already write**: a `share` on `vehicles.part-replaced` and `part-replaced-at-rig` (rows 1 and 36: 0.25 and
-  0.6), a `factor` on `vehicles.grade-done` (row 9, any part); row 509's per-wheel brake wear is saved and readable.
-- **Live figure notes**: a snapshot is not kept and needs the running game's own ledger for a version; the kit refuses a `note` on
-  a live check until then. Row 58's `CompPhobosGeneratorSet.leadWatts` (300) would be the first.
+- ~~Figures on notes we already write~~ **Built 27 Nov 2026 (Framework 0.337.0)**: `vehicles.part-replaced-in-field` (new, row 1)
+  and `vehicles.part-replaced-at-rig` (row 36) carry the part's `share` of its maximum (0.25 and 0.6), and `vehicles.grade-done` a
+  `factor` against the ungraded part (row 9, any part). Row 509's note already carried its brake wear (`health`).
+- ~~Live figure notes~~ **Built 27 Nov 2026 (phobos-modkit 1.134.0)**: a live check's `note` is kept in the kit's cache
+  (`live-notes/rimworld.jsonl`) with the installed version of its mod, and test-pass reads it. The first is row 58's
+  `service-lead-watts` (`CompPhobosGeneratorSet.leadWatts`, 300 W, never saved).
 - The agent's full reading, with every claim's verdict: kept in the session's scratch notes only; this section holds what it found.
 
 ### Limits

@@ -1206,8 +1206,11 @@ public sealed class VehicleFittings
             comp.Conditions.RemoveOn(order.partKey);    // a new part has none of the old one's troubles
             comp.RestorePart(part, 1f);
             text = "PhobosVehicleSystems_GradeDone".Translate(who, vehicle, part.props.label.Named("PART"), order.grade.label.Named("GRADE")).Resolve();
-            // Seen in play (Framework 0.293.0, row 9): a part's grade changed, by the grade fitted.
-            Seen.Note("vehicles.grade-done", comp.Vehicle, part.props.label, order.grade.defName);
+            // Seen in play (Framework 0.293.0, row 9): a part's grade changed, by the grade fitted; with its health against the part's
+            // ungraded health (Framework 0.337.0: about 1.3 heavy-duty, 0.7 salvaged), on any part, not only the Cherokee's chemtank.
+            if (Seen.Wants("vehicles.grade-done", comp.Vehicle, order.grade.defName))
+                Seen.Note("vehicles.grade-done", comp.Vehicle, part.props.label, order.grade.defName,
+                    values: new[] { new KeyValuePair<string, double>("factor", part.props.health > 0f ? part.Health / part.props.health : 0d) });
         }
         else if (order.tune != null)
         {

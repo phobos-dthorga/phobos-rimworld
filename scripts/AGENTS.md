@@ -72,8 +72,10 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
   change, and add a `fault` for what the design says is impossible. Select `{"class": "*VehiclePawn"}`, or a `def`: jets save their own vehicle class. Vehicle
   Framework saves its own parts by place (`statHandler/components/li[N]`), so say in `why` which part and as of when. **A graph
   history is read with `samples(path, min, max)`** (kit 1.130.0): take the range from the quantity's Def and name it in `why`, and
-  **begin every figure rule's `when` with `ofPlayer`** (kit 1.131.0): another faction's vehicle off a map is never updated, so its
-  history can be months old. D'thorga
+  **begin every save figure rule's `when` with `ofPlayer`** (kit 1.131.0): another faction's vehicle off a map is never updated, so its
+  history can be months old. **A live check may note figures too** (kit 1.134.0), for a value only the running game holds (a derived
+  field never saved); the kit keeps its notes, and a live check cannot tell whose a thing is yet, so say in `why` why only the player's
+  things meet its `when`. D'thorga
   Companion 0.101.0 runs the save checks by itself on the newest save: **a finding on Home is not the owner's error to explain**.
 - Read the owner's `Player.log` before assuming a reported fault is the owner's error, and **start with
   `python scripts/triage-log.py`**. Open the raw log only for what the summary cannot answer.
