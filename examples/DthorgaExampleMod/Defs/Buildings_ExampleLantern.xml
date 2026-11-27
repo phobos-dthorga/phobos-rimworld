@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    A chemfuel lantern that lights only in the dark, with D'thorga Framework's night light comp. Copied from the Framework's camp
+    lantern (mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/Accessories_Camp.xml,
+    PhobosCamp_Lantern), without its camp gear extension and research, so it stands on its own.
+    Guide: docs/framework-modding.md, "A light that lights only in the dark".
+    The comp is in D'thorga Framework's core: this building needs no vehicle and no other mod. Not yet tested in game.
+  -->
+  <ThingDef ParentName="BuildingBase">
+    <!-- Rename the prefix to your own. A defName must never end in a digit. -->
+    <defName>DthorgaExample_Lantern</defName>
+    <label>example lantern</label>
+    <description>A chemfuel lantern on a stand. It lights itself at dusk and burns about one chemfuel a night, only while it is lit, and gives off a little warmth.</description>
+    <graphicData>
+      <!-- The game's own standing lamp picture, so the example ships no art. Use your own texture in your mod. -->
+      <texPath>Things/Building/Furniture/LampStanding</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <size>(1,1)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <fillPercent>0.1</fillPercent>
+    <rotatable>false</rotatable>
+    <!-- Required: the night light counts its fuel by the tick. -->
+    <tickerType>Normal</tickerType>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsFurniture</li>
+    </thingCategories>
+    <!-- The game's Furniture tab in the Architect. -->
+    <designationCategory>Furniture</designationCategory>
+    <statBases>
+      <MaxHitPoints>30</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+      <Mass>2</Mass>
+      <WorkToBuild>500</WorkToBuild>
+    </statBases>
+    <costList>
+      <Steel>15</Steel>
+    </costList>
+    <comps>
+      <!-- The game's refuelling. consumeFuelOnlyWhenUsed is required: the night light marks the fuel used only on the ticks it is lit.
+           2 a day of burning, so about one a night; 5 held (the camp lantern's figures, authored). -->
+      <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>2.0</fuelConsumptionRate>
+        <fuelCapacity>5.0</fuelCapacity>
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+        <fuelFilter>
+          <thingDefs>
+            <li>Chemfuel</li>
+          </thingDefs>
+        </fuelFilter>
+        <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+      </li>
+      <!-- The game's light. The night light keeps it dark while the sky is light. -->
+      <li Class="CompProperties_Glower">
+        <glowRadius>7</glowRadius>
+        <glowColor>(184,136,83,0)</glowColor>
+      </li>
+      <!-- Optional: a switch. Switched off, it never lights or burns. -->
+      <li Class="CompProperties_Flickable" />
+      <!-- D'thorga Framework's night light. darkBelow is the sky's light it waits for (0.5, dusk, is the default); heatPerSecond is a
+           little warmth while lit, a flame of about a hundred watts (authored), up to heatPushMaxTemperature (20 degrees C by default). -->
+      <li Class="Phobos.Framework.Environment.CompProperties_PhobosNightLight">
+        <darkBelow>0.5</darkBelow>
+        <heatPerSecond>2</heatPerSecond>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

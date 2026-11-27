@@ -18,6 +18,7 @@
         {"name": "picture edges", "run": ["{python}", "scripts/art/edge_check.py", "check"]},
         {"name": "mod layout and text keys", "run": ["{python}", "scripts/check-mod-layout.py"]},
         {"name": "vehicle schemas", "run": ["{python}", "scripts/check-vehicle-schemas.py"]},
+        {"name": "example mod", "run": ["{python}", "scripts/check-vehicle-schemas.py", "--mod", "examples/DthorgaExampleMod"]},
         {"name": "upgrade trees", "run": ["{python}", "scripts/check-upgrade-trees.py"]},
         {"name": "declared effects", "cwd": "external/phobos-modkit/python", "run": ["{python}", "-m", "phobos_modkit", "effects", "check", "--root", "../../.."]},
         {"name": "vehicle armour", "run": ["{python}", "scripts/check-vehicle-armour.py"]},

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    A loadout: which vehicle gets which systems, with which figures. This one gives Vanilla Vehicles Expanded's Wisent (a heavy
+    truck, Mass 380, so it already gets D'thorga Framework's heavy land loadout) a bigger alternator and battery, and a rack mount part
+    for this mod's own fitting (Fittings_Example.xml).
+    Guide: docs/vehicle-systems-modding.md, "A loadout for your vehicle", "Loadout fields" and "Part roles".
+    Pattern copied from D'thorga Vehicles' Big Rig loadout
+    (mods/PhobosVehicles/Mods/VanillaVehiclesExpandedTier3/Defs/Loadouts_VVETier3.xml) and the Framework's heavy land loadout
+    (mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/Loadouts_Default.xml).
+    This file loads only while Vanilla Vehicles Expanded is active (LoadFolders.xml). Not yet tested in game.
+
+    TO USE YOUR OWN VEHICLE: change VVE_Wisent below to your VehicleDef's defName, and move this file to a folder your
+    LoadFolders.xml loads with the mod that defines it (or to Defs/ if your own mod defines the vehicle).
+  -->
+  <!-- ParentName: inherit the heavy land loadout and change only what differs. The Framework's named parents include
+       PhobosVehicleLoadoutLandLight, PhobosVehicleLoadoutLandHeavy, PhobosVehicleLoadoutBoat and PhobosVehicleLoadoutAircraft. -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>DthorgaExample_Wisent_Loadout</defName>
+    <label>example heavy truck</label>
+    <!-- Vehicle beats Mod, which beats Effect (the default loadouts' priority), which beats Default. -->
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>VVE_Wisent</li>   <!-- CHANGE THIS to your vehicle's defName -->
+      </vehicleDefs>
+      <!-- The parent asks for Mass 350 or more; a named vehicle should not depend on that. -->
+      <massMin>-1</massMin>
+    </selector>
+    <!-- Inherit="False" replaces the parent's list, so every system is listed again (the heavy loadout's own list). Without it, the
+         list would add to the parent's. The only change: the electrical system's set. -->
+    <systems Inherit="False">
+      <li>
+        <def>PhobosVehicleSystem_Electrical</def>
+        <!-- The heavy loadout gives 24 V, 100 Ah, a 100 A alternator and 0.3 Ah for a start. Here: a 140 A alternator (the guide's
+             example figure) and 140 Ah of battery, example figures (authored), for a truck that runs radios and lamps. The list is
+             replaced whole, so nothing of the parent's set is kept: the 24 V and the starter's draw are given again, or the system's
+             own defaults would apply. -->
+        <set>
+          <batteryAmpHours>140</batteryAmpHours>
+          <systemVolts>24</systemVolts>
+          <alternatorAmps>140</alternatorAmps>
+          <starterAmpHours>0.3</starterAmpHours>
+        </set>
+      </li>
+      <li>
+        <def>PhobosVehicleSystem_Cooling</def>
+        <set>
+          <heaterCoreKw>8</heaterCoreKw>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Fuel</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_RunningGear</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_Transmission</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
+      <li><def>PhobosVehicleSystem_Driver</def></li>
+      <li><def>PhobosVehicleSystem_PowerSteering</def></li>
+      <li><def>PhobosVehicleSystem_HouseBattery</def></li>
+      <li><def>PhobosVehicleSystem_HouseBatteryLithium</def></li>
+    </systems>
+    <!-- A part role of this mod's own, for its fitting. Without Inherit="False" this adds to the parent's roles. Nothing on the Wisent
+         is found for it (no find rules), so the add appends a mount part. -->
+    <partRoles>
+      <li>
+        <role>DthorgaExample_RackMount</role>
+        <add>
+          <!-- Prefix the key with your mod's prefix. -->
+          <key>DthorgaExample_RackMount</key>
+          <label>rack mount</label>
+          <!-- An empty mounting point: it can be hit and broken, but it neither keeps a wreck alive nor brings it closer to destruction. -->
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <health>25</health>
+          <depth>External</depth>
+          <!-- Vehicle Framework hits a bigger hitWeight more often; Combat Extended reads hitWeightCE, where a smaller one is hit more.
+               A rail's figures from the Framework's side rail (authored). -->
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <!-- The engine's cells and armour, so Combat Extended's shots can reach it. -->
+          <cellsOf>Engine</cellsOf>
+          <!-- Vehicle Framework saves parts by position. A part added to a design that saves already hold must go last, or it would
+               hand its place's saved health to the next part. Never insert or reorder parts. -->
+          <last>true</last>
+        </add>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

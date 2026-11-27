@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Which folders the game loads, and when. Needed here because the loadout and the fitting name Vanilla Vehicles Expanded's Wisent:
+  they sit in their own folder, loaded only while that mod is active, so a player without it gets no errors (the vehicle systems
+  guide's gotcha: "put your loadouts in an IfModActive folder if they name another mod's vehicles"). D'thorga Vehicles does the
+  same, one folder per mod whose vehicles it names (mods/PhobosVehicles/LoadFolders.xml).
+  With a LoadFolders.xml, the mod's own root is loaded only because "/" is listed.
+-->
+<loadFolders>
+  <v1.7>
+    <li>/</li>
+    <li IfModActive="OskarPotocki.VanillaVehiclesExpanded">Mods/VanillaVehiclesExpanded</li>
+  </v1.7>
+</loadFolders>

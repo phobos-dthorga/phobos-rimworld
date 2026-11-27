@@ -24,8 +24,10 @@ Defs under `mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framew
   parts after the vehicle's own and drops saved extras on load, so a design may lose or gain appended parts between versions, but
   **never insert or reorder parts in your own vehicle's list** for this.
 - **Load after D'thorga Framework**, and put your loadouts in an `IfModActive` folder if they name another mod's vehicles.
-- **Check your files offline**: `python scripts/check-vehicle-schemas.py` (in this repository) reads every system and loadout under
-  `mods/`, resolves inheritance like the game, and names every mistake it can find without the game.
+- **Check your files offline**: download `scripts/check-vehicle-schemas.py` and run `python check-vehicle-schemas.py --mod
+  "<your mod's folder>"` (Python 3.9 or newer; it finds the installed D'thorga Framework itself). It resolves inheritance like the
+  game, applies your patches, and names every mistake it can find without the game, with what to do. See
+  [your first hour](modding/first-hour.md#5-checking-your-xml-offline).
 - **Classes are named in full**: `Class="Phobos.VehicleSystems.Effect_Message"`. A class of your own uses your namespace.
 - **Player text stays in the world.** Messages and refusals describe the vehicle and what to do; they never name a mod or a setting.
 

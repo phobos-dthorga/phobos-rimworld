@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    A fitting: an upgrade a mechanic bolts onto one part of one vehicle, ordered from the vehicle's Fittings and tunes window.
+    This one goes on the rack mount that Loadouts_Example.xml appends, so only the example's vehicle is offered it.
+    Guide: docs/vehicle-systems-modding.md, "A fitting for your own vehicle" and "Fitting fields".
+    Fields copied from the Framework's heavy-duty springs and auxiliary fuel tank
+    (mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/Fittings.xml). Every figure is authored.
+    It sits in the same folder as the loadout it names, so both load together or neither does. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>DthorgaExample_CargoRack</defName>
+    <!-- No iconPath: the fittings window shows the words alone. Give your own picture's path here in your mod. -->
+    <label>cargo rack</label>
+    <description>Steel racks along the load bed. The truck carries more, and the extra weight up high makes it a little slower.</description>
+    <!-- Required: the part roles it goes on. A fitting goes on a role, never on a vehicle by name. -->
+    <roles>
+      <li>DthorgaExample_RackMount</li>
+    </roles>
+    <!-- Optional: only vehicles on these loadouts. The role is this mod's own already; this also keeps it off any other loadout that
+         might bind the same role name. -->
+    <loadouts>
+      <li>DthorgaExample_Wisent_Loadout</li>
+    </loadouts>
+    <!-- What fitting uses up, for a 5-tonne vehicle at the Standard presets; the player's settings scale it. -->
+    <materials>
+      <Steel>50</Steel>
+    </materials>
+    <!-- Ticks of work for a mechanic of construction speed 1; 2,500 is an hour. -->
+    <work>5000</work>
+    <minSkill>3</minSkill>
+    <!-- D'thorga Framework's vehicle tuning research, which our own fittings wait for. -->
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <!-- A fitting must move something the vehicle has, or it is not offered. Vehicle Framework stats: more cargo, a little slower. -->
+    <statFactors>
+      <li><stat>CargoCapacity</stat><factor>1.1</factor></li>
+      <li><stat>MoveSpeed</stat><factor>0.98</factor></li>
+    </statFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

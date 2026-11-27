@@ -9,6 +9,7 @@
   },
   "guides": [
     "docs/modding/README.md",
+    "docs/modding/first-hour.md",
     "docs/framework-modding.md",
     "docs/vehicle-systems-modding.md",
     "docs/vehicle-features-modding.md",
@@ -18,7 +19,8 @@
     "docs/modding/farming.md",
     "docs/modding/vehicles.md",
     "docs/modding/water-tap.md",
-    "docs/modding/patches.md"
+    "docs/modding/patches.md",
+    "docs/modding/stability.md"
   ],
   "projects": [
     "src/PhobosFramework",
@@ -247,39 +249,5 @@
       "where": "A Def of its own in your Defs folder."
     }
   ],
-  "knownGaps": [
-    "Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosChemicalDeepening",
-    "Phobos.BurnsAndSmoke.Comps.HediffCompProperties_PhobosIschaemia",
-    "Phobos.Framework.Health.CompProperties_PhobosPatient",
-    "Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades",
-    "Phobos.Medical.Comps.HediffCompProperties_PhobosOnOxygen",
-    "Phobos.VehicleSystems.CompProperties_PhobosBayTrip",
-    "Phobos.VehicleSystems.CompProperties_PhobosDamageLooks",
-    "Phobos.VehicleSystems.CompProperties_PhobosDepotBay",
-    "Phobos.VehicleSystems.CompProperties_PhobosDrillRig",
-    "Phobos.VehicleSystems.CompProperties_PhobosFireFighting",
-    "Phobos.VehicleSystems.CompProperties_PhobosFuelPump",
-    "Phobos.VehicleSystems.CompProperties_PhobosGeneratorSet",
-    "Phobos.VehicleSystems.CompProperties_PhobosHitch",
-    "Phobos.VehicleSystems.CompProperties_PhobosHull",
-    "Phobos.VehicleSystems.CompProperties_PhobosLitter",
-    "Phobos.VehicleSystems.CompProperties_PhobosNodeLooks",
-    "Phobos.VehicleSystems.CompProperties_PhobosRigWork",
-    "Phobos.VehicleSystems.CompProperties_PhobosSling",
-    "Phobos.VehicleSystems.CompProperties_PhobosSurveyTruck",
-    "Phobos.VehicleSystems.CompProperties_PhobosTank",
-    "Phobos.VehicleSystems.CompProperties_PhobosTiltrotor",
-    "Phobos.VehicleSystems.CompProperties_PhobosTipper",
-    "Phobos.VehicleSystems.CompProperties_PhobosTuningRig",
-    "Phobos.VehicleSystems.PhobosVehicleLoadoutDef",
-    "Phobos.VehicleSystems.When_Always",
-    "Phobos.VehicleSystems.When_AmbientAbove",
-    "Phobos.VehicleSystems.When_AmbientBelow",
-    "Phobos.VehicleSystems.When_EngineRunning",
-    "Phobos.VehicleSystems.When_LoadActive",
-    "Phobos.VehicleSystems.When_Moving",
-    "Phobos.VehicleSystems.When_QuantityAbove",
-    "Phobos.VehicleSystems.When_QuantityBelow",
-    "Phobos.VehicleSystems.When_Setting"
-  ]
+  "knownGaps": []
 }

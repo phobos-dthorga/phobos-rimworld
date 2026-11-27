@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  A template for your own mod that builds on D'thorga Framework (also spelt dthorga). Copy the whole DthorgaExampleMod folder, then
+  change the packageId, name and author below before anything else: the packageId is your mod's identity, and saves and other mods'
+  load orders hold it, so choose it once. See README.md beside this folder for what to rename and how to try it.
+  Not yet tested in game.
+-->
+<ModMetaData>
+  <!-- Change this first: YourName.YourModName, letters and dots only. Never change it once you have published. -->
+  <packageId>YourName.DthorgaExample</packageId>
+  <name>D'thorga Framework example (rename me)</name>
+  <author>Your name</author>
+  <modVersion>0.1.0</modVersion>
+  <description>An example mod built on D'thorga Framework (also spelt dthorga), to copy and rename.
+
+- A chemfuel lantern that lights itself at dusk and burns fuel only while lit (D'thorga Framework's night light).
+- With Vanilla Vehicles Expanded: the Wisent truck gets a bigger alternator and battery, and a cargo rack fitting of its own.
+
+Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.</description>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <!-- The mods this one cannot load without. D'thorga Framework brings Harmony as its own dependency. Vehicle Framework is needed
+       because the loadout and the fitting are Vehicle Framework vehicle Defs; a mod with no vehicle parts would need only the Framework. -->
+  <modDependencies>
+    <li>
+      <packageId>SmashPhil.VehicleFramework</packageId>
+      <displayName>Vehicle Framework</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3014915404</steamWorkshopUrl>
+      <downloadUrl>https://github.com/SmashPhil/Vehicle-Framework</downloadUrl>
+    </li>
+    <li>
+      <packageId>PhobosDthorga.Framework</packageId>
+      <displayName>D'thorga Framework</displayName>
+      <downloadUrl>https://github.com/phobos-dthorga/phobos-rimworld</downloadUrl>
+    </li>
+  </modDependencies>
+  <!-- Load after everything whose Defs this mod names: the game, Vehicle Framework, D'thorga Framework (its loadouts, its research)
+       and Vanilla Vehicles Expanded (the Wisent). The same order D'thorga Vehicles uses. -->
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>SmashPhil.VehicleFramework</li>
+    <li>PhobosDthorga.Framework</li>
+    <li>OskarPotocki.VanillaVehiclesExpanded</li>
+  </loadAfter>
+</ModMetaData>
