@@ -19,7 +19,7 @@
   "art_plan": {
    "node": "Exhaust turbo-generator (PhobosExhaustTurboGenerator, UpgradeTree_GeneratorSet.xml; D'thorga Vehicles 0.135.0)",
    "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/GeneratorSet/Upgrades/ExhaustTurboGenerator.png",
-   "why": "an icon only, made locally (assets/AGENTS.md); until it ships the node borrows the turbocharger fitting's icon. Queued 28 Nov 2026 for the next night run, not yet in a night plan"
+   "why": "an icon only, made locally (assets/AGENTS.md); until it ships the node borrows the turbocharger fitting's icon. Queued 28 Nov 2026 in night 18's plan (.local/art/night-18.json, its last step), on the owner's word: \"Add any icon requests to tonights GPU queue\""
   }
  }
 ]
