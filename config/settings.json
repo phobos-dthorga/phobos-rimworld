@@ -36,6 +36,13 @@
       "kind": "folder",
       "game": "rimworld",
       "description": "Where other authors' public source is cloned for reading (the owner chose K:, 18 Nov 2026)"
+    },
+    {
+      "key": "hfTablesPath",
+      "env": "PHOBOS_HF_TABLES",
+      "kind": "folder",
+      "game": "rimworld",
+      "description": "Where scripts/hf-tables.py keeps VOACAP's results and the packed HF tables (the owner's machine: K:, 28 Nov 2026)"
     }
   ]
 }

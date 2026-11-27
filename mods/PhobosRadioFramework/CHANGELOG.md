@@ -5,6 +5,12 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Added
+
+- **The HF tables' reader, not used in play yet** (the owner's cards of 28 November 2026: tables now, the game later): the radio can
+  read VOACAP's HF predictions as the repository's table maker packs them, and look up a path's chance of being open, its loss and
+  the noise at any hour, season and point of the sun's cycle. Nothing in play reads it until HF's first slice is built.
+
 ### Changed
 
 - **The art and sound records no longer ship in the mod's folder** (the owner's choice of 23 Nov 2026, in the docs rewrite).

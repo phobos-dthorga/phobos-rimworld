@@ -1,6 +1,7 @@
 # HF: the radio's Phase 2 (27 Nov 2026)
 
-**Status (28 Nov 2026):** a design record; nothing is built. The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2") and
+**Status (28 Nov 2026):** the tables are made and their reader is built (`scripts/hf-tables.py`, `HfTable`; [the full
+run](#the-full-run-28-nov-2026)); nothing in play uses them yet. The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2") and
 answered its questions on 28 Nov ([first round](#the-owners-answers-28-nov-2026)): HF at the world's scale, VOACAP's predictions
 shipped as tables, 40 m and 20 m first, the radio's own flare, no licence tiers. In a [second round](#the-owners-second-round-28-nov-2026)
 the same day the owner opened **building for everything but HF's reach in play**: the tables (voacapl under WSL, installed on 28
@@ -250,6 +251,51 @@ tables ship as a compact binary file, not JSON. **Still to settle before the ful
 Earth's magnetic field, which a RimWorld planet does not have; the trial used one meridian. The full run would take paths at several
 longitudes and in several directions and average them, so a planet gets Earth's typical ionosphere rather than one meridian's. An
 approximation, labelled as such.
+
+### The full run (28 Nov 2026)
+
+`python scripts/hf-tables.py run` (the table maker, `scripts/radio/hf_tables.py`, with its tests in `tests/test_hf_tables.py`):
+
+| Axis | Points |
+| --- | --- |
+| Months | 12 |
+| Sunspot number | 0, 50, 100, 150, 200 |
+| Midpoint latitude | 80°S to 80°N in steps of 10° |
+| Path length | 50 km to 19,000 km, 19 points |
+| Local hour | 24 |
+| Bands | 80 m to 10 m, eight (40 m and 20 m packed for slice 1) |
+| Each cell | 8 paths: longitudes 90°W, 0°, 90°E and 180°, north-south and east-west; open share and MUF a mean, loss and fade a median |
+
+| Measured | Figure |
+| --- | --- |
+| Runs | 155,040, none failed (every run checks VOACAP read the frequencies asked for) |
+| Time | 9 min 53 s, eight at a time at low priority |
+| Packed, 40 m and 20 m | 3,304,881 bytes (`hf-propagation.bin`, format 1, with `hf-propagation.json` saying how it was made) |
+| Every band's results | 293 MB of JSON in the work folder (the setting `hfTablesPath`, K: on the owner's machine), never committed |
+
+**A fault found and fixed on the way**: the frequency card was one column out, which VOACAP read silently as another frequency
+(14.20 MHz as 214.2 after a five-figure frequency). The trial's two bands happened to read correctly; the full run's eight would not
+have. The worker now refuses any run whose echoed frequencies differ from those asked.
+
+What the tables say (each figure **from VOACAP**, as averaged here):
+
+| Path | What VOACAP gives |
+| --- | --- |
+| 20 m, 3,000 km at 40°N, noon | The MUF rises with the sun: 24 to 38 MHz in January and 19 to 26 MHz in June, from sunspots 0 to 200; the winter noon MUF is the higher (the F2 layer's winter anomaly, which VOACAP's maps carry) |
+| 40 m, 1,000 km at 40°N, June | Open at night (loss 121 dB), absorbed at noon (161 dB) |
+| 20 m at 40°N, June noon, by length | No path to 300 km, barely at 750 km, open from 1,500 km: the skip zone |
+
+**Not yet understood**: for 20 m over 3,000 km at June noon, the share of days open falls from 0.67 to 0.46 as the sunspots rise from
+0 to 100, though the MUF rises. Likely the averaging (one direction or longitude whose mode changes) or VOACAP's own treatment of that
+path; to be looked into before slice 1 relies on it, not assumed.
+
+**The reader** [A]: `HfTable` (`src/PhobosRadio/Physics/HfTable.cs`, game-free, tests in `HfTableTests`) reads format 1 and looks up a
+path's MUF, share of days open, loss, fade and the noise at the far end, between the grid's points in every axis: the year and the hour
+wrap round, the sunspots, latitude and length hold at their ends; a corner with no usable path counts as the most lossy packed path, so
+the loss rises smoothly towards it. The game maps its own year onto the year's fraction when slice 1 is built.
+
+**Shipping** [A]: the packed file goes into the mod with slice 1, with VOACAP named in `THIRD_PARTY_NOTICES.md` then; the same voacapl
+and grid give the same tables, so nothing generated is committed before.
 
 ## Sources
 

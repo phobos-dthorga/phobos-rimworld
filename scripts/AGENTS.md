@@ -41,6 +41,7 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
 | The paths and settings a script reads | `settings.py` | `settings.md` |
 | Whether textures need encoding | `textures.py` | `rimworld-textures.md` |
 | Everything a commit needs checked (the gate) | `check-all.py` | `gate.md` |
+| The radio's HF propagation tables, from VOACAP in WSL (`run`, `pack`, `show`) | `hf-tables.py` | `docs/development/radio-hf.md` (this repository) |
 | Whether a fitting, tune or upgrade node declares a grant, figure, mount or key nothing reads | the kit's `effects` (gate step "declared effects") | `effects.md` |
 | Harmony targets and by-name lookups | `check-targets.py` | `rimworld-targets.md` |
 | The generated tables in our docs: projects, Harmony patches, what each mod needs, each mod's settings | `doc-tables.py` | `doc-tables.md` |
