@@ -67,6 +67,11 @@ public static class DubsPipes
     }
 }
 
+/// <summary>
+/// Gives a building its own Dubs Bad Hygiene plumbing beneath it (<see cref="CompPhobosPipeUnderlay"/>), so the pipes either side of
+/// it join through it. It has no fields. It lives in the Framework's Dubs Bad Hygiene assembly, so add it in a patch that runs only
+/// with Dubs Bad Hygiene active, as our electrolyser, safety shower and conveyor oven do.
+/// </summary>
 public class CompProperties_PhobosPipeUnderlay : CompProperties
 {
     public CompProperties_PhobosPipeUnderlay() => compClass = typeof(CompPhobosPipeUnderlay);

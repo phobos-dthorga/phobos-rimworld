@@ -16,6 +16,8 @@ on:
       - "external/phobos-log"
       - "docs/framework-modding.md"
       - "docs/vehicle-systems-modding.md"
+      - "docs/modding/**"
+      - "mods/PhobosFramework/About/About.xml"
       - "docs/reference/**"
       - "scripts/reference-site.py"
       - "config/reference-site.json"

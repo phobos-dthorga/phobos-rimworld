@@ -8,16 +8,32 @@
     "why": "every page's footer says when the site was built, from which version of this mod and which commit (owner, 28 Nov 2026)"
   },
   "guides": [
+    "docs/modding/README.md",
     "docs/framework-modding.md",
-    "docs/vehicle-systems-modding.md"
+    "docs/vehicle-systems-modding.md",
+    "docs/modding/radio-framework.md",
+    "docs/modding/medical.md",
+    "docs/modding/factory-additions.md",
+    "docs/modding/farming.md",
+    "docs/modding/vehicles.md",
+    "docs/modding/water-tap.md",
+    "docs/modding/patches.md"
   ],
   "projects": [
     "src/PhobosFramework",
+    "src/PhobosFramework.Hygiene",
     "src/PhobosFramework.Vehicles",
+    "src/PhobosFramework.Vehicles.Hygiene",
     "src/PhobosMedical",
+    "src/PhobosMedical.Hygiene",
     "src/PhobosFactory",
-    "src/PhobosFarming"
+    "src/PhobosFactory.Hygiene",
+    "src/PhobosFarming",
+    "src/PhobosRadio",
+    "src/PhobosRadio.Vehicles",
+    "src/PhobosWaterTap"
   ],
+  "projectsLeftOut": "Every mod with types a modder names in XML is here (owner, 28 Nov 2026: the Radio was missing). Left out: PhobosPatches.* (our patches of other authors' mods, with nothing to build on), the tie-in projects with no XML-facing types, and src/Shared (read by DocFX for the Framework, below).",
   "restoreProject": "src/PhobosFramework/PhobosFramework.csproj",
   "references": [
     {

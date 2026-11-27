@@ -2,7 +2,8 @@
 
 **Status (28 Nov 2026):** built, and **published at [phobos-dthorga.github.io/phobos-rimworld](https://phobos-dthorga.github.io/phobos-rimworld/)** since 23 Nov 2026 (the
 owner switched GitHub Pages on); the workflow rebuilds and republishes it on every push that touches its files. Since 24 Nov 2026
-the gate builds it too; since 28 Nov 2026 every page's footer says when it was built and from which Framework version.
+the gate builds it too; since 28 Nov 2026 every page's footer says when it was built and from which Framework version, and it
+covers every mod (the Radio Framework, Water Tap and the per-mod pages of `docs/modding/` were missing until then).
 
 The owner's choice D3 in the docs rewrite (23 Nov 2026): the Framework's modder reference is generated from the code with
 **DocFX** (Microsoft's documentation generator, MIT licence), published on GitHub Pages, instead of written by hand. The audit had
@@ -33,7 +34,7 @@ found 232 public modder-facing types in the Framework and its vehicle systems, a
 
 | Part | How |
 | --- | --- |
-| Projects | Framework, its vehicle systems, Medical, Factory and Farming (`config/reference-site.json`), with the two modding guides as articles |
+| Projects | Every project with types a modder names in XML (`config/reference-site.json`): Framework, its vehicle systems, Medical, Factory, Farming, Radio Framework (with its vehicles part), Water Tap, and the four Dubs Bad Hygiene tie-ins. Since 28 Nov 2026 (owner: the Radio was missing) a test fails when such a project is left out. PhobosPatches is left out: it patches other authors' mods and gives nothing to build on. The guides are the two Framework guides and every page of `docs/modding/`, with its README as the guides' front page |
 | Reading the C# | DocFX's source-file mode: it reads our `.cs` files with the game's reference assemblies and Harmony from the NuGet cache, and carries on past the other mods' types (`allowCompilationErrors`). So GitHub's runners build the same site with no Workshop files and no secrets; other mods' types are named but not linked |
 | XML pages | `scripts/reference-site.py pages` writes an XML example and a defaults table for each of the 281 XML-facing types (nine kinds: comps, vehicle comps, extensions, Defs, rules Defs, vehicle system inputs, conditions and effects, hediff comps) and an "XML types" catalogue |
 | Workflow | `.github/workflows/reference-site.yml`, its actions pinned to commits; deploy only when `PAGES_ENABLED` is `true` |

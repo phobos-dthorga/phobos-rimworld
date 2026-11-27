@@ -335,6 +335,12 @@ class Site(unittest.TestCase):
             self.assertIn(Path(folder).name, sources, f'{folder} has XML examples but DocFX does not read it')
         for guide in settings['guides']:
             self.assertTrue((ROOT / guide).is_file(), guide)
+        names = [Path(guide).name for guide in settings['guides']]
+        self.assertEqual(len(names), len(set(names)), 'the guides share one folder on the site, so their file names must differ')
+        with_types = [p for p in sorted((ROOT / 'src').iterdir()) if p.is_dir() and p.name != 'Shared'
+                      and not p.name.startswith('PhobosPatches') and f'src/{p.name}' not in settings['projects']
+                      and site.modder_types(site.read_source(ROOT, [f'src/{p.name}']), settings['categories'])]
+        self.assertEqual(with_types, [], 'a project with XML-facing types is missing from the site (config "projects")')
         self.assertIsNotNone(site.mod_version(ROOT, settings['stamp']['about']), 'the stamp\'s About.xml gives a version')
 
 
