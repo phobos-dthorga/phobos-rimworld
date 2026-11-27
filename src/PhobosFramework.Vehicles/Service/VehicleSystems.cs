@@ -111,6 +111,8 @@ public static class VehicleSystems
             drivetrain = loadout.drivetrain,
             flightProfile = loadout.flightProfile,
             trailer = LoadoutSelector.IsTrailer(def),
+            // Framework 0.369.0: the design's class, from its Def alone.
+            vehicleClass = VehicleClasses.Of(def, loadout),
         };
         // Framework 0.359.0: a design that dives takes nothing marked for other boats only (submarines are on the back burner).
         bool submersible = def.GetCompProperties<CompProperties_PhobosSubmersible>() != null;
@@ -231,7 +233,7 @@ public static class VehicleSystems
         // Framework 0.368.0 (the vehicle standard's batch 5, VS11; the owner's cards of 28 Nov 2026): a military vehicle goes without the
         // civilian bays. They were made in their places above, so every stage ran as before, and are taken out now with their places recorded
         // for saves (PartsOnLoad).
-        if (VehicleFittings.CountsAsMilitary(def, loadout)) added -= TakeOut(def, props, loadout.partRoles.Where(r => r.notOnMilitary));
+        if (VehicleClasses.CountsAsMilitary(def, loadout)) added -= TakeOut(def, props, loadout.partRoles.Where(r => r.notOnMilitary));
         // Framework 0.256.0: numbered roles roll up into their base role (Engine1 to EngineN are "the engines"), before the reactors are set.
         SystemParts.RollUpFamilies(props);
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).

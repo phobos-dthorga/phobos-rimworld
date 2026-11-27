@@ -80,7 +80,8 @@ the kit back in the cargo.
 
 - **The side rail takes one of** the awning, the side fly, the walled awning or the rear tent; **the roof mount one of** the roof tent,
   the rear tent or (on the flatbed) the fold-out camper.
-- **Military vehicles have no side rail, roof mount, stereo slot or sleeper berth**: a tank, an APC or an armed Humvee is no camper.
+- **Military vehicles have no side rail, roof mount, stereo slot or sleeper berth**: a tank, an APC or the HEMTT is no camper. A vehicle
+  armed only by upgrade (the L-ATV, the MaxxPro, the Humvee, our trucks with gun kits) keeps them; its Systems tab shows its class.
   Anything fitted there in an older save comes off into the vehicle's cargo as its kit, with a message, the first time the game loads.
 - **A closed tent is a real room**: beds inside are indoors, and the wind and rain stay out. **Swags and gear are set out inside it
   first**, leaving the cell inside the flap clear. Want a swag under the stars instead? Move it out once, and it goes back there.

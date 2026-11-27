@@ -59,6 +59,9 @@ on an aircraft in flight.
   without power; in Engineer mode the amps each load draws, and the total) and a red **Crew** card when people are aboard a
   burning or dead vehicle. Tick **Only what needs attention** to hide the rest. **The Systems tab is hidden in Plain display
   mode.**
+- **Its class** shows at the top right: **military** (armed as built, or built to military standards: EMP-hardened, no civilian
+  fittings), **armed by upgrade** (civilian by design, but a gun can be mounted through its upgrades: the L-ATV, the MaxxPro, the Humvee,
+  our trucks with gun kits), **civilian** or **mechanical** (a steam locomotive). Rest the mouse on it to see what it means.
 - **Rest the mouse on any reading or part** to learn what it means, what moves it, and what losing it costs.
 - **Comms** (with D'thorga Radio Framework): every vehicle with a battery has it on the Systems tab. **Radio** says whether a radio is
   fitted and working; **link home** whether it is in touch with a radio station on the same map, faint, out of touch or **jammed**

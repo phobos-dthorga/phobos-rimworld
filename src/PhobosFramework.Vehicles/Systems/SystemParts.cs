@@ -116,7 +116,9 @@ public static class SystemParts
                     .Append(", \"loadout\": ").Append(Json(props.loadout?.defName ?? ""))
                     // Framework 0.368.0 (the vehicle standard's VS11): military as the factory radios and the civilian bays judge it, and the
                     // parts its design has had taken out, so the audit can say what a military vehicle should not show.
-                    .Append(", \"military\": ").Append(props.loadout != null && VehicleFittings.CountsAsMilitary(def, props.loadout) ? "true" : "false")
+                    .Append(", \"military\": ").Append(props.vehicleClass == Phobos.Framework.Vehicles.Rules.VehicleClass.Military ? "true" : "false")
+                    // Framework 0.369.0: the class itself (civilian, armed by upgrade, military, mechanical).
+                    .Append(", \"class\": ").Append(Json(props.vehicleClass.ToString()))
                     .Append(", \"removed\": [").Append(string.Join(", ", props.removedParts.Select(r => Json(r.key)))).Append("]")
                     .Append(",\n     \"systems\": [");
                 text.Append(string.Join(", ", props.systems.Select(s => "{\"def\": " + Json(s.def.defName) + ", \"roles\": [" + string.Join(", ", s.def.roles.Select(Json)) + "]}")));

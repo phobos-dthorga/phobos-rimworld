@@ -558,7 +558,7 @@ public class PartRoleSpec
     public string? onlyWithRole;
     /// <summary>
     /// Not on a military vehicle (Framework 0.368.0, the vehicle standard's batch 5, VS11; the owner's cards of 28 Nov 2026): armed by design,
-    /// or rated military, as the factory radios judge it (<see cref="VehicleFittings.CountsAsMilitary(Vehicles.VehicleDef, PhobosVehicleLoadoutDef)"/>).
+    /// or rated military, as the factory radios judge it (<see cref="VehicleClasses.CountsAsMilitary"/>).
     /// The part is still made, in its place, and then taken out of the design with its place recorded (<see cref="RemovedPart"/>), so a vehicle
     /// saved with it has the saved entry dropped at its first load and every other part keeps its own wear. Only an added part is taken out;
     /// a design's own part never is.

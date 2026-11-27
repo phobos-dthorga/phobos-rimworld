@@ -640,6 +640,16 @@
   <PhobosVehicleSystems_SetWaiting>{LINE}, once the other {MISSING} carry it too: until then nothing changes</PhobosVehicleSystems_SetWaiting>
   <PhobosVehicleSystems_FitCancelledMessage>{WORK}: cancelled on the {VEHICLE}.</PhobosVehicleSystems_FitCancelledMessage>
   <PhobosVehicleSystems_FitLost>The {VEHICLE} lost its {FITTING} with its {PART}.</PhobosVehicleSystems_FitLost>
+  <!-- Framework 0.369.0: the vehicle's class, on the Systems tab beside the attention filter. {CLASS}: one of the labels below. -->
+  <PhobosVehicleSystems_SysClass>Class: {CLASS}</PhobosVehicleSystems_SysClass>
+  <PhobosVehicleSystems_ClassCivilian>civilian</PhobosVehicleSystems_ClassCivilian>
+  <PhobosVehicleSystems_ClassCivilianDesc>Built for civilian work, with no gun and no mount for one. It has a civilian vehicle's fittings and wiring, so an EMP hits it with its full force.</PhobosVehicleSystems_ClassCivilianDesc>
+  <PhobosVehicleSystems_ClassArmedByUpgrade>armed by upgrade</PhobosVehicleSystems_ClassArmedByUpgrade>
+  <PhobosVehicleSystems_ClassArmedByUpgradeDesc>Civilian by design, but a gun can be mounted through its upgrades. It keeps a civilian vehicle's fittings and wiring, gun or not, so an EMP hits it with its full force.</PhobosVehicleSystems_ClassArmedByUpgradeDesc>
+  <PhobosVehicleSystems_ClassMilitary>military</PhobosVehicleSystems_ClassMilitary>
+  <PhobosVehicleSystems_ClassMilitaryDesc>Built for war: armed as it left the factory, or built to military standards. Its wiring is hardened against EMP, and it has no civilian fittings such as a stereo, a sleeper berth or camping mounts.</PhobosVehicleSystems_ClassMilitaryDesc>
+  <PhobosVehicleSystems_ClassMechanical>mechanical</PhobosVehicleSystems_ClassMechanical>
+  <PhobosVehicleSystems_ClassMechanicalDesc>Nothing electronic keeps its engine running, so an EMP never stops it, though its lamps and other electrics can still be hit.</PhobosVehicleSystems_ClassMechanicalDesc>
   <!-- Framework 0.368.0 (the vehicle standard's batch 5): a fitting on a civilian bay a military vehicle no longer has, taken off at the first load. -->
   <PhobosVehicleSystems_FitBayTakenOut>The {VEHICLE}'s {FITTINGS} came off: a military vehicle has no place for them. Their kits are in its cargo.</PhobosVehicleSystems_FitBayTakenOut>
   <PhobosVehicleSystems_FitOrderLost>{WORK} on the {VEHICLE} was abandoned: the part is gone.</PhobosVehicleSystems_FitOrderLost>

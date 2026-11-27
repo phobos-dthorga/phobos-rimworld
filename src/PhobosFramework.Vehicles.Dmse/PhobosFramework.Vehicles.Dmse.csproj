@@ -11,7 +11,7 @@
     <ModFolder>PhobosFramework</ModFolder>
     <TieInFolder>Mods/VehiclesDmse/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.368.1</Version>
+    <Version>0.369.0</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>

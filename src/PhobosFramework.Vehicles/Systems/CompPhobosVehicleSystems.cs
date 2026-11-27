@@ -98,6 +98,8 @@ public class CompProperties_PhobosVehicleSystems : VehicleCompProperties
     /// <summary>Parts taken out of this design and where they stood (Framework 0.368.0, the vehicle standard's batch 5): a saved vehicle drops
     /// their entries at its first load (PartsOnLoad), and fittings on them come off with their kits (VehicleFittings.SettleRemovedParts).</summary>
     public List<RemovedPart> removedParts = new();
+    /// <summary>What kind of vehicle the design is (Framework 0.369.0, VehicleClasses), worked out once at start-up.</summary>
+    public Phobos.Framework.Vehicles.Rules.VehicleClass vehicleClass;
     /// <summary>How many of the design's weapons this service tied to a mount at start-up (Framework 0.115.0, T1).</summary>
     public int weaponsTied;
     /// <summary>The design's tracks, by key: a thrown one stops the vehicle (Framework 0.115.0, M2).</summary>

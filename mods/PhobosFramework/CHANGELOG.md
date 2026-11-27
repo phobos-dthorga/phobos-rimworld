@@ -22,6 +22,29 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.369.0] - 2026-11-28 - Draft
+
+Vehicle classes
+
+### Added
+
+- **Every vehicle has a class, shown on its Systems tab** (the owner's cards of 28 November 2026): military (armed as built, or built to
+  military standards), armed by upgrade (civilian by design, but a gun can be mounted through its upgrades), civilian or mechanical. Rest
+  the mouse on it to see what it means.
+- **Armed by upgrade is a class of its own**: the L-ATV, the MaxxPro, the Humvee and our service trucks with gun kits. For now it is
+  treated as civilian everywhere: these keep their civilian fittings and EMP rating, and get no factory radio. Recorded for future use.
+
+### Changed
+
+- **One test of whether a vehicle is armed**, where the EMP rating, the factory radios and the civilian bays each had their own copy. Who
+  counts as military is unchanged: the HEMTT, the tanks, the APCs and IFVs and VVE's armoured vehicles do; the L-ATV, the MaxxPro and
+  the Humvee never did. The guide and 0.368.0's entry no longer say the Humvee does.
+
+### Save compatibility
+
+- Safe: the class is worked out from each design at start-up and never saved.
+- Not yet tested in game: row 748.
+
 ## [0.368.1] - 2026-11-28 - Draft
 
 The fuel heater and the solar panel in the fittings window
@@ -41,7 +64,7 @@ Military vehicles without civilian bays
 ### Changed
 
 - **Military vehicles have no stereo slot, sleeper berth, roof mount or side rail** (the vehicle standard's batch 5; the owner's cards of
-  28 November 2026): a tank, an APC or an armed Humvee is no camper. Military means what the factory radios already use: armed by design,
+  28 November 2026): a tank, an APC or the HEMTT is no camper. Military means what the factory radios already use: armed by design,
   or rated military. A truck armed only by an upgrade kit keeps them, and every vehicle keeps its solar mount and fridge bay.
 - **Fittings on those bays come off into the cargo**: a stereo, cab bunk, roof tent or awning fitted there in an older save comes off the
   first time the game loads, its kit in the vehicle's cargo, with a message.

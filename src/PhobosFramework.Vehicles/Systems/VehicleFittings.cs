@@ -1573,7 +1573,7 @@ public sealed class VehicleFittings
         }
     }
 
-    bool CountsAsMilitary(PhobosVehicleLoadoutDef loadout) => CountsAsMilitary(comp.Vehicle.VehicleDef, loadout);
+    bool CountsAsMilitary(PhobosVehicleLoadoutDef loadout) => VehicleClasses.CountsAsMilitary(comp.Vehicle.VehicleDef, loadout);
 
     /// <summary>
     /// A fitting on a part its design has since taken out (Framework 0.368.0, the vehicle standard's batch 5; the owner's card of 28 Nov 2026:
@@ -1604,13 +1604,6 @@ public sealed class VehicleFittings
                 Where, MessageTypeDefOf.NeutralEvent);
     }
 
-    /// <summary>Military as EMP hardening judges it: armed (a turret on its design), or a loadout rated military. One test for the factory
-    /// radios (Framework 0.356.0) and the civilian bays a military vehicle goes without (Framework 0.368.0), read from the Def alone.</summary>
-    public static bool CountsAsMilitary(Vehicles.VehicleDef def, PhobosVehicleLoadoutDef loadout)
-    {
-        bool armed = def.comps?.Any(c => c is Vehicles.CompProperties_VehicleTurrets turrets && turrets.turrets.Count > 0) == true;
-        return Phobos.Framework.Vehicles.Rules.EmpRule.ClassFor(loadout.empHardening, armed) == EmpHardening.Military;
-    }
 
     /// <summary>
     /// A vehicle from a save made before its loadout began without some fittings is given them once, free, on the first part each suits, so

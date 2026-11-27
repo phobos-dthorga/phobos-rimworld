@@ -30,7 +30,8 @@ public static class VehicleEmp
     public static void Rate(VehicleDef def, PhobosVehicleLoadoutDef loadout, CompProperties_PhobosVehicleSystems props)
     {
         PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
-        bool armed = def.comps?.Any(c => c is CompProperties_VehicleTurrets turrets && turrets.turrets.Count > 0) == true;
+        // Framework 0.369.0: the one armed-as-built test (VehicleClasses), shared with the factory radios and the civilian bays.
+        bool armed = VehicleClasses.ArmedAsBuilt(def);
         EmpHardening hardening = EmpRule.ClassFor(loadout.empHardening, armed);
         string? package = def.modContentPack?.PackageId;
         bool optedOut = package != null && rules.empNoStunPackages.Any(p => string.Equals(p, package, StringComparison.OrdinalIgnoreCase));

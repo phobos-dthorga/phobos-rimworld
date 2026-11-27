@@ -94,6 +94,18 @@ public partial class ITab_VehicleSystems : ITab
 
     internal const string GuardKey = "The vehicle Systems tab";
 
+    /// <summary>A class's label and what it means, from the English Keyed file (Framework 0.369.0).</summary>
+    static (string Label, string Desc) ClassText(Phobos.Framework.Vehicles.Rules.VehicleClass vehicleClass) => vehicleClass switch
+    {
+        Phobos.Framework.Vehicles.Rules.VehicleClass.ArmedByUpgrade =>
+            ("PhobosVehicleSystems_ClassArmedByUpgrade".Translate().Resolve(), "PhobosVehicleSystems_ClassArmedByUpgradeDesc".Translate().Resolve()),
+        Phobos.Framework.Vehicles.Rules.VehicleClass.Military =>
+            ("PhobosVehicleSystems_ClassMilitary".Translate().Resolve(), "PhobosVehicleSystems_ClassMilitaryDesc".Translate().Resolve()),
+        Phobos.Framework.Vehicles.Rules.VehicleClass.Mechanical =>
+            ("PhobosVehicleSystems_ClassMechanical".Translate().Resolve(), "PhobosVehicleSystems_ClassMechanicalDesc".Translate().Resolve()),
+        _ => ("PhobosVehicleSystems_ClassCivilian".Translate().Resolve(), "PhobosVehicleSystems_ClassCivilianDesc".Translate().Resolve()),
+    };
+
     static void DrawInner(CompPhobosVehicleSystems comp, Rect outer, bool onWorld)
     {
         using Phobos.Framework.Debug.PhobosTiming.Scope timing = Phobos.Framework.Debug.PhobosTiming.Measure("systems tab");
@@ -104,6 +116,12 @@ public partial class ITab_VehicleSystems : ITab
         var filter = new Rect(outer.x, outer.y, 240f, FilterHeight);
         Widgets.CheckboxLabeled(filter, "PhobosVehicleSystems_SysFilterAttention".Translate(), ref attentionOnly);
         TooltipHandler.TipRegion(filter, "PhobosVehicleSystems_SysFilterAttentionDesc".Translate());
+        // Framework 0.369.0 (the owner's card of 28 Nov 2026, "Also shown on the vehicle"): the design's class, worked out at start-up.
+        var classRect = new Rect(filter.xMax + 8f, outer.y, outer.xMax - filter.xMax - 8f, FilterHeight);
+        (string classLabel, string classDesc) = ClassText(comp.Props.vehicleClass);
+        using (new TextBlock(GameFont.Small, TextAnchor.MiddleRight))
+            Widgets.Label(classRect, "PhobosVehicleSystems_SysClass".Translate(classLabel.Named("CLASS")).Resolve().Colorize(DetailColour));
+        TooltipHandler.TipRegion(classRect, classDesc);
         outer.yMin += FilterHeight + 4f;
 
         float viewWidth = outer.width - 16f;

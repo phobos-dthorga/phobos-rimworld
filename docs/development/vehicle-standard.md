@@ -8,7 +8,7 @@ D'thorga Framework 0.360.0 ([as built](#built-batch-3-27-nov-2026)); not yet tes
 searchlights, night landings and galleys): D'thorga Framework 0.366.0 and D'thorga Vehicles 0.132.0 ([as
 built](#built-batch-4-28-nov-2026)); not yet tested in game (rows 743 to 745). **Batch 5 is built** (what does not belong): D'thorga
 Framework 0.368.0 ([as built](#built-batch-5-28-nov-2026)); not yet tested in game (row 747). Every batch is built; VS8 and VS12 wait for a
-behaviour. The owner answered fifteen cards ([below](#questions-for-the-owner)).
+behaviour. The owner answered seventeen cards ([below](#questions-for-the-owner)).
 
 **Why.** The owner, 27 Nov 2026, looking at their aircraft: "Wouldn't radios of some sort be included with the majority of the ones in
 my game, if not all, by default? And if that's the case, howcome there's no mention of them on the Systems, Fittings, nor Health pages?
@@ -201,7 +201,7 @@ The owner's word ("Do Batch #5", 28 Nov 2026) and four cards (12 to 15, [below](
 
 | Piece | As built |
 | --- | --- |
-| Which vehicles | **Military vehicles**, as the factory radios judge them (`VehicleFittings.CountsAsMilitary`, now one static test for both): armed by design, or a loadout rated military. In the owner's game this should take in the tanks, APCs and IFVs (the M1A2s, the Bradley, the M113s, the T-54/55, the Wiesel, Vanilla Vehicles Expanded's armed tracked vehicles) and the armed Humvee, JLTV and MaxxPro: **the agent's expectation, not checked vehicle by vehicle**; the bindings report's new "military" field says which, from the next game start. A truck armed only by an upgrade kit stays civilian |
+| Which vehicles | **Military vehicles**, as the factory radios judge them (`VehicleFittings.CountsAsMilitary`, now one static test for both): armed by design, or a loadout rated military. Checked against the owner's patched Defs (28 Nov 2026, the owner's question about the HEMTT and the L-ATV): the M1075 HEMTT (a built-in M249 turret), the M1A2s, the Bradley, the M113s, the T-54/55, the Wiesel and Vanilla Vehicles Expanded's armoured vehicles carry guns on their design, so they count. **The L-ATV, the MaxxPro and the Humvee do not**: their guns come only by upgrade, so by the owner's card they are a class of their own ([below](#vehicle-classes-28-nov-2026)) and keep their civilian bays. A truck armed only by an upgrade kit stays civilian too |
 | What goes | The **stereo slot**, the **sleeper berth** (heavy vehicles), the **roof mount** (roof tent) and the **side rail** (awning): `notOnMilitary` on their part roles. The solar mount and fridge bay stay (the agent's lean, the owner's pick: armies carry solar blankets and ration coolers) |
 | How | Each part is still made in its place, so every stage appends as before, then taken out of the design with its place recorded (`removedParts`, `PartLayoutRule.PlacesOf`). Only a part we added; a design's own part never |
 | Saves | Each vehicle now saves the **part layout** it follows (`PhobosVehicleSystems_PartLayout`; `PartLayouts.Current` is 1). A vehicle loaded from an older one drops the saved entries at the removed places, last first, before Vehicle Framework binds the rest in order (`PartsOnLoad`, `PartLayoutRule.DropAt`, tested), so every other part keeps its own wear. A place past the end of an older save is left alone. Says so in the log |
@@ -217,6 +217,26 @@ load, one list look per vehicle; nothing while playing. Not measured in play.
 already only on heavy vehicles; a locomotive keeps its stereo); the remaining 13 schema warnings, which are other questions (a boat's clutch,
 the electric vehicle's starter). **What a next game would need:** the part layout rule is game-free; any game that saves parts by position
 needs its own place to drop the entries.
+
+## Vehicle classes (28 Nov 2026)
+
+The owner asked how the HEMTT and the L-ATVs were classed (28 Nov 2026). The test reads guns on a design as built; the L-ATV, the MaxxPro and
+the Humvee get theirs only from upgrades, so they counted as civilian everywhere: the civilian bays, the factory radio (batch 1) and the EMP
+rating (since Framework 0.109.0). The owner's answer was a class of its own, "civilian by design, but military through upgrades", for them and
+designs like them, shown on the vehicle (cards 16 and 17). **Built in D'thorga Framework 0.369.0; not yet tested in game: row 748.**
+
+| Class | Worked out from | What it does today |
+| --- | --- | --- |
+| **Military** | A gun on the design as built, or a loadout rated military | EMP-hardened wiring, the factory radio, no civilian bays |
+| **Armed by upgrade** (new) | No gun as built, but its upgrade tree can mount one: the L-ATV, the MaxxPro, the Humvee, and our service trucks with gun kits | As civilian. Recorded and shown, for future use |
+| **Civilian** | Neither | Civilian wiring and fittings |
+| **Mechanical** | A loadout rated mechanical (the steam locomotives) | An EMP never stops its engine |
+
+`VehicleClassRule.Classify` (game-free, tested) decides it from the loadout's rating and the design; `VehicleClasses` reads the design once at
+start-up, and holds the one armed-as-built test the EMP rating, the factory radios and the civilian bays now share (it had been written out
+three times). The Systems tab shows **Class: ...** beside the attention filter, with what the class means on hover, and the bindings report
+carries a "class" field. **The agent's view, recorded as the owner asked:** the agent leaned to rating those three military (real L-ATVs,
+MRAPs and Humvees are built military, gun or not); the owner chose the new class.
 
 ## Questions for the owner
 
@@ -239,6 +259,8 @@ Put as cards on 27 Nov 2026 and answered that day. Each as put: every option, th
 | 13 | Which bays should those vehicles lose? (several) | **Stereo slot** (recommended) · **Sleeper berth** (recommended) · **Roof tent + awning rail** (recommended) · Solar mount and fridge bay (the agent leaned to keep them) | **Stereo slot, sleeper berth, roof tent and awning rail** |
 | 14 | What happens to a fitting already on a bay that goes? | **Back into the cargo** (recommended), as its kit, with a message · Simply gone | **Back into the cargo** |
 | 15 | Taking a bay away shifts every later part in a saved vehicle. How should saves be handled? | **Move saves over** (recommended): each vehicle remembers its part layout, and the removed entries are dropped at the first load · New vehicles only | **Move saves over** |
+| 16 | With a new class, "civilian by design, military through upgrades", where do the L-ATV, MaxxPro and Humvee belong? | **Military by design** (recommended): built military, gun or not · The new class | **The new class** (28 Nov 2026); the owner's own idea of the class, from the card before: "These and designs like them should maybe come under another designation for possible future use? Civilian by design, but military through upgrades?" |
+| 17 | What should the new class do for now? | **Recorded, for future use** (recommended) · Also shown on the vehicle | **Also shown on the vehicle** |
 
 ## Who chose what
 
