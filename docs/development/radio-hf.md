@@ -3,8 +3,8 @@
 **Status (28 Nov 2026):** a design record; nothing is built. The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2") and
 answered its questions on 28 Nov ([first round](#the-owners-answers-28-nov-2026)): HF at the world's scale, VOACAP's predictions
 shipped as tables, 40 m and 20 m first, the radio's own flare, no licence tiers. In a [second round](#the-owners-second-round-28-nov-2026)
-the same day the owner opened **building for everything but HF's reach in play**: the tables (voacapl, under WSL, which the owner
-installs), the kit and its Defs, the band panel and band rose against test fixtures, the ground wave from ITU-R P.368, and the kit's
+the same day the owner opened **building for everything but HF's reach in play**: the tables (voacapl under WSL, installed on 28
+Nov), the kit and its Defs, the band panel and band rose against test fixtures, the ground wave from ITU-R P.368, and the kit's
 art. HF's skywave in play waits for the owner's first look at the radio's rows (699 to 731).
 
 ## Read this first
@@ -202,7 +202,7 @@ Put as cards after the first round, for what was still open before building; the
 
 The owner's words with the cards: "We can still implement HF in other ways", and "it doesn't have to RELY on the comms console".
 
-### What follows from them [A]
+### What follows from the second round [A]
 
 - **What is built now, and what waits**: the tables, the kit (40 m and 20 m as bands, SSB voice as a mode, the dipole and the manpack,
   sized by wavelength), the band panel on the station and the band rose on the world map, the ground wave, and the art. **HF's
@@ -215,6 +215,11 @@ The owner's words with the cards: "We can still implement HF in other ways", and
 - **The pictures that wait**: the grey line, skip-zone rings and the flare's wash (RV9, RV10, RV13), each in a later slice, off until
   picked and measured, as the radio's performance rules ask. The band rose (RV12) comes with slice 1.
 - **The art**: by the usual route, the owner choosing paid or a night run each time.
+- **The tool is installed** (28 Nov 2026, at the owner's request): WSL had only Docker Desktop's own distribution, so Ubuntu 24.04 LTS
+  was added under the name `Ubuntu-24.04`, its disk on K: (`K:\wsl\Ubuntu-24.04`, the owner's drive for new local data). voacapl
+  (commit c12a98b of 29 Mar 2026) was built from its source with Ubuntu's gfortran and installed to `/usr/local/bin`; its data files
+  are in `/root/itshfbc`, and its own example ran (a MUF of about 16 MHz). The scripts run it as root with `wsl -d Ubuntu-24.04 -u
+  root`; a user of the owner's own can be added at the first plain `wsl -d Ubuntu-24.04`.
 
 ## Sources
 
