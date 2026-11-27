@@ -16,6 +16,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Decision logs](decisions/README.md) (23 Nov 2026): every decision of a system, one row each, with who made it. Living.
 - [Every setting of every mod](settings-reference.md) (23 Nov 2026): generated from the code and language files; for contributors. Living.
 - [The modders' reference site](reference-site.md) (23 Nov 2026): the DocFX site of the Framework's types, with XML examples; published; built by the gate.
+- [What writing the modding guides found](guide-audit-decisions.md) (28 Nov 2026): 16 findings, the owner's card answers. Built, untested.
 - [Analysis tooling](analysis-tooling.md) (7 Nov 2026): the tools for logs, saves, Defs, assemblies and the Workshop. Living.
 - [Writing READMEs and in-game text](player-language.md): plain words for players with no radio, engineering or coding knowledge. Living.
 - [Documentation audit](docs-audit-2026-11-17.md) (17 Nov 2026): the checklist for cleaning up these documents, in the owner's order. Living.
