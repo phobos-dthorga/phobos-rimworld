@@ -124,6 +124,7 @@ the same way; each mod's README lists its own.
 | [The vehicle workshop](vehicle-workshop.md) | D'thorga Framework, with VF | The parts bench and dyno bay, parts and kits, fittings, tunes, grades |
 | [Vehicles on the road](vehicles-on-the-road.md) | D'thorga Framework, with VF | Grip, hills, fuel, the world map, depots, towing, parks and the yard |
 | [Aircraft and sling loads](aircraft-and-sling-loads.md) | D'thorga Framework, with VF | Take-off checks, fuel and height, the sling, air ambulance, air defence |
+| [Setting up a supply network](supply-network.md) | D'thorga Framework and Radio Framework, with VF | A worked example: depots, supply runs, relays and radio reach, helicopter rounds with a cargo net |
 | [Camping and life on the road](camping.md) | D'thorga Framework and Vehicles | Tents, berths, camp gear, water, lights and the kitchen on a long trip |
 | [Working vehicles](working-vehicles.md) | D'thorga Vehicles | Trucks and trailers that find ore, drill and haul it, move fluids and power a camp |
 | [Submarines](submarines.md) | D'thorga Vehicles and D'thorga Framework | Running a submarine: dive, hide, listen, ping, do research at sea |

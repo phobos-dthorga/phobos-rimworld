@@ -21,6 +21,19 @@ tested in game unless an entry says the owner tested it.
 
 
 
+
+## [0.343.0] - 2026-11-27 - Draft
+
+Helicopters collect from depots in a folded cargo net, and a walkthrough of the supply network
+
+### Added
+
+- **A helicopter's round collects from a depot** (the owner's card: its own folded net): leaving a cargo net's load at a depot, the empty
+  net is folded aboard; Sling: collect from the depot here fills it with as much as the hook lifts today and carries it on, or takes the
+  heaviest stack without a net. Row 675.
+- **The cargo net can be uninstalled and carried folded**, like a packed building.
+- **A new guide page, Setting up a supply network**: a worked example from depots and supply runs to relays and helicopter rounds.
+
 ## [0.340.5] - 2026-11-27 - Draft
 
 The Unlink from the mechanitor button's own picture

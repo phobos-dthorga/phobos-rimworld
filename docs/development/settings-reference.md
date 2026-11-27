@@ -317,8 +317,9 @@ Generated from the mod's source code and language files by `python scripts/doc-t
 | Show the waterfall on the radio desk | Gives the radio desk the same Waterfall tab as the radio terminal: each colonist's radio as a streak over the noise it hears. Off by default, as the waterfall is the software radio's own picture. | Off |
 | Other factions' doctors and mechanics give advice by radio | When none of your colonists can help, a doctor or mechanic at another faction's settlement in radio reach can talk your colonist through tending, an operation or a vehicle repair. Allies help free, once a day; a neutral faction asks a little goodwill for each call, and never more than leaves its goodwill at zero. Hostile factions never help. On by default. | On |
 | Neighbours ask for help by radio | Now and then, about once a fortnight, a faction that is not hostile with a settlement in radio reach asks for your best doctor or mechanic on the radio for an hour. Saying yes earns goodwill once the hour is done; saying no costs nothing. On by default. | On |
+| Relay masts wear and can be raided | Off by default. On: a relay mast left on the world map wears in the weather and stops passing calls on after about a year until a convoy services it, and raiders from a hostile settlement nearby may knock it down, more often the nearer it stands. Relay posts are left to the outposts mod's own raids. | Off |
 
-6 settings, in the order the settings window draws them. **Default** is what the game uses until the setting is changed. A setting the window shows only in some games (another mod active, another setting on) is listed all the same.
+7 settings, in the order the settings window draws them. **Default** is what the game uses until the setting is changed. A setting the window shows only in some games (another mod active, another setting on) is listed all the same.
 
 Saved, but not found drawn in the window by the reader (kept by the window itself, or drawn by code it cannot follow): `displayMode`, `adviceOff`.
 <!-- end generated -->

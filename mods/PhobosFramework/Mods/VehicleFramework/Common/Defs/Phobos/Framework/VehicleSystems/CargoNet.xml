@@ -23,6 +23,11 @@
     <canOverlapZones>false</canOverlapZones>
     <size>(2,2)</size>
     <rotatable>false</rotatable>
+    <!-- Framework 0.343.0: it folds up (uninstall it, or a helicopter keeps it aboard after leaving its load at a depot). -->
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsMisc</li>
+    </thingCategories>
     <useHitPoints>true</useHitPoints>
     <costList>
       <Cloth>60</Cloth>

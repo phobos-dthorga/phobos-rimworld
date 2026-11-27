@@ -35,6 +35,12 @@ public class RadioSettings : ModSettings
     /// <summary>Whether neighbours ask for a colonist on the radio now and then (Radio 0.36.0; on by default, an agent default).</summary>
     public bool neighbourCalls = true;
 
+    /// <summary>
+    /// Whether relay masts left on the world map wear out and can be knocked down by raiders (Radio 0.37.0; the owner's cards of 27 Nov 2026:
+    /// "Raids and wear", and off by default, as losing a whole mast at once is a high risk).
+    /// </summary>
+    public bool relayMastLosses;
+
     public override void ExposeData()
     {
         base.ExposeData();
@@ -47,6 +53,7 @@ public class RadioSettings : ModSettings
         adviceOff ??= new List<string>();
         Scribe_Values.Look(ref factionAdvice, "factionAdvice", true);
         Scribe_Values.Look(ref neighbourCalls, "neighbourCalls", true);
+        Scribe_Values.Look(ref relayMastLosses, "relayMastLosses", false);
     }
 }
 
@@ -105,6 +112,10 @@ public class RadioMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingNeighbourCalls".Translate(), ref Settings.neighbourCalls,
             "PhobosRadio_SettingNeighbourCallsDesc".Translate());
+        // Radio 0.37.0: relay masts wear and can be raided, off until turned on.
+        listing.Gap();
+        listing.CheckboxLabeled("PhobosRadio_SettingRelayMastLosses".Translate(), ref Settings.relayMastLosses,
+            "PhobosRadio_SettingRelayMastLossesDesc".Translate());
         listing.End();
     }
 }

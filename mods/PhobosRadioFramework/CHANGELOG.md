@@ -22,6 +22,18 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+
+## [0.37.0] - 2026-11-27 - Draft
+
+Radio reach on the world map, and relay masts that wear and can be raided
+
+### Added
+
+- **Radio reach on the world map**: select a convoy, a relay mast or a relay post to see how far it reaches as a ring, and a convoy's
+  chain home hop by hop, the weakest hop in amber. Drawn only while selected; it never searches or takes a channel. Row 677.
+- **A new setting, Relay masts wear and can be raided** (the owner's cards: raids and wear, off by default): a mast wears out over about a
+  year until a convoy services it with a component, and raiders from a hostile settlement nearby may knock it down, with a letter. Row 676.
+
 ## [0.36.0] - 2026-11-27 - Draft
 
 Neighbours ask for your doctor or mechanic by radio

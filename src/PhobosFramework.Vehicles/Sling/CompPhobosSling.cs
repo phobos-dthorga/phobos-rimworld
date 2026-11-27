@@ -356,12 +356,72 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
                 net.Netted.Remove(inside);
                 depot.Keep(inside);
             }
-            net.Destroy();
+            // Framework 0.343.0 (the owner's card of 27 Nov 2026, "Its own folded net"): the empty net is folded and kept aboard, for the
+            // next depot it collects from; with no room aboard, it is left in the depot folded.
+            MinifiedThing folded = MinifyUtility.MakeMinified(net);
+            if (!Vehicle.inventory.innerContainer.TryAdd(folded, canMergeWithExistingStacks: false)) depot.Keep(folded);
         }
         else depot.Keep(thing);
         Systems?.Powertrain?.MarkMassDirty();
         if (Seen.Wants("aircraft.round-sling", Vehicle, "depot")) Seen.Note("aircraft.round-sling", Vehicle, what, "depot");
         Say("PhobosRound_SlingLeft".Translate(Vehicle.LabelShort.Named("HELICOPTER"), what.Named("LOAD")).Resolve(), new LookTargets(depot), MessageTypeDefOf.TaskCompletion);
+    }
+
+    /// <summary>A folded cargo net carried aboard, or null (Framework 0.343.0).</summary>
+    MinifiedThing? FoldedNetAboard() => Vehicle.inventory?.innerContainer.OfType<MinifiedThing>().FirstOrDefault(m => m.InnerThing is Building_PhobosCargoNet);
+
+    /// <summary>
+    /// Collects from the depot on this tile onto the hook (Framework 0.343.0; the owner's card of 27 Nov 2026, "Its own folded net"): with a
+    /// folded cargo net aboard, the crew fills it with as much of the depot's goods as the hook lifts today without strain, heaviest first,
+    /// and hangs it; without one, the one heaviest stack or packed building it can lift. Says what it took, or why it took nothing. Returns
+    /// what it hung, or null.
+    /// </summary>
+    public Thing? CollectFromDepot(PhobosSlingWreck depot)
+    {
+        if (Load != null || hooked != null || Refusal() is not null) return null;
+        double capacity = CapacityKilograms(null);
+        List<Thing> goods = depot.Items.Where(t => t.def.category == ThingCategory.Item).OrderByDescending(t => KilogramsOf(t)).ToList();
+        if (goods.Count == 0) return null;
+        Thing? hung = null;
+        if (FoldedNetAboard() is { } folded && folded.InnerThing is Building_PhobosCargoNet net)
+        {
+            Vehicle.inventory.innerContainer.Remove(folded);
+            folded.InnerThing = null;
+            folded.Destroy();
+            double weight = net.GetStatValue(StatDefOf.Mass);
+            foreach (Thing thing in goods)
+            {
+                double each = thing.GetStatValue(StatDefOf.Mass);
+                int fits = each <= 0 ? thing.stackCount : (int)System.Math.Min(thing.stackCount, System.Math.Floor((capacity - weight) / each));
+                if (fits <= 0) continue;
+                Thing taken = fits >= thing.stackCount ? thing : thing.SplitOff(fits);
+                taken.holdingOwner?.Remove(taken);
+                net.Netted.TryAdd(taken, canMergeWithExistingStacks: false);
+                weight += each * fits;
+            }
+            if (net.Netted.Count == 0)
+            {
+                // Nothing fitted: the net is folded and put back aboard.
+                MinifiedThing back = MinifyUtility.MakeMinified(net);
+                Vehicle.inventory.innerContainer.TryAdd(back, canMergeWithExistingStacks: false);
+                return null;
+            }
+            hung = net;
+        }
+        else
+        {
+            Thing? single = goods.FirstOrDefault(t => KilogramsOf(t) <= capacity);
+            if (single == null) return null;
+            single.holdingOwner?.Remove(single);
+            hung = single;
+        }
+        held.TryAdd(hung, canMergeWithExistingStacks: false);
+        depot.RemoveIfEmpty();
+        Systems?.Powertrain?.MarkMassDirty();
+        if (Seen.Wants("aircraft.round-sling", Vehicle, "collect")) Seen.Note("aircraft.round-sling", Vehicle, hung.LabelShort, "collect");
+        Say("PhobosRound_SlingCollected".Translate(Vehicle.LabelShort.Named("HELICOPTER"), hung.LabelShort.Named("LOAD"),
+            KilogramsOf(hung).ToString("N0").Named("WEIGHT")).Resolve(), Vehicle, MessageTypeDefOf.TaskCompletion);
+        return hung;
     }
 
     public void Cancel()

@@ -64,5 +64,7 @@
   <PhobosRound_SlingLiftSet>{VEHICLE} will lift {LOAD} at {PLACE}.</PhobosRound_SlingLiftSet>
   <PhobosRound_SlingNothing>{VEHICLE} found nothing to lift at {PLACE} and flies on.</PhobosRound_SlingNothing>
   <PhobosRound_SlingLeft>{HELICOPTER} left {LOAD} here, where a caravan can collect it.</PhobosRound_SlingLeft>
+  <PhobosRound_SlingCollect>Sling: collect from the depot here</PhobosRound_SlingCollect>
+  <PhobosRound_SlingCollected>{HELICOPTER} collected {LOAD} from the depot, {WEIGHT} kg on the hook.</PhobosRound_SlingCollected>
   <PhobosRound_WaitSlingCrew>its load waits for someone to hook it up.</PhobosRound_WaitSlingCrew>
 </LanguageData>

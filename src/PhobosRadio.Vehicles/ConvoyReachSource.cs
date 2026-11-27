@@ -102,10 +102,20 @@ public sealed class ConvoyReachSource : IConvoyReachSource
                 : "PhobosRadioReach_InTouchRelayed".Translate(home.Label.Named("HOME"),
                     found.chain.Path.Skip(1).Take(found.chain.Relays).Select(i => found.nodes[i].Label).ToCommaList(useAnd: true).Named("RELAYS"),
                     (metres / 1000.0).ToString("0").Named("KM"), found.chain.WorstMarginDb.ToString("0").Named("MARGIN")).Resolve();
+            // Radio 0.37.0: the chain kept for the world map's picture, each hop's margin worked out once here (at most three hops).
+            var hops = new List<(PlanetTile From, PlanetTile To, double MarginDb)>();
+            for (int h = 0; h + 1 < found.chain.Path.Count; h++)
+            {
+                RelayNode a = found.nodes[found.chain.Path[h]], b = found.nodes[found.chain.Path[h + 1]];
+                double hopMetres = Find.WorldGrid.ApproxDistanceInTiles(a.Tile, b.Tile) * rules.metresPerWorldTile;
+                hops.Add((a.Tile, b.Tile, LinkBudgetService.EvaluateWorld(a.End, b.End, hopMetres, rules, a.SiteMetres, b.SiteMetres)?.MarginDb ?? found.chain.WorstMarginDb));
+            }
+            ReachDrawing.Keep(convoy, hops);
             if (found.chain.Relays > 0 && Seen.Wants("radio.relay-chain", start.End.Thing))
                 Seen.Note("radio.relay-chain", start.End.Thing, found.chain.Relays + " relays, " + found.chain.WorstMarginDb.ToString("0") + " dB");
             return new ConvoyReach(true, metres / 1000.0, horizon / 1000.0, found.chain.WorstMarginDb, line, home.Tile);
         }
+        ReachDrawing.Keep(convoy, null);
         // Out of reach: said against the nearest home, directly.
         RelayNode nearest = homes.OrderBy(h => Find.WorldGrid.ApproxDistanceInTiles(convoy.Tile, h.Tile)).First();
         double far = Find.WorldGrid.ApproxDistanceInTiles(convoy.Tile, nearest.Tile) * rules.metresPerWorldTile;

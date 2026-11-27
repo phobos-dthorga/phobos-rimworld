@@ -591,6 +591,18 @@ the game never pauses to ask; a helicopter cannot land on top of what hangs belo
 - **Limits:** a vehicle as the load waits for a ground crew when the setting asks for one ("its load waits for someone to hook it up");
   nothing is fetched from a depot by air.
 
+### Supply runs by air, round two: depots (Framework 0.343.0)
+
+The owner, 27 Nov 2026: "1, 2, 3, and 4", the second being pick-up from a depot by air; by card, **its own folded net** [O]. Not yet tested in
+game (row 675).
+
+**As built [code: `CompPhobosSling.LeaveInDepot`, `CollectFromDepot`; `CompPhobosRound.SlingAtStop`; `CargoNet.xml`'s `minifiedDef`]:** the
+cargo net folds (a minified thing). Leaving a net's load at a depot, the contents go in and **the empty net is folded and kept aboard**
+(left in the depot folded if there is no room). A tile stop offers **Sling: collect from the depot here** (the Lift order): with a folded
+net aboard, the crew fills it with the depot's goods, heaviest first, up to what the hook lifts today without strain (stacks split to
+fit), and hangs it; with none, the single heaviest stack or packed building it can lift. The depot goes when it is empty. **Value is
+kept:** the net is the same thing throughout, never made or lost. Its cost: one pass over a depot's items at a stop's end.
+
 ### Crewless rounds (Framework 0.310.0)
 
 The owner's go of 26 Nov 2026 ("let's do the crewless rounds next") and their cards the same day: **an aircraft kit of its own, which needs

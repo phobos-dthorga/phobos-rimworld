@@ -204,7 +204,7 @@ public sealed class RelayMastSource : IRelaySource
         if (Find.WorldObjects == null) yield break;
         foreach (WorldObject thing in Find.WorldObjects.AllWorldObjects)
         {
-            if (thing is WorldObject_PhobosRelayMast { Destroyed: false } mast && mast.Radio is { } radio)
+            if (thing is WorldObject_PhobosRelayMast { Destroyed: false, Works: true } mast && mast.Radio is { } radio)
                 yield return new RelayNode(RadioEndpoint.BuiltIn(radio.parent, IntVec3.Zero, radio), mast.Tile, mast.LabelCap, mast, Repeater: true,
                     SiteMetres: RelayNode.SiteOf(mast.Tile));
         }
@@ -219,6 +219,91 @@ public sealed class RelayMastSource : IRelaySource
 public class WorldObject_PhobosRelayMast : WorldObject, IThingHolder
 {
     ThingOwner<Thing>? held;
+    /// <summary>How sound the mast is, 1 new (Radio 0.37.0): it wears in the weather while the losses setting is on.</summary>
+    float condition = 1f;
+    /// <summary>Components a convoy spends to service it (authored).</summary>
+    public const int ServiceComponents = 1;
+    const int LookTicks = 2500;
+
+    /// <summary>Whether it passes calls on: always, unless the losses setting is on and it is worn out.</summary>
+    public bool Works => !RelayMastLosses.On || RelayMastRule.Works(condition);
+
+    /// <summary>
+    /// Once a game hour, with the losses setting on (Radio 0.37.0; the owner's cards of 27 Nov 2026, "Raids and wear", off by default): it
+    /// wears a little, and raiders from a hostile settlement in reach may knock it down (<see cref="RelayMastRule"/>). Cost: a modulo each
+    /// tick; once an hour, a walk over the world's settlements.
+    /// </summary>
+    protected override void Tick()
+    {
+        base.Tick();
+        if (!RelayMastLosses.On || Destroyed || (Find.TickManager.TicksGame + ID) % LookTicks != 0) return;
+        bool worked = RelayMastRule.Works(condition);
+        condition = (float)RelayMastRule.Worn(condition, LookTicks / (double)GenDate.TicksPerDay);
+        if (worked && !RelayMastRule.Works(condition))
+        {
+            Messages.Message("PhobosRadio_RelayWornOut".Translate(LabelCap.Named("MAST")), this, MessageTypeDefOf.NegativeEvent);
+            if (Seen.Wants("radio.relay-mast-lost", null, "worn")) Seen.Note("radio.relay-mast-lost", null, LabelCap, "worn");
+        }
+        double nearest = double.MaxValue;
+        Faction? raiders = null;
+        foreach (Settlement town in Find.WorldObjects.Settlements)
+        {
+            if (town.Faction == null || !town.Faction.HostileTo(Faction.OfPlayer) || town.Tile.Layer != Tile.Layer) continue;
+            double tiles = Find.WorldGrid.ApproxDistanceInTiles(Tile, town.Tile);
+            if (tiles >= nearest) continue;
+            nearest = tiles;
+            raiders = town.Faction;
+        }
+        if (raiders == null || !Rand.MTBEventOccurs((float)RelayMastRule.RaidMeanDays(nearest), GenDate.TicksPerDay, LookTicks)) return;
+        Find.LetterStack.ReceiveLetter("PhobosRadio_RelayRaidedLabel".Translate(), "PhobosRadio_RelayRaided".Translate(LabelCap.Named("MAST"),
+            raiders.Name.Named("FACTION")), LetterDefOf.NegativeEvent, new GlobalTargetInfo(Tile));
+        if (Seen.Wants("radio.relay-mast-lost", null, "raided")) Seen.Note("radio.relay-mast-lost", null, LabelCap, "raided");
+        Destroy();
+    }
+
+    /// <summary>Why this convoy cannot service the mast now, or null.</summary>
+    public string? ServiceRefusal(Caravan caravan)
+    {
+        if (condition >= 0.999f) return "PhobosRadio_RelayServiceNotNeeded".Translate().Resolve();
+        int have = CaravanInventoryUtility.AllInventoryItems(caravan).Where(t => t.def == ThingDefOf.ComponentIndustrial).Sum(t => t.stackCount);
+        return have < ServiceComponents ? "PhobosRadio_RelayServiceShort".Translate(ServiceComponents.Named("COUNT")).Resolve() : null;
+    }
+
+    /// <summary>A convoy on its tile services it: a component spent, the mast as new.</summary>
+    public void Service(Caravan caravan)
+    {
+        if (ServiceRefusal(caravan) is { } why)
+        {
+            Messages.Message(why, caravan, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        int left = ServiceComponents;
+        foreach (Thing thing in CaravanInventoryUtility.AllInventoryItems(caravan).Where(t => t.def == ThingDefOf.ComponentIndustrial).ToList())
+        {
+            if (left <= 0) break;
+            int take = Mathf.Min(left, thing.stackCount);
+            thing.SplitOff(take).Destroy();
+            left -= take;
+        }
+        condition = 1f;
+        if (Seen.Wants("radio.relay-mast-lost", null, "serviced")) Seen.Note("radio.relay-mast-lost", null, LabelCap, "serviced");
+        Messages.Message("PhobosRadio_RelayServiced".Translate(LabelCap.Named("MAST")), this, MessageTypeDefOf.TaskCompletion, historical: false);
+    }
+
+    public override IEnumerable<Gizmo> GetCaravanGizmos(Caravan caravan)
+    {
+        foreach (Gizmo gizmo in base.GetCaravanGizmos(caravan)) yield return gizmo;
+        if (!RelayMastLosses.On || caravan.Faction != Faction.OfPlayer) yield break;
+        var service = new Command_Action
+        {
+            defaultLabel = "PhobosRadio_RelayServiceGizmo".Translate(),
+            defaultDesc = "PhobosRadio_RelayServiceGizmoDesc".Translate(ServiceComponents.Named("COUNT")),
+            icon = ContentFinder<Texture2D>.Get("Phobos/Radio/World/RelayMast", reportFailure: false) ?? BaseContent.BadTex,
+            action = () => Service(caravan),
+        };
+        if (ServiceRefusal(caravan) is { } refused) service.Disable(refused);
+        yield return service;
+    }
 
     ThingOwner<Thing> Held => held ??= new ThingOwner<Thing>(this, oneStackOnly: true);
 
@@ -257,6 +342,8 @@ public class WorldObject_PhobosRelayMast : WorldObject, IThingHolder
     {
         string text = base.GetInspectString();
         string line = "PhobosRadio_RelayInspect".Translate((Radio?.Props.antennaHeightMetres ?? 0f).ToString("0").Named("METRES")).Resolve();
+        if (RelayMastLosses.On)
+            line += "\n" + (Works ? "PhobosRadio_RelayCondition" : "PhobosRadio_RelayConditionWornOut").Translate(condition.ToStringPercent().Named("CONDITION")).Resolve();
         if (RelayNodes.UseLine(this, RadioRulesDef.Current.repeaterChannels) is { } use) line += "\n" + use;
         return text.NullOrEmpty() ? line : text + "\n" + line;
     }
@@ -269,6 +356,7 @@ public class WorldObject_PhobosRelayMast : WorldObject, IThingHolder
     {
         base.ExposeData();
         Scribe_Deep.Look(ref held, "PhobosRadio_RelayHeld", this);
+        Scribe_Values.Look(ref condition, "PhobosRadio_RelayCondition", 1f);
     }
 }
 

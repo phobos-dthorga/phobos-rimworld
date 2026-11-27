@@ -102,7 +102,10 @@ and life on the road](camping.md). [Back to the guide](README.md).
 - **Supply runs by air** (from Framework 0.340.0): for a helicopter with the sling and a sling set, **Its stops** also sets the sling at
   each stop. **Sling: lift the nearest filled cargo net here** (or **pick what to lift here**) hooks it up before it leaves; it is set down
   where it lands at the next place with a map, **without pausing the game**. At a stop on open ground, **Sling: leave its load here**
-  leaves it as a depot. **A load too heavy for the hook today makes it wait there and say so.** A gift stop never gives away the sling set.
+  leaves it as a depot; **a cargo net's load goes into the depot and the empty net is folded aboard**. At a depot, **Sling: collect from
+  the depot here** fills that folded net with as much as the hook lifts and carries it on, or takes the heaviest single stack without a
+  net. **A load too heavy for the hook today makes it wait there and say so.** A gift stop never gives away the sling set.
+  **A worked example of the whole network:** [Setting up a supply network](supply-network.md).
 - **With nobody aboard:** fit the **optionally piloted kit** at the vehicle workshop (after **vehicle autonomy** research; it needs the
   **autopilot** first). With no pilot aboard, it flies its round by itself; with one, the pilot flies.
 - **The fleet board** lists followers under their leader, and its pane can add a follower, leave the convoy or break it up.

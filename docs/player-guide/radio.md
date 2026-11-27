@@ -90,6 +90,11 @@ tiles**, or **26 with a Datum's mast up** (Raise the mast, at a halt). In reach:
   kit** fitted (a Datum's mast lifts it), or a **relay mast** (Put up a relay mast, on a stopped convoy: 60 steel and 4 components). Up to
   two relays; the convoy's line names them. A relay mast stands until you take it down from the world map. **Hills reach further**: small
   hills lift an aerial 30 m, large hills 100 m, mountains 300 m.
+- **See reach on the world map** (from 0.37.0): select a convoy, a relay mast or a relay post there. A ring shows how far its radio
+  reaches a home station's mast on level ground; a convoy also shows its chain home, hop by hop, **the weakest hop in amber**.
+- **Relay masts wear and can be raided** (from 0.37.0; a setting, **off by default**): on, a mast stops passing calls on after about a
+  year until a convoy on its tile presses **Service the relay mast** (one component), and raiders near their own lands may knock it
+  down. **A worked example of the whole network:** [Setting up a supply network](supply-network.md).
 - **A radio relay post** (from 0.24.0): an outpost you found from **Create outpost** with **120 steel and 8 components**, leaving at
   least one colonist to keep it. A 20 m mast and four channels; **put it on a hill**. With nobody left there, it passes nothing on.
 - **Your other colonies' stations** pass calls on once their base station has the **repeater** upgrade (25 steel, 3 components, after

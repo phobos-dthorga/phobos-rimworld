@@ -402,6 +402,27 @@ The owner, 27 Nov 2026: "1, 2, 3, and 4", the second being to make the dual-band
 - **Cost**: on such a map, every 250 ticks, one map link budget per colonist with a hand-held for each dual-band vehicle, and each
   vehicle's world chain kept 250 ticks; nothing elsewhere. Not measured.
 
+### As built (Radio 0.37.0, 27 Nov 2026): reach on the world map, and masts that are lost
+
+The owner, 27 Nov 2026: "1, 2, 3, and 4, but have 3 gated behind a setting", and by card for the losses, **raids and wear** [O], the
+setting **off by default** [O] (losing a whole mast at once is a high risk under the shared rules). Not yet tested in game (rows 676, 677).
+
+| Option offered (27 Nov 2026) | Chosen |
+| --- | --- |
+| What loses a relay mast: raids and wear (the agent's lean); raids only; wear only | **Raids and wear** |
+| Its setting: starts off, as high risk (lean); starts on | **Starts off** |
+
+- **Reach on the world map** (`ReachDrawing`, `WorldComponent_PhobosReachDrawing`, the vehicles tie-in): with a convoy of the player's, a relay
+  mast or a relay post selected, a ring at the radio horizon between its aerial (its site's height added) and a home station's 10 m mast on
+  level ground [A]; for a convoy, its chain home hop by hop, the weakest hop in amber. The chain is the one the convoy's reach check last
+  found, with each hop's margin worked out there (three link budgets at most, once a tenth of an hour): **drawing never searches and never
+  takes a channel**. Cost: only while the world map shows such a thing selected, a ring and up to three arcs a frame.
+- **Masts that are lost** (`RelayMastRule`, game-free, tested; `WorldObject_PhobosRelayMast`), with **Relay masts wear and can be raided**
+  on: a mast wears over 60 days [A] and passes nothing on below a tenth [A]; a convoy on its tile services it with one component [A]. A
+  hostile settlement within 12 tiles [A] knocks it down now and then: on average every 20 days beside it, 120 at the edge of its reach [A],
+  with a letter. Relay posts are left to the outposts mod's own raids. Cost: a modulo a tick per mast; once an hour, a walk over the world's
+  settlements.
+
 ## The cards as put
 
 Each card as the owner saw it on 26 Nov 2026, the chosen option first and marked.

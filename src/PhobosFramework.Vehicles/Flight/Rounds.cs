@@ -29,7 +29,8 @@ public enum RoundSlingOrder
 {
     /// <summary>Nothing of its own: a load hanging as it lands on a map is set down there, as after any landing.</summary>
     None,
-    /// <summary>Before it leaves, it hooks up the thing picked for this stop, or else the nearest filled cargo net within reach.</summary>
+    /// <summary>Before it leaves, it hooks up the thing picked for this stop, or else the nearest filled cargo net within reach; at a depot
+    /// with no map (Framework 0.343.0), it collects the depot's goods in its folded net, or one stack.</summary>
     Lift,
     /// <summary>At a tile with no map, it leaves its load there as a depot a caravan can collect from.</summary>
     Leave,
@@ -313,7 +314,15 @@ public sealed class CompPhobosRound : VehicleComp
             if (caravan != null && hook.Load != null) hook.LeaveInDepot(stop.tile);
             return null;
         }
-        if (caravan != null || hook.Load != null) return null;
+        if (hook.Load != null) return null;
+        if (caravan != null)
+        {
+            // Framework 0.343.0: at a depot with no map, it collects what lies there; with nothing there, or nothing it can lift, it flies on.
+            if (Depots.At(stop.tile) is { } depot && hook.CollectFromDepot(depot) == null && depot.Items.Any())
+                Messages.Message("PhobosRound_SlingNothing".Translate(Vehicle.LabelShort.Named("VEHICLE"), stop.Label.Named("PLACE")), caravan,
+                    MessageTypeDefOf.NeutralEvent, false);
+            return null;
+        }
         if (hook.HookedLoad != null) return hook.AwaitingCrew ? "PhobosRound_WaitSlingCrew".Translate().Resolve() : null;
         Thing? target = stop.liftThis is { Spawned: true } picked && picked.Map == Vehicle.Map ? picked : CompPhobosSling.NearestNet(Vehicle);
         if (target == null)
@@ -570,7 +579,12 @@ public static class RoundGizmos
                 options.Add(new FloatMenuOption("PhobosRound_SlingLiftNet".Translate(), () => round.SetSling(index, RoundSlingOrder.Lift)));
                 options.Add(new FloatMenuOption("PhobosRound_SlingLiftPick".Translate(), () => PickLift(round, index)));
             }
-            else options.Add(new FloatMenuOption("PhobosRound_SlingLeave".Translate(), () => round.SetSling(index, RoundSlingOrder.Leave)));
+            else
+            {
+                options.Add(new FloatMenuOption("PhobosRound_SlingLeave".Translate(), () => round.SetSling(index, RoundSlingOrder.Leave)));
+                // Framework 0.343.0: collect from the depot there.
+                options.Add(new FloatMenuOption("PhobosRound_SlingCollect".Translate(), () => round.SetSling(index, RoundSlingOrder.Lift)));
+            }
         }
         options.AddRange(RoundRule.WaitChoices.Select(hours => new FloatMenuOption("PhobosRound_SetWait".Translate(
             (RoundRule.WaitTicks(hours) == 0 ? "PhobosRound_WaitNone".Translate().Resolve() : RoundRule.WaitTicks(hours).ToStringTicksToPeriod()).Named("WAIT")),

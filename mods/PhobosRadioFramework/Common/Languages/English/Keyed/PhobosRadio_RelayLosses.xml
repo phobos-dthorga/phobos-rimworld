@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Relay masts that wear and can be raided (Radio 0.37.0), behind a setting that starts off. -->
+  <PhobosRadio_SettingRelayMastLosses>Relay masts wear and can be raided</PhobosRadio_SettingRelayMastLosses>
+  <PhobosRadio_SettingRelayMastLossesDesc>Off by default. On: a relay mast left on the world map wears in the weather and stops passing calls on after about a year until a convoy services it, and raiders from a hostile settlement nearby may knock it down, more often the nearer it stands. Relay posts are left to the outposts mod's own raids.</PhobosRadio_SettingRelayMastLossesDesc>
+  <PhobosRadio_RelayCondition>Condition: {CONDITION}.</PhobosRadio_RelayCondition>
+  <PhobosRadio_RelayConditionWornOut>Worn out ({CONDITION}): it passes nothing on until a convoy services it.</PhobosRadio_RelayConditionWornOut>
+  <PhobosRadio_RelayWornOut>{MAST} is worn out and passes nothing on until a convoy services it.</PhobosRadio_RelayWornOut>
+  <PhobosRadio_RelayRaidedLabel>Relay mast lost</PhobosRadio_RelayRaidedLabel>
+  <PhobosRadio_RelayRaided>Raiders of {FACTION} found {MAST} and knocked it down. Calls no longer pass through it.</PhobosRadio_RelayRaided>
+  <PhobosRadio_RelayServiceGizmo>Service the relay mast</PhobosRadio_RelayServiceGizmo>
+  <PhobosRadio_RelayServiceGizmoDesc>Tighten its stays, clean its panel and replace what has worn, with {COUNT} component from the convoy's cargo. It is as good as new.</PhobosRadio_RelayServiceGizmoDesc>
+  <PhobosRadio_RelayServiceNotNeeded>The mast needs nothing.</PhobosRadio_RelayServiceNotNeeded>
+  <PhobosRadio_RelayServiceShort>It needs {COUNT} component from the convoy's cargo.</PhobosRadio_RelayServiceShort>
+  <PhobosRadio_RelayServiced>{MAST} is serviced and as good as new.</PhobosRadio_RelayServiced>
+</LanguageData>
