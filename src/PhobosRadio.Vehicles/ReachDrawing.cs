@@ -21,8 +21,6 @@ namespace Phobos.Radio.Vehicles;
 /// </summary>
 public static class ReachDrawing
 {
-    const float Lift = 0.06f;
-    const float DegreesPerPiece = 1.5f;
     /// <summary>The far end the ring measures to: a home station's mast on level ground (authored: the mast antenna's height).</summary>
     const float HomeMastMetres = 10f;
 
@@ -72,20 +70,8 @@ public static class ReachDrawing
         GenDraw.DrawWorldRadiusRing(tile, tiles);
     }
 
-    /// <summary>A line along the globe's surface, in short straight pieces.</summary>
-    static void Arc(Vector3 a, Vector3 b, Material material, float width)
-    {
-        float radius = a.magnitude + Lift;
-        float degrees = Vector3.Angle(a, b);
-        int pieces = Mathf.Max(1, Mathf.CeilToInt(degrees / DegreesPerPiece));
-        Vector3 previous = a.normalized * radius;
-        for (int i = 1; i <= pieces; i++)
-        {
-            Vector3 point = Vector3.Slerp(a, b, i / (float)pieces).normalized * radius;
-            GenDraw.DrawWorldLineBetween(previous, point, material, width);
-            previous = point;
-        }
-    }
+    /// <summary>A line along the globe's surface: the radio's shared arc (Radio 0.54.0).</summary>
+    static void Arc(Vector3 a, Vector3 b, Material material, float width) => Phobos.Radio.UI.WorldArcs.Arc(a, b, material, width);
 }
 
 /// <summary>Draws radio reach on the world map each frame it is shown (Radio 0.37.0). Saves nothing.</summary>

@@ -147,10 +147,7 @@ public class ITab_RadioLog : ITab
         reachMap = map;
         reachTick = now;
         reachable = new List<(Faction, string)>();
-        foreach (Faction faction in Find.FactionManager.AllFactionsListForReading.Where(FactionDoctors.Talks))
-        {
-            if (FactionDoctors.ReachToTalk(map, map.Tile, () => FactionDoctors.StationEnds(map), faction) is { } link)
-                reachable.Add((faction, link.Settlement.LabelCap));
-        }
+        // Radio 0.54.0: the same list the world map's contact arcs draw.
+        foreach (FactionDoctorLink link in RadioDiplomacy.InReach(map)) reachable.Add((link.Faction, link.Settlement.LabelCap));
     }
 }

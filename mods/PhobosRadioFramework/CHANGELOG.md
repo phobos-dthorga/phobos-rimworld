@@ -23,6 +23,20 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.54.0] - 2026-11-27 - Draft
+
+Contact arcs, children's radio talk, and supply drops by radio
+
+### Added
+
+- **Contact arcs on the world map** (the owner's pick of 27 November 2026): select a colony with a radio station and a line runs to each
+  faction settlement its radio reaches, coloured by how good the line is, as the logbook's "Settlements in reach" lists them. Not yet
+  tested in game: row 729.
+- **A child's radio talk works at our stations** (the owner's pick): the game's own radio talking for children looks only for its comms
+  console. With none to use, a child who wants to radio-talk now goes to radio school at one of our stations, or on a hand-held in touch:
+  the same learning, a lesson when a teacher is on the radio. With a console, nothing changes. Needs Biotech. Not yet tested in game:
+  row 730.
+
 ## [0.53.0] - 2026-11-27 - Draft
 
 Call other factions on the radio

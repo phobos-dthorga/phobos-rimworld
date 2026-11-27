@@ -61,6 +61,8 @@ Research **local radio** (after Microelectronics basics).
 - **Allies warn of raids**: with an ally's settlement in reach, raiders heading your way are reported by radio, and the raid comes
   about three hours later. A setting switches this off.
 - **A first call to a settlement earns its QSL card**, and every call goes in the station's logbook.
+- **See who you can call** (from 0.54.0): select your colony on the world map, and a line runs to each faction settlement your radio
+  reaches, in the colour of how good the line is.
 
 ## Talking to aircraft
 
@@ -237,6 +239,8 @@ colonist picks it like any other recreation.
 - **If the friend dies or their faction turns hostile**, the colonist mourns them (**-6** for 6 days), and finds a new friend next time.
 
 ## School of the Air
+
+- **A child who wants to radio-talk** (the game's own learning) and has no comms console to use goes to radio school at one of our stations instead (from 0.54.0).
 
 **Children can learn by radio** (needs Biotech). After the microelectronics research, a child may choose **radio school**: at a radio
 station's desk, or anywhere with a hand-held in touch with a station.

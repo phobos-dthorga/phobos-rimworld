@@ -3,6 +3,7 @@ using System.Linq;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
+using HarmonyLib;
 using Verse.AI;
 
 namespace Phobos.Radio.Services;
@@ -161,10 +162,41 @@ public class LearningGiver_PhobosRadioSchool : LearningGiver
     }
 }
 
+/// <summary>
+/// The game's own radio talking for children (Biotech) with our stations (Radio 0.54.0; the owner's pick of 27 Nov 2026; RT9 in
+/// docs/development/radio-ties-with-other-mods.md): the game looks only for its comms console, and its job works only there. When it finds
+/// none, a child who wants to radio-talk goes to radio school at one of our stations instead, or on a hand-held in touch: the same
+/// learning, with a lesson when a teacher is on the radio. Two postfixes, which only ever turn a "no" into our radio school: with a console
+/// to use, the game's own radio talking is unchanged. Vanilla Gravship Expanded's patch on the console search runs first, so its own
+/// terminals still count.
+/// </summary>
+[HarmonyPatch(typeof(LearningGiver_Radiotalking), nameof(LearningGiver_Radiotalking.CanDo))]
+internal static class Patch_LearningGiver_Radiotalking_CanDo
+{
+    static void Postfix(Pawn pawn, ref bool __result)
+    {
+        if (__result || RadioSchoolDefOf.PhobosRadio_RadioSchool?.Worker is not { } school) return;
+        __result = school.CanDo(pawn);
+    }
+}
+
+[HarmonyPatch(typeof(LearningGiver_Radiotalking), nameof(LearningGiver_Radiotalking.TryGiveJob))]
+internal static class Patch_LearningGiver_Radiotalking_TryGiveJob
+{
+    static void Postfix(Pawn pawn, ref Job? __result)
+    {
+        if (__result != null || RadioSchoolDefOf.PhobosRadio_RadioSchool?.Worker is not { } school || !school.CanDo(pawn)) return;
+        __result = school.TryGiveJob(pawn);
+        if (__result != null && Seen.Wants("radio.radiotalk-at-station", pawn)) Seen.Note("radio.radiotalk-at-station", pawn);
+    }
+}
+
 [DefOf]
 public static class RadioSchoolDefOf
 {
     public static JobDef PhobosRadio_TeachByRadio = null!;
+    /// <summary>Radio school, Biotech's learning desire of ours (Radio 0.54.0, for the game's radio talking to fall back on).</summary>
+    [MayRequireBiotech] public static LearningDesireDef? PhobosRadio_RadioSchool;
 
     static RadioSchoolDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(RadioSchoolDefOf));
 }

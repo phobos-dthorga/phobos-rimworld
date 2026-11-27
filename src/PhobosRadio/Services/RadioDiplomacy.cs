@@ -33,6 +33,24 @@ public static class RadioDiplomacy
     public static FactionDoctorLink? Reach(Map map, Faction faction) =>
         FactionDoctors.Talks(faction) ? FactionDoctors.ReachToTalk(map, map.Tile, () => FactionDoctors.StationEnds(map), faction) : null;
 
+    static readonly Dictionary<Map, (int tick, List<FactionDoctorLink> links)> inReach = new();
+
+    /// <summary>
+    /// The settlement each faction that talks on the radio has in reach of this map's stations, one a faction, worked out once a game hour
+    /// (Radio 0.54.0): what the logbook's "Settlements in reach" and the world map's contact arcs both show.
+    /// </summary>
+    public static IReadOnlyList<FactionDoctorLink> InReach(Map map)
+    {
+        int now = Find.TickManager.TicksGame;
+        if (inReach.TryGetValue(map, out var held) && now - held.tick >= 0 && now - held.tick < GenDate.TicksPerHour) return held.links;
+        if (inReach.Count > 8) inReach.Clear();
+        var links = new List<FactionDoctorLink>();
+        foreach (Faction faction in Find.FactionManager.AllFactionsListForReading)
+            if (!faction.IsPlayer && Reach(map, faction) is { } link) links.Add(link);
+        inReach[map] = (now, links);
+        return links;
+    }
+
     /// <summary>How good a line is, by the link's margin.</summary>
     public static LinkOutcome Line(FactionDoctorLink link) => RadioRulesDef.Current.MarginBands.Classify(link.MarginDb);
 
