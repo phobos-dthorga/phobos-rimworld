@@ -23,7 +23,13 @@
   <PhobosRadioLog_NeighbourAccepted>{COLONIST} is on the radio for {FACTION}, who asked for help.</PhobosRadioLog_NeighbourAccepted>
   <PhobosRadioLog_NeighbourDone>{COLONIST} finished an hour on the radio for {FACTION}: {GOODWILL} goodwill.</PhobosRadioLog_NeighbourDone>
   <PhobosRadioQsl_Earned>A QSL card from {PLACE} ({FACTION}): {OPERATOR}'s first contact there, report {REPORT}.</PhobosRadioQsl_Earned>
-  <PhobosRadioQsl_CardText>To {OURCALL}, operator {OPERATOR}.\n{DATE}, {UTC} UTC. Grid square {GRID}.\nYour signal {REPORT}, {TILES} km.\n{NOTE}\n73, {FACTION}.</PhobosRadioQsl_CardText>
+  <PhobosRadioQsl_CardText>To {OURCALL}, operator {OPERATOR}.\n{DATE}, {UTC} UTC. Grid square {GRID}.\n{WORKED}Your signal {REPORT}, {TILES} km.\n{NOTE}\n73, {FACTION}.</PhobosRadioQsl_CardText>
+  <!-- Radio 0.62.0: the band and mode the contact was worked on, and the relays that carried it; left out of a card from before. -->
+  <PhobosRadioQsl_WorkedOn>{BAND}, {MODE}. </PhobosRadioQsl_WorkedOn>
+  <PhobosRadioQsl_ViaOne>Via one relay station. </PhobosRadioQsl_ViaOne>
+  <PhobosRadioQsl_ViaMany>Via {COUNT} relay stations. </PhobosRadioQsl_ViaMany>
+  <PhobosRadio_SettingOwnCallsign>Our station's callsign</PhobosRadio_SettingOwnCallsign>
+  <PhobosRadio_SettingOwnCallsignDesc>Printed on every QSL card the colony receives, in place of the one worked out from its place on the planet. Letters, digits and a stroke (VK3ABC/P), up to ten. Leave it empty to have one worked out.</PhobosRadio_SettingOwnCallsignDesc>
   <!-- Radio 0.59.0: a card shows its front, the station's home painted, until clicked. -->
   <PhobosRadioQsl_TurnOver>Click to turn the card over.</PhobosRadioQsl_TurnOver>
   <!-- Radio 0.58.0: the note a card carries, three for each kind of contact (agent-authored, for the owner's review). -->

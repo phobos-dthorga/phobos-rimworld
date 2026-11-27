@@ -314,7 +314,9 @@ log, newest first: advice calls, other factions' help, friends made and lost, ra
   two-letter prefix, and the digit says how far north the station is), yours, the time in UTC as operators log it, the station's
   **grid square** (the real Maidenhead locator of its place on the planet), your signal report, the distance and a few words for
   what the contact was. Its front is a picture of the station's home, painted from its place on the planet: the sky at the hour you
-  made contact, its hills, its trees, desert or ice, the sea if it is on the coast. **Click a card to turn it over.**
+  made contact, its hills, its trees, desert or ice, the sea if it is on the coast. **Click a card to turn it over**: the back says the
+  band and mode the contact was worked on, and the relay stations that carried it. **Your own callsign**: type it in the radio's mod
+  settings (*Our station's callsign*) and every card is addressed to it.
 - **Awards**: cards from three factions, from every faction on the air, from 50 km away or more, or from ten settlements each earn an
   award. Colonists who work the radio (wearing a hand-held, or with a radio friend) are proud of it: **+2** an award, up to **+6**.
 

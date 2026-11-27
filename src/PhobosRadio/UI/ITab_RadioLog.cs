@@ -224,9 +224,19 @@ public class ITab_RadioLog : ITab
         float utc = GenDate.HourFloat(card.Tick, 0f);
         string time = ((int)utc).ToString("00") + ":" + ((int)(utc % 1f * 60f)).ToString("00");
         string note = QslNote(card);
+        // Radio 0.62.0: the band and mode, the relays, and the player's own callsign when one is set, on every card, old ones too.
+        string worked = card.Band != null && card.Mode != null
+            ? "PhobosRadioQsl_WorkedOn".Translate(card.Band.LabelCap.Named("BAND"), card.Mode.label.Named("MODE")).Resolve()
+            : "";
+        if (card.Relays == 1) worked += "PhobosRadioQsl_ViaOne".Translate().Resolve();
+        else if (card.Relays > 1) worked += "PhobosRadioQsl_ViaMany".Translate(card.Relays.Named("COUNT")).Resolve();
+        string own = Phobos.Radio.Physics.QslRule.CleanCallsign(RadioMod.Settings.ownCallsign);
+        string ourCall = own.Length > 0 ? own : card.OurCall.Length > 0 ? card.OurCall : "?";
         string lines = "PhobosRadioQsl_CardText".Translate(card.Operator.Named("OPERATOR"), card.Report.Named("REPORT"), card.Tiles.Named("TILES"),
-            date.Named("DATE"), (card.Faction?.Name ?? "?").Named("FACTION"), (card.OurCall.Length > 0 ? card.OurCall : "?").Named("OURCALL"),
-            time.Named("UTC"), (card.Grid.Length > 0 ? card.Grid : "?").Named("GRID"), note.Named("NOTE")).Resolve();
+            date.Named("DATE"), (card.Faction?.Name ?? "?").Named("FACTION"), ourCall.Named("OURCALL"),
+            time.Named("UTC"), (card.Grid.Length > 0 ? card.Grid : "?").Named("GRID"), note.Named("NOTE"), worked.Named("WORKED")).Resolve();
+        if (card.Band != null && Seen.Wants("radio.qsl-card-band", variant: card.Mode?.defName))
+            Seen.Note("radio.qsl-card-band", null, card.Call + ": " + worked + card.Report, card.Mode?.defName);
         GUI.color = ink;
         Widgets.Label(new Rect(rect.x + 14f, rect.y + 30f, rect.width - 22f, rect.height - 34f), lines);
         Text.Font = GameFont.Small;

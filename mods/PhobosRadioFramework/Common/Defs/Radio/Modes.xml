@@ -43,6 +43,7 @@
     <requiredSnrDb>3</requiredSnrDb>
     <dutyCycle>0.4</dutyCycle>
     <transmitEfficiency>0.6</transmitEfficiency>
+    <keyed>true</keyed>
   </Phobos.Radio.ModeDef>
 
   <!-- AM voice (Radio 0.49.0), the aviation bands' mode: double-sideband speech fits an 8.33 kHz channel (ICAO's narrowest), so 6 kHz of

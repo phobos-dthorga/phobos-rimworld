@@ -62,6 +62,12 @@ public class RadioSettings : ModSettings
     /// </summary>
     public bool jammingReachesRadios = true;
 
+    /// <summary>
+    /// The colony's own callsign on its QSL cards (Radio 0.62.0; the owner's leftover from the QSL record, 28 Nov 2026): empty works one out
+    /// from the colony's place, as before. Letters, digits and a stroke, at most ten (QslRule.CleanCallsign).
+    /// </summary>
+    public string ownCallsign = "";
+
     public override void ExposeData()
     {
         base.ExposeData();
@@ -78,6 +84,8 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref alliesWarnOfRaids, "alliesWarnOfRaids", true);
         Scribe_Values.Look(ref listenersAmbushTraders, "listenersAmbushTraders", true);
         Scribe_Values.Look(ref jammingReachesRadios, "jammingReachesRadios", true);
+        Scribe_Values.Look(ref ownCallsign, "ownCallsign", "");
+        ownCallsign ??= "";
     }
 }
 
@@ -185,6 +193,11 @@ public class RadioMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingJammingReachesRadios".Translate(), ref Settings.jammingReachesRadios,
             "PhobosRadio_SettingJammingReachesRadiosDesc".Translate());
+        // Radio 0.62.0: the colony's own callsign on its QSL cards; empty works one out.
+        listing.Gap();
+        Settings.ownCallsign = Phobos.Radio.Physics.QslRule.CleanCallsign(listing.TextEntryLabeled("PhobosRadio_SettingOwnCallsign".Translate(),
+            Settings.ownCallsign));
+        listing.Label("PhobosRadio_SettingOwnCallsignDesc".Translate());
         listing.End();
     }
 }

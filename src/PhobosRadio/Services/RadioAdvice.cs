@@ -100,6 +100,8 @@ public sealed class AdviceOffer
     /// <summary>The settlement that faction's doctor answers from, and the link's margin (Radio 0.38.0: its QSL card).</summary>
     public Settlement? Settlement { get; }
     public double MarginDb { get; }
+    /// <summary>The whole link to that settlement (Radio 0.62.0): its band, mode and relays, for the QSL card.</summary>
+    public FactionDoctorLink? Link { get; init; }
 
     public Pawn Carer { get; }
     public Pawn Adviser { get; }
@@ -248,7 +250,7 @@ public static class RadioAdvice
         int level = AdviceRule.EffectiveLevel(own, SkillLifts.OwnLevel(doctor, def.skill),
             AdviceRule.Share(outcome, rules.adviceShareSolid, rules.adviceShareMarginal, aidShare));
         return level <= own ? null : new AdviceOffer(carer, doctor, def, level, outcome, AdvicePlace.Afar, null, aid, link.Faction, link.Settlement, link.MarginDb,
-            picture);
+            picture) { Link = link };
     }
 
     /// <summary>The best adviser at one colony for a carer whose own link there has this outcome, or null.</summary>
@@ -604,9 +606,9 @@ public static class RadioAdvice
     /// <summary>Radio 0.38.0: a call with another faction's settlement earns its QSL card, the first time.</summary>
     private static void Worked(AdviceOffer offer)
     {
-        if (offer.Settlement == null) return;
+        if (offer.Settlement == null || offer.Faction == null) return;
         PlanetTile from = offer.Carer.Spawned ? offer.Carer.Map.Tile : offer.Carer.GetCaravan()?.Tile ?? PlanetTile.Invalid;
-        RadioQsl.Worked(offer.Settlement, offer.Carer, offer.MarginDb, from, QslContact.Advice);
+        RadioQsl.Worked(offer.Link ?? new FactionDoctorLink(offer.Faction, offer.Settlement, offer.MarginDb), offer.Carer, from, QslContact.Advice);
     }
 
     private static string Say(AdviceOffer offer, string key, MessageTypeDef type)

@@ -1,7 +1,7 @@
 # QSL cards, worked out (28 Nov 2026)
 
-**Status (28 Nov 2026):** part A (what the card carries) is built in Radio 0.58.0 and part B (how it looks) in 0.59.0. Neither is
-tested in game (test rows 749 and 750). The owner asked on 28 Nov 2026 where procedural design could go with QSL cards, and chose
+**Status (28 Nov 2026):** part A (what the card carries) is built in Radio 0.58.0, part B (how it looks) in 0.59.0, and the band, mode,
+relays and the player's own callsign in 0.62.0. None is tested in game (test rows 749, 750 and 764). The owner asked on 28 Nov 2026 where procedural design could go with QSL cards, and chose
 "A and then B" of the agent's four groups; C (cards as things in play) and D's remaining parts are [leftover work](#leftover-work).
 
 ## Read this first
@@ -62,10 +62,15 @@ take the nearest look [A]. With Ideology, the stamp has the faction's primary id
 
 ## Leftover work
 
-- **The band and mode on the card**: a link records only its margin, not the band or mode it was worked on; the five places a card is
-  earned would need to pass them. Then RST for Morse contacts, and "via" a relay.
 - **C, cards as things in play**: cards arriving later by trader (the bureau's delay), a wall of cards as art and a mood, a ham shack
   room, more awards (every biome, grid squares, the far side of the planet with HF), rare stations, listener (SWL) cards.
 - **D's rest**: an album view (sort by faction, distance, date; linked to the contact arcs), award certificates drawn in the same
   way as the cards.
-- **A callsign of the owner's own choosing** for the colony, as a setting.
+
+## The band, mode and own callsign (Radio 0.62.0)
+
+Built on the owner's choice of 28 Nov 2026, together with HF's first slice. A link to a settlement now carries the first hop's band and
+mode (from our end) and the relays in its chain, worked out once a search (kept the rules' while, as the search is); the five places a
+card is earned pass the link whole. The card keeps them (`PhobosQslBand`, `PhobosQslMode`, `PhobosQslRelays`); a mode Def's `keyed` gives
+Morse its three-figure report. The colony's own callsign is a mod setting, cleaned to letters, digits and a stroke (at most ten), and
+addresses every card, old ones too, while it is set [A: a setting for every game rather than one per colony, as the leftover asked].

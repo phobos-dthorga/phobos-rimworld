@@ -29,6 +29,23 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.62.0] - 2026-11-28 - Draft
+
+QSL cards say how they were worked
+
+### Added
+
+- **A QSL card says the band and mode it was worked on** (the owner's choice of 28 November 2026, with HF's first slice): "VHF (2 m),
+  FM voice.", "Via one relay station." when a relay carried the call, and a Morse contact's report has its third figure, the tone
+  (599). Cards from before carry none of it and are otherwise unchanged. Not yet tested in game: row 764.
+- **A setting for the colony's own callsign**, Our station's callsign: printed on every QSL card in place of the one worked out from the
+  colony's place. Empty by default, which keeps the worked-out one.
+- For modders: a mode Def's keyed marks a keyed tone, as Morse, for the three-figure report.
+
+### Save compatibility
+
+- Safe to update: each new card keeps its band, mode and relays; older cards load as they were.
+
 ## [0.61.0] - 2026-11-28 - Draft
 
 Vehicle radios on the Framework's power rule

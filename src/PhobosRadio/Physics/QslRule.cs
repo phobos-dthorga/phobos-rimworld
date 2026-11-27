@@ -62,6 +62,26 @@ public static class QslRule
     public static string Report(int readability, int strength, bool morse) =>
         readability.ToString() + strength.ToString() + (morse ? "9" : "");
 
+    /// <summary>The most a callsign of the player's own choosing keeps (Radio 0.62.0; real calls run to six or seven, a portable suffix more).</summary>
+    public const int CallsignMax = 10;
+
+    /// <summary>
+    /// A callsign the player typed, as a card prints it (Radio 0.62.0): letters, digits and a stroke kept (for a portable "/P"), upper-cased,
+    /// everything else dropped, at most <see cref="CallsignMax"/>; empty or null gives empty, and the worked-out callsign is used instead.
+    /// </summary>
+    public static string CleanCallsign(string? typed)
+    {
+        if (string.IsNullOrEmpty(typed)) return "";
+        var kept = new StringBuilder();
+        foreach (char c in typed!)
+        {
+            char upper = char.ToUpperInvariant(c);
+            if ((upper >= 'A' && upper <= 'Z') || (upper >= '0' && upper <= '9') || upper == '/') kept.Append(upper);
+            if (kept.Length == CallsignMax) break;
+        }
+        return kept.ToString();
+    }
+
     /// <summary>Which of <paramref name="count"/> authored lines a card takes: the same for the same seed, spread across them.</summary>
     public static int Pick(int seed, int count) => count <= 0 ? 0 : (int)(Mix((uint)seed ^ 0x85EBCA6Bu) % (uint)count);
 

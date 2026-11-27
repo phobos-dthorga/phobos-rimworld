@@ -86,7 +86,7 @@ public static class RadioFriends
             if (!FactionDoctors.Talks(faction) || FactionDoctors.ReachToTalk(map, map.Tile, () => FactionDoctors.StationEnds(map), faction) is not { } reached)
                 return null;
             // Radio 0.38.0: a chat with a settlement earns its QSL card, the first time.
-            RadioQsl.Worked(reached.Settlement, colonist, reached.MarginDb, map.Tile, QslContact.Friend);
+            RadioQsl.Worked(reached, colonist, map.Tile, QslContact.Friend);
             return friend;
         }
         if (FactionDoctors.ReachToTalk(map, map.Tile, () => FactionDoctors.StationEnds(map)) is not { } link) return null;
@@ -96,7 +96,7 @@ public static class RadioFriends
             link.Faction.Name.Named("FACTION"), link.Settlement.LabelCap.Named("SETTLEMENT")).Resolve();
         Messages.Message(madeText, colonist, MessageTypeDefOf.PositiveEvent, historical: false);
         RadioLog.Add(RadioLogKind.Friend, madeText);
-        RadioQsl.Worked(link.Settlement, colonist, link.MarginDb, map.Tile, QslContact.Friend);
+        RadioQsl.Worked(link, colonist, map.Tile, QslContact.Friend);
         if (Seen.Wants("radio.friend-made", colonist)) Seen.Note("radio.friend-made", colonist, made.LabelShort + ", " + link.Faction.Name);
         return made;
     }

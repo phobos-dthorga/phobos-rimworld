@@ -51,6 +51,16 @@ public class QslRuleTests
     public void TheReportIsRsForVoiceAndRstForMorse(int r, int s, bool morse, string report) =>
         Assert.Equal(report, QslRule.Report(r, s, morse));
 
+    [Theory]
+    [InlineData("vk3vkk", "VK3VKK")]
+    [InlineData(" vk3vkk/p ", "VK3VKK/P")]
+    [InlineData("A-B c!1", "ABC1")]
+    [InlineData("", "")]
+    [InlineData(null, "")]
+    [InlineData("ABCDEFGHIJKLMN", "ABCDEFGHIJ")]
+    public void AnOwnCallsignKeepsLettersDigitsAndAStroke(string? typed, string printed) =>
+        Assert.Equal(printed, QslRule.CleanCallsign(typed));
+
     [Fact]
     public void APickStaysInRangeAndRepeats()
     {

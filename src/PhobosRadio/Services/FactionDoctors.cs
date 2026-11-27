@@ -16,7 +16,9 @@ namespace Phobos.Radio.Services;
 // made and kept the same way, who talks a mechanic through a vehicle repair. A faction's calls share one set of terms, whoever answers.
 
 /// <summary>A settlement of another faction a carer reaches by radio, and the link's margin.</summary>
-public sealed record FactionDoctorLink(Faction Faction, Settlement Settlement, double MarginDb);
+/// <summary>A settlement reached by radio: its margin, and (Radio 0.62.0, for its QSL card) the band and mode of the first hop from our end and
+/// how many relays carried the call; band and mode are null where nobody worked it out.</summary>
+public sealed record FactionDoctorLink(Faction Faction, Settlement Settlement, double MarginDb, BandDef? Band = null, ModeDef? Mode = null, int Relays = 0);
 
 /// <summary>
 /// The doctors of other factions, their terms and who reaches them.
@@ -253,7 +255,14 @@ public static class FactionDoctors
                 if (RelayNodes.BestChain(from, targets, relays, leaseHolder: holder) is not { } chain) continue;
                 RelayNode reached = chain.nodes[chain.chain.Path[chain.chain.Path.Count - 1]];
                 if (reached.Owner is Settlement settlement && settlement.Faction is { } faction)
-                    return new FactionDoctorLink(faction, settlement, chain.chain.WorstMarginDb);
+                {
+                    // The first hop's band and mode, for the QSL card (Radio 0.62.0): one more look at a hop the search just weighed, once
+                    // a search, which is kept the rules' while.
+                    LinkEvaluation? first = chain.chain.Path.Count > 1
+                        ? LinkBudgetService.EvaluateWorld(chain.nodes[chain.chain.Path[0]], chain.nodes[chain.chain.Path[1]], rules)
+                        : null;
+                    return new FactionDoctorLink(faction, settlement, chain.chain.WorstMarginDb, first?.Band, first?.Mode, chain.chain.Relays);
+                }
             }
         }
         return null;

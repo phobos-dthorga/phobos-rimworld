@@ -43,6 +43,8 @@ public class ModeDef : Def
     public float dutyCycle = 0.2f;
     /// <summary>Transmitter efficiency for this mode's amplifier class; the rest becomes heat.</summary>
     public float transmitEfficiency = 0.6f;
+    /// <summary>A keyed tone, as Morse (Radio 0.62.0): its signal report has a third figure, the tone (RST), on a QSL card.</summary>
+    public bool keyed;
 
     public override IEnumerable<string> ConfigErrors()
     {

@@ -89,9 +89,17 @@ public sealed class QslCard : IExposable
     public string Call = "";
     public string Grid = "";
     public string OurCall = "";
+    /// <summary>The band and mode the contact was worked on, and the relays that carried it (Radio 0.62.0); null and 0 on a card from
+    /// before, or where nobody worked them out.</summary>
+    public BandDef? Band;
+    public ModeDef? Mode;
+    public int Relays;
 
     public void ExposeData()
     {
+        Scribe_Defs.Look(ref Band, "PhobosQslBand");
+        Scribe_Defs.Look(ref Mode, "PhobosQslMode");
+        Scribe_Values.Look(ref Relays, "PhobosQslRelays");
         Scribe_References.Look(ref Settlement, "PhobosQslSettlement");
         Scribe_References.Look(ref Faction, "PhobosQslFaction");
         Scribe_Values.Look(ref Place, "PhobosQslPlace", "");
@@ -161,9 +169,11 @@ public static class QslCalls
     public static string Of(Settlement settlement) =>
         settlement.Faction is { } faction ? QslRule.Callsign(PrefixOf(faction), Find.WorldGrid.LongLatOf(settlement.Tile).y, settlement.ID) : "";
 
-    /// <summary>Our station's callsign, from the colony's tile; empty without one.</summary>
+    /// <summary>Our station's callsign: the player's own from the settings (Radio 0.62.0), else worked out from the colony's tile; empty
+    /// without either.</summary>
     public static string Home(PlanetTile? tile) =>
-        tile is { Valid: true } t ? QslRule.Callsign(PrefixOf(Faction.OfPlayer), Find.WorldGrid.LongLatOf(t).y, t.tileId) : "";
+        QslRule.CleanCallsign(RadioMod.Settings.ownCallsign) is { Length: > 0 } own ? own
+        : tile is { Valid: true } t ? QslRule.Callsign(PrefixOf(Faction.OfPlayer), Find.WorldGrid.LongLatOf(t).y, t.tileId) : "";
 
     public static string Locator(PlanetTile tile)
     {
@@ -220,16 +230,20 @@ public static class RadioQsl
     /// The operators' signal report for a link, readability and strength (RS, 31 to 59; agent's mapping): readable 5 above a workable margin,
     /// 4 when marginal; strength one S-unit for each 3 dB of margin, at least 1. Approximate, and only for the card.
     /// </summary>
-    public static string Report(double marginDb)
+    public static string Report(double marginDb, bool keyed = false)
     {
         int readability = marginDb >= RadioRulesDef.Current.workableDb ? 5 : marginDb >= RadioRulesDef.Current.marginalDb ? 4 : 3;
         int strength = System.Math.Max(1, System.Math.Min(9, 1 + (int)System.Math.Floor(System.Math.Max(0.0, marginDb) / 3.0)));
-        return readability.ToString() + strength.ToString();
+        // Radio 0.62.0: Morse adds the tone, RST (QslRule.Report).
+        return QslRule.Report(readability, strength, keyed);
     }
 
-    /// <summary>A call with a settlement happened: the first earns its card, said in a message and in the log, and the awards are counted.</summary>
-    public static void Worked(Settlement settlement, Pawn colonist, double marginDb, PlanetTile from, QslContact kind = QslContact.FirstContact)
+    /// <summary>A call with a settlement happened: the first earns its card, said in a message and in the log, and the awards are counted.
+    /// The link (Radio 0.62.0) gives the card its band, mode and relays.</summary>
+    public static void Worked(FactionDoctorLink link, Pawn colonist, PlanetTile from, QslContact kind = QslContact.FirstContact)
     {
+        Settlement settlement = link.Settlement;
+        double marginDb = link.MarginDb;
         if (settlement.Faction is not { } faction || cards.Any(card => card.Settlement == settlement)) return;
         int tiles = from.Valid ? (int)Find.WorldGrid.ApproxDistanceInTiles(from, settlement.Tile) : 0;
         var card = new QslCard
@@ -239,9 +253,12 @@ public static class RadioQsl
             Place = settlement.LabelCap,
             Operator = colonist.LabelShort,
             Tick = Find.TickManager.TicksAbs,
-            Report = Report(marginDb),
+            Report = Report(marginDb, link.Mode?.keyed == true),
             Tiles = tiles,
             Kind = kind,
+            Band = link.Band,
+            Mode = link.Mode,
+            Relays = link.Relays,
             Call = QslCalls.Of(settlement),
             Grid = QslCalls.Locator(settlement.Tile),
             OurCall = QslCalls.Home(from.Valid ? from : Find.AnyPlayerHomeMap?.Tile),

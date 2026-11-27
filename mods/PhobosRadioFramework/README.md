@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.61.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.62.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -156,6 +156,7 @@ In **Options > Mod settings > D'thorga Radio Framework**.
 | Neighbours ask for help by radio | About once a fortnight, a friendly neighbour in radio reach asks by letter for your best doctor or mechanic on the radio for an hour. Yes earns 5 goodwill once the hour is done; no costs nothing | On |
 | Radio advice during surgery | A more skilled colonist in radio touch can talk a surgeon through an operation, raising its chance of success; a dropped call leaves the surgeon at their own skill | On |
 | Jamming reaches radios | A jammer switched to radios (the Busbar's jammer mast, with D'thorga Vehicles) drowns every radio for a long way around, **your own included**: talk, remote-driven vehicles and radio-linked turrets fail, while a radio close to its station, a strong one or Morse gets through. Off, jammers blind radar only | On |
+| Our station's callsign | The callsign on every QSL card the colony receives: letters, digits and a stroke (VK3ABC/P), up to ten. Empty works one out from the colony's place on the planet | Empty |
 
 ## More
 
