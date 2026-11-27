@@ -1,0 +1,410 @@
+[
+ {
+  "name": "guide-front-door",
+  "engine": "schnell",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "Painted illustration: A small frontier colony at dusk seen from a low hill: a rugged work truck with a tanker trailer parked by a tall lattice radio mast, a canvas field tent glowing with lamplight, a tractor resting in a ploughed field beyond, a helicopter flying low over the valley, and a few colonists in worn work clothes going about their jobs. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/README.md (the guide's front door)",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-front-door-zimage",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "Painted illustration: A small frontier colony at dusk seen from a low hill: a rugged work truck with a tanker trailer parked by a tall lattice radio mast, a canvas field tent glowing with lamplight, a tractor resting in a ploughed field beyond, a helicopter flying low over the valley, and a few colonists in worn work clothes going about their jobs. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/README.md (the guide's front door)",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-getting-started",
+  "engine": "schnell",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "Painted illustration: A colonist in a worn parka at the start of a dirt track at first light, a paper map spread on the bonnet of an old work truck, a toolbox and a crate of supplies at their feet, a small settlement just being built behind them. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/getting-started.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-getting-started-zimage",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "Painted illustration: A colonist in a worn parka at the start of a dirt track at first light, a paper map spread on the bonnet of an old work truck, a toolbox and a crate of supplies at their feet, a small settlement just being built behind them. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/getting-started.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-aircraft",
+  "engine": "schnell",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "Painted illustration: A heavy tiltrotor transport aircraft hovering over a rocky ridge at dusk with a small work truck hanging under it on sling cables, a colonist on the ground guiding it down with two glowing wands, dust swirling in the rotor wash. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/aircraft-and-sling-loads.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-aircraft-zimage",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "Painted illustration: A heavy tiltrotor transport aircraft hovering over a rocky ridge at dusk with a small work truck hanging under it on sling cables, a colonist on the ground guiding it down with two glowing wands, dust swirling in the rotor wash. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/aircraft-and-sling-loads.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-camping",
+  "engine": "schnell",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "Painted illustration: Two rugged work trucks parked in a forest clearing at night, a canvas tent pitched against the side of one, a small field kitchen trailer under an awning with a steaming pot, colonists on folding chairs round a lantern, a water bowser trailer behind them. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/camping.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-camping-zimage",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "Painted illustration: Two rugged work trucks parked in a forest clearing at night, a canvas tent pitched against the side of one, a small field kitchen trailer under an awning with a steaming pot, colonists on folding chairs round a lantern, a water bowser trailer behind them. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/camping.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-supply-network",
+  "engine": "schnell",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "Painted illustration: A lonely outpost on a far plateau at dusk with a radio mast and a red light on top, a supply truck with an empty cab driving itself along a dirt road towards it, and a helicopter coming in from the other side with a crate slung under it. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/supply-network.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-supply-network-zimage",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "Painted illustration: A lonely outpost on a far plateau at dusk with a radio mast and a red light on top, a supply truck with an empty cab driving itself along a dirt road towards it, and a helicopter coming in from the other side with a crate slung under it. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/supply-network.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-damage-repairs",
+  "engine": "schnell",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "Painted illustration: A battered work truck with a crumpled front, a scorched bonnet and a flat tyre in a workshop yard at dusk, one mechanic in overalls welding its chassis in a shower of bright sparks while another rolls a new wheel towards it, spare parts laid out on a bench. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/vehicle-damage-and-repairs.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-damage-repairs-zimage",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "Painted illustration: A battered work truck with a crumpled front, a scorched bonnet and a flat tyre in a workshop yard at dusk, one mechanic in overalls welding its chassis in a shower of bright sparks while another rolls a new wheel towards it, spare parts laid out on a bench. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/vehicle-damage-and-repairs.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-vehicle-workshop",
+  "engine": "schnell",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "Painted illustration: Inside a big workshop shed at night: a truck up on stands with its cab tilted forward, a long workbench with an engine on a stand, racks of parts, kits and tyres, a mechanic fitting a new part under a hanging work lamp, the big doors open to the dusk outside. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/vehicle-workshop.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-vehicle-workshop-zimage",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "Painted illustration: Inside a big workshop shed at night: a truck up on stands with its cab tilted forward, a long workbench with an engine on a stand, racks of parts, kits and tyres, a mechanic fitting a new part under a hanging work lamp, the big doors open to the dusk outside. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/vehicle-workshop.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-on-the-road",
+  "engine": "schnell",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "Painted illustration: A convoy of three rugged work trucks with headlights on, on a muddy winding mountain road in light rain at dusk: the lead truck tows a flatbed trailer, and the last truck pulls a stuck one out of the mud with a taut winch cable. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/vehicles-on-the-road.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-on-the-road-zimage",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "Painted illustration: A convoy of three rugged work trucks with headlights on, on a muddy winding mountain road in light rain at dusk: the lead truck tows a flatbed trailer, and the last truck pulls a stuck one out of the mud with a taut winch cable. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/vehicles-on-the-road.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-submarines",
+  "engine": "schnell",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "Painted illustration: A small yellow and grey seabed crawler submarine resting on a sandy sea floor among rocks and kelp, its work lights shining through murky water, a round sonar dome on its back and a shoal of silver fish above it. Painterly but clean, muted blue-green water with warm amber work lights, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/submarines.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-submarines-zimage",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "Painted illustration: A small yellow and grey seabed crawler submarine resting on a sandy sea floor among rocks and kelp, its work lights shining through murky water, a round sonar dome on its back and a shoal of silver fish above it. Painterly but clean, muted blue-green water with warm amber work lights, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/player-guide/submarines.md",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-modding",
+  "engine": "schnell",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "Painted illustration: A drafting table in a lamplit cabin at night, covered in blueprints of a work truck and its parts, a pencil, a slide rule and a mug of tea, a hand-held radio on the windowsill and the dusk outside the window. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/modding/README.md and the reference site's front page (docs/reference/index.md)",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "guide-modding-zimage",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "Painted illustration: A drafting table in a lamplit cabin at night, covered in blueprints of a work truck and its parts, a pencil, a slide rule and a mug of tea, a hand-held radio on the windowsill and the dusk outside the window. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "docs/modding/README.md and the reference site's front page (docs/reference/index.md)",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: this page has no picture, while the mod chapters open with their Workshop preview"
+  }
+ },
+ {
+  "name": "hero-farming",
+  "engine": "schnell",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "Painted illustration: A combine harvester cutting a golden wheat field at dusk while a tractor pulling a grain chaser bin drives alongside to catch the grain, a farmhouse with lit windows and a grain silo in the distance, a colonist leaning on a fence to watch. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "mods/PhobosFarming/About/Preview.png (titled by make_preview.py), then docs/player-guide/farming.md and the Farming README",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: D'thorga Farming is the only mod with no About/Preview.png, so its Workshop page and guide chapter have no hero picture"
+  }
+ },
+ {
+  "name": "hero-farming-zimage",
+  "engine": "zimage",
+  "width": 1280,
+  "height": 720,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "Painted illustration: A combine harvester cutting a golden wheat field at dusk while a tractor pulling a grain chaser bin drives alongside to catch the grain, a farmhouse with lit windows and a grain silo in the distance, a colonist leaning on a fence to watch. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "art_plan": {
+   "for": "mods/PhobosFarming/About/Preview.png (titled by make_preview.py), then docs/player-guide/farming.md and the Farming README",
+   "how_it_ships": "the owner picks one; titled with make_preview.py like the mods' previews; record beside it (assets/AGENTS.md)",
+   "why": "docs audit of 28 Nov 2026: D'thorga Farming is the only mod with no About/Preview.png, so its Workshop page and guide chapter have no hero picture"
+  }
+ },
+ {
+  "name": "house-crest",
+  "engine": "schnell",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "prompt": "A heraldic crest: a red dragon rampant with golden-orange wings spread, swept-back cream horns and amber eyes, on a dark charcoal shield with a thin gold border, bold flat shapes and clean outlines, readable when small, centred on a plain dark background. No text, no letters, no banner, no logos, no watermark.",
+  "art_plan": {
+   "for": "an agent's idea, for the owner to take or leave: House D'thorga's mark for the guide's front door, each README's top, and the reference site's logo and favicon",
+   "how_it_ships": "only if the owner picks one; any motto (for example Audeamus) is added by script, never generated",
+   "why": "docs audit of 28 Nov 2026: the brand has no picture of its own"
+  }
+ },
+ {
+  "name": "house-crest-zimage",
+  "engine": "zimage",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   315,
+   316
+  ],
+  "prompt": "A heraldic crest: a red dragon rampant with golden-orange wings spread, swept-back cream horns and amber eyes, on a dark charcoal shield with a thin gold border, bold flat shapes and clean outlines, readable when small, centred on a plain dark background. No text, no letters, no banner, no logos, no watermark.",
+  "art_plan": {
+   "for": "an agent's idea, for the owner to take or leave: House D'thorga's mark for the guide's front door, each README's top, and the reference site's logo and favicon",
+   "how_it_ships": "only if the owner picks one; any motto (for example Audeamus) is added by script, never generated",
+   "why": "docs audit of 28 Nov 2026: the brand has no picture of its own"
+  }
+ }
+]

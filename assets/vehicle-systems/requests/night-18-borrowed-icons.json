@@ -1,0 +1,140 @@
+[
+ {
+  "name": "n18-suppression-engine",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A red fire suppression bottle clamped beside a grey engine block, a thin pipe running from the bottle to a nozzle over the engine that sprays a short puff of white mist. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a red fire suppression bottle clamped beside a grey engine block, a thin pipe running from the bottle to a nozzle over the engine that sprays a short puff of white mist",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SuppressantBottle.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyAirFilter.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   303,
+   304
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "fitting": "Engine fire suppression (PhobosFitting_SuppressionEngine, FireFighting.xml; also the node in five upgrade trees)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/SuppressionEngine.png",
+   "why": "an icon only, made locally (assets/AGENTS.md); the art audit of 28 Nov 2026 lists it as borrowed: it uses the suppressant bottle's item picture, so the fitting and the refill look the same"
+  }
+ },
+ {
+  "name": "n18-suppression-crew",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A red fire suppression bottle fixed to a grey cabin wall, a thin pipe running up to a nozzle in the ceiling that sprays a short puff of white mist over a padded vehicle seat. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a red fire suppression bottle fixed to a grey cabin wall, a thin pipe running up to a nozzle in the ceiling that sprays a short puff of white mist over a padded vehicle seat",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SuppressantBottle.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabBunk.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   305,
+   306
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "fitting": "Crew fire suppression (PhobosFitting_SuppressionCrew, FireFighting.xml; also the node in five upgrade trees)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/SuppressionCrew.png",
+   "why": "an icon only, made locally (assets/AGENTS.md); the art audit of 28 Nov 2026 lists it as borrowed: it shares the suppressant bottle's item picture with the engine bay's system, so the two fittings cannot be told apart"
+  }
+ },
+ {
+  "name": "n18-electric-pump",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A compact grey liquid pump with round pipe flanges on its inlet and outlet, driven by a blue electric motor bolted to its side, a thick black cable running from the motor. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a compact grey liquid pump with round pipe flanges on its inlet and outlet, driven by a blue electric motor bolted to its side, a thick black cable running from the motor",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/DeepCycleBattery.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/TransmissionCooler.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   307,
+   308
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "node": "Electric pump (the tanker's ElectricPump and PhobosTrailerElectricPump on the fuel, water, paste and shower bowsers)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/ElectricPump.png",
+   "why": "an icon only, made locally (assets/AGENTS.md); the art audit of 28 Nov 2026 lists it as borrowed: five upgrade trees show the deep-cycle battery's picture for it"
+  }
+ },
+ {
+  "name": "n18-route-kit",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A black roof bar of small driving cameras with a little round white radar dome in its middle, a grey controller box hanging under it on a coiled cable. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a black roof bar of small driving cameras with a little round white radar dome in its middle, a grey controller box hanging under it on a coiled cable",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/OptionallyPilotedKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/WorkLamps.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   309,
+   310
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "fitting": "Route kit (PhobosFitting_RouteKit, Fittings_Route.xml): cameras, a small radar, a controller and servos, so a vehicle follows a convoy or runs supplies with nobody aboard",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/RouteKit.png",
+   "why": "an icon only, made locally (assets/AGENTS.md); the art audit of 28 Nov 2026 lists it as borrowed: it shows the tow hitch's picture, which says towing, not driving itself"
+  }
+ },
+ {
+  "name": "n18-dining-annex",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small olive green canvas tent room with its front flap rolled up, showing a folding table and four folding chairs inside. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a small olive green canvas tent room with its front flap rolled up, showing a folding table and four folding chairs inside",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/DeckTent.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabBunk.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   311,
+   312
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "node": "Dining annex (PhobosBillyDiningAnnex, the Billy field kitchen's upgrade tree)",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyDiningAnnex.png",
+   "why": "an icon only, made locally (assets/AGENTS.md); the art audit of 28 Nov 2026 lists it as borrowed: it shows the game's own smooth stone wall menu icon"
+  }
+ },
+ {
+  "name": "n18-radio-school",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A grey hand-held radio with a short black antenna standing beside an open schoolbook and a yellow pencil. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "a grey hand-held radio with a short black antenna standing beside an open schoolbook and a yellow pencil",
+  "references": [
+   "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Handheld.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   313,
+   314
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "icon": "Radio school, a child's learning desire (PhobosRadio_RadioSchool, RadioSchool.xml)",
+   "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/RadioSchool.png",
+   "why": "an icon only, made locally (assets/AGENTS.md); the art audit of 28 Nov 2026 lists it as borrowed: it shows the game's own Radio talking learning icon, so the two lessons look alike in a child's learning list"
+  }
+ }
+]
