@@ -366,6 +366,8 @@ log, newest first: advice calls, other factions' help, friends made and lost, ra
   each showing its picture; they read them from there. A room with a radio station and a QSL wall is a **ham shack**: radio work
   there goes 10% faster, and radio operators enjoy a decent one (+2). Each award comes as a **framed certificate** to place;
   colonists admire it as art.
+- **More awards**: every kind of land a station stands on, 10 and 25 grid squares, a contact 10,000 km away or more (HF reaches
+  that far), and every landmass with a station on it.
 - **Awards**: cards from three factions, from every faction on the air, from 50 km away or more, or from ten settlements each earn an
   award. Colonists who work the radio (wearing a hand-held, or with a radio friend) are proud of it: **+2** an award, up to **+6**.
 

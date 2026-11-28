@@ -102,9 +102,15 @@ public sealed class QslCard : IExposable
     /// <summary>Whether its card has come by the bureau (Radio 0.66.0): the logbook shows a card at once; the card itself comes later with a
     /// friendly trader or visitor (<see cref="RadioQsl.Bureau"/>). Cards from before come by the bureau too.</summary>
     public bool Delivered;
+    /// <summary>The sender's biome and tile (Radio 0.69.0), kept for the awards when the settlement is gone; filled in on older cards while
+    /// their settlement stands.</summary>
+    public string Biome = "";
+    public int TileId = -1;
 
     public void ExposeData()
     {
+        Scribe_Values.Look(ref Biome, "PhobosQslBiome", "");
+        Scribe_Values.Look(ref TileId, "PhobosQslTile", -1);
         Scribe_Values.Look(ref Delivered, "PhobosQslDelivered");
         Scribe_Values.Look(ref Area, "PhobosQslArea", "");
         Scribe_Defs.Look(ref Band, "PhobosQslBand");
@@ -127,6 +133,12 @@ public sealed class QslCard : IExposable
     /// the area and callsigns from the world's own places, replacing the faction-based ones.</summary>
     public void FillIn()
     {
+        // Radio 0.69.0: the biome and tile, for the awards.
+        if (TileId < 0 && Settlement != null)
+        {
+            TileId = Settlement.Tile.tileId;
+            Biome = Find.WorldGrid[Settlement.Tile]?.PrimaryBiome?.defName ?? "";
+        }
         if (Area.Length > 0 || Settlement == null) return;
         Call = QslCalls.Of(Settlement);
         Grid = QslCalls.Locator(Settlement.Tile);
@@ -241,6 +253,56 @@ public static class QslCalls
     }
 }
 
+/// <summary>
+/// The world's landmasses (Radio 0.69.0, for the award "every landmass worked"): the land tiles joined by their neighbours, numbered once a
+/// session by one fill over the world's surface; water is -1.
+/// <para>Cost: one pass over the world's tiles, the first time an award is counted in a session.</para>
+/// </summary>
+public static class Landmasses
+{
+    static int[]? ids;
+    static World? of;
+
+    public static int Of(int tileId)
+    {
+        if (Find.World is not { } world) return -1;
+        if (ids == null || of != world) Fill(world);
+        return tileId >= 0 && tileId < ids!.Length ? ids[tileId] : -1;
+    }
+
+    static void Fill(World world)
+    {
+        of = world;
+        PlanetLayer surface = Find.WorldGrid.Surface;
+        int count = surface.TilesCount;
+        ids = new int[count];
+        for (int i = 0; i < count; i++) ids[i] = -2;
+        var around = new List<PlanetTile>();
+        var queue = new Queue<int>();
+        int next = 0;
+        for (int start = 0; start < count; start++)
+        {
+            if (ids[start] != -2) continue;
+            if (surface[start].WaterCovered) { ids[start] = -1; continue; }
+            ids[start] = next;
+            queue.Enqueue(start);
+            while (queue.Count > 0)
+            {
+                int at = queue.Dequeue();
+                surface.GetTileNeighbors(new PlanetTile(at, surface), around);
+                foreach (PlanetTile n in around)
+                {
+                    if (n.tileId < 0 || n.tileId >= count || ids[n.tileId] != -2) continue;
+                    if (surface[n.tileId].WaterCovered) { ids[n.tileId] = -1; continue; }
+                    ids[n.tileId] = next;
+                    queue.Enqueue(n.tileId);
+                }
+            }
+            next++;
+        }
+    }
+}
+
 /// <summary>The awards a set of cards earns (agent defaults; the owner's card gave what an award brings).</summary>
 public enum QslAward
 {
@@ -248,6 +310,14 @@ public enum QslAward
     AllFactions,
     LongWay,
     TenSettlements,
+    /// <summary>Radio 0.69.0 (docs/development/radio-qsl-in-play.md, part 3): every biome a settlement with radio stands in.</summary>
+    AllBiomes,
+    TenGridSquares,
+    TwentyFiveGridSquares,
+    /// <summary>A contact of <see cref="RadioQsl.FarSideKm"/> or more, at HF's scale.</summary>
+    FarSide,
+    /// <summary>Every landmass a settlement with radio stands on.</summary>
+    AllLandmasses,
 }
 
 /// <summary>
@@ -260,6 +330,10 @@ public static class RadioQsl
     public const int LongWayTiles = 50;
     public const int ManySettlements = 10;
     public const int ManyFactions = 3;
+    /// <summary>Radio 0.69.0's awards (agent's figures): grid squares (the locator's first four characters), and the far side in km.</summary>
+    public const int SomeGrids = 10;
+    public const int ManyGrids = 25;
+    public const int FarSideKm = 10000;
 
     private static List<QslCard> cards = new();
     private static List<QslAward> awards = new();
@@ -328,6 +402,8 @@ public static class RadioQsl
             Relays = link.Relays,
             Call = QslCalls.Of(settlement),
             Area = QslCalls.AreaOf(settlement.Tile),
+            TileId = settlement.Tile.tileId,
+            Biome = Find.WorldGrid[settlement.Tile]?.PrimaryBiome?.defName ?? "",
             Grid = QslCalls.Locator(settlement.Tile),
             OurCall = QslCalls.Home(from.Valid ? from : Find.AnyPlayerHomeMap?.Tile),
         };
@@ -399,6 +475,19 @@ public static class RadioQsl
         if (withRadio.Count > 0 && withRadio.All(factions.Contains)) Give(QslAward.AllFactions);
         if (cards.Any(card => card.Tiles >= LongWayTiles)) Give(QslAward.LongWay);
         if (cards.Count >= ManySettlements) Give(QslAward.TenSettlements);
+        // Radio 0.69.0: the further awards.
+        foreach (QslCard card in cards) card.FillIn();
+        int grids = cards.Where(card => card.Grid.Length >= 4).Select(card => card.Grid.Substring(0, 4)).Distinct().Count();
+        if (grids >= SomeGrids) Give(QslAward.TenGridSquares);
+        if (grids >= ManyGrids) Give(QslAward.TwentyFiveGridSquares);
+        double kmPerTile = RadioRulesDef.Current.hfMetresPerWorldTile / 1000.0;
+        if (cards.Any(card => card.Tiles * kmPerTile >= FarSideKm)) Give(QslAward.FarSide);
+        var talking = Find.WorldObjects.Settlements.Where(st => st.Faction is { } f && FactionDoctors.Talks(f)).ToList();
+        if (talking.Count == 0) return;
+        var biomes = new HashSet<string>(cards.Select(card => card.Biome).Where(b => b.Length > 0));
+        if (talking.All(st => Find.WorldGrid[st.Tile]?.PrimaryBiome is not { } b || biomes.Contains(b.defName))) Give(QslAward.AllBiomes);
+        var worked = new HashSet<int>(cards.Where(card => card.TileId >= 0).Select(card => Landmasses.Of(card.TileId)).Where(id => id >= 0));
+        if (talking.All(st => Landmasses.Of(st.Tile.tileId) is var id && (id < 0 || worked.Contains(id)))) Give(QslAward.AllLandmasses);
     }
 
     private static void Give(QslAward award)
@@ -416,6 +505,11 @@ public static class RadioQsl
         QslAward.ThreeFactions => "PhobosRadioQsl_AwardThreeFactions".Translate(ManyFactions.Named("COUNT")).Resolve(),
         QslAward.AllFactions => "PhobosRadioQsl_AwardAllFactions".Translate().Resolve(),
         QslAward.LongWay => "PhobosRadioQsl_AwardLongWay".Translate(LongWayTiles.Named("TILES")).Resolve(),
+        QslAward.AllBiomes => "PhobosRadioQsl_AwardAllBiomes".Translate().Resolve(),
+        QslAward.TenGridSquares => "PhobosRadioQsl_AwardGridSquares".Translate(SomeGrids.Named("COUNT")).Resolve(),
+        QslAward.TwentyFiveGridSquares => "PhobosRadioQsl_AwardGridSquares".Translate(ManyGrids.Named("COUNT")).Resolve(),
+        QslAward.FarSide => "PhobosRadioQsl_AwardFarSide".Translate(FarSideKm.Named("KM")).Resolve(),
+        QslAward.AllLandmasses => "PhobosRadioQsl_AwardAllLandmasses".Translate().Resolve(),
         _ => "PhobosRadioQsl_AwardTenSettlements".Translate(ManySettlements.Named("COUNT")).Resolve(),
     };
 

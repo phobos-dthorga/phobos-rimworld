@@ -63,4 +63,9 @@
   <PhobosRadioQsl_BureauPost>Post from the QSL bureau: {COUNT} QSL cards, brought by {FACTION}.</PhobosRadioQsl_BureauPost>
   <!-- Radio 0.68.0: an award's framed certificate. -->
   <PhobosRadioQsl_CertificateText>A certificate awarded to the radio station of {COLONY}: {AWARD}.</PhobosRadioQsl_CertificateText>
+  <!-- Radio 0.69.0: the further awards. -->
+  <PhobosRadioQsl_AwardAllBiomes>Worked every kind of land a station stands on</PhobosRadioQsl_AwardAllBiomes>
+  <PhobosRadioQsl_AwardGridSquares>Worked {COUNT} grid squares</PhobosRadioQsl_AwardGridSquares>
+  <PhobosRadioQsl_AwardFarSide>A contact {KM} km away or more: the far side of the world</PhobosRadioQsl_AwardFarSide>
+  <PhobosRadioQsl_AwardAllLandmasses>Worked every landmass with a station on it</PhobosRadioQsl_AwardAllLandmasses>
 </LanguageData>
