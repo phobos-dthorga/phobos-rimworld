@@ -100,6 +100,8 @@ public static class HfService
         if (Sky is not { } table || table.BandIndex(KHz(band)) is var index && index < 0) return null;
         Vector3 a = Find.WorldGrid.GetTileCenter(tileA), b = Find.WorldGrid.GetTileCenter(tileB);
         Vector3 mid = (a.normalized + b.normalized).normalized;
+        // Radio 0.72.0: a solar flare blacks out the sky where it is day at the path's midpoint (the radio's own flare).
+        if (RadioFlare.BlackedOut(mid)) return null;
         float lon = Mathf.Atan2(mid.x, -mid.z) * Mathf.Rad2Deg, lat = Mathf.Asin(Mathf.Clamp(mid.y, -1f, 1f)) * Mathf.Rad2Deg;
         long now = Find.TickManager.TicksAbs;
         HfConditions c = table.Look(index, YearFraction(now, lon), SunspotsNow(), lat, km, GenDate.HourFloat(now, lon));

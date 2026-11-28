@@ -49,7 +49,8 @@ public class CompAmplifier : ThingComp
     public CompProperties_Amplifier Props => (CompProperties_Amplifier)props;
 
     /// <summary>Switched on and fed: only then does it amplify. Unpowered, a signal passes through it, less its loss.</summary>
-    public bool Powered => parent.TryGetComp<CompPowerTrader>() is not { } power || power.PowerOn;
+    // Radio 0.72.0: through a solar flare too, as the radio's own flare keeps its kit working.
+    public bool Powered => Services.RadioFlare.Works(parent);
 
     /// <summary>The station on its coax, if one is.</summary>
     public CompRadio? StationNow => parent.TryGetComp<CompFeedlinePort>() is { } port ? FeedlineService.StationOn(port) : null;

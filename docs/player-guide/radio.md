@@ -311,6 +311,8 @@ long-distance radio: along the ground a tile or two, and **round the world by th
   distance now, and the world map shows a rose round the colony: how far each band reaches in each direction this hour.
 - **Two pictures on the world map**, each switched on in the radio's mod settings: **the grey line** (day meets night; HF often
   opens along it at dawn and dusk) and **skip zones** (a ring for each band where the sky brings it back down this hour).
+- **Solar flares**: your radio stations keep working through a flare, but HF by the sky is blacked out on the sunlit side of the
+  planet until it passes; a letter says so. HF along the ground, the night side, VHF and hand-helds carry on.
 - **Height matters**: a low dipole throws its signal upward, for the region round you; a high one throws it low, for far places.
   **Select a dipole and press Upgrades** to raise it: a **telescopic mast** (15 m, cheap and quick) or a **lattice tower** (25 m,
   dear and slow). It comes on a 10 m guyed pole (8 m for the V and the shortened one).

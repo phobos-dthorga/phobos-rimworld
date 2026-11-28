@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.71.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.72.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -29,6 +29,8 @@ Version 0.71.0, built 28 November 2026 for House D'thorga. **Not yet tested in g
 - **HF (0.62.0, by the sky from 0.64.0)**: an HF station reaches far settlements when a band is open, by the hour, the season and the
   sun's cycle; along the ground a tile or two. Settlements answer on HF, so faction features reach much further. The HF tables add
   about 3.3 MB to the mod.
+- **Solar flares (0.72.0)**: radio stations keep working through the game's flare, but HF by the sky is blacked out on the sunlit
+  side until it passes.
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a hand-held together. **From 0.67.0 one
   carried in the inventory works as a worn one** (a Combat Extended loadout puts it there): wear it or carry it, not both needed.
 - **Channels, from 0.7.0**: each station serves as many radios as its channels hold (the desk 5, the terminal 20, five to a
@@ -168,6 +170,7 @@ In **Options > Mod settings > D'thorga Radio Framework**.
 | The comms console needs radio reach | On, the comms console lists only the factions your stations reach by radio (through relays and, with HF, by the sky) | Off |
 | Show the grey line on the world map | The day and night edge round the globe while your colony is selected; HF often opens along it at dawn and dusk | Off |
 | Show HF skip zones on the world map | A ring round your colony for each HF band, where the sky first brings it back down this hour | Off |
+| Show a solar flare's reach on the world map | During a solar flare, amber rings over the sunlit half of the planet, where HF is blacked out | Off |
 | Our station's callsign | The callsign on every QSL card the colony receives: letters, digits and a stroke (VK3ABC/P), up to ten. Empty works one out from the colony's place on the planet | Empty |
 
 ## More

@@ -89,7 +89,7 @@ public class JobDriver_PhobosRadioChat : JobDriver, IRadioDeskCall
     }
 
     private bool InTouch() =>
-        job.targetA.Thing is { } desk ? desk.Spawned && desk.TryGetComp<CompPowerTrader>() is not { PowerOn: false } : RadioAdvice.InTouch(pawn);
+        job.targetA.Thing is { } desk ? desk.Spawned && Phobos.Radio.Services.RadioFlare.Works(desk) : RadioAdvice.InTouch(pawn);
 
     public override void ExposeData()
     {

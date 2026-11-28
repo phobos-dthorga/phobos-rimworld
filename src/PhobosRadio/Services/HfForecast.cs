@@ -68,6 +68,8 @@ public static class HfForecast
                     int best = 0;
                     foreach (int km in DistancesKm)
                     {
+                        // Radio 0.72.0: blacked out where a flare finds daylight at the midpoint.
+                        if (RadioFlare.BlackedOut(WorldPointAlong(map.Tile, b * 360f / Bearings, km / 2.0))) continue;
                         Vector2 mid = PointAlong(map.Tile, b * 360f / Bearings, km / 2.0);
                         HfConditions c = table.Look(index, year, sun, mid.y, km, GenDate.HourFloat(now, mid.x));
                         if (c.LossDb != null && c.OpenShare >= OpenShare) best = km;

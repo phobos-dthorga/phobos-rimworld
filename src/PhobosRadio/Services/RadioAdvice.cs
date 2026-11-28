@@ -347,7 +347,7 @@ public static class RadioAdvice
         foreach (CompRadio station in net.Stations)
         {
             Thing desk = station.parent;
-            if (!desk.Spawned || desk.Map != adviser.Map || desk.TryGetComp<CompPowerTrader>() is { PowerOn: false }) continue;
+            if (!desk.Spawned || desk.Map != adviser.Map || !Phobos.Radio.Services.RadioFlare.Works(desk)) continue;
             float distance = adviser.Position.DistanceToSquared(desk.Position);
             if (distance >= best || desk.IsForbidden(adviser) || !adviser.CanReach(desk, PathEndMode.Touch, Danger.Some)) continue;
             if (!RadioSeats.CanSit(adviser, desk) || !net.DeskHasRoom(desk)) continue;
@@ -677,6 +677,7 @@ public class GameComponent_RadioAdvice : GameComponent
         RadioNeighbours.Clear();
         RadioLog.Clear();
         RadioQsl.Clear();
+        RadioFlare.Clear();
         RadioTalk.Clear();
         RadioAir.Clear();
     }
@@ -707,6 +708,8 @@ public class GameComponent_RadioAdvice : GameComponent
             RadioQsl.Bureau();
             // Radio 0.70.0: rare stations on the air, and listener cards.
             RareStations.Hourly();
+            // Radio 0.72.0: a letter when a solar flare begins (the radio's own flare).
+            RadioFlare.Hourly();
         }
     }
 

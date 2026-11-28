@@ -16,4 +16,10 @@
   <PhobosRadio_SettingHfGreyLineDesc>Off by default. On, the world map draws the edge between day and night round the globe while your colony is selected. HF often opens along it at dawn and dusk. A small drawing cost while shown.</PhobosRadio_SettingHfGreyLineDesc>
   <PhobosRadio_SettingHfSkipRings>Show HF skip zones on the world map</PhobosRadio_SettingHfSkipRings>
   <PhobosRadio_SettingHfSkipRingsDesc>Off by default. On, the world map draws a ring round your colony for each HF band, where the sky first brings it back down this hour: places inside it are skipped over, unless the ground wave reaches them. A small drawing cost while shown.</PhobosRadio_SettingHfSkipRingsDesc>
+  <!-- Radio 0.72.0: the radio's own solar flare. -->
+  <PhobosRadioHf_Flare>A solar flare: HF is blacked out by the sky on the sunlit side of the planet. Along the ground and on the night side it still carries.</PhobosRadioHf_Flare>
+  <PhobosRadioFlare_Label>Solar flare: HF blacked out</PhobosRadioFlare_Label>
+  <PhobosRadioFlare_Text>A solar flare has blacked out HF on the sunlit side of the planet: calls by the sky fail where it is day halfway along their path. Your radio stations keep working, hand-helds and VHF are untouched, and HF still carries along the ground and across the night side. It passes when the flare does.</PhobosRadioFlare_Text>
+  <PhobosRadio_SettingHfFlareWash>Show a solar flare's reach on the world map</PhobosRadio_SettingHfFlareWash>
+  <PhobosRadio_SettingHfFlareWashDesc>Off by default. On, during a solar flare the world map draws amber rings over the sunlit half of the planet, where HF is blacked out, while your colony is selected. A small drawing cost while shown.</PhobosRadio_SettingHfFlareWashDesc>
 </LanguageData>

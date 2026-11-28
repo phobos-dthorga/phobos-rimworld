@@ -33,6 +33,8 @@ public class ITab_RadioHfBands : ITab
                 RadioRulesDef.Current.hfSolarCycleYears.ToString("0.#").Named("YEARS")).Resolve(),
         };
         IReadOnlyList<HfForecast.Outlook> outlooks = HfForecast.Outlooks(station.Map);
+        // Radio 0.72.0: a solar flare blacks out the sunlit side.
+        if (RadioFlare.On()) lines.Add("PhobosRadioHf_Flare".Translate().Resolve());
         if (outlooks.Count == 0) lines.Add("PhobosRadioHf_NoTables".Translate().Resolve());
         foreach (HfForecast.Outlook outlook in outlooks)
         {
@@ -110,6 +112,33 @@ public static class HfPictures
     {
         if (RadioMod.Settings.hfGreyLine) GreyLine();
         if (RadioMod.Settings.hfSkipRings) SkipRings(map);
+        if (RadioMod.Settings.hfFlareWash && RadioFlare.On()) FlareWash();
+    }
+
+    static Material? wash;
+
+    /// <summary>The flare's wash (Radio 0.72.0, RV13): rings round the point under the sun out to the day and night edge, marking the sunlit half
+    /// where HF's sky is blacked out, while a flare is on.</summary>
+    static void FlareWash()
+    {
+        wash ??= MaterialPool.MatFrom(GenDraw.LineTexPath, ShaderDatabase.WorldOverlayTransparent, new Color(1f, 0.55f, 0.1f, 0.45f), 3590);
+        Vector3 sun = GenCelestial.CurSunPositionInWorldSpace().normalized;
+        Vector3 u = Vector3.Cross(sun, Mathf.Abs(sun.y) < 0.9f ? Vector3.up : Vector3.right).normalized;
+        Vector3 v = Vector3.Cross(sun, u).normalized;
+        float radius = Find.WorldGrid.GetTileCenter(Find.AnyPlayerHomeMap?.Tile ?? new RimWorld.Planet.PlanetTile(0, Find.WorldGrid.Surface)).magnitude;
+        for (int ring = 1; ring <= 6; ring++)
+        {
+            float r = ring * 15f * Mathf.Deg2Rad;
+            Vector3 previous = (sun * Mathf.Cos(r) + u * Mathf.Sin(r)) * radius;
+            for (int i = 1; i <= RingPieces; i++)
+            {
+                float a = i * 2f * Mathf.PI / RingPieces;
+                Vector3 point = (sun * Mathf.Cos(r) + (u * Mathf.Cos(a) + v * Mathf.Sin(a)) * Mathf.Sin(r)) * radius;
+                WorldArcs.Arc(previous, point, wash, ring == 6 ? 1.4f : 0.7f);
+                previous = point;
+            }
+        }
+        if (Phobos.Radio.Seen.Wants("radio.hf-flare-wash", null)) Phobos.Radio.Seen.Note("radio.hf-flare-wash");
     }
 
     static void GreyLine()

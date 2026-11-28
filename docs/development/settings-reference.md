@@ -337,9 +337,10 @@ Generated from the mod's source code and language files by `python scripts/doc-t
 | The comms console needs radio reach | Off by default. On, the comms console lists only the factions your stations can reach by radio, through relays and, with HF, by the sky: a far faction can be called only when a band is open to it. Passing ships are not affected. Off, the console calls every faction as usual. | Off |
 | Show the grey line on the world map | Off by default. On, the world map draws the edge between day and night round the globe while your colony is selected. HF often opens along it at dawn and dusk. A small drawing cost while shown. | Off |
 | Show HF skip zones on the world map | Off by default. On, the world map draws a ring round your colony for each HF band, where the sky first brings it back down this hour: places inside it are skipped over, unless the ground wave reaches them. A small drawing cost while shown. | Off |
+| Show a solar flare's reach on the world map | Off by default. On, during a solar flare the world map draws amber rings over the sunlit half of the planet, where HF is blacked out, while your colony is selected. A small drawing cost while shown. | Off |
 | Our station's callsign | Printed on every QSL card the colony receives, in place of the one worked out from its place on the planet. Letters, digits and a stroke (VK3ABC/P), up to ten. Leave it empty to have one worked out. | empty |
 
-15 settings, in the order the settings window draws them. **Default** is what the game uses until the setting is changed. A setting the window shows only in some games (another mod active, another setting on) is listed all the same.
+16 settings, in the order the settings window draws them. **Default** is what the game uses until the setting is changed. A setting the window shows only in some games (another mod active, another setting on) is listed all the same.
 
 Saved, but not found drawn in the window by the reader (kept by the window itself, or drawn by code it cannot follow): `displayMode`, `adviceOff`.
 <!-- end generated -->

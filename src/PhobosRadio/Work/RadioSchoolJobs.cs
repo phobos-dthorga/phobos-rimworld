@@ -51,7 +51,7 @@ public class JobDriver_PhobosRadioSchool : JobDriver, IRadioDeskCall
         if (atDesk)
         {
             this.FailOnDespawnedOrNull(TargetIndex.A);
-            this.FailOn(() => job.targetA.Thing.TryGetComp<CompPowerTrader>() is { PowerOn: false });
+            this.FailOn(() => !Phobos.Radio.Services.RadioFlare.Works(job.targetA.Thing));
             yield return RadioSeats.GoTo(job.targetA.Thing, () => seat);
         }
         else this.FailOn(() => pawn.IsHashIntervalTick(250) && !RadioAdvice.InTouch(pawn));

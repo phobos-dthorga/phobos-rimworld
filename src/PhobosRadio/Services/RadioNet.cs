@@ -763,8 +763,9 @@ public sealed class RadioNet : MapComponent
         {
             var radio = building.TryGetComp<CompRadio>();
             if (radio == null || !radio.Props.isStation) continue;
-            // Flicked off, broken down, unwired or caught by a solar flare: it reaches nobody.
-            if (building.TryGetComp<CompPowerTrader>() is { PowerOn: false })
+            // Flicked off, broken down or unwired: it reaches nobody. Since Radio 0.72.0 a solar flare alone does not stop it (the radio's own
+            // flare, RadioFlare.Works).
+            if (!Phobos.Radio.Services.RadioFlare.Works(building))
             {
                 unpoweredStation = true;
                 continue;

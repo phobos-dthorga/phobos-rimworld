@@ -192,7 +192,7 @@ public static class FactionDoctors
         var ends = new List<RelayNode>();
         foreach (CompRadio station in RadioNet.For(map).Stations)
         {
-            if (station.parent.TryGetComp<CompPowerTrader>() is { PowerOn: false }) continue;
+            if (!Phobos.Radio.Services.RadioFlare.Works(station.parent)) continue;
             foreach (RadioEndpoint end in RadioNet.StationEndpoints(station, RadioMod.Settings.metresPerCell))
                 ends.Add(new RelayNode(end, map.Tile, map.Parent.LabelCap, map, SiteMetres: RelayNode.SiteOf(map.Tile)));
         }

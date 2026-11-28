@@ -222,7 +222,7 @@ public sealed class HomeStationRelaySource : IRelaySource
             foreach (CompRadio station in RadioNet.For(map).Stations)
             {
                 if (RadioUpgrades.Figure(station.parent, RadioUpgrades.Repeater, 0f) < 1f) continue;
-                if (station.parent.TryGetComp<CompPowerTrader>() is { PowerOn: false }) continue;
+                if (!Phobos.Radio.Services.RadioFlare.Works(station.parent)) continue;
                 foreach (RadioEndpoint end in RadioNet.StationEndpoints(station, RadioMod.Settings.metresPerCell))
                     yield return new RelayNode(end, map.Tile, map.Parent.LabelCap, station.parent, Repeater: true, SiteMetres: RelayNode.SiteOf(map.Tile));
             }

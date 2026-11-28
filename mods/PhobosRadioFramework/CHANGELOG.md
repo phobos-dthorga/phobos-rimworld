@@ -23,6 +23,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.72.0] - 2026-11-28 - Draft
+
+The radio's own solar flare
+
+### Changed
+
+- **Radio stations keep working through a solar flare** (the owner's card of 28 November 2026, "the radio's own flare"): the game's
+  flare still cuts every other powered thing, but a radio station, terminal or amplifier off only because of the flare works on, as a
+  real flare does not cut mains power. One switched off or broken down stays off.
+
+### Added
+
+- **A solar flare blacks out HF on the sunlit side**: calls by the sky fail where it is day halfway along their path, as on Earth;
+  the ground wave, VHF and hand-helds carry on, and the night side stays open. A letter warns when a flare begins, and the HF
+  bands tab and the band rose show it.
+- **A setting, Show a solar flare's reach on the world map** (off by default): amber rings over the sunlit half during a flare.
+  Not yet tested in game: row 801.
+
 ## [0.71.0] - 2026-11-28 - Draft
 
 The grey line, skip zones and the QSL album

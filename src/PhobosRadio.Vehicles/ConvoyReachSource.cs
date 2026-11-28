@@ -87,7 +87,7 @@ public sealed class ConvoyReachSource : IConvoyReachSource
         {
             foreach (CompRadio station in RadioNet.For(map).Stations)
             {
-                if (station.parent.TryGetComp<CompPowerTrader>() is { PowerOn: false }) continue;
+                if (!Phobos.Radio.Services.RadioFlare.Works(station.parent)) continue;
                 foreach (RadioEndpoint end in RadioNet.StationEndpoints(station, RadioMod.Settings.metresPerCell))
                     ends.Add(new RelayNode(end, map.Tile, map.Parent.LabelCap, map, SiteMetres: RelayNode.SiteOf(map.Tile)));
             }
@@ -186,7 +186,7 @@ public sealed class ConvoyReachSource : IConvoyReachSource
         {
             foreach (CompRadio station in RadioNet.For(map).Stations)
             {
-                if (station.parent.TryGetComp<CompPowerTrader>() is { PowerOn: false }) continue;
+                if (!Phobos.Radio.Services.RadioFlare.Works(station.parent)) continue;
                 if (RadioUpgrades.Figure(station.parent, RadioUpgrades.MorseKey, 0f) < 1f) continue;
                 double metres = Find.WorldGrid.ApproxDistanceInTiles(convoy.Tile, map.Tile) * rules.metresPerWorldTile;
                 foreach (RadioEndpoint end in RadioNet.StationEndpoints(station, RadioMod.Settings.metresPerCell))

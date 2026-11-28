@@ -412,7 +412,7 @@ public sealed class RadioCoverage : MapComponent, ICellBoolGiver
             : thing.TryGetComp<CompFeedlinePort>() is { } port ? FeedlineService.StationOn(port) : null;
         if (station == null || !station.parent.Spawned) return;
         // An unpowered or switched-off desk reaches nobody, as the net counts it (fault-read 25 Nov 2026, F4): it paints nothing.
-        if (station.parent.TryGetComp<CompPowerTrader>() is { PowerOn: false }) return;
+        if (!Phobos.Radio.Services.RadioFlare.Works(station.parent)) return;
         var noise = RadioNet.For(map).Noise;
         var first = true;
         foreach (var endpoint in RadioNet.StationEndpoints(station, metresPerCell))

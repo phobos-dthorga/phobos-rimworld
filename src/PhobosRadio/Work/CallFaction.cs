@@ -29,7 +29,7 @@ public class JobDriver_PhobosCallFaction : JobDriver, IRadioDeskCall
     protected override IEnumerable<Toil> MakeNewToils()
     {
         this.FailOnDespawnedOrNull(TargetIndex.A);
-        this.FailOn(() => job.targetA.Thing.TryGetComp<CompPowerTrader>() is { PowerOn: false });
+        this.FailOn(() => !Phobos.Radio.Services.RadioFlare.Works(job.targetA.Thing));
         yield return RadioSeats.GoTo(job.targetA.Thing, () => seat);
         Toil call = ToilMaker.MakeToil("PhobosRadio_CallFaction");
         call.initAction = () =>
@@ -105,7 +105,7 @@ public static class CallFactionMenu
     /// <summary>Why this colonist cannot call from this desk now, or null.</summary>
     static string? Refusal(Thing desk, Pawn pawn)
     {
-        if (desk.TryGetComp<CompPowerTrader>() is { PowerOn: false }) return "CannotUseNoPower".Translate();
+        if (!Phobos.Radio.Services.RadioFlare.Works(desk)) return "CannotUseNoPower".Translate();
         if (!pawn.health.capacities.CapableOf(PawnCapacityDefOf.Talking)) return "PhobosRadioCall_CannotTalk".Translate(pawn.LabelShort.Named("PAWN")).Resolve();
         if (pawn.skills?.GetSkill(SkillDefOf.Social) is { TotallyDisabled: true }) return "CannotPrioritizeWorkTypeDisabled".Translate(SkillDefOf.Social.LabelCap);
         if (!RadioSeats.CanSit(pawn, desk)) return "PhobosRadioCall_NoSeat".Translate();

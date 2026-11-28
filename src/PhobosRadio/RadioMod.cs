@@ -77,6 +77,8 @@ public class RadioSettings : ModSettings
     /// <summary>HF's world-map pictures (Radio 0.71.0; the owner's card: off until picked): the grey line, and the skip-zone rings.</summary>
     public bool hfGreyLine;
     public bool hfSkipRings;
+    /// <summary>The flare's wash on the world map (Radio 0.72.0, RV13): off until picked.</summary>
+    public bool hfFlareWash;
 
     /// <summary>
     /// Whether colonists talk on the radio by themselves (Radio 0.63.0; docs/development/radio-life-on-the-air.md, slice 1): chats across the
@@ -105,6 +107,7 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref consoleNeedsReach, "consoleNeedsReach", false);
         Scribe_Values.Look(ref hfGreyLine, "hfGreyLine", false);
         Scribe_Values.Look(ref hfSkipRings, "hfSkipRings", false);
+        Scribe_Values.Look(ref hfFlareWash, "hfFlareWash", false);
         ownCallsign ??= "";
         Scribe_Values.Look(ref talkOnAir, "talkOnAir", true);
     }
@@ -232,6 +235,7 @@ public class RadioMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingHfGreyLine".Translate(), ref Settings.hfGreyLine, "PhobosRadio_SettingHfGreyLineDesc".Translate());
         listing.CheckboxLabeled("PhobosRadio_SettingHfSkipRings".Translate(), ref Settings.hfSkipRings, "PhobosRadio_SettingHfSkipRingsDesc".Translate());
+        listing.CheckboxLabeled("PhobosRadio_SettingHfFlareWash".Translate(), ref Settings.hfFlareWash, "PhobosRadio_SettingHfFlareWashDesc".Translate());
         // Radio 0.62.0: the colony's own callsign on its QSL cards; empty works one out.
         listing.Gap();
         Settings.ownCallsign = Phobos.Radio.Physics.QslRule.CleanCallsign(listing.TextEntryLabeled("PhobosRadio_SettingOwnCallsign".Translate(),

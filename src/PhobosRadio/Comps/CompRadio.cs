@@ -120,7 +120,7 @@ public class CompRadio : ThingComp
         if (!Props.isStation || !parent.Spawned) return;
         var net = RadioNet.For(parent.Map);
         var powerComp = parent.TryGetComp<CompPowerTrader>();
-        var inUse = powerComp != null && powerComp.PowerOn && net.InTouchCount(parent) > 0;
+        var inUse = powerComp != null && Services.RadioFlare.Works(parent) && net.InTouchCount(parent) > 0;
         if (inUse != transmitting)
         {
             transmitting = inUse;
@@ -213,7 +213,7 @@ public class CompRadio : ThingComp
         var net = RadioNet.For(parent.Map);
         var sb = new StringBuilder();
         var powerComp = parent.TryGetComp<CompPowerTrader>();
-        if (powerComp != null && !powerComp.PowerOn)
+        if (powerComp != null && !Services.RadioFlare.Works(parent))
         {
             sb.Append("PhobosRadio_StationWaitingPower".Translate());
         }
