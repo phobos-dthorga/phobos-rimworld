@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.72.1, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.73.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -31,6 +31,10 @@ Version 0.72.1, built 28 November 2026 for House D'thorga. **Not yet tested in g
   about 3.3 MB to the mod.
 - **Solar flares (0.72.0)**: radio stations keep working through the game's flare, but HF by the sky is blacked out on the sunlit
   side until it passes.
+- **From 0.73.0 a call is heard only while someone listens**: a neighbour asking for help (and from 0.74.0 an ally's raid warning)
+  is missed when nobody is at a station's desk and no awake colonist has a hand-held in touch. **Tick Radio watch for someone**, keep
+  hand-helds in touch (repeaters and relays help), or fit the **selective call** upgrade, which wakes whoever sleeps with Radio watch
+  highest. Radio watch is not ticked for colonists already in a save. The station's pane says who is listening.
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a hand-held together. **From 0.67.0 one
   carried in the inventory works as a worn one** (a Combat Extended loadout puts it there): wear it or carry it, not both needed.
 - **Channels, from 0.7.0**: each station serves as many radios as its channels hold (the desk 5, the terminal 20, five to a
@@ -92,6 +96,9 @@ figures are here.
 - **Calling other factions on the radio (0.53.0)**: right-click a radio station with a colonist selected to call a faction your radio
   reaches: a trader caravan (sooner from a near settlement, cheaper on a clean line), military aid, or a check-in. A marginal line can
   mishear; hostile listeners may ambush the trader. Allies in reach warn of raids. **Two settings, both on.** The console is untouched.
+- **Radio watch and standing orders (0.73.0)**: a colonist with **Radio watch** work keeps watch at the desk while nobody else is
+  listening; the **selective call** upgrade wakes the one on call. A station's **Standing orders** button lets whoever is listening
+  answer neighbours at once (on) and ask an allied trader in once a day when the colony's silver is over an amount you set (off).
 - **Seats at the radio (0.51.0)**: the base station has a seat in front of it and the terminal two; put a chair there. **A station built
   earlier may have something standing on its new seat**: its pane says so; clear the spot or move the station. A call at the desk now
   takes a channel, as a hand-held does.
@@ -156,7 +163,7 @@ An upgrade can be taken off again for about half its materials back.
 ## Settings
 
 In **Options > Mod settings > D'thorga Radio Framework**, laid out like the other D'thorga mods' settings: pages down the left
-(General, Colonists on the air, Stations and noise, Calling other people, HF on the world map), a search box over every page, a
+(General, Colonists on the air, Stations and noise, Calling other people, HF on the world map, Radar), a search box over every page, a
 **Changed only** tick, and a button that puts one page back to its defaults.
 
 | Setting | What it does | Default |
@@ -173,6 +180,7 @@ In **Options > Mod settings > D'thorga Radio Framework**, laid out like the othe
 | Show the grey line on the world map | The day and night edge round the globe while your colony is selected; HF often opens along it at dawn and dusk | Off |
 | Show HF skip zones on the world map | A ring round your colony for each HF band, where the sky first brings it back down this hour | Off |
 | Show a solar flare's reach on the world map | During a solar flare, amber rings over the sunlit half of the planet, where HF is blacked out | Off |
+| Radar warns of drop and air raids | When a radar station sees a drop-pod or air raid coming, the raid arrives later, by how far out the radar saw it (about an hour and a half for an air-search radar), and a letter warns of it, unknown at first and identified partway through. Raids that walk in are not held. Off, raids come as usual and the radars still show what they see. **The radar's buildings arrive once their pictures are in** | On |
 | Our station's callsign | The callsign on every QSL card the colony receives: letters, digits and a stroke (VK3ABC/P), up to ten. Empty works one out from the colony's place on the planet | Empty |
 
 ## More

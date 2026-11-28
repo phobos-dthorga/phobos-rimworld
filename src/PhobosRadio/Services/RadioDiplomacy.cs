@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Phobos.Radio.Physics;
 using RimWorld;
 using RimWorld.Planet;
@@ -274,6 +275,9 @@ public class GameComponent_PhobosRadioDiplomacy : GameComponent
     public static GameComponent_PhobosRadioDiplomacy? Current => Verse.Current.Game?.GetComponent<GameComponent_PhobosRadioDiplomacy>();
 
     public void Order(RadioTraderOrder order) => orders.Add(order);
+
+    /// <summary>Whether a trader asked for by radio is still on its way to this map (Radio 0.73.0: the standing order waits for it).</summary>
+    public bool HasOrderFor(Map map) => orders.Any(order => order.map == map);
 
     public void CheckedIn(Faction faction) => checkedIn[faction] = Find.TickManager.TicksGame;
 

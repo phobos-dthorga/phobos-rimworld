@@ -23,6 +23,26 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.73.0] - 2026-11-28 - Draft
+
+Radio watch and standing orders
+
+### Added
+
+- **A call is heard only while someone listens** (the owner's answer of 28 November 2026: no setting, the remedy is kit): someone at a
+  station's desk, or an awake colonist whose hand-held is in touch, through repeaters, relays or a vehicle's cross-band too. A
+  neighbour's call nobody hears is missed and logged, and they try once more three hours later. The station's inspect text says who is
+  listening, or that calls will be missed. An ally's raid warning follows the same rule from 0.74.0.
+- **Radio watch, a new work**: a colonist with it keeps watch at a station's desk while nobody else is listening, an hour at a time. It
+  is not ticked for colonists already in a save: choose who keeps watch.
+- **The selective call**, a cheap station upgrade: a call nobody hears wakes the colonist asleep with radio watch highest in their work,
+  with the game's own disturbed sleep.
+- **Standing orders**, a button on each station: answer neighbours who ask for help at once (on), and ask an allied trader in once a day
+  when the colony's silver is over an amount you set (off, as it costs goodwill and risks an ambush). Whoever is listening carries them
+  out, and the Log says who.
+
+Not yet tested in game. Agent-authored text and figures, for the owner to revise.
+
 ## [0.72.1] - 2026-11-28 - Draft
 
 Settings you can reach

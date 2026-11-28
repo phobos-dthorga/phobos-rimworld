@@ -75,6 +75,21 @@ public class CompRadio : ThingComp
     public CompProperties_Radio Props => (CompProperties_Radio)props;
     public ModeDef Mode => Props.mode!;
 
+    // Standing orders (Radio 0.73.0; docs/development/radio-life-on-the-air.md, RN5): a station's only, saved, changed only through
+    // RadioStandingOrders. Answering neighbours starts on (low risk); asking a trader in starts off (moderate: goodwill, and an ambush).
+    public bool orderAnswerNeighbours = true;
+    public bool orderAskTrader;
+    public int orderTraderSilver = RadioStandingOrders.DefaultTraderSilver;
+
+    public override void PostExposeData()
+    {
+        base.PostExposeData();
+        if (!Props.isStation) return;
+        Scribe_Values.Look(ref orderAnswerNeighbours, "PhobosRadio_OrderAnswerNeighbours", true);
+        Scribe_Values.Look(ref orderAskTrader, "PhobosRadio_OrderAskTrader");
+        Scribe_Values.Look(ref orderTraderSilver, "PhobosRadio_OrderTraderSilver", RadioStandingOrders.DefaultTraderSilver);
+    }
+
     private readonly List<BandDef> bands = new();
 
     /// <summary>
@@ -166,6 +181,14 @@ public class CompRadio : ThingComp
         if (Props.isStation)
         {
             yield return SignalGizmo.ForStation(this, net);
+            // Radio 0.73.0 (RN5): what the colonist listening may do unasked. Borrows the radio's signal icon until it has its own.
+            yield return new Command_Action
+            {
+                defaultLabel = "PhobosRadioOrders_Button".Translate(),
+                defaultDesc = "PhobosRadioOrders_ButtonDesc".Translate(),
+                icon = Phobos.Radio.UI.RadioTextures.Signal,
+                action = () => Find.WindowStack.Add(new Phobos.Radio.UI.Dialog_PhobosStandingOrders(this)),
+            };
             // Radio 0.70.0: call a rare station on the air, from an HF station.
             if (RareStations.OnAir is { } rare && Bands.Any(b => b.path == BandPath.Hf))
                 yield return new Command_Action
@@ -239,6 +262,12 @@ public class CompRadio : ThingComp
                 sb.AppendLine();
                 sb.Append("PhobosRadioTalk_OnAir".Translate(string.Join(", ", talking).Named("TALKING")));
             }
+        }
+        // Radio 0.73.0 (RN4): who is listening for calls, or that nobody is and calls will be missed.
+        if (Services.RadioFlare.Works(parent))
+        {
+            sb.AppendLine();
+            sb.Append(RadioWatch.InspectLine(parent.Map));
         }
         // Radio 0.51.0: a seat something stands on (a station built before it had seats), which nobody can use.
         int blocked = RadioSeats.BlockedSeats(parent);

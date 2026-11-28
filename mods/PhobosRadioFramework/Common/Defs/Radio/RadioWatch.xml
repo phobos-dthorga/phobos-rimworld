@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Life on the air, slice 2 (Radio 0.73.0; docs/development/radio-life-on-the-air.md, RN4 and RN5). A station hears a call only while
+    someone listens: a colonist at its desk, an awake colonist with a hand-held in touch, or the on-call colonist the selective call wakes.
+    Every figure and line of text here is an agent default, authored, for the owner to revise. Not yet tested in game.
+  -->
+
+  <!-- Radio watch: low in the work list [A], between research (100) and cleaning (200), so a colonist keeps watch only when there is little
+       else; and only while nobody else on the map is listening. Not started for colonists already in a save [A]: the player picks who. -->
+  <WorkTypeDef>
+    <defName>PhobosRadio_RadioWatch</defName>
+    <labelShort>radio watch</labelShort>
+    <pawnLabel>Radio watch</pawnLabel>
+    <gerundLabel>keeping radio watch</gerundLabel>
+    <description>Keep watch at a radio station when nobody else is listening, so calls from neighbours and allies are heard. Asleep, the one with this work highest is the one a selective call wakes.</description>
+    <verb>Keep watch</verb>
+    <naturalPriority>150</naturalPriority>
+    <disabledForSlaves>true</disabledForSlaves>
+    <workTags>
+      <li>Social</li>
+      <li>AllWork</li>
+    </workTags>
+  </WorkTypeDef>
+
+  <WorkGiverDef>
+    <defName>PhobosRadio_KeepRadioWatch</defName>
+    <label>keep radio watch</label>
+    <giverClass>Phobos.Radio.Work.WorkGiver_RadioWatch</giverClass>
+    <workType>PhobosRadio_RadioWatch</workType>
+    <verb>keep watch at</verb>
+    <gerund>keeping watch at</gerund>
+    <priorityInType>50</priorityInType>
+    <requiredCapacities>
+      <li>Hearing</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <JobDef>
+    <defName>PhobosRadio_RadioWatch</defName>
+    <driverClass>Phobos.Radio.Work.JobDriver_PhobosRadioWatch</driverClass>
+    <reportString>keeping radio watch at TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <!-- The selective call [A]: real basis, selective calling (Selcall) on HF and VHF sets, which rings one radio by its code; the cost,
+       work and skill are agent defaults, authored. -->
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeSelectiveCall</defName>
+    <label>selective call</label>
+    <description>A tone decoder on the set that rings a bell when a call comes in. With it, a call nobody is listening for wakes the colonist on call: whoever is asleep with radio watch highest in their work.</description>
+    <buildings>
+      <li>PhobosRadio_BaseStation</li>
+      <li>PhobosRadio_RadioTerminal</li>
+    </buildings>
+    <costList>
+      <Steel>5</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <work>400</work>
+    <constructionSkill>2</constructionSkill>
+    <researchPrerequisite>PhobosRadio_LocalRadio</researchPrerequisite>
+    <figures>
+      <!-- 1: the station has a selective call (Phobos.Radio.Services.RadioUpgrades.SelectiveCall). -->
+      <li><name>selectiveCall</name><value>1</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+</Defs>

@@ -264,6 +264,13 @@ flowchart LR
 - [Life on the air](radio-life-on-the-air.md#repeaters-and-relays-where-each-row-leans-on-them): nets that stay one net through a
   repeater, the roll call, the evening call home, a call for help, a person as a relay, the regional net, and the owner's answer that a
   call nobody hears is solved by repeaters and relays, not a setting (RN2 to RN33).
+- [Radio watch, as built](radio-life-on-the-air.md#as-built-radio-framework-0730-28-nov-2026-slice-2-the-operator-decides) (Radio
+  0.73.0): a colonist whose hand-held is in touch, directly or through a vehicle's cross-band, counts as listening for calls, so a
+  repeater or relay that keeps a hand-held in touch keeps the colony from missing them.
+
+- [Radar and air defence, as built](radar-and-air-defence.md#slices-1-and-2-as-built-28-nov-2026) (Radio 0.74.0): the radar data
+  link shares a radar's picture with another colony whose base stations its own reach by radio, relays and repeaters included, so a radar
+  on a hill or at an outpost warns a colony elsewhere; the link holds a place at each relay it passes, as a call does.
 
 ### The rules
 

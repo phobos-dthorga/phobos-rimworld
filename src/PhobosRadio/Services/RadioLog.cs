@@ -28,6 +28,8 @@ public enum RadioLogKind
     Diplomacy,
     /// <summary>Colonists talking by themselves: an evening call, company through the night (Radio 0.63.0).</summary>
     Talk,
+    /// <summary>Radio watch: a call heard or missed, and what the standing orders did (Radio 0.73.0).</summary>
+    Watch,
 }
 
 /// <summary>One line of the logbook: when, what kind, and the words as they were said then.</summary>

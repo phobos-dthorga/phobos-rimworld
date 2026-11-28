@@ -88,6 +88,23 @@ public static class RadioDebugActions
     [DebugAction(Category, "Neighbour asks for help now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     private static void NeighbourAsksNow() => RadioNeighbours.TryAsk(forced: true);
 
+    /// <summary>Radio 0.73.0 (RN4): who on this map is listening for calls now, and who the selective call would wake. Reads only.</summary>
+    [DebugAction(Category, "Radio watch: who is listening", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    private static void WhoIsListening()
+    {
+        RadioWatchState state = RadioWatch.Of(Find.CurrentMap, fresh: true);
+        Log.Message($"[PhobosRadio] Radio watch: station {state.HasStation}; at desks [{string.Join(", ", state.AtDesks.ConvertAll(p => p.LabelShort))}]; " +
+            $"on hand-helds [{string.Join(", ", state.OnHandhelds.ConvertAll(p => p.LabelShort))}]; on watch [{string.Join(", ", state.Watchers.ConvertAll(p => p.LabelShort))}]; " +
+            $"selective call {(state.SelectiveCallStation?.LabelShort ?? "none")}, would wake {(state.OnCall?.LabelShort ?? "nobody")}.");
+    }
+
+    /// <summary>Radio 0.73.0 (RN5): the standing order to ask a trader in, now rather than at its hour, for testing; says why when it does not.</summary>
+    [DebugAction(Category, "Standing orders: ask a trader now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    private static void AskTraderNow()
+    {
+        if (RadioStandingOrders.TryAskTrader(Find.CurrentMap) is { } reason) Messages.Message(reason, MessageTypeDefOf.RejectInput, historical: false);
+    }
+
     /// <summary>Radio 0.63.0: each selected colonist calls someone for a chat on the air now, the chance skipped, for testing.</summary>
     [DebugAction(Category, "Chat on the air now (selected)", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     private static void ChatNow()

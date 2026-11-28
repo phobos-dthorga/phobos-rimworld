@@ -22,6 +22,9 @@ public static class RadioNeighbours
     private static List<Pawn>? factionKeys, skillKeys;
     private static List<Faction>? factionValues;
     private static List<SkillDef>? skillValues;
+    /// <summary>When a neighbour whose call nobody heard tries once more (Radio 0.73.0, RN4), or -1. Not saved [A]: a load forgets it.</summary>
+    private static int retryAt = -1;
+    private static bool retrying;
 
     /// <summary>Whether the player allows neighbours' calls (a setting, on by default).</summary>
     public static bool On => RadioMod.Settings.neighbourCalls;
@@ -30,6 +33,8 @@ public static class RadioNeighbours
     {
         callFaction = new Dictionary<Pawn, Faction>();
         callSkill = new Dictionary<Pawn, SkillDef>();
+        retryAt = -1;
+        retrying = false;
     }
 
     /// <summary>Saved: the calls accepted and not yet done, so a load mid-call still earns the goodwill.</summary>
@@ -54,6 +59,15 @@ public static class RadioNeighbours
     public static void Hourly()
     {
         var rules = RadioRulesDef.Current;
+        // Radio 0.73.0 (RN4): a neighbour whose call nobody heard tries once more, the rules' hours later.
+        if (On && retryAt >= 0 && Find.TickManager.TicksGame >= retryAt)
+        {
+            retryAt = -1;
+            retrying = true;
+            try { TryAsk(forced: false); }
+            finally { retrying = false; }
+            return;
+        }
         if (!On || rules.neighbourMtbDays <= 0f || !Rand.MTBEventOccurs(rules.neighbourMtbDays, GenDate.TicksPerDay, GenDate.TicksPerHour)) return;
         TryAsk(forced: false);
     }
@@ -83,6 +97,21 @@ public static class RadioNeighbours
                 }
             }
             if (best == null || bestSkill == null) continue;
+            // Radio 0.73.0 (RN4, RN4b): the call is heard only if someone listens; one nobody hears is missed, and tried once more later.
+            if (RadioWatch.Hear(map, link.Faction.Name, "PhobosRadioWatch_WhatNeighbour".Translate().Resolve(), "neighbour") is not { } listener)
+            {
+                if (!retrying) retryAt = Find.TickManager.TicksGame + UnityEngine.Mathf.RoundToInt(RadioWatch.RetryHours * GenDate.TicksPerHour);
+                if (forced) Messages.Message("PhobosRadioWatch_NobodyHeard".Translate(link.Faction.Name.Named("CALLER")).Resolve(), MessageTypeDefOf.RejectInput,
+                    historical: false);
+                return false;
+            }
+            // Radio 0.73.0 (RN5): the standing order to answer neighbours sends the colonist at once, as the letter's yes would.
+            if (RadioStandingOrders.AnswersNeighbours(map) && Free(best) && FactionDoctors.Talks(link.Faction))
+            {
+                Accept(link.Faction, link.Settlement, best, bestSkill);
+                if (CallOf(best) != null) RadioStandingOrders.AnsweredNeighbour(listener, best, link.Faction);
+                return true;
+            }
             var letter = (ChoiceLetter_PhobosNeighbourCall)LetterMaker.MakeLetter(RadioNeighbourDefOf.PhobosRadio_NeighbourCall);
             letter.Set(link.Faction, link.Settlement, best, bestSkill, Find.TickManager.TicksGame + rules.neighbourExpiryTicks);
             Find.LetterStack.ReceiveLetter(letter);

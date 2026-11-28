@@ -26,6 +26,8 @@ public static class RadioUpgrades
     public const string Repeater = "repeater";
     /// <summary>The station has a Morse key (Radio 0.40.0): 1 with the upgrade.</summary>
     public const string MorseKey = "morseKey";
+    /// <summary>The station has a selective call (Radio 0.73.0, RN4): 1 with the upgrade; a call nobody hears wakes the on-call colonist.</summary>
+    public const string SelectiveCall = "selectiveCall";
 
     /// <summary>Every band an upgrade can give (Radio 0.49.0): those whose Def names an upgrade figure. Read once.</summary>
     private static List<BandDef>? upgradeBands;

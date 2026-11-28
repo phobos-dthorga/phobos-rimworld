@@ -20,6 +20,8 @@ This is the first step, local radio on one map. [Back to the guide](README.md).
   or off while your own trucks are out ([Jamming](#jamming)).
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a radio together. **One carried in the
   inventory works just as well** (a Combat Extended loadout puts it there), and leaves the belt slot free.
+- **A call is heard only while someone listens** (from 0.73.0): tick **Radio watch** for someone, keep hand-helds in touch, or fit
+  the **selective call** ([Radio watch and standing orders](#radio-watch-and-standing-orders-from-0730)).
 - **Before removing it**, deconstruct every radio building and drop every hand-held.
 
 ## What to build
@@ -270,6 +272,27 @@ talk on the radio by themselves** (on by default) switches it all off.
 - **The station's lamp and waterfall now show real talk**: a colonist's hand-held lights them only while they are really talking.
 - **The guard net**: when you draft colonists, their hand-helds go on a channel of their own that takes priority over chatter, so a
   full station never cuts off a fight.
+
+## Radio watch and standing orders (from 0.73.0)
+
+**A call from outside is heard only while someone is listening.** That is someone at a station's desk, or an awake colonist, not
+drafted, whose hand-held is in touch (through repeaters, relays or a vehicle's radio too). A call nobody hears is **missed**: the
+station's Log says so, and a neighbour tries once more about three hours later. A neighbour asking for help is such a call, and from
+0.74.0 so is an ally's raid warning: missed, the raid comes unannounced.
+
+- **The station's pane says who is listening**, or that calls will be missed.
+- **Radio watch** is a new work, near the end of the work list. A colonist with it ticked sits at a station's desk and listens while
+  nobody else is, an hour at a time, and leaves when someone else is listening or a vehicle needs the console. **It is not ticked for
+  colonists already in your colony**: choose who keeps watch.
+- **The selective call** is a cheap upgrade for the base station or the terminal (5 steel, 1 component). With it, a call nobody hears
+  rings and **wakes the colonist asleep with Radio watch highest in their work**, who wakes with the game's "disturbed sleep".
+- **Standing orders**: a button on each station opens a list of what whoever is listening may do without asking you. An order ticked
+  on any working station of the colony counts, and the Log says who carried it out.
+  - **Answer neighbours who ask for help** (on): your best doctor or mechanic goes on the radio at once, as if you had said yes, with
+    a message in place of the letter.
+  - **Ask an allied trader in when there is silver to spend** (off): once a day in the morning, if the colony has at least the silver
+    you set (2,000 to start), the one listening asks an ally in reach to send a trader. Each request costs goodwill, as asking by radio
+    does, and a hostile settlement listening may ambush the caravan.
 
 ## School of the Air
 

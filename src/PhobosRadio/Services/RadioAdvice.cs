@@ -680,6 +680,7 @@ public class GameComponent_RadioAdvice : GameComponent
         RadioFlare.Clear();
         RadioTalk.Clear();
         RadioAir.Clear();
+        RadioWatch.Clear();
     }
 
     public override void ExposeData()
@@ -710,6 +711,8 @@ public class GameComponent_RadioAdvice : GameComponent
             RareStations.Hourly();
             // Radio 0.72.0: a letter when a solar flare begins (the radio's own flare).
             RadioFlare.Hourly();
+            // Radio 0.73.0 (RN5): the standing order to ask a trader in, once a day at the rules' hour.
+            RadioStandingOrders.Hourly();
         }
     }
 

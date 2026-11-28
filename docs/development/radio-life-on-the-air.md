@@ -1,7 +1,9 @@
 # Life on the air: colonists who use the radio by themselves (28 Nov 2026)
 
 **Status (28 Nov 2026):** slice 1, "the air is alive", is built in Radio Framework 0.63.0 with D'thorga Framework 0.379.0 (RN1, RN2 and
-RN6 in part, RN7, RN8, RN9; [as built](#as-built-radio-framework-0630-28-nov-2026)), not yet tested in game (rows 778 to 780). Every other
+RN6 in part, RN7, RN8, RN9; [as built](#as-built-radio-framework-0630-28-nov-2026)), not yet tested in game (rows 778 to 780). Slice 2, "the
+operator decides" (RN4 with RN4b, RN5), is built in Radio Framework 0.73.0
+([as built](#as-built-radio-framework-0730-28-nov-2026-slice-2-the-operator-decides)), not yet tested in game (rows 804 and 805). Every other
 row is a proposal with the agent's lean. The owner chose by card which groups go deepest and first, and answered the record's four
 questions the same day (below).
 
@@ -283,6 +285,72 @@ rows above is written here; what the version delivered is in the radio's changel
   caravan's reach home once a day. **Not yet measured with `perf.py`**; the owner's colony is to be measured, asking first.
 - **Not saved** [A]: when each colonist last had company and when each one away was last called, so after a load someone may have company
   twice that night. A call in progress is saved with the caller's job.
+
+## As built (Radio Framework 0.73.0, 28 Nov 2026): slice 2, the operator decides
+
+RN4 (with RN4b) and RN5, on the owner's card of 28 Nov 2026 (slices for the night: "Life on the air, slice 2"). Not yet tested in game: rows
+804 and 805. Every choice below not in the rows is the agent's [A], for the owner to revise.
+
+**What it lets, stops and changes, and who notices** (the four questions): it **lets** a night watch at the radio matter, and lets the
+colony answer neighbours and ask a trader in while the player is elsewhere; it **stops** an empty radio room hearing every call; it
+**changes** the colony's day (someone keeps watch, or the selective call is fitted); **who notices**: the neighbours and allies who called
+(a missed neighbour tries once more; a missed ally's warning is a raid that comes unannounced), the on-call colonist (woken, with the game's
+own "disturbed sleep"), and the Log.
+
+**Cost, stated before building** (the radio's performance rule):
+
+- **Who is listening** is one look over a map's free colonists (their job, whether awake, whether their radio is served: reads of what the
+  net already holds, no link sums), kept 250 ticks and worked out only when something reads it: a station's inspect text while selected,
+  the radio-watch work's look for work, or a call coming in (which always looks afresh). Nothing runs per tick, and a colony nobody
+  selects and that no call reaches costs nothing.
+- **Standing orders**: answering a neighbour rides the neighbour's call (about once a fortnight). The trader order looks once a game day
+  per home map, at the map's 10:00, reading the colony's silver count (which the game keeps) and the allies in reach (the reach search
+  already kept an hour).
+- **The watch job** looks at whether it is still wanted every 250 ticks of the watcher's stint, from the same kept answer.
+- **Not yet measured with `perf.py`**: owed with slice 1's measurement, asking first.
+
+**RN4, radio watch, as built:**
+
+- **Who listens** [A]: a colonist at a station's desk (on radio watch, working the console for vehicles, or on a call at the desk), awake;
+  or an awake colonist, not drafted (a drafted colonist's hand-held is on the guard net), able to hear, whose hand-held is in touch with
+  the colony's stations, directly or through a vehicle's cross-band ([the cross-band last hop](radio-advice-and-relays.md#as-built-radio-0250-27-nov-2026-the-cross-band-last-hop);
+  [in touch through a vehicle](radio-advice-and-relays.md#as-built-radio-0340-27-nov-2026-in-touch-through-a-vehicle)). Colonists away
+  from the map do not count. The owner's remedy for a missed call is kit [O]: a hand-held in touch anywhere the stations reach, through
+  [a repeater or relay](radio-advice-and-relays.md#two-kinds-by-physics-o), makes its wearer a listener.
+- **A new work type, Radio watch** [A]: a colonist with it keeps watch at a station's desk when nobody else is listening, for an hour at a
+  time, and leaves when someone else is listening again or a vehicle needs the console. Low in the work list (below most work), and
+  **not started for colonists already in a save** [A]: the player chooses who keeps watch. New colonists start it as the game starts any
+  work type.
+- **The selective-call upgrade** [A]: a cheap fitting for the base station and the radio terminal (5 steel, 1 component, Local radio
+  research). With it, a call nobody hears wakes **the on-call colonist**: the one asleep on the map, able to hear, with Radio watch
+  ticked, at its highest priority. They wake with the game's own "disturbed sleep" memory. With nobody on call, the call is missed.
+  Real basis: selective calling (Selcall) on HF and VHF sets, which rings one radio by its code; common operating practice, **unverified
+  here** (no primary source read for this record).
+- **Calls that need a listener (RN4b, no setting [O])**: a neighbour asking for a colonist, and an ally's raid warning. A missed
+  neighbour **tries once more after 3 hours** [A, authored]; a missed raid warning is a raid that comes as the game sends it. Each heard
+  or missed call goes in the Log with who took it and how. **The raid warning's part lands with Radio 0.74.0**: its one line sits in
+  a file another session (the radar's slices) was reworking in the same tree, so that session carries it in its commit; until then an
+  ally's warning is heard as before.
+- **Figures** [A, authored]: 3 hours before a missed neighbour tries again, a watch stint of an hour, and the trader order's look at
+  10:00. They are named constants in `RadioWatch` for now, not rules-Def fields, because the rules file held the radar session's
+  unfinished lines; they move into the rules Def when it is next touched.
+- **The station's inspect text** names who is listening, or that nobody is and calls will be missed, or who the selective call would
+  wake.
+
+**RN5, standing orders, as built:**
+
+- **A Standing orders button on each station** opens a small window of tick boxes, saved on the station; a box ticked on any working
+  station of the map counts [A]. Each order is carried out by whoever is listening, and logged with their name.
+- **Answer neighbours who ask for help**: on by default (low risk: an hour of a colonist's time, for goodwill). The best colonist goes on
+  the radio at once, as the letter's "yes" sends them, with a message instead of the letter.
+- **Ask an allied trader in when the colony's silver is over an amount** (the game's own number box, 2,000 to start, in steps of 100): off
+  by default (moderate risk: goodwill each time, and a hostile listener may waylay the caravan). Once a day at the map's 10:00 the one
+  listening asks the first ally in reach that can send one, with a caravan kind of theirs picked at random, through the same request the
+  call menu makes. Never while a trader asked for by radio is still on its way.
+- **Not built yet**: sending help to a call for help and passing a sighting on (they come with slice 3's calls, RN16 and RN17), sending the
+  medevac to a convoy's casualty (convoys do not report casualties yet), and keeping the roll call (RN3, slice 5).
+- **No new mod setting**: the orders are the station's own, as the owner's answer to RN4b leaves the listener rule without one.
+- **Icon owed**: the Standing orders button borrows the radio's signal icon until one of its own is drawn.
 
 ## Questions for the owner
 

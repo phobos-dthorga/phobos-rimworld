@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Life on the air, slice 2 (Radio 0.73.0): radio watch (RN4) and standing orders (RN5). Agent-authored text, for the owner to revise. -->
+
+  <!-- Radio watch: the station's inspect line. -->
+  <PhobosRadioWatch_InspectDesk>Radio watch: {NAME} at the desk; {COUNT} listening in all.</PhobosRadioWatch_InspectDesk>
+  <PhobosRadioWatch_InspectHandhelds>Radio watch: {NAME} on a hand-held; {COUNT} listening in all.</PhobosRadioWatch_InspectHandhelds>
+  <PhobosRadioWatch_InspectOnCall>Radio watch: nobody awake is listening. A call will ring the selective call and wake {NAME}.</PhobosRadioWatch_InspectOnCall>
+  <PhobosRadioWatch_InspectNoOnCall>Radio watch: nobody is listening, and nobody asleep has radio watch in their work for the selective call to wake. Calls will be missed.</PhobosRadioWatch_InspectNoOnCall>
+  <PhobosRadioWatch_InspectNobody>Radio watch: nobody is listening. Calls will be missed until someone keeps watch at a desk or carries a hand-held in touch.</PhobosRadioWatch_InspectNobody>
+
+  <!-- What a call was about, for the Log. -->
+  <PhobosRadioWatch_WhatNeighbour>a request for help</PhobosRadioWatch_WhatNeighbour>
+  <PhobosRadioWatch_WhatRaid>raiders on their way</PhobosRadioWatch_WhatRaid>
+  <PhobosRadioWatch_NobodyHeard>{CALLER} called, but nobody was listening at the radio.</PhobosRadioWatch_NobodyHeard>
+
+  <!-- The Log. -->
+  <PhobosRadioLog_CallMissed>Missed call: {CALLER} called about {WHAT}, and nobody was listening.</PhobosRadioLog_CallMissed>
+  <PhobosRadioLog_CallHeardDesk>{LISTENER} took a call at the desk from {CALLER}, about {WHAT}.</PhobosRadioLog_CallHeardDesk>
+  <PhobosRadioLog_CallHeardHandheld>{LISTENER} heard {CALLER} on a hand-held, about {WHAT}.</PhobosRadioLog_CallHeardHandheld>
+  <PhobosRadioLog_CallHeardSelectiveCall>The selective call rang and woke {LISTENER} to take a call from {CALLER}, about {WHAT}.</PhobosRadioLog_CallHeardSelectiveCall>
+
+  <!-- Standing orders: the station's button and window. -->
+  <PhobosRadioOrders_Button>Standing orders</PhobosRadioOrders_Button>
+  <PhobosRadioOrders_ButtonDesc>What whoever is listening at the radio may do without asking you.</PhobosRadioOrders_ButtonDesc>
+  <PhobosRadioOrders_Title>Standing orders: {STATION}</PhobosRadioOrders_Title>
+  <PhobosRadioOrders_Intro>Whoever is listening at the radio carries these out without asking you, and the Log says who did. An order ticked on any working station of this colony counts.</PhobosRadioOrders_Intro>
+  <PhobosRadioOrders_AnswerNeighbours>Answer neighbours who ask for help</PhobosRadioOrders_AnswerNeighbours>
+  <PhobosRadioOrders_AnswerNeighboursDesc>When a neighbour asks for your best doctor or mechanic on the radio, they go at once, as if you had said yes, and you get a message in place of the letter.</PhobosRadioOrders_AnswerNeighboursDesc>
+  <PhobosRadioOrders_AskTrader>Ask an allied trader in when there is silver to spend</PhobosRadioOrders_AskTrader>
+  <PhobosRadioOrders_AskTraderDesc>Once a day, in the morning, if the colony has at least the silver below, whoever is listening asks an ally in reach to send a trader caravan.</PhobosRadioOrders_AskTraderDesc>
+  <PhobosRadioOrders_TraderSilver>When the colony has at least {SILVER} silver:</PhobosRadioOrders_TraderSilver>
+  <PhobosRadioOrders_AskTraderCost>Each request costs goodwill, as asking by radio does, and a hostile settlement listening may ambush the caravan on its way.</PhobosRadioOrders_AskTraderCost>
+
+  <!-- Standing orders carried out. -->
+  <PhobosRadioOrders_NeighbourAnswered>{LISTENER} answered {FACTION} on the radio: {COLONIST} goes on the radio to help them for an hour.</PhobosRadioOrders_NeighbourAnswered>
+  <PhobosRadioOrders_TraderAsked>With {SILVER} silver to spend, {LISTENER} called {FACTION} for a trader. {REPLY}</PhobosRadioOrders_TraderAsked>
+
+  <!-- Why the trader order did nothing (the dev action says so). -->
+  <PhobosRadioOrders_TraderNoOrder>No working station here has the order to ask a trader in.</PhobosRadioOrders_TraderNoOrder>
+  <PhobosRadioOrders_TraderNotEnough>The colony has {SILVER} silver, less than the {THRESHOLD} the order asks for.</PhobosRadioOrders_TraderNotEnough>
+  <PhobosRadioOrders_TraderOnWay>A trader asked for by radio is already on the way.</PhobosRadioOrders_TraderOnWay>
+  <PhobosRadioOrders_TraderNobody>Nobody awake is listening at the radio to make the call.</PhobosRadioOrders_TraderNobody>
+  <PhobosRadioOrders_TraderNoAlly>No ally in reach can send a trader now.</PhobosRadioOrders_TraderNoAlly>
+</LanguageData>
