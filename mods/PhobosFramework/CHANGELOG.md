@@ -32,6 +32,11 @@ The systems schematic finished: every engine's own heat, and pages for more kind
   own hot section needs, so a worn engine reads hotter than its sound twin, and an engine that has stopped reads cold while the
   others run. With all of them stopped, each cools as the whole does. Limits and wear still go by the whole engine set, as before.
   Not yet tested in game: row 790.
+- **A jet's schematic draws its own engine, a turbofan in section**: a fan feeding a cold bypass duct round the hot core, the
+  bypass turning air-blue while the engine runs and the core coloured by its heat as the turboshaft's is. Helicopters, the
+  tiltrotor and turboprops keep the turboshaft. Not yet tested in game: row 791.
+- For modders: the aircraft pages share an abstract parent, PhobosVehicleSchematicTurbineAircraftBase, and the turboshaft page
+  (PhobosVehicleSchematic_TurbineAircraft) now serves turboshafts only, beside the new PhobosVehicleSchematic_TurbofanAircraft.
 
 ### Save compatibility
 

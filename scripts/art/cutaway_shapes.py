@@ -17,6 +17,22 @@ OUTLINE = (24, 24, 26)
 OUTLINE_PX = 2.5
 
 
+def edge(stations, x):
+    """A radius along a section, straight between stations [(x, radius), ...]; the last radius past the end."""
+    for (x0, r0), (x1, r1) in zip(stations, stations[1:]):
+        if x0 <= x <= x1:
+            return r0 + (r1 - r0) * (x - x0) / max(1, x1 - x0)
+    return stations[-1][1]
+
+
+def annulus(outer, inner, x0, x1, cy, steps=8):
+    """A ring section between two radii (callables of x) from x0 to x1, above and below the centreline cy, as two polygons."""
+    xs = [x0 + (x1 - x0) * i / steps for i in range(steps + 1)]
+    top = [(x, cy - outer(x)) for x in xs] + [(x, cy - inner(x)) for x in reversed(xs)]
+    bottom = [(x, cy + outer(x)) for x in xs] + [(x, cy + inner(x)) for x in reversed(xs)]
+    return [('poly', top), ('poly', bottom)]
+
+
 def draw_shape(d: ImageDraw.ImageDraw, shape, scale: int = SCALE) -> None:
     s = scale
     kind = shape[0]

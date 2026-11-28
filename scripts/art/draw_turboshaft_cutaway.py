@@ -38,11 +38,7 @@ INNER = [(0, 26), (256, 46), (576, 46), (832, 30)]
 CASING = 14
 
 
-def edge(stations, x):
-    for (x0, r0), (x1, r1) in zip(stations, stations[1:]):
-        if x0 <= x <= x1:
-            return r0 + (r1 - r0) * (x - x0) / max(1, x1 - x0)
-    return stations[-1][1]
+edge = shapes.edge
 
 
 def band(x0, x1, outer=OUTER, inner=INNER):

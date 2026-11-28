@@ -5,7 +5,8 @@ sheet for land vehicles with a piston engine, in its own window, flow marks a se
 The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765); the first cutaway, the land page's diesel, in
 Framework 0.374.0 (row 768). Made prominent (a command button, its own tab, warning lamps that open it) in Framework 0.378.0 (row
 775), with orders on a right-click (row 776), and the turbine cutaway with the heat gradient (SC8, row 777). Each engine's own heat
-(F1) in Framework 0.382.0 (row 790). Not built: pages for boats, electric and steam, the standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
+(F1) and a turbofan's own section in Framework 0.382.0 (rows 790 and 791). Not built: pages for boats, electric and steam, the
+standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
 [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
 [the chip detector](vehicle-chip-detector.md).
 
@@ -433,6 +434,12 @@ On the owner's word of 28 Nov 2026 ("Let's finish the schematic then"), after a 
   air by its own model figure against the whole's. **Approximations, agent's choices**: an engine that stops while the others run reads
   cold at once on its tab, with no cooling of its own (nothing per engine is saved); compressor fouling stays one figure; limits, wear and
   the engine control's hold still go by the whole, as before. Display only: nothing in play changes.
+- **A turbofan's own section (row 791)**: `scripts/art/draw_turbofan_cutaway.py`, a fan feeding a cold bypass duct round the core,
+  cut into the same three tiles as the turboshaft's, its ten heat bands at the same places so both colour alike, and the bypass a layer
+  of its own tinted as air while the compressor turns. The aircraft page became an abstract parent with the shared parts and pipes, and two
+  pages that add their engine tiles under the same keys: the turboshaft's (the old defName, now turboshafts only) and
+  `PhobosVehicleSchematic_TurbofanAircraft`. The shared radius helpers (`edge`, `annulus`) moved into `cutaway_shapes.py`; the turboshaft's
+  layers came out byte for byte the same.
 
 ## Who chose what
 

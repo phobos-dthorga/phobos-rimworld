@@ -295,16 +295,12 @@
     inlet barrier shows only where it is fitted, the intake separator only where the aircraft has one, the gearbox only on aircraft with a
     rotor drive (helicopters, and the tiltrotor and turboprops our loadouts give one). Layout authored, on a 720 by 340 page.
   -->
-  <Phobos.VehicleSystems.PhobosVehicleSchematicDef>
-    <defName>PhobosVehicleSchematic_TurbineAircraft</defName>
-    <label>gas turbine, aircraft</label>
+  <!-- Framework 0.382.0: the parts and pipes every gas-turbine aircraft shares; the turboshaft and turbofan pages below each add their own
+       three engine tiles (compressor, hot section, turbine), the same keys in the same places, so the pipes meet both. -->
+  <Phobos.VehicleSystems.PhobosVehicleSchematicDef Name="PhobosVehicleSchematicTurbineAircraftBase" Abstract="True">
     <loadoutKinds>
       <li>Aircraft</li>
     </loadoutKinds>
-    <engineKinds>
-      <li>Turboshaft</li>
-      <li>Turbofan</li>
-    </engineKinds>
     <size>(720, 340)</size>
     <nodes>
       <li>
@@ -331,66 +327,6 @@
         <rect>(180, 135, 34, 30)</rect>
         <system>PhobosVehicleSystem_CompressorWash</system>
         <shownWhen Class="Phobos.VehicleSystems.When_IntakeSeparator" />
-      </li>
-      <li>
-        <key>compressor</key>
-        <label>compressor</label>
-        <rect>(300, 110, 80, 80)</rect>
-        <role>Engine</role>
-        <perEngine>true</perEngine>
-        <system>PhobosVehicleSystem_CompressorWash</system>
-        <quantity>compressorFouling</quantity>
-        <layers>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Casing</texPath></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat01</texPath><tint>Heat</tint><position>0.05</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat02</texPath><tint>Heat</tint><position>0.15</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat03</texPath><tint>Heat</tint><position>0.25</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat04</texPath><tint>Heat</tint><position>0.35</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat05</texPath><tint>Heat</tint><position>0.45</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
-        </layers>
-        <outline>Phobos/VehicleSystems/Schematic/Gas/Comp/Outline</outline>
-      </li>
-      <li>
-        <key>hotSection</key>
-        <label>hot section</label>
-        <rect>(380, 110, 100, 80)</rect>
-        <role>Engine</role>
-        <perEngine>true</perEngine>
-        <system>PhobosVehicleSystem_Turbine</system>
-        <quantity>hotSectionLife</quantity>
-        <layers>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Casing</texPath></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Heat04</texPath><tint>Heat</tint><position>0.35</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Heat05</texPath><tint>Heat</tint><position>0.45</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Heat06</texPath><tint>Heat</tint><position>0.55</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Heat07</texPath><tint>Heat</tint><position>0.65</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Fuel</texPath><node>fuelPump</node><tint>Flow</tint><medium>Fuel</medium></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
-        </layers>
-        <outline>Phobos/VehicleSystems/Schematic/Gas/Hot/Outline</outline>
-      </li>
-      <li>
-        <key>turbine</key>
-        <label>turbine</label>
-        <rect>(480, 110, 80, 80)</rect>
-        <role>Engine</role>
-        <perEngine>true</perEngine>
-        <system>PhobosVehicleSystem_Turbine</system>
-        <quantity>turbineTemperature</quantity>
-        <layers>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Casing</texPath></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat06</texPath><tint>Heat</tint><position>0.55</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat07</texPath><tint>Heat</tint><position>0.65</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat08</texPath><tint>Heat</tint><position>0.75</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat09</texPath><tint>Heat</tint><position>0.85</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat10</texPath><tint>Heat</tint><position>0.95</position></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
-          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
-        </layers>
-        <outline>Phobos/VehicleSystems/Schematic/Gas/Turb/Outline</outline>
       </li>
       <li>
         <key>gearbox</key>
@@ -552,5 +488,152 @@
         <flow>Never</flow>
       </li>
     </pipes>
+  </Phobos.VehicleSystems.PhobosVehicleSchematicDef>
+
+  <!-- Framework 0.382.0: turboshafts (helicopters, the tiltrotor, turboprops), drawn by scripts/art/draw_turboshaft_cutaway.py. -->
+  <Phobos.VehicleSystems.PhobosVehicleSchematicDef ParentName="PhobosVehicleSchematicTurbineAircraftBase">
+    <defName>PhobosVehicleSchematic_TurbineAircraft</defName>
+    <label>turboshaft, aircraft</label>
+    <engineKinds>
+      <li>Turboshaft</li>
+    </engineKinds>
+    <nodes>
+      <li>
+        <key>compressor</key>
+        <label>compressor</label>
+        <rect>(300, 110, 80, 80)</rect>
+        <role>Engine</role>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_CompressorWash</system>
+        <quantity>compressorFouling</quantity>
+        <layers>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Casing</texPath></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat01</texPath><tint>Heat</tint><position>0.05</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat02</texPath><tint>Heat</tint><position>0.15</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat03</texPath><tint>Heat</tint><position>0.25</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat04</texPath><tint>Heat</tint><position>0.35</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat05</texPath><tint>Heat</tint><position>0.45</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
+        </layers>
+        <outline>Phobos/VehicleSystems/Schematic/Gas/Comp/Outline</outline>
+      </li>
+      <li>
+        <key>hotSection</key>
+        <label>hot section</label>
+        <rect>(380, 110, 100, 80)</rect>
+        <role>Engine</role>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_Turbine</system>
+        <quantity>hotSectionLife</quantity>
+        <layers>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Casing</texPath></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Heat04</texPath><tint>Heat</tint><position>0.35</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Heat05</texPath><tint>Heat</tint><position>0.45</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Heat06</texPath><tint>Heat</tint><position>0.55</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Heat07</texPath><tint>Heat</tint><position>0.65</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Fuel</texPath><node>fuelPump</node><tint>Flow</tint><medium>Fuel</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
+        </layers>
+        <outline>Phobos/VehicleSystems/Schematic/Gas/Hot/Outline</outline>
+      </li>
+      <li>
+        <key>turbine</key>
+        <label>turbine</label>
+        <rect>(480, 110, 80, 80)</rect>
+        <role>Engine</role>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_Turbine</system>
+        <quantity>turbineTemperature</quantity>
+        <layers>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Casing</texPath></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat06</texPath><tint>Heat</tint><position>0.55</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat07</texPath><tint>Heat</tint><position>0.65</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat08</texPath><tint>Heat</tint><position>0.75</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat09</texPath><tint>Heat</tint><position>0.85</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat10</texPath><tint>Heat</tint><position>0.95</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
+        </layers>
+        <outline>Phobos/VehicleSystems/Schematic/Gas/Turb/Outline</outline>
+      </li>
+    </nodes>
+  </Phobos.VehicleSystems.PhobosVehicleSchematicDef>
+
+  <!-- Framework 0.382.0 (docs/development/vehicle-schematic.md; the owner's word of 28 Nov 2026, "Let's finish the schematic then"): jets,
+       drawn by scripts/art/draw_turbofan_cutaway.py: a fan feeding a cold bypass duct round the core, the core's gas path in the same heat
+       bands at the same places as the turboshaft's. The bypass air flows while the compressor turns. -->
+  <Phobos.VehicleSystems.PhobosVehicleSchematicDef ParentName="PhobosVehicleSchematicTurbineAircraftBase">
+    <defName>PhobosVehicleSchematic_TurbofanAircraft</defName>
+    <label>turbofan, aircraft</label>
+    <engineKinds>
+      <li>Turbofan</li>
+    </engineKinds>
+    <nodes>
+      <li>
+        <key>compressor</key>
+        <label>fan and compressor</label>
+        <rect>(300, 110, 80, 80)</rect>
+        <role>Engine</role>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_CompressorWash</system>
+        <quantity>compressorFouling</quantity>
+        <layers>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Comp/Casing</texPath></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Comp/Air</texPath><node>compressor</node><tint>Flow</tint><medium>Air</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Comp/Heat01</texPath><tint>Heat</tint><position>0.05</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Comp/Heat02</texPath><tint>Heat</tint><position>0.15</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Comp/Heat03</texPath><tint>Heat</tint><position>0.25</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Comp/Heat04</texPath><tint>Heat</tint><position>0.35</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Comp/Heat05</texPath><tint>Heat</tint><position>0.45</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Comp/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Comp/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
+        </layers>
+        <outline>Phobos/VehicleSystems/Schematic/Fan/Comp/Outline</outline>
+      </li>
+      <li>
+        <key>hotSection</key>
+        <label>hot section</label>
+        <rect>(380, 110, 100, 80)</rect>
+        <role>Engine</role>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_Turbine</system>
+        <quantity>hotSectionLife</quantity>
+        <layers>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Hot/Casing</texPath></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Hot/Air</texPath><node>compressor</node><tint>Flow</tint><medium>Air</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Hot/Heat04</texPath><tint>Heat</tint><position>0.35</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Hot/Heat05</texPath><tint>Heat</tint><position>0.45</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Hot/Heat06</texPath><tint>Heat</tint><position>0.55</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Hot/Heat07</texPath><tint>Heat</tint><position>0.65</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Hot/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Hot/Fuel</texPath><node>fuelPump</node><tint>Flow</tint><medium>Fuel</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Hot/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
+        </layers>
+        <outline>Phobos/VehicleSystems/Schematic/Fan/Hot/Outline</outline>
+      </li>
+      <li>
+        <key>turbine</key>
+        <label>turbine</label>
+        <rect>(480, 110, 80, 80)</rect>
+        <role>Engine</role>
+        <perEngine>true</perEngine>
+        <system>PhobosVehicleSystem_Turbine</system>
+        <quantity>turbineTemperature</quantity>
+        <layers>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Turb/Casing</texPath></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Turb/Air</texPath><node>compressor</node><tint>Flow</tint><medium>Air</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Turb/Heat06</texPath><tint>Heat</tint><position>0.55</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Turb/Heat07</texPath><tint>Heat</tint><position>0.65</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Turb/Heat08</texPath><tint>Heat</tint><position>0.75</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Turb/Heat09</texPath><tint>Heat</tint><position>0.85</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Turb/Heat10</texPath><tint>Heat</tint><position>0.95</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Turb/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Fan/Turb/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
+        </layers>
+        <outline>Phobos/VehicleSystems/Schematic/Fan/Turb/Outline</outline>
+      </li>
+    </nodes>
   </Phobos.VehicleSystems.PhobosVehicleSchematicDef>
 </Defs>
