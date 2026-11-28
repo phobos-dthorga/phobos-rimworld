@@ -5,8 +5,8 @@ sheet for land vehicles with a piston engine, in its own window, flow marks a se
 The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765); the first cutaway, the land page's diesel, in
 Framework 0.374.0 (row 768). Made prominent (a command button, its own tab, warning lamps that open it) in Framework 0.378.0 (row
 775), with orders on a right-click (row 776), and the turbine cutaway with the heat gradient (SC8, row 777). Each engine's own heat
-(F1), a turbofan's own section and the boat's page in Framework 0.382.0 (rows 790 to 792). Not built: pages for electric and steam,
-the standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
+(F1), a turbofan's own section, and the boat's and electric vehicles' pages in Framework 0.382.0 (rows 790 to 793). Not built: the
+steam page, the standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
 [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
 [the chip detector](vehicle-chip-detector.md).
 
@@ -447,6 +447,12 @@ On the owner's word of 28 Nov 2026 ("Let's finish the schematic then"), after a 
   nothing flowing); `Water` and `Steam` came with it, and the legend now names only what a page carries. **Simplifications, agent's
   choices**: our model has one water pump where a boat has two (fresh water and raw water), so it drives both waters; the propeller has no
   part or reading of its own, so it is always sound; wet exhaust (sea water sprayed into the exhaust) is not drawn.
+- **The electric page (row 793)**: `PhobosVehicleSchematic_ElectricLand`, for the electric loadout. The traction battery (a tank showing
+  its charge, Vehicle Framework's fuel) feeds the drive motor, which turns the wheels; the DC-DC converter keeps the 12 V battery charged;
+  the pack's loop reads its temperature and the motor's carries its heat. Power comes in at the charging socket by a new pipe field,
+  `when` (here `When_Charging`), judged in the system of the node it leaves, so it flows while the pack charges whether the vehicle is
+  switched on or not. **Simplifications, agent's choices**: the inverter has no part in our model, so it is drawn with the motor; the
+  motor's loop has no part or reading of its own; the wheels' brakes are joined by a line that never flows.
 
 ## Who chose what
 

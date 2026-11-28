@@ -720,4 +720,157 @@
       </li>
     </nodes>
   </Phobos.VehicleSystems.PhobosVehicleSchematicDef>
+
+  <!--
+    Framework 0.382.0 (docs/development/vehicle-schematic.md; the owner's word of 28 Nov 2026, "Let's finish the schematic then"): an electric
+    land vehicle. The traction battery (its charge is Vehicle Framework's fuel) feeds the drive motor and its inverter, which turns the wheels;
+    a DC-DC converter keeps the 12 V battery charged from it while the vehicle is switched on. Each of the pack and the motor has a liquid loop:
+    the pack's heated and cooled toward its managed temperature, the motor's carrying its heat away. Power flows in at the charging socket only
+    while the pack is charging. No coolant, oil, gearbox or fuel: an electric vehicle has none. A plain flow sheet, not a drawing of any real
+    vehicle; the inverter has no part of its own in our model, so it is drawn with the motor. Layout authored, on a 720 by 330 page.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSchematicDef>
+    <defName>PhobosVehicleSchematic_ElectricLand</defName>
+    <label>electric drive, land</label>
+    <loadoutKinds>
+      <li>Electric</li>
+    </loadoutKinds>
+    <engineKinds>
+      <li>Electric</li>
+    </engineKinds>
+    <size>(720, 330)</size>
+    <nodes>
+      <li>
+        <key>socket</key>
+        <label>charging socket</label>
+        <rect>(40, 24, 70, 36)</rect>
+        <system>PhobosVehicleSystem_TractionBattery</system>
+      </li>
+      <li>
+        <key>pack</key>
+        <label>traction battery</label>
+        <shape>Tank</shape>
+        <rect>(40, 110, 160, 90)</rect>
+        <role>TractionBattery</role>
+        <system>PhobosVehicleSystem_TractionBattery</system>
+        <fuelLevel>true</fuelLevel>
+        <holds>Electric</holds>
+      </li>
+      <li>
+        <key>packLoop</key>
+        <label>battery heating and cooling</label>
+        <shape>Radiator</shape>
+        <rect>(70, 250, 100, 40)</rect>
+        <system>PhobosVehicleSystem_TractionBattery</system>
+        <quantity>packTemperature</quantity>
+      </li>
+      <li>
+        <key>motor</key>
+        <label>drive motor and inverter</label>
+        <rect>(330, 110, 150, 90)</rect>
+        <role>Engine</role>
+        <system>PhobosVehicleSystem_ElectricDrive</system>
+        <quantity>motorTemperature</quantity>
+      </li>
+      <li>
+        <key>motorLoop</key>
+        <label>motor cooling</label>
+        <shape>Radiator</shape>
+        <rect>(355, 250, 100, 40)</rect>
+        <system>PhobosVehicleSystem_ElectricDrive</system>
+      </li>
+      <li>
+        <key>wheels</key>
+        <label>wheels</label>
+        <rect>(580, 110, 100, 90)</rect>
+        <role>Wheels</role>
+        <system>PhobosVehicleSystem_RunningGear</system>
+      </li>
+      <li>
+        <key>brakes</key>
+        <label>brakes</label>
+        <rect>(590, 250, 80, 36)</rect>
+        <role>Brakes</role>
+        <system>PhobosVehicleSystem_Brakes</system>
+      </li>
+      <li>
+        <key>converter</key>
+        <label>DC-DC converter</label>
+        <rect>(250, 20, 90, 44)</rect>
+        <role>Alternator</role>
+        <system>PhobosVehicleSystem_AuxiliaryElectrical</system>
+      </li>
+      <li>
+        <key>battery</key>
+        <label>12 V battery</label>
+        <shape>Tank</shape>
+        <rect>(420, 20, 80, 46)</rect>
+        <role>Battery</role>
+        <system>PhobosVehicleSystem_AuxiliaryElectrical</system>
+        <quantity>charge</quantity>
+        <holds>Electric</holds>
+      </li>
+    </nodes>
+    <pipes>
+      <!-- Power in at the socket, only while the pack charges. -->
+      <li>
+        <medium>Electric</medium>
+        <points><li>(75, 60)</li><li>(75, 110)</li></points>
+        <from>socket</from>
+        <to>pack</to>
+        <when Class="Phobos.VehicleSystems.When_Charging" />
+      </li>
+      <!-- Power from the pack to the motor, which turns the wheels. -->
+      <li>
+        <medium>Electric</medium>
+        <points><li>(200, 155)</li><li>(330, 155)</li></points>
+        <from>pack</from>
+        <to>motor</to>
+        <drivenBy>motor</drivenBy>
+      </li>
+      <li>
+        <medium>Drive</medium>
+        <points><li>(480, 155)</li><li>(580, 155)</li></points>
+        <from>motor</from>
+        <to>wheels</to>
+      </li>
+      <!-- The pack keeps the 12 V battery charged through the converter. -->
+      <li>
+        <medium>Electric</medium>
+        <points><li>(160, 110)</li><li>(160, 42)</li><li>(250, 42)</li></points>
+        <from>pack</from>
+        <to>converter</to>
+        <drivenBy>converter</drivenBy>
+      </li>
+      <li>
+        <medium>Electric</medium>
+        <points><li>(340, 42)</li><li>(420, 42)</li></points>
+        <from>converter</from>
+        <to>battery</to>
+      </li>
+      <!-- The liquid loops. -->
+      <li>
+        <medium>Coolant</medium>
+        <points><li>(120, 200)</li><li>(120, 250)</li></points>
+        <from>pack</from>
+        <to>packLoop</to>
+        <drivenBy>packLoop</drivenBy>
+      </li>
+      <li>
+        <medium>Coolant</medium>
+        <points><li>(405, 200)</li><li>(405, 250)</li></points>
+        <from>motor</from>
+        <to>motorLoop</to>
+        <drivenBy>motorLoop</drivenBy>
+      </li>
+      <!-- The brakes at the wheels: what joins what. -->
+      <li>
+        <medium>Drive</medium>
+        <points><li>(630, 200)</li><li>(630, 250)</li></points>
+        <from>wheels</from>
+        <to>brakes</to>
+        <flow>Never</flow>
+      </li>
+    </pipes>
+  </Phobos.VehicleSystems.PhobosVehicleSchematicDef>
 </Defs>

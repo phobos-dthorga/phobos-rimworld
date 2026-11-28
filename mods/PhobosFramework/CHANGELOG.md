@@ -68,6 +68,11 @@ The systems schematic finished: every engine's own heat, and pages for more kind
 - For modders: the piston pages share an abstract parent, PhobosVehicleSchematicPistonBase, whose coolant pipes name a "cooler"
   node each page gives (the land page's radiator, the boat's heat exchanger). Pipes and tanks can carry water, steam and a turning
   shaft (Water, Steam, Drive).
+- **Electric vehicles have a systems schematic**: the traction battery feeding the drive motor, which turns the wheels; the
+  converter keeping the 12-volt battery charged; the liquid loops that warm and cool the battery and cool the motor; and power in at
+  the charging socket while the battery charges, switched on or not. Not yet tested in game: row 793.
+- For modders: a schematic pipe can flow by a condition of its own instead of the engine's running (when, judged in the system of
+  the node it leaves).
 ### Save compatibility
 
 - Safe for saves: nothing new is saved.

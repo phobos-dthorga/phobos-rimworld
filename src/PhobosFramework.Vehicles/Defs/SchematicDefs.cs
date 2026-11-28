@@ -130,6 +130,11 @@ public class SchematicPipe
     public SchematicFlow flow = SchematicFlow.EngineRunning;
     /// <summary>Drawn only while this node is left out: the way air reaches an engine with no turbocharger.</summary>
     public string? onlyWithout;
+    /// <summary>
+    /// Flows while this holds instead of while the engine runs (Framework 0.382.0), judged in the system of the node it leaves: power in at an
+    /// electric vehicle's charging socket while it charges, engine running or not. Its driver must still work. Null: the engine's running.
+    /// </summary>
+    public VehicleSystemCondition? when;
 
     public string Driver => drivenBy.NullOrEmpty() ? from : drivenBy!;
 }
@@ -208,6 +213,7 @@ public class PhobosVehicleSchematicDef : Def
             if (!pipe.to.NullOrEmpty() && Node(pipe.to) == null) yield return "a pipe reaches " + pipe.to + ", which is not a node";
             if (Node(pipe.Driver) == null) yield return "a pipe is driven by " + pipe.Driver + ", which is not a node";
             if (!pipe.onlyWithout.NullOrEmpty() && Node(pipe.onlyWithout) == null) yield return "a pipe is drawn without " + pipe.onlyWithout + ", which is not a node";
+            if (pipe.when != null && Node(pipe.from) is { system: null }) yield return "a pipe from " + pipe.from + " has when but its node names no system to judge it in";
         }
     }
 }

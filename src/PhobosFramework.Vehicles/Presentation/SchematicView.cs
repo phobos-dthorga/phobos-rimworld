@@ -94,8 +94,10 @@ public sealed class SchematicView
             NodeView? without = pipe.onlyWithout.NullOrEmpty() ? null : view.NodeOf(pipe.onlyWithout);
             bool shown = from is { Shown: true } && (pipe.to.NullOrEmpty() || to is { Shown: true }) && without is not { Shown: true };
             NodeView? driver = view.NodeOf(pipe.Driver);
+            // Framework 0.382.0: a pipe with its own condition flows while that holds, judged in the system of the node it leaves.
+            bool going = pipe.when == null ? view.Running : from?.State != null && pipe.when.Holds(new SystemContext(comp, from.State));
             bool flowing = shown && pipe.flow == SchematicFlow.EngineRunning && driver != null
-                && SchematicRule.Flows(view.Running, driver.Work, driver.Stopped);
+                && SchematicRule.Flows(going, driver.Work, driver.Stopped);
             view.Pipes[i] = (shown, flowing);
         }
         return view;
