@@ -63,6 +63,9 @@ public sealed class SystemContext
     public readonly SystemState State;
     /// <summary>A stable name for the stage being entered or applied, for message cooldowns.</summary>
     public string StageKey = "";
+    /// <summary>While a stage is being entered, whether the quantity came down into it (Framework 0.383.1, <c>StageRule.EnteredFalling</c>);
+    /// true at every other time, so <c>When_Falling</c> holds anywhere but a stage entered on the way up.</summary>
+    public bool StageFalling = true;
 
     public SystemContext(CompPhobosVehicleSystems comp, SystemState state)
     {

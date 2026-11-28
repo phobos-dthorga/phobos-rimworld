@@ -601,6 +601,7 @@ Every condition takes `invert`, which turns it round.
 | `When_Granted` | a fitting on a part that is not destroyed grants `ability` (shipped: `WorkLights`). The same test as `When_FittingGrants`, kept so older XML loads; use `When_FittingGrants` in new XML | `ability` |
 | `When_HasPoweredWeapon` | the vehicle carries a weapon with a powered drive; never while the knock-out rules Def's `turretPower` is off | |
 | `When_HasQuantity` | some running system on the vehicle has `quantity` (an engine with coolant: `coolantTemperature`; inverted, one without) | `quantity` |
+| `When_Falling` | the stage being entered was entered on the way down, from a higher value, not climbing back up from a worse stage (Framework 0.383.1: a warning message given only as something runs low); holds at every other time | none |
 | `When_Hoisting` | the aircraft's rescue hoist is running | |
 | `When_InstrumentWorking` | a submersible's `instrument` is at work: `Lab` researching, `Sonar` manned, `Listening` someone listening; any other name is false | `instrument` |
 | `When_LitterInUse` | someone lies on one of the vehicle's litters | |

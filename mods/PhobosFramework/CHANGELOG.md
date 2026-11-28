@@ -22,6 +22,22 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.383.1] - 2026-11-28 - Draft
+
+A flat battery warns only as it runs down
+
+### Fixed
+
+- **A battery's "may soon be too weak to start" warning comes only on the way down**: a flat battery warmed back up by the day used to
+  give the warning again as it climbed out of "too weak", then refuse again at night, twice a day on the owner's flat Abrams. Now the
+  warning comes as the battery runs down into it, and is quiet as it recovers. Turbines and piston engines alike. Not yet tested in
+  game: row 807.
+- For modders: a stage effect can be given only on the way down with the new condition When_Falling.
+
+### Save compatibility
+
+- Safe for saves: nothing new is saved.
+
 ## [0.383.0] - 2026-11-28 - Draft
 
 One hold per raid

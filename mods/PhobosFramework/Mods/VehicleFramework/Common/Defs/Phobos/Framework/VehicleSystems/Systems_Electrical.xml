@@ -142,9 +142,16 @@
                 <message>PhobosVehicleSystems_MsgStartingPowerLow</message>
                 <!-- Framework 0.137.3: not on a turbine, which cannot light below 0.25 and so is already stranded here; its own warning is
                      the turbine-start stage's (Systems_Turbine.xml). -->
-                <when Class="Phobos.VehicleSystems.When_HasQuantity">
-                  <quantity>turbineStart</quantity>
-                  <invert>true</invert>
+                <!-- Framework 0.383.1 (the owner's card of 28 Nov 2026, "Warn only on the way down"): and not when a flat battery warms
+                     back up into this stage. -->
+                <when Class="Phobos.VehicleSystems.When_All">
+                  <conditions>
+                    <li Class="Phobos.VehicleSystems.When_HasQuantity">
+                      <quantity>turbineStart</quantity>
+                      <invert>true</invert>
+                    </li>
+                    <li Class="Phobos.VehicleSystems.When_Falling" />
+                  </conditions>
                 </when>
               </li>
             </effects>

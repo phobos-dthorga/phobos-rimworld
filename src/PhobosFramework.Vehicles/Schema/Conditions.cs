@@ -242,6 +242,23 @@ public class When_QuantityAbove : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Comp.TryGetQuantity(quantity, out float current) && current > value;
 }
 
+/// <summary>
+/// The stage being entered was entered on the way down (Framework 0.383.1; the owner's card of 28 Nov 2026, "Warn only on the way down"):
+/// a warning that something is running low, given as it falls into the stage and not as it climbs back up into it from a worse one (a flat
+/// battery warmed by day). Holds at every time but a stage's entry from below, so it changes nothing elsewhere.
+/// </summary>
+public class When_Falling : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context)
+    {
+        if (!context.StageFalling && Seen.Wants("vehicles.warning-rising-quiet", context.Vehicle))
+        {
+            Seen.Note("vehicles.warning-rising-quiet", context.Vehicle, context.StageKey);
+        }
+        return context.StageFalling;
+    }
+}
+
 /// <summary>Some running system on the vehicle has this quantity (an engine with coolant: <c>coolantTemperature</c>); <c>invert</c>
 /// for one without.</summary>
 public class When_HasQuantity : VehicleSystemCondition

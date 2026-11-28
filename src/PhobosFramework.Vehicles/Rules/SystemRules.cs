@@ -21,6 +21,24 @@ public static class StageRule
         return -1;
     }
 
+    /// <summary>
+    /// Whether a quantity entered stage <paramref name="entered"/> on its way down, from a higher value (Framework 0.383.1; the owner's card of
+    /// 28 Nov 2026, "Warn only on the way down"): a flat battery warmed back up into its warning stage is climbing out, not running down. Stages
+    /// are in rising order. From another stage, down is from a higher index. From no stage (-1: after a load, or out of a gap) it came from
+    /// above when nothing lies above the entered stage's ceiling but no stage, while the stage below meets its floor or it has no floor; from
+    /// below in the opposite case; and, when both sides are open, it is read as down, so a warning is never lost. False when it entered none.
+    /// </summary>
+    public static bool EnteredFalling(int was, int entered, IReadOnlyList<double> from, IReadOnlyList<double> to)
+    {
+        if (entered < 0) return false;
+        if (was >= 0) return was > entered;
+        bool closedBelow = double.IsNaN(from[entered]) || (entered > 0 && !double.IsNaN(to[entered - 1]) && to[entered - 1] >= from[entered]);
+        bool closedAbove = double.IsNaN(to[entered]) || (entered < from.Count - 1 && !double.IsNaN(from[entered + 1]) && from[entered + 1] <= to[entered]);
+        if (closedBelow && !closedAbove) return true;
+        if (closedAbove && !closedBelow) return false;
+        return true;
+    }
+
     /// <summary>Whether the stages are in rising order with no overlap, for the schema check.</summary>
     public static bool Ordered(IReadOnlyList<double> from, IReadOnlyList<double> to)
     {

@@ -2209,6 +2209,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             int index = StageOf(state, q);
             if (index != state.stage[q])
             {
+                int was = state.stage[q];
                 StageSpec? old = state.CurrentStage(q);
                 if (old != null)
                 {
@@ -2228,10 +2229,14 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 if (entered != null)
                 {
                     context.StageKey = StageKey(state, q);
+                    // Framework 0.383.1: which way it came, for a warning given only on the way down (When_Falling).
+                    StageBounds bounds = StageBounds.Of(state.Def.quantities[q]);
+                    context.StageFalling = StageRule.EnteredFalling(was, index, bounds.from, bounds.to);
                     foreach (VehicleSystemEffect effect in entered.effects)
                     {
                         if (effect.Active(context)) effect.OnEnter(context);
                     }
+                    context.StageFalling = true;
                     // A red lamp lighting: one soft chime (the dashboard shows the same rule).
                     if (entered.notable && entered.Severe && state.Def.quantities[q].telltale != null) VehicleSystemSounds.Chime(this);
                     // A stage worth a look marks the graphs; not the stages a load works out again (they are not saved).

@@ -476,6 +476,17 @@
     "783": ["radio.hf-mast"],
     "788": ["radio.carried-handheld"],
     "796": ["framework.raid-hold-once"],
+    "808": ["radio.radar-scope", "radio.radar-contact"],
+    "809": {"parts": {
+      "a drop raid held": [{"key": "radio.radar-hold", "variant": "drop"}],
+      "an air raid held": [{"key": "radio.radar-hold", "variant": "air"}]
+    }},
+    "810": {"parts": {
+      "identified with nobody on watch": [{"key": "radio.radar-identified", "variant": "unmanned"}],
+      "a colonist on watch": ["radio.radar-watch", {"key": "radio.radar-identified", "variant": "watched"}]
+    }},
+    "811": ["radio.radar-datalink"],
+    "812": ["radio.radar-inbound"],
     "784": ["radio.qsl-card-area"],
     "797": {"parts": {
       "the wall shows its cards": ["radio.qsl-wall"],
@@ -533,7 +544,10 @@
     "793": [{"key": "vehicles.schematic.opened", "detail": "PhobosVehicleSchematic_ElectricLand"}],
     "794": {"parts": {"the boiler cutaway": [{"key": "vehicles.schematic.cutaway", "detail": "PhobosVehicleSchematic_Steam"}], "the water level": ["vehicles.schematic.level"]}},
     "802": [{"key": "vehicles.schematic.opened", "detail": "PhobosVehicleSchematic_TurbineLand"}],
+    "804": {"parts": {"a watch at the desk": ["radio.watch-on"], "heard at the desk": [{"key": "radio.watch-heard", "variant": "desk"}], "heard on a hand-held": [{"key": "radio.watch-heard", "variant": "handheld"}], "the selective call wakes the one on call": [{"key": "radio.watch-heard", "variant": "selective call"}], "a missed call": [{"key": "radio.call-missed", "variant": "neighbour"}, {"key": "radio.call-missed", "variant": "raid warning"}]}},
+    "805": {"parts": {"a neighbour answered by order": [{"key": "radio.standing-order", "variant": "neighbours"}], "a trader asked in by order": [{"key": "radio.standing-order", "variant": "trader"}]}},
     "803": {"parts": {"a search across the pages": [{"key": "framework.settings-pages", "variant": "search", "detail": "PhobosDthorga.RadioFramework"}], "changed only": [{"key": "framework.settings-pages", "variant": "changed only", "detail": "PhobosDthorga.RadioFramework"}], "a page reset to its defaults": [{"key": "framework.settings-pages", "variant": "reset", "detail": "PhobosDthorga.RadioFramework"}]}},
+    "807": [{"key": "vehicles.warning-rising-quiet"}],
     "777": {"parts": {"the turbine cutaway": [{"key": "vehicles.schematic.cutaway", "detail": "PhobosVehicleSchematic_TurbineAircraft"}], "the heat gradient": ["vehicles.schematic.heat"]}},
     "776": ["vehicles.schematic.order"],
     "775": {"parts": {"the Schematic tab": ["vehicles.schematic.tab"], "a lamp opens it at its part": ["vehicles.schematic.from-lamp"]}},
