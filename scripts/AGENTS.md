@@ -169,6 +169,12 @@ Every script is run as `python scripts/<script>`. The third column is the kit do
   then; **`trend`** for whether our mods grew costlier between recordings. With D'thorga Framework 0.380.0 on, a recording has
   the game's own **ticks and frames a second** and **milliseconds a tick**; compare by those, and heed its **"not like for like"**.
   **`reindex --all`** gives recordings made before 1.151.0 their tables over time (it reads files only, no asking needed).
+- **Read a recording's findings first, and send the owner to the Companion** (kit 1.152.0 to 1.156.0; the owner, 28 Nov 2026:
+  "relevant, compiled, condensed information"). A report opens on at most five ranked **findings** and the game's own figures;
+  **`costs`** says what each mod cost in the newest recording against the earlier ones; a recording keeps **the log while
+  recording** and its mods' settings prints, so `compare` says when settings changed. The owner reads all of this on D'thorga
+  Companion's **Performance** page (Shift+F; Ctrl+Alt+P records from inside the game), with every mod, method and log message
+  linked: point them there rather than pasting tables.
 - **A frozen or stuck game: `python scripts/perf.py stack`** (owner's go-ahead, 18 Nov 2026), before guessing from code.
 - **Memory: start with `watch`** (owner, 19 Nov 2026), which follows the game without pausing it (`--no-counters` attaches
   nothing). Then `heap`, and **`heap-compare`** for what grew: **take three over minutes before calling it a leak**. **Ask the
