@@ -9,7 +9,8 @@ searchlights, night landings and galleys): D'thorga Framework 0.366.0 and D'thor
 built](#built-batch-4-28-nov-2026)); not yet tested in game (rows 743 to 745). **Batch 5 is built** (what does not belong): D'thorga
 Framework 0.368.0 ([as built](#built-batch-5-28-nov-2026)); not yet tested in game (row 747). **Batch 6 is built** (the land bays, VS13 to
 VS15, and a partly bound audit): D'thorga Framework 0.375.0 and D'thorga Vehicles 0.133.0 ([as built](#built-batch-6-28-nov-2026)); not yet
-tested in game (row 770). Every batch is built; VS8 and VS12 wait for a behaviour. The owner answered twenty-four cards ([below](#questions-for-the-owner)).
+tested in game (row 770). **VS16, the systems schematic page**, was added with the pages themselves in D'thorga Framework 0.382.0 ([as
+built](#built-vs16-the-systems-schematic-28-nov-2026)). Every batch is built; VS8 and VS12 wait for a behaviour. The owner answered twenty-four cards ([below](#questions-for-the-owner)).
 
 **Why.** The owner, 27 Nov 2026, looking at their aircraft: "Wouldn't radios of some sort be included with the majority of the ones in
 my game, if not all, by default? And if that's the case, howcome there's no mention of them on the Systems, Fittings, nor Health pages?
@@ -70,6 +71,7 @@ where it changes an outcome** (the vehicles' rule: every node moves a figure tha
 | VS13 | **The land vehicles' bays**: lamps, cab light, fridge, crew water tank, outlet, remote control kit | Has (missing on three that write their own parts) | — | — | — | No | A working vehicle carries lights and the crew's water and food | The accessories' own behaviour |
 | VS14 | A winch, route kit and solar mount on road vehicles | Has (missing on two) | — | — | — | No | Road vehicles recover each other and follow routes; a locomotive does neither | The accessories' own behaviour |
 | VS15 | A house battery tray | Has (missing on two) | — | — | — | No | Trucks and shunters carry a second battery for the cab's loads; an electric car's traction battery is one | The house battery's own behaviour |
+| VS16 | **A systems schematic page** (added 28 Nov 2026, Framework 0.382.0) | Has (piston, electric, steam; a land gas turbine has none) | Has | Has | Has (piston) | No (unpowered) | Synoptic pages in modern aircraft and ships' engine-room panels | The page itself ([the schematic record](vehicle-schematic.md)); the audit reads which page the game chose |
 
 ## How the standard is kept
 
@@ -247,6 +249,21 @@ too. Still showing: the boats' drive belt, which the owner was not asked about.
 
 **What outside the vehicle notices:** nothing new; each bay only lets a fitting go on. **Other factions' vehicles:** a raider's Busbar or shunter
 has the same bays, empty. **Cost:** a few more parts per vehicle of these designs, at start-up; nothing while playing.
+
+## Built: VS16, the systems schematic (28 Nov 2026)
+
+On the owner's word of 28 Nov 2026 ("Let's finish the schematic then"), the last piece of [the schematic record](vehicle-schematic.md).
+**Not yet tested in game**, and the audit can say nothing until the game has started once with D'thorga Framework 0.382.0.
+
+| Piece | As built |
+| --- | --- |
+| The report | `VehicleBindings.json` gives each design a `schematic`: the page the game chose by its loadout's kind and its engine's (`PhobosVehicleSchematicDef.For`, the same choice the window makes), empty for none |
+| The line | VS16 in `config/vehicle-standard.json`, for powered land vehicles, aircraft and boats; `scripts/vehicle-bindings.py` reads a line's `schematic` and lists a design with no page as lacking "a schematic page". A report from before has no `schematic`, and the line then waits |
+| Excused | The three Vanilla Vehicles Expanded thruster pods (the Frog, the Toad, the Goliath): no gas-turbine section fits fictional chemfuel thrusters, as no fuel or oil system does. **Agent's choice**, for the owner to revise |
+| Expected to show | **A land gas turbine** (the M1A2 Abrams): no page draws one yet, so after the next start the audit should list it as below the standard. A land turbine's page is the follow-up |
+
+**What outside the vehicle notices:** nothing; a page is only a display. **Other factions' vehicles:** the window opens for the player's own
+vehicles only. **Cost:** one lookup per design at start-up.
 
 ## Vehicle classes (28 Nov 2026)
 

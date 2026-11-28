@@ -266,9 +266,36 @@
       "roles": [
         "HouseBatteryTray"
       ]
+    },
+    {
+      "line": "VS16",
+      "label": "a systems schematic page",
+      "status": "built",
+      "kinds": [
+        "land",
+        "fixed-wing",
+        "rotor",
+        "boat"
+      ],
+      "schematic": true
     }
   ],
   "except": [
+    {
+      "vehicle": "VVE_Frog",
+      "line": "VS16",
+      "why": "A thrust-lifted pod on fictional chemfuel thrusters (Vanilla Vehicles Expanded): no gas-turbine section fits it, as no fuel or oil system does (VS6, VS7). Agent's choice of 28 Nov 2026, for the owner to revise."
+    },
+    {
+      "vehicle": "VVE_Toad",
+      "line": "VS16",
+      "why": "A thrust-lifted pod on fictional chemfuel thrusters (Vanilla Vehicles Expanded): no gas-turbine section fits it, as no fuel or oil system does (VS6, VS7). Agent's choice of 28 Nov 2026, for the owner to revise."
+    },
+    {
+      "vehicle": "VVE_Goliath",
+      "line": "VS16",
+      "why": "A thrust-lifted pod on fictional chemfuel thrusters (Vanilla Vehicles Expanded): no gas-turbine section fits it, as no fuel or oil system does (VS6, VS7). Agent's choice of 28 Nov 2026, for the owner to revise."
+    },
     {
       "vehicle": "VVE_Frog",
       "line": "VS6",

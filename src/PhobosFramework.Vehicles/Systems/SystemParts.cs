@@ -119,6 +119,8 @@ public static class SystemParts
                     .Append(", \"military\": ").Append(props.vehicleClass == Phobos.Framework.Vehicles.Rules.VehicleClass.Military ? "true" : "false")
                     // Framework 0.369.0: the class itself (civilian, armed by upgrade, military, mechanical).
                     .Append(", \"class\": ").Append(Json(props.vehicleClass.ToString()))
+                    // Framework 0.382.0 (the vehicle standard's VS16): the systems schematic page the game chose for the design, empty for none.
+                    .Append(", \"schematic\": ").Append(Json(PhobosVehicleSchematicDef.For(props.loadout?.kind, props.drivetrain?.def?.engine.kind)?.defName ?? ""))
                     .Append(", \"removed\": [").Append(string.Join(", ", props.removedParts.Select(r => Json(r.key)))).Append("]")
                     .Append(",\n     \"systems\": [");
                 text.Append(string.Join(", ", props.systems.Select(s => "{\"def\": " + Json(s.def.defName) + ", \"roles\": [" + string.Join(", ", s.def.roles.Select(Json)) + "]}")));

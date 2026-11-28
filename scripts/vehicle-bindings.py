@@ -120,9 +120,15 @@ def below_standard(data: dict, std: dict | None = None) -> dict:
             # none, and such a line then waits for a game start).
             if line.get('militaryOnly') and not vehicle.get('military'):
                 continue
+            # Framework 0.382.0 (VS16): a line asking for a systems schematic page, judged by the report's own "schematic" (the page the game
+            # chose, empty for none); a report from before has none, and such a line then waits for a game start.
+            if line.get('schematic') and 'schematic' not in vehicle:
+                continue
             if (vehicle['def'], line['line']) in excused:
                 continue
             lacks = [s for s in line.get('systems', []) if s not in systems] + [r for r in line.get('roles', []) if r not in roles]
+            if line.get('schematic') and not vehicle.get('schematic'):
+                lacks.append('a schematic page')
             # What does not belong: a role the line says this vehicle should not show, bound on it all the same.
             shows = [r for r in line.get('absentRoles', []) if r in roles]
             if not lacks and not shows:

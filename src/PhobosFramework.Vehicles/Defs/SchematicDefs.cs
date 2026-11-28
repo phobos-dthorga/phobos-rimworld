@@ -163,11 +163,13 @@ public class PhobosVehicleSchematicDef : Def
     public List<SchematicPipe> pipes = new();
 
     /// <summary>The page for a vehicle, or null when none serves it: its loadout's kind, and its engine's.</summary>
-    public static PhobosVehicleSchematicDef? For(CompPhobosVehicleSystems comp)
+    public static PhobosVehicleSchematicDef? For(CompPhobosVehicleSystems comp) => For(comp.Props.loadout?.kind, comp.Powertrain?.Def?.engine.kind);
+
+    /// <summary>The page for a loadout kind and an engine kind, or null when none serves them (Framework 0.382.0: also read by the bindings
+    /// report, so the vehicle standard's VS16 can say which designs have no page).</summary>
+    public static PhobosVehicleSchematicDef? For(string? kind, EngineKind? engine)
     {
-        string? kind = comp.Props.loadout?.kind;
         if (kind == null) return null;
-        EngineKind? engine = comp.Powertrain?.Def?.engine.kind;
         foreach (PhobosVehicleSchematicDef page in DefDatabase<PhobosVehicleSchematicDef>.AllDefsListForReading)
         {
             if (!page.loadoutKinds.Contains(kind)) continue;

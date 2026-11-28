@@ -79,6 +79,8 @@ The systems schematic finished: every engine's own heat, and pages for more kind
   injector feeds the boiler from the feed water. Not yet tested in game: row 794.
 - For modders: a cutaway layer can be tinted by a level (tint Level: its medium below its position on the node's level, its own
   colour above), and pipes and layers can carry fire (Fire).
+- For modders: the vehicle bindings report written at start-up now names the systems schematic page each design gets (empty for
+  none), and the vehicle standard has a line for it, VS16: every powered land vehicle, aircraft and boat should have a page.
 ### Save compatibility
 
 - Safe for saves: nothing new is saved.

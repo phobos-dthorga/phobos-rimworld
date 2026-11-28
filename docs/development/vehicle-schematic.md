@@ -5,8 +5,8 @@ sheet for land vehicles with a piston engine, in its own window, flow marks a se
 The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765); the first cutaway, the land page's diesel, in
 Framework 0.374.0 (row 768). Made prominent (a command button, its own tab, warning lamps that open it) in Framework 0.378.0 (row
 775), with orders on a right-click (row 776), and the turbine cutaway with the heat gradient (SC8, row 777). Each engine's own heat
-(F1), a turbofan's own section, and pages for boats, electric vehicles and steam locomotives (with a boiler cutaway) in Framework
-0.382.0 (rows 790 to 794). Not built: the standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
+(F1), a turbofan's own section, pages for boats, electric vehicles and steam locomotives (with a boiler cutaway), and the vehicle
+standard's line, VS16, in Framework 0.382.0 (rows 790 to 794). Not built: a land gas turbine's page (the M1A2). The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
 [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
 [the chip detector](vehicle-chip-detector.md).
 
@@ -463,6 +463,10 @@ On the owner's word of 28 Nov 2026 ("Let's finish the schematic then"), after a 
   cylinders and the wheels are driven by the boiler, whose "raising steam" stage stops them until steam is up. **Simplifications, agent's
   choices**: the cylinders and the driving wheels have no parts of their own in our model, so they are always sound; the injector has no
   reading; the boiler is one shape for the 4-8-4 and the tank engine.
+- **The standard's line (VS16)**: the bindings report names the page each design gets, by the same choice the window makes, and
+  [the vehicle standard](vehicle-standard.md#built-vs16-the-systems-schematic-28-nov-2026) asks one of every powered land vehicle,
+  aircraft and boat. The thruster pods are excused (agent's choice). A land gas turbine (the M1A2) has no page and should show below the
+  standard after the next game start: its page is what is left.
 
 ## Who chose what
 

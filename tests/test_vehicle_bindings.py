@@ -166,6 +166,17 @@ class VehicleStandardTests(unittest.TestCase):
         found = vehicle_bindings.below_standard({'vehicles': [tank, truck, clean]}, std)
         self.assertEqual([('Test_Tank', ['StereoSlot (should not be there)'])], [(f['vehicle'], f['lacks']) for f in found['belowStandard']])
 
+    def test_a_vehicle_with_no_schematic_page_is_a_finding_once_the_report_says(self):
+        # Framework 0.382.0 (VS16): the report names the page the game chose, empty for none; a report from before says nothing, and waits.
+        std = {**STANDARD, 'lines': [{'line': 'VS16', 'label': 'a schematic page', 'status': 'built', 'kinds': ['land'], 'schematic': True}]}
+        paged = _vehicle('Test_Truck', 'PhobosVehicleLoadout_Truck', ['Electrical'], [])
+        paged['schematic'] = 'PhobosVehicleSchematic_PistonLand'
+        bare = _vehicle('Test_Tank', 'PhobosVehicleLoadout_Tracked', ['Electrical'], [])
+        bare['schematic'] = ''
+        old = _vehicle('Test_Old', 'PhobosVehicleLoadout_Truck', ['Electrical'], [])
+        found = vehicle_bindings.below_standard({'vehicles': [paged, bare, old]}, std)
+        self.assertEqual([('Test_Tank', ['a schematic page'])], [(f['vehicle'], f['lacks']) for f in found['belowStandard']])
+
     def test_the_shipped_standard_reads(self):
         std = vehicle_bindings.standard()
         self.assertTrue(std['lines'])
