@@ -2,6 +2,23 @@
 <LanguageData>
   <!-- Mod settings. -->
   <PhobosRadio_SettingsCategory>D'thorga Radio Framework</PhobosRadio_SettingsCategory>
+  <!-- The settings window's pages and their headings (Radio 0.72.1). -->
+  <PhobosRadio_PageGeneral>General</PhobosRadio_PageGeneral>
+  <PhobosRadio_PageColonists>Colonists on the air</PhobosRadio_PageColonists>
+  <PhobosRadio_PageStations>Stations and noise</PhobosRadio_PageStations>
+  <PhobosRadio_PageCalling>Calling other people</PhobosRadio_PageCalling>
+  <PhobosRadio_PageWorldMap>HF on the world map</PhobosRadio_PageWorldMap>
+  <PhobosRadio_SectionDisplay>Display</PhobosRadio_SectionDisplay>
+  <PhobosRadio_SectionMapScale>Map scale</PhobosRadio_SectionMapScale>
+  <PhobosRadio_SectionQsl>QSL cards</PhobosRadio_SectionQsl>
+  <PhobosRadio_SectionMood>Mood</PhobosRadio_SectionMood>
+  <PhobosRadio_SectionTalk>Talk</PhobosRadio_SectionTalk>
+  <PhobosRadio_SectionNoise>Noise</PhobosRadio_SectionNoise>
+  <PhobosRadio_SectionDesk>The radio desk</PhobosRadio_SectionDesk>
+  <PhobosRadio_SectionRelays>Relay masts</PhobosRadio_SectionRelays>
+  <PhobosRadio_SectionAdvice>Advice by radio</PhobosRadio_SectionAdvice>
+  <PhobosRadio_SectionFactions>Other factions</PhobosRadio_SectionFactions>
+  <PhobosRadio_SectionPictures>Pictures</PhobosRadio_SectionPictures>
   <PhobosRadio_SettingDisplayMode>How much of the maths to show</PhobosRadio_SettingDisplayMode>
   <PhobosRadio_DisplayModePlain>Plain</PhobosRadio_DisplayModePlain>
   <PhobosRadio_DisplayModePlainDesc>Signal bars and a plain-English reason. Radio just works.</PhobosRadio_DisplayModePlainDesc>

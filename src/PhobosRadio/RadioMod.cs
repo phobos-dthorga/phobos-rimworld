@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using HarmonyLib;
+using Phobos.Framework;
 using Phobos.Shared;
 using UnityEngine;
 using Verse;
@@ -113,9 +114,12 @@ public class RadioSettings : ModSettings
     }
 }
 
-public class RadioMod : Mod
+public class RadioMod : SettingsBookMod
 {
     public static RadioSettings Settings { get; private set; } = new();
+
+    /// <summary>Every setting's default, read by the settings pages and the setup wizard.</summary>
+    static readonly RadioSettings Defaults = new();
 
     /// <summary>The radio's log, through D'thorga Framework's shared logger (adopted in Radio 0.45.0).</summary>
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Radio Framework");
@@ -126,6 +130,7 @@ public class RadioMod : Mod
     public RadioMod(ModContentPack content) : base(content)
     {
         ContentPack = content;
+        AddSettingsPages();
         Settings = GetSettings<RadioSettings>();
         // Radio 0.53.0: the radio's own patches (the raid warning), each switched off by itself if its target is gone.
         HarmonyPatchApplier.ApplyEach(new Harmony(content.PackageId), typeof(RadioMod).Assembly, "[D'thorga Radio Framework]");
@@ -138,7 +143,7 @@ public class RadioMod : Mod
     /// <summary>The settings D'thorga Framework's setup wizard offers (Radio 0.55.0), with the labels this mod's settings window shows.</summary>
     void RegisterSetup()
     {
-        var defaults = new RadioSettings();
+        RadioSettings defaults = Defaults;
         Phobos.Framework.Setup.SetupSettings.Choice("radio.metresPerCell", this,
             () => "PhobosRadio_SetupMetresLabel".Translate(),
             () => "PhobosRadio_SettingMetresPerCellDesc".Translate(), () => Settings.metresPerCell, x => Settings.metresPerCell = x,
@@ -163,84 +168,121 @@ public class RadioMod : Mod
     void Tick(string id, string key, System.Func<bool> get, System.Action<bool> set, bool byDefault) =>
         Phobos.Framework.Setup.SetupSettings.Tick(id, this, () => key.Translate(), () => (key + "Desc").Translate(), get, set, byDefault);
 
-    public override string SettingsCategory() => "PhobosRadio_SettingsCategory".Translate();
+    static readonly SettingsBook SettingsPages = SettingsBook.For("PhobosDthorga.RadioFramework", () => "PhobosRadio_SettingsCategory".Translate());
+    protected override SettingsBook Book => SettingsPages;
 
-    public override void DoSettingsWindowContents(Rect inRect)
+    /// <summary>
+    /// The settings window as every other D'thorga mod lays it out (Radio 0.72.1; the owner's choice of 20 Nov 2026 for every mod, which the
+    /// radio, then on the back burner, had waited for): pages down the left, search over every page, Changed only, and a reset per page.
+    /// The single list it replaced had no scroll, so the settings below the window's edge could be found by search but never reached.
+    /// </summary>
+    void AddSettingsPages()
     {
-        var listing = new Listing_Standard();
-        listing.Begin(inRect);
-        listing.Label("PhobosRadio_SettingDisplayMode".Translate());
-        foreach (DisplayMode mode in System.Enum.GetValues(typeof(DisplayMode)))
-        {
-            if (listing.RadioButton(("PhobosRadio_DisplayMode" + mode).Translate(), Settings.displayMode == mode, 8f,
-                    ("PhobosRadio_DisplayMode" + mode + "Desc").Translate()))
-            {
-                Settings.displayMode = mode;
-            }
-        }
-        listing.Gap();
-        listing.Label("PhobosRadio_SettingMetresPerCell".Translate(Settings.metresPerCell.ToString("0.0").Named("METRES")),
-            tooltip: "PhobosRadio_SettingMetresPerCellDesc".Translate());
-        Settings.metresPerCell = Mathf.Round(listing.Slider(Settings.metresPerCell, 0.5f, 30f) * 2f) / 2f;
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosRadio_SettingInTouchThought".Translate(), ref Settings.inTouchThought,
+        SettingsPages.Join(this)
+            .Add(new SettingsPage("general", 0f, () => "PhobosRadio_PageGeneral".Translate(), DrawGeneral))
+            .Add(new SettingsPage("colonists", 10f, () => "PhobosRadio_PageColonists".Translate(), DrawColonists))
+            .Add(new SettingsPage("stations", 20f, () => "PhobosRadio_PageStations".Translate(), DrawStations))
+            .Add(new SettingsPage("calling", 30f, () => "PhobosRadio_PageCalling".Translate(), DrawCalling))
+            .Add(new SettingsPage("worldmap", 40f, () => "PhobosRadio_PageWorldMap".Translate(), DrawWorldMap));
+    }
+
+    static void DrawGeneral(SettingsList list)
+    {
+        RadioSettings s = Settings;
+        list.Section("PhobosRadio_SectionDisplay".Translate());
+        list.Radio("PhobosRadio_SettingDisplayMode".Translate(), ref s.displayMode, Defaults.displayMode,
+            (DisplayMode[])System.Enum.GetValues(typeof(DisplayMode)), m => ("PhobosRadio_DisplayMode" + m).Translate(),
+            m => ("PhobosRadio_DisplayMode" + m + "Desc").Translate());
+        list.Section("PhobosRadio_SectionMapScale".Translate());
+        list.Slider("PhobosRadio_SettingMetresPerCell".Translate(s.metresPerCell.ToString("0.0").Named("METRES")), ref s.metresPerCell,
+            Defaults.metresPerCell, 0.5f, 30f, "PhobosRadio_SettingMetresPerCellDesc".Translate(), x => Mathf.Round(x * 2f) / 2f);
+        // Radio 0.62.0: the colony's own callsign on its QSL cards; empty works one out.
+        list.Section("PhobosRadio_SectionQsl".Translate());
+        CallsignRow(list, s);
+    }
+
+    /// <summary>The callsign's text box: a row the page draws itself, so it resets itself too.</summary>
+    static void CallsignRow(SettingsList list, RadioSettings s)
+    {
+        if (list.Resetting) s.ownCallsign = Defaults.ownCallsign;
+        string label = "PhobosRadio_SettingOwnCallsign".Translate();
+        string tip = "PhobosRadio_SettingOwnCallsignDesc".Translate();
+        if (list.CustomRow(label, tip, s.ownCallsign != Defaults.ownCallsign, CallsignRowHeight) is not { } row) return;
+        Text.Anchor = TextAnchor.MiddleLeft;
+        Widgets.Label(row.LeftHalf(), label);
+        Text.Anchor = TextAnchor.UpperLeft;
+        s.ownCallsign = Phobos.Radio.Physics.QslRule.CleanCallsign(Widgets.TextField(row.RightHalf().ContractedBy(0f, 3f), s.ownCallsign));
+        list.Note(tip);
+    }
+
+    const float CallsignRowHeight = 30f;
+
+    static void DrawColonists(SettingsList list)
+    {
+        RadioSettings s = Settings;
+        list.Section("PhobosRadio_SectionMood".Translate());
+        list.Check("PhobosRadio_SettingInTouchThought".Translate(), ref s.inTouchThought, Defaults.inTouchThought,
             "PhobosRadio_SettingInTouchThoughtDesc".Translate());
         // Radio 0.63.0: colonists talk on the air by themselves, on until turned off.
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosRadio_SettingTalkOnAir".Translate(), ref Settings.talkOnAir, "PhobosRadio_SettingTalkOnAirDesc".Translate());
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosRadio_SettingTerminalNoise".Translate(), ref Settings.terminalNoise,
+        list.Section("PhobosRadio_SectionTalk".Translate());
+        list.Check("PhobosRadio_SettingTalkOnAir".Translate(), ref s.talkOnAir, Defaults.talkOnAir, "PhobosRadio_SettingTalkOnAirDesc".Translate());
+    }
+
+    static void DrawStations(SettingsList list)
+    {
+        RadioSettings s = Settings;
+        list.Section("PhobosRadio_SectionNoise".Translate());
+        list.Check("PhobosRadio_SettingTerminalNoise".Translate(), ref s.terminalNoise, Defaults.terminalNoise,
             "PhobosRadio_SettingTerminalNoiseDesc".Translate());
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosRadio_SettingDeskWaterfall".Translate(), ref Settings.deskWaterfall,
+        // Radio 0.45.0: a jammer's noise drowns radios nearby, on until turned off.
+        list.Check("PhobosRadio_SettingJammingReachesRadios".Translate(), ref s.jammingReachesRadios, Defaults.jammingReachesRadios,
+            "PhobosRadio_SettingJammingReachesRadiosDesc".Translate());
+        list.Section("PhobosRadio_SectionDesk".Translate());
+        list.Check("PhobosRadio_SettingDeskWaterfall".Translate(), ref s.deskWaterfall, Defaults.deskWaterfall,
             "PhobosRadio_SettingDeskWaterfallDesc".Translate());
+        // Radio 0.37.0: relay masts wear and can be raided, off until turned on.
+        list.Section("PhobosRadio_SectionRelays".Translate());
+        list.Check("PhobosRadio_SettingRelayMastLosses".Translate(), ref s.relayMastLosses, Defaults.relayMastLosses,
+            "PhobosRadio_SettingRelayMastLossesDesc".Translate());
+    }
+
+    static void DrawCalling(SettingsList list)
+    {
+        RadioSettings s = Settings;
+        list.Section("PhobosRadio_SectionAdvice".Translate());
         // Radio 0.23.0: a riskier kind of advice by radio has its own switch, on until turned off.
         foreach (RadioAdviceDef advice in DefDatabase<RadioAdviceDef>.AllDefsListForReading)
         {
             if (!advice.ownSetting) continue;
-            bool on = !Settings.adviceOff.Contains(advice.defName);
-            listing.Gap();
-            listing.CheckboxLabeled(advice.settingLabel, ref on, advice.settingDescription);
-            if (on) Settings.adviceOff.Remove(advice.defName);
-            else if (!Settings.adviceOff.Contains(advice.defName)) Settings.adviceOff.Add(advice.defName);
+            bool on = !s.adviceOff.Contains(advice.defName);
+            if (!list.Check(advice.settingLabel ?? advice.LabelCap.ToString(), ref on, true, advice.settingDescription)) continue;
+            if (on) s.adviceOff.Remove(advice.defName);
+            else if (!s.adviceOff.Contains(advice.defName)) s.adviceOff.Add(advice.defName);
         }
         // Radio 0.26.0: another faction's doctor by radio, on until turned off.
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosRadio_SettingFactionAdvice".Translate(), ref Settings.factionAdvice,
+        list.Check("PhobosRadio_SettingFactionAdvice".Translate(), ref s.factionAdvice, Defaults.factionAdvice,
             "PhobosRadio_SettingFactionAdviceDesc".Translate());
+        list.Section("PhobosRadio_SectionFactions".Translate());
         // Radio 0.36.0: neighbours asking for help by radio, on until turned off.
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosRadio_SettingNeighbourCalls".Translate(), ref Settings.neighbourCalls,
+        list.Check("PhobosRadio_SettingNeighbourCalls".Translate(), ref s.neighbourCalls, Defaults.neighbourCalls,
             "PhobosRadio_SettingNeighbourCallsDesc".Translate());
-        // Radio 0.37.0: relay masts wear and can be raided, off until turned on.
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosRadio_SettingRelayMastLosses".Translate(), ref Settings.relayMastLosses,
-            "PhobosRadio_SettingRelayMastLossesDesc".Translate());
         // Radio 0.53.0: calling other factions by radio.
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosRadio_SettingAlliesWarnOfRaids".Translate(), ref Settings.alliesWarnOfRaids,
+        list.Check("PhobosRadio_SettingAlliesWarnOfRaids".Translate(), ref s.alliesWarnOfRaids, Defaults.alliesWarnOfRaids,
             "PhobosRadio_SettingAlliesWarnOfRaidsDesc".Translate());
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosRadio_SettingListenersAmbushTraders".Translate(), ref Settings.listenersAmbushTraders,
+        list.Check("PhobosRadio_SettingListenersAmbushTraders".Translate(), ref s.listenersAmbushTraders, Defaults.listenersAmbushTraders,
             "PhobosRadio_SettingListenersAmbushTradersDesc".Translate());
-        // Radio 0.45.0: a jammer's noise drowns radios nearby, on until turned off.
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosRadio_SettingJammingReachesRadios".Translate(), ref Settings.jammingReachesRadios,
-            "PhobosRadio_SettingJammingReachesRadiosDesc".Translate());
         // Radio 0.64.0: the comms console needs the radio's reach (S3), off until turned on.
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosRadio_SettingConsoleNeedsReach".Translate(), ref Settings.consoleNeedsReach,
+        list.Check("PhobosRadio_SettingConsoleNeedsReach".Translate(), ref s.consoleNeedsReach, Defaults.consoleNeedsReach,
             "PhobosRadio_SettingConsoleNeedsReachDesc".Translate());
-        // Radio 0.71.0: HF's world-map pictures, each off until picked.
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosRadio_SettingHfGreyLine".Translate(), ref Settings.hfGreyLine, "PhobosRadio_SettingHfGreyLineDesc".Translate());
-        listing.CheckboxLabeled("PhobosRadio_SettingHfSkipRings".Translate(), ref Settings.hfSkipRings, "PhobosRadio_SettingHfSkipRingsDesc".Translate());
-        listing.CheckboxLabeled("PhobosRadio_SettingHfFlareWash".Translate(), ref Settings.hfFlareWash, "PhobosRadio_SettingHfFlareWashDesc".Translate());
-        // Radio 0.62.0: the colony's own callsign on its QSL cards; empty works one out.
-        listing.Gap();
-        Settings.ownCallsign = Phobos.Radio.Physics.QslRule.CleanCallsign(listing.TextEntryLabeled("PhobosRadio_SettingOwnCallsign".Translate(),
-            Settings.ownCallsign));
-        listing.Label("PhobosRadio_SettingOwnCallsignDesc".Translate());
-        listing.End();
+    }
+
+    static void DrawWorldMap(SettingsList list)
+    {
+        RadioSettings s = Settings;
+        // Radio 0.71.0 and 0.72.0: HF's world-map pictures, each off until picked.
+        list.Section("PhobosRadio_SectionPictures".Translate());
+        list.Check("PhobosRadio_SettingHfGreyLine".Translate(), ref s.hfGreyLine, Defaults.hfGreyLine, "PhobosRadio_SettingHfGreyLineDesc".Translate());
+        list.Check("PhobosRadio_SettingHfSkipRings".Translate(), ref s.hfSkipRings, Defaults.hfSkipRings, "PhobosRadio_SettingHfSkipRingsDesc".Translate());
+        list.Check("PhobosRadio_SettingHfFlareWash".Translate(), ref s.hfFlareWash, Defaults.hfFlareWash, "PhobosRadio_SettingHfFlareWashDesc".Translate());
     }
 }

@@ -9,7 +9,7 @@
     <ModFolder>PhobosRadioFramework</ModFolder>
     <!-- Radio 0.53.0: one Harmony patch, the raid warning's (Services/RadioNews.cs); D'thorga Framework already needs Harmony. -->
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.72.0</Version>
+    <Version>0.72.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- D'thorga Framework, for its building upgrades (Radio 0.4.0); Private=false: its DLL ships only in its own mod. -->

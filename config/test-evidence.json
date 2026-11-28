@@ -533,6 +533,7 @@
     "793": [{"key": "vehicles.schematic.opened", "detail": "PhobosVehicleSchematic_ElectricLand"}],
     "794": {"parts": {"the boiler cutaway": [{"key": "vehicles.schematic.cutaway", "detail": "PhobosVehicleSchematic_Steam"}], "the water level": ["vehicles.schematic.level"]}},
     "802": [{"key": "vehicles.schematic.opened", "detail": "PhobosVehicleSchematic_TurbineLand"}],
+    "803": {"parts": {"a search across the pages": [{"key": "framework.settings-pages", "variant": "search", "detail": "PhobosDthorga.RadioFramework"}], "changed only": [{"key": "framework.settings-pages", "variant": "changed only", "detail": "PhobosDthorga.RadioFramework"}], "a page reset to its defaults": [{"key": "framework.settings-pages", "variant": "reset", "detail": "PhobosDthorga.RadioFramework"}]}},
     "777": {"parts": {"the turbine cutaway": [{"key": "vehicles.schematic.cutaway", "detail": "PhobosVehicleSchematic_TurbineAircraft"}], "the heat gradient": ["vehicles.schematic.heat"]}},
     "776": ["vehicles.schematic.order"],
     "775": {"parts": {"the Schematic tab": ["vehicles.schematic.tab"], "a lamp opens it at its part": ["vehicles.schematic.from-lamp"]}},

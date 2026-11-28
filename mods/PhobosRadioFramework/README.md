@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.72.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.72.1, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -155,7 +155,9 @@ An upgrade can be taken off again for about half its materials back.
 
 ## Settings
 
-In **Options > Mod settings > D'thorga Radio Framework**.
+In **Options > Mod settings > D'thorga Radio Framework**, laid out like the other D'thorga mods' settings: pages down the left
+(General, Colonists on the air, Stations and noise, Calling other people, HF on the world map), a search box over every page, a
+**Changed only** tick, and a button that puts one page back to its defaults.
 
 | Setting | What it does | Default |
 | --- | --- | --- |

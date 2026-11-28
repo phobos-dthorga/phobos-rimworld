@@ -23,6 +23,17 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.72.1] - 2026-11-28 - Draft
+
+Settings you can reach
+
+### Fixed
+
+- **The settings window is laid out like the other D'thorga mods' windows** (the owner's report of 28 November 2026): pages down the
+  left, search over every page, Changed only and a reset per page. The old single list had no scroll, so the settings past the
+  window's edge (the comms console, the three world-map pictures and the callsign) could be found by search but never reached.
+  Every setting keeps its saved value. Not yet tested in game.
+
 ## [0.72.0] - 2026-11-28 - Draft
 
 The radio's own solar flare
