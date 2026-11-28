@@ -10,7 +10,7 @@
     <ModFolder>PhobosRadioFramework</ModFolder>
     <TieInFolder>Mods/IRBM/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.74.0</Version>
+    <Version>0.75.0</Version>
     <!-- IRBM targets .NET Framework 4.8, and the game loads it whatever it declares, so the mismatch only matters to the compiler's check. -->
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>

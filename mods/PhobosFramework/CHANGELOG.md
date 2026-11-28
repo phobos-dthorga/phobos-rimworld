@@ -22,6 +22,21 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.385.0] - 2026-11-28 - Draft
+
+A jamming jet's choice of radar, radios or both
+
+### Added
+
+- **A jamming jet chooses what its pods jam: radar, radios or both** (the owner's card of 28 November 2026, [electronic warfare](https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/development/electronic-warfare.md),
+  EW4). Radios turn the pods to the radio bands and stop their radar effects; both shares them half and half, unless a separate radio
+  jammer is fitted, which then takes the radios. Without D'thorga Radio Framework every jet jams radar, as before. The first user is the
+  EA-6B Prowler, through D'thorga Patches. Not yet tested in game: row 815.
+
+### For modders
+
+- **A jam field may name the frequencies its radio watts cover**, and a fitting granting CommsJammer is a separate radio jammer.
+
 ## [0.384.0] - 2026-11-28 - Draft
 
 An aircraft's radar size

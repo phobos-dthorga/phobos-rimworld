@@ -13,6 +13,15 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.135.1] - 2026-11-28 - Draft
+
+The ICAP III's radio jammer
+
+### Changed
+
+- **The Prowler's ICAP III suite carries its radio jammer** ([electronic warfare](https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/development/electronic-warfare.md), EW4): set to jam radar and radios both, its
+  radio jammer takes the radios and the pods keep their full strength on radar. Its description says so. Not yet tested in game: row 815.
+
 ## [0.135.0] - 2026-11-28 - Draft
 
 The Busbar's exhaust turbo-generator

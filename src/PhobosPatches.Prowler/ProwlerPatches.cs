@@ -33,7 +33,7 @@ public class ProwlerPatchesMod : SettingsBookMod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.50.0";
+    public const string ModVersion = "0.51.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public const string RealisticHandlingFlag = "PhobosProwlerPatches.realisticHandling";
 
@@ -47,6 +47,7 @@ public class ProwlerPatchesMod : SettingsBookMod
         HarmonyPatchApplier.ApplyEach(new Harmony(PackageId), typeof(ProwlerPatchesMod).Assembly, LogPrefix);
         LongEventHandler.ExecuteWhenFinished(ProwlerSalvo.Register);
         LongEventHandler.ExecuteWhenFinished(ProwlerJamFields.Register);
+        LongEventHandler.ExecuteWhenFinished(ProwlerJamButton.Register);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
 
@@ -58,6 +59,7 @@ public class ProwlerPatchesMod : SettingsBookMod
         else report.Off("its dodge following its flight controls", "its code has changed");
         if (ProwlerJamFields.Found) report.On("its jamming fields blind other factions' vehicles' radar and warning receivers");
         else report.Off("its jamming fields blinding other vehicles' radar", "its code has changed");
+        if (ProwlerJamFields.Found && AircraftJamming.RadiosHeard) report.On("a Jamming button: radar, radios or both");
         if (ProwlerJamReachPatch.Found) report.On("the ICAP upgrades widen its jamming field");
         else report.Off("the ICAP upgrades widening its jamming field", "its code has changed");
         const string handling = "realistic handling (the Prowler's speeds by the real EA-6B's)";
@@ -124,7 +126,9 @@ public static class ProwlerSalvo
 /// The ICAP upgrades widen the Prowler's jamming field (owner, 22 Nov 2026; docs/development/ea6b-prowler.md): its own mod works the field's
 /// radius in Jammer.EffectiveRadius (from its loadout, its damage and its operators), and every use of the field reads it there, so a
 /// postfix multiplies it by the vehicle's fittings' jamming factor (VehicleFittings.JamRadiusFactor: 1 with none fitted, so a stock jet is
-/// untouched). It only ever widens or keeps the author's figure, never skips it.
+/// untouched). Since Patches 0.51.0 (EW4) it also takes the share of the pods the player left on radar (AircraftJamming.RadarReachFactor):
+/// 1 on radar, the default and always without D'thorga Radio Framework; √½ on both; 0 on radios alone, when the author's own effects stop,
+/// as his code reads every distance against this radius (a radius of 0 covers nothing). It never skips the author's figure.
 /// </summary>
 [HarmonyPatch]
 public static class ProwlerJamReachPatch
@@ -138,6 +142,8 @@ public static class ProwlerJamReachPatch
     public static void Postfix(VehiclePawn vehicle, ref float __result)
     {
         if (__result <= 0f || vehicle?.GetComp<CompPhobosVehicleSystems>() is not { Usable: true } systems) return;
-        __result *= systems.Fittings.JamRadiusFactor;
+        // Patches 0.51.0 (EW4): and by the share of its pods left on radar: all of it on radar, √½ on both, none on radios alone, when
+        // the author's turret, shield and power effects stop too. Radar always while D'thorga Radio Framework is not installed.
+        __result *= systems.Fittings.JamRadiusFactor * AircraftJamming.RadarReachFactor(systems);
     }
 }

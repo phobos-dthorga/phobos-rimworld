@@ -44,6 +44,16 @@
     <callOutMode>PhobosRadio_ControlData</callOutMode>
     <callOutReplyDbm>-90</callOutReplyDbm>
     <callOutNoiseFigureDb>8</callOutNoiseFigureDb>
+    <!-- The radio jamming pod for any aircraft (Radio 0.75.0; docs/development/electronic-warfare.md, EW10), all authored: 150 W sent out
+         over 30 to 512 MHz (low military VHF, the air band, 2 m, military UHF and 70 cm; never HF, whose wavelengths a pod's aerial is far
+         too short for), its place over a map rounded to an 8-cell grid. Jammers in flight over the world map are read again every 250 ticks
+         (EW3). -->
+    <jamPodRadiatedWatts>150</jamPodRadiatedWatts>
+    <jamPodMHz>
+      <li>30~512</li>
+    </jamPodMHz>
+    <jamPodGridCells>8</jamPodGridCells>
+    <worldJammerRefreshTicks>250</worldJammerRefreshTicks>
 
     <!-- The coverage overlay shown while a base station or an antenna is selected. Performance is this mod's first concern, so
          these bound its cost: real time per frame, the quick first pass's block size. All authored; measure and tune. -->

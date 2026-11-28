@@ -20,16 +20,22 @@ public readonly struct JamField
     public readonly float radius;
     public readonly Faction? faction;
     public readonly Thing? source;
-    /// <summary>Watts sent out across the radio bands; 0 for a field that jams radar only (the EA-6B Prowler's, for now).</summary>
+    /// <summary>Watts sent out across the radio bands; 0 for a field that jams radar only (the EA-6B Prowler's set to radar, its default).</summary>
     public readonly float radioWatts;
+    /// <summary>
+    /// The frequencies, in MHz, that <see cref="radioWatts"/> is spread over (Framework 0.385.0; docs/development/electronic-warfare.md, EW4): the
+    /// Prowler's pods by their real bands. Null for every band the radio knows (the Busbar's mast, a barrage jammer).
+    /// </summary>
+    public readonly IReadOnlyList<FloatRange>? radioMHz;
 
-    public JamField(Vector3 centre, float radius, Faction? faction, Thing? source, float radioWatts = 0f)
+    public JamField(Vector3 centre, float radius, Faction? faction, Thing? source, float radioWatts = 0f, IReadOnlyList<FloatRange>? radioMHz = null)
     {
         this.centre = centre;
         this.radius = radius;
         this.faction = faction;
         this.source = source;
         this.radioWatts = radioWatts;
+        this.radioMHz = radioMHz;
     }
 }
 

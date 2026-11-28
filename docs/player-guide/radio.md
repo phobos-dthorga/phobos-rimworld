@@ -17,7 +17,7 @@ This is the first step, local radio on one map. [Back to the guide](README.md).
 - **The upgrades are experimental**: the desk, whip and mast each have an **Upgrades** button.
 - **Decide Metres per map cell before a colony** (default 1). It changes every contact's range.
 - **A jammer switched to radios drowns your own radios too**, remote-driven vehicles included: switch the Busbar's jammer mast to radar
-  or off while your own trucks are out ([Jamming](#jamming)).
+  or off, the Prowler to radar, and an aircraft's radio jamming pod off, while your own trucks are out ([Jamming](#jamming)).
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a radio together. **One carried in the
   inventory works just as well** (a Combat Extended loadout puts it there), and leaves the belt slot free.
 - **A call is heard only while someone listens** (from 0.73.0): tick **Radio watch** for someone, keep hand-helds in touch, or fit
@@ -354,9 +354,18 @@ and the **Morse key** fitting to a convoy vehicle that has the remote control ki
 
 ## Jamming
 
-**A jammer switched to radios floods the radio bands with noise, and every radio for a long way around hears it, yours as well.** For
-now the one jammer that does is the Busbar generator set's **jammer mast**, switched to **radios** or **radar and radios** with its
-**Jammer** button ([working vehicles](working-vehicles.md#busbar-generator-set)).
+**A jammer switched to radios floods the radio bands with noise, and every radio for a long way around hears it, yours as well.** Three
+jammers do:
+
+| Jammer | How to switch it to radios | What it covers |
+| --- | --- | --- |
+| The Busbar generator set's **jammer mast** | Its **Jammer** button: **radios** or **radar and radios** ([working vehicles](working-vehicles.md#busbar-generator-set)) | Every band |
+| A **radio jamming pod** on any aircraft (a fitting, on the self-protection pod's pylon: one or the other) | Its own switch on the aircraft, **off** to begin with; it jams only in the air | VHF and UHF, **never HF** |
+| The **EA-6B Prowler** (with D'thorga Patches) | Its **Jams** button: **radios** or **radar and radios**. On radios alone its turret, shield and power jamming stops; with the **ICAP III** suite, radar and radios keeps its pods on radar at full strength | The real pods' bands: 2 m, the air band, 70 cm |
+
+- **Calls between places are jammed too**: a station whose map has a jammer on, and anywhere under an aircraft with its pod switched
+  on, flying over that place on the world map (holding station or passing over), hears the noise, so convoys, faraway advice, medevac and
+  faction calls can fail there. A relay outside the jammed ground is the way round.
 
 - **What fails, in order**: a remote vehicle's video link first (its remote guns fall silent), then speech, then a vehicle's control
   link; **Morse lasts longest**. A radio-linked turret stops firing; **a turret linked by coax is untouched**.

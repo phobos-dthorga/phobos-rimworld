@@ -481,6 +481,13 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// </summary>
     public bool OpenToColony = true;
 
+    /// <summary>
+    /// What a jamming aircraft's pods jam (Framework 0.385.0; docs/development/electronic-warfare.md, EW4): radar, as before, by default. Read
+    /// through <see cref="AircraftJamming"/>, which treats it as radar while D'thorga Radio Framework is not installed; set through
+    /// <see cref="AircraftJamming.SetChoice"/>. Saved by name.
+    /// </summary>
+    public GroundJamMode AircraftJamChoice = GroundJamMode.Radar;
+
     /// <summary>Another faction's vehicle has had its one roll for arriving hotboxed (Framework 0.292.0: saved, so a load never rolls again).</summary>
     public bool RaiderHotboxRolled;
 
@@ -760,6 +767,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Scribe_Values.Look(ref PartLayout, "PhobosVehicleSystems_PartLayout", 0, forceSave: true);
         Scribe_Values.Look(ref WindowsDown, "PhobosVehicleSystems_WindowsDown", false);
         Scribe_Values.Look(ref OpenToColony, "PhobosVisit_OpenToColony", true);
+        Scribe_Values.Look(ref AircraftJamChoice, "PhobosJam_AircraftChoice", GroundJamMode.Radar);
         Scribe_Values.Look(ref RaiderHotboxRolled, "PhobosLifeAboard_RaiderRolled", false);
         Scribe_Values.Look(ref serviceRequested, "PhobosVehicleSystems_ServiceRequested", false);
         Scribe_Values.Look(ref RefuelFromCargo, "PhobosVehicleSystems_RefuelFromCargo", false);

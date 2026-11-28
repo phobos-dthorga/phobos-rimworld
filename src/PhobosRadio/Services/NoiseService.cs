@@ -93,6 +93,16 @@ public sealed class NoiseService
 
     private static double SpanHz(BandDef band) => (band.highMHz - band.lowMHz) * 1e6;
 
+    /// <summary>The width a jammer spreads its power over: its bands' widths together, or every band's for null (Radio 0.75.0: shared with
+    /// jammers over a world tile, EW3, so the two sums cannot disagree).</summary>
+    internal static double SpanOf(IReadOnlyList<BandDef>? bands)
+    {
+        if (bands == null) return AllBandsSpanHz;
+        double span = 0;
+        foreach (var band in bands) span += SpanHz(band);
+        return span;
+    }
+
     /// <summary>
     /// Changes whenever the snapshot holds different sources (one switched on or off, built, moved or gone), so a picture drawn from
     /// an earlier snapshot knows to redraw. Equal snapshots give equal signatures.
@@ -128,15 +138,8 @@ public sealed class NoiseService
         RadioJamming.Collect(map, collected);
         foreach (var jammer in collected)
         {
-            HashSet<BandDef>? bands = null;
-            double span;
-            if (jammer.Bands == null) span = AllBandsSpanHz;
-            else
-            {
-                bands = new HashSet<BandDef>(jammer.Bands);
-                span = 0;
-                foreach (var band in bands) span += SpanHz(band);
-            }
+            HashSet<BandDef>? bands = jammer.Bands == null ? null : new HashSet<BandDef>(jammer.Bands);
+            var span = SpanOf(jammer.Bands);
             if (span <= 0) continue;
             jams.Add(new Jam(jammer.Cell, Decibels.FromWatts(jammer.RadiatedWatts), span, bands));
             signature = unchecked(signature * 31 + Gen.HashCombineInt(jammer.Cell.GetHashCode(), (int)jammer.RadiatedWatts) + (bands?.Count ?? -1));

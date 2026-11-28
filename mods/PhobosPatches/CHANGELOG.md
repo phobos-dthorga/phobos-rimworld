@@ -21,6 +21,16 @@ says the owner tested it.
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.51.0] - 2026-11-28 - Draft
+
+The Prowler's Jamming button
+
+### Added
+
+- **The EA-6B Prowler has a Jamming button: radar, radios or both** (the owner's card of 28 November 2026, [electronic warfare](https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/development/electronic-warfare.md),
+  EW4), shown while D'thorga Radio Framework is installed. On radios its pods jam the real pods' radio bands and its own turret, shield
+  and power effects stop; with the ICAP III suite, both keeps the pods on radar at full strength. Not yet tested in game: row 815.
+
 ## [0.50.0] - 2026-11-28 - Draft
 
 The strike reaches everyone, at once

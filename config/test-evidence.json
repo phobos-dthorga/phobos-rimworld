@@ -487,6 +487,9 @@
     }},
     "811": ["radio.radar-datalink"],
     "812": ["radio.radar-inbound"],
+    "814": [{"key": "radio.jam-pod", "variant": "over a map"}],
+    "815": {"parts": {"radios": [{"key": "vehicles.aircraft-jam-choice", "variant": "Radios"}], "both": [{"key": "vehicles.aircraft-jam-choice", "variant": "Both"}]}},
+    "816": {"parts": {"a jammed end": [{"key": "radio.jamming-world", "variant": "near end"}, {"key": "radio.jamming-world", "variant": "far end"}], "a pod overhead": [{"key": "radio.jam-pod", "variant": "holding"}, {"key": "radio.jam-pod", "variant": "transit"}]}},
     "784": ["radio.qsl-card-area"],
     "797": {"parts": {
       "the wall shows its cards": ["radio.qsl-wall"],

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Phobos.Radio.Physics;
 using Verse;
@@ -104,7 +105,8 @@ public static class LinkBudgetService
     /// A link between two ends on different world tiles (Radio 0.21.0, phase 2's first step; EM33): free space over the distance between the
     /// tiles (the greater of free space and plane earth since 0.22.0), both directions as on a map, and nothing past the radio horizon of the
     /// two antennas, each lifted by its tile's ground (Propagation.SiteHeightMetres). No walls or local noise between tiles: a quiet rural
-    /// floor at each end (simplifications, labelled in the radio's records). Since Radio 0.41.0 the high ground between the two tiles costs
+    /// floor at each end (simplifications, labelled in the radio's records), save for jamming since 0.75.0 (EW3): each end hears its map's
+    /// jammers and any jammer flying over its tile. Since Radio 0.41.0 the high ground between the two tiles costs
     /// signal inside the horizon (<paramref name="terrainFigure"/>, from <see cref="WorldTerrain.Between"/>; nothing by default).
     /// <b>A contact between two tiles goes through the overload that takes the tiles</b>, which reads the ground between them; this one is
     /// the arithmetic, for a caller that has read the ground already (the world map's picture).
@@ -151,11 +153,22 @@ public static class LinkBudgetService
                 floorB = HfService.FloorWithAtmosphereDbm(floorAtB, band, tb, mode.bandwidthHz);
             }
             else WorldLosses(distanceMetres, band, heightA, heightB, terrainFigure, rules, out pathLoss, out obstruction);
-            var forward = new LinkDirection(Inputs(a.Side(band), b.Side(band), pathLoss, obstruction, floorB, mode));
-            var reverse = new LinkDirection(Inputs(b.Side(band), a.Side(band), pathLoss, obstruction, floorA, mode));
+            // Radio 0.75.0 (EW3): the jamming at each end, its map's jammers and any overhead, through its own antenna and cable.
+            var sideA = a.Side(band);
+            var sideB = b.Side(band);
+            var jamAtA = WorldEndJammingDbm(a, tileA, band, mode.bandwidthHz, sideA);
+            var jamAtB = WorldEndJammingDbm(b, tileB, band, mode.bandwidthHz, sideB);
+            var forward = new LinkDirection(Inputs(sideA, sideB, pathLoss, obstruction, NoiseFloor.WithJammingDbm(floorB, jamAtB), mode));
+            var reverse = new LinkDirection(Inputs(sideB, sideA, pathLoss, obstruction, NoiseFloor.WithJammingDbm(floorA, jamAtA), mode));
             var budget = new LinkBudget(forward, reverse, rules.MarginBands);
             if (best == null || budget.MarginDb > best.MarginDb)
-                best = new LinkEvaluation(a, b, band, mode, budget, metres, double.NegativeInfinity, double.NegativeInfinity);
+                best = new LinkEvaluation(a, b, band, mode, budget, metres, double.NegativeInfinity, double.NegativeInfinity, jamAtA, jamAtB);
+        }
+        if (best != null && (!double.IsNegativeInfinity(best.JammingAtADbm) || !double.IsNegativeInfinity(best.JammingAtBDbm)))
+        {
+            var variant = !double.IsNegativeInfinity(best.JammingAtADbm) ? "near end" : "far end";
+            if (Seen.Wants("radio.jamming-world", a.Thing, variant))
+                Seen.Note("radio.jamming-world", a.Thing, best.Band.label + ", margin " + best.MarginDb.ToString("0.0") + " dB", variant);
         }
         if (best != null && best.Band.path == BandPath.Hf && best.InTouch && Seen.Wants("radio.hf-ground-wave", a.Thing, best.Band.defName))
             Seen.Note("radio.hf-ground-wave", a.Thing, best.Band.label + ", " + (best.DistanceMetres / 1000.0).ToString("0") + " km, margin "
@@ -194,6 +207,39 @@ public static class LinkBudgetService
     /// <summary>The same between two relay nodes, each with its tile and its site.</summary>
     public static LinkEvaluation? EvaluateWorld(RelayNode a, RelayNode b, RadioRulesDef rules, ModeDef? mode = null) =>
         EvaluateWorld(a.End, a.Tile, a.SiteMetres, b.End, b.Tile, b.SiteMetres, rules, out _, mode);
+
+    private static readonly List<WorldRadioJammer> overheadScratch = new();
+
+    /// <summary>
+    /// Jamming at one end of a link between tiles, at its receiver's input on one band, in dBm, or −∞ (Radio 0.75.0; docs/development/
+    /// electronic-warfare.md, EW3). An end on a map hears its map's jammers as a call on the map would (the net's last noise snapshot, which
+    /// already holds nothing while the setting is off); any end hears a jammer flying over its tile, at the jammer's height above it. Cheap
+    /// when nothing jams: the snapshot says so at once, and the jammers overhead are an empty list read at most every few seconds.
+    /// </summary>
+    private static double WorldEndJammingDbm(RadioEndpoint end, RimWorld.Planet.PlanetTile? tile, BandDef band, double bandwidthHz, in EndSide side)
+    {
+        if (!RadioMod.Settings.jammingReachesRadios) return double.NegativeInfinity;
+        double milliwatts = 0;
+        var map = end.Thing.MapHeld;
+        if (map != null && RadioJamming.Any && RadioNet.For(map) is { } net && net.Noise.JammerCount > 0)
+            milliwatts += Decibels.ToMilliwatts(net.Noise.JammingDbm(end.Cell, RadioMod.Settings.metresPerCell, bandwidthHz, band));
+        var at = tile ?? map?.Tile;
+        if (at is { } overTile)
+        {
+            overheadScratch.Clear();
+            RadioJamming.Overhead(overTile, overheadScratch);
+            foreach (var jammer in overheadScratch)
+            {
+                if (jammer.Bands != null && !jammer.Bands.Contains(band)) continue;
+                var span = NoiseService.SpanOf(jammer.Bands);
+                if (span <= 0) continue;
+                milliwatts += Decibels.ToMilliwatts(Jamming.AtAntennaDbm(Decibels.FromWatts(jammer.RadiatedWatts), span, bandwidthHz,
+                    System.Math.Max(1.0, jammer.HeightMetres), band.centreMHz));
+            }
+            overheadScratch.Clear();
+        }
+        return milliwatts <= 0 ? double.NegativeInfinity : JammingAtInputDbm(Decibels.MilliwattsToDbm(milliwatts), side);
+    }
 
     /// <summary>
     /// Jamming at a receiver's input from what reaches its antenna (Radio 0.45.0, EW1): through its antenna's gain, less its cable and

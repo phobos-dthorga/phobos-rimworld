@@ -271,6 +271,10 @@ flowchart LR
 - [Radar and air defence, as built](radar-and-air-defence.md#slices-1-and-2-as-built-28-nov-2026) (Radio 0.74.0): the radar data
   link shares a radar's picture with another colony whose base stations its own reach by radio, relays and repeaters included, so a radar
   on a hill or at an outpost warns a colony elsewhere; the link holds a place at each relay it passes, as a call does.
+- [Electronic warfare, slice 4](electronic-warfare.md#slice-4-pods-the-prowlers-bands-and-world-links-28-nov-2026) (Radio 0.75.0, EW3):
+  jamming now reaches calls between tiles at each end, from a jammer on that end's map or an aircraft jamming over its tile, so **a relay
+  outside the jammed ground is the way round**: each hop is weighed on its own, and only the hops whose ends are jammed suffer. A relay
+  inside it is jammed like any other end.
 
 ### The rules
 

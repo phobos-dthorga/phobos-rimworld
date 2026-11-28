@@ -1400,6 +1400,18 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// radar when it jams both (the rest jams radios). Radar reach falls with the square root of that share, as a one-way field does.</summary>
     public float groundJammerRadioEfficiency = 0.5f;
     public float groundJammerBothRadarShare = 0.5f;
+    /// <summary>
+    /// A jamming jet's choice of radar, radios or both (Framework 0.385.0; docs/development/electronic-warfare.md, EW4): the watts its pods send
+    /// out on radios (authored: no public figure was found), the frequencies they cover (the EA-6B's pods' bands 1 and 3, 64 to 150 and 270 to
+    /// 500 MHz: Wikipedia, "AN/ALQ-99", citing Teal Group, 2022), and the share on radar when it jams both (authored, as the Busbar's). Its
+    /// separate communications jammer (the ICAP III's AN/USQ-113): watts authored; its bands were not found, so 30 to 500 MHz is assumed
+    /// (unverified).
+    /// </summary>
+    public float jetJammerRadioWatts = 1000f;
+    public List<FloatRange> jetJammerRadioMHz = new();
+    public float jetJammerBothRadarShare = 0.5f;
+    public float commsJammerRadioWatts = 300f;
+    public List<FloatRange> commsJammerRadioMHz = new();
     /// <summary>The generator set's battery drive (Framework 0.104.0, the hybrid; all authored, BatteryDriveRule): the share of its speed it
     /// keeps on the battery, the buffer's watt-days one cell costs (a full 150 carries 300 cells), and the watts the running engine puts back
     /// into the buffer while the set is not set up.</summary>

@@ -1,13 +1,16 @@
 # Electronic warfare for every aircraft and vehicle: the Prowler's jamming meets the radio (27 Nov 2026)
 
-**Status (27 Nov 2026):** the owner opened the radio's Phase 3 the same day. **Slice 1 is built**: EW2 (noise by bandwidth), EW1
+**Status (28 Nov 2026):** the owner opened the radio's Phase 3 the same day. **Slice 1 is built**: EW2 (noise by bandwidth), EW1
 (jamming as noise) and EW11 (the Busbar mast's switch), in Radio Framework 0.45.0, D'thorga Framework 0.355.0 and D'thorga Vehicles
 0.130.1 ([as built](#built-slice-1-27-nov-2026)); not yet tested in game (rows 706 to 708). **Slice 2 is built**: EW18 (jam the
 call), in Radio Framework 0.46.0 ([as built](#built-slice-2-27-nov-2026)); not yet tested in game (row 709). **Slice 3 is begun**: EW6
 (radio bays on aircraft) is built as batch 1 of [the vehicle standard](vehicle-standard.md#built-batch-1-27-nov-2026), with the real
 aviation bands the owner chose, in Radio Framework 0.49.0 and D'thorga Framework 0.356.0 (rows 710 and 711). **EW7 is built** (the flying
 relay, holding station and in transit, the owner's card), in Radio Framework 0.50.0 and D'thorga Framework 0.357.0 ([as
-built](#built-slice-3-the-flying-relay-27-nov-2026); row 715). Every other row is a
+built](#built-slice-3-the-flying-relay-27-nov-2026); row 715). **Slice 4 is built** (28 Nov 2026, the owner's card): EW10 (a radio
+jamming pod for any aircraft), EW4 (the Prowler's choice of radar, radios or both) and EW3 (jamming on links between tiles), in Radio
+Framework 0.75.0, D'thorga Framework 0.385.0, D'thorga Patches 0.51.0 and D'thorga Vehicles 0.135.1 ([as built](#slice-4-as-built));
+not yet tested in game (rows 814 to 816). Every other row is a
 proposal; the radar simulation is a sketch only. The owner answered seven questions by card ([below](#questions-for-the-owner)).
 
 **A research record.** The owner, 27 November 2026: "I would especially like to make the Prowler aircraft and any knock on effects
@@ -320,7 +323,7 @@ Each setting, when built, is reported to the owner in the reply that delivers it
 | 1 | EW2, EW1, EW11 | The term itself, with the jammer the player already owns. **Built 27 Nov 2026** |
 | 2 | EW18 | The first thing outside our mods to notice. **Built 27 Nov 2026** |
 | 3 | EW6, EW7 | Radios on aircraft, and the flying relay. **Built 27 Nov 2026**: EW6 with the aviation bands (the vehicle standard's batch 1), then EW7 |
-| 4 | EW10, EW4, EW3 | Pods for other aircraft; the Prowler's bands; world links |
+| 4 | EW10, EW4, EW3 | Pods for other aircraft; the Prowler's bands; world links. **Built 28 Nov 2026** ([as built](#slice-4-as-built)) |
 | 5 | EW12 | Direction finding, once there are emitters worth finding |
 | 6 | EW21, EW22 | Other mods' jammers and drones, one mod at a time |
 | 7 | EW16 | Raiders' Prowlers, behind its setting |
@@ -400,6 +403,65 @@ is searched, as the convoy source makes; the hold, one path count and one fuel s
 
 **Not built:** a hold ordered from the ground before take-off (launch toward the place, then order it in flight); a lower loiter burn; a
 crewless aircraft asking a real control link (EW9).
+
+## Slice 4: pods, the Prowler's bands and world links (28 Nov 2026)
+
+On the owner's card of 28 Nov 2026 (the nap list: "Electronic warfare, slice 4"). Written before it was built, as the radio's performance
+rule asks; what differs once built is under [as built](#slice-4-as-built). The radar session's jamming by the sum (RD5, its slice 3) is
+not built: this slice keeps today's flat radius for radar, and RD5 will build on it ([radar and air defence](radar-and-air-defence.md)).
+
+| Row | As designed [A] |
+| --- | --- |
+| EW10, the pod | A **radio jamming pod**, a fitting for any aircraft on the self-protection pod's pylon (one or the other). It jams only in the air and only while its **switch** is on: a toggle load that starts **off**, as our own jamming drowns our own radios too (the owner's card 2). It sends **150 W** across **30 to 512 MHz** [authored]: the VHF and UHF bands, low military VHF, the air band and military UHF; **never HF**, as a pod's aerial is far too short for HF's wavelengths (physics sets the kit). It lives in the radio's Vehicle Framework folder: without the radio it would jam nothing |
+| EW4, the Prowler's bands | A **Jamming** button on the player's Prowler while the radio is installed: **radar** (as before, the default), **radios**, or **both**. Radios: its pods send **1,000 W** [authored] over the real pods' **band 1 (64 to 150 MHz) and band 3 (270 to 500 MHz)** (Wikipedia, "AN/ALQ-99", citing Teal Group); its radar field shrinks to nothing, so the author's turret and shield effects stop. Both: half each, the radar field to √0.5 of its reach (as the Busbar's). **ICAP III** adds the communications jammer (AN/USQ-113): **300 W** [authored; its bands **unverified**: 30 to 500 MHz assumed], so with it "both" keeps the pods at full strength on radar and the radio jammer takes the radios |
+| EW3, world links | A link between two world tiles hears the **jamming at each end**: for an end on a map, its map's jammers as a call on the map would (the noise snapshot, through its antenna and cable); for any end, an **aircraft jamming overhead**: one with a pod switched on, in flight on the world map over that tile (holding station, or passing), at its cruising height as the distance. Under **Jamming reaches radios**, as everything else here |
+
+**The four questions.** **Lets** the player jam a raid's radios from any aircraft, choose what the Prowler blinds, and cut a base off from
+the world from overhead. **Stops** jamming both at full strength without ICAP III, and calls out of a jammed place. **Changes** a strike's
+escort, and the worth of a relay outside the jammed ground. **Noticed by** whoever is under it: every link on the map and between tiles
+(convoys, advice, medevac, faction calls), the link sheet's "jamming drowns the signal", and the defenders under the Prowler.
+
+**Risk** (the agent's grade): moderate, as for EW1: a link lost at a bad moment, our own included, seen on the link sheet; nobody lost.
+Under the existing setting **Jamming reaches radios** (on); the pod's own switch starts off. No new setting.
+
+**Its cost, before building** [A]:
+
+- **The pod on a map**: one more source in the noise snapshot, which already runs about once a second: one pass over the map's pawns,
+  a type check and a grant lookup each. Its place is rounded to an **8-cell grid** [authored], so the noise signature, and with it a shown
+  coverage picture, changes only when it crosses a grid line, never every pass. Nothing per tick or frame.
+- **The Prowler**: no new pass. Its field gains watts and a band list, read where its field already is (at most once a second); its
+  button only while it is selected.
+- **World links**: per link and per band, one map lookup at each end with a map (nothing more where the map has no jammer: the snapshot
+  says so at once), and one look at a list of jammers overhead, read again at most every **250 ticks** [authored] by one pass over the
+  world's objects, and empty in almost every game. A relay search evaluates many links; each pays this, nothing else.
+- **Measured, never assumed**: a `scripts/perf.py` recording on the owner's colony, asked for first, with a coverage picture shown and a
+  pod overhead.
+
+### Slice 4, as built
+
+Built in Radio Framework 0.75.0, D'thorga Framework 0.385.0, D'thorga Patches 0.51.0 and D'thorga Vehicles 0.135.1, as designed above.
+**Not yet tested in game**: rows 814 to 816 of the [test pass](in-game-test-pass.md). Only what the design leaves open is written here.
+
+| Piece | As built [A] |
+| --- | --- |
+| The choice (EW4) | Saved on the vehicle's systems (`AircraftJamChoice`, key `PhobosJam_AircraftChoice`), read through D'thorga Framework's `AircraftJamming`, which treats it as radar while the radio is not installed, so a jet set to radios before the radio was removed keeps jamming radar. The split is a tested rule, `JamFieldRule.Share` and `RadarReach` |
+| How the Prowler follows it | D'thorga Patches' existing postfix on the author's `Jammer.EffectiveRadius` takes the radar share as well as the ICAP factor, so his own turret, shield and power effects shrink with it (on radios alone his radius is 0, which every distance check of his reads as covering nothing); `ProwlerJamFields` yields the radio fields beside it, the communications jammer's as a second field with no radar reach. **The button** comes through D'thorga Framework's pawn commands (no patch on the author's buttons), on the player's Prowler while the radio is installed. **Off is not offered**: the author's own targeting decides when it jams |
+| The communications jammer | A grant, `CommsJammer`, on the ICAP III fitting, powered as its suite is; D'thorga Framework's rules hold its watts and its assumed bands |
+| Bands from frequencies | A jam field names the frequencies its watts cover; the radio turns them into bands once per list of ranges (`RadioJamming.BandsIn`): a band whose centre lies in a range is covered whole (a labelled simplification) |
+| The pod (EW10) | A toggle load (`radioJammerPod`, off), with its own switch button on the aircraft from the vehicle systems' switched loads, drawing only in the air (`When_Airborne`); it works while its feed is met (`Feeds.Works`) and the aircraft is in the air on the map (`OnMapFlight.Airborne`): our flight, the Hind's or the Harrier's. **It borrows the self-protection pod's picture** until its own is drawn |
+| World links (EW3) | `LinkBudgetService.EvaluateWorld` adds each end's jamming on each band before the sum, so every caller (relay chains, convoys, advice, medevac, faction and trade calls, the world map's picture) follows; the link sheet's figures carry it, so the plain reason reads **jamming drowns the signal**. An end on a map reads its map's last noise snapshot at its own cell; any end reads the jammers over its tile at their height, free space at the band's centre |
+
+**Relays.** A call between tiles is weighed hop by hop, so **a relay outside the jammed ground is the way round**: only the hops whose
+ends are jammed suffer, and a relay inside it is jammed as any end is ([relays](radio-advice-and-relays.md#relays), which links back here).
+
+**Other factions' vehicles.** A raid: no faction fields the pod yet, and another faction's Prowler keeps its default, radar, until EW16
+(raiders' Prowlers, behind its setting, off) chooses for it; another faction's pod, were one fitted, would always have power, as Feeds never
+refuses another faction. A base we attack: the same. One we capture: a captured Prowler keeps its saved choice, radar by default; a
+captured aircraft with a pod has its switch off until the player turns it on.
+
+**Not built:** a world-map ring of another mod's jammer over a tile (EW21, The Dead Man's Switch Expedition's jammer station, with its own
+tie-in); the Prowler jamming over the world map; the Busbar's mast covering every band, HF included, is left as it was (a barrage jammer
+that names no bands), which the radar record's jamming by the sum (RD5) may revisit.
 
 ## Questions for the owner
 

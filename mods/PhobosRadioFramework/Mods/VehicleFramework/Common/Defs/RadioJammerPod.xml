@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The radio jamming pod for any aircraft (Radio 0.75.0; docs/development/electronic-warfare.md, EW10; the owner's card of 28 Nov 2026,
+       "Electronic warfare, slice 4"). It hangs on the pylon the self-protection pod uses, so an aircraft carries one or the other. It jams
+       only in the air and only while its switch is on: the switch starts off, as our own jamming drowns our own radios too (the owner's card
+       of 27 Nov 2026, "noise is noise"). What it sends out and over which bands is the radio's rules (Rules.xml: 150 W over 30 to 512 MHz,
+       authored); Phobos.Radio.Vehicles.RadioJammerPods reads it. It lives in the radio's folder: without the radio it would jam nothing.
+       Its draw (25 A at 12 V, about 300 W for 150 W sent out, as the Busbar mast's half), weight, materials, work and skill are authored. It
+       borrows the self-protection pod's picture until its own icon is drawn. Not yet tested in game. -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_RadioJammerPod</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/EcmPod</iconPath>
+    <label>radio jamming pod</label>
+    <description>A jamming pod on a pylon that floods the radio bands with noise below the aircraft: every radio under it, ours as well, hears less. Calls, remote-driven vehicles and radio-linked turrets fail, the video link first; a radio close to its station still gets through, and Morse lasts longest. It covers the VHF and UHF bands but never HF, whose waves are far too long for its aerials. It works only in the air, only while switched on, and only with power; it takes the pylon the self-protection pod uses.</description>
+    <roles><li>EcmPodMount</li></roles>
+    <kinds><li>Aircraft</li></kinds>
+    <materials><Steel>25</Steel><ComponentIndustrial>6</ComponentIndustrial><ComponentSpacer>1</ComponentSpacer></materials>
+    <kilograms>120</kilograms>
+    <work>6000</work>
+    <minSkill>8</minSkill>
+    <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+    <grants><li>RadioJammerPod</li></grants>
+    <loads>
+      <li>
+        <name>radioJammerPod</name>
+        <label>radio jamming pod</label>
+        <description>The radio jamming pod's transmitters. Switched on, it jams radios below the aircraft whenever it is in the air, ours included, and draws only then.</description>
+        <amps>25</amps>
+        <toggle>true</toggle>
+        <defaultOn>false</defaultOn>
+        <shedOrder>3</shedOrder>
+        <iconPath>Phobos/VehicleSystems/Fittings/EcmPod</iconPath>
+        <when Class="Phobos.VehicleSystems.When_Airborne" />
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TwelveVoltShare" />
+        </ampsInputs>
+      </li>
+    </loads>
+    <feed>
+      <load>radioJammerPod</load>
+    </feed>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

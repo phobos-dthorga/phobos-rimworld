@@ -43,18 +43,20 @@
     <!-- ICAP III: contract March 1998, first flight 16 Nov 2001 (secondary: CRS RL30639; the US Navy's fact file), first deployed 2005 with VAQ-139
          and first in combat in February 2006 (primary: VAQ-139's history, airpac.navy.mil). The ALQ-218 receiver for selective-reactive
          jamming, which jams only the emitters it hears, and the USQ-113 communications jammer. Here: the field 25 % wider (authored), full
-         navigation and a warning receiver. The communications jammer is not modelled (our radio work is set aside). -->
+         navigation and a warning receiver. The communications jammer is modelled since D'thorga Vehicles 0.135.1 with Framework 0.385.0
+         (docs/development/electronic-warfare.md, EW4): its CommsJammer grant lets the jet jam radar and radios both with its pods kept on radar
+         at full strength (its watts and bands are D'thorga Framework's rules; its bands are unverified). -->
     <defName>PhobosFitting_ProwlerIcapIII</defName>
     <iconPath>Phobos/Vehicles/Fittings/ProwlerIcapIII</iconPath>
     <label>ICAP III suite</label>
-    <description>The Prowler's last suite, first deployed in 2005: a receiver that hears each enemy emitter and jams only those it hears, with a radio jammer beside it. While it has power, its jamming field reaches about a quarter further, it navigates by satellite, and it always knows when a radar has it.</description>
+    <description>The Prowler's last suite, first deployed in 2005: a receiver that hears each enemy emitter and jams only those it hears, with a radio jammer beside it. While it has power, its jamming field reaches about a quarter further, it navigates by satellite, and it always knows when a radar has it. Set to jam radar and radios both, its radio jammer takes the radios, so the pods keep their full strength on radar.</description>
     <roles><li>EwReceivers</li></roles>
     <loadouts><li>PhobosVehicleLoadout_Prowler</li></loadouts>
     <materials><Steel>10</Steel><ComponentIndustrial>6</ComponentIndustrial><ComponentSpacer>3</ComponentSpacer></materials>
     <work>12000</work>
     <minSkill>10</minSkill>
     <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
-    <grants><li>ProwlerIcapIII</li></grants>
+    <grants><li>ProwlerIcapIII</li><li>CommsJammer</li></grants>
     <jamRadiusFactor>1.25</jamRadiusFactor>
     <parameterFloors>
       <li><system>PhobosVehicleSystem_Avionics</system><parameter>navigationFull</parameter><value>1</value></li>

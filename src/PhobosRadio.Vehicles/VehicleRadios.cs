@@ -57,6 +57,9 @@ public static class VehicleRadios
         RadarTargets.Register((IMapRadarTargetSource)radarAircraft);
         // Radio 0.45.0 (EW1): D'thorga Framework's jam fields that send out radio watts (the Busbar's mast, switched to radios) are noise.
         RadioJamming.Register(JammersFromFields);
+        // Radio 0.75.0 (EW10, EW3): the radio jamming pod, over a map in the air and over a world tile in flight.
+        RadioJamming.Register(RadioJammerPods.OnMap);
+        RadioJamming.RegisterWorld(RadioJammerPods.Overhead);
         // Radio 0.42.0: a convoy is a place the world map's cover picture can be drawn for, and the picture's raised mast is the Datum's.
         WorldCover.Register(new ConvoyCoverSites());
         // Radio 0.44.0: the in-touch mood on the road reads a caravan's kept reach home, never working it out.
@@ -98,7 +101,8 @@ public static class VehicleRadios
     {
         foreach (var field in JamFields.On(map))
         {
-            if (field.radioWatts > 0f) yield return new RadioJammer(field.centre.ToIntVec3(), field.radioWatts, null, field.source);
+            // Radio 0.75.0 (EW4): over the bands its frequencies cover (the Prowler's pods by their real bands); all of them when it names none.
+            if (field.radioWatts > 0f) yield return new RadioJammer(field.centre.ToIntVec3(), field.radioWatts, RadioJamming.BandsIn(field.radioMHz), field.source);
         }
     }
 

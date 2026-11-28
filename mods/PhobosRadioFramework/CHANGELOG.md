@@ -23,6 +23,24 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.75.0] - 2026-11-28 - Draft
+
+Jamming pods, the Prowler's bands and jammed world links
+
+### Added
+
+- **A radio jamming pod for any aircraft** (the owner's card of 28 November 2026, [electronic warfare](https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/development/electronic-warfare.md), EW10): a fitting on the
+  pylon the self-protection pod uses. In the air with its switch on, it floods the VHF and UHF bands below it with noise, ours included;
+  never HF. Its switch starts off. Not yet tested in game: row 814.
+- **Jamming reaches links between world tiles** (EW3): each end hears its own map's jammers, and any aircraft with a pod switched on
+  flying over its tile, holding station or passing. Convoys, advice, medevac and faction calls all follow, and the link sheet says
+  jamming drowns the signal. Not yet tested in game: row 816.
+
+### Changed
+
+- **A jammer covers only the bands its frequencies reach** (EW4): the Prowler's pods jam the real pods' bands, which hold the 2 m band,
+  the air band and the 70 cm band; a jammer naming none, as the Busbar's mast, still jams every band.
+
 ## [0.74.0] - 2026-11-28 - Draft
 
 Radar: stations, a scope and early warning

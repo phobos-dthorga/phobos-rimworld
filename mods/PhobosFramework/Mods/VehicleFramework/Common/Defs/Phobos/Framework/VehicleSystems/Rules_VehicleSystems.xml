@@ -205,6 +205,20 @@
          it draws (400 W across the radio bands); jamming both, half its power goes to radar (a field of about 13 cells) and half to radios. -->
     <groundJammerRadioEfficiency>0.5</groundJammerRadioEfficiency>
     <groundJammerBothRadarShare>0.5</groundJammerBothRadarShare>
+    <!-- A jamming jet's choice of radar, radios or both (Framework 0.385.0; docs/development/electronic-warfare.md, EW4). Its pods on radios send
+         out 1,000 W (authored: no public figure was found) over the EA-6B's real pods' bands 1 and 3 (Wikipedia, "AN/ALQ-99", citing Teal
+         Group, 2022), which cover the 2 m band, the air band and the 70 cm band; on both, half each (authored). The ICAP III's separate
+         communications jammer (the AN/USQ-113): 300 W (authored), over 30 to 500 MHz (its bands were not found: unverified). -->
+    <jetJammerRadioWatts>1000</jetJammerRadioWatts>
+    <jetJammerRadioMHz>
+      <li>64~150</li>
+      <li>270~500</li>
+    </jetJammerRadioMHz>
+    <jetJammerBothRadarShare>0.5</jetJammerBothRadarShare>
+    <commsJammerRadioWatts>300</commsJammerRadioWatts>
+    <commsJammerRadioMHz>
+      <li>30~500</li>
+    </commsJammerRadioMHz>
     <!-- The generator set's battery drive (Framework 0.104.0, the hybrid; all authored): on the battery it keeps 0.35 of its speed (a slow
          creep), a cell costs 0.5 watt-days of the buffer (the buffer node's 150 carry it 300 cells, the design's "a few hundred"), and the
          running engine puts 400 W back into the buffer while the set is not set up (a full buffer in about nine game hours). -->

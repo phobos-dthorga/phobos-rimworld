@@ -76,7 +76,7 @@ public static class GeneratorGizmos
     }
 
     /// <summary>The jammer mast's picture, the upgrade's own icon in D'thorga Vehicles; the switch falls back to ours if it is missing.</summary>
-    const string JammerIcon = "Phobos/Vehicles/GeneratorSet/Upgrades/JammerMast";
+    internal const string JammerIcon = "Phobos/Vehicles/GeneratorSet/Upgrades/JammerMast";
 
     /// <summary>
     /// The jammer mast's switch (Framework 0.355.0; docs/development/electronic-warfare.md, EW11): radar, radios, both or off, from a menu.
@@ -103,6 +103,35 @@ public static class GeneratorGizmos
                     string label = ("PhobosJam_Mode" + mode).Translate().Resolve();
                     if (mode == set.JamMode) label = "PhobosJam_ModeCurrent".Translate(label.Named("MODE")).Resolve();
                     options.Add(new FloatMenuOption(label, () => set.SetJamMode(chosen), icon, Color.white));
+                }
+                Find.WindowStack.Add(new FloatMenu(options));
+            },
+        };
+    }
+
+    /// <summary>
+    /// A jamming aircraft's choice of radar, radios or both (Framework 0.385.0; docs/development/electronic-warfare.md, EW4). Offered only
+    /// while the radio is installed: without it the only choice is radar. Borrows the jammer mast's picture until the jet has its own.
+    /// </summary>
+    public static Gizmo AircraftJamButton(CompPhobosVehicleSystems systems)
+    {
+        Texture2D icon = SystemIcons.For(JammerIcon);
+        GroundJamMode now = AircraftJamming.ChoiceOf(systems);
+        string current = ("PhobosJam_Mode" + now).Translate().Resolve();
+        return new Command_Action
+        {
+            defaultLabel = "PhobosJam_AircraftChoiceGizmo".Translate(current.Named("MODE")).Resolve(),
+            defaultDesc = "PhobosJam_AircraftChoiceGizmoDesc".Translate().Resolve(),
+            icon = icon,
+            action = () =>
+            {
+                var options = new List<FloatMenuOption>();
+                foreach (GroundJamMode mode in AircraftJamming.Choices)
+                {
+                    GroundJamMode chosen = mode;
+                    string label = ("PhobosJam_Mode" + mode).Translate().Resolve();
+                    if (mode == now) label = "PhobosJam_ModeCurrent".Translate(label.Named("MODE")).Resolve();
+                    options.Add(new FloatMenuOption(label, () => AircraftJamming.SetChoice(systems, chosen), icon, Color.white));
                 }
                 Find.WindowStack.Add(new FloatMenu(options));
             },

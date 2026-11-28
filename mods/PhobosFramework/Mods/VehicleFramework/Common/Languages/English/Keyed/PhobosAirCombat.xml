@@ -64,6 +64,16 @@ Off: the mast draws nothing.</PhobosJam_ModeGizmoDescRadarOnly>
   <PhobosJam_ModeCurrent>{MODE} (now)</PhobosJam_ModeCurrent>
   <PhobosJam_ModeSet>The {VEHICLE}'s jammer mast now jams {MODE}.</PhobosJam_ModeSet>
   <PhobosJam_ModeSetOff>The {VEHICLE}'s jammer mast is switched off.</PhobosJam_ModeSetOff>
+  <!-- A jamming aircraft's choice (Framework 0.385.0, EW4). -->
+  <PhobosJam_AircraftChoiceGizmo>Jams: {MODE}</PhobosJam_AircraftChoiceGizmo>
+  <PhobosJam_AircraftChoiceGizmoDesc>Choose what the jamming pods jam when the aircraft is sent to jam a place.
+
+Radar: as the pods always have: turrets, shields and powered buildings under it falter, and enemy aircraft and vehicles lose their radar and their warning of attack.
+
+Radios: the pods turn to the radio bands instead. Every radio under it is drowned in noise, ours as well: calls, remote-driven vehicles and radio-linked turrets fail, the video link first, while a radio close to its station still gets through and Morse lasts longest. Turrets, shields and power are left alone.
+
+Radar and radios: each at half strength, the radar reaching about seven tenths as far. With a separate radio jammer fitted, the pods stay on radar at full strength and the radio jammer takes the radios.</PhobosJam_AircraftChoiceGizmoDesc>
+  <PhobosJam_AircraftChoiceSet>The {VEHICLE}'s jamming pods now jam {MODE}.</PhobosJam_AircraftChoiceSet>
   <!-- Inside a hostile jamming field (Framework 0.225.0). -->
   <PhobosJam_Jammed>The {VEHICLE} is being jammed: its radar shows only noise and its warning receiver is swamped. Both come back once it is out of the jamming.</PhobosJam_Jammed>
   <PhobosAirCombat_SkyClosed>The sky here is closed: the defenders' air defence is on alert, and the {VEHICLE} would be shot down on take-off. It opens again once their alert ends.</PhobosAirCombat_SkyClosed>

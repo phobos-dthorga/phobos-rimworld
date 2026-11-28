@@ -358,6 +358,16 @@ public class RadioRulesDef : Def
     public ModeDef? callOutMode;
     public float callOutReplyDbm = -90f;
     public float callOutNoiseFigureDb = 8f;
+    /// <summary>
+    /// The radio jamming pod for any aircraft (Radio 0.75.0; docs/development/electronic-warfare.md, EW10), all authored: the watts it sends
+    /// out, the frequencies it covers (30 to 512 MHz: VHF and UHF, never HF, as a pod's aerial is far too short for HF's wavelengths), and the
+    /// grid its place is rounded to over a map, in cells, so a pod crossing the map changes the noise picture only at each grid line.
+    /// </summary>
+    public float jamPodRadiatedWatts = 150f;
+    public List<FloatRange> jamPodMHz = new();
+    public int jamPodGridCells = 8;
+    /// <summary>How often the jammers in flight over the world map are read again, in ticks (Radio 0.75.0, EW3; authored).</summary>
+    public int worldJammerRefreshTicks = 250;
 
     // The coverage overlay (Radio 0.2.0). Performance is the mod's first concern: these bound what it costs.
     /// <summary>Signal to spare, in dB, at which the overlay reaches its brightest colour. Authored from the mock-up's open ground.</summary>
