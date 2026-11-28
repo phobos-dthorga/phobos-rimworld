@@ -471,7 +471,13 @@
     "782": ["radio.console-needs-reach"],
     "783": ["radio.hf-mast"],
     "788": ["radio.carried-handheld"],
+    "796": ["framework.raid-hold-once"],
     "784": ["radio.qsl-card-area"],
+    "797": {"parts": {
+      "the wall shows its cards": ["radio.qsl-wall"],
+      "a certificate is posted": ["radio.qsl-certificate"],
+      "radio work in a ham shack": ["radio.ham-shack"]
+    }},
     "787": {"parts": {
       "the bureau brings the cards": ["radio.qsl-bureau"],
       "a colonist reads a card": ["radio.qsl-card-read"]
@@ -517,6 +523,7 @@
       "lit on the ground": [{"key": "vehicles.searchlight-lit", "variant": "on the ground"}]}},
     "745": [{"key": "vehicles.galley-caravan", "expect": {"meals": ">= 1"}}],
     "762": [{"key": "aircraft.control-held", "variant": "TakeoffRoll"}],
+    "790": {"parts": {"each engine its own heat": [{"key": "vehicles.schematic.engine-heat", "variant": "differs"}]}},
     "777": {"parts": {"the turbine cutaway": [{"key": "vehicles.schematic.cutaway", "detail": "PhobosVehicleSchematic_TurbineAircraft"}], "the heat gradient": ["vehicles.schematic.heat"]}},
     "776": ["vehicles.schematic.order"],
     "775": {"parts": {"the Schematic tab": ["vehicles.schematic.tab"], "a lamp opens it at its part": ["vehicles.schematic.from-lamp"]}},

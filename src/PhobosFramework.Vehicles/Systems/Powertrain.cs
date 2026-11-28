@@ -469,9 +469,43 @@ public sealed class Powertrain
 
     double Condition()
     {
-        float life = comp.TryGetQuantity("hotSectionLife", out float used) ? used : 0f;
-        double hotSection = life <= 1f ? 1 - 0.1 * life : Math.Max(0.6, 0.9 - 0.15 * (life - 1f));
-        return hotSection * CompressorFactor();
+        float life = comp.TryGetQuantity(HotSectionLifeQuantity, out float used) ? used : 0f;
+        return TurbineModel.HotSectionCondition(life) * CompressorFactor();
+    }
+
+    const string HotSectionLifeQuantity = "hotSectionLife";
+
+    // What the turbine was last worked through at, so one engine's temperature can be worked out when asked (Framework 0.382.0, F1). Derived,
+    // never saved: after a load the next look fills them.
+    TurbineSpec? lastTurbine;
+    double lastDemand, lastShare = 1, lastAir = 1;
+    bool lastRunning;
+
+    void Evaluated(TurbineSpec spec, double demand, double share, bool running, double air)
+    {
+        lastTurbine = spec;
+        lastDemand = demand;
+        lastShare = share;
+        lastRunning = running;
+        lastAir = air;
+    }
+
+    /// <summary>
+    /// Engine <paramref name="engine"/>'s own turbine temperature as shown (Framework 0.382.0; docs/development/vehicle-schematic.md, F1): the
+    /// whole's demand against that engine's own hot section (TurbineModel.EngineShownTemperature), on a vehicle with two engines or more. False
+    /// with one engine, or before the turbine has been worked through. Read by the schematic's engine tabs; limits and wear keep the whole's.
+    /// </summary>
+    public bool TryEngineTemperature(int engine, out float shown)
+    {
+        shown = 0f;
+        if (lastTurbine == null || engineRoles.Length < 2 || engine < 0 || engine >= engineRoles.Length) return false;
+        float life = EngineFigures.TryRead(comp, HotSectionLifeQuantity, engine, out float own) ? own
+            : comp.TryGetQuantity(HotSectionLifeQuantity, out float all) ? all : 0f;
+        double condition = TurbineModel.HotSectionCondition(life) * CompressorFactor();
+        bool running = lastRunning && EngineOutputs()[engine] > 0;
+        double model = TurbineModel.Evaluate(lastTurbine, lastDemand, comp.Ambient, condition, lastShare, running, lastAir).Temperature;
+        shown = (float)TurbineModel.EngineShownTemperature(ShownTurbineTemperature, comp.Ambient, TurbineNow.Temperature, model);
+        return true;
     }
 
     /// <summary>Framework 0.300.0: what a fouled compressor leaves of the turbine's output (CompressorFoulingRule), 1 with the setting off or
@@ -626,7 +660,9 @@ public sealed class Powertrain
         {
             // Gap T-1 (Framework 0.132.0): what the engine gives to other things heats and wears the turbine as driving does.
             double demand = Spec.RatedPowerKw > 0 ? (Result.EnginePowerKw + (running ? comp.LedgerExtraKw : 0)) / Spec.RatedPowerKw : 0;
-            TurbineNow = TurbineModel.Evaluate(Turbine, demand, comp.Ambient, Condition(), EngineOutputShare(), running, comp.AirPressure);
+            double share = EngineOutputShare();
+            TurbineNow = TurbineModel.Evaluate(Turbine, demand, comp.Ambient, Condition(), share, running, comp.AirPressure);
+            Evaluated(Turbine, demand, share, running, comp.AirPressure);
         }
     }
 
@@ -710,6 +746,7 @@ public sealed class Powertrain
             flying = Math.Max(0, demand - shaft) / (1 + BleedShare);
             TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, condition, share, running, air);
         }
+        Evaluated(usable, demand, share, running, air);
         FlightDemand = running ? flying : 0;
         // Framework 0.250.0: the engine left running uses a rating kept for an engine out.
         if (running && usable.EngineOut && Seen.Wants("aircraft.engine-out-rating", vehicle)

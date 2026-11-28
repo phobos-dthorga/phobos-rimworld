@@ -22,6 +22,21 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.382.0] - 2026-11-28 - Draft
+
+The systems schematic finished: every engine's own heat, and pages for more kinds of vehicle
+
+### Added
+
+- **Each engine's tab on the aircraft schematic shows that engine's own heat**: engines sharing the work each run at the heat their
+  own hot section needs, so a worn engine reads hotter than its sound twin, and an engine that has stopped reads cold while the
+  others run. With all of them stopped, each cools as the whole does. Limits and wear still go by the whole engine set, as before.
+  Not yet tested in game: row 790.
+
+### Save compatibility
+
+- Safe for saves: nothing new is saved.
+
 ## [0.381.1] - 2026-11-28 - Draft
 
 One faulty mod never empties a person's buttons

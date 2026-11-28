@@ -290,8 +290,8 @@
     parts marked perEngine show that engine's own (its fuel pump, oil pump, sump, chip detector, hot section), the rest the aircraft's. The
     engine is drawn as a plain row of compressor, hot section and turbine, not a drawing of any real engine; since Framework 0.378.0 the three
     are tiles of one turboshaft section (scripts/art/draw_turboshaft_cutaway.py), its gas path in bands coloured by the gas's heat there
-    (SC8), the fuel meeting the burners' nozzle and the oil the rear bearing. Turbine temperature and
-    compressor fouling are one figure for the whole aircraft in our model (the record's F1), so every engine's tab shows the same. The
+    (SC8), the fuel meeting the burners' nozzle and the oil the rear bearing. Since Framework 0.382.0 each
+    engine's tab shows its own turbine temperature, from its own hot section (the record's F1); compressor fouling stays one figure. The
     inlet barrier shows only where it is fitted, the intake separator only where the aircraft has one, the gearbox only on aircraft with a
     rotor drive (helicopters, and the tiltrotor and turboprops our loadouts give one). Layout authored, on a 720 by 340 page.
   -->

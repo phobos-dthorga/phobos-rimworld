@@ -7,7 +7,8 @@ namespace Phobos.VehicleSystems;
 /// <summary>
 /// One engine's own figure of a quantity, wherever the vehicle keeps it for each engine (Framework 0.373.0; the systems schematic's engine
 /// tabs, docs/development/vehicle-schematic.md): each engine's fuel feed, oil level and oil pressure (<see cref="EngineFeeds"/>), its metal
-/// in the oil (<see cref="OilMetal"/>), and any quantity kept per part for the engines (<see cref="PartFigures"/>, such as hot-section life).
+/// in the oil (<see cref="OilMetal"/>), its turbine temperature (<see cref="Powertrain.TryEngineTemperature"/>, Framework 0.382.0), and any
+/// quantity kept per part for the engines (<see cref="PartFigures"/>, such as hot-section life).
 /// A vehicle that keeps one figure for all its engines has none here, and its readers fall back to that figure. Reads only.
 /// </summary>
 public static class EngineFigures
@@ -22,6 +23,8 @@ public static class EngineFigures
         IReadOnlyList<string> roles = Roles(comp);
         if (engine < 0 || engine >= roles.Count || roles.Count < 2) return false;
         if (EngineFeeds.IsReading(quantity)) return comp.EngineFeeds.TryReading(quantity, engine, out figure);
+        // Framework 0.382.0 (the record's F1): each engine's turbine temperature, from its own hot section.
+        if (quantity == Powertrain.TurbineTemperatureQuantity) return comp.Powertrain?.TryEngineTemperature(engine, out figure) ?? false;
         if (comp.PartsOf(roles[engine]).FirstOrDefault() is not VehicleComponent part) return false;
         if (quantity == OilMetal.EngineQuantity)
         {

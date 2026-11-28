@@ -100,6 +100,27 @@ public static class TurbineModel
     /// <summary>Air density at an ambient temperature, sea-level pressure (ideal gas).</summary>
     public static double Density(double ambient) => SeaLevelDensity * 288.15 / (273.15 + ambient);
 
+    /// <summary>
+    /// What a hot section's use leaves of the turbine's condition (moved here from the powertrain in Framework 0.382.0, unchanged): a tenth lost
+    /// over its first life, then 15 % a life more, down to 60 %. <paramref name="life"/> is lives used, 1 a full overhaul interval. AUTHORED.
+    /// </summary>
+    public static double HotSectionCondition(double life) => life <= 1 ? 1 - 0.1 * life : Math.Max(0.6, 0.9 - 0.15 * (life - 1));
+
+    /// <summary>
+    /// One engine's turbine temperature as shown (Framework 0.382.0; docs/development/vehicle-schematic.md, F1). Engines sharing a load each
+    /// give power in step with their output, so each works at the whole's demand against its own condition: a worn hot section runs hotter for
+    /// the same share, and an engine out is at the outside air. The shown figure keeps the whole's (which cools slowly after a stop) and moves
+    /// each engine's rise above the outside air by how its own model figure stands to the whole's. With the engines stopped every engine shows
+    /// the whole's. <paramref name="shownAll"/> is the whole's shown figure, <paramref name="modelAll"/> and <paramref name="modelEngine"/> the
+    /// model's figures for the whole and for the one engine. An approximation of torque-matched engines, labelled as such in the record.
+    /// </summary>
+    public static double EngineShownTemperature(double shownAll, double ambient, double modelAll, double modelEngine)
+    {
+        double rise = modelAll - ambient;
+        if (rise < 1) return shownAll;
+        return ambient + (shownAll - ambient) * Math.Max(0, modelEngine - ambient) / rise;
+    }
+
     /// <summary>An engine below this share of its working order is out (Framework 0.106.0's rule, kept).</summary>
     public const double EngineOutBelow = 0.2;
 

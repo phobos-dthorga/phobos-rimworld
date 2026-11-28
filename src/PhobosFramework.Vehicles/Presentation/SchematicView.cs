@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework;
 using Phobos.Framework.Interface;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
@@ -75,6 +76,16 @@ public sealed class SchematicView
         for (int i = 0; i < page.nodes.Count; i++) Fill(comp, page.nodes[i], view.Nodes[i], engine);
         view.Ambient = comp.Ambient;
         if (comp.TryGetQuantity(TurbineTemperatureQuantity, out float turbine)) view.TurbineTemperature = turbine;
+        // Framework 0.382.0 (the record's F1): on a page with engine tabs, the chosen engine's own heat.
+        if (page.HasEngineTabs && EngineFigures.TryRead(comp, TurbineTemperatureQuantity, engine, out float own))
+        {
+            string differs = System.Math.Abs(own - view.TurbineTemperature) > 1f ? "differs" : "same";
+            view.TurbineTemperature = own;
+            if (Seen.Wants("vehicles.schematic.engine-heat", comp.Vehicle, differs))
+            {
+                Seen.Note("vehicles.schematic.engine-heat", comp.Vehicle, page.defName, differs, new[] { new KeyValuePair<string, double>("engine", engine + 1) });
+            }
+        }
         if (comp.Powertrain?.Turbine is { } spec) view.TurbineLimit = (float)spec.Top.TemperatureLimit;
         for (int i = 0; i < page.pipes.Count; i++)
         {

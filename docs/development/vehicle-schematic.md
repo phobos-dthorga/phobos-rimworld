@@ -4,8 +4,8 @@
 sheet for land vehicles with a piston engine, in its own window, flow marks a setting that starts off ([As built](#as-built-framework-03630)).
 The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765); the first cutaway, the land page's diesel, in
 Framework 0.374.0 (row 768). Made prominent (a command button, its own tab, warning lamps that open it) in Framework 0.378.0 (row
-775), with orders on a right-click (row 776), and the turbine cutaway with the heat gradient (SC8, row 777). Not built: pages for
-boats, electric and steam, the standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
+775), with orders on a right-click (row 776), and the turbine cutaway with the heat gradient (SC8, row 777). Each engine's own heat
+(F1) in Framework 0.382.0 (row 790). Not built: pages for boats, electric and steam, the standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
 [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
 [the chip detector](vehicle-chip-detector.md).
 
@@ -420,7 +420,19 @@ SC2 and SC8, on the owner's word of 28 Nov 2026 ("Let's proceed with the still n
   diesel's layers.
 - **The pipes meet the picture**: the fuel at the burners' nozzle, the oil at the rear bearing.
 - **Not built**: a turbofan's own section (a jet shows the turboshaft's); per-engine turbine temperature, so every engine's tab shows
-  the same heat (F1).
+  the same heat (F1). Both built in Framework 0.382.0, below.
+
+## As built: finishing the schematic (Framework 0.382.0)
+
+On the owner's word of 28 Nov 2026 ("Let's finish the schematic then"), after a card offering four directions. Not yet tested in game.
+
+- **Each engine's own heat (F1; row 790)**: engines sharing a load each give power in step with their output, so each works at the
+  whole's demand against its own condition (`TurbineModel.EngineShownTemperature`, the hot section's share now
+  `TurbineModel.HotSectionCondition`). A worn engine reads hotter, an engine out reads the outside air, and with every engine stopped
+  each shows the whole's cooling figure. The shown figure keeps the whole's slow cooling and scales each engine's rise above the outside
+  air by its own model figure against the whole's. **Approximations, agent's choices**: an engine that stops while the others run reads
+  cold at once on its tab, with no cooling of its own (nothing per engine is saved); compressor fouling stays one figure; limits, wear and
+  the engine control's hold still go by the whole, as before. Display only: nothing in play changes.
 
 ## Who chose what
 
