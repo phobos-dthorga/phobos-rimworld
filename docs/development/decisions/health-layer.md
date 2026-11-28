@@ -36,6 +36,8 @@ overturns an earlier one says so.
 | 17 Nov | It keeps our doctors apart, never a carrier; bed: game's | agent choice | Carriers still lift them | [sd], Questions for the owner |
 | 17 Nov | A dose against disease waits for the bed (FieldCareRule) | agent choice | Bed care for disease | [sd], Questions for the owner |
 | 22 Nov | Strike dose via RadiationDoses; else Rimatomics | agent choice | The strike graded in grays | [rm], As built (22 Nov 2026) |
+| 28 Nov | The patient comp on every pawn race, not only humanlike; overturns its humanlike-only sweep | owner | Other mods' buttons reach colonists of any race (sapient animals) | D'thorga Framework changelog, 0.381.1 |
+| 28 Nov | Each registered button, inspect line and care choice runs guarded, its fault logged once | owner | One faulty mod never empties a person's buttons | D'thorga Framework changelog, 0.381.1 |
 
 [pf]: ../archive/phobos-framework.md
 [tr]: ../archive/triage.md

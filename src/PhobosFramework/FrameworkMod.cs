@@ -149,7 +149,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : SettingsBookMod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.381.0";
+    public const string ModVersion = "0.381.1";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -215,7 +215,7 @@ public class FrameworkMod : SettingsBookMod
         int ownGases = DefDatabase<PhobosGasDef>.AllDefsListForReading.Count;
         report.On("own room gases: " + ownGases + " Def" + (ownGases == 1 ? "" : "s") + ", source mode " + Settings.gasSourceMode);
         // Mods register their care choices after this line is written, so it names only the comp; each mod's own line names its choice.
-        report.On("patient comp on " + PatientCompInjector.Added + " humanlike race" + (PatientCompInjector.Added == 1 ? "" : "s"));
+        report.On("patient comp on " + PatientCompInjector.Added + " pawn race" + (PatientCompInjector.Added == 1 ? "" : "s"));
         string keeper = "the game's log turned back on after its 10,000-message limit (at most " + Rules.GameLogRule.MaxRevivals + " times a session)";
         if (!Settings.keepGameLogAlive) report.Off(keeper, "setting");
         else if (Logging.GameLogKeeper.NotListening != null) report.On(keeper + ", without naming the loudest message: " + Logging.GameLogKeeper.NotListening);

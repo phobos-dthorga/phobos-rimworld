@@ -195,8 +195,9 @@ a save does not hold, for phobos-modkit's mood report. It runs while the game wr
 - **`ItemFinder`** finds a tool a job needs, on the map or aboard a caravan; **`PackedThings`** lets a list of supplies name a
   building that packs up, found packed in storage or cargo. **`PawnGear`** (0.381.0) lists a comp's kind on what a pawn wears, then
   carries in their inventory (where a Combat Extended loadout puts kit), and names who carries a thing; **`PawnCommands`** adds a
-  mod's buttons to a selected humanlike pawn through the framework's comp on every humanlike race, since the game shows buttons for
-  worn clothes but never for the inventory (first used by the radio's carried hand-helds).
+  mod's buttons to a selected pawn through the framework's comp on every pawn race (humanlike only until 0.381.1), since the game
+  shows buttons for worn clothes but never for the inventory (first used by the radio's carried hand-helds); a provider that
+  fails is logged once by `ProviderFaults` and the rest still draw.
 - **Environment helpers**: `HeldTemperature` (a fixed temperature for things held in a cab, a pod, a fridge), `AttachedFires`
   (whether a thing larger than a cell burns, and putting it out), `LargeBlasts` (a blast's wind and heat at a thing),
   `GroundWetness` and `RainSoakedFields` ("Rain soaks open fields", off), `CompPhobosBurnWhenCold` and `CompPhobosNightLight`,

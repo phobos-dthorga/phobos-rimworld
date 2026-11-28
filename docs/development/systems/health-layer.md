@@ -2,7 +2,7 @@
 
 **Status (23 Nov 2026):** living; written from the code at D'thorga Framework 0.271.0. Built: who the doctors look after
 (`Patients`), how dangerous a condition is (`ConditionDanger`), the doctor and patient tests, per-person care choices on every
-humanlike race, surgery bars, field care on its own reservation layer, treatment conditions that lapse, conditions that leave a
+pawn race (humanlike only until Framework 0.381.1), surgery bars, field care on its own reservation layer, treatment conditions that lapse, conditions that leave a
 lasting one, the per-map patient cache and the radiation-dose door. **Passed in game by the owner:** row 170 (field care gives
 way to the carry). The care-choice comp's corpse fault was reported gone by the owner on 7 Nov 2026, before the test list.
 **Not yet tested in game:** everything else, including row 117 (Search and Rescue's medics with our kits).
@@ -23,8 +23,12 @@ choices](../../framework-modding.md#the-health-layer-and-care-choices).
   vehicle is a pawn to the game but not humanlike, so it fails `IsFleshPerson`.
 - **Care choices are saved on the pawn as plain lists**, keyed by a stable string, not as Def references. A save loads without
   the Framework, and a mod that stops registering a choice leaves its saved value unread.
-- **The patient comp goes on by code, not XML.** A start-up sweep puts `CompPhobosPatient` on every humanlike race whose thing
-  class is a pawn. An XML patch on `race/intelligence` would miss Humanoid Alien Races and races that inherit it.
+- **The patient comp goes on by code, not XML.** A start-up sweep puts `CompPhobosPatient` on every race whose thing class is a
+  pawn: humanlike ones until Framework 0.381.1, every one since (the owner's choice, 28 Nov 2026), so other mods' buttons
+  (`PawnCommands`) reach a colonist of any race. Care choices still show only for the people the doctors look after. An XML
+  patch on `race` would miss Humanoid Alien Races and races that inherit it.
+- **Another mod's function never takes the comp down** (0.381.1, the owner's choice): each registered button provider, inspect
+  line and care-choice test runs guarded, and a fault is logged once by `ProviderFaults`, naming the function and its assembly.
 - **A doctor on the ground never holds a patient against a carrier.** Field care is held on our own reservation layer, which
   keeps our other doctors away and nobody else; the moment someone lifts the patient, the doctor's job ends. In a bed, the
   game's own hold applies.
@@ -142,7 +146,7 @@ Medical or Rimatomics.
 
 ```mermaid
 flowchart TB
-  START["Start-up: PatientCompInjector"] -->|"on every humanlike race"| COMP["CompPhobosPatient<br/>(saved choices)"]
+  START["Start-up: PatientCompInjector"] -->|"on every pawn race"| COMP["CompPhobosPatient<br/>(saved choices)"]
   MODS["Medical, Patches, vehicles<br/>(at start-up)"] -->|"Register"| REG["PatientPreferences, SurgeryBars,<br/>RadiationDoses"]
   REG --> COMP
   COMP -->|"gizmos, inspect text<br/>(on request)"| UI["The pawn's buttons"]

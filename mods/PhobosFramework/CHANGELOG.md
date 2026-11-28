@@ -22,6 +22,24 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.381.1] - 2026-11-28 - Draft
+
+One faulty mod never empties a person's buttons
+
+### Fixed
+
+- **One faulty mod never empties a person's buttons or inspect pane**: a button, inspect line or care choice another mod registers
+  with the framework is now run on its own, so one that fails is logged once, naming it and its mod, and the rest still show.
+  Before, one error hid every button on that person, drafting included, and repeated in the log every frame.
+- **Buttons reach every kind of pawn**, not only humanlike races: a mod that makes an animal or a machine a colonist (sapient
+  animals) now gets the framework's buttons on them too, the radio's carried hand-held among them. The comp does nothing for a
+  pawn with no button, and the load line now reads "patient comp on N pawn races". Not yet tested in game: row 789.
+
+### Save compatibility
+
+- Safe for saves: a pawn with no care choice set now saves nothing for it, rather than two empty lists, and older saves load
+  as before.
+
 ## [0.381.0] - 2026-11-28 - Draft
 
 Buttons for what a person carries
