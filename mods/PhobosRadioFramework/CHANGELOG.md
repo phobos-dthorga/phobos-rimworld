@@ -23,6 +23,16 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.76.1] - 2026-11-28 - Draft
+
+The lattice tower the owner picked
+
+### Fixed
+
+- **The dipoles' lattice tower was the try the owner had not picked**: Radio 0.64.0 shipped the lattice tower's try 2 before the
+  owner's pick, and the owner picked try 1 on 28 Nov 2026, the taller platform with a ladder up its face. It is drawn now, with the
+  pale background its master kept behind the ladder cleared by the parts' script. Not yet seen in game.
+
 ## [0.76.0] - 2026-11-28 - Draft
 
 Acting on what is heard: life on the air, slice 3

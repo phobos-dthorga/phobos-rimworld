@@ -43,6 +43,27 @@ DIPOLES = [
 ]
 
 
+# Background white the background AI kept inside a master, seen through an open structure: cleared in the part after its cut-out, below
+# a share of its height (so a white insulator at the top stays), wherever every channel is lighter than a level the steel never reaches.
+# The lattice tower's try 1 kept pale patches behind its ladder, about 222 a channel, against the steel's lightest 189 and the ladder
+# caps' highlights about 210 (found 28 Nov 2026, Radio 0.76.1; export_sprite.py's --hole could not reach them, being off-white).
+SEEN_THROUGH = {"hf-lattice-tower-1.png": {"below": 0.25, "lighter_than": 214}}
+
+
+def clear_seen_through(im, source_name):
+    """Clears the background white a master kept inside its open structure (SEEN_THROUGH), in place."""
+    rule = SEEN_THROUGH.get(source_name)
+    if not rule:
+        return im
+    px = im.load()
+    for y in range(round(im.height * rule["below"]), im.height):
+        for x in range(im.width):
+            r, g, b, a = px[x, y]
+            if a and min(r, g, b) > rule["lighter_than"]:
+                px[x, y] = (r, g, b, 0)
+    return im
+
+
 def cut_out(source, size, aspect):
     """The picture with its white taken out, by the shared sprite exporter, cropped to what is left."""
     with tempfile.TemporaryDirectory() as folder:
@@ -227,7 +248,7 @@ def export_parts(pole_try, telescopic_try, lattice_try, parts_try):
         src = generated / folder / f"{folder}-{n}.png"
         im = cut_out(src, 1024, "2:3")
         im = im.resize((max(1, round(im.width * cells * SPRITE_CELL / im.height)), round(cells * SPRITE_CELL)), Image.LANCZOS)
-        im.save(PARTS_OUT / f"{name}.png")
+        clear_seen_through(im, src.name).save(PARTS_OUT / f"{name}.png")
         part_record(PARTS_OUT / f"{name}.png", f"{folder}-{n}", src, request)
     src = generated / "hf-dipole-parts" / f"hf-dipole-parts-{parts_try}.png"
     for (name, cells), im in zip(SMALL.items(), split_parts(cut_out(src, 1024, "3:2"))):
