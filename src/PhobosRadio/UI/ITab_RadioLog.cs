@@ -15,8 +15,8 @@ namespace Phobos.Radio.UI;
 public class ITab_RadioLog : ITab
 {
     // Radio 0.58.0: room for the callsign, the locator, the time and the note.
-    private const float CardWidth = 268f;
-    private const float CardHeight = 184f;
+    internal const float CardWidth = 268f;
+    internal const float CardHeight = 184f;
     private const float Gap = 8f;
 
     private Vector2 scroll;
@@ -45,6 +45,9 @@ public class ITab_RadioLog : ITab
         foreach (QslAward award in RadioQsl.Awards) y = Certificate(view, y, award);
 
         y = Section(view, y, "PhobosRadioLog_Cards".Translate(RadioQsl.Cards.Count.Named("COUNT")));
+        // Radio 0.71.0: the album, every card sorted as the player likes.
+        if (RadioQsl.Cards.Count > 0 && Widgets.ButtonText(new Rect(view.width - 140f, y - 26f, 140f, 24f), "PhobosRadioQsl_OpenAlbum".Translate()))
+            Find.WindowStack.Add(new Dialog_QslAlbum());
         if (RadioQsl.Cards.Count == 0) y = Line(view, y, "PhobosRadioLog_NoCards".Translate(), dim: true);
         int perRow = Mathf.Max(1, (int)((view.width + Gap) / (CardWidth + Gap)));
         for (int i = 0; i < RadioQsl.Cards.Count; i++)
@@ -121,7 +124,7 @@ public class ITab_RadioLog : ITab
 
     /// <summary>A QSL card (Radio 0.59.0, part B): its front, the station's home painted with the callsign across it, or its back, what the
     /// contact was, on the stock of the sender's tech level; a click turns it over.</summary>
-    private static void DrawCard(Rect rect, QslCard card)
+    internal static void DrawCard(Rect rect, QslCard card)
     {
         card.FillIn();
         string key = (card.Settlement?.ID ?? -1) + ":" + card.Tick;

@@ -87,4 +87,10 @@
   <PhobosRadioQsl_NoteListener0>Heard, not worked: tnx for your listener's report.</PhobosRadioQsl_NoteListener0>
   <PhobosRadioQsl_NoteListener1>We never heard you, but glad you heard us. Call again with more power.</PhobosRadioQsl_NoteListener1>
   <PhobosRadioQsl_NoteListener2>A listener's card, with thanks. Maybe next time both ways.</PhobosRadioQsl_NoteListener2>
+  <!-- Radio 0.71.0: the QSL album. -->
+  <PhobosRadioQsl_OpenAlbum>Open the album</PhobosRadioQsl_OpenAlbum>
+  <PhobosRadioQsl_AlbumTitle>QSL album: {COUNT} cards</PhobosRadioQsl_AlbumTitle>
+  <PhobosRadioQsl_AlbumSortDate>Newest first</PhobosRadioQsl_AlbumSortDate>
+  <PhobosRadioQsl_AlbumSortFaction>By faction</PhobosRadioQsl_AlbumSortFaction>
+  <PhobosRadioQsl_AlbumSortDistance>Farthest first</PhobosRadioQsl_AlbumSortDistance>
 </LanguageData>

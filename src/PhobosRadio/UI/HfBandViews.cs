@@ -63,6 +63,8 @@ public static class HfRose
     static readonly Dictionary<int, Material> colours = new();
 
     /// <summary>Each band's colour, by its place in the band list (agent's choice: warm for the lower band, cool for the higher).</summary>
+    public static Material ColourFor(int index) => ColourOf(index);
+
     static Material ColourOf(int index)
     {
         if (colours.TryGetValue(index, out Material? held) && held != null) return held;
@@ -88,5 +90,63 @@ public static class HfRose
             }
         }
         if (Phobos.Radio.Seen.Wants("radio.hf-band-rose", null)) Phobos.Radio.Seen.Note("radio.hf-band-rose", null, roses.Count + " bands");
+    }
+}
+
+/// <summary>
+/// HF's world-map pictures (Radio 0.71.0; docs/development/radio-hf.md, the owner's card 14: a later slice, off until picked): the grey
+/// line, the day and night edge where HF often opens at dawn and dusk; and the skip-zone rings, for each HF band the distance at which the
+/// sky first brings it back down this hour. Each its own setting, off by default. Presentation only.
+/// <para>Cost: only while its setting is on and the colony is selected on the world map: the grey line 72 short arcs a frame, the rings
+/// 48 a band; the rings' distances are the forecast's, worked out once a game hour.</para>
+/// </summary>
+public static class HfPictures
+{
+    const int GreyLinePieces = 72;
+    const int RingPieces = 48;
+    static Material? greyLine;
+
+    public static void Draw(Map map)
+    {
+        if (RadioMod.Settings.hfGreyLine) GreyLine();
+        if (RadioMod.Settings.hfSkipRings) SkipRings(map);
+    }
+
+    static void GreyLine()
+    {
+        greyLine ??= MaterialPool.MatFrom(GenDraw.LineTexPath, ShaderDatabase.WorldOverlayTransparent, new Color(0.55f, 0.55f, 0.65f, 0.7f), 3590);
+        Vector3 sun = GenCelestial.CurSunPositionInWorldSpace().normalized;
+        Vector3 u = Vector3.Cross(sun, Mathf.Abs(sun.y) < 0.9f ? Vector3.up : Vector3.right).normalized;
+        Vector3 v = Vector3.Cross(sun, u).normalized;
+        float radius = Find.WorldGrid.GetTileCenter(Find.AnyPlayerHomeMap?.Tile ?? new RimWorld.Planet.PlanetTile(0, Find.WorldGrid.Surface)).magnitude;
+        Vector3 previous = u * radius;
+        for (int i = 1; i <= GreyLinePieces; i++)
+        {
+            float a = i * 2f * Mathf.PI / GreyLinePieces;
+            Vector3 point = (u * Mathf.Cos(a) + v * Mathf.Sin(a)) * radius;
+            WorldArcs.Arc(previous, point, greyLine, 1.2f);
+            previous = point;
+        }
+        if (Phobos.Radio.Seen.Wants("radio.hf-grey-line", null)) Phobos.Radio.Seen.Note("radio.hf-grey-line");
+    }
+
+    static void SkipRings(Map map)
+    {
+        IReadOnlyList<HfForecast.Outlook> outlooks = HfForecast.Outlooks(map);
+        for (int band = 0; band < outlooks.Count; band++)
+        {
+            int skip = 0;
+            foreach (HfForecast.Reach reach in outlooks[band].ByDistance)
+                if (reach.HasPath && reach.OpenShare >= HfForecast.OpenShare) { skip = reach.Km; break; }
+            if (skip <= 0) continue;
+            Vector3 previous = HfForecast.WorldPointAlong(map.Tile, 0f, skip);
+            for (int i = 1; i <= RingPieces; i++)
+            {
+                Vector3 point = HfForecast.WorldPointAlong(map.Tile, i * 360f / RingPieces, skip);
+                WorldArcs.Arc(previous, point, HfRose.ColourFor(band), 0.8f);
+                previous = point;
+            }
+        }
+        if (outlooks.Count > 0 && Phobos.Radio.Seen.Wants("radio.hf-skip-rings", null)) Phobos.Radio.Seen.Note("radio.hf-skip-rings", null, outlooks.Count + " bands");
     }
 }

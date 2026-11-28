@@ -64,8 +64,8 @@ take the nearest look [A]. With Ideology, the stamp has the faction's primary id
 
 - **C, cards as things in play**: cards arriving later by trader (the bureau's delay), a wall of cards as art and a mood, a ham shack
   room, more awards (every biome, grid squares, the far side of the planet with HF), rare stations, listener (SWL) cards.
-- **D's rest**: an album view (sort by faction, distance, date; linked to the contact arcs), award certificates drawn in the same
-  way as the cards.
+- **D's rest**: built, the album in Radio 0.71.0 (sorted by date, faction or distance; not linked to the contact arcs) and the award
+  certificates in 0.68.0 (as framed art, docs/development/radio-qsl-in-play.md).
 
 ## Callsigns from the world's own places (Radio 0.65.0)
 

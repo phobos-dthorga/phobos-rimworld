@@ -23,6 +23,19 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.71.0] - 2026-11-28 - Draft
+
+The grey line, skip zones and the QSL album
+
+### Added
+
+- **Two HF pictures on the world map, each off until picked** (the owner's card of 28 November 2026): the grey line, the day and
+  night edge round the globe where HF often opens at dawn and dusk; and the skip zones, a ring round the colony for each HF band
+  where the sky first brings it back down this hour. Settings: Show the grey line on the world map, Show HF skip zones on the world
+  map, both off.
+- **The QSL album**: every card in one window, newest first, by faction or farthest first; a click turns a card over. Open it
+  from the Log tab. Not yet tested in game: row 800.
+
 ## [0.70.0] - 2026-11-28 - Draft
 
 Rare stations and listener cards

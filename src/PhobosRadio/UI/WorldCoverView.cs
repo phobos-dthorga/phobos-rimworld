@@ -270,6 +270,8 @@ public sealed class WorldComponent_PhobosWorldCover : WorldComponent
             WorldArcs.DrawContacts(home.Map);
             // Radio 0.62.0: HF's band rose, in dev mode only until skywave is built.
             HfRose.Draw(home.Map);
+            // Radio 0.71.0: the grey line and the skip-zone rings, each off until picked.
+            HfPictures.Draw(home.Map);
         }
     }
 }

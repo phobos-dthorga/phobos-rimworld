@@ -2,7 +2,7 @@
 
 **Status (28 Nov 2026):** slice 1 is built in Radio 0.62.0 ([as designed](#slice-1-as-designed-28-nov-2026-a)): the kit (an HF station,
 three kinds of dipole for 40 m and 20 m, a manpack), the ground wave between tiles from NTIA's LFMF, the sky's noise and the sun's cycle
-from VOACAP's tables, and the band panel and rose in dev mode. Not tested in game (row 769). Slice 2, the skywave, settlements on HF and S3, is built in 0.64.0 ([as built](#slice-2-as-built-radio-0640-a)); not tested (rows 781, 782). The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2") and
+from VOACAP's tables, and the band panel and rose in dev mode. Not tested in game (row 769). The grey line and skip-zone pictures are built in 0.71.0 (off until picked; the flare's wash waits for the radio's own flare). Slice 2, the skywave, settlements on HF and S3, is built in 0.64.0 ([as built](#slice-2-as-built-radio-0640-a)); not tested (rows 781, 782). The owner chose by card on 27 Nov 2026 to write it ("HF, Phase 2") and
 answered its questions on 28 Nov ([first round](#the-owners-answers-28-nov-2026)): HF at the world's scale, VOACAP's predictions
 shipped as tables, 40 m and 20 m first, the radio's own flare, no licence tiers. In a [second round](#the-owners-second-round-28-nov-2026)
 the same day the owner opened **building for everything but HF's reach in play**: the tables (voacapl under WSL, installed on 28

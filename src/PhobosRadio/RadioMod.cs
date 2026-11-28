@@ -74,6 +74,10 @@ public class RadioSettings : ModSettings
     /// </summary>
     public bool consoleNeedsReach;
 
+    /// <summary>HF's world-map pictures (Radio 0.71.0; the owner's card: off until picked): the grey line, and the skip-zone rings.</summary>
+    public bool hfGreyLine;
+    public bool hfSkipRings;
+
     /// <summary>
     /// Whether colonists talk on the radio by themselves (Radio 0.63.0; docs/development/radio-life-on-the-air.md, slice 1): chats across the
     /// map, calls in the evening to someone away, company through the night; and a colonist's hand-held lights the lamp only while they talk.
@@ -99,6 +103,8 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref jammingReachesRadios, "jammingReachesRadios", true);
         Scribe_Values.Look(ref ownCallsign, "ownCallsign", "");
         Scribe_Values.Look(ref consoleNeedsReach, "consoleNeedsReach", false);
+        Scribe_Values.Look(ref hfGreyLine, "hfGreyLine", false);
+        Scribe_Values.Look(ref hfSkipRings, "hfSkipRings", false);
         ownCallsign ??= "";
         Scribe_Values.Look(ref talkOnAir, "talkOnAir", true);
     }
@@ -222,6 +228,10 @@ public class RadioMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingConsoleNeedsReach".Translate(), ref Settings.consoleNeedsReach,
             "PhobosRadio_SettingConsoleNeedsReachDesc".Translate());
+        // Radio 0.71.0: HF's world-map pictures, each off until picked.
+        listing.Gap();
+        listing.CheckboxLabeled("PhobosRadio_SettingHfGreyLine".Translate(), ref Settings.hfGreyLine, "PhobosRadio_SettingHfGreyLineDesc".Translate());
+        listing.CheckboxLabeled("PhobosRadio_SettingHfSkipRings".Translate(), ref Settings.hfSkipRings, "PhobosRadio_SettingHfSkipRingsDesc".Translate());
         // Radio 0.62.0: the colony's own callsign on its QSL cards; empty works one out.
         listing.Gap();
         Settings.ownCallsign = Phobos.Radio.Physics.QslRule.CleanCallsign(listing.TextEntryLabeled("PhobosRadio_SettingOwnCallsign".Translate(),
