@@ -442,6 +442,11 @@ public class RadioRulesDef : Def
     /// <summary>A lesson with the teacher beside the child at the desk (Radio 0.56.0; the owner's answer of 28 Nov 2026, "The full lesson rate"):
     /// the game's own lesson rate, face to face.</summary>
     public float schoolInPersonFactor = 1f;
+    /// <summary>Radio work in a ham shack (Radio 0.68.0; the owner's card of 28 Nov 2026: a room role with a work bonus): how much faster a
+    /// lesson, a neighbour's call and work under advice go there (authored).</summary>
+    public float hamShackWorkFactor = 1.1f;
+    /// <summary>How impressive a ham shack must be before radio operators enjoy it (authored; the game's own scale, 30 "decent").</summary>
+    public float hamShackMoodImpressiveness = 30f;
 
     // Neighbours ask for yours (Radio 0.32.0; the owner's card of 27 Nov 2026: "Goodwill, now and then"). The goodwill is the card's figure;
     // the rest are agent defaults, authored.

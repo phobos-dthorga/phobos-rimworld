@@ -83,4 +83,111 @@
       </li>
     </stages>
   </ThoughtDef>
+
+  <!-- Part 2 (Radio 0.68.0): the QSL wall, the game's own bookcase holding QSL cards (the owner's words: "make it like how the bookshelf
+       operates"), drawn as a cork board with the cards' own fronts in its six slots; and an award's framed certificate, art admired from a
+       distance, posted by the bureau. Costs, beauty and work authored. -->
+  <ThingDef ParentName="BookcaseBase">
+    <defName>PhobosRadio_QslWall</defName>
+    <label>QSL wall</label>
+    <description>A cork board in a wooden frame for the QSL cards your stations have received, six to a board, each showing its own picture. Colonists take a card down to read it, as from a bookcase, and the cards make the room a little more beautiful. A room with a radio station and a QSL wall is a ham shack.</description>
+    <thingClass>Phobos.Radio.Building_QslWall</thingClass>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/QslWall</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,1.33)</drawSize>
+    </graphicData>
+    <rotatable>false</rotatable>
+    <size>(2,1)</size>
+    <costList>
+      <WoodLog>30</WoodLog>
+    </costList>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Mass>5</Mass>
+      <WorkToBuild>600</WorkToBuild>
+      <Beauty>2</Beauty>
+    </statBases>
+    <building>
+      <maxItemsInCell>3</maxItemsInCell>
+      <fixedStorageSettings>
+        <filter>
+          <thingDefs>
+            <li>PhobosRadio_QslCard</li>
+          </thingDefs>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <filter>
+          <thingDefs>
+            <li>PhobosRadio_QslCard</li>
+          </thingDefs>
+        </filter>
+      </defaultStorageSettings>
+    </building>
+    <designationCategory>PhobosRadio_Architect</designationCategory>
+    <uiOrder>2140</uiOrder>
+    <researchPrerequisites>
+      <li>PhobosRadio_LocalRadio</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosRadio_QslCertificate</defName>
+    <label>radio award certificate</label>
+    <description>A framed certificate for one of your station's radio awards. Colonists admire it as art.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/QslCertificate</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <fillPercent>0.2</fillPercent>
+    <rotatable>false</rotatable>
+    <size>(1,1)</size>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsArt</li>
+    </thingCategories>
+    <tradeability>None</tradeability>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <Mass>2</Mass>
+      <Beauty>15</Beauty>
+      <WorkToBuild>1</WorkToBuild>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Art">
+        <compClass>Phobos.Radio.CompQslCertificate</compClass>
+        <nameMaker>NamerArtSculpture</nameMaker>
+        <descriptionMaker>ArtDescription_Sculpture</descriptionMaker>
+        <canBeEnjoyedAsArt>true</canBeEnjoyedAsArt>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- The ham shack (Radio 0.68.0; the owner's card: a room role with a work bonus): a room with a radio station and a QSL wall. Radio work
+       there goes the rules' hamShackWorkFactor faster; radio operators enjoy a decent one. Mood authored. -->
+  <RoomRoleDef>
+    <defName>PhobosRadio_HamShack</defName>
+    <label>ham shack</label>
+    <workerClass>Phobos.Radio.Services.RoomRoleWorker_HamShack</workerClass>
+    <relatedStats>
+      <li>Beauty</li>
+      <li>Impressiveness</li>
+    </relatedStats>
+  </RoomRoleDef>
+
+  <ThoughtDef>
+    <defName>PhobosRadio_HamShackMood</defName>
+    <workerClass>Phobos.Radio.Services.ThoughtWorker_PhobosHamShack</workerClass>
+    <stages>
+      <li>
+        <label>a fine ham shack</label>
+        <description>Our radio room has its cards on the wall and its station ready. A good place to talk to the world.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
 </Defs>

@@ -655,7 +655,8 @@ public static class RadioAdvice
         }
 
         private static SkillLift LiftOf(AdviceOffer offer, bool live) =>
-            new(offer.Level, RadioRulesDef.Current.adviceWorkSpeedFactor, offer.Reason, Source, live, offer);
+            new(offer.Level, System.Math.Min(1f, RadioRulesDef.Current.adviceWorkSpeedFactor * HamShack.Factor(offer.Station)), offer.Reason, Source,
+                live, offer);
     }
 }
 

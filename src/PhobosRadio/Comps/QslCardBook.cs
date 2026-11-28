@@ -80,6 +80,7 @@ public class ReadingOutcomeDoerQslMemory : BookOutcomeDoer
 public static class RadioQslDefOf
 {
     public static ThingDef PhobosRadio_QslCard = null!;
+    public static ThingDef PhobosRadio_QslCertificate = null!;
 
     static RadioQslDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(RadioQslDefOf));
 }

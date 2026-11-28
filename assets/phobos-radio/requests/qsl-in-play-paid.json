@@ -75,5 +75,31 @@
       "why": "a building in the game world, so the paid service"
     },
     "prompt": "STRAIGHT FRONT VIEW, looking directly at a framed certificate hung on a wall, flat on. No angle, no tilt, no perspective.\n\nCreate an ORIGINAL game building sprite for a framed radio award certificate, of the kind radio amateurs hang above their station. Image 1 is our approved radio desk from the same game: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nSquare canvas. The frame fills about 80 percent of the canvas, centred, on a plain pure white background.\n\nA polished dark wooden frame with a thin gold inner edge around a cream certificate; on the certificate a decorative border, a small drawing of a globe with curved radio waves around it at the top, an empty band across the middle where words would go, and a red wax seal with a ribbon at the bottom corner.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted warm colours with the gold and red seal, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos or people. No shadow outside the frame."
+  },
+  {
+    "name": "qsl-certificate-fix",
+    "title": "Radio award certificate, framed: the one correction (an invented planet, not Earth)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      3,
+      4
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/BaseStation.png",
+        "role": "our approved radio base station from the same mod: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "an award's framed certificate, art colonists admire from a distance (docs/development/radio-qsl-in-play.md, part 2)",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/QslCertificate.png",
+      "size": "a 1 by 1 building against a wall; requested at 1024",
+      "why": "a building in the game world, so the paid service",
+      "correction": "the first two tries drew Earth's continents on the globe; the owner wants nothing of Earth (28 Nov 2026)"
+    },
+    "prompt": "STRAIGHT FRONT VIEW, looking directly at a framed certificate hung on a wall, flat on. No angle, no tilt, no perspective.\n\nCreate an ORIGINAL game building sprite for a framed radio award certificate, of the kind radio amateurs hang above their station. Image 1 is our approved radio desk from the same game: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nSquare canvas. The frame fills about 80 percent of the canvas, centred, on a plain pure white background.\n\nA polished dark wooden frame with a thin gold inner edge around a cream certificate; on the certificate a decorative border, a small drawing of an INVENTED alien planet (made-up irregular continents and a ring of tiny moons, NOT Earth: no Americas, Africa, Europe or Asia) with curved radio waves around it at the top, an empty band across the middle where words would go, and a red wax seal with a ribbon at the bottom corner.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted warm colours with the gold and red seal, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos or people. No shadow outside the frame."
   }
 ]

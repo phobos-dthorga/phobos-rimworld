@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/QslCertificate.png",
+  "source": "assets/phobos-radio/generated/qsl-certificate-fix/qsl-certificate-fix-4.png",
+  "source_sha256": "aad481e5399faa8fac3d086774b92c98d196bd4659b98eec3d4d25780c5b2d1b",
+  "target_sha256": "b939171823dacae0f02617eb5503eef79e86f2414ed5aac289784ca9375a40a6",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "aad481e5399faa8fac3d086774b92c98d196bd4659b98eec3d4d25780c5b2d1b",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-28T12:35:06",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

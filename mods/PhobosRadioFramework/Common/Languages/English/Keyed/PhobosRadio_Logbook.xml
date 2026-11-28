@@ -61,4 +61,6 @@
   <PhobosRadioQsl_ItemDescription>A card from {CALL} at {PLACE} ({FACTION}), confirming {OPERATOR}'s contact by radio: signal {REPORT}, {TILES} km.</PhobosRadioQsl_ItemDescription>
   <PhobosRadioQsl_ReadBenefit>A small lift in mood for the reader, more for a card from far away.</PhobosRadioQsl_ReadBenefit>
   <PhobosRadioQsl_BureauPost>Post from the QSL bureau: {COUNT} QSL cards, brought by {FACTION}.</PhobosRadioQsl_BureauPost>
+  <!-- Radio 0.68.0: an award's framed certificate. -->
+  <PhobosRadioQsl_CertificateText>A certificate awarded to the radio station of {COLONY}: {AWARD}.</PhobosRadioQsl_CertificateText>
 </LanguageData>

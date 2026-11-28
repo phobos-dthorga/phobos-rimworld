@@ -92,7 +92,7 @@ public class JobDriver_PhobosRadioSchool : JobDriver, IRadioDeskCall
         bool inPerson = job.targetA.Thing is { } seat && RadioSchool.Together(teacher, pawn, seat);
         RadioRulesDef rules = RadioRulesDef.Current;
         float perTick = (LearningDesireDefOf.Lessontaking?.xpPerTick ?? 0.25f) * (inPerson ? rules.schoolInPersonFactor : rules.schoolLessonFactor)
-            * LearningUtility.LearningRateFactor(pawn);
+            * LearningUtility.LearningRateFactor(pawn) * HamShack.Factor(teacher);
         pawn.skills?.Learn(taughtSkill, perTick * delta);
         teacher.skills?.Learn(SkillDefOf.Social, 0.1f * delta);
         sinceThoughts += delta;

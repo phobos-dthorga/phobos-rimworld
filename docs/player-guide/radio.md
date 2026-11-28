@@ -362,6 +362,10 @@ log, newest first: advice calls, other factions' help, friends made and lost, ra
 - **Cards you can hold**: each card also comes as a real card, **by the QSL bureau**: the next friendly trader or visiting group
   brings every card awaited, all together. Colonists read them for recreation like books, and keep them on a shelf; a card lifts
   the reader's mood a little, more from far away.
+- **The QSL wall and the ham shack**: build a **QSL wall** (Architect, radio) and colonists hang the cards on it, six to a board,
+  each showing its picture; they read them from there. A room with a radio station and a QSL wall is a **ham shack**: radio work
+  there goes 10% faster, and radio operators enjoy a decent one (+2). Each award comes as a **framed certificate** to place;
+  colonists admire it as art.
 - **Awards**: cards from three factions, from every faction on the air, from 50 km away or more, or from ten settlements each earn an
   award. Colonists who work the radio (wearing a hand-held, or with a radio friend) are proud of it: **+2** an award, up to **+6**.
 

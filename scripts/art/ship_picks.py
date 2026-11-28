@@ -74,7 +74,11 @@ def main(argv=None) -> int:
             return 1
         target = ROOT / entry['art_plan']['ships_as']
         target.parent.mkdir(parents=True, exist_ok=True)
-        subprocess.run([sys.executable, str(HERE / 'export_sprite.py'), str(master), str(target), '--size', str(args.size)],
+        # The request's own canvas gives the sprite's shape (28 Nov 2026: a 3:2 board shipped square without it).
+        import math
+        w, h = int(entry.get('width', 1)), int(entry.get('height', 1))
+        aspect = f'{w // math.gcd(w, h)}:{h // math.gcd(w, h)}'
+        subprocess.run([sys.executable, str(HERE / 'export_sprite.py'), str(master), str(target), '--size', str(args.size), '--aspect', aspect],
                        check=True, stdout=subprocess.DEVNULL)
         try_record = json.loads(master.with_suffix('.json').read_text(encoding='utf-8'))
         text = record_text(name, pick, entry, request, try_record, master, target, args.size, notes.get(name, ''))

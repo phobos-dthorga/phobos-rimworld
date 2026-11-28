@@ -23,6 +23,19 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.68.0] - 2026-11-28 - Draft
+
+The QSL wall, certificates and the ham shack
+
+### Added
+
+- **The QSL wall** (the owner's cards of 28 November 2026, QSL cards in play, part 2): a cork board that holds six QSL cards as a
+  bookcase holds books, each shown by its own picture; colonists take a card down to read it, and the cards add beauty.
+- **Award certificates**: each radio award comes framed by the QSL bureau, packed to be placed; colonists admire it as art, its
+  title the award. Awards from before come with the next visitors.
+- **The ham shack**: a room with a radio station and a QSL wall. Radio lessons, a neighbour's call and work under advice go 10%
+  faster there, and radio operators get +2 mood while the colony has a decent one. Not yet tested in game: row 797.
+
 ## [0.67.0] - 2026-11-28 - Draft
 
 A hand-held carried in the pack works as a worn one
@@ -33,7 +46,7 @@ A hand-held carried in the pack works as a worn one
   colonists carried their radios in Combat Extended loadouts, which fill the inventory and never wear anything, so the radio did
   nothing for them). With no hand-held worn, the best one carried (most power, then the tallest aerial) counts for everything a worn
   one does: the signal button, the line to the antenna, the in-touch mood, advice, the awards' mood and the dual-band vehicle hop.
-  Spares in the pack are not extra radios on the air, so they take no channels. Not yet tested in game: row 788.
+  Spares in the pack are not extra radios on the air, so they take no channels. Not yet tested in game: row 797.
 
 ### Compatibility and limits
 

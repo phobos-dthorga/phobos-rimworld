@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/QslWall.png",
+  "source": "assets/phobos-radio/generated/qsl-wall/qsl-wall-1.png",
+  "source_sha256": "b4b819f8de04d0c9fcea1d332c7c5079a03f264260c101451aeeda0f3cb1ee4a",
+  "target_sha256": "80d3d1fe5cfff806657623b6f7d81c3ef081c9be3335c152784672c93655113a",
+  "size": [
+    255,
+    170
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "b4b819f8de04d0c9fcea1d332c7c5079a03f264260c101451aeeda0f3cb1ee4a",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-28T12:35:28",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -113,7 +113,8 @@ public static class RadioNeighbours
         callFaction[colonist] = faction;
         callSkill[colonist] = skill;
         Job job = JobMaker.MakeJob(RadioNeighbourDefOf.PhobosRadio_NeighbourCallJob, desk == null ? LocalTargetInfo.Invalid : desk);
-        job.count = RadioRulesDef.Current.neighbourCallTicks;
+        // Radio 0.68.0: a call from a ham shack goes a little faster.
+        job.count = (int)(RadioRulesDef.Current.neighbourCallTicks / HamShack.Factor(desk ?? colonist));
         colonist.jobs.StartJob(job, JobCondition.InterruptForced, null, resumeCurJobAfterwards: true);
         RadioLog.Add(RadioLogKind.Neighbour, "PhobosRadioLog_NeighbourAccepted".Translate(colonist.LabelShort.Named("COLONIST"), faction.Name.Named("FACTION")).Resolve());
         // Radio 0.38.0: a call with a settlement earns its QSL card, the first time.

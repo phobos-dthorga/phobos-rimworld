@@ -265,6 +265,8 @@ public static class RadioQsl
     private static List<QslAward> awards = new();
     /// <summary>The visiting groups the bureau has already posted by this session; never saved, since a card once posted stays posted.</summary>
     private static readonly HashSet<int> postedBy = new();
+    /// <summary>The awards whose framed certificate the bureau has posted (Radio 0.68.0); awards from before are posted with the next visitors.</summary>
+    private static List<QslAward> certificatesPosted = new();
 
     public static IReadOnlyList<QslCard> Cards => cards;
     public static IReadOnlyList<QslAward> Awards => awards;
@@ -275,16 +277,19 @@ public static class RadioQsl
         QslCalls.Clear();
         cards = new List<QslCard>();
         awards = new List<QslAward>();
+        certificatesPosted = new List<QslAward>();
     }
 
     public static void ExposeData()
     {
         Scribe_Collections.Look(ref cards, "PhobosRadioQslCards", LookMode.Deep);
         Scribe_Collections.Look(ref awards, "PhobosRadioQslAwards", LookMode.Value);
+        Scribe_Collections.Look(ref certificatesPosted, "PhobosRadioQslCertificates", LookMode.Value);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             cards ??= new List<QslCard>();
             awards ??= new List<QslAward>();
+            certificatesPosted ??= new List<QslAward>();
         }
     }
 
@@ -342,7 +347,7 @@ public static class RadioQsl
     /// </summary>
     public static void Bureau()
     {
-        if (!cards.Any(card => !card.Delivered) || Find.Maps == null) return;
+        if ((!cards.Any(card => !card.Delivered) && awards.All(certificatesPosted.Contains)) || Find.Maps == null) return;
         foreach (Map map in Find.Maps)
         {
             if (!map.IsPlayerHome) continue;
@@ -366,6 +371,18 @@ public static class RadioQsl
             QslCardBook book = QslCardBook.Make(card);
             if (GenPlace.TryPlaceThing(book, carrier.Position, carrier.Map, ThingPlaceMode.Near)) posted.Add(book);
             card.Delivered = true;
+        }
+        // Radio 0.68.0: each award's framed certificate, packed to be placed.
+        foreach (QslAward award in awards)
+        {
+            if (certificatesPosted.Contains(award)) continue;
+            Thing certificate = ThingMaker.MakeThing(RadioQslDefOf.PhobosRadio_QslCertificate);
+            certificate.SetFaction(Faction.OfPlayer);
+            certificate.TryGetComp<CompQslCertificate>()?.SetAward(AwardLabel(award));
+            Thing packed = MinifyUtility.MakeMinified(certificate);
+            if (GenPlace.TryPlaceThing(packed, carrier.Position, carrier.Map, ThingPlaceMode.Near)) posted.Add(packed);
+            certificatesPosted.Add(award);
+            if (Seen.Wants("radio.qsl-certificate", carrier, award.ToString())) Seen.Note("radio.qsl-certificate", carrier, AwardLabel(award), award.ToString());
         }
         if (posted.Count == 0) return;
         string text = "PhobosRadioQsl_BureauPost".Translate(posted.Count.Named("COUNT"), faction.Name.Named("FACTION")).Resolve();
