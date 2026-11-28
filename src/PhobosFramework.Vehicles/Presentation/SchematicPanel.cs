@@ -48,7 +48,7 @@ public sealed class SchematicPanel
     float focusUntil;
     bool marksNoted;
     bool cutawayNoted;
-    bool heatNoted;
+    bool heatNoted, levelNoted;
 
     public SchematicPanel(CompPhobosVehicleSystems comp, PhobosVehicleSchematicDef page)
     {
@@ -258,6 +258,17 @@ public sealed class SchematicPanel
         {
             return SchematicRule.Flows(view.Running, from.Work, from.Stopped) ? MediumColour(layer.medium) : PhobosWidgets.Off;
         }
+        if (layer.tint == SchematicTint.Level)
+        {
+            // Framework 0.382.0: water below the level its node reads, its own colour (steam) above; grey without a level.
+            if (float.IsNaN(from.Level)) return PhobosWidgets.Off;
+            if (!levelNoted)
+            {
+                levelNoted = true;
+                if (Seen.Wants("vehicles.schematic.level", Comp.Vehicle)) Seen.Note("vehicles.schematic.level", Comp.Vehicle, Page.defName);
+            }
+            return from.Level >= layer.position ? MediumColour(layer.medium) : layer.colour;
+        }
         return SchematicView.Colour(from.Tone);
     }
 
@@ -412,6 +423,8 @@ public sealed class SchematicPanel
         SchematicMedium.Water => new Color(0.30f, 0.80f, 0.74f),
         SchematicMedium.Steam => new Color(0.90f, 0.91f, 0.88f),
         SchematicMedium.Drive => new Color(0.93f, 0.56f, 0.74f),
+        // A fire's orange, drawn only inside a cutaway's firebox, never as a pipe, so it is not read as a part's caution tone (authored).
+        SchematicMedium.Fire => new Color(0.98f, 0.52f, 0.20f),
         _ => PhobosWidgets.Off,
     };
 }

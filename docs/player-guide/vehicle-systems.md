@@ -45,9 +45,10 @@ on an aircraft in flight.
 | **Systems** | What exactly is going on? | Every reading, one row each, with a graph; cards for weapons, running gear, loads and crew |
 
 - **Dashboard**: click a gauge to open the Systems tab at that system.
-- **Systems schematic** (in Operator and Engineer display modes, for land vehicles and boats with a piston engine, electric vehicles and
-  turbine aircraft; a boat's shows sea water cooling its engine and the shaft turning its propeller, an electric vehicle's the battery
-  feeding the motor and power coming in while it charges):
+- **Systems schematic** (in Operator and Engineer display modes, for land vehicles and boats with a piston engine, electric vehicles,
+  steam locomotives and turbine aircraft; a boat's shows sea water cooling its engine and the shaft turning its propeller, an electric
+  vehicle's the battery feeding the motor and power coming in while it charges, and **a steam locomotive's its boiler in section, the
+  water standing where the gauge glass reads**, so you can watch it fall toward the firebox's crown):
   the **Systems schematic** button on the command bar or the Dashboard, the vehicle's **Schematic** tab (a live copy, with **Open
   large**), or **a lit warning lamp**, which opens it with that part outlined. It is a window that draws the engine's systems as a flow sheet; **a land vehicle's engine is a cutaway** of one
   cylinder, whose water, oil, air, exhaust and fuel show their colours while they flow, and **an aircraft's a turbine in section**

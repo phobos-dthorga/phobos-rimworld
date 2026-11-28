@@ -1595,6 +1595,12 @@ aircraft). A child's `nodes` and `pipes` are added to the parent's, so a page of
 `loadoutKinds` and add a node under every key the parent's pipes name (`cooler` for the piston pages; `compressor`, `hotSection` and
 `turbine` for the aircraft pages). The legend lists only the media a page carries.
 
+**Cutaway layers** (`layers` on a node, each a white picture tinted live): `tint` is `Tone` (the node's green, amber or red), `Flow` (its
+`medium`'s colour while its `node` works and the engine runs), `Fixed` (its `colour`), `Heat` (the gas's heat at its `position` along a
+turbine's path) or, since Framework 0.382.0, `Level` (its `medium` while its `node`'s level, a tank's fill, is at or above its `position`,
+else its `colour`: the boiler's water and steam). Media since 0.382.0 also include `Fire`. Draw the pictures by script from one list of
+shapes (`scripts/art/cutaway_shapes.py`), so the layers fit exactly.
+
 ### Shaft loads
 
 A shaft load is something the engine drives besides its wheels: a water pump, a fan, a compressor, a pump on a power take-off. Each Def is

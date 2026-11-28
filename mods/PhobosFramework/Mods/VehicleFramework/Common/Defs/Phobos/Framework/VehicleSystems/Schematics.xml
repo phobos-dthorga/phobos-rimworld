@@ -298,9 +298,9 @@
   <!--
     Framework 0.382.0 (docs/development/vehicle-schematic.md; the owner's word of 28 Nov 2026, "Let's finish the schematic then"): a boat with a
     piston engine. Its coolant is cooled by sea water in a heat exchanger (the boat loadout's raw-water cooling: no radiator part), drawn in
-    through a strainer at the sea inlet by the engine's water pump and sent overboard; the engine turns the propeller through its gearbox. The
-    water pump is one part in our model where a boat has two (a fresh-water and a raw-water pump), so both waters are driven by it (agent's
-    simplification). Layout authored.
+    through a strainer at the sea inlet by the engine's water pump and sent overboard; the engine turns the propeller through its gearbox. On a
+    boat the water pump role is the raw-water pump (D'thorga Vehicles 0.134.0), which draws the sea through; a boat's fresh-water pump has no
+    part in our model, so the coolant loop is drawn driven by the same pump (agent's simplification). Layout authored.
   -->
   <Phobos.VehicleSystems.PhobosVehicleSchematicDef ParentName="PhobosVehicleSchematicPistonBase">
     <defName>PhobosVehicleSchematic_PistonBoat</defName>
@@ -867,6 +867,196 @@
       <li>
         <medium>Drive</medium>
         <points><li>(630, 200)</li><li>(630, 250)</li></points>
+        <from>wheels</from>
+        <to>brakes</to>
+        <flow>Never</flow>
+      </li>
+    </pipes>
+  </Phobos.VehicleSystems.PhobosVehicleSchematicDef>
+
+  <!--
+    Framework 0.382.0 (docs/development/vehicle-schematic.md; the owner's word of 28 Nov 2026, "Let's finish the schematic then"): a steam
+    locomotive (Trains of the Rim's, with D'thorga Vehicles). The boiler is a cutaway (scripts/art/draw_boiler_cutaway.py): its water stands where
+    the gauge glass reads, steam above it, so a falling glass shows the water leaving the crown sheet; the fire burns and the smoke runs through
+    the tubes and up the chimney while it is lit (driven by the tender, which has no reading, so they show from the moment the fire is lit). Steam
+    reaches the cylinders and turns the wheels only once it is raised: the boiler's "raising steam" stage stops what it drives. The injector feeds the boiler from the feed water; steam goes to the cylinders, which turn
+    the driving wheels and exhaust up the chimney, and to the turbo-generator for the lamps. The cylinders and wheels have no parts of their own
+    in our model, so they are always sound. A plain flow sheet, not a drawing of any real locomotive. Layout authored, on a 720 by 350 page.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSchematicDef>
+    <defName>PhobosVehicleSchematic_Steam</defName>
+    <label>steam locomotive</label>
+    <loadoutKinds>
+      <li>Steam</li>
+    </loadoutKinds>
+    <size>(720, 350)</size>
+    <nodes>
+      <li>
+        <key>tender</key>
+        <label>fuel</label>
+        <shape>Tank</shape>
+        <rect>(20, 250, 110, 56)</rect>
+        <fuelLevel>true</fuelLevel>
+        <holds>Fuel</holds>
+      </li>
+      <li>
+        <key>feedWater</key>
+        <label>feed water</label>
+        <shape>Tank</shape>
+        <rect>(20, 164, 100, 50)</rect>
+        <system>PhobosVehicleSystem_Boiler</system>
+        <quantity>feedWater</quantity>
+        <holds>Water</holds>
+      </li>
+      <li>
+        <key>injector</key>
+        <label>injector</label>
+        <shape>Pump</shape>
+        <rect>(150, 176, 28, 28)</rect>
+        <system>PhobosVehicleSystem_Boiler</system>
+      </li>
+      <li>
+        <key>glass</key>
+        <label>water glass</label>
+        <shape>Tank</shape>
+        <rect>(166, 60, 16, 64)</rect>
+        <system>PhobosVehicleSystem_Boiler</system>
+        <quantity>boilerWater</quantity>
+        <holds>Water</holds>
+      </li>
+      <li>
+        <key>boiler</key>
+        <label>boiler</label>
+        <rect>(220, 60, 300, 150)</rect>
+        <role>Boiler</role>
+        <system>PhobosVehicleSystem_Boiler</system>
+        <quantity>steamPressure</quantity>
+        <layers>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Casing</texPath></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Water01</texPath><node>glass</node><tint>Level</tint><medium>Water</medium><colour>(0.90, 0.91, 0.88, 1)</colour><position>0.936</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Water02</texPath><node>glass</node><tint>Level</tint><medium>Water</medium><colour>(0.90, 0.91, 0.88, 1)</colour><position>0.807</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Water03</texPath><node>glass</node><tint>Level</tint><medium>Water</medium><colour>(0.90, 0.91, 0.88, 1)</colour><position>0.679</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Water04</texPath><node>glass</node><tint>Level</tint><medium>Water</medium><colour>(0.90, 0.91, 0.88, 1)</colour><position>0.55</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Water05</texPath><node>glass</node><tint>Level</tint><medium>Water</medium><colour>(0.90, 0.91, 0.88, 1)</colour><position>0.421</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Water06</texPath><node>glass</node><tint>Level</tint><medium>Water</medium><colour>(0.90, 0.91, 0.88, 1)</colour><position>0.293</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Water07</texPath><node>glass</node><tint>Level</tint><medium>Water</medium><colour>(0.90, 0.91, 0.88, 1)</colour><position>0.164</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Water08</texPath><node>glass</node><tint>Level</tint><medium>Water</medium><colour>(0.90, 0.91, 0.88, 1)</colour><position>0.075</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Water09</texPath><node>glass</node><tint>Level</tint><medium>Water</medium><colour>(0.90, 0.91, 0.88, 1)</colour><position>0.025</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Fire</texPath><node>tender</node><tint>Flow</tint><medium>Fire</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Smoke</texPath><node>tender</node><tint>Flow</tint><medium>Exhaust</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Boiler/Plug</texPath><node>plug</node></li>
+        </layers>
+        <outline>Phobos/VehicleSystems/Schematic/Boiler/Outline</outline>
+      </li>
+      <li>
+        <key>plug</key>
+        <label>fusible plug</label>
+        <rect>(300, 236, 70, 30)</rect>
+        <system>PhobosVehicleSystem_FusiblePlug</system>
+        <quantity>fusiblePlug</quantity>
+      </li>
+      <li>
+        <key>turboGenerator</key>
+        <label>turbo-generator</label>
+        <rect>(560, 44, 90, 36)</rect>
+        <role>Alternator</role>
+        <system>PhobosVehicleSystem_TurboGenerator</system>
+        <quantity>turboGenerator</quantity>
+      </li>
+      <li>
+        <key>cylinders</key>
+        <label>cylinders</label>
+        <rect>(560, 220, 80, 40)</rect>
+        <system>PhobosVehicleSystem_Boiler</system>
+      </li>
+      <li>
+        <key>wheels</key>
+        <label>driving wheels</label>
+        <rect>(560, 290, 80, 36)</rect>
+      </li>
+      <li>
+        <key>brakes</key>
+        <label>brakes</label>
+        <rect>(420, 290, 90, 36)</rect>
+        <role>Brakes</role>
+        <system>PhobosVehicleSystem_Brakes</system>
+      </li>
+    </nodes>
+    <pipes>
+      <!-- Fuel to the fire, while it burns. -->
+      <li>
+        <medium>Fuel</medium>
+        <points><li>(130, 278)</li><li>(258, 278)</li><li>(258, 190)</li></points>
+        <from>tender</from>
+        <to>boiler</to>
+      </li>
+      <!-- Feed water through the injector into the boiler. -->
+      <li>
+        <medium>Water</medium>
+        <points><li>(120, 190)</li><li>(150, 190)</li></points>
+        <from>feedWater</from>
+        <to>injector</to>
+        <drivenBy>injector</drivenBy>
+      </li>
+      <li>
+        <medium>Water</medium>
+        <points><li>(178, 190)</li><li>(229, 190)</li></points>
+        <from>injector</from>
+        <to>boiler</to>
+      </li>
+      <!-- The glass shows the water inside: what joins what. -->
+      <li>
+        <medium>Water</medium>
+        <points><li>(182, 92)</li><li>(229, 92)</li></points>
+        <from>glass</from>
+        <to>boiler</to>
+        <flow>Never</flow>
+      </li>
+      <!-- Steam from the dome to the cylinders and the turbo-generator. -->
+      <li>
+        <medium>Steam</medium>
+        <points><li>(386, 82)</li><li>(386, 26)</li><li>(680, 26)</li><li>(680, 240)</li><li>(640, 240)</li></points>
+        <from>boiler</from>
+        <to>cylinders</to>
+      </li>
+      <li>
+        <medium>Steam</medium>
+        <points><li>(386, 82)</li><li>(386, 26)</li><li>(605, 26)</li><li>(605, 44)</li></points>
+        <from>boiler</from>
+        <to>turboGenerator</to>
+      </li>
+      <!-- The cylinders turn the wheels and blow their exhaust up the chimney with the fire's smoke. -->
+      <li>
+        <medium>Drive</medium>
+        <points><li>(600, 260)</li><li>(600, 290)</li></points>
+        <from>cylinders</from>
+        <to>wheels</to>
+        <drivenBy>boiler</drivenBy>
+      </li>
+      <li>
+        <medium>Exhaust</medium>
+        <points><li>(560, 240)</li><li>(490, 240)</li><li>(490, 181)</li></points>
+        <from>cylinders</from>
+        <to>boiler</to>
+        <drivenBy>boiler</drivenBy>
+      </li>
+      <li>
+        <medium>Exhaust</medium>
+        <points><li>(494, 62)</li><li>(494, 14)</li></points>
+        <from>boiler</from>
+        <drivenBy>tender</drivenBy>
+      </li>
+      <!-- Power to the lamps and the cab. -->
+      <li>
+        <medium>Electric</medium>
+        <points><li>(650, 62)</li><li>(706, 62)</li></points>
+        <from>turboGenerator</from>
+      </li>
+      <!-- The brakes at the wheels: what joins what. -->
+      <li>
+        <medium>Drive</medium>
+        <points><li>(560, 308)</li><li>(510, 308)</li></points>
         <from>wheels</from>
         <to>brakes</to>
         <flow>Never</flow>

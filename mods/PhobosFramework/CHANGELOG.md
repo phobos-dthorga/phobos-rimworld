@@ -73,6 +73,12 @@ The systems schematic finished: every engine's own heat, and pages for more kind
   the charging socket while the battery charges, switched on or not. Not yet tested in game: row 793.
 - For modders: a schematic pipe can flow by a condition of its own instead of the engine's running (when, judged in the system of
   the node it leaves).
+- **Steam locomotives have a systems schematic, with the boiler in section**: the water stands in the boiler where the gauge glass
+  reads, with steam above it, so a falling glass shows the water leaving the firebox's crown sheet; the fire burns and its smoke runs
+  up the chimney while it is lit, and steam reaches the cylinders, the wheels and the turbo-generator once it is raised. The
+  injector feeds the boiler from the feed water. Not yet tested in game: row 794.
+- For modders: a cutaway layer can be tinted by a level (tint Level: its medium below its position on the node's level, its own
+  colour above), and pipes and layers can carry fire (Fire).
 ### Save compatibility
 
 - Safe for saves: nothing new is saved.

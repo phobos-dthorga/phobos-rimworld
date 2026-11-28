@@ -548,6 +548,7 @@
   <PhobosVehicleSystems_SchematicMediumWater>water</PhobosVehicleSystems_SchematicMediumWater>
   <PhobosVehicleSystems_SchematicMediumSteam>steam</PhobosVehicleSystems_SchematicMediumSteam>
   <PhobosVehicleSystems_SchematicMediumDrive>turning shaft</PhobosVehicleSystems_SchematicMediumDrive>
+  <PhobosVehicleSystems_SchematicMediumFire>fire</PhobosVehicleSystems_SchematicMediumFire>
   <PhobosVehicleSystems_SchematicMediumNone>nothing flowing</PhobosVehicleSystems_SchematicMediumNone>
   <PhobosVehicleSystems_SettingSchematicFlowMarks>Flow marks on the systems schematic</PhobosVehicleSystems_SettingSchematicFlowMarks>
   <PhobosVehicleSystems_SettingSchematicFlowMarksDesc>Small marks drift along the systems schematic's pipes while something flows through them. They stop when the flow stops or the game is paused. Off: colour alone shows what flows. Looks only.</PhobosVehicleSystems_SettingSchematicFlowMarksDesc>

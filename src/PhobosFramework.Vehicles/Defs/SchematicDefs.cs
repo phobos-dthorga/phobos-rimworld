@@ -36,6 +36,8 @@ public enum SchematicMedium
     Steam,
     /// <summary>Turning power along a shaft (Framework 0.382.0): an engine to its gearbox and propeller, a motor to its wheels.</summary>
     Drive,
+    /// <summary>A fire burning (Framework 0.382.0): a locomotive's firebox.</summary>
+    Fire,
 }
 
 /// <summary>When a pipe carries something.</summary>
@@ -99,6 +101,10 @@ public enum SchematicTint
     /// <summary>The gas's heat at its <see cref="SchematicLayer.position"/> along a turbine's path (Framework 0.378.0, SC8): cold blue to red
     /// at the top limit (<c>GasPathRule</c>), from the turbine's temperature as the vehicle reads it, which cools after a stop.</summary>
     Heat,
+    /// <summary>By a level (Framework 0.382.0): its <see cref="SchematicLayer.medium"/>'s colour while its node's level (a tank's fill) is at or
+    /// above its <see cref="SchematicLayer.position"/>, else its own <see cref="SchematicLayer.colour"/>: a boiler's water standing where its
+    /// gauge glass reads, steam above.</summary>
+    Level,
 }
 
 /// <summary>One region of a cutaway (Framework 0.375.0): a white picture tinted as <see cref="tint"/> says.</summary>
@@ -112,7 +118,8 @@ public class SchematicLayer
     public SchematicMedium medium;
     /// <summary>Its colour, for <see cref="SchematicTint.Fixed"/>.</summary>
     public Color colour = Color.white;
-    /// <summary>Where it sits along the gas path, 0 the intake to 1 the exhaust, for <see cref="SchematicTint.Heat"/>.</summary>
+    /// <summary>Where it sits along the gas path, 0 the intake to 1 the exhaust, for <see cref="SchematicTint.Heat"/>; the level at which it
+    /// fills, for <see cref="SchematicTint.Level"/>.</summary>
     public float position;
 }
 
@@ -181,7 +188,7 @@ public class PhobosVehicleSchematicDef : Def
     /// so the legend names only what the page can show.</summary>
     public IReadOnlyList<SchematicMedium> Media => media ??= System.Enum.GetValues(typeof(SchematicMedium)).Cast<SchematicMedium>()
         .Where(m => pipes.Any(p => p.medium == m) || nodes.Any(n => n.shape == SchematicShape.Tank && n.holds == m)
-            || nodes.Any(n => n.layers.Any(l => l.tint == SchematicTint.Flow && l.medium == m)))
+            || nodes.Any(n => n.layers.Any(l => l.tint is SchematicTint.Flow or SchematicTint.Level && l.medium == m)))
         .ToList();
 
     public override IEnumerable<string> ConfigErrors()

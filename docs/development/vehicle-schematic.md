@@ -5,8 +5,8 @@ sheet for land vehicles with a piston engine, in its own window, flow marks a se
 The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765); the first cutaway, the land page's diesel, in
 Framework 0.374.0 (row 768). Made prominent (a command button, its own tab, warning lamps that open it) in Framework 0.378.0 (row
 775), with orders on a right-click (row 776), and the turbine cutaway with the heat gradient (SC8, row 777). Each engine's own heat
-(F1), a turbofan's own section, and the boat's and electric vehicles' pages in Framework 0.382.0 (rows 790 to 793). Not built: the
-steam page, the standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
+(F1), a turbofan's own section, and pages for boats, electric vehicles and steam locomotives (with a boiler cutaway) in Framework
+0.382.0 (rows 790 to 794). Not built: the standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
 [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
 [the chip detector](vehicle-chip-detector.md).
 
@@ -445,7 +445,8 @@ On the owner's word of 28 Nov 2026 ("Let's finish the schematic then"), after a 
   radiator, and the boat's heat exchanger, fed with sea water through a strainer at the sea inlet and sent overboard. The engine turns the
   propeller through its gearbox, drawn with a new medium, a turning shaft (`Drive`, pink: apart from every tone and from the grey of
   nothing flowing); `Water` and `Steam` came with it, and the legend now names only what a page carries. **Simplifications, agent's
-  choices**: our model has one water pump where a boat has two (fresh water and raw water), so it drives both waters; the propeller has no
+  choices**: on a boat the water pump role is the raw-water pump (D'thorga Vehicles 0.134.0), and the fresh-water pump has no part, so the
+  one pump drives both waters on the page; the propeller has no
   part or reading of its own, so it is always sound; wet exhaust (sea water sprayed into the exhaust) is not drawn.
 - **The electric page (row 793)**: `PhobosVehicleSchematic_ElectricLand`, for the electric loadout. The traction battery (a tank showing
   its charge, Vehicle Framework's fuel) feeds the drive motor, which turns the wheels; the DC-DC converter keeps the 12 V battery charged;
@@ -453,6 +454,15 @@ On the owner's word of 28 Nov 2026 ("Let's finish the schematic then"), after a 
   `when` (here `When_Charging`), judged in the system of the node it leaves, so it flows while the pack charges whether the vehicle is
   switched on or not. **Simplifications, agent's choices**: the inverter has no part in our model, so it is drawn with the motor; the
   motor's loop has no part or reading of its own; the wheels' brakes are joined by a line that never flows.
+- **The steam page and the boiler cutaway (row 794)**: `PhobosVehicleSchematic_Steam`, for Trains of the Rim's steam locomotives, and
+  `scripts/art/draw_boiler_cutaway.py`, a fire-tube boiler in side section (firebox, barrel with flues, smokebox, dome, chimney, the
+  fusible plug in the crown sheet). The water is nine horizontal bands tinted by a new tint, `Level`: water while the gauge glass (a small
+  tank reading `boilerWater`) is at or above the band's height, steam above it. Heights map to the glass as Systems_Boiler.xml reads it: 0.1
+  at the crown sheet, 1 at the top of the shell, the last tenth spread down to the foundation ring (authored proportions). The fire (a new
+  medium, `Fire`) and the smoke are driven by the tender, which has no reading, so they show from the moment the fire is lit; steam, the
+  cylinders and the wheels are driven by the boiler, whose "raising steam" stage stops them until steam is up. **Simplifications, agent's
+  choices**: the cylinders and the driving wheels have no parts of their own in our model, so they are always sound; the injector has no
+  reading; the boiler is one shape for the 4-8-4 and the tank engine.
 
 ## Who chose what
 
