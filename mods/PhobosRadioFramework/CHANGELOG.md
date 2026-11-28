@@ -23,6 +23,37 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.69.0] - 2026-11-28 - Draft
+
+More radio awards
+
+### Added
+
+- **Five more radio awards** (the owner's cards of 28 November 2026, QSL cards in play, part 3): every kind of land a station
+  stands on, 10 and 25 grid squares, a contact 10,000 km away or more (the far side of the world, with HF), and every landmass
+  with a station on it. Each comes with its letter, its place in the awards' mood and, by the bureau, its framed certificate. Not
+  yet tested in game: row 798.
+
+### Save compatibility
+
+- Safe to update: cards from before take their biome and place the first time the awards are counted, while their settlement stands.
+
+## [0.68.1] - 2026-11-28 - Draft
+
+One hold per raid
+
+### Fixed
+
+- **An ally's raid warning never holds a raid another mod is already letting go** (the owner's card of 28 Nov 2026, "one hold per
+  raid"). Dubs Rimatomics' ATOM radar lets a raid it held go as a fresh one, and the ally used to hold it again; with Rimatomics holding
+  the radio's queued raid in turn, the same raid could arrive again and again. Now a raid the radio holds is recorded with D'thorga
+  Framework (0.383.0), which lets it through Rimatomics' and Fortified Features Framework's holds when it comes, and the radio holds
+  nothing Rimatomics is letting go. Not yet tested in game: row 796.
+
+### Save compatibility
+
+- Safe to update. A raid already held when you update is not recorded, so Rimatomics or Fortified may hold that one raid again, once.
+
 ## [0.68.0] - 2026-11-28 - Draft
 
 The QSL wall, certificates and the ham shack

@@ -125,7 +125,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosFactory` | 14 | 0 | 0 | 0 |
 | `PhobosFactory.Hygiene` | 4 | 0 | 0 | 0 |
 | `PhobosFarming` | 5 | 0 | 0 | 0 |
-| `PhobosFramework` | 10 | 0 | 1 | 0 |
+| `PhobosFramework` | 11 | 3 | 1 | 0 |
 | `PhobosFramework.Vehicles` | 123 | 16 | 0 | 0 |
 | `PhobosFramework.Vehicles.Dmse` | 3 | 0 | 0 | 0 |
 | `PhobosFramework.Vehicles.Hygiene` | 2 | 0 | 0 | 0 |
@@ -148,7 +148,7 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosRadio` | 4 | 0 | 0 | 0 |
 | `PhobosRadio.DeadMansSwitch` | 1 | 0 | 0 | 0 |
 
-211 patched methods named in attributes, 27 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+212 patched methods named in attributes, 30 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -196,7 +196,7 @@ Every HarmonyPatch attribute was read.
 
 </details>
 
-<details><summary><code>PhobosFramework</code>: 10 patched methods</summary>
+<details><summary><code>PhobosFramework</code>: 11 patched methods, 3 by name</summary>
 
 | Patched method | Kinds | Where (in `src/PhobosFramework/`) |
 | --- | --- | --- |
@@ -209,7 +209,9 @@ Every HarmonyPatch attribute was read.
 | `Pawn_JobTracker.StartJob` | postfix | `Work/LoopWatch.cs` |
 | `Projectile_Explosive.Explode` | prefix | `Health/RadiationBurstPatches.cs` |
 | `SkillRecord.Learn` | prefix | `Skills/LearnWhileHelped.cs` |
+| `Storyteller.TryFire` | prefix, finalizer | `Incidents/RaidHolds.cs` |
 | `TendUtility.DoTend` | prefix, finalizer | `Skills/TendActScope.cs` |
+| by name in TargetMethod (3 classes) | prefix, postfix, finalizer | `Incidents/RaidHolds.cs` |
 
 </details>
 

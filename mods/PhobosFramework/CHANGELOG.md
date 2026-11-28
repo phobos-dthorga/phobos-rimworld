@@ -22,6 +22,31 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.383.0] - 2026-11-28 - Draft
+
+One hold per raid
+
+### Fixed
+
+- **A raid is held back for a warning once, never again by another mod** (the owner's card of 28 Nov 2026, "one hold per raid";
+  [radar and air defence](https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/development/radar-and-air-defence.md),
+  row RD7). Three mods can each hold a raid back to warn of it: the Radio Framework's allied warning, Dubs Rimatomics' radar with its ATOM upgrade, and Fortified Features Framework's radars,
+  which take falling drop pods out of the sky for a while. Read in their code while writing that record: Rimatomics lets a held raid go
+  as if the storyteller had just sent it, so the radio held it again; and when Rimatomics held a raid the radio had queued, the game
+  tried it again a few minutes later, past Rimatomics, so **the same raid could arrive again and again** while an ally was in radio
+  reach and an ATOM radar ran. Now the first hold counts: while a held raid is let go, the radio stands down, Rimatomics' ATOM check is
+  skipped and Fortified's radars catch none of its pods. Not yet tested in game: row 796.
+
+### For modders
+
+- **One service for raid holds**, RaidHolds (namespace Phobos.Framework.Incidents): a mod that holds a raid back for a warning calls
+  its MarkHeld as it queues the raid, and checks its Releasing before holding one. Rimatomics and Fortified Features Framework are
+  reached by name, each only while active.
+
+### Save compatibility
+
+- Safe to update. The raids held in the last day are saved (GameComponent_PhobosRaidHolds, a few entries at most).
+
 ## [0.382.0] - 2026-11-28 - Draft
 
 The systems schematic finished: every engine's own heat, and pages for more kinds of vehicle
@@ -37,7 +62,6 @@ The systems schematic finished: every engine's own heat, and pages for more kind
   tiltrotor and turboprops keep the turboshaft. Not yet tested in game: row 791.
 - For modders: the aircraft pages share an abstract parent, PhobosVehicleSchematicTurbineAircraftBase, and the turboshaft page
   (PhobosVehicleSchematic_TurbineAircraft) now serves turboshafts only, beside the new PhobosVehicleSchematic_TurbofanAircraft.
-
 ### Save compatibility
 
 - Safe for saves: nothing new is saved.

@@ -1,4 +1,5 @@
 using HarmonyLib;
+using Phobos.Framework.Incidents;
 using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
@@ -21,13 +22,19 @@ public static class RadioNews
     public static bool TryHold(FiringIncident fi)
     {
         if (!RadioMod.Settings.alliesWarnOfRaids || fi?.def == null || fi.parms == null) return false;
+        // One hold per raid (the owner's card of 28 Nov 2026): a raid another hold is letting go (Rimatomics fires its own as fresh) is
+        // never held again.
+        if (RaidHolds.Releasing) return false;
         if (fi.def.Worker is not IncidentWorker_RaidEnemy || fi.parms.forced || fi.parms.quest != null) return false;
         if (fi.parms.target is not Map map || !map.IsPlayerHome) return false;
         if (!fi.def.Worker.CanFireNow(fi.parms)) return false;
         if (WarningAlly(map) is not { } ally) return false;
         int delay = Mathf.RoundToInt(RadioRulesDef.Current.radioRaidWarningHours * GenDate.TicksPerHour);
         // Queued, it fires through the storyteller again, then as any raid does; RetryDurationTicks as the game queues its own.
-        Find.Storyteller.incidentQueue.Add(fi.def, Find.TickManager.TicksGame + delay, fi.parms, GenDate.TicksPerDay);
+        int fireTick = Find.TickManager.TicksGame + delay;
+        Find.Storyteller.incidentQueue.Add(fi.def, fireTick, fi.parms, GenDate.TicksPerDay);
+        // When it fires, D'thorga Framework lets it through Rimatomics' and Fortified's holds (Framework 0.383.0).
+        RaidHolds.MarkHeld(fi, fireTick);
         string text = "PhobosRadioNews_RaidWarning".Translate(ally.Faction.Name.Named("FACTION"), ally.Settlement.LabelCap.Named("SETTLEMENT"),
             map.Parent.LabelCap.Named("COLONY"), delay.ToStringTicksToPeriod().Named("TIME")).Resolve();
         Find.LetterStack.ReceiveLetter("PhobosRadioNews_RaidWarningLabel".Translate(), text, LetterDefOf.ThreatSmall, new LookTargets(map.Parent));

@@ -202,6 +202,11 @@ a save does not hold, for phobos-modkit's mood report. It runs while the game wr
   (whether a thing larger than a cell burns, and putting it out), `LargeBlasts` (a blast's wind and heat at a thing),
   `GroundWetness` and `RainSoakedFields` ("Rain soaks open fields", off), `CompPhobosBurnWhenCold` and `CompPhobosNightLight`,
   `MapRegistry` (a per-map list of comps, kept as they spawn).
+- **`RaidHolds`** (0.383.0): one hold per raid. A mod of ours that holds a raid back for a warning (the radio's allied warning;
+  later the radar) calls `RaidHolds.MarkHeld(incident, fireTick)` as it queues it. While a held raid is let go (ours from the game's
+  queue, Dubs Rimatomics' from its own), `RaidHolds.Releasing` is true and nothing holds it again: our holds check it, and the
+  framework skips Rimatomics' ATOM hold and stops Fortified Features Framework's radars catching its pods. Saved
+  (`GameComponent_PhobosRaidHolds`, a few entries at most, each gone a day after its raid was due).
 
 ### Testing and developer tools
 
@@ -350,6 +355,8 @@ Every tie-in is in the [tie-in register](../tie-in-register.md).
   Architect their own way; **UI Rethemed - Architect** keeps its saved layout.
 - **Fortified Features Framework** (The Dead Man's Switch's drones): called home and their wrecks taken home, through D'thorga
   Patches' Def, by name.
+- **Dubs Rimatomics** and **Fortified Features Framework**: their raid holds stand down for a raid already held (`RaidHolds`), by
+  name, each only while that mod is active.
 - **Combat Extended**: its ammunition settings and one-use verb, by name.
 - **phobos-modkit and D'thorga Companion** read the mood file, seen-in-play notes and the patched Defs dump.
 - **Better Stacktraces** (remembered by the owner) is the model for error notes; no tie-in.

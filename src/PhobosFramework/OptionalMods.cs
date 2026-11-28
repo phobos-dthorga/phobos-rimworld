@@ -26,6 +26,10 @@ public static class OptionalMods
     public const string MoreInjuriesOrganFailure = "wenders.moreinjuries.organbridge";
     /// <summary>Search and Rescue: its field medics treat a casualty where they lie.</summary>
     public const string SearchAndRescue = "ch4acko3.searchandrescue";
+    /// <summary>Dubs Rimatomics: its radar's ATOM upgrade holds raids for a warning (one hold per raid, Framework 0.383.0).</summary>
+    public const string Rimatomics = "Dubwise.Rimatomics";
+    /// <summary>Fortified Features Framework: its radars hold falling drop pods for a warning (one hold per raid, Framework 0.383.0).</summary>
+    public const string FortifiedFeatures = "AOBA.Framework";
 
     public static bool IsActive(string packageId)
     {

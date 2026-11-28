@@ -131,6 +131,10 @@ Each card as put, the chosen option first and marked.
 - **B2** [A]: 10 goodwill for a caravan and 20 for aid over a clean line, the console's 15 and 25 otherwise.
 - **B4** [O, A]: the storyteller's raid on a colony with an ally in reach is queued three hours later [A], with a letter. Any ally in reach
   warns [A]; the raiders' path is not worked out. A raid a quest or the dev tools start, or one already queued, is never held.
+  **One hold per raid** (Radio Framework 0.68.1, the owner's card of 28 Nov 2026 in
+  [radar and air defence](radar-and-air-defence.md), row RD7): a raid Dubs Rimatomics' ATOM radar is letting go is never held again,
+  and a raid we held is let through Rimatomics' and Fortified Features Framework's holds when it comes (D'thorga Framework's `RaidHolds`).
+  Before this, the radio and Rimatomics together could send the same raid again and again.
   **Why the patch skips the original** (the code rules ask for the reason): the game has no other point at which a raid can be held
   without firing it; the held raid fires later through every other mod's patches, as any raid does. Vanilla Expanded Framework's prefix
   on the same method runs first; when it has skipped the incident, this does nothing.
