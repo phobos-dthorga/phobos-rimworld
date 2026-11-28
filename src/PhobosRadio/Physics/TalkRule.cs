@@ -67,4 +67,38 @@ public static class TalkRule
 
     /// <summary>Whether enough time has passed since a thing last happened (<paramref name="lastTick"/>, or never when negative).</summary>
     public static bool Since(int lastTick, int now, int gapTicks) => lastTick < 0 || now - lastTick >= gapTicks;
+
+    /// <summary>
+    /// The chance a chat on a faint link is misheard (Radio 0.76.0, RN10): the rules' chance, falling with the speaker's practice
+    /// (<paramref name="practiceShare"/>, 0 to 1, the Framework's share of hours) towards <paramref name="practisedFactor"/> of it.
+    /// </summary>
+    public static double MishearChance(double chance, double practiceShare, double practisedFactor)
+    {
+        double share = Math.Clamp(practiceShare, 0, 1);
+        return Math.Max(0, chance) * (1 + (practisedFactor - 1) * share);
+    }
+
+    /// <summary>
+    /// Whether a chat ends in a slight (Radio 0.76.0, RN10): misheard, or an abrasive voice's named roll came up; never with a kind voice in
+    /// it, who smooths it over.
+    /// </summary>
+    public static bool Slight(bool misheard, bool abrasiveRolled, bool kindPresent) => !kindPresent && (misheard || abrasiveRolled);
+}
+
+/// <summary>
+/// Sighting reports (Radio 0.76.0; docs/development/radio-life-on-the-air.md, RN17): which side of the map a threat is on. Game-free; compiled
+/// into the tests.
+/// </summary>
+public static class SightingRule
+{
+    /// <summary>
+    /// The bearing from a map's middle to a point <paramref name="dx"/> cells east and <paramref name="dz"/> cells north of it, in degrees
+    /// clockwise from north (0 to under 360), as the radar's compass reads it. Straight up from the middle is north.
+    /// </summary>
+    public static double Bearing(double dx, double dz)
+    {
+        if (dx == 0 && dz == 0) return 0;
+        double degrees = Math.Atan2(dx, dz) * 180.0 / Math.PI;
+        return degrees < 0 ? degrees + 360.0 : degrees;
+    }
 }

@@ -54,14 +54,8 @@ public static class RadioWatch
     /// <summary>How long a look stays good, in ticks (the record's figure).</summary>
     private const int FreshTicks = 250;
 
-    // Authored figures (Radio 0.73.0), for the owner to revise. Named here rather than in the rules Def [A], as another session was
-    // reworking that file in the same tree; they move there when it is next touched.
-    /// <summary>Hours after a missed neighbour's call before they try once more.</summary>
-    public const float RetryHours = 3f;
-    /// <summary>One stint of radio watch at the desk, in ticks (an hour), before the colonist looks again at what else needs them.</summary>
-    public const int StintTicks = 2500;
-    /// <summary>The hour of the map's day the standing order to ask a trader in is looked at.</summary>
-    public const int TraderHour = 10;
+    // The authored figures (a missed neighbour's retry, a watch's stint, the trader order's hour) are the rules Def's since Radio 0.76.0:
+    // watchRetryHours, watchStintTicks, watchTraderHour.
 
     private static readonly Dictionary<Map, RadioWatchState> states = new();
     private static WorkTypeDef? watchWork;
@@ -159,13 +153,15 @@ public static class RadioWatch
     /// <summary>
     /// A call coming in to this map, from <paramref name="caller"/> about <paramref name="what"/>: the colonist who hears it, or null when
     /// nobody does (the call is missed, and logged so). With nobody listening, a station's selective call wakes the on-call colonist.
-    /// <paramref name="kind"/> names the call for the seen-in-play note.
+    /// <paramref name="kind"/> names the call for the seen-in-play note. <paramref name="notThis"/> (Radio 0.76.0): a colonist on the map
+    /// making the call, who cannot be its own listener.
     /// </summary>
-    public static Pawn? Hear(Map map, string caller, string what, string kind)
+    public static Pawn? Hear(Map map, string caller, string what, string kind, Pawn? notThis = null)
     {
         RadioWatchState state = Of(map, fresh: true);
-        Pawn? listener = state.FirstListener;
-        RadioWatchHow how = state.AtDesks.Count > 0 ? RadioWatchHow.Desk : RadioWatchHow.Handheld;
+        Pawn? atDesk = state.AtDesks.FirstOrDefault(p => p != notThis);
+        Pawn? listener = atDesk ?? state.OnHandhelds.FirstOrDefault(p => p != notThis);
+        RadioWatchHow how = atDesk != null ? RadioWatchHow.Desk : RadioWatchHow.Handheld;
         if (listener == null && state.SelectiveCallStation != null && state.OnCall is { } onCall)
         {
             RestUtility.WakeUp(onCall);
@@ -245,8 +241,17 @@ public static class RadioStandingOrders
         return null;
     }
 
+    public static void SetSendHelp(CompRadio station, bool on) => station.orderSendHelp = on;
+    public static void SetPassSightings(CompRadio station, bool on) => station.orderPassSightings = on;
+
     /// <summary>Whether the map's stations have the order to answer neighbours who ask for help.</summary>
     public static bool AnswersNeighbours(Map map) => Ordering(map, station => station.orderAnswerNeighbours) != null;
+
+    /// <summary>Whether the map's stations have the order to send help to a colonist's call for help (Radio 0.76.0, RN16).</summary>
+    public static bool SendsHelp(Map map) => Ordering(map, station => station.orderSendHelp) != null;
+
+    /// <summary>Whether the map's stations have the order to pass sightings to everyone, so those who do not fight take cover (Radio 0.76.0, RN17).</summary>
+    public static bool PassesSightings(Map map) => Ordering(map, station => station.orderPassSightings) != null;
 
     /// <summary>A neighbour's request answered by order: a message in place of the letter, and the Log.</summary>
     public static void AnsweredNeighbour(Pawn listener, Pawn sent, Faction faction)
@@ -261,7 +266,7 @@ public static class RadioStandingOrders
     /// <summary>Once a game hour: at each home map's hour from the rules, the trader order.</summary>
     public static void Hourly()
     {
-        int hour = RadioWatch.TraderHour;
+        int hour = RadioRulesDef.Current.watchTraderHour;
         foreach (Map map in Find.Maps)
         {
             if (map.IsPlayerHome && GenLocalDate.HourOfDay(map) == hour) TryAskTrader(map);

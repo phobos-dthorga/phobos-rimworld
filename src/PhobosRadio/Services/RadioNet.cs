@@ -635,6 +635,9 @@ public sealed class RadioNet : MapComponent
             var kind = entry.Key.TryGetComp<CompRadio>()?.Kind ?? ChannelKindDef.LocalVoice;
             // Radio 0.63.0 (RN2, RN6): a drafted colonist's hand-held is on the guard net, served first and never cut off by chatter.
             if (kind == ChannelKindDef.LocalVoice && CompRadio.HolderOf(entry.Key) is { Drafted: true } && ChannelKindDef.GuardVoice is { } guard) kind = guard;
+            // Radio 0.76.0 (RN6): a colonist calling for help or reporting a sighting is on the urgent kind, before the guard and home nets.
+            if ((kind == ChannelKindDef.LocalVoice || kind == ChannelKindDef.GuardVoice) && CompRadio.HolderOf(entry.Key) is { } caller
+                && RadioAir.Urgent(caller) && ChannelKindDef.UrgentVoice is { } urgent) kind = urgent;
             ordered.Add((entry.Key, kind.LedgerIndex, entry.Value));
         }
         ordered.Sort((a, b) =>
@@ -719,6 +722,9 @@ public sealed class RadioNet : MapComponent
             // Seen in play (Radio 0.63.0, row 780): a drafted colonist's hand-held served on the guard net.
             if (wearer != null && kinds[kind] == ChannelKindDef.GuardVoice && Seen.Wants("radio.guard-net", wearer))
                 Seen.Note("radio.guard-net", wearer, station.parent.LabelShort);
+            // Seen in play (Radio 0.76.0, row 817): a colonist's urgent call served on the urgent kind.
+            if (wearer != null && kinds[kind] == ChannelKindDef.UrgentVoice && Seen.Wants("radio.urgent-net", wearer))
+                Seen.Note("radio.urgent-net", wearer, station.parent.LabelShort);
             // Seen in play (Radio 0.17.0, row 475): a station other than the radio's best took it, the best one's channels being full.
             if (wearer != null && links[0].B.Thing != station.parent) Seen.Note("radio.channel-station", station.parent, wearer.LabelShort, "overflow");
             // A radio built into a vehicle is the vehicle itself (Radio 0.12.0): count it for the operator's work.

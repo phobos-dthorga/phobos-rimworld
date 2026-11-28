@@ -100,7 +100,7 @@ public static class RadioNeighbours
             // Radio 0.73.0 (RN4, RN4b): the call is heard only if someone listens; one nobody hears is missed, and tried once more later.
             if (RadioWatch.Hear(map, link.Faction.Name, "PhobosRadioWatch_WhatNeighbour".Translate().Resolve(), "neighbour") is not { } listener)
             {
-                if (!retrying) retryAt = Find.TickManager.TicksGame + UnityEngine.Mathf.RoundToInt(RadioWatch.RetryHours * GenDate.TicksPerHour);
+                if (!retrying) retryAt = Find.TickManager.TicksGame + UnityEngine.Mathf.RoundToInt(RadioRulesDef.Current.watchRetryHours * GenDate.TicksPerHour);
                 if (forced) Messages.Message("PhobosRadioWatch_NobodyHeard".Translate(link.Faction.Name.Named("CALLER")).Resolve(), MessageTypeDefOf.RejectInput,
                     historical: false);
                 return false;

@@ -23,6 +23,32 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.76.0] - 2026-11-28 - Draft
+
+Acting on what is heard: life on the air, slice 3
+
+### Added
+
+- **A colonist alone in trouble calls for help on the radio**: downed, bleeding badly or under attack, with a hand-held in touch and
+  nobody near. Whoever is listening hears it, and with the new setting "Colonists go to a call for help" (on) and the station's
+  standing order, the nearest colonist who can doctor carries them to a bed or tends them.
+- **Sighting reports**: a colonist with a hand-held who sees raiders or manhunting animals arrive calls it in (how many, who, which
+  side). With the new setting "Colonists take cover on a sighting" (on) and the standing order, those in touch who do not fight take
+  cover indoors for about an hour.
+- **Urgent calls go first**: a call for help or a sighting takes a channel from colonists chatting when a station is full, and waits,
+  logged, when it cannot.
+- **Hours on the air**: colonists earn a callsign of their own at about 12 hours, shown beside their name; a practised voice is misheard
+  less, an abrasive one sometimes sours a chat, a kind one smooths it over.
+- **Carry radio**: a new column in the Assign tab, beside Carry, has a colonist keep a hand-held in their pack, picked off the shelf as
+  medicine is, so it goes with them in a caravan.
+
+### Changed
+
+- The three radio-watch figures (the missed neighbour's retry, the watch's hour, the trader order's hour) moved into the radio's rules,
+  where modders can change them. Nothing in play changes.
+
+Not yet tested in game (rows 817 to 820).
+
 ## [0.75.0] - 2026-11-28 - Draft
 
 Jamming pods, the Prowler's bands and jammed world links

@@ -5,7 +5,7 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.75.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.76.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -99,6 +99,11 @@ figures are here.
 - **Radio watch and standing orders (0.73.0)**: a colonist with **Radio watch** work keeps watch at the desk while nobody else is
   listening; the **selective call** upgrade wakes the one on call. A station's **Standing orders** button lets whoever is listening
   answer neighbours at once (on) and ask an allied trader in once a day when the colony's silver is over an amount you set (off).
+- **Acting on what is heard (0.76.0)**: a colonist alone with a hand-held who is downed, bleeding badly or under attack **calls for
+  help**; whoever is listening hears it, and the nearest colonist who can doctor goes to carry them to a bed or tend them. A colonist who
+  sees raiders or manhunting animals arrive **calls it in** (how many, who, which side), and those in touch who do not fight take cover
+  indoors. Both go before chatter on a busy station. Colonists earn a **callsign of their own** at about 12 hours on the air, and the
+  Assign tab's **Carry radio** column has a colonist keep a hand-held in their pack. **Two settings and two standing orders, all on.**
 - **Seats at the radio (0.51.0)**: the base station has a seat in front of it and the terminal two; put a chair there. **A station built
   earlier may have something standing on its new seat**: its pane says so; clear the spot or move the station. A call at the desk now
   takes a channel, as a hand-held does.
@@ -171,6 +176,8 @@ In **Options > Mod settings > D'thorga Radio Framework**, laid out like the othe
 | Metres per map cell | What one map cell measures. **Decide before you start a colony**: changing it later changes every distance and coax loss, so links that worked may stop. 1 m matches the furniture, about 26 m matches walking speed | 1 (0.5 to 30) |
 | "In touch with home" mood | A small mood bonus for a free colonist wearing a hand-held with a working link to a base station. Off keeps the radios a pure readout | On |
 | Colonists talk on the radio by themselves | Colonists with a hand-held in touch chat across the map now and then (most often when working alone), call someone close who is away in a caravan in the evening, and keep a colonist in bed company through the night. A colonist's hand-held lights the station's lamp only while they really talk. Off, the radio is quiet as before | On |
+| Colonists go to a call for help | When a colonist alone is downed or bleeding badly and calls for help on their hand-held, whoever hears it sends the nearest colonist who can doctor, who puts their work aside to carry them to a bed or tend them. The one sent may walk into whatever hurt the first. A station's standing orders must allow it too | On |
+| Colonists take cover on a sighting | When a colonist with a hand-held sees raiders or manhunting animals arrive and calls it in, everyone in touch who does not fight (cannot do violence, or carries no weapon) and is outdoors goes indoors for about an hour, or until the threat is gone. A station's standing orders must allow it too | On |
 | Display mode | How much of the working to show: **Plain** (bars and a reason), **Operator** (adds the band and the margin) or **Engineer** (every term). The outcome is the same in each | Plain |
 | Other factions' doctors and mechanics give advice by radio | When none of your colonists can help, a doctor or mechanic at another faction's settlement in radio reach talks your colonist through tending, an operation or a vehicle repair: allies free once a day, a neutral faction for 3 goodwill a call, never below 0 | On |
 | Neighbours ask for help by radio | About once a fortnight, a friendly neighbour in radio reach asks by letter for your best doctor or mechanic on the radio for an hour. Yes earns 5 goodwill once the hour is done; no costs nothing | On |

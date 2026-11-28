@@ -22,6 +22,8 @@ This is the first step, local radio on one map. [Back to the guide](README.md).
   inventory works just as well** (a Combat Extended loadout puts it there), and leaves the belt slot free.
 - **A call is heard only while someone listens** (from 0.73.0): tick **Radio watch** for someone, keep hand-helds in touch, or fit
   the **selective call** ([Radio watch and standing orders](#radio-watch-and-standing-orders-from-0730)).
+- **A colonist alone in trouble calls for help, and those who do not fight take cover on a sighting** (from 0.76.0): both on, each with
+  a setting and a standing order ([Calls for help and sightings](#calls-for-help-and-sightings-from-0760)).
 - **Before removing it**, deconstruct every radio building and drop every hand-held.
 
 ## What to build
@@ -293,6 +295,28 @@ station's Log says so, and a neighbour tries once more about three hours later. 
   - **Ask an allied trader in when there is silver to spend** (off): once a day in the morning, if the colony has at least the silver
     you set (2,000 to start), the one listening asks an ally in reach to send a trader. Each request costs goodwill, as asking by radio
     does, and a hostile settlement listening may ambush the caravan.
+  - **Send help to a call for help** and **Pass sightings to everyone** (both on, from 0.76.0): see below.
+
+## Calls for help and sightings (from 0.76.0)
+
+**A radio can save a colonist working alone.** Two settings in the mod's settings, **Colonists go to a call for help** and **Colonists
+take cover on a sighting**, both on, and the matching standing orders on a station, both ticked, decide what the colony does by itself.
+
+- **A call for help**: a colonist with a hand-held in touch, with nobody else within about 12 cells, who is **downed**, **bleeding
+  badly** or **under attack**, calls for help. It needs someone listening, like any call. Heard, you get a message, and for someone
+  downed or bleeding **the nearest colonist who can doctor puts their work aside** to carry them to a bed or tend them. Nobody is sent
+  to someone only under attack: that fight is yours.
+- **A sighting**: a colonist with a hand-held who sees raiders or manhunting animals arrive, within about 40 cells, calls it in: how
+  many, who, and which side of the map. Everyone in touch who **does not fight** (cannot do violence, or carries no weapon) and is
+  outdoors goes into the nearest room indoors for about an hour, or until the threat is gone. The game's own raid letter still comes.
+- **Urgent calls go first**: on a station whose channels are all taken, a call for help or a sighting takes one from colonists
+  chatting. If every channel holds something it cannot cut off (orders to vehicles, the guard net), it waits, and the Log says so.
+- **A callsign of their own**: at about 12 hours on the air (chats, calls, company at night) a colonist goes by a callsign, shown
+  beside their name in the radio's messages, its Log and a station's pane. A practised voice is misheard less on a faint link; an
+  **abrasive** colonist sometimes sours a clear chat, and a **kind** one smooths a chat over.
+- **Carry radio**: the **Assign** tab has a **Carry radio** column beside **Carry**. Set a colonist to **1** and they fetch a hand-held
+  off the shelf into their pack, as they fetch medicine to carry; it works as a worn one and goes with them in a caravan. They keep it
+  when home.
 
 ## School of the Air
 

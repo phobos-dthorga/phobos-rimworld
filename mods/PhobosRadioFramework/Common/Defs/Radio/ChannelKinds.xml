@@ -28,6 +28,18 @@
     <order>60</order>
   </Phobos.Radio.ChannelKindDef>
 
+  <!-- The urgent kind (Radio 0.76.0; docs/development/radio-life-on-the-air.md, RN6): a colonist's hand-held while they call for help or
+       report a sighting. Served before the guard and home nets, and takes a channel from colonists talking at home when a station is full,
+       so chatter never blocks a mayday (agent defaults). -->
+  <Phobos.Radio.ChannelKindDef>
+    <defName>PhobosRadio_KindUrgentVoice</defName>
+    <label>urgent</label>
+    <description>A colonist calling for help or reporting a threat on their hand-held. Takes a channel from colonists talking at home when every channel is in use.</description>
+    <mode>PhobosRadio_VoiceFM</mode>
+    <order>80</order>
+    <preempts>true</preempts>
+  </Phobos.Radio.ChannelKindDef>
+
   <!-- The guard net (Radio 0.63.0; docs/development/radio-life-on-the-air.md, RN2 and RN6): a drafted colonist's hand-held. Served before
        the colonists talking at home, and takes a channel from them when a station is full, so a fight is never cut off by chatter (agent
        defaults). -->

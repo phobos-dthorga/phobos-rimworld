@@ -94,6 +94,19 @@ public class RadioSettings : ModSettings
     /// </summary>
     public bool talkOnAir = true;
 
+    /// <summary>
+    /// Whether the colonist listening sends the nearest colonist who can doctor to a colonist's call for help (Radio 0.76.0;
+    /// docs/development/radio-life-on-the-air.md, RN16). Moderate risk (the agent's grade: the rescuer may walk into the danger that downed
+    /// the first), so on by default; each station's standing order must allow it too.
+    /// </summary>
+    public bool helpCallsSendHelp = true;
+
+    /// <summary>
+    /// Whether colonists who do not fight take cover indoors when a sighting is reported on the radio (Radio 0.76.0, RN17). Low risk (lost
+    /// work time), so on by default; each station's standing order must allow it too.
+    /// </summary>
+    public bool sightingsTakeCover = true;
+
     public override void ExposeData()
     {
         base.ExposeData();
@@ -118,6 +131,8 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref hfFlareWash, "hfFlareWash", false);
         ownCallsign ??= "";
         Scribe_Values.Look(ref talkOnAir, "talkOnAir", true);
+        Scribe_Values.Look(ref helpCallsSendHelp, "helpCallsSendHelp", true);
+        Scribe_Values.Look(ref sightingsTakeCover, "sightingsTakeCover", true);
     }
 }
 
@@ -172,6 +187,10 @@ public class RadioMod : SettingsBookMod
         Tick("radio.relayMastLosses", "PhobosRadio_SettingRelayMastLosses", () => Settings.relayMastLosses, x => Settings.relayMastLosses = x,
             defaults.relayMastLosses);
         Tick("radio.talkOnAir", "PhobosRadio_SettingTalkOnAir", () => Settings.talkOnAir, x => Settings.talkOnAir = x, defaults.talkOnAir);
+        Tick("radio.helpCallsSendHelp", "PhobosRadio_SettingHelpCallsSendHelp", () => Settings.helpCallsSendHelp, x => Settings.helpCallsSendHelp = x,
+            defaults.helpCallsSendHelp);
+        Tick("radio.sightingsTakeCover", "PhobosRadio_SettingSightingsTakeCover", () => Settings.sightingsTakeCover, x => Settings.sightingsTakeCover = x,
+            defaults.sightingsTakeCover);
     }
 
     void Tick(string id, string key, System.Func<bool> get, System.Action<bool> set, bool byDefault) =>
@@ -236,6 +255,12 @@ public class RadioMod : SettingsBookMod
         // Radio 0.63.0: colonists talk on the air by themselves, on until turned off.
         list.Section("PhobosRadio_SectionTalk".Translate());
         list.Check("PhobosRadio_SettingTalkOnAir".Translate(), ref s.talkOnAir, Defaults.talkOnAir, "PhobosRadio_SettingTalkOnAirDesc".Translate());
+        // Radio 0.76.0 (RN16, RN17): acting on what is heard, each on until turned off.
+        list.Section("PhobosRadio_SectionActing".Translate());
+        list.Check("PhobosRadio_SettingHelpCallsSendHelp".Translate(), ref s.helpCallsSendHelp, Defaults.helpCallsSendHelp,
+            "PhobosRadio_SettingHelpCallsSendHelpDesc".Translate());
+        list.Check("PhobosRadio_SettingSightingsTakeCover".Translate(), ref s.sightingsTakeCover, Defaults.sightingsTakeCover,
+            "PhobosRadio_SettingSightingsTakeCoverDesc".Translate());
     }
 
     static void DrawStations(SettingsList list)

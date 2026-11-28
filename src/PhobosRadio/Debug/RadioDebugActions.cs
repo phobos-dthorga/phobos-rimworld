@@ -124,4 +124,24 @@ public static class RadioDebugActions
     {
         if (Find.CurrentMap is { } map) RadioTalk.EveningNow(map);
     }
+
+    /// <summary>Radio 0.76.0 (RN16): each selected colonist calls for help now, alone or not, about the trouble they are in, for testing.</summary>
+    [DebugAction(Category, "Call for help now (selected)", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    private static void CallForHelpNow()
+    {
+        var sb = new StringBuilder();
+        foreach (var selected in Find.Selector.SelectedObjects)
+        {
+            if (selected is not Pawn pawn) continue;
+            sb.AppendLine($"  {pawn.LabelShortCap}: {RadioUrgent.CallNow(pawn) ?? "calling"}");
+        }
+        Log.Message(sb.Length == 0 ? "[PhobosRadio] Select a colonist first." : "[PhobosRadio] Call for help:\n" + sb);
+    }
+
+    /// <summary>Radio 0.76.0 (RN17): forget the sightings already reported on this map and look again now, for testing.</summary>
+    [DebugAction(Category, "Sightings: look again now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    private static void SightingsNow()
+    {
+        if (Find.CurrentMap is { } map) RadioUrgent.SightingsAgain(map);
+    }
 }

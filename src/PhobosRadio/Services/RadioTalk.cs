@@ -124,16 +124,24 @@ public static class RadioTalk
         if (!choices.TryRandomElementByWeight(c => c.Weight, out var chosen)) return;
         Pawn answer = chosen.Pawn;
         bool faint = Faint(pawn, net) || Faint(answer, net);
-        bool misheard = faint && Rand.Chance(rules.radioMishearChance);
-        InteractionDef interaction = misheard ? Slight : InteractionDefOf.Chitchat;
+        // Radio 0.76.0 (RN10): a practised voice is misheard less; an abrasive one turns a clear chat sour now and then (a named roll); a kind
+        // one smooths either over.
+        double mishear = TalkRule.MishearChance(rules.radioMishearChance, RadioOperators.Share(pawn), rules.practisedMishearFactor);
+        bool misheard = faint && Rand.Chance((float)mishear);
+        bool abrasive = !misheard && (Has(pawn, TraitDefOf.Abrasive) || Has(answer, TraitDefOf.Abrasive)) && Rand.Chance(rules.abrasiveSlightChance);
+        bool kind = Has(pawn, TraitDefOf.Kind) || Has(answer, TraitDefOf.Kind);
+        bool slight = TalkRule.Slight(misheard, abrasive, kind);
+        InteractionDef interaction = slight ? Slight : InteractionDefOf.Chitchat;
         TalkApart.Interact(pawn, answer, interaction);
         pawn.needs?.joy?.GainJoy(rules.talkChatJoy, JoyKindDefOf.Social);
         answer.needs?.joy?.GainJoy(rules.talkChatJoy, JoyKindDefOf.Social);
         int now = Find.TickManager.TicksGame;
         RadioAir.Begin(new Over(pawn, answer, null, OverKind.Chat, now, now + rules.talkChatTicks, faint, Carriers(net, pawn, answer)));
-        string variant = misheard ? "misheard" : lone ? "lone" : "company";
+        string variant = slight ? misheard ? "misheard" : "abrasive" : kind && (misheard || abrasive) ? "kind" : misheard ? "misheard" : lone ? "lone" : "company";
         if (Seen.Wants("radio.air-chat", pawn, variant)) Seen.Note("radio.air-chat", pawn, pawn.LabelShort + " to " + answer.LabelShort, variant);
     }
+
+    private static bool Has(Pawn pawn, TraitDef? trait) => trait != null && (pawn.story?.traits?.HasTrait(trait) ?? false);
 
     /// <summary>The game's own slight, for a chat misheard; the insult's memories if another mod has removed it.</summary>
     private static InteractionDef Slight => DefDatabase<InteractionDef>.GetNamedSilentFail("Slight") ?? InteractionDefOf.Insult;

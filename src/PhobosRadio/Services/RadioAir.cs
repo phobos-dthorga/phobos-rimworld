@@ -4,12 +4,15 @@ using Verse;
 
 namespace Phobos.Radio.Services;
 
-/// <summary>What an over is: a chat between two colonists, a call to one away in the evening, or company through the night.</summary>
+/// <summary>What an over is: a chat between two colonists, a call to one away in the evening, or company through the night; since Radio
+/// 0.76.0 (RN16, RN17) a call for help or a sighting report, both urgent.</summary>
 public enum OverKind
 {
     Chat,
     EveningCall,
     Company,
+    Help,
+    Sighting,
 }
 
 /// <summary>
@@ -40,8 +43,12 @@ public sealed class Over
     public bool Faint { get; }
     public IReadOnlyList<Thing> Stations { get; }
 
-    /// <summary>The one who answers, by name: a colonist's short name, or the radio friend's.</summary>
-    public string OtherLabel => Other?.LabelShort ?? OtherName ?? "?";
+    /// <summary>The one who answers, by name: a colonist's short name (with their callsign once they have one, Radio 0.76.0), or the
+    /// radio friend's.</summary>
+    public string OtherLabel => Other != null ? RadioOperators.Name(Other) : OtherName ?? "?";
+
+    /// <summary>A call for help or a sighting report (Radio 0.76.0, RN6): served on the urgent kind.</summary>
+    public bool Urgent => Kind is OverKind.Help or OverKind.Sighting;
 }
 
 /// <summary>
@@ -103,6 +110,16 @@ public static class RadioAir
         }
     }
 
+    /// <summary>Whether this colonist is in an urgent over now, calling for help or reporting a sighting (Radio 0.76.0, RN6). Read by the
+    /// net's ledger once a pass for each hand-held: a walk over the few overs live.</summary>
+    public static bool Urgent(Pawn pawn)
+    {
+        int now = Find.TickManager.TicksGame;
+        foreach (Over over in live)
+            if (over.Urgent && over.End > now && over.Starter == pawn) return true;
+        return false;
+    }
+
     /// <summary>
     /// Whether this colonist is talking on the radio now: in an over, or doing a radio job that is a call (every job that makes a call at a
     /// desk is one, on a hand-held too), or giving or taking advice.
@@ -134,7 +151,10 @@ public static class RadioAir
         for (int i = live.Count - 1; i >= 0; i--)
         {
             Over over = live[i];
-            if (over.End <= now || over.Starter.Destroyed) live.RemoveAt(i);
+            if (over.End > now && !over.Starter.Destroyed) continue;
+            live.RemoveAt(i);
+            // Radio 0.76.0 (RN10): the over's length counts towards each colonist's hours on the air.
+            RadioOperators.OverEnded(over, System.Math.Min(over.End, now));
         }
     }
 }

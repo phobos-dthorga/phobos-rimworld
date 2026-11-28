@@ -151,6 +151,27 @@
     <talkNightFrom>22</talkNightFrom>
     <talkNightTo>6</talkNightTo>
     <talkCompanyGapTicks>30000</talkCompanyGapTicks>
+    <!-- Radio watch (Radio 0.73.0, slice 2; here since 0.76.0): a missed neighbour tries again after three hours, a watch is an hour at the
+         desk, and the trader order is looked at at 10:00. Agent defaults, authored. -->
+    <watchRetryHours>3</watchRetryHours>
+    <watchStintTicks>2500</watchStintTicks>
+    <watchTraderHour>10</watchTraderHour>
+    <!-- Acting on what is heard (Radio 0.76.0; docs/development/radio-life-on-the-air.md, slice 3). Every figure an agent default, authored:
+         an urgent look every tenth of an hour; an urgent over ten seconds; badly bleeding is 0.3 a day; a call that failed is tried again
+         after an hour; a threat is seen within 40 cells; cover for an hour; a callsign at 12 hours on the air; a practised voice misheard
+         towards 40% as often; an abrasive voice turns one clear chat in five into a slight. -->
+    <urgentLookTicks>250</urgentLookTicks>
+    <urgentOverTicks>600</urgentOverTicks>
+    <helpBleedRate>0.3</helpBleedRate>
+    <helpHurtTicks>250</helpHurtTicks>
+    <helpRetryTicks>2500</helpRetryTicks>
+    <sightCells>40</sightCells>
+    <sightMembersLooked>30</sightMembersLooked>
+    <coverTicks>2500</coverTicks>
+    <coverRegions>200</coverRegions>
+    <operatorCallsignHours>12</operatorCallsignHours>
+    <practisedMishearFactor>0.4</practisedMishearFactor>
+    <abrasiveSlightChance>0.2</abrasiveSlightChance>
 
     <!-- The vanilla heater turns 175 W into 21 heat per second (Core, Buildings_Temperature.xml). -->
     <heatPerWattSecond>0.12</heatPerWattSecond>

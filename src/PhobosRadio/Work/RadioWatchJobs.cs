@@ -36,7 +36,7 @@ public class WorkGiver_RadioWatch : WorkGiver_Scanner
     public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
     {
         Job job = JobMaker.MakeJob(RadioWatchDefOf.PhobosRadio_RadioWatch, t);
-        job.expiryInterval = RadioWatch.StintTicks;
+        job.expiryInterval = RadioRulesDef.Current.watchStintTicks;
         job.checkOverrideOnExpire = true;
         return job;
     }

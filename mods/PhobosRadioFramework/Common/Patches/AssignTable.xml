@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Radio 0.76.0 (docs/development/radio-life-on-the-air.md, RN20): the Assign tab's "Carry radio" column, beside the game's own Carry
+       (medicine) column; at the end of the table if another mod has taken that column away. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/PawnTableDef[defName="Assign"]/columns/li[text()="Carry"]</xpath>
+    <match Class="PatchOperationInsert">
+      <xpath>Defs/PawnTableDef[defName="Assign"]/columns/li[text()="Carry"]</xpath>
+      <order>Append</order>
+      <value>
+        <li>PhobosRadio_CarryRadio</li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/PawnTableDef[defName="Assign"]/columns</xpath>
+      <success>Always</success>
+      <value>
+        <li>PhobosRadio_CarryRadio</li>
+      </value>
+    </nomatch>
+  </Operation>
+</Patch>

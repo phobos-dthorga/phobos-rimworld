@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Life on the air, slice 3 (Radio 0.76.0; docs/development/radio-life-on-the-air.md, RN16, RN17 and RN20). A colonist alone and in trouble
+    calls for help on their hand-held; one who sees a threat arrive calls it in, and those who do not fight take cover; a colonist may be set
+    to carry a hand-held in their pack. Every figure and line here is an agent default, authored, for the owner to revise. Not yet tested in
+    game.
+  -->
+
+  <!-- Taking cover after a sighting: not to be given up for a passing whim [A]. -->
+  <JobDef>
+    <defName>PhobosRadio_TakeCover</defName>
+    <driverClass>Phobos.Radio.Work.JobDriver_PhobosTakeCover</driverClass>
+    <reportString>taking cover after a sighting on the radio.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <!-- RN20, take a radio when you go: the game's own inventory stock, as its medicine is carried. The VHF and UHF hand-helds; the HF manpack
+       is left out, too heavy to carry as a spare [A]. At most one, none until the player sets it in the Assign tab's "Carry radio" column. -->
+  <InventoryStockGroupDef>
+    <defName>PhobosRadio_Handhelds</defName>
+    <label>hand-held radio</label>
+    <thingDefs>
+      <li>PhobosRadio_HandheldVHF</li>
+      <li>PhobosRadio_HandheldUHF</li>
+    </thingDefs>
+    <defaultThingDef>PhobosRadio_HandheldVHF</defaultThingDef>
+    <min>0</min>
+    <max>1</max>
+  </InventoryStockGroupDef>
+
+  <PawnColumnDef>
+    <defName>PhobosRadio_CarryRadio</defName>
+    <label>carry radio</label>
+    <headerTip>A hand-held radio this colonist keeps in their pack, picked off the shelf as they pick up medicine to carry. It works as a worn one, and goes with them in a caravan.</headerTip>
+    <workerClass>Phobos.Radio.UI.PawnColumnWorker_PhobosCarryRadio</workerClass>
+    <sortable>true</sortable>
+  </PawnColumnDef>
+</Defs>

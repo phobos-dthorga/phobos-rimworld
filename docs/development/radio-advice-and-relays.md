@@ -267,6 +267,10 @@ flowchart LR
 - [Radio watch, as built](radio-life-on-the-air.md#as-built-radio-framework-0730-28-nov-2026-slice-2-the-operator-decides) (Radio
   0.73.0): a colonist whose hand-held is in touch, directly or through a vehicle's cross-band, counts as listening for calls, so a
   repeater or relay that keeps a hand-held in touch keeps the colony from missing them.
+- [A call for help and sightings](radio-life-on-the-air.md#slice-3-acting-on-what-is-heard-radio-framework-0760-28-nov-2026) (Radio
+  0.76.0, RN16 and RN17): a colonist alone calls for help, or reports a threat, only while their hand-held is in touch, directly or
+  through the cross-band last hop, so a repeater that reaches the edge of the map is what lets a lone miner be saved. The urgent kind
+  takes a channel from chatter at the station; calls between tiles are not part of it yet.
 
 - [Radar and air defence, as built](radar-and-air-defence.md#slices-1-and-2-as-built-28-nov-2026) (Radio 0.74.0): the radar data
   link shares a radar's picture with another colony whose base stations its own reach by radio, relays and repeaters included, so a radar

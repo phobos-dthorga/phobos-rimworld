@@ -80,6 +80,9 @@ public class CompRadio : ThingComp
     public bool orderAnswerNeighbours = true;
     public bool orderAskTrader;
     public int orderTraderSilver = RadioStandingOrders.DefaultTraderSilver;
+    // Radio 0.76.0 (RN16, RN17): send help to a call for help, and pass a sighting on so those who do not fight take cover. Both start on.
+    public bool orderSendHelp = true;
+    public bool orderPassSightings = true;
 
     public override void PostExposeData()
     {
@@ -88,6 +91,8 @@ public class CompRadio : ThingComp
         Scribe_Values.Look(ref orderAnswerNeighbours, "PhobosRadio_OrderAnswerNeighbours", true);
         Scribe_Values.Look(ref orderAskTrader, "PhobosRadio_OrderAskTrader");
         Scribe_Values.Look(ref orderTraderSilver, "PhobosRadio_OrderTraderSilver", RadioStandingOrders.DefaultTraderSilver);
+        Scribe_Values.Look(ref orderSendHelp, "PhobosRadio_OrderSendHelp", true);
+        Scribe_Values.Look(ref orderPassSightings, "PhobosRadio_OrderPassSightings", true);
     }
 
     private readonly List<BandDef> bands = new();
@@ -255,8 +260,11 @@ public class CompRadio : ThingComp
         if (RadioAir.Live)
         {
             var talking = new List<string>();
-            foreach (var over in RadioAir.On(parent)) talking.Add("PhobosRadioTalk_OnAirPair".Translate(over.Starter.LabelShort.Named("FIRST"),
-                over.OtherLabel.Named("SECOND")).Resolve());
+            // Radio 0.76.0: a practised colonist by their callsign too (RN10); an urgent call or a sighting has nobody answering.
+            foreach (var over in RadioAir.On(parent))
+                talking.Add(over.Urgent
+                    ? "PhobosRadioUrgent_OnAir".Translate(RadioOperators.Name(over.Starter).Named("FIRST")).Resolve()
+                    : "PhobosRadioTalk_OnAirPair".Translate(RadioOperators.Name(over.Starter).Named("FIRST"), over.OtherLabel.Named("SECOND")).Resolve());
             if (talking.Count > 0)
             {
                 sb.AppendLine();

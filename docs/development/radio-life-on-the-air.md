@@ -3,7 +3,9 @@
 **Status (28 Nov 2026):** slice 1, "the air is alive", is built in Radio Framework 0.63.0 with D'thorga Framework 0.379.0 (RN1, RN2 and
 RN6 in part, RN7, RN8, RN9; [as built](#as-built-radio-framework-0630-28-nov-2026)), not yet tested in game (rows 778 to 780). Slice 2, "the
 operator decides" (RN4 with RN4b, RN5), is built in Radio Framework 0.73.0
-([as built](#as-built-radio-framework-0730-28-nov-2026-slice-2-the-operator-decides)), not yet tested in game (rows 804 and 805). Every other
+([as built](#as-built-radio-framework-0730-28-nov-2026-slice-2-the-operator-decides)), not yet tested in game (rows 804 and 805). Slice 3,
+"acting on what is heard" (RN16, RN17, RN10, RN20, and RN6's urgent kind), is built in Radio Framework 0.76.0
+([designed and built](#slice-3-acting-on-what-is-heard-radio-framework-0760-28-nov-2026)), not yet tested in game (rows 817 to 820). Every other
 row is a proposal with the agent's lean. The owner chose by card which groups go deepest and first, and answered the record's four
 questions the same day (below).
 
@@ -251,8 +253,8 @@ Grades are the agent's proposals until the owner confirms them; defaults follow 
 ## An order of slices (agent's lean)
 
 1. **The air is alive**: RN1, RN2, RN6, the talk pass, RN7, RN8, RN9. Colonists talk, and the lamp shows it. Measured first.
-2. **The operator decides**: RN4 and RN5. The autonomy lever.
-3. **Acting on what is heard**: RN16, RN17, RN10, RN20.
+2. **The operator decides**: RN4 and RN5. The autonomy lever. **Built, Radio 0.73.0.**
+3. **Acting on what is heard**: RN16, RN17, RN10, RN20. **Built, Radio 0.76.0.**
 4. **The world answers**: RN32 first, then RN24, RN11, RN12, RN13, RN14.
 5. **The network**: RN3, RN18, RN27, RN28, RN29; RN30 with EW17.
 6. **The rest**, as the owner picks; group E and the vanilla changes only on the owner's word.
@@ -351,6 +353,104 @@ own "disturbed sleep"), and the Log.
   medevac to a convoy's casualty (convoys do not report casualties yet), and keeping the roll call (RN3, slice 5).
 - **No new mod setting**: the orders are the station's own, as the owner's answer to RN4b leaves the listener rule without one.
 - **Icon owed**: the Standing orders button borrows the radio's signal icon until one of its own is drawn.
+
+## Slice 3, acting on what is heard (Radio Framework 0.76.0, 28 Nov 2026)
+
+RN16, RN17, RN10 and RN20, with RN6's urgent kind, on the owner's card of 28 Nov 2026 (slices for the night: "Life on the air, slice
+3"). Written before building, with its cost, as the radio's performance rule asks. Every choice below not in the rows is the agent's
+[A], for the owner to revise. Not yet tested in game: rows 817 to 820.
+
+**What it lets, stops and changes, and who notices** (the four questions): it **lets** a colonist alone at the edge of the map be saved
+by their radio, and lets the colony react to a threat before the player does; it **stops** a downed miner bleeding out unheard and the
+cook walking into a raid; it **changes** whether carrying a radio matters (it does) and who the player trusts on the air (the practised
+voice); **who notices**: the rescuer, sent from their work; every colonist in touch, who hears a sighting and, if they do not fight, takes
+cover; the net, where an urgent over takes a channel from chatter; the Log, which names who called, who heard and who went; and the radio's
+QSL side, where a practised colonist gets a callsign of their own.
+
+**Cost, stated before building** (the radio's performance rule):
+
+- **The urgent look**: every 250 ticks [authored], offset from the talk pass, for each map with a working station. One walk over the
+  map's free colonists reading flags the game already keeps (downed, the bleed rate it caches, the tick they were last hurt); nothing else
+  unless one is in trouble. With nobody in trouble and no hostile on the map, that walk is all it costs.
+- **A call for help**, only for a colonist in trouble with a radio: one look at whether anyone of the colony is near (the free colonists),
+  one read of the net's last pass, then, when heard, one search for the nearest colonist who can help and for a bed (the game's own
+  searches, once per call).
+- **A sighting**, only while the game's own list of things hostile to the colony is not empty and holds a group not yet reported: the
+  colonists in touch (from the net's last pass) against at most 30 members of each new group, a distance first and a line of sight only
+  within 40 cells, stopping at the first who sees one. Once a group is reported it costs nothing more. Each colonist taking cover searches
+  at most 200 regions of the map once for a room indoors; while sheltering, one look every 250 ticks at whether the threat is gone.
+- **Hours on the air (RN10)**: one addition to the Framework's practice record when each over ends; the callsign is worked out from the
+  colony's place when shown, never saved. The traits and practice change one figure in a chat's existing roll.
+- **Take a radio (RN20)**: nothing of ours runs. The game's own inventory stock (its "carry medicine" rule) picks the set up, at its own
+  look every 6,000 to 9,000 ticks per colonist.
+- **Not yet measured with `perf.py`**: owed with slices 1 and 2, asking first.
+
+**RN6, the urgent kind**: a new channel kind, **urgent**, served before the guard net and the home net, and taking a channel from colonists
+talking at home when a station is full, as the guard net does. A colonist's hand-held is on it while they are in an urgent over (a call for
+help, a sighting). A station full of the kinds it cannot take from (orders, the guard) makes the call wait: it goes when a channel frees,
+and the Log says it waited; it is given up when its over ends unserved, and tried again an hour later if the trouble lasts.
+
+**RN16, a call for help, as designed**:
+
+- **Who calls** [A]: a colonist awake, able to talk, with a hand-held in touch with the colony's stations (worn or in the pack, directly or
+  through [a repeater, relay or a vehicle's cross-band](radio-advice-and-relays.md#as-built-radio-0250-27-nov-2026-the-cross-band-last-hop)),
+  with **no other able colonist within 12 cells**, who is **downed** (and not in a bed), **bleeding badly** (the game's bleed rate at
+  least 0.3 a day [authored]) or **hurt in the last 250 ticks** (under attack). Trapped is not built. Once for each spell of trouble.
+- **Who hears**: the call needs a listener, as every call does since slice 2: someone at a desk, an awake colonist on a hand-held, or the
+  colonist the selective call wakes. Missed, it is logged as missed and tried again an hour later if the trouble lasts.
+- **Who goes** [A]: with the setting **"Colonists go to a call for help"** (on: moderate risk, the rescuer may walk into the same danger)
+  and the standing order **"Send help to a call for help"** ticked on a station (on), the nearest colonist who can doctor, is not drafted
+  and is free to be ordered goes at once, putting their work aside: to carry a downed caller to a bed (the game's own rescue), or to tend a
+  bleeding one with the best medicine to hand (the game's own tending). Nobody is sent to someone already being helped or in bed, nor
+  for a colonist only under attack: that is the player's fight. A vehicle, and the medevac for a convoy's casualty, are not built.
+- **Who notices**: the player by a message naming the caller, the listener and the rescuer; the Log; the net (the urgent over).
+
+**RN17, sighting reports, as designed**:
+
+- **What is seen** [A]: a group of the game's active threats to the colony arriving on the map: raiders (one group per raid, by the
+  game's own grouping of them) or animals gone manhunting (one group while any are). A predator stalking someone is not built.
+- **Who reports**: the first colonist in touch on a hand-held, awake and able to talk, who has a member of the group in sight within 40
+  cells [authored]. Nobody with a radio sees it, nobody reports it. Once per group, not saved: after a load a group still on the map may
+  be reported once more.
+- **What they say**: how many, who, and which side of the map they are on (by the compass, from the map's middle). Heard by everyone in
+  touch: a sighting is said to the whole net, so it needs no listener at the desk [A]. It is an urgent over (RN6).
+- **What the colony does**: with the setting **"Colonists take cover on a sighting"** (on: low risk, lost work time) and the standing
+  order **"Pass sightings to everyone"** ticked (on), each colonist in touch who does not fight (cannot do violence, or carries no weapon
+  [A]), outdoors, not drafted and free to be interrupted goes to the nearest room indoors and stays an hour [authored], or until no threat
+  is left on the map. The game's own letter for the raid still comes; this does not replace it.
+- **The radar's warning is untouched**: a raid the radar holds is not on the map, so it cannot be sighted; a sighting never releases or
+  shortens a hold (Radio 0.74.0, `RaidHolds`).
+
+**RN10, habits from hours on the air, as designed**:
+
+- **Hours**: each over a colonist is in (talking or answering) adds its length to their hours on the air, in the Framework's practice
+  record, when it ends. Calls made at a desk by job (a neighbour's call, advice) are not counted yet [A].
+- **A callsign of their own** at 12 hours on the air [authored; the Framework's "regular" figure], worked out as the colony's QSL
+  callsigns are, from the colony's place and the colonist: shown beside their name in the radio's messages, its Log and a station's "on
+  the air" line. The Log marks the day they earn it.
+- **Style from traits** [A]: an **abrasive** colonist on a clear link still turns one chat in five into a slight (the channel-hog's named
+  roll); a **kind** colonist in a chat makes a misheard one pass off as an ordinary chat, never a slight.
+- **Practice**: the chance a chat on a faint link is misheard falls with the starter's hours, to 70% of the rules' figure at 40 hours
+  and towards 40% with many more [authored].
+
+**RN20, take a radio when you go, as designed**: XML first, as the row asks. A new **inventory stock group, the hand-held radio** (the VHF
+and UHF sets; the HF manpack is left out, too heavy for it [A]), at most one, none by default [A], set per colonist in the Assign tab's new
+**Carry radio** column beside the game's "Carry" medicine column (the game's column draws medicine alone, so the radio has its own). A
+colonist set to carry one picks it off the shelf by the game's own rule and keeps it in their pack, where it works as a worn one (Radio
+0.67.0), so it goes with them in a caravan. **Putting it back when home is not built**: the game's stock keeps it carried, as it keeps
+medicine.
+
+**As built, where it differs or adds** (Radio 0.76.0):
+
+- **Built as designed above.** Two dev actions help the test rows: **Call for help now (selected)** (a colonist in no trouble calls as
+  under attack, which sends nobody) and **Sightings: look again now** (forgets what this map has had reported).
+- **The Carry radio column** is a picture of the chosen set (a menu of VHF and UHF) and a count button (a menu of 0 and 1), the radio's
+  own way of drawing a choice, beside the game's own Carry column.
+- **A missed call for help** goes in the Log as any missed call does, and is tried again an hour later if the trouble lasts. A colonist
+  may call again sooner only for worse trouble (under attack, then bleeding, then downed).
+- **Slice 2's three figures** (the retry, the watch's hour, the trader order's hour) moved into the rules Def, as slice 2 promised.
+- **Icons**: nothing new needs one; the column reuses the hand-helds' own pictures.
+- **Not yet measured with `perf.py`**: owed with slices 1 and 2, asking first.
 
 ## Questions for the owner
 

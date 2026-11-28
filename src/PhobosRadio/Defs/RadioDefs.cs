@@ -131,6 +131,29 @@ public class ChannelKindDef : Def
         }
     }
 
+    /// <summary>The defName of the urgent kind (Radio 0.76.0; docs/development/radio-life-on-the-air.md, RN6).</summary>
+    public const string UrgentVoiceName = "PhobosRadio_KindUrgentVoice";
+    private static ChannelKindDef? urgentVoice;
+    private static bool urgentLooked;
+
+    /// <summary>
+    /// The urgent kind (Radio 0.76.0, RN6): a colonist's hand-held while they call for help or report a sighting, served before the guard
+    /// and home nets and taking a channel from colonists talking at home when a station is full. Null if another mod has removed it, when
+    /// urgent calls go on the colonist's usual net.
+    /// </summary>
+    public static ChannelKindDef? UrgentVoice
+    {
+        get
+        {
+            if (!urgentLooked)
+            {
+                urgentVoice = DefDatabase<ChannelKindDef>.GetNamedSilentFail(UrgentVoiceName);
+                urgentLooked = true;
+            }
+            return urgentVoice;
+        }
+    }
+
     [Unsaved] private int ledgerIndex = -1;
 
     /// <summary>This kind's place in <see cref="InOrder"/>.</summary>
@@ -500,6 +523,38 @@ public class RadioRulesDef : Def
     public int talkNightTo = 6;
     /// <summary>Ticks between two nights' company for one colonist (half a day).</summary>
     public int talkCompanyGapTicks = 30000;
+
+    // Radio watch (Radio 0.73.0, slice 2; moved here from RadioWatch's constants in 0.76.0). Authored, for the owner to revise.
+    /// <summary>Hours after a missed neighbour's call before they try once more.</summary>
+    public float watchRetryHours = 3f;
+    /// <summary>One stint of radio watch at the desk, in ticks (an hour), before the colonist looks again at what else needs them.</summary>
+    public int watchStintTicks = 2500;
+    /// <summary>The hour of the map's day the standing order to ask a trader in is looked at.</summary>
+    public int watchTraderHour = 10;
+
+    // Acting on what is heard (Radio 0.76.0; docs/development/radio-life-on-the-air.md, slice 3). Every figure authored, for the owner to revise.
+    /// <summary>How often the urgent look runs, in ticks (calls for help, sightings).</summary>
+    public int urgentLookTicks = 250;
+    /// <summary>How long an urgent over lasts, in ticks: a call for help or a sighting report.</summary>
+    public int urgentOverTicks = 600;
+    /// <summary>A bleed rate (blood a day, as the game counts it) at or over which a colonist alone calls for help.</summary>
+    public float helpBleedRate = 0.3f;
+    /// <summary>Hurt within this many ticks: under attack.</summary>
+    public int helpHurtTicks = 250;
+    /// <summary>Ticks before a call for help that was missed or never got a channel is tried again, if the trouble lasts (an hour).</summary>
+    public int helpRetryTicks = 2500;
+    /// <summary>How far a colonist sees a threat to report it, in cells, and how many of a group's members are looked at.</summary>
+    public int sightCells = 40;
+    public int sightMembersLooked = 30;
+    /// <summary>How long a colonist stays under cover after a sighting, in ticks (an hour), and how many regions they search for a room.</summary>
+    public int coverTicks = 2500;
+    public int coverRegions = 200;
+    /// <summary>Hours on the air that earn a colonist a callsign of their own (the Framework's "regular" figure).</summary>
+    public float operatorCallsignHours = 12f;
+    /// <summary>What the chance of mishearing a faint chat falls towards with many hours on the air (40% of the rules' figure).</summary>
+    public float practisedMishearFactor = 0.4f;
+    /// <summary>The chance an abrasive colonist's chat on a clear link still ends in a slight.</summary>
+    public float abrasiveSlightChance = 0.2f;
 
     /// <summary>
     /// Heat pushed into the room per watt of waste per second. The vanilla heater turns 175 W into

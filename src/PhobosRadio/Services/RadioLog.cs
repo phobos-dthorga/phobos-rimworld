@@ -30,6 +30,8 @@ public enum RadioLogKind
     Talk,
     /// <summary>Radio watch: a call heard or missed, and what the standing orders did (Radio 0.73.0).</summary>
     Watch,
+    /// <summary>Urgent traffic: a colonist's call for help, a sighting reported, and who went (Radio 0.76.0).</summary>
+    Urgent,
 }
 
 /// <summary>One line of the logbook: when, what kind, and the words as they were said then.</summary>

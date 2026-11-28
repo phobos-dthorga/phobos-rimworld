@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Life on the air, slice 3 (Radio 0.76.0): calls for help, sightings, taking cover, hours on the air and the Carry radio column. Agent-authored, for the owner's review. -->
+
+  <!-- Settings -->
+  <PhobosRadio_SectionActing>Acting on what is heard</PhobosRadio_SectionActing>
+  <PhobosRadio_SettingHelpCallsSendHelp>Colonists go to a call for help</PhobosRadio_SettingHelpCallsSendHelp>
+  <PhobosRadio_SettingHelpCallsSendHelpDesc>When a colonist alone is downed or bleeding badly and calls for help on their hand-held, whoever hears it sends the nearest colonist who can doctor, who puts their work aside to carry them to a bed or tend them. The one sent may walk into whatever hurt the first. A station's standing orders must allow it too. Off, a call for help is still heard and you are told, but nobody goes by themselves.</PhobosRadio_SettingHelpCallsSendHelpDesc>
+  <PhobosRadio_SettingSightingsTakeCover>Colonists take cover on a sighting</PhobosRadio_SettingSightingsTakeCover>
+  <PhobosRadio_SettingSightingsTakeCoverDesc>When a colonist with a hand-held sees raiders or manhunting animals arrive and calls it in, everyone in touch who does not fight (who cannot do violence or carries no weapon) and is outdoors goes to the nearest room indoors for about an hour, or until the threat is gone. Costs work time. A station's standing orders must allow it too. Off, sightings are still reported and nobody moves by themselves.</PhobosRadio_SettingSightingsTakeCoverDesc>
+
+  <!-- Standing orders -->
+  <PhobosRadioOrders_SendHelp>Send help to a call for help</PhobosRadioOrders_SendHelp>
+  <PhobosRadioOrders_SendHelpDesc>When a colonist alone calls for help, downed or bleeding badly, the nearest colonist who can doctor goes at once: to carry them to a bed, or to tend them. Nobody is sent to someone already being helped, nor to someone only under attack: that fight is yours.</PhobosRadioOrders_SendHelpDesc>
+  <PhobosRadioOrders_PassSightings>Pass sightings to everyone</PhobosRadioOrders_PassSightings>
+  <PhobosRadioOrders_PassSightingsDesc>When a colonist on a hand-held reports raiders or manhunting animals, everyone in touch who does not fight and is outdoors goes indoors to take cover for a while.</PhobosRadioOrders_PassSightingsDesc>
+
+  <!-- A call for help -->
+  <PhobosRadioUrgent_TroubleDowned>being down and alone</PhobosRadioUrgent_TroubleDowned>
+  <PhobosRadioUrgent_TroubleBleeding>bleeding badly, alone</PhobosRadioUrgent_TroubleBleeding>
+  <PhobosRadioUrgent_TroubleAttacked>being under attack, alone</PhobosRadioUrgent_TroubleAttacked>
+  <PhobosRadioUrgent_HelpHeard>Call for help: {CALLER} is on the radio about {WHAT}, and {LISTENER} heard.</PhobosRadioUrgent_HelpHeard>
+  <PhobosRadioUrgent_Waiting>{CALLER} is calling for help, but every channel is taken by traffic that cannot be cut off. The call waits for one to free.</PhobosRadioUrgent_Waiting>
+  <PhobosRadioUrgent_NoChannelGaveUp>{CALLER}'s call for help never got a channel. They will try again if they are still in trouble.</PhobosRadioUrgent_NoChannelGaveUp>
+  <PhobosRadioUrgent_SentRescue>{RESCUER} is going to carry {CALLER} to a bed.</PhobosRadioUrgent_SentRescue>
+  <PhobosRadioUrgent_SentTend>{RESCUER} is going to tend {CALLER}.</PhobosRadioUrgent_SentTend>
+  <PhobosRadioUrgent_NobodyToSend>Nobody free who can doctor could go to {CALLER}.</PhobosRadioUrgent_NobodyToSend>
+
+  <!-- A sighting -->
+  <PhobosRadioUrgent_SightRaiders>{FACTION}, {COUNT} coming in</PhobosRadioUrgent_SightRaiders>
+  <PhobosRadioUrgent_SightAnimals>{COUNT} manhunting {KIND}</PhobosRadioUrgent_SightAnimals>
+  <PhobosRadioUrgent_SightOthers>{COUNT} {KIND}</PhobosRadioUrgent_SightOthers>
+  <PhobosRadioUrgent_Sighting>{REPORTER} on the radio: {WHAT}, on the {SIDE} side.</PhobosRadioUrgent_Sighting>
+  <PhobosRadioUrgent_TookCover>On the sighting, {COUNT} who do not fight went indoors to take cover.</PhobosRadioUrgent_TookCover>
+
+  <!-- The air -->
+  <PhobosRadioUrgent_OnAir>{FIRST}, urgent</PhobosRadioUrgent_OnAir>
+  <PhobosRadioTalk_NameWithCall>{NAME} ({CALLSIGN})</PhobosRadioTalk_NameWithCall>
+  <PhobosRadioTalk_CallsignEarned>{NAME} has had {HOURS} hours on the air, and goes by {CALLSIGN} now.</PhobosRadioTalk_CallsignEarned>
+</LanguageData>

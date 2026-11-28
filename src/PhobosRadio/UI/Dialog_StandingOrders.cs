@@ -24,7 +24,7 @@ public class Dialog_PhobosStandingOrders : Window
         forcePause = false;
     }
 
-    public override Vector2 InitialSize => new(560f, 400f);
+    public override Vector2 InitialSize => new(560f, 520f);
 
     public override void DoWindowContents(Rect inRect)
     {
@@ -41,6 +41,16 @@ public class Dialog_PhobosStandingOrders : Window
         bool answer = station.orderAnswerNeighbours;
         listing.CheckboxLabeled("PhobosRadioOrders_AnswerNeighbours".Translate(), ref answer, "PhobosRadioOrders_AnswerNeighboursDesc".Translate());
         if (answer != station.orderAnswerNeighbours) RadioStandingOrders.SetAnswerNeighbours(station, answer);
+        listing.Gap();
+
+        // Radio 0.76.0 (RN16, RN17): acting on what is heard.
+        bool help = station.orderSendHelp;
+        listing.CheckboxLabeled("PhobosRadioOrders_SendHelp".Translate(), ref help, "PhobosRadioOrders_SendHelpDesc".Translate());
+        if (help != station.orderSendHelp) RadioStandingOrders.SetSendHelp(station, help);
+        listing.Gap();
+        bool sightings = station.orderPassSightings;
+        listing.CheckboxLabeled("PhobosRadioOrders_PassSightings".Translate(), ref sightings, "PhobosRadioOrders_PassSightingsDesc".Translate());
+        if (sightings != station.orderPassSightings) RadioStandingOrders.SetPassSightings(station, sightings);
         listing.Gap();
 
         bool trader = station.orderAskTrader;
