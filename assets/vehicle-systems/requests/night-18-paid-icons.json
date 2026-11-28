@@ -1,0 +1,118 @@
+[
+  {
+    "name": "n18p-dual-band-radio",
+    "title": "The dual-band radio fitting",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/CoaxIcon.png",
+        "role": "our approved icon of the same game (the radio's coax icon, bought on 25 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/EcmPod.png",
+        "role": "our approved icon of the same game (the ECM pod fitting, bought on 25 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "fitting": "PhobosFitting_DualBandRadio, the dual-band radio (Radio Framework 0.25.0); it borrows the repeater kit's icon",
+      "ships_as": "mods/PhobosRadioFramework/Mods/VehicleFramework/Common/Textures/Phobos/Radio/Fittings/DualBandRadio.png",
+      "size": "exported at 128",
+      "why": "night 18's local tries were answered on the Picks page (owner, 28 Nov 2026): \"We'll have to use a paid source for this.\""
+    },
+    "prompt": "GAME BUTTON ICON. One small object seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon of a vehicle's dual-band radio: a small dark grey mobile radio set with a round speaker grille and two knobs, and TWO short black whip aerials of clearly different lengths standing up from its top, the short one with a small blue band near its base and the long one with a small orange band, so it reads as one radio on two bands.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "n18p-radio-coverage",
+    "title": "Radio coverage, the world map's cover button",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/CoaxIcon.png",
+        "role": "our approved icon of the same game (the radio's coax icon, bought on 25 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+        "role": "our approved icon of the same game (the Land button): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "button": "Radio coverage (WorldCoverGizmo in src/PhobosRadio/UI/WorldCoverView.cs); it borrows the Signal icon",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/WorldCover.png",
+      "size": "exported at 128",
+      "why": "night 18's local tries were answered on the Picks page (owner, 28 Nov 2026): \"We'll have to use a paid source for this.\""
+    },
+    "prompt": "GAME BUTTON ICON. One small object seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon meaning \"show where my radios reach on the map\": a small square tile of flat map ground, green and brown, seen from above at an angle, with a short grey radio mast standing in its middle and three concentric rings of signal spreading across the ground round the mast, bright gold near the mast and fading to pale violet at the outer ring. NOT a globe, not a ball.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "n18p-landing-lights",
+    "title": "Landing lights fitting",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/EcmPod.png",
+        "role": "our approved icon of the same game (the ECM pod fitting, bought on 25 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+        "role": "our approved icon of the same game (the Land button): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "fitting": "Landing lights (PhobosFitting_LandingLights, the vehicle standard's batch 4); it borrows the headlights' picture",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/LandingLights.png",
+      "size": "exported at 128",
+      "why": "night 18's local tries were answered on the Picks page (owner, 28 Nov 2026): \"We'll have to use a paid source for this.\""
+    },
+    "prompt": "GAME BUTTON ICON. One small object seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon of an aircraft's landing lights: the nose and underside of a small grey aircraft seen from the front and a little below, with two round bright lamps under the nose throwing two short pale yellow-white beams forward and down onto a short strip of grey runway with a dashed white centre line.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "n18p-suppression-crew",
+    "title": "Crew fire suppression fitting",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/SuppressionEngine.png",
+        "role": "our approved icon of the same game (engine fire suppression, the crew system's sibling, picked on 28 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/EcmPod.png",
+        "role": "our approved icon of the same game (the ECM pod fitting, bought on 25 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "fitting": "Crew fire suppression (PhobosFitting_SuppressionCrew, FireFighting.xml; also the node in five upgrade trees); it borrows the suppressant bottle",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/SuppressionCrew.png",
+      "size": "exported at 128",
+      "why": "night 18's local tries were answered on the Picks page (owner, 28 Nov 2026): \"We'll have to use a paid source for this.\""
+    },
+    "prompt": "GAME BUTTON ICON. One small object seen from the side and a little above, centred, as an icon on a command button in a top-down strategy game.\n\nImages 1 and 2 are our approved icons from the same game: match their outline weight, shading, palette and finish only, not their shapes.\n\nCreate an ORIGINAL icon of a vehicle cabin's automatic fire suppression: a padded dark grey vehicle seat seen from the side, a small red fire suppressant bottle fixed upright beside it, and a thin pipe from the bottle up to a nozzle above the seat spraying a white cone of mist down over the seat. The seat must be the main shape, so it cannot be mistaken for the engine's system.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette with one bright accent at most, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the icon, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, text, letters, numbers, logos or brand marks."
+  }
+]

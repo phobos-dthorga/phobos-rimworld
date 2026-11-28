@@ -1,0 +1,71 @@
+[
+  {
+    "name": "house-crest-paid",
+    "title": "House D'thorga crest: a red dragon",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [],
+    "art_plan": {
+      "for": "House D'thorga's crest (the owner's yes, 28 Nov 2026): the guide's front door, README tops and the reference site",
+      "how_it_ships": "titled or with a motto only by script, never generated; the head mark (Z-Image 315) already serves as the favicon",
+      "why": "the owner on the Picks page, 28 Nov 2026: \"Let's go with a paid solution for this\""
+    },
+    "prompt": "FLAT FRONT VIEW of a heraldic emblem, drawn straight on, with no perspective, tilt or 3D.\n\nCreate an ORIGINAL house crest: a red dragon rampant (rearing on its hind legs, forelegs raised) with golden-orange wings spread, swept-back cream horns and amber eyes, on a dark charcoal heater shield with a thin gold border.\n\nStyle: a clean modern heraldic emblem: bold flat shapes, a thick dark outline, two or three tones per colour, crisp edges, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art, not a sketch.\n\nThe shield fills about 80 percent of a square canvas, centred, on a plain flat dark charcoal background. No text, letters, numbers, banner, motto, crown, logos or watermark."
+  },
+  {
+    "name": "house-crest-dragonself-rampant-paid",
+    "title": "House D'thorga crest: the owner's Dragonself, rampant",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-previews/generated/house-crest-dragonself-zimage/house-crest-dragonself-zimage-315.png",
+        "role": "the owner's favourite of our earlier tries: keep its pose, its shield and its colours; redraw it cleaner, with a clearer face and the crest and tail colours exactly as described"
+      }
+    ],
+    "art_plan": {
+      "for": "House D'thorga's crest (the owner's yes, 28 Nov 2026): the guide's front door, README tops and the reference site",
+      "how_it_ships": "titled or with a motto only by script, never generated; the head mark (Z-Image 315) already serves as the favicon",
+      "why": "the owner on the Picks page, 28 Nov 2026: \"Let's go with a paid solution for this\"",
+      "note": "the rampant pose of the Z-Image 315 try the owner liked"
+    },
+    "prompt": "FLAT FRONT VIEW of a heraldic emblem, drawn straight on, with no perspective, tilt or 3D.\n\nImage 1 is the owner's favourite earlier try: keep its pose, shield and colours, and draw it again cleaner.\n\nCreate a house crest of a red, fluffy dragon with a thick soft coat, golden-orange membrane wings, a purple crest and mane streaked with yellow and green running down its neck, swept-back cream horns, amber eyes, and a long tail fading from green to teal to a blue fin-like tip, rampant (rearing on its hind legs, forelegs raised), on a dark charcoal heater shield with a gold border. A clear, noble face with one visible amber eye.\n\nStyle: a clean modern heraldic emblem: bold flat shapes, a thick dark outline, two or three tones per colour, crisp edges, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art, not a sketch.\n\nThe shield fills about 80 percent of a square canvas, centred, on a plain flat dark charcoal background. No text, letters, numbers, banner, motto, crown, logos or watermark."
+  },
+  {
+    "name": "house-crest-dragonself-passant-paid",
+    "title": "House D'thorga crest: the owner's Dragonself, on all four legs",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-previews/generated/house-crest-dragonself-zimage/house-crest-dragonself-zimage-315.png",
+        "role": "the owner's favourite of our earlier tries: keep its colours, coat and shield only; the pose is new"
+      }
+    ],
+    "art_plan": {
+      "for": "House D'thorga's crest (the owner's yes, 28 Nov 2026): the guide's front door, README tops and the reference site",
+      "how_it_ships": "titled or with a motto only by script, never generated; the head mark (Z-Image 315) already serves as the favicon",
+      "why": "the owner on the Picks page, 28 Nov 2026: \"Let's go with a paid solution for this\"",
+      "note": "the owner's Dragonself is a quadruped (four legs and two wings): heraldic passant, agent's suggestion"
+    },
+    "prompt": "FLAT FRONT VIEW of a heraldic emblem, drawn straight on, with no perspective, tilt or 3D.\n\nImage 1 is the owner's favourite earlier try: keep its colours, fluffy coat and shield only. The pose is NEW.\n\nCreate a house crest of a red, fluffy dragon with a thick soft coat, golden-orange membrane wings, a purple crest and mane streaked with yellow and green running down its neck, swept-back cream horns, amber eyes, and a long tail fading from green to teal to a blue fin-like tip, passant: walking on ALL FOUR legs in side view, one forepaw raised, head up, wings half spread above its back (six limbs: four legs and two wings), on a dark charcoal heater shield with a gold border. A clear, noble face with one visible amber eye.\n\nStyle: a clean modern heraldic emblem: bold flat shapes, a thick dark outline, two or three tones per colour, crisp edges, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art, not a sketch.\n\nThe shield fills about 80 percent of a square canvas, centred, on a plain flat dark charcoal background. No text, letters, numbers, banner, motto, crown, logos or watermark."
+  }
+]
