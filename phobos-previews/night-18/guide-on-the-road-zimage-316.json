@@ -1,0 +1,21 @@
+{
+  "file": "guide-on-the-road-zimage-316.png",
+  "sha256": "dc7d6c672742ad380f4964452c355b4f943958c615680963fe929fcb8c007830",
+  "date": "2026-11-28T14:57:13",
+  "generator": "ComfyUI 0.41.0, local, Z-Image base int8 (Alibaba Tongyi lab, Apache 2.0; Comfy-Org packaging)",
+  "engine": "zimage",
+  "model": "z_image_int8_convrot.safetensors",
+  "model_sha256": "eb2b470694fbd9778f15efd309000ea0091312c018c10a352c120b1da9bf4279",
+  "prompt": "Painted illustration: A convoy of three rugged work trucks with headlights on, on a muddy winding mountain road in light rain at dusk: the lead truck tows a flatbed trailer, and the last truck pulls a stuck one out of the mud with a taut winch cable. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 316,
+  "steps": 25,
+  "cfg": 4.0,
+  "sampler": "res_multistep/simple",
+  "request_file": "assets/phobos-previews/requests/night-18-docs.json",
+  "size": [
+    1280,
+    720
+  ],
+  "seconds": 21.9
+}

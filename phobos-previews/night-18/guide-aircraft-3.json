@@ -1,0 +1,21 @@
+{
+  "file": "guide-aircraft-3.png",
+  "sha256": "c88565934f3af554e10a9827e053164b45a48aaa1619b507b54566e946f4b994",
+  "date": "2026-11-28T14:47:56",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "engine": "schnell",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "Painted illustration: A heavy tiltrotor transport aircraft hovering over a rocky ridge at dusk with a small work truck hanging under it on sling cables, a colonist on the ground guiding it down with two glowing wands, dust swirling in the rotor wash. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 3,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "request_file": "assets/phobos-previews/requests/night-18-docs.json",
+  "size": [
+    1280,
+    720
+  ],
+  "seconds": 7.9
+}

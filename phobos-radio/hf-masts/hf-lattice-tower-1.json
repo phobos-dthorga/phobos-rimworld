@@ -1,0 +1,51 @@
+{
+  "file": "hf-lattice-tower-1.png",
+  "sha256": "ac3c6d792b2617b843b97ca9d613008208fd5fd9ddb79c22f7ec747615d80fc9",
+  "date": "2026-11-28T07:50:14",
+  "prompt": "STEEP HIGH-ANGLE VIEW FROM ABOVE AND SLIGHTLY IN FRONT, exactly as Image 1 is drawn and as the game RimWorld draws its trees and standing lamps: we look mostly DOWN onto the object's top; its height is strongly foreshortened; its foot at the BOTTOM of the canvas and its top towards the TOP. No side-on view, no isometric angle, no tilt.\n\nCreate an ORIGINAL game building sprite for a tall triangular steel lattice radio tower that holds up a long wire antenna. Image 1 is our approved slim mast from the same game: match its camera, outline weight, shading, palette and finish. Do NOT copy its shape.\n\nPortrait canvas. The tower fills about 85 percent of the canvas height, centred, on a plain pure white background.\n\nA small square concrete base at the bottom; a narrow triangular galvanised steel lattice tower rising from it, strongly foreshortened, with zig-zag cross bracing all the way up, tapering slightly; a small ladder up one face; at the very top a short platform rail and a small white ceramic insulator with a pulley. No guy wires. NO antenna wire leaving the top: the long wire is added separately.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted steel and concrete colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, lights or ground texture. No shadow outside the object.",
+  "seed": 1,
+  "size": [
+    1024,
+    1536
+  ],
+  "request_file": "assets/phobos-radio/requests/hf-lattice-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1875,
+    "input_tokens_details": {
+      "image_tokens": 1536,
+      "text_tokens": 339
+    },
+    "output_tokens": 1372,
+    "output_tokens_details": {
+      "image_tokens": 1372,
+      "text_tokens": 0
+    },
+    "total_tokens": 3247
+  },
+  "cost_usd": 0.0551,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1536",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1536
+  ],
+  "seconds": 22.3,
+  "references": [
+    {
+      "image": "assets/phobos-radio/generated/hf-wire-mast/hf-wire-mast-2.png",
+      "sha256": "7256396c16da6a2f45142e5bd9d481ee782f676924c8ae3755894564db27b5a7",
+      "role": "our approved HF wire mast from the same set (the guyed steel pole): match its camera, outline weight, shading, palette and finish; do not copy its shape"
+    }
+  ]
+}
