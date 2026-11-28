@@ -1063,4 +1063,273 @@
       </li>
     </pipes>
   </Phobos.VehicleSystems.PhobosVehicleSchematicDef>
+
+  <!--
+    Framework 0.382.0 (docs/development/vehicle-schematic.md; the owner's word of 28 Nov 2026, "Let's build the land gas turbine page too"): a
+    land vehicle with a gas turbine, the M1A2 Abrams's AGT1500 (Roaring Tiger's and Desert Sabre's). The engine is the turboshaft's section in its
+    three tiles (scripts/art/draw_turboshaft_cutaway.py), coloured by the gas's heat as an aircraft's is. Air comes in through the big air
+    filters, the compressor sends it through the recuperator, where the exhaust warms it before the burners, and the exhaust leaves through the
+    recuperator out of the back deck (the AGT1500's recuperator: general knowledge, unverified). The turbine turns the tracks through the
+    gearbox. Its loadouts have no fuel system of their own, so the fuel tanks feed the burners directly. The recuperator has no part or reading
+    in our model, so it is always sound and only shows where the heat goes. A plain flow sheet, not a drawing of the real engine. Layout
+    authored, on a 720 by 340 page.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSchematicDef>
+    <defName>PhobosVehicleSchematic_TurbineLand</defName>
+    <label>gas turbine, land</label>
+    <loadoutKinds>
+      <li>CombustionLand</li>
+      <li>CombustionHeavy</li>
+      <li>CombustionTracked</li>
+    </loadoutKinds>
+    <engineKinds>
+      <li>Turboshaft</li>
+    </engineKinds>
+    <size>(720, 340)</size>
+    <nodes>
+      <li>
+        <key>airFilter</key>
+        <label>air filters</label>
+        <shape>Filter</shape>
+        <rect>(40, 120, 60, 60)</rect>
+        <system>PhobosVehicleSystem_Service</system>
+        <quantity>airFilter</quantity>
+      </li>
+      <li>
+        <key>compressor</key>
+        <label>compressor</label>
+        <rect>(300, 110, 80, 80)</rect>
+        <role>Engine</role>
+        <system>PhobosVehicleSystem_CompressorWash</system>
+        <quantity>compressorFouling</quantity>
+        <layers>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Casing</texPath></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat01</texPath><tint>Heat</tint><position>0.05</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat02</texPath><tint>Heat</tint><position>0.15</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat03</texPath><tint>Heat</tint><position>0.25</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat04</texPath><tint>Heat</tint><position>0.35</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Heat05</texPath><tint>Heat</tint><position>0.45</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Comp/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
+        </layers>
+        <outline>Phobos/VehicleSystems/Schematic/Gas/Comp/Outline</outline>
+      </li>
+      <li>
+        <key>hotSection</key>
+        <label>hot section</label>
+        <rect>(380, 110, 100, 80)</rect>
+        <role>Engine</role>
+        <system>PhobosVehicleSystem_Turbine</system>
+        <quantity>hotSectionLife</quantity>
+        <layers>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Casing</texPath></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Heat04</texPath><tint>Heat</tint><position>0.35</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Heat05</texPath><tint>Heat</tint><position>0.45</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Heat06</texPath><tint>Heat</tint><position>0.55</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Heat07</texPath><tint>Heat</tint><position>0.65</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Fuel</texPath><node>fuelTank</node><tint>Flow</tint><medium>Fuel</medium></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Hot/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
+        </layers>
+        <outline>Phobos/VehicleSystems/Schematic/Gas/Hot/Outline</outline>
+      </li>
+      <li>
+        <key>turbine</key>
+        <label>turbine</label>
+        <rect>(480, 110, 80, 80)</rect>
+        <role>Engine</role>
+        <system>PhobosVehicleSystem_Turbine</system>
+        <quantity>turbineTemperature</quantity>
+        <layers>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Casing</texPath></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat06</texPath><tint>Heat</tint><position>0.55</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat07</texPath><tint>Heat</tint><position>0.65</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat08</texPath><tint>Heat</tint><position>0.75</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat09</texPath><tint>Heat</tint><position>0.85</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Heat10</texPath><tint>Heat</tint><position>0.95</position></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Steel</texPath><tint>Fixed</tint><colour>(0.67, 0.69, 0.71, 1)</colour></li>
+          <li><texPath>Phobos/VehicleSystems/Schematic/Gas/Turb/Oil</texPath><node>oilPump</node><tint>Flow</tint><medium>Oil</medium></li>
+        </layers>
+        <outline>Phobos/VehicleSystems/Schematic/Gas/Turb/Outline</outline>
+      </li>
+      <li>
+        <key>recuperator</key>
+        <label>recuperator</label>
+        <shape>Radiator</shape>
+        <rect>(380, 22, 180, 44)</rect>
+        <system>PhobosVehicleSystem_Turbine</system>
+      </li>
+      <li>
+        <key>gearbox</key>
+        <label>gearbox</label>
+        <rect>(600, 196, 70, 40)</rect>
+        <role>Transmission</role>
+        <system>PhobosVehicleSystem_Transmission</system>
+        <quantity>transmissionTemperature</quantity>
+      </li>
+      <li>
+        <key>tracks</key>
+        <label>tracks</label>
+        <rect>(600, 272, 80, 40)</rect>
+        <role>Wheels</role>
+        <system>PhobosVehicleSystem_RunningGear</system>
+      </li>
+      <li>
+        <key>brakes</key>
+        <label>brakes</label>
+        <rect>(500, 276, 70, 32)</rect>
+        <role>Brakes</role>
+        <system>PhobosVehicleSystem_Brakes</system>
+      </li>
+      <li>
+        <key>fuelTank</key>
+        <label>fuel tanks</label>
+        <shape>Tank</shape>
+        <rect>(30, 260, 90, 50)</rect>
+        <fuelLevel>true</fuelLevel>
+        <holds>Fuel</holds>
+      </li>
+      <li>
+        <key>oilPump</key>
+        <label>oil pump</label>
+        <shape>Pump</shape>
+        <rect>(250, 232, 28, 28)</rect>
+        <role>OilPump</role>
+        <system>PhobosVehicleSystem_Lubrication</system>
+        <quantity>oilPressure</quantity>
+      </li>
+      <li>
+        <key>sump</key>
+        <label>oil tank</label>
+        <shape>Tank</shape>
+        <rect>(300, 228, 150, 34)</rect>
+        <system>PhobosVehicleSystem_Lubrication</system>
+        <quantity>oilLevel</quantity>
+        <holds>Oil</holds>
+      </li>
+      <li>
+        <key>chipDetector</key>
+        <label>chip detector</label>
+        <rect>(460, 234, 26, 22)</rect>
+        <system>PhobosVehicleSystem_Lubrication</system>
+        <quantity>oilMetal</quantity>
+      </li>
+      <li>
+        <key>starter</key>
+        <label>starter</label>
+        <rect>(40, 24, 60, 36)</rect>
+        <role>Starter</role>
+        <system>PhobosVehicleSystem_Electrical</system>
+        <quantity>starter</quantity>
+      </li>
+      <li>
+        <key>battery</key>
+        <label>batteries</label>
+        <shape>Tank</shape>
+        <rect>(130, 18, 80, 46)</rect>
+        <role>Battery</role>
+        <system>PhobosVehicleSystem_Electrical</system>
+        <quantity>charge</quantity>
+        <holds>Electric</holds>
+      </li>
+      <li>
+        <key>alternator</key>
+        <label>generator</label>
+        <rect>(240, 22, 60, 36)</rect>
+        <role>Alternator</role>
+        <system>PhobosVehicleSystem_Electrical</system>
+      </li>
+    </nodes>
+    <pipes>
+      <!-- Air: through the filters into the compressor, round through the recuperator, and into the burners warmed. -->
+      <li>
+        <medium>Air</medium>
+        <points><li>(100, 150)</li><li>(300, 150)</li></points>
+        <from>airFilter</from>
+        <to>compressor</to>
+        <drivenBy>compressor</drivenBy>
+      </li>
+      <li>
+        <medium>Air</medium>
+        <points><li>(340, 110)</li><li>(340, 44)</li><li>(380, 44)</li></points>
+        <from>compressor</from>
+        <to>recuperator</to>
+      </li>
+      <li>
+        <medium>Air</medium>
+        <points><li>(420, 66)</li><li>(420, 110)</li></points>
+        <from>recuperator</from>
+        <to>hotSection</to>
+        <drivenBy>compressor</drivenBy>
+      </li>
+      <!-- Exhaust: out of the turbine, through the recuperator, and out of the back deck. -->
+      <li>
+        <medium>Exhaust</medium>
+        <points><li>(560, 140)</li><li>(590, 140)</li><li>(590, 44)</li><li>(560, 44)</li></points>
+        <from>turbine</from>
+        <to>recuperator</to>
+      </li>
+      <li>
+        <medium>Exhaust</medium>
+        <points><li>(500, 22)</li><li>(500, 4)</li></points>
+        <from>recuperator</from>
+        <drivenBy>turbine</drivenBy>
+      </li>
+      <!-- The drive: the turbine turns the gearbox, the gearbox the tracks. -->
+      <li>
+        <medium>Drive</medium>
+        <points><li>(560, 176)</li><li>(635, 176)</li><li>(635, 196)</li></points>
+        <from>turbine</from>
+        <to>gearbox</to>
+      </li>
+      <li>
+        <medium>Drive</medium>
+        <points><li>(640, 236)</li><li>(640, 272)</li></points>
+        <from>gearbox</from>
+        <to>tracks</to>
+      </li>
+      <li>
+        <medium>Drive</medium>
+        <points><li>(600, 292)</li><li>(570, 292)</li></points>
+        <from>tracks</from>
+        <to>brakes</to>
+        <flow>Never</flow>
+      </li>
+      <!-- Fuel: from the tanks to the burners. -->
+      <li>
+        <medium>Fuel</medium>
+        <points><li>(120, 285)</li><li>(200, 285)</li><li>(200, 215)</li><li>(398, 215)</li><li>(398, 190)</li></points>
+        <from>fuelTank</from>
+        <to>hotSection</to>
+      </li>
+      <!-- Oil: from the tank through its pump to the bearings. -->
+      <li>
+        <medium>Oil</medium>
+        <points><li>(300, 246)</li><li>(278, 246)</li></points>
+        <from>sump</from>
+        <to>oilPump</to>
+        <drivenBy>oilPump</drivenBy>
+      </li>
+      <li>
+        <medium>Oil</medium>
+        <points><li>(264, 232)</li><li>(264, 205)</li><li>(484, 205)</li><li>(484, 190)</li></points>
+        <from>oilPump</from>
+        <to>turbine</to>
+      </li>
+      <!-- Power: the generator charges the batteries; the batteries' lead to the starter carries only a start. -->
+      <li>
+        <medium>Electric</medium>
+        <points><li>(240, 40)</li><li>(210, 40)</li></points>
+        <from>alternator</from>
+        <to>battery</to>
+      </li>
+      <li>
+        <medium>Electric</medium>
+        <points><li>(130, 42)</li><li>(100, 42)</li></points>
+        <from>battery</from>
+        <to>starter</to>
+        <flow>Never</flow>
+      </li>
+    </pipes>
+  </Phobos.VehicleSystems.PhobosVehicleSchematicDef>
 </Defs>

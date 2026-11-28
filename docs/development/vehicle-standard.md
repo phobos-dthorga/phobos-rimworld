@@ -71,7 +71,7 @@ where it changes an outcome** (the vehicles' rule: every node moves a figure tha
 | VS13 | **The land vehicles' bays**: lamps, cab light, fridge, crew water tank, outlet, remote control kit | Has (missing on three that write their own parts) | — | — | — | No | A working vehicle carries lights and the crew's water and food | The accessories' own behaviour |
 | VS14 | A winch, route kit and solar mount on road vehicles | Has (missing on two) | — | — | — | No | Road vehicles recover each other and follow routes; a locomotive does neither | The accessories' own behaviour |
 | VS15 | A house battery tray | Has (missing on two) | — | — | — | No | Trucks and shunters carry a second battery for the cab's loads; an electric car's traction battery is one | The house battery's own behaviour |
-| VS16 | **A systems schematic page** (added 28 Nov 2026, Framework 0.382.0) | Has (piston, electric, steam; a land gas turbine has none) | Has | Has | Has (piston) | No (unpowered) | Synoptic pages in modern aircraft and ships' engine-room panels | The page itself ([the schematic record](vehicle-schematic.md)); the audit reads which page the game chose |
+| VS16 | **A systems schematic page** (added 28 Nov 2026, Framework 0.382.0) | Has (piston, electric, steam, gas turbine) | Has | Has | Has (piston) | No (unpowered) | Synoptic pages in modern aircraft and ships' engine-room panels | The page itself ([the schematic record](vehicle-schematic.md)); the audit reads which page the game chose |
 
 ## How the standard is kept
 
@@ -260,7 +260,7 @@ On the owner's word of 28 Nov 2026 ("Let's finish the schematic then"), the last
 | The report | `VehicleBindings.json` gives each design a `schematic`: the page the game chose by its loadout's kind and its engine's (`PhobosVehicleSchematicDef.For`, the same choice the window makes), empty for none |
 | The line | VS16 in `config/vehicle-standard.json`, for powered land vehicles, aircraft and boats; `scripts/vehicle-bindings.py` reads a line's `schematic` and lists a design with no page as lacking "a schematic page". A report from before has no `schematic`, and the line then waits |
 | Excused | The three Vanilla Vehicles Expanded thruster pods (the Frog, the Toad, the Goliath): no gas-turbine section fits fictional chemfuel thrusters, as no fuel or oil system does. **Agent's choice**, for the owner to revise |
-| Expected to show | **A land gas turbine** (the M1A2 Abrams): no page draws one yet, so after the next start the audit should list it as below the standard. A land turbine's page is the follow-up |
+| A land gas turbine | The M1A2 Abrams had no page when the line was written; the owner asked for one the same day ("Let's build the land gas turbine page too"), `PhobosVehicleSchematic_TurbineLand`, so after the next start the audit should list no vehicle as lacking a page |
 
 **What outside the vehicle notices:** nothing; a page is only a display. **Other factions' vehicles:** the window opens for the player's own
 vehicles only. **Cost:** one lookup per design at start-up.

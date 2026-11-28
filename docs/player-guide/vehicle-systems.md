@@ -46,7 +46,7 @@ on an aircraft in flight.
 
 - **Dashboard**: click a gauge to open the Systems tab at that system.
 - **Systems schematic** (in Operator and Engineer display modes, for land vehicles and boats with a piston engine, electric vehicles,
-  steam locomotives and turbine aircraft; a boat's shows sea water cooling its engine and the shaft turning its propeller, an electric
+  steam locomotives, turbine aircraft and gas-turbine tanks such as the M1A2; a boat's shows sea water cooling its engine and the shaft turning its propeller, an electric
   vehicle's the battery feeding the motor and power coming in while it charges, and **a steam locomotive's its boiler in section, the
   water standing where the gauge glass reads**, so you can watch it fall toward the firebox's crown):
   the **Systems schematic** button on the command bar or the Dashboard, the vehicle's **Schematic** tab (a live copy, with **Open

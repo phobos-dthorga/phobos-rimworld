@@ -6,7 +6,8 @@ The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765)
 Framework 0.374.0 (row 768). Made prominent (a command button, its own tab, warning lamps that open it) in Framework 0.378.0 (row
 775), with orders on a right-click (row 776), and the turbine cutaway with the heat gradient (SC8, row 777). Each engine's own heat
 (F1), a turbofan's own section, pages for boats, electric vehicles and steam locomotives (with a boiler cutaway), and the vehicle
-standard's line, VS16, in Framework 0.382.0 (rows 790 to 794). Not built: a land gas turbine's page (the M1A2). The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
+standard's line, VS16, and a land gas turbine's page (the M1A2) in Framework 0.382.0 (rows 790 to 794 and 802). Every powered vehicle of
+ours has a page; the thruster pods are excused. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
 [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
 [the chip detector](vehicle-chip-detector.md).
 
@@ -465,8 +466,15 @@ On the owner's word of 28 Nov 2026 ("Let's finish the schematic then"), after a 
   reading; the boiler is one shape for the 4-8-4 and the tank engine.
 - **The standard's line (VS16)**: the bindings report names the page each design gets, by the same choice the window makes, and
   [the vehicle standard](vehicle-standard.md#built-vs16-the-systems-schematic-28-nov-2026) asks one of every powered land vehicle,
-  aircraft and boat. The thruster pods are excused (agent's choice). A land gas turbine (the M1A2) has no page and should show below the
-  standard after the next game start: its page is what is left.
+  aircraft and boat. The thruster pods are excused (agent's choice).
+- **The land gas turbine's page (row 802)**: on the owner's word of 28 Nov 2026 ("Let's build the land gas turbine page too"),
+  `PhobosVehicleSchematic_TurbineLand`, for land loadouts whose engine is a turboshaft: the M1A2 Abrams's AGT1500 (Roaring Tiger's and
+  Desert Sabre's). The turboshaft's three tiles and heat bands, as on an aircraft; the air filters (its Service system's), the compressor
+  through a **recuperator** that warms the compressed air with the exhaust before the burners, the exhaust out through it, and the drive
+  through the gearbox to the tracks. **Simplifications, agent's choices**: the recuperator is real on the AGT1500 (general knowledge,
+  **unverified**) but our model has no part or figure for it, so it is always sound and only shows where the heat goes; the loadouts have
+  no fuel system, so the tanks feed the burners directly; the three engine tiles repeat the turboshaft page's nodes rather than share a
+  parent, as a land page cannot also inherit from the aircraft base.
 
 ## Who chose what
 

@@ -81,6 +81,9 @@ The systems schematic finished: every engine's own heat, and pages for more kind
   colour above), and pipes and layers can carry fire (Fire).
 - For modders: the vehicle bindings report written at start-up now names the systems schematic page each design gets (empty for
   none), and the vehicle standard has a line for it, VS16: every powered land vehicle, aircraft and boat should have a page.
+- **A tank with a gas turbine has a systems schematic**: the M1A2 Abrams's turbine in section, coloured by its heat as an
+  aircraft's is, breathing through its big air filters, its compressed air warmed by the exhaust in the recuperator before the
+  burners, and turning the tracks through its gearbox. Not yet tested in game: row 802.
 ### Save compatibility
 
 - Safe for saves: nothing new is saved.
