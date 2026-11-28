@@ -1,0 +1,33 @@
+{
+  "file": "n18-electric-pump-307.png",
+  "sha256": "9c0ef05fd3ad53efe12dc2607e568cae5ced34adef43be732d0a75bf4a6ccba6",
+  "date": "2026-11-28T15:21:36",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A compact grey liquid pump with round pipe flanges on its inlet and outlet, driven by a blue electric motor bolted to its side, a thick black cable running from the motor. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "negative_prompt": "",
+  "seed": 307,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/night-18-borrowed-icons.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 164.8,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/DeepCycleBattery.png",
+      "sha256": "1f0ce1c73c02a1eadb834663914f95f6addd5caa2711e03da64ccb4b9cdf2add"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/TransmissionCooler.png",
+      "sha256": "3ef6b7f14b01f6bfc9729291ce1425770f210e468a020f66619563cbc4c190ac"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

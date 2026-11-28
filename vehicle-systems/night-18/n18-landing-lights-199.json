@@ -1,0 +1,33 @@
+{
+  "file": "n18-landing-lights-199.png",
+  "sha256": "470539a23ae457b6c4ea0a822c96e58e452c557ff1cc851340b08f4a9e0579fa",
+  "date": "2026-11-28T14:26:55",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The nose of a small grey aircraft seen from the front and a little below, with two round bright lamps under it throwing two short white beams forward and down. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "negative_prompt": "",
+  "seed": 199,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/night-18-standard-batch4-icons.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 195.5,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/WorkLamps.png",
+      "sha256": "ca88debc531a017753f29f548000a600297375334db371f383d8925990e541be"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png",
+      "sha256": "f4942d92c3e34cf4d79d9e55cd057103bc3cdd298dedfa453819e331ff2b9ec2"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

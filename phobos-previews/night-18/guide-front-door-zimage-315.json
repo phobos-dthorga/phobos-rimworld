@@ -1,0 +1,21 @@
+{
+  "file": "guide-front-door-zimage-315.png",
+  "sha256": "76e8e1c6ca7335437674ccfacc2d0a158ee9e9d13ea3282a0d81fc473f6c3c56",
+  "date": "2026-11-28T14:45:33",
+  "generator": "ComfyUI 0.41.0, local, Z-Image base int8 (Alibaba Tongyi lab, Apache 2.0; Comfy-Org packaging)",
+  "engine": "zimage",
+  "model": "z_image_int8_convrot.safetensors",
+  "model_sha256": "eb2b470694fbd9778f15efd309000ea0091312c018c10a352c120b1da9bf4279",
+  "prompt": "Painted illustration: A small frontier colony at dusk seen from a low hill: a rugged work truck with a tanker trailer parked by a tall lattice radio mast, a canvas field tent glowing with lamplight, a tractor resting in a ploughed field beyond, a helicopter flying low over the valley, and a few colonists in worn work clothes going about their jobs. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 315,
+  "steps": 25,
+  "cfg": 4.0,
+  "sampler": "res_multistep/simple",
+  "request_file": "assets/phobos-previews/requests/night-18-docs.json",
+  "size": [
+    1280,
+    720
+  ],
+  "seconds": 28.5
+}

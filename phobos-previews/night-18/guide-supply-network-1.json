@@ -1,0 +1,21 @@
+{
+  "file": "guide-supply-network-1.png",
+  "sha256": "ea441d113ba676a8586fd258e9997dcd9d9ecb42f8de0c1ed4a926315820773e",
+  "date": "2026-11-28T14:50:53",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "engine": "schnell",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "Painted illustration: A lonely outpost on a far plateau at dusk with a radio mast and a red light on top, a supply truck with an empty cab driving itself along a dirt road towards it, and a helicopter coming in from the other side with a crate slung under it. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 1,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "request_file": "assets/phobos-previews/requests/night-18-docs.json",
+  "size": [
+    1280,
+    720
+  ],
+  "seconds": 13.6
+}

@@ -1,0 +1,21 @@
+{
+  "file": "guide-damage-repairs-zimage-315.png",
+  "sha256": "092f268eef2137199e29104adb2a0b8c6536c7791994124d5443e15579daef19",
+  "date": "2026-11-28T14:53:25",
+  "generator": "ComfyUI 0.41.0, local, Z-Image base int8 (Alibaba Tongyi lab, Apache 2.0; Comfy-Org packaging)",
+  "engine": "zimage",
+  "model": "z_image_int8_convrot.safetensors",
+  "model_sha256": "eb2b470694fbd9778f15efd309000ea0091312c018c10a352c120b1da9bf4279",
+  "prompt": "Painted illustration: A battered work truck with a crumpled front, a scorched bonnet and a flat tyre in a workshop yard at dusk, one mechanic in overalls welding its chassis in a shower of bright sparks while another rolls a new wheel towards it, spare parts laid out on a bench. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 315,
+  "steps": 25,
+  "cfg": 4.0,
+  "sampler": "res_multistep/simple",
+  "request_file": "assets/phobos-previews/requests/night-18-docs.json",
+  "size": [
+    1280,
+    720
+  ],
+  "seconds": 28.7
+}

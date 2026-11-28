@@ -1,0 +1,21 @@
+{
+  "file": "house-crest-zimage-316.png",
+  "sha256": "d89a9d8c5b8a269cf44f5bca1bf1abc9bea1babeef15bd9675bd0bb6fb50dfcb",
+  "date": "2026-11-28T15:03:33",
+  "generator": "ComfyUI 0.41.0, local, Z-Image base int8 (Alibaba Tongyi lab, Apache 2.0; Comfy-Org packaging)",
+  "engine": "zimage",
+  "model": "z_image_int8_convrot.safetensors",
+  "model_sha256": "eb2b470694fbd9778f15efd309000ea0091312c018c10a352c120b1da9bf4279",
+  "prompt": "A heraldic crest: a red dragon rampant with golden-orange wings spread, swept-back cream horns and amber eyes, on a dark charcoal shield with a thin gold border, bold flat shapes and clean outlines, readable when small, centred on a plain dark background. No text, no letters, no banner, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 316,
+  "steps": 25,
+  "cfg": 4.0,
+  "sampler": "res_multistep/simple",
+  "request_file": "assets/phobos-previews/requests/night-18-docs.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 21.9
+}

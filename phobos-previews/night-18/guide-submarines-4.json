@@ -1,0 +1,21 @@
+{
+  "file": "guide-submarines-4.png",
+  "sha256": "1ba40df939e12c2be31e9be276db5704ae1535f71275cbcc786c964fed3da4b2",
+  "date": "2026-11-28T14:57:58",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "engine": "schnell",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "Painted illustration: A small yellow and grey seabed crawler submarine resting on a sandy sea floor among rocks and kelp, its work lights shining through murky water, a round sonar dome on its back and a shoal of silver fish above it. Painterly but clean, muted blue-green water with warm amber work lights, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 4,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "request_file": "assets/phobos-previews/requests/night-18-docs.json",
+  "size": [
+    1280,
+    720
+  ],
+  "seconds": 8.6
+}

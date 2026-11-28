@@ -1,0 +1,21 @@
+{
+  "file": "guide-camping-1.png",
+  "sha256": "f21593f72efb07c86c8bdb0da7b0b7c4704317da7783a29ba8cb77f609600889",
+  "date": "2026-11-28T14:49:20",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "engine": "schnell",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "Painted illustration: Two rugged work trucks parked in a forest clearing at night, a canvas tent pitched against the side of one, a small field kitchen trailer under an awning with a steaming pot, colonists on folding chairs round a lantern, a water bowser trailer behind them. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 1,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "request_file": "assets/phobos-previews/requests/night-18-docs.json",
+  "size": [
+    1280,
+    720
+  ],
+  "seconds": 15.8
+}

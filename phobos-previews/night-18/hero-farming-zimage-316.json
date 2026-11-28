@@ -1,0 +1,21 @@
+{
+  "file": "hero-farming-zimage-316.png",
+  "sha256": "f73e041fe31fceaa9098c073124b1565d2754d8382846c8461a9818734a37cd3",
+  "date": "2026-11-28T15:02:01",
+  "generator": "ComfyUI 0.41.0, local, Z-Image base int8 (Alibaba Tongyi lab, Apache 2.0; Comfy-Org packaging)",
+  "engine": "zimage",
+  "model": "z_image_int8_convrot.safetensors",
+  "model_sha256": "eb2b470694fbd9778f15efd309000ea0091312c018c10a352c120b1da9bf4279",
+  "prompt": "Painted illustration: A combine harvester cutting a golden wheat field at dusk while a tractor pulling a grain chaser bin drives alongside to catch the grain, a farmhouse with lit windows and a grain silo in the distance, a colonist leaning on a fence to watch. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 316,
+  "steps": 25,
+  "cfg": 4.0,
+  "sampler": "res_multistep/simple",
+  "request_file": "assets/phobos-previews/requests/night-18-docs.json",
+  "size": [
+    1280,
+    720
+  ],
+  "seconds": 18.7
+}

@@ -1,0 +1,21 @@
+{
+  "file": "house-crest-dragonself-3.png",
+  "sha256": "74f6248a7b7957cf8398feefaef2d8ce6ff3da5bee5bdedb864b960e26c8a67f",
+  "date": "2026-11-28T15:04:02",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "engine": "schnell",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "A heraldic crest: a red fluffy four-legged dragon standing proud with golden-orange wings half spread, a purple mane streaked with yellow and green, swept-back cream horns, amber eyes, and a tail fading from green to teal to a blue fin at its tip, on a dark charcoal shield with a thin gold border, bold flat shapes and clean outlines, centred on a plain dark background. No text, no letters, no banner, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 3,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "request_file": "assets/phobos-previews/requests/night-18-docs.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 6.6
+}

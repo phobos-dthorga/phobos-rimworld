@@ -1,0 +1,21 @@
+{
+  "file": "guide-on-the-road-4.png",
+  "sha256": "46f2077a14f74e01ab9402a1914b62097b8c5a90bf09605b4529e46d5f536425",
+  "date": "2026-11-28T14:56:18",
+  "generator": "ComfyUI 0.41.0, local, Flux.1-schnell fp8 (Comfy-Org packaging, Apache 2.0)",
+  "engine": "schnell",
+  "model": "flux1-schnell-fp8.safetensors",
+  "model_sha256": "ead426278b49030e9da5df862994f25ce94ab2ee4df38b556ddddb3db093bf72",
+  "prompt": "Painted illustration: A convoy of three rugged work trucks with headlights on, on a muddy winding mountain road in light rain at dusk: the lead truck tows a flatbed trailer, and the last truck pulls a stuck one out of the mud with a taut winch cable. Painterly but clean, muted earth tones with amber light, dark teal dusk sky, wide composition, the lower third darker and uncluttered. No text, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 4,
+  "steps": 4,
+  "cfg": 1.0,
+  "sampler": "euler/simple",
+  "request_file": "assets/phobos-previews/requests/night-18-docs.json",
+  "size": [
+    1280,
+    720
+  ],
+  "seconds": 12.0
+}

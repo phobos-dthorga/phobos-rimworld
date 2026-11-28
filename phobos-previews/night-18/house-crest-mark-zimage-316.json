@@ -1,0 +1,21 @@
+{
+  "file": "house-crest-mark-zimage-316.png",
+  "sha256": "b9a7aef709d68b53ed8d71ff45441698c153afb91f2c0f3fd1a62d01935e3707",
+  "date": "2026-11-28T15:06:35",
+  "generator": "ComfyUI 0.41.0, local, Z-Image base int8 (Alibaba Tongyi lab, Apache 2.0; Comfy-Org packaging)",
+  "engine": "zimage",
+  "model": "z_image_int8_convrot.safetensors",
+  "model_sha256": "eb2b470694fbd9778f15efd309000ea0091312c018c10a352c120b1da9bf4279",
+  "prompt": "A simple emblem: the head of a red dragon in side view with swept-back cream horns, a purple mane and one amber eye, inside a dark charcoal circle with a thin gold ring, very bold flat shapes and thick clean outlines, readable even when tiny, centred on a plain dark background. No text, no letters, no banner, no logos, no watermark.",
+  "negative_prompt": "",
+  "seed": 316,
+  "steps": 25,
+  "cfg": 4.0,
+  "sampler": "res_multistep/simple",
+  "request_file": "assets/phobos-previews/requests/night-18-docs.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 23.8
+}
