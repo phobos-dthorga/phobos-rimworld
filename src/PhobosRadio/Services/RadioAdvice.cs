@@ -705,6 +705,8 @@ public class GameComponent_RadioAdvice : GameComponent
             RadioNeighbours.Hourly();
             // Radio 0.66.0: a friendly group on a home map brings the QSL cards awaited by the bureau.
             RadioQsl.Bureau();
+            // Radio 0.70.0: rare stations on the air, and listener cards.
+            RareStations.Hourly();
         }
     }
 

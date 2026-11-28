@@ -268,6 +268,13 @@ public static class FactionDoctors
         return null;
     }
 
+    /// <summary>The rules' settlement radio as a far end on no settlement (Radio 0.70.0: a rare station's).</summary>
+    public static RadioEndpoint? RemoteEnd()
+    {
+        radioUnit ??= ThingMaker.MakeThing(RadioAdviceDefOf.PhobosRadio_SettlementRadio);
+        return radioUnit.TryGetComp<CompRadio>() is { } radio ? RadioEndpoint.BuiltIn(radioUnit, IntVec3.Zero, radio) : null;
+    }
+
     /// <summary>A settlement's radio as the end of a search: the rules' settlement radio on its tile, its site lifted by the tile's hills.</summary>
     internal static RelayNode? EndOf(Settlement settlement)
     {

@@ -23,6 +23,19 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.70.0] - 2026-11-28 - Draft
+
+Rare stations and listener cards
+
+### Added
+
+- **Rare stations** (the owner's cards of 28 November 2026, QSL cards in play, part 4): about once a season, with an HF station built, a
+  rare station comes on the air for 6 to 12 hours, a ship at sea, an expedition on the ice or a lone outpost, at least 1,000 km away,
+  by letter. The HF station's button Call it works it while a band is open, for a rare card that reads for more mood and earns its
+  own award; when no band is open it says so.
+- **Listener cards**: a settlement your station hears but cannot reach (its signal reaches you, yours does not reach it) sends a
+  listener's card, marked heard only; it counts toward no award and never stops a worked card later. Not yet tested in game: row 799.
+
 ## [0.69.0] - 2026-11-28 - Draft
 
 More radio awards

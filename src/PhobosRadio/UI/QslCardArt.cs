@@ -54,7 +54,8 @@ public static class QslCardArt
     static Texture2D Paint(QslCard card)
     {
         int seed = card.Settlement?.ID ?? card.Tick;
-        PlanetTile tile = card.Settlement?.Tile ?? PlanetTile.Invalid;
+        // Radio 0.70.0: a rare station has no settlement; its card keeps its tile.
+        PlanetTile tile = card.Settlement?.Tile ?? (card.TileId >= 0 ? new PlanetTile(card.TileId, Find.WorldGrid.Surface) : PlanetTile.Invalid);
         int hills = 1;
         QslGround ground = QslGround.Grass;
         bool coast = false;

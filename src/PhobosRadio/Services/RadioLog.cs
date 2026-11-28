@@ -159,6 +159,10 @@ public enum QslContact
     Friend,
     /// <summary>We helped them, at their asking.</summary>
     Neighbour,
+    /// <summary>A rare station worked while it was on the air (Radio 0.70.0).</summary>
+    Rare,
+    /// <summary>Heard, not worked: their signal reached us, ours did not reach them (Radio 0.70.0). Counts toward no award.</summary>
+    Listener,
 }
 
 /// <summary>
@@ -318,6 +322,8 @@ public enum QslAward
     FarSide,
     /// <summary>Every landmass a settlement with radio stands on.</summary>
     AllLandmasses,
+    /// <summary>A rare station worked (Radio 0.70.0).</summary>
+    RareStation,
 }
 
 /// <summary>
@@ -348,6 +354,7 @@ public static class RadioQsl
     public static void Clear()
     {
         postedBy.Clear();
+        RareStations.Clear();
         QslCalls.Clear();
         cards = new List<QslCard>();
         awards = new List<QslAward>();
@@ -356,6 +363,7 @@ public static class RadioQsl
 
     public static void ExposeData()
     {
+        RareStations.ExposeData();
         Scribe_Collections.Look(ref cards, "PhobosRadioQslCards", LookMode.Deep);
         Scribe_Collections.Look(ref awards, "PhobosRadioQslAwards", LookMode.Value);
         Scribe_Collections.Look(ref certificatesPosted, "PhobosRadioQslCertificates", LookMode.Value);
@@ -385,7 +393,8 @@ public static class RadioQsl
     {
         Settlement settlement = link.Settlement;
         double marginDb = link.MarginDb;
-        if (settlement.Faction is not { } faction || cards.Any(card => card.Settlement == settlement)) return;
+        // Radio 0.70.0: a listener's card for a settlement does not stop it earning its worked card.
+        if (settlement.Faction is not { } faction || cards.Any(card => card.Settlement == settlement && card.Kind != QslContact.Listener)) return;
         int tiles = from.Valid ? (int)Find.WorldGrid.ApproxDistanceInTiles(from, settlement.Tile) : 0;
         var card = new QslCard
         {
@@ -467,8 +476,25 @@ public static class RadioQsl
         if (Seen.Wants("radio.qsl-bureau", carrier)) Seen.Note("radio.qsl-bureau", carrier, posted.Count + " cards by " + faction.Name);
     }
 
+    /// <summary>
+    /// A card earned without a settlement's own contact (Radio 0.70.0): a rare station or a listener's card. Kept, said in a message and in
+    /// the log, awaited by the bureau, and the awards counted.
+    /// </summary>
+    public static void Earn(QslCard card, Pawn? op)
+    {
+        cards.Add(card);
+        string text = (card.Kind == QslContact.Rare ? "PhobosRadioQsl_EarnedRare" : "PhobosRadioQsl_EarnedListener").Translate(card.Call.Named("CALL"),
+            card.Place.Named("PLACE"), (op?.LabelShort ?? "?").Named("OPERATOR"), card.Report.Named("REPORT")).Resolve();
+        Messages.Message(text, MessageTypeDefOf.PositiveEvent, historical: false);
+        RadioLog.Add(RadioLogKind.Qsl, text);
+        CountAwards();
+    }
+
     private static void CountAwards()
     {
+        // Radio 0.70.0: a listener's card is heard, not worked, and counts toward no award.
+        List<QslCard> cards = RadioQsl.cards.Where(card => card.Kind != QslContact.Listener).ToList();
+        if (cards.Any(card => card.Kind == QslContact.Rare)) Give(QslAward.RareStation);
         var factions = cards.Select(card => card.Faction).Where(f => f != null).Distinct().ToList();
         var withRadio = Find.FactionManager.AllFactionsListForReading.Where(FactionDoctors.Talks).ToList();
         if (factions.Count >= ManyFactions) Give(QslAward.ThreeFactions);
@@ -510,6 +536,7 @@ public static class RadioQsl
         QslAward.TwentyFiveGridSquares => "PhobosRadioQsl_AwardGridSquares".Translate(ManyGrids.Named("COUNT")).Resolve(),
         QslAward.FarSide => "PhobosRadioQsl_AwardFarSide".Translate(FarSideKm.Named("KM")).Resolve(),
         QslAward.AllLandmasses => "PhobosRadioQsl_AwardAllLandmasses".Translate().Resolve(),
+        QslAward.RareStation => "PhobosRadioQsl_AwardRareStation".Translate().Resolve(),
         _ => "PhobosRadioQsl_AwardTenSettlements".Translate(ManySettlements.Named("COUNT")).Resolve(),
     };
 

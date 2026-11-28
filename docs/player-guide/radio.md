@@ -366,6 +366,9 @@ log, newest first: advice calls, other factions' help, friends made and lost, ra
   each showing its picture; they read them from there. A room with a radio station and a QSL wall is a **ham shack**: radio work
   there goes 10% faster, and radio operators enjoy a decent one (+2). Each award comes as a **framed certificate** to place;
   colonists admire it as art.
+- **Rare stations**: now and then, by letter, a rare station is on the air for a few hours (a ship at sea, an expedition on the
+  ice, a lone outpost). Select your HF station and press **Call** while a band is open to it, for a rare card.
+- **Listener cards**: a settlement your station hears but cannot reach sends a listener's card, heard only.
 - **More awards**: every kind of land a station stands on, 10 and 25 grid squares, a contact 10,000 km away or more (HF reaches
   that far), and every landmass with a station on it.
 - **Awards**: cards from three factions, from every faction on the air, from 50 km away or more, or from ten settlements each earn an

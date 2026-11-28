@@ -68,4 +68,23 @@
   <PhobosRadioQsl_AwardGridSquares>Worked {COUNT} grid squares</PhobosRadioQsl_AwardGridSquares>
   <PhobosRadioQsl_AwardFarSide>A contact {KM} km away or more: the far side of the world</PhobosRadioQsl_AwardFarSide>
   <PhobosRadioQsl_AwardAllLandmasses>Worked every landmass with a station on it</PhobosRadioQsl_AwardAllLandmasses>
+  <!-- Radio 0.70.0: rare stations and listener cards. -->
+  <PhobosRadioRare_Label>Rare station on the air</PhobosRadioRare_Label>
+  <PhobosRadioRare_Text>A rare station is on the air for a few hours: {CALL}, {KIND}, in the {AREA} area. An HF station may call it while a band is open to it, for a rare QSL card.</PhobosRadioRare_Text>
+  <PhobosRadioRare_KindShip>a ship at sea</PhobosRadioRare_KindShip>
+  <PhobosRadioRare_KindIce>an expedition on the ice</PhobosRadioRare_KindIce>
+  <PhobosRadioRare_KindOutpost>a lone outpost</PhobosRadioRare_KindOutpost>
+  <PhobosRadioRare_Call>Call {CALL}</PhobosRadioRare_Call>
+  <PhobosRadioRare_CallDesc>Call the rare station {CALL} on HF. It answers only while a band is open to it; the HF bands tab shows how far each band reaches this hour.</PhobosRadioRare_CallDesc>
+  <PhobosRadioRare_NotOpen>{CALL} cannot be heard now: no band is open to it from here. Try another hour, or a higher antenna.</PhobosRadioRare_NotOpen>
+  <PhobosRadioRare_HaveCard>We already have {CALL}'s card.</PhobosRadioRare_HaveCard>
+  <PhobosRadioQsl_EarnedRare>A rare QSL card from {CALL}, {PLACE}: {OPERATOR} worked it, report {REPORT}.</PhobosRadioQsl_EarnedRare>
+  <PhobosRadioQsl_EarnedListener>{OPERATOR} heard {CALL} at {PLACE}, report {REPORT}, though they could not hear us: a listener's card.</PhobosRadioQsl_EarnedListener>
+  <PhobosRadioQsl_AwardRareStation>Worked a rare station</PhobosRadioQsl_AwardRareStation>
+  <PhobosRadioQsl_NoteRare0>Thanks for the call from so far away. Few get through to us out here.</PhobosRadioQsl_NoteRare0>
+  <PhobosRadioQsl_NoteRare1>Our only contact this side of the world today. Tnx and 73.</PhobosRadioQsl_NoteRare1>
+  <PhobosRadioQsl_NoteRare2>Signals were hard work here. Glad yours made it.</PhobosRadioQsl_NoteRare2>
+  <PhobosRadioQsl_NoteListener0>Heard, not worked: tnx for your listener's report.</PhobosRadioQsl_NoteListener0>
+  <PhobosRadioQsl_NoteListener1>We never heard you, but glad you heard us. Call again with more power.</PhobosRadioQsl_NoteListener1>
+  <PhobosRadioQsl_NoteListener2>A listener's card, with thanks. Maybe next time both ways.</PhobosRadioQsl_NoteListener2>
 </LanguageData>

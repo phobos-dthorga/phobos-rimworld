@@ -166,6 +166,15 @@ public class CompRadio : ThingComp
         if (Props.isStation)
         {
             yield return SignalGizmo.ForStation(this, net);
+            // Radio 0.70.0: call a rare station on the air, from an HF station.
+            if (RareStations.OnAir is { } rare && Bands.Any(b => b.path == BandPath.Hf))
+                yield return new Command_Action
+                {
+                    defaultLabel = "PhobosRadioRare_Call".Translate(rare.Call.Named("CALL")),
+                    defaultDesc = "PhobosRadioRare_CallDesc".Translate(rare.Call.Named("CALL")),
+                    icon = Phobos.Radio.UI.RadioTextures.Signal,
+                    action = () => RareStations.Work(this),
+                };
             yield break;
         }
         // A radio built into a vehicle (Radio 0.10.0): its bars, while the net counts it (a tie-in may say it is not fitted).

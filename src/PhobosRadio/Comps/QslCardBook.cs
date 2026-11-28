@@ -68,7 +68,7 @@ public class ReadingOutcomeDoerQslMemory : BookOutcomeDoer
     {
         if (Props.thought is not { } def || reader.needs?.mood?.thoughts?.memories is not { } memories) return;
         if (memories.GetFirstMemoryOfDef(def) != null) return;
-        bool far = Book is QslCardBook { Card: { } card } && card.Tiles >= Props.farTiles;
+        bool far = Book is QslCardBook { Card: { } card } && (card.Tiles >= Props.farTiles || card.Kind == QslContact.Rare);
         memories.TryGainMemory((Thought_Memory)ThoughtMaker.MakeThought(def, far ? 1 : 0));
         if (Seen.Wants("radio.qsl-card-read", reader)) Seen.Note("radio.qsl-card-read", reader, Book.Label, far ? "far" : "near");
     }

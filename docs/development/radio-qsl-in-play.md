@@ -1,7 +1,7 @@
 # QSL cards in play (28 Nov 2026)
 
 **Status (28 Nov 2026):** part 1 (card items and the bureau) is built in Radio 0.66.0 (row 787), part 2 (the wall, certificates and the
-ham shack) in 0.68.0 (row 797), part 3 (more awards) in 0.69.0 (row 798); none is tested in game. Part 4 is designed. The paid art for parts 1 and 2 is made (US$0.310, six tries; card try 2 shipped until the owner picks; both certificate tries
+ham shack) in 0.68.0 (row 797), part 3 (more awards) in 0.69.0 (row 798), part 4 (rare stations and listener cards) in 0.70.0 (row 799); none is tested in game. The paid art for parts 1 and 2 is made (US$0.310, six tries; card try 2 shipped until the owner picks; both certificate tries
 show Earth's continents on their globe, to be corrected once before part 2 ships). Builds on [QSL cards, worked out](radio-qsl-cards.md) (parts A
 and B, Radio 0.58.0 and 0.59.0; band and mode in 0.62.0), its leftover group C.
 
