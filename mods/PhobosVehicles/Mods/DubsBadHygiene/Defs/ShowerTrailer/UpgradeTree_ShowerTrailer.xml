@@ -70,7 +70,7 @@
       <label>Electric pump</label>
       <displayLabel>true</displayLabel>
       <description>An electric motor on the pump, so the trailer can pump its load out. It runs off the grid through a conduit touching the trailer where it is parked, off a power point it has set out, or off the battery of the vehicle towing it. Without it, the trailer can only be filled, or emptied by a pump beside it.</description>
-      <icon>Phobos/VehicleSystems/Fittings/DeepCycleBattery</icon>
+      <icon>Phobos/VehicleSystems/Fittings/ElectricPump</icon>
       <work>1500</work>
       <gridCoordinate>(17, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>

@@ -190,7 +190,7 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
             };
             if (!reading && RoadWork.SurveyHaltRefusal(convoy, Vehicle, starting: true) is { } refused) halt.Disable(refused);
             yield return halt;
-            // Framework 0.325.0 (EM33): the boom held up as a radio mast, with the Radio Framework. Borrows the long-range dish's picture.
+            // Framework 0.325.0 (EM33): the boom held up as a radio mast, with the Radio Framework. Its own icon since Framework 0.385.1.
             if (ConvoyRadio.Available)
             {
                 bool raised = WorldComponent_PhobosRoadWork.Current?.JobOn(Vehicle) is RoadMast;
@@ -199,7 +199,7 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
                     defaultLabel = (raised ? "PhobosRadioReach_MastDownGizmo" : "PhobosRadioReach_MastGizmo").Translate().Resolve(),
                     defaultDesc = (raised ? "PhobosRadioReach_MastDownGizmoDesc" : "PhobosRadioReach_MastGizmoDesc")
                         .Translate(ConvoyRadio.MastMetres.ToString("0").Named("METRES")).Resolve(),
-                    icon = SystemIcons.For("Phobos/VehicleSystems/Stations/SurveyLongRange"),
+                    icon = SystemIcons.For("Phobos/VehicleSystems/RoadWork/RaiseMast"),
                     action = raised
                         ? () => RoadWork.Stop(WorldComponent_PhobosRoadWork.Current!.JobOn(Vehicle)!, "PhobosRadioReach_MastDown".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve())
                         : () => RoadWork.StartMast(convoy, Vehicle),

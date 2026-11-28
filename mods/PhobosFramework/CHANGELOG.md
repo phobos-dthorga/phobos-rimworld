@@ -22,6 +22,17 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.385.1] - 2026-11-28 - Draft
+
+Five icons drawn for what borrowed another's
+
+### Fixed
+
+- **Five buttons and fittings had borrowed another's picture**: Raise the mast (the survey dish's), the searchlight (the work
+  lamps'), the galley (the meal halt's), engine fire suppression (the suppressant bottle's, so the fitting and its refill looked the
+  same) and the tankers' and bowsers' electric pump (the deep-cycle battery's, in D'thorga Vehicles' trees). Each has its own now,
+  drawn on night 18 on the owner's graphics card and picked by the owner on 28 Nov 2026. Not yet seen in game.
+
 ## [0.385.0] - 2026-11-28 - Draft
 
 A jamming jet's choice of radar, radios or both

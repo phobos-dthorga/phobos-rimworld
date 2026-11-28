@@ -219,7 +219,7 @@
       <label>Electric pump</label>
       <displayLabel>true</displayLabel>
       <description>An electric motor on the pump: it can pump with the engine off, from the battery, until the battery is flat. Quieter, and no fuel burnt while it works.</description>
-      <icon>Phobos/VehicleSystems/Fittings/DeepCycleBattery</icon>
+      <icon>Phobos/VehicleSystems/Fittings/ElectricPump</icon>
       <work>2000</work>
       <gridCoordinate>(17, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
@@ -603,7 +603,7 @@
 Discharges once, by itself, and is spent until a mechanic recharges it with a suppressant bottle.
 Cargo room: 30 kg less.
 Kit weight: 30 kg more, carried as cargo.</upgradeExplanation>
-          <icon>Phobos/VehicleSystems/Things/SuppressantBottle</icon>
+          <icon>Phobos/VehicleSystems/Fittings/SuppressionEngine</icon>
           <work>1500</work>
           <gridCoordinate>(29, 17)</gridCoordinate>
           <drawSize>(80, 80)</drawSize>

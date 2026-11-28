@@ -361,9 +361,9 @@
          SX-16 Nightsun, a 1,600 W xenon searchlight drawing 55 to 67 A at 28 V, about 1 km of reach (Spectrolab's catalogue; secondary, as listed by
          AeroExpo). Since Framework 0.372.1 our aircraft run at 28 V (F7), so it draws 60 A, inside that range; before, on a car's 12 V, it was
          authored as the same share of the generator, 18 A of the 65. Pool, colour and brightness authored: a white beam brighter than a lamp. Materials,
-         work and skill authored. The icon borrows the work lamps' until its own is drawn. -->
+         work and skill authored. Its own icon since Framework 0.385.1 (night 18; it borrowed the work lamps' before). -->
     <defName>PhobosFitting_Searchlight</defName>
-    <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/Searchlight</iconPath>
     <label>searchlight</label>
     <description>A powerful searchlight on a turret under the nose. Switched on at night, it lights the ground ahead of the aircraft and follows it as it flies over the map or hovers: people work there as by daylight, and shooters can see who stands in it. It draws heavily on the generator.</description>
     <roles><li>SearchlightMount</li></roles>
@@ -381,7 +381,7 @@
         <shedOrder>5</shedOrder>
         <toggle>true</toggle>
         <defaultOn>false</defaultOn>
-        <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
+        <iconPath>Phobos/VehicleSystems/Fittings/Searchlight</iconPath>
         <standbyLabel>waiting for dark</standbyLabel>
         <when Class="Phobos.VehicleSystems.When_Dark" />
         <beam>
@@ -406,10 +406,10 @@
          or on the move for a boat at sea, its cooks turn raw food into simple meals as the field kitchen's do, the stove running on the vehicle's
          own fuel (an aircraft's ovens on its generators, a trawler's diesel range). Figures authored: 10 meals a cook (half a field kitchen's,
          a galley being a small kitchen), 0.2 of the vehicle's fuel a meal (about half a kilowatt-hour of cooking a meal, from fuel at about a
-         third of its energy as electricity or heat), and all of it on the move, the galley being indoors and fixed. The icon borrows the meal
-         halt's until its own is drawn (the local night run). Materials, work and skill authored. -->
+         third of its energy as electricity or heat), and all of it on the move, the galley being indoors and fixed. Its own icon since
+         Framework 0.385.1 (night 18; it borrowed the meal halt's before). Materials, work and skill authored. -->
     <defName>PhobosFitting_Galley</defName>
-    <iconPath>Phobos/VehicleSystems/MealHalt</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/Galley</iconPath>
     <label>galley</label>
     <description>A small kitchen aboard: an oven, a hot plate, a sink and lockers. On a journey its cooks make simple meals from raw food in the packs while the caravan rests, and a boat's cooks at sea, the stove running on the vehicle's own fuel.</description>
     <roles><li>GalleyBay</li></roles>

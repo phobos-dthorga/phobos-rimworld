@@ -13,6 +13,16 @@ tested in game unless an entry says the owner tested it.
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 - **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
+## [0.135.2] - 2026-11-28 - Draft
+
+Engine fire suppression and the electric pump show their own icons
+
+### Fixed
+
+- **Two upgrade nodes showed another thing's picture**: engine fire suppression on the tanker, drill rig, Busbar, survey truck and
+  tipper showed the suppressant bottle, and the electric pump on the tanker and the fuel, water, paste and shower bowsers showed the
+  deep-cycle battery. They show D'thorga Framework 0.385.1's own icons now. Not yet seen in game.
+
 ## [0.135.1] - 2026-11-28 - Draft
 
 The ICAP III's radio jammer

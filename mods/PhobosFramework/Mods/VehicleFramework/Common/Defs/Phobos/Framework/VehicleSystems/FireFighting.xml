@@ -258,7 +258,7 @@
     <defName>PhobosFitting_SuppressionEngine</defName>
     <label>engine fire suppression</label>
     <description>An automatic fire suppression system for the engine bay: it puts out a fire there by itself, once, and is spent until a mechanic recharges it with a suppressant bottle.</description>
-    <iconPath>Phobos/VehicleSystems/Things/SuppressantBottle</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/SuppressionEngine</iconPath>
     <roles><li>SuppressionEngineMount</li></roles>
     <materials><PhobosVehicleSystems_SuppressantBottle>1</PhobosVehicleSystems_SuppressantBottle><Steel>15</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
     <kilograms>25</kilograms>
