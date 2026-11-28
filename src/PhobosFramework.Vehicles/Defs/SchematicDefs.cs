@@ -30,6 +30,12 @@ public enum SchematicMedium
     Air,
     Exhaust,
     Electric,
+    /// <summary>Water that is not a coolant (Framework 0.382.0): sea water through a boat's heat exchanger, a boiler's feed water.</summary>
+    Water,
+    /// <summary>Steam from a boiler (Framework 0.382.0).</summary>
+    Steam,
+    /// <summary>Turning power along a shaft (Framework 0.382.0): an engine to its gearbox and propeller, a motor to its wheels.</summary>
+    Drive,
 }
 
 /// <summary>When a pipe carries something.</summary>
@@ -163,6 +169,15 @@ public class PhobosVehicleSchematicDef : Def
 
     /// <summary>Whether any node follows the chosen engine, so the window offers a tab per engine.</summary>
     public bool HasEngineTabs => nodes.Any(n => n.perEngine);
+
+    List<SchematicMedium>? media;
+
+    /// <summary>What the page carries anywhere, in the legend's order (Framework 0.382.0): its pipes, its tanks and its cutaways' flowing layers,
+    /// so the legend names only what the page can show.</summary>
+    public IReadOnlyList<SchematicMedium> Media => media ??= System.Enum.GetValues(typeof(SchematicMedium)).Cast<SchematicMedium>()
+        .Where(m => pipes.Any(p => p.medium == m) || nodes.Any(n => n.shape == SchematicShape.Tank && n.holds == m)
+            || nodes.Any(n => n.layers.Any(l => l.tint == SchematicTint.Flow && l.medium == m)))
+        .ToList();
 
     public override IEnumerable<string> ConfigErrors()
     {

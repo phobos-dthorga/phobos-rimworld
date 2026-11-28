@@ -62,6 +62,12 @@ The systems schematic finished: every engine's own heat, and pages for more kind
   tiltrotor and turboprops keep the turboshaft. Not yet tested in game: row 791.
 - For modders: the aircraft pages share an abstract parent, PhobosVehicleSchematicTurbineAircraftBase, and the turboshaft page
   (PhobosVehicleSchematic_TurbineAircraft) now serves turboshafts only, beside the new PhobosVehicleSchematic_TurbofanAircraft.
+- **Boats have a systems schematic**: the engine's cutaway as a land vehicle's, its coolant cooled by sea water drawn in at the sea
+  inlet, through the heat exchanger and overboard, and the engine turning the propeller through its gearbox. The legend now names
+  only what the page carries. Not yet tested in game: row 792.
+- For modders: the piston pages share an abstract parent, PhobosVehicleSchematicPistonBase, whose coolant pipes name a "cooler"
+  node each page gives (the land page's radiator, the boat's heat exchanger). Pipes and tanks can carry water, steam and a turning
+  shaft (Water, Steam, Drive).
 ### Save compatibility
 
 - Safe for saves: nothing new is saved.

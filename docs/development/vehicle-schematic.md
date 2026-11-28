@@ -5,8 +5,8 @@ sheet for land vehicles with a piston engine, in its own window, flow marks a se
 The turbine aircraft page, with a tab per engine, in Framework 0.373.0 (row 765); the first cutaway, the land page's diesel, in
 Framework 0.374.0 (row 768). Made prominent (a command button, its own tab, warning lamps that open it) in Framework 0.378.0 (row
 775), with orders on a right-click (row 776), and the turbine cutaway with the heat gradient (SC8, row 777). Each engine's own heat
-(F1) and a turbofan's own section in Framework 0.382.0 (rows 790 and 791). Not built: pages for boats, electric and steam, the
-standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
+(F1), a turbofan's own section and the boat's page in Framework 0.382.0 (rows 790 to 792). Not built: pages for electric and steam,
+the standard's line. The missing parts M1 to M3 have records of their own, built in Framework 0.365.0:
 [the fuel filter](vehicle-fuel-filter.md), [the intake separator](vehicle-inlet-separator.md) and
 [the chip detector](vehicle-chip-detector.md).
 
@@ -440,6 +440,13 @@ On the owner's word of 28 Nov 2026 ("Let's finish the schematic then"), after a 
   pages that add their engine tiles under the same keys: the turboshaft's (the old defName, now turboshafts only) and
   `PhobosVehicleSchematic_TurbofanAircraft`. The shared radius helpers (`edge`, `annulus`) moved into `cutaway_shapes.py`; the turboshaft's
   layers came out byte for byte the same.
+- **The boat's page (row 792)**: `PhobosVehicleSchematic_PistonBoat`, for the boat loadout's piston engines. The land page became an
+  abstract parent with every part both share, and two pages that each add what cools the coolant under the key `cooler`: the land page's
+  radiator, and the boat's heat exchanger, fed with sea water through a strainer at the sea inlet and sent overboard. The engine turns the
+  propeller through its gearbox, drawn with a new medium, a turning shaft (`Drive`, pink: apart from every tone and from the grey of
+  nothing flowing); `Water` and `Steam` came with it, and the legend now names only what a page carries. **Simplifications, agent's
+  choices**: our model has one water pump where a boat has two (fresh water and raw water), so it drives both waters; the propeller has no
+  part or reading of its own, so it is always sound; wet exhaust (sea water sprayed into the exhaust) is not drawn.
 
 ## Who chose what
 

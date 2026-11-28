@@ -1581,13 +1581,19 @@ pipes. Our one page, `PhobosVehicleSchematic_PistonLand` (`Schematics.xml`), tri
 | `loadoutKinds` | The loadout `kind`s it serves. **At least one.** |
 | `engineKinds` | `Piston`, `Electric`, `Turboshaft`, `Turbofan` or `Thruster` (any). |
 | `size` | The page in drawing units, x to the right and y down (`(720, 360)`); the window fits it without stretching. |
-| `nodes` | Each: `key` (unique on the page), `label`, `shape` (`Box`, `Tank`, `Pump`, `Radiator` or `Filter`; `Box`), `rect` (`(x, y, width, height)`), `role` (its health tints it), `system` (left out when the vehicle lacks it or it is switched off), `quantity` (its stage tints it, and a tank fills to it), `fuelLevel` (a tank showing Vehicle Framework's own fuel), `holds` (a tank's colour: `Fuel`, `Oil`, `Coolant`, `Air`, `Exhaust` or `Electric`; `Fuel`). |
+| `nodes` | Each: `key` (unique on the page), `label`, `shape` (`Box`, `Tank`, `Pump`, `Radiator` or `Filter`; `Box`), `rect` (`(x, y, width, height)`), `role` (its health tints it), `system` (left out when the vehicle lacks it or it is switched off), `quantity` (its stage tints it, and a tank fills to it), `fuelLevel` (a tank showing Vehicle Framework's own fuel), `holds` (a tank's colour: `Fuel`, `Oil`, `Coolant`, `Air`, `Exhaust`, `Electric`, and since Framework 0.382.0 `Water`, `Steam` and `Drive`, a turning shaft; `Fuel`). |
 | `pipes` | Each: `medium` (as `holds`), `points` (at least two, joined by straight runs), `from`, `to` (empty: open air, as an exhaust), `drivenBy` (the node whose work lets it flow; empty: `from`), `flow` (`EngineRunning`, or `Never` for a line that only shows what joins what), `onlyWithout` (drawn only while that node is left out: air straight to an engine with no turbocharger). |
 
 Gotchas: **the first page that matches wins**, by loadout kind and then engine kind, so a page of yours for `CombustionLand` piston
 vehicles never shows while ours loads first. Give your vehicles a loadout `kind` of your own, or patch our page. A node reading a quantity
 must name its system, and the system must have that quantity; every pipe end, driver and `onlyWithout` must be a node on the page. The
 load-time check names each of these.
+
+**Shared parents** (Framework 0.382.0): our pages that share most of their parts inherit from an abstract parent,
+`PhobosVehicleSchematicPistonBase` (land and boat piston pages) and `PhobosVehicleSchematicTurbineAircraftBase` (turboshaft and turbofan
+aircraft). A child's `nodes` and `pipes` are added to the parent's, so a page of yours can take `ParentName` of one, give its own
+`loadoutKinds` and add a node under every key the parent's pipes name (`cooler` for the piston pages; `compressor`, `hotSection` and
+`turbine` for the aircraft pages). The legend lists only the media a page carries.
 
 ### Shaft loads
 

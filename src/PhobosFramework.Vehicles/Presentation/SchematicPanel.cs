@@ -375,12 +375,13 @@ public sealed class SchematicPanel
         return string.Join("\n", lines);
     }
 
-    static void DrawLegend(Rect rect)
+    void DrawLegend(Rect rect)
     {
         float x = rect.x;
         using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
         {
-            foreach (SchematicMedium medium in System.Enum.GetValues(typeof(SchematicMedium)))
+            // Framework 0.382.0: only what this page carries, now that pages differ (a boat's sea water, a boiler's steam).
+            foreach (SchematicMedium medium in Page.Media)
             {
                 x = Swatch(rect, x, MediumColour(medium), ("PhobosVehicleSystems_SchematicMedium" + medium).Translate());
             }
@@ -406,6 +407,11 @@ public sealed class SchematicPanel
         SchematicMedium.Air => new Color(0.62f, 0.88f, 0.96f),
         SchematicMedium.Exhaust => new Color(0.66f, 0.62f, 0.66f),
         SchematicMedium.Electric => new Color(0.71f, 0.58f, 1.00f),
+        // Framework 0.382.0: water teal, apart from the coolant's blue; steam near white; a turning shaft pink, apart from every tone and
+        // from the grey of nothing flowing (authored).
+        SchematicMedium.Water => new Color(0.30f, 0.80f, 0.74f),
+        SchematicMedium.Steam => new Color(0.90f, 0.91f, 0.88f),
+        SchematicMedium.Drive => new Color(0.93f, 0.56f, 0.74f),
         _ => PhobosWidgets.Off,
     };
 }
