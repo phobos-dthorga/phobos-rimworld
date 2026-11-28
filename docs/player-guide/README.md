@@ -6,7 +6,7 @@ machines that work your fields, a water tap, fixes for other authors' mods, and 
 build first, what to press and what goes wrong if you forget something, a chapter per mod. Each mod's README holds its
 requirements and every setting and figure; its changelog says what changed and when.
 
-![Working trucks on a hillside at dusk: a drill rig and a tanker, with a surveyor in front](../../mods/PhobosVehicles/About/Preview.png)
+![A small colony at dusk: a tanker truck by a radio mast, a lit tent, a tractor and a helicopter over the valley](banners/front-door.png)
 
 ## Read this first (gotchas)
 
@@ -153,8 +153,9 @@ the same way; each mod's README lists its own.
 
 ## About the pictures
 
-Every picture in this guide is the mods' own art: the banners from each mod's About folder, and figures drawn from the textures
-the mods ship, laid out by `scripts/art/guide_figures.py` ([how](images/README.md)). The art was made with generative AI and
+Every picture in this guide is the mods' own art: the banners from each mod's About folder, a scene at the top of the chapters
+with no mod of their own ([how they were made](banners/README.md)), and figures drawn from the textures the mods ship, laid out by
+`scripts/art/guide_figures.py` ([how](images/README.md)). The art was made with generative AI and
 picked by the owner; the record beside each texture says how. A vehicle with its upgrades is a guide's view: in the game a part
 may sit or move slightly differently.
 

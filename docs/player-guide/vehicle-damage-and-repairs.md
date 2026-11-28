@@ -5,6 +5,8 @@ works on **every Vehicle Framework vehicle from any mod**, with D'thorga Framewo
 [vehicle systems](vehicle-systems.md); the parts bench that makes the replacement parts is in [the vehicle
 workshop](vehicle-workshop.md). [Back to the guide](README.md).
 
+![A mechanic welding a battered old truck in a yard, a wheel off beside it](banners/vehicle-damage-and-repairs.png)
+
 ## Read this first
 
 1. **A destroyed part needs replacing before the vehicle is whole again.** At 0% it waits for supplies in the vehicle's cargo and

@@ -6,6 +6,8 @@ What wears out and when a service is due is in [vehicle systems](vehicle-systems
 repairs](vehicle-damage-and-repairs.md); parks, the service yard and trips to the dyno bay are in [vehicles on the
 road](vehicles-on-the-road.md). [Back to the guide](README.md).
 
+![Inside a vehicle workshop at dusk: a truck under the lamps, a mechanic at the bench, tyres and shelves](banners/vehicle-workshop.png)
+
 ## Read this first
 
 1. **Build a vehicle parts bench early**: research **vehicle parts**, then find it in the Architect's **D'thorga** tab, under

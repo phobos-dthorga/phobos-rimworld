@@ -5,7 +5,7 @@ harvester cuts it, row by row by themselves.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.8.0, built 28 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.8.1, built 28 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 

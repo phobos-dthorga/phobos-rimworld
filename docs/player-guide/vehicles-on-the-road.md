@@ -5,6 +5,8 @@ park and get serviced at home. It works on **every Vehicle Framework vehicle fro
 have [a chapter of their own](aircraft-and-sling-loads.md); life aboard on a long trip (tents, berths, the kitchen) is in [camping
 and life on the road](camping.md). [Back to the guide](README.md).
 
+![A line of trucks on a muddy track in the rain, the last one hauling a stuck truck out](banners/vehicles-on-the-road.png)
+
 ## Read this first
 
 1. **Loaded vehicles slow on soft ground.** A heavy truck in sand, mud or snow labours, and **crawls with "Wheels spinning"**

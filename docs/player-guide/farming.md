@@ -3,6 +3,8 @@
 **D'thorga Farming** adds machines that work your fields: mark a growing zone as a paddock, and tractors plough and sow it while a
 combine harvester cuts it, row by row by themselves, emptying its grain into a chaser bin. [Back to the guide](README.md).
 
+![A combine harvester and a tractor in a golden wheat field at dusk, a farmer at the fence](../../mods/PhobosFarming/About/Preview.png)
+
 ![The Reaper combine harvester with its standard grain front](../../mods/PhobosFarming/Common/Textures/Phobos/Farming/Combine/Combine_icon.png)
 
 ## Read this first (gotchas)

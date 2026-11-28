@@ -11,6 +11,8 @@ The reference for building on the **D'thorga** (spelled "dthorga" too) RimWorld 
 Framework and its vehicle systems, Radio Framework, Medical, Factory Additions, Farming, Vehicles and Water Tap. Most of what you
 write is XML; the C# reference is there when XML cannot say it.
 
+![A desk in a log cabin at night: truck drawings, a radio, a lamp and a mug](images/modding.png)
+
 - **<xref:guide-README?text=Guides>**: a page for each mod, saying what your mod can add to it or use from it, with worked
   examples. Start here.
 - **<xref:xml-types?text=XML+types>**: every class you name in XML (comps, mod extensions, Defs, vehicle-system inputs, conditions and

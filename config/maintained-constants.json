@@ -406,7 +406,7 @@
     "PhobosFarming.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.8.0",
+      "value": "0.8.1",
       "description": "D'thorga Farming's version: About.xml, its project, its ModVersion constant and both READMEs and its Workshop page",
       "targets": [
         {

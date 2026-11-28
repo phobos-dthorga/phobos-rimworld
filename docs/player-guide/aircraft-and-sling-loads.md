@@ -6,6 +6,8 @@ aircraft from any mod**: helicopters, jets and pods. What every vehicle shares (
 systems](vehicle-systems.md); the aircraft of D'thorga Vehicles, such as the V-22 Osprey, are in [working
 vehicles](working-vehicles.md). [Back to the guide](README.md).
 
+![A tiltrotor lifting a small truck on a sling from a ridge at dusk, a marshal guiding it with a light](banners/aircraft-and-sling-loads.png)
+
 ## Read this first
 
 1. **Aircraft are checked before they lift off.** Too heavy for the day's heat, with engines or thrusters out, with flight

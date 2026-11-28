@@ -4,6 +4,8 @@ The **Fathom seabed crawler**, from **D'thorga Vehicles**, is a small submarine.
 upgrades let it rest on the bottom, listen, ping, and carry a laboratory. The diving, spotting, listening and sonar come from
 **D'thorga Framework** and work for any mod's diving boat. [Back to the guide](README.md).
 
+![A small yellow crawler submarine on the seabed with its lamps on, fish above](banners/submarines.png)
+
 ![The Fathom as built, the F1-S sensor refit with bottoming wheels, listening array and sonar dome, and the F1-L laboratory refit](images/crawler-refits.png)
 
 ## Read this first (gotchas)

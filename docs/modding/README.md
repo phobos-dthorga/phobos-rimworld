@@ -3,6 +3,8 @@
 How your own mod can extend or work with each D'thorga mod: the Defs and fields to use, with XML examples, and the checks done on
 each. Players start at [the player guide](../player-guide/README.md) instead.
 
+![A desk in a log cabin at night: truck drawings, a radio, a lamp and a mug](../reference/images/modding.png)
+
 - **New here?** [Your first hour](first-hour.md): from nothing to a working vehicle change, with the example mod in
   [`examples/DthorgaExampleMod`](../../examples/DthorgaExampleMod/README.md), dev mode, the log and the offline checks.
 - [Stability: what you can rely on](stability.md): which names are kept for saves, what may still change before the first public

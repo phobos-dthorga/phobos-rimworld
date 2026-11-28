@@ -1,7 +1,8 @@
 # The player guide's figures
 
-Every figure here is drawn by `scripts/art/guide_figures.py` from textures the mods already ship. **No art of its own is made for
-the guide**, so nothing here is generated, and nothing is copied from the game or another author. Each texture's own record, beside
+Every figure here is drawn by `scripts/art/guide_figures.py` from textures the mods already ship. **No figure has art of its own**,
+so nothing here is generated, and nothing is copied from the game or another author. (The scenes at the top of some chapters are
+generated, and kept apart in [`../banners/`](../banners/README.md).) Each texture's own record, beside
 it in its mod's `Textures` folder, says how it was made: most are generative AI, picked by the owner; a few are drawn in code
 (stand-ins such as the triage tags, the hitch buttons and the Crawler's laboratory and scrubber icons). Vehicles are shown untinted:
 the game tints their painted parts.

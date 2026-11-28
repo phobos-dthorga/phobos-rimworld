@@ -17,6 +17,16 @@ tested in game unless an entry says the owner tested it.
   another mod's crop in a class moved to the repository's modders' page for farming, which the Workshop draft now links.
   Nothing in play changes.
 
+## [0.8.1] - 2026-11-28 - Draft
+
+A Workshop picture of its own
+
+### Fixed
+
+- **D'thorga Farming had no Workshop picture**, the only mod of the house without one: a combine harvester and a tractor in a
+  golden wheat field at dusk, a farmer at the fence, titled "Farming, Machines that work your fields". Made on the owner's
+  graphics card and picked by the owner on 28 Nov 2026; it opens the guide's Farming chapter too. Nothing in play changes.
+
 ## [0.8.0] - 2026-11-28 - Draft
 
 A setup wizard page

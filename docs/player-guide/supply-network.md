@@ -4,6 +4,8 @@ A worked example from start to finish: keeping a far outpost stocked by truck, b
 like. Each step names the button to press and says where its chapter explains more. For **D'thorga Framework** with Vehicle Framework;
 the radio parts also need **D'thorga Radio Framework**.
 
+![A radio mast on a rise at dusk, a helicopter carrying a crate and a truck driving up](banners/supply-network.png)
+
 ## Read this first
 
 1. **A truck runs supplies only with the route kit fitted** (vehicle workshop). **With nobody aboard, it drives only while its route kit

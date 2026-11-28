@@ -4,6 +4,8 @@ How to camp beside a vehicle, sleep in or on it, and keep its people fed, watere
 berths, camp gear, the kitchen, water, lights and life aboard. It applies to **every Vehicle Framework land vehicle from any mod**
 (the deck tent only to those with a flat deck), with the gear made by **D'thorga Framework**. [Back to the guide](README.md).
 
+![A camp in a pine forest at night: two trucks, an awning and folding chairs round a lantern](banners/camping.png)
+
 ## Read this first (gotchas)
 
 - **A vehicle cannot drive off while its camp is set up, or while anyone is in its deck tent.** Pack up first.

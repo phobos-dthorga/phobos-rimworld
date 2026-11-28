@@ -31,6 +31,9 @@
       {"files": ["api/**.yml", "api/index.md"]},
       {"files": ["guides/*.md", "guides/toc.yml"]}
     ],
+    "resource": [
+      {"files": ["images/**"]}
+    ],
     "overwrite": [
       {"files": ["xml-examples/*.md"]}
     ],
@@ -39,6 +42,8 @@
     "globalMetadata": {
       "_appName": "D'thorga for modders",
       "_appTitle": "D'thorga RimWorld reference",
+      "_appLogoPath": "images/dthorga-mark.png",
+      "_appFaviconPath": "images/favicon.ico",
       "_appFooter": "D'thorga (dthorga) RimWorld mods: the modders' reference, built from the C# source and the modding guides.",
       "_enableSearch": true,
       "_disableContribution": true

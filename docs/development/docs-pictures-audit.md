@@ -1,9 +1,12 @@
 # Docs and pictures audit (28 Nov 2026)
 
-**Status (28 Nov 2026):** audited; night 18's pictures queued, not yet run. Nothing else built: findings D1 to D5 and G2 to G4
-wait for the owner's word. Agent's audit, on the owner's request of 28 Nov 2026: "queue graphics that would be beneficial to
-enhancing our documentation ... do an audit now and see where the docs can benefit in more ways than one from just graphics, and
-maybe the game itself too".
+**Status (28 Nov 2026, evening):** night 18 ran (102 of 113 pictures; the rest of step 6, the chip telltale and the Busbar
+turbo-generator wait for the next go) and the owner picked. **Shipped:** nine chapter scenes (`docs/player-guide/banners/`), the
+modders' scene (`docs/reference/images/modding.png`, on the modders' front page and the reference site's), D'thorga Farming's
+Workshop picture (Farming 0.8.1), the head mark as the reference site's logo and favicon, and five icons (Framework 0.385.1,
+Vehicles 0.135.2). **To the paid route, on the owner's word:** the plain crest and the Dragonself crest (the owner likes
+Z-Image 315 of the Dragonself as a starting point), and the dual-band radio, radio coverage, landing lights and crew fire suppression
+icons. Findings D1 to D5 and G2 to G4 still wait for the owner's word.
 
 ## Read this first
 

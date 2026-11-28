@@ -3,6 +3,8 @@
 Install the mods, pick the settings that are hard to change later, and know how to take a mod out again.
 [Back to the guide](README.md).
 
+![A colonist reading a map spread on a truck's bonnet at sunset, crates of supplies at their feet](banners/getting-started.png)
+
 ## Read this first (gotchas)
 
 - **RimWorld 1.7 only.** No mod here supports 1.6.
