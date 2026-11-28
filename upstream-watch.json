@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-27T00:33:52Z",
+ "checked": "2026-11-28T00:02:02Z",
  "clonesRead": 24,
  "days": 30,
  "findings": [
@@ -122,26 +122,6 @@
    "ours": "src/PhobosFactory/Patches/BillRepairPatches.cs:32",
    "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
    "subject": "Progress bar configurable via xml"
-  },
-  {
-   "commit": "eb1c5565",
-   "date": "2026-10-28",
-   "link": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework/commit/eb1c5565",
-   "member": "Process.ResetProcess",
-   "mod": "Vanilla Expanded Framework",
-   "ours": "src/PhobosFactory/Patches/BatchInPartsPatches.cs:21",
-   "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
-   "subject": "Slightly change/update/fix advanced processor's processes"
-  },
-  {
-   "commit": "eb1c5565",
-   "date": "2026-10-28",
-   "link": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework/commit/eb1c5565",
-   "member": "Process.ExposeData",
-   "mod": "Vanilla Expanded Framework",
-   "ours": "src/PhobosFactory/Patches/BatchInPartsPatches.cs:10",
-   "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
-   "subject": "Slightly change/update/fix advanced processor's processes"
   },
   {
    "commit": "bd1052b4",

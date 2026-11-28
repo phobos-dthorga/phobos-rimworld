@@ -2,13 +2,13 @@
  "format": 1,
  "feed": "phobos-rimworld",
  "title": "Phobos RimWorld, nightly",
- "updated": "2026-11-27T00:34:37Z",
+ "updated": "2026-11-28T00:02:46Z",
  "files": [
   {
    "path": "upstream-watch.json",
    "kind": "upstream-watch",
-   "bytes": 9883,
-   "sha256": "4a5a7f2fe96f1a6bd6ed8426ead9b236dfc5eb63ae6e01d19a236feaa79ece35"
+   "bytes": 8989,
+   "sha256": "ec652ede2c8b118afac9f2e9d3bd0b5baa4b22282c5b2ded0f9f8f73e1ba058e"
   }
  ]
 }
