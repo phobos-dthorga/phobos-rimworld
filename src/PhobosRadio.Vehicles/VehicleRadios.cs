@@ -51,6 +51,10 @@ public static class VehicleRadios
         RelayNodes.Register(new VehicleRelaySource());
         // Radio 0.50.0 (EW7): aircraft in flight with the repeater kit relay from their height, holding station or in transit.
         RelayNodes.Register(new AircraftRelaySource());
+        // Radio 0.74.0 (radar, RD6 and RD9): aircraft in flight and over a map are radar targets.
+        var radarAircraft = new AircraftRadarTargets();
+        RadarTargets.Register((IRadarTargetSource)radarAircraft);
+        RadarTargets.Register((IMapRadarTargetSource)radarAircraft);
         // Radio 0.45.0 (EW1): D'thorga Framework's jam fields that send out radio watts (the Busbar's mast, switched to radios) are noise.
         RadioJamming.Register(JammersFromFields);
         // Radio 0.42.0: a convoy is a place the world map's cover picture can be drawn for, and the picture's raised mast is the Datum's.

@@ -60,10 +60,12 @@ Generated from the project files by `python scripts/doc-tables.py --write`: chan
 | `PhobosRadio` | `mods/PhobosRadioFramework/` | `PhobosFramework` | `PipeSystem`, `Outposts` | yes | `PhobosRadio.Physics.Tests` |
 | `PhobosRadio.CombatExtended` | `mods/PhobosRadioFramework/Mods/CombatExtended/` | `PhobosRadio`, `PhobosFramework` | `CombatExtended` | no | none |
 | `PhobosRadio.DeadMansSwitch` | `mods/PhobosRadioFramework/Mods/DeadMansSwitch/` | `PhobosRadio`, `PhobosFramework` | `DMS`, `Fortified` | yes | none |
+| `PhobosRadio.Fortified` | `mods/PhobosRadioFramework/Mods/Fortified/` | `PhobosRadio`, `PhobosFramework` | `Fortified` | no | none |
+| `PhobosRadio.Irbm` | `mods/PhobosRadioFramework/Mods/IRBM/` | `PhobosRadio`, `PhobosFramework` | `IRBM` | yes | none |
 | `PhobosRadio.Vehicles` | `mods/PhobosRadioFramework/Mods/VehicleFramework/` | `PhobosRadio`, `PhobosFramework`, `PhobosFramework.Vehicles` | `Vehicles`, `SmashTools` | no | none |
 | `PhobosWaterTap` | `mods/PhobosWaterTap/` | `PhobosFramework.Hygiene` | `BadHygiene` | no | `PhobosWaterTap.Rules.Tests` |
 
-33 projects (26 using Harmony) and 7 test projects. Read from each project file as written: MSBuild is not run, so a value set only in `Directory.Build.props` or `Directory.Build.targets` is not shown. Harmony: its own C# files have `using HarmonyLib` or a `[HarmonyPatch]`. Test projects: those that reference the project or compile its files.
+35 projects (27 using Harmony) and 7 test projects. Read from each project file as written: MSBuild is not run, so a value set only in `Directory.Build.props` or `Directory.Build.targets` is not shown. Harmony: its own C# files have `using HarmonyLib` or a `[HarmonyPatch]`. Test projects: those that reference the project or compile its files.
 <!-- end generated -->
 
 What the table cannot read from the files, kept by hand:
@@ -147,8 +149,9 @@ Generated from the projects' C# source by `python scripts/doc-tables.py --write`
 | `PhobosPatches.VisitSettlements` | 0 | 0 | 3 | 0 |
 | `PhobosRadio` | 4 | 0 | 0 | 0 |
 | `PhobosRadio.DeadMansSwitch` | 1 | 0 | 0 | 0 |
+| `PhobosRadio.Irbm` | 1 | 0 | 0 | 0 |
 
-212 patched methods named in attributes, 30 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
+213 patched methods named in attributes, 30 patch classes that find their target by name (`TargetMethod`), and 26 manual `.Patch(` calls, whose targets are found at run time and are not listed. Read from the source text, never from a build: a method a patch names but the game or the mod no longer has still shows here.
 
 Every HarmonyPatch attribute was read.
 
@@ -532,6 +535,14 @@ Every HarmonyPatch attribute was read.
 | Patched method | Kinds | Where (in `src/PhobosRadio.DeadMansSwitch/`) |
 | --- | --- | --- |
 | `CompAlertEffector.CanFire` | postfix | `UplinkJamming.cs` |
+
+</details>
+
+<details><summary><code>PhobosRadio.Irbm</code>: 1 patched method</summary>
+
+| Patched method | Kinds | Where (in `src/PhobosRadio.Irbm/`) |
+| --- | --- | --- |
+| `RadarUtility.IsMissileDetected` | postfix | `IrbmRadar.cs` |
 
 </details>
 <!-- end generated -->

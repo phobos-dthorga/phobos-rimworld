@@ -1,0 +1,48 @@
+[
+  {
+    "name": "radar-gapfiller-station",
+    "title": "Gap-filler radar, the station without its antenna (Radio 0.74.0; the pilot of the radar family)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/BaseStation.png",
+        "role": "our approved radio base station from the same mod: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosRadio_RadarGapFiller, the smallest of three radar stations (docs/development/radar-and-air-defence.md, RD6; the owner's card of 28 Nov 2026: a turning antenna on a mast, in a few designs from 3x3 to much larger)",
+      "ships_as": "mods/PhobosRadioFramework/Radar/Textures/Phobos/Radio/Things/Radar/GapFiller.png",
+      "size": "a 3 by 3 building, drawn at 384 px in game; requested at 1024 (2.7 times)",
+      "why": "a building in the game world, so the paid service (assets/AGENTS.md)",
+      "note": "the pilot: inspected at native size and offered to the owner before the air-search and long-range stations and the antennas are asked for; the antenna is a separate picture, drawn turning over the mast's top by the game"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game building sprite for a small radar station in a hard-scrabble frontier colony: a squat steel equipment shed with a short lattice mast rising from its middle. Image 1 is our approved radio building from the same game: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw the station WITHOUT its rotating antenna: the antenna is drawn separately and turns over the mast. Show the mast's top as a small round turntable plate in the exact centre of the canvas, left empty.\n\nSquare canvas. The building fills the canvas with a small even margin on a plain pure white background. Its roof plan: a square shed roof of ribbed grey steel panels; the lattice mast's square top in the centre with the round turntable plate on it; a small cable tray running from the mast to one edge; a short ventilation box and a door hatch near one corner; four concrete footing pads at the corners.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted industrial greys with one faded safety-orange accent, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo antenna, dish, people, animals, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, grass, shadow outside the building, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "radar-console-south",
+    "title": "Radar console, south view (Radio 0.74.0; the pilot of its three views)",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1536,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/BaseStation.png",
+        "role": "our approved radio base station from the same mod: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosRadio_RadarConsole, the desk where colonists keep radar watch (the owner's word of 28 Nov 2026: \"involve a console for the scope itself that operators will work from, custom paid art and all\")",
+      "ships_as": "mods/PhobosRadioFramework/Radar/Textures/Phobos/Radio/Things/Radar/Console_south.png",
+      "size": "a 3 by 2 building, drawn at 384 by 256 px in game; requested at 1536 by 1024 (4 times)",
+      "why": "a building in the game world, so the paid service",
+      "note": "the pilot of three views; north and east (west mirrored) follow from the pick by reference edits; the operator sits at its bottom edge (the interaction cell)"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game building sprite for a radar operator's console in a hard-scrabble frontier colony: a long steel desk with a row of equipment cabinets along its back. Image 1 is our approved radio building from the same game: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nLandscape canvas, three wide by two deep. The console fills the canvas with a small even margin on a plain pure white background. Seen from above: along the TOP edge, three tall cabinet tops in a row with small vents; in front of them, three dark round radar screens set into a sloping panel, the middle one larger, each screen a plain dark green glass disc; along the BOTTOM edge, the operator's desk surface with a few small switches and a handset, where the operator sits.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted greys and olive steel with one faded safety-orange accent, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nThe screens are plain and dark: no picture, sweep, blips, text, letters or numbers on them. No people, chairs, animals, logos or lamps. No floor, ground, shadow outside the console, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]

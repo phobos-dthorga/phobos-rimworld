@@ -22,6 +22,27 @@ tested in game unless an entry says the owner tested it.
 
 
 
+## [0.384.0] - 2026-11-28 - Draft
+
+An aircraft's radar size
+
+### Added
+
+- **Every aircraft has a radar size in square metres**, for D'thorga Radio Framework's radars (0.74.0;
+  [radar and air defence](https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/development/radar-and-air-defence.md), RD2).
+  A loadout's air track may give its own; otherwise it is worked out from the size The Dead Man's Switch's air defence already reads,
+  which multiplies the range a radar sees it at: a C-17 comes out at about 250 square metres, a Hind about 16, a Harrier about 4. Those
+  are inferred from authored figures, not measured ones. Nothing changes in play without the Radio Framework's radars. Not yet tested in
+  game: row 808.
+
+### Save compatibility
+
+- Safe to update: nothing new is saved.
+
+### Compatibility and limits
+
+- AirTrackSpec has radarSquareMetres (0 works it out from size) and RadarSquareMetres, the figure to read.
+
 ## [0.383.1] - 2026-11-28 - Draft
 
 A flat battery warns only as it runs down

@@ -719,6 +719,21 @@ public class AirTrackSpec
     /// <summary>Where it cruises without oxygen (an aircraft that cruises high, A14).</summary>
     public float lowCruiseMetres = 1500f;
     public float size = 1.5f;
+    /// <summary>
+    /// Its radar size in square metres, for D'thorga Radio Framework's radars (Framework 0.384.0; docs/development/radar-and-air-defence.md,
+    /// RD2). 0, the default, works it out from <see cref="size"/>: The Dead Man's Switch's figure multiplies the range a radar sees it at,
+    /// and a radar's range goes as the fourth root of a target's size, so <c>5 m² × (size / 1.5)⁴</c>, with its default 1.5 as a 5 m² fighter
+    /// (the worked example's source). So a C-17 (4.0) is about 250 m², a Hind (2.0) about 16 m², a Harrier (1.4) about 4 m²: inferred from
+    /// authored figures, not measured ones. Set it where a source gives a real figure.
+    /// </summary>
+    public float radarSquareMetres;
+
+    /// <summary>The fighter the default <see cref="size"/> stands for, in m² (the worked example's 5 m², a cited figure).</summary>
+    public const float DefaultSizeSquareMetres = 5f;
+
+    /// <summary>Its radar size in square metres: its own figure, else worked out from <see cref="size"/>.</summary>
+    public float RadarSquareMetres => radarSquareMetres > 0f ? radarSquareMetres
+        : DefaultSizeSquareMetres * UnityEngine.Mathf.Pow(UnityEngine.Mathf.Max(0.1f, size) / 1.5f, 4f);
 }
 
 /// <summary>

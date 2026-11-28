@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Radio Framework's tie-in with Fortified Features Framework (Radio 0.74.0; docs/development/radar-and-air-defence.md, the
+       owner's card of 28 Nov 2026, "Fortified/DMS tracks now"): its missiles and drop-pod tracks on our radar scope and world map, and its
+       radars listed on our console. Reading only: joining its network is radar slice 4 (the owner's card 4). Its own assembly in
+       Mods/Fortified/1.7, which LoadFolders.xml loads only while Fortified Features Framework is active (not only with DMS Expedition: the
+       watch in docs/development/air-defence-tie-ins.md). RimWorld 1.7 only. Fortified.dll is referenced from the installed mod, never copied. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.Radio.Fortified</RootNamespace>
+    <AssemblyName>PhobosRadio.Fortified</AssemblyName>
+    <ModFolder>PhobosRadioFramework</ModFolder>
+    <TieInFolder>Mods/Fortified/</TieInFolder>
+    <Version>0.74.0</Version>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosRadio/PhobosRadio.csproj" Private="false" />
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Fortified">
+      <HintPath>$(FortifiedAssemblies)\Fortified.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

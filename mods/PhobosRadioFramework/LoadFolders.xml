@@ -14,5 +14,9 @@
     <!-- Radio 0.46.0: jamming stops The Dead Man's Switch's uplinks calling for reinforcements or fire support. -->
     <li IfModActive="Aoba.DeadManSwitch.Core">Mods/DeadMansSwitch/Common</li>
     <li IfModActive="Aoba.DeadManSwitch.Core">Mods/DeadMansSwitch/1.7</li>
+    <!-- Radio 0.74.0 (radar): our radars see InterRim Ballistic Missile's missiles, and IRBM counts what they see as detected. -->
+    <li IfModActive="kazepsi.irbm">Mods/IRBM/1.7</li>
+    <!-- Radio 0.74.0 (radar): Fortified Features Framework's missiles and drop-pod tracks on our scope, its radars on our console. -->
+    <li IfModActive="AOBA.Framework">Mods/Fortified/1.7</li>
   </v1.7>
 </loadFolders>

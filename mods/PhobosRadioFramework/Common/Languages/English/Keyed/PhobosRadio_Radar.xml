@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Radar (Radio 0.74.0; docs/development/radar-and-air-defence.md, slices 1 and 2). -->
+
+  <!-- The stations and the console. -->
+  <PhobosRadar_Roofed>Under a roof: it sees nothing. A radar needs open sky over all of it.</PhobosRadar_Roofed>
+  <PhobosRadar_Off>Not working: it needs power.</PhobosRadar_Off>
+  <PhobosRadar_Inspect>{BAND} radar, antenna {HEIGHT} m up. Sees a fighter at height to {FIGHTER} km, a ten-pod drop to {DROP} km.</PhobosRadar_Inspect>
+  <PhobosRadar_ScopeView>Scope</PhobosRadar_ScopeView>
+  <PhobosRadar_ScopeViewDesc>Look at the radar picture: what the colony's radars see in the sky around it, and over the colony itself. Colonists keep watch from a radar console.</PhobosRadar_ScopeViewDesc>
+  <PhobosRadar_ConsoleInspect>Radars watching: {RADARS} here, {LINKED} by data link from other colonies.</PhobosRadar_ConsoleInspect>
+  <PhobosRadar_Scope>Scope</PhobosRadar_Scope>
+  <PhobosRadar_ScopeDesc>Open the radar scope: every contact the colony's radars see, unknown, friend or hostile, with its bearing, range and height. While anything is still unknown, a colonist on radar watch sits here and identifies it sooner.</PhobosRadar_ScopeDesc>
+  <PhobosRadar_ConsoleOff>The console needs power.</PhobosRadar_ConsoleOff>
+
+  <!-- The scope. -->
+  <PhobosRadar_ScopeTitle>Radar: {COLONY}</PhobosRadar_ScopeTitle>
+  <PhobosRadar_ScaleSky>The sky around</PhobosRadar_ScaleSky>
+  <PhobosRadar_ScaleColony>Over the colony</PhobosRadar_ScaleColony>
+  <PhobosRadar_North>N</PhobosRadar_North>
+  <PhobosRadar_ScopeRadars>Radars watching: {OWN} here, {LINKED} by data link.</PhobosRadar_ScopeRadars>
+  <PhobosRadar_ScopeNoWatch>Nobody on watch: unknown contacts take longer to identify.</PhobosRadar_ScopeNoWatch>
+  <PhobosRadar_ScopeWatch>On watch: Intellectual {SKILL}.</PhobosRadar_ScopeWatch>
+  <PhobosRadar_ScopeNoRadar>No radar is watching: build a radar station under open sky and give it power, or link one from another colony with the data link.</PhobosRadar_ScopeNoRadar>
+  <PhobosRadar_ScopeEmpty>Nothing in sight.</PhobosRadar_ScopeEmpty>
+  <PhobosRadar_ContactLine>{IDENTITY}, {BEARING}, {RANGE}, {HEIGHT} m up</PhobosRadar_ContactLine>
+  <PhobosRadar_ByDataLink>(seen by another colony's radar)</PhobosRadar_ByDataLink>
+  <PhobosRadar_IdentityUnknown>unknown</PhobosRadar_IdentityUnknown>
+  <PhobosRadar_IdentityFriend>friend</PhobosRadar_IdentityFriend>
+  <PhobosRadar_IdentityNeutral>neutral</PhobosRadar_IdentityNeutral>
+  <PhobosRadar_IdentityHostile>hostile</PhobosRadar_IdentityHostile>
+
+  <!-- Early warning. -->
+  <PhobosRadar_WarningLabel>Radar contact</PhobosRadar_WarningLabel>
+  <PhobosRadar_WarningText>{RADAR} has contacts coming in towards {COLONY}: {COUNT} {KIND}, from the {BEARING}, about {TIME} out.\n\nWho they are is not known yet. Someone on radar watch at a console will make them out sooner.</PhobosRadar_WarningText>
+  <PhobosRadar_KindDrop>drop pods</PhobosRadar_KindDrop>
+  <PhobosRadar_KindAir>aircraft, flying low</PhobosRadar_KindAir>
+  <PhobosRadar_CountRange>{LOW} to {HIGH}</PhobosRadar_CountRange>
+  <PhobosRadar_UnknownContacts>Unknown contacts</PhobosRadar_UnknownContacts>
+  <PhobosRadar_UnknownFaction>an unknown group</PhobosRadar_UnknownFaction>
+  <PhobosRadar_IdentifiedLabel>Contacts identified: {FACTION}</PhobosRadar_IdentifiedLabel>
+  <PhobosRadar_IdentifiedText>The contacts coming in towards {COLONY} are {FACTION}: {COUNT}, from the {BEARING}, about {TIME} out.</PhobosRadar_IdentifiedText>
+  <PhobosRadar_ContactLabelKnown>Contacts: {FACTION}</PhobosRadar_ContactLabelKnown>
+  <PhobosRadar_ContactInspect>{COUNT} coming in towards {COLONY}, about {TIME} out.</PhobosRadar_ContactInspect>
+  <PhobosRadar_Compass0>north</PhobosRadar_Compass0>
+  <PhobosRadar_Compass1>north-east</PhobosRadar_Compass1>
+  <PhobosRadar_Compass2>east</PhobosRadar_Compass2>
+  <PhobosRadar_Compass3>south-east</PhobosRadar_Compass3>
+  <PhobosRadar_Compass4>south</PhobosRadar_Compass4>
+  <PhobosRadar_Compass5>south-west</PhobosRadar_Compass5>
+  <PhobosRadar_Compass6>west</PhobosRadar_Compass6>
+  <PhobosRadar_Compass7>north-west</PhobosRadar_Compass7>
+
+  <!-- Missiles and shells in flight towards the colony (the IRBM and Combat Extended tie-ins). -->
+  <PhobosRadar_InboundMissile>missile</PhobosRadar_InboundMissile>
+  <PhobosRadar_InboundShell>artillery shell</PhobosRadar_InboundShell>
+  <PhobosRadar_InboundLabel>Radar: {WHAT} inbound</PhobosRadar_InboundLabel>
+  <PhobosRadar_InboundText>The radars at {COLONY} see a {WHAT} in flight towards your lands, from the {BEARING}, {KM} km out.</PhobosRadar_InboundText>
+
+  <!-- Other radars on the console. -->
+  <PhobosRadar_OtherRadar>{RADAR}: {STATE}. {NOTE}</PhobosRadar_OtherRadar>
+  <PhobosRadar_OtherWorking>working</PhobosRadar_OtherWorking>
+  <PhobosRadar_OtherOff>not working</PhobosRadar_OtherOff>
+  <PhobosRadar_RimatomicsAtom>Its threat detection is fitted.</PhobosRadar_RimatomicsAtom>
+  <PhobosRadar_RimatomicsNoAtom>No threat detection fitted.</PhobosRadar_RimatomicsNoAtom>
+  <PhobosRadar_FortifiedSensor>Part of the air-defence network.</PhobosRadar_FortifiedSensor>
+
+  <!-- Alerts. -->
+  <PhobosRadar_AlertInbound>Inbound: {TIME}</PhobosRadar_AlertInbound>
+  <PhobosRadar_AlertInboundDesc>Your radars see contacts coming in:</PhobosRadar_AlertInboundDesc>
+  <PhobosRadar_AlertInboundLine>{WHO} ({COUNT}) towards {COLONY}, from the {BEARING}, about {TIME} out</PhobosRadar_AlertInboundLine>
+  <PhobosRadar_AlertRoofed>Radar under a roof</PhobosRadar_AlertRoofed>
+  <PhobosRadar_AlertRoofedDesc>A radar station sees nothing while any roof is over it. Remove the roof, or build it in the open.</PhobosRadar_AlertRoofedDesc>
+
+  <!-- Settings. -->
+  <PhobosRadio_PageRadar>Radar</PhobosRadio_PageRadar>
+  <PhobosRadio_SectionRadarWarning>Early warning</PhobosRadio_SectionRadarWarning>
+  <PhobosRadio_SettingRadarHoldsRaids>Radar warns of drop and air raids</PhobosRadio_SettingRadarHoldsRaids>
+  <PhobosRadio_SettingRadarHoldsRaidsDesc>When a radar sees a drop-pod or air raid coming, the raid arrives later, by how far out the radar saw it, and a letter warns of it. Raids that walk in are not held. Off, raids arrive as usual and the radars still show what they see.</PhobosRadio_SettingRadarHoldsRaidsDesc>
+</LanguageData>

@@ -29,6 +29,8 @@ public static class RadioNews
         if (fi.parms.target is not Map map || !map.IsPlayerHome) return false;
         if (!fi.def.Worker.CanFireNow(fi.parms)) return false;
         if (WarningAlly(map) is not { } ally) return false;
+        // Radio 0.73.0 (RN4b; docs/development/radio-life-on-the-air.md): an ally's warning is heard only if someone listens; one nobody hears is missed (logged), and the raid comes as the game sends it.
+        if (RadioWatch.Hear(map, ally.Faction.Name, "PhobosRadioWatch_WhatRaid".Translate().Resolve(), "raid warning") == null) return false;
         int delay = Mathf.RoundToInt(RadioRulesDef.Current.radioRaidWarningHours * GenDate.TicksPerHour);
         // Queued, it fires through the storyteller again, then as any raid does; RetryDurationTicks as the game queues its own.
         int fireTick = Find.TickManager.TicksGame + delay;
@@ -69,7 +71,8 @@ internal static class Patch_Storyteller_TryFire_RaidWarning
     static bool Prefix(FiringIncident fi, bool queued, ref bool __result, bool __runOriginal)
     {
         if (!__runOriginal || queued) return true;
-        if (!RadioNews.TryHold(fi)) return true;
+        // A radar's warning first (Radio 0.74.0, RD7), then an ally's: one hold per raid, whichever gives it.
+        if (!RadarWarning.TryHold(fi) && !RadioNews.TryHold(fi)) return true;
         __result = true;
         return false;
     }

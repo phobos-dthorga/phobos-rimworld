@@ -144,5 +144,29 @@
 
     <!-- The vanilla heater turns 175 W into 21 heat per second (Core, Buildings_Temperature.xml). -->
     <heatPerWattSecond>0.12</heatPerWattSecond>
+
+    <!-- Radar (Radio 0.74.0; docs/development/radar-and-air-defence.md, slices 1 and 2). Authored unless a source is named. A world tile is
+         30 km for radar (the owner's card of 28 Nov 2026). The approach speed is tuned so an air-search radar warns of a ten-pod drop about
+         an hour and a half ahead (the owner's card: "by the sum, at play speed"); a long-range radar's warning stops at four hours. An
+         unknown raid is identified 60 % of the way through its warning with nobody on watch, 4 % sooner a skill level, 15 % at the soonest. -->
+    <radarMetresPerWorldTile>30000</radarMetresPerWorldTile>
+    <radarLookTicks>30</radarLookTicks>
+    <radarDropPodSquareMetres>2</radarDropPodSquareMetres>
+    <radarPersonSquareMetres>1</radarPersonSquareMetres>
+    <radarAircraftSquareMetresPerBodySize>2</radarAircraftSquareMetresPerBodySize>
+    <radarDropCarrierMetres>5000</radarDropCarrierMetres>
+    <radarAirRaidMetres>300</radarAirRaidMetres>
+    <radarApproachKmPerGameHour>45</radarApproachKmPerGameHour>
+    <radarMinimumWarningHours>0.25</radarMinimumWarningHours>
+    <radarMaximumWarningHours>4</radarMaximumWarningHours>
+    <radarPointsPerRaider>90</radarPointsPerRaider>
+    <radarCountBlur>0.3</radarCountBlur>
+    <radarIdentifyShareUnmanned>0.6</radarIdentifyShareUnmanned>
+    <radarIdentifySharePerSkill>0.04</radarIdentifySharePerSkill>
+    <radarIdentifyShareBest>0.15</radarIdentifyShareBest>
+    <radarIdentifyBaseTicks>2500</radarIdentifyBaseTicks>
+    <radarPlotExtractorSkill>8</radarPlotExtractorSkill>
+    <radarWatchKeepTicks>2500</radarWatchKeepTicks>
+    <radarDataLinkKeepTicks>2500</radarDataLinkKeepTicks>
   </Phobos.Radio.RadioRulesDef>
 </Defs>

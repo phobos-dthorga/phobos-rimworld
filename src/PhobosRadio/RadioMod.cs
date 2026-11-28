@@ -51,6 +51,12 @@ public class RadioSettings : ModSettings
     public bool alliesWarnOfRaids = true;
 
     /// <summary>
+    /// Whether a radar that sees a drop or air raid coming holds it back and warns of it (Radio 0.74.0; docs/development/radar-and-air-defence.md,
+    /// RD7; the owner's cards of 28 Nov 2026). A benefit with no risk: on by default. Off, the radars still show what they see.
+    /// </summary>
+    public bool radarHoldsRaids = true;
+
+    /// <summary>
     /// Whether a hostile settlement that hears a trader caravan asked for by radio may ambush it on its way (Radio 0.53.0; the owner's card of
     /// 27 Nov 2026, "Ambush the trader"). A moderate risk (goodwill spent, a trade lost, no colonist at stake): on by default.
     /// </summary>
@@ -102,6 +108,7 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref neighbourCalls, "neighbourCalls", true);
         Scribe_Values.Look(ref relayMastLosses, "relayMastLosses", false);
         Scribe_Values.Look(ref alliesWarnOfRaids, "alliesWarnOfRaids", true);
+        Scribe_Values.Look(ref radarHoldsRaids, "radarHoldsRaids", true);
         Scribe_Values.Look(ref listenersAmbushTraders, "listenersAmbushTraders", true);
         Scribe_Values.Look(ref jammingReachesRadios, "jammingReachesRadios", true);
         Scribe_Values.Look(ref ownCallsign, "ownCallsign", "");
@@ -154,6 +161,8 @@ public class RadioMod : SettingsBookMod
         Tick("radio.terminalNoise", "PhobosRadio_SettingTerminalNoise", () => Settings.terminalNoise, x => Settings.terminalNoise = x, defaults.terminalNoise);
         Tick("radio.alliesWarnOfRaids", "PhobosRadio_SettingAlliesWarnOfRaids", () => Settings.alliesWarnOfRaids, x => Settings.alliesWarnOfRaids = x,
             defaults.alliesWarnOfRaids);
+        Tick("radio.radarHoldsRaids", "PhobosRadio_SettingRadarHoldsRaids", () => Settings.radarHoldsRaids, x => Settings.radarHoldsRaids = x,
+            defaults.radarHoldsRaids);
         Tick("radio.listenersAmbushTraders", "PhobosRadio_SettingListenersAmbushTraders", () => Settings.listenersAmbushTraders,
             x => Settings.listenersAmbushTraders = x, defaults.listenersAmbushTraders);
         Tick("radio.jammingReachesRadios", "PhobosRadio_SettingJammingReachesRadios", () => Settings.jammingReachesRadios,
@@ -183,7 +192,8 @@ public class RadioMod : SettingsBookMod
             .Add(new SettingsPage("colonists", 10f, () => "PhobosRadio_PageColonists".Translate(), DrawColonists))
             .Add(new SettingsPage("stations", 20f, () => "PhobosRadio_PageStations".Translate(), DrawStations))
             .Add(new SettingsPage("calling", 30f, () => "PhobosRadio_PageCalling".Translate(), DrawCalling))
-            .Add(new SettingsPage("worldmap", 40f, () => "PhobosRadio_PageWorldMap".Translate(), DrawWorldMap));
+            .Add(new SettingsPage("worldmap", 40f, () => "PhobosRadio_PageWorldMap".Translate(), DrawWorldMap))
+            .Add(new SettingsPage("radar", 50f, () => "PhobosRadio_PageRadar".Translate(), DrawRadar));
     }
 
     static void DrawGeneral(SettingsList list)
@@ -274,6 +284,15 @@ public class RadioMod : SettingsBookMod
         // Radio 0.64.0: the comms console needs the radio's reach (S3), off until turned on.
         list.Check("PhobosRadio_SettingConsoleNeedsReach".Translate(), ref s.consoleNeedsReach, Defaults.consoleNeedsReach,
             "PhobosRadio_SettingConsoleNeedsReachDesc".Translate());
+    }
+
+    static void DrawRadar(SettingsList list)
+    {
+        RadioSettings s = Settings;
+        // Radio 0.74.0: a radar's early warning holds a drop or air raid back, on until turned off.
+        list.Section("PhobosRadio_SectionRadarWarning".Translate());
+        list.Check("PhobosRadio_SettingRadarHoldsRaids".Translate(), ref s.radarHoldsRaids, Defaults.radarHoldsRaids,
+            "PhobosRadio_SettingRadarHoldsRaidsDesc".Translate());
     }
 
     static void DrawWorldMap(SettingsList list)

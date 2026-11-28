@@ -1,9 +1,11 @@
 # Radar, air defence and countermeasures: what a radar adds beyond missiles (28 Nov 2026)
 
-**Status (28 Nov 2026):** one rule built (one hold per raid, below); the rest is research. Every other row is a proposal; no slice is open. The owner chose to build all of it, in
-time, one slice at a time on the owner's word ([order of slices](#an-order-of-slices-agents-default)); slices 1 and 2 first, together.
-The owner answered six cards the same day ([below](#questions-for-the-owner)). **One piece is built**, as a fix to code already built: RD7's
-rule of one hold per raid (D'thorga Framework 0.383.0, Radio Framework 0.68.1, test row 796, not yet tested in game).
+**Status (28 Nov 2026):** **slices 1 and 2 are built** (RD1, RD2, RD3, RD6, RD7, RD8, RD9; Radio Framework 0.74.0, D'thorga Framework
+0.384.0, test rows 808 to 813, not yet tested in game), with tie-ins for InterRim Ballistic Missile, Combat Extended, Fortified Features
+Framework and Dubs Rimatomics ([as built](#slices-1-and-2-as-built-28-nov-2026)). **The radar's buildings load only once their pictures
+are picked and shipped** (paid art, the owner's pick; the owner's rule of real art before a first test). One rule was built before them,
+as a fix to code already built: RD7's one hold per raid (Framework 0.383.0, test row 796). Slices 3 to 11 are proposals, each on the
+owner's word ([order of slices](#an-order-of-slices-agents-default)).
 
 **A research record.** The owner, 28 November 2026, asked "what would things like RADAR, ECM, etc. add to the game outside of that than
 just missiles? And perhaps disabling turrets, mechs, etc. as well?", then asked for "a strict research and record purview for this
@@ -124,7 +126,7 @@ radio's constants (the same sum reproduces the handbook's own example, −77.52 
 | Sees a helicopter (about 3 m², [unverified], from slides not opened) | 44 km |
 | Sees a person (1 m² [S]) | 33 km, if nothing were in the way |
 | Sees a mortar bomb (0.01 m², [S], marked "citation needed" at the source) | 10 km |
-| Horizon, 10 m mast to an aircraft at 150 m | 64 km; at 3,000 m, 239 km (4/3 Earth, the radio's own rule) |
+| Horizon, 10 m mast to an aircraft at 150 m | 63.5 km; at 3,000 m, 239 km (4/3 Earth, the radio's own rule) |
 | A 100 W jammer on the fighter, all in the radar's band | Burn-through at **0.9 km**: the jammer wins almost everywhere |
 | The same 100 W spread over 200 MHz (barrage) | 23 dB weaker in the radar's 1 MHz: burn-through at **12.6 km** |
 | The fighter's warning receiver (−60 dBm, **[authored]**) | Hears the radar to 3,550 km by the sum; **the 239 km horizon is the real limit** |
@@ -366,6 +368,98 @@ Estimates, not measurements: nothing is built.
 
 The electronic-warfare record's own slices (4 to 7) stay in its order; rows that appear in both (EW12, EW13, EW15, EW19, EW20, EW22) are
 built once, in whichever slice the owner opens first.
+
+## Slices 1 and 2 as built (28 Nov 2026)
+
+Built the same day the owner opened them ("Let's do Radar Slices #1 and #2"), while the owner slept ("save any questions for when I wake
+up"). **Not yet tested in game, and not yet playable: the buildings wait for their pictures.**
+
+**The owner's cards of this round** (put while planning, all answered; recorded as put):
+
+| # | Question | Options, as put | Answer |
+| --- | --- | --- | --- |
+| 7 | How long a radar holds a drop or air raid | By the sum, at play speed (recommended) · Fixed, like the ally's call (3 h) · By the sum, real speeds (minutes) | **By the sum, at play speed** |
+| 8 | Does the station need a colonist at its scope? | Power alone; crew helps (recommended) · Needs an operator · Never needs crew | **Power alone; crew helps**, "perhaps introduce upgrades to automate things, involving the rest of the colony's radio network (plus relays/repeaters too?)" |
+| 9 | Friend or foe for an incoming raid | Unknown, then identified (recommended) · Hostile from the start · Unknown until it lands | **Unknown, then identified** |
+| 10 | How the station looks | Turning antenna on a mast (recommended) · Radome, nothing turns · Big dish on a plinth | **Turning antenna on a mast**, "and involve a few designs at that, from 3x3 to much larger" |
+| 11 | Which third-party tie-ins in slices 1 and 2 | IRBM missiles (recommended) · CE shells in flight (recommended) · Fortified/DMS tracks now · Rimatomics dish on console | **All four** |
+
+And by word on the plan: "involve a console for the scope itself that operators will work from, custom paid art and all".
+
+**What it is, in play:**
+
+- **Three stations and a console** (`mods/PhobosRadioFramework/Radar/Defs/Radar.xml`; the comp `CompRadar`). Each works on power under
+  open sky, its antenna drawn turning:
+
+  | Station | Size | Figures [authored] | Sees a ten-pod drop | Power |
+  | --- | --- | --- | --- | --- |
+  | Gap-filler radar | 3 x 3 | X band 9.4 GHz, 25 kW, 28 dBi, 8 m | about 14 km (about 20 game minutes) | 600 W |
+  | Air-search radar | 5 x 5 | S band 3 GHz, 100 kW, 33 dBi, 15 m | about 71 km (about 1.5 game hours) | 2,000 W |
+  | Long-range warning radar | 9 x 9 | L band 1.3 GHz, 1 MW, 38 dBi, 30 m | the horizon, about 314 km (held at most 4 h) | 6,000 W |
+
+  The power figures are gameplay figures, far below a real radar's. The radar console (3 x 2, turned as placed) is where the scope opens
+  and where colonists keep watch.
+- **The sum** (`RadarRule`, RD1): the handbook's form, `Pr = Pt + 2G − 2α + Gσ`, with the radio's own free-space loss; a fluctuating
+  target needs 21.1 dB; the range is cut at the radio horizon. Its tests reproduce the handbook's example (−77.52 dBm) and the worked
+  example above (within 1 km: the worked example used exact constants).
+- **Radar sizes** (RD2): an aircraft's is its loadout's `airTrack.radarSquareMetres`, or, by default, **worked out from The Dead Man's
+  Switch's `size`**: that figure multiplies the range a radar sees it at, and range goes as the fourth root of size, so `5 m² × (size /
+  1.5)⁴` (a C-17 about 250 m², a Hind about 16, a Harrier about 4) [inferred from authored figures]. A drop raid is a pod a raider at
+  2 m² [authored], a raider for every 90 raid points [authored].
+- **Terrain shadow** (RD3): the radar's height is its mast (a tower if fitted) plus its tile's hills (`RelayNode.SiteOf`); along a
+  raid's bearing the colony's own radar sees out as far as its sum allows, short of the first tile whose high ground stands over the line
+  (`WorldTerrain.Between`). A radar under any roof sees nothing, and an alert names it.
+- **The scope** (RD6, `Dialog_RadarScope`): north up, a sweep every four real seconds, range rings that fit what is seen, a diamond per
+  contact in its identity's colour (unknown yellow, friend blue, neutral white, hostile red), brightest as the sweep passes; a second
+  scale shows aircraft and falling things over the colony itself; a list of contacts with bearing, range and height; other mods' radars
+  listed. The symbols are drawn in code (`RadarSymbols`): a radar contact is a symbol, so these are not stand-ins.
+- **Early warning** (RD7, `RadarWarning`): for a fresh storyteller raid on a home map with a radar watching, the raid's faction, strategy
+  and arrival mode are chosen now by the game's own methods (the game keeps them; `TryGenerateRaidInfo` read the same day). A drop or air
+  raid (not a walk-in, not from water) is held for the warning the sum gives, ÷ 45 km a game hour [authored], at least a quarter of an
+  hour, at most four. It comes from the bearing of its faction's nearest settlement [A]. One hold per raid: the radar's reason is asked
+  first, then the ally's, and `RaidHolds.MarkHeld` marks it. Setting: **"Radar warns of drop and air raids", on**.
+- **The world map** (RD8): a held raid is a moving diamond (`WorldObject_PhobosRadarContact`) closing on the colony; an "Inbound" alert
+  counts down; with a radar colony selected, a ring for how far its best radar sees a fighter and a line to each contact.
+- **Friend or foe** (RD9): an aircraft of ours or an ally's answers by transponder at once (the factory radios the vehicle standard gave
+  aircraft [agent default]); anything else is unknown until identified, at 60 % of the warning with nobody on watch, 4 % sooner a level
+  of Intellectual skill on watch, 15 % at the soonest [authored]; then a letter names the faction.
+- **Crew and automation** (the owner's card 8): the "Radar watch" work type sits a colonist at a console only while something is unknown;
+  the **automatic plot extractor** upgrade identifies as a skill-8 watch would; the **lattice tower** (30 m) and **tall tower** (60 m)
+  raise the antenna; the **radar data link** shares a radar's picture with another colony whose base stations its own stations reach by
+  radio, relays and repeaters included (`RelayNodes.BestChain`, holding a place at each relay as any call does): that colony's scope shows
+  what it sees, and its raids are held by it ([relays](radio-advice-and-relays.md#relays)).
+
+**Tie-ins** (the owner's card 11; each only while its mod is active; [tie-in register](tie-in-register.md)):
+
+| Mod | As built |
+| --- | --- |
+| InterRim Ballistic Missile | Its missiles in flight are targets (0.1 m², 50 km up [authored]); one inbound warns by letter; IRBM counts a missile our radars see as detected (level 1 while unknown, 2 once identified), a postfix that only adds. `src/PhobosRadio.Irbm` |
+| Combat Extended | Its long-range shells in flight (`TravelingShell`) are targets (0.05 m², 10 km up [authored]); one aimed at a player's map warns by letter. `src/PhobosRadio.CombatExtended` |
+| Fortified Features Framework / DMS Expedition | Its world tracks (missiles, drop-pod tracks, interceptors) are targets, sized from its signature as our aircraft are; its radars are listed on our console. Reading only: joining its network stays slice 4. `src/PhobosRadio.Fortified`, loaded with `AOBA.Framework` alone, as [the watch](air-defence-tie-ins.md#watch-when-the-tie-in-should-wait-for-fortified-features-framework-instead-28-nov-2026) advised |
+| Dubs Rimatomics | Its radar dish is listed on our console, working or not, with whether its threat detection is fitted. By name in the radio core |
+
+**What differs from the design above:**
+
+- **Contacts are worked out only while someone looks** (the scope, the world map with a radar colony selected), at most every 30 ticks,
+  not every 30 ticks while a radar runs; and once every 250 ticks while a missile or shell is in flight towards the player, so its letter
+  is never missed. Cheaper than the design's cost line, with the same behaviour.
+- **The bearing comes from the faction's nearest settlement**, not from the raid's spawn spot: the spot is left to the game, so nothing of
+  the raid's own placement is chosen early (safer than resolving it, as the plan first proposed).
+- **A radar of another colony** sees the part of a raid's way in that passes within its reach over flat ground [A]: the high ground is
+  walked only from the colony's own radars.
+- **Our raiders' air assault** counts as an air raid (`PhobosAirAssault`), flying in at 300 m [authored], low under the horizon.
+
+**Cost, as built** (estimates; the `perf.py` recordings wait for the owner's game and the owner's word): nothing while no radar exists or
+nobody looks; one look when a raid fires on a colony with a radar; the held raids, a few, every 250 ticks; while a scope is open, one
+pass over the world's objects at most once a tick for all colonies together, and a radar sum and a terrain walk a contact a radar every
+30 ticks; the antenna one mesh a frame on screen; the scope a few hundred line segments a frame while open.
+
+**Waiting for the owner:**
+
+- **The pictures**: the paid pilot (the gap-filler station and the console's south view, two tries each, at most US$0.40 by the dry
+  run of 28 Nov 2026; `assets/phobos-radio/requests/radar-pilot-paid.json`), then the family (the other two stations, three antennas,
+  two console views), each picked on the Picks page. Then `LoadFolders.xml` lists `Radar`, and the buildings appear.
+- **The `perf.py` recordings**, before and after, on the owner's colony (asking first).
 
 ## Questions for the owner
 

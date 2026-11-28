@@ -6,10 +6,13 @@
     <label>D'thorga Radio Framework</label>
     <description>Radio that works like radio: base stations, hand-helds and relay masts, where distance, height, walls and hills decide who can hear whom. Colonists chat, give advice, call other factions and keep in touch with convoys away from home.</description>
     <order>20</order>
+    <!-- 2 (Radio 0.74.0): the radar's early warning joined the page. -->
+    <version>2</version>
     <settings>
       <li>radio.metresPerCell</li>
       <li>radio.displayMode</li>
       <li>radio.alliesWarnOfRaids</li>
+      <li>radio.radarHoldsRaids</li>
       <li>radio.listenersAmbushTraders</li>
       <li>radio.jammingReachesRadios</li>
       <li>radio.relayMastLosses</li>

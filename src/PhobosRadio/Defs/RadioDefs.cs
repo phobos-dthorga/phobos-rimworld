@@ -497,6 +497,53 @@ public class RadioRulesDef : Def
     /// </summary>
     public float heatPerWattSecond = 0.12f;
 
+    // Radar (Radio 0.74.0; docs/development/radar-and-air-defence.md, slices 1 and 2). Every figure authored unless it names a source.
+
+    /// <summary>A world tile for radar, in metres: 30 km, the planet's own scale, as HF uses (the owner's card 1 of 28 Nov 2026).</summary>
+    public float radarMetresPerWorldTile = 30000f;
+    /// <summary>How often a running radar looks at what is in the sky, in ticks (RD6: every 30 ticks while a radar runs).</summary>
+    public int radarLookTicks = 30;
+    /// <summary>A drop pod's radar size, in m² [authored]; a drop raid's is one pod a raider.</summary>
+    public float radarDropPodSquareMetres = 2f;
+    /// <summary>A person's radar size, in m² (1 m²: the worked example's source, Skolnik's table as quoted by the record).</summary>
+    public float radarPersonSquareMetres = 1f;
+    /// <summary>An aircraft's radar size when its loadout names none, in m² per body size [authored].</summary>
+    public float radarAircraftSquareMetresPerBodySize = 2f;
+    /// <summary>How high a drop raid's carrier comes in, for the horizon, in metres [authored].</summary>
+    public float radarDropCarrierMetres = 5000f;
+    /// <summary>How high an air raid's aircraft come in, for the horizon, in metres [authored]: low, under the radar where they can.</summary>
+    public float radarAirRaidMetres = 300f;
+    /// <summary>
+    /// How fast a raid closes on the colony in game time, in km a game hour [authored, the owner's card of 28 Nov 2026: "by the sum, at
+    /// play speed"]: an air-search radar seeing a ten-pod drop at about 71 km gives about an hour and a half.
+    /// </summary>
+    public float radarApproachKmPerGameHour = 45f;
+    /// <summary>A warning shorter than this is not worth holding the raid for; it is announced as it lands [authored].</summary>
+    public float radarMinimumWarningHours = 0.25f;
+    /// <summary>The longest a radar holds a raid, in game hours [authored]: a long-range radar would otherwise hold one for most of a day.</summary>
+    public float radarMaximumWarningHours = 4f;
+    /// <summary>Raid points for each raider the warning counts, to blur into a range [authored].</summary>
+    public float radarPointsPerRaider = 90f;
+    /// <summary>How much the counted raiders are blurred either way, as a share (0.3: "7 to 13" for ten) [authored].</summary>
+    public float radarCountBlur = 0.3f;
+    /// <summary>
+    /// How far through the warning an unknown raid is identified with nobody on watch, as a share of it [authored; the owner's card of 28
+    /// Nov 2026, "unknown, then identified"].
+    /// </summary>
+    public float radarIdentifyShareUnmanned = 0.6f;
+    /// <summary>How much sooner each level of the watch's Intellectual skill identifies it, as a share of the warning [authored].</summary>
+    public float radarIdentifySharePerSkill = 0.04f;
+    /// <summary>The soonest a raid can be identified, as a share of the warning [authored].</summary>
+    public float radarIdentifyShareBest = 0.15f;
+    /// <summary>How long an aircraft or missile in sight takes to identify with nobody on watch, before the share is applied, in ticks [authored: a game hour].</summary>
+    public int radarIdentifyBaseTicks = 2500;
+    /// <summary>The skill the automatic plot extractor identifies as, with nobody on watch [authored].</summary>
+    public int radarPlotExtractorSkill = 8;
+    /// <summary>How long a colonist's watch counts after they leave the console, in ticks [authored]: a short break does not blind it.</summary>
+    public int radarWatchKeepTicks = 2500;
+    /// <summary>How long the data link's reach between two colonies is kept before it is asked again, in ticks (a game hour).</summary>
+    public int radarDataLinkKeepTicks = 2500;
+
     public Physics.MarginBands MarginBands => new(marginalDb, workableDb, cleanDb);
 
     private static RadioRulesDef? current;

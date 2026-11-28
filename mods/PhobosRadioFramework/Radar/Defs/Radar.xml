@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Radar (Radio 0.74.0; docs/development/radar-and-air-defence.md, slices 1 and 2: RD1, RD2, RD3, RD6, RD7, RD8, RD9).
+
+    This folder loads only once LoadFolders.xml lists it, which waits for the stations' and the console's own pictures (paid art, the owner's
+    pick, one card each): the owner's rule is real art before a first test. Until then the radio's radar code runs with no radar to run.
+
+    Three stations, "from 3x3 to much larger" (the owner's card of 28 Nov 2026), each a turning antenna on a mast (the same card), and a
+    console where colonists keep watch (the owner's word on the plan, the same day). Every figure is authored unless a source is named:
+      - gap-filler radar: X band, 9.4 GHz, 25 kW, 28 dBi, 8 m mast; sees a ten-pod drop about 14 km out (a marine-radar class of set);
+      - air-search radar: S band, 3 GHz, 100 kW, 33 dBi, 15 m mast; the record's worked example; a ten-pod drop about 71 km out;
+      - long-range warning radar: L band, 1.3 GHz, 1 MW, 38 dBi, 30 m tower; a ten-pod drop to the horizon, about 314 km.
+    Power draws are gameplay figures, far below a real radar's (authored).
+  -->
+
+  <ResearchProjectDef>
+    <defName>PhobosRadio_Radar</defName>
+    <label>radar</label>
+    <description>Radio that goes out and comes back. A radar station sends a strong pulse and listens for its echo off anything in the sky, so the colony sees drop pods and aircraft coming long before they arrive. Unlocks the gap-filler and air-search radars and the radar console.</description>
+    <baseCost>1600</baseCost>
+    <techLevel>Industrial</techLevel>
+    <prerequisites>
+      <li>PhobosRadio_LocalRadio</li>
+    </prerequisites>
+    <researchViewX>12.00</researchViewX>
+    <researchViewY>5.60</researchViewY>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef>
+    <defName>PhobosRadio_LongRangeRadar</defName>
+    <label>long-range radar</label>
+    <description>A big, low-frequency radar on a tall tower, powerful enough to see a drop right out to the horizon. Unlocks the long-range warning radar.</description>
+    <baseCost>3000</baseCost>
+    <techLevel>Industrial</techLevel>
+    <prerequisites>
+      <li>PhobosRadio_Radar</li>
+      <li>PhobosRadio_HighPowerAmplifiers</li>
+    </prerequisites>
+    <researchViewX>13.00</researchViewX>
+    <researchViewY>5.60</researchViewY>
+  </ResearchProjectDef>
+
+  <!-- The stations' shared base: a powered building under open sky, drawn each frame for its turning antenna. -->
+  <ThingDef Name="PhobosRadio_RadarBase" ParentName="BuildingBase" Abstract="True">
+    <thingClass>Building</thingClass>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <blockWind>true</blockWind>
+    <fillPercent>0.5</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <rotatable>false</rotatable>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <designationCategory>PhobosRadio_Architect</designationCategory>
+    <tickerType>Rare</tickerType>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Big</destroySound>
+    </building>
+    <placeWorkers>
+      <li>Phobos.Radio.UI.PlaceWorker_AntennaSiting</li>
+    </placeWorkers>
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_RadarBase">
+    <defName>PhobosRadio_RadarGapFiller</defName>
+    <label>gap-filler radar</label>
+    <description>A small radar on a short mast, the kind ships carry. It sees only a few kilometres out, so its warning of a drop is short, but it is cheap, light on power, and watches the sky right over the colony. Needs open sky over all of it.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Radar/GapFiller</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(3,3)</drawSize>
+      <shadowData>
+        <volume>(2.4,0.8,2.4)</volume>
+      </shadowData>
+    </graphicData>
+    <size>(3,3)</size>
+    <statBases>
+      <MaxHitPoints>250</MaxHitPoints>
+      <WorkToBuild>4000</WorkToBuild>
+      <Flammability>0.4</Flammability>
+    </statBases>
+    <costList>
+      <Steel>150</Steel>
+      <ComponentIndustrial>5</ComponentIndustrial>
+    </costList>
+    <uiOrder>2200</uiOrder>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>600</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Breakdownable" />
+      <li Class="Phobos.Radio.CompProperties_Radar">
+        <bandLabel>X-band</bandLabel>
+        <megahertz>9400</megahertz>
+        <peakPowerWatts>25000</peakPowerWatts>
+        <antennaGainDbi>28</antennaGainDbi>
+        <bandwidthHz>2000000</bandwidthHz>
+        <noiseFigureDb>4</noiseFigureDb>
+        <mastMetres>8</mastMetres>
+        <antennaTexPath>Phobos/Radio/Things/Radar/GapFillerAntenna</antennaTexPath>
+        <antennaDrawSize>(2.6,2.6)</antennaDrawSize>
+        <antennaOffset>(0,0,0.2)</antennaOffset>
+        <turnDegreesPerTick>8</turnDegreesPerTick>
+      </li>
+      <li Class="Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades" />
+    </comps>
+    <researchPrerequisites>
+      <li>PhobosRadio_Radar</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_RadarBase">
+    <defName>PhobosRadio_RadarAirSearch</defName>
+    <label>air-search radar</label>
+    <description>A proper air-search radar: a long antenna turning on a lattice mast over an equipment cabin. It sees a drop raid tens of kilometres out, an hour or more before it lands, and aircraft further still. Needs open sky over all of it.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Radar/AirSearch</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(5,5)</drawSize>
+      <shadowData>
+        <volume>(4,1,4)</volume>
+      </shadowData>
+    </graphicData>
+    <size>(5,5)</size>
+    <statBases>
+      <MaxHitPoints>500</MaxHitPoints>
+      <WorkToBuild>9000</WorkToBuild>
+      <Flammability>0.4</Flammability>
+    </statBases>
+    <costList>
+      <Steel>400</Steel>
+      <ComponentIndustrial>10</ComponentIndustrial>
+    </costList>
+    <uiOrder>2210</uiOrder>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>2000</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Breakdownable" />
+      <li Class="Phobos.Radio.CompProperties_Radar">
+        <bandLabel>S-band</bandLabel>
+        <megahertz>3000</megahertz>
+        <peakPowerWatts>100000</peakPowerWatts>
+        <antennaGainDbi>33</antennaGainDbi>
+        <bandwidthHz>1000000</bandwidthHz>
+        <noiseFigureDb>5</noiseFigureDb>
+        <mastMetres>15</mastMetres>
+        <antennaTexPath>Phobos/Radio/Things/Radar/AirSearchAntenna</antennaTexPath>
+        <antennaDrawSize>(4.6,4.6)</antennaDrawSize>
+        <antennaOffset>(0,0,0.4)</antennaOffset>
+        <turnDegreesPerTick>6</turnDegreesPerTick>
+      </li>
+      <li Class="Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades" />
+    </comps>
+    <researchPrerequisites>
+      <li>PhobosRadio_Radar</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_RadarBase">
+    <defName>PhobosRadio_RadarLongRange</defName>
+    <label>long-range warning radar</label>
+    <description>A huge radar: a wide antenna turning slowly on a tall tower, with its transmitter hall beneath. It sees a drop right out to the horizon, hours before it lands. It draws a great deal of power. Needs open sky over all of it.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Radar/LongRange</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(9,9)</drawSize>
+      <shadowData>
+        <volume>(7.5,1.5,7.5)</volume>
+      </shadowData>
+    </graphicData>
+    <size>(9,9)</size>
+    <statBases>
+      <MaxHitPoints>1200</MaxHitPoints>
+      <WorkToBuild>25000</WorkToBuild>
+      <Flammability>0.3</Flammability>
+    </statBases>
+    <costList>
+      <Steel>1200</Steel>
+      <Plasteel>60</Plasteel>
+      <ComponentIndustrial>25</ComponentIndustrial>
+      <ComponentSpacer>3</ComponentSpacer>
+    </costList>
+    <uiOrder>2220</uiOrder>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>6000</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Breakdownable" />
+      <li Class="Phobos.Radio.CompProperties_Radar">
+        <bandLabel>L-band</bandLabel>
+        <megahertz>1300</megahertz>
+        <peakPowerWatts>1000000</peakPowerWatts>
+        <antennaGainDbi>38</antennaGainDbi>
+        <bandwidthHz>1000000</bandwidthHz>
+        <noiseFigureDb>3</noiseFigureDb>
+        <mastMetres>30</mastMetres>
+        <antennaTexPath>Phobos/Radio/Things/Radar/LongRangeAntenna</antennaTexPath>
+        <antennaDrawSize>(8.4,8.4)</antennaDrawSize>
+        <antennaOffset>(0,0,0.8)</antennaOffset>
+        <turnDegreesPerTick>3</turnDegreesPerTick>
+      </li>
+      <li Class="Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades" />
+    </comps>
+    <researchPrerequisites>
+      <li>PhobosRadio_LongRangeRadar</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+  </ThingDef>
+
+  <!-- The console (the owner's word of 28 Nov 2026): a 3 x 2 desk of screens, turned as it is placed, with one seat at its front. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosRadio_RadarConsole</defName>
+    <label>radar console</label>
+    <description>A desk of radar screens where a colonist keeps watch. It shows every radar on this map, and those of other colonies linked by data link. While anything on the scope is still unknown, a colonist on radar watch sits here and makes it out sooner, by their intellectual skill.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/Radar/Console</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,2)</drawSize>
+      <shadowData>
+        <volume>(2.8,0.6,1.6)</volume>
+      </shadowData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <fillPercent>0.5</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <rotatable>true</rotatable>
+    <size>(3,2)</size>
+    <hasInteractionCell>true</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <WorkToBuild>3000</WorkToBuild>
+      <Flammability>0.6</Flammability>
+    </statBases>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Medium</destroySound>
+    </building>
+    <costList>
+      <Steel>120</Steel>
+      <ComponentIndustrial>6</ComponentIndustrial>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <designationCategory>PhobosRadio_Architect</designationCategory>
+    <uiOrder>2230</uiOrder>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>250</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Breakdownable" />
+      <li Class="Phobos.Radio.CompProperties_RadarConsole" />
+    </comps>
+    <researchPrerequisites>
+      <li>PhobosRadio_Radar</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
+
+  <!-- The upgrades (the owner's card of 28 Nov 2026: "introduce upgrades to automate things, involving the rest of the colony's radio network
+       (plus relays/repeaters too?)"). Costs, work and skills authored. -->
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeRadarTower</defName>
+    <label>lattice tower</label>
+    <description>Lifts the antenna onto a 30 m lattice tower. A higher antenna sees further over the curve of the world and over hills in the way, which matters most for aircraft flying low.</description>
+    <buildings>
+      <li>PhobosRadio_RadarGapFiller</li>
+      <li>PhobosRadio_RadarAirSearch</li>
+    </buildings>
+    <costList>
+      <Steel>200</Steel>
+    </costList>
+    <work>5000</work>
+    <constructionSkill>7</constructionSkill>
+    <researchPrerequisite>PhobosRadio_Radar</researchPrerequisite>
+    <figures>
+      <!-- The antenna's height, 30 m (authored). -->
+      <li><name>heightMetres</name><value>30</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeRadarTowerTall</defName>
+    <label>tall tower</label>
+    <description>Lifts the long-range antenna onto a 60 m tower, so it sees further over the curve of the world and over hills in the way.</description>
+    <buildings>
+      <li>PhobosRadio_RadarLongRange</li>
+    </buildings>
+    <costList>
+      <Steel>500</Steel>
+    </costList>
+    <work>10000</work>
+    <constructionSkill>8</constructionSkill>
+    <researchPrerequisite>PhobosRadio_LongRangeRadar</researchPrerequisite>
+    <figures>
+      <!-- The antenna's height, 60 m (authored). -->
+      <li><name>heightMetres</name><value>60</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeRadarPlotExtractor</defName>
+    <label>automatic plot extractor</label>
+    <description>A computer that tracks each echo and works out what it is by how it moves. With it, the radar identifies contacts about as well as a skilled colonist on watch, with nobody at the console.</description>
+    <buildings>
+      <li>PhobosRadio_RadarGapFiller</li>
+      <li>PhobosRadio_RadarAirSearch</li>
+      <li>PhobosRadio_RadarLongRange</li>
+    </buildings>
+    <costList>
+      <Steel>20</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <work>2000</work>
+    <constructionSkill>6</constructionSkill>
+    <researchPrerequisite>PhobosRadio_Radar</researchPrerequisite>
+    <figures>
+      <li><name>plotExtractor</name><value>1</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosRadio_UpgradeRadarDataLink</defName>
+    <label>radar data link</label>
+    <description>Sends the radar's picture over the colony's radio network, through relays and repeaters, so a colony elsewhere sees what this radar sees and is warned by it. It needs a radio base station at both colonies that reach each other.</description>
+    <buildings>
+      <li>PhobosRadio_RadarGapFiller</li>
+      <li>PhobosRadio_RadarAirSearch</li>
+      <li>PhobosRadio_RadarLongRange</li>
+    </buildings>
+    <costList>
+      <Steel>20</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <work>1500</work>
+    <constructionSkill>5</constructionSkill>
+    <researchPrerequisite>PhobosRadio_Radar</researchPrerequisite>
+    <figures>
+      <li><name>dataLink</name><value>1</value></li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <!-- The radar watch (the owner's card of 28 Nov 2026: "power alone; crew helps"). A work type of its own, so the player chooses who [A];
+       there is work only while something on the scope is unknown. -->
+  <WorkTypeDef>
+    <defName>PhobosRadio_RadarWatch</defName>
+    <labelShort>radar</labelShort>
+    <pawnLabel>Radar watch</pawnLabel>
+    <gerundLabel>keeping radar watch</gerundLabel>
+    <description>Keep watch at a radar console while something on the scope is still unknown, to identify it sooner.</description>
+    <verb>Watch</verb>
+    <naturalPriority>1040</naturalPriority>
+    <disabledForSlaves>true</disabledForSlaves>
+    <relevantSkills>
+      <li>Intellectual</li>
+    </relevantSkills>
+    <workTags>
+      <li>Intellectual</li>
+      <li>AllWork</li>
+    </workTags>
+  </WorkTypeDef>
+
+  <WorkGiverDef>
+    <defName>PhobosRadio_RadarWatch</defName>
+    <label>keep radar watch</label>
+    <giverClass>Phobos.Radio.Work.WorkGiver_RadarWatch</giverClass>
+    <workType>PhobosRadio_RadarWatch</workType>
+    <verb>watch</verb>
+    <gerund>keeping watch at</gerund>
+    <priorityInType>50</priorityInType>
+    <requiredCapacities>
+      <li>Sight</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <JobDef>
+    <defName>PhobosRadio_RadarWatch</defName>
+    <driverClass>Phobos.Radio.Work.JobDriver_RadarWatch</driverClass>
+    <reportString>keeping radar watch at TargetA.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <!-- A held raid on the world map (RD8): a blip that closes on the colony, drawn in code as a diamond in its identity's colour (a radar
+       contact is a symbol). The texture below is never drawn, as the class draws its own; the game asks every world object for one. -->
+  <WorldObjectDef>
+    <defName>PhobosRadio_RadarContact</defName>
+    <label>radar contact</label>
+    <description>Something coming in, seen by radar.</description>
+    <worldObjectClass>Phobos.Radio.Services.WorldObject_PhobosRadarContact</worldObjectClass>
+    <texture>World/WorldObjects/Caravan</texture>
+    <useDynamicDrawer>true</useDynamicDrawer>
+    <expandingIcon>true</expandingIcon>
+    <expandingIconPriority>90</expandingIconPriority>
+    <canHaveFaction>false</canHaveFaction>
+    <selectable>true</selectable>
+    <saved>true</saved>
+  </WorldObjectDef>
+</Defs>

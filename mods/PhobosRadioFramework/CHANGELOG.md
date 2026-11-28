@@ -23,6 +23,54 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 
 
+## [0.74.0] - 2026-11-28 - Draft
+
+Radar: stations, a scope and early warning
+
+### Added
+
+- **Radar stations that see the sky** (the owner's cards of 28 November 2026, radar slices 1 and 2;
+  [radar and air defence](https://github.com/phobos-dthorga/phobos-rimworld/blob/main/docs/development/radar-and-air-defence.md)). Three
+  stations, each a turning antenna on a mast: a 3 by 3 gap-filler radar that sees a ten-pod drop about 14 km out, a 5 by 5 air-search
+  radar that sees it about 71 km out, and a 9 by 9 long-range warning radar that sees it to the horizon. Each works on power under open
+  sky; a roof over it blinds it, and an alert says so. How far each sees comes from the real radar sum: the echo falls with the fourth
+  power of distance, a real aircraft needs about 21 dB above the noise to be seen, and the curve of the world and the hills on the way
+  cut it short. A radar on a hill or a tower sees further. Every station figure is authored. **The buildings arrive once their
+  pictures are picked**: until then nothing of the radar can be built. Not yet tested in game: rows 808 to 813.
+- **A radar console and its scope.** A colonist on radar watch sits at the console while anything is still unknown, and identifies it
+  sooner by their intellectual skill. The scope sweeps north up, with range rings in kilometres and a diamond for each contact: unknown
+  yellow, friend blue, neutral white, hostile red. A second scale shows aircraft and falling things over the colony itself.
+- **Early warning of drop and air raids.** When a radar sees a drop-pod or air raid coming, the raid is held back by how far out the
+  radar saw it (about an hour and a half for an air-search radar, at most four hours) and a letter says how many, from where and when,
+  first as unknown contacts and then, partway through, who they are. A diamond closes on the colony on the world map, and an alert counts
+  down. Walk-in raids are not held. One hold per raid: a raid the radar holds is not held again by an ally's warning, Rimatomics or
+  Fortified Features Framework.
+- **Radar upgrades.** A lattice tower or a tall tower raises the antenna; an automatic plot extractor identifies contacts with nobody on
+  watch; a radar data link shares a radar's picture with another colony whose base stations reach this one's by radio, relays and
+  repeaters included, so a radar on a hill or at an outpost warns a colony elsewhere.
+- **Missiles, shells and other radars.** With InterRim Ballistic Missile, its enemy missiles in flight show on our radars and warn by
+  letter, and IRBM counts a missile our radars see as detected. With Combat Extended, its long-range shells in flight show and warn. With
+  Fortified Features Framework, its missiles and drop-pod tracks show, and its radars are listed on our console; joining its network is
+  a later slice. With Dubs Rimatomics, its radar dish is listed on our console.
+- **A new setting, "Radar warns of drop and air raids"** (Radar page, on): when a radar sees a drop or air raid coming, the raid arrives
+  later, by how far out the radar saw it, and a letter warns of it. Off, raids come as usual and the radars still show what they see. Also
+  on the setup page, which shows again for this.
+
+### Changed
+
+- **An ally's raid warning needs someone listening**, as other calls do since 0.73.0 (radio watch): a warning nobody hears is missed and
+  logged, and the raid comes as the game sends it. Row 804's missed-call part covers it.
+
+### Save compatibility
+
+- Safe to update. Held raids and their world-map contacts are saved; nothing changes in a save until a radar is built.
+
+### Compatibility and limits
+
+- A radar is a building with CompProperties_Radar (frequency, peak power, antenna gain, bandwidth, noise figure, mast height, the turning
+  antenna's picture). Other parts feed the radar through Phobos.Radio.Services.RadarTargets: things in flight between tiles, things over
+  a map, and other mods' radars for the console.
+
 ## [0.73.0] - 2026-11-28 - Draft
 
 Radio watch and standing orders
